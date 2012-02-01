@@ -1,0 +1,1274 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpbusdirman\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-22 07:54-0500\n"
+"PO-Revision-Date: 2011-11-22 07:55-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: E:\\xampplite\\htdocs\\demothemes\\businessdirectoryplugin\\wp-content\\plugins\\business-directory-plugin\n"
+"X-Poedit-SearchPath-0: E:\\xampplite\\htdocs\\demothemes\\businessdirectoryplugin\\wp-content\\plugins\\business-directory-plugin\n"
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:12
+msgid "Business Name"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:13
+msgid "Business Genre"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:14
+msgid "Short Business Description"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:15
+msgid "Long Business Description"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:16
+msgid "Business Website Address"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:17
+msgid "Business Phone Number"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:18
+msgid "Business Fax"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:19
+msgid "Business Contact Email"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:20
+msgid "Business Tags"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:181
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:10
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:34
+msgid "Add New Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:182
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3779
+msgid "Edit Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:183
+msgid "New Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:184
+msgid "View Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:185
+msgid "Search Listings"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:186
+msgid "No listings found"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:187
+msgid "No listings found in trash"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:232
+msgid "Uninstall"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:238
+msgid "You have arrived at this page by clicking the Uninstall link. If you are certain you wish to uninstall the plugin, please click the link below to proceed. Please note that all your data related to the plugin, your ads, images and everything else created by the plugin will be destroyed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:238
+msgid "Important Information"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:238
+msgid "Proceed with Uninstalling Business Directory Plugin Uninstall"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:283
+msgid "Almost done..."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:283
+msgid "One More Step"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman-install.php:283
+msgid "Please click here to complete the uninstallation process"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:146
+msgid "Business Directory Plugin"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:147
+msgid "Label"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:148
+msgid "Type"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:149
+msgid "Association"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:150
+msgid "Options"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:151
+msgid "Order"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:152
+msgid "Action"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:153
+msgid "Value"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:154
+msgid "Amount"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:155
+msgid "Applied To"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:156
+msgid "All categories"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:157
+msgid "Day"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:158
+msgid "Days"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:159
+msgid "Images"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:160
+msgid "Duration"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:161
+msgid "Validation"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:162
+msgid "Required"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:163
+msgid "Excerpt"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:240
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-options.php:10
+msgid " Failure retrieving table data ["
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:300
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3750
+msgid "View Listings"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:301
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3761
+msgid "Directory"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:309
+msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:313
+msgid "Your listing cannot be added at this time. Please try again later."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:325
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2842
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:29
+msgid "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email with 60 mintues."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:326
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2843
+msgid "Login Now"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:330
+msgid "Choose One"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:460
+msgid "Format 01/31/1969"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:621
+msgid "Submit"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:656
+msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory. "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:660
+msgid "There are currently no listings in the directory"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:751
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1138
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1890
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2647
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2664
+msgid "Your submission has been received and is currently pending review"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:755
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1142
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1894
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2651
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2668
+msgid "Your submission has been received and is currently published. Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:759
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1146
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1896
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2628
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2655
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2672
+msgid "You are finished with your listing."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:760
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1147
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1883
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1897
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1986
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2016
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2032
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2068
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2084
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2628
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2656
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2672
+msgid "Exit Now"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:794
+msgid "The listing has been deleted."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:799
+msgid "The system could not determine which listing you want to delete so nothing has been deleted."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:866
+msgid "Please enter your name."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:873
+msgid "Name needs to be at least 3 characters in length to be considered valid."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:881
+msgid "Please enter your email."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:888
+msgid "Please enter a valid email."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:897
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:907
+msgid "You did not enter a message."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:924
+msgid "The reCAPTCHA wasn't entered correctly: "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:947
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3538
+msgid "l F j, Y \\a\\t g:i a"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:959
+msgid "Your message has been sent"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:963
+msgid "There was a problem encountered. Your message has not been sent"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1324
+msgid "Information Not Saved"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1324
+msgid "You are trying to submit the form in preview mode. You cannot save while in preview mode"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1324
+msgid "Go Back"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1537
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1615
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1662
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1710
+msgid "Step 2"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1550
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3606
+msgid "Select Listing Payment Option"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1554
+msgid "You have selected more than one category. Each category you to which you elect to submit your listing incurs a separate fee."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1557
+msgid " The number of images attached to your listing will be set according to option you choose that has the most images. So if for one category you chose an option with 2 images but for another category you chose an option with 4 images your listing will be allotted 4 image slots"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1571
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2009
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2061
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3611
+msgid "Next"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1607
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1654
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1700
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1771
+msgid "Submission received"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1607
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1654
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1700
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1771
+msgid "Your submission has been received."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1841
+msgid "It appears you do not have the ability to upload additional images at this time."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1844
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1932
+msgid "You can manage your current images below"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1872
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1959
+msgid "Delete Image"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1880
+msgid "If you are not updating your images you can click the exit now button."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1926
+msgid "Upload File"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1967
+msgid "If you prefer not to add an image or you are otherwise finished managing your images you can click the exit now button."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1970
+msgid "Your updated listing will be submitted for review."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1974
+msgid "Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:1995
+msgid "If you prefer not to add any images please click Next to proceed to the next step."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2013
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2065
+msgid "If you prefer not to add an image click exit now. Your listing will be submitted for review."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2021
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2073
+msgid "submit your listing."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2024
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2076
+msgid "submit your listing for review"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2028
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2080
+msgid "publish your listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2047
+msgid "Click Next to pay your listing fee. Your listing will not be published until your listing fee payment has been received and processed."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2211
+msgid "No file was selected"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2497
+msgid "had an invalid file extension and was not uploaded"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2528
+msgid "does not appear to be a valid image file"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2597
+msgid "Unknown error encountered uploading image"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2620
+msgid "Your listing has been updated. Your listing is currently pending re-review and will become accessible again once the administrator has reviewed it."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2624
+msgid "Your listing has been updated. Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2853
+msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they do not currently have any listings to manage. Listings cannot be added until you assign categories to the business directory. "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2857
+msgid "You do not currently have any listings to manage"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2870
+msgid "Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2889
+msgid "You do not currently have any listings in the directory"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2958
+msgid "Step 3"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2962
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2972
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2983
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3102
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3112
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3122
+msgid "Pay "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2965
+msgid " listing fee via Google Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2975
+msgid " listing Fee via PayPal"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:2986
+msgid " listing fee via 2Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3039
+msgid "Send Message to listing owner"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3039
+msgid "Listing Title: "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3043
+msgid "Your Name "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3043
+msgid "Your Email "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3044
+msgid "Website url "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3054
+msgid "You are currently logged in as "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3054
+msgid " Your message will be sent using your logged in contact email."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3056
+msgid "Message"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3091
+msgid "Upgrade listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3105
+msgid " upgrade fee via Google Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3115
+msgid " upgrade fee via PayPal"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3125
+msgid " upgrade fee via 2Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3149
+msgid "The listing has been upgraded."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3153
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3169
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3251
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3267
+msgid "No ID was provided. Please try again"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3165
+msgid "The listing has been downgraded."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3172
+msgid "Manage Featured Listings pending manual upgrade"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3176
+msgid "You are not currently allowing sticky (featured) listings. To allow sticky listings check that option in the manage options page under the Featured/Sticky listing settings."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3205
+msgid "Currently there are no listings waiting to be upgraded to sticky(featured) status"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3210
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3214
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:457
+msgid "Post Title"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3211
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3215
+msgid "Post ID"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3223
+msgid "Upgrade"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3223
+msgid "Downgrade"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3247
+msgid "The listing status has been set as paid."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3263
+msgid "The listing status has been changed non-paying."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3270
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:74
+msgid "Manage Paid Listings"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3274
+msgid "You are not currently charging any payment fees. To charge fees for listings check that option in the manage options page."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3302
+msgid "Currently there are no paid listings"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3306
+msgid "Get info on managing paid listings"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3308
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3320
+msgid "Title"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3309
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3321
+msgid "ID"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3310
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3322
+msgid "Status"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3313
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3325
+msgid "Flag"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3315
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3327
+msgid "Gateway"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3316
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3328
+msgid "Buyer"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3317
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3329
+msgid "Payment Email"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3362
+msgid "Set as"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3365
+msgid "Paid"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3367
+msgid "Not paid"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3385
+msgid "Listing Sumitted"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3402
+msgid "Listing Upgraded to featured"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3472
+msgid "Listing Upgrade Payment Status"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3473
+msgid "Thank you for your payment. Your listing upgrade request and payment notification have been sent. Contact the administrator if your listing is not upgraded within 24 hours."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3532
+msgid "has expired"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3595
+msgid "Renew Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3597
+msgid "You are about to renew"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3617
+msgid "There was no ID supplied. Cannot complete renewal. Please contact administrator"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3734
+msgid "Submit A Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:3807
+msgid "Upgrade Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:4134
+msgid "View"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:4143
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:359
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:79
+msgid "Edit"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:4143
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:359
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:79
+msgid "Delete"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:4300
+msgid "Featured Listing"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/wpbusdirman.php:4524
+msgid "No categories"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:55
+msgid "Options Menu"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:55
+msgid "You are using version"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:62
+msgid "You have payments turned on but all your gateways are set to hidden. Your system will run as if payments are turned off until you fix the problem. To fix go to Configure/Manage options and unhide at least 1 payment gateway, or if it is your intention not to charge a payment fee set payments to off instead of on."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:65
+msgid "Configure/Manage Options"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:66
+msgid "Setup/Manage Fees"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:67
+msgid "Setup/Manage Form Fields"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:70
+msgid "Featured Listings Pending Upgrade"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:77
+msgid "Listings in directory"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:78
+msgid "Categories In Directory"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:81
+msgid "Tips for Use and other information"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:85
+msgid "Leave default post status set to pending to avoid misuse"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:85
+msgid "Listing payment status is not automatically updated after payment has been made. For this reason it is best to leave the listing default post status set to pending so you can verify that a listing has been paid for before it gets publised."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:86
+msgid "Valid Merchant ID and sandbox seller ID required for Google checkout payment processing "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:88
+msgid "The plugin uses it's own page template to display single posts and category listings. You can modify the templates to make them match your site by editing the template files in the posttemplates folder which you will find inside the plugin folder. "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:89
+msgid "To protect user privacy Email addresses are not displayed in listings. "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:90
+msgid "reCaptcha human verification is built into the plugin contact form but comes turned off by default. To use it you need to turn it on. You also need to have a recaptcha public and private key. To obtain these visit recaptcha.net then enter the keys into he related boxes from the manage options page. "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:91
+msgid "You can hide these tips by going to Configure/Manage Options and checking the box next to 'Hide tips for use and other information'"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:111
+msgid "Manage Fees"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:115
+msgid "Payments are currently turned off. To manage fees you need to go to the Manage Options page and check the box next to 'Turn on payments' under 'General Payment Settings'"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:119
+msgid "Installed Payment Gateway Modules"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:122
+msgid "Google Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:126
+msgid "PayPal"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:130
+msgid "2Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:136
+msgid "It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:147
+msgid "You can buy the PayPal gateway module to add PayPal as a payment option for your users."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:147
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:151
+msgid "$49.99"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:151
+msgid "You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:156
+msgid "Save $20"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:156
+msgid " on your purchase of both the Paypal and the 2Checkout gateway modules"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:156
+msgid "$79.98"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:201
+msgid "Fee Label"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:203
+msgid "Fee Amount"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:205
+msgid "Listing Run in days"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:207
+msgid "Number of Images Allowed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:209
+msgid "Apply to Category"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:218
+msgid "Update Fee"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:222
+msgid "Add Fee"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:239
+msgid "Unable to determine the ID of the fee you are trying to delete. Action terminated"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:285
+msgid "Task completed successfully"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:286
+msgid "View current listing fees"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:290
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:370
+msgid "Add New Listing Fee"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-admin.php:370
+msgid "You do not have any listing fees setup yet."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fees-manager.php:75
+msgid " fee options"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fees-manager.php:97
+msgid " Listing will run for "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fees-manager.php:99
+msgid " days"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fees-manager.php:103
+msgid " - listing includes "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fees-manager.php:105
+msgid " images"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:10
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:8
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:35
+msgid "Manage Form Fields"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:10
+msgid "Make changes to your existing form fields."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:10
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:230
+msgid "Add New Form Field"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-fields-manager.php:10
+msgid "Preview Form"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:7
+msgid "Previewing the post form"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:30
+msgid "Login or Register First"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:102
+msgid "Field NOT added! You have submitted the form without a field label. A field label is required before the field can be added. Please try adding the field again."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:120
+msgid "You tried to associate a field with a wordpress post title, category, tag, description, excerpt but another field is already associated with the element. The field has been associated with the post meta entity instead."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:153
+msgid "The category field can only be assigned to the single option dropdown select list or checkbox type. It has been defaulted to a select list. If you want the user to be able to select multiple categories use the checkbox field type."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:172
+msgid "You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:208
+msgid "The field has been deleted."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:212
+msgid "There was no ID supplied for the field. No action has been taken"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:230
+msgid "Make your changes then submit the form to update the field"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:234
+msgid "Add extra fields to the standard fields used in the form that users will fill out to submit their business directory listing."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:239
+msgid "Edit Field"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:243
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:492
+msgid "Add New Field"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:444
+msgid "Preview the form"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:445
+msgid "Field Label"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:446
+msgid "Field Type"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:447
+msgid "Select Field Type"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:448
+msgid "Input Text Box"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:449
+msgid "Select List"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:450
+msgid "Multiple Select List"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:451
+msgid "Radio Button"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:452
+msgid "Checkbox"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:453
+msgid "Textarea"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:454
+msgid "Field Options"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:454
+msgid "for drop down lists, radio buttons, checkboxes "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:454
+msgid "separate by commas"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:454
+msgid "**Do not fill in options for the Post category associated field"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:455
+msgid "Associate Field With"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:456
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:464
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:472
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:476
+msgid "Select Option"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:458
+msgid "Post Content"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:459
+msgid "Post Category"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:460
+msgid "Post Excerpt"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:461
+msgid "Post Meta"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:462
+msgid "Post Tags"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:463
+msgid "Validate Against"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:465
+msgid "Email Format"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:466
+msgid "URL format"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:467
+msgid "Missing Value"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:468
+msgid "Whole Number Value"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:469
+msgid "Decimal Value"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:470
+msgid "Date Format"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:471
+msgid "Is Field Required?"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:473
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:477
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:481
+msgid "Yes"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:474
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:478
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:480
+msgid "No"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:475
+msgid "Show this value in post excerpt?"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:479
+msgid "Hide this field from public viewing?"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-form-manager.php:488
+msgid "Update Field"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/admin/wpbusdirman-options.php:604
+msgid "WP Business Directory Main Settings"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:35
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/paypal.php:141
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/twocheckout.php:107
+msgid "Payment for upgrading to featured listing "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:39
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/paypal.php:145
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/twocheckout.php:111
+msgid "Payment for listing "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:42
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/paypal.php:148
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/twocheckout.php:114
+msgid " with listing ID: "
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:69
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/paypal.php:167
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/twocheckout.php:123
+msgid "Upgrade Listing to Featured"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:103
+msgid "Your listing has not been fully submitted yet. To complete the process you need to click the link below and enter your license key upon request."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:109
+msgid "Pay With Google Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:186
+msgid "Please enter your license key."
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:213
+msgid "Please enter your license key to proceed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/googlecheckout.php:219
+msgid "Proceed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/paypal.php:215
+msgid "Make payments with PayPal - it's fast, free and secure!"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/gateways/twocheckout.php:156
+msgid "Pay with 2Checkout"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-category-no-header.php:40
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-category.php:85
+msgid "No listings found in category"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-index-listings.php:54
+msgid "There were no listings found in the directory"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:16
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:28
+msgid "This listing was submitted"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:17
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:29
+msgid "on"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:17
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:29
+msgid "at"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:20
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:32
+msgid "You can follow any responses to this listing through the"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:20
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:32
+msgid "feed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:26
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:38
+msgid "You can"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:26
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:38
+msgid "leave a response"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:26
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:38
+msgid "or"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:26
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:33
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:38
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:45
+msgid "trackback"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:26
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:33
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:38
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:45
+msgid "from your own site"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:33
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:45
+msgid "Responses are currently closed, but you can"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:40
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:52
+msgid "You can skip to the end and leave a response. Pinging is currently not allowed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single-no-header.php:47
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:59
+msgid "Both comments and pings are currently closed"
+msgstr ""
+
+#: E:\xampplite\htdocs\demothemes\businessdirectoryplugin\wp-content\plugins\business-directory-plugin/posttemplate/wpbusdirman-single.php:82
+msgid "Sorry, no posts matched your criteria."
+msgstr ""
+
