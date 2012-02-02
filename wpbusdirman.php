@@ -4,11 +4,11 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 /*
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
-Description: Provides the ability to maintain a free or paid business directory on your wordpress powered site.
-Version: 1.0
-Author: A. Lewis
+Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
+Version: 2.0-BETA
+Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
-Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com)
+Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com), A. Lewis
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -17,7 +17,7 @@ Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*  Copyright 2009,2010  A. Lewis  (email : wpbdm@businessdirectoryplugin)
+/*  Copyright 2009-2012, Skyline Consulting and D. Rodenbaugh
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
