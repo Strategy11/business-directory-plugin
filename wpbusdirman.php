@@ -3241,6 +3241,7 @@ function wpbusdirman_featured_pending()
 
 function wpbusdirman_manage_paid()
 {
+	global $WPBusDirMan;
 	global $wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory;
 	$wpbusdirman_config_options=get_wpbusdirman_config_options();
 	$html = '';
@@ -4553,5 +4554,38 @@ function remove_no_categories_msg($content) {
 }
 add_filter('wp_list_categories','remove_no_categories_msg');
 
+
+
+global $WPBusDirMan;
+
+require_once (plugin_dir_path(__FILE__) . 'admin.php');
+
+class BusinessDirectory {
+
+	const POST_TYPE = "wpbdm-directory";
+
+
+	function __construct() {
+		$this->admin = new BusinessDirectory_Admin();
+	}	
+
+	public static function debug() {
+		echo '<pre>';
+
+		foreach (func_get_args() as $arg) {
+			var_dump($arg);
+		}
+
+		echo '</pre>';
+	}
+
+	public static function debug_e() {
+		call_user_func_array('BusinessDirectory::debug', func_get_args());
+		exit;
+	}
+
+}
+
+$WPBusDirMan = new BusinessDirectory();
 
 

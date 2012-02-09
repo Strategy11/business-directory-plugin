@@ -1,6 +1,10 @@
 <?php
 	get_header();
 ?>
+
+<div id="primary">
+<div id="content">
+
 <div id="wpbdmentry"><div class="fixpadding">
 
 <div id="lco">
@@ -22,10 +26,11 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 //wpbusdirman_catpage_query();
 
 	$catortag=$term->taxonomy;
+
 	if($catortag == $wpbdmposttypecategory)
 	{
 		$args=array(
-		  $wpbdmposttypecategory => $term->name,
+		  $wpbdmposttypecategory => $term->slug,
 		  'post_type' => $wpbdmposttype,
 		  'post_status' => 'publish',
 		  'posts_per_page' => 0,
@@ -48,6 +53,7 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		);
 	}
 
+	// BusinessDirectory::debug_e($args);
 
 		query_posts($args);
 
@@ -87,6 +93,9 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 	}
 ?>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->
+
+	</div>
+	</div>
 
 <?php
 
