@@ -53,7 +53,7 @@ function wpbusdirman_googlecheckout_button($wpbusdirmanlistingpostid,$wpbusdirma
 		$wpbdmgooglecheckouturl="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/$wpbusdirmangooglecheckoutmerchantid";
 	}
 
-	$wpbusdirmangooglecheckoutbutton.="<form action=\"$wpbdmgooglecheckouturl\" id=\"BB_BuyButtonForm\" method=\"post\" name=\"BB_BuyButtonForm\">";
+	$wpbusdirmangooglecheckoutbutton.="<form action=\"$wpbdmgooglecheckouturl\" id=\"BB_BuyButtonForm\" method=\"post\" name=\"BB_BuyButtonForm\" accept-charset=\"utf-8\">";
 
 		if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_22'] == "yes")
 		{
