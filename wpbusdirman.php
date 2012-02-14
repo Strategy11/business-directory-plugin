@@ -564,7 +564,7 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 							$html .= "</select>";
 							break;
 						case 6:
-							$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label" . $wpbusdirman_field_label_association . "\">$wpbusdirman_field_label_name ddddd</label></p>";
+							$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label" . $wpbusdirman_field_label_association . "\">$wpbusdirman_field_label_name</label></p>";
 							if($wpbusdirman_field_association == 'category')
 							{
 								$mywpbdmcatlist = get_terms($wpbdmposttypecategory, 'hide_empty=0');
