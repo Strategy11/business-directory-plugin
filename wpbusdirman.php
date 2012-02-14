@@ -567,7 +567,7 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 							$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label" . $wpbusdirman_field_label_association . "\">$wpbusdirman_field_label_name ddddd</label></p>";
 							if($wpbusdirman_field_association == 'category')
 							{
-								$mywpbdmcatlist = get_terms($wpbdmposttypecategory);
+								$mywpbdmcatlist = get_terms($wpbdmposttypecategory, 'hide_empty=0');
 								if($mywpbdmcatlist)
 								{
 									foreach($mywpbdmcatlist as $wpbusdirman_formseloption)
@@ -1406,7 +1406,9 @@ function wpbusdirman_do_post()
 				&& !empty($_REQUEST['wpbusdirman_field_label_category']))
 			{
 				$inpost_category=$_REQUEST['wpbusdirman_field_label_category'];
-			}
+			} else {
+                $inpost_category=array();
+            }
 			if(isset($neworedit)
 				&& ($neworedit == 'edit'))
 			{
