@@ -120,15 +120,7 @@ $wpbusdirman_db_version = "1.0";
 	{
 		require("$wpbusdirman_plugin_path/wpbusdirman-install.php");
 	}
-
-	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-admin.php") )
-	{
-		require("$wpbusdirman_plugin_path/admin/wpbusdirman-admin.php");
-	}
-	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-form-manager.php") )
-	{
-		require("$wpbusdirman_plugin_path/admin/wpbusdirman-form-manager.php");
-	}
+	
 	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-fields-manager.php") )
 	{
 		require("$wpbusdirman_plugin_path/admin/wpbusdirman-fields-manager.php");
@@ -137,13 +129,12 @@ $wpbusdirman_db_version = "1.0";
 	{
 		require("$wpbusdirman_plugin_path/admin/wpbusdirman-fees-manager.php");
 	}
-	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-options.php") )
+	if( file_exists("$wpbusdirman_plugin_path/admin/manage-options.php") )
 	{
-		require("$wpbusdirman_plugin_path/admin/wpbusdirman-options.php");
+		require("$wpbusdirman_plugin_path/admin/manage-options.php");
 	}
 
 
-$wpbusdirmaname=__("Business Directory Plugin","WPBDM");
 $wpbusdirman_labeltext=__("Label","WPBDM");
 $wpbusdirman_typetext=__("Type","WPBDM");
 $wpbusdirman_associationtext=__("Association","WPBDM");
@@ -167,9 +158,9 @@ define('WPBUSDIRMANURL', $wpbusdirman_plugin_url );
 define('WPBUSDIRMANPATH', $wpbusdirman_plugin_path );
 define('WPBUSDIRPLUGINDIR', 'wp-business-directory-manager');
 define('WPBUSDIRMANMENUICO', $wpbusdirman_imagesurl .'/menuico.png');
-define('WPBUSDIRMAN', $wpbusdirmaname);
 define('WPBUSDIRMAN_TEMPLATES_PATH', $wpbusdirman_plugin_path . '/posttemplate');
 
+define('WPBDP_PATH', plugin_dir_path(__FILE__));
 
 $wpbusdirman_gpid=wpbusdirman_gpid();
 $permalinkstructure=get_option('permalink_structure');
@@ -184,8 +175,6 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 
 	add_action('init', 'wpbusdirman_install');
 	add_action( 'wpbusdirman_listingexpirations_hook', 'wpbusdirman_listings_expirations' );
-	add_action('init', 'wpbusdirman_dir_post_type');
-	add_action('admin_menu', 'wpbusdirman_launch');
 	add_action('wp_print_styles', 'wpbusdirman_addcss');
 	add_shortcode('WPBUSDIRMANUI', 'wpbusdirmanui_homescreen');
 	add_shortcode('WPBUSDIRMANADDLISTING', 'wpBusDirManUi_addListingForm');
@@ -216,21 +205,6 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 	add_filter('wpbdm_show-image-upload-form', 'wpbusdirman_image_upload_form', 10, 8);
 	//form post handler
 	add_filter('wpbdm_process-form-post', 'wpbusdirman_do_post', 10, 0);
-
-
-function wpbusdirman_launch()
-{
-	global $wpbusdirman_plugin_path;
-	add_menu_page(WPBUSDIRMAN, 'WPBusDirMan', 'activate_plugins', 'wpbusdirman.php', 'wpbusdirman_home_screen', WPBUSDIRMANMENUICO);
-	add_submenu_page('wpbusdirman.php', 'Manage Options ', 'Manage Options', 'activate_plugins', 'wpbdman_c1', 'wpbusdirman_config_admin');
-	add_submenu_page('wpbusdirman.php', 'Manage Fees', 'Manage Fees', 'activate_plugins', 'wpbdman_c2', 'wpbusdirman_opsconfig_fees');
-	add_submenu_page('wpbusdirman.php', 'Manage Fields', 'Manage Form Fields', 'activate_plugins', 'wpbdman_c3', 'wpbusdirman_buildform');
-	add_submenu_page('wpbusdirman.php', 'Manage Featured', 'Manage Featured', 'activate_plugins', 'wpbdman_c4', 'wpbusdirman_featured_pending');
-	add_submenu_page('wpbusdirman.php', 'Manage Payments', 'Manage Payments', 'activate_plugins', 'wpbdman_c5', 'wpbusdirman_manage_paid');
-
-	add_submenu_page('wpbusdirman.php', 'Uninstall WPDB Manager', 'Uninstall', 'activate_plugins', 'wpbdman_m1', 'wpbusdirman_uninstall');
-}
-
 
 
 function wpbdm_get_post_data($data,$wpbdmlistingid)
@@ -3140,252 +3114,6 @@ function wpbusdirman_upgradetosticky($wpbdmlistingid)
 	return $html;
 }
 
-function wpbusdirman_featured_pending()
-{
-	global $wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$html = '';
-
-	$html .= wpbusdirman_admin_head();
-	if( isset($_REQUEST['action'])
-		&& !empty($_REQUEST['action'])
-		&& ($_REQUEST['action'] == 'upgradefeatured'))
-	{
-		if(isset($_REQUEST['id'])
-			&& !empty($_REQUEST['id']))
-		{
-			$wpbdmposttofeature=$_REQUEST['id'];
-			update_post_meta($wpbdmposttofeature, "sticky", "approved");
-			$html .= "<p>" . __("The listing has been upgraded.","WPBDM") . "</p>";
-		}
-		else
-		{
-			$html .= "<p>" . __("No ID was provided. Please try again","WPBDM") . "</p>";
-		}
-	}
-	if( isset($_REQUEST['action'])
-		&& !empty($_REQUEST['action'])
-		&& ($_REQUEST['action'] == 'cancelfeatured'))
-	{
-		if(isset($_REQUEST['id'])
-			&& !empty($_REQUEST['id']))
-		{
-			$wpbdmposttofeature=$_REQUEST['id'];
-			delete_post_meta($wpbdmposttofeature, "sticky","pending");
-			$html .= "<p>" . __("The listing has been downgraded.","WPBDM") . "</p>";
-		}
-		else
-		{
-			$html .= "<p>" . __("No ID was provided. Please try again","WPBDM") . "</p>";
-		}
-	}
-	$html .= "<h3 style=\"padding:10px;\">" . __("Manage Featured Listings pending manual upgrade", "WPBDM") . "</h3>";
-	$wpbusdirman_pending='';
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_31'] == "no")
-	{
-		$html .= "<p>" . __("You are not currently allowing sticky (featured) listings. To allow sticky listings check that option in the manage options page under the Featured/Sticky listing settings.","WPBDM") . "</p>";
-	}
-	else
-	{
-		global $wpbusdirman_valuetext, $wpbusdirman_labeltext,$wpbusdirman_actiontext,$wpbdmposttypecategory,$wpbdmposttype;
-		$wpbusdirman_myterms = get_terms($wpbdmposttypecategory, 'orderby=name&hide_empty=0');
-
-		$wpbusdirman_catcat=get_posts('post_type='.$wpbdmposttype);
-		if($wpbusdirman_catcat)
-		{
-			foreach($wpbusdirman_catcat as $wpbusdirman_cat)
-			{
-				$wpbusdirman_postsposts[]=$wpbusdirman_cat->ID;
-			}
-		}
-		if($wpbusdirman_postsposts)
-		{
-			foreach($wpbusdirman_postsposts as $wpbusdirman_post)
-			{
-				$wpbdmsticky=get_post_meta($wpbusdirman_post, "sticky",$single=true);
-
-				if($wpbdmsticky == 'pending')
-				{
-					$wpbusdirman_pendingfeatured[]=$wpbusdirman_post;
-				}
-			}
-		}
-		if(empty($wpbusdirman_pendingfeatured))
-		{
-			$html .= "<p>" . __("Currently there are no listings waiting to be upgraded to sticky(featured) status","WPBDM") . "</p>";
-		}
-		else
-		{
-			$html .= "<table class=\"widefat\" cellspacing=\"0\"><thead><tr>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Post Title","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Post ID","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . $wpbusdirman_actiontext . "</th>";
-			$html .= "</tr></thead><tfoot><tr>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Post Title","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Post ID","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . $wpbusdirman_actiontext . "</th>";
-			$html .= "</tr></tfoot><tbody>";
-			if($wpbusdirman_pendingfeatured)
-			{
-				foreach($wpbusdirman_pendingfeatured as $wpbusdirman_pendingfeatureditem)
-				{
-					$html .= "<tr><td><a href=\"" . get_permalink($wpbusdirman_pendingfeatureditem) . "\">" . get_the_title($wpbusdirman_pendingfeatureditem)."</a></td>";
-					$html .= "<td>$wpbusdirman_pendingfeatureditem</td><td><a href=\"?page=wpbdman_c4&action=upgradefeatured&id=$wpbusdirman_pendingfeatureditem\">" . __("Upgrade","WPBDM") . "</a> | <a href=\"?page=wpbdman_c4&action=cancelfeatured&id=$wpbusdirman_pendingfeatureditem\">" . __("Downgrade","WPBDM") . "</td></tr>";
-				}
-			}
-		}
-		$html .= "</tbody></table>";
-	}
-	$html .= wpbusdirman_admin_foot();
-
-	echo $html;
-}
-
-function wpbusdirman_manage_paid()
-{
-	global $WPBusDirMan;
-	global $wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$html = '';
-
-	$html .= wpbusdirman_admin_head();
-	if( isset($_REQUEST['action']) && !empty($_REQUEST['action']) && ($_REQUEST['action'] == 'setaspaid'))
-	{
-		if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
-		{
-			$wpbdmposttosetaspaid=$_REQUEST['id'];
-			update_post_meta($wpbdmposttosetaspaid, "paymentstatus", "paid");
-			$html .= "<p>" . __("The listing status has been set as paid.","WPBDM") . "</p>";
-		}
-		else
-		{
-			$html .= "<p>" . __("No ID was provided. Please try again","WPBDM") . "</p>";
-		}
-	}
-	if( isset($_REQUEST['action']) && !empty($_REQUEST['action']) && ($_REQUEST['action'] == 'setasnotpaid'))
-	{
-		if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
-		{
-			$wpbdmposttosetasnotpaid=$_REQUEST['id'];
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","pending");
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","refunded");
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","unknown");
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","cancelled");
-			$html .= "<p>" . __("The listing status has been changed non-paying.","WPBDM") . "</p>";
-		}
-		else
-		{
-			$html .= "<p>" . __("No ID was provided. Please try again","WPBDM") . "</p>";
-		}
-	}
-	$html .= "<h3 style=\"padding:10px;\">" . __("Manage Paid Listings", "WPBDM") . "</h3>";
-	$wpbusdirman_pending='';
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == "no")
-	{
-		$html .= "<p>" . __("You are not currently charging any payment fees. To charge fees for listings check that option in the manage options page.","WPBDM") . "</p>";
-	}
-	else
-	{
-		global $wpbusdirman_valuetext, $wpbusdirman_labeltext,$wpbusdirman_actiontext,$wpbusdirman_haspaypalmodule,$wpbusdirman_hastwocheckoutmodule,$wpbdmposttype;
-
-		$wpbusdirman_catcat=get_posts('post_type='.$wpbdmposttype);
-
-		if($wpbusdirman_catcat)
-		{
-			foreach($wpbusdirman_catcat as $wpbusdirman_cat)
-			{
-				$wpbusdirman_postsposts[]=$wpbusdirman_cat->ID;
-			}
-		}
-		if($wpbusdirman_postsposts)
-		{
-			foreach($wpbusdirman_postsposts as $wpbusdirman_post)
-			{
-				$wpbdmisapaid=get_post_meta($wpbusdirman_post, "paymentstatus",$single=true);
-				if(isset($wpbdmisapaid) && ($wpbdmisapaid <> ''))
-				{
-					$wpbusdirman_paidlistings[]=$wpbusdirman_post;
-				}
-			}
-		}
-		if(empty($wpbusdirman_paidlistings))
-		{
-			$html .= "<p>" . __("Currently there are no paid listings","WPBDM") . "</p>";
-		}
-		else
-		{
-			$html .= "<p style=\"float:right\"><a href=\"http://businessdirectoryplugin.com/wp-business-directory-manager/manage-paid-listings\">" . __("Get info on managing paid listings","WPBDM") . "</a></p>";
-			$html .= "<table class=\"widefat\" cellspacing=\"0\"><thead><tr>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Title","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("ID","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Status","WPBDM") . "</th>";
-			if($wpbusdirman_haspaypalmodule == 1)
-			{
-				$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Flag","WPBDM") . "</th>";
-			}
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Gateway","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Buyer","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Payment Email","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . $wpbusdirman_actiontext . "</th>";
-			$html .= "</tr></thead><tfoot><tr>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Title","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("ID","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Status","WPBDM") . "</th>";
-			if($wpbusdirman_haspaypalmodule == 1)
-			{
-				$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Flag","WPBDM") . "</th>";
-			}
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Gateway","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Buyer","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . __("Payment Email","WPBDM") . "</th>";
-			$html .= "<th scope=\"col\" class=\"manage-column\">" . $wpbusdirman_actiontext . "</th>";
-			$html .= "</tr></tfoot><tbody>";
-			if($wpbusdirman_paidlistings)
-			{
-				foreach($wpbusdirman_paidlistings as $wpbusdirman_paidlistingsitem)
-				{
-					$bfn=get_post_meta($wpbusdirman_paidlistingsitem, "buyerfirstname", true);
-					$bln=get_post_meta($wpbusdirman_paidlistingsitem, "buyerlastname", true);
-					$pflagged=get_post_meta($wpbusdirman_paidlistingsitem, "paymentflag", true);
-					$pstat=get_post_meta($wpbusdirman_paidlistingsitem, "paymentstatus", true);
-					if(!isset($pflagged)
-						|| empty($pflagged))
-					{
-						$pflagged="None";
-					}
-					$pemail=get_post_meta($wpbusdirman_paidlistingsitem, "payeremail", true);
-					if(!isset($pemail)
-						|| empty($pemail))
-					{
-						$pemail="Unavailable";
-					}
-					$html .= "<tr><td><a href=\"" . get_permalink($wpbusdirman_paidlistingsitem) . "\">".get_the_title($wpbusdirman_paidlistingsitem)."</a></td>";
-					$html .= "<td>$wpbusdirman_paidlistingsitem</td>";
-					$html .= "<td>".get_post_meta($wpbusdirman_paidlistingsitem, "paymentstatus", true)."</td>";
-					if($wpbusdirman_haspaypalmodule == 1)
-					{
-						$html .= "<td>$pflagged</td>";
-					}
-					$html .= "<td>".get_post_meta($wpbusdirman_paidlistingsitem, "paymentgateway", true)."</td>";
-					$html .= "<td>$bfn $bln</td>";
-					$html .= "<td>$pemail</td>";
-
-					$html .= "<td>" . __("Set as","WPBDM") . ": ";
-					if(isset($pstat) && !empty($pstat) && ($pstat != 'paid'))
-					{
-						$html .= "<a href=\"?page=wpbdman_c5&action=setaspaid&id=$wpbusdirman_paidlistingsitem\">" . __("Paid","WPBDM") . "</a>";
-					}
-					$html .= "<a href=\"?page=wpbdman_c5&action=setasnotpaid&id=$wpbusdirman_paidlistingsitem\">" . __("Not paid","WPBDM") . "</a></td></tr>";
-				}
-			}
-		}
-		$html .= "</tbody></table>";
-	}
-	$html .= wpbusdirman_admin_foot();
-
-	echo $html;
-}
-
 function wpbusdirman_payment_thankyou()
 {
 	global $wpbusdirmanconfigoptionsprefix;
@@ -3963,7 +3691,7 @@ function wpbusdirman_dropdown_categories()
 	$select = get_terms_dropdown($taxonomies, $args);
 	$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
 	$html .= $select;
-	$html .= '<noscript><div><input type="submit" value="Näytä" /></div></noscript></form>';
+	$html .= '<noscript><div><input type="submit" value="N?yt?" /></div></noscript></form>';
 
 	return $html;
 }
@@ -4558,36 +4286,91 @@ add_filter('wp_list_categories','remove_no_categories_msg');
 
 
 
-global $WPBusDirMan;
+global $wpbdp;
 
-require_once (plugin_dir_path(__FILE__) . 'admin.php');
+require_once(WPBDP_PATH . 'utils.php');
+require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
+require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
 
-class BusinessDirectory {
+class WPBDP_Plugin {
 
-	const POST_TYPE = "wpbdm-directory";
+	const VERSION = '2.0-BETA';
+	const DB_VERSION = '1.1b';
+
+	const POST_TYPE = 'wpbdm-directory';
+	const POST_TYPE_CATEGORY = 'wpbdm-category';
+	const POST_TYPE_TAGS = 'wpbdm-tags';
 
 
-	function __construct() {
-		$this->admin = new BusinessDirectory_Admin();
-	}	
-
-	public static function debug() {
-		echo '<pre>';
-
-		foreach (func_get_args() as $arg) {
-			var_dump($arg);
+	public function __construct() {
+		if (is_admin()) {
+			$this->admin = new WPBDP_Admin();
 		}
 
-		echo '</pre>';
+		$this->settings = new WPBDP_Settings();
+
+		add_action('init', array($this, 'install_or_update_plugin'), 0); // while testing
+		add_action('init', array($this, '_register_post_type'));
 	}
 
-	public static function debug_e() {
-		call_user_func_array('BusinessDirectory::debug', func_get_args());
-		exit;
+	public function install_or_update_plugin() {
+		global $wpdb;
+
+		if ($oldversion = get_option('wpbdp-db-version', '1.0')) {
+			if (version_compare($oldversion, '2.0') < 0) {
+				$this->settings->upgrade_options();
+				// delete_option('wpbusdirman_db_version');
+			}
+		}
+
+		// update_option('wpbdp-db-version', self::DB_VERSION);
+		
 	}
+
+	function _register_post_type() {
+		$post_type_slug = $this->settings->get('permalinks-directory-slug', self::POST_TYPE);
+		$category_slug = $this->settings->get('permalinks-category-slug', self::POST_TYPE_CATEGORY);
+		$tags_slug = $this->settings->get('permalinks-tags-slug', self::POST_TYPE_TAGS);
+
+		$labels = array(
+			'name' => _x('Directory', 'post type general name'),
+			'singular_name' => _x('Directory', 'post type singular name'),
+			'add_new' => _x('Add New Listing', 'listing'),
+			'add_new_item' => __('Add New Listing'),
+			'edit_item' => __('Edit Listing'),
+			'new_item' => __('New Listing'),
+			'view_item' => __('View Listing'),
+			'search_items' => __('Search Listings'),
+			'not_found' =>  __('No listings found'),
+			'not_found_in_trash' => __('No listings found in trash'),
+			'parent_item_colon' => ''
+			);
+
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'publicly_queryable' => true,
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array('slug'=> $post_type_slug, 'with_front' => false),
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'menu_position' => null,
+			'supports' => array('title','editor','author','categories','tags','thumbnail','excerpt','comments','custom-fields','trackbacks')
+		);
+
+		register_post_type(self::POST_TYPE, $args);
+
+		register_taxonomy(self::POST_TYPE_CATEGORY, self::POST_TYPE, array( 'hierarchical' => true, 'label' => 'Directory Categories', 'singular_name' => 'Directory Category', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count','query_var' => true, 'rewrite' => array('slug' => $category_slug) ) );
+		register_taxonomy(self::POST_TYPE_TAGS, self::POST_TYPE, array( 'hierarchical' => false, 'label' => 'Directory Tags', 'singular_name' => 'Directory Tag', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count', 'query_var' => true, 'rewrite' => array('slug' => $tags_slug) ) );
+
+		if (function_exists('flush_rewrite_rules'))
+			flush_rewrite_rules(false);
+	}
+
 
 }
 
-$WPBusDirMan = new BusinessDirectory();
+$wpbdp = new WPBDP_Plugin();
 
 
