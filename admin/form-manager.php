@@ -56,7 +56,7 @@ function wpbusdirman_buildform()
 	$wpbusdirmanaction='';
 	$html = '';
 
-	$html .= wpbusdirman_admin_head();
+	$html .= wpbdp_admin_header();
 	if(isset($_REQUEST['action'])
 		&& !empty($_REQUEST['action']))
 	{
@@ -510,7 +510,7 @@ function wpbusdirman_buildform()
 	{
 		$html .=wpbusdirman_fields_list();
 	}
-	$html .= wpbusdirman_admin_foot();
+	$html .= wpbdp_admin_footer();
 
 	echo $html;
 }
