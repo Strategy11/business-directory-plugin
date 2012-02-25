@@ -1,7 +1,7 @@
 <?php
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// googlcheckout.php
+// googlecheckout.php
 // A module for using google checkout to handle Business Directory Plugin payment processing
 //
 // Author: A Lewis

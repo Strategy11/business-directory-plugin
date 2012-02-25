@@ -53,7 +53,7 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		);
 	}
 
-	// BusinessDirectory::debug_e($args);
+	// WPBDP_Plugin::debug_e($args);
 
 		query_posts($args);
 
