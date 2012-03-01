@@ -36,7 +36,7 @@ class WPBDP_Admin {
                       'activate_plugins',
                       'wpbusdirman.php',
                       'wpbusdirman_home_screen',
-                      WPBUSDIRMANMENUICO);
+                      WPBDP_URL . 'resources/images/menuico.png');
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),

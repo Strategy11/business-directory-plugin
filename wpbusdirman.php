@@ -154,6 +154,7 @@ define('WPBUSDIRMANMENUICO', $wpbusdirman_imagesurl .'/menuico.png');
 define('WPBUSDIRMAN_TEMPLATES_PATH', $wpbusdirman_plugin_path . '/posttemplate');
 
 define('WPBDP_PATH', plugin_dir_path(__FILE__));
+define('WPBDP_URL', plugins_url('/', __FILE__));
 
 $wpbusdirman_gpid=wpbusdirman_gpid();
 $permalinkstructure=get_option('permalink_structure');
@@ -4473,6 +4474,7 @@ class WPBDP_Plugin {
 			'capability_type' => 'post',
 			'hierarchical' => false,
 			'menu_position' => null,
+			'menu_icon' => WPBDP_URL . 'resources/images/menuico.png',
 			'supports' => array('title','editor','author','categories','tags','thumbnail','excerpt','comments','custom-fields','trackbacks')
 		);
 
