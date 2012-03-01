@@ -17,7 +17,7 @@ function wpbdp_admin_footer()
 /* Admin home screen setup begin */
 function wpbusdirman_home_screen()
 {
-	global $wpbusdirman_db_version,$wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix,$wpbusdirman_hastwocheckoutmodule,$wpbusdirman_haspaypalmodule,$wpbusdirman_hasgooglecheckoutmodule;
+	global $wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix,$wpbusdirman_hastwocheckoutmodule,$wpbusdirman_haspaypalmodule,$wpbusdirman_hasgooglecheckoutmodule;
 	$wpbusdirman_config_options=get_wpbusdirman_config_options();
 	$listyle="style=\"width:auto;float:left;margin-right:5px;\"";
 	$listyle2="style=\"width:200px;float:left;margin-right:5px;\"";
@@ -47,7 +47,7 @@ function wpbusdirman_home_screen()
 		$wpbusdirman_totallistings=0;
 		$wpbusdirman_totalcatsindir=0;
 	}
-	$html .= "<h3 style=\"padding:10px;\">" . __("Options Menu","WPBDM") . "</h3><p>" . __("You are using version","WPBDM") . " <b>$wpbusdirman_db_version</b> </p>";
+	$html .= "<h3 style=\"padding:10px;\">" . __("Options Menu","WPBDM") . "</h3><p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_Plugin::VERSION . "</b> </p>";
 if( $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_40'] == "yes"
 		&& $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_41'] == "yes"
 			&& $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_43'] == "yes"
@@ -105,7 +105,7 @@ function wpbusdirman_manage_paid()
 		if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
 		{
 			$wpbdmposttosetaspaid=$_REQUEST['id'];
-			update_post_meta($wpbdmposttosetaspaid, "paymentstatus", "paid");
+			update_post_meta($wpbdmposttosetaspaid, "_wpbdp_paymentstatus", "paid");
 			$html .= "<p>" . __("The listing status has been set as paid.","WPBDM") . "</p>";
 		}
 		else
@@ -118,10 +118,10 @@ function wpbusdirman_manage_paid()
 		if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
 		{
 			$wpbdmposttosetasnotpaid=$_REQUEST['id'];
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","pending");
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","refunded");
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","unknown");
-			delete_post_meta($wpbdmposttosetasnotpaid, "paymentstatus","cancelled");
+			delete_post_meta($wpbdmposttosetasnotpaid, "_wpbdp_paymentstatus","pending");
+			delete_post_meta($wpbdmposttosetasnotpaid, "_wpbdp_paymentstatus","refunded");
+			delete_post_meta($wpbdmposttosetasnotpaid, "_wpbdp_paymentstatus","unknown");
+			delete_post_meta($wpbdmposttosetasnotpaid, "_wpbdp_paymentstatus","cancelled");
 			$html .= "<p>" . __("The listing status has been changed non-paying.","WPBDM") . "</p>";
 		}
 		else
@@ -152,7 +152,7 @@ function wpbusdirman_manage_paid()
 		{
 			foreach($wpbusdirman_postsposts as $wpbusdirman_post)
 			{
-				$wpbdmisapaid=get_post_meta($wpbusdirman_post, "paymentstatus",$single=true);
+				$wpbdmisapaid=get_post_meta($wpbusdirman_post, "_wpbdp_paymentstatus",$single=true);
 				if(isset($wpbdmisapaid) && ($wpbdmisapaid <> ''))
 				{
 					$wpbusdirman_paidlistings[]=$wpbusdirman_post;
@@ -195,16 +195,16 @@ function wpbusdirman_manage_paid()
 			{
 				foreach($wpbusdirman_paidlistings as $wpbusdirman_paidlistingsitem)
 				{
-					$bfn=get_post_meta($wpbusdirman_paidlistingsitem, "buyerfirstname", true);
-					$bln=get_post_meta($wpbusdirman_paidlistingsitem, "buyerlastname", true);
-					$pflagged=get_post_meta($wpbusdirman_paidlistingsitem, "paymentflag", true);
-					$pstat=get_post_meta($wpbusdirman_paidlistingsitem, "paymentstatus", true);
+					$bfn=get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_buyerfirstname", true);
+					$bln=get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_buyerlastname", true);
+					$pflagged=get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_paymentflag", true);
+					$pstat=get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_paymentstatus", true);
 					if(!isset($pflagged)
 						|| empty($pflagged))
 					{
 						$pflagged="None";
 					}
-					$pemail=get_post_meta($wpbusdirman_paidlistingsitem, "payeremail", true);
+					$pemail=get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_payeremail", true);
 					if(!isset($pemail)
 						|| empty($pemail))
 					{
@@ -212,12 +212,12 @@ function wpbusdirman_manage_paid()
 					}
 					$html .= "<tr><td><a href=\"" . get_permalink($wpbusdirman_paidlistingsitem) . "\">".get_the_title($wpbusdirman_paidlistingsitem)."</a></td>";
 					$html .= "<td>$wpbusdirman_paidlistingsitem</td>";
-					$html .= "<td>".get_post_meta($wpbusdirman_paidlistingsitem, "paymentstatus", true)."</td>";
+					$html .= "<td>".get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_paymentstatus", true)."</td>";
 					if($wpbusdirman_haspaypalmodule == 1)
 					{
 						$html .= "<td>$pflagged</td>";
 					}
-					$html .= "<td>".get_post_meta($wpbusdirman_paidlistingsitem, "paymentgateway", true)."</td>";
+					$html .= "<td>".get_post_meta($wpbusdirman_paidlistingsitem, "_wpbdp_paymentgateway", true)."</td>";
 					$html .= "<td>$bfn $bln</td>";
 					$html .= "<td>$pemail</td>";
 
@@ -252,7 +252,7 @@ function wpbusdirman_featured_pending()
 			&& !empty($_REQUEST['id']))
 		{
 			$wpbdmposttofeature=$_REQUEST['id'];
-			update_post_meta($wpbdmposttofeature, "sticky", "approved");
+			update_post_meta($wpbdmposttofeature, "_wpbdp_sticky", "approved");
 			$html .= "<p>" . __("The listing has been upgraded.","WPBDM") . "</p>";
 		}
 		else
@@ -268,7 +268,7 @@ function wpbusdirman_featured_pending()
 			&& !empty($_REQUEST['id']))
 		{
 			$wpbdmposttofeature=$_REQUEST['id'];
-			delete_post_meta($wpbdmposttofeature, "sticky","pending");
+			delete_post_meta($wpbdmposttofeature, "_wpbdp_sticky","pending");
 			$html .= "<p>" . __("The listing has been downgraded.","WPBDM") . "</p>";
 		}
 		else
@@ -299,7 +299,7 @@ function wpbusdirman_featured_pending()
 		{
 			foreach($wpbusdirman_postsposts as $wpbusdirman_post)
 			{
-				$wpbdmsticky=get_post_meta($wpbusdirman_post, "sticky",$single=true);
+				$wpbdmsticky=get_post_meta($wpbusdirman_post, "_wpbdp_sticky",$single=true);
 
 				if($wpbdmsticky == 'pending')
 				{

@@ -13,14 +13,12 @@ class WPBDP_Settings {
 
 
 	public function _register_settings() {
-		global $wpbdmposttypecategory,$wpbdmposttypetags;
-
 		/* General settings */
 		$g = $this->add_group('general', __('General'));
 		$s = $this->add_section($g, 'permalink', __('Permalink Settings'));
 		$this->add_setting($s, 'permalinks-directory-slug', __('Directory Listings Slug'), 'text', WPBDP_Plugin::POST_TYPE);
-		$this->add_setting($s, 'permalinks-category-slug', __('Categories Slug'), 'text', $wpbdmposttypecategory);
-		$this->add_setting($s, 'permalinks-tags-slug', __('Tags Slug'), 'text', $wpbdmposttypetags);
+		$this->add_setting($s, 'permalinks-category-slug', __('Categories Slug'), 'text', WPBDP_Plugin::POST_TYPE_CATEGORY);
+		$this->add_setting($s, 'permalinks-tags-slug', __('Tags Slug'), 'text', WPBDP_Plugin::POST_TYPE_TAGS);
 
 		$s = $this->add_section($g, 'recaptcha', __('ReCaptcha Settings'));
 		$this->add_setting($s, 'recaptcha-on', __('Turn on reCAPTCHA?'), 'boolean', true);
@@ -237,6 +235,29 @@ class WPBDP_Settings {
 		return true;
 	}
 
+	/* emulates get_wpbusdirman_config_options() in version 2.0 until
+	 * all deprecated code has been ported. */
+	public function pre_2_0_compat_get_config_options() {
+		$legacy_options = array();
+
+		foreach ($this->pre_2_0_options() as $old_key => $new_key) {
+			$setting_value = $this->get($new_key);
+
+			if ($new_key == 'googlecheckout' || $new_key == 'paypal' || $new_key == '2checkout')
+				$setting_value = !$setting_value;
+
+			if ($this->settings[$new_key]->type == 'boolean') {
+				$setting_value = $setting_value == true ? 'yes' : 'no';
+			}
+
+			$legacy_options[$old_key] = $setting_value;
+		}
+
+		return $legacy_options;
+	}
+
+
+
 	public function reset_defaults() {
 		foreach ($this->settings as $setting) {
 			delete_option(self::PREFIX . $setting->name);
@@ -383,7 +404,6 @@ class WPBDP_Settings {
 
 		$translations = $this->pre_2_0_options();
 
-		// upgrade options to new format
 		if ($old_options = get_option('wpbusdirman_settings_config')) {
 			foreach ($old_options as $option) {
 				$id = strtolower($option['id']);
@@ -416,7 +436,7 @@ class WPBDP_Settings {
 
 			}
 
-			// delete_option('wpbusdirman_settings_config');
+			delete_option('wpbusdirman_settings_config');
 		}
 	}
 

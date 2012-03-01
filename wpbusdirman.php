@@ -80,8 +80,6 @@ $wpbdmposttype="wpbdm-directory";
 $wpbdmposttypecategory="wpbdm-category";
 $wpbdmposttypetags="wpbdm-tags";
 
-$wpbusdirman_db_version = "1.0";
-
 	if( file_exists("$wpbusdirman_plugin_path/gateways/paypal.php") )
 	{
 		require("$wpbusdirman_plugin_path/gateways/paypal.php");
@@ -115,11 +113,6 @@ $wpbusdirman_db_version = "1.0";
 	{
 		require("$wpbusdirman_plugin_path/wpbusdirman-maintenance-functions.php");
 	}
-
-	if( file_exists("$wpbusdirman_plugin_path/wpbusdirman-install.php") )
-	{
-		require("$wpbusdirman_plugin_path/wpbusdirman-install.php");
-	}
 	
 	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-fields-manager.php") )
 	{
@@ -128,7 +121,7 @@ $wpbusdirman_db_version = "1.0";
 	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-fees-manager.php") )
 	{
 		require("$wpbusdirman_plugin_path/admin/wpbusdirman-fees-manager.php");
-	}
+	}	
 	if( file_exists("$wpbusdirman_plugin_path/admin/manage-options.php") )
 	{
 		require("$wpbusdirman_plugin_path/admin/manage-options.php");
@@ -173,10 +166,10 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 // Add actions and filters etc
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	add_action('init', 'wpbusdirman_install');
 	add_action( 'wpbusdirman_listingexpirations_hook', 'wpbusdirman_listings_expirations' );
 	add_action('wp_print_styles', 'wpbusdirman_addcss');
 	add_shortcode('WPBUSDIRMANUI', 'wpbusdirmanui_homescreen');
+	// add_shortcode('business-directory', 'wpbusdirmanui_homescreen');
 	add_shortcode('WPBUSDIRMANADDLISTING', 'wpBusDirManUi_addListingForm');
 	add_shortcode('WPBUSDIRMANMANAGELISTING', 'wpbusdirman_managelistings');
 	add_shortcode('WPBUSDIRMANMVIEWLISTINGS', 'wpbusdirman_viewlistings');
@@ -1047,11 +1040,11 @@ function wpbusdirmanui_directory_screen()
 			{
 				foreach($wpbusdirmanlistingtermlength as $catdur)
 				{
-					$existingtermlengths=get_post_meta($wpbusdirmanlistingpostid, "termlength", false);
+					$existingtermlengths=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_termlength", false);
 
 						if(!in_array($catdur,$existingtermlengths))
 						{
-								add_post_meta($wpbusdirmanlistingpostid, "termlength", $catdur, false);
+								add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_termlength", $catdur, false);
 						}
 				}
 			}
@@ -1061,8 +1054,8 @@ function wpbusdirmanui_directory_screen()
 				foreach($wpbusdirmanfeeoptions as $feeopid)
 				{
 					$wpbusdirmanlistingcost=get_option($wpbusdirmanconfigoptionsprefix.'_settings_fees_amount_'.$feeopid);
-					add_post_meta($wpbusdirmanlistingpostid, "costoflisting", $wpbusdirmanlistingcost, false) or update_post_meta($wpbusdirmanlistingpostid, "costoflisting", $wpbusdirmanlistingcost);
-					add_post_meta($wpbusdirmanlistingpostid, "listingfeeid", $feeopid, false) or update_post_meta($wpbusdirmanlistingpostid, "costoflisting", $feeopid);
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_costoflisting", $wpbusdirmanlistingcost, false) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_costoflisting", $wpbusdirmanlistingcost);
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_listingfeeid", $feeopid, false) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_costoflisting", $feeopid);
 				}
 			}
 
@@ -1496,7 +1489,7 @@ function wpbusdirman_do_post()
 									$wpbusdirmanlengthofterm.="_";
 									$wpbusdirmanlengthofterm.=$wpbusdirmantermduration;
 
-									add_post_meta($wpbusdirman_postID, "termlength", $wpbusdirmanlengthofterm, false) or update_post_meta($wpbusdirman_postID, "termlength", $wpbusdirmanlengthofterm);
+									add_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $wpbusdirmanlengthofterm, false) or update_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $wpbusdirmanlengthofterm);
 								}
 							}
 						}
@@ -1596,7 +1589,7 @@ function wpbusdirman_do_post()
 						{
 							$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
 
-							$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "termlength", $single=false);
+							$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
 
 							if($wpbusdirmanlistingtermlength)
 							{
@@ -1642,7 +1635,7 @@ function wpbusdirman_do_post()
 					if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
 					{
 						$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
-							$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "termlength", $single=false);
+							$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
 
 							if($wpbusdirmanlistingtermlength)
 							{
@@ -1694,7 +1687,7 @@ function wpbusdirman_do_post()
 						&& !empty($neworedit)
 						&& ($neworedit == 'edit'))
 					{
-						$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "termlength", $single=false);
+						$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
 
 							if($wpbusdirmanlistingtermlength)
 							{
@@ -1818,10 +1811,10 @@ function wpbusdirman_image_upload_form($wpbusdirmanlistingpostid, $wpbusdirmanpe
 
 				if( ($totalexistingimages > 0) && ( $wpbusdirmannumimgsleft <= 0) )
 				{
-					$wpbusdirmanimagesinpost=get_post_meta($wpbusdirmanlistingpostid, "image", $single = false);
+					$wpbusdirmanimagesinpost=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_image", $single = false);
 
 					$html .= "<p>" . __("It appears you do not have the ability to upload additional images at this time.","WPBDM") . "</p>";
-					if(get_post_meta($wpbusdirmanlistingpostid, "image", $single = true))
+					if(get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_image", $single = true))
 					{
 						$html .= "<p>" . __("You can manage your current images below","WPBDM") . "</p>";
 						if($wpbusdirmanimagesinpost)
@@ -1908,9 +1901,9 @@ function wpbusdirman_image_upload_form($wpbusdirmanlistingpostid, $wpbusdirmanpe
 					$html .= "<p><input class=\"insubmitbutton\" value=\"" . __("Upload File","WPBDM") . "\" type=\"submit\"></p></form><div style=\"clear:both;\"></div>";
 					if($totalexistingimages >= 1)
 					{
-						if(get_post_meta($wpbusdirmanlistingpostid, "image", $single = true))
+						if(get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_image", $single = true))
 						{
-							$wpbusdirmanimagesinpost=get_post_meta($wpbusdirmanlistingpostid, "image", $single = false);
+							$wpbusdirmanimagesinpost=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_image", $single = false);
 							$html .= "<p>" . __("You can manage your current images below","WPBDM") . "</p>";
 							if($wpbusdirmanimagesinpost)
 							{
@@ -2540,19 +2533,19 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 						}
 						@chmod($wpbusdirmanuploaddir.'/'.$wpbusdirmanuploadedfilename,0644);
 
-						add_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='image', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename, false) or update_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='image', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename);
-						add_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='thumbnail', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename, false) or update_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='thumbnail', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename);
-						add_post_meta($wpbusdirmanlistingpostid, "totalallowedimages", $wpbusdirmannumimgsallowed, true) or update_post_meta($wpbusdirmanlistingpostid, "totalallowedimages", $wpbusdirmannumimgsallowed);
+						add_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='_wpbdp_image', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename, false) or update_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='_wpbdp_image', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename);
+						add_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='_wpbdp_thumbnail', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename, false) or update_post_meta($wpbusdirmanlistingpostid, $wpbusdirman_field_label='_wpbdp_thumbnail', $wpbusdirmanfieldmeta=$wpbusdirmanuploadedfilename);
+						add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_totalallowedimages", $wpbusdirmannumimgsallowed, true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_totalallowedimages", $wpbusdirmannumimgsallowed);
 
 					/*	if($mycatduration)
 						{
 							foreach($mycatduration as $catdur)
 							{
-								$existingtermlengths=get_post_meta($wpbusdirmanlistingpostid, "termlength", false);
+								$existingtermlengths=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_termlength", false);
 
 								if(!in_array($catdur,$existingtermlengths))
 								{
-									add_post_meta($wpbusdirmanlistingpostid, "termlength", $catdur, false);
+									add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_termlength", $catdur, false);
 								}
 							}
 						}
@@ -2564,8 +2557,8 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 								foreach($wpbusdirmanfeeoption as $feeopid)
 								{
 									$wpbusdirmanlistingcost=get_option($wpbusdirmanconfigoptionsprefix.'_settings_fees_amount_'.$feeopid);
-									add_post_meta($wpbusdirmanlistingpostid, "costoflisting", $wpbusdirmanlistingcost, false) or update_post_meta($wpbusdirmanlistingpostid, "costoflisting", $wpbusdirmanlistingcost);
-									add_post_meta($wpbusdirmanlistingpostid, "listingfeeid", $feeopid, false) or update_post_meta($wpbusdirmanlistingpostid, "costoflisting", $feeopid);
+									add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_costoflisting", $wpbusdirmanlistingcost, false) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_costoflisting", $wpbusdirmanlistingcost);
+									add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_listingfeeid", $feeopid, false) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_costoflisting", $feeopid);
 								}
 							}
 						} */
@@ -2748,7 +2741,7 @@ function wpbusdirman_imagesallowed_left($wpbusdirmanlistingpostid,$wpbusdirmanfe
 
 	if($wpbusdirmanlistingpostid)
 	{
-		$existingfeeids=get_post_meta($wpbusdirmanlistingpostid,'listingfeeid',false);
+		$existingfeeids=get_post_meta($wpbusdirmanlistingpostid,'_wpbdp_listingfeeid',false);
 
 			if($existingfeeids)
 			{
@@ -2797,7 +2790,7 @@ function wpbusdirman_imagesallowed_left($wpbusdirmanlistingpostid,$wpbusdirmanfe
 		}
 	}
 
-		$existingimages=get_post_meta($wpbusdirmanlistingpostid,'image',false);
+		$existingimages=get_post_meta($wpbusdirmanlistingpostid,'_wpbdp_image',false);
 		if($existingimages){ $totalexistingimages=count($existingimages); } else { $totalexistingimages = 0;}
 
 		if($totalexistingimages > 0){$wpbusdirmannumimgsleft=($wpbusdirmannumimagesallowed - $totalexistingimages );}else{$wpbusdirmannumimgsleft = $wpbusdirmannumimagesallowed;}
@@ -2890,8 +2883,8 @@ function wpbusdirman_deleteimage($imagetodelete,$wpbdmlistingid,$wpbusdirmannumi
 		if(isset($wpbdmlistingid)
 			&& !empty($wpbdmlistingid))
 		{
-			delete_post_meta($wpbdmlistingid, "image", $imagetodelete);
-			delete_post_meta($wpbdmlistingid, "thumbnail", $imagetodelete);
+			delete_post_meta($wpbdmlistingid, "_wpbdp_image", $imagetodelete);
+			delete_post_meta($wpbdmlistingid, "_wpbdp_thumbnail", $imagetodelete);
 			if (file_exists($wpbusdirmanimagesdirectory.'/'.$imagetodelete))
 			{
 				@unlink($wpbusdirmanimagesdirectory.'/'.$imagetodelete);
@@ -2936,7 +2929,7 @@ function wpbusdirman_load_payment_page($wpbusdirmanlistingpostid,$wpbusdirmanfee
 			$wpbusdirmannumimagesallowed=$myimagesallowedleft['imagesallowed'];
 			$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
 
-			add_post_meta($wpbusdirmanlistingpostid, "totalallowedimages", $wpbusdirmannumimagesallowed, true) or update_post_meta($wpbusdirmanlistingpostid, "totalallowedimages", $wpbusdirmannumimagesallowed);
+			add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_totalallowedimages", $wpbusdirmannumimagesallowed, true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_totalallowedimages", $wpbusdirmannumimagesallowed);
 		}
 	}
 	$html .= "<h3>" . __("Step 3","WPBDM") . "</h3><br />";
@@ -3080,7 +3073,7 @@ function wpbusdirman_upgradetosticky($wpbdmlistingid)
  		$html .= "<p>$wpbdmstickydetailtext</p>";
  	}
  	$wpbusdirman_stickylistingprice=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_32'];
- 	add_post_meta($wpbdmlistingid, "sticky", "not paid", true) or update_post_meta($wpbdmlistingid, "sticky", "not paid");
+ 	add_post_meta($wpbdmlistingid, "_wpbdp_sticky", "not paid", true) or update_post_meta($wpbdmlistingid, "_wpbdp_sticky", "not paid");
 	if($wpbusdirman_hasgooglecheckoutmodule == 1)
 	{
 		$html .= "<h4 class=\"paymentheader\">" . __("Pay ", "WPBDM");
@@ -3232,7 +3225,7 @@ function wpbusdirman_listings_expirations()
 		{
 			$args = array(
 				'post_status' => 'publish',
-				'meta_key' => 'termlength',
+				'meta_key' => '_wpbdp_termlength',
 				'post_type' => $wpbdmposttype,
 				'meta_compare=>meta_value=0'
 				);
@@ -3251,7 +3244,7 @@ function wpbusdirman_listings_expirations()
 
 		foreach($wpbusdirman_postsposts as $listingwithtermlengthset)
 		{
-			$wpbusdirmantermlength=get_post_meta($listingwithtermlengthset, "termlength", true);
+			$wpbusdirmantermlength=get_post_meta($listingwithtermlengthset, "_wpbdp_termlength", true);
 			$wpbusdirmanpostdataarr=get_post( $listingwithtermlengthset );
 			$wpbusdirmanpoststartdatebase=$wpbusdirmanpostdataarr->post_date;
 			$wpbusdirmanpostauthorid=$wpbusdirmanpostdataarr->post_author;
@@ -3391,7 +3384,7 @@ function wpbusdirman_display_the_thumbnail()
 
 	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_11'] == "yes")
 	{
-		$tpostimg2=get_post_meta($post->ID, "image", true);
+		$tpostimg2=get_post_meta($post->ID, "_wpbdp_image", true);
 		if(isset($tpostimg2)
 			&& !empty($tpostimg2))
 		{
@@ -3544,7 +3537,7 @@ function wpbusdirman_menu_button_upgradelisting()
 		get_currentuserinfo();
 		$wpbusdirmanloggedinuseremail=$current_user->user_email;
 		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
-		$wpbdmpostissticky=get_post_meta($post->ID, "sticky", $single=true);
+		$wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp_sticky", $single=true);
 		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail)
 		{
 			if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_31'] == "yes")
@@ -3907,7 +3900,7 @@ function wpbusdirman_post_excerpt($count)
 	$html = '';
 
 	$html .= '<div id="wpbdmlistings"';
-	$isasticky=get_post_meta(get_the_ID(),'sticky');
+	$isasticky=get_post_meta(get_the_ID(),'_wpbdp_sticky');
 	if(isset($isasticky) && !empty($isasticky)){
 	$isasticky=$isasticky[0];}
 	if(isset($isasticky) && ($isasticky == 'approved')){
@@ -3948,7 +3941,7 @@ function wpbusdirman_post_main_image()
 	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_11'] == "yes")
 	{
 		$usingdefault=0;
-		$wpbusdirmanpostimages=get_post_meta($post->ID, "thumbnail", $single=false);
+		$wpbusdirmanpostimages=get_post_meta($post->ID, "_wpbdp_thumbnail", $single=false);
 		$wpbusdirmanpostimagestotal=count($wpbusdirmanpostimages);
 		$wpbusdirmanpostimagefeature='';
 		if($wpbusdirmanpostimagestotal >=1)
@@ -3997,7 +3990,7 @@ function wpbusdirman_display_extra_thumbnails()
 function wpbusdirman_post_extra_thumbnails()
 {
 	global $post,$wpbdmimagesurl;
-	$wpbusdirmanpostimages=get_post_meta($post->ID, "thumbnail", $single=false);
+	$wpbusdirmanpostimages=get_post_meta($post->ID, "_wpbdp_thumbnail", $single=false);
 	$wpbusdirmanpostimagestotal=count($wpbusdirmanpostimages);
 	$wpbusdirmanpostimagefeature='';
 	$html = '';
@@ -4040,7 +4033,7 @@ function wpbusdirman_post_single_listing_details()
 		$html .= get_currentuserinfo();
 		$wpbusdirmanloggedinuseremail=$current_user->user_email;
 		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
-		$wpbdmpostissticky=get_post_meta($post->ID, "sticky", $single=true);
+		$wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp_sticky", $single=true);
 		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail)
 		{
 			$html .= '<div id="editlistingsingleview">' . wpbusdirman_menu_button_editlisting() . wpbusdirman_menu_button_upgradelisting() . '</div><div style="clear:both;"></div>';
@@ -4295,11 +4288,13 @@ require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
 class WPBDP_Plugin {
 
 	const VERSION = '2.0-BETA';
-	const DB_VERSION = '1.1b';
+	const DB_VERSION = '2.0';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
 	const POST_TYPE_TAGS = 'wpbdm-tags';
+
+	private $debug = false;
 
 
 	public function __construct() {
@@ -4309,22 +4304,144 @@ class WPBDP_Plugin {
 
 		$this->settings = new WPBDP_Settings();
 
-		add_action('init', array($this, 'install_or_update_plugin'), 0); // while testing
+		add_action('init', array($this, 'install_or_update_plugin'), 0);
 		add_action('init', array($this, '_register_post_type'));
 	}
 
 	public function install_or_update_plugin() {
 		global $wpdb;
 
-		if ($oldversion = get_option('wpbdp-db-version', '1.0')) {
-			if (version_compare($oldversion, '2.0') < 0) {
+		// For testing version-transitions.
+		// add_option('wpbusdirman_db_version', '1.0');
+		// // delete_option('wpbusdirman_db_version');
+		// delete_option('wpbdp-db-version');
+
+		if ($installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'))) {
+			wpbdp_log('WPBDP is already installed.');
+
+			if (version_compare($installed_version, '2.0') < 0) {
 				$this->settings->upgrade_options();
-				// delete_option('wpbusdirman_db_version');
+				wpbdp_log('WPBDP settings updated to 2.0-style');
+
+				// make directory-related metadata hidden
+				$old_meta_keys = array(
+					'termlength', 'image', 'listingfeeid', 'sticky', 'thumbnail', 'paymentstatus', 'buyerfirstname', 'buyerlastname',
+					'paymentflag', 'payeremail', 'paymentgateway', 'totalallowedimages', 'costoflisting'
+				);
+
+				foreach ($old_meta_keys as $meta_key) {
+					$query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
+											'_wpbdp_' . $meta_key, $meta_key, self::POST_TYPE);
+					$wpdb->query($query);
+				}
+
+
+				wpbdp_log('Made WPBDP directory metadata hidden attributes');
 			}
+
+			update_option('wpbdp-db-version', self::DB_VERSION);
+			delete_option('wpbusdirman_db_version');
+		} else {
+			// Add default form options
+			add_option("wpbusdirman_postform_field_label_1", $wpbusdirman_postform_field_label_1);
+			add_option("wpbusdirman_postform_field_label_2", $wpbusdirman_postform_field_label_2);
+			add_option("wpbusdirman_postform_field_label_3", $wpbusdirman_postform_field_label_3);
+			add_option("wpbusdirman_postform_field_label_4", $wpbusdirman_postform_field_label_4);
+			add_option("wpbusdirman_postform_field_label_5", $wpbusdirman_postform_field_label_5);
+			add_option("wpbusdirman_postform_field_label_6", $wpbusdirman_postform_field_label_6);
+			add_option("wpbusdirman_postform_field_label_7", $wpbusdirman_postform_field_label_7);
+			add_option("wpbusdirman_postform_field_label_8", $wpbusdirman_postform_field_label_8);
+			add_option("wpbusdirman_postform_field_label_9", $wpbusdirman_postform_field_label_9);
+
+			// text = 1, select = 2, textarea=3 radio =4 multiselect =5 checkbox =6
+			add_option("wpbusdirman_postform_field_type_1", 1);
+			add_option("wpbusdirman_postform_field_type_2", 2);
+			add_option("wpbusdirman_postform_field_type_3", 3);
+			add_option("wpbusdirman_postform_field_type_4", 3);
+			add_option("wpbusdirman_postform_field_type_5", 1);
+			add_option("wpbusdirman_postform_field_type_6", 1);
+			add_option("wpbusdirman_postform_field_type_7", 1);
+			add_option("wpbusdirman_postform_field_type_8", 1);
+			add_option("wpbusdirman_postform_field_type_9", 1);
+
+			add_option("wpbusdirman_postform_field_options_1", '');
+			add_option("wpbusdirman_postform_field_options_2", '');
+			add_option("wpbusdirman_postform_field_options_3", '');
+			add_option("wpbusdirman_postform_field_options_4", '');
+			add_option("wpbusdirman_postform_field_options_5", '');
+			add_option("wpbusdirman_postform_field_options_6", '');
+			add_option("wpbusdirman_postform_field_options_7", '');
+			add_option("wpbusdirman_postform_field_options_8", '');
+			add_option("wpbusdirman_postform_field_options_9", '');
+
+			add_option("wpbusdirman_postform_field_order_1", 1);
+			add_option("wpbusdirman_postform_field_order_2", 2);
+			add_option("wpbusdirman_postform_field_order_3", 3);
+			add_option("wpbusdirman_postform_field_order_4", 4);
+			add_option("wpbusdirman_postform_field_order_5", 5);
+			add_option("wpbusdirman_postform_field_order_6", 6);
+			add_option("wpbusdirman_postform_field_order_7", 7);
+			add_option("wpbusdirman_postform_field_order_8", 8);
+			add_option("wpbusdirman_postform_field_order_9", 9);
+
+
+			add_option("wpbusdirman_postform_field_association_1", 'title');
+			add_option("wpbusdirman_postform_field_association_2", 'category');
+			add_option("wpbusdirman_postform_field_association_3", 'excerpt');
+			add_option("wpbusdirman_postform_field_association_4", 'description');
+			add_option("wpbusdirman_postform_field_association_5", 'meta');
+			add_option("wpbusdirman_postform_field_association_6", 'meta');
+			add_option("wpbusdirman_postform_field_association_7", 'meta');
+			add_option("wpbusdirman_postform_field_association_8", 'meta');
+			add_option("wpbusdirman_postform_field_association_9", 'tags');
+
+			add_option("wpbusdirman_postform_field_validation_1", 'missing');
+			add_option("wpbusdirman_postform_field_validation_2", 'missing');
+			add_option("wpbusdirman_postform_field_validation_3", '');
+			add_option("wpbusdirman_postform_field_validation_4", 'missing');
+			add_option("wpbusdirman_postform_field_validation_5", 'url');
+			add_option("wpbusdirman_postform_field_validation_6", '');
+			add_option("wpbusdirman_postform_field_validation_7", '');
+			add_option("wpbusdirman_postform_field_validation_8", 'email');
+			add_option("wpbusdirman_postform_field_validation_9", '');
+
+			add_option("wpbusdirman_postform_field_required_1", 'yes');
+			add_option("wpbusdirman_postform_field_required_2", 'yes');
+			add_option("wpbusdirman_postform_field_required_3", 'no');
+			add_option("wpbusdirman_postform_field_required_4", 'yes');
+			add_option("wpbusdirman_postform_field_required_5", 'no');
+			add_option("wpbusdirman_postform_field_required_6", 'no');
+			add_option("wpbusdirman_postform_field_required_7", 'no');
+			add_option("wpbusdirman_postform_field_required_8", 'yes');
+			add_option("wpbusdirman_postform_field_required_9", 'no');
+
+
+			add_option("wpbusdirman_postform_field_showinexcerpt_1", 'yes');
+			add_option("wpbusdirman_postform_field_showinexcerpt_2", 'yes');
+			add_option("wpbusdirman_postform_field_showinexcerpt_3", 'no');
+			add_option("wpbusdirman_postform_field_showinexcerpt_4", 'no');
+			add_option("wpbusdirman_postform_field_showinexcerpt_5", 'yes');
+			add_option("wpbusdirman_postform_field_showinexcerpt_6", 'yes');
+			add_option("wpbusdirman_postform_field_showinexcerpt_7", 'no');
+			add_option("wpbusdirman_postform_field_showinexcerpt_8", 'no');
+			add_option("wpbusdirman_postform_field_showinexcerpt_9", 'no');
+
+			add_option("wpbusdirman_postform_field_hide_1", 'no');
+			add_option("wpbusdirman_postform_field_hide_2", 'no');
+			add_option("wpbusdirman_postform_field_hide_3", 'no');
+			add_option("wpbusdirman_postform_field_hide_4", 'no');
+			add_option("wpbusdirman_postform_field_hide_5", 'no');
+			add_option("wpbusdirman_postform_field_hide_6", 'no');
+			add_option("wpbusdirman_postform_field_hide_7", 'no');
+			add_option("wpbusdirman_postform_field_hide_8", 'no');
+			add_option("wpbusdirman_postform_field_hide_9", 'no');
 		}
 
-		// update_option('wpbdp-db-version', self::DB_VERSION);
-		
+		update_option('wpbdp-db-version', self::DB_VERSION);
+
+
+	    $plugin_dir = basename(dirname(__FILE__));
+		load_plugin_textdomain( 'WPBDM', null, $plugin_dir.'/languages' );		
 	}
 
 	function _register_post_type() {
@@ -4368,9 +4485,17 @@ class WPBDP_Plugin {
 			flush_rewrite_rules(false);
 	}
 
+	public function debug_on() {
+		WPBDP_Debugging::debug_on();
+	}
+
+	public function debug_off() {
+		WPBDP_Debugging::debug_off();
+	}
+
 
 }
 
 $wpbdp = new WPBDP_Plugin();
-
+// $wpbdp->debug_on();
 
