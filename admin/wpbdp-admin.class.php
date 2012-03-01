@@ -44,12 +44,6 @@ class WPBDP_Admin {
                          'wpbdp_settings',
                          array($this, 'admin_settings'));
         add_submenu_page('wpbusdirman.php',
-                         'Manage Options ',
-                         'Manage Options',
-                         'activate_plugins',
-                         'wpbdman_c1',
-                         'wpbusdirman_config_admin');
-        add_submenu_page('wpbusdirman.php',
                          'Manage Fees',
                          'Manage Fees',
                          'activate_plugins', 
@@ -95,7 +89,7 @@ class WPBDP_Admin {
         global $wpbusdirman_haspaypalmodule;
 
         // Payment information
-        if ($payment_status = get_post_meta($post->ID, 'paymentstatus', true)) {
+        if ($payment_status = get_post_meta($post->ID, '_wpbdp_paymentstatus', true)) {
             echo '<div class="misc-pub-section">';
             echo '<strong>' . __('Payment Information', 'WPBDM') . '</strong>';
             echo '<dl>';
@@ -103,19 +97,19 @@ class WPBDP_Admin {
                 echo '<dd>' . $payment_status . '</dd>';
 
                 echo '<dt>'. __('Gateway', 'WPBDM') . '</dt>';
-                echo '<dd>' . get_post_meta($post->ID, 'paymentgateway', true) . '</dd>';
+                echo '<dd>' . get_post_meta($post->ID, '_wpbdp_paymentgateway', true) . '</dd>';
 
                 if ($wpbusdirman_haspaypalmodule) {
                     echo '<dt>'. __('Flag', 'WPBDM') . '</dt>';
-                    echo '<dd>' . (get_post_meta($post->ID, 'paymentflag', true) ? get_post_meta($post->ID, 'paymentflag', true) : '-') . '</dd>';
+                    echo '<dd>' . (get_post_meta($post->ID, '_wpbdp_paymentflag', true) ? get_post_meta($post->ID, '_wpbdp_paymentflag', true) : '-') . '</dd>';
                 }
 
                 echo '<dt>'. __('Buyer', 'WPBDM') . '</dt>';
-                $buyer = sprintf('%s %s', get_post_meta($post->ID, 'buyerfirstname', true), get_post_meta($post->ID, 'buyerlastname', true));
+                $buyer = sprintf('%s %s', get_post_meta($post->ID, '_wpbdp_buyerfirstname', true), get_post_meta($post->ID, '_wpbdp_buyerlastname', true));
                 echo '<dd>' . ($buyer != ' ' ? $buyer : '-') . '</dd>';
 
                 echo '<dt>'. __('Payment Email', 'WPBDM') . '</dt>';
-                echo '<dd>' . (get_post_meta($post->ID, 'payeremail', true) ? get_post_meta($post->ID, 'payeremail', true) : '-') . '</dd>';
+                echo '<dd>' . (get_post_meta($post->ID, '_wpbdp_payeremail', true) ? get_post_meta($post->ID, '_wpbdp_payeremail', true) : '-') . '</dd>';
 
                 $status_links = '';
 
@@ -132,7 +126,7 @@ class WPBDP_Admin {
         }
 
         // Sticky information
-        if ($status = get_post_meta($post->ID, 'sticky', true)) {
+        if ($status = get_post_meta($post->ID, '_wpbdp_sticky', true)) {
             if ($status == 'pending') {
                 echo '<strong>' . __('Upgrade to Featured', 'WPBDM') . '</strong>';
                 echo '<dl>';
@@ -159,15 +153,15 @@ class WPBDP_Admin {
         if (is_admin() && isset($_REQUEST['wpbdmfilter']) && $current_screen->id == 'edit-' . WPBDP_Plugin::POST_TYPE) {
             switch ($_REQUEST['wpbdmfilter']) {
                 case 'pendingupgrade':
-                    $request['meta_key'] = 'sticky';
+                    $request['meta_key'] = '_wpbdp_sticky';
                     $request['meta_value'] = 'pending';
                     break;
                 case 'paid':
-                    $request['meta_key'] = 'paymentstatus';
+                    $request['meta_key'] = '_wpbdp_paymentstatus';
                     $request['meta_value'] = 'paid';
                     break;
                 default:
-                    $request['meta_key'] = 'paymentstatus';
+                    $request['meta_key'] = '_wpbdp_paymentstatus';
                     $request['meta_value'] = 'paid';
                     $request['meta_compare'] = '!=';
                     break;
@@ -193,28 +187,28 @@ class WPBDP_Admin {
 
         switch ($action) {
             case 'setaspaid':
-                update_post_meta($post_id, 'paymentstatus', 'paid');
+                update_post_meta($post_id, '_wpbdp_paymentstatus', 'paid');
 
                 $this->messages[] = __("The listing status has been set as paid.","WPBDM");
                 break;
             
             case 'setasnotpaid':
-                delete_post_meta($post_id, "paymentstatus", "pending");
-                delete_post_meta($post_id, "paymentstatus", "refunded");
-                delete_post_meta($post_id, "paymentstatus", "unknown");
-                delete_post_meta($post_id, "paymentstatus", "cancelled");
+                delete_post_meta($post_id, "_wpbdp_paymentstatus", "pending");
+                delete_post_meta($post_id, "_wpbdp_paymentstatus", "refunded");
+                delete_post_meta($post_id, "_wpbdp_paymentstatus", "unknown");
+                delete_post_meta($post_id, "_wpbdp_paymentstatus", "cancelled");
 
                 $this->messages[] = __("The listing status has been changed non-paying.","WPBDM");
                 break;
 
             case 'upgradefeatured':
-                update_post_meta($post_id, "sticky", "approved");
+                update_post_meta($post_id, "_wpbdp_sticky", "approved");
             
                 $this->messages[] = __("The listing has been upgraded.","WPBDM");
                 break;
 
             case 'cancelfeatured':
-                delete_post_meta($post_id, "sticky", "pending");
+                delete_post_meta($post_id, "_wpbdp_sticky", "pending");
                 
                 $this->messages[] = __("The listing has been downgraded.","WPBDM");
                 break;
@@ -232,16 +226,16 @@ class WPBDP_Admin {
         $paid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                            WHERE p.post_type = %s AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_Plugin::POST_TYPE,
-                                                           'paymentstatus',
+                                                           '_wpbdp_paymentstatus',
                                                            'paid') );
         $unpaid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                            WHERE p.post_type = %s AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",WPBDP_Plugin::POST_TYPE,
-                                                           'paymentstatus',
+                                                           '_wpbdp_paymentstatus',
                                                            'paid') );
         $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                            WHERE p.post_type = %s AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_Plugin::POST_TYPE,
-                                                           'sticky',
+                                                           '_wpbdp_sticky',
                                                            'pending') );
 
         $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
@@ -288,10 +282,10 @@ class WPBDP_Admin {
         global $post;
         global $wpbusdirman_haspaypalmodule;
 
-        if ($paid_status = get_post_meta($post->ID, 'paymentstatus', true)) {
-            $buyer = sprintf('%s %s', get_post_meta($post->ID, 'buyerfirstname', true), get_post_meta($post->ID, 'buyerlastname', true));
-            $email = get_post_meta($post->ID, 'payeremail', true);
-            $flag = get_post_meta($post->ID, 'paymentflag', true);
+        if ($paid_status = get_post_meta($post->ID, '_wpbdp_paymentstatus', true)) {
+            $buyer = sprintf('%s %s', get_post_meta($post->ID, '_wpbdp_buyerfirstname', true), get_post_meta($post->ID, '_wpbdp_buyerlastname', true));
+            $email = get_post_meta($post->ID, '_wpbdp_payeremail', true);
+            $flag = get_post_meta($post->ID, '_wpbdp_paymentflag', true);
             $status_links = '';
 
             if ($paid_status != 'paid')
@@ -307,7 +301,7 @@ class WPBDP_Admin {
                     <div class="row-actions"><b>%s:</b> %s</div>',
                           $paid_status,
                           strtoupper($paid_status),
-                          __('Gateway', 'WPBDM'), get_post_meta($post->ID, 'paymentgateway', true),
+                          __('Gateway', 'WPBDM'), get_post_meta($post->ID, '_wpbdp_paymentgateway', true),
                           __('Flag', 'WPBDM'), $flag ? $flag : 'None',
                           __('Buyer', 'WPBDM'), $buyer != ' ' ? $buyer : '--',
                           __('Payment Email', 'WPBDM'), $email ? '(' . $email . ')' : '',
@@ -317,7 +311,7 @@ class WPBDP_Admin {
                 echo sprintf('<span class="status %s">%s</span><div class="paymentdata"><b>%s</b>: <span class="gateway">%s</span> | <b>%s:</b> <span class="buyer">%s</span> <span class="email" title="%s">%s</span></div><div class="row-actions"><b>%s:</b> %s</div>',
                               $paid_status,
                               strtoupper($paid_status),
-                              __('Gateway', 'WPBDM'), get_post_meta($post->ID, 'paymentgateway', true),
+                              __('Gateway', 'WPBDM'), get_post_meta($post->ID, '_wpbdp_paymentgateway', true),
                               __('Buyer', 'WPBDM'), $buyer != ' ' ? $buyer : '--',
                               __('Payment Email', 'WPBDM'), $email ? '(' . $email . ')' : '',
                               __('Set as', 'WPBDM'),
@@ -332,7 +326,7 @@ class WPBDP_Admin {
     private function sticky_status_column() {
         global $post;
 
-        if ($status = get_post_meta($post->ID, 'sticky', true)) {
+        if ($status = get_post_meta($post->ID, '_wpbdp_sticky', true)) {
             if ($status == 'pending') {
                 echo sprintf('<b>!</b> %s<br /><div class="row-actions">
                                 <span><a href="%s">%s</a></span> |
@@ -358,6 +352,14 @@ class WPBDP_Admin {
 
     public function admin_settings() {
         global $wpbdp;
+
+        if (isset($_REQUEST['resetdefaults']) && intval($_REQUEST['resetdefaults']) == 1) {
+            $wpbdp->settings->reset_defaults();
+            $_REQUEST['settings-updated'] = true;
+            $_REQUEST['groupid'] = 'general';
+            unset($_REQUEST['resetdefaults']);
+        }
+
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
                           true);

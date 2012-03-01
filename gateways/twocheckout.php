@@ -167,15 +167,15 @@ function wpbusdirmanpayment_twocheckout($wpbusdirmanlistingID,$x_sid,$x_amount,$
 
 	global $wpbusdirmanconfigoptionsprefix;
 	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbdmpaymentstatus=get_post_meta($wpbusdirmanlistingID, "paymentstatus", true);
-	$wpbdmpaymentgateway=get_post_meta($wpbusdirmanlistingID, "paymentgateway", true);
-	$wpbdmlistingsticky=get_post_meta($wpbusdirmanlistingID, "sticky", true);
+	$wpbdmpaymentstatus=get_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", true);
+	$wpbdmpaymentgateway=get_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentgateway", true);
+	$wpbdmlistingsticky=get_post_meta($wpbusdirmanlistingID, "_wpbdp_sticky", true);
 
 	if(isset($wpbdmpaymentstatus)	&& !empty ($wpbdmpaymentstatus)	&& isset($wpbdmpaymentgateway) && !empty($wpbdmpaymentgateway) )
 	{
 		if(isset($wpbdmlistingsticky) && !empty($wpbdmlistingsticky) && ($wpbdmlistingsticky == 'not paid'))
 		{
-			add_post_meta($wpbusdirmanlistingID, "sticky", "pending", true) or update_post_meta($wpbusdirmanlistingID, "sticky", "pending");
+			add_post_meta($wpbusdirmanlistingID, "_wpbdp_sticky", "pending", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_sticky", "pending");
 			$stickythankyou=wpbudirman_sticky_payment_thankyou();
 			echo $stickythankyou;
 		}
@@ -184,7 +184,7 @@ function wpbusdirmanpayment_twocheckout($wpbusdirmanlistingID,$x_sid,$x_amount,$
 	{
 		if(isset($wpbdmlistingsticky) && !empty($wpbdmlistingsticky) && ($wpbdmlistingsticky == 'not paid'))
 		{
-			add_post_meta($wpbusdirmanlistingID, "sticky", "pending", true) or update_post_meta($wpbusdirmanlistingID, "sticky", "pending");
+			add_post_meta($wpbusdirmanlistingID, "_wpbdp_sticky", "pending", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_sticky", "pending");
 			$stickythankyou=wpbudirman_sticky_payment_thankyou();
 			echo $stickythankyou;
 		}
@@ -205,40 +205,40 @@ function wpbusdirmanpayment_twocheckout($wpbusdirmanlistingID,$x_sid,$x_amount,$
 
 			if(!(in_array(number_format($x_amount,2),$wpbusdirman_my_amts)))
 			{
-				add_post_meta($wpbusdirmanlistingID, "paymentflag", "amountmismatch", true) or update_post_meta($wpbusdirmanlistingID, "paymentflag", "amountmismatch");
+				add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentflag", "amountmismatch", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentflag", "amountmismatch");
 			}
 
 
 			if (!(strcasecmp($x_sid, $wpbusdirman_twocheckout_sid) == 0))
 			{
-				add_post_meta($wpbusdirmanlistingID, "paymentflag", "bizemailmismatch", true) or update_post_meta($wpbusdirmanlistingID, "paymentflag", "bizemailmismatch");
+				add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentflag", "bizemailmismatch", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentflag", "bizemailmismatch");
 			}
 
 			if(strcasecmp($payment_status, "Completed") == 0)
 			{
-				add_post_meta($wpbusdirmanlistingID, "paymentstatus", "paid", true) or update_post_meta($wpbusdirmanlistingID, "paymentstatus", "paid");
+				add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "paid", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "paid");
 			}
 			elseif(strcasecmp($payment_status, "Refunded") == 0 || strcasecmp($payment_status, "Reversed") == 0 || strcasecmp ($payment_status, "Partially-Refunded") == 0)
 			{
-				add_post_meta($wpbusdirmanlistingID, "paymentstatus", "refunded", true) or update_post_meta($wpbusdirmanlistingID, "paymentstatus", "refunded");
+				add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "refunded", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "refunded");
 			}
 			elseif(strcasecmp ($payment_status, "Pending") == 0 )
 			{
-				add_post_meta($wpbusdirmanlistingID, "paymentstatus", "pending", true) or update_post_meta($wpbusdirmanlistingID, "paymentstatus", "pending");
+				add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "pending", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "pending");
 			}
 			else
 			{
-				add_post_meta($wpbusdirmanlistingID, "paymentstatus", "unknown", true) or update_post_meta($wpbusdirmanlistingID, "paymentstatus", "unknown");
+				add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "unknown", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentstatus", "unknown");
 			}
 
 			if(!isset($first_name) || empty($first_name)){$first_name="Unknown";}
 			if(!isset($last_name) || empty($last_name)){$last_name="Unknown";}
 
 
-			add_post_meta($wpbusdirmanlistingID, "buyerfirstname", $first_name, true) or update_post_meta($wpbusdirmanlistingID, "buyerfirstname", $first_name);
-			add_post_meta($wpbusdirmanlistingID, "buyerlastname", $last_name, true) or update_post_meta($wpbusdirmanlistingID, "buyerlastname", $last_name);
-			add_post_meta($wpbusdirmanlistingID, "paymentgateway", "2Checkout", true) or update_post_meta($wpbusdirmanlistingID, "paymentgateway", "2Checkout");
-			add_post_meta($wpbusdirmanlistingID, "payeremail", $payer_email, true) or update_post_meta($wpbusdirmanlistingID, "payeremail", $payer_email);
+			add_post_meta($wpbusdirmanlistingID, "_wpbdp_buyerfirstname", $first_name, true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_buyerfirstname", $first_name);
+			add_post_meta($wpbusdirmanlistingID, "_wpbdp_buyerlastname", $last_name, true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_buyerlastname", $last_name);
+			add_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentgateway", "2Checkout", true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_paymentgateway", "2Checkout");
+			add_post_meta($wpbusdirmanlistingID, "_wpbdp_payeremail", $payer_email, true) or update_post_meta($wpbusdirmanlistingID, "_wpbdp_payeremail", $payer_email);
 
 		$paymentthankyou=wpbusdirman_payment_thankyou();
 		echo $paymentthankyou;

@@ -139,15 +139,15 @@ function wpbusdirman_do_googlecheckout()
 		{
 			$wpbusdirmanlistingpostid=$_REQUEST['wpbdmlistingid'];
 
-			$wpbdmpaymentstatus=get_post_meta($wpbusdirmanlistingpostid, "paymentstatus", true);
-			$wpbdmpaymentgateway=get_post_meta($wpbusdirmanlistingpostid, "paymentgateway", true);
-			$wpbdmlistingsticky=get_post_meta($wpbusdirmanlistingpostid, "sticky", true);
+			$wpbdmpaymentstatus=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_paymentstatus", true);
+			$wpbdmpaymentgateway=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_paymentgateway", true);
+			$wpbdmlistingsticky=get_post_meta($wpbusdirmanlistingpostid, "_wpbdp_sticky", true);
 
 			if(isset($wpbdmpaymentstatus)	&& !empty ($wpbdmpaymentstatus)	&& isset($wpbdmpaymentgateway) && !empty($wpbdmpaymentgateway) )
 			{
 				if(isset($wpbdmlistingsticky) && !empty($wpbdmlistingsticky) && ($wpbdmlistingsticky == 'not paid'))
 				{
-					add_post_meta($wpbusdirmanlistingpostid, "sticky", "pending", true) or update_post_meta($wpbusdirmanlistingpostid, "sticky", "pending");
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_sticky", "pending", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_sticky", "pending");
 					$stickythankyou=wpbudirman_sticky_payment_thankyou();
 					echo $stickythankyou;
 				}
@@ -156,7 +156,7 @@ function wpbusdirman_do_googlecheckout()
 			{
 				if(isset($wpbdmlistingsticky) && !empty($wpbdmlistingsticky) && ($wpbdmlistingsticky == 'not paid'))
 				{
-					add_post_meta($wpbusdirmanlistingpostid, "sticky", "pending", true) or update_post_meta($wpbusdirmanlistingpostid, "sticky", "pending");
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_sticky", "pending", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_sticky", "pending");
 					$stickythankyou=wpbudirman_sticky_payment_thankyou();
 					echo $stickythankyou;
 				}
@@ -165,11 +165,11 @@ function wpbusdirman_do_googlecheckout()
 			{
 				if(!isset($wpbdmpaymentstatus) || empty($wpbdmpaymentstatus))
 				{
-					add_post_meta($wpbusdirmanlistingpostid, "paymentstatus", "pending", true) or update_post_meta($wpbusdirmanlistingpostid, "paymentstatus", "pending");
-					add_post_meta($wpbusdirmanlistingpostid, "buyerfirstname", "Unknown", true) or update_post_meta($wpbusdirmanlistingpostid, "buyerfirstname", $first_name);
-					add_post_meta($wpbusdirmanlistingpostid, "buyerlastname", "Unknown", true) or update_post_meta($wpbusdirmanlistingpostid, "buyerlastname", $last_name);
-					add_post_meta($wpbusdirmanlistingpostid, "paymentgateway", "Google Checkout", true) or update_post_meta($wpbusdirmanlistingpostid, "paymentgateway", "PayPal");
-					add_post_meta($wpbusdirmanlistingpostid, "payeremail", "Unknown", true) or update_post_meta($wpbusdirmanlistingpostid, "payeremail", "Unknown");
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_paymentstatus", "pending", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_paymentstatus", "pending");
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_buyerfirstname", "Unknown", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_buyerfirstname", $first_name);
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_buyerlastname", "Unknown", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_buyerlastname", $last_name);
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_paymentgateway", "Google Checkout", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_paymentgateway", "PayPal");
+					add_post_meta($wpbusdirmanlistingpostid, "_wpbdp_payeremail", "Unknown", true) or update_post_meta($wpbusdirmanlistingpostid, "_wpbdp_payeremail", "Unknown");
 
 
 					$paymentthankyou=wpbusdirman_payment_thankyou();
