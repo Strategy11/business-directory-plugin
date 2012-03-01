@@ -267,7 +267,7 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 	}
 	$html .= "</div>";
 	$html .= "<div class=\"button\">";
-	$html .= "<form method=\"post\" action=\"\"><input type=\"hidden\" name=\"action\" value=\"viewlistings\"><input type=\"submit\" class=\"viewlistingsbutton\" value=\"" . __("View Listings","WPBDM") . "\"></form>";
+	$html .= "<form method=\"post\" action=\"" . add_query_arg('action', 'viewlistings') . "\"><input type=\"hidden\" name=\"action\" value=\"viewlistings\"><input type=\"submit\" class=\"viewlistingsbutton\" value=\"" . __("View Listings","WPBDM") . "\"></form>";
 	$html .= "<form method=\"post\" action=\"\"><input type=\"submit\" class=\"viewlistingsbutton\" value=\"" . __("Directory","WPBDM") . "\"></form>";
 	$html .= "</div>";
 	$html .= "<div style=\"clear:both;\"></div></div>";
@@ -3477,7 +3477,7 @@ function wpbusdirman_menu_button_viewlistings()
 function wpbusdirman_post_menu_button_viewlistings()
 {
 	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+	$wpbusdirman_permalink=add_query_arg('action', 'viewlistings', get_permalink($wpbusdirman_gpid));
 	$html = '';
 
 	$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="viewlistings" /><input type="submit" class="viewlistingsbutton" value="' . __("View Listings","WPBDM") . '" /></form>';
