@@ -1,11 +1,11 @@
 <?php
-	echo wpbdp_admin_header(__('Business Directory Settings'), 'admin-settings');
+	echo wpbdp_admin_header(__('Business Directory Settings', 'WPBDM'), 'admin-settings');
 ?>
 
 <h3 class="nav-tab-wrapper">
 <?php if (isset($_REQUEST['settings-updated'])): ?>
 	<div class="updated fade">
-		<p><?php _e('Settings updated.'); ?></p>
+		<p><?php _e('Settings updated.', 'WPBDM'); ?></p>
 	</div>
 <?php endif; ?>
 
@@ -23,7 +23,7 @@
 
 <?php if (wpbdp_getv($_REQUEST, 'groupid', 'general') == 'resetdefaults'): ?>
 
-<p><?php _e('Use this option if you want to go back to the factory-settings. Please notice that all of your customizations will be lost.'); ?></p>
+<p><?php _e('Use this option if you want to go back to the factory-settings. Please notice that all of your customizations will be lost.', 'WPBDM'); ?></p>
 <form action="" method="POST">
 	<input type="hidden" name="resetdefaults" value="1" />
 	<?php echo submit_button(__('Reset Defaults')); ?>

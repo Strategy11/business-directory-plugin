@@ -31,27 +31,27 @@ class WPBDP_Admin {
     }
 
     function admin_menu() {
-        add_menu_page(__("Business Directory Plugin","WPBDM"),
+        add_menu_page(_x("Business Directory Plugin", 'admin menu', "WPBDM"),
                       'WPBusDirMan',
                       'activate_plugins',
                       'wpbusdirman.php',
                       'wpbusdirman_home_screen',
                       WPBUSDIRMANMENUICO);
         add_submenu_page('wpbusdirman.php',
-                         __('Manage Options'),
-                         __('Manage Options'),
+                         _x('Manage Options', 'admin menu', 'WPBDM'),
+                         _x('Manage Options', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_settings',
                          array($this, 'admin_settings'));
         add_submenu_page('wpbusdirman.php',
-                         'Manage Fees',
-                         'Manage Fees',
+                         _x('Manage Fees', 'admin menu', 'WPBDM'),
+                         _x('Manage Fees', 'admin menu', 'WPBDM'),
                          'activate_plugins', 
                          'wpbdman_c2',
                          'wpbusdirman_opsconfig_fees');
         add_submenu_page('wpbusdirman.php',
-                         'Manage Fields',
-                         'Manage Form Fields',
+                         _x('Manage Fields', 'admin menu', 'WPBDM'),
+                         _x('Manage Form Fields', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdman_c3',
                          'wpbusdirman_buildform');
@@ -68,8 +68,8 @@ class WPBDP_Admin {
         //                  'wpbdman_c5',
         //                  'wpbusdirman_manage_paid');
         add_submenu_page('wpbusdirman.php',
-                         'Uninstall WPDB Manager',
-                         'Uninstall',
+                         _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
+                         _x('Uninstall', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdman_m1',
                          'wpbusdirman_uninstall');

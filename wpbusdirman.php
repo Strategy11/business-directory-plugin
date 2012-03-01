@@ -2183,7 +2183,7 @@ function wpbusdirman_doupload()
 	if ($wpbusdirmanerrornofiles)
 	{
 		$wpbusdirmanuerror[]="<p class=\"wpbusdirmanerroralert\">";
-		$wpbusdirmanuerror[].=__("No file was selected","wpbusdirman");
+		$wpbusdirmanuerror[].=__("No file was selected","WPBDM");
 		$wpbusdirmanuerror[].="</p>";
 
 		$wpbusdirmanuploadformshow=apply_filters('wpbdm_show-image-upload-form', $wpbusdirmanlistingpostid,$wpbusdirmanpermalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror,$neworedit,$wpbusdirmanfeeoption);
@@ -2279,7 +2279,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is required","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is required","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 			if ((($wpbusdirman_field_validation == 'missing')
@@ -2289,7 +2289,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is required","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is required","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 			elseif (($wpbusdirman_field_validation == 'url')
@@ -2299,7 +2299,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is badly formatted. Valid URL format required. Include http://","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is badly formatted. Valid URL format required. Include http://","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 			elseif (($wpbusdirman_field_validation == 'email')
@@ -2308,7 +2308,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is badly formatted. Valid Email format required.","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is badly formatted. Valid Email format required.","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 			elseif (($wpbusdirman_field_validation == 'numericdeci')
@@ -2317,7 +2317,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be a number.","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be a number.","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 			elseif (($wpbusdirman_field_validation == 'numericwhole')
@@ -2326,7 +2326,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be a number. Decimal values not allowed.","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be a number. Decimal values not allowed.","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 			elseif (($wpbusdirman_field_validation == 'date')
@@ -2335,7 +2335,7 @@ function wpbusdirman_validate_data()
 			{
 				$error=true;
 				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be in the format 00/00/0000.","awpdb");
+				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be in the format 00/00/0000.","WPBDM");
 				$wpbusdirman_field_errors.="</li>";
 			}
 		}
@@ -2469,14 +2469,14 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 				{
 					$wpbusdirmanwpbusdirmanerroralert=true;
 					$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">[$wpbusdirmanuploadedfilename]";
-					$wpbusdirmanuerror[].=__("had an invalid file extension and was not uploaded","wpbusdirman");
+					$wpbusdirmanuerror[].=__("had an invalid file extension and was not uploaded","WPBDM");
 					$wpbusdirmanuerror[].="</p>";
 				}
 				elseif(filesize($_FILES[$wpbusdirmanuploaded_actual_field_name.$i]['tmp_name']) <= $wpbusdirmanimgminsize)
 				{
 					$wpbusdirmanwpbusdirmanerroralert=true;
 					$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">";
-					$wpbusdirmanuerror[].=__("The size of $wpbusdirmanuploadedfilename was too small. The file was not uploaded. File size must be greater than $wpbusdirmanimgminsize bytes","wpbusdirman");
+					$wpbusdirmanuerror[].=__("The size of $wpbusdirmanuploadedfilename was too small. The file was not uploaded. File size must be greater than $wpbusdirmanimgminsize bytes","WPBDM");
 					$wpbusdirmanuerror[].="</p>";
 				}
 				elseif($wpbusdirman_imginfo[0]< $wpbusdirmanthumbnailwidth)
@@ -2484,7 +2484,7 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 					// width is too short
 					$wpbusdirmanwpbusdirmanerroralert=true;
 					$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">[$wpbusdirmanuploadedfilename]";
-					$wpbusdirmanuerror[].=__("did not meet the minimum width of [$wpbusdirmanthumbnailwidth] pixels. The file was not uploaded","wpbusdirman");
+					$wpbusdirmanuerror[].=__("did not meet the minimum width of [$wpbusdirmanthumbnailwidth] pixels. The file was not uploaded","WPBDM");
 					$wpbusdirmanuerror[].="</p>";
 				}
 				elseif ($wpbusdirman_imginfo[1]< $wpbusdirmanthumbnailwidth)
@@ -2492,7 +2492,7 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 					// height is too short
 					$wpbusdirmanwpbusdirmanerroralert=true;
 					$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">[$wpbusdirmanuploadedfilename]";
-					$wpbusdirmanuerror[].=__("did not meet the minimum height of [$wpbusdirmanthumbnailwidth] pixels. The file was not uploaded","wpbusdirman");
+					$wpbusdirmanuerror[].=__("did not meet the minimum height of [$wpbusdirmanthumbnailwidth] pixels. The file was not uploaded","WPBDM");
 					$wpbusdirmanuerror[].="</p>";
 				}
 				elseif(!isset($wpbusdirman_imginfo[0])
@@ -2500,14 +2500,14 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 				{
 					$wpbusdirmanwpbusdirmanerroralert=true;
 					$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">[$wpbusdirmanuploadedfilename]";
-					$wpbusdirmanuerror[].=__("does not appear to be a valid image file","wpbusdirman");
+					$wpbusdirmanuerror[].=__("does not appear to be a valid image file","WPBDM");
 					$wpbusdirmanuerror[].="</p>";
 				}
 				elseif( $wpbusdirman_imgfilesizeval > $wpbusdirmanimgmaxsize )
 				{
 					$wpbusdirmanwpbusdirmanerroralert=true;
 					$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">[$wpbusdirmanuploadedfilename]";
-					$wpbusdirmanuerror[].=__("was larger than the maximum allowed file size of [$wpbusdirmanimgmaxsize] bytes. The file was not uploaded");
+					$wpbusdirmanuerror[].=__("was larger than the maximum allowed file size of [$wpbusdirmanimgmaxsize] bytes. The file was not uploaded", 'WPBDM');
 					$wpbusdirmanuerror[].="</p>";
 				}
 				elseif(!empty($wpbusdirmandesired_filename))
@@ -2519,7 +2519,7 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 						$wpbusdirmanuploadedfilename='';
 						$wpbusdirmanwpbusdirmanerroralert=true;
 						$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">[$wpbdmor]";
-						$wpbusdirmanuerror[].=__("could not be moved to the destination directory $wpbusdirmanuploaddir","wpbusdirman");
+						$wpbusdirmanuerror[].=__("could not be moved to the destination directory $wpbusdirmanuploaddir","WPBDM");
 						$wpbusdirmanuerror[].="</p>";
 					}
 					else
@@ -2528,7 +2528,7 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 						{
 							$wpbusdirmanwpbusdirmanerroralert=true;
 							$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">";
-							$wpbusdirmanuerror[].=__("Could not create thumbnail image of [ $wpbusdirmanuploadedfilename ]","wpbusdirman");
+							$wpbusdirmanuerror[].=__("Could not create thumbnail image of [ $wpbusdirmanuploadedfilename ]","WPBDM");
 							$wpbusdirmanuerror[].="</p>";
 						}
 						@chmod($wpbusdirmanuploaddir.'/'.$wpbusdirmanuploadedfilename,0644);
@@ -2569,7 +2569,7 @@ function wpbusdirmanuploadimages($wpbusdirmanlistingpostid,$wpbusdirmanpermalink
 			{
 				$wpbusdirmanwpbusdirmanerroralert=true;
 				$wpbusdirmanuerror[].="<p class=\"wpbusdirmanerroralert\">";
-				$wpbusdirmanuerror[].=__("Unknown error encountered uploading image","wpbusdirman");
+				$wpbusdirmanuerror[].=__("Unknown error encountered uploading image","WPBDM");
 				$wpbusdirmanuerror[].="</p>";
 			}
 		}
@@ -4450,16 +4450,16 @@ class WPBDP_Plugin {
 		$tags_slug = $this->settings->get('permalinks-tags-slug', self::POST_TYPE_TAGS);
 
 		$labels = array(
-			'name' => _x('Directory', 'post type general name'),
-			'singular_name' => _x('Directory', 'post type singular name'),
-			'add_new' => _x('Add New Listing', 'listing'),
-			'add_new_item' => __('Add New Listing'),
-			'edit_item' => __('Edit Listing'),
-			'new_item' => __('New Listing'),
-			'view_item' => __('View Listing'),
-			'search_items' => __('Search Listings'),
-			'not_found' =>  __('No listings found'),
-			'not_found_in_trash' => __('No listings found in trash'),
+			'name' => _x('Directory', 'post type general name', 'WPBDM'),
+			'singular_name' => _x('Directory', 'post type singular name', 'WPBDM'),
+			'add_new' => _x('Add New Listing', 'listing', 'WPBDM'),
+			'add_new_item' => _x('Add New Listing', 'post type', 'WPBDM'),
+			'edit_item' => __('Edit Listing', 'WPBDM'),
+			'new_item' => __('New Listing', 'WPBDM'),
+			'view_item' => __('View Listing', 'WPBDM'),
+			'search_items' => __('Search Listings', 'WPBDM'),
+			'not_found' =>  __('No listings found', 'WPBDM'),
+			'not_found_in_trash' => __('No listings found in trash', 'WPBDM'),
 			'parent_item_colon' => ''
 			);
 

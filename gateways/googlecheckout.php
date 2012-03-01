@@ -100,13 +100,13 @@ function wpbusdirman_googlecheckout_button($wpbusdirmanlistingpostid,$wpbusdirma
 	$wpbusdirmangooglecheckoutbutton.="<input type=\"hidden\" name=\"item_quantity_1\" value=\"1\"/>";
 	$wpbusdirmangooglecheckoutbutton.="<input type=\"hidden\" name=\"shopping-cart.items.item-1.digital-content.display-disposition\" value=\"OPTIMISTIC\"/>";
 	$wpbusdirmangooglecheckoutbutton.="<input type=\"hidden\" name=\"shopping-cart.items.item-1.digital-content.description\" value=\"";
-	$wpbusdirmangooglecheckoutbutton.=__("Your listing has not been fully submitted yet. To complete the process you need to click the link below and enter your license key upon request.", "wpbusdirman");
+	$wpbusdirmangooglecheckoutbutton.=__("Your listing has not been fully submitted yet. To complete the process you need to click the link below and enter your license key upon request.", "WPBDM");
 	$wpbusdirmangooglecheckoutbutton.="\"/>";
 	$wpbusdirmangooglecheckoutbutton.="<input type=\"hidden\" name=\"shopping-cart.items.item-1.digital-content.key\" value=\"$wpbusdirmanlistingpostid\"/>";
 	$wpbusdirmangooglecheckoutbutton.="<input type=\"hidden\"  name=\"shopping-cart.items.item-1.digital-content.url\" value=\"$wpbusdirman_gc_return_link_url\"/>";
 	$wpbusdirmangooglecheckoutbutton.="<input name=\"_charset_\" type=\"hidden\" value=\"utf-8\"/>";
 	$wpbusdirmangooglecheckoutbutton.="<input type=\"image\" src=\"$thegooglebuttonurl\" alt=\"";
-	$wpbusdirmangooglecheckoutbutton.=__("Pay With Google Checkout","wpbusdirman");
+	$wpbusdirmangooglecheckoutbutton.=__("Pay With Google Checkout","WPBDM");
 	$wpbusdirmangooglecheckoutbutton.="\" /></form>";
 
 	return $wpbusdirmangooglecheckoutbutton;

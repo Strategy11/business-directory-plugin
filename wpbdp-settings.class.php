@@ -14,130 +14,130 @@ class WPBDP_Settings {
 
 	public function _register_settings() {
 		/* General settings */
-		$g = $this->add_group('general', __('General'));
-		$s = $this->add_section($g, 'permalink', __('Permalink Settings'));
-		$this->add_setting($s, 'permalinks-directory-slug', __('Directory Listings Slug'), 'text', WPBDP_Plugin::POST_TYPE);
-		$this->add_setting($s, 'permalinks-category-slug', __('Categories Slug'), 'text', WPBDP_Plugin::POST_TYPE_CATEGORY);
-		$this->add_setting($s, 'permalinks-tags-slug', __('Tags Slug'), 'text', WPBDP_Plugin::POST_TYPE_TAGS);
+		$g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
+		$s = $this->add_section($g, 'permalink', _x('Permalink Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE);
+		$this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_CATEGORY);
+		$this->add_setting($s, 'permalinks-tags-slug', _x('Tags Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_TAGS);
 
-		$s = $this->add_section($g, 'recaptcha', __('ReCaptcha Settings'));
-		$this->add_setting($s, 'recaptcha-on', __('Turn on reCAPTCHA?'), 'boolean', true);
-		$this->add_setting($s, 'recaptcha-public-key', __('reCAPTCHA Public Key'));
-		$this->add_setting($s, 'recaptcha-private-key', __('reCAPTCHA Private Key'));
+		$s = $this->add_section($g, 'recaptcha', _x('ReCaptcha Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'recaptcha-on', _x('Turn on reCAPTCHA?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'recaptcha-public-key', _x('reCAPTCHA Public Key', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
 
-		$s = $this->add_section($g, 'misc', __('Miscellaneous Settings'));
-		$this->add_setting($s, 'hide-buy-module-buttons', __('Hide all buy plugin module buttons?'), 'boolean', false);
-		$this->add_setting($s, 'hide-tips', __('Hide tips for use and other information?'), 'boolean', false);
-		$this->add_setting($s, 'credit-author', __('Give credit to plugin author?'), 'boolean', true);
+		$s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'hide-buy-module-buttons', _x('Hide all buy plugin module buttons?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'credit-author', _x('Give credit to plugin author?', 'admin settings', 'WPBDM'), 'boolean', true);
 
 		/* Listings settings */
-		$g = $this->add_group('listings', __('Listings'));
-		$s = $this->add_section($g, 'general', __('General Settings'));
-		$this->add_setting($s, 'listing-duration', __('Listing duration for no-free sites (in days)'), 'text', '365');
-		$this->add_setting($s, 'show-contact-form', __('Include listing contact form on listing pages?'), 'boolean', true);
-		$this->add_setting($s, 'show-comment-form', __('Include comment form on listing pages?'), 'boolean', false);
-		$this->add_setting($s, 'listing-renewal', __('Turn on listing renewal option?'), 'boolean', true);
-		$this->add_setting($s, 'use-default-picture', __('Use default picture for listings with no picture?'), 'boolean', true);
-		$this->add_setting($s, 'show-listings-under-categories', __('Show listings under categories on main page?'), 'boolean', false);
-		$this->add_setting($s, 'override-email-blocking', __('Override email Blocking?'), 'boolean', false);
-		$this->add_setting($s, 'status-on-uninstall', __('Status of listings upon uninstalling plugin'), 'choice', 'draft', '',
+		$g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
+		$s = $this->add_section($g, 'general', _x('General Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'listing-duration', _x('Listing duration for no-free sites (in days)', 'admin settings', 'WPBDM'), 'text', '365');
+		$this->add_setting($s, 'show-contact-form', _x('Include listing contact form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'show-comment-form', _x('Include comment form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'override-email-blocking', _x('Override email Blocking?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'draft', '',
 						   array('choices' => array('draft', 'trash')));
-		$this->add_setting($s, 'deleted-status', __('Status of deleted listings'), 'choice', 'draft', '',
+		$this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'draft', '',
 						   array('choices' => array('draft', 'trash')));
 
-		$s = $this->add_section($g, 'post/category', __('Post/Category Settings'));
-		$this->add_setting($s, 'new-post-status', __('Default new post status'), 'choice', 'pending', '',
+		$s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'new-post-status', _x('Default new post status', 'admin settings', 'WPBDM'), 'choice', 'pending', '',
 						   array('choices' => array('publish', 'pending'))
 						   );
-		$this->add_setting($s, 'edit-post-status', __('Edit post status'), 'choice', 'publish', '',
+		$this->add_setting($s, 'edit-post-status', _x('Edit post status', 'admin settings', 'WPBDM'), 'choice', 'publish', '',
 						   array('choices' => array('publish', 'pending')));
-		$this->add_setting( $s, 'categories-order-by', __('Order categories list by'), 'choice', 'name', '',
+		$this->add_setting( $s, 'categories-order-by', _x('Order categories list by', 'admin settings', 'WPBDM'), 'choice', 'name', '',
 						   array('choices' => array('name', 'ID', 'slug', 'count', 'term_group')));
-		$this->add_setting( $s, 'categories-sort', __('Sort order for categories'), 'choice', 'ASC', '',
-						   array('choices' => array(array('ASC', __('Ascending')), array('DESC', __('Descending')))));
-		$this->add_setting($s, 'show-category-post-count', __('Show category post count?'), 'boolean', true);
-		$this->add_setting($s, 'hide-empty-categories', __('Hide empty categories?'), 'boolean', true);
-		$this->add_setting($s, 'show-only-parent-categories', __('Show only parent categories in category list?'), 'boolean', false);
-		$this->add_setting($s, 'listings-order-by', __('Order directory listings by'), 'choice', 'title', '',
+		$this->add_setting( $s, 'categories-sort', _x('Sort order for categories', 'admin settings', 'WPBDM'), 'choice', 'ASC', '',
+						   array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
+		$this->add_setting($s, 'show-category-post-count', _x('Show category post count?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'hide-empty-categories', _x('Hide empty categories?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'show-only-parent-categories', _x('Show only parent categories in category list?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', '',
 						  array('choices' => array('date', 'title', 'id', 'author', 'modified')));
-		$this->add_setting( $s, 'listings-sort', __('Sort directory listings by'), 'choice', 'ASC',
-						   __('Ascending for ascending order A-Z, Descending for descending order Z-A'),
-						   array('choices' => array(array('ASC', __('Ascending')), array('DESC', __('Descending')))));
+		$this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
+						   _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
+						   array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
 
-		$s = $this->add_section($g, 'featured', __('Featured (Sticky) listing settings'));
-		$this->add_setting($s, 'featured-on', __('Offer sticky listings?'), 'boolean', true);
-		$this->add_setting($s, 'featured-price', __('Sticky listing price'), 'text', '39.99');
-		$this->add_setting($s, 'featured-description', __('Sticky listing page description text'), 'text',
-						   __('You can upgrade your listing to featured status. Featured listings will always appear on top of regular listings.'));
+		$s = $this->add_section($g, 'featured', _x('Featured (Sticky) listing settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'featured-on', _x('Offer sticky listings?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'featured-price', _x('Sticky listing price', 'admin settings', 'WPBDM'), 'text', '39.99');
+		$this->add_setting($s, 'featured-description', _x('Sticky listing page description text', 'admin settings', 'WPBDM'), 'text',
+						   _x('You can upgrade your listing to featured status. Featured listings will always appear on top of regular listings.', 'admin settings', 'WPBDM'));
 
 		/* Payment settings */
-		$g = $this->add_group('payment', __('Payment'));
-		$s = $this->add_section($g, 'general', __('Payment Settings'));
-		$this->add_setting($s, 'payments-on', __('Turn On payments?'), 'boolean', false);
-		$this->add_setting($s, 'payments-test-mode', __('Put payment gateways in test mode?'), 'boolean', true);
+		$g = $this->add_group('payment', _x('Payment', 'admin settings', 'WPBDM'));
+		$s = $this->add_section($g, 'general', _x('Payment Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'payments-on', _x('Turn On payments?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'payments-test-mode', _x('Put payment gateways in test mode?', 'admin settings', 'WPBDM'), 'boolean', true);
 
 		// PayPal currency codes from https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes
-		$this->add_setting($s, 'currency', __('Currency Code'), 'choice', 'USD', '',
+		$this->add_setting($s, 'currency', _x('Currency Code', 'admin settings', 'WPBDM'), 'choice', 'USD', '',
 							array('choices' => array(
-								array('AUD', __('Australian Dollar (AUD)')),
-								array('CAD', __('Canadian Dollar (CAD)')),
-								array('CZK', __('Czech Koruna (CZK)')),
-								array('DKK', __('Danish Krone (DKK)')),
-								array('Euro', __('Euro (EUR)')),
-								array('HKD', __('Hong Kong Dollar (HKD)')),
-								array('HUF', __('Hungarian Forint (HUF)')),
-								array('ILS', __('Israeli New Shequel (ILS)')),
-								array('JPY', __('Japanese Yen (JPY)')),
-								array('MXN', __('Mexican Peso (MXN)')),
-								array('NOK', __('Norwegian Krone (NOK)')),
-								array('NZD', __('New Zelland Dollar (NZD)')),
-								array('PHP', __('Philippine Peso (PHP)')),
-								array('PLN', __('Polish Zloty (PLN)')),
-								array('GBP', __('Pound Sterling (GBP)')),
-								array('SGD', __('Singapore Dollar (SGD)')),
-								array('SEK', __('Swedish Krona (SEK)')),
-								array('CHF', __('Swiss Franc (CHF)')),
-								array('TWD', __('Taiwan Dollar (TWD)')),
-								array('THB', __('Thai Baht (THB)')),
-								array('USD', __('U.S. Dollar')),
+								array('AUD', _x('Australian Dollar (AUD)', 'admin settings', 'WPBDM')),
+								array('CAD', _x('Canadian Dollar (CAD)', 'admin settings', 'WPBDM')),
+								array('CZK', _x('Czech Koruna (CZK)', 'admin settings', 'WPBDM')),
+								array('DKK', _x('Danish Krone (DKK)', 'admin settings', 'WPBDM')),
+								array('Euro', _x('Euro (EUR)', 'admin settings', 'WPBDM')),
+								array('HKD', _x('Hong Kong Dollar (HKD)', 'admin settings', 'WPBDM')),
+								array('HUF', _x('Hungarian Forint (HUF)', 'admin settings', 'WPBDM')),
+								array('ILS', _x('Israeli New Shequel (ILS)', 'admin settings', 'WPBDM')),
+								array('JPY', _x('Japanese Yen (JPY)', 'admin settings', 'WPBDM')),
+								array('MXN', _x('Mexican Peso (MXN)', 'admin settings', 'WPBDM')),
+								array('NOK', _x('Norwegian Krone (NOK)', 'admin settings', 'WPBDM')),
+								array('NZD', _x('New Zelland Dollar (NZD)', 'admin settings', 'WPBDM')),
+								array('PHP', _x('Philippine Peso (PHP)', 'admin settings', 'WPBDM')),
+								array('PLN', _x('Polish Zloty (PLN)', 'admin settings', 'WPBDM')),
+								array('GBP', _x('Pound Sterling (GBP)', 'admin settings', 'WPBDM')),
+								array('SGD', _x('Singapore Dollar (SGD)', 'admin settings', 'WPBDM')),
+								array('SEK', _x('Swedish Krona (SEK)', 'admin settings', 'WPBDM')),
+								array('CHF', _x('Swiss Franc (CHF)', 'admin settings', 'WPBDM')),
+								array('TWD', _x('Taiwan Dollar (TWD)', 'admin settings', 'WPBDM')),
+								array('THB', _x('Thai Baht (THB)', 'admin settings', 'WPBDM')),
+								array('USD', _x('U.S. Dollar', 'admin settings', 'WPBDM')),
 							)));
-		$this->add_setting($s, 'currency-symbol', __('Currency Symbol'), 'text', '$');
-		$this->add_setting($s, 'payment-message', __('Thank you for payment message'), 'text',
-						__('Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.'));
+		$this->add_setting($s, 'currency-symbol', _x('Currency Symbol', 'admin settings', 'WPBDM'), 'text', '$');
+		$this->add_setting($s, 'payment-message', _x('Thank you for payment message', 'admin settings', 'WPBDM'), 'text',
+						_x('Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM'));
 
-		$s = $this->add_section($g, 'googlecheckout', __('Google Checkout Settings'));
-		$this->add_setting($s, 'googlecheckout', __('Activate Google Checkout?'), 'boolean', false);
-		$this->add_setting($s, 'googlecheckout-merchant', __('Google Checkout Merchant ID'));
-		$this->add_setting($s, 'googlecheckout-seller', __('Google Checkout Seller ID'));
+		$s = $this->add_section($g, 'googlecheckout', _x('Google Checkout Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'googlecheckout', _x('Activate Google Checkout?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'googlecheckout-merchant', _x('Google Checkout Merchant ID', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'googlecheckout-seller', _x('Google Checkout Seller ID', 'admin settings', 'WPBDM'));
 
-		$s = $this->add_section($g, 'paypal', __('PayPal Gateway Settings'));
-		$this->add_setting($s, 'paypal', __('Activate Paypal?'), 'boolean', false,
-						   __('Will only work when the PayPal module is installed'));
-		$this->add_setting($s, 'paypal-business-email', __('PayPal Business Email'));
+		$s = $this->add_section($g, 'paypal', _x('PayPal Gateway Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'paypal', _x('Activate Paypal?', 'admin settings', 'WPBDM'), 'boolean', false,
+						   _x('Will only work when the PayPal module is installed', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'paypal-business-email', _x('PayPal Business Email', 'admin settings', 'WPBDM'));
 
-		$s = $this->add_section($g, '2checkout', __('2Checkout Gateway Settings'));
-		$this->add_setting($s, '2checkout', __('Activate 2Checkout?'), 'boolean', false,
-						   __('Will only work when the 2checkout module is installed'));
-		$this->add_setting($s, '2checkout-seller', __('2Checkout seller/vendor ID'));
+		$s = $this->add_section($g, '2checkout', _x('2Checkout Gateway Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, '2checkout', _x('Activate 2Checkout?', 'admin settings', 'WPBDM'), 'boolean', false,
+						   _x('Will only work when the 2checkout module is installed', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, '2checkout-seller', _x('2Checkout seller/vendor ID', 'admin settings', 'WPBDM'));
 
 		/* Registration settings */
-		$g = $this->add_group('registration', __('Registration'));
-		$s = $this->add_section($g, 'registration', __('Registration Settings'));
-		$this->add_setting($s, 'require-login', __('Require login?'), 'boolean', true);
-		$this->add_setting($s, 'login-url', __('Login URL'), 'text', wp_login_url());
-		$this->add_setting($s, 'registration-url', __('Registration URL'), 'text', wp_login_url());
+		$g = $this->add_group('registration', _x('Registration', 'admin settings', 'WPBDM'));
+		$s = $this->add_section($g, 'registration', _x('Registration Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'require-login', _x('Require login?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'login-url', _x('Login URL', 'admin settings', 'WPBDM'), 'text', wp_login_url());
+		$this->add_setting($s, 'registration-url', _x('Registration URL', 'admin settings', 'WPBDM'), 'text', wp_login_url());
 
 		/* Image settings */
-		$g = $this->add_group('image', __('Image'));
-		$s = $this->add_section($g, 'image', __('Image Settings'));
-		$this->add_setting($s, 'allow-images', __('Allow images?'), 'boolean', true);
-		$this->add_setting($s, 'free-images', __('Number of free images'), 'text', '2');
-		$this->add_setting($s, 'show-thumbnail', __('Show Thumbnail on main listings page?'), 'boolean', true);
-		$this->add_setting($s, 'image-max-filesize', __('Max Image File Size'), 'text', '100000');
-		$this->add_setting($s, 'image-min-filesize', __('Minimum Image File Size'), 'text', '300');
-		$this->add_setting($s, 'image-max-width', __('Max image width'), 'text', '500');
-		$this->add_setting($s, 'image-max-height', __('Max image height'), 'text', '500');
-		$this->add_setting($s, 'thumbnail-width', __('Thumbnail width'), 'text', '120');
+		$g = $this->add_group('image', _x('Image', 'admin settings', 'WPBDM'));
+		$s = $this->add_section($g, 'image', _x('Image Settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'allow-images', _x('Allow images?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
+		$this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'image-max-filesize', _x('Max Image File Size', 'admin settings', 'WPBDM'), 'text', '100000');
+		$this->add_setting($s, 'image-min-filesize', _x('Minimum Image File Size', 'admin settings', 'WPBDM'), 'text', '300');
+		$this->add_setting($s, 'image-max-width', _x('Max image width', 'admin settings', 'WPBDM'), 'text', '500');
+		$this->add_setting($s, 'image-max-height', _x('Max image height', 'admin settings', 'WPBDM'), 'text', '500');
+		$this->add_setting($s, 'thumbnail-width', _x('Thumbnail width', 'admin settings', 'WPBDM'), 'text', '120');
 
 	}
 
