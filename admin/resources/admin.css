@@ -1,0 +1,57 @@
+/* Sidebar */
+.wpbdp-admin-content.with-sidebar {
+    margin-top: 20px;
+    /*float: left;*/
+    /*width: 80%;*/
+    /*margin-right: 300px;*/
+    clear: left;
+    float: left;
+    width: 78%;
+}
+
+.wpbdp-admin .sidebar {
+    margin-top: 20px;
+    float: right;
+    clear: right;
+    width: 20%;
+}
+
+.wpbdp-admin .sidebar .postbox {
+    min-width: 0 !important;
+}
+
+.wpbdp-admin .sidebar .premium-modules h3 span {
+    color: #145200;
+    font-weight: bold;
+}
+
+.wpbdp-admin .sidebar .premium-modules  {
+    border-color: #0EAD00;
+    border-width: 3px;
+    background: #FFFFCF;
+}
+
+/* Directory list-table */
+td.column-bd_payment_status .status {
+    background: #444;
+    border-radius: 2px;
+    padding: 2px 5px;
+    color: #fff;
+    font-size: 90%;
+}
+
+td.column-bd_payment_status .status.paid {
+    background: green;
+}
+
+td.column-bd_payment_status .paymentdata {
+    font-size: 85%;
+}
+
+td.column-bd_payment_status .paymentdata b {
+    font-weight: normal;
+}
+
+td.column-bd_payment_status .paymentdata span {
+    font-style: italic;
+}

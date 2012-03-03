@@ -56,7 +56,7 @@ function wpbusdirman_buildform()
 	$wpbusdirmanaction='';
 	$html = '';
 
-	$html .= wpbusdirman_admin_head();
+	$html .= wpbdp_admin_header();
 	if(isset($_REQUEST['action'])
 		&& !empty($_REQUEST['action']))
 	{
@@ -451,7 +451,7 @@ function wpbusdirman_buildform()
 
 		$html .= "<div style=\"float:right; margin-top:-49px;margin-right:250px;border-left:1px solid#ffffff;padding:10px;\"><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c3&action=viewpostform\">" . __("Preview the form","WPBDM") . "</a></div>";
 		$html .= "<form method=\"post\"><p>" . __("Field Label","WPBDM") . "<br />";
-		$html .= "<input type=\"text\" name=\"wpbusdirman_field_label\" style=\"width:50%;\" value=\"" . get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_' . $wpbusdirman_fieldtoedit) . "\"></p>" . __("Field Type","") . " <select name=\"wpbusdirman_field_type\">";
+		$html .= "<input type=\"text\" name=\"wpbusdirman_field_label\" style=\"width:50%;\" value=\"" . get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_' . $wpbusdirman_fieldtoedit) . "\"></p>" . __("Field Type",'WPBDM') . " <select name=\"wpbusdirman_field_type\">";
 		$html .= "<option value=\"\">" . __("Select Field Type","WPBDM") . "</option>";
 		$html .= "<option value=\"1\" $wpbusdirman_op_selected1>" . __("Input Text Box","WPBDM") . "</option>";
 		$html .= "<option value=\"2\" $wpbusdirman_op_selected2>" . __("Select List","WPBDM") . "</option>";
@@ -510,7 +510,7 @@ function wpbusdirman_buildform()
 	{
 		$html .=wpbusdirman_fields_list();
 	}
-	$html .= wpbusdirman_admin_foot();
+	$html .= wpbdp_admin_footer();
 
 	echo $html;
 }
