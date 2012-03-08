@@ -3961,7 +3961,7 @@ function wpbusdirman_post_main_image()
 				$wpbusdirmanpostimagefeature=$wpbusdirman_imagesurl.'/default-image-big.gif';
 			}
 		}
-		if ( has_post_thumbnail() )
+		if ( function_exists('has_post_thumbnail') && has_post_thumbnail() )
 		{
 
 			$html .= '<a href="' . get_permalink() . '">' .the_post_thumbnail('medium') . '</a><br/>';
