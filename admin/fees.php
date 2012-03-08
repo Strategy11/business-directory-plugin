@@ -40,8 +40,7 @@ function wpbusdirman_opsconfig_fees()
 			$html .= "<p>" . __("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit","WPBDM") . "</p>";
 			$html .= "<p><a href=\"http://businessdirectoryplugin.com/about/payment-gateway-modules/\">http://businessdirectoryplugin.com/about/payment-gateway-modules/</a></p>";
 		}
-		if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_25'] != "yes")
-		{
+
 			if($wpbusdirman_hastwocheckoutmodule != 1
 				|| $wpbusdirman_haspaypalmodule != 1 )
 			{
@@ -61,7 +60,7 @@ function wpbusdirman_opsconfig_fees()
 				}
 				$html .= '</div><div style="clear:both;"></div>';
 			}
-		}
+
 		$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_settings_fees_label_');
 		if(!empty($wpbusdirman_field_vals))
 		{

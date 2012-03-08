@@ -26,7 +26,6 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
 
 		$s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
-		$this->add_setting($s, 'hide-buy-module-buttons', _x('Hide all buy plugin module buttons?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'credit-author', _x('Give credit to plugin author?', 'admin settings', 'WPBDM'), 'boolean', true);
 
@@ -342,7 +341,7 @@ class WPBDP_Settings {
 	public function pre_2_0_options() {
 		static $option_translations = array(
 			'wpbusdirman_settings_config_18' => 'listing-duration',
-			'wpbusdirman_settings_config_25' => 'hide-buy-module-buttons',
+			'wpbusdirman_settings_config_25' => 'hide-buy-module-buttons', /* removed in 2.0 */
 			'wpbusdirman_settings_config_26' => 'hide-tips',
 			'wpbusdirman_settings_config_27' => 'show-contact-form',
 			'wpbusdirman_settings_config_36' => 'show-comment-form',
@@ -410,7 +409,7 @@ class WPBDP_Settings {
 				$type = strtolower($option['type']);
 				$value = $option['std'];
 
-				if ($type == 'titles' || empty($value))
+				if ($type == 'titles' || $id == 'wpbusdirman_settings_config_25' || empty($value))
 					continue;
 
 				if ($id == 'wpbusdirman_settings_config_40') {
