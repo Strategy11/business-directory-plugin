@@ -3889,7 +3889,7 @@ function wpbusdirman_view_edit_delete_listing_button()
 	return $html;
 }
 
-function wpbusdirman_display_excerpt($count)
+function wpbusdirman_display_excerpt($count=0)
 {
 	echo wpbusdirman_post_excerpt($count);
 }
