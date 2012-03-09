@@ -57,16 +57,16 @@ if( $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_confi
 							$html.=__("You have payments turned on but all your gateways are set to hidden. Your system will run as if payments are turned off until you fix the problem. To fix go to Configure/Manage options and unhide at least 1 payment gateway, or if it is your intention not to charge a payment fee set payments to off instead of on.","WPBDM");
 							$html.="</p>";
 						}
-	$html .= "<ul><li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c1\">" . __("Configure/Manage Options","WPBDM") . "</a></li>";
+	$html .= "<ul><li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdp_settings\">" . __("Configure/Manage Options","WPBDM") . "</a></li>";
 	$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c2\">" . __("Setup/Manage Fees","WPBDM") . "</a></li>";
 	$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c3\">" . __("Setup/Manage Form Fields","WPBDM") . "</a></li>";
 	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_31'] == "yes")
 	{
-		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c4\">" . __("Featured Listings Pending Upgrade","WPBDM") . "</a></li>";
+		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"" . admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=pendingupgrade', WPBDP_Plugin::POST_TYPE)) . "\">" . __("Featured Listings Pending Upgrade","WPBDM") . "</a></li>";
 	}
 	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == "yes")
 	{
-		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c5\">" . __("Manage Paid Listings","WPBDM") . "</a></li>";
+		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"" . admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=paid', WPBDP_Plugin::POST_TYPE)) . "\">" . __("Manage Paid Listings","WPBDM") . "</a></li>";
 	}
 	$html .= "</ul><br /><div style=\"clear:both;\"></div><ul>";
 	$html .= "<li $listyle2>" . __("Listings in directory","WPBDM") . ": (<b>$wpbusdirman_totallistings</b>)</li>";
