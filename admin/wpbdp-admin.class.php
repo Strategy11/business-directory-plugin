@@ -38,6 +38,12 @@ class WPBDP_Admin {
                       'wpbusdirman_home_screen',
                       WPBDP_URL . 'resources/images/menuico.png');
         add_submenu_page('wpbusdirman.php',
+                         _x('Add New Listing', 'admin menu', 'WPBDM'),
+                         _x('Add New Listing', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdman_c3a',
+                         '_wpbdp_admin_add_listing');
+        add_submenu_page('wpbusdirman.php',
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          'activate_plugins',

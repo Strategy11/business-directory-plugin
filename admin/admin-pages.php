@@ -337,3 +337,10 @@ function wpbusdirman_featured_pending()
 
 	echo $html;
 }
+
+//http://localhost/~jorge/wordpress/wp-admin/admin.php?page=wpbdman_c3&action=addnewlisting
+
+function _wpbdp_admin_add_listing() {
+	$_REQUEST['action'] = 'addnewlisting';
+	return wpbusdirman_buildform();
+}
