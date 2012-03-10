@@ -32,7 +32,7 @@ class WPBDP_Admin {
 
     function admin_menu() {
         add_menu_page(_x("Business Directory Plugin", 'admin menu', "WPBDM"),
-                      'WPBusDirMan',
+                      _x('Business Dir Admin', 'admin menu', 'WPBDM'),
                       'activate_plugins',
                       'wpbusdirman.php',
                       'wpbusdirman_home_screen',
@@ -73,6 +73,9 @@ class WPBDP_Admin {
                          'activate_plugins',
                          'wpbdman_m1',
                          'wpbusdirman_uninstall');
+
+        global $submenu;
+        $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
     }
 
     function add_listing_metabox() {
