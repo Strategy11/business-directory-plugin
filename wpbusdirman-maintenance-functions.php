@@ -1,15 +1,5 @@
 <?php
 
-function wpbusdirman_gpid()
-{
-	global $wpdb;
-
-	$wpbusdirman_pageid = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_content LIKE '%[WPBUSDIRMANUI]%' AND post_status='publish' AND post_type='page'");
-
-	return $wpbusdirman_pageid;
-}
-
-
 function wpbusdirman_exclude_payment_pages($output = '')
 	{
 
@@ -98,43 +88,6 @@ function wpbusdirman_category_template($category)
 
 	return $category;
 }
-
-function wpbusdirman_template_the_content($content)
-{
-
-
-	global $wp_query, $post, $wpbdmposttype,$wpbdmposttypecategory;
-	$mywpbdmposttype=$post->post_type;
-
-
-		if($mywpbdmposttype == $wpbdmposttype )
-		{
-			if(is_single()){
-			$content='';
-				if(file_exists(get_template_directory() . '/single/wpbusdirman-single.php'))
-				include get_template_directory() . '/single/wpbusdirman-single.php';
-				if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-single.php'))
-				include get_stylesheet_directory() . '/single/wpbusdirman-single.php';
-				if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php'))
-				include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php';
-
-			}
-			elseif(taxonomy_exists($wpbdmposttypecategory)){
-			$content='';
-				if(file_exists(get_template_directory() . '/single/wpbusdirman-category.php'))
-				include get_template_directory() . '/single/wpbusdirman-category.php';
-				if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-category.php'))
-				include get_stylesheet_directory() . '/single/wpbusdirman-category.php';
-				if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-category.php'))
-				include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-category.php';
-
-			}
-
-		}
-
-	return $content;
-}
-
 
 function wpbusdirman_template_the_title($title)
 {
