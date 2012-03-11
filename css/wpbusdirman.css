@@ -168,7 +168,6 @@ textarea  { margin-bottom:15px; }
 #lco .left input[type="submit"] {
 	margin-top: 2px;
 	width: 100%;
-	cursor: pointer;
 }
 
 #lco .right {
@@ -183,4 +182,8 @@ textarea  { margin-bottom:15px; }
 
 #lco .right #wpbdmsearchsubmit {
 	margin: auto;
+}
+
+#lco input[type="submit"] {
+	cursor: pointer;
 }
