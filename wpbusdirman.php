@@ -4309,6 +4309,18 @@ class WPBDP_Plugin {
 		add_action('init', array($this, '_register_post_type'));
 	}
 
+	public function get_post_type() {
+		return self::POST_TYPE;
+	}
+
+	public function get_version() {
+		return self::VERSION;
+	}
+
+	public function get_db_version() {
+			return self::DB_VERSION;
+	}
+
 	public function install_or_update_plugin() {
 		global $wpdb;
 
@@ -4520,7 +4532,7 @@ class WPBDP_Plugin {
 }
 
 $wpbdp = new WPBDP_Plugin();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();
 
 function wpbdp() {
 	global $wpbdp;
