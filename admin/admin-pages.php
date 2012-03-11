@@ -3,8 +3,11 @@ function wpbdp_admin_sidebar() {
     return wpbdp_render_page(WPBDP_PATH . 'admin/templates/sidebar.tpl.php');
 }
 
-function wpbdp_admin_header($title=null, $id=null) {
-    return wpbdp_render_page(WPBDP_PATH . 'admin/templates/header.tpl.php', array('page_title' => $title, 'page_id' => $id));
+function wpbdp_admin_header($title_=null, $id=null) {
+	global $title;
+
+	if (!$title_) $title_ = $title;
+    return wpbdp_render_page(WPBDP_PATH . 'admin/templates/header.tpl.php', array('page_title' => $title_, 'page_id' => $id));
 }
 
 
@@ -337,8 +340,6 @@ function wpbusdirman_featured_pending()
 
 	echo $html;
 }
-
-//http://localhost/~jorge/wordpress/wp-admin/admin.php?page=wpbdman_c3&action=addnewlisting
 
 function _wpbdp_admin_add_listing() {
 	$_REQUEST['action'] = 'addnewlisting';
