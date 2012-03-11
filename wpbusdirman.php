@@ -4495,9 +4495,34 @@ class WPBDP_Plugin {
 		WPBDP_Debugging::debug_off();
 	}
 
+	public function has_module($name) {
+		global $wpbusdirman_haspaypalmodule, $wpbusdirman_hastwocheckoutmodule, $wpbusdirman_hasgooglecheckoutmodule;
+
+		switch (strtolower($name)) {
+			default:
+				break;
+			case 'paypal':
+				return $wpbusdirman_haspaypalmodule == 1;
+				break;
+			case '2checkout':
+			case 'twocheckout':
+				return $wpbusdirman_hastwocheckoutmodule == 1;
+				break;
+			case 'googlecheckout':
+				return $wpbusdirman_hasgooglecheckoutmodule == 1;
+				break;
+		}
+
+		return false;
+	}
+
 
 }
 
 $wpbdp = new WPBDP_Plugin();
 // $wpbdp->debug_on();
 
+function wpbdp() {
+	global $wpbdp;
+	return $wpbdp;
+}
