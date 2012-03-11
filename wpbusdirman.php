@@ -127,6 +127,11 @@ $wpbdmposttypetags="wpbdm-tags";
 		require("$wpbusdirman_plugin_path/admin/manage-options.php");
 	}
 
+define('WPBDP_PATH', plugin_dir_path(__FILE__));
+define('WPBDP_URL', plugins_url('/', __FILE__));
+
+require_once(WPBDP_PATH . 'api.php');
+
 
 $wpbusdirman_labeltext=__("Label","WPBDM");
 $wpbusdirman_typetext=__("Type","WPBDM");
@@ -150,11 +155,7 @@ $wpbusdirman_showinexcerpttext=__("Excerpt","WPBDM");
 define('WPBUSDIRMANURL', $wpbusdirman_plugin_url );
 define('WPBUSDIRMANPATH', $wpbusdirman_plugin_path );
 define('WPBUSDIRPLUGINDIR', 'wp-business-directory-manager');
-define('WPBUSDIRMANMENUICO', $wpbusdirman_imagesurl .'/menuico.png');
 define('WPBUSDIRMAN_TEMPLATES_PATH', $wpbusdirman_plugin_path . '/posttemplate');
-
-define('WPBDP_PATH', plugin_dir_path(__FILE__));
-define('WPBDP_URL', plugins_url('/', __FILE__));
 
 $wpbusdirman_gpid=wpbusdirman_gpid();
 $permalinkstructure=get_option('permalink_structure');
@@ -170,14 +171,12 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 	add_action( 'wpbusdirman_listingexpirations_hook', 'wpbusdirman_listings_expirations' );
 	add_action('wp_print_styles', 'wpbusdirman_addcss');
 	add_shortcode('WPBUSDIRMANUI', 'wpbusdirmanui_homescreen');
-	// add_shortcode('business-directory', 'wpbusdirmanui_homescreen');
 	add_shortcode('WPBUSDIRMANADDLISTING', 'wpBusDirManUi_addListingForm');
 	add_shortcode('WPBUSDIRMANMANAGELISTING', 'wpbusdirman_managelistings');
 	add_shortcode('WPBUSDIRMANMVIEWLISTINGS', 'wpbusdirman_viewlistings');
 	add_filter('single_template', 'wpbusdirman_single_template');
 	add_filter('taxonomy_template', 'wpbusdirman_category_template');
 	add_filter('search_template', 'wpbusdirman_search_template');
-	//add_filter('the_content', 'wpbusdirman_template_the_content');
 	add_filter('comments_template', 'wpbusdirman_template_comment');
 	//add_filter('the_title', 'wpbusdirman_template_the_title');
 	//add_action('loop_start', 'wpbusdirman_remove_post_dates_author_etc');
@@ -267,8 +266,8 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 	}
 	$html .= "</div>";
 	$html .= "<div class=\"button\">";
-	$html .= "<form method=\"post\" action=\"" . add_query_arg('action', 'viewlistings') . "\"><input type=\"hidden\" name=\"action\" value=\"viewlistings\"><input type=\"submit\" class=\"viewlistingsbutton\" value=\"" . __("View Listings","WPBDM") . "\"></form>";
-	$html .= "<form method=\"post\" action=\"\"><input type=\"submit\" class=\"viewlistingsbutton\" value=\"" . __("Directory","WPBDM") . "\"></form>";
+	$html .= wpbusdirman_post_menu_button_viewlistings();
+	$html .= wpbusdirman_post_menu_button_directory();
 	$html .= "</div>";
 	$html .= "<div style=\"clear:both;\"></div></div>";
 
@@ -3142,62 +3141,6 @@ function wpbudirman_sticky_payment_thankyou()
 	return $html;
 }
 
-function wpbusdirmanfindpage($shortcode)
-{
-	global $wpdb,$table_prefix;
-	$myreturn=false;
-	$query="SELECT count(post_name) FROM {$table_prefix}posts WHERE post_content='$shortcode' AND post_type='page'";
-
-	if (!($res=@mysql_query($query))) {trigger_error(mysql_error(),E_USER_ERROR);}
-	if (mysql_num_rows($res) && mysql_result($res,0,0)) {
-		$myreturn=true;
-	}
-	return $myreturn;
-}
-
-function wpbusdirmanmakepagemain($wpbdmpagename,$wpbdmpagecontent)
-{
-
-	$wpbusdirman_gpid='';
-	if(!(wpbusdirmanfindpage($wpbdmpagecontent)))
-	{
-
-		// Create the main business directory page
-		  $wpbusdirman_gpid=wp_insert_post(  $wpbusdirman_my_page );
-
-			$wpbusdirman_gpid = wp_insert_post( array(
-			'post_author'	=> 1,
-			'post_title'	=> $wpbdmpagename,
-			'post_content'	=> $wpbdmpagecontent,
-			'post_status' 	=> 'publish',
-			'post_type' 	=> 'page',
-		));
-  	}
-
-  	return $wpbusdirman_gpid;
-
-}
-
-function wpbusdirmanmakepage($wpbusdirman_gpid,$wpbdmpagename,$wpbdmpagecontent)
-{
-	if(!(wpbusdirmanfindpage($wpbdmpagecontent)))
-	{
-
-		// Create the child pages
-		if(!isset($wpbusdirman_gpid) || empty($wpbusdirman_gpid)){$wpbusdirman_gpid=wpbusdirman_gpid();}
-
-			$wpbusdirman_gpid = wp_insert_post( array(
-			'post_author'	=> 1,
-			'post_title'	=> $wpbdmpagename,
-			'post_content'	=> $wpbdmpagecontent,
-			'post_status' 	=> 'publish',
-			'post_type' 	=> 'page',
-			'post_parent' => $wpbusdirman_gpid,
-		));
-	}
-
-}
-
 function wpbusdirman_sticky_payment_thankyou()
 {
 	$html = '';
@@ -3444,12 +3387,8 @@ function wpbusdirman_menu_buttons()
 
 function wpbusdirman_post_menu_buttons()
 {
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
 	$html = '';
-
 	$html .= '' . wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_menu_button_directory() . '</div><div style="clear:both;">';
-
 	return $html;
 }
 
@@ -3460,13 +3399,7 @@ function wpbusdirman_menu_button_submitlisting()
 
 function wpbusdirman_post_menu_button_submitlisting()
 {
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-	$html = '';
-
-	$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="submitlisting" /><input type="submit" class="submitlistingbutton" value="' . __("Submit A Listing","WPBDM") . '" /></form>';
-
-	return $html;
+	return '<form method="post" action="' . wpbdp_get_page_link('add-listing') . '"><input type="hidden" name="action" value="submitlisting" /><input type="submit" class="submitlistingbutton" value="' . __("Submit A Listing","WPBDM") . '" /></form>';
 }
 
 function wpbusdirman_menu_button_viewlistings()
@@ -3476,13 +3409,7 @@ function wpbusdirman_menu_button_viewlistings()
 
 function wpbusdirman_post_menu_button_viewlistings()
 {
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=add_query_arg('action', 'viewlistings', get_permalink($wpbusdirman_gpid));
-	$html = '';
-
-	$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="viewlistings" /><input type="submit" class="viewlistingsbutton" value="' . __("View Listings","WPBDM") . '" /></form>';
-
-	return $html;
+	return '<form method="post" action="' . wpbdp_get_page_link('view-listings') . '"><input type="hidden" name="action" value="viewlistings" /><input type="submit" class="viewlistingsbutton" value="' . __("View Listings","WPBDM") . '" /></form>';
 }
 
 function wpbusdirman_menu_button_directory()
@@ -3493,13 +3420,7 @@ function wpbusdirman_menu_button_directory()
 
 function wpbusdirman_post_menu_button_directory()
 {
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-	$html = '';
-
-	$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="submit" class="viewlistingsbutton" value="' . __("Directory","WPBDM") . '" /></form>';
-
-	return $html;
+	return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="submit" class="viewlistingsbutton" value="' . __("Directory","WPBDM") . '" /></form>';
 }
 
 function wpbusdirman_menu_button_editlisting()
@@ -4533,8 +4454,3 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->debug_on();
-
-function wpbdp() {
-	global $wpbdp;
-	return $wpbdp;
-}
