@@ -12,7 +12,6 @@ function wpbusdirman_opsconfig_fees()
 	$html = '';
 
 	$html .= wpbdp_admin_header();
-	$html .= "<h3 style=\"padding:10px;\">" . __("Manage Fees","WPBDM") . "</h3><p>";
 
 	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == 'no')
 	{
@@ -20,48 +19,6 @@ function wpbusdirman_opsconfig_fees()
 	}
 	else
 	{
-		$html .= "<p><b>" . __("Installed Payment Gateway Modules","WPBDM") . "</b><ul>";
-		if($wpbusdirman_hasgooglecheckoutmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>";
-		}
-		if($wpbusdirman_haspaypalmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("PayPal","WPBDM") . "</li>";
-		}
-		if($wpbusdirman_hastwocheckoutmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("2Checkout","WPBDM") . "</li>";
-		}
-		$html .= "</ul></p>";
-		if(!$wpbusdirman_haspaypalmodule && !$wpbusdirman_hastwocheckoutmodule && !$wpbusdirman_hasgooglecheckoutmodule)
-		{
-			$hasnomodules=1;
-			$html .= "<p>" . __("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit","WPBDM") . "</p>";
-			$html .= "<p><a href=\"http://businessdirectoryplugin.com/about/payment-gateway-modules/\">http://businessdirectoryplugin.com/about/payment-gateway-modules/</a></p>";
-		}
-		if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_25'] != "yes")
-		{
-			if($wpbusdirman_hastwocheckoutmodule != 1
-				|| $wpbusdirman_haspaypalmodule != 1 )
-			{
-				$html .= '<div style="width:100%;padding:10px;">';
-				if(!($wpbusdirman_haspaypalmodule == 1))
-				{
-					$html .= '<div style="float:left;width:30%;padding:10px;">' . __("You can buy the PayPal gateway module to add PayPal as a payment option for your users.","WPBDM") . '<span style="display:block;color:red;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;">' . __("$49.99","WPBDM") . '</span><a href="http://businessdirectoryplugin.com/store/paypal-gateway-module-for-wp-business-directory-manager-1-8/"><center><img src="http://businessdirectoryplugin.com/wp-content/uploads/2011/07/paypalgm.jpg" alt="PayPal Gateway Module for Business Directory Plugin 1.8+"/></center></a></div>';
-				}
-				if(!($wpbusdirman_hastwocheckoutmodule == 1))
-				{
-					$html .= '<div style="float:left;width:30%;padding:10px;">' . __("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;">' . __("$49.99","WPBDM") . '</span><a href="http://businessdirectoryplugin.com/store/2checkout-gateway-module-for-wp-business-directory-manager-1-8/"><center><img src="http://businessdirectoryplugin.com/wp-content/uploads/2011/07/twocheckoutgm.jpg" alt="2Checkout Gateway Module for Business Directory Plugin 1.8+"/></center></a></div>';
-				}
-				if($wpbusdirman_hastwocheckoutmodule
-					!= 1 && $wpbusdirman_haspaypalmodule != 1 )
-				{
-					$html .= '<div style="float:left;width:30%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;">' . __("$79.98","WPBDM") . '</span><a href="http://businessdirectoryplugin.com/store/paypal-2checkout-gateway-modules-for-wp-business-directory-manager-1-8/"><center><img src="http://businessdirectoryplugin.com/wp-content/uploads/2011/07/paypaltwocheckoutgm.jpg" alt="PayPal plus 2Checkout Gateway Modules for Business Directory Plugin 1.8+"/></center></a></div>';
-				}
-				$html .= '</div><div style="clear:both;"></div>';
-			}
-		}
 		$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_settings_fees_label_');
 		if(!empty($wpbusdirman_field_vals))
 		{
@@ -275,7 +232,50 @@ function wpbusdirman_opsconfig_fees()
 				}
 			}
 		}
+	
+		$html .= '<hr />';
+		$html .= "<p><b>" . __("Installed Payment Gateway Modules","WPBDM") . "</b><ul>";
+		if($wpbusdirman_hasgooglecheckoutmodule == 1)
+		{
+			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>";
+		}
+		if($wpbusdirman_haspaypalmodule == 1)
+		{
+			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("PayPal","WPBDM") . "</li>";
+		}
+		if($wpbusdirman_hastwocheckoutmodule == 1)
+		{
+			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("2Checkout","WPBDM") . "</li>";
+		}
+		$html .= "</ul></p>";
+		if(!$wpbusdirman_haspaypalmodule && !$wpbusdirman_hastwocheckoutmodule && !$wpbusdirman_hasgooglecheckoutmodule)
+		{
+			$hasnomodules=1;
+			$html .= "<p>" . __("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit","WPBDM") . "</p>";
+			$html .= "<p><a href=\"http://businessdirectoryplugin.com/about/payment-gateway-modules/\">http://businessdirectoryplugin.com/about/payment-gateway-modules/</a></p>";
+		}
+
+			if($wpbusdirman_hastwocheckoutmodule != 1
+				|| $wpbusdirman_haspaypalmodule != 1 )
+			{
+				$html .= '<div style="width:100%;padding:10px;">';
+				if(!($wpbusdirman_haspaypalmodule == 1))
+				{
+					$html .= '<div style="float:left;width:30%;padding:10px;">' . __("You can buy the PayPal gateway module to add PayPal as a payment option for your users.","WPBDM") . '<span style="display:block;color:red;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/store/paypal-gateway-module-for-wp-business-directory-manager-1-8/" style="color:red;">' . __("$49.99","WPBDM") . '</a></span></div>';
+				}
+				if(!($wpbusdirman_hastwocheckoutmodule == 1))
+				{
+					$html .= '<div style="float:left;width:30%;padding:10px;">' . __("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/store/2checkout-gateway-module-for-wp-business-directory-manager-1-8/" style="color:red;">' . __("$49.99","WPBDM") . '</a></span></div>';
+				}
+				if($wpbusdirman_hastwocheckoutmodule
+					!= 1 && $wpbusdirman_haspaypalmodule != 1 )
+				{
+					$html .= '<div style="float:left;width:30%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/store/paypal-2checkout-gateway-modules-for-wp-business-directory-manager-1-8/" style="color:red;">' . __("$79.98","WPBDM") . '</a></span></div>';
+				}
+				$html .= '</div><div style="clear:both;"></div>';
+			}
 	}
+
 	$html .= wpbdp_admin_footer();
 
 	echo $html;

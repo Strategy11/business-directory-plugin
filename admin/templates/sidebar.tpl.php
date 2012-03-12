@@ -26,6 +26,25 @@
 			</div>
 		</div>
 
+		<!-- Installed modules -->
+		<div class="postbox installed-modules">
+			<h3 class="hndle"><span>Installed Modules</span></h3>
+			<div class="inside">
+<!-- 				"Module: Installed/Not
+Installed", where Module refers to the name of any premium module. -->
+				<ul>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/">PayPal Payment Gateway</a>:<br />
+				    	<?php echo wpbdp()->has_module('paypal') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">2Checkout Payment Gateway</a>:<br />
+				    	<?php echo wpbdp()->has_module('2checkout') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
+			    </ul>
+			</div>
+		</div>
+
 		<!-- Support -->
 		<div class="postbox">
 			<h3 class="hndle"><span>Found a bug? Need support?</span></h3>

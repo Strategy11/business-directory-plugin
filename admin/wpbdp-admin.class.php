@@ -32,11 +32,17 @@ class WPBDP_Admin {
 
     function admin_menu() {
         add_menu_page(_x("Business Directory Plugin", 'admin menu', "WPBDM"),
-                      'WPBusDirMan',
+                      _x('Business Dir Admin', 'admin menu', 'WPBDM'),
                       'activate_plugins',
                       'wpbusdirman.php',
                       'wpbusdirman_home_screen',
                       WPBDP_URL . 'resources/images/menuico.png');
+        add_submenu_page('wpbusdirman.php',
+                         _x('Add New Listing', 'admin menu', 'WPBDM'),
+                         _x('Add New Listing', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdman_c3a',
+                         '_wpbdp_admin_add_listing');
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),
@@ -73,6 +79,10 @@ class WPBDP_Admin {
                          'activate_plugins',
                          'wpbdman_m1',
                          'wpbusdirman_uninstall');
+
+        global $submenu;
+        $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
+        $submenu['wpbusdirman.php'][1][2] = admin_url('admin.php?page=wpbdman_c3&action=addnewlisting');
     }
 
     function add_listing_metabox() {
