@@ -340,8 +340,3 @@ function wpbusdirman_featured_pending()
 
 	echo $html;
 }
-
-function _wpbdp_admin_add_listing() {
-	$_REQUEST['action'] = 'addnewlisting';
-	return wpbusdirman_buildform();
-}

@@ -82,6 +82,7 @@ class WPBDP_Admin {
 
         global $submenu;
         $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
+        $submenu['wpbusdirman.php'][1][2] = admin_url('admin.php?page=wpbdman_c3&action=addnewlisting');
     }
 
     function add_listing_metabox() {
