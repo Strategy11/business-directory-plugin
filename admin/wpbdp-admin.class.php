@@ -61,18 +61,18 @@ class WPBDP_Admin {
                          'activate_plugins',
                          'wpbdman_c3',
                          'wpbusdirman_buildform');
-        // add_submenu_page('wpbusdirman.php',
-        //                  'Manage Featured',
-        //                  'Manage Featured',
-        //                  'activate_plugins',
-        //                  'wpbdman_c4',
-        //                  'wpbusdirman_featured_pending');
-        // add_submenu_page('wpbusdirman.php',
-        //                  'Manage Payments',
-        //                  'Manage Payments',
-        //                  'activate_plugins',
-        //                  'wpbdman_c5',
-        //                  'wpbusdirman_manage_paid');
+        add_submenu_page('wpbusdirman.php',
+                         _x('Manage Featured', 'admin menu', 'WPBDM'),
+                         _x('Manage Featured', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdman_c4',
+                         '_placeholder_');
+        add_submenu_page('wpbusdirman.php',
+                         _x('Manage Payments', 'admin menu', 'WPBDM'),
+                         _x('Manage Payments', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdman_c5',
+                         '_placeholder_');
         add_submenu_page('wpbusdirman.php',
                          _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
                          _x('Uninstall', 'admin menu', 'WPBDM'),
@@ -80,9 +80,12 @@ class WPBDP_Admin {
                          'wpbdman_m1',
                          'wpbusdirman_uninstall');
 
+        // just a little hack
         global $submenu;
         $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
         $submenu['wpbusdirman.php'][1][2] = admin_url('admin.php?page=wpbdman_c3&action=addnewlisting');
+        $submenu['wpbusdirman.php'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
+        $submenu['wpbusdirman.php'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
     }
 
     function add_listing_metabox() {
@@ -91,7 +94,7 @@ class WPBDP_Admin {
                      array($this, 'listing_metabox'),
                      WPBDP_Plugin::POST_TYPE,
                      'side',
-                     'default'
+                     'core'
                     );
     }
 
@@ -137,23 +140,32 @@ class WPBDP_Admin {
 
         // Sticky information
         if ($status = get_post_meta($post->ID, '_wpbdp_sticky', true)) {
-            if ($status == 'pending') {
-                echo '<strong>' . __('Upgrade to Featured', 'WPBDM') . '</strong>';
-                echo '<dl>';
-                echo '<dt>' . __('Pending manual upgrade.', 'WPBDM') . '</dt>';
-                echo '<dd>';
-                echo sprintf('<a href="%s" class="button-primary">%s</a>',
-                             add_query_arg('wpbdmaction', 'upgradefeatured'),
-                             __('Upgrade', 'WPBDM')
-                            );
-                echo sprintf('<a href="%s" class="button">%s</a>',
-                             add_query_arg('wpbdmaction', 'cancelfeatured'),
-                             __('Downgrade', 'WPBDM')
-                            );
-                echo '</dd>';
-                echo '</dl>';
-            }
+            $status_string = '';
+
+            if ($status == 'not paid') $status_string = __('Not Paid', 'WPBDM');
+            if ($status == 'pending') $status_string = __('Pending Upgrade', 'WPBDM');
+            if ($status == 'approved') $status_string = __('Approved', 'WPBDM');
+        } else {
+            $status = 'notsticky';
+            $status_string = _x('Not Sticky', 'admin list', 'WPBDM');
         }
+
+        echo '<div class="misc-pub-section">';
+        echo '<label>' .  _x('Sticky Status', 'admin metabox', 'WPBDM') . ': </label>';
+        echo '<span><b>' . $status_string . '</b> </span>';
+        
+        if ($status == 'approved') {
+            echo sprintf('<a href="%s">%s</a>',
+                         add_query_arg('wpbdmaction', 'cancelfeatured'),
+                         _x('Downgrade', 'admin metabox', 'WPBDM'));
+        } else {
+            echo sprintf('<a href="%s">%s</a>',
+                         add_query_arg('wpbdmaction', 'upgradefeatured'),
+                         __('Upgrade'));
+        }
+
+        echo '</div>';
+        echo '<div class="clear"></div>';
 
     }
 
@@ -337,21 +349,34 @@ class WPBDP_Admin {
         global $post;
 
         if ($status = get_post_meta($post->ID, '_wpbdp_sticky', true)) {
-            if ($status == 'pending') {
-                echo sprintf('<b>!</b> %s<br /><div class="row-actions">
-                                <span><a href="%s">%s</a></span> |
-                                <span><a href="%s">%s</a></span>
-                            </div>',
-                             __('Pending Upgrade', 'WPBDM'),
-                             add_query_arg(array('wpbdmaction' => 'upgradefeatured', 'post' => $post->ID)),
-                             __('Upgrade', 'WPBDM'),
-                             add_query_arg(array('wpbdmaction' => 'cancelfeatured', 'post' => $post->ID)),
-                             __('Downgrade', 'WPBDM')
-                            );
-            } elseif ($status == 'approved') {
-                echo __('Approved', 'WPBDM');
-            }
+            $status_string = '';
+
+            if ($status == 'not paid') $status_string = __('Not Paid', 'WPBDM');
+            if ($status == 'pending') $status_string = __('Pending Upgrade', 'WPBDM');
+            if ($status == 'approved') $status_string = __('Approved', 'WPBDM');
+        } else {
+            $status = 'notsticky';
+            $status_string = _x('Not Sticky', 'admin list', 'WPBDM');
         }
+        
+        echo sprintf('<span class="status %s">%s</span><br />',
+                    str_replace(' ', '', $status),
+                    $status_string);
+
+        echo '<div class="row-actions">';
+
+        if ($status == 'approved') {
+            echo sprintf('<span><a href="%s">%s</a></span>',
+                         add_query_arg(array('wpbdmaction' => 'cancelfeatured', 'post' => $post->ID)),
+                         '<b>↓</b> ' . __('Downgrade to Normal', 'WPBDM'));
+        } else {
+            echo sprintf('<span><a href="%s">%s</a></span>',
+                         add_query_arg(array('wpbdmaction' => 'upgradefeatured', 'post' => $post->ID)),
+                         '<b>↑</b> ' . __('Upgrade to Featured', 'WPBDM'));
+        }
+
+        echo '</div>';
+
     }
 
     /* Settings page */

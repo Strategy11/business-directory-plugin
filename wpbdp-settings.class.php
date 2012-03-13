@@ -36,7 +36,6 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'show-contact-form', _x('Include listing contact form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'show-comment-form', _x('Include comment form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
-		$this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'override-email-blocking', _x('Override email Blocking?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'draft', '',
@@ -130,14 +129,16 @@ class WPBDP_Settings {
 		$g = $this->add_group('image', _x('Image', 'admin settings', 'WPBDM'));
 		$s = $this->add_section($g, 'image', _x('Image Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'allow-images', _x('Allow images?', 'admin settings', 'WPBDM'), 'boolean', true);
-		$this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
-		$this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'image-max-filesize', _x('Max Image File Size', 'admin settings', 'WPBDM'), 'text', '100000');
 		$this->add_setting($s, 'image-min-filesize', _x('Minimum Image File Size', 'admin settings', 'WPBDM'), 'text', '300');
 		$this->add_setting($s, 'image-max-width', _x('Max image width', 'admin settings', 'WPBDM'), 'text', '500');
 		$this->add_setting($s, 'image-max-height', _x('Max image height', 'admin settings', 'WPBDM'), 'text', '500');
 		$this->add_setting($s, 'thumbnail-width', _x('Thumbnail width', 'admin settings', 'WPBDM'), 'text', '120');
 
+		$s = $this->add_section($g, 'listings', _x('Listings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
+		$this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
 	}
 
 	public function add_group($slug, $name) {
