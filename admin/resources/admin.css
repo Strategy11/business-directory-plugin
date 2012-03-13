@@ -32,7 +32,7 @@
 }
 
 /* Directory list-table */
-td.column-bd_payment_status .status {
+td.column-bd_payment_status .status, td.column-bd_sticky_status .status {
     background: #444;
     border-radius: 2px;
     padding: 2px 5px;
@@ -55,3 +55,28 @@ td.column-bd_payment_status .paymentdata b {
 td.column-bd_payment_status .paymentdata span {
     font-style: italic;
 }
+
+td.column-bd_sticky_status .status.notpaid {
+    background: orange;
+}
+
+td.column-bd_sticky_status .status.pending {
+    background: red;
+    font-weight: bold;
+}
+
+td.column-bd_sticky_status .status.approved {
+    background: green;
+}
+
+#BusinessDirectory_listinginfo .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#BusinessDirectory_listinginfo .inside .clear {
+}
+
+/* FIXME: some front-end styles */
+ul#wpbusdirmanerrors { margin-left:20px; }
+.wpbusdirmanerroralert { color:#ff0000;font-weight:bold;font-size:14px; }
