@@ -8,6 +8,7 @@ Description: Provides the ability to maintain a free or paid business directory 
 Version: 2.0
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
+License: GPLv2 or any later version
 Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com), A. Lewis
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +21,7 @@ Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com), 
 /*  Copyright 2009-2012, Skyline Consulting and D. Rodenbaugh
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as
+    it under the terms of the GNU General Public License, version 2 or later, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -31,6 +32,7 @@ Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com), 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+    reCAPTCHA used with permission of Mike Crawford & Ben Maurer, http://recaptcha.net
 */
 
 
@@ -291,7 +293,7 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 			{
 				$wpbusdirman_loginurl=get_option('siteurl').'/wp-login.php';
 			}
-			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email with 60 mintues.","WPBDM") . "</p>";
+			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues.","WPBDM") . "</p>";
 			$html .= "<form method=\"post\" action=\"$wpbusdirman_loginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\"></form>";
 		}
 		else
@@ -2814,7 +2816,7 @@ function wpbusdirman_managelistings()
 		{
 			$wpbusdirmanloginurl=$siteurl.'/wp-login.php';
 		}
-		$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email with 60 mintues.","WPBDM") . "</p>";
+		$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues.","WPBDM") . "</p>";
 		$html .= "<form method=\"post\" action=\"$wpbusdirmanloginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\" /></form>";
 	}
 	else

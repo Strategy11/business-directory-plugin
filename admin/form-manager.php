@@ -26,7 +26,7 @@ function wpbusdirman_display_postform_add()
 			{
 				$wpbusdirman_loginurl=get_option('siteurl').'/wp-login.php';
 			}
-			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email with 60 mintues.","WPBDM") . "</p>";
+			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues.","WPBDM") . "</p>";
 			$html .= "<form method=\"post\" action=\"$wpbusdirman_loginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login or Register First","WPBDM") . "\"></form>";
 		}
 		else

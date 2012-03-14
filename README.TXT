@@ -96,17 +96,17 @@ If you are having problems please visit http://www.businessdirectoryplugin.com f
 
 Version 2.0 
 
-    0. Reset versioning to sensible convention
+    1. Reset versioning to sensible convention
     
-    1. Fixed search CSS and searching functionality
+    2. Fixed search CSS and searching functionality
     
-    2. Changed category management to simplify
+    3. Changed category management to simplify
     
-    3. Added payment status into listing screen directly
+    4. Added payment status into listing screen directly
     
-    4. Google Checkout bug fix
+    5. Google Checkout bug fix
     
-    5. 
+
     
 Version 1.0 (1.9.6) Business Directory Plugin carries over from the last version of WP Business Directory Manager (1.9.5) Fixes include:
 
