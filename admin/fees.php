@@ -261,16 +261,17 @@ function wpbusdirman_opsconfig_fees()
 				$html .= '<div style="width:100%;padding:10px;">';
 				if(!($wpbusdirman_haspaypalmodule == 1))
 				{
-					$html .= '<div style="float:left;width:30%;padding:10px;">' . __("You can buy the PayPal gateway module to add PayPal as a payment option for your users.","WPBDM") . '<span style="display:block;color:red;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/store/paypal-gateway-module-for-wp-business-directory-manager-1-8/" style="color:red;">' . __("$49.99","WPBDM") . '</a></span></div>';
+					$html .= '<div style="float:left;width:22%;padding:10px;">' . __("You can buy the PayPal gateway module to add PayPal as a payment option for your users.","WPBDM") . '<span style="display:block;color:red;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/" style="color:green;">' . __("$49.99","WPBDM") . '</a></span></div>';
 				}
 				if(!($wpbusdirman_hastwocheckoutmodule == 1))
 				{
-					$html .= '<div style="float:left;width:30%;padding:10px;">' . __("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/store/2checkout-gateway-module-for-wp-business-directory-manager-1-8/" style="color:red;">' . __("$49.99","WPBDM") . '</a></span></div>';
+					$html .= '<div style="float:left;width:22%;padding:10px;">' . __("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/" style="color:green;">' . __("$49.99","WPBDM") . '</a></span></div>';
 				}
 				if($wpbusdirman_hastwocheckoutmodule
 					!= 1 && $wpbusdirman_haspaypalmodule != 1 )
 				{
-					$html .= '<div style="float:left;width:30%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/store/paypal-2checkout-gateway-modules-for-wp-business-directory-manager-1-8/" style="color:red;">' . __("$79.98","WPBDM") . '</a></span></div>';
+					$html .= '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/>' . __('(Module bundle applies to a SINGLE site only)', 'WPBDM') .'<span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/" style="color:green;">' . __("$79.99","WPBDM") . '</a></span></div>';
+					$html .= '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/>' . __('(Module bundle applies to MULTIPLE sites)', 'WPBDM') .'<span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/" style="color:green;">' . __("$119.00","WPBDM") . '</a></span></div>';
 				}
 				$html .= '</div><div style="clear:both;"></div>';
 			}

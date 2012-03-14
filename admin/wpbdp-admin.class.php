@@ -31,8 +31,8 @@ class WPBDP_Admin {
     }
 
     function admin_menu() {
-        add_menu_page(_x("Business Directory Plugin", 'admin menu', "WPBDM"),
-                      _x('Business Dir Admin', 'admin menu', 'WPBDM'),
+        add_menu_page(_x("Business Directory Admin", 'admin menu', "WPBDM"),
+                      _x('Directory Admin', 'admin menu', 'WPBDM'),
                       'activate_plugins',
                       'wpbusdirman.php',
                       'wpbusdirman_home_screen',
@@ -144,10 +144,10 @@ class WPBDP_Admin {
 
             if ($status == 'not paid') $status_string = __('Not Paid', 'WPBDM');
             if ($status == 'pending') $status_string = __('Pending Upgrade', 'WPBDM');
-            if ($status == 'approved') $status_string = __('Approved', 'WPBDM');
+            if ($status == 'approved') $status_string = __('Featured', 'WPBDM');
         } else {
             $status = 'notsticky';
-            $status_string = _x('Not Sticky', 'admin list', 'WPBDM');
+            $status_string = _x('Normal', 'admin list', 'WPBDM');
         }
 
         echo '<div class="misc-pub-section">';
@@ -220,7 +220,7 @@ class WPBDP_Admin {
                 delete_post_meta($post_id, "_wpbdp_paymentstatus", "unknown");
                 delete_post_meta($post_id, "_wpbdp_paymentstatus", "cancelled");
 
-                $this->messages[] = __("The listing status has been changed non-paying.","WPBDM");
+                $this->messages[] = __("The listing status has been changed unpaid.","WPBDM");
                 break;
 
             case 'upgradefeatured':
@@ -279,9 +279,19 @@ class WPBDP_Admin {
 
     }
 
-    function add_custom_columns($columns) {
-        $columns['bd_payment_status'] = __('Payment Status', 'WPBDM');
-        $columns['bd_sticky_status'] = __('Sticky Status', 'WPBDM');
+    function add_custom_columns($columns_) {
+        $columns = array();
+
+        foreach (array_keys($columns_) as $key) {
+            $columns[$key] = $columns_[$key];
+
+            if ($key == 'title') {
+                // add custom columns *after* the title column
+                $columns['bd_payment_status'] = __('Payment Status', 'WPBDM');
+                $columns['bd_sticky_status'] = __('Featured (Sticky) Status', 'WPBDM');                
+            }
+        }
+
         return $columns;
     }
 
@@ -341,7 +351,7 @@ class WPBDP_Admin {
             }
         
         } else {
-            echo '(' . __('Non-paying', 'WPBDM') . ')';
+            echo '(' . __('Unpaid', 'WPBDM') . ')';
         }
     }
 
@@ -353,10 +363,10 @@ class WPBDP_Admin {
 
             if ($status == 'not paid') $status_string = __('Not Paid', 'WPBDM');
             if ($status == 'pending') $status_string = __('Pending Upgrade', 'WPBDM');
-            if ($status == 'approved') $status_string = __('Approved', 'WPBDM');
+            if ($status == 'approved') $status_string = __('Featured', 'WPBDM');
         } else {
             $status = 'notsticky';
-            $status_string = _x('Not Sticky', 'admin list', 'WPBDM');
+            $status_string = _x('Normal', 'admin list', 'WPBDM');
         }
         
         echo sprintf('<span class="status %s">%s</span><br />',
