@@ -22,6 +22,8 @@
 				<ul>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/">PayPal Payment Gateway Module</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">2Checkout Payment Gateway Module</a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/">Single Site License Combo Pack</a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/">Multi Site License Combo Pack</a></li>
 			    </ul>
 			</div>
 		</div>

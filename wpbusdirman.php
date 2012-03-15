@@ -9,7 +9,6 @@ Version: 2.0
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
-Contributors: Mike Bronner - Rocking Double-M Services (http://rocking-mm.com), A. Lewis
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
