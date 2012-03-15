@@ -439,7 +439,4 @@ class WPBDP_Settings {
 			delete_option('wpbusdirman_settings_config');
 		}
 	}
-
-
-	
 }

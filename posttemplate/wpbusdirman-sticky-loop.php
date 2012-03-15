@@ -105,13 +105,7 @@ else
 	endif;
 }
 
-
-
-
 wp_reset_query();
 
 //endif;
-
-
-
 ?>

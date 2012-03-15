@@ -192,4 +192,3 @@ function wpbdp_render_page($template, $vars=array(), $echo_output=false) {
 
 	return $html;
 }
-
