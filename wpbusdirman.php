@@ -3777,7 +3777,7 @@ function wpbusdirman_display_the_listing_fields()
 				elseif (($wpbusdirman_field_association == 'excerpt')
 					&& (has_excerpt($post->ID)))
 				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: <a href="' . get_permalink() . '">' . the_excerpt() . '</a></p>';
+					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: <a href="' . get_permalink() . '">' . get_the_excerpt() . '</a></p>';
 				}
 				elseif($wpbusdirman_field_association == 'description')
 				{
