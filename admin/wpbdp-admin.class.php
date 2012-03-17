@@ -230,7 +230,7 @@ class WPBDP_Admin {
                 break;
 
             case 'cancelfeatured':
-                delete_post_meta($post_id, "_wpbdp_sticky", "pending");
+                delete_post_meta($post_id, "_wpbdp_sticky");
                 
                 $this->messages[] = __("The listing has been downgraded.","WPBDM");
                 break;
