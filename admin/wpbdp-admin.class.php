@@ -262,17 +262,17 @@ class WPBDP_Admin {
 
         $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
                                  add_query_arg('wpbdmfilter', 'paid'),
-                                 $_REQUEST['wpbdmfilter'] == 'paid' ? 'current' : '',
+                                 wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'paid' ? 'current' : '',
                                  __('Paid', 'WPBDM'),
                                  number_format_i18n($paid));
         $views['unpaid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
                                    add_query_arg('wpbdmfilter', 'unpaid'),
-                                   $_REQUEST['wpbdmfilter'] == 'unpaid' ? 'current' : '',
+                                   wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'unpaid' ? 'current' : '',
                                    __('Unpaid', 'WPBDM'),
                                    number_format_i18n($unpaid));
         $views['featured'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
                                    add_query_arg('wpbdmfilter', 'pendingupgrade'),
-                                   $_REQUEST['wpbdmfilter'] == 'pendingupgrade' ? 'current' : '',
+                                   wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'pendingupgrade' ? 'current' : '',
                                    __('Pending Upgrade', 'WPBDM'),
                                    number_format_i18n($pending_upgrade));
         return $views;

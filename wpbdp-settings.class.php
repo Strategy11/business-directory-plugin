@@ -342,7 +342,7 @@ class WPBDP_Settings {
 	public function pre_2_0_options() {
 		static $option_translations = array(
 			'wpbusdirman_settings_config_18' => 'listing-duration',
-			'wpbusdirman_settings_config_25' => 'hide-buy-module-buttons', /* removed in 2.0 */
+			/* 'wpbusdirman_settings_config_25' => 'hide-buy-module-buttons',*/  /* removed in 2.0 */
 			'wpbusdirman_settings_config_26' => 'hide-tips',
 			'wpbusdirman_settings_config_27' => 'show-contact-form',
 			'wpbusdirman_settings_config_36' => 'show-comment-form',
