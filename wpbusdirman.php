@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.0
+Version: 2.0.1
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -3301,6 +3301,8 @@ function wpbusdirman_viewlistings()
 {
 	global $wpbusdirman_plugin_path;
 
+	ob_start();
+
 	if(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
 	{
 		include get_template_directory() . '/single/wpbusdirman-index-listings.php';
@@ -3317,6 +3319,11 @@ function wpbusdirman_viewlistings()
 	{
 		include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
 	}
+
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	return $html;
 }
 
 
@@ -4210,15 +4217,13 @@ require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
 
 class WPBDP_Plugin {
 
-	const VERSION = '2.0-BETA';
+	const VERSION = '2.0.1';
 	const DB_VERSION = '2.0';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
 	const POST_TYPE_TAGS = 'wpbdm-tags';
-
-	private $debug = false;
-
+	
 
 	public function __construct() {
 		if (is_admin()) {
