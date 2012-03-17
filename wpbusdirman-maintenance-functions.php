@@ -67,24 +67,14 @@ return $search;
 
 function wpbusdirman_category_template($category)
 {
-	global $wp_query, $post, $wpbdmposttype,$wpbdmposttypecategory,$wpbdmposttypetags;
-	$mywpbdmposttype=$post->post_type;
-
-
-		if($mywpbdmposttype == $wpbdmposttype )
-		{
-
-			if(taxonomy_exists($wpbdmposttypecategory))
-			{
+	if (get_query_var(WPBDP_Plugin::POST_TYPE_CATEGORY) && taxonomy_exists(WPBDP_Plugin::POST_TYPE_CATEGORY)) {
 				if(file_exists(get_template_directory() . '/single/wpbusdirman-category.php'))
 				return get_template_directory() . '/single/wpbusdirman-category.php';
 				if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-category.php'))
 				return get_stylesheet_directory() . '/single/wpbusdirman-category.php';
 				if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-category.php'))
 				return WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-category.php';
-			}
-		}
-
+	}
 
 	return $category;
 }
