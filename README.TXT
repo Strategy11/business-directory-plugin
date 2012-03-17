@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
-Contributors: http://businessdirectoryplugin.com
+Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
 Tested up to: 3.3.1
-Last Updated: 2012-Mar-14
-Stable tag: tags/2.0
+Last Updated: 2012-Mar-17
+Stable tag: tags/2.0.1
 
 Business Directory Plugin for WordPress (Formerly WP Business Directory Manager) is a flexible plugin for WordPress business directory creation but useful for a variety of other purposes.  Create any WordPress directory with it. 
 
@@ -95,6 +95,17 @@ If you are having problems please visit http://www.businessdirectoryplugin.com f
 
 
 == Changelog ==
+
+Version 2.0.1
+
+    1. Fixed scripting error with booleans for some WP installs
+    
+    2. Fixed category 404 problems, clean up navigation
+    
+    3. Fixed short description display issue
+    
+    4. Fixed shortcode usage problems (content displayed below directory, no matter where shortcode was)
+
 
 Version 2.0 
 
