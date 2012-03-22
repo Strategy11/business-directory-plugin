@@ -3777,7 +3777,7 @@ function wpbusdirman_display_the_listing_fields()
 				elseif (($wpbusdirman_field_association == 'excerpt')
 					&& (has_excerpt($post->ID)))
 				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: <a href="' . get_permalink() . '">' . get_the_excerpt() . '</a></p>';
+					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_excerpt() . '</p>';
 				}
 				elseif($wpbusdirman_field_association == 'description')
 				{
@@ -4066,7 +4066,7 @@ function wpbusdirman_the_listing_content()
 			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
 			if($wpbusdirman_field_association == 'description')
 			{
-				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_content() . '</p>';
+				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . apply_filters('the_content', get_the_content()) . '</p>';
 			}
 		}
 	}
