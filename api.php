@@ -41,3 +41,19 @@ function wpbdp_get_page_link($name='main') {
 	if ($name == 'add-listing')
 		return add_query_arg('action', 'submitlisting', get_permalink($main_page_id));
 }
+
+/* Settings API */
+function wpbdp_settings_api() {
+	global $wpbdp;
+	return $wpbdp->settings;
+}
+
+function wpbdp_get_option($key) {
+	global $wpbdp;
+	return $wpbdp->settings->get($key);
+}
+
+function wpbdp_set_option($key, $value) {
+	global $wpbdp;
+	return $wpbdp->settings->set($key, $value);
+}
