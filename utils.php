@@ -9,13 +9,21 @@ class WPBDP_Debugging {
 	private static $messages = array();
 
 	public static function debug_on() {
-		error_reporting(E_ALL);
 		self::$debug = true;
 
+		error_reporting(E_ALL | E_DEPRECATED);
+		// @ini_set('display_errors', '1');
+		set_error_handler(array('WPBDP_Debugging', '_php_error_handler'));
+
+		add_action('wp_head', array('WPBDP_Debugging', '_print_styles'));
 		add_action('admin_print_styles', array('WPBDP_Debugging', '_print_styles'));
 		add_action('admin_notices', array('WPBDP_Debugging', '_debug_bar_head'));
 		add_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'));
-		// add_action('wp_footer', array('WPBDP_Debugging', '_debug_footer'));
+		add_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'));
+	}
+
+	public static function _php_error_handler($errno, $errstr, $file, $line, $context) {
+		self::add_debug_msg( $errstr, 'php', array('file' => $file, 'line' => $line) );
 	}
 
 	public static function debug_off() {
@@ -23,10 +31,10 @@ class WPBDP_Debugging {
 
 		remove_action('admin_print_styles', array('WPBDP_Debugging', '_print_styles'));
 		remove_action('admin_notices', array('WPBDP_Debugging', '_debug_bar_head'));
-		// remove_action('wp_footer', array('WPBDP_Debugging', '_debug_footer'));
+		remove_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'));
 	}
 
-	public function _print_styles() {
+	public static function _print_styles() {
 		echo '<style type="text/css">';
 		echo 'div#wpbdp-debugging { color: #000; background: #fff; width: 1000px; margin: 2px 0; color: #333; clear:both; }';
 		echo 'div#wpbdp-debugging table { border-collapse: collapse; }';
@@ -39,17 +47,20 @@ class WPBDP_Debugging {
 		echo 'div#wpbdp-debugging table td.context { width: 200px; }';
 		echo 'div#wpbdp-debugging table td.file { width: 200px; }';
 
+		if (!is_admin())
+			echo 'div#wpbdp-debugging { display: block !important; }';
+
 		echo '</style>';
 	}
 
-	public function _debug_bar_head() {
+	public static function _debug_bar_head() {
 		if (!self::$debug)
 			return;
 
 		echo '<div id="wpbdp-debugging-placeholder"></div>';
 	}
 
-	public function _debug_bar_footer() {
+	public static function _debug_bar_footer() {
 		if (!self::$debug)
 			return;
 
@@ -112,11 +123,11 @@ class WPBDP_Debugging {
 		return array();
 	}
 
-	private static function _add_debug_msg($msg, $type='debug', $context=null) {
+	private static function add_debug_msg($msg, $type='debug', $context=null) {
 		self::$messages[] = array('timestamp' => time(),
 								  'message' => $msg,
 								  'type' => $type,
-								  'context' => self::_extract_context($context),
+								  'context' => $type == 'php' ? $context : self::_extract_context($context),
 								 );
 	}
 
@@ -129,7 +140,7 @@ class WPBDP_Debugging {
 	public static function debug() {
 		if (self::$debug) {
 			foreach (func_get_args() as $var)
-				self::_add_debug_msg(self::_var_dump($var), 'debug', debug_backtrace());
+				self::add_debug_msg(self::_var_dump($var), 'debug', debug_backtrace());
 		}
 	}
 
@@ -143,7 +154,7 @@ class WPBDP_Debugging {
 	}
 
 	public static function log($msg, $type='info') {
-		self::_add_debug_msg($msg, sprintf('log-%s', $type), debug_backtrace());
+		self::add_debug_msg($msg, sprintf('log-%s', $type), debug_backtrace());
 	}
 
 }
