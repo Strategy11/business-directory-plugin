@@ -77,6 +77,33 @@ td.column-bd_sticky_status .status.approved {
 #BusinessDirectory_listinginfo .inside .clear {
 }
 
+/* Form fields list table */
+table.wp-list-table td .tag {
+    background: #444;
+    border-radius: 2px;
+    padding: 2px 5px;
+    color: #fff;
+    font-size: 90%;
+    margin-right: 2px;
+}
+
+table.wp-list-table.formfields th.column-label {
+    width: 40%;
+}
+
+table.wp-list-table.formfields th.column-tags {
+    width: 130px;
+}
+
+table.wp-list-table.formfields .tag.required {
+    background: orange;
+}
+
+table.wp-list-table.formfields .tag.in-excerpt {
+    background: green;
+}
+
+
 /* FIXME: some front-end styles */
 ul#wpbusdirmanerrors { margin-left:20px; }
 .wpbusdirmanerroralert { color:#ff0000;font-weight:bold;font-size:14px; }
