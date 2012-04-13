@@ -42,6 +42,15 @@ function wpbdp_get_page_link($name='main') {
 		return add_query_arg('action', 'submitlisting', get_permalink($main_page_id));
 }
 
+/* Admin API */
+function wpbdp_admin() {
+	return wpbdp()->admin;
+}
+
+function wpbdp_admin_notices() {
+	wpbdp_admin()->admin_notices();
+}
+
 /* Settings API */
 function wpbdp_settings_api() {
 	global $wpbdp;
@@ -56,4 +65,10 @@ function wpbdp_get_option($key) {
 function wpbdp_set_option($key, $value) {
 	global $wpbdp;
 	return $wpbdp->settings->set($key, $value);
+}
+
+/* Form Fields API */
+function wpbdp_formfields_api() {
+	global $wpbdp;
+	return $wpbdp->formfields;
 }
