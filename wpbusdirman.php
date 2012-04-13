@@ -115,10 +115,6 @@ $wpbdmposttypetags="wpbdm-tags";
 		require("$wpbusdirman_plugin_path/wpbusdirman-maintenance-functions.php");
 	}
 	
-	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-fields-manager.php") )
-	{
-		require("$wpbusdirman_plugin_path/admin/wpbusdirman-fields-manager.php");
-	}
 	if( file_exists("$wpbusdirman_plugin_path/admin/wpbusdirman-fees-manager.php") )
 	{
 		require("$wpbusdirman_plugin_path/admin/wpbusdirman-fees-manager.php");
@@ -4214,11 +4210,12 @@ global $wpbdp;
 require_once(WPBDP_PATH . 'utils.php');
 require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
 require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
+require_once(WPBDP_PATH . 'form-fields.php');
 
 class WPBDP_Plugin {
 
 	const VERSION = '2.0.1';
-	const DB_VERSION = '2.0';
+	const DB_VERSION = '2.1';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -4231,6 +4228,7 @@ class WPBDP_Plugin {
 		}
 
 		$this->settings = new WPBDP_Settings();
+		$this->formfields = new WPBDP_FormFieldsAPI();
 
 		add_action('init', array($this, 'install_or_update_plugin'), 0);
 		add_action('init', array($this, '_register_post_type'));
@@ -4255,8 +4253,30 @@ class WPBDP_Plugin {
 		// add_option('wpbusdirman_db_version', '1.0');
 		// // delete_option('wpbusdirman_db_version');
 		// delete_option('wpbdp-db-version');
+		// update_option('wpbdp-db-version', '2.0');
+		// exit;
 
-		if ($installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'))) {
+		$installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));
+
+		// create SQL tables
+		if ($installed_version != self::DB_VERSION) {
+			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
+				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
+				label VARCHAR(255) NOT NULL,
+				type VARCHAR(100) NOT NULL,
+				association VARCHAR(100) NOT NULL,
+				validator VARCHAR(255) NULL,
+				is_required TINYINT(1) NOT NULL DEFAULT 0,
+				weight INT(5) NOT NULL DEFAULT 0,
+				display_options BLOB NULL,
+				field_data BLOB NULL
+			);";
+
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			dbDelta($sql);
+		}
+
+		if ($installed_version) {
 			wpbdp_log('WPBDP is already installed.');
 
 			if (version_compare($installed_version, '2.0') < 0) {
@@ -4275,110 +4295,94 @@ class WPBDP_Plugin {
 					$wpdb->query($query);
 				}
 
-
 				wpbdp_log('Made WPBDP directory metadata hidden attributes');
 			}
 
-			update_option('wpbdp-db-version', self::DB_VERSION);
+			if (version_compare($installed_version, '2.1') < 0) {
+				// new form-fields support
+				wpbdp_log('Updating old-style form fields.');
+				$this->formfields->_update_to_2_1();
+			}
+
 			delete_option('wpbusdirman_db_version');
 		} else {
-			// Add default form options
-			add_option("wpbusdirman_postform_field_label_1", $wpbusdirman_postform_field_label_1);
-			add_option("wpbusdirman_postform_field_label_2", $wpbusdirman_postform_field_label_2);
-			add_option("wpbusdirman_postform_field_label_3", $wpbusdirman_postform_field_label_3);
-			add_option("wpbusdirman_postform_field_label_4", $wpbusdirman_postform_field_label_4);
-			add_option("wpbusdirman_postform_field_label_5", $wpbusdirman_postform_field_label_5);
-			add_option("wpbusdirman_postform_field_label_6", $wpbusdirman_postform_field_label_6);
-			add_option("wpbusdirman_postform_field_label_7", $wpbusdirman_postform_field_label_7);
-			add_option("wpbusdirman_postform_field_label_8", $wpbusdirman_postform_field_label_8);
-			add_option("wpbusdirman_postform_field_label_9", $wpbusdirman_postform_field_label_9);
+			$default_fields = array(
+				array(
+					'label' => __("Business Name","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'title',
+					'weight' => 9,
+					'is_required' => true,
+					'display_options' => array('show_in_excerpt' => true)
+				),
+				array(
+					'label' => __("Business Genre","WPBDM"),
+					'type' => 'select',
+					'association' => 'category',
+					'weight' => 8,
+					'is_required' => true,
+					'display_options' => array('show_in_excerpt' => true)
+				),
+				array(
+					'label' => __("Short Business Description","WPBDM"),
+					'type' => 'textarea',
+					'association' => 'excerpt',
+					'weight' => 7
+				),
+				array(
+					'label' => __("Long Business Description","WPBDM"),
+					'type' => 'textarea',
+					'association' => 'content',
+					'weight' => 6,
+					'is_required' => true
+				),
+				array(
+					'label' => __("Business Website Address","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 5,
+					'validator' => 'URLValidator',
+					'display_options' => array('show_in_excerpt' => true)
+				),
+				array(
+					'label' => __("Business Phone Number","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 4,
+					'display_options' => array('show_in_excerpt' => true)
+				),
+				array(
+					'label' => __("Business Fax","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 3
+				),
+				array(
+					'label' => __("Business Contact Email","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 2,
+					'validator' => 'EmailValidator',
+					'is_required' => true
+				),
+				array(
+					'label' => __("Business Tags","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'tags',
+					'weight' => 1
+				)
+			);
 
-			// text = 1, select = 2, textarea=3 radio =4 multiselect =5 checkbox =6
-			add_option("wpbusdirman_postform_field_type_1", 1);
-			add_option("wpbusdirman_postform_field_type_2", 2);
-			add_option("wpbusdirman_postform_field_type_3", 3);
-			add_option("wpbusdirman_postform_field_type_4", 3);
-			add_option("wpbusdirman_postform_field_type_5", 1);
-			add_option("wpbusdirman_postform_field_type_6", 1);
-			add_option("wpbusdirman_postform_field_type_7", 1);
-			add_option("wpbusdirman_postform_field_type_8", 1);
-			add_option("wpbusdirman_postform_field_type_9", 1);
+			foreach ($default_fields as $field) {
+				$newfield = $field;
+				if (isset($newfield['display_options']))
+					$newfield['display_options'] = serialize($newfield['display_options']);
 
-			add_option("wpbusdirman_postform_field_options_1", '');
-			add_option("wpbusdirman_postform_field_options_2", '');
-			add_option("wpbusdirman_postform_field_options_3", '');
-			add_option("wpbusdirman_postform_field_options_4", '');
-			add_option("wpbusdirman_postform_field_options_5", '');
-			add_option("wpbusdirman_postform_field_options_6", '');
-			add_option("wpbusdirman_postform_field_options_7", '');
-			add_option("wpbusdirman_postform_field_options_8", '');
-			add_option("wpbusdirman_postform_field_options_9", '');
-
-			add_option("wpbusdirman_postform_field_order_1", 1);
-			add_option("wpbusdirman_postform_field_order_2", 2);
-			add_option("wpbusdirman_postform_field_order_3", 3);
-			add_option("wpbusdirman_postform_field_order_4", 4);
-			add_option("wpbusdirman_postform_field_order_5", 5);
-			add_option("wpbusdirman_postform_field_order_6", 6);
-			add_option("wpbusdirman_postform_field_order_7", 7);
-			add_option("wpbusdirman_postform_field_order_8", 8);
-			add_option("wpbusdirman_postform_field_order_9", 9);
-
-
-			add_option("wpbusdirman_postform_field_association_1", 'title');
-			add_option("wpbusdirman_postform_field_association_2", 'category');
-			add_option("wpbusdirman_postform_field_association_3", 'excerpt');
-			add_option("wpbusdirman_postform_field_association_4", 'description');
-			add_option("wpbusdirman_postform_field_association_5", 'meta');
-			add_option("wpbusdirman_postform_field_association_6", 'meta');
-			add_option("wpbusdirman_postform_field_association_7", 'meta');
-			add_option("wpbusdirman_postform_field_association_8", 'meta');
-			add_option("wpbusdirman_postform_field_association_9", 'tags');
-
-			add_option("wpbusdirman_postform_field_validation_1", 'missing');
-			add_option("wpbusdirman_postform_field_validation_2", 'missing');
-			add_option("wpbusdirman_postform_field_validation_3", '');
-			add_option("wpbusdirman_postform_field_validation_4", 'missing');
-			add_option("wpbusdirman_postform_field_validation_5", 'url');
-			add_option("wpbusdirman_postform_field_validation_6", '');
-			add_option("wpbusdirman_postform_field_validation_7", '');
-			add_option("wpbusdirman_postform_field_validation_8", 'email');
-			add_option("wpbusdirman_postform_field_validation_9", '');
-
-			add_option("wpbusdirman_postform_field_required_1", 'yes');
-			add_option("wpbusdirman_postform_field_required_2", 'yes');
-			add_option("wpbusdirman_postform_field_required_3", 'no');
-			add_option("wpbusdirman_postform_field_required_4", 'yes');
-			add_option("wpbusdirman_postform_field_required_5", 'no');
-			add_option("wpbusdirman_postform_field_required_6", 'no');
-			add_option("wpbusdirman_postform_field_required_7", 'no');
-			add_option("wpbusdirman_postform_field_required_8", 'yes');
-			add_option("wpbusdirman_postform_field_required_9", 'no');
-
-
-			add_option("wpbusdirman_postform_field_showinexcerpt_1", 'yes');
-			add_option("wpbusdirman_postform_field_showinexcerpt_2", 'yes');
-			add_option("wpbusdirman_postform_field_showinexcerpt_3", 'no');
-			add_option("wpbusdirman_postform_field_showinexcerpt_4", 'no');
-			add_option("wpbusdirman_postform_field_showinexcerpt_5", 'yes');
-			add_option("wpbusdirman_postform_field_showinexcerpt_6", 'yes');
-			add_option("wpbusdirman_postform_field_showinexcerpt_7", 'no');
-			add_option("wpbusdirman_postform_field_showinexcerpt_8", 'no');
-			add_option("wpbusdirman_postform_field_showinexcerpt_9", 'no');
-
-			add_option("wpbusdirman_postform_field_hide_1", 'no');
-			add_option("wpbusdirman_postform_field_hide_2", 'no');
-			add_option("wpbusdirman_postform_field_hide_3", 'no');
-			add_option("wpbusdirman_postform_field_hide_4", 'no');
-			add_option("wpbusdirman_postform_field_hide_5", 'no');
-			add_option("wpbusdirman_postform_field_hide_6", 'no');
-			add_option("wpbusdirman_postform_field_hide_7", 'no');
-			add_option("wpbusdirman_postform_field_hide_8", 'no');
-			add_option("wpbusdirman_postform_field_hide_9", 'no');
+				$wpdb->insert($wpdb->prefix . 'wpbdp_form_fields', $newfield);
+			}
 		}
 
 		update_option('wpbdp-db-version', self::DB_VERSION);
-
 
 	    $plugin_dir = basename(dirname(__FILE__));
 		load_plugin_textdomain( 'WPBDM', null, $plugin_dir.'/languages' );		
@@ -4459,4 +4463,4 @@ class WPBDP_Plugin {
 }
 
 $wpbdp = new WPBDP_Plugin();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();
