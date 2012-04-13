@@ -117,7 +117,10 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
 	/* Rows */
 	public function column_order($field) {
-		return 'up | down';
+		return sprintf('<a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
+					   esc_url(add_query_arg(array('action' => 'fieldup', 'id' => $field->id))),
+					   esc_url(add_query_arg(array('action' => 'fielddown', 'id' => $field->id)))
+					   );
 	}
 
 	public function column_label($field) {
@@ -767,6 +770,9 @@ class WPBDP_FormFieldsAdmin {
     		case 'editfield':
     			$this->processFieldForm();
     			break;
+    		case 'fieldup':
+    		case 'fielddown':
+    			$this->api->reorderField($_REQUEST['id'], $action == 'fieldup' ? 1 : -1);
     		default:
 		    	$table = new WPBDP_FormFieldsTable();
 		    	$table->prepare_items();

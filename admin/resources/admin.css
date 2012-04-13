@@ -95,6 +95,10 @@ table.wp-list-table.formfields th.column-tags {
     width: 130px;
 }
 
+table.wp-list-table.formfields th.column-order {
+    width: 40px;
+}
+
 table.wp-list-table.formfields .tag.required {
     background: orange;
 }

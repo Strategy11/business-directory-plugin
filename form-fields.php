@@ -27,10 +27,10 @@ class WPBDP_FormFieldsAPI {
 		return $field;
 	}
 
-	public function getFormFields($sorted=true) {
+	public function getFormFields() {
 		global $wpdb;
 
-		$fields = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpbdp_form_fields");
+		$fields = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC");
 		
 		foreach ($fields as &$field)
 			$this->normalizeField($field);
@@ -83,6 +83,45 @@ class WPBDP_FormFieldsAPI {
 
 
 	/* Field handling */
+	public function reorderField($id, $delta) {
+		global $wpdb;
+
+		$field = $this->getField($id);
+
+		if ($delta > 0) {
+			$fields = $wpdb->get_results($wpdb->prepare("SELECT id, weight FROM {$wpdb->prefix}wpbdp_form_fields WHERE weight >= %d ORDER BY weight ASC", $field->weight));
+
+			if ($fields[count($fields) - 1]->id == $field->id)
+				return;
+
+			for ($i = 0; $i < count($fields); $i++) {
+				$fields[$i]->weight = intval($field->weight) + $i;
+
+				if ($fields[$i]->id == $field->id) {
+					$fields[$i]->weight += 1;
+					$fields[$i+1]->weight -= 1;
+					$i += 1;
+				} 
+			}
+
+			foreach ($fields as &$f) {
+				$wpdb->update("{$wpdb->prefix}wpbdp_form_fields", array('weight' => $f->weight), array('id' => $f->id));
+			}
+		} else {
+			$fields = $wpdb->get_results($wpdb->prepare("SELECT id, weight FROM {$wpdb->prefix}wpbdp_form_fields WHERE weight <= %d ORDER BY weight ASC", $field->weight));
+
+			if ($fields[0]->id == $field->id)
+				return;
+
+			foreach ($fields as $i => $f) {
+				if ($f->id == $field->id) {
+					$this->reorderField($fields[$i-1]->id, 1);
+					return;
+				}
+			}
+		}
+	}
+
 	public function isValidField($field=array(), &$errors=null) {
 		global $wpdb;
 
