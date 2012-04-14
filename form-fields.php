@@ -169,14 +169,69 @@ class WPBDP_FormFieldsAPI {
 		return true;
 	}
 
-	public function addorUpdateField($field=array(), &$errors=null) {
+	public function addorUpdateField($field_=array(), &$errors=null) {
+		global $wpdb;
+
 		$errors = array();
 
+		$field = $field_;
+		if (isset($field['field_data'])) {
+			$field['field_data'] = serialize($field['field_data']);
+		} else {
+			$field['field_data'] = null;
+		}
+
+
+		if (isset($field['is_required'])) {
+			$field['is_required'] = intval($field['is_required']);
+		} else {
+			$field['is_required'] = 0;
+		}
+
+		if (isset($field['display_options'])) {
+			if (isset($field['display_options']['show_in_excerpt']))
+				$field['display_options']['show_in_excerpt'] = intval($field['display_options']['show_in_excerpt']);
+
+			if (isset($field['display_options']['hide_field']))
+				$field['display_options']['hide_field'] = intval($field['display_options']['hide_field']);			
+
+			$field['display_options'] = serialize($field['display_options']);
+		} else {
+			$field['display_options'] = null;
+		}
+
 		if ($this->isValidField($field, &$errors)) {
-			return true;
+			if (isset($field['id'])) {
+				return $wpdb->update("{$wpdb->prefix}wpbdp_form_fields", $field, array('id' => $field['id'])) !== false;
+			} else {
+				return $wpdb->insert("{$wpdb->prefix}wpbdp_form_fields", $field);
+			}
 		}
 
 		return false;
+	}
+
+	public function deleteField($id, &$errors=null) {
+		if (is_object($id)) return $this->deleteField((array) $id);
+		if (is_array($id)) return $this->deleteField($id['id']);
+
+		global $wpdb;
+
+		$errors = array();
+
+		$field = $this->getField($id);
+
+		if (!in_array($field->association, array('title', 'category', 'content'))) {
+			$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $field->id));
+			return true;
+		} else {
+			$errors[] = _x("This form field can't be deleted because it is required for the plugin to work.", 'form-fields api', 'WPBDM');
+		}
+
+		if ($errors)
+			return false;
+
+		return true;
 	}
 
 	/*

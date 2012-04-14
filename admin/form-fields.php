@@ -763,23 +763,23 @@ class WPBDP_FormFieldsAdmin {
 
     public function dispatch() {
     	$action = wpbdp_getv($_REQUEST, 'action');
-    	unset($_REQUEST['action']);
+    	$_SERVER['REQUEST_URI'] = remove_query_arg(array('action', 'id'), $_SERVER['REQUEST_URI']);
 
     	switch ($action) {
     		case 'addfield':
     		case 'editfield':
     			$this->processFieldForm();
     			break;
+    		case 'deletefield':
+    			$this->deleteField();
+    			break;
     		case 'fieldup':
     		case 'fielddown':
     			$this->api->reorderField($_REQUEST['id'], $action == 'fieldup' ? 1 : -1);
+    			$this->fieldsTable();
+    			break;
     		default:
-		    	$table = new WPBDP_FormFieldsTable();
-		    	$table->prepare_items();
-
-		        wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields.tpl.php',
-		                          array('table' => $table),
-		                          true);    		
+    			$this->fieldsTable();
     			break;
     	}
     }
@@ -789,13 +789,23 @@ class WPBDP_FormFieldsAdmin {
     	$instance->dispatch();
     }
 
-    /* add fields */
+    /* field list */
+    private function fieldsTable() {
+    	$table = new WPBDP_FormFieldsTable();
+    	$table->prepare_items();
+
+        wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields.tpl.php',
+                          array('table' => $table),
+                          true);    		    	
+    }
+
 	private function processFieldForm() {
 		if (isset($_POST['field'])) {
 			$newfield = $_POST['field'];
 
 			if ($this->api->addorUpdateField($newfield, $errors)) {
-				wpbdp_log('add field');
+				$this->admin->messages[] = _x('Form fields updated.', 'form-fields admin', 'WPBDM');
+				return $this->fieldsTable();
 			} else {
 				$errmsg = '';
 				foreach ($errors as $err)
@@ -810,6 +820,31 @@ class WPBDP_FormFieldsAdmin {
 		wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
 						  array('field' => $field),
 						  true);
-	}    
+	}
+
+	private function deleteField() {
+		global $wpdb;
+
+		if (isset($_POST['doit'])) {
+			if (!$this->api->deleteField($_POST['id'], $errors)) {
+				$errmsg = '';
+				foreach ($errors as $err)
+					$errmsg .= sprintf('&#149; %s<br />', $err);
+				
+				$this->admin->messages[] = array($errmsg, 'error');
+			} else {
+				$this->admin->messages[] = _x('Field deleted.', 'form-fields admin', 'WPBDM');
+			}
+
+			return $this->fieldsTable();
+		} else {
+			if ($field = $this->api->getField($_REQUEST['id'])) {
+				wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields-confirm-delete.tpl.php',
+								  array('field' => $field),
+								  true);
+			}
+		}
+
+	}
 
 }
