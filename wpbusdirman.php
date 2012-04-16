@@ -173,7 +173,10 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 	add_shortcode('WPBUSDIRMANMVIEWLISTINGS', 'wpbusdirman_viewlistings');
 	add_filter('single_template', 'wpbusdirman_single_template');
 	add_filter('taxonomy_template', 'wpbusdirman_category_template');
+
 	add_filter('search_template', 'wpbusdirman_search_template');
+
+
 	add_filter('comments_template', 'wpbusdirman_template_comment');
 	//add_filter('the_title', 'wpbusdirman_template_the_title');
 	//add_action('loop_start', 'wpbusdirman_remove_post_dates_author_etc');
@@ -3650,6 +3653,9 @@ class WPBDP_Plugin {
 
 		add_action('init', array($this, 'install_or_update_plugin'), 0);
 		add_action('init', array($this, '_register_post_type'));
+
+		add_filter('posts_join', array($this, '_join_with_terms'));
+		add_filter('posts_where', array($this, '_include_terms_in_search'));
 	}
 
 	public function get_post_type() {
@@ -3884,6 +3890,34 @@ class WPBDP_Plugin {
 		}
 
 		return false;
+	}
+
+	/* search filters */
+	public function _join_with_terms($join) {
+		global $wp_query, $wpdb;
+
+		if ($wp_query->is_search && !empty($wp_query->query_vars['s']) && isset($wp_query->query['post_type']) && $wp_query->query['post_type'] == self::POST_TYPE) {
+			$on = array();
+			$on[] = "ttax.taxonomy = '" . self::POST_TYPE_CATEGORY . "'";
+			$on[] = "ttax.taxonomy = '" . self::POST_TYPE_TAGS . "'";
+
+			$on = ' ( ' . implode( ' OR ', $on ) . ' ) ';
+			$join .= " LEFT JOIN {$wpdb->term_relationships} AS trel ON ({$wpdb->posts}.ID = trel.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax ON ( " . $on . " AND trel.term_taxonomy_id = ttax.term_taxonomy_id) LEFT JOIN {$wpdb->terms} AS tter ON (ttax.term_id = tter.term_id) ";
+		}
+
+		return $join;
+	}
+
+	public function _include_terms_in_search($query) {
+		global $wp_query, $wpdb;
+
+		if ($wp_query->is_search && !empty($wp_query->query_vars['s']) && isset($wp_query->query['post_type']) && $wp_query->query['post_type'] == self::POST_TYPE) {
+			$query .= $wpdb->prepare(' OR (tter.name LIKE \'%%%s%%\')', $wp_query->query_vars['s']);
+			$query .= $wpdb->prepare(' OR (tter.slug LIKE \'%%%s%%\')', $wp_query->query_vars['s']);
+			$query .= $wpdb->prepare(' OR (ttax.description LIKE \'%%%s%%\')', $wp_query->query_vars['s']);
+		}
+
+		return $query;
 	}
 
 
