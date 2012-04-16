@@ -219,24 +219,25 @@ function wpbusdirman_display_postform_add()
 	return $html;
 }
 
+function wpbdp_admin_add_listing() {
+	return wpbusdirman_buildform();
+}
+
 function wpbusdirman_buildform()
 {
 	global $table_prefix,$wpbusdirmanconfigoptionsprefix;;
 	$wpbusdirman_error=false;
 	$wpbusdirman_notify='';
 	$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
-	$wpbusdirman_field_vals_max=max($wpbusdirman_field_vals);
 	$wpbusdirman_autoincrementfieldorder=0;
 	$wpbusdirman_error_message='';
 	$wpbusdirmanaction='';
 	$html = '';
 
 	$html .= wpbdp_admin_header();
-	if(isset($_REQUEST['action'])
-		&& !empty($_REQUEST['action']))
-	{
-		$wpbusdirmanaction=$_REQUEST['action'];
-	}
+
+	$wpbusdirmanaction = 'addnewlisting';
+
 	if ( $wpbusdirmanaction == 'viewpostform')
 	{
 		$html .= wpbusdirman_display_postform_preview();

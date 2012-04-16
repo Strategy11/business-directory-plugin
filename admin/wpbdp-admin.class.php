@@ -46,7 +46,7 @@ class WPBDP_Admin {
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdman_c3a',
-                         '_wpbdp_admin_add_listing');
+                         'wpbdp_admin_add_listing');
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),
@@ -59,12 +59,6 @@ class WPBDP_Admin {
                          'activate_plugins', 
                          'wpbdman_c2',
                          'wpbusdirman_opsconfig_fees');
-        add_submenu_page('wpbusdirman.php',
-                         _x('Manage Fields', 'admin menu', 'WPBDM'),
-                         _x('Manage Form Fields', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
-                         'wpbdman_c3',
-                         'wpbusdirman_buildform');
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
@@ -93,7 +87,6 @@ class WPBDP_Admin {
         // just a little hack
         global $submenu;
         $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-        $submenu['wpbusdirman.php'][1][2] = admin_url('admin.php?page=wpbdman_c3&action=addnewlisting');
         $submenu['wpbusdirman.php'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
         $submenu['wpbusdirman.php'][7][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
     }

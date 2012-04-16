@@ -1,5 +1,4 @@
-<?php
-	get_header();?>
+<?php get_header(); ?>
 
 	<div id="wpbdmentry"><div class="fixpadding">
 <?php 	if (have_posts())
@@ -88,5 +87,4 @@
 ?>
 	<div style="clear:both;"></div>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->
-<?php
-	get_footer();
+<?php get_footer(); ?>

@@ -32,18 +32,16 @@ function wpbusdirman_single_template($single)
 	global $wp_query, $post, $wpbdmposttype;
 	$mywpbdmposttype=$post->post_type;
 
+	if ($mywpbdmposttype == $wpbdmposttype) {
+		if(file_exists(get_template_directory() . '/single/wpbusdirman-single.php'))
+		return get_template_directory() . '/single/wpbusdirman-single.php';
+		if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-single.php'))
+		return get_stylesheet_directory() . '/single/wpbusdirman-single.php';
+		if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php'))
+		return WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php';
+	}
 
-		if($mywpbdmposttype == $wpbdmposttype )
-		{
-			if(file_exists(get_template_directory() . '/single/wpbusdirman-single.php'))
-			return get_template_directory() . '/single/wpbusdirman-single.php';
-			if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-single.php'))
-			return get_stylesheet_directory() . '/single/wpbusdirman-single.php';
-			if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php'))
-			return WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php';
-		}
-
-return $single;
+	return $single;
 
 }
 
