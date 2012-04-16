@@ -445,12 +445,13 @@ class WPBDP_FormFieldsAPI {
 					'taxonomy' => wpbdp()->get_post_type_category(),
 					'show_option_none' => _x('Choose One', 'form-fields-api category-select', 'WPBDM'),
 					'orderby' => 'name',
-					'selected' => $value,
+					'selected' => $value[0],
 					'order' => 'ASC',
 					'hide_empty' => 0,
 					'hierarchical' => 1,
 					'echo' => 0,
 					'id' => 'wpbdp-field-' . $field->id,
+					'name' => 'listingfields[' . $field->id . ']',
 					'class' => $field->is_required ? 'inselect required' : 'inselect'
 				) );
 		} else {
