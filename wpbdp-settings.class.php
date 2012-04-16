@@ -216,6 +216,9 @@ class WPBDP_Settings {
 		if (!is_null($ifempty) && empty($value))
 			return $ifempty;
 
+		if ($this->settings[$name]->type == 'boolean')
+			return (boolean) intval($value);
+
 		return $value;
 	}
 

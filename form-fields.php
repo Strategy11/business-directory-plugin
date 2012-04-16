@@ -277,10 +277,10 @@ class WPBDP_FormFieldsAPI {
 		if (!isset($field['association']) || !in_array($field['association'], array_keys($this->getFieldAssociations()))) {
 			$errors[] = _x('Invalid field association.', 'form-fields-api', 'WPBDM');
 		} else {
-			// no more than 1 field associated with title, content, category or tags
+			// no more than 1 field associated with title, content, excerpt, category or tags
 			$association = $field['association'];
 
-			if (in_array($association, array('title', 'content', 'category', 'tags'))) {
+			if (in_array($association, array('title', 'content', 'category', 'excerpt', 'tags'))) {
 				if ($field_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE association = %s", $association))) {
 					if (!isset($field['id']) || $field['id'] != $field_id) {
 						$errors[] = sprintf(_x('There can only be one field with association "%s". Please select another association.', 'form-fields-api', 'WPBDM'), $this->getFieldAssociations($association));
@@ -301,10 +301,17 @@ class WPBDP_FormFieldsAPI {
 				$errors[] = _x('Post category field can\'t be a text field or text area.', 'form-fields-api', 'WPBDM');
 		}
 
-		if (isset($field['validator']) && !empty($field['validator']) && !in_array($field['validator'], array_keys($this->getValidators())))
-			$errors[] = _x('Invalid validator selected.', 'form-fields-api', 'WPBDM');			
+		if (isset($field['validator']) && !empty($field['validator'])) {
+			if (!in_array($field['validator'], array_keys($this->getValidators())))
+				$errors[] = _x('Invalid validator selected.', 'form-fields-api', 'WPBDM');
 
-		// TODO: check only one field is using EmailValidator		
+			if ($field['validator'] == 'EmailValidator') {
+				if ($email_field = $this->getFieldsByValidator('EmailValidator', true)) {
+					if (!isset($field['id']) || $field['id'] != $email_field->id)
+						$errors[] = _x('You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again.', 'form-fields-api', 'WPBDM');
+				}
+			}
+		}
 
 		if ($errors)
 			return false;
@@ -506,6 +513,9 @@ class WPBDP_FormFieldsAPI {
 	}
 
 	public function render_multiselect(&$field, $value=null) {
+		if (is_string($value))
+			return $this->render_multiselect($field, explode("\t", $value));
+		
 		return $this->render_select($field, $value, true);
 	}
 

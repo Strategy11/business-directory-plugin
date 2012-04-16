@@ -304,112 +304,71 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $
 
 			if ($fields = $formfields_api->getFields()) {
 				foreach ($fields as $field) {
-					if (isset($wpbusdirmanerrors) && !empty($wpbusdirmanerrors)) {
-						/*if($wpbusdirman_field_label_association == "_category")
-						{
-							if($wpbusdirman_field_type == 2){$wpbusdirman_field_value=$_REQUEST['cat'];}
-							elseif($wpbusdirman_field_type == 6){$wpbusdirman_field_value=$_REQUEST['wpbusdirman_field_label_category'];}
-						}
-						else
-						{
-							$wpbusdirman_field_value=$_REQUEST['wpbusdirman_field_label'.$wpbusdirman_field_label_association];
-						}*/
-					} else {
-						if (isset($wpbdmlistingid) && !empty($wpbdmlistingid)) {
-							// ...
+					$field_value = null;
+
+					if (isset($wpbdmlistingid) && !empty($wpbdmlistingid)) {
+						switch ($field->association) {
+							case 'title':
+								$field_value = get_the_title($wpbdmlistingid);
+								break;
+							case 'content':
+								$field_value = wpbdm_get_post_data('post_content', $wpbdmlistingid);
+								break;
+							case 'excerpt':
+								$field_value = wpbdm_get_post_data('post_excerpt', $wpbdmlistingid);
+								break;
+							case 'category':
+								$field_value = array();
+
+								foreach (get_the_terms($wpbdmlistingid, wpbdp()->get_post_type_category()) as $term)
+									$field_value[] = $term->term_id;
+
+								break;
+							case 'tags':
+								$terms = get_the_terms($wpbdmlistingid, wpbdp()->get_post_type_tags());
+
+								if (in_array($field->type, array('select', 'multiselect', 'checkbox'))) {
+									$field_value = array();
+
+									foreach ($terms as $t)
+										$field_value[] = $t->term_id;
+								} else {
+									$field_value = '';
+
+									foreach ($terms as $t)
+										$field_value .= $t->slug . ',';
+
+									$field_value = substr($field_value, 0, -1);
+								}
+
+								break;
+							case 'meta':
+							default:
+								$field_value = get_post_meta($wpbdmlistingid, $field->label, true);
+								break;
 						}
 					}
-
-					$field_value = wpbdp_getv($post_values, $field->id, null);
+					
+					$field_value = wpbdp_getv($post_values, $field->id, $field_value);
 					$html .= $formfields_api->render($field, $field_value);
 				}
 			}
 
-			/* <old form fields code> */
-			/*	{
-							switch ($wpbusdirman_field_association)
-							{
-								case 'category':
-									$wpbusdirman_field_value=array();
-									$wpbusdirman_postvalues=get_the_terms($wpbdmlistingid, $wpbdmposttypecategory);
-
-
-									if($wpbusdirman_postvalues)
-									{
-										foreach($wpbusdirman_postvalues as $wpbusdirman_postvalue)
-										{
-											$wpbusdirman_field_value[]=$wpbusdirman_postvalue->term_id;
-										}
-
-									}
-									break;
-								case 'title':
-									$wpbusdirman_field_value=get_the_title($wpbdmlistingid);
-									break;
-								case 'description':
-									$wpbusdirman_field_value=wpbdm_get_post_data($data='post_content',$wpbdmlistingid);
-									break;
-								case 'excerpt':
-									$wpbusdirman_field_value=wpbdm_get_post_data($data='post_excerpt',$wpbdmlistingid);
-									break;
-								case 'tags':
-									$wpbusdirman_field_value='';
-									$wpbusdirmanfieldtagsarr=array();
-									$wpbusdirmanfieldtagsobject=get_the_terms($wpbdmlistingid, $wpbdmposttypetags);
-									if($wpbusdirmanfieldtagsobject)
-									{
-										foreach($wpbusdirmanfieldtagsobject as $wpbusdirmanfieldtags)
-										{
-										   $wpbusdirmantag=$wpbusdirmanfieldtags->slug;
-										   $wpbusdirmanfieldtagsarr[]=$wpbusdirmantag;
-										}
-									}
-									if($wpbusdirmanfieldtagsarr)
-									{
-										$wpbusdirman_last_field_tag=end($wpbusdirmanfieldtagsarr);
-										foreach($wpbusdirmanfieldtagsarr as $wpbusdirman_field_tag)
-										{
-											$wpbusdirman_field_value.="$wpbusdirman_field_tag";
-											if($wpbusdirman_last_field_tag != $wpbusdirman_field_tag )
-											{
-												$wpbusdirman_field_value.=",";
-											}
-										}
-									}
-									break;
-								default:
-									$wpbusdirman_field_value=get_post_meta($wpbdmlistingid, $wpbusdirman_field_label, $single = true);
-									break;
-							}
-						}
-			}*/
-			/* </old form fields code> */
 			$html .= "<p><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Submit","WPBDM") . "\" /></p></form>";
 			$html .= "</div>";
-
 		}
 	}
 
 	return $html;
 }
 
-
-
-function wpbusdirman_opsconfig_categories()
-{
-}
-
-function wpbusdirmanui_homescreen ()
-{
+function wpbusdirmanui_homescreen() {
 	$html = '';
-
 	$html .= apply_filters('wpbdm_show-directory', null);
-
 	return $html;
 }
 
-function wpbusdirmanui_directory_screen()
-{
+function wpbusdirmanui_directory_screen() {
 	global $wpbdmimagesurl,$wpbusdirman_imagesurl,$wpbusdirman_plugin_path,$wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix,$wpbdmposttype;
 	$wpbusdirman_config_options=get_wpbusdirman_config_options();
 	$wpbusdirman_contact_errors=false;
@@ -3628,68 +3587,25 @@ function wpbusdirman_the_listing_meta($excerptorsingle) {
 	$overrideemailblocking=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_45'];
 	$html = '';
 
-	wpbdp_debug('Listing Meta'); return;
+	foreach (wpbdp_formfields_api()->getFieldsByAssociation('meta') as $field) {
+		if ($field->display_options['hide_field'])
+			continue;		
 
-	if($wpbusdirman_field_vals_pfl)
-	{
-		foreach($wpbusdirman_field_vals_pfl as $wpbusdirman_field_val)
-		{
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-			if($wpbusdirman_field_association == 'meta')
-			{
-				$wpbusdirman_field_value=get_post_meta(get_the_ID(), $wpbusdirman_field_label, $single = true);
-				$wpbusdirman_field_value=preg_replace("/(http:\/\/[^\s]+)/","<a rel=\"no follow\" href=\"\$1\">\$1</a>",$wpbusdirman_field_value);
-				$wpbusdirman_field_value=str_replace("\t",", ",$wpbusdirman_field_value);
-				$wpbusdireman_field_hide = get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_hide_' . $wpbusdirman_field_val);
-				if ("yes" == $wpbusdireman_field_hide)
-				{
-					continue;
-				}
-				if( isset($overrideemailblocking)
-					&& !empty($overrideemailblocking)
-					&& ($overrideemailblocking == "yes") )
-				{
-					if( isset($wpbusdirman_field_value)
-						&& !empty($wpbusdirman_field_value) )
-					{
-						if(isset($excerptorsingle)
-							&& !empty($excerptorsingle)
-							&& ($excerptorsingle == 'excerpt'))
-						{
-							if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_showinexcerpt_'.$wpbusdirman_field_val) == 'yes')
-							{
-								$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . $wpbusdirman_field_value . '</p>';
-							}
-						}
-						else
-						{
-							$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . $wpbusdirman_field_value . '</p>';
-						}
-					}
-				}
-				elseif($overrideemailblocking == "no")
-				{
-					if( isset($wpbusdirman_field_value)
-						&& !empty($wpbusdirman_field_value)
-						&&  !wpbusdirman_isValidEmailAddress($wpbusdirman_field_value) )
-					{
-						if(isset($excerptorsingle)
-							&& !empty($excerptorsingle)
-							&& ($excerptorsingle == 'excerpt'))
-						{
-							if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_showinexcerpt_'.$wpbusdirman_field_val) == 'yes')
-							{
-								$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . $wpbusdirman_field_value . '</p>';
-							}
-						}
-						else
-						{
-							$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . $wpbusdirman_field_value . '</p>';
-						}
-					}
-				}
+		if (isset($excerptorsingle) && $excerptorsingle == 'excerpt' && !$field->display_options['show_in_excerpt'])
+			continue;
+
+		if ($value = get_post_meta(get_the_ID(), $field->label, true)) {
+			if (!wpbdp_get_option('override-email-blocking') && wpbusdirman_isValidEmailAddress($value))
+				continue;
+
+			if (in_array($field->type, array('multiselect', 'checkbox')))
+				$value = str_replace("\t", ', ', $value);
+
+			if ($field->validator == 'URLValidator') {
+				$value = sprintf('<a href="%s" rel="no follow">%s</a>', esc_url($value), esc_url($value));
 			}
+
+			$html .= sprintf('<p><label>%s</label>: %s</p>', esc_attr($field->label), $value);
 		}
 	}
 
