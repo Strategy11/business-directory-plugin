@@ -3020,19 +3020,20 @@ function wpbusdirman_post_list_categories()
 	{
 		$wpbdm_show_count=0;
 	}
-	$wpbdm_show_parent_categories_only=$wpbusdirmanconfigoptionsprefix."_settings_config_48";
-	$wpbdm_show_parent_categories_only=1;
+	$wpbdm_show_parent_categories_only=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix."_settings_config_48"];
+	// wpbdp_debug_e($wpbdm_show_parent_categories_only);
+	// $wpbdm_show_parent_categories_only=1;
 	if(isset($wpbdm_show_parent_categories_only)
 		&& !empty($wpbdm_show_parent_categories_only)
 		&& ($wpbdm_show_parent_categories_only == "yes"))
 	{
-		$wpbdm_show_parent_categories_only=0;
+		$wpbdm_show_parent_categories_only=1;
 	}
 	elseif(isset($wpbdm_show_parent_categories_only)
 		&& !empty($wpbdm_show_parent_categories_only)
 		&& ($wpbdm_show_parent_categories_only == "no"))
 	{
-		$wpbdm_show_parent_categories_only=1;
+		$wpbdm_show_parent_categories_only=0;
 	}
 
 	$taxonomy     = $wpbdmposttypecategory;
@@ -3043,17 +3044,19 @@ function wpbusdirman_post_list_categories()
 	$title        = '';
 	$order=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_8'];
 	$hide_empty=$wpbdm_hide_empty;
-	$args = array(
-		'taxonomy'     => $taxonomy,
-		'orderby'      => $orderby,
-		'show_count'   => $show_count,
-		'pad_counts'   => $pad_counts,
-		'hierarchical' => $hierarchical,
-		'title_li'     => $title,
-		'order' =>$order,
-		'hide_empty' => $hide_empty
-	);
-	$html .= wp_list_categories($args);
+
+	$html .= wp_list_categories(array(
+		'taxonomy' => $taxonomy,
+		'echo' => false,
+		'title_li' => '',
+		'orderby' => $orderby,
+		'order' => $order,
+		'show_count' => $show_count,
+		'pad_counts' => $wpbdm_show_parent_categories_only ? true : false,
+		'hide_empty' => $hide_empty,
+		'hierarchical' => 1,
+		'depth' => $wpbdm_show_parent_categories_only ? 1 : 0
+	));
 
 	return $html;
 }
