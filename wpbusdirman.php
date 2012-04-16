@@ -3638,7 +3638,7 @@ require_once(WPBDP_PATH . 'form-fields.php');
 
 class WPBDP_Plugin {
 
-	const VERSION = '2.0.1';
+	const VERSION = '2.0.2';
 	const DB_VERSION = '2.1';
 
 	const POST_TYPE = 'wpbdm-directory';
