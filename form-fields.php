@@ -495,19 +495,36 @@ class WPBDP_FormFieldsAPI {
 
 		$html .= sprintf('<p class="wpbdmp"><label>%s</label></p>', esc_attr($field->label));
 
-		if (isset($field->field_data['options'])) {
-			foreach ($field->field_data['options'] as $option) {
+		if ($field->association == 'category') {
+			$terms = get_terms(wpbdp()->get_post_type_category(), 'hide_empty=0');
+
+			foreach ($terms as $term) {
 				$html .= sprintf('<span style="padding-right: 10px;">
 								  <input type="radio" name="%s" class="%s" value="%s" %s />
 								  %s
 								  </span>',
 								  'listingfields[' . $field->id . ']',
 								  $field->is_required ? 'inradio required' : 'inradio',
-								  $option,
-								  $value == $option ? 'checked="checked"' : '',
-								  esc_attr($option)
-								 );
+								  $term->term_id,
+								  $value == $term->term_id ? 'checked="checked"' : '',
+								  esc_attr($term->name)
+								 );				
 			}
+		} else {
+			if (isset($field->field_data['options'])) {
+					foreach ($field->field_data['options'] as $option) {
+						$html .= sprintf('<span style="padding-right: 10px;">
+										  <input type="radio" name="%s" class="%s" value="%s" %s />
+										  %s
+										  </span>',
+										  'listingfields[' . $field->id . ']',
+										  $field->is_required ? 'inradio required' : 'inradio',
+										  $option,
+										  $value == $option ? 'checked="checked"' : '',
+										  esc_attr($option)
+										 );
+					}
+				}
 		}
 
 		return $html;
