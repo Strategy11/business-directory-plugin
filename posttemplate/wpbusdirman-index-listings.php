@@ -67,4 +67,3 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 	wp_reset_query();
 ?>
 </div>
-<?php

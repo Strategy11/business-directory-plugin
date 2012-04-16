@@ -240,7 +240,7 @@ function wpBusDirManUi_addListingForm()
 	return $html;
 }
 
-function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $neworedit = 'new', $wpbdmlistingid = '')
+function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $neworedit = 'new', $wpbdmlistingid = '')
 {
  	global $wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory,$wpbdmposttypetags,$wpbdmposttype;
 	$wpbusdirman_config_options=get_wpbusdirman_config_options();
@@ -268,84 +268,44 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 	$html .= "</div>";
 	$html .= "<div style=\"clear:both;\"></div></div>";
 
- 	if(!isset($wpbusdirman_postcats) || empty($wpbusdirman_postcats))
- 	{
- 		if(is_user_logged_in() && current_user_can('install_plugins'))
- 		{
+ 	if(!isset($wpbusdirman_postcats) || empty($wpbusdirman_postcats)) {
+ 		if (is_user_logged_in() && current_user_can('install_plugins')) {
  			$html .= "<p>" . __("There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.","WPBDM") . "</p>";
- 		}
- 		else
- 		{
+ 		} else {
  			$html .= "<p>" . __("Your listing cannot be added at this time. Please try again later.","WPBDM") . "</p>";
  		}
- 	}
- 	else
-	{
-		if(($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_3'] == "yes") && !is_user_logged_in())
-		{
+ 	} else {
+		if(($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_3'] == "yes") && !is_user_logged_in()) {
 			$wpbusdirman_loginurl=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_4'];
-			if(!isset($wpbusdirman_loginurl) || empty($wpbusdirman_loginurl))
-			{
+			if(!isset($wpbusdirman_loginurl) || empty($wpbusdirman_loginurl)) {
 				$wpbusdirman_loginurl=get_option('siteurl').'/wp-login.php';
 			}
 			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues.","WPBDM") . "</p>";
 			$html .= "<form method=\"post\" action=\"$wpbusdirman_loginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\"></form>";
-		}
-		else
-		{
-			$wpbusdirman_selectcattext=__("Choose One","WPBDM");
-			$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
-			global $wpbusdirman_gpid,$permalinkstructure;
-			if(!isset($permalinkstructure)
-				|| empty($permalinkstructure))
-			{
-				$querysymbol="&amp";
-			}
-			else
-			{
-				$querysymbol="?";
-			}
+		} else {
 			$html .= "<div class=\"clear\"></div><form method=\"post\" action=\"\" enctype=\"application/x-www-form-urlencoded\">";
 			$html .= "<input type=\"hidden\" name=\"formmode\" value=\"$makeactive\" />";
 			$html .= "<input type=\"hidden\" name=\"neworedit\" value=\"$neworedit\" />";
 			$html .= "<input type=\"hidden\" name=\"wpbdmlistingid\" value=\"$wpbdmlistingid\" />";
 			$html .= "<input type=\"hidden\" name=\"action\" value=\"post\" />";
-			if (isset($wpbusdirmanerrors)
-				&& (!empty($wpbusdirmanerrors)))
-			{
-				$html .= "<ul id=\"wpbusdirmanerrors\">" . $wpbusdirmanerrors . "</ul>";
+			
+			if ($wpbusdirmanerrors) {
+				$html .= '<ul id="wpbusdirmanerrors">';
+				
+				foreach ($wpbusdirmanerrors as $error)
+					$html .= sprintf('<li class="wpbusdirmanerroralert">%s</li>', $error);
+				
+				$html .= '</ul>';
 			}
-			if($wpbusdirman_field_vals)
-			{
-				foreach($wpbusdirman_field_vals as $wpbusdirman_field_val)
-				{
-					$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-					$wpbusdirman_field_label_name=$wpbusdirman_field_label;
-					$wpbusdirman_field_type=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_type_'.$wpbusdirman_field_val);
-					$wpbusdirman_field_options=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_options_'.$wpbusdirman_field_val);
-					$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-					$class_required = '';
-					if ("yes" == get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val))
-					{
-						$class_required = ' required';
-					}
-					switch ($wpbusdirman_field_association)
-					{
-						case 'title':
-						case 'category':
-						case 'excerpt':
-						case 'description':
-						case 'tags':
-							$wpbusdirman_field_label_association = "_" . $wpbusdirman_field_association;
-							break;
-						default:
-							$wpbusdirman_field_label_association = "_meta$wpbusdirman_field_val";
-							break;
-					}
-					if(isset($wpbusdirmanerrors)
-						&& !empty($wpbusdirmanerrors))
-					{
-						if($wpbusdirman_field_label_association == "_category")
+
+			$post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
+
+			$formfields_api = wpbdp_formfields_api();
+
+			if ($fields = $formfields_api->getFields()) {
+				foreach ($fields as $field) {
+					if (isset($wpbusdirmanerrors) && !empty($wpbusdirmanerrors)) {
+						/*if($wpbusdirman_field_label_association == "_category")
 						{
 							if($wpbusdirman_field_type == 2){$wpbusdirman_field_value=$_REQUEST['cat'];}
 							elseif($wpbusdirman_field_type == 6){$wpbusdirman_field_value=$_REQUEST['wpbusdirman_field_label_category'];}
@@ -353,13 +313,20 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 						else
 						{
 							$wpbusdirman_field_value=$_REQUEST['wpbusdirman_field_label'.$wpbusdirman_field_label_association];
+						}*/
+					} else {
+						if (isset($wpbdmlistingid) && !empty($wpbdmlistingid)) {
+							// ...
 						}
 					}
-					else
-					{
-						if(isset($wpbdmlistingid)
-							&& !empty($wpbdmlistingid))
-						{
+
+					$field_value = wpbdp_getv($post_values, $field->id, null);
+					$html .= $formfields_api->render($field, $field_value);
+				}
+			}
+
+			/* <old form fields code> */
+			/*	{
 							switch ($wpbusdirman_field_association)
 							{
 								case 'category':
@@ -415,175 +382,8 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors = '', $
 									break;
 							}
 						}
-					}
-					switch ($wpbusdirman_field_type)
-					{
-						case 1:
-							$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label$wpbusdirman_field_label_association\">$wpbusdirman_field_label_name</label>";
-							$wpbusdirman_field_validation=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_validation_'.$wpbusdirman_field_val);
-							if($wpbusdirman_field_validation == 'date')
-							{
-								$html .= __("Format 01/31/1969","WPBDM");
-							}
-							$html .= "</p><input type=\"text\" id=\"wpbusdirman_field_label$wpbusdirman_field_label_association\" name=\"wpbusdirman_field_label$wpbusdirman_field_label_association\" class=\"intextbox" . $class_required . "\" value=\"$wpbusdirman_field_value\">";
-							break;
-						case 2:
-							if($wpbusdirman_field_association == 'category')
-							{
-								if(is_array($wpbusdirman_field_value))
-								{
-									$wpbusdirman_field_value_selected=$wpbusdirman_field_value[0];
-								}
-								else
-								{
-									$wpbusdirman_field_value_selected=$wpbusdirman_field_value;
-								}
-								$html .= "<p class=\"wpbdmp\"><label for=\"cat\">$wpbusdirman_field_label_name</label></p>";
-								$html .= wp_dropdown_categories(array('taxonomy' => $wpbdmposttypecategory, 'show_option_none' => $wpbusdirman_selectcattext, 'orderby' => 'name', 'selected' => $wpbusdirman_field_value_selected, 'order' => 'ASC', 'hide_empty' => 0, 'hierarchical' => 1, 'echo' => 0, 'class' => $class_required));
-							}
-							else
-							{
-								$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label$wpbusdirman_field_label_association\">$wpbusdirman_field_label_name</label></p><select class=\"inselect" . $class_required . "\" id=\"wpbusdirman_field_label$wpbusdirman_field_label_association\" name=\"wpbusdirman_field_label$wpbusdirman_field_label_association\">";
-								$wpbusdirman_formselops=explode(",",$wpbusdirman_field_options);
-								$wpbusdirman_formselop=array();
-								for ($i=0;isset($wpbusdirman_formselops[$i]);++$i)
-								{
-									$wpbusdirman_formselop[]=$wpbusdirman_formselops[$i];
-								}
-								if($wpbusdirman_formselop)
-								{
-									foreach($wpbusdirman_formselop as $wpbusdirman_formseloption)
-									{
-										$wpbusdirman_formseloption=trim($wpbusdirman_formseloption);
-										if($wpbusdirman_field_value == $wpbusdirman_formseloption)
-										{
-											$wpbusdirmanselected="selected";
-										}
-										else
-										{
-											$wpbusdirmanselected='';
-										}
-										$html .= "<option $wpbusdirmanselected value=\"$wpbusdirman_formseloption\" $wpbusdirmanselected>$wpbusdirman_formseloption</option>";
-									}
-								}
-								$html .= "</select>";
-							}
-							break;
-						case 3:
-							$wpbusdirman_field_value=stripslashes($wpbusdirman_field_value);
-							$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label$wpbusdirman_field_label_association\">$wpbusdirman_field_label_name</label></p><textarea id=\"\" name=\"wpbusdirman_field_label$wpbusdirman_field_label_association\" class=\"intextarea" . $class_required . "\">$wpbusdirman_field_value</textarea>";
-							break;
-						case 4:
-							$html .= "<p class=\"wpbdmp\"><label>$wpbusdirman_field_label_name</label></p>";
-							$wpbusdirman_formselops=explode(",",$wpbusdirman_field_options);
-							$wpbusdirman_formselop=array();
-							for ($i=0;isset($wpbusdirman_formselops[$i]);++$i)
-							{
-								$wpbusdirman_formselop[]=$wpbusdirman_formselops[$i];
-							}
-							if($wpbusdirman_formselop)
-							{
-								foreach($wpbusdirman_formselop as $wpbusdirman_formseloption)
-								{
-									$wpbusdirman_formseloption=trim($wpbusdirman_formseloption);
-									if($wpbusdirman_formseloption == $wpbusdirman_field_value)
-									{
-										$wpbusdirmanchecked="checked";
-									}
-									else
-									{
-										$wpbusdirmanchecked='';
-									}
-									$html .= "<span style=\"padding-right:10px;\"><input type=\"radio\" class=\"" . $class_required . "\" name=\"wpbusdirman_field_label$wpbusdirman_field_label_association\" value=\"$wpbusdirman_formseloption\" $wpbusdirmanchecked />$wpbusdirman_formseloption</span>";
-								}
-							}
-							break;
-						case 5:
-							$html .= "<p class=\"wpbdmp\"><label for=\"\">$wpbusdirman_field_label_name</label></p><select class=\"inselectmultiple" . $class_required . "\" id=\"wpbusdirman_field_label" . $wpbusdirman_field_label_association . "\" name=\"wpbusdirman_field_label".$wpbusdirman_field_label_association."[]\" multiple=\"multiple\">";
-							$wpbusdirman_formselops=explode(",",$wpbusdirman_field_options);
-							$wpbusdirman_formselop=array();
-							for ($i=0;isset($wpbusdirman_formselops[$i]);++$i)
-							{
-								$wpbusdirman_formselop[]=$wpbusdirman_formselops[$i];
-							}
-							$wpbusdirmanmultivals=explode("\t",$wpbusdirman_field_value);
-							$wpbusdirmanmultivalsarr=array();
-							for ($a=0;isset($wpbusdirmanmultivals[$a]);++$a)
-							{
-								$wpbusdirmanmultivalsarr[]=trim($wpbusdirmanmultivals[$a]);
-							}
-							if($wpbusdirman_formselop)
-							{
-								foreach($wpbusdirman_formselop as $wpbusdirman_formseloption)
-								{
-									$wpbusdirman_formseloption=trim($wpbusdirman_formseloption);
-									$html .= "<option ";
-									if(in_array($wpbusdirman_formseloption,$wpbusdirmanmultivalsarr))
-									{
-										$html .= $wpbusdirmanselectedword;
-									}
-									$html .= "  value=\"$wpbusdirman_formseloption\">$wpbusdirman_formseloption</option>";
-								}
-							}
-							$html .= "</select>";
-							break;
-						case 6:
-							$html .= "<p class=\"wpbdmp\"><label for=\"wpbusdirman_field_label" . $wpbusdirman_field_label_association . "\">$wpbusdirman_field_label_name</label></p>";
-							if($wpbusdirman_field_association == 'category')
-							{
-								$mywpbdmcatlist = get_terms($wpbdmposttypecategory, 'hide_empty=0');
-								if($mywpbdmcatlist)
-								{
-									foreach($mywpbdmcatlist as $wpbusdirman_formseloption)
-									{
-										$mywpbdmcattermid=$wpbusdirman_formseloption->term_id;
-										$mywpbdmcattermname=$wpbusdirman_formseloption->name;
-										$html .= "<div id=\"wpbdmcheckboxclass\"><input type=\"checkbox\" class=\"" . $class_required . "\" id=\"wpbusdirman_field_label" . $wpbusdirman_field_label_association . "\" name=\"wpbusdirman_field_label".$wpbusdirman_field_label_association."[]\" value=\"$mywpbdmcattermid\"";
-
-										if ( (is_array($wpbusdirman_field_value))
-										&& (in_array($mywpbdmcattermid,$wpbusdirman_field_value)) )
-										{
-										$html .= $wpbusdirmancheckedword;
-										}
-
-										$html .= "/>" . $mywpbdmcattermname . "</div>";
-									}
-								}
-							}
-							else
-							{
-								$wpbusdirman_formselops=explode(",",$wpbusdirman_field_options);
-								$wpbusdirman_formselop=array();
-								for ($i=0;isset($wpbusdirman_formselops[$i]);++$i)
-								{
-									$wpbusdirman_formselop[]=$wpbusdirman_formselops[$i];
-								}
-								$wpbusdirmancboxvals=explode("\t",$wpbusdirman_field_value);
-								$wpbusdirmanxboxvalsarr=array();
-								for ($a=0;isset($wpbusdirmancboxvals[$a]);++$a)
-								{
-									$wpbusdirmanxboxvalsarr[]=trim($wpbusdirmancboxvals[$a]);
-								}
-								if($wpbusdirman_formselop)
-								{
-									foreach($wpbusdirman_formselop as $wpbusdirman_formseloption)
-									{
-										$wpbusdirman_formseloption=trim($wpbusdirman_formseloption);
-										$html .= "<div id=\"wpbdmcheckboxclass\"><input type=\"checkbox\" class=\"" . $class_required . "\" name=\"wpbusdirman_field_label".$wpbusdirman_field_label_association."[]\" value=\"$wpbusdirman_formseloption\"";
-										if(in_array($wpbusdirman_formseloption,$wpbusdirmanxboxvalsarr))
-										{
-											$html .= $wpbusdirmancheckedword;
-										}
-										$html .= "/>$wpbusdirman_formseloption</div>";
-									}
-								}
-
-							}
-							$html .= "<div style=\"clear:both;\"></div>";
-							break;
-					}
-				}
-			}
+			}*/
+			/* </old form fields code> */
 			$html .= "<p><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Submit","WPBDM") . "\" /></p></form>";
 			$html .= "</div>";
 
@@ -1266,483 +1066,365 @@ function wpbusdirman_the_image($wpbusdirman_pID,$size = 'medium' , $class = '')
 function wpbusdirman_do_post()
 {
 	global $wpbusdirman_gpid,$wpbdmposttype,$wpbdmposttypecategory,$wpbdmposttypetags,$wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
+	$wpbusdirman_config_options = get_wpbusdirman_config_options();
 	$html = '';
-	$makeactive='';
-	$neworedit='';
-	$wpbdmlistingid='';
-	$mycatobj=array();
+	$makeactive = '';
+	$neworedit = '';
+	$wpbdmlistingid = '';
+	$mycatobj = array();
 
-	if(isset($_REQUEST['formmode'])
-		&& ($_REQUEST['formmode'] == -1))
-	{
-		$makeactive=$_REQUEST['formmode'];
-	}
-	if(isset($_REQUEST['neworedit'])
-		&& !empty($_REQUEST['neworedit']))
-	{
-		$neworedit=$_REQUEST['neworedit'];
-	}
-	if(isset($_REQUEST['wpbdmlistingid'])
-		&& !empty($_REQUEST['wpbdmlistingid']))
-	{
-		$wpbdmlistingid=$_REQUEST['wpbdmlistingid'];
-	}
-	if($makeactive == -1)
-	{
+	if (isset($_REQUEST['formmode']) && ($_REQUEST['formmode'] == -1)) $makeactive = $_REQUEST['formmode'];
+	if (isset($_REQUEST['neworedit']) && !empty($_REQUEST['neworedit'])) $neworedit=$_REQUEST['neworedit'];
+	if (isset($_REQUEST['wpbdmlistingid']) && !empty($_REQUEST['wpbdmlistingid'])) $wpbdmlistingid = $_REQUEST['wpbdmlistingid'];
+	
+	if($makeactive == -1) {
 		$html .= "<h3 style=\"padding:10px;\">" . __("Information Not Saved","WPBDM") . "</h3><p>" . __("You are trying to submit the form in preview mode. You cannot save while in preview mode","WPBDM") . " <a href=\"javascript:history.go(-1)\">" . __("Go Back","WPBDM") . "</a></p>";
+		return $html;
 	}
-	else
+
+	$formfields_api = wpbdp_formfields_api();
+
+	$listingfields = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();	
+
+	if (!(is_user_logged_in()) ) {
+		if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
+			if ($email = $formfields_api->extract($listingfields, $email_field)) {
+				if (email_exists($email)) {
+					$wpbusdirman_UID = get_user_by_email($email)->ID;
+				} else {
+					$randvalue = wpbusdirman_generatePassword(5,2);
+					$wpbusdirman_UID = wp_insert_user(array(
+						'display_name' => 'Guest ' . $randvalue,
+						'user_login'=> 'guest_' . $randvalue,
+						'user_email'=> $email,
+						'user_pass'=> wpbusdirman_generatePassword(7,2)));
+				}
+			}
+		}
+	} elseif(is_user_logged_in()) {
+		global $current_user;
+		get_currentuserinfo();
+		$wpbusdirman_UID=$current_user->ID;
+	}
+
+	if(!isset($wpbusdirman_UID) || empty($wpbusdirman_UID)) $wpbusdirman_UID = 1;
+
+	if ($validation_errors = wpbusdirman_validate_data()) {
+		$html .= apply_filters('wpbdm_show-add-listing-form', $makeactive, $validation_errors, $neworedit, $wpbdmlistingid);
+		return $html;
+	}
+
+	$post_title = wpbusdirman_filterinput($formfields_api->extract($listingfields, 'title'));
+	$post_excerpt = wpbusdirman_filterinput($formfields_api->extract($listingfields, 'excerpt'));
+	$post_content = wpbusdirman_filterinput($formfields_api->extract($listingfields, 'content'));
+	
+	// $post_categories == $inpost_category
+	$post_categories = $formfields_api->extract($listingfields, 'category');
+	if (!$post_categories) $post_categories = array();
+	if (!is_array($post_categories)) $post_categories = array($post_categories);
+
+	$post_tags = $formfields_api->extract($listingfields, 'tags');
+
+	$post_status = isset($neworedit) && $neworedit == 'edit' ? $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_19'] : $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_1'];
+
+	global $wpbusdirman_gpid, $permalinkstructure;
+	$wpbusdirman_permalink = get_permalink($wpbusdirman_gpid);
+
+	if (!$post_categories) {
+		if ($terms = get_terms(wpbdp()->get_post_type_category(), 'orderby=name&hide_empty=0'))
+			$post_categories = array($terms[0]->term_id);
+	}
+
+	if ($post_tags && !is_array($post_tags)) {
+		$post_tags = explode(',', $post_tags);
+	}
+
+	$wpbusdirman_postID = wp_insert_post( array(
+		'post_author'	=> $wpbusdirman_UID,
+		'post_title'	=> $post_title,
+		'post_content'	=> $post_content,
+		'post_excerpt'	=> $post_excerpt,
+		'post_status' 	=> $post_status,
+		'post_type' 	=> wpbdp()->get_post_type(),
+		'ID'	=> $wpbdmlistingid
+	));
+	wp_set_post_terms( $wpbusdirman_postID , $post_tags, wpbdp()->get_post_type_tags(), false );
+	wp_set_post_terms( $wpbusdirman_postID , $post_categories, wpbdp()->get_post_type_category(), false );
+
+	foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
+		if (isset($listingfields[$field->id])) {
+			if ($value = $formfields_api->extract($listingfields, $field)) {
+				if (in_array($field->type, array('multiselect', 'checkbox'))) {
+					$value = implode("\t", $value);
+				}
+
+				add_post_meta($wpbusdirman_postID, $field->label, $value, true) or update_post_meta($wpbusdirman_postID, $field->label, $value);
+			}
+		}
+	}
+
+	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == "no") {
+		if(isset($neworedit) && (!($neworedit == 'edit')) ) {
+			$wpbusdirmantermduration = $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
+			
+			foreach ($post_categories as $mypostcategory) {
+				$wpbusdirmanlengthofterm=$mypostcategory;
+				$wpbusdirmanlengthofterm.="_";
+				$wpbusdirmanlengthofterm.=$wpbusdirmantermduration;
+
+				add_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $wpbusdirmanlengthofterm, false) or update_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $wpbusdirmanlengthofterm);
+			}
+		}
+	}
+
+	global $wpbusdirman_haspaypalmodule,$wpbusdirman_hastwocheckoutmodule,$wpbusdirman_hasgooglecheckoutmodule;
+
+	if(!($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == "no"))
 	{
-		if (!(is_user_logged_in()) )
+		/* Payments are activated */
+
+		if(( $wpbusdirman_haspaypalmodule == 1) || ($wpbusdirman_hastwocheckoutmodule == 1) || ($wpbusdirman_hasgooglecheckoutmodule == 1))
 		{
-			if($wpbusdirman_field_vals)
+			if(!($neworedit == 'edit'))
 			{
-				foreach($wpbusdirman_field_vals as $wpbusdirman_field_val)
+				/* This is not an edit so payment options need to be setup */
+
+
+				$html .= "<h2>" . __("Step 2","WPBDM") . "</h2>";
+				$wpbusdirman_fee_to_pay_li=wpbusdirman_feepay_configure($post_categories);
+
+				if(isset($wpbusdirman_fee_to_pay_li) && !empty($wpbusdirman_fee_to_pay_li))
 				{
-					$wpbusdirman_validation_op=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_validation_'.$wpbusdirman_field_val);
-					if($wpbusdirman_validation_op == 'email')
+					/* There is a fee to be paid so proceed with setting up the fee selection page to display to the user */
+
+					global $wpbusdirman_gpid,$permalinkstructure;
+					$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+					$wpbusdirman_fee_to_pay="<div id=\"wpbusdirmanpaymentoptionslist\">";
+					$wpbusdirman_fee_to_pay.=$wpbusdirman_fee_to_pay_li;
+					$wpbusdirman_fee_to_pay.="</div>";
+					$neworedit='new';
+					$html .= "<label>" . __("Select Listing Payment Option","WPBDM") . "</label><br /><p>";
+					$usercatstotal=count($post_categories);
+					if($usercatstotal > 1){
+					$html .="<p>";
+					$html .= __("You have selected more than one category. Each category you to which you elect to submit your listing incurs a separate fee.", "WPBDM");
+					if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
 					{
-						$wpbusdirman_email_numval=$wpbusdirman_field_val;
+						$html .=__(" The number of images attached to your listing will be set according to option you choose that has the most images. So if for one category you chose an option with 2 images but for another category you chose an option with 4 images your listing will be allotted 4 image slots", "WPBDM");
 					}
-					$wpbusdirman_association_op=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-					if($wpbusdirman_association_op == 'title')
+					$html .="</p>";
+					}
+					$html .= "<form method=\"post\" action=\"$wpbusdirman_permalink\">";
+					$html .= "<input type=\"hidden\" name=\"action\" value=\"payment_step_1\" />";
+					foreach ($post_categories as $key => $value)
 					{
-						$wpbusdirman_title_numval=$wpbusdirman_field_val;
+					 $html.='<input type=hidden name="inpost_category[]" value="'.htmlspecialchars($value).'"/>';
 					}
-				}
-			}
-			$wpbusdirman_email_field=$_REQUEST['wpbusdirman_field_label_meta'.$wpbusdirman_email_numval];
-			$guestrand=$wpbusdirman_user_pass=wpbusdirman_generatePassword(5,2);
-			$wpbusdirman_display_name='Guest';
-			$wpbusdirman_display_name.=" $guestrand";
-			$wpbusdirman_user_login='guest_';
-			$wpbusdirman_user_login.=" $guestrand";
-			if(email_exists($wpbusdirman_email_field))
-			{
-				$wpbusdirman_UID_get=get_user_by_email($wpbusdirman_email_field);
-				$wpbusdirman_UID=$wpbusdirman_UID_get->ID;
-			}
-			else
-			{
-				$wpbusdirman_user_pass=wpbusdirman_generatePassword(7,2);
-				$wpbusdirman_UID=wp_insert_user(array('display_name'=>$wpbusdirman_display_name,'user_login'=>$wpbusdirman_user_login,'user_email'=>$wpbusdirman_email_field,'user_pass'=>$wpbusdirman_user_pass));
-			}
-		}
-		elseif(is_user_logged_in())
-		{
-			global $current_user;
-			get_currentuserinfo();
-			$wpbusdirman_UID=$current_user->ID;
-		}
-
-		if(!isset($wpbusdirman_UID) || empty($wpbusdirman_UID))
-		{
-			$wpbusdirman_UID=1;
-		}
-		$wpbusdirmanposterrors = wpbusdirman_validate_data();
-		if($wpbusdirmanposterrors)
-		{
-			$html .= apply_filters('wpbdm_show-add-listing-form', $makeactive,$wpbusdirmanposterrors,$neworedit,$wpbdmlistingid);
-		}
-		else
-		{
-			$post_title=wpbusdirman_filterinput($_REQUEST['wpbusdirman_field_label_title']);
-			$post_excerpt=wpbusdirman_filterinput($_REQUEST['wpbusdirman_field_label_excerpt']);
-			$post_content=wpbusdirman_filterinput($_REQUEST['wpbusdirman_field_label_description']);
-			$post_tags=wpbusdirman_filterinput($_REQUEST['wpbusdirman_field_label_tags']);
-			global $wpbusdirman_gpid,$permalinkstructure;
-			$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-			$querysymbol="?";
-			if(!isset($permalinkstructure)
-				|| empty($permalinkstructure))
-			{
-				$querysymbol="&amp";
-			}
-			if(isset($_REQUEST['cat'])
-				&& !empty($_REQUEST['cat']))
-			{
-				$post_category_item= $_REQUEST['cat'];
-				$inpost_category=array("$post_category_item");
-			}
-			elseif(isset($_REQUEST['wpbusdirman_field_label_category'])
-				&& !empty($_REQUEST['wpbusdirman_field_label_category']))
-			{
-				$inpost_category=$_REQUEST['wpbusdirman_field_label_category'];
-			} else {
-                $inpost_category=array();
-            }
-			if(isset($neworedit)
-				&& ($neworedit == 'edit'))
-			{
-				$post_status=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_19'];
-				if($post_status == 'pending2')
-				{
-					$post_status="pending";
-				}
-				elseif($post_status == 'publish2')
-				{
-					$post_status="publish";
-				}
-			}
-			else
-			{
-				$post_status=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_1'];
-			}
-			if(!isset($post_status)
-				|| empty($post_status))
-			{
-				$post_status='pending';
-			}
-			if ( empty($inpost_category)
-				|| 0 == count($inpost_category)
-				|| !is_array($inpost_category) )
-			{
-				$wpbusdirman_myterms = get_terms($wpbdmposttypecategory, 'orderby=name&hide_empty=0');
-				if($wpbusdirman_myterms)
-				{
-					foreach($wpbusdirman_myterms as $wpbusdirman_myterm)
-					{
-						$wpbusdirman_postcatitems[]=$wpbusdirman_myterm->term_id;
-					}
-				}
-				$post_category=$wpbusdirman_postcatitems[0];
-			}
-			else
-			{
-				$post_category = $inpost_category;
-			}
-			$post_tag=explode(",",$post_tags);
-			$tags_input=array();
-			for ($i=0;isset($post_tag[$i]);++$i)
-			{
-				$tags_input[]=$post_tag[$i];
-			}
-			$wpbusdirman_postID = wp_insert_post( array(
-				'post_author'	=> $wpbusdirman_UID,
-				'post_title'	=> $post_title,
-				'post_content'	=> $post_content,
-				'post_excerpt'	=> $post_excerpt,
-				'post_status' 	=> $post_status,
-				'post_type' 	=> $wpbdmposttype,
-				'ID'	=> $wpbdmlistingid
-			));
-			wp_set_post_terms( $wpbusdirman_postID , $tags_input, $wpbdmposttypetags, false );
-			wp_set_post_terms( $wpbusdirman_postID , $post_category, $wpbdmposttypecategory, false );
-			$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
-			if($wpbusdirman_field_vals)
-			{
-				foreach($wpbusdirman_field_vals as $wpbusdirman_field_val)
-				{
-					$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-					$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-					$wpbusdirman_field_type=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_type_'.$wpbusdirman_field_val);
-					if($wpbusdirman_field_association == 'meta')
-					{
-						$wpbusdirman_fieldmeta_set="wpbusdirman_field_label_meta$wpbusdirman_field_val";
-						if($wpbusdirman_field_type == 6)
-						{
-							$wpbusdirman_the_fieldmeta=$_REQUEST[$wpbusdirman_fieldmeta_set];
-							$wpbusdirmanfieldmeta='';
-							if($wpbusdirman_the_fieldmeta)
-							{
-								foreach($wpbusdirman_the_fieldmeta as $wpbusdirman_thefieldmeta)
-								{
-									$wpbusdirmanfieldmeta.="$wpbusdirman_thefieldmeta\t";
-								}
-							}
-						}
-						elseif($wpbusdirman_field_type == 5)
-						{
-							$wpbusdirman_the_fieldmeta=$_REQUEST[$wpbusdirman_fieldmeta_set];
-							$wpbusdirmanfieldmeta='';
-							if (count($wpbusdirman_the_fieldmeta) > 0)
-							{
-								for ($i=0;$i<count($wpbusdirman_the_fieldmeta);$i++)
-								{
-									$wpbusdirmanfieldmeta.="$wpbusdirman_the_fieldmeta[$i]\t";
-								}
-							}
-						}
-						else
-						{
-							$wpbusdirmanfieldmeta=$_REQUEST[$wpbusdirman_fieldmeta_set];
-						}
-						add_post_meta($wpbusdirman_postID, $wpbusdirman_field_label, $wpbusdirmanfieldmeta, true) or update_post_meta($wpbusdirman_postID, $wpbusdirman_field_label, $wpbusdirmanfieldmeta);
-
-					}
-				}
-
-						if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == "no")
-						{
-							if(isset($neworedit)
-								&& (!($neworedit == 'edit')) )
-							{
-								$wpbusdirmantermduration=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
-								foreach($inpost_category as $mypostcategory)
-								{
-									$wpbusdirmanlengthofterm=$mypostcategory;
-									$wpbusdirmanlengthofterm.="_";
-									$wpbusdirmanlengthofterm.=$wpbusdirmantermduration;
-
-									add_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $wpbusdirmanlengthofterm, false) or update_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $wpbusdirmanlengthofterm);
-								}
-							}
-						}
-
-			}
-
-			global $wpbusdirman_haspaypalmodule,$wpbusdirman_hastwocheckoutmodule,$wpbusdirman_hasgooglecheckoutmodule;
-
-			if(!($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_21'] == "no"))
-			{
-				/* Payments are activated */
-
-				if(( $wpbusdirman_haspaypalmodule == 1) || ($wpbusdirman_hastwocheckoutmodule == 1) || ($wpbusdirman_hasgooglecheckoutmodule == 1))
-				{
-					if(!($neworedit == 'edit'))
-					{
-						/* This is not an edit so payment options need to be setup */
-
-
-						$html .= "<h2>" . __("Step 2","WPBDM") . "</h2>";
-						$wpbusdirman_fee_to_pay_li=wpbusdirman_feepay_configure($inpost_category);
-
-						if(isset($wpbusdirman_fee_to_pay_li) && !empty($wpbusdirman_fee_to_pay_li))
-						{
-							/* There is a fee to be paid so proceed with setting up the fee selection page to display to the user */
-
-							global $wpbusdirman_gpid,$permalinkstructure;
-							$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-							$wpbusdirman_fee_to_pay="<div id=\"wpbusdirmanpaymentoptionslist\">";
-							$wpbusdirman_fee_to_pay.=$wpbusdirman_fee_to_pay_li;
-							$wpbusdirman_fee_to_pay.="</div>";
-							$neworedit='new';
-							$html .= "<label>" . __("Select Listing Payment Option","WPBDM") . "</label><br /><p>";
-							$usercatstotal=count($inpost_category);
-							if($usercatstotal > 1){
-							$html .="<p>";
-							$html .= __("You have selected more than one category. Each category you to which you elect to submit your listing incurs a separate fee.", "WPBDM");
-							if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
-							{
-								$html .=__(" The number of images attached to your listing will be set according to option you choose that has the most images. So if for one category you chose an option with 2 images but for another category you chose an option with 4 images your listing will be allotted 4 image slots", "WPBDM");
-							}
-							$html .="</p>";
-							}
-							$html .= "<form method=\"post\" action=\"$wpbusdirman_permalink\">";
-							$html .= "<input type=\"hidden\" name=\"action\" value=\"payment_step_1\" />";
-							foreach ($inpost_category as $key => $value)
-							{
-							 $html.='<input type=hidden name="inpost_category[]" value="'.htmlspecialchars($value).'"/>';
-							}
-							$html .= "<input type=\"hidden\" name=\"wpbusdirmanlistingpostid\" value=\"$wpbusdirman_postID\" />";
-							$html .= "<input type=\"hidden\" name=\"wpbusdirmanpermalink\" value=\"$wpbusdirman_permalink\" />";
-							$html .= "<input type=\"hidden\" name=\"neworedit\" value=\"$neworedit\" />";
-							$html .= $wpbusdirman_fee_to_pay;
-							$html .= "<br /><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Next","WPBDM") . "\" /></form></p>";
-						}
-						else
-						{
-
-							/* wpbusdirman_fee_to_pay_li value is missing so move on and setup the image upload form to display to the user */
-
-							if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
-							{
-								$wpbusdirmanlistingtermlength=array();
-								if(!isset($wpbusdirmanlistingtermlength) || empty($wpbusdirmanlistingtermlength))
-								{
-									$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
-								}
-
-								$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
-
-								$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
-								$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
-
-
-									foreach($inpost_category as $mycatid)
-									{
-											$listingincr=$mycatid;
-											$listingincr="_";
-											$listingincr=$wpbusdirmanlistingtermlength;
-
-											$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
-
-									} // End foreach wpbusdirmanlistingtermlength
-
-								$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
-
-							}
-							else
-							{
-								$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") .  "</p>";
-							}
-						}
-					}
-					else
-					{
-						if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
-						{
-							$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
-
-							$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
-
-							if($wpbusdirmanlistingtermlength)
-							{
-
-								foreach($wpbusdirmanlistingtermlength as $catdur)
-								{
-									// potential issue for users with listings submitted via pre 1.9.3 versions because termlength is saved as single digit value whereas in 1.9.3+ term length saves as XXX_xx where XXX is the category ID and xx is the term duration with _ acting as a delimiter
-
-									$mycatdurvals=explode("_",$catdur);
-									$mycatid=$mycatdurvals[0];
-									$listingincr=$mycatdurvals[1];
-
-										$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
-
-								} // End foreach wpbusdirmanlistingtermlength
-							}
-							else
-							{
-								$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
-
-								foreach($inpost_category as $uscat)
-								{
-									$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
-								}
-							}
-
-								$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
-
-								$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
-								$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
-
-							$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
-
-						}
-						else
-						{
-							$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") . "</p>";
-						}
-					}
+					$html .= "<input type=\"hidden\" name=\"wpbusdirmanlistingpostid\" value=\"$wpbusdirman_postID\" />";
+					$html .= "<input type=\"hidden\" name=\"wpbusdirmanpermalink\" value=\"$wpbusdirman_permalink\" />";
+					$html .= "<input type=\"hidden\" name=\"neworedit\" value=\"$neworedit\" />";
+					$html .= $wpbusdirman_fee_to_pay;
+					$html .= "<br /><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Next","WPBDM") . "\" /></form></p>";
 				}
 				else
 				{
+
+					/* wpbusdirman_fee_to_pay_li value is missing so move on and setup the image upload form to display to the user */
+
 					if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
 					{
-						$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
-							$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
+						$wpbusdirmanlistingtermlength=array();
+						if(!isset($wpbusdirmanlistingtermlength) || empty($wpbusdirmanlistingtermlength))
+						{
+							$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
+						}
 
-							if($wpbusdirmanlistingtermlength)
+						$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
+
+						$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
+						$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
+
+
+							foreach($post_categories as $mycatid)
 							{
+									$listingincr=$mycatid;
+									$listingincr="_";
+									$listingincr=$wpbusdirmanlistingtermlength;
 
-								foreach($wpbusdirmanlistingtermlength as $catdur)
-								{
-									// potential issue for users with listings submitted via pre 1.9.3 versions because termlength is saved as single digit value whereas in 1.9.3+ term length saves as XXX_xx where XXX is the category ID and xx is the term duration with _ acting as a delimiter
+									$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
 
-									$mycatdurvals=explode("_",$catdur);
-									$mycatid=$mycatdurvals[0];
-									$listingincr=$mycatdurvals[1];
+							} // End foreach wpbusdirmanlistingtermlength
 
-										$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
-
-								} // End foreach wpbusdirmanlistingtermlength
-							}
-							else
-							{
-								$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
-
-								foreach($inpost_category as $uscat)
-								{
-									$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
-								}
-							}
-
-								$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
-
-								$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
-								$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
-
-								$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror,$neworedit,$whichfeeoption);
+						$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
 
 					}
 					else
 					{
-						$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") . "</p>";
+						$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") .  "</p>";
 					}
 				}
 			}
 			else
 			{
-				/* Payments are not activated */
-
 				if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
 				{
 					$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
-					if(isset($neworedit)
-						&& !empty($neworedit)
-						&& ($neworedit == 'edit'))
+
+					$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
+
+					if($wpbusdirmanlistingtermlength)
 					{
-						$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
 
-							if($wpbusdirmanlistingtermlength)
-							{
+						foreach($wpbusdirmanlistingtermlength as $catdur)
+						{
+							// potential issue for users with listings submitted via pre 1.9.3 versions because termlength is saved as single digit value whereas in 1.9.3+ term length saves as XXX_xx where XXX is the category ID and xx is the term duration with _ acting as a delimiter
 
-								foreach($wpbusdirmanlistingtermlength as $catdur)
-								{
-									// potential issue for users with listings submitted via pre 1.9.3 versions because termlength is saved as single digit value whereas in 1.9.3+ term length saves as XXX_xx where XXX is the category ID and xx is the term duration with _ acting as a delimiter
+							$mycatdurvals=explode("_",$catdur);
+							$mycatid=$mycatdurvals[0];
+							$listingincr=$mycatdurvals[1];
 
-									$mycatdurvals=explode("_",$catdur);
-									$mycatid=$mycatdurvals[0];
-									$listingincr=$mycatdurvals[1];
+								$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
 
-										$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
-
-								} // End foreach wpbusdirmanlistingtermlength
-							}
-							else
-							{
-								$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
-
-								foreach($inpost_category as $uscat)
-								{
-									$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
-								}
-							}
-
-
-							$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
-
-							$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
-							$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
-
-							$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
-
+						} // End foreach wpbusdirmanlistingtermlength
 					}
 					else
 					{
 						$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
 
-						foreach($inpost_category as $uscat)
+						foreach($post_categories as $uscat)
 						{
-								$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
+							$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
 						}
-
-							$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
-
-							$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
-							$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
-
-							$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
-
 					}
+
+						$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
+
+						$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
+						$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
+
+					$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
+
 				}
 				else
 				{
 					$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") . "</p>";
 				}
 			}
+		}
+		else
+		{
+			if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
+			{
+				$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
+					$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
+
+					if($wpbusdirmanlistingtermlength)
+					{
+
+						foreach($wpbusdirmanlistingtermlength as $catdur)
+						{
+							// potential issue for users with listings submitted via pre 1.9.3 versions because termlength is saved as single digit value whereas in 1.9.3+ term length saves as XXX_xx where XXX is the category ID and xx is the term duration with _ acting as a delimiter
+
+							$mycatdurvals=explode("_",$catdur);
+							$mycatid=$mycatdurvals[0];
+							$listingincr=$mycatdurvals[1];
+
+								$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
+
+						} // End foreach wpbusdirmanlistingtermlength
+					}
+					else
+					{
+						$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
+
+						foreach($post_categories as $uscat)
+						{
+							$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
+						}
+					}
+
+						$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
+
+						$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
+						$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
+
+						$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror,$neworedit,$whichfeeoption);
+
+			}
+			else
+			{
+				$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") . "</p>";
+			}
+		}
+	}
+	else
+	{
+		/* Payments are not activated */
+
+		if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
+		{
+			$html .= "<h3>" . __("Step 2","WPBDM") . "</h3>";
+			if(isset($neworedit)
+				&& !empty($neworedit)
+				&& ($neworedit == 'edit'))
+			{
+				$wpbusdirmanlistingtermlength=get_post_meta($wpbusdirman_postID, "_wpbdp_termlength", $single=false);
+
+					if($wpbusdirmanlistingtermlength)
+					{
+
+						foreach($wpbusdirmanlistingtermlength as $catdur)
+						{
+							// potential issue for users with listings submitted via pre 1.9.3 versions because termlength is saved as single digit value whereas in 1.9.3+ term length saves as XXX_xx where XXX is the category ID and xx is the term duration with _ acting as a delimiter
+
+							$mycatdurvals=explode("_",$catdur);
+							$mycatid=$mycatdurvals[0];
+							$listingincr=$mycatdurvals[1];
+
+								$mycatobj[]=array('listingcat' => $mycatid,'listingduration' => $listingincr);
+
+						} // End foreach wpbusdirmanlistingtermlength
+					}
+					else
+					{
+						$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
+
+						foreach($post_categories as $uscat)
+						{
+							$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
+						}
+					}
+
+
+					$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
+
+					$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
+					$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
+
+					$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
+
+			}
+			else
+			{
+				$wpbusdirmanlistingtermlength=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_18'];
+
+				foreach($post_categories as $uscat)
+				{
+						$mycatobj[]=array('listingcat' => $uscat,'listingduration' => $wpbusdirmanlistingtermlength);
+				}
+
+					$myimagesallowedleft=wpbusdirman_imagesallowed_left($wpbusdirman_postID,$wpbusdirmanfeeoption='');
+
+					$wpbusdirmannumimgsallowed=$myimagesallowedleft['imagesallowed'];
+					$wpbusdirmannumimgsleft=$myimagesallowedleft['imagesleft'];
+
+					$html .= apply_filters('wpbdm_show-image-upload-form', $wpbusdirman_postID,$wpbusdirman_permalink,$wpbusdirmannumimgsallowed,$wpbusdirmannumimgsleft,$mycatobj,$wpbusdirmanuerror='',$neworedit,$whichfeeoption='');
+
+			}
+		}
+		else
+		{
+			$html .= "<h3 style=\"padding:10px;\">" . __("Submission received","WPBDM") . "</h3><p>" . __("Your submission has been received.","WPBDM") . "</p>";
 		}
 	}
 
@@ -2219,131 +1901,21 @@ function wpbusdirman_calculate_fee_to_pay($wpbusdirmanfeeoption)
 
 }
 
-function wpbusdirman_validate_data()
-{
-	global $wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_field_item_array=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
-	$wpbusdirman_field_errors='';
+function wpbusdirman_validate_data() {
+	$errors = array();
 
-	if($wpbusdirman_field_item_array)
-	{
-		foreach($wpbusdirman_field_item_array as $wpbusdirman_field_x_field)
-		{
-			$wpbusdirman_field_name=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_x_field);
-			$wpbusdirman_field_validation=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_validation_'.$wpbusdirman_field_x_field);
-			$wpbusdirman_field_type=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_type_'.$wpbusdirman_field_x_field);
-			$wpbusdirman_field_options=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_options_'.$wpbusdirman_field_x_field);
-			$wpbusdirman_field_required=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_required_'.$wpbusdirman_field_x_field);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_x_field);
-			if($wpbusdirman_field_association == 'title')
-			{
-				$wpbusdirman_field_label_association="_title";
-			}
-			elseif($wpbusdirman_field_association == 'category')
-			{
-				$wpbusdirman_field_label_association="_category";
-			}
-			elseif($wpbusdirman_field_association == 'excerpt')
-			{
-				$wpbusdirman_field_label_association="_excerpt";
-			}
-			elseif($wpbusdirman_field_association == 'description')
-			{
-				$wpbusdirman_field_label_association="_description";
-			}
-			elseif($wpbusdirman_field_association == 'tags')
-			{
-				$wpbusdirman_field_label_association="_tags";
-			}
-			else
-			{
-				$wpbusdirman_field_label_association="_meta$wpbusdirman_field_x_field";
-			}
+	$formfields_api = wpbdp_formfields_api();
 
-			if($wpbusdirman_field_association == 'category')
-			{
-				if($wpbusdirman_field_type == 2){$wpbusdirman_field_inputname="cat";}
-				elseif($wpbusdirman_field_type == 6){$wpbusdirman_field_inputname="wpbusdirman_field_label_category";}
-			}
-			else
-			{
-				$wpbusdirman_field_inputname="wpbusdirman_field_label";
-				$wpbusdirman_field_inputname.=$wpbusdirman_field_label_association;
-			}
-			if (($wpbusdirman_field_required == 'yes')
-				&& ((!isset($_REQUEST[$wpbusdirman_field_inputname])
-					|| empty($_REQUEST[$wpbusdirman_field_inputname]))))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is required","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-			if ((($wpbusdirman_field_validation == 'missing')
-				&& ($wpbusdirman_field_required == 'yes'))
-				&& (!isset($_REQUEST[$wpbusdirman_field_inputname])
-					|| empty($_REQUEST[$wpbusdirman_field_inputname])))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is required","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-			elseif (($wpbusdirman_field_validation == 'url')
-				&& (isset($_REQUEST[$wpbusdirman_field_inputname]))
-				&& (!empty($_REQUEST[$wpbusdirman_field_inputname]))
-				&& (!wpbusdirman_isValidURL($_REQUEST[$wpbusdirman_field_inputname])))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is badly formatted. Valid URL format required. Include http://","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-			elseif (($wpbusdirman_field_validation == 'email')
-				&& ($wpbusdirman_field_required == 'yes')
-				&& (!wpbusdirman_isValidEmailAddress($_REQUEST[$wpbusdirman_field_inputname])))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name is badly formatted. Valid Email format required.","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-			elseif (($wpbusdirman_field_validation == 'numericdeci')
-				&& ($wpbusdirman_field_required == 'yes')
-				&& (!is_numeric($_REQUEST[$wpbusdirman_field_inputname])))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be a number.","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-			elseif (($wpbusdirman_field_validation == 'numericwhole')
-				&& ($wpbusdirman_field_required == 'yes')
-				&& (!ctype_digit($_REQUEST[$wpbusdirman_field_inputname])))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be a number. Decimal values not allowed.","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-			elseif (($wpbusdirman_field_validation == 'date')
-				&& ($wpbusdirman_field_required == 'yes')
-				&& (!wpbusdirman_is_ValidDate($_REQUEST[$wpbusdirman_field_inputname])))
-			{
-				$error=true;
-				$wpbusdirman_field_errors.="<li class=\"wpbusdirmanerroralert\">";
-				$wpbusdirman_field_errors.=__("$wpbusdirman_field_name must be in the format 00/00/0000.","WPBDM");
-				$wpbusdirman_field_errors.="</li>";
-			}
-		}
+	$listingfields = isset($_REQUEST['listingfields']) ? $_REQUEST['listingfields'] : array();
+
+	foreach ($formfields_api->getFields() as $field) {
+		$value = isset($listingfields[$field->id]) ? $listingfields[$field->id] : null;
+
+		if (!$formfields_api->validate($field, $value, $field_errors))
+			$errors = array_merge($errors, $field_errors);
 	}
 
-	return $wpbusdirman_field_errors;
-}
-
-function wpbusdirman_isValidURL($url)
-{
-	return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
+	return $errors;
 }
 
 function wpbusdirman_isValidEmailAddress($email)
@@ -3736,55 +3308,65 @@ function wpbusdirman_indexpage_query()
 }
 
 // Display the listing fields in excerpt view
-function wpbusdirman_display_the_listing_fields()
-{
+function wpbusdirman_display_the_listing_fields() {
 	global $post,$wpbdmposttypecategory,$wpbdmposttypetags,$wpbusdirmanconfigoptionsprefix;
 	$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
 	$html = '';
 
-	if($wpbusdirman_field_vals)
-	{
-		foreach($wpbusdirman_field_vals as $wpbusdirman_field_val)
-		{
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_showinexcerpt_'.$wpbusdirman_field_val) == 'yes')
-			{
-				$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-				$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-				if($wpbusdirman_field_association == 'title')
-				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: <a href="' .  get_permalink() . '">' .  the_title(null, null, false) . '</a></p>';
+	$formfields_api = wpbdp_formfields_api();
+
+	foreach($formfields_api->getFields() as $field) {
+		if ($field->display_options['hide_field'] || !$field->display_options['show_in_excerpt'])
+			continue;
+
+		switch ($field->association) {
+			case 'title':
+				$html .= sprintf( '<p><label>%s</label>: <a href="%s">%s</a></p>',
+								  esc_attr($field->label),
+								  get_permalink(),
+								  the_title(null, null, false) );
+				break;
+			case 'category':
+				$html .= sprintf( '<p><label>%s</label>: %s</p>',
+								  esc_attr($field->label),
+								  get_the_term_list($post->ID, wpbdp()->get_post_type_category(), '', ', ', '') );
+				break;
+			case 'excerpt':
+				if (has_excerpt($post->ID))
+					$html .= sprintf( '<p><label>%s</label>: %s</p>',
+									  esc_attr($field->label),
+									  get_the_excerpt() );
+				break;
+			case 'content':
+				$content = apply_filters('the_content', get_the_content());
+				$content = str_replace(']]>', ']]&gt;', $content);
+
+				$html .= sprintf( '<p><label>%s</label>: <a href="%s">%s</a></p>',
+								  esc_attr($field->label),
+								  get_permalink(),
+								  $content );
+				break;
+			case 'tags':
+				if ($tags = get_the_term_list($post->ID, wpbdp()->get_post_type_tags(), '', ', ', ''))
+					$html .= sprintf('<p><label>%s</label>: %s</p>',
+									 esc_attr($field->label),
+									 $tags);
+				break;
+			case 'meta':
+			default:
+				if ($value = get_post_meta($post->ID, $field->label, true)) {
+					if ($field->validator == 'URLValidator')
+						$value = sprintf('<a href="%s" rel="no follow">%s</a>', esc_url($value), esc_url($value));
+					
+					if (in_array($field->type, array('multiselect', 'checkbox')))
+						$value = str_replace("\t", ', ', $value);
+
+					$html .= sprintf( '<p><label>%s</label>: %s</p>',
+									  esc_attr($field->label),
+									  $value);
 				}
-				elseif($wpbusdirman_field_association == 'category')
-				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_term_list( $post->ID, $wpbdmposttypecategory, '', ', ', '' ) . '</p>';
-				}
-				elseif($wpbusdirman_field_association == 'meta')
-				{
-					$wpbusdirman_field_value=get_post_meta($post->ID, $wpbusdirman_field_label, $single = true);
-					$wpbusdirman_field_value=preg_replace("/(http:\/\/[^\s]+)/","<a rel=\"no follow\" href=\"\$1\">\$1</a>",$wpbusdirman_field_value);
-					$wpbusdirman_field_value=str_replace("\t",", ",$wpbusdirman_field_value);
-					if(isset($wpbusdirman_field_value)
-						&& !empty($wpbusdirman_field_value)
-						&& (!wpbusdirman_isValidEmailAddress($wpbusdirman_field_value)))
-					{
-						$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . $wpbusdirman_field_value . '</p>';
-					}
-				}
-				elseif (($wpbusdirman_field_association == 'excerpt')
-					&& (has_excerpt($post->ID)))
-				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_excerpt() . '</p>';
-				}
-				elseif($wpbusdirman_field_association == 'description')
-				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: <a href="' . get_permalink() . '">' . the_content(' ') . '</a></p>';
-				}
-				elseif (($wpbusdirman_field_association == 'tags')
-					&& (get_the_term_list( $post->ID, $wpbdmposttypetags, '', ', ', '' )))
-				{
-					$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_term_list( $post->ID, $wpbdmposttypetags, '', ', ', '' ) . '</p>';
-				}
-			}
+
+				break;
 		}
 	}
 
@@ -3953,24 +3535,21 @@ function wpbusdirman_post_single_listing_details()
 	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
 	$html = '';
 
-	if(is_user_logged_in())
-	{
+	if(is_user_logged_in()) {
 		global $current_user;
 		$html .= get_currentuserinfo();
 		$wpbusdirmanloggedinuseremail=$current_user->user_email;
 		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
 		$wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp_sticky", $single=true);
-		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail)
-		{
+		if ($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail) {
 			$html .= '<div id="editlistingsingleview">' . wpbusdirman_menu_button_editlisting() . wpbusdirman_menu_button_upgradelisting() . '</div><div style="clear:both;"></div>';
 		}
 	}
-	 if(isset($wpbdmpostissticky)
-	 	&& !empty($wpbdmpostissticky)
-	 	&& ($wpbdmpostissticky  == 'approved') )
-	 {
+
+	if(isset($wpbdmpostissticky) && !empty($wpbdmpostissticky) && ($wpbdmpostissticky  == 'approved') ) {
 	 	$html .= '<span class="featuredlisting"><img src="' . $wpbusdirman_imagesurl . '/featuredlisting.png" alt="' . __("Featured Listing","WPBDM") . '" border="0" title="' . the_title(null, null, false) . '"></span>';
 	}
+
 	$html .= '<div class="singledetailsview">';
 	$html .= wpbusdirman_the_listing_title();
 	$html .= wpbusdirman_the_listing_category();
@@ -3984,119 +3563,72 @@ function wpbusdirman_post_single_listing_details()
 	return $html;
 }
 
-function wpbusdirman_the_listing_title()
-{
-	global $wpbusdirman_field_vals_pfl,$wpbusdirmanconfigoptionsprefix;
+function wpbusdirman_the_listing_title() {
 	$html = '';
 
-	if($wpbusdirman_field_vals_pfl)
-	{
-		foreach($wpbusdirman_field_vals_pfl as $wpbusdirman_field_val)
-		{
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-			if($wpbusdirman_field_association == 'title')
-			{
-				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: <a href="' . get_permalink() . '">' . the_title(null, null, false) . '</a></p>';
-			}
+	if ($field = wpbdp_formfields_api()->getFieldsByAssociation('title', true)) {
+		$html .= '<p><label>' . esc_attr($field->label) . '</label>: <a href="' . get_permalink() . '">' . the_title(null, null, false) . '</a></p>';
+	}
+
+	return $html;
+}
+
+function wpbusdirman_the_listing_tags() {
+	global $post;
+
+	$html = '';
+
+	if ($field = wpbdp_formfields_api()->getFieldsByAssociation('tags', true)) {
+		if ($terms = get_the_term_list( $post->ID, wpbdp()->get_post_type_tags(), '', ', ', '' )) {
+			$html .= '<p><label>' . esc_attr($field->label) . '</label>: ' . $terms . '</p>';
 		}
 	}
 
 	return $html;
 }
 
-function wpbusdirman_the_listing_tags()
-{
-	global $wpbdmposttypetags,$wpbusdirman_field_vals_pfl,$post,$wpbusdirmanconfigoptionsprefix;
+function wpbusdirman_the_listing_excerpt() {
+	global $post;
+
 	$html = '';
 
-	if($wpbusdirman_field_vals_pfl)
-	{
-		foreach($wpbusdirman_field_vals_pfl as $wpbusdirman_field_val)
-		{
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-			if (($wpbusdirman_field_association == 'tags')
-				&& (get_the_term_list( $post->ID, $wpbdmposttypetags, '', ', ', '' )))
-			{
-				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_term_list( $post->ID, $wpbdmposttypetags, '', ', ', '' ) . '</p>';
-			}
-		}
+	if ($field = wpbdp_formfields_api()->getFieldsByAssociation('excerpt', true)) {
+		if (has_excerpt($post->ID))
+			$html .= '<p><label>' . esc_attr($field->label) . '</label>: ' . get_the_excerpt() . '</p>';
 	}
 
 	return $html;
 }
 
-function wpbusdirman_the_listing_excerpt()
-{
-	global $wpbusdirman_field_vals_pfl,$post,$wpbusdirmanconfigoptionsprefix;
+function wpbusdirman_the_listing_content() {
 	$html = '';
 
-	if($wpbusdirman_field_vals_pfl)
-	{
-		foreach($wpbusdirman_field_vals_pfl as $wpbusdirman_field_val)
-		{
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-			if (($wpbusdirman_field_association == 'excerpt')
-				&& (has_excerpt($post->ID)))
-			{
-				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_excerpt() . '</p>';
-			}
-		}
+	if ($field = wpbdp_formfields_api()->getFieldsByAssociation('content', true)) {
+		$html .= '<p><label>' . esc_attr($field->label) . '</label>: ' . apply_filters('the_content', get_the_content()) . '</p>';		
 	}
 
 	return $html;
 }
 
-function wpbusdirman_the_listing_content()
-{
-	global $wpbusdirman_field_vals_pfl,$wpbusdirmanconfigoptionsprefix;
+function wpbusdirman_the_listing_category() {
+	global $post;
+
 	$html = '';
 
-	if($wpbusdirman_field_vals_pfl)
-	{
-		foreach($wpbusdirman_field_vals_pfl as $wpbusdirman_field_val)
-		{
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-			if($wpbusdirman_field_association == 'description')
-			{
-				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . apply_filters('the_content', get_the_content()) . '</p>';
-			}
-		}
+	if ($field = wpbdp_formfields_api()->getFieldsByAssociation('category', true)) {
+		$html .= '<p><label>' . esc_attr($field->label) . '</label>: ' . get_the_term_list( $post->ID, wpbdp()->get_post_type_category(), '', ', ', '' ) . '</p>';
 	}
 
 	return $html;
 }
 
-function wpbusdirman_the_listing_category()
-{
-	global $wpbdmposttypecategory,$wpbusdirman_field_vals_pfl,$post,$wpbusdirmanconfigoptionsprefix;
-	$html = '';
-
-	if($wpbusdirman_field_vals_pfl)
-	{
-		foreach($wpbusdirman_field_vals_pfl as $wpbusdirman_field_val)
-		{
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-			if($wpbusdirman_field_association == 'category')
-			{
-				$html .= '<p><label>' . $wpbusdirman_field_label . '</label>: ' . get_the_term_list( $post->ID, $wpbdmposttypecategory, '', ', ', '' ) . '</p>';
-			}
-		}
-	}
-
-	return $html;
-}
-
-function wpbusdirman_the_listing_meta($excerptorsingle)
-{
+function wpbusdirman_the_listing_meta($excerptorsingle) {
 	global $post,$wpbusdirmanconfigoptionsprefix,$wpbusdirman_field_vals_pfl;
 	$wpbusdirman_config_options=get_wpbusdirman_config_options();
 	$overrideemailblocking=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_45'];
 	$html = '';
+
+	wpbdp_debug('Listing Meta'); return;
 
 	if($wpbusdirman_field_vals_pfl)
 	{
@@ -4238,6 +3770,14 @@ class WPBDP_Plugin {
 		return self::POST_TYPE;
 	}
 
+	public function get_post_type_category() {
+		return self::POST_TYPE_CATEGORY;
+	}
+
+	public function get_post_type_tags() {
+		return self::POST_TYPE_TAGS;
+	}	
+
 	public function get_version() {
 		return self::VERSION;
 	}
@@ -4263,6 +3803,7 @@ class WPBDP_Plugin {
 			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
 				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
 				label VARCHAR(255) NOT NULL,
+				description VARCHAR(255) NULL,
 				type VARCHAR(100) NOT NULL,
 				association VARCHAR(100) NOT NULL,
 				validator VARCHAR(255) NULL,

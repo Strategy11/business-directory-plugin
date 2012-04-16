@@ -67,7 +67,7 @@ class WPBDP_Admin {
                          'wpbusdirman_buildform');
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
-                         _x('Manage Form Fields (NEW)', 'admin menu', 'WPBDM'),
+                         _x('Manage Form Fields', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdman_c3x',
                          array('WPBDP_FormFieldsAdmin', 'admin_menu_cb'));

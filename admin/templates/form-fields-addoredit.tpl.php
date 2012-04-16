@@ -62,15 +62,28 @@ $field = isset($field) ? $field : null;
 					</select>
 				</td>
 			</tr>			
+			<?php
+			$post_values_fielddata = (isset($_POST['field']) && isset($_POST['field']['field_data'])) ? $_POST['field']['field_data'] : array();
+			?>			
 			<tr>
 				<th scope="row">
 					<label> <?php _ex('Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
 				</th>
 				<td>
 					<span class="description">Comma (,) separated list of options</span> <br />
-					<textarea name="field[field_data][options]" id="field-data-options" cols="50" rows="2"></textarea>
+					<textarea name="field[field_data][options]" id="field-data-options" cols="50" rows="2"><?php echo wpbdp_getv($post_values_fielddata, 'options', $field ? implode(',', $field->field_data['options']) : ''); ?></textarea>
 				</td>
 			</tr>
+			<tr class="form-field">
+				<th scope="row">
+					<label> <?php _ex('Field description', 'form-fields admin', 'WPBDM'); ?> <span class="description">(optional)</span></label>
+				</th>
+				<td>
+					<input name="field[description]"
+						   type="text"
+						   value="<?php echo wpbdp_getv($post_values, 'description', $field ? $field->description : ''); ?>" />
+				</td>
+			</tr>			
 	</table>
 	<h3><?php _ex('Field validation options', 'form-fields admin', 'WPBDM'); ?></h3>
 	<table class="form-table">	
