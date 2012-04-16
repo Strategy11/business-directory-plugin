@@ -16,6 +16,7 @@ jQuery(document).ready(function($){
 			$('form#wpbdp-formfield-form #field-data-options').parents('tr').show();
 		} else {
 			$('form#wpbdp-formfield-form #field-data-options').parents('tr').hide();			
+			$('form#wpbdp-formfield-form #field-data-options').text('');
 		}
 	}).change();
 
