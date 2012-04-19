@@ -168,11 +168,13 @@ function wpbdp_log_deprecated() {
 }
 
 function wpbdp_debug() {
-	call_user_func_array(array('WPBDP_Debugging', 'debug'), func_get_args());
+	$args = func_get_args();
+	call_user_func_array(array('WPBDP_Debugging', 'debug'), $args);
 }
 
 function wpbdp_debug_e() {
-	call_user_func_array(array('WPBDP_Debugging', 'debug_e'), func_get_args());
+	$args = func_get_args();
+	call_user_func_array(array('WPBDP_Debugging', 'debug_e'), $args);
 }
 
 
