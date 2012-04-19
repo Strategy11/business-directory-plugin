@@ -375,309 +375,6 @@ function wpbusdirman_buildform()
 			$html .= $wpbusdirman_notify;
 		}
 	}
-	elseif (($wpbusdirmanaction == 'deletefield'))
-	{
-		if (isset($_REQUEST['id'])
-			&& !empty($_REQUEST['id']))
-		{
-			$wpbusdirman_fieldid_todel=$_REQUEST['id'];
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_label_'.$wpbusdirman_fieldid_todel);}
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_type_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_type_'.$wpbusdirman_fieldid_todel);}
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_options_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_options_'.$wpbusdirman_fieldid_todel);}
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_association_'.$wpbusdirman_fieldid_todel);}
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_validation_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_validation_'.$wpbusdirman_fieldid_todel);}
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_required_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_required_'.$wpbusdirman_fieldid_todel);}
-			if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_showinexcerpt_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_showinexcerpt_'.$wpbusdirman_fieldid_todel);}
-			/* New option added by Mike Bronner */if(get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_hide_'.$wpbusdirman_fieldid_todel)){delete_option('wpbusdirman_postform_field_hide_'.$wpbusdirman_fieldid_todel);}
-			$wpbusdirman_delete_message=__("The field has been deleted.","WPBDM");
-		}
-		else
-		{
-			$wpbusdirman_delete_message=__("There was no ID supplied for the field. No action has been taken","WPBDM");
-		}
-		$wpbusdirman_notify="<div class=\"updated fade\" style=\"padding:10px;\"><ul>";
-		$wpbusdirman_notify.=$wpbusdirman_delete_message;
-		$wpbusdirman_notify.="</ul></div>";
-		$html .= $wpbusdirman_notify;
-		$html .= wpbusdirman_fields_list();
-	}
-	elseif(($wpbusdirmanaction == 'addnewfield')
-		|| ($wpbusdirmanaction == 'editfield'))
-	{
-		$wpbusdirman_fieldtoedit='';
-		if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
-		{
-			$wpbusdirman_fieldtoedit=$_REQUEST['id'];
-		}
-		if(isset($wpbusdirman_fieldtoedit) && !empty($wpbusdirman_fieldtoedit))
-		{
-			$html .= "<p>" . __("Make your changes then submit the form to update the field","WPBDM") . "<p><a href=\"?page=wpbdman_c3&action=addnewfield\">" . __("Add New Form Field","WPBDM") . "</a></p>";
-		}
-		else
-		{
-			$html .= "<p>" . __("Add extra fields to the standard fields used in the form that users will fill out to submit their business directory listing.<p>Please note that your submission form <b>MUST</b> have [1] field associated with the 'Post Title', [1] field associated with the 'Post Content' and [1] field associated 'Post Category'. It cannot have more than 1 field associated with 'Post Category'. It cannot have more than 1 field associated with 'Post Title'. It cannot have more than 1 field associated with 'Post Content'. It <b>MUST</b> have 1 field that serves as the post title, 1 field that serves as the post content and 1 field that serves as the post category in order for it to work correctly. If you are submitting listings and they are not appearing on your site or on the directory management page, the primary reason for this is that your form is either missing the post title associated field, the post content association field and/or the post category association field.</p>","WPBDM") . "</p>";
-		}
-		$html .= "<h3 style=\"padding:10px;\">";
-		if(isset($wpbusdirman_fieldtoedit) && !empty($wpbusdirman_fieldtoedit))
-		{
-			$html .= __("Edit Field","WPBDM");
-		}
-		else
-		{
-			$html .= __("Add New Field","WPBDM");
-		}
-		$html .= "</h3>";
-		$wpbusdirman_currenttype=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_type_'.$wpbusdirman_fieldtoedit);
-		$wpbusdirman_currentassociation=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_fieldtoedit);
-		$wpbusdirman_currentvalidation=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_validation_'.$wpbusdirman_fieldtoedit);
-		$wpbusdirman_currentrequired=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_required_'.$wpbusdirman_fieldtoedit);
-		$wpbusdirman_currentshowinexcerpt=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_showinexcerpt_'.$wpbusdirman_fieldtoedit);
-		/* New option added by Mike Bronner */ $wpbusdirman_currenthide = get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_hide_'.$wpbusdirman_fieldtoedit);
-		if($wpbusdirman_currentvalidation == 'email')
-		{
-			$wpbusdirman_validation1="selected";
-		}
-		else
-		{
-			$wpbusdirman_validation1="";
-		}
-		if($wpbusdirman_currentvalidation == 'url')
-		{
-			$wpbusdirman_validation2="selected";
-		}
-		else
-		{
-			$wpbusdirman_validation2="";
-		}
-		if($wpbusdirman_currentvalidation == 'missing')
-		{
-			$wpbusdirman_validation3="selected";
-		}
-		else
-		{
-			$wpbusdirman_validation3="";
-		}
-		if($wpbusdirman_currentvalidation == 'numericdeci')
-		{
-			$wpbusdirman_validation4="selected";
-		}
-		else
-		{
-			$wpbusdirman_validation4="";
-		}
-		if($wpbusdirman_currentvalidation == 'numericwhole')
-		{
-			$wpbusdirman_validation5="selected";
-		}
-		else
-		{
-			$wpbusdirman_validation5="";
-		}
-		if($wpbusdirman_currentvalidation == 'date')
-		{
-			$wpbusdirman_validation6="selected";
-		}
-		else
-		{
-			$wpbusdirman_validation6="";
-		}
-		if($wpbusdirman_currentassociation == 'title')
-		{
-			$wpbusdirman_associationselected1="selected";
-		}
-		else
-		{
-			$wpbusdirman_associationselected1="";
-		}
-		if($wpbusdirman_currentassociation == 'description')
-		{
-			$wpbusdirman_associationselected2="selected";
-		}
-		else
-		{
-			$wpbusdirman_associationselected2="";
-		}
-		if($wpbusdirman_currentassociation == 'category')
-		{
-			$wpbusdirman_associationselected3="selected";
-		}
-		else
-		{
-			$wpbusdirman_associationselected3="";
-		}
-		if($wpbusdirman_currentassociation == 'excerpt')
-		{
-			$wpbusdirman_associationselected4="selected";
-		}
-		else
-		{
-			$wpbusdirman_associationselected4="";
-		}
-		if($wpbusdirman_currentassociation == 'meta')
-		{
-			$wpbusdirman_associationselected5="selected";
-		}
-		else
-		{
-			$wpbusdirman_associationselected5="";
-		}
-		if($wpbusdirman_currentassociation == 'tags')
-		{
-			$wpbusdirman_associationselected6="selected";
-		}
-		else
-		{
-			$wpbusdirman_associationselected6="";
-		}
-
-		if($wpbusdirman_currenttype == 1)
-		{
-			$wpbusdirman_op_selected1="selected";
-		}
-		else
-		{
-			$wpbusdirman_op_selected1='';
-		}
-		if($wpbusdirman_currenttype == 2)
-		{
-			$wpbusdirman_op_selected2="selected";
-		}
-		else
-		{
-			$wpbusdirman_op_selected2='';
-		}
-		if($wpbusdirman_currenttype == 3)
-		{
-			$wpbusdirman_op_selected3="selected";
-		}
-		else
-		{
-			$wpbusdirman_op_selected3='';
-		}
-		if($wpbusdirman_currenttype == 4)
-		{
-			$wpbusdirman_op_selected4="selected";
-		}
-		else
-		{
-			$wpbusdirman_op_selected4='';
-		}
-		if($wpbusdirman_currenttype == 5)
-		{
-			$wpbusdirman_op_selected5="selected";
-		}
-		else
-		{
-			$wpbusdirman_op_selected5='';
-		}
-		if($wpbusdirman_currenttype == 6)
-		{
-			$wpbusdirman_op_selected6="selected";
-		}
-		else
-		{
-			$wpbusdirman_op_selected6='';
-		}
-		if($wpbusdirman_currentrequired == 'yes')
-		{
-			$wpbusdirman_required_selected1="selected";
-		}
-		else
-		{
-			$wpbusdirman_required_selected1='';
-		}
-		if($wpbusdirman_currentrequired == 'no')
-		{
-			$wpbusdirman_required_selected2="selected";
-		}
-		else
-		{
-			$wpbusdirman_required_selected2='';
-		}
-		if($wpbusdirman_currentshowinexcerpt == 'yes')
-		{
-			$wpbusdirman_showinexcerpt_selected1="selected";
-		}
-		else
-		{
-			$wpbusdirman_showinexcerpt_selected1='';
-		}
-		if($wpbusdirman_currentshowinexcerpt == 'no')
-		{
-			$wpbusdirman_showinexcerpt_selected2="selected";
-		}
-		else
-		{
-			$wpbusdirman_showinexcerpt_selected2='';
-		}
-
-		$wpbusdirman_hide_selected1 = '';
-		$wpbusdirman_hide_selected2 = '';
-		if($wpbusdirman_currenthide == 'no')
-		{
-			$wpbusdirman_hide_selected1 = "selected=\"selected\"";
-		}
-		if($wpbusdirman_currenthide == 'yes')
-		{
-			$wpbusdirman_hide_selected2 = "selected=\"selected\"";
-		}
-
-
-
-
-		$html .= "<div style=\"float:right; margin-top:-49px;margin-right:250px;border-left:1px solid#ffffff;padding:10px;\"><a style=\"text-decoration:none;\" href=\"?page=wpbdman_c3&action=viewpostform\">" . __("Preview the form","WPBDM") . "</a></div>";
-		$html .= "<form method=\"post\"><p>" . __("Field Label","WPBDM") . "<br />";
-		$html .= "<input type=\"text\" name=\"wpbusdirman_field_label\" style=\"width:50%;\" value=\"" . get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_' . $wpbusdirman_fieldtoedit) . "\"></p>" . __("Field Type",'WPBDM') . " <select name=\"wpbusdirman_field_type\">";
-		$html .= "<option value=\"\">" . __("Select Field Type","WPBDM") . "</option>";
-		$html .= "<option value=\"1\" $wpbusdirman_op_selected1>" . __("Input Text Box","WPBDM") . "</option>";
-		$html .= "<option value=\"2\" $wpbusdirman_op_selected2>" . __("Select List","WPBDM") . "</option>";
-		$html .= "<option value=\"5\" $wpbusdirman_op_selected5>" . __("Multiple Select List","WPBDM") . "</option>";
-		$html .= "<option value=\"4\" wpbusdirman_op_selected4>" . __("Radio Button","WPBDM") . "</option>";
-		$html .= "<option value=\"6\" $wpbusdirman_op_selected6>" . __("Checkbox","WPBDM") . "</option>";
-		$html .= "<option value=\"3\" $wpbusdirman_op_selected3>" . __("Textarea","WPBDM") . "</option>";
-		$html .= "</select><p>" . __("Field Options","WPBDM") . " (" . __("for drop down lists, radio buttons, checkboxes ","WPBDM") . ") (" . __("separate by commas","WPBDM") . ")<br />" . __("**Do not fill in options for the Post category associated field","WPBDM") . "<input type=\"text\" name=\"wpbusdirman_field_options\" style=\"width:90%;\" value=\"" . get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_options_'.$wpbusdirman_fieldtoedit) . "\">";
-		$html .= "<p>" . __("Associate Field With","WPBDM") . " <select name=\"wpbusdirman_field_association\">";
-		$html .= "<option value=\"\">" . __("Select Option","WPBDM") . "</option>";
-		$html .= "<option value=\"title\" $wpbusdirman_associationselected1>" . __("Post Title","WPBDM") . "</option>";
-		$html .= "<option value=\"description\" $wpbusdirman_associationselected2>" . __("Post Content","WPBDM") . "</option>";
-		$html .= "<option value=\"category\" $wpbusdirman_associationselected3>" . __("Post Category","WPBDM") . "</option>";
-		$html .= "<option value=\"excerpt\" $wpbusdirman_associationselected4>" . __("Post Excerpt","WPBDM") . "</option>";
-		$html .= "<option value=\"meta\" $wpbusdirman_associationselected5>" . __("Post Meta","WPBDM") . "</option>";
-		$html .= "<option value=\"tags\" $wpbusdirman_associationselected6>" . __("Post Tags","WPBDM") . "</option>";
-		$html .= "</select></p><p>" . __("Validate Against","WPBDM") . " <select name=\"wpbusdirman_field_validation\">";
-		$html .= "<option value=\"\">" . __("Select Option","WPBDM") . "</option>";
-		$html .= "<option value=\"email\" $wpbusdirman_validation1>" . __("Email Format","WPBDM") . "</option>";
-		$html .= "<option value=\"url\" $wpbusdirman_validation2>" . __("URL format","WPBDM") . "</option>";
-		$html .= "<option value=\"missing\" $wpbusdirman_validation3>" . __("Missing Value","WPBDM") . "</option>";
-		$html .= "<option value=\"numericwhole\" $wpbusdirman_validation4>" . __("Whole Number Value","WPBDM") . "</option>";
-		$html .= "<option value=\"numericdeci\" $wpbusdirman_validation5>" . __("Decimal Value","WPBDM") . "</option>";
-		$html .= "<option value=\"date\" $wpbusdirman_validation6>" . __("Date Format","WPBDM") . "</option>";
-		$html .= "</select></p><p>" . __("Is Field Required?","WPBDM") . " <select name=\"wpbusdirman_field_required\">";
-		$html .= "<option value=\"\">" . __("Select Option","WPBDM") . "</option>";
-		$html .= "<option value=\"yes\" $wpbusdirman_required_selected1>" . __("Yes","WPBDM") . "</option>";
-		$html .= "<option value=\"no\" $wpbusdirman_required_selected2>" . __("No","WPBDM") . "</option>";
-		$html .= "</select></p><p>" . __("Show this value in post excerpt?","WPBDM") . " <select name=\"wpbusdirman_field_showinexcerpt\">";
-		$html .= "<option value=\"\">" . __("Select Option","WPBDM") . "</option>";
-		$html .= "<option value=\"yes\" $wpbusdirman_showinexcerpt_selected1>" . __("Yes","WPBDM") . "</option>";
-		$html .= "<option value=\"no\" $wpbusdirman_showinexcerpt_selected2>" . __("No","WPBDM") . "</option>";
-		$html .= "</select></p><p>" . __("Hide this field from public viewing?","WPBDM") . " <select name=\"wpbusdirman_field_hide\">";
-		$html .= "<option value=\"no\" $wpbusdirman_hide_selected1>" . __("No","WPBDM") . "</option>";
-		$html .= "<option value=\"yes\" $wpbusdirman_hide_selected2>" . __("Yes","WPBDM") . "</option>";
-		$html .= "</select></p>";
-		$html .= "<input type=\"hidden\" name=\"action\" value=\"updateoptions\" />";
-		$html .= "<input type=\"hidden\" name=\"whichtext\" value=\"$wpbusdirman_fieldtoedit\" />";
-		$html .= "<input name=\"updateoptions\" type=\"submit\" value=\"";
-		if(isset($wpbusdirman_fieldtoedit) && !empty($wpbusdirman_fieldtoedit))
-		{
-			$html .= __("Update Field","WPBDM");
-		}
-		else
-		{
-			$html .= __("Add New Field","WPBDM");
-		}
-		$html .= "\" /></form>";
-
-	}
 	elseif($wpbusdirmanaction == 'post')
 	{
 		$html .= apply_filters('wpbdm_process-form-post', null);
@@ -779,6 +476,9 @@ class WPBDP_FormFieldsAdmin {
     			$this->api->reorderField($_REQUEST['id'], $action == 'fieldup' ? 1 : -1);
     			$this->fieldsTable();
     			break;
+    		case 'previewform':
+    			$this->previewForm();
+    			break;
     		default:
     			$this->fieldsTable();
     			break;
@@ -789,6 +489,24 @@ class WPBDP_FormFieldsAdmin {
     	$instance = new WPBDP_FormFieldsAdmin();
     	$instance->dispatch();
     }
+
+    /* preview form */
+    private function previewForm() {
+    	$html = '';
+
+    	$html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), null, array(
+			array(_x('← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM'), esc_url(remove_query_arg('action')))
+    	));
+    	$html .= apply_filters('wpbdm_show-add-listing-form', '-1', '', '', '');
+    	$html .= wpbdp_admin_footer();
+
+    	echo $html;
+    }
+
+	/*echo wpbdp_admin_header(null, null, array(
+		array(_x('Add New Form Field', 'form-fields admin', 'WPBDM'), esc_url(add_query_arg('action', 'addfield'))),
+		array(_x('Preview Form', 'form-fields admin', 'WPBDM'), esc_url(add_query_arg('action', 'previewform'))),
+	));*/
 
     /* field list */
     private function fieldsTable() {

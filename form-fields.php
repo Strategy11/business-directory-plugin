@@ -398,7 +398,8 @@ class WPBDP_FormFieldsAPI {
 			return;
 		}
 
-		return call_user_func_array(array($this, 'render_' . $field->type), array_slice(func_get_args(), 0));
+		$args = func_get_args();
+		return call_user_func(array($this, 'render_' . $field->type), &$field, &$value);
 	}
 
 	public function render_textfield($field, $value=null) {
