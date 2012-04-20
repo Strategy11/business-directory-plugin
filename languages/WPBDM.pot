@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2012-03-14 23:38:12+00:00\n"
+"POT-Creation-Date: 2012-04-20 03:41:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -132,13 +132,11 @@ msgstr ""
 msgid "Add New Listing Fee"
 msgstr ""
 
-#: admin/fees.php:220 admin/wpbusdirman-fields-manager.php:79
-#: wpbusdirman.php:3807
+#: admin/fees.php:220 admin/form-fields.php:78 wpbusdirman.php:3326
 msgid "Edit"
 msgstr ""
 
-#: admin/fees.php:220 admin/wpbusdirman-fields-manager.php:79
-#: wpbusdirman.php:3807
+#: admin/fees.php:220 admin/form-fields.php:78 wpbusdirman.php:3326
 msgid "Delete"
 msgstr ""
 
@@ -187,7 +185,7 @@ msgid " on your purchase of both the Paypal and the 2Checkout gateway modules"
 msgstr ""
 
 #: admin/fees.php:273
-msgid "(Module bundle applies to a SINGLE site only)"
+msgid "(Single Site License Combo Pack)"
 msgstr ""
 
 #: admin/fees.php:273
@@ -199,222 +197,257 @@ msgid "Save"
 msgstr ""
 
 #: admin/fees.php:274
-msgid "(Module bundle applies to MULTIPLE sites)"
+msgid "(Multi Site License Combo Pack)"
 msgstr ""
 
 #: admin/fees.php:274
 msgid "$119.00"
 msgstr ""
 
-#: admin/form-manager.php:7
-msgid "Previewing the post form"
-msgstr ""
-
-#: admin/form-manager.php:8 admin/form-manager.php:35
-#: admin/wpbusdirman-fields-manager.php:10
+#: admin/form-fields.php:9 admin/form-fields.php:183 admin/form-fields.php:210
 msgid "Manage Form Fields"
 msgstr ""
 
-#: admin/form-manager.php:29 wpbusdirman.php:296 wpbusdirman.php:2819
-msgid "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues."
+#: admin/form-fields.php:9
+msgid "Make changes to your existing form fields."
 msgstr ""
 
-#: admin/form-manager.php:30
-msgid "Login or Register First"
-msgstr ""
-
-#: admin/form-manager.php:34 admin/wpbusdirman-fields-manager.php:10
-msgid "Add New Listing"
-msgstr ""
-
-#: admin/form-manager.php:102 admin/form-manager.php:110
-msgid "Field NOT added! You have submitted the form without a field label. A field label is required before the field can be added. Please try adding the field again."
-msgstr ""
-
-#: admin/form-manager.php:128
-msgid "You tried to associate a field with a wordpress post title, category, tag, description, excerpt but another field is already associated with the element. The field has been associated with the post meta entity instead."
-msgstr ""
-
-#: admin/form-manager.php:161
-msgid "The category field can only be assigned to the single option dropdown select list or checkbox type. It has been defaulted to a select list. If you want the user to be able to select multiple categories use the checkbox field type."
-msgstr ""
-
-#: admin/form-manager.php:180
-msgid "You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again."
-msgstr ""
-
-#: admin/form-manager.php:216
-msgid "The field has been deleted."
-msgstr ""
-
-#: admin/form-manager.php:220
-msgid "There was no ID supplied for the field. No action has been taken"
-msgstr ""
-
-#: admin/form-manager.php:238
-msgid "Make your changes then submit the form to update the field"
-msgstr ""
-
-#: admin/form-manager.php:238 admin/wpbusdirman-fields-manager.php:10
+#: admin/form-fields.php:9
 msgid "Add New Form Field"
 msgstr ""
 
-#: admin/form-manager.php:242
-msgid "Add extra fields to the standard fields used in the form that users will fill out to submit their business directory listing.<p>Please note that your submission form <b>MUST</b> have [1] field associated with the 'Post Title', [1] field associated with the 'Post Content' and [1] field associated 'Post Category'. It cannot have more than 1 field associated with 'Post Category'. It cannot have more than 1 field associated with 'Post Title'. It cannot have more than 1 field associated with 'Post Content'. It <b>MUST</b> have 1 field that serves as the post title, 1 field that serves as the post content and 1 field that serves as the post category in order for it to work correctly. If you are submitting listings and they are not appearing on your site or on the directory management page, the primary reason for this is that your form is either missing the post title associated field, the post content association field and/or the post category association field.</p>"
+#: admin/form-fields.php:9
+msgid "Preview Form"
 msgstr ""
 
-#: admin/form-manager.php:247
-msgid "Edit Field"
+#: admin/form-fields.php:9 admin/form-fields.php:209
+msgid "Add New Listing"
 msgstr ""
 
-#: admin/form-manager.php:251 admin/form-manager.php:500
-msgid "Add New Field"
+#: admin/form-fields.php:95
+msgctxt "form-fields admin"
+msgid "form field"
 msgstr ""
 
-#: admin/form-manager.php:452
-msgid "Preview the form"
+#: admin/form-fields.php:96
+msgctxt "form-fields admin"
+msgid "form fields"
 msgstr ""
 
-#: admin/form-manager.php:453
+#: admin/form-fields.php:103
+msgctxt "form-fields admin"
+msgid "Order"
+msgstr ""
+
+#: admin/form-fields.php:104
+msgctxt "form-fields admin"
+msgid "Label / Association"
+msgstr ""
+
+#: admin/form-fields.php:105
+msgctxt "form-fields admin"
+msgid "Type"
+msgstr ""
+
+#: admin/form-fields.php:106
+msgctxt "form-fields admin"
+msgid "Validator"
+msgstr ""
+
+#: admin/form-fields.php:130
+msgctxt "form-fields admin"
+msgid "Edit"
+msgstr ""
+
+#: admin/form-fields.php:135
+msgctxt "form-fields admin"
+msgid "Delete"
+msgstr ""
+
+#: admin/form-fields.php:165
+msgctxt "form-fields admin"
+msgid "Required"
+msgstr ""
+
+#: admin/form-fields.php:165
+msgctxt "form-fields admin"
+msgid "Optional"
+msgstr ""
+
+#: admin/form-fields.php:169
+msgctxt "form-fields admin"
+msgid "In Excerpt"
+msgstr ""
+
+#: admin/form-fields.php:182
+msgid "Previewing the post form"
+msgstr ""
+
+#: admin/form-fields.php:204 wpbusdirman.php:286 wpbusdirman.php:2318
+msgid "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues."
+msgstr ""
+
+#: admin/form-fields.php:205
+msgid "Login or Register First"
+msgstr ""
+
+#: admin/form-fields.php:278 admin/form-fields.php:286
+msgid "Field NOT added! You have submitted the form without a field label. A field label is required before the field can be added. Please try adding the field again."
+msgstr ""
+
+#: admin/form-fields.php:304
+msgid "You tried to associate a field with a wordpress post title, category, tag, description, excerpt but another field is already associated with the element. The field has been associated with the post meta entity instead."
+msgstr ""
+
+#: admin/form-fields.php:337
+msgid "The category field can only be assigned to the single option dropdown select list or checkbox type. It has been defaulted to a select list. If you want the user to be able to select multiple categories use the checkbox field type."
+msgstr ""
+
+#: admin/form-fields.php:356
+msgid "You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again."
+msgstr ""
+
+#: admin/form-fields.php:497
+msgctxt "form-fields admin"
+msgid "Form Preview"
+msgstr ""
+
+#: admin/form-fields.php:498
+msgctxt "form-fields admin"
+msgid "← Return to \"Manage Form Fields\""
+msgstr ""
+
+#: admin/form-fields.php:526
+msgctxt "form-fields admin"
+msgid "Form fields updated."
+msgstr ""
+
+#: admin/form-fields.php:555
+msgctxt "form-fields admin"
+msgid "Field deleted."
+msgstr ""
+
+#: admin/templates/form-fields-addoredit.tpl.php:2
+msgctxt "form-fields admin"
+msgid "Add Form Field"
+msgstr ""
+
+#: admin/templates/form-fields-addoredit.tpl.php:21
+msgctxt "form-fields admin"
 msgid "Field Label"
 msgstr ""
 
-#: admin/form-manager.php:454
+#: admin/templates/form-fields-addoredit.tpl.php:32
+msgctxt "form-fields admin"
+msgid "Field Association"
+msgstr ""
+
+#: admin/templates/form-fields-addoredit.tpl.php:53
+msgctxt "form-fields admin"
 msgid "Field Type"
 msgstr ""
 
-#: admin/form-manager.php:455
-msgid "Select Field Type"
+#: admin/templates/form-fields-addoredit.tpl.php:70
+msgctxt "form-fields admin"
+msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 
-#: admin/form-manager.php:456
-msgid "Input Text Box"
+#: admin/templates/form-fields-addoredit.tpl.php:79
+msgctxt "form-fields admin"
+msgid "Field description"
 msgstr ""
 
-#: admin/form-manager.php:457
-msgid "Select List"
+#: admin/templates/form-fields-addoredit.tpl.php:88
+msgctxt "form-fields admin"
+msgid "Field validation options"
 msgstr ""
 
-#: admin/form-manager.php:458
-msgid "Multiple Select List"
+#: admin/templates/form-fields-addoredit.tpl.php:92
+msgctxt "form-fields admin"
+msgid "Field Validator"
 msgstr ""
 
-#: admin/form-manager.php:459
-msgid "Radio Button"
+#: admin/templates/form-fields-addoredit.tpl.php:96
+msgctxt "form-fields admin"
+msgid "No validation"
 msgstr ""
 
-#: admin/form-manager.php:460
-msgid "Checkbox"
+#: admin/templates/form-fields-addoredit.tpl.php:107
+msgctxt "form-fields admin"
+msgid "Is field required?"
 msgstr ""
 
-#: admin/form-manager.php:461
-msgid "Textarea"
+#: admin/templates/form-fields-addoredit.tpl.php:113
+msgctxt "form-fields admin"
+msgid "This field is required."
 msgstr ""
 
-#: admin/form-manager.php:462
-msgid "Field Options"
+#: admin/templates/form-fields-addoredit.tpl.php:118
+msgctxt "form-fields admin"
+msgid "Field display options"
 msgstr ""
 
-#: admin/form-manager.php:462
-msgid "for drop down lists, radio buttons, checkboxes "
+#: admin/templates/form-fields-addoredit.tpl.php:125
+msgctxt "form-fields admin"
+msgid "Show this value in excerpt?"
 msgstr ""
 
-#: admin/form-manager.php:462
-msgid "separate by commas"
+#: admin/templates/form-fields-addoredit.tpl.php:131
+msgctxt "form-fields admin"
+msgid "Display this value in post excerpt."
 msgstr ""
 
-#: admin/form-manager.php:462
-msgid "**Do not fill in options for the Post category associated field"
+#: admin/templates/form-fields-addoredit.tpl.php:137
+msgctxt "form-fields admin"
+msgid "Hide this field from public?"
 msgstr ""
 
-#: admin/form-manager.php:463
-msgid "Associate Field With"
+#: admin/templates/form-fields-addoredit.tpl.php:143
+msgctxt "form-fields admin"
+msgid "Hide this field from public viewing."
 msgstr ""
 
-#: admin/form-manager.php:464 admin/form-manager.php:472
-#: admin/form-manager.php:480 admin/form-manager.php:484
-msgid "Select Option"
-msgstr ""
-
-#: admin/form-manager.php:465
-msgid "Post Title"
-msgstr ""
-
-#: admin/form-manager.php:466
-msgid "Post Content"
-msgstr ""
-
-#: admin/form-manager.php:467
-msgid "Post Category"
-msgstr ""
-
-#: admin/form-manager.php:468
-msgid "Post Excerpt"
-msgstr ""
-
-#: admin/form-manager.php:469
-msgid "Post Meta"
-msgstr ""
-
-#: admin/form-manager.php:470
-msgid "Post Tags"
-msgstr ""
-
-#: admin/form-manager.php:471
-msgid "Validate Against"
-msgstr ""
-
-#: admin/form-manager.php:473
-msgid "Email Format"
-msgstr ""
-
-#: admin/form-manager.php:474
-msgid "URL format"
-msgstr ""
-
-#: admin/form-manager.php:475
-msgid "Missing Value"
-msgstr ""
-
-#: admin/form-manager.php:476
-msgid "Whole Number Value"
-msgstr ""
-
-#: admin/form-manager.php:477
-msgid "Decimal Value"
-msgstr ""
-
-#: admin/form-manager.php:478
-msgid "Date Format"
-msgstr ""
-
-#: admin/form-manager.php:479
-msgid "Is Field Required?"
-msgstr ""
-
-#: admin/form-manager.php:481 admin/form-manager.php:485
-#: admin/form-manager.php:489
-msgid "Yes"
-msgstr ""
-
-#: admin/form-manager.php:482 admin/form-manager.php:486
-#: admin/form-manager.php:488
-msgid "No"
-msgstr ""
-
-#: admin/form-manager.php:483
-msgid "Show this value in post excerpt?"
-msgstr ""
-
-#: admin/form-manager.php:487
-msgid "Hide this field from public viewing?"
-msgstr ""
-
-#: admin/form-manager.php:496
+#: admin/templates/form-fields-addoredit.tpl.php:149
+msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr ""
 
-#: admin/templates/header.tpl.php:3
+#: admin/templates/form-fields-addoredit.tpl.php:151
+msgctxt "form-fields admin"
+msgid "Add Field"
+msgstr ""
+
+#: admin/templates/form-fields-confirm-delete.tpl.php:2
+msgctxt "form-fields admin"
+msgid "Delete Form Field"
+msgstr ""
+
+#: admin/templates/form-fields-confirm-delete.tpl.php:6
+msgctxt "form-fields admin"
+msgid "Are you sure you want to delete the \"%s\" field?"
+msgstr ""
+
+#: admin/templates/form-fields-confirm-delete.tpl.php:12
+msgctxt "form-fields admin"
+msgid "Delete Field"
+msgstr ""
+
+#: admin/templates/form-fields.tpl.php:3
+msgctxt "form-fields admin"
+msgid "Add New Form Field"
+msgstr ""
+
+#: admin/templates/form-fields.tpl.php:4
+msgctxt "form-fields admin"
+msgid "Preview Form"
+msgstr ""
+
+#: admin/templates/form-fields.tpl.php:9
+msgctxt "form-fields admin"
+msgid "Make changes to your existing form fields."
+msgstr ""
+
+#: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
 msgstr ""
 
@@ -434,12 +467,12 @@ msgstr ""
 msgid "Use this option if you want to go back to the factory-settings. Please notice that all of your customizations will be lost."
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:38 admin/templates/sidebar.tpl.php:42
+#: admin/templates/sidebar.tpl.php:40 admin/templates/sidebar.tpl.php:44
 msgctxt "admin sidebar"
 msgid "Installed"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:38 admin/templates/sidebar.tpl.php:42
+#: admin/templates/sidebar.tpl.php:40 admin/templates/sidebar.tpl.php:44
 msgctxt "admin sidebar"
 msgid "Not Installed"
 msgstr ""
@@ -472,182 +505,177 @@ msgstr ""
 msgid "Please click here to complete the uninstallation process"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:34
+#: admin/wpbdp-admin.class.php:38
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:35
+#: admin/wpbdp-admin.class.php:39
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:41 admin/wpbdp-admin.class.php:42
+#: admin/wpbdp-admin.class.php:45 admin/wpbdp-admin.class.php:46
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:47 admin/wpbdp-admin.class.php:48
+#: admin/wpbdp-admin.class.php:51 admin/wpbdp-admin.class.php:52
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:53 admin/wpbdp-admin.class.php:54
+#: admin/wpbdp-admin.class.php:57 admin/wpbdp-admin.class.php:58
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:59
-msgctxt "admin menu"
-msgid "Manage Fields"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:60
+#: admin/wpbdp-admin.class.php:63 admin/wpbdp-admin.class.php:64
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:65 admin/wpbdp-admin.class.php:66
+#: admin/wpbdp-admin.class.php:69 admin/wpbdp-admin.class.php:70
 msgctxt "admin menu"
 msgid "Manage Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:71 admin/wpbdp-admin.class.php:72
+#: admin/wpbdp-admin.class.php:75 admin/wpbdp-admin.class.php:76
 msgctxt "admin menu"
 msgid "Manage Payments"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:77
+#: admin/wpbdp-admin.class.php:81
 msgctxt "admin menu"
 msgid "Uninstall WPDB Manager"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:78
+#: admin/wpbdp-admin.class.php:82
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:85
+#: admin/wpbdp-admin.class.php:89
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:93
+#: admin/wpbdp-admin.class.php:96
 msgid "Listing Information"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:107
+#: admin/wpbdp-admin.class.php:110
 msgid "Payment Information"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:109
+#: admin/wpbdp-admin.class.php:112
 msgid "Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:112 admin/wpbdp-admin.class.php:336
-#: admin/wpbdp-admin.class.php:346
+#: admin/wpbdp-admin.class.php:115 admin/wpbdp-admin.class.php:345
+#: admin/wpbdp-admin.class.php:355
 msgid "Gateway"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:116 admin/wpbdp-admin.class.php:337
+#: admin/wpbdp-admin.class.php:119 admin/wpbdp-admin.class.php:346
 msgid "Flag"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:120 admin/wpbdp-admin.class.php:338
-#: admin/wpbdp-admin.class.php:347
+#: admin/wpbdp-admin.class.php:123 admin/wpbdp-admin.class.php:347
+#: admin/wpbdp-admin.class.php:356
 msgid "Buyer"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:124 admin/wpbdp-admin.class.php:339
-#: admin/wpbdp-admin.class.php:348
+#: admin/wpbdp-admin.class.php:127 admin/wpbdp-admin.class.php:348
+#: admin/wpbdp-admin.class.php:357
 msgid "Payment Email"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:132
+#: admin/wpbdp-admin.class.php:135
 msgid "Set as Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:135
+#: admin/wpbdp-admin.class.php:138
 msgid "Set as Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:145 admin/wpbdp-admin.class.php:364
+#: admin/wpbdp-admin.class.php:148 admin/wpbdp-admin.class.php:373
 msgid "Not Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:146 admin/wpbdp-admin.class.php:276
-#: admin/wpbdp-admin.class.php:365
+#: admin/wpbdp-admin.class.php:149 admin/wpbdp-admin.class.php:285
+#: admin/wpbdp-admin.class.php:374
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:147 admin/wpbdp-admin.class.php:366
+#: admin/wpbdp-admin.class.php:150 admin/wpbdp-admin.class.php:375
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:150 admin/wpbdp-admin.class.php:369
+#: admin/wpbdp-admin.class.php:153 admin/wpbdp-admin.class.php:378
 msgctxt "admin list"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:154
+#: admin/wpbdp-admin.class.php:157
 msgctxt "admin metabox"
 msgid "Sticky Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:160
+#: admin/wpbdp-admin.class.php:163
 msgctxt "admin metabox"
 msgid "Downgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:164
+#: admin/wpbdp-admin.class.php:167
 msgid "Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:214
+#: admin/wpbdp-admin.class.php:223
 msgid "The listing status has been set as paid."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:223
+#: admin/wpbdp-admin.class.php:232
 msgid "The listing status has been changed unpaid."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:229
+#: admin/wpbdp-admin.class.php:238
 msgid "The listing has been upgraded."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:235
+#: admin/wpbdp-admin.class.php:244
 msgid "The listing has been downgraded."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:266 admin/wpbdp-admin.class.php:326
+#: admin/wpbdp-admin.class.php:275 admin/wpbdp-admin.class.php:335
 msgid "Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:271 admin/wpbdp-admin.class.php:354
+#: admin/wpbdp-admin.class.php:280 admin/wpbdp-admin.class.php:363
 msgid "Unpaid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:290
+#: admin/wpbdp-admin.class.php:299
 msgid "Payment Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:291
+#: admin/wpbdp-admin.class.php:300
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:329
+#: admin/wpbdp-admin.class.php:338
 msgid "Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:340 admin/wpbdp-admin.class.php:349
+#: admin/wpbdp-admin.class.php:349 admin/wpbdp-admin.class.php:358
 msgid "Set as"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:381
+#: admin/wpbdp-admin.class.php:390
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:385
+#: admin/wpbdp-admin.class.php:394
 msgid "Upgrade to Featured"
 msgstr ""
 
@@ -671,12 +699,179 @@ msgstr ""
 msgid " images"
 msgstr ""
 
-#: admin/wpbusdirman-fields-manager.php:10
-msgid "Make changes to your existing form fields."
+#: form-fields.php:24
+msgctxt "form-fields-api validation"
+msgid "%s is required."
 msgstr ""
 
-#: admin/wpbusdirman-fields-manager.php:10
-msgid "Preview Form"
+#: form-fields.php:33
+msgctxt "form-fields-api validation"
+msgid "%s is badly formatted. Valid URL format required. Include http://"
+msgstr ""
+
+#: form-fields.php:42
+msgctxt "form-fields-api validation"
+msgid "%s is badly formatted. Valid Email format required."
+msgstr ""
+
+#: form-fields.php:51
+msgctxt "form-fields-api validation"
+msgid "%s must be a number. Decimal values are not allowed."
+msgstr ""
+
+#: form-fields.php:60
+msgctxt "form-fields-api validation"
+msgid "%s must be a number."
+msgstr ""
+
+#: form-fields.php:69
+msgctxt "form-fields-api validation"
+msgid "%s must be in the format 00/00/0000."
+msgstr ""
+
+#: form-fields.php:147
+msgctxt "form-fields api"
+msgid "Textfield"
+msgstr ""
+
+#: form-fields.php:148
+msgctxt "form-fields api"
+msgid "Select List"
+msgstr ""
+
+#: form-fields.php:149
+msgctxt "form-fields api"
+msgid "Textarea"
+msgstr ""
+
+#: form-fields.php:150
+msgctxt "form-fields api"
+msgid "Radio button"
+msgstr ""
+
+#: form-fields.php:151
+msgctxt "form-fields api"
+msgid "Multiple select list"
+msgstr ""
+
+#: form-fields.php:152
+msgctxt "form-fields api"
+msgid "Checkbox"
+msgstr ""
+
+#: form-fields.php:161
+msgctxt "form-fields api"
+msgid "Post Title"
+msgstr ""
+
+#: form-fields.php:162
+msgctxt "form-fields api"
+msgid "Post Content"
+msgstr ""
+
+#: form-fields.php:163
+msgctxt "form-fields api"
+msgid "Post Category"
+msgstr ""
+
+#: form-fields.php:164
+msgctxt "form-fields api"
+msgid "Post Excerpt"
+msgstr ""
+
+#: form-fields.php:165
+msgctxt "form-fields api"
+msgid "Post Metadata"
+msgstr ""
+
+#: form-fields.php:166
+msgctxt "form-fields api"
+msgid "Post Tags"
+msgstr ""
+
+#: form-fields.php:176
+msgctxt "form-fields-api"
+msgid "Email Validator"
+msgstr ""
+
+#: form-fields.php:177
+msgctxt "form-fields-api"
+msgid "URL Validator"
+msgstr ""
+
+#: form-fields.php:178
+msgctxt "form-fields-api"
+msgid "Whole Number Validator"
+msgstr ""
+
+#: form-fields.php:179
+msgctxt "form-fields-api"
+msgid "Decimal Number Validator"
+msgstr ""
+
+#: form-fields.php:180
+msgctxt "form-fields-api"
+msgid "Date Validator"
+msgstr ""
+
+#: form-fields.php:272
+msgctxt "form-fields-api"
+msgid "Field label is required."
+msgstr ""
+
+#: form-fields.php:275
+msgctxt "form-fields-api"
+msgid "Invalid field type."
+msgstr ""
+
+#: form-fields.php:278
+msgctxt "form-fields-api"
+msgid "Invalid field association."
+msgstr ""
+
+#: form-fields.php:286
+msgctxt "form-fields-api"
+msgid "There can only be one field with association \"%s\". Please select another association."
+msgstr ""
+
+#: form-fields.php:293
+msgctxt "form-fields-api"
+msgid "Post title field must be a text field or text area."
+msgstr ""
+
+#: form-fields.php:297
+msgctxt "form-fields-api"
+msgid "Post content field must be a text area."
+msgstr ""
+
+#: form-fields.php:301
+msgctxt "form-fields-api"
+msgid "Post category field can't be a text field or text area."
+msgstr ""
+
+#: form-fields.php:306
+msgctxt "form-fields-api"
+msgid "Invalid validator selected."
+msgstr ""
+
+#: form-fields.php:311
+msgctxt "form-fields-api"
+msgid "You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again."
+msgstr ""
+
+#: form-fields.php:385
+msgctxt "form-fields api"
+msgid "This form field can't be deleted because it is required for the plugin to work."
+msgstr ""
+
+#: form-fields.php:412
+msgctxt "form-fields api"
+msgid "Format 01/31/1969"
+msgstr ""
+
+#: form-fields.php:447
+msgctxt "form-fields-api category-select"
+msgid "Choose One"
 msgstr ""
 
 #: gateways/googlecheckout.php:35
@@ -716,8 +911,12 @@ msgid "Proceed"
 msgstr ""
 
 #: posttemplate/wpbusdirman-category.php:92
-#: posttemplate/wpbusdirman-search.php:58
-msgid "No listings found in category"
+msgid "No listings found in category."
+msgstr ""
+
+#: posttemplate/wpbusdirman-category.php:95
+msgctxt "WPBDM"
+msgid "Return to directory"
 msgstr ""
 
 #: posttemplate/wpbusdirman-index-listings.php:64
@@ -728,61 +927,65 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:30
+#: posttemplate/wpbusdirman-search.php:58
+msgid "No listings found in category"
+msgstr ""
+
+#: posttemplate/wpbusdirman-single.php:29
 msgid "This listing was submitted"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:31
+#: posttemplate/wpbusdirman-single.php:30
 msgid "on"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:31
+#: posttemplate/wpbusdirman-single.php:30
 msgid "at"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:34
+#: posttemplate/wpbusdirman-single.php:33
 msgid "You can follow any responses to this listing through the"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:34
+#: posttemplate/wpbusdirman-single.php:33
 msgid "feed"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:40
+#: posttemplate/wpbusdirman-single.php:39
 msgid "You can"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:40
+#: posttemplate/wpbusdirman-single.php:39
 msgid "leave a response"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:40
+#: posttemplate/wpbusdirman-single.php:39
 msgid "or"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:40
-#: posttemplate/wpbusdirman-single.php:47
+#: posttemplate/wpbusdirman-single.php:39
+#: posttemplate/wpbusdirman-single.php:46
 msgid "trackback"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:40
-#: posttemplate/wpbusdirman-single.php:47
+#: posttemplate/wpbusdirman-single.php:39
+#: posttemplate/wpbusdirman-single.php:46
 msgid "from your own site"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:47
+#: posttemplate/wpbusdirman-single.php:46
 msgid "Responses are currently closed, but you can"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:54
+#: posttemplate/wpbusdirman-single.php:53
 msgid "You can skip to the end and leave a response. Pinging is currently not allowed"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:61
+#: posttemplate/wpbusdirman-single.php:60
 msgid "Both comments and pings are currently closed"
 msgstr ""
 
-#: posttemplate/wpbusdirman-single.php:84
+#: posttemplate/wpbusdirman-single.php:83
 msgid "Sorry, no posts matched your criteria."
 msgstr ""
 
@@ -1271,485 +1474,520 @@ msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr ""
 
-#: wpbusdirman.php:138
-msgid "Label"
-msgstr ""
-
-#: wpbusdirman.php:139
-msgid "Type"
-msgstr ""
-
-#: wpbusdirman.php:140
-msgid "Association"
-msgstr ""
-
-#: wpbusdirman.php:141
-msgid "Options"
-msgstr ""
-
-#: wpbusdirman.php:142
-msgid "Order"
-msgstr ""
-
-#: wpbusdirman.php:143
-msgid "Action"
-msgstr ""
-
-#: wpbusdirman.php:144
-msgid "Value"
-msgstr ""
-
-#: wpbusdirman.php:145
-msgid "Amount"
-msgstr ""
-
-#: wpbusdirman.php:146
-msgid "Applied To"
-msgstr ""
-
-#: wpbusdirman.php:147
-msgid "All categories"
-msgstr ""
-
-#: wpbusdirman.php:148
-msgid "Day"
-msgstr ""
-
-#: wpbusdirman.php:149
-msgid "Days"
-msgstr ""
-
-#: wpbusdirman.php:150
-msgid "Images"
-msgstr ""
-
-#: wpbusdirman.php:151
-msgid "Duration"
-msgstr ""
-
-#: wpbusdirman.php:152
-msgid "Validation"
-msgstr ""
-
-#: wpbusdirman.php:153
-msgid "Required"
-msgstr ""
-
-#: wpbusdirman.php:154
-msgid "Excerpt"
-msgstr ""
-
-#: wpbusdirman.php:280
-msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory."
-msgstr ""
-
-#: wpbusdirman.php:284
-msgid "Your listing cannot be added at this time. Please try again later."
-msgstr ""
-
-#: wpbusdirman.php:297 wpbusdirman.php:2820
-msgid "Login Now"
-msgstr ""
-
-#: wpbusdirman.php:301
-msgid "Choose One"
-msgstr ""
-
-#: wpbusdirman.php:431
-msgid "Format 01/31/1969"
-msgstr ""
-
-#: wpbusdirman.php:592
-msgid "Submit"
-msgstr ""
-
-#: wpbusdirman.php:629
-msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory. "
-msgstr ""
-
-#: wpbusdirman.php:633
-msgid "There are currently no listings in the directory"
-msgstr ""
-
-#: wpbusdirman.php:724 wpbusdirman.php:1111 wpbusdirman.php:1867
-#: wpbusdirman.php:2624 wpbusdirman.php:2641
-msgid "Your submission has been received and is currently pending review"
-msgstr ""
-
-#: wpbusdirman.php:728 wpbusdirman.php:1115 wpbusdirman.php:1871
-#: wpbusdirman.php:2628 wpbusdirman.php:2645
-msgid "Your submission has been received and is currently published. Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
-msgstr ""
-
-#: wpbusdirman.php:732 wpbusdirman.php:1119 wpbusdirman.php:1873
-#: wpbusdirman.php:2605 wpbusdirman.php:2632 wpbusdirman.php:2649
-msgid "You are finished with your listing."
-msgstr ""
-
-#: wpbusdirman.php:733 wpbusdirman.php:1120 wpbusdirman.php:1860
-#: wpbusdirman.php:1874 wpbusdirman.php:1963 wpbusdirman.php:1993
-#: wpbusdirman.php:2009 wpbusdirman.php:2045 wpbusdirman.php:2061
-#: wpbusdirman.php:2605 wpbusdirman.php:2633 wpbusdirman.php:2649
-msgid "Exit Now"
-msgstr ""
-
-#: wpbusdirman.php:767
-msgid "The listing has been deleted."
-msgstr ""
-
-#: wpbusdirman.php:772
-msgid "The system could not determine which listing you want to delete so nothing has been deleted."
-msgstr ""
-
-#: wpbusdirman.php:839
-msgid "Please enter your name."
-msgstr ""
-
-#: wpbusdirman.php:846
-msgid "Name needs to be at least 3 characters in length to be considered valid."
-msgstr ""
-
-#: wpbusdirman.php:854
-msgid "Please enter your email."
-msgstr ""
-
-#: wpbusdirman.php:861
-msgid "Please enter a valid email."
-msgstr ""
-
-#: wpbusdirman.php:870
-msgid "Please enter a valid URL."
-msgstr ""
-
-#: wpbusdirman.php:880
-msgid "You did not enter a message."
-msgstr ""
-
-#: wpbusdirman.php:897
-msgid "The reCAPTCHA wasn't entered correctly: "
-msgstr ""
-
-#: wpbusdirman.php:920 wpbusdirman.php:3216
-msgid "l F j, Y \\a\\t g:i a"
-msgstr ""
-
-#: wpbusdirman.php:932
-msgid "Your message has been sent"
-msgstr ""
-
-#: wpbusdirman.php:936
-msgid "There was a problem encountered. Your message has not been sent"
-msgstr ""
-
-#: wpbusdirman.php:1299
+#: wpbusdirman-functions-backup.php:32 wpbusdirman.php:1043
 msgid "Information Not Saved"
 msgstr ""
 
-#: wpbusdirman.php:1299
+#: wpbusdirman-functions-backup.php:32 wpbusdirman.php:1043
 msgid "You are trying to submit the form in preview mode. You cannot save while in preview mode"
 msgstr ""
 
-#: wpbusdirman.php:1299
+#: wpbusdirman-functions-backup.php:32 wpbusdirman.php:1043
 msgid "Go Back"
 msgstr ""
 
-#: wpbusdirman.php:1514 wpbusdirman.php:1592 wpbusdirman.php:1639
-#: wpbusdirman.php:1687
+#: wpbusdirman-functions-backup.php:247 wpbusdirman-functions-backup.php:325
+#: wpbusdirman-functions-backup.php:372 wpbusdirman-functions-backup.php:420
+#: wpbusdirman.php:1155 wpbusdirman.php:1233 wpbusdirman.php:1280
+#: wpbusdirman.php:1328
 msgid "Step 2"
 msgstr ""
 
-#: wpbusdirman.php:1527 wpbusdirman.php:3284
+#: wpbusdirman-functions-backup.php:260 wpbusdirman.php:1168
+#: wpbusdirman.php:2783
 msgid "Select Listing Payment Option"
 msgstr ""
 
-#: wpbusdirman.php:1531
+#: wpbusdirman-functions-backup.php:264 wpbusdirman.php:1172
 msgid "You have selected more than one category. Each category you to which you elect to submit your listing incurs a separate fee."
 msgstr ""
 
-#: wpbusdirman.php:1534
+#: wpbusdirman-functions-backup.php:267 wpbusdirman.php:1175
 msgid " The number of images attached to your listing will be set according to option you choose that has the most images. So if for one category you chose an option with 2 images but for another category you chose an option with 4 images your listing will be allotted 4 image slots"
 msgstr ""
 
-#: wpbusdirman.php:1548 wpbusdirman.php:1986 wpbusdirman.php:2038
-#: wpbusdirman.php:3289
+#: wpbusdirman-functions-backup.php:281 wpbusdirman.php:1189
+#: wpbusdirman.php:1625 wpbusdirman.php:1677 wpbusdirman.php:2788
 msgid "Next"
 msgstr ""
 
-#: wpbusdirman.php:1584 wpbusdirman.php:1631 wpbusdirman.php:1677
-#: wpbusdirman.php:1748
+#: wpbusdirman-functions-backup.php:317 wpbusdirman-functions-backup.php:364
+#: wpbusdirman-functions-backup.php:410 wpbusdirman-functions-backup.php:481
+#: wpbusdirman.php:1225 wpbusdirman.php:1272 wpbusdirman.php:1318
+#: wpbusdirman.php:1389
 msgid "Submission received"
 msgstr ""
 
-#: wpbusdirman.php:1584 wpbusdirman.php:1631 wpbusdirman.php:1677
-#: wpbusdirman.php:1748
+#: wpbusdirman-functions-backup.php:317 wpbusdirman-functions-backup.php:364
+#: wpbusdirman-functions-backup.php:410 wpbusdirman-functions-backup.php:481
+#: wpbusdirman.php:1225 wpbusdirman.php:1272 wpbusdirman.php:1318
+#: wpbusdirman.php:1389
 msgid "Your submission has been received."
 msgstr ""
 
-#: wpbusdirman.php:1818
+#: wpbusdirman.php:133
+msgid "Label"
+msgstr ""
+
+#: wpbusdirman.php:134
+msgid "Type"
+msgstr ""
+
+#: wpbusdirman.php:135
+msgid "Association"
+msgstr ""
+
+#: wpbusdirman.php:136
+msgid "Options"
+msgstr ""
+
+#: wpbusdirman.php:137
+msgid "Order"
+msgstr ""
+
+#: wpbusdirman.php:138
+msgid "Action"
+msgstr ""
+
+#: wpbusdirman.php:139
+msgid "Value"
+msgstr ""
+
+#: wpbusdirman.php:140
+msgid "Amount"
+msgstr ""
+
+#: wpbusdirman.php:141
+msgid "Applied To"
+msgstr ""
+
+#: wpbusdirman.php:142
+msgid "All categories"
+msgstr ""
+
+#: wpbusdirman.php:143
+msgid "Day"
+msgstr ""
+
+#: wpbusdirman.php:144
+msgid "Days"
+msgstr ""
+
+#: wpbusdirman.php:145
+msgid "Images"
+msgstr ""
+
+#: wpbusdirman.php:146
+msgid "Duration"
+msgstr ""
+
+#: wpbusdirman.php:147
+msgid "Validation"
+msgstr ""
+
+#: wpbusdirman.php:148
+msgid "Required"
+msgstr ""
+
+#: wpbusdirman.php:149
+msgid "Excerpt"
+msgstr ""
+
+#: wpbusdirman.php:276
+msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory."
+msgstr ""
+
+#: wpbusdirman.php:278
+msgid "Your listing cannot be added at this time. Please try again later."
+msgstr ""
+
+#: wpbusdirman.php:287 wpbusdirman.php:2319
+msgid "Login Now"
+msgstr ""
+
+#: wpbusdirman.php:360
+msgid "Submit"
+msgstr ""
+
+#: wpbusdirman.php:386
+msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory. "
+msgstr ""
+
+#: wpbusdirman.php:390
+msgid "There are currently no listings in the directory"
+msgstr ""
+
+#: wpbusdirman.php:481 wpbusdirman.php:868 wpbusdirman.php:1506
+#: wpbusdirman.php:2123 wpbusdirman.php:2140
+msgid "Your submission has been received and is currently pending review"
+msgstr ""
+
+#: wpbusdirman.php:485 wpbusdirman.php:872 wpbusdirman.php:1510
+#: wpbusdirman.php:2127 wpbusdirman.php:2144
+msgid "Your submission has been received and is currently published. Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
+msgstr ""
+
+#: wpbusdirman.php:489 wpbusdirman.php:876 wpbusdirman.php:1512
+#: wpbusdirman.php:2104 wpbusdirman.php:2131 wpbusdirman.php:2148
+msgid "You are finished with your listing."
+msgstr ""
+
+#: wpbusdirman.php:490 wpbusdirman.php:877 wpbusdirman.php:1499
+#: wpbusdirman.php:1513 wpbusdirman.php:1602 wpbusdirman.php:1632
+#: wpbusdirman.php:1648 wpbusdirman.php:1684 wpbusdirman.php:1700
+#: wpbusdirman.php:2104 wpbusdirman.php:2132 wpbusdirman.php:2148
+msgid "Exit Now"
+msgstr ""
+
+#: wpbusdirman.php:524
+msgid "The listing has been deleted."
+msgstr ""
+
+#: wpbusdirman.php:529
+msgid "The system could not determine which listing you want to delete so nothing has been deleted."
+msgstr ""
+
+#: wpbusdirman.php:596
+msgid "Please enter your name."
+msgstr ""
+
+#: wpbusdirman.php:603
+msgid "Name needs to be at least 3 characters in length to be considered valid."
+msgstr ""
+
+#: wpbusdirman.php:611
+msgid "Please enter your email."
+msgstr ""
+
+#: wpbusdirman.php:618
+msgid "Please enter a valid email."
+msgstr ""
+
+#: wpbusdirman.php:627
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: wpbusdirman.php:637
+msgid "You did not enter a message."
+msgstr ""
+
+#: wpbusdirman.php:654
+msgid "The reCAPTCHA wasn't entered correctly: "
+msgstr ""
+
+#: wpbusdirman.php:677 wpbusdirman.php:2715
+msgid "l F j, Y \\a\\t g:i a"
+msgstr ""
+
+#: wpbusdirman.php:689
+msgid "Your message has been sent"
+msgstr ""
+
+#: wpbusdirman.php:693
+msgid "There was a problem encountered. Your message has not been sent"
+msgstr ""
+
+#: wpbusdirman.php:1457
 msgid "It appears you do not have the ability to upload additional images at this time."
 msgstr ""
 
-#: wpbusdirman.php:1821 wpbusdirman.php:1909
+#: wpbusdirman.php:1460 wpbusdirman.php:1548
 msgid "You can manage your current images below"
 msgstr ""
 
-#: wpbusdirman.php:1849 wpbusdirman.php:1936
+#: wpbusdirman.php:1488 wpbusdirman.php:1575
 msgid "Delete Image"
 msgstr ""
 
-#: wpbusdirman.php:1857
+#: wpbusdirman.php:1496
 msgid "If you are not updating your images you can click the exit now button."
 msgstr ""
 
-#: wpbusdirman.php:1903
+#: wpbusdirman.php:1542
 msgid "Upload File"
 msgstr ""
 
-#: wpbusdirman.php:1944
+#: wpbusdirman.php:1583
 msgid "If you prefer not to add an image or you are otherwise finished managing your images you can click the exit now button."
 msgstr ""
 
-#: wpbusdirman.php:1947
+#: wpbusdirman.php:1586
 msgid "Your updated listing will be submitted for review."
 msgstr ""
 
-#: wpbusdirman.php:1951
+#: wpbusdirman.php:1590
 msgid "Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
 msgstr ""
 
-#: wpbusdirman.php:1972
+#: wpbusdirman.php:1611
 msgid "If you prefer not to add any images please click Next to proceed to the next step."
 msgstr ""
 
-#: wpbusdirman.php:1990 wpbusdirman.php:2042
+#: wpbusdirman.php:1629 wpbusdirman.php:1681
 msgid "If you prefer not to add an image click exit now. Your listing will be submitted for review."
 msgstr ""
 
-#: wpbusdirman.php:1998 wpbusdirman.php:2050
+#: wpbusdirman.php:1637 wpbusdirman.php:1689
 msgid "submit your listing."
 msgstr ""
 
-#: wpbusdirman.php:2001 wpbusdirman.php:2053
+#: wpbusdirman.php:1640 wpbusdirman.php:1692
 msgid "submit your listing for review"
 msgstr ""
 
-#: wpbusdirman.php:2005 wpbusdirman.php:2057
+#: wpbusdirman.php:1644 wpbusdirman.php:1696
 msgid "publish your listing"
 msgstr ""
 
-#: wpbusdirman.php:2024
+#: wpbusdirman.php:1663
 msgid "Click Next to pay your listing fee. Your listing will not be published until your listing fee payment has been received and processed."
 msgstr ""
 
-#: wpbusdirman.php:2188
+#: wpbusdirman.php:1827
 msgid "No file was selected"
 msgstr ""
 
-#: wpbusdirman.php:2474
+#: wpbusdirman.php:1973
 msgid "had an invalid file extension and was not uploaded"
 msgstr ""
 
-#: wpbusdirman.php:2505
+#: wpbusdirman.php:2004
 msgid "does not appear to be a valid image file"
 msgstr ""
 
-#: wpbusdirman.php:2574
+#: wpbusdirman.php:2073
 msgid "Unknown error encountered uploading image"
 msgstr ""
 
-#: wpbusdirman.php:2597
+#: wpbusdirman.php:2096
 msgid "Your listing has been updated. Your listing is currently pending re-review and will become accessible again once the administrator has reviewed it."
 msgstr ""
 
-#: wpbusdirman.php:2601
+#: wpbusdirman.php:2100
 msgid "Your listing has been updated. Note that the administrator reserves the right to terminate without warning any listings that violate the site's terms of use."
 msgstr ""
 
-#: wpbusdirman.php:2830
+#: wpbusdirman.php:2329
 msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they do not currently have any listings to manage. Listings cannot be added until you assign categories to the business directory. "
 msgstr ""
 
-#: wpbusdirman.php:2834
+#: wpbusdirman.php:2333
 msgid "You do not currently have any listings to manage"
 msgstr ""
 
-#: wpbusdirman.php:2848
+#: wpbusdirman.php:2347
 msgid "Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button."
 msgstr ""
 
-#: wpbusdirman.php:2868
+#: wpbusdirman.php:2367
 msgid "You do not currently have any listings in the directory"
 msgstr ""
 
-#: wpbusdirman.php:2937
+#: wpbusdirman.php:2436
 msgid "Step 3"
 msgstr ""
 
-#: wpbusdirman.php:2941 wpbusdirman.php:2951 wpbusdirman.php:2962
-#: wpbusdirman.php:3081 wpbusdirman.php:3091 wpbusdirman.php:3101
+#: wpbusdirman.php:2440 wpbusdirman.php:2450 wpbusdirman.php:2461
+#: wpbusdirman.php:2580 wpbusdirman.php:2590 wpbusdirman.php:2600
 msgid "Pay "
 msgstr ""
 
-#: wpbusdirman.php:2944
+#: wpbusdirman.php:2443
 msgid " listing fee via Google Checkout"
 msgstr ""
 
-#: wpbusdirman.php:2954
+#: wpbusdirman.php:2453
 msgid " listing Fee via PayPal"
 msgstr ""
 
-#: wpbusdirman.php:2965
+#: wpbusdirman.php:2464
 msgid " listing fee via 2Checkout"
 msgstr ""
 
-#: wpbusdirman.php:3018
+#: wpbusdirman.php:2517
 msgid "Send Message to listing owner"
 msgstr ""
 
-#: wpbusdirman.php:3018
+#: wpbusdirman.php:2517
 msgid "Listing Title: "
 msgstr ""
 
-#: wpbusdirman.php:3022
+#: wpbusdirman.php:2521
 msgid "Your Name "
 msgstr ""
 
-#: wpbusdirman.php:3022
+#: wpbusdirman.php:2521
 msgid "Your Email "
 msgstr ""
 
-#: wpbusdirman.php:3023
+#: wpbusdirman.php:2522
 msgid "Website url "
 msgstr ""
 
-#: wpbusdirman.php:3033
+#: wpbusdirman.php:2532
 msgid "You are currently logged in as "
 msgstr ""
 
-#: wpbusdirman.php:3033
+#: wpbusdirman.php:2532
 msgid " Your message will be sent using your logged in contact email."
 msgstr ""
 
-#: wpbusdirman.php:3035
+#: wpbusdirman.php:2534
 msgid "Message"
 msgstr ""
 
-#: wpbusdirman.php:3070
+#: wpbusdirman.php:2569
 msgid "Upgrade listing"
 msgstr ""
 
-#: wpbusdirman.php:3084
+#: wpbusdirman.php:2583
 msgid " upgrade fee via Google Checkout"
 msgstr ""
 
-#: wpbusdirman.php:3094
+#: wpbusdirman.php:2593
 msgid " upgrade fee via PayPal"
 msgstr ""
 
-#: wpbusdirman.php:3104
+#: wpbusdirman.php:2603
 msgid " upgrade fee via 2Checkout"
 msgstr ""
 
-#: wpbusdirman.php:3119
+#: wpbusdirman.php:2618
 msgid "Listing Sumitted"
 msgstr ""
 
-#: wpbusdirman.php:3136
+#: wpbusdirman.php:2635
 msgid "Listing Upgraded to featured"
 msgstr ""
 
-#: wpbusdirman.php:3150
+#: wpbusdirman.php:2649
 msgid "Listing Upgrade Payment Status"
 msgstr ""
 
-#: wpbusdirman.php:3151
+#: wpbusdirman.php:2650
 msgid "Thank you for your payment. Your listing upgrade request and payment notification have been sent. Contact the administrator if your listing is not upgraded within 24 hours."
 msgstr ""
 
-#: wpbusdirman.php:3210
+#: wpbusdirman.php:2709
 msgid "has expired"
 msgstr ""
 
-#: wpbusdirman.php:3273
+#: wpbusdirman.php:2772
 msgid "Renew Listing"
 msgstr ""
 
-#: wpbusdirman.php:3275
+#: wpbusdirman.php:2774
 msgid "You are about to renew"
 msgstr ""
 
-#: wpbusdirman.php:3295
+#: wpbusdirman.php:2794
 msgid "There was no ID supplied. Cannot complete renewal. Please contact administrator"
 msgstr ""
 
-#: wpbusdirman.php:3404
+#: wpbusdirman.php:2910
 msgid "Submit A Listing"
 msgstr ""
 
-#: wpbusdirman.php:3414
+#: wpbusdirman.php:2920
 msgid "View Listings"
 msgstr ""
 
-#: wpbusdirman.php:3425
+#: wpbusdirman.php:2931
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:3443 wpbusdirman.php:4393
+#: wpbusdirman.php:2949 wpbusdirman.php:3837
 msgid "Edit Listing"
 msgstr ""
 
-#: wpbusdirman.php:3471
+#: wpbusdirman.php:2977
 msgid "Upgrade Listing"
 msgstr ""
 
-#: wpbusdirman.php:3798
+#: wpbusdirman.php:3317
 msgid "View"
 msgstr ""
 
-#: wpbusdirman.php:3970
+#: wpbusdirman.php:3485
 msgid "Featured Listing"
 msgstr ""
 
-#: wpbusdirman.php:4197
+#: wpbusdirman.php:3623
 msgid "No categories"
 msgstr ""
 
-#: wpbusdirman.php:4389
+#: wpbusdirman.php:3747
+msgid "Business Name"
+msgstr ""
+
+#: wpbusdirman.php:3755
+msgid "Business Genre"
+msgstr ""
+
+#: wpbusdirman.php:3763
+msgid "Short Business Description"
+msgstr ""
+
+#: wpbusdirman.php:3769
+msgid "Long Business Description"
+msgstr ""
+
+#: wpbusdirman.php:3776
+msgid "Business Website Address"
+msgstr ""
+
+#: wpbusdirman.php:3784
+msgid "Business Phone Number"
+msgstr ""
+
+#: wpbusdirman.php:3791
+msgid "Business Fax"
+msgstr ""
+
+#: wpbusdirman.php:3797
+msgid "Business Contact Email"
+msgstr ""
+
+#: wpbusdirman.php:3805
+msgid "Business Tags"
+msgstr ""
+
+#: wpbusdirman.php:3833
 msgctxt "post type general name"
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:4390
+#: wpbusdirman.php:3834
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:4391
+#: wpbusdirman.php:3835
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr ""
 
-#: wpbusdirman.php:4392
+#: wpbusdirman.php:3836
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr ""
 
-#: wpbusdirman.php:4394
+#: wpbusdirman.php:3838
 msgid "New Listing"
 msgstr ""
 
-#: wpbusdirman.php:4395
+#: wpbusdirman.php:3839
 msgid "View Listing"
 msgstr ""
 
-#: wpbusdirman.php:4396
+#: wpbusdirman.php:3840
 msgid "Search Listings"
 msgstr ""
 
-#: wpbusdirman.php:4397
+#: wpbusdirman.php:3841
 msgid "No listings found"
 msgstr ""
 
-#: wpbusdirman.php:4398
+#: wpbusdirman.php:3842
 msgid "No listings found in trash"
 msgstr ""
