@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
 Tested up to: 3.3.1
-Last Updated: 2012-Mar-17
-Stable tag: tags/2.0.1
+Last Updated: 2012-Apr-17
+Stable tag: tags/2.0.2
 
 Business Directory Plugin for WordPress (Formerly WP Business Directory Manager) is a flexible plugin for WordPress business directory creation but useful for a variety of other purposes.  Create any WordPress directory with it. 
 
@@ -95,6 +95,31 @@ If you are having problems please visit http://www.businessdirectoryplugin.com f
 
 
 == Changelog ==
+
+Version 2.0.2
+
+   1. A revamped form-fields system that would allow plugins to create or use their own custom fields and validation rules.
+   
+   2. A new "Manage Form Fields" page which looks better and conveys information in a more friendly way.
+   
+   3. Custom fields can now be ordered as the user wishes. This ordering is used when displaying both the add/edit forms and listing information.
+   
+   4. Allow users to specify if a particular field should be displayed in excerpt or not at all.
+   
+   5. A better add/edit form-field page including some AJAX tricks to hide unnecessary fields. For instance, when you select a "Textfield" the "Options" field is hidden because the field isn't multivalued. The form is now also a standard WP form.
+   
+   6. A new "field description" field that could be used by admins to display additional information along the form fields.
+   
+   7. Validation when adding/editing custom form-fields to prevent users from removing or modifying required fields (like title, content, etc.)
+   
+   8. New validation framework for fields.
+   
+   9. Fixed bug where Featured ads could not be downgraded.
+   
+   10. Fixed delete field bug.
+   
+   11. Fixed ereg() warning bug.
+    
 
 Version 2.0.1
 
