@@ -8,6 +8,14 @@ function wpbdp() {
 	return $wpbdp;
 }
 
+function wpbdp_get_version() {
+	return wpbdp()->get_version();
+}
+
+function wpbdp_get_db_version() {
+	return wpbdp()->get_db_version();
+}
+
 function wpbdp_get_page_id($name='main') {
 	global $wpdb;
 
