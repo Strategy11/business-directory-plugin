@@ -108,4 +108,3 @@ else
 wp_reset_query();
 
 //endif;
-?>

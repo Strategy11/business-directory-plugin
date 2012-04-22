@@ -1,6 +1,4 @@
-<?php
-	get_header();
-?>
+<?php get_header(); ?>
 
 <div id="primary">
 <div id="content">
@@ -100,6 +98,4 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 	</div>
 	</div>
 
-<?php
-
-	get_footer();
+<?php get_footer(); ?>

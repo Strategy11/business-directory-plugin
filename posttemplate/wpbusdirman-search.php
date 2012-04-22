@@ -60,6 +60,4 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 ?>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->
 
-<?php
-
-	get_footer();
+<?php get_footer(); ?>
