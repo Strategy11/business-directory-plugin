@@ -8,11 +8,11 @@ class WPBDP_Settings {
 		$this->groups = array();
 		$this->settings = array();
 
-		add_action('init', array($this, '_register_settings'));
+		$this->register_settings();
 	}
 
 
-	public function _register_settings() {
+	private function register_settings() {
 		/* General settings */
 		$g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
 		$s = $this->add_section($g, 'permalink', _x('Permalink Settings', 'admin settings', 'WPBDM'));
