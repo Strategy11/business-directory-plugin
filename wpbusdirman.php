@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.0.2
+Version: 2.0.3
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -3638,7 +3638,7 @@ require_once(WPBDP_PATH . 'form-fields.php');
 
 class WPBDP_Plugin {
 
-	const VERSION = '2.0.2';
+	const VERSION = '2.0.3';
 	const DB_VERSION = '2.1';
 
 	const POST_TYPE = 'wpbdm-directory';
@@ -3659,6 +3659,12 @@ class WPBDP_Plugin {
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
+	}
+
+	public function init() {
+		do_action('wpbdp_modules_init');
+		do_action('wpbdp_register_settings', $this->settings);
+		do_action('wpbdp_register_fields', $this->formfields);
 	}
 
 	public function get_post_type() {
@@ -3927,4 +3933,5 @@ class WPBDP_Plugin {
 }
 
 $wpbdp = new WPBDP_Plugin();
-//$wpbdp->debug_on();
+$wpbdp->init();
+$wpbdp->debug_on();
