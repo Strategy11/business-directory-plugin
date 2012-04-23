@@ -11,7 +11,6 @@ class WPBDP_Settings {
 		$this->register_settings();
 	}
 
-
 	private function register_settings() {
 		/* General settings */
 		$g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
@@ -175,7 +174,7 @@ class WPBDP_Settings {
 			if (is_null($_default)) {
 				switch ($type) {
 					case 'text':
-					case 'choices':
+					case 'choice':
 						$_default = '';
 						break;
 					case 'boolean':
