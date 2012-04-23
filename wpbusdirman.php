@@ -357,6 +357,8 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $
 				}
 			}
 
+			$html .= apply_filters('wpbdp_listing_form', '', $neworedit == 'new' ? false : true);
+
 			$html .= "<p><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Submit","WPBDM") . "\" /></p></form>";
 			$html .= "</div>";
 		}
@@ -3492,6 +3494,8 @@ function wpbusdirman_post_single_listing_details()
 	$html .= wpbusdirman_the_listing_excerpt();
 	$html .= wpbusdirman_the_listing_content();
 	$html .= wpbusdirman_the_listing_tags();
+
+	$html .= apply_filters('wpbdp_listing_view', '', $post->ID);
 	$html .= wpbusdirman_contactform($wpbusdirman_permalink,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
 	$html .= '</div>';
 
