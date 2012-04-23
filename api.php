@@ -80,3 +80,11 @@ function wpbdp_formfields_api() {
 	global $wpbdp;
 	return $wpbdp->formfields;
 }
+
+function wpbdp_get_formfields() {
+	return wpbdp_formfields_api()->getFields();
+}
+
+function wpbdp_get_formfield($id) {
+	return wpbdp_formfields_api()->getField($id);
+}
