@@ -65,9 +65,9 @@ function wpbdp_settings_api() {
 	return $wpbdp->settings;
 }
 
-function wpbdp_get_option($key) {
+function wpbdp_get_option($key, $def=null) {
 	global $wpbdp;
-	return $wpbdp->settings->get($key);
+	return $wpbdp->settings->get($key, $def);
 }
 
 function wpbdp_set_option($key, $value) {
@@ -87,4 +87,36 @@ function wpbdp_get_formfields() {
 
 function wpbdp_get_formfield($id) {
 	return wpbdp_formfields_api()->getField($id);
+}
+
+/* Listings */
+function wpbdp_get_listing_field_value($listing, $field) {
+	$listing = !is_object($listing) ? get_post($listing) : $listing;
+	$field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
+
+	if ($listing && $field) {
+		switch ($field->association) {
+			case 'title':
+				return $listing->post_title;
+				break;
+			case 'excerpt':
+				return $listing->post_excerpt;
+				break;
+			case 'content':
+				return $listing->post_content;
+				break;
+			case 'category':
+				return get_the_terms($listing->ID, wpbdp()->get_post_type_category());
+				break;
+			case 'tags':
+				return get_the_terms($listing->ID, wpbdp()->get_post_type_tags());
+				break;
+			case 'meta':
+			default:
+				return get_post_meta($listing->ID, $field->label, true);
+				break;
+		}
+	}
+
+	return null;
 }

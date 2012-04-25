@@ -210,7 +210,11 @@ class WPBDP_Settings {
 		$value =  get_option(self::PREFIX . $name, null);
 
 		if (is_null($value)) {
-			$default_value = isset($this->settings[$name]) ? $this->settings[$name]->default : null;			
+			$default_value = isset($this->settings[$name]) ? $this->settings[$name]->default : null;
+
+			if (is_null($default_value))
+				return $ifempty;
+
 			return $default_value;
 		}
 
@@ -275,12 +279,12 @@ class WPBDP_Settings {
 		$setting = $args['setting'];
 		$value = $this->get($setting->name);
 
-		if (isset($args['use_textarea']) || strlen($value) > 50) {
+		if (isset($args['use_textarea']) || strlen($value) > 100) {
 			$html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" cols="50" rows="2">';
 			$html .= esc_attr($value);
 			$html .= '</textarea>';
 		} else {
-			$html = '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . $value . '" />';
+			$html = '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . $value . '" size="' . (strlen($value) > 0 ? strlen($value) : 20). '" />';
 		}
 
 		$html .= '<span class="description">' . $setting->help_text . '</span>';

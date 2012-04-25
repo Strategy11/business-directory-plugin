@@ -84,10 +84,12 @@ class WPBDP_FormFieldsAPI {
 	public function getField($id) {
 		global $wpdb;
 
-		$field = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id));
-		$this->normalizeField($field);
+		if ($field = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id))) {
+			$this->normalizeField($field);
+			return $field;
+		}
 
-		return $field;
+		return null;
 	}
 
 	public function getFields() {
