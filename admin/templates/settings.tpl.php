@@ -36,6 +36,9 @@
 
 <form action="<?php echo admin_url('options.php'); ?>" method="POST">
 	<input type="hidden" name="groupid" value="<?php echo $group->slug; ?>" />
+	<?php if ($group->help_text): ?>
+		<p class="description"><?php echo $group->help_text; ?></p>
+	<?php endif; ?>
 	<?php settings_fields($group->wpslug); ?>
 	<?php do_settings_sections($group->wpslug); ?>
 	<?php echo submit_button(); ?>

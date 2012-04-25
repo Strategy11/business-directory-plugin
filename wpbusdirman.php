@@ -3487,6 +3487,8 @@ function wpbusdirman_post_single_listing_details()
 	 	$html .= '<span class="featuredlisting"><img src="' . $wpbusdirman_imagesurl . '/featuredlisting.png" alt="' . __("Featured Listing","WPBDM") . '" border="0" title="' . the_title(null, null, false) . '"></span>';
 	}
 
+	$html .= apply_filters('wpbdp_listing_view_before', '', $post->ID);
+
 	$html .= '<div class="singledetailsview">';
 	$html .= wpbusdirman_the_listing_title();
 	$html .= wpbusdirman_the_listing_category();
@@ -3495,7 +3497,7 @@ function wpbusdirman_post_single_listing_details()
 	$html .= wpbusdirman_the_listing_content();
 	$html .= wpbusdirman_the_listing_tags();
 
-	$html .= apply_filters('wpbdp_listing_view', '', $post->ID);
+	$html .= apply_filters('wpbdp_listing_view_after', '', $post->ID);
 	$html .= wpbusdirman_contactform($wpbusdirman_permalink,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
 	$html .= '</div>';
 

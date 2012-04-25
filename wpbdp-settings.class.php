@@ -140,11 +140,12 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
 	}
 
-	public function add_group($slug, $name) {
+	public function add_group($slug, $name, $help_text='') {
 		$group = new StdClass();
 		$group->wpslug = self::PREFIX . $slug;
 		$group->slug = $slug;
 		$group->name = $name;
+		$group->help_text = $help_text;
 		$group->sections = array();
 
 		$this->groups[$slug] = $group;
@@ -152,10 +153,11 @@ class WPBDP_Settings {
 		return $slug;
 	}
 
-	public function add_section($group_slug, $slug, $name) {
+	public function add_section($group_slug, $slug, $name, $help_text='') {
 		$section = new StdClass();
 		$section->name = $name;
 		$section->slug = $slug;
+		$section->help_text = $help_text;
 		$section->settings = array();
 
 		$this->groups[$group_slug]->sections[$slug] = $section;
@@ -325,7 +327,12 @@ class WPBDP_Settings {
 	public function register_in_admin() {
 		foreach ($this->groups as $group) {
 			foreach ($group->sections as $section) {
-				add_settings_section($section->slug, $section->name, create_function('', ';'), $group->wpslug);
+				$callback = create_function('', ';');
+
+				if ($section->help_text)
+					$callback = create_function('', 'echo "<p class=\"description\">' . $section->help_text . '</p>";');
+
+				add_settings_section($section->slug, $section->name, $callback, $group->wpslug);
 
 				foreach ($section->settings as $setting) {
 					register_setting($group->wpslug, self::PREFIX . $setting->name);
