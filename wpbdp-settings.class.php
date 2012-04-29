@@ -16,8 +16,8 @@ class WPBDP_Settings {
 		$g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
 		$s = $this->add_section($g, 'permalink', _x('Permalink Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE);
-		$this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_CATEGORY);
-		$this->add_setting($s, 'permalinks-tags-slug', _x('Tags Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_TAGS);
+		$this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_CATEGORY, _x('The slug can\'t be in use by another term. Avoid "category", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
+		$this->add_setting($s, 'permalinks-tags-slug', _x('Tags Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_TAGS, _x('The slug can\'t be in use by another term. Avoid "tag", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
 
 		$s = $this->add_section($g, 'recaptcha', _x('ReCaptcha Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'recaptcha-on', _x('Turn on reCAPTCHA?', 'admin settings', 'WPBDM'), 'boolean', true);
@@ -138,6 +138,17 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
 		$this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
+	}
+
+	public function _validate_term_permalink($setting, $newvalue, $oldvalue=null) {
+		$bd_taxonomy = $setting->name == 'permalinks-category-slug' ? wpbdp()->get_post_type_category() : wpbdp()->get_post_type_tags();
+		foreach (get_taxonomies(null, 'objects') as $taxonomy) {
+			if ($taxonomy->rewrite && $taxonomy->rewrite['slug'] == $newvalue && $taxonomy->name != $bd_taxonomy) {
+				return $oldvalue;
+			}
+		}
+
+		return $newvalue;
 	}
 
 	public function add_group($slug, $name, $help_text='') {
@@ -348,9 +359,20 @@ class WPBDP_Settings {
 									   $section->slug,
 									   array_merge($setting->args, array('label_for' => $setting->name, 'setting' => $setting))
 									   );
+
+					if ($setting->validator) {
+						add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n,$o', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n,$o);'), 2);
+					}
 				}
 			}
 		}
+	}
+
+	public static function _validate_setting($name, $newvalue, $oldvalue) {
+		$api = wpbdp_settings_api();
+		$setting = $api->settings[$name];
+
+		return call_user_func($setting->validator, $setting, $newvalue, $api->get($setting->name));
 	}
 
 	/* upgrade from old-style settings to new options */
