@@ -165,8 +165,9 @@ class WPBDP_Settings {
 		return "$group_slug:$slug";
 	}
 
-	public function add_setting($section_key, $name, $label, $type='text', $default=null, $help_text='', $args=array()) {
+	public function add_setting($section_key, $name, $label, $type='text', $default=null, $help_text='', $args=array(), $validator=null) {
 		list($group, $section) = explode(':', $section_key);
+		$args = !$args ? array() : $args;
 
 		if (!$group || !$section)
 			return false;
@@ -195,6 +196,7 @@ class WPBDP_Settings {
 			$setting->default = $_default;
 			$setting->type = $type;
 			$setting->args = $args;
+			$setting->validator = $validator;
 
 			$this->groups[$group]->sections[$section]->settings[$name] = $setting;
 		}
