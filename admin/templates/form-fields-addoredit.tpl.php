@@ -32,13 +32,13 @@ $field = isset($field) ? $field : null;
 					<label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
 				</th>
 				<td>
-					<?php if ($field && in_array($field->association, array('title', 'category', 'content'))): ?>
+					<?php if ($field && in_array($field->association, array('title', 'category', 'content', 'excerpt'))): ?>
 						<input type="hidden" name="field[association]" value="<?php echo $field->association; ?>" />
 						<strong><?php echo $api->getFieldAssociations($field->association); ?></strong>
 					<?php else: ?>
 					<select name="field[association]" id="field-association">
 					<?php foreach ($api->getFieldAssociations() as $key => $name): ?>
-						<?php if (!in_array($key, array('title', 'content', 'category'))): ?>
+						<?php if (!in_array($key, array('title', 'content', 'excerpt', 'category', 'tags')) || (in_array($key, array('title', 'content', 'excerpt', 'category', 'tags')) && !wpbdp_get_formfield($key) || (wpbdp_getv(wpbdp_get_formfield($key), 'id', null) == wpbdp_getv($field, 'id', -1)) ) ): ?>
 						<option value="<?php echo $key; ?>" <?php echo wpbdp_getv($post_values, 'association', $field ? $field->association : '') == $key ? 'selected="true"' : ''; ?>>
 							<?php echo $name; ?>
 						</option>
@@ -71,7 +71,7 @@ $field = isset($field) ? $field : null;
 				</th>
 				<td>
 					<span class="description">Comma (,) separated list of options</span> <br />
-					<textarea name="field[field_data][options]" id="field-data-options" cols="50" rows="2"><?php echo wpbdp_getv($post_values_fielddata, 'options', $field ? implode(',', $field->field_data['options']) : ''); ?></textarea>
+					<textarea name="field[field_data][options]" id="field-data-options" cols="50" rows="2"><?php echo wpbdp_getv($post_values_fielddata, 'options', $field && isset($field->field_data['options']) ? implode(',', $field->field_data['options']) : ''); ?></textarea>
 				</td>
 			</tr>
 			<tr class="form-field">
