@@ -654,10 +654,6 @@ function wpbusdirmanui_directory_screen() {
 						"Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
 				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($wpbusdirmanlistingpostid), array() );
 				$wpbdmsendtoemail=wpbusdirman_get_the_business_email($wpbusdirmanlistingpostid);
-				if(!isset($wpbdmsendtoemail) || empty($wpbdmsendtoemail))
-				{
-					$wpbdmsendtoemail=$post_author->user_email;
-				}
 				$time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
 				$message = "Name: $commentauthorname
 				Email: $commentauthoremail
@@ -919,52 +915,23 @@ function wpbusdirmanui_directory_screen() {
 	return $html;
 }
 
-function wpbusdirman_get_the_business_email($wpbusdirmanlistingpostid)
-{
+function wpbusdirman_get_the_business_email($post_id) {
+	$api = wpbdp_formfields_api();
 
-	global $wpbusdirmanconfigoptionsprefix;
+	// try first with the listing fields
+	foreach ($api->getFieldsByAssociation('meta') as $field) {
+		$value = wpbdp_get_listing_field_value($post_id, $field);
 
-	$wpbdm_the_email='';
-	wp_reset_query();
-	$mypost=get_post($wpbusdirmanlistingpostid);
-	$thepostid=$mypost->ID;
-	$wpbdm_the_emailsarr=array();
-
-	$wpbusdirman_field_vals=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
-
-	if($wpbusdirman_field_vals)
-	{
-		foreach($wpbusdirman_field_vals as $wpbusdirman_field_val):
-
-
-			$wpbusdirman_field_label=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_label_'.$wpbusdirman_field_val);
-			$wpbusdirman_field_association=get_option($wpbusdirmanconfigoptionsprefix.'_postform_field_association_'.$wpbusdirman_field_val);
-
-
-			if($wpbusdirman_field_association == 'meta')
-			{
-				$wpbdm_meta_fields[]=$wpbusdirman_field_label;
-			}
-
-		endforeach;
-
-
-		foreach($wpbdm_meta_fields as $wpbdm_meta_field)
-		{
-
-			$wpbdm_field_value=get_post_meta($thepostid, $wpbdm_meta_field, true);
-
-				if(isset($wpbdm_field_value) && !empty($wpbdm_field_value) && (wpbusdirman_isValidEmailAddress($wpbdm_field_value)))
-				{
-					$wpbdm_the_emailsarr[]=$wpbdm_field_value;
-				}
-
-		}
-
+		if (wpbusdirman_isValidEmailAddress($value))
+			return $value;
 	}
 
-	$wpbdm_the_email=$wpbdm_the_emailsarr[0];
-	return $wpbdm_the_email;
+	// then with the author email
+	$post = get_post($post_id);
+	if ($email = get_the_author_meta('user_email', $post->author))
+		return $email;
+
+	return '';
 }
 
 function wpbusdirman_the_image($wpbusdirman_pID,$size = 'medium' , $class = '')
