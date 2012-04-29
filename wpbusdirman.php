@@ -3446,7 +3446,11 @@ function wpbusdirman_post_single_listing_details()
 	$html .= '<div class="singledetailsview">';
 
 	foreach (wpbdp_get_formfields() as $field) {
-		$html .= wpbdp_format_field_output($field, null, $post);
+		if ($field->association == 'excerpt'):
+			$html .= wpbdp_format_field_output($field, $post->post_excerpt);
+		else:
+			$html .= wpbdp_format_field_output($field, null, $post);
+		endif;
 	}
 
 	$html .= apply_filters('wpbdp_listing_view_after', '', $post->ID);
