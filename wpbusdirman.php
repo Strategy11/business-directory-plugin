@@ -81,30 +81,12 @@ $wpbdmposttype="wpbdm-directory";
 $wpbdmposttypecategory="wpbdm-category";
 $wpbdmposttypetags="wpbdm-tags";
 
-	if( file_exists("$wpbusdirman_plugin_path/gateways/paypal.php") )
-	{
-		require("$wpbusdirman_plugin_path/gateways/paypal.php");
-		$wpbusdirman_haspaypalmodule=1;
-	}
-	if( file_exists("$wpbusdirman_plugin_path/gateways/twocheckout.php") )
-	{
-		require("$wpbusdirman_plugin_path/gateways/twocheckout.php");
-		$wpbusdirman_hastwocheckoutmodule=1;
-	}
 	if( file_exists("$wpbusdirman_plugin_path/gateways/googlecheckout.php") )
 	{
 		require("$wpbusdirman_plugin_path/gateways/googlecheckout.php");
 		$wpbusdirman_hasgooglecheckoutmodule=1;
 	}
 
-	if($wpbusdirman_haspaypalmodule	== 1)
-	{
-		add_shortcode('WPBUSDIRMANPAYPAL', 'wpbusdirman_do_paypal');
-	}
-	if($wpbusdirman_hastwocheckoutmodule == 1)
-	{
-		add_shortcode('WPBUSDIRMANTWOCHECKOUT', 'wpbusdirman_do_twocheckout');
-	}
 	if($wpbusdirman_hasgooglecheckoutmodule == 1)
 	{
 		add_shortcode('WPBUSDIRMANGOOGLECHECKOUT', 'wpbusdirman_do_googlecheckout');
