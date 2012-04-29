@@ -86,6 +86,9 @@ function wpbdp_get_formfields() {
 }
 
 function wpbdp_get_formfield($id) {
+	if (is_string($id))
+		return wpbdp_formfields_api()->getFieldsByAssociation($id, true);
+
 	return wpbdp_formfields_api()->getField($id);
 }
 
@@ -119,4 +122,61 @@ function wpbdp_get_listing_field_value($listing, $field) {
 	}
 
 	return null;
+}
+
+function wpbdp_get_listing_field_html_value($listing, $field) {
+	$listing = !is_object($listing) ? get_post($listing) : $listing;
+	$field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
+
+	if ($listing && $field) {
+		switch ($field->association) {
+			case 'title':
+				return sprintf('<a href="%s">%s</a>', get_permalink($listing->ID), get_the_title($listing->ID));
+				break;
+			case 'excerpt':
+				return apply_filters('get_the_excerpt', $listing->post_excerpt);
+				break;
+			case 'content':
+				return apply_filters('the_content', $listing->post_content);
+				break;
+			case 'category':
+				return get_the_term_list($listing->ID, wpbdp()->get_post_type_category(), '', ', ', '' );
+				break;
+			case 'tags':
+				return get_the_term_list($listing->ID, wpbdp()->get_post_type_tags(), '', ', ', '' );
+				break;
+			case 'meta':
+			default:
+				$value = wpbdp_get_listing_field_value($listing, $field);
+
+				if ($value) {
+					if (in_array($field->type, array('multiselect', 'checkbox'))) {
+						return esc_attr(str_replace("\t", ', ', $value));
+					} else {
+						if ($field->validator == 'URLValidator')
+							return sprintf('<a href="%s" rel="no follow">%s</a>', esc_url($value), esc_url($value));
+
+						return esc_attr(wpbdp_get_listing_field_value($listing, $field));
+					}
+				}
+
+				break;
+		}
+	}
+
+	return  null;
+}
+
+function wpbdp_format_field_output($field, $value='', $listing=null) {
+	$field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
+	$value = $listing ? wpbdp_get_listing_field_html_value($listing, $field) : $value;
+
+	if ($field->validator == 'EmailValidator' && !wpbdp_get_option('override-email-blocking'))
+		return '';
+
+	if ($field && !$field->display_options['hide_field'] && $value)
+		return sprintf('<p class="field-value %s"><label>%s</label>: %s',
+					   $field->label, /* normalize this */
+					   esc_attr($field->label),
+					   $value);
 }
