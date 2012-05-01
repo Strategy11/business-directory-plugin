@@ -181,7 +181,6 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 	//form post handler
 	add_filter('wpbdm_process-form-post', 'wpbusdirman_do_post', 10, 0);
 
-
 function wpbdm_get_post_data($data,$wpbdmlistingid)
 {
 		global $table_prefix;

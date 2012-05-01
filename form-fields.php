@@ -414,11 +414,7 @@ class WPBDP_FormFieldsAPI {
 			$html .= _x('Format 01/31/1969', 'form-fields api', 'WPBDM');
 
 		$html .= '</p>';
-		$html .= sprintf( '<input type="text"
-								  id="%s"
-								  name="%s"
-								  class="intextbox %s"
-								  value="%s" />',
+		$html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
 						'wpbdp-field-' . $field->id,
 						'listingfields[' . $field->id . ']',
 						$field->is_required ? 'inselect required' : 'inselect',
@@ -502,10 +498,7 @@ class WPBDP_FormFieldsAPI {
 			$terms = get_terms(wpbdp()->get_post_type_category(), 'hide_empty=0');
 
 			foreach ($terms as $term) {
-				$html .= sprintf('<span style="padding-right: 10px;">
-								  <input type="radio" name="%s" class="%s" value="%s" %s />
-								  %s
-								  </span>',
+				$html .= sprintf('<span style="padding-right: 10px;"><input type="radio" name="%s" class="%s" value="%s" %s />%s</span>',
 								  'listingfields[' . $field->id . ']',
 								  $field->is_required ? 'inradio required' : 'inradio',
 								  $term->term_id,
@@ -516,10 +509,7 @@ class WPBDP_FormFieldsAPI {
 		} else {
 			if (isset($field->field_data['options'])) {
 					foreach ($field->field_data['options'] as $option) {
-						$html .= sprintf('<span style="padding-right: 10px;">
-										  <input type="radio" name="%s" class="%s" value="%s" %s />
-										  %s
-										  </span>',
+						$html .= sprintf('<span style="padding-right: 10px;"><input type="radio" name="%s" class="%s" value="%s" %s />%s</span>',
 										  'listingfields[' . $field->id . ']',
 										  $field->is_required ? 'inradio required' : 'inradio',
 										  $option,
@@ -565,9 +555,7 @@ class WPBDP_FormFieldsAPI {
 
 		if ($options) {
 			foreach ($options as $option) {
-				$html .= sprintf('<div class="wpbdmcheckboxclass">
-								 <input type="checkbox" class="%s" name="%s" value="%s" %s/> %s
-								 </div>',
+				$html .= sprintf('<div class="wpbdmcheckboxclass"><input type="checkbox" class="%s" name="%s" value="%s" %s/> %s</div>',
 								 $field->is_required ? 'required' : '',
 								 'listingfields[' . $field->id . '][]',
 								 is_array($option) ? $option[0] : $option,
