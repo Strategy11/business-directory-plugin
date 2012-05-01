@@ -3505,6 +3505,9 @@ class WPBDP_Plugin {
 	
 
 	public function __construct() {
+		register_activation_hook(__FILE__, array($this, 'plugin_activation'));
+		register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
+
 		if (is_admin()) {
 			$this->admin = new WPBDP_Admin();
 		}
@@ -3517,6 +3520,17 @@ class WPBDP_Plugin {
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
+	}
+
+	public function plugin_activation() {
+		add_action('init', array($this, 'flush_rules'), 11);
+	}
+
+	public function plugin_deactivation() {	}
+
+	public function flush_rules() {
+		if (function_exists('flush_rewrite_rules'))
+			flush_rewrite_rules(false);
 	}
 
 	public function init() {
@@ -3725,9 +3739,6 @@ class WPBDP_Plugin {
 
 		register_taxonomy(self::POST_TYPE_CATEGORY, self::POST_TYPE, array( 'hierarchical' => true, 'label' => 'Directory Categories', 'singular_name' => 'Directory Category', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count','query_var' => true, 'rewrite' => array('slug' => $category_slug) ) );
 		register_taxonomy(self::POST_TYPE_TAGS, self::POST_TYPE, array( 'hierarchical' => false, 'label' => 'Directory Tags', 'singular_name' => 'Directory Tag', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count', 'query_var' => true, 'rewrite' => array('slug' => $tags_slug) ) );
-
-		if (function_exists('flush_rewrite_rules'))
-			flush_rewrite_rules(false);
 	}
 
 	public function debug_on() {

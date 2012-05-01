@@ -409,6 +409,8 @@ class WPBDP_Admin {
     public function admin_settings() {
         global $wpbdp;
 
+        flush_rewrite_rules(false);
+
         if (isset($_REQUEST['resetdefaults']) && intval($_REQUEST['resetdefaults']) == 1) {
             $wpbdp->settings->reset_defaults();
             $_REQUEST['settings-updated'] = true;
