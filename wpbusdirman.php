@@ -3005,7 +3005,7 @@ function wpbusdirman_post_list_categories()
 		'orderby' => $orderby,
 		'order' => $order,
 		'show_count' => $show_count,
-		'pad_counts' => $wpbdm_show_parent_categories_only ? true : false,
+		'pad_counts' => true,
 		'hide_empty' => $hide_empty,
 		'hierarchical' => 1,
 		'depth' => $wpbdm_show_parent_categories_only ? 1 : 0
@@ -3497,7 +3497,7 @@ require_once(WPBDP_PATH . 'form-fields.php');
 class WPBDP_Plugin {
 
 	const VERSION = '2.0.3';
-	const DB_VERSION = '2.1';
+	const DB_VERSION = '2.2';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -3566,17 +3566,19 @@ class WPBDP_Plugin {
 		// add_option('wpbusdirman_db_version', '1.0');
 		// // delete_option('wpbusdirman_db_version');
 		// delete_option('wpbdp-db-version');
-		// update_option('wpbdp-db-version', '2.0');
+		// update_option('wpbdp-db-version', '2.1');
 		// exit;
 
 		$installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));
 
 		// create SQL tables
 		if ($installed_version != self::DB_VERSION) {
+			wpbdp_log('Running dbDelta.');
+
 			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
 				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
-				label VARCHAR(255) NOT NULL,
-				description VARCHAR(255) NULL,
+				label VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+				description VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
 				type VARCHAR(100) NOT NULL,
 				association VARCHAR(100) NOT NULL,
 				validator VARCHAR(255) NULL,
@@ -3584,7 +3586,7 @@ class WPBDP_Plugin {
 				weight INT(5) NOT NULL DEFAULT 0,
 				display_options BLOB NULL,
 				field_data BLOB NULL
-			);";
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
@@ -3616,6 +3618,13 @@ class WPBDP_Plugin {
 				// new form-fields support
 				wpbdp_log('Updating old-style form fields.');
 				$this->formfields->_update_to_2_1();
+			}
+
+			if (version_compare($installed_version, '2.2') < 0) {
+				wpbdp_log('Updating table collate information.');
+				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHARACTER SET utf8 COLLATE utf8_general_ci");
+				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `label` `label` VARCHAR(255) SET utf8 COLLATE utf8_general_ci NOT NULL");
+				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `description` `description` VARCHAR(255) SET utf8 COLLATE utf8_general_ci NULL");
 			}
 
 			delete_option('wpbusdirman_db_version');
