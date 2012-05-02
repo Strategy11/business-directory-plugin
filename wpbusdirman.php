@@ -2781,45 +2781,32 @@ function wpbusdirman_viewlistings()
 
 
 //Display the listing thumbnail
-function wpbusdirman_display_the_thumbnail()
-{
-	global $wpbdmimagesurl,$post,$wpbusdirmanconfigoptionsprefix,$wpbusdirman_imagesurl;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$html = '';
+function wpbusdirman_display_the_thumbnail() {
+	global $post, $wpbdmimagesurl, $wpbusdirman_imagesurl;
 
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_11'] == "yes")
-	{
-		$tpostimg2=get_post_meta($post->ID, "_wpbdp_image", true);
-		if(isset($tpostimg2)
-			&& !empty($tpostimg2))
-		{
-			$wpbusdirman_theimg2=$tpostimg2;
-		}
-		else
-		{
-			$wpbusdirman_theimg2='';
-		}
-		$wpbdmusedef=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_39'];
-		$wpbdmimgwidth=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_17'];
-		if(!isset($wpbdmimgwidth)
-			|| empty($wpbdmimgwidth))
-		{
-			$wpbdmimgwidth="120";
-		}
-		if(isset($wpbusdirman_theimg2)
-			&& !empty($wpbusdirman_theimg2))
-		{
-			$html .= '<a href="' . get_permalink() . '"><img class="wpbdmthumbs" src="' . $wpbdmimagesurl . '/thumbnails/' . $wpbusdirman_theimg2 . '" width="' . $wpbdmimgwidth . '" alt="' . the_title(null, null, false) . '" title="' . the_title(null, null, false) . '" border="0"></a>';
-		}
-		else
-		{
-			if(!isset($wpbdmusedef)
-				|| empty($wpbdmusedef)
-				|| ($wpbdmusedef == "yes"))
-			{
-				$html .= '<a href="' . get_permalink() . '"><img class="wpbdmthumbs" src="' . $wpbusdirman_imagesurl . '/default.png" width="' . $wpbdmimgwidth . '" alt="' .  the_title(null, null, false) . '" title="' . the_title(null, null, false) . '" border="0"></a>';
-			}
-		}
+	if (!wpbdp_get_option('allow-images') || !wpbdp_get_option('show-thumbnail'))
+		return '';
+
+	$html = '';
+	$thumbnail = null;
+	
+	if ($thumbnail = get_post_meta($post->ID, '_wpbdp_image', true))
+		$thumbnail = $wpbdmimagesurl . '/thumbnails/' . $thumbnail;
+
+	if (!$thumbnail && wpbdp_get_option('use-default-picture'))
+		$thumbnail = $wpbusdirman_imagesurl . '/default.png';
+
+
+	if ($thumbnail) {
+		$html .= '<div class="listingthumbnail">';
+		$html .= sprintf('<a href="%s"><img class="wpbdmthumbs" src="%s" width="%s" alt="%s" title="%s" border="0" /></a>',
+						 get_permalink(),
+						 $thumbnail,
+						 wpbdp_get_option('thumbnail-width', '120'),
+						 the_title(null, null, false),
+						 the_title(null, null, false)
+						);
+		$html .= '</div>';
 	}
 
 	return $html;
@@ -3239,25 +3226,25 @@ function wpbusdirman_display_excerpt($count=0)
 	echo wpbusdirman_post_excerpt($count);
 }
 
-function wpbusdirman_post_excerpt($count)
-{ 	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+function wpbusdirman_post_excerpt($count) {
+	$is_sticky = get_post_meta(get_the_ID(), '_wpbdp_sticky', true) == 'approved' ? true : false;
 
 	$html = '';
+	$html .= sprintf('<div id="wpbdmlistings" class="wpbdp-listing excerpt %s %s %s">',
+					$is_sticky ? 'sticky' : '',
+					$is_sticky ? (($count & 1) ? 'wpbdmoddsticky' : 'wpbdmevensticky') : '',
+					($count & 1) ? 'wpbdmodd' : 'wpbdmeven');
 
-	$html .= '<div id="wpbdmlistings"';
-	$isasticky=get_post_meta(get_the_ID(),'_wpbdp_sticky');
-	if(isset($isasticky) && !empty($isasticky)){
-	$isasticky=$isasticky[0];}
-	if(isset($isasticky) && ($isasticky == 'approved')){
-	if($count&1){$html .= ' class="wpbdmoddsticky"';}else {$html .= ' class="wpbdmevensticky"';}}else {if($count&1){$html .= ' class="wpbdmodd"';}else {$html .= ' class="wpbdmeven"';}}
-	$html .='><div class="listingthumbnail">' . wpbusdirman_display_the_thumbnail() . '</div><div class="listingdetails">';
-	
+	$html .= wpbusdirman_display_the_thumbnail();
+
+	$html .= '<div class="listingdetails">';
 	$html .= apply_filters('wpbdp_listing_excerpt_view_before', '', $post->ID);
 	$html .= wpbusdirman_display_the_listing_fields();
 	$html .= apply_filters('wpbdp_listing_excerpt_view_after', '', $post->ID);
 	$html .= wpbusdirman_view_edit_delete_listing_button();
-	$html .= '</div><div style="clear:both;"></div></div>';
+	$html .= '</div>';
+	$html .= '<div style="clear: both;"></div>';
+	$html .= '</div>';
 
 	return $html;
 }
