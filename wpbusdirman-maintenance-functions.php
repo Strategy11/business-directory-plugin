@@ -93,28 +93,6 @@ function wpbusdirman_template_the_title($title)
 return $title;
 }
 
-function wpbusdirman_template_comment($file)
-{
-
-	global $wp_query, $post, $wpbdmposttype,$wpbusdirmanconfigoptionsprefix;
-	$mywpbdmposttype=$post->post_type;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-
-    if ( $mywpbdmposttype == $wpbdmposttype )
-		{
-			if(is_single()){
-
-				if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_36'] == "no"){
-
-					$file = WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-hide-comment-form.php';
-				}
-
-			}
-		}
-
-return $file;
-}
-
 function wpbusdirman_remove_post_dates_author_etc() {
 	global $wp_query, $post, $wpbdmposttype,$wpbusdirmanconfigoptionsprefix;
 	$mywpbdmposttype=$post->post_type;
