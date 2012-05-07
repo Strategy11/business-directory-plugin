@@ -264,7 +264,7 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $
 			if(!isset($wpbusdirman_loginurl) || empty($wpbusdirman_loginurl)) {
 				$wpbusdirman_loginurl=get_option('siteurl').'/wp-login.php';
 			}
-			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues.","WPBDM") . "</p>";
+			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.","WPBDM") . "</p>";
 			$html .= "<form method=\"post\" action=\"$wpbusdirman_loginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\"></form>";
 		} else {
 			$html .= "<div class=\"clear\"></div><form method=\"post\" action=\"\" enctype=\"application/x-www-form-urlencoded\">";
@@ -2268,7 +2268,7 @@ function wpbusdirman_managelistings()
 		{
 			$wpbusdirmanloginurl=$siteurl.'/wp-login.php';
 		}
-		$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues.","WPBDM") . "</p>";
+		$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.","WPBDM") . "</p>";
 		$html .= "<form method=\"post\" action=\"$wpbusdirmanloginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\" /></form>";
 	}
 	else

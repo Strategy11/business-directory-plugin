@@ -284,7 +284,7 @@ msgid "Previewing the post form"
 msgstr ""
 
 #: admin/form-fields.php:204 wpbusdirman.php:286 wpbusdirman.php:2318
-msgid "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 mintues."
+msgid "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes."
 msgstr ""
 
 #: admin/form-fields.php:205
