@@ -108,6 +108,7 @@ $wpbdmposttypetags="wpbdm-tags";
 
 define('WPBDP_PATH', plugin_dir_path(__FILE__));
 define('WPBDP_URL', plugins_url('/', __FILE__));
+define('WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates');
 
 require_once(WPBDP_PATH . 'api.php');
 
@@ -158,8 +159,6 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 
 	add_filter('search_template', 'wpbusdirman_search_template');
 
-
-	add_filter('comments_template', 'wpbusdirman_template_comment');
 	//add_filter('the_title', 'wpbusdirman_template_the_title');
 	//add_action('loop_start', 'wpbusdirman_remove_post_dates_author_etc');
 
@@ -3507,6 +3506,8 @@ class WPBDP_Plugin {
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
+
+		add_filter('comments_template', array($this, '_comments_template'));
 	}
 
 	public function plugin_activation() {
@@ -3794,9 +3795,16 @@ class WPBDP_Plugin {
 		return $query;
 	}
 
+	/* theme filters */
+	public function _comments_template($template) {
+		if (get_post_type() == self::POST_TYPE && !$this->settings->get('show-comment-form'))
+			return WPBDP_TEMPLATES_PATH . '/empty-template.php';
+		return $template;
+	}
+
 
 }
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-$wpbdp->debug_on();
+// $wpbdp->debug_on();

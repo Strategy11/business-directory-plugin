@@ -62,17 +62,9 @@
 			}
 ?>
 	</p>
-<?php
-			global $wpbusdirmanconfigoptionsprefix;
-			$wpbusdirman_config_options=get_wpbusdirman_config_options();
-			if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_36'] == "yes")
-			{
-?>
+
 	<?php comments_template(); ?>
-<?php
-			}
-?>
-		<div style="clear:both;"></div>
+	<div style="clear:both;"></div>
 
 <?php
 		} // End while
@@ -87,4 +79,6 @@
 ?>
 	<div style="clear:both;"></div>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->
+
+
 <?php get_footer(); ?>

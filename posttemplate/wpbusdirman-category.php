@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div id="primary">
+<div>
 <div id="content">
 
 <div id="wpbdmentry"><div class="fixpadding">
@@ -50,8 +50,6 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		'post__not_in' => $ids
 		);
 	}
-
-	// WPBDP_Plugin::debug_e($args);
 
 		query_posts($args);
 
