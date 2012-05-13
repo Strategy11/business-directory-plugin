@@ -361,14 +361,14 @@ class WPBDP_Settings {
 									   );
 
 					if ($setting->validator) {
-						add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n,$o', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n,$o);'), 2);
+						add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n);'), 2);
 					}
 				}
 			}
 		}
 	}
 
-	public static function _validate_setting($name, $newvalue, $oldvalue) {
+	public static function _validate_setting($name, $newvalue=null) {
 		$api = wpbdp_settings_api();
 		$setting = $api->settings[$name];
 

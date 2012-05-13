@@ -3614,8 +3614,6 @@ class WPBDP_Plugin {
 				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `label` `label` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL");
 				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
 			}
-
-			delete_option('wpbusdirman_db_version');
 		} else {
 			$default_fields = array(
 				array(
@@ -3693,6 +3691,7 @@ class WPBDP_Plugin {
 			}
 		}
 
+		delete_option('wpbusdirman_db_version');
 		update_option('wpbdp-db-version', self::DB_VERSION);
 
 	    $plugin_dir = basename(dirname(__FILE__));
