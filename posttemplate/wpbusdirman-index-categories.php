@@ -9,7 +9,7 @@
 			<form id="wpbdmsearchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
 			<input id="intextbox" maxlength="150" name="s" size="20" type="text" value="" />
 			<input name="post_type" type="hidden" value="<?php echo wpbdp()->get_post_type(); ?>" />
-			<input id="wpbdmsearchsubmit" class="wpbdmsearchbutton" type="submit" value="Search Listings" />
+			<input id="wpbdmsearchsubmit" class="wpbdmsearchbutton" type="submit" value="<?php _ex('Search Listings', 'templates', 'WPBDM'); ?>" />
 			</form>
 		</div>
 	</div>

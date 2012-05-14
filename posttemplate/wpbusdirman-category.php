@@ -75,8 +75,8 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		else
 		{
 ?>
-		<div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-		<div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
+		<div class="alignleft"><?php next_posts_link(_x('&laquo; Older Entries', 'templates', 'WPBDM')); ?></div>
+		<div class="alignright"><?php previous_posts_link(x('Newer Entries &raquo;', 'templates', 'WPBDM')); ?></div>
 <?php
 		}
 ?>
@@ -88,7 +88,7 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		_e("No listings found in category.", "WPBDM");
 		echo '<br />';
 		echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
-					 _x('Return to directory', 'WPBDM'));
+					 _x('Return to directory', 'templates', 'WPBDM'));
 	}
 ?>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->
