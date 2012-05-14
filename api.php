@@ -164,7 +164,7 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
 		}
 	}
 
-	return  null;
+	return null;
 }
 
 function wpbdp_format_field_output($field, $value='', $listing=null) {
@@ -174,7 +174,7 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 	if ($field->validator == 'EmailValidator' && !wpbdp_get_option('override-email-blocking'))
 		return '';
 
-	if ($field && !$field->display_options['hide_field'] && $value)
+	if ($field && !$field->display_options['hide_field'])
 		return sprintf('<p class="field-value %s %s"><label>%s</label>: %s',
 					   strtolower(str_replace(' ', '', $field->label)), /* normalized field label */
 					   $field->association,
