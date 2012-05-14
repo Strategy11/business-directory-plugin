@@ -3238,9 +3238,9 @@ function wpbusdirman_post_excerpt($count) {
 	$html .= wpbusdirman_display_the_thumbnail();
 
 	$html .= '<div class="listingdetails">';
-	$html .= apply_filters('wpbdp_listing_excerpt_view_before', '', $post->ID);
+	$html .= apply_filters('wpbdp_listing_excerpt_view_before', '', get_the_ID());
 	$html .= wpbusdirman_display_the_listing_fields();
-	$html .= apply_filters('wpbdp_listing_excerpt_view_after', '', $post->ID);
+	$html .= apply_filters('wpbdp_listing_excerpt_view_after', '', get_the_ID());
 	$html .= wpbusdirman_view_edit_delete_listing_button();
 	$html .= '</div>';
 	$html .= '<div style="clear: both;"></div>';
