@@ -872,14 +872,14 @@ function wpbusdirmanui_directory_screen() {
 			{
 				$querysymbol="&amp";
 			}
-			if(file_exists(get_template_directory() . '/single/wpbusdirman-index-categories.php'))
-			{
-				include get_template_directory() . '/single/wpbusdirman-index-categories.php';
-			}
-			elseif(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-categories.php'))
+			if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-categories.php'))
 			{
 				include get_stylesheet_directory() . '/single/wpbusdirman-index-categories.php';
 			}
+			elseif(file_exists(get_template_directory() . '/single/wpbusdirman-index-categories.php'))
+			{
+				include get_template_directory() . '/single/wpbusdirman-index-categories.php';
+			}			
 			elseif(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-categories.php'))
 			{
 				include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-categories.php';
@@ -891,13 +891,13 @@ function wpbusdirmanui_directory_screen() {
 			if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_44'] == "yes")
 			{
 
-				if(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
-				{
-					include get_template_directory() . '/single/wpbusdirman-index-listings.php';
-				}
-				elseif(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
+				if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
 				{
 					include get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php';
+				}
+				elseif(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
+				{
+					include get_template_directory() . '/single/wpbusdirman-index-listings.php';
 				}
 				elseif(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php'))
 				{
@@ -2756,14 +2756,14 @@ function wpbusdirman_viewlistings()
 
 	ob_start();
 
-	if(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
-	{
-		include get_template_directory() . '/single/wpbusdirman-index-listings.php';
-	}
-	elseif(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
+	if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
 	{
 		include get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php';
 	}
+	elseif(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
+	{
+		include get_template_directory() . '/single/wpbusdirman-index-listings.php';
+	}	
 	elseif(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php'))
 	{
 		include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';

@@ -76,7 +76,7 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		{
 ?>
 		<div class="alignleft"><?php next_posts_link(_x('&laquo; Older Entries', 'templates', 'WPBDM')); ?></div>
-		<div class="alignright"><?php previous_posts_link(x('Newer Entries &raquo;', 'templates', 'WPBDM')); ?></div>
+		<div class="alignright"><?php previous_posts_link(_x('Newer Entries &raquo;', 'templates', 'WPBDM')); ?></div>
 <?php
 		}
 ?>
