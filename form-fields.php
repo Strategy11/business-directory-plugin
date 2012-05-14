@@ -210,6 +210,19 @@ class WPBDP_FormFieldsAPI {
 		return true;
 	}
 
+	public function validate_value($validatorname, $value, &$errors=null) {
+		$errors = array();
+
+		if (!call_user_func('WPBDP_FormFieldValidators::' . $validatorname, $value)) {
+			$errors[] = call_user_func('WPBDP_FormFieldValidators::' . $validatorname . '_msg', $value);
+		}
+
+		if ($errors)
+			return false;
+
+		return true;
+	}
+
 	public function extract($listing, $field) {
 		if (is_object($field))
 			return $this->extract($listing, $field->id);

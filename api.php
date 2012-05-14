@@ -92,6 +92,10 @@ function wpbdp_get_formfield($id) {
 	return wpbdp_formfields_api()->getField($id);
 }
 
+function wpbdp_validate_value($validator, $value, &$errors=null) {
+	return wpbdp_formfields_api()->validate_value($validator, $value, $errors);
+}
+
 /* Listings */
 function wpbdp_get_listing_field_value($listing, $field) {
 	$listing = !is_object($listing) ? get_post($listing) : $listing;
