@@ -554,22 +554,17 @@ function wpbusdirmanui_directory_screen() {
 			}
 			else
 			{
-				if(isset($_REQUEST['commentauthorname'])
-					&& !empty($_REQUEST['commentauthorname']))
-				{
+				if(isset($_REQUEST['commentauthorname']) && !empty($_REQUEST['commentauthorname'])) {
 					$commentauthorname=htmlspecialchars( $_REQUEST['commentauthorname'] );
 				}
-				if(isset($_REQUEST['commentauthoremail'])
-					&& !empty($_REQUEST['commentauthoremail']))
-				{
+				
+				if(isset($_REQUEST['commentauthoremail']) && !empty($_REQUEST['commentauthoremail'])) {
 					$commentauthoremail=$_REQUEST['commentauthoremail'];
 				}
-				if(isset($_REQUEST['commentauthorwebsite'])
-					&& !empty($_REQUEST['commentauthorwebsite']))
-				{
+
+				if(isset($_REQUEST['commentauthorwebsite']) && !empty($_REQUEST['commentauthorwebsite'])) {
 					$commentauthorwebsite=$_REQUEST['commentauthorwebsite'];
 				}
-
 			}
 			if ( !isset($commentauthorname)
 				|| empty($commentauthorname) )
@@ -603,13 +598,14 @@ function wpbusdirmanui_directory_screen() {
 			}
 			if( isset($commentauthorwebsite)
 				&& !empty($commentauthorwebsite)
-				&& !(wpbusdirman_isValidURL($commentauthorwebsite)) )
+				&& !(wpbdp_validate_value('URLValidator', $commentauthorwebsite)) )
 			{
 				$wpbusdirman_contact_errors=true;
 				$wpbusdirman_contact_form_errors.="<li class=\"wpbusdirmanerroralert\">";
 				$wpbusdirman_contact_form_errors.=__("Please enter a valid URL.","WPBDM");
 				$wpbusdirman_contact_form_errors.="</li>";
 			}
+
 			$commentauthormessage = stripslashes($commentauthormessage);
 			$commentauthormessage = trim(wp_kses( $commentauthormessage, array() ));
 			if ( !isset($commentauthormessage )
@@ -663,12 +659,10 @@ function wpbusdirmanui_directory_screen() {
 				Time: $time
 
 				";
-				if(wp_mail( $wpbdmsendtoemail, $subject, $message, $headers ))
-				{
+
+				if(wp_mail( $wpbdmsendtoemail, $subject, $message, $headers )) {
 					$html .= "<p>" . __("Your message has been sent","WPBDM") . "</p>";
-				}
-				else
-				{
+				} else {
 					$html .= "<p>" . __("There was a problem encountered. Your message has not been sent","WPBDM") . "</p>";
 				}
 			}
