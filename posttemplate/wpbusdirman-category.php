@@ -85,10 +85,12 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 	}
 	else
 	{
-		_e("No listings found in category.", "WPBDM");
-		echo '<br />';
-		echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
-					 _x('Return to directory', 'templates', 'WPBDM'));
+		if (!$count) {
+			_e("No listings found in category.", "WPBDM");
+			echo '<br />';
+			echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
+						 _x('Return to directory', 'templates', 'WPBDM'));
+		}
 	}
 ?>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->

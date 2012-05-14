@@ -60,9 +60,11 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 	}
 	else
 	{
+		if (!$count) {
 ?>
 	<p><?php _ex('There were no listings found in the directory', 'templates', 'WPBDM'); ?></p>
 <?php
+		}
 	}
 	wp_reset_query();
 ?>
