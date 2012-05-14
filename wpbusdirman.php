@@ -340,9 +340,10 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $
 			$html .= apply_filters('wpbdp_listing_form', '', $neworedit == 'new' ? false : true);
 
 			$html .= "<p><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Submit","WPBDM") . "\" /></p></form>";
-			$html .= "</div>";
 		}
 	}
+
+	$html .= "</div>";
 
 	return $html;
 }
@@ -3806,4 +3807,4 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();
