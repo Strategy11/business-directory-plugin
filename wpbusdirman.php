@@ -2793,9 +2793,18 @@ function wpbusdirman_display_the_thumbnail() {
 	if ($thumbnail = get_post_meta($post->ID, '_wpbdp_image', true))
 		$thumbnail = $wpbdmimagesurl . '/thumbnails/' . $thumbnail;
 
+	if (!$thumbnail && function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID))
+		return sprintf('<div class="listingthumbnail"><a href="%s">%s</a></div>',
+					   get_permalink(),
+					   get_the_post_thumbnail($post->ID,
+										array(wpbdp_get_option('thumbnail-width', '120'), wpbdp_get_option('thumbnail-width', '120')),
+										array('class' => 'wpbdmthumbs',
+											  'alt' => the_title(null, null, false),
+											  'title' => the_title(null, null, false) ))
+					  );
+
 	if (!$thumbnail && wpbdp_get_option('use-default-picture'))
 		$thumbnail = $wpbusdirman_imagesurl . '/default.png';
-
 
 	if ($thumbnail) {
 		$html .= '<div class="listingthumbnail">';
