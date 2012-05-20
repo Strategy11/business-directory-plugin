@@ -3483,11 +3483,12 @@ require_once(WPBDP_PATH . 'utils.php');
 require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
 require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
 require_once(WPBDP_PATH . 'form-fields.php');
+require_once(WPBDP_PATH . 'payment.php');
 
 class WPBDP_Plugin {
 
 	const VERSION = '2.0.3';
-	const DB_VERSION = '2.2';
+	const DB_VERSION = '2.3';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -3504,6 +3505,8 @@ class WPBDP_Plugin {
 
 		$this->settings = new WPBDP_Settings();
 		$this->formfields = new WPBDP_FormFieldsAPI();
+		$this->fees = new WPBDP_FeesAPI();
+		$this->payments = new WPBDP_PaymentAPI();
 
 		add_action('init', array($this, 'install_or_update_plugin'), 0);
 		add_action('init', array($this, '_register_post_type'));
@@ -3558,7 +3561,7 @@ class WPBDP_Plugin {
 		// add_option('wpbusdirman_db_version', '1.0');
 		// // delete_option('wpbusdirman_db_version');
 		// delete_option('wpbdp-db-version');
-		// update_option('wpbdp-db-version', '2.1');
+		update_option('wpbdp-db-version', '2.2');
 		// exit;
 
 		$installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));
@@ -3566,6 +3569,8 @@ class WPBDP_Plugin {
 		// create SQL tables
 		if ($installed_version != self::DB_VERSION) {
 			wpbdp_log('Running dbDelta.');
+
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
 			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
 				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
@@ -3580,8 +3585,19 @@ class WPBDP_Plugin {
 				field_data BLOB NULL
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
+
+			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
+				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
+				label VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+				amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+				days SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+				images SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+				categories BLOB NOT NULL,
+				extra_data BLOB NULL
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+			dbDelta($sql);			
 		}
 
 		if ($installed_version) {
@@ -3617,6 +3633,11 @@ class WPBDP_Plugin {
 				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHARACTER SET utf8 COLLATE utf8_general_ci");
 				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `label` `label` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL");
 				$wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
+			}
+
+			if (version_compare($installed_version, '2.3') < 0) {
+				wpbdp_log('Updating fees to new format.');
+				$this->fees->_update_to_2_3();
 			}
 		} else {
 			$default_fields = array(
