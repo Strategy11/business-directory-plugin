@@ -101,14 +101,6 @@ class WPBDP_FeesAdmin {
     		case 'deletefee':
     			$this->delete_fee();
     			break;
-    		// case 'fieldup':
-    		// case 'fielddown':
-    		// 	$this->api->reorderField($_REQUEST['id'], $action == 'fieldup' ? 1 : -1);
-    		// 	$this->fieldsTable();
-    		// 	break;
-    		// case 'previewform':
-    		// 	$this->previewForm();
-    		// 	break;
     		default:
     			$this->feesTable();
     			break;

@@ -3821,8 +3821,10 @@ class WPBDP_Plugin {
 
 	/* theme filters */
 	public function _comments_template($template) {
-		if (get_post_type() == self::POST_TYPE && !$this->settings->get('show-comment-form'))
+		if (is_single() && get_post_type() == self::POST_TYPE && !$this->settings->get('show-comment-form')) {
 			return WPBDP_TEMPLATES_PATH . '/empty-template.php';
+		}
+
 		return $template;
 	}
 
