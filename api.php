@@ -20,6 +20,14 @@ function wpbdp_post_type() {
 	return wpbdp()->get_post_type();
 }
 
+function wpbdp_categories_taxonomy() {
+	return wpbdp()->get_post_type_category();
+}
+
+function wpbdp_tags_taxonomy() {
+	return wpbd()->get_post_type_tags();
+}
+
 function wpbdp_get_page_id($name='main') {
 	global $wpdb;
 
@@ -188,4 +196,28 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 					   $field->association,
 					   esc_attr($field->label),
 					   $value);
+}
+
+/* Fees API */
+function wpbdp_fees_api() {
+	return wpbdp()->fees;
+}
+
+/* Misc. */
+function wpbdp_categories_list($parent=0, $hierarchical=true) {
+	$terms = get_categories(array(
+		'taxonomy' => wpbdp_categories_taxonomy(),
+		'parent' => $parent,
+		'orderby' => 'name',
+		'hide_empty' => 0,
+		'hierarchical' => 0
+	));
+
+	if ($hierarchical) {
+		foreach ($terms as &$term) {
+			$term->subcategories = wpbdp_categories_list($term->term_id, true);
+		}
+	}
+
+	return $terms;
 }

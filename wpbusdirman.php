@@ -113,20 +113,20 @@ define('WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates');
 require_once(WPBDP_PATH . 'api.php');
 
 
-$wpbusdirman_labeltext=__("Label","WPBDM");
+$wpbusdirman_labeltext=__("Label","WPBDM"); //x
 $wpbusdirman_typetext=__("Type","WPBDM");
 $wpbusdirman_associationtext=__("Association","WPBDM");
 $wpbusdirman_optionstext=__("Options","WPBDM");
 $wpbusdirman_ordertext=__("Order","WPBDM");
-$wpbusdirman_actiontext=__("Action","WPBDM");
+$wpbusdirman_actiontext=__("Action","WPBDM"); //x
 $wpbusdirman_valuetext=__("Value","WPBDM");
-$wpbusdirman_amounttext=__("Amount","WPBDM");
-$wpbusdirman_appliedtotext=__("Applied To","WPBDM");
-$wpbusdirman_allcatstext=__("All categories","WPBDM");
-$wpbusdirman_daytext=__("Day","WPBDM");
-$wpbusdirman_daystext=__("Days","WPBDM");
-$wpbusdirman_imagestext=__("Images","WPBDM");
-$wpbusdirman_durationtext=__("Duration","WPBDM");
+$wpbusdirman_amounttext=__("Amount","WPBDM"); //x
+$wpbusdirman_appliedtotext=__("Applied To","WPBDM"); //x
+$wpbusdirman_allcatstext=__("All categories","WPBDM"); //x
+$wpbusdirman_daytext=__("Day","WPBDM"); //x
+$wpbusdirman_daystext=__("Days","WPBDM"); //x
+$wpbusdirman_imagestext=__("Images","WPBDM"); //x
+$wpbusdirman_durationtext=__("Duration","WPBDM"); //x
 $wpbusdirman_validationtext=__("Validation","WPBDM");
 $wpbusdirman_requiredtext=__("Required","WPBDM");
 $wpbusdirman_showinexcerpttext=__("Excerpt","WPBDM");
@@ -3561,7 +3561,7 @@ class WPBDP_Plugin {
 		// add_option('wpbusdirman_db_version', '1.0');
 		// // delete_option('wpbusdirman_db_version');
 		// delete_option('wpbdp-db-version');
-		update_option('wpbdp-db-version', '2.2');
+		// update_option('wpbdp-db-version', '2.2');
 		// exit;
 
 		$installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));

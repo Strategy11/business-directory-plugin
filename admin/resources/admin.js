@@ -20,6 +20,34 @@ jQuery(document).ready(function($){
 		}
 	}).change();
 
+	$('form#wpbdp-fee-form input[name="_days"]').change(function(){
+		var value = $(this).val();
 
+		// alert(value);
+
+		if (value == 0) {
+			$('form input#wpbdp-fee-form-days-n').attr('disabled', true);
+			$('form input[name="fee[days]"]').val('0');
+		} else {
+			$('form input#wpbdp-fee-form-days-n').removeAttr('disabled');
+			$('form input[name="fee[days]"]').val($('form input#wpbdp-fee-form-days-n').val());
+			$('form input#wpbdp-fee-form-days-n').focus();
+		}
+
+		return true;
+	});
+
+	// $('form#wpbdp-fee-form input[name="fee[days]"]').keypress(function(e){
+	// 	$('form input#wpbdp-fee-form-days-0').removeAttr('checked');		
+	// 	$('form input#wpbdp-fee-form-days').attr('checked', true);
+	// 	// $('form#wpbdp-fee-form input[name="_days"]').change();
+	// });
+
+	$('form#wpbdp-fee-form').submit(function(){
+		alert($('form#wpbdp-fee-form input[name="fee[days]"]').val());
+		return false;
+		$('form input[name="fee[days]"]').removeAttr('disabled');
+		return true;
+	});
 
 });
