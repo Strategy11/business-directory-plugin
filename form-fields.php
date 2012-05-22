@@ -646,6 +646,18 @@ class WPBDP_FormFieldsAPI {
 		}
 	}
 
+	public function _update_to_2_4() {
+		global $wpdb;
+
+		$fields = $this->getFields();
+
+		foreach ($fields as &$field) {
+			$query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
+									'_wpbdp[fields][' . $field->id . ']', $field->label, wpbdp_post_type());
+			$wpdb->query($query);
+		}
+	}
+
 }
 
 }

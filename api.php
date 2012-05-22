@@ -132,7 +132,7 @@ function wpbdp_get_listing_field_value($listing, $field) {
 				break;
 			case 'meta':
 			default:
-				return get_post_meta($listing->ID, $field->label, true);
+				return get_post_meta($listing->ID, '_wpbdp[fields][' . $field->id . ']', true);
 				break;
 		}
 	}

@@ -327,7 +327,7 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $
 								break;
 							case 'meta':
 							default:
-								$field_value = get_post_meta($wpbdmlistingid, $field->label, true);
+								$field_value = get_post_meta($wpbdmlistingid, '_wpbdp[fields][' . $field->id . ']', true);
 								break;
 						}
 					}
@@ -1064,7 +1064,7 @@ function wpbusdirman_do_post()
 					$value = implode("\t", $value);
 				}
 
-				add_post_meta($wpbusdirman_postID, $field->label, $value, true) or update_post_meta($wpbusdirman_postID, $field->label, $value);
+				add_post_meta($wpbusdirman_postID, '_wpbdp[fields][' . $field->id . ']', $value, true) or update_post_meta($wpbusdirman_postID, '_wpbdp[fields][' . $field->id . ']', $value);
 			}
 		}
 	}
@@ -3488,7 +3488,7 @@ require_once(WPBDP_PATH . 'payment.php');
 class WPBDP_Plugin {
 
 	const VERSION = '2.0.3';
-	const DB_VERSION = '2.3';
+	const DB_VERSION = '2.4';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -3561,7 +3561,7 @@ class WPBDP_Plugin {
 		// add_option('wpbusdirman_db_version', '1.0');
 		// // delete_option('wpbusdirman_db_version');
 		// delete_option('wpbdp-db-version');
-		// update_option('wpbdp-db-version', '2.2');
+		// update_option('wpbdp-db-version', '2.3');
 		// exit;
 
 		$installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));
@@ -3638,6 +3638,11 @@ class WPBDP_Plugin {
 			if (version_compare($installed_version, '2.3') < 0) {
 				wpbdp_log('Updating fees to new format.');
 				$this->fees->_update_to_2_3();
+			}
+
+			if (version_compare($installed_version, '2.4') < 0) {
+				wpbdp_log('Making field values hidden metadata.');
+				$this->formfields->_update_to_2_4();
 			}
 		} else {
 			$default_fields = array(
