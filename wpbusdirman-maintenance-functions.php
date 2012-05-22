@@ -75,24 +75,6 @@ function wpbusdirman_category_template($category)
 	return $category;
 }
 
-function wpbusdirman_template_the_title($title)
-{
-
-	global $wp_query, $post, $wpbdmposttype,$wpbdmposttypecategory;
-	$mywpbdmposttype=$post->post_type;
-
-
-		    global $id, $post;
-    if ( $id && $post && ($mywpbdmposttype == $wpbdmposttype ))
-		{
-			if(is_single() || taxonomy_exists($wpbdmposttypecategory)){$title='';
-
-			}
-		}
-
-return $title;
-}
-
 function wpbusdirman_remove_post_dates_author_etc() {
 	global $wp_query, $post, $wpbdmposttype,$wpbusdirmanconfigoptionsprefix;
 	$mywpbdmposttype=$post->post_type;
@@ -140,34 +122,6 @@ function wpbusdirman_addcss()
     }
 }
 
-
-function wpbusdirman_change_taxonomy_type_category($taxonomy)
-{
-	global $wpdb,$table_prefix,$wpbdmposttypecategory;
-	$wpbusdirman_query="UPDATE $wpdb->term_taxonomy SET taxonomy='".$wpbdmposttypecategory."', parent='0',count='0' WHERE term_id='$taxonomy'";
-	@mysql_query($wpbusdirman_query);
-}
-
-function wpbusdirman_change_taxonomy_type_tags($taxonomy)
-{
-	global $wpdb,$table_prefix,$wpbdmposttypetags;
-	$wpbusdirman_query="UPDATE $wpdb->term_taxonomy SET taxonomy='".$wpbdmposttypetags."',count='0' WHERE term_id='$taxonomy'";
-	@mysql_query($wpbusdirman_query);
-}
-
-function wpbusdirman_update_taxonomy_type_category($taxonomynm)
-{
-	global $wpdb,$table_prefix,$wpbdmposttypecategory;
-	$wpbusdirman_query="UPDATE $wpdb->term_taxonomy SET taxonomy='".$wpbdmposttypecategory."' WHERE taxonomy='$taxonomynm'";
-	@mysql_query($wpbusdirman_query);
-}
-
-function wpbusdirman_update_taxonomy_type_tags($taxonomynm)
-{
-	global $wpdb,$table_prefix,$wpbdmposttypetags;
-	$wpbusdirman_query="UPDATE $wpdb->term_taxonomy SET taxonomy='".$wpbdmposttypetags."' WHERE taxonomy='$taxonomynm'";
-	@mysql_query($wpbusdirman_query);
-}
 
 function wpbusdirman_adexpirations_hook(){}
 

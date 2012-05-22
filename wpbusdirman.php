@@ -113,25 +113,6 @@ define('WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates');
 require_once(WPBDP_PATH . 'api.php');
 
 
-$wpbusdirman_labeltext=__("Label","WPBDM"); //x
-$wpbusdirman_typetext=__("Type","WPBDM");
-$wpbusdirman_associationtext=__("Association","WPBDM");
-$wpbusdirman_optionstext=__("Options","WPBDM");
-$wpbusdirman_ordertext=__("Order","WPBDM");
-$wpbusdirman_actiontext=__("Action","WPBDM"); //x
-$wpbusdirman_valuetext=__("Value","WPBDM");
-$wpbusdirman_amounttext=__("Amount","WPBDM"); //x
-$wpbusdirman_appliedtotext=__("Applied To","WPBDM"); //x
-$wpbusdirman_allcatstext=__("All categories","WPBDM"); //x
-$wpbusdirman_daytext=__("Day","WPBDM"); //x
-$wpbusdirman_daystext=__("Days","WPBDM"); //x
-$wpbusdirman_imagestext=__("Images","WPBDM"); //x
-$wpbusdirman_durationtext=__("Duration","WPBDM"); //x
-$wpbusdirman_validationtext=__("Validation","WPBDM");
-$wpbusdirman_requiredtext=__("Required","WPBDM");
-$wpbusdirman_showinexcerpttext=__("Excerpt","WPBDM");
-
-
 define('WPBUSDIRMANURL', $wpbusdirman_plugin_url );
 define('WPBUSDIRMANPATH', $wpbusdirman_plugin_path );
 define('WPBUSDIRPLUGINDIR', 'wp-business-directory-manager');
@@ -140,8 +121,6 @@ define('WPBUSDIRMAN_TEMPLATES_PATH', $wpbusdirman_plugin_path . '/posttemplate')
 $wpbusdirman_gpid=wpbusdirman_gpid();
 $permalinkstructure=get_option('permalink_structure');
 $wpbusdirmanconfigoptionsprefix="wpbusdirman";
-
-$wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirman_postform_field_label_');
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -158,9 +137,6 @@ $wpbusdirman_field_vals_pfl=wpbusdirman_retrieveoptions($whichoptions='wpbusdirm
 	add_filter('taxonomy_template', 'wpbusdirman_category_template');
 
 	add_filter('search_template', 'wpbusdirman_search_template');
-
-	//add_filter('the_title', 'wpbusdirman_template_the_title');
-	//add_action('loop_start', 'wpbusdirman_remove_post_dates_author_etc');
 
 	//add_filter('the_post', 'wpbusdirman_template_the_post');
 	add_filter("wp_footer", "wpbusdirman_display_ac");
