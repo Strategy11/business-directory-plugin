@@ -414,10 +414,10 @@ class WPBDP_FormFieldsAPI {
 		}
 
 		$args = func_get_args();
-		return call_user_func(array($this, 'render_' . $field->type), &$field, &$value);
+		return call_user_func(array($this, 'render_' . $field->type), $field, $value);
 	}
 
-	public function render_textfield($field, $value=null) {
+	public function render_textfield(&$field, $value=null) {
 		$html = '';
 		$html .= sprintf('<p class="wpbdmp"><label for="%s">%s</label>',
 						 'wpbdp-field-' . $field->id,
