@@ -407,9 +407,9 @@ class WPBDP_FormFieldsAPI {
 	}
 
 	/* Field rendering */
-	public function render($field, $value=null, $output=false) {
+	public function render(&$field, $value=null, $output=false) {
 		if ($output) {
-			echo $this->render($field, $value, false);
+			echo $this->render(&$field, $value, false);
 			return;
 		}
 
