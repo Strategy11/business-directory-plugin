@@ -237,12 +237,12 @@ function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $
  	$html .= "<div id=\"lco\">";
 	$html .= "<div class=\"title\">";
 	if($neworedit == 'new'){
-	$html .= "Submit A Listing";
+	$html .= __("Submit A Listing", 'WPBDM');
 	}
 	elseif($neworedit == 'edit') {
-	$html .= "Edit Your Listing";}
+	$html .= __("Edit Your Listing", 'WPBDM');}
 	else {
-	$html .= "Submit A Listing";
+	$html .= __("Submit A Listing", 'WPBDM');
 	}
 	$html .= "</div>";
 	$html .= "<div class=\"button\">";
@@ -1459,7 +1459,7 @@ function wpbusdirman_image_upload_form($wpbusdirmanlistingpostid, $wpbusdirmanpe
 				}
 				else
 				{
-					$html .= "<p>If you would like to include an image with your listing please upload the image of your choice. You are allowed [$wpbusdirmannumimgsallowed] images and have [$wpbusdirmannumimgsleft] image slots still available.</p>";
+					$html .= "<p>" . sprintf(__("If you would like to include an image with your listing please upload the image of your choice. You are allowed [%s] images and have [%s] image slots still available.", 'WPBDM'), $wpbusdirmannumimgsallowed, $wpbusdirmannumimgsleft) . "</p>";
 					$html .= "<form method=\"post\" action=\"$wpbusdirmanpermalink\" ENCTYPE=\"Multipart/form-data\">";
 					$html .= "<input type=\"hidden\" name=\"action\" value=\"wpbusdirmanuploadfile\" />";
 					$html .= "<input type=\"hidden\" name=\"wpbusdirmanlistingpostid\" value=\"$wpbusdirmanlistingpostid\" />";
