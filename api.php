@@ -221,3 +221,7 @@ function wpbdp_categories_list($parent=0, $hierarchical=true) {
 
 	return $terms;
 }
+
+function wpbdp_locate_template($template) {
+	return wpbdp()->controller->locate_template($template);
+}

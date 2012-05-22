@@ -1,0 +1,5 @@
+<?php
+/*
+ * Deprecated functionality.
+ */
+

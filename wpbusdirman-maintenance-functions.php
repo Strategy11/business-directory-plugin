@@ -27,24 +27,6 @@ function wpbusdirman_exclude_payment_pages($output = '')
 
 	}
 
-function wpbusdirman_single_template($single)
-{
-	global $wp_query, $post, $wpbdmposttype;
-	$mywpbdmposttype=$post->post_type;
-
-	if ($mywpbdmposttype == $wpbdmposttype) {
-		if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-single.php'))
-		return get_stylesheet_directory() . '/single/wpbusdirman-single.php';
-		if(file_exists(get_template_directory() . '/single/wpbusdirman-single.php'))
-		return get_template_directory() . '/single/wpbusdirman-single.php';	
-		if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php'))
-		return WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-single.php';
-	}
-
-	return $single;
-
-}
-
 function wpbusdirman_search_template($search) {
 	global $wp_query, $post, $wpbdmposttype;
 
@@ -59,20 +41,6 @@ function wpbusdirman_search_template($search) {
 		}
 
 	return $search;
-}
-
-function wpbusdirman_category_template($category)
-{
-	if (get_query_var(WPBDP_Plugin::POST_TYPE_CATEGORY) && taxonomy_exists(WPBDP_Plugin::POST_TYPE_CATEGORY)) {
-				if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-category.php'))
-				return get_stylesheet_directory() . '/single/wpbusdirman-category.php';
-				if(file_exists(get_template_directory() . '/single/wpbusdirman-category.php'))
-				return get_template_directory() . '/single/wpbusdirman-category.php';			
-				if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-category.php'))
-				return WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-category.php';
-	}
-
-	return $category;
 }
 
 function wpbusdirman_remove_post_dates_author_etc() {
