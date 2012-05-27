@@ -275,6 +275,26 @@ class WPBDP_DirectoryController {
 	}
 
 	// TODO: create user when user's not logged in and anonymous submits are allowed
+	// if (!(is_user_logged_in()) ) {
+	// 	if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
+	// 		if ($email = $formfields_api->extract($listingfields, $email_field)) {
+	// 			if (email_exists($email)) {
+	// 				$wpbusdirman_UID = get_user_by_email($email)->ID;
+	// 			} else {
+	// 				$randvalue = wpbusdirman_generatePassword(5,2);
+	// 				$wpbusdirman_UID = wp_insert_user(array(
+	// 					'display_name' => 'Guest ' . $randvalue,
+	// 					'user_login'=> 'guest_' . $randvalue,
+	// 					'user_email'=> $email,
+	// 					'user_pass'=> wpbusdirman_generatePassword(7,2)));
+	// 			}
+	// 		}
+	// 	}
+	// } elseif(is_user_logged_in()) {
+	// 	global $current_user;
+	// 	get_currentuserinfo();
+	// 	$wpbusdirman_UID=$current_user->ID;
+	// }	
 	public function submit_listing_save() {
 		if (isset($_POST['thumbnail_id']))
 			$this->_listing_data['thumbnail_id'] = intval($_POST['thumbnail_id']);

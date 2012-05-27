@@ -1,32 +1,5 @@
 <?php
 
-function wpbusdirman_exclude_payment_pages($output = '')
-	{
-
-		$wpbdmpaymentpages=array();
-		global $wpdb,$table_prefix;
-
-		$query="SELECT ID FROM {$table_prefix}posts WHERE post_content LIKE '%WPBUSDIRMANGOOGLECHECKOUT%' OR post_content LIKE '%WPBUSDIRMANPAYPAL%' OR post_content LIKE '%WPBUSDIRMANTWOCHECKOUT%'";
-		 if (!($res=@mysql_query($query))) {trigger_error(mysql_error(),E_USER_ERROR);}
-
-		 	while ($rsrow=mysql_fetch_row($res))
- 			{
- 				$wpbdmpaymentpages[]=$rsrow[0];
- 			}
-
-		if($wpbdmpaymentpages)
-		{
-			foreach ($wpbdmpaymentpages as $wpbdmpaymentpagestoexclude)
-			{
-				array_push($output, $wpbdmpaymentpagestoexclude);
-			}
-		}
-
-		return $output;
-
-
-	}
-
 function wpbusdirman_search_template($search) {
 	global $wp_query, $post, $wpbdmposttype;
 

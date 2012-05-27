@@ -5,6 +5,14 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 }
 ?>
 
+<?php
+// TODO
+					// $html .= __("You have selected more than one category. Each category you to which you elect to submit your listing incurs a separate fee.", "WPBDM");
+					// if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
+					// {
+					// 	$html .=__(" The number of images attached to your listing will be set according to option you choose that has the most images. So if for one category you chose an option with 2 images but for another category you chose an option with 4 images your listing will be allotted 4 image slots", "WPBDM");
+?>
+
 <div id="wpbdmentry">
 
 	<div id="lco">
