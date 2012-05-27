@@ -25,13 +25,87 @@ class WPBDP_DirectoryController {
     		case 'submitlisting':
     			return $this->submit_listing();
     			break;
-    		case 'editlisting':
-    			return $this->edit_listing();
+    		case 'sendcontactmessage':
+    			return $this->send_contact_message();
+    			break;
+    		case 'deletelisting':
+    			return $this->delete_listing();
     			break;
     		default:
     			return $this->main_page();
     			break;
     	}
+	}
+
+	/*
+	 * Send contact message to listing owner.
+	 */
+	public function send_contact_message() {
+		if ($listing_id = wpbdp_getv($_POST, 'listing_id', 0)) {
+			$current_user = is_user_logged_in() ? wp_get_current_user() : null;
+
+			$author_name = htmlspecialchars(trim(wpbdp_getv($_POST, 'commentauthorname', $current_user ? $current_user->data->user_login : '')));
+			$author_email = trim(wpbdp_getv($_POST, 'commentauthoremail', $current_user ? $current_user->data->user_email : ''));
+			$author_website = trim(wpbdp_getv($_POST, 'commentauthorwebsite', $current_user ? $current_user->data->user_url : ''));
+			$message = trim(wp_kses(stripslashes(wpbdp_getv($_POST, 'commentauthormessage', '')), array()));
+
+			$validation_errors = array();
+
+			if (!$author_name)
+				$validation_errors[] = _x("Please enter your name.", 'contact-message', "WPBDM");
+
+			if (!wpbusdirman_isValidEmailAddress($author_email))
+				$validation_errors[] = _x("Please enter a valid email.", 'contact-message', "WPBDM");
+
+			if ($author_website && !(wpbdp_validate_value('URLValidator', $author_website)))
+				$validation_errors[] = _x("Please enter a valid URL.", 'contact-message', "WPBDM");
+
+			if (!$message)
+				$validation_errors[] = _x('You did not enter a message.', 'contact-message', 'WPBDM');
+
+			if (wpbdp_get_option('recaptcha-on')) {
+				if ($private_key = wpbdp_get_option('recaptcha-private-key')) {
+					require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
+
+					$resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+					if (!$resp->is_valid)
+						$validation_errors[] = sprintf(_x("The reCAPTCHA wasn't entered correctly: %s", 'contact-message', 'WPBDM'), $resp->error);
+				}
+			}
+
+			if (!$validation_errors) {
+				$headers =	"MIME-Version: 1.0\n" .
+						"From: $author_name <$author_email>\n" .
+						"Reply-To: $author_email\n" .
+						"Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
+				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+				$wpbdmsendtoemail=wpbusdirman_get_the_business_email($listing_id);
+				$time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
+				$message = "Name: $author_name
+				Email: $author_email
+				Website: $author_website
+
+				$message
+
+				Time: $time
+
+				";
+
+				$html = '';
+
+				if(wp_mail( $wpbdmsendtoemail, $subject, $message, $headers )) {
+					$html .= "<p>" . _x("Your message has been sent", 'contact-message', "WPBDM") . "</p>";
+				} else {
+					$html .= "<p>" . _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM") . "</p>";
+				}
+
+				$html .= sprintf('<p><a href="%s">%s</a></p>', get_permalink($listing_id), _x('Return to listing.'));
+
+				return $html;
+			} else {
+				return wpbusdirman_contactform(null, $listing_id, $author_name, $author_email, $author_website, $message, $validation_errors);
+			}
+		}
 	}
 
 	/*
@@ -75,18 +149,18 @@ class WPBDP_DirectoryController {
 
 		if (count(get_terms(wpbdp_categories_taxonomy(), array('hide_empty' => false))) == 0) {
 			if (is_user_logged_in() && current_user_can('install_plugins')) {
-				$no_categories_msg = _x('There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM');
+				return wpbdp_render_msg(_x('There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM'), 'error');
 			} else {
-				$no_categories_msg = _x('Your listing cannot be added at this time. Please try again later.', 'templates', 'WPBDM');
+				return wpbdp_render_msg(_x('Your listing cannot be added at this time. Please try again later.', 'templates', 'WPBDM'), 'error');
 			}
-
-			// FIXME
-			die($no_categories_msg);
-			exit;
 		}
 
 		$step = wpbdp_getv($_POST, '_step', 'fields');
-		$this->_listing_data = array('listing_id' => 0, 'fields' => array(), 'fees' => array(), 'images' => array(), 'thumbnail_id' => 0);
+		$this->_listing_data = array('listing_id' => 0,
+									 'fields' => array(),
+									 'fees' => array(),
+									 'images' => array(),
+									 'thumbnail_id' => 0);
 
 		if (isset($_POST['listing_data'])) {
 			$this->_listing_data = unserialize(base64_decode($_POST['listing_data']));
@@ -101,15 +175,15 @@ class WPBDP_DirectoryController {
 		if ($listing_id = $this->_listing_data['listing_id']) {
 			$current_user = wp_get_current_user();
 			if (get_post($listing_id)->post_author != $current_user->ID)
-				die('You are not authorized to edit this listing.');
+				return wpbdp_render_msg(_x('You are not authorized to edit this listing.', 'templates', 'WPBDM'), 'error');
 
 			if (wpbdp_payment_status($listing_id) != 'paid')
-				die('Can not edit listing until its payment has been cleared.');
+				return wpbdp_render_msg(_x('You can not edit your listing until its payment has been cleared.', 'templates', 'WPBDM'), 'error');
 		}
 
-		// TODO
-		// $html .= apply_filters('wpbdp_listing_form', '', $neworedit == 'new' ? false : true);
-		$html = call_user_func(array($this, 'submit_listing_' . $step), $listing_id);
+		$html = '';
+		$html .= call_user_func(array($this, 'submit_listing_' . $step), $listing_id);
+		$html .= apply_filters('wpbdp_listing_form', '', $this->_listing['listing_id']);
 
 		return $html;
 	}
@@ -422,9 +496,41 @@ class WPBDP_DirectoryController {
 							'listing' => get_post($listing_id)
 						), false);
 		} else {
-			die('ERROR');
-		}		
+			return wpbdp_render(_x('An error occurred while saving your listing. Please try again later.', 'templates', 'WPBDM'), 'error');
+		}
+	}
 
+	/* Manage Listings */
+	public function manage_listings() {
+		$current_user = is_user_logged_in() ? wp_get_current_user() : null;
+		$listings = array();
+
+		if ($current_user)
+			query_posts('author=' . $current_user->ID . '&post_type=' . wpbdp_post_type());
+
+		$html = wpbdp_render('manage-listings', array(
+			'current_user' => $current_user
+			), false);
+
+		if ($current_user)
+			wp_reset_query();
+
+		return $html;
+	}
+
+	public function delete_listing() {
+		if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
+			if (wp_get_current_user()->ID == get_post($listing_id)->post_author) {
+				$post_update = array('ID' => $listing_id,
+									 'post_type' => wpbdp_post_type(),
+									 'post_status' => wpbdp_get_option('deleted-status'));
+				
+				wp_update_post($post_update);
+
+				return wpbdp_render_msg(_x('The listing has been deleted.', 'templates', 'WPBDM'))
+					  . $this->manage_listings();
+			}
+		}
 	}
 
 

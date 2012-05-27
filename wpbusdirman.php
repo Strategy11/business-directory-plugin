@@ -135,31 +135,9 @@ $wpbusdirmanconfigoptionsprefix="wpbusdirman";
 	add_filter("wp_footer", "wpbusdirman_display_ac");
 
 
-function wpBusDirManUi_addListingForm()
-{
-	$wpbusdirmanaction = '';
-	$html = '';
-
-	if(isset($_REQUEST['action'])
-		&& !empty($_REQUEST['action']))
-	{
-		$wpbusdirmanaction=$_REQUEST['action'];
-	}
-	elseif(isset($_REQUEST['do'])
-		&& !empty ($_REQUEST['do']))
-	{
-		$wpbusdirmanaction=$_REQUEST['do'];
-	}
-	if ("post" == $wpbusdirmanaction)
-	{
-		$html .= apply_filters('wpbdm_process-form-post', null);
-	}
-	else
-	{
-		$html .= apply_filters('wpbdm_show-add-listing-form', 1, '', 'new', '');
-	}
-
-	return $html;
+function wpBusDirManUi_addListingForm() {
+	$controller = wpbdp()->controller;
+	return $controller->submit_listing();
 }
 
 function wpbusdirman_get_the_business_email($post_id) {
@@ -397,131 +375,31 @@ function wpbusdirman_imagesallowed_left($wpbusdirmanlistingpostid,$wpbusdirmanfe
 
 }
 
-function wpbusdirman_managelistings()
-{
-	global $siteurl,$wpbdmimagesurl,$wpbusdirman_gpid,$permalinkstructure,$wpbdmposttype,$wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$html = '';
-
-	if(!(is_user_logged_in()))
-	{
-		$wpbusdirmanloginurl=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_4'];
-		if(!isset($wpbusdirmanloginurl) || empty($wpbusdirmanloginurl))
-		{
-			$wpbusdirmanloginurl=$siteurl.'/wp-login.php';
-		}
-		$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.","WPBDM") . "</p>";
-		$html .= "<form method=\"post\" action=\"$wpbusdirmanloginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\" /></form>";
-	}
-	else
-	{
-		$args=array('hide_empty' => 0);
-		$wpbusdirman_postcats=get_terms( $wpbdmposttypecategory, $args);
-		if(!isset($wpbusdirman_postcats) || empty($wpbusdirman_postcats))
-		{
-			if(is_user_logged_in() && current_user_can('install_plugins'))
-			{
-				$html .= "<p>" . __("There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they do not currently have any listings to manage. Listings cannot be added until you assign categories to the business directory. ","WPBDM") . "</p>";
-			}
-			else
-			{
-				$html .= "<p>" . __("You do not currently have any listings to manage","WPBDM") . "</p>";
-			}
-		}
-		else
-		{
-			global $current_user;
-			$html .= get_currentuserinfo();
-			$wpbusdirman_CUID=$current_user->ID;
-			wp_reset_query();
-			$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-			query_posts('author='.$wpbusdirman_CUID.'&post_type='.$wpbdmposttype);
-			if ( have_posts() )
-			{
-				$count=0;
-				$html .= '<p>' . __("Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button.","WPBDM") . "</p>";
-				while (have_posts())
-				{
-					$html .= the_post();
-					$count++;
-					$html .= wpbusdirman_post_excerpt($count);
-				}
-				$html .= '<div class="navigation">';
-				if(function_exists('wp_pagenavi'))
-				{
-					$html .= wp_pagenavi();
-				}
-				else
-				{
-					$html .= '<div class="alignleft">' . next_posts_link('&laquo; Older Entries') . '</div><div class="alignright">' . previous_posts_link('Newer Entries &raquo;') . '</div>';
-				}
-				$html .= '</div>';
-			}
-			else
-			{
-				 $html .= "<p>" . __("You do not currently have any listings in the directory","WPBDM") . "</p>";
-			}
-			wp_reset_query();
-		}
-	}
-
-	return $html;
+function wpbusdirman_managelistings() {
+	return wpbdp()->controller->manage_listings();
 }
 
-function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid,$commentauthorname,$commentauthoremail,$commentauthorwebsite,$commentauthormessage,$wpbusdirmancontacterrors)
-{
-	global $wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	if(!isset($wpbusdirmanpermalink) || empty($wpbusdirmanpermalink))
-	{
-		global $wpbusdirman_gpid,$wpbdmimagesurl;
-		$wpbusdirmanpermalink=get_permalink($wpbusdirman_gpid);
-	}
-	$html = '';
+function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid,$commentauthorname,$commentauthoremail,$commentauthorwebsite,$commentauthormessage,$wpbusdirmancontacterrors) {
+	if (!wpbdp_get_option('show-contact-form'))
+		return '';
 
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_27'] == "yes")
-	{
-		if(isset($wpbusdirmancontacterrors)
-			&& !empty($wpbusdirmancontacterrors))
-		{
-			$html .= "<ul id=\"wpbusdirmanerrors\">$wpbusdirmancontacterrors</ul>";
+	$action = '';
+	
+	$recaptcha = null;
+	if (wpbdp_get_option('recaptcha-on')) {
+		if ($public_key = wpbdp_get_option('recaptcha-public-key')) {
+			require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
+			$recaptcha = recaptcha_get_html($public_key);
 		}
-		$html .= "<h4>" . __("Send Message to listing owner","WPBDM") . "</h4><p><label>" . __("Listing Title: ","WPBDM") . "</label>" . get_the_title($wpbusdirmanlistingpostid) . "</p>";
-		$html .= "<form method=\"post\" action=\"$wpbusdirmanpermalink\">";
-		if(!is_user_logged_in())
-		{
-			$html .= "<p><label style=\"width:4em;\">" . __("Your Name ","WPBDM") . "</label><input type=\"text\" class=\"intextbox\" name=\"commentauthorname\" value=\"$commentauthorname\" /></p><p><label style=\"width:4em;\">" . __("Your Email ","WPBDM") . "</label><input type=\"text\" class=\"intextbox\" name=\"commentauthoremail\" value=\"$commentauthoremail\" /></p>";
-			$html .= "<p><label style=\"width:4em;\">" . __("Website url ","WPBDM") . "</label><input type=\"text\" class=\"intextbox\" name=\"commentauthorwebsite\" value=\"$commentauthorwebsite\" /></p>";
-		}
-		elseif(is_user_logged_in())
-		{
-			if(!isset($commentauthorname) || empty($commentauthorname))
-			{
-				global $post, $current_user;
-				get_currentuserinfo();
-				$commentauthorname = $current_user->user_login;
-			}
-			$html .= "<p>" . __("You are currently logged in as ","WPBDM") . $commentauthorname . "." . __(" Your message will be sent using your logged in contact email.","WPBDM") . "</p>";
-		}
-		$html .= "<p><label style=\"width:4em;\">" . __("Message","WPBDM") . "</label><br/><textarea name=\"commentauthormessage\" class=\"intextarea\">$commentauthormessage</textarea></p>";
-		if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_30'] == "yes")
-		{
-			$publickey = $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_28'];
-			if(isset($publickey)
-				&& !empty($publickey))
-			{
-				require_once('recaptcha/recaptchalib.php');
-				$wpbdmrecaptcha=recaptcha_get_html($publickey);
-				$html .= recaptcha_get_html($publickey);
-			}
-		}
-		$html .= "<p><input type=\"hidden\" name=\"action\" value=\"sendcontactmessage\" />";
-		$html .= "<input type=\"hidden\" name=\"wpbusdirmanlistingpostid\" value=\"$wpbusdirmanlistingpostid\" />";
-		$html .= "<input type=\"hidden\" name=\"wpbusdirmanpermalink\" value=\"$wpbusdirmanpermalink\" />";
-		$html .= "<input type=\"submit\" class=\"insubmitbutton\" value=\"Send\" /></p></form>";
 	}
 
-	return $html;
+	return wpbdp_render('listing-contactform', array(
+							'action' => $action,
+							'validation_errors' => $wpbusdirmancontacterrors,
+							'listing_id' => $wpbusdirmanlistingpostid,
+							'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
+							'recaptcha' => $recaptcha							
+						), false);
 }
 
 
@@ -1179,35 +1057,28 @@ function wpbusdirman_display_the_listing_fields() {
 	return $html;
 }
 
-function wpbusdirman_view_edit_delete_listing_button()
-{
+function wpbusdirman_view_edit_delete_listing_button() {
 	$wpbusdirman_gpid=wpbusdirman_gpid();
 	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
 	$html = '';
 
 	$html .= '<div style="clear:both;"></div><div class="vieweditbuttons"><div class="vieweditbutton"><form method="post" action="' . get_permalink() . '"><input type="hidden" name="action" value="viewlisting" /><input type="hidden" name="wpbusdirmanlistingid" value="' . get_the_id() . '" /><input type="submit" value="' . __("View","WPBDM") . '" /></form></div>';
-	if(is_user_logged_in())
-	{
-		global $current_user;
-		get_currentuserinfo();
-		$wpbusdirmanloggedinuseremail=$current_user->user_email;
-		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
-		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail)
-		{
-			$html .= '<div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Edit","WPBDM") . '" /></form></div><div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="deletelisting" /><input type="hidden" name="wpbusdirmanlistingid" value="' . get_the_id() . '" /><input type="submit" value="' . __("Delete","WPBDM") . '" /></form></div>';
-		}
+
+	if (wp_get_current_user()->ID == get_the_author_meta('ID')) {
+		$html .= '<div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Edit","WPBDM") . '" /></form></div><div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="deletelisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Delete","WPBDM") . '" /></form></div>';
 	}
 	$html .= '</div>';
 
 	return $html;
 }
 
-function wpbusdirman_display_excerpt($count=0)
-{
-	echo wpbusdirman_post_excerpt($count);
+function wpbusdirman_display_excerpt($deprecated=null) {
+	echo wpbusdirman_post_excerpt($deprecated);
 }
 
-function wpbusdirman_post_excerpt($count) {
+function wpbusdirman_post_excerpt($deprecated=null) {
+	static $count = 0;
+
 	$is_sticky = get_post_meta(get_the_ID(), '_wpbdp_sticky', true) == 'approved' ? true : false;
 
 	$html = '';
@@ -1226,6 +1097,8 @@ function wpbusdirman_post_excerpt($count) {
 	$html .= '</div>';
 	$html .= '<div style="clear: both;"></div>';
 	$html .= '</div>';
+
+	$count++;
 
 	return $html;
 }

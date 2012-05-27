@@ -291,3 +291,9 @@ function wpbdp_locate_template($template, $allow_override=true) {
 function wpbdp_render($template, $vars=array(), $allow_override=true) {
 	return wpbdp_render_page(wpbdp_locate_template($template, $allow_override), $vars, false);
 }
+
+function wpbdp_render_msg($msg, $type='status') {
+	$html = '';
+	$html .= sprintf('<div class="%s">%s</div>', $type == 'error' ? 'wpbusdirmanerroralert' : $type, $msg);
+	return $html;
+}
