@@ -21,8 +21,13 @@ class WPBDP_DirectoryController {
     	$action = wpbdp_getv($_REQUEST, 'action');
 
 	   	switch ($action) {
+	   		case 'editlisting':
     		case 'submitlisting':
     			return $this->submit_listing();
+    			break;
+    		case 'editlisting':
+    			return $this->edit_listing();
+    			break;
     		default:
     			return $this->main_page();
     			break;
@@ -65,7 +70,7 @@ class WPBDP_DirectoryController {
 	/*
 	 * Submit listing process.
 	 */
-	public function submit_listing() {
+	public function submit_listing($listing_id=null) {
 		$no_categories_msg = false;
 
 		if (count(get_terms(wpbdp_categories_taxonomy(), array('hide_empty' => false))) == 0) {
@@ -81,27 +86,35 @@ class WPBDP_DirectoryController {
 		}
 
 		$step = wpbdp_getv($_POST, '_step', 'fields');
-
-		$this->_listing_data = array('fields' => array(), 'fees' => array(), 'images' => array(), 'thumbnail_id' => 0);
+		$this->_listing_data = array('listing_id' => 0, 'fields' => array(), 'fees' => array(), 'images' => array(), 'thumbnail_id' => 0);
 
 		if (isset($_POST['listing_data'])) {
 			$this->_listing_data = unserialize(base64_decode($_POST['listing_data']));
-		} elseif (isset($_POST['listingfields'])) {
-			$this->_listing_data['fields'] = $_POST['listingfields'];
+		} else {
+			if (isset($_POST['listingfields']))
+				$this->_listing_data['fields'] = $_POST['listingfields'];
+
+			if (isset($_POST['listing_id']))
+				$this->_listing_data['listing_id'] = intval($_POST['listing_id']);
+		}
+
+		if ($listing_id = $this->_listing_data['listing_id']) {
+			$current_user = wp_get_current_user();
+			if (get_post($listing_id)->post_author != $current_user->ID)
+				die('You are not authorized to edit this listing.');
+
+			if (wpbdp_payment_status($listing_id) != 'paid')
+				die('Can not edit listing until its payment has been cleared.');
 		}
 
 		// TODO
 		// $html .= apply_filters('wpbdp_listing_form', '', $neworedit == 'new' ? false : true);
 		$html = call_user_func(array($this, 'submit_listing_' . $step), $listing_id);
 
-		wpbdp_debug($this->_listing_data);
-
 		return $html;
 	}
 
 	public function submit_listing_fields() {
-		$listing = isset($_REQUEST['listing_id']) && $_REQUEST['listing_id'] ? get_post(intval($_REQUEST['listing_id'])) : null;
-
 		$formfields_api = wpbdp_formfields_api();
 
 		$post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
@@ -109,8 +122,29 @@ class WPBDP_DirectoryController {
 
 		$fields = array();
 		foreach ($formfields_api->getFields() as $field) {
-			$field_value = wpbdp_getv($post_values, $field->id, '');
+			$default_value = '';
 
+			if ($listing_id = $this->_listing_data['listing_id']) {
+				switch ($field->association) {
+					case 'category':
+						$default_value = array();
+
+						foreach (wpbdp_get_listing_field_value($listing_id, $field) as $listing_category) {
+							$default_value[] = $listing_category->term_id;
+						}
+
+						break;
+					case 'tags':
+						$tags = wpbdp_get_listing_field_value($listing_id, $field);
+						$default_value = implode(',', $tags ? $tags : array());
+						break;
+					default:
+						$default_value = wpbdp_get_listing_field_value($listing_id, $field);
+						break;
+				}
+			}
+
+			$field_value = wpbdp_getv($post_values, $field->id, $default_value);
 
 			if ($post_values) {
 				if (!$formfields_api->validate($field, $field_value, $field_errors))
@@ -129,12 +163,82 @@ class WPBDP_DirectoryController {
 		
 		return wpbdp_render('listing-form-fields', array(
 							'validation_errors' => $validation_errors,
-							'listing' => $listing,
+							'listing_id' => $this->_listing_data['listing_id'],
 							'fields' => $fields,
 							), false);		
 	}
 
+	private function edit_listing_payment() {
+		$listing_id = $this->_listing_data['listing_id'];
+
+		$formfields_api = wpbdp_formfields_api();
+
+		$post_categories = $formfields_api->extract($this->_listing_data['fields'], 'category');
+		if (!is_array($post_categories)) $post_categories = array($post_categories);
+
+		// if categories are the same, move on
+		$previous_categories = wp_get_post_terms($listing_id, wpbdp_categories_taxonomy());
+		array_walk($previous_categories, create_function('&$x', '$x = $x->term_id;'));
+
+		$new_categories = array();
+		foreach ($post_categories as $catid) {
+			if (!in_array($catid, $previous_categories)) {
+				$new_categories[] = $catid;
+			} else {
+				$fee = wpbdp_listings_api()->get_listing_fee_for_category($listing_id, $catid);
+				$fee->_nocharge = true;
+				$this->_listing_data['fees'][$catid] = $fee;
+			}
+		}
+
+		if (!$new_categories)
+			return $this->submit_listing_images();
+
+		// there are new categories, show the fee options
+		$available_fees = wpbdp_fees_api()->get_fees($new_categories);
+		$fees = array();
+
+		foreach ($available_fees as $catid => $fee_options) {
+			$fees[] = array('category' => get_term($catid, wpbdp_categories_taxonomy()),
+							'fees' => $fee_options);
+		}
+
+		$validation_errors = array();
+
+		// check every category has a fee selected
+		if ($_POST['_step'] == 'payment') {
+			$post_fees = wpbdp_getv($_POST, 'fees', array());
+
+			foreach ($new_categories as $catid) {
+				$selected_fee_option = wpbdp_getv($post_fees, $catid, null);
+
+				// TODO: check fee is a valid fee for the given category (check $available_fees[$catid] for the id)
+				if ($selected_fee_option == null || !isset($available_fees[$catid])) {
+					$validation_errors[] = sprintf(_x('Please select a fee option for the "%s" category.', 'templates', 'WPBDM'), get_term($catid, wpbdp_categories_taxonomy())->name);
+				}
+			}
+
+			if (!$validation_errors) {
+				foreach ($post_categories as $catid) {
+					$this->_listing_data['fees'][$catid] = wpbdp_fees_api()->get_fee_by_id(wpbdp_getv($post_fees, $catid));
+				}
+
+				return $this->submit_listing_images();
+			}
+		}
+
+		return wpbdp_render('listing-form-fees', array(
+							'validation_errors' => $validation_errors,
+							'listing_id' => $this->_listing_data['listing_id'],
+							'listing_data' => $this->_listing_data,
+							'fee_options' => $fees,
+							), false);
+	}
+
 	public function submit_listing_payment() {
+		if ($this->_listing_data['listing_id'])
+			return $this->edit_listing_payment();
+
 		$formfields_api = wpbdp_formfields_api();
 
 		$post_categories = $formfields_api->extract($this->_listing_data['fields'], 'category');
@@ -174,6 +278,7 @@ class WPBDP_DirectoryController {
 
 		return wpbdp_render('listing-form-fees', array(
 							'validation_errors' => $validation_errors,
+							'listing_id' => $this->_listing_data['listing_id'],
 							'listing_data' => $this->_listing_data,
 							'fee_options' => $fees,
 							), false);
@@ -196,7 +301,13 @@ class WPBDP_DirectoryController {
 			$images_allowed += $fee->images;
 
 		if (!wpbdp_get_option('allow-images') || $images_allowed == 0)
-			return $this->submit_listing_save();		
+			return $this->submit_listing_save();
+
+		if ($this->_listing_data['listing_id'] && !$this->_listing_data['images']) {
+			foreach (wpbdp_listings_api()->get_images($this->_listing_data['listing_id']) as $image) {
+				$this->_listing_data['images'][] = $image->ID;
+			}
+		}
 
 		$images = $this->_listing_data['images'];
 		// sanitize images (maybe someone got deleted while we were here?)
@@ -259,8 +370,11 @@ class WPBDP_DirectoryController {
 
 		$images = $this->_listing_data['images'];
 
-		if (isset($_POST['thumbnail_id']) && in_array($_POST['thumbnail_id'], $images))
+		if (isset($_POST['thumbnail_id']) && in_array($_POST['thumbnail_id'], $images)) {
 			$this->_listing_data['thumbnail_id'] = $_POST['thumbnail_id'];
+		} elseif ($this->_listing_data['listing_id']) {
+			$this->_listing_data['thumbnail_id'] = wpbdp_listings_api()->get_thumbnail_id($this->_listing_data['listing_id']);
+		}
 
 		return wpbdp_render('listing-form-images', array(
 							'validation_errors' => null,
@@ -274,35 +388,15 @@ class WPBDP_DirectoryController {
 							), false);
 	}
 
-	// TODO: create user when user's not logged in and anonymous submits are allowed
-	// if (!(is_user_logged_in()) ) {
-	// 	if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
-	// 		if ($email = $formfields_api->extract($listingfields, $email_field)) {
-	// 			if (email_exists($email)) {
-	// 				$wpbusdirman_UID = get_user_by_email($email)->ID;
-	// 			} else {
-	// 				$randvalue = wpbusdirman_generatePassword(5,2);
-	// 				$wpbusdirman_UID = wp_insert_user(array(
-	// 					'display_name' => 'Guest ' . $randvalue,
-	// 					'user_login'=> 'guest_' . $randvalue,
-	// 					'user_email'=> $email,
-	// 					'user_pass'=> wpbusdirman_generatePassword(7,2)));
-	// 			}
-	// 		}
-	// 	}
-	// } elseif(is_user_logged_in()) {
-	// 	global $current_user;
-	// 	get_currentuserinfo();
-	// 	$wpbusdirman_UID=$current_user->ID;
-	// }	
 	public function submit_listing_save() {
 		if (isset($_POST['thumbnail_id']))
 			$this->_listing_data['thumbnail_id'] = intval($_POST['thumbnail_id']);
 
 		$data = $this->_listing_data;
-		
+
 		if ($listing_id = $this->listings->add_listing($data)) {
-			$cost = $this->listings->cost_of_listing($listing_id);
+			$cost = $this->listings->cost_of_listing($listing_id, true);
+
 			if ($cost > 0.0) {
 				$payments_api = wpbdp_payments_api();
 
@@ -318,11 +412,13 @@ class WPBDP_DirectoryController {
 				return wpbdp_render('listing-form-checkout', array(
 					'cost' => $cost,
 					'gateways' => $gateways,
+					'listing_data' => $this->_listing_data,
 					'listing' => get_post($listing_id),
 				), false);
 			}
 
 			return wpbdp_render('listing-form-done', array(
+							'listing_data' => $this->_listing_data,
 							'listing' => get_post($listing_id)
 						), false);
 		} else {

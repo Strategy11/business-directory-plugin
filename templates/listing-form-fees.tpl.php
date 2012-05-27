@@ -17,7 +17,7 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 
 	<div id="lco">
 		<div class="title">
-			<?php echo !$listing ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
+			<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
 		</div>
 		<div class="button">
 			<?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
@@ -39,6 +39,7 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 	<?php endif; ?>	
 
 	<form id="wpbdp-listing-form-images" method="POST" action="">
+		<input type="hidden" name="action" value="<?php echo $listing_id ? 'editlisting' : 'submitlisting'; ?>" />
 		<input type="hidden" name="_step" value="payment" />
 		<input type="hidden" name="listing_data" value="<?php echo base64_encode(serialize($listing_data)); ?>" />
 

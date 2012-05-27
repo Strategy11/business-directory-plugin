@@ -444,7 +444,7 @@ class WPBDP_FormFieldsAPI {
 	}
 	
 	public function render_select(&$field, $value=null, $multiselect=false) {
-		if (is_string($value))
+		if (!is_array($value))
 			return $this->render_select($field, explode("\t", $value), $multiselect);
 
 		$html = '';

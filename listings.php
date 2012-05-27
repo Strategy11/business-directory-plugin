@@ -5,20 +5,83 @@ class WPBDP_ListingsAPI {
 
 	public function __construct() { }
 
-	public function cost_of_listing($listing_id) {
+	public function get_thumbnail_id($listing_id) {
+		return intval(get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true));
+	}
+
+	public function get_images($listing_id) {
+		$attachments = get_posts(array(
+			'numberposts' => -1,
+			'post_type' => 'attachment',
+			'post_parent' => $listing_id
+		));
+
+		$result = array();
+
+		foreach ($attachments as $attachment) {
+			if (wp_attachment_is_image($attachment->ID))
+				$result[] = $attachment;
+		}
+
+		return $result;
+	}
+
+	public function get_payment_status($listing_id) {
+		$payment_info = get_post_meta($listing_id, '_wpbdp[payment]', true);
+		return $payment_info ? $payment_info['status'] : 'not-paid';
+	}
+
+	// effective_cost means do not include already paid fees
+	public function cost_of_listing($listing_id, $effective_cost=false) {
 		if (is_object($listing_id)) return $this->cost_of_listing($listing_id->ID);
 
 		$fees = get_post_meta($listing_id, '_wpbdp[fees]', true);
 		$cost = 0.0;
 
-		foreach ($fees as $fee)
-			$cost += floatval($fee['amount']);
+		foreach ($fees as $fee) {
+			if (!isset($fee['_nocharge']))
+				$cost += floatval($fee['amount']);
+		}
 
 		return round($cost, 2);
 	}
 
+	public function get_listing_fee_for_category($listing_id, $catid) {
+		$fees = get_post_meta($listing_id, '_wpbdp[fees]', true);
+
+		foreach ($fees as $fee) {
+			if ($fee['category_id'] == $catid) {
+				unset($fee['category_id']);
+				return ((object) $fee);
+			}
+		}
+	}
+
+	// TODO: create user when user's not logged in and anonymous submits are allowed
+	// if (!(is_user_logged_in()) ) {
+	// 	if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
+	// 		if ($email = $formfields_api->extract($listingfields, $email_field)) {
+	// 			if (email_exists($email)) {
+	// 				$wpbusdirman_UID = get_user_by_email($email)->ID;
+	// 			} else {
+	// 				$randvalue = wpbusdirman_generatePassword(5,2);
+	// 				$wpbusdirman_UID = wp_insert_user(array(
+	// 					'display_name' => 'Guest ' . $randvalue,
+	// 					'user_login'=> 'guest_' . $randvalue,
+	// 					'user_email'=> $email,
+	// 					'user_pass'=> wpbusdirman_generatePassword(7,2)));
+	// 			}
+	// 		}
+	// 	}
+	// } elseif(is_user_logged_in()) {
+	// 	global $current_user;
+	// 	get_currentuserinfo();
+	// 	$wpbusdirman_UID=$current_user->ID;
+	// }	
 	public function add_listing($data_) {
 		$data = is_object($data_) ? (array) $data_ : $data_;
+
+		$editing = isset($data['listing_id']) && $data['listing_id'];
 
 		$listingfields = $data['fields'];
 
@@ -36,7 +99,7 @@ class WPBDP_ListingsAPI {
 		if ($post_tags && !is_array($post_tags))
 			$post_tags = explode(',', $post_tags);
 
-		$post_status = isset($data['id']) ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
+		$post_status = isset($data['listing_id']) ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
 
 		$listing_id = wp_insert_post(array(
 			'post_title' => $post_title,
@@ -44,7 +107,7 @@ class WPBDP_ListingsAPI {
 			'post_excerpt' => $post_excerpt,
 			'post_status' => $post_status,
 			'post_type' => wpbdp_post_type(),
-			'ID' => isset($data['id']) ? intval($data['id']) : null
+			'ID' => isset($data['listing_id']) ? intval($data['listing_id']) : null
 
 		));
 
@@ -89,15 +152,23 @@ class WPBDP_ListingsAPI {
 
 			$fee_information[] = $fee;
 
-			add_post_meta($listing_id, '_wpbdp[expired][' . $catid . ']', 0);
+			if (!isset($fee['_nocharge']))
+				add_post_meta($listing_id, '_wpbdp[expired][' . $catid . ']', 0);
 		}
 
-		add_post_meta($listing_id, '_wpbdp[fees]', $fee_information, true);
+		update_post_meta($listing_id, '_wpbdp[fees]', $fee_information);
 
-		// register initial payment info
-		$cost = $this->cost_of_listing($listing_id);
-		add_post_meta($listing_id, '_wpbdp[payment]', array('status' => $cost > 0.0 ? 'not-paid' : 'paid',
-															'details' => array()));
+		// register payment info
+		$cost = $this->cost_of_listing($listing_id, true);
+
+		if ($editing) {
+			$payment_info = get_post_meta($listing_id, '_wpbdp[payment]', true);
+			$payment_info['status'] = $cost > 0.0 ? 'not-paid' : 'paid';
+			update_post_meta($listing_id, '_wpbdp[payment]', $payment_info);
+		} else {
+			add_post_meta($listing_id, '_wpbdp[payment]', array('status' => $cost > 0.0 ? 'not-paid' : 'paid',
+																'details' => array()));			
+		}
 
 		return $listing_id;
 	}

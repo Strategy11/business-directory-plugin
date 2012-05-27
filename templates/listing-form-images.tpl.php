@@ -10,7 +10,7 @@ function wpbdp_listingform_delete_image(id) {
 
 	<div id="lco">
 		<div class="title">
-			<?php echo !$listing ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
+			<?php echo !$listing_data['listing_id'] ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
 		</div>
 		<div class="button">
 			<?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
@@ -22,8 +22,8 @@ function wpbdp_listingform_delete_image(id) {
 	<div class="clear"></div>
 
 	<form id="wpbdp-listing-form-images" method="POST" action="" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="<?php echo $listing ? 'editlisting' : 'submitlisting'; ?>" />		
 		<input type="hidden" name="_step" value="images" />
-		<input type="hidden" name="listing_id" value="<?php echo $listing ? $listing->ID : 0; ?>" />
 		<input type="hidden" name="listing_data" value="<?php echo base64_encode(serialize($listing_data)); ?>" />
 		<input type="hidden" name="delete_image" value="0" />
 

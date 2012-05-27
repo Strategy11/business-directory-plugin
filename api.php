@@ -199,6 +199,10 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 }
 
 /* Fees/Payment API */
+function wpbdp_payment_status($listing_id) {
+	return wpbdp_listings_api()->get_payment_status($listing_id);
+}
+
 function wpbdp_payments_possible() {
 	// check not only that payments are 'on' but that it is possible to pay for something
 	// (i.e. there are fees configured, payment plugins active and at least one of them on)
