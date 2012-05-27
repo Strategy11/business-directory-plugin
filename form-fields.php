@@ -201,6 +201,12 @@ class WPBDP_FormFieldsAPI {
 			if ($field->validator && !call_user_func('WPBDP_FormFieldValidators::' . $field->validator, $value))
 				$errors[] = call_user_func('WPBDP_FormFieldValidators::' . $field->validator . '_msg', $field->label, $value);
 
+			if ($field->association == 'category') {
+				if (get_term_by('id', $value, wpbdp_categories_taxonomy()) == false) {
+					$errors[] = _x('Please select a valid category.');
+				}
+			}
+
 			// TODO: check selected options in select/multiselect/radio/checkbox are valid
 		}
 
@@ -232,8 +238,9 @@ class WPBDP_FormFieldsAPI {
 				return $this->extract($listing, $fieldobj);
 		}
 
-		if ($field)
+		if ($field) {
 			return wpbdp_getv($listing, $field, null);
+		}
 
 		return null;
 	}

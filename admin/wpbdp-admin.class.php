@@ -106,6 +106,10 @@ class WPBDP_Admin {
     function listing_metabox($post) {
         global $wpbusdirman_haspaypalmodule;
 
+        echo '<pre>';
+        print_r(get_post_meta($post->ID, null));
+        echo '</pre>';
+
         // Payment information
         if ($payment_status = get_post_meta($post->ID, '_wpbdp_paymentstatus', true)) {
             echo '<div class="misc-pub-section">';

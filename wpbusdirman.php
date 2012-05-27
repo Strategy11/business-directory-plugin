@@ -145,8 +145,6 @@ $wpbusdirmanconfigoptionsprefix="wpbusdirman";
 /*******************************************************************************
 *	SETTING UP PLUGIN HOOKS TO ALLOW CUSTOM OVERRIDES
 *******************************************************************************/
-	//display add listing form
-	add_filter('wpbdm_show-add-listing-form', 'wpbusdirman_displaypostform', 10, 4);
 	//display image upload form
 	add_filter('wpbdm_show-image-upload-form', 'wpbusdirman_image_upload_form', 10, 8);
 	//form post handler
@@ -191,131 +189,6 @@ function wpBusDirManUi_addListingForm()
 	{
 		$html .= apply_filters('wpbdm_show-add-listing-form', 1, '', 'new', '');
 	}
-
-	return $html;
-}
-
-function wpbusdirman_displaypostform($makeactive = 1, $wpbusdirmanerrors=null, $neworedit = 'new', $wpbdmlistingid = '')
-{
- 	global $wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory,$wpbdmposttypetags,$wpbdmposttype;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirmanselectedword="selected";
- 	$wpbusdirmancheckedword="checked";
-	$wpbusdirman_field_value='';
- 	$args=array('hide_empty' => 0);
- 	$wpbusdirman_postcats=get_terms( $wpbdmposttypecategory, $args);
- 	$html = '';
- 	$html .= "<div id=\"wpbdmentry\">";
- 	$html .= "<div id=\"lco\">";
-	$html .= "<div class=\"title\">";
-	if($neworedit == 'new'){
-	$html .= __("Submit A Listing", 'WPBDM');
-	}
-	elseif($neworedit == 'edit') {
-	$html .= __("Edit Your Listing", 'WPBDM');}
-	else {
-	$html .= __("Submit A Listing", 'WPBDM');
-	}
-	$html .= "</div>";
-	$html .= "<div class=\"button\">";
-	$html .= wpbusdirman_post_menu_button_viewlistings();
-	$html .= wpbusdirman_post_menu_button_directory();
-	$html .= "</div>";
-	$html .= "<div style=\"clear:both;\"></div></div>";
-
- 	if(!isset($wpbusdirman_postcats) || empty($wpbusdirman_postcats)) {
- 		if (is_user_logged_in() && current_user_can('install_plugins')) {
- 			$html .= "<p>" . __("There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.","WPBDM") . "</p>";
- 		} else {
- 			$html .= "<p>" . __("Your listing cannot be added at this time. Please try again later.","WPBDM") . "</p>";
- 		}
- 	} else {
-		if(($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_3'] == "yes") && !is_user_logged_in()) {
-			$wpbusdirman_loginurl=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_4'];
-			if(!isset($wpbusdirman_loginurl) || empty($wpbusdirman_loginurl)) {
-				$wpbusdirman_loginurl=get_option('siteurl').'/wp-login.php';
-			}
-			$html .= "<p>" . __("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.","WPBDM") . "</p>";
-			$html .= "<form method=\"post\" action=\"$wpbusdirman_loginurl\"><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Login Now","WPBDM") . "\"></form>";
-		} else {
-			$html .= "<div class=\"clear\"></div><form method=\"post\" action=\"\" enctype=\"application/x-www-form-urlencoded\">";
-			$html .= "<input type=\"hidden\" name=\"formmode\" value=\"$makeactive\" />";
-			$html .= "<input type=\"hidden\" name=\"neworedit\" value=\"$neworedit\" />";
-			$html .= "<input type=\"hidden\" name=\"wpbdmlistingid\" value=\"$wpbdmlistingid\" />";
-			$html .= "<input type=\"hidden\" name=\"action\" value=\"post\" />";
-			
-			if ($wpbusdirmanerrors) {
-				$html .= '<ul id="wpbusdirmanerrors">';
-				
-				foreach ($wpbusdirmanerrors as $error)
-					$html .= sprintf('<li class="wpbusdirmanerroralert">%s</li>', $error);
-				
-				$html .= '</ul>';
-			}
-
-			$post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
-
-			$formfields_api = wpbdp_formfields_api();
-
-			if ($fields = $formfields_api->getFields()) {
-				foreach ($fields as $field) {
-					$field_value = null;
-
-					if (isset($wpbdmlistingid) && !empty($wpbdmlistingid)) {
-						switch ($field->association) {
-							case 'title':
-								$field_value = get_the_title($wpbdmlistingid);
-								break;
-							case 'content':
-								$field_value = wpbdm_get_post_data('post_content', $wpbdmlistingid);
-								break;
-							case 'excerpt':
-								$field_value = wpbdm_get_post_data('post_excerpt', $wpbdmlistingid);
-								break;
-							case 'category':
-								$field_value = array();
-
-								foreach (get_the_terms($wpbdmlistingid, wpbdp()->get_post_type_category()) as $term)
-									$field_value[] = $term->term_id;
-
-								break;
-							case 'tags':
-								$terms = get_the_terms($wpbdmlistingid, wpbdp()->get_post_type_tags());
-
-								if (in_array($field->type, array('select', 'multiselect', 'checkbox'))) {
-									$field_value = array();
-
-									foreach ($terms as $t)
-										$field_value[] = $t->term_id;
-								} else {
-									$field_value = '';
-
-									foreach ($terms as $t)
-										$field_value .= $t->slug . ',';
-
-									$field_value = substr($field_value, 0, -1);
-								}
-
-								break;
-							case 'meta':
-							default:
-								$field_value = get_post_meta($wpbdmlistingid, '_wpbdp[fields][' . $field->id . ']', true);
-								break;
-						}
-					}
-					
-					$field_value = wpbdp_getv($post_values, $field->id, $field_value);
-					$html .= $formfields_api->render($field, $field_value);
-				}
-			}
-
-			$html .= apply_filters('wpbdp_listing_form', '', $neworedit == 'new' ? false : true);
-
-			$html .= "<p><input type=\"submit\" class=\"insubmitbutton\" value=\"" . __("Submit","WPBDM") . "\" /></p></form>";
-		}
-	}
-
-	$html .= "</div>";
 
 	return $html;
 }
@@ -548,7 +421,7 @@ function wpbusdirman_do_post()
 				{
 
 					/* wpbusdirman_fee_to_pay_li value is missing so move on and setup the image upload form to display to the user */
-
+ 
 					if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
 					{
 						$wpbusdirmanlistingtermlength=array();
@@ -2896,6 +2769,7 @@ require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
 require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
 require_once(WPBDP_PATH . 'form-fields.php');
 require_once(WPBDP_PATH . 'payment.php');
+require_once(WPBDP_PATH . 'listings.php');
 require_once(WPBDP_PATH . 'views.php');
 
 require_once(WPBDP_PATH . '/deprecated/deprecated.php');
@@ -2921,7 +2795,8 @@ class WPBDP_Plugin {
 		$this->settings = new WPBDP_Settings();
 		$this->formfields = new WPBDP_FormFieldsAPI();
 		$this->fees = new WPBDP_FeesAPI();
-		$this->payments = new WPBDP_PaymentAPI();
+		$this->payments = new WPBDP_PaymentsAPI();
+		$this->listings = new WPBDP_ListingsAPI();
 		$this->controller = new WPBDP_DirectoryController();
 
 		add_action('init', array($this, 'install_or_update_plugin'), 0);

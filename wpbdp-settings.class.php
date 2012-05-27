@@ -31,7 +31,7 @@ class WPBDP_Settings {
 		/* Listings settings */
 		$g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
 		$s = $this->add_section($g, 'general', _x('General Settings', 'admin settings', 'WPBDM'));
-		$this->add_setting($s, 'listing-duration', _x('Listing duration for no-free sites (in days)', 'admin settings', 'WPBDM'), 'text', '365');
+		$this->add_setting($s, 'listing-duration', _x('Listing duration for no-fee sites (in days)', 'admin settings', 'WPBDM'), 'text', '365');
 		$this->add_setting($s, 'show-contact-form', _x('Include listing contact form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'show-comment-form', _x('Include comment form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);

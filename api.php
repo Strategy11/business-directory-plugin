@@ -25,7 +25,7 @@ function wpbdp_categories_taxonomy() {
 }
 
 function wpbdp_tags_taxonomy() {
-	return wpbd()->get_post_type_tags();
+	return wpbdp()->get_post_type_tags();
 }
 
 function wpbdp_get_page_id($name='main') {
@@ -198,9 +198,28 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 					   $value);
 }
 
-/* Fees API */
+/* Fees/Payment API */
+function wpbdp_payments_possible() {
+	// check not only that payments are 'on' but that it is possible to pay for something
+	// (i.e. there are fees configured, payment plugins active and at least one of them on)
+	return wpbdp_get_option('payments-on') &&
+		   wpbdp_fees_api()->fees_available() &&
+		   ( (wpbdp()->has_module('paypal') && wpbdp_get_option('paypal')) ||
+		   	 (wpbdp()->has_module('2checkout') && wpbdp_get_option('2checkout')) ||
+		   	 (wpbdp()->has_module('googlecheckout') && wpbdp_get_option('googlecheckout')) );
+}
+
 function wpbdp_fees_api() {
 	return wpbdp()->fees;
+}
+
+function wpbdp_payments_api() {
+	return wpbdp()->payments;
+}
+
+/* Listings API */
+function wpbdp_listings_api() {
+	return wpbdp()->listings;
 }
 
 /* Misc. */
@@ -222,6 +241,49 @@ function wpbdp_categories_list($parent=0, $hierarchical=true) {
 	return $terms;
 }
 
-function wpbdp_locate_template($template) {
-	return wpbdp()->controller->locate_template($template);
+function wpbdp_get_parent_categories($catid) {
+	$category = get_term(intval($catid), wpbdp_categories_taxonomy());
+
+	if ($category->parent) {
+		return array_merge(array($category), wpbdp_get_parent_categories($category->parent));
+	}
+
+	return array($category);
+}
+
+function wpbdp_locate_template($template, $allow_override=true) {
+	$template_file = '';
+
+	if (!is_array($template))
+		$template = array($template);
+
+	if ($allow_override) {
+		$search_for = array();
+
+		foreach ($template as $t) {
+			$search_for[] = $t . '.tpl.php';
+			$search_for[] = $t . '.php';
+			$search_for[] = 'single/' . $t . '.tpl.php';
+			$search_for[] = 'single/' . $t . '.php';
+		}
+
+		$template_file = locate_template($search_for);
+	}
+
+	if (!$template_file) {
+		foreach ($template as $t) {
+			$template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php'; 
+			
+			if (file_exists($template_path)) {
+				$template_file = $template_path;
+				break;
+			}
+		}
+	}
+
+	return $template_file;
+}
+
+function wpbdp_render($template, $vars=array(), $allow_override=true) {
+	return wpbdp_render_page(wpbdp_locate_template($template, $allow_override), $vars, false);
 }

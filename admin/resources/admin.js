@@ -44,8 +44,8 @@ jQuery(document).ready(function($){
 	// });
 
 	$('form#wpbdp-fee-form').submit(function(){
-		alert($('form#wpbdp-fee-form input[name="fee[days]"]').val());
-		return false;
+		// alert($('form#wpbdp-fee-form input[name="fee[days]"]').val());
+		// return false;
 		$('form input[name="fee[days]"]').removeAttr('disabled');
 		return true;
 	});

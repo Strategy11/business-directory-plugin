@@ -9,23 +9,80 @@ class WPBDP_FeesAPI {
 
     public function __construct() { }
 
+    public static function get_free_fee() {
+        $fee = new StdClass();
+        $fee->id = 0;
+        $fee->label = _x('Free Listing', 'fees-api', 'WPBDM');
+        $fee->amount = 0.0;
+        $fee->images = intval(wpbdp_get_option('free-images'));
+        $fee->days = intval(wpbdp_get_option('listing-duration'));
+        $fee->categories = array('all' => true, 'categories' => array());
+        $fee->extra_data = null;
+
+        return $fee;
+    }
+
     private function normalize(&$fee) {
         $fee->categories = unserialize($fee->categories);
     }
 
-    public function get_fees() {
+    public function fees_available() {
         global $wpdb;
+        return intval($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees")) > 0;
+    }
+
+    public function get_fees_for_category($catid) {
+        $fees = array();
         
-        $fees = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpbdp_fees");
-        
-        foreach ($fees as &$fee)
-            $this->normalize($fee);
+        $parent_categories = wpbdp_get_parent_categories($catid);
+        array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
+
+        foreach ($this->get_fees() as $fee) {
+            if ($fee->categories['all']) {
+                $fees[] = $fee;
+            } else {
+                foreach ($fee->categories['categories'] as $fee_catid) {
+                    if (in_array($fee_catid, $parent_categories)) {
+                        $fees[] = $fee;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!$fees)
+            $fees[] = $this->get_free_fee();
 
         return $fees;
     }
 
+    public function get_fees($categories=null) {
+        global $wpdb;
+        
+        if (isset($categories)) {
+            $fees = array();
+
+            foreach ($categories as $catid) {
+                $category_fees = $this->get_fees_for_category($catid);
+                $fees[$catid] = $category_fees;
+            }
+
+            return $fees;
+        } else {
+            $fees = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpbdp_fees");
+            
+            foreach ($fees as &$fee)
+                $this->normalize($fee);
+
+            return $fees;
+        }
+    }
+
     public function get_fee_by_id($id) {
         global $wpdb;
+
+        if ($id == 0)
+            return $this->get_free_fee();
 
         if ($fee = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $id))) {
             $this->normalize($fee);
@@ -155,8 +212,42 @@ class WPBDP_FeesAPI {
 
 }
 
-class WPBDP_PaymentAPI {
+class WPBDP_PaymentsAPI {
 
+    public function __construct() {
+        $this->gateways = array();
+    }
+
+    public function register_gateway($id, $options=array()) {
+        $default_options = array('name' => $id,
+                                 'html_callback' => null,
+                                 'process_callback' => null);
+        $options = array_merge($default_options, $options);
+
+        if (array_key_exists($id, $this->gateways))
+            return false;
+
+        $gateway = new StdClass();
+        $gateway->id = $id;
+        $gateway->name = $options['name'];
+        $gateway->html_callback = $options['html_callback'];
+        $gateway->process_callback = $options['process_callback'];
+
+        $this->gateways[$gateway->id] = $gateway;
+    }
+
+    public function get_available_methods() {
+        return $this->gateways;
+    }
+
+    public function generate_html($gateway, $listing_id, $amount, $is_renewal=false) {
+        if (is_object($gateway)) return $this->generate_html($gateway->id, $listing_id, $amount, $renewal);
+        if (is_object($listing_id)) return $this->generate_html($gateway->id, $listing->ID, $amount, $renewal);
+        return call_user_func($this->gateways[$gateway]->html_callback,
+                              $listing_id,
+                              $amount,
+                              $is_renewal);
+    }
 
 }
 
