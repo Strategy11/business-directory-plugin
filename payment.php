@@ -240,13 +240,13 @@ class WPBDP_PaymentsAPI {
         return $this->gateways;
     }
 
-    public function generate_html($gateway, $listing_id, $amount, $is_renewal=false) {
-        if (is_object($gateway)) return $this->generate_html($gateway->id, $listing_id, $amount, $renewal);
-        if (is_object($listing_id)) return $this->generate_html($gateway->id, $listing->ID, $amount, $renewal);
+    public function generate_html($gateway, $listing_id, $amount, $type='payment') {
+        if (is_object($gateway)) return $this->generate_html($gateway->id, $listing_id, $amount, $type);
+        if (is_object($listing_id)) return $this->generate_html($gateway->id, $listing->ID, $amount, $type);
         return call_user_func($this->gateways[$gateway]->html_callback,
                               $listing_id,
                               $amount,
-                              $is_renewal);
+                              $type);
     }
 
 }

@@ -402,62 +402,6 @@ function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid
 						), false);
 }
 
-
-function wpbusdirman_upgradetosticky($wpbdmlistingid)
-{
- 	global $wpbusdirman_imagesurl,$wpbusdirman_haspaypalmodule,$wpbusdirman_hastwocheckoutmodule,$wpbusdirman_hasgooglecheckoutmodule,$wpbusdirman_gpid,$wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirman_get_currency_symbol=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_12'];
-
-	if(!isset($wpbusdirman_get_currency_symbol)
-		|| empty($wpbusdirman_get_currency_symbol))
-	{
-		$wpbusdirman_get_currency_symbol="$";
-	}
-
-	$html = '';
- 	$html .= "<h4>" . __("Upgrade listing","WPBDM") . "</h4>";
- 	$wpbdmstickydetailtext=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_33'];
- 	if(isset($wpbdmstickydetailtext)
- 		&& !empty($wpbdmstickydetailtext))
- 	{
- 		$html .= "<p>$wpbdmstickydetailtext</p>";
- 	}
- 	$wpbusdirman_stickylistingprice=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_32'];
- 	add_post_meta($wpbdmlistingid, "_wpbdp_sticky", "not paid", true) or update_post_meta($wpbdmlistingid, "_wpbdp_sticky", "not paid");
-	if($wpbusdirman_hasgooglecheckoutmodule == 1)
-	{
-		$html .= "<h4 class=\"paymentheader\">" . __("Pay ", "WPBDM");
-		$html .= $wpbusdirman_get_currency_symbol;
-		$html .= $wpbusdirman_stickylistingprice;
-		$html .= __(" upgrade fee via Google Checkout","WPBDM") . "</h4>";
-		$wpbusdirman_googlecheckout_button=wpbusdirman_googlecheckout_button($wpbdmlistingid,$wpbusdirmanfeeoption='32',$wpbusdirman_stickylistingprice);
-		$html .= "<div class=\"paymentbuttondiv\">" . $wpbusdirman_googlecheckout_button . "</div>";
-	}
-
-	if($wpbusdirman_haspaypalmodule == 1)
-	{
-		$html .= "<h4 class=\"paymentheader\">" . __("Pay ", "WPBDM");
-		$html .= $wpbusdirman_get_currency_symbol;
-		$html .= $wpbusdirman_stickylistingprice;
-		$html .= __(" upgrade fee via PayPal","WPBDM") . "</h4>";
-		$wpbusdirman_paypal_button=wpbusdirman_paypal_button($wpbdmlistingid,$wpbusdirmanfeeoption='32',$wpbusdirman_imagesurl,$wpbusdirman_stickylistingprice);
-		$html .= "<div class=\"paymentbuttondiv\">" . $wpbusdirman_paypal_button . "</div>";
-	}
-
-	if($wpbusdirman_hastwocheckoutmodule == 1)
-	{
-		$html .= "<h4 class=\"paymentheader\">" . __("Pay ", "WPBDM");
-		$html .= $wpbusdirman_get_currency_symbol;
-		$html .= $wpbusdirman_stickylistingprice;
-		$html .= __(" upgrade fee via 2Checkout","WPBDM") . "</h4>";
-		$wpbusdirman_twocheckout_button=wpbusdirman_twocheckout_button($wpbdmlistingid,$wpbusdirmanfeeoption='32',$wpbusdirman_gpid,$wpbusdirman_stickylistingprice);
-		$html .= "<div class=\"paymentbuttondiv\">" . $wpbusdirman_twocheckout_button . "</div>";
-	}
-
-	return $html;
-}
-
 // TODO - implement thankyou message
 function wpbusdirman_payment_thankyou()
 {
@@ -600,33 +544,8 @@ function wpbusdirman_listings_expirations()
 	}
 }
 
-function wpbusdirman_viewlistings()
-{
-	global $wpbusdirman_plugin_path;
-
-	ob_start();
-
-	if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
-	{
-		include get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php';
-	}
-	elseif(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
-	{
-		include get_template_directory() . '/single/wpbusdirman-index-listings.php';
-	}	
-	elseif(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php'))
-	{
-		include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
-	}
-	else
-	{
-		include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
-	}
-
-	$html = ob_get_contents();
-	ob_end_clean();
-
-	return $html;
+function wpbusdirman_viewlistings() {
+	return wpbdp()->controller->view_listings();
 }
 
 
@@ -773,7 +692,7 @@ function wpbusdirman_menu_button_upgradelisting()
 			{
 				if( (!isset($wpbdmpostissticky) || empty($wpbdmpostissticky) || ($wpbdmpostissticky == 'not paid')) && ( $post->post_status == 'publish') )
 				{
-					$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="wpbusdirmanlistingid" value="' . $post->ID . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
+					$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
 				}
 			}
 		}
@@ -1370,10 +1289,42 @@ class WPBDP_Plugin {
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
+		
+		add_filter('posts_request', array($this, '_posts_request'));
+		add_action('pre_get_posts', array($this, '_pre_get_posts'));
 
 		add_filter('comments_template', array($this, '_comments_template'));
 		add_filter('taxonomy_template', array($this, '_category_template'));
 		add_filter('single_template', array($this, '_single_template'));
+	}
+
+	// TODO: handle sticky posts
+	public function _pre_get_posts(&$query) {
+		global $wpdb;
+
+		// category page query
+		if (!$query->is_admin && $query->is_archive && $query->get(self::POST_TYPE_CATEGORY)) {
+			$category = get_term_by('slug', $query->get(self::POST_TYPE_CATEGORY), self::POST_TYPE_CATEGORY);
+			$category_ids = array_merge(array(intval($category->term_id)), get_term_children($category->term_id, self::POST_TYPE_CATEGORY));
+
+			// select posts expired in this category (and all of its children)
+			$sql = "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE 1=1";
+			foreach ($category_ids as $cat_id)
+				$sql .= sprintf(" AND (meta_key = '%s' AND meta_value = '%s')", '_wpbdp[expired][' . $cat_id . ']', '1');
+			$excluded_ids = $wpdb->get_col($sql);
+
+			$query->set('post_status', 'publish');
+			$query->set('post__not_in', $excluded_ids);
+			$query->set('post_type', self::POST_TYPE);
+			$query->set('posts_per_page', 0);
+			$query->set('orderby', wpbdp_get_option('listings-order-by', 'date'));
+			$query->set('order', wpbdp_get_option('listings-sort', 'ASC'));
+		}
+	}
+
+	public function _posts_request($sql) {
+		wpbdp_debug($sql);
+		return $sql;
 	}
 
 	public function plugin_activation() {

@@ -13,7 +13,7 @@ class WPBDP_Admin {
     function __construct() {
         add_action('admin_init', array($this, 'handle_actions'));
         add_action('admin_init', array($this, 'register_settings'));
-        add_action('admin_init', array($this, 'add_listing_metabox'));
+        add_action('admin_init', array($this, 'add_metaboxes'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'admin_javascript'));
@@ -24,6 +24,8 @@ class WPBDP_Admin {
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
         add_filter('views_edit-' . WPBDP_Plugin::POST_TYPE, array($this, 'add_custom_views'));
         add_filter('request', array($this, 'apply_query_filters'));
+
+        add_action('save_post', array($this, '_save_post'));
     }
 
     function admin_javascript() {
@@ -93,7 +95,7 @@ class WPBDP_Admin {
         }
     }
 
-    function add_listing_metabox() {
+    function add_metaboxes() {
         add_meta_box('BusinessDirectory_listinginfo',
                      __('Listing Information', 'WPBDM'),
                      array($this, 'listing_metabox'),
@@ -101,6 +103,69 @@ class WPBDP_Admin {
                      'side',
                      'core'
                     );
+
+        add_meta_box('wpbdp-listing-fields',
+                    _x('Listing Fields / Images', 'admin', 'WPBDM'),
+                    array($this, '_listing_fields_metabox'),
+                    wpbdp_post_type(),
+                    'normal',
+                    'core');
+    }
+
+    public function _listing_fields_metabox($post) {
+        $formfields_api = wpbdp_formfields_api();
+
+        $post_values = wpbdp_getv($_POST, 'listingfields', array());
+
+        echo wp_nonce_field( plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce');
+
+        echo '<div style="border-bottom: solid 1px #dedede; padding-bottom: 10px;">';
+        echo sprintf('<strong>%s</strong>', _x('Listing Fields', 'admin', 'WPBDM'));
+        echo '<div style="padding-left: 10px;">';
+        foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
+            $value = wpbdp_getv($post_values, $field->id, wpbdp_get_listing_field_value($post->ID, $field));
+
+            echo $formfields_api->render($field, $value);
+        }
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="clear"></div>';
+
+        // listing images
+/*        $listings_api = wpbdp_listings_api();
+
+        echo '<div style="margin-top: 10px;">';
+        echo sprintf('<b>%s</b>', _x('Listing Images', 'admin', 'WPBDM'));
+        echo '<div style="padding-left: 10px;">';
+        if ($images = $listings_api->get_images($post->ID)) {
+
+        }
+        echo '</div>';
+        echo '</div>';*/
+    }
+
+    public function _save_post($post_id) {
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+            return;
+
+        if (!wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
+            return;
+
+        // save custom fields
+        $formfields_api = wpbdp_formfields_api();
+        $listingfields = wpbdp_getv($_POST, 'listingfields', array());
+        
+        foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
+            if (isset($listingfields[$field->id])) {
+                if ($value = $formfields_api->extract($listingfields, $field)) {
+                    if (in_array($field->type, array('multiselect', 'checkbox'))) {
+                        $value = implode("\t", $value);
+                    }
+
+                    update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
+                }
+            }
+        }
     }
 
     function listing_metabox($post) {

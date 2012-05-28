@@ -5,6 +5,14 @@ class WPBDP_ListingsAPI {
 
 	public function __construct() { }
 
+	public function get_sticky_status($listing_id) {
+		if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
+			return $sticky_status;
+		}
+
+		return 'normal';
+	}
+
 	public function get_thumbnail_id($listing_id) {
 		return intval(get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true));
 	}

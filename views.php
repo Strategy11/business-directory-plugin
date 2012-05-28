@@ -31,10 +31,47 @@ class WPBDP_DirectoryController {
     		case 'deletelisting':
     			return $this->delete_listing();
     			break;
+    		case 'upgradetostickylisting':
+    			return $this->upgrade_to_sticky();
+    			break;
+    		case 'viewlistings':
+    			return $this->view_listings();
+    			break;
     		default:
     			return $this->main_page();
     			break;
     	}
+	}
+
+	/* display listings */
+	public function view_listings() {
+		return 'viewlistings';
+		// TODO
+	// global $wpbusdirman_plugin_path;
+
+	// ob_start();
+
+	// if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
+	// {
+	// 	include get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php';
+	// }
+	// elseif(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
+	// {
+	// 	include get_template_directory() . '/single/wpbusdirman-index-listings.php';
+	// }	
+	// elseif(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php'))
+	// {
+	// 	include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
+	// }
+	// else
+	// {
+	// 	include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
+	// }
+
+	// $html = ob_get_contents();
+	// ob_end_clean();
+
+	// return $html;
 	}
 
 	/*
@@ -533,6 +570,75 @@ class WPBDP_DirectoryController {
 		}
 	}
 
+	/* Upgrade to sticky. */
+	public function upgrade_to_sticky() {
+		if (!wpbdp_get_option('featured-on'))
+			return;
+
+		if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
+			$listings_api = wpbdp_listings_api();
+
+			if ($listings_api->get_payment_status($listing_id) != 'paid')
+				return wpbdp_render_msg(_x('You can not upgrade your listing until its payment has been cleared.', 'templates', 'WPBDM'));
+
+			$action = '';
+			if (isset($_POST['do_upgrade']))
+				$action = 'do_upgrade';
+
+			switch ($action) {
+				case 'do_upgrade':
+					$payments_api = wpbdp_payments_api();
+
+					$gateways = array();
+
+					foreach ($payments_api->get_available_methods() as $gateway) {
+						$gateways[] = array('id' => $gateway->id,
+											'name' => $gateway->name,
+											'html' => $payments_api->generate_html($gateway->id, $listing_id, wpbdp_get_option('featured-price'), 'upgrade-to-sticky'));
+					}
+
+					if ($gateways)
+						update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+
+					return wpbdp_render('listing-upgradetosticky-payment', array(
+							'listing' => get_post($listing_id),
+							'gateways' => $gateways,
+							'cost' => wpbdp_get_option('featured-price')
+						), false);
+
+					break;
+				default:
+					$sticky_status = $listings_api->get_sticky_status($listing_id);
+
+					if ($sticky_status == 'sticky')
+						return wpbdp_render_msg(_x('Your listing is already featured.', 'templates', 'WPBDM'));	
+					elseif ($sticky_status == 'pending')
+						return wpbdp_render_msg(_x('Your listing is already pending approval for "featured" status.', 'templates', 'WPBDM'));
+					else
+						return wpbdp_render('listing-upgradetosticky', array(
+							'listing' => get_post($listing_id),
+						), false);						
+
+					break;
+			}
+			
+			$sticky_status = $listings_api->get_sticky_status($listing_id);
+
+			switch ($sticky_status) {
+				case 'sticky':
+					return wpbdp_render_msg(_x('Your listing is already featured.', 'templates', 'WPBDM'));
+					break;
+				case 'pending':
+					return wpbdp_render_msg('listing is pending approval');
+					break;
+				default:
+					return wpbdp_render('listing-upgradetosticky', array(
+						'listing' => get_post($listing_id)
+					), false);
+					break;
+			}
+		}
+	}
 
 }
 

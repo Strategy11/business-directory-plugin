@@ -107,6 +107,9 @@ table.wp-list-table.formfields .tag.in-excerpt {
     background: green;
 }
 
+#wpbdp-listing-fields input {
+    width: 70%;
+}
 
 /* FIXME: some front-end styles */
 ul#wpbusdirmanerrors { margin-left:20px; }
