@@ -240,13 +240,56 @@ class WPBDP_PaymentsAPI {
         return $this->gateways;
     }
 
-    public function generate_html($gateway, $listing_id, $amount, $type='payment') {
+    public function generate_html($gateway, $listing_id, $amount, $type='payment', $transaction_id=0) {
         if (is_object($gateway)) return $this->generate_html($gateway->id, $listing_id, $amount, $type);
         if (is_object($listing_id)) return $this->generate_html($gateway->id, $listing->ID, $amount, $type);
         return call_user_func($this->gateways[$gateway]->html_callback,
                               $listing_id,
                               $amount,
-                              $type);
+                              $type,
+                              $transaction_id);
+    }
+
+    public function save_transaction($trans_) {
+        global $wpdb;
+
+        $trans = is_object($trans_) ? (array) $trans_ : $trans_;
+
+        if (isset($trans['payerinfo']))
+            $trans['payerinfo'] = serialize($trans['payerinfo']);
+
+        if (isset($trans['extra_data']))
+            $trans['extra_data'] = serialize($trans['extra_data']);
+
+        if (!isset($trans['id'])) {
+            if ($wpdb->insert("{$wpdb->prefix}wpbdp_payments", $trans))
+                return $wpdb->insert_id;
+        } else {
+            return $wpdb->update("{$wpdb->prefix}wpbdp_payments", $trans, array('id' => $trans['id'])) !== false;
+        }
+
+        return false;
+    }
+
+    public function get_transaction($transaction_id) {
+        global $wpdb;
+
+        $trans = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $transaction_id));
+
+        if ($trans->payerinfo) {
+            $trans->payerinfo = unserialize($trans->payerinfo);
+        } else {
+            $trans->payerinfo = array('name' => '',
+                                      'email' => '');
+        }
+
+        if ($trans->extra_data) {
+            $trans->extra_data = unserialize($trans->extra_data);
+        } else {
+            $trans->extra_data = array();
+        }
+
+        return $trans;
     }
 
 }

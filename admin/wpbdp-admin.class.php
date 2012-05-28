@@ -169,66 +169,82 @@ class WPBDP_Admin {
     }
 
     function listing_metabox($post) {
-        global $wpbusdirman_haspaypalmodule;
+        $listings_api = wpbdp_listings_api();
 
-        echo '<pre>';
-        print_r(get_post_meta($post->ID, null));
-        echo '</pre>';
+        // Payment status
+        $payment_status = $listings_api->get_payment_status($post->ID);
+        $last_transaction = $listings_api->get_last_transaction($post->ID);
 
-        // Payment information
-        if ($payment_status = get_post_meta($post->ID, '_wpbdp_paymentstatus', true)) {
-            echo '<div class="misc-pub-section">';
-            echo '<strong>' . __('Payment Information', 'WPBDM') . '</strong>';
-            echo '<dl>';
-                echo '<dt>'. __('Status', 'WPBDM') . '</dt>';
-                echo '<dd>' . $payment_status . '</dd>';
+        echo '<div class="misc-pub-section">';
+        echo '<strong>' . __('Payment Information', 'WPBDM') . '</strong>';        
+        echo '<dl>';
+            echo '<dt><u>'. __('Listing Cost') . '</u></dt>';            
+            echo '<dd>' . wpbdp_get_option('currency-symbol') .$listings_api->cost_of_listing($post->ID) . '</dd>';
+            echo '<dt><u>'. __('Status', 'WPBDM') . '</u></dt>';
+            echo '<dd>' . $payment_status . '</dd>';
+            echo '<dt><u>' . _x('Last Transaction', 'admin', 'WPBDM') . '</u></dt>';
+            echo '<dd>';
+                if ($last_transaction) {
+                    echo sprintf('<span>%s:</span> <strong>%s</strong><br />',
+                                 _x('Payment Type', 'admin', 'WPBDM'),
+                                 $last_transaction->payment_type ? $last_transaction->payment_type : '?');                    
+                    echo sprintf('<span>%s:</span> <strong>%s</strong><br />',
+                                 _x('Gateway', 'admin', 'WPBDM'),
+                                 $last_transaction->gateway ? $last_transaction->gateway : '?');
+                    echo sprintf('<span>%s: <strong>%s</strong></span><br />',
+                                 _x('Amount', 'admin', 'WPBDM'),
+                                 wpbdp_get_option('currency-symbol') . $last_transaction->amount);
+                    echo sprintf('<span>%s: <strong>%s</strong></span><br />',
+                                 _x('Status', 'admin', 'WPBDM'),
+                                 $last_transaction->status);
+                    echo sprintf('<span>%s: <strong>%s</strong></span><br />',
+                                 _x('Date', 'admin', 'WPBDM'),
+                                 $last_transaction->created_on);
+                    echo sprintf('<span>%s: </span><strong>%s</strong><br />',
+                                 _x('Payer Info', 'admin', 'WPBDM'),
+                                 $last_transaction->payerinfo['name'] ? $last_transaction->payerinfo['name'] : _x('Unknown', 'admin', 'WPBDM'));
+                    if ($last_transaction->payerinfo['email'])
+                        echo sprintf('<a href="mailto:%s">%s</a>', $last_transaction->payerinfo['email'], $last_transaction->payerinfo['email']);
 
-                echo '<dt>'. __('Gateway', 'WPBDM') . '</dt>';
-                echo '<dd>' . get_post_meta($post->ID, '_wpbdp_paymentgateway', true) . '</dd>';
-
-                if ($wpbusdirman_haspaypalmodule) {
-                    echo '<dt>'. __('Flag', 'WPBDM') . '</dt>';
-                    echo '<dd>' . (get_post_meta($post->ID, '_wpbdp_paymentflag', true) ? get_post_meta($post->ID, '_wpbdp_paymentflag', true) : '-') . '</dd>';
+                    if ($last_transaction->processed_on)
+                        echo sprintf('<span>%s:</span> <strong>%s</strong> by <strong>%s</strong>',
+                                     _x('Processed on', 'admin', 'WPBDM'),
+                                     $last_transaction->processed_on,
+                                     $last_transaction->processed_by);
+                } else {
+                    echo '--';
                 }
+            echo '</dd>';
+        echo '</dl>';
 
-                echo '<dt>'. __('Buyer', 'WPBDM') . '</dt>';
-                $buyer = sprintf('%s %s', get_post_meta($post->ID, '_wpbdp_buyerfirstname', true), get_post_meta($post->ID, '_wpbdp_buyerlastname', true));
-                echo '<dd>' . ($buyer != ' ' ? $buyer : '-') . '</dd>';
+        if ($payment_status != 'paid')
+            echo sprintf('<a href="%s" class="button-primary">%s</a> ',
+                     add_query_arg('wpbdmaction', 'setaspaid'),
+                     __('Set listing as Paid', 'WPBDM'));
+        else
+            echo sprintf('<a href="%s" class="button">%s</a>',
+                         add_query_arg('wpbdmaction', 'setasnotpaid'),
+                         __('Set listing as Not paid', 'WPBDM'));
+        echo '</div>';
 
-                echo '<dt>'. __('Payment Email', 'WPBDM') . '</dt>';
-                echo '<dd>' . (get_post_meta($post->ID, '_wpbdp_payeremail', true) ? get_post_meta($post->ID, '_wpbdp_payeremail', true) : '-') . '</dd>';
+        /*
+         * Sticky information.
+         */
+        $sticky_status = $listings_api->get_sticky_status($post->ID);
+        $status_string = '';
 
-                $status_links = '';
-
-                if ($payment_status != 'paid')
-                    echo sprintf('<a href="%s" class="button-primary">%s</a> ',
-                             add_query_arg('wpbdmaction', 'setaspaid'),
-                             __('Set as Paid', 'WPBDM'));
-                echo sprintf('<a href="%s" class="button">%s</a>',
-                             add_query_arg('wpbdmaction', 'setasnotpaid'),
-                             __('Set as Not paid', 'WPBDM'));
-
-            echo '</dl>';
-            echo '</div>';
-        }
-
-        // Sticky information
-        if ($status = get_post_meta($post->ID, '_wpbdp_sticky', true)) {
-            $status_string = '';
-
-            if ($status == 'not paid') $status_string = __('Not Paid', 'WPBDM');
-            if ($status == 'pending') $status_string = __('Pending Upgrade', 'WPBDM');
-            if ($status == 'approved') $status_string = __('Featured', 'WPBDM');
-        } else {
-            $status = 'notsticky';
-            $status_string = _x('Normal', 'admin list', 'WPBDM');
-        }
+        if ($sticky_status == 'sticky')
+            $status_string = _x('Featured', 'admin metabox', 'WPBDM');
+        elseif ($sticky_status == 'pending')
+            $status_string = _x('Pending Upgrade', 'admin metabox', 'WPBDM');
+        else
+            $status_string = _x('Normal', 'admin metabox', 'WPBDM');
 
         echo '<div class="misc-pub-section">';
         echo '<label>' .  _x('Sticky Status', 'admin metabox', 'WPBDM') . ': </label>';
         echo '<span><b>' . $status_string . '</b> </span>';
         
-        if ($status == 'approved') {
+        if ($sticky_status == 'sticky') {
             echo sprintf('<a href="%s">%s</a>',
                          add_query_arg('wpbdmaction', 'cancelfeatured'),
                          _x('Downgrade', 'admin metabox', 'WPBDM'));
@@ -241,6 +257,15 @@ class WPBDP_Admin {
         echo '</div>';
         echo '<div class="clear"></div>';
 
+        /* Fee info. 
+        echo '<div class="misc-pub-section">';
+        echo '<strong>' . _x('Fee Information', 'admin', 'WPBDM') . '</strong>';
+
+        foreach ()
+
+        echo '</div>';
+        echo '<div class="clear"></div>';        */
+
     }
 
     function apply_query_filters($request) {
@@ -249,15 +274,15 @@ class WPBDP_Admin {
         if (is_admin() && isset($_REQUEST['wpbdmfilter']) && $current_screen->id == 'edit-' . WPBDP_Plugin::POST_TYPE) {
             switch ($_REQUEST['wpbdmfilter']) {
                 case 'pendingupgrade':
-                    $request['meta_key'] = '_wpbdp_sticky';
+                    $request['meta_key'] = '_wpbdp[sticky]';
                     $request['meta_value'] = 'pending';
                     break;
                 case 'paid':
-                    $request['meta_key'] = '_wpbdp_paymentstatus';
+                    $request['meta_key'] = '_wpbdp[payment_status]';
                     $request['meta_value'] = 'paid';
                     break;
                 default:
-                    $request['meta_key'] = '_wpbdp_paymentstatus';
+                    $request['meta_key'] = '_wpbdp[payment_status]';
                     $request['meta_value'] = 'paid';
                     $request['meta_compare'] = '!=';
                     break;
@@ -287,30 +312,29 @@ class WPBDP_Admin {
         $action = $_REQUEST['wpbdmaction'];
         $post_id = intval($_REQUEST['post']);
 
+        $listings_api = wpbdp_listings_api();
+
         switch ($action) {
             case 'setaspaid':
-                update_post_meta($post_id, '_wpbdp_paymentstatus', 'paid');
+                $listings_api->approve_payment($post_id);
 
                 $this->messages[] = __("The listing status has been set as paid.","WPBDM");
                 break;
             
             case 'setasnotpaid':
-                delete_post_meta($post_id, "_wpbdp_paymentstatus", "pending");
-                delete_post_meta($post_id, "_wpbdp_paymentstatus", "refunded");
-                delete_post_meta($post_id, "_wpbdp_paymentstatus", "unknown");
-                delete_post_meta($post_id, "_wpbdp_paymentstatus", "cancelled");
+                $listings_api->reject_payment($post_id);
 
-                $this->messages[] = __("The listing status has been changed unpaid.","WPBDM");
+                $this->messages[] = __("The listing status has been changed to 'not paid'.","WPBDM");
                 break;
 
             case 'upgradefeatured':
-                update_post_meta($post_id, "_wpbdp_sticky", "approved");
+                update_post_meta($post_id, '_wpbdp[sticky]', 'sticky');
             
                 $this->messages[] = __("The listing has been upgraded.","WPBDM");
                 break;
 
             case 'cancelfeatured':
-                delete_post_meta($post_id, "_wpbdp_sticky");
+                delete_post_meta($post_id, "_wpbdp[sticky]");
                 
                 $this->messages[] = __("The listing has been downgraded.","WPBDM");
                 break;
@@ -328,16 +352,17 @@ class WPBDP_Admin {
         $paid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                            WHERE p.post_type = %s AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_Plugin::POST_TYPE,
-                                                           '_wpbdp_paymentstatus',
+                                                           '_wpbdp[payment_status]',
                                                            'paid') );
         $unpaid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                           WHERE p.post_type = %s AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",WPBDP_Plugin::POST_TYPE,
-                                                           '_wpbdp_paymentstatus',
+                                                           WHERE p.post_type = %s AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",
+                                                           WPBDP_Plugin::POST_TYPE,
+                                                           '_wpbdp[payment_status]',
                                                            'paid') );
         $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                            WHERE p.post_type = %s AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_Plugin::POST_TYPE,
-                                                           '_wpbdp_sticky',
+                                                           '_wpbdp[sticky]',
                                                            'pending') );
 
         $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
@@ -392,62 +417,61 @@ class WPBDP_Admin {
 
     private function payment_status_column() {
         global $post;
-        global $wpbusdirman_haspaypalmodule;
 
-        if ($paid_status = get_post_meta($post->ID, '_wpbdp_paymentstatus', true)) {
-            $buyer = sprintf('%s %s', get_post_meta($post->ID, '_wpbdp_buyerfirstname', true), get_post_meta($post->ID, '_wpbdp_buyerlastname', true));
-            $email = get_post_meta($post->ID, '_wpbdp_payeremail', true);
-            $flag = get_post_meta($post->ID, '_wpbdp_paymentflag', true);
-            $status_links = '';
+        $listings_api = wpbdp_listings_api();
 
-            if ($paid_status != 'paid')
-                $status_links .= sprintf('<span><a href="%s">%s</a> | </span>',
-                                        add_query_arg(array('wpbdmaction' => 'setaspaid', 'post' => $post->ID)),
-                                        __('Paid', 'WPBDM'));
-            $status_links .= sprintf('<span><a href="%s">%s</a></span>',
-                                      add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
-                                      __('Not paid', 'WPBDM'));
+        $paid_status = $listings_api->get_payment_status($post->ID);
+        $status_links = '';
 
-            if ($wpbusdirman_haspaypalmodule) {
-                echo sprintf('<span class="status %s">%s</span><div class="paymentdata"><b>%s</b>: <span class="gateway">%s</span> | <b>%s:</b> <span class="flag">%s</span> | <b>%s:</b> <span class="buyer">%s</span> <span class="email" title="%s">%s</span></div>
-                    <div class="row-actions"><b>%s:</b> %s</div>',
-                          $paid_status,
-                          strtoupper($paid_status),
-                          __('Gateway', 'WPBDM'), get_post_meta($post->ID, '_wpbdp_paymentgateway', true),
-                          __('Flag', 'WPBDM'), $flag ? $flag : 'None',
-                          __('Buyer', 'WPBDM'), $buyer != ' ' ? $buyer : '--',
-                          __('Payment Email', 'WPBDM'), $email ? '(' . $email . ')' : '',
-                          __('Set as', 'WPBDM'),
-                          $status_links);
+        if ($paid_status != 'paid')
+            $status_links .= sprintf('<span><a href="%s">%s</a> | </span>',
+                                    add_query_arg(array('wpbdmaction' => 'setaspaid', 'post' => $post->ID)),
+                                    __('Paid', 'WPBDM'));
+        $status_links .= sprintf('<span><a href="%s">%s</a></span>',
+                                  add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
+                                  __('Not paid', 'WPBDM'));
+
+        if ($paid_status == 'paid') {
+            if ($last_transaction = $listings_api->get_last_transaction($post->ID)) {
+                echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
+                // echo '<div class="paymentdata">';
+                // echo sprintf('<span><b>%s:</b></span>', _x('Last Payment', 'admin', 'WPBDM'));
+                echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
+                echo '</div>';
+            //     echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
+            //     // echo sprintf('<span class="status %s">%s</span><div class="paymentdata"><b>%s</b>: <span class="gateway">%s</span> | <b>%s:</b> <span class="buyer">%s</span> <span class="email" title="%s">%s</span></div><div class="row-actions"><b>%s:</b> %s</div>',
+            //     //               $paid_status,
+            //     //               strtoupper($paid_status),
+            //     //               __('Gateway', 'WPBDM'), get_post_meta($post->ID, '_wpbdp_paymentgateway', true),
+            //     //               __('Buyer', 'WPBDM'), $buyer != ' ' ? $buyer : '--',
+            //     //               __('Payment Email', 'WPBDM'), $email ? '(' . $email . ')' : '',
+            //     //               __('Set as', 'WPBDM'),
+            //     //               $status_links);
             } else {
-                echo sprintf('<span class="status %s">%s</span><div class="paymentdata"><b>%s</b>: <span class="gateway">%s</span> | <b>%s:</b> <span class="buyer">%s</span> <span class="email" title="%s">%s</span></div><div class="row-actions"><b>%s:</b> %s</div>',
-                              $paid_status,
-                              strtoupper($paid_status),
-                              __('Gateway', 'WPBDM'), get_post_meta($post->ID, '_wpbdp_paymentgateway', true),
-                              __('Buyer', 'WPBDM'), $buyer != ' ' ? $buyer : '--',
-                              __('Payment Email', 'WPBDM'), $email ? '(' . $email . ')' : '',
-                              __('Set as', 'WPBDM'),
-                              $status_links);
+                if ($listings_api->is_free_listing($post->ID)) {
+                    echo _x('(Free Listing)', 'admin', 'WPBDM');
+                } 
             }
-        
         } else {
-            echo '(' . __('Unpaid', 'WPBDM') . ')';
+            echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
+            echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
         }
     }
 
     private function sticky_status_column() {
         global $post;
 
-        if ($status = get_post_meta($post->ID, '_wpbdp_sticky', true)) {
-            $status_string = '';
+        $listings_api = wpbdp_listings_api();
 
-            if ($status == 'not paid') $status_string = __('Not Paid', 'WPBDM');
-            if ($status == 'pending') $status_string = __('Pending Upgrade', 'WPBDM');
-            if ($status == 'approved') $status_string = __('Featured', 'WPBDM');
-        } else {
-            $status = 'notsticky';
+        $status = $listings_api->get_sticky_status($post->ID);
+
+        $status_string = '';
+        if ($status == 'sticky')
+            $status_string = __('Featured', 'WPBDM');
+        elseif ($status == 'pending')
+            $status_string = __('Pending Upgrade', 'WPBDM');
+        else
             $status_string = _x('Normal', 'admin list', 'WPBDM');
-        }
         
         echo sprintf('<span class="status %s">%s</span><br />',
                     str_replace(' ', '', $status),
@@ -455,7 +479,7 @@ class WPBDP_Admin {
 
         echo '<div class="row-actions">';
 
-        if ($status == 'approved') {
+        if ($status == 'sticky') {
             echo sprintf('<span><a href="%s">%s</a></span>',
                          add_query_arg(array('wpbdmaction' => 'cancelfeatured', 'post' => $post->ID)),
                          '<b>↓</b> ' . __('Downgrade to Normal', 'WPBDM'));

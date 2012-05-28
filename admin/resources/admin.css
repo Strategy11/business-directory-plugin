@@ -65,7 +65,7 @@ td.column-bd_sticky_status .status.pending {
     font-weight: bold;
 }
 
-td.column-bd_sticky_status .status.approved {
+td.column-bd_sticky_status .status.sticky {
     background: green;
 }
 

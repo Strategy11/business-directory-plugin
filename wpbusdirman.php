@@ -559,8 +559,10 @@ function wpbusdirman_display_the_thumbnail() {
 	$html = '';
 	$thumbnail = null;
 	
-	if ($thumbnail = get_post_meta($post->ID, '_wpbdp_image', true))
-		$thumbnail = $wpbdmimagesurl . '/thumbnails/' . $thumbnail;
+	if ($thumbnail_id = get_post_meta($post->ID, '_wpbdp[thumbnail_id]', true)) {
+		$thumbnail = wp_get_attachment_thumb_url($thumbnail_id);
+		// $thumbnail = $wpbdmimagesurl . '/thumbnails/' . $thumbnail;
+	}
 
 	if (!$thumbnail && function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID))
 		return sprintf('<div class="listingthumbnail"><a href="%s">%s</a></div>',
@@ -1142,13 +1144,13 @@ function wpbusdirman_post_single_listing_details()
 		$html .= get_currentuserinfo();
 		$wpbusdirmanloggedinuseremail=$current_user->user_email;
 		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
-		$wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp_sticky", $single=true);
+		$wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp[sticky]", $single=true);
 		if ($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail) {
 			$html .= '<div id="editlistingsingleview">' . wpbusdirman_menu_button_editlisting() . wpbusdirman_menu_button_upgradelisting() . '</div><div style="clear:both;"></div>';
 		}
 	}
 
-	if(isset($wpbdmpostissticky) && !empty($wpbdmpostissticky) && ($wpbdmpostissticky  == 'approved') ) {
+	if(isset($wpbdmpostissticky) && !empty($wpbdmpostissticky) && ($wpbdmpostissticky  == 'sticky') ) {
 	 	$html .= '<span class="featuredlisting"><img src="' . $wpbusdirman_imagesurl . '/featuredlisting.png" alt="' . __("Featured Listing","WPBDM") . '" border="0" title="' . the_title(null, null, false) . '"></span>';
 	}
 
@@ -1262,7 +1264,7 @@ require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 class WPBDP_Plugin {
 
 	const VERSION = '2.0.3';
-	const DB_VERSION = '2.4';
+	const DB_VERSION = '2.5';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -1373,7 +1375,7 @@ class WPBDP_Plugin {
 		// add_option('wpbusdirman_db_version', '1.0');
 		// // delete_option('wpbusdirman_db_version');
 		// delete_option('wpbdp-db-version');
-		// update_option('wpbdp-db-version', '2.3');
+		// update_option('wpbdp-db-version', '2.4');
 		// exit;
 
 		$installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));
@@ -1406,6 +1408,22 @@ class WPBDP_Plugin {
 				days SMALLINT UNSIGNED NOT NULL DEFAULT 0,
 				images SMALLINT UNSIGNED NOT NULL DEFAULT 0,
 				categories BLOB NOT NULL,
+				extra_data BLOB NULL
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+			dbDelta($sql);
+
+			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
+				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
+				listing_id MEDIUMINT(9) NOT NULL,
+				gateway VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+				amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+				payment_type VARCHAR(255) NOT NULL,
+				status VARCHAR(255) NOT NULL,
+				created_on TIMESTAMP NOT NULL,
+				processed_on TIMESTAMP NULL,
+				processed_by VARCHAR(255) NOT NULL DEFAULT 'gateway',				
+				payerinfo BLOB NULL,
 				extra_data BLOB NULL
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 

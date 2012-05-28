@@ -220,7 +220,7 @@ class WPBDP_DirectoryController {
 
 		$html = '';
 		$html .= call_user_func(array($this, 'submit_listing_' . $step), $listing_id);
-		$html .= apply_filters('wpbdp_listing_form', '', $this->_listing['listing_id']);
+		$html .= apply_filters('wpbdp_listing_form', '', $this->_listing_data['listing_id']);
 
 		return $html;
 	}
@@ -516,7 +516,7 @@ class WPBDP_DirectoryController {
 				foreach ($payments_api->get_available_methods() as $gateway) {
 					$gateways[] = array('id' => $gateway->id,
 									    'name' => $gateway->name,
-									    'html' => $payments_api->generate_html($gateway->id, $listing_id, $cost),
+									    'html' => $payments_api->generate_html($gateway->id, $listing_id, $cost, 'payment'),
 										);
 				}
 
@@ -597,8 +597,19 @@ class WPBDP_DirectoryController {
 											'html' => $payments_api->generate_html($gateway->id, $listing_id, wpbdp_get_option('featured-price'), 'upgrade-to-sticky'));
 					}
 
-					if ($gateways)
+					if ($gateways) {
+						$transaction = array('amount' => wpbdp_get_option('featured-price'),
+											 'payment_type' => 'upgrade-to-sticky',
+											 'status' => 'not-paid',
+											 'listing_id' => $listing_id,
+											 'created_on' => date('Y-m-d H:i:s', time())
+											);
+
+						$transaction_id = $payments_api->save_transaction($transaction);
+
+						update_post_meta($listing_id, '_wpbdp[payment_status]', 'not-paid');
 						update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+					}
 
 					return wpbdp_render('listing-upgradetosticky-payment', array(
 							'listing' => get_post($listing_id),

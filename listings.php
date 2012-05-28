@@ -34,9 +34,71 @@ class WPBDP_ListingsAPI {
 		return $result;
 	}
 
+	public function get_last_transaction($listing_id) {
+		global $wpdb;
+		
+		if ($transaction_id = $wpdb->get_var(
+				$wpdb->prepare("SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %s ORDER BY id DESC LIMIT 1", $listing_id)
+			)) {
+			$payments_api = wpbdp_payments_api();
+			return $payments_api->get_transaction($transaction_id);
+		}
+
+		return null;
+	}
+
 	public function get_payment_status($listing_id) {
-		$payment_info = get_post_meta($listing_id, '_wpbdp[payment]', true);
-		return $payment_info ? $payment_info['status'] : 'not-paid';
+		if ($payment_status = get_post_meta($listing_id, '_wpbdp[payment_status]', true))
+			return $payment_status;
+
+		return 'not-paid';
+	}
+
+	public function get_payment_info($listing_id) {
+		if ($payment_info = get_post_meta($listing_id, '_wpbdp[payment_info]', true))
+			return $payment_info;
+
+		return array();
+	}	
+
+	public function register_payment($listing_id, $payment) {
+		$payment_info = $this->get_payment_info($listing_id);
+		$payment_info[] = $payment;
+		return true;
+	}
+
+	public function approve_payment($listing_id) {
+		if ($trans = $this->get_last_transaction($listing_id)) {
+			$payment_api = wpbdp_payments_api();
+
+			$trans->status = 'paid';
+			$trans->processed_on = date('Y-m-d H:i:s', time());
+			$trans->processed_by = 'admin';
+
+			$payment_api->save_transaction($trans);
+
+			if ($trans->payment_type == 'upgrade-to-sticky')
+				update_post_meta($listing_id, '_wpbdp[sticky]', 'sticky');
+		}
+
+		update_post_meta($listing_id, '_wpbdp[payment_status]', 'paid');
+	}
+
+	public function reject_payment($listing_id) {
+		if ($trans = $this->get_last_transaction($listing_id)) {
+			$payment_api = wpbdp_payments_api();
+
+			$trans->status = 'not-paid';
+			$trans->processed_on = date('Y-m-d H:i:s', time());
+			$trans->processed_by = 'admin';
+
+			$payment_api->save_transaction($trans);
+
+			if ($trans->payment_type == 'upgrade-to-sticky')
+				update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');			
+		}
+		
+		update_post_meta($listing_id, '_wpbdp[payment_status]', 'not-paid');
 	}
 
 	// effective_cost means do not include already paid fees
@@ -52,6 +114,10 @@ class WPBDP_ListingsAPI {
 		}
 
 		return round($cost, 2);
+	}
+
+	public function is_free_listing($listing_id) {
+		return $this->cost_of_listing($listing_id) == 0.0;
 	}
 
 	public function get_listing_fee_for_category($listing_id, $catid) {
@@ -107,7 +173,7 @@ class WPBDP_ListingsAPI {
 		if ($post_tags && !is_array($post_tags))
 			$post_tags = explode(',', $post_tags);
 
-		$post_status = isset($data['listing_id']) ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
+		$post_status = $data['listing_id'] ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
 
 		$listing_id = wp_insert_post(array(
 			'post_title' => $post_title,
@@ -169,13 +235,19 @@ class WPBDP_ListingsAPI {
 		// register payment info
 		$cost = $this->cost_of_listing($listing_id, true);
 
-		if ($editing) {
-			$payment_info = get_post_meta($listing_id, '_wpbdp[payment]', true);
-			$payment_info['status'] = $cost > 0.0 ? 'not-paid' : 'paid';
-			update_post_meta($listing_id, '_wpbdp[payment]', $payment_info);
-		} else {
-			add_post_meta($listing_id, '_wpbdp[payment]', array('status' => $cost > 0.0 ? 'not-paid' : 'paid',
-																'details' => array()));			
+		update_post_meta($listing_id, '_wpbdp[payment_status]', $cost > 0.0 ? 'not-paid' : 'paid');
+
+		if ($cost > 0.0) {
+			$payment_api = wpbdp_payments_api();
+
+			$transaction = array('amount' => $cost,
+								 'payment_type' => 'payment',
+								 'status' => 'not-paid',
+								 'listing_id' => $listing_id,
+								 'created_on' => date('Y-m-d H:i:s', time())
+								);
+
+			$transaction_id = $payment_api->save_transaction($transaction);
 		}
 
 		return $listing_id;
