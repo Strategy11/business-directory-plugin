@@ -203,16 +203,6 @@ function wpbdp_payment_status($listing_id) {
 	return wpbdp_listings_api()->get_payment_status($listing_id);
 }
 
-function wpbdp_payments_possible() {
-	// check not only that payments are 'on' but that it is possible to pay for something
-	// (i.e. there are fees configured, payment plugins active and at least one of them on)
-	return wpbdp_get_option('payments-on') &&
-		   wpbdp_fees_api()->fees_available() &&
-		   ( (wpbdp()->has_module('paypal') && wpbdp_get_option('paypal')) ||
-		   	 (wpbdp()->has_module('2checkout') && wpbdp_get_option('2checkout')) ||
-		   	 (wpbdp()->has_module('googlecheckout') && wpbdp_get_option('googlecheckout')) );
-}
-
 function wpbdp_fees_api() {
 	return wpbdp()->fees;
 }
@@ -227,6 +217,35 @@ function wpbdp_listings_api() {
 }
 
 /* Misc. */
+function _wpbdp_save_object($obj_, $table, $id='id') {
+	global $wpdb;
+
+	$obj = is_object($obj_) ? (array) $obj_ : $obj_;
+
+	if (!$obj) return 0;
+
+	foreach ($obj as $k => $v) {
+		if (is_array($v) || is_object($v))
+			$obj[$k] = serialize($v);
+	}
+
+	$obj_id = 0;
+
+	if (isset($obj[$id])) {
+		if ($wpdb->update("{$wpdb->prefix}wpbdp_" . $table, $obj, array($id => $obj[$id])) !== false)
+			$obj_id = $obj[$id];
+	} else {
+		if ($wpdb->insert("{$wpdb->prefix}wpbdp_" . $table, $obj)) {
+			$obj_id = $wpdb->insert_id;
+		}
+	}
+
+	// if ($obj_id)
+	// 	do_action('wpbdp_save_' . $table, $obj_id);
+
+	return $obj_id;
+}
+
 function wpbdp_categories_list($parent=0, $hierarchical=true) {
 	$terms = get_categories(array(
 		'taxonomy' => wpbdp_categories_taxonomy(),

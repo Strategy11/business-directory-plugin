@@ -3,7 +3,17 @@ if (!class_exists('WPBDP_ListingsAPI')) {
 
 class WPBDP_ListingsAPI {
 
-	public function __construct() { }
+	public function __construct() {	}
+
+	public function get_stickies() {
+		global $wpdb;
+
+		$stickies = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
+									  		 '_wpbdp[sticky]',
+									  		 'sticky'));
+
+		return $stickies;
+	}
 
 	public function get_sticky_status($listing_id) {
 		if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
@@ -59,46 +69,6 @@ class WPBDP_ListingsAPI {
 			return $payment_info;
 
 		return array();
-	}	
-
-	public function register_payment($listing_id, $payment) {
-		$payment_info = $this->get_payment_info($listing_id);
-		$payment_info[] = $payment;
-		return true;
-	}
-
-	public function approve_payment($listing_id) {
-		if ($trans = $this->get_last_transaction($listing_id)) {
-			$payment_api = wpbdp_payments_api();
-
-			$trans->status = 'paid';
-			$trans->processed_on = date('Y-m-d H:i:s', time());
-			$trans->processed_by = 'admin';
-
-			$payment_api->save_transaction($trans);
-
-			if ($trans->payment_type == 'upgrade-to-sticky')
-				update_post_meta($listing_id, '_wpbdp[sticky]', 'sticky');
-		}
-
-		update_post_meta($listing_id, '_wpbdp[payment_status]', 'paid');
-	}
-
-	public function reject_payment($listing_id) {
-		if ($trans = $this->get_last_transaction($listing_id)) {
-			$payment_api = wpbdp_payments_api();
-
-			$trans->status = 'not-paid';
-			$trans->processed_on = date('Y-m-d H:i:s', time());
-			$trans->processed_by = 'admin';
-
-			$payment_api->save_transaction($trans);
-
-			if ($trans->payment_type == 'upgrade-to-sticky')
-				update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');			
-		}
-		
-		update_post_meta($listing_id, '_wpbdp[payment_status]', 'not-paid');
 	}
 
 	// effective_cost means do not include already paid fees
@@ -118,6 +88,15 @@ class WPBDP_ListingsAPI {
 
 	public function is_free_listing($listing_id) {
 		return $this->cost_of_listing($listing_id) == 0.0;
+	}
+
+	public function get_expiration_time($listing_id, $fee) {
+		if ($fee->days == 0)
+			return 0;
+
+		$start_time = get_post_time('U', false, $listing_id);
+		$expire_time = strtotime(sprintf('+%d days', $fee->days), $start_time);
+		return $expire_time;
 	}
 
 	public function get_listing_fee_for_category($listing_id, $catid) {
@@ -151,8 +130,26 @@ class WPBDP_ListingsAPI {
 	// 	global $current_user;
 	// 	get_currentuserinfo();
 	// 	$wpbusdirman_UID=$current_user->ID;
-	// }	
-	public function add_listing($data_) {
+	// }
+	public function request_listing_upgrade($listing_id, &$transaction_id) {
+		$sticky_status = $this->get_sticky_status($listing_id);
+
+		if ($sticky_status == 'normal') {
+			$payments_api = wpbdp_payments_api();
+			$transaction_id = $payments_api->save_transaction(array(
+				'payment_type' => 'upgrade-to-sticky',
+				'listing_id' => $listing_id,
+				'amount' => wpbdp_get_option('featured-price')
+			));
+
+			update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+		}
+
+		$transaction_id = 0;
+		return false;
+	}
+
+	public function add_listing($data_, &$transaction_id=null) {
 		$data = is_object($data_) ? (array) $data_ : $data_;
 
 		$editing = isset($data['listing_id']) && $data['listing_id'];
@@ -234,21 +231,13 @@ class WPBDP_ListingsAPI {
 
 		// register payment info
 		$cost = $this->cost_of_listing($listing_id, true);
-
+		$payment_api = wpbdp_payments_api();
+		$transaction_id = $payment_api->save_transaction(array(
+			'amount' => $cost,
+			'payment_type' => !$editing ? 'initial' : 'edit',
+			'listing_id' => $listing_id
+		));
 		update_post_meta($listing_id, '_wpbdp[payment_status]', $cost > 0.0 ? 'not-paid' : 'paid');
-
-		if ($cost > 0.0) {
-			$payment_api = wpbdp_payments_api();
-
-			$transaction = array('amount' => $cost,
-								 'payment_type' => 'payment',
-								 'status' => 'not-paid',
-								 'listing_id' => $listing_id,
-								 'created_on' => date('Y-m-d H:i:s', time())
-								);
-
-			$transaction_id = $payment_api->save_transaction($transaction);
-		}
 
 		return $listing_id;
 	}

@@ -176,6 +176,13 @@ class WPBDP_Admin {
         $last_transaction = $listings_api->get_last_transaction($post->ID);
 
         echo '<div class="misc-pub-section">';
+
+        echo '<ul class="listing-metabox-tabs">';
+        echo '<li class="tabs"><a href="">' . _x('Payment Information', 'admin', 'WPBDM') . '</a></li>';
+        echo '<li class="tabs"><a href="">' . _x('Fee Information', 'admin', 'WPBDM') . '</a></li>';
+        echo '<li class="tabs"><a href="">' . _x('Transaction History', 'admin', 'WPBDM') . '</a></li>';
+        echo '</ul>';
+
         echo '<strong>' . __('Payment Information', 'WPBDM') . '</strong>';        
         echo '<dl>';
             echo '<dt><u>'. __('Listing Cost') . '</u></dt>';            
@@ -225,6 +232,69 @@ class WPBDP_Admin {
             echo sprintf('<a href="%s" class="button">%s</a>',
                          add_query_arg('wpbdmaction', 'setasnotpaid'),
                          __('Set listing as Not paid', 'WPBDM'));
+        echo '</div>';
+
+        echo '<div class="misc-pub-section">';
+        echo '<strong>' . _x('Transaction History', 'admin', 'WPBDM') . '</strong>';
+        echo '<ul>';
+        
+        foreach (wpbdp_payments_api()->get_transactions($post->ID) as $transaction) {
+            echo '<li>';
+            echo '<dl>';
+            echo '<dt>' . _x('Date', 'admin', 'WPBDM') . '</dt>';
+            echo '<dd>' . $transaction->created_on . '</dd>';
+            echo '<dt>' . _x('Payment Type', 'admin', 'WPBDM') . '</dt>';
+            echo '<dd>' . $transaction->payment_type . '</dd>';
+            echo '<dt>' . _x('Amount', 'admin', 'WPBDM') . '</dt>';
+            echo '<dd>' . $transaction->amount . '</dd>';            
+            echo '<dt>' . _x('Gateway', 'admin', 'WPBDM') . '</dt>';
+            echo '<dd>' . ($transaction->gateway ? $transaction->gateway : '--') . '</dd>';
+            echo '<dt>' . _x('Status', 'admin', 'WPBDM') . '</dt>';
+            echo '<dd>' . $transaction->status . '</dd>';
+
+            if ($transaction->processed_on) {
+                echo '<dt></dt>';
+                echo '<dd>' . sprintf(_x('Processed on <b>%s</b> by <b>%s</b>', 'admin', 'WPBDM'),
+                                     $transaction->processed_on,
+                                     $transaction->processed_by) . '</dd>';
+            }
+            echo '</dl>';
+            echo '</li>';
+        }        
+
+        echo '</ul>';
+        echo '</div>';
+
+        echo '<div class="misc-pub-section">';
+        echo '<strong>' . _x('Fee Information', 'admin', 'WPBDM') . '</strong>';
+
+        echo '<dl>';
+
+        $image_count = count($listings_api->get_images($post->ID));
+
+        foreach (wp_get_post_terms($post->ID, wpbdp_categories_taxonomy()) as $post_term) {
+            echo '<dt>' . $post_term->name . '</dt>';
+            echo '<dd>';
+
+            if ($fee_info = $listings_api->get_listing_fee_for_category($post->ID, $post_term->term_id)) {
+                echo '<span>' . _x('# images', 'admin', 'WPBDM') . ':</span> ';
+                echo sprintf('%d / %d', min($image_count, $fee_info->images), $fee_info->images);
+                echo '<br /><span>' . _x('term length', 'admin', 'WPBDM') . ':</span> ';
+                echo $fee_info->days;
+                echo '<br /><span>' . _x('expires on', 'admin', 'WPBDM') . ':</span> ';
+                if ($expiration_time = $listings_api->get_expiration_time($post->ID, $fee_info)) {
+                    echo date_i18n(get_option('date_format'), $expiration_time);
+                } else {
+                    echo _x('never', 'admin', 'WPBDM');
+                }
+            } else {
+                echo '--';
+            }
+
+            echo '</dd>';
+        }
+
+        echo '</dl>';
         echo '</div>';
 
         /*
@@ -316,13 +386,29 @@ class WPBDP_Admin {
 
         switch ($action) {
             case 'setaspaid':
-                $listings_api->approve_payment($post_id);
+                $last_transaction = $listings_api->get_last_transaction($post_id);
+                $last_transaction->status = 'approved';
+                $last_transaction->processed_on = date('Y-m-d H:i:s', time());
+                $last_transaction->processed_by = 'admin';
+                wpbdp_payments_api()->save_transaction($last_transaction);
+
+                if ($last_transaction->payment_type == 'upgrade-to-sticky')
+                    update_post_meta($post_id, '_wpbdp[sticky]', 'sticky');
+                
+                update_post_meta($post_id, '_wpbdp[payment_status]', 'paid');
 
                 $this->messages[] = __("The listing status has been set as paid.","WPBDM");
                 break;
             
             case 'setasnotpaid':
-                $listings_api->reject_payment($post_id);
+                $last_transaction = $listings_api->get_last_transaction($post_id);
+                $last_transaction->status = 'rejected';
+                $last_transaction->processed_on = date('Y-m-d H:i:s', time());
+                $last_transaction->processed_by = 'admin';
+                wpbdp_payments_api()->save_transaction($last_transaction);
+
+                update_post_meta($post_id, '_wpbdp[payment_status]', 'not-paid');
+                
 
                 $this->messages[] = __("The listing status has been changed to 'not paid'.","WPBDM");
                 break;

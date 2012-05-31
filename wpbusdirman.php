@@ -673,34 +673,14 @@ function wpbusdirman_menu_button_editlisting()
 	return $html;
 }
 
-function wpbusdirman_menu_button_upgradelisting()
-{
-	global $post,$wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-	$html = '';
-
-	if(is_user_logged_in())
-	{
-		global $current_user;
-		get_currentuserinfo();
-		$wpbusdirmanloggedinuseremail=$current_user->user_email;
-		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
-		$wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp_sticky", $single=true);
-		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail)
-		{
-			if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_31'] == "yes")
-			{
-				if( (!isset($wpbdmpostissticky) || empty($wpbdmpostissticky) || ($wpbdmpostissticky == 'not paid')) && ( $post->post_status == 'publish') )
-				{
-					$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
-				}
-			}
-		}
+function wpbusdirman_menu_button_upgradelisting() {
+	if ( wpbdp_get_option('featured-on') &&
+		 (get_post(get_the_ID())->post_author == wp_get_current_user()->ID) &&
+		 wpbdp_listings_api()->get_sticky_status(get_the_ID()) == 'normal' ) {
+			return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
 	}
 
-	return $html;
+	return '';
 }
 
 function wpbusdirman_list_categories()
@@ -864,104 +844,6 @@ function get_terms_dropdown($taxonomies, $args)
 	return $output;
 }
 
-
-function wpbusdirman_catpage_query()
-{
-	global $wpbdmposttype,$wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix,$wpbdmposttypetags;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-	//print_r($term);
-	if(isset($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_52']) && !empty($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_52']))
-	{
-		$wpbdm_order_listings_by=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_52'];
-	}
-
-	if(isset($wpbdm_order_listings_by) && !empty($wpbdm_order_listings_by)){$wpbdmorderlistingsby=$wpbdm_order_listings_by;}
-	else { $wpbdmorderlistingsby='date';}
-
-	if(isset($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_53']) && !empty($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_53']))
-	{
-		$wpbdm_sort_order_listings=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_53'];
-	}
-
-	if(isset($wpbdm_sort_order_listings) && !empty($wpbdm_sort_order_listings)){$wpbdmsortorderlistings=$wpbdm_sort_order_listings;}
-	else { $wpbdmsortorderlistings='ASC';}
-
-
-	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-	$catortag=$term->taxonomy;
-	if($catortag == $wpbdmposttypecategory)
-	{
-		$args=array(
-		  $wpbdmposttypecategory => $term->name,
-		  'post_type' => $wpbdmposttype,
-		  'post_status' => 'publish',
-		  'posts_per_page' => -1,
-		'paged'=>$paged,
-		'orderby'=>$wpbdmorderlistingsby,
-		'order'=> $wpbdmsortorderlistings,
-		'post__not_in' => $sticky_ids
-		);
-	}
-	elseif($catortag == $wpbdmposttypetags) {
-		$args=array(
-		  $wpbdmposttypetags => $term->name,
-		  'post_type' => $wpbdmposttype,
-		  'post_status' => 'publish',
-		  'posts_per_page' => -1,
-		'paged'=>$paged,
-		'orderby'=>$wpbdmorderlistingsby. ' meta_key=sticky&meta_value=approved',
-		'order'=> $wpbdmsortorderlistings,
-		);
-	}
-	//$mycatq = null;
-	//$mycatq = new WP_Query($args);
-
-	query_posts($args);
-	//$query = new WP_Query( $args );
-	//$wpbusdirman_stickyids=array();
-}
-
-function wpbusdirman_show_sticky(){}
-function wpbusdirman_get_sticky_ids(){}
-
-function wpbusdirman_indexpage_query()
-{
-	global $wpbdmposttype,$wpbusdirmanconfigoptionsprefix;
-	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-
-	if(isset($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_52']) && !empty($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_52']))
-	{
-		$wpbdm_order_listings_by=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_52'];
-	}
-
-	if(isset($wpbdm_order_listings_by) && !empty($wpbdm_order_listings_by)){$wpbdmorderlistingsby=$wpbdm_order_listings_by;}
-	else { $wpbdmorderlistingsby='date';}
-
-	if(isset($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_53']) && !empty($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_53']))
-	{
-		$wpbdm_sort_order_listings=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_53'];
-	}
-
-	if(isset($wpbdm_sort_order_listings) && !empty($wpbdm_sort_order_listings)){$wpbdmsortorderlistings=$wpbdm_sort_order_listings;}
-	else { $wpbdmsortorderlistings='ASC';}
-
-
-	$args=array(
-	  'post_type' => $wpbdmposttype,
-	  'post_status' => 'publish',
-	'paged'=>$paged,
-	'orderby'=>$wpbdmorderlistingsby. ' meta_key=sticky&meta_value=approved',
-	'order'=>$wpbdmsortorderlistings
-	);
-	query_posts($args);
-	$wpbusdirman_stickyids=array();
-}
-
 // Display the listing fields in excerpt view
 function wpbusdirman_display_the_listing_fields() {
 	global $post;
@@ -1000,7 +882,7 @@ function wpbusdirman_display_excerpt($deprecated=null) {
 function wpbusdirman_post_excerpt($deprecated=null) {
 	static $count = 0;
 
-	$is_sticky = get_post_meta(get_the_ID(), '_wpbdp_sticky', true) == 'approved' ? true : false;
+	$is_sticky = wpbdp_listings_api()->get_sticky_status(get_the_ID()) == 'sticky' ? true : false;
 
 	$html = '';
 	$html .= sprintf('<div id="wpbdmlistings" class="wpbdp-listing excerpt %s %s %s">',
@@ -1233,9 +1115,32 @@ function wpbusdirman_latest_listings($numlistings)
 	return $wpbdmpostheadline;
 }
 
+function wpbusdirman_sticky_loop() {
+	query_posts(array(
+		'post_type' => wpbdp_post_type(),
+		'posts_per_page' => 0,
+		'post_status' => 'publish',
+		'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+		'tax_query' => array(
+			array(
+				'taxonomy' => get_query_var('taxonomy'),
+				'field' => 'slug',
+				'terms' => get_query_var('term')
+			)
+		),
+		'meta_key' => '_wpbdp[sticky]',
+		'meta_value' => 'sticky',
+		'orderby' => wpbdp_get_option('listings-order-by', 'date'),
+		'order' => wpbdp_get_option('listings-sort', 'ASC')
+	));
 
+	while (have_posts()) {
+		the_post();
+		echo wpbusdirman_post_excerpt();
+	}
 
-
+	wp_reset_query();
+}
 
 function remove_no_categories_msg($content) {
   if (!empty($content)) {
@@ -1254,9 +1159,9 @@ global $wpbdp;
 require_once(WPBDP_PATH . 'utils.php');
 require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
 require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
-require_once(WPBDP_PATH . 'form-fields.php');
-require_once(WPBDP_PATH . 'payment.php');
-require_once(WPBDP_PATH . 'listings.php');
+require_once(WPBDP_PATH . 'api/form-fields.php');
+require_once(WPBDP_PATH . 'api/payment.php');
+require_once(WPBDP_PATH . 'api/listings.php');
 require_once(WPBDP_PATH . 'views.php');
 
 require_once(WPBDP_PATH . '/deprecated/deprecated.php');
@@ -1300,7 +1205,6 @@ class WPBDP_Plugin {
 		add_filter('single_template', array($this, '_single_template'));
 	}
 
-	// TODO: handle sticky posts
 	public function _pre_get_posts(&$query) {
 		global $wpdb;
 
@@ -1316,7 +1220,7 @@ class WPBDP_Plugin {
 			$excluded_ids = $wpdb->get_col($sql);
 
 			$query->set('post_status', 'publish');
-			$query->set('post__not_in', $excluded_ids);
+			$query->set('post__not_in', array_merge($excluded_ids, wpbdp_listings_api()->get_stickies()));
 			$query->set('post_type', self::POST_TYPE);
 			$query->set('posts_per_page', 0);
 			$query->set('orderby', wpbdp_get_option('listings-order-by', 'date'));

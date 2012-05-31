@@ -12,6 +12,8 @@
 			<div style="clear:both;"></div>
 		</div>
 
+		<?php wpbusdirman_sticky_loop(); ?>
+
 		<?php if (!have_posts()): ?>
 			<?php _ex("No listings found in category.", 'templates', "WPBDM"); ?>		
 		<?php endif; ?>

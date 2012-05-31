@@ -44,34 +44,22 @@ class WPBDP_DirectoryController {
 	}
 
 	/* display listings */
-	public function view_listings() {
-		return 'viewlistings';
-		// TODO
-	// global $wpbusdirman_plugin_path;
+	public function view_listings($excludebuttons=false) {
+		query_posts(array(
+			'post_type' => wpbdp_post_type(),
+			'posts_per_page' => 0,
+			'post_status' => 'publish',
+			'orderby' => wpbdp_get_option('listings-order-by', 'date'),
+			'order' => wpbdp_get_option('listings-sort', 'ASC')
+		));
 
-	// ob_start();
+		$html = wpbdp_render('businessdirectory-listings', array(
+				'excludebuttons' => $excludebuttons
+			), true);
 
-	// if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php'))
-	// {
-	// 	include get_stylesheet_directory() . '/single/wpbusdirman-index-listings.php';
-	// }
-	// elseif(file_exists(get_template_directory() . '/single/wpbusdirman-index-listings.php'))
-	// {
-	// 	include get_template_directory() . '/single/wpbusdirman-index-listings.php';
-	// }	
-	// elseif(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php'))
-	// {
-	// 	include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
-	// }
-	// else
-	// {
-	// 	include WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-index-listings.php';
-	// }
+		wp_reset_query();
 
-	// $html = ob_get_contents();
-	// ob_end_clean();
-
-	// return $html;
+		return $html;
 	}
 
 	/*
@@ -166,12 +154,7 @@ class WPBDP_DirectoryController {
 							   ));
 
 		if (wpbdp_get_option('show-listings-under-categories')) {
-			$html .= wpbdp_render(array('businessdirectory-listings', 'wpbusdirman-index-listings'),
-								   array(
-									'exclude_buttons' => 1,								   	
-								   	'wpbdmposttype' => wpbdp_post_type(), /* deprecated */
-									'excludebuttons' => 1, /* deprecated */
-								   ));
+			$html .= $this->view_listings(true);
 		}
 
 		return $html;
@@ -191,6 +174,9 @@ class WPBDP_DirectoryController {
 				return wpbdp_render_msg(_x('Your listing cannot be added at this time. Please try again later.', 'templates', 'WPBDM'), 'error');
 			}
 		}
+
+		if (wpbdp_get_option('require-login') && !is_user_logged_in())
+			return wpbdp_render_msg(_ex("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM'));
 
 		$step = wpbdp_getv($_POST, '_step', 'fields');
 		$this->_listing_data = array('listing_id' => 0,
@@ -505,26 +491,22 @@ class WPBDP_DirectoryController {
 
 		$data = $this->_listing_data;
 
-		if ($listing_id = $this->listings->add_listing($data)) {
+		$transaction_id = null;
+		if ($listing_id = $this->listings->add_listing($data, $transaction_id)) {
 			$cost = $this->listings->cost_of_listing($listing_id, true);
 
 			if ($cost > 0.0) {
 				$payments_api = wpbdp_payments_api();
-
-				$gateways = array();
-
-				foreach ($payments_api->get_available_methods() as $gateway) {
-					$gateways[] = array('id' => $gateway->id,
-									    'name' => $gateway->name,
-									    'html' => $payments_api->generate_html($gateway->id, $listing_id, $cost, 'payment'),
-										);
-				}
+				$payment_page = $payments_api->render_payment_page(array(
+					'title' => _x('Step 4 - Checkout', 'templates', 'WPBDM'),
+					'transaction_id' => $transaction_id,
+					'item_text' => _x('Pay %1$s listing fee via %2$s', 'templates', 'WPBDM')
+				));
 
 				return wpbdp_render('listing-form-checkout', array(
-					'cost' => $cost,
-					'gateways' => $gateways,
 					'listing_data' => $this->_listing_data,
 					'listing' => get_post($listing_id),
+					'payment_page' => $payment_page
 				), false);
 			}
 
@@ -576,8 +558,11 @@ class WPBDP_DirectoryController {
 			return;
 
 		if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
-			$listings_api = wpbdp_listings_api();
+			if (get_post($listing_id)->post_author != wp_get_current_user()->id)
+				return '';
 
+			$listings_api = wpbdp_listings_api();
+			
 			if ($listings_api->get_payment_status($listing_id) != 'paid')
 				return wpbdp_render_msg(_x('You can not upgrade your listing until its payment has been cleared.', 'templates', 'WPBDM'));
 
@@ -587,35 +572,17 @@ class WPBDP_DirectoryController {
 
 			switch ($action) {
 				case 'do_upgrade':
+					$listings_api = wpbdp_listings_api();
 					$payments_api = wpbdp_payments_api();
 
-					$gateways = array();
+					$transaction_id = null;
+					$listings_api->request_listing_upgrade($listing_id, $transaction_id);
 
-					foreach ($payments_api->get_available_methods() as $gateway) {
-						$gateways[] = array('id' => $gateway->id,
-											'name' => $gateway->name,
-											'html' => $payments_api->generate_html($gateway->id, $listing_id, wpbdp_get_option('featured-price'), 'upgrade-to-sticky'));
-					}
-
-					if ($gateways) {
-						$transaction = array('amount' => wpbdp_get_option('featured-price'),
-											 'payment_type' => 'upgrade-to-sticky',
-											 'status' => 'not-paid',
-											 'listing_id' => $listing_id,
-											 'created_on' => date('Y-m-d H:i:s', time())
-											);
-
-						$transaction_id = $payments_api->save_transaction($transaction);
-
-						update_post_meta($listing_id, '_wpbdp[payment_status]', 'not-paid');
-						update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
-					}
-
-					return wpbdp_render('listing-upgradetosticky-payment', array(
-							'listing' => get_post($listing_id),
-							'gateways' => $gateways,
-							'cost' => wpbdp_get_option('featured-price')
-						), false);
+					return $payments_api->render_payment_page(array(
+						'title' => _x('Upgrade listing', 'templates', 'WPBDM'),
+						'transaction_id' => $transaction_id,
+						'item_text' => _x('Pay %s upgrade fee via %s', 'templates', 'WPBDM')
+					));
 
 					break;
 				default:

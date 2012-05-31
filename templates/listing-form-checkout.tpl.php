@@ -13,16 +13,6 @@
 
 	<div class="clear"></div>
 
-	<h2><?php _ex('Step 4 - Checkout', 'templates', 'WPBDM'); ?></h2>
-	<?php foreach ($gateways as $payment_option) : ?>
-		<h4 class="paymentheader">
-			<?php
-			echo sprintf(_x('Pay %s listing fee via %s', 'templates', 'WPBDM'), wpbdp_get_option('currency-symbol') . $cost, $payment_option['name']);
-			?>
-		</h4>
-		<div class="paymentbuttondiv payment-gateway-<?php echo $payment_option['id']; ?>">
-			<?php echo $payment_option['html']; ?>
-		</div>
-	<?php endforeach; ?>
+	<?php echo $payment_page; ?>
 
 </div>

@@ -3,7 +3,7 @@
  * Fees/Payment API
  */
 
-if (!class_exists('WPBDP_PaymentAPI')) {
+if (!class_exists('WPBDP_PaymentsAPI')) {
 
 class WPBDP_FeesAPI {
 
@@ -24,11 +24,6 @@ class WPBDP_FeesAPI {
 
     private function normalize(&$fee) {
         $fee->categories = unserialize($fee->categories);
-    }
-
-    public function fees_available() {
-        global $wpdb;
-        return intval($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees")) > 0;
     }
 
     public function get_fees_for_category($catid) {
@@ -237,17 +232,36 @@ class WPBDP_PaymentsAPI {
     }
 
     public function get_available_methods() {
+        $gateways = array();
+
+        if (wpbdp_get_option('payments-on')) {
+            foreach ($this->gateways as &$gateway) {
+                if (wpbdp_get_option($gateway->id))
+                    $gateways[] = $gateway;
+            }
+        }
+
+        return $gateways;
+    }
+
+    public function get_registered_methods() {
         return $this->gateways;
     }
 
-    public function generate_html($gateway, $listing_id, $amount, $type='payment', $transaction_id=0) {
-        if (is_object($gateway)) return $this->generate_html($gateway->id, $listing_id, $amount, $type);
-        if (is_object($listing_id)) return $this->generate_html($gateway->id, $listing->ID, $amount, $type);
-        return call_user_func($this->gateways[$gateway]->html_callback,
-                              $listing_id,
-                              $amount,
-                              $type,
-                              $transaction_id);
+    public function render_payment_page($options_) {
+        $options = array_merge(array(
+            'title' => _x('Checkout', 'payments-api', 'WPBDM'),
+            'item_text' => _x('Pay %1$s through %2$s', 'payments-api', 'WPBDM')
+        ), $options_);
+
+        $transaction = $this->get_transaction($options['transaction_id']);
+
+        return wpbdp_render('payment-page', array(
+            'title' => $options['title'],
+            'item_text' => $options['item_text'],
+            'transaction' => $transaction,
+            'payment_methods' => $this->get_available_methods()
+            ));
     }
 
     public function save_transaction($trans_) {
@@ -262,6 +276,24 @@ class WPBDP_PaymentsAPI {
             $trans['extra_data'] = serialize($trans['extra_data']);
 
         if (!isset($trans['id'])) {
+            $current_date = date('Y-m-d H:i:s', time());
+            $trans['amount'] = floatval($trans['amount']);
+            
+            if (!isset($trans['amount']))
+                $trans['amount'] = 0.0;
+
+            if (!isset($trans['status']))
+                $trans['status'] = $trans['amount'] > 0.0 ? 'pending' : 'approved';
+
+            if (!isset($trans['created_on']))
+                $trans['created_on'] = $current_date;
+
+            if (!isset($trans['processed_on']) && $trans['amount'] == 0.0)
+                $trans['processed_on'] = $current_date;
+
+            if (!isset($trans['processed_by']) && $trans['amount'] == 0.0)
+                $trans['processed_by'] = 'system';
+
             if ($wpdb->insert("{$wpdb->prefix}wpbdp_payments", $trans))
                 return $wpdb->insert_id;
         } else {
@@ -274,23 +306,41 @@ class WPBDP_PaymentsAPI {
     public function get_transaction($transaction_id) {
         global $wpdb;
 
-        $trans = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $transaction_id));
+        if ($trans = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $transaction_id))) {
+            if ($trans->payerinfo) {
+                $trans->payerinfo = unserialize($trans->payerinfo);
+            } else {
+                $trans->payerinfo = array('name' => '',
+                                          'email' => '');
+            }
 
-        if ($trans->payerinfo) {
-            $trans->payerinfo = unserialize($trans->payerinfo);
-        } else {
-            $trans->payerinfo = array('name' => '',
-                                      'email' => '');
+            if ($trans->extra_data) {
+                $trans->extra_data = unserialize($trans->extra_data);
+            } else {
+                $trans->extra_data = array();
+            }
+
+            return $trans;            
         }
 
-        if ($trans->extra_data) {
-            $trans->extra_data = unserialize($trans->extra_data);
-        } else {
-            $trans->extra_data = array();
-        }
-
-        return $trans;
+        return null;
     }
+
+    public function get_transactions($listing_id) {
+        global $wpdb;
+
+        $transactions = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $listing_id));
+
+        foreach ($transactions as &$trans) {
+            $trans->payerinfo = unserialize($trans->payerinfo);
+            $trans->extra_data = unserialize($trans->extra_data);
+
+            if (!$trans->payerinfo)
+                $trans->payerinfo = array('name' => '', 'email' => '');
+        }
+
+        return $transactions;
+    } 
 
 }
 
