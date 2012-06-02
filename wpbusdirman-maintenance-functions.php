@@ -63,10 +63,6 @@ function wpbusdirman_addcss()
     }
 }
 
-
-function wpbusdirman_adexpirations_hook(){}
-
-
 		function wpbusdirman_generatePassword($length=6,$level=2)
 		{
 

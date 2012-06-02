@@ -64,23 +64,19 @@ class WPBDP_ListingsAPI {
 		return 'not-paid';
 	}
 
-	public function get_payment_info($listing_id) {
-		if ($payment_info = get_post_meta($listing_id, '_wpbdp[payment_info]', true))
-			return $payment_info;
-
-		return array();
-	}
-
 	// effective_cost means do not include already paid fees
 	public function cost_of_listing($listing_id, $effective_cost=false) {
 		if (is_object($listing_id)) return $this->cost_of_listing($listing_id->ID);
 
-		$fees = get_post_meta($listing_id, '_wpbdp[fees]', true);
+		global $wpdb;
+
 		$cost = 0.0;
 
-		foreach ($fees as $fee) {
-			if (!isset($fee['_nocharge']))
+		if ($fees = $wpdb->get_col($wpdb->prepare("SELECT fee FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d" . ($effective_cost ? ' AND charged = 1' : ''), $listing_id))) {
+			foreach ($fees as &$fee) {
+				$fee = unserialize($fee);
 				$cost += floatval($fee['amount']);
+			}
 		}
 
 		return round($cost, 2);
@@ -91,8 +87,10 @@ class WPBDP_ListingsAPI {
 	}
 
 	public function get_expiration_time($listing_id, $fee) {
+		if (is_array($fee)) return $this->get_expiration_time($listing_id, (object) $fee);
+
 		if ($fee->days == 0)
-			return 0;
+			return null;
 
 		$start_time = get_post_time('U', false, $listing_id);
 		$expire_time = strtotime(sprintf('+%d days', $fee->days), $start_time);
@@ -100,14 +98,88 @@ class WPBDP_ListingsAPI {
 	}
 
 	public function get_listing_fee_for_category($listing_id, $catid) {
-		$fees = get_post_meta($listing_id, '_wpbdp[fees]', true);
+		global $wpdb;
 
-		foreach ($fees as $fee) {
-			if ($fee['category_id'] == $catid) {
-				unset($fee['category_id']);
-				return ((object) $fee);
+		$row = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $catid));
+
+		if ($row != null) {
+			$fee = unserialize($row->fee);
+			$fee['expires_on'] = $row->expires_on;
+			return (object) $fee;
+		}
+
+		return null;
+	}
+
+	public function request_listing_upgrade($listing_id, &$transaction_id) {
+		$sticky_status = $this->get_sticky_status($listing_id);
+
+		if ($sticky_status == 'normal') {
+			$payments_api = wpbdp_payments_api();
+			$transaction_id = $payments_api->save_transaction(array(
+				'payment_type' => 'upgrade-to-sticky',
+				'listing_id' => $listing_id,
+				'amount' => wpbdp_get_option('featured-price')
+			));
+
+			update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+		}
+
+		$transaction_id = 0;
+		return false;
+	}
+
+	public function calculate_expiration_time($time, $fee) {
+		if ($fee->days == 0)
+			return null;
+
+		$expire_time = strtotime(sprintf('+%d days', $fee->days), $time);
+		return $expire_time;
+	}
+			// $start_time = get_post_time('U', false, $listing_id);
+
+	public function calculate_expiration_date($time, $fee) {
+		if ($expire_time = $this->calculate_expiration_time($time, $fee))
+			return date('Y-m-d H:i:s', $expire_time);
+		
+		return null;
+	}
+
+	public function renew_listing($renewal_id, $fee) {
+		global $wpdb;
+
+		if ($renewal = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", $renewal_id, current_time('mysql')))) {
+			if (has_term($renewal->category_id, wpbdp_categories_taxonomy(), $renewal->listing_id) && ($fee->categories['all'] || in_array($renewal->category_id, $fee->categories['categories']))) {
+				// register the new transaction
+				$transaction_id = wpbdp_payments_api()->save_transaction(array(
+					'listing_id' => $renewal->listing_id,
+					'amount' => $fee->amount,
+					'payment_type' => 'renewal',
+					'extra_data' => serialize($fee)
+				));
+
+				// set payment status to not-paid
+				update_post_meta($listing_id, '_wpbdp[payment_status]', 'not-paid');
+
+/*	
+			we do not update the expiration info until the payment has been processed		
+		// update expiration information
+				$wpdb->update("{$wpdb->prefix}wpbdp_listing_fees", array(
+					'fee' => serialize((array) $fee),
+					'expires_on' => $this->calculate_expiration_date(time(), $fee),
+					'charged' => 1,
+					'email_sent' => 0
+				), array('id' => $renewal->id));
+
+				// set listing post status to pending review
+				wp_update_post(array('ID' => $renewal->listing_id,
+									 'post_status' => 'pending'));*/
+
+				return $transaction_id;
 			}
 		}
+
+		return 0;
 	}
 
 	// TODO: create user when user's not logged in and anonymous submits are allowed
@@ -131,25 +203,9 @@ class WPBDP_ListingsAPI {
 	// 	get_currentuserinfo();
 	// 	$wpbusdirman_UID=$current_user->ID;
 	// }
-	public function request_listing_upgrade($listing_id, &$transaction_id) {
-		$sticky_status = $this->get_sticky_status($listing_id);
-
-		if ($sticky_status == 'normal') {
-			$payments_api = wpbdp_payments_api();
-			$transaction_id = $payments_api->save_transaction(array(
-				'payment_type' => 'upgrade-to-sticky',
-				'listing_id' => $listing_id,
-				'amount' => wpbdp_get_option('featured-price')
-			));
-
-			update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
-		}
-
-		$transaction_id = 0;
-		return false;
-	}
-
 	public function add_listing($data_, &$transaction_id=null) {
+		global $wpdb;
+
 		$data = is_object($data_) ? (array) $data_ : $data_;
 
 		$editing = isset($data['listing_id']) && $data['listing_id'];
@@ -215,19 +271,28 @@ class WPBDP_ListingsAPI {
 		// register fee information
 		if (!isset($data['fees'])) $data['fees'] = array();
 
-		$fee_information = array();
+		// $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id));
 		foreach ($post_categories as $catid) {
 			$fee = (array) (isset($data['fees'][$catid]) ? $data['fees'][$catid] : wpbdp_fees_api()->get_free_fee());
 			$fee['category_id'] = $catid;
 			unset($fee['categories'], $fee['extra_data']);
 
-			$fee_information[] = $fee;
-
-			if (!isset($fee['_nocharge']))
-				add_post_meta($listing_id, '_wpbdp[expired][' . $catid . ']', 0);
+			if (isset($fee['_nocharge']) && $fee['_nocharge'] == true) {
+				$wpdb->update($wpdb->prefix . 'wpbdp_listing_fees', array('charged' => 0), array('listing_id' => $listing_id,
+																								 'category_id' => $catid));
+			} else {
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $catid));
+				$wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', array(
+					'listing_id' => $listing_id,
+					'category_id' => $catid,
+					'fee' => serialize($fee),
+					'expires_on' => $this->calculate_expiration_date(time(), (object) $fee),
+					'charged' => 1
+				));
+			}
 		}
-
-		update_post_meta($listing_id, '_wpbdp[fees]', $fee_information);
+		if ($post_categories)
+			$wpdb->query( $wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join(',', $post_categories) . ")", $listing_id) );
 
 		// register payment info
 		$cost = $this->cost_of_listing($listing_id, true);

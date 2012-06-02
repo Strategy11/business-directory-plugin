@@ -1,0 +1,39 @@
+<div id="wpbdmentry">
+
+	<div id="lco">
+		<div class="title">
+			<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
+		</div>
+		<div class="button">
+			<?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
+			<?php echo wpbusdirman_post_menu_button_directory(); ?>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+
+	<div class="clear"></div>
+
+	<h2><?php _ex('Renew Listing', 'templates', 'WPBDM'); ?></h2>
+	<p><?php echo sprintf(_x('You are about to renew "%s".', 'templates', 'WPBDM'), $listing->post_title); ?></p>
+
+	<p><?php _ex('Select a listing payment option.', 'WPBDM'); ?></p>
+
+	<form id="wpbdp-renewlisting-form" method="POST" action="">
+		<h4 class="feecategoriesheader"><?php echo sprintf(_x('"%s" fee options', 'templates', 'WPBDM'), $category->name); ?></h4>
+		<?php foreach ($fee_options as $fee): ?>
+				<p>
+					<input type="radio" name="fee_id" value="<?php echo $fee->id; ?>" <?php echo (count($fee_options) == 1 || (isset($_POST['fee_id']) && $_POST['fee_id'] == $fee->id)) ? 'checked="checked"' : ''; ?>/>
+						<b><?php echo esc_attr($fee->label); ?> <?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee->amount; ?></b><br />
+						<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)) :?>
+							<?php echo sprintf(_x('Listing will run for %d days and includes %d images.', 'templates', 'WPBDM'), $fee->days, $fee->images); ?>
+						<?php else: ?>
+							<?php echo sprintf(_x('Listing will run for %d days.', 'templates', 'WPBDM'), $fee->days); ?>
+						<?php endif; ?>
+				</p>
+		<?php endforeach; ?>
+
+		<input type="submit" name="submit" value="<?php _ex('Proceed to checkout', 'templates', 'WPBDM'); ?>" />
+
+	</form>
+
+</div>

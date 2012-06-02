@@ -4,6 +4,8 @@ class WPBDP_Settings {
 
 	const PREFIX = 'wpbdp-';
 
+	const _EMAIL_RENEWAL_MESSAGE = "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]";
+
 	public function __construct() {
 		$this->groups = array();
 		$this->settings = array();
@@ -34,13 +36,18 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'listing-duration', _x('Listing duration for no-fee sites (in days)', 'admin settings', 'WPBDM'), 'text', '365');
 		$this->add_setting($s, 'show-contact-form', _x('Include listing contact form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'show-comment-form', _x('Include comment form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', false);
-		$this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
 		$this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'override-email-blocking', _x('Override email Blocking?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'draft', '',
 						   array('choices' => array('draft', 'trash')));
-		$this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'draft', '',
+		$this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
 						   array('choices' => array('draft', 'trash')));
+
+		$s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'), 'text',
+						   self::_EMAIL_RENEWAL_MESSAGE,
+						   _x('You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link.', 'admin settings', 'WPBDM'));
 
 		$s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'new-post-status', _x('Default new post status', 'admin settings', 'WPBDM'), 'choice', 'pending', '',

@@ -38,7 +38,7 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 		</ul>
 	<?php endif; ?>	
 
-	<form id="wpbdp-listing-form-images" method="POST" action="">
+	<form id="wpbdp-listing-form-fees" method="POST" action="">
 		<input type="hidden" name="action" value="<?php echo $listing_id ? 'editlisting' : 'submitlisting'; ?>" />
 		<input type="hidden" name="_step" value="payment" />
 		<input type="hidden" name="listing_data" value="<?php echo base64_encode(serialize($listing_data)); ?>" />

@@ -28,18 +28,20 @@ class WPBDP_FeesAPI {
 
     public function get_fees_for_category($catid) {
         $fees = array();
-        
-        $parent_categories = wpbdp_get_parent_categories($catid);
-        array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
 
-        foreach ($this->get_fees() as $fee) {
-            if ($fee->categories['all']) {
-                $fees[] = $fee;
-            } else {
-                foreach ($fee->categories['categories'] as $fee_catid) {
-                    if (in_array($fee_catid, $parent_categories)) {
-                        $fees[] = $fee;
-                        break;
+        if (wpbdp_get_option('payments-on')) {
+            $parent_categories = wpbdp_get_parent_categories($catid);
+            array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
+
+            foreach ($this->get_fees() as $fee) {
+                if ($fee->categories['all']) {
+                    $fees[] = $fee;
+                } else {
+                    foreach ($fee->categories['categories'] as $fee_catid) {
+                        if (in_array($fee_catid, $parent_categories)) {
+                            $fees[] = $fee;
+                            break;
+                        }
                     }
                 }
             }

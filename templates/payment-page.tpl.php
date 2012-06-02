@@ -1,5 +1,9 @@
 <h2><?php echo $title; ?></h2>
 
+<?php if (isset($message)): ?>
+	<p><?php echo $message; ?></p>
+<?php endif; ?>
+
 <?php if ($payment_methods && $transaction): ?>
 	<?php foreach ($payment_methods as $method): ?>
 		<h4 class="paymentheader">

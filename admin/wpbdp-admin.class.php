@@ -282,8 +282,8 @@ class WPBDP_Admin {
                 echo '<br /><span>' . _x('term length', 'admin', 'WPBDM') . ':</span> ';
                 echo $fee_info->days;
                 echo '<br /><span>' . _x('expires on', 'admin', 'WPBDM') . ':</span> ';
-                if ($expiration_time = $listings_api->get_expiration_time($post->ID, $fee_info)) {
-                    echo date_i18n(get_option('date_format'), $expiration_time);
+                if ($fee_info->expires_on) {
+                    echo date_i18n(get_option('date_format'), strtotime($fee_info->expires_on));
                 } else {
                     echo _x('never', 'admin', 'WPBDM');
                 }

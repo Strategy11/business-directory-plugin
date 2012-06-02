@@ -123,7 +123,6 @@ $wpbusdirmanconfigoptionsprefix="wpbusdirman";
 // Add actions and filters etc
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	add_action('wpbusdirman_listingexpirations_hook', 'wpbusdirman_listings_expirations' );
 	add_action('wp_print_styles', 'wpbusdirman_addcss');
 
 	add_shortcode('WPBUSDIRMANADDLISTING', 'wpBusDirManUi_addListingForm');
@@ -448,106 +447,9 @@ function wpbusdirman_sticky_payment_thankyou()
 	return $html;
 }
 
-function wpbusdirman_listings_expirations()
-{
-	global $wpbusdirman_gpid,$permalinkstructure,$nameofsite,$thisadminemail,$wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirman_myterms = get_terms($wpbdmposttypecategory, 'orderby=name&hide_empty=0');
-	if($wpbusdirman_myterms)
-	{
-		foreach($wpbusdirman_myterms as $wpbusdirman_myterm)
-		{
-			$wpbusdirman_postcatitems[]=$wpbusdirman_myterm->term_id;
-		}
-	}
-	if($wpbusdirman_postcatitems)
-	{
-		foreach($wpbusdirman_postcatitems as $wpbusdirman_postcatitem)
-		{
-			$args = array(
-				'post_status' => 'publish',
-				'meta_key' => '_wpbdp_termlength',
-				'post_type' => $wpbdmposttype,
-				'meta_compare=>meta_value=0'
-				);
-			$wpbusdirman_catcat = get_posts($args);
-			if ($wpbusdirman_catcat)
-			{
-				foreach ($wpbusdirman_catcat as $wpbusdirman_cat)
-				{
-					$wpbusdirman_postsposts[]=$wpbusdirman_cat->ID;
-				}
-			}
-		}
-	}
-	if(!empty($wpbusdirman_postsposts))
-	{
-
-		foreach($wpbusdirman_postsposts as $listingwithtermlengthset)
-		{
-			$wpbusdirmantermlength=get_post_meta($listingwithtermlengthset, "_wpbdp_termlength", true);
-			$wpbusdirmanpostdataarr=get_post( $listingwithtermlengthset );
-			$wpbusdirmanpoststartdatebase=$wpbusdirmanpostdataarr->post_date;
-			$wpbusdirmanpostauthorid=$wpbusdirmanpostdataarr->post_author;
-			$wpbusdirmanpostauthoremail=get_the_author_meta( 'user_email', $wpbusdirmanpostauthorid );
-			$wpbusdirmanstartdate = strtotime($wpbusdirmanpoststartdatebase);
-			$wpbusdirmanexpiredate= date('Y-m-d', strtotime('+'.$wpbusdirmantermlength.' days', $wpbusdirmanstartdate));
-			$wpbusdirmanlistingtitle=get_the_title($listingwithtermlengthset);
-			$todaysdatestart=date('Y-m-d');
-			$wpbusdirmantodaysdate=strtotime($todaysdatestart);
-			$wpbusdirmanexpiredatestrt = strtotime($wpbusdirmanexpiredate);
-			if ($wpbusdirmanexpiredatestrt < $wpbusdirmantodaysdate)
-			{
-				$wpbusdirman_my_expired_post = array();
-				$wpbusdirman_my_expired_post['ID'] = $listingwithtermlengthset;
-				$wpbusdirman_my_expired_post['post_status'] = 'wpbdmexpired';
-				wp_update_post( $wpbusdirman_my_expired_post );
-				$listingexpirationtext=__("has expired","WPBDM");
-				$headers =	"MIME-Version: 1.0\n" .
-						"From: $nameofsite <$thisadminemail>\n" .
-						"Reply-To: $thisadminemail\n" .
-						"Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
-				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( $wpbusdirmanlistingtitle, array() );
-				$time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
-				if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_38'] == "yes")
-				{
-					$wpbusdirmanrenewlistingtext="To renew your listing click the link below";
-					$wpbusdirmanrenewlistinglink=get_permalink($wpbusdirman_gpid);
-					if(isset($permalinkstructure) && !empty($permalinkstructure))
-					{
-						$wpbusdirmanrenewlistinglink.="?do=renewlisting&id=$listingwithtermlengthset";
-					}
-					else
-					{
-						$wpbusdirmanrenewlistinglink.="&do=renewlisting&id=$listingwithtermlengthset";
-					}
-				}
-				else
-				{
-					$wpbusdirmanrenewlistingtext="";
-					$wpbusdirmanrenewlistinglink="";
-				}
-				$message = "
-
-				$wpbusdirmanlistingtitle $listingexpirationtext
-
-				$wpbusdirmanrenewlistingtext
-
-				$wpbusdirmanrenewlistinglink
-
-				Time: $time
-
-				";
-				@wp_mail( $wpbusdirmanpostauthoremail, $subject, $message, $headers );
-			}
-		}
-	}
-}
-
 function wpbusdirman_viewlistings() {
 	return wpbdp()->controller->view_listings();
 }
-
 
 //Display the listing thumbnail
 function wpbusdirman_display_the_thumbnail() {
@@ -674,10 +576,12 @@ function wpbusdirman_menu_button_editlisting()
 }
 
 function wpbusdirman_menu_button_upgradelisting() {
+	$post_id = get_the_ID();
+
 	if ( wpbdp_get_option('featured-on') &&
-		 (get_post(get_the_ID())->post_author == wp_get_current_user()->ID) &&
+		 (get_post($post_id)->post_author == wp_get_current_user()->ID) &&
 		 wpbdp_listings_api()->get_sticky_status(get_the_ID()) == 'normal' ) {
-			return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
+			return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post_id . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
 	}
 
 	return '';
@@ -1168,8 +1072,8 @@ require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 
 class WPBDP_Plugin {
 
-	const VERSION = '2.0.3';
-	const DB_VERSION = '2.5';
+	const VERSION = '2.0.4';
+	const DB_VERSION = '2.8';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -1193,6 +1097,7 @@ class WPBDP_Plugin {
 
 		add_action('init', array($this, 'install_or_update_plugin'), 0);
 		add_action('init', array($this, '_register_post_type'));
+		add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
@@ -1203,6 +1108,60 @@ class WPBDP_Plugin {
 		add_filter('comments_template', array($this, '_comments_template'));
 		add_filter('taxonomy_template', array($this, '_category_template'));
 		add_filter('single_template', array($this, '_single_template'));
+
+		/* Expiration hook */
+		add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
+		add_action('wpbdp_listings_expiration_check', array($this, '_unpublish_expired_posts'));
+	}
+
+	public function _listing_expirations() {
+		global $wpdb;
+
+		$current_date = current_time('mysql');
+
+		$posts_to_check = $wpdb->get_results($wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on < %s AND email_sent = %d", $current_date, 0) );
+
+		foreach ($posts_to_check as $p) {
+			if (wpbdp_get_option('listing-renewal')) {
+				$listing = get_post($p->listing_id);
+
+				if ($listing->post_status != 'publish')
+					continue;
+
+				$headers = sprintf("MIME-Version: 1.0\n" .
+								   "From: %s <%s>\n" . 
+								   "Reply-To: %s\n" . 
+								   "Content-Type: text/html; charset=\"%s\"\n",
+									get_option('blogname'),
+									get_option('admin_email'),
+									get_option('admin_email'),
+									get_option('blog_charset'));
+				$subject = sprintf('[%s] %s', get_option('blogname'), wp_kses($listing->post_title, array()));
+				
+				$message = nl2br(wpbdp_get_option('listing-renewal-message'));
+				$message = str_replace('[listing]', esc_attr($listing->post_title), $message);
+				$message = str_replace('[category]', get_term($p->category_id, self::POST_TYPE_CATEGORY)->name, $message);
+				$message = str_replace('[expiration]', date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($p->expires_on)), $message);
+				$message = str_replace('[link]', sprintf('<a href="%1$s">%1$s</a>', add_query_arg(array('action' => 'renewlisting', 'renewal_id' => $p->id), wpbdp_get_page_link('main')) ), $message);
+
+				wpbdp_log(sprintf('Listing "%s" expired on category %s. Email sent.', $listing->post_title, $p->category_id));
+				if (@wp_mail(get_the_author_meta('user_email', $listing->post_author), $subject, $message, $headers)) {
+					$wpdb->update("{$wpdb->prefix}wpbdp_listing_fees", array('email_sent' => 1), array('id' => $p->id));
+				}
+			}
+		}
+	}
+
+	public function _unpublish_expired_posts() {
+		global $wpdb;
+
+		$current_date = current_time('mysql');
+
+		$query = $wpdb->prepare(
+			"UPDATE {$wpdb->posts} SET post_status = %s WHERE ID IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s AND email_sent = %d AND listing_id NOT IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NULL))", wpbdp_get_option('deleted-status'), $current_date, 1);
+		
+		$wpdb->query($query);
 	}
 
 	public function _pre_get_posts(&$query) {
@@ -1214,10 +1173,21 @@ class WPBDP_Plugin {
 			$category_ids = array_merge(array(intval($category->term_id)), get_term_children($category->term_id, self::POST_TYPE_CATEGORY));
 
 			// select posts expired in this category (and all of its children)
-			$sql = "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE 1=1";
-			foreach ($category_ids as $cat_id)
-				$sql .= sprintf(" AND (meta_key = '%s' AND meta_value = '%s')", '_wpbdp[expired][' . $cat_id . ']', '1');
-			$excluded_ids = $wpdb->get_col($sql);
+			// $sql = "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE 1=1";
+			// foreach ($category_ids as $cat_id) {}
+			// 	$sql .= sprintf(" AND (meta_key = '%s' AND meta_value = '%s')", '_wpbdp[expired][' . $cat_id . ']', '1');
+			// $excluded_ids = $wpdb->get_col($sql);
+
+			// TODO - rewrite this as a just one sql query
+			// $excluded_ids = array();
+			// foreach ($category_ids as $cat_id) {
+			// 	$sql = sprintf("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = '%s' AND meta_value = '%s'", '_wpbdp[expired][' . $cat_id . ']', '1');
+			// 	if ($exclude_new_ids = $wpdb->get_col($sql)) {
+			// 		$excluded_ids = !$excluded_ids ? $exclude_new_ids : array_intersect($excluded_ids, $exclude_new_ids);
+			// 	}
+			// }
+
+			// wpbdp_debug_e($excluded_ids);
 
 			$query->set('post_status', 'publish');
 			$query->set('post__not_in', array_merge($excluded_ids, wpbdp_listings_api()->get_stickies()));
@@ -1331,7 +1301,20 @@ class WPBDP_Plugin {
 				extra_data BLOB NULL
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-			dbDelta($sql);			
+			dbDelta($sql);
+
+			$sql = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
+				id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
+				listing_id MEDIUMINT(9) NOT NULL,
+				category_id MEDIUMINT(9) NOT NULL,
+				fee BLOB NOT NULL,
+				expires_on TIMESTAMP NULL DEFAULT NULL,
+				updated_on TIMESTAMP NOT NULL,
+				charged TINYINT(1) NOT NULL DEFAULT 0,
+				email_sent TINYINT(1) NOT NULL DEFAULT 0,
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
+
+			dbDelta($sql);
 		}
 
 		if ($installed_version) {
