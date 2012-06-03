@@ -89,6 +89,7 @@ class WPBDP_Admin {
         // just a little hack
         if (current_user_can('activate_plugins')) {
             global $submenu;
+            $submenu['wpbusdirman.php'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', wpbdp_post_type()));
             $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
             $submenu['wpbusdirman.php'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
             $submenu['wpbusdirman.php'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));

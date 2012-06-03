@@ -30,7 +30,7 @@
 			<?php echo $field['html']; ?>
 		<?php endforeach; ?>
 
-		<p><input type="submit" class="insubmitbutton" value="<?php _ex('Submit', 'templates', 'WPBDM'); ?>" /></p>
+		<p><input type="submit" class="insubmitbutton" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 	</form>
 
 </div>

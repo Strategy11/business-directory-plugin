@@ -13,7 +13,7 @@
 
 	<div class="clear"></div>
 
-	<h3 style="padding: 10px;"><?php _ex('Submission received', 'templates', 'WPBDM'); ?></h3>
+	<h2 style="padding: 10px;"><?php _ex('Submission received', 'templates', 'WPBDM'); ?></h2>
 	<p><?php _ex('Your submission has been received.', 'templates', 'WPBDM'); ?></p>
 
 </div>

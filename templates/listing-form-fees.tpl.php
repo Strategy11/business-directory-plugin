@@ -59,7 +59,7 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 			<?php endforeach; ?>
 		<?php endforeach; ?>
 
-		<input type="submit" name="submit" value="<?php _ex('Next', 'templates', 'WPBDM'); ?>" />
+		<input type="submit" name="submit" class="insubmitbutton" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
 
 	</form>
 
