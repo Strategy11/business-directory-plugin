@@ -57,6 +57,8 @@ class WPBDP_FeesTable extends WP_List_Table {
 	}
 
 	public function column_duration($fee) {
+		if ($fee->days == 0)
+			return _x('Forever', 'fees admin', 'WPBDM');
 		return sprintf(_nx('%d day', '%d days', $fee->days, 'fees admin', 'WPBDM'), $fee->days);
 	}
 

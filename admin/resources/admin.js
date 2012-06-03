@@ -50,4 +50,48 @@ jQuery(document).ready(function($){
 		return true;
 	});
 
+	/* Listing Info Metabox */
+	$('#BusinessDirectory_listinginfo .listing-metabox-tabs a').click(function(e){
+		e.preventDefault();
+
+		var href = $(this).attr('href');
+
+		var $selected = $(this).parent('li').siblings('.selected');
+
+		if ($selected.length > 0) {
+			if ($selected.find('a:first').attr('href') == href) {
+				return;
+			} else {
+				// hide current tab (if any)
+				$selected.removeClass('selected');
+				$($selected.find('a:first').attr('href')).hide();
+			}
+		}
+
+		// show new tab
+		$(this).parent('li').addClass('selected');
+		$(href).show();
+	});
+
+	$('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
+
+	/* Listing Info metabox / Transactions */
+	$('#listing-metabox-transactions .transaction .summary').click(function(e){
+		e.preventDefault();
+		$(this).find('.handle a').text($(this).parent('.transaction').hasClass('open') ? '+' : '-');
+		$(this).parent('.transaction').toggleClass('open');
+		$(this).siblings('.details').toggle();
+	});
+
+	/* Listing info metabox / fees */
+	$('#listing-metabox-fees a.assignfee-link').click(function(e){
+		e.preventDefault();
+		$(this).siblings('.assignfee').show();
+	});
+
+	$('#listing-metabox-fees .assignfee .close-handle').click(function(e){
+		e.preventDefault();
+		$(this).parent('.assignfee').hide();
+	});
+
 });

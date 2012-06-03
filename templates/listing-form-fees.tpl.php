@@ -50,10 +50,18 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 						<input type="radio" name="fees[<?php echo $fee_option['category']->term_id; ?>]" value="<?php echo $fee->id; ?>"
 							<?php echo _wpbdp_is_fee_selected($fee_option['category']->term_id, $fee->id) ? 'checked="checked"' : ''; ?>>
 							<b><?php echo esc_attr($fee->label); ?> <?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee->amount; ?></b><br />
-							<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)) :?>
-								<?php echo sprintf(_x('Listing will run for %d days and includes %d images.', 'templates', 'WPBDM'), $fee->days, $fee->images); ?>
+							<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)): ?>
+								<?php if ($fee->days == 0): ?>
+									<?php echo sprintf(_x('Listing will run forever and includes %d images.', 'templates', 'WPBDM'), $fee->images); ?>
+								<?php else: ?>
+									<?php echo sprintf(_x('Listing will run for %d days and includes %d images.', 'templates', 'WPBDM'), $fee->days, $fee->images); ?>
+								<?php endif; ?>
 							<?php else: ?>
-								<?php echo sprintf(_x('Listing will run for %d days.', 'templates', 'WPBDM'), $fee->days); ?>
+								<?php if ($fee->days == 0): ?>
+									<?php _ex('Listing will run forever.', 'templates', 'WPBDM'); ?>
+								<?php else: ?>
+									<?php echo sprintf(_x('Listing will run for %d days.', 'templates', 'WPBDM'), $fee->days); ?>
+								<?php endif; ?>
 							<?php endif; ?>
 					</p>
 			<?php endforeach; ?>

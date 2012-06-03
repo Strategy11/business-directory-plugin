@@ -15,6 +15,31 @@ class WPBDP_ListingsAPI {
 		return $stickies;
 	}
 
+	// TODO: $fee_id can be 0 meaning free fee
+	public function assign_fee($listing_id, $category_id, $fee_id) {
+		global $wpdb;
+
+		if (!has_term($category_id, wpbdp_categories_taxonomy(), $listing_id))
+			return false;
+
+		if ($fee = wpbdp_fees_api()->get_fee_by_id($fee_id)) {
+			if ($fee->categories['all'] || in_array($category_id, $fee->categories['categories'])) {
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $category_id));
+				$wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', array(
+					'listing_id' => $listing_id,
+					'category_id' => $category_id,
+					'fee' => serialize((array) $fee),
+					'expires_on' => $this->calculate_expiration_date(time(), $fee),
+					'charged' => 0
+				));
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function get_sticky_status($listing_id) {
 		if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
 			return $sticky_status;
@@ -55,24 +80,19 @@ class WPBDP_ListingsAPI {
 		return $images;
 	}
 
-	public function get_last_transaction($listing_id) {
-		global $wpdb;
-		
-		if ($transaction_id = $wpdb->get_var(
-				$wpdb->prepare("SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %s ORDER BY id DESC LIMIT 1", $listing_id)
-			)) {
-			$payments_api = wpbdp_payments_api();
-			return $payments_api->get_transaction($transaction_id);
-		}
-
-		return null;
-	}
-
 	public function get_payment_status($listing_id) {
 		if ($payment_status = get_post_meta($listing_id, '_wpbdp[payment_status]', true))
 			return $payment_status;
 
 		return 'not-paid';
+	}
+
+	public function set_payment_status($listing_id, $status='not-paid') {
+		// TODO: update last transaction
+		// wpbdp_debug_e('set payment status');
+
+		update_post_meta($listing_id, '_wpbdp[payment_status]', $status);
+		return true;
 	}
 
 	public function get_listing_fees($listing_id) {
@@ -98,6 +118,7 @@ class WPBDP_ListingsAPI {
 		return round($cost, 2);
 	}
 
+	// TODO revisar que tampoco hayan transacciones pendientes
 	public function is_free_listing($listing_id) {
 		return $this->cost_of_listing($listing_id) == 0.0;
 	}
