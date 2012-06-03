@@ -107,8 +107,18 @@ table.wp-list-table.formfields .tag.in-excerpt {
     background: green;
 }
 
-#wpbdp-listing-fields input {
+#wpbdp-listing-fields input[type="text"] {
     width: 70%;
+}
+
+#wpbdp-listing-fields div.listing-images .image {
+    padding: 5px;
+    border-right: 1px solid #ddd;
+    width: 150px;
+}
+
+#wpbdp-listing-fields div.listing-images .image img {
+    max-width: 150px;
 }
 
 /* FIXME: some front-end styles */

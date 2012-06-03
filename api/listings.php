@@ -44,6 +44,17 @@ class WPBDP_ListingsAPI {
 		return $result;
 	}
 
+	public function get_allowed_images($listing_id) {
+		$images = 0;
+		
+		foreach ($this->get_listing_fees($listing_id) as $fee) {
+			$fee_ = unserialize($fee->fee);
+			$images += intval($fee_['images']);
+		}
+
+		return $images;
+	}
+
 	public function get_last_transaction($listing_id) {
 		global $wpdb;
 		
@@ -62,6 +73,11 @@ class WPBDP_ListingsAPI {
 			return $payment_status;
 
 		return 'not-paid';
+	}
+
+	public function get_listing_fees($listing_id) {
+		global $wpdb;
+		return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id));
 	}
 
 	// effective_cost means do not include already paid fees
