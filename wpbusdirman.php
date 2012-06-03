@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.0.3
+Version: 2.0.4
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -399,52 +399,6 @@ function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid
 							'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
 							'recaptcha' => $recaptcha							
 						), false);
-}
-
-// TODO - implement thankyou message
-function wpbusdirman_payment_thankyou()
-{
-	global $wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirman_payment_thankyou_message=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_37'];
-	$html = '';
-
-	$html .= "<h3>" . __("Listing Sumitted","WPBDM") . "</h3>";
-	if(isset($wpbusdirman_payment_thankyou_message)
-		&& !empty($wpbusdirman_payment_thankyou_message))
-	{
-		$html .= "<p>$wpbusdirman_payment_thankyou_message</p>";
-	}
-
-	return $html;
-}
-
-// TODO - implement thankyou sticky message
-function wpbudirman_sticky_payment_thankyou()
-{
-	global $wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbusdirman_payment_thankyou_message=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_37'];
-	$html = '';
-
-	$html .= "<h3>" . __("Listing Upgraded to featured","WPBDM") . "</h3>";
-	if(isset($wpbusdirman_payment_thankyou_message)
-		&& !empty($wpbusdirman_payment_thankyou_message))
-	{
-		$html .= "<p>$wpbusdirman_payment_thankyou_message</p>";
-	}
-
-	return $html;
-}
-
-function wpbusdirman_sticky_payment_thankyou()
-{
-	$html = '';
-
-	$html .= "<h3>" . __("Listing Upgrade Payment Status","WPBDM") . "</h3>";
-	$html .= "<p>" . __("Thank you for your payment. Your listing upgrade request and payment notification have been sent. Contact the administrator if your listing is not upgraded within 24 hours.","WPBDM") . "</p>";
-
-	return $html;
 }
 
 function wpbusdirman_viewlistings() {
@@ -1073,7 +1027,7 @@ require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 class WPBDP_Plugin {
 
 	const VERSION = '2.0.4';
-	const DB_VERSION = '2.8';
+	const DB_VERSION = '3.0';
 
 	const POST_TYPE = 'wpbdm-directory';
 	const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -1311,7 +1265,7 @@ class WPBDP_Plugin {
 				expires_on TIMESTAMP NULL DEFAULT NULL,
 				updated_on TIMESTAMP NOT NULL,
 				charged TINYINT(1) NOT NULL DEFAULT 0,
-				email_sent TINYINT(1) NOT NULL DEFAULT 0,
+				email_sent TINYINT(1) NOT NULL DEFAULT 0
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
 			dbDelta($sql);

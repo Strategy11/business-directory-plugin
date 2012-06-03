@@ -271,7 +271,6 @@ class WPBDP_ListingsAPI {
 		// register fee information
 		if (!isset($data['fees'])) $data['fees'] = array();
 
-		// $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id));
 		foreach ($post_categories as $catid) {
 			$fee = (array) (isset($data['fees'][$catid]) ? $data['fees'][$catid] : wpbdp_fees_api()->get_free_fee());
 			$fee['category_id'] = $catid;

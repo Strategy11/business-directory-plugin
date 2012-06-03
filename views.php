@@ -40,6 +40,12 @@ class WPBDP_DirectoryController {
     		case 'renewlisting':
     			return $this->renew_listing();
     			break;
+    		case 'payment-process':
+    			return $this->process_payment();
+    			break;
+    		case 'payment-process-ui':
+    			return $this->process_payment_ui();
+    			break;
     		default:
     			return $this->main_page();
     			break;
@@ -664,6 +670,28 @@ class WPBDP_DirectoryController {
 		}
 
 		return '';
+	}
+
+	/* payment processing */
+	public function process_payment() {
+		$html = '';
+		$api = wpbdp_payments_api();
+
+		if ($transaction_id = $api->process_payment($_REQUEST['gateway'])) {
+			$transaction = $api->get_transaction($transaction_id);
+
+			if ($transaction->payment_type == 'upgrade-to-sticky') {
+				$html .= sprintf('<h2>%s</h2>', _x('Listing Upgrade Payment Status', 'templates', 'WPBDM'));
+			} elseif ($transaction->payment_type == 'initial') {
+				$html .= sprintf('<h2>%s</h2>', _x('Listing Submitted', 'templates', 'WPBDM'));
+			} else {
+				$html .= sprintf('<h2>%s</h2>', _x('Listing Payment Confirmation', 'templates', 'WPBDM'));
+			}
+
+			$html .= sprintf('<p>%s</p>', wpbdp_get_option('payment-message'));
+		}
+
+		return $html;
 	}
 
 }

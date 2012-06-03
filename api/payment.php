@@ -266,6 +266,14 @@ class WPBDP_PaymentsAPI {
             ));
     }
 
+    public function get_processing_url($gateway) {
+        return add_query_arg(array('action' => 'payment-process', 'gateway' => $gateway), wpbdp_get_page_link('main'));
+    }
+
+    public function in_test_mode() {
+        return wpbdp_get_option('payments-test-mode');
+    }
+
     public function save_transaction($trans_) {
         global $wpdb;
 
@@ -301,6 +309,8 @@ class WPBDP_PaymentsAPI {
         } else {
             return $wpdb->update("{$wpdb->prefix}wpbdp_payments", $trans, array('id' => $trans['id'])) !== false;
         }
+
+        // make listing sticky if needed, update fee info if renewed, etc.
 
         return false;
     }
@@ -343,6 +353,13 @@ class WPBDP_PaymentsAPI {
 
         return $transactions;
     } 
+
+    public function process_payment($gateway_id) {
+        if (!array_key_exists($gateway_id, $this->gateways))
+            return;
+
+        return call_user_func($this->gateways[$gateway_id]->process_callback, $_POST);
+    }
 
 }
 
