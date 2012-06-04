@@ -1034,7 +1034,7 @@ class WPBDP_Plugin {
 
 		add_action('init', array($this, 'install_or_update_plugin'), 0);
 		add_action('init', array($this, '_register_post_type'));
-		add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
+		// add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
@@ -1137,7 +1137,9 @@ class WPBDP_Plugin {
 		add_action('init', array($this, 'flush_rules'), 11);
 	}
 
-	public function plugin_deactivation() {	}
+	public function plugin_deactivation() {
+		wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
+	}
 
 	public function flush_rules() {
 		if (function_exists('flush_rewrite_rules'))
@@ -1370,6 +1372,14 @@ class WPBDP_Plugin {
 
 		delete_option('wpbusdirman_db_version');
 		update_option('wpbdp-db-version', self::DB_VERSION);
+
+		// schedule expiration hook if needed
+		if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
+			wpbdp_log('Expiration check was not in schedule. Scheduling.');
+			wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check'); // TODO change to daily
+		} else {
+			wpbdp_log('Expiration check was in schedule. Nothing to do.');
+		}
 
 	    $plugin_dir = basename(dirname(__FILE__));
 		load_plugin_textdomain( 'WPBDM', null, $plugin_dir.'/languages' );		
