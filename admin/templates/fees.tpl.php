@@ -14,7 +14,7 @@
 
 		<hr />
 		<p>
-			<b><?php __('Installed Payment Gateway Modules', 'WPBDM'); ?></b>
+			<b><?php _ex('Installed Payment Gateway Modules', 'WPBDM'); ?></b>
 			<ul>
 				<?php if (wpbdp_payments_api()->has_gateway('googlecheckout')): ?>
 					<li style="background:url(<?php echo WPBDP_URL . 'images/check.png'; ?>) no-repeat left center; padding-left:30px;">
