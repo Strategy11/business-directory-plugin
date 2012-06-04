@@ -1,12 +1,8 @@
 <?php get_header(); ?>
 
+	<?php the_post(); ?>
+
 	<div id="wpbdmentry"><div class="fixpadding">
-<?php 	if (have_posts())
-	{
-		while (have_posts())
-		{
-			the_post();
-?>
 
 <div id="lco">
 <div class="title"><?php the_title();?></div>
@@ -65,18 +61,6 @@
 
 	<?php comments_template(); ?>
 	<div style="clear:both;"></div>
-
-<?php
-		} // End while
-	}
-	else
-	{
-?>
-	<p><?php _e('Sorry, no posts matched your criteria.', 'WPBDM'); ?></p>
-	<!--end wpbusdirmantemplate-->
-<?php
-	}
-?>
 	<div style="clear:both;"></div>
 	</div></div><!--close div wpbdmentry--><!--close div fixpadding-->
 

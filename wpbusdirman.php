@@ -779,89 +779,71 @@ function wpbusdirman_display_ac()
 	return $html;
 }
 
-function wpbusdirman_display_main_image()
-{
+function wpbusdirman_display_main_image() {
 	echo wpbusdirman_post_main_image();
 }
 
-function wpbusdirman_post_main_image()
-{
-	global $post,$wpbdmimagesurl,$wpbusdirman_imagesurl,$wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$html = '';
+function wpbusdirman_post_main_image() {
+	$main_image = null;
 
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_11'] == "yes")
-	{
-		$usingdefault=0;
-		$wpbusdirmanpostimages=get_post_meta($post->ID, "_wpbdp_thumbnail", $single=false);
-		$wpbusdirmanpostimagestotal=count($wpbusdirmanpostimages);
-		$wpbusdirmanpostimagefeature='';
-		if($wpbusdirmanpostimagestotal >=1)
-		{
-			$wpbusdirmanpostimagefeature=$wpbusdirmanpostimages[0];
-		}
-		$wpbdmusedef=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_39'];
-		if(!isset($wpbdmusedef)
-			|| empty($wpbdmusedef)
-			|| ($wpbdmusedef == "yes"))
-		{
-			if(!isset($wpbusdirmanpostimagefeature)
-				|| empty($wpbusdirmanpostimagefeature))
-			{
-				$usingdefault=1;
-				$wpbusdirmanpostimagefeature=$wpbusdirman_imagesurl.'/default-image-big.gif';
-			}
-		}
-		if ( function_exists('has_post_thumbnail') && has_post_thumbnail() )
-		{
+	if ($thumbnail_id = wpbdp_listings_api()->get_thumbnail_id(get_the_ID())) {
+		$main_image = get_post($thumbnail_id);
+	} else {
+		$images = wpbdp_listings_api()->get_images(get_the_ID());
 
-			$html .= '<a href="' . get_permalink() . '">' .the_post_thumbnail('medium') . '</a><br/>';
-		}
-		elseif(isset($wpbusdirmanpostimagefeature)
-			&& !empty($wpbusdirmanpostimagefeature))
-		{
-			$html .= '<a href="' . get_permalink() . '"><img src="';
-			if($usingdefault != 1)
-			{
-				$html .= $wpbdmimagesurl;
-				$html .= '/';
-			}
-			$html .= $wpbusdirmanpostimagefeature . '" alt="' . the_title(null, null, false) . '" title="' . the_title(null, null, false) . '" border="0"></a><br />';
-		}
-
+		if ($images)
+			$main_image = $images[0];
 	}
 
-	return $html;
+	if (!$main_image && function_exists('has_post_thumbnail') && has_post_thumbnail()) {
+		return '<a href="' . get_permalink() . '">' .the_post_thumbnail('medium') . '</a><br/>';
+	}
+
+	if (!$main_image && wpbdp_get_option('use-default-picture')) {
+		if (wpbdp_get_option('use-default-picture')) {
+			return sprintf('<a href="%s"><img src="%s" alt="%s" title="%s" border="0" /></a><br />',
+							get_permalink(),
+							WPBDP_URL . 'images/default-image-big.gif',
+							the_title(null, null, false),
+							the_title(null, null, false)
+						  );
+		}
+	} else {
+		return wp_get_attachment_image($main_image->ID, 'medium', false, array(
+			'alt' => the_title(null, null, false),
+			'title' => the_title(null, null, false)
+			));
+	}
+
+	return '';
 }
 
-function wpbusdirman_display_extra_thumbnails()
-{
+function wpbusdirman_display_extra_thumbnails() {
 	echo wpbusdirman_post_extra_thumbnails();
 }
 
-function wpbusdirman_post_extra_thumbnails()
-{
-	global $post,$wpbdmimagesurl;
-	$wpbusdirmanpostimages=get_post_meta($post->ID, "_wpbdp_thumbnail", $single=false);
-	$wpbusdirmanpostimagestotal=count($wpbusdirmanpostimages);
-	$wpbusdirmanpostimagefeature='';
+function wpbusdirman_post_extra_thumbnails() {
 	$html = '';
 
-	if($wpbusdirmanpostimagestotal >=1)
-	{
-		$wpbusdirmanpostimagefeature=$wpbusdirmanpostimages[0];
-	}
-	if($wpbusdirmanpostimagestotal > 1)
-	{
+	$thumbnail_id = wpbdp_listings_api()->get_thumbnail_id(get_the_ID());
+	$images = wpbdp_listings_api()->get_images(get_the_ID());
+
+	if ($images) {
 		$html .= '<div class="extrathumbnails">';
-		foreach($wpbusdirmanpostimages as $wpbusdirmanpostimage)
-		{
-			if(!($wpbusdirmanpostimage == $wpbusdirmanpostimagefeature))
-			{
-				$html .= '<a class="thickbox" href="' . $wpbdmimagesurl . '/' . $wpbusdirmanpostimage . '"><img class="wpbdmthumbs" src="' . $wpbdmimagesurl . '/thumbnails/' . $wpbusdirmanpostimage . '" alt="' . the_title(null, null, false) . '" title="' . the_title(null, null, false) . '" border="0"></a>';
-			}
+
+		foreach ($images as $img) {
+			if ($img->ID == $thumbnail_id)
+				continue;
+
+			$html .= sprintf('<a class="thickbox" href="%s"><img class="wpbdmthumbs" src="%s" alt="%s" title="%s" border="0" /></a>',
+						     wp_get_attachment_url($img->ID),
+						     wp_get_attachment_thumb_url($img->ID),
+						     the_title(null, null, false),
+						     the_title(null, null, false)
+							 );
 		}
-		$html .= '</div>';
+
+		$html .= '</div>';		
 	}
 
 	return $html;
