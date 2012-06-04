@@ -251,7 +251,7 @@ class WPBDP_PaymentsAPI {
     }
 
     public function has_gateway($gateway) {
-
+        return array_key_exists($gateway, $this->gateways);
     }
 
     public function render_payment_page($options_) {

@@ -15,69 +15,48 @@
 		<hr />
 		<p>
 			<b><?php __('Installed Payment Gateway Modules', 'WPBDM'); ?></b>
-
 			<ul>
 				<?php if (wpbdp_payments_api()->has_gateway('googlecheckout')): ?>
-					<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>"
+					<li style="background:url(<?php echo WPBDP_URL . 'images/check.png'; ?>) no-repeat left center; padding-left:30px;">
+						<?php _ex('Google Checkout', 'admin templates', 'WPBDM'); ?>
+					</li>
 				<?php endif; ?>
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>";
-		}
-		if($wpbusdirman_haspaypalmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("PayPal","WPBDM") . "</li>";
-		}
-		if($wpbusdirman_hastwocheckoutmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("2Checkout","WPBDM") . "</li>";
-		}				
-			</ul>
+				<?php if (wpbdp_payments_api()->has_gateway('paypal')): ?>
+					<li style="background:url(<?php echo WPBDP_URL . 'images/check.png'; ?>) no-repeat left center; padding-left:30px;">
+						<?php _ex('PayPal', 'admin templates', 'WPBDM'); ?>
+					</li>
+				<?php endif; ?>
+				<?php if (wpbdp_payments_api()->has_gateway('2checkout')): ?>
+					<li style="background:url(<?php echo WPBDP_URL . 'images/check.png'; ?>) no-repeat left center; padding-left:30px;">
+						<?php _ex('2Checkout', 'admin templates', 'WPBDM'); ?>
+					</li>
+				<?php endif; ?>
+			</ul></p>
 
-		</p>
+			<?php if (!wpbdp_payments_api()->has_gateway('googlecheckout') && !wpbdp_payments_api()->has_gateway('paypal') && !wpbdp_payments_api()->has_gateway('2checkout')): ?>
+				<p><?php _ex("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit", 'admin templates', "WPBDM"); ?></p>
+				<p><a href="http://businessdirectoryplugin.com/premium-modules/">http://businessdirectoryplugin.com/premium-modules/</a></p>			
+			<?php endif; ?>
+
+			<?php if (!wpbdp_payments_api()->has_gateway('2checkout') || !wpbdp_payments_api()->has_gateway('paypal')): ?>
+				<div style="width:100%;padding:10px;">
+				<?php if (!wpbdp_payments_api()->has_gateway('paypal')): ?>
+					<div style="float:left;width:22%;padding:10px;"><?php _ex("You can buy the PayPal gateway module to add PayPal as a payment option for your users.", 'admin templates', "WPBDM"); ?> <span style="display:block;color:red;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/" style="color:green;"><?php _ex("$49.99", 'admin templates', "WPBDM"); ?></a></span></div>
+				<?php endif; ?>
+
+				<?php if (!wpbdp_payments_api()->has_gateway('2checkout')): ?>
+					<div style="float:left;width:22%;padding:10px;"><?php _ex("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM"); ?> <span style="display:block;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/" style="color:green;"><?php _ex("$49.99", 'admin templates', "WPBDM"); ?></a></span></div>
+				<?php endif; ?>
+
+
+				<?php if (!wpbdp_payments_api()->has_gateway('2checkout') && !wpbdp_payments_api()->has_gateway('paypal')): ?>
+					<?php echo '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/><b>' . __('(Single Site License Combo Pack)', 'WPBDM') .'</b><span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/" style="color:green;">' . __("$79.99","WPBDM") . '</a></span></div>'; ?>
+					<?php echo '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/><b>' . __('(Multi Site License Combo Pack)', 'WPBDM') .'</b><span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/" style="color:green;">' . __("$119.00","WPBDM") . '</a></span></div>'; ?>				
+				<?php endif; ?>
+
+				</div><div style="clear: both;"></div>
+			<?php endif; ?>
+
 	<?php endif; ?>
 
 <?php echo wpbdp_admin_footer(); ?>
-<?php
-/* TODO
-		$html .= '<hr />';
-		$html .= "<p><b>" . __("Installed Payment Gateway Modules","WPBDM") . "</b><ul>";
-		if($wpbusdirman_hasgooglecheckoutmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>";
-		}
-		if($wpbusdirman_haspaypalmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("PayPal","WPBDM") . "</li>";
-		}
-		if($wpbusdirman_hastwocheckoutmodule == 1)
-		{
-			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("2Checkout","WPBDM") . "</li>";
-		}
-		$html .= "</ul></p>";
-		if(!$wpbusdirman_haspaypalmodule && !$wpbusdirman_hastwocheckoutmodule && !$wpbusdirman_hasgooglecheckoutmodule)
-		{
-			$hasnomodules=1;
-			$html .= "<p>" . __("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit","WPBDM") . "</p>";
-			$html .= "<p><a href=\"http://businessdirectoryplugin.com/premium-modules/\">http://businessdirectoryplugin.com/premium-modules/</a></p>";
-		}
-
-			if($wpbusdirman_hastwocheckoutmodule != 1
-				|| $wpbusdirman_haspaypalmodule != 1 )
-			{
-				$html .= '<div style="width:100%;padding:10px;">';
-				if(!($wpbusdirman_haspaypalmodule == 1))
-				{
-					$html .= '<div style="float:left;width:22%;padding:10px;">' . __("You can buy the PayPal gateway module to add PayPal as a payment option for your users.","WPBDM") . '<span style="display:block;color:red;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/" style="color:green;">' . __("$49.99","WPBDM") . '</a></span></div>';
-				}
-				if(!($wpbusdirman_hastwocheckoutmodule == 1))
-				{
-					$html .= '<div style="float:left;width:22%;padding:10px;">' . __("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM") . '<span style="display:block;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/" style="color:green;">' . __("$49.99","WPBDM") . '</a></span></div>';
-				}
-				if($wpbusdirman_hastwocheckoutmodule
-					!= 1 && $wpbusdirman_haspaypalmodule != 1 )
-				{
-					$html .= '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/><b>' . __('(Single Site License Combo Pack)', 'WPBDM') .'</b><span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/" style="color:green;">' . __("$79.99","WPBDM") . '</a></span></div>';
-					$html .= '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/><b>' . __('(Multi Site License Combo Pack)', 'WPBDM') .'</b><span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/" style="color:green;">' . __("$119.00","WPBDM") . '</a></span></div>';
-				}
-				$html .= '</div><div style="clear:both;"></div>';
-			}*/
