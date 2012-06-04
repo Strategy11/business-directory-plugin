@@ -12,7 +12,7 @@
 					<dt><?php _ex('# Images', 'admin infometabox', 'WPBDM'); ?></dt>
 					<dd><?php echo min($image_count, $fee->images); ?> / <?php echo $fee->images; ?></dd>
 					<dt>
-						<?php if (strtotime($fee->expires_on) <= time()): ?>
+						<?php if ($fee->expires_on && (strtotime($fee->expires_on) <= time())): ?>
 							<?php _ex('Expired on', 'admin infometabox', 'WPBDM'); ?>
 						<?php else: ?>
 							<?php _ex('Expires on', 'admin infometabox', 'WPBDM'); ?>

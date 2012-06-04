@@ -15,23 +15,29 @@ class WPBDP_ListingsAPI {
 		return $stickies;
 	}
 
-	// TODO: $fee_id can be 0 meaning free fee
-	public function assign_fee($listing_id, $category_id, $fee_id) {
+	public function assign_fee($listing_id, $category_id, $fee_id, $charged=false) {
 		global $wpdb;
 
 		if (!has_term($category_id, wpbdp_categories_taxonomy(), $listing_id))
 			return false;
 
-		if ($fee = wpbdp_fees_api()->get_fee_by_id($fee_id)) {
+		$fee = is_object($fee_id) ? $fee_id : wpbdp_fees_api()->get_fee_by_id($fee_id);
+		if ($fee) {
 			if ($fee->categories['all'] || in_array($category_id, $fee->categories['categories'])) {
 				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $category_id));
-				$wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', array(
+
+				$feerow = array(
 					'listing_id' => $listing_id,
 					'category_id' => $category_id,
 					'fee' => serialize((array) $fee),
-					'expires_on' => $this->calculate_expiration_date(time(), $fee),
-					'charged' => 0
-				));
+					'charged' => $charged ? 1 : 0
+				);
+
+				$expiration_date = $this->calculate_expiration_date(time(), $fee);
+				if ($expiration_date != null)
+					$feerow['expires_on'] = $expiration_date;
+
+				$wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', $feerow);
 
 				return true;
 			}
@@ -88,8 +94,17 @@ class WPBDP_ListingsAPI {
 	}
 
 	public function set_payment_status($listing_id, $status='not-paid') {
-		// TODO: update last transaction
-		// wpbdp_debug_e('set payment status');
+		// global $wpdb;
+
+		// if ($last_transaction = wpbdp_payments_api()->get_last_transaction($listing_id)) {
+		// 	$last_transaction->processed_on = current_time('mysql');
+		// 	$last_transaction->processed_by = 'admin';
+		// 	$last_transaction->status = ($status == 'paid') ? 'approved' : 'rejected';
+		// 	wpbdp_payments_api()->save_transaction($last_transaction);
+		// 	return true;
+		// }
+
+		// return false;
 
 		update_post_meta($listing_id, '_wpbdp[payment_status]', $status);
 		return true;
@@ -192,26 +207,11 @@ class WPBDP_ListingsAPI {
 					'listing_id' => $renewal->listing_id,
 					'amount' => $fee->amount,
 					'payment_type' => 'renewal',
-					'extra_data' => serialize($fee)
+					'extra_data' => serialize(array('renewal_id' => $renewal_id, 'fee' => $fee))
 				));
 
 				// set payment status to not-paid
-				update_post_meta($listing_id, '_wpbdp[payment_status]', 'not-paid');
-
-/*	
-			we do not update the expiration info until the payment has been processed		
-		// update expiration information
-				$wpdb->update("{$wpdb->prefix}wpbdp_listing_fees", array(
-					'fee' => serialize((array) $fee),
-					'expires_on' => $this->calculate_expiration_date(time(), $fee),
-					'charged' => 1,
-					'email_sent' => 0
-				), array('id' => $renewal->id));
-
-				// set listing post status to pending review
-				wp_update_post(array('ID' => $renewal->listing_id,
-									 'post_status' => 'pending'));*/
-
+				update_post_meta($renewal->listing_id, '_wpbdp[payment_status]', 'not-paid');
 				return $transaction_id;
 			}
 		}
@@ -219,27 +219,6 @@ class WPBDP_ListingsAPI {
 		return 0;
 	}
 
-	// TODO: create user when user's not logged in and anonymous submits are allowed
-	// if (!(is_user_logged_in()) ) {
-	// 	if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
-	// 		if ($email = $formfields_api->extract($listingfields, $email_field)) {
-	// 			if (email_exists($email)) {
-	// 				$wpbusdirman_UID = get_user_by_email($email)->ID;
-	// 			} else {
-	// 				$randvalue = wpbusdirman_generatePassword(5,2);
-	// 				$wpbusdirman_UID = wp_insert_user(array(
-	// 					'display_name' => 'Guest ' . $randvalue,
-	// 					'user_login'=> 'guest_' . $randvalue,
-	// 					'user_email'=> $email,
-	// 					'user_pass'=> wpbusdirman_generatePassword(7,2)));
-	// 			}
-	// 		}
-	// 	}
-	// } elseif(is_user_logged_in()) {
-	// 	global $current_user;
-	// 	get_currentuserinfo();
-	// 	$wpbusdirman_UID=$current_user->ID;
-	// }
 	public function add_listing($data_, &$transaction_id=null) {
 		global $wpdb;
 
@@ -265,15 +244,44 @@ class WPBDP_ListingsAPI {
 
 		$post_status = $data['listing_id'] ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
 
-		$listing_id = wp_insert_post(array(
+		$insert_args = array(
 			'post_title' => $post_title,
 			'post_content' => $post_content,
 			'post_excerpt' => $post_excerpt,
 			'post_status' => $post_status,
 			'post_type' => wpbdp_post_type(),
 			'ID' => isset($data['listing_id']) ? intval($data['listing_id']) : null
+		);
 
-		));
+		if (!$editing) {
+			$current_user = wp_get_current_user();
+
+			if ($current_user->ID == 0) {
+				if (wpbdp_get_option('require-login'))
+					exit;
+
+				// create user
+				if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
+					$email = $formfields_api->extract($listingfields, $email_field);
+					
+					if (email_exists($email)) {
+						$insert_args['post_author'] = get_user_by_email($email)->ID;
+					} else {
+						$randvalue = wpbusdirman_generatePassword(5, 2);
+						$insert_args['post_author'] = wp_insert_user(array(
+							'display_name' => 'Guest ' . $randvalue,
+							'user_login' => 'guest_' . $randvalue,
+							'user_email' => $email,
+							'user_pass' => wpbusdirman_generatePassword(7, 2)
+						));
+					}
+				} else {
+					exit;
+				}
+			}
+		}
+
+		$listing_id = wp_insert_post($insert_args);
 
 		wp_set_post_terms($listing_id, $post_categories, wpbdp_categories_taxonomy(), false);
 		wp_set_post_terms($listing_id, $post_tags, wpbdp_tags_taxonomy(), false);
@@ -317,14 +325,7 @@ class WPBDP_ListingsAPI {
 				$wpdb->update($wpdb->prefix . 'wpbdp_listing_fees', array('charged' => 0), array('listing_id' => $listing_id,
 																								 'category_id' => $catid));
 			} else {
-				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $catid));
-				$wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', array(
-					'listing_id' => $listing_id,
-					'category_id' => $catid,
-					'fee' => serialize($fee),
-					'expires_on' => $this->calculate_expiration_date(time(), (object) $fee),
-					'charged' => 1
-				));
+				$this->assign_fee($listing_id, $catid, $fee['id'], true);
 			}
 		}
 		if ($post_categories)

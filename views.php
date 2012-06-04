@@ -173,6 +173,7 @@ class WPBDP_DirectoryController {
 	/*
 	 * Submit listing process.
 	 */
+	// TODO login is required for edits
 	public function submit_listing($listing_id=null) {
 		$no_categories_msg = false;
 

@@ -950,7 +950,8 @@ function wpbusdirman_the_listing_meta($excerptorsingle) {
 
 function wpbusdirman_latest_listings($numlistings)
 {
-	global $wpbdmposttype;
+	return ''; 	// FIXME
+/*	global $wpbdmposttype;
 	$wpbdmpostheadline='';
 	$args = array(
 		'post_status' => 'publish',
@@ -970,7 +971,7 @@ function wpbusdirman_latest_listings($numlistings)
 		}
 	}
 
-	return $wpbdmpostheadline;
+	return $wpbdmpostheadline;*/
 }
 
 function wpbusdirman_sticky_loop() {
@@ -1071,12 +1072,16 @@ class WPBDP_Plugin {
 	public function _listing_expirations() {
 		global $wpdb;
 
+		wpbdp_log('Running expirations hook.');
+
 		$current_date = current_time('mysql');
 
 		$posts_to_check = $wpdb->get_results($wpdb->prepare(
 				"SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on < %s AND email_sent = %d", $current_date, 0) );
 
 		foreach ($posts_to_check as $p) {
+			// TODO: remove category from post categories
+
 			if (wpbdp_get_option('listing-renewal')) {
 				$listing = get_post($p->listing_id);
 
@@ -1113,7 +1118,7 @@ class WPBDP_Plugin {
 		$current_date = current_time('mysql');
 
 		$query = $wpdb->prepare(
-			"UPDATE {$wpdb->posts} SET post_status = %s WHERE ID IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s AND email_sent = %d AND listing_id NOT IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NULL))", wpbdp_get_option('deleted-status'), $current_date, 1);
+			"UPDATE {$wpdb->posts} SET post_status = %s WHERE ID IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s AND email_sent = %d AND listing_id NOT IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NULL OR expires_on >= %s))", wpbdp_get_option('deleted-status'), $current_date, 1, $current_date);
 		
 		$wpdb->query($query);
 	}
@@ -1125,23 +1130,12 @@ class WPBDP_Plugin {
 		if (!$query->is_admin && $query->is_archive && $query->get(self::POST_TYPE_CATEGORY)) {
 			$category = get_term_by('slug', $query->get(self::POST_TYPE_CATEGORY), self::POST_TYPE_CATEGORY);
 			$category_ids = array_merge(array(intval($category->term_id)), get_term_children($category->term_id, self::POST_TYPE_CATEGORY));
+			$categories_str = '(' . implode(',', $category_ids) . ')';
 
-			// select posts expired in this category (and all of its children)
-			// $sql = "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE 1=1";
-			// foreach ($category_ids as $cat_id) {}
-			// 	$sql .= sprintf(" AND (meta_key = '%s' AND meta_value = '%s')", '_wpbdp[expired][' . $cat_id . ']', '1');
-			// $excluded_ids = $wpdb->get_col($sql);
-
-			// TODO - rewrite this as a just one sql query
-			// $excluded_ids = array();
-			// foreach ($category_ids as $cat_id) {
-			// 	$sql = sprintf("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = '%s' AND meta_value = '%s'", '_wpbdp[expired][' . $cat_id . ']', '1');
-			// 	if ($exclude_new_ids = $wpdb->get_col($sql)) {
-			// 		$excluded_ids = !$excluded_ids ? $exclude_new_ids : array_intersect($excluded_ids, $exclude_new_ids);
-			// 	}
-			// }
-
-			// wpbdp_debug_e($excluded_ids);
+			$current_date = current_time('mysql');
+			$excluded_ids = $wpdb->get_col(
+				$wpdb->prepare("SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id IN {$categories_str} AND (expires_on IS NULL OR expires_on >= %s))", $current_date)
+			);
 
 			$query->set('post_status', 'publish');
 			$query->set('post__not_in', array_merge($excluded_ids, wpbdp_listings_api()->get_stickies()));
