@@ -81,9 +81,9 @@ $wpbdmposttype="wpbdm-directory";
 $wpbdmposttypecategory="wpbdm-category";
 $wpbdmposttypetags="wpbdm-tags";
 
-	if( file_exists("$wpbusdirman_plugin_path/gateways/googlecheckout.php") )
+	if( file_exists("$wpbusdirman_plugin_path/gateways-googlecheckout.php") )
 	{
-		require("$wpbusdirman_plugin_path/gateways/googlecheckout.php");
+		require("$wpbusdirman_plugin_path/gateways-googlecheckout.php");
 		$wpbusdirman_hasgooglecheckoutmodule=1;
 	}
 

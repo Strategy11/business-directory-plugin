@@ -10,7 +10,30 @@
 	<?php else: ?>
 
 		<?php $table->views(); ?>
-		<?php $table->display(); ?>	
+		<?php $table->display(); ?>
+
+		<hr />
+		<p>
+			<b><?php __('Installed Payment Gateway Modules', 'WPBDM'); ?></b>
+
+			<ul>
+				<?php if (wpbdp_payments_api()->has_gateway('googlecheckout')): ?>
+					<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>"
+				<?php endif; ?>
+		{
+			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("Google Checkout","WPBDM") . "</li>";
+		}
+		if($wpbusdirman_haspaypalmodule == 1)
+		{
+			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("PayPal","WPBDM") . "</li>";
+		}
+		if($wpbusdirman_hastwocheckoutmodule == 1)
+		{
+			$html .= "<li style=\"background:url($wpbusdirman_imagesurl/check.png) no-repeat left center; padding-left:30px;\">" . __("2Checkout","WPBDM") . "</li>";
+		}				
+			</ul>
+
+		</p>
 	<?php endif; ?>
 
 <?php echo wpbdp_admin_footer(); ?>

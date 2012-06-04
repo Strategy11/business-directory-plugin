@@ -43,9 +43,6 @@ class WPBDP_DirectoryController {
     		case 'payment-process':
     			return $this->process_payment();
     			break;
-    		case 'payment-process-ui':
-    			return $this->process_payment_ui();
-    			break;
     		default:
     			return $this->main_page();
     			break;

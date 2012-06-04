@@ -250,6 +250,10 @@ class WPBDP_PaymentsAPI {
         return $this->gateways;
     }
 
+    public function has_gateway($gateway) {
+
+    }
+
     public function render_payment_page($options_) {
         $options = array_merge(array(
             'title' => _x('Checkout', 'payments-api', 'WPBDM'),
@@ -266,8 +270,34 @@ class WPBDP_PaymentsAPI {
             ));
     }
 
-    public function get_processing_url($gateway) {
-        return add_query_arg(array('action' => 'payment-process', 'gateway' => $gateway), wpbdp_get_page_link('main'));
+    public function get_uri_id_for_transaction($transaction) {
+        return urlencode(base64_encode(sprintf('%d.%s', $transaction->id, strtotime($transaction->created_on))));
+    }
+
+    public function get_transaction_from_uri_id() {
+        if (!isset($_GET['tid']))
+            return null;
+
+        $uri_id_plain = explode('.', urldecode(base64_decode($_GET['tid'])));
+        $transaction_id = $uri_id_plain[0];
+        $transaction_date = $uri_id_plain[1];
+
+        // check transaction date is valid
+        if ($transaction = $this->get_transaction($transaction_id)) {
+            if (strtotime($transaction->created_on) == $transaction_date)
+                return $transaction;
+        }
+
+        return null;
+    }
+
+    public function get_processing_url($gateway, $transaction=null) {
+        $args = array('action' => 'payment-process', 'gateway' => $gateway);
+
+        if ($transaction)
+            $args['tid'] = $this->get_uri_id_for_transaction($transaction);
+
+        return add_query_arg($args, wpbdp_get_page_link('main'));
     }
 
     public function in_test_mode() {
@@ -407,7 +437,11 @@ class WPBDP_PaymentsAPI {
         if (!array_key_exists($gateway_id, $this->gateways))
             return;
 
-        return call_user_func($this->gateways[$gateway_id]->process_callback, $_POST);
+        $getvars = $_GET;
+        unset($getvars['action']);
+        unset($getvars['page_id']);
+
+        return call_user_func($this->gateways[$gateway_id]->process_callback, array_merge($_POST, $getvars));
     }
 
 }
