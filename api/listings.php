@@ -175,6 +175,8 @@ class WPBDP_ListingsAPI {
 			));
 
 			update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+
+			return true;
 		}
 
 		$transaction_id = 0;
