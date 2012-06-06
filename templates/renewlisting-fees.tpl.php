@@ -24,19 +24,20 @@
 				<p>
 					<input type="radio" name="fee_id" value="<?php echo $fee->id; ?>" <?php echo (count($fee_options) == 1 || (isset($_POST['fee_id']) && $_POST['fee_id'] == $fee->id)) ? 'checked="checked"' : ''; ?>/>
 						<b><?php echo esc_attr($fee->label); ?> <?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee->amount; ?></b><br />
-						<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)) :?>
-							<?php if ($fee->days == 0): ?>
-								<?php echo sprintf(_x('Listing will run forever and includes %d images.', 'templates', 'WPBDM'), $fee->images); ?>
+							<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)): ?>
+								<?php if ($fee->days == 0): ?>
+									<?php echo sprintf(_nx('Listing will run forever and includes %d image.', 'Listing will run forever and includes %d images.', $fee->images, 'templates', 'WPBDM'), $fee->images); ?>
+								<?php else: ?>
+									<?php echo sprintf(_nx('Listing will run for %d day', 'Listing will run for %d days', $fee->days, 'templates', 'WPBDM'), $fee->days) . ' '; ?>
+									<?php echo sprintf(_nx('and includes %d image.', 'and includes %d images.', $fee->images, 'templates', 'WPBDM'), $fee->images); ?>
+								<?php endif; ?>
 							<?php else: ?>
-								<?php echo sprintf(_x('Listing will run for %d days and includes %d images.', 'templates', 'WPBDM'), $fee->days, $fee->images); ?>
-							<?php endif; ?>
-						<?php else: ?>
 								<?php if ($fee->days == 0): ?>
 									<?php _ex('Listing will run forever.', 'templates', 'WPBDM'); ?>
 								<?php else: ?>
-									<?php echo sprintf(_x('Listing will run for %d days.', 'templates', 'WPBDM'), $fee->days); ?>
+									<?php echo sprintf(_nx('Listing will run for %d day.', 'Listing will run for %d days.', $fee->days, 'templates', 'WPBDM'), $fee->days); ?>
 								<?php endif; ?>
-						<?php endif; ?>
+							<?php endif; ?>
 				</p>
 		<?php endforeach; ?>
 
