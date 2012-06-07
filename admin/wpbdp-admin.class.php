@@ -139,13 +139,11 @@ class WPBDP_Admin {
         if (wpbdp_get_option('allow-images')) {
             $listings_api = wpbdp_listings_api();
             $thumbnail_id = $listings_api->get_thumbnail_id($post->ID);
-            $allowed_images = $listings_api->get_allowed_images($post->ID);
             $images = $listings_api->get_images($post->ID);
 
             echo '<div style="margin-top: 10px;">';
             echo sprintf('<strong>%s</strong>', _x('Listing Images', 'admin', 'WPBDM'));
             echo '<div class="listing-images" style="padding-left: 10px;">';
-            echo sprintf('<span>%s</span>: %d<br />', _x('Allowed Images', 'admin', 'WPBDM'), $allowed_images);
 
             foreach ($images as $image) {
                 echo '<div class="image">';
@@ -161,7 +159,6 @@ class WPBDP_Admin {
                 echo '</div>';
             }
 
-            if (count($images) < $allowed_images) {
                 echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button" title="%s">%s</a>',
                              add_query_arg(array('action' => 'wpbdp-uploadimage',
                                                  'post_id' => $post->ID,
@@ -170,7 +167,6 @@ class WPBDP_Admin {
                                             admin_url('admin-ajax.php')),
                              _x('Upload Image', 'admin', 'WPBDM'),
                              _x('Upload Image', 'admin', 'WPBDM'));
-            }
 
             echo '</div>';
             echo '</div>';
