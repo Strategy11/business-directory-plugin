@@ -159,7 +159,7 @@ class WPBDP_Admin {
                 echo '</div>';
             }
 
-                echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button" title="%s">%s</a>',
+                echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button-primary" title="%s">%s</a>',
                              add_query_arg(array('action' => 'wpbdp-uploadimage',
                                                  'post_id' => $post->ID,
                                                  'width' => '600',
