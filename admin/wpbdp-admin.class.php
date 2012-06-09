@@ -28,6 +28,8 @@ class WPBDP_Admin {
         add_action('save_post', array($this, '_save_post'));
 
         add_action('wp_ajax_wpbdp-uploadimage', array($this, '_upload_image'));
+        add_action('wp_ajax_wpbdp-deleteimage', array($this, '_delete_image'));
+        add_action('wp_ajax_wpbdp-listingimages', array($this, '_listing_images'));
     }
 
     function admin_javascript() {
@@ -136,10 +138,25 @@ class WPBDP_Admin {
         echo '<div class="clear"></div>';
 
         // listing images
+        echo sprintf('<div id="wpbdp-listing-images" class="wpbdp-ajax-placeholder"
+                           data-action="wpbdp-listingimages"
+                           data-post_id="%s"
+                           data-baseurl="%s"></div>',
+                    $post->ID,
+                    remove_query_arg(array('message', 'wpbdmaction')));
+    }
+
+    /*
+     * Listing image handling
+     */
+
+    public function _listing_images() {
+        $post_id = intval($_POST['post_id']);
+
         if (wpbdp_get_option('allow-images')) {
             $listings_api = wpbdp_listings_api();
-            $thumbnail_id = $listings_api->get_thumbnail_id($post->ID);
-            $images = $listings_api->get_images($post->ID);
+            $thumbnail_id = $listings_api->get_thumbnail_id($post_id);
+            $images = $listings_api->get_images($post_id);
 
             echo '<div style="margin-top: 10px;">';
             echo sprintf('<strong>%s</strong>', _x('Listing Images', 'admin', 'WPBDM'));
@@ -152,16 +169,17 @@ class WPBDP_Admin {
                              $image->ID,
                              $thumbnail_id == $image->ID ? 'checked="checked"' : '',
                              _x('Listing thumbnail', 'admin', 'WPBDM'));
-                echo sprintf('<a href="%s" class="button">%s</a>',
-                            add_query_arg(array('wpbdmaction' => 'deleteimage',
-                                                'image_id' => $image->ID)),
+                echo sprintf('<a href="%s" class="button delete-image-button">%s</a>',
+                            add_query_arg(array('action' => 'wpbdp-deleteimage',
+                                                'image_id' => $image->ID),
+                                          admin_url('admin-ajax.php')),
                             _x('Delete Image', 'admin', 'WPBDM'));
                 echo '</div>';
             }
 
                 echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button-primary" title="%s">%s</a>',
                              add_query_arg(array('action' => 'wpbdp-uploadimage',
-                                                 'post_id' => $post->ID,
+                                                 'post_id' => $post_id,
                                                  'width' => '600',
                                                  'TB_iframe' => 1),
                                             admin_url('admin-ajax.php')),
@@ -171,6 +189,8 @@ class WPBDP_Admin {
             echo '</div>';
             echo '</div>';
         }
+
+        exit;
     }
 
     public function _upload_image() {
@@ -204,7 +224,7 @@ class WPBDP_Admin {
 
             echo '<script type="text/javascript">';
             echo 'parent.jQuery("#TB_closeWindowButton").click();';
-            echo 'parent.location.reload();';
+            echo 'parent.wpbdp_load_placeholder(parent.jQuery("#wpbdp-listing-images"))';
             echo '</script>';
             exit;
         }
@@ -217,33 +237,43 @@ class WPBDP_Admin {
         echo '</form>';
         echo '</div>';
         exit;
-    }        
+    }
+
+    public function _delete_image() {
+        wp_delete_attachment($_GET['image_id'], true);
+        delete_post_meta($post_id, '_wpbdp[thumbnail_id]', $_GET['image_id']);
+        exit;
+    }
 
     public function _save_post($post_id) {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
             return;
 
-        if (!wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
-            return;
+        // Fix listings added through admin site
+        if (is_admin())
+            wpbdp_listings_api()->set_default_listing_settings($post_id);
 
-        // save custom fields
-        $formfields_api = wpbdp_formfields_api();
-        $listingfields = wpbdp_getv($_POST, 'listingfields', array());
-        
-        foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
-            if (isset($listingfields[$field->id])) {
-                if ($value = $formfields_api->extract($listingfields, $field)) {
-                    if (in_array($field->type, array('multiselect', 'checkbox'))) {
-                        $value = implode("\t", $value);
+        // Save custom fields
+        if (isset($_POST['wpbdp-listing-fields-nonce']) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
+            // save custom fields
+            $formfields_api = wpbdp_formfields_api();
+            $listingfields = wpbdp_getv($_POST, 'listingfields', array());
+            
+            foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
+                if (isset($listingfields[$field->id])) {
+                    if ($value = $formfields_api->extract($listingfields, $field)) {
+                        if (in_array($field->type, array('multiselect', 'checkbox'))) {
+                            $value = implode("\t", $value);
+                        }
+
+                        update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
                     }
-
-                    update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
                 }
             }
-        }
 
-        if (isset($_POST['thumbnail_id']))
-            update_post_meta($post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id']);
+            if (isset($_POST['thumbnail_id']))
+                update_post_meta($post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id']);
+        }
     }
 
     function listing_metabox($post) {
@@ -269,7 +299,7 @@ class WPBDP_Admin {
             echo '<dd>';
                 echo sprintf('<span class="tag paymentstatus %1$s">%1$s</span>', $payment_status);
             echo '</dd>';
-            echo '<dt>' . _x('Sticky Status', 'admin infometabox', 'WPBDM') . '</dt>';
+            echo '<dt>' . _x('Featured (Sticky) Status', 'admin infometabox', 'WPBDM') . '</dt>';
             echo '<dd>';
                 // sticky information
                 $sticky_status = $listings_api->get_sticky_status($post->ID);
@@ -391,14 +421,6 @@ class WPBDP_Admin {
                 $this->messages[] = __("The listing has been downgraded.","WPBDM");
                 break;
 
-            case 'deleteimage':
-                wp_delete_attachment($_GET['image_id'], true);
-                delete_post_meta($post_id, '_wpbdp[thumbnail_id]', $_GET['image_id']);
-
-                $this->messages[] = _x('The listing image has been removed.', 'admin', 'WPBDM');
-
-                break;
-
             case 'approvetransaction':
                 $trans = wpbdp_payments_api()->get_transaction($_GET['transaction_id']);
                 $trans->processed_on = current_time('mysql');
@@ -516,12 +538,8 @@ class WPBDP_Admin {
                                   add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
                                   __('Not paid', 'WPBDM'));
 
-        if ($listings_api->is_free_listing($post->ID)) {
-            echo _x('(Free Listing)', 'admin', 'WPBDM');
-        } else {
-            echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
-            echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
-        }
+        echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
+        echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
     }
 
     private function sticky_status_column() {

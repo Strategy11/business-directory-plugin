@@ -12,6 +12,9 @@
 
 		<?php if (!have_posts()): ?>
 			<?php _ex("No listings found.", 'templates', "WPBDM"); ?>
+			<br />
+			<?php echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
+						 	   _x('Return to directory', 'templates', 'WPBDM')); ?>
 		<?php endif; ?>
 
 		<?php if (have_posts()): ?>

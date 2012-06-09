@@ -5,6 +5,36 @@ class WPBDP_ListingsAPI {
 
 	public function __construct() {	}
 
+	// sets the default settings to listings created through the admin site
+	public function set_default_listing_settings($post_id) {
+		$fees_api = wpbdp_fees_api();		
+		$payments_api = wpbdp_payments_api();
+
+		// if has not initial transaction, create one
+		if (!$payments_api->get_transactions($post_id)) {
+			$payments_api->save_transaction(array(
+				'amount' => 0.0,
+				'payment_type' => 'initial',
+				'listing_id' => $post_id,
+				'processed_by' => 'admin'
+			));
+		}
+
+		// assign a fee to all categories
+		$post_categories = wp_get_post_terms($post_id, wpbdp_categories_taxonomy());
+
+		foreach ($post_categories as $category) {
+			if ($fee = $this->get_listing_fee_for_category($post_id, $category->term_id)) {
+				// do nothing
+			} else {
+				// assign a fee
+				$choices = $fees_api->get_fees_for_category($category->term_id);
+				$this->assign_fee($post_id, $category->term_id, $choices[0], $false);
+			}
+		}
+
+	}
+
 	public function get_stickies() {
 		global $wpdb;
 
@@ -168,15 +198,18 @@ class WPBDP_ListingsAPI {
 
 		if ($sticky_status == 'normal') {
 			$payments_api = wpbdp_payments_api();
-			$transaction_id = $payments_api->save_transaction(array(
-				'payment_type' => 'upgrade-to-sticky',
-				'listing_id' => $listing_id,
-				'amount' => wpbdp_get_option('featured-price')
-			));
 
-			update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+			if ($payments_api->payments_possible()) {
+				$transaction_id = $payments_api->save_transaction(array(
+					'payment_type' => 'upgrade-to-sticky',
+					'listing_id' => $listing_id,
+					'amount' => wpbdp_get_option('featured-price')
+				));
 
-			return true;
+				update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
+
+				return true;
+			}
 		}
 
 		$transaction_id = 0;

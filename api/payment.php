@@ -29,7 +29,7 @@ class WPBDP_FeesAPI {
     public function get_fees_for_category($catid) {
         $fees = array();
 
-        if (wpbdp_get_option('payments-on')) {
+        if (wpbdp_payments_api()->payments_possible()) {
             $parent_categories = wpbdp_get_parent_categories($catid);
             array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
 
@@ -244,6 +244,10 @@ class WPBDP_PaymentsAPI {
         }
 
         return $gateways;
+    }
+
+    public function payments_possible() {
+        return count($this->get_available_methods()) > 0;
     }
 
     public function get_registered_methods() {

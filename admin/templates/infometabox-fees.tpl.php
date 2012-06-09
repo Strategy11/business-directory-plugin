@@ -28,7 +28,10 @@
 				</dl>
 			<?php else: ?>
 				<?php _ex('No fee assigned.', 'admin infometabox', 'WPBDM'); ?>
-				<a href="#assignfee" class="assignfee-link"><?php _ex('Assign one.', 'admin infometabox', 'WPBDM'); ?></a>
+			<?php endif; ?>
+				<a href="#assignfee" class="assignfee-link">
+					<?php $fee ? _ex('Change fee.', 'admin infometabox', 'WPBDM') : _ex('Assign one.', 'admin infometabox', 'WPBDM'); ?>
+				</a>
 
 				<div class="assignfee">
 					<span class="close-handle"><a href="#" title="<?php _ex('close', 'admin infometabox', 'WPBDM'); ?>">[x]</a></span>
@@ -51,7 +54,7 @@
 					</div>
 					<?php endforeach; ?>
 				</div>
-			<?php endif; ?>
+
 		</dd>
 		<?php endforeach; ?>
 	</dl>

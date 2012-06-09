@@ -94,4 +94,26 @@ jQuery(document).ready(function($){
 		$(this).parent('.assignfee').hide();
 	});
 
+	/* Ajax placeholders */
+	$('.wpbdp-ajax-placeholder').each(function(i,v){
+		wpbdp_load_placeholder($(v));
+	});
+
+	$('a.delete-image-button').live('click', function(e){
+		e.preventDefault();
+		jQuery.get($(this).attr('href'), function(res){
+			wpbdp_load_placeholder($("#wpbdp-listing-images"));	
+		});
+
+		return false;
+	});	
+
 });
+
+function wpbdp_load_placeholder($v) {
+	var action = $v.attr('data-action');
+	var post_id = $v.attr('data-post_id');
+	var baseurl = $v.attr('data-baseurl');
+
+	$v.load(ajaxurl, {"action": action, "post_id": post_id, "baseurl": baseurl});
+}

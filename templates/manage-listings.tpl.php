@@ -26,5 +26,7 @@
 		</div>
 	<?php else: ?>
 		<p><?php _ex('You do not currently have any listings in the directory.', 'templates', 'WPBDM'); ?></p>
+		<?php echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
+					 	   _x('Return to directory', 'templates', 'WPBDM')); ?>		
 	<?php endif; ?>
 <?php endif; ?>

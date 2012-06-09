@@ -199,6 +199,10 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 }
 
 /* Fees/Payment API */
+function wpbdp_payments_possible() {
+	return wpbdp_payments_api()->payments_possible();
+}
+
 function wpbdp_payment_status($listing_id) {
 	return wpbdp_listings_api()->get_payment_status($listing_id);
 }
