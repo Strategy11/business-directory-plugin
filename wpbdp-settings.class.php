@@ -250,7 +250,7 @@ class WPBDP_Settings {
 	public function set($name, $value, $onlyknown=true) {
 		$name = strtolower($name);
 
-		if ($onlynown && !isset($this->settings[$name]))
+		if ($onlyknown && !isset($this->settings[$name]))
 			return false;
 
 		if (isset($this->settings[$name]) && $this->settings[$name]->type == 'boolean') {

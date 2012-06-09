@@ -1017,39 +1017,7 @@ class WPBDP_Plugin {
 	const POST_TYPE_TAGS = 'wpbdm-tags';
 	
 
-	public function __construct() {
-		register_activation_hook(__FILE__, array($this, 'plugin_activation'));
-		register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
-
-		if (is_admin()) {
-			$this->admin = new WPBDP_Admin();
-		}
-
-		$this->settings = new WPBDP_Settings();
-		$this->formfields = new WPBDP_FormFieldsAPI();
-		$this->fees = new WPBDP_FeesAPI();
-		$this->payments = new WPBDP_PaymentsAPI();
-		$this->listings = new WPBDP_ListingsAPI();
-		$this->controller = new WPBDP_DirectoryController();
-
-		add_action('init', array($this, 'install_or_update_plugin'), 0);
-		add_action('init', array($this, '_register_post_type'));
-		// add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
-
-		add_filter('posts_join', array($this, '_join_with_terms'));
-		add_filter('posts_where', array($this, '_include_terms_in_search'));
-		
-		add_filter('posts_request', array($this, '_posts_request'));
-		add_action('pre_get_posts', array($this, '_pre_get_posts'));
-
-		add_filter('comments_template', array($this, '_comments_template'));
-		add_filter('taxonomy_template', array($this, '_category_template'));
-		add_filter('single_template', array($this, '_single_template'));
-
-		/* Expiration hook */
-		add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
-		add_action('wpbdp_listings_expiration_check', array($this, '_unpublish_expired_posts'));
-	}
+	public function __construct() { }
 
 	public function _listing_expirations() {
 		global $wpdb;
@@ -1147,6 +1115,38 @@ class WPBDP_Plugin {
 	}
 
 	public function init() {
+		register_activation_hook(__FILE__, array($this, 'plugin_activation'));
+		register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
+
+		if (is_admin()) {
+			$this->admin = new WPBDP_Admin();
+		}
+
+		$this->settings = new WPBDP_Settings();
+		$this->formfields = new WPBDP_FormFieldsAPI();
+		$this->fees = new WPBDP_FeesAPI();
+		$this->payments = new WPBDP_PaymentsAPI();
+		$this->listings = new WPBDP_ListingsAPI();
+		$this->controller = new WPBDP_DirectoryController();
+
+		add_action('init', array($this, 'install_or_update_plugin'), 1);
+		add_action('init', array($this, '_register_post_type'), 0);
+		// add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
+
+		add_filter('posts_join', array($this, '_join_with_terms'));
+		add_filter('posts_where', array($this, '_include_terms_in_search'));
+		
+		add_filter('posts_request', array($this, '_posts_request'));
+		add_action('pre_get_posts', array($this, '_pre_get_posts'));
+
+		add_filter('comments_template', array($this, '_comments_template'));
+		add_filter('taxonomy_template', array($this, '_category_template'));
+		add_filter('single_template', array($this, '_single_template'));
+
+		/* Expiration hook */
+		add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
+		add_action('wpbdp_listings_expiration_check', array($this, '_unpublish_expired_posts'));
+
 		$this->controller->init();
 
 		do_action('wpbdp_modules_init');
@@ -1292,6 +1292,60 @@ class WPBDP_Plugin {
 			if (version_compare($installed_version, '2.4') < 0) {
 				wpbdp_log('Making field values hidden metadata.');
 				$this->formfields->_update_to_2_4();
+			}
+
+			if (version_compare($installed_version, '2.5') < 0) {
+				wpbdp_log('Updating payment/sticky status values.');
+				$wpdb->query($wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s", '_wpbdp[sticky]', '_wpbdp_sticky'));
+				$wpdb->query($wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE meta_key = %s AND meta_value = %s", 'sticky', '_wpbdp[sticky]', 'approved'));
+				$wpdb->query($wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE meta_key = %s AND meta_value != %s", 'pending', '_wpbdp[sticky]', 'approved'));
+				$wpdb->query($wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s", '_wpbdp[payment_status]', '_wpbdp_paymentstatus'));
+				$wpdb->query($wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE meta_key = %s AND meta_value != %s", 'not-paid', '_wpbdp[payment_status]', 'paid'));
+
+				// Misc updates
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_totalallowedimages'));
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_termlength'));
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_costoflisting'));
+
+				wpbdp_log('Updating listing fee information.');
+				$old_fees = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
+				foreach ($old_fees as $old_fee) {
+					$post_categories = wp_get_post_terms($old_fee->post_id, self::POST_TYPE_CATEGORY);
+
+					foreach ($post_categories as $category) {
+						if ($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $old_fee->post_id, $category->term_id)) == 0) {
+							if ($fee = $this->fees->get_fee_by_id($old_fee->meta_value)) {
+								if ( $fee->categories['all'] || in_array($category->term_id, $fee->categories['categories']) ) {
+									$this->listings->assign_fee($old_fee->post_id, $category->term_id, $fee->id, true);
+								}
+							}
+						}
+					}
+				}
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
+
+				wpbdp_log('Updating listing images to new framework.');
+
+				$old_images = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_image'));
+				foreach ($old_images as $old_image) {
+		            require_once(ABSPATH . 'wp-admin/includes/file.php');
+		            require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+		            $filename = ABSPATH . 'wp-content/uploads/wpbdm/' . $old_image->meta_value;
+
+					$wp_filetype = wp_check_filetype(basename($filename), null);
+					
+					$attachment_id = wp_insert_attachment(array(
+						'post_mime_type' => $wp_filetype['type'],
+						'post_title' => preg_replace('/\.[^.]+$/', '', basename($filename)),
+						'post_content' => '',
+						'post_status' => 'inherit'
+					), $filename, $old_image->post_id);
+					$attach_data = wp_generate_attachment_metadata( $attachment_id, $filename );
+					wp_update_attachment_metadata( $attachment_id, $attach_data );
+				}
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_image'));
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_thumbnail'));
 			}
 		} else {
 			$default_fields = array(
@@ -1511,4 +1565,4 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-$wpbdp->debug_on();
+// $wpbdp->debug_on();
