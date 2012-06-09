@@ -21,6 +21,8 @@ class WPBDP_Admin {
 
         add_filter(sprintf('manage_edit-%s_columns', WPBDP_Plugin::POST_TYPE),
                    array($this, 'add_custom_columns'));
+        add_filter('manage_edit-' . WPBDP_Plugin::POST_TYPE_CATEGORY . '_columns', array($this, '_custom_taxonomy_columns'));
+        add_filter('manage_edit-' . WPBDP_Plugin::POST_TYPE_TAGS . '_columns', array($this, '_custom_taxonomy_columns'));
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
         add_filter('views_edit-' . WPBDP_Plugin::POST_TYPE, array($this, 'add_custom_views'));
         add_filter('request', array($this, 'apply_query_filters'));
@@ -123,7 +125,7 @@ class WPBDP_Admin {
 
         $post_values = wpbdp_getv($_POST, 'listingfields', array());
 
-        echo wp_nonce_field( plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce');
+        echo wp_nonce_field(plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce');
 
         echo '<div style="border-bottom: solid 1px #dedede; padding-bottom: 10px;">';
         echo sprintf('<strong>%s</strong>', _x('Listing Fields', 'admin', 'WPBDM'));
@@ -456,18 +458,22 @@ class WPBDP_Admin {
     function add_custom_views($views) {
         global $wpdb;
 
-        $paid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                           WHERE p.post_type = %s AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
+        $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft')) . '\'';
+
+        $paid_query = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
+                                                           WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_Plugin::POST_TYPE,
                                                            '_wpbdp[payment_status]',
-                                                           'paid') );
+                                                           'paid');
+        $paid = $wpdb->get_var( $paid_query);
+
         $unpaid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                           WHERE p.post_type = %s AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",
+                                                           WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",
                                                            WPBDP_Plugin::POST_TYPE,
                                                            '_wpbdp[payment_status]',
                                                            'paid') );
         $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                           WHERE p.post_type = %s AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
+                                                           WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_Plugin::POST_TYPE,
                                                            '_wpbdp[sticky]',
                                                            'pending') );
@@ -489,6 +495,11 @@ class WPBDP_Admin {
                                    number_format_i18n($pending_upgrade));
         return $views;
 
+    }
+
+    public function _custom_taxonomy_columns($cols) {
+        $cols['posts'] = _x('Listing Count', 'admin', 'WPBDM');
+        return $cols;
     }
 
     function add_custom_columns($columns_) {

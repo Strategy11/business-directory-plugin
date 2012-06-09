@@ -15,8 +15,8 @@ if(isset($wpbdmisindex) && ($wpbdmisindex ==1))
 		'order'=> $wpbdmsortorderlistings,
 		'meta_query' => array(
 			array(
-				'key' => '_wpbdp_sticky',
-				'value' => 'approved'
+				'key' => '_wpbdp[sticky]',
+				'value' => 'sticky'
 			)
 		)
 	);
@@ -43,8 +43,8 @@ else
 			'order'=> $wpbdmsortorderlistings,
 			'meta_query' => array(
 				array(
-					'key' => '_wpbdp_sticky',
-					'value' => 'approved'
+					'key' => '_wpbdp[sticky]',
+					'value' => 'sticky'
 				)
 			)
 		);
@@ -60,8 +60,8 @@ else
 			'order'=> $wpbdmsortorderlistings,
 			'meta_query' => array(
 				array(
-					'key' => '_wpbdp_sticky',
-					'value' => 'approved'
+					'key' => '_wpbdp[sticky]',
+					'value' => 'sticky'
 				)
 			)
 		);
@@ -76,9 +76,9 @@ if(isset($sepstickies) && ($sepstickies == 1))
 	$count = 0;
 	while (have_posts()) : the_post();
 	$count++;
-	$stickypost=get_post_meta($post->ID,'_wpbdp_sticky',true);
+	$stickypost=get_post_meta($post->ID,'_wpbdp[sticky]',true);
 
-	if( $stickypost == "approved"){
+	if( $stickypost == "sticky"){
 
 		$ids[] = get_the_ID();
 
