@@ -74,7 +74,7 @@ if( $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_confi
 	$html .= "</ul><br /><div style=\"clear:both;\"></div><ul>";
 	$html .= "<li $listyle2>" . __("Listings in directory","WPBDM") . ": (<b>$wpbusdirman_totallistings</b>)</li>";
 	$html .= "<li $listyle2>" . __("Categories In Directory","WPBDM") . ": (<b>$wpbusdirman_totalcatsindir</b>)</li></ul><div style=\"clear:both;\"></div>";
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_26'] == "yes")
+	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_26'] == "no")
 	{
 		$html .= "<h4>" . __("Tips for Use and other information","WPBDM") . "</h4>";
 		$html .= "<ol>";

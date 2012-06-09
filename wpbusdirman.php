@@ -776,7 +776,7 @@ function wpbusdirman_display_ac()
 		$html .= '<div class="wpbdmac">Directory powered by <a href="http://businessdirectoryplugin.com/">Business Directory Plugin</a></div>';
 	}
 
-	return $html;
+	echo $html;
 }
 
 function wpbusdirman_display_main_image() {
