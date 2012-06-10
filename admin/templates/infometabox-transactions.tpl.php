@@ -31,8 +31,8 @@ $_transaction_types = array(
 
             <dt><?php _ex('Payer Info', 'admin infometabox', 'WPBDM'); ?></dt>
             <dd>
-                Name: <span class="name"><?php echo wpbdp_getv('name', $transaction->payerinfo, '--'); ?></span><br />
-                Email: <span class="email"><?php echo wpbdp_getv('email', $transaction->payerinfo, '--'); ?></span>
+                Name: <span class="name"><?php echo wpbdp_getv($transaction->payerinfo, 'name', '--'); ?></span><br />
+                Email: <span class="email"><?php echo wpbdp_getv($transaction->payerinfo, 'email', '--'); ?></span>
             </dd>
 
             <?php if ($transaction->processed_on): ?>
