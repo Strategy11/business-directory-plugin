@@ -116,12 +116,12 @@ class WPBDP_Settings {
 
 		$s = $this->add_section($g, 'paypal', _x('PayPal Gateway Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'paypal', _x('Activate Paypal?', 'admin settings', 'WPBDM'), 'boolean', false,
-						   _x('Will only work when the PayPal module is installed', 'admin settings', 'WPBDM'));
+						   _x('Will only work when the <a href="http://businessdirectoryplugin.com/premium-modules/">PayPal module</a> is installed', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'paypal-business-email', _x('PayPal Business Email', 'admin settings', 'WPBDM'));
 
 		$s = $this->add_section($g, '2checkout', _x('2Checkout Gateway Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, '2checkout', _x('Activate 2Checkout?', 'admin settings', 'WPBDM'), 'boolean', false,
-						   _x('Will only work when the 2checkout module is installed', 'admin settings', 'WPBDM'));
+						   _x('Will only work when the <a href="http://businessdirectoryplugin.com/premium-modules/">2Checkout module</a> is installed', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, '2checkout-seller', _x('2Checkout seller/vendor ID', 'admin settings', 'WPBDM'));
 
 		/* Registration settings */
