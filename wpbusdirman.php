@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.0.4
+Version: 2.0.5
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -414,10 +414,11 @@ function wpbusdirman_display_the_thumbnail() {
 
 	$html = '';
 	$thumbnail = null;
+
+	$listings_api = wpbdp_listings_api();
 	
-	if ($thumbnail_id = get_post_meta($post->ID, '_wpbdp[thumbnail_id]', true)) {
+	if ($thumbnail_id = $listings_api->get_thumbnail_id($post->ID)) {
 		$thumbnail = wp_get_attachment_thumb_url($thumbnail_id);
-		// $thumbnail = $wpbdmimagesurl . '/thumbnails/' . $thumbnail;
 	}
 
 	if (!$thumbnail && function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID))
@@ -1009,7 +1010,7 @@ require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 
 class WPBDP_Plugin {
 
-	const VERSION = '2.0.4';
+	const VERSION = '2.0.5';
 	const DB_VERSION = '3.0';
 
 	const POST_TYPE = 'wpbdm-directory';
@@ -1307,22 +1308,22 @@ class WPBDP_Plugin {
 				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_termlength'));
 				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_costoflisting'));
 
-				wpbdp_log('Updating listing fee information.');
-				$old_fees = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
-				foreach ($old_fees as $old_fee) {
-					$post_categories = wp_get_post_terms($old_fee->post_id, self::POST_TYPE_CATEGORY);
+				// wpbdp_log('Updating listing fee information.');
+				// $old_fees = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
+				// foreach ($old_fees as $old_fee) {
+				// 	$post_categories = wp_get_post_terms($old_fee->post_id, self::POST_TYPE_CATEGORY);
 
-					foreach ($post_categories as $category) {
-						if ($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $old_fee->post_id, $category->term_id)) == 0) {
-							if ($fee = $this->fees->get_fee_by_id($old_fee->meta_value)) {
-								if ( $fee->categories['all'] || in_array($category->term_id, $fee->categories['categories']) ) {
-									$this->listings->assign_fee($old_fee->post_id, $category->term_id, $fee->id, true);
-								}
-							}
-						}
-					}
-				}
-				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
+				// 	foreach ($post_categories as $category) {
+				// 		if ($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $old_fee->post_id, $category->term_id)) == 0) {
+				// 			if ($fee = $this->fees->get_fee_by_id($old_fee->meta_value)) {
+				// 				if ( $fee->categories['all'] || in_array($category->term_id, $fee->categories['categories']) ) {
+				// 					$this->listings->assign_fee($old_fee->post_id, $category->term_id, $fee->id, true);
+				// 				}
+				// 			}
+				// 		}
+				// 	}
+				// }
+				// $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
 
 				wpbdp_log('Updating listing images to new framework.');
 
