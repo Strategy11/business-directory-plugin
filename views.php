@@ -182,9 +182,9 @@ class WPBDP_DirectoryController {
 			}
 		}
 
-		if (wpbdp_get_option('require-login') && !is_user_logged_in())
-			return wpbdp_render_msg(_ex("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM'));
-
+		if (wpbdp_get_option('require-login') && !is_user_logged_in()) {
+			return wpbdp_render_msg(_x("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM'));
+		}
 		$step = wpbdp_getv($_POST, '_step', 'fields');
 		$this->_listing_data = array('listing_id' => 0,
 									 'fields' => array(),

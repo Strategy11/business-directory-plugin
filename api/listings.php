@@ -301,9 +301,9 @@ class WPBDP_ListingsAPI {
 			$current_user = wp_get_current_user();
 
 			if ($current_user->ID == 0) {
-				if (wpbdp_get_option('require-login'))
+				if (wpbdp_get_option('require-login')) {
 					exit;
-
+				}
 				// create user
 				if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
 					$email = $formfields_api->extract($listingfields, $email_field);
