@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
-Tested up to: 3.3.1
-Last Updated: 2012-June-11
-Stable tag: tags/2.0.4
+Tested up to: 3.4
+Last Updated: 2012-June-15
+Stable tag: tags/2.0.4.1
 
 Business Directory Plugin for WordPress (Formerly WP Business Directory Manager) is a flexible plugin for WordPress business directory creation but useful for a variety of other purposes.  Create any WordPress directory with it. 
 
@@ -86,7 +86,7 @@ Some users might have display issues due to incompatibility with the plugin and 
 
 Once you have configured your options, adjusted your form fields to suit your needs, and setup your fees if you are charging fees for adding listings, your directory should now be ready and working. 
 
-If you are having problems please visit http://www.businessdirectoryplugin.com for help.
+If you are having problems please visit http://www.businessdirectoryplugin.com/forums/ for help.
 
 
 == Screenshots ==
@@ -95,6 +95,20 @@ If you are having problems please visit http://www.businessdirectoryplugin.com f
 
 
 == Changelog ==
+
+Version 2.0.4.1
+
+   1. Fixed image upgrade issues (missing thumbnails, duplicate pictures in listings)
+   
+   2. Fixed edit glitch with empty tags field
+   
+   3. Added control over Submit a Listing button to show/hide.  Added support for other listing buttons as well.
+   
+   4. Fixed minor _x() calls with missing parameters
+   
+   5. Fixed an issue with submitting listings for all blank fields (PHP warning)
+   
+   6. Fixed issue where empty fields would display labels when no value was present
 
 Version 2.0.4
 
