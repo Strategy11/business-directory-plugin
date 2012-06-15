@@ -26,6 +26,11 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'recaptcha-public-key', _x('reCAPTCHA Public Key', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
 
+		$s = $this->add_section($g, 'displayoptions', _x('Directory Display Options', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'show-submit-listing', _x('Show the "Submit listing" button.', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'show-search-listings', _x('Show "Search listings".', 'admin settings', 'WPBDM'), 'boolean', true);
+		$this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
+
 		$s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'credit-author', _x('Give credit to plugin author?', 'admin settings', 'WPBDM'), 'boolean', true);

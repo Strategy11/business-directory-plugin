@@ -190,7 +190,7 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 	if ($field->validator == 'EmailValidator' && !wpbdp_get_option('override-email-blocking'))
 		return '';
 
-	if ($field && !$field->display_options['hide_field'])
+	if ($field && $value && !$field->display_options['hide_field'])
 		return sprintf('<p class="field-value %s %s"><label>%s</label>: %s',
 					   strtolower(str_replace(' ', '', $field->label)), /* normalized field label */
 					   $field->association,
