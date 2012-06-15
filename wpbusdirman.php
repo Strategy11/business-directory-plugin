@@ -484,6 +484,9 @@ function wpbusdirman_menu_button_submitlisting()
 
 function wpbusdirman_post_menu_button_submitlisting()
 {
+	if (!wpbdp_get_option('show-submit-listing'))
+		return '';
+
 	return '<form method="post" action="' . wpbdp_get_page_link('add-listing') . '"><input type="hidden" name="action" value="submitlisting" /><input type="submit" class="submitlistingbutton" value="' . __("Submit A Listing","WPBDM") . '" /></form>';
 }
 
@@ -494,6 +497,9 @@ function wpbusdirman_menu_button_viewlistings()
 
 function wpbusdirman_post_menu_button_viewlistings()
 {
+	if (!wpbdp_get_option('show-view-listings'))
+		return '';
+	
 	return '<form method="post" action="' . wpbdp_get_page_link('view-listings') . '"><input type="hidden" name="action" value="viewlistings" /><input type="submit" class="viewlistingsbutton" value="' . __("View Listings","WPBDM") . '" /></form>';
 }
 

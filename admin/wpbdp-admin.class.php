@@ -400,6 +400,9 @@ class WPBDP_Admin {
 
         $listings_api = wpbdp_listings_api();
 
+        if (!current_user_can('activate_plugins'))
+            exit;
+
         switch ($action) {
             case 'setaspaid':
                 if ($listings_api->set_payment_status($post_id, 'paid'))
