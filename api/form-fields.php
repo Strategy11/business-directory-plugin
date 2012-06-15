@@ -203,7 +203,7 @@ class WPBDP_FormFieldsAPI {
 
 			if ($field->association == 'category') {
 				if (get_term_by('id', $value, wpbdp_categories_taxonomy()) == false) {
-					$errors[] = _x('Please select a valid category.');
+					$errors[] = _x('Please select a valid category.', 'form-fields-api', 'WPBDM');
 				}
 			}
 
