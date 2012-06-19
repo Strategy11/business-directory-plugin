@@ -321,9 +321,11 @@ class WPBDP_Admin {
                                  add_query_arg('wpbdmaction', 'cancelfeatured'),
                                  _x('Downgrade', 'admin metabox', 'WPBDM'));
                 } else {
-                    echo sprintf('<a href="%s">%s</a>',
-                                 add_query_arg('wpbdmaction', 'upgradefeatured'),
-                                 __('Upgrade'));
+                    if (current_user_can('activate_plugins')) {
+                        echo sprintf('<a href="%s">%s</a>',
+                                     add_query_arg('wpbdmaction', 'upgradefeatured'),
+                                     __('Upgrade'));
+                    }
                 }
             echo '</dd>';
         echo '</dl>';
@@ -553,7 +555,10 @@ class WPBDP_Admin {
                                   __('Not paid', 'WPBDM'));
 
         echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
-        echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
+
+        if (current_user_can('activate_plugins')) {
+            echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
+        }
     }
 
     private function sticky_status_column() {
@@ -577,14 +582,16 @@ class WPBDP_Admin {
 
         echo '<div class="row-actions">';
 
-        if ($status == 'sticky') {
-            echo sprintf('<span><a href="%s">%s</a></span>',
-                         add_query_arg(array('wpbdmaction' => 'cancelfeatured', 'post' => $post->ID)),
-                         '<b>↓</b> ' . __('Downgrade to Normal', 'WPBDM'));
-        } else {
-            echo sprintf('<span><a href="%s">%s</a></span>',
-                         add_query_arg(array('wpbdmaction' => 'upgradefeatured', 'post' => $post->ID)),
-                         '<b>↑</b> ' . __('Upgrade to Featured', 'WPBDM'));
+        if (current_user_can('activate_plugins')) {
+            if ($status == 'sticky') {
+                echo sprintf('<span><a href="%s">%s</a></span>',
+                             add_query_arg(array('wpbdmaction' => 'cancelfeatured', 'post' => $post->ID)),
+                             '<b>↓</b> ' . __('Downgrade to Normal', 'WPBDM'));
+            } else {
+                echo sprintf('<span><a href="%s">%s</a></span>',
+                             add_query_arg(array('wpbdmaction' => 'upgradefeatured', 'post' => $post->ID)),
+                             '<b>↑</b> ' . __('Upgrade to Featured', 'WPBDM'));
+            }
         }
 
         echo '</div>';
