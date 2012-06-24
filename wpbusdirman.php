@@ -1329,7 +1329,7 @@ class WPBDP_Plugin {
 				// 		}
 				// 	}
 				// }
-				// $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
+				$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_listingfeeid'));
 
 				wpbdp_log('Updating listing images to new framework.');
 

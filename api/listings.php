@@ -245,7 +245,7 @@ class WPBDP_ListingsAPI {
 		global $wpdb;
 
 		if ($renewal = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", $renewal_id, current_time('mysql')))) {
-			if (has_term($renewal->category_id, wpbdp_categories_taxonomy(), $renewal->listing_id) && ($fee->categories['all'] || in_array($renewal->category_id, $fee->categories['categories']))) {
+			if (has_term($renewal->category_id, wpbdp_categories_taxonomy(), $renewal->listing_id)) {
 				// register the new transaction
 				$transaction_id = wpbdp_payments_api()->save_transaction(array(
 					'listing_id' => $renewal->listing_id,
