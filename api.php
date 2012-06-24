@@ -278,6 +278,13 @@ function wpbdp_get_parent_categories($catid) {
 	return array($category);
 }
 
+function wpbdp_get_parent_catids($catid) {
+	$parent_categories = wpbdp_get_parent_categories($catid);
+	array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));	
+
+	return $parent_categories;
+}
+
 function wpbdp_locate_template($template, $allow_override=true) {
 	$template_file = '';
 

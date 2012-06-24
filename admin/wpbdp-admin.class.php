@@ -32,6 +32,8 @@ class WPBDP_Admin {
         add_action('wp_ajax_wpbdp-uploadimage', array($this, '_upload_image'));
         add_action('wp_ajax_wpbdp-deleteimage', array($this, '_delete_image'));
         add_action('wp_ajax_wpbdp-listingimages', array($this, '_listing_images'));
+
+        add_action('admin_footer', array($this, '_add_bulk_actions'));
     }
 
     function admin_javascript() {
@@ -393,6 +395,30 @@ class WPBDP_Admin {
         $this->messages = array();
     }
 
+    public function _add_bulk_actions() {
+        if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_Plugin::POST_TYPE) {
+            $bulk_actions = array('listing-upgrade' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
+                                  'listing-downgrade' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
+                                  'listing-publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
+                                  'listing-setpaid' => _x('Set Paid', 'admin actions', 'WPBDM'),
+                                  'listing-setnotpaid' => _x('Set Not Paid', 'admin actions', 'WPBDM')
+                                 );
+
+
+            // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
+            echo '<script type="text/javascript">';
+
+            foreach ($bulk_actions as $action => $text) {
+                echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s">%s</option>\');',
+                            'action', $action, $text);
+                echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s">%s</option>\');',
+                            'action2', $action, $text);                
+            }
+
+            echo '</script>';
+        }
+    }
+
     function handle_actions() {
         if (!isset($_REQUEST['wpbdmaction']) || !isset($_REQUEST['post']))
             return;
@@ -547,10 +573,11 @@ class WPBDP_Admin {
         $status_links = '';
 
         if ($paid_status != 'paid')
-            $status_links .= sprintf('<span><a href="%s">%s</a> | </span>',
+            $status_links .= sprintf('<span><a href="%s">%s</a></span>',
                                     add_query_arg(array('wpbdmaction' => 'setaspaid', 'post' => $post->ID)),
                                     __('Paid', 'WPBDM'));
-        $status_links .= sprintf('<span><a href="%s">%s</a></span>',
+        else
+            $status_links .= sprintf('<span><a href="%s">%s</a></span>',
                                   add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
                                   __('Not paid', 'WPBDM'));
 
