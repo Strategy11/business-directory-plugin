@@ -253,9 +253,13 @@ class WPBDP_Admin {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
             return;
 
+        if ($_POST['post_type'] != wpbdp_post_type())
+            return;
+
         // Fix listings added through admin site
         if (is_admin())
             wpbdp_listings_api()->set_default_listing_settings($post_id);
+
 
         // Save custom fields
         if (isset($_POST['wpbdp-listing-fields-nonce']) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {

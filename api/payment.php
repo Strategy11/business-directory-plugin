@@ -332,7 +332,7 @@ class WPBDP_PaymentsAPI {
             if ($transaction->payment_type == 'upgrade-to-sticky') {
                 delete_post_meta($transaction->listing_id, '_wpbdp[sticky]');
             }
-        }      
+        }
     }
 
     public function save_transaction($trans_) {
