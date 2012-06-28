@@ -77,7 +77,7 @@ class WPBDP_FormFieldsAPI {
 	public function __construct() {	}
 
 	private function normalizeField(&$field) {
-		$field->display_options = array_merge(array('hide_field' => false, 'show_in_excerpt' => false), $field->display_options ? unserialize($field->display_options) : array());
+		$field->display_options = array_merge(array('hide_field' => false, 'show_in_excerpt' => false), $field->display_options ? (array) unserialize($field->display_options) : array());
 		$field->field_data = $field->field_data ? unserialize($field->field_data) : null;
 	}
 
