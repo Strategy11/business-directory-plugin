@@ -16,30 +16,6 @@ function wpbusdirman_search_template($search) {
 	return $search;
 }
 
-function wpbusdirman_remove_post_dates_author_etc() {
-	global $wp_query, $post, $wpbdmposttype,$wpbusdirmanconfigoptionsprefix;
-	$mywpbdmposttype=$post->post_type;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-
-    if ( $mywpbdmposttype == $wpbdmposttype )
-		{
-			if(is_single())
-			{
-
-	add_filter('the_date', '__return_false');
-	add_filter('the_time', '__return_false');
-	add_filter('the_modified_date', '__return_false');
-	add_filter('get_the_date', '__return_false');
-	add_filter('get_the_time', '__return_false');
-	add_filter('get_the_modified_date', '__return_false');
-	add_filter('get_the_author', '__return_false');
-	add_filter('the_author', '__return_false');
-
-		}
-	}
-
-}
-
 
 function wpbusdirman_addcss()
 {

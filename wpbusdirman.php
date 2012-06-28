@@ -96,11 +96,6 @@ $wpbdmposttypetags="wpbdm-tags";
 	{
 		require("$wpbusdirman_plugin_path/wpbusdirman-maintenance-functions.php");
 	}
-	
-	if( file_exists("$wpbusdirman_plugin_path/admin/manage-options.php") )
-	{
-		require("$wpbusdirman_plugin_path/admin/manage-options.php");
-	}
 
 define('WPBDP_PATH', plugin_dir_path(__FILE__));
 define('WPBDP_URL', plugins_url('/', __FILE__));
@@ -304,76 +299,6 @@ function wpbusdirmancreatethumb($wpbusdirmanuploadedfilename,$wpbusdirmanuploadd
 			return $myreturn;
 		}
 
-function wpbusdirman_imagesallowed_left($wpbusdirmanlistingpostid,$wpbusdirmanfeeoptions)
-{
-
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	global $wpbusdirmanconfigoptionsprefix;
-
-	$imagesalloweleftobj="";
-
-	if($wpbusdirmanlistingpostid)
-	{
-		$existingfeeids=get_post_meta($wpbusdirmanlistingpostid,'_wpbdp_listingfeeid',false);
-
-			if($existingfeeids)
-			{
-				foreach($existingfeeids as $existingfeeid)
-				{
-					$wpbusdirmannumimgsallowedarr[]=get_option($wpbusdirmanconfigoptionsprefix.'_settings_fees_images_'.$existingfeeid);
-				}
-
-				$wpbusdirmannumimagesallowed=max($wpbusdirmannumimgsallowedarr);
-			}
-			else
-			{
-				if($wpbusdirmanfeeoptions)
-				{
-					foreach($wpbusdirmanfeeoptions as $wpbusdirmanfeeoption)
-					{
-						$wpbusdirmannumimgsallowed=get_option($wpbusdirmanconfigoptionsprefix.'_settings_fees_images_'.$wpbusdirmanfeeoption);
-						if(!isset($wpbusdirmannumimgsallowed) || empty($wpbusdirmannumimgsallowed)){$wpbusdirmannumimgsallowed=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_2'];}
-						$wpbusdirmannumimgsallowedarr[]=$wpbusdirmannumimgsallowed;
-					}
-
-						$wpbusdirmannumimagesallowed=max($wpbusdirmannumimgsallowedarr);
-				}
-				else
-				{
-					$wpbusdirmannumimagesallowed=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_2'];
-				}
-			}
-	}
-	else
-	{
-		if($wpbusdirmanfeeoptions)
-		{
-			foreach($wpbusdirmanfeeoptions as $wpbusdirmanfeeoption)
-			{
-				$wpbusdirmannumimgsallowed=get_option($wpbusdirmanconfigoptionsprefix.'_settings_fees_images_'.$wpbusdirmanfeeoption);
-				if(!isset($wpbusdirmannumimgsallowed) || empty($wpbusdirmannumimgsallowed)){$wpbusdirmannumimgsallowed=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_2'];}
-				$wpbusdirmannumimgsallowedarr[]=$wpbusdirmannumimgsallowed;
-			}
-
-				$wpbusdirmannumimagesallowed=max($wpbusdirmannumimgsallowedarr);
-		}
-		else
-		{
-				$wpbusdirmannumimagesallowed=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_2'];
-		}
-	}
-
-		$existingimages=get_post_meta($wpbusdirmanlistingpostid,'_wpbdp_image',false);
-		if($existingimages){ $totalexistingimages=count($existingimages); } else { $totalexistingimages = 0;}
-
-		if($totalexistingimages > 0){$wpbusdirmannumimgsleft=($wpbusdirmannumimagesallowed - $totalexistingimages );}else{$wpbusdirmannumimgsleft = $wpbusdirmannumimagesallowed;}
-
-		$imagesalloweleftobj=array('listingid' => $wpbusdirmanlistingpostid, 'imagesallowed' => $wpbusdirmannumimagesallowed, 'imagesleft' =>  $wpbusdirmannumimgsleft,'totalexisting' => $totalexistingimages );
-
-		return $imagesalloweleftobj;
-
-}
-
 function wpbusdirman_managelistings() {
 	return wpbdp()->controller->manage_listings();
 }
@@ -553,61 +478,18 @@ function wpbusdirman_list_categories()
 	echo wpbusdirman_post_list_categories();
 }
 
-function wpbusdirman_post_list_categories()
-{
-	global $wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
-	$wpbdm_hide_empty=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_10'];
+function wpbusdirman_post_list_categories() {
+	$wpbdm_hide_empty = wpbdp_get_option('hide-empty-categories');
+	$wpbdm_show_count= wpbdp_get_option('show-category-post-count');
+	$wpbdm_show_parent_categories_only= wpbdp_get_option('show-only-parent-categories');
+
 	$html = '';
 
-	if(isset($wpbdm_hide_empty)
-		&& !empty($wpbdm_hide_empty)
-		&& ($wpbdm_hide_empty == "yes"))
-	{
-		$wpbdm_hide_empty=1;
-	}
-	elseif(isset($wpbdm_hide_empty)
-		&& !empty($wpbdm_hide_empty)
-		&& ($wpbdm_hide_empty == "no"))
-	{
-		$wpbdm_hide_empty=0;
-	}
-	$wpbdm_show_count=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_9'];
-	if(isset($wpbdm_show_count)
-		&& !empty($wpbdm_show_count)
-		&& ($wpbdm_show_count == "yes"))
-	{
-		$wpbdm_show_count=1;
-	}
-	elseif(isset($wpbdm_show_count)
-		&& !empty($wpbdm_show_count)
-		&& ($wpbdm_show_count == "no"))
-	{
-		$wpbdm_show_count=0;
-	}
-	$wpbdm_show_parent_categories_only=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix."_settings_config_48"];
-	// wpbdp_debug_e($wpbdm_show_parent_categories_only);
-	// $wpbdm_show_parent_categories_only=1;
-	if(isset($wpbdm_show_parent_categories_only)
-		&& !empty($wpbdm_show_parent_categories_only)
-		&& ($wpbdm_show_parent_categories_only == "yes"))
-	{
-		$wpbdm_show_parent_categories_only=1;
-	}
-	elseif(isset($wpbdm_show_parent_categories_only)
-		&& !empty($wpbdm_show_parent_categories_only)
-		&& ($wpbdm_show_parent_categories_only == "no"))
-	{
-		$wpbdm_show_parent_categories_only=0;
-	}
-
-	$taxonomy     = $wpbdmposttypecategory;
-	$orderby      = $wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_7'];
+	$taxonomy     = wpbdp_categories_taxonomy();
+	$orderby      = wpbdp_get_option('categories-order-by');
 	$show_count   = $wpbdm_show_count;      // 1 for yes, 0 for no
 	$pad_counts   = 0;      // 1 for yes, 0 for no
-	$hierarchical = $wpbdm_show_parent_categories_only;      // 1 for yes, 0 for no
-	$title        = '';
-	$order=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_8'];
+	$order= wpbdp_get_option('categories-sort');
 	$hide_empty=$wpbdm_hide_empty;
 
 	$html .= wp_list_categories(array(
@@ -628,47 +510,16 @@ function wpbusdirman_post_list_categories()
 
 function wpbusdirman_dropdown_categories()
 {
-	global $post,$wpbusdirmanconfigoptionsprefix,$wpbdmposttypecategory;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
+	global $post;
 	$wpbusdirman_gpid=wpbusdirman_gpid();
 	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
-	$wpbdm_hide_empty=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_10'];
+	$wpbdm_hide_empty=wpbdp_get_option('hide-empty-categories');
 	$html = '';
 
-	if(isset($wpbdm_hide_empty)
-		&& !empty($wpbdm_hide_empty)
-		&& ($wpbdm_hide_empty == "yes"))
-	{
-		$wpbdm_hide_empty=1;
-	}
-	elseif(isset($wpbdm_hide_empty)
-		&& !empty($wpbdm_hide_empty)
-		&& ($wpbdm_hide_empty == "no"))
-	{
-		$wpbdm_hide_empty=0;
-	}
-	$wpbdm_show_count=$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_9'];
-	if(isset($wpbdm_show_count)
-		&& !empty($wpbdm_show_count)
-		&& ($wpbdm_show_count == "yes"))
-	{
-		$wpbdm_show_count=1;
-	}
-	elseif(isset($wpbdm_show_count)
-		&& !empty($wpbdm_show_count)
-		&& ($wpbdm_show_count == "no"))
-	{
-		$wpbdm_show_count=0;
-	}
-	$wpbdm_show_parent_categories_only=$wpbusdirmanconfigoptionsprefix."_settings_config_48";
-	$wpbdm_show_parent_categories_only=1;
-	if(isset($wpbdm_show_parent_categories_only)
-		&& !empty($wpbdm_show_parent_categories_only)
-		&& ($wpbdm_show_parent_categories_only == "yes"))
-	{
-		$wpbdm_show_parent_categories_only=0;
-	}
-	$wpbusdirman_postvalues=get_the_terms(get_the_ID(), $wpbdmposttypecategory);
+	$wpbdm_show_count = wpbdp_get_option('show-category-post-count');
+	$wpbdm_show_parent_categories_only=wpbdp_get_option('show-only-parent-categories');
+
+	$wpbusdirman_postvalues=get_the_terms(get_the_ID(), wpbdp_categories_taxonomy());
 	if($wpbusdirman_postvalues)
 	{
 		foreach($wpbusdirman_postvalues as $wpbusdirman_postvalue)
@@ -677,8 +528,14 @@ function wpbusdirman_dropdown_categories()
 		}
 	}
 	$html .= '<form action="' . bloginfo('url') . '" method="get">';
-	$taxonomies = array($wpbdmposttypecategory);
-	$args = array('echo'=>0,'show_option_none'=>$wpbusdirman_selectcattext,'orderby'=>$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_7'],'selected'=>$wpbusdirman_field_value_selected,'order'=>$wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_8'],'hide_empty'=>$wpbdm_hide_empty,'hierarchical'=>$wpbdm_show_parent_categories_only);
+	$taxonomies = array(wpbdp_categories_taxonomy());
+	$args = array('echo'=>0,
+				  'show_option_none'=>$wpbusdirman_selectcattext,
+				  'orderby' => wpbdp_get_option('categories-order-by'),
+				  'selected' => $wpbusdirman_field_value_selected,
+				  'order' => wpbdp_get_option('categories-sort'),
+				  'hide_empty' => $wpbdm_hide_empty,
+				  'hierarchical' => $wpbdm_show_parent_categories_only);
 	$select = get_terms_dropdown($taxonomies, $args);
 	$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
 	$html .= $select;
@@ -689,9 +546,8 @@ function wpbusdirman_dropdown_categories()
 
 function get_terms_dropdown($taxonomies, $args)
 {
-	global $wpbdmposttypecategory;
 	$myterms = get_terms($taxonomies, $args);
-	$output ="<select name='".$wpbdmposttypecategory."'>";
+	$output ="<select name='". wpbdp_categories_taxonomy() ."'>";
 
 	if($myterms)
 	{
@@ -772,14 +628,10 @@ function wpbusdirman_post_excerpt($deprecated=null) {
 }
 
 
-function wpbusdirman_display_ac()
-{
-	global $wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
+function wpbusdirman_display_ac() {
 	$html = '';
 
-	if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_34'] == "yes")
-	{
+	if(wpbdp_get_option('credit-author')) {
 		$html .= '<div class="wpbdmac">Directory powered by <a href="http://businessdirectoryplugin.com/">Business Directory Plugin</a></div>';
 	}
 
@@ -863,8 +715,7 @@ function wpbusdirman_single_listing_details()
 
 function wpbusdirman_post_single_listing_details()
 {
-	global $post,$wpbusdirman_gpid,$wpbdmimagesurl,$wpbusdirman_imagesurl,$wpbusdirmanconfigoptionsprefix;
-	$wpbusdirman_config_options=get_wpbusdirman_config_options();
+	global $post,$wpbusdirman_gpid,$wpbdmimagesurl,$wpbusdirman_imagesurl;
 	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
 	$html = '';
 
