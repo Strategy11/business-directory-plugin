@@ -204,7 +204,7 @@ class WPBDP_DirectoryController {
 
 		if ($listing_id = $this->_listing_data['listing_id']) {
 			$current_user = wp_get_current_user();
-			if (get_post($listing_id)->post_author != $current_user->ID)
+			if ( (get_post($listing_id)->post_author != $current_user->ID) && (!current_user_can('administrator')) )
 				return wpbdp_render_msg(_x('You are not authorized to edit this listing.', 'templates', 'WPBDM'), 'error');
 
 			if (wpbdp_payment_status($listing_id) != 'paid')
@@ -550,7 +550,7 @@ class WPBDP_DirectoryController {
 
 	public function delete_listing() {
 		if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
-			if (wp_get_current_user()->ID == get_post($listing_id)->post_author) {
+			if ( (wp_get_current_user()->ID == get_post($listing_id)->post_author) || (current_user_can('administrator')) ) {
 				$post_update = array('ID' => $listing_id,
 									 'post_type' => wpbdp_post_type(),
 									 'post_status' => wpbdp_get_option('deleted-status'));
