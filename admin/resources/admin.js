@@ -37,12 +37,6 @@ jQuery(document).ready(function($){
 		return true;
 	});
 
-	// $('form#wpbdp-fee-form input[name="fee[days]"]').keypress(function(e){
-	// 	$('form input#wpbdp-fee-form-days-0').removeAttr('checked');		
-	// 	$('form input#wpbdp-fee-form-days').attr('checked', true);
-	// 	// $('form#wpbdp-fee-form input[name="_days"]').change();
-	// });
-
 	$('form#wpbdp-fee-form').submit(function(){
 		// alert($('form#wpbdp-fee-form input[name="fee[days]"]').val());
 		// return false;
@@ -107,6 +101,33 @@ jQuery(document).ready(function($){
 
 		return false;
 	});	
+
+	/*
+	 * Admin bulk actions
+	 */
+	$('input[id="doaction"]').click(function(e) {
+		var $selected_option = $('select[name="action"] option:selected');
+		var action_val = $selected_option.val();
+
+		if (action_val.split('-')[0] == 'listing') {
+			var action = action_val.split('-')[1];
+
+			if (action != 'sep0' && action != 'sep1' && action != 'sep2') {
+				var $checked_posts = $('input[name="post[]"]:checked');
+				var uri = $selected_option.attr('data-uri');
+
+				$checked_posts.each(function(i,v){
+					uri += '&post[]=' + $(v).val();
+				});
+
+				window.location.href = uri;
+
+				return false;
+			}
+		}
+
+		return true;
+	});
 
 });
 

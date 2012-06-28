@@ -400,26 +400,33 @@ class WPBDP_Admin {
     }
 
     public function _add_bulk_actions() {
-        if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_Plugin::POST_TYPE) {
-            $bulk_actions = array('listing-upgrade' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
-                                  'listing-downgrade' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
-                                  'listing-publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
-                                  'listing-setpaid' => _x('Set Paid', 'admin actions', 'WPBDM'),
-                                  'listing-setnotpaid' => _x('Set Not Paid', 'admin actions', 'WPBDM')
-                                 );
+        if ($screen = get_current_screen()) {
+            if ($screen->id == 'edit-' . wpbdp_post_type()) {
+                if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_Plugin::POST_TYPE) {
+                    $bulk_actions = array('sep0' => '--',
+                                          'publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
+                                          'sep1' => '--',
+                                          'upgradefeatured' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
+                                          'cancelfeatured' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
+                                          'sep2' => '--',
+                                          'setaspaid' => _x('Set Paid', 'admin actions', 'WPBDM'),
+                                          'setasnotpaid' => _x('Set Not Paid', 'admin actions', 'WPBDM')
+                                         );
 
 
-            // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
-            echo '<script type="text/javascript">';
+                    // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
+                    echo '<script type="text/javascript">';
 
-            foreach ($bulk_actions as $action => $text) {
-                echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s">%s</option>\');',
-                            'action', $action, $text);
-                echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s">%s</option>\');',
-                            'action2', $action, $text);                
+                    foreach ($bulk_actions as $action => $text) {
+                        echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
+                                    'action', 'listing-' . $action, add_query_arg('wpbdmaction', $action), $text);
+                        echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
+                                    'action2', 'listing-' . $action, '', $text);          
+                    }
+
+                    echo '</script>';
+                }
             }
-
-            echo '</script>';
         }
     }
 
@@ -428,7 +435,7 @@ class WPBDP_Admin {
             return;
 
         $action = $_REQUEST['wpbdmaction'];
-        $post_id = intval($_REQUEST['post']);
+        $posts = is_array($_REQUEST['post']) ? $_REQUEST['post'] : array($_REQUEST['post']);
 
         $listings_api = wpbdp_listings_api();
 
@@ -436,26 +443,66 @@ class WPBDP_Admin {
             exit;
 
         switch ($action) {
+            case 'publish':
+                foreach ($posts as $post_id) {
+                    wp_publish_post($post_id);
+                }
+
+                $this->messages[] = _nx('The listing has been published.',
+                                        'The listings have been published.',
+                                        count($posts),
+                                        'admin',
+                                        'WPBDM');
+                break;
+
             case 'setaspaid':
-                if ($listings_api->set_payment_status($post_id, 'paid'))
-                    $this->messages[] = __("The listing status has been set as paid.","WPBDM");
+                foreach ($posts as $post_id) {
+                    $listings_api->set_payment_status($post_id, 'paid');
+                }
+
+                $this->messages[] = _nx('The listing status has been set as paid.',
+                                        'The listings status has been set as paid.',
+                                        count($posts),
+                                        'admin',
+                                        'WPBDM');
                 break;
             
             case 'setasnotpaid':
-                if ($listings_api->set_payment_status($post_id, 'not-paid'))
-                    $this->messages[] = __("The listing status has been changed to 'not paid'.","WPBDM");
+                foreach ($posts as $post_id) {
+                    $listings_api->set_payment_status($post_id, 'not-paid');
+                }
+
+                $this->messages[] = _nx('The listing status has been set as "not paid".',
+                                        'The listings status has been set as "not paid".',
+                                        count($posts),
+                                        'admin',
+                                        'WPBDM');
                 break;
 
             case 'upgradefeatured':
-                update_post_meta($post_id, '_wpbdp[sticky]', 'sticky');
+                foreach ($posts as $post_id) {
+                    update_post_meta($post_id, '_wpbdp[sticky]', 'sticky');
+                }
             
+                $this->messages[] = _nx('The listing has been upgraded.',
+                                        'The listings have been upgraded.',
+                                        count($posts),
+                                        'admin',
+                                        'WPBDM');
+
                 $this->messages[] = __("The listing has been upgraded.","WPBDM");
                 break;
 
             case 'cancelfeatured':
-                delete_post_meta($post_id, "_wpbdp[sticky]");
+                foreach ($posts as $post_id) {
+                    delete_post_meta($post_id, "_wpbdp[sticky]");
+                }
                 
-                $this->messages[] = __("The listing has been downgraded.","WPBDM");
+                $this->messages[] = _nx('The listing has been downgraded.',
+                                        'The listings have been downgraded.',
+                                        count($posts),
+                                        'admin',
+                                        'WPBDM');
                 break;
 
             case 'approvetransaction':
@@ -487,7 +534,7 @@ class WPBDP_Admin {
                 break;
         }
 
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id'), $_SERVER['REQUEST_URI'] );
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'post'), $_SERVER['REQUEST_URI'] );
     }
 
     function add_custom_views($views) {
