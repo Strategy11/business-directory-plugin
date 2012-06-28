@@ -815,7 +815,7 @@ function wpbusdirman_post_main_image() {
 							the_title(null, null, false)
 						  );
 		}
-	} else {
+	} elseif ($main_image) {
 		return wp_get_attachment_image($main_image->ID, 'medium', false, array(
 			'alt' => the_title(null, null, false),
 			'title' => the_title(null, null, false)
