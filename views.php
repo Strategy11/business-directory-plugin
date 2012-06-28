@@ -240,7 +240,8 @@ class WPBDP_DirectoryController {
 						break;
 					case 'tags':
 						$tags = wpbdp_get_listing_field_value($listing_id, $field);
-						array_walk($tags, create_function('&$x', '$x = $x->name;'));
+						if (is_array($tags))
+							array_walk($tags, create_function('&$x', '$x = $x->name;'));
 						$default_value = implode(',', $tags ? $tags : array());
 						break;
 					default:
