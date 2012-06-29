@@ -122,6 +122,9 @@ class WPBDP_FormFieldsAdmin {
     		case 'previewform':
     			$this->previewForm();
     			break;
+    		case 'createrequired':
+    			$this->createRequiredFields();
+    			break;
     		default:
     			$this->fieldsTable();
     			break;
@@ -207,6 +210,22 @@ class WPBDP_FormFieldsAdmin {
 			}
 		}
 
+	}
+
+	private function createRequiredFields() {
+		$missing = $this->api->check_for_required_fields();
+
+		if ($missing) {
+			$default_fields = $this->api->getDefaultFields();
+
+			foreach ($missing as $field_assoc) {
+				$field = $default_fields[$field_assoc];
+				$this->api->addorUpdateField($field);
+			}
+		}
+
+		$this->admin->messages[] = _x('Required fields created successfully.', 'form-fields admin', 'WPBDM');
+		return $this->fieldsTable();
 	}
 
 }

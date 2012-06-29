@@ -976,15 +976,16 @@ class WPBDP_Plugin {
 		register_activation_hook(__FILE__, array($this, 'plugin_activation'));
 		register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
 
-		if (is_admin()) {
-			$this->admin = new WPBDP_Admin();
-		}
-
 		$this->settings = new WPBDP_Settings();
 		$this->formfields = new WPBDP_FormFieldsAPI();
 		$this->fees = new WPBDP_FeesAPI();
 		$this->payments = new WPBDP_PaymentsAPI();
 		$this->listings = new WPBDP_ListingsAPI();
+
+		if (is_admin()) {
+			$this->admin = new WPBDP_Admin();
+		}
+
 		$this->controller = new WPBDP_DirectoryController();
 
 		add_action('init', array($this, 'install_or_update_plugin'), 1);

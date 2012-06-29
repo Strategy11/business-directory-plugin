@@ -76,6 +76,75 @@ class WPBDP_FormFieldsAPI {
 
 	public function __construct() {	}
 
+	public static function getDefaultFields() {
+		return array(
+			'title' => array(
+				'label' => __("Business Name","WPBDM"),
+				'type' => 'textfield',
+				'association' => 'title',
+				'weight' => 9,
+				'is_required' => true,
+				'display_options' => array('show_in_excerpt' => true)
+			),
+			'category' => array(
+						'label' => __("Business Genre","WPBDM"),
+						'type' => 'select',
+						'association' => 'category',
+						'weight' => 8,
+						'is_required' => true,
+						'display_options' => array('show_in_excerpt' => true)
+					),
+			'excerpt' => array(
+					'label' => __("Short Business Description","WPBDM"),
+					'type' => 'textarea',
+					'association' => 'excerpt',
+					'weight' => 7
+				),
+			'content' => array(
+					'label' => __("Long Business Description","WPBDM"),
+					'type' => 'textarea',
+					'association' => 'content',
+					'weight' => 6,
+					'is_required' => true
+				),
+			'meta0' => array(
+					'label' => __("Business Website Address","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 5,
+					'validator' => 'URLValidator',
+					'display_options' => array('show_in_excerpt' => true)
+				),
+			'meta1' => array(
+					'label' => __("Business Phone Number","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 4,
+					'display_options' => array('show_in_excerpt' => true)
+				),
+			'meta2' => array(
+					'label' => __("Business Fax","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 3
+				),
+			'meta3' => array(
+					'label' => __("Business Contact Email","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'meta',
+					'weight' => 2,
+					'validator' => 'EmailValidator',
+					'is_required' => true
+				),
+			'meta4' => array(
+					'label' => __("Business Tags","WPBDM"),
+					'type' => 'textfield',
+					'association' => 'tags',
+					'weight' => 1
+				)	
+		);		
+	}
+
 	private function normalizeField(&$field) {
 		$field->display_options = array_merge(array('hide_field' => false, 'show_in_excerpt' => false), $field->display_options ? (array) unserialize($field->display_options) : array());
 		$field->field_data = $field->field_data ? unserialize($field->field_data) : null;
@@ -310,6 +379,8 @@ class WPBDP_FormFieldsAPI {
 				}
 			}
 
+			// TODO: title, category and all of the 'required' fields must have is_required = 1
+
 			// title must be textfield or textarea
 			if ($field['association'] == 'title' && !in_array($field['type'], array('textfield', 'textarea')))
 				$errors[] = _x('Post title field must be a text field or text area.', 'form-fields-api', 'WPBDM');
@@ -366,6 +437,9 @@ class WPBDP_FormFieldsAPI {
 		} else {
 			$field['is_required'] = 0;
 		}
+
+		if (in_array($field['association'], array('title', 'category', 'content')))
+			$field['is_required'] = 1;
 
 		if (isset($field['display_options'])) {
 			if (isset($field['display_options']['show_in_excerpt']))
@@ -663,6 +737,20 @@ class WPBDP_FormFieldsAPI {
 									'_wpbdp[fields][' . $field->id . ']', $field->label, wpbdp_post_type());
 			$wpdb->query($query);
 		}
+	}
+
+	public function check_for_required_fields() {
+		static $required_associations = array('title', 'category');
+
+		$errors = array();
+
+		foreach ($required_associations as $field_assoc) {
+			if (!($field = $this->getFieldsByAssociation($field_assoc, true))) {
+				$errors[] = $field_assoc;
+			}
+		}
+
+		return $errors;
 	}
 
 }
