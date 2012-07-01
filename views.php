@@ -532,6 +532,13 @@ class WPBDP_DirectoryController {
 				), false);
 			}
 
+			if (wpbdp_get_option('send-email-confirmation')) {
+				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+				$message = wpbdp_get_option('email-confirmation-message');
+				$message = str_replace("[listing]", get_the_title($listing_id), $message);
+				@wp_mail(wpbusdirman_get_the_business_email($listing_id), $subject, $message);
+			}
+
 			return wpbdp_render('listing-form-done', array(
 							'listing_data' => $this->_listing_data,
 							'listing' => get_post($listing_id)
@@ -697,6 +704,14 @@ class WPBDP_DirectoryController {
 				$html .= sprintf('<h2>%s</h2>', _x('Listing Submitted', 'templates', 'WPBDM'));
 			} else {
 				$html .= sprintf('<h2>%s</h2>', _x('Listing Payment Confirmation', 'templates', 'WPBDM'));
+			}
+
+			if (wpbdp_get_option('send-email-confirmation')) {
+				$listing_id = $transaction->listing_id;
+				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+				$message = wpbdp_get_option('payment-message');
+				$message = str_replace("[listing]", get_the_title($listing_id), $message);
+				@wp_mail(wpbusdirman_get_the_business_email($listing_id), $subject, $message);
 			}
 
 			$html .= sprintf('<p>%s</p>', wpbdp_get_option('payment-message'));
