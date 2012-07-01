@@ -339,6 +339,8 @@ class WPBDP_ListingsAPI {
 					}
 
 					update_post_meta($listing_id, '_wpbdp[fields][' . $field->id . ']', $value);
+				} else {
+					update_post_meta($listing_id, '_wpbdp[fields][' . $field->id . ']', null);
 				}
 			}
 		}
