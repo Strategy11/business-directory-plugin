@@ -51,11 +51,20 @@ class WPBDP_DirectoryController {
 
 	/* display listings */
 	public function view_listings($excludebuttons=false) {
+		$paged = 1;
+
+		if (get_query_var('page'))
+			$paged = get_query_var('page');
+		elseif (get_query_var('paged'))
+			$paged = get_query_var('paged');
+
+		//wpbdp_debug_e($paged);
+
 		query_posts(array(
 			'post_type' => wpbdp_post_type(),
 			'posts_per_page' => 0,
 			'post_status' => 'publish',
-			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+			'paged' => intval($paged),
 			'orderby' => wpbdp_get_option('listings-order-by', 'date'),
 			'order' => wpbdp_get_option('listings-sort', 'ASC')
 		));
