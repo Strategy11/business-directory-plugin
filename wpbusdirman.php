@@ -997,6 +997,7 @@ class WPBDP_Plugin {
 
 		add_filter('posts_join', array($this, '_join_with_terms'));
 		add_filter('posts_where', array($this, '_include_terms_in_search'));
+		add_filter('posts_distinct', array($this, '_search_distinct'));
 		
 		add_filter('posts_request', array($this, '_posts_request'));
 		add_action('pre_get_posts', array($this, '_pre_get_posts'));
@@ -1370,6 +1371,16 @@ class WPBDP_Plugin {
 	}
 
 	/* search filters */
+	public function _search_distinct($distinct) {
+		global $wp_query;
+
+		if ($wp_query->is_search && isset($wp_query->query['post_type']) && $wp_query->query['post_type'] == self::POST_TYPE) {
+			return 'DISTINCT';
+		}
+
+		return $distinct;
+	}
+
 	public function _join_with_terms($join) {
 		global $wp_query, $wpdb;
 
