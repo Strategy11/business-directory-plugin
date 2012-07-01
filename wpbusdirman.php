@@ -815,23 +815,26 @@ function wpbusdirman_latest_listings($numlistings)
 }
 
 function wpbusdirman_sticky_loop() {
-	query_posts(array(
+	$args = array(
 		'post_type' => wpbdp_post_type(),
 		'posts_per_page' => 0,
 		'post_status' => 'publish',
 		'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-		'tax_query' => array(
-			array(
-				'taxonomy' => get_query_var('taxonomy'),
-				'field' => 'slug',
-				'terms' => get_query_var('term')
-			)
-		),
 		'meta_key' => '_wpbdp[sticky]',
 		'meta_value' => 'sticky',
 		'orderby' => wpbdp_get_option('listings-order-by', 'date'),
 		'order' => wpbdp_get_option('listings-sort', 'ASC')
-	));
+	);
+
+	if (get_query_var('term')) {
+		$args['tax_query'] = array(
+			array('taxonomy' => get_query_var('taxonomy'),
+				  'field' => 'slug',
+				  'terms' => get_query_var('term'))
+		);
+	}
+
+	query_posts($args);
 
 	while (have_posts()) {
 		the_post();
