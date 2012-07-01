@@ -55,6 +55,7 @@ class WPBDP_DirectoryController {
 			'post_type' => wpbdp_post_type(),
 			'posts_per_page' => 0,
 			'post_status' => 'publish',
+			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 			'orderby' => wpbdp_get_option('listings-order-by', 'date'),
 			'order' => wpbdp_get_option('listings-sort', 'ASC')
 		));
