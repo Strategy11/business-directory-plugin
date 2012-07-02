@@ -48,7 +48,7 @@ function _wpbdp_is_fee_selected($category, $feeid) {
 			<?php foreach ($fee_option['fees'] as $fee): ?>
 					<p>
 						<input type="radio" name="fees[<?php echo $fee_option['category']->term_id; ?>]" value="<?php echo $fee->id; ?>"
-							<?php echo _wpbdp_is_fee_selected($fee_option['category']->term_id, $fee->id) ? 'checked="checked"' : ''; ?>>
+							<?php echo _wpbdp_is_fee_selected($fee_option['category']->term_id, $fee->id) ? ' checked="checked" ' : ''; ?>>
 							<b><?php echo esc_attr($fee->label); ?> <?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee->amount; ?></b><br />
 							<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)): ?>
 								<?php if ($fee->days == 0): ?>

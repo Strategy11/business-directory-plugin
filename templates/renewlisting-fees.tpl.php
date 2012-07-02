@@ -22,7 +22,7 @@
 		<h4 class="feecategoriesheader"><?php echo sprintf(_x('"%s" fee options', 'templates', 'WPBDM'), $category->name); ?></h4>
 		<?php foreach ($fee_options as $fee): ?>
 				<p>
-					<input type="radio" name="fee_id" value="<?php echo $fee->id; ?>" <?php echo (count($fee_options) == 1 || (isset($_POST['fee_id']) && $_POST['fee_id'] == $fee->id)) ? 'checked="checked"' : ''; ?>/>
+					<input type="radio" name="fee_id" value="<?php echo $fee->id; ?>" <?php echo (count($fee_options) == 1 || (isset($_POST['fee_id']) && $_POST['fee_id'] == $fee->id)) ? ' checked="checked" ' : ''; ?>/>
 						<b><?php echo esc_attr($fee->label); ?> <?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee->amount; ?></b><br />
 							<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)): ?>
 								<?php if ($fee->days == 0): ?>

@@ -92,7 +92,7 @@ class WPBDP_Settings {
 								array('CAD', _x('Canadian Dollar (CAD)', 'admin settings', 'WPBDM')),
 								array('CZK', _x('Czech Koruna (CZK)', 'admin settings', 'WPBDM')),
 								array('DKK', _x('Danish Krone (DKK)', 'admin settings', 'WPBDM')),
-								array('Euro', _x('Euro (EUR)', 'admin settings', 'WPBDM')),
+								array('EUR', _x('Euro (EUR)', 'admin settings', 'WPBDM')),
 								array('HKD', _x('Hong Kong Dollar (HKD)', 'admin settings', 'WPBDM')),
 								array('HUF', _x('Hungarian Forint (HUF)', 'admin settings', 'WPBDM')),
 								array('ILS', _x('Israeli New Shequel (ILS)', 'admin settings', 'WPBDM')),
