@@ -2,7 +2,6 @@
 require_once(WPBDP_PATH . 'admin/admin-pages.php');
 require_once(WPBDP_PATH . 'admin/fees.php');
 require_once(WPBDP_PATH . 'admin/form-fields.php');
-require_once(WPBDP_PATH . 'admin/uninstall.php');
 
 if (!class_exists('WPBDP_Admin')) {
 
@@ -14,6 +13,8 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'handle_actions'));
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'add_metaboxes'));
+        add_action('admin_init', array($this, 'check_for_required_fields'));
+        add_action('delete_post', array($this, '_delete_post_metadata'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'admin_javascript'));
@@ -93,7 +94,7 @@ class WPBDP_Admin {
                          _x('Uninstall', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdman_m1',
-                         'wpbusdirman_uninstall');
+                         array($this, 'uninstall_plugin'));
 
         // just a little hack
         if (current_user_can('activate_plugins')) {
@@ -102,6 +103,15 @@ class WPBDP_Admin {
             $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
             $submenu['wpbusdirman.php'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
             $submenu['wpbusdirman.php'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
+        }
+    }
+
+    public function _delete_post_metadata($post_id) {
+        global $wpdb;
+
+        if ( current_user_can('delete_posts') && get_post_type($post_id) == wpbdp_post_type() ) {
+            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post_id));
+            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id));
         }
     }
 
@@ -253,34 +263,31 @@ class WPBDP_Admin {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
             return;
 
-        if ($_POST['post_type'] != wpbdp_post_type())
-            return;
-
-        // Fix listings added through admin site
-        if (is_admin())
+        if (is_admin() && isset($_POST['post_type']) && $_POST['post_type'] == wpbdp_post_type()) {
+            // Fix listings added through admin site
             wpbdp_listings_api()->set_default_listing_settings($post_id);
 
+            // Save custom fields
+            if (isset($_POST['wpbdp-listing-fields-nonce']) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
+                // save custom fields
+                $formfields_api = wpbdp_formfields_api();
+                $listingfields = wpbdp_getv($_POST, 'listingfields', array());
+                
+                foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
+                    if (isset($listingfields[$field->id])) {
+                        if ($value = $formfields_api->extract($listingfields, $field)) {
+                            if (in_array($field->type, array('multiselect', 'checkbox'))) {
+                                $value = implode("\t", $value);
+                            }
 
-        // Save custom fields
-        if (isset($_POST['wpbdp-listing-fields-nonce']) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
-            // save custom fields
-            $formfields_api = wpbdp_formfields_api();
-            $listingfields = wpbdp_getv($_POST, 'listingfields', array());
-            
-            foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
-                if (isset($listingfields[$field->id])) {
-                    if ($value = $formfields_api->extract($listingfields, $field)) {
-                        if (in_array($field->type, array('multiselect', 'checkbox'))) {
-                            $value = implode("\t", $value);
+                            update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
                         }
-
-                        update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
                     }
                 }
-            }
 
-            if (isset($_POST['thumbnail_id']))
-                update_post_meta($post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id']);
+                if (isset($_POST['thumbnail_id']))
+                    update_post_meta($post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id']);
+            }
         }
     }
 
@@ -697,6 +704,65 @@ class WPBDP_Admin {
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
                           true);
+    }
+
+    /* Uninstall. */
+    public function uninstall_plugin() {
+        if (isset($_POST['doit']) && $_POST['doit'] == 1) {
+            $new_status = wpbdp_get_option('status-on-uninstall');
+            $posts = get_posts(array('post_type' => wpbdp_post_type()));
+
+            foreach ($posts as $post) {
+                $post_array = array('ID' => $post->ID,
+                                    'post_type' => wpbdp_post_type(),
+                                    'post_status' => $new_status);
+                wp_update_post($post_array);
+            }
+
+            // delete options
+            $settings_api = wpbdp_settings_api();
+            $settings_api->reset_defaults();
+
+            // clear scheduled hooks
+            wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
+
+            // deactivate plugin
+            deactivate_plugins(plugin_basename(WPBDP_PATH . 'wpbusdirman.php'), true);
+            
+            echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-complete.tpl.php');
+        } else {
+            echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-confirm.tpl.php');
+        }
+    }
+
+    /* Required fields check. */
+    public function check_for_required_fields() {
+        $formfields_api = wpbdp_formfields_api();
+
+        if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'wpbdp_admin_formfields' &&
+            isset($_REQUEST['action']) && $_REQUEST['action'] == 'createrequired') {
+            // do not display the warning inside the page creating the required fields
+            return;
+        }
+
+        if ($missing = $formfields_api->check_for_required_fields()) {
+            if (count($missing) > 1) {
+                $message = sprintf(_x('<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'WPBDM'), join(', ', $missing));
+            } else {
+                $message = sprintf(_x('<b>Business Directory Plugin</b> requires a field with a <b>%s</b> association in order to work correctly.', 'admin', 'WPBDM'), $missing[0]);
+            }
+            $message .= '<br />';
+            $message .= _x('You can create these custom fields by yourself inside "Manage Form Fields" or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
+            $message .= '<br /><br />';
+            $message .= sprintf('<a href="%s">%s</a> | ',
+                                admin_url('admin.php?page=wpbdp_admin_formfields'),
+                                _x('Go to "Manage Form Fields"', 'admin', 'WPBDM'));
+            $message .= sprintf('<a href="%s">%s</a>',
+                                admin_url('admin.php?page=wpbdp_admin_formfields&action=createrequired'),
+                                _x('Create these required fields for me', 'admin', 'WPBDM'));
+
+            $this->messages[] = array($message, 'error');
+        }
     }
 
 }

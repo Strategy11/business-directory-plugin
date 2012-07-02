@@ -24,7 +24,7 @@
 
 			<div class="navigation">
 				<?php if (function_exists('wp_pagenavi')): ?>
-					<?php wp_pagenavi(); ?>
+					<?php wp_pagenavi(null); ?>
 				<?php elseif (function_exists('wp_paginate')): ?>
 					<?php wp_paginate(); ?>
 				<?php else: ?>

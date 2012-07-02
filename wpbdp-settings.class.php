@@ -43,10 +43,16 @@ class WPBDP_Settings {
 		$this->add_setting($s, 'show-comment-form', _x('Include comment form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
 		$this->add_setting($s, 'override-email-blocking', _x('Override email Blocking?', 'admin settings', 'WPBDM'), 'boolean', false);
-		$this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'draft', '',
+		$this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
 						   array('choices' => array('draft', 'trash')));
 		$this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
 						   array('choices' => array('draft', 'trash')));
+
+		$s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
+		$this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
+		$this->add_setting($s, 'email-confirmation-message', _x('Email confirmation message', 'admin settings', 'WPBDM'), 'text',
+						   'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
+						  _x('You can use the placeholder [listing] for the listing title. This setting applies to non-paying listings only; for paying listings check the "Payment" settings tab.', 'admin settings', 'WPBDM'));
 
 		$s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
 		$this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);

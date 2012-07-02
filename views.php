@@ -50,13 +50,24 @@ class WPBDP_DirectoryController {
 	}
 
 	/* display listings */
-	public function view_listings($excludebuttons=false) {
+	public function view_listings($excludebuttons=true) {
+		wpbusdirman_sticky_loop();
+
+		$paged = 1;
+
+		if (get_query_var('page'))
+			$paged = get_query_var('page');
+		elseif (get_query_var('paged'))
+			$paged = get_query_var('paged');
+
 		query_posts(array(
 			'post_type' => wpbdp_post_type(),
 			'posts_per_page' => 0,
 			'post_status' => 'publish',
+			'paged' => intval($paged),
 			'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-			'order' => wpbdp_get_option('listings-sort', 'ASC')
+			'order' => wpbdp_get_option('listings-sort', 'ASC'),
+			'post__not_in' => wpbdp_listings_api()->get_stickies()
 		));
 
 		$html = wpbdp_render('businessdirectory-listings', array(
@@ -204,7 +215,7 @@ class WPBDP_DirectoryController {
 
 		if ($listing_id = $this->_listing_data['listing_id']) {
 			$current_user = wp_get_current_user();
-			if (get_post($listing_id)->post_author != $current_user->ID)
+			if ( (get_post($listing_id)->post_author != $current_user->ID) && (!current_user_can('administrator')) )
 				return wpbdp_render_msg(_x('You are not authorized to edit this listing.', 'templates', 'WPBDM'), 'error');
 
 			if (wpbdp_payment_status($listing_id) != 'paid')
@@ -521,6 +532,13 @@ class WPBDP_DirectoryController {
 				), false);
 			}
 
+			if (wpbdp_get_option('send-email-confirmation')) {
+				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+				$message = wpbdp_get_option('email-confirmation-message');
+				$message = str_replace("[listing]", get_the_title($listing_id), $message);
+				@wp_mail(wpbusdirman_get_the_business_email($listing_id), $subject, $message);
+			}
+
 			return wpbdp_render('listing-form-done', array(
 							'listing_data' => $this->_listing_data,
 							'listing' => get_post($listing_id)
@@ -550,7 +568,7 @@ class WPBDP_DirectoryController {
 
 	public function delete_listing() {
 		if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
-			if (wp_get_current_user()->ID == get_post($listing_id)->post_author) {
+			if ( (wp_get_current_user()->ID == get_post($listing_id)->post_author) || (current_user_can('administrator')) ) {
 				$post_update = array('ID' => $listing_id,
 									 'post_type' => wpbdp_post_type(),
 									 'post_status' => wpbdp_get_option('deleted-status'));
@@ -686,6 +704,14 @@ class WPBDP_DirectoryController {
 				$html .= sprintf('<h2>%s</h2>', _x('Listing Submitted', 'templates', 'WPBDM'));
 			} else {
 				$html .= sprintf('<h2>%s</h2>', _x('Listing Payment Confirmation', 'templates', 'WPBDM'));
+			}
+
+			if (wpbdp_get_option('send-email-confirmation')) {
+				$listing_id = $transaction->listing_id;
+				$subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+				$message = wpbdp_get_option('payment-message');
+				$message = str_replace("[listing]", get_the_title($listing_id), $message);
+				@wp_mail(wpbusdirman_get_the_business_email($listing_id), $subject, $message);
 			}
 
 			$html .= sprintf('<p>%s</p>', wpbdp_get_option('payment-message'));
