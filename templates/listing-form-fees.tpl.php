@@ -1,7 +1,9 @@
 <?php
-function _wpbdp_is_fee_selected($category, $feeid) {
-	$fees = isset($_POST['fees']) ? $_POST['fees'] : array();
-	return wpbdp_getv($fees, $category) == $feeid;
+if (!function_exists('_wpbdp_is_fee_selected')) {
+	function _wpbdp_is_fee_selected($category, $feeid) {
+		$fees = isset($_POST['fees']) ? $_POST['fees'] : array();
+		return wpbdp_getv($fees, $category) == $feeid;
+	}
 }
 ?>
 

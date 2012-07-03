@@ -1,4 +1,5 @@
 <?php
+if (!function_exists('_wpbdp_render_category')) {
 function _wpbdp_render_category($cat, $selected=array(), $level=0) {
 	$html = '';
 
@@ -14,6 +15,7 @@ function _wpbdp_render_category($cat, $selected=array(), $level=0) {
 	}
 
 	return $html;	
+}
 }
 ?>
 
