@@ -320,7 +320,7 @@ class WPBDP_ListingsAPI {
 						));
 					}
 				} else {
-					exit;
+					//exit;
 				}
 			}
 		}
