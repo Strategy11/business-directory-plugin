@@ -98,6 +98,9 @@ function wpbdp_get_formfields() {
 }
 
 function wpbdp_get_formfield($id) {
+	if (is_numeric($id) && is_string($id))
+		return wpbdp_get_formfield(intval($id));
+
 	if (is_string($id))
 		return wpbdp_formfields_api()->getFieldsByAssociation($id, true);
 
@@ -132,7 +135,8 @@ function wpbdp_get_listing_field_value($listing, $field) {
 				break;
 			case 'meta':
 			default:
-				return get_post_meta($listing->ID, '_wpbdp[fields][' . $field->id . ']', true);
+				$value = get_post_meta($listing->ID, '_wpbdp[fields][' . $field->id . ']', true);
+				return $value;
 				break;
 		}
 	}
