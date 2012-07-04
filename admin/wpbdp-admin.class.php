@@ -281,6 +281,8 @@ class WPBDP_Admin {
                             }
 
                             update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
+                        } else {
+                            update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', null);
                         }
                     }
                 }
