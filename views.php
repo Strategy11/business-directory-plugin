@@ -758,7 +758,7 @@ class WPBDP_DirectoryController {
 		query_posts(array('post_type' => wpbdp_post_type(),
 						  'posts_per_page' => -1,
 						  'post__in' => $results ? $results : array(0)));
-		$html = wpbdp_render('search', array('fields' => $fields), false);
+		$html = wpbdp_render('search', array('fields' => $fields, 'searching' => $_POST ? true : false), false);
 		wp_reset_query();
 
 		return $html;

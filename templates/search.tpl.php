@@ -33,7 +33,7 @@
             <?php if (in_array($field->type, array('checkbox', 'select', 'multiselect'))) : ?>
                 <?php
                 $options = isset($field->field_data['options']) ? $field->field_data['options'] : array();
-                $use_select = count($options) > 1 ? true : false;
+                $use_select = count($options) > 10 ? true : false;
                 ?>
 
                 <?php if ($use_select) : ?>
@@ -78,6 +78,7 @@
 
 <br class="clearfix" />
 
+<?php if ($searching): ?>
 <h2><?php _ex('Search Results', 'search', 'WPBDM'); ?></h2>
 <div class="search-results">
 <?php if (have_posts()): ?>
@@ -91,5 +92,6 @@
                        _x('Return to directory', 'templates', 'WPBDM')); ?>    
 <?php endif; ?>
 </div>
+<?php endif; ?>
 
 </div>
