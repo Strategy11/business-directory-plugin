@@ -391,6 +391,62 @@ class WPBDP_ListingsAPI {
 		return $listing_id;
 	}
 
+	/* listings search */ 
+	public function search($args) {
+		global $wpdb;
+
+		$term = trim(wpbdp_getv($args, 'q', ''));
+
+		if (!$term && (!isset($args['meta']) || !$args['meta']))
+			return array();
+
+		$query = "SELECT DISTINCT ID FROM {$wpdb->posts}";
+		$where = $wpdb->prepare("{$wpdb->posts}.post_type = %s AND {$wpdb->posts}.post_status = %s",
+								wpbdp_post_type(), 'publish');
+
+		if ($term) {
+			$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_title LIKE '%%%s%%' OR
+									  {$wpdb->posts}.post_content LIKE '%%%s%%' OR
+									  {$wpdb->posts}.post_excerpt LIKE '%%%s%%')
+									 ", $term, $term, $term);
+		}
+
+		if (isset($args['meta'])) {
+			foreach ($args['meta'] as $i => $meta_search) {
+				if ($field = wpbdp_get_formfield($meta_search['field_id'])) {
+					if ($field->display_options['hide_field']) continue;
+
+					if (in_array($field->type, array('checkbox', 'multiselect'))) {
+						// multi-valued field
+						if ($meta_search['options']) {
+							$where_ = '%%' . implode("%%", $meta_search['options']) . '%%';
+							
+							$query .= " INNER JOIN {$wpdb->postmeta} AS mt{$i}mv ON ({$wpdb->posts}.ID = mt{$i}mv.post_id)";
+							$where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value LIKE %s)",
+													 "_wpbdp[fields][{$field->id}]",
+													 $where_);
+						}
+					} else {
+						// single-valued field
+						$q = trim(wpbdp_getv($meta_search, 'q', ''));
+
+						if ($q) {
+							$query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
+							$where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value LIKE '%%%s%%')",
+													 '_wpbdp[fields][' . $field->id . ']',
+													 $q);
+						}
+					}
+				}
+			}
+		}
+		$query .= ' WHERE ' . $where;
+
+		wpbdp_debug($query);
+
+		return $wpdb->get_col($query);
+	}
+
 }
 
 }
