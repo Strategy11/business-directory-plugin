@@ -1,0 +1,20 @@
+/* Search Form */
+#wpbdp-search-form {
+}
+
+#wpbdp-search-form .search-filter .options {
+    display: none;
+}
+
+#wpbdp-search-form .search-filter .header {
+    cursor: pointer;
+}
+
+#wpbdp-search-form .search-filter .options {
+    padding: 5px 0 5px 0;
+    margin-left: 30px;
+}
+
+#wpbdp-search-form .search-filter.expanded .options {
+    display: block;
+}
