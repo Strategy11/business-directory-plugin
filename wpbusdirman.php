@@ -50,32 +50,12 @@ $wpinc=WPINC;
 
 $wpbusdirman_plugin_path = WP_CONTENT_DIR.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
 $wpbusdirman_plugin_url = WP_CONTENT_URL.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
-$wpbusdirman_plugin_dir = basename(dirname(__FILE__));
 $wpbusdirman_haspaypalmodule=0;
 $wpbusdirman_hastwocheckoutmodule=0;
 $wpbusdirman_hasgooglecheckoutmodule=0;
 
-$wpbusdirman_imagespath = WP_CONTENT_DIR.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)).'images';
 $wpbusdirman_imagesurl = WP_CONTENT_URL.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)).'images';
-
-$uploaddir=get_option('upload_path');
-if(!isset($uploaddir) || empty($uploaddir))
-{
-	$uploaddir=ABSPATH;
-	$uploaddir.="wp-content/uploads";
-}
-
-
-$wpbusdirmanimagesdirectory=$uploaddir;
-$wpbusdirmanimagesdirectory.="/wpbdm";
-$wpbusdirmanthumbsdirectory=$wpbusdirmanimagesdirectory;
-$wpbusdirmanthumbsdirectory.="/thumbnails";
-
 $wpbdmimagesurl="$wpcontenturl/uploads/wpbdm";
-
-$nameofsite=get_option('blogname');
-$siteurl=get_option('siteurl');
-$thisadminemail=get_option('admin_email');
 
 $wpbdmposttype="wpbdm-directory";
 $wpbdmposttypecategory="wpbdm-category";
@@ -106,11 +86,9 @@ require_once(WPBDP_PATH . 'api/api.php');
 
 define('WPBUSDIRMANURL', $wpbusdirman_plugin_url );
 define('WPBUSDIRMANPATH', $wpbusdirman_plugin_path );
-define('WPBUSDIRPLUGINDIR', 'wp-business-directory-manager');
 define('WPBUSDIRMAN_TEMPLATES_PATH', $wpbusdirman_plugin_path . '/deprecated/templates');
 
 $wpbusdirman_gpid=wpbusdirman_gpid();
-$permalinkstructure=get_option('permalink_structure');
 $wpbusdirmanconfigoptionsprefix="wpbusdirman";
 
 
@@ -177,85 +155,6 @@ function wpbusdirman_is_ValidDate($date)
 
 	return false;
 }
-
-// TODO - maybe replace this function?
-function wpbusdirmancreatethumb($wpbusdirmanuploadedfilename,$wpbusdirmanuploaddir,$wpbusdirmanthumbnailwidth)
-{
-		$wpbusdirman_show_all=true;
-		$wpbusdirman_thumbs_width=$wpbusdirmanthumbnailwidth;
-		$mynewimg='';
-		if (extension_loaded('gd')) {
-			if ($wpbusdirman_imginfo=getimagesize($wpbusdirmanuploaddir.'/'.$wpbusdirmanuploadedfilename)) {
-				$width=$wpbusdirman_imginfo[0];
-				$height=$wpbusdirman_imginfo[1];
-				if ($width>$wpbusdirman_thumbs_width) {
-					$newwidth=$wpbusdirman_thumbs_width;
-					$newheight=$height*($wpbusdirman_thumbs_width/$width);
-					if ($wpbusdirman_imginfo[2]==1) {		//gif
-					} elseif ($wpbusdirman_imginfo[2]==2) {		//jpg
-						if (function_exists('imagecreatefromjpeg')) {
-							$myimg=@imagecreatefromjpeg($wpbusdirmanuploaddir.'/'.$wpbusdirmanuploadedfilename);
-						}
-					} elseif ($wpbusdirman_imginfo[2]==3) {	//png
-						$myimg=@imagecreatefrompng($wpbusdirmanuploaddir.'/'.$wpbusdirmanuploadedfilename);
-					}
-					if (isset($myimg) && !empty($myimg)) {
-						$gdinfo=wpbusdirman_GD();
-						if (stristr($gdinfo['GD Version'], '2.')) {	// if we have GD v2 installed
-							$mynewimg=@imagecreatetruecolor($newwidth,$newheight);
-							if (imagecopyresampled($mynewimg,$myimg,0,0,0,0,$newwidth,$newheight,$width,$height)) {
-								$wpbusdirman_show_all=false;
-							}
-						} else {	// GD 1.x here
-							$mynewimg=@imagecreate($newwidth,$newheight);
-							if (@imagecopyresized($mynewimg,$myimg,0,0,0,0,$newwidth,$newheight,$width,$height)) {
-								$wpbusdirman_show_all=false;
-							}
-						}
-					}
-				}
-			}
-		}
-		if (!is_writable($wpbusdirmanuploaddir.'/thumbnails')) {
-			@chmod($wpbusdirmanuploaddir.'/thumbnails',0755);
-			if (!is_writable($wpbusdirmanuploaddir.'/thumbnails')) {
-				@chmod($wpbusdirmanuploaddir.'/thumbnails',0777);
-			}
-		}
-		if ($wpbusdirman_show_all) {
-			$myreturn=@copy($wpbusdirmanuploaddir.'/'.$wpbusdirmanuploadedfilename,$wpbusdirmanuploaddir.'/thumbnails/'.$wpbusdirmanuploadedfilename);
-		} else {
-			$myreturn=@imagejpeg($mynewimg,$wpbusdirmanuploaddir.'/thumbnails/'.$wpbusdirmanuploadedfilename,100);
-		}
-		@chmod($wpbusdirmanuploaddir.'/thumbnails/'.$wpbusdirmanuploadedfilename,0644);
-	return $myreturn;
-}
-
-
-
-		function wpbusdirman_GD()
-		{
-			$myreturn=array();
-			if (function_exists('gd_info'))
-			{
-				$myreturn=gd_info();
-			} else
-			{
-				$myreturn=array('GD Version'=>'');
-				ob_start();
-				phpinfo(8);
-				$info=ob_get_contents();
-				ob_end_clean();
-				foreach (explode("\n",$info) as $line)
-				{
-					if (strpos($line,'GD Version')!==false)
-					{
-						$myreturn['GD Version']=trim(str_replace('GD Version', '', strip_tags($line)));
-					}
-				}
-			}
-			return $myreturn;
-		}
 
 function wpbusdirman_managelistings() {
 	return wpbdp()->controller->manage_listings();

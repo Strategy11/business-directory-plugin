@@ -582,7 +582,6 @@ class WPBDP_FormFieldsAPI {
 		return $html;
 	}
 
-	// TODO
 	public function render_radio(&$field, $value=null) {
 		$html = '';
 

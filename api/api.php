@@ -195,8 +195,8 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
 		return '';
 
 	if ($field && $value && !$field->display_options['hide_field'])
-		return sprintf('<p class="field-value %s %s"><label>%s</label>: %s',
-					   strtolower(str_replace(' ', '', $field->label)), /* normalized field label */
+		return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s</label>: %s</div>',
+					   strtolower(str_replace(array(' ', '/'), '', $field->label)), /* normalized field label */
 					   $field->association,
 					   esc_attr($field->label),
 					   $value);
