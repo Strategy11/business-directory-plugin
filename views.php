@@ -737,14 +737,10 @@ class WPBDP_DirectoryController {
 			$search_args['meta'] = array();
 
 			foreach (wpbdp_getv($_POST, 'meta', array()) as $field_id => $field_search) {
-				if (isset($field_search['enabled']) && $field_search['enabled']) {
-					$search_args['meta'][] = array('field_id' => $field_id,
-												   'q' => wpbdp_getv($field_search, 'q', null),
-												   'options' => wpbdp_getv($field_search, 'options', array())
-												   );
-				} else {
-					unset($_POST[$field_id]);
-				}
+				$search_args['meta'][] = array('field_id' => $field_id,
+											   'q' => wpbdp_getv($field_search, 'q', null),
+											   'options' => wpbdp_getv($field_search, 'options', array())
+											   );
 			}
 
 			$results = $listings_api->search($search_args);

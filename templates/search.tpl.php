@@ -1,7 +1,7 @@
 <div id="wpbdmentry">
 
     <div id="lco">
-        <div class="title"><?php _ex('Find a listing', 'search', 'WPBDM'); ?></div>
+        <div class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></div>
         <div class="button">
             <?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
             <?php echo wpbusdirman_post_menu_button_directory(); ?>
@@ -11,69 +11,78 @@
 
     <div class="clear"></div>
 
+<h2><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h2>
 <form action="" id="wpbdp-search-form" method="POST">
-    <label>
-        <?php _ex('Search terms:', 'search', 'WPBDM'); ?> <input type="text" name="q" value="<?php echo wpbdp_getv($_POST, 'q', ''); ?>" />
-    </label>
+    <div class="search-filter term">
+        <div class="label">
+            <label for="wpbdp-search-form-q">
+                <?php _ex('Search terms', 'search', 'WPBDM'); ?>
+            </label>
+        </div>
+        <div class="field">
+            <input type="text"
+                   name="q"
+                   id="wpbdp-search-form-q"
+                   value="<?php echo wpbdp_getv($_POST, 'q', ''); ?>" />
+        </div>
+    </div>
 
     <?php
     foreach ($fields as $field):
         $post_values = isset($_POST['meta'][$field->id]) ? $_POST['meta'][$field->id] : array();
     ?>
     <div class="search-filter <?php echo $field->type; ?>">
-        <h3 class="header">
-            <label><input type="checkbox"
-                          name="meta[<?php echo $field->id; ?>][enabled]"
-                          value="1"
-                          <?php echo isset($_POST['meta'][$field->id]['enabled']) ? ' checked="checked"' : ''; ?>
-                          /> 
-            <?php echo sprintf(_x('Filter by <i>%s</i>', 'search', 'WPBDM'), $field->label); ?></i></label>
-        </h3>
-        <div class="options">
-            <?php if (in_array($field->type, array('checkbox', 'select', 'multiselect'))) : ?>
-                <?php
-                $options = isset($field->field_data['options']) ? $field->field_data['options'] : array();
-                $use_select = count($options) > 10 ? true : false;
-                ?>
+        <?php if (in_array($field->type, array('checkbox', 'select', 'multiselect'))) : ?>
+        <div class="label">
+            <label><?php echo $field->label; ?></label>
+        </div>
 
-                <?php if ($use_select) : ?>
-                <select name="meta[<?php echo $field->id; ?>][options][]" multiple="multiple">
-                <?php endif; ?>
+        <?php
+        $options = isset($field->field_data['options']) ? $field->field_data['options'] : array();
+        $use_select = count($options) > 10 ? true : false;
+        ?>
 
-                <?php foreach ($options as $option): ?>
-                    <?php if ($use_select): ?>
-                    <option value="<?php echo $option; ?>"
-                            <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' selected="selected"' : ''; ?>>
-                        <?php echo $option; ?>
-                    </option>
-                    <?php else: ?>
-                        <label>
-                            <input type="checkbox" 
-                                   name="meta[<?php echo $field->id; ?>][options][]"
-                                   value="<?php echo $option; ?>"
-                                   <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' checked="checked"' : ''; ?>
-                                   /> <?php echo $option; ?>
-                        </label> <br />
-                    <?php endif; ?>
-                <?php endforeach; ?>
+        <div class="field">
+            <?php if ($use_select) : ?>
+            <select name="meta[<?php echo $field->id; ?>][options][]" multiple="multiple" class="field">
+            <?php endif; ?>
 
+            <?php foreach ($options as $option): ?>
                 <?php if ($use_select): ?>
-                </select>
+                <option value="<?php echo $option; ?>"
+                        <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' selected="selected"' : ''; ?>>
+                    <?php echo $option; ?>
+                </option>
+                <?php else: ?>
+                    <label>
+                        <input type="checkbox" 
+                               name="meta[<?php echo $field->id; ?>][options][]"
+                               value="<?php echo $option; ?>"
+                               <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' checked="checked"' : ''; ?>
+                               /> <?php echo $option; ?>
+                    </label> <br />
                 <?php endif; ?>
+            <?php endforeach; ?>
 
-            <?php else : ?>
-                <label>
-                <?php echo sprintf(_x('%s like', 'search', 'WPBDM'), $field->label); ?>
-                    <input type="text"
-                           name="meta[<?php echo $field->id; ?>][q]"
-                           value="<?php echo esc_attr((isset($post_values['q'])) ? $post_values['q'] : ''); ?>" />
-                </label>
+            <?php if ($use_select): ?>
+            </select>
             <?php endif; ?>
         </div>
+
+        <?php else : ?>
+            <div class="label">
+                <label for="wpbdp-search-form-<?php echo $field->id; ?>"><?php echo sprintf(_x('%s like', 'search', 'WPBDM'), $field->label); ?></label>
+            </div>
+            <div class="field">
+                <input type="text" name="meta[<?php echo $field->id; ?>][q]" value="<?php echo esc_attr((isset($post_values['q'])) ? $post_values['q'] : ''); ?>" id="wpbdp-search-form-<?php echo $field->id; ?>" />
+            </div>
+        <?php endif; ?>
     </div>
     <?php endforeach; ?>
 
-    <input type="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>"/>
+    <p>
+        <input type="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" class="insubmitbutton" />
+    </p>
 </form>
 
 <br class="clearfix" />

@@ -1,20 +1,44 @@
+/* Basic search form */
+form#wpbdmsearchform a.advanced-search-link {
+    font-size: 70%;
+}
+
 /* Search Form */
-#wpbdp-search-form {
+#wpbdp-search-form { }
+
+#wpbdp-search-form .search-filter {
+    margin-bottom: 10px;
+    clear: both;
 }
 
-#wpbdp-search-form .search-filter .options {
-    display: none;
-}
-
-#wpbdp-search-form .search-filter .header {
-    cursor: pointer;
-}
-
-#wpbdp-search-form .search-filter .options {
-    padding: 5px 0 5px 0;
-    margin-left: 30px;
-}
-
-#wpbdp-search-form .search-filter.expanded .options {
+#wpbdp-search-form .search-filter > div.label {
     display: block;
+    width: 40%;
+    float: left;
+}
+
+#wpbdp-search-form .search-filter > div.label:after {
+    content: ':';
+}
+
+#wpbdp-search-form .search-filter > div.field {
+    display: block;
+    width: 60%;
+    margin-left: 40%;
+    padding-left: 5px;
+}
+
+#wpbdp-search-form .search-filter > div.field > input[type="text"] {
+    width: 90%;
+}
+
+#wpbdp-search-form .search-filter > div.field > select {
+    width: 90%;
+}
+
+#wpbdp-search-form input[type="submit"] {
+    width: 100px;
+    float: none;
+    display: block;
+    margin: auto;
 }

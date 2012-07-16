@@ -331,3 +331,23 @@ function wpbdp_render_msg($msg, $type='status') {
 	$html .= sprintf('<div class="%s">%s</div>', $type == 'error' ? 'wpbusdirmanerroralert' : $type, $msg);
 	return $html;
 }
+
+
+/*
+ * Template functions
+ */
+
+function wpbdp_search_form() {
+	$html = '';
+	$html .= sprintf('<form id="wpbdmsearchform" action="%s" method="POST">',
+					 add_query_arg('action', 'search', wpbdp_get_page_link('main')));
+	$html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
+	$html .= sprintf('<input id="wpbdmsearchsubmit" class="wpbdmsearchbutton" type="submit" value="%s" />',
+					 _x('Search Listings', 'templates', 'WPBDM'));
+	$html .= sprintf('<a href="%s" class="advanced-search-link">%s</a>',
+					 add_query_arg('action', 'search', wpbdp_get_page_link('main')),
+					 _x('Advanced Search', 'templates', 'WPBDM'));
+	$html .= '</form>';
+
+	return $html;
+}

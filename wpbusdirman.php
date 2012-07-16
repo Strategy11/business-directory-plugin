@@ -101,7 +101,7 @@ define('WPBDP_PATH', plugin_dir_path(__FILE__));
 define('WPBDP_URL', plugins_url('/', __FILE__));
 define('WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates');
 
-require_once(WPBDP_PATH . 'api.php');
+require_once(WPBDP_PATH . 'api/api.php');
 
 
 define('WPBUSDIRMANURL', $wpbusdirman_plugin_url );
@@ -151,48 +151,6 @@ function wpbusdirman_get_the_business_email($post_id) {
 		return $email;
 
 	return '';
-}
-
-function wpbusdirman_the_image($wpbusdirman_pID,$size = 'medium' , $class = '')
-{
-
-	//setup the attachment array
-	$att_array = array(
-	'post_parent' => $wpbusdirman_pID,
-	'post_type' => 'attachment',
-	'post_mime_type' => 'image',
-	'order_by' => 'menu_order'
-	);
-
-	//get the post attachments
-	$attachments = get_children($att_array);
-
-	//make sure there are attachments
-	if (is_array($attachments))
-	{
-		//loop through them
-		foreach($attachments as $att)
-		{
-			//find the one we want based on its characteristics
-			if ( $att->menu_order == 0)
-			{
-				$image_src_array = wp_get_attachment_image_src($att->ID, $size);
-
-				//get url - 1 and 2 are the x and y dimensions
-				$url = $image_src_array[0];
-				$caption = $att->post_excerpt;
-				$image_html = '%s';
-
-				//combine the data
-				$wpbusdirman_img_html = sprintf($image_html,$url,$caption,$class);
-
-				$wpbusdirman_image_url=$url;
-
-			}
-
-			return $wpbusdirman_image_url;
-		}
-	}
 }
 
 function wpbusdirman_isValidEmailAddress($email) {
@@ -979,7 +937,6 @@ class WPBDP_Plugin {
 	}
 
 	public function init() {
-
 		$this->settings = new WPBDP_Settings();
 		$this->formfields = new WPBDP_FormFieldsAPI();
 		$this->fees = new WPBDP_FeesAPI();
@@ -995,11 +952,7 @@ class WPBDP_Plugin {
 		add_action('init', array($this, 'install_or_update_plugin'), 1);
 		add_action('init', array($this, '_register_post_type'), 0);
 		// add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
-
-		add_filter('posts_join', array($this, '_join_with_terms'));
-		add_filter('posts_where', array($this, '_include_terms_in_search'));
-		add_filter('posts_distinct', array($this, '_search_distinct'));
-		
+	
 		add_filter('posts_request', array($this, '_posts_request'));
 		add_action('pre_get_posts', array($this, '_pre_get_posts'));
 
@@ -1373,44 +1326,6 @@ class WPBDP_Plugin {
 		}
 
 		return false;
-	}
-
-	/* search filters */
-	public function _search_distinct($distinct) {
-		global $wp_query;
-
-		if ($wp_query->is_search && isset($wp_query->query['post_type']) && $wp_query->query['post_type'] == self::POST_TYPE) {
-			return 'DISTINCT';
-		}
-
-		return $distinct;
-	}
-
-	public function _join_with_terms($join) {
-		global $wp_query, $wpdb;
-
-		if ($wp_query->is_search && !empty($wp_query->query_vars['s']) && isset($wp_query->query['post_type']) && $wp_query->query['post_type'] == self::POST_TYPE) {
-			$on = array();
-			$on[] = "ttax.taxonomy = '" . self::POST_TYPE_CATEGORY . "'";
-			$on[] = "ttax.taxonomy = '" . self::POST_TYPE_TAGS . "'";
-
-			$on = ' ( ' . implode( ' OR ', $on ) . ' ) ';
-			$join .= " LEFT JOIN {$wpdb->term_relationships} AS trel ON ({$wpdb->posts}.ID = trel.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax ON ( " . $on . " AND trel.term_taxonomy_id = ttax.term_taxonomy_id) LEFT JOIN {$wpdb->terms} AS tter ON (ttax.term_id = tter.term_id) ";
-		}
-
-		return $join;
-	}
-
-	public function _include_terms_in_search($query) {
-		global $wp_query, $wpdb;
-
-		if ($wp_query->is_search && !empty($wp_query->query_vars['s']) && isset($wp_query->query['post_type']) && $wp_query->query['post_type'] == self::POST_TYPE) {
-			$query .= $wpdb->prepare(' OR (tter.name LIKE \'%%%s%%\')', $wp_query->query_vars['s']);
-			$query .= $wpdb->prepare(' OR (tter.slug LIKE \'%%%s%%\')', $wp_query->query_vars['s']);
-			$query .= $wpdb->prepare(' OR (ttax.description LIKE \'%%%s%%\')', $wp_query->query_vars['s']);
-		}
-
-		return $query;
 	}
 
 	/* theme filters */

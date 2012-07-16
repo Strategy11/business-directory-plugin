@@ -391,11 +391,13 @@ class WPBDP_ListingsAPI {
 		return $listing_id;
 	}
 
-	/* listings search */ 
+	/* listings search */
 	public function search($args) {
+		// TODO: search in categories / tags
 		global $wpdb;
 
 		$term = trim(wpbdp_getv($args, 'q', ''));
+		$term = str_replace('*', '', $term);
 
 		if (!$term && (!isset($args['meta']) || !$args['meta']))
 			return array();
@@ -405,10 +407,11 @@ class WPBDP_ListingsAPI {
 								wpbdp_post_type(), 'publish');
 
 		if ($term) {
-			$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_title LIKE '%%%s%%' OR
-									  {$wpdb->posts}.post_content LIKE '%%%s%%' OR
-									  {$wpdb->posts}.post_excerpt LIKE '%%%s%%')
-									 ", $term, $term, $term);
+			$on = array(sprintf("ttax.taxonomy = '%s'", wpbdp_categories_taxonomy()),
+						sprintf("ttax.taxonomy = '%s'", wpbdp_tags_taxonomy()));
+			$on = ' ( ' . implode( ' OR ', $on) . ' ) ';
+			$query .= " LEFT JOIN {$wpdb->term_relationships} AS trel ON ({$wpdb->posts}.ID = trel.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax ON ( {$on} AND trel.term_taxonomy_id = ttax.term_taxonomy_id) LEFT JOIN {$wpdb->terms} AS tter ON (ttax.term_id = tter.term_id) ";
+			$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_title LIKE '%%%s%%' OR {$wpdb->posts}.post_content LIKE '%%%s%%' OR {$wpdb->posts}.post_excerpt LIKE '%%%s%%' OR tter.name LIKE '%%%s%%' OR tter.slug LIKE '%%%s%%')", $term, $term, $term, $term, $term);
 		}
 
 		if (isset($args['meta'])) {

@@ -7,11 +7,7 @@
 		
 		<div class="right">
 			<?php if (wpbdp_get_option('show-search-listings')): ?>
-			<form id="wpbdmsearchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-			<input id="intextbox" maxlength="150" name="s" size="20" type="text" value="" />
-			<input name="post_type" type="hidden" value="<?php echo wpbdp_post_type(); ?>" />
-			<input id="wpbdmsearchsubmit" class="wpbdmsearchbutton" type="submit" value="<?php _ex('Search Listings', 'templates', 'WPBDM'); ?>" />
-			</form>
+			<?php echo wpbdp_search_form(); ?>
 			<?php endif; ?>
 		</div>
 	</div>
