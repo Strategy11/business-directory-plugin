@@ -3,20 +3,29 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
-Tested up to: 3.4
-Last Updated: 2012-June-15
-Stable tag: tags/2.0.4.1
+Tested up to: 3.4.1
+Last Updated: 2012-July-2
+Stable tag: tags/2.0.5
 
-Business Directory Plugin for WordPress (Formerly WP Business Directory Manager) is a flexible plugin for WordPress business directory creation but useful for a variety of other purposes.  Create any WordPress directory with it. 
+Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
 == Description ==
 
-Business Directory Plugin for WordPress (Formerly WP Business Directory Manager) is designed to be used for managing a WordPress business directory listing service on your website. 
+Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
-All form fields are editable so you can collect and display any kind of data from business information for a business directory, to personal information for a dating profile. Please refer to the README.TXT file in the plugin folder or the "Usage Docs" section accessible via the "Other Notes" tab above for details on how to setup and use the plugin. 
+Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more.  You can add any kind of directory using Business Directory plugin.
 
-This plugin is the new version of the original business directory plugin "WP Business Directory Manager". If you are currently using WP Business Directory Manager (by A. Lewis) then please switch to Business Directory Plugin. Once you activate Business Directory Plugin it will pick up your WP Business Directory Manager data. It's the same plugin only with a new name, new website and a number of bug fixes and improvements. 
+= Features: =
 
+*   Fully customizable form fields
+*   Accept payment for listings OR have free listings
+*   Allow for featured/sticky listings for an upgrade fee
+*   Create multiple fee plans, which can be assigned to categories for posting
+*   Support for reCAPTCHA to avoid spam listings
+*   Users who post can edit listings without access to WP dashboard
+
+For a full list of features, please visit:  http://businessdirectoryplugin.com/features
+ 
 Please report any bugs you find via http://businessdirectoryplugin.com/forums  
 
 = Premium Module Links: =
@@ -60,11 +69,11 @@ Backup your WordPress database and files before you install or update. If you ar
 
 1. 	Upload the folder business-directory-plugin with its contents to wp-content/plugins/
 
-2.   	Activate the plugin
+2.  Activate the plugin
 
 3.	Create a new WordPress Page for your business directory. You can name the page whatever you want. Insert the following code into the page [WPBUSDIRMANUI]. The plugin needs this code to work.
 
-4.      Create another page for your google checkout processor. Again you can name it anything you want. It must be created as a child page under your the business directory page you created in step 3. Insert [WPBUSDIRMANGOOGLECHECKOUT] as the page content. (Include the brackets) 
+4.  Create another page for your google checkout processor. Again you can name it anything you want. It must be created as a child page under your the business directory page you created in step 3. Insert [WPBUSDIRMANGOOGLECHECKOUT] as the page content. (Include the brackets) 
 
 5. 	If you want to include a "Submit Listings" page, create a child page under the parent page you've created. Name the page whatever you want. Insert the following code into the page [WPBUSDIRMANADDLISTING]. The "Submit Listings" page needs this code to work.
 
@@ -72,7 +81,7 @@ Backup your WordPress database and files before you install or update. If you ar
 
 7.	You can also include a "View Listings" page by creating another child page under the directory parent page and adding the shortcode [WPBUSDIRMANMVIEWLISTINGS]
 
-8.  	You should see a menu tab with the name WPBusDirMan in your dashboard sidebar. You need to click the tab to access "Manage Options", "Manage Fees" and "Manage Form Fields" and other options. 
+8.  You should see a menu tab with the name Directory Admin in your admin dashboard sidebar. You need to click the tab to access "Manage Options", "Manage Fees" and "Manage Form Fields" and other options. 
 
 9. 	You will also see a new dashboard menu tab named "Directory". This tab is where you manage your listings. It works very much the same as the "Posts" tab. Your directory listings are saved as a custom post type. You create your directory categories by going to Directory->Categories and adding the directory categories there. 
 
@@ -91,10 +100,37 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/f
 
 == Screenshots ==
 
-[Visit the main site for screenshots](http://businessdirectoryplugin.com/)
+[Visit the main site for feature lists and screenshots](http://businessdirectoryplugin.com/features/)
 
 
 == Changelog ==
+
+Version 2.0.5
+
+   1. Added ability to use bulk operations from admin menu (Upgrade/Downgrade, Set Paid, etc)
+   
+   2. Fixed problem with PayPal module not redirecting after payment on some sites
+   
+   3. Removed BD metadata from deleted posts (speeds searches)
+   
+   4. Fixed wp_pagenavi() warning
+   
+   5. Fixed bug where website field could not be cleared of data
+   
+   6. Fixed issue where admin could not edit other listings
+   
+   7. Added confirmation email to be sent after listing is complete
+   
+   8. Changed Upgrade to only work for Admins
+   
+   9. Updated plugin to use wpdb->query for all DB operations
+   
+   10. Fixed pagination problem with "Older listings" link
+   
+   11. Fixed duplicate search issue (duplicate results returned on searches)
+   
+   12. Fixed sticky/featured listing sorting problem to be consistent for category, listing and page views
+   
 
 Version 2.0.4.1
 
@@ -405,207 +441,15 @@ Go to your Dashboard and look for the "Directory" menu box. Listed under the Dir
 
 2. Matching the design to your theme
 
-	If you need to match the template to your theme, you must create a folder inside your theme folder and name the folder "single"; then inside the folder single, you will need to place a duplicate of your theme's single.php, and category.php but you must rename the files to wpbusdirman-single.php, and wpbusdirman-category.php. If you will also need to create your own custom wpbusdirman-index-listings.php (used to display the listing excerpts when the View Listings link is clicked and also the excerpts shown when the Main directory page link is clicked (if you are displaying the listings under the categories) you should also create a file wpbusdirman-index-listings.php using the wpbusdirman-index-listings.php from the "posttemplates" folder as the model. Put your custom copy of wpbusdirman-index-listings.php inside the "single" folder in your theme folder along with the custom wpbusdirman-single.php and wpbusdirman-category.php.
-	You can also create your own wpbusdirman-index-categories.php using the one in the posttemplates folder as your model and store that in your theme's "single" folder as well. wpbusdirman-index-categories.php shows the directory categories when the main business directory link is called.
-	
-	You will need to add some functions to these files in order to activate the plugin features. Most themes will have a single.php, but it's possible your theme might not have a category.php. If your theme does not have a category.php you should use whichever of your theme files displays your category posts for the wpbusdirman-category.php file. Often it will be archives.php. Once you have created these pages refer to the instructions below for setting them up to work with the plugin.
+Please visit this page for complete and up-to-date instructions on matching BD to your theme. 
 
-	Refer to the information below to configure your copies of wpbusdirman-single.php, wpbusdirman-category.php and wpbusdirman-index-listings.php. As long as your own custom copies of these files exist in your themes folder inside a folder named "single" the plugin will use your files to display the relevant content instead of using the default copies found in the plugin posttemplate folder
-
-	******Functions for use in wpbusdirman-single.php
-
-	To show the listing images:
-
-		1. The function wpbusdirman_display_main_image() grabs the first image from the array of images associated with the listing and sets it as the main image. Must be used inside the loop.
-
-		<?php wpbusdirman_display_main_image();?>
-
-		2. The function wpbusdirman_display_extra_thumbnails() will loop through and display any additional images associated with the listing. Must be used inside the loop.
-
-		<?php wpbusdirman_display_extra_thumbnails();?>
-
-	To show the listing details:
-
-		1. You can use the function wpbusdirman_single_listing_details() inside the loop to show the listing details
-
-		<?php wpbusdirman_single_listing_details();?>
-
-		2. If you want to rearrange the listing details you can use the functions below instead of using wpbusdirman_single_listing_details()
-
-	The individual listing detail pieces can be used via the below method and functions:
-
-		Code to display the listing title:
-
-		<?php the_title(); ?> OR <?php wpbusdirman_the_listing_title();?>
-
-		Code to display the listing category:
-
-		<?php wpbusdirman_the_listing_category();?> OR (to show the category name without the label) <?php global $wpbdmposttypecategory; echo get_the_term_list( $post->ID, $wpbdmposttypecategory, '', ', ', '' );?>
-
-		Code to display the meta items ( They will be looped through and displayed in the order as they were pulled from the database. (Any ordering you might have set in the plugin's fields manager will not take effect here. At this time that feature does not work with the displaying of custom field data):
-
-		<?php wpbusdirman_the_listing_meta('single');?>
-
-		Code to display the listing excerpt (Short description or whatever you have named the short description field):
-
-		<?php the_excerpt(); ?>	OR <?php wpbusdirman_the_listing_excerpt();?>
-
-		Code to display the listing content (Long description or whatever you have named the long description field):
-
-		<?php the_content();?> OR <?php wpbusdirman_the_listing_content();?>
-
-		Code to display the listing tags:
-
-		<?php wpbusdirman_the_listing_tags();?>
-		
-		Code to display an edit listing button on the single listing page (If user is not logged in this button will not show)		
-		
-		<?php wpbusdirman_menu_button_editlisting();?>
-		
-		Code to display an upgrade listing button on the single listing page (If user is not logged in this button will not show)	
-		
-		<?php wpbusdirman_menu_button_upgradelisting();?>		
-		
-	To add the contact listing owner form to wpbusdirman-single.php use:
-	
-		<?php global $wpbusdirman_permalink; wpbusdirman_contactform($wpbusdirman_permalink,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');?>
-
-	
-	******Functions for use in wpbusdirman-category.php
-	
-		1. The function wpbusdirman_catpage_title() will print the title of the category page 
-	
-		<?php wpbusdirman_catpage_title();?>
-	
-		2. The function wpbusdirman_menu_buttons will print the menu buttons "Submit Listing" and "Directory"
-	
-		<?php wpbusdirman_menu_buttons();?>	
-		
-		If you want to break these up you can use <?php wpbusdirman_menu_button_submitlisting();?> and <?php wpbusdirman_menu_button_directory();?>
-		
-		If you also want to put a "View Listings" button on this page to take the viewer back to the main index of listings you can use <?php wpbusdirman_menu_button_viewlistings();?>
-		
-		You also have available <?php wpbusdirman_dropdown_categories();?> which you can use to display a drop down select list of the categories where desired.
-		
-	
-		3. You now need to place the display excerpts code just inside the loop. So you should have something that looks like:
-		
-		
-		<?php if ( have_posts() ) : while ( have_posts() ) : the_post();?>				
-		<?php wpbusdirman_display_excerpt();?>
-		<?php endwhile;?>
-		
-		[NOTE] wpbusdirman_display_excerpt() will pull in a preconfigured excerpt setup. If you want to control how the excerpts look you will need to use the individual listing detail pieces as shown below:
-		
-		Code to display the listing title:
-
-		<?php the_title(); ?> OR <?php wpbusdirman_the_listing_title();?>
-
-		Code to display the listing category:
-
-		<?php wpbusdirman_the_listing_category();?> OR (to show the category name without the label) <?php global $wpbdmposttypecategory; echo get_the_term_list( $post->ID, $wpbdmposttypecategory, '', ', ', '' );?>
-
-		Code to display the meta items ( They will be looped through and displayed in the order as they were pulled from the database. (Any ordering you might have set in the plugin's fields manager will not take effect here. At this time that feature does not work with the displaying of custom field data):
-
-		<?php wpbusdirman_the_listing_meta('excerpt');?>
-
-		Code to display the listing excerpt (Short description or whatever you have named the short description field):
-
-		<?php the_excerpt(); ?>	OR <?php wpbusdirman_the_listing_excerpt();?>
-
-		Code to display the listing content (Long description or whatever you have named the long description field):
-
-		<?php the_content();?> OR <?php wpbusdirman_the_listing_content();?>
-
-		Code to display the listing tags:
-
-		<?php wpbusdirman_the_listing_tags();?>	
-		
-		Code to display the listing thumbnail
-		
-		<?php wpbusdirman_display_the_thumbnail();?>
-		
-		Code to display the View Listings, Edit Listing, Delete Listing buttons (Note that the edit and delete button will only be displayed if the user is logged in and owns the listing)
-		
-		<?php wpbusdirman_view_edit_delete_listing_button();?>
-		
-		
-		[NOTE] If you want the system to exclude fields based on your "Manage Form Fields" settings where you have checked to exclude certain items from the excerpt you need to use the function wpbusdirman_the_listing_meta('excerpt') instead of wpbusdirman_the_listing_meta('single').
-		wpbusdirman_the_listing_meta('single') will show all the meta items regardless of your "Manage Form Fields" settings while wpbusdirman_the_listing_meta('excerpt') will exclude those meta items that you have set to not show in the excerpt.
-		
-	******Functions for use in wpbusdirman-index-categories.php
-			
-		[NOTE] Do not include any reference to get_header(), get_sidebar() or get_footer() in wpbusdirman-index-listings.php. These are not needed and having them in the file will cause problems.
-		
-		1. Code to show "Submit A Listing" submit button
-		
-		<?php wpbusdirman_menu_button_submitlisting();?>
-		
-		2. Code to show View Listings submit button (this is for viewing index of listing excerpts. It is not for viewing a single listing)
-		
-		<?php wpbusdirman_menu_button_viewlistings();?>
-		
-		3. Code to display the listing categories
-		<?php wpbusdirman_list_categories(); ?>
-		
-			
-		
-	******Functions for use in wpbusdirman-index-listings.php
-	
-	[NOTE] Do not include any reference to get_header(), get_sidebar() or get_footer in wpbusdirman-index-listings.php. These are not needed and having them in the file will cause problems.
-	
-		1. Place the display excerpts code just inside the loop. So you should have something that looks like:
-		
-		<?php if ( have_posts() ) : while ( have_posts() ) : the_post();?>				
-		<?php wpbusdirman_display_excerpt();?>
-		<?php endwhile;?>
-		
-		[NOTE] wpbusdirman_display_excerpt() will pull in a preconfigured excerpt setup. If you want to control how the excerpts look you will need to use the individual listing detail pieces as shown below:
-		
-		Code to display the listing title:
-
-		<?php the_title(); ?> OR <?php wpbusdirman_the_listing_title();?>
-
-		Code to display the listing category:
-
-		<?php wpbusdirman_the_listing_category();?> OR (to show the category name without the label) <?php global $wpbdmposttypecategory; echo get_the_term_list( $post->ID, $wpbdmposttypecategory, '', ', ', '' );?>
-
-		Code to display the meta items ( They will be looped through and displayed in the order as they were pulled from the database. (Any ordering you might have set in the plugin's fields manager will not take effect here. At this time that feature does not work with the displaying of custom field data):
-
-		<?php wpbusdirman_the_listing_meta('excerpt');?>
-
-		Code to display the listing excerpt (Short description or whatever you have named the short description field):
-
-		<?php the_excerpt(); ?>	OR <?php wpbusdirman_the_listing_excerpt();?>
-
-		Code to display the listing content (Long description or whatever you have named the long description field):
-
-		<?php the_content();?> OR <?php wpbusdirman_the_listing_content();?>
-
-		Code to display the listing tags:
-
-		<?php wpbusdirman_the_listing_tags();?>	
-		
-		Code to display the listing thumbnail
-		
-		<?php wpbusdirman_display_the_thumbnail();?>
-		
-		Code to display the View Listings, Edit Listing, Delete Listing buttons (Note that the edit and delete button will only be displayed if the user is logged in and owns the listing)
-		
-		<?php wpbusdirman_view_edit_delete_listing_button();?>		
-		
-		
-		[NOTE] If you want the system to exclude fields based on your "Manage Form Fields" settings where you have checked to exclude certain items from the excerpt you need to use the function wpbusdirman_the_listing_meta('excerpt') instead of wpbusdirman_the_listing_meta('single').
-		wpbusdirman_the_listing_meta('single') will show all the meta items regardless of your "Manage Form Fields" settings while wpbusdirman_the_listing_meta('excerpt') will exclude those meta items that you have set to not show in the excerpt.
-		
-		3. !!IMPORTANT!! - You must reset the query by adding <?php wp_reset_query();?> after the loop ends. 
+[How to match BD to your theme](http://businessdirectoryplugin.com/docs/matching-the-design-to-your-theme/)
 
 3. Adding a menu of the directory categories
 
 To add a menu of the directory categories to your theme use the code below:
 <?php global $wpbdmposttypecategory; wp_list_categories('title_li=&taxonomy='.$wpbdmposttypecategory); ?>
 You can filter the function the way you would normally filter wp_list_categories. Just make sure it includes 'taxonomy='.$wpbdmposttypecategory so that it knows you only want the plugin directory categories.
-
 
 4. Adding a latest posts widget
 
