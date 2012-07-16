@@ -878,7 +878,10 @@ class WPBDP_Plugin {
 	const POST_TYPE_TAGS = 'wpbdm-tags';
 	
 
-	public function __construct() { }
+	public function __construct() {
+		register_activation_hook(__FILE__, array($this, 'plugin_activation'));
+		register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));		
+	}
 
 	public function _listing_expirations() {
 		global $wpdb;
@@ -976,8 +979,6 @@ class WPBDP_Plugin {
 	}
 
 	public function init() {
-		register_activation_hook(__FILE__, array($this, 'plugin_activation'));
-		register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
 
 		$this->settings = new WPBDP_Settings();
 		$this->formfields = new WPBDP_FormFieldsAPI();
@@ -1012,9 +1013,13 @@ class WPBDP_Plugin {
 
 		$this->controller->init();
 
+		/* scripts & styles */
+		add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
+
 		do_action('wpbdp_modules_init');
 		do_action('wpbdp_register_settings', $this->settings);
 		do_action('wpbdp_register_fields', $this->formfields);
+
 	}
 
 	public function get_post_type() {
@@ -1431,6 +1436,12 @@ class WPBDP_Plugin {
 		}
 
 		return $template;
+	}
+
+	/* scripts & styles */
+	public function _enqueue_scripts() {
+		wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'resources/css/styles.css');
+		wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
 	}
 
 

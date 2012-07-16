@@ -43,6 +43,9 @@ class WPBDP_DirectoryController {
     		case 'payment-process':
     			return $this->process_payment();
     			break;
+    		case 'search':
+    			return $this->search();
+    			break;
     		default:
     			return $this->main_page();
     			break;
@@ -716,6 +719,47 @@ class WPBDP_DirectoryController {
 
 			$html .= sprintf('<p>%s</p>', wpbdp_get_option('payment-message'));
 		}
+
+		return $html;
+	}
+
+	/*
+	 * Search functionality
+	 */
+	public function search() {
+		$fields_api = wpbdp_formfields_api();
+		$listings_api = wpbdp_listings_api();
+
+		$results = array();
+		if ($_POST) {
+			$search_args = array();
+			$search_args['q'] = wpbdp_getv($_POST, 'q', null);
+			$search_args['meta'] = array();
+
+			foreach (wpbdp_getv($_POST, 'meta', array()) as $field_id => $field_search) {
+				if (isset($field_search['enabled']) && $field_search['enabled']) {
+					$search_args['meta'][] = array('field_id' => $field_id,
+												   'q' => wpbdp_getv($field_search, 'q', null),
+												   'options' => wpbdp_getv($field_search, 'options', array())
+												   );
+				} else {
+					unset($_POST[$field_id]);
+				}
+			}
+
+			$results = $listings_api->search($search_args);
+		}
+
+		$fields = array();
+		foreach ($fields_api->getFieldsByAssociation('meta') as $field) {
+			if (!$field->display_options['hide_field']) $fields[] = $field;
+		}
+
+		query_posts(array('post_type' => wpbdp_post_type(),
+						  'posts_per_page' => -1,
+						  'post__in' => $results ? $results : array(0)));
+		$html = wpbdp_render('search', array('fields' => $fields, 'searching' => $_POST ? true : false), false);
+		wp_reset_query();
 
 		return $html;
 	}
