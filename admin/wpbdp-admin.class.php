@@ -30,6 +30,8 @@ class WPBDP_Admin {
 
         add_action('save_post', array($this, '_save_post'));
 
+        add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
+
         add_action('wp_ajax_wpbdp-uploadimage', array($this, '_upload_image'));
         add_action('wp_ajax_wpbdp-deleteimage', array($this, '_delete_image'));
         add_action('wp_ajax_wpbdp-listingimages', array($this, '_listing_images'));
@@ -158,6 +160,11 @@ class WPBDP_Admin {
                            data-baseurl="%s"></div>',
                     $post->ID,
                     remove_query_arg(array('message', 'wpbdmaction')));
+    }
+
+    public function _checklist_args($args) {
+        $args['checked_ontop'] = false;
+        return $args;
     }
 
     /*
