@@ -453,7 +453,7 @@ class WPBDP_FormFieldsAPI {
 			$field['display_options'] = null;
 		}
 
-		if ($this->isValidField($field, &$errors)) {
+		if ($this->isValidField($field, $errors)) {
 			if (isset($field['id'])) {
 				return $wpdb->update("{$wpdb->prefix}wpbdp_form_fields", $field, array('id' => $field['id'])) !== false;
 			} else {
@@ -490,7 +490,7 @@ class WPBDP_FormFieldsAPI {
 	/* Field rendering */
 	public function render(&$field, $value=null, $output=false) {
 		if ($output) {
-			echo $this->render(&$field, $value, false);
+			echo $this->render($field, $value, false);
 			return;
 		}
 

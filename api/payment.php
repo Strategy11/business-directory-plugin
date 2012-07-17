@@ -139,7 +139,7 @@ class WPBDP_FeesAPI {
 
         $fee['categories'] = serialize($fee['categories']);
 
-        if ($this->is_valid_fee($fee, &$errors)) {
+        if ($this->is_valid_fee($fee, $errors)) {
             if (isset($fee['id'])) {
                 return $wpdb->update("{$wpdb->prefix}wpbdp_fees", $fee, array('id' => $fee['id'])) !== false;
             } else {
