@@ -518,7 +518,7 @@ class WPBDP_FormFieldsAPI {
 	}
 	
 	public function render_select(&$field, $value=null, $multiselect=false) {
-		if (!is_array($value))
+		if (!is_array($value))	
 			return $this->render_select($field, explode("\t", $value), $multiselect);
 
 		$html = '';
@@ -534,19 +534,33 @@ class WPBDP_FormFieldsAPI {
 		}
 
 		if ($field->association == 'category') {
-			$html .= wp_dropdown_categories( array(
-					'taxonomy' => wpbdp()->get_post_type_category(),
-					'show_option_none' => _x('Choose One', 'form-fields-api category-select', 'WPBDM'),
-					'orderby' => 'name',
-					'selected' => $value[0],
-					'order' => 'ASC',
-					'hide_empty' => 0,
-					'hierarchical' => 1,
-					'echo' => 0,
-					'id' => 'wpbdp-field-' . $field->id,
-					'name' => 'listingfields[' . $field->id . ']',
-					'class' => $field->is_required ? 'inselect required' : 'inselect'
-				) );
+				$html .= wp_dropdown_categories( array(
+						'taxonomy' => wpbdp()->get_post_type_category(),
+						'show_option_none' => _x('Choose One', 'form-fields-api category-select', 'WPBDM'),
+						'orderby' => 'name',
+						'selected' => $multiselect ? null : $value[0],
+						'order' => 'ASC',
+						'hide_empty' => 0,
+						'hierarchical' => 1,
+						'echo' => 0,
+						'id' => 'wpbdp-field-' . $field->id,
+						'name' => 'listingfields[' . $field->id . ']',
+						'class' => $field->is_required ? 'inselect required' : 'inselect'
+					) );
+			
+			if ($multiselect) {
+				$html = preg_replace("/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
+									 "<select name=\"$3[]\" multiple=\"multiple\" $1 $5>",
+									 $html);
+
+				if ($value) {
+					foreach ($value as $catid) {
+						$html = preg_replace("/\\<option(.*)value=('|\"){$catid}('|\")(.*)\\>/uiU",
+											 "<option value=\"{$catid}\" selected=\"selected\" $1 $4>",
+											 $html);
+					}
+				}
+			}
 		} else {
 			$html .= sprintf('<select id="%s" name="%s" %s class="%s %s">',
 							'wpbdp-field-' . $field->id,
