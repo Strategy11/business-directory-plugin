@@ -1,9 +1,13 @@
-/* Basic search form */
+
+
+
+/*
+ * Search Form
+ */
 form#wpbdmsearchform a.advanced-search-link {
     font-size: 70%;
 }
 
-/* Search Form */
 #wpbdp-search-form { }
 
 #wpbdp-search-form .search-filter {

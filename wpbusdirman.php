@@ -1245,16 +1245,16 @@ class WPBDP_Plugin {
 	}
 
 	public function _single_template($template) {
-		if (is_single() && get_post_type() == self::POST_TYPE) {
+		/*if (is_single() && get_post_type() == self::POST_TYPE) {
 			return wpbdp_locate_template(array('businessdirectory-single', 'wpbusdirman-single'));
 		}
-
+		*/
 		return $template;
 	}
 
 	/* scripts & styles */
 	public function _enqueue_scripts() {
-		wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'resources/css/styles.css');
+		wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'resources/css/wpbdp.css');
 		wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
 	}
 

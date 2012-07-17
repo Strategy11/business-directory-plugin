@@ -21,6 +21,9 @@ class WPBDP_DirectoryController {
     	$action = wpbdp_getv($_REQUEST, 'action');
 
 	   	switch ($action) {
+	   		case 'showlisting':
+	   			return $this->show_listing();
+	   			break;
 	   		case 'editlisting':
     		case 'submitlisting':
     			return $this->submit_listing();
@@ -50,6 +53,10 @@ class WPBDP_DirectoryController {
     			return $this->main_page();
     			break;
     	}
+	}
+
+	/* Show listing. */
+	public function show_listing() {
 	}
 
 	/* display listings */
