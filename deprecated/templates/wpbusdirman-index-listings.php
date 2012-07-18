@@ -20,7 +20,7 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 
 // Display regular listings
 	$args=array(
-	  'post_type' => $wpbdmposttype,
+	  'post_type' => wpbdp_post_type(),
 	  'post_status' => 'publish',
 	'paged'=>$paged,
 	'orderby'=>$wpbdmorderlistingsby,

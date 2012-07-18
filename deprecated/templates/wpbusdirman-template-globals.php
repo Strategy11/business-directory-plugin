@@ -1,5 +1,4 @@
-<?php	global $wpbdmposttype,$wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix,$wpbdmposttypetags;
-
+<?php	
 	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 
 	//print_r($term);

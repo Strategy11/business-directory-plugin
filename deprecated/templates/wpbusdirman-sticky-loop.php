@@ -7,7 +7,7 @@
 if(isset($wpbdmisindex) && ($wpbdmisindex ==1))
 {
 	$stickies = array(
-		'post_type' => $wpbdmposttype,
+		'post_type' => wpbdp_post_type(),
 		'posts_per_page' => 0,
 		'post_status' => 'publish',
 		'paged'=>$paged,
@@ -30,12 +30,12 @@ else
 {
 
 	$catortag=$term->taxonomy;
-	if($catortag == $wpbdmposttypecategory)
+	if($catortag == wpbdp_categories_taxonomy())
 	{
-
+		$tax = wpbdp_categories_taxonomy();
 		$stickies = array(
-		$wpbdmposttypecategory => $term->name,
-			'post_type' => $wpbdmposttype,
+		$tax => $term->name,
+			'post_type' => wpbdp_post_type(),
 			'posts_per_page' => 0,
 			'post_status' => 'publish',
 			'paged'=>$paged,
@@ -49,10 +49,11 @@ else
 			)
 		);
 	}
-	elseif($catortag == $wpbdmposttypetags) {
+	elseif($catortag == wpbdp_tags_taxonomy()) {
+		$tax = wpbdp_tags_taxonomy();
 		$stickies = array(
-		$wpbdmposttypetags => $term->name,
-			'post_type' => $wpbdmposttype,
+		$tax => $term->name,
+			'post_type' => wpbdp_post_type(),
 			'posts_per_page' => 0,
 			'post_status' => 'publish',
 			'paged'=>$paged,

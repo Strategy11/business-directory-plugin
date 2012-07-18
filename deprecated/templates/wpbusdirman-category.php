@@ -25,11 +25,12 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 
 	$catortag=$term->taxonomy;
 
-	if($catortag == $wpbdmposttypecategory)
+	if($catortag == wpbdp_categories_taxonomy())
 	{
+		$tax = wpbdp_categories_taxonomy();
 		$args=array(
-		  $wpbdmposttypecategory => $term->slug,
-		  'post_type' => $wpbdmposttype,
+		  $tax => $term->slug,
+		  'post_type' => wpbdp_post_type(),
 		  'post_status' => 'publish',
 		  'posts_per_page' => 0,
 		'paged'=>$paged,
@@ -38,10 +39,11 @@ include(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-sticky-loop.php');
 		'post__not_in' => $ids
 		);
 	}
-	elseif($catortag == $wpbdmposttypetags) {
+	elseif($catortag == wpbdp_tags_taxonomy()) {
+		$tax = wpbdp_tags_taxonomy();
 		$args=array(
-		  $wpbdmposttypetags => $term->name,
-		  'post_type' => $wpbdmposttype,
+		  $tax => $term->name,
+		  'post_type' => wpbdp_post_type(),
 		  'post_status' => 'publish',
 		  'posts_per_page' => 0,
 		'paged'=>$paged,

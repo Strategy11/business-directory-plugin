@@ -1,6 +1,6 @@
 <?php
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /*
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
@@ -10,12 +10,6 @@ Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
 */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Business Directory Plugin (Formerly WP Business Directory Manager) provides the ability for you to add a business directory to your wordpress blog and charge a fee for users
-// to submit their listing
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*  Copyright 2009-2012, Skyline Consulting and D. Rodenbaugh
 
@@ -34,83 +28,16 @@ License: GPLv2 or any later version
     reCAPTCHA used with permission of Mike Crawford & Ben Maurer, http://recaptcha.net
 */
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if ( !defined('WP_CONTENT_DIR') )
-	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' ); // no trailing slash, full paths only - WP_CONTENT_URL is defined further down
-
-if ( !defined('WP_CONTENT_URL') )
-	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content'); // no trailing slash, full paths only - WP_CONTENT_URL is defined further down
-
-$wpcontenturl=WP_CONTENT_URL;
-$wpcontentdir=WP_CONTENT_DIR;
-$wpinc=WPINC;
-
-
-$wpbusdirman_plugin_path = WP_CONTENT_DIR.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
-$wpbusdirman_plugin_url = WP_CONTENT_URL.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
-$wpbusdirman_haspaypalmodule=0;
-$wpbusdirman_hastwocheckoutmodule=0;
-$wpbusdirman_hasgooglecheckoutmodule=0;
-
-$wpbusdirman_imagesurl = WP_CONTENT_URL.'/plugins/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)).'images';
-$wpbdmimagesurl="$wpcontenturl/uploads/wpbdm";
-
-$wpbdmposttype="wpbdm-directory";
-$wpbdmposttypecategory="wpbdm-category";
-$wpbdmposttypetags="wpbdm-tags";
-
-	if( file_exists("$wpbusdirman_plugin_path/gateways-googlecheckout.php") )
-	{
-		require("$wpbusdirman_plugin_path/gateways-googlecheckout.php");
-		$wpbusdirman_hasgooglecheckoutmodule=1;
-	}
-
-	if($wpbusdirman_hasgooglecheckoutmodule == 1)
-	{
-		add_shortcode('WPBUSDIRMANGOOGLECHECKOUT', 'wpbusdirman_do_googlecheckout');
-	}
-
-	if( file_exists("$wpbusdirman_plugin_path/wpbusdirman-maintenance-functions.php") )
-	{
-		require("$wpbusdirman_plugin_path/wpbusdirman-maintenance-functions.php");
-	}
-
 define('WPBDP_PATH', plugin_dir_path(__FILE__));
 define('WPBDP_URL', plugins_url('/', __FILE__));
 define('WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates');
 
+
 require_once(WPBDP_PATH . 'api/api.php');
+require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 
+@include_once(WPBDP_PATH . 'gateways-googlecheckout.php');
 
-define('WPBUSDIRMANURL', $wpbusdirman_plugin_url );
-define('WPBUSDIRMANPATH', $wpbusdirman_plugin_path );
-define('WPBUSDIRMAN_TEMPLATES_PATH', $wpbusdirman_plugin_path . '/deprecated/templates');
-
-$wpbusdirman_gpid=wpbusdirman_gpid();
-$wpbusdirmanconfigoptionsprefix="wpbusdirman";
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Add actions and filters etc
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	add_action('wp_print_styles', 'wpbusdirman_addcss');
-
-	add_shortcode('WPBUSDIRMANADDLISTING', 'wpBusDirManUi_addListingForm');
-	add_shortcode('WPBUSDIRMANMANAGELISTING', 'wpbusdirman_managelistings');
-	add_shortcode('WPBUSDIRMANMVIEWLISTINGS', 'wpbusdirman_viewlistings');
-
-	add_filter('search_template', 'wpbusdirman_search_template');
-
-	add_filter("wp_footer", "wpbusdirman_display_ac");
-
-
-function wpBusDirManUi_addListingForm() {
-	$controller = wpbdp()->controller;
-	return $controller->submit_listing();
-}
 
 function wpbusdirman_get_the_business_email($post_id) {
 	$api = wpbdp_formfields_api();
@@ -156,10 +83,6 @@ function wpbusdirman_is_ValidDate($date)
 	return false;
 }
 
-function wpbusdirman_managelistings() {
-	return wpbdp()->controller->manage_listings();
-}
-
 function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid,$commentauthorname,$commentauthoremail,$commentauthorwebsite,$commentauthormessage,$wpbusdirmancontacterrors) {
 	if (!wpbdp_get_option('show-contact-form'))
 		return '';
@@ -183,13 +106,9 @@ function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid
 						), false);
 }
 
-function wpbusdirman_viewlistings() {
-	return wpbdp()->controller->view_listings();
-}
-
 //Display the listing thumbnail
 function wpbusdirman_display_the_thumbnail() {
-	global $post, $wpbdmimagesurl, $wpbusdirman_imagesurl;
+	global $post;
 
 	if (!wpbdp_get_option('allow-images') || !wpbdp_get_option('show-thumbnail'))
 		return '';
@@ -214,7 +133,7 @@ function wpbusdirman_display_the_thumbnail() {
 					  );
 
 	if (!$thumbnail && wpbdp_get_option('use-default-picture'))
-		$thumbnail = $wpbusdirman_imagesurl . '/default.png';
+		$thumbnail = WPBDP_URL . 'resources/images/default.png';
 
 	if ($thumbnail) {
 		$html .= '<div class="listingthumbnail">';
@@ -238,7 +157,7 @@ function wpbusdirman_catpage_title()
 
 function wpbusdirman_post_catpage_title()
 {
-	global $post,$wpbdmposttypecategory;
+	global $post;
 	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 	$html = '';
 
@@ -255,7 +174,7 @@ function wpbusdirman_menu_buttons()
 function wpbusdirman_post_menu_buttons()
 {
 	$html = '';
-	$html .= '' . wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_menu_button_directory() . '</div><div style="clear:both;">';
+	$html .= '<div>' . wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_menu_button_directory() . '</div><div style="clear: both;"></div>';
 	return $html;
 }
 
@@ -299,8 +218,7 @@ function wpbusdirman_post_menu_button_directory()
 function wpbusdirman_menu_button_editlisting()
 {
 	global $post;
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+	$wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
 	$html = '';
 
 	if(is_user_logged_in())
@@ -368,8 +286,7 @@ function wpbusdirman_post_list_categories() {
 function wpbusdirman_dropdown_categories()
 {
 	global $post;
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+	$wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
 	$wpbdm_hide_empty=wpbdp_get_option('hide-empty-categories');
 	$html = '';
 
@@ -439,8 +356,7 @@ function wpbusdirman_display_the_listing_fields() {
 }
 
 function wpbusdirman_view_edit_delete_listing_button() {
-	$wpbusdirman_gpid=wpbusdirman_gpid();
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+	$wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
 	$html = '';
 
 	$html .= '<div style="clear:both;"></div><div class="vieweditbuttons"><div class="vieweditbutton"><form method="post" action="' . get_permalink() . '"><input type="hidden" name="action" value="viewlisting" /><input type="hidden" name="wpbusdirmanlistingid" value="' . get_the_id() . '" /><input type="submit" value="' . __("View","WPBDM") . '" /></form></div>';
@@ -485,16 +401,6 @@ function wpbusdirman_post_excerpt($deprecated=null) {
 }
 
 
-function wpbusdirman_display_ac() {
-	$html = '';
-
-	if(wpbdp_get_option('credit-author')) {
-		$html .= '<div class="wpbdmac">Directory powered by <a href="http://businessdirectoryplugin.com/">Business Directory Plugin</a></div>';
-	}
-
-	echo $html;
-}
-
 function wpbusdirman_display_main_image() {
 	echo wpbusdirman_post_main_image();
 }
@@ -519,7 +425,7 @@ function wpbusdirman_post_main_image() {
 		if (wpbdp_get_option('use-default-picture')) {
 			return sprintf('<a href="%s"><img src="%s" alt="%s" title="%s" border="0" /></a><br />',
 							get_permalink(),
-							WPBDP_URL . 'images/default-image-big.gif',
+							WPBDP_URL . 'resources/images/default-image-big.gif',
 							the_title(null, null, false),
 							the_title(null, null, false)
 						  );
@@ -572,8 +478,8 @@ function wpbusdirman_single_listing_details()
 
 function wpbusdirman_post_single_listing_details()
 {
-	global $post,$wpbusdirman_gpid,$wpbdmimagesurl,$wpbusdirman_imagesurl;
-	$wpbusdirman_permalink=get_permalink($wpbusdirman_gpid);
+	global $post;
+	$wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
 	$html = '';
 
 	if(is_user_logged_in()) {
@@ -588,7 +494,7 @@ function wpbusdirman_post_single_listing_details()
 	}
 
 	if(isset($wpbdmpostissticky) && !empty($wpbdmpostissticky) && ($wpbdmpostissticky  == 'sticky') ) {
-	 	$html .= '<span class="featuredlisting"><img src="' . $wpbusdirman_imagesurl . '/featuredlisting.png" alt="' . __("Featured Listing","WPBDM") . '" border="0" title="' . the_title(null, null, false) . '"></span>';
+	 	$html .= '<span class="featuredlisting"><img src="' . WPBDP_URL . 'resources/images/' . '/featuredlisting.png" alt="' . __("Featured Listing","WPBDM") . '" border="0" title="' . the_title(null, null, false) . '"></span>';
 	}
 
 	$html .= apply_filters('wpbdp_listing_view_before', '', $post->ID);
@@ -648,8 +554,7 @@ function wpbusdirman_the_listing_meta($excerptorsingle) {
 function wpbusdirman_latest_listings($numlistings)
 {
 	return ''; 	// FIXME
-/*	global $wpbdmposttype;
-	$wpbdmpostheadline='';
+/*		$wpbdmpostheadline='';
 	$args = array(
 		'post_status' => 'publish',
 		'post_type' => $wpbdmposttype,
@@ -722,8 +627,6 @@ require_once(WPBDP_PATH . 'api/form-fields.php');
 require_once(WPBDP_PATH . 'api/payment.php');
 require_once(WPBDP_PATH . 'api/listings.php');
 require_once(WPBDP_PATH . 'views.php');
-
-require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 
 class WPBDP_Plugin {
 
@@ -858,6 +761,18 @@ class WPBDP_Plugin {
 		add_filter('comments_template', array($this, '_comments_template'));
 		add_filter('taxonomy_template', array($this, '_category_template'));
 		add_filter('single_template', array($this, '_single_template'));
+
+		add_action('wp_footer', array($this, '_credits_footer'));
+
+		/* Shortcodes */
+        add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
+        add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
+		add_shortcode('WPBUSDIRMANADDLISTING', array($this->controller, 'submit_listing'));
+		add_shortcode('businessdirectory-submitlisting', array($this->controller, 'submit_listing'));
+		add_shortcode('WPBUSDIRMANMANAGELISTING', array($this->controller, 'manage_listings'));
+		add_shortcode('businessdirectory-managelistings', array($this->controller, 'submit_listing'));
+		add_shortcode('WPBUSDIRMANMVIEWLISTINGS', array($this->controller, 'view_listings'));
+		add_shortcode('businessdirectory-viewlistings', array($this->controller, 'submit_listing'));
 
 		/* Expiration hook */
 		add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
@@ -1207,24 +1122,32 @@ class WPBDP_Plugin {
 	}
 
 	public function has_module($name) {
-		global $wpbusdirman_haspaypalmodule, $wpbusdirman_hastwocheckoutmodule, $wpbusdirman_hasgooglecheckoutmodule;
-
 		switch (strtolower($name)) {
 			default:
 				break;
 			case 'paypal':
-				return $wpbusdirman_haspaypalmodule == 1;
+				return wpbdp_payments_api()->has_gateway('paypal');
 				break;
 			case '2checkout':
 			case 'twocheckout':
-				return $wpbusdirman_hastwocheckoutmodule == 1;
+				return wpbdp_payments_api()->has_gateway('2checkout');
 				break;
 			case 'googlecheckout':
-				return $wpbusdirman_hasgooglecheckoutmodule == 1;
+				return wpbdp_payments_api()->has_gateway('googlecheckout');
 				break;
 		}
 
 		return false;
+	}
+
+	public function _credits_footer() {
+		$html = '';
+
+		if(wpbdp_get_option('credit-author')) {
+			$html .= '<div class="wpbdmac">Directory powered by <a href="http://businessdirectoryplugin.com/">Business Directory Plugin</a></div>';
+		}
+
+		echo $html;
 	}
 
 	/* theme filters */

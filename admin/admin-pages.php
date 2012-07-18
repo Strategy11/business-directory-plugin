@@ -20,13 +20,12 @@ function wpbdp_admin_footer()
 /* Admin home screen setup begin */
 function wpbusdirman_home_screen()
 {
-	global $wpbdmposttypecategory,$wpbusdirmanconfigoptionsprefix,$wpbusdirman_hastwocheckoutmodule,$wpbusdirman_haspaypalmodule,$wpbusdirman_hasgooglecheckoutmodule;
 	$listyle="style=\"width:auto;float:left;margin-right:5px;\"";
 	$listyle2="style=\"width:200px;float:left;margin-right:5px;\"";
 	$html = '';
 
 	$html .= wpbdp_admin_header();
-	$wpbusdirman_myterms = get_terms($wpbdmposttypecategory, 'orderby=name&hide_empty=0');
+	$wpbusdirman_myterms = get_terms(wpbdp_categories_taxonomy(), 'orderby=name&hide_empty=0');
 	if($wpbusdirman_myterms)
 	{
 		foreach($wpbusdirman_myterms as $wpbusdirman_myterm)
@@ -38,7 +37,7 @@ function wpbusdirman_home_screen()
 	{
 		foreach($wpbusdirman_postcatitems as $wpbusdirman_postcatitem)
 		{
-			$wpbusdirman_tlincat=&get_term( $wpbusdirman_postcatitem, $wpbdmposttypecategory, '', '' );
+			$wpbusdirman_tlincat=&get_term( $wpbusdirman_postcatitem, wpbdp_categories_taxonomy(), '', '' );
 			$wpbusdirman_totallistingsincat[]=$wpbusdirman_tlincat->count;
 		}
 		$wpbusdirman_totallistings=array_sum($wpbusdirman_totallistingsincat);
