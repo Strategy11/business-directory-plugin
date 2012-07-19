@@ -4,14 +4,19 @@ if (!class_exists('WPBDP_ListingsAPI')) {
 class WPBDP_ListingsAPI {
 
     public function __construct() {
-        add_filter('post_type_link', array($this, '_post_link'), 1);
+        add_filter('post_type_link', array($this, '_post_link'), 10, 2);
+        add_filter('term_link', array($this, '_category_link'), 10, 3);
     }
 
-    public function _post_link($url) {
-        global $post;
+    public function _category_link($link, $category, $taxonomy) {
+        if ($taxonomy == wpbdp_categories_taxonomy())
+            return add_query_arg('category_id', $category->term_id, wpbdp_get_page_link('main')); // XXX
+        return $link;
+    }
 
+    public function _post_link($url, $post) {
         if ($post->post_type == wpbdp_post_type())
-            return add_query_arg('id', $post->ID, wpbdp_get_page_link('showlisting'));  // TODO
+            return add_query_arg('id', $post->ID, wpbdp_get_page_link('showlisting'));  // XXX
 
         return $url;
     }
@@ -44,6 +49,20 @@ class WPBDP_ListingsAPI {
             }
         }
 
+    }
+
+    public function get_expired_listings($category_id, $include_subcategories=true) {
+        global $wpdb;
+
+        $category_ids = array_merge(array($category_id), get_term_children($category_id, wpbdp_categories_taxonomy()));
+        $categories_str = '(' . implode(',', $category_ids) . ')';
+
+        $current_date = current_time('mysql');
+        $excluded_ids = $wpdb->get_col(
+            $wpdb->prepare("SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id IN {$categories_str} AND (expires_on IS NULL OR expires_on >= %s))", $current_date)
+        );        
+
+        return $excluded_ids;
     }
 
     public function get_stickies() {

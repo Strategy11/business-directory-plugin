@@ -7,7 +7,9 @@ if (!class_exists('WPBDP_DirectoryController')) {
 
 class WPBDP_DirectoryController {
 
-    public function __construct() { }
+    public function __construct() {
+        $this->action = null;
+    }
 
     public function init() {
         $this->listings = wpbdp_listings_api();
@@ -16,11 +18,17 @@ class WPBDP_DirectoryController {
     public function dispatch() {
         $action = wpbdp_getv($_REQUEST, 'action');
 
+        if (isset($_GET['category_id'])) $action = 'browsecategory';
         if (isset($_GET['id'])) $action = 'showlisting';
+
+        $this->action = $action;
 
         switch ($action) {
             case 'showlisting':
                 return $this->show_listing();
+                break;
+            case 'browsecategory':
+                return $this->browse_category();
                 break;
             case 'editlisting':
             case 'submitlisting':
@@ -58,21 +66,44 @@ class WPBDP_DirectoryController {
         global $post;
         $listing_id = wpbdp_getv($_GET, 'id');
 
-        if ($listing_id) {
-            query_posts(array(
-                'post_type' => wpbdp_post_type(),
-                'p' => $listing_id
-            ));
-            the_post();
+        if ($listing_id)
+            return wpbdp_render_listing($listing_id, 'single');
+    }
 
-            $html = wpbdp_render('businessdirectory-listing',
-                                array('listing' => $post),
-                                true);
+    /* Display category. */
+    public function browse_category() {
+        $category_id = intval($_GET['category_id']);
 
-            wp_reset_query();
+        $listings_api = wpbdp_listings_api();
 
-            return $html;
-        }
+        // exclude expired posts in this category (and stickies)
+        $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
+        $stickies = wpbdp_sticky_loop();
+
+        query_posts(array(
+            'post_type' => wpbdp_post_type(),
+            'post_status' => 'publish',
+            'posts_per_page' => 0,
+            'post__not_in' => $excluded_ids,
+            'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'orderby' => wpbdp_get_option('listings-order-by', 'date'),
+            'order' => wpbdp_get_option('listings-sort', 'ASC'),
+            'tax_query' => array(
+                array('taxonomy' => wpbdp_categories_taxonomy(),
+                      'field' => 'id',
+                      'terms' => $category_id)
+            )
+        ));
+
+        $html = wpbdp_render('category',
+                             array('category' => get_term($category_id, wpbdp_categories_taxonomy()),
+                                   'stickies' => $stickies
+                                ),
+                             false);
+
+        wp_reset_query();
+
+        return $html;
     }
 
     /* display listings */
