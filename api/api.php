@@ -42,10 +42,13 @@ function wpbdp_get_page_id($name='main') {
         'googlecheckout' => 'WPBUSDIRMANGOOGLECHECKOUT'
     );
 
+    if (!array_key_exists($name, $shortcodes))
+        return null;
+
     return $wpdb->get_var(sprintf("SELECT ID FROM {$wpdb->posts} WHERE post_content LIKE '%%[%s]%%' AND post_status = 'publish' AND post_type = 'page'", $shortcodes[$name]));
 }
 
-function wpbdp_get_page_link($name='main', $args=array()) {
+function wpbdp_get_page_link($name='main', $arg0=null) {
     $main_page_id = wpbdp_get_page_id('main');
     $page_id = wpbdp_get_page_id($name);
 
@@ -54,6 +57,10 @@ function wpbdp_get_page_link($name='main', $args=array()) {
 
     if ($name == 'showlisting')
         return add_query_arg('action', 'showlisting', get_permalink($main_page_id));
+
+    if ($name == 'editlisting' || $name == 'deletelisting' || $name == 'upgradetostickylisting')
+        return add_query_arg(array('action' => $name, 'listing_id' => $arg0),
+                             get_permalink($main_page_id));
 
     if ($name == 'view-listings')
         return add_query_arg('action', 'viewlistings', get_permalink($main_page_id));
@@ -195,7 +202,7 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
         return '';
 
     if ($field && $value && !$field->display_options['hide_field'])
-        return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s</label>: %s</div>',
+        return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s</label>: <span class="value">%s</span></div>',
                        strtolower(str_replace(array(' ', '/'), '', $field->label)), /* normalized field label */
                        $field->association,
                        esc_attr($field->label),
@@ -375,8 +382,6 @@ function wpbdp_sticky_loop() {
 function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
     if (is_object($listing_id)) $listing_id = $listing_id->ID;
 
-    static $excerpt_counter = 0;
-
     global $post;
     $listings_api = wpbdp_listings_api();
 
@@ -388,17 +393,32 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
         the_post();
     }
 
-    if ($view == 'excerpt') $excerpt_counter++;
+    if ($view == 'excerpt')
+        $html = _wpbdp_render_excerpt();
+    else
+        $html = _wpbdp_render_single();
+
+    if ($listing_id)
+        wp_reset_query();
+
+    if ($echo)
+        echo $html;
+
+    return $html;
+}
+
+function _wpbdp_render_single() {
+    global $post;
 
     $html = '';
-    $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => $view), false);   // edit/delete/upgrade buttons
 
-    $sticky_status = $listings_api->get_sticky_status($post->ID);
+    $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
 
-    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing %s %s">', $post->ID, $view, $sticky_status);
-    $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, $view);
+    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s">', $post->ID, 'single', $sticky_status);
+    $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'single'), false);   // edit/delete/upgrade buttons    
+    $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
 
-    if ($view == 'single' && $sticky_status == 'sticky')
+    if ($sticky_status == 'sticky')
         $html .= sprintf('<div class="stickytag"><img src="%s" alt="%s" border="0" title="%s"></div>',
                         WPBDP_URL . 'resources/images/featuredlisting.png',
                         _x('Featured Listing', 'templates', 'WPBDM'),
@@ -406,8 +426,9 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
 
     // template vars
     $listing_fields = '';
-    foreach (wpbdp_get_formfields() as $field)
+    foreach (wpbdp_get_formfields() as $field) {
         $listing_fields .= wpbdp_format_field_output($field, null, $post);
+    }
 
     $vars = array(
         'title' => get_the_title(),
@@ -415,25 +436,49 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
         'listing_fields' => $listing_fields,
         'extra_images' => array() // TODO
     );
-    
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, false);
+    $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
 
-    $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, $view);
-
-    if ($view == 'single') {
-        $html .= '<div class="contact-form">';
-        $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
-        $html .= '</div>';
-    }
+    $html .= '<div class="contact-form">';
+    $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
+    $html .= '</div>';
 
     $html .= '</div>';
 
-    if ($listing_id)
-        wp_reset_query();
+    return $html;
+}
 
-    if ($echo)
-        echo $html;
+function _wpbdp_render_excerpt() {
+    global $post;
+    static $counter = 0;
+
+    $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
+
+    $html = '';
+
+    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing excerpt wpbdp-listing-excerpt %s %s cf">',
+                     $post->ID,
+                     $sticky_status,
+                     ($counter & 1) ? 'odd':  'even');
+    $html .= apply_filters('wpbdp_render_listing_before', '', $post->ID, 'excerpt');
+
+    $html .= wpbusdirman_display_the_thumbnail();
+
+    $html .= '<div class="listing-details">';
+    foreach (wpbdp_get_formfields() as $field) {
+        if (!$field->display_options['show_in_excerpt'])
+            continue;
+
+        $html .= wpbdp_format_field_output($field, null, $post);
+    }
+    $html .= '</div>';
+    $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'excerpt'), false);
+
+    $html .= apply_filters('wpbdp_render_listing_after', '', $post->ID, 'excerpt');
+    $html .= '</div>';
+
+    $counter++;
 
     return $html;
 }

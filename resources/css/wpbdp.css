@@ -1,6 +1,3 @@
-
-
-
 /*
  * Search Form
  */
@@ -45,4 +42,108 @@ form#wpbdmsearchform a.advanced-search-link {
     float: none;
     display: block;
     margin: auto;
+}
+
+
+.cf:before, .cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after { clear: both; }
+.cf { *zoom: 1; }
+
+.clearfix { }
+.clearfix:after {
+    visibility: hidden;
+    content: '.';
+}
+
+
+.wpbdp-pagination {
+    margin: 25px 0 0 0;
+}
+
+.wpbdp-pagination .next {
+    float: right;
+}
+
+/* listing views */
+.listing-actions a {
+    background: none repeat scroll 0 0 #000;
+    border-radius: 3px 3px 3px 3px;
+    color: #fff;
+    padding: 2px 8px;
+    text-decoration: none;
+    margin-right: 8px;
+    text-align: center;
+}
+
+.listing-actions a.delete-listing {
+    margin-left: 20px;
+    background: #ff0000;
+}
+
+.wpbdp-listing .listing-details .field-value {
+    margin-bottom: 3px;
+}
+
+.wpbdp-listing .listing-details .field-value label {
+    color: #444;
+}
+
+.wpbdp-listing .listing-details .field-value span.value {
+    color: #000;
+}
+
+/* listing view > excerpt */
+.wpbdp-listing-excerpt {
+    padding: 10px;
+    border-bottom: dotted 1px #ddd;
+}
+
+.wpbdp-listing-excerpt.odd { background: #eee; }
+.wpbdp-listing-excerpt.sticky { background: #fff0cf; border-bottom: solid 1px #b37800; }
+
+.wpbdp-listing-excerpt .listing-thumbnail {
+    float: right;
+    margin: 0 10px 0 0;
+}
+
+.wpbdp-listing-excerpt .listing-actions {
+    margin-top: 15px;
+}
+
+/* listing views > single */
+.wpbdp-listing-single .listing-actions {
+    margin-bottom: 25px;
+}
+
+.wpbdp-listing-single .stickytag {
+    float: right;
+}
+
+.wpbdp-listing-single .listing-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 2px 8px;
+    background: #efefef;
+    border: dotted 1px #ddd;
+    margin-bottom: 7px;
+}
+
+.wpbdp-listing-single .main-image {
+    float: left;
+    max-width: 25%;
+    padding: 5px;
+}
+
+.wpbdp-listing-single .main-image img {
+    border: solid 1px #333;
+}
+
+.wpbdp-listing-single .listing-details {
+    margin-left: 25%;
+    padding-left: 5px;
+    width: 75%;
 }

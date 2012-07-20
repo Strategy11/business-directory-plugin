@@ -266,8 +266,8 @@ class WPBDP_DirectoryController {
             if (isset($_POST['listingfields']))
                 $this->_listing_data['fields'] = $_POST['listingfields'];
 
-            if (isset($_POST['listing_id']))
-                $this->_listing_data['listing_id'] = intval($_POST['listing_id']);
+            if (isset($_REQUEST['listing_id']))
+                $this->_listing_data['listing_id'] = intval($_REQUEST['listing_id']);
         }
 
         if ($listing_id = $this->_listing_data['listing_id']) {

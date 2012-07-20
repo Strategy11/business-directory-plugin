@@ -189,18 +189,6 @@ function wpbusdirman_menu_button_editlisting()
 	return $html;
 }
 
-function wpbusdirman_menu_button_upgradelisting() {
-	$post_id = get_the_ID();
-
-	if ( wpbdp_get_option('featured-on') &&
-		 (get_post($post_id)->post_author == wp_get_current_user()->ID) &&
-		 wpbdp_listings_api()->get_sticky_status(get_the_ID()) == 'normal' ) {
-			return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post_id . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
-	}
-
-	return '';
-}
-
 function wpbusdirman_list_categories()
 {
 	echo wpbusdirman_post_list_categories();
@@ -290,20 +278,6 @@ function get_terms_dropdown($taxonomies, $args)
 	$output .="</select>";
 
 	return $output;
-}
-
-function wpbusdirman_view_edit_delete_listing_button() {
-	$wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
-	$html = '';
-
-	$html .= '<div style="clear:both;"></div><div class="vieweditbuttons"><div class="vieweditbutton"><form method="post" action="' . get_permalink() . '"><input type="hidden" name="action" value="viewlisting" /><input type="hidden" name="wpbusdirmanlistingid" value="' . get_the_id() . '" /><input type="submit" value="' . __("View","WPBDM") . '" /></form></div>';
-
-	if ( (wp_get_current_user()->ID == get_the_author_meta('ID')) || current_user_can('administrator')) {
-		$html .= '<div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Edit","WPBDM") . '" /></form></div><div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="deletelisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Delete","WPBDM") . '" /></form></div>';
-	}
-	$html .= '</div>';
-
-	return $html;
 }
 
 function wpbusdirman_latest_listings($numlistings) {

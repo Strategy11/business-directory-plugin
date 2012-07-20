@@ -60,7 +60,7 @@ class WPBDP_ListingsAPI {
         $current_date = current_time('mysql');
         $excluded_ids = $wpdb->get_col(
             $wpdb->prepare("SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id IN {$categories_str} AND (expires_on IS NULL OR expires_on >= %s))", $current_date)
-        );        
+        );
 
         return $excluded_ids;
     }

@@ -1,10 +1,10 @@
-<div class="title"><?php echo $title; ?></div>
+<div class="listing-title"><?php echo $title; ?></div>
 
 <?php if ($main_image): ?>
 <div class="main-image"><?php echo $main_image; ?></div>
 <?php endif; ?>
 
-<div class="listing-details">
+<div class="listing-details cf">
     <?php echo $listing_fields; ?>
 </div>
 
