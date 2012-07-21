@@ -91,9 +91,7 @@
 <h2><?php _ex('Search Results', 'search', 'WPBDM'); ?></h2>
 <div class="search-results">
 <?php if (have_posts()): ?>
-    <?php while(have_posts()): the_post(); ?>
-        <?php echo wpbusdirman_post_excerpt(); ?>
-    <?php endwhile; ?>
+    <?php echo wpbdp_render('businessdirectory-listings'); ?>
 <?php else: ?>
     <?php _ex("No listings found.", 'templates', "WPBDM"); ?>
     <br />

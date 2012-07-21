@@ -1,3 +1,24 @@
+<?php if (!isset($stickies)) $stickies = null; ?>
+
+<?php if (!$stickies && !have_posts()): ?>
+    <?php _ex("No listings found in category.", 'templates', "WPBDM"); ?>
+<?php else: ?>
+    <div class="listings">
+        <?php echo $stickies; ?>
+
+        <?php while (have_posts()): the_post(); ?>
+            <?php echo wpbdp_render_listing(null, 'excerpt'); ?>
+        <?php endwhile; ?>
+
+        <div class="wpbdp-pagination">
+            <span class="prev"><?php next_posts_link(_x('&laquo; Older Entries', 'templates', 'WPBDM')); ?></span>
+            <span class="next"><?php previous_posts_link(_x('Newer Entries &raquo;', 'templates', 'WPBDM')); ?></span>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php
+/*
 <div id="wpbdmentry">
 <?php if(!$excludebuttons): ?>
 	<div id="lco">
@@ -33,4 +54,4 @@
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
-</div>
+</div>*/?>

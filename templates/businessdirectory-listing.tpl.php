@@ -1,7 +1,17 @@
-<div class="listing-title"><?php echo $title; ?></div>
+<?php if ($is_sticky): ?>
+    <?php echo $sticky_tag; ?>
+<?php endif; ?>
+
+<div class="listing-title">
+    <h2><?php echo $title; ?></h2>
+</div>
+
+<?php if ($actions): ?>
+    <?php echo $actions; ?>
+<?php endif; ?>
 
 <?php if ($main_image): ?>
-<div class="main-image"><?php echo $main_image; ?></div>
+    <div class="main-image"><?php echo $main_image; ?></div>
 <?php endif; ?>
 
 <div class="listing-details cf">
@@ -17,5 +27,3 @@
     </ul>
 </div>
 <?php endif; ?>
-
-<?php // comments_template(); ?>

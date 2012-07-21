@@ -97,6 +97,8 @@ class WPBDP_ListingsAPI {
                 if ($expiration_date != null)
                     $feerow['expires_on'] = $expiration_date;
 
+                // wpbdp_debug_e($feerow);
+
                 $wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', $feerow);
 
                 return true;

@@ -7,7 +7,7 @@
 	</ul>
 <?php endif; ?>
 
-<h4><?php _ex('Send Message to listing owner', 'templates', 'WPBDM'); ?></h4>
+<h3><?php _ex('Send Message to listing owner', 'templates', 'WPBDM'); ?></h3>
 <p><label><?php _ex('Listing Title: ', 'templates', 'WPBDM'); ?></label><?php echo get_the_title($listing_id); ?></p>
 
 <form method="POST" action="<?php echo wpbdp_get_page_link('main'); ?>">

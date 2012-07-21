@@ -351,17 +351,20 @@ function wpbdp_sticky_loop() {
         'post_type' => wpbdp_post_type(),
         'posts_per_page' => 0,
         'post_status' => 'publish',
-        'tax_query' => array(
-            array('taxonomy' => wpbdp_categories_taxonomy(),
-                  'field' => 'id',
-                  'terms' => $category_id)
-        ),
         'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
         'meta_key' => '_wpbdp[sticky]',
         'meta_value' => 'sticky',
         'orderby' => wpbdp_get_option('listings-order-by', 'date'),
         'order' => wpbdp_get_option('listings-sort', 'ASC')
     );
+
+    if ($category_id) {
+        $args['tax_query'] = array(
+            array('taxonomy' => wpbdp_categories_taxonomy(),
+                  'field' => 'id',
+                  'terms' => $category_id)
+        );
+    }
 
     $stickies = get_posts($args);
 
@@ -415,26 +418,43 @@ function _wpbdp_render_single() {
     $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
 
     $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s">', $post->ID, 'single', $sticky_status);
-    $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'single'), false);   // edit/delete/upgrade buttons    
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
 
+    $sticky_tag = '';
     if ($sticky_status == 'sticky')
-        $html .= sprintf('<div class="stickytag"><img src="%s" alt="%s" border="0" title="%s"></div>',
+        $sticky_tag = sprintf('<div class="stickytag"><img src="%s" alt="%s" border="0" title="%s"></div>',
                         WPBDP_URL . 'resources/images/featuredlisting.png',
                         _x('Featured Listing', 'templates', 'WPBDM'),
                         the_title(null, null, false));
 
-    // template vars
     $listing_fields = '';
     foreach (wpbdp_get_formfields() as $field) {
         $listing_fields .= wpbdp_format_field_output($field, null, $post);
     }
 
+    // images
+    $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id($post->ID);
+    $images = wpbdp_listings_api()->get_images($post->ID);
+    $extra_images = array();
+
+    foreach ($images as $img) {
+        if ($img->ID == $thumbnail_id) continue;
+
+        $extra_images[] = sprintf('<a class="thickbox" href="%s"><img class="wpbdp-thumbnail" src="%s" alt="%s" title="%s" border="0" /></a>',
+                                    wp_get_attachment_url($img->ID),
+                                    wp_get_attachment_thumb_url($img->ID),
+                                    the_title(null, null, false),
+                                    the_title(null, null, false));
+    }
+
     $vars = array(
+        'actions' => wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'single'), false),
+        'is_sticky' => $sticky_status == 'sticky',
+        'sticky_tag' => $sticky_tag,
         'title' => get_the_title(),
         'main_image' => wpbusdirman_post_main_image(),
         'listing_fields' => $listing_fields,
-        'extra_images' => array() // TODO
+        'extra_images' => $extra_images
     );
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, false);

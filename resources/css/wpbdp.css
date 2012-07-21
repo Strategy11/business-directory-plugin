@@ -124,12 +124,15 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .listing-title {
-    font-weight: bold;
-    font-size: 1.1em;
     padding: 2px 8px;
     background: #efefef;
     border: dotted 1px #ddd;
     margin-bottom: 7px;
+}
+
+.wpbdp-listing-single .listing-title h2 {
+    clear: none;
+    margin: 0;
 }
 
 .wpbdp-listing-single .main-image {
@@ -144,6 +147,35 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing-single .listing-details {
     margin-left: 25%;
-    padding-left: 5px;
+    padding-left: 15px;
     width: 75%;
+}
+
+.wpbdp-listing-single .extra-images {
+    margin-top: 10px;
+    clear: both;
+}
+
+.wpbdp-listing-single .extra-images ul {
+    margin: 0;
+}
+
+.wpbdp-listing-single .extra-images ul li {
+    list-style-type: none;
+}
+
+.wpbdp-listing-single .extra-images ul li img {
+    border: solid 1px #ddd;
+}
+
+/* listing contact form */
+.wpbdp-listing .contact-form {
+    margin-top: 20px;
+    border-top: dotted 1px #ddd;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.wpbdp-listing .contact-form h3 {
+    margin-left: -10px;
 }
