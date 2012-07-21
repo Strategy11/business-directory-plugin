@@ -140,19 +140,16 @@ class WPBDP_FormFieldsAdmin {
     private function previewForm() {
     	$html = '';
 
-    	$html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), null, array(
+    	$html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), 'formfields-preview', array(
 			array(_x('← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM'), esc_url(remove_query_arg('action')))
     	));
-    	$html .= apply_filters('wpbdm_show-add-listing-form', '-1', '', '', '');
+
+        $controller = wpbdp()->controller;
+        $html .= $controller->submit_listing();
     	$html .= wpbdp_admin_footer();
 
     	echo $html;
     }
-
-	/*echo wpbdp_admin_header(null, null, array(
-		array(_x('Add New Form Field', 'form-fields admin', 'WPBDM'), esc_url(add_query_arg('action', 'addfield'))),
-		array(_x('Preview Form', 'form-fields admin', 'WPBDM'), esc_url(add_query_arg('action', 'previewform'))),
-	));*/
 
     /* field list */
     private function fieldsTable() {
