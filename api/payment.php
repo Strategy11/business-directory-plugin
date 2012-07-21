@@ -135,6 +135,9 @@ class WPBDP_FeesAPI {
         if ($fee['categories']['all'])
             $fee['categories']['categories'] = array();
 
+        if (!$fee['categories']['categories'])
+            $fee['categories']['all'] = true;
+
         // TODO delete unnecessary categories: if a parent of a category is in the list, remove the category
 
         $fee['categories'] = serialize($fee['categories']);
