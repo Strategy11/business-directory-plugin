@@ -351,8 +351,6 @@ class WPBDP_ListingsAPI {
                             'user_pass' => wpbdp_generate_password(7, 2)
                         ));
                     }
-                } else {
-                    //exit;
                 }
             }
         }
