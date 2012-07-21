@@ -181,7 +181,10 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                         return esc_attr(str_replace("\t", ', ', $value));
                     } else {
                         if ($field->validator == 'URLValidator')
-                            return sprintf('<a href="%s" rel="no follow">%s</a>', esc_url($value), esc_url($value));
+                            return sprintf('<a href="%s" rel="no follow" target="%s">%s</a>',
+                                           esc_url($value),
+                                           isset($field->field_data['open_in_new_window']) && $field->field_data['open_in_new_window'] ? '_blank' : '_self',
+                                           esc_url($value));
 
                         return esc_attr(wpbdp_get_listing_field_value($listing, $field));
                     }

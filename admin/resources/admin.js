@@ -21,6 +21,17 @@ jQuery(document).ready(function($){
         }
     }).change();
 
+    $('form#wpbdp-formfield-form select#field-validator').change(function(){
+        var selected_validator = $('option:selected', $(this)).val();
+
+        if (selected_validator == 'URLValidator') {
+            $('form#wpbdp-formfield-form #field-data-open-in-new-window').parents('tr').show();
+        } else {
+            $('form#wpbdp-formfield-form #field-data-open-in-new-window').parents('tr').hide();
+            $('form#wpbdp-formfield-form #field-data-open-in-new-window').removeAttr('checked');
+        }
+    }).change();
+
 
     /* Manage Fees */
 

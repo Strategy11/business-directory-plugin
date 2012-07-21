@@ -92,7 +92,7 @@ $field = isset($field) ? $field : null;
 					<label> <?php _ex('Field Validator', 'form-fields admin', 'WPBDM'); ?></label>
 				</th>
 				<td>
-					<select name="field[validator]">
+					<select name="field[validator]" id="field-validator">
 						<option value=""><?php _ex('No validation', 'form-fields admin', 'WPBDM'); ?></label>
 						<?php foreach ($api->getValidators() as $key => $name): ?>
 						<option value="<?php echo $key; ?>" <?php echo wpbdp_getv($post_values, 'validator', $field ? $field->validator : '') == $key ? 'selected="true"' : ''; ?>>
@@ -100,6 +100,17 @@ $field = isset($field) ? $field : null;
 						</option>
 						<?php endforeach; ?>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label> <?php _ex('Open link in a new window?', 'form-fields admin', 'WPBDM'); ?></label>
+				</th>
+				<td>
+					<label>
+						<input name="field[field_data][open_in_new_window]" id="field-data-open-in-new-window" value="1"
+							   type="checkbox" <?php echo wpbdp_getv($post_values_fielddata, 'open_in_new_window', $field && isset($field->field_data['open_in_new_window']) && $field->field_data['open_in_new_window'] ? true : false) ? ' checked="checked"' : ''; ?>> <?php _ex('Open link in a new window.', 'form-fields admin', 'WPBDM'); ?>
+					</label>
 				</td>
 			</tr>			
 			<tr>

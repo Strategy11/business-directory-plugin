@@ -148,6 +148,9 @@ class WPBDP_FormFieldsAPI {
 	private function normalizeField(&$field) {
 		$field->display_options = array_merge(array('hide_field' => false, 'show_in_excerpt' => false), $field->display_options ? (array) unserialize($field->display_options) : array());
 		$field->field_data = $field->field_data ? unserialize($field->field_data) : null;
+
+		if (isset($field->field_data['options']) && !is_array($field->field_data['options']))
+			$field->field_data['options'] = null;
 	}
 
 	public function getField($id) {
@@ -419,13 +422,17 @@ class WPBDP_FormFieldsAPI {
 
 		$field = $field_;
 		if (isset($field['field_data'])) {
-			if (isset($field['field_data']['options'])) {
+			if (isset($field['field_data']['options']) && $field['field_data']['options']) {
 				$field['field_data']['options'] = explode(',', $field['field_data']['options']);
 
 				// sanitize options
 				$field['field_data']['options'] = array_map('trim', $field['field_data']['options']);
 				$field['field_data']['options'] = array_map('stripslashes', $field['field_data']['options']);
 			}
+
+			if (isset($field['field_data']['open_in_new_window']))
+				$field['field_data']['open_in_new_window'] = intval($field['field_data']['open_in_new_window']) > 0 ? true : false;
+
 			$field['field_data'] = serialize($field['field_data']);
 		} else {
 			$field['field_data'] = null;
