@@ -65,13 +65,13 @@ class WPBDP_Admin {
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          'activate_plugins',
-                         'wpbdp_settings',
+                         'wpbdp_admin_settings',
                          array($this, 'admin_settings'));
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Fees', 'admin menu', 'WPBDM'),
                          _x('Manage Fees', 'admin menu', 'WPBDM'),
                          'activate_plugins',
-                         'wpbdman_c2',
+                         'wpbdp_admin_fees',
                          array('WPBDP_FeesAdmin', 'admin_menu_cb'));
         add_submenu_page('wpbusdirman.php',
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
