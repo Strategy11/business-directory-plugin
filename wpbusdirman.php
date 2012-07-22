@@ -834,6 +834,9 @@ class WPBDP_Plugin {
 			case 'googlecheckout':
 				return wpbdp_payments_api()->has_gateway('googlecheckout');
 				break;
+			case 'googlemaps':
+				return class_exists('BusinessDirectory_GoogleMapsPlugin');
+				break;
 		}
 
 		return false;

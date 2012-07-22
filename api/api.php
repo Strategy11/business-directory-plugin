@@ -484,7 +484,7 @@ function _wpbdp_render_excerpt() {
                      $post->ID,
                      $sticky_status,
                      ($counter & 1) ? 'odd':  'even');
-    $html .= apply_filters('wpbdp_render_listing_before', '', $post->ID, 'excerpt');
+    //$html .= apply_filters('wpbdp_render_listing_before', '', $post->ID, 'excerpt');
 
     $html .= wpbusdirman_display_the_thumbnail();
 
@@ -498,7 +498,7 @@ function _wpbdp_render_excerpt() {
     $html .= '</div>';
     $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'excerpt'), false);
 
-    $html .= apply_filters('wpbdp_render_listing_after', '', $post->ID, 'excerpt');
+    //$html .= apply_filters('wpbdp_render_listing_after', '', $post->ID, 'excerpt');
     $html .= '</div>';
 
     $counter++;

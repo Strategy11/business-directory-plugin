@@ -24,6 +24,7 @@
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">2Checkout Payment Gateway Module</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/">Single Site License Combo Pack</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/">Multi Site License Combo Pack</a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a></li>
 			    </ul>
 			</div>
 		</div>
@@ -32,8 +33,6 @@
 		<div class="postbox installed-modules">
 			<h3 class="hndle"><span>Installed Modules</span></h3>
 			<div class="inside">
-<!-- 				"Module: Installed/Not
-Installed", where Module refers to the name of any premium module. -->
 				<ul>
 				    <li class="li_link">
 				    	<a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/">PayPal Payment Gateway</a>:<br />
@@ -43,6 +42,10 @@ Installed", where Module refers to the name of any premium module. -->
 				    	<a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">2Checkout Payment Gateway</a>:<br />
 				    	<?php echo wpbdp()->has_module('2checkout') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
 				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('googlemaps') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>				    
 			    </ul>
 			</div>
 		</div>
