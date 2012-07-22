@@ -429,6 +429,14 @@ class WPBDP_DirectoryController {
                             'fees' => $fee_options);
         }
 
+        // if all fees are free-fees move on
+        foreach ($fees as $fee_option) {
+            if (count($fee_option['fees']) == 1 && $fee_option['fees'][0]->id == 0) {
+                $this->_listing_data['fees'][$fee_option['category']->term_id] = wpbdp_fees_api()->get_fee_by_id(0);
+                return $this->submit_listing_images();
+            }
+        }
+
         $validation_errors = array();
 
         // check every category has a fee selected
@@ -487,7 +495,7 @@ class WPBDP_DirectoryController {
         }
 
         $images = $this->_listing_data['images'];
-        // sanitize images (maybe someone got deleted while we were here?)
+        // sanitize images (maybe some got deleted while we were here?)
         $images = array_filter($images, create_function('$x', 'return get_post($x) !== null;'));
         $this->_listing_data['images'] = $images;
 
