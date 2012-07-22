@@ -884,6 +884,34 @@ class WPBDP_Plugin {
 	public function _enqueue_scripts() {
 		wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'resources/css/wpbdp.css');
 		wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
+
+		if (file_exists(WP_PLUGIN_DIR . '/wpbdp.css'))
+			wp_enqueue_style('wpbdp-custom-css', WP_PLUGIN_URL . '/wpbdp.css');
+
+		$counter = 0;
+		foreach (array('wpbdp.css', 'wpbusdirman.css') as $stylesheet) {
+			if (file_exists( get_stylesheet_directory() . '/' . $stylesheet )) {
+				wp_enqueue_style('wpbdp-custom-css-' . $counter, get_stylesheet_directory_uri() . '/' . $stylesheet);
+				$counter++;
+			}
+
+			if (file_exists( get_stylesheet_directory() . '/css/' . $stylesheet )) {
+				wp_enqueue_style('wpbdp-custom-css-' . $counter, get_stylesheet_directory_uri() . '/css/' . $stylesheet);
+				$counter++;
+			}
+
+			if (get_template_directory() != get_stylesheet_directory()) {
+				if (file_exists( get_template_directory() . '/' . $stylesheet )) {
+					wp_enqueue_style('wpbdp-custom-css-' . $counter, get_template_directory_uri() . '/' . $stylesheet);
+					$counter++;
+				}
+
+				if (file_exists( get_template_directory() . '/css/' . $stylesheet )) {
+					wp_enqueue_style('wpbdp-custom-css-' . $counter, get_template_directory_uri() . '/css/' . $stylesheet);
+					$counter++;
+				}
+			}
+		}
 	}
 
 
