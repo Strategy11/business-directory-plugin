@@ -505,8 +505,6 @@ class WPBDP_Admin {
                                         count($posts),
                                         'admin',
                                         'WPBDM');
-
-                $this->messages[] = __("The listing has been upgraded.","WPBDM");
                 break;
 
             case 'cancelfeatured':
