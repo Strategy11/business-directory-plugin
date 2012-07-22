@@ -1,0 +1,65 @@
+<?php
+/**
+ * Latest listings widget.
+ * @since 2.1
+ */
+class WPBDP_LatestListingsWidget extends WP_Widget {
+
+    public function __construct() {
+        parent::__construct(false,
+                            _x('Business Directory - Latest Listings', 'widgets', 'WPBDM'),
+                            array('description' => _x('Displays a list of the latest listings in the Business Directory.', 'widgets', 'WPBDM')));
+    }
+
+    public function form($instance) {
+        if (isset($instance['title']))
+            $title = $instance['title'];
+        else
+            $title = _x('Latest Listings', 'widgets', 'WPBDM');
+
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('title'),
+                     _x('Title:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('title'),
+                     $this->get_field_name('title'),
+                     esc_attr($title)
+                    );
+        echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
+                     $this->get_field_id('number_of_listings'),
+                     _x('Number of listings to display:', 'widgets', 'WPBDM'),
+                     $this->get_field_id('number_of_listings'),
+                     $this->get_field_name('number_of_listings'),
+                     isset($instance['number_of_listings']) ? intval($instance['number_of_listings']) : 10
+                    );        
+    }
+
+    public function update($new_instance, $old_instance) {
+        $new_instance['title'] = strip_tags($new_instance['title']);
+        $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
+        return $new_instance;
+    }
+
+    public function widget($args, $instance) {
+        extract($args);
+        $title = apply_filters( 'widget_title', $instance['title'] );
+
+        echo $before_widget;
+        if ( ! empty( $title ) )
+            echo $before_title . $title . $after_title;
+        echo wpbdp_latest_listings();
+        echo $after_widget;        
+    }
+
+}
+
+
+/**
+ * Featured listings widget.
+ * @since 2.1
+ */
+class WPBDP_FeaturedListingsWidget extends WP_Widget {
+    
+    public function __construct() {
+        parent::__construct(false, 'X');
+    }
+}
