@@ -347,8 +347,8 @@ function wpbdp_render_msg($msg, $type='status') {
  * Template functions
  */
 
-function wpbdp_sticky_loop() {
-    $category_id = isset($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null;
+function wpbdp_sticky_loop($category_id=null) {
+    $category_id = $category_id ? $category_id : (isset($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null);
 
     $args = array(
         'post_type' => wpbdp_post_type(),

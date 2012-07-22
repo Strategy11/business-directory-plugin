@@ -71,14 +71,14 @@ class WPBDP_DirectoryController {
     }
 
     /* Display category. */
-    public function browse_category() {
-        $category_id = intval($_GET['category_id']);
+    public function browse_category($category_id=null) {
+        $category_id = $category_id ? $category_id : intval($_GET['category_id']);
 
         $listings_api = wpbdp_listings_api();
 
         // exclude expired posts in this category (and stickies)
         $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
-        $stickies = wpbdp_sticky_loop();
+        $stickies = wpbdp_sticky_loop($category_id);
 
         query_posts(array(
             'post_type' => wpbdp_post_type(),

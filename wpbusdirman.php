@@ -448,9 +448,10 @@ class WPBDP_Plugin {
 		add_shortcode('WPBUSDIRMANADDLISTING', array($this->controller, 'submit_listing'));
 		add_shortcode('businessdirectory-submitlisting', array($this->controller, 'submit_listing'));
 		add_shortcode('WPBUSDIRMANMANAGELISTING', array($this->controller, 'manage_listings'));
-		add_shortcode('businessdirectory-managelistings', array($this->controller, 'submit_listing'));
-		add_shortcode('WPBUSDIRMANMVIEWLISTINGS', array($this->controller, 'view_listings'));
-		add_shortcode('businessdirectory-viewlistings', array($this->controller, 'submit_listing'));
+		add_shortcode('businessdirectory-managelistings', array($this->controller, 'manage_listings'));
+		add_shortcode('WPBUSDIRMANMVIEWLISTINGS', array($this, '_listings_shortcode'));
+		add_shortcode('businessdirectory-viewlistings', array($this, '_listings_shortcode'));
+		add_shortcode('businessdirectory-listings', array($this, '_listings_shortcode'));
 
 		/* Expiration hook */
 		add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
@@ -838,6 +839,17 @@ class WPBDP_Plugin {
 	public function _register_widgets() {
 		register_widget('WPBDP_LatestListingsWidget');
 		register_widget('WPBDP_FeaturedListingsWidget');
+	}
+
+	public function _listings_shortcode($atts) {
+		$atts = shortcode_atts(array('category' => null), $atts);
+
+		if ($atts['category']) {
+			return $this->controller->browse_category($atts['category']);
+		} else {
+			return $this->controller->view_listings();
+		}
+
 	}
 
 	/* theme filters */
