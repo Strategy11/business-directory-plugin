@@ -280,30 +280,6 @@ function get_terms_dropdown($taxonomies, $args)
 	return $output;
 }
 
-function wpbusdirman_latest_listings($numlistings) {
-	return ''; 	// FIXME
-/*		$wpbdmpostheadline='';
-	$args = array(
-		'post_status' => 'publish',
-		'post_type' => $wpbdmposttype,
-		'numberposts' => $numlistings,
-		'orderby' => 'date'
-	);
-	$wpbusdirman_theposts = get_posts($args);
-
-	if($wpbusdirman_theposts)
-	{
-		foreach($wpbusdirman_theposts as $wpbusdirman_thepost)
-		{
-			$wpbdmpostheadline.="<li><a href=\"";
-			$wpbdmpostheadline.=get_permalink($wpbusdirman_thepost->ID);
-			$wpbdmpostheadline.="\">$wpbusdirman_thepost->post_title</a></li>";
-		}
-	}
-
-	return $wpbdmpostheadline;*/
-}
-
 function remove_no_categories_msg($content) {
   if (!empty($content)) {
   if(function_exists('str_ireplace')){
@@ -325,6 +301,7 @@ require_once(WPBDP_PATH . 'api/form-fields.php');
 require_once(WPBDP_PATH . 'api/payment.php');
 require_once(WPBDP_PATH . 'api/listings.php');
 require_once(WPBDP_PATH . 'views.php');
+require_once(WPBDP_PATH . 'widgets.php');
 
 class WPBDP_Plugin {
 
@@ -462,6 +439,8 @@ class WPBDP_Plugin {
 
 		add_filter('wp_title', array($this, '_page_title'));
 		add_action('wp_footer', array($this, '_credits_footer'));
+
+		add_action('widgets_init', array($this, '_register_widgets'));
 
 		/* Shortcodes */
         add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
@@ -854,6 +833,11 @@ class WPBDP_Plugin {
 		}
 
 		echo $html;
+	}
+
+	public function _register_widgets() {
+		register_widget('WPBDP_LatestListingsWidget');
+		register_widget('WPBDP_FeaturedListingsWidget');
 	}
 
 	/* theme filters */

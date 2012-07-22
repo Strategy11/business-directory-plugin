@@ -521,3 +521,27 @@ function wpbdp_search_form() {
     return $html;
 }
 
+function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
+    $n = max(intval($n), 0);
+
+    $posts = get_posts(array(
+        'post_type' => wpbdp_post_type(),
+        'post_status' => 'publish',
+        'numberposts' => $n,
+        'orderby' => 'date'
+    ));
+
+    $html = '';
+
+    $html .= $before;
+
+    foreach ($posts as $post) {
+        $html .= $before_item;
+        $html .= sprintf('<a href="%s">%s</a>', get_permalink($post->ID), get_the_title($post->ID));
+        $html .= $after_item;
+    }
+
+    $html .= $after;
+
+    return $html;
+}

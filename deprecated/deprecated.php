@@ -340,3 +340,7 @@ function wpbusdirman_menu_button_upgradelisting() {
 
     return '';
 }
+
+function wpbusdirman_latest_listings($numlistings) {
+    return wpbdp_latest_listings($numlistings);
+}
