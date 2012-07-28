@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div>
 <div id="content">
 
 <div id="wpbdmentry">
@@ -20,7 +19,7 @@
 
 		<?php if (have_posts()): ?>
 			<?php while(have_posts()): the_post(); ?>
-				<?php echo wpbusdirman_post_excerpt(); ?>
+				<?php wpbdp_the_listing_excerpt(); ?>
 			<?php endwhile; ?>
 
 			<div class="navigation">
@@ -39,7 +38,5 @@
 </div>
 
 </div>
-</div>
-
 
 <?php get_footer(); ?>

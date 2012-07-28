@@ -9,14 +9,15 @@ class WPBDP_ListingsAPI {
     }
 
     public function _category_link($link, $category, $taxonomy) {
-        if ($taxonomy == wpbdp_categories_taxonomy())
+        if ( ($taxonomy == wpbdp_categories_taxonomy()) && (_wpbdp_template_mode('category') == 'page') )
             return add_query_arg('category_id', $category->term_id, wpbdp_get_page_link('main')); // XXX
         return $link;
     }
 
     public function _post_link($url, $post) {
-        if ($post->post_type == wpbdp_post_type())
-            return add_query_arg('id', $post->ID, wpbdp_get_page_link('showlisting'));  // XXX
+        if ( ($post->post_type == wpbdp_post_type()) && (_wpbdp_template_mode('single') == 'page') ) {
+            return add_query_arg('id', $post->ID, wpbdp_get_page_link('showlisting')); // XXX
+        }
 
         return $url;
     }

@@ -6,39 +6,21 @@ if (!function_exists('_wpbdp_is_fee_selected')) {
 	}
 }
 ?>
+<div id="wpbdp-submit-page" class="wpbdp-submit-page businessdirectory-submit businessdirectory wpbdp-page step-fees">
 
-<?php
-// TODO
-					// $html .= __("You have selected more than one category. Each category you to which you elect to submit your listing incurs a separate fee.", "WPBDM");
-					// if($wpbusdirman_config_options[$wpbusdirmanconfigoptionsprefix.'_settings_config_6'] == "yes")
-					// {
-					// 	$html .=__(" The number of images attached to your listing will be set according to option you choose that has the most images. So if for one category you chose an option with 2 images but for another category you chose an option with 4 images your listing will be allotted 4 image slots", "WPBDM");
-?>
+	<h2>
+		<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
+	</h2>
 
-<div id="wpbdmentry">
-
-	<div id="lco">
-		<div class="title">
-			<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
-		</div>
-		<div class="button">
-			<?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
-			<?php echo wpbusdirman_post_menu_button_directory(); ?>
-		</div>
-		<div style="clear: both;"></div>
-	</div>
-
-	<div class="clear"></div>
-
-	<h2><?php _ex('Step 2 - Payment Options', 'templates', 'WPBDM'); ?></h2>
+	<h3><?php _ex('Step 2 - Payment Options', 'templates', 'WPBDM'); ?></h3>
 
 	<?php if ($validation_errors): ?>
-		<ul id="wpbusdirmanerrors">
+		<ul class="validation-errors">
 			<?php foreach ($validation_errors as $error_msg): ?>
-				<li class="wpbusdirmanerroralert"><?php echo $error_msg; ?></li>
+			<li><?php echo $error_msg; ?></li>
 			<?php endforeach; ?>
 		</ul>
-	<?php endif; ?>	
+	<?php endif; ?>
 
 	<form id="wpbdp-listing-form-fees" method="POST" action="">
 		<input type="hidden" name="action" value="<?php echo $listing_id ? 'editlisting' : 'submitlisting'; ?>" />
@@ -46,7 +28,8 @@ if (!function_exists('_wpbdp_is_fee_selected')) {
 		<input type="hidden" name="listing_data" value="<?php echo base64_encode(serialize($listing_data)); ?>" />
 
 		<?php foreach ($fee_options as $fee_option): ?>
-			<h4 class="feecategoriesheader"><?php echo sprintf(_x('"%s" fee options', 'templates', 'WPBDM'), $fee_option['category']->name); ?></h4>
+		<div class="fee-options">
+			<h4><?php echo sprintf(_x('"%s" fee options', 'templates', 'WPBDM'), $fee_option['category']->name); ?></h4>
 			<?php foreach ($fee_option['fees'] as $fee): ?>
 					<p>
 						<input type="radio" name="fees[<?php echo $fee_option['category']->term_id; ?>]" value="<?php echo $fee->id; ?>"
@@ -68,9 +51,10 @@ if (!function_exists('_wpbdp_is_fee_selected')) {
 							<?php endif; ?>
 					</p>
 			<?php endforeach; ?>
+		</div>
 		<?php endforeach; ?>
 
-		<input type="submit" name="submit" class="insubmitbutton" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
+		<input type="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
 
 	</form>
 

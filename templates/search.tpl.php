@@ -1,17 +1,13 @@
-<div id="wpbdmentry">
-
-    <div id="lco">
-        <div class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></div>
-        <div class="button">
-            <?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
-            <?php echo wpbusdirman_post_menu_button_directory(); ?>
-        </div>
-        <div style="clear: both;"></div>
+<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page">
+    <div class="wpbdp-bar">
+        <?php wpbdp_the_main_links(); ?>
     </div>
 
-    <div class="clear"></div>
+    <h2 class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></h2>
 
-<h2><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h2>
+<?php // if (!$searching): ?>
+<h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
+<!-- <Search Form> -->
 <form action="" id="wpbdp-search-form" method="POST">
     <div class="search-filter term">
         <div class="label">
@@ -81,14 +77,14 @@
     <?php endforeach; ?>
 
     <p>
-        <input type="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" class="insubmitbutton" />
+        <input type="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" />
     </p>
 </form>
-
-<br class="clearfix" />
+<!-- </Search Form> -->
+<?php // endif; ?>
 
 <?php if ($searching): ?>
-<h2><?php _ex('Search Results', 'search', 'WPBDM'); ?></h2>
+<h3><?php _ex('Search Results', 'search', 'WPBDM'); ?></h3>
 <div class="search-results">
 <?php if (have_posts()): ?>
     <?php echo wpbdp_render('businessdirectory-listings'); ?>

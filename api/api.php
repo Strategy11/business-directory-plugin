@@ -299,7 +299,7 @@ function wpbdp_get_parent_catids($catid) {
     return $parent_categories;
 }
 
-function wpbdp_locate_template($template, $allow_override=true) {
+function wpbdp_locate_template($template, $allow_override=true, $try_defaults=true) {
     $template_file = '';
 
     if (!is_array($template))
@@ -318,7 +318,7 @@ function wpbdp_locate_template($template, $allow_override=true) {
         $template_file = locate_template($search_for);
     }
 
-    if (!$template_file) {
+    if (!$template_file && $try_defaults) {
         foreach ($template as $t) {
             $template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php'; 
             
@@ -544,4 +544,10 @@ function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_it
     $html .= $after;
 
     return $html;
+}
+
+function _wpbdp_template_mode($template) {
+    if ( wpbdp_locate_template(array('businessdirectory-' . $template, 'wpbusdirman-' . $template), true, false) )
+        return 'template';
+    return 'page';
 }

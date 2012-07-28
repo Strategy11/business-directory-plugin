@@ -1,8 +1,8 @@
 
 <?php if ($validation_errors): ?>
-	<ul id="wpbusdirmanerrors">
+	<ul class="validation-errors">
 		<?php foreach($validation_errors as $error_msg): ?>
-			<li class="wpbusdirmanerroralert"><?php echo $error_msg; ?></li>
+			<li><?php echo $error_msg; ?></li>
 		<?php endforeach; ?>
 	</ul>
 <?php endif; ?>

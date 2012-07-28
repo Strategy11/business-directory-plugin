@@ -1,4 +1,4 @@
-<h2><?php echo $title; ?></h2>
+<h3><?php echo $title; ?></h3>
 
 <?php if (isset($message)): ?>
 	<p><?php echo $message; ?></p>

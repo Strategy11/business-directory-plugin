@@ -502,7 +502,12 @@ class WPBDP_FormFieldsAPI {
 		}
 
 		$args = func_get_args();
-		return call_user_func(array($this, 'render_' . $field->type), $field, $value);
+		
+		$html  = '';
+		$html .= sprintf('<div class="wpbdp-form-field %s %s">', $field->type, $field->is_required ? 'required' : '');
+		$html .= call_user_func(array($this, 'render_' . $field->type), $field, $value); 
+		$html .= '</div>';
+		return $html;
 	}
 
 	public function render_textfield(&$field, $value=null) {

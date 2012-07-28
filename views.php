@@ -225,7 +225,9 @@ class WPBDP_DirectoryController {
         $html .= wpbdp_render(array('businessdirectory-main-page-categories', 'wpbusdirman-index-categories'),
                                array(
                                 'submit_listing_button' => wpbusdirman_post_menu_button_submitlisting(),
-                                'view_listings_button' => wpbusdirman_post_menu_button_viewlistings()
+                                'view_listings_button' => wpbusdirman_post_menu_button_viewlistings(),
+                                'action_links' => wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_post_menu_button_viewlistings(),
+                                'search_form' => wpbdp_get_option('show-search-listings') ? wpbdp_search_form() : ''
                                ));
 
         if (wpbdp_get_option('show-listings-under-categories')) {
@@ -477,7 +479,7 @@ class WPBDP_DirectoryController {
                 $action = 'upload';
             if (isset($_POST['delete_image']) && intval($_POST['delete_image']) > 0)
                 $action = 'delete';
-            if (isset($_POST['submit']))
+            if (isset($_POST['finish']))
                 $action = 'submit';
         }
 

@@ -105,20 +105,6 @@ function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid
 						), false);
 }
 
-function wpbusdirman_catpage_title() {
-	echo wpbusdirman_post_catpage_title();
-}
-
-function wpbusdirman_post_catpage_title() {
-	global $post;
-	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-	$html = '';
-
-	$html .=  $term->name;
-
-	return $html;
-}
-
 function wpbusdirman_menu_buttons()
 {
 	echo wpbusdirman_post_menu_buttons();
@@ -180,46 +166,11 @@ function wpbusdirman_menu_button_editlisting()
 		get_currentuserinfo();
 		$wpbusdirmanloggedinuseremail=$current_user->user_email;
 		$wpbusdirmanauthoremail=get_the_author_meta('user_email');
-		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail)
+		if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail || current_user_can('administrator') || (wp_get_current_user()->ID == get_the_author_meta('ID')))
 		{
 			$html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="editlistingbutton" value="' . __("Edit Listing","WPBDM") . '" /></form>';
 		}
 	}
-
-	return $html;
-}
-
-function wpbusdirman_list_categories()
-{
-	echo wpbusdirman_post_list_categories();
-}
-
-function wpbusdirman_post_list_categories() {
-	$wpbdm_hide_empty = wpbdp_get_option('hide-empty-categories');
-	$wpbdm_show_count= wpbdp_get_option('show-category-post-count');
-	$wpbdm_show_parent_categories_only= wpbdp_get_option('show-only-parent-categories');
-
-	$html = '';
-
-	$taxonomy     = wpbdp_categories_taxonomy();
-	$orderby      = wpbdp_get_option('categories-order-by');
-	$show_count   = $wpbdm_show_count;      // 1 for yes, 0 for no
-	$pad_counts   = 0;      // 1 for yes, 0 for no
-	$order= wpbdp_get_option('categories-sort');
-	$hide_empty=$wpbdm_hide_empty;
-
-	$html .= wp_list_categories(array(
-		'taxonomy' => $taxonomy,
-		'echo' => false,
-		'title_li' => '',
-		'orderby' => $orderby,
-		'order' => $order,
-		'show_count' => $show_count,
-		'pad_counts' => true,
-		'hide_empty' => $hide_empty,
-		'hierarchical' => 1,
-		'depth' => $wpbdm_show_parent_categories_only ? 1 : 0
-	));
 
 	return $html;
 }
@@ -300,6 +251,7 @@ require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
 require_once(WPBDP_PATH . 'api/form-fields.php');
 require_once(WPBDP_PATH . 'api/payment.php');
 require_once(WPBDP_PATH . 'api/listings.php');
+require_once(WPBDP_PATH . 'api/templates-ui.php');
 require_once(WPBDP_PATH . 'views.php');
 require_once(WPBDP_PATH . 'widgets.php');
 
@@ -400,6 +352,11 @@ class WPBDP_Plugin {
 		return $sql;
 	}
 
+	public function _rewrite_rules($rules) {
+		//wpbdp_debug_e($rules);
+		return $rules;
+	}
+
 	public function plugin_activation() {
 		add_action('init', array($this, 'flush_rules'), 11);
 	}
@@ -431,6 +388,7 @@ class WPBDP_Plugin {
 		// add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 	
 		add_filter('posts_request', array($this, '_posts_request'));
+		add_filter('rewrite_rules_array', array($this, '_rewrite_rules'));
 		add_action('pre_get_posts', array($this, '_pre_get_posts'));
 
 		add_filter('comments_template', array($this, '_comments_template'));
@@ -872,10 +830,10 @@ class WPBDP_Plugin {
 	}
 
 	public function _single_template($template) {
-		/*if (is_single() && get_post_type() == self::POST_TYPE) {
+		if (is_single() && get_post_type() == self::POST_TYPE) {
 			return wpbdp_locate_template(array('businessdirectory-single', 'wpbusdirman-single'));
 		}
-		*/
+		
 		return $template;
 	}
 
@@ -884,11 +842,15 @@ class WPBDP_Plugin {
 		wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'resources/css/wpbdp.css');
 		wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
 
+		// enable legacy css (should be removed in a future release) XXX
+		if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template')
+			wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . '/resources/css/wpbdp-legacy.css');
+
 		if (file_exists(WP_PLUGIN_DIR . '/wpbdp.css'))
 			wp_enqueue_style('wpbdp-custom-css', WP_PLUGIN_URL . '/wpbdp.css');
 
 		$counter = 0;
-		foreach (array('wpbdp.css', 'wpbusdirman.css') as $stylesheet) {
+		foreach (array('wpbdp.css', 'wpbusdirman.css', 'wpbdp_custom_style.css', 'wpbdp_custom_styles.css', 'wpbdm_custom_style.css', 'wpbdm_custom_styles.css') as $stylesheet) {
 			if (file_exists( get_stylesheet_directory() . '/' . $stylesheet )) {
 				wp_enqueue_style('wpbdp-custom-css-' . $counter, get_stylesheet_directory_uri() . '/' . $stylesheet);
 				$counter++;

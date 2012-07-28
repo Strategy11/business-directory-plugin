@@ -1,4 +1,4 @@
-
+<div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-page">
 <?php if (!$current_user): ?>
 	<p><?php _ex("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM'); ?></p>
 	<form method="POST" action="<?php echo wpbdp_get_option('login-url', get_option('siteurl') . '/wp-login.php'); ?>">
@@ -14,3 +14,4 @@
 					 	   _x('Return to directory', 'templates', 'WPBDM')); ?>		
 	<?php endif; ?>
 <?php endif; ?>
+</div>
