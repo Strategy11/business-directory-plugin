@@ -236,6 +236,7 @@ class WPBDP_DirectoryController {
 
                 $html = '';
 
+                // TODO: should use WPBDP_Email instead
                 if(wp_mail( $wpbdmsendtoemail, $subject, $message, $headers )) {
                     $html .= "<p>" . _x("Your message has been sent", 'contact-message', "WPBDM") . "</p>";
                 } else {
@@ -645,10 +646,14 @@ class WPBDP_DirectoryController {
             }
 
             if (wpbdp_get_option('send-email-confirmation')) {
-                $subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
                 $message = wpbdp_get_option('email-confirmation-message');
                 $message = str_replace("[listing]", get_the_title($listing_id), $message);
-                @wp_mail(wpbusdirman_get_the_business_email($listing_id), $subject, $message);
+                
+                $email = new WPBDP_Email();
+                $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+                $email->to[] = wpbusdirman_get_the_business_email($listing_id);
+                $email->body = $message;
+                $email->send();
             }
 
             return wpbdp_render('listing-form-done', array(
@@ -826,10 +831,14 @@ class WPBDP_DirectoryController {
 
             if (wpbdp_get_option('send-email-confirmation')) {
                 $listing_id = $transaction->listing_id;
-                $subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
                 $message = wpbdp_get_option('payment-message');
                 $message = str_replace("[listing]", get_the_title($listing_id), $message);
-                @wp_mail(wpbusdirman_get_the_business_email($listing_id), $subject, $message);
+
+                $email = new WPBDP_Email();
+                $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+                $email->to[] = wpbusdirman_get_the_business_email($listing_id);
+                $email->body = $message;
+                $email->send();
             }
 
             $html .= sprintf('<p>%s</p>', wpbdp_get_option('payment-message'));

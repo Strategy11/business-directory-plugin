@@ -52,7 +52,7 @@ function wpbusdirman_get_the_business_email($post_id) {
 
     // then with the author email
     $post = get_post($post_id);
-    if ($email = get_the_author_meta('user_email', $post->author))
+    if ($email = get_the_author_meta('user_email', $post->post_author))
         return $email;
 
     return '';
@@ -224,6 +224,8 @@ class WPBDP_Plugin {
                 $message = str_replace('[link]', sprintf('<a href="%1$s">%1$s</a>', add_query_arg(array('action' => 'renewlisting', 'renewal_id' => $p->id), wpbdp_get_page_link('main')) ), $message);
 
                 wpbdp_log(sprintf('Listing "%s" expired on category %s. Email sent.', $listing->post_title, $p->category_id));
+
+                // TODO: move this to use WPBDP_Email
                 if (@wp_mail(get_the_author_meta('user_email', $listing->post_author), $subject, $message, $headers)) {
                     $wpdb->update("{$wpdb->prefix}wpbdp_listing_fees", array('email_sent' => 1), array('id' => $p->id));
                 }
