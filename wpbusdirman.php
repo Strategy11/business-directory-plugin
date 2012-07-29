@@ -774,6 +774,7 @@ class WPBDP_Plugin {
     public function _register_widgets() {
         register_widget('WPBDP_LatestListingsWidget');
         register_widget('WPBDP_FeaturedListingsWidget');
+        register_widget('WPBDP_RandomListingsWidget');
     }
 
     public function _listings_shortcode($atts) {
