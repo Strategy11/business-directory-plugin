@@ -396,8 +396,12 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
             'post_type' => wpbdp_post_type(),
             'p' => $listing_id
         ));
-        the_post();
+
+        if (have_posts()) the_post();
     }
+
+    if (!$post || $post->post_type != wpbdp_post_type())
+        return '';
 
     if ($view == 'excerpt')
         $html = _wpbdp_render_excerpt();
@@ -506,21 +510,6 @@ function _wpbdp_render_excerpt() {
     return $html;
 }
 
-function wpbdp_search_form() {
-    $html = '';
-    $html .= sprintf('<form id="wpbdmsearchform" action="%s" method="POST">',
-                     add_query_arg('action', 'search', wpbdp_get_page_link('main')));
-    $html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
-    $html .= sprintf('<input id="wpbdmsearchsubmit" class="wpbdmsearchbutton" type="submit" value="%s" />',
-                     _x('Search Listings', 'templates', 'WPBDM'));
-    $html .= sprintf('<a href="%s" class="advanced-search-link">%s</a>',
-                     add_query_arg('action', 'search', wpbdp_get_page_link('main')),
-                     _x('Advanced Search', 'templates', 'WPBDM'));
-    $html .= '</form>';
-
-    return $html;
-}
-
 function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
     $n = max(intval($n), 0);
 
@@ -550,4 +539,39 @@ function _wpbdp_template_mode($template) {
     if ( wpbdp_locate_template(array('businessdirectory-' . $template, 'wpbusdirman-' . $template), true, false) )
         return 'template';
     return 'page';
+}
+
+function wpbdp_rewrite_on() {
+    global $wp_rewrite;
+    return $wp_rewrite->permalink_structure ? true : false;
+}
+
+function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
+    $listing_id = $listing_id ? ( is_object($listing_id) ? $listing_id->ID : intval($listing_id) ) : get_the_ID();
+    $user_id = $user_id ? $user_id : wp_get_current_user()->ID;
+    $post = get_post($listing_id);
+
+    if ($post->post_type != wpbdp_post_type())
+        return false;
+
+    switch ($action) {
+        case 'view':
+            return true;
+            break;
+        case 'edit':
+        case 'delete':
+            return user_can($user_id, 'administrator') || ($post->post_author == $user_id);
+            break;
+        case 'upgrade-to-sticky':
+            if (wpbdp_listings_api()->get_sticky_status($listing_id) == 'normal')
+                return user_can($user_id, 'administrator') || ($post->post_author == $user_id);
+            return false;
+            break;
+    }
+
+    return false;
+}
+
+function _wpbdp_current_action() {
+    return wpbdp()->controller->get_current_action();
 }

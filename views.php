@@ -8,22 +8,52 @@ if (!class_exists('WPBDP_DirectoryController')) {
 class WPBDP_DirectoryController {
 
     public function __construct() {
-        $this->action = null;
+        add_action('pre_get_posts', array($this, '_handle_action')); // TODO: maybe another hook fits better?
+        add_filter('wp_title', array($this, '_wp_title'), 10, 3);
     }
 
     public function init() {
         $this->listings = wpbdp_listings_api();
     }
 
-    public function dispatch() {
-        $action = wpbdp_getv($_REQUEST, 'action');
+    public function _handle_action($query) {
+        $action = get_query_var('action');
 
-        if (isset($_GET['category_id'])) $action = 'browsecategory';
-        if (isset($_GET['id'])) $action = 'showlisting';
+        if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
+        if (get_query_var('id') || get_query_var('listing') ) $action = 'showlisting';
+
+        if (!$action) $action = 'main';
 
         $this->action = $action;
+    }
 
-        switch ($action) {
+    public function _wp_title($title, $sep, $seplocation) {
+        global $post;
+
+        if ($this->action == 'browsecategory') {
+            $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
+            return $term->name . ' ' . $sep . ' ';
+        }
+
+        if ($this->action == 'showlisting') {
+            if (get_query_var('id'))
+                return get_the_title(get_query_var('id')) . ' ' . $sep . ' ';
+        }
+
+        return $title;
+    }
+
+    public function get_current_action() {
+        return $this->action;
+    }
+
+    public function dispatch() {
+        /*$action = get_query_var('action');
+
+        if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
+        if (get_query_var('id') || get_query_var('listing') ) $action = 'showlisting';*/
+
+        switch ($this->action) {
             case 'showlisting':
                 return $this->show_listing();
                 break;
@@ -44,7 +74,7 @@ class WPBDP_DirectoryController {
                 return $this->upgrade_to_sticky();
                 break;
             case 'viewlistings':
-                return $this->view_listings();
+                return $this->view_listings(true);
                 break;
             case 'renewlisting':
                 return $this->renew_listing();
@@ -63,8 +93,15 @@ class WPBDP_DirectoryController {
 
     /* Show listing. */
     public function show_listing() {
-        global $post;
-        $listing_id = wpbdp_getv($_GET, 'id');
+        if (get_query_var('listing')) {
+            if ($posts = get_posts(array('numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing')) )) {
+                $listing_id = $posts[0]->ID;
+            } else {
+                $listing_id = null;
+            }
+        } else {
+            $listing_id = get_query_var('id');
+        }
 
         if ($listing_id)
             return wpbdp_render_listing($listing_id, 'single');
@@ -72,7 +109,13 @@ class WPBDP_DirectoryController {
 
     /* Display category. */
     public function browse_category($category_id=null) {
-        $category_id = $category_id ? $category_id : intval($_GET['category_id']);
+        if (get_query_var('category')) {
+            if ($term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy())) {
+                $category_id = $term->term_id;
+            }
+        }
+
+        $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
 
         $listings_api = wpbdp_listings_api();
 
@@ -107,7 +150,7 @@ class WPBDP_DirectoryController {
     }
 
     /* display listings */
-    public function view_listings($excludebuttons=true) {
+    public function view_listings($include_buttons=false) {
         $paged = 1;
 
         if (get_query_var('page'))
@@ -128,7 +171,7 @@ class WPBDP_DirectoryController {
         ));
 
         $html = wpbdp_render('businessdirectory-listings', array(
-                'excludebuttons' => $excludebuttons,
+                'excludebuttons' => !$include_buttons,
                 'stickies' => $stickies
             ), true);
 
@@ -141,7 +184,7 @@ class WPBDP_DirectoryController {
      * Send contact message to listing owner.
      */
     public function send_contact_message() {
-        if ($listing_id = wpbdp_getv($_POST, 'listing_id', 0)) {
+        if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id', 0)) {
             $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
             $author_name = htmlspecialchars(trim(wpbdp_getv($_POST, 'commentauthorname', $current_user ? $current_user->data->user_login : '')));
@@ -222,17 +265,18 @@ class WPBDP_DirectoryController {
             }
         }
 
+        $listings = '';
+        if (wpbdp_get_option('show-listings-under-categories'))
+            $listings = $this->view_listings(false);
+
         $html .= wpbdp_render(array('businessdirectory-main-page-categories', 'wpbusdirman-index-categories'),
                                array(
                                 'submit_listing_button' => wpbusdirman_post_menu_button_submitlisting(),
                                 'view_listings_button' => wpbusdirman_post_menu_button_viewlistings(),
                                 'action_links' => wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_post_menu_button_viewlistings(),
-                                'search_form' => wpbdp_get_option('show-search-listings') ? wpbdp_search_form() : ''
+                                'search_form' => wpbdp_get_option('show-search-listings') ? wpbdp_search_form() : '',
+                                'listings' => $listings
                                ));
-
-        if (wpbdp_get_option('show-listings-under-categories')) {
-            $html .= $this->view_listings(true);
-        }
 
         return $html;
     }
@@ -641,7 +685,7 @@ class WPBDP_DirectoryController {
     }
 
     public function delete_listing() {
-        if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
+        if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id')) {
             if ( (wp_get_current_user()->ID == get_post($listing_id)->post_author) || (current_user_can('administrator')) ) {
                 $post_update = array('ID' => $listing_id,
                                      'post_type' => wpbdp_post_type(),
@@ -660,7 +704,7 @@ class WPBDP_DirectoryController {
         if (!wpbdp_get_option('featured-on'))
             return;
 
-        if ($listing_id = wpbdp_getv($_POST, 'listing_id')) {
+        if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id')) {
             if (get_post($listing_id)->post_author != wp_get_current_user()->id)
                 return '';
 

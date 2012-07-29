@@ -150,7 +150,7 @@ form#wpbdmsearchform a.advanced-search-link {
     border: solid 1px #333;
 }
 
-.wpbdp-listing-single .listing-details {
+.wpbdp-listing-single .listing-details.with-image {
     margin-left: 25%;
     padding-left: 15px;
     width: 75%;
@@ -188,8 +188,23 @@ form#wpbdmsearchform a.advanced-search-link {
 /* pages toolbar */
 .wpbdp-bar {
     background: #f7f7f7;
-    margin: 10px 0;
-    min-height: 80px;
+    margin: 10px 0 20px 0;
+    padding: 5px 10px;
+}
+
+.wpbdp-bar .wpbdp-main-links {
+    float: left;
+    height: 100%;
+}
+
+.wpbdp-bar .wpbdp-search-form {
+    margin: 0;
+    padding: 0 !important;
+    margin-left: 50%;
+}
+
+.wpbdp-main-links a {
+    margin-right: 15px;
 }
 
 .wpbdp-bar .left {
@@ -205,6 +220,7 @@ form#wpbdmsearchform a.advanced-search-link {
 /* main page */
 .wpbdp-main-page #wpbdp-categories {
     clear: both;
+    margin-bottom: 20px;
 }
 
 .wpbdp-main-page ul.wpbdp-categories {

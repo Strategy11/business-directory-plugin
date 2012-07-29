@@ -393,3 +393,83 @@ function wpbusdirman_post_list_categories() {
 
     return $html;
 }
+
+function wpbusdirman_menu_buttons()
+{
+    echo wpbusdirman_post_menu_buttons();
+}
+
+function wpbusdirman_post_menu_buttons()
+{
+    $html = '';
+    $html .= '<div>' . wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_menu_button_directory() . '</div><div style="clear: both;"></div>';
+    return $html;
+}
+
+function wpbusdirman_menu_button_submitlisting()
+{
+    echo wpbusdirman_post_menu_button_submitlisting();
+}
+
+function wpbusdirman_post_menu_button_submitlisting()
+{
+    if (!wpbdp_get_option('show-submit-listing'))
+        return '';
+
+    return '<form method="post" action="' . wpbdp_get_page_link('add-listing') . '"><input type="hidden" name="action" value="submitlisting" /><input type="submit" class="submitlistingbutton" value="' . __("Submit A Listing","WPBDM") . '" /></form>';
+}
+
+function wpbusdirman_menu_button_viewlistings()
+{
+    echo wpbusdirman_post_menu_button_viewlistings();
+}
+
+function wpbusdirman_post_menu_button_viewlistings()
+{
+    if (!wpbdp_get_option('show-view-listings'))
+        return '';
+    
+    return '<form method="post" action="' . wpbdp_get_page_link('view-listings') . '"><input type="hidden" name="action" value="viewlistings" /><input type="submit" class="viewlistingsbutton" value="' . __("View Listings","WPBDM") . '" /></form>';
+}
+
+function wpbusdirman_menu_button_directory()
+{
+
+    echo wpbusdirman_post_menu_button_directory();
+}
+
+function wpbusdirman_post_menu_button_directory()
+{
+    return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="submit" class="viewlistingsbutton" value="' . __("Directory","WPBDM") . '" /></form>';
+}
+
+function wpbusdirman_menu_button_editlisting()
+{
+    global $post;
+    $wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
+    $html = '';
+
+    if(is_user_logged_in())
+    {
+        global $current_user;
+        get_currentuserinfo();
+        $wpbusdirmanloggedinuseremail=$current_user->user_email;
+        $wpbusdirmanauthoremail=get_the_author_meta('user_email');
+        if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail || current_user_can('administrator') || (wp_get_current_user()->ID == get_the_author_meta('ID')))
+        {
+            $html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="editlistingbutton" value="' . __("Edit Listing","WPBDM") . '" /></form>';
+        }
+    }
+
+    return $html;
+}
+
+function remove_no_categories_msg($content) {
+  if (!empty($content)) {
+  if(function_exists('str_ireplace')){
+    $content = str_ireplace('<li>' .__( "No categories" ). '</li>', "", $content);
+    }
+  }
+  return $content;
+}
+add_filter('wp_list_categories','remove_no_categories_msg');

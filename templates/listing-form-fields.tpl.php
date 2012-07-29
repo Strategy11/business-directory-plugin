@@ -1,4 +1,7 @@
 <div id="wpbdp-submit-page" class="wpbdp-submit-page businessdirectory-submit businessdirectory wpbdp-page step-fields">
+
+	<div class="wpbdp-bar cf"><?php echo wpbdp_the_main_links(); ?></div>
+	
 	<h2>
 		<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
 	</h2>

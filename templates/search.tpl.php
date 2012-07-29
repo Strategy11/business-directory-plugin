@@ -1,5 +1,5 @@
 <div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page">
-    <div class="wpbdp-bar">
+    <div class="wpbdp-bar cf">
         <?php wpbdp_the_main_links(); ?>
     </div>
 
