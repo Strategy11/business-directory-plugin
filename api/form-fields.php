@@ -145,6 +145,35 @@ class WPBDP_FormFieldsAPI {
 		);		
 	}
 
+	public function getShortNames() {
+		if ($names = get_option('wpbdp-field-short-names', false)) {
+			return $names;
+		}
+
+		return $this->calculateShortNames();
+	}
+
+	private function calculateShortNames() {
+		$fields = $this->getFields();
+		$names = array();
+
+		foreach ($fields as $field) {
+			$name = strtolower($field->label);
+			$name = str_replace(array(',', ';'), '', $name);
+			$name = str_replace(array(' ', '/'), '-', $name);
+
+			if ($name == 'images' || $name == 'image' || $name == 'username' || in_array($name, $names)) {
+				$name = $field->id . '/' . $name;
+			}
+			
+			$names[$field->id] = $name;
+		}
+
+		update_option('wpbdp-field-short-names', $names);
+
+		return $names;
+	}
+
 	private function normalizeField(&$field) {
 		$field->display_options = array_merge(array('hide_field' => false, 'show_in_excerpt' => false), $field->display_options ? (array) unserialize($field->display_options) : array());
 		$field->field_data = $field->field_data ? unserialize($field->field_data) : null;
@@ -460,15 +489,19 @@ class WPBDP_FormFieldsAPI {
 			$field['display_options'] = null;
 		}
 
+		$success = false;
+
 		if ($this->isValidField($field, $errors)) {
 			if (isset($field['id'])) {
-				return $wpdb->update("{$wpdb->prefix}wpbdp_form_fields", $field, array('id' => $field['id'])) !== false;
+				$success = $wpdb->update("{$wpdb->prefix}wpbdp_form_fields", $field, array('id' => $field['id'])) !== false;
 			} else {
-				return $wpdb->insert("{$wpdb->prefix}wpbdp_form_fields", $field);
+				$success = $wpdb->insert("{$wpdb->prefix}wpbdp_form_fields", $field);
 			}
 		}
 
-		return false;
+		$this->calculateShortNames();
+
+		return $success;
 	}
 
 	public function deleteField($id, &$errors=null) {

@@ -541,11 +541,24 @@ function _wpbdp_template_mode($template) {
     return 'page';
 }
 
+/**
+ * Checks if permalinks are enabled.
+ * @return boolean
+ * @since 2.1
+ */
 function wpbdp_rewrite_on() {
     global $wp_rewrite;
     return $wp_rewrite->permalink_structure ? true : false;
 }
 
+/**
+ * Checks if a given user can perform some action to a listing.
+ * @param string $action the action to be checked. available actions are 'view', 'edit', 'delete' and 'upgrade-to-sticky'
+ * @param (object|int) $listing_id the listing ID. if null, the current post ID will be used
+ * @param int $user_id the user ID. if null, the current user will be used
+ * @return boolean
+ * @since 2.1
+ */
 function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     $listing_id = $listing_id ? ( is_object($listing_id) ? $listing_id->ID : intval($listing_id) ) : get_the_ID();
     $user_id = $user_id ? $user_id : wp_get_current_user()->ID;

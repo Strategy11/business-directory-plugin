@@ -159,6 +159,18 @@ jQuery(document).ready(function($){
         alert('This form is just a preview. It doesn\'t work.');
     });
 
+    /* CSV import */
+    $('form#wpbdp-csv-import-form input.assign-listings-to-user').change(function(e){
+        if ( $(this).is(':checked') ) {
+            $('form#wpbdp-csv-import-form .default-user-selection').show();
+            //$('form#wpbdp-csv-import-form select.default-user').hide('disabled');
+        } else {
+            $('form#wpbdp-csv-import-form .default-user-selection').hide();
+            //$('form#wpbdp-csv-import-form select.default-user').attr('disabled', 'disabled');
+        }
+
+    }).change();
+
 });
 
 function wpbdp_load_placeholder($v) {

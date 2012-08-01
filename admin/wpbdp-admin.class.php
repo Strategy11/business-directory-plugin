@@ -2,6 +2,7 @@
 require_once(WPBDP_PATH . 'admin/admin-pages.php');
 require_once(WPBDP_PATH . 'admin/fees.php');
 require_once(WPBDP_PATH . 'admin/form-fields.php');
+require_once(WPBDP_PATH . 'admin/csv-import.php');
 
 if (!class_exists('WPBDP_Admin')) {
 
@@ -91,6 +92,12 @@ class WPBDP_Admin {
                          'activate_plugins',
                          'wpbdman_c5',
                          '_placeholder_');
+        add_submenu_page('wpbusdirman.php',
+                         _x('CSV Import', 'admin menu', 'WPBDM'),
+                         _x('CSV Import', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdp-csv-import',
+                         array('WPBDP_CSVImportAdmin', 'admin_menu_cb'));
         add_submenu_page('wpbusdirman.php',
                          _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
                          _x('Uninstall', 'admin menu', 'WPBDM'),

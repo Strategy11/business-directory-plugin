@@ -329,7 +329,7 @@ class WPBDP_ListingsAPI {
         if ($post_tags && !is_array($post_tags))
             $post_tags = explode(',', $post_tags);
 
-        $post_status = $data['listing_id'] ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
+        $post_status = (isset($data['listing_id']) && $data['listing_id'] ) ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
 
         $insert_args = array(
             'post_title' => $post_title,
@@ -376,6 +376,9 @@ class WPBDP_ListingsAPI {
             if (isset($listingfields[$field->id])) {
                 if ($value = $formfields_api->extract($listingfields, $field)) {
                     if (in_array($field->type, array('multiselect', 'checkbox'))) {
+                        if (!is_array($value)) {
+                            $value = array($value);
+                        }
                         $value = implode("\t", $value);
                     }
 

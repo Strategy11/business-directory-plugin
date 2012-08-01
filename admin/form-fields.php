@@ -15,6 +15,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     public function get_columns() {
         return array(
         	'order' => _x('Order', 'form-fields admin', 'WPBDM'),
+            /*'short_id' => _x('Short ID', 'form-fields admin', 'WPBDM'),*/
         	'label' => _x('Label / Association', 'form-fields admin', 'WPBDM'),
         	'type' => _x('Type', 'form-fields admin', 'WPBDM'),
         	'validator' => _x('Validator', 'form-fields admin', 'WPBDM'),
@@ -36,6 +37,11 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 					   esc_url(add_query_arg(array('action' => 'fielddown', 'id' => $field->id)))
 					   );
 	}
+
+    public function column_short_id($field) {
+        $short_names = wpbdp_formfields_api()->getShortNames();
+        return $short_names[$field->id];
+    }
 
 	public function column_label($field) {
 		$actions = array();
