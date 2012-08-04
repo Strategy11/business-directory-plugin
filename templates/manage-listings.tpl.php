@@ -1,9 +1,6 @@
 <div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-page">
 <?php if (!$current_user): ?>
-	<p><?php _ex("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM'); ?></p>
-	<form method="POST" action="<?php echo wpbdp_get_option('login-url', get_option('siteurl') . '/wp-login.php'); ?>">
-		<input type="submit" class="insubmitbutton" value="<?php _ex('Login Now', 'templates', 'WPBDM'); ?>" />
-	</form>
+	<?php echo wpbdp_render('parts/login-required'); ?>
 <?php else: ?>
 	<?php if (have_posts()): ?>
 		<p><?php _ex("Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button.", 'templates', "WPBDM"); ?></p>

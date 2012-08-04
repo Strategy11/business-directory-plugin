@@ -144,8 +144,8 @@ class WPBDP_Settings {
         $g = $this->add_group('registration', _x('Registration', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'registration', _x('Registration Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'require-login', _x('Require login?', 'admin settings', 'WPBDM'), 'boolean', true);
-        $this->add_setting($s, 'login-url', _x('Login URL', 'admin settings', 'WPBDM'), 'text', wp_login_url());
-        $this->add_setting($s, 'registration-url', _x('Registration URL', 'admin settings', 'WPBDM'), 'text', wp_login_url());
+        //$this->add_setting($s, 'login-url', _x('Login URL', 'admin settings', 'WPBDM'), 'text', wp_login_url()); // deprecated as of 2.1
+        //$this->add_setting($s, 'registration-url', _x('Registration URL', 'admin settings', 'WPBDM'), 'text', wp_login_url()); // deprecated as of 2.1
 
         /* Image settings */
         $g = $this->add_group('image', _x('Image', 'admin settings', 'WPBDM'));
