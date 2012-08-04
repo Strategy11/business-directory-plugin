@@ -6,6 +6,7 @@ class WPBDP_ListingsAPI {
     public function __construct() {
         add_filter('post_type_link', array($this, '_post_link'), 10, 2);
         add_filter('term_link', array($this, '_category_link'), 10, 3);
+        add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
     }
 
     public function _category_link($link, $category, $taxonomy) {
@@ -30,6 +31,13 @@ class WPBDP_ListingsAPI {
         }
 
         return $url;
+    }
+
+    public function _allow_comments($open, $post_id) {
+        if (get_post_type($post_id) == wpbdp_post_type())
+            return wpbdp_get_option('show-comment-form');
+        
+        return $open;
     }
 
     // sets the default settings to listings created through the admin site

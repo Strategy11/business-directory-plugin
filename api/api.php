@@ -471,6 +471,17 @@ function _wpbdp_render_single() {
     $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
     $html .= '</div>';
 
+    if (wpbdp_get_option('show-comment-form')) {
+        $html .= '<div class="comments">';
+
+        ob_start();
+        comments_template();
+        $html .= ob_get_contents();
+        ob_end_clean();
+
+        $html .= '</div>';
+    }
+
     $html .= '</div>';
 
     return $html;

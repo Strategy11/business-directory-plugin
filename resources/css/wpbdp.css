@@ -185,6 +185,11 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-left: -10px;
 }
 
+/* listing comments form */
+.wpbdp-listing .comments {
+    margin-top: 20px;
+}
+
 /* pages toolbar */
 .wpbdp-bar {
     background: #f7f7f7;
