@@ -75,7 +75,7 @@ class WPBDP_CSVImportAdmin {
                 echo "\n";
             }
         } else {
-            // ...
+            // TODO: example rows
         }
 
         echo '</textarea>';

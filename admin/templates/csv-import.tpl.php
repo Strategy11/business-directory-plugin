@@ -71,7 +71,7 @@
                            type="checkbox"
                            value="1" checked="checked" /> <?php _ex('Allow partial imports.', 'admin csv-import', 'WPBDM'); ?></label>
 
-                    <span class="description"><?php _ex('If checked, all lines from the CSV file need to be valid rows.', 'admin csv-import', 'WPBDM'); ?></span>
+                    <span class="description"><?php _ex('If not checked, all lines from the CSV file need to be valid rows.', 'admin csv-import', 'WPBDM'); ?></span>
                 </td>
             </tr>        
             <tr class="form-required">
