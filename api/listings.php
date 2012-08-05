@@ -445,7 +445,6 @@ class WPBDP_ListingsAPI {
 
     /* listings search */
     public function search($args) {
-        // TODO: search in categories / tags
         global $wpdb;
 
         $term = trim(wpbdp_getv($args, 'q', ''));

@@ -15,7 +15,7 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'add_metaboxes'));
         add_action('admin_init', array($this, 'check_for_required_fields'));
-        add_action('delete_post', array($this, '_delete_post_metadata'));
+        add_action('before_delete_post', array($this, '_delete_post_metadata'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'admin_javascript'));
@@ -121,6 +121,16 @@ class WPBDP_Admin {
         if ( current_user_can('delete_posts') && get_post_type($post_id) == wpbdp_post_type() ) {
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post_id));
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id));
+
+            $attachments = get_posts(array(
+                'numberposts' => -1,
+                'post_type' => 'attachment',
+                'post_parent' => $post_id
+            ));
+
+            foreach ($attachments as $attachment) {
+                wp_delete_attachment($attachment->ID, true);
+            }
         }
     }
 

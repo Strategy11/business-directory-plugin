@@ -89,6 +89,7 @@ class WPBDP_CSVImportAdmin {
 
     private function import() {
         $csvfile = $_FILES['csv-file'];
+        $zipfile = $_FILES['images-file'];
 
         if ($csvfile['error'] || !is_uploaded_file($csvfile['tmp_name'])) {
             $this->messages[] = array(_x('There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM'), 'error');
@@ -112,7 +113,7 @@ class WPBDP_CSVImportAdmin {
         $importer = new WPBDP_CSVImporter();
         $importer->set_settings($_POST['settings']);
         $importer->set_fields($fields);
-        $importer->import($csvfile['tmp_name']);
+        $importer->import($csvfile['tmp_name'], $zipfile['tmp_name']);
 
         if ($importer->rejected_rows)
             $this->admin->messages[] = _x('Import was completed but some rows were rejected.', 'admin csv-import', 'WPBDM');
@@ -141,40 +142,54 @@ class WPBDP_CSVImportAdmin {
 
             echo '<tbody>';
 
-            foreach ($importer->rejected_rows as $i => $row) {
-                echo sprintf('<tr class="%s">', $i % 2 == 0 ? 'alternate' : '');
-                echo '<td class="line-no">' . $row['line'] . '</td>';
-                echo '<td class="line">' . substr($importer->csv[$row['line']], 0, 60) . '...</td>';
-                echo '<td class="error">' . $this->import_error_msg($row['error']) . '</td>';
-                echo '</tr>';
+            foreach ($importer->rejected_rows as $row) {
+                foreach ($row['errors'] as $i => $error) {
+                    echo sprintf('<tr class="%s">', $i % 2 == 0 ? 'alternate' : '');
+                    echo '<td class="line-no">' . $row['line'] . '</td>';
+                    echo '<td class="line">' . substr($importer->csv[$row['line'] - 1], 0, 60) . '...</td>';
+                    echo '<td class="error">' . $error . '</td>';
+                    echo '</tr>';
+                }
             }
 
             echo '</tbody>';
             echo '</table>';
         }
 
+        echo '<h3>' . _x('Import warnings (not critical)', 'admin csv-import', 'WPBDM') . '</h3>';
+        echo '<table class="wpbdp-csv-import-warnings wp-list-table widefat">';
+        echo '<thead><tr>';
+        echo '<th class="line-no">' . _x('Line #', 'admin csv-import', 'WPBDM') . '</th>';
+        echo '<th class="line">' . _x('Line', 'admin csv-import', 'WPBDM') . '</th>';
+        echo '<th class="error">' . _x('Warning', 'admin csv-import', 'WPBDM') . '</th>';
+        echo '</tr></thead>';
+
+        echo '<tbody>';        
+        foreach ($importer->imported_rows as $row) {
+            if (!isset($row['warnings']))
+                continue;
+
+            foreach ($row['warnings'] as $i => $warning) {
+                echo sprintf('<tr class="%s">', $i % 2 == 0 ? 'alternate' : '');
+                echo '<td class="line-no">' . $row['line'] . '</td>';
+                echo '<td class="line">' . substr($importer->csv[$row['line'] - 1], 0, 60) . '...</td>';
+                echo '<td class="error">' . $warning . '</td>';
+                echo '</tr>';
+            }
+
+        }
+        echo '</tbody>';
+        echo '</table>';
+
 
         echo wpbdp_admin_footer();
     }
 
-    private function import_error_msg($label) {
-        switch ($label) {
-            case 'malformed-row':
-                return _x('Malformed row (too many columns)', 'admin csv-import', 'WPBDM');
-                break;
-            case 'category-not-found':
-                return _x('Listing category does not exist', 'admin csv-import', 'WPBDM');
-                break;
-            case 'category-not-created':
-                return _x('Could not create listing category', 'admin csv-import', 'WPBDM');
-                break;
-            default:
-                return _x('Unknown error', 'admin csv-import', 'WPBDM');
-                break;
-        }
-    }
-
 }
+
+
+require_once(ABSPATH . 'wp-admin/includes/file.php');
+require_once(ABSPATH . 'wp-admin/includes/image.php');
 
 /**
  * CSV import class.
@@ -183,6 +198,8 @@ class WPBDP_CSVImportAdmin {
 class WPBDP_CSVImporter {
 
     private $settings = array(
+        'allow-partial-imports' => true,
+
         'csv-file-separator' => ',',
         'images-separator' => ';',
         'create-missing-categories' => true,
@@ -194,10 +211,12 @@ class WPBDP_CSVImporter {
     private $fields = array();
     
     public $csv = array();
-    private $header = array(); 
-    private $data = array();    
+    private $header = array();
+    private $data = array();
 
-    private $rows = array(); /* valid rows */
+    private $imagesdir = null;
+
+    public $rows = array(); /* valid rows */
     public $imported_rows = array();
     public $rejected_rows = array();
 
@@ -210,7 +229,10 @@ class WPBDP_CSVImporter {
 
     public function set_settings($settings=array()) {
         $this->settings = array_merge($this->settings, $settings);
+        $this->settings['allow-partial-imports'] = (boolean) $this->settings['allow-partial-imports'];        
         $this->settings['create-missing-categories'] = (boolean) $this->settings['create-missing-categories'];
+        $this->settings['assign-listings-to-user'] = (boolean) $this->settings['assign-listings-to-user'];
+        $this->settings['default-user'] = intval($this->settings['default-user']);
     }
 
     public function reset() {
@@ -221,21 +243,26 @@ class WPBDP_CSVImporter {
         $this->rows = array();
         $this->imported_rows = array();
         $this->rejected_rows = array();
+
+        $this->imagesdir = null;
     }
 
-    public function import($csv_file) {
+    public function import($csv_file, $zipfile) {
         $this->reset();
         $this->extract_data($csv_file);
+        $this->extract_images($zipfile);
 
         foreach ($this->rows as $row) {
-            if ($this->import_row($row['data'], $error)) {
+            if ($this->import_row($row['data'], $errors, $warnings)) {
+                if ($warnings)
+                    $row['warnings'] = $warnings;
+
                 $this->imported_rows[] = $row;
             } else {
-                $row['error'] = $error;
+                $row['errors'] = $errors;
                 $this->rejected_rows[] = $row;
             }
         }
-
     }
 
     private function process_line($line) {
@@ -266,50 +293,140 @@ class WPBDP_CSVImporter {
                     if ($row = $this->process_line($line)) {
                         $this->rows[] = array('line' => $n + 1, 'data' => $row, 'error' => false);
                     } else {
-                        $this->rejected_rows[] = array('line' => $n + 1, 'data' => $row, 'error' => 'malformed-row');
+                        $this->rejected_rows[] = array('line' => $n + 1, 'data' => $row, 'error' => _x('Malformed row (too many columns)', 'admin csv-import', 'WPBDM') );
                     }
                 }
             }
         }
     }
 
-    private function import_row($data, &$error=null) {
-        $listingfields = array();
+    private function extract_images($zipfile) {
+        $dir = trailingslashit(trailingslashit(sys_get_temp_dir()) . 'wpbdp_' . time());
+
+        require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+
+        $zip = new PclZip($zipfile);
+        if ($files = $zip->extract(PCLZIP_OPT_PATH, $dir, PCLZIP_OPT_REMOVE_ALL_PATH)) {
+            $this->imagesdir = $dir;
+            return true;
+        }
+
+        return false;
+    }
+
+    private function import_row($data, &$errors=null, &$warnings=null) {
+        $errors = array();
+        $warnings = array();
+
+        $listing_username = null;
+
+        $listing = array('fields' => array(), 'images' => array());
+
+        $listing_images = array();
+        $listing_fields = array();
 
         foreach ($this->header as $i => $header_name) {
-            if ($header_name == 'images' || $header_name == 'username')
+            if ( ($header_name == 'image' || $header_name == 'images') && !empty($data[$i]) ) {
+                if (strpos($data[$i], $this->settings['images-separator']) !== false) {
+                    foreach (explode($this->settings['images-separator'], $data[$i]) as $image) {
+                        $listing_images[] = trim($image);
+                    }
+                } else {
+                    $listing_images[] = trim($data[$i]);
+                }
+            }
+
+            if ($header_name == 'username') {
+                $listing_username = $data[$i];
                 continue;
+            }
+
+            if (!array_key_exists($header_name, $this->fields)) {
+                $warnings[] = sprintf(_x('Ignoring unknown field "%s"', 'admin csv-import', 'WPBDM'), $header_name);
+                continue;
+            }            
 
             $field = $this->fields[$header_name];
 
-            if ($field->association == 'category') {
+            if ($field->association == 'category' && !empty($data[$i])) {
                 if ($term = term_exists($data[$i], wpbdp_categories_taxonomy())) {
-                    $listingfields[$field->id][] = $term['term_id'];
+                    $listing_fields[$field->id][] = $term['term_id'];
                 } else {
                     if ($this->settings['create-missing-categories']) {
                         if ($newterm = wp_insert_term($data[$i], wpbdp_categories_taxonomy())) {
-                            $listingfields[$field->id][] = $newterm['term_id'];
+                            $listing_fields[$field->id][] = $newterm['term_id'];
                         } else {
-                            $error = 'category-not-created';
+                            $errors[] = sprintf(_x('Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $data[$i]);
                             return false;
                         }
                         
                     } else {
-                        $error = 'category-not-found';
+                        $errors[] = sprintf(_x('Listing category "%s" does not exist', 'admin csv-import', 'WPBDM'), $data[$i]);
                         return false;
                     }
                 }
             } elseif ($field->association == 'tags') {
-                $listingfields[$field->id][] = $data[$i];
+                $listing_fields[$field->id][] = $data[$i];
             } else {
-                $listingfields[$field->id] = $data[$i];
+                $listing_fields[$field->id] = $data[$i];
             }
         }
 
-        $listings_api = wpbdp_listings_api();
-        $listing_data = array('fields' => $listingfields);
-        
-        return $listings_api->add_listing($listing_data) > 0;
+        if ($this->imagesdir && $listing_images) {
+            foreach ($listing_images as $filename) {
+                if (file_exists($this->imagesdir . $filename)) {
+                    $filepath = $this->imagesdir . $filename;
+
+                    $file = array('name' => basename($filepath),
+                                  'tmp_name' => $filepath,
+                                  'error' => 0,
+                                  'size' => filesize($filepath)
+                    );
+
+                    $wp_image = wp_handle_sideload($file, array('test_form' => FALSE));
+
+                    if (!isset($wp_image['error'])) {
+                        if ($attachment_id = wp_insert_attachment(array(
+                                'post_mime_type' => $wp_image['type'],
+                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($wp_image['file'])),
+                                'post_content' => '',
+                                'post_status' => 'inherit'
+                            ), $wp_image['file'])) {
+
+                            $attach_data = wp_generate_attachment_metadata($attachment_id, $wp_image['file']);
+                            wp_update_attachment_metadata($attachment_id, $attach_data);
+
+                            $listing['images'][] = $attachment_id;
+
+                        } else {
+                            $errors[] = sprintf(_x('Image file "%s" could not be inserted.', 'admin csv-import', 'WPBDM'), $filename);
+                            return false;
+                        }
+                    } else {
+                        $errors[] = sprintf(_x('Image file "%s" could not be uploaded.', 'admin csv-import', 'WPBDM'), $filename);
+                        return false;
+                    }
+                } else {
+                    $errors[] = sprintf(_x('Referenced image file "%s" was not found inside ZIP file.', 'admin csv-import'. 'WPBDM'), $filename);
+                    return false;
+                }
+            }
+        }
+
+        $listing['fields'] = $listing_fields;
+        $listing_id = wpbdp_listings_api()->add_listing($listing);
+
+        if ($this->settings['assign-listings-to-user']) {
+            if ($listing_username) {
+                if ($user = get_user_by('login', $listing_username))
+                    wp_update_post(array('ID' => $listing_id, 'post_author' => $user->ID));
+            } else {
+                if ($this->settings['default-user'])
+                    wp_update_post(array('ID' => $listing_id, 'post_author' => $this->settings['default-user']));
+            }
+        }
+
+        return $listing_id > 0;
     }
 
  }

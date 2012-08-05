@@ -275,19 +275,19 @@ ul#wpbusdirmanerrors { margin-left:20px; }
     height: 100%;
 }
 
-table.wpbdp-csv-import-results {
+table.wpbdp-csv-import-results, table.wpbdp-csv-import-warnings {
     width: 100%;
 }
 
-table.wpbdp-csv-import-results .line-no {
+table.wpbdp-csv-import-results .line-no, table.wpbdp-csv-import-warnings .line-no {
     width: 50px;
 }
 
-table.wpbdp-csv-import-results td.line {
+table.wpbdp-csv-import-results td.line, table.wpbdp-csv-import-warnings td.line {
     font-family: monospace;
     font-size: 90%;
 }
 
-table.wpbdp-csv-import-results .error {
+table.wpbdp-csv-import-results .error, table.wpbdp-csv-import-warnings .error {
     width: 200px;
 }

@@ -64,6 +64,18 @@
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
+                    <label> <?php _ex('Allow partial imports?', 'admin csv-import', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <label><input name="settings[allow-partial-imports]"
+                           type="checkbox"
+                           value="1" checked="checked" /> <?php _ex('Allow partial imports.', 'admin csv-import', 'WPBDM'); ?></label>
+
+                    <span class="description"><?php _ex('If checked, all lines from the CSV file need to be valid rows.', 'admin csv-import', 'WPBDM'); ?></span>
+                </td>
+            </tr>        
+            <tr class="form-required">
+                <th scope="row">
                     <label> <?php _ex('Missing categories handling', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
                 </th>
                 <td>
