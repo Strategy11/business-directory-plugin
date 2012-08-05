@@ -32,6 +32,53 @@ class WPBDP_CSVImportAdmin {
         }
     }
 
+    private function example_data_for_field($field=nulll, $shortname=null) {
+        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        if ($field) {
+            if ($field->association == 'title') {
+                return sprintf(_x('Business %s', 'admin csv-import', 'WPBDM'), $letters[rand(0,strlen($letters)-1)]);
+            } elseif ($field->association == 'category') {
+                if ( $terms = get_terms(wpbdp_categories_taxonomy(), 'number=5&hide_empty=0') ) {
+                    return $terms[array_rand($terms)]->name;
+                } else {
+                    return '';
+                }
+            } elseif ($field->association == 'tags') {
+                if ( $terms = get_terms(wpbdp_tags_taxonomy(), 'number=5&hide_empty=0') ) {
+                    return $terms[array_rand($terms)]->name;
+                } else {
+                    return '';
+                }                
+            } elseif ($field->validator == 'URLValidator') {
+                return get_site_url();
+            } elseif ($field->validator == 'EmailValidator') {
+                return get_option('admin_email');
+            } elseif ($field->validator == 'IntegerNumberValidator') {
+                return rand(0, 100);
+            } elseif ($field->validator == 'DecimalNumberValidator') {
+                return rand(0, 100) / 100.0;
+            } elseif ($field->validator == 'DateValidator') {
+                return date('d/m/Y');
+            } elseif ($field->type == 'multiselect' || $field->type == 'checkbox') {
+                if (isset($field->field_data['options'])) {
+                    if ($options = $field->field_data['options']) {
+                        return $options[array_rand($options)];
+                    }
+                }
+                
+                return '';
+            }
+        }
+
+        if ($shortname == 'user') {
+            $users = get_users();
+            return $users[array_rand($users)]->user_login;
+        }
+
+        return _x('Whatever', 'admin csv-import', 'WPBDM');
+    }
+
     private function example_csv() {
         echo wpbdp_admin_header(_x('Example CSV Import File', 'admin csv-import', 'WPBDM'), null, array(
             array(_x('← Return to "CSV Import"', 'admin csv-import', 'WPBDM'), esc_url(remove_query_arg('action')))
@@ -43,6 +90,7 @@ class WPBDP_CSVImportAdmin {
             'numberposts' => 10
         ));
 
+        //echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'WPBDM'));
         echo '<textarea class="wpbdp-csv-import-example" rows="30">';
 
         $short_names = wpbdp_formfields_api()->getShortNames();
@@ -75,7 +123,17 @@ class WPBDP_CSVImportAdmin {
                 echo "\n";
             }
         } else {
-            // TODO: example rows
+            for ($i = 0; $i < 5; $i++) {
+                foreach ($short_names as $field_id => $shortname) {
+                    $field = wpbdp_formfields_api()->getField($field_id);
+                    echo $this->example_data_for_field($field, $short_names);
+                    echo ',';
+                }
+
+                echo $this->example_data_for_field(null, 'user');
+                echo "\n";
+            }
+            
         }
 
         echo '</textarea>';
@@ -92,13 +150,13 @@ class WPBDP_CSVImportAdmin {
         $zipfile = $_FILES['images-file'];
 
         if ($csvfile['error'] || !is_uploaded_file($csvfile['tmp_name'])) {
-            $this->messages[] = array(_x('There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM'), 'error');
+            $this->admin->messages[] = array(_x('There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM'), 'error');
             return $this->import_settings();
         }
 
         if (strtolower(pathinfo($csvfile['name'], PATHINFO_EXTENSION)) != 'csv' &&
             $csvfile['type'] != 'text/csv') {
-            $this->messages[] = array(_x('The uploaded file does not look like a CSV file.', 'admin csv-import', 'WPBDM'), 'error');
+            $this->admin->messages[] = array(_x('The uploaded file does not look like a CSV file.', 'admin csv-import', 'WPBDM'), 'error');
             return $this->import_settings();        
         }
 
@@ -372,7 +430,12 @@ class WPBDP_CSVImporter {
             }
         }
 
-        if ($this->imagesdir && $listing_images) {
+        if ($listing_images) {
+            if (!$this->imagesdir) {
+                $errors[] = _x('Images were specified but no image file was uploaded.', 'admin csv-import', 'WPBDM');
+                return false;
+            }
+
             foreach ($listing_images as $filename) {
                 if (file_exists($this->imagesdir . $filename)) {
                     $filepath = $this->imagesdir . $filename;

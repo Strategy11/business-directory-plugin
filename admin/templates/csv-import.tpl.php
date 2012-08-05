@@ -1,5 +1,6 @@
 <?php
     echo wpbdp_admin_header(null, null, array(
+        array(_x('Help', 'admin csv-import', 'WPBDM'), '#help'),
         array(_x('See an example CSV import file', 'admin csv-import', 'WPBDM'), esc_url(add_query_arg('action', 'example-csv')))
         ) );
 ?>
@@ -9,7 +10,7 @@
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
 
-    <h3><?php _ex('Import Files', 'admin csv-import'); ?></h3>
+    <h4><?php _ex('Import Files', 'admin csv-import'); ?></h4>
     <table class="form-table">
         <tbody>
             <tr class="form-field form-required">
@@ -34,7 +35,7 @@
             </tr>            
     </table>
 
-    <h3><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h3>
+    <h4><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h4>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
@@ -60,9 +61,9 @@
             </tr>            
     </table>
 
-    <h3><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h3>
+    <h4><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h4>
     <table class="form-table">
-            <tr class="form-required">
+<!--            <tr class="form-required">
                 <th scope="row">
                     <label> <?php _ex('Allow partial imports?', 'admin csv-import', 'WPBDM'); ?></label>
                 </th>
@@ -71,9 +72,9 @@
                            type="checkbox"
                            value="1" checked="checked" /> <?php _ex('Allow partial imports.', 'admin csv-import', 'WPBDM'); ?></label>
 
-                    <span class="description"><?php _ex('If not checked, all lines from the CSV file need to be valid rows.', 'admin csv-import', 'WPBDM'); ?></span>
+                    <span class="description"><?php _ex('If checked, invalid lines from the CSV file will be ignored.', 'admin csv-import', 'WPBDM'); ?></span>
                 </td>
-            </tr>        
+            </tr>    -->    
             <tr class="form-required">
                 <th scope="row">
                     <label> <?php _ex('Missing categories handling', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
@@ -118,5 +119,40 @@
 
     <?php echo submit_button(_x('Import Listings', 'admin csv-import', 'WPBDM')); ?>
 </form>
+
+<a name="help"></a>
+<h3><?php _ex('Help', 'admin csv-import', 'WPBDM'); ?></h3>
+<p><?php _ex('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click "See an example CSV import file" to see how an import file should look like.', 'admin csv-import', 'WPBDM'); ?></p>
+
+<?php
+$fields = array();
+$shortnames = wpbdp_formfields_api()->getShortNames();
+
+foreach (wpbdp_formfields_api()->getFields() as $field) $fields[$shortnames[$field->id]] = $field;
+?>
+<table class="wpbdp-csv-import-headers">
+    <thead>
+        <tr>
+            <th class="header-name"><?php _ex('Header name/label', 'admin csv-import', 'WPBDM'); ?></th>
+            <th class="field-label"><?php _ex('Field', 'admin csv-import', 'WPBDM'); ?></th>
+            <th class="field-type"><?php _ex('Type', 'admin csv-import', 'WPBDM'); ?></th>
+            <th class="field-is-required"><?php _ex('Required?', 'admin csv-import', 'WPBDM'); ?></th>
+            <th class="field-is-multivalued"><?php _ex('Multivalued?', 'admin csv-import', 'WPBDM'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($fields as $shortname => $field) : ?>
+        <tr>
+            <td class="header-name"><?php echo $shortname; ?></td>
+            <td class="field-label"><?php echo $field->label; ?></td>
+            <td class="field-type"><?php echo $field->type; ?></td>
+            <td class="field-is-required"><?php echo $field->is_required ? 'X' : ''; ?></td>
+            <td class="field-is-multivalued">
+                <?php echo ($field->association == 'category' || $field->association == 'tags') || ($field->type == 'checkbox' || $field->type == 'multiselect') ? 'X' : ''; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
 
 <?php echo wpbdp_admin_footer(); ?>

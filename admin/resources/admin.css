@@ -273,6 +273,7 @@ ul#wpbusdirmanerrors { margin-left:20px; }
     font-size: 90%;
     font-family: monospace;
     height: 100%;
+    white-space: nowrap;
 }
 
 table.wpbdp-csv-import-results, table.wpbdp-csv-import-warnings {
@@ -290,4 +291,12 @@ table.wpbdp-csv-import-results td.line, table.wpbdp-csv-import-warnings td.line 
 
 table.wpbdp-csv-import-results .error, table.wpbdp-csv-import-warnings .error {
     width: 200px;
+}
+
+table.wpbdp-csv-import-headers {
+    width: 100%;
+}
+
+table.wpbdp-csv-import-headers td.field-is-required, table.wpbdp-csv-import-headers td.field-is-multivalued {
+    text-align: center;
 }
