@@ -21,23 +21,32 @@ function wpbdp_main_links() {
     $html .= '<div class="wpbdp-main-links">';
 
     if (wpbdp_get_option('show-submit-listing')) {
-        $html .= sprintf('<a href="%s">%s</a>',
+        $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" />',
+                          __('Submit A Listing', 'WPBDM'),
+                          wpbdp_get_page_link('add-listing'));
+/*        $html .= sprintf('<a href="%s">%s</a>',
                          wpbdp_get_page_link('add-listing'),
-                         __('Submit A Listing', 'WPBDM'));
+                         __('Submit A Listing', 'WPBDM'));*/
     }
 
     if (wpbdp_get_option('show-view-listings')) {
-        $html .= sprintf('<a href="%s">%s</a>',
+        $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" />',
+                          __('View Listings', 'WPBDM'),
+                          wpbdp_get_page_link('view-listings'));        
+/*        $html .= sprintf('<a href="%s">%s</a>',
                          wpbdp_get_page_link('view-listings'),
                          __('View Listings', 'WPBDM')
-                        );
+                        );*/
     }
 
     if (_wpbdp_current_action() != 'main') {
-        $html .= sprintf('<a href="%s">%s</a>',
+        $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" />',
+                          __('Directory', 'WPBDM'),
+                          wpbdp_get_page_link('main'));                
+/*        $html .= sprintf('<a href="%s">%s</a>',
                          wpbdp_get_page_link('main'),
                          __('Directory', 'WPBDM')
-                        );
+                        );*/
     }
 
     $html .= '</div>';

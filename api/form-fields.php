@@ -296,19 +296,22 @@ class WPBDP_FormFieldsAPI {
 			$errors[] = WPBDP_FormFieldValidators::required_msg($field->label, $value);
 
 		if (!empty($value)) {
-			if (is_array($value))
-				return true; // TODO: handle array values aswell
-
-			if ($field->validator && !call_user_func('WPBDP_FormFieldValidators::' . $field->validator, $value))
-				$errors[] = call_user_func('WPBDP_FormFieldValidators::' . $field->validator . '_msg', $field->label, $value);
-
 			if ($field->association == 'category') {
-				if (get_term_by('id', $value, wpbdp_categories_taxonomy()) == false) {
-					$errors[] = _x('Please select a valid category.', 'form-fields-api', 'WPBDM');
+				$categories = is_array($value) ? $value : array($value);
+
+				foreach ($categories as $catid) {
+					if (get_term_by('id', $catid, wpbdp_categories_taxonomy()) == false) {
+						$errors[] = _x('Please select a valid category.', 'form-fields-api', 'WPBDM');
+						return false;
+					}
 				}
 			}
 
-			// TODO: check selected options in select/multiselect/radio/checkbox are valid
+			if (is_array($value))
+				return true; // TODO: check selected options in select/multiselect/radio/checkbox are valid
+
+			if ($field->validator && !call_user_func('WPBDP_FormFieldValidators::' . $field->validator, $value))
+				$errors[] = call_user_func('WPBDP_FormFieldValidators::' . $field->validator . '_msg', $field->label, $value);
 		}
 
 		if ($errors)

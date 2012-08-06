@@ -12,7 +12,7 @@
     <div class="search-filter term">
         <div class="label">
             <label for="wpbdp-search-form-q">
-                <?php _ex('Search terms', 'search', 'WPBDM'); ?>
+                <?php _ex('Description/Title Keywords', 'search', 'WPBDM'); ?>
             </label>
         </div>
         <div class="field">
