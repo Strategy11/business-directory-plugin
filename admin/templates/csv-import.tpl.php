@@ -141,8 +141,8 @@ foreach (wpbdp_formfields_api()->getFields() as $field) $fields[$shortnames[$fie
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($fields as $shortname => $field) : ?>
-        <tr>
+    <?php $i = 0; foreach ($fields as $shortname => $field) : ?>
+        <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name"><?php echo $shortname; ?></td>
             <td class="field-label"><?php echo $field->label; ?></td>
             <td class="field-type"><?php echo $field->type; ?></td>
@@ -151,7 +151,7 @@ foreach (wpbdp_formfields_api()->getFields() as $field) $fields[$shortnames[$fie
                 <?php echo ($field->association == 'category' || $field->association == 'tags') || ($field->type == 'checkbox' || $field->type == 'multiselect') ? 'X' : ''; ?>
             </td>
         </tr>
-    <?php endforeach; ?>
+    <?php $i++; endforeach; ?>
     </tbody>
 </table>
 

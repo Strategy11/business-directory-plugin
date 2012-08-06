@@ -300,3 +300,11 @@ table.wpbdp-csv-import-headers {
 table.wpbdp-csv-import-headers td.field-is-required, table.wpbdp-csv-import-headers td.field-is-multivalued {
     text-align: center;
 }
+
+table.wpbdp-csv-import-headers tbody tr {
+    background: #f9f9f9;
+}
+
+table.wpbdp-csv-import-headers tbody tr.alt {
+    background: inherit !important;
+}
