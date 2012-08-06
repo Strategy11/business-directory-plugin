@@ -182,6 +182,10 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-left: -10px;
 }
 
+.wpbdp-listing .contact-form textarea {
+    width: 98% !important;
+}
+
 /* listing comments form */
 .wpbdp-listing .comments {
     margin-top: 20px;

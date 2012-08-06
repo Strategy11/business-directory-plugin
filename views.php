@@ -189,7 +189,6 @@ class WPBDP_DirectoryController {
 
             $author_name = htmlspecialchars(trim(wpbdp_getv($_POST, 'commentauthorname', $current_user ? $current_user->data->user_login : '')));
             $author_email = trim(wpbdp_getv($_POST, 'commentauthoremail', $current_user ? $current_user->data->user_email : ''));
-            $author_website = trim(wpbdp_getv($_POST, 'commentauthorwebsite', $current_user ? $current_user->data->user_url : ''));
             $message = trim(wp_kses(stripslashes(wpbdp_getv($_POST, 'commentauthormessage', '')), array()));
 
             $validation_errors = array();
@@ -199,9 +198,6 @@ class WPBDP_DirectoryController {
 
             if (!wpbusdirman_isValidEmailAddress($author_email))
                 $validation_errors[] = _x("Please enter a valid email.", 'contact-message', "WPBDM");
-
-            if ($author_website && !(wpbdp_validate_value('URLValidator', $author_website)))
-                $validation_errors[] = _x("Please enter a valid URL.", 'contact-message', "WPBDM");
 
             if (!$message)
                 $validation_errors[] = _x('You did not enter a message.', 'contact-message', 'WPBDM');
@@ -226,7 +222,6 @@ class WPBDP_DirectoryController {
                 $time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
                 $message = "Name: $author_name
                 Email: $author_email
-                Website: $author_website
 
                 $message
 
@@ -247,7 +242,7 @@ class WPBDP_DirectoryController {
 
                 return $html;
             } else {
-                return wpbusdirman_contactform(null, $listing_id, $author_name, $author_email, $author_website, $message, $validation_errors);
+                return wpbusdirman_contactform(null, $listing_id, $author_name, $author_email, null, $message, $validation_errors);
             }
         }
     }
