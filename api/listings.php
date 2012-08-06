@@ -22,6 +22,9 @@ class WPBDP_ListingsAPI {
     }
 
     public function _post_link($url, $post) {
+        if (is_admin())
+            return $url;
+        
         if ( ($post->post_type == wpbdp_post_type()) && (_wpbdp_template_mode('single') == 'page') ) {
             if (wpbdp_rewrite_on()){
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . $post->ID . '/' . ($post->post_name ? $post->post_name . '/' : '');
