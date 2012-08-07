@@ -1,10 +1,7 @@
-<?php // TODO: verify user can perform each one of these actions ?>
 <div class="listing-actions">
 <?php if ($view == 'single'): ?>
     <?php if (wpbdp_user_can('edit', $listing_id)): ?>
-    <form action="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" method="GET">
-        <input type="hidden" name="action" value="editlisting" />
-        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
+    <form action="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" method="POST">
         <input type="submit" name="" value="<?php _ex('Edit', 'templates', 'WPBDM'); ?>" class="edit-listing" />
     </form>
     <!--<a href="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" class="edit-listing">
@@ -13,9 +10,7 @@
     <?php endif; ?>
 
     <?php if (wpbdp_user_can('upgrade-to-sticky', $listing_id)): ?>
-    <form action="<?php echo wpbdp_get_page_link('upgradetostickylisting', $listing_id); ?>" method="GET">
-        <input type="hidden" name="action" value="upgradetostickylisting" />
-        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
+    <form action="<?php echo wpbdp_get_page_link('upgradetostickylisting', $listing_id); ?>" method="POST">
         <input type="submit" name="" value="<?php _ex('Upgrade Listing', 'templates', 'WPBDM'); ?>" class="upgrade-to-sticky" />
     </form>
     <!--<a href="<?php echo wpbdp_get_page_link('upgradetostickylisting', $listing_id); ?>" class="upgrade-to-sticky">
@@ -24,9 +19,7 @@
     <?php endif; ?>
 
     <?php if (wpbdp_user_can('delete', $listing_id)): ?>
-    <form action="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" method="GET">
-        <input type="hidden" name="action" value="deletelisting" />
-        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
+    <form action="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" method="POST">
         <input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="delete-listing" />
     </form>    
 <!--    <a href="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" class="delete-listing">
@@ -44,9 +37,7 @@
     <?php endif; ?>
 
     <?php if (wpbdp_user_can('edit', $listing_id)): ?>
-    <form action="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" method="GET">
-        <input type="hidden" name="action" value="editlisting" />
-        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
+    <form action="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" method="POST">
         <input type="submit" name="" value="<?php _ex('Edit', 'templates', 'WPBDM'); ?>" class="edit-listing" />
     </form>    
     <!--<a href="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" class="edit-listing">
@@ -55,9 +46,7 @@
     <?php endif; ?>
 
     <?php if (wpbdp_user_can('delete', $listing_id)): ?>
-    <form action="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" method="GET">
-        <input type="hidden" name="action" value="deletelisting" />
-        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
+    <form action="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" method="POST">
         <input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="delete-listing" />
     </form>        
     <!--<a href="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" class="delete-listing">
