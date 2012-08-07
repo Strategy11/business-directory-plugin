@@ -217,22 +217,23 @@ class WPBDP_DirectoryController {
                         "From: $author_name <$author_email>\n" .
                         "Reply-To: $author_email\n" .
                         "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
-                $subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
+
+                $subject = "[" . get_option( 'blogname' ) . "] " . sprintf(_x('Contact via "%s"', 'contact email', 'WPBDM'), wp_kses( get_the_title($listing_id), array() ));
                 $wpbdmsendtoemail=wpbusdirman_get_the_business_email($listing_id);
                 $time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
-                $message = "Name: $author_name
-                Email: $author_email
 
-                $message
-
-                Time: $time
-
-                ";
+                $body = wpbdp_render_page(WPBDP_PATH . 'templates/parts/contact.email', array(
+                    'listing_url' => get_permalink($listing_id),
+                    'name' => $author_name,
+                    'email' => $author_email,
+                    'message' => $message,
+                    'time' => $time
+                ), false);
 
                 $html = '';
 
                 // TODO: should use WPBDP_Email instead
-                if(wp_mail( $wpbdmsendtoemail, $subject, $message, $headers )) {
+                if(wp_mail( $wpbdmsendtoemail, $subject, $body, $headers )) {
                     $html .= "<p>" . _x("Your message has been sent", 'contact-message', "WPBDM") . "</p>";
                 } else {
                     $html .= "<p>" . _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM") . "</p>";
