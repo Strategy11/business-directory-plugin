@@ -253,7 +253,12 @@ table.wp-list-table.formfields .tag.in-excerpt {
     /*border-right: 1px solid #ddd;*/
     width: 150px;
     vertical-align: top;
-    float: left;
+    /*float: left;*/
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    min-height: 210px;
+    _height: 210px;
 }
 
 #wpbdp-listing-fields div.listing-images .image img {
