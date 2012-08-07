@@ -145,6 +145,7 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-listing-single .main-image img {
     border: solid 1px #333;
     width: 100% !important;
+    height: auto !important;
 }
 
 .wpbdp-listing-single .listing-details.with-image {
