@@ -125,7 +125,10 @@
 
 <a name="help"></a>
 <h3><?php _ex('Help', 'admin csv-import', 'WPBDM'); ?></h3>
-<p><?php _ex('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click "See an example CSV import file" to see how an import file should look like.', 'admin csv-import', 'WPBDM'); ?></p>
+<p>
+    <?php echo sprintf(_x('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'admin csv-import', 'WPBDM'),
+                  esc_url(add_query_arg('action', 'example-csv'))); ?>
+</p>
 
 <?php
 $fields = array();

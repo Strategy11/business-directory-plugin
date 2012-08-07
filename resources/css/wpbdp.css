@@ -10,6 +10,10 @@ form#wpbdmsearchform input {
     display: inline;
 }
 
+form#wpbdmsearchform .wpbdmsearchbutton {
+    margin-top: 5px;
+}
+
 form#wpbdmsearchform a.advanced-search-link {
     font-size: 70%;
     display: block;
@@ -70,7 +74,24 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 /* listing views */
-.listing-actions a {
+.listing-actions form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.listing-actions input {
+    margin: 0;
+    padding: 0;
+}
+
+.listing-actions input.delete-listing {
+    margin-left: 20px;
+    color: #ff0000;
+
+}
+
+/*.listing-actions a {
     background: none repeat scroll 0 0 #000;
     border-radius: 3px 3px 3px 3px;
     color: #fff;
@@ -83,7 +104,7 @@ form#wpbdmsearchform a.advanced-search-link {
 .listing-actions a.delete-listing {
     margin-left: 20px;
     background: #ff0000;
-}
+}*/
 
 .wpbdp-listing .listing-details .field-value {
     margin-bottom: 3px;
@@ -160,14 +181,21 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .extra-images ul {
-    margin: 0;
+    margin: 0 auto;
+    width: 100%;
+
 }
 
 .wpbdp-listing-single .extra-images ul li {
     list-style-type: none;
+    display: inline;
+    margin-left: 5px;
+    vertical-align: top;
 }
 
 .wpbdp-listing-single .extra-images ul li img {
+    margin: auto;
+    max-width: 150px;
     border: solid 1px #ddd;
 }
 

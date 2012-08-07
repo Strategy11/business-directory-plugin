@@ -215,16 +215,19 @@ class WPBDP_Admin {
                 echo '</div>';
             }
 
-                echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button-primary" title="%s">%s</a>',
-                             add_query_arg(array('action' => 'wpbdp-uploadimage',
-                                                 'post_id' => $post_id,
-                                                 'width' => '600',
-                                                 'TB_iframe' => 1),
-                                            admin_url('admin-ajax.php')),
-                             _x('Upload Image', 'admin', 'WPBDM'),
-                             _x('Upload Image', 'admin', 'WPBDM'));
-
             echo '</div>';
+
+            echo '<p style="clear: both; margin-top: 10px;">';
+            echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button-primary" title="%s">%s</a>',
+                         add_query_arg(array('action' => 'wpbdp-uploadimage',
+                                             'post_id' => $post_id,
+                                             'width' => '600',
+                                             'TB_iframe' => 1),
+                                        admin_url('admin-ajax.php')),
+                         _x('Upload Image', 'admin', 'WPBDM'),
+                         _x('Upload Image', 'admin', 'WPBDM'));
+            echo '</p>';
+
             echo '</div>';
         }
 
