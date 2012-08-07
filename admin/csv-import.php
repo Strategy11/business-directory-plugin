@@ -216,30 +216,32 @@ class WPBDP_CSVImportAdmin {
             echo '</table>';
         }
 
-        echo '<h3>' . _x('Import warnings (not critical)', 'admin csv-import', 'WPBDM') . '</h3>';
-        echo '<table class="wpbdp-csv-import-warnings wp-list-table widefat">';
-        echo '<thead><tr>';
-        echo '<th class="line-no">' . _x('Line #', 'admin csv-import', 'WPBDM') . '</th>';
-        echo '<th class="line">' . _x('Line', 'admin csv-import', 'WPBDM') . '</th>';
-        echo '<th class="error">' . _x('Warning', 'admin csv-import', 'WPBDM') . '</th>';
-        echo '</tr></thead>';
+        if ($importer->warnings > 0) {
+            echo '<h3>' . _x('Import warnings (not critical)', 'admin csv-import', 'WPBDM') . '</h3>';
+            echo '<table class="wpbdp-csv-import-warnings wp-list-table widefat">';
+            echo '<thead><tr>';
+            echo '<th class="line-no">' . _x('Line #', 'admin csv-import', 'WPBDM') . '</th>';
+            echo '<th class="line">' . _x('Line', 'admin csv-import', 'WPBDM') . '</th>';
+            echo '<th class="error">' . _x('Warning', 'admin csv-import', 'WPBDM') . '</th>';
+            echo '</tr></thead>';
 
-        echo '<tbody>';        
-        foreach ($importer->imported_rows as $row) {
-            if (!isset($row['warnings']))
-                continue;
+            echo '<tbody>';        
+            foreach ($importer->imported_rows as $row) {
+                if (!isset($row['warnings']))
+                    continue;
 
-            foreach ($row['warnings'] as $i => $warning) {
-                echo sprintf('<tr class="%s">', $i % 2 == 0 ? 'alternate' : '');
-                echo '<td class="line-no">' . $row['line'] . '</td>';
-                echo '<td class="line">' . substr($importer->csv[$row['line'] - 1], 0, 60) . '...</td>';
-                echo '<td class="error">' . $warning . '</td>';
-                echo '</tr>';
+                foreach ($row['warnings'] as $i => $warning) {
+                    echo sprintf('<tr class="%s">', $i % 2 == 0 ? 'alternate' : '');
+                    echo '<td class="line-no">' . $row['line'] . '</td>';
+                    echo '<td class="line">' . substr($importer->csv[$row['line'] - 1], 0, 60) . '...</td>';
+                    echo '<td class="error">' . $warning . '</td>';
+                    echo '</tr>';
+                }
+
             }
-
+            echo '</tbody>';
+            echo '</table>';
         }
-        echo '</tbody>';
-        echo '</table>';
 
         echo wpbdp_admin_footer();
     }
@@ -280,6 +282,7 @@ class WPBDP_CSVImporter {
     public $rows = array(); /* valid rows */
     public $imported_rows = array();
     public $rejected_rows = array();
+    public $warnings = 0;
 
 
     public function __construct() { }
@@ -308,6 +311,7 @@ class WPBDP_CSVImporter {
         $this->rows = array();
         $this->imported_rows = array();
         $this->rejected_rows = array();
+        $this->warnings = 0;
 
         $this->imagesdir = null;
     }
@@ -319,8 +323,10 @@ class WPBDP_CSVImporter {
 
         foreach ($this->rows as $row) {
             if ($this->import_row($row['data'], $errors, $warnings)) {
-                if ($warnings)
+                if ($warnings) {
+                    $this->warnings += count($warnings);
                     $row['warnings'] = $warnings;
+                }
 
                 $this->imported_rows[] = $row;
             } else {
