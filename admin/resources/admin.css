@@ -306,5 +306,5 @@ table.wpbdp-csv-import-headers tbody tr {
 }
 
 table.wpbdp-csv-import-headers tbody tr.alt {
-    background: inherit !important;
+    background: inherit;
 }

@@ -16,7 +16,6 @@ class WPBDP_CSVImportAdmin {
 
     public function dispatch() {
         $action = wpbdp_getv($_REQUEST, 'action');
-
         $api = wpbdp_formfields_api();
 
         switch ($action) {
@@ -98,7 +97,7 @@ class WPBDP_CSVImportAdmin {
         foreach ($short_names as $name) {
             echo $name . ',';
         }
-        echo 'user';
+        echo 'username';
         echo "\n";
 
         if (count($posts) >= 5) {
@@ -157,7 +156,7 @@ class WPBDP_CSVImportAdmin {
         if (strtolower(pathinfo($csvfile['name'], PATHINFO_EXTENSION)) != 'csv' &&
             $csvfile['type'] != 'text/csv') {
             $this->admin->messages[] = array(_x('The uploaded file does not look like a CSV file.', 'admin csv-import', 'WPBDM'), 'error');
-            return $this->import_settings();        
+            return $this->import_settings();
         }
 
         $formfields_api = wpbdp_formfields_api();
@@ -169,9 +168,12 @@ class WPBDP_CSVImportAdmin {
             $fields[$shortnames[$field->id]] = $field;
 
         $importer = new WPBDP_CSVImporter();
-        $importer->set_settings($_POST['settings']);
+        $importer->set_settings(array_merge($_POST['settings'], array('test-import' => isset($_POST['test-import']) ? true : false)));
         $importer->set_fields($fields);
         $importer->import($csvfile['tmp_name'], $zipfile['tmp_name']);
+
+        if ($importer->in_test_mode())
+            $this->admin->messages[] = array(_x('* Import is in test mode. Nothing was actually inserted into the database. *', 'admin csv-import', 'WPBDM'), 'error');
 
         if ($importer->rejected_rows)
             $this->admin->messages[] = _x('Import was completed but some rows were rejected.', 'admin csv-import', 'WPBDM');
@@ -239,7 +241,6 @@ class WPBDP_CSVImportAdmin {
         echo '</tbody>';
         echo '</table>';
 
-
         echo wpbdp_admin_footer();
     }
 
@@ -263,7 +264,9 @@ class WPBDP_CSVImporter {
         'create-missing-categories' => true,
 
         'assign-listings-to-user' => true,
-        'default-user' => '0'
+        'default-user' => '0',
+
+        'test-import' => false
     );
 
     private $fields = array();
@@ -291,6 +294,10 @@ class WPBDP_CSVImporter {
         $this->settings['create-missing-categories'] = (boolean) $this->settings['create-missing-categories'];
         $this->settings['assign-listings-to-user'] = (boolean) $this->settings['assign-listings-to-user'];
         $this->settings['default-user'] = intval($this->settings['default-user']);
+    }
+
+    public function in_test_mode() {
+        return $this->settings['test-import'] == true;
     }
 
     public function reset() {
@@ -321,6 +328,10 @@ class WPBDP_CSVImporter {
                 $this->rejected_rows[] = $row;
             }
         }
+
+        // delete $imagesdir
+        if ($this->imagesdir)
+            $this->remove_directory($this->imagesdir);
     }
 
     private function process_line($line) {
@@ -384,14 +395,18 @@ class WPBDP_CSVImporter {
         $listing_fields = array();
 
         foreach ($this->header as $i => $header_name) {
-            if ( ($header_name == 'image' || $header_name == 'images') && !empty($data[$i]) ) {
-                if (strpos($data[$i], $this->settings['images-separator']) !== false) {
-                    foreach (explode($this->settings['images-separator'], $data[$i]) as $image) {
-                        $listing_images[] = trim($image);
+            if ( ($header_name == 'image' || $header_name == 'images') ) {
+                if ( !empty($data[$i]) ) {
+                    if (strpos($data[$i], $this->settings['images-separator']) !== false) {
+                        foreach (explode($this->settings['images-separator'], $data[$i]) as $image) {
+                            $listing_images[] = trim($image);
+                        }
+                    } else {
+                        $listing_images[] = trim($data[$i]);
                     }
-                } else {
-                    $listing_images[] = trim($data[$i]);
                 }
+
+                continue;
             }
 
             if ($header_name == 'username') {
@@ -446,7 +461,9 @@ class WPBDP_CSVImporter {
                                   'size' => filesize($filepath)
                     );
 
+                    copy($filepath, $filepath . '.backup'); // make a file backup becase wp_handle_sideload() moves the original file and it may be needed for other listings
                     $wp_image = wp_handle_sideload($file, array('test_form' => FALSE));
+                    rename($filepath . '.backup', $filepath);
 
                     if (!isset($wp_image['error'])) {
                         if ($attachment_id = wp_insert_attachment(array(
@@ -477,6 +494,9 @@ class WPBDP_CSVImporter {
         }
 
         $listing['fields'] = $listing_fields;
+
+        if ($this->settings['test-import'])
+            return true;
         $listing_id = wpbdp_listings_api()->add_listing($listing);
 
         if ($this->settings['assign-listings-to-user']) {
@@ -490,6 +510,23 @@ class WPBDP_CSVImporter {
         }
 
         return $listing_id > 0;
+    }
+
+    private function remove_directory($dir) {
+        foreach (scandir($dir) as $file) {
+            if ($file == '.' || $file == '..')  continue;
+
+            if (is_dir($dir . $file)) {
+                $this->remove_directory($dir . $file);
+                rmdir($dir.  $file);
+            } else {
+                unlink($dir . $file);
+            }
+        }
+
+        rmdir($dir);
+
+        $this->imagesdir = null;
     }
 
  }

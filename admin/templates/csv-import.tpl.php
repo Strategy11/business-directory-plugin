@@ -117,7 +117,10 @@
             </tr>            
     </table>
 
-    <?php echo submit_button(_x('Import Listings', 'admin csv-import', 'WPBDM')); ?>
+    <p class="submit">
+        <?php echo submit_button(_x('Test Import', 'admin csv-import', 'WPBDM'), 'secondary', 'test-import', false); ?>
+        <?php echo submit_button(_x('Import Listings', 'admin csv-import', 'WPBDM'), 'primary', 'do-import', false); ?>
+    </p>
 </form>
 
 <a name="help"></a>
@@ -152,6 +155,20 @@ foreach (wpbdp_formfields_api()->getFields() as $field) $fields[$shortnames[$fie
             </td>
         </tr>
     <?php $i++; endforeach; ?>
+        <tr class="<?php echo count($fields) % 2 == 0 ? 'alt' : ''; ?>">
+            <td class="header-name">images</td>
+            <td class="field-label"><?php _ex('Semicolon separated list of listing images (from the ZIP file)', 'admin csv-import', 'WPBDM'); ?></td>
+            <td class="field-type">-</td>
+            <td class="field-is-required"></td>
+            <td class="field-is-multivalued">X</td>
+        </tr>
+        <tr class="<?php echo (count($fields) + 1) % 2 == 0 ? 'alt' : ''; ?>">
+            <td class="header-name">username</td>
+            <td class="field-label"><?php _ex('Listing author\'s username', 'admin csv-import', 'WPBDM'); ?></td>
+            <td class="field-type">-</td>
+            <td class="field-is-required"></td>
+            <td class="field-is-multivalued"></td>
+        </tr>            
     </tbody>
 </table>
 
