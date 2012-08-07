@@ -29,7 +29,7 @@ class WPBDP_FeesAPI {
     public function get_fees_for_category($catid) {
         $fees = array();
 
-        if (wpbdp_payments_api()->payments_possible() || is_admin()) {
+        if (wpbdp_payments_api()->payments_possible()) {
             $parent_categories = wpbdp_get_parent_categories($catid);
             array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
 
@@ -47,7 +47,7 @@ class WPBDP_FeesAPI {
             }
         }
 
-        if (!$fees || is_admin())
+        if (!$fees)
             $fees[] = $this->get_free_fee();
 
         return $fees;

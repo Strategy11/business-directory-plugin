@@ -1,6 +1,22 @@
 <div id="listing-metabox-fees">
 	<strong><?php _ex('Fee Information', 'admin infometabox', 'WPBDM'); ?></strong>
 
+	<?php _ex('Payment Mode:', 'admin infometabox', 'WPBDM'); ?> <?php echo wpbdp_payments_api()->payments_possible() ? _x('Paid', 'admin infometabox', 'WPBDM') : _x('Free', 'admin infometabox', 'WPBDM'); ?><br />
+	<?php
+		echo sprintf(_x('To change your payment mode, go to <a href="%s">Payment Settings</a>.', 'admin infometabox', 'WPBDM'), 
+			 admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment')  );
+	?>
+
+	<?php if (!wpbdp_payments_api()->payments_possible()): ?>
+	<p><i><?php _ex('Note: In Free mode, the fee plans will always be set to "Free Listing" below.', 'admin infometabox', 'WPBDM'); ?></i></p>
+	<?php endif; ?>
+
+<?php
+/*ayment Mode:  Free/Paid (Put the one that applies)
+To change you payment mode, go to your <link to="payment settings">Payment Settings</link>.
+<italic>Note:  In Free mode, the fee plans will always be set to "Free Listing" below.</italic>	*/
+?>
+
 	<dl>
 		<?php foreach ($post_categories as $term): ?>
 		<dt class="category-name"><?php echo $term->name; ?></dt>
