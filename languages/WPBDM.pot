@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2012-08-07 14:29:07+00:00\n"
+"POT-Creation-Date: 2012-08-08 22:16:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -512,46 +512,46 @@ msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:128
+#: admin/templates/csv-import.tpl.php:129
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
 "Multivalued fields (such as category or tags) can appear multiple times in "
-"the file. Click \"See an example CSV import file\" to see how an import file "
-"should look like."
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:139
-msgctxt "admin csv-import"
-msgid "Header name/label"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:140
-msgctxt "admin csv-import"
-msgid "Field"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:141
-msgctxt "admin csv-import"
-msgid "Type"
+"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
+"how an import file should look like."
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:142
 msgctxt "admin csv-import"
-msgid "Required?"
+msgid "Header name/label"
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:143
 msgctxt "admin csv-import"
+msgid "Field"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:144
+msgctxt "admin csv-import"
+msgid "Type"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:145
+msgctxt "admin csv-import"
+msgid "Required?"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:146
+msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:160
+#: admin/templates/csv-import.tpl.php:163
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:167
+#: admin/templates/csv-import.tpl.php:170
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr ""
@@ -858,69 +858,96 @@ msgctxt "admin infometabox"
 msgid "Fee Information"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:10
+#: admin/templates/infometabox-fees.tpl.php:4
+msgctxt "admin infometabox"
+msgid "Payment Mode:"
+msgstr ""
+
+#: admin/templates/infometabox-fees.tpl.php:4
+msgctxt "admin infometabox"
+msgid "Paid"
+msgstr ""
+
+#: admin/templates/infometabox-fees.tpl.php:4
+msgctxt "admin infometabox"
+msgid "Free"
+msgstr ""
+
+#: admin/templates/infometabox-fees.tpl.php:6
+msgctxt "admin infometabox"
+msgid "To change your payment mode, go to <a href=\"%s\">Payment Settings</a>."
+msgstr ""
+
+#: admin/templates/infometabox-fees.tpl.php:11
+msgctxt "admin infometabox"
+msgid ""
+"Note: In Free mode, the fee plans will always be set to \"Free Listing\" "
+"below."
+msgstr ""
+
+#: admin/templates/infometabox-fees.tpl.php:26
 msgctxt "admin infometabox"
 msgid "Fee"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:12
+#: admin/templates/infometabox-fees.tpl.php:28
 msgctxt "admin infometabox"
 msgid "# Images"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:16
+#: admin/templates/infometabox-fees.tpl.php:32
 msgctxt "admin infometabox"
 msgid "Expired on"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:18
+#: admin/templates/infometabox-fees.tpl.php:34
 msgctxt "admin infometabox"
 msgid "Expires on"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:25
+#: admin/templates/infometabox-fees.tpl.php:41
 msgctxt "admin infometabox"
 msgid "never"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:30
+#: admin/templates/infometabox-fees.tpl.php:46
 msgctxt "admin infometabox"
 msgid "No fee assigned."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:33
+#: admin/templates/infometabox-fees.tpl.php:49
 msgctxt "admin infometabox"
 msgid "Change fee."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:33
+#: admin/templates/infometabox-fees.tpl.php:49
 msgctxt "admin infometabox"
 msgid "Assign one."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:37
+#: admin/templates/infometabox-fees.tpl.php:53
 msgctxt "admin infometabox"
 msgid "close"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:43
+#: admin/templates/infometabox-fees.tpl.php:59
 msgctxt "admin infometabox"
 msgid "Use this"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:47
+#: admin/templates/infometabox-fees.tpl.php:63
 msgctxt "admin infometabox"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/templates/infometabox-fees.tpl.php:49
+#: admin/templates/infometabox-fees.tpl.php:65
 msgctxt "admin infometabox"
 msgid "Unlimited listing days"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:51
+#: admin/templates/infometabox-fees.tpl.php:67
 msgctxt "admin infometabox"
 msgid "%d day"
 msgid_plural "%d days"
@@ -1150,238 +1177,238 @@ msgctxt "admin"
 msgid "Delete Image"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:224 admin/wpbdp-admin.class.php:225
-#: admin/wpbdp-admin.class.php:272
+#: admin/wpbdp-admin.class.php:227 admin/wpbdp-admin.class.php:228
+#: admin/wpbdp-admin.class.php:275
 msgctxt "admin"
 msgid "Upload Image"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:274
+#: admin/wpbdp-admin.class.php:277
 msgctxt "admin"
 msgid "Upload"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:329
+#: admin/wpbdp-admin.class.php:332
 msgctxt "admin"
 msgid "General Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:330
+#: admin/wpbdp-admin.class.php:333
 msgctxt "admin"
 msgid "Fee Details"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:331
+#: admin/wpbdp-admin.class.php:334
 msgctxt "admin"
 msgid "Transactions"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:335
+#: admin/wpbdp-admin.class.php:338
 msgctxt "admin infometabox"
 msgid "General Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:337
+#: admin/wpbdp-admin.class.php:340
 msgctxt "admin infometabox"
 msgid "Total Listing Cost"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:339
+#: admin/wpbdp-admin.class.php:342
 msgctxt "admin infometabox"
 msgid "Payment Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:343
+#: admin/wpbdp-admin.class.php:346
 msgctxt "admin infometabox"
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:350
+#: admin/wpbdp-admin.class.php:353
 msgctxt "admin metabox"
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:352
+#: admin/wpbdp-admin.class.php:355
 msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:354
+#: admin/wpbdp-admin.class.php:357
 msgctxt "admin metabox"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:361
+#: admin/wpbdp-admin.class.php:364
 msgctxt "admin metabox"
 msgid "Downgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:366
+#: admin/wpbdp-admin.class.php:369
 msgid "Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:374
+#: admin/wpbdp-admin.class.php:377
 msgctxt "admin infometabox"
 msgid "Mark listing as Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:378
+#: admin/wpbdp-admin.class.php:381
 msgctxt "admin infometabox"
 msgid "Mark listing as Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:440
+#: admin/wpbdp-admin.class.php:443
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:442
+#: admin/wpbdp-admin.class.php:445
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:443
+#: admin/wpbdp-admin.class.php:446
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:445
+#: admin/wpbdp-admin.class.php:448
 msgctxt "admin actions"
 msgid "Set Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:446
+#: admin/wpbdp-admin.class.php:449
 msgctxt "admin actions"
 msgid "Set Not Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:484
+#: admin/wpbdp-admin.class.php:487
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:496
+#: admin/wpbdp-admin.class.php:499
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:508
+#: admin/wpbdp-admin.class.php:511
 msgctxt "admin"
 msgid "The listing status has been set as \"not paid\"."
 msgid_plural "The listings status has been set as \"not paid\"."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:520
+#: admin/wpbdp-admin.class.php:523
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:532
+#: admin/wpbdp-admin.class.php:535
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:546
+#: admin/wpbdp-admin.class.php:549
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:556
+#: admin/wpbdp-admin.class.php:559
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:561
+#: admin/wpbdp-admin.class.php:564
 msgctxt "admin"
 msgid "The fee was sucessfully assigned."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:597 admin/wpbdp-admin.class.php:660
+#: admin/wpbdp-admin.class.php:600 admin/wpbdp-admin.class.php:663
 msgid "Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:602
+#: admin/wpbdp-admin.class.php:605
 msgid "Unpaid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:607 admin/wpbdp-admin.class.php:684
+#: admin/wpbdp-admin.class.php:610 admin/wpbdp-admin.class.php:687
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:614
+#: admin/wpbdp-admin.class.php:617
 msgctxt "admin"
 msgid "Listing Count"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:626
+#: admin/wpbdp-admin.class.php:629
 msgid "Payment Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:627
+#: admin/wpbdp-admin.class.php:630
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:664
+#: admin/wpbdp-admin.class.php:667
 msgid "Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:669
+#: admin/wpbdp-admin.class.php:672
 msgid "Set as"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:682
+#: admin/wpbdp-admin.class.php:685
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:686
+#: admin/wpbdp-admin.class.php:689
 msgctxt "admin list"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:698
+#: admin/wpbdp-admin.class.php:701
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:702
+#: admin/wpbdp-admin.class.php:705
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:774
+#: admin/wpbdp-admin.class.php:777
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
 "associations in order to work correctly: <b>%s</b>."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:776
+#: admin/wpbdp-admin.class.php:779
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
 "association in order to work correctly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:779
+#: admin/wpbdp-admin.class.php:782
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
 "or let Business Directory do this for you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:783
+#: admin/wpbdp-admin.class.php:786
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:786
+#: admin/wpbdp-admin.class.php:789
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
@@ -1918,7 +1945,7 @@ msgstr ""
 #: templates/listing-form-done.tpl.php:4
 #: templates/listing-form-fees.tpl.php:12
 #: templates/listing-form-fields.tpl.php:6
-#: templates/listing-form-images.tpl.php:14
+#: templates/listing-form-images.tpl.php:13
 #: templates/renewlisting-fees.tpl.php:5
 msgctxt "templates"
 msgid "Submit A Listing"
@@ -1928,7 +1955,7 @@ msgstr ""
 #: templates/listing-form-done.tpl.php:4
 #: templates/listing-form-fees.tpl.php:12
 #: templates/listing-form-fields.tpl.php:6
-#: templates/listing-form-images.tpl.php:14
+#: templates/listing-form-images.tpl.php:13
 #: templates/renewlisting-fees.tpl.php:5
 msgctxt "templates"
 msgid "Edit Your Listing"
@@ -1939,9 +1966,19 @@ msgctxt "templates"
 msgid "Submission received"
 msgstr ""
 
-#: templates/listing-form-done.tpl.php:8
+#: templates/listing-form-done.tpl.php:10
 msgctxt "templates"
-msgid "Your submission has been received."
+msgid "Your listing changes were saved."
+msgstr ""
+
+#: templates/listing-form-done.tpl.php:12
+msgctxt "templates"
+msgid "Return to listing."
+msgstr ""
+
+#: templates/listing-form-done.tpl.php:17
+msgctxt "templates"
+msgid "Your listing has been submitted."
 msgstr ""
 
 #: templates/listing-form-fees.tpl.php:15
@@ -1999,22 +2036,22 @@ msgctxt "templates"
 msgid "Continue"
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:17
+#: templates/listing-form-images.tpl.php:16
 msgctxt "templates"
 msgid "Step 3 - Listing Images"
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:28
+#: templates/listing-form-images.tpl.php:27
 msgctxt "templates"
 msgid "Delete Image"
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:32
+#: templates/listing-form-images.tpl.php:31
 msgctxt "templates"
 msgid "Set this image as the listing thumbnail."
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:40
+#: templates/listing-form-images.tpl.php:39
 msgctxt "templates"
 msgid ""
 "If you would like to include an image with your listing please upload the "
@@ -2022,31 +2059,31 @@ msgid ""
 "still available."
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:45
+#: templates/listing-form-images.tpl.php:44
 msgctxt "templates"
 msgid "Upload Image"
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:48
+#: templates/listing-form-images.tpl.php:47
 msgctxt "templates"
 msgid ""
 "If you prefer not to add an image click \"Finish\". Your listing will be "
 "submitted."
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:50
+#: templates/listing-form-images.tpl.php:49
 msgctxt "templates"
 msgid ""
 "Your image slots are all full at this time.  You may click Finish if you are "
 "done, or Delete Image to reupload a new image in place of a new one."
 msgstr ""
 
-#: templates/listing-form-images.tpl.php:53
+#: templates/listing-form-images.tpl.php:52
 msgctxt "templates"
 msgid "Finish"
 msgstr ""
 
-#: templates/listing-upgradetosticky.tpl.php:1 views.php:729
+#: templates/listing-upgradetosticky.tpl.php:1 views.php:730
 msgctxt "templates"
 msgid "Upgrade listing"
 msgstr ""
@@ -2068,24 +2105,30 @@ msgctxt "templates"
 msgid "You do not currently have any listings in the directory."
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:6
-#: templates/parts/listing-buttons.tpl.php:30
+#: templates/parts/listing-buttons.tpl.php:5
+#: templates/parts/listing-buttons.tpl.php:8
+#: templates/parts/listing-buttons.tpl.php:41
+#: templates/parts/listing-buttons.tpl.php:44
 msgctxt "templates"
 msgid "Edit"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:12
+#: templates/parts/listing-buttons.tpl.php:14
+#: templates/parts/listing-buttons.tpl.php:17
 msgctxt "templates"
 msgid "Upgrade Listing"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:18
-#: templates/parts/listing-buttons.tpl.php:36
+#: templates/parts/listing-buttons.tpl.php:23
+#: templates/parts/listing-buttons.tpl.php:26
+#: templates/parts/listing-buttons.tpl.php:50
+#: templates/parts/listing-buttons.tpl.php:53
 msgctxt "templates"
 msgid "Delete"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:24
+#: templates/parts/listing-buttons.tpl.php:31
+#: templates/parts/listing-buttons.tpl.php:35
 msgctxt "templates"
 msgid "View"
 msgstr ""
@@ -2113,7 +2156,7 @@ msgctxt "templates"
 msgid "We can not process your payment at this moment. Please try again later."
 msgstr ""
 
-#: templates/renewlisting-fees.tpl.php:16 views.php:792
+#: templates/renewlisting-fees.tpl.php:16 views.php:793
 msgctxt "templates"
 msgid "Renew Listing"
 msgstr ""
@@ -2178,26 +2221,31 @@ msgctxt "contact-message"
 msgid "The reCAPTCHA wasn't entered correctly: %s"
 msgstr ""
 
-#: views.php:222
+#: views.php:221
+msgctxt "contact email"
+msgid "Contact via \"%s\""
+msgstr ""
+
+#: views.php:223
 msgid "l F j, Y \\a\\t g:i a"
 msgstr ""
 
-#: views.php:236
+#: views.php:237
 msgctxt "contact-message"
 msgid "Your message has been sent"
 msgstr ""
 
-#: views.php:238
+#: views.php:239
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr ""
 
-#: views.php:241
+#: views.php:242
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr ""
 
-#: views.php:258
+#: views.php:259
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -2207,12 +2255,12 @@ msgid ""
 "categories to the business directory."
 msgstr ""
 
-#: views.php:260
+#: views.php:261
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr ""
 
-#: views.php:290
+#: views.php:291
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -2222,82 +2270,82 @@ msgid ""
 "to the business directory."
 msgstr ""
 
-#: views.php:292
+#: views.php:293
 msgctxt "templates"
 msgid "Your listing cannot be added at this time. Please try again later."
 msgstr ""
 
-#: views.php:319
+#: views.php:320
 msgctxt "templates"
 msgid "You are not authorized to edit this listing."
 msgstr ""
 
-#: views.php:322
+#: views.php:323
 msgctxt "templates"
 msgid "You can not edit your listing until its payment has been cleared."
 msgstr ""
 
-#: views.php:436 views.php:493
+#: views.php:437 views.php:494
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr ""
 
-#: views.php:631
+#: views.php:632
 msgctxt "templates"
 msgid "Step 4 - Checkout"
 msgstr ""
 
-#: views.php:633
+#: views.php:634
 msgctxt "templates"
 msgid "Pay %1$s listing fee via %2$s"
 msgstr ""
 
-#: views.php:659
+#: views.php:660
 msgctxt "templates"
 msgid "An error occurred while saving your listing. Please try again later."
 msgstr ""
 
-#: views.php:696
+#: views.php:697
 msgctxt "templates"
 msgid "The listing has been deleted."
 msgstr ""
 
-#: views.php:714
+#: views.php:715
 msgctxt "templates"
 msgid "You can not upgrade your listing until its payment has been cleared."
 msgstr ""
 
-#: views.php:731
+#: views.php:732
 msgctxt "templates"
 msgid "Pay %s upgrade fee via %s"
 msgstr ""
 
-#: views.php:739 views.php:754
+#: views.php:740 views.php:755
 msgctxt "templates"
 msgid "Your listing is already featured."
 msgstr ""
 
-#: views.php:741
+#: views.php:742
 msgctxt "templates"
 msgid "Your listing is already pending approval for \"featured\" status."
 msgstr ""
 
-#: views.php:793
+#: views.php:794
 msgctxt "templates"
 msgid "Pay %1$s renewal fee via %2$s."
 msgstr ""
 
-#: views.php:820
+#: views.php:821
 msgctxt "templates"
 msgid "Listing Upgrade Payment Status"
 msgstr ""
 
-#: views.php:822
+#: views.php:823
 msgctxt "templates"
 msgid "Listing Submitted"
 msgstr ""
 
-#: views.php:824
+#: views.php:825
 msgctxt "templates"
 msgid "Listing Payment Confirmation"
 msgstr ""
