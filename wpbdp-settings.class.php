@@ -487,6 +487,9 @@ class WPBDP_Settings {
                 } elseif ($id == 'wpbusdirman_settings_config_43') {
                     $this->set('2checkout', $value == 'yes' ? false : true);
                 } else {
+                    if (!isset($this->settings[$translations[$id]]))
+                        continue;
+
                     $newsetting = $this->settings[$translations[$id]];
 
                     switch ($newsetting->type) {

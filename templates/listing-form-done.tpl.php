@@ -5,6 +5,16 @@
 	</h2>
 
 	<h3 style="padding: 10px;"><?php _ex('Submission received', 'templates', 'WPBDM'); ?></h3>
-	<p><?php _ex('Your submission has been received.', 'templates', 'WPBDM'); ?></p>
+    <?php if (isset($_GET['action']) && $_GET['action'] == 'editlisting'): ?>
+        <p>
+            <?php _ex('Your listing changes were saved.', 'templates', 'WPBDM'); ?><br />
+            <?php if ($listing->post_status == 'publish'): ?>
+            <a href="<?php echo get_permalink($listing->ID); ?>"><?php _ex('Return to listing.', 'templates', 'WPBDM'); ?></a>
+            <?php endif; ?>            
+        </p>
+
+    <?php else: ?>
+	   <p><?php _ex('Your listing has been submitted.', 'templates', 'WPBDM'); ?></p>
+    <?php endif; ?>
 
 </div>

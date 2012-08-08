@@ -1,7 +1,6 @@
 <script type="text/javascript">
 function wpbdp_listingform_delete_image(id) {
 	var form = document.getElementById('wpbdp-listing-form-images');
-	console.log(form);
 	form.delete_image.value = id;
 	form.submit();
 	return false;
@@ -24,8 +23,8 @@ function wpbdp_listingform_delete_image(id) {
 
 		<?php foreach ($images as $image_id): ?>
 			<div class="image">
-				<img src="<?php echo wp_get_attachment_thumb_url($image_id); ?>" />
-				<a href="#" onclick="return wpbdp_listingform_delete_image('<?php echo $image_id; ?>');" class="delete-link"><?php _ex('Delete Image', 'templates', 'WPBDM'); ?></a> <br />
+				<img src="<?php echo wp_get_attachment_thumb_url($image_id); ?>" /><br />
+				<input type="button" onclick="return wpbdp_listingform_delete_image('<?php echo $image_id; ?>');" class="delete-image" value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>" /> <br />
 
 				<label>
 					<input type="radio" name="thumbnail_id" value="<?php echo $image_id; ?>" <?php echo (count($images) == 1 || $thumbnail_id == $image_id) ? 'checked="checked"' : ''; ?> />
