@@ -6,7 +6,7 @@ if(!isset($excludebuttons))
 	<div id="lco">
 	<div class="title"><?php print(wpbusdirman_post_menu_button_submitlisting());?>
 	<?php print(wpbusdirman_post_menu_button_directory());?></div>
-	<div class="button" style="margin:0;padding:0;"></div>
+	<div class="buttonform" style="margin:0;padding:0;"></div>
 <div style="clear:both;"></div></div>
 
 <?php }

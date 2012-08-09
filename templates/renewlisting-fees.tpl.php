@@ -4,7 +4,7 @@
 		<div class="title">
 			<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
 		</div>
-		<div class="button">
+		<div class="buttonform">
 			<?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
 			<?php echo wpbusdirman_post_menu_button_directory(); ?>
 		</div>

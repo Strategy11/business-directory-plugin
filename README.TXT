@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
 Tested up to: 3.4.1
-Last Updated: 2012-July-2
-Stable tag: tags/2.0.5
+Last Updated: 2012-August-9
+Stable tag: tags/2.1
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
@@ -26,11 +26,13 @@ Business Directory Plugin allows you to build local directories, business provid
 
 For a full list of features, please visit:  http://businessdirectoryplugin.com/features
  
-Please report any bugs you find via http://businessdirectoryplugin.com/forums  
+Please report any bugs you find via http://businessdirectoryplugin.com/support-forum  
 
 = Premium Module Links: =
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
+
+NEW! [Google Maps Module](http://businessdirectoryplugin.com/premium-modules/google-maps-module?ref=wp)
 
 [PayPal Gateway Module](http://businessdirectoryplugin.com/premium-modules/paypal-module?ref=wp)
 
@@ -71,19 +73,14 @@ Backup your WordPress database and files before you install or update. If you ar
 
 2.  Activate the plugin
 
-3.	Create a new WordPress Page for your business directory. You can name the page whatever you want. Insert the following code into the page [WPBUSDIRMANUI]. The plugin needs this code to work.
+3.	Create a new WordPress Page for your business directory. You can name the page whatever you want. Insert ONE of the following codes into the page [WPBUSDIRMANUI] or [businessdirectory]. The plugin needs this code to work.
 
-4.  Create another page for your google checkout processor. Again you can name it anything you want. It must be created as a child page under your the business directory page you created in step 3. Insert [WPBUSDIRMANGOOGLECHECKOUT] as the page content. (Include the brackets) 
+4.  You should see a menu tab with the name Directory Admin in your admin dashboard sidebar. You need to click the tab to access "Manage Options", "Manage Fees" and "Manage Form Fields" and other options. 
 
-5. 	If you want to include a "Submit Listings" page, create a child page under the parent page you've created. Name the page whatever you want. Insert the following code into the page [WPBUSDIRMANADDLISTING]. The "Submit Listings" page needs this code to work.
+5. 	You will also see a new dashboard menu tab named "Directory". This tab is where you manage your listings. It works very much the same as the "Posts" tab. Your directory listings are saved as a custom post type. You create your directory categories by going to Directory->Categories and adding the directory categories there. 
 
-6. 	If you want to include a "Manage Listings" page, create a second child page under the parent page you've created. Name the second child page whatever you want. Insert the following code into the page [WPBUSDIRMANMANAGELISTING]. The "Manage Listings" page needs this code to work.
+6.  You can access your directory on your site by visiting http://[your-site-url]/[page-slug-from step-3].  For example, if you created a page called "Business Listings", that would have a slug of business-listings and the URL would be http://site.com/business-listings.
 
-7.	You can also include a "View Listings" page by creating another child page under the directory parent page and adding the shortcode [WPBUSDIRMANMVIEWLISTINGS]
-
-8.  You should see a menu tab with the name Directory Admin in your admin dashboard sidebar. You need to click the tab to access "Manage Options", "Manage Fees" and "Manage Form Fields" and other options. 
-
-9. 	You will also see a new dashboard menu tab named "Directory". This tab is where you manage your listings. It works very much the same as the "Posts" tab. Your directory listings are saved as a custom post type. You create your directory categories by going to Directory->Categories and adding the directory categories there. 
 
 Manage Form Fields allows you to change the form to suit your needs. You can edit the existing fields and add new fields
 
@@ -95,7 +92,7 @@ Some users might have display issues due to incompatibility with the plugin and 
 
 Once you have configured your options, adjusted your form fields to suit your needs, and setup your fees if you are charging fees for adding listings, your directory should now be ready and working. 
 
-If you are having problems please visit http://www.businessdirectoryplugin.com/forums/ for help.
+If you are having problems please visit http://www.businessdirectoryplugin.com/support-forum/ for help.
 
 
 == Screenshots ==
@@ -104,6 +101,51 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/f
 
 
 == Changelog ==
+
+Version 2.1
+
+   1. Added support for CSV import, including images in ads
+   
+   2. Added support for custom CSS extensions via CSS files outside of BD
+   
+   3. Added new shortcode names (easier to remember).  Old shortcodes still supported.
+   
+   4. Added support for parameters on WPBUSDIRMANMVIEWLISTINGS/businessdirectory-viewlistings to allow for single category display on a page.
+   
+   5. Upgraded search to have "Advanced Search" link now, all fields are searchable.
+   
+   6. Streamlined the submit process for Free ads (no longer asks for payment)
+   
+   7. Website URL opens in new window (new field option for URLValidated fields)
+   
+   8. New widgets:  Featured Listings, Latest Listings, Random Listings
+   
+   9. HTML emails:  Email sent in HTML format instead of text now
+   
+   10. Preview Form is back.
+   
+   11. Google Maps now recognized on Premium Modules panel as installed/not installed
+   
+   12. MASSIVE upgrade to theming/theme integration, much easier to get BD going now.  Still have override templates, but fewer than before.
+   
+   13. Page based navigation--allows for tighter theme integration and easier upgrades.  Requires the use of permalinks for pretty URLs
+   
+   14. Fixed problem with URL validator not working right.
+   
+   15. Fixed problem with IE9 and button display
+   
+   16. Fixed ad pagination problem.
+   
+   17. Fixed problem with ad expiration validation (where 9999 caused weird 404 errors)
+   
+   18. Category list call from API now working again.
+   
+   19. Subcategory display problem in admin panel fixed.
+   
+   20. Users must select a category when creating a fee plan
+   
+   21. Fixed bug with Manage Form Fields button on Main Menu (permission issue)
+   
 
 Version 2.0.5
 
@@ -435,6 +477,8 @@ Bug related to "Manage Fees" has been fixed. This bug resulted in admin being to
 
 == Usage Doc ==
 
+For complete documentation on the plugin, please visit the [BD Documentation Site](http://businessdirectoryplugin.com/docs)
+
 1. Setting up your categories
 
 Go to your Dashboard and look for the "Directory" menu box. Listed under the Directory menu box are the links "Add New", "Categories" and "Tags". Click the "Categories" link and add your categories just the same way you would normally add categories under Posts->Categories.
@@ -453,12 +497,12 @@ You can filter the function the way you would normally filter wp_list_categories
 
 4. Adding a latest posts widget
 
-To add a latest listings widget to your sidebar use the function <?php wpbusdirman_latest_listings(10);?>
-The 10 in the example is the number of listing headlines you want to show. This function will change once WordPress gets around to allowing you to use the the standard wp_get_archives function to show latest posts from custom post types.
-
+NEW:  BD now comes with 3 standard widgets--Latest Listings, Random Listings and Featured Listings.  Place in any
+widget-ready theme.
 
 == Frequently Asked Questions ==
 
+For the definitive FAQ section, please vist the [FAQ Section of the Forum](http://businessdirectoryplugin.com/support-forum/faq)
 
 1. How do I setup my categories?
 You setup your categories under the "Directory" menu tab that will appear in the dashboard menu when you install the plugin. Under the Directory menu tab there is a link "Categories". You click this and add your categories the same way you do with your normal WordPress blog.

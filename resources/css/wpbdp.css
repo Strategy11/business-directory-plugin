@@ -106,15 +106,16 @@ form#wpbdmsearchform a.advanced-search-link {
 }*/
 
 .wpbdp-listing .listing-details .field-value {
-    margin-bottom: 3px;
+    margin-bottom: 10px;
 }
 
-.wpbdp-listing .listing-details .field-value label {
+.wpbdmsingledetails .singledetailsview .field-value {
+    margin-bottom: 10px;
+}
+
+.field-value label {
     color: #444;
-}
-
-.wpbdp-listing .listing-details .field-value span.value {
-    color: #000;
+    font-weight: bold;
 }
 
 /* listing view > excerpt */

@@ -1,6 +1,6 @@
 <div id="wpbdmentry">
 	<div id="lco">
-		<div class="left buttons">
+		<div class="left buttonform">
 			<?php echo wpbusdirman_post_menu_button_submitlisting() ;?>
 			<?php echo wpbusdirman_post_menu_button_viewlistings() ;?>
 		</div>

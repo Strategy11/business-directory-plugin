@@ -8,7 +8,7 @@
 
 <div id="lco">
 <div class="title"><?php printf( __( 'Search Results for: %s', 'WPBDM' ), '<span>' . get_search_query() . '</span>' ); ?></div>
-<div class="button"><?php print(wpbusdirman_post_menu_buttons());?></div>
+<div class="buttonform"><?php print(wpbusdirman_post_menu_buttons());?></div>
 <div style="clear:both;"></div>
 </div>
 

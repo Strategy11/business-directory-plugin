@@ -133,12 +133,12 @@ textarea  { margin-bottom:15px; }
 	-webkit-box-shadow: 0 5px 5px #dddddd;background:#f7f7f7; margin:10px 0;}
 #lco .title { width:50%;float:left;padding:10px;font-weight:bold;font-size:22px;margin-top:5px;}
 #lco .title h1 { border:0;margin:0;}
-#lco .button { float:left;width:40%;padding:10px;}
-#lco .button input { }
+#lco .buttonform { float:left;width:40%;padding:10px;}
+#lco .buttonform input { }
 #lco .title input {  }
 #lco .title .submitlistingbutton { margin-right:10px; }
-#lco .button .viewlistingsbutton { margin-right:10px;}
-#lco .button .submitlistingbutton { margin-right:10px;}
+#lco .buttonform .viewlistingsbutton { margin-right:10px;}
+#lco .buttonform .submitlistingbutton { margin-right:10px;}
 
 #wpbdmentry .fixpadding { width:98%;}
 
