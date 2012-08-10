@@ -325,7 +325,7 @@ class WPBDP_Plugin {
             exit;
         }
 
-        if ( (get_query_var('post_type') == self::POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
+        if ( is_single() && (get_query_var('post_type') == self::POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
             wp_redirect( add_query_arg('listing', get_query_var('name'), wpbdp_get_page_link('main')) ); // XXX
             exit;
         }
@@ -858,4 +858,4 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();

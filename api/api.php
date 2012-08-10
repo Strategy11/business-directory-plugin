@@ -32,11 +32,11 @@ function wpbdp_get_page_id($name='main') {
     global $wpdb;
 
     static $shortcodes = array(
-        'main' => 'WPBUSDIRMANUI',
-        'showlisting' => 'WPBUSDIRMANUI',
-        'add-listing' => 'WPBUSDIRMANADDLISTING',
-        'manage-listings' => 'WPBUSDIRMANMANAGELISTING',
-        'view-listings' => 'WPBUSDIRMANMVIEWLISTINGS',
+        'main' => array('businessdirectory', 'WPBUSDIRMANUI'),
+        'showlisting' => array('businessdirectory', 'WPBUSDIRMANUI'),
+        'add-listing' => array('businessdirectory-submitlisting', 'WPBUSDIRMANADDLISTING'),
+        'manage-listings' => array('businessdirectory-managelistings', 'WPBUSDIRMANMANAGELISTING'),
+        'view-listings' => array('businessdirectory-viewlistings', 'businessdirectory-listings', 'WPBUSDIRMANMVIEWLISTINGS'),
         'paypal' => 'WPBUSDIRMANPAYPAL',
         '2checkout' => 'WPBUSDIRMANTWOCHECKOUT',
         'googlecheckout' => 'WPBUSDIRMANGOOGLECHECKOUT'
@@ -45,7 +45,14 @@ function wpbdp_get_page_id($name='main') {
     if (!array_key_exists($name, $shortcodes))
         return null;
 
-    return $wpdb->get_var(sprintf("SELECT ID FROM {$wpdb->posts} WHERE post_content LIKE '%%[%s]%%' AND post_status = 'publish' AND post_type = 'page'", $shortcodes[$name]));
+    $where = '1=0';
+    $options = is_string($shortcodes[$name]) ? array($shortcodes[$name]) : $shortcodes[$name];
+    foreach ($options as $shortcode) {
+        $where .= sprintf(" OR post_content LIKE '%%[%s]%%'", $shortcode);
+    }
+
+    $id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE {$where} AND post_status = 'publish' AND post_type = 'page' LIMIT 1");
+    return $id;
 }
 
 function wpbdp_get_page_link($name='main', $arg0=null) {
@@ -67,6 +74,8 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
 
     if ($name == 'add-listing')
         return add_query_arg('action', 'submitlisting', get_permalink($main_page_id));
+
+    return get_permalink($main_page_id);
 }
 
 /* Admin API */
