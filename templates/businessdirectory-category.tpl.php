@@ -1,42 +1,32 @@
 <?php get_header(); ?>
-
 <div id="content">
 
-<div id="wpbdmentry">
-	<div class="fixpadding">
+<div id="wpbdp-category-page" class="wpbdp-category-page businessdirectory-category businessdirectory wpbdp-page">
+    <div class="wpbdp-bar cf">
+        <?php wpbdp_the_main_links(); ?>
+        <?php wpbdp_the_search_form(); ?>
+    </div>
 
-		<div id="lco">
-			<div class="title"><?php print(wpbusdirman_post_catpage_title());?></div>
-			<div class="buttonform"><?php print(wpbusdirman_post_menu_buttons());?></div>
-			<div style="clear:both;"></div>
-		</div>
+    <h2 class="category-name"><?php echo wpbusdirman_post_catpage_title(); ?></h2>    
 
-		<?php wpbusdirman_sticky_loop(); ?>
+    <?php wpbusdirman_sticky_loop(); ?>
 
-		<?php if (!have_posts()): ?>
-			<?php _ex("No listings found in category.", 'templates', "WPBDM"); ?>		
-		<?php endif; ?>
-
-		<?php if (have_posts()): ?>
+    <?php if (!have_posts()): ?>
+        <?php _ex("No listings found in category.", 'templates', "WPBDM"); ?>
+    <?php else: ?>
+        <div class="listings">
+            
 			<?php while(have_posts()): the_post(); ?>
 				<?php wpbdp_the_listing_excerpt(); ?>
 			<?php endwhile; ?>
 
-			<div class="navigation">
-				<?php if (function_exists('wp_pagenavi')): ?>
-					<?php wp_pagenavi(null); ?>
-				<?php elseif (function_exists('wp_paginate')): ?>
-					<?php wp_paginate(); ?>
-				<?php else: ?>
-					<div class="alignleft"><?php next_posts_link(_x('&laquo; Older Entries', 'templates', 'WPBDM')); ?></div>
-					<div class="alignright"><?php previous_posts_link(_x('Newer Entries &raquo;', 'templates', 'WPBDM')); ?></div>
-				<?php endif; ?>
-			</div>
-		<?php endif; ?>
-
-	</div>
+            <div class="wpbdp-pagination">
+                <span class="prev"><?php next_posts_link(_x('&laquo; Older Entries', 'templates', 'WPBDM')); ?></span>
+                <span class="next"><?php previous_posts_link(_x('Newer Entries &raquo;', 'templates', 'WPBDM')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>
 
 </div>
-
 <?php get_footer(); ?>

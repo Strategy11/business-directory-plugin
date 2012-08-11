@@ -59,6 +59,9 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
     $main_page_id = wpbdp_get_page_id('main');
     $page_id = wpbdp_get_page_id($name);
 
+    // wpbdp_debug_e(get_option('page_on_front'), $page_id);
+    // wpbdp_debug_e($main_page_id);
+
     if ($page_id)
         return get_permalink($page_id);
 

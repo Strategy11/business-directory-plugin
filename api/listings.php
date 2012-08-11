@@ -10,6 +10,10 @@ class WPBDP_ListingsAPI {
     }
 
     public function _category_link($link, $category, $taxonomy) {
+        // workaround WP issue #16373
+        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
+            return $link;
+
         if ( ($taxonomy == wpbdp_categories_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
             if (wpbdp_rewrite_on()) {
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . $category->slug . '/';
@@ -23,6 +27,10 @@ class WPBDP_ListingsAPI {
 
     public function _post_link($url, $post) {
         if (is_admin())
+            return $url;
+
+        // workaround WP issue #16373
+        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
             return $url;
         
         if ( ($post->post_type == wpbdp_post_type()) && (_wpbdp_template_mode('single') == 'page') ) {

@@ -309,16 +309,25 @@ class WPBDP_Plugin {
     }
 
     public function _query_vars($vars) {
+        // workaround WP issue #16373
+        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
+            return $vars;
+
         array_push($vars, 'id');
         array_push($vars, 'listing');
         array_push($vars, 'category_id');
         array_push($vars, 'category');
         array_push($vars, 'action');
+
         return $vars;
     }
 
     public function _template_redirect() {
         global $wp_query;
+
+        // workaround WP issue #16373
+        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
+            return;
 
         if ( (get_query_var('taxonomy') == self::POST_TYPE_CATEGORY) && (_wpbdp_template_mode('category') == 'page') ) {
             wp_redirect( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ); // XXX
@@ -821,7 +830,7 @@ class WPBDP_Plugin {
         wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
 
         // enable legacy css (should be removed in a future release) XXX
-        if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template')
+        if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' ||  wpbdp_get_page_id('main') == get_option('page_on_front') )
             wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . '/resources/css/wpbdp-legacy.css');
 
         if (file_exists(WP_PLUGIN_DIR . '/wpbdp.css'))
@@ -858,4 +867,4 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();
