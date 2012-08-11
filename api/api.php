@@ -506,23 +506,28 @@ function _wpbdp_render_excerpt() {
     $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
 
     $html = '';
-
     $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing excerpt wpbdp-listing-excerpt %s %s cf">',
                      $post->ID,
                      $sticky_status,
                      ($counter & 1) ? 'odd':  'even');
     //$html .= apply_filters('wpbdp_render_listing_before', '', $post->ID, 'excerpt');
 
-    $html .= wpbusdirman_display_the_thumbnail();
-
-    $html .= '<div class="listing-details">';
+    $listing_fields = '';
     foreach (wpbdp_get_formfields() as $field) {
         if (!$field->display_options['show_in_excerpt'])
             continue;
 
-        $html .= wpbdp_format_field_output($field, null, $post);
+        $listing_fields .= wpbdp_format_field_output($field, null, $post);
     }
-    $html .= '</div>';
+
+    $vars = array(
+        'is_sticky' => $sticky_status == 'sticky',
+        'thumbnail' => wpbusdirman_display_the_thumbnail(),
+        'title' => get_the_title(),
+        'listing_fields' => $listing_fields
+    );
+
+    $html .= wpbdp_render('businessdirectory-excerpt', $vars, true);
     $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'excerpt'), false);
 
     //$html .= apply_filters('wpbdp_render_listing_after', '', $post->ID, 'excerpt');
