@@ -16,7 +16,7 @@ class WPBDP_ListingsAPI {
 
         if ( ($taxonomy == wpbdp_categories_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
             if (wpbdp_rewrite_on()) {
-                return rtrim(wpbdp_get_page_link('main'), '/') . '/' . $category->slug . '/';
+                return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-category-slug') . '/' . $category->slug . '/';
             } else {
                 return add_query_arg('category', $category->slug, wpbdp_get_page_link('main')); // XXX
             }

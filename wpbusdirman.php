@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.1.1
+Version: 2.1.2
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -175,7 +175,7 @@ require_once(WPBDP_PATH . 'widgets.php');
 
 class WPBDP_Plugin {
 
-    const VERSION = '2.1.1';
+    const VERSION = '2.1.2';
     const DB_VERSION = '3.0';
 
     const POST_TYPE = 'wpbdm-directory';
@@ -273,6 +273,8 @@ class WPBDP_Plugin {
     }
 
     private function get_rewrite_rules() {
+        global $wpdb;
+
         $rules = array();
 
         if ($page_id = wpbdp_get_page_id('main')) {
@@ -284,8 +286,8 @@ class WPBDP_Plugin {
             $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
             $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
             
-            $rules['(' . $rewrite_base . ')/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
-            $rules['(' . $rewrite_base . ')/(.+?)$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
+            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '(.+?)$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
         }
 
         return $rules;
@@ -389,15 +391,15 @@ class WPBDP_Plugin {
         add_action('widgets_init', array($this, '_register_widgets'));
 
         /* Shortcodes */
-        add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
-        add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
         add_shortcode('WPBUSDIRMANADDLISTING', array($this->controller, 'submit_listing'));
         add_shortcode('businessdirectory-submitlisting', array($this->controller, 'submit_listing'));
         add_shortcode('WPBUSDIRMANMANAGELISTING', array($this->controller, 'manage_listings'));
         add_shortcode('businessdirectory-managelistings', array($this->controller, 'manage_listings'));
         add_shortcode('WPBUSDIRMANMVIEWLISTINGS', array($this, '_listings_shortcode'));
         add_shortcode('businessdirectory-viewlistings', array($this, '_listings_shortcode'));
-        add_shortcode('businessdirectory-listings', array($this, '_listings_shortcode'));
+        add_shortcode('businessdirectory-listings', array($this, '_listings_shortcode'));        
+        add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
+        add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
 
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
