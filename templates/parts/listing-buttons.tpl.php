@@ -28,8 +28,7 @@
     <?php endif; ?>
 <?php elseif ($view == 'excerpt'): ?>
     <?php if (wpbdp_user_can('view', $listing_id)): ?>
-    <input type="button" value="<?php _ex('View', 'templates', 'WPBDM'); ?>" class="view-listing"
-           onclick="window.location.href = '<?php the_permalink(); ?>' " />
+    <input type="button" value="<?php _ex('View', 'templates', 'WPBDM'); ?>" class="view-listing" onclick="window.location.href = '<?php the_permalink(); ?>' " />
 
     <!--<a href="<?php the_permalink(); ?>" class="view-listing">
         <?php _ex('View', 'templates', 'WPBDM'); ?>
