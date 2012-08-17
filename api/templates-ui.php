@@ -39,7 +39,6 @@ function wpbdp_main_links() {
                         );*/
     }
 
-    if (_wpbdp_current_action() != 'main') {
         $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" />',
                           __('Directory', 'WPBDM'),
                           wpbdp_get_page_link('main'));                
@@ -47,7 +46,6 @@ function wpbdp_main_links() {
                          wpbdp_get_page_link('main'),
                          __('Directory', 'WPBDM')
                         );*/
-    }
 
     $html .= '</div>';
     
