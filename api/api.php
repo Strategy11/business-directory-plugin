@@ -32,8 +32,8 @@ function wpbdp_get_page_id($name='main') {
     global $wpdb;
 
     static $shortcodes = array(
-        'main' => array('businessdirectory', 'WPBUSDIRMANUI'),
-        'showlisting' => array('businessdirectory', 'WPBUSDIRMANUI'),
+        'main' => array('businessdirectory', 'business-directory', 'WPBUSDIRMANUI'),
+        'showlisting' => array('businessdirectory', 'business-directory', 'WPBUSDIRMANUI'),
         'add-listing' => array('businessdirectory-submitlisting', 'WPBUSDIRMANADDLISTING'),
         'manage-listings' => array('businessdirectory-managelistings', 'WPBUSDIRMANMANAGELISTING'),
         'view-listings' => array('businessdirectory-viewlistings', 'businessdirectory-listings', 'WPBUSDIRMANMVIEWLISTINGS'),

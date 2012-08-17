@@ -400,6 +400,7 @@ class WPBDP_Plugin {
         add_shortcode('businessdirectory-listings', array($this, '_listings_shortcode'));        
         add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
         add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
+        add_shortcode('business-directory', array($this->controller, 'dispatch'));
 
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
