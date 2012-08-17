@@ -23,7 +23,7 @@
             <div class="wpbdp-pagination">
             <?php if (function_exists('wp_pagenavi')) : ?>
                     <?php wp_pagenavi(); ?>
-            <?php elseif (function_exists('wp_paginate'): ?>
+            <?php elseif (function_exists('wp_paginate')): ?>
                     <?php wp_paginate(); ?>
             <?php else: ?>
                 <span class="prev"><?php next_posts_link(_x('&laquo; Older Entries', 'templates', 'WPBDM')); ?></span>
