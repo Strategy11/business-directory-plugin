@@ -476,7 +476,7 @@ function _wpbdp_render_single() {
         'extra_images' => $extra_images
     );
 
-    $html .= wpbdp_render('businessdirectory-listing', $vars, false);
+    $html .= wpbdp_render('businessdirectory-listing', $vars, true);
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
 
     $html .= '<div class="contact-form">';
