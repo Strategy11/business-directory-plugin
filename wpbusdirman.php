@@ -101,7 +101,7 @@ function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid
                             'validation_errors' => $wpbusdirmancontacterrors,
                             'listing_id' => $wpbusdirmanlistingpostid,
                             'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
-                            'recaptcha' => $recaptcha                           
+                            'recaptcha' => $recaptcha
                         ), false);
 }
 

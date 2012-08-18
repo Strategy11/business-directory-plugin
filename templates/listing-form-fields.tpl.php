@@ -23,6 +23,8 @@
 			<?php echo $field['html']; ?>
 		<?php endforeach; ?>
 
+		<div class="wpbdp-form-field recaptcha"><?php echo $recaptcha; ?></div>
+
 		<p><input type="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 	</form>
 
