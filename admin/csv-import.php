@@ -505,6 +505,13 @@ class WPBDP_CSVImporter {
             return true;
         $listing_id = wpbdp_listings_api()->add_listing($listing);
 
+        // create permalink
+        $post = get_post($listing_id);
+        wp_update_post(array('ID' => $post->ID,
+                             'post_name' => wp_unique_post_slug(sanitize_title($post->post_title), $post->ID, $post->post_status, $post->post_type, $post->post_parent)
+                      ));
+
+
         if ($this->settings['assign-listings-to-user']) {
             if ($listing_username) {
                 if ($user = get_user_by('login', $listing_username))
