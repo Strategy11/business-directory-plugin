@@ -380,11 +380,13 @@ class WPBDP_DirectoryController {
         }
         if (wpbdp_get_option('recaptcha-for-submits')) {
             if ($private_key = wpbdp_get_option('recaptcha-private-key')) {
-                require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
+                if (isset($_POST['recaptcha_challenge_field'])) {
+                    require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
 
-                $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-                if (!$resp->is_valid)
-                    $validation_errors[] = _x("The reCAPTCHA wasn't entered correctly.", 'templates', 'WPBDM');
+                    $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+                    if (!$resp->is_valid)
+                        $validation_errors[] = _x("The reCAPTCHA wasn't entered correctly.", 'templates', 'WPBDM');
+                }
             }
         }
 
@@ -891,7 +893,7 @@ class WPBDP_DirectoryController {
 
         $fields = array();
         foreach ($fields_api->getFieldsByAssociation('meta') as $field) {
-            if (!$field->display_options['hide_field']) $fields[] = $field;
+            if ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) $fields[] = $field;
         }
 
         query_posts(array('post_type' => wpbdp_post_type(),

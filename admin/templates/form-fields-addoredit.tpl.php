@@ -133,27 +133,28 @@ $field = isset($field) ? $field : null;
 	<table class="form-table">
 			<tr>
 				<th scope="row">
-					<label> <?php _ex('Show this value in excerpt?', 'form-fields admin', 'WPBDM'); ?></label>
+					<label> <?php _ex('Show this value in excerpt view?', 'form-fields admin', 'WPBDM'); ?></label>
 				</th>
 				<td>
 					<label>
 						<input name="field[display_options][show_in_excerpt]"
 							   value="1"
-							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_excerpt', $field ? $field->display_options['show_in_excerpt'] : false) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in post excerpt.', 'form-fields admin', 'WPBDM'); ?>
+							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_excerpt', $field ? $field->display_options['show_in_excerpt'] : false) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in post excerpt view.', 'form-fields admin', 'WPBDM'); ?>
 					</label>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row">
-					<label> <?php _ex('Hide this field from public?', 'form-fields admin', 'WPBDM'); ?></label>
+					<label> <?php _ex('Show this value in listing view?', 'form-fields admin', 'WPBDM'); ?></label>
 				</th>
 				<td>
 					<label>
-						<input name="field[display_options][hide_field]"
-							   type="checkbox"
-							   value="1" <?php echo wpbdp_getv($post_values_display, 'hide_field', $field ? $field->display_options['hide_field'] : false) ? 'checked="true"' : ''; ?>/> <?php _ex('Hide this field from public viewing.', 'form-fields admin', 'WPBDM'); ?></label>
+						<input name="field[display_options][show_in_listing]"
+							   value="1"
+							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_listing', $field ? $field->display_options['show_in_listing'] : false) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in the listing view.', 'form-fields admin', 'WPBDM'); ?>
+					</label>
 				</td>
-			</tr>			
+			</tr>
 	</table>
 
 	<?php if ($field): ?>

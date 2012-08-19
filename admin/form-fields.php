@@ -49,11 +49,11 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 								   esc_url(add_query_arg(array('action' => 'editfield', 'id' => $field->id))),
 								   _x('Edit', 'form-fields admin', 'WPBDM'));
 
-		if (!in_array($field->association, array('title', 'content', 'category'))) {
+		// if (!in_array($field->association, array('title', 'content', 'category'))) {
 			$actions['delete'] = sprintf('<a href="%s">%s</a>',
 										esc_url(add_query_arg(array('action' => 'deletefield', 'id' => $field->id))),
 										_x('Delete', 'form-fields admin', 'WPBDM'));
-		}
+		// }
 
 		$html = '';
 		$html .= sprintf('<strong><a href="%s">%s</a></strong> (as <i>%s</i>)',
@@ -85,9 +85,16 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 						 $field->is_required ? _x('Required', 'form-fields admin', 'WPBDM') : _x('Optional', 'form-fields admin', 'WPBDM'));
 
 		if ($field->display_options['show_in_excerpt']) {
-			$html .= sprintf('<span class="tag in-excerpt">%s</span>',
+			$html .= sprintf('<span class="tag in-excerpt" title="%s">%s</span>',
+                             _x('This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM'),
 							 _x('In Excerpt', 'form-fields admin', 'WPBDM'));
 		}
+
+        if ($field->display_options['show_in_listing']) {
+            $html .= sprintf('<span class="tag in-listing" title="%s">%s</span>',
+                             _x('This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM'),
+                             _x('In Listing', 'form-fields admin', 'WPBDM'));
+        }        
 
 		return $html;
 	}

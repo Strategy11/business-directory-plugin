@@ -15,6 +15,7 @@
 
     <?php else: ?>
 	   <p><?php _ex('Your listing has been submitted.', 'templates', 'WPBDM'); ?></p>
+       <p><a href="<?php echo wpbdp_get_page_link('main'); ?>"><?php _ex('Return to directory.', 'templates', 'WPBDM'); ?></a>
     <?php endif; ?>
 
 </div>

@@ -84,7 +84,7 @@ class WPBDP_FormFieldsAPI {
 				'association' => 'title',
 				'weight' => 9,
 				'is_required' => true,
-				'display_options' => array('show_in_excerpt' => true)
+				'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 			),
 			'category' => array(
 						'label' => __("Business Genre","WPBDM"),
@@ -92,7 +92,7 @@ class WPBDP_FormFieldsAPI {
 						'association' => 'category',
 						'weight' => 8,
 						'is_required' => true,
-						'display_options' => array('show_in_excerpt' => true)
+						'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 					),
 			'excerpt' => array(
 					'label' => __("Short Business Description","WPBDM"),
@@ -113,14 +113,14 @@ class WPBDP_FormFieldsAPI {
 					'association' => 'meta',
 					'weight' => 5,
 					'validator' => 'URLValidator',
-					'display_options' => array('show_in_excerpt' => true)
+					'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 				),
 			'meta1' => array(
 					'label' => __("Business Phone Number","WPBDM"),
 					'type' => 'textfield',
 					'association' => 'meta',
 					'weight' => 4,
-					'display_options' => array('show_in_excerpt' => true)
+					'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 				),
 			'meta2' => array(
 					'label' => __("Business Fax","WPBDM"),
@@ -175,7 +175,16 @@ class WPBDP_FormFieldsAPI {
 	}
 
 	private function normalizeField(&$field) {
-		$field->display_options = array_merge(array('hide_field' => false, 'show_in_excerpt' => false), $field->display_options ? (array) unserialize($field->display_options) : array());
+		$display_options = array_merge(array('show_in_excerpt' => true, 'show_in_listing' => true), $field->display_options ? (array) unserialize($field->display_options) : array());
+
+		// deprecated since 2.1.3
+		if (isset($display_options['hide_field']) && $display_options['hide_field']) {
+			$display_options['show_in_excerpt'] = false;
+			$display_options['show_in_listing'] = false;
+			unset($display_options['hide_field']);
+		}
+
+		$field->display_options = $display_options;
 		$field->field_data = $field->field_data ? unserialize($field->field_data) : null;
 
 		if (isset($field->field_data['options']) && !is_array($field->field_data['options']))
@@ -482,10 +491,14 @@ class WPBDP_FormFieldsAPI {
 
 		if (isset($field['display_options'])) {
 			if (isset($field['display_options']['show_in_excerpt']))
-				$field['display_options']['show_in_excerpt'] = intval($field['display_options']['show_in_excerpt']);
+				$field['display_options']['show_in_excerpt'] = (bool) (intval($field['display_options']['show_in_excerpt']));
+			else
+				$field['display_options']['show_in_excerpt'] = false;
 
-			if (isset($field['display_options']['hide_field']))
-				$field['display_options']['hide_field'] = intval($field['display_options']['hide_field']);			
+			if (isset($field['display_options']['show_in_listing']))
+				$field['display_options']['show_in_listing'] = (bool) (intval($field['display_options']['show_in_listing']));
+			else
+				$field['display_options']['show_in_listing'] = false;
 
 			$field['display_options'] = serialize($field['display_options']);
 		} else {

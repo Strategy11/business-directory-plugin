@@ -216,7 +216,7 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
     if ($field->validator == 'EmailValidator' && !wpbdp_get_option('override-email-blocking'))
         return '';
 
-    if ($field && $value && !$field->display_options['hide_field'])
+    if ( $field && $value && ($field->display_options['show_in_excerpt'] || $field->display_options['show_in_listing']) )
         return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s</label>: <span class="value">%s</span></div>',
                        strtolower(str_replace(array(' ', '/'), '', $field->label)), /* normalized field label */
                        $field->association,
@@ -448,7 +448,8 @@ function _wpbdp_render_single() {
 
     $listing_fields = '';
     foreach (wpbdp_get_formfields() as $field) {
-        $listing_fields .= wpbdp_format_field_output($field, null, $post);
+        if ($field->display_options['show_in_listing'])
+            $listing_fields .= wpbdp_format_field_output($field, null, $post);
     }
 
     // images

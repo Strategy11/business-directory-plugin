@@ -229,7 +229,7 @@ table.wp-list-table.formfields th.column-label {
 }
 
 table.wp-list-table.formfields th.column-tags {
-    width: 130px;
+    width: 180px;
 }
 
 table.wp-list-table.formfields th.column-order {
@@ -241,6 +241,10 @@ table.wp-list-table.formfields .tag.required {
 }
 
 table.wp-list-table.formfields .tag.in-excerpt {
+    background: green;
+}
+
+table.wp-list-table.formfields .tag.in-listing {
     background: green;
 }
 
