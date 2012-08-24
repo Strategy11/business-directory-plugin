@@ -876,12 +876,12 @@ class WPBDP_DirectoryController {
         $listings_api = wpbdp_listings_api();
 
         $results = array();
-        if ($_POST) {
+        if (isset($_GET['dosrch'])) {
             $search_args = array();
-            $search_args['q'] = wpbdp_getv($_POST, 'q', null);
+            $search_args['q'] = wpbdp_getv($_GET, 'q', null);
             $search_args['meta'] = array();
 
-            foreach (wpbdp_getv($_POST, 'meta', array()) as $field_id => $field_search) {
+            foreach (wpbdp_getv($_GET, '_m', array()) as $field_id => $field_search) {
                 $search_args['meta'][] = array('field_id' => $field_id,
                                                'q' => wpbdp_getv($field_search, 'q', null),
                                                'options' => wpbdp_getv($field_search, 'options', array())
@@ -897,9 +897,10 @@ class WPBDP_DirectoryController {
         }
 
         query_posts(array('post_type' => wpbdp_post_type(),
-                          'posts_per_page' => -1,
+                          'posts_per_page' => 10,
+                          'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
                           'post__in' => $results ? $results : array(0)));
-        $html = wpbdp_render('search', array('fields' => $fields, 'searching' => $_POST ? true : false), false);
+        $html = wpbdp_render('search', array('fields' => $fields, 'searching' => isset($_GET['dosrch']) ? true : false), false);
         wp_reset_query();
 
         return $html;

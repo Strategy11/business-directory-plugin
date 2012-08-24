@@ -8,7 +8,11 @@
 <?php // if (!$searching): ?>
 <h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
 <!-- <Search Form> -->
-<form action="" id="wpbdp-search-form" method="POST">
+<form action="" id="wpbdp-search-form" method="GET">
+    <input type="hidden" name="action" value="search" />
+    <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id('main'); ?>" />
+    <input type="hidden" name="dosrch" value="1" />
+
     <div class="search-filter term">
         <div class="label">
             <label for="wpbdp-search-form-q">
@@ -19,13 +23,13 @@
             <input type="text"
                    name="q"
                    id="wpbdp-search-form-q"
-                   value="<?php echo wpbdp_getv($_POST, 'q', ''); ?>" />
+                   value="<?php echo wpbdp_getv($_REQUEST, 'q', ''); ?>" />
         </div>
     </div>
 
     <?php
     foreach ($fields as $field):
-        $post_values = isset($_POST['meta'][$field->id]) ? $_POST['meta'][$field->id] : array();
+        $post_values = isset($_REQUEST['_m'][$field->id]) ? $_REQUEST['_m'][$field->id] : array();
     ?>
     <div class="search-filter <?php echo $field->type; ?>">
         <?php if (in_array($field->type, array('checkbox', 'select', 'multiselect'))) : ?>
@@ -40,7 +44,7 @@
 
         <div class="field">
             <?php if ($use_select) : ?>
-            <select name="meta[<?php echo $field->id; ?>][options][]" multiple="multiple" class="field">
+            <select name="_m[<?php echo $field->id; ?>][options][]" multiple="multiple" class="field">
             <?php endif; ?>
 
             <?php foreach ($options as $option): ?>
@@ -52,7 +56,7 @@
                 <?php else: ?>
                     <label>
                         <input type="checkbox" 
-                               name="meta[<?php echo $field->id; ?>][options][]"
+                               name="_m[<?php echo $field->id; ?>][options][]"
                                value="<?php echo $option; ?>"
                                <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' checked="checked"' : ''; ?>
                                /> <?php echo $option; ?>
@@ -70,7 +74,7 @@
                 <label for="wpbdp-search-form-<?php echo $field->id; ?>"><?php echo sprintf(_x('%s like', 'search', 'WPBDM'), $field->label); ?></label>
             </div>
             <div class="field">
-                <input type="text" name="meta[<?php echo $field->id; ?>][q]" value="<?php echo esc_attr((isset($post_values['q'])) ? $post_values['q'] : ''); ?>" id="wpbdp-search-form-<?php echo $field->id; ?>" />
+                <input type="text" name="_m[<?php echo $field->id; ?>][q]" value="<?php echo esc_attr((isset($post_values['q'])) ? $post_values['q'] : ''); ?>" id="wpbdp-search-form-<?php echo $field->id; ?>" />
             </div>
         <?php endif; ?>
     </div>

@@ -522,6 +522,8 @@ class WPBDP_CSVImporter {
             }
         }
 
+        set_time_limit(5);
+
         return $listing_id > 0;
     }
 
