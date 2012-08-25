@@ -176,9 +176,9 @@ require_once(WPBDP_PATH . 'widgets.php');
 class WPBDP_Plugin {
 
     const VERSION = '2.1.3';
-    const DB_VERSION = '3.0';
+    const DB_VERSION = '3.1';
 
-    const POST_TYPE = 'wpbdm-directory';
+    const POST_TYPE = 'wpbdp_listing';
     const POST_TYPE_CATEGORY = 'wpbdm-category';
     const POST_TYPE_TAGS = 'wpbdm-tags';
     
@@ -444,7 +444,7 @@ class WPBDP_Plugin {
         // add_option('wpbusdirman_db_version', '1.0');
         // // delete_option('wpbusdirman_db_version');
         // delete_option('wpbdp-db-version');
-        // update_option('wpbdp-db-version', '2.4');
+        // update_option('wpbdp-db-version', '3.0');
         // exit;
 
         $installed_version = get_option('wpbdp-db-version', get_option('wpbusdirman_db_version'));
@@ -610,6 +610,12 @@ class WPBDP_Plugin {
                 $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_image'));
                 $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_thumbnail'));
             }
+
+            if (version_compare($installed_version, '3.1') < 0) {
+                $wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_type = %s WHERE post_type = %s", self::POST_TYPE, 'wpbdm-directory'));
+                $this->flush_rules();
+            }
+
         } else {
             $default_fields = array(
                 array(

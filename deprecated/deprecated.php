@@ -5,7 +5,7 @@
 
 $wpbusdirmanconfigoptionsprefix = "wpbusdirman";
 
-$wpbdmposttype = "wpbdm-directory";
+$wpbdmposttype = "wpbdp_listing";
 $wpbdmposttypecategory = "wpbdm-category";
 $wpbdmposttypetags = "wpbdm-tags";
 
