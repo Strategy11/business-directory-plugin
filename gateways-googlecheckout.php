@@ -89,5 +89,3 @@ class WPBDP_GoogleCheckoutGateway {
 }
 
 new WPBDP_GoogleCheckoutGateway();
-
-?>
