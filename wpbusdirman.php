@@ -387,6 +387,7 @@ class WPBDP_Plugin {
 
         add_action('init', array($this, 'install_or_update_plugin'), 1);
         add_action('init', array($this, '_register_post_type'), 0);
+        add_action('init', 'session_start');
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
     
         add_filter('posts_request', array($this, '_posts_request'));

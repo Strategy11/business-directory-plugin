@@ -336,6 +336,8 @@ class WPBDP_DirectoryController {
     }
 
     public function submit_listing_fields() {
+        unset($_SESSION['wpbdp-submitted-listing-id']);
+
         $formfields_api = wpbdp_formfields_api();
 
         $post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
@@ -647,8 +649,19 @@ class WPBDP_DirectoryController {
 
         $data = $this->_listing_data;
 
+        if (isset($_SESSION['wpbdp-submitted-listing-id']) && $_SESSION['wpbdp-submitted-listing-id'] > 0) {
+            $listing_id = $_SESSION['wpbdp-submitted-listing-id'];
+
+            return wpbdp_render('listing-form-done', array(
+                'listing_data' => $this->_listing_data,
+                'listing' => get_post($listing_id)
+            ), false);
+        }
+
         $transaction_id = null;
         if ($listing_id = $this->listings->add_listing($data, $transaction_id)) {
+            $_SESSION['wpbdp-submitted-listing-id'] = $listing_id;
+
             $cost = $this->listings->cost_of_listing($listing_id, true);
 
             if ($cost > 0.0) {
