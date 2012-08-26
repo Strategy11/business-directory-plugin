@@ -25,6 +25,7 @@ class WPBDP_DirectoryController {
             $action = get_query_var('action');
 
         if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
+        if (get_query_var('tag')) $action = 'browsetag';
         if (get_query_var('id') || get_query_var('listing')) $action = 'showlisting';
 
         if (!$action) $action = 'main';
@@ -64,6 +65,9 @@ class WPBDP_DirectoryController {
                 break;
             case 'browsecategory':
                 return $this->browse_category();
+                break;
+            case 'browsetag':
+                return $this->browse_tag();
                 break;
             case 'editlisting':
             case 'submitlisting':
@@ -153,6 +157,44 @@ class WPBDP_DirectoryController {
 
         return $html;
     }
+
+    /* Display category. */
+    public function browse_tag() {
+        $tag = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
+        $tag_id = $tag->term_id;
+
+        $listings_api = wpbdp_listings_api();
+
+        // exclude expired posts in this category (and stickies)
+        // $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
+        // $stickies = wpbdp_sticky_loop($category_id);
+        $excluded_ids = array();
+
+        query_posts(array(
+            'post_type' => wpbdp_post_type(),
+            'post_status' => 'publish',
+            'posts_per_page' => 0,
+            'post__not_in' => $excluded_ids,
+            'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'orderby' => wpbdp_get_option('listings-order-by', 'date'),
+            'order' => wpbdp_get_option('listings-sort', 'ASC'),
+            'tax_query' => array(
+                array('taxonomy' => wpbdp_tags_taxonomy(),
+                      'field' => 'id',
+                      'terms' => $tag_id)
+            )
+        ));
+
+        $html = wpbdp_render('category',
+                             array('category' => get_term($tag_id, wpbdp_tags_taxonomy()),
+                                   'stickies' => $stickies
+                                ),
+                             false);
+
+        wp_reset_query();
+
+        return $html;
+    }    
 
     /* display listings */
     public function view_listings($include_buttons=false) {

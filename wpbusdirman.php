@@ -288,6 +288,8 @@ class WPBDP_Plugin {
             
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '(.+?)$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
+            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';            
         }
 
         return $rules;
@@ -333,6 +335,11 @@ class WPBDP_Plugin {
 
         if ( (get_query_var('taxonomy') == self::POST_TYPE_CATEGORY) && (_wpbdp_template_mode('category') == 'page') ) {
             wp_redirect( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ); // XXX
+            exit;
+        }
+
+        if ( (get_query_var('taxonomy') == self::POST_TYPE_TAGS) && (_wpbdp_template_mode('category') == 'page') ) {
+            wp_redirect( add_query_arg('tag', get_query_var('term'), wpbdp_get_page_link('main')) ); // XXX
             exit;
         }
 

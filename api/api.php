@@ -359,7 +359,8 @@ function wpbdp_render_msg($msg, $type='status') {
  * Template functions
  */
 
-function wpbdp_sticky_loop($category_id=null) {
+function wpbdp_sticky_loop($category_id=null, $taxonomy=null) {
+    $taxonomy = !$taxonomy ? wpbdp_categories_taxonomy() : $taxonomy;
     $category_id = $category_id ? $category_id : (isset($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null);
 
     $args = array(
@@ -375,7 +376,7 @@ function wpbdp_sticky_loop($category_id=null) {
 
     if ($category_id) {
         $args['tax_query'] = array(
-            array('taxonomy' => wpbdp_categories_taxonomy(),
+            array('taxonomy' => $taxonomy,
                   'field' => 'id',
                   'terms' => $category_id)
         );

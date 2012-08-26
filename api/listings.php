@@ -6,6 +6,7 @@ class WPBDP_ListingsAPI {
     public function __construct() {
         add_filter('post_type_link', array($this, '_post_link'), 10, 2);
         add_filter('term_link', array($this, '_category_link'), 10, 3);
+        add_filter('term_link', array($this, '_tag_link'), 10, 3);
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
     }
 
@@ -23,6 +24,22 @@ class WPBDP_ListingsAPI {
         }
 
         return $link;
+    }
+
+    public function _tag_link($link, $tag, $taxonomy) {
+        // workaround WP issue #16373
+        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
+            return $link;
+
+        if ( ($taxonomy == wpbdp_tags_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
+            if (wpbdp_rewrite_on()) {
+                return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-tags-slug') . '/' . $tag->slug . '/';
+            } else {
+                return add_query_arg('tag', $tag->slug, wpbdp_get_page_link('main')); // XXX
+            }
+        }
+
+        return $link;                
     }
 
     public function _post_link($url, $post) {

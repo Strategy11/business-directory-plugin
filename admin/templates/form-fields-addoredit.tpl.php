@@ -139,7 +139,7 @@ $field = isset($field) ? $field : null;
 					<label>
 						<input name="field[display_options][show_in_excerpt]"
 							   value="1"
-							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_excerpt', $field ? $field->display_options['show_in_excerpt'] : false) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in post excerpt view.', 'form-fields admin', 'WPBDM'); ?>
+							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_excerpt', $field ? $field->display_options['show_in_excerpt'] : true) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in post excerpt view.', 'form-fields admin', 'WPBDM'); ?>
 					</label>
 				</td>
 			</tr>
@@ -151,7 +151,7 @@ $field = isset($field) ? $field : null;
 					<label>
 						<input name="field[display_options][show_in_listing]"
 							   value="1"
-							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_listing', $field ? $field->display_options['show_in_listing'] : false) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in the listing view.', 'form-fields admin', 'WPBDM'); ?>
+							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_listing', $field ? $field->display_options['show_in_listing'] : true) ? 'checked="true"' : ''; ?>/> <?php _ex('Display this value in the listing view.', 'form-fields admin', 'WPBDM'); ?>
 					</label>
 				</td>
 			</tr>
