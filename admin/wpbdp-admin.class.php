@@ -15,6 +15,7 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'add_metaboxes'));
         add_action('admin_init', array($this, 'check_for_required_fields'));
+        add_action('admin_init', array($this, 'check_for_required_pages'));
         add_action('before_delete_post', array($this, '_delete_post_metadata'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
@@ -787,6 +788,25 @@ class WPBDP_Admin {
             $message .= sprintf('<a href="%s">%s</a>',
                                 admin_url('admin.php?page=wpbdp_admin_formfields&action=createrequired'),
                                 _x('Create these required fields for me', 'admin', 'WPBDM'));
+
+            $this->messages[] = array($message, 'error');
+        }
+    }
+
+    /* Required pages check. */
+    public function check_for_required_pages() {
+        if (!wpbdp_get_page_id('main')) {
+            if (isset($_GET['action']) && $_GET['action'] == 'createmainpage') // do not show message in the page creating the main page
+                return;
+
+            $message = _x('<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'WPBDM');
+            $message .= '<br />';
+            $message .= _x('You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
+            $message .= '<p>';
+            $message .= sprintf('<a href="%s" class="button">%s</a>',
+                                admin_url('admin.php?page=wpbusdirman.php&action=createmainpage'),
+                                _x('Create required pages for me', 'admin', 'WPBDM'));
+            $message .= '</p>';
 
             $this->messages[] = array($message, 'error');
         }
