@@ -406,14 +406,16 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
     if ($listing_id)  {
         query_posts(array(
             'post_type' => wpbdp_post_type(),
+            'post_status' => 'publish',
             'p' => $listing_id
         ));
 
         if (have_posts()) the_post();
     }
 
-    if (!$post || $post->post_type != wpbdp_post_type())
+    if (!$post || $post->post_type != wpbdp_post_type()) {
         return '';
+    }
 
     if ($view == 'excerpt')
         $html = _wpbdp_render_excerpt();

@@ -99,7 +99,7 @@ class WPBDP_DirectoryController {
     /* Show listing. */
     public function show_listing() {
         if (get_query_var('listing') || isset($_GET['listing'])) {
-            if ($posts = get_posts(array('numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
+            if ($posts = get_posts(array('post_status' => 'publish', 'numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
                 $listing_id = $posts[0]->ID;
             } else {
                 $listing_id = null;

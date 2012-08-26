@@ -337,9 +337,26 @@ class WPBDP_Plugin {
         }
 
         if ( is_single() && (get_query_var('post_type') == self::POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
-            wp_redirect( add_query_arg('listing', get_query_var('name'), wpbdp_get_page_link('main')) ); // XXX
+            if (get_query_var('name')) {
+                wp_redirect( add_query_arg('listing', get_query_var('name'), wpbdp_get_page_link('main')) ); // XXX
+            } else {
+                wp_redirect( add_query_arg('id', get_query_var('p'), wpbdp_get_page_link('main')) ); // XXX
+            }
+            
             exit;
         }
+
+        if ( (get_query_var('p') == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
+            $post = get_post(get_query_var('id'));
+
+            if (!$post || $post->post_type != wpbdp_post_type() || $post->post_status != 'publish') {
+                status_header(404);
+                nocache_headers();
+                include( get_404_template() );
+                exit;
+            }
+        }
+        
     }
 
     public function plugin_activation() {
