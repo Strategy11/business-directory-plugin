@@ -313,7 +313,7 @@ class WPBDP_DirectoryController {
         if (wpbdp_get_option('show-listings-under-categories'))
             $listings = $this->view_listings(false);
 
-        $html .= wpbdp_render(array('businessdirectory-main-page-categories', 'wpbusdirman-index-categories'),
+        $html .= wpbdp_render(array('businessdirectory-main-page', 'wpbusdirman-index-categories'),
                                array(
                                 'submit_listing_button' => wpbusdirman_post_menu_button_submitlisting(),
                                 'view_listings_button' => wpbusdirman_post_menu_button_viewlistings(),
@@ -948,7 +948,10 @@ class WPBDP_DirectoryController {
 
         $fields = array();
         foreach ($fields_api->getFieldsByAssociation('meta') as $field) {
-            if ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) $fields[] = $field;
+            if ( ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) &&
+                 ($field->validator != 'EmailValidator') ) {
+                $fields[] = $field;
+            }
         }
 
         query_posts(array('post_type' => wpbdp_post_type(),
