@@ -805,7 +805,7 @@ class WPBDP_Admin {
             $message .= _x('You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
             $message .= '<p>';
             $message .= sprintf('<a href="%s" class="button">%s</a>',
-                                admin_url('admin.php?page=wpbusdirman.php&action=createmainpage'),
+                                admin_url('admin.php?page=wpbdp_admin&action=createmainpage'),
                                 _x('Create required pages for me', 'admin', 'WPBDM'));
             $message .= '</p>';
 
