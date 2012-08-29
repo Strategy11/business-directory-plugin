@@ -867,9 +867,6 @@ class WPBDP_Plugin {
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' ||  wpbdp_get_page_id('main') == get_option('page_on_front') )
             wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . '/resources/css/wpbdp-legacy.css');
 
-        if (file_exists(WP_PLUGIN_DIR . '/wpbdp.css'))
-            wp_enqueue_style('wpbdp-custom-css', WP_PLUGIN_URL . '/wpbdp.css');
-
         $counter = 0;
         foreach (array('wpbdp.css', 'wpbusdirman.css', 'wpbdp_custom_style.css', 'wpbdp_custom_styles.css', 'wpbdm_custom_style.css', 'wpbdm_custom_styles.css') as $stylesheet) {
             if (file_exists( get_stylesheet_directory() . '/' . $stylesheet )) {
@@ -892,6 +889,11 @@ class WPBDP_Plugin {
                     wp_enqueue_style('wpbdp-custom-css-' . $counter, get_template_directory_uri() . '/css/' . $stylesheet);
                     $counter++;
                 }
+            }
+
+            if (file_exists(WP_PLUGIN_DIR . '/' . $stylesheet)) {
+                wp_enqueue_style('wpbdp-custom-css-' . $counter, WP_PLUGIN_URL . '/' . $stylesheet);
+                $counter++;
             }
         }
     }
