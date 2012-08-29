@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
 Tested up to: 3.4.1
-Last Updated: 2012-August-9
-Stable tag: tags/2.1
+Last Updated: 2012-August-12
+Stable tag: tags/2.1.2
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
@@ -101,6 +101,20 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 
 == Changelog ==
+
+Version 2.1.2
+
+   1. Fixed critical query issue that prevented short code pages from working (Add Listing/Edit Listing)
+   
+
+Version 2.1.1
+
+   1. Fixed Directory button to display in listings
+   
+   2. Minor CSS tweaks to show labels in bold
+   
+   3. Fixed bug with category and single listing links where they would not display when clicked (404 error)
+   
 
 Version 2.1
 

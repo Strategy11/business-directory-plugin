@@ -50,13 +50,7 @@
                     <?php echo $option; ?>
                 </option>
                 <?php else: ?>
-                    <label>
-                        <input type="checkbox" 
-                               name="meta[<?php echo $field->id; ?>][options][]"
-                               value="<?php echo $option; ?>"
-                               <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' checked="checked"' : ''; ?>
-                               /> <?php echo $option; ?>
-                    </label> <br />
+                    <label><input type="checkbox" name="meta[<?php echo $field->id; ?>][options][]" value="<?php echo $option; ?>" <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' checked="checked"' : ''; ?>/> <?php echo $option; ?></label> <br/>
                 <?php endif; ?>
             <?php endforeach; ?>
 
