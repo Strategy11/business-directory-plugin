@@ -835,7 +835,9 @@ class WPBDP_Plugin {
 
     /* theme filters */
     public function _comments_template($template) {
-        if (is_single() && get_post_type() == self::POST_TYPE && !$this->settings->get('show-comment-form')) {
+        // disable comments in WPBDP pages or if comments are disabled for listings
+        if ( (is_single() && get_post_type() == self::POST_TYPE && !$this->settings->get('show-comment-form')) || 
+              (get_post_type() == 'page' && get_the_ID() == wpbdp_get_page_id('main') )  ) {
             return WPBDP_TEMPLATES_PATH . '/empty-template.php';
         }
 

@@ -62,6 +62,11 @@ class WPBDP_ListingsAPI {
     }
 
     public function _allow_comments($open, $post_id) {
+        // comments on directory pages
+        if ($post_id == wpbdp_get_page_id('main'))
+            return false;
+
+        // comments on listings
         if (get_post_type($post_id) == wpbdp_post_type())
             return wpbdp_get_option('show-comment-form');
         
