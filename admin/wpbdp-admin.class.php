@@ -15,6 +15,8 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'add_metaboxes'));
         add_action('admin_init', array($this, 'check_for_required_fields'));
+        add_action('admin_init', array($this, 'check_for_required_pages'));
+        add_action('admin_init', array($this, 'check_payments_possible'));
         add_action('before_delete_post', array($this, '_delete_post_metadata'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
@@ -53,65 +55,65 @@ class WPBDP_Admin {
         add_menu_page(_x("Business Directory Admin", 'admin menu', "WPBDM"),
                       _x('Directory Admin', 'admin menu', 'WPBDM'),
                       'activate_plugins',
-                      'wpbusdirman.php',
+                      'wpbdp_admin',
                       'wpbusdirman_home_screen',
                       WPBDP_URL . 'resources/images/menuico.png');
-        add_submenu_page('wpbusdirman.php',
+        add_submenu_page('wpbdp_admin',
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          'activate_plugins',
-                         'wpbdman_c3a',
-                         'wpbdp_admin_add_listing');
-        add_submenu_page('wpbusdirman.php',
+                         'wpbdp_add_listing',
+                         '__return_null');
+        add_submenu_page('wpbdp_admin',
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_admin_settings',
                          array($this, 'admin_settings'));
-        add_submenu_page('wpbusdirman.php',
+        add_submenu_page('wpbdp_admin',
                          _x('Manage Fees', 'admin menu', 'WPBDM'),
                          _x('Manage Fees', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_admin_fees',
                          array('WPBDP_FeesAdmin', 'admin_menu_cb'));
-        add_submenu_page('wpbusdirman.php',
+        add_submenu_page('wpbdp_admin',
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_admin_formfields',
                          array('WPBDP_FormFieldsAdmin', 'admin_menu_cb'));
-        add_submenu_page('wpbusdirman.php',
+        add_submenu_page('wpbdp_admin',
                          _x('Manage Featured', 'admin menu', 'WPBDM'),
                          _x('Manage Featured', 'admin menu', 'WPBDM'),
                          'activate_plugins',
-                         'wpbdman_c4',
-                         '_placeholder_');
-        add_submenu_page('wpbusdirman.php',
+                         'wpbdp_manage_featured',
+                         '__return_false');
+        add_submenu_page('wpbdp_admin',
                          _x('Manage Payments', 'admin menu', 'WPBDM'),
                          _x('Manage Payments', 'admin menu', 'WPBDM'),
                          'activate_plugins',
-                         'wpbdman_c5',
-                         '_placeholder_');
-        add_submenu_page('wpbusdirman.php',
+                         'wpbdp_manage_payments',
+                         '__return_false');
+        add_submenu_page('wpbdp_admin',
                          _x('CSV Import', 'admin menu', 'WPBDM'),
                          _x('CSV Import', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp-csv-import',
                          array('WPBDP_CSVImportAdmin', 'admin_menu_cb'));
-        add_submenu_page('wpbusdirman.php',
+        add_submenu_page('wpbdp_admin',
                          _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
                          _x('Uninstall', 'admin menu', 'WPBDM'),
                          'activate_plugins',
-                         'wpbdman_m1',
+                         'wpbdp_uninstall',
                          array($this, 'uninstall_plugin'));
 
         // just a little hack
         if (current_user_can('activate_plugins')) {
             global $submenu;
-            $submenu['wpbusdirman.php'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', wpbdp_post_type()));
-            $submenu['wpbusdirman.php'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-            $submenu['wpbusdirman.php'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
-            $submenu['wpbusdirman.php'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
+            $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', wpbdp_post_type()));
+            $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
+            $submenu['wpbdp_admin'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
+            $submenu['wpbdp_admin'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
         }
     }
 
@@ -791,6 +793,40 @@ class WPBDP_Admin {
             $this->messages[] = array($message, 'error');
         }
     }
+
+    /* Required pages check. */
+    public function check_for_required_pages() {
+        if (!wpbdp_get_page_id('main')) {
+            if (isset($_GET['action']) && $_GET['action'] == 'createmainpage') // do not show message in the page creating the main page
+                return;
+
+            $message = _x('<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'WPBDM');
+            $message .= '<br />';
+            $message .= _x('You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
+            $message .= '<p>';
+            $message .= sprintf('<a href="%s" class="button">%s</a>',
+                                admin_url('admin.php?page=wpbdp_admin&action=createmainpage'),
+                                _x('Create required pages for me', 'admin', 'WPBDM'));
+            $message .= '</p>';
+
+            $this->messages[] = array($message, 'error');
+        }
+    }
+
+    /* Check if payments are enabled but no gateway available. */
+    public function check_payments_possible() {
+        // show messages only in directory admin pages
+        if ( (isset($_GET['post_type']) && $_GET['post_type'] == wpbdp_post_type()) ||
+             (isset($_GET['page']) && stripos($_GET['page'], 'wpbdp_') !== FALSE) ) {
+
+            if (wpbdp_get_option('payments-on') && !wpbdp_payments_api()->payments_possible())
+                $this->messages[] = array(
+                    sprintf(_x('You have payments turned on but no gateway is enabled. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
+                        admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment')),
+                    'error');
+        }
+    }
+
 
 }
 

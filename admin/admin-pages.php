@@ -18,8 +18,12 @@ function wpbdp_admin_footer()
 }
 
 /* Admin home screen setup begin */
-function wpbusdirman_home_screen()
-{
+function wpbusdirman_home_screen() {
+	if (isset($_GET['action']) && $_GET['action'] == 'createmainpage') {
+		$page = array('post_status' => 'publish', 'post_title' => _x('Business Directory', 'admin', 'WPBDM'), 'post_type' => 'page', 'post_content' => '[businessdirectory]');
+		wp_insert_post($page);
+	}
+
 	$listyle="style=\"width:auto;float:left;margin-right:5px;\"";
 	$listyle2="style=\"width:200px;float:left;margin-right:5px;\"";
 	$html = '';

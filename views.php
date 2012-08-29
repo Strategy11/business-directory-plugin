@@ -25,6 +25,7 @@ class WPBDP_DirectoryController {
             $action = get_query_var('action');
 
         if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
+        if (get_query_var('tag')) $action = 'browsetag';
         if (get_query_var('id') || get_query_var('listing')) $action = 'showlisting';
 
         if (!$action) $action = 'main';
@@ -65,6 +66,9 @@ class WPBDP_DirectoryController {
             case 'browsecategory':
                 return $this->browse_category();
                 break;
+            case 'browsetag':
+                return $this->browse_tag();
+                break;
             case 'editlisting':
             case 'submitlisting':
                 return $this->submit_listing();
@@ -99,7 +103,7 @@ class WPBDP_DirectoryController {
     /* Show listing. */
     public function show_listing() {
         if (get_query_var('listing') || isset($_GET['listing'])) {
-            if ($posts = get_posts(array('numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
+            if ($posts = get_posts(array('post_status' => 'publish', 'numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
                 $listing_id = $posts[0]->ID;
             } else {
                 $listing_id = null;
@@ -153,6 +157,44 @@ class WPBDP_DirectoryController {
 
         return $html;
     }
+
+    /* Display category. */
+    public function browse_tag() {
+        $tag = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
+        $tag_id = $tag->term_id;
+
+        $listings_api = wpbdp_listings_api();
+
+        // exclude expired posts in this category (and stickies)
+        // $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
+        // $stickies = wpbdp_sticky_loop($category_id);
+        $excluded_ids = array();
+
+        query_posts(array(
+            'post_type' => wpbdp_post_type(),
+            'post_status' => 'publish',
+            'posts_per_page' => 0,
+            'post__not_in' => $excluded_ids,
+            'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'orderby' => wpbdp_get_option('listings-order-by', 'date'),
+            'order' => wpbdp_get_option('listings-sort', 'ASC'),
+            'tax_query' => array(
+                array('taxonomy' => wpbdp_tags_taxonomy(),
+                      'field' => 'id',
+                      'terms' => $tag_id)
+            )
+        ));
+
+        $html = wpbdp_render('category',
+                             array('category' => get_term($tag_id, wpbdp_tags_taxonomy()),
+                                   'stickies' => $stickies
+                                ),
+                             false);
+
+        wp_reset_query();
+
+        return $html;
+    }    
 
     /* display listings */
     public function view_listings($include_buttons=false) {
@@ -271,7 +313,7 @@ class WPBDP_DirectoryController {
         if (wpbdp_get_option('show-listings-under-categories'))
             $listings = $this->view_listings(false);
 
-        $html .= wpbdp_render(array('businessdirectory-main-page-categories', 'wpbusdirman-index-categories'),
+        $html .= wpbdp_render(array('businessdirectory-main-page', 'wpbusdirman-index-categories'),
                                array(
                                 'submit_listing_button' => wpbusdirman_post_menu_button_submitlisting(),
                                 'view_listings_button' => wpbusdirman_post_menu_button_viewlistings(),
@@ -336,6 +378,8 @@ class WPBDP_DirectoryController {
     }
 
     public function submit_listing_fields() {
+        unset($_SESSION['wpbdp-submitted-listing-id']);
+
         $formfields_api = wpbdp_formfields_api();
 
         $post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
@@ -647,8 +691,19 @@ class WPBDP_DirectoryController {
 
         $data = $this->_listing_data;
 
+        if (isset($_SESSION['wpbdp-submitted-listing-id']) && $_SESSION['wpbdp-submitted-listing-id'] > 0) {
+            $listing_id = $_SESSION['wpbdp-submitted-listing-id'];
+
+            return wpbdp_render('listing-form-done', array(
+                'listing_data' => $this->_listing_data,
+                'listing' => get_post($listing_id)
+            ), false);
+        }
+
         $transaction_id = null;
         if ($listing_id = $this->listings->add_listing($data, $transaction_id)) {
+            $_SESSION['wpbdp-submitted-listing-id'] = $listing_id;
+
             $cost = $this->listings->cost_of_listing($listing_id, true);
 
             if ($cost > 0.0) {
@@ -876,12 +931,12 @@ class WPBDP_DirectoryController {
         $listings_api = wpbdp_listings_api();
 
         $results = array();
-        if ($_POST) {
+        if (isset($_GET['dosrch'])) {
             $search_args = array();
-            $search_args['q'] = wpbdp_getv($_POST, 'q', null);
+            $search_args['q'] = wpbdp_getv($_GET, 'q', null);
             $search_args['meta'] = array();
 
-            foreach (wpbdp_getv($_POST, 'meta', array()) as $field_id => $field_search) {
+            foreach (wpbdp_getv($_GET, '_m', array()) as $field_id => $field_search) {
                 $search_args['meta'][] = array('field_id' => $field_id,
                                                'q' => wpbdp_getv($field_search, 'q', null),
                                                'options' => wpbdp_getv($field_search, 'options', array())
@@ -893,13 +948,17 @@ class WPBDP_DirectoryController {
 
         $fields = array();
         foreach ($fields_api->getFieldsByAssociation('meta') as $field) {
-            if ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) $fields[] = $field;
+            if ( ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) &&
+                 ($field->validator != 'EmailValidator') ) {
+                $fields[] = $field;
+            }
         }
 
         query_posts(array('post_type' => wpbdp_post_type(),
-                          'posts_per_page' => -1,
+                          'posts_per_page' => 10,
+                          'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
                           'post__in' => $results ? $results : array(0)));
-        $html = wpbdp_render('search', array('fields' => $fields, 'searching' => $_POST ? true : false), false);
+        $html = wpbdp_render('search', array('fields' => $fields, 'searching' => isset($_GET['dosrch']) ? true : false), false);
         wp_reset_query();
 
         return $html;

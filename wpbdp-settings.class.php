@@ -17,7 +17,7 @@ class WPBDP_Settings {
         /* General settings */
         $g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'permalink', _x('Permalink Settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE);
+        $this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE, null, null, array($this, '_validate_listings_permalink'));
         $this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_CATEGORY, _x('The slug can\'t be in use by another term. Avoid "category", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
         $this->add_setting($s, 'permalinks-tags-slug', _x('Tags Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_Plugin::POST_TYPE_TAGS, _x('The slug can\'t be in use by another term. Avoid "tag", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
 
@@ -164,6 +164,10 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
     }
 
+    public function _validate_listings_permalink($setting, $newvalue, $oldvalue=null) {
+        return trim(str_replace(' ', '', $newvalue));
+    }
+
     public function _validate_term_permalink($setting, $newvalue, $oldvalue=null) {
         $bd_taxonomy = $setting->name == 'permalinks-category-slug' ? wpbdp()->get_post_type_category() : wpbdp()->get_post_type_tags();
         foreach (get_taxonomies(null, 'objects') as $taxonomy) {
@@ -172,7 +176,7 @@ class WPBDP_Settings {
             }
         }
 
-        return $newvalue;
+        return trim(str_replace(' ', '', $newvalue));
     }
 
     public function _validate_listing_duration($setting, $newvalue, $oldvalue=null) {

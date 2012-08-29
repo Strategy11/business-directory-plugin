@@ -101,13 +101,6 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
 }
 
-/* <old stuff> */
-function wpbdp_admin_add_listing() {
-	// FIXME
-	return null;
-}
-/* <old stuff> */
-
 class WPBDP_FormFieldsAdmin {
 
 	public function __construct() {
