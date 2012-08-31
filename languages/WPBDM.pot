@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2012-08-27 03:01:43+00:00\n"
+"POT-Creation-Date: 2012-08-31 16:21:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -905,69 +905,69 @@ msgid ""
 "below."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:26
+#: admin/templates/infometabox-fees.tpl.php:20
 msgctxt "admin infometabox"
 msgid "Fee"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:28
+#: admin/templates/infometabox-fees.tpl.php:22
 msgctxt "admin infometabox"
 msgid "# Images"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:32
+#: admin/templates/infometabox-fees.tpl.php:26
 msgctxt "admin infometabox"
 msgid "Expired on"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:34
+#: admin/templates/infometabox-fees.tpl.php:28
 msgctxt "admin infometabox"
 msgid "Expires on"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:41
+#: admin/templates/infometabox-fees.tpl.php:35
 msgctxt "admin infometabox"
 msgid "never"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:46
+#: admin/templates/infometabox-fees.tpl.php:40
 msgctxt "admin infometabox"
 msgid "No fee assigned."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:49
+#: admin/templates/infometabox-fees.tpl.php:43
 msgctxt "admin infometabox"
 msgid "Change fee."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:49
+#: admin/templates/infometabox-fees.tpl.php:43
 msgctxt "admin infometabox"
 msgid "Assign one."
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:53
+#: admin/templates/infometabox-fees.tpl.php:47
 msgctxt "admin infometabox"
 msgid "close"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:59
+#: admin/templates/infometabox-fees.tpl.php:53
 msgctxt "admin infometabox"
 msgid "Use this"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:63
+#: admin/templates/infometabox-fees.tpl.php:57
 msgctxt "admin infometabox"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/templates/infometabox-fees.tpl.php:65
+#: admin/templates/infometabox-fees.tpl.php:59
 msgctxt "admin infometabox"
 msgid "Unlimited listing days"
 msgstr ""
 
-#: admin/templates/infometabox-fees.tpl.php:67
+#: admin/templates/infometabox-fees.tpl.php:61
 msgctxt "admin infometabox"
 msgid "%d day"
 msgid_plural "%d days"
@@ -1352,107 +1352,107 @@ msgctxt "admin"
 msgid "The fee was sucessfully assigned."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:602 admin/wpbdp-admin.class.php:665
+#: admin/wpbdp-admin.class.php:603 admin/wpbdp-admin.class.php:666
 msgid "Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:607
+#: admin/wpbdp-admin.class.php:608
 msgid "Unpaid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:612 admin/wpbdp-admin.class.php:689
+#: admin/wpbdp-admin.class.php:613 admin/wpbdp-admin.class.php:690
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:619
+#: admin/wpbdp-admin.class.php:620
 msgctxt "admin"
 msgid "Listing Count"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:631
+#: admin/wpbdp-admin.class.php:632
 msgid "Payment Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:632
+#: admin/wpbdp-admin.class.php:633
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:669
+#: admin/wpbdp-admin.class.php:670
 msgid "Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:674
+#: admin/wpbdp-admin.class.php:675
 msgid "Set as"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:687
+#: admin/wpbdp-admin.class.php:688
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:691
+#: admin/wpbdp-admin.class.php:692
 msgctxt "admin list"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:703
+#: admin/wpbdp-admin.class.php:704
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:707
+#: admin/wpbdp-admin.class.php:708
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:779
+#: admin/wpbdp-admin.class.php:780
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
 "associations in order to work correctly: <b>%s</b>."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:781
+#: admin/wpbdp-admin.class.php:782
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
 "association in order to work correctly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:784
+#: admin/wpbdp-admin.class.php:785
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
 "or let Business Directory do this for you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:788
+#: admin/wpbdp-admin.class.php:789
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:791
+#: admin/wpbdp-admin.class.php:792
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:803
+#: admin/wpbdp-admin.class.php:804
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the <tt>"
 "[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:805
+#: admin/wpbdp-admin.class.php:806
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
 "you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:809
+#: admin/wpbdp-admin.class.php:810
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:824
+#: admin/wpbdp-admin.class.php:825
 msgctxt "admin"
 msgid ""
 "You have payments turned on but no gateway is enabled. Go to <a href=\"%s"
@@ -1741,17 +1741,17 @@ msgstr ""
 msgid "View Listings"
 msgstr ""
 
-#: api/templates-ui.php:43 deprecated/deprecated.php:443
+#: api/templates-ui.php:44 deprecated/deprecated.php:443
 msgid "Directory"
 msgstr ""
 
-#: api/templates-ui.php:68
+#: api/templates-ui.php:70
 #: deprecated/templates/wpbusdirman-index-categories.php:12
 msgctxt "templates"
 msgid "Search Listings"
 msgstr ""
 
-#: api/templates-ui.php:71
+#: api/templates-ui.php:73
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr ""
@@ -1809,7 +1809,7 @@ msgid "No listings found in category."
 msgstr ""
 
 #: deprecated/templates/wpbusdirman-category.php:94
-#: templates/manage-listings.tpl.php:11 templates/search.tpl.php:99
+#: templates/manage-listings.tpl.php:11 templates/search.tpl.php:95
 msgctxt "templates"
 msgid "Return to directory"
 msgstr ""
@@ -1931,7 +1931,7 @@ msgctxt "templates"
 msgid "No listings found in category."
 msgstr ""
 
-#: templates/businessdirectory-listings.tpl.php:12 templates/search.tpl.php:96
+#: templates/businessdirectory-listings.tpl.php:12 templates/search.tpl.php:92
 msgctxt "templates"
 msgid "No listings found."
 msgstr ""
@@ -2003,7 +2003,8 @@ msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr ""
 
-#: templates/listing-form-done.tpl.php:12
+#: templates/listing-form-done.tpl.php:12 views.php:372 views.php:801
+#: views.php:827 views.php:844 views.php:849
 msgctxt "templates"
 msgid "Return to listing."
 msgstr ""
@@ -2120,7 +2121,7 @@ msgctxt "templates"
 msgid "Finish"
 msgstr ""
 
-#: templates/listing-upgradetosticky.tpl.php:1 views.php:810
+#: templates/listing-upgradetosticky.tpl.php:1 views.php:832
 msgctxt "templates"
 msgid "Upgrade listing"
 msgstr ""
@@ -2164,6 +2165,12 @@ msgctxt "templates"
 msgid "Delete"
 msgstr ""
 
+#: templates/parts/listing-buttons.tpl.php:23
+#: templates/parts/listing-buttons.tpl.php:49
+msgctxt "templates"
+msgid "Are you sure you wish to delete this listing?"
+msgstr ""
+
 #: templates/parts/listing-buttons.tpl.php:31
 #: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
@@ -2193,7 +2200,7 @@ msgctxt "templates"
 msgid "We can not process your payment at this moment. Please try again later."
 msgstr ""
 
-#: templates/renewlisting-fees.tpl.php:16 views.php:873
+#: templates/renewlisting-fees.tpl.php:16 views.php:887
 msgctxt "templates"
 msgid "Renew Listing"
 msgstr ""
@@ -2213,7 +2220,7 @@ msgctxt "templates"
 msgid "Proceed to checkout"
 msgstr ""
 
-#: templates/search.tpl.php:6 templates/search.tpl.php:84
+#: templates/search.tpl.php:6 templates/search.tpl.php:80
 msgctxt "search"
 msgid "Search"
 msgstr ""
@@ -2228,12 +2235,12 @@ msgctxt "search"
 msgid "Description/Title Keywords"
 msgstr ""
 
-#: templates/search.tpl.php:74
+#: templates/search.tpl.php:70
 msgctxt "search"
 msgid "%s like"
 msgstr ""
 
-#: templates/search.tpl.php:91
+#: templates/search.tpl.php:87
 msgctxt "search"
 msgid "Search Results"
 msgstr ""
@@ -2317,77 +2324,82 @@ msgctxt "templates"
 msgid "You are not authorized to edit this listing."
 msgstr ""
 
-#: views.php:370
+#: views.php:371
 msgctxt "templates"
 msgid "You can not edit your listing until its payment has been cleared."
 msgstr ""
 
-#: views.php:432
+#: views.php:436
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
 
-#: views.php:506 views.php:563
+#: views.php:510 views.php:567
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr ""
 
-#: views.php:712
+#: views.php:716
 msgctxt "templates"
 msgid "Step 4 - Checkout"
 msgstr ""
 
-#: views.php:714
+#: views.php:718
 msgctxt "templates"
 msgid "Pay %1$s listing fee via %2$s"
 msgstr ""
 
-#: views.php:740
+#: views.php:744
 msgctxt "templates"
 msgid "An error occurred while saving your listing. Please try again later."
 msgstr ""
 
-#: views.php:777
+#: views.php:781
 msgctxt "templates"
 msgid "The listing has been deleted."
 msgstr ""
 
-#: views.php:795
+#: views.php:800
 msgctxt "templates"
 msgid "You can not upgrade your listing until its payment has been cleared."
 msgstr ""
 
-#: views.php:812
+#: views.php:826
+msgctxt "templates"
+msgid "Listing is now featured."
+msgstr ""
+
+#: views.php:834
 msgctxt "templates"
 msgid "Pay %s upgrade fee via %s"
 msgstr ""
 
-#: views.php:820 views.php:835
+#: views.php:843
 msgctxt "templates"
 msgid "Your listing is already featured."
 msgstr ""
 
-#: views.php:822
+#: views.php:848
 msgctxt "templates"
 msgid "Your listing is already pending approval for \"featured\" status."
 msgstr ""
 
-#: views.php:874
+#: views.php:888
 msgctxt "templates"
 msgid "Pay %1$s renewal fee via %2$s."
 msgstr ""
 
-#: views.php:901
+#: views.php:915
 msgctxt "templates"
 msgid "Listing Upgrade Payment Status"
 msgstr ""
 
-#: views.php:903
+#: views.php:917
 msgctxt "templates"
 msgid "Listing Submitted"
 msgstr ""
 
-#: views.php:905
+#: views.php:919
 msgctxt "templates"
 msgid "Listing Payment Confirmation"
 msgstr ""
@@ -2528,89 +2540,94 @@ msgctxt "admin settings"
 msgid "Show the \"View Listings\" button."
 msgstr ""
 
-#: wpbdp-settings.class.php:35
+#: wpbdp-settings.class.php:34
 msgctxt "admin settings"
-msgid "Miscellaneous Settings"
+msgid "Show the \"Directory\" button."
 msgstr ""
 
 #: wpbdp-settings.class.php:36
 msgctxt "admin settings"
-msgid "Hide tips for use and other information?"
+msgid "Miscellaneous Settings"
 msgstr ""
 
 #: wpbdp-settings.class.php:37
 msgctxt "admin settings"
+msgid "Hide tips for use and other information?"
+msgstr ""
+
+#: wpbdp-settings.class.php:38
+msgctxt "admin settings"
 msgid "Give credit to plugin author?"
 msgstr ""
 
-#: wpbdp-settings.class.php:40 wpbdp-settings.class.php:161
+#: wpbdp-settings.class.php:41 wpbdp-settings.class.php:162
 msgctxt "admin settings"
 msgid "Listings"
 msgstr ""
 
-#: wpbdp-settings.class.php:41
+#: wpbdp-settings.class.php:42
 msgctxt "admin settings"
 msgid "General Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:43
+#: wpbdp-settings.class.php:44
 msgctxt "admin settings"
 msgid "Listing duration for no-fee sites (in days)"
 msgstr ""
 
-#: wpbdp-settings.class.php:44
+#: wpbdp-settings.class.php:45
 msgctxt "admin settings"
 msgid ""
 "Use a value of \"0\" to keep a listing alive indefinitely or enter a number "
 "less than 10 years (3650 days)."
 msgstr ""
 
-#: wpbdp-settings.class.php:48
+#: wpbdp-settings.class.php:49
 msgctxt "admin settings"
 msgid "Include listing contact form on listing pages?"
 msgstr ""
 
-#: wpbdp-settings.class.php:49
+#: wpbdp-settings.class.php:50
 msgctxt "admin settings"
 msgid "Include comment form on listing pages?"
 msgstr ""
 
-#: wpbdp-settings.class.php:50
+#: wpbdp-settings.class.php:51
 msgctxt "admin settings"
 msgid "Show listings under categories on main page?"
 msgstr ""
 
-#: wpbdp-settings.class.php:51
+#: wpbdp-settings.class.php:52
 msgctxt "admin settings"
 msgid "Override email Blocking?"
 msgstr ""
 
-#: wpbdp-settings.class.php:52
+#: wpbdp-settings.class.php:53
 msgctxt "admin settings"
 msgid "Status of listings upon uninstalling plugin"
 msgstr ""
 
-#: wpbdp-settings.class.php:54
+#: wpbdp-settings.class.php:55
 msgctxt "admin settings"
 msgid "Status of deleted listings"
 msgstr ""
 
-#: wpbdp-settings.class.php:57
+#: wpbdp-settings.class.php:58
 msgctxt "admin settings"
 msgid "Listing email settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:58
+#: wpbdp-settings.class.php:59
 msgctxt "admin settings"
 msgid "Send email confirmation to listing owner when listing is submitted?"
 msgstr ""
 
-#: wpbdp-settings.class.php:59
+#: wpbdp-settings.class.php:60
 msgctxt "admin settings"
 msgid "Email confirmation message"
 msgstr ""
 
-#: wpbdp-settings.class.php:61
+#: wpbdp-settings.class.php:62
 msgctxt "admin settings"
 msgid ""
 "You can use the placeholder [listing] for the listing title. This setting "
@@ -2618,22 +2635,22 @@ msgid ""
 "\" settings tab."
 msgstr ""
 
-#: wpbdp-settings.class.php:63
+#: wpbdp-settings.class.php:64
 msgctxt "admin settings"
 msgid "Listing Renewal"
 msgstr ""
 
-#: wpbdp-settings.class.php:64
+#: wpbdp-settings.class.php:65
 msgctxt "admin settings"
 msgid "Turn on listing renewal option?"
 msgstr ""
 
-#: wpbdp-settings.class.php:65
+#: wpbdp-settings.class.php:66
 msgctxt "admin settings"
 msgid "Listing Renewal e-mail message"
 msgstr ""
 
-#: wpbdp-settings.class.php:67
+#: wpbdp-settings.class.php:68
 msgctxt "admin settings"
 msgid ""
 "You can use the placeholders [listing] for the listing title, [category] for "
@@ -2641,375 +2658,375 @@ msgid ""
 "renewal link."
 msgstr ""
 
-#: wpbdp-settings.class.php:69
+#: wpbdp-settings.class.php:70
 msgctxt "admin settings"
 msgid "Post/Category Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:70
+#: wpbdp-settings.class.php:71
 msgctxt "admin settings"
 msgid "Default new post status"
 msgstr ""
 
-#: wpbdp-settings.class.php:73
+#: wpbdp-settings.class.php:74
 msgctxt "admin settings"
 msgid "Edit post status"
 msgstr ""
 
-#: wpbdp-settings.class.php:75
+#: wpbdp-settings.class.php:76
 msgctxt "admin settings"
 msgid "Order categories list by"
 msgstr ""
 
-#: wpbdp-settings.class.php:77
+#: wpbdp-settings.class.php:78
 msgctxt "admin settings"
 msgid "Sort order for categories"
 msgstr ""
 
-#: wpbdp-settings.class.php:78 wpbdp-settings.class.php:86
+#: wpbdp-settings.class.php:79 wpbdp-settings.class.php:87
 msgctxt "admin settings"
 msgid "Ascending"
 msgstr ""
 
-#: wpbdp-settings.class.php:78 wpbdp-settings.class.php:86
+#: wpbdp-settings.class.php:79 wpbdp-settings.class.php:87
 msgctxt "admin settings"
 msgid "Descending"
 msgstr ""
 
-#: wpbdp-settings.class.php:79
+#: wpbdp-settings.class.php:80
 msgctxt "admin settings"
 msgid "Show category post count?"
 msgstr ""
 
-#: wpbdp-settings.class.php:80
+#: wpbdp-settings.class.php:81
 msgctxt "admin settings"
 msgid "Hide empty categories?"
 msgstr ""
 
-#: wpbdp-settings.class.php:81
+#: wpbdp-settings.class.php:82
 msgctxt "admin settings"
 msgid "Show only parent categories in category list?"
 msgstr ""
 
-#: wpbdp-settings.class.php:82
+#: wpbdp-settings.class.php:83
 msgctxt "admin settings"
 msgid "Order directory listings by"
 msgstr ""
 
-#: wpbdp-settings.class.php:84
+#: wpbdp-settings.class.php:85
 msgctxt "admin settings"
 msgid "Sort directory listings by"
 msgstr ""
 
-#: wpbdp-settings.class.php:85
+#: wpbdp-settings.class.php:86
 msgctxt "admin settings"
 msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
 msgstr ""
 
-#: wpbdp-settings.class.php:88
+#: wpbdp-settings.class.php:89
 msgctxt "admin settings"
 msgid "Featured (Sticky) listing settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:89
+#: wpbdp-settings.class.php:90
 msgctxt "admin settings"
 msgid "Offer sticky listings?"
 msgstr ""
 
-#: wpbdp-settings.class.php:90
+#: wpbdp-settings.class.php:91
 msgctxt "admin settings"
 msgid "Sticky listing price"
 msgstr ""
 
-#: wpbdp-settings.class.php:91
+#: wpbdp-settings.class.php:92
 msgctxt "admin settings"
 msgid "Sticky listing page description text"
 msgstr ""
 
-#: wpbdp-settings.class.php:92
+#: wpbdp-settings.class.php:93
 msgctxt "admin settings"
 msgid ""
 "You can upgrade your listing to featured status. Featured listings will "
 "always appear on top of regular listings."
 msgstr ""
 
-#: wpbdp-settings.class.php:95
+#: wpbdp-settings.class.php:96
 msgctxt "admin settings"
 msgid "Payment"
 msgstr ""
 
-#: wpbdp-settings.class.php:96
+#: wpbdp-settings.class.php:97
 msgctxt "admin settings"
 msgid "Payment Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:97
+#: wpbdp-settings.class.php:98
 msgctxt "admin settings"
 msgid "Turn On payments?"
 msgstr ""
 
-#: wpbdp-settings.class.php:98
+#: wpbdp-settings.class.php:99
 msgctxt "admin settings"
 msgid "Put payment gateways in test mode?"
 msgstr ""
 
-#: wpbdp-settings.class.php:101
+#: wpbdp-settings.class.php:102
 msgctxt "admin settings"
 msgid "Currency Code"
 msgstr ""
 
-#: wpbdp-settings.class.php:103
+#: wpbdp-settings.class.php:104
 msgctxt "admin settings"
 msgid "Australian Dollar (AUD)"
 msgstr ""
 
-#: wpbdp-settings.class.php:104
+#: wpbdp-settings.class.php:105
 msgctxt "admin settings"
 msgid "Canadian Dollar (CAD)"
 msgstr ""
 
-#: wpbdp-settings.class.php:105
+#: wpbdp-settings.class.php:106
 msgctxt "admin settings"
 msgid "Czech Koruna (CZK)"
 msgstr ""
 
-#: wpbdp-settings.class.php:106
+#: wpbdp-settings.class.php:107
 msgctxt "admin settings"
 msgid "Danish Krone (DKK)"
 msgstr ""
 
-#: wpbdp-settings.class.php:107
+#: wpbdp-settings.class.php:108
 msgctxt "admin settings"
 msgid "Euro (EUR)"
 msgstr ""
 
-#: wpbdp-settings.class.php:108
+#: wpbdp-settings.class.php:109
 msgctxt "admin settings"
 msgid "Hong Kong Dollar (HKD)"
 msgstr ""
 
-#: wpbdp-settings.class.php:109
+#: wpbdp-settings.class.php:110
 msgctxt "admin settings"
 msgid "Hungarian Forint (HUF)"
 msgstr ""
 
-#: wpbdp-settings.class.php:110
+#: wpbdp-settings.class.php:111
 msgctxt "admin settings"
 msgid "Israeli New Shequel (ILS)"
 msgstr ""
 
-#: wpbdp-settings.class.php:111
+#: wpbdp-settings.class.php:112
 msgctxt "admin settings"
 msgid "Japanese Yen (JPY)"
 msgstr ""
 
-#: wpbdp-settings.class.php:112
+#: wpbdp-settings.class.php:113
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr ""
 
-#: wpbdp-settings.class.php:113
+#: wpbdp-settings.class.php:114
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr ""
 
-#: wpbdp-settings.class.php:114
+#: wpbdp-settings.class.php:115
 msgctxt "admin settings"
 msgid "New Zelland Dollar (NZD)"
 msgstr ""
 
-#: wpbdp-settings.class.php:115
+#: wpbdp-settings.class.php:116
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr ""
 
-#: wpbdp-settings.class.php:116
+#: wpbdp-settings.class.php:117
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr ""
 
-#: wpbdp-settings.class.php:117
+#: wpbdp-settings.class.php:118
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr ""
 
-#: wpbdp-settings.class.php:118
+#: wpbdp-settings.class.php:119
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr ""
 
-#: wpbdp-settings.class.php:119
+#: wpbdp-settings.class.php:120
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr ""
 
-#: wpbdp-settings.class.php:120
+#: wpbdp-settings.class.php:121
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr ""
 
-#: wpbdp-settings.class.php:121
+#: wpbdp-settings.class.php:122
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr ""
 
-#: wpbdp-settings.class.php:122
+#: wpbdp-settings.class.php:123
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr ""
 
-#: wpbdp-settings.class.php:123
+#: wpbdp-settings.class.php:124
 msgctxt "admin settings"
 msgid "U.S. Dollar"
 msgstr ""
 
-#: wpbdp-settings.class.php:125
+#: wpbdp-settings.class.php:126
 msgctxt "admin settings"
 msgid "Currency Symbol"
 msgstr ""
 
-#: wpbdp-settings.class.php:126
+#: wpbdp-settings.class.php:127
 msgctxt "admin settings"
 msgid "Thank you for payment message"
 msgstr ""
 
-#: wpbdp-settings.class.php:127
+#: wpbdp-settings.class.php:128
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
 "reviewed. The verification and review process could take up to 48 hours."
 msgstr ""
 
-#: wpbdp-settings.class.php:129
+#: wpbdp-settings.class.php:130
 msgctxt "admin settings"
 msgid "Google Checkout Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:130
+#: wpbdp-settings.class.php:131
 msgctxt "admin settings"
 msgid "Activate Google Checkout?"
 msgstr ""
 
-#: wpbdp-settings.class.php:131
+#: wpbdp-settings.class.php:132
 msgctxt "admin settings"
 msgid "Google Checkout Merchant ID"
 msgstr ""
 
-#: wpbdp-settings.class.php:132
+#: wpbdp-settings.class.php:133
 msgctxt "admin settings"
 msgid "Google Checkout Seller ID"
 msgstr ""
 
-#: wpbdp-settings.class.php:134
+#: wpbdp-settings.class.php:135
 msgctxt "admin settings"
 msgid "PayPal Gateway Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:135
+#: wpbdp-settings.class.php:136
 msgctxt "admin settings"
 msgid "Activate Paypal?"
 msgstr ""
 
-#: wpbdp-settings.class.php:136
+#: wpbdp-settings.class.php:137
 msgctxt "admin settings"
 msgid ""
 "Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-"
 "modules/\">PayPal module</a> is installed"
 msgstr ""
 
-#: wpbdp-settings.class.php:137
+#: wpbdp-settings.class.php:138
 msgctxt "admin settings"
 msgid "PayPal Business Email"
 msgstr ""
 
-#: wpbdp-settings.class.php:139
+#: wpbdp-settings.class.php:140
 msgctxt "admin settings"
 msgid "2Checkout Gateway Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:140
+#: wpbdp-settings.class.php:141
 msgctxt "admin settings"
 msgid "Activate 2Checkout?"
 msgstr ""
 
-#: wpbdp-settings.class.php:141
+#: wpbdp-settings.class.php:142
 msgctxt "admin settings"
 msgid ""
 "Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-"
 "modules/\">2Checkout module</a> is installed"
 msgstr ""
 
-#: wpbdp-settings.class.php:142
+#: wpbdp-settings.class.php:143
 msgctxt "admin settings"
 msgid "2Checkout seller/vendor ID"
 msgstr ""
 
-#: wpbdp-settings.class.php:145
+#: wpbdp-settings.class.php:146
 msgctxt "admin settings"
 msgid "Registration"
 msgstr ""
 
-#: wpbdp-settings.class.php:146
+#: wpbdp-settings.class.php:147
 msgctxt "admin settings"
 msgid "Registration Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:147
+#: wpbdp-settings.class.php:148
 msgctxt "admin settings"
 msgid "Require login?"
 msgstr ""
 
-#: wpbdp-settings.class.php:152
+#: wpbdp-settings.class.php:153
 msgctxt "admin settings"
 msgid "Image"
 msgstr ""
 
-#: wpbdp-settings.class.php:153
+#: wpbdp-settings.class.php:154
 msgctxt "admin settings"
 msgid "Image Settings"
 msgstr ""
 
-#: wpbdp-settings.class.php:154
+#: wpbdp-settings.class.php:155
 msgctxt "admin settings"
 msgid "Allow images?"
 msgstr ""
 
-#: wpbdp-settings.class.php:155
+#: wpbdp-settings.class.php:156
 msgctxt "admin settings"
 msgid "Max Image File Size"
 msgstr ""
 
-#: wpbdp-settings.class.php:156
+#: wpbdp-settings.class.php:157
 msgctxt "admin settings"
 msgid "Minimum Image File Size"
 msgstr ""
 
-#: wpbdp-settings.class.php:157
+#: wpbdp-settings.class.php:158
 msgctxt "admin settings"
 msgid "Max image width"
 msgstr ""
 
-#: wpbdp-settings.class.php:158
+#: wpbdp-settings.class.php:159
 msgctxt "admin settings"
 msgid "Max image height"
 msgstr ""
 
-#: wpbdp-settings.class.php:159
+#: wpbdp-settings.class.php:160
 msgctxt "admin settings"
 msgid "Thumbnail width"
 msgstr ""
 
-#: wpbdp-settings.class.php:162
+#: wpbdp-settings.class.php:163
 msgctxt "admin settings"
 msgid "Number of free images"
 msgstr ""
 
-#: wpbdp-settings.class.php:163
+#: wpbdp-settings.class.php:164
 msgctxt "admin settings"
 msgid "Use default picture for listings with no picture?"
 msgstr ""
 
-#: wpbdp-settings.class.php:164
+#: wpbdp-settings.class.php:165
 msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr ""
