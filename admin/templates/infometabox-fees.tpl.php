@@ -11,12 +11,6 @@
 	<p><i><?php _ex('Note: In Free mode, the fee plans will always be set to "Free Listing" below.', 'admin infometabox', 'WPBDM'); ?></i></p>
 	<?php endif; ?>
 
-<?php
-/*ayment Mode:  Free/Paid (Put the one that applies)
-To change you payment mode, go to your <link to="payment settings">Payment Settings</link>.
-<italic>Note:  In Free mode, the fee plans will always be set to "Free Listing" below.</italic>	*/
-?>
-
 	<dl>
 		<?php foreach ($post_categories as $term): ?>
 		<dt class="category-name"><?php echo $term->name; ?></dt>
