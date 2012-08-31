@@ -322,7 +322,7 @@ class WPBDP_Admin {
         }
     }
 
-    function listing_metabox($post) {
+    public function listing_metabox($post) {
         $listings_api = wpbdp_listings_api();
 
         // Payment status
@@ -570,7 +570,7 @@ class WPBDP_Admin {
                 break;
         }
 
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'post'), $_SERVER['REQUEST_URI'] );
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id'), $_SERVER['REQUEST_URI'] );
     }
 
     function add_custom_views($views) {
@@ -583,6 +583,7 @@ class WPBDP_Admin {
                                                            WPBDP_Plugin::POST_TYPE,
                                                            '_wpbdp[payment_status]',
                                                            'paid');
+
         $paid = $wpdb->get_var( $paid_query);
 
         $unpaid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
@@ -596,18 +597,18 @@ class WPBDP_Admin {
                                                            '_wpbdp[sticky]',
                                                            'pending') );
 
-        $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
-                                 add_query_arg('wpbdmfilter', 'paid'),
+        $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                                 add_query_arg('wpbdmfilter', 'paid', remove_query_arg('post')),
                                  wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'paid' ? 'current' : '',
                                  __('Paid', 'WPBDM'),
                                  number_format_i18n($paid));
-        $views['unpaid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
-                                   add_query_arg('wpbdmfilter', 'unpaid'),
+        $views['unpaid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                                   add_query_arg('wpbdmfilter', 'unpaid', remove_query_arg('post')),
                                    wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'unpaid' ? 'current' : '',
                                    __('Unpaid', 'WPBDM'),
                                    number_format_i18n($unpaid));
-        $views['featured'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%d)</span></a>',
-                                   add_query_arg('wpbdmfilter', 'pendingupgrade'),
+        $views['featured'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                                   add_query_arg('wpbdmfilter', 'pendingupgrade', remove_query_arg('post')),
                                    wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'pendingupgrade' ? 'current' : '',
                                    __('Pending Upgrade', 'WPBDM'),
                                    number_format_i18n($pending_upgrade));
