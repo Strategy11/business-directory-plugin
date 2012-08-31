@@ -134,6 +134,16 @@ Version 2.1.3
    
    15. Improved search query speeds
    
+   16. Added ability to select whether a field should appear on the listing's single view and/or excerpt view separately.
+
+   17. Admins can edit / upgrade listings through the frontend regardless of the listing payment status.
+
+   18. A confirmation dialog is now shown when deleting a listing.
+
+   19. Comments on listings always follow the setting inside "Manage Options" (don't have to enable/disable comments individually on listings through the admin side).
+
+   20. Fixed issue with custom CSS: files can be placed inside the "wp-plugin" directory now (per the docs).
+   
 
 Version 2.1.2
 
