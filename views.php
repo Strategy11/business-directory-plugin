@@ -751,7 +751,7 @@ class WPBDP_DirectoryController {
                 'author' => $current_user->ID,
                 'post_type' => wpbdp_post_type(),
                 'post_status' => 'publish',
-                'posts_per_page' => -1
+                'paged' => get_query_var('paged') ? get_query_var('paged') : 1
             ));
         }
 
