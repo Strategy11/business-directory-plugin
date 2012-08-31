@@ -471,7 +471,7 @@ class WPBDP_ListingsAPI {
             'payment_type' => !$editing ? 'initial' : 'edit',
             'listing_id' => $listing_id
         ));
-        update_post_meta($listing_id, '_wpbdp[payment_status]', $cost > 0.0 ? 'not-paid' : 'paid');
+        update_post_meta($listing_id, '_wpbdp[payment_status]', !current_user_can('administrator') && ($cost > 0.0) ? 'not-paid' : 'paid');
 
         return $listing_id;
     }

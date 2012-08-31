@@ -366,8 +366,12 @@ class WPBDP_DirectoryController {
             if ( (get_post($listing_id)->post_author != $current_user->ID) && (!current_user_can('administrator')) )
                 return wpbdp_render_msg(_x('You are not authorized to edit this listing.', 'templates', 'WPBDM'), 'error');
 
-            if (wpbdp_payment_status($listing_id) != 'paid')
-                return wpbdp_render_msg(_x('You can not edit your listing until its payment has been cleared.', 'templates', 'WPBDM'), 'error');
+            if (wpbdp_payment_status($listing_id) != 'paid' && !current_user_can('administrator')) {
+                $html  = '';
+                $html .= wpbdp_render_msg(_x('You can not edit your listing until its payment has been cleared.', 'templates', 'WPBDM'), 'error');
+                $html .= sprintf('<a href="%s">%s</a>', get_permalink($this->_listing_data['listing_id']), _x('Return to listing.', 'templates', 'WPBDM'));
+                return $html;                
+            }
         }
 
         $html = '';
@@ -706,7 +710,7 @@ class WPBDP_DirectoryController {
 
             $cost = $this->listings->cost_of_listing($listing_id, true);
 
-            if ($cost > 0.0) {
+            if (!current_user_can('administrator') && ($cost > 0.0)) {
                 $payments_api = wpbdp_payments_api();
                 $payment_page = $payments_api->render_payment_page(array(
                     'title' => _x('Step 4 - Checkout', 'templates', 'WPBDM'),
@@ -786,13 +790,17 @@ class WPBDP_DirectoryController {
             return;
 
         if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id')) {
-            if (get_post($listing_id)->post_author != wp_get_current_user()->id)
+            if ( (get_post($listing_id)->post_author != wp_get_current_user()->id) && !current_user_can('administrator'))
                 return '';
 
             $listings_api = wpbdp_listings_api();
             
-            if ($listings_api->get_payment_status($listing_id) != 'paid')
-                return wpbdp_render_msg(_x('You can not upgrade your listing until its payment has been cleared.', 'templates', 'WPBDM'));
+            if ($listings_api->get_payment_status($listing_id) != 'paid' && !current_user_can('administrator')) {
+                $html  = '';
+                $html .= wpbdp_render_msg(_x('You can not upgrade your listing until its payment has been cleared.', 'templates', 'WPBDM'));
+                $html .= sprintf('<a href="%s">%s</a>', get_permalink($listing_id), _x('Return to listing.', 'templates', 'WPBDM'));
+                return $html;
+            }
 
             $action = '';
             if (isset($_POST['do_upgrade']))
@@ -806,6 +814,20 @@ class WPBDP_DirectoryController {
                     $transaction_id = null;
                     $listings_api->request_listing_upgrade($listing_id, $transaction_id);
 
+                    if (current_user_can('administrator')) {
+                        // auto-approve transaction if we are admins
+                        $transaction = $payments_api->get_transaction($transaction_id);
+                        $transaction->status = 'approved';
+                        $transaction->processed_by = 'admin';
+                        $transaction->processed_on = date('Y-m-d H:i:s', time());
+                        $payments_api->save_transaction($transaction);
+
+                        $html  = '';
+                        $html .= wpbdp_render_msg(_x('Listing is now featured.', 'templates', 'WPBDM'));
+                        $html .= sprintf('<a href="%s">%s</a>', get_permalink($listing_id), _x('Return to listing.', 'templates', 'WPBDM'));
+                        return $html;
+                    }
+
                     return $payments_api->render_payment_page(array(
                         'title' => _x('Upgrade listing', 'templates', 'WPBDM'),
                         'transaction_id' => $transaction_id,
@@ -816,33 +838,25 @@ class WPBDP_DirectoryController {
                 default:
                     $sticky_status = $listings_api->get_sticky_status($listing_id);
 
-                    if ($sticky_status == 'sticky')
-                        return wpbdp_render_msg(_x('Your listing is already featured.', 'templates', 'WPBDM')); 
-                    elseif ($sticky_status == 'pending')
-                        return wpbdp_render_msg(_x('Your listing is already pending approval for "featured" status.', 'templates', 'WPBDM'));
-                    else
+                    if ($sticky_status == 'sticky') {
+                        $html  = '';
+                        $html .= wpbdp_render_msg(_x('Your listing is already featured.', 'templates', 'WPBDM')); 
+                        $html .= sprintf('<a href="%s">%s</a>', get_permalink($listing_id), _x('Return to listing.', 'templates', 'WPBDM'));                        
+                        return $html;
+                    } elseif ($sticky_status == 'pending') {
+                        $html  = '';
+                        $html .= wpbdp_render_msg(_x('Your listing is already pending approval for "featured" status.', 'templates', 'WPBDM'));
+                        $html .= sprintf('<a href="%s">%s</a>', get_permalink($listing_id), _x('Return to listing.', 'templates', 'WPBDM'));
+                        return $html;                        
+                    } else {
                         return wpbdp_render('listing-upgradetosticky', array(
                             'listing' => get_post($listing_id),
                         ), false);                      
+                    }
 
                     break;
             }
-            
-            $sticky_status = $listings_api->get_sticky_status($listing_id);
 
-            switch ($sticky_status) {
-                case 'sticky':
-                    return wpbdp_render_msg(_x('Your listing is already featured.', 'templates', 'WPBDM'));
-                    break;
-                case 'pending':
-                    return wpbdp_render_msg('listing is pending approval');
-                    break;
-                default:
-                    return wpbdp_render('listing-upgradetosticky', array(
-                        'listing' => get_post($listing_id)
-                    ), false);
-                    break;
-            }
         }
     }
 
