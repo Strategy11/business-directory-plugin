@@ -20,7 +20,7 @@
 
     <?php if (wpbdp_user_can('delete', $listing_id)): ?>
     <form action="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" method="POST">
-        <input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="delete-listing" />
+        <input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="delete-listing" data-confirmation-message="<?php _ex('Are you sure you wish to delete this listing?', 'templates', 'WPBDM'); ?>" />
     </form>    
 <!--    <a href="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" class="delete-listing">
         <?php _ex('Delete', 'templates', 'WPBDM'); ?>
@@ -46,7 +46,7 @@
 
     <?php if (wpbdp_user_can('delete', $listing_id)): ?>
     <form action="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" method="POST">
-        <input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="delete-listing" />
+        <input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="delete-listing" data-confirmation-message="<?php _ex('Are you sure you wish to delete this listing?', 'templates', 'WPBDM'); ?>" />
     </form>        
     <!--<a href="<?php echo wpbdp_get_page_link('deletelisting', $listing_id); ?>" class="delete-listing">
         <?php _ex('Delete', 'templates', 'WPBDM'); ?>
