@@ -7,7 +7,7 @@
 
 <?php // if (!$searching): ?>
 <h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
-<!-- <Search Form> -->
+<!-- Search Form -->
 <form action="" id="wpbdp-search-form" method="GET">
     <input type="hidden" name="action" value="search" />
     <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id('main'); ?>" />
@@ -20,10 +20,7 @@
             </label>
         </div>
         <div class="field">
-            <input type="text"
-                   name="q"
-                   id="wpbdp-search-form-q"
-                   value="<?php echo wpbdp_getv($_REQUEST, 'q', ''); ?>" />
+            <input type="text" name="q" id="wpbdp-search-form-q" value="<?php echo wpbdp_getv($_REQUEST, 'q', ''); ?>" />
         </div>
     </div>
 
@@ -49,8 +46,7 @@
 
             <?php foreach ($options as $option): ?>
                 <?php if ($use_select): ?>
-                <option value="<?php echo $option; ?>"
-                        <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' selected="selected"' : ''; ?>>
+                <option value="<?php echo $option; ?>" <?php echo (isset($post_values['options']) && in_array($option, $post_values['options'])) ? ' selected="selected"' : ''; ?>>
                     <?php echo $option; ?>
                 </option>
                 <?php else: ?>
@@ -80,7 +76,7 @@
         <input type="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" />
     </p>
 </form>
-<!-- </Search Form> -->
+<!-- Search Form -->
 <?php // endif; ?>
 
 <?php if ($searching): ?>
