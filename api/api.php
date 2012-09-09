@@ -491,7 +491,7 @@ function _wpbdp_render_single() {
         $html .= '<div class="comments">';
 
         ob_start();
-        comments_template();
+        comments_template(null, true);
         $html .= ob_get_contents();
         ob_end_clean();
 
