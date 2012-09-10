@@ -354,7 +354,8 @@ class WPBDP_Plugin {
         }
 
         if ( (get_query_var('p') == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
-            $post = get_post(get_query_var('id'));
+            $id = get_query_var('id');
+            $post = get_post($id);
 
             if (!$post || $post->post_type != wpbdp_post_type() || $post->post_status != 'publish') {
                 status_header(404);
@@ -436,10 +437,13 @@ class WPBDP_Plugin {
         /* scripts & styles */
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
 
+        add_action('plugins_loaded', array($this, '_init_modules'));
+    }
+
+    public function _init_modules() {
         do_action('wpbdp_modules_init');
         do_action('wpbdp_register_settings', $this->settings);
-        do_action('wpbdp_register_fields', $this->formfields);
-
+        do_action('wpbdp_register_fields', $this->formfields);        
     }
 
     public function get_post_type() {
@@ -905,4 +909,4 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();
