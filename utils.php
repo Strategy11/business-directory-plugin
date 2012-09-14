@@ -304,3 +304,21 @@ if(!function_exists('str_getcsv')) {
         return $data;
     }
 }
+
+function wpbdp_capture_action($hook) {
+	$output = '';
+
+	$args = func_get_args();
+	if (count($args) > 1) {
+		$args = array_slice($args, 	1);
+	} else {
+		$args = array();
+	}
+
+	ob_start();
+	do_action_ref_array($hook, $args);
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	return $output;
+}
