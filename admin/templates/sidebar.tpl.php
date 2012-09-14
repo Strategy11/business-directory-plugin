@@ -25,6 +25,7 @@
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/">Single Site License Combo Pack</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/">Multi Site License Combo Pack</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a></li>
 			    </ul>
 			</div>
 		</div>
@@ -45,6 +46,10 @@
 				    <li class="li_link">
 				    	<a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
 				    	<?php echo wpbdp()->has_module('googlemaps') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('ratings') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
 				    </li>				    
 			    </ul>
 			</div>
