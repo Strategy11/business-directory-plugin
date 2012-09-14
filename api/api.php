@@ -441,6 +441,7 @@ function _wpbdp_render_single() {
 
     $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s">', $post->ID, 'single', $sticky_status);
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
+    $html .= wpbdp_capture_action('wpbdp_before_single_view', $post->ID);
 
     $sticky_tag = '';
     if ($sticky_status == 'sticky')
@@ -476,11 +477,12 @@ function _wpbdp_render_single() {
         'sticky_tag' => $sticky_tag,
         'title' => get_the_title(),
         'main_image' => wpbusdirman_post_main_image(),
-        'listing_fields' => $listing_fields,
+        'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID),
         'extra_images' => $extra_images
     );
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, true);
+    $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
 
     $html .= '<div class="contact-form">';
@@ -514,7 +516,7 @@ function _wpbdp_render_excerpt() {
                      $post->ID,
                      $sticky_status,
                      ($counter & 1) ? 'odd':  'even');
-    //$html .= apply_filters('wpbdp_render_listing_before', '', $post->ID, 'excerpt');
+    $html .= wpbdp_capture_action('wpbdp_before_excerpt_view', $post->ID);
 
     $listing_fields = '';
     foreach (wpbdp_get_formfields() as $field) {
@@ -528,13 +530,12 @@ function _wpbdp_render_excerpt() {
         'is_sticky' => $sticky_status == 'sticky',
         'thumbnail' => wpbusdirman_display_the_thumbnail(),
         'title' => get_the_title(),
-        'listing_fields' => $listing_fields
+        'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID)
     );
 
     $html .= wpbdp_render('businessdirectory-excerpt', $vars, true);
+    $html .= wpbdp_capture_action('wpbdp_after_excerpt_view', $post->ID);
     $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'excerpt'), false);
-
-    //$html .= apply_filters('wpbdp_render_listing_after', '', $post->ID, 'excerpt');
     $html .= '</div>';
 
     $counter++;

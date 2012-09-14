@@ -801,6 +801,9 @@ class WPBDP_Plugin {
             case 'googlemaps':
                 return class_exists('BusinessDirectory_GoogleMapsPlugin');
                 break;
+            case 'ratings':
+                return class_exists('BusinessDirectory_RatingsModule');
+                break;
         }
 
         return false;
