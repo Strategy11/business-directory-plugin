@@ -175,7 +175,7 @@ require_once(WPBDP_PATH . 'widgets.php');
 
 class WPBDP_Plugin {
 
-    const VERSION = '2.1.3';
+    const VERSION = '2.1.4';
     const DB_VERSION = '3.1';
 
     const POST_TYPE = 'wpbdp_listing';
