@@ -527,7 +527,8 @@ class WPBDP_ListingsAPI {
                 }
             }
         }
-        $query .= ' WHERE ' . $where;
+
+        $query .= ' WHERE ' . apply_filters('wpbdp_search_where', $where, $args);
 
         wpbdp_debug($query);
 

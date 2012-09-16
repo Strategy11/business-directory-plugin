@@ -949,12 +949,17 @@ class WPBDP_DirectoryController {
             $search_args = array();
             $search_args['q'] = wpbdp_getv($_GET, 'q', null);
             $search_args['meta'] = array();
+            $search_args['extra'] = array(); // search fields added by plugins
 
             foreach (wpbdp_getv($_GET, '_m', array()) as $field_id => $field_search) {
                 $search_args['meta'][] = array('field_id' => $field_id,
                                                'q' => wpbdp_getv($field_search, 'q', null),
                                                'options' => wpbdp_getv($field_search, 'options', array())
                                                );
+            }
+
+            foreach (wpbdp_getv($_GET, '_x', array()) as $label => $field) {
+                $search_args['extra'][$label] = $field;
             }
 
             $results = $listings_api->search($search_args);
