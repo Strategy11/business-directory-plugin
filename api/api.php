@@ -482,8 +482,8 @@ function _wpbdp_render_single() {
     );
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, true);
-    $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
+    $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);    
 
     $html .= '<div class="contact-form">';
     $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
