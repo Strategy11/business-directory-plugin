@@ -128,15 +128,11 @@ class WPBDP_DirectoryController {
 
         $listings_api = wpbdp_listings_api();
 
-        // exclude expired posts in this category (and stickies)
-        $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
-        $stickies = wpbdp_sticky_loop($category_id);
-
         query_posts(array(
             'post_type' => wpbdp_post_type(),
             'post_status' => 'publish',
             'posts_per_page' => 0,
-            'post__not_in' => $excluded_ids,
+            'post__not_in' => $listings_api->get_expired_listings($category_id), /* exclude expired listings */
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
@@ -148,9 +144,7 @@ class WPBDP_DirectoryController {
         ));
 
         $html = wpbdp_render('category',
-                             array('category' => get_term($category_id, wpbdp_categories_taxonomy()),
-                                   'stickies' => $stickies
-                                ),
+                             array('category' => get_term($category_id, wpbdp_categories_taxonomy())),
                              false);
 
         wp_reset_query();
@@ -167,8 +161,7 @@ class WPBDP_DirectoryController {
 
         // exclude expired posts in this category (and stickies)
         // $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
-        // $stickies = wpbdp_sticky_loop($category_id);
-        $excluded_ids = array();
+        $excluded_ids = array(); // TODO: exclude expired listings in tag
 
         query_posts(array(
             'post_type' => wpbdp_post_type(),
@@ -186,8 +179,7 @@ class WPBDP_DirectoryController {
         ));
 
         $html = wpbdp_render('category',
-                             array('category' => get_term($tag_id, wpbdp_tags_taxonomy()),
-                                   'stickies' => $stickies
+                             array('category' => get_term($tag_id, wpbdp_tags_taxonomy())
                                 ),
                              false);
 
@@ -205,7 +197,8 @@ class WPBDP_DirectoryController {
         elseif (get_query_var('paged'))
             $paged = get_query_var('paged');
 
-        $stickies = wpbdp_sticky_loop();
+
+        $excluded_ids = array(); // TODO: exclude expired listings
 
         query_posts(array(
             'post_type' => wpbdp_post_type(),
@@ -214,12 +207,11 @@ class WPBDP_DirectoryController {
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
-            'post__not_in' => wpbdp_listings_api()->get_stickies()
+            'post__not_in' => $excluded_ids
         ));
 
         $html = wpbdp_render('businessdirectory-listings', array(
-                'excludebuttons' => !$include_buttons,
-                'stickies' => $stickies
+                'excludebuttons' => !$include_buttons
             ), true);
 
         wp_reset_query();
