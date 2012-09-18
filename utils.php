@@ -36,14 +36,14 @@ class WPBDP_Debugging {
 
 	public static function _print_styles() {
 		echo '<style type="text/css">';
-		echo 'div#wpbdp-debugging { color: #000; background: #fff; width: 1000px; margin: 2px 0; color: #333; clear:both; }';
+		echo 'div#wpbdp-debugging { color: #000; background: #fff; width: 100%; margin: 2px 0; color: #333; clear:both; }';
 		echo 'div#wpbdp-debugging table { border-collapse: collapse; }';
 		echo 'div#wpbdp-debugging table tr { border-bottom: dotted 1px #666; }';
 		echo 'div#wpbdp-debugging table tr.log-deprecated { background: #ddd; }';
 		echo 'div#wpbdp-debugging table td { font-size: 11px; font-family: monospace; padding: 0 5px; }';
 		echo 'div#wpbdp-debugging table td.timestamp { width: 50px; }';
 		echo 'div#wpbdp-debugging table td.type { width: 100px; }';
-		echo 'div#wpbdp-debugging table td.message { width: 450px; }';
+		echo 'div#wpbdp-debugging table td.message { max-width: 450px; }';
 		echo 'div#wpbdp-debugging table td.context { width: 200px; }';
 		echo 'div#wpbdp-debugging table td.file { width: 200px; }';
 
