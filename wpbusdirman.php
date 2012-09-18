@@ -267,9 +267,24 @@ class WPBDP_Plugin {
         }
     }
 
-    public function _posts_request($sql) {
-        wpbdp_debug($sql);
-        return $sql;
+    public function _posts_fields($fields, $query) {
+        global $wpdb;
+
+        if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == self::POST_TYPE) {
+            $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s) AS wpbdp_is_sticky",
+                                               '_wpbdp[sticky]', 'sticky');
+            return $fields . ', ' . $is_sticky_query;
+        }
+
+        return $fields;
+    }
+
+    public function _posts_orderby($orderby, $query) {
+        if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == self::POST_TYPE) {
+            return 'wpbdp_is_sticky DESC, ' . $orderby;
+        }
+
+        return $orderby;
     }
 
     private function get_rewrite_rules() {
@@ -398,7 +413,7 @@ class WPBDP_Plugin {
         add_action('init', 'session_start');
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
     
-        add_filter('posts_request', array($this, '_posts_request'));
+        add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
 
         add_filter('rewrite_rules_array', array($this, '_rewrite_rules'));
         add_filter('query_vars', array($this, '_query_vars'));
@@ -406,6 +421,8 @@ class WPBDP_Plugin {
         add_action('wp_loaded', array($this, '_wp_loaded'));
 
         add_action('pre_get_posts', array($this, '_pre_get_posts'));
+        add_action('posts_fields', array($this, '_posts_fields'), 10, 2);
+        add_action('posts_orderby', array($this, '_posts_orderby'), 10, 2);
 
         add_filter('comments_template', array($this, '_comments_template'));
         add_filter('taxonomy_template', array($this, '_category_template'));
