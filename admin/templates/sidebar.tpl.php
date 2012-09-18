@@ -25,7 +25,9 @@
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/">Single Site License Combo Pack</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/">Multi Site License Combo Pack</a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a></li>
-				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link">
+				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    </li>
 			    </ul>
 			</div>
 		</div>
