@@ -359,39 +359,6 @@ function wpbdp_render_msg($msg, $type='status') {
  * Template functions
  */
 
-function wpbdp_sticky_loop($category_id=null, $taxonomy=null) {
-    $taxonomy = !$taxonomy ? wpbdp_categories_taxonomy() : $taxonomy;
-    $category_id = $category_id ? $category_id : (isset($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null);
-
-    $args = array(
-        'post_type' => wpbdp_post_type(),
-        'posts_per_page' => 0,
-        'post_status' => 'publish',
-        'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-        'meta_key' => '_wpbdp[sticky]',
-        'meta_value' => 'sticky',
-        'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-        'order' => wpbdp_get_option('listings-sort', 'ASC')
-    );
-
-    if ($category_id) {
-        $args['tax_query'] = array(
-            array('taxonomy' => $taxonomy,
-                  'field' => 'id',
-                  'terms' => $category_id)
-        );
-    }
-
-    $stickies = get_posts($args);
-
-    $html = '';
-
-    foreach ($stickies as $sticky_post)
-        $html .= wpbdp_render_listing($sticky_post->ID, 'excerpt');
-
-    return $html;
-}
-
 /**
  * Displays a single listing view taking into account all of the theme overrides.
  * @param mixed $listing_id listing object or listing id to display.
