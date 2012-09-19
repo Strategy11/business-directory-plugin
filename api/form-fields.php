@@ -175,13 +175,14 @@ class WPBDP_FormFieldsAPI {
 	}
 
 	private function normalizeField(&$field) {
-		$display_options = $field->display_options ? (array) unserialize($field->display_options) : array();
+		$display_options = array_merge(array('show_in_excerpt' => true, 'show_in_listing' => true), $field->display_options ? (array) unserialize($field->display_options) : array());
+		// $display_options = $field->display_options ? (array) unserialize($field->display_options) : array();
 
-		if (!isset($display_options['show_in_excerpt']))
-			$display_options['show_in_excerpt'] = false;
+		// if (!isset($display_options['show_in_excerpt']))
+		// 	$display_options['show_in_excerpt'] = false;
 
-		if (!isset($display_options['show_in_listing']))
-			$display_options['show_in_listing'] = false;
+		// if (!isset($display_options['show_in_listing']))
+		// 	$display_options['show_in_listing'] = false;
 
 		// deprecated since 2.1.3
 		if (isset($display_options['hide_field']) && $display_options['hide_field']) {
