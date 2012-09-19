@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
-Tested up to: 3.4.1
-Last Updated: 2012-August-31
-Stable tag: tags/2.1.3
+Tested up to: 3.4.2
+Last Updated: 2012-Sep-19
+Stable tag: tags/2.1.4
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
@@ -101,6 +101,21 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 
 == Changelog ==
+
+Version 2.1.4
+
+   1. Added support for Ratings module
+   
+   2. Fixed problems with comments
+   
+   3. Fixed problem with featured listings not displaying on the page with the correct count
+   
+   4. Improved speed of queries for main listings
+   
+   5. Fixed search pagination issue with lengthy result sets
+   
+   6. Fixed issue where number of posts per page did not include featured listings
+
 
 Version 2.1.3
 

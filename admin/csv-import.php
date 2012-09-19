@@ -31,7 +31,7 @@ class WPBDP_CSVImportAdmin {
         }
     }
 
-    private function example_data_for_field($field=nulll, $shortname=null) {
+    private function example_data_for_field($field=null, $shortname=null) {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         if ($field) {
