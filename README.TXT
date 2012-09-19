@@ -102,6 +102,11 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 == Changelog ==
 
+Version 2.1.4.1
+
+   1. Fixed issue with default display of form fields (caused fields to hide in listing)
+   
+
 Version 2.1.4
 
    1. Added support for Ratings module
