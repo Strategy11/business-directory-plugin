@@ -565,22 +565,30 @@ class WPBDP_FormFieldsAPI {
 		$args = func_get_args();
 		
 		$html  = '';
-		$html .= sprintf('<div class="wpbdp-form-field %s %s">', $field->type, $field->is_required ? 'required' : '');
+		$html .= sprintf('<div class="wpbdp-form-field %s %s %s">', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '');
+		
+		$html .= '<div class="wpbdp-form-field-label">';
+		$html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
+		
+		if ($field->description)
+			$html .= sprintf('<span class="field-description">(%s)</span>', $field->description);
+
+		$html .= '</div>';
+		$html .= '<div class="wpbdp-form-field-html">';
 		$html .= call_user_func(array($this, 'render_' . $field->type), $field, $value); 
 		$html .= '</div>';
+
+		$html .= '</div>';
+
 		return $html;
 	}
 
 	public function render_textfield(&$field, $value=null) {
 		$html = '';
-		$html .= sprintf('<p class="wpbdmp"><label for="%s">%s</label>',
-						 'wpbdp-field-' . $field->id,
-						 esc_attr($field->label));
 
 		if ($field->validator == 'DateValidator')
 			$html .= _x('Format 01/31/1969', 'form-fields api', 'WPBDM');
 
-		$html .= '</p>';
 		$html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
 						'wpbdp-field-' . $field->id,
 						'listingfields[' . $field->id . ']',
@@ -595,9 +603,6 @@ class WPBDP_FormFieldsAPI {
 			return $this->render_select($field, explode("\t", $value), $multiselect);
 
 		$html = '';
-		$html .= sprintf('<p class="wpbdmp"><label for="%s">%s</label></p>',
-						 'wpbdp-field-' . $field->id,
-						 esc_attr($field->label));
 
 		if ($value) {
 			if (!$multiselect) $value = array($value[0]);
@@ -657,9 +662,6 @@ class WPBDP_FormFieldsAPI {
 	public function render_textarea(&$field, $value=null) {
 		$html = '';
 
-		$html .= sprintf('<p class="wpbdmp"><label for="%s">%s</label></p>',
-						 'wpbdp-field-' . $field->id,
-						 esc_attr($field->label));
 		$html .= sprintf('<textarea id="%s" name="%s" class="intextarea %s">%s</textarea>',
 						 'wpbdp-field-' . $field->id,
 						 'listingfields[' . $field->id . ']',
@@ -715,10 +717,6 @@ class WPBDP_FormFieldsAPI {
 			return $this->render_checkbox($field, explode("\t", $value));
 
 		$html = '';
-		$html .= sprintf('<p class="wpbdmp"><label for="%s">%s</label></p>',
-						 'wpbdp-field-' . $field->id,
-						 esc_attr($field->label)
-						);
 
 		$value = is_array($value) ? $value : array();
 		$value = array_map('trim', $value);

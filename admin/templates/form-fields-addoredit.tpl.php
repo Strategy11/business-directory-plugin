@@ -32,11 +32,10 @@ $field = isset($field) ? $field : null;
 					<label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
 				</th>
 				<td>
-					<?php if ($field && in_array($field->association, array('title', 'category', 'content', 'excerpt'))): ?>
-						<input type="hidden" name="field[association]" value="<?php echo $field->association; ?>" />
-						<strong><?php echo $api->getFieldAssociations($field->association); ?></strong>
-					<?php else: ?>
 					<select name="field[association]" id="field-association">
+					<?php if ($field && in_array($field->association, array('title', 'category', 'content', 'excerpt'))): ?>
+						<option value="<?php echo $field->association; ?>" selected="selected"><?php echo $api->getFieldAssociations($field->association); ?></option>
+					<?php else: ?>						
 					<?php foreach ($api->getFieldAssociations() as $key => $name): ?>
 						<?php if (!in_array($key, array('title', 'content', 'excerpt', 'category', 'tags')) || (in_array($key, array('title', 'content', 'excerpt', 'category', 'tags')) && !wpbdp_get_formfield($key) || (wpbdp_getv(wpbdp_get_formfield($key), 'id', null) == wpbdp_getv($field, 'id', -1)) ) ): ?>
 						<option value="<?php echo $key; ?>" <?php echo wpbdp_getv($post_values, 'association', $field ? $field->association : '') == $key ? 'selected="true"' : ''; ?>>
@@ -44,8 +43,8 @@ $field = isset($field) ? $field : null;
 						</option>
 						<?php endif; ?>
 					<?php endforeach; ?>
-					</select>
 					<?php endif; ?>
+					</select>
 				</td>
 			</tr>			
 			<tr class="form-field form-required">

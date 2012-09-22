@@ -281,6 +281,12 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-bottom: 8px;
 }
 
+.wpbdp-form-field .field-description {
+    font-size: 90%;
+    color: #696969;
+    float: right;
+}
+
 ul.validation-errors {
     margin: 15px 0 15px 0;
 }
