@@ -438,6 +438,9 @@ class WPBDP_Admin {
     }
 
     public function _add_bulk_actions() {
+        if (!current_user_can('administrator'))
+            return;
+        
         if ($screen = get_current_screen()) {
             if ($screen->id == 'edit-' . wpbdp_post_type()) {
                 if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_Plugin::POST_TYPE) {
