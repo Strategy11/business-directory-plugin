@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.1.4.1
+Version: 2.1.5
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -175,7 +175,7 @@ require_once(WPBDP_PATH . 'widgets.php');
 
 class WPBDP_Plugin {
 
-    const VERSION = '2.1.4';
+    const VERSION = '2.1.5';
     const DB_VERSION = '3.1';
 
     const POST_TYPE = 'wpbdp_listing';
@@ -663,80 +663,12 @@ class WPBDP_Plugin {
             }
 
         } else {
-            $default_fields = array(
-                array(
-                    'label' => __("Business Name","WPBDM"),
-                    'type' => 'textfield',
-                    'association' => 'title',
-                    'weight' => 9,
-                    'is_required' => true,
-                    'display_options' => array('show_in_excerpt' => true)
-                ),
-                array(
-                    'label' => __("Business Genre","WPBDM"),
-                    'type' => 'select',
-                    'association' => 'category',
-                    'weight' => 8,
-                    'is_required' => true,
-                    'display_options' => array('show_in_excerpt' => true)
-                ),
-                array(
-                    'label' => __("Short Business Description","WPBDM"),
-                    'type' => 'textarea',
-                    'association' => 'excerpt',
-                    'weight' => 7
-                ),
-                array(
-                    'label' => __("Long Business Description","WPBDM"),
-                    'type' => 'textarea',
-                    'association' => 'content',
-                    'weight' => 6,
-                    'is_required' => true
-                ),
-                array(
-                    'label' => __("Business Website Address","WPBDM"),
-                    'type' => 'textfield',
-                    'association' => 'meta',
-                    'weight' => 5,
-                    'validator' => 'URLValidator',
-                    'display_options' => array('show_in_excerpt' => true)
-                ),
-                array(
-                    'label' => __("Business Phone Number","WPBDM"),
-                    'type' => 'textfield',
-                    'association' => 'meta',
-                    'weight' => 4,
-                    'display_options' => array('show_in_excerpt' => true)
-                ),
-                array(
-                    'label' => __("Business Fax","WPBDM"),
-                    'type' => 'textfield',
-                    'association' => 'meta',
-                    'weight' => 3
-                ),
-                array(
-                    'label' => __("Business Contact Email","WPBDM"),
-                    'type' => 'textfield',
-                    'association' => 'meta',
-                    'weight' => 2,
-                    'validator' => 'EmailValidator',
-                    'is_required' => true
-                ),
-                array(
-                    'label' => __("Business Tags","WPBDM"),
-                    'type' => 'textfield',
-                    'association' => 'tags',
-                    'weight' => 1
-                )
-            );
-
+            $default_fields = $this->formfields->getDefaultFields();
+            
             foreach ($default_fields as $field) {
-                $newfield = $field;
-                if (isset($newfield['display_options']))
-                    $newfield['display_options'] = serialize($newfield['display_options']);
-
-                $wpdb->insert($wpdb->prefix . 'wpbdp_form_fields', $newfield);
+                $this->formfields->addorUpdateField($field);
             }
+        
         }
 
         delete_option('wpbusdirman_db_version');
