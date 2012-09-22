@@ -98,14 +98,16 @@ class WPBDP_FormFieldsAPI {
 					'label' => __("Short Business Description","WPBDM"),
 					'type' => 'textarea',
 					'association' => 'excerpt',
-					'weight' => 7
+					'weight' => 7,
+					'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => false)
 				),
 			'content' => array(
 					'label' => __("Long Business Description","WPBDM"),
 					'type' => 'textarea',
 					'association' => 'content',
 					'weight' => 6,
-					'is_required' => true
+					'is_required' => true,
+					'display_options' => array('show_in_excerpt' => false, 'show_in_listing' => true)	
 				),
 			'meta0' => array(
 					'label' => __("Business Website Address","WPBDM"),
@@ -126,7 +128,8 @@ class WPBDP_FormFieldsAPI {
 					'label' => __("Business Fax","WPBDM"),
 					'type' => 'textfield',
 					'association' => 'meta',
-					'weight' => 3
+					'weight' => 3,
+					'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 				),
 			'meta3' => array(
 					'label' => __("Business Contact Email","WPBDM"),
@@ -134,13 +137,15 @@ class WPBDP_FormFieldsAPI {
 					'association' => 'meta',
 					'weight' => 2,
 					'validator' => 'EmailValidator',
-					'is_required' => true
+					'is_required' => true,
+					'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 				),
 			'meta4' => array(
 					'label' => __("Business Tags","WPBDM"),
 					'type' => 'textfield',
 					'association' => 'tags',
-					'weight' => 1
+					'weight' => 1,
+					'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
 				)	
 		);		
 	}

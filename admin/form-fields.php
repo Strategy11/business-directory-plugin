@@ -171,6 +171,9 @@ class WPBDP_FormFieldsAdmin {
 		if (isset($_POST['field'])) {
 			$newfield = $_POST['field'];
 
+            if (!isset($newfield['display_options']))
+                $newfield['display_options'] = array('show_in_excerpt' => 0, 'show_in_listing' => 0);
+
 			if ($this->api->addorUpdateField($newfield, $errors)) {
 				$this->admin->messages[] = _x('Form fields updated.', 'form-fields admin', 'WPBDM');
 				return $this->fieldsTable();
