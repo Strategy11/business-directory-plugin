@@ -431,7 +431,9 @@ function _wpbdp_render_single() {
     foreach ($images as $img) {
         if ($img->ID == $thumbnail_id) continue;
 
-        $extra_images[] = sprintf('<a class="thickbox" href="%s"><img class="wpbdp-thumbnail" src="%s" alt="%s" title="%s" border="0" /></a>',
+        // $extra_images[] = wp_get_attachment_link($img->ID);
+
+        $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox"><img class="wpbdp-thumbnail size-thumbnail " src="%s" alt="%s" title="%s" border="0" /></a>',
                                     wp_get_attachment_url($img->ID),
                                     wp_get_attachment_thumb_url($img->ID),
                                     the_title(null, null, false),
