@@ -364,6 +364,9 @@ class WPBDP_CSVImporter {
             if ($line) {
                 if (!$this->header) {
                     $this->header = str_getcsv($line, $this->settings['csv-file-separator']);
+                    
+                    foreach ($this->header as &$h)
+                        $h = trim($h);
                 } else {
                     if ($row = $this->process_line($line)) {
                         $this->rows[] = array('line' => $n + 1, 'data' => $row, 'error' => false);
