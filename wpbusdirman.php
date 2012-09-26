@@ -416,10 +416,12 @@ class WPBDP_Plugin {
 
         add_action('init', array($this, 'install_or_update_plugin'), 1);
         add_action('init', array($this, '_register_post_type'), 0);
-        add_action('init', 'session_start');
+
         add_action('init', array($this, '_plugin_initialization'));
+        add_action('init', array($this, '_session_start'));
+
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
-    
+
         add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
 
         add_filter('rewrite_rules_array', array($this, '_rewrite_rules'));
@@ -691,6 +693,12 @@ class WPBDP_Plugin {
 
         $plugin_dir = basename(dirname(__FILE__));
         load_plugin_textdomain( 'WPBDM', null, $plugin_dir.'/languages' );      
+    }
+
+    function _session_start() {
+        if (session_id() == '') {
+            session_start();
+        }
     }
 
     function _register_post_type() {
