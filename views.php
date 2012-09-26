@@ -16,6 +16,21 @@ class WPBDP_DirectoryController {
         $this->listings = wpbdp_listings_api();
     }
 
+    public function check_main_page(&$msg) {
+        $msg = '';
+
+        $wpbdp = wpbdp();
+        if (!$wpbdp->_config['main_page']) {
+            if (current_user_can('administrator') || current_user_can('activate_plugins'))
+                $msg = __('You need to create a page with the [businessdirectory] shortcode for the Business Directory plugin to work correctly.', 'WPBDM');
+            else
+                $msg = __('The directory is temporarily disabled.', 'WPBDM');
+            return false;
+        }
+
+        return true;
+    }
+
     public function _handle_action($query) {
         // workaround WP issue #16373
         if ( (get_query_var('page_id') == wpbdp_get_page_id('main')) &&
@@ -102,6 +117,8 @@ class WPBDP_DirectoryController {
 
     /* Show listing. */
     public function show_listing() {
+        if (!$this->check_main_page($msg)) return $msg;
+
         if (get_query_var('listing') || isset($_GET['listing'])) {
             if ($posts = get_posts(array('post_status' => 'publish', 'numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
                 $listing_id = $posts[0]->ID;
@@ -118,6 +135,8 @@ class WPBDP_DirectoryController {
 
     /* Display category. */
     public function browse_category($category_id=null) {
+        if (!$this->check_main_page($msg)) return $msg;
+
         if (get_query_var('category')) {
             if ($term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy())) {
                 $category_id = $term->term_id;
@@ -154,6 +173,8 @@ class WPBDP_DirectoryController {
 
     /* Display category. */
     public function browse_tag() {
+        if (!$this->check_main_page($msg)) return $msg;
+
         $tag = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
         $tag_id = $tag->term_id;
 
@@ -323,6 +344,8 @@ class WPBDP_DirectoryController {
      */
     // TODO login is required for edits
     public function submit_listing($listing_id=null) {
+        if (!$this->check_main_page($msg)) return $msg;
+
         $no_categories_msg = false;
 
         if (count(get_terms(wpbdp_categories_taxonomy(), array('hide_empty' => false))) == 0) {
@@ -739,6 +762,8 @@ class WPBDP_DirectoryController {
 
     /* Manage Listings */
     public function manage_listings() {
+        if (!$this->check_main_page($msg)) return $msg;
+
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
         $listings = array();
 

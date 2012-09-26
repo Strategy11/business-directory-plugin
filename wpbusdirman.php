@@ -382,6 +382,10 @@ class WPBDP_Plugin {
         
     }
 
+    public function _plugin_initialization() {
+        $this->_config['main_page'] = wpbdp_get_page_id('main');
+    }
+
     public function plugin_activation() {
         add_action('init', array($this, 'flush_rules'), 11);
     }
@@ -402,6 +406,8 @@ class WPBDP_Plugin {
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_ListingsAPI();
 
+        $this->_config = array('main_page' => 0); // some stuff we can know from the start and cache
+
         if (is_admin()) {
             $this->admin = new WPBDP_Admin();
         }
@@ -411,6 +417,7 @@ class WPBDP_Plugin {
         add_action('init', array($this, 'install_or_update_plugin'), 1);
         add_action('init', array($this, '_register_post_type'), 0);
         add_action('init', 'session_start');
+        add_action('init', array($this, '_plugin_initialization'));
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
     
         add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
@@ -779,6 +786,8 @@ class WPBDP_Plugin {
     }
 
     public function _listings_shortcode($atts) {
+        if (!$this->controller->check_main_page($msg)) return $msg;
+
         $atts = shortcode_atts(array('category' => null), $atts);
 
         if ($atts['category']) {
@@ -861,4 +870,4 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-// $wpbdp->debug_on();
+$wpbdp->debug_on();
