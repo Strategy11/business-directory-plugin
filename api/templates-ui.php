@@ -45,7 +45,7 @@ function wpbdp_main_links() {
     }
 
     $html .= '</div>';
-    
+
     return $html;
 }
 
@@ -108,7 +108,6 @@ function wpbdp_listing_sort_options() {
 
     if ($current_sort)
         $html .= sprintf('(<a href="%s" class="reset">Reset</a>)', remove_query_arg('wpbdp_sort'));
-
     $html .= '</div>';
 
     return $html;
@@ -116,6 +115,30 @@ function wpbdp_listing_sort_options() {
 
 function wpbdp_the_listing_sort_options() {
     echo wpbdp_listing_sort_options();
+}
+
+function wpbdp_bar($parts=array()) {
+    $parts = wp_parse_args($parts, array(
+        'links' => true,
+        'search' => false
+    ));
+
+    $html = '<div class="wpbdp-bar cf">';
+    $html .= apply_filters('wpbdp_bar_before', '', $parts);
+
+    if ($parts['links'])
+        $html .= wpbdp_main_links();
+    if ($parts['search'])
+        $html .= wpbdp_search_form();
+
+    $html .= apply_filters('wpbdp_bar_after', '', $parts);
+    $html .= '</div>';
+
+    return $html;
+}
+
+function wpbdp_the_bar($parts) {
+    echo wpbdp_bar($parts);
 }
 
 /* Social sites support. */
@@ -154,7 +177,6 @@ function _wpbdp_display_facebook_button($page) {
     // data-layout can be 'box_count', 'standard' or 'button_count'
     // ref: https://developers.facebook.com/docs/reference/plugins/like/
     $html .= sprintf('<div class="fb-like" data-href="%s" data-send="false" data-width="200" data-layout="button_count" data-show-faces="false"></div>', $page);
-
     $html .= '</div>';
 
     return $html;

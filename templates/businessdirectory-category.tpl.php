@@ -2,10 +2,7 @@
 <div id="content">
 
 <div id="wpbdp-category-page" class="wpbdp-category-page businessdirectory-category businessdirectory wpbdp-page">
-    <div class="wpbdp-bar cf">
-        <?php wpbdp_the_main_links(); ?>
-        <?php wpbdp_the_search_form(); ?>
-    </div>
+    <?php wpbdp_the_bar(array('search' => true)); ?>
 
     <h2 class="category-name"><?php echo wpbusdirman_post_catpage_title(); ?></h2>    
 

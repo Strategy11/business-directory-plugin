@@ -2,10 +2,7 @@
 <?php if (!isset($excludebuttons)) $excludebuttons = true; ?>
 
 <?php if (!$excludebuttons): ?>
-    <div class="wpbdp-bar cf">
-        <?php wpbdp_the_main_links(); ?>
-        <?php wpbdp_the_search_form(); ?>
-    </div>
+    <?php wpbdp_the_bar(array('search' => true)); ?>
 <?php endif; ?>
 
 <?php wpbdp_the_listing_sort_options(); ?>
