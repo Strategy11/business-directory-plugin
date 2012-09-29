@@ -571,13 +571,25 @@ class WPBDP_FormFieldsAPI {
     }
 
     /* Field rendering */
-    public function render(&$field, $value=null, $output=false, $display_context=null) {
+    public function render(&$field, $value=null, $output=false, $display_context=null, $attrs=array()) {
         if ($output) {
-            echo $this->render($field, $value, false, $display_context);
+            echo $this->render($field, $value, false, $display_context, $attrs);
             return;
         }
 
+        $attrs = wp_parse_args($attrs, array('class' => array()));
+        $attrs['class'] = array_merge($attrs['class'], array('wpbdp-form-field', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : ''));
+
+        $args = func_get_args();
+        
         $html  = '';
+        $html .= sprintf('<div %s>', $this->render_attributes($attrs));
+        
+        $html .= '<div class="wpbdp-form-field-label">';
+        $html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
+        
+        if ($field->description)
+            $html .= sprintf('<span class="field-description">(%s)</span>', $field->description);
 
         if ($display_context == 'search') {
             // use a simplified html output for search
@@ -607,6 +619,16 @@ class WPBDP_FormFieldsAPI {
         }
 
         return $html;
+    }
+
+    public function render_attributes($attrs) {
+        $attributes = array();
+        foreach ($attrs as $name => $value) {
+            if (is_array($value))
+                $value = join(' ', array_filter($value, 'strlen'));
+            $attributes[] = sprintf('%s="%s"', $name, esc_attr($value));
+        }
+        return join(' ', $attributes);
     }
 
     public function render_textfield(&$field, $value=null, $display_context=null) {
@@ -700,8 +722,10 @@ class WPBDP_FormFieldsAPI {
             }
 
             if (isset($field->field_data['options'])) {
-                foreach ($field->field_data['options'] as $option) {
-                    $html .= sprintf('<option value="%s" %s>%s</option>', esc_attr($option), in_array($option, $value) ? 'selected="selected"' : '', esc_attr($option));
+                $use_keys = wpbdp_getv($field->field_data, 'options_use_keys', false);
+                foreach ($field->field_data['options'] as $key => $option) {
+                    $v = $use_keys ? $key : $option;
+                    $html .= sprintf('<option value="%s" %s>%s</option>', esc_attr($v), in_array($v, $value) ? 'selected="selected"' : '', esc_attr($option));
                 }
             }
         
