@@ -9,7 +9,6 @@ class WPBDP_DirectoryController {
 
     public function __construct() {
         add_action('pre_get_posts', array($this, '_handle_action')); // TODO: maybe another hook fits better?
-        add_filter('wp_title', array($this, '_wp_title'), 10, 3);
     }
 
     public function init() {
@@ -46,22 +45,6 @@ class WPBDP_DirectoryController {
         if (!$action) $action = 'main';
 
         $this->action = $action;
-    }
-
-    public function _wp_title($title, $sep, $seplocation) {
-        global $post;
-
-        if ($this->action == 'browsecategory') {
-            $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
-            return $term->name . ' ' . $sep . ' ';
-        }
-
-        if ($this->action == 'showlisting') {
-            if (get_query_var('id') || isset($_GET['id']))
-                return get_the_title(get_query_var('id')) . ' ' . $sep . ' ';
-        }
-
-        return $title;
     }
 
     public function get_current_action() {

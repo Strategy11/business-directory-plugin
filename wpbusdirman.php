@@ -437,7 +437,7 @@ class WPBDP_Plugin {
         add_filter('taxonomy_template', array($this, '_category_template'));
         add_filter('single_template', array($this, '_single_template'));
 
-        add_filter('wp_title', array($this, '_page_title'));
+        add_filter('wp_title', array($this, '_page_title'), 10, 3);
         add_action('wp_footer', array($this, '_credits_footer'));
 
         add_action('widgets_init', array($this, '_register_widgets'));
@@ -773,7 +773,27 @@ class WPBDP_Plugin {
         return false;
     }
 
-    public function _page_title($title) {
+    public function _page_title($title, $sep, $seplocation) {
+        $action = _wpbdp_current_action();
+
+        switch ($action) {
+            case 'browsecategory':
+                $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
+                return $term->name . ' ' . $sep . ' ';                
+
+                break;
+
+            case 'showlisting':
+                $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+                $post_title = get_the_title($listing_id);
+                return $post_title . ' '.  $sep . ' ';
+
+                break;
+
+            default:
+                break;
+        }
+
         return $title;
     }
 
