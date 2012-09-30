@@ -23,6 +23,8 @@ class WPBDP_Admin {
         add_action('admin_enqueue_scripts', array($this, 'admin_javascript'));
         add_action('admin_enqueue_scripts', array($this, 'admin_styles'));
 
+        add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
+
         add_filter(sprintf('manage_edit-%s_columns', WPBDP_Plugin::POST_TYPE),
                    array($this, 'add_custom_columns'));
         add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
@@ -591,6 +593,26 @@ class WPBDP_Admin {
         }
 
         $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id'), $_SERVER['REQUEST_URI'] );
+    }
+
+    public function _dropdown_users($output) {
+        global $post;
+
+        if (is_admin() && get_post_type($post) == wpbdp_post_type()) {
+            remove_filter('wp_dropdown_users', array($this, '_dropdown_users'));
+            $select = wp_dropdown_users(array(
+                'echo' => false,
+                'name' => 'post_author_override',
+                'selected' => !empty($post->ID) ? $post->post_author : wp_get_current_user()->ID,
+                'include_selected' => true,
+                'who' => 'all'
+            ));
+            add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
+            return $select;
+
+        }
+
+        return $output;
     }
 
     function add_custom_views($views) {
