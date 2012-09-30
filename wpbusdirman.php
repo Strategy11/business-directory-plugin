@@ -273,7 +273,9 @@ class WPBDP_Plugin {
         if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == self::POST_TYPE) {
             $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s) AS wpbdp_is_sticky",
                                                '_wpbdp[sticky]', 'sticky');
-            return $fields . ', ' . $is_sticky_query;
+
+            $fields = $fields . ', ' . $is_sticky_query;
+            $fields = apply_filters('wpbdp_query_fields', $fields);
         }
 
         return $fields;
@@ -281,7 +283,8 @@ class WPBDP_Plugin {
 
     public function _posts_orderby($orderby, $query) {
         if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == self::POST_TYPE) {
-            return 'wpbdp_is_sticky DESC, ' . $orderby;
+            $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
+            $orderby = 'wpbdp_is_sticky DESC' . $wpbdp_orderby . ', ' . $orderby;
         }
 
         return $orderby;

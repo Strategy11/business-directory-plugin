@@ -606,3 +606,18 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
     else
         return 0;
 }
+
+function wpbdp_get_current_sort_option() {
+    if ($sort = trim(wpbdp_getv($_GET, 'wpbdp_sort', null))) {
+        $order = substr($sort, 0, 1) == '-' ? 'DESC' : 'ASC';
+        $sort = ltrim($sort, '-');
+
+        $obj = new StdClass();
+        $obj->option = $sort;
+        $obj->order = $order;
+
+        return $obj;
+    }
+
+    return null;
+}

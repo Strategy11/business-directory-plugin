@@ -8,6 +8,8 @@
     </div>
 <?php endif; ?>
 
+<?php wpbdp_the_listing_sort_options(); ?>
+
 <?php if (!$stickies && !have_posts()): ?>
     <?php _ex("No listings found.", 'templates', "WPBDM"); ?>
 <?php else: ?>

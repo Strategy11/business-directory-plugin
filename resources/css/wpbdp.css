@@ -253,6 +253,17 @@ form#wpbdmsearchform a.advanced-search-link {
     float: right;
 }
 
+/* sort options */
+.wpbdp-listings-sort-options {
+    font-size: 90%;    
+    margin: 5px 0;
+    text-align: right;
+}
+
+.wpbdp-listings-sort-options .current {
+    font-weight: bold;
+}
+
 /* main page */
 .wpbdp-main-page #wpbdp-categories {
     clear: both;

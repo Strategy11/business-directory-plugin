@@ -84,3 +84,41 @@ function wpbdp_the_search_form() {
 function wpbdp_the_listing_excerpt() {
     echo wpbdp_render_listing(null, 'excerpt');
 }
+
+function wpbdp_listing_sort_options() {
+    $sort_options = array();
+    $sort_options = apply_filters('wpbdp_listing_sort_options', $sort_options);
+
+    if (!$sort_options)
+        return '';
+
+    $current_sort = wpbdp_get_current_sort_option();
+
+    $html  = '';
+    $html .= '<div class="wpbdp-listings-sort-options">';
+    $html .= _x('Sort By:', 'templates sort', 'WPBDM') . ' ';
+
+    foreach ($sort_options as $id => $option) {
+        $html .= sprintf('<span class="%s %s"><a href="%s">%s</a> %s</span>',
+                        $id,
+                        $current_sort->option == $id ? 'current': '',
+                        $current_sort->option == $id ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', $id),
+                        $option[0],
+                        $current_sort->option == $id ? ($current_sort->order == 'ASC' ? '↑' : '↓') : '↑'
+                        );
+        $html .= ' | ';
+    }
+    $html = substr($html, 0, -3);
+    $html .= '<br />';
+
+    if ($current_sort)
+        $html .= sprintf('(<a href="%s" class="reset">Reset</a>)', remove_query_arg('wpbdp_sort'));
+
+    $html .= '</div>';
+
+    return $html;
+}
+
+function wpbdp_the_listing_sort_options() {
+    echo wpbdp_listing_sort_options();
+}
