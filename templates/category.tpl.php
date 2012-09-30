@@ -4,7 +4,7 @@
         <?php wpbdp_the_search_form(); ?>
     </div>
 
-    <h2 class="category-name"><?php echo esc_attr($category->name); ?></h2>    
+    <h2 class="category-name"><?php echo esc_attr($category->name); ?></h2>
 
     <?php echo wpbdp_render('businessdirectory-listings', array('excludebuttons' => true)); ?>
 

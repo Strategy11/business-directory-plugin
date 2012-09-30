@@ -1,17 +1,8 @@
-<div id="wpbdmentry">
+<div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">
 
-	<div id="lco">
-		<div class="title">
-			<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
-		</div>
-		<div class="buttonform">
-			<?php echo wpbusdirman_post_menu_button_viewlistings(); ?>
-			<?php echo wpbusdirman_post_menu_button_directory(); ?>
-		</div>
-		<div style="clear: both;"></div>
-	</div>
-
-	<div class="clear"></div>
+    <div class="wpbdp-bar cf">
+        <?php wpbdp_the_main_links(); ?>
+    </div>
 
 	<h2><?php _ex('Renew Listing', 'templates', 'WPBDM'); ?></h2>
 	<p><?php echo sprintf(_x('You are about to renew "%s".', 'templates', 'WPBDM'), $listing->post_title); ?></p>
