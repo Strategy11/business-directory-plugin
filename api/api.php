@@ -217,7 +217,7 @@ function wpbdp_format_field_output($field, $value='', $listing=null) {
         return '';
 
     if ( $field && $value && ($field->display_options['show_in_excerpt'] || $field->display_options['show_in_listing']) )
-        return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s</label>: <span class="value">%s</span></div>',
+        return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s:</label> <span class="value">%s</span></div>',
                        strtolower(str_replace(array(' ', '/'), '', $field->label)), /* normalized field label */
                        $field->association,
                        esc_attr($field->label),
