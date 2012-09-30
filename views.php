@@ -871,8 +871,8 @@ class WPBDP_DirectoryController {
 
         if ($fee_info = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", intval($_GET['renewal_id']), $current_date))) {
             if ($post = get_post($fee_info->listing_id)) {
-                if ($post->post_author != wp_get_current_user()->ID || !has_term($fee_info->category_id, wpbdp_categories_taxonomy(), $post->ID))
-                    return '';
+                if (!has_term($fee_info->category_id, wpbdp_categories_taxonomy(), $post->ID))
+                    return _x('Invalid renewal requested.', 'templates', 'WPBDM');
 
                 $listingsapi = wpbdp_listings_api();
                 $feesapi = wpbdp_fees_api();
