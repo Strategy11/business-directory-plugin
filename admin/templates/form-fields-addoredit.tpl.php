@@ -154,6 +154,18 @@ $field = isset($field) ? $field : null;
 					</label>
 				</td>
 			</tr>
+			<tr>
+				<th scope="row">
+					<label> <?php _ex('Include this field in the search form?', 'form-fields admin', 'WPBDM'); ?></label>
+				</th>
+				<td>
+					<label>
+						<input name="field[display_options][show_in_search]"
+							   value="1"
+							   type="checkbox" <?php echo wpbdp_getv($post_values_display, 'show_in_search', $field ? $field->display_options['show_in_search'] : true) ? 'checked="true"' : ''; ?>/> <?php _ex('Include this field in the search form.', 'form-fields admin', 'WPBDM'); ?>
+					</label>
+				</td>
+			</tr>			
 	</table>
 
 	<?php if ($field): ?>

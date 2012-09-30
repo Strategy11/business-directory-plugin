@@ -968,7 +968,7 @@ class WPBDP_DirectoryController {
         $fields = array();
         foreach ($fields_api->getFieldsByAssociation('meta') as $field) {
             if ( ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) &&
-                 ($field->validator != 'EmailValidator') ) {
+                 ($field->validator != 'EmailValidator') && ($field->display_options['show_in_search']) ) {
                 $fields[] = $field;
             }
         }
