@@ -577,8 +577,11 @@ class WPBDP_FormFieldsAPI {
             return;
         }
 
+        $value = apply_filters('wpbdp_field_value', $value, $field);
+
         $attrs = wp_parse_args($attrs, array('class' => array()));
         $attrs['class'] = array_merge($attrs['class'], array('wpbdp-form-field', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : ''));
+        $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
 
         $args = func_get_args();
         

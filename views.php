@@ -466,7 +466,7 @@ class WPBDP_DirectoryController {
 
             $fields[] = array('field' => $field,
                               'value' => $field_value,
-                              'html' => $formfields_api->render($field, $field_value));
+                              'html'  => $formfields_api->render($field, $field_value));
         }
         if (wpbdp_get_option('recaptcha-for-submits')) {
             if ($private_key = wpbdp_get_option('recaptcha-private-key')) {

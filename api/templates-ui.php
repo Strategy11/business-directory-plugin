@@ -137,7 +137,7 @@ function wpbdp_bar($parts=array()) {
     return $html;
 }
 
-function wpbdp_the_bar($parts) {
+function wpbdp_the_bar($parts=array()) {
     echo wpbdp_bar($parts);
 }
 
