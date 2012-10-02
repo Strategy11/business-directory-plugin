@@ -665,6 +665,8 @@ class WPBDP_ListingsAPI {
         ));
         update_post_meta($listing_id, '_wpbdp[payment_status]', !current_user_can('administrator') && ($cost > 0.0) ? 'not-paid' : 'paid');
 
+        do_action('wpbdp_add_listing', $listing_id, $listingfields);
+
         return $listing_id;
     }
 

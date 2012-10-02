@@ -296,6 +296,8 @@ class WPBDP_FormFieldsAPI {
                               'meta' => _x('Post Metadata', 'form-fields api', 'WPBDM'),
                               'tags' => _x('Post Tags', 'form-fields api', 'WPBDM'));
 
+        $associations = apply_filters('wpbdp_field_associations', $associations);
+
         if ($key)
             return $associations[$key];
 
