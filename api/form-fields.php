@@ -267,7 +267,7 @@ class WPBDP_FormFieldsAPI {
         }
 
         return $fields;
-    }   
+    }
 
     public function getFieldTypes($key=null) {
         $types = array('textfield' => _x('Textfield', 'form-fields api', 'WPBDM'),
@@ -579,16 +579,16 @@ class WPBDP_FormFieldsAPI {
             return;
         }
 
-        $value = apply_filters('wpbdp_field_value', $value, $field);
-
         $attrs = wp_parse_args($attrs, array('class' => array()));
         $attrs['class'] = array_merge($attrs['class'], array('wpbdp-form-field', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : ''));
+
+        $value = apply_filters('wpbdp_field_value', $value, $field);
         $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
 
         $args = func_get_args();
         
         $html  = '';
-        $html .= sprintf('<div %s>', $this->render_attributes($attrs));
+        $html .= sprintf('<div %s>', wpbdp_render_attributes($attrs));
         
         $html .= '<div class="wpbdp-form-field-label">';
         $html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
@@ -624,16 +624,6 @@ class WPBDP_FormFieldsAPI {
         }
 
         return $html;
-    }
-
-    public function render_attributes($attrs) {
-        $attributes = array();
-        foreach ($attrs as $name => $value) {
-            if (is_array($value))
-                $value = join(' ', array_filter($value, 'strlen'));
-            $attributes[] = sprintf('%s="%s"', $name, esc_attr($value));
-        }
-        return join(' ', $attributes);
     }
 
     public function render_textfield(&$field, $value=null, $display_context=null) {
@@ -727,6 +717,7 @@ class WPBDP_FormFieldsAPI {
             }
 
             if (isset($field->field_data['options'])) {
+                // 
                 $use_keys = wpbdp_getv($field->field_data, 'options_use_keys', false);
                 foreach ($field->field_data['options'] as $key => $option) {
                     $v = $use_keys ? $key : $option;
