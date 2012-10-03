@@ -101,10 +101,10 @@ function wpbdp_listing_sort_options() {
     foreach ($sort_options as $id => $option) {
         $html .= sprintf('<span class="%s %s"><a href="%s">%s</a> %s</span>',
                         $id,
-                        $current_sort->option == $id ? 'current': '',
-                        $current_sort->option == $id ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', $id),
+                        ($current_sort && $current_sort->option == $id) ? 'current': '',
+                        ($current_sort && $current_sort->option == $id) ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', $id),
                         $option[0],
-                        $current_sort->option == $id ? ($current_sort->order == 'ASC' ? '↑' : '↓') : '↑'
+                        ($current_sort && $current_sort->option == $id) ? ($current_sort->order == 'ASC' ? '↑' : '↓') : '↑'
                         );
         $html .= ' | ';
     }
