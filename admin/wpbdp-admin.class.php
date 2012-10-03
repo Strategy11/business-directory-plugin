@@ -104,12 +104,6 @@ class WPBDP_Admin {
                          'activate_plugins',
                          'wpbdp-csv-import',
                          array('WPBDP_CSVImportAdmin', 'admin_menu_cb'));
-        add_submenu_page('wpbdp_admin',
-                         _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
-                         _x('Uninstall', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
-                         'wpbdp_uninstall',
-                         array($this, 'uninstall_plugin'));
 
         // XXX: just a little hack
         global $submenu;
@@ -124,6 +118,15 @@ class WPBDP_Admin {
             $keys = array_keys($m);
             $m[$keys[1]][2] = wpbdp_get_page_link('add-listing');
         }
+
+        do_action('wpbdp_admin_menu', 'wpbdp_admin');
+
+        add_submenu_page('wpbdp_admin',
+                         _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
+                         _x('Uninstall', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdp_uninstall',
+                         array($this, 'uninstall_plugin'));        
     }
 
     public function _delete_post_metadata($post_id) {
