@@ -10,12 +10,10 @@
 
 <?php wpbdp_the_listing_sort_options(); ?>
 
-<?php if (!$stickies && !have_posts()): ?>
+<?php if (!have_posts()): ?>
     <?php _ex("No listings found.", 'templates', "WPBDM"); ?>
 <?php else: ?>
     <div class="listings">
-        <?php echo $stickies; ?>
-
         <?php while (have_posts()): the_post(); ?>
             <?php echo wpbdp_render_listing(null, 'excerpt'); ?>
         <?php endwhile; ?>
