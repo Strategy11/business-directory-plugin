@@ -373,6 +373,13 @@ function wpbdp_locate_template($template, $allow_override=true, $try_defaults=tr
 }
 
 function wpbdp_render($template, $vars=array(), $allow_override=true) {
+    $vars = wp_parse_args($vars, array(
+        '__page__' => array(
+            'class' => array(),
+            'content_class' => array(),
+            'before_content' => '')));
+    $vars = apply_filters('wpbdp_template_vars', $vars, $template);
+
     return wpbdp_render_page(wpbdp_locate_template($template, $allow_override), $vars, false);
 }
 

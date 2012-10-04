@@ -123,7 +123,7 @@ function wpbdp_bar($parts=array()) {
         'search' => false
     ));
 
-    $html = '<div class="wpbdp-bar cf">';
+    $html  = '<div class="wpbdp-bar cf">';
     $html .= apply_filters('wpbdp_bar_before', '', $parts);
 
     if ($parts['links'])
