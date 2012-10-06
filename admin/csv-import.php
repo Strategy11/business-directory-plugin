@@ -430,20 +430,29 @@ class WPBDP_CSVImporter {
 
             $field = $this->fields[$header_name];
 
-            if ($field->association == 'category' && !empty($data[$i])) {
-                if ($term = term_exists($data[$i], wpbdp_categories_taxonomy())) {
+            if ($field->association == 'category') {
+                $category_name = trim($data[$i]);
+                $category_name = strip_tags(str_replace("\n", "-", $category_name));
+
+                if (!$category_name)
+                    continue;
+
+                if ($term = term_exists($category_name, wpbdp_categories_taxonomy())) {
                     $listing_fields[$field->id][] = $term['term_id'];
                 } else {
                     if ($this->settings['create-missing-categories']) {
-                        if ($newterm = wp_insert_term($data[$i], wpbdp_categories_taxonomy())) {
+                        if ($this->in_test_mode())
+                            continue;
+
+                        if ($newterm = wp_insert_term($category_name, wpbdp_categories_taxonomy())) {
                             $listing_fields[$field->id][] = $newterm['term_id'];
                         } else {
-                            $errors[] = sprintf(_x('Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $data[$i]);
+                            $errors[] = sprintf(_x('Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $category_name);
                             return false;
                         }
                         
                     } else {
-                        $errors[] = sprintf(_x('Listing category "%s" does not exist', 'admin csv-import', 'WPBDM'), $data[$i]);
+                        $errors[] = sprintf(_x('Listing category "%s" does not exist', 'admin csv-import', 'WPBDM'), $category_name);
                         return false;
                     }
                 }
