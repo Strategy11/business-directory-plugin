@@ -298,6 +298,12 @@ form#wpbdmsearchform a.advanced-search-link {
     float: right;
 }
 
+.wpbdp-form-field span.sublabel {
+    font-size: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 ul.validation-errors {
     margin: 15px 0 15px 0;
 }

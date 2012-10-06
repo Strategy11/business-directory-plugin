@@ -26,6 +26,8 @@ class WPBDP_FormFieldValidators {
 
     /* URLValidator */
     public static function URLValidator($value) {
+        if (is_array($value))
+            return self::URLValidator($value[0]);
         return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $value);
     }
 
@@ -328,7 +330,7 @@ class WPBDP_FormFieldsAPI {
                 }
             }
 
-            if (is_array($value))
+            if (is_array($value) && $field->validator != 'URLValidator')
                 return true; // TODO: check selected options in select/multiselect/radio/checkbox are valid
 
             if ($field->validator && !call_user_func('WPBDP_FormFieldValidators::' . $field->validator, $value))
@@ -594,11 +596,32 @@ class WPBDP_FormFieldsAPI {
         if ($field->validator == 'DateValidator')
             $html .= _x('Format 01/31/1969', 'form-fields api', 'WPBDM');
 
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
-                        'wpbdp-field-' . $field->id,
-                        'listingfields[' . $field->id . ']',
-                        $field->is_required ? 'inselect required' : 'inselect',
-                        esc_attr($value) );
+        if (is_array($value) && $field->validator != 'URLValidator')
+            $value = $value[0];
+
+        if ($field->validator == 'URLValidator') {
+            $value_url = is_array($value) ? $value[0] : $value;
+            $value_title = is_array($value) ? $value[1] : '';
+
+            $html .= sprintf('<span class="sublabel">%s</span>', _x('URL:', 'form-fields api', 'WPBDM'));
+            $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
+                            'wpbdp-field-' . $field->id,
+                            'listingfields[' . $field->id . '][0]',
+                            $field->is_required ? 'inselect required' : 'inselect',
+                            esc_attr($value_url) );
+
+            $html .= sprintf('<span class="sublabel">%s</span>', _x('Link Text (optional):', 'form-fields api', 'WPBDM'));
+            $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox" value="%s" placeholder="" />',
+                            'wpbdp-field-' . $field->id . '-title',
+                            'listingfields[' . $field->id . '][1]',
+                            esc_attr($value_title) );
+        } else {
+            $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
+                            'wpbdp-field-' . $field->id,
+                            'listingfields[' . $field->id . ']',
+                            $field->is_required ? 'inselect required' : 'inselect',
+                            esc_attr($value) );
+        }
 
         return $html;
     }

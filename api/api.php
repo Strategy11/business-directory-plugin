@@ -192,11 +192,21 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                     if (in_array($field->type, array('multiselect', 'checkbox'))) {
                         return esc_attr(str_replace("\t", ', ', $value));
                     } else {
-                        if ($field->validator == 'URLValidator')
-                            return sprintf('<a href="%s" rel="no follow" target="%s">%s</a>',
-                                           esc_url($value),
+                        if ($field->validator == 'URLValidator') {
+                            if (is_array($value)) {
+                                $value_url = $value[0];
+                                $value_text = $value[1];
+                            } else {
+                                $value_url = $value;
+                                $value_text = $value;
+                            }
+
+                            return sprintf('<a href="%s" rel="no follow" target="%s" title="%s">%s</a>',
+                                           esc_url($value_url),
                                            isset($field->field_data['open_in_new_window']) && $field->field_data['open_in_new_window'] ? '_blank' : '_self',
-                                           esc_url($value));
+                                           esc_attr($value_text),
+                                           esc_attr($value_text));
+                        }
 
                         return esc_attr(wpbdp_get_listing_field_value($listing, $field));
                     }
