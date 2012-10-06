@@ -371,7 +371,7 @@ class WPBDP_CSVImporter {
                     if ($row = $this->process_line($line)) {
                         $this->rows[] = array('line' => $n + 1, 'data' => $row, 'error' => false);
                     } else {
-                        $this->rejected_rows[] = array('line' => $n + 1, 'data' => $row, 'error' => _x('Malformed row (too many columns)', 'admin csv-import', 'WPBDM') );
+                        $this->rejected_rows[] = array('line' => $n + 1, 'data' => $row, 'errors' => array(_x('Malformed row (too many columns)', 'admin csv-import', 'WPBDM')) );
                     }
                 }
             }
