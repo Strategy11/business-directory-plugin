@@ -340,9 +340,7 @@ class WPBDP_CSVImporter {
             $this->remove_directory($this->imagesdir);
     }
 
-    private function process_line($line) {
-        $row = str_getcsv($line, $this->settings['csv-file-separator']);
-
+    private function process_line($row) {
         if (count($row) > count($this->header)) {
             return false; // row has more columns than the header
         }
@@ -355,27 +353,30 @@ class WPBDP_CSVImporter {
     }
 
     private function extract_data($csv_file) {
-        $this->csv = explode("\n", str_replace(array("\r\n", "\r"), "\n", file_get_contents($csv_file)));
-        array_map('rtrim', $this->csv);
+        $fp = fopen($csv_file, 'r');
 
-        foreach ($this->csv as $n => $line) {
-            $line = trim($line);
-
-            if ($line) {
+        $n = 0;
+        while (($line_data = fgetcsv($fp, 0, $this->settings['csv-file-separator'])) !== FALSE) {
+            if ($line_data) {
                 if (!$this->header) {
-                    $this->header = str_getcsv($line, $this->settings['csv-file-separator']);
+                    $this->header = $line_data;
                     
-                    foreach ($this->header as &$h)
-                        $h = trim($h);
+                    foreach ($this->header as &$h) $h = trim($h);
+
                 } else {
-                    if ($row = $this->process_line($line)) {
+                    if ($row = $this->process_line($line_data)) {
                         $this->rows[] = array('line' => $n + 1, 'data' => $row, 'error' => false);
                     } else {
                         $this->rejected_rows[] = array('line' => $n + 1, 'data' => $row, 'errors' => array(_x('Malformed row (too many columns)', 'admin csv-import', 'WPBDM')) );
                     }
                 }
             }
+
+            $n++;
         }
+
+        @fclose($fp);
+
     }
 
     private function extract_images($zipfile) {

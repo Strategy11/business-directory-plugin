@@ -293,18 +293,6 @@ function wpbdp_generate_password($length=6, $level=2) {
    return $password;
 }
 
-
-if(!function_exists('str_getcsv')) {
-    function str_getcsv($input, $delimiter = ",", $enclosure = '"', $escape = "\\") {
-        $fp = fopen("php://memory", 'r+');
-        fputs($fp, $input);
-        rewind($fp);
-        $data = fgetcsv($fp, null, $delimiter, $enclosure); // $escape only got added in 5.3.0
-        fclose($fp);
-        return $data;
-    }
-}
-
 function wpbdp_capture_action($hook) {
 	$output = '';
 
