@@ -751,6 +751,10 @@ class WPBDP_Plugin {
                 break;
 
             case 'browsecategory':
+                // XXX: for some reason this part is executed even when we are not seeing a BD category
+                // that causes the title of that pages to be empty or to include a PHP Notice.
+                // try placing an Ad in AWPCP using the frontend screens, having BD enabled.
+                // ~wvega
                 $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
                 if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());
 
