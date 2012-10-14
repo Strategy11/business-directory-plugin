@@ -130,7 +130,7 @@ class WPBDP_Settings {
         $s = $this->add_section($g, 'googlecheckout', _x('Google Checkout Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'googlecheckout', _x('Activate Google Checkout?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'googlecheckout-merchant', _x('Google Checkout Merchant ID', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'googlecheckout-seller', _x('Google Checkout Seller ID', 'admin settings', 'WPBDM'));
+        // $this->add_setting($s, 'googlecheckout-seller', _x('Google Checkout Seller ID', 'admin settings', 'WPBDM'));
 
         $s = $this->add_section($g, 'paypal', _x('PayPal Gateway Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'paypal', _x('Activate Paypal?', 'admin settings', 'WPBDM'), 'boolean', false,

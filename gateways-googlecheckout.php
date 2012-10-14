@@ -89,13 +89,12 @@ class WPBDP_GoogleCheckoutGateway {
 
     public function check_config() {
         $merchant = trim(wpbdp_get_option('googlecheckout-merchant'));
-        $seller = trim(wpbdp_get_option('googlecheckout-seller'));
 
         $errors = array();
-
-        if (empty($merchant)) $errors[] = _x('"Merchant ID" is missing.', 'googlecheckout', 'WPBDM');
-        if (empty($seller)) $errors[] = _x('"Seller ID" is missing.', 'googlecheckout', 'WPBDM');
-
+        
+        if (empty($merchant))
+            $errors[] = _x('"Merchant ID" is missing.', 'googlecheckout', 'WPBDM');
+        
         return $errors;
     }
 
