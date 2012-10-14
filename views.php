@@ -373,6 +373,17 @@ class WPBDP_DirectoryController {
         }
 
         $html = '';
+
+        if (current_user_can('administrator')) {
+            if ($errors = wpbdp_payments_api()->check_config()) {
+                foreach ($errors as $error) {
+                    $html .= wpbdp_render_msg($error, 'error');
+                }
+            }
+
+            $html .= wpbdp_render_msg(_x('You are logged in as an administrator. Any payment steps will be skipped.', 'templates', 'WPBDM'));
+        }
+
         $html .= call_user_func(array($this, 'submit_listing_' . $step), $listing_id);
         $html .= apply_filters('wpbdp_listing_form', '', $this->_listing_data['listing_id']);
 
