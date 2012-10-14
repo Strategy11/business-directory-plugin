@@ -63,7 +63,7 @@
 
         <?php else : ?>
             <div class="label">
-                <label for="wpbdp-search-form-<?php echo $field->id; ?>"><?php echo sprintf(_x('%s like', 'search', 'WPBDM'), $field->label); ?></label>
+                <label for="wpbdp-search-form-<?php echo $field->id; ?>"><?php echo esc_attr($field->label); ?></label>
             </div>
             <div class="field">
                 <input type="text" name="_m[<?php echo $field->id; ?>][q]" value="<?php echo esc_attr((isset($post_values['q'])) ? $post_values['q'] : ''); ?>" id="wpbdp-search-form-<?php echo $field->id; ?>" />
