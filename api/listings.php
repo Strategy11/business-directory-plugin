@@ -504,9 +504,9 @@ class WPBDP_ListingsAPI {
         if (isset($args['meta'])) {
             foreach ($args['meta'] as $i => $meta_search) {
                 if ($field = wpbdp_get_formfield($meta_search['field_id'])) {
-                    if (!$field->display_options['show_in_excerpt'] && !$field->display_options['show_in_listing']) continue;
+                    // wpbdp_debug_e( $meta_search );
 
-                    if (in_array($field->type, array('checkbox', 'multiselect'))) {
+                    if (in_array($field->type, array('checkbox', 'multiselect', 'select'))) {
                         // multi-valued field
                         if ($meta_search['options']) {
                             $where_ = '%%' . implode("%%", $meta_search['options']) . '%%';
