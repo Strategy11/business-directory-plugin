@@ -228,6 +228,7 @@ class WPBDP_PaymentsAPI {
     public function register_gateway($id, $options=array()) {
         $default_options = array('name' => $id,
                                  'html_callback' => null,
+                                 'check_callback' => create_function('', 'return array();'),
                                  'process_callback' => null);
         $options = array_merge($default_options, $options);
 
@@ -237,6 +238,7 @@ class WPBDP_PaymentsAPI {
         $gateway = new StdClass();
         $gateway->id = $id;
         $gateway->name = $options['name'];
+        $gateway->check_callback = $options['check_callback'];
         $gateway->html_callback = $options['html_callback'];
         $gateway->process_callback = $options['process_callback'];
 
@@ -248,8 +250,9 @@ class WPBDP_PaymentsAPI {
 
         if (wpbdp_get_option('payments-on')) {
             foreach ($this->gateways as &$gateway) {
-                if (wpbdp_get_option($gateway->id))
+                if ( wpbdp_get_option($gateway->id) && count(call_user_func($gateway->check_callback)) == 0 ) {
                     $gateways[] = $gateway;
+                }
             }
         }
 
@@ -258,6 +261,38 @@ class WPBDP_PaymentsAPI {
 
     public function payments_possible() {
         return count($this->get_available_methods()) > 0;
+    }
+
+    public function check_config() {
+        if (!wpbdp_get_option('payments-on'))
+            return array();
+
+        $errors = array();
+        $gateway_available = false;
+
+        // check every registered & enabled gateway is properly configured
+        foreach ($this->gateways as &$gateway) {
+            if (!wpbdp_get_option($gateway->id)) continue;
+
+            $gateway_errors = call_user_func($gateway->check_callback);
+
+            if ($gateway_errors) {
+                $gateway_messages = rtrim('&#149; ' . implode('&#149; ', $gateway_errors), '.');
+                $errors[] = sprintf(_x('The <b>%s</b> gateway is activate but not properly configured. The gateway won\'t be available until the following problems are fixed: <b>%s</b>. <br/> Check the <a href="%s">payment settings</a>.', 'payments-api', 'WPBDM'),
+                                        $gateway->name,
+                                        $gateway_messages,
+                                        admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment') );
+            } else {
+                $gateway_available = true;
+            }
+        }
+
+        if (!$gateway_available) {
+            $errors[] = sprintf(_x('You have payments turned on but no gateway is active and properly configured. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
+                                admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));
+        }
+
+        return $errors;
     }
 
     public function get_registered_methods() {

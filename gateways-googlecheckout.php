@@ -10,6 +10,7 @@ class WPBDP_GoogleCheckoutGateway {
         $payments_api = wpbdp_payments_api();
         $payments_api->register_gateway('googlecheckout', array(
         	'name' => _x('Google Checkout', 'googlecheckout', 'WPBDM'),
+            'check_callback' => array($this, 'check_config'),
         	'html_callback' => array($this, 'googlecheckout_button'),
         	'process_callback' => array($this, 'process_payment')
         ));
@@ -84,6 +85,18 @@ class WPBDP_GoogleCheckoutGateway {
         }
 
         return 0;
+    }
+
+    public function check_config() {
+        $merchant = trim(wpbdp_get_option('googlecheckout-merchant'));
+        $seller = trim(wpbdp_get_option('googlecheckout-seller'));
+
+        $errors = array();
+
+        if (empty($merchant)) $errors[] = _x('"Merchant ID" is missing.', 'googlecheckout', 'WPBDM');
+        if (empty($seller)) $errors[] = _x('"Seller ID" is missing.', 'googlecheckout', 'WPBDM');
+
+        return $errors;
     }
 
 }

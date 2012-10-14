@@ -889,11 +889,9 @@ class WPBDP_Admin {
         if ( (isset($_GET['post_type']) && $_GET['post_type'] == wpbdp_post_type()) ||
              (isset($_GET['page']) && stripos($_GET['page'], 'wpbdp_') !== FALSE) ) {
 
-            if (wpbdp_get_option('payments-on') && !wpbdp_payments_api()->payments_possible())
-                $this->messages[] = array(
-                    sprintf(_x('You have payments turned on but no gateway is enabled. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
-                        admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment')),
-                    'error');
+            if ($errors = wpbdp_payments_api()->check_config()) {
+                foreach ($errors as $error) $this->messages[] = array($error, 'error');
+            }
         }
     }
 
