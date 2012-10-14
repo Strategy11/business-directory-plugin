@@ -780,6 +780,12 @@ class WPBDP_Plugin {
         $action = _wpbdp_current_action();
 
         switch ($action) {
+            case 'browsetag':
+                $term = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
+                return $term->name . ' ' . $sep . ' ';
+
+                break;
+
             case 'browsecategory':
                 $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
                 return $term->name . ' ' . $sep . ' ';                
