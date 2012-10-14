@@ -76,8 +76,6 @@ ul#wpbusdirmanerrors { margin-left:20px; }
 ul#wpbusdirmanpaymentoptionslist { margin-left:20px; }
 #wpbusdirmanpaymentoptionslist li { margin-left:20px; list-style-type:none;margin:3px 0px; }
 
-.wpbusdirmanerroralert { color:#ff0000;font-weight:bold;font-size:14px; }
-
 #wpbdmlistings { list-style:none;width:100%; }
 		
 .wpbdmodd {background:#eeeeee;border-bottom:1px dotted #dddddd;}
