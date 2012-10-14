@@ -360,7 +360,7 @@ function wpbdp_render($template, $vars=array(), $allow_override=true) {
 
 function wpbdp_render_msg($msg, $type='status') {
     $html = '';
-    $html .= sprintf('<div class="%s">%s</div>', $type == 'error' ? 'wpbusdirmanerroralert' : $type, $msg);
+    $html .= sprintf('<div class="wpbdp-msg %s">%s</div>', $type, $msg);
     return $html;
 }
 
