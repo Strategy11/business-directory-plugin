@@ -610,7 +610,7 @@ class WPBDP_FormFieldsAPI {
         if (is_array($value) && $field->validator != 'URLValidator')
             $value = $value[0];
 
-        if ($field->validator == 'URLValidator') {
+        if ($display_context != 'search' && $field->validator == 'URLValidator') {
             $value_url = is_array($value) ? $value[0] : $value;
             $value_title = is_array($value) ? $value[1] : '';
 
