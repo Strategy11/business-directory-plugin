@@ -13,6 +13,7 @@ $api = wpbdp_formfields_api();
     <input type="hidden" name="action" value="search" />
     <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id('main'); ?>" />
     <input type="hidden" name="dosrch" value="1" />
+    <input type="hidden" name="q" value="" />
 
     <?php foreach  ($fields as $field): ?>
         <?php $api->render($field, isset($_REQUEST['listingfields']) ? $api->extract($_REQUEST['listingfields'], $field) : null, true, 'search'); ?>
