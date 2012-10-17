@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2012-08-31 16:21:58+00:00\n"
+"POT-Creation-Date: 2012-10-17 17:12:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -201,37 +201,37 @@ msgctxt "admin csv-import"
 msgid "Warning"
 msgstr ""
 
-#: admin/csv-import.php:371
+#: admin/csv-import.php:370
 msgctxt "admin csv-import"
 msgid "Malformed row (too many columns)"
 msgstr ""
 
-#: admin/csv-import.php:424
+#: admin/csv-import.php:428
 msgctxt "admin csv-import"
 msgid "Ignoring unknown field \"%s\""
 msgstr ""
 
-#: admin/csv-import.php:438
+#: admin/csv-import.php:451
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: admin/csv-import.php:443
+#: admin/csv-import.php:456
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
 
-#: admin/csv-import.php:456
+#: admin/csv-import.php:469
 msgctxt "admin csv-import"
 msgid "Images were specified but no image file was uploaded."
 msgstr ""
 
-#: admin/csv-import.php:488
+#: admin/csv-import.php:501
 msgctxt "admin csv-import"
 msgid "Image file \"%s\" could not be inserted."
 msgstr ""
 
-#: admin/csv-import.php:492
+#: admin/csv-import.php:505
 msgctxt "admin csv-import"
 msgid "Image file \"%s\" could not be uploaded."
 msgstr ""
@@ -400,17 +400,17 @@ msgctxt "form-fields admin"
 msgid "← Return to \"Manage Form Fields\""
 msgstr ""
 
-#: admin/form-fields.php:175
+#: admin/form-fields.php:178
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr ""
 
-#: admin/form-fields.php:204
+#: admin/form-fields.php:207
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr ""
 
-#: admin/form-fields.php:230
+#: admin/form-fields.php:233
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr ""
@@ -754,87 +754,97 @@ msgctxt "form-fields admin"
 msgid "Field Association"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:53
+#: admin/templates/form-fields-addoredit.tpl.php:52
 msgctxt "form-fields admin"
 msgid "Field Type"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:70
+#: admin/templates/form-fields-addoredit.tpl.php:69
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:79
+#: admin/templates/form-fields-addoredit.tpl.php:78
 msgctxt "form-fields admin"
 msgid "Field description"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:88
+#: admin/templates/form-fields-addoredit.tpl.php:87
 msgctxt "form-fields admin"
 msgid "Field validation options"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:92
+#: admin/templates/form-fields-addoredit.tpl.php:91
 msgctxt "form-fields admin"
 msgid "Field Validator"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:96
+#: admin/templates/form-fields-addoredit.tpl.php:95
 msgctxt "form-fields admin"
 msgid "No validation"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:107
+#: admin/templates/form-fields-addoredit.tpl.php:106
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:112
+#: admin/templates/form-fields-addoredit.tpl.php:111
 msgctxt "form-fields admin"
 msgid "Open link in a new window."
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:118
+#: admin/templates/form-fields-addoredit.tpl.php:117
 msgctxt "form-fields admin"
 msgid "Is field required?"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:124
+#: admin/templates/form-fields-addoredit.tpl.php:123
 msgctxt "form-fields admin"
 msgid "This field is required."
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:129
+#: admin/templates/form-fields-addoredit.tpl.php:128
 msgctxt "form-fields admin"
 msgid "Field display options"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:136
+#: admin/templates/form-fields-addoredit.tpl.php:135
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:142
+#: admin/templates/form-fields-addoredit.tpl.php:141
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:148
+#: admin/templates/form-fields-addoredit.tpl.php:147
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:154
+#: admin/templates/form-fields-addoredit.tpl.php:153
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:161
+#: admin/templates/form-fields-addoredit.tpl.php:159
+msgctxt "form-fields admin"
+msgid "Include this field in the search form?"
+msgstr ""
+
+#: admin/templates/form-fields-addoredit.tpl.php:165
+msgctxt "form-fields admin"
+msgid "Include this field in the search form."
+msgstr ""
+
+#: admin/templates/form-fields-addoredit.tpl.php:172
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:163
+#: admin/templates/form-fields-addoredit.tpl.php:174
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr ""
@@ -1062,21 +1072,26 @@ msgid ""
 "notice that all of your customizations will be lost."
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:27 admin/templates/sidebar.tpl.php:46
-msgctxt "admin sidebar"
-msgid "Google Maps Module"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:39 admin/templates/sidebar.tpl.php:43
-#: admin/templates/sidebar.tpl.php:47
+#: admin/templates/sidebar.tpl.php:42 admin/templates/sidebar.tpl.php:46
+#: admin/templates/sidebar.tpl.php:50 admin/templates/sidebar.tpl.php:54
 msgctxt "admin sidebar"
 msgid "Installed"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:39 admin/templates/sidebar.tpl.php:43
-#: admin/templates/sidebar.tpl.php:47
+#: admin/templates/sidebar.tpl.php:42 admin/templates/sidebar.tpl.php:46
+#: admin/templates/sidebar.tpl.php:50 admin/templates/sidebar.tpl.php:54
 msgctxt "admin sidebar"
 msgid "Not Installed"
+msgstr ""
+
+#: admin/templates/sidebar.tpl.php:49
+msgctxt "admin sidebar"
+msgid "Google Maps Module"
+msgstr ""
+
+#: admin/templates/sidebar.tpl.php:53
+msgctxt "admin sidebar"
+msgid "Ratings Module"
 msgstr ""
 
 #: admin/templates/uninstall-complete.tpl.php:2
@@ -1108,359 +1123,361 @@ msgctxt "admin uninstall"
 msgid "Proceed with Uninstall"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:55
+#: admin/wpbdp-admin.class.php:59
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:56
+#: admin/wpbdp-admin.class.php:60
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:62 admin/wpbdp-admin.class.php:63
+#: admin/wpbdp-admin.class.php:66 admin/wpbdp-admin.class.php:67
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:68 admin/wpbdp-admin.class.php:69
+#: admin/wpbdp-admin.class.php:72 admin/wpbdp-admin.class.php:73
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:74 admin/wpbdp-admin.class.php:75
+#: admin/wpbdp-admin.class.php:78 admin/wpbdp-admin.class.php:79
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:80 admin/wpbdp-admin.class.php:81
+#: admin/wpbdp-admin.class.php:84 admin/wpbdp-admin.class.php:85
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:86 admin/wpbdp-admin.class.php:87
+#: admin/wpbdp-admin.class.php:90 admin/wpbdp-admin.class.php:91
 msgctxt "admin menu"
 msgid "Manage Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:92 admin/wpbdp-admin.class.php:93
+#: admin/wpbdp-admin.class.php:96 admin/wpbdp-admin.class.php:97
 msgctxt "admin menu"
 msgid "Manage Payments"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:98 admin/wpbdp-admin.class.php:99
+#: admin/wpbdp-admin.class.php:102 admin/wpbdp-admin.class.php:103
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:104
-msgctxt "admin menu"
-msgid "Uninstall WPDB Manager"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:105
-msgctxt "admin menu"
-msgid "Uninstall"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:114
+#: admin/wpbdp-admin.class.php:113
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:141
+#: admin/wpbdp-admin.class.php:125
+msgctxt "admin menu"
+msgid "Uninstall WPDB Manager"
+msgstr ""
+
+#: admin/wpbdp-admin.class.php:126
+msgctxt "admin menu"
+msgid "Uninstall"
+msgstr ""
+
+#: admin/wpbdp-admin.class.php:153
 msgid "Listing Information"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:149
+#: admin/wpbdp-admin.class.php:161
 msgctxt "admin"
 msgid "Listing Fields / Images"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:164
+#: admin/wpbdp-admin.class.php:176
 msgctxt "admin"
 msgid "Listing Fields"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:202
+#: admin/wpbdp-admin.class.php:214
 msgctxt "admin"
 msgid "Listing Images"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:211
+#: admin/wpbdp-admin.class.php:223
 msgctxt "admin"
 msgid "Listing thumbnail"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:216
+#: admin/wpbdp-admin.class.php:228
 msgctxt "admin"
 msgid "Delete Image"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:229 admin/wpbdp-admin.class.php:230
-#: admin/wpbdp-admin.class.php:277
+#: admin/wpbdp-admin.class.php:241 admin/wpbdp-admin.class.php:242
+#: admin/wpbdp-admin.class.php:289
 msgctxt "admin"
 msgid "Upload Image"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:279
+#: admin/wpbdp-admin.class.php:291
 msgctxt "admin"
 msgid "Upload"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:334
+#: admin/wpbdp-admin.class.php:346
 msgctxt "admin"
 msgid "General Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:335
+#: admin/wpbdp-admin.class.php:347
 msgctxt "admin"
 msgid "Fee Details"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:336
+#: admin/wpbdp-admin.class.php:348
 msgctxt "admin"
 msgid "Transactions"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:340
+#: admin/wpbdp-admin.class.php:352
 msgctxt "admin infometabox"
 msgid "General Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:342
+#: admin/wpbdp-admin.class.php:354
 msgctxt "admin infometabox"
 msgid "Total Listing Cost"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:344
+#: admin/wpbdp-admin.class.php:356
 msgctxt "admin infometabox"
 msgid "Payment Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:348
+#: admin/wpbdp-admin.class.php:360
 msgctxt "admin infometabox"
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:355
+#: admin/wpbdp-admin.class.php:367
 msgctxt "admin metabox"
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:357
+#: admin/wpbdp-admin.class.php:369
 msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:359
+#: admin/wpbdp-admin.class.php:371
 msgctxt "admin metabox"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:366
+#: admin/wpbdp-admin.class.php:378
 msgctxt "admin metabox"
 msgid "Downgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:371
+#: admin/wpbdp-admin.class.php:383
 msgid "Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:379
+#: admin/wpbdp-admin.class.php:391
 msgctxt "admin infometabox"
 msgid "Mark listing as Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:383
+#: admin/wpbdp-admin.class.php:395
 msgctxt "admin infometabox"
 msgid "Mark listing as Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:445
+#: admin/wpbdp-admin.class.php:460
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:447
+#: admin/wpbdp-admin.class.php:462 admin/wpbdp-admin.class.php:778
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:448
+#: admin/wpbdp-admin.class.php:463
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:450
+#: admin/wpbdp-admin.class.php:465
 msgctxt "admin actions"
 msgid "Set Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:451
+#: admin/wpbdp-admin.class.php:466
 msgctxt "admin actions"
 msgid "Set Not Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:489
+#: admin/wpbdp-admin.class.php:514
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:501
+#: admin/wpbdp-admin.class.php:526
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:513
+#: admin/wpbdp-admin.class.php:538
 msgctxt "admin"
 msgid "The listing status has been set as \"not paid\"."
 msgid_plural "The listings status has been set as \"not paid\"."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:525
+#: admin/wpbdp-admin.class.php:550
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:537
+#: admin/wpbdp-admin.class.php:562
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/wpbdp-admin.class.php:551
+#: admin/wpbdp-admin.class.php:576
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:561
+#: admin/wpbdp-admin.class.php:586
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:566
+#: admin/wpbdp-admin.class.php:591
 msgctxt "admin"
 msgid "The fee was sucessfully assigned."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:603 admin/wpbdp-admin.class.php:666
+#: admin/wpbdp-admin.class.php:649 admin/wpbdp-admin.class.php:733
 msgid "Paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:608
+#: admin/wpbdp-admin.class.php:654
 msgid "Unpaid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:613 admin/wpbdp-admin.class.php:690
+#: admin/wpbdp-admin.class.php:659 admin/wpbdp-admin.class.php:757
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:620
+#: admin/wpbdp-admin.class.php:673
 msgctxt "admin"
 msgid "Listing Count"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:632
+#: admin/wpbdp-admin.class.php:685
 msgid "Payment Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:633
+#: admin/wpbdp-admin.class.php:686
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:670
+#: admin/wpbdp-admin.class.php:698
+msgctxt "admin actions"
+msgid "Edit Listing"
+msgstr ""
+
+#: admin/wpbdp-admin.class.php:701
+msgctxt "admin actions"
+msgid "Delete Listing"
+msgstr ""
+
+#: admin/wpbdp-admin.class.php:737
 msgid "Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:675
+#: admin/wpbdp-admin.class.php:742
 msgid "Set as"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:688
+#: admin/wpbdp-admin.class.php:755
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:692
+#: admin/wpbdp-admin.class.php:759
 msgctxt "admin list"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:704
+#: admin/wpbdp-admin.class.php:771
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:708
+#: admin/wpbdp-admin.class.php:775
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:780
+#: admin/wpbdp-admin.class.php:849
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
 "associations in order to work correctly: <b>%s</b>."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:782
+#: admin/wpbdp-admin.class.php:851
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
 "association in order to work correctly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:785
+#: admin/wpbdp-admin.class.php:854
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
 "or let Business Directory do this for you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:789
+#: admin/wpbdp-admin.class.php:858
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:792
+#: admin/wpbdp-admin.class.php:861
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:804
+#: admin/wpbdp-admin.class.php:873
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the <tt>"
 "[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:806
+#: admin/wpbdp-admin.class.php:875
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
 "you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:810
+#: admin/wpbdp-admin.class.php:879
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:825
-msgctxt "admin"
-msgid ""
-"You have payments turned on but no gateway is enabled. Go to <a href=\"%s"
-"\">Manage Options - Payment</a> to change the payment settings. Until you "
-"change this, the directory will operate in <i>Free Mode</i>."
-msgstr ""
-
-#: api/api.php:449
+#: api/api.php:427
 msgctxt "templates"
 msgid "Featured Listing"
 msgstr ""
@@ -1470,200 +1487,200 @@ msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr ""
 
-#: api/form-fields.php:33
+#: api/form-fields.php:35
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
 
-#: api/form-fields.php:42
+#: api/form-fields.php:44
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr ""
 
-#: api/form-fields.php:51
+#: api/form-fields.php:53
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr ""
 
-#: api/form-fields.php:60
+#: api/form-fields.php:62
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr ""
 
-#: api/form-fields.php:69
+#: api/form-fields.php:71
 msgctxt "form-fields-api validation"
 msgid "%s must be in the format 00/00/0000."
 msgstr ""
 
-#: api/form-fields.php:82 wpbusdirman.php:647
+#: api/form-fields.php:84
 msgid "Business Name"
 msgstr ""
 
-#: api/form-fields.php:90 wpbusdirman.php:655
+#: api/form-fields.php:92
 msgid "Business Genre"
 msgstr ""
 
-#: api/form-fields.php:98 wpbusdirman.php:663
+#: api/form-fields.php:100
 msgid "Short Business Description"
 msgstr ""
 
-#: api/form-fields.php:104 wpbusdirman.php:669
+#: api/form-fields.php:107
 msgid "Long Business Description"
 msgstr ""
 
-#: api/form-fields.php:111 wpbusdirman.php:676
+#: api/form-fields.php:115
 msgid "Business Website Address"
 msgstr ""
 
-#: api/form-fields.php:119 wpbusdirman.php:684
+#: api/form-fields.php:123
 msgid "Business Phone Number"
 msgstr ""
 
-#: api/form-fields.php:126 wpbusdirman.php:691
+#: api/form-fields.php:130
 msgid "Business Fax"
 msgstr ""
 
-#: api/form-fields.php:132 wpbusdirman.php:697
+#: api/form-fields.php:137
 msgid "Business Contact Email"
 msgstr ""
 
-#: api/form-fields.php:140 wpbusdirman.php:705
+#: api/form-fields.php:146
 msgid "Business Tags"
-msgstr ""
-
-#: api/form-fields.php:259
-msgctxt "form-fields api"
-msgid "Textfield"
-msgstr ""
-
-#: api/form-fields.php:260
-msgctxt "form-fields api"
-msgid "Select List"
-msgstr ""
-
-#: api/form-fields.php:261
-msgctxt "form-fields api"
-msgid "Textarea"
-msgstr ""
-
-#: api/form-fields.php:262
-msgctxt "form-fields api"
-msgid "Radio button"
-msgstr ""
-
-#: api/form-fields.php:263
-msgctxt "form-fields api"
-msgid "Multiple select list"
-msgstr ""
-
-#: api/form-fields.php:264
-msgctxt "form-fields api"
-msgid "Checkbox"
 msgstr ""
 
 #: api/form-fields.php:273
 msgctxt "form-fields api"
-msgid "Post Title"
+msgid "Textfield"
 msgstr ""
 
 #: api/form-fields.php:274
 msgctxt "form-fields api"
-msgid "Post Content"
+msgid "Select List"
 msgstr ""
 
 #: api/form-fields.php:275
 msgctxt "form-fields api"
-msgid "Post Category"
+msgid "Textarea"
 msgstr ""
 
 #: api/form-fields.php:276
 msgctxt "form-fields api"
-msgid "Post Excerpt"
+msgid "Radio button"
 msgstr ""
 
 #: api/form-fields.php:277
 msgctxt "form-fields api"
-msgid "Post Metadata"
+msgid "Multiple select list"
 msgstr ""
 
 #: api/form-fields.php:278
 msgctxt "form-fields api"
-msgid "Post Tags"
+msgid "Checkbox"
+msgstr ""
+
+#: api/form-fields.php:287
+msgctxt "form-fields api"
+msgid "Post Title"
 msgstr ""
 
 #: api/form-fields.php:288
+msgctxt "form-fields api"
+msgid "Post Content"
+msgstr ""
+
+#: api/form-fields.php:289
+msgctxt "form-fields api"
+msgid "Post Category"
+msgstr ""
+
+#: api/form-fields.php:290
+msgctxt "form-fields api"
+msgid "Post Excerpt"
+msgstr ""
+
+#: api/form-fields.php:291
+msgctxt "form-fields api"
+msgid "Post Metadata"
+msgstr ""
+
+#: api/form-fields.php:292
+msgctxt "form-fields api"
+msgid "Post Tags"
+msgstr ""
+
+#: api/form-fields.php:302
 msgctxt "form-fields-api"
 msgid "Email Validator"
 msgstr ""
 
-#: api/form-fields.php:289
+#: api/form-fields.php:303
 msgctxt "form-fields-api"
 msgid "URL Validator"
 msgstr ""
 
-#: api/form-fields.php:290
+#: api/form-fields.php:304
 msgctxt "form-fields-api"
 msgid "Whole Number Validator"
 msgstr ""
 
-#: api/form-fields.php:291
+#: api/form-fields.php:305
 msgctxt "form-fields-api"
 msgid "Decimal Number Validator"
 msgstr ""
 
-#: api/form-fields.php:292
+#: api/form-fields.php:306
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr ""
 
-#: api/form-fields.php:313
+#: api/form-fields.php:327
 msgctxt "form-fields-api"
 msgid "Please select a valid category."
 msgstr ""
 
-#: api/form-fields.php:407
+#: api/form-fields.php:421
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr ""
 
-#: api/form-fields.php:410
+#: api/form-fields.php:424
 msgctxt "form-fields-api"
 msgid "Invalid field type."
 msgstr ""
 
-#: api/form-fields.php:413
+#: api/form-fields.php:427
 msgctxt "form-fields-api"
 msgid "Invalid field association."
 msgstr ""
 
-#: api/form-fields.php:421
+#: api/form-fields.php:435
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
 "association."
 msgstr ""
 
-#: api/form-fields.php:430
+#: api/form-fields.php:444
 msgctxt "form-fields-api"
 msgid "Post title field must be a text field or text area."
 msgstr ""
 
-#: api/form-fields.php:434
+#: api/form-fields.php:448
 msgctxt "form-fields-api"
 msgid "Post content field must be a text area."
 msgstr ""
 
-#: api/form-fields.php:438
+#: api/form-fields.php:452
 msgctxt "form-fields-api"
 msgid "Post category field can't be a text field or text area."
 msgstr ""
 
-#: api/form-fields.php:443
+#: api/form-fields.php:457
 msgctxt "form-fields-api"
 msgid "Invalid validator selected."
 msgstr ""
 
-#: api/form-fields.php:448
+#: api/form-fields.php:462
 msgctxt "form-fields-api"
 msgid ""
 "You already have a field using the email validation. At this time the system "
@@ -1671,19 +1688,29 @@ msgid ""
 "something else then try again."
 msgstr ""
 
-#: api/form-fields.php:537
+#: api/form-fields.php:556
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
 "work."
 msgstr ""
 
-#: api/form-fields.php:569
+#: api/form-fields.php:608
 msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr ""
 
-#: api/form-fields.php:600
+#: api/form-fields.php:617
+msgctxt "form-fields api"
+msgid "URL:"
+msgstr ""
+
+#: api/form-fields.php:624
+msgctxt "form-fields api"
+msgid "Link Text (optional):"
+msgstr ""
+
+#: api/form-fields.php:656
 msgctxt "form-fields-api category-select"
 msgid "Choose One"
 msgstr ""
@@ -1723,12 +1750,29 @@ msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 
-#: api/payment.php:273
+#: api/payment.php:281
+msgctxt "payments-api"
+msgid ""
+"The <b>%s</b> gateway is activate but not properly configured. The gateway "
+"won't be available until the following problems are fixed: <b>%s</b>. <br/> "
+"Check the <a href=\"%s\">payment settings</a>."
+msgstr ""
+
+#: api/payment.php:291
+msgctxt "admin"
+msgid ""
+"You have payments turned on but no gateway is active and properly "
+"configured. Go to <a href=\"%s\">Manage Options - Payment</a> to change the "
+"payment settings. Until you change this, the directory will operate in "
+"<i>Free Mode</i>."
+msgstr ""
+
+#: api/payment.php:308
 msgctxt "payments-api"
 msgid "Checkout"
 msgstr ""
 
-#: api/payment.php:274
+#: api/payment.php:309
 msgctxt "payments-api"
 msgid "Pay %1$s through %2$s"
 msgstr ""
@@ -1756,6 +1800,11 @@ msgctxt "templates"
 msgid "Advanced Search"
 msgstr ""
 
+#: api/templates-ui.php:99
+msgctxt "templates sort"
+msgid "Sort By:"
+msgstr ""
+
 #: deprecated/deprecated.php:69
 msgid "Featured Listing"
 msgstr ""
@@ -1776,7 +1825,7 @@ msgstr ""
 msgid "Upgrade Listing"
 msgstr ""
 
-#: deprecated/deprecated.php:460 wpbusdirman.php:746
+#: deprecated/deprecated.php:460 wpbusdirman.php:717
 msgid "Edit Listing"
 msgstr ""
 
@@ -1787,9 +1836,6 @@ msgstr ""
 #: deprecated/templates/wpbusdirman-category.php:80
 #: deprecated/templates/wpbusdirman-index-listings.php:53
 #: deprecated/templates/wpbusdirman-search.php:48
-#: templates/businessdirectory-category.tpl.php:29
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/category.tpl.php:25
 msgctxt "templates"
 msgid "&laquo; Older Entries"
 msgstr ""
@@ -1797,9 +1843,6 @@ msgstr ""
 #: deprecated/templates/wpbusdirman-category.php:81
 #: deprecated/templates/wpbusdirman-index-listings.php:54
 #: deprecated/templates/wpbusdirman-search.php:49
-#: templates/businessdirectory-category.tpl.php:30
-#: templates/businessdirectory-listings.tpl.php:28
-#: templates/category.tpl.php:26
 msgctxt "templates"
 msgid "Newer Entries &raquo;"
 msgstr ""
@@ -1809,7 +1852,7 @@ msgid "No listings found in category."
 msgstr ""
 
 #: deprecated/templates/wpbusdirman-category.php:94
-#: templates/manage-listings.tpl.php:11 templates/search.tpl.php:95
+#: templates/manage-listings.tpl.php:11 templates/search.tpl.php:37
 msgctxt "templates"
 msgid "Return to directory"
 msgstr ""
@@ -1893,47 +1936,67 @@ msgctxt "googlecheckout"
 msgid "Google Checkout"
 msgstr ""
 
-#: gateways-googlecheckout.php:27
+#: gateways-googlecheckout.php:28
 msgctxt "googlecheckout"
 msgid "Upgrade to featured listing."
 msgstr ""
 
-#: gateways-googlecheckout.php:28
+#: gateways-googlecheckout.php:29
 msgctxt "googlecheckout"
 msgid "Payment for upgrading to featured listing \"%s\" with listing ID: %s."
 msgstr ""
 
-#: gateways-googlecheckout.php:30
+#: gateways-googlecheckout.php:31
 msgctxt "googlecheckout"
 msgid "Listing payment."
 msgstr ""
 
-#: gateways-googlecheckout.php:31
+#: gateways-googlecheckout.php:32
 msgctxt "paypal-module"
 msgid "Payment for listing \"%s\" with listing ID: %s."
 msgstr ""
 
-#: gateways-googlecheckout.php:50
+#: gateways-googlecheckout.php:51
 msgctxt "googlecheckout"
 msgid ""
 "Your listing has not been fully submitted yet. To complete the process you "
 "need to click the link below."
 msgstr ""
 
-#: gateways-googlecheckout.php:63
+#: gateways-googlecheckout.php:64
 msgctxt "googlecheckout"
 msgid "Pay With Google Checkout"
 msgstr ""
 
+#: gateways-googlecheckout.php:96
+msgctxt "googlecheckout"
+msgid "\"Merchant ID\" is missing."
+msgstr ""
+
 #: templates/businessdirectory-category.tpl.php:15
-#: templates/category.tpl.php:10
 msgctxt "templates"
 msgid "No listings found in category."
 msgstr ""
 
-#: templates/businessdirectory-listings.tpl.php:12 templates/search.tpl.php:92
+#: templates/businessdirectory-category.tpl.php:29
+msgctxt "templates"
+msgid "&laquo; Previous"
+msgstr ""
+
+#: templates/businessdirectory-category.tpl.php:30
+#: templates/businessdirectory-listings.tpl.php:28
+msgctxt "templates"
+msgid "Next &raquo;"
+msgstr ""
+
+#: templates/businessdirectory-listings.tpl.php:14 templates/search.tpl.php:34
 msgctxt "templates"
 msgid "No listings found."
+msgstr ""
+
+#: templates/businessdirectory-listings.tpl.php:27
+msgctxt "templates"
+msgid "&laquo; Previous "
 msgstr ""
 
 #: templates/listing-contactform.tpl.php:10
@@ -1978,7 +2041,6 @@ msgstr ""
 #: templates/listing-form-fees.tpl.php:12
 #: templates/listing-form-fields.tpl.php:6
 #: templates/listing-form-images.tpl.php:13
-#: templates/renewlisting-fees.tpl.php:5
 msgctxt "templates"
 msgid "Submit A Listing"
 msgstr ""
@@ -1988,7 +2050,6 @@ msgstr ""
 #: templates/listing-form-fees.tpl.php:12
 #: templates/listing-form-fields.tpl.php:6
 #: templates/listing-form-images.tpl.php:13
-#: templates/renewlisting-fees.tpl.php:5
 msgctxt "templates"
 msgid "Edit Your Listing"
 msgstr ""
@@ -2003,8 +2064,8 @@ msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr ""
 
-#: templates/listing-form-done.tpl.php:12 views.php:372 views.php:801
-#: views.php:827 views.php:844 views.php:849
+#: templates/listing-form-done.tpl.php:12 views.php:370 views.php:812
+#: views.php:838 views.php:855 views.php:860
 msgctxt "templates"
 msgid "Return to listing."
 msgstr ""
@@ -2025,13 +2086,13 @@ msgid "Step 2 - Payment Options"
 msgstr ""
 
 #: templates/listing-form-fees.tpl.php:32
-#: templates/renewlisting-fees.tpl.php:22
+#: templates/renewlisting-fees.tpl.php:13
 msgctxt "templates"
 msgid "\"%s\" fee options"
 msgstr ""
 
 #: templates/listing-form-fees.tpl.php:40
-#: templates/renewlisting-fees.tpl.php:29
+#: templates/renewlisting-fees.tpl.php:20
 msgctxt "templates"
 msgid "Listing will run forever and includes %d image."
 msgid_plural "Listing will run forever and includes %d images."
@@ -2039,7 +2100,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listing-form-fees.tpl.php:42
-#: templates/renewlisting-fees.tpl.php:31
+#: templates/renewlisting-fees.tpl.php:22
 msgctxt "templates"
 msgid "Listing will run for %d day"
 msgid_plural "Listing will run for %d days"
@@ -2047,7 +2108,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listing-form-fees.tpl.php:43
-#: templates/renewlisting-fees.tpl.php:32
+#: templates/renewlisting-fees.tpl.php:23
 msgctxt "templates"
 msgid "and includes %d image."
 msgid_plural "and includes %d images."
@@ -2055,13 +2116,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listing-form-fees.tpl.php:47
-#: templates/renewlisting-fees.tpl.php:36
+#: templates/renewlisting-fees.tpl.php:27
 msgctxt "templates"
 msgid "Listing will run forever."
 msgstr ""
 
 #: templates/listing-form-fees.tpl.php:49
-#: templates/renewlisting-fees.tpl.php:38
+#: templates/renewlisting-fees.tpl.php:29
 msgctxt "templates"
 msgid "Listing will run for %d day."
 msgid_plural "Listing will run for %d days."
@@ -2121,7 +2182,7 @@ msgctxt "templates"
 msgid "Finish"
 msgstr ""
 
-#: templates/listing-upgradetosticky.tpl.php:1 views.php:832
+#: templates/listing-upgradetosticky.tpl.php:1 views.php:843
 msgctxt "templates"
 msgid "Upgrade listing"
 msgstr ""
@@ -2143,36 +2204,30 @@ msgctxt "templates"
 msgid "You do not currently have any listings in the directory."
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:5
-#: templates/parts/listing-buttons.tpl.php:8
-#: templates/parts/listing-buttons.tpl.php:40
-#: templates/parts/listing-buttons.tpl.php:43
+#: templates/parts/listing-buttons.tpl.php:4
+#: templates/parts/listing-buttons.tpl.php:12
 msgctxt "templates"
 msgid "Edit"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:14
-#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:7
 msgctxt "templates"
 msgid "Upgrade Listing"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:23
-#: templates/parts/listing-buttons.tpl.php:26
-#: templates/parts/listing-buttons.tpl.php:49
-#: templates/parts/listing-buttons.tpl.php:52
+#: templates/parts/listing-buttons.tpl.php:10
+#: templates/parts/listing-buttons.tpl.php:12
 msgctxt "templates"
 msgid "Delete"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:23
-#: templates/parts/listing-buttons.tpl.php:49
+#: templates/parts/listing-buttons.tpl.php:10
+#: templates/parts/listing-buttons.tpl.php:12
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:31
-#: templates/parts/listing-buttons.tpl.php:34
+#: templates/parts/listing-buttons.tpl.php:12
 msgctxt "templates"
 msgid "View"
 msgstr ""
@@ -2200,96 +2255,96 @@ msgctxt "templates"
 msgid "We can not process your payment at this moment. Please try again later."
 msgstr ""
 
-#: templates/renewlisting-fees.tpl.php:16 views.php:887
+#: templates/renewlisting-fees.tpl.php:7 views.php:898
 msgctxt "templates"
 msgid "Renew Listing"
 msgstr ""
 
-#: templates/renewlisting-fees.tpl.php:17
+#: templates/renewlisting-fees.tpl.php:8
 msgctxt "templates"
 msgid "You are about to renew \"%s\"."
 msgstr ""
 
-#: templates/renewlisting-fees.tpl.php:19
+#: templates/renewlisting-fees.tpl.php:10
 msgctxt "WPBDM"
 msgid "Select a listing payment option."
 msgstr ""
 
-#: templates/renewlisting-fees.tpl.php:44
+#: templates/renewlisting-fees.tpl.php:35
 msgctxt "templates"
 msgid "Proceed to checkout"
 msgstr ""
 
-#: templates/search.tpl.php:6 templates/search.tpl.php:80
+#: templates/search.tpl.php:7 templates/search.tpl.php:23
 msgctxt "search"
 msgid "Search"
 msgstr ""
 
-#: templates/search.tpl.php:9
+#: templates/search.tpl.php:10
 msgctxt "templates"
 msgid "Find a listing"
 msgstr ""
 
-#: templates/search.tpl.php:19
-msgctxt "search"
-msgid "Description/Title Keywords"
-msgstr ""
-
-#: templates/search.tpl.php:70
-msgctxt "search"
-msgid "%s like"
-msgstr ""
-
-#: templates/search.tpl.php:87
+#: templates/search.tpl.php:29
 msgctxt "search"
 msgid "Search Results"
 msgstr ""
 
-#: views.php:244
+#: views.php:24
+msgid ""
+"You need to create a page with the [businessdirectory] shortcode for the "
+"Business Directory plugin to work correctly."
+msgstr ""
+
+#: views.php:26
+msgid "The directory is temporarily disabled."
+msgstr ""
+
+#: views.php:240
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr ""
 
-#: views.php:247
+#: views.php:243
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr ""
 
-#: views.php:250
+#: views.php:246
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr ""
 
-#: views.php:258
+#: views.php:254
 msgctxt "contact-message"
 msgid "The reCAPTCHA wasn't entered correctly: %s"
 msgstr ""
 
-#: views.php:268
+#: views.php:264
 msgctxt "contact email"
 msgid "Contact via \"%s\""
 msgstr ""
 
-#: views.php:270
+#: views.php:266
 msgid "l F j, Y \\a\\t g:i a"
 msgstr ""
 
-#: views.php:284
+#: views.php:280
 msgctxt "contact-message"
 msgid "Your message has been sent"
 msgstr ""
 
-#: views.php:286
+#: views.php:282
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr ""
 
-#: views.php:289
+#: views.php:285
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr ""
 
-#: views.php:306
+#: views.php:302
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -2299,12 +2354,12 @@ msgid ""
 "categories to the business directory."
 msgstr ""
 
-#: views.php:308
+#: views.php:304
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr ""
 
-#: views.php:338
+#: views.php:336
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -2314,92 +2369,103 @@ msgid ""
 "to the business directory."
 msgstr ""
 
-#: views.php:340
+#: views.php:338
 msgctxt "templates"
 msgid "Your listing cannot be added at this time. Please try again later."
 msgstr ""
 
-#: views.php:367
+#: views.php:365
 msgctxt "templates"
 msgid "You are not authorized to edit this listing."
 msgstr ""
 
-#: views.php:371
+#: views.php:369
 msgctxt "templates"
 msgid "You can not edit your listing until its payment has been cleared."
 msgstr ""
 
-#: views.php:436
+#: views.php:384
+msgctxt "templates"
+msgid ""
+"You are logged in as an administrator. Any payment steps will be skipped."
+msgstr ""
+
+#: views.php:445
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
 
-#: views.php:510 views.php:567
+#: views.php:519 views.php:576
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr ""
 
-#: views.php:716
+#: views.php:725
 msgctxt "templates"
 msgid "Step 4 - Checkout"
 msgstr ""
 
-#: views.php:718
+#: views.php:727
 msgctxt "templates"
 msgid "Pay %1$s listing fee via %2$s"
 msgstr ""
 
-#: views.php:744
+#: views.php:753
 msgctxt "templates"
 msgid "An error occurred while saving your listing. Please try again later."
 msgstr ""
 
-#: views.php:781
+#: views.php:792
 msgctxt "templates"
 msgid "The listing has been deleted."
 msgstr ""
 
-#: views.php:800
+#: views.php:811
 msgctxt "templates"
 msgid "You can not upgrade your listing until its payment has been cleared."
 msgstr ""
 
-#: views.php:826
+#: views.php:837
 msgctxt "templates"
 msgid "Listing is now featured."
 msgstr ""
 
-#: views.php:834
+#: views.php:845
 msgctxt "templates"
 msgid "Pay %s upgrade fee via %s"
 msgstr ""
 
-#: views.php:843
+#: views.php:854
 msgctxt "templates"
 msgid "Your listing is already featured."
 msgstr ""
 
-#: views.php:848
+#: views.php:859
 msgctxt "templates"
 msgid "Your listing is already pending approval for \"featured\" status."
 msgstr ""
 
-#: views.php:888
+#: views.php:886
+msgctxt "templates"
+msgid "Invalid renewal requested."
+msgstr ""
+
+#: views.php:899
 msgctxt "templates"
 msgid "Pay %1$s renewal fee via %2$s."
 msgstr ""
 
-#: views.php:915
+#: views.php:926
 msgctxt "templates"
 msgid "Listing Upgrade Payment Status"
 msgstr ""
 
-#: views.php:917
+#: views.php:928
 msgctxt "templates"
 msgid "Listing Submitted"
 msgstr ""
 
-#: views.php:919
+#: views.php:930
 msgctxt "templates"
 msgid "Listing Payment Confirmation"
 msgstr ""
@@ -2912,11 +2978,6 @@ msgctxt "admin settings"
 msgid "Google Checkout Merchant ID"
 msgstr ""
 
-#: wpbdp-settings.class.php:133
-msgctxt "admin settings"
-msgid "Google Checkout Seller ID"
-msgstr ""
-
 #: wpbdp-settings.class.php:135
 msgctxt "admin settings"
 msgid "PayPal Gateway Settings"
@@ -3031,42 +3092,42 @@ msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr ""
 
-#: wpbusdirman.php:742
+#: wpbusdirman.php:713
 msgctxt "post type general name"
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:743
+#: wpbusdirman.php:714
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:744
+#: wpbusdirman.php:715
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr ""
 
-#: wpbusdirman.php:745
+#: wpbusdirman.php:716
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr ""
 
-#: wpbusdirman.php:747
+#: wpbusdirman.php:718
 msgid "New Listing"
 msgstr ""
 
-#: wpbusdirman.php:748
+#: wpbusdirman.php:719
 msgid "View Listing"
 msgstr ""
 
-#: wpbusdirman.php:749
+#: wpbusdirman.php:720
 msgid "Search Listings"
 msgstr ""
 
-#: wpbusdirman.php:750
+#: wpbusdirman.php:721
 msgid "No listings found"
 msgstr ""
 
-#: wpbusdirman.php:751
+#: wpbusdirman.php:722
 msgid "No listings found in trash"
 msgstr ""
