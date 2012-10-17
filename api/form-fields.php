@@ -563,34 +563,45 @@ class WPBDP_FormFieldsAPI {
     }
 
     /* Field rendering */
-    public function render(&$field, $value=null, $output=false) {
+    public function render(&$field, $value=null, $output=false, $display_context=null) {
         if ($output) {
-            echo $this->render($field, $value, false);
+            echo $this->render($field, $value, false, $display_context);
             return;
         }
 
-        $args = func_get_args();
-        
         $html  = '';
-        $html .= sprintf('<div class="wpbdp-form-field %s %s %s">', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '');
-        
-        $html .= '<div class="wpbdp-form-field-label">';
-        $html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
-        
-        if ($field->description)
-            $html .= sprintf('<span class="field-description">(%s)</span>', $field->description);
 
-        $html .= '</div>';
-        $html .= '<div class="wpbdp-form-field-html">';
-        $html .= call_user_func(array($this, 'render_' . $field->type), $field, $value); 
-        $html .= '</div>';
+        if ($display_context == 'search') {
+            // use a simplified html output for search
 
-        $html .= '</div>';
+            $html .= sprintf('<div class="search-filter %s">', $field->type);
+            $html .= sprintf('<div class="label"><label>%s</label></div>', esc_attr($field->label));
+            $html .= '<div class="field">';
+            $html .= call_user_func(array($this, 'render_' . $field->type), $field, $value, $display_context);
+            $html .= '</div>';
+            $html .= '</div>';
+
+        } else {
+            $html .= sprintf('<div class="wpbdp-form-field %s %s %s">', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '');
+            
+            $html .= '<div class="wpbdp-form-field-label">';
+            $html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
+            
+            if ($field->description)
+                $html .= sprintf('<span class="field-description">(%s)</span>', $field->description);
+
+            $html .= '</div>';
+            $html .= '<div class="wpbdp-form-field-html">';
+            $html .= call_user_func(array($this, 'render_' . $field->type), $field, $value, $display_context);
+            $html .= '</div>';
+
+            $html .= '</div>';
+        }
 
         return $html;
     }
 
-    public function render_textfield(&$field, $value=null) {
+    public function render_textfield(&$field, $value=null, $display_context=null) {
         $html = '';
 
         if ($field->validator == 'DateValidator')
@@ -626,9 +637,9 @@ class WPBDP_FormFieldsAPI {
         return $html;
     }
     
-    public function render_select(&$field, $value=null, $multiselect=false) {
+    public function render_select(&$field, $value=null, $display_context=null, $multiselect=false) {
         if (!is_array($value))  
-            return $this->render_select($field, explode("\t", $value), $multiselect);
+            return $this->render_select($field, explode("\t", $value), $display_context, $multiselect);
 
         $html = '';
 
@@ -675,6 +686,11 @@ class WPBDP_FormFieldsAPI {
                             $multiselect ? 'inselectmultiple' : 'inselect',
                             $field->is_required ? 'required' : '');
 
+            if ($display_context == 'search') {
+                // add a "none" option when displaying this field in a search context
+                $html .= sprintf('<option value="%s">%s</option>', '', '');
+            }
+
             if (isset($field->field_data['options'])) {
                 foreach ($field->field_data['options'] as $option) {
                     $html .= sprintf('<option value="%s" %s>%s</option>', esc_attr($option), in_array($option, $value) ? 'selected="selected"' : '', esc_attr($option));
@@ -687,7 +703,10 @@ class WPBDP_FormFieldsAPI {
         return $html;
     }
 
-    public function render_textarea(&$field, $value=null) {
+    public function render_textarea(&$field, $value=null, $display_context=null) {
+        if ($display_context == 'search') // render textareas as textfields when searching
+            return $this->render_textfield($field, $value, $display_context);
+
         $html = '';
 
         $html .= sprintf('<textarea id="%s" name="%s" class="intextarea %s">%s</textarea>',
@@ -699,7 +718,7 @@ class WPBDP_FormFieldsAPI {
         return $html;
     }
 
-    public function render_radio(&$field, $value=null) {
+    public function render_radio(&$field, $value=null, $display_context=null) {
         $html = '';
 
         $html .= sprintf('<p class="wpbdmp"><label>%s</label></p>', esc_attr($field->label));
@@ -733,16 +752,16 @@ class WPBDP_FormFieldsAPI {
         return $html;
     }
 
-    public function render_multiselect(&$field, $value=null) {
+    public function render_multiselect(&$field, $value=null, $display_context=null) {
         if (is_string($value))
-            return $this->render_multiselect($field, explode("\t", $value));
+            return $this->render_multiselect($field, explode("\t", $value), $display_context);
 
-        return $this->render_select($field, $value, true);
+        return $this->render_select($field, $value, $display_context, true);
     }
 
-    public function render_checkbox(&$field, $value=null) {
+    public function render_checkbox(&$field, $value=null, $display_context=null) {
         if (is_string($value))
-            return $this->render_checkbox($field, explode("\t", $value));
+            return $this->render_checkbox($field, explode("\t", $value), $display_context);
 
         $html = '';
 
