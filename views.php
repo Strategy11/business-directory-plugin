@@ -958,28 +958,23 @@ class WPBDP_DirectoryController {
         $results = array();
         if (isset($_GET['dosrch'])) {
             $search_args = array();
+            
             $search_args['q'] = wpbdp_getv($_GET, 'q', null);
-            $search_args['meta'] = array();
+            $search_args['fields'] = array(); // standard search fields
             $search_args['extra'] = array(); // search fields added by plugins
 
-            foreach (wpbdp_getv($_GET, '_m', array()) as $field_id => $field_search) {
-                $search_args['meta'][] = array('field_id' => $field_id,
-                                               'q' => wpbdp_getv($field_search, 'q', null),
-                                               'options' => wpbdp_getv($field_search, 'options', array())
-                                               );
-            }
+            foreach (wpbdp_getv($_GET, 'listingfields', array()) as $field_id => $field_search)
+                $search_args['fields'][] = array('field_id' => $field_id, 'q' => $field_search);
 
-            foreach (wpbdp_getv($_GET, '_x', array()) as $label => $field) {
+            foreach (wpbdp_getv($_GET, '_x', array()) as $label => $field)
                 $search_args['extra'][$label] = $field;
-            }
 
             $results = $listings_api->search($search_args);
         }
 
         $fields = array();
-        foreach ($fields_api->getFieldsByAssociation('meta') as $field) {
-            if ( ($field->display_options['show_in_listing'] || $field->display_options['show_in_excerpt']) &&
-                 ($field->validator != 'EmailValidator') && ($field->display_options['show_in_search']) ) {
+        foreach ($fields_api->getFields() as $field) {
+            if ( $field->validator != 'EmailValidator' && ($field->display_options['show_in_search']) ) {
                 $fields[] = $field;
             }
         }
