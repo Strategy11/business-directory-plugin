@@ -191,6 +191,8 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                 if ($value) {
                     if (in_array($field->type, array('multiselect', 'checkbox'))) {
                         return esc_attr(str_replace("\t", ', ', $value));
+                    } elseif ($field->type == 'textarea') {
+                        return wpautop(wp_kses($value), true);
                     } else {
                         if ($field->validator == 'URLValidator') {
                             if (is_array($value)) {
@@ -208,7 +210,7 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                                            esc_attr($value_text));
                         }
 
-                        return esc_attr(wpbdp_get_listing_field_value($listing, $field));
+                        return wp_kses($value);
                     }
                 }
 
