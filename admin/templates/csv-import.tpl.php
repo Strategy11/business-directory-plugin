@@ -58,7 +58,18 @@
                            aria-required="true"
                            value=";" />
                 </td>
-            </tr>            
+            </tr>
+            <tr class="form-required">
+                <th scope="row">
+                    <label> <?php _ex('Category Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                </th>
+                <td>
+                    <input name="settings[category-separator]"
+                           type="text"
+                           aria-required="true"
+                           value=";" />
+                </td>
+            </tr>
     </table>
 
     <h4><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h4>
