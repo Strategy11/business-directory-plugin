@@ -403,6 +403,8 @@ class WPBDP_Plugin {
     }
 
     public function init() {
+        if (get_option('wpbdp-debug-on', false)) $this->debug_on();
+
         $this->settings = new WPBDP_Settings();
         $this->formfields = new WPBDP_FormFieldsAPI();
         $this->fees = new WPBDP_FeesAPI();
@@ -820,6 +822,7 @@ class WPBDP_Plugin {
         register_widget('WPBDP_LatestListingsWidget');
         register_widget('WPBDP_FeaturedListingsWidget');
         register_widget('WPBDP_RandomListingsWidget');
+        register_widget('WPBDP_SearchWidget');
     }
 
     public function _listings_shortcode($atts) {
@@ -907,4 +910,3 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-// $wpbdp->debug_on();
