@@ -42,7 +42,7 @@ function wpbdp_main_links() {
     if (wpbdp_get_option('show-directory-button')) {
         $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" />',
                           __('Directory', 'WPBDM'),
-                          wpbdp_get_page_link('main'));                
+                          wpbdp_get_page_link('main'));
 /*        $html .= sprintf('<a href="%s">%s</a>',
                          wpbdp_get_page_link('main'),
                          __('Directory', 'WPBDM')

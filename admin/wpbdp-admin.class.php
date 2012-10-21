@@ -682,8 +682,9 @@ class WPBDP_Admin {
 
             if ($key == 'title') {
                 // add custom columns *after* the title column
+                $columns['bd_category'] = _x('Categories', 'admin', 'WPBDM');
                 $columns['bd_payment_status'] = __('Payment Status', 'WPBDM');
-                $columns['bd_sticky_status'] = __('Featured (Sticky) Status', 'WPBDM');                
+                $columns['bd_sticky_status'] = __('Featured (Sticky) Status', 'WPBDM');
             }
         }
 
@@ -706,10 +707,14 @@ class WPBDP_Admin {
 
     function custom_columns($column) {
         switch ($column) {
+            case 'bd_category':
+                $this->category_column();
+                break;
+
             case 'bd_payment_status':
                 $this->payment_status_column();
                 break;
-            
+
             case 'bd_sticky_status':
                 $this->sticky_status_column();
                 break;
@@ -717,6 +722,11 @@ class WPBDP_Admin {
             default:
                 break;
         }
+    }
+
+    private function category_column() {
+        global $post;
+        echo get_the_term_list($post->ID, wpbdp_categories_taxonomy(), '', ', ', '' );
     }
 
     private function payment_status_column() {
