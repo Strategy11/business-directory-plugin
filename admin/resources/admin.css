@@ -252,6 +252,14 @@ table.wp-list-table.formfields .tag.in-listing {
     width: 70%;
 }
 
+#wpbdp-listing-fields .wpbdp-form-field.textfield.URLValidator .wpbdp-form-field-html {
+    padding-left: 10px;
+}
+
+#wpbdp-listing-fields .wpbdp-form-field.textfield.URLValidator input[type="text"] {
+    display: block;
+}
+
 #wpbdp-listing-fields div.listing-images .image {
     padding: 5px;
     /*border-right: 1px solid #ddd;*/
