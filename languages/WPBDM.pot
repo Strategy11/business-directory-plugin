@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2012-10-17 17:12:09+00:00\n"
+"POT-Creation-Date: 2012-10-21 22:47:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -201,37 +201,37 @@ msgctxt "admin csv-import"
 msgid "Warning"
 msgstr ""
 
-#: admin/csv-import.php:370
+#: admin/csv-import.php:371
 msgctxt "admin csv-import"
 msgid "Malformed row (too many columns)"
 msgstr ""
 
-#: admin/csv-import.php:428
+#: admin/csv-import.php:429
 msgctxt "admin csv-import"
 msgid "Ignoring unknown field \"%s\""
 msgstr ""
 
-#: admin/csv-import.php:451
+#: admin/csv-import.php:454
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: admin/csv-import.php:456
+#: admin/csv-import.php:459
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
 
-#: admin/csv-import.php:469
+#: admin/csv-import.php:473
 msgctxt "admin csv-import"
 msgid "Images were specified but no image file was uploaded."
 msgstr ""
 
-#: admin/csv-import.php:501
+#: admin/csv-import.php:505
 msgctxt "admin csv-import"
 msgid "Image file \"%s\" could not be inserted."
 msgstr ""
 
-#: admin/csv-import.php:505
+#: admin/csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Image file \"%s\" could not be uploaded."
 msgstr ""
@@ -415,7 +415,7 @@ msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:3 admin/templates/csv-import.tpl.php:127
+#: admin/templates/csv-import.tpl.php:3 admin/templates/csv-import.tpl.php:138
 msgctxt "admin csv-import"
 msgid "Help"
 msgstr ""
@@ -436,7 +436,8 @@ msgid "CSV File"
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:18 admin/templates/csv-import.tpl.php:42
-#: admin/templates/csv-import.tpl.php:53 admin/templates/csv-import.tpl.php:80
+#: admin/templates/csv-import.tpl.php:53 admin/templates/csv-import.tpl.php:64
+#: admin/templates/csv-import.tpl.php:91
 msgctxt "admin forms"
 msgid "required"
 msgstr ""
@@ -463,76 +464,81 @@ msgstr ""
 
 #: admin/templates/csv-import.tpl.php:64
 msgctxt "admin csv-import"
-msgid "Import settings"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:68
-msgctxt "admin csv-import"
-msgid "Allow partial imports?"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:73
-msgctxt "admin csv-import"
-msgid "Allow partial imports."
+msgid "Category Separator"
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:75
 msgctxt "admin csv-import"
+msgid "Import settings"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:79
+msgctxt "admin csv-import"
+msgid "Allow partial imports?"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:84
+msgctxt "admin csv-import"
+msgid "Allow partial imports."
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:86
+msgctxt "admin csv-import"
 msgid "If checked, invalid lines from the CSV file will be ignored."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:80
+#: admin/templates/csv-import.tpl.php:91
 msgctxt "admin csv-import"
 msgid "Missing categories handling"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:85
+#: admin/templates/csv-import.tpl.php:96
 msgctxt "admin csv-import"
 msgid "Auto-create categories"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:88
+#: admin/templates/csv-import.tpl.php:99
 msgctxt "admin csv-import"
 msgid "Generate errors when a category is not found"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:93
+#: admin/templates/csv-import.tpl.php:104
 msgctxt "admin csv-import"
 msgid "Assign listings to a user?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:99
+#: admin/templates/csv-import.tpl.php:110
 msgctxt "admin csv-import"
 msgid "Assign listings to a user."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:104
+#: admin/templates/csv-import.tpl.php:115
 msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:109
+#: admin/templates/csv-import.tpl.php:120
 msgctxt "admin csv-import"
 msgid "Use spreadsheet information only."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:115
+#: admin/templates/csv-import.tpl.php:126
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:121
+#: admin/templates/csv-import.tpl.php:132
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:122
+#: admin/templates/csv-import.tpl.php:133
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:129
+#: admin/templates/csv-import.tpl.php:140
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -541,37 +547,37 @@ msgid ""
 "how an import file should look like."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:142
+#: admin/templates/csv-import.tpl.php:153
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:143
+#: admin/templates/csv-import.tpl.php:154
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:144
+#: admin/templates/csv-import.tpl.php:155
 msgctxt "admin csv-import"
 msgid "Type"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:145
+#: admin/templates/csv-import.tpl.php:156
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:146
+#: admin/templates/csv-import.tpl.php:157
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:163
+#: admin/templates/csv-import.tpl.php:174
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:170
+#: admin/templates/csv-import.tpl.php:181
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr ""
@@ -1297,7 +1303,7 @@ msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:462 admin/wpbdp-admin.class.php:778
+#: admin/wpbdp-admin.class.php:462 admin/wpbdp-admin.class.php:788
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr ""
@@ -1367,7 +1373,7 @@ msgctxt "admin"
 msgid "The fee was sucessfully assigned."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:649 admin/wpbdp-admin.class.php:733
+#: admin/wpbdp-admin.class.php:649 admin/wpbdp-admin.class.php:743
 msgid "Paid"
 msgstr ""
 
@@ -1375,7 +1381,7 @@ msgstr ""
 msgid "Unpaid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:659 admin/wpbdp-admin.class.php:757
+#: admin/wpbdp-admin.class.php:659 admin/wpbdp-admin.class.php:767
 msgid "Pending Upgrade"
 msgstr ""
 
@@ -1385,99 +1391,104 @@ msgid "Listing Count"
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:685
-msgid "Payment Status"
+msgctxt "admin"
+msgid "Categories"
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:686
+msgid "Payment Status"
+msgstr ""
+
+#: admin/wpbdp-admin.class.php:687
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:698
+#: admin/wpbdp-admin.class.php:699
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:701
+#: admin/wpbdp-admin.class.php:702
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:737
+#: admin/wpbdp-admin.class.php:747
 msgid "Not paid"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:742
+#: admin/wpbdp-admin.class.php:752
 msgid "Set as"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:755
+#: admin/wpbdp-admin.class.php:765
 msgid "Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:759
+#: admin/wpbdp-admin.class.php:769
 msgctxt "admin list"
 msgid "Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:771
+#: admin/wpbdp-admin.class.php:781
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:775
+#: admin/wpbdp-admin.class.php:785
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:849
+#: admin/wpbdp-admin.class.php:859
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
 "associations in order to work correctly: <b>%s</b>."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:851
+#: admin/wpbdp-admin.class.php:861
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
 "association in order to work correctly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:854
+#: admin/wpbdp-admin.class.php:864
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
 "or let Business Directory do this for you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:858
+#: admin/wpbdp-admin.class.php:868
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:861
+#: admin/wpbdp-admin.class.php:871
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:873
+#: admin/wpbdp-admin.class.php:883
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the <tt>"
 "[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:875
+#: admin/wpbdp-admin.class.php:885
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
 "you automatically."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:879
+#: admin/wpbdp-admin.class.php:889
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr ""
 
-#: api/api.php:427
+#: api/api.php:429
 msgctxt "templates"
 msgid "Featured Listing"
 msgstr ""
@@ -1825,7 +1836,7 @@ msgstr ""
 msgid "Upgrade Listing"
 msgstr ""
 
-#: deprecated/deprecated.php:460 wpbusdirman.php:717
+#: deprecated/deprecated.php:460 wpbusdirman.php:719
 msgid "Edit Listing"
 msgstr ""
 
@@ -2075,7 +2086,12 @@ msgctxt "templates"
 msgid "Your listing has been submitted."
 msgstr ""
 
-#: templates/listing-form-done.tpl.php:18
+#: templates/listing-form-done.tpl.php:19
+msgctxt "templates"
+msgid "Go to your listing"
+msgstr ""
+
+#: templates/listing-form-done.tpl.php:20
 msgctxt "templates"
 msgid "Return to directory."
 msgstr ""
@@ -2205,7 +2221,7 @@ msgid "You do not currently have any listings in the directory."
 msgstr ""
 
 #: templates/parts/listing-buttons.tpl.php:4
-#: templates/parts/listing-buttons.tpl.php:12
+#: templates/parts/listing-buttons.tpl.php:15
 msgctxt "templates"
 msgid "Edit"
 msgstr ""
@@ -2216,18 +2232,22 @@ msgid "Upgrade Listing"
 msgstr ""
 
 #: templates/parts/listing-buttons.tpl.php:10
-#: templates/parts/listing-buttons.tpl.php:12
+#: templates/parts/listing-buttons.tpl.php:15
 msgctxt "templates"
 msgid "Delete"
 msgstr ""
 
 #: templates/parts/listing-buttons.tpl.php:10
-#: templates/parts/listing-buttons.tpl.php:12
+#: templates/parts/listing-buttons.tpl.php:15
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:12
+#: templates/parts/listing-buttons.tpl.php:13
+msgid "← Back to Directory"
+msgstr ""
+
+#: templates/parts/listing-buttons.tpl.php:15
 msgctxt "templates"
 msgid "View"
 msgstr ""
@@ -2485,7 +2505,7 @@ msgctxt "widgets"
 msgid "Latest Listings"
 msgstr ""
 
-#: widgets.php:22 widgets.php:70 widgets.php:143
+#: widgets.php:22 widgets.php:70 widgets.php:143 widgets.php:227
 msgctxt "widgets"
 msgid "Title:"
 msgstr ""
@@ -2523,6 +2543,51 @@ msgstr ""
 #: widgets.php:139
 msgctxt "widgets"
 msgid "Random Listings"
+msgstr ""
+
+#: widgets.php:215
+msgctxt "widgets"
+msgid "Business Directory - Search"
+msgstr ""
+
+#: widgets.php:216
+msgctxt "widgets"
+msgid "Displays a search form to look for Business Directory listings."
+msgstr ""
+
+#: widgets.php:223
+msgctxt "widgets"
+msgid "Search the Business Directory"
+msgstr ""
+
+#: widgets.php:234
+msgctxt "widgets"
+msgid "Form Style:"
+msgstr ""
+
+#: widgets.php:242
+msgctxt "widgets"
+msgid "Basic"
+msgstr ""
+
+#: widgets.php:250
+msgctxt "widgets"
+msgid "Advanced"
+msgstr ""
+
+#: widgets.php:254
+msgctxt "widgets"
+msgid "Search Fields (advanced mode):"
+msgstr ""
+
+#: widgets.php:255
+msgctxt "widgets"
+msgid "Display the following fields in the form."
+msgstr ""
+
+#: widgets.php:304
+msgctxt "widgets"
+msgid "Search"
 msgstr ""
 
 #: wpbdp-settings.class.php:18
@@ -3092,42 +3157,42 @@ msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr ""
 
-#: wpbusdirman.php:713
+#: wpbusdirman.php:715
 msgctxt "post type general name"
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:714
+#: wpbusdirman.php:716
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr ""
 
-#: wpbusdirman.php:715
+#: wpbusdirman.php:717
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr ""
 
-#: wpbusdirman.php:716
+#: wpbusdirman.php:718
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr ""
 
-#: wpbusdirman.php:718
+#: wpbusdirman.php:720
 msgid "New Listing"
 msgstr ""
 
-#: wpbusdirman.php:719
+#: wpbusdirman.php:721
 msgid "View Listing"
 msgstr ""
 
-#: wpbusdirman.php:720
+#: wpbusdirman.php:722
 msgid "Search Listings"
 msgstr ""
 
-#: wpbusdirman.php:721
+#: wpbusdirman.php:723
 msgid "No listings found"
 msgstr ""
 
-#: wpbusdirman.php:722
+#: wpbusdirman.php:724
 msgid "No listings found in trash"
 msgstr ""
