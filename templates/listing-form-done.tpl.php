@@ -15,7 +15,10 @@
 
     <?php else: ?>
 	   <p><?php _ex('Your listing has been submitted.', 'templates', 'WPBDM'); ?></p>
-       <p><a href="<?php echo wpbdp_get_page_link('main'); ?>"><?php _ex('Return to directory.', 'templates', 'WPBDM'); ?></a>
+       <p>
+        <?php if ($listing->post_status == 'publish'): ?><a href="<?php echo get_permalink($listing->ID); ?>"><?php _ex('Go to your listing', 'templates', 'WPBDM'); ?></a> | <?php endif; ?>
+        <a href="<?php echo wpbdp_get_page_link('main'); ?>"><?php _ex('Return to directory.', 'templates', 'WPBDM'); ?></a>
+       </p>
     <?php endif; ?>
 
 </div>

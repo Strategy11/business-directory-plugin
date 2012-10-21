@@ -582,7 +582,7 @@ class WPBDP_FormFieldsAPI {
             $html .= '</div>';
 
         } else {
-            $html .= sprintf('<div class="wpbdp-form-field %s %s %s">', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '');
+            $html .= sprintf('<div class="wpbdp-form-field %s %s %s %s">', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '', $field->validator);
             
             $html .= '<div class="wpbdp-form-field-label">';
             $html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
