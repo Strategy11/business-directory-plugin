@@ -580,10 +580,7 @@ class WPBDP_FormFieldsAPI {
         }
 
         $attrs = wp_parse_args($attrs, array('class' => array()));
-        $attrs['class'] = array_merge($attrs['class'], array('wpbdp-form-field', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '', $field->validator));
-
         $value = apply_filters('wpbdp_field_value', $value, $field);
-        $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
 
         $args = func_get_args();
         
@@ -591,8 +588,10 @@ class WPBDP_FormFieldsAPI {
 
         if ($display_context == 'search') {
             // use a simplified html output for search
+            $attrs['class'] = array_merge($attrs['class'], array('search-filter', $field->type));
+            $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
 
-            $html .= sprintf('<div class="search-filter %s">', $field->type);
+            $html .= sprintf('<div %s>', wpbdp_render_attributes($attrs));
             $html .= sprintf('<div class="label"><label>%s</label></div>', esc_attr($field->label));
             $html .= '<div class="field">';
             $html .= call_user_func(array($this, 'render_' . str_replace('-', '_', $field->type)), $field, $value, $display_context);
@@ -600,6 +599,9 @@ class WPBDP_FormFieldsAPI {
             $html .= '</div>';
 
         } else {
+            $attrs['class'] = array_merge($attrs['class'], array('wpbdp-form-field', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '', $field->validator));
+            $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
+
             $html .= sprintf('<div %s>', wpbdp_render_attributes($attrs));
             
             $html .= '<div class="wpbdp-form-field-label">';
