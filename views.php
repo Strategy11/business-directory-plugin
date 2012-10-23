@@ -396,6 +396,7 @@ class WPBDP_DirectoryController {
         $formfields_api = wpbdp_formfields_api();
 
         $post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
+        $post_values = stripslashes_deep($post_values);
         $validation_errors = array();
 
         $fields = array();
