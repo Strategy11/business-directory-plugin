@@ -23,6 +23,8 @@ Business Directory Plugin allows you to build local directories, business provid
 *   Create multiple fee plans, which can be assigned to categories for posting
 *   Support for reCAPTCHA to avoid spam listings
 *   Users who post can edit listings without access to WP dashboard
+*   Support for ratings (NEW!)
+*   Support for Google Maps (NEW!)
 
 For a full list of features, please visit:  http://businessdirectoryplugin.com/features
  
@@ -32,7 +34,9 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
-NEW! [Google Maps Module](http://businessdirectoryplugin.com/premium-modules/google-maps-module?ref=wp)
+NEW! [Ratings Module](http://businessdirectoryplugin.com/premium-modules/ratings-module?ref=wp)
+
+[Google Maps Module](http://businessdirectoryplugin.com/premium-modules/google-maps-module?ref=wp)
 
 [PayPal Gateway Module](http://businessdirectoryplugin.com/premium-modules/paypal-module?ref=wp)
 
@@ -137,6 +141,8 @@ Version 2.1.5
    16. Search widget added
    
    17. CSV import now supports multiple categories using the category separator
+   
+   18. Fixed stripslashes bug with field labels
    
 
 Version 2.1.4.1
