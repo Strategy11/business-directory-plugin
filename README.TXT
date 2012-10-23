@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
 Tested up to: 3.4.2
-Last Updated: 2012-Sep-19
-Stable tag: tags/2.1.4
+Last Updated: 2012-Oct-23
+Stable tag: tags/2.1.5
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
@@ -101,6 +101,43 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 
 == Changelog ==
+
+Version 2.1.5
+
+   1. Added a Back to Directory button for listings
+   
+   2. Added sorting order for ratings (by ratings and count)
+   
+   3. Minor HTML tweaks for layout
+   
+   4. Added Link Text for Business Website (to create a complete anchor tag with SEO value)
+   
+   5. Changed fields to be hideable from Advanced Search Form
+   
+   6. Added better error messages displayed when payment gateways are not correctly configured for use
+   
+   7. Added payment skipping for admins, including a message that clearly shows the payments are being skipped because the current user is an admin
+   
+   8. Comments in listings are correctly displayed now
+   
+   9. CSV import now supports newlines in the import fields
+   
+   10. Contributors can't manage listings now
+   
+   11. Removed HTML comments from core templates that caused problems with some themes
+   
+   12. Category and tag names are now displayed in the page title
+   
+   13. Fixed Google Checkout Seller ID issue (removed field)
+   
+   14. Fixed labels for directory so that the colon is not outside the label
+   
+   15. rel attribute added to images
+   
+   16. Search widget added
+   
+   17. CSV import now supports multiple categories using the category separator
+   
 
 Version 2.1.4.1
 
