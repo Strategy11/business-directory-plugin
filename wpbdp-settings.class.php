@@ -102,6 +102,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'currency', _x('Currency Code', 'admin settings', 'WPBDM'), 'choice', 'USD', '',
                             array('choices' => array(
                                 array('AUD', _x('Australian Dollar (AUD)', 'admin settings', 'WPBDM')),
+                                array('BRL', _x('Brazilian Real (BRL)', 'admin settings', 'WPBDM')),
                                 array('CAD', _x('Canadian Dollar (CAD)', 'admin settings', 'WPBDM')),
                                 array('CZK', _x('Czech Koruna (CZK)', 'admin settings', 'WPBDM')),
                                 array('DKK', _x('Danish Krone (DKK)', 'admin settings', 'WPBDM')),
@@ -110,6 +111,7 @@ class WPBDP_Settings {
                                 array('HUF', _x('Hungarian Forint (HUF)', 'admin settings', 'WPBDM')),
                                 array('ILS', _x('Israeli New Shequel (ILS)', 'admin settings', 'WPBDM')),
                                 array('JPY', _x('Japanese Yen (JPY)', 'admin settings', 'WPBDM')),
+                                array('MYR', _x('Malasian Ringgit (MYR)', 'admin settings', 'WPBDM')),
                                 array('MXN', _x('Mexican Peso (MXN)', 'admin settings', 'WPBDM')),
                                 array('NOK', _x('Norwegian Krone (NOK)', 'admin settings', 'WPBDM')),
                                 array('NZD', _x('New Zelland Dollar (NZD)', 'admin settings', 'WPBDM')),
@@ -121,6 +123,7 @@ class WPBDP_Settings {
                                 array('CHF', _x('Swiss Franc (CHF)', 'admin settings', 'WPBDM')),
                                 array('TWD', _x('Taiwan Dollar (TWD)', 'admin settings', 'WPBDM')),
                                 array('THB', _x('Thai Baht (THB)', 'admin settings', 'WPBDM')),
+                                array('TRY', _x('Turkish Lira (TRY)', 'admin settings', 'WPBDM')),
                                 array('USD', _x('U.S. Dollar', 'admin settings', 'WPBDM')),
                             )));
         $this->add_setting($s, 'currency-symbol', _x('Currency Symbol', 'admin settings', 'WPBDM'), 'text', '$');

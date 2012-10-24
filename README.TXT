@@ -106,6 +106,11 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 == Changelog ==
 
+Version 2.1.5.1
+
+   1. Fixed WP API change: Missing argument 2 for wp_kses()
+   
+
 Version 2.1.5
 
    1. Added a Back to Directory button for listings
