@@ -525,12 +525,14 @@ class WPBDP_ListingsAPI {
 
                             break;
                         case 'tags':
-                            $terms = explode(',', $q);
+                            $terms = is_array($q) ? array_values($q) : explode(',', $q);
                             $term_ids = array();
 
                             foreach ($terms as $term_name) {
                                 if ($term = get_term_by('name', $term_name, wpbdp_tags_taxonomy())) {
                                     $term_ids[] = $term->term_id;
+                                } else {
+                                    $where .= ' AND 1=0'; // force no results when a tag does not exist
                                 }
                             }
 
