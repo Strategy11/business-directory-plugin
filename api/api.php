@@ -197,7 +197,7 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                         if ($field->validator == 'URLValidator') {
                             if (is_array($value)) {
                                 $value_url = $value[0];
-                                $value_text = $value[1];
+                                $value_text = !empty($value[1]) ? $value[1] : $value[0];
                             } else {
                                 $value_url = $value;
                                 $value_text = $value;
