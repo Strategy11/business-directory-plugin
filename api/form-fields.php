@@ -315,6 +315,8 @@ class WPBDP_FormFieldsAPI {
     public function validate($field, $value, &$errors=null) {
         $errors = array();
 
+        if ($field->validator == 'URLValidator') $value = is_array($value) ? $value[0] : $value;
+
         if ($field->is_required && !WPBDP_FormFieldValidators::required($value))
             $errors[] = WPBDP_FormFieldValidators::required_msg($field->label, $value);
 
@@ -330,7 +332,7 @@ class WPBDP_FormFieldsAPI {
                 }
             }
 
-            if (is_array($value) && $field->validator != 'URLValidator')
+            if (is_array($value))
                 return true; // TODO: check selected options in select/multiselect/radio/checkbox are valid
 
             if ($field->validator && !call_user_func('WPBDP_FormFieldValidators::' . $field->validator, $value))
