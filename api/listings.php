@@ -517,10 +517,10 @@ class WPBDP_ListingsAPI {
                             break;
                         case 'category':
                             $term_ids = is_array($q) ? implode(',',  array_diff($q, array('-1', '0')) ) : $q;
-                            
-                            if ($term_ids) {
-                                $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel1 ON ({$wpdb->posts}.ID = trel1.object_id) ";
-                                $where .= " AND trel1.term_taxonomy_id IN ({$term_ids}) ";
+
+                             if ($term_ids) {
+                                $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel1 ON ({$wpdb->posts}.ID = trel1.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax1 ON (trel1.term_taxonomy_id = ttax1.term_taxonomy_id)";
+                                $where .= " AND ttax1.term_id IN ({$term_ids}) ";
                             }
 
                             break;
@@ -538,8 +538,8 @@ class WPBDP_ListingsAPI {
 
                             if ($term_ids) {
                                 $term_ids = implode(',', $term_ids);
-                                $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel2 ON ({$wpdb->posts}.ID = trel2.object_id) ";
-                                $where .= " AND trel2.term_taxonomy_id IN ({$term_ids}) ";                                
+                                $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel2 ON ({$wpdb->posts}.ID = trel2.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax2 ON (trel2.term_taxonomy_id = ttax2.term_taxonomy_id)";
+                                $where .= " AND ttax2.term_id IN ({$term_ids}) ";
                             }
 
                             break;
