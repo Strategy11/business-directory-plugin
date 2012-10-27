@@ -205,7 +205,7 @@ class WPBDP_FeesAPI {
                 $new_id = $wpdb->insert_id;
 
                 $query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE meta_key = %s AND meta_value = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
-                                         $new_id, '_wpbdp_listingfeeid', $i, wpbdp_post_type());
+                                         $new_id, '_wpbdp_listingfeeid', $i, 'wpbdm-directory');
                 $wpdb->query($query);
 
                 foreach (array('label', 'amount', 'increment', 'images', 'categories') as $k) {

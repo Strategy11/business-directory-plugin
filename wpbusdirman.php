@@ -588,7 +588,7 @@ class WPBDP_Plugin {
 
                 foreach ($old_meta_keys as $meta_key) {
                     $query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
-                                            '_wpbdp_' . $meta_key, $meta_key, self::POST_TYPE);
+                                            '_wpbdp_' . $meta_key, $meta_key, 'wpbdm-directory');
                     $wpdb->query($query);
                 }
 

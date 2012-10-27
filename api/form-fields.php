@@ -867,7 +867,7 @@ class WPBDP_FormFieldsAPI {
 
         foreach ($fields as &$field) {
             $query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
-                                    '_wpbdp[fields][' . $field->id . ']', $field->label, wpbdp_post_type());
+                                    '_wpbdp[fields][' . $field->id . ']', $field->label, 'wpbdm-directory');
             $wpdb->query($query);
         }
     }
