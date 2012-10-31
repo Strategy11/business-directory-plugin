@@ -134,33 +134,33 @@ function wpbdp_validate_value($validator, $value, &$errors=null) {
 function wpbdp_get_listing_field_value($listing, $field) {
     $listing = !is_object($listing) ? get_post($listing) : $listing;
     $field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
+    $value = null;
 
     if ($listing && $field) {
         switch ($field->association) {
             case 'title':
-                return $listing->post_title;
+                $value = $listing->post_title;
                 break;
             case 'excerpt':
-                return $listing->post_excerpt;
+                $value = $listing->post_excerpt;
                 break;
             case 'content':
-                return $listing->post_content;
+                $value = $listing->post_content;
                 break;
             case 'category':
-                return get_the_terms($listing->ID, wpbdp()->get_post_type_category());
+                $value = get_the_terms($listing->ID, wpbdp()->get_post_type_category());
                 break;
             case 'tags':
-                return get_the_terms($listing->ID, wpbdp()->get_post_type_tags());
+                $value = get_the_terms($listing->ID, wpbdp()->get_post_type_tags());
                 break;
             case 'meta':
             default:
                 $value = get_post_meta($listing->ID, '_wpbdp[fields][' . $field->id . ']', true);
-                return $value;
                 break;
         }
     }
 
-    return null;
+    return apply_filters('wpbdp_listing_field_value', $value, $listing, $field);
 }
 
 function wpbdp_get_listing_field_html_value($listing, $field) {
@@ -219,10 +219,8 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                                            esc_attr($value_text),
                                            esc_attr($value_text));
                         } else {
-                            $value = wp_kses($value);
+                            $value = wp_kses($value, array());
                         }
-
-                        $value = wp_kses($value, array());
                     }
                 }
 

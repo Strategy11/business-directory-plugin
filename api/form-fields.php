@@ -580,8 +580,6 @@ class WPBDP_FormFieldsAPI {
         }
 
         $attrs = wp_parse_args($attrs, array('class' => array()));
-        $value = apply_filters('wpbdp_field_value', $value, $field);
-
         $args = func_get_args();
         
         $html  = '';
