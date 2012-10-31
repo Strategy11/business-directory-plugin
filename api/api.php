@@ -440,7 +440,6 @@ function _wpbdp_render_single() {
 
     foreach (wpbdp_get_formfields() as $field) {
         if ($field->display_options['show_in_listing']) {
-
             // show social links as images only
             if (in_array( $field->type, array('social-twitter', 'social-facebook', 'social-linkedin') )) {
                 $social_fields .= wpbdp_get_listing_field_html_value($post->ID, $field);
@@ -520,12 +519,20 @@ function _wpbdp_render_excerpt() {
                      ($counter & 1) ? 'odd':  'even');
     $html .= wpbdp_capture_action('wpbdp_before_excerpt_view', $post->ID);
 
+    $social_fields = '';
     $listing_fields = '';
+    
     foreach (wpbdp_get_formfields() as $field) {
         if (!$field->display_options['show_in_excerpt'])
             continue;
 
-        $listing_fields .= wpbdp_format_field_output($field, null, $post);
+        // show social links as images only
+        if (in_array( $field->type, array('social-twitter', 'social-facebook', 'social-linkedin') )) {
+            $social_fields .= wpbdp_get_listing_field_html_value($post->ID, $field);
+        } else {
+            $listing_fields .= wpbdp_format_field_output($field, null, $post);
+        }
+
     }
 
     $vars = array(
@@ -536,6 +543,10 @@ function _wpbdp_render_excerpt() {
     );
 
     $html .= wpbdp_render('businessdirectory-excerpt', $vars, true);
+
+    if ($social_fields)
+        $html .= '<div class="social-fields cf">' . $social_fields . '</div>';
+
     $html .= wpbdp_capture_action('wpbdp_after_excerpt_view', $post->ID);
     $html .= wpbdp_render('parts/listing-buttons', array('listing_id' => $post->ID, 'view' => 'excerpt'), false);
     $html .= '</div>';
