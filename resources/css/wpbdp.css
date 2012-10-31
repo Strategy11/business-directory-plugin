@@ -200,6 +200,17 @@ form#wpbdmsearchform a.advanced-search-link {
     border: solid 1px #ddd;
 }
 
+/* social fields */
+
+.wpbdp-listing .social-fields {
+    margin: 5px 0;
+}
+
+.wpbdp-listing .social-field {
+    float: left;
+    margin-right: 10px;
+}
+
 /* listing contact form */
 .wpbdp-listing .contact-form {
     margin-top: 20px;

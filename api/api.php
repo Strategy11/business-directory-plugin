@@ -193,6 +193,12 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                         return esc_attr(str_replace("\t", ', ', $value));
                     } elseif ($field->type == 'textarea') {
                         return wpautop(wp_kses($value, array()), true);
+                    } elseif ($field->type == 'social-twitter') {
+                        return _wpbdp_display_twitter_button($value, array('lang' => substr(get_bloginfo('language'), 0, 2)) );
+                    } elseif ($field->type == 'social-linkedin') {
+                        return _wpbdp_display_linkedin_button($value);
+                    } elseif ($field->type == 'social-facebook') {
+                        return _wpbdp_display_facebook_button($value);
                     } else {
                         if ($field->validator == 'URLValidator') {
                             if (is_array($value)) {
@@ -430,9 +436,18 @@ function _wpbdp_render_single() {
                         the_title(null, null, false));
 
     $listing_fields = '';
+    $social_fields = '';
+
     foreach (wpbdp_get_formfields() as $field) {
-        if ($field->display_options['show_in_listing'])
-            $listing_fields .= wpbdp_format_field_output($field, null, $post);
+        if ($field->display_options['show_in_listing']) {
+
+            // show social links as images only
+            if (in_array( $field->type, array('social-twitter', 'social-facebook', 'social-linkedin') )) {
+                $social_fields .= wpbdp_get_listing_field_html_value($post->ID, $field);
+            } else {
+                $listing_fields .= wpbdp_format_field_output($field, null, $post);
+            }
+        }
     }
 
     // images
@@ -465,8 +480,12 @@ function _wpbdp_render_single() {
     );
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, true);
+
+    if ($social_fields)
+        $html .= '<div class="social-fields cf">' . $social_fields . '</div>';
+
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
-    $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);    
+    $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);
 
     $html .= '<div class="contact-form">';
     $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');

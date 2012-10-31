@@ -122,3 +122,59 @@ function wpbdp_listing_sort_options() {
 function wpbdp_the_listing_sort_options() {
     echo wpbdp_listing_sort_options();
 }
+
+/* Social sites support. */
+function _wpbdp_display_linkedin_button($value) {
+    static $js_loaded = false;
+
+    $html  = '';
+
+    if ($value) {
+        if (!$js_loaded) {
+            $html .= '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>';
+            $js_loaded = true;
+        }
+
+        $html .= '<script type="IN/FollowCompany" data-id="1035" data-counter="none"></script>';
+    }
+
+    return $html;
+}
+
+function _wpbdp_display_facebook_button($page) {
+
+    $html  = '';
+
+    $html .= '<div class="social-field facebook">';
+
+$html .= '<div id="fb-root"></div>';
+$html .= '<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script\', \'facebook-jssdk\'));</script>';
+
+    // data-layout can be 'box_count', 'standard' or 'button_count'
+    // ref: https://developers.facebook.com/docs/reference/plugins/like/
+    $html .= sprintf('<div class="fb-like" data-href="%s" data-send="false" data-width="200" data-layout="button_count" data-show-faces="false"></div>', $page);
+
+    $html .= '</div>';
+
+    return $html;
+}
+
+function _wpbdp_display_twitter_button($handle, $settings=array()) {
+    $handle = ltrim($handle, ' @');
+    
+    $html  = '';
+
+    $html .= '<div class="social-field twitter">';
+    $html .= sprintf('<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="false" data-lang="%s">Follow @%s</a>',
+                     $handle, wpbdp_getv($settings, 'lang', 'en'), $handle);
+    $html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+    $html .= '</div>';
+
+    return $html;
+}

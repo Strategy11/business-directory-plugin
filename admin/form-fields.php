@@ -66,7 +66,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 	}
 
 	public function column_type($field) {
-		return ucwords($field->type);
+        $formfields_api = wpbdp_formfields_api(); 
+		return $formfields_api->getFieldTypes($field->type);
 	}
 
 	public function column_validator($field) {
