@@ -735,7 +735,9 @@ class WPBDP_Plugin {
 
             case 'browsecategory':
                 $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
-                return $term->name . ' ' . $sep . ' ';                
+                if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());
+
+                return $term->name . ' ' . $sep . ' ';
 
                 break;
 
