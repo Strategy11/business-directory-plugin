@@ -584,7 +584,7 @@ class WPBDP_FormFieldsAPI {
             $html .= sprintf('<div class="search-filter %s">', $field->type);
             $html .= sprintf('<div class="label"><label>%s</label></div>', esc_attr($field->label));
             $html .= '<div class="field">';
-            $html .= call_user_func(array($this, 'render_' . $field->type), $field, $value, $display_context);
+            $html .= call_user_func(array($this, 'render_' . str_replace('-', '_', $field->type)), $field, $value, $display_context);
             $html .= '</div>';
             $html .= '</div>';
 
