@@ -105,62 +105,6 @@ function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid
                         ), false);
 }
 
-function wpbusdirman_dropdown_categories()
-{
-    global $post;
-    $wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
-    $wpbdm_hide_empty=wpbdp_get_option('hide-empty-categories');
-    $html = '';
-
-    $wpbdm_show_count = wpbdp_get_option('show-category-post-count');
-    $wpbdm_show_parent_categories_only=wpbdp_get_option('show-only-parent-categories');
-
-    $wpbusdirman_postvalues=get_the_terms(get_the_ID(), wpbdp_categories_taxonomy());
-    if($wpbusdirman_postvalues)
-    {
-        foreach($wpbusdirman_postvalues as $wpbusdirman_postvalue)
-        {
-            $wpbusdirman_field_value_selected=$wpbusdirman_postvalue->term_id;
-        }
-    }
-    $html .= '<form action="' . bloginfo('url') . '" method="get">';
-    $taxonomies = array(wpbdp_categories_taxonomy());
-    $args = array('echo'=>0,
-                  'show_option_none'=>$wpbusdirman_selectcattext,
-                  'orderby' => wpbdp_get_option('categories-order-by'),
-                  'selected' => $wpbusdirman_field_value_selected,
-                  'order' => wpbdp_get_option('categories-sort'),
-                  'hide_empty' => $wpbdm_hide_empty,
-                  'hierarchical' => $wpbdm_show_parent_categories_only);
-    $select = get_terms_dropdown($taxonomies, $args);
-    $select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
-    $html .= $select;
-    $html .= '<noscript><div><input type="submit" value="N?yt?" /></div></noscript></form>';
-
-    return $html;
-}
-
-function get_terms_dropdown($taxonomies, $args)
-{
-    $myterms = get_terms($taxonomies, $args);
-    $output ="<select name='". wpbdp_categories_taxonomy() ."'>";
-
-    if($myterms)
-    {
-        foreach($myterms as $term){
-            $root_url = get_bloginfo('url');
-            $term_taxonomy=$term->taxonomy;
-            $term_slug=$term->slug;
-            $term_name =$term->name;
-            $link = $term_slug;
-            $output .="<option value='".$link."'>".$term_name."</option>";
-        }
-    }
-    $output .="</select>";
-
-    return $output;
-}
-
 global $wpbdp;
 
 require_once(WPBDP_PATH . 'utils.php');

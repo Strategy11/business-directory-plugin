@@ -350,17 +350,18 @@ function wpbusdirman_catpage_title() {
 }
 
 function wpbusdirman_post_catpage_title() {
-    global $post;
-    $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-    $html = '';
+    $term = null;
 
-    $html .=  $term->name;
+    if ( get_query_var('taxonomy') == wpbdp_categories_taxonomy() ) {
+        $term = get_term_by('id', get_query_var('term_id'), wpbdp_categories_taxonomy());
+    } elseif ( get_query_var('taxonomy') == wpbdp_tags_taxonomy() ) {
+        $term = get_term_by('id', get_query_var('term_id'), wpbdp_tags_taxonomy());
+    }
 
-    return $html;
+    return esc_attr($term->name);
 }
 
-function wpbusdirman_list_categories()
-{
+function wpbusdirman_list_categories() {
     echo wpbusdirman_post_list_categories();
 }
 
@@ -505,6 +506,35 @@ function wpbdp_sticky_loop($category_id=null, $taxonomy=null) {
 
     foreach ($stickies as $sticky_post)
         $html .= wpbdp_render_listing($sticky_post->ID, 'excerpt');
+
+    return $html;
+}
+
+/* deprecated since 2.1.6 */
+function wpbusdirman_dropdown_categories() {
+    $html  = '';
+
+    $html .= sprintf('<form action="%s">', site_url('/'));
+    $html .= wp_dropdown_categories(array(
+                   'taxonomy' => wpbdp_categories_taxonomy(),
+                   'show_option_none' => '—',
+                   'order' => wpbdp_get_option('categories-sort'),                   
+                   'orderby' => wpbdp_get_option('categories-order-by'),
+                   'hide_empty' => wpbdp_get_option('hide-empty-categories'),
+                   'hierarchical' => !wpbdp_get_option('show-only-parent-categories'),
+                   'echo' => false,
+                   'name' => wpbdp_categories_taxonomy()
+             ));
+
+    $html = preg_replace("/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
+                         "<select name=\"$3\" onchange=\"return this.form.submit();\" $1 $5>",
+                         $html);
+
+    // no-script support
+    $html .= '<noscript>';
+    $html .= '<input type="submit" value="→" />';
+    $html .= '</noscript>';
+    $html .= '</form>';
 
     return $html;
 }

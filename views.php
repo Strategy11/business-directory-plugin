@@ -123,6 +123,8 @@ class WPBDP_DirectoryController {
         if (get_query_var('category')) {
             if ($term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy())) {
                 $category_id = $term->term_id;
+            } else {
+                $category_id = intval(get_query_var('category'));
             }
         }
 
