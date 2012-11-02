@@ -548,7 +548,7 @@ class WPBDP_ListingsAPI {
                             if (in_array($field->type, array('checkbox', 'multiselect', 'select'))) { // multivalued field
                                 $options = array_diff(is_array($q) ? $q : array($q), array(''));
                                 
-                                $pattern = '(' . implode('|', $options) . '){1}([tab]{1}|[tab]{0}$)';
+                                $pattern = '(' . implode('|', $options) . '){1}([tab]{0,1})';
 
                                 $query .= " INNER JOIN {$wpdb->postmeta} AS mt{$i}mv ON ({$wpdb->posts}.ID = mt{$i}mv.post_id)";
                                 $where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value REGEXP %s)",
