@@ -147,14 +147,14 @@ function _wpbdp_display_facebook_button($page) {
 
     $html .= '<div class="social-field facebook">';
 
-$html .= '<div id="fb-root"></div>';
-$html .= '<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, \'script\', \'facebook-jssdk\'));</script>';
+    $html .= '<div id="fb-root"></div>';
+    $html .= '<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, \'script\', \'facebook-jssdk\'));</script>';
 
     // data-layout can be 'box_count', 'standard' or 'button_count'
     // ref: https://developers.facebook.com/docs/reference/plugins/like/
