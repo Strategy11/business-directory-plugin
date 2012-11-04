@@ -486,9 +486,12 @@ function _wpbdp_render_single() {
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);
 
-    $html .= '<div class="contact-form">';
-    $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
-    $html .= '</div>';
+    $show_contact_form = apply_filters('wpbdp_show_contact_form', wpbdp_get_option('show-contact-form'), $post->ID);
+    if ($show_contact_form) {
+        $html .= '<div class="contact-form">';
+        $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
+        $html .= '</div>';
+    }
 
     if (wpbdp_get_option('show-comment-form')) {
         $html .= '<div class="comments">';
