@@ -392,7 +392,7 @@ function wpbusdirman_post_list_categories() {
         'depth' => $wpbdm_show_parent_categories_only ? 1 : 0
     ));
 
-    return $html;
+    return apply_filters('wpbdp_categories_list', $html);
 }
 
 function wpbusdirman_menu_buttons()
