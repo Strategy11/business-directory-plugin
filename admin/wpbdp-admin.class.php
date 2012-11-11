@@ -363,12 +363,15 @@ class WPBDP_Admin {
                 $sticky_status = $listings_api->get_sticky_status($post->ID);
                 $status_string = '';
 
-                if ($sticky_status == 'sticky')
-                    $status_string = _x('Featured', 'admin metabox', 'WPBDM');
-                elseif ($sticky_status == 'pending')
+                $sticky_level = $listings_api->get_listing_featured_level($post->ID);
+
+                if ($sticky_status == 'sticky') {
+                    $status_string = $sticky_level->name;
+                } elseif ($sticky_status == 'pending') {
                     $status_string = _x('Pending Upgrade', 'admin metabox', 'WPBDM');
-                else
+                } else {
                     $status_string = _x('Normal', 'admin metabox', 'WPBDM');
+                }
 
                 echo '<span><b>' . $status_string . '</b> </span>';
                 
@@ -376,6 +379,13 @@ class WPBDP_Admin {
                     echo sprintf('<a href="%s">%s</a>',
                                  add_query_arg('wpbdmaction', 'cancelfeatured'),
                                  _x('Downgrade', 'admin metabox', 'WPBDM'));
+
+                    if (current_user_can('administrator') && $sticky_level->upgrade) {
+                        echo ' | ';
+                        echo sprintf('<a href="%s">%s</a>',
+                                     add_query_arg('wpbdmaction', 'upgradefeatured'),
+                                     __('Upgrade'));                        
+                    }
                 } else {
                     if (current_user_can('activate_plugins')) {
                         echo sprintf('<a href="%s">%s</a>',
@@ -543,8 +553,19 @@ class WPBDP_Admin {
                 break;
 
             case 'upgradefeatured':
-                foreach ($posts as $post_id) {
-                    update_post_meta($post_id, '_wpbdp[sticky]', 'sticky');
+                if (count($posts) == 1) {
+                    if ($level = $listings_api->get_listing_featured_level($posts[0])) {
+                        if ( $level->upgrade ):
+                            update_post_meta( $posts[0], '_wpbdp[sticky]', 'sticky' );
+                            update_post_meta( $posts[0], '_wpbdp[sticky_level]', $level->upgrade->id );
+                        endif;
+                    } else {
+                        update_post_meta( $posts[0], '_wpbdp[sticky]', 'sticky' );
+                    }
+                } else {
+                    foreach ( $posts as $post_id ):
+                        update_post_meta( $post_id, '_wpbdp[sticky]', 'sticky' );
+                    endforeach;
                 }
             
                 $this->messages[] = _nx('The listing has been upgraded.',
@@ -555,8 +576,23 @@ class WPBDP_Admin {
                 break;
 
             case 'cancelfeatured':
-                foreach ($posts as $post_id) {
-                    delete_post_meta($post_id, "_wpbdp[sticky]");
+                if (count($posts) == 1) {
+                    if ($level = $listings_api->get_listing_featured_level($posts[0])) {
+                        if ($level->downgrade) {
+                            update_post_meta($posts[0], '_wpbdp[sticky_level]', $level->downgrade->id);
+                        } else {
+                            delete_post_meta($posts[0], "_wpbdp[sticky]");
+                            delete_post_meta($posts[0], "_wpbdp[sticky_level]");                            
+                        }
+                    } else {
+                        delete_post_meta($posts[0], "_wpbdp[sticky]");
+                        delete_post_meta($posts[0], "_wpbdp[sticky_level]");
+                    }
+                } else {
+                    foreach ($posts as $post_id) {
+                        delete_post_meta($post_id, "_wpbdp[sticky]");
+                        delete_post_meta($post_id, "_wpbdp[sticky_level]");
+                    }
                 }
                 
                 $this->messages[] = _nx('The listing has been downgraded.',
@@ -759,14 +795,16 @@ class WPBDP_Admin {
         $listings_api = wpbdp_listings_api();
 
         $status = $listings_api->get_sticky_status($post->ID);
+        $sticky_level = $listings_api->get_listing_featured_level( $post->ID );
 
         $status_string = '';
-        if ($status == 'sticky')
-            $status_string = __('Featured', 'WPBDM');
-        elseif ($status == 'pending')
+        if ($status == 'sticky') {
+            $status_string = $sticky_level->name;
+        } elseif ($status == 'pending') {
             $status_string = __('Pending Upgrade', 'WPBDM');
-        else
+        } else {
             $status_string = _x('Normal', 'admin list', 'WPBDM');
+        }
         
         echo sprintf('<span class="status %s">%s</span><br />',
                     str_replace(' ', '', $status),
@@ -778,11 +816,16 @@ class WPBDP_Admin {
             if ($status == 'sticky') {
                 echo sprintf('<span><a href="%s">%s</a></span>',
                              add_query_arg(array('wpbdmaction' => 'cancelfeatured', 'post' => $post->ID)),
-                             '<b>↓</b> ' . __('Downgrade to Normal', 'WPBDM'));
+                             '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), $sticky_level->downgrade ? $sticky_level->downgrade->name : __('Normal', 'WPBDM') ));
+                echo '<br/>';
+                if ($sticky_level->upgrade)
+                    echo sprintf('<span><a href="%s">%s</a></span>',
+                                 add_query_arg(array('wpbdmaction' => 'upgradefeatured', 'post' => $post->ID)),
+                                 '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), $sticky_level->upgrade->name) );
             } else {
                 echo sprintf('<span><a href="%s">%s</a></span>',
                              add_query_arg(array('wpbdmaction' => 'upgradefeatured', 'post' => $post->ID)),
-                             '<b>↑</b> ' . __('Upgrade to Featured', 'WPBDM'));
+                             '<b>↑</b> ' . __('Upgrade to Featured', 'WPBDM') );
             }
         } elseif (current_user_can('contributor') && wpbdp_user_can('upgrade-to-sticky', $post->ID)) {
                 echo sprintf('<span><a href="%s"><b>↑</b> %s</a></span>', wpbdp_get_page_link('upgradetostickylisting', $post->ID), _x('Upgrade to Featured', 'admin actions', 'WPBDM'));            
