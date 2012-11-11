@@ -370,7 +370,8 @@ function wpbusdirman_post_list_categories() {
     $wpbdm_show_count= wpbdp_get_option('show-category-post-count');
     $wpbdm_show_parent_categories_only= wpbdp_get_option('show-only-parent-categories');
 
-    $html = '';
+    $html  = '';
+    $html .= '<ul class="wpbdp-categories">';
 
     $taxonomy     = wpbdp_categories_taxonomy();
     $orderby      = wpbdp_get_option('categories-order-by');
@@ -391,6 +392,8 @@ function wpbusdirman_post_list_categories() {
         'hierarchical' => 1,
         'depth' => $wpbdm_show_parent_categories_only ? 1 : 0
     ));
+
+    $html .= '</ul>';
 
     return apply_filters('wpbdp_categories_list', $html);
 }

@@ -4,12 +4,7 @@
  */
 
 function wpbdp_directory_categories() {
-    $html  = '';
-    $html .= '<ul class="wpbdp-categories">';
-    $html .= wpbusdirman_post_list_categories();
-    $html .= '</ul>';
-
-    return $html;
+    return wpbusdirman_post_list_categories();
 }
 
 function wpbdp_the_directory_categories() {
