@@ -264,6 +264,10 @@ function wpbdp_listings_api() {
     return wpbdp()->listings;
 }
 
+function wpbdp_listing_upgrades_api() {
+    return wpbdp()->listings->upgrades;
+}
+
 /* Misc. */
 function _wpbdp_save_object($obj_, $table, $id='id') {
     global $wpdb;
@@ -625,9 +629,11 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
             return user_can($user_id, 'administrator') || ($post->post_author == $user_id);
             break;
         case 'upgrade-to-sticky':
-            if (wpbdp_listings_api()->get_sticky_status($listing_id) == 'normal')
-                return user_can($user_id, 'administrator') || ($post->post_author == $user_id);
-            return false;
+            if (!wpbdp_get_option('featured-on'))
+                return false;
+
+            $sticky_info = wpbdp_listing_upgrades_api()->get_info( $listing_id );
+            return $sticky_info->upgradeable && (user_can($user_id, 'administrator') || ($post->post_author == $user_id));
             break;
     }
 

@@ -1,6 +1,204 @@
 <?php
 if (!class_exists('WPBDP_ListingsAPI')) {
 
+/**
+ * @since 2.1.6
+ */
+class WPBDP_ListingUpgrades {
+
+    private static $instance = null;
+
+    private function __construct() {
+        // register default levels
+        $this->register('normal', null, array(
+            'name' => _x('Normal Listing', 'listings-api', 'WPBDM'),
+            'is_sticky' => false
+        ));
+        $this->register('sticky', 'normal', array(
+            'name' => _x('Featured Listing', 'listings-api', 'WPBDM'),
+            'cost' => wpbdp_get_option('featured-price'),
+            'description' => wpbdp_get_option('featured-description'),
+            'is_sticky' => true            
+        ));
+    }
+
+    public static function instance() {
+        if (is_null(self::$instance)) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
+
+    /*
+     * General functions.
+     */
+
+    public function register($upgrade_id, $after_id, $data) {
+        if ( !isset($this->_levels) )
+            $this->_levels = array();
+
+        if ( !isset($this->_order) )
+            $this->_order = array();
+
+        if ( empty($upgrade_id) )
+            return false;
+
+        if ( $upgrade_id != 'normal' && (!$after_id || !in_array( $after_id, array_keys ($this->_levels) )) )
+            $after_id = 'normal';
+
+        $data = array_merge(array(
+            'name' => $upgrade_id,
+            'cost' => 0.0,
+            'description' => '',
+            'is_sticky' => false,
+            'downgrade' => $after_id,
+            'upgrade' => null,
+        ), $data);
+
+        if ( !isset($this->_levels[$upgrade_id]) ) {
+            $obj = (object) $data;
+            $obj->id = $upgrade_id;
+
+            if ($obj->downgrade) {
+                $prev_upgrade = $this->next($obj->downgrade);
+                $this->_levels[$obj->downgrade]->upgrade = $obj->id;
+
+                if ($prev_upgrade)
+                    $this->_levels[$prev_upgrade]->downgrade = $obj->id;
+            }
+
+            $this->_levels[$upgrade_id] = $obj;
+        } else {
+            // TODO: support updates too
+        }
+
+        if ($obj->downgrade) {
+            $down_key = array_search($obj->downgrade, $this->_order);
+            $this->_order = array_merge( array_splice($this->_order, max(0, $down_key - 1)), array($obj->id), $this->_order );
+        } else {
+            $this->_order[] = $upgrade_id;
+        }
+
+    }
+
+    public function get($upgrade_id) {
+        return wpbdp_getv($this->_levels, $upgrade_id, null);
+    }
+
+    public function prev($upgrade_id) {
+        if ($u = $this->get($upgrade_id))
+            return $u->downgrade;
+        return null;
+    }
+
+    public function next($upgrade_id) {
+        if ($u = $this->get($upgrade_id))
+            return $u->upgrade;
+        return null;
+    }
+
+    /*
+     * Listing-related.
+     */
+
+    public function is_sticky($listing_id) {
+
+        //      if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
+        //     return $sticky_status;
+        // }
+
+        // return 'normal';   
+    }
+
+    public function get_listing_level($listing_id) {
+        $sticky_status = get_post_meta( $listing_id, '_wpbdp[sticky]', true );
+        $level = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true );
+
+        switch ($sticky_status) {
+            case 'sticky':
+                if (!$level)
+                    return $this->get('sticky');
+                else
+                    return $this->get($level);
+
+                break;
+            case 'pending':
+                if (!$level)
+                    return $this->get('normal');
+                else
+                    return $this->get($level);
+
+                break;
+            case 'normal':
+            default:
+                return $this->get('normal');
+                break;
+        }
+
+        if ($sticky_status == 'sticky') {
+            if ( $level = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true ) )
+                return $this->get($level);
+        }
+        return 'normal';
+    }
+
+    public function get_info($listing_id) {
+        if (!$listing_id)
+            return null;
+
+        $sticky_status = get_post_meta( $listing_id, '_wpbdp[sticky]', true );
+
+        $res = new StdClass();
+        $res->level = $this->get_listing_level( $listing_id );
+        $res->status = $sticky_status ? $sticky_status : 'normal';
+        $res->pending = $sticky_status == 'pending' ? true : false;
+        $res->sticky = $res->level->is_sticky;
+        $res->upgradeable = !empty($res->level->upgrade);
+        $res->upgrade = $res->upgradeable ? $this->get($res->level->upgrade) : null;
+        $res->downgradeable = $res->pending ? true : !empty($res->level->downgrade);
+        $res->downgrade = $res->pending ? $this->get($res->level->id) : ($res->downgradeable ? $this->get($res->level->downgrade) : null);
+        
+        return $res;
+    }
+
+    public function set_sticky($listing_id, $level_id, $only_upgrade=false) {
+        $current_info = $this->get_info( $listing_id );
+
+        if ( $only_upgrade && (array_search($level_id, $this->_order) < array_search($current_info->level->id, $this->_order)) )
+            return false;
+
+        if ( $level_id == 'normal' ) {
+            delete_post_meta( $listing_id, '_wpbdp[sticky]' );
+            delete_post_meta( $listing_id, '_wpbdp[sticky_level]' );
+        } else {
+            update_post_meta( $listing_id, '_wpbdp[sticky]', 'sticky' );
+            update_post_meta( $listing_id, '_wpbdp[sticky_level]', $level_id );
+        }
+    }
+
+    public function request_upgrade($listing_id) {
+        $payments_api = wpbdp_payments_api();
+        
+        $info = $this->get_info($listing_id);
+
+        if ( !$info->pending && $info->upgradeable && $payments_api->payments_possible() ) {
+            $transaction_id = $payments_api->save_transaction(array(
+                'payment_type' => 'upgrade-to-sticky',
+                'listing_id' => $listing_id,
+                'amount' => $info->upgrade->cost
+            ));
+
+            update_post_meta( $listing_id, '_wpbdp[sticky]', 'pending' );
+            return $transaction_id;
+        }
+
+        return 0;
+    }
+
+}
+
+
 class WPBDP_ListingsAPI {
 
     public function __construct() {
@@ -8,6 +206,8 @@ class WPBDP_ListingsAPI {
         add_filter('term_link', array($this, '_category_link'), 10, 3);
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
+
+        $this->upgrades = WPBDP_ListingUpgrades::instance();
     }
 
     public function _category_link($link, $category, $taxonomy) {
@@ -324,7 +524,7 @@ class WPBDP_ListingsAPI {
     }
 
     public function get_listing_featured_level($listing_id) {
-        if ($this->get_sticky_status($listing_id) == 'sticky') {
+        if ($this->get_sticky_status($listing_id) != 'normal') {
             $level_id = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true );
 
             $level = $this->get_featured_level($level_id);
@@ -335,6 +535,16 @@ class WPBDP_ListingsAPI {
         }
 
         return null;
+    }
+
+    public function get_listing_upgrade_level($listing_id) {
+        $level = $this->get_listing_featured_level( $listing_id );
+
+        if (!$level) {
+            return $this->get_featured_level('sticky');
+        } else {
+            return $level->upgrade;
+        }
     }    
 
     public function get_stickies() {
@@ -353,29 +563,6 @@ class WPBDP_ListingsAPI {
         }
 
         return 'normal';
-    }
-
-    public function request_listing_upgrade($listing_id, &$transaction_id) {
-        $sticky_status = $this->get_sticky_status($listing_id);
-
-        if ($sticky_status == 'normal') {
-            $payments_api = wpbdp_payments_api();
-
-            if ($payments_api->payments_possible()) {
-                $transaction_id = $payments_api->save_transaction(array(
-                    'payment_type' => 'upgrade-to-sticky',
-                    'listing_id' => $listing_id,
-                    'amount' => wpbdp_get_option('featured-price')
-                ));
-
-                update_post_meta($listing_id, '_wpbdp[sticky]', 'pending');
-
-                return true;
-            }
-        }
-
-        $transaction_id = 0;
-        return false;
     }
 
     public function calculate_expiration_time($time, $fee) {

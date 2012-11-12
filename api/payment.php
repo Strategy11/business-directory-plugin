@@ -362,7 +362,12 @@ class WPBDP_PaymentsAPI {
 
         if ($transaction->status == 'approved') {
             if ($transaction->payment_type == 'upgrade-to-sticky') {
-                update_post_meta($transaction->listing_id, '_wpbdp[sticky]', 'sticky');
+                $upgrades_api = wpbdp_listing_upgrades_api();
+                $sticky_info = $upgrades_api->get_info( $transaction->listing_id );
+
+                if ($sticky_info->upgradeable)
+                    $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->upgrade->id, true );
+
             } elseif ($transaction->payment_type == 'renewal') {
                 $listingsapi = wpbdp_listings_api();
 
@@ -375,7 +380,11 @@ class WPBDP_PaymentsAPI {
             }
         } elseif ($transaction->status == 'rejected') {
             if ($transaction->payment_type == 'upgrade-to-sticky') {
-                delete_post_meta($transaction->listing_id, '_wpbdp[sticky]');
+                $upgrades_api = wpbdp_listing_upgrades_api();
+                $sticky_info = $upgrades_api->get_info( $transaction->listing_id );
+
+                if ($sticky_info->pending)
+                    $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->level->id );
             }
         }
     }
