@@ -9,6 +9,7 @@ class WPBDP_DirectoryController {
 
     public function __construct() {
         add_action('pre_get_posts', array($this, '_handle_action')); // TODO: maybe another hook fits better?
+        $this->_extra_sections = array();
     }
 
     public function init() {
@@ -327,6 +328,27 @@ class WPBDP_DirectoryController {
     /*
      * Submit listing process.
      */
+
+    /*
+     * @since 2.1.6
+     */
+    public function register_listing_form_section($id, $section=array()) {
+        $section = array_merge( array(
+            'title' => '',
+            'display' => null,
+            'process' => null,
+            'save' => null
+        ), $section);
+
+        if (!$section['display'] && !$section['process'])
+            return false;
+
+        $section['id'] = $id;
+        $this->_extra_sections[$id] = (object) $section;
+
+        return true;
+    }
+
     // TODO login is required for edits
     public function submit_listing($listing_id=null) {
         if (!$this->check_main_page($msg)) return $msg;
@@ -614,7 +636,7 @@ class WPBDP_DirectoryController {
             $images_allowed += $fee->images;
 
         if (!wpbdp_get_option('allow-images') || $images_allowed == 0)
-            return $this->submit_listing_save();
+            return $this->submit_listing_before_save();
 
         if ($this->_listing_data['listing_id'] && !$this->_listing_data['images']) {
             foreach (wpbdp_listings_api()->get_images($this->_listing_data['listing_id']) as $image) {
@@ -675,7 +697,7 @@ class WPBDP_DirectoryController {
                     
                 break;
             case 'submit':
-                return $this->submit_listing_save();
+                return $this->submit_listing_before_save();
                 break;
             default:
                 break;
@@ -701,10 +723,50 @@ class WPBDP_DirectoryController {
                             ), false);
     }
 
-    public function submit_listing_save() {
-        if (isset($_POST['thumbnail_id']))
-            $this->_listing_data['thumbnail_id'] = intval($_POST['thumbnail_id']);
+    public function submit_listing_before_save() {
+        if ( isset($_POST['thumbnail_id']) )
+            $this->_listing_data['thumbnail_id'] = intval( $_POST['thumbnail_id'] );
 
+        if ( !$this->_extra_sections )
+            return $this->submit_listing_save();
+
+        if ( !isset($this->_listing_data['extra_sections']) )
+            $this->_listing_data['extra_sections'] = array();
+
+        
+        $continue_to_save = true;
+        if ( !isset($_POST['do_extra_sections']) )
+            $continue_to_save = false;
+
+        foreach ( $this->_extra_sections as &$section ) {
+            if ( !isset($this->_listing_data['extra_sections'][$section->id]) )
+                $this->_listing_data['extra_sections'][$section->id] = array();
+
+            $process_result = false;
+
+            if ( isset($_POST['do_extra_sections']) && $section->process ) {
+                $process_result = call_user_func( $section->process, &$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id'] );
+                $continue_to_save = $continue_to_save && $process_result;
+            }
+
+            if ( !$process_result && $section->display ) {
+                $section->_output = call_user_func( $section->display, &$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id'] );
+            }
+        }
+
+        if ($continue_to_save) {
+            return $this->submit_listing_save();
+        }
+
+        return wpbdp_render('listing-form-extra', array(
+                            'listing_data' => $this->_listing_data,
+                            'sections' => $this->_extra_sections
+                            ), false);
+
+        return $html;
+    }
+
+    public function submit_listing_save() {
         $data = $this->_listing_data;
 
         if (isset($_SESSION['wpbdp-submitted-listing-id']) && $_SESSION['wpbdp-submitted-listing-id'] > 0) {
@@ -720,12 +782,21 @@ class WPBDP_DirectoryController {
         if ($listing_id = $this->listings->add_listing($data, $transaction_id)) {
             $_SESSION['wpbdp-submitted-listing-id'] = $listing_id;
 
+            // call save() on extra sections
+            if ( $this->_extra_sections ) {
+                foreach ( $this->_extra_sections as &$section ) {
+                    if ( $section->save ) {
+                        call_user_func($section->save, &$this->_listing_data['extra_sections'][$section->id], $listing_id );
+                    }
+                }
+            }
+
             $cost = $this->listings->cost_of_listing($listing_id, true);
 
             if (!current_user_can('administrator') && ($cost > 0.0)) {
                 $payments_api = wpbdp_payments_api();
                 $payment_page = $payments_api->render_payment_page(array(
-                    'title' => _x('Step 4 - Checkout', 'templates', 'WPBDM'),
+                    'title' => _x('Step 5 - Checkout', 'templates', 'WPBDM'),
                     'transaction_id' => $transaction_id,
                     'item_text' => _x('Pay %1$s listing fee via %2$s', 'templates', 'WPBDM')
                 ));

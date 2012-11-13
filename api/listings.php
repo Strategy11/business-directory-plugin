@@ -474,78 +474,6 @@ class WPBDP_ListingsAPI {
     /*
      * Featured listings.
      */
-    private function get_featured_levels() {
-        if (!isset($this->_featured_levels)) {
-            $default_levels = array(
-                        'sticky' => array(
-                                'name' => _x('Featured Listing', 'listings-api', 'WPBDM'),
-                                'cost' => wpbdp_get_option('featured-price')
-                            )
-                    );
-
-            $levels = apply_filters('wpbdp_featured_listing_levels', $default_levels);
-            $this->_featured_levels = $levels ? $levels : $default_levels;
-        }
-
-        return $this->_featured_levels;
-    }
-
-    private function get_featured_level($level_id, $recursion_guard=0) {
-        $levels = $this->get_featured_levels();
-        $level_ids = array_keys($levels);
-
-        $obj = null;
-
-        if (!isset($levels[$level_id])) {
-            // if ($level_id == 'sticky')
-            //     $obj = reset($levels);
-        } else {
-            $obj = new StdClass();
-            $obj->id = $level_id;
-            $obj->name = $levels[$level_id]['name'];
-            $obj->cost = $levels[$level_id]['cost'];
-            $obj->upgrade = null;
-            $obj->downgrade = null;
-
-            $current_level_pos = array_search($level_id, $level_ids);
-
-            if ( ($current_level_pos >= 1) && !$recursion_guard ) {
-                $obj->downgrade = $this->get_featured_level($level_ids[$current_level_pos - 1], 1);
-            }
-
-            if ( ($current_level_pos < count($level_ids) - 1) && !$recursion_guard ) {
-                $next_level = $this->get_featured_level($level_ids[$current_level_pos + 1], 1);
-                $obj->upgrade = $this->get_featured_level($level_ids[$current_level_pos + 1]);
-            }
-            
-        }
-
-        return $obj;
-    }
-
-    public function get_listing_featured_level($listing_id) {
-        if ($this->get_sticky_status($listing_id) != 'normal') {
-            $level_id = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true );
-
-            $level = $this->get_featured_level($level_id);
-            if (!$level)
-                return $this->get_featured_level('sticky');
-
-            return $level;
-        }
-
-        return null;
-    }
-
-    public function get_listing_upgrade_level($listing_id) {
-        $level = $this->get_listing_featured_level( $listing_id );
-
-        if (!$level) {
-            return $this->get_featured_level('sticky');
-        } else {
-            return $level->upgrade;
-        }
-    }    
 
     public function get_stickies() {
         global $wpdb;
@@ -557,6 +485,7 @@ class WPBDP_ListingsAPI {
         return $stickies;
     }
 
+    // TODO: deprecate (move to ListingUpgrades)
     public function get_sticky_status($listing_id) {
         if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
             return $sticky_status;

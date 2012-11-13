@@ -674,3 +674,10 @@ function wpbdp_get_current_sort_option() {
 
     return null;
 }
+
+/*
+ * @since 2.1.6
+ */
+function wpbdp_listing_form_register_section($id, $section=array()) {
+    return wpbdp()->controller->register_listing_form_section($id, $section);
+}

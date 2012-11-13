@@ -310,3 +310,37 @@ function wpbdp_capture_action($hook) {
 
 	return $output;
 }
+
+/**
+ * @since 2.1.6
+ */
+function wpbdp_media_upload($file, $use_media_library=true, $check_image=false) {
+	require_once(ABSPATH . 'wp-admin/includes/file.php');
+	require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+	if ($file['error'] == 0) {
+		if ( $upload = wp_handle_upload( $file, array('test_form' => FALSE) ) ) {
+			if ( !$use_media_library )
+				return $upload;
+
+			if ( $attachment_id = wp_insert_attachment(array(
+				'post_mime_type' => $upload['type'],
+				'post_title' => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
+				'post_content' => '',
+				'post_status' => 'inherit'
+			), $upload['file']) ) {
+				$attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
+				wp_update_attachment_metadata( $attachment_id, $attach_metadata );
+
+				if ( $check_image && !wp_attachment_is_image( $attachment_id ) ) {
+					wp_delete_attachment( $attachment_id, true );
+					return false;
+				}
+
+				return $attachment_id;
+			}
+		}
+	}
+
+	return false;
+}
