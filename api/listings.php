@@ -120,14 +120,14 @@ class WPBDP_ListingUpgrades {
                 if (!$level)
                     return $this->get('sticky');
                 else
-                    return $this->get($level);
+                    return $this->get($level) ? $this->get($level) : $this->get('sticky');
 
                 break;
             case 'pending':
                 if (!$level)
                     return $this->get('normal');
                 else
-                    return $this->get($level);
+                    return $this->get($level) ? $this->get($level) : $this->get('sticky');
 
                 break;
             case 'normal':
@@ -136,11 +136,6 @@ class WPBDP_ListingUpgrades {
                 break;
         }
 
-        if ($sticky_status == 'sticky') {
-            if ( $level = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true ) )
-                return $this->get($level);
-        }
-        return 'normal';
     }
 
     public function get_info($listing_id) {
