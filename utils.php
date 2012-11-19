@@ -314,11 +314,25 @@ function wpbdp_capture_action($hook) {
 /**
  * @since 2.1.6
  */
-function wpbdp_media_upload($file, $use_media_library=true, $check_image=false) {
+function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null) {
 	require_once(ABSPATH . 'wp-admin/includes/file.php');
 	require_once(ABSPATH . 'wp-admin/includes/image.php');
 
+	// TODO(future): it could be useful to have additional constraints available
+	$constraints = array_merge( array(
+									'image' => false,
+									'max-size' => 0
+							  ), $constraints );
+
 	if ($file['error'] == 0) {
+		if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
+			$error_msg = sprintf( _x( 'File size (%s) exceeds maximum file size of %s', 'utils', 'WPBDM' ),
+								size_format ($file['size'], 2),
+								size_format ($constraints['max-size'], 2)
+								);
+			return false;
+		}
+
 		if ( $upload = wp_handle_upload( $file, array('test_form' => FALSE) ) ) {
 			if ( !$use_media_library )
 				return $upload;
@@ -334,12 +348,16 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false) 
 
 				if ( $check_image && !wp_attachment_is_image( $attachment_id ) ) {
 					wp_delete_attachment( $attachment_id, true );
+
+					$error_msg = _x('Uploaded file is not an image', 'utils', 'WPBDM');
 					return false;
 				}
 
 				return $attachment_id;
 			}
 		}
+	} else {
+		$error_msg = _x('Error while uploading file', 'utils', 'WPBDM');
 	}
 
 	return false;
