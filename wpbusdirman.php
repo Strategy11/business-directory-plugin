@@ -369,6 +369,7 @@ class WPBDP_Plugin {
 
         add_action('init', array($this, '_plugin_initialization'));
         add_action('init', array($this, '_session_start'));
+        add_action('init', array($this, '_register_image_sizes'));
 
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
@@ -690,6 +691,17 @@ class WPBDP_Plugin {
 
         register_taxonomy(self::POST_TYPE_CATEGORY, self::POST_TYPE, array( 'hierarchical' => true, 'label' => 'Directory Categories', 'singular_name' => 'Directory Category', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count','query_var' => true, 'rewrite' => array('slug' => $category_slug) ) );
         register_taxonomy(self::POST_TYPE_TAGS, self::POST_TYPE, array( 'hierarchical' => false, 'label' => 'Directory Tags', 'singular_name' => 'Directory Tag', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count', 'query_var' => true, 'rewrite' => array('slug' => $tags_slug) ) );
+    }
+
+    public function _register_image_sizes() {
+        $thumbnail_width = intval( wpbdp_get_option( 'thumbnail-width' ) );
+
+        $max_width = intval( wpbdp_get_option('image-max-width') );
+        $max_height = intval( wpbdp_get_option('image-max-height') );
+
+        // thumbnail size
+        add_image_size( 'wpbdp-thumb', $thumbnail_width, 0, false );
+        add_image_size( 'wpbdp-large', $max_width, $max_height, false );
     }
 
     public function debug_on() {
