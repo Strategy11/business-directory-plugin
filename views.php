@@ -631,6 +631,8 @@ class WPBDP_DirectoryController {
                 $action = 'submit';
         }
 
+        $validation_errors = array();
+
         $images_allowed = 0;
         foreach ($this->_listing_data['fees'] as $fee)
             $images_allowed += $fee->images;
@@ -652,37 +654,18 @@ class WPBDP_DirectoryController {
         switch ($action) {
             case 'upload':
                 if (($images_allowed - count($images) - 1) >= 0) {
-                    require_once(ABSPATH . 'wp-admin/includes/file.php');
-                    require_once(ABSPATH . 'wp-admin/includes/image.php');
-
                     if ($image_file = $_FILES['image']) {
-                        if ($image_file['error'] == 0) {
-                            $wp_image_ = wp_handle_upload($image_file, array('test_form' => FALSE));
+                        $image_error = '';
 
-                            if (!isset($wp_image_['error'])) {
-                                if ($attachment_id = wp_insert_attachment(array(
-                                                                'post_mime_type' => $wp_image_['type'],
-                                                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($wp_image_['file'])),
-                                                                'post_content' => '',
-                                                                'post_status' => 'inherit'
-                                                                ), $wp_image_['file'])) {
-
-                                    $attach_data = wp_generate_attachment_metadata($attachment_id, $wp_image_['file']);
-                                    wp_update_attachment_metadata($attachment_id, $attach_data);
-
-                                    if (wp_attachment_is_image($attachment_id)) {
-                                        $this->_listing_data['images'][] = $attachment_id;
-                                    } else {
-                                        wp_delete_attachment($attachment_id, true);
-                                    }
-
-                                }
-                            } else {
-                                print 'image error';
-                            }
+                        if ( $attachment_id = wpbdp_media_upload( $image_file, true, true, array(
+                            'image' => true,
+                            'max-size' => intval(wpbdp_get_option( 'image-max-filesize' )) * 1024
+                            ), $image_error ) ) {
+                            $this->_listing_data['images'][] = $attachment_id;
                         } else {
-                            print 'image error';
+                            $validation_errors[] = $image_error;
                         }
+
                     }
                 }
                 break;
@@ -712,7 +695,7 @@ class WPBDP_DirectoryController {
         }
 
         return wpbdp_render('listing-form-images', array(
-                            'validation_errors' => null,
+                            'validation_errors' => $validation_errors,
                             'listing' => null,
                             'listing_data' => $this->_listing_data,
                             'can_upload_images' => (($images_allowed - count($images))> 0),

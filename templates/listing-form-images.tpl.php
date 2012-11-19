@@ -15,6 +15,14 @@ function wpbdp_listingform_delete_image(id) {
 
 	<h3><?php _ex('Step 3 - Listing Images', 'templates', 'WPBDM'); ?></h3>
 
+	<?php if ($validation_errors): ?>
+		<ul class="validation-errors">
+			<?php foreach ($validation_errors as $error_msg): ?>
+			<li><?php echo $error_msg; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
 	<form id="wpbdp-listing-form-images" method="POST" action="" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="<?php echo $listing ? 'editlisting' : 'submitlisting'; ?>" />		
 		<input type="hidden" name="_step" value="images" />
