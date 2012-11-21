@@ -461,13 +461,14 @@ function _wpbdp_render_single() {
     foreach ($images as $img) {
         if ($img->ID == $thumbnail_id) continue;
 
-        $medium_img = image_downsize($img->ID, 'medium');
-        $medium_url = $medium_img[0];
+        $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
+        $full_image_url = $full_image_data[0];
 
-        $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox"><img class="wpbdp-thumbnail size-thumbnail " src="%s" alt="%s" title="%s" border="0" /></a>',
-                                    /*wp_get_attachment_url($img->ID),*/
-                                    $medium_url,
-                                    wp_get_attachment_thumb_url($img->ID),
+        $image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-thumb', false );
+
+        $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox" target="_blank"><img class="wpbdp-thumbnail size-thumbnail " src="%s" alt="%s" title="%s" border="0" /></a>',
+                                    $full_image_url,
+                                    $image_data[0],
                                     the_title(null, null, false),
                                     the_title(null, null, false));
     }

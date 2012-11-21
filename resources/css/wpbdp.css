@@ -159,21 +159,16 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .main-image {
-    float: left;
-    width: 25% !important;
+    float: right;
+    margin-left: 10px;
     padding: 5px;
 }
 
 .wpbdp-listing-single .main-image img {
     border: solid 1px #333;
-    width: 100% !important;
-    height: auto !important;
 }
 
 .wpbdp-listing-single .listing-details.with-image {
-    margin-left: 25%;
-    padding-left: 15px;
-    width: 75%;
 }
 
 .wpbdp-listing-single .extra-images {
@@ -191,19 +186,19 @@ form#wpbdmsearchform a.advanced-search-link {
     list-style-type: none;
     display: inline;
     margin-left: 5px;
-    vertical-align: top;
 }
 
 .wpbdp-listing-single .extra-images ul li img {
-    margin: auto;
+    vertical-align: top;
+    margin: 0 auto;
     max-width: 150px;
-    border: solid 1px #ddd;
+    border: solid 1px #333;
 }
 
 /* social fields */
 
 .wpbdp-listing .social-fields {
-    margin: 5px 0;
+    margin: 20px 0;
 }
 
 .wpbdp-listing .social-field {

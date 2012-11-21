@@ -185,7 +185,7 @@ function wpbusdirman_post_main_image() {
                           );
         }
     } elseif ($main_image) {
-        return wp_get_attachment_image($main_image->ID, 'medium', false, array(
+        return wp_get_attachment_image($main_image->ID, 'wpbdp-thumb', false, array(
             'alt' => the_title(null, null, false),
             'title' => the_title(null, null, false)
             ));
@@ -254,14 +254,15 @@ function wpbusdirman_display_the_thumbnail() {
     $listings_api = wpbdp_listings_api();
     
     if ($thumbnail_id = $listings_api->get_thumbnail_id($post->ID)) {
-        $thumbnail = wp_get_attachment_thumb_url($thumbnail_id);
+        $image_info = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-thumb' );
+        $thumbnail = $image_info[0];
     }
 
     if (!$thumbnail && function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID))
         return sprintf('<div class="listing-thumbnail"><a href="%s">%s</a></div>',
                        get_permalink(),
                        get_the_post_thumbnail($post->ID,
-                                        array(wpbdp_get_option('thumbnail-width', '120'), wpbdp_get_option('thumbnail-width', '120')),
+                                        'wpbdp-thumb',
                                         array('class' => 'wpbdmthumbs',
                                               'alt' => the_title(null, null, false),
                                               'title' => the_title(null, null, false) ))
@@ -272,10 +273,10 @@ function wpbusdirman_display_the_thumbnail() {
 
     if ($thumbnail) {
         $html .= '<div class="listing-thumbnail">';
-        $html .= sprintf('<a href="%s"><img class="wpbdmthumbs" src="%s" width="%s" alt="%s" title="%s" border="0" /></a>',
+        $html .= sprintf('<a href="%s"><img class="wpbdmthumbs" src="%s" style="max-width: %dpx;" alt="%s" title="%s" border="0" /></a>',
                          get_permalink(),
                          $thumbnail,
-                         wpbdp_get_option('thumbnail-width', '120'),
+                         wpbdp_get_option('thumbnail-width'),
                          the_title(null, null, false),
                          the_title(null, null, false)
                         );
