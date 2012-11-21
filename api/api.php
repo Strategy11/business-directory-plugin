@@ -464,13 +464,13 @@ function _wpbdp_render_single() {
         $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
         $full_image_url = $full_image_data[0];
 
-        $image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-thumb', false );
-
-        $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox" target="_blank"><img class="wpbdp-thumbnail size-thumbnail " src="%s" alt="%s" title="%s" border="0" /></a>',
+        $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox" target="_blank">%s</a>',
                                     $full_image_url,
-                                    $image_data[0],
-                                    the_title(null, null, false),
-                                    the_title(null, null, false));
+                                    wp_get_attachment_image( $img->ID, 'wpbdp-thumb', false, array(
+                                        'class' => 'wpbdp-thumbnail size-thumbnail',
+                                        'alt' => the_title(null, null, false),
+                                        'title' => the_title(null, null, false)
+                                    ) ));
     }
 
     $vars = array(
