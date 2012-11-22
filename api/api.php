@@ -459,6 +459,9 @@ function _wpbdp_render_single() {
     $extra_images = array();
 
     foreach ($images as $img) {
+        // create thumbnail of correct size if needed (only in single view to avoid consuming server resources)
+        _wpbdp_resize_image_if_needed( $img->ID );
+
         if ($img->ID == $thumbnail_id) continue;
 
         $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
@@ -681,4 +684,21 @@ function wpbdp_get_current_sort_option() {
  */
 function wpbdp_listing_form_register_section($id, $section=array()) {
     return wpbdp()->controller->register_listing_form_section($id, $section);
+}
+
+/*
+ * @since 2.1.6
+ */
+function _wpbdp_resize_image_if_needed($id) {
+    require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+    if ( $metadata = wp_get_attachment_metadata( $id ) ) {
+        if ( !isset( $metadata['sizes']['wpbdp-thumb'] ) || !isset( $metadata['sizes']['wpbdp-thumb'] ) || 
+            (isset($metadata['sizes']['wpbdp-thumb']) && (abs( intval($metadata['sizes']['wpbdp-thumb']['width']) - intval( wpbdp_get_option( 'thumbnail-width' ) ) ) >= 15) ) ) {
+            wpbdp_log( sprintf( 'Re-creating thumbnails for attachment %d', $id ) );
+            $filename = get_attached_file($id, true);
+            $attach_data = wp_generate_attachment_metadata( $id, $filename );
+            wp_update_attachment_metadata( $id,  $attach_data );
+        }
+    }
 }
