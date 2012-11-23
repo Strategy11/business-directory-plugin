@@ -44,6 +44,7 @@ $_transaction_types = array(
         </dl>
 
         <?php if (!$transaction->processed_on): ?>
+        <?php if (current_user_can('administrator')): ?>
         <p>
             <a href="<?php echo add_query_arg(array('wpbdmaction' => 'approvetransaction', 'transaction_id' => $transaction->id)); ?>" class="button-primary">
                 <?php _ex('Approve payment', 'admin infometabox', 'WPBDM'); ?>
@@ -52,6 +53,7 @@ $_transaction_types = array(
                 <?php _ex('Reject payment', 'admin infometabox', 'WPBDM'); ?>
             </a>
         </p>
+        <?php endif; ?>
         <?php endif; ?>
     </div>
 </div>

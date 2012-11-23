@@ -185,12 +185,14 @@ class WPBDP_Admin {
         echo '<div class="clear"></div>';
 
         // listing images
-        echo sprintf('<div id="wpbdp-listing-images" class="wpbdp-ajax-placeholder"
-                           data-action="wpbdp-listingimages"
-                           data-post_id="%s"
-                           data-baseurl="%s"></div>',
-                    $post->ID,
-                    remove_query_arg(array('message', 'wpbdmaction')));
+        if (current_user_can('administrator')) {
+            echo sprintf('<div id="wpbdp-listing-images" class="wpbdp-ajax-placeholder"
+                               data-action="wpbdp-listingimages"
+                               data-post_id="%s"
+                               data-baseurl="%s"></div>',
+                        $post->ID,
+                        remove_query_arg(array('message', 'wpbdmaction')));
+        }
     }
 
     public function _checklist_args($args) {
@@ -389,14 +391,17 @@ class WPBDP_Admin {
 
             echo '</dd>';
         echo '</dl>';
-        if ($payment_status != 'paid')
-            echo sprintf('<a href="%s" class="button-primary">%s</a> ',
-                     add_query_arg('wpbdmaction', 'setaspaid'),
-                     _x('Mark listing as Paid', 'admin infometabox', 'WPBDM'));
-        else
-            echo sprintf('<a href="%s" class="button">%s</a>',
-                         add_query_arg('wpbdmaction', 'setasnotpaid'),
-                         _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
+
+        if (current_user_can('administrator')) {
+            if ($payment_status != 'paid')
+                echo sprintf('<a href="%s" class="button-primary">%s</a> ',
+                         add_query_arg('wpbdmaction', 'setaspaid'),
+                         _x('Mark listing as Paid', 'admin infometabox', 'WPBDM'));
+            else
+                echo sprintf('<a href="%s" class="button">%s</a>',
+                             add_query_arg('wpbdmaction', 'setasnotpaid'),
+                             _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
+        }
         echo '</div>';
 
         // Transactions
@@ -507,7 +512,7 @@ class WPBDP_Admin {
         $listings_api = wpbdp_listings_api();
         $upgrades_api = wpbdp_listing_upgrades_api();
 
-        if (!current_user_can('activate_plugins'))
+        if (!current_user_can('administrator'))
             exit;
 
         switch ($action) {
@@ -766,7 +771,7 @@ class WPBDP_Admin {
 
         echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
 
-        if (current_user_can('activate_plugins')) {
+        if (current_user_can('administrator')) {
             echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
         }
     }
