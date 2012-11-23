@@ -173,7 +173,7 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                 return sprintf('<a href="%s">%s</a>', get_permalink($listing->ID), get_the_title($listing->ID));
                 break;
             case 'excerpt':
-                return apply_filters('get_the_excerpt', $listing->post_excerpt);
+                return apply_filters('get_the_excerpt', wpautop($listing->post_excerpt, true));
                 break;
             case 'content':
                 return apply_filters('the_content', $listing->post_content);
