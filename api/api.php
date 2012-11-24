@@ -209,6 +209,9 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
                                 $value_text = $value;
                             }
 
+                            if (!$value_url)
+                                return '';
+
                             return sprintf('<a href="%s" rel="no follow" target="%s" title="%s">%s</a>',
                                            esc_url($value_url),
                                            isset($field->field_data['open_in_new_window']) && $field->field_data['open_in_new_window'] ? '_blank' : '_self',
