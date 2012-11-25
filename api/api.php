@@ -491,6 +491,7 @@ function _wpbdp_render_single() {
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, true);
 
+    $social_fields = apply_filters('wpbdp_single_social_fields', $social_fields, $post->ID);
     if ($social_fields)
         $html .= '<div class="social-fields cf">' . $social_fields . '</div>';
 
@@ -558,6 +559,7 @@ function _wpbdp_render_excerpt() {
 
     $html .= wpbdp_render('businessdirectory-excerpt', $vars, true);
 
+    $social_fields = apply_filters('wpbdp_excerpt_social_fields', $social_fields, $post->ID);
     if ($social_fields)
         $html .= '<div class="social-fields cf">' . $social_fields . '</div>';
 
