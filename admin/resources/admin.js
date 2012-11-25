@@ -4,7 +4,15 @@ jQuery(document).ready(function($){
 
     $('form#wpbdp-formfield-form select#field-association').change(function(){
         $('form#wpbdp-formfield-form select#field-type').change();
-    });
+
+        var association = $('form#wpbdp-formfield-form select#field-association option:selected').val();
+
+        if (association == 'title' || association == 'category') {
+            $('input[name="field[is_required]"]').attr('disabled', 'disabled');
+        } else {
+            $('input[name="field[is_required]"]').removeAttr('disabled');
+        }
+    }).change();
 
     $('form#wpbdp-formfield-form select#field-type').change(function(){
         var selected_type = $('option:selected', $(this)).val();

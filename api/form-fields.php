@@ -507,7 +507,8 @@ class WPBDP_FormFieldsAPI {
             $field['is_required'] = 0;
         }
 
-        if (in_array($field['association'], array('title', 'category', 'content')))
+        // if (in_array($field['association'], array('title', 'category', 'content')))
+        if (in_array($field['association'], array('title', 'category')))
             $field['is_required'] = 1;
 
         if (isset($field['display_options'])) {
