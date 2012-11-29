@@ -308,6 +308,14 @@ class WPBDP_DirectoryController {
             }
         }
 
+        if (current_user_can('administrator')) {
+            if ($errors = wpbdp_payments_api()->check_config()) {
+                foreach ($errors as $error) {
+                    $html .= wpbdp_render_msg($error, 'error');
+                }
+            }
+        }        
+
         $listings = '';
         if (wpbdp_get_option('show-listings-under-categories'))
             $listings = $this->view_listings(false);

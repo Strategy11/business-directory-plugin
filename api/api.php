@@ -638,7 +638,10 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
             return user_can($user_id, 'administrator') || ($post->post_author == $user_id);
             break;
         case 'upgrade-to-sticky':
-            if (!wpbdp_get_option('featured-on'))
+            if ( !wpbdp_get_option('featured-on') || !wpbdp_get_option('payments-on') )
+                return false;
+
+            if ( !wpbdp_payments_possible() )
                 return false;
 
             $sticky_info = wpbdp_listing_upgrades_api()->get_info( $listing_id );

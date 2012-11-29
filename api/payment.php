@@ -264,6 +264,13 @@ class WPBDP_PaymentsAPI {
     }
 
     public function check_config() {
+        if (wpbdp_get_option('featured-on') && !wpbdp_get_option('payments-on')) {
+            return array(
+                sprintf(_x('You are offering featured listings but have payments turned off. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the <i>Upgrade to Featured</i> option will be disabled.', 'payments-api', 'WPBDM'),
+                        '')
+            );
+        }
+
         if (!wpbdp_get_option('payments-on'))
             return array();
 
