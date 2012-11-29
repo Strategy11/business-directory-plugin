@@ -313,7 +313,8 @@ class WPBDP_PaymentsAPI {
     public function render_payment_page($options_) {
         $options = array_merge(array(
             'title' => _x('Checkout', 'payments-api', 'WPBDM'),
-            'item_text' => _x('Pay %1$s through %2$s', 'payments-api', 'WPBDM')
+            'item_text' => _x('Pay %1$s through %2$s', 'payments-api', 'WPBDM'),
+            'return_link' => null
         ), $options_);
 
         $transaction = $this->get_transaction($options['transaction_id']);
@@ -322,7 +323,8 @@ class WPBDP_PaymentsAPI {
             'title' => $options['title'],
             'item_text' => $options['item_text'],
             'transaction' => $transaction,
-            'payment_methods' => $this->get_available_methods()
+            'payment_methods' => $this->get_available_methods(),
+            'return_link' => $options['return_link']
             ));
     }
 

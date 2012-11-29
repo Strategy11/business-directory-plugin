@@ -911,7 +911,11 @@ class WPBDP_DirectoryController {
                 return $payments_api->render_payment_page(array(
                     'title' => _x('Upgrade listing', 'templates', 'WPBDM'),
                     'transaction_id' => $transaction_id,
-                    'item_text' => _x('Pay %s upgrade fee via %s', 'templates', 'WPBDM')
+                    'item_text' => _x('Pay %s upgrade fee via %s', 'templates', 'WPBDM'),
+                    'return_link' => array(
+                        get_permalink($listing_id),
+                        _x('Return to listing.', 'templates', 'WPBDM')
+                    )
                 ));
 
                 break;

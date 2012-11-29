@@ -15,4 +15,8 @@
 	<?php endforeach; ?>
 <?php else: ?>
 	<?php _ex('We can not process your payment at this moment. Please try again later.', 'templates', 'WPBDM'); ?>
+
+	<?php if ($return_link): ?>
+		<a href="<?php echo $return_link[0]; ?>"><?php echo $return_link[1]; ?></a>
+	<?php endif; ?>	
 <?php endif; ?>
