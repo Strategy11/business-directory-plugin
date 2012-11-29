@@ -177,11 +177,12 @@ function wpbusdirman_post_main_image() {
 
     if (!$main_image && wpbdp_get_option('use-default-picture')) {
         if (wpbdp_get_option('use-default-picture')) {
-            return sprintf('<a href="%s"><img src="%s" alt="%s" title="%s" border="0" /></a><br />',
+            return sprintf('<a href="%s"><img src="%s" alt="%s" title="%s" border="0" width="%d" /></a><br />',
                             get_permalink(),
                             WPBDP_URL . 'resources/images/default-image-big.gif',
                             the_title(null, null, false),
-                            the_title(null, null, false)
+                            the_title(null, null, false),
+                            wpbdp_get_option('thumbnail-width')
                           );
         }
     } elseif ($main_image) {
