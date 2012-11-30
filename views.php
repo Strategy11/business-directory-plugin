@@ -736,12 +736,12 @@ class WPBDP_DirectoryController {
             $process_result = false;
 
             if ( isset($_POST['do_extra_sections']) && $section->process ) {
-                $process_result = call_user_func( $section->process, &$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id'] );
+                $process_result = call_user_func_array( $section->process, array(&$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id']) );
                 $continue_to_save = $continue_to_save && $process_result;
             }
 
             if ( !$process_result && $section->display ) {
-                $section->_output = call_user_func( $section->display, &$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id'] );
+                $section->_output = call_user_func_array( $section->display, array(&$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id']) );
             }
         }
 
@@ -776,9 +776,8 @@ class WPBDP_DirectoryController {
             // call save() on extra sections
             if ( $this->_extra_sections ) {
                 foreach ( $this->_extra_sections as &$section ) {
-                    if ( $section->save ) {
-                        call_user_func($section->save, &$this->_listing_data['extra_sections'][$section->id], $listing_id );
-                    }
+                    if ( $section->save )
+                        call_user_func_array( $section->save, array(&$this->_listing_data['extra_sections'][$section->id], $listing_id) );
                 }
             }
 

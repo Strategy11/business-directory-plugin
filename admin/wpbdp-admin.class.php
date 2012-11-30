@@ -114,7 +114,7 @@ class WPBDP_Admin {
             $submenu['wpbdp_admin'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
             $submenu['wpbdp_admin'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
         } elseif (current_user_can('contributor')) {
-            $m = &$submenu['edit.php?post_type=' . wpbdp_post_type()];
+            $m = $submenu['edit.php?post_type=' . wpbdp_post_type()];
             $keys = array_keys($m);
             $m[$keys[1]][2] = wpbdp_get_page_link('add-listing');
         }
