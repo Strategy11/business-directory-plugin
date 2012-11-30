@@ -334,8 +334,12 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 		}
 
 		if ( $upload = wp_handle_upload( $file, array('test_form' => FALSE) ) ) {
-			if ( !$use_media_library )
+			if ( !$use_media_library ) {
+				if (!is_array($upload) || isset($upload['error']))
+					return false;
+				
 				return $upload;
+			}
 
 			if ( $attachment_id = wp_insert_attachment(array(
 				'post_mime_type' => $upload['type'],
