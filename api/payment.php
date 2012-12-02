@@ -145,11 +145,11 @@ class WPBDP_FeesAPI {
         if (!$fee['categories']['categories'])
             $fee['categories']['all'] = true;
 
-        // TODO delete unnecessary categories: if a parent of a category is in the list, remove the category
-
-        $fee['categories'] = serialize($fee['categories']);
+        // TODO: delete unnecessary categories: if a parent of a category is in the list, remove the category
 
         if ($this->is_valid_fee($fee, $errors)) {
+            $fee['categories'] = serialize($fee['categories']);
+            
             if (isset($fee['id'])) {
                 return $wpdb->update("{$wpdb->prefix}wpbdp_fees", $fee, array('id' => $fee['id'])) !== false;
             } else {
