@@ -86,7 +86,7 @@ class WPBDP_FormFieldsAPI {
                 'association' => 'title',
                 'weight' => 9,
                 'is_required' => true,
-                'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
+                'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true)
             ),
             'category' => array(
                         'label' => __("Business Genre","WPBDM"),
@@ -94,14 +94,14 @@ class WPBDP_FormFieldsAPI {
                         'association' => 'category',
                         'weight' => 8,
                         'is_required' => true,
-                        'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
+                        'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true)
                     ),
             'excerpt' => array(
                     'label' => __("Short Business Description","WPBDM"),
                     'type' => 'textarea',
                     'association' => 'excerpt',
                     'weight' => 7,
-                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => false)
+                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => false, 'show_in_search' => true)
                 ),
             'content' => array(
                     'label' => __("Long Business Description","WPBDM"),
@@ -109,7 +109,7 @@ class WPBDP_FormFieldsAPI {
                     'association' => 'content',
                     'weight' => 6,
                     'is_required' => true,
-                    'display_options' => array('show_in_excerpt' => false, 'show_in_listing' => true)   
+                    'display_options' => array('show_in_excerpt' => false, 'show_in_listing' => true, 'show_in_search' => true)   
                 ),
             'meta0' => array(
                     'label' => __("Business Website Address","WPBDM"),
@@ -117,21 +117,21 @@ class WPBDP_FormFieldsAPI {
                     'association' => 'meta',
                     'weight' => 5,
                     'validator' => 'URLValidator',
-                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
+                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true)
                 ),
             'meta1' => array(
                     'label' => __("Business Phone Number","WPBDM"),
                     'type' => 'textfield',
                     'association' => 'meta',
                     'weight' => 4,
-                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
+                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true)
                 ),
             'meta2' => array(
                     'label' => __("Business Fax","WPBDM"),
                     'type' => 'textfield',
                     'association' => 'meta',
                     'weight' => 3,
-                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
+                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true)
                 ),
             'meta3' => array(
                     'label' => __("Business Contact Email","WPBDM"),
@@ -147,7 +147,7 @@ class WPBDP_FormFieldsAPI {
                     'type' => 'textfield',
                     'association' => 'tags',
                     'weight' => 1,
-                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true)
+                    'display_options' => array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true)
                 )   
         );      
     }
