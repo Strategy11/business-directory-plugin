@@ -33,6 +33,15 @@ class WPBDP_ListingUpgrades {
     /*
      * General functions.
      */
+    public function get_levels() {
+        $res = array();
+
+        foreach ($this->_order as $level_id) {
+            $res[] = $this->get($level_id);
+        }
+
+        return $res;
+    }
 
     public function register($upgrade_id, $after_id, $data) {
         if ( !isset($this->_levels) )
