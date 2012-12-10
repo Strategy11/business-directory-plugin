@@ -348,7 +348,10 @@ class WPBDP_Plugin {
     }
 
     public function init() {
+        // add_option('wpbdp-debug-on', true);
         if (get_option('wpbdp-debug-on', false)) $this->debug_on();
+
+        wpbdp_log('WPBDP_Plugin::init()');
 
         $this->settings = new WPBDP_Settings();
         $this->formfields = new WPBDP_FormFieldsAPI();
