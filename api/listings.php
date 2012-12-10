@@ -56,6 +56,9 @@ class WPBDP_ListingUpgrades {
         if ( $upgrade_id != 'normal' && (!$after_id || !in_array( $after_id, array_keys ($this->_levels) )) )
             $after_id = 'normal';
 
+        if ( $after_id == '__last' )
+            $after_id = end( $this->_order );
+
         $data = array_merge(array(
             'name' => $upgrade_id,
             'cost' => 0.0,
