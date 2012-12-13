@@ -449,9 +449,9 @@ class WPBDP_Admin {
     function admin_notices() {
         foreach ($this->messages as $msg) {
             if (is_array($msg)) {
-                echo sprintf('<div class="%s">%s</div>', $msg[1], $msg[0]);
+                echo sprintf('<div class="%s"><p>%s</p></div>', $msg[1], $msg[0]);
             } else {
-                echo sprintf('<div class="updated">%s</div>', $msg);
+                echo sprintf('<div class="updated"><p>%s</p></div>', $msg);
             }
         }
 
