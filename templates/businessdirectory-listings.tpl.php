@@ -1,4 +1,4 @@
-<div id="wpbdp-view-listings-page" class="wpbdp-view-listings-page wpbdp-page <?php echo join(' ', $__page__['class']) ?>">
+<div id="wpbdp-view-listings-page" class="wpbdp-view-listings-page wpbdp-page <?php echo join(' ', $__page__['class']); ?>">
 
     <?php if (!isset($stickies)) $stickies = null; ?>
     <?php if (!isset($excludebuttons)) $excludebuttons = true; ?>
@@ -7,9 +7,9 @@
         <?php wpbdp_the_bar(array('search' => true)); ?>
     <?php endif; ?>
 
-    <?php echo $__page__['before_content'] ?>
+    <?php echo $__page__['before_content']; ?>
 
-    <div class="wpbdp-page-content <?php echo join(' ', $__page__['content_class']) ?>">
+    <div class="wpbdp-page-content <?php echo join(' ', $__page__['content_class']); ?>">
 
         <?php wpbdp_the_listing_sort_options(); ?>
 

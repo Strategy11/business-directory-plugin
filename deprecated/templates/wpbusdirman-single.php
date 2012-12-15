@@ -27,7 +27,7 @@
 	<div style="clear:both;"></div>
 	<p class="postmetadata">
 		<?php _e("This listing was submitted","WPBDM"); ?>
-		<?php _e("on","WPBDM");?> <?php the_time('l, F jS, Y') ?> <?php _e("at","WPBDM");?> <?php the_time() ?>
+		<?php _e("on","WPBDM"); ?> <?php the_time('l, F jS, Y'); ?> <?php _e("at","WPBDM"); ?> <?php the_time(); ?>
 	</p>
 	<p>
 		<?php _e("You can follow any responses to this listing through the","WPBDM");?> <?php post_comments_feed_link('RSS 2.0'); ?> <?php _e("feed","WPBDM");?>.
