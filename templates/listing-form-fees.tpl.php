@@ -5,6 +5,13 @@ if (!function_exists('_wpbdp_is_fee_selected')) {
 		return wpbdp_getv($fees, $category) == $feeid;
 	}
 }
+
+if (!function_exists('_wpbdp_has_fee_selected')) {
+	function _wpbdp_has_fee_selected($category) {
+		$fees = isset($_POST['fees']) ? $_POST['fees'] : array();
+		return isset($fees[$category]);
+	}
+}
 ?>
 <div id="wpbdp-submit-page" class="wpbdp-submit-page businessdirectory-submit businessdirectory wpbdp-page step-fees">
 
@@ -29,11 +36,16 @@ if (!function_exists('_wpbdp_is_fee_selected')) {
 
 		<?php foreach ($fee_options as $fee_option): ?>
 		<div class="fee-options">
+			<?php $selected = false; ?>
 			<h4><?php echo sprintf(_x('"%s" fee options', 'templates', 'WPBDM'), $fee_option['category']->name); ?></h4>
 			<?php foreach ($fee_option['fees'] as $fee): ?>
 					<p>
+						<?php $has_fee_selected = _wpbdp_has_fee_selected($fee_option['category']->term_id); ?>
+						<?php $is_fee_selected = $has_fee_selected && _wpbdp_is_fee_selected($fee_option['category']->term_id, $fee->id); ?>
+						<?php $selected = $selected || $is_fee_selected; ?>
+
 						<input type="radio" name="fees[<?php echo $fee_option['category']->term_id; ?>]" value="<?php echo $fee->id; ?>"
-							<?php echo _wpbdp_is_fee_selected($fee_option['category']->term_id, $fee->id) ? ' checked="checked" ' : ''; ?>>
+							<?php echo ($is_fee_selected || (!$has_fee_selected && !$selected)) ? ' checked="checked" ' : ''; ?>>
 							<b><?php echo esc_attr($fee->label); ?> <?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee->amount; ?></b><br />
 							<?php if (wpbdp_get_option('allow-images') && ($fee->images > 0)): ?>
 								<?php if ($fee->days == 0): ?>
