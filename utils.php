@@ -251,6 +251,16 @@ function wpbdp_getv($dict, $key, $default=false) {
 	return $default;
 }
 
+function wpbdp_render_attributes($attrs) {
+    $attributes = array();
+    foreach ($attrs as $name => $value) {
+        if (is_array($value))
+            $value = join(' ', array_filter($value, 'strlen'));
+        $attributes[] = sprintf('%s="%s"', $name, esc_attr($value));
+    }
+    return join(' ', $attributes);
+}
+
 function wpbdp_render_page($template, $vars=array(), $echo_output=false) {
 	if ($vars) {
 		extract($vars);
@@ -365,4 +375,42 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 	}
 
 	return false;
+}
+
+/**
+ * Returns the domain used in the current request, optionally stripping
+ * the www part of the domain.
+ *
+ * @since 2.1.5
+ * @param $www  boolean     true to include the 'www' part,
+ *                          false to attempt to strip it.
+ */
+function wpbdp_get_current_domain($www=true, $prefix='') {
+    $domain = wpbdp_getv($_SERVER, 'HTTP_HOST', '');
+    if (empty($domain)) {
+        $domain = wpbdp_getv($_SERVER, 'SERVER_NAME', '');
+    }
+
+    if (!$www && substr($domain, 0, 4) === 'www.') {
+        $domain = $prefix . substr($domain, 4);
+    }
+
+    return $domain;
+}
+
+/**
+ * Bulds WordPress ajax URL using the same domain used in the current request.
+ *
+ * @since 2.1.5
+ */
+function wpbdp_ajaxurl($overwrite=false) {
+    static $ajaxurl = false;
+
+    if ($overwrite || $ajaxurl === false) {
+        $url = admin_url('admin-ajax.php');
+        $parts = parse_url($url);
+        $ajaxurl = str_replace($parts['host'], wpbdp_get_current_domain(), $url);
+    }
+
+    return $ajaxurl;
 }

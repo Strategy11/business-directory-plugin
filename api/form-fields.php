@@ -267,7 +267,7 @@ class WPBDP_FormFieldsAPI {
         }
 
         return $fields;
-    }   
+    }
 
     public function getFieldTypes($key=null) {
         $types = array('textfield' => _x('Textfield', 'form-fields api', 'WPBDM'),
@@ -295,6 +295,8 @@ class WPBDP_FormFieldsAPI {
                               'excerpt' => _x('Post Excerpt', 'form-fields api', 'WPBDM'),
                               'meta' => _x('Post Metadata', 'form-fields api', 'WPBDM'),
                               'tags' => _x('Post Tags', 'form-fields api', 'WPBDM'));
+
+        $associations = apply_filters('wpbdp_field_associations', $associations);
 
         if ($key)
             return $associations[$key];
@@ -577,12 +579,17 @@ class WPBDP_FormFieldsAPI {
             return;
         }
 
+        $attrs = array('class' => array());
+        $args = func_get_args();
+        
         $html  = '';
 
         if ($display_context == 'search') {
             // use a simplified html output for search
+            $attrs['class'] = array_merge($attrs['class'], array('search-filter', $field->type));
+            $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
 
-            $html .= sprintf('<div class="search-filter %s">', $field->type);
+            $html .= sprintf('<div %s>', wpbdp_render_attributes($attrs));
             $html .= sprintf('<div class="label"><label>%s</label></div>', esc_attr($field->label));
             $html .= '<div class="field">';
             $html .= call_user_func(array($this, 'render_' . str_replace('-', '_', $field->type)), $field, $value, $display_context);
@@ -590,7 +597,10 @@ class WPBDP_FormFieldsAPI {
             $html .= '</div>';
 
         } else {
-            $html .= sprintf('<div class="wpbdp-form-field %s %s %s %s">', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '', $field->validator);
+            $attrs['class'] = array_merge($attrs['class'], array('wpbdp-form-field', $field->type, $field->is_required ? 'required' : '', $field->description ? 'with-description' : '', $field->validator));
+            $attrs = apply_filters('wpbdp_field_attributes', $attrs, $field, $value);
+
+            $html .= sprintf('<div %s>', wpbdp_render_attributes($attrs));
             
             $html .= '<div class="wpbdp-form-field-label">';
             $html .= sprintf('<label for="%s">%s</label>', 'wpbdp-field-' . $field->id, esc_attr($field->label));
@@ -700,8 +710,11 @@ class WPBDP_FormFieldsAPI {
             }
 
             if (isset($field->field_data['options'])) {
-                foreach ($field->field_data['options'] as $option) {
-                    $html .= sprintf('<option value="%s" %s>%s</option>', esc_attr($option), in_array($option, $value) ? 'selected="selected"' : '', esc_attr($option));
+                // 
+                $use_keys = wpbdp_getv($field->field_data, 'options_use_keys', false);
+                foreach ($field->field_data['options'] as $key => $option) {
+                    $v = $use_keys ? $key : $option;
+                    $html .= sprintf('<option value="%s" %s>%s</option>', esc_attr($v), in_array($v, $value) ? 'selected="selected"' : '', esc_attr($option));
                 }
             }
         

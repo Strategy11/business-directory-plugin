@@ -352,7 +352,7 @@ class WPBDP_Settings {
         $html  = '<label for="' . $setting->name . '">';
         $html .= '<input type="checkbox" id="' .$setting->name . '" name="' . self::PREFIX . $setting->name . '" value="1" '
                   . ($value ? 'checked="checked"' : '') . '/>';
-        $html .= '<span class="description">' . $setting->help_text . '</span>';
+        $html .= '&nbsp;<span class="description">' . $setting->help_text . '</span>';
         $html .= '</label>';
 
         echo $html;
