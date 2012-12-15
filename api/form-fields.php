@@ -573,13 +573,13 @@ class WPBDP_FormFieldsAPI {
     }
 
     /* Field rendering */
-    public function render(&$field, $value=null, $output=false, $display_context=null, $attrs=array()) {
+    public function render(&$field, $value=null, $output=false, $display_context=null) {
         if ($output) {
-            echo $this->render($field, $value, false, $display_context, $attrs);
+            echo $this->render($field, $value, false, $display_context);
             return;
         }
 
-        $attrs = wp_parse_args($attrs, array('class' => array()));
+        $attrs = array('class' => array());
         $args = func_get_args();
         
         $html  = '';
