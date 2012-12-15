@@ -716,7 +716,7 @@ function _wpbdp_resize_image_if_needed($id) {
  */
 function wpbdp_format_currency($amount, $decimals=2) {
     if ( $amount == 0.0 )
-        return '--';
+        return '—';
     
     return wpbdp_get_option( 'currency-symbol' ) . ' ' . number_format( $amount, $decimals );
 }
