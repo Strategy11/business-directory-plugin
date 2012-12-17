@@ -354,6 +354,8 @@ class WPBDP_CSVImporter {
     }
 
     private function extract_data($csv_file) {
+        ini_set('auto_detect_line_endings', true);
+
         $fp = fopen($csv_file, 'r');
 
         $n = 0;
