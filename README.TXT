@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
 Tested up to: 3.4.2
-Last Updated: 2012-Oct-23
-Stable tag: tags/2.1.5
+Last Updated: 2012-Dec-2
+Stable tag: tags/2.1.6.1
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
@@ -106,9 +106,59 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 == Changelog ==
 
+Version 2.1.6.1
+
+   1. Fix PHP 5.4 error during install
+   
+   2. Fix error "Fee must be associated to a category" when a category was selected.
+   
+
 Version 2.1.6
 
+   1. Support for all currencies supported by PayPal.
+   
+   2. Do not make URL fields required when marked as optional.
+   
+   3. When searching a field with multiple options, the options are now ORed.
+   
+   4. Twitter field type for @ handles. On display, a "Follow" button appears.
+   
+   5. Facebook field type for pages. On display, a "Like" button appears.
+   
+   6. LinkedIn field type for company IDs (not supported for individual profiles). On display, a "Follow" button appears.
+   
+   7. Image settings in "Manage Options" are always respected (no approximate sizes are used). Thumbnails of the correct size are automatically created when an image is uploaded.
+   
+   8. If image settings change, new thumbnails are created on the fly when a listing is visited. This happens only on "single view" to avoid consuming a lot of server resources.
+    
+   9. When uploading images at the submit/edit listing form useful errors are now displayed. This happens when images are of a bigger size than allowed or are not really image files. Previously, it wasn't clear why an upload could fail.
+   
+   11. Long description can now be set to Optional, required fields that can't be changed have disabled checkbox shown
+   
+   12. Empty URL field labels are not displayed
+   
+   13. CSV importer fixes for descriptions with newlines
+   
+   14. Fixed PO file to include Directory button label
+   
+   15. Hide payment & fee info on posts from non-administrators
+   
+   16. Upgrade PayPal interface for compatibility alert due in Feb 2013 (HTTP headers)
+
+
+Version 2.1.5.2
+
    1. Added support for PayPal currencies:  BRL, TRY, MRY
+   
+   2. Fixed bug where upgrade of Website address did not auto-copy the link text
+   
+   3. Fixed advanced search issues with categories
+   
+   4. Fixed advanced search to use OR instead of AND for multi-select listboxes
+   
+   5. Fixed URL validator to not make field required when URL is empty
+   
+   6. Fixed permalink rules to work with index.php-based approach
    
 
 Version 2.1.5.1
