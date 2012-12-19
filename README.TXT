@@ -106,6 +106,13 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 == Changelog ==
 
+Version 2.2
+
+   1. Added support for Regions module
+   
+   2. Fixed CSV import error for PHP character munging
+   
+
 Version 2.1.6.1
 
    1. Fix PHP 5.4 error during install
