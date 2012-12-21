@@ -21,6 +21,9 @@
 			<div class="inside">
 				<ul>
 				    <li class="li_link">
+				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/regions-module/">Regions Module</a>
+				    </li>
+				    <li class="li_link">
 				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/">Ratings Module</a>
 				    </li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/">Google Maps Module</a></li>
@@ -52,7 +55,11 @@
 				    <li class="li_link">
 				    	<a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
 				    	<?php echo wpbdp()->has_module('ratings') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
-				    </li>				    
+				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('regions') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
 			    </ul>
 			</div>
 		</div>
