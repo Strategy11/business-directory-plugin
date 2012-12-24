@@ -735,6 +735,9 @@ class WPBDP_Plugin {
             case 'ratings':
                 return class_exists('BusinessDirectory_RatingsModule');
                 break;
+            case 'regions':
+                return class_exists('WPBDP_RegionsPlugin');
+                break;
         }
 
         return false;
