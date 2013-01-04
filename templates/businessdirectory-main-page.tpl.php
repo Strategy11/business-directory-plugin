@@ -1,6 +1,9 @@
 <div id="wpbdp-main-page" class="wpbdp-main-page wpbdp-main businessdirectory wpbdp-page <?php echo join(' ', $__page__['class']); ?>">
 
-	<?php wpbdp_the_bar(array('search' => true)); ?>
+    <div class="wpbdp-bar cf">
+          <?php wpbdp_the_main_links(); ?>
+          <?php wpbdp_the_search_form(); ?>
+    </div>
 
     <?php echo $__page__['before_content']; ?>
 

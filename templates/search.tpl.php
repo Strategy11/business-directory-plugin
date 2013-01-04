@@ -3,7 +3,7 @@ $api = wpbdp_formfields_api();
 ?>
 <div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page">
 
-    <?php wpbdp_the_bar(); ?>
+    <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
 
     <h2 class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></h2>
 

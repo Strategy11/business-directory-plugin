@@ -117,6 +117,9 @@ function wpbdp_the_listing_sort_options() {
     echo wpbdp_listing_sort_options();
 }
 
+/**
+ * @deprecated since 2.2.1
+ */
 function wpbdp_bar($parts=array()) {
     $parts = wp_parse_args($parts, array(
         'links' => true,
@@ -137,6 +140,9 @@ function wpbdp_bar($parts=array()) {
     return $html;
 }
 
+/**
+ * @deprecated since 2.2.1
+ */
 function wpbdp_the_bar($parts=array()) {
     echo wpbdp_bar($parts);
 }
