@@ -459,6 +459,12 @@ class WPBDP_FormFieldsAPI {
             // category can't be a textfield or textarea
             if ($field['association'] == 'category' && !in_array($field['type'], array('radio', 'select', 'multiselect', 'checkbox')))
                 $errors[] = _x('Post category field can\'t be a text field or text area.', 'form-fields-api', 'WPBDM');
+
+            // social fields must be metadata
+            if ( isset( $field['type'] ) && in_array( $field['type'], array('social-twitter', 'social-linkedin', 'social-facebook') ) ) {
+                if ( !isset( $field['association'] ) || $field['association'] != 'meta' )
+                    $errors[] = _x( 'Social fields must be of "metadata" association.', 'form-fields-api', 'WPBDM' );
+            }
         }
 
         if (isset($field['validator']) && !empty($field['validator'])) {
@@ -628,7 +634,7 @@ class WPBDP_FormFieldsAPI {
         if (is_array($value) && $field->validator != 'URLValidator')
             $value = $value[0];
 
-        if ($display_context != 'search' && $field->validator == 'URLValidator') {
+        if ($display_context != 'search' && !in_array( $field->type, array('social-twitter', 'social-linkedin', 'social-facebook') ) &&  $field->validator == 'URLValidator') {
             $value_url = is_array($value) ? $value[0] : $value;
             $value_title = is_array($value) ? $value[1] : '';
 
