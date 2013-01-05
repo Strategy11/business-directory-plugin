@@ -631,7 +631,7 @@ class WPBDP_FormFieldsAPI {
         if ($field->validator == 'DateValidator')
             $html .= _x('Format 01/31/1969', 'form-fields api', 'WPBDM');
 
-        if (is_array($value) && $field->validator != 'URLValidator')
+        if ( is_array( $value ) && ( in_array( $field->type, array('social-twitter', 'social-linkedin', 'social-facebook') ) || $field->validator != 'URLValidator' ) )
             $value = $value[0];
 
         if ($display_context != 'search' && !in_array( $field->type, array('social-twitter', 'social-linkedin', 'social-facebook') ) &&  $field->validator == 'URLValidator') {
