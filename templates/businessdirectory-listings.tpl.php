@@ -4,7 +4,10 @@
     <?php if (!isset($excludebuttons)) $excludebuttons = true; ?>
 
     <?php if (!$excludebuttons): ?>
-        <?php wpbdp_the_bar(array('search' => true)); ?>
+        <div class="wpbdp-bar cf">
+            <?php wpbdp_the_main_links(); ?>
+            <?php wpbdp_the_search_form(); ?>
+        </div>
     <?php endif; ?>
 
     <?php echo $__page__['before_content']; ?>

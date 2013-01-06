@@ -117,6 +117,9 @@ function wpbdp_the_listing_sort_options() {
     echo wpbdp_listing_sort_options();
 }
 
+/**
+ * @deprecated since 2.2.1
+ */
 function wpbdp_bar($parts=array()) {
     $parts = wp_parse_args($parts, array(
         'links' => true,
@@ -137,12 +140,17 @@ function wpbdp_bar($parts=array()) {
     return $html;
 }
 
+/**
+ * @deprecated since 2.2.1
+ */
 function wpbdp_the_bar($parts=array()) {
     echo wpbdp_bar($parts);
 }
 
 /* Social sites support. */
 function _wpbdp_display_linkedin_button($value) {
+    if ( is_array( $value ) ) $value = $value[0];
+
     static $js_loaded = false;
 
     $html  = '';
@@ -160,6 +168,7 @@ function _wpbdp_display_linkedin_button($value) {
 }
 
 function _wpbdp_display_facebook_button($page) {
+    if ( is_array( $page ) ) $page = $page[0];
 
     $html  = '';
 
@@ -183,7 +192,12 @@ function _wpbdp_display_facebook_button($page) {
 }
 
 function _wpbdp_display_twitter_button($handle, $settings=array()) {
-    $handle = ltrim($handle, ' @');
+    // in case $handle comes with a URLValidator
+    if ( is_array( $handle ) ) $handle = $handle[0];
+
+    $handle = str_ireplace( array('http://twitter.com/', 'https://twitter.com/', 'http://www.twitter.com/', 'https://www.twitter.com/'), '', $handle );
+    $handle = rtrim( $handle, '/' );
+    $handle = ltrim( $handle, ' @' );
     
     $html  = '';
 
