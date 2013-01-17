@@ -334,8 +334,7 @@ class WPBDP_ListingsAPI {
     public function assign_fee($listing_id, $category_id, $fee_id, $charged=false) {
         global $wpdb;
 
-        if (!has_term($category_id, wpbdp_categories_taxonomy(), $listing_id))
-            return false;
+        wp_set_post_terms( $listing_id, array( intval( $category_id ) ), wpbdp_categories_taxonomy(), true );
 
         $fee = is_object($fee_id) ? $fee_id : wpbdp_fees_api()->get_fee_by_id($fee_id);
         if ($fee) {
@@ -525,7 +524,10 @@ class WPBDP_ListingsAPI {
         global $wpdb;
 
         if ($renewal = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", $renewal_id, current_time('mysql')))) {
-            if (has_term($renewal->category_id, wpbdp_categories_taxonomy(), $renewal->listing_id)) {
+            if ( !has_term($renewal->category_id, wpbdp_categories_taxonomy(), $renewal->listing_id) ) {
+                // set payment status to not-paid
+                update_post_meta($renewal->listing_id, '_wpbdp[payment_status]', 'not-paid');
+
                 // register the new transaction
                 $transaction_id = wpbdp_payments_api()->save_transaction(array(
                     'listing_id' => $renewal->listing_id,
@@ -534,8 +536,6 @@ class WPBDP_ListingsAPI {
                     'extra_data' => serialize(array('renewal_id' => $renewal_id, 'fee' => $fee))
                 ));
 
-                // set payment status to not-paid
-                update_post_meta($renewal->listing_id, '_wpbdp[payment_status]', 'not-paid');
                 return $transaction_id;
             }
         }
