@@ -331,36 +331,6 @@ class WPBDP_ListingsAPI {
 
     }
 
-    // TODO
-    public function get_expired_listings($category_id, $include_subcategories=true) {
-        global $wpdb;
-
-        $current_date = current_time('mysql');
-
-        // $category_ids = array_merge(array($category_id), get_term_children($category_id, wpbdp_categories_taxonomy()));
-        // $expired = array();
-
-        // foreach ($category_ids as $cid) {
-        //     $expired[$cid] = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id = %d AND expires_on IS NOT NULL AND expires_on < %s", $cid, $current_date ) );
-        // }
-
-        // wpbdp_debug_e( $expired );
-
-        return array();
-
-/*        $categories_str = '(' . implode(',', $category_ids) . ')';
-
-        $current_date = current_time('mysql');
-
-        // works, but slow as hell: > 2.5s
-        //$query = $wpdb->prepare("SELECT l1.listing_id FROM {$wpdb->prefix}wpbdp_listing_fees AS l1 WHERE NOT EXISTS (SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees AS l2 WHERE l2.listing_id = l1.listing_id AND (l2.expires_on IS NULL or l2.expires_on >= %s)  AND l2.category_id IN {$categories_str}) AND l1.category_id IN {$categories_str}", $current_date);
-        $query = $wpdb->prepare("SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id IN {$categories_str} AND listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id IN {$categories_str} AND (expires_on IS NULL OR expires_on >= %s))", $current_date);
-
-        $excluded_ids = $wpdb->get_col($query);
-
-        return $excluded_ids;*/
-    }
-
     public function assign_fee($listing_id, $category_id, $fee_id, $charged=false) {
         global $wpdb;
 

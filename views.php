@@ -137,7 +137,6 @@ class WPBDP_DirectoryController {
             'post_type' => wpbdp_post_type(),
             'post_status' => 'publish',
             'posts_per_page' => 0,
-            'post__not_in' => $listings_api->get_expired_listings($category_id), /* exclude expired listings */
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
@@ -166,15 +165,10 @@ class WPBDP_DirectoryController {
 
         $listings_api = wpbdp_listings_api();
 
-        // exclude expired posts in this category (and stickies)
-        // $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
-        $excluded_ids = array(); // TODO: exclude expired listings in tag
-
         query_posts(array(
             'post_type' => wpbdp_post_type(),
             'post_status' => 'publish',
             'posts_per_page' => 0,
-            'post__not_in' => $excluded_ids,
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
@@ -204,17 +198,13 @@ class WPBDP_DirectoryController {
         elseif (get_query_var('paged'))
             $paged = get_query_var('paged');
 
-
-        $excluded_ids = array(); // TODO: exclude expired listings
-
         query_posts(array(
             'post_type' => wpbdp_post_type(),
             'posts_per_page' => 0,
             'post_status' => 'publish',
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-            'order' => wpbdp_get_option('listings-sort', 'ASC'),
-            'post__not_in' => $excluded_ids
+            'order' => wpbdp_get_option('listings-sort', 'ASC')
         ));
 
         $html = wpbdp_render('businessdirectory-listings', array(
