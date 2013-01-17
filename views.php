@@ -1032,10 +1032,15 @@ class WPBDP_DirectoryController {
             }
         }
 
-        query_posts(array('post_type' => wpbdp_post_type(),
-                          'posts_per_page' => 10,
-                          'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-                          'post__in' => $results ? $results : array(0)));
+        query_posts( array(
+            'post_type' => wpbdp_post_type(),
+            'posts_per_page' => 10,
+            'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'post__in' => $results ? $results : array(0),
+            'orderby' => wpbdp_get_option( 'listings-order-by', 'date' ),
+            'order' => wpbdp_get_option( 'listings-sort', 'ASC' )
+        ) );
+
         $html = wpbdp_render('search', array('fields' => $fields, 'searching' => isset($_GET['dosrch']) ? true : false), false);
         wp_reset_query();
 
