@@ -414,3 +414,17 @@ function wpbdp_ajaxurl($overwrite=false) {
 
     return $ajaxurl;
 }
+
+/**
+ * Removes a value from an array.
+ * @since 2.3
+ */
+function wpbdp_array_remove_value( &$array_, &$value_ ) {
+	$key = array_search( $value_, $array_ );
+
+	if ( $key !== false ) {
+		unset( $array_[$key] );
+	}
+
+	return true;
+}

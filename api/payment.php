@@ -319,6 +319,10 @@ class WPBDP_PaymentsAPI {
 
         $transaction = $this->get_transaction($options['transaction_id']);
 
+        if ( $transaction->status == 'approved' || $transaction->amount == 0.0 ) {
+            return wpbdp_render_msg( _x('Your transaction has been approved.', 'payments-api', 'WPBDM' ) );
+        }
+
         return wpbdp_render('payment-page', array(
             'title' => $options['title'],
             'item_text' => $options['item_text'],

@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 2.2
+Version: 2.3-dev
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -119,7 +119,7 @@ require_once(WPBDP_PATH . 'widgets.php');
 
 class WPBDP_Plugin {
 
-    const VERSION = '2.2';
+    const VERSION = '2.3-dev';
     const DB_VERSION = '3.1';
 
     const POST_TYPE = 'wpbdp_listing';
@@ -137,55 +137,57 @@ class WPBDP_Plugin {
 
         wpbdp_log('Running expirations hook.');
 
+        if ( !wpbdp_get_option( 'listing-renewal' ) )
+            return;
+
         $current_date = current_time('mysql');
 
         $posts_to_check = $wpdb->get_results($wpdb->prepare(
-                "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on < %s AND email_sent = %d", $current_date, 0) );
+                "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on < %s AND email_sent = %d LIMIT 100", $current_date, 0) );
 
-        foreach ($posts_to_check as $p) {
-            // TODO: remove category from post categories
+        foreach ( $posts_to_check as $p ) {
+            $listing = get_post( $p->listing_id );
 
-            if (wpbdp_get_option('listing-renewal')) {
-                $listing = get_post($p->listing_id);
-
-                if ($listing->post_status != 'publish')
-                    continue;
-
-                $headers = sprintf("MIME-Version: 1.0\n" .
-                                   "From: %s <%s>\n" . 
-                                   "Reply-To: %s\n" . 
-                                   "Content-Type: text/html; charset=\"%s\"\n",
-                                    get_option('blogname'),
-                                    get_option('admin_email'),
-                                    get_option('admin_email'),
-                                    get_option('blog_charset'));
-                $subject = sprintf('[%s] %s', get_option('blogname'), wp_kses($listing->post_title, array()));
-                
-                $message = nl2br(wpbdp_get_option('listing-renewal-message'));
-                $message = str_replace('[listing]', esc_attr($listing->post_title), $message);
-                $message = str_replace('[category]', get_term($p->category_id, self::POST_TYPE_CATEGORY)->name, $message);
-                $message = str_replace('[expiration]', date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($p->expires_on)), $message);
-                $message = str_replace('[link]', sprintf('<a href="%1$s">%1$s</a>', add_query_arg(array('action' => 'renewlisting', 'renewal_id' => $p->id), wpbdp_get_page_link('main')) ), $message);
-
-                wpbdp_log(sprintf('Listing "%s" expired on category %s. Email sent.', $listing->post_title, $p->category_id));
-
-                // TODO: move this to use WPBDP_Email
-                if (@wp_mail(get_the_author_meta('user_email', $listing->post_author), $subject, $message, $headers)) {
-                    $wpdb->update("{$wpdb->prefix}wpbdp_listing_fees", array('email_sent' => 1), array('id' => $p->id));
-                }
+            if ( !$listing || $listing->post_type != wpbdp_post_type() ) {
+                continue;
             }
+
+            if ( !has_term( intval( $p->category_id ), wpbdp_categories_taxonomy(), $p->listing_id ) ) {
+                $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $p->id ) );
+                continue;
+            }
+
+            // Remove expired category from post
+            $listing_terms = wp_get_post_terms( $p->listing_id, wpbdp_categories_taxonomy(), array('fields' => 'ids') );
+            wpbdp_array_remove_value( $listing_terms, $p->category_id );
+            wp_set_post_terms( $p->listing_id, $listing_terms, wpbdp_categories_taxonomy() );
+
+            if ( !$listing_terms ) {
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $p->listing_id ) );
+            }
+
+            // Send email to listing owner
+            $headers = sprintf("MIME-Version: 1.0\n" .
+                               "From: %s <%s>\n" . 
+                               "Reply-To: %s\n" . 
+                               "Content-Type: text/html; charset=\"%s\"\n",
+                                get_option('blogname'),
+                                get_option('admin_email'),
+                                get_option('admin_email'),
+                                get_option('blog_charset'));
+            $subject = sprintf('[%s] %s', get_option('blogname'), wp_kses($listing->post_title, array()));
+            
+            $message = nl2br(wpbdp_get_option('listing-renewal-message'));
+            $message = str_replace('[listing]', esc_attr($listing->post_title), $message);
+            $message = str_replace('[category]', get_term($p->category_id, self::POST_TYPE_CATEGORY)->name, $message);
+            $message = str_replace('[expiration]', date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($p->expires_on)), $message);
+            $message = str_replace('[link]', sprintf('<a href="%1$s">%1$s</a>', add_query_arg(array('action' => 'renewlisting', 'renewal_id' => $p->id), wpbdp_get_page_link('main')) ), $message);
+
+            wpbdp_log(sprintf('Listing "%s" expired on category %s. Email sent.', $listing->post_title, $p->category_id));
+            @wp_mail( get_the_author_meta('user_email', $listing->post_author), $subject, $message, $headers ); // TODO: move this to use WPBDP_Email
+
+            $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array('email_sent' => 1), array('id' => $p->id) );
         }
-    }
-
-    public function _unpublish_expired_posts() {
-        global $wpdb;
-
-        $current_date = current_time('mysql');
-
-        $query = $wpdb->prepare(
-            "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s AND email_sent = %d AND listing_id NOT IN (SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NULL OR expires_on >= %s))", wpbdp_get_option('deleted-status'), $current_date, 1, $current_date);
-        
-        $wpdb->query($query);
     }
 
     public function _pre_get_posts(&$query) {
@@ -374,7 +376,7 @@ class WPBDP_Plugin {
         add_action('init', array($this, '_session_start'));
         add_action('init', array($this, '_register_image_sizes'));
 
-        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
+        add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
         add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
 
@@ -410,7 +412,6 @@ class WPBDP_Plugin {
 
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
-        add_action('wpbdp_listings_expiration_check', array($this, '_unpublish_expired_posts'));
 
         $this->controller->init();
 

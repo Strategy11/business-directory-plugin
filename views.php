@@ -137,7 +137,6 @@ class WPBDP_DirectoryController {
             'post_type' => wpbdp_post_type(),
             'post_status' => 'publish',
             'posts_per_page' => 0,
-            'post__not_in' => $listings_api->get_expired_listings($category_id), /* exclude expired listings */
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
@@ -166,15 +165,10 @@ class WPBDP_DirectoryController {
 
         $listings_api = wpbdp_listings_api();
 
-        // exclude expired posts in this category (and stickies)
-        // $excluded_ids = array_merge($listings_api->get_expired_listings($category_id), $listings_api->get_stickies());
-        $excluded_ids = array(); // TODO: exclude expired listings in tag
-
         query_posts(array(
             'post_type' => wpbdp_post_type(),
             'post_status' => 'publish',
             'posts_per_page' => 0,
-            'post__not_in' => $excluded_ids,
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
@@ -204,17 +198,13 @@ class WPBDP_DirectoryController {
         elseif (get_query_var('paged'))
             $paged = get_query_var('paged');
 
-
-        $excluded_ids = array(); // TODO: exclude expired listings
-
         query_posts(array(
             'post_type' => wpbdp_post_type(),
             'posts_per_page' => 0,
             'post_status' => 'publish',
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-            'order' => wpbdp_get_option('listings-sort', 'ASC'),
-            'post__not_in' => $excluded_ids
+            'order' => wpbdp_get_option('listings-sort', 'ASC')
         ));
 
         $html = wpbdp_render('businessdirectory-listings', array(
@@ -935,43 +925,46 @@ class WPBDP_DirectoryController {
     public function renew_listing() {
         global $wpdb;
 
-        $current_date = current_time('mysql');
-
         if (!wpbdp_get_option('listing-renewal'))
             return '';
 
-        if ($fee_info = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", intval($_GET['renewal_id']), $current_date))) {
-            if ($post = get_post($fee_info->listing_id)) {
-                if (!has_term($fee_info->category_id, wpbdp_categories_taxonomy(), $post->ID))
-                    return _x('Invalid renewal requested.', 'templates', 'WPBDM');
+        $current_date = current_time('mysql');
 
-                $listingsapi = wpbdp_listings_api();
-                $feesapi = wpbdp_fees_api();
-                $paymentsapi = wpbdp_payments_api();
+        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", intval($_GET['renewal_id']), $current_date ) );
+        if ( !$fee_info )
+            return;
 
-                $available_fees = $feesapi->get_fees_for_category($fee_info->category_id);
+        $post = get_post( $fee_info->listing_id );
 
-                if (isset($_POST['fee_id'])) {
-                    if ($fee = $feesapi->get_fee_by_id($_POST['fee_id'])) {
-                        if ($transaction_id = $listingsapi->renew_listing($_GET['renewal_id'], $fee)) {
-                            return $paymentsapi->render_payment_page(array(
-                                'title' => _x('Renew Listing', 'templates', 'WPBDM'),
-                                'item_text' => _x('Pay %1$s renewal fee via %2$s.', 'templates', 'WPBDM'),
-                                'transaction_id' => $transaction_id,
-                            ));
-                        }
-                    }
-                }
+        if ( !$post || $post->post_type != wpbdp_post_type() )
+            return;
 
-                return wpbdp_render('renewlisting-fees', array(
-                    'fee_options' => $available_fees,
-                    'category' => get_term($fee_info->category_id, wpbdp_categories_taxonomy()),
-                    'listing' => $post
-                ), false);
+        $listings_api = wpbdp_listings_api();
+        $fees_api = wpbdp_fees_api();
+        $payments_api = wpbdp_payments_api();
+
+        $available_fees = $fees_api->get_fees_for_category( $fee_info->category_id );
+
+        if ( isset( $_POST['fee_id'] ) ) {
+            $fee = $fees_api->get_fee_by_id( $_POST['fee_id'] );
+
+            if ( !$fee )
+                return;
+
+            if ( $transaction_id = $listings_api->renew_listing( $_GET['renewal_id'], $fee ) ) {
+                return $payments_api->render_payment_page( array(
+                    'title' => _x('Renew Listing', 'templates', 'WPBDM'),
+                    'item_text' => _x('Pay %1$s renewal fee via %2$s.', 'templates', 'WPBDM'),
+                    'transaction_id' => $transaction_id,
+                ) );
             }
         }
 
-        return '';
+        return wpbdp_render( 'renewlisting-fees', array(
+            'fee_options' => $available_fees,
+            'category' => get_term( $fee_info->category_id, wpbdp_categories_taxonomy() ),
+            'listing' => $post
+        ), false );
     }
 
     /* payment processing */
@@ -1039,10 +1032,15 @@ class WPBDP_DirectoryController {
             }
         }
 
-        query_posts(array('post_type' => wpbdp_post_type(),
-                          'posts_per_page' => 10,
-                          'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-                          'post__in' => $results ? $results : array(0)));
+        query_posts( array(
+            'post_type' => wpbdp_post_type(),
+            'posts_per_page' => 10,
+            'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'post__in' => $results ? $results : array(0),
+            'orderby' => wpbdp_get_option( 'listings-order-by', 'date' ),
+            'order' => wpbdp_get_option( 'listings-sort', 'ASC' )
+        ) );
+
         $html = wpbdp_render('search', array('fields' => $fields, 'searching' => isset($_GET['dosrch']) ? true : false), false);
         wp_reset_query();
 

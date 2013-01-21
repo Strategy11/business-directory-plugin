@@ -56,6 +56,7 @@ class WPBDP_Settings {
                            array('choices' => array('draft', 'trash')));
 
         $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
+        $this->add_setting( $s, 'notify-admin', _x( 'Notify admin of new listings via email?', 'admin settings', 'WPBDM' ), 'boolean', false );
         $this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'email-confirmation-message', _x('Email confirmation message', 'admin settings', 'WPBDM'), 'text',
                            'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
