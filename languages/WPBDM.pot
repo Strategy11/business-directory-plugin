@@ -2990,7 +2990,7 @@ msgstr ""
 
 #: wpbdp-settings.class.php:117
 msgctxt "admin settings"
-msgid "New Zelland Dollar (NZD)"
+msgid "New Zealand Dollar (NZD)"
 msgstr ""
 
 #: wpbdp-settings.class.php:118

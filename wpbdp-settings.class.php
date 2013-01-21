@@ -114,7 +114,7 @@ class WPBDP_Settings {
                                 array('MYR', _x('Malasian Ringgit (MYR)', 'admin settings', 'WPBDM')),
                                 array('MXN', _x('Mexican Peso (MXN)', 'admin settings', 'WPBDM')),
                                 array('NOK', _x('Norwegian Krone (NOK)', 'admin settings', 'WPBDM')),
-                                array('NZD', _x('New Zelland Dollar (NZD)', 'admin settings', 'WPBDM')),
+                                array('NZD', _x('New Zealand Dollar (NZD)', 'admin settings', 'WPBDM')),
                                 array('PHP', _x('Philippine Peso (PHP)', 'admin settings', 'WPBDM')),
                                 array('PLN', _x('Polish Zloty (PLN)', 'admin settings', 'WPBDM')),
                                 array('GBP', _x('Pound Sterling (GBP)', 'admin settings', 'WPBDM')),
