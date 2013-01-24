@@ -605,8 +605,20 @@ class WPBDP_DirectoryController {
                     $this->_listing_data['fees'][$catid] = wpbdp_fees_api()->get_fee_by_id(wpbdp_getv($post_fees, $catid));
                 }
 
+                if ( isset( $_POST['upgrade-listing'] ) && $_POST['upgrade-listing'] == 'upgrade' ) {
+                    $this->_listing_data['upgrade-listing'] = true;
+                }
+
                 return $this->submit_listing_images();
             }
+        }
+
+
+        if ( wpbdp_get_option( 'featured-on' ) ) {
+            $upgrades_api = wpbdp_listing_upgrades_api();
+            $upgrade_option = $upgrades_api->get( 'sticky' );
+        } else {
+            $upgrade_option = false;
         }
 
         return wpbdp_render('listing-form-fees', array(
@@ -614,6 +626,7 @@ class WPBDP_DirectoryController {
                             'listing_id' => $this->_listing_data['listing_id'],
                             'listing_data' => $this->_listing_data,
                             'fee_options' => $fees,
+                            'upgrade_option' => $upgrade_option
                             ), false);
     }
 

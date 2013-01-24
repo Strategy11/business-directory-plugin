@@ -697,6 +697,14 @@ class WPBDP_ListingsAPI {
         // register payment info
         $cost = $this->cost_of_listing($listing_id, true);
 
+        if ( isset( $data['upgrade-listing'] ) && $data['upgrade-listing'] ) {
+            $upgrades_api = wpbdp_listing_upgrades_api();
+            $upgrades_api->set_sticky( $listing_id, 'sticky' );
+
+            $level = $upgrades_api->get( 'sticky' );
+            $cost += $level->cost;
+        }
+
         $payment_api = wpbdp_payments_api();
         $transaction_id = $payment_api->save_transaction(array(
             'amount' => $cost,
