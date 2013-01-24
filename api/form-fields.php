@@ -631,6 +631,9 @@ class WPBDP_FormFieldsAPI {
         if ($field->validator == 'DateValidator')
             $html .= _x('Format 01/31/1969', 'form-fields api', 'WPBDM');
 
+        if ( $field->association == 'tags' )
+            $value = implode( ',', is_array( $value ) ? $value : array() );
+
         if ( is_array( $value ) && ( in_array( $field->type, array('social-twitter', 'social-linkedin', 'social-facebook') ) || $field->validator != 'URLValidator' ) )
             $value = $value[0];
 
@@ -801,6 +804,11 @@ class WPBDP_FormFieldsAPI {
 
             foreach ($terms as $term)
                 $options[] = array($term->term_id, $term->name);
+        } elseif( $field->association == 'tags' ) {
+            $terms = get_terms( wpbdp_tags_taxonomy(), 'hide_empty=0' );
+
+            foreach ( $terms as $term )
+                $options[] = array( $term->name, $term->name );
         } else {
             $options = isset($field->field_data['options']) ? $field->field_data['options'] : array();
         }
