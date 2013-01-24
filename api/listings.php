@@ -235,6 +235,9 @@ class WPBDP_ListingsAPI {
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
+        // notify admins of new listings (if needed)
+        add_action( 'wpbdp_create_listing', array( $this, '_new_listing_notify' ) );
+
         $this->upgrades = WPBDP_ListingUpgrades::instance();
     }
 
@@ -299,6 +302,39 @@ class WPBDP_ListingsAPI {
             return wpbdp_get_option('show-comment-form');
         
         return $open;
+    }
+
+    public function _new_listing_notify( $listing_id ) {
+        if ( !wpbdp_get_option( 'notify-admin' ) )
+            return;
+
+        $categories = wp_get_post_terms( $listing_id, wpbdp_categories_taxonomy(), array( 'fields' => 'names' ) );
+        if ( $categories ) {
+            $categories_str = implode( ',', $categories );
+        } else {
+            $categories_str = '-';
+        }
+
+        if ( get_post_status( $listing_id ) == 'publish' ) {
+            $url = get_permalink( $listing_id );
+        } else {
+            $url = _x( '(not yet published)', 'notify email', 'WPBDM' );
+        }
+
+        $message = wpbdp_render( 'email/listing-added', array(
+            'id' => $listing_id,
+            'title' => get_the_title( $listing_id ),
+            'url' => $url,
+            'categories' => $categories_str,
+            'user_name' => get_the_author_meta( 'user_login' ),
+            'user_email' => get_the_author_meta( 'user_email' )
+        ), false );
+
+        $email = new WPBDP_Email();
+        $email->subject = sprintf( _x( '[%s] New listing notification', 'notify email', 'WPBDM' ), get_bloginfo( 'name' ) );
+        $email->to[] = get_bloginfo( 'admin_email' );
+        $email->body = $message;
+        $email->send();
     }
 
     // sets the default settings to listings created through the admin site
@@ -670,6 +706,14 @@ class WPBDP_ListingsAPI {
         update_post_meta($listing_id, '_wpbdp[payment_status]', !current_user_can('administrator') && ($cost > 0.0) ? 'not-paid' : 'paid');
 
         do_action('wpbdp_add_listing', $listing_id, $listingfields);
+
+
+        if ( !$editing )
+            do_action( 'wpbdp_create_listing', $listing_id );
+        else
+            do_action( 'wpbdp_edit_listing', $listing_id );
+
+        do_action( 'wpbdp_save_listing', $listing_id );
 
         return $listing_id;
     }
