@@ -763,12 +763,19 @@ class WPBDP_ListingsAPI {
                             $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_excerpt LIKE '%%%s%%'", $q);
                             break;
                         case 'category':
-                            $term_ids = is_array($q) ? $q : array($q);
-                            $term_ids = implode(',',  array_diff($term_ids, array('-1', '0')) );
+                            $term_ids = array_diff( is_array($q) ? $q : array($q), array('-1', '0') ) ;
+                            $terms = array();
 
-                             if ($term_ids) {
+                            // $term_ids = implode(',',  array_diff($term_ids, array('-1', '0')) );
+
+                            foreach ( $term_ids as $tid ) {
+                                $terms[] = $tid;
+                                $terms = array_merge( $terms, get_term_children( $tid, wpbdp_categories_taxonomy() ) );
+                            }
+
+                             if ($terms) {
                                 $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel1 ON ({$wpdb->posts}.ID = trel1.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax1 ON (trel1.term_taxonomy_id = ttax1.term_taxonomy_id)";
-                                $where .= " AND ttax1.term_id IN ({$term_ids}) ";
+                                $where .= " AND ttax1.term_id IN (" . implode( ',', $terms ) . ") ";
                             }
 
                             break;
