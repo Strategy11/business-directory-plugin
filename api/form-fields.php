@@ -1,4 +1,6 @@
 <?php
+require_once(WPBDP_PATH . 'api/htmlforms.php');
+
 /*
  * Form fields generic API
  */
