@@ -65,23 +65,6 @@ function wpbusdirman_isValidEmailAddress($email) {
     return (bool) preg_match('/^(?!(?>\x22?(?>\x22\x40|\x5C?[\x00-\x7F])\x22?){255,})(?!(?>\x22?\x5C?[\x00-\x7F]\x22?){65,}@)(?>[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+|(?>\x22(?>[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\x5C[\x00-\x7F])*\x22))(?>\.(?>[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+|(?>\x22(?>[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\x5C[\x00-\x7F])*\x22)))*@(?>(?>(?!.*[^.]{64,})(?>(?>xn--)?[a-z0-9]+(?>-[a-z0-9]+)*\.){0,126}(?>xn--)?[a-z0-9]+(?>-[a-z0-9]+)*)|(?:\[(?>(?>IPv6:(?>(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){7})|(?>(?!(?:.*[a-f0-9][:\]]){8,})(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,6})?::(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,6})?)))|(?>(?>IPv6:(?>(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){5}:)|(?>(?!(?:.*[a-f0-9]:){6,})(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,4})?::(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,4}:)?)))?(?>25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(?>\.(?>25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}))\]))$/isD', $email);
 }
 
-function wpbusdirman_is_ValidDate($date) {
-    list($themonth,$theday,$theyear)=explode("/",$date);
-    $theday=(int)$theday;
-    $themonth=(int)$themonth;
-    $theyear=(int)$theyear;
-
-    if ($theday!="" && $themonth!="" && $theyear!="")
-    {
-        if (is_numeric($theyear) && is_numeric($themonth) && is_numeric($theday))
-        {
-             return checkdate($themonth,$theday,$theyear);
-        }
-    }
-
-    return false;
-}
-
 function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid,$commentauthorname,$commentauthoremail,$commentauthorwebsite,$commentauthormessage,$wpbusdirmancontacterrors) {
     if (!wpbdp_get_option('show-contact-form'))
         return '';
@@ -116,6 +99,7 @@ require_once(WPBDP_PATH . 'api/listings.php');
 require_once(WPBDP_PATH . 'api/templates-ui.php');
 require_once(WPBDP_PATH . 'views.php');
 require_once(WPBDP_PATH . 'widgets.php');
+
 
 class WPBDP_Plugin {
 
@@ -896,3 +880,7 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
+
+// for testing only
+if ( file_exists( WPBDP_PATH . 'tests.php' ) )
+    require_once( WPBDP_PATH . 'tests.php' );
