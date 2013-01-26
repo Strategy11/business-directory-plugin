@@ -410,6 +410,10 @@ class WPBDP_Plugin {
         add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
         add_shortcode('business-directory', array($this->controller, 'dispatch'));
 
+        // special shortcode for testing stuff
+        if ( get_option('wpbdp-debug-on', false) )
+            add_shortcode( 'wpbdp-test', array( $this, '_testing_shortcode' ) );
+
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_listing_expirations'), 0);
 
@@ -808,6 +812,16 @@ class WPBDP_Plugin {
             return $this->controller->view_listings(true);
         }
 
+    }
+
+    public function _testing_shortcode( $atts ) {
+        $atts = shortcode_atts( array( 'f' => null ), $atts );
+
+        if ( $atts['f'] && function_exists( $atts['f'] ) ) {
+            return call_user_func( $atts['f'] );
+        }
+
+        return '-- Invalid test function --';
     }
 
     /* theme filters */
