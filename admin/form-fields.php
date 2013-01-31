@@ -15,7 +15,6 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     public function get_columns() {
         return array(
         	'order' => _x('Order', 'form-fields admin', 'WPBDM'),
-            /*'short_id' => _x('Short ID', 'form-fields admin', 'WPBDM'),*/
         	'label' => _x('Label / Association', 'form-fields admin', 'WPBDM'),
         	'type' => _x('Type', 'form-fields admin', 'WPBDM'),
         	'validator' => _x('Validator', 'form-fields admin', 'WPBDM'),
@@ -26,75 +25,63 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 	public function prepare_items() {
 		$this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
 
-		$api = wpbdp_formfields_api();
-		$this->items = $api->getFormFields();
+		$formfields_api = WPBDP_FormFields::instance();
+		$this->items = $formfields_api->get_fields();
 	}
 
 	/* Rows */
 	public function column_order($field) {
-		return sprintf('<a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
-					   esc_url(add_query_arg(array('action' => 'fieldup', 'id' => $field->id))),
-					   esc_url(add_query_arg(array('action' => 'fielddown', 'id' => $field->id)))
+		return sprintf( '<a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
+					    esc_url( add_query_arg( array('action' => 'fieldup', 'id' => $field->get_id() ) ) ) ,
+					    esc_url( add_query_arg( array('action' => 'fielddown', 'id' => $field->get_id() ) ) )
 					   );
 	}
 
-    public function column_short_id($field) {
-        $short_names = wpbdp_formfields_api()->getShortNames();
-        return $short_names[$field->id];
-    }
-
-	public function column_label($field) {
+	public function column_label( $field ) {
 		$actions = array();
-		$actions['edit'] = sprintf('<a href="%s">%s</a>',
-								   esc_url(add_query_arg(array('action' => 'editfield', 'id' => $field->id))),
-								   _x('Edit', 'form-fields admin', 'WPBDM'));
+		$actions['edit'] = sprintf( '<a href="%s">%s</a>',
+								    esc_url( add_query_arg( array( 'action' => 'editfield', 'id' => $field->get_id() ) ) ),
+								    _x( 'Edit', 'form-fields admin', 'WPBDM' ) );
 
-		// if (!in_array($field->association, array('title', 'content', 'category'))) {
-			$actions['delete'] = sprintf('<a href="%s">%s</a>',
-										esc_url(add_query_arg(array('action' => 'deletefield', 'id' => $field->id))),
-										_x('Delete', 'form-fields admin', 'WPBDM'));
-		// }
+		$actions['delete'] = sprintf( '<a href="%s">%s</a>',
+									 esc_url( add_query_arg( array( 'action' => 'deletefield', 'id' => $field->get_id() ) ) ),
+									 _x( 'Delete', 'form-fields admin', 'WPBDM') );
 
 		$html = '';
-		$html .= sprintf('<strong><a href="%s">%s</a></strong> (as <i>%s</i>)',
-						 esc_url(add_query_arg(array('action' => 'editfield', 'id' => $field->id))),
-						 esc_attr($field->label),
-						 $field->association);
-		$html .= $this->row_actions($actions);
+		$html .= sprintf( '<strong><a href="%s">%s</a></strong> (as <i>%s</i>)',
+						  esc_url( add_query_arg( array( 'action' => 'editfield', 'id' => $field->get_id() ) ) ),
+						  esc_attr( $field->get_label() ),
+						  $field->get_association() );
+		$html .= $this->row_actions( $actions );
 
 		return $html;
 	}
 
-	public function column_type($field) {
-        $formfields_api = wpbdp_formfields_api(); 
-		return $formfields_api->getFieldTypes($field->type);
+	public function column_type( $field ) {
+		return esc_html( $field->get_field_type()->get_name() );
 	}
 
-	public function column_validator($field) {
-		if ($field->validator) {
-			return $field->validator;
-		}
-
-		return '';
+	public function column_validator( $field ) {
+		return esc_html( implode( ',',  $field->get_validators() ) );
 	}
 
-	public function column_tags($field) {
+	public function column_tags( $field ) {
 		$html = '';
 
-		$html .= sprintf('<span class="tag %s">%s</span>',
-						 $field->is_required ? 'required' : 'optional',
-						 $field->is_required ? _x('Required', 'form-fields admin', 'WPBDM') : _x('Optional', 'form-fields admin', 'WPBDM'));
+		$html .= sprintf( '<span class="tag %s">%s</span>',
+						  $field->is_required() ? 'required' : 'optional',
+						  $field->is_required() ? _x( 'Required', 'form-fields admin', 'WPBDM' ) : _x( 'Optional', 'form-fields admin', 'WPBDM' ) );
 
-		if ($field->display_options['show_in_excerpt']) {
-			$html .= sprintf('<span class="tag in-excerpt" title="%s">%s</span>',
-                             _x('This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM'),
-							 _x('In Excerpt', 'form-fields admin', 'WPBDM'));
+		if ( $field->display_in( 'excerpt' ) ) {
+			$html .= sprintf( '<span class="tag in-excerpt" title="%s">%s</span>',
+                              _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM' ),
+							  _x( 'In Excerpt', 'form-fields admin', 'WPBDM' ) );
 		}
 
-        if ($field->display_options['show_in_listing']) {
-            $html .= sprintf('<span class="tag in-listing" title="%s">%s</span>',
-                             _x('This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM'),
-                             _x('In Listing', 'form-fields admin', 'WPBDM'));
+        if ( $field->display_in( 'listing' ) ) {
+            $html .= sprintf( '<span class="tag in-listing" title="%s">%s</span>',
+                              _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
+                              _x( 'In Listing', 'form-fields admin', 'WPBDM' ) );
         }        
 
 		return $html;
@@ -169,7 +156,9 @@ class WPBDP_FormFieldsAdmin {
     }
 
 	private function processFieldForm() {
-		if (isset($_POST['field'])) {
+		$api = WPBDP_FormFields::instance();
+
+/*		if (isset($_POST['field'])) {
 			$newfield = $_POST['field'];
 
             if (!isset($newfield['display_options']))
@@ -185,53 +174,52 @@ class WPBDP_FormFieldsAdmin {
 				
 				$this->admin->messages[] = array($errmsg, 'error');
 			}
-		}
+		}*/
 
-		$field = isset($_GET['id']) ? $this->api->getField($_GET['id']) : null;
+		$field = isset( $_GET['id'] ) ? WPBDP_FormField::get( $_GET['id'] ) : new WPBDP_FormField();
 
-		wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
-						  array('field' => $field),
-						  true);
+		wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
+						   array(
+						   	'field' => $field,
+						   	'field_associations' => $api->get_associations(),
+						   	'field_types' => $api->get_field_types(),
+                            'validators' => $api->get_validators()
+						   ),
+						   true );
 	}
 
 	private function deleteField() {
 		global $wpdb;
 
-		if (isset($_POST['doit'])) {
-			if (!$this->api->deleteField($_POST['id'], $errors)) {
-				$errmsg = '';
-				foreach ($errors as $err)
-					$errmsg .= sprintf('&#149; %s<br />', $err);
-				
-				$this->admin->messages[] = array($errmsg, 'error');
-			} else {
-				$this->admin->messages[] = _x('Field deleted.', 'form-fields admin', 'WPBDM');
-			}
+        $field = WPBDP_FormField::get( $_REQUEST['id'] );
+
+        if ( !$field )
+            return;
+
+		if ( isset( $_POST['doit'] ) ) {
+            $ret = $field->delete();
+
+            if ( is_wp_error( $ret ) ) {
+                $this->admin->messages[] = array( $ret->get_error_message(), 'error' );
+            } else {
+                $this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'WPBDM' );
+            }
 
 			return $this->fieldsTable();
-		} else {
-			if ($field = $this->api->getField($_REQUEST['id'])) {
-				wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields-confirm-delete.tpl.php',
-								  array('field' => $field),
-								  true);
-			}
 		}
 
+		wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-confirm-delete.tpl.php',
+						   array( 'field' => $field ),
+						   true );
 	}
 
 	private function createRequiredFields() {
-		$missing = $this->api->check_for_required_fields();
+		global $wpbdp;
 
-		if ($missing) {
-			$default_fields = $this->api->getDefaultFields();
-
-			foreach ($missing as $field_assoc) {
-				$field = $default_fields[$field_assoc];
-				$this->api->addorUpdateField($field);
-			}
-		}
+		$wpbdp->formfields->create_default_fields( $wpbdp->formfields->get_missing_required_fields() );
 
 		$this->admin->messages[] = _x('Required fields created successfully.', 'form-fields admin', 'WPBDM');
+
 		return $this->fieldsTable();
 	}
 

@@ -112,10 +112,6 @@ function wpbdp_formfields_api() {
     return $wpbdp->formfields;
 }
 
-function wpbdp_get_formfields() {
-    return wpbdp_formfields_api()->getFields();
-}
-
 function wpbdp_get_formfield($id) {
     if (is_numeric($id) && is_string($id))
         return wpbdp_get_formfield(intval($id));
@@ -124,10 +120,6 @@ function wpbdp_get_formfield($id) {
         return wpbdp_formfields_api()->getFieldsByAssociation($id, true);
 
     return wpbdp_formfields_api()->getField($id);
-}
-
-function wpbdp_validate_value($validator, $value, &$errors=null) {
-    return wpbdp_formfields_api()->validate_value($validator, $value, $errors);
 }
 
 /* Listings */
@@ -450,17 +442,19 @@ function _wpbdp_render_single() {
                         _x('Featured Listing', 'templates', 'WPBDM'),
                         the_title(null, null, false));
 
+    $formfields_api = WPBDP_FormFields::instance();
+
     $listing_fields = '';
     $social_fields = '';
 
-    foreach (wpbdp_get_formfields() as $field) {
-        if ($field->display_options['show_in_listing']) {
-            // show social links as images only
-            if (in_array( $field->type, array('social-twitter', 'social-facebook', 'social-linkedin') )) {
-                $social_fields .= wpbdp_get_listing_field_html_value($post->ID, $field);
-            } else {
-                $listing_fields .= wpbdp_format_field_output($field, null, $post);
-            }
+    foreach ( $formfields_api->get_fields() as $field ) {
+        if ( !$field->display_in( 'listing' ) )
+            continue;
+
+        if ( $field->display_in( 'social' ) ) {
+            $social_fields .= $field->display( $post->ID, 'social' );
+        } else {
+            $listing_fields .= $field->display( $post->ID, 'listing' );
         }
     }
 
@@ -542,18 +536,19 @@ function _wpbdp_render_excerpt() {
                      ($counter & 1) ? 'odd':  'even');
     $html .= wpbdp_capture_action('wpbdp_before_excerpt_view', $post->ID);
 
-    $social_fields = '';
+    $formfields_api = WPBDP_FormFields::instance();
+
     $listing_fields = '';
-    
-    foreach (wpbdp_get_formfields() as $field) {
-        if (!$field->display_options['show_in_excerpt'])
+    $social_fields = '';
+
+    foreach ( $formfields_api->get_fields() as $field) {
+        if ( !$field->display_in( 'excerpt' ) )
             continue;
 
-        // show social links as images only
-        if (in_array( $field->type, array('social-twitter', 'social-facebook', 'social-linkedin') )) {
-            $social_fields .= wpbdp_get_listing_field_html_value($post->ID, $field);
+        if ( $field->display_in( 'social' ) ) {
+            $social_fields .= $field->display( $post->ID, 'social' );
         } else {
-            $listing_fields .= wpbdp_format_field_output($field, null, $post);
+            $listing_fields .= $field->display( $post->ID, 'excerpt' );
         }
 
     }

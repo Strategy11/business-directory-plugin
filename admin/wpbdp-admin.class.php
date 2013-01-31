@@ -863,20 +863,21 @@ class WPBDP_Admin {
 
     /* Required fields check. */
     public function check_for_required_fields() {
-        $formfields_api = wpbdp_formfields_api();
+        global $wpbdp;
 
-        if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'wpbdp_admin_formfields' &&
-            isset($_REQUEST['action']) && $_REQUEST['action'] == 'createrequired') {
+        if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'wpbdp_admin_formfields' &&
+             isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'createrequired' ) {
             // do not display the warning inside the page creating the required fields
             return;
         }
 
-        if ($missing = $formfields_api->check_for_required_fields()) {
+        if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
             if (count($missing) > 1) {
                 $message = sprintf(_x('<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'WPBDM'), join(', ', $missing));
             } else {
                 $message = sprintf(_x('<b>Business Directory Plugin</b> requires a field with a <b>%s</b> association in order to work correctly.', 'admin', 'WPBDM'), $missing[0]);
             }
+
             $message .= '<br />';
             $message .= _x('You can create these custom fields by yourself inside "Manage Form Fields" or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
             $message .= '<br /><br />';
@@ -887,7 +888,7 @@ class WPBDP_Admin {
                                 admin_url('admin.php?page=wpbdp_admin_formfields&action=createrequired'),
                                 _x('Create these required fields for me', 'admin', 'WPBDM'));
 
-            $this->messages[] = array($message, 'error');
+            $this->messages[] = array($message, 'error');            
         }
     }
 

@@ -73,12 +73,11 @@ function wpbusdirman_post_single_listing_details() {
 
     $html .= '<div class="singledetailsview">';
 
-    foreach (wpbdp_get_formfields() as $field) {
-        if ($field->association == 'excerpt'):
-            $html .= wpbdp_format_field_output($field, $post->post_excerpt);
-        else:
-            $html .= wpbdp_format_field_output($field, null, $post);
-        endif;
+    foreach ( wpbdp_formfields_api()->get_fields() as $field ) {
+        if ( !$field->display_in( 'listing' ) )
+            continue;
+
+        $html .= $field->display( $post->ID, 'listing' );
     }
 
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID);
@@ -232,11 +231,11 @@ function wpbusdirman_display_the_listing_fields() {
 
     $html = '';
 
-    foreach (wpbdp_get_formfields() as $field) {
-        if (!$field->display_options['show_in_excerpt'])
+    foreach ( wpbdp_formfields_api()->get_fields() as $field ) {
+        if ( !$field->display_in( 'excerpt' ) )
             continue;
 
-        $html .= wpbdp_format_field_output($field, null, $post);
+        $html .= $field->display( $post->ID, 'excerpt' );
     }
 
     return $html;

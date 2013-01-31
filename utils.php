@@ -251,16 +251,6 @@ function wpbdp_getv($dict, $key, $default=false) {
 	return $default;
 }
 
-function wpbdp_render_attributes($attrs) {
-    $attributes = array();
-    foreach ($attrs as $name => $value) {
-        if (is_array($value))
-            $value = join(' ', array_filter($value, 'strlen'));
-        $attributes[] = sprintf('%s="%s"', $name, esc_attr($value));
-    }
-    return join(' ', $attributes);
-}
-
 function wpbdp_render_page($template, $vars=array(), $echo_output=false) {
 	if ($vars) {
 		extract($vars);

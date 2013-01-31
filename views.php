@@ -413,85 +413,59 @@ class WPBDP_DirectoryController {
     }
 
     public function submit_listing_fields() {
-        unset($_SESSION['wpbdp-submitted-listing-id']);
+        unset( $_SESSION['wpbdp-submitted-listing-id'] );
 
         $formfields_api = wpbdp_formfields_api();
 
-        $post_values = isset($_POST['listingfields']) ? $_POST['listingfields'] : array();
-        $post_values = stripslashes_deep($post_values);
+        $post_values = isset( $_POST['listingfields'] ) ? $_POST['listingfields'] : array();
+        $post_values = stripslashes_deep( $post_values );
         $validation_errors = array();
 
         $fields = array();
-        foreach ($formfields_api->getFields() as $field) {
-            $default_value = '';
+        foreach ( $formfields_api->get_fields() as $field ) {
+            $field_value = isset( $post_values[$field->get_id()] ) ? $field->convert_input( $post_values[$field->get_id()] ) : ( $this->_listing_data['listing_id'] ? $field->value( intval( $this->_listing_data['listing_id'] )  ) : null );
 
-            if ($listing_id = $this->_listing_data['listing_id']) {
-                switch ($field->association) {
-                    case 'category':
-                        $default_value = array();
-
-                        foreach (wpbdp_get_listing_field_value($listing_id, $field) as $listing_category) {
-                            $default_value[] = $listing_category->term_id;
-                        }
-
-                        break;
-                    case 'tags':
-                        $tags = wpbdp_get_listing_field_value($listing_id, $field);
-
-                        if (is_array($tags))
-                            array_walk($tags, create_function('&$x', '$x = $x->name;'));
-
-                        $default_value = is_array( $tags ) ? $tags : array();
-                        
-                        break;
-                    default:
-                        $default_value = wpbdp_get_listing_field_value($listing_id, $field);
-                        break;
-                }
+            if ( $post_values ) {
+                if ( !$field->validate( $field_value, $field_errors) )
+                    $validation_errors = array_merge( $validation_errors, $field_errors );
             }
 
-            $field_value = wpbdp_getv($post_values, $field->id, $default_value);
-
-            if ($post_values) {
-                if (!$formfields_api->validate($field, $field_value, $field_errors))
-                    $validation_errors = array_merge($validation_errors, $field_errors);
-            }
-
-            $fields[] = array('field' => $field,
-                              'value' => $field_value,
-                              'html'  => $formfields_api->render($field, $field_value));
+            $fields[] = array( 'field' => $field,
+                               'value' => $field_value,
+                               'html'  => $field->render( $field_value, 'submit' ) );
         }
-        if (wpbdp_get_option('recaptcha-for-submits')) {
-            if ($private_key = wpbdp_get_option('recaptcha-private-key')) {
-                if (isset($_POST['recaptcha_challenge_field'])) {
-                    require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
 
-                    $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+        if ( wpbdp_get_option('recaptcha-for-submits') ) {
+            if ( $private_key = wpbdp_get_option( 'recaptcha-private-key' ) ) {
+                if ( isset( $_POST['recaptcha_challenge_field'] ) ) {
+                    require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+
+                    $resp = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
                     if (!$resp->is_valid)
-                        $validation_errors[] = _x("The reCAPTCHA wasn't entered correctly.", 'templates', 'WPBDM');
+                        $validation_errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'templates', 'WPBDM' );
                 }
             }
         }
 
         // if there are values POSTed and everything validates, move on
-        if ($post_values && !$validation_errors) {
+        if ( $post_values && !$validation_errors ) {
             return $this->submit_listing_payment();
         }
 
         $recaptcha = null;
-        if (wpbdp_get_option('recaptcha-for-submits')) {
-            if ($public_key = wpbdp_get_option('recaptcha-public-key')) {
-                require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
-                $recaptcha = recaptcha_get_html($public_key);
+        if ( wpbdp_get_option('recaptcha-for-submits') ) {
+            if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
+                require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+                $recaptcha = recaptcha_get_html( $public_key );
             }
-        }        
-        
-        return wpbdp_render('listing-form-fields', array(
-                            'validation_errors' => $validation_errors,
-                            'listing_id' => $this->_listing_data['listing_id'],
-                            'fields' => $fields,
-                            'recaptcha' => $recaptcha
-                            ), false);      
+        }
+
+        return wpbdp_render( 'listing-form-fields', array(
+                             'validation_errors' => $validation_errors,
+                             'listing_id' => $this->_listing_data['listing_id'],
+                             'fields' => $fields,
+                             'recaptcha' => $recaptcha
+                            ), false );
     }
 
     private function edit_listing_payment() {
@@ -564,6 +538,8 @@ class WPBDP_DirectoryController {
     }
 
     public function submit_listing_payment() {
+        wpbdp_debug_e( $_POST );
+
         if ($this->_listing_data['listing_id'])
             return $this->edit_listing_payment();
 
