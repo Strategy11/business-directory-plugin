@@ -74,7 +74,7 @@ class WPBDP_FormFieldType {
                 break;
             case 'meta':
             default:
-                $value = $this->get_field_value( $field, $post_id );
+                $value = $field->value( $post_id );
                 break;
         }
 
@@ -119,7 +119,7 @@ class WPBDP_FormFieldType {
 
     // this function should not try to hide values depending on field, context or value itself.
     public function display_field( &$field, $post_id, $display_context ) {
-        return self::standard_display_wrapper( $field, $field->html_value() );
+        return self::standard_display_wrapper( $field, $field->html_value( $post_id ) );
     }
 
     public function render_field_inner( &$field, $value, $render_context ) {
@@ -441,7 +441,7 @@ class WPBDP_FormField {
      */
     public function value( $post_id ) {
         if ( !get_post_type( $post_id ) == wpbdp_post_type() )
-            return null;
+            return null;        
 
         $value = $this->type->get_field_value( $this, $post_id );
         $value = apply_filters( 'wpbdp_formfield_value', $value, $post_id, $this );
@@ -514,7 +514,7 @@ class WPBDP_FormField {
 
         if ( $this->type->is_empty_value( $this->value( $post_id ) ) )
             return '';
-        
+
         return $this->type->display_field( $this, $post_id, $display_context );
     }
 

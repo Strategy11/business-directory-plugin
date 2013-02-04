@@ -187,6 +187,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         parent::store_field_value( $field, $post_id, $value );        
     }
 
+    public function get_field_html_value( &$field, $post_id ) {
+        if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
+            return esc_attr( implode( ', ', $field->value( $post_id ) ) );
+        }
+
+        return parent::get_field_html_value( $field, $post_id );
+    }    
+
 }
 
 class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
@@ -375,6 +383,14 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         }
 
         parent::store_field_value( $field, $post_id, $value );        
+    }
+
+    public function get_field_html_value( &$field, $post_id ) {
+        if ( $field->get_association() == 'meta' ) {
+            return esc_attr( implode( ', ', $field->value( $post_id ) ) );
+        }
+
+        return parent::get_field_html_value( $field, $post_id );
     }
 
 }
