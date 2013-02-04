@@ -583,82 +583,51 @@ class WPBDP_ListingsAPI {
         global $wpdb;
 
         $data = is_object($data_) ? (array) $data_ : $data_;
-
         $editing = isset($data['listing_id']) && $data['listing_id'];
 
         $listingfields = $data['fields'];
 
-        $formfields_api = wpbdp_formfields_api();
+        $api = wpbdp_formfields_api();
 
-        $post_title = trim(strip_tags($formfields_api->extract($listingfields, 'title')));
-        $post_excerpt = trim(strip_tags($formfields_api->extract($listingfields, 'excerpt')));
-        $post_content = trim(strip_tags($formfields_api->extract($listingfields, 'content')));
-
-        $post_categories = $formfields_api->extract($listingfields, 'category');
-        if (!is_array($post_categories))
-            $post_categories = array($post_categories);
-
-        $post_tags = $formfields_api->extract($listingfields, 'tags');
-        if ($post_tags && !is_array($post_tags))
-            $post_tags = explode(',', $post_tags);
-
-        $post_status = (isset($data['listing_id']) && $data['listing_id'] ) ? wpbdp_get_option('edit-post-status') : wpbdp_get_option('new-post-status');
-
-        $insert_args = array(
-            'post_title' => $post_title,
-            'post_content' => $post_content,
-            'post_excerpt' => $post_excerpt,
-            'post_status' => $post_status,
+        $listing_id = wp_insert_post( array(
+            'post_title' => 'Untitled Listing',
+            'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ),
             'post_type' => wpbdp_post_type(),
-            'ID' => isset($data['listing_id']) ? intval($data['listing_id']) : null
-        );
+            'ID' => $editing ? intval( $data['listing_id'] ) : null
+        ) );
 
-        if (!$editing) {
+        if ( !$editing ) {
             $current_user = wp_get_current_user();
 
-            if ($current_user->ID == 0) {
-                if (wpbdp_get_option('require-login')) {
+            if ( $current_user->ID == 0 ) {
+                if ( wpbdp_get_option( 'require-login' ) ) {
                     exit;
                 }
                 // create user
-                if ($email_field = $formfields_api->getFieldsByValidator('EmailValidator', true)) {
-                    $email = $formfields_api->extract($listingfields, $email_field);
+                if ( $email_field = $api->find_fields( array( 'validator' => 'email' ), true ) ) {
+                    $email = $listingfields[ $email_field->get_id() ];
                     
-                    if (email_exists($email)) {
-                        $insert_args['post_author'] = get_user_by_email($email)->ID;
+                    if ( email_exists( $email ) ) {
+                        $post_author = get_user_by_email( $email )->ID;
                     } else {
-                        $randvalue = wpbdp_generate_password(5, 2);
-                        $insert_args['post_author'] = wp_insert_user(array(
+                        $randvalue = wpbdp_generate_password( 5, 2 );
+                        $post_author = wp_insert_user( array(
                             'display_name' => 'Guest ' . $randvalue,
                             'user_login' => 'guest_' . $randvalue,
                             'user_email' => $email,
-                            'user_pass' => wpbdp_generate_password(7, 2)
-                        ));
+                            'user_pass' => wpbdp_generate_password( 7, 2 )
+                        ) );
                     }
+
+                    wp_update_post( array( 'ID' => $listing_id, 'post_author' => $post_author ) );
                 }
             }
         }
 
-        $listing_id = wp_insert_post($insert_args);
-
-        wp_set_post_terms($listing_id, $post_categories, wpbdp_categories_taxonomy(), false);
-        wp_set_post_terms($listing_id, $post_tags, wpbdp_tags_taxonomy(), false);
-
-        // register field values
-        foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
-            if (isset($listingfields[$field->id])) {
-                if ($value = $formfields_api->extract($listingfields, $field)) {
-                    if (in_array($field->type, array('multiselect', 'checkbox'))) {
-                        if (!is_array($value)) {
-                            $value = array($value);
-                        }
-                        $value = implode("\t", $value);
-                    }
-
-                    update_post_meta($listing_id, '_wpbdp[fields][' . $field->id . ']', $value);
-                } else {
-                    update_post_meta($listing_id, '_wpbdp[fields][' . $field->id . ']', null);
-                }
+        // store field values
+        foreach ( $listingfields as $field_id => $value ) {
+            if ( $field = $api->get_field( $field_id ) ) {
+                $field->store_value( $listing_id, $value );
             }
         }
 
@@ -679,23 +648,25 @@ class WPBDP_ListingsAPI {
         // register fee information
         if (!isset($data['fees'])) $data['fees'] = array();
 
-        foreach ($post_categories as $catid) {
-            $fee = (array) (isset($data['fees'][$catid]) ? $data['fees'][$catid] : wpbdp_fees_api()->get_free_fee());
+        $post_categories = wp_get_post_terms( $listing_id, wpbdp_categories_taxonomy(), 'fields=ids' );
+        
+        foreach ( $post_categories as $catid ) {
+            $fee = (array) ( isset( $data['fees'][ $catid ] ) ? $data['fees'][ $catid ] : wpbdp_fees_api()->get_free_fee() );
             $fee['category_id'] = $catid;
-            unset($fee['categories'], $fee['extra_data']);
+            unset( $fee['categories'], $fee['extra_data'] );
 
-            if (isset($fee['_nocharge']) && $fee['_nocharge'] == true) {
-                $wpdb->update($wpdb->prefix . 'wpbdp_listing_fees', array('charged' => 0), array('listing_id' => $listing_id,
-                                                                                                 'category_id' => $catid));
+            if ( isset( $fee['_nocharge'] ) && $fee['_nocharge'] == true ) {
+                $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees', array( 'charged' => 0 ), array( 'listing_id' => $listing_id,
+                                                                                                     'category_id' => $catid ) );
             } else {
-                $this->assign_fee($listing_id, $catid, $fee['id'], true);
+                $this->assign_fee( $listing_id, $catid, $fee['id'], true );
             }
         }
-        if ($post_categories)
-            $wpdb->query( $wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join(',', $post_categories) . ")", $listing_id) );
+        if ( $post_categories )
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $post_categories ) . ")", $listing_id ) );
 
         // register payment info
-        $cost = $this->cost_of_listing($listing_id, true);
+        $cost = $this->cost_of_listing( $listing_id, true );
 
         if ( isset( $data['upgrade-listing'] ) && $data['upgrade-listing'] ) {
             $upgrades_api = wpbdp_listing_upgrades_api();
@@ -706,14 +677,14 @@ class WPBDP_ListingsAPI {
         }
 
         $payment_api = wpbdp_payments_api();
-        $transaction_id = $payment_api->save_transaction(array(
+        $transaction_id = $payment_api->save_transaction( array(
             'amount' => $cost,
             'payment_type' => !$editing ? 'initial' : 'edit',
             'listing_id' => $listing_id
-        ));
-        update_post_meta($listing_id, '_wpbdp[payment_status]', !current_user_can('administrator') && ($cost > 0.0) ? 'not-paid' : 'paid');
+        ) );
+        update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $cost > 0.0 ) ? 'not-paid' : 'paid' );
 
-        do_action('wpbdp_add_listing', $listing_id, $listingfields);
+        do_action( 'wpbdp_add_listing', $listing_id, $listingfields );
 
 
         if ( !$editing )

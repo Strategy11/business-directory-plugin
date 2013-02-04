@@ -9,8 +9,6 @@ if (!class_exists('WPBDP_FormFields')) {
 class WPBDP_FormFieldType {
 
     private $name = null;
-    private $associations = array();
-    private $display_contexts = array();
 
     public function __construct( $name ) {
         $this->name = trim( $name );
@@ -95,6 +93,30 @@ class WPBDP_FormFieldType {
         return $input;
     }
 
+    public function store_field_value( &$field, $post_id, $value ) {
+        switch ( $field->get_association() ) {
+            case 'title':
+                wp_update_post( array( 'ID' => $post_id, 'post_title' => trim( strip_tags( $value ) ) ) );
+                break;
+            case 'excerpt':
+                wp_update_post( array( 'ID' => $post_id, 'post_excerpt' => $value ) );
+                break;
+            case 'content':
+                wp_update_post( array( 'ID' => $post_id, 'post_content' => $value ) );
+                break;
+            case 'category':
+                wp_set_post_terms( $post_id, $value, wpbdp_categories_taxonomy(), false );
+                break;
+            case 'tags':
+                wp_set_post_terms( $post_id, $value, wpbdp_tags_taxonomy(), false );
+                break;
+            case 'meta':
+            default:
+                update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', $value );
+                break;
+        }        
+    }
+
     // this function should not try to hide values depending on field, context or value itself.
     public function display_field( &$field, $post_id, $display_context ) {
         return self::standard_display_wrapper( $field, $field->html_value() );
@@ -140,8 +162,6 @@ class WPBDP_FormFieldType {
                 break;
         }
 
-
-
         return $html;      
     }
 
@@ -155,6 +175,37 @@ class WPBDP_FormFieldType {
             $wpdb->query( $wpdb->prepare( "DELETE * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[fields][' . $field->get_id() . ']' ) );
         }
     }
+
+    /**
+     * Returns an array of valid associations for this field type.
+     * @return array
+     */
+    public function get_supported_associations() {
+        return array( 'title', 'excerpt', 'content', 'category', 'tags', 'meta' );
+    }
+
+    /**
+     * Renders the field-specific settings area for fields of this type.
+     * It is recommended to use `render_admin_settings` here to keep an uniform look.
+     * `$_POST` values can be used here to populate things when needed.
+     * @param object $field might be NULL if field is new or the field that is being edited.
+     * @param string $association field association.
+     * @return string the HTML output.
+     */
+    public function render_field_settings( &$field=null, $association=null ) {
+        return '';
+    }
+
+    /**
+     * Called when saving fields of this type.
+     * It should be used by field types to store any field type specific configuration.
+     * @param object $field the field being saved.
+     * @return mixed WP_Error in case of error, anything else for success.
+     */
+    public function process_field_settings( &$field ) {
+        return;
+    }
+
 
     /* Utils. */
     public static function standard_display_wrapper( $labelorfield, $content=null, $extra_classes='', $args=array() ) {
@@ -175,6 +226,35 @@ class WPBDP_FormFieldType {
             $html .= '<span class="value">' . $content . '</span>';
         
         $html .= '</div>';
+
+        return $html;
+    }
+
+    public static function render_admin_settings( $admin_settings=array() ) {
+        if ( !$admin_settings )
+            return '';
+
+        $html  = '';
+        $html .= '<table class="form-table">';
+
+        foreach ( $admin_settings as $s ) {
+            $label = is_array( $s ) ? $s[0] : '';
+            $content = is_array( $s ) ? $s[1] : $s;
+
+            $html .= '<tr>';
+            if ( $label ) {
+                $html .= '<th scope="row">';
+                $html .= '<label>' . $label . '</label>';
+                $html .= '</th>';
+            }
+
+            $html .= $label ? '<td>' : '<td colspan="2">';
+            $html .= $content;
+            $html .= '</td>';
+            $html .= '</tr>';
+        }
+
+        $html .= '</table>';
 
         return $html;
     }
@@ -200,23 +280,22 @@ class WPBDP_FormField {
     private $validators = array();
     
     private $display_flags = array();
-    private $extra_data = null;
+    private $field_data = array();
 
-    private $settings = array(); /* field-type specific settings or options */
-    
 
     public function __construct( $attrs=array() ) {
         $defaults = array(
             'id' => 0,
             'label' => '',
             'description' => '',
-            'type' => 'textfield',
+            'field_type' => 'textfield',
             'association' => 'meta',
             'weight' => 0,
             'validators' => array(),
-            'display_options' => array( 'excerpt', 'listing', 'search' ),
+            'display_flags' => array( 'excerpt', 'listing', 'search' ),
             'field_data' => array()
         );
+
         $attrs = wp_parse_args( $attrs, $defaults );
 
         $formfields = WPBDP_FormFields::instance();
@@ -224,7 +303,7 @@ class WPBDP_FormField {
         $this->id = intval( $attrs['id'] );
         $this->label = $attrs['label'];
         $this->description = $attrs['description'];
-        $this->type = is_object( $attrs['type'] ) ? $attrs['type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['type'] );
+        $this->type = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
 
         if ( !$this->type )
             throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'WPBDM' ) );
@@ -233,9 +312,6 @@ class WPBDP_FormField {
         $this->weight = intval( $attrs['weight'] );
 
         /* Validators */
-        if ( isset( $attrs['validator'] ) )
-            $this->validators[] = $attrs['validator'];
-
         // TODO: make sure validators are valid here
         if ( is_array( $attrs['validators'] ) ) {
             foreach ( $attrs['validators'] as $validator ) {
@@ -244,35 +320,29 @@ class WPBDP_FormField {
             }
         }
 
-        if ( isset( $attrs['is_required'] ) && $attrs['is_required'] )
-            $this->validators[] = 'required';
-
         /* display_options */
-        if ( !wpbdp_getv( $attrs['display_options'], 'hide_field', false ) ) {
+        // TODO: move this to the upgrade routine
+        /*if ( !wpbdp_getv( $attrs['display_options'], 'hide_field', false ) ) {
             // compatible with display_options from < 2.3 and > 2.1.3
             foreach ( array( 'show_in_excerpt' => 'excerpt', 'show_in_listing' => 'listing', 'show_in_search' => 'search' ) as $oldkey => $newval ) {
                 if ( in_array( $newval , $attrs['display_options'], true ) || ( isset( $attrs['display_options'][$oldkey] ) && $attrs['display_options'][$oldkey] ) )
                     $this->display_flags[] = $newval;
             }
-        }
-
-        if ( isset( $attrs['field_data'] ) ) {
-            $this->extra_data = $attrs['field_data'];
-        }
+        }*/
+        $this->display_flags = $attrs['display_flags'];
+        $this->field_data = $attrs['field_data'];
 
         if ( in_array( $this->association, array( 'category', 'tags' ), true ) ) {
-
+            // TODO: make this hierarchical (see https://codex.wordpress.org/Function_Reference/Walker_Class)
             $terms = get_terms( $this->association == 'tags' ? wpbdp_tags_taxonomy() : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
             $options = array();
-
-            // wpbdp_debug_e( $terms );
 
             foreach ( $terms as &$term ) {
                 $k = $this->association == 'tags' ? $term->slug : $term->term_id;
                 $options [ $k ] = $term->name;
             }
 
-            $this->settings['options'] = $options;
+            $this->field_data['options'] = $options;
         } else {
             // handle some special extra data from previous BD versions
             if ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] )  ) {
@@ -285,7 +355,7 @@ class WPBDP_FormField {
                         $options[ $option_value ] = $option_value;
                 }
 
-                $this->settings['options'] = $options;
+                $this->field_data['options'] = $options;
             }
         }
     }
@@ -296,7 +366,11 @@ class WPBDP_FormField {
 
     public function &get_field_type() {
         return $this->type;
-    }    
+    }
+
+    public function get_field_type_id() {
+        return $this->type->get_id();
+    }
 
     public function get_association() {
         return $this->association;
@@ -311,9 +385,8 @@ class WPBDP_FormField {
     }
 
     public function get_short_name() {
-        // TODO: change this to use new APIs
-        $short_names = wpbdp_formfields_api()->getShortNames();
-        return $short_names[$field->id];
+        global $wpbdp;
+        return $wpbdp->formfields->get_short_names( $this->id );
     }
 
     public function &get_validators() {
@@ -337,11 +410,28 @@ class WPBDP_FormField {
      * @param string $key configuration key name
      * @return mixed|array if $key is ommitted an array of all key/values will be returned
      */
-    public function settings( $key=null ) {
+    public function data( $key=null ) {
         if ( !$key )
-            return $this->settings;
+            return $this->field_data;
 
-        return isset( $this->settings[$key] ) ? $this->settings[$key] : null;
+        return isset( $this->field_data[$key] ) ? $this->field_data[$key] : null;
+    }
+
+    /**
+     * Saves field-type specific configuration options for this field.
+     * @param string $key configuration key name.
+     * @param mixed $value data value.
+     * @return mixed data value.
+     */
+    public function set_data( $key, $value=null ) {
+        $this->field_data[ $key ] = $value;
+    }
+
+    /**
+     * Removes any field-type specific configuration option from this field. Use with caution.
+     */
+    public function clear_data() {
+        $this->field_data = array();
     }
 
     /**
@@ -383,7 +473,33 @@ class WPBDP_FormField {
      * @return mixed
      */
     public function convert_input( $input=null ) {
-        return $this->type->convert_input( $field, $input );
+        return $this->type->convert_input( $this, $input );
+    }
+
+    public function store_value( $post_id, $value ) {
+        return $this->type->store_field_value( $this, $post_id, $value );
+    }
+
+    public function validate( $value, &$errors=null ) {
+        $errors = !is_array( $errors ) ? array() : $errors;
+
+        $validation_api = WPBDP_FieldValidation::instance();
+
+        if ( !$this->is_required() && $this->type->is_empty_value( $value ) )
+            return true;
+
+        foreach ($this->validators as $validator ) {
+            $res = $validation_api->validate_field( $this, $value, $validator );
+
+            if ( is_wp_error( $res ) ) {
+                $errors[] = $res->get_error_message();
+            }
+        }
+
+        if ( !$errors )
+            return true;
+
+        return false;
     }
 
     /**
@@ -417,7 +533,62 @@ class WPBDP_FormField {
      * @return mixed True if successfully created, WP_Error in the other case
      */
     public function save() {
-        return new WP_Error( 'wpbdp-save-error', '' );
+        global $wpdb;
+
+        $api = wpbdp_formfields_api();
+
+        // validate this field
+
+        if ( !$this->label || trim( $this->label ) == '' )
+            return new WP_Error( 'wpbdp-save-error', _x('Field label is required.', 'form-fields-api', 'WPBDM') );
+
+        $res = $this->type->process_field_settings( $this );
+
+        if ( is_wp_error( $res ) )
+            return $res;
+
+        $data = array();
+        $data['label'] = $this->label;
+        $data['description'] = trim( $this->description );
+        $data['field_type'] = $this->type->get_id();
+        $data['association'] = $this->association;
+        $data['validators'] = implode( ',', $this->validators );
+        $data['weight'] = $this->weight;
+        $data['display_flags'] = implode( ',', $this->display_flags );
+        $data['field_data'] = serialize( $this->field_data );
+
+        if ( $this->id ) {
+            $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", $data, array( 'id' => $this->id ) );
+        } else {
+            $wpdb->insert( "{$wpdb->prefix}wpbdp_form_fields", $data );
+            $this->id = intval( $wpdb->insert_id );
+        }
+
+        // TODO: verify everything is ok before saving
+        //     } else {
+        //         // no more than 1 field associated with title, content, excerpt, category or tags
+        //         $association = $field['association'];
+
+        //         if (in_array($association, array('title', 'content', 'category', 'excerpt', 'tags'))) {
+        //             if ($field_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE association = %s", $association))) {
+        //                 if (!isset($field['id']) || $field['id'] != $field_id) {
+        //                     $errors[] = sprintf(_x('There can only be one field with association "%s". Please select another association.', 'form-fields-api', 'WPBDM'), $this->getFieldAssociations($association));
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        //     if (isset($field['validator']) && !empty($field['validator'])) {
+        //         if (!in_array($field['validator'], array_keys($this->getValidators())))
+        //             $errors[] = _x('Invalid validator selected.', 'form-fields-api', 'WPBDM');
+
+        //         if ($field['validator'] == 'EmailValidator') {
+        //             if ($email_field = $this->getFieldsByValidator('EmailValidator', true)) {
+        //                 if (!isset($field['id']) || $field['id'] != $email_field->id)
+        //                     $errors[] = _x('You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again.', 'form-fields-api', 'WPBDM');
+        //             }
+        //         }
+        //     }
     }
 
     /**
@@ -445,6 +616,54 @@ class WPBDP_FormField {
     }
 
     /**
+     * Reorders this field within the list of fields.
+     * @param int $delta if positive, field is moved up. else is moved down.
+     */
+    public function reorder( $delta=0 ) {
+        global $wpdb;
+
+        $delta = intval( $delta );
+
+        if ( !$delta )
+            return;
+
+        if ( $delta > 0 ) {
+            $fields = $wpdb->get_results( $wpdb->prepare( "SELECT id, weight FROM {$wpdb->prefix}wpbdp_form_fields WHERE weight >= %d ORDER BY weight ASC", $this->weight ) );
+
+            if ( $fields[count($fields) - 1]->id == $this->id )
+                return;
+
+            for ( $i = 0; $i < count( $fields ); $i++ ) {
+                $fields[ $i ]->weight = intval( $this->weight ) + $i;
+
+                if ($fields[ $i ]->id == $this->id ) {
+                    $fields[ $i ]->weight += 1;
+                    $fields[ $i+1 ]->weight -= 1;
+                    $i += 1;
+                } 
+            }
+
+            foreach ( $fields as &$f ) {
+                $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", array( 'weight' => $f->weight ), array( 'id' => $f->id ) );
+            }
+        } else {
+            $fields = $wpdb->get_results( $wpdb->prepare( "SELECT id, weight FROM {$wpdb->prefix}wpbdp_form_fields WHERE weight <= %d ORDER BY weight ASC", $this->weight ) );
+
+            if ( $fields[0]->id == $this->id )
+                return;
+
+            foreach ( $fields as $i => $f ) {
+                if ( $f->id == $this->id ) {
+                    self::get( $fields[ $i-1 ]->id )->reorder( 1 );
+                    return;
+                }
+            }
+
+        }
+
+    } 
+
+    /**
      * Creates a WPBDP_FormField from a database record.
      * @param int $id the database record ID.
      * @return WPBDP_FormField a valid WPBDP_FormField if the record exists or null if not.
@@ -459,11 +678,9 @@ class WPBDP_FormField {
 
         $field = (array) $field;
 
-        if ( isset( $field['display_options'] ) )
-            $field['display_options'] = unserialize( $field['display_options'] );
-
-        if ( isset( $field['field_data'] ) )
-            $field['field_data'] = unserialize( $field['field_data'] );
+        $field['display_flags'] = explode( ',', $field['display_flags'] );        
+        $field['validators'] = explode( ',', $field['validators'] );
+        $field['field_data'] = unserialize( $field['field_data'] );
 
         try {
             return new WPBDP_FormField( $field );
@@ -480,6 +697,7 @@ class WPBDP_FormFields {
 
     private $associations = array();
     private $association_flags = array();
+    private $association_field_types = array();
 
     private $field_types = array();
 
@@ -503,15 +721,15 @@ class WPBDP_FormFields {
         $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'WPBDM' ) );
 
         // register core field types
-        $this->field_types['textfield'] = new WPBDP_FieldTypes_TextField();
-        $this->field_types['select'] = new WPBDP_FieldTypes_Select();
-        $this->field_types['textarea'] = new WPBDP_FieldTypes_TextArea();
-        $this->field_types['radio'] = new WPBDP_FieldTypes_RadioButton();
-        $this->field_types['multiselect'] = new WPBDP_FieldTypes_MultiSelect();
-        $this->field_types['checkbox'] = new WPBDP_FieldTypes_Checkbox();
-        $this->field_types['social-twitter'] = new WPBDP_FieldTypes_Twitter();
-        $this->field_types['social-facebook'] = new WPBDP_FieldTypes_Facebook();
-        $this->field_types['social-linkedin'] = new WPBDP_FieldTypes_LinkedIn();
+        $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Select', 'select' );
+        $this->register_field_type( 'WPBDP_FieldTypes_TextArea', 'textarea' );
+        $this->register_field_type( 'WPBDP_FieldTypes_RadioButton', 'radio' );
+        $this->register_field_type( 'WPBDP_FieldTypes_MultiSelect', 'multiselect' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Checkbox', 'checkbox' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Twitter', 'social-twitter' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Facebook', 'social-facebook' );
+        $this->register_field_type( 'WPBDP_FieldTypes_LinkedIn', 'social-linkedin' );
     }
 
     /**
@@ -524,8 +742,9 @@ class WPBDP_FormFields {
         if ( isset( $this->associations[$association] ) )
             return false;
 
-        $this->associations[$association] = $name ? $name : $association;
-        $this->association_flags[$association] = is_array( $flags ) ? $flags : array( strval( $flags ) );
+        $this->associations[ $association ] = $name ? $name : $association;
+        $this->association_flags[ $association ] = is_array( $flags ) ? $flags : array( strval( $flags ) );
+        $this->association_field_types[ $association ] = array();
     }
 
     /**
@@ -534,6 +753,19 @@ class WPBDP_FormFields {
      */
     public function &get_associations() {
         return $this->associations;
+    }
+
+    public function &get_association_field_types( $association=null ) {
+        if ( $association ) {
+            if ( in_array( $association, array_keys( $this->associations ), true ) ) {
+                return $this->association_field_types[ $association ];    
+            } else {
+                return null;
+            }
+        }
+            
+
+        return $this->association_field_types;
     }
 
     /**
@@ -576,8 +808,19 @@ class WPBDP_FormFields {
         return $validators;
     }
 
-    public function register_field_type( $field_type_class ) {
-        $this->field_types[ $field_type_class ] = new $field_type_class();
+    public function register_field_type( $field_type_class, $alias=null ) {
+        $field_type = new $field_type_class();
+        
+        $this->field_types[ $alias ? $alias : $field_type_class ] = $field_type;
+        
+        foreach ( $field_type->get_supported_associations() as $association ) {
+            $this->association_field_types[ $association ] = array_merge( $this->association_field_types[ $association ], array( $alias ? $alias : $field_type_class ) );
+        }
+    }
+
+    public function &get_field( $id=0 ) {
+        $field = WPBDP_FormField::get( $id );
+        return $field;
     }
 
     public function &get_fields() {
@@ -593,6 +836,28 @@ class WPBDP_FormFields {
         }
 
         return $res;
+    }
+
+    // TODO: support querying by validator too
+    public function &find_fields( $args=array(), $one=false ) {
+        global $wpdb;
+        $res = array();
+
+        $args = wp_parse_args( $args, array(
+            'association' => null
+        ) );
+
+        $sql = "SELECT ID FROM {$wpdb->prefix}wpbdp_form_fields";
+        if ( $args['association'] )
+            $sql .= $wpdb->prepare( " WHERE association = %s", $args['association'] );
+
+        $ids = $wpdb->get_col( $sql );
+
+        foreach ( $ids as $id ) {
+            $res[] = WPBDP_FormField::get( $id );
+        }
+
+        return $one ? ( $res ? $res[0] : null ) : $res;
     }
 
     public function get_missing_required_fields() {
@@ -634,6 +899,40 @@ class WPBDP_FormFields {
             $field = new WPBDP_FormField( $f );
             $field->save();
         }
+    }
+
+    public function get_short_names( $fieldid=null ) {
+        $names = get_option( 'wpbdp-field-short-names', false );
+
+        if ( !$names )
+            $names = $this->_calculate_short_names();
+
+        if ( $fieldid ) {
+            return isset( $names[ $fieldid ] ) ? $names[ $fieldid ] : null;
+        }
+
+        return $names;
+    }
+
+    public function _calculate_short_names() {
+        $fields = $this->get_fields();
+        $names = array();
+
+        foreach ( $fields as $field ) {
+            $name = strtolower( $field->get_label() );
+            $name = str_replace( array( ',', ';' ), '', $name );
+            $name = str_replace( array( ' ', '/' ), '-', $name );
+
+            if ( $name == 'images' || $name == 'image' || $name == 'username' || in_array( $name, $names, true ) ) {
+                $name = $field->id . '/' . $name;
+            }
+            
+            $names[ $field->get_id() ] = $name;
+        }
+
+        update_option( 'wpbdp-field-short-names', $names );
+
+        return $names;
     }
 
 }
@@ -678,79 +977,141 @@ class WPBDP_FieldValidation {
         return $validators;
     }
 
-    public function validate_value( $value, $validator, $args=array() ) {
-        $dummyfield = new StdClass();
-        $dummyfield->label = 'Unlabeled Field';
-        $dummyfield->data = $value; 
-        
-        $res = self::validate_field( $dummyfield, $validator, $args );
-
-        if ( is_wp_error( $res ) )
-            return false;
-
-        return true;
-    }
-
-    public function validate_field( $field, $validator, $args=array() ) {
-        return call_user_func( array( $this, $validator ) , $field, $args );
+    public function validate_field( $field, $value, $validator, $args=array() ) {
+        $args['field-label'] = $field->get_label();
+        return call_user_func( array( $this, $validator ) , $value, $args );
     }
 
     /* Required validator */
-    private function required( $field, $args=array() ) {
+    private function required( $value, $args=array() ) {
         $args = wp_parse_args( $args, array( 'allow_whitespace' => false ) );
 
-        if ( !$field->data || ( is_string( $field->data ) && !$args['allow_whitespace'] && !trim( $field->data ) ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $field->label ) ) );
+        if ( !$value || ( is_string( $value ) && !$args['allow_whitespace'] && !trim( $value ) ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
     /* URL Validator */
-    private function url( $field, $args=array() ) {
-        if ( !preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $field->data ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $field->label ) )  );
+    private function url( $value, $args=array() ) {
+        if ( !preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $value ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) )  );
     }
 
     /* EmailValidator */
-    private function email( $field, $args=array() ) {
-        if ( !wpbusdirman_isValidEmailAddress( $field->data ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid Email format required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $field->label ) ) );
+    private function email( $value, $args=array() ) {
+        if ( !wpbusdirman_isValidEmailAddress( $value ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid Email format required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
     /* IntegerNumberValidator */
-    private function integer_number( $field, $args=array() ) {
-        if ( !ctype_digit( $field->data ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'WPBDM' ), esc_att ( $field->label) ) );
+    private function integer_number( $value, $args=array() ) {
+        if ( !ctype_digit( $value ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'WPBDM' ), esc_att ( $args['field-label'] ) ) );
     }
 
     /* DecimalNumberValidator */
-    private function decimal_number( $field, $args=array() ) {
-        if ( !is_numeric( $field->data ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be a number.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $field->label) ) );
+    private function decimal_number( $value, $args=array() ) {
+        if ( !is_numeric( $value ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s must be a number.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
     /* DateValidator */
-    private function date_( $field, $args=array() ) {
+    private function date_( $value, $args=array() ) {
         $args = wp_parse_args( $args, array( 'format' => 'm/d/Y' ) );
-
-        $value = $field->data;
 
         // TODO: validate with format
         list( $m, $d, $y ) = explode( '/', $value );
 
         if ( !is_numeric( $m ) || !is_numeric( $d ) || !is_numeric( $y ) || !checkdate( $m, $d, $y ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be in the format MM/DD/YYYY.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $field->label ) ) );
+            return WPBDP_ValidationError( sprintf( _x( '%s must be in the format MM/DD/YYYY.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
-    private function any_of( $field, $args=array() ) {
+    private function any_of( $value, $args=array() ) {
         $args = wp_parse_args( $args, array( 'values' => array(), 'formatter' => create_function( '$x', 'return join(",", $x);' ) ) );
         extract( $args, EXTR_SKIP );
 
         if ( is_string( $values ) )
             $values = explode( ',', $values );
 
-        if ( !in_array( $field->data, $values ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s is invalid. Value most be one of %s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $field->label ), call_user_func( $formatter, $values ) ) );        
+        if ( !in_array( $value, $values ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s is invalid. Value most be one of %s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), call_user_func( $formatter, $values ) ) );        
     }
 
 }
 
 }
+
+
+    /*
+     * TODO: Upgrade & compat
+     */
+    // public function _update_to_2_1() {
+    //     global $wpdb;
+
+    //     static $pre_2_1_types = array(null, 'textfield', 'select', 'textarea', 'radio', 'multiselect', 'checkbox');
+    //     static $pre_2_1_validators = array(
+    //         'email' => 'EmailValidator',
+    //         'url' => 'URLValidator',
+    //         'missing' => null, /* not really used */
+    //         'numericwhole' => 'IntegerNumberValidator',
+    //         'numericdeci' => 'DecimalNumberValidator',
+    //         'date' => 'DateValidator'
+    //     );
+    //     static $pre_2_1_associations = array(
+    //         'title' => 'title',
+    //         'description' => 'content',
+    //         'category' => 'category',
+    //         'excerpt' => 'excerpt',
+    //         'meta' => 'meta',
+    //         'tags' => 'tags'
+    //     );
+
+    //     $field_count = $wpdb->get_var(
+    //         sprintf("SELECT COUNT(*) FROM {$wpdb->prefix}options WHERE option_name LIKE '%%%s%%'", 'wpbusdirman_postform_field_label'));
+
+    //     for ($i = 1; $i <= $field_count; $i++) {
+    //         $label = get_option('wpbusdirman_postform_field_label_' . $i);
+    //         $type = get_option('wpbusdirman_postform_field_type_'. $i);
+    //         $validation = get_option('wpbusdirman_postform_field_validation_'. $i);
+    //         $association = get_option('wpbusdirman_postform_field_association_'. $i);
+    //         $required = strtolower(get_option('wpbusdirman_postform_field_required_'. $i));
+    //         $show_in_excerpt = strtolower(get_option('wpbusdirman_postform_field_showinexcerpt_'. $i));
+    //         $hide_field = strtolower(get_option('wpbusdirman_postform_field_hide_'. $i));
+    //         $options = get_option('wpbusdirman_postform_field_options_'. $i);
+
+    //         $newfield = array();
+    //         $newfield['label'] = $label;
+    //         $newfield['type'] = wpbdp_getv($pre_2_1_types, intval($type), 'textfield');
+    //         $newfield['validator'] = wpbdp_getv($pre_2_1_validators, $validation, null);
+    //         $newfield['association'] = wpbdp_getv($pre_2_1_associations, $association, 'meta');
+    //         $newfield['is_required'] = $required == 'yes' ? true : false;
+    //         $newfield['display_options'] = serialize(
+    //             array('show_in_excerpt' => $show_in_excerpt == 'yes' ? true : false,
+    //                   'hide_field' => $hide_field == 'yes' ? true : false)
+    //         );
+    //         $newfield['field_data'] = $options ? serialize(array('options' => explode(',', $options))) : null;
+
+    //         if ($wpdb->insert($wpdb->prefix . 'wpbdp_form_fields', $newfield)) {
+    //             delete_option('wpbusdirman_postform_field_label_' . $i);
+    //             delete_option('wpbusdirman_postform_field_type_' . $i);
+    //             delete_option('wpbusdirman_postform_field_validation_' . $i);
+    //             delete_option('wpbusdirman_postform_field_association_' . $i);
+    //             delete_option('wpbusdirman_postform_field_required_' . $i);
+    //             delete_option('wpbusdirman_postform_field_showinexcerpt_' . $i);
+    //             delete_option('wpbusdirman_postform_field_hide_' . $i);
+    //             delete_option('wpbusdirman_postform_field_options_' . $i);
+    //             delete_option('wpbusdirman_postform_field_order_' . $i);
+    //         }
+    //     }
+    // }
+
+    // public function _update_to_2_4() {
+    //     global $wpdb;
+
+    //     $fields = $this->getFields();
+
+    //     foreach ($fields as &$field) {
+    //         $query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
+    //                                 '_wpbdp[fields][' . $field->id . ']', $field->label, 'wpbdm-directory');
+    //         $wpdb->query($query);
+    //     }
+    // }

@@ -42,6 +42,8 @@ class WPBDP_Admin {
         add_action('wp_ajax_wpbdp-deleteimage', array($this, '_delete_image'));
         add_action('wp_ajax_wpbdp-listingimages', array($this, '_listing_images'));
 
+        add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
+
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
     }
@@ -168,21 +170,20 @@ class WPBDP_Admin {
     public function _listing_fields_metabox($post) {
         $formfields_api = wpbdp_formfields_api();
 
-        $post_values = wpbdp_getv($_POST, 'listingfields', array());
+        $post_values = wpbdp_getv( $_POST, 'listingfields', array() );
 
-        echo wp_nonce_field(plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce');
+        echo wp_nonce_field( plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce' );
 
         echo '<div style="border-bottom: solid 1px #dedede; padding-bottom: 10px;">';
-        echo sprintf('<strong>%s</strong>', _x('Listing Fields', 'admin', 'WPBDM'));
+        echo sprintf( '<strong>%s</strong>', _x( 'Listing Fields', 'admin', 'WPBDM' ) );
         echo '<div style="padding-left: 10px;">';
-        foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
-            $value = wpbdp_getv($post_values, $field->id, wpbdp_get_listing_field_value($post->ID, $field));
-
-            echo $formfields_api->render($field, $value);
+        foreach ($formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
+            $value = isset( $post_values[ $field->get_id() ] ) ? $field->convert_input( $post_values[ $field->get_id() ] ) : $field->value( $post->ID );
+            echo $field->render( $value, 'admin-submit' );
         }
         echo '</div>';
         echo '</div>';
-        echo '<div class="clear"></div>';
+        echo '<div class="clear"></div>';      
 
         // listing images
         if (current_user_can('administrator')) {
@@ -308,7 +309,7 @@ class WPBDP_Admin {
 
         if (is_admin() && isset($_POST['post_type']) && $_POST['post_type'] == wpbdp_post_type()) {
             // Fix listings added through admin site
-            wpbdp_listings_api()->set_default_listing_settings($post_id);
+            wpbdp_listings_api()->set_default_listing_settings( $post_id );
 
             // Save custom fields
             if (isset($_POST['wpbdp-listing-fields-nonce']) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
@@ -316,22 +317,15 @@ class WPBDP_Admin {
                 $formfields_api = wpbdp_formfields_api();
                 $listingfields = wpbdp_getv($_POST, 'listingfields', array());
                 
-                foreach ($formfields_api->getFieldsByAssociation('meta') as $field) {
-                    if (isset($listingfields[$field->id])) {
-                        if ($value = $formfields_api->extract($listingfields, $field)) {
-                            if (in_array($field->type, array('multiselect', 'checkbox'))) {
-                                $value = implode("\t", $value);
-                            }
-
-                            update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', $value);
-                        } else {
-                            update_post_meta($post_id, '_wpbdp[fields][' . $field->id . ']', null);
-                        }
+                foreach ( $formfields_api->find_fields( array('association' => 'meta' ) ) as $field ) {
+                    if ( isset( $listingfields[ $field->get_id() ] ) ) {
+                        $value = $field->convert_input( $listingfields[ $field->get_id() ] );
+                        $field->store_value( $post_id, $value );
                     }
                 }
 
-                if (isset($_POST['thumbnail_id']))
-                    update_post_meta($post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id']);
+                if ( isset( $_POST['thumbnail_id'] ) )
+                    update_post_meta( $post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id'] );
             }
         }
     }

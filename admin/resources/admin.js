@@ -1,48 +1,78 @@
+var WPBDP_associations_fieldtypes = {};
+
+(function($) {
+
+    /* Form Fields */
+    var WPBDPAdmin_FormFields = {
+        $f_association: null,
+        $f_fieldtype: null,
+
+        init: function() {
+            WPBDPAdmin_FormFields.$f_association = $('form#wpbdp-formfield-form select#field-association');
+            WPBDPAdmin_FormFields.$f_association.change( WPBDPAdmin_FormFields.onAssociationChange );
+
+            WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
+            WPBDPAdmin_FormFields.$f_fieldtype.change( WPBDPAdmin_FormFields.onFieldTypeChange );
+        },
+
+        onFieldTypeChange: function() {
+            var $field_type = $(this).find('option:selected');
+
+            if ( !$field_type.length )
+                return;
+
+            var field_type = $field_type.val();
+
+            var request_data = {
+                action: "wpbdp-renderfieldsettings",
+                association: WPBDPAdmin_FormFields.$f_association.find('option:selected').val(),
+                field_type: field_type,
+                field_id: $('#wpbdp-formfield-form input[name="field[id]"]').val()
+            };
+
+            $.post( ajaxurl, request_data, function(response) {
+                if ( response.ok && response.html ) {
+                    $('#wpbdp-fieldsettings-html').html(response.html);
+                    $('#wpbdp-fieldsettings').show();
+                } else {
+                    $('#wpbdp-fieldsettings-html').empty();
+                    $('#wpbdp-fieldsettings').hide();
+                }
+            }, 'json' );
+        },
+
+        onAssociationChange: function() {
+            $f_fieldtype = WPBDPAdmin_FormFields.$f_fieldtype;
+
+            var association = $(this).find('option:selected').val();
+            var valid_types = WPBDP_associations_fieldtypes[ association ];
+
+            $f_fieldtype.find('option').removeAttr('disabled');
+
+            $f_fieldtype.find('option').each(function(i,v){
+                if ( $.inArray( $(v).val(), valid_types ) < 0 ) {
+                    $(v).attr('disabled', 'disabled');
+                }
+            });
+
+            if ( $f_fieldtype.find('option:selected').attr('disabled') == 'disabled' ) {
+                $f_fieldtype.find('option').removeAttr('selected');
+                $f_fieldtype.find('option[value="' + valid_types[0] + '"]').attr('selected', 'selected');
+            }     
+        }
+    };
+
+
+    $(document).ready(function(){
+        WPBDPAdmin_FormFields.init();
+    });
+
+})(jQuery);
+
+
 jQuery(document).ready(function($){
 
-    /* Manage Form Fields */
-
-    $('form#wpbdp-formfield-form select#field-association').change(function(){
-        $('form#wpbdp-formfield-form select#field-type').change();
-
-        var association = $('form#wpbdp-formfield-form select#field-association option:selected').val();
-
-        if (association == 'title' || association == 'category') {
-            $('input[name="field[is_required]"]').attr('disabled', 'disabled');
-        } else {
-            $('input[name="field[is_required]"]').removeAttr('disabled');
-        }
-    }).change();
-
-    $('form#wpbdp-formfield-form select#field-type').change(function(){
-        var selected_type = $('option:selected', $(this)).val();
-        var association = $('form#wpbdp-formfield-form select#field-association option:selected').val();
-
-        if ((selected_type == 'select' ||
-            selected_type == 'radio' ||
-            selected_type == 'multiselect' ||
-            selected_type == 'checkbox') && association != 'category') {
-            $('form#wpbdp-formfield-form #field-data-options').parents('tr').show();
-        } else {
-            $('form#wpbdp-formfield-form #field-data-options').parents('tr').hide();            
-            $('form#wpbdp-formfield-form #field-data-options').text('');
-        }
-    }).change();
-
-    $('form#wpbdp-formfield-form select#field-validator').change(function(){
-        var selected_validator = $('option:selected', $(this)).val();
-
-        if (selected_validator == 'URLValidator') {
-            $('form#wpbdp-formfield-form #field-data-open-in-new-window').parents('tr').show();
-        } else {
-            $('form#wpbdp-formfield-form #field-data-open-in-new-window').parents('tr').hide();
-            $('form#wpbdp-formfield-form #field-data-open-in-new-window').removeAttr('checked');
-        }
-    }).change();
-
-
     /* Manage Fees */
-
     $('form#wpbdp-fee-form input[name="_days"]').change(function(){
         var value = $(this).val();
 

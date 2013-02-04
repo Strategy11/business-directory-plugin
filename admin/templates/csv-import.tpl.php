@@ -141,12 +141,6 @@
                   esc_url(add_query_arg('action', 'example-csv'))); ?>
 </p>
 
-<?php
-$fields = array();
-$shortnames = wpbdp_formfields_api()->getShortNames();
-
-foreach (wpbdp_formfields_api()->getFields() as $field) $fields[$shortnames[$field->id]] = $field;
-?>
 <table class="wpbdp-csv-import-headers">
     <thead>
         <tr>
@@ -158,25 +152,25 @@ foreach (wpbdp_formfields_api()->getFields() as $field) $fields[$shortnames[$fie
         </tr>
     </thead>
     <tbody>
-    <?php $i = 0; foreach ($fields as $shortname => $field) : ?>
+    <?php $i = 0; foreach ( wpbdp_formfields_api()->get_fields() as $field ) : ?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name"><?php echo $shortname; ?></td>
-            <td class="field-label"><?php echo $field->label; ?></td>
-            <td class="field-type"><?php echo $field->type; ?></td>
-            <td class="field-is-required"><?php echo $field->is_required ? 'X' : ''; ?></td>
+            <td class="header-name"><?php echo $field->get_short_name(); ?></td>
+            <td class="field-label"><?php echo $field->get_label(); ?></td>
+            <td class="field-type"><?php echo $field->get_field_type()->get_name(); ?></td>
+            <td class="field-is-required"><?php echo $field->is_required() ? 'X' : ''; ?></td>
             <td class="field-is-multivalued">
-                <?php echo ($field->association == 'category' || $field->association == 'tags') || ($field->type == 'checkbox' || $field->type == 'multiselect') ? 'X' : ''; ?>
+                <?php echo ($field->get_association() == 'category' || $field->get_association() == 'tags') || ($field->get_field_type_id() == 'checkbox' || $field->get_field_type_id() == 'multiselect') ? 'X' : ''; ?>
             </td>
         </tr>
     <?php $i++; endforeach; ?>
-        <tr class="<?php echo count($fields) % 2 == 0 ? 'alt' : ''; ?>">
+        <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">images</td>
             <td class="field-label"><?php _ex('Semicolon separated list of listing images (from the ZIP file)', 'admin csv-import', 'WPBDM'); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued">X</td>
         </tr>
-        <tr class="<?php echo (count($fields) + 1) % 2 == 0 ? 'alt' : ''; ?>">
+        <tr class="<?php echo ($i + 1) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">username</td>
             <td class="field-label"><?php _ex('Listing author\'s username', 'admin csv-import', 'WPBDM'); ?></td>
             <td class="field-type">-</td>

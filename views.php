@@ -374,8 +374,11 @@ class WPBDP_DirectoryController {
         if (isset($_POST['listing_data'])) {
             $this->_listing_data = unserialize(base64_decode($_POST['listing_data']));
         } else {
-            if (isset($_POST['listingfields']))
-                $this->_listing_data['fields'] = $_POST['listingfields'];
+            if (isset($_POST['listingfields'])) {
+                foreach ( $_POST['listingfields'] as $field_id => $form_value ) {
+                    $this->_listing_data['fields'][ $field_id ] = WPBDP_FormField::get( $field_id )->convert_input( $form_value );
+                }
+            }
 
             if (isset($_REQUEST['listing_id']))
                 $this->_listing_data['listing_id'] = intval($_REQUEST['listing_id']);
@@ -426,6 +429,8 @@ class WPBDP_DirectoryController {
             $field_value = isset( $post_values[$field->get_id()] ) ? $field->convert_input( $post_values[$field->get_id()] ) : ( $this->_listing_data['listing_id'] ? $field->value( intval( $this->_listing_data['listing_id'] )  ) : null );
 
             if ( $post_values ) {
+                $field_errors = null;
+
                 if ( !$field->validate( $field_value, $field_errors) )
                     $validation_errors = array_merge( $validation_errors, $field_errors );
             }
@@ -538,15 +543,13 @@ class WPBDP_DirectoryController {
     }
 
     public function submit_listing_payment() {
-        wpbdp_debug_e( $_POST );
-
         if ($this->_listing_data['listing_id'])
             return $this->edit_listing_payment();
 
-        $formfields_api = wpbdp_formfields_api();
+        $api = wpbdp_formfields_api();
 
-        $post_categories = $formfields_api->extract($this->_listing_data['fields'], 'category');
-        if (!is_array($post_categories)) $post_categories = array($post_categories);
+        $category_field = $api->find_fields( array( 'association' => 'category' ), true );
+        $post_categories = $this->_listing_data['fields'][ $category_field->get_id() ];
 
         $available_fees = wpbdp_fees_api()->get_fees($post_categories);
         $fees = array();

@@ -92,7 +92,7 @@ class WPBDP_CSVImportAdmin {
         //echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'WPBDM'));
         echo '<textarea class="wpbdp-csv-import-example" rows="30">';
 
-        $short_names = wpbdp_formfields_api()->getShortNames();
+        $short_names = wpbdp_formfields_api()->get_short_names();
 
         foreach ($short_names as $name) {
             echo $name . ',';
@@ -161,7 +161,7 @@ class WPBDP_CSVImportAdmin {
 
         $formfields_api = wpbdp_formfields_api();
         $form_fields = $formfields_api->getFields();
-        $shortnames = $formfields_api->getShortNames();
+        $shortnames = $formfields_api->get_short_names();
 
         $fields = array();
         foreach ($form_fields as $field)
