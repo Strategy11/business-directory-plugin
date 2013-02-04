@@ -25,7 +25,7 @@
 
 		<div class="wpbdp-form-field recaptcha"><?php echo $recaptcha; ?></div>
 
-		<p><input type="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
+		<p><input type="submit" class="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 	</form>
 
 </div>

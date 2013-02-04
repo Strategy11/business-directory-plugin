@@ -32,7 +32,7 @@ function wpbdp_listingform_delete_image(id) {
 		<?php foreach ($images as $image_id): ?>
 			<div class="image">
 				<img src="<?php echo wp_get_attachment_thumb_url($image_id); ?>" /><br />
-				<input type="button" onclick="return wpbdp_listingform_delete_image('<?php echo $image_id; ?>');" class="delete-image" value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>" /> <br />
+				<input type="button" class="button" onclick="return wpbdp_listingform_delete_image('<?php echo $image_id; ?>');" class="delete-image" value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>" /> <br />
 
 				<label>
 					<input type="radio" name="thumbnail_id" value="<?php echo $image_id; ?>" <?php echo (count($images) == 1 || $thumbnail_id == $image_id) ? 'checked="checked"' : ''; ?> />
@@ -49,7 +49,7 @@ function wpbdp_listingform_delete_image(id) {
 							   $images_left); ?></p>
 		<div class="upload-form">
 			<input type="file" name="image" />
-			<input type="submit" name="upload_image" value="<?php _ex('Upload Image', 'templates', 'WPBDM'); ?>" />
+			<input type="submit" class="submit" name="upload_image" value="<?php _ex('Upload Image', 'templates', 'WPBDM'); ?>" />
 		</div>
 
 		<p><?php _ex('If you prefer not to add an image click "Finish". Your listing will be submitted.', 'templates', 'WPBDM'); ?></p>
@@ -57,7 +57,7 @@ function wpbdp_listingform_delete_image(id) {
 			<p><?php _ex("Your image slots are all full at this time.  You may click Finish if you are done, or Delete Image to reupload a new image in place of a new one.", 'templates', 'WPBDM'); ?></p>		
 		<?php endif; ?>
 
-		<input type="submit" name="finish" value="<?php _ex('Finish', 'templates', 'WPBDM'); ?>" />
+		<input type="submit" class="submit" name="finish" value="<?php _ex('Finish', 'templates', 'WPBDM'); ?>" />
 
 	</form>
 

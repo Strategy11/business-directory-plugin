@@ -38,5 +38,5 @@
 	   <textarea name="commentauthormessage" rows="4" class="intextarea"><?php esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
 	</p>
 
-	<input type="submit" class="insubmitbutton" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />
+	<input type="submit" class="submit" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />
 </form>

@@ -76,7 +76,7 @@ if (!function_exists('_wpbdp_has_fee_selected')) {
 		</div>
 		<?php endif; ?>
 
-		<input type="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
+		<input type="submit" name="submit" class="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
 
 	</form>
 

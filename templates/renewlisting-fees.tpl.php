@@ -32,7 +32,7 @@
 				</p>
 		<?php endforeach; ?>
 
-		<input type="submit" name="submit" value="<?php _ex('Proceed to checkout', 'templates', 'WPBDM'); ?>" />
+		<input type="submit" class="submit" name="submit" value="<?php _ex('Proceed to checkout', 'templates', 'WPBDM'); ?>" />
 
 	</form>
 

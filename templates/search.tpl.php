@@ -21,7 +21,7 @@ $api = wpbdp_formfields_api();
     <?php endforeach; ?>
     <?php do_action('wpbdp_after_search_fields'); ?>
 
-    <p><input type="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" /></p>
+    <p><input type="submit" class="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" /></p>
 </form>
 <!-- Search Form -->
 <?php // endif; ?>

@@ -14,7 +14,7 @@
             </div>
         <?php endforeach; ?>
 
-        <p><input type="submit" name="do_extra_sections" value="<?php _ex('Finish', 'templates', 'WPBDM'); ?>" /></p>
+        <p><input type="submit" name="do_extra_sections" value="<?php _ex('Finish', 'templates', 'WPBDM'); ?>" class="submit" /></p>
     </form> 
 
 </div>
