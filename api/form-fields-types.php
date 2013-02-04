@@ -336,7 +336,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
                               $field->is_required() ? 'required' : '',
                              'listingfields[' . $field->get_id() . '][]',
                               $option_key,
-                              in_array( $option_key, $value ) ? 'checked="checked"' : '',
+                              in_array( $option_key, is_array( $value ) ? $value : array( $value ), true ) ? 'checked="checked"' : '',
                               esc_attr( $label ) );
         }
 
