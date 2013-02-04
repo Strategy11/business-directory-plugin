@@ -213,14 +213,16 @@ class WPBDP_FormFieldType {
 
         if ( is_object( $labelorfield ) ) {
             $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/' ), '', $labelorfield->get_label() ) ) . ' ' . $labelorfield->get_association() . ' ';
-            $label = $labelorfield->get_label();
+            $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
         } else {
             $label = $labelorfield;
         }
 
         $html  = '';
         $html .= '<div class="' . $css_classes . '">';
-        $html .= '<label>' . esc_html( $label ) . ':</label> ';
+        
+        if ( $label )
+            $html .= '<label>' . esc_html( $label ) . ':</label> ';
         
         if ($content)
             $html .= '<span class="value">' . $content . '</span>';
@@ -403,6 +405,10 @@ class WPBDP_FormField {
 
     public function display_in( $context ) {
         return in_array( $context, $this->display_flags, true);
+    }
+
+    public function has_display_flag( $flag ) {
+        return in_array( $flag, $this->display_flags, true );
     }
 
     /**

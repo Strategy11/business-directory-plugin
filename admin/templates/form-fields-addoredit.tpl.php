@@ -138,6 +138,18 @@
                     </label>
                 </td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <label> <?php _ex('Hide this field\'s label?', 'form-fields admin', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <label>
+                        <input name="field[display_flags][]"
+                               value="nolabel"
+                               type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Hide this field\'s label when displaying it.', 'form-fields admin', 'WPBDM'); ?>
+                    </label>
+                </td>
+            </tr>            
     </table>
 
     <?php if ( $field->get_id() ): ?>
