@@ -476,18 +476,17 @@ class WPBDP_DirectoryController {
     private function edit_listing_payment() {
         $listing_id = $this->_listing_data['listing_id'];
 
-        $formfields_api = wpbdp_formfields_api();
-
-        $post_categories = $formfields_api->extract($this->_listing_data['fields'], 'category');
-        if (!is_array($post_categories)) $post_categories = array($post_categories);
+        $api = wpbdp_formfields_api();
+        
+        $category_field = $api->find_fields( array( 'association' => 'category' ), true );
+        $post_categories = $this->_listing_data['fields'][ $category_field->get_id() ];
 
         // if categories are the same, move on
-        $previous_categories = wp_get_post_terms($listing_id, wpbdp_categories_taxonomy());
-        array_walk($previous_categories, create_function('&$x', '$x = $x->term_id;'));
+        $previous_categories = wp_get_post_terms( $listing_id, wpbdp_categories_taxonomy(), array( 'fields' => 'ids' ) );
 
         $new_categories = array();
-        foreach ($post_categories as $catid) {
-            if (!in_array($catid, $previous_categories)) {
+        foreach ( $post_categories as $catid ) {
+            if ( !in_array($catid, $previous_categories) ) {
                 $new_categories[] = $catid;
             } else {
                 $fee = wpbdp_listings_api()->get_listing_fee_for_category($listing_id, $catid);
@@ -495,8 +494,6 @@ class WPBDP_DirectoryController {
                 $this->_listing_data['fees'][$catid] = $fee;
             }
         }
-
-        // wpbdp_debug_e($this->_listing_data['fees']);
 
         if (!$new_categories)
             return $this->submit_listing_images();

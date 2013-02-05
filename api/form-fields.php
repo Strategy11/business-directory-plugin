@@ -328,7 +328,7 @@ class WPBDP_FormField {
         // TODO: make sure validators are valid here
         if ( is_array( $attrs['validators'] ) ) {
             foreach ( $attrs['validators'] as $validator ) {
-                if ( !in_array( $validator, $this->validators, true ) )
+                if ( $validator && !in_array( $validator, $this->validators, true ) )
                     $this->validators[] = $validator;
             }
         }
@@ -512,7 +512,7 @@ class WPBDP_FormField {
         if ( !$this->is_required() && $this->type->is_empty_value( $value ) )
             return true;
 
-        foreach ($this->validators as $validator ) {
+        foreach ( $this->validators as $validator ) {
             $res = $validation_api->validate_field( $this, $value, $validator );
 
             if ( is_wp_error( $res ) ) {
@@ -702,7 +702,7 @@ class WPBDP_FormField {
 
         $field = (array) $field;
 
-        $field['display_flags'] = explode( ',', $field['display_flags'] );        
+        $field['display_flags'] = explode( ',', $field['display_flags'] ); 
         $field['validators'] = explode( ',', $field['validators'] );
         $field['field_data'] = unserialize( $field['field_data'] );
 
@@ -881,7 +881,9 @@ class WPBDP_FormFields {
             $res[] = WPBDP_FormField::get( $id );
         }
 
-        return $one ? ( $res ? $res[0] : null ) : $res;
+        $res = $one ? ( $res ? $res[0] : null ) : $res;
+        
+        return $res;
     }
 
     public function get_missing_required_fields() {

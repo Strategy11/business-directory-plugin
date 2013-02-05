@@ -66,7 +66,7 @@ if (!function_exists('_wpbdp_has_fee_selected')) {
 		</div>
 		<?php endforeach; ?>
 
-		<?php if ( wpbdp_get_option( 'featured-offer-in-submit' ) ): ?>
+		<?php if ( wpbdp_get_option( 'featured-offer-in-submit' ) && !$listing_id ): ?>
 		<div class="upgrade-to-featured-option">
 			<b><?php echo sprintf( _x('Would you like to upgrade your listing to "%s" for %s more?', 'templates', 'WPBDM'), esc_attr( $upgrade_option->name ), wpbdp_get_option( 'currency-symbol' ) . ' ' . $upgrade_option->cost ); ?></b>
 			<p class="description"><?php echo esc_html( $upgrade_option->description ); ?></p>
