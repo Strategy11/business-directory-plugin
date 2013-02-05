@@ -22,6 +22,14 @@ class WPBDP_FormFieldType {
         return $this->name;
     }
 
+    /**
+     * Called after a field of this type is constructed.
+     * @param object $field
+     */
+    public function setup_field( &$field ) {
+        return;
+    }
+
     public function get_field_value( &$field, $post_id ) {
         $post = get_post( $post_id );
 
@@ -212,6 +220,9 @@ class WPBDP_FormFieldType {
         $css_classes = 'field-value ';
 
         if ( is_object( $labelorfield ) ) {
+            if ( $labelorfield->has_display_flag( 'social' ) )
+                return $content;
+
             $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/' ), '', $labelorfield->get_label() ) ) . ' ' . $labelorfield->get_association() . ' ';
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
         } else {
@@ -360,6 +371,8 @@ class WPBDP_FormField {
                 $this->field_data['options'] = $options;
             }
         }
+
+        $this->type->setup_field( $this );
     }
 
     public function get_id() {
@@ -405,6 +418,11 @@ class WPBDP_FormField {
 
     public function display_in( $context ) {
         return in_array( $context, $this->display_flags, true);
+    }
+
+    public function add_display_flag( $flag ) {
+        if ( !$this->has_display_flag( $flag ) )
+            $this->display_flags[] = $flag;
     }
 
     public function has_display_flag( $flag ) {

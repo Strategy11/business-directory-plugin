@@ -405,6 +405,10 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
         return 'social-twitter';
     }
 
+    public function setup_field( &$field ) {
+        $field->add_display_flag( 'social' );
+    }
+
     public function render_field_inner( &$field, $value, $context ) {
         // twitter fields are rendered as normal textfields
         global $wpbdp;
@@ -413,26 +417,30 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
 
     public function get_supported_associations() {
         return array( 'meta' );
-    }        
+    }
 
-// function _wpbdp_display_twitter_button($handle, $settings=array()) {
-//     // in case $handle comes with a URLValidator
-//     if ( is_array( $handle ) ) $handle = $handle[0];
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
 
-//     $handle = str_ireplace( array('http://twitter.com/', 'https://twitter.com/', 'http://www.twitter.com/', 'https://www.twitter.com/'), '', $handle );
-//     $handle = rtrim( $handle, '/' );
-//     $handle = ltrim( $handle, ' @' );
-    
-//     $html  = '';
+        $value = str_ireplace( array('http://twitter.com/', 'https://twitter.com/', 'http://www.twitter.com/', 'https://www.twitter.com/'), '', $value );
+        $value = rtrim( $value, '/' );
+        $value = ltrim( $value, ' @' );
 
-//     $html .= '<div class="social-field twitter">';
-//     $html .= sprintf('<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="false" data-lang="%s">Follow @%s</a>',
-//                      $handle, wpbdp_getv($settings, 'lang', 'en'), $handle);
-//     $html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-//     $html .= '</div>';
+        return $value;
+    }
 
-//     return $html;
-// }
+    public function get_field_html_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        $html  = '';
+        $html .= '<div class="social-field twitter">';
+        $html .= sprintf('<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="false" data-lang="%s">Follow @%s</a>',
+                         $value, substr( get_bloginfo( 'language' ), 0, 2 ), $handle);
+        $html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+        $html .= '</div>';
+
+        return $html;
+    }
 
 }
 
@@ -446,6 +454,10 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_FormFieldType {
         return 'social-facebook';
     }
 
+    public function setup_field( &$field ) {
+        $field->add_display_flag( 'social' );
+    }
+
     public function render_field_inner( &$field, $value, $context ) {
         // facebook fields are rendered as normal textfields
         global $wpbdp;
@@ -454,31 +466,30 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_FormFieldType {
 
     public function get_supported_associations() {
         return array( 'meta' );
-    }        
+    }
 
-// function _wpbdp_display_facebook_button($page) {
-//     if ( is_array( $page ) ) $page = $page[0];
+    public function get_field_html_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
 
-//     $html  = '';
+        $html  = '';
+        $html .= '<div class="social-field facebook">';
+        $html .= '<div id="fb-root"></div>';
+        $html .= '<script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, \'script\', \'facebook-jssdk\'));</script>';
 
-//     $html .= '<div class="social-field facebook">';
+        // data-layout can be 'box_count', 'standard' or 'button_count'
+        // ref: https://developers.facebook.com/docs/reference/plugins/like/
+        $html .= sprintf( '<div class="fb-like" data-href="%s" data-send="false" data-width="200" data-layout="button_count" data-show-faces="false"></div>', $value );
+        $html .= '</div>';
 
-//     $html .= '<div id="fb-root"></div>';
-//     $html .= '<script>(function(d, s, id) {
-//         var js, fjs = d.getElementsByTagName(s)[0];
-//         if (d.getElementById(id)) return;
-//         js = d.createElement(s); js.id = id;
-//         js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-//         fjs.parentNode.insertBefore(js, fjs);
-//       }(document, \'script\', \'facebook-jssdk\'));</script>';
+        return $html;
+    }
 
-//     // data-layout can be 'box_count', 'standard' or 'button_count'
-//     // ref: https://developers.facebook.com/docs/reference/plugins/like/
-//     $html .= sprintf('<div class="fb-like" data-href="%s" data-send="false" data-width="200" data-layout="button_count" data-show-faces="false"></div>', $page);
-//     $html .= '</div>';
-
-//     return $html;
-// }    
 }
 
 class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
@@ -491,6 +502,10 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
         return 'social-linkedin';
     }
 
+    public function setup_field( &$field ) {
+        $field->add_display_flag( 'social' );
+    }    
+
     public function render_field_inner( &$field, $value, $context ) {
         // LinkedIn fields are rendered as normal textfields
         global $wpbdp;
@@ -499,25 +514,24 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
 
     public function get_supported_associations() {
         return array( 'meta' );
-    }    
+    }
 
-// function _wpbdp_display_linkedin_button($value) {
-//     if ( is_array( $value ) ) $value = $value[0];
+    public function get_field_html_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
 
-//     static $js_loaded = false;
+        static $js_loaded = false;
 
-//     $html  = '';
+        $html  = '';
+        if ( $value ) {
+            if ( !$js_loaded ) {
+                $html .= '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>';
+                $js_loaded = true;
+            }
 
-//     if ($value) {
-//         if (!$js_loaded) {
-//             $html .= '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>';
-//             $js_loaded = true;
-//         }
+            $html .= '<script type="IN/FollowCompany" data-id="' . intval( $value ) . '" data-counter="none"></script>';
+        }
 
-//         $html .= '<script type="IN/FollowCompany" data-id="1035" data-counter="none"></script>';
-//     }
-
-//     return $html;
-// }
+        return $html;
+    }
 
 }
