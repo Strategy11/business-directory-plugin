@@ -229,8 +229,8 @@ class WPBDP_SearchWidget extends WP_Widget {
                      $this->get_field_name('title'),
                      esc_attr($title)
                     );
-
         echo '<p>';
+
         echo _x('Form Style:', 'widgets', 'WPBDM');
         echo '<br/>';
         echo sprintf('<input id="%s" name="%s" type="radio" value="%s" %s/> <label for="%s">%s</label>',
@@ -254,21 +254,21 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo _x('Search Fields (advanced mode):', 'widgets', 'WPBDM') . '<br/>';
         echo ' <span class="description">' . _x('Display the following fields in the form.', 'widgets', 'WPBDM') . '</span>';
 
-        $instance_fields = wpbdp_getv($instance, 'search_fields', array());
+        $instance_fields = wpbdp_getv( $instance, 'search_fields', array() );
 
-        $fields_api = wpbdp_formfields_api();
+        $api = wpbdp_formfields_api();
         echo sprintf('<select name="%s[]" multiple="multiple">', $this->get_field_name('search_fields'));
-        foreach ($fields_api->getFields() as $field) {
-            if ($field->display_options['show_in_search']) {
-                echo sprintf('<option value="%s" %s>%s</option>',
-                             $field->id,
-                             (!$instance_fields || in_array($field->id, $instance_fields)) ? 'selected="selected"' : '',
-                             esc_attr($field->label));
+        foreach ( $api->get_fields() as $field ) {
+            if ( $field->display_in( 'search' ) ) {
+                echo sprintf( '<option value="%s" %s>%s</option>',
+                              $field->get_id(),
+                              ( !$instance_fields || in_array( $field->get_id(), $instance_fields) ) ? 'selected="selected"' : '',
+                             esc_attr( $field->get_label() ) );
             }
         }
+
         echo '</select>';
         echo '</p>';
-
     }
 
     public function update($new_instance, $old_instance) {
@@ -293,18 +293,19 @@ class WPBDP_SearchWidget extends WP_Widget {
         if (wpbdp_getv($instance, 'form_mode', 'basic') == 'advanced') {
             $fields_api = wpbdp_formfields_api();
 
-            foreach  ($fields_api->getFields() as $field) {
-                if ( $field->display_options['show_in_search'] && in_array($field->id, $instance['search_fields']) )
-                    echo $fields_api->render($field, null, false, 'search');
+            foreach  ( $fields_api->get_fields() as $field ) {
+                if ( $field->display_in( 'search' ) && in_array( $field->get_id(), $instance['search_fields'] ) ) {
+                    echo $field->render( null, 'search' );
+                }
             }
         } else {
             echo '<input type="text" name="q" value="" />';
         }
 
-        echo sprintf('<p><input type="submit" value="%s" /></p>', _x('Search', 'widgets', 'WPBDM'));
+        echo sprintf('<p><input type="submit" value="%s" class="submit wpbdp-search-widget-submit" /></p>', _x('Search', 'widgets', 'WPBDM'));
         echo '</form>';
 
-        echo $after_widget;        
+        echo $after_widget;
     }    
 
 }

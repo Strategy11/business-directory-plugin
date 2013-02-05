@@ -16,7 +16,7 @@ function wpbdp_main_links() {
     $html .= '<div class="wpbdp-main-links">';
 
     if (wpbdp_get_option('show-submit-listing')) {
-        $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
+        $html .= sprintf('<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
                           __('Submit A Listing', 'WPBDM'),
                           wpbdp_get_page_link('add-listing'));
 /*        $html .= sprintf('<a href="%s">%s</a>',
@@ -25,7 +25,7 @@ function wpbdp_main_links() {
     }
 
     if (wpbdp_get_option('show-view-listings')) {
-        $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
+        $html .= sprintf('<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
                           __('View Listings', 'WPBDM'),
                           wpbdp_get_page_link('view-listings'));        
 /*        $html .= sprintf('<a href="%s">%s</a>',
@@ -35,7 +35,7 @@ function wpbdp_main_links() {
     }
 
     if (wpbdp_get_option('show-directory-button')) {
-        $html .= sprintf('<input type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
+        $html .= sprintf('<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
                           __('Directory', 'WPBDM'),
                           wpbdp_get_page_link('main'));
 /*        $html .= sprintf('<a href="%s">%s</a>',
@@ -61,7 +61,7 @@ function wpbdp_search_form() {
                       <input type="hidden" name="dosrch" value="1" />',
                       wpbdp_get_page_id('main'));
     $html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
-    $html .= sprintf('<input id="wpbdmsearchsubmit" class="wpbdmsearchbutton submit" type="submit" value="%s" />',
+    $html .= sprintf('<input id="wpbdmsearchsubmit" class="submit" type="submit" value="%s" />',
                      _x('Search Listings', 'templates', 'WPBDM'));
     $html .= sprintf('<a href="%s" class="advanced-search-link">%s</a>',
                      add_query_arg('action', 'search', wpbdp_get_page_link('main')),
