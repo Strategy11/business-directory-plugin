@@ -31,39 +31,38 @@ class WPBDP_CSVImportAdmin {
         }
     }
 
-    private function example_data_for_field($field=null, $shortname=null) {
+    private function example_data_for_field( $field=null, $shortname=null ) {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        if ($field) {
-            if ($field->association == 'title') {
+        if ( $field ) {
+            if ( $field->get_association() == 'title' ) {
                 return sprintf(_x('Business %s', 'admin csv-import', 'WPBDM'), $letters[rand(0,strlen($letters)-1)]);
-            } elseif ($field->association == 'category') {
+            } elseif ( $field->get_association() == 'category') {
                 if ( $terms = get_terms(wpbdp_categories_taxonomy(), 'number=5&hide_empty=0') ) {
                     return $terms[array_rand($terms)]->name;
                 } else {
                     return '';
                 }
-            } elseif ($field->association == 'tags') {
+            } elseif ($field->get_association() == 'tags') {
                 if ( $terms = get_terms(wpbdp_tags_taxonomy(), 'number=5&hide_empty=0') ) {
                     return $terms[array_rand($terms)]->name;
                 } else {
                     return '';
                 }                
-            } elseif ($field->validator == 'URLValidator') {
+            } elseif ( $field->has_validator( 'url' ) ) {
                 return get_site_url();
-            } elseif ($field->validator == 'EmailValidator') {
-                return get_option('admin_email');
-            } elseif ($field->validator == 'IntegerNumberValidator') {
+            } elseif ( $field->has_validator( 'email' ) ) {
+                return get_option( 'admin_email' );
+            } elseif ( $field->has_validator('integer_number') ) {
                 return rand(0, 100);
-            } elseif ($field->validator == 'DecimalNumberValidator') {
+            } elseif ( $field->has_validator( 'decimal_number' ) ) {
                 return rand(0, 100) / 100.0;
-            } elseif ($field->validator == 'DateValidator') {
-                return date('d/m/Y');
-            } elseif ($field->type == 'multiselect' || $field->type == 'checkbox') {
-                if (isset($field->field_data['options'])) {
-                    if ($options = $field->field_data['options']) {
-                        return $options[array_rand($options)];
-                    }
+            } elseif ( $field->has_validator( 'date_' ) ) {
+                return date( 'd/m/Y' );
+            } elseif ( $field->get_field_type()->get_id() == 'multiselect' || $field->get_field_type()->get_id() == 'checkbox' ) {
+                if ( $field->data( 'options' ) ) {
+                    $options = $field->data( 'options' );
+                    return $options[array_rand($options)];
                 }
                 
                 return '';
@@ -92,7 +91,9 @@ class WPBDP_CSVImportAdmin {
         //echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'WPBDM'));
         echo '<textarea class="wpbdp-csv-import-example" rows="30">';
 
-        $short_names = wpbdp_formfields_api()->get_short_names();
+        $fields_api = wpbdp_formfields_api();
+
+        $short_names = $fields_api->get_short_names();
 
         foreach ($short_names as $name) {
             echo $name . ',';
@@ -103,18 +104,10 @@ class WPBDP_CSVImportAdmin {
         if (count($posts) >= 5) {
             foreach ($posts as $post) {
                 foreach (array_keys($short_names) as $field_id) {
-                    if ($field_value = wpbdp_get_listing_field_value($post, $field_id)) {
-                        if (is_array($field_value)) {
-                            if ($field_value) {
-                                $values = array_values($field_value);
-                                echo $values[0]->name;
-                            } else {
-                            }
-                        } else {
-                            echo str_replace(',', '', $field_value);
-                        }
-                    }
+                    $field = $fields_api->get_field( $field_id );
+                    $value = $field->plain_value( $post->ID );
 
+                    echo str_replace( ',', ';', $value );
                     echo ',';
                 }
                 echo get_the_author_meta('user_login', $post->post_author);
@@ -124,12 +117,12 @@ class WPBDP_CSVImportAdmin {
         } else {
             for ($i = 0; $i < 5; $i++) {
                 foreach ($short_names as $field_id => $shortname) {
-                    $field = wpbdp_formfields_api()->getField($field_id);
-                    echo $this->example_data_for_field($field, $short_names);
+                    $field = $fields_api->get_field( $field_id );
+                    echo sprintf( '"%s"', $this->example_data_for_field( $field, $shortname ) );
                     echo ',';
                 }
 
-                echo $this->example_data_for_field(null, 'user');
+                echo sprintf( '"%s"', $this->example_data_for_field( null, 'user' ) );
                 echo "\n";
             }
             
@@ -160,12 +153,12 @@ class WPBDP_CSVImportAdmin {
         }
 
         $formfields_api = wpbdp_formfields_api();
-        $form_fields = $formfields_api->getFields();
+        $form_fields = $formfields_api->get_fields();
         $shortnames = $formfields_api->get_short_names();
 
         $fields = array();
         foreach ($form_fields as $field)
-            $fields[$shortnames[$field->id]] = $field;
+            $fields[$shortnames[$field->get_id()]] = $field;
 
         $importer = new WPBDP_CSVImporter();
         $importer->set_settings(array_merge($_POST['settings'], array('test-import' => isset($_POST['test-import']) ? true : false)));
@@ -434,7 +427,7 @@ class WPBDP_CSVImporter {
 
             $field = $this->fields[$header_name];
 
-            if ($field->association == 'category') {
+            if ($field->get_association() == 'category') {
                 $categories = array_map('trim', explode($this->settings['category-separator'], $data[$i]));
 
                 foreach ($categories as $category_name) {
@@ -444,14 +437,14 @@ class WPBDP_CSVImporter {
                         continue;
 
                     if ($term = term_exists($category_name, wpbdp_categories_taxonomy())) {
-                        $listing_fields[$field->id][] = $term['term_id'];
+                        $listing_fields[$field->get_id()][] = $term['term_id'];
                     } else {
                         if ($this->settings['create-missing-categories']) {
                             if ($this->in_test_mode())
                                 continue;
 
                             if ($newterm = wp_insert_term($category_name, wpbdp_categories_taxonomy())) {
-                                $listing_fields[$field->id][] = $newterm['term_id'];
+                                $listing_fields[$field->get_id()][] = $newterm['term_id'];
                             } else {
                                 $errors[] = sprintf(_x('Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $category_name);
                                 return false;
@@ -463,10 +456,10 @@ class WPBDP_CSVImporter {
                         }
                     }
                 }
-            } elseif ($field->association == 'tags') {
-                $listing_fields[$field->id][] = $data[$i];
+            } elseif ($field->get_association() == 'tags') {
+                $listing_fields[$field->get_id()][] = $data[$i];
             } else {
-                $listing_fields[$field->id] = $data[$i];
+                $listing_fields[$field->get_id()] = $data[$i];
             }
         }
 
