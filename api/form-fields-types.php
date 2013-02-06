@@ -435,7 +435,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
         $html  = '';
         $html .= '<div class="social-field twitter">';
         $html .= sprintf('<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="false" data-lang="%s">Follow @%s</a>',
-                         $value, substr( get_bloginfo( 'language' ), 0, 2 ), $handle);
+                         $value, substr( get_bloginfo( 'language' ), 0, 2 ), $value);
         $html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
         $html .= '</div>';
 
