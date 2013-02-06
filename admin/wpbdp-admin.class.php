@@ -186,7 +186,7 @@ class WPBDP_Admin {
         echo '<div class="clear"></div>';      
 
         // listing images
-        if (current_user_can('administrator')) {
+        if ( current_user_can('edit_posts') ) {
             echo sprintf('<div id="wpbdp-listing-images" class="wpbdp-ajax-placeholder"
                                data-action="wpbdp-listingimages"
                                data-post_id="%s"
