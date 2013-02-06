@@ -12,20 +12,6 @@ $wpbdmposttypetags = "wpbdm-tags";
 define('WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/deprecated/templates');
 
 
-function get_wpbusdirman_config_options() {
-	wpbdp_log_deprecated();
-
-	global $wpbdp;
-	return $wpbdp->settings->pre_2_0_compat_get_config_options();
-}
-
-function wpbusdirman_filterinput($input) {
-    $input = strip_tags($input);
-    $input = trim($input);
-    return $input;
-}
-
-
 /* template-related */
 function wpbusdirman_single_listing_details() {
     echo wpbusdirman_post_single_listing_details();
@@ -268,35 +254,7 @@ function wpbusdirman_display_the_thumbnail() {
     return $html;
 }
 
-function wpbusdirman_sticky_loop() {
-    $args = array(
-        'post_type' => wpbdp_post_type(),
-        'posts_per_page' => 0,
-        'post_status' => 'publish',
-        'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-        'meta_key' => '_wpbdp[sticky]',
-        'meta_value' => 'sticky',
-        'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-        'order' => wpbdp_get_option('listings-sort', 'ASC')
-    );
-
-    if (get_query_var('term')) {
-        $args['tax_query'] = array(
-            array('taxonomy' => get_query_var('taxonomy'),
-                  'field' => 'slug',
-                  'terms' => get_query_var('term'))
-        );
-    }
-
-    query_posts($args);
-
-    while (have_posts()) {
-        the_post();
-        echo wpbdp_the_listing_excerpt();
-    }
-
-    wp_reset_query();
-}
+function wpbusdirman_sticky_loop() { return; }
 
 function wpbusdirman_view_edit_delete_listing_button() {
     $wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
@@ -463,38 +421,7 @@ add_filter('wp_list_categories','remove_no_categories_msg');
 
 
 /* deprecated since 2.1.4 */
-function wpbdp_sticky_loop($category_id=null, $taxonomy=null) {
-    $taxonomy = !$taxonomy ? wpbdp_categories_taxonomy() : $taxonomy;
-    $category_id = $category_id ? $category_id : (isset($_REQUEST['category_id']) ? intval($_REQUEST['category_id']) : null);
-
-    $args = array(
-        'post_type' => wpbdp_post_type(),
-        'posts_per_page' => 0,
-        'post_status' => 'publish',
-        'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-        'meta_key' => '_wpbdp[sticky]',
-        'meta_value' => 'sticky',
-        'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-        'order' => wpbdp_get_option('listings-sort', 'ASC')
-    );
-
-    if ($category_id) {
-        $args['tax_query'] = array(
-            array('taxonomy' => $taxonomy,
-                  'field' => 'id',
-                  'terms' => $category_id)
-        );
-    }
-
-    $stickies = get_posts($args);
-
-    $html = '';
-
-    foreach ($stickies as $sticky_post)
-        $html .= wpbdp_render_listing($sticky_post->ID, 'excerpt');
-
-    return $html;
-}
+function wpbdp_sticky_loop($category_id=null, $taxonomy=null) { return ''; }
 
 /* deprecated since 2.1.6 */
 function wpbusdirman_dropdown_categories() {

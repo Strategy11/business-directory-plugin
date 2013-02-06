@@ -9,8 +9,6 @@
 
     <h2 class="category-name"><?php echo wpbusdirman_post_catpage_title(); ?></h2>    
 
-    <?php wpbusdirman_sticky_loop(); ?>
-
     <?php if (!have_posts()): ?>
         <?php _ex("No listings found in category.", 'templates', "WPBDM"); ?>
     <?php else: ?>
