@@ -613,6 +613,8 @@ class WPBDP_FormField {
         //             }
         //         }
         //     }
+
+        $api->_calculate_short_names();
     }
 
     /**
