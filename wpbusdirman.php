@@ -32,6 +32,10 @@ define('WPBDP_PATH', plugin_dir_path(__FILE__));
 define('WPBDP_URL', plugins_url('/', __FILE__));
 define('WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates');
 
+define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
+define( 'WPBDP_CATEGORY_TAX', 'wpbdm-category' );
+define( 'WPBDP_TAGS_TAX', 'wpbdm-tags' );
+
 
 require_once(WPBDP_PATH . 'api/api.php');
 require_once(WPBDP_PATH . '/deprecated/deprecated.php');
@@ -177,19 +181,9 @@ class WPBDP_Plugin {
     public function _pre_get_posts(&$query) {
         global $wpdb;
 
-        // category page query
         if (!$query->is_admin && $query->is_archive && $query->get(self::POST_TYPE_CATEGORY)) {
-            $category = get_term_by('slug', $query->get(self::POST_TYPE_CATEGORY), self::POST_TYPE_CATEGORY);
-            $category_ids = array_merge(array(intval($category->term_id)), get_term_children($category->term_id, self::POST_TYPE_CATEGORY));
-            $categories_str = '(' . implode(',', $category_ids) . ')';
-
-            $current_date = current_time('mysql');
-            $excluded_ids = $wpdb->get_col(
-                $wpdb->prepare("SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id IN {$categories_str} AND (expires_on IS NULL OR expires_on >= %s))", $current_date)
-            );
-
+            // category page query
             $query->set('post_status', 'publish');
-            $query->set('post__not_in', array_merge($excluded_ids, wpbdp_listings_api()->get_stickies()));
             $query->set('post_type', self::POST_TYPE);
             $query->set('posts_per_page', 0);
             $query->set('orderby', wpbdp_get_option('listings-order-by', 'date'));
@@ -278,6 +272,14 @@ class WPBDP_Plugin {
     public function _template_redirect() {
         global $wp_query;
 
+        // handle some deprecated stuff
+        if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == wpbdp_post_type() ) {
+            $url = add_query_arg( array( 'action' => 'search',
+                                         'dosrch' => 1,
+                                         'q' => wpbdp_getv( $_REQUEST, 's', '' ) ), wpbdp_get_page_link( 'main' ) );
+            wp_redirect( $url ); exit;
+        }
+
         // workaround WP issue #16373
         if (wpbdp_get_page_id('main') == get_option('page_on_front'))
             return;
@@ -350,7 +352,7 @@ class WPBDP_Plugin {
         if (is_admin()) {
             $this->admin = new WPBDP_Admin();
         }
-
+        
         $this->controller = new WPBDP_DirectoryController();
 
         add_action('init', array($this, 'install_or_update_plugin'), 1);
@@ -360,7 +362,7 @@ class WPBDP_Plugin {
         add_action('init', array($this, '_session_start'));
         add_action('init', array($this, '_register_image_sizes'));
 
-        add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
+        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
         add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
 
