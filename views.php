@@ -8,7 +8,7 @@ if (!class_exists('WPBDP_DirectoryController')) {
 class WPBDP_DirectoryController {
 
     public function __construct() {
-        add_action('pre_get_posts', array($this, '_handle_action')); // TODO: maybe another hook fits better?
+        add_action( 'wp', array( $this, '_handle_action') );
         $this->_extra_sections = array();
     }
 
@@ -31,13 +31,14 @@ class WPBDP_DirectoryController {
         return true;
     }
 
-    public function _handle_action($query) {
+    public function _handle_action(&$query) {
         // workaround WP issue #16373
         if ( (get_query_var('page_id') == wpbdp_get_page_id('main')) &&
-             (wpbdp_get_page_id('main') == get_option('page_on_front')) )
+             (wpbdp_get_page_id('main') == get_option('page_on_front')) ) {
             $action = wpbdp_getv($_GET, 'action', 'main');
-        else
+        } else {
             $action = get_query_var('action');
+        }
 
         if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
         if (get_query_var('tag')) $action = 'browsetag';
