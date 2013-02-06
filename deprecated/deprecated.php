@@ -286,17 +286,11 @@ function wpbusdirman_latest_listings($numlistings) {
     return wpbdp_latest_listings($numlistings);
 }
 
-function wpbusdirman_catpage_title() {
-    echo wpbusdirman_post_catpage_title();
-}
-
 function wpbusdirman_post_catpage_title() {
-    $term = null;
-
     if ( get_query_var('taxonomy') == wpbdp_categories_taxonomy() ) {
-        $term = get_term_by('id', get_query_var('term_id'), wpbdp_categories_taxonomy());
+        $term = get_term_by('slug', get_query_var('term'), wpbdp_categories_taxonomy());
     } elseif ( get_query_var('taxonomy') == wpbdp_tags_taxonomy() ) {
-        $term = get_term_by('id', get_query_var('term_id'), wpbdp_tags_taxonomy());
+        $term = get_term_by('slug', get_query_var('term'), wpbdp_tags_taxonomy());
     }
 
     return esc_attr($term->name);
@@ -408,17 +402,6 @@ function wpbusdirman_menu_button_editlisting()
 
     return $html;
 }
-
-function remove_no_categories_msg($content) {
-  if (!empty($content)) {
-  if(function_exists('str_ireplace')){
-    $content = str_ireplace('<li>' .__( "No categories" ). '</li>', "", $content);
-    }
-  }
-  return $content;
-}
-add_filter('wp_list_categories','remove_no_categories_msg');
-
 
 /* deprecated since 2.1.4 */
 function wpbdp_sticky_loop($category_id=null, $taxonomy=null) { return ''; }
