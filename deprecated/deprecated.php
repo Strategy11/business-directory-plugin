@@ -19,24 +19,6 @@ function get_wpbusdirman_config_options() {
 	return $wpbdp->settings->pre_2_0_compat_get_config_options();
 }
 
-function wpbusdirman_search_template($search) {
-    global $wp_query, $post;
-
-        if(isset($_REQUEST['post_type']) && ( $_REQUEST['post_type'] == wpbdp_post_type() ))
-        {
-            if(file_exists(get_stylesheet_directory() . '/single/wpbusdirman-search.php'))
-            return get_stylesheet_directory() . '/single/wpbusdirman-search.php';
-            if(file_exists(get_template_directory() . '/single/wpbusdirman-search.php'))
-            return get_template_directory() . '/single/wpbusdirman-search.php';     
-            if(file_exists(WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-search.php'))
-            return WPBUSDIRMAN_TEMPLATES_PATH . '/wpbusdirman-search.php';
-        }
-
-    return $search;
-}
-add_filter('search_template', 'wpbusdirman_search_template');
-
-
 function wpbusdirman_filterinput($input) {
     $input = strip_tags($input);
     $input = trim($input);
