@@ -447,7 +447,7 @@ function _wpbdp_render_single() {
 
     $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
 
-    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s">', $post->ID, 'single', $sticky_status);
+    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s" itemscope itemtype="http://schema.org/Thing">', $post->ID, 'single', $sticky_status);
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_before_single_view', $post->ID);
 
