@@ -231,7 +231,7 @@ class WPBDP_Plugin {
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
-            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';            
+            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
         }
 
         return $rules;
@@ -256,17 +256,31 @@ class WPBDP_Plugin {
     }
 
     public function _query_vars($vars) {
-        // workaround WP issue #16373
-        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
-            return $vars;
-
         array_push($vars, 'id');
         array_push($vars, 'listing');
-        array_push($vars, 'category_id');
+        array_push($vars, 'category_id'); // TODO: are we really using this var?
         array_push($vars, 'category');
-        array_push($vars, 'action');
+        array_push($vars, 'action'); // TODO: are we really using this var?
 
         return $vars;
+    }
+
+    /**
+     * Workaround for issue WP bug #16373.
+     * See http://wordpress.stackexchange.com/questions/51530/rewrite-rules-problem-when-rule-includes-homepage-slug.
+     */
+    public function _redirect_canonical( $redirect_url, $requested_url ) {
+        global $wp_query;
+
+        if ( $main_page_id = wpbdp_get_page_id( 'main' ) ) {
+            if ( is_page() && !is_feed() && isset( $wp_query->queried_object ) &&
+                 get_option( 'show_on_front' ) == 'page' &&
+                 get_option( 'page_on_front' ) == $wp_query->queried_object->ID ) {
+                return $requested_url;
+            }
+        }
+
+        return $redirect_url;
     }
 
     public function _template_redirect() {
@@ -279,10 +293,6 @@ class WPBDP_Plugin {
                                          'q' => wpbdp_getv( $_REQUEST, 's', '' ) ), wpbdp_get_page_link( 'main' ) );
             wp_redirect( $url ); exit;
         }
-
-        // workaround WP issue #16373
-        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
-            return;
 
         if ( (get_query_var('taxonomy') == self::POST_TYPE_CATEGORY) && (_wpbdp_template_mode('category') == 'page') ) {
             wp_redirect( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ); // XXX
@@ -368,7 +378,8 @@ class WPBDP_Plugin {
 
         add_filter('rewrite_rules_array', array($this, '_rewrite_rules'));
         add_filter('query_vars', array($this, '_query_vars'));
-        add_filter('template_redirect', array($this, '_template_redirect'));
+        add_filter( 'redirect_canonical', array( $this, '_redirect_canonical' ), 10, 2 );
+        add_action('template_redirect', array($this, '_template_redirect'));
         add_action('wp_loaded', array($this, '_wp_loaded'));
 
         add_action('pre_get_posts', array($this, '_pre_get_posts'));

@@ -242,15 +242,11 @@ class WPBDP_ListingsAPI {
     }
 
     public function _category_link($link, $category, $taxonomy) {
-        // workaround WP issue #16373
-        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
-            return $link;
-
         if ( ($taxonomy == wpbdp_categories_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
             if (wpbdp_rewrite_on()) {
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-category-slug') . '/' . $category->slug . '/';
             } else {
-                return add_query_arg('category', $category->slug, wpbdp_get_page_link('main')); // XXX
+                return add_query_arg('category', $category->slug, wpbdp_get_page_link('main'));
             }
         }
 
@@ -258,15 +254,11 @@ class WPBDP_ListingsAPI {
     }
 
     public function _tag_link($link, $tag, $taxonomy) {
-        // workaround WP issue #16373
-        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
-            return $link;
-
         if ( ($taxonomy == wpbdp_tags_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
             if (wpbdp_rewrite_on()) {
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-tags-slug') . '/' . $tag->slug . '/';
             } else {
-                return add_query_arg('tag', $tag->slug, wpbdp_get_page_link('main')); // XXX
+                return add_query_arg('tag', $tag->slug, wpbdp_get_page_link('main'));
             }
         }
 
@@ -277,15 +269,11 @@ class WPBDP_ListingsAPI {
         if (is_admin())
             return $url;
 
-        // workaround WP issue #16373
-        if (wpbdp_get_page_id('main') == get_option('page_on_front'))
-            return $url;
-        
         if ( ($post->post_type == wpbdp_post_type()) && (_wpbdp_template_mode('single') == 'page') ) {
             if (wpbdp_rewrite_on()){
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . $post->ID . '/' . ($post->post_name ? $post->post_name . '/' : '');
             } else {
-                return add_query_arg('id', $post->ID, wpbdp_get_page_link('showlisting')); // XXX
+                return add_query_arg( 'id', $post->ID, wpbdp_get_page_link( 'main' ) );
             }
         }
 

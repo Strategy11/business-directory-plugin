@@ -32,13 +32,7 @@ class WPBDP_DirectoryController {
     }
 
     public function _handle_action(&$query) {
-        // workaround WP issue #16373
-        if ( (get_query_var('page_id') == wpbdp_get_page_id('main')) &&
-             (wpbdp_get_page_id('main') == get_option('page_on_front')) ) {
-            $action = wpbdp_getv($_GET, 'action', 'main');
-        } else {
-            $action = get_query_var('action');
-        }
+        $action = get_query_var('action') ? get_query_var('action') : ( isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '' );
 
         if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
         if (get_query_var('tag')) $action = 'browsetag';
@@ -54,11 +48,6 @@ class WPBDP_DirectoryController {
     }
 
     public function dispatch() {
-        /*$action = get_query_var('action');
-
-        if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
-        if (get_query_var('id') || get_query_var('listing') ) $action = 'showlisting';*/
-
         switch ($this->action) {
             case 'showlisting':
                 return $this->show_listing();
