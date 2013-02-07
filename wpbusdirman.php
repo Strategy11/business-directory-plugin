@@ -390,7 +390,11 @@ class WPBDP_Plugin {
         add_filter('taxonomy_template', array($this, '_category_template'));
         add_filter('single_template', array($this, '_single_template'));
 
-        add_filter('wp_title', array($this, '_page_title'), 10, 3);
+        // Page metadata & SEO
+        add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
+        remove_filter( 'wp_head', 'rel_canonical' );
+        add_filter( 'wp_head', array( $this, '_meta_rel_canonical' ) );
+
         add_action('wp_footer', array($this, '_credits_footer'));
 
         add_action('widgets_init', array($this, '_register_widgets'));
@@ -736,38 +740,6 @@ class WPBDP_Plugin {
         return false;
     }
 
-    public function _page_title($title, $sep, $seplocation) {
-        $action = $this->controller->get_current_action();
-
-        switch ($action) {
-            case 'browsetag':
-                $term = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
-                return $term->name . ' ' . $sep . ' ';
-
-                break;
-
-            case 'browsecategory':
-                $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
-                if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());
-
-                return $term->name . ' ' . $sep . ' ';
-
-                break;
-
-            case 'showlisting':
-                $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
-                $post_title = get_the_title($listing_id);
-                return $post_title . ' '.  $sep . ' ';
-
-                break;
-
-            default:
-                break;
-        }
-
-        return $title;
-    }
-
     public function _credits_footer() {
         $html = '';
 
@@ -863,6 +835,55 @@ class WPBDP_Plugin {
                 $counter++;
             }
         }
+    }
+
+    /*
+     * Page metadata
+     */
+
+    public function _meta_title($title, $sep, $seplocation) {
+        $action = $this->controller->get_current_action();
+
+        switch ($action) {
+            case 'browsetag':
+                $term = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
+                return $term->name . ' ' . $sep . ' ';
+
+                break;
+
+            case 'browsecategory':
+                $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
+                if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());
+
+                return $term->name . ' ' . $sep . ' ';
+
+                break;
+
+            case 'showlisting':
+                $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+                $post_title = get_the_title($listing_id);
+                return $post_title . ' '.  $sep . ' ';
+
+                break;
+
+            default:
+                break;
+        }
+
+        return $title;
+    }
+
+    public function _meta_rel_canonical() {
+        $action = $this->controller->get_current_action();
+
+        if ( !$action )
+            return rel_canonical();
+
+        if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'upgradetostickylisting', 'renewlisting', 'payment-process' ) ) )
+            return;        
+
+        $link = $_SERVER['REQUEST_URI'];
+        echo sprintf( '<link rel="canonical" href="%s" />', $link );
     }
 
 
