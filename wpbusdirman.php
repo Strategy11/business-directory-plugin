@@ -390,10 +390,8 @@ class WPBDP_Plugin {
         add_filter('taxonomy_template', array($this, '_category_template'));
         add_filter('single_template', array($this, '_single_template'));
 
-        // Page metadata & SEO
+        add_action( 'wp', array( $this, '_meta_setup' ) );
         add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
-        remove_filter( 'wp_head', 'rel_canonical' );
-        add_filter( 'wp_head', array( $this, '_meta_rel_canonical' ) );
 
         add_action('wp_footer', array($this, '_credits_footer'));
 
@@ -840,6 +838,25 @@ class WPBDP_Plugin {
     /*
      * Page metadata
      */
+    public function _meta_setup() {
+        $action = $this->controller->get_current_action();
+
+        if ( !$action )
+            return;
+
+        if ( defined( 'WPSEO_VERSION' ) && $action == 'showlisting' ) {
+            $this->_do_wpseo = 1;
+
+            global $wpseo_front;
+
+            remove_action( 'wp_head', array( $wpseo_front, 'head' ), 1, 1 );
+            remove_filter( 'wp_title', array( $wpseo_front, 'title' ), 15, 3 );
+            add_action( 'wp_head', array( $this, '_meta_keywords' ) );
+        }
+
+        remove_filter( 'wp_head', 'rel_canonical' );
+        add_filter( 'wp_head', array( $this, '_meta_rel_canonical' ) );
+    }
 
     public function _meta_title($title, $sep, $seplocation) {
         $action = $this->controller->get_current_action();
@@ -861,9 +878,15 @@ class WPBDP_Plugin {
 
             case 'showlisting':
                 $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
-                $post_title = get_the_title($listing_id);
-                return $post_title . ' '.  $sep . ' ';
 
+                if ( $this->_do_wpseo ) {
+                    global $wpseo_front;
+                    $post_title = $wpseo_front->get_content_title( get_post( $listing_id ) );
+                } else {
+                    $post_title = get_the_title($listing_id);
+                }
+
+                return $post_title . ' '.  $sep . ' ';
                 break;
 
             default:
@@ -871,6 +894,21 @@ class WPBDP_Plugin {
         }
 
         return $title;
+    }
+
+    public function _meta_keywords() {
+        global $wpseo_front;
+        global $post;
+
+        $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+
+        $prev_post = $post;
+        $post = get_post( $listing_id );
+
+        $wpseo_front->metadesc();
+        $wpseo_front->metakeywords();
+
+        $post = $prev_post;
     }
 
     public function _meta_rel_canonical() {
