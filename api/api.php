@@ -671,10 +671,6 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     return false;
 }
 
-function _wpbdp_current_action() {
-    return wpbdp()->controller->get_current_action();
-}
-
 function wpbdp_get_post_by_slug($slug, $post_type=null) {
     $post_type = $post_type ? $post_type : wpbdp_post_type();
 
