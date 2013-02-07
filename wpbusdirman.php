@@ -393,6 +393,7 @@ class WPBDP_Plugin {
         add_action( 'wp', array( $this, '_meta_setup' ) );
         add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
 
+        add_action( 'wp_head', array( $this, '_rss_feed' ) );
         add_action('wp_footer', array($this, '_credits_footer'));
 
         add_action('widgets_init', array($this, '_register_widgets'));
@@ -736,6 +737,21 @@ class WPBDP_Plugin {
         }
 
         return false;
+    }
+
+    public function _rss_feed() {
+        $action = $this->controller->get_current_action();
+        $main_page_id = wpbdp_get_page_id( 'main' );
+
+        if ( !$action || !$main_page_id )
+            return;
+
+        echo "\n<!-- Business Directory RSS feed -->\n";
+        echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
+                      sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
+                      add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) )
+                    );
+        echo "\n";
     }
 
     public function _credits_footer() {
