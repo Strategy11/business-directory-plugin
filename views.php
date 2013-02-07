@@ -31,16 +31,20 @@ class WPBDP_DirectoryController {
         return true;
     }
 
-    public function _handle_action(&$query) {
-        $action = get_query_var('action') ? get_query_var('action') : ( isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '' );
+    public function _handle_action(&$wp) {
+        if ( is_page() && get_the_ID() == wpbdp_get_page_id( 'main' ) ) {
+            $action = get_query_var('action') ? get_query_var('action') : ( isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '' );
 
-        if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
-        if (get_query_var('tag')) $action = 'browsetag';
-        if (get_query_var('id') || get_query_var('listing')) $action = 'showlisting';
+            if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';
+            if (get_query_var('tag')) $action = 'browsetag';
+            if (get_query_var('id') || get_query_var('listing')) $action = 'showlisting';
 
-        if (!$action) $action = 'main';
+            if (!$action) $action = 'main';
 
-        $this->action = $action;
+            $this->action = $action;
+        } else {
+            $this->action = null;
+        }
     }
 
     public function get_current_action() {
