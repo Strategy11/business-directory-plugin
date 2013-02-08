@@ -502,7 +502,7 @@ function _wpbdp_render_single() {
         'is_sticky' => $sticky_status == 'sticky',
         'sticky_tag' => $sticky_tag,
         'title' => get_the_title(),
-        'main_image' => wpbusdirman_post_main_image(),
+        'main_image' => wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' ),
         'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID),
         'extra_images' => $extra_images
     );
@@ -571,7 +571,7 @@ function _wpbdp_render_excerpt() {
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
-        'thumbnail' => wpbusdirman_display_the_thumbnail(),
+        'thumbnail' => wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ),
         'title' => get_the_title(),
         'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID)
     );
