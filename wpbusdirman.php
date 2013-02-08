@@ -849,6 +849,10 @@ class WPBDP_Plugin {
                 $counter++;
             }
         }
+
+        if ( wpbdp_get_option( 'use-thickbox' ) ) {
+            add_thickbox();
+        }
     }
 
     /*
