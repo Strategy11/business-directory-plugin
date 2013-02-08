@@ -418,7 +418,7 @@ class WPBDP_Plugin {
         /* scripts & styles */
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
 
-        add_action('plugins_loaded', array($this, '_init_modules'));
+        add_action('init', array($this, '_init_modules'));
     }
 
     public function _init_modules() {
