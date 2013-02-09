@@ -28,6 +28,8 @@ $api = wpbdp_formfields_api();
 
 <?php if ($searching): ?>
     <h3><?php _ex('Search Results', 'search', 'WPBDM'); ?></h3>
+
+    <?php do_action( 'wpbdp_before_search_results' ); ?>
     <div class="search-results">
     <?php if (have_posts()): ?>
         <?php echo wpbdp_render('businessdirectory-listings'); ?>
@@ -38,5 +40,6 @@ $api = wpbdp_formfields_api();
                            _x('Return to directory', 'templates', 'WPBDM')); ?>    
     <?php endif; ?>
     </div>
+    <?php do_action( 'wpbdp_after_search_results' ); ?>
 <?php endif; ?>
 </div>

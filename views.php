@@ -201,9 +201,11 @@ class WPBDP_DirectoryController {
             'order' => wpbdp_get_option('listings-sort', 'ASC')
         ));
 
-        $html = wpbdp_render('businessdirectory-listings', array(
+        $html = wpbdp_capture_action( 'wpbdp_before_viewlistings_page' );
+        $html .= wpbdp_render('businessdirectory-listings', array(
                 'excludebuttons' => !$include_buttons
             ), true);
+        $html .= wpbdp_capture_action( 'wpbdp_after_viewlistings_page' );
 
         wp_reset_query();
 

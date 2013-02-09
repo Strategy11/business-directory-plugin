@@ -6,6 +6,8 @@
 
     <h2 class="category-name"><?php echo esc_attr($category->name); ?></h2>
 
+    <?php do_action( 'wpbdp_before_category_page', $category ); ?>
     <?php echo wpbdp_render('businessdirectory-listings', array('excludebuttons' => true)); ?>
+    <?php do_action( 'wpbdp_after_category_page', $category ); ?>
 
 </div>
