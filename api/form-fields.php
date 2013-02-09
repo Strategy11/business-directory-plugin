@@ -504,6 +504,10 @@ class WPBDP_FormField {
         return $this->type->store_field_value( $this, $post_id, $value );
     }
 
+    public function is_empty_value( $value ) {
+        return $this->type->is_empty_value( $value );
+    }
+
     public function validate( $value, &$errors=null ) {
         $errors = !is_array( $errors ) ? array() : $errors;
 
