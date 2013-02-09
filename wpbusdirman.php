@@ -872,6 +872,8 @@ class WPBDP_Plugin {
             remove_action( 'wp_head', array( $wpseo_front, 'head' ), 1, 1 );
             remove_filter( 'wp_title', array( $wpseo_front, 'title' ), 15, 3 );
             add_action( 'wp_head', array( $this, '_meta_keywords' ) );
+        } else {
+            $this->_do_wpseo = 0;
         }
 
         remove_filter( 'wp_head', 'rel_canonical' );
