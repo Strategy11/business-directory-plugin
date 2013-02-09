@@ -622,7 +622,7 @@ class WPBDP_Admin {
             remove_filter('wp_dropdown_users', array($this, '_dropdown_users'));
             $select = wp_dropdown_users(array(
                 'echo' => false,
-                'name' => 'post_author_override',
+                'name' => 'post_author',
                 'selected' => !empty($post->ID) ? $post->post_author : wp_get_current_user()->ID,
                 'include_selected' => true,
                 'who' => 'all'
