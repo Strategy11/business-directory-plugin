@@ -168,6 +168,14 @@ class WPBDP_CSVImportAdmin {
         if ($importer->in_test_mode())
             $this->admin->messages[] = array(_x('* Import is in test mode. Nothing was actually inserted into the database. *', 'admin csv-import', 'WPBDM'), 'error');
 
+        if ( $importer->fatal_errors ) {
+            foreach ( $importer->fatal_errors as $err ) {
+                $this->admin->messages[] = array( $err, 'error' );
+            }
+
+            $this->admin->messages[] = array( _x( 'Fatal errors encountered. Import will not proceed.', 'admin csv-import', 'WPBDM' ), 'error' );
+        }
+
         if ($importer->rejected_rows)
             $this->admin->messages[] = _x('Import was completed but some rows were rejected.', 'admin csv-import', 'WPBDM');
         else
@@ -266,6 +274,7 @@ class WPBDP_CSVImporter {
     );
 
     private $fields = array();
+    private $required_fields = array();
     
     public $csv = array();
     private $header = array();
@@ -277,12 +286,18 @@ class WPBDP_CSVImporter {
     public $imported_rows = array();
     public $rejected_rows = array();
     public $warnings = 0;
+    public $fatal_errors = array();
 
 
     public function __construct() { }
 
     public function set_fields($fields) {
         $this->fields = $fields;
+        
+        foreach ( $this->fields as &$field ) {
+            if ( $field->is_required() )
+                $this->required_fields[ $field->get_short_name() ] = $field;
+        }
     }
 
     public function set_settings($settings=array()) {
@@ -359,6 +374,17 @@ class WPBDP_CSVImporter {
                     
                     foreach ($this->header as &$h) $h = trim($h);
 
+                    foreach ( $this->required_fields as $shortname => $field ) {
+                        if ( !in_array( $shortname, $this->header ) ) {
+                            $this->fatal_errors[] = sprintf( _x( 'Missing required header column: %s', 'admin csv-import', 'WPBDM' ), $shortname );
+                        }
+                    }
+
+                    if ( $this->fatal_errors ) {
+                        @fclose( $fp );
+                        return false;
+                    }
+
                 } else {
                     if ($row = $this->process_line($line_data)) {
                         $this->rows[] = array('line' => $n + 1, 'data' => $row, 'error' => false);
@@ -423,9 +449,14 @@ class WPBDP_CSVImporter {
             if (!array_key_exists($header_name, $this->fields)) {
                 $warnings[] = sprintf(_x('Ignoring unknown field "%s"', 'admin csv-import', 'WPBDM'), $header_name);
                 continue;
-            }            
+            }
 
             $field = $this->fields[$header_name];
+
+            if ( $field->is_required() && $field->is_empty_value( $data[$i] ) ) {
+                $errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'WPBDM' ), $header_name );
+                return false;
+            }           
 
             if ($field->get_association() == 'category') {
                 $categories = array_map('trim', explode($this->settings['category-separator'], $data[$i]));
