@@ -408,3 +408,25 @@ function wpbusdirman_dropdown_categories() {
 
     return $html;
 }
+
+/**
+ * Small compatibility layer with old forms API. To be removed in later releases.
+ * @deprecated
+ * @since 2.3
+ */
+function wpbdp_get_formfields() {
+    global $wpbdp;
+    $res = array();
+
+    foreach ( $wpbdp->formfields->get_fields() as $new_field ) {
+        $field = new StdClass();
+        $field->id = $new_field->get_id();
+        $field->label = $new_field->get_label();
+        $field->association = $new_field->get_association();
+        $field->type = $new_field->get_field_type()->get_id();
+
+        $res[] = $field;
+    }
+
+    return $res;
+}
