@@ -108,7 +108,7 @@ require_once(WPBDP_PATH . 'widgets.php');
 class WPBDP_Plugin {
 
     const VERSION = '2.3-dev';
-    const DB_VERSION = '3.1';
+    const DB_VERSION = '3.2';
 
     const POST_TYPE = 'wpbdp_listing';
     const POST_TYPE_CATEGORY = 'wpbdm-category';
@@ -285,6 +285,9 @@ class WPBDP_Plugin {
 
     public function _template_redirect() {
         global $wp_query;
+
+        if ( is_feed() )
+            return;
 
         // handle some deprecated stuff
         if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == wpbdp_post_type() ) {
@@ -471,12 +474,11 @@ class WPBDP_Plugin {
                 id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
                 label VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                 description VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-                type VARCHAR(100) NOT NULL,
+                field_type VARCHAR(100) NOT NULL,
                 association VARCHAR(100) NOT NULL,
-                validator VARCHAR(255) NULL,
-                is_required TINYINT(1) NOT NULL DEFAULT 0,
+                validators TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
                 weight INT(5) NOT NULL DEFAULT 0,
-                display_options BLOB NULL,
+                display_flags TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
                 field_data BLOB NULL
             ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
@@ -678,7 +680,7 @@ class WPBDP_Plugin {
             'publicly_queryable' => true,
             'show_ui' => true,
             'query_var' => true,
-            'rewrite' => array('slug'=> $post_type_slug, 'with_front' => false),
+            'rewrite' => array('slug'=> $post_type_slug, 'with_front' => false, 'feeds' => true),
             'capability_type' => 'post',
             'hierarchical' => false,
             'menu_position' => null,
@@ -751,6 +753,15 @@ class WPBDP_Plugin {
                       sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
                       add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) )
                     );
+
+        if ( $action == 'browsetag' || $action == 'browsecategory' ) {
+            echo "\n";
+            echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
+                          sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
+                          add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, WPBDP_CATEGORY_TAX => get_query_var( 'category' ) ),  get_bloginfo( 'rss2_url' ) )
+                        );
+        }
+
         echo "\n";
     }
 
