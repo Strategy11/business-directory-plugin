@@ -443,6 +443,13 @@ class WPBDP_CSVImporter {
 
             if ($header_name == 'username') {
                 $listing_username = $data[$i];
+
+                if ( $listing_username ) {
+                    if ( !username_exists( $listing_username ) ) {
+                        $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'WPBDM' ), $listing_username );
+                        return false;
+                    }
+                }
                 continue;
             }
 
