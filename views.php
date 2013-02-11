@@ -275,7 +275,7 @@ class WPBDP_DirectoryController {
 
                 return $html;
             } else {
-                return wpbusdirman_contactform(null, $listing_id, $author_name, $author_email, null, $message, $validation_errors);
+                return wpbdp_listing_contact_form( $listing_id, $validation_errors );
             }
         }
     }

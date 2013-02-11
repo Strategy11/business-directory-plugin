@@ -519,7 +519,7 @@ function _wpbdp_render_single() {
     $show_contact_form = apply_filters('wpbdp_show_contact_form', wpbdp_get_option('show-contact-form'), $post->ID);
     if ($show_contact_form) {
         $html .= '<div class="contact-form">';
-        $html .= wpbusdirman_contactform(null,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
+        $html .= wpbdp_listing_contact_form();
         $html .= '</div>';
     }
 

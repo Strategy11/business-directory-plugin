@@ -219,3 +219,35 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
 
     return '' ;
 }
+
+
+/**
+ * Renders the listing contact form.
+ * @param int $listing_id the listing ID.
+ * @param array $validation_errors optional validation errors to be displayed along with the form.
+ * @since 2.3
+ */
+function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors ) {
+    if ( !$listing_id ) $listing_id = get_the_ID();
+
+    if ( !wpbdp_get_option( 'show-contact-form' ) )
+        return '';
+
+    $action = '';
+    $recaptcha = null;
+
+    if ( wpbdp_get_option( 'recaptcha-on' ) ) {
+        if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
+            require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+            $recaptcha = recaptcha_get_html( $public_key );
+        }
+    }
+
+    return wpbdp_render( 'listing-contactform', array(
+                         'action' => $action,
+                         'validation_errors' => $validation_errors,
+                         'listing_id' => $listing_id,
+                         'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
+                         'recaptcha' => $recaptcha
+                        ), false );
+}
