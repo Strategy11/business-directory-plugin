@@ -26,7 +26,7 @@
 			</p>
 			<p>
 				<label style="width:4em;"><?php _ex("Your Email", 'templates', "WPBDM"); ?></label>
-				<input type="text" class="intextbox" name="commentauthoremail" value="<?php esc_attr(wpbdp_getv($_POST, 'commentauthoremail')); ?>" />
+				<input type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr(wpbdp_getv($_POST, 'commentauthoremail')); ?>" />
 			</p>
 	<?php endif; ?>
 
@@ -35,7 +35,7 @@
 	<?php endif; ?>
 
 	<p><label style="width:4em;"><?php _ex("Message", 'templates', "WPBDM"); ?></label><br/>
-	   <textarea name="commentauthormessage" rows="4" class="intextarea"><?php esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
+	   <textarea name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
 	</p>
 
 	<input type="submit" class="submit" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />
