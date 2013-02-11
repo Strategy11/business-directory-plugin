@@ -1010,8 +1010,12 @@ class WPBDP_FieldValidation {
     }
 
     public function validate_field( $field, $value, $validator, $args=array() ) {
-        $args['field-label'] = $field->get_label();
+        $args['field-label'] = is_object( $field ) && $field ? $field->get_label() : _x( 'Field', 'form-fields-api validation', 'WPBDM' );
         return call_user_func( array( $this, $validator ) , $value, $args );
+    }
+
+    public function validate_value( $value, $validator, $args=array() ) {
+        return !is_wp_error( $this->validate_field( null, $value, $validator, $args ) );
     }
 
     /* Required validator */
@@ -1038,7 +1042,15 @@ class WPBDP_FieldValidation {
 
     /* EmailValidator */
     private function email( $value, $args=array() ) {
-        if ( !wpbusdirman_isValidEmailAddress( $value ) )
+        $valid = false;
+
+        if ( function_exists( 'filter_var' ) ) {
+            $valid = filter_var( $value, FILTER_VALIDATE_EMAIL );
+        } else {
+            $valid = (bool) preg_match( '/^(?!(?>\x22?(?>\x22\x40|\x5C?[\x00-\x7F])\x22?){255,})(?!(?>\x22?\x5C?[\x00-\x7F]\x22?){65,}@)(?>[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+|(?>\x22(?>[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\x5C[\x00-\x7F])*\x22))(?>\.(?>[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+|(?>\x22(?>[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\x5C[\x00-\x7F])*\x22)))*@(?>(?>(?!.*[^.]{64,})(?>(?>xn--)?[a-z0-9]+(?>-[a-z0-9]+)*\.){0,126}(?>xn--)?[a-z0-9]+(?>-[a-z0-9]+)*)|(?:\[(?>(?>IPv6:(?>(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){7})|(?>(?!(?:.*[a-f0-9][:\]]){8,})(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,6})?::(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,6})?)))|(?>(?>IPv6:(?>(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){5}:)|(?>(?!(?:.*[a-f0-9]:){6,})(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,4})?::(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,4}:)?)))?(?>25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(?>\.(?>25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}))\]))$/isD', $value );
+        }
+
+        if ( !$valid )
             return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid Email format required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
