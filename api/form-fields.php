@@ -1167,3 +1167,8 @@ class WPBDP_FieldValidation {
     //         $wpdb->query($query);
     //     }
     // }
+
+function wpbdp_validate_value( $value, $validator, $args=array() ) {
+    $validation = WPBDP_FieldValidation::instance();
+    return $validation->validate_value( $value, $validator, $args );
+}
