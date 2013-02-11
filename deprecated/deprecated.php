@@ -18,41 +18,7 @@ function wpbusdirman_single_listing_details() {
 }
 
 function wpbusdirman_post_single_listing_details() {
-    global $post;
-    $wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
-    $html = '';
-
-    if(is_user_logged_in()) {
-        global $current_user;
-        $html .= get_currentuserinfo();
-        $wpbusdirmanloggedinuseremail=$current_user->user_email;
-        $wpbusdirmanauthoremail=get_the_author_meta('user_email');
-        $wpbdmpostissticky=get_post_meta($post->ID, "_wpbdp[sticky]", $single=true);
-        if ($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail) {
-            $html .= '<div id="editlistingsingleview">' . wpbusdirman_menu_button_editlisting() . wpbusdirman_menu_button_upgradelisting() . '</div><div style="clear:both;"></div>';
-        }
-    }
-
-    if(isset($wpbdmpostissticky) && !empty($wpbdmpostissticky) && ($wpbdmpostissticky  == 'sticky') ) {
-        $html .= '<span class="featuredlisting"><img src="' . WPBDP_URL . 'resources/images/' . '/featuredlisting.png" alt="' . __("Featured Listing","WPBDM") . '" border="0" title="' . the_title(null, null, false) . '"></span>';
-    }
-
-    $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID);
-
-    $html .= '<div class="singledetailsview">';
-
-    foreach ( wpbdp_formfields_api()->get_fields() as $field ) {
-        if ( !$field->display_in( 'listing' ) )
-            continue;
-
-        $html .= $field->display( $post->ID, 'listing' );
-    }
-
-    $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID);
-    $html .= wpbusdirman_contactform($wpbusdirman_permalink,$post->ID,$commentauthorname='',$commentauthoremail='',$commentauthorwebsite='',$commentauthormessage='',$wpbusdirman_contact_form_errors='');
-    $html .= '</div>';
-
-    return $html;
+    return wpbdp_render_listing( null, 'single' );
 }
 
 function wpbusdirman_the_listing_title() {
