@@ -228,7 +228,7 @@ class WPBDP_DirectoryController {
             if (!$author_name)
                 $validation_errors[] = _x("Please enter your name.", 'contact-message', "WPBDM");
 
-            if (!wpbusdirman_isValidEmailAddress($author_email))
+            if ( !wpbdp_validate_value( $author_email, 'email' ) )
                 $validation_errors[] = _x("Please enter a valid email.", 'contact-message', "WPBDM");
 
             if (!$message)
