@@ -36,38 +36,9 @@ define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdm-category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdm-tags' );
 
-
 require_once(WPBDP_PATH . 'api/api.php');
 require_once(WPBDP_PATH . '/deprecated/deprecated.php');
-
 @include_once(WPBDP_PATH . 'gateways-googlecheckout.php');
-
-
-function wpbusdirman_contactform($wpbusdirmanpermalink,$wpbusdirmanlistingpostid,$commentauthorname,$commentauthoremail,$commentauthorwebsite,$commentauthormessage,$wpbusdirmancontacterrors) {
-    if (!wpbdp_get_option('show-contact-form'))
-        return '';
-
-    $action = '';
-    
-    $recaptcha = null;
-    if (wpbdp_get_option('recaptcha-on')) {
-        if ($public_key = wpbdp_get_option('recaptcha-public-key')) {
-            require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
-            $recaptcha = recaptcha_get_html($public_key);
-        }
-    }
-
-    return wpbdp_render('listing-contactform', array(
-                            'action' => $action,
-                            'validation_errors' => $wpbusdirmancontacterrors,
-                            'listing_id' => $wpbusdirmanlistingpostid,
-                            'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
-                            'recaptcha' => $recaptcha
-                        ), false);
-}
-
-global $wpbdp;
-
 require_once(WPBDP_PATH . 'utils.php');
 require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
 require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
@@ -78,6 +49,7 @@ require_once(WPBDP_PATH . 'api/templates-ui.php');
 require_once(WPBDP_PATH . 'views.php');
 require_once(WPBDP_PATH . 'widgets.php');
 
+global $wpbdp;
 
 class WPBDP_Plugin {
 
