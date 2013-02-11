@@ -430,3 +430,29 @@ function wpbdp_get_formfields() {
 
     return $res;
 }
+
+
+/**
+ * @deprecated
+ * @since 2.3
+ */
+function wpbusdirman_get_the_business_email($post_id) {
+    $api = wpbdp_formfields_api();
+
+    // try first with the listing fields
+    foreach ( $api->get_fields() as $field ) {
+        $value = $field->plain_value( $post_id );
+
+        if ( wpbdp_validate_value( $value, 'email' ) ) {
+            return $value;
+        }
+    }
+
+    
+    // then with the author email
+    $post = get_post( $post_id );
+    if ( $email = get_the_author_meta( 'user_email', $post->post_author ) )
+        return $email;
+
+    return '';
+}
