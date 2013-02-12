@@ -22,35 +22,39 @@ function wpbusdirman_post_single_listing_details() {
 }
 
 function wpbusdirman_the_listing_title() {
-    return wpbdp_format_field_output('title', null, get_the_ID());
+    if ( $field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) ) )
+        return $field->display( get_the_ID() );
 }
 
 function wpbusdirman_the_listing_excerpt() {
-    if (has_excerpt(get_the_ID()))
-        return wpbdp_format_field_output('excerpt', null, get_the_ID());
+    if ( $field = wpbdp_get_form_fields( array( 'association' => 'excerpt', 'unique' => true ) ) )
+        return $field->display( get_the_ID() );
 }
 
 function wpbusdirman_the_listing_content() {
-    return wpbdp_format_field_output('content', null, get_the_ID());
+    if ( $field = wpbdp_get_form_fields( array( 'association' => 'content', 'unique' => true ) ) )
+        return $field->display( get_the_ID() );
 }
 
 function wpbusdirman_the_listing_category() {
-    return wpbdp_format_field_output('category', null, get_the_ID());
+    if ( $field = wpbdp_get_form_fields( array( 'association' => 'category', 'unique' => true ) ) )
+        return $field->display( get_the_ID() );
 }
 
 function wpbusdirman_the_listing_tags() {
-    return wpbdp_format_field_output('tags', null, get_the_ID());
+    if ( $field = wpbdp_get_form_fields( array( 'association' => 'tags', 'unique' => true ) ) )
+        return $field->display( get_the_ID() );
 }
 
 function wpbusdirman_the_listing_meta($excerptorsingle) {
-    global $post;
     $html = '';
+    $fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 
-    foreach (wpbdp_formfields_api()->getFieldsByAssociation('meta') as $field) {
-        if ($excerptorsingle == 'excerpt' && !$field->display_options['show_in_excerpt'])
+    foreach ( $fields as &$f ) {
+        if ( $excerptorsingle == 'excerpt' && !$field->display_in( 'excerpt' ) )
             continue;
 
-        $html .= wpbdp_format_field_output($field, null, $post);
+        $html .= $f->display( get_the_ID() );
     }
 
     return $html;
@@ -61,30 +65,7 @@ function wpbusdirman_display_excerpt($deprecated=null) {
 }
 
 function wpbusdirman_post_excerpt($deprecated=null) {
-    static $count = 0;
-
-    $is_sticky = wpbdp_listings_api()->get_sticky_status(get_the_ID()) == 'sticky' ? true : false;
-
-    $html = '';
-    $html .= sprintf('<div id="wpbdmlistings" class="wpbdp-listing excerpt %s %s %s">',
-                    $is_sticky ? 'sticky' : '',
-                    $is_sticky ? (($count & 1) ? 'wpbdmoddsticky' : 'wpbdmevensticky') : '',
-                    ($count & 1) ? 'wpbdmodd' : 'wpbdmeven');
-
-    $html .= wpbusdirman_display_the_thumbnail();
-
-    $html .= '<div class="listingdetails">';
-    $html .= apply_filters('wpbdp_listing_excerpt_view_before', '', get_the_ID());
-    $html .= wpbusdirman_display_the_listing_fields();
-    $html .= apply_filters('wpbdp_listing_excerpt_view_after', '', get_the_ID());
-    $html .= wpbusdirman_view_edit_delete_listing_button();
-    $html .= '</div>';
-    $html .= '<div style="clear: both;"></div>';
-    $html .= '</div>';
-
-    $count++;
-
-    return $html;
+    return wpbdp_render_listing( null, 'excerpt' );
 }
 
 
@@ -151,47 +132,7 @@ function wpbusdirman_display_the_listing_fields() {
 
 //Display the listing thumbnail
 function wpbusdirman_display_the_thumbnail() {
-    global $post;
-
-    if (!wpbdp_get_option('allow-images') || !wpbdp_get_option('show-thumbnail'))
-        return '';
-
-    $html = '';
-    $thumbnail = null;
-
-    $listings_api = wpbdp_listings_api();
-    
-    if ($thumbnail_id = $listings_api->get_thumbnail_id($post->ID)) {
-        $image_info = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-thumb' );
-        $thumbnail = $image_info[0];
-    }
-
-    if (!$thumbnail && function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID))
-        return sprintf('<div class="listing-thumbnail"><a href="%s">%s</a></div>',
-                       get_permalink(),
-                       get_the_post_thumbnail($post->ID,
-                                        'wpbdp-thumb',
-                                        array('class' => 'wpbdmthumbs',
-                                              'alt' => the_title(null, null, false),
-                                              'title' => the_title(null, null, false) ))
-                      );
-
-    if (!$thumbnail && wpbdp_get_option('use-default-picture'))
-        $thumbnail = WPBDP_URL . 'resources/images/default.png';
-
-    if ($thumbnail) {
-        $html .= '<div class="listing-thumbnail">';
-        $html .= sprintf('<a href="%s"><img class="wpbdmthumbs" src="%s" style="max-width: %dpx;" alt="%s" title="%s" border="0" /></a>',
-                         get_permalink(),
-                         $thumbnail,
-                         wpbdp_get_option('thumbnail-width'),
-                         the_title(null, null, false),
-                         the_title(null, null, false)
-                        );
-        $html .= '</div>';
-    }
-
-    return $html;
+    return wpbdp_listing_thumbnail();
 }
 
 function wpbusdirman_sticky_loop() { return; }
