@@ -41,7 +41,7 @@ require_once(WPBDP_PATH . '/deprecated/deprecated.php');
 @include_once(WPBDP_PATH . 'gateways-googlecheckout.php');
 require_once(WPBDP_PATH . 'utils.php');
 require_once(WPBDP_PATH . 'admin/wpbdp-admin.class.php');
-require_once(WPBDP_PATH . 'wpbdp-settings.class.php');
+require_once(WPBDP_PATH . 'api/wpbdp-settings.class.php');
 require_once(WPBDP_PATH . 'api/form-fields.php');
 require_once(WPBDP_PATH . 'api/payment.php');
 require_once(WPBDP_PATH . 'api/listings.php');
