@@ -203,21 +203,6 @@ function wpbdp_get_listing_field_html_value($listing, $field) {
     return apply_filters('wpbdp_listing_field_html_value', $value, $listing, $field);
 }
 
-function wpbdp_format_field_output($field, $value='', $listing=null) {
-    $field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
-    $value = $listing ? wpbdp_get_listing_field_html_value($listing, $field) : $value;
-
-    if ($field->validator == 'EmailValidator' && !wpbdp_get_option('override-email-blocking'))
-        return '';
-
-    if ( $field && $value && ($field->display_options['show_in_excerpt'] || $field->display_options['show_in_listing']) )
-        return sprintf('<div class="field-value wpbdp-field-%s %s"><label>%s:</label> <span class="value">%s</span></div>',
-                       strtolower(str_replace(array(' ', '/'), '', $field->label)), /* normalized field label */
-                       $field->association,
-                       esc_attr($field->label),
-                       $value);
-}
-
 /* Fees/Payment API */
 function wpbdp_payments_possible() {
     return wpbdp_payments_api()->payments_possible();
