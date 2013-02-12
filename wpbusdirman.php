@@ -842,7 +842,7 @@ class WPBDP_Plugin {
 
         switch ($action) {
             case 'browsetag':
-                $term = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
+                $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
                 return $term->name . ' ' . $sep . ' ';
 
                 break;

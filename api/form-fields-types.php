@@ -131,7 +131,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         }
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $terms = get_terms( $field->get_association() == 'tags' ? wpbdp_tags_taxonomy() : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
+            $terms = get_terms( $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
             $html .= walk_category_dropdown_tree( $terms, 0, array( 'show_count' => 0, 'selected' => 0 ) );
         } else {
             foreach ( $options as $option => $label ) {

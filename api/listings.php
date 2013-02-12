@@ -254,7 +254,7 @@ class WPBDP_ListingsAPI {
     }
 
     public function _tag_link($link, $tag, $taxonomy) {
-        if ( ($taxonomy == wpbdp_tags_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
+        if ( ($taxonomy == WPBDP_TAGS_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
             if (wpbdp_rewrite_on()) {
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-tags-slug') . '/' . $tag->slug . '/';
             } else {
@@ -743,7 +743,7 @@ class WPBDP_ListingsAPI {
                             $term_ids = array();
 
                             foreach ($terms as $term_name) {
-                                if ($term = get_term_by('name', $term_name, wpbdp_tags_taxonomy())) {
+                                if ($term = get_term_by('name', $term_name, WPBDP_TAGS_TAX)) {
                                     $term_ids[] = $term->term_id;
                                 } else {
                                     $where .= ' AND 1=0'; // force no results when a tag does not exist

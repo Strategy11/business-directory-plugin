@@ -50,7 +50,7 @@ class WPBDP_FormFieldType {
                 $value = get_the_terms( $post_id, wpbdp_categories_taxonomy() );
                 break;
             case 'tags':
-                $value = get_the_terms( $post_id, wpbdp_tags_taxonomy() );
+                $value = get_the_terms( $post_id, WPBDP_TAGS_TAX );
                 break;
             case 'meta':
             default:
@@ -78,7 +78,7 @@ class WPBDP_FormFieldType {
                 $value = get_the_term_list( $post_id, wpbdp_categories_taxonomy(), '', ', ', '' );
                 break;
             case 'tags':
-                $value = get_the_term_list( $post_id, wpbdp_tags_taxonomy(), '', ', ', '' );
+                $value = get_the_term_list( $post_id, WPBDP_TAGS_TAX, '', ', ', '' );
                 break;
             case 'meta':
             default:
@@ -116,7 +116,7 @@ class WPBDP_FormFieldType {
                 wp_set_post_terms( $post_id, $value, wpbdp_categories_taxonomy(), false );
                 break;
             case 'tags':
-                wp_set_post_terms( $post_id, $value, wpbdp_tags_taxonomy(), false );
+                wp_set_post_terms( $post_id, $value, WPBDP_TAGS_TAX, false );
                 break;
             case 'meta':
             default:
@@ -347,7 +347,7 @@ class WPBDP_FormField {
 
         if ( in_array( $this->association, array( 'category', 'tags' ), true ) ) {
             // TODO: make this hierarchical (see https://codex.wordpress.org/Function_Reference/Walker_Class)
-            $terms = get_terms( $this->association == 'tags' ? wpbdp_tags_taxonomy() : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
+            $terms = get_terms( $this->association == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
             $options = array();
 
             foreach ( $terms as &$term ) {

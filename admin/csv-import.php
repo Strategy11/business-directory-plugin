@@ -44,7 +44,7 @@ class WPBDP_CSVImportAdmin {
                     return '';
                 }
             } elseif ($field->get_association() == 'tags') {
-                if ( $terms = get_terms(wpbdp_tags_taxonomy(), 'number=5&hide_empty=0') ) {
+                if ( $terms = get_terms(WPBDP_TAGS_TAX, 'number=5&hide_empty=0') ) {
                     return $terms[array_rand($terms)]->name;
                 } else {
                     return '';

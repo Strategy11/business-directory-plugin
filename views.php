@@ -154,7 +154,7 @@ class WPBDP_DirectoryController {
     public function browse_tag() {
         if (!$this->check_main_page($msg)) return $msg;
 
-        $tag = get_term_by('slug', get_query_var('tag'), wpbdp_tags_taxonomy());
+        $tag = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
         $tag_id = $tag->term_id;
 
         $listings_api = wpbdp_listings_api();
@@ -167,14 +167,14 @@ class WPBDP_DirectoryController {
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
             'tax_query' => array(
-                array('taxonomy' => wpbdp_tags_taxonomy(),
+                array('taxonomy' => WPBDP_TAGS_TAX,
                       'field' => 'id',
                       'terms' => $tag_id)
             )
         ));
 
         $html = wpbdp_render('category',
-                             array('category' => get_term($tag_id, wpbdp_tags_taxonomy())
+                             array('category' => get_term($tag_id, WPBDP_TAGS_TAX)
                                 ),
                              false);
 

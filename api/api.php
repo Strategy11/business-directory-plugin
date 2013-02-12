@@ -24,10 +24,6 @@ function wpbdp_categories_taxonomy() {
     return wpbdp()->get_post_type_category();
 }
 
-function wpbdp_tags_taxonomy() {
-    return wpbdp()->get_post_type_tags();
-}
-
 function wpbdp_get_page_id($name='main') {
     global $wpdb;
 
@@ -135,42 +131,10 @@ function wpbdp_get_formfield($id) {
     if (is_string($id))
         return wpbdp_formfields_api()->getFieldsByAssociation($id, true);
 
-    return wpbdp_formfields_api()->getField($id);
+    return wpbdp_formfields_api()->get_field($id);
 }
 
 /* Listings */
-function wpbdp_get_listing_field_value($listing, $field) {
-    $listing = !is_object($listing) ? get_post($listing) : $listing;
-    $field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
-    $value = null;
-
-    if ($listing && $field) {
-        switch ($field->association) {
-            case 'title':
-                $value = $listing->post_title;
-                break;
-            case 'excerpt':
-                $value = $listing->post_excerpt;
-                break;
-            case 'content':
-                $value = $listing->post_content;
-                break;
-            case 'category':
-                $value = get_the_terms($listing->ID, wpbdp()->get_post_type_category());
-                break;
-            case 'tags':
-                $value = get_the_terms($listing->ID, wpbdp()->get_post_type_tags());
-                break;
-            case 'meta':
-            default:
-                $value = get_post_meta($listing->ID, '_wpbdp[fields][' . $field->id . ']', true);
-                break;
-        }
-    }
-
-    return apply_filters('wpbdp_listing_field_value', $value, $listing, $field);
-}
-
 function wpbdp_get_listing_field_html_value($listing, $field) {
     $listing = !is_object($listing) ? get_post($listing) : $listing;
     $field = !is_object($field) ? wpbdp_get_formfield($field) : $field;

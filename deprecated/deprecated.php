@@ -229,8 +229,8 @@ function wpbusdirman_latest_listings($numlistings) {
 function wpbusdirman_post_catpage_title() {
     if ( get_query_var('taxonomy') == wpbdp_categories_taxonomy() ) {
         $term = get_term_by('slug', get_query_var('term'), wpbdp_categories_taxonomy());
-    } elseif ( get_query_var('taxonomy') == wpbdp_tags_taxonomy() ) {
-        $term = get_term_by('slug', get_query_var('term'), wpbdp_tags_taxonomy());
+    } elseif ( get_query_var('taxonomy') == WPBDP_TAGS_TAX ) {
+        $term = get_term_by('slug', get_query_var('term'), WPBDP_TAGS_TAX);
     }
 
     return esc_attr($term->name);
