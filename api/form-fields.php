@@ -1204,6 +1204,15 @@ function &wpbdp_get_form_fields( $args=array() ) {
 }
 
 /**
+ * @since 2.3
+ * @see WPBDP_FormFields::get_field()
+ */
+function wpbdp_get_form_field( $id ) {
+    global $wpbdp;
+    return $wpbdp->formfields->get_field( $id );
+}
+
+/**
  * Validates a value against a given validator.
  * @param mixed $value
  * @param string $validator one of the registered validators.
