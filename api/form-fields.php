@@ -874,12 +874,38 @@ class WPBDP_FormFields {
         $res = array();
 
         $args = wp_parse_args( $args, array(
-            'association' => null
+            'association' => null,
+            'validators' => null,
+            'display_flags' => null
         ) );
 
-        $sql = "SELECT ID FROM {$wpdb->prefix}wpbdp_form_fields";
+        extract( $args );
+
+        $validators = !is_array( $validators ) ? array( $validators ) : $validators;
+        $display_flags = !is_array( $display_flags ) ? array( $display_flags ) : $display_flags;
+
+        $where = '';
         if ( $args['association'] )
-            $sql .= $wpdb->prepare( " WHERE association = %s", $args['association'] );
+            $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
+
+        foreach ( $display_flags as $f ) {
+            if ( substr($f, 0, 1) == '-' )
+                $where .= $wpdb->prepare( " AND ( display_flags IS NULL OR display_flags NOT LIKE '%%%s%%' )", substr( $f, 1 ) );
+            else
+                $where .= $wpdb->prepare( " AND ( display_flags LIKE '%%%s%%' )", $f );
+        }
+
+        foreach ( $validators as $v ) {
+            if ( substr($v, 0, 1) == '-' )
+                $where .= $wpdb->prepare( " AND ( validators IS NULL OR validators NOT LIKE '%%%s%%' )", substr( $v, 1 ) );
+            else
+                $where .= $wpdb->prepare( " AND ( validators LIKE '%%%s%%' )", $v );
+        }
+
+        if ( $where )
+            $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE 1=1 {$where}";
+        else
+            $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields";
 
         $ids = $wpdb->get_col( $sql );
 
@@ -1168,6 +1194,24 @@ class WPBDP_FieldValidation {
     //     }
     // }
 
+/**
+ * @since 2.3
+ * @see WPBDP_FormFields::find_fields()
+ */
+function &wpbdp_get_form_fields( $args=array() ) {
+    global $wpbdp;
+    return $wpbdp->formfields->find_fields( $args );
+}
+
+/**
+ * Validates a value against a given validator.
+ * @param mixed $value
+ * @param string $validator one of the registered validators.
+ * @param array $args optional arguments to be passed to the validator.
+ * @return boolean True if value validates, False otherwise.
+ * @since 2.3
+ * @see WPBDP_FieldValidation::validate_value()
+ */
 function wpbdp_validate_value( $value, $validator, $args=array() ) {
     $validation = WPBDP_FieldValidation::instance();
     return $validation->validate_value( $value, $validator, $args );
