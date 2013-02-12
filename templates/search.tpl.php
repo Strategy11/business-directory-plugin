@@ -16,9 +16,7 @@ $api = wpbdp_formfields_api();
     <input type="hidden" name="dosrch" value="1" />
     <input type="hidden" name="q" value="" />
 
-    <?php foreach  ($fields as $field): ?>
-        <?php $api->render($field, isset($_REQUEST['listingfields']) ? $api->extract($_REQUEST['listingfields'], $field) : null, true, 'search'); ?>
-    <?php endforeach; ?>
+    <?php echo $fields; ?>
     <?php do_action('wpbdp_after_search_fields'); ?>
 
     <p><input type="submit" class="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" /></p>

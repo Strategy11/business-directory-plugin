@@ -993,31 +993,29 @@ class WPBDP_DirectoryController {
      * Search functionality
      */
     public function search() {
-        $fields_api = wpbdp_formfields_api();
-        $listings_api = wpbdp_listings_api();
-
         $results = array();
-        if (isset($_GET['dosrch'])) {
+
+        if ( isset( $_GET['dosrch'] ) ) {
             $search_args = array();
-            
             $search_args['q'] = wpbdp_getv($_GET, 'q', null);
             $search_args['fields'] = array(); // standard search fields
             $search_args['extra'] = array(); // search fields added by plugins
 
-            foreach (wpbdp_getv($_GET, 'listingfields', array()) as $field_id => $field_search)
-                $search_args['fields'][] = array('field_id' => $field_id, 'q' => $field_search);
+            foreach ( wpbdp_getv( $_GET, 'listingfields', array() ) as $field_id => $field_search )
+                $search_args['fields'][] = array( 'field_id' => $field_id, 'q' => $field_search );
 
-            foreach (wpbdp_getv($_GET, '_x', array()) as $label => $field)
-                $search_args['extra'][$label] = $field;
+            foreach ( wpbdp_getv( $_GET, '_x', array() ) as $label => $field )
+                $search_args['extra'][ $label ] = $field;
 
-            $results = $listings_api->search($search_args);
+            $listings_api = wpbdp_listings_api();
+            $results = $listings_api->search( $search_args );
         }
 
-        $fields = array();
-        foreach ($fields_api->getFields() as $field) {
-            if ( $field->validator != 'EmailValidator' && ($field->display_options['show_in_search']) ) {
-                $fields[] = $field;
-            }
+        $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );
+        $fields = '';
+        foreach ( $form_fields as &$field ) {
+            $field_value = isset( $_REQUEST['listingfields'] ) && isset( $_REQUEST['listingfields'][ $field->get_id() ] ) ? $field->convert_input( $_REQUEST['listingfields'][ $field->get_id() ] ) : null;
+            $fields .= $field->render( $field_value, 'search' );
         }
 
         query_posts( array(
@@ -1029,7 +1027,7 @@ class WPBDP_DirectoryController {
             'order' => wpbdp_get_option( 'listings-sort', 'ASC' )
         ) );
 
-        $html = wpbdp_render('search', array('fields' => $fields, 'searching' => isset($_GET['dosrch']) ? true : false), false);
+        $html = wpbdp_render( 'search', array( 'fields' => $fields, 'searching' => isset( $_GET['dosrch'] ) ? true : false ), false );
         wp_reset_query();
 
         return $html;

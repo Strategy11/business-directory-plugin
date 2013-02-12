@@ -706,12 +706,12 @@ class WPBDP_ListingsAPI {
         if (isset($args['fields'])) {
             foreach ($args['fields'] as $i => $meta_search) {
 
-                if ($field = wpbdp_get_formfield($meta_search['field_id'])) {
-                    $q = is_array($meta_search['q']) ? array_map('trim', $meta_search['q']) : trim($meta_search['q']);
+                if ( $field = wpbdp_get_formfield( $meta_search['field_id'] ) ) {
+                    $q = is_array( $meta_search['q'] ) ? array_map( 'trim', $meta_search['q'] ) : trim( $meta_search['q'] );
 
                     if (!$q) continue;
 
-                    switch ($field->association) {
+                    switch ( $field->get_association() ) {
                         case 'title':
                             $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE '%%%s%%'", $q);
                             break;
