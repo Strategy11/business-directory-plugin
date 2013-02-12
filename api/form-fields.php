@@ -868,7 +868,6 @@ class WPBDP_FormFields {
         return $res;
     }
 
-    // TODO: support querying by validator too
     public function &find_fields( $args=array(), $one=false ) {
         global $wpdb;
         $res = array();
@@ -876,8 +875,12 @@ class WPBDP_FormFields {
         $args = wp_parse_args( $args, array(
             'association' => null,
             'validators' => null,
-            'display_flags' => null
+            'display_flags' => null,
+            'unique' => false
         ) );
+
+        if ( $one == true )
+            $args['unique'] = true;
 
         extract( $args );
 
@@ -913,7 +916,7 @@ class WPBDP_FormFields {
             $res[] = WPBDP_FormField::get( $id );
         }
 
-        $res = $one ? ( $res ? $res[0] : null ) : $res;
+        $res = $unique ? ( $res ? $res[0] : null ) : $res;
         
         return $res;
     }
