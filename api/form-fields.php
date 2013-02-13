@@ -139,7 +139,10 @@ class WPBDP_FormFieldType {
 
         switch ( $render_context ) {
             case 'search':
-                $html .= sprintf( '<div class="search-filter %s">', $field->get_field_type()->get_id() );
+                $html .= sprintf( '<div class="search-filter %s %s" %s>',
+                                  $field->get_field_type()->get_id(),
+                                  implode(' ', $field->css_classes ),
+                                  $this->html_attributes( $field->html_attributes ) );
                 $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_attr( $field->get_label() ) );
                 $html .= '<div class="field inner">';
                 $html .= $this->render_field_inner( $field, $value, $render_context );
@@ -151,10 +154,13 @@ class WPBDP_FormFieldType {
             case 'submit':
             case 'edit':
             default:
-                $html .= sprintf( '<div class="wpbdp-form-field %s %s %s">',
+                $html .= sprintf( '<div class="wpbdp-form-field %s %s %s %s" %s>',
                                   $field->get_field_type()->get_id(),
                                   $field->get_description() ? 'with-description' : '',
-                                  implode( ' ', $field->get_validators() ) );
+                                  implode( ' ', $field->get_validators() ),
+                                  implode( ' ', $field->css_classes),
+                                  $this->html_attributes( $field->html_attributes )
+                                   );
                 $html .= '<div class="wpbdp-form-field-label">';
                 $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), esc_attr( $field->get_label() ) );
 
@@ -272,6 +278,18 @@ class WPBDP_FormFieldType {
         return $html;
     }
 
+    public static function html_attributes( $attrs ) {
+        $html = '';
+
+        foreach ( $attrs as $k => $v ) {
+            if ( $k == 'class' ) continue; // use ->css_classes for this
+
+            $html .= sprintf( '%s=%s ', $k, $v );
+        }
+
+        return $html;
+    }
+
 }
 
 /**
@@ -294,6 +312,9 @@ class WPBDP_FormField {
     
     private $display_flags = array();
     private $field_data = array();
+
+    public $css_classes = array();
+    public $html_attributes = array();
 
 
     public function __construct( $attrs=array() ) {
@@ -374,6 +395,7 @@ class WPBDP_FormField {
         }
 
         $this->type->setup_field( $this );
+        do_action_ref_array( 'wpbdp_form_field_setup', array( &$this ) );
     }
 
     public function get_id() {
@@ -426,13 +448,33 @@ class WPBDP_FormField {
         return in_array( $context, $this->display_flags, true);
     }
 
-    public function add_display_flag( $flag ) {
-        if ( !$this->has_display_flag( $flag ) )
-            $this->display_flags[] = $flag;
+    public function add_display_flag( $flagorflags ) {
+        $flagorflags = is_array( $flagorflags ) ? $flagorflags : array( $flagorflags );
+
+        foreach ( $flagorflags as $flag ) {
+            if ( !$this->has_display_flag( $flag ) ) {
+                $this->display_flags[] = $flag;    
+            }
+        }
+    }
+
+    public function remove_display_flag( $flagorflags ) {
+        $flagorflags = is_array( $flagorflags ) ? $flagorflags : array( $flagorflags );
+        
+        foreach ( $flagorflags as $flag )
+            wpbdp_array_remove_value( $this->display_flags, $flag );
     }
 
     public function has_display_flag( $flag ) {
         return in_array( $flag, $this->display_flags, true );
+    }
+
+    public function set_display_flags( $flags ) {
+        $this->display_flags = $flags;
+    }
+
+    public function get_display_flags() {
+        return $this->display_flags;
     }
 
     /**
@@ -444,7 +486,8 @@ class WPBDP_FormField {
         if ( !$key )
             return $this->field_data;
 
-        return isset( $this->field_data[$key] ) ? $this->field_data[$key] : null;
+        $res = isset( $this->field_data[$key] ) ? $this->field_data[$key] : null;
+        return apply_filters( 'wpbdp_form_field_data', $res, $this );
     }
 
     /**
@@ -559,6 +602,7 @@ class WPBDP_FormField {
      * @return string
      */
     public function render( $value=null, $display_context='submit' ) {
+        do_action_ref_array( 'wpbdp_form_field_pre_render', array( &$this, $value, $display_context ) );
         return $this->type->render_field( $this, $value, $display_context );
     }
 
@@ -576,10 +620,12 @@ class WPBDP_FormField {
         if ( !$this->label || trim( $this->label ) == '' )
             return new WP_Error( 'wpbdp-save-error', _x('Field label is required.', 'form-fields-api', 'WPBDM') );
 
-        $res = $this->type->process_field_settings( $this );
+        if ( isset( $_POST['field'] ) ) {
+            $res = $this->type->process_field_settings( $this );
 
-        if ( is_wp_error( $res ) )
-            return $res;
+            if ( is_wp_error( $res ) )
+                return $res;
+        }
 
         $data = array();
         $data['label'] = $this->label;
