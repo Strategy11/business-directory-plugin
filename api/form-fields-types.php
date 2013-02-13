@@ -42,39 +42,100 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
         return $html;
     }
 
-    // public function render_textfield(&$field, $value=null, $display_context=null) {
-    //     if ( is_array( $value ) && ( in_array( $field->type, array('social-twitter', 'social-linkedin', 'social-facebook') ) || $field->validator != 'URLValidator' ) )
-    //         $value = $value[0];
-
-    //     if ($display_context != 'search' && !in_array( $field->type, array('social-twitter', 'social-linkedin', 'social-facebook') ) &&  $field->validator == 'URLValidator') {
-    //         $value_url = is_array($value) ? $value[0] : $value;
-    //         $value_title = is_array($value) ? $value[1] : '';
-
-    //         $html .= sprintf('<span class="sublabel">%s</span>', _x('URL:', 'form-fields api', 'WPBDM'));
-    //         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
-    //                         'wpbdp-field-' . $field->id,
-    //                         'listingfields[' . $field->id . '][0]',
-    //                         $field->is_required ? 'inselect required' : 'inselect',
-    //                         esc_attr($value_url) );
-
-    //         $html .= sprintf('<span class="sublabel">%s</span>', _x('Link Text (optional):', 'form-fields api', 'WPBDM'));
-    //         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox" value="%s" placeholder="" />',
-    //                         'wpbdp-field-' . $field->id . '-title',
-    //                         'listingfields[' . $field->id . '][1]',
-    //                         esc_attr($value_title) );
-    //     } else {
-    //         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
-    //                         'wpbdp-field-' . $field->id,
-    //                         'listingfields[' . $field->id . ']',
-    //                         $field->is_required ? 'inselect required' : 'inselect',
-    //                         esc_attr($value) );
-    //     }
-
-    //     return $html;
-    // }
-
     public function get_supported_associations() {
         return array( 'title', 'excerpt', 'tags', 'meta' );
+    }
+
+}
+
+class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
+    
+    public function __construct() {
+        parent::__construct( _x( 'URL Field', 'form-fields api', 'WPBDM' ) );        
+    }
+
+    public function get_id() {
+        return 'url';
+    }
+
+    public function get_supported_associations() {
+        return array( 'meta' );
+    }
+
+    public function render_field_settings( &$field=null, $association=null ) {
+        if ( $association != 'meta' )
+            return '';
+
+        $label = _x( 'Open link in a new window?', 'form-fields admin', 'WPBDM' );
+        $content = '<input type="checkbox" value="1" name="field[x_open_in_new_window]" ' . ( $field && $field->data( 'open_in_new_window' ) ? ' checked="checked"' : '' ) . ' />';
+        
+        return self::render_admin_settings( array( array( $label, $content ) ) );
+    }
+
+    public function process_field_settings( &$field ) {
+        if ( !array_key_exists( 'x_open_in_new_window', $_POST['field'] ) )
+            return;
+
+        $open_in_new_window = (bool) intval( $_POST['field']['x_open_in_new_window'] );
+        $field->set_data( 'open_in_new_window', $open_in_new_window );
+    }
+
+    public function setup_field( &$field ) {
+        $field->add_validator( 'url' );
+    }
+
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
+
+        if ( !is_array( $value ) )
+            return array( $value, $value );
+
+        return $value;
+    }
+
+    public function get_field_html_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        return sprintf( '<a href="%s" rel="no follow" target="%s" title="%s">%s</a>',
+                        esc_url( $value[0] ),
+                        $field->data( 'open_in_new_window' ) == true ? '_blank' : '_self',
+                        esc_attr( $value[1] ),
+                        esc_attr( $value[1] ) );
+    }
+
+    public function get_field_plain_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+        return $value[0];
+    }
+
+    public function convert_input( &$field, $input ) {
+        if ( !is_array( $input ) )
+            return array( $input, $input );
+
+        return $input;
+    } 
+
+    public function render_field_inner( &$field, $value, $context ) {
+        if ( $context == 'search' ) {
+            global $wpbdp;
+            return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value[0], $context );
+        }
+
+        $html  = '';
+        $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'URL:', 'form-fields api', 'WPBDM' ) );
+        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
+                          'wpbdp-field-' . $field->get_id(),
+                          'listingfields[' . $field->get_id() . '][0]',
+                          $field->is_required ? 'inselect required' : 'inselect',
+                          esc_attr( $value[0] ) );
+
+        $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'Link Text (optional):', 'form-fields api', 'WPBDM' ) );
+        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox" value="%s" placeholder="" />',
+                          'wpbdp-field-' . $field->get_id() . '-title',
+                          'listingfields[' . $field->get_id() . '][1]',
+                          esc_attr( $value[1] ) );
+
+        return $html;
     }
 
 }

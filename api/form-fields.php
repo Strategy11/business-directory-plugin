@@ -413,6 +413,11 @@ class WPBDP_FormField {
         return in_array( $validator, $this->validators, true );
     }
 
+    public function add_validator( $validator ) {
+        if ( !$this->has_validator( $validator ) )
+            $this->validators[] = $validator;
+    }
+
     public function is_required() {
         return in_array( 'required', $this->validators, true );
     }
@@ -754,6 +759,7 @@ class WPBDP_FormFields {
         // register core field types
         $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
         $this->register_field_type( 'WPBDP_FieldTypes_Select', 'select' );
+        $this->register_field_type( 'WPBDP_FieldTypes_URL', 'url' );        
         $this->register_field_type( 'WPBDP_FieldTypes_TextArea', 'textarea' );
         $this->register_field_type( 'WPBDP_FieldTypes_RadioButton', 'radio' );
         $this->register_field_type( 'WPBDP_FieldTypes_MultiSelect', 'multiselect' );
@@ -1058,6 +1064,8 @@ class WPBDP_FieldValidation {
 
     /* URL Validator */
     private function url( $value, $args=array() ) {
+        if ( is_array( $value ) ) $value = $value[0];
+
         if ( function_exists( 'filter_var' ) ) {
             if ( !filter_var( $value, FILTER_VALIDATE_URL ) ) {
                 return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) )  );
