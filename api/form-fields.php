@@ -358,6 +358,7 @@ class WPBDP_FormField {
             $this->field_data['options'] = $options;
         } else {
             // handle some special extra data from previous BD versions
+            // TODO: this is not needed anymore since the 3.2 upgrade routine
             if ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] )  ) {
                 $options = array();
 
@@ -942,7 +943,7 @@ class WPBDP_FormFields {
                                 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
             'content' => array( 'label' => __("Long Business Description","WPBDM"), 'type' => 'textarea', 'association' => 'content', 'weight' => 6,
                                 'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta0' => array( 'label' => __("Business Website Address","WPBDM"), 'type' => 'textfield', 'association' => 'meta', 'weight' => 5,
+            'meta0' => array( 'label' => __("Business Website Address","WPBDM"), 'type' => 'url', 'association' => 'meta', 'weight' => 5,
                               'validators' => array( 'url' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
             'meta1' => array( 'label' => __("Business Phone Number","WPBDM"), 'type' => 'textfield', 'association' => 'meta', 'weight' => 4,
                               'display_options' => array( 'excerpt', 'listing', 'search' ) ),
