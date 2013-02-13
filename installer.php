@@ -105,6 +105,7 @@
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
+                wpbdp_log( sprintf( 'Running upgrade routine for version %s', $v ) );
                 $_v = str_replace( '.', '_', $v );
                 call_user_func( array( $this, 'upgrade_to_' . $_v ) );
                 update_option('wpbdp-db-version', $v);
@@ -334,6 +335,7 @@
             $newfield['field_type'] = strtolower( $f->type );
             $newfield['display_flags'] = array();
             $newfield['field_data'] = array();
+            $newfield['validators'] = array();
 
             // display options
             $f_display_options = array_merge(array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true), $f->display_options ? (array) unserialize($f->display_options) : array());
@@ -359,8 +361,16 @@
             if ( $newfield['field_type'] == 'textfield' && in_array( 'url', $newfield['validators']) )
                 $newfield['field_type'] = 'url';
 
+            $newfield['display_flags'] = implode( ',', $newfield['display_flags'] );
+            $newfield['validators'] = implode( ',', $newfield['validators'] );
+            $newfield['field_data'] = serialize( $newfield['field_data'] );
+
             $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", $newfield, array( 'id' => $f->id ) );
         }
+
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN validator" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN display_options" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN is_required" );
     }
     
 
