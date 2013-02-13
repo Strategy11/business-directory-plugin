@@ -676,11 +676,11 @@ class WPBDP_ListingsAPI {
 
 
         if ( !$editing )
-            do_action( 'wpbdp_create_listing', $listing_id );
+            do_action( 'wpbdp_create_listing', $listing_id, $listingfields );
         else
-            do_action( 'wpbdp_edit_listing', $listing_id );
+            do_action( 'wpbdp_edit_listing', $listing_id, $listingfields );
 
-        do_action( 'wpbdp_save_listing', $listing_id );
+        do_action( 'wpbdp_save_listing', $listing_id, $listingfields );
 
         return $listing_id;
     }
