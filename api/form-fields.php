@@ -517,7 +517,7 @@ class WPBDP_FormField {
             return null;        
 
         $value = $this->type->get_field_value( $this, $post_id );
-        $value = apply_filters( 'wpbdp_formfield_value', $value, $post_id, $this );
+        $value = apply_filters( 'wpbdp_form_field_value', $value, $post_id, $this );
 
         return $value;
     }
@@ -528,7 +528,8 @@ class WPBDP_FormField {
      * @return string valid HTML.
      */
     public function html_value( $post_id ) {
-        return $this->type->get_field_html_value( $this, $post_id );
+        $value = $this->type->get_field_html_value( $this, $post_id );
+        return apply_filters( 'wpbdp_form_field_html_value', $value , $post_id, $this );
     }
 
     /**
@@ -537,7 +538,8 @@ class WPBDP_FormField {
      * @return string
      */
     public function plain_value( $post_id ) {
-        return $this->type->get_field_plain_value( $this, $post_id );
+        $value = $this->type->get_field_plain_value( $this, $post_id );
+        return apply_filters( 'wpbdp_form_field_plain_value', $value, $post_id, $this );
     }
 
     /**
