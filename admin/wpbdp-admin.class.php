@@ -25,13 +25,13 @@ class WPBDP_Admin {
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
 
-        add_filter(sprintf('manage_edit-%s_columns', WPBDP_Plugin::POST_TYPE),
+        add_filter(sprintf('manage_edit-%s_columns', WPBDP_POST_TYPE),
                    array($this, 'add_custom_columns'));
         add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
-        add_filter('manage_edit-' . WPBDP_Plugin::POST_TYPE_CATEGORY . '_columns', array($this, '_custom_taxonomy_columns'));
-        add_filter('manage_edit-' . WPBDP_Plugin::POST_TYPE_TAGS . '_columns', array($this, '_custom_taxonomy_columns'));
+        add_filter('manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array($this, '_custom_taxonomy_columns'));
+        add_filter('manage_edit-' . WPBDP_TAGS_TAX . '_columns', array($this, '_custom_taxonomy_columns'));
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
-        add_filter('views_edit-' . WPBDP_Plugin::POST_TYPE, array($this, 'add_custom_views'));
+        add_filter('views_edit-' . WPBDP_POST_TYPE, array($this, 'add_custom_views'));
         add_filter('request', array($this, 'apply_query_filters'));
 
         add_action('save_post', array($this, '_save_post'));
@@ -154,7 +154,7 @@ class WPBDP_Admin {
         add_meta_box('BusinessDirectory_listinginfo',
                      __('Listing Information', 'WPBDM'),
                      array($this, 'listing_metabox'),
-                     WPBDP_Plugin::POST_TYPE,
+                     WPBDP_POST_TYPE,
                      'side',
                      'core'
                     );
@@ -418,7 +418,7 @@ class WPBDP_Admin {
     function apply_query_filters($request) {
         global $current_screen;
 
-        if (is_admin() && isset($_REQUEST['wpbdmfilter']) && $current_screen->id == 'edit-' . WPBDP_Plugin::POST_TYPE) {
+        if (is_admin() && isset($_REQUEST['wpbdmfilter']) && $current_screen->id == 'edit-' . WPBDP_POST_TYPE) {
             switch ($_REQUEST['wpbdmfilter']) {
                 case 'pendingupgrade':
                     $request['meta_key'] = '_wpbdp[sticky]';
@@ -458,7 +458,7 @@ class WPBDP_Admin {
         
         if ($screen = get_current_screen()) {
             if ($screen->id == 'edit-' . wpbdp_post_type()) {
-                if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_Plugin::POST_TYPE) {
+                if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
                     $bulk_actions = array('sep0' => '--',
                                           'publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
                                           'sep1' => '--',
@@ -643,7 +643,7 @@ class WPBDP_Admin {
 
             $paid_query = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
-                                                               WPBDP_Plugin::POST_TYPE,
+                                                               WPBDP_POST_TYPE,
                                                                '_wpbdp[payment_status]',
                                                                'paid');
 
@@ -651,12 +651,12 @@ class WPBDP_Admin {
 
             $unpaid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",
-                                                               WPBDP_Plugin::POST_TYPE,
+                                                               WPBDP_POST_TYPE,
                                                                '_wpbdp[payment_status]',
                                                                'paid') );
             $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
-                                                               WPBDP_Plugin::POST_TYPE,
+                                                               WPBDP_POST_TYPE,
                                                                '_wpbdp[sticky]',
                                                                'pending') );
 

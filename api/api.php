@@ -9,19 +9,21 @@ function wpbdp() {
 }
 
 function wpbdp_get_version() {
-    return wpbdp()->get_version();
+    return WPBDP_VERSION;
 }
 
-function wpbdp_get_db_version() {
-    return wpbdp()->get_db_version();
-}
-
+/**
+ * @deprecated since 2.3
+ */
 function wpbdp_post_type() {
-    return wpbdp()->get_post_type();
+    return WPBDP_POST_TYPE;
 }
 
+/**
+ * @deprecated since 2.3
+ */
 function wpbdp_categories_taxonomy() {
-    return wpbdp()->get_post_type_category();
+    return WPBDP_CATEGORY_TAX;
 }
 
 function wpbdp_get_page_id($name='main') {
@@ -132,75 +134,6 @@ function wpbdp_get_formfield($id) {
         return wpbdp_formfields_api()->getFieldsByAssociation($id, true);
 
     return wpbdp_formfields_api()->get_field($id);
-}
-
-/* Listings */
-function wpbdp_get_listing_field_html_value($listing, $field) {
-    $listing = !is_object($listing) ? get_post($listing) : $listing;
-    $field = !is_object($field) ? wpbdp_get_formfield($field) : $field;
-    $value = null;
-
-    if ($listing && $field) {
-        switch ($field->association) {
-            case 'title':
-                $value = sprintf('<a href="%s">%s</a>', get_permalink($listing->ID), get_the_title($listing->ID));
-                break;
-            case 'excerpt':
-                $value = apply_filters('get_the_excerpt', wpautop($listing->post_excerpt, true));
-                break;
-            case 'content':
-                $value = apply_filters('the_content', $listing->post_content);
-                break;
-            case 'category':
-                $value = get_the_term_list($listing->ID, wpbdp()->get_post_type_category(), '', ', ', '' );
-                break;
-            case 'tags':
-                $value = get_the_term_list($listing->ID, wpbdp()->get_post_type_tags(), '', ', ', '' );
-                break;
-            case 'meta':
-            default:
-                $value = wpbdp_get_listing_field_value($listing, $field);
-
-                if ($value) {
-                    if (in_array($field->type, array('multiselect', 'checkbox'))) {
-                        $value = esc_attr(str_replace("\t", ', ', $value));
-                    } elseif ($field->type == 'textarea') {
-                        $value = wpautop(wp_kses($value, array()), true);
-                    } elseif ($field->type == 'social-twitter') {
-                        $value = _wpbdp_display_twitter_button($value, array('lang' => substr(get_bloginfo('language'), 0, 2)) );
-                    } elseif ($field->type == 'social-linkedin') {
-                        $value =_wpbdp_display_linkedin_button($value);
-                    } elseif ($field->type == 'social-facebook') {
-                        $value =_wpbdp_display_facebook_button($value);
-                    } else {
-                        if ($field->validator == 'URLValidator') {
-                            if (is_array($value)) {
-                                $value_url = $value[0];
-                                $value_text = !empty($value[1]) ? $value[1] : $value[0];
-                            } else {
-                                $value_url = $value;
-                                $value_text = $value;
-                            }
-
-                            if (!$value_url)
-                                return '';
-
-                            $value = sprintf('<a href="%s" rel="no follow" target="%s" title="%s">%s</a>',
-                                           esc_url($value_url),
-                                           isset($field->field_data['open_in_new_window']) && $field->field_data['open_in_new_window'] ? '_blank' : '_self',
-                                           esc_attr($value_text),
-                                           esc_attr($value_text));
-                        } else {
-                            $value = wp_kses($value, array());
-                        }
-                    }
-                }
-
-                break;
-        }
-    }
-
-    return apply_filters('wpbdp_listing_field_html_value', $value, $listing, $field);
 }
 
 /* Fees/Payment API */

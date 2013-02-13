@@ -52,7 +52,7 @@ function wpbusdirman_home_screen() {
 		$wpbusdirman_totallistings=0;
 		$wpbusdirman_totalcatsindir=0;
 	}
-	$html .= "<h3 style=\"padding:10px;\">" . __("Options Menu","WPBDM") . "</h3><p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_Plugin::VERSION . "</b> </p>";
+	$html .= "<h3 style=\"padding:10px;\">" . __("Options Menu","WPBDM") . "</h3><p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_VERSION . "</b> </p>";
 	
 	if( !wpbdp_get_option('googlecheckout') && !wpbdp_get_option('paypal') && wpbdp_get_option('payments-on') ) {
 							$html .= "<p style=\"padding:10px;background:#ff0000;color:#ffffff;font-weight:bold;\">";
@@ -64,11 +64,11 @@ function wpbusdirman_home_screen() {
 	$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdp_admin_formfields\">" . __("Setup/Manage Form Fields","WPBDM") . "</a></li>";
 	if(wpbdp_get_option('featured-on'))
 	{
-		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"" . admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=pendingupgrade', WPBDP_Plugin::POST_TYPE)) . "\">" . __("Featured Listings Pending Upgrade","WPBDM") . "</a></li>";
+		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"" . admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=pendingupgrade', WPBDP_POST_TYPE)) . "\">" . __("Featured Listings Pending Upgrade","WPBDM") . "</a></li>";
 	}
 	if(wpbdp_get_option('payments-on'))
 	{
-		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"" . admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=unpaid', WPBDP_Plugin::POST_TYPE)) . "\">" . __("Manage Paid Listings","WPBDM") . "</a></li>";
+		$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"" . admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=unpaid', WPBDP_POST_TYPE)) . "\">" . __("Manage Paid Listings","WPBDM") . "</a></li>";
 	}
 	$html .= "</ul><br /><div style=\"clear:both;\"></div><ul>";
 	$html .= "<li $listyle2>" . __("Listings in directory","WPBDM") . ": (<b>$wpbusdirman_totallistings</b>)</li>";
