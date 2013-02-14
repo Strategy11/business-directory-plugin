@@ -17,11 +17,13 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
     }
 
     public function convert_input( &$field, $input ) {
+        $input = strval( $input );
+
         if ( $field->get_association() == 'tags' ) {
             return explode( ',', $input );
         }
 
-        return parent::convert_input( $field, $input );
+        return $input;
     } 
 
     public function render_field_inner( &$field, $value, $context ) {
@@ -87,8 +89,14 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
     public function get_field_value( &$field, $post_id ) {
         $value = parent::get_field_value( $field, $post_id );
 
+        if ( $value === null )
+            return array( '', '' );
+
         if ( !is_array( $value ) )
             return array( $value, $value );
+
+        if ( !isset( $value[1] ) || empty( $value[1] ) )
+            $value[1] = $value[0];
 
         return $value;
     }
@@ -109,11 +117,25 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
     }
 
     public function convert_input( &$field, $input ) {
+        if ( $input === null )
+            return array( '', '' );
+
         if ( !is_array( $input ) )
             return array( $input, $input );
 
         return $input;
-    } 
+    }
+
+    public function is_empty_value( $value ) {
+        return empty( $value[0] );
+    }
+
+    public function store_field_value( &$field, $post_id, $value ) {
+        if ( $value[0] == '' )
+            $value = null;
+
+        parent::store_field_value( $field, $post_id, $value );
+    }
 
     public function render_field_inner( &$field, $value, $context ) {
         if ( $context == 'search' ) {
@@ -181,7 +203,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                         'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                         /*'show_option_none' => _x('Choose One', 'form-fields-api category-select', 'WPBDM'),*/
                         'orderby' => 'name',
-                        'selected' => $this->is_multiple() ? null : $value[0],
+                        'selected' => ( $this->is_multiple() ? null : ( $value ? $value[0] : null ) ),
                         'order' => 'ASC',
                         'hide_empty' => 0,
                         'hierarchical' => 1,
@@ -216,7 +238,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
             foreach ( $options as $option => $label ) {
                 $html .= sprintf( '<option value="%s" %s>%s</option>',
                                   esc_attr( $option ),
-                                  ( ( $this->is_multiple() && in_array( $option, $value, true ) ) || $option == $value )  ? 'selected="selected"' : '',
+                                  in_array( $option, $value ) ? 'selected="selected"' : '',
                                   esc_attr( $label ) );
             }
 
@@ -451,7 +473,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
                               $field->is_required() ? 'required' : '',
                              'listingfields[' . $field->get_id() . '][]',
                               $option_key,
-                              in_array( $option_key, is_array( $value ) ? $value : array( $value ), true ) ? 'checked="checked"' : '',
+                              in_array( $option_key, is_array( $value ) ? $value : array( $value ) ) ? 'checked="checked"' : '',
                               esc_attr( $label ) );
         }
 

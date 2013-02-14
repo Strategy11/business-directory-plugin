@@ -75,7 +75,7 @@ class WPBDP_FormFieldType {
                 $value = apply_filters( 'the_content', $post->post_content );
                 break;
             case 'category':
-                $value = get_the_term_list( $post_id, wpbdp_categories_taxonomy(), '', ', ', '' );
+                $value = get_the_term_list( $post_id, WPBDP_CATEGORY_TAX, '', ', ', '' );
                 break;
             case 'tags':
                 $value = get_the_term_list( $post_id, WPBDP_TAGS_TAX, '', ', ', '' );
@@ -113,7 +113,7 @@ class WPBDP_FormFieldType {
                 wp_update_post( array( 'ID' => $post_id, 'post_content' => $value ) );
                 break;
             case 'category':
-                wp_set_post_terms( $post_id, $value, wpbdp_categories_taxonomy(), false );
+                wp_set_post_terms( $post_id, $value, WPBDP_CATEGORY_TAX, false );
                 break;
             case 'tags':
                 wp_set_post_terms( $post_id, $value, WPBDP_TAGS_TAX, false );
@@ -355,14 +355,6 @@ class WPBDP_FormField {
         }
 
         /* display_options */
-        // TODO: move this to the upgrade routine
-        /*if ( !wpbdp_getv( $attrs['display_options'], 'hide_field', false ) ) {
-            // compatible with display_options from < 2.3 and > 2.1.3
-            foreach ( array( 'show_in_excerpt' => 'excerpt', 'show_in_listing' => 'listing', 'show_in_search' => 'search' ) as $oldkey => $newval ) {
-                if ( in_array( $newval , $attrs['display_options'], true ) || ( isset( $attrs['display_options'][$oldkey] ) && $attrs['display_options'][$oldkey] ) )
-                    $this->display_flags[] = $newval;
-            }
-        }*/
         $this->display_flags = $attrs['display_flags'];
         $this->field_data = $attrs['field_data'];
 
@@ -990,23 +982,23 @@ class WPBDP_FormFields {
 
     public function create_default_fields( $identifiers=array() ) {
         $default_fields = array(
-            'title' => array( 'label' => __('Business Name', 'WPBDM'), 'type' => 'textfield', 'association' => 'title', 'weight' => 9,
+            'title' => array( 'label' => __('Business Name', 'WPBDM'), 'field_type' => 'textfield', 'association' => 'title', 'weight' => 9,
                               'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'category' => array( 'label' => __('Business Genre', 'WPBDM'), 'type' => 'select', 'association' => 'category', 'weight' => 8,
+            'category' => array( 'label' => __('Business Genre', 'WPBDM'), 'field_type' => 'select', 'association' => 'category', 'weight' => 8,
                                  'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'excerpt' => array( 'label' => __('Short Business Description', 'WPBDM'), 'type' => 'textarea', 'association' => 'excerpt', 'weight' => 7,
+            'excerpt' => array( 'label' => __('Short Business Description', 'WPBDM'), 'field_type' => 'textarea', 'association' => 'excerpt', 'weight' => 7,
                                 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'content' => array( 'label' => __("Long Business Description","WPBDM"), 'type' => 'textarea', 'association' => 'content', 'weight' => 6,
+            'content' => array( 'label' => __("Long Business Description","WPBDM"), 'field_type' => 'textarea', 'association' => 'content', 'weight' => 6,
                                 'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta0' => array( 'label' => __("Business Website Address","WPBDM"), 'type' => 'url', 'association' => 'meta', 'weight' => 5,
+            'meta0' => array( 'label' => __("Business Website Address","WPBDM"), 'field_type' => 'url', 'association' => 'meta', 'weight' => 5,
                               'validators' => array( 'url' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta1' => array( 'label' => __("Business Phone Number","WPBDM"), 'type' => 'textfield', 'association' => 'meta', 'weight' => 4,
+            'meta1' => array( 'label' => __("Business Phone Number","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 4,
                               'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta2' => array( 'label' => __("Business Fax","WPBDM"), 'type' => 'textfield', 'association' => 'meta', 'weight' => 3,
+            'meta2' => array( 'label' => __("Business Fax","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 3,
                               'display_options' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta3' => array( 'label' => __("Business Contact Email","WPBDM"), 'type' => 'textfield', 'association' => 'meta', 'weight' => 2,
+            'meta3' => array( 'label' => __("Business Contact Email","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 2,
                              'validators' => array( 'email', 'required' ), 'display_options' => array( 'excerpt', 'listing' ) ),
-            'meta4' => array( 'label' => __("Business Tags","WPBDM"), 'type' => 'textfield', 'association' => 'tags', 'weight' => 1,
+            'meta4' => array( 'label' => __("Business Tags","WPBDM"), 'field_type' => 'textfield', 'association' => 'tags', 'weight' => 1,
                               'display_options' => array( 'excerpt', 'listing', 'search' ) )
         );      
 
@@ -1096,6 +1088,8 @@ class WPBDP_FieldValidation {
 
     public function validate_field( $field, $value, $validator, $args=array() ) {
         $args['field-label'] = is_object( $field ) && $field ? $field->get_label() : _x( 'Field', 'form-fields-api validation', 'WPBDM' );
+        $args['field'] = $field;
+
         return call_user_func( array( $this, $validator ) , $value, $args );
     }
 
@@ -1105,9 +1099,11 @@ class WPBDP_FieldValidation {
 
     /* Required validator */
     private function required( $value, $args=array() ) {
-        $args = wp_parse_args( $args, array( 'allow_whitespace' => false ) );
+        $args = wp_parse_args( $args, array( 'allow_whitespace' => false, 'field' => null ) );
 
-        if ( !$value || ( is_string( $value ) && !$args['allow_whitespace'] && !trim( $value ) ) )
+
+
+        if ( ( $args['field'] && $args['field']->is_empty_value( $value ) ) || !$value || ( is_string( $value ) && !$args['allow_whitespace'] && !trim( $value ) ) )
             return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
@@ -1144,7 +1140,7 @@ class WPBDP_FieldValidation {
     /* IntegerNumberValidator */
     private function integer_number( $value, $args=array() ) {
         if ( !ctype_digit( $value ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'WPBDM' ), esc_att ( $args['field-label'] ) ) );
+            return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'WPBDM' ), esc_attr ( $args['field-label'] ) ) );
     }
 
     /* DecimalNumberValidator */
