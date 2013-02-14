@@ -321,6 +321,8 @@ class WPBDP_Admin {
                     if ( isset( $listingfields[ $field->get_id() ] ) ) {
                         $value = $field->convert_input( $listingfields[ $field->get_id() ] );
                         $field->store_value( $post_id, $value );
+                    } else {
+                        $field->store_value( $post_id, $field->convert_input( null ) );
                     }
                 }
 

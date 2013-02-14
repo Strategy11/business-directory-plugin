@@ -613,9 +613,12 @@ class WPBDP_ListingsAPI {
         }
 
         // store field values
-        foreach ( $listingfields as $field_id => $value ) {
-            if ( $field = $api->get_field( $field_id ) ) {
-                $field->store_value( $listing_id, $value );
+        $formfields = wpbdp_get_form_fields();
+        foreach ( $formfields as $field ) {
+            if ( isset( $listingfields[ $field->get_id() ] ) ) {
+                $field->store_value( $listing_id, $listingfields[ $field->get_id() ] );
+            } else {
+                $field->store_value( $listing_id, $field->convert_input( null ) );
             }
         }
 
