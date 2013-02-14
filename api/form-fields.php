@@ -462,7 +462,7 @@ class WPBDP_FormField {
     }
 
     public function set_display_flags( $flags ) {
-        $this->display_flags = $flags;
+        $this->display_flags = is_array( $flags ) ? $flags : array();
     }
 
     public function get_display_flags() {
@@ -789,6 +789,8 @@ class WPBDP_FormFields {
         $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
         $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
         $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'WPBDM' ) );
+        
+        // $this->register_association( 'custom', _x('Custom', 'form-fields api', 'WPBDM'), array( 'private' ) );
 
         // register core field types
         $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
@@ -815,7 +817,9 @@ class WPBDP_FormFields {
 
         $this->associations[ $association ] = $name ? $name : $association;
         $this->association_flags[ $association ] = is_array( $flags ) ? $flags : array( strval( $flags ) );
-        $this->association_field_types[ $association ] = array();
+        
+        if ( !isset( $this->association_field_types[ $association ] ) )
+            $this->association_field_types[ $association ] = array();
     }
 
     /**
@@ -892,7 +896,7 @@ class WPBDP_FormFields {
         $this->field_types[ $alias ? $alias : $field_type_class ] = $field_type;
         
         foreach ( $field_type->get_supported_associations() as $association ) {
-            $this->association_field_types[ $association ] = array_merge( $this->association_field_types[ $association ], array( $alias ? $alias : $field_type_class ) );
+            $this->association_field_types[ $association ] = array_merge( isset( $this->association_field_types[ $association ] ) ? $this->association_field_types[ $association ] : array(), array( $alias ? $alias : $field_type_class ) );
         }
     }
 
