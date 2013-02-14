@@ -47,10 +47,10 @@ class WPBDP_FormFieldType {
                 $value = $post->post_content;
                 break;
             case 'category':
-                $value = get_the_terms( $post_id, wpbdp_categories_taxonomy() );
+                $value = wp_get_object_terms( $post_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
                 break;
             case 'tags':
-                $value = get_the_terms( $post_id, WPBDP_TAGS_TAX );
+                $value = wp_get_object_terms( $post_id, WPBDP_TAGS_TAX, array( 'fields' => 'ids' ) );
                 break;
             case 'meta':
             default:

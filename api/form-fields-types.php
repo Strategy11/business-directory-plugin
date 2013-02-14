@@ -166,7 +166,6 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
             $res = array_map( 'intval', $res );
-            $res = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX, array( 'include' => $res, 'hide_empty' => 0 ) );
         }
 
         return $res;
@@ -198,8 +197,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                                           $html );
 
                     if ($value) {
-                        foreach ( $value as $term ) {
-                            $catid = $term->term_id;
+                        foreach ( $value as $catid ) {
                             $html = preg_replace( "/\\<option(.*)value=('|\"){$catid}('|\")(.*)\\>/uiU",
                                                   "<option value=\"{$catid}\" selected=\"selected\" $1 $4>",
                                                   $html );
@@ -207,8 +205,6 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                     }
                 }
 
-            // $terms = get_terms( $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
-            // $html .= walk_category_dropdown_tree( $terms, 0, array( 'show_count' => 0, 'selected' => 0 ) );
         } else {
             $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
                               'wpbdp-field-' . $field->get_id(),
@@ -295,14 +291,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         $value = $field->value( $post_id );
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $term_names = array();
+            $term_names = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
+                                     array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) );
             
-            foreach ( $value as $term ) {
-                $term_names[] = esc_attr( $term->name );
-            }
-
             return join( ', ', $term_names );
-
         } elseif ( $field->get_association() == 'meta' ) {
             return esc_attr( implode( ', ', $value ) );
         }
@@ -401,7 +393,20 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
         $field->set_data( 'options', explode(',', $options ) );
-    }    
+    }
+
+    public function get_field_plain_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
+            $term = get_term( is_array( $value ) ? $value[0] : $value,
+                              $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX );
+            return esc_attr( $term->name );
+        }
+
+        return strval( $value );
+    }
+
 
 }
 
@@ -512,14 +517,10 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         $value = $field->value( $post_id );
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $term_names = array();
+            $term_names = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
+                                     array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) );
             
-            foreach ( $value as $term ) {
-                $term_names[] = esc_attr( $term->name );
-            }
-
             return join( ', ', $term_names );
-
         } elseif ( $field->get_association() == 'meta' ) {
             return esc_attr( implode( ', ', $value ) );
         }
