@@ -240,9 +240,10 @@ class WPBDP_FormFieldsAdmin {
     private function createRequiredFields() {
         global $wpbdp;
 
-        $wpbdp->formfields->create_default_fields( $wpbdp->formfields->get_missing_required_fields() );
-
-        $this->admin->messages[] = _x('Required fields created successfully.', 'form-fields admin', 'WPBDM');
+        if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
+            $wpbdp->formfields->create_default_fields( $missing );
+            $this->admin->messages[] = _x('Required fields created successfully.', 'form-fields admin', 'WPBDM');
+        }
 
         return $this->fieldsTable();
     }

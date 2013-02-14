@@ -609,8 +609,6 @@ class WPBDP_FormField {
 
         $api = wpbdp_formfields_api();
 
-        // validate this field
-
         if ( !$this->label || trim( $this->label ) == '' )
             return new WP_Error( 'wpbdp-save-error', _x('Field label is required.', 'form-fields-api', 'WPBDM') );
 
@@ -619,6 +617,22 @@ class WPBDP_FormField {
 
             if ( is_wp_error( $res ) )
                 return $res;
+        }
+
+        // enforce association constraints
+        global $wpbdp;
+        $flags = $wpbdp->formfields->get_association_flags( $this->association );
+        
+        if ( in_array( 'unique', $flags ) ) {
+            if ( $otherfields = wpbdp_get_form_fields( 'association=' . $this->association ) ) {
+                if ( ( count( $otherfields ) > 1 ) || ( $otherfields[0]->get_id() != $this->id ) ) {
+                    return new WP_Error( 'wpbdp-field-error', sprintf( _x( 'There can only be one field with association "%s". Please select another association.', 'form-fields-api', 'WPBDM' ), $this->association ) );
+                }
+            }
+        }
+
+      if ( !in_array( $this->type->get_id(), $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
+            return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
         }
 
         $data = array();
@@ -638,32 +652,6 @@ class WPBDP_FormField {
             $this->id = intval( $wpdb->insert_id );
         }
 
-        // TODO: verify everything is ok before saving
-        //     } else {
-        //         // no more than 1 field associated with title, content, excerpt, category or tags
-        //         $association = $field['association'];
-
-        //         if (in_array($association, array('title', 'content', 'category', 'excerpt', 'tags'))) {
-        //             if ($field_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE association = %s", $association))) {
-        //                 if (!isset($field['id']) || $field['id'] != $field_id) {
-        //                     $errors[] = sprintf(_x('There can only be one field with association "%s". Please select another association.', 'form-fields-api', 'WPBDM'), $this->getFieldAssociations($association));
-        //                 }
-        //             }
-        //         }
-        //     }
-
-        //     if (isset($field['validator']) && !empty($field['validator'])) {
-        //         if (!in_array($field['validator'], array_keys($this->getValidators())))
-        //             $errors[] = _x('Invalid validator selected.', 'form-fields-api', 'WPBDM');
-
-        //         if ($field['validator'] == 'EmailValidator') {
-        //             if ($email_field = $this->getFieldsByValidator('EmailValidator', true)) {
-        //                 if (!isset($field['id']) || $field['id'] != $email_field->id)
-        //                     $errors[] = _x('You already have a field using the email validation. At this time the system will allow only 1 valid email field. Change the validation for that field to something else then try again.', 'form-fields-api', 'WPBDM');
-        //             }
-        //         }
-        //     }
-
         $api->_calculate_short_names();
     }
 
@@ -675,9 +663,15 @@ class WPBDP_FormField {
         if ( !$this->id )
             return new WP_Error( 'wpbdp-delete-error', _x( 'Invalid field ID', 'form-fields-api', 'WPBDM' ) );
 
-        // TODO
-        // if ( in_array( $field->association, WPBDP_FormFields::get_required_field_associations(), true ) )
-        //     return new WP_Error( 'wpbdp-delete-error', _x( "This form field can't be deleted because it is required for the plugin to work.", 'form-fields api', 'WPBDM' ) );
+        global $wpbdp;
+        $flags = $wpbdp->formfields->get_association_flags( $this->association );
+
+        if ( in_array( 'required', $flags ) ) {
+            $otherfields = wpbdp_get_form_fields( array( 'association' => $this->association ) );
+
+            if ( !$otherfields || ( $otherfields[0]->get_id() == $this->id ) )
+               return new WP_Error( 'wpbdp-delete-error', _x( "This form field can't be deleted because it is required for the plugin to work.", 'form-fields api', 'WPBDM' ) ); 
+        }
 
         global $wpdb;
 
@@ -791,9 +785,9 @@ class WPBDP_FormFields {
         // register core associations
         $this->register_association( 'title', _x( 'Post Title', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
         $this->register_association( 'content', _x( 'Post Content', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
-        $this->register_association( 'excerpt', _x( 'Post Excerpt', 'form-fields api', 'WPBDM' ) );
+        $this->register_association( 'excerpt', _x( 'Post Excerpt', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
         $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
-        $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ) );
+        $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
         $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'WPBDM' ) );
 
         // register core field types
@@ -843,6 +837,13 @@ class WPBDP_FormFields {
             
 
         return $this->association_field_types;
+    }
+
+    public function get_association_flags( $association ) {
+        if ( array_key_exists( $association, $this->associations )  )
+            return $this->association_flags[ $association ];
+
+        return array();
     }
 
     /**
@@ -1033,7 +1034,7 @@ class WPBDP_FormFields {
             $name = str_replace( array( ' ', '/' ), '-', $name );
 
             if ( $name == 'images' || $name == 'image' || $name == 'username' || in_array( $name, $names, true ) ) {
-                $name = $field->id . '/' . $name;
+                $name = $field->get_id() . '/' . $name;
             }
             
             $names[ $field->get_id() ] = $name;
