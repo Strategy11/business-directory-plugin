@@ -168,8 +168,12 @@ function wpbusdirman_latest_listings($numlistings) {
 }
 
 function wpbusdirman_post_catpage_title() {
-    if ( get_query_var('taxonomy') == wpbdp_categories_taxonomy() ) {
-        $term = get_term_by('slug', get_query_var('term'), wpbdp_categories_taxonomy());
+    $categories = wpbdp_categories_taxonomy();
+
+    if ( get_query_var($categories) ) {
+        $term = get_term_by('slug', get_query_var($categories), $categories);
+    } else if ( get_query_var('taxonomy') == $categories ) {
+        $term = get_term_by('slug', get_query_var('term'), $categories);
     } elseif ( get_query_var('taxonomy') == WPBDP_TAGS_TAX ) {
         $term = get_term_by('slug', get_query_var('term'), WPBDP_TAGS_TAX);
     }
