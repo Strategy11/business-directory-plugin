@@ -422,7 +422,7 @@ class WPBDP_DirectoryController {
 
         $fields = array();
         foreach ( $formfields_api->get_fields() as $field ) {
-            $field_value = isset( $post_values[$field->get_id()] ) ? $field->convert_input( $post_values[$field->get_id()] ) : ( $this->_listing_data['listing_id'] ? $field->value( intval( $this->_listing_data['listing_id'] )  ) : null );
+            $field_value = isset( $post_values[$field->get_id()] ) ? $field->convert_input( $post_values[$field->get_id()] ) : ( $this->_listing_data['listing_id'] ? $field->value( intval( $this->_listing_data['listing_id'] )  ) : $field->convert_input( null ) );
 
             if ( $post_values ) {
                 $field_errors = null;

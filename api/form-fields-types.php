@@ -161,10 +161,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
     }
 
     public function convert_input( &$field, $input ) {
+        $input = is_null( $input ) ? array() : $input;
         $res = is_array( $input ) ? $input : array( $input );
 
-        if ( $field->get_association() == 'category' )
+        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
             $res = array_map( 'intval', $res );
+            $res = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX, array( 'include' => $res, 'hide_empty' => 0 ) );
+        }
 
         return $res;
     }
@@ -173,26 +176,56 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
         $html = '';
-        $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
-                          'wpbdp-field-' . $field->get_id(),
-                          'listingfields[' . $field->get_id() . ']' . ( $this->multiselect ? '[]' : '' ),
-                          $this->multiselect ? 'multiple="multiple"' : '',
-                          $this->multiselect ? 'inselectmultiple' : 'inselect',
-                          $field->is_required() ? 'required' : '');
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $terms = get_terms( $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
-            $html .= walk_category_dropdown_tree( $terms, 0, array( 'show_count' => 0, 'selected' => 0 ) );
+                $html .= wp_dropdown_categories( array(
+                        'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
+                        /*'show_option_none' => _x('Choose One', 'form-fields-api category-select', 'WPBDM'),*/
+                        'orderby' => 'name',
+                        'selected' => $this->is_multiple() ? null : $value[0],
+                        'order' => 'ASC',
+                        'hide_empty' => 0,
+                        'hierarchical' => 1,
+                        'echo' => 0,
+                        'id' => 'wpbdp-field-' . $field->get_id(),
+                        'name' => 'listingfields[' . $field->get_id() . ']',
+                        'class' => $field->is_required() ? 'inselect required' : 'inselect'
+                    ) );
+            
+                if ( $this->is_multiple() ) {
+                    $html = preg_replace( "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
+                                          "<select name=\"$3[]\" multiple=\"multiple\" $1 $5>",
+                                          $html );
+
+                    if ($value) {
+                        foreach ( $value as $term ) {
+                            $catid = $term->term_id;
+                            $html = preg_replace( "/\\<option(.*)value=('|\"){$catid}('|\")(.*)\\>/uiU",
+                                                  "<option value=\"{$catid}\" selected=\"selected\" $1 $4>",
+                                                  $html );
+                        }
+                    }
+                }
+
+            // $terms = get_terms( $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
+            // $html .= walk_category_dropdown_tree( $terms, 0, array( 'show_count' => 0, 'selected' => 0 ) );
         } else {
+            $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
+                              'wpbdp-field-' . $field->get_id(),
+                              'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
+                              $this->is_multiple() ? 'multiple="multiple"' : '',
+                              'inselect',
+                              $field->is_required() ? 'required' : '');
+
             foreach ( $options as $option => $label ) {
                 $html .= sprintf( '<option value="%s" %s>%s</option>',
                                   esc_attr( $option ),
                                   ( ( $this->is_multiple() && in_array( $option, $value, true ) ) || $option == $value )  ? 'selected="selected"' : '',
                                   esc_attr( $label ) );
             }
-        }
 
-        $html .= '</select>';              
+            $html .= '</select>';            
+        }
 
         return $html;
     }
@@ -232,7 +265,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
     public function store_field_value( &$field, $post_id, $value ) {
         if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
             $value =  implode( "\t", is_array( $value ) ? $value : array( $value ) );
-        }
+        } elseif ( !$this->is_multiple() && is_array( $value ) )
 
         parent::store_field_value( $field, $post_id, $value );        
     }
@@ -244,16 +277,38 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
             return explode( "\t", $value );
         }
 
+        $value = is_array( $value ) ? $value : array( $value );
         return $value;
     }
 
     public function get_field_html_value( &$field, $post_id ) {
-        if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
-            return esc_attr( implode( ', ', $field->value( $post_id ) ) );
+        if ( $field->get_association() == 'meta' ) {
+            $value = $field->value( $post_id );
+            
+            return esc_attr( implode( ', ', $value ) );
         }
 
         return parent::get_field_html_value( $field, $post_id );
-    }    
+    }
+
+    public function get_field_plain_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
+            $term_names = array();
+            
+            foreach ( $value as $term ) {
+                $term_names[] = esc_attr( $term->name );
+            }
+
+            return join( ', ', $term_names );
+
+        } elseif ( $field->get_association() == 'meta' ) {
+            return esc_attr( implode( ', ', $value ) );
+        }
+
+        return strval( $value );
+    }
 
 }
 
@@ -377,16 +432,6 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         return 'checkbox';
     }
 
-    public function get_field_value( &$field, $post_id ) {
-        $value = parent::get_field_value( $field, $post_id );
-
-        if ( is_string( $value ) ) {
-            return explode( "\t", $value );
-        }
-
-        return $value; 
-    }
-
     public function render_field_inner( &$field, $value, $context ) {
         $options = $field->data( 'options' ) ? $field->data( 'options') : array();
 
@@ -445,12 +490,41 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         parent::store_field_value( $field, $post_id, $value );        
     }
 
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
+
+        if ( is_string( $value ) ) {
+            return explode( "\t", $value );
+        }
+
+        return $value; 
+    }
+
     public function get_field_html_value( &$field, $post_id ) {
         if ( $field->get_association() == 'meta' ) {
             return esc_attr( implode( ', ', $field->value( $post_id ) ) );
         }
 
         return parent::get_field_html_value( $field, $post_id );
+    }
+
+    public function get_field_plain_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
+            $term_names = array();
+            
+            foreach ( $value as $term ) {
+                $term_names[] = esc_attr( $term->name );
+            }
+
+            return join( ', ', $term_names );
+
+        } elseif ( $field->get_association() == 'meta' ) {
+            return esc_attr( implode( ', ', $value ) );
+        }
+
+        return strval( $value );
     }
 
 }
