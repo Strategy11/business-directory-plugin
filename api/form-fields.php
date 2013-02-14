@@ -961,14 +961,15 @@ class WPBDP_FormFields {
         }
 
         if ( $where )
-            $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE 1=1 {$where}";
+            $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE 1=1 {$where} ORDER BY weight DESC";
         else
-            $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields";
+            $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC";
 
         $ids = $wpdb->get_col( $sql );
 
         foreach ( $ids as $id ) {
-            $res[] = WPBDP_FormField::get( $id );
+            if ( $field = WPBDP_FormField::get( $id ) )
+                $res[] = $field;
         }
 
         $res = $unique ? ( $res ? $res[0] : null ) : $res;
