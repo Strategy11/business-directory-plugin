@@ -758,19 +758,19 @@ class WPBDP_ListingsAPI {
 
                             break;
                         case 'meta':
-                            if (in_array($field->type, array('checkbox', 'multiselect', 'select'))) { // multivalued field
+                            if (in_array($field->get_field_type()->get_id(), array('checkbox', 'multiselect', 'select'))) { // multivalued field
                                 $options = array_diff(is_array($q) ? $q : array($q), array(''));
                                 
                                 $pattern = '(' . implode('|', $options) . '){1}([tab]{0,1})';
 
                                 $query .= " INNER JOIN {$wpdb->postmeta} AS mt{$i}mv ON ({$wpdb->posts}.ID = mt{$i}mv.post_id)";
                                 $where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value REGEXP %s)",
-                                                         "_wpbdp[fields][{$field->id}]",
+                                                         "_wpbdp[fields][" . $field->get_id() . "]",
                                                          $pattern);
                             } else { // single-valued field
                                 $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
                                 $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value LIKE '%%%s%%')",
-                                                         '_wpbdp[fields][' . $field->id . ']',
+                                                         '_wpbdp[fields][' . $field->get_id() . ']',
                                                          $q);
                             }
 

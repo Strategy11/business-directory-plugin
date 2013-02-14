@@ -26,7 +26,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
 
     public function render_field_inner( &$field, $value, $context ) {
         if ( is_array( $value ) )
-            $value = implode( ',', $input );
+            $value = implode( ',', $value );
 
         $html = '';
 
@@ -169,27 +169,16 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         return $res;
     }
 
-       // TODO: maybe this should be in get_value()
-    // public function render_select(&$field, $value=null, $display_context=null, $multiselect=false) {
-    //     if (!is_array($value))  
-    //         return $this->render_select($field, explode("\t", $value), $display_context, $multiselect);    
-
     public function render_field_inner( &$field, $value, $context ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
         $html = '';
-
         $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']' . ( $this->multiselect ? '[]' : '' ),
                           $this->multiselect ? 'multiple="multiple"' : '',
                           $this->multiselect ? 'inselectmultiple' : 'inselect',
                           $field->is_required() ? 'required' : '');
-
-        if ( $context == 'search' ) {
-            // add a "none" option when displaying this field in a search context
-            $html .= sprintf('<option value="%s">%s</option>', '', '');
-        }
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
             $terms = get_terms( $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
@@ -198,7 +187,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
             foreach ( $options as $option => $label ) {
                 $html .= sprintf( '<option value="%s" %s>%s</option>',
                                   esc_attr( $option ),
-                                  ( $this->is_multiple() && in_array( $option, $value, true ) || $option == $value ) ? 'selected="selected"' : '',
+                                  ( ( $this->is_multiple() && in_array( $option, $value, true ) ) || $option == $value )  ? 'selected="selected"' : '',
                                   esc_attr( $label ) );
             }
         }
@@ -246,6 +235,16 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         }
 
         parent::store_field_value( $field, $post_id, $value );        
+    }
+
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
+
+        if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
+            return explode( "\t", $value );
+        }
+
+        return $value;
     }
 
     public function get_field_html_value( &$field, $post_id ) {
