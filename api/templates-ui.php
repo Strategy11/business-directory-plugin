@@ -227,7 +227,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
  * @param array $validation_errors optional validation errors to be displayed along with the form.
  * @since 2.3
  */
-function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors ) {
+function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() ) {
     if ( !$listing_id ) $listing_id = get_the_ID();
 
     if ( !wpbdp_get_option( 'show-contact-form' ) )
