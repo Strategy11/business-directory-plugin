@@ -270,9 +270,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         $value = parent::get_field_value( $field, $post_id );
 
         if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
-            return explode( "\t", $value );
+            if ( !empty( $value ) )
+                return explode( "\t", $value );
         }
 
+        if ( !$value )
+            return array();
+        
         $value = is_array( $value ) ? $value : array( $value );
         return $value;
     }
