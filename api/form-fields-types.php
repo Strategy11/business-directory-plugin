@@ -249,7 +249,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
     }
 
     public function get_supported_associations() {
-        return array( 'category', 'tags', 'meta' );
+        return array( 'category', 'tags', 'meta', 'region' );
     }
 
     public function render_field_settings( &$field=null, $association=null ) {
