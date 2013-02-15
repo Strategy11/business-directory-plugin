@@ -423,6 +423,10 @@ class WPBDP_FormField {
         return $this->validators;
     }
 
+    public function get_weight() {
+        return $this->weight;
+    }
+
     public function has_validator( $validator ) {
         return in_array( $validator, $this->validators, true );
     }
