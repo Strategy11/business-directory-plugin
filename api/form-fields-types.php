@@ -26,6 +26,16 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
         return $input;
     } 
 
+    public function get_field_value( &$field, $value ) {
+        $value = parent::get_field_value( $field, $value );
+
+        if ( $field->get_association() == 'tags' ) {
+            return join( ',', get_terms( WPBDP_TAGS_TAX, array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) ) );
+        }
+
+        return $value;
+    }
+
     public function render_field_inner( &$field, $value, $context ) {
         if ( is_array( $value ) )
             $value = implode( ',', $value );
