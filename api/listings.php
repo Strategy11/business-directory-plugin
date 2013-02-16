@@ -309,13 +309,15 @@ class WPBDP_ListingsAPI {
             $url = _x( '(not yet published)', 'notify email', 'WPBDM' );
         }
 
+        $post = get_post( $listing_id );
+
         $message = wpbdp_render( 'email/listing-added', array(
             'id' => $listing_id,
             'title' => get_the_title( $listing_id ),
             'url' => $url,
             'categories' => $categories_str,
-            'user_name' => get_the_author_meta( 'user_login' ),
-            'user_email' => get_the_author_meta( 'user_email' )
+            'user_name' => get_the_author_meta( 'user_login', $post->post_author ),
+            'user_email' => get_the_author_meta( 'user_email', $post->post_author )
         ), false );
 
         $email = new WPBDP_Email();
