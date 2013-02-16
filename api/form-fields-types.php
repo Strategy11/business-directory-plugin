@@ -534,10 +534,10 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
 
     public function get_field_value( &$field, $post_id ) {
         $value = parent::get_field_value( $field, $post_id );
+        $value = empty( $value ) ? array() : $value;
 
-        if ( is_string( $value ) && !empty( $value ) ) {
+        if ( is_string( $value ) )
             return explode( "\t", $value );
-        }
 
         return $value; 
     }
