@@ -30,8 +30,8 @@
                 <?php elseif (function_exists('wp_paginate')): ?>
                         <?php wp_paginate(); ?>
                 <?php else: ?>
-                    <span class="next"><?php previous_posts_link(_x('&laquo; Previous ', 'templates', 'WPBDM')); ?></span>
-                    <span class="prev"><?php next_posts_link(_x('Next &raquo;', 'templates', 'WPBDM')); ?></span>
+                    <span class="prev"><?php previous_posts_link(_x('&laquo; Previous ', 'templates', 'WPBDM')); ?></span>
+                    <span class="next"><?php next_posts_link(_x('Next &raquo;', 'templates', 'WPBDM')); ?></span>
                 <?php endif; ?>
                 </div>
             </div>
