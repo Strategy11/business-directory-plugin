@@ -266,7 +266,7 @@ class WPBDP_DirectoryController {
 
                 // TODO: should use WPBDP_Email instead
                 if(wp_mail( $wpbdmsendtoemail, $subject, $body, $headers )) {
-                    $html .= "<p>" . _x("Your message has been sent", 'contact-message', "WPBDM") . "</p>";
+                    $html .= "<p>" . _x("Your message has been sent.", 'contact-message', "WPBDM") . "</p>";
                 } else {
                     $html .= "<p>" . _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM") . "</p>";
                 }
