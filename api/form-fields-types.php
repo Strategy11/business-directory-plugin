@@ -205,8 +205,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
 
     public function render_field_inner( &$field, $value, $context ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
+        $value = is_array( $value ) ? $value : array( $value );
 
-        $html = '';
+        $html = '';   
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
                 $html .= wp_dropdown_categories( array(
@@ -300,7 +301,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
     }
 
     public function get_field_value( &$field, $post_id ) {
-        $value = parent::get_field_value( $field, $post_id );
+        $value = parent::get_field_value( $field, $post_id );        
 
         if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
             if ( !empty( $value ) )
