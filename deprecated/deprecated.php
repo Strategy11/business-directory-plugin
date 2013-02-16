@@ -352,6 +352,9 @@ function wpbusdirman_get_the_business_email($post_id) {
 
     // try first with the listing fields
     foreach ( $api->get_fields() as $field ) {
+        if ( !$field->has_validator( 'email' ) )
+            continue;
+        
         $value = $field->plain_value( $post_id );
 
         if ( wpbdp_validate_value( $value, 'email' ) ) {
