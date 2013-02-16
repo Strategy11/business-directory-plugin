@@ -29,29 +29,10 @@ function wpbusdirman_home_screen() {
 	$html = '';
 
 	$html .= wpbdp_admin_header();
-	$wpbusdirman_myterms = get_terms(wpbdp_categories_taxonomy(), 'orderby=name&hide_empty=0');
-	if($wpbusdirman_myterms)
-	{
-		foreach($wpbusdirman_myterms as $wpbusdirman_myterm)
-		{
-			$wpbusdirman_postcatitems[]=$wpbusdirman_myterm->term_id;
-		}
-	}
-	if(!empty($wpbusdirman_postcatitems))
-	{
-		foreach($wpbusdirman_postcatitems as $wpbusdirman_postcatitem)
-		{
-			$wpbusdirman_tlincat=&get_term( $wpbusdirman_postcatitem, wpbdp_categories_taxonomy(), '', '' );
-			$wpbusdirman_totallistingsincat[]=$wpbusdirman_tlincat->count;
-		}
-		$wpbusdirman_totallistings=array_sum($wpbusdirman_totallistingsincat);
-		$wpbusdirman_totalcatsindir=count($wpbusdirman_postcatitems);
-	}
-	else
-	{
-		$wpbusdirman_totallistings=0;
-		$wpbusdirman_totalcatsindir=0;
-	}
+
+	$wpbusdirman_totallistings = wp_count_posts( WPBDP_POST_TYPE )->publish;
+	$wpbusdirman_totalcatsindir = wp_count_terms( WPBDP_CATEGORY_TAX );
+
 	$html .= "<h3 style=\"padding:10px;\">" . __("Options Menu","WPBDM") . "</h3><p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_VERSION . "</b> </p>";
 	
 	if( !wpbdp_get_option('googlecheckout') && !wpbdp_get_option('paypal') && wpbdp_get_option('payments-on') ) {
