@@ -71,6 +71,7 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
         case 'deletelisting':
         case 'delete-listing':
         case 'upgrade':
+        case 'upgradetostickylisting':
         case 'upgradelisting':
         case 'upgrade-listing':
             $link = add_query_arg( array( 'action' => $name, 'listing_id' => intval( $arg0 ) ), wpbdp_get_page_link( 'main' ) );
