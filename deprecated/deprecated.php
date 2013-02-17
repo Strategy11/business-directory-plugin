@@ -186,36 +186,7 @@ function wpbusdirman_list_categories() {
 }
 
 function wpbusdirman_post_list_categories() {
-    $wpbdm_hide_empty = wpbdp_get_option('hide-empty-categories');
-    $wpbdm_show_count= wpbdp_get_option('show-category-post-count');
-    $wpbdm_show_parent_categories_only= wpbdp_get_option('show-only-parent-categories');
-
-    $html  = '';
-    $html .= '<ul class="wpbdp-categories">';
-
-    $taxonomy     = wpbdp_categories_taxonomy();
-    $orderby      = wpbdp_get_option('categories-order-by');
-    $show_count   = $wpbdm_show_count;      // 1 for yes, 0 for no
-    $pad_counts   = 0;      // 1 for yes, 0 for no
-    $order= wpbdp_get_option('categories-sort');
-    $hide_empty=$wpbdm_hide_empty;
-
-    $html .= wp_list_categories(array(
-        'taxonomy' => $taxonomy,
-        'echo' => false,
-        'title_li' => '',
-        'orderby' => $orderby,
-        'order' => $order,
-        'show_count' => $show_count,
-        'pad_counts' => true,
-        'hide_empty' => $hide_empty,
-        'hierarchical' => 1,
-        'depth' => $wpbdm_show_parent_categories_only ? 1 : 0
-    ));
-
-    $html .= '</ul>';
-
-    return apply_filters('wpbdp_categories_list', $html);
+    return wpbdp_directory_categories();
 }
 
 function wpbusdirman_menu_buttons()

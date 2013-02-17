@@ -3,12 +3,116 @@
  * UI Functions to be called from templates.
  */
 
+/**
+ * Returns a list of directory categories using the configured directory settings.
+ * The list is actually produced by {@link wpbdp_list_categories()}.
+ * @return string HTML output.
+ * @uses wpbdp_list_categories().
+ */
 function wpbdp_directory_categories() {
-    return wpbusdirman_post_list_categories();
+    return wpbdp_list_categories( array(
+        'hide_empty' => wpbdp_get_option( 'hide-empty-categories' ),
+        'parent_only' => wpbdp_get_option( 'show-only-parent-categories' )
+    ) );
 }
 
+/**
+ * Identical to {@link wpbdp_directory_categories()}, except the output is printed instead of returned.
+ * @uses wpbdp_directory_categories().
+ */
 function wpbdp_the_directory_categories() {
     echo wpbdp_directory_categories();
+}
+
+/**
+ * @since 2.3
+ * @access private
+ */
+function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
+    $terms = get_terms( WPBDP_CATEGORY_TAX,
+                        array( 'orderby' => $args['orderby'],
+                               'order' => $args['order'],
+                               'hide_empty' => $args['hide_empty'],
+                               'pad_counts' => true,
+                               'parent' => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ) )
+                        );
+
+    $html = '';
+
+    if ( !$terms && $depth == 0 ) {
+        $html .= '<p>' . _x( 'No listing categories found.', 'templates', 'WPBDM' ) . '</p>';
+        return $html;
+    }
+
+    if ( $depth > 0 ) {
+        $html .= str_repeat( "\t", $depth );
+        $html .= '<ul class="children">';
+    }
+
+    foreach ( $terms as &$term ) {
+        $html .= '<li class="cat-item cat-item-' . $term->term_id . '">';
+        $html .= '<a href="' . esc_url( get_term_link( $term ) ) . '" ';
+        $html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" >';
+        $html .= esc_attr( $term->name );
+        $html .= '</a>';
+
+        if ( $args['show_count'] )
+            $html .= ' (' . intval( $term->count ) . ')';
+
+        if ( !$args['parent_only'] ) {
+            $args['parent'] = $term->term_id;
+            $html .= _wpbdp_list_categories_walk( $term->term_id, $depth + 1, $args );
+        }
+
+        $html .= '</li>';
+    }
+
+    if ( $depth > 0 )
+        $html .= '</ul>';
+
+    return $html;
+}
+
+ /**
+ * Produces a list of directory categories following some configuration settings that are overridable.
+ *
+ * The list of arguments is below:
+ *      'parent' (int|object) - Parent directory category or category ID.
+ *      'orderby' (string) default is taken from BD settings - What column to use for ordering the categories.
+ *      'order' (string) default is taken from BD settings - What direction to order categories.
+ *      'show_count' (boolean) default is taken from BD settings - Whether to show how many listings are in the category.
+ *      'hide_empty' (boolean) default is False - Whether to hide empty categories or not.
+ *      'parent_only' (boolean) default is False - Whether to show only direct childs of 'parent' or make a recursive list.
+ *      'echo' (boolean) default is False - If True, the list will be printed in addition to returned by this function.
+ *
+ * @param string|array $args array of arguments to be used while creating the list.
+ * @return string HTML output.
+ * @since 2.3
+ * @see wpbdp_directory_categories()
+ */
+function wpbdp_list_categories( $args=array() ) {
+    $args = wp_parse_args( $args, array(
+        'parent' => null,
+        'echo' => false,
+        'orderby' => wpbdp_get_option( 'categories-order-by' ),
+        'order' => wpbdp_get_option( 'categories-sort' ),
+        'show_count' => wpbdp_get_option('show-category-post-count'),
+        'hide_empty' => false,
+        'parent_only' => false,
+        'parent' => 0
+    ) );
+
+    $html  =  '';
+    $html .= '<ul class="wpbdp-categories">';
+    $html .= _wpbdp_list_categories_walk( 0, 0, $args );
+    $html .= '</ul>';
+
+    $html = apply_filters( 'wpbdp_categories_list', $html );
+
+    if ( $args['echo'] )
+        echo $html;
+
+    return $html;
 }
 
 function wpbdp_main_links() {
