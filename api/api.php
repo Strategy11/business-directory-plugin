@@ -269,7 +269,7 @@ function wpbdp_render($template, $vars=array(), $allow_override=true) {
             'before_content' => '')));
     $vars = apply_filters('wpbdp_template_vars', $vars, $template);
 
-    return wpbdp_render_page(wpbdp_locate_template($template, $allow_override), $vars, false);
+    return apply_filters( "wpbdp_render_{$template}", wpbdp_render_page(wpbdp_locate_template($template, $allow_override), $vars, false) );
 }
 
 function wpbdp_render_msg($msg, $type='status') {
