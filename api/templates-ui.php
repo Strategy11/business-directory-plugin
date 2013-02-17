@@ -28,6 +28,23 @@ function wpbdp_the_directory_categories() {
  * @since 2.3
  * @access private
  */
+function _wpbdp_padded_count( &$term ) {
+    $count = intval( $term->count );
+
+    if ( $children = get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) ) {
+        foreach ( $children as $c_id ) {
+            $c = get_term( $c_id, WPBDP_CATEGORY_TAX );
+            $count += intval( $c->count );
+        }
+    }
+
+    return $count;
+}
+
+/**
+ * @since 2.3
+ * @access private
+ */
 function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     $terms = get_terms( WPBDP_CATEGORY_TAX,
                         array( 'orderby' => $args['orderby'],
@@ -56,8 +73,11 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
         $html .= esc_attr( $term->name );
         $html .= '</a>';
 
-        if ( $args['show_count'] )
-            $html .= ' (' . intval( $term->count ) . ')';
+        if ( $args['show_count'] ) {
+            // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
+            // we need a workaround until the bug is fixed.
+            $html .= ' (' . _wpbdp_padded_count( $term ) . ')'; // TODO: counts are not correctly padded
+        }
 
         if ( !$args['parent_only'] ) {
             $args['parent'] = $term->term_id;
