@@ -53,8 +53,10 @@ class WPBDP_FormFieldType {
                 $value = wp_get_object_terms( $post_id, WPBDP_TAGS_TAX, array( 'fields' => 'ids' ) );
                 break;
             case 'meta':
-            default:
                 $value = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
+                break;
+            default:
+                $value = null;
                 break;
         }
 
@@ -119,7 +121,6 @@ class WPBDP_FormFieldType {
                 wp_set_post_terms( $post_id, $value, WPBDP_TAGS_TAX, false );
                 break;
             case 'meta':
-            default:
                 update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', $value );
                 break;
         }        
@@ -145,7 +146,11 @@ class WPBDP_FormFieldType {
                                   $this->html_attributes( $field->html_attributes ) );
                 $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_attr( $field->get_label() ) );
                 $html .= '<div class="field inner">';
-                $html .= $this->render_field_inner( $field, $value, $render_context );
+
+                $field_inner = $this->render_field_inner( $field, $value, $render_context );
+                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context ) );
+                
+                $html .= $field_inner;
                 $html .= '</div>';
                 $html .= '</div>';
 
@@ -169,7 +174,11 @@ class WPBDP_FormFieldType {
 
                 $html .= '</div>';
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
-                $html .= $this->render_field_inner( $field, $value, $render_context );
+
+                $field_inner = $this->render_field_inner( $field, $value, $render_context );
+                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context ) );                
+
+                $html .= $field_inner;
                 $html .= '</div>';
                 $html .= '</div>';
 
@@ -1110,7 +1119,10 @@ class WPBDP_FieldValidation {
     private function required( $value, $args=array() ) {
         $args = wp_parse_args( $args, array( 'allow_whitespace' => false, 'field' => null ) );
 
-
+        if ( $args['field'] && $args['field']->get_association() == 'category' ) {
+            if ( is_array( $value ) && count( $value ) == 1 && !$value[0] )
+                return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+        }
 
         if ( ( $args['field'] && $args['field']->is_empty_value( $value ) ) || !$value || ( is_string( $value ) && !$args['allow_whitespace'] && !trim( $value ) ) )
             return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
