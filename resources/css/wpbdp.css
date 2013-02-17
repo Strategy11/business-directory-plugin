@@ -285,6 +285,7 @@ form#wpbdmsearchform a.advanced-search-link {
     width: 50%;
     float: left;
     margin: 0;
+    padding: 0 8px 0 0;
 }
 
 /* submit listing page */
