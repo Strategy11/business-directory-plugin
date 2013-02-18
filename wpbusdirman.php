@@ -369,7 +369,8 @@ class WPBDP_Plugin {
 
     public function _init_modules() {
         do_action('wpbdp_modules_loaded');
-        do_action('wpbdp_register_settings', $this->settings);
+        // do_action( 'wpbdp_register_settings', $this->settings );
+        do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
         do_action('wpbdp_register_fields', $this->formfields);
 
         do_action('wpbdp_modules_init');
