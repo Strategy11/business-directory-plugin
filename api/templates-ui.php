@@ -38,7 +38,7 @@ function _wpbdp_padded_count( &$term ) {
         }
     }
 
-    return $count;
+    $term->count = $count;
 }
 
 /**
@@ -67,17 +67,24 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     }
 
     foreach ( $terms as &$term ) {
-        $html .= '<li class="cat-item cat-item-' . $term->term_id . '">';
-        $html .= '<a href="' . esc_url( get_term_link( $term ) ) . '" ';
-        $html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" >';
-        $html .= esc_attr( $term->name );
-        $html .= '</a>';
+        // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
+        // we need a workaround until the bug is fixed.        
+        _wpbdp_padded_count( $term );
+
+        $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . '">';
+
+        $item_html = '';
+        $item_html .= '<a href="' . esc_url( get_term_link( $term ) ) . '" ';
+        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label" >';
+        $item_html .= esc_attr( $term->name );
+        $item_html .= '</a>';
 
         if ( $args['show_count'] ) {
-            // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
-            // we need a workaround until the bug is fixed.
-            $html .= ' (' . _wpbdp_padded_count( $term ) . ')'; // TODO: counts are not correctly padded
+            $item_html .= ' (' . intval( $term->count ) . ')';
         }
+
+        $item_html = apply_filters( 'wpbdp_categories_list_item', $item_html, $term );
+        $html .= $item_html;
 
         if ( !$args['parent_only'] ) {
             $args['parent'] = $term->term_id;
@@ -123,7 +130,7 @@ function wpbdp_list_categories( $args=array() ) {
     ) );
 
     $html  =  '';
-    $html .= '<ul class="wpbdp-categories">';
+    $html .= '<ul class="wpbdp-categories ' . apply_filters( 'wpbdp_categories_list_css' )  . '">';
     $html .= _wpbdp_list_categories_walk( 0, 0, $args );
     $html .= '</ul>';
 
