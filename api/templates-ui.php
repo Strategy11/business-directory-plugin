@@ -10,10 +10,12 @@
  * @uses wpbdp_list_categories().
  */
 function wpbdp_directory_categories() {
-    return wpbdp_list_categories( array(
-        'hide_empty' => wpbdp_get_option( 'hide-empty-categories' ),
-        'parent_only' => wpbdp_get_option( 'show-only-parent-categories' )
-    ) );
+    $html = wpbdp_list_categories( array(
+                                        'hide_empty' => wpbdp_get_option( 'hide-empty-categories' ),
+                                        'parent_only' => wpbdp_get_option( 'show-only-parent-categories' )
+                                 ) );
+
+    return apply_filters( 'wpbdp_main_categories', $html );
 }
 
 /**
@@ -130,7 +132,7 @@ function wpbdp_list_categories( $args=array() ) {
     ) );
 
     $html  =  '';
-    $html .= '<ul class="wpbdp-categories ' . apply_filters( 'wpbdp_categories_list_css' )  . '">';
+    $html .= '<ul class="wpbdp-categories ' . apply_filters( 'wpbdp_categories_list_css', '' )  . '">';
     $html .= _wpbdp_list_categories_walk( 0, 0, $args );
     $html .= '</ul>';
 
