@@ -231,6 +231,8 @@ class WPBDP_ListingsAPI {
 
     public function __construct() {
         add_filter('post_type_link', array($this, '_post_link'), 10, 2);
+        add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
+
         add_filter('term_link', array($this, '_category_link'), 10, 3);
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
@@ -276,6 +278,21 @@ class WPBDP_ListingsAPI {
                 return add_query_arg( 'id', $post->ID, wpbdp_get_page_link( 'main' ) );
             }
         }
+
+        return $url;
+    }
+
+    public function _post_link_qtranslate( $url, $post ) {
+        if ( is_admin() || !function_exists( 'qtrans_convertURL' ) )
+            return $url;
+
+        global $q_config;
+
+        $lang = isset( $_GET['lang'] ) ? $_GET['lang'] : $q_config['language'];
+        $default_lang = $q_config['default_language'];
+
+        if ( $lang != $default_lang )
+            return add_query_arg( 'lang', $lang, $url );
 
         return $url;
     }
