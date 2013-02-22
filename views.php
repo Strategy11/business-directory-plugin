@@ -8,7 +8,7 @@ if (!class_exists('WPBDP_DirectoryController')) {
 class WPBDP_DirectoryController {
 
     public function __construct() {
-        add_action( 'wp', array( $this, '_handle_action') );
+        add_action( 'wp', array( $this, '_handle_action'), 10, 1 );
         $this->_extra_sections = array();
     }
 
