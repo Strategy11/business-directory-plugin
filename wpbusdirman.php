@@ -337,6 +337,7 @@ class WPBDP_Plugin {
         add_filter('single_template', array($this, '_single_template'));
 
         add_action( 'wp', array( $this, '_meta_setup' ) );
+        add_action( 'wp', array( $this, '_jetpack_compat' ), 11, 1 );
         add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
 
         add_action( 'wp_head', array( $this, '_rss_feed' ) );
@@ -636,6 +637,23 @@ class WPBDP_Plugin {
 
         remove_filter( 'wp_head', 'rel_canonical' );
         add_filter( 'wp_head', array( $this, '_meta_rel_canonical' ) );
+    }
+
+    /*
+     * Fix issues with Jetpack.
+     */
+    public function _jetpack_compat( &$wp ) {
+        static $incompatible_actions = array( 'submitlisting', 'editlisting' );
+
+        $action = $this->controller->get_current_action();
+
+        if ( !$action )
+            return;
+
+        if ( defined( 'JETPACK__VERSION' ) && in_array( $action, $incompatible_actions ) ) {
+            add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
+            remove_action( 'wp_head', 'jetpack_og_tags' );
+        }
     }
 
     public function _meta_title($title, $sep, $seplocation) {
