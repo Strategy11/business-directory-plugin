@@ -141,9 +141,12 @@ class WPBDP_DirectoryController {
             )
         ));
 
-        $html = wpbdp_render('category',
-                             array('category' => get_term($category_id, wpbdp_categories_taxonomy())),
-                             false);
+        $html = wpbdp_render( 'category',
+                             array(
+                                'category' => get_term( $category_id, WPBDP_CATEGORY_TAX ),
+                                'is_tag' => false
+                                ),
+                             false );
 
         wp_reset_query();
 
@@ -173,10 +176,12 @@ class WPBDP_DirectoryController {
             )
         ));
 
-        $html = wpbdp_render('category',
-                             array('category' => get_term($tag_id, WPBDP_TAGS_TAX)
+        $html = wpbdp_render( 'category',
+                             array(
+                                'category' => get_term( $tag_id, WPBDP_TAGS_TAX ),
+                                'is_tag' => true
                                 ),
-                             false);
+                             false );        
 
         wp_reset_query();
 

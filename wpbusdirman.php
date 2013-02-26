@@ -662,7 +662,7 @@ class WPBDP_Plugin {
         switch ($action) {
             case 'browsetag':
                 $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
-                return $term->name . ' ' . $sep . ' ';
+                return sprintf( _x( 'Listings tagged: %s', 'title', 'WPBDM' ), $term->name ) . ' ' . $sep . ' ';
 
                 break;
 
