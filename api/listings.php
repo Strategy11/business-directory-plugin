@@ -598,7 +598,7 @@ class WPBDP_ListingsAPI {
 
         $listing_id = wp_insert_post( array(
             'post_title' => 'Untitled Listing',
-            'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ),
+            'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
             'post_type' => wpbdp_post_type(),
             'ID' => $editing ? intval( $data['listing_id'] ) : null
         ) );
@@ -693,6 +693,10 @@ class WPBDP_ListingsAPI {
             'listing_id' => $listing_id
         ) );
         update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $cost > 0.0 ) ? 'not-paid' : 'paid' );
+
+        if ( !$cost || current_user_can( 'administrator' ) ) {
+            wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
+        }
 
         do_action( 'wpbdp_add_listing', $listing_id, $listingfields );
 
