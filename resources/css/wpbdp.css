@@ -144,6 +144,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing-single .stickytag {
     float: right;
+    margin-top: -20px;
 }
 
 .wpbdp-listing-single .listing-title {

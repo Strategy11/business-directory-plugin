@@ -1,4 +1,4 @@
-<div class="listing-actions">
+<div class="listing-actions cf">
 <?php if ($view == 'single'): ?>
     <?php if (wpbdp_user_can('edit', $listing_id)): ?>
     <form action="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" method="POST"><input type="submit" name="" value="<?php _ex('Edit', 'templates', 'WPBDM'); ?>" class="button edit-listing" /></form>
