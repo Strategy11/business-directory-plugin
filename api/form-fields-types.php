@@ -30,7 +30,8 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
         $value = parent::get_field_value( $field, $value );
 
         if ( $field->get_association() == 'tags' ) {
-            return join( ',', get_terms( WPBDP_TAGS_TAX, array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) ) );
+            $tags = join( ',', get_terms( WPBDP_TAGS_TAX, array( 'include' => $value ? $value : array(-1), 'hide_empty' => 0, 'fields' => 'names' ) ) );
+            return $tags;
         }
 
         return $value;
