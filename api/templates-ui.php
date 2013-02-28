@@ -65,7 +65,10 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
 
     if ( $depth > 0 ) {
         $html .= str_repeat( "\t", $depth );
-        $html .= '<ul class="children">';
+
+        if ( apply_filters( 'wpbdp_categories_list_anidate_children', true ) ) {
+            $html .= '<ul class="children">';
+        }
     }
 
     foreach ( $terms as &$term ) {
@@ -96,8 +99,11 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
         $html .= '</li>';
     }
 
-    if ( $depth > 0 )
-        $html .= '</ul>';
+    if ( $depth > 0 ) {
+        if ( apply_filters( 'wpbdp_categories_list_anidate_children', true ) ) {
+            $html .= '</ul>';
+        }
+    }
 
     return $html;
 }
