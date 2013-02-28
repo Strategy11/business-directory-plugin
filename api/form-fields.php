@@ -816,6 +816,7 @@ class WPBDP_FormFields {
         $this->register_field_type( 'WPBDP_FieldTypes_Twitter', 'social-twitter' );
         $this->register_field_type( 'WPBDP_FieldTypes_Facebook', 'social-facebook' );
         $this->register_field_type( 'WPBDP_FieldTypes_LinkedIn', 'social-linkedin' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Image', 'image' );
     }
 
     /**

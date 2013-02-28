@@ -15,3 +15,41 @@ jQuery(document).ready(function($){
     });
 
 });
+
+WPBDP.fileUpload = {
+
+    handleUpload: function(o) {
+        var $input = jQuery(o);
+        var $form = $input.parent('form');
+
+        $form.submit();
+    },
+
+    finishUpload: function(field_id, upload_id) {
+        var $iframe = jQuery('#wpbdp-upload-iframe-' + field_id);
+        // $iframe.contents().find('form').hide();
+
+        var $input = jQuery('input[name="listingfields[' + field_id + ']"]');
+        $input.val(upload_id);
+
+        var $preview = $input.siblings('.preview');
+        $preview.find('img').remove();
+        $preview.prepend($iframe.contents().find('.preview').html());
+        $iframe.contents().find('.preview').remove();
+
+        $preview.find('.delete').show();
+    },
+
+    deleteUpload: function(field_id) {
+        var $input = jQuery('input[name="listingfields[' + field_id + ']"]');
+        var $preview = $input.siblings('.preview');
+
+        $input.val('');
+        $preview.find('img').remove();
+
+        $preview.find('.delete').hide();
+        
+        return false;
+    }
+
+};

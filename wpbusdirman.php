@@ -366,6 +366,7 @@ class WPBDP_Plugin {
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
 
         add_action('init', array($this, '_init_modules'));
+        add_action('wp_ajax_wpbdp-ajax', array($this, '_handle_ajax'));
     }
 
     public function _init_modules() {
@@ -721,6 +722,46 @@ class WPBDP_Plugin {
         $link = $_SERVER['REQUEST_URI'];
         echo sprintf( '<link rel="canonical" href="%s" />', $link );
     }
+
+    public function get_ajax_url($action, $args=array()) {
+        $args = array_merge( array('action' => 'wpbdp-ajax', 'wpbdp_action' => $action), $args );
+        return add_query_arg( $args, admin_url( 'admin-ajax.php' ) );
+    }
+
+    public function _handle_ajax() {
+        $action = wpbdp_getv($_REQUEST, 'wpbdp_action', null);
+
+        switch ($action) {
+            case 'file-upload':
+                return $this->_handle_ajax_file_upload();
+                break;
+        }
+
+        exit;
+    }
+
+    private function _handle_ajax_file_upload() {
+        echo '<form action="" method="POST" enctype="multipart/form-data">';
+        echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
+        echo '</form>';
+
+        if ( isset($_FILES['file']) && $_FILES['file']['error'] == 0 ) {
+            // TODO: we support only images for now but we could use this for anything later
+            if ( $media_id = wpbdp_media_upload( $_FILES['file'], true, true, array(), $errors ) ) {
+                echo '<div class="preview" style="display: none;">';
+                echo wp_get_attachment_image( $media_id, 'thumb', false );
+                echo '</div>';
+
+                echo '<script type="text/javascript">';
+                echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d);', $_REQUEST['field_id'], $media_id );
+                echo '</script>';
+            } else {
+                print $errors;
+            }
+        }
+        
+        exit;
+    }    
 
 
 }

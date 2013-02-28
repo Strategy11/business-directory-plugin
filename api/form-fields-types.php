@@ -709,3 +709,61 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
     }
 
 }
+
+
+class WPBDP_FieldTypes_Image extends WPBDP_FormFieldType {
+
+    public function __construct() {
+        parent::__construct( _x( 'Image (file upload)', 'form-fields api', 'WPBDM' ) );
+    }
+
+    public function get_id() {
+        return 'image';
+    }
+
+    public function get_supported_associations() {
+        return array( 'meta' );
+    }
+
+    public function setup_field( &$field ) {
+        $field->remove_display_flag( 'search' ); // image fields are not searchable
+    }
+
+    public function render_field_inner( &$field, $value, $context ) {
+        if ( $context == 'search' )
+            return '';
+
+        $html = '';
+        $html .= sprintf( '<input type="hidden" name="listingfields[%d]" value="%s" />',
+                          $field->get_id(),
+                          $value
+                        );
+
+        $html .= '<div class="preview">';
+        if ($value)
+            $html .= wp_get_attachment_image( $value, 'thumb', false );
+
+        $html .= '<a href="#" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(' . $field->get_id() . ');">';
+        $html .= _x( 'Remove', 'form-fields-api', 'WPBDM' );
+        $html .= '</a>';
+        $html .= '</div>';
+
+        $html .= '<div class="wpbdp-upload-widget">';
+        $html .= sprintf( '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no"></iframe>',
+                          $field->get_id(),
+                          $field->get_id(),
+                          wpbdp()->get_ajax_url('file-upload', array('field_id' => $field->get_id(),
+                                                                     'element' => 'listingfields[' . $field->get_id() . ']'  ) )
+                        );
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public function get_field_html_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        return '<br />' . wp_get_attachment_image( $value, 'thumb', false );
+    }    
+
+}
