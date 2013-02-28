@@ -426,7 +426,10 @@ class WPBDP_DirectoryController {
         $validation_errors = array();
 
         $fields = array();
-        foreach ( $formfields_api->get_fields() as $field ) {
+        $ffields = wpbdp_get_form_fields();
+        $ffields = apply_filters( 'wpbdp_get_form_fields', $ffields, $this->_listing_data['listing_id'] ); // TODO: move this to wpbpd_get_form_fields() ?
+
+        foreach ( $ffields as &$field ) {
             $field_value = isset( $post_values[$field->get_id()] ) ? $field->convert_input( $post_values[$field->get_id()] ) : ( $this->_listing_data['listing_id'] ? $field->value( intval( $this->_listing_data['listing_id'] )  ) : $field->convert_input( null ) );
 
             if ( $post_values ) {
@@ -707,7 +710,7 @@ class WPBDP_DirectoryController {
         if ( !isset($this->_listing_data['extra_sections']) )
             $this->_listing_data['extra_sections'] = array();
 
-        
+        $theres_output = false;
         $continue_to_save = true;
         if ( !isset($_POST['do_extra_sections']) )
             $continue_to_save = false;
@@ -725,10 +728,13 @@ class WPBDP_DirectoryController {
 
             if ( !$process_result && $section->display ) {
                 $section->_output = call_user_func_array( $section->display, array(&$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id']) );
+
+                if ( !empty( $section->_output ) && !$theres_output )
+                    $theres_output = true;                
             }
         }
 
-        if ($continue_to_save) {
+        if ( $continue_to_save || !$theres_output ) {
             return $this->submit_listing_save();
         }
 
