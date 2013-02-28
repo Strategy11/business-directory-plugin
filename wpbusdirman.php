@@ -644,7 +644,7 @@ class WPBDP_Plugin {
      * Fix issues with Jetpack.
      */
     public function _jetpack_compat( &$wp ) {
-        static $incompatible_actions = array( 'submitlisting', 'editlisting' );
+        static $incompatible_actions = array( 'submitlisting', 'editlisting', 'upgradetostickylisting' );
 
         $action = $this->controller->get_current_action();
 
