@@ -346,7 +346,10 @@ function _wpbdp_render_single() {
     $listing_fields = '';
     $social_fields = '';
 
-    foreach ( $formfields_api->get_fields() as $field ) {
+    $ffields = wpbdp_get_form_fields();
+    $ffields = apply_filters_ref_array( 'wpbdp_get_form_fields', array( &$ffields, $post->ID ) ); // TODO: move this to wpbpd_get_form_fields() ?    
+
+    foreach ( $ffields as &$field ) {
         if ( !$field->display_in( 'listing' ) )
             continue;
 
@@ -440,7 +443,10 @@ function _wpbdp_render_excerpt() {
     $listing_fields = '';
     $social_fields = '';
 
-    foreach ( $formfields_api->get_fields() as $field) {
+    $ffields = wpbdp_get_form_fields();
+    $ffields = apply_filters_ref_array( 'wpbdp_get_form_fields', array( &$ffields, $post->ID ) ); // TODO: move this to wpbpd_get_form_fields() ?
+
+    foreach ( $ffields as &$field) {
         if ( !$field->display_in( 'excerpt' ) )
             continue;
 
@@ -617,4 +623,13 @@ function wpbdp_format_currency($amount, $decimals=2) {
         return '—';
     
     return wpbdp_get_option( 'currency-symbol' ) . ' ' . number_format( $amount, $decimals );
+}
+
+
+/**
+ * @since 2.3
+ */
+function wpbdp_has_module( $module ) {
+    global $wpbdp;
+    return $wpbdp->has_module( $module );
 }

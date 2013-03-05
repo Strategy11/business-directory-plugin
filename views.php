@@ -427,7 +427,7 @@ class WPBDP_DirectoryController {
 
         $fields = array();
         $ffields = wpbdp_get_form_fields();
-        $ffields = apply_filters( 'wpbdp_get_form_fields', $ffields, $this->_listing_data['listing_id'] ); // TODO: move this to wpbpd_get_form_fields() ?
+        $ffields = apply_filters_ref_array( 'wpbdp_get_form_fields', array( &$ffields, $this->_listing_data['listing_id'] ) ); // TODO: move this to wpbpd_get_form_fields() ?
 
         foreach ( $ffields as &$field ) {
             $field_value = isset( $post_values[$field->get_id()] ) ? $field->convert_input( $post_values[$field->get_id()] ) : ( $this->_listing_data['listing_id'] ? $field->value( intval( $this->_listing_data['listing_id'] )  ) : $field->convert_input( null ) );
@@ -435,7 +435,10 @@ class WPBDP_DirectoryController {
             if ( $post_values ) {
                 $field_errors = null;
 
-                if ( !$field->validate( $field_value, $field_errors) )
+                $validate_res = $field->validate( $field_value, $field_errors);
+                $validate_res = apply_filters_ref_array( 'wpbdp_form_field_validate', array( $validate_res, &$field_errors, &$field, $field_value, $this->_listing_data['listing_id'] ) );
+
+                if ( !$validate_res )
                     $validation_errors = array_merge( $validation_errors, $field_errors );
             }
 
