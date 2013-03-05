@@ -326,3 +326,7 @@ table.wpbdp-csv-import-headers tbody tr {
 table.wpbdp-csv-import-headers tbody tr.alt {
     background: inherit;
 }
+
+.wpbdp-form-field.image .preview {
+    float: none;
+}

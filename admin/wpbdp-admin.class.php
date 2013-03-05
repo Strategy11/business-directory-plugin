@@ -49,6 +49,7 @@ class WPBDP_Admin {
     }
 
     function admin_javascript() {
+        wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', plugins_url('/resources/admin.js', __FILE__), array('jquery', 'thickbox'));
     }
 
