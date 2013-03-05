@@ -846,7 +846,7 @@ class WPBDP_DirectoryController {
                 wp_update_post($post_update);
 
                 return wpbdp_render_msg(_x('The listing has been deleted.', 'templates', 'WPBDM'))
-                      . $this->manage_listings();
+                      . $this->main_page();
             }
         }
     }
