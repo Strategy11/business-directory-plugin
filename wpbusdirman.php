@@ -485,6 +485,9 @@ class WPBDP_Plugin {
             case 'regions':
                 return class_exists('WPBDP_RegionsPlugin');
                 break;
+            case 'attachments':
+                return class_exists( 'WPBDP_ListingAttachmentsModule' );
+                break;
         }
 
         return false;
