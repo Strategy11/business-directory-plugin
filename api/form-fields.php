@@ -335,7 +335,8 @@ class WPBDP_FormField {
             'association' => 'meta',
             'weight' => 0,
             'validators' => array(),
-            'display_flags' => array( 'excerpt', 'listing', 'search' ),
+            'display_flags' => array(),
+            /*'display_flags' => array( 'excerpt', 'listing', 'search' ),*/
             'field_data' => array()
         );
 
