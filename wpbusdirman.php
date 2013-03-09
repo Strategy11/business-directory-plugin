@@ -338,6 +338,7 @@ class WPBDP_Plugin {
 
         add_action( 'wp', array( $this, '_meta_setup' ) );
         add_action( 'wp', array( $this, '_jetpack_compat' ), 11, 1 );
+        add_action( 'wp_head', array( $this, '_handle_broken_plugin_filters' ), 99 );
         add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
 
         add_action( 'wp_head', array( $this, '_rss_feed' ) );
@@ -658,6 +659,59 @@ class WPBDP_Plugin {
             add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
             remove_action( 'wp_head', 'jetpack_og_tags' );
         }
+    }
+
+    public function _handle_broken_plugin_filters() {
+        $action = $this->controller->get_current_action();
+
+        if ( !$action )
+            return;
+
+        $bad_filters = array( 'get_the_excerpt' => array(), 'the_excerpt' => array(), 'the_content' => array() );
+
+        // AddThis Social Bookmarking Widget - http://www.addthis.com/
+        if ( defined( 'ADDTHIS_PLUGIN_VERSION' ) ) {
+            $bad_filters['get_the_excerpt'][] = array( 'addthis_display_social_widget_excerpt', 11);
+            $bad_filters['get_the_excerpt'][] = array( 'addthis_display_social_widget', 15 );
+            $bad_filters['the_content'][] = array( 'addthis_display_social_widget', 15 );
+        }
+
+        // Jamie Social Icons - http://wordpress.org/extend/plugins/jamie-social-icons/ 
+        if ( function_exists( 'jamiesocial' ) ) {
+            $bad_filters['the_content'][] = 'add_post_topbot_content';
+            $bad_filters['the_content'][] = 'add_post_bot_content';
+            $bad_filters['the_content'][] = 'add_page_topbot_content';
+            $bad_filters['the_content'][] = 'add_page_top_content';
+            $bad_filters['the_content'][] = 'add_page_bot_content';
+        }
+
+        // TF Social Share - http://www.searchtechword.com/2011/06/wordpress-plugin-add-twitter-facebook-google-plus-one-share
+        if ( function_exists( 'kc_twitter_facebook_excerpt' ) ) {
+            $bad_filters['the_excerpt'][] = 'kc_twitter_facebook_excerpt';
+            $bad_filters['the_content'][] = 'kc_twitter_facebook_contents';
+        }
+
+        // Shareaholic - https://shareaholic.com/publishers/
+        if ( defined( 'SHRSB_vNum' ) ) {
+            $bad_filters['the_content'][] = 'shrsb_position_menu';
+            $bad_filters['the_content'][] = 'shrsb_get_recommendations';
+            $bad_filters['the_content'][] = 'shrsb_get_cb';
+        }
+
+        // Quick AdSense - http://quicksense.net/
+        global $QData;
+        if ( isset( $QData ) ) {
+            $bad_filters['the_content'][] = 'process_content';
+        }        
+
+        foreach ( $bad_filters as $filter => &$callbacks ) {
+            foreach ( $callbacks as &$callback_info ) {
+                if ( has_filter( $filter, is_array( $callback_info ) ? $callback_info[0] : $callback_info ) ) {
+                    remove_filter( $filter, is_array( $callback_info ) ? $callback_info[0] : $callback_info, is_array( $callback_info ) ? $callback_info[1] : 10 );
+                }
+            }
+        }
+
     }
 
     public function _meta_title($title, $sep, $seplocation) {
