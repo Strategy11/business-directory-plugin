@@ -338,7 +338,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
             return esc_attr( implode( ', ', $value ) );
         }
 
-        return strval( $value );
+        return $value;
     }
 
 }
