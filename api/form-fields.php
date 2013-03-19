@@ -1003,23 +1003,23 @@ class WPBDP_FormFields {
     public function create_default_fields( $identifiers=array() ) {
         $default_fields = array(
             'title' => array( 'label' => __('Business Name', 'WPBDM'), 'field_type' => 'textfield', 'association' => 'title', 'weight' => 9,
-                              'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                              'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'category' => array( 'label' => __('Business Genre', 'WPBDM'), 'field_type' => 'select', 'association' => 'category', 'weight' => 8,
-                                 'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                                 'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'excerpt' => array( 'label' => __('Short Business Description', 'WPBDM'), 'field_type' => 'textarea', 'association' => 'excerpt', 'weight' => 7,
-                                'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                                'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'content' => array( 'label' => __("Long Business Description","WPBDM"), 'field_type' => 'textarea', 'association' => 'content', 'weight' => 6,
-                                'validators' => array( 'required' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                                'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'meta0' => array( 'label' => __("Business Website Address","WPBDM"), 'field_type' => 'url', 'association' => 'meta', 'weight' => 5,
-                              'validators' => array( 'url' ), 'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                              'validators' => array( 'url' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'meta1' => array( 'label' => __("Business Phone Number","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 4,
-                              'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'meta2' => array( 'label' => __("Business Fax","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 3,
-                              'display_options' => array( 'excerpt', 'listing', 'search' ) ),
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
             'meta3' => array( 'label' => __("Business Contact Email","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 2,
-                             'validators' => array( 'email', 'required' ), 'display_options' => array( 'excerpt', 'listing' ) ),
+                             'validators' => array( 'email', 'required' ), 'display_flags' => array( 'excerpt', 'listing' ) ),
             'meta4' => array( 'label' => __("Business Tags","WPBDM"), 'field_type' => 'textfield', 'association' => 'tags', 'weight' => 1,
-                              'display_options' => array( 'excerpt', 'listing', 'search' ) )
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ) )
         );      
 
         $fields_to_create = $identifiers ? array_intersect_key( $default_fields, array_flip ( $identifiers ) ) : $default_fields;
