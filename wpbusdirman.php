@@ -825,7 +825,3 @@ class WPBDP_Plugin {
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-
-// for testing only
-if ( file_exists( WPBDP_PATH . 'tests.php' ) )
-    require_once( WPBDP_PATH . 'tests.php' );
