@@ -197,6 +197,8 @@ class WPBDP_FormFieldType {
             global $wpdb;
             $wpdb->query( $wpdb->prepare( "DELETE * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[fields][' . $field->get_id() . ']' ) );
         }
+
+
     }
 
     /**
@@ -695,6 +697,9 @@ class WPBDP_FormField {
         } else {
             return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'WPBDM' ) );
         }
+
+        $api = wpbdp_formfields_api();
+        $api->_calculate_short_names();
 
         return true;
     }
