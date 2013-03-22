@@ -257,7 +257,9 @@ class WPBDP_SearchWidget extends WP_Widget {
         $instance_fields = wpbdp_getv( $instance, 'search_fields', array() );
 
         $api = wpbdp_formfields_api();
+
         echo sprintf('<select name="%s[]" multiple="multiple">', $this->get_field_name('search_fields'));
+
         foreach ( $api->get_fields() as $field ) {
             if ( $field->display_in( 'search' ) ) {
                 echo sprintf( '<option value="%s" %s>%s</option>',
