@@ -771,6 +771,9 @@ class WPBDP_ListingsAPI {
                             foreach ($terms as $term_name) {
                                 $term = null;
 
+                                if ( $term_name == -1 || $term_name == 0 )
+                                    continue;
+
                                 if ( is_numeric( $term_name ) )
                                     $term = get_term_by( 'id', $term_name, WPBDP_TAGS_TAX );
 
