@@ -79,18 +79,27 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
         if ( $association != 'meta' )
             return '';
 
-        $label = _x( 'Open link in a new window?', 'form-fields admin', 'WPBDM' );
-        $content = '<input type="checkbox" value="1" name="field[x_open_in_new_window]" ' . ( $field && $field->data( 'open_in_new_window' ) ? ' checked="checked"' : '' ) . ' />';
-        
-        return self::render_admin_settings( array( array( $label, $content ) ) );
+        $settings = array();
+
+        $settings['new-window'][] = _x( 'Open link in a new window?', 'form-fields admin', 'WPBDM' );
+        $settings['new-window'][] = '<input type="checkbox" value="1" name="field[x_open_in_new_window]" ' . ( $field && $field->data( 'open_in_new_window' ) ? ' checked="checked"' : '' ) . ' />';
+
+        $settings['nofollow'][] = _x( 'Use rel="nofollow" when displaying the link?', 'form-fields admin', 'WPBDM' );
+        $settings['nofollow'][] = '<input type="checkbox" value="1" name="field[x_use_nofollow]" ' . ( $field && $field->data( 'use_nofollow' ) ? ' checked="checked"' : '' ) . ' />';        
+
+        return self::render_admin_settings( $settings );
     }
 
     public function process_field_settings( &$field ) {
-        if ( !array_key_exists( 'x_open_in_new_window', $_POST['field'] ) )
-            return;
+        if ( array_key_exists( 'x_open_in_new_window', $_POST['field'] ) ) {
+            $open_in_new_window = (bool) intval( $_POST['field']['x_open_in_new_window'] );
+            $field->set_data( 'open_in_new_window', $open_in_new_window );
+        }
 
-        $open_in_new_window = (bool) intval( $_POST['field']['x_open_in_new_window'] );
-        $field->set_data( 'open_in_new_window', $open_in_new_window );
+        if ( array_key_exists( 'x_use_nofollow',  $_POST['field'] ) ) {
+            $use_nofollow = (bool) intval( $_POST['field']['x_use_nofollow'] );
+            $field->set_data( 'use_nofollow', $use_nofollow );
+        }
     }
 
     public function setup_field( &$field ) {
@@ -115,8 +124,9 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        return sprintf( '<a href="%s" rel="no follow" target="%s" title="%s">%s</a>',
+        return sprintf( '<a href="%s" rel="%s" target="%s" title="%s">%s</a>',
                         esc_url( $value[0] ),
+                        $field->data( 'use_nofollow' ) == true ? 'nofollow': '',
                         $field->data( 'open_in_new_window' ) == true ? '_blank' : '_self',
                         esc_attr( $value[1] ),
                         esc_attr( $value[1] ) );

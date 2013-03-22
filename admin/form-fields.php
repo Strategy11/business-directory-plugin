@@ -198,7 +198,7 @@ class WPBDP_FormFieldsAdmin {
                 $this->admin->messages[] = array( $errmsg, 'error' );
             }
         } else {
-            $field = isset( $_GET['id'] ) ? WPBDP_FormField::get( $_GET['id'] ) : new WPBDP_FormField();
+            $field = isset( $_GET['id'] ) ? WPBDP_FormField::get( $_GET['id'] ) : new WPBDP_FormField( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
         }
 
         wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
