@@ -495,7 +495,7 @@ class WPBDP_FormField {
             return $this->field_data;
 
         $res = isset( $this->field_data[$key] ) ? $this->field_data[$key] : null;
-        return apply_filters( 'wpbdp_form_field_data', $res, $this );
+        return apply_filters( 'wpbdp_form_field_data', $key, $res, $this );
     }
 
     /**
