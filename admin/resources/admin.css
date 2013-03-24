@@ -252,11 +252,11 @@ table.wp-list-table.formfields .tag.in-listing {
     width: 70%;
 }
 
-#wpbdp-listing-fields .wpbdp-form-field.textfield.URLValidator .wpbdp-form-field-html {
+#wpbdp-listing-fields .wpbdp-form-field.url .wpbdp-form-field-html {
     padding-left: 10px;
 }
 
-#wpbdp-listing-fields .wpbdp-form-field.textfield.URLValidator input[type="text"] {
+#wpbdp-listing-fields .wpbdp-form-field.url input[type="text"] {
     display: block;
 }
 
