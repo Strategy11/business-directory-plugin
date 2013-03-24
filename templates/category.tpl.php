@@ -4,6 +4,8 @@
         <?php wpbdp_the_search_form(); ?>
     </div>
 
+    <?php echo $__page__['before_content']; ?>
+
     <h2 class="category-name">
         <?php if ( $is_tag ): ?>
             <?php echo sprintf( _x( 'Listings tagged: %s', 'templates', 'WPBDM' ), $category->name ); ?>
