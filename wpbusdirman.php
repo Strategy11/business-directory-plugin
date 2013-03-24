@@ -339,7 +339,8 @@ class WPBDP_Plugin {
         add_action( 'wp', array( $this, '_meta_setup' ) );
         add_action( 'wp', array( $this, '_jetpack_compat' ), 11, 1 );
         add_action( 'wp_head', array( $this, '_handle_broken_plugin_filters' ), 99 );
-        add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
+
+        add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );        
 
         add_action( 'wp_head', array( $this, '_rss_feed' ) );
         add_action('wp_footer', array($this, '_credits_footer'));
@@ -628,16 +629,17 @@ class WPBDP_Plugin {
         if ( !$action )
             return;
 
-        if ( defined( 'WPSEO_VERSION' ) && $action == 'showlisting' ) {
-            $this->_do_wpseo = 1;
+        $this->_do_wpseo = defined( 'WPSEO_VERSION' ) ? true : false;
 
+        if ( $this->_do_wpseo ) {
             global $wpseo_front;
 
-            remove_action( 'wp_head', array( $wpseo_front, 'head' ), 1, 1 );
-            remove_filter( 'wp_title', array( $wpseo_front, 'title' ), 15, 3 );
+            remove_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
+            add_filter( 'wp_title', array( $this, '_meta_title' ), 16, 3 );
+
+            remove_filter( 'wp_title', array( &$wpseo_front, 'title' ), 15, 3 );
+            remove_action( 'wp_head', array( &$wpseo_front, 'head' ), 1, 1 );
             add_action( 'wp_head', array( $this, '_meta_keywords' ) );
-        } else {
-            $this->_do_wpseo = 0;
         }
 
         remove_filter( 'wp_head', 'rel_canonical' );
@@ -720,6 +722,18 @@ class WPBDP_Plugin {
         switch ($action) {
             case 'browsetag':
                 $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
+
+                if ( $this->_do_wpseo ) {
+                    global $wpseo_front;
+                    
+                    $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
+
+                    if ( !empty( $title ) )
+                        return wpseo_replace_vars( $title, (array) $term );
+
+                    return $wpseo_front->get_title_from_options( 'title-' . $term->taxonomy, $term );
+                }
+
                 return sprintf( _x( 'Listings tagged: %s', 'title', 'WPBDM' ), $term->name ) . ' ' . $sep . ' ';
 
                 break;
@@ -727,6 +741,17 @@ class WPBDP_Plugin {
             case 'browsecategory':
                 $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
                 if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());
+
+                if ( $this->_do_wpseo ) {
+                    global $wpseo_front;
+
+                    $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
+
+                    if ( !empty( $title ) )
+                        return wpseo_replace_vars( $title, (array) $term );
+
+                    return $wpseo_front->get_title_from_options( 'title-' . $term->taxonomy, $term );
+                }
 
                 return $term->name . ' ' . $sep . ' ';
 
@@ -737,7 +762,12 @@ class WPBDP_Plugin {
 
                 if ( $this->_do_wpseo ) {
                     global $wpseo_front;
-                    $post_title = $wpseo_front->get_content_title( get_post( $listing_id ) );
+
+                    $title = $wpseo_front->get_content_title( get_post( $listing_id ) );
+                    $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
+                    
+                    return $title;
+                    break;
                 } else {
                     $post_title = get_the_title($listing_id);
                 }
