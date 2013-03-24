@@ -88,6 +88,9 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
         case 'submit-listing':
             $link = add_query_arg( array( 'action' => 'submitlisting' ), wpbdp_get_page_link( 'main' ) );
             break;
+        case 'search':
+            $link = add_query_arg( array( 'action' => 'search' ), wpbdp_get_page_link( 'main' ) );
+            break;
         default:
             $link = wpbdp_get_page_link( 'main' );
             break;
