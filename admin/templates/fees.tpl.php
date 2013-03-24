@@ -48,12 +48,6 @@
 					<div style="float:left;width:22%;padding:10px;"><?php _ex("You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users.","WPBDM"); ?> <span style="display:block;padding:10px 0;font-size:22px;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/" style="color:green;"><?php _ex("$49.99", 'admin templates', "WPBDM"); ?></a></span></div>
 				<?php endif; ?>
 
-
-				<?php if (!wpbdp_payments_api()->has_gateway('2checkout') && !wpbdp_payments_api()->has_gateway('paypal')): ?>
-					<?php echo '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save $20","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/><b>' . __('(Single Site License Combo Pack)', 'WPBDM') .'</b><span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/" style="color:green;">' . __("$79.99","WPBDM") . '</a></span></div>'; ?>
-					<?php echo '<div style="float:left;width:22%;padding:10px;"><span style="color:red;font-weight:bold;text-transform:uppercase;">' . __("Save","WPBDM") . '</span>' . __(" on your purchase of both the Paypal and the 2Checkout gateway modules","WPBDM") . '<br/><b>' . __('(Multi Site License Combo Pack)', 'WPBDM') .'</b><span style="display:block;padding:10px 0;font-size:22px;color:red;font-weight:bold;text-transform:uppercase;"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/" style="color:green;">' . __("$119.00","WPBDM") . '</a></span></div>'; ?>				
-				<?php endif; ?>
-
 				</div><div style="clear: both;"></div>
 			<?php endif; ?>
 
