@@ -90,14 +90,20 @@ class WPBDP_Admin {
                          'wpbdp_admin_formfields',
                          array('WPBDP_FormFieldsAdmin', 'admin_menu_cb'));
         add_submenu_page('wpbdp_admin',
-                         _x('Manage Featured', 'admin menu', 'WPBDM'),
-                         _x('Manage Featured', 'admin menu', 'WPBDM'),
+                         _x('All Listings', 'admin menu', 'WPBDM'),
+                         _x('All Listings', 'admin menu', 'WPBDM'),
+                         'activate_plugins',
+                         'wpbdp_all_listings',
+                         '__return_false');        
+        add_submenu_page('wpbdp_admin',
+                         _x('Featured Listings', 'admin menu', 'WPBDM'),
+                         _x('Featured Listings', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_manage_featured',
                          '__return_false');
         add_submenu_page('wpbdp_admin',
-                         _x('Manage Payments', 'admin menu', 'WPBDM'),
-                         _x('Manage Payments', 'admin menu', 'WPBDM'),
+                         _x('Paid Listings', 'admin menu', 'WPBDM'),
+                         _x('Paid Listings', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_manage_payments',
                          '__return_false');
@@ -112,12 +118,13 @@ class WPBDP_Admin {
         global $submenu;
         
         if (current_user_can('administrator')) {
-            $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', wpbdp_post_type()));
+            $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', WPBDP_POST_TYPE));
             $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-            $submenu['wpbdp_admin'][5][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'pendingupgrade'));
-            $submenu['wpbdp_admin'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', wpbdp()->get_post_type(), 'unpaid'));
+            $submenu['wpbdp_admin'][5][2] = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+            $submenu['wpbdp_admin'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', WPBDP_POST_TYPE, 'pendingupgrade'));
+            $submenu['wpbdp_admin'][7][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', WPBDP_POST_TYPE, 'unpaid'));
         } elseif (current_user_can('contributor')) {
-            $m = $submenu['edit.php?post_type=' . wpbdp_post_type()];
+            $m = $submenu['edit.php?post_type=' . WPBDP_POST_TYPE];
             $keys = array_keys($m);
             $m[$keys[1]][2] = wpbdp_get_page_link('add-listing');
         }
