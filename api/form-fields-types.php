@@ -753,9 +753,12 @@ class WPBDP_FieldTypes_Image extends WPBDP_FormFieldType {
         if ($value)
             $html .= wp_get_attachment_image( $value, 'thumb', false );
 
-        $html .= '<a href="#" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(' . $field->get_id() . ');">';
-        $html .= _x( 'Remove', 'form-fields-api', 'WPBDM' );
-        $html .= '</a>';
+        $html .= sprintf( '<a href="#" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d);" style="%s">%s</a>',
+                          $field->get_id(),
+                          !$value ? 'display: none;' : '',
+                          _x( 'Remove', 'form-fields-api', 'WPBDM' )
+                        );
+
         $html .= '</div>';
 
         $html .= '<div class="wpbdp-upload-widget">';

@@ -312,6 +312,10 @@ ul.wpbdp-categories > li {
     margin-right: 10px;
 }
 
+.wpbdp-form-field.image a.delete {
+    margin-left: 10px;
+}
+
 ul.validation-errors {
     margin: 15px 0 15px 0;
 }
