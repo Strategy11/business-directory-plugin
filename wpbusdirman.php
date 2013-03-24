@@ -816,6 +816,8 @@ class WPBDP_Plugin {
                 print $errors;
             }
         }
+
+        echo sprintf( '<script type="text/javascript">window.parent.WPBDP.fileUpload.resizeIFrame(%d);</script>', $_REQUEST['field_id'] );
         
         exit;
     }    

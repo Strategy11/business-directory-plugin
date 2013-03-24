@@ -759,7 +759,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_FormFieldType {
         $html .= '</div>';
 
         $html .= '<div class="wpbdp-upload-widget">';
-        $html .= sprintf( '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless"></iframe>',
+        $html .= sprintf( '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
                           $field->get_id(),
                           $field->get_id(),
                           wpbdp()->get_ajax_url('file-upload', array('field_id' => $field->get_id(),
