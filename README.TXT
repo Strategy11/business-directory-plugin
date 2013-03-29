@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
 Requires at least: 3.0
-Tested up to: 3.5
-Last Updated: 2012-Dec-19
-Stable tag: tags/2.2
+Tested up to: 3.5.1
+Last Updated: 2013-Mar-29
+Stable tag: tags/3.0
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
@@ -23,8 +23,14 @@ Business Directory Plugin allows you to build local directories, business provid
 *   Create multiple fee plans, which can be assigned to categories for posting
 *   Support for reCAPTCHA to avoid spam listings
 *   Users who post can edit listings without access to WP dashboard
-*   Support for ratings (NEW!)
-*   Support for Google Maps (NEW!)
+*   SEO Friendly
+*   Rate businesses in your directory (now with Microformat support) (Ratings Module)
+*   Display the location of the business (categories, search, details--now with custom map sizes) (Google Maps Module)
+*   Location based result filtering (Regions Module) (NEW!)
+*   ZIP code radius searches (ZIP Search Module) (NEW!)
+*   Assign features to paid or sticky listing plans to give users incentive to upgrade (Featured levels module) (NEW!)
+*   Allow users to upload PDFs (File Upload Module) (NEW!)
+*   Display Category Icons/Allow Parent-Child Category Navigation (Enhanced Category Module) (NEW!)
 
 For a full list of features, please visit:  http://businessdirectoryplugin.com/features
  
@@ -34,7 +40,15 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
-NEW! [Ratings Module](http://businessdirectoryplugin.com/premium-modules/ratings-module?ref=wp)
+NEW! [Featured Levels Module](http://businessdirectoryplugin.com/premium-modules/featured-levels-module?ref=wp)
+
+NEW! [ZIP Code Search Module](http://businessdirectoryplugin.com/premium-modules/zip-search-module?ref=wp)
+
+NEW! [File Upload Module](http://businessdirectoryplugin.com/premium-modules/file-upload-module?ref=wp)
+
+NEW! [Regions Module](http://businessdirectoryplugin.com/premium-modules/regions-module?ref=wp)
+
+[Ratings Module](http://businessdirectoryplugin.com/premium-modules/ratings-module?ref=wp)
 
 [Google Maps Module](http://businessdirectoryplugin.com/premium-modules/google-maps-module?ref=wp)
 
@@ -50,7 +64,7 @@ If you love the plugin, [please consider purchasing a Premium Module](http://bus
 
 == Credits ==
 
-Copyright 2009-12, D. Rodenbaugh 
+Copyright 2009-13, D. Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -105,6 +119,68 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 
 == Changelog ==
+
+Version 3.0
+
+New Modules Added
+- Featured Levels
+- Category Icons
+- File uploads (PDF only)
+- ZIP code search
+
+Form Fields API
+- New form fields API. (#273).
+- Allow for label hiding in form fields. (#226).
+- New URL field. (#273).
+- URL Validator now supports more schemes other than http or https. (#253).
+- Social fields marked as "optional" do no longer fail to validate when empty. (#293).
+- Make social fields work correctly with URL Validator. (#294).
+- Fix an issue with single checkbox fields. (#316).
+- Now possible to specify if a URL field has rel="nofollow" or not. (#319).
+- Fix a re-ordering issue with bottom most fields. (#325).
+- Fix an issue with radio button fields showing labels twice. (#329).
+
+Misc. Fixes
+- Restore ability to hide the search form. (#274, #280).
+- Simplify WordPress queries to improve loading speed for directory pages. (#260).
+- Search results are now sorted using the directory configured setting. (#257).
+- Added option to notify admins via email when new listings are posted. (#245).
+- Allow listings to be upgraded to featured during the initial submit process. (#244). 
+  This option is controlled by the "Offer upgrades during submit process?" setting.
+- Include listings in children categories in search results when searching a category. (#292).
+- Make tag association work correctly with checkboxes. (#284).
+- All BD buttons have now class 'button' or 'submit' depending on their type for easier theming. (#264).
+- Form elements in widgets, search form, etc. now use specific IDs for easier theming. (#236).
+- Handle accented words and apostrophes correctly when importing listings via CSV files. (#258, #269).
+- Allow users with edit permissions to change listing images in backend. (#263).
+- Fix category posts being incorrectly counted when there were expired listings. (#303).
+- CSV import now complaints when a required field column is not present. (#295).
+- CSV import now complaints when a user isn't found. (#251).
+- Do not change listing author when using quick edit in the admin. (#301).
+- Plugin checked for WPMU compatibility. (#14).
+- Preserve the language parameter in BD links when qTranslate plugin is found to be active. (#313).
+- Fix image issue due to conflicts with Jetpack plugin. (#268).
+- Add "Listings Tagged: [tag]" to the title & header of tag pages. (#312).
+- Fix an issue where paid listings were being published even when the payment was skipped. (#317).
+- Add Lightbox support. (#147).
+- Admin menus minor reorganization. (#349).
+- Add a "Clear" button to the search form. (#344).
+- Make use of listing emails before others for delivering renewal emails. (#330).
+- Detect some conflicting social plugins (AddThis Social Bookmarking Widget, Jamie Social Icons, TF Social Share, Shareaholic, Quick AdSense) and disable them on directory pages. (#327).
+
+Internal API
+- Call 'handle_action' further down the action pipeline to avoid problems with other plugins. (#283).
+- Rewrite rules and query vars cleanup. (#281).
+- Fix canonical redirects so the BD page works even when set as home page. (#281).
+- Lots of deprecated functions removed and code cleanups.
+- Better detection of the current action being performed inside BD pages. (#302).
+- Do not overwrite titles of pages outside of BD. Fixes a conflict with AWPCP. (#302).
+
+SEO related
+- Produce correct 'canonical' link head tags for listings, categories and tag pages. (#291).
+- Make BD support Yoast SEO plugin's metadata and title tags on listing pages. (#108, #331).
+- Include RSS feed links for listings and categories in directory pages. (#224).
+   
 
 Version 2.2
 
