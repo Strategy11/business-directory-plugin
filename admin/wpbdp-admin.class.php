@@ -96,14 +96,14 @@ class WPBDP_Admin {
                          'wpbdp_all_listings',
                          '__return_false');        
         add_submenu_page('wpbdp_admin',
-                         _x('Featured Listings', 'admin menu', 'WPBDM'),
-                         _x('Featured Listings', 'admin menu', 'WPBDM'),
+                         _x('Pending Upgrade', 'admin menu', 'WPBDM'),
+                         _x('Pending Upgrade', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_manage_featured',
                          '__return_false');
         add_submenu_page('wpbdp_admin',
-                         _x('Paid Listings', 'admin menu', 'WPBDM'),
-                         _x('Paid Listings', 'admin menu', 'WPBDM'),
+                         _x('Pending Payment', 'admin menu', 'WPBDM'),
+                         _x('Pending Payment', 'admin menu', 'WPBDM'),
                          'activate_plugins',
                          'wpbdp_manage_payments',
                          '__return_false');
