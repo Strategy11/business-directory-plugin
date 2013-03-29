@@ -382,7 +382,19 @@
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN display_options;" );
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN is_required;" );
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN type;" );
+
+        add_action( 'admin_notices', array( $this, 'disable_regions_in_3_2_upgrade' )  );
     }
-    
+
+    public function disable_regions_in_3_2_upgrade() {
+        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+        if ( class_exists( 'WPBDP_RegionsPlugin' ) && version_compare( WPBDP_RegionsPlugin::VERSION, '1.1', '<' ) ) {
+            deactivate_plugins( 'business-directory-regions/business-directory-regions.php', true );
+            echo sprintf( '<div class="error"><p>%s</p></div>',
+                          _x( '<b>Business Directory Plugin - Regions Module</b> was disabled because it is incompatible with the current version of Business Directory. Please update the Regions module.', 'installer', 'WPBDM' )
+                        );
+        }        
+    }    
 
  }
