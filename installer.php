@@ -143,6 +143,12 @@
     public function upgrade_to_2_1() {
         global $wpdb;
 
+        /* This is only to make this routine work for BD 3.0. It's not necessary in other versions. */
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields ADD COLUMN validator VARCHAR(255) NULL;" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields ADD COLUMN display_options BLOB NULL;" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields ADD COLUMN is_required TINYINT(1) NOT NULL DEFAULT 0;" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields ADD COLUMN type VARCHAR(255) NOT NULL;" );
+
         static $pre_2_1_types = array(null, 'textfield', 'select', 'textarea', 'radio', 'multiselect', 'checkbox');
         static $pre_2_1_validators = array(
             'email' => 'EmailValidator',
@@ -196,11 +202,15 @@
                 delete_option('wpbusdirman_postform_field_hide_' . $i);
                 delete_option('wpbusdirman_postform_field_options_' . $i);
                 delete_option('wpbusdirman_postform_field_order_' . $i);
+            } else {
+                wpbdp_debug_e( 'not added', $newfield );                
             }
+
         }
     }
 
     public function upgrade_to_2_2() {
+        global $wpdb;
         $wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHARACTER SET utf8 COLLATE utf8_general_ci");
         $wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `label` `label` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL");
         $wpdb->query("ALTER TABLE {$wpdb->prefix}wpbdp_form_fields CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
@@ -256,11 +266,11 @@
         global $wpdb;
         global $wpbdp;
 
-        $fields = $wpbdp->getFields();
+        $fields = $wpbdp->formfields->get_fields();
 
         foreach ($fields as &$field) {
             $query = $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_key = %s WHERE meta_key = %s AND {$wpdb->postmeta}.post_id IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)",
-                                    '_wpbdp[fields][' . $field->id . ']', $field->label, 'wpbdm-directory');
+                                    '_wpbdp[fields][' . $field->get_id() . ']', $field->get_label(), 'wpbdm-directory');
             $wpdb->query($query);
         }
     }
@@ -368,9 +378,10 @@
             $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", $newfield, array( 'id' => $f->id ) );
         }
 
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN validator" );
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN display_options" );
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN is_required" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN validator;" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN display_options;" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN is_required;" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN type;" );
     }
     
 
