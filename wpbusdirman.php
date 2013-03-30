@@ -397,7 +397,8 @@ class WPBDP_Plugin {
         $installer->install();
         
         $plugin_dir = basename( dirname( __FILE__ ) );
-        load_plugin_textdomain( 'WPBDM', null, $plugin_dir . '/languages' );
+        $languages_dir = trailingslashit( $plugin_dir . '/languages' );
+        load_plugin_textdomain( 'WPBDM', false, $languages_dir );
     }
 
     function _session_start() {
