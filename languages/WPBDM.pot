@@ -2,15 +2,16 @@
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
 "POT-Creation-Date: 2013-03-30 01:17:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2013-03-30 18:51-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: admin/admin-pages.php:23
 msgctxt "admin"
@@ -22,7 +23,12 @@ msgid "You are using version"
 msgstr ""
 
 #: admin/admin-pages.php:40
-msgid "You have payments turned on but all your gateways are set to hidden. Your system will run as if payments are turned off until you fix the problem. To fix go to <i>Manage options > Payment</i> and unhide at least 1 payment gateway, or if it is your intention not to charge a payment fee set payments to off instead of on."
+msgid ""
+"You have payments turned on but all your gateways are set to hidden. Your "
+"system will run as if payments are turned off until you fix the problem. To "
+"fix go to <i>Manage options > Payment</i> and unhide at least 1 payment "
+"gateway, or if it is your intention not to charge a payment fee set payments "
+"to off instead of on."
 msgstr ""
 
 #: admin/admin-pages.php:43
@@ -62,15 +68,25 @@ msgid "Leave default post status set to pending to avoid misuse"
 msgstr ""
 
 #: admin/admin-pages.php:63
-msgid "Listing payment status is not automatically updated after payment has been made. For this reason it is best to leave the listing default post status set to pending so you can verify that a listing has been paid for before it gets publised."
+msgid ""
+"Listing payment status is not automatically updated after payment has been "
+"made. For this reason it is best to leave the listing default post status "
+"set to pending so you can verify that a listing has been paid for before it "
+"gets publised."
 msgstr ""
 
 #: admin/admin-pages.php:64
-msgid "Valid Merchant ID and sandbox seller ID required for Google checkout payment processing "
+msgid ""
+"Valid Merchant ID and sandbox seller ID required for Google checkout payment "
+"processing "
 msgstr ""
 
 #: admin/admin-pages.php:66
-msgid "The plugin uses it's own page template to display single posts and category listings. You can modify the templates to make them match your site by editing the template files in the posttemplates folder which you will find inside the plugin folder. "
+msgid ""
+"The plugin uses it's own page template to display single posts and category "
+"listings. You can modify the templates to make them match your site by "
+"editing the template files in the posttemplates folder which you will find "
+"inside the plugin folder. "
 msgstr ""
 
 #: admin/admin-pages.php:67
@@ -78,11 +94,17 @@ msgid "To protect user privacy Email addresses are not displayed in listings. "
 msgstr ""
 
 #: admin/admin-pages.php:68
-msgid "reCaptcha human verification is built into the plugin contact form but comes turned off by default. To use it you need to turn it on. You also need to have a recaptcha public and private key. To obtain these visit recaptcha.net then enter the keys into he related boxes from the manage options page. "
+msgid ""
+"reCaptcha human verification is built into the plugin contact form but comes "
+"turned off by default. To use it you need to turn it on. You also need to "
+"have a recaptcha public and private key. To obtain these visit recaptcha.net "
+"then enter the keys into he related boxes from the manage options page. "
 msgstr ""
 
 #: admin/admin-pages.php:69
-msgid "You can hide these tips by going to Configure/Manage Options and checking the box next to 'Hide tips for use and other information'"
+msgid ""
+"You can hide these tips by going to Configure/Manage Options and checking "
+"the box next to 'Hide tips for use and other information'"
 msgstr ""
 
 #: admin/csv-import.php:39
@@ -117,7 +139,8 @@ msgstr ""
 
 #: admin/csv-import.php:169
 msgctxt "admin csv-import"
-msgid "* Import is in test mode. Nothing was actually inserted into the database. *"
+msgid ""
+"* Import is in test mode. Nothing was actually inserted into the database. *"
 msgstr ""
 
 #: admin/csv-import.php:176
@@ -518,7 +541,8 @@ msgstr ""
 
 #: admin/templates/csv-import.tpl.php:126
 msgctxt "admin csv-import"
-msgid "This user will be used if the username column is not present in the CSV file."
+msgid ""
+"This user will be used if the username column is not present in the CSV file."
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:132
@@ -533,7 +557,11 @@ msgstr ""
 
 #: admin/templates/csv-import.tpl.php:140
 msgctxt "admin csv-import"
-msgid "The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see how an import file should look like."
+msgid ""
+"The following are the valid header names to be used in the CSV file. "
+"Multivalued fields (such as category or tags) can appear multiple times in "
+"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
+"how an import file should look like."
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:147
@@ -653,7 +681,10 @@ msgstr ""
 
 #: admin/templates/fees.tpl.php:9
 msgctxt "fees admin"
-msgid "Payments are currently turned off. To manage fees you need to go to the Manage Options page and check the box next to 'Turn on payments' under 'General Payment Settings'"
+msgid ""
+"Payments are currently turned off. To manage fees you need to go to the "
+"Manage Options page and check the box next to 'Turn on payments' under "
+"'General Payment Settings'"
 msgstr ""
 
 #: admin/templates/fees.tpl.php:17
@@ -678,12 +709,17 @@ msgstr ""
 
 #: admin/templates/fees.tpl.php:37
 msgctxt "admin templates"
-msgid "It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit"
+msgid ""
+"It does not appear you have any of the payment gateway modules installed. "
+"You need to purchase a payment gateway module in order to charge a fee for "
+"listings. To purchase payment gateways use the buttons below or visit"
 msgstr ""
 
 #: admin/templates/fees.tpl.php:44
 msgctxt "admin templates"
-msgid "You can buy the PayPal gateway module to add PayPal as a payment option for your users."
+msgid ""
+"You can buy the PayPal gateway module to add PayPal as a payment option for "
+"your users."
 msgstr ""
 
 #: admin/templates/fees.tpl.php:44 admin/templates/fees.tpl.php:48
@@ -693,7 +729,9 @@ msgstr ""
 
 #: admin/templates/fees.tpl.php:48
 msgctxt "WPBDM"
-msgid "You can buy the 2Checkout gateway module to add 2Checkout as a payment option for your users."
+msgid ""
+"You can buy the 2Checkout gateway module to add 2Checkout as a payment "
+"option for your users."
 msgstr ""
 
 #: admin/templates/form-fields-addoredit.tpl.php:1
@@ -867,7 +905,9 @@ msgstr ""
 
 #: admin/templates/infometabox-fees.tpl.php:13
 msgctxt "admin infometabox"
-msgid "Note: In Free mode, the fee plans will always be set to \"Free Listing\" below."
+msgid ""
+"Note: In Free mode, the fee plans will always be set to \"Free Listing\" "
+"below."
 msgstr ""
 
 #: admin/templates/infometabox-fees.tpl.php:22
@@ -1022,7 +1062,9 @@ msgid "Reset Defaults"
 msgstr ""
 
 #: admin/templates/settings.tpl.php:26
-msgid "Use this option if you want to go back to the factory-settings. Please notice that all of your customizations will be lost."
+msgid ""
+"Use this option if you want to go back to the factory-settings. Please "
+"notice that all of your customizations will be lost."
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:24 admin/templates/sidebar.tpl.php:79
@@ -1126,7 +1168,10 @@ msgstr ""
 
 #: admin/templates/uninstall-confirm.tpl.php:8
 msgctxt "admin uninstall"
-msgid "If you are certain you wish to uninstall the plugin, please click the link below to proceed. Please note that all your data related to the plugin, your ads, images and everything else created by the plugin will be destroyed."
+msgid ""
+"If you are certain you wish to uninstall the plugin, please click the link "
+"below to proceed. Please note that all your data related to the plugin, your "
+"ads, images and everything else created by the plugin will be destroyed."
 msgstr ""
 
 #: admin/templates/uninstall-confirm.tpl.php:13
@@ -1429,17 +1474,23 @@ msgstr ""
 
 #: admin/wpbdp-admin.class.php:880
 msgctxt "admin"
-msgid "<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>."
+msgid ""
+"<b>Business Directory Plugin</b> requires fields with the following "
+"associations in order to work correctly: <b>%s</b>."
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:882
 msgctxt "admin"
-msgid "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> association in order to work correctly."
+msgid ""
+"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
+"association in order to work correctly."
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:886
 msgctxt "admin"
-msgid "You can create these custom fields by yourself inside \"Manage Form Fields\" or let Business Directory do this for you automatically."
+msgid ""
+"You can create these custom fields by yourself inside \"Manage Form Fields\" "
+"or let Business Directory do this for you automatically."
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:890
@@ -1454,12 +1505,16 @@ msgstr ""
 
 #: admin/wpbdp-admin.class.php:905
 msgctxt "admin"
-msgid "<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly."
+msgid ""
+"<b>Business Directory Plugin</b> requires a page with the <tt>"
+"[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:907
 msgctxt "admin"
-msgid "You can create this page by yourself or let Business Directory do this for you automatically."
+msgid ""
+"You can create this page by yourself or let Business Directory do this for "
+"you automatically."
 msgstr ""
 
 #: admin/wpbdp-admin.class.php:911
@@ -1596,7 +1651,9 @@ msgstr ""
 
 #: api/form-fields.php:645
 msgctxt "form-fields-api"
-msgid "There can only be one field with association \"%s\". Please select another association."
+msgid ""
+"There can only be one field with association \"%s\". Please select another "
+"association."
 msgstr ""
 
 #: api/form-fields.php:651
@@ -1611,7 +1668,9 @@ msgstr ""
 
 #: api/form-fields.php:689
 msgctxt "form-fields api"
-msgid "This form field can't be deleted because it is required for the plugin to work."
+msgid ""
+"This form field can't be deleted because it is required for the plugin to "
+"work."
 msgstr ""
 
 #: api/form-fields.php:698
@@ -1807,17 +1866,28 @@ msgstr ""
 
 #: api/payment.php:223
 msgctxt "payments-api"
-msgid "You are offering featured listings but have payments turned off. Go to <a href=\"%s\">Manage Options - Payment</a> to change the payment settings. Until you change this, the <i>Upgrade to Featured</i> option will be disabled."
+msgid ""
+"You are offering featured listings but have payments turned off. Go to <a "
+"href=\"%s\">Manage Options - Payment</a> to change the payment settings. "
+"Until you change this, the <i>Upgrade to Featured</i> option will be "
+"disabled."
 msgstr ""
 
 #: api/payment.php:242
 msgctxt "payments-api"
-msgid "The <b>%s</b> gateway is activate but not properly configured. The gateway won't be available until the following problems are fixed: <b>%s</b>. <br/> Check the <a href=\"%s\">payment settings</a>."
+msgid ""
+"The <b>%s</b> gateway is activate but not properly configured. The gateway "
+"won't be available until the following problems are fixed: <b>%s</b>. <br/> "
+"Check the <a href=\"%s\">payment settings</a>."
 msgstr ""
 
 #: api/payment.php:252
 msgctxt "admin"
-msgid "You have payments turned on but no gateway is active and properly configured. Go to <a href=\"%s\">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>."
+msgid ""
+"You have payments turned on but no gateway is active and properly "
+"configured. Go to <a href=\"%s\">Manage Options - Payment</a> to change the "
+"payment settings. Until you change this, the directory will operate in "
+"<i>Free Mode</i>."
 msgstr ""
 
 #: api/payment.php:269
@@ -1890,7 +1960,8 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:21
 msgctxt "admin settings"
-msgid "The slug can't be in use by another term. Avoid \"category\", for instance."
+msgid ""
+"The slug can't be in use by another term. Avoid \"category\", for instance."
 msgstr ""
 
 #: api/wpbdp-settings.class.php:22
@@ -1985,7 +2056,9 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:45
 msgctxt "admin settings"
-msgid "Use a value of \"0\" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days)."
+msgid ""
+"Use a value of \"0\" to keep a listing alive indefinitely or enter a number "
+"less than 10 years (3650 days)."
 msgstr ""
 
 #: api/wpbdp-settings.class.php:49
@@ -2040,7 +2113,10 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:63
 msgctxt "admin settings"
-msgid "You can use the placeholder [listing] for the listing title. This setting applies to non-paying listings only; for paying listings check the \"Payment\" settings tab."
+msgid ""
+"You can use the placeholder [listing] for the listing title. This setting "
+"applies to non-paying listings only; for paying listings check the \"Payment"
+"\" settings tab."
 msgstr ""
 
 #: api/wpbdp-settings.class.php:65
@@ -2060,7 +2136,10 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:69
 msgctxt "admin settings"
-msgid "You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link."
+msgid ""
+"You can use the placeholders [listing] for the listing title, [category] for "
+"the category, [expiration] for the expiration date and [link] for the actual "
+"renewal link."
 msgstr ""
 
 #: api/wpbdp-settings.class.php:71
@@ -2155,7 +2234,9 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:95
 msgctxt "admin settings"
-msgid "You can upgrade your listing to featured status. Featured listings will always appear on top of regular listings."
+msgid ""
+"You can upgrade your listing to featured status. Featured listings will "
+"always appear on top of regular listings."
 msgstr ""
 
 #: api/wpbdp-settings.class.php:98
@@ -2315,7 +2396,9 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:133
 msgctxt "admin settings"
-msgid "Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours."
+msgid ""
+"Thank you for your payment. Your payment is being verified and your listing "
+"reviewed. The verification and review process could take up to 48 hours."
 msgstr ""
 
 #: api/wpbdp-settings.class.php:135
@@ -2345,7 +2428,9 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:142
 msgctxt "admin settings"
-msgid "Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-modules/\">PayPal module</a> is installed"
+msgid ""
+"Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-"
+"modules/\">PayPal module</a> is installed"
 msgstr ""
 
 #: api/wpbdp-settings.class.php:143
@@ -2365,7 +2450,9 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:147
 msgctxt "admin settings"
-msgid "Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-modules/\">2Checkout module</a> is installed"
+msgid ""
+"Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-"
+"modules/\">2Checkout module</a> is installed"
 msgstr ""
 
 #: api/wpbdp-settings.class.php:148
@@ -2430,7 +2517,8 @@ msgstr ""
 
 #: api/wpbdp-settings.class.php:166
 msgctxt "admin settings"
-msgid "Uncheck if it conflicts with other elements or plugins installed on your site"
+msgid ""
+"Uncheck if it conflicts with other elements or plugins installed on your site"
 msgstr ""
 
 #: api/wpbdp-settings.class.php:169
@@ -2495,7 +2583,9 @@ msgstr ""
 
 #: gateways-googlecheckout.php:51
 msgctxt "googlecheckout"
-msgid "Your listing has not been fully submitted yet. To complete the process you need to click the link below."
+msgid ""
+"Your listing has not been fully submitted yet. To complete the process you "
+"need to click the link below."
 msgstr ""
 
 #: gateways-googlecheckout.php:64
@@ -2510,7 +2600,10 @@ msgstr ""
 
 #: installer.php:395
 msgctxt "installer"
-msgid "<b>Business Directory Plugin - Regions Module</b> was disabled because it is incompatible with the current version of Business Directory. Please update the Regions module."
+msgid ""
+"<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
+"incompatible with the current version of Business Directory. Please update "
+"the Regions module."
 msgstr ""
 
 #: templates/businessdirectory-listings.tpl.php:20 templates/search.tpl.php:38
@@ -2535,7 +2628,9 @@ msgstr ""
 
 #: templates/email/listing-added.tpl.php:2
 msgctxt "emails"
-msgid "A new listing has been submitted to the directory. Listing details can be found below."
+msgid ""
+"A new listing has been submitted to the directory. Listing details can be "
+"found below."
 msgstr ""
 
 #: templates/email/listing-added.tpl.php:7
@@ -2575,7 +2670,9 @@ msgstr ""
 
 #: templates/listing-contactform.tpl.php:19
 msgctxt "templates"
-msgid "You are currently logged in as %s. Your message will be sent using your logged in contact email."
+msgid ""
+"You are currently logged in as %s. Your message will be sent using your "
+"logged in contact email."
 msgstr ""
 
 #: templates/listing-contactform.tpl.php:24
@@ -2599,7 +2696,8 @@ msgid "Send"
 msgstr ""
 
 #: templates/listing-form-checkout.tpl.php:4
-#: templates/listing-form-done.tpl.php:4 templates/listing-form-extra.tpl.php:4
+#: templates/listing-form-done.tpl.php:4
+#: templates/listing-form-extra.tpl.php:4
 #: templates/listing-form-fees.tpl.php:19
 #: templates/listing-form-fields.tpl.php:6
 #: templates/listing-form-images.tpl.php:13
@@ -2608,7 +2706,8 @@ msgid "Submit A Listing"
 msgstr ""
 
 #: templates/listing-form-checkout.tpl.php:4
-#: templates/listing-form-done.tpl.php:4 templates/listing-form-extra.tpl.php:4
+#: templates/listing-form-done.tpl.php:4
+#: templates/listing-form-extra.tpl.php:4
 #: templates/listing-form-fees.tpl.php:19
 #: templates/listing-form-fields.tpl.php:6
 #: templates/listing-form-images.tpl.php:13
@@ -2735,7 +2834,10 @@ msgstr ""
 
 #: templates/listing-form-images.tpl.php:47
 msgctxt "templates"
-msgid "If you would like to include an image with your listing please upload the image of your choice. You are allowed [%s] images and have [%s] image slots still available."
+msgid ""
+"If you would like to include an image with your listing please upload the "
+"image of your choice. You are allowed [%s] images and have [%s] image slots "
+"still available."
 msgstr ""
 
 #: templates/listing-form-images.tpl.php:52
@@ -2745,12 +2847,16 @@ msgstr ""
 
 #: templates/listing-form-images.tpl.php:55
 msgctxt "templates"
-msgid "If you prefer not to add an image click \"Finish\". Your listing will be submitted."
+msgid ""
+"If you prefer not to add an image click \"Finish\". Your listing will be "
+"submitted."
 msgstr ""
 
 #: templates/listing-form-images.tpl.php:57
 msgctxt "templates"
-msgid "Your image slots are all full at this time.  You may click Finish if you are done, or Delete Image to reupload a new image in place of a new one."
+msgid ""
+"Your image slots are all full at this time.  You may click Finish if you are "
+"done, or Delete Image to reupload a new image in place of a new one."
 msgstr ""
 
 #: templates/listing-upgradetosticky.tpl.php:1 views.php:903
@@ -2765,7 +2871,9 @@ msgstr ""
 
 #: templates/manage-listings.tpl.php:6
 msgctxt "templates"
-msgid "Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button."
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
 msgstr ""
 
 #: templates/manage-listings.tpl.php:9
@@ -2812,7 +2920,10 @@ msgstr ""
 
 #: templates/parts/login-required.tpl.php:1
 msgctxt "templates"
-msgid "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes."
+msgid ""
+"You are not currently logged in. Please login or register first. When "
+"registering, you will receive an activation email. Be sure to check your "
+"spam if you don't see it in your email within 60 minutes."
 msgstr ""
 
 #: templates/parts/login-required.tpl.php:5
@@ -2886,7 +2997,9 @@ msgid "Error while uploading file"
 msgstr ""
 
 #: views.php:25
-msgid "You need to create a page with the [businessdirectory] shortcode for the Business Directory plugin to work correctly."
+msgid ""
+"You need to create a page with the [businessdirectory] shortcode for the "
+"Business Directory plugin to work correctly."
 msgstr ""
 
 #: views.php:27
@@ -2939,7 +3052,12 @@ msgstr ""
 
 #: views.php:296
 msgctxt "templates"
-msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory."
+msgid ""
+"There are no categories assigned to the business directory yet. You need to "
+"assign some categories to the business directory. Only admins can see this "
+"message. Regular users are seeing a message that there are currently no "
+"listings in the directory. Listings cannot be added until you assign "
+"categories to the business directory."
 msgstr ""
 
 #: views.php:298
@@ -2949,7 +3067,12 @@ msgstr ""
 
 #: views.php:359
 msgctxt "templates"
-msgid "There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory."
+msgid ""
+"There are no categories assigned to the business directory yet. You need to "
+"assign some categories to the business directory. Only admins can see this "
+"message. Regular users are seeing a message that they cannot add their "
+"listing at this time. Listings cannot be added until you assign categories "
+"to the business directory."
 msgstr ""
 
 #: views.php:361
@@ -2969,7 +3092,8 @@ msgstr ""
 
 #: views.php:410
 msgctxt "templates"
-msgid "You are logged in as an administrator. Any payment steps will be skipped."
+msgid ""
+"You are logged in as an administrator. Any payment steps will be skipped."
 msgstr ""
 
 #: views.php:457
