@@ -33,7 +33,7 @@ function wpbusdirman_home_screen() {
 	$wpbusdirman_totallistings = wp_count_posts( WPBDP_POST_TYPE )->publish;
 	$wpbusdirman_totalcatsindir = wp_count_terms( WPBDP_CATEGORY_TAX );
 
-	$html .= "<h3 style=\"padding:10px;\">" . __("Options Menu","WPBDM") . "</h3><p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_VERSION . "</b> </p>";
+	$html .= "<p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_VERSION . "</b> </p>";
 	
 	if( !wpbdp_get_option('googlecheckout') && !wpbdp_get_option('paypal') && wpbdp_get_option('payments-on') ) {
 							$html .= "<p style=\"padding:10px;background:#ff0000;color:#ffffff;font-weight:bold;\">";
