@@ -19,7 +19,7 @@ function wpbdp_admin_footer()
 
 /* Admin home screen setup begin */
 function wpbusdirman_home_screen() {
-	if (isset($_GET['action']) && $_GET['action'] == 'createmainpage') {
+	if (isset($_GET['action']) && $_GET['action'] == 'createmainpage' && !wpbdp_get_page_id( 'main' )) {
 		$page = array('post_status' => 'publish', 'post_title' => _x('Business Directory', 'admin', 'WPBDM'), 'post_type' => 'page', 'post_content' => '[businessdirectory]');
 		wp_insert_post($page);
 	}
