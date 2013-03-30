@@ -79,6 +79,10 @@
 				    	<a href="http://businessdirectoryplugin.com/premium-modules/featured-levels-module/"><?php _ex('Featured Levels Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
 				    	<?php echo wpbdp()->has_module('featuredlevels') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
 				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/"><?php _ex('Enhanced Categories Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('categories') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>				    
 			    </ul>
 			</div>
 		</div>
