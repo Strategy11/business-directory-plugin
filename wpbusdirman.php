@@ -490,6 +490,12 @@ class WPBDP_Plugin {
             case 'attachments':
                 return class_exists( 'WPBDP_ListingAttachmentsModule' );
                 break;
+            case 'zipcodesearch':
+                return class_exists( 'WPBDP_ZIPShortcodeModule' );
+                break;
+            case 'featuredlevels':
+                return class_exists( 'WPBDP_FeaturedLevelsModule' );
+                break;
         }
 
         return false;

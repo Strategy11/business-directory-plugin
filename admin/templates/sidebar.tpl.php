@@ -21,16 +21,23 @@
 			<div class="inside">
 				<ul>
 				    <li class="li_link">
-				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/regions-module/">Regions Module</a>
+				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/featured-levels-module/"><?php _ex('Featured Levels Module', 'admin sidebar', 'WPBDM'); ?></a>
 				    </li>
 				    <li class="li_link">
-				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/">Ratings Module</a>
+				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/zip-search-module/"><?php _ex('ZIP Code Search Module', 'admin sidebar', 'WPBDM'); ?></a>
 				    </li>
-				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/">Google Maps Module</a></li>
-				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/">PayPal Payment Gateway Module</a></li>
-				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">2Checkout Payment Gateway Module</a></li>
-				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/">Single Site License Combo Pack</a></li>
-				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/">Multi Site License Combo Pack</a></li>
+				    <li class="li_link">
+				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/file-upload-module/"><?php _ex('File Upload Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    </li>				    				    					
+				    <li class="li_link">
+				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    </li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/"><?php _ex('PayPal Payment Gateway Module', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/"><?php _ex('2Checkout Payment Gateway Module', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/"><?php _ex('Single Site License Combo Pack', 'admin sidebar', 'WPBDM'); ?></a></li>
+				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/"><?php _ex('Multi Site License Combo Pack', 'admin sidebar', 'WPBDM'); ?></a></li>
 			    </ul>
 			</div>
 		</div>
@@ -41,11 +48,11 @@
 			<div class="inside">
 				<ul>
 				    <li class="li_link">
-				    	<a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/">PayPal Payment Gateway</a>:<br />
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/"><?php _ex('PayPal Payment Gateway', 'admin sidebar', 'WPBDM'); ?></a>:<br />
 				    	<?php echo wpbdp()->has_module('paypal') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
 				    </li>
 				    <li class="li_link">
-				    	<a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">2Checkout Payment Gateway</a>:<br />
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/"><?php _ex('2Checkout Payment Gateway', 'admin sidebar', 'WPBDM'); ?></a>:<br />
 				    	<?php echo wpbdp()->has_module('2checkout') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
 				    </li>
 				    <li class="li_link">
@@ -59,6 +66,18 @@
 				    <li class="li_link">
 				    	<a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
 				    	<?php echo wpbdp()->has_module('regions') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/file-upload-module/"><?php _ex('File Upload Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('attachments') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/zip-search-module/"><?php _ex('ZIP Code Search Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('zipcodesearch') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
+				    </li>
+				    <li class="li_link">
+				    	<a href="http://businessdirectoryplugin.com/premium-modules/featured-levels-module/"><?php _ex('Featured Levels Module', 'admin sidebar', 'WPBDM'); ?></a>:<br />
+				    	<?php echo wpbdp()->has_module('featuredlevels') ? _x('Installed', 'admin sidebar', 'WPBDM') : _x('Not Installed', 'admin sidebar', 'WPBDM'); ?>
 				    </li>
 			    </ul>
 			</div>
