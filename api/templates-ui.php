@@ -51,10 +51,20 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     $terms = get_terms( WPBDP_CATEGORY_TAX,
                         array( 'orderby' => $args['orderby'],
                                'order' => $args['order'],
-                               'hide_empty' => $args['hide_empty'],
+                               'hide_empty' => false,
                                'pad_counts' => true,
                                'parent' => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ) )
                         );
+    
+    // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
+    // we need a workaround until the bug is fixed.        
+    foreach ( $terms as &$t )
+        _wpbdp_padded_count( $t );
+
+    // filter empty terms
+    if ( $args['hide_empty'] ) {
+        $terms = array_filter( $terms, create_function( '$x', 'return $x->count > 0;' ) );
+    }
 
     $html = '';
 
@@ -72,10 +82,6 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     }
 
     foreach ( $terms as &$term ) {
-        // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
-        // we need a workaround until the bug is fixed.        
-        _wpbdp_padded_count( $term );
-
         $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . '">';
 
         $item_html = '';
