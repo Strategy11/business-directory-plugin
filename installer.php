@@ -43,18 +43,18 @@
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
-            id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
-            label VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-            description VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            field_type VARCHAR(100) NOT NULL,
-            association VARCHAR(100) NOT NULL,
-            validators TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            weight INT(5) NOT NULL DEFAULT 0,
-            display_flags TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            field_data BLOB NULL
+            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+            description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            field_type varchar(100) NOT NULL,
+            association varchar(100) NOT NULL,
+            validators text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            weight int(5) NOT NULL DEFAULT 0,
+            display_flags text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            field_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        dbDelta($sql);
+        print_r( dbDelta($sql) );
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
             id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
