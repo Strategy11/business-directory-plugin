@@ -2,7 +2,7 @@
  
  class WPBDP_Installer {
 
-    const DB_VERSION = '3.2';
+    const DB_VERSION = '3.3';
 
     private $installed_version = null;
 
@@ -38,6 +38,8 @@
     }
 
     public function _database_schema() {
+        global $wpdb;
+        
         wpbdp_log( 'Running dbDelta.' );
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -54,45 +56,45 @@
             field_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        print_r( dbDelta($sql) );
+        dbDelta($sql);
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
-            id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
-            label VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
             amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-            days SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-            images SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-            categories BLOB NOT NULL,
-            extra_data BLOB NULL
+            days smallint UNSIGNED NOT NULL DEFAULT 0,
+            images smallint UNSIGNED NOT NULL DEFAULT 0,
+            categories blob NOT NULL,
+            extra_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         dbDelta($sql);
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
-            id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
-            listing_id MEDIUMINT(9) NOT NULL,
-            gateway VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            listing_id mediumint(9) NOT NULL,
+            gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-            payment_type VARCHAR(255) NOT NULL,
-            status VARCHAR(255) NOT NULL,
+            payment_type varchar(255) NOT NULL,
+            status varchar(255) NOT NULL,
             created_on TIMESTAMP NOT NULL,
             processed_on TIMESTAMP NULL,
-            processed_by VARCHAR(255) NOT NULL DEFAULT 'gateway',               
-            payerinfo BLOB NULL,
-            extra_data BLOB NULL
+            processed_by varchar(255) NOT NULL DEFAULT 'gateway',               
+            payerinfo blob NULL,
+            extra_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         dbDelta($sql);
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
-            id MEDIUMINT(9) PRIMARY KEY  AUTO_INCREMENT,
-            listing_id MEDIUMINT(9) NOT NULL,
-            category_id MEDIUMINT(9) NOT NULL,
-            fee BLOB NOT NULL,
+            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            listing_id mediumint(9) NOT NULL,
+            category_id mediumint(9) NOT NULL,
+            fee blob NOT NULL,
             expires_on TIMESTAMP NULL DEFAULT NULL,
             updated_on TIMESTAMP NOT NULL,
-            charged TINYINT(1) NOT NULL DEFAULT 0,
-            email_sent TINYINT(1) NOT NULL DEFAULT 0
+            charged tinyint(1) NOT NULL DEFAULT 0,
+            email_sent tinyint(1) NOT NULL DEFAULT 0
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         dbDelta($sql);
