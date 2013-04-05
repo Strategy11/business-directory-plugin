@@ -345,6 +345,10 @@
         foreach ( $old_fields as &$f ) {
             $newfield = array();
             $newfield['field_type'] = strtolower( $f->type );
+
+            if ( empty( $newfield['field_type'] ) )
+                $newfield['field_type'] = 'textfield';
+
             $newfield['display_flags'] = array();
             $newfield['field_data'] = array();
             $newfield['validators'] = array();
