@@ -1041,7 +1041,13 @@ class WPBDP_DirectoryController {
             'order' => wpbdp_get_option( 'listings-sort', 'ASC' )
         ) );
 
-        $html = wpbdp_render( 'search', array( 'fields' => $fields, 'searching' => isset( $_GET['dosrch'] ) ? true : false ), false );
+        $html = wpbdp_render( 'search',
+                               array( 
+                                      'fields' => $fields,
+                                      'searching' => isset( $_GET['dosrch'] ) ? true : false,
+                                      'show_form' => !isset( $_GET['dosrch'] ) || wpbdp_get_option( 'show-search-form-in-results' )
+                                    ),
+                              false );
         wp_reset_query();
 
         return $html;

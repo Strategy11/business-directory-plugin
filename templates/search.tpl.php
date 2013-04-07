@@ -6,10 +6,13 @@ $api = wpbdp_formfields_api();
     <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
 
     <h2 class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></h2>
+    <?php if ( !$show_form ): ?>
+    <a href="#" style="font-size: 90%; float: right; margin-right: 20px;" onclick="jQuery('#wpbdp-search-form-wrapper').show(); jQuery(this).remove();">[<?php _ex('Show Search form', 'search', 'WPBDM'); ?>]</a>
+    <?php endif; ?>    
 
-<?php // if (!$searching): ?>
-<h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
 <!-- Search Form -->
+<div id="wpbdp-search-form-wrapper" style="<?php echo !$show_form ? 'display: none;' : ''; ?>">
+<h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
 <form action="" id="wpbdp-search-form" method="GET">
     <input type="hidden" name="action" value="search" />
     <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id('main'); ?>" />
@@ -24,11 +27,11 @@ $api = wpbdp_formfields_api();
         <input type="submit" class="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" />
     </p>
 </form>
+</div>
 <!-- Search Form -->
-<?php // endif; ?>
 
-<?php if ($searching): ?>
-    <h3><?php _ex('Search Results', 'search', 'WPBDM'); ?></h3>
+<?php if ($searching): ?>    
+    <h3><?php _ex('Search Results', 'search', 'WPBDM'); ?></h3>    
 
     <?php do_action( 'wpbdp_before_search_results' ); ?>
     <div class="search-results">
