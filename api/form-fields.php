@@ -959,8 +959,8 @@ class WPBDP_FormFields {
 
         extract( $args );
 
-        $validators = !is_array( $validators ) ? array( $validators ) : $validators;
-        $display_flags = !is_array( $display_flags ) ? array( $display_flags ) : $display_flags;
+        $validators = $validators ? ( !is_array( $validators ) ? array( $validators ) : $validators ) : array();
+        $display_flags = $display_flags ? ( !is_array( $display_flags ) ? array( $display_flags ) : $display_flags ) : array();
 
         $where = '';
         if ( $args['association'] )
