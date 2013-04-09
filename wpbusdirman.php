@@ -60,7 +60,7 @@ class WPBDP_Plugin {
 
     public function __construct() {
         register_activation_hook(__FILE__, array($this, 'plugin_activation'));
-        register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));      
+        register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
     }
 
     public function _listing_expirations() {
