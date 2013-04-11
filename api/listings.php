@@ -596,8 +596,16 @@ class WPBDP_ListingsAPI {
 
         $api = wpbdp_formfields_api();
 
+        $title = 'Untitled Listing';
+
+        // TODO: implement a formfields API function that returns just IDs and not complete fields (maybe an arg to get_fields() ?)
+        if ( $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) ) ) {
+            if ( isset( $listingfields[ $title_field->get_id() ] ) )
+                $title = trim( strip_tags( $listingfields[ $title_field->get_id() ] ) );
+        }
+
         $listing_id = wp_insert_post( array(
-            'post_title' => 'Untitled Listing',
+            'post_title' => $title,
             'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
             'post_type' => wpbdp_post_type(),
             'ID' => $editing ? intval( $data['listing_id'] ) : null

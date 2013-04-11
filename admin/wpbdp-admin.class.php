@@ -522,7 +522,7 @@ class WPBDP_Admin {
         switch ($action) {
             case 'publish':
                 foreach ($posts as $post_id) {
-                    wp_publish_post($post_id);
+                    wp_update_post( array( 'ID' => $post_id, 'post_status' => 'publish' ) );
                 }
 
                 $this->messages[] = _nx('The listing has been published.',
