@@ -50,7 +50,7 @@ class WPBDP_FormFieldType {
                 $value = wp_get_object_terms( $post_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
                 break;
             case 'tags':
-                $value = wp_get_object_terms( $post_id, WPBDP_TAGS_TAX, array( 'fields' => 'ids' ) );
+                $value = wp_get_object_terms( $post_id, WPBDP_TAGS_TAX, array( 'fields' => 'names' ) );
                 break;
             case 'meta':
                 $value = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
@@ -373,17 +373,19 @@ class WPBDP_FormField {
         $this->display_flags = $attrs['display_flags'];
         $this->field_data = $attrs['field_data'];
 
-        if ( in_array( $this->association, array( 'category', 'tags' ), true ) ) {
-            // TODO: make this hierarchical (see https://codex.wordpress.org/Function_Reference/Walker_Class)
-            $terms = get_terms( $this->association == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
-            $options = array();
+        if ( $this->association == 'category' ) {
+            $this->field_data['options'] = array();
+        // } elseif ( $this->association == 'category' ) {
+        //     // TODO: make this hierarchical (see https://codex.wordpress.org/Function_Reference/Walker_Class)
+        //     $terms = get_terms( $this->association == 'tags' ? WPBDP_TAGS_TAX : wpbdp_categories_taxonomy(), 'hide_empty=0&hierarchical=1' );
+        //     $options = array();
 
-            foreach ( $terms as &$term ) {
-                $k = $this->association == 'tags' ? $term->slug : $term->term_id;
-                $options [ $k ] = $term->name;
-            }
+        //     foreach ( $terms as &$term ) {
+        //         $k = $this->association == 'tags' ? $term->slug : $term->term_id;
+        //         $options [ $k ] = $term->name;
+        //     }
 
-            $this->field_data['options'] = $options;
+        //     $this->field_data['options'] = $options;
         } else {
             // handle some special extra data from previous BD versions
             // TODO: this is not needed anymore since the 3.2 upgrade routine

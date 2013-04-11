@@ -30,7 +30,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
         $value = parent::get_field_value( $field, $value );
 
         if ( $field->get_association() == 'tags' ) {
-            $tags = join( ',', get_terms( WPBDP_TAGS_TAX, array( 'include' => $value ? $value : array(-1), 'hide_empty' => 0, 'fields' => 'names' ) ) );
+            $tags = implode( ',', $value );
             return $tags;
         }
 
@@ -207,7 +207,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         $input = is_null( $input ) ? array() : $input;
         $res = is_array( $input ) ? $input : array( $input );
 
-        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
+        if ( $field->get_association() == 'category' ) {
             $res = array_map( 'intval', $res );
         }
 
@@ -220,7 +220,12 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
 
         $html = '';   
 
-        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
+        if ( $field->get_association() == 'tags' && !$options ) {
+            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+            $options = array_combine( $tags, $tags );
+        }
+
+        if ( $field->get_association() == 'category' ) {
                 $html .= wp_dropdown_categories( array(
                         'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                         'show_option_none' => $context == 'search' ? ( $this->is_multiple() ? _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' ) : _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) ) : null,
@@ -248,7 +253,6 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                         }
                     }
                 }
-
         } else {
             $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
                               'wpbdp-field-' . $field->get_id(),
@@ -275,7 +279,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
     }
 
     public function render_field_settings( &$field=null, $association=null ) {
-        if ( $association != 'meta' )
+        if ( $association != 'meta' && $association != 'tags' )
             return '';
 
         $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
@@ -296,10 +300,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
 
         $options = trim( $_POST['field']['x_options'] );
 
-        if ( !$options )
+        if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', explode(',', $options ) );
+        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
@@ -397,6 +401,11 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
     public function render_field_inner( &$field, $value, $context ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
+        if ( $field->get_association() == 'tags' && !$options ) {
+            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+            $options = array_combine( $tags, $tags );
+        }
+
         $html = '';
 
         foreach ( $options as $option => $label ) {
@@ -406,7 +415,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
                               $option,
                               $value == $option ? 'checked="checked"' : '',
                               esc_attr( $label )
-                            );            
+                            );
         }
 
         return $html;
@@ -417,7 +426,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
     }
 
     public function render_field_settings( &$field=null, $association=null ) {
-        if ( $association != 'meta' )
+            if ( $association != 'meta' && $association != 'tags' )
             return '';
 
         $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
@@ -438,10 +447,15 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
 
         $options = trim( $_POST['field']['x_options'] );
 
-        if ( !$options )
+        if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', explode(',', $options ) );
+        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
+    }
+
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
+        return is_array( $value ) ? $value[0] : $value;
     }
 
     public function get_field_plain_value( &$field, $post_id ) {
@@ -489,6 +503,11 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
     public function render_field_inner( &$field, $value, $context ) {
         $options = $field->data( 'options' ) ? $field->data( 'options') : array();
 
+        if ( $field->get_association() == 'tags' && !$options ) {
+            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+            $options = array_combine( $tags, $tags );
+        }
+
         $html = '';
         foreach ( $options as $option_key => $label ) {
             $html .= sprintf( '<div class="wpbdmcheckboxclass"><input type="checkbox" class="%s" name="%s" value="%s" %s/> %s</div>',
@@ -506,10 +525,10 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
 
     public function get_supported_associations() {
         return array( 'category', 'tags', 'meta' );
-    } 
+    }
 
     public function render_field_settings( &$field=null, $association=null ) {
-        if ( $association != 'meta' )
+        if ( $association != 'meta' && $association != 'tags' )
             return '';
 
         $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
@@ -530,7 +549,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
 
         $options = trim( $_POST['field']['x_options'] );
 
-        if ( !$options )
+        if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
         $field->set_data( 'options', explode(',', $options ) );
