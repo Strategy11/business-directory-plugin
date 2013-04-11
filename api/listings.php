@@ -659,7 +659,7 @@ class WPBDP_ListingsAPI {
         if (!isset($data['fees'])) $data['fees'] = array();
 
         $post_categories = wp_get_post_terms( $listing_id, wpbdp_categories_taxonomy(), 'fields=ids' );
-        
+
         foreach ( $post_categories as $catid ) {
             $fee = (array) ( isset( $data['fees'][ $catid ] ) ? $data['fees'][ $catid ] : wpbdp_fees_api()->get_free_fee() );
             $fee['category_id'] = $catid;
@@ -694,7 +694,7 @@ class WPBDP_ListingsAPI {
         ) );
         update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $cost > 0.0 ) ? 'not-paid' : 'paid' );
 
-        if ( !$cost || current_user_can( 'administrator' ) ) {
+        if ( !$editing && ( !$cost || current_user_can( 'administrator' ) ) ) {
             wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
         }
 

@@ -325,7 +325,7 @@ class WPBDP_PaymentsAPI {
         if ($transaction->id == $this->get_last_transaction($transaction->listing_id)->id) {
             update_post_meta($transaction->listing_id, '_wpbdp[payment_status]', $transaction->status == 'approved' ? 'paid' : 'not-paid');
 
-            if ( $transaction->status == 'approved' ) {
+            if ( $transaction->status == 'approved' && $transaction->payment_type == 'initial' ) {
                 wp_update_post( array( 'ID' => $transaction->listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
             }
         }
