@@ -36,11 +36,11 @@ function _wpbdp_padded_count( &$term ) {
     if ( $children = get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) ) {
         foreach ( $children as $c_id ) {
             $c = get_term( $c_id, WPBDP_CATEGORY_TAX );
-            $count += intval( $c->count );
+            $count += intval( apply_filters( '_wpbdp_padded_count_child', $c->count, $c ) );
         }
     }
 
-    $term->count = $count;
+    $term->count = apply_filters( '_wpbdp_padded_count', $count, $term, $children ? true : false );
 }
 
 /**
