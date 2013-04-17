@@ -779,21 +779,21 @@ class WPBDP_ListingsAPI {
                             foreach ($terms as $term_name) {
                                 $term = null;
 
-                                if ( $term_name == -1 || $term_name == 0 )
+                                if ( $term_name === '-1' || $term_name === '0' )
                                     continue;
 
-                                if ( is_numeric( $term_name ) )
-                                    $term = get_term_by( 'id', $term_name, WPBDP_TAGS_TAX );
+                                // if ( is_numeric( $term_name ) )
+                                //     $term = get_term_by( 'id', $term_name, WPBDP_TAGS_TAX );
 
-                                if ( !$term )
-                                    $term = get_term_by( 'name', $term_name, WPBDP_TAGS_TAX );
+                                // if ( !$term )
+                                $term = get_term_by( 'name', $term_name, WPBDP_TAGS_TAX );
 
                                 if ( $term ) {
                                     $term_ids[] = $term->term_id;
                                 } else {
                                     $where .= ' AND 1=0'; // force no results when a tag does not exist
                                 }
-                            }                       
+                            }   
 
                             if ($term_ids) {
                                 $term_ids = implode(',', $term_ids);
