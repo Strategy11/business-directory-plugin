@@ -814,9 +814,15 @@ class WPBDP_Plugin {
             return rel_canonical();
 
         if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'upgradetostickylisting', 'renewlisting', 'payment-process' ) ) )
-            return;        
+            return;
 
-        $link = $_SERVER['REQUEST_URI'];
+        if ( $action == 'showlisting' ) {
+            $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));            
+            $link = get_permalink( $listing_id );
+        } else {
+            $link = $_SERVER['REQUEST_URI'];
+        }
+
         echo sprintf( '<link rel="canonical" href="%s" />', $link );
     }
 
