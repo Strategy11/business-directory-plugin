@@ -794,17 +794,47 @@ class WPBDP_Plugin {
 
     public function _meta_keywords() {
         global $wpseo_front;
-        global $post;
 
-        $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+        $current_action = $this->controller->get_current_action();
 
-        $prev_post = $post;
-        $post = get_post( $listing_id );
+        switch ( $current_action ){
+            case 'showlisting':
+                global $post;
 
-        $wpseo_front->metadesc();
-        $wpseo_front->metakeywords();
+                $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
 
-        $post = $prev_post;
+                $prev_post = $post;
+                $post = get_post( $listing_id );
+
+                $wpseo_front->metadesc();
+                $wpseo_front->metakeywords();
+
+                $post = $prev_post;
+
+                break;
+            case 'browsecategory':
+            case 'browsetag':
+                if ( $current_action == 'browsetag' ) {
+                    $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
+                } else {
+                    $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
+                    if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());                    
+                }
+
+                if ( $term ) {
+                    $metadesc = wpseo_get_term_meta( $term, $term->taxonomy, 'desc' );
+                    if ( !$metadesc && isset( $wpseo_front->options['metadesc-' . $term->taxonomy] ) )
+                        $metadesc = wpseo_replace_vars( $wpseo_front->options['metadesc-' . $term->taxonomy], (array) $term );
+
+                    if ( $metadesc )
+                        echo '<meta name="description" content="' . esc_attr( strip_tags( stripslashes( $metadesc ) ) ) . '"/>' . "\n";
+                }
+
+                break;
+            default:
+                break;
+        }
+
     }
 
     public function _meta_rel_canonical() {
