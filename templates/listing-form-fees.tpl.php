@@ -19,7 +19,7 @@ if (!function_exists('_wpbdp_has_fee_selected')) {
 		<?php echo !$listing_id ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
 	</h2>
 
-	<h3><?php _ex('Step 2 - Payment Options', 'templates', 'WPBDM'); ?></h3>
+	<h3><?php echo sprintf( _x('Step %d - Payment Options', 'templates', 'WPBDM'), $listing_data['step_no'] ); ?></h3>
 
 	<?php if ($validation_errors): ?>
 		<ul class="validation-errors">

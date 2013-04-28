@@ -13,7 +13,7 @@ function wpbdp_listingform_delete_image(id) {
 		<?php echo !$listing_data['listing_id'] ? _x('Submit A Listing', 'templates', 'WPBDM') : _x('Edit Your Listing', 'templates', 'WPBDM'); ?>
 	</h2>
 
-	<h3><?php _ex('Step 3 - Listing Images', 'templates', 'WPBDM'); ?></h3>
+	<h3><?php echo sprintf( _x('Step %d - Listing Images', 'templates', 'WPBDM'), $listing_data['step_no'] ); ?></h3>
 
 	<?php if ($validation_errors): ?>
 		<ul class="validation-errors">

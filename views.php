@@ -370,7 +370,8 @@ class WPBDP_DirectoryController {
                                      'fields' => array(),
                                      'fees' => array(),
                                      'images' => array(),
-                                     'thumbnail_id' => 0);
+                                     'thumbnail_id' => 0,
+                                     'step_no' => 1);
 
         if (isset($_POST['listing_data'])) {
             $this->_listing_data = unserialize(base64_decode($_POST['listing_data']));
@@ -461,6 +462,7 @@ class WPBDP_DirectoryController {
 
         // if there are values POSTed and everything validates, move on
         if ( $post_values && !$validation_errors ) {
+            $this->_listing_data['step_no'] = 2;
             return $this->submit_listing_payment();
         }
 
@@ -595,6 +597,7 @@ class WPBDP_DirectoryController {
                     $this->_listing_data['upgrade-listing'] = true;
                 }
 
+                $this->_listing_data['step_no'] = 3;
                 return $this->submit_listing_images();
             }
         }
@@ -677,6 +680,7 @@ class WPBDP_DirectoryController {
                     
                 break;
             case 'submit':
+                $this->_listing_data['step_no'] += 1;
                 return $this->submit_listing_before_save();
                 break;
             default:
@@ -778,7 +782,7 @@ class WPBDP_DirectoryController {
             if (!current_user_can('administrator') && ($cost > 0.0)) {
                 $payments_api = wpbdp_payments_api();
                 $payment_page = $payments_api->render_payment_page(array(
-                    'title' => _x('Step 5 - Checkout', 'templates', 'WPBDM'),
+                    'title' => sprintf( _x('Step %d - Checkout', 'templates', 'WPBDM'), $this->_listing_data['step_no'] ),
                     'transaction_id' => $transaction_id,
                     'item_text' => _x('Pay %1$s listing fee via %2$s', 'templates', 'WPBDM')
                 ));
