@@ -229,9 +229,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                 $html .= wp_dropdown_categories( array(
                         'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                         'show_option_none' => $context == 'search' ? ( $this->is_multiple() ? _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' ) : _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) ) : null,
-                        'orderby' => 'name',
+                        'orderby' => wpbdp_get_option( 'categories-order-by' ),
                         'selected' => ( $this->is_multiple() ? null : ( $value ? $value[0] : null ) ),
-                        'order' => 'ASC',
+                        'order' => wpbdp_get_option('categories-sort' ),
                         'hide_empty' => 0,
                         'hierarchical' => 1,
                         'echo' => 0,
