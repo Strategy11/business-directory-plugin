@@ -838,20 +838,22 @@ class WPBDP_Admin {
 
     /* Uninstall. */
     public function uninstall_plugin() {
-        if (isset($_POST['doit']) && $_POST['doit'] == 1) {
-            $new_status = wpbdp_get_option('status-on-uninstall');
-            $posts = get_posts(array('post_type' => wpbdp_post_type()));
+        global $wpdb;
 
-            foreach ($posts as $post) {
-                $post_array = array('ID' => $post->ID,
-                                    'post_type' => wpbdp_post_type(),
-                                    'post_status' => $new_status);
-                wp_update_post($post_array);
+        if (isset($_POST['doit']) && $_POST['doit'] == 1) {
+            $post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE post_type = %s", WPBDP_POST_TYPE ) );
+
+            foreach ($post_ids as $post_id) {
+                wp_delete_post($post_id, true);
             }
 
-            // delete options
-            $settings_api = wpbdp_settings_api();
-            $settings_api->reset_defaults();
+            $tables = array( 'wpbdp_form_fields', 'wpbdp_fees', 'wpbdp_payments', 'wpbdp_listing_fees' );
+            foreach ( $tables as &$table ) {
+                $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}{$table}" );
+            }
+
+            delete_option( 'wpbdp-db-version' );
+            delete_option( 'wpbusdirman_db_version' );
 
             // clear scheduled hooks
             wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
