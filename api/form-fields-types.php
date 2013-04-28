@@ -404,6 +404,20 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
         if ( $field->get_association() == 'tags' && !$options ) {
             $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
             $options = array_combine( $tags, $tags );
+        } elseif ( $field->get_association() == 'category' ) {
+            $html = wp_list_categories( array(
+                'taxonomy' => WPBDP_CATEGORY_TAX,
+                'orderby' => wpbdp_get_option( 'categories-order-by' ),
+                'order' => wpbdp_get_option( 'categories-sort' ),
+                'hide_empty' => 0,
+                'echo' => 0,
+                'depth' => 0,                
+                'walker' => new CategoryFormInputWalker( 'radio', $value, $field ),
+                'show_option_none' => '',
+                'title_li' => '',
+            ) );
+            
+            return $html;
         }
 
         $html = '';
@@ -506,6 +520,20 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         if ( $field->get_association() == 'tags' && !$options ) {
             $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
             $options = array_combine( $tags, $tags );
+        } elseif ( $field->get_association() == 'category' ) {
+            $html = wp_list_categories( array(
+                'taxonomy' => WPBDP_CATEGORY_TAX,
+                'orderby' => wpbdp_get_option( 'categories-order-by' ),
+                'order' => wpbdp_get_option( 'categories-sort' ),
+                'hide_empty' => 0,
+                'echo' => 0,
+                'depth' => 0,                
+                'walker' => new CategoryFormInputWalker( 'checkbox', $value, $field ),
+                'show_option_none' => '',
+                'title_li' => '',
+            ) );
+            
+            return $html;            
         }
 
         $html = '';
@@ -798,4 +826,49 @@ class WPBDP_FieldTypes_Image extends WPBDP_FormFieldType {
         return '<br />' . wp_get_attachment_image( $value, 'thumb', false );
     }    
 
+}
+
+// Custom category walker (used when rendering category fields using radios or checkboxes)
+class CategoryFormInputWalker extends Walker {
+    var $tree_type = 'category';
+    var $db_fields = array( 'parent' => 'parent', 'id' => 'term_id' );
+
+    private $input_type;
+    private $selected;
+    private $field;
+
+    public function __construct( $input_type='radio', $selected=null, &$field=null ) {
+        $this->input_type = $input_type;
+        $this->selected = $selected;
+        $this->field = $field;
+    }
+
+    public function start_el( &$output, $category, $depth, $args, $id = 0 ) {
+        switch ( $this->input_type ) {
+            case 'checkbox':
+                $output .= '<div class="wpbdmcheckboxclass">';
+                $output .= sprintf( '<input type="checkbox" class="%s" name="%s" value="%s" %s style="margin-left: %dpx;" />%s',
+                                    $this->field->is_required() ? 'required' : '',
+                                    'listingfields[' . $this->field->get_id() . '][]',
+                                    $category->term_id,
+                                    in_array( $category->term_id, is_array( $this->selected ) ? $this->selected : array( $this->selected ) ) ? 'checked="checked"' : '',
+                                    $depth * 10,
+                                    esc_attr( $category->name )
+                                  );
+                $output .= '</div>';
+                break;
+            case 'radio':
+            default:
+                $output .= sprintf( '<input type="radio" name="%s" class="%s" value="%s" %s style="margin-left: %dpx;"> %s<br />',
+                                    'listingfields[' . $this->field->get_id() . ']',
+                                    $this->field->is_required() ? 'inradio required' : 'inradio',
+                                    $category->term_id,
+                                    $this->selected == $category->term_id ? 'checked="checked"' : '',
+                                    $depth * 10,
+                                    esc_attr( $category->name )
+                                  );
+                break;
+        }
+
+    }
 }
