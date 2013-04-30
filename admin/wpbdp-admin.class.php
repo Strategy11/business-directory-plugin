@@ -859,8 +859,14 @@ class WPBDP_Admin {
             wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
 
             // deactivate plugin
-            deactivate_plugins(plugin_basename(WPBDP_PATH . 'wpbusdirman.php'), true);
-            
+            $real_path = WPBDP_PATH . 'wpbusdirman.php';
+            // if the plugin directory is a symlink, plugin_basename will return
+            // the real path, which may not be the same path WP associated to
+            // the plugin. Plugin paths must be of the form:
+            // wp-content/plugins/plugin-directory/plugin-file.php
+            $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename(dirname($real_path)) . '/' . basename($real_path);
+            deactivate_plugins($fixed_path, true);
+
             echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-complete.tpl.php');
         } else {
             echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-confirm.tpl.php');
