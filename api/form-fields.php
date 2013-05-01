@@ -295,7 +295,7 @@ class WPBDP_FormFieldType {
         foreach ( $attrs as $k => $v ) {
             if ( $k == 'class' ) continue; // use ->css_classes for this
 
-            $html .= sprintf( '%s=%s ', $k, $v );
+            $html .= sprintf( '%s="%s" ', $k, $v );
         }
 
         return $html;
