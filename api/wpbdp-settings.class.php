@@ -219,7 +219,27 @@ class WPBDP_Settings {
         return "$group_slug:$slug";
     }
 
-    public function add_setting($section_key, $name, $label, $type='text', $default=null, $help_text='', $args=array(), $validator=null) {
+    public function add_core_setting( $name, $default=null ) {
+        $setting = new StdClass();
+        $setting->name = $name;
+        $setting->label = '';
+        $setting->help_text = '';
+        $setting->default = $default;
+        $setting->type = 'core';
+        $setting->args = array();
+        $setting->validator = '';
+
+        if ( !isset( $this->settings[ $name ] ) ) {
+            $this->settings[ $name ] = $setting;
+        }
+
+        return true;
+    }
+
+    public function add_setting($section_key, $name, $label, $type='text', $default=null, $help_text='', $args=array(), $validator=null, $callback=null) {
+        if ( $type == 'core' )
+            return $this->add_core_setting( $name, $default );
+
         list($group, $section) = explode(':', $section_key);
         $args = !$args ? array() : $args;
 
@@ -251,6 +271,7 @@ class WPBDP_Settings {
             $setting->type = $type;
             $setting->args = $args;
             $setting->validator = $validator;
+            $setting->callback = $callback;
 
             $this->groups[$group]->sections[$section]->settings[$name] = $setting;
         }
@@ -331,6 +352,22 @@ class WPBDP_Settings {
     /*
      * admin
      */
+    public function _setting_custom($args) {
+        $setting = $args['setting'];
+        $value = $this->get( $setting->name );
+
+        $html = '';
+
+        ob_start();
+        call_user_func( $setting->callback, $setting, $value );
+        $custom_content = ob_get_contents();
+        ob_end_clean();
+
+        $html .= $custom_content;
+        
+        echo $html;
+    }
+
     public function _setting_text($args) {
         $setting = $args['setting'];
         $value = $this->get($setting->name);
