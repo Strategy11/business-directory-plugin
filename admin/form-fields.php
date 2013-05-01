@@ -144,8 +144,16 @@ class WPBDP_FormFieldsAdmin {
         if ( $field_type && in_array( $association, $field_type->get_supported_associations(), true ) ) {
             $field = $api->get_field( $field_id );
 
+            $field_settings = '';
+            $field_settings .= $field_type->render_field_settings( $field, $association );
+
+            ob_start();
+            do_action_ref_array( 'wpbdp_form_field_settings', array( &$field, $association ) );
+            $field_settings .= ob_get_contents();
+            ob_end_clean();
+
             $response['ok'] = true;
-            $response['html'] = $field_type->render_field_settings( $field, $association );
+            $response['html'] = $field_settings;
         }
 
         echo json_encode( $response );

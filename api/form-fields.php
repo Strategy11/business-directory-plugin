@@ -635,6 +635,7 @@ class WPBDP_FormField {
 
         if ( isset( $_POST['field'] ) ) {
             $res = $this->type->process_field_settings( $this );
+            do_action_ref_array( 'wpbdp_form_field_settings_process', array( &$this ) );
 
             if ( is_wp_error( $res ) )
                 return $res;
