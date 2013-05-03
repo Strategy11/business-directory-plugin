@@ -50,11 +50,11 @@ class WPBDP_Admin {
 
     function admin_javascript() {
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
-        wp_enqueue_script('wpbdp-admin-js', plugins_url('/resources/admin.js', __FILE__), array('jquery', 'thickbox'));
+        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
     }
 
     function admin_styles() {
-        wp_enqueue_style('wpbdp-admin', plugins_url('/resources/admin.css', __FILE__));
+        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
         wp_enqueue_style('thickbox');
   }
 
