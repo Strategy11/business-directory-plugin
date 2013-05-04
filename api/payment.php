@@ -285,6 +285,32 @@ class WPBDP_PaymentsAPI {
             ));
     }
 
+    public function cancel_transaction( &$transaction ) {
+        if ( !$transaction || !is_object( $transaction ) )
+            return false;
+
+        global $wpdb;
+
+        switch ( $transaction->payment_type ) {
+            case 'upgrade-to-sticky':
+                $upgrades_api = wpbdp_listing_upgrades_api();
+                $info = $upgrades_api->get_info( $transaction->listing_id );
+
+                if ( $info->downgradeable )
+                    $upgrades_api->set_sticky( $transaction->listing_id, $info->downgrade->id );
+
+                wpbdp_listings_api()->set_payment_status( $transaction->listing_id, 'paid' );
+
+
+                break;
+            case 'initial':
+            default:
+                break;
+        }
+
+        return true;
+    }
+
     public function get_uri_id_for_transaction($transaction) {
         return urlencode(base64_encode(sprintf('%d.%s', $transaction->id, strtotime($transaction->created_on))));
     }
@@ -360,6 +386,11 @@ class WPBDP_PaymentsAPI {
                     $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->level->id );
             }
         }
+    }
+
+    public function delete_transaction($trans_) {
+        global $wpdb;
+        $wpdb->query( $wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $trans_->id) );
     }
 
     public function save_transaction($trans_) {
@@ -464,7 +495,7 @@ class WPBDP_PaymentsAPI {
         return null;
     }
 
-    public function process_payment($gateway_id) {
+    public function process_payment($gateway_id, &$error_message=null) {
         if (!array_key_exists($gateway_id, $this->gateways))
             return;
 
@@ -472,7 +503,7 @@ class WPBDP_PaymentsAPI {
         unset($getvars['action']);
         unset($getvars['page_id']);
 
-        return call_user_func($this->gateways[$gateway_id]->process_callback, array_merge($_POST, $getvars));
+        return call_user_func_array( $this->gateways[$gateway_id]->process_callback, array( array_merge($_POST, $getvars), &$error_message ) );
     }
 
 }
