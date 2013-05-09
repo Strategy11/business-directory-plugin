@@ -679,6 +679,14 @@ class WPBDP_Plugin {
         if ( !$action )
             return;
 
+        // Relevanssi
+        if ( in_array( $action, array( 'submitlisting', 'editlisting' ), true ) && function_exists( 'relevanssi_insert_edit' ) ) {
+            remove_action( 'wp_insert_post', 'relevanssi_insert_edit', 99, 1 );
+            remove_action( 'delete_attachment', 'relevanssi_delete' );
+            remove_action( 'add_attachment', 'relevanssi_publish' );
+            remove_action( 'edit_attachment', 'relevanssi_edit' );  
+        }
+
         $bad_filters = array( 'get_the_excerpt' => array(), 'the_excerpt' => array(), 'the_content' => array() );
 
         // AddThis Social Bookmarking Widget - http://www.addthis.com/
