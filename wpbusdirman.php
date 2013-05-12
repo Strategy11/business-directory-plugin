@@ -31,7 +31,7 @@ License: GPLv2 or any later version
 define ( 'WPBDP_VERSION', '3.0.3dev' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WPBDP_URL', plugins_url( '/', __FILE__ ) );
+define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 
 define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
@@ -605,7 +605,7 @@ class WPBDP_Plugin {
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' ||  wpbdp_get_page_id('main') == get_option('page_on_front') )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . '/resources/css/wpbdp-legacy.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'resources/css/wpbdp-legacy.css');
 
         $counter = 0;
         foreach (array('wpbdp.css', 'wpbusdirman.css', 'wpbdp_custom_style.css', 'wpbdp_custom_styles.css', 'wpbdm_custom_style.css', 'wpbdm_custom_styles.css') as $stylesheet) {

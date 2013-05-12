@@ -21,16 +21,16 @@
 			<div class="inside">
 				<ul>
 				    <li class="li_link">
-				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/featured-levels-module/"><?php _ex('Featured Levels Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    	<img src="<?php echo WPBDP_URL . 'resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/featured-levels-module/"><?php _ex('Featured Levels Module', 'admin sidebar', 'WPBDM'); ?></a>
 				    </li>
 				    <li class="li_link">
-				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/zip-search-module/"><?php _ex('ZIP Code Search Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    	<img src="<?php echo WPBDP_URL . 'resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/zip-search-module/"><?php _ex('ZIP Code Search Module', 'admin sidebar', 'WPBDM'); ?></a>
 				    </li>
 				    <li class="li_link">
-				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/file-upload-module/"><?php _ex('File Upload Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    	<img src="<?php echo WPBDP_URL . 'resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/file-upload-module/"><?php _ex('File Upload Module', 'admin sidebar', 'WPBDM'); ?></a>
 				    </li>				    				    					
 				    <li class="li_link">
-				    	<img src="<?php echo WPBDP_URL . '/resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a>
+				    	<img src="<?php echo WPBDP_URL . 'resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a>
 				    </li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a></li>
 				    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a></li>
