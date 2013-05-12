@@ -144,7 +144,7 @@ class WPBDP_FormFieldType {
                                   $field->get_field_type()->get_id(),
                                   implode(' ', $field->css_classes ),
                                   $this->html_attributes( $field->html_attributes ) );
-                $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_attr( $field->get_label() ) );
+                $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_html( $field->get_label() ) );
                 $html .= '<div class="field inner">';
 
                 $field_inner = $this->render_field_inner( $field, $value, $render_context );
@@ -167,10 +167,10 @@ class WPBDP_FormFieldType {
                                   $this->html_attributes( $field->html_attributes )
                                    );
                 $html .= '<div class="wpbdp-form-field-label">';
-                $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), esc_attr( $field->get_label() ) );
+                $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), esc_html( $field->get_label() ) );
 
                 if ( $field->get_description() )
-                    $html .= sprintf( '<span class="field-description">(%s)</span>', $field->get_description() );
+                    $html .= sprintf( '<span class="field-description">(%s)</span>', esc_html( $field->get_description() ) );
 
                 $html .= '</div>';
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';

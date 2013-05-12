@@ -190,7 +190,7 @@ class WPBDP_FormFieldsAdmin {
 
 
         if ( isset( $_POST['field'] ) ) {
-            $field = new WPBDP_FormField( $_POST['field'] );
+            $field = new WPBDP_FormField( stripslashes_deep( $_POST['field'] ) );
             $res = $field->save();
 
             if ( !is_wp_error( $res ) ) {
