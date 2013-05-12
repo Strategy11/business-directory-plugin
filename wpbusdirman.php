@@ -251,20 +251,32 @@ class WPBDP_Plugin {
         }
 
         if ( is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
+            $url = wpbdp_get_page_link( 'main' );
+
             if (get_query_var('name')) {
-                wp_redirect( add_query_arg('listing', get_query_var('name'), wpbdp_get_page_link('main')) ); // XXX
+                wp_redirect( add_query_arg('listing', get_query_var('name'), $url) ); // XXX
             } else {
-                wp_redirect( add_query_arg('id', get_query_var('p'), wpbdp_get_page_link('main')) ); // XXX
+                if ( get_query_var('preview') == true )
+                    $url = add_query_arg( 'preview', 1, $url );
+
+                wp_redirect( add_query_arg('id', get_query_var('p'), $url) ); // XXX
             }
             
             exit;
         }
 
-        if ( (get_query_var('p') == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
+        global $post;
+        if ( ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
             $id = get_query_var('id');
-            $post = get_post($id);
+            $listing = get_post($id);
 
-            if (!$post || $post->post_type != wpbdp_post_type() || $post->post_status != 'publish') {
+            if ( $listing && get_query_var('preview') ) {
+                if ( current_user_can('edit_posts') )
+                    return;
+            }
+
+            if (!$listing || $listing->post_type != wpbdp_post_type() || $listing->post_status != 'publish') {
+                $this->controller->action = null;
                 status_header(404);
                 nocache_headers();
                 include( get_404_template() );

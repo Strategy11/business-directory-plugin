@@ -109,8 +109,17 @@ class WPBDP_DirectoryController {
             $listing_id = get_query_var('id') ? get_query_var('id') : wpbdp_getv($_GET, 'id', null);
         }
 
-        if ($listing_id)
-            return wpbdp_render_listing($listing_id, 'single');
+        if ( !$listing_id )
+            return;
+
+        $html  = '';
+
+        if ( isset($_GET['preview']) )
+            $html .= wpbdp_render_msg( _x('This is just a preview. The listing has not been published yet.', 'preview', 'WPBDM') );
+
+        $html .= wpbdp_render_listing($listing_id, 'single', false, true);
+
+        return $html;
     }
 
     /* Display category. */

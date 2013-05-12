@@ -232,6 +232,7 @@ class WPBDP_ListingsAPI {
     public function __construct() {
         add_filter('post_type_link', array($this, '_post_link'), 10, 2);
         add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
+        add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 1);
 
         add_filter('term_link', array($this, '_category_link'), 10, 3);
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
@@ -294,6 +295,10 @@ class WPBDP_ListingsAPI {
         if ( $lang != $default_lang )
             return add_query_arg( 'lang', $lang, $url );
 
+        return $url;
+    }
+
+    public function _preview_post_link( $url ) {
         return $url;
     }
 

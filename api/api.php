@@ -299,11 +299,12 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
     $listings_api = wpbdp_listings_api();
 
     if ($listing_id)  {
-        query_posts(array(
-            'post_type' => wpbdp_post_type(),
-            'post_status' => 'publish',
-            'p' => $listing_id
-        ));
+        $args = array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id );
+
+        if ( !isset( $_GET['preview'] ) )
+            $args['post_status'] = 'publish';
+
+        query_posts( $args );
 
         if (have_posts()) the_post();
     }
@@ -538,6 +539,9 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     $post = get_post($listing_id);
 
     if ($post->post_type != wpbdp_post_type())
+        return false;
+
+    if ( isset($_GET['preview']) )
         return false;
 
     switch ($action) {
