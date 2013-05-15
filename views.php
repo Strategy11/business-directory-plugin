@@ -989,7 +989,7 @@ class WPBDP_DirectoryController {
         $html = '';
         $api = wpbdp_payments_api();
 
-        if ($transaction_id = $api->process_payment($_REQUEST['gateway'], &$error_message)) {
+        if ($transaction_id = $api->process_payment($_REQUEST['gateway'], $error_message)) {
             if ( $error_message ) {
                 return wpbdp_render_msg($error_message, $type='error');
             }
