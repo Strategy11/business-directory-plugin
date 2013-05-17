@@ -607,7 +607,9 @@ class WPBDP_FormField {
         if ( $this->type->is_empty_value( $this->value( $post_id ) ) )
             return '';
 
-        return $this->type->display_field( $this, $post_id, $display_context );
+        $html = $this->type->display_field( $this, $post_id, $display_context );
+        $html = apply_filters_ref_array( 'wpbdp_form_field_display', array( $html, &$this, $display_context, $post_id ) );
+        return $html;
     }
 
     /**
