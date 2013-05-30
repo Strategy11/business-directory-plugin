@@ -131,11 +131,11 @@ class WPBDP_FormFieldType {
         return self::standard_display_wrapper( $field, $field->html_value( $post_id ) );
     }
 
-    public function render_field_inner( &$field, $value, $render_context ) {
+    public function render_field_inner( &$field, $value, $render_context, &$extra=null ) {
         return '';
     }
 
-    public function render_field( &$field, $value, $render_context ) {
+    public function render_field( &$field, $value, $render_context, &$extra=null ) {
         $html = '';
 
         switch ( $render_context ) {
@@ -147,8 +147,8 @@ class WPBDP_FormFieldType {
                 $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_html( $field->get_label() ) );
                 $html .= '<div class="field inner">';
 
-                $field_inner = $this->render_field_inner( $field, $value, $render_context );
-                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context ) );
+                $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra );
+                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );
                 
                 $html .= $field_inner;
                 $html .= '</div>';
@@ -175,8 +175,8 @@ class WPBDP_FormFieldType {
                 $html .= '</div>';
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
 
-                $field_inner = $this->render_field_inner( $field, $value, $render_context );
-                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context ) );                
+                $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra );
+                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );                
 
                 $html .= $field_inner;
                 $html .= '</div>';
@@ -618,9 +618,9 @@ class WPBDP_FormField {
      * @param string $display_context the rendering context. defaults to 'submit'.
      * @return string
      */
-    public function render( $value=null, $display_context='submit' ) {
+    public function render( $value=null, $display_context='submit', &$extra=null ) {
         do_action_ref_array( 'wpbdp_form_field_pre_render', array( &$this, $value, $display_context ) );
-        return $this->type->render_field( $this, $value, $display_context );
+        return $this->type->render_field( $this, $value, $display_context, $extra );
     }
 
     /**

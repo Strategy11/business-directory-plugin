@@ -37,7 +37,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
         return $value;
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         if ( is_array( $value ) )
             $value = implode( ',', $value );
 
@@ -158,10 +158,10 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
         parent::store_field_value( $field, $post_id, $value );
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         if ( $context == 'search' ) {
             global $wpbdp;
-            return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value[0], $context );
+            return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value[0], $context, $extra );
         }
 
         $html  = '';
@@ -214,7 +214,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         return $res;
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
         $value = is_array( $value ) ? $value : array( $value );
 
@@ -367,11 +367,11 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
         return 'textarea';
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         // render textareas as textfields when searching
         if ( $context == 'search' ) {
             global $wpbdp;
-            return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context );
+            return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
         }
 
         return sprintf('<textarea id="%s" name="%s" class="intextarea textarea %s">%s</textarea>',
@@ -398,7 +398,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
         return 'radio';
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
         if ( $field->get_association() == 'tags' && !$options ) {
@@ -514,7 +514,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         return 'checkbox';
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         $options = $field->data( 'options' ) ? $field->data( 'options') : array();
 
         if ( $field->get_association() == 'tags' && !$options ) {
@@ -640,10 +640,10 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
         $field->add_display_flag( 'social' );
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         // twitter fields are rendered as normal textfields
         global $wpbdp;
-        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context );
+        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
     }
 
     public function get_supported_associations() {
@@ -689,10 +689,10 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_FormFieldType {
         $field->add_display_flag( 'social' );
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         // facebook fields are rendered as normal textfields
         global $wpbdp;
-        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context );
+        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
     }   
 
     public function get_supported_associations() {
@@ -737,10 +737,10 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
         $field->add_display_flag( 'social' );
     }    
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         // LinkedIn fields are rendered as normal textfields
         global $wpbdp;
-        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context );
+        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
     }
 
     public function get_supported_associations() {
@@ -786,7 +786,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_FormFieldType {
         $field->remove_display_flag( 'search' ); // image fields are not searchable
     }
 
-    public function render_field_inner( &$field, $value, $context ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         if ( $context == 'search' )
             return '';
 
