@@ -209,6 +209,19 @@ jQuery(document).ready(function($){
 
     }).change();
 
+    /* Debug info page */
+    $('#wpbdp-admin-debug-info-page a.nav-tab').click(function(e){
+        e.preventDefault();
+
+        $('#wpbdp-admin-debug-info-page a.nav-tab').not(this).removeClass('nav-tab-active');
+
+        var $selected_tab = $(this);
+        $selected_tab.addClass( 'nav-tab-active' );
+
+        $( '.wpbdp-debug-section' ).hide();
+        $( '.wpbdp-debug-section[data-id="' + $(this).attr('href') + '"]' ).show();
+    }).get(0).click();
+
 });
 
 function wpbdp_load_placeholder($v) {
