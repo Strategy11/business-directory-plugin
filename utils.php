@@ -418,3 +418,17 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
 
 	return true;
 }
+
+/**
+ * Checks if a given string starts with another string.
+ * @param string $str the string to be searched
+ * @param string $prefix the prefix to search for
+ * @return TRUE if $str starts with $prefix or FALSE otherwise
+ * @since 3.0.3
+ */
+function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
+	if ( !$case_sensitive )
+		return stripos( $str, $prefix, 0 ) === 0;
+
+	return strpos( $str, $prefix, 0 ) === 0;
+}
