@@ -385,6 +385,7 @@ class WPBDP_ListingsAPI {
         wp_set_post_terms( $listing_id, array( intval( $category_id ) ), wpbdp_categories_taxonomy(), true );
 
         $fee = is_object($fee_id) ? $fee_id : wpbdp_fees_api()->get_fee_by_id($fee_id);
+
         if ($fee) {
             if ($fee->categories['all'] || count(array_intersect(wpbdp_get_parent_catids($category_id), $fee->categories['categories'])) > 0) {
                 $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $category_id));
@@ -841,5 +842,133 @@ class WPBDP_ListingsAPI {
     }
 
 }
+
+    /**
+     * @since 3.0.3
+     */
+    function wpbdp_save_listing( $data, &$result=null ) {
+        global $wpdb;
+
+        $data = is_array( $data ) ? (object) $data : $data;
+
+        // prepare result object
+        $result = new StdClass();
+        $result->success = false;
+        $result->listing_id = 0;
+        $result->transaction_id = 0;
+
+        // obtain listing's title
+        $title = 'Untitled Listing';
+        $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
+        if ( isset( $data->fields[ $title_field->get_id() ] ) ) {
+            $title = trim( strip_tags( $data->fields[ $title_field->get_id() ] ) );
+        }
+
+        $listing_id = wp_insert_post( array( 
+            'post_title' => $title,
+            'post_status' => $data->listing_id ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
+            'post_type' => WPBDP_POST_TYPE,
+            'ID' => $data->listing_id ? intval( $data->listing_id ) : null
+        ) );
+
+        // create author user if needed
+        if ( !$data->listing_id ) {
+            $current_user = wp_get_current_user();
+
+            if ( $current_user->ID == 0 ) {
+                if ( wpbdp_get_option( 'require-login' ) ) {
+                    exit;
+                }
+                // create user
+                if ( $email_field = wpbdp_get_form_fields( array( 'validator' => 'email', 'unique' => 1 ) ) ) {
+                    $email = $data->fields[ $email_field->get_id() ];
+                    
+                    if ( email_exists( $email ) ) {
+                        $post_author = get_user_by_email( $email )->ID;
+                    } else {
+                        $randvalue = wpbdp_generate_password( 5, 2 );
+                        $post_author = wp_insert_user( array(
+                            'display_name' => 'Guest ' . $randvalue,
+                            'user_login' => 'guest_' . $randvalue,
+                            'user_email' => $email,
+                            'user_pass' => wpbdp_generate_password( 7, 2 )
+                        ) );
+                    }
+
+                    wp_update_post( array( 'ID' => $listing_id, 'post_author' => $post_author ) );
+                }
+            }
+        }        
+
+        // store fields (not category or title, those are special)
+        $fields = wpbdp_get_form_fields( array( 'association' => array( '-title', '-category' ) ) );
+        foreach ( $fields as &$f ) {
+            if ( isset( $data->fields[ $f->get_id() ] ) ) {
+                $f->store_value( $listing_id, $data->fields[ $f->get_id() ] );
+            } else {
+                $f->store_value( $listing_id, $f->convert_input( null ) );
+            }
+        }
+
+        // attach images
+        if ( isset( $data->images ) ) {
+            foreach ( $data->images as $image_id ) {
+                wp_update_post( array( 'ID' => $image_id, 'post_parent' => $listing_id ) );
+            }
+
+            if ( isset( $data->thumbnail_id ) && in_array( $data->thumbnail_id, $data->images ) ) {
+                update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $data->thumbnail_id );
+            } else {
+                if ( $data->images )
+                    update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $data->images[0] );
+                else
+                    delete_post_meta( $listing_id, '_wpbdp[thumbnail_id]' );
+            }
+        }
+
+        // set categories
+        wp_set_post_terms ( $listing_id, $data->categories, WPBDP_CATEGORY_TAX, false );
+
+        $listing_cost = 0.0;
+
+        // register fee information
+        foreach ( $data->categories as $catid ) {
+            $fee = isset( $data->fees[ $catid ] ) ? wpbdp_get_fee( $data->fees[ $catid ] ) : wpbdp_get_fee( 0 );
+            wpbdp_listings_api()->assign_fee( $listing_id, $catid, $fee->id, true );
+
+            $listing_cost += floatval( $fee->amount );
+        }
+
+        if ( $data->categories )
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $data->categories ) . ")", $listing_id ) );
+
+        $payments = wpbdp_payments_api();
+        $transaction_id = $payments->save_transaction( array(
+            'amount' => $listing_cost,
+            'payment_type' => $data->listing_id > 0 ? 'edit' : 'initial',
+            'listing_id' => $listing_id
+        ) );
+        update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $listing_cost > 0.0 ) ? 'not-paid' : 'paid' );
+
+        $result->transaction_id = $transaction_id;
+        $result->listing_cost = $listing_cost;
+
+        if ( !$data->listing_id && ( !$listing_cost || current_user_can( 'administrator' ) ) ) {
+            wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
+        }
+
+        $editing = $data->listing_id > 0 ? true : false;
+        $data->listing_id = $listing_id;
+        $result->listing_id = $listing_id;
+
+        if ( !$editing )
+            do_action( 'wpbdp_create_listing', $data );
+        else
+            do_action( 'wpbdp_edit_listing', $data );
+
+        do_action( 'wpbdp_save_listing', $data );
+
+        return $listing_id;
+    }
 
 }
