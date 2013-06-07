@@ -497,7 +497,6 @@ class WPBDP_CSVImporter {
             } elseif ($field->get_association() == 'tags') {
                 $tags = $data[ $i ];
                 $tags = array_map( 'trim', explode( $this->settings['category-separator'], $tags ) );
-                // wpbdp_debug_e( $field->get_field_type()->get_id() == 'textfield' ? implode( ',', $tags ) : $tags );
                 $tags = $field->get_field_type()->get_id() == 'textfield' ? implode( ',', $tags ) : $tags;
 
                 $listing_fields[$field->get_id()][] = $tags;
