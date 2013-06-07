@@ -173,6 +173,45 @@ class WPBDP_FeesAPI {
 
 }
 
+    // public function get_fee_by_id($id) {
+    //     global $wpdb;
+
+    //     if ($id == 0)
+    //         return $this->get_free_fee();
+
+    //     if ($fee = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $id))) {
+    //         $this->normalize($fee);
+    //         return $fee;
+    //     }
+
+    //     return null;
+    // }
+
+/**
+ * Finds a fee by its ID. The special ID of 0 is reserved for the "free fee".
+ * @param int $fee_id fee ID
+ * @return object a fee object or NULL if nothing is found
+ * @since 3.0.3
+ */
+function wpbdp_get_fee( $fee_id ) {
+    return wpbdp_fees_api()->get_fee_by_id( $fee_id );
+}
+
+/**
+ * Finds fees available for one or more directory categories.
+ * @param int|array $categories term ID or array of term IDs
+ * @return object|
+ * @since 3.0.3
+ */
+function wpbdp_get_fees_for_category( $categories=null ) {
+    $categories_ = is_array( $categories ) ? $categories : array( $categories );
+    $results = wpbdp_fees_api()->get_fees( $categories );
+
+    return is_array( $categories) ? $results : array_pop( $results );
+}
+
+
+
 class WPBDP_PaymentsAPI {
 
     public function __construct() {
