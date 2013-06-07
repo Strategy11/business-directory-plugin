@@ -67,7 +67,7 @@ class WPBDP_DirectoryController {
             case 'editlisting':
             case 'submitlisting':
                 require_once( WPBDP_PATH . 'views-submit-listing.php' );
-                $submit_page = new WPBDP_SubmitListingPage;
+                $submit_page = new WPBDP_SubmitListingPage( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
                 return $submit_page->dispatch();
 
                 break;

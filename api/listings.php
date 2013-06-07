@@ -934,9 +934,11 @@ class WPBDP_ListingsAPI {
         // register fee information
         foreach ( $data->categories as $catid ) {
             $fee = isset( $data->fees[ $catid ] ) ? wpbdp_get_fee( $data->fees[ $catid ] ) : wpbdp_get_fee( 0 );
-            wpbdp_listings_api()->assign_fee( $listing_id, $catid, $fee->id, true );
+            $current_fee = ( $data->listing_id > 0 ) ? wpbdp_listings_api()->get_listing_fee_for_category( $data->listing_id, $catid ) : null;
 
-            $listing_cost += floatval( $fee->amount );
+            wpbdp_listings_api()->assign_fee( $listing_id, $catid, $fee->id, ( $current_fee && $current_fee->id == $fee->id ) ? false : true );
+
+            $listing_cost += ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : floatval( $fee->amount );
         }
 
         if ( $data->categories )

@@ -12,25 +12,58 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
     private $messages = array();
     private $errors = array();
 
-    public function __construct() {
-        $this->state = $this->get_current_state();
+    public function __construct( $listing_id=0 ) {
+        $this->state = $this->get_current_state( $listing_id );
     }
 
     public function get_page_name() {
         return 'submitlisting';
     }
 
-    protected function get_current_state() {
+    protected function get_current_state( $listing_id=0 ) {
         if ( isset( $_POST['_state'] ) ) {
             $state = unserialize( base64_decode( $_POST['_state'] ) );
 
-            if ( !$state )
+            if ( !$state || ( $listing_id > 0 && $listing_id != $state->listing_id ) )
                 throw new Exception( 'Inconsistent state' );
 
             return $state;
         }
 
-        return new WPBDP_SubmitState();
+        return $listing_id > 0 ? $this->get_state_from_listing( $listing_id ) : new WPBDP_SubmitState();
+    }
+
+    private function get_state_from_listing( $listing_id ) {
+        $post = get_post( $listing_id );
+
+        if ( !$post || $post->post_status != 'publish' || $post->post_type != WPBDP_POST_TYPE )
+            throw new Exception( 'Trying to edit something that does not exist.' );
+
+        $state = new WPBDP_SubmitState();
+        $state->listing_id = $listing_id;
+        $state->categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+
+        // recover fee info
+        $fees = wpbdp_listings_api()->get_listing_fees( $listing_id );
+        foreach ( $fees as &$fee ) {
+            $fee_ = (object) unserialize( $fee->fee );
+
+            $state->fees[ $fee->category_id ] = $fee_->id;
+            $state->allowed_images += intval( $fee_->images );
+        }    
+
+        // image info
+        $images = wpbdp_listings_api()->get_images( $listing_id );
+        $state->images = array_map( create_function( '$x', 'return $x->ID;' ), $images );
+        $state->thumbnail_id = intval( wpbdp_listings_api()->get_thumbnail_id( $listing_id ) );
+
+        // fields
+        $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
+        foreach ( $fields as &$f ) {
+            $state->fields[ $f->get_id() ] = $f->value( $listing_id );
+        }
+
+        return $state;
     }
 
     public function dispatch() {
@@ -379,55 +412,7 @@ class WPBDP_SubmitState {
 
     public $allowed_images = 0;
     public $images = array();
-    public $thumbnail = 0;
+    public $thumbnail_id = 0;
 
     public $fields = array();
 }
-
- /* 
-    public function submit_listing_before_save() {
-        if ( isset($_POST['thumbnail_id']) )
-            $this->_listing_data['thumbnail_id'] = intval( $_POST['thumbnail_id'] );
-
-        if ( !$this->_extra_sections )
-            return $this->submit_listing_save();
-
-        if ( !isset($this->_listing_data['extra_sections']) )
-            $this->_listing_data['extra_sections'] = array();
-
-        $theres_output = false;
-        $continue_to_save = true;
-        if ( !isset($_POST['do_extra_sections']) )
-            $continue_to_save = false;
-
-        foreach ( $this->_extra_sections as &$section ) {
-            if ( !isset($this->_listing_data['extra_sections'][$section->id]) )
-                $this->_listing_data['extra_sections'][$section->id] = array();
-
-            $process_result = false;
-
-            if ( isset($_POST['do_extra_sections']) && $section->process ) {
-                $process_result = call_user_func_array( $section->process, array(&$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id']) );
-                $continue_to_save = $continue_to_save && $process_result;
-            }
-
-            if ( !$process_result && $section->display ) {
-                $section->_output = call_user_func_array( $section->display, array(&$this->_listing_data['extra_sections'][$section->id], $this->_listing_data['listing_id']) );
-
-                if ( !empty( $section->_output ) && !$theres_output )
-                    $theres_output = true;                
-            }
-        }
-
-        if ( $continue_to_save || !$theres_output ) {
-            return $this->submit_listing_save();
-        }
-
-        return wpbdp_render('listing-form-extra', array(
-                            'listing_data' => $this->_listing_data,
-                            'sections' => $this->_extra_sections
-                            ), false);
-
-        return $html;
-    }
-*/
