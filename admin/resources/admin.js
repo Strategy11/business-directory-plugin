@@ -220,7 +220,10 @@ jQuery(document).ready(function($){
 
         $( '.wpbdp-debug-section' ).hide();
         $( '.wpbdp-debug-section[data-id="' + $(this).attr('href') + '"]' ).show();
-    }).get(0).click();
+    });
+
+    if ( $('#wpbdp-admin-debug-info-page a.nav-tab').length > 0 )
+        $('#wpbdp-admin-debug-info-page a.nav-tab').get(0).click();
 
 });
 
