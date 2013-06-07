@@ -968,8 +968,30 @@ class WPBDP_FormFields {
         $display_flags = $display_flags ? ( !is_array( $display_flags ) ? array( $display_flags ) : $display_flags ) : array();
 
         $where = '';
-        if ( $args['association'] )
-            $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
+        if ( $args['association'] ) {
+            $associations_in = array();
+            $associations_not_in = array();
+
+            $association = !is_array( $association) ? array( $association ) : $association;
+
+            foreach ( $association as &$assoc ) {
+                if ( wpbdp_starts_with( $assoc, '-' ) ) {
+                    $associations_not_in[] = substr( $assoc, 1 );
+                } else {
+                    $associations_in[] = $assoc;
+                }
+            }
+
+            if ( $associations_in ) {
+                $where .= ' AND ( association IN ( \'' . implode( '\',\'', $associations_in)  . '\' ) ) ';
+            }
+
+            if ( $associations_not_in ) {
+                $where .= ' AND ( association NOT IN ( \'' . implode( '\',\'', $associations_not_in)  . '\' ) ) ';
+            }
+
+            // $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
+        }
 
         foreach ( $display_flags as $f ) {
             if ( substr($f, 0, 1) == '-' )
