@@ -16,33 +16,39 @@
 					<th><?php echo _x( 'Price', 'templates', 'WPBDM' ); ?></th>					
 					<th><?php echo _x( 'Duration', 'templates', 'WPBDM' ); ?></th>
 					<th><?php echo _x( 'Images Allowed', 'templates', 'WPBDM' ); ?></th>
-					<?php do_action( 'wpbdp_fee_selection_extra_headers' ); ?>
+					<?php // do_action( 'wpbdp_fee_selection_extra_headers' ); ?>
 				</thead>
 				<tbody>
 					<?php foreach ( $fees[ $cat_id ] as &$fee ): ?>
-					<tr class="fee-option">
+					<tr class="fee-option fee-id-<?php echo $fee->id; ?>">
 						<td>
 							<?php $fee_selected = isset( $state->fees[ $cat_id ] ) && $state->fees[ $cat_id ] == $fee->id ? true : false; ?>
-							<input type="radio" name="fees[<?php echo $cat_id; ?>]" value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
+							<input type="radio" id="wpbdp-fees-radio-<?php echo $fee->id; ?>" name="fees[<?php echo $cat_id; ?>]" value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
 						</td>
-						<td>
-							<?php echo esc_html( $fee->label ); ?>
+						<td class="fee-label">
+							<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( $fee->label ); ?></label>
 						</td>
-						<td>
+						<td class="fee-amount">
 							<?php echo wpbdp_format_currency( $fee->amount ); ?>
 						</td>
-						<td>
+						<td class="fee-duration">
 							<?php if ( $fee->days == 0 ): ?>
 								<?php echo _x( 'Unlimited', 'templates', 'WPBDM' ); ?>
 							<?php else : ?>
 								<?php echo sprintf( _nx( '%d day', '%d days', $fee->days, 'templates', 'WPBDM' ), $fee->days ); ?>
 							<?php endif; ?>
 						</td>
-						<td>
+						<td class="fee-images">
 							<?php echo $fee->images; ?>
 						</td>
-						<?php do_action( 'wpbdp_fee_selection_extra_columns', $fee ); ?>
+						<?php // do_action( 'wpbdp_fee_selection_extra_columns', $fee ); ?>
 					</tr>
+					<?php if ( $fee_description = apply_filters( 'wpbdp_fee_selection_fee_description', '', $fee ) ): ?>
+					<tr class="fee-description fee-id-<?php echo $fee->id; ?>">
+						<td></td>
+						<td colspan="4"><?php echo $fee_description; ?></td>
+					</tr>
+					<?php endif; ?>
 					<?php endforeach; ?>
 				</tbody>
 			</table>

@@ -380,3 +380,12 @@ ul.validation-errors li {
 }
 
 /*.wpbusdirmanerroralert { color:#ff0000;font-weight:bold;font-size:14px; }*/
+
+.wpbdp-submit-page .fee-options .fee-option .fee-label {
+    font-weight: bold;
+}
+
+.wpbdp-submit-page .fee-options .fee-description {
+    font-size: 90%;
+    color: #666;
+}
