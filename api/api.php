@@ -448,7 +448,7 @@ function _wpbdp_render_excerpt() {
     $social_fields = '';
 
     $ffields = wpbdp_get_form_fields();
-    $ffields = apply_filters_ref_array( 'wpbdp_get_form_fields', array( &$ffields, $post->ID ) ); // TODO: move this to wpbpd_get_form_fields() ?
+    $ffields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$ffields, $post->ID ) );
 
     foreach ( $ffields as &$field) {
         if ( !$field->display_in( 'excerpt' ) )
