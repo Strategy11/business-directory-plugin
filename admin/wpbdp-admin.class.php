@@ -952,7 +952,7 @@ class WPBDP_Admin {
             $mysql_version .= ' ( ' . $sql_mode . ' )';
         $debug_info['environment']['MySQL version'] = $mysql_version ? $mysql_version : 'N/A';
 
-        $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): ( function_exists( 'sqlite_libversion' ) : sqlite_libversion() : null );
+        $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): ( function_exists( 'sqlite_libversion' ) ? sqlite_libversion() : null );
         $debug_info['environment']['SQLite version'] = $sqlite_version ? $sqlite_version : 'N/A';
 
         $debug_info['environment']['cURL version'] = function_exists( 'curl_init' ) ? wpbdp_getv( curl_version(), 'version' ) : 'N/A';
