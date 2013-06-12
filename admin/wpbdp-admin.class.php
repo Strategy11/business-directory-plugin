@@ -941,7 +941,7 @@ class WPBDP_Admin {
         $debug_info['environment']['OS'] = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
         
         if ( function_exists( 'apache_get_version' ) ) {
-            $apache_version = apache_get_version() )
+            $apache_version = apache_get_version();
             $debug_info['environment']['Apache version'] = $apache_version;
         }
 
