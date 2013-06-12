@@ -175,7 +175,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             if ( !$category_field->validate( $post_value, $errors ) ) {
                 $this->errors = array_merge( $this->errors, $errors );
             } else {
-                $this->state->categories = array_values( $post_value );
+                $this->state->categories = array_values( is_array( $post_value ) ? $post_value : array( $post_value ) );
                 return $this->step_fee_selection();
             }
 
@@ -218,7 +218,6 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             if ( $validates ) {
                 return $this->step_listing_fields();
             }
- 
         }
 
         return $this->render( 'fee-selection', array(
@@ -364,7 +363,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             //     }
             // }            
 
-            $cost = floatval( $result->listing_cost );
+            $cost = floatval( $res->listing_cost );
 
             if ( !current_user_can( 'administrator' ) && ( $cost > 0.0 ) ) {
                 $payments = wpbdp_payments_api();
