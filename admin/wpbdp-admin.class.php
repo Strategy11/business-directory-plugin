@@ -940,8 +940,10 @@ class WPBDP_Admin {
         $debug_info['environment']['WordPress version'] = get_bloginfo( 'version', 'raw' );
         $debug_info['environment']['OS'] = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
         
-        if ( $apache_version = apache_get_version() )
+        if ( function_exists( 'apache_get_version' ) ) {
+            $apache_version = apache_get_version() )
             $debug_info['environment']['Apache version'] = $apache_version;
+        }
 
         $debug_info['environment']['PHP version'] = phpversion();
 
@@ -950,7 +952,7 @@ class WPBDP_Admin {
             $mysql_version .= ' ( ' . $sql_mode . ' )';
         $debug_info['environment']['MySQL version'] = $mysql_version ? $mysql_version : 'N/A';
 
-        $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): sqlite_libversion();
+        $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): ( function_exists( 'sqlite_libversion' ) : sqlite_libversion() : null );
         $debug_info['environment']['SQLite version'] = $sqlite_version ? $sqlite_version : 'N/A';
 
         $debug_info['environment']['cURL version'] = function_exists( 'curl_init' ) ? wpbdp_getv( curl_version(), 'version' ) : 'N/A';
