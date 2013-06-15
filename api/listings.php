@@ -941,6 +941,14 @@ class WPBDP_ListingsAPI {
             $listing_cost += ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : floatval( $fee->amount );
         }
 
+        if ( !$data->listing_id && $data->upgrade_to_sticky ) {
+            $upgrades_api = wpbdp_listing_upgrades_api();
+            $upgrades_api->set_sticky( $listing_id, 'sticky' );            
+
+            $level = $upgrades_api->get( 'sticky' );
+            $listing_cost += $level->cost;
+        }
+
         if ( $data->categories )
             $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $data->categories ) . ")", $listing_id ) );
 

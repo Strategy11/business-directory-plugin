@@ -197,7 +197,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         // available fees
         $available_fees = wpbdp_get_fees_for_category( $this->state->categories ) or die( '' );
 
-        // TODO: if all fees are free-fees, move on
+        // TODO: if all fees are free-fees, move on (and no upgrades available)
 
         if ( isset( $_POST['fees'] ) ) {
             $validates = true;
@@ -216,13 +216,22 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             }
 
             if ( $validates ) {
+                $this->state->upgrade_to_sticky = isset( $_POST['upgrade-listing'] ) && $_POST['upgrade-listing'] == 'upgrade' ? true : false;
                 return $this->step_listing_fields();
             }
         }
 
+        $upgrade_option = false;
+        if ( !$this->state->listing_id && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) ) {
+            $upgrade_option = wpbdp_listing_upgrades_api()->get( 'sticky' );
+        }
+
+        
+
         return $this->render( 'fee-selection', array(
             'categories' => $this->state->categories,
-            'fees' => $available_fees
+            'fees' => $available_fees,
+            'upgrade_option' => $upgrade_option
         ) );
     }
 
@@ -406,6 +415,7 @@ class WPBDP_SubmitState {
     public $listing_id = 0;
     public $edit = false;
 
+    public $upgrade_to_sticky = false;
     public $categories = array();
     public $fees = array();
 
