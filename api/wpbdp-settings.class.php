@@ -47,10 +47,25 @@ class WPBDP_Settings {
                            null,
                            array($this, '_validate_listing_duration'));
         
-        $this->add_setting($s, 'show-contact-form', _x('Include listing contact form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', true);
-        $this->add_setting($s, 'show-comment-form', _x('Include comment form on listing pages?', 'admin settings', 'WPBDM'), 'boolean', false);
+        $this->add_setting( $s,
+                            'show-contact-form', 
+                            _x( 'Include listing contact form on listing pages?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            true,
+                            _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'show-comment-form',
+                            _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            _x( 'Allow visitors to discuss listings using the standard WordPress comment form. Comments are public.', 'admin settings', 'WPBDM' ) );
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
-        $this->add_setting($s, 'override-email-blocking', _x('Override email Blocking?', 'admin settings', 'WPBDM'), 'boolean', false);
+        $this->add_setting( $s,
+                            'override-email-blocking',
+                            _x( 'Override email Blocking?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            _x('When checked, email addresses in listing fields will be displayed publicly. Not recommended.', 'admin settings', 'WPBDM') );
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
                            array('choices' => array('draft', 'trash')));
         $this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
