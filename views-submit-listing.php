@@ -50,7 +50,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
 
             $state->fees[ $fee->category_id ] = $fee_->id;
             $state->allowed_images += intval( $fee_->images );
-        }    
+        }
 
         // image info
         $images = wpbdp_listings_api()->get_images( $listing_id );
@@ -200,6 +200,8 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         // TODO: if all fees are free-fees, move on (and no upgrades available)
 
         if ( isset( $_POST['fees'] ) ) {
+            $this->state->allowed_images = 0;
+
             $validates = true;
 
             foreach ( $categories as $cat_id => &$term ) {

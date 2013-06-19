@@ -48,7 +48,7 @@ function wpbdp_listingform_delete_image(id) {
 		<input type="submit" class="submit" name="upload-image" value="<?php _ex('Upload Image', 'templates', 'WPBDM'); ?>" />
 	</div>
 	<?php else: ?>
-	<p><?php _ex( 'Your image slots are all full at this time.  You may click "Continue" if you are done, or "Delete Image" to upload a new image in place of a current one.', 'templates', 'WPBDM' ); ?></p>
+	<p style="clear: both;"><?php _ex( 'Your image slots are all full at this time.  You may click "Continue" if you are done, or "Delete Image" to upload a new image in place of a current one.', 'templates', 'WPBDM' ); ?></p>
 	<?php endif; ?>
 
 	<input type="submit" class="submit" name="finish" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?>" />		
