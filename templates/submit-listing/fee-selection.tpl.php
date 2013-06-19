@@ -8,7 +8,6 @@
 	<?php foreach ( $categories as $cat_id ): $category = get_term( $cat_id, WPBDP_CATEGORY_TAX ); ?>
 		<div class="fee-options-for-category">
 			<?php if ( count( $categories ) > 1 ): ?><h4><?php echo sprintf( _x( '"%s" fee options', 'templates', 'WPBDM' ), $category->name ); ?></h4><?php endif; ?>
-			
 			<table class="fee-options">
 				<thead>
 					<th></th>
@@ -22,7 +21,7 @@
 					<?php foreach ( $fees[ $cat_id ] as &$fee ): ?>
 					<tr class="fee-option fee-id-<?php echo $fee->id; ?>">
 						<td>
-							<?php $fee_selected = isset( $state->fees[ $cat_id ] ) && $state->fees[ $cat_id ] == $fee->id ? true : false; ?>
+							<?php $fee_selected = ( !isset( $state->fees[ $cat_id ] ) && key( $fees[ $cat_id ] ) == 1 ) || ( isset( $state->fees[ $cat_id ] ) && $state->fees[ $cat_id ] == $fee->id ) ? true : false; ?>
 							<input type="radio" id="wpbdp-fees-radio-<?php echo $fee->id; ?>" name="fees[<?php echo $cat_id; ?>]" value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
 						</td>
 						<td class="fee-label">
@@ -39,7 +38,7 @@
 							<?php endif; ?>
 						</td>
 						<td class="fee-images">
-							<?php echo $fee->images; ?>
+							<?php echo wpbdp_get_option('allow-images') ? $fee->images : '—'; ?>
 						</td>
 						<?php // do_action( 'wpbdp_fee_selection_extra_columns', $fee ); ?>
 					</tr>
