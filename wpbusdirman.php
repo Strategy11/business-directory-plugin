@@ -305,7 +305,7 @@ class WPBDP_Plugin {
 
     public function init() {
         // add_option('wpbdp-debug-on', true);
-        if (get_option('wpbdp-debug-on', false)) $this->debug_on();
+        // if (get_option('wpbdp-debug-on', false)) $this->debug_on();
 
         wpbdp_log('WPBDP_Plugin::init()');
 
@@ -542,13 +542,13 @@ class WPBDP_Plugin {
     }
 
     public function _credits_footer() {
-        $html = '';
+        if ( !wpbdp_get_option( 'credit-author') )
+            return;
 
-        if(wpbdp_get_option('credit-author')) {
-            $html .= '<div class="wpbdmac">Directory powered by <a href="http://businessdirectoryplugin.com/">Business Directory Plugin</a></div>';
-        }
-
-        echo $html;
+        echo '<div class="wpbdp-credit-info wpbdmac">';
+        printf( _x( 'Directory powered by %s', 'credits footer', 'WPBDM' ),
+                '<a href="http://businessdirectoryplugin.com">Business Directory Plugin</a>' );
+        echo '</div>';
     }
 
     public function _register_widgets() {
@@ -604,7 +604,7 @@ class WPBDP_Plugin {
         wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
 
         // enable legacy css (should be removed in a future release) XXX
-        if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' ||  wpbdp_get_page_id('main') == get_option('page_on_front') )
+        if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
             wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'resources/css/wpbdp-legacy.css');
 
         $counter = 0;

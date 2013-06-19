@@ -389,3 +389,14 @@ ul.validation-errors li {
     font-size: 90%;
     color: #666;
 }
+
+/* credits footer */
+.wpbdp-credit-info {
+    font-size: 9px;
+    text-align: center;
+    color: #494949;
+}
+
+.wpbdp-credit-info a {
+    color: inherit;
+}
