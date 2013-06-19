@@ -245,7 +245,7 @@ class WPBDP_ListingsAPI {
     }
 
     public function _category_link($link, $category, $taxonomy) {
-        if ( ($taxonomy == wpbdp_categories_taxonomy()) && (_wpbdp_template_mode('category') == 'page') ) {
+        if ( ($taxonomy == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
             if (wpbdp_rewrite_on()) {
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-category-slug') . '/' . $category->slug . '/';
             } else {
@@ -272,7 +272,7 @@ class WPBDP_ListingsAPI {
         if (is_admin())
             return $url;
 
-        if ( ($post->post_type == wpbdp_post_type()) && (_wpbdp_template_mode('single') == 'page') ) {
+        if ( ($post->post_type == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
             if (wpbdp_rewrite_on()){
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . $post->ID . '/' . ($post->post_name ? $post->post_name . '/' : '');
             } else {
@@ -308,7 +308,7 @@ class WPBDP_ListingsAPI {
             return false;
 
         // comments on listings
-        if (get_post_type($post_id) == wpbdp_post_type())
+        if (get_post_type($post_id) == WPBDP_POST_TYPE)
             return wpbdp_get_option('show-comment-form');
         
         return $open;
@@ -318,7 +318,7 @@ class WPBDP_ListingsAPI {
         if ( !wpbdp_get_option( 'notify-admin' ) )
             return;
 
-        $categories = wp_get_post_terms( $listing_id, wpbdp_categories_taxonomy(), array( 'fields' => 'names' ) );
+        $categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'names' ) );
         if ( $categories ) {
             $categories_str = implode( ',', $categories );
         } else {
@@ -365,7 +365,7 @@ class WPBDP_ListingsAPI {
         }
 
         // assign a fee to all categories
-        $post_categories = wp_get_post_terms($post_id, wpbdp_categories_taxonomy());
+        $post_categories = wp_get_post_terms($post_id, WPBDP_CATEGORY_TAX);
 
         foreach ($post_categories as $category) {
             if ($fee = $this->get_listing_fee_for_category($post_id, $category->term_id)) {
@@ -382,7 +382,7 @@ class WPBDP_ListingsAPI {
     public function assign_fee($listing_id, $category_id, $fee_id, $charged=false) {
         global $wpdb;
 
-        wp_set_post_terms( $listing_id, array( intval( $category_id ) ), wpbdp_categories_taxonomy(), true );
+        wp_set_post_terms( $listing_id, array( intval( $category_id ) ), WPBDP_CATEGORY_TAX, true );
 
         $fee = is_object($fee_id) ? $fee_id : wpbdp_fees_api()->get_fee_by_id($fee_id);
 
@@ -573,7 +573,7 @@ class WPBDP_ListingsAPI {
         global $wpdb;
 
         if ($renewal = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", $renewal_id, current_time('mysql')))) {
-            if ( !has_term($renewal->category_id, wpbdp_categories_taxonomy(), $renewal->listing_id) ) {
+            if ( !has_term($renewal->category_id, WPBDP_CATEGORY_TAX, $renewal->listing_id) ) {
                 // set payment status to not-paid
                 update_post_meta($renewal->listing_id, '_wpbdp[payment_status]', 'not-paid');
 
@@ -613,7 +613,7 @@ class WPBDP_ListingsAPI {
         $listing_id = wp_insert_post( array(
             'post_title' => $title,
             'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'ID' => $editing ? intval( $data['listing_id'] ) : null
         ) );
 
@@ -672,7 +672,7 @@ class WPBDP_ListingsAPI {
         // register fee information
         if (!isset($data['fees'])) $data['fees'] = array();
 
-        $post_categories = wp_get_post_terms( $listing_id, wpbdp_categories_taxonomy(), 'fields=ids' );
+        $post_categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, 'fields=ids' );
 
         foreach ( $post_categories as $catid ) {
             $fee = (array) ( isset( $data['fees'][ $catid ] ) ? $data['fees'][ $catid ] : wpbdp_fees_api()->get_free_fee() );
@@ -736,7 +736,7 @@ class WPBDP_ListingsAPI {
 
         $query = "SELECT DISTINCT ID FROM {$wpdb->posts}";
         $where = $wpdb->prepare("{$wpdb->posts}.post_type = %s AND {$wpdb->posts}.post_status = %s",
-                                wpbdp_post_type(), 'publish');
+                                WPBDP_POST_TYPE, 'publish');
 
         if ($term) {
             // process term
@@ -769,7 +769,7 @@ class WPBDP_ListingsAPI {
 
                             foreach ( $term_ids as $tid ) {
                                 $terms[] = $tid;
-                                $terms = array_merge( $terms, get_term_children( $tid, wpbdp_categories_taxonomy() ) );
+                                $terms = array_merge( $terms, get_term_children( $tid, WPBDP_CATEGORY_TAX ) );
                             }
 
                              if ($terms) {

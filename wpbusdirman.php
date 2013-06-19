@@ -79,19 +79,19 @@ class WPBDP_Plugin {
         foreach ( $posts_to_check as $p ) {
             $listing = get_post( $p->listing_id );
 
-            if ( !$listing || $listing->post_type != wpbdp_post_type() ) {
+            if ( !$listing || $listing->post_type != WPBDP_POST_TYPE ) {
                 continue;
             }
 
-            if ( !has_term( intval( $p->category_id ), wpbdp_categories_taxonomy(), $p->listing_id ) ) {
+            if ( !has_term( intval( $p->category_id ), WPBDP_CATEGORY_TAX, $p->listing_id ) ) {
                 $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $p->id ) );
                 continue;
             }
 
             // Remove expired category from post
-            $listing_terms = wp_get_post_terms( $p->listing_id, wpbdp_categories_taxonomy(), array('fields' => 'ids') );
+            $listing_terms = wp_get_post_terms( $p->listing_id, WPBDP_CATEGORY_TAX, array('fields' => 'ids') );
             wpbdp_array_remove_value( $listing_terms, $p->category_id );
-            wp_set_post_terms( $p->listing_id, $listing_terms, wpbdp_categories_taxonomy() );
+            wp_set_post_terms( $p->listing_id, $listing_terms, WPBDP_CATEGORY_TAX );
 
             if ( !$listing_terms ) {
                 $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $p->listing_id ) );
@@ -233,7 +233,7 @@ class WPBDP_Plugin {
             return;
 
         // handle some deprecated stuff
-        if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == wpbdp_post_type() ) {
+        if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == WPBDP_POST_TYPE ) {
             $url = add_query_arg( array( 'action' => 'search',
                                          'dosrch' => 1,
                                          'q' => wpbdp_getv( $_REQUEST, 's', '' ) ), wpbdp_get_page_link( 'main' ) );
@@ -275,7 +275,7 @@ class WPBDP_Plugin {
                     return;
             }
 
-            if (!$listing || $listing->post_type != wpbdp_post_type() || $listing->post_status != 'publish') {
+            if (!$listing || $listing->post_type != WPBDP_POST_TYPE || $listing->post_status != 'publish') {
                 $this->controller->action = null;
                 status_header(404);
                 nocache_headers();
@@ -769,8 +769,8 @@ class WPBDP_Plugin {
                 break;
 
             case 'browsecategory':
-                $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
-                if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());
+                $term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX);
+                if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), WPBDP_CATEGORY_TAX);
 
                 if ( $this->_do_wpseo ) {
                     global $wpseo_front;
@@ -837,8 +837,8 @@ class WPBDP_Plugin {
                 if ( $current_action == 'browsetag' ) {
                     $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
                 } else {
-                    $term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy());
-                    if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), wpbdp_categories_taxonomy());                    
+                    $term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX);
+                    if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), WPBDP_CATEGORY_TAX);                    
                 }
 
                 if ( $term ) {

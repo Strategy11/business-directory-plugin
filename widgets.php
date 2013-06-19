@@ -92,7 +92,7 @@ class WPBDP_FeaturedListingsWidget extends WP_Widget {
         $title = apply_filters( 'widget_title', $instance['title'] );
 
         $posts = get_posts(array(
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'numberposts' => $instance['number_of_listings'],
             'orderby' => 'date',
@@ -166,7 +166,7 @@ class WPBDP_RandomListingsWidget extends WP_Widget {
         $n = max(intval($n), 0);
 
         $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s ORDER BY RAND() LIMIT {$n}",
-                                wpbdp_post_type(), 'publish');
+                                WPBDP_POST_TYPE, 'publish');
         return $wpdb->get_col($query);
     }
 
@@ -176,7 +176,7 @@ class WPBDP_RandomListingsWidget extends WP_Widget {
         if (!$post_ids) return;
 
         $posts = get_posts(array(
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'numberposts' => $instance['number_of_listings'],
             'post__in' => $post_ids

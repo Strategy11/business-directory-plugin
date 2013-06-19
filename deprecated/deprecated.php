@@ -168,7 +168,7 @@ function wpbusdirman_latest_listings($numlistings) {
 }
 
 function wpbusdirman_post_catpage_title() {
-    $categories = wpbdp_categories_taxonomy();
+    $categories = WPBDP_CATEGORY_TAX;
 
     if ( get_query_var($categories) ) {
         $term = get_term_by('slug', get_query_var($categories), $categories);
@@ -268,14 +268,14 @@ function wpbusdirman_dropdown_categories() {
 
     $html .= sprintf('<form action="%s">', site_url('/'));
     $html .= wp_dropdown_categories(array(
-                   'taxonomy' => wpbdp_categories_taxonomy(),
+                   'taxonomy' => WPBDP_CATEGORY_TAX,
                    'show_option_none' => '—',
                    'order' => wpbdp_get_option('categories-sort'),                   
                    'orderby' => wpbdp_get_option('categories-order-by'),
                    'hide_empty' => wpbdp_get_option('hide-empty-categories'),
                    'hierarchical' => !wpbdp_get_option('show-only-parent-categories'),
                    'echo' => false,
-                   'name' => wpbdp_categories_taxonomy()
+                   'name' => WPBDP_CATEGORY_TAX
              ));
 
     $html = preg_replace("/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
@@ -340,4 +340,18 @@ function wpbusdirman_get_the_business_email($post_id) {
         return $email;
 
     return '';
+}
+
+/**
+ * @deprecated since 2.3
+ */
+function wpbdp_post_type() {
+    return WPBDP_POST_TYPE;
+}
+
+/**
+ * @deprecated since 2.3
+ */
+function wpbdp_categories_taxonomy() {
+    return WPBDP_CATEGORY_TAX;
 }

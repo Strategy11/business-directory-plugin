@@ -149,7 +149,7 @@ class WPBDP_Admin {
     public function _delete_post_metadata($post_id) {
         global $wpdb;
 
-        if ( current_user_can('delete_posts') && get_post_type($post_id) == wpbdp_post_type() ) {
+        if ( current_user_can('delete_posts') && get_post_type($post_id) == WPBDP_POST_TYPE ) {
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post_id));
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id));
 
@@ -177,7 +177,7 @@ class WPBDP_Admin {
         add_meta_box('wpbdp-listing-fields',
                     _x('Listing Fields / Images', 'admin', 'WPBDM'),
                     array($this, '_listing_fields_metabox'),
-                    wpbdp_post_type(),
+                    WPBDP_POST_TYPE,
                     'normal',
                     'core');
     }
@@ -322,7 +322,7 @@ class WPBDP_Admin {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
             return;
 
-        if (is_admin() && isset($_POST['post_type']) && $_POST['post_type'] == wpbdp_post_type()) {
+        if (is_admin() && isset($_POST['post_type']) && $_POST['post_type'] == WPBDP_POST_TYPE) {
             // Fix listings added through admin site
             wpbdp_listings_api()->set_default_listing_settings( $post_id );
 
@@ -422,7 +422,7 @@ class WPBDP_Admin {
 
         // Fees
         echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-fees.tpl.php', array(
-                                'post_categories' => wp_get_post_terms($post->ID, wpbdp_categories_taxonomy()),
+                                'post_categories' => wp_get_post_terms($post->ID, WPBDP_CATEGORY_TAX),
                                 'post_id' => $post->ID,
                                 'image_count' => count($listings_api->get_images($post->ID))
                                 ));
@@ -474,7 +474,7 @@ class WPBDP_Admin {
             return;
         
         if ($screen = get_current_screen()) {
-            if ($screen->id == 'edit-' . wpbdp_post_type()) {
+            if ($screen->id == 'edit-' . WPBDP_POST_TYPE) {
                 if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
                     $bulk_actions = array('sep0' => '--',
                                           'publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
@@ -506,7 +506,7 @@ class WPBDP_Admin {
     public function _fix_new_links() {
         // 'contributors' should still use the frontend to add listings (editors, authors and admins are allowed to add things directly)
         // XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
-        if (current_user_can('contributor') && isset($_GET['post_type']) && $_GET['post_type'] == wpbdp_post_type()) {
+        if (current_user_can('contributor') && isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
             echo '<script type="text/javascript">';
             echo sprintf('jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link('add-listing'));
             echo '</script>';
@@ -635,7 +635,7 @@ class WPBDP_Admin {
     public function _dropdown_users($output) {
         global $post;
 
-        if (is_admin() && get_post_type($post) == wpbdp_post_type()) {
+        if (is_admin() && get_post_type($post) == WPBDP_POST_TYPE) {
             remove_filter('wp_dropdown_users', array($this, '_dropdown_users'));
             $select = wp_dropdown_users(array(
                 'echo' => false,
@@ -726,7 +726,7 @@ class WPBDP_Admin {
     }
 
     public function _row_actions($actions, $post) {
-        if ($post->post_type == wpbdp_post_type() && current_user_can('contributor')) {
+        if ($post->post_type == WPBDP_POST_TYPE && current_user_can('contributor')) {
             if (wpbdp_user_can('edit', $post->ID))
                 $actions['edit'] = sprintf('<a href="%s">%s</a>',
                                             wpbdp_get_page_link('editlisting', $post->ID),
@@ -760,7 +760,7 @@ class WPBDP_Admin {
 
     private function category_column() {
         global $post;
-        echo get_the_term_list($post->ID, wpbdp_categories_taxonomy(), '', ', ', '' );
+        echo get_the_term_list($post->ID, WPBDP_CATEGORY_TAX, '', ', ', '' );
     }
 
     private function payment_status_column() {
@@ -1035,7 +1035,7 @@ class WPBDP_Admin {
     /* Check if payments are enabled but no gateway available. */
     public function check_payments_possible() {
         // show messages only in directory admin pages
-        if ( (isset($_GET['post_type']) && $_GET['post_type'] == wpbdp_post_type()) ||
+        if ( (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) ||
              (isset($_GET['page']) && stripos($_GET['page'], 'wpbdp_') !== FALSE) ) {
 
             if ($errors = wpbdp_payments_api()->check_config()) {

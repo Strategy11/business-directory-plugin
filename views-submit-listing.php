@@ -68,7 +68,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
 
     public function dispatch() {
         // Check there are categories available
-        if ( count( get_terms(wpbdp_categories_taxonomy(), array( 'hide_empty' => false) ) ) == 0 ) {
+        if ( count( get_terms(WPBDP_CATEGORY_TAX, array( 'hide_empty' => false) ) ) == 0 ) {
             if ( current_user_can( 'administrator' ) ) {
                 return wpbdp_render_msg( _x( 'There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM' ), 'error' );
             } else {

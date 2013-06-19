@@ -103,7 +103,7 @@ class WPBDP_DirectoryController {
         if (!$this->check_main_page($msg)) return $msg;
 
         if (get_query_var('listing') || isset($_GET['listing'])) {
-            if ($posts = get_posts(array('post_status' => 'publish', 'numberposts' => 1, 'post_type' => wpbdp_post_type(), 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
+            if ($posts = get_posts(array('post_status' => 'publish', 'numberposts' => 1, 'post_type' => WPBDP_POST_TYPE, 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
                 $listing_id = $posts[0]->ID;
             } else {
                 $listing_id = null;
@@ -130,7 +130,7 @@ class WPBDP_DirectoryController {
         if (!$this->check_main_page($msg)) return $msg;
 
         if (get_query_var('category')) {
-            if ($term = get_term_by('slug', get_query_var('category'), wpbdp_categories_taxonomy())) {
+            if ($term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX)) {
                 $category_id = $term->term_id;
             } else {
                 $category_id = intval(get_query_var('category'));
@@ -142,14 +142,14 @@ class WPBDP_DirectoryController {
         $listings_api = wpbdp_listings_api();
 
         query_posts(array(
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => 0,
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
             'tax_query' => array(
-                array('taxonomy' => wpbdp_categories_taxonomy(),
+                array('taxonomy' => WPBDP_CATEGORY_TAX,
                       'field' => 'id',
                       'terms' => $category_id)
             )
@@ -177,7 +177,7 @@ class WPBDP_DirectoryController {
         $listings_api = wpbdp_listings_api();
 
         query_posts(array(
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => 0,
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
@@ -212,7 +212,7 @@ class WPBDP_DirectoryController {
             $paged = get_query_var('paged');
 
         query_posts(array(
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'posts_per_page' => 0,
             'post_status' => 'publish',
             'paged' => intval($paged),
@@ -305,7 +305,7 @@ class WPBDP_DirectoryController {
     public function main_page() {
         $html = '';
 
-        if ( count(get_terms(wpbdp_categories_taxonomy(), array('hide_empty' => 0))) == 0 ) {
+        if ( count(get_terms(WPBDP_CATEGORY_TAX, array('hide_empty' => 0))) == 0 ) {
             if (is_user_logged_in() && current_user_can('install_plugins')) {
                 $html .= "<p>" . _x('There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM') . "</p>";
             } else {
@@ -372,7 +372,7 @@ class WPBDP_DirectoryController {
         if ($current_user) {
             query_posts(array(
                 'author' => $current_user->ID,
-                'post_type' => wpbdp_post_type(),
+                'post_type' => WPBDP_POST_TYPE,
                 'post_status' => 'publish',
                 'paged' => get_query_var('paged') ? get_query_var('paged') : 1
             ));
@@ -392,7 +392,7 @@ class WPBDP_DirectoryController {
         if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id')) {
             if ( (wp_get_current_user()->ID == get_post($listing_id)->post_author) || (current_user_can('administrator')) ) {
                 $post_update = array('ID' => $listing_id,
-                                     'post_type' => wpbdp_post_type(),
+                                     'post_type' => WPBDP_POST_TYPE,
                                      'post_status' => wpbdp_get_option('deleted-status'));
                 
                 wp_update_post($post_update);
@@ -490,7 +490,7 @@ class WPBDP_DirectoryController {
 
         $post = get_post( $fee_info->listing_id );
 
-        if ( !$post || $post->post_type != wpbdp_post_type() )
+        if ( !$post || $post->post_type != WPBDP_POST_TYPE )
             return;
 
         $listings_api = wpbdp_listings_api();
@@ -516,7 +516,7 @@ class WPBDP_DirectoryController {
 
         return wpbdp_render( 'renewlisting-fees', array(
             'fee_options' => $available_fees,
-            'category' => get_term( $fee_info->category_id, wpbdp_categories_taxonomy() ),
+            'category' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX ),
             'listing' => $post
         ), false );
     }
@@ -589,7 +589,7 @@ class WPBDP_DirectoryController {
         }
 
         query_posts( array(
-            'post_type' => wpbdp_post_type(),
+            'post_type' => WPBDP_POST_TYPE,
             'posts_per_page' => 10,
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'post__in' => $results ? $results : array(0),

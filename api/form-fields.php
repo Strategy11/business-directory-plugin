@@ -526,7 +526,7 @@ class WPBDP_FormField {
      * @return mixed
      */
     public function value( $post_id ) {
-        if ( !get_post_type( $post_id ) == wpbdp_post_type() )
+        if ( !get_post_type( $post_id ) == WPBDP_POST_TYPE )
             return null;        
 
         $value = $this->type->get_field_value( $this, $post_id );

@@ -12,20 +12,6 @@ function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
-/**
- * @deprecated since 2.3
- */
-function wpbdp_post_type() {
-    return WPBDP_POST_TYPE;
-}
-
-/**
- * @deprecated since 2.3
- */
-function wpbdp_categories_taxonomy() {
-    return WPBDP_CATEGORY_TAX;
-}
-
 function wpbdp_get_page_id($name='main') {
     global $wpdb;
 
@@ -198,7 +184,7 @@ function _wpbdp_save_object($obj_, $table, $id='id') {
 
 function wpbdp_categories_list($parent=0, $hierarchical=true) {
     $terms = get_categories(array(
-        'taxonomy' => wpbdp_categories_taxonomy(),
+        'taxonomy' => WPBDP_CATEGORY_TAX,
         'parent' => $parent,
         'orderby' => 'name',
         'hide_empty' => 0,
@@ -215,7 +201,7 @@ function wpbdp_categories_list($parent=0, $hierarchical=true) {
 }
 
 function wpbdp_get_parent_categories($catid) {
-    $category = get_term(intval($catid), wpbdp_categories_taxonomy());
+    $category = get_term(intval($catid), WPBDP_CATEGORY_TAX);
 
     if ($category->parent) {
         return array_merge(array($category), wpbdp_get_parent_categories($category->parent));
@@ -309,7 +295,7 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
         if (have_posts()) the_post();
     }
 
-    if (!$post || $post->post_type != wpbdp_post_type()) {
+    if (!$post || $post->post_type != WPBDP_POST_TYPE) {
         return '';
     }
 
@@ -488,7 +474,7 @@ function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_it
     $n = max(intval($n), 0);
 
     $posts = get_posts(array(
-        'post_type' => wpbdp_post_type(),
+        'post_type' => WPBDP_POST_TYPE,
         'post_status' => 'publish',
         'numberposts' => $n,
         'orderby' => 'date'
@@ -538,7 +524,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     $user_id = $user_id ? $user_id : wp_get_current_user()->ID;
     $post = get_post($listing_id);
 
-    if ($post->post_type != wpbdp_post_type())
+    if ($post->post_type != WPBDP_POST_TYPE)
         return false;
 
     if ( isset($_GET['preview']) )
@@ -568,7 +554,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
 }
 
 function wpbdp_get_post_by_slug($slug, $post_type=null) {
-    $post_type = $post_type ? $post_type : wpbdp_post_type();
+    $post_type = $post_type ? $post_type : WPBDP_POST_TYPE;
 
     $posts = get_posts(array(
         'name' => $slug,
