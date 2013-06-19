@@ -14,7 +14,7 @@
 	<input type="hidden" name="_state" value="<?php echo $_state; ?>" />
 
 	<?php foreach ( $fields as &$field ): ?>
-		<?php echo $field->render( wpbdp_getv( $state->fields, $field->get_id(), $field->convert_input( null ) ), 'submit' ); ?>
+		<?php echo $field->render( wpbdp_getv( $state->fields, $field->get_id(), $field->convert_input( null ) ), 'submit', $state ); ?>
 	<?php endforeach; ?>
 
 	<?php if ( $recaptcha ): ?>
