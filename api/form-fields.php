@@ -159,13 +159,14 @@ class WPBDP_FormFieldType {
             case 'submit':
             case 'edit':
             default:
+                $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
+
                 $html .= sprintf( '<div class="wpbdp-form-field %s %s %s %s" %s>',
                                   $field->get_field_type()->get_id(),
                                   $field->get_description() ? 'with-description' : '',
                                   implode( ' ', $field->get_validators() ),
                                   implode( ' ', $field->css_classes),
-                                  $this->html_attributes( $field->html_attributes )
-                                   );
+                                  $html_attributes );
                 $html .= '<div class="wpbdp-form-field-label">';
                 $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), esc_html( $field->get_label() ) );
 
