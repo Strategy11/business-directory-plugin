@@ -237,6 +237,10 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         ) );
     }
 
+    public function preview_listing_fields_form() {
+        return $this->step_listing_fields();
+    }
+
     protected function step_listing_fields() {
         $this->state->step = 'listing_fields';
 

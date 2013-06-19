@@ -162,14 +162,16 @@ class WPBDP_FormFieldsAdmin {
 
     /* preview form */
     private function previewForm() {
+        require_once( WPBDP_PATH . 'views-submit-listing.php' );
+
         $html = '';
 
         $html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), 'formfields-preview', array(
             array(_x('← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM'), esc_url(remove_query_arg('action')))
         ));
 
-        $controller = wpbdp()->controller;
-        $html .= $controller->submit_listing();
+        $controller = new WPBDP_SubmitListingPage();
+        $html .= $controller->preview_listing_fields_form();
         $html .= wpbdp_admin_footer();
 
         echo $html;
