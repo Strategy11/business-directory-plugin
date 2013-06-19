@@ -7,7 +7,7 @@ $api = wpbdp_formfields_api();
 
     <h2 class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></h2>
     <?php if ( !$show_form ): ?>
-    <a href="#" style="font-size: 90%; float: right; margin-right: 20px;" onclick="jQuery('#wpbdp-search-form-wrapper').show(); jQuery(this).remove();">[<?php _ex('Show Search form', 'search', 'WPBDM'); ?>]</a>
+    <a href="#" style="font-size: 90%; float: right; margin-right: 20px;" onclick="jQuery('#wpbdp-search-form-wrapper').show(); jQuery(this).remove();"><?php _ex('Return to Advanced Search', 'search', 'WPBDM'); ?></a>
     <?php endif; ?>    
 
 <!-- Search Form -->
