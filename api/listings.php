@@ -592,139 +592,6 @@ class WPBDP_ListingsAPI {
         return 0;
     }
 
-    public function add_listing($data_, &$transaction_id=null) {
-        global $wpdb;
-
-        $data = is_object($data_) ? (array) $data_ : $data_;
-        $editing = isset($data['listing_id']) && $data['listing_id'];
-
-        $listingfields = $data['fields'];
-
-        $api = wpbdp_formfields_api();
-
-        $title = 'Untitled Listing';
-
-        // TODO: implement a formfields API function that returns just IDs and not complete fields (maybe an arg to get_fields() ?)
-        if ( $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) ) ) {
-            if ( isset( $listingfields[ $title_field->get_id() ] ) )
-                $title = trim( strip_tags( $listingfields[ $title_field->get_id() ] ) );
-        }
-
-        $listing_id = wp_insert_post( array(
-            'post_title' => $title,
-            'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
-            'post_type' => WPBDP_POST_TYPE,
-            'ID' => $editing ? intval( $data['listing_id'] ) : null
-        ) );
-
-        if ( !$editing ) {
-            $current_user = wp_get_current_user();
-
-            if ( $current_user->ID == 0 ) {
-                if ( wpbdp_get_option( 'require-login' ) ) {
-                    exit;
-                }
-                // create user
-                if ( $email_field = $api->find_fields( array( 'validator' => 'email' ), true ) ) {
-                    $email = $listingfields[ $email_field->get_id() ];
-                    
-                    if ( email_exists( $email ) ) {
-                        $post_author = get_user_by_email( $email )->ID;
-                    } else {
-                        $randvalue = wpbdp_generate_password( 5, 2 );
-                        $post_author = wp_insert_user( array(
-                            'display_name' => 'Guest ' . $randvalue,
-                            'user_login' => 'guest_' . $randvalue,
-                            'user_email' => $email,
-                            'user_pass' => wpbdp_generate_password( 7, 2 )
-                        ) );
-                    }
-
-                    wp_update_post( array( 'ID' => $listing_id, 'post_author' => $post_author ) );
-                }
-            }
-        }
-
-        // store field values
-        $formfields = wpbdp_get_form_fields();
-        foreach ( $formfields as $field ) {
-            if ( isset( $listingfields[ $field->get_id() ] ) ) {
-                $field->store_value( $listing_id, $listingfields[ $field->get_id() ] );
-            } else {
-                $field->store_value( $listing_id, $field->convert_input( null ) );
-            }
-        }
-
-        // attach images
-        if (isset($data['images']) && $data['images']) {
-            foreach ($data['images'] as $image_id) {
-                wp_update_post(array('ID' => $image_id,
-                                     'post_parent' => $listing_id));
-            }
-
-            if (isset($data['thumbnail_id']) && $data['thumbnail_id']) {
-                update_post_meta($listing_id, '_wpbdp[thumbnail_id]', $data['thumbnail_id']);
-            } else {
-                update_post_meta($listing_id, '_wpbdp[thumbnail_id]', $data['images'][0]);
-            }
-        }
-
-        // register fee information
-        if (!isset($data['fees'])) $data['fees'] = array();
-
-        $post_categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, 'fields=ids' );
-
-        foreach ( $post_categories as $catid ) {
-            $fee = (array) ( isset( $data['fees'][ $catid ] ) ? $data['fees'][ $catid ] : wpbdp_fees_api()->get_free_fee() );
-            $fee['category_id'] = $catid;
-            unset( $fee['categories'], $fee['extra_data'] );
-
-            if ( isset( $fee['_nocharge'] ) && $fee['_nocharge'] == true ) {
-                $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees', array( 'charged' => 0 ), array( 'listing_id' => $listing_id,
-                                                                                                     'category_id' => $catid ) );
-            } else {
-                $this->assign_fee( $listing_id, $catid, $fee['id'], true );
-            }
-        }
-        if ( $post_categories )
-            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $post_categories ) . ")", $listing_id ) );
-
-        // register payment info
-        $cost = $this->cost_of_listing( $listing_id, true );
-
-        if ( isset( $data['upgrade-listing'] ) && $data['upgrade-listing'] ) {
-            $upgrades_api = wpbdp_listing_upgrades_api();
-            $upgrades_api->set_sticky( $listing_id, 'sticky' );
-
-            $level = $upgrades_api->get( 'sticky' );
-            $cost += $level->cost;
-        }
-
-        $payment_api = wpbdp_payments_api();
-        $transaction_id = $payment_api->save_transaction( array(
-            'amount' => $cost,
-            'payment_type' => !$editing ? 'initial' : 'edit',
-            'listing_id' => $listing_id
-        ) );
-        update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $cost > 0.0 ) ? 'not-paid' : 'paid' );
-
-        if ( !$editing && ( !$cost || current_user_can( 'administrator' ) ) ) {
-            wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
-        }
-
-        do_action( 'wpbdp_add_listing', $listing_id, $listingfields );
-
-
-        if ( !$editing )
-            do_action( 'wpbdp_create_listing', $listing_id, $listingfields );
-        else
-            do_action( 'wpbdp_edit_listing', $listing_id, $listingfields );
-
-        do_action( 'wpbdp_save_listing', $listing_id, $listingfields );
-
-        return $listing_id;
-    }
-
     /* listings search */
     public function search($args) {
         global $wpdb;
@@ -850,6 +717,13 @@ class WPBDP_ListingsAPI {
         global $wpdb;
 
         $data = is_array( $data ) ? (object) $data : $data;
+        $data->listing_id = isset( $data->listing_id ) ? intval( $data->listing_id ) : 0;
+        $data->categories = isset( $data->categories ) ? $data->categories : array();
+        $data->fees = isset( $data->fees ) ? $data->fees : array();
+        $data->images = isset( $data->images ) ? $data->images : array();
+        $data->fields = isset( $data->fields ) ? $data->fields : array();
+
+        // TODO: if the category field is present in ->fields, use that to build ->categories too        
 
         // prepare result object
         $result = new StdClass();
@@ -941,7 +815,7 @@ class WPBDP_ListingsAPI {
             $listing_cost += ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : floatval( $fee->amount );
         }
 
-        if ( !$data->listing_id && $data->upgrade_to_sticky ) {
+        if ( !$data->listing_id && isset( $data->upgrade_to_sticky ) && $data->upgrade_to_sticky ) {
             $upgrades_api = wpbdp_listing_upgrades_api();
             $upgrades_api->set_sticky( $listing_id, 'sticky' );            
 
@@ -972,11 +846,11 @@ class WPBDP_ListingsAPI {
         $result->listing_id = $listing_id;
 
         if ( !$editing )
-            do_action( 'wpbdp_create_listing', $data );
+            do_action( 'wpbdp_create_listing', $listing_id, $data->fields );
         else
-            do_action( 'wpbdp_edit_listing', $data );
+            do_action( 'wpbdp_edit_listing', $listing_id, $data->fields );
 
-        do_action( 'wpbdp_save_listing', $data );
+        do_action( 'wpbdp_save_listing', $listing_id, $data->fields );
 
         return $listing_id;
     }
