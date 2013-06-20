@@ -421,7 +421,7 @@ class WPBDP_CSVImporter {
 
         $listing_username = null;
 
-        $listing = array('fields' => array(), 'images' => array());
+        $listing = array('categories' => array(), 'fields' => array(), 'images' => array());
 
         $listing_images = array();
         $listing_fields = array();
@@ -475,14 +475,16 @@ class WPBDP_CSVImporter {
                         continue;
 
                     if ($term = term_exists($category_name, WPBDP_CATEGORY_TAX)) {
-                        $listing_fields[$field->get_id()][] = $term['term_id'];
+                        $listing['categories'][] = $term['term_id'];
+                        // $listing_fields[$field->get_id()][] = $term['term_id'];
                     } else {
                         if ($this->settings['create-missing-categories']) {
                             if ($this->in_test_mode())
                                 continue;
 
                             if ($newterm = wp_insert_term($category_name, WPBDP_CATEGORY_TAX)) {
-                                $listing_fields[$field->get_id()][] = $newterm['term_id'];
+                                $listing['categories'][] = $newterm['term_id'];
+                                // $listing_fields[$field->get_id()][] = $newterm['term_id'];
                             } else {
                                 $errors[] = sprintf(_x('Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $category_name);
                                 return false;
@@ -557,7 +559,8 @@ class WPBDP_CSVImporter {
 
         if ($this->settings['test-import'])
             return true;
-        $listing_id = wpbdp_listings_api()->add_listing($listing);
+        $listing_id = wpbdp_save_listing( $listing );
+        wpbdp_debug_e( $listing_id );
 
         // create permalink
         $post = get_post($listing_id);
