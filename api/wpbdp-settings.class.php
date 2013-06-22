@@ -80,6 +80,13 @@ class WPBDP_Settings {
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->add_setting( $s,
+                            'renewal-email-threshold',
+                            _x( 'Listing renewal e-mail threshold (in days)', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '5',
+                            _x( 'Configure how many days before listing expiration is the renewal e-mail sent.', 'admin settings', 'WPBDM' )
+                            );
         $this->add_setting($s, 'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'), 'text',
                            self::_EMAIL_RENEWAL_MESSAGE,
                            _x('You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link.', 'admin settings', 'WPBDM'));
