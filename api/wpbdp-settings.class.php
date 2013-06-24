@@ -5,6 +5,7 @@ class WPBDP_Settings {
     const PREFIX = 'wpbdp-';
 
     const _EMAIL_RENEWAL_MESSAGE = "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]";
+    const _EMAIL_PENDING_RENEWAL_MESSAGE = 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].';
 
     public function __construct() {
         $this->groups = array();
@@ -87,6 +88,11 @@ class WPBDP_Settings {
                             '5',
                             _x( 'Configure how many days before listing expiration is the renewal e-mail sent.', 'admin settings', 'WPBDM' )
                             );
+        $this->add_setting( $s,
+                            'renewal-pending-message',
+                            _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
+                            'text',
+                            self::_EMAIL_PENDING_RENEWAL_MESSAGE );
         $this->add_setting($s, 'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'), 'text',
                            self::_EMAIL_RENEWAL_MESSAGE,
                            _x('You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link.', 'admin settings', 'WPBDM'));
@@ -396,10 +402,10 @@ class WPBDP_Settings {
 
         if (isset($args['use_textarea']) || strlen($value) > 100) {
             $html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" cols="50" rows="2">';
-            $html .= esc_attr($value);
+            $html .= esc_textarea($value);
             $html .= '</textarea>';
         } else {
-            $html = '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . $value . '" size="' . (strlen($value) > 0 ? strlen($value) : 20). '" />';
+            $html = '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . esc_attr( $value ) . '" size="' . (strlen($value) > 0 ? strlen($value) : 20). '" />';
         }
 
         $html .= '<span class="description">' . $setting->help_text . '</span>';
