@@ -205,7 +205,7 @@ function wpbdp_get_fee( $fee_id ) {
  */
 function wpbdp_get_fees_for_category( $categories=null ) {
     $categories_ = is_array( $categories ) ? $categories : array( $categories );
-    $results = wpbdp_fees_api()->get_fees( $categories );
+    $results = wpbdp_fees_api()->get_fees( $categories_ );
 
     return is_array( $categories) ? $results : array_pop( $results );
 }
