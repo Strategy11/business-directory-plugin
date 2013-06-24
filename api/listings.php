@@ -775,20 +775,27 @@ class WPBDP_ListingsAPI {
                     $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
                 }
 
+                $email = new WPBDP_Email();
+                $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
+                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
+                $email->message = str_replace( array_keys( $message_replacements ),
+                                               $message_replacements,
+                                               nl2br( wpbdp_get_option( 'listing-renewal-message' ) ) );
+                $email->send();
+
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
-
-                continue;
+            } else {
+                // notify about coming expirations
+                $email = new WPBDP_Email();
+                $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
+                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
+                $email->message = str_replace( array_keys( $message_replacements ),
+                                               $message_replacements,
+                                               nl2br( wpbdp_get_option( 'renewal-pending-message' ) ) );
+                $email->send();
+                
+                $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
             }
-
-            // notify about coming expirations
-            $email = new WPBDP_Email();
-            $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
-            $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
-            $email->message = str_replace( array_keys( $message_replacements ),
-                                           $message_replacements,
-                                           nl2br( wpbdp_get_option( 'renewal-pending-message' ) ) );
-            $email->send();
-            $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
         }
 
     }
