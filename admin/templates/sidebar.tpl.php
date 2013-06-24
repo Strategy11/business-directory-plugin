@@ -29,9 +29,7 @@
                     <li class="li_link">
                         <img src="<?php echo WPBDP_URL . 'resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/file-upload-module/"><?php _ex('File Upload Module', 'admin sidebar', 'WPBDM'); ?></a>
                     </li>                                                           
-                    <li class="li_link">
-                        <img src="<?php echo WPBDP_URL . 'resources/images/new.gif'; ?>" /> <a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a>
-                    </li>
+                    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/regions-module/"><?php _ex('Regions Module', 'admin sidebar', 'WPBDM'); ?></a></li>
                     <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/ratings-module/"><?php _ex('Ratings Module', 'admin sidebar', 'WPBDM'); ?></a></li>
                     <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/google-maps-module/"><?php _ex('Google Maps Module', 'admin sidebar', 'WPBDM'); ?></a></li>
                     <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/"><?php _ex('PayPal Payment Gateway Module', 'admin sidebar', 'WPBDM'); ?></a></li>
@@ -51,7 +49,10 @@
                                             '<a href="http://businessdirectoryplugin.com/forums/" target="_blank">',
                                             _x( 'If you\'ve found a bug or need support <a>visit the forums!</a>', 'admin sidebar', 'WPBDM' ) ); ?>
                 </p>
-<!--  [Full documentation] (linking to http://businessdirectoryplugin.com/docs/) and [Quick Start Guide] (linking to http://businessdirectoryplugin.com/quick-start-guide/) -->                
+                <p>
+                    &#149; <a href="http://businessdirectoryplugin.com/docs/"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
+                    &#149; <a href="http://businessdirectoryplugin.com/quick-start-guide/"><?php _ex( 'Quick Start Guide', 'admin sidebar', 'WPBDM' ); ?></a>
+                </p>
             </div>
         </div>
         <!-- /support -->        
