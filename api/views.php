@@ -12,7 +12,7 @@ abstract class WPBDP_View {
     }
 
     public function dispatch() {
-        return $this->_dispatch();
+    	return '';
     }
 
 }
