@@ -162,7 +162,7 @@ class WPBDP_FormFieldsAdmin {
 
     /* preview form */
     private function previewForm() {
-        require_once( WPBDP_PATH . 'views-submit-listing.php' );
+        require_once( WPBDP_PATH . 'views/submit-listing.php' );
 
         $html = '';
 
