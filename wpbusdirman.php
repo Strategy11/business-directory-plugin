@@ -446,7 +446,7 @@ class WPBDP_Plugin {
                 return class_exists( 'WPBDP_ListingAttachmentsModule' );
                 break;
             case 'zipcodesearch':
-                return class_exists( 'WPBDP_ZIPShortcodeModule' );
+                return class_exists( 'WPBDP_ZIPCodeSearchModule' );
                 break;
             case 'featuredlevels':
                 return class_exists( 'WPBDP_FeaturedLevelsModule' );
