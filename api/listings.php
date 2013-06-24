@@ -708,151 +708,236 @@ class WPBDP_ListingsAPI {
         return $wpdb->get_col($query);
     }
 
-}
 
     /**
-     * @since 3.0.3
+     * Notifies listings expiring soon. Despite its name this function also changes listings according to expiration rules (removing categories, unpublishing, etc.).
+     * @param int $threshold A threshold (in days) to use for checking listing expiration times: 0 means already expired listings and a positive
+     *                       value checks listings expiring between now and now + $threshold.
+     * @param int $now Timestamp to use as current time. Defaults to the value of `current_time( 'timestamp' )`.
+     * @since 3.1
      */
-    function wpbdp_save_listing( $data, &$result=null ) {
+    public function notify_expiring_listings( $threshold=0, $now=null ) {
         global $wpdb;
 
-        $data = is_array( $data ) ? (object) $data : $data;
-        $data->listing_id = isset( $data->listing_id ) ? intval( $data->listing_id ) : 0;
-        $data->categories = isset( $data->categories ) ? $data->categories : array();
-        $data->fees = isset( $data->fees ) ? $data->fees : array();
-        $data->images = isset( $data->images ) ? $data->images : array();
-        $data->fields = isset( $data->fields ) ? $data->fields : array();
+        $threshold = max( 0, intval( $threshold ) );
+        $now = $now > 0 ? intval( $now ) : current_time( 'timestamp' );
 
-        // TODO: if the category field is present in ->fields, use that to build ->categories too        
+        $query = '';
+        $now_date = wpbdp_format_time( $now, 'mysql' );
 
-        // prepare result object
-        $result = new StdClass();
-        $result->success = false;
-        $result->listing_id = 0;
-        $result->transaction_id = 0;
+        if ( $threshold == 0 ) {
+            $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on < %s AND email_sent <> %d ORDER BY expires_on LIMIT 100",
+                                     $now_date,
+                                     2 );
+        } else {
+            $end_date = wpbdp_format_time( strtotime( sprintf( '+%d days', $threshold ), $now ), 'mysql' );
 
-        // obtain listing's title
-        $title = 'Untitled Listing';
-        $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
-        if ( isset( $data->fields[ $title_field->get_id() ] ) ) {
-            $title = trim( strip_tags( $data->fields[ $title_field->get_id() ] ) );
+            $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on >= %s AND expires_on <= %s AND email_sent = %d ORDER BY expires_on LIMIT 100",
+                                     $now_date,
+                                     $end_date,
+                                     0 );
         }
 
-        $listing_id = wp_insert_post( array( 
-            'post_title' => $title,
-            'post_status' => $data->listing_id ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
-            'post_type' => WPBDP_POST_TYPE,
-            'ID' => $data->listing_id ? intval( $data->listing_id ) : null
-        ) );
+        $rs = $wpdb->get_results( $query );
 
-        // create author user if needed
-        if ( !$data->listing_id ) {
-            $current_user = wp_get_current_user();
+        if ( !$rs )
+            return;
 
-            if ( $current_user->ID == 0 ) {
-                if ( wpbdp_get_option( 'require-login' ) ) {
-                    exit;
+        foreach ( $rs as &$r ) {
+            $listing = get_post( $r->listing_id );
+
+            if ( !$listing || $listing->post_type != WPBDP_POST_TYPE )
+                continue;
+
+            if ( !has_term( intval( $r->category_id ), WPBDP_CATEGORY_TAX, $r->listing_id ) ) {
+                $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $r->id ) );
+                continue;
+            }
+
+            $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                                           '[listing]' => esc_attr( $listing->post_title ),
+                                           '[category]' => get_term( $r->category_id, WPBDP_CATEGORY_TAX )->name,
+                                           '[expiration]' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $r->expires_on ) ),
+                                           '[link]' => sprintf( '<a href="%1$s">%1$s</a>',
+                                                                add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => $r->id ), wpbdp_get_page_link( 'main' ) )
+                                                              )
+                                         );
+
+            if ( $threshold == 0 ) {
+                // handle expired listings
+                
+                // remove expired category from post
+                $listing_terms = wp_get_post_terms( $r->listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+                wpbdp_array_remove_value( $listing_terms, $r->category_id );
+                wp_set_post_terms( $r->listing_id, $listing_terms, WPBDP_CATEGORY_TAX );
+
+                if ( !$listing_terms ) {
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
                 }
-                // create user
-                if ( $email_field = wpbdp_get_form_fields( array( 'validator' => 'email', 'unique' => 1 ) ) ) {
-                    $email = $data->fields[ $email_field->get_id() ];
-                    
-                    if ( email_exists( $email ) ) {
-                        $post_author = get_user_by_email( $email )->ID;
-                    } else {
-                        $randvalue = wpbdp_generate_password( 5, 2 );
-                        $post_author = wp_insert_user( array(
-                            'display_name' => 'Guest ' . $randvalue,
-                            'user_login' => 'guest_' . $randvalue,
-                            'user_email' => $email,
-                            'user_pass' => wpbdp_generate_password( 7, 2 )
-                        ) );
-                    }
 
-                    wp_update_post( array( 'ID' => $listing_id, 'post_author' => $post_author ) );
-                }
-            }
-        }        
+                $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
 
-        // store fields (not category or title, those are special)
-        $fields = wpbdp_get_form_fields( array( 'association' => array( '-title', '-category' ) ) );
-        foreach ( $fields as &$f ) {
-            if ( isset( $data->fields[ $f->get_id() ] ) ) {
-                $f->store_value( $listing_id, $data->fields[ $f->get_id() ] );
-            } else {
-                $f->store_value( $listing_id, $f->convert_input( null ) );
-            }
-        }
-
-        // attach images
-        if ( isset( $data->images ) ) {
-            foreach ( $data->images as $image_id ) {
-                wp_update_post( array( 'ID' => $image_id, 'post_parent' => $listing_id ) );
+                continue;
             }
 
-            if ( isset( $data->thumbnail_id ) && in_array( $data->thumbnail_id, $data->images ) ) {
-                update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $data->thumbnail_id );
-            } else {
-                if ( $data->images )
-                    update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $data->images[0] );
-                else
-                    delete_post_meta( $listing_id, '_wpbdp[thumbnail_id]' );
-            }
+            // notify about coming expirations
+            $email = new WPBDP_Email();
+            $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
+            $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
+            $email->message = str_replace( array_keys( $message_replacements ),
+                                           $message_replacements,
+                                           nl2br( wpbdp_get_option( 'renewal-pending-message' ) ) );
+            $email->send();
+            $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
         }
 
-        // set categories
-        wp_set_post_terms ( $listing_id, $data->categories, WPBDP_CATEGORY_TAX, false );
-
-        $listing_cost = 0.0;
-
-        // register fee information
-        foreach ( $data->categories as $catid ) {
-            $fee = isset( $data->fees[ $catid ] ) ? wpbdp_get_fee( $data->fees[ $catid ] ) : wpbdp_get_fee( 0 );
-            $current_fee = ( $data->listing_id > 0 ) ? wpbdp_listings_api()->get_listing_fee_for_category( $data->listing_id, $catid ) : null;
-
-            wpbdp_listings_api()->assign_fee( $listing_id, $catid, $fee->id, ( $current_fee && $current_fee->id == $fee->id ) ? false : true );
-
-            $listing_cost += ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : floatval( $fee->amount );
-        }
-
-        if ( !$data->listing_id && isset( $data->upgrade_to_sticky ) && $data->upgrade_to_sticky ) {
-            $upgrades_api = wpbdp_listing_upgrades_api();
-            $upgrades_api->set_sticky( $listing_id, 'sticky' );            
-
-            $level = $upgrades_api->get( 'sticky' );
-            $listing_cost += $level->cost;
-        }
-
-        if ( $data->categories )
-            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $data->categories ) . ")", $listing_id ) );
-
-        $payments = wpbdp_payments_api();
-        $transaction_id = $payments->save_transaction( array(
-            'amount' => $listing_cost,
-            'payment_type' => $data->listing_id > 0 ? 'edit' : 'initial',
-            'listing_id' => $listing_id
-        ) );
-        update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $listing_cost > 0.0 ) ? 'not-paid' : 'paid' );
-
-        $result->transaction_id = $transaction_id;
-        $result->listing_cost = $listing_cost;
-
-        if ( !$data->listing_id && ( !$listing_cost || current_user_can( 'administrator' ) ) ) {
-            wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
-        }
-
-        $editing = $data->listing_id > 0 ? true : false;
-        $data->listing_id = $listing_id;
-        $result->listing_id = $listing_id;
-
-        if ( !$editing )
-            do_action( 'wpbdp_create_listing', $listing_id, $data->fields );
-        else
-            do_action( 'wpbdp_edit_listing', $listing_id, $data->fields );
-
-        do_action( 'wpbdp_save_listing', $listing_id, $data->fields );
-
-        return $listing_id;
     }
+
+}
+
+/**
+ * @since 3.0.3
+ */
+function wpbdp_save_listing( $data, &$result=null ) {
+    global $wpdb;
+
+    $data = is_array( $data ) ? (object) $data : $data;
+    $data->listing_id = isset( $data->listing_id ) ? intval( $data->listing_id ) : 0;
+    $data->categories = isset( $data->categories ) ? $data->categories : array();
+    $data->fees = isset( $data->fees ) ? $data->fees : array();
+    $data->images = isset( $data->images ) ? $data->images : array();
+    $data->fields = isset( $data->fields ) ? $data->fields : array();
+
+    // TODO: if the category field is present in ->fields, use that to build ->categories too        
+
+    // prepare result object
+    $result = new StdClass();
+    $result->success = false;
+    $result->listing_id = 0;
+    $result->transaction_id = 0;
+
+    // obtain listing's title
+    $title = 'Untitled Listing';
+    $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
+    if ( isset( $data->fields[ $title_field->get_id() ] ) ) {
+        $title = trim( strip_tags( $data->fields[ $title_field->get_id() ] ) );
+    }
+
+    $listing_id = wp_insert_post( array( 
+        'post_title' => $title,
+        'post_status' => $data->listing_id ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
+        'post_type' => WPBDP_POST_TYPE,
+        'ID' => $data->listing_id ? intval( $data->listing_id ) : null
+    ) );
+
+    // create author user if needed
+    if ( !$data->listing_id ) {
+        $current_user = wp_get_current_user();
+
+        if ( $current_user->ID == 0 ) {
+            if ( wpbdp_get_option( 'require-login' ) ) {
+                exit;
+            }
+            // create user
+            if ( $email_field = wpbdp_get_form_fields( array( 'validator' => 'email', 'unique' => 1 ) ) ) {
+                $email = $data->fields[ $email_field->get_id() ];
+                
+                if ( email_exists( $email ) ) {
+                    $post_author = get_user_by_email( $email )->ID;
+                } else {
+                    $randvalue = wpbdp_generate_password( 5, 2 );
+                    $post_author = wp_insert_user( array(
+                        'display_name' => 'Guest ' . $randvalue,
+                        'user_login' => 'guest_' . $randvalue,
+                        'user_email' => $email,
+                        'user_pass' => wpbdp_generate_password( 7, 2 )
+                    ) );
+                }
+
+                wp_update_post( array( 'ID' => $listing_id, 'post_author' => $post_author ) );
+            }
+        }
+    }        
+
+    // store fields (not category or title, those are special)
+    $fields = wpbdp_get_form_fields( array( 'association' => array( '-title', '-category' ) ) );
+    foreach ( $fields as &$f ) {
+        if ( isset( $data->fields[ $f->get_id() ] ) ) {
+            $f->store_value( $listing_id, $data->fields[ $f->get_id() ] );
+        } else {
+            $f->store_value( $listing_id, $f->convert_input( null ) );
+        }
+    }
+
+    // attach images
+    if ( isset( $data->images ) ) {
+        foreach ( $data->images as $image_id ) {
+            wp_update_post( array( 'ID' => $image_id, 'post_parent' => $listing_id ) );
+        }
+
+        if ( isset( $data->thumbnail_id ) && in_array( $data->thumbnail_id, $data->images ) ) {
+            update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $data->thumbnail_id );
+        } else {
+            if ( $data->images )
+                update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $data->images[0] );
+            else
+                delete_post_meta( $listing_id, '_wpbdp[thumbnail_id]' );
+        }
+    }
+
+    // set categories
+    wp_set_post_terms ( $listing_id, $data->categories, WPBDP_CATEGORY_TAX, false );
+
+    $listing_cost = 0.0;
+
+    // register fee information
+    foreach ( $data->categories as $catid ) {
+        $fee = isset( $data->fees[ $catid ] ) ? wpbdp_get_fee( $data->fees[ $catid ] ) : wpbdp_get_fee( 0 );
+        $current_fee = ( $data->listing_id > 0 ) ? wpbdp_listings_api()->get_listing_fee_for_category( $data->listing_id, $catid ) : null;
+
+        wpbdp_listings_api()->assign_fee( $listing_id, $catid, $fee->id, ( $current_fee && $current_fee->id == $fee->id ) ? false : true );
+
+        $listing_cost += ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : floatval( $fee->amount );
+    }
+
+    if ( !$data->listing_id && isset( $data->upgrade_to_sticky ) && $data->upgrade_to_sticky ) {
+        $upgrades_api = wpbdp_listing_upgrades_api();
+        $upgrades_api->set_sticky( $listing_id, 'sticky' );            
+
+        $level = $upgrades_api->get( 'sticky' );
+        $listing_cost += $level->cost;
+    }
+
+    if ( $data->categories )
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $data->categories ) . ")", $listing_id ) );
+
+    $payments = wpbdp_payments_api();
+    $transaction_id = $payments->save_transaction( array(
+        'amount' => $listing_cost,
+        'payment_type' => $data->listing_id > 0 ? 'edit' : 'initial',
+        'listing_id' => $listing_id
+    ) );
+    update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $listing_cost > 0.0 ) ? 'not-paid' : 'paid' );
+
+    $result->transaction_id = $transaction_id;
+    $result->listing_cost = $listing_cost;
+
+    if ( !$data->listing_id && ( !$listing_cost || current_user_can( 'administrator' ) ) ) {
+        wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
+    }
+
+    $editing = $data->listing_id > 0 ? true : false;
+    $data->listing_id = $listing_id;
+    $result->listing_id = $listing_id;
+
+    if ( !$editing )
+        do_action( 'wpbdp_create_listing', $listing_id, $data->fields );
+    else
+        do_action( 'wpbdp_edit_listing', $listing_id, $data->fields );
+
+    do_action( 'wpbdp_save_listing', $listing_id, $data->fields );
+
+    return $listing_id;
+}
 
 }
