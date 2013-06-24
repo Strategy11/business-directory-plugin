@@ -18,10 +18,10 @@
 					<?php // do_action( 'wpbdp_fee_selection_extra_headers' ); ?>
 				</thead>
 				<tbody>
-					<?php foreach ( $fees[ $cat_id ] as &$fee ): ?>
+					<?php $i = 0; foreach ( $fees[ $cat_id ] as &$fee ): ?>					
 					<tr class="fee-option fee-id-<?php echo $fee->id; ?>">
 						<td>
-							<?php $fee_selected = ( !isset( $state->fees[ $cat_id ] ) && key( $fees[ $cat_id ] ) == 1 ) || ( isset( $state->fees[ $cat_id ] ) && $state->fees[ $cat_id ] == $fee->id ) ? true : false; ?>
+							<?php $fee_selected = ( !isset( $state->fees[ $cat_id ] ) && $i == 0 ) || ( isset( $state->fees[ $cat_id ] ) && $state->fees[ $cat_id ] == $fee->id ) ? true : false; ?>
 							<input type="radio" id="wpbdp-fees-radio-<?php echo $fee->id; ?>" name="fees[<?php echo $cat_id; ?>]" value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
 						</td>
 						<td class="fee-label">
@@ -48,7 +48,7 @@
 						<td colspan="4"><?php echo $fee_description; ?></td>
 					</tr>
 					<?php endif; ?>
-					<?php endforeach; ?>
+					<?php $i++; endforeach; ?>
 				</tbody>
 			</table>
 
