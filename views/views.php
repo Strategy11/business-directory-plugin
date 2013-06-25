@@ -84,7 +84,10 @@ class WPBDP_DirectoryController {
                 return $this->view_listings(true);
                 break;
             case 'renewlisting':
-                return $this->renew_listing();
+                require_once( WPBDP_PATH . 'views/renew-listing.php' );
+                $renew_page = new WPBDP_RenewListingPage();
+                return $renew_page->dispatch();
+                
                 break;
             case 'payment-process':
                 return $this->process_payment();
@@ -473,52 +476,6 @@ class WPBDP_DirectoryController {
                 return $html;
                 break;
         }
-    }
-
-    /* listing renewal */
-    public function renew_listing() {
-        global $wpdb;
-
-        if (!wpbdp_get_option('listing-renewal'))
-            return '';
-
-        $current_date = current_time('mysql');
-
-        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", intval($_GET['renewal_id']), $current_date ) );
-        if ( !$fee_info )
-            return;
-
-        $post = get_post( $fee_info->listing_id );
-
-        if ( !$post || $post->post_type != WPBDP_POST_TYPE )
-            return;
-
-        $listings_api = wpbdp_listings_api();
-        $fees_api = wpbdp_fees_api();
-        $payments_api = wpbdp_payments_api();
-
-        $available_fees = $fees_api->get_fees_for_category( $fee_info->category_id );
-
-        if ( isset( $_POST['fee_id'] ) ) {
-            $fee = $fees_api->get_fee_by_id( $_POST['fee_id'] );
-
-            if ( !$fee )
-                return;
-
-            if ( $transaction_id = $listings_api->renew_listing( $_GET['renewal_id'], $fee ) ) {
-                return $payments_api->render_payment_page( array(
-                    'title' => _x('Renew Listing', 'templates', 'WPBDM'),
-                    'item_text' => _x('Pay %1$s renewal fee via %2$s.', 'templates', 'WPBDM'),
-                    'transaction_id' => $transaction_id,
-                ) );
-            }
-        }
-
-        return wpbdp_render( 'renewlisting-fees', array(
-            'fee_options' => $available_fees,
-            'category' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX ),
-            'listing' => $post
-        ), false );
     }
 
     /* payment processing */

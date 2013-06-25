@@ -410,11 +410,11 @@ class WPBDP_PaymentsAPI {
                 $listingsapi = wpbdp_listings_api();
 
                 $extradata = unserialize($transaction->extra_data);
-                $renewalinfo = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $extradata['renewal_id']));
+                $renewalinfo = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $extradata['renewal_id'] ) );
                 
-                $listingsapi->assign_fee($transaction->listing_id, $renewalinfo->category_id, $extradata['fee'], true);
+                $listingsapi->assign_fee( $transaction->listing_id, $renewalinfo->category_id, $extradata['fee'], true );
 
-                wp_update_post(array('post_status' => 'publish', 'ID' => $transaction->listing_id));
+                wp_update_post( array( 'post_status' => 'publish', 'ID' => $transaction->listing_id ) );
             }
         } elseif ($transaction->status == 'rejected') {
             if ($transaction->payment_type == 'upgrade-to-sticky') {

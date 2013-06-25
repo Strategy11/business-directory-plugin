@@ -572,21 +572,19 @@ class WPBDP_ListingsAPI {
     public function renew_listing($renewal_id, $fee) {
         global $wpdb;
 
-        if ($renewal = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND expires_on < %s", $renewal_id, current_time('mysql')))) {
-            if ( !has_term($renewal->category_id, WPBDP_CATEGORY_TAX, $renewal->listing_id) ) {
-                // set payment status to not-paid
-                update_post_meta($renewal->listing_id, '_wpbdp[payment_status]', 'not-paid');
+        if ( $renewal = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL", $renewal_id, current_time( 'mysql' ) ) ) ) {
+            // set payment status to not-paid
+            update_post_meta( $renewal->listing_id, '_wpbdp[payment_status]', 'not-paid' );
 
-                // register the new transaction
-                $transaction_id = wpbdp_payments_api()->save_transaction(array(
-                    'listing_id' => $renewal->listing_id,
-                    'amount' => $fee->amount,
-                    'payment_type' => 'renewal',
-                    'extra_data' => serialize(array('renewal_id' => $renewal_id, 'fee' => $fee))
-                ));
+            // register the new transaction
+            $transaction_id = wpbdp_payments_api()->save_transaction( array(
+                'listing_id' => $renewal->listing_id,
+                'amount' => $fee->amount,
+                'payment_type' => 'renewal',
+                'extra_data' => serialize( array( 'renewal_id' => $renewal_id, 'fee' => $fee ) )
+            ));
 
-                return $transaction_id;
-            }
+            return $transaction_id;
         }
 
         return 0;
@@ -772,7 +770,8 @@ class WPBDP_ListingsAPI {
                 wp_set_post_terms( $r->listing_id, $listing_terms, WPBDP_CATEGORY_TAX );
 
                 if ( !$listing_terms ) {
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
+                    // $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'draft' ), $r->listing_id ) );
                 }
 
                 $email = new WPBDP_Email();
