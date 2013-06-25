@@ -2,7 +2,7 @@
  
  class WPBDP_Installer {
 
-    const DB_VERSION = '3.3';
+    const DB_VERSION = '3.4';
 
     private $installed_version = null;
 
@@ -103,7 +103,7 @@
     public function _update() {
         global $wpbdp;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -401,6 +401,13 @@
                           _x( '<b>Business Directory Plugin - Regions Module</b> was disabled because it is incompatible with the current version of Business Directory. Please update the Regions module.', 'installer', 'WPBDM' )
                         );
         }        
-    }    
+    }
+
+    public function upgrade_to_3_4() {
+        global $wpdb;
+        
+        $query = $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET email_sent = %d WHERE email_sent = %d", 2, 1 );
+        $wpdb->query( $query );
+    }
 
  }
