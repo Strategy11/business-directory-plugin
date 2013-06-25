@@ -594,6 +594,42 @@ class WPBDP_ListingsAPI {
         return null;
     }
 
+    /**
+     * Automatically renews a listing in all of its expired categories using the same fee as before (if possible) or the first one available.
+     * @param int $listing_id the listing ID
+     * @since 3.1
+     */
+    public function auto_renew( $listing_id ) {
+        global $wpdb;
+
+        $expired = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on < %s",
+                                                       intval( $listing_id ),
+                                                       current_time( 'mysql' ) ) );
+
+        if ( !$expired )
+            return;
+
+        foreach ( $expired as &$e ) {
+            $available_fees = wpbdp_get_fees_for_category( $e->category_id );
+            $old_fee_id = wpbdp_getv( unserialize( $e->fee ), 'id', -1 );
+            $new_fee = null;
+
+            foreach ( $available_fees as &$fee_option ) {
+                if ( $fee_option->id == $old_fee_id ) {
+                    $new_fee = $fee_option;
+                    break;
+                }
+            }
+
+            if ( !$new_fee )
+                $new_fee = $available_fees[0];
+
+            $this->assign_fee( $listing_id, $e->category_id, $new_fee, false );
+        }
+
+        wp_update_post( array( 'ID' => $listing_id, 'post_status' => 'publish' ) );
+    }
+
     public function renew_listing($renewal_id, $fee) {
         global $wpdb;
 

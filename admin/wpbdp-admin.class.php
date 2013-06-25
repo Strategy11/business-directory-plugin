@@ -493,7 +493,9 @@ class WPBDP_Admin {
                                           'cancelfeatured' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
                                           'sep2' => '--',
                                           'setaspaid' => _x('Set Paid', 'admin actions', 'WPBDM'),
-                                          'setasnotpaid' => _x('Set Not Paid', 'admin actions', 'WPBDM')
+                                          'setasnotpaid' => _x('Set Not Paid', 'admin actions', 'WPBDM'),
+                                          'sep3' => '--',
+                                          'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
                                          );
 
 
@@ -638,6 +640,14 @@ class WPBDP_Admin {
             case 'removecategory':
                 if ( $listings_api->remove_category_info( $posts[0], $_GET['category_id'] ) )
                     $this->messages[] = _x( 'Category information was updated.', 'admin', 'WPBDM' );
+                break;
+
+            case 'renewlisting':
+                foreach ( $posts as $post_id ):
+                    $listings_api->auto_renew( $post_id );
+                endforeach;
+
+                $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'WPBDM' );
                 break;
 
             default:
