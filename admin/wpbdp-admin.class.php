@@ -421,8 +421,12 @@ class WPBDP_Admin {
                                ));
 
         // Fees
+        $expired_categories_ids = $listings_api->get_expired_categories( $post->ID );
+        $expired_categories = get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false, 'hierarchical' => false, 'include' => $expired_categories_ids ? $expired_categories_ids : array( 0 ) ) );
+
         echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-fees.tpl.php', array(
-                                'post_categories' => wp_get_post_terms($post->ID, WPBDP_CATEGORY_TAX),
+                                'post_categories' => array_merge( wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX ), $expired_categories ),
+                                'expired_categories' => $expired_categories,
                                 'post_id' => $post->ID,
                                 'image_count' => count($listings_api->get_images($post->ID))
                                 ));
@@ -631,6 +635,11 @@ class WPBDP_Admin {
                     $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WBPDM');
                 break;
 
+            case 'removecategory':
+                if ( $listings_api->remove_category_info( $posts[0], $_GET['category_id'] ) )
+                    $this->messages[] = _x( 'Category information was updated.', 'admin', 'WPBDM' );
+                break;
+
             default:
                 break;
         }
@@ -773,8 +782,27 @@ class WPBDP_Admin {
     }
 
     private function category_column() {
+        global $wpdb;
         global $post;
-        echo get_the_term_list($post->ID, WPBDP_CATEGORY_TAX, '', ', ', '' );
+
+        $expired_categories = wpbdp_listings_api()->get_expired_categories( $post->ID );
+        $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+        $categories = array_merge( $current_categories, $expired_categories );
+
+        foreach ( $categories as $i => $category_id ) {
+            if ( $term = get_term( $category_id, WPBDP_CATEGORY_TAX, OBJECT, 'display' ) ) {
+                $expired = in_array( $category_id, $expired_categories, true );
+
+                print $expired ? '<s>' : '';
+                printf( '<a href="%s" title="%s">%s</a>',
+                        get_term_link( $term ),
+                        $expired ? _x( '(Listing expired in this category)', 'admin', 'WPBDM' ) : '',
+                        $term->name );
+                print $expired ? '</s>' : '';
+                print ( ( $i + 1 ) != count( $categories ) ? ', ' : '' );                
+            }
+        }
+
     }
 
     private function payment_status_column() {

@@ -482,6 +482,31 @@ class WPBDP_ListingsAPI {
         return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id));
     }
 
+    public function get_expired_categories( $listing_id ) {
+        global $wpdb;
+        return $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on < %s",
+                                               $listing_id,
+                                               current_time( 'mysql' ) ) );
+    }
+
+    public function remove_category_info( $listing_id, $category_or_categories ) {
+        global $wpdb;
+
+        $categories = array_map( 'intval', is_array( $category_or_categories ) ? $category_or_categories : array( $category_or_categories ) );
+        $current_terms = array_map( 'intval', wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, 'fields=ids' ) );
+        $new_terms = array_diff( $current_terms, $categories );
+
+        wp_set_post_terms( $listing_id, $new_terms, WPBDP_CATEGORY_TAX, false );
+
+        foreach ( $categories as $cat_id ) {
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", 
+                                          $listing_id,
+                                          $cat_id ) );
+        }
+
+        return true;
+    }
+
     // effective_cost means do not include already paid fees
     public function cost_of_listing($listing_id, $effective_cost=false) {
         if (is_object($listing_id)) return $this->cost_of_listing($listing_id->ID);
