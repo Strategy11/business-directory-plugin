@@ -771,7 +771,7 @@ class WPBDP_ListingsAPI {
 
                 if ( !$listing_terms ) {
                     // $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'draft' ), $r->listing_id ) );
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", 'draft', $r->listing_id ) );
                 }
 
                 $email = new WPBDP_Email();
