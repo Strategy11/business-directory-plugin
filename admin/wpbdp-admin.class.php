@@ -434,6 +434,7 @@ class WPBDP_Admin {
 
     function apply_query_filters($request) {
         global $current_screen;
+        global $wpdb;
 
         if (is_admin() && isset($_REQUEST['wpbdmfilter']) && $current_screen->id == 'edit-' . WPBDP_POST_TYPE) {
             switch ($_REQUEST['wpbdmfilter']) {
@@ -444,6 +445,11 @@ class WPBDP_Admin {
                 case 'paid':
                     $request['meta_key'] = '_wpbdp[payment_status]';
                     $request['meta_value'] = 'paid';
+                    break;
+                case 'expired':
+                    $expired_post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s", current_time( 'mysql' ) ) );
+                    $expired_post_ids = $expired_post_ids ? $expired_post_ids : array( 0 );
+                    $request['post__in'] = $expired_post_ids;
                     break;
                 default:
                     $request['meta_key'] = '_wpbdp[payment_status]';
@@ -676,6 +682,8 @@ class WPBDP_Admin {
                                                                WPBDP_POST_TYPE,
                                                                '_wpbdp[sticky]',
                                                                'pending') );
+            $expired = $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT COUNT(*) FROM {$wpdb->posts} p WHERE p.ID IN ( SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s )",
+                                                       current_time( 'mysql' ) ) );
 
             $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
                                      add_query_arg('wpbdmfilter', 'paid', remove_query_arg('post')),
@@ -692,6 +700,12 @@ class WPBDP_Admin {
                                        wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'pendingupgrade' ? 'current' : '',
                                        __('Pending Upgrade', 'WPBDM'),
                                        number_format_i18n($pending_upgrade));
+            $views['expired'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                                         add_query_arg( 'wpbdmfilter', 'expired', remove_query_arg( 'post' ) ),
+                                         wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) == 'expired' ? 'current' : '' ,
+                                         _x( 'Expired', 'admin', 'WPBDM' ),
+                                         number_format_i18n( $expired )
+                                        );
         } elseif (current_user_can('contributor')) {
             if (isset($views['mine']))
                 return array($views['mine']);
