@@ -400,3 +400,22 @@ ul.validation-errors li {
 .wpbdp-credit-info a {
     color: inherit;
 }
+
+#wpbdp-renewal-page .do-not-renew-listing {
+    margin: 40px 0;
+    border: solid 1px #eee;
+    font-size: 95%;
+}
+
+#wpbdp-renewal-page .do-not-renew-listing .header {
+    background: #bc0b0b;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 2px 0;
+}
+
+#wpbdp-renewal-page .do-not-renew-listing input[type="submit"] {
+    /*border: solid 1px #bc0b0b;*/
+    color: #900000;
+}

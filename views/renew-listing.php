@@ -37,9 +37,28 @@ class WPBDP_RenewListingPage extends WPBDP_View {
         global $wpdb;
 
         // Check there are no currently pending transactions for this same renewal
-        if ( $this->check_pending_transactions() )
-            return wpbdp_render_msg( _x( 'There is a transaction awaiting approval for this renewal in our system. Please contact the site administrator.', 'renewal', 'WPBDM' ),
-                                     'error' );
+        if ( $tid = $this->check_pending_transactions() )
+            return wpbdp_render_msg( sprintf( _x( 'There is a transaction (#%d) awaiting approval for this renewal in our system. Please contact the site administrator.', 'renewal', 'WPBDM' ),
+                                                 $tid ), 'error' );
+
+        if ( isset( $_POST['cancel-renewal'] ) ) {
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d",
+                                          $this->feeinfo->id ) );
+
+            // delete all pending transactions relating this renewal or category
+            $transactions = wpbdp_payments_api()->get_transactions( $this->listing->ID );
+            foreach ( $transactions as &$t ) {
+                if ( $t->payment_type != 'renewal' )
+                    continue;
+
+                $extra_data = is_array( $t->extra_data ) ? $t->extra_data : array();
+                if ( isset( $extra_data['renewal_id'] ) && $extra_data['renewal_id'] == $this->feeinfo->id )
+                    $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $t->id ) );
+            }
+
+            return wpbdp_render_msg( _x( 'Your renewal was successfully cancelled.', 'renewal', 'WPBDM' ) );
+
+        }
 
         $available_fees = wpbdp_get_fees_for_category( $this->feeinfo->category_id ) or die( '' );
 
@@ -75,13 +94,13 @@ class WPBDP_RenewListingPage extends WPBDP_View {
             if ( $t->payment_type != 'renewal' )
                 continue;
 
-            $extra_data = unserialize( $t->extra_data );
+            $extra_data = $t->extra_data;
 
             if ( isset( $extra_data['renewal_id'] ) && $extra_data['renewal_id'] == $this->feeinfo->id && $t->status == 'pending' )
-                return true;
+                return intval( $t->id );
         }
 
-        return false;
+        return 0;
     }
 
 }
