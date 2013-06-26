@@ -347,3 +347,23 @@ table.wpbdp-debug-section tbody tr td {
 table.wpbdp-debug-section tbody tr:nth-child(2n) {
     background: #f5f5f5;
 }
+
+/* Transactions admin */
+.wpbdp-page-admin-transactions .tag {
+    font-size: 95%;
+}
+
+.wpbdp-page-admin-transactions .tag.approved {
+    background: green;
+}
+
+.wpbdp-page-admin-transactions .tag.pending {
+    background: red;
+}
+
+.wpbdp-page-admin-transactions .tag.rejected {
+}
+
+.wpbdp-page-admin-transactions .column-actions a.delete {
+    color: #bc0b0b;
+}
