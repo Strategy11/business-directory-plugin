@@ -247,7 +247,7 @@ class WPBDP_Plugin {
 
     public function init() {
         // add_option('wpbdp-debug-on', true);
-        // if (get_option('wpbdp-debug-on', false)) $this->debug_on();
+        if (get_option('wpbdp-debug-on', false)) $this->debug_on();
 
         wpbdp_log('WPBDP_Plugin::init()');
 
@@ -272,7 +272,7 @@ class WPBDP_Plugin {
         add_action('init', array($this, '_session_start'));
         add_action('init', array($this, '_register_image_sizes'));
 
-        add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
+        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
         add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
 
