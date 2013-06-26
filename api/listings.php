@@ -642,7 +642,7 @@ class WPBDP_ListingsAPI {
                 'listing_id' => $renewal->listing_id,
                 'amount' => $fee->amount,
                 'payment_type' => 'renewal',
-                'extra_data' => serialize( array( 'renewal_id' => $renewal_id, 'fee' => $fee ) )
+                'extra_data' => array( 'renewal_id' => $renewal_id, 'fee' => $fee )
             ));
 
             return $transaction_id;

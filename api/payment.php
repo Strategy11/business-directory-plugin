@@ -409,7 +409,7 @@ class WPBDP_PaymentsAPI {
             } elseif ($transaction->payment_type == 'renewal') {
                 $listingsapi = wpbdp_listings_api();
 
-                $extradata = unserialize($transaction->extra_data);
+                $extradata = $transaction->extra_data;
                 $renewalinfo = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $extradata['renewal_id'] ) );
                 
                 $listingsapi->assign_fee( $transaction->listing_id, $renewalinfo->category_id, $extradata['fee'], true );
