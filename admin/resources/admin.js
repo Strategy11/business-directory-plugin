@@ -225,6 +225,24 @@ jQuery(document).ready(function($){
     if ( $('#wpbdp-admin-debug-info-page a.nav-tab').length > 0 )
         $('#wpbdp-admin-debug-info-page a.nav-tab').get(0).click();
 
+    /* Transactions */
+    $( '.wpbdp-page-admin-transactions .column-actions a.details-link' ).click(function(e){
+        e.preventDefault();
+        var $tr = $(this).parents('tr');
+        var $details = $tr.find('div.more-details');
+
+        var $tr_details = $tr.next('tr.more-details-row');
+        if ( $tr_details.length > 0 ) {
+            $tr_details.remove();
+            $(this).text( $(this).text().replace( '-', '+' ) );            
+            return;
+        } else {
+            $(this).text( $(this).text().replace( '+', '-' ) );
+        }
+
+        $tr.after( '<tr class="more-details-row"><td colspan="7">' + $details.html() + '</td></tr>' ).show();
+    });
+
 });
 
 function wpbdp_load_placeholder($v) {

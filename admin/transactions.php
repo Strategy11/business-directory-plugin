@@ -39,6 +39,35 @@ class WPBDP_TransactionsTable extends WP_List_Table {
         $html = '';
         $html .= $payment_trans[ $item->payment_type ];
 
+        $html .= '<div class="more-details" style="display: none;">' . $this->more_details( $item ) . '</div>';
+
+        return $html;
+    }
+
+    private function more_details( $item ) {
+        $item->payerinfo = unserialize( $item->payerinfo );
+
+        $html  = '';
+        $html .= '<dl>';
+
+        $html .= '<dt>' . _x( 'Gateway', 'admin transactions', 'WPBDM' ) . '</dt>';
+        $html .= '<dd>'. ( $item->gateway ? $item->gateway : '--' ) . '</dd>';
+        $html .= '<dt>' . _x( 'Payer Info', 'admin transactions', 'WPBDM' ) . '</dt>';
+        $html .= '<dd>';
+        $html .= sprintf( '%s: %s', _x( 'Name', 'admin transactions', 'WPBDM' ), wpbdp_getv( $item->payerinfo, 'name', '--' ) );
+        $html .= '<br />';
+        $html .= sprintf( '%s: %s', _x( 'E-Mail', 'admin transactions', 'WPBDM' ), wpbdp_getv( $item->payerinfo, 'email', '--' ) );
+        $html .= '</dd>';
+
+        if ( $item->processed_on ) {
+            $html .= '<dt>' . _x( 'Processed On', 'admin transactions', 'WPBDM' ) . '</dt>';
+            $html .= '<dd>' . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format ' ), strtotime( $item->processed_on ) ) . '</dd>';
+            $html .= '<dt>' . _x( 'Processed By', 'admin transactions', 'WPBDM' ) . '</dt>';
+            $html .= '<dd>' . $item->processed_by . '</dd>';
+        }
+
+        $html .= '</dl>';
+
         return $html;
     }
 

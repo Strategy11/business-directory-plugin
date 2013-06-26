@@ -367,3 +367,16 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 .wpbdp-page-admin-transactions .column-actions a.delete {
     color: #bc0b0b;
 }
+
+.wpbdp-page-admin-transactions tr.more-details-row {
+    background: #fff;
+}
+
+.wpbdp-page-admin-transactions tr.more-details-row td {
+    padding-left: 40px;
+    font-size: 95%;
+}
+
+.wpbdp-page-admin-transactions tr.more-details-row td dl dt {
+    font-weight: bold;
+}
