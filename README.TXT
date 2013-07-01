@@ -1,40 +1,42 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget
+Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory
 Requires at least: 3.0
-Tested up to: 3.5.1
-Last Updated: 2013-Apr-4
-Stable tag: tags/3.0.1
+Tested up to: 3.5.2
+Last Updated: 2013-Jul-1
+Stable tag: tags/3.1
+License: GPLv2 or later
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
 == Description ==
 
-Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
+[Main Site](http://businessdirectoryplugin.com/) | [Support Forum](http://businessdirectoryplugin.com/support-forum/) | [Documentation](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-module/?ref=wp)
 
-Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more.  You can add any kind of directory using Business Directory plugin.
+Business Directory Plugin is the most popular, widely-used, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
-= Features: =
+Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections, create a church directory, build an address book and much more.  You can add any kind of directory using Business Directory plugin.
 
-*   Fully customizable form fields
-*   Accept payment for listings OR have free listings
-*   Allow for featured/sticky listings for an upgrade fee
-*   Create multiple fee plans, which can be assigned to categories for posting
-*   Support for reCAPTCHA to avoid spam listings
-*   Users who post can edit listings without access to WP dashboard
-*   SEO Friendly
-*   Rate businesses in your directory (now with Microformat support) (Ratings Module)
-*   Display the location of the business (categories, search, details--now with custom map sizes) (Google Maps Module)
-*   Location based result filtering (Regions Module) (NEW!)
-*   ZIP code radius searches (ZIP Search Module) (NEW!)
-*   Assign features to paid or sticky listing plans to give users incentive to upgrade (Featured levels module) (NEW!)
-*   Allow users to upload PDFs (File Upload Module) (NEW!)
-*   Display Category Icons/Allow Parent-Child Category Navigation (Enhanced Category Module) (NEW!)
+= Features =
+* Fully customizable form fields
+* Accept payment for listings OR have free listings
+* Allow for featured/sticky listings for an upgrade fee
+* Create multiple fee plans, which can be assigned to categories for posting
+* Support for reCAPTCHA to avoid spam listings
+* Users who post can edit listings without access to WP dashboard
+* SEO Friendly
+* Rate businesses in your directory (now with Microformat support) (Ratings Module)
+* Display the location of the business (categories, search, details--now with custom map sizes) (Google Maps Module)
+* Location based result filtering (Regions Module) (NEW!)
+* ZIP code radius searches (ZIP Search Module) (NEW!)
+* Assign features to paid or sticky listing plans to give users incentive to upgrade (Featured levels module) (NEW!)
+* Allow users to upload PDFs (File Upload Module) (NEW!)
+* Display Category Icons/Allow Parent-Child Category Navigation (Enhanced Category Module) (NEW!)
 
-For a full list of features, please visit:  http://businessdirectoryplugin.com/features
+For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
-Please report any bugs you find via http://businessdirectoryplugin.com/support-forum  
+Please report any bugs you find via http://businessdirectoryplugin.com/support-forum/  
 
 = Premium Module Links: =
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
@@ -63,7 +65,6 @@ If you love the plugin, [please consider purchasing a Premium Module](http://bus
 
 
 == Credits ==
-
 Copyright 2009-13, D. Rodenbaugh 
 Original Author: A. Lewis
 
@@ -84,33 +85,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
 == Installation ==
+Please see our detailed [Installation Guide](http://businessdirectoryplugin.com/docs/#install), the [Quick Start Guide](http://businessdirectoryplugin.com/quick-start-guide/) for common how-to scenarios, and our [Initial Setup](http://businessdirectoryplugin.com/docs/#setup) page for instructions on how to get going quickly with Business Directory Plugin.
 
-Backup your WordPress database and files before you install or update. If you are upgrading from any of versions WP Business Directory Manager 1.0 - 1.7 it is important to note that Business Directory Plugin is built for Wordpress 3.0 and above and will not work properly with versions of WordPress prior to 3.0. 
+[Full documentation](http://businessdirectoryplugin.com/docs/) for the plugin is also available.
 
-1. 	Upload the folder business-directory-plugin with its contents to wp-content/plugins/
-
-2.  Activate the plugin
-
-3.	Create a new WordPress Page for your business directory. You can name the page whatever you want. Insert ONE of the following codes into the page [WPBUSDIRMANUI] or [businessdirectory]. The plugin needs this code to work.
-
-4.  You should see a menu tab with the name Directory Admin in your admin dashboard sidebar. You need to click the tab to access "Manage Options", "Manage Fees" and "Manage Form Fields" and other options. 
-
-5. 	You will also see a new dashboard menu tab named "Directory". This tab is where you manage your listings. It works very much the same as the "Posts" tab. Your directory listings are saved as a custom post type. You create your directory categories by going to Directory->Categories and adding the directory categories there. 
-
-6.  You can access your directory on your site by visiting http://[your-site-url]/[page-slug-from step-3].  For example, if you created a page called "Business Listings", that would have a slug of business-listings and the URL would be http://site.com/business-listings.
-
-
-Manage Form Fields allows you to change the form to suit your needs. You can edit the existing fields and add new fields
-
-Manage Options allows you to control various settings such as whether or not to allow image uploads, whether or not to charge a fee for listings among other options.
-
-To style the directory refer to wpbusdirman.css inside the css folder in the plugin directory  
-
-Some users might have display issues due to incompatibility with the plugin and their WordPress theme. If this is you please refer to  the Usage Doc section for instructions on how to create compatible templates for use with the plugin.
-
-Once you have configured your options, adjusted your form fields to suit your needs, and setup your fees if you are charging fees for adding listings, your directory should now be ready and working. 
-
-If you are having problems please visit http://www.businessdirectoryplugin.com/support-forum/ for help.
+If you are having problems please visit [support forum](http://www.businessdirectoryplugin.com/support-forum/) for help.
 
 
 == Screenshots ==
@@ -120,478 +99,356 @@ If you are having problems please visit http://www.businessdirectoryplugin.com/s
 
 == Changelog ==
 
-Version 3.0.1
-
-   1. Added code to workaround critical WordPress dbDelta issue with PHP 5.2.x users
-   
-   2. Fixed category display bug where "Hide Empty Categories" would hide all categories instread.
-   
-
-Version 3.0
-
-New Modules Added
-- Featured Levels
-- Category Icons
-- File uploads (PDF only)
-- ZIP code search
-
-Form Fields API
-- New form fields API. (#273).
-- Allow for label hiding in form fields. (#226).
-- New URL field. (#273).
-- URL Validator now supports more schemes other than http or https. (#253).
-- Social fields marked as "optional" do no longer fail to validate when empty. (#293).
-- Make social fields work correctly with URL Validator. (#294).
-- Fix an issue with single checkbox fields. (#316).
-- Now possible to specify if a URL field has rel="nofollow" or not. (#319).
-- Fix a re-ordering issue with bottom most fields. (#325).
-- Fix an issue with radio button fields showing labels twice. (#329).
-
-Misc. Fixes
-- Restore ability to hide the search form. (#274, #280).
-- Simplify WordPress queries to improve loading speed for directory pages. (#260).
-- Search results are now sorted using the directory configured setting. (#257).
-- Added option to notify admins via email when new listings are posted. (#245).
-- Allow listings to be upgraded to featured during the initial submit process. (#244). 
-  This option is controlled by the "Offer upgrades during submit process?" setting.
-- Include listings in children categories in search results when searching a category. (#292).
-- Make tag association work correctly with checkboxes. (#284).
-- All BD buttons have now class 'button' or 'submit' depending on their type for easier theming. (#264).
-- Form elements in widgets, search form, etc. now use specific IDs for easier theming. (#236).
-- Handle accented words and apostrophes correctly when importing listings via CSV files. (#258, #269).
-- Allow users with edit permissions to change listing images in backend. (#263).
-- Fix category posts being incorrectly counted when there were expired listings. (#303).
-- CSV import now complaints when a required field column is not present. (#295).
-- CSV import now complaints when a user isn't found. (#251).
-- Do not change listing author when using quick edit in the admin. (#301).
-- Plugin checked for WPMU compatibility. (#14).
-- Preserve the language parameter in BD links when qTranslate plugin is found to be active. (#313).
-- Fix image issue due to conflicts with Jetpack plugin. (#268).
-- Add "Listings Tagged: [tag]" to the title & header of tag pages. (#312).
-- Fix an issue where paid listings were being published even when the payment was skipped. (#317).
-- Add Lightbox support. (#147).
-- Admin menus minor reorganization. (#349).
-- Add a "Clear" button to the search form. (#344).
-- Make use of listing emails before others for delivering renewal emails. (#330).
-- Detect some conflicting social plugins (AddThis Social Bookmarking Widget, Jamie Social Icons, TF Social Share, Shareaholic, Quick AdSense) and disable them on directory pages. (#327).
-
-Internal API
-- Call 'handle_action' further down the action pipeline to avoid problems with other plugins. (#283).
-- Rewrite rules and query vars cleanup. (#281).
-- Fix canonical redirects so the BD page works even when set as home page. (#281).
-- Lots of deprecated functions removed and code cleanups.
-- Better detection of the current action being performed inside BD pages. (#302).
-- Do not overwrite titles of pages outside of BD. Fixes a conflict with AWPCP. (#302).
-
-SEO related
-- Produce correct 'canonical' link head tags for listings, categories and tag pages. (#291).
-- Make BD support Yoast SEO plugin's metadata and title tags on listing pages. (#108, #331).
-- Include RSS feed links for listings and categories in directory pages. (#224).
-   
-
-Version 2.2
-
-   1. Added support for Regions module
-   
-   2. Fixed CSV import error for PHP character munging
-   
-
-Version 2.1.6.1
-
-   1. Fix PHP 5.4 error during install
-   
-   2. Fix error "Fee must be associated to a category" when a category was selected.
-   
-
-Version 2.1.6
-
-   1. Support for all currencies supported by PayPal.
-   
-   2. Do not make URL fields required when marked as optional.
-   
-   3. When searching a field with multiple options, the options are now ORed.
-   
-   4. Twitter field type for @ handles. On display, a "Follow" button appears.
-   
-   5. Facebook field type for pages. On display, a "Like" button appears.
-   
-   6. LinkedIn field type for company IDs (not supported for individual profiles). On display, a "Follow" button appears.
-   
-   7. Image settings in "Manage Options" are always respected (no approximate sizes are used). Thumbnails of the correct size are automatically created when an image is uploaded.
-   
-   8. If image settings change, new thumbnails are created on the fly when a listing is visited. This happens only on "single view" to avoid consuming a lot of server resources.
-    
-   9. When uploading images at the submit/edit listing form useful errors are now displayed. This happens when images are of a bigger size than allowed or are not really image files. Previously, it wasn't clear why an upload could fail.
-   
-   11. Long description can now be set to Optional, required fields that can't be changed have disabled checkbox shown
-   
-   12. Empty URL field labels are not displayed
-   
-   13. CSV importer fixes for descriptions with newlines
-   
-   14. Fixed PO file to include Directory button label
-   
-   15. Hide payment & fee info on posts from non-administrators
-   
-   16. Upgrade PayPal interface for compatibility alert due in Feb 2013 (HTTP headers)
+= Version 3.1 =
+* New module: Featured Levels
+* New module: Category Icons
+* New module: ZIP code search
+* Allow search form to be hidden when results are displayed. 
+* Fix handling of NULL/empty column values in some MySQL databases that confused the Form Fields API. 
+* Do not fail when a listing's 'sticky' flag appears twice (or more) in the database .
+* Honor edit-post status after a listing edit .
+* Make WordPress generate valid permalinks for a recently submitted listing
+* Use update_post() instead of publish_post() to force WP not to trash existing permalink slugs when bulk-publishing listings
+* Do not print empty subcategory lists in the main category view. 
+* If options are manually specified in a tag field use them as choices instead of the whole tag taxonomy list. 
+* Add a workaround for a known PHP issue where empty and zero values are incorrectly compared. 
+* Improve title handling compatibility with Yoast SEO plugin.  
+* Reviewed compatibility with PHP 5.3 & WP 3.5.2. 
+* Make uninstall process actually delete all settings and BD content. 
+* Do not display the upgrade to featured option when submitting a listing if featured listings are disabled. 
+* Fix numbering of submit process steps. 
+* Make category fields respect configured category ordering when they are rendered. 
+* Categories are now displayed hierarchically when using checkbox/radio category fields. 
+* Fix unpaid listing count in admin. 
+* Do not change the listing status back to pending if it was already published when a transaction is approved. 
+* Extend Yoast SEO support to include category & tag descriptions. 
+* Payment process page now displays error messages that come from the payment gateway. 
+* Allow plugin to work correctly when its directory is a symlink. 
+* Workaround Relevanssi plugin causing problems uploading images. 
+* Correctly escape & unescape strings when saving and displaying a field's name. 
+* Restore 'preview' functionality for listings admin-side. 
+* Use category/tag description for category/tag pages metatags. 
+* Compatibility with XML site maps reviewed. 
+* Fix handling of comma/semicolon-separated tags in CSV import. 
+* Make category fields work correctly when using radio buttons. 
+* Add a pending expiration/renew ad email that is sent a configurable number of days before the actual listing expiration happens
+* Listings get republished after a renewal. 
+* New core filters/actions to allow plugins to display and handle field settings in the admin. 
+* Improve handling of expired categories in listings admin-side. 
+* Allow users to opt-out of a listing renewal. 
+* Add a new 'expired' filter to quickly find listings with expired categories. 
+* New "Transactions" section to administrate listing transactions.
+* Use a better return/cancel URL for the PayPal module .
+* Fix SQL query that returned incorrect results when filtering listings by rating in Advance Search. 
+* Allow ratings tooltips to be overridden by the user. 
+* Change default start tooltips to more sane default values. 
+* Geolocate listings server-side instead of using the JS API to avoid hitting Google Maps limits. 
+* Performance enhancements. 
+* Show all relevant listings in a category or search results page instead of just the ones visible on the page. 
+* Use newlines instead of commas to separate address parts when displaying a map pin.  
+* Use a special hash to mark listings that need to be geolocated to avoid unnecessary hits to the Maps API.
+* Do not fail when an expected region form field was manually deleted by the admin
+* Workaround WordPress showing incorrect listing counts for the Regions taxonomy. 
+* Make Regions cache regeneration work even if some region fields are not present. 
+* Fix display of incorrect regions in the sidelist when no region field was visible. 
+* Allow region selector to be completely hidden. 
+* Show an admin warning when regions is incorrectly configured
+* Allow listings to be assigned a region admin-side even before the first save. 
+* Reset current page variable when changing the current region. 
+* Move all settings to "Manage Options" section. 
+* Add a display flag specific for the region selector. 
+* Fix region fields display so that the order in which the fields appear doesn't affect functionality. 
+* New location search widget (ZIP code module).
+* Added support for US/UK and US+UK postal code databases in ZIP module.
 
 
-Version 2.1.5.2
-
-   1. Added support for PayPal currencies:  BRL, TRY, MRY
-   
-   2. Fixed bug where upgrade of Website address did not auto-copy the link text
-   
-   3. Fixed advanced search issues with categories
-   
-   4. Fixed advanced search to use OR instead of AND for multi-select listboxes
-   
-   5. Fixed URL validator to not make field required when URL is empty
-   
-   6. Fixed permalink rules to work with index.php-based approach
-   
-
-Version 2.1.5.1
-
-   1. Fixed WP API change: Missing argument 2 for wp_kses()
-   
-
-Version 2.1.5
-
-   1. Added a Back to Directory button for listings
-   
-   2. Added sorting order for ratings (by ratings and count)
-   
-   3. Minor HTML tweaks for layout
-   
-   4. Added Link Text for Business Website (to create a complete anchor tag with SEO value)
-   
-   5. Changed fields to be hideable from Advanced Search Form
-   
-   6. Added better error messages displayed when payment gateways are not correctly configured for use
-   
-   7. Added payment skipping for admins, including a message that clearly shows the payments are being skipped because the current user is an admin
-   
-   8. Comments in listings are correctly displayed now
-   
-   9. CSV import now supports newlines in the import fields
-   
-   10. Contributors can't manage listings now
-   
-   11. Removed HTML comments from core templates that caused problems with some themes
-   
-   12. Category and tag names are now displayed in the page title
-   
-   13. Fixed Google Checkout Seller ID issue (removed field)
-   
-   14. Fixed labels for directory so that the colon is not outside the label
-   
-   15. rel attribute added to images
-   
-   16. Search widget added
-   
-   17. CSV import now supports multiple categories using the category separator
-   
-   18. Fixed stripslashes bug with field labels
-   
-
-Version 2.1.4.1
-
-   1. Fixed issue with default display of form fields (caused fields to hide in listing)
-   
-
-Version 2.1.4
-
-   1. Added support for Ratings module
-   
-   2. Fixed problems with comments
-   
-   3. Fixed problem with featured listings not displaying on the page with the correct count
-   
-   4. Improved speed of queries for main listings
-   
-   5. Fixed search pagination issue with lengthy result sets
-   
-   6. Fixed issue where number of posts per page did not include featured listings
+= Version 3.0.2 =
+* Further additions to allow for restoration of "invalid" fields for 3.0 users affected by 2.2->3.0 upgrade
 
 
-Version 2.1.3
-
-   1. Fixed shortcode usage problems with new codes
-   
-   2. Fixed permalink issues with categories and listings
-   
-   3. Added the Directory button back to most pages for simpler navigation.
-   
-   4. Added the ability to hide the directory button in the admin options
-   
-   5. Fixed HTML template issues for listings and single view pages (buttons showed HTML as text)
-   
-   6. Added error message when the main shortcode is not present on any page
-   
-   7. Fixed 2Checkout plugin for 2.1.2
-   
-   8. Fixed search page pagination
-   
-   9. Added back pagination API from WordPress for listings page, fixed bugs where post display was not honored
-   
-   10. Added checks for tags and slugs using permalink rules
-   
-   11. Fixed submit listing to only submit listing once when clicked repeatedly (or refreshed by accident)
-   
-   12. Added reCAPTCHA support to comments AND listings both
-   
-   13. Fixed CSV import issues with permalinks and dates
-   
-   14. Fixed payment gateway deactivation issues when plugin is upgraded.
-   
-   15. Improved search query speeds
-   
-   16. Added ability to select whether a field should appear on the listing's single view and/or excerpt view separately.
-
-   17. Admins can edit / upgrade listings through the frontend regardless of the listing payment status.
-
-   18. A confirmation dialog is now shown when deleting a listing.
-
-   19. Comments on listings always follow the setting inside "Manage Options" (don't have to enable/disable comments individually on listings through the admin side).
-
-   20. Fixed issue with custom CSS: files can be placed inside the "wp-plugin" directory now (per the docs).
-   
-
-Version 2.1.2
-
-   1. Fixed critical query issue that prevented short code pages from working (Add Listing/Edit Listing)
-   
-
-Version 2.1.1
-
-   1. Fixed Directory button to display in listings
-   
-   2. Minor CSS tweaks to show labels in bold
-   
-   3. Fixed bug with category and single listing links where they would not display when clicked (404 error)
-   
-
-Version 2.1
-
-   1. Added support for CSV import, including images in ads
-   
-   2. Added support for custom CSS extensions via CSS files outside of BD
-   
-   3. Added new shortcode names (easier to remember).  Old shortcodes still supported.
-   
-   4. Added support for parameters on WPBUSDIRMANMVIEWLISTINGS/businessdirectory-viewlistings to allow for single category display on a page.
-   
-   5. Upgraded search to have "Advanced Search" link now, all fields are searchable.
-   
-   6. Streamlined the submit process for Free ads (no longer asks for payment)
-   
-   7. Website URL opens in new window (new field option for URLValidated fields)
-   
-   8. New widgets:  Featured Listings, Latest Listings, Random Listings
-   
-   9. HTML emails:  Email sent in HTML format instead of text now
-   
-   10. Preview Form is back.
-   
-   11. Google Maps now recognized on Premium Modules panel as installed/not installed
-   
-   12. MASSIVE upgrade to theming/theme integration, much easier to get BD going now.  Still have override templates, but fewer than before.
-   
-   13. Page based navigation--allows for tighter theme integration and easier upgrades.  Requires the use of permalinks for pretty URLs
-   
-   14. Fixed problem with URL validator not working right.
-   
-   15. Fixed problem with IE9 and button display
-   
-   16. Fixed ad pagination problem.
-   
-   17. Fixed problem with ad expiration validation (where 9999 caused weird 404 errors)
-   
-   18. Category list call from API now working again.
-   
-   19. Subcategory display problem in admin panel fixed.
-   
-   20. Users must select a category when creating a fee plan
-   
-   21. Fixed bug with Manage Form Fields button on Main Menu (permission issue)
-   
-
-Version 2.0.5
-
-   1. Added ability to use bulk operations from admin menu (Upgrade/Downgrade, Set Paid, etc)
-   
-   2. Fixed problem with PayPal module not redirecting after payment on some sites
-   
-   3. Removed BD metadata from deleted posts (speeds searches)
-   
-   4. Fixed wp_pagenavi() warning
-   
-   5. Fixed bug where website field could not be cleared of data
-   
-   6. Fixed issue where admin could not edit other listings
-   
-   7. Added confirmation email to be sent after listing is complete
-   
-   8. Changed Upgrade to only work for Admins
-   
-   9. Updated plugin to use wpdb->query for all DB operations
-   
-   10. Fixed pagination problem with "Older listings" link
-   
-   11. Fixed duplicate search issue (duplicate results returned on searches)
-   
-   12. Fixed sticky/featured listing sorting problem to be consistent for category, listing and page views
-   
-
-Version 2.0.4.1
-
-   1. Fixed image upgrade issues (missing thumbnails, duplicate pictures in listings)
-   
-   2. Fixed edit glitch with empty tags field
-   
-   3. Added control over Submit a Listing button to show/hide.  Added support for other listing buttons as well.
-   
-   4. Fixed minor _x() calls with missing parameters
-   
-   5. Fixed an issue with submitting listings for all blank fields (PHP warning)
-   
-   6. Fixed issue where empty fields would display labels when no value was present
-
-Version 2.0.4
-
-   1. Upgrade to image upload/management system
-   
-   2. Fixed form for creating new listings, both admin and user side
-   
-   3. Fixed listing renewal, emails now go out prior to expiration
-   
-   4. Payment modules upgraded to handle renewals
-   
-   5. POST variables now properly configured for Windows and Linux
-   
-   6. div's properly closed on Submit Listing
-   
-   7. Comments will display when option is checked now
-   
-   8. Directory definition issue with wp-content fixed
-   
-   9. Require registration option now properly displays in admin panel
-   
-   10. Field metadata is hidden and properly namespaced
-   
-   11. Sticky listings in category no longer cause No Listings Found
-   
-   12. Translation issue fixed
-   
-   13. Location field will not disappear on upgrade
-   
-   14. Invalid argument foreach() issue fixed
-   
-   15. Email now goes to site owner as expected
-   
-   16. Submit Listing layout problems fixed
-   
-   17. Submit listing duplicate fields display fixed
-   
-   18. Manage fees upgraded for renewals
-   
-   19. Image displays in list and single view properly now
-   
-   20. Editing listings will not randomly change category now
-   
-   21. Users can control which image is set for the thumbnail of a listing now
-   
-   22. Support for multiple categories in a listing added
-   
-   23. Add New Listing navigation bug fixed
-
-Version 2.0.3
-
-   1. Autocreate required fields
-   
-   2. Directory admin menu set to be visible only to administrator role
-   
-   3. Content field will not show as link now
-   
-   4. Reply emails go to the business listing instead of site owner
-   
-   5. Listings without photos now no longer have placeholder
-   
-   6. Submit Listing no longer displays raw HTML code to user
-   
-   7. Plugin now uses UTF-8 functions to properly handle non-ASCII characters
-   
-   8. BD now integrates in a more friendly way with themes, avoids overriding when possible
-   
-   9. preg_match() warning fixed
-   
-   10. Extra line breaks removed from listing display
-   
-   11. Conflict with Yoast All in One SEO fixed
-   
-   12. Changing the slug now checks for reserved/already used slugs to avoid conflict
-   
-   13. Form fields now custom ordered
-   
-   14. Module detection code fixed, now displays which modules are installed for PayPal/2Checkout
+= Version 3.0.1 =
+* Added code to workaround critical WordPress dbDelta issue with PHP 5.2.x users 
+* Fixed category display bug where "Hide Empty Categories" would hide all categories instread.
 
 
-Version 2.0.2
+= Version 3.0 =
+* New form fields API
+* Allow for label hiding in form fields
+* New URL field
+* URL Validator now supports more schemes other than http or https
+* Social fields marked as "optional" do no longer fail to validate when empty
+* Make social fields work correctly with URL Validator
+* Fix an issue with single checkbox fields
+* Now possible to specify if a URL field has rel="nofollow" or not
+* Fix a re-ordering issue with bottom most fields
+* Fix an issue with radio button fields showing labels twice
+* Restore ability to hide the search form
+* Simplify WordPress queries to improve loading speed for directory pages
+* Search results are now sorted using the directory configured setting
+* Added option to notify admins via email when new listings are posted
+* Allow listings to be upgraded to featured during the initial submit process, This option is controlled by the "Offer upgrades during submit process?" setting.
+* Include listings in children categories in search results when searching a category
+* Make tag association work correctly with checkboxes
+* All BD buttons have now class 'button' or 'submit' depending on their type for easier theming
+* Form elements in widgets, search form, etc. now use specific IDs for easier theming
+* Handle accented words and apostrophes correctly when importing listings via CSV files.
+* Allow users with edit permissions to change listing images in backend
+* Fix category posts being incorrectly counted when there were expired listings
+* CSV import now complaints when a required field column is not present
+* CSV import now complaints when a user isn't found
+* Do not change listing author when using quick edit in the admin
+* Plugin checked for WPMU compatibility
+* Preserve the language parameter in BD links when qTranslate plugin is found to be active
+* Fix image issue due to conflicts with Jetpack plugin
+* Add "Listings Tagged: [tag]" to the title & header of tag pages
+* Fix an issue where paid listings were being published even when the payment was skipped
+* Add Lightbox support
+* Admin menus minor reorganization
+* Add a "Clear" button to the search form
+* Make use of listing emails before others for delivering renewal emails
+* Detect some conflicting social plugins (AddThis Social Bookmarking Widget, Jamie Social Icons, TF Social Share, Shareaholic, Quick AdSense) and disable them on directory pages
+* Call 'handle_action' further down the action pipeline to avoid problems with other plugins
+* Rewrite rules and query vars cleanup
+* Fix canonical redirects so the BD page works even when set as home page
+* Lots of deprecated functions removed and code cleanups.
+* Better detection of the current action being performed inside BD pages
+* Do not overwrite titles of pages outside of BD. Fixes a conflict with AWPCP
+* Produce correct 'canonical' link head tags for listings, categories and tag pages
+* Make BD support Yoast SEO plugin's metadata and title tags on listing pages.
+* Include RSS feed links for listings and categories in directory pages
 
-   1. A revamped form-fields system that would allow plugins to create or use their own custom fields and validation rules.
-   
-   2. A new "Manage Form Fields" page which looks better and conveys information in a more friendly way.
-   
-   3. Custom fields can now be ordered as the user wishes. This ordering is used when displaying both the add/edit forms and listing information.
-   
-   4. Allow users to specify if a particular field should be displayed in excerpt or not at all.
-   
-   5. A better add/edit form-field page including some AJAX tricks to hide unnecessary fields. For instance, when you select a "Textfield" the "Options" field is hidden because the field isn't multivalued. The form is now also a standard WP form.
-   
-   6. A new "field description" field that could be used by admins to display additional information along the form fields.
-   
-   7. Validation when adding/editing custom form-fields to prevent users from removing or modifying required fields (like title, content, etc.)
-   
-   8. New validation framework for fields.
-   
-   9. Fixed bug where Featured ads could not be downgraded.
-   
-   10. Fixed delete field bug.
-   
-   11. Fixed ereg() warning bug.
-    
 
-Version 2.0.1
-
-    1. Fixed scripting error with booleans for some WP installs
-    
-    2. Fixed category 404 problems, clean up navigation
-    
-    3. Fixed short description display issue
-    
-    4. Fixed shortcode usage problems (content displayed below directory, no matter where shortcode was)
+= Version 2.2 =
+* Added support for Regions module
+* Fixed CSV import error for PHP character munging
 
 
-Version 2.0 
+= Version 2.1.6.1 =
+* Fix PHP 5.4 error during install
+* Fix error "Fee must be associated to a category" when a category was selected.
 
-    1. Reset versioning to sensible convention
-    
-    2. Fixed search CSS and searching functionality
-    
-    3. Changed category management to simplify
-    
-    4. Added payment status, featured status into listing screen directly
-    
-    5. Google Checkout bug fix
-    
-    6. Fixed various scripting errors (22 bug fixes total)
-    
-    7. Button alignment fixes and admin UI cleanup
-    
 
-    
-Version 1.0 (1.9.6) Business Directory Plugin carries over from the last version of WP Business Directory Manager (1.9.5) Fixes include:
+= Version 2.1.6 =
+* Support for all currencies supported by PayPal.
+* Do not make URL fields required when marked as optional.
+* When searching a field with multiple options, the options are now ORed.
+* Twitter field type for @ handles. On display, a "Follow" button appears.
+* Facebook field type for pages. On display, a "Like" button appears.
+* LinkedIn field type for company IDs (not supported for individual profiles). On display, a "Follow" button appears.
+* Image settings in "Manage Options" are always respected (no approximate sizes are used). Thumbnails of the correct size are automatically created when an image is uploaded.
+* If image settings change, new thumbnails are created on the fly when a listing is visited. This happens only on "single view" to avoid consuming a lot of server resources.
+* When uploading images at the submit/edit listing form useful errors are now displayed. This happens when images are of a bigger size than allowed or are not really image files. Previously, it wasn't clear why an upload could fail.
+* Long description can now be set to Optional, required fields that can't be changed have disabled checkbox shown
+* Empty URL field labels are not displayed
+* CSV importer fixes for descriptions with newlines
+* Fixed PO file to include Directory button label
+* Hide payment & fee info on posts from non-administrators
+* Upgrade PayPal interface for compatibility alert due in Feb 2013 (HTTP headers)
+
+
+= Version 2.1.5.2 =
+* Added support for PayPal currencies:  BRL, TRY, MRY
+* Fixed bug where upgrade of Website address did not auto-copy the link text
+* Fixed advanced search issues with categories
+* Fixed advanced search to use OR instead of AND for multi-select listboxes
+* Fixed URL validator to not make field required when URL is empty
+* Fixed permalink rules to work with index.php-based approach
+
+
+= Version 2.1.5.1 =
+* Fixed WP API change: Missing argument 2 for wp_kses()
+
+
+= Version 2.1.5 =
+* Added a Back to Directory button for listings
+* Added sorting order for ratings (by ratings and count)
+* Minor HTML tweaks for layout
+* Added Link Text for Business Website (to create a complete anchor tag with SEO value)
+* Changed fields to be hideable from Advanced Search Form
+* Added better error messages displayed when payment gateways are not correctly configured for use
+* Added payment skipping for admins, including a message that clearly shows the payments are being skipped because the current user is an admin
+* Comments in listings are correctly displayed now
+* CSV import now supports newlines in the import fields
+* Contributors can't manage listings now
+* Removed HTML comments from core templates that caused problems with some themes
+* Category and tag names are now displayed in the page title
+* Fixed Google Checkout Seller ID issue (removed field)
+* Fixed labels for directory so that the colon is not outside the label
+* rel attribute added to images
+* Search widget added
+* CSV import now supports multiple categories using the category separator
+* Fixed stripslashes bug with field labels
+
+
+= Version 2.1.4.1 = 
+* Fixed issue with default display of form fields (caused fields to hide in listing)
+
+
+= Version 2.1.4 =
+* Added support for Ratings module
+* Fixed problems with comments
+* Fixed problem with featured listings not displaying on the page with the correct count
+* Improved speed of queries for main listings
+* Fixed search pagination issue with lengthy result sets
+* Fixed issue where number of posts per page did not include featured listings
+
+
+= Version 2.1.3 =
+* Fixed shortcode usage problems with new codes
+* Fixed permalink issues with categories and listings
+* Added the Directory button back to most pages for simpler navigation.
+* Added the ability to hide the directory button in the admin options
+* Fixed HTML template issues for listings and single view pages (buttons showed HTML as text)
+* Added error message when the main shortcode is not present on any page
+* Fixed 2Checkout plugin for 2.1.2
+* Fixed search page pagination
+* Added back pagination API from WordPress for listings page, fixed bugs where post display was not honored
+* Added checks for tags and slugs using permalink rules
+* Fixed submit listing to only submit listing once when clicked repeatedly (or refreshed by accident)
+* Added reCAPTCHA support to comments AND listings both
+* Fixed CSV import issues with permalinks and dates
+* Fixed payment gateway deactivation issues when plugin is upgraded.
+* Improved search query speeds
+* Added ability to select whether a field should appear on the listing's single view and/or excerpt view separately.
+* Admins can edit / upgrade listings through the frontend regardless of the listing payment status.
+* A confirmation dialog is now shown when deleting a listing.
+* Comments on listings always follow the setting inside "Manage Options" (don't have to enable/disable comments individually on listings through the admin side).
+* Fixed issue with custom CSS: files can be placed inside the "wp-plugin" directory now (per the docs).
+
+
+= Version 2.1.2 =
+* Fixed critical query issue that prevented short code pages from working (Add Listing/Edit Listing)
+
+
+= Version 2.1.1 =
+* Fixed Directory button to display in listings
+* Minor CSS tweaks to show labels in bold
+* Fixed bug with category and single listing links where they would not display when clicked (404 error)
+
+
+= Version 2.1 =
+* Added support for CSV import, including images in ads
+* Added support for custom CSS extensions via CSS files outside of BD
+* Added new shortcode names (easier to remember).  Old shortcodes still supported.
+* Added support for parameters on WPBUSDIRMANMVIEWLISTINGS/businessdirectory-viewlistings to allow for single category display on a page.
+* Upgraded search to have "Advanced Search" link now, all fields are searchable.
+* Streamlined the submit process for Free ads (no longer asks for payment)
+* Website URL opens in new window (new field option for URLValidated fields)
+* New widgets:  Featured Listings, Latest Listings, Random Listings
+* HTML emails:  Email sent in HTML format instead of text now
+* Preview Form is back.
+* Google Maps now recognized on Premium Modules panel as installed/not installed
+* MASSIVE upgrade to theming/theme integration, much easier to get BD going now.  Still have override templates, but fewer than before.
+* Page based navigation--allows for tighter theme integration and easier upgrades.  Requires the use of permalinks for pretty URLs
+* Fixed problem with URL validator not working right.
+* Fixed problem with IE9 and button display
+* Fixed ad pagination problem.
+* Fixed problem with ad expiration validation (where 9999 caused weird 404 errors)
+* Category list call from API now working again.
+* Subcategory display problem in admin panel fixed.
+* Users must select a category when creating a fee plan
+* Fixed bug with Manage Form Fields button on Main Menu (permission issue)
+
+
+= Version 2.0.5 =
+* Added ability to use bulk operations from admin menu (Upgrade/Downgrade, Set Paid, etc)
+* Fixed problem with PayPal module not redirecting after payment on some sites
+* Removed BD metadata from deleted posts (speeds searches)
+* Fixed wp_pagenavi() warning
+* Fixed bug where website field could not be cleared of data
+* Fixed issue where admin could not edit other listings
+* Added confirmation email to be sent after listing is complete
+* Changed Upgrade to only work for Admins
+* Updated plugin to use wpdb->query for all DB operations
+* Fixed pagination problem with "Older listings" link
+* Fixed duplicate search issue (duplicate results returned on searches)
+* Fixed sticky/featured listing sorting problem to be consistent for category, listing and page views
+
+
+= Version 2.0.4.1 =
+* Fixed image upgrade issues (missing thumbnails, duplicate pictures in listings)
+* Fixed edit glitch with empty tags field
+* Added control over Submit a Listing button to show/hide.  Added support for other listing buttons as well.
+* Fixed minor _x() calls with missing parameters
+* Fixed an issue with submitting listings for all blank fields (PHP warning)
+* Fixed issue where empty fields would display labels when no value was present
+
+= Version 2.0.4 =
+* Upgrade to image upload/management system
+* Fixed form for creating new listings, both admin and user side
+* Fixed listing renewal, emails now go out prior to expiration
+* Payment modules upgraded to handle renewals
+* POST variables now properly configured for Windows and Linux
+* div's properly closed on Submit Listing
+* Comments will display when option is checked now
+* Directory definition issue with wp-content fixed
+* Require registration option now properly displays in admin panel
+* Field metadata is hidden and properly namespaced
+* Sticky listings in category no longer cause No Listings Found
+* Translation issue fixed
+* Location field will not disappear on upgrade
+* Invalid argument foreach() issue fixed
+* Email now goes to site owner as expected
+* Submit Listing layout problems fixed
+* Submit listing duplicate fields display fixed
+* Manage fees upgraded for renewals
+* Image displays in list and single view properly now
+* Editing listings will not randomly change category now
+* Users can control which image is set for the thumbnail of a listing now
+* Support for multiple categories in a listing added
+* Add New Listing navigation bug fixed
+
+= Version 2.0.3 =
+* Autocreate required fields
+* Directory admin menu set to be visible only to administrator role
+* Content field will not show as link now
+* Reply emails go to the business listing instead of site owner
+* Listings without photos now no longer have placeholder
+* Submit Listing no longer displays raw HTML code to user
+* Plugin now uses UTF-8 functions to properly handle non-ASCII characters
+* BD now integrates in a more friendly way with themes, avoids overriding when possible
+* preg_match() warning fixed
+* Extra line breaks removed from listing display
+* Conflict with Yoast All in One SEO fixed
+* Changing the slug now checks for reserved/already used slugs to avoid conflict
+* Form fields now custom ordered
+* Module detection code fixed, now displays which modules are installed for PayPal/2Checkout
+
+
+= Version 2.0.2 =
+* A revamped form-fields system that would allow plugins to create or use their own custom fields and validation rules.
+* A new "Manage Form Fields" page which looks better and conveys information in a more friendly way.
+* Custom fields can now be ordered as the user wishes. This ordering is used when displaying both the add/edit forms and listing information.
+* Allow users to specify if a particular field should be displayed in excerpt or not at all.
+* A better add/edit form-field page including some AJAX tricks to hide unnecessary fields. For instance, when you select a "Textfield" the "Options" field is hidden because the field isn't multivalued. The form is now also a standard WP form.
+* A new "field description" field that could be used by admins to display additional information along the form fields.
+* Validation when adding/editing custom form-fields to prevent users from removing or modifying required fields (like title, content, etc.)
+* New validation framework for fields.
+* Fixed bug where Featured ads could not be downgraded.
+* Fixed delete field bug.
+* Fixed ereg() warning bug.
+
+
+= Version 2.0.1 =
+* Fixed scripting error with booleans for some WP installs
+* Fixed category 404 problems, clean up navigation
+* Fixed short description display issue
+* Fixed shortcode usage problems (content displayed below directory, no matter where shortcode was)
+
+
+= Version 2.0 =
+* Reset versioning to sensible convention
+* Fixed search CSS and searching functionality
+* Changed category management to simplify
+* Added payment status, featured status into listing screen directly
+* Google Checkout bug fix
+* Fixed various scripting errors (22 bug fixes total)
+* Button alignment fixes and admin UI cleanup
+
+
+
+= Version 1.0 (1.9.6) =
+Business Directory Plugin carries over from the last version of WP Business Directory Manager (1.9.5) Fixes include:
 
 	1. Sticky listings bug fix
 	
