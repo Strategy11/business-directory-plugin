@@ -152,7 +152,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
-        if ( $value[0] == '' )
+        if ( !is_array( $value ) || $value[0] == '' )
             $value = null;
 
         parent::store_field_value( $field, $post_id, $value );
