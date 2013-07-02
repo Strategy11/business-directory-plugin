@@ -560,7 +560,6 @@ class WPBDP_CSVImporter {
         if ($this->settings['test-import'])
             return true;
         $listing_id = wpbdp_save_listing( $listing );
-        wpbdp_debug_e( $listing_id );
 
         // create permalink
         $post = get_post($listing_id);
