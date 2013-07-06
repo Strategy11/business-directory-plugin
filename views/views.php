@@ -66,10 +66,7 @@ class WPBDP_DirectoryController {
                 break;
             case 'editlisting':
             case 'submitlisting':
-                require_once( WPBDP_PATH . 'views/submit-listing.php' );
-                $submit_page = new WPBDP_SubmitListingPage( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
-                return $submit_page->dispatch();
-
+                return $this->submit_listing();
                 break;
             case 'sendcontactmessage':
                 return $this->send_contact_message();
@@ -232,6 +229,12 @@ class WPBDP_DirectoryController {
         wp_reset_query();
 
         return $html;
+    }
+
+    public function submit_listing() {
+        require_once( WPBDP_PATH . 'views/submit-listing.php' );
+        $submit_page = new WPBDP_SubmitListingPage( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
+        return $submit_page->dispatch();
     }
 
     /*
