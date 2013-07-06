@@ -41,6 +41,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
 
         $state = new WPBDP_SubmitState();
         $state->listing_id = $listing_id;
+        $state->edit = true;
         $state->categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
 
         // recover fee info
