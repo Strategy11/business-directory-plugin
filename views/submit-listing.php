@@ -177,12 +177,25 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                 $this->errors = array_merge( $this->errors, $errors );
             } else {
                 $this->state->categories = array_values( is_array( $post_value ) ? $post_value : array( $post_value ) );
+                unset( $_POST['listingfields'] );
                 return $this->step_fee_selection();
             }
 
         }
 
         return $this->render( 'category-selection', array( 'category_field' => $category_field ) );
+    }
+
+    private function all_free_listings( &$available_fees ) {
+        foreach ( $available_fees as $cat_id => &$fees ) {
+            if ( count( $fees ) > 1 )
+                return false;
+
+            if ( $fees[0]->id != 0 )
+                return false;
+        }
+
+        return true;
     }
 
     protected function step_fee_selection() {
@@ -199,6 +212,17 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         $available_fees = wpbdp_get_fees_for_category( $this->state->categories ) or die( '' );
 
         // TODO: if all fees are free-fees, move on (and no upgrades available)
+        if ( $this->all_free_listings( $available_fees ) ) {
+            $free_fee = wpbdp_get_fee( 0 );
+
+            foreach ( $categories as $cat_id => &$term ) {
+                $this->state->fees[ $cat_id ] = $free_fee->id;
+            }
+
+            $this->state->allowed_images = intval( $free_fee->images );
+            $this->state->upgrade_to_sticky = false;
+            return $this->step_listing_fields();
+        }
 
         if ( isset( $_POST['fees'] ) ) {
             $this->state->allowed_images = 0;
@@ -214,7 +238,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                 } else {
                     $fee = wpbdp_get_fee( intval( $selected_fee_id ) );
                     $this->state->fees[ $cat_id ] = intval( $fee->id );
-                    $this->state->allowed_images += intval( $fee->images );
+                    $this->state->allowed_images += intval( $fee->images ); // XXX: this should probably really be the MAXIMUM of all fee allowed images
                 }
             }
 
