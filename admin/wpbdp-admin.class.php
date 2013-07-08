@@ -22,8 +22,7 @@ class WPBDP_Admin {
         add_action('before_delete_post', array($this, '_delete_post_metadata'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
-        add_action('admin_enqueue_scripts', array($this, 'admin_javascript'));
-        add_action('admin_enqueue_scripts', array($this, 'admin_styles'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
 
@@ -50,15 +49,13 @@ class WPBDP_Admin {
         add_action('admin_footer', array($this, '_fix_new_links'));
     }
 
-    function admin_javascript() {
+    function enqueue_scripts() {
+        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
+        wp_enqueue_style('thickbox');
+
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
     }
-
-    function admin_styles() {
-        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
-        wp_enqueue_style('thickbox');
-  }
 
     function admin_menu() {
         add_menu_page(_x("Business Directory Admin", 'admin menu', "WPBDM"),
