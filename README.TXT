@@ -4,15 +4,15 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory
 Requires at least: 3.0
 Tested up to: 3.5.2
-Last Updated: 2013-Jul-1
-Stable tag: tags/3.1
+Last Updated: 2013-Jul-5
+Stable tag: tags/3.1.1
 License: GPLv2 or later
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
 
 == Description ==
 
-[Main Site](http://businessdirectoryplugin.com/) | [Support Forum](http://businessdirectoryplugin.com/support-forum/) | [Documentation](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-module/?ref=wp)
+[Main Site](http://businessdirectoryplugin.com/) | [Support Forum](http://businessdirectoryplugin.com/support-forum/) | [Documentation](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-modules/)
 
 Business Directory Plugin is the most popular, widely-used, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
@@ -98,6 +98,14 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.1.1 =
+* Fixed add listing shortcode issue
+* Fixed featured levels field association save problem
+* Changed workflow to not display fee step when nothing is payable
+* Fixed Edit button problem (where it showed the Add Listing screen instead of edit)
+* Fixed search results to use the blog setting instead of 10 listings
+* Fixed CSV import issue
 
 = Version 3.1 =
 * New module: Featured Levels
