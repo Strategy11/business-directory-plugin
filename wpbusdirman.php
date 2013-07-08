@@ -42,6 +42,7 @@ require_once( WPBDP_PATH . 'api/api.php' );
 require_once( WPBDP_PATH . 'deprecated/deprecated.php' );
 include_once( WPBDP_PATH . 'gateways-googlecheckout.php' );
 require_once( WPBDP_PATH . 'utils.php' );
+require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/wpbdp-admin.class.php' );
 require_once( WPBDP_PATH . 'api/wpbdp-settings.class.php' );
 require_once( WPBDP_PATH . 'api/form-fields.php' );
@@ -330,8 +331,11 @@ class WPBDP_Plugin {
         // do_action( 'wpbdp_register_settings', $this->settings );
         do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
         do_action('wpbdp_register_fields', $this->formfields);
-
         do_action('wpbdp_modules_init');
+
+        if ( wpbdp_get_option( 'tracking-on', false ) ) {
+            $this->site_tracking = new WPBDP_SiteTracking();
+        }
     }
 
     public function get_post_type() {

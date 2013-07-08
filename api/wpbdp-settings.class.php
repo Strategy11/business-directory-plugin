@@ -17,6 +17,10 @@ class WPBDP_Settings {
     private function register_settings() {
         /* General settings */
         $g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
+
+        $s = $this->add_section( $g, 'tracking', _x( 'Stats Tracking', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s, 'tracking-on', _x( 'Enable anonymous site tracking?', 'admin settings', 'WPBDM' ), 'boolean', false );
+
         $s = $this->add_section($g, 'permalink', _x('Permalink Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_POST_TYPE, null, null, array($this, '_validate_listings_permalink'));
         $this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_CATEGORY_TAX, _x('The slug can\'t be in use by another term. Avoid "category", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));

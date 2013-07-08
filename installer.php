@@ -14,6 +14,8 @@
     public function install() {
         if ( $this->installed_version != self::DB_VERSION ) {
             $this->_database_schema();
+
+            delete_option( 'wpbdp-tracking-dismissed' );
         }
 
         if ( $this->installed_version ) {

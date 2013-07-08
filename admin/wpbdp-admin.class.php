@@ -45,6 +45,8 @@ class WPBDP_Admin {
 
         add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
 
+        add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
+
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
     }
@@ -55,6 +57,13 @@ class WPBDP_Admin {
 
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
+
+        // Ask for site tracking if needed.
+        if ( !wpbdp_get_option( 'tracking-on', false ) && !get_option( 'wpbdp-tracking-dismissed', false ) && current_user_can( 'administrator' ) ) {
+            wp_enqueue_style( 'wp-pointer' );
+            wp_enqueue_script( 'wp-pointer' );
+            add_action( 'admin_print_footer_scripts', 'WPBDP_SiteTracking::request_js' );
+        }
     }
 
     function admin_menu() {
@@ -1104,7 +1113,6 @@ class WPBDP_Admin {
             }
         }
     }
-
 
 }
 
