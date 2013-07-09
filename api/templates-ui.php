@@ -158,7 +158,6 @@ function wpbdp_list_categories( $args=array() ) {
 
 function wpbdp_main_links() {
     $html  = '';
-    $html .= '<div class="wpbdp-main-links">';
 
     if (wpbdp_get_option('show-submit-listing')) {
         $html .= sprintf('<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button" />',
@@ -189,7 +188,8 @@ function wpbdp_main_links() {
                         );*/
     }
 
-    $html .= '</div>';
+    if ( $html )
+        $html = '<div class="wpbdp-main-links">' . $html . '</div>';
 
     return $html;
 }
