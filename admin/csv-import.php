@@ -503,7 +503,7 @@ class WPBDP_CSVImporter {
 
                 $listing_fields[$field->get_id()][] = $tags;
             } else {
-                $listing_fields[$field->get_id()] = $data[$i];
+                $listing_fields[$field->get_id()] = $field->convert_input( $data[$i] );
             }
         }
 
