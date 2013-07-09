@@ -14,6 +14,10 @@ jQuery(document).ready(function($){
         return false;
     });
 
+    if ( $('.wpbdp-bar').children().length == 0 || $.trim( $('.wpbdp-bar').text() ) == '' ) {
+        $('.wpbdp-bar').remove();
+    }
+
 });
 
 WPBDP.fileUpload = {
