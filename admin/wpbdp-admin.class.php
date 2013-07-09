@@ -719,7 +719,7 @@ class WPBDP_Admin {
                                                                WPBDP_POST_TYPE,
                                                                '_wpbdp[sticky]',
                                                                'pending') );
-            $expired = $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT COUNT(*) FROM {$wpdb->posts} p WHERE p.ID IN ( SELECT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s )",
+            $expired = $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT COUNT(p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listing_fees lf ON lf.listing_id = p.ID WHERE lf.expires_on < %s",
                                                        current_time( 'mysql' ) ) );
 
             $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
