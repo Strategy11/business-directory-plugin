@@ -815,7 +815,7 @@ class WPBDP_Admin {
 
         $expired_categories = wpbdp_listings_api()->get_expired_categories( $post->ID );
         $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-        $categories = array_merge( $current_categories, $expired_categories );
+        $categories = array_unique( array_merge( $current_categories, $expired_categories ) );
 
         foreach ( $categories as $i => $category_id ) {
             if ( $term = get_term( $category_id, WPBDP_CATEGORY_TAX, OBJECT, 'display' ) ) {
