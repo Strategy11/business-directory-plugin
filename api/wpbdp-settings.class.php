@@ -121,7 +121,13 @@ class WPBDP_Settings {
         $this->add_setting($s, 'hide-empty-categories', _x('Hide empty categories?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-only-parent-categories', _x('Show only parent categories in category list?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', '',
-                          array('choices' => array('date', 'title', 'id', 'author', 'modified')));
+                          array('choices' => array(
+                            array( 'title', _x( 'Title', 'admin settings', 'WPBDM' ) ),
+                            array( 'author', _x( 'Author Name', 'admin settings', 'WPBDM' ) ),
+                            array( 'date', _x( 'Date posted', 'admin settings', 'WPBDM' ) ),
+                            array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),
+                            array( 'id', _x( 'Post ID', 'admin settings', 'WPBDM' ) )
+                          )));
         $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
                            _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
                            array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
