@@ -126,6 +126,7 @@ class WPBDP_Settings {
                             array( 'author', _x( 'Author Name', 'admin settings', 'WPBDM' ) ),
                             array( 'date', _x( 'Date posted', 'admin settings', 'WPBDM' ) ),
                             array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),
+                            array( 'rand', _x( 'Random', 'admin settings', 'WPBDM' ) ),
                             array( 'id', _x( 'Post ID', 'admin settings', 'WPBDM' ) )
                           )));
         $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
