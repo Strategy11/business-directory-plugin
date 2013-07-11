@@ -419,3 +419,11 @@ ul.validation-errors li {
     /*border: solid 1px #bc0b0b;*/
     color: #900000;
 }
+
+.widget_wpbdp_featuredlistingswidget .listing-thumbnail img {
+    max-width: 100%;
+}
+
+.widget_wpbdp_featuredlistingswidget li {
+    margin-bottom: 4px;
+}

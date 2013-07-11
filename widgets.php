@@ -79,11 +79,19 @@ class WPBDP_FeaturedListingsWidget extends WP_Widget {
                      $this->get_field_name('number_of_listings'),
                      isset($instance['number_of_listings']) ? intval($instance['number_of_listings']) : 10
                     );
+        printf( '<p><input id="%s" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
+                $this->get_field_id( 'show_images' ),
+                $this->get_field_name( 'show_images' ),
+                ( isset( $instance['show_images'] ) && $instance['show_images'] == 1 ) ? 'checked="checked"' : '',
+                $this->get_field_id( 'show_images' ),
+                _x( 'Show thumbnails', 'widgets', 'WPBDM' )
+              );
     }
 
     public function update($new_instance, $old_instance) {
         $new_instance['title'] = strip_tags($new_instance['title']);
         $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
+        $new_instance['show_images'] = intval( $new_instance['show_images'] ) == 1 ? 1 : 0;
         return $new_instance;
     }
 
@@ -105,10 +113,18 @@ class WPBDP_FeaturedListingsWidget extends WP_Widget {
             echo $before_widget;
             if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 
+            $show_images = isset( $instance['show_images'] ) && $instance['show_images'] ? true : false;
+
             echo '<ul>';
             foreach ($posts as $post) {
+                $thumbnail = $show_images ? wpbdp_listing_thumbnail( $post->ID, 'link=listing' ) : '';
+
                 echo '<li>';
-                echo sprintf('<a href="%s">%s</a>', get_permalink($post->ID), get_the_title($post->ID));
+                echo sprintf( '<a href="%s">%s</a>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+
+                if ( $thumbnail )
+                    echo $thumbnail;
+
                 echo '</li>';
             }
 
