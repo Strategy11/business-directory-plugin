@@ -114,7 +114,11 @@ class WPBDP_Settings {
         $this->add_setting($s, 'edit-post-status', _x('Edit post status', 'admin settings', 'WPBDM'), 'choice', 'publish', '',
                            array('choices' => array('publish', 'pending')));
         $this->add_setting( $s, 'categories-order-by', _x('Order categories list by', 'admin settings', 'WPBDM'), 'choice', 'name', '',
-                           array('choices' => array('name', 'ID', 'slug', 'count', 'term_group')));
+                           array('choices' => array(
+                            array( 'name', _x( 'Name', 'admin settings', 'WPBDM' ) ),
+                            array( 'slug', _x( 'Slug', 'admin settings', 'WPBDM' ) ),
+                            array( 'count', _x( 'Listing Count', 'admin settings', 'WPBDM' ) )
+                           )) );
         $this->add_setting( $s, 'categories-sort', _x('Sort order for categories', 'admin settings', 'WPBDM'), 'choice', 'ASC', '',
                            array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
         $this->add_setting($s, 'show-category-post-count', _x('Show category post count?', 'admin settings', 'WPBDM'), 'boolean', true);
@@ -123,7 +127,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', '',
                           array('choices' => array(
                             array( 'title', _x( 'Title', 'admin settings', 'WPBDM' ) ),
-                            array( 'author', _x( 'Author Name', 'admin settings', 'WPBDM' ) ),
+                            array( 'author', _x( 'Author', 'admin settings', 'WPBDM' ) ),
                             array( 'date', _x( 'Date posted', 'admin settings', 'WPBDM' ) ),
                             array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),
                             array( 'rand', _x( 'Random', 'admin settings', 'WPBDM' ) )
