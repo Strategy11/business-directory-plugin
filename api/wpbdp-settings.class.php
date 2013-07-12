@@ -38,6 +38,24 @@ class WPBDP_Settings {
         $this->add_setting($s, 'recaptcha-public-key', _x('reCAPTCHA Public Key', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
 
+        $s = $this->add_section( $g,
+                                 'terms-and-conditions',
+                                 _x( 'Terms and Conditions', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'display-terms-and-conditions',
+                            _x( 'Display and require user agreement to Terms and Conditions', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false
+                          );
+        $this->add_setting( $s,
+                            'terms-and-conditions',
+                            _x( 'Terms and Conditions', 'admin settings', 'WPBDM' ),
+                            'text',
+                            "Terms and Conditions text goes here...\n\n",
+                            _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'admin settings', 'WPBDM' ),
+                            array( 'use_textarea' => true )
+                            );
+
         $s = $this->add_section($g, 'displayoptions', _x('Directory Display Options', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'show-submit-listing', _x('Show the "Submit listing" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-search-listings', _x('Show "Search listings".', 'admin settings', 'WPBDM'), 'boolean', true);

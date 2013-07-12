@@ -293,6 +293,14 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                     $validation_errors = array_merge( $validation_errors, $field_errors );
             }
 
+            if ( !$this->state->edit && !current_user_can( 'administrator' ) && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+                $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
+
+                if ( $tos && ( !isset( $_POST['terms-and-conditions-agreement'] ) || $_POST['terms-and-conditions-agreement'] != 1 ) ) {
+                    $validation_errors[] = _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' );
+                }
+            }
+
             if ( wpbdp_get_option('recaptcha-for-submits') ) {
                 if ( $private_key = wpbdp_get_option( 'recaptcha-private-key' ) ) {
                     if ( isset( $_POST['recaptcha_challenge_field'] ) ) {
@@ -310,6 +318,35 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             }
         }
 
+        $terms_field = '';
+        if ( !$this->state->edit /*&& !current_user_can( 'administrator' ) */&& wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+            $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
+
+            if ( $tos ) {
+                if ( wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false ) ) {
+                    $terms_field .= sprintf( '<a href="%s" target="_blank">%s</a>',
+                                             esc_url( $tos ),
+                                             _x( 'Read our Terms and Conditions', 'templates', 'WPBDM' )
+                                           );
+                } else {
+                    $terms_field .= '<div class="wpbpd-form-field-label">';
+                    $terms_field .= '<label>';
+                    $terms_field .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
+                    $terms_field .= '</label>';
+                    $terms_field .= '</div>';
+                    $terms_field .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
+                    $terms_field .= sprintf( '<textarea readonly="readonly" rows="5" cols="50">%s</textarea>',
+                                             esc_textarea( $tos ) );
+                    $terms_field .= '</div>';
+                }
+
+                $terms_field .= '<label>';
+                $terms_field .= '<input type="checkbox" name="terms-and-conditions-agreement" value="1" />';
+                $terms_field .= _x( 'I agree to the Terms and Conditions', 'templates', 'WPBDM' );
+                $terms_field .= '</label>';
+            }
+        }
+
         $recaptcha = '';
         if ( wpbdp_get_option('recaptcha-for-submits') ) {
             if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
@@ -322,7 +359,8 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                               array(
                                     'fields' => $fields,
                                     'validation_errors' => $validation_errors,
-                                    'recaptcha' => $recaptcha
+                                    'recaptcha' => $recaptcha,
+                                    'terms_and_conditions' => $terms_field
                                    )
                             );
     }
