@@ -4,6 +4,7 @@ require_once(WPBDP_PATH . 'admin/fees.php');
 require_once(WPBDP_PATH . 'admin/form-fields.php');
 require_once( WPBDP_PATH . 'admin/transactions.php' );
 require_once(WPBDP_PATH . 'admin/csv-import.php');
+require_once( WPBDP_PATH . 'admin/csv-export.php' );
 
 if (!class_exists('WPBDP_Admin')) {
 
@@ -12,7 +13,7 @@ class WPBDP_Admin {
     public $messages = array();
 
     function __construct() {
-        add_action('admin_init', array($this, '_debug_info_download'));
+        add_action('admin_init', array($this, '_handle_downloads'));
         add_action('admin_init', array($this, 'handle_actions'));
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'add_metaboxes'));
@@ -133,11 +134,17 @@ class WPBDP_Admin {
                          'wpbdp-csv-import',
                          array('WPBDP_CSVImportAdmin', 'admin_menu_cb'));
         add_submenu_page( 'wpbdp_admin',
+                          _x( 'CSV Export', 'admin menu', 'WPBDM' ),
+                          _x( 'CSV Export', 'admin menu', 'WPBDM' ),
+                          'activate_plugins',
+                          'wpbdp-csv-export',
+                          array( 'WPBDP_Admin_CSVExport', 'menu_callback' ) );
+        add_submenu_page( 'wpbdp_admin',
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
                           'activate_plugins',
                           'wpbdp-debug-info',
-                          array( $this, '_debug_info_page' ) );
+                          array( $this, '_debug_info_page' ) );        
 
         // XXX: just a little hack
         global $submenu;
@@ -951,20 +958,36 @@ class WPBDP_Admin {
     }
 
     /* Debug info page. */
-    public function _debug_info_download() {
+    public function _handle_downloads() {
         global $pagenow;
 
-        if ( current_user_can( 'administrator' )
-             && $pagenow == 'admin.php'
-             && isset( $_GET['page'] ) && $_GET['page'] == 'wpbdp-debug-info'
-             && isset( $_GET['download'] ) && $_GET['download'] == 1 ) {
-            header( 'Content-Description: File Transfer' );
-            header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
-            header( 'Content-Disposition: attachment; filename=' . 'wpbdp-debug-info.txt' );
-            header( 'Pragma: no-cache' );
-            $this->_debug_info_page( true );
-            exit;
+        if ( !current_user_can( 'administrator' ) || $pagenow != 'admin.php' || !isset( $_GET['page'] ) )
+            return;
+
+        switch ( $_GET['page'] ) {
+            case 'wpbdp-debug-info':
+                if ( isset( $_GET['download'] ) && $_GET['download'] == 1 ) {
+                    header( 'Content-Description: File Transfer' );
+                    header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
+                    header( 'Content-Disposition: attachment; filename=' . 'wpbdp-debug-info.txt' );
+                    header( 'Pragma: no-cache' );
+                    $this->_debug_info_page( true );
+                    exit;
+                }
+
+                break;
+
+            case 'wpbdp-csv-export':
+                if ( isset( $_POST['action'] ) && $_POST['action'] == 'do-export' ) {
+                    WPBDP_Admin_CSVExport::download();
+                }
+
+                break;
+
+            default:
+                break;
         }
+
     }
 
     public function _debug_info_page( $plain=false ) {
