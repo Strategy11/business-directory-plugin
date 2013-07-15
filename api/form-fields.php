@@ -1088,7 +1088,7 @@ class WPBDP_FormFields {
             $name = str_replace( array( ',', ';' ), '', $name );
             $name = str_replace( array( ' ', '/' ), '-', $name );
 
-            if ( $name == 'images' || $name == 'image' || $name == 'username' || in_array( $name, $names, true ) ) {
+            if ( $name == 'images' || $name == 'image' || $name == 'username' || $name == 'featured_level' || $name == 'expires_on' || in_array( $name, $names, true ) ) {
                 $name = $field->get_id() . '/' . $name;
             }
             

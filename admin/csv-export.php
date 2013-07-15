@@ -93,8 +93,11 @@ class WPBDP_CSVExporter {
         if ( $this->settings['include-users'] )
             $this->columns['username'] = 'username';
 
-// if ( $name == 'images' || $name == 'image' || $name == 'username' || $name == 'featured_level' || $name == 'expires_on' ||
+        if ( $this->settings['include-sticky-status'] )
+            $this->columns['featured_level'] = 'featured_level';
 
+        if ( $this->settings['include-expiration-date'] )
+            $this->columns['expires_on'] = 'expires_on';
 
         // Setup working directory.
         $temp_name = tempnam( function_exists( 'sys_get_temp_dir' ) ? sys_get_temp_dir() : getenv( 'TMP' ), 'wpbdp_' );
@@ -204,6 +207,7 @@ class WPBDP_CSVExporter {
             return false;
 
         $listings_api = wpbdp_listings_api();
+        $upgrades_api = wpbdp_listing_upgrades_api();
 
         $data = array();
 
@@ -244,6 +248,29 @@ class WPBDP_CSVExporter {
 
                 case 'username':
                     $value = get_the_author_meta( 'user_login', $post->post_author );
+                    break;
+
+                case 'featured_level':
+                    $listing_level = $upgrades_api->get_listing_level( $post->ID );
+                    $value = $listing_level->id;
+                    break;
+
+                case 'expires_on':
+                    $terms = wp_get_post_terms( $post->ID,
+                                                WPBDP_CATEGORY_TAX,
+                                                'fields=ids' );
+                    $expiration_dates = array();
+
+                    foreach ( $terms as $term_id ) {
+                        if ( $fee = $listings_api->get_listing_fee_for_category( $post->ID, $term_id ) ) {
+                            $expiration_dates[] = $fee->expires_on;
+                        } else {
+                            $expiration_dates[] = '';
+                        }
+                    }
+
+                    $value = implode( '/', $expiration_dates );
+
                     break;
 
                 /* Standard associations. */    
