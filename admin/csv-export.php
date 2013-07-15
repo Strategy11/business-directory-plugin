@@ -26,7 +26,11 @@ class WPBDP_Admin_CSVExport {
                 header( 'Content-Disposition: attachment; filename=' . 'export.csv' );
             }
 
+            header( 'Content-Transfer-Encoding: binary' );
+            header( 'Expires: 0' );
+            header( 'Cache-Control: must-revalidate' );
             header( 'Pragma: no-cache' );
+            // header('Content-Length: ' . filesize($file));
 
             if ( $zipfile )
                 readfile( $zipfile );
@@ -88,6 +92,9 @@ class WPBDP_CSVExporter {
 
         if ( $this->settings['include-users'] )
             $this->columns['username'] = 'username';
+
+// if ( $name == 'images' || $name == 'image' || $name == 'username' || $name == 'featured_level' || $name == 'expires_on' ||
+
 
         // Setup working directory.
         $temp_name = tempnam( function_exists( 'sys_get_temp_dir' ) ? sys_get_temp_dir() : getenv( 'TMP' ), 'wpbdp_' );
