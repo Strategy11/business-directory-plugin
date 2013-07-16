@@ -261,7 +261,8 @@ class WPBDP_DirectoryController {
 
             if (wpbdp_get_option('recaptcha-on')) {
                 if ($private_key = wpbdp_get_option('recaptcha-private-key')) {
-                    require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
+                    if ( !function_exists( 'recaptcha_get_html' ) )
+                        require_once(WPBDP_PATH . 'recaptcha/recaptchalib.php');
 
                     $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
                     if (!$resp->is_valid)
