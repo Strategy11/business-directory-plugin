@@ -427,6 +427,7 @@ class WPBDP_CSVImporter {
 
         $listing_images = array();
         $listing_fields = array();
+        $listing_metadata = array( 'featured_level' => '', 'expires_on' => array() );
 
         foreach ($this->header as $i => $header_name) {
             if ( ($header_name == 'image' || $header_name == 'images') ) {
@@ -452,6 +453,16 @@ class WPBDP_CSVImporter {
                         return false;
                     }
                 }
+                continue;
+            }
+
+            if ( $header_name == 'featured_level' ) {
+                $listing_metadata['featured_level'] = $data[ $i ];
+                continue;
+            }
+
+            if ( $header_name == 'expires_on' ) {
+                $listing_metadata['expires_on'] = explode( '/',  $data[ $i ] );
                 continue;
             }
 
@@ -577,6 +588,28 @@ class WPBDP_CSVImporter {
             } else {
                 if ($this->settings['default-user'])
                     wp_update_post(array('ID' => $listing_id, 'post_author' => $this->settings['default-user']));
+            }
+        }
+
+        // Handle listing additional metadata.
+        if ( $listing_metadata['featured_level'] ) {
+            $upgrades_api = wpbdp_listing_upgrades_api();
+
+            if ( $level = $upgrades_api->get( $listing_metadata['featured_level'] ) ) {
+                $upgrades_api->set_sticky( $listing_id, $level->id );
+            }
+        }
+
+        if ( $listing_metadata['expires_on'] ) {
+            global $wpdb;
+
+            foreach ( $listing['categories'] as $i => $category_id ) {
+                if ( isset( $listing_metadata['expires_on'][ $i ] ) ) { // TODO: check is valid date
+                    $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
+                                   array( 'expires_on' => $listing_metadata['expires_on'][ $i ] ),
+                                   array( 'category_id' => $category_id, 'listing_id' => $listing_id )
+                                 );
+                }
             }
         }
 
