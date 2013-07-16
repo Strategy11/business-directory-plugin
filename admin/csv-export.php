@@ -109,10 +109,8 @@ class WPBDP_CSVExporter {
         if ( !is_dir( $temp_name ) )
             exit;
 
-        // $this->workingdir = trailingslashit( $temp_name );
-        $this->workingdir = '/private/var/tmp/wpbdp_xHZ5fh/';
+        $this->workingdir = trailingslashit( $temp_name );
         @mkdir( $this->workingdir . 'images' );
-        // print $this->workingdir;
     }
 
     public function export() {
