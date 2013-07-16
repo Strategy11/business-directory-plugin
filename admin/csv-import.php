@@ -368,6 +368,8 @@ class WPBDP_CSVImporter {
 
         $n = 0;
         while (($line_data = fgetcsv($fp, 0, $this->settings['csv-file-separator'])) !== FALSE) {
+            $this->csv[] = implode( $this->settings['csv-file-separator'], $line_data );
+
             if ($line_data) {
                 if (!$this->header) {
                     $this->header = $line_data;
