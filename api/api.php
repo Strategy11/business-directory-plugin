@@ -355,22 +355,24 @@ function _wpbdp_render_single() {
     $images = wpbdp_listings_api()->get_images($post->ID);
     $extra_images = array();
 
-    foreach ($images as $img) {
-        // create thumbnail of correct size if needed (only in single view to avoid consuming server resources)
-        _wpbdp_resize_image_if_needed( $img->ID );
+    if ( wpbdp_get_option( 'allow-images' ) ) {
+        foreach ($images as $img) {
+            // create thumbnail of correct size if needed (only in single view to avoid consuming server resources)
+            _wpbdp_resize_image_if_needed( $img->ID );
 
-        if ($img->ID == $thumbnail_id) continue;
+            if ($img->ID == $thumbnail_id) continue;
 
-        $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
-        $full_image_url = $full_image_data[0];
+            $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
+            $full_image_url = $full_image_data[0];
 
-        $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox" target="_blank">%s</a>',
-                                    $full_image_url,
-                                    wp_get_attachment_image( $img->ID, 'wpbdp-thumb', false, array(
-                                        'class' => 'wpbdp-thumbnail size-thumbnail',
-                                        'alt' => the_title(null, null, false),
-                                        'title' => the_title(null, null, false)
-                                    ) ));
+            $extra_images[] = sprintf('<a href="%s" class="thickbox lightbox" rel="lightbox" target="_blank">%s</a>',
+                                        $full_image_url,
+                                        wp_get_attachment_image( $img->ID, 'wpbdp-thumb', false, array(
+                                            'class' => 'wpbdp-thumbnail size-thumbnail',
+                                            'alt' => the_title(null, null, false),
+                                            'title' => the_title(null, null, false)
+                                        ) ));
+        }
     }
 
     $vars = array(
@@ -378,7 +380,7 @@ function _wpbdp_render_single() {
         'is_sticky' => $sticky_status == 'sticky',
         'sticky_tag' => $sticky_tag,
         'title' => get_the_title(),
-        'main_image' => wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' ),
+        'main_image' => wpbdp_get_option( 'allow-images' ) ? wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' ) : '',
         'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID),
         'extra_images' => $extra_images
     );
@@ -450,7 +452,7 @@ function _wpbdp_render_excerpt() {
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
-        'thumbnail' => wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ),
+        'thumbnail' => ( wpbdp_get_option( 'allow-images' ) && wpbdp_get_option( 'show-thumbnail' ) ) ? wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ) : '',
         'title' => get_the_title(),
         'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID)
     );
