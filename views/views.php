@@ -266,7 +266,7 @@ class WPBDP_DirectoryController {
 
                     $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
                     if (!$resp->is_valid)
-                        $validation_errors[] = sprintf(_x("The reCAPTCHA wasn't entered correctly: %s", 'contact-message', 'WPBDM'), $resp->error);
+                        $validation_errors[] = _x("The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM');
                 }
             }
 

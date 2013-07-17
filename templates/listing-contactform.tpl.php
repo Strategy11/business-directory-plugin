@@ -30,13 +30,13 @@
 			</p>
 	<?php endif; ?>
 
-	<?php if ($recaptcha): ?>
-		<?php echo $recaptcha; ?>
-	<?php endif; ?>
-
 	<p><label style="width:4em;"><?php _ex("Message", 'templates', "WPBDM"); ?></label><br/>
-	   <textarea name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
+	   <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
 	</p>
+
+	<?php if ($recaptcha): ?>
+	<div id="wpbdp-contact-form-recaptcha"><?php echo $recaptcha; ?></div>
+	<?php endif; ?>	
 
 	<input type="submit" class="submit" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />
 </form>

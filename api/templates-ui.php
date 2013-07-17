@@ -386,7 +386,7 @@ function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() 
             if ( !function_exists( 'recaptcha_get_html' ) )
                 require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
             
-            $recaptcha = recaptcha_get_html( $public_key );
+            $recaptcha = recaptcha_get_html( $public_key );            
         }
     }
 
