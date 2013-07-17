@@ -18,8 +18,8 @@ class WPBDP_Debugging {
 		add_action('wp_head', array('WPBDP_Debugging', '_print_styles'));
 		add_action('admin_print_styles', array('WPBDP_Debugging', '_print_styles'));
 		add_action('admin_notices', array('WPBDP_Debugging', '_debug_bar_head'));
-		add_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'));
-		add_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'));
+		add_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
+		add_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
 	}
 
 	public static function _php_error_handler($errno, $errstr, $file, $line, $context) {
