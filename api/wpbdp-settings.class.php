@@ -35,6 +35,11 @@ class WPBDP_Settings {
                                 );
         $this->add_setting($s, 'recaptcha-on', _x('Use reCAPTCHA for contact forms', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'recaptcha-for-submits', _x('Use reCAPTCHA for listing submits', 'admin settings', 'WPBDM'), 'boolean', false);
+        $this->add_setting( $s,
+                            'recaptcha-for-comments',
+                            _x( 'Use reCAPTCHA for listing comments?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
         $this->add_setting($s, 'recaptcha-public-key', _x('reCAPTCHA Public Key', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
 

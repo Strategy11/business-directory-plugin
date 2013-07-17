@@ -427,3 +427,7 @@ ul.validation-errors li {
 .widget_wpbdp_featuredlistingswidget li {
     margin-bottom: 4px;
 }
+
+.wpbdp-recaptcha-error {
+    color: #ff0000;
+}

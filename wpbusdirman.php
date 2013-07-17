@@ -302,6 +302,15 @@ class WPBDP_Plugin {
 
         add_action('widgets_init', array($this, '_register_widgets'));
 
+        // Comments reCAPTCHA.
+        if ( wpbdp_get_option( 'recaptcha-for-comments' ) ) {
+            add_filter( 'comment_form_field_comment', array( &$this, 'recaptcha_in_comments' ) );
+            add_action( 'preprocess_comment', array( &$this, 'check_comment_recaptcha' ), 0 );
+                
+                // add_action('wp_head', array(&$this, 'saved_comment'), 0);
+            add_action( 'comment_post_redirect', array( &$this, 'comment_relative_redirect' ), 0, 2 );
+        }
+
         /* Shortcodes */
         add_shortcode('WPBUSDIRMANADDLISTING', array($this->controller, 'submit_listing'));
         add_shortcode('businessdirectory-submitlisting', array($this->controller, 'submit_listing'));
@@ -878,6 +887,125 @@ class WPBDP_Plugin {
         $api = wpbdp_listings_api();
         $api->notify_expiring_listings( 0, $now ); //  notify already expired listings first
         $api->notify_expiring_listings( wpbdp_get_option( 'renewal-email-threshold', 5 ), $now ); // notify listings expiring soon
+    }
+
+
+    /*
+     *  Comments reCAPTCHA.
+     */
+
+    public function recaptcha_in_comments( $comment_field ) {
+        $html  = '';
+        $html .= $comment_field;
+
+        if ( wpbdp_get_option( 'recaptcha-on' ) ) {
+            // XXX: We can only have one reCAPTCHA per page, so workaround this limitation by sharing the one in the contact form.
+            add_action( 'wp_footer', array( &$this, 'comment_recaptcha_workaround' ) );
+
+            $html .= '<div id="wpbdp-comment-recaptcha">';
+        } else {
+            if ( !function_exists( 'recaptcha_get_html' ) )
+                require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+
+            $html .= '<div id="wpbdp-comment-recaptcha">';
+            $html .= recaptcha_get_html( wpbdp_get_option( 'recaptcha-public-key' ) );
+        }
+
+        $error = '';
+        if ( isset( $_GET['wpbdp-recaptcha-error'] ) && $_GET['wpbdp-recaptcha-error'] ) {
+            $error = _x( "The reCAPTCHA wasn't entered correctly.", 'comment-form', 'WPBDM' );
+
+            add_action( 'wp_footer', array( &$this, 'restore_comment_fields' ) );
+        }
+
+        $html .= '</div>';
+
+        if ( $error )
+            $html .= sprintf( '<p class="wpbdp-recaptcha-error">%s</p>', $error );        
+
+        return $html;
+    }
+    
+    public function check_comment_recaptcha( $comment_data ) {
+        $private_key = wpbdp_get_option( 'recaptcha-private-key' );
+
+        if ( !$private_key )
+            return $comment_data;
+
+        if ( !function_exists( 'recaptcha_get_html' ) )
+            require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+
+        $response = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
+        
+        if ( !$response->is_valid ) {
+            $this->_comment_recaptcha_error = $response->error;
+            add_filter( 'pre_comment_approved', create_function( '$a', 'return \'spam\';' ) );
+        }
+
+        return $comment_data;
+    }
+
+    public function comment_relative_redirect( $location, $comment ) {
+        if ( !isset( $this->_comment_recaptcha_error ) || empty( $this->_comment_recaptcha_error ) )
+            return $location;
+
+        $location = substr( $location, 0, strpos( $location, '#' ) );
+        $location = add_query_arg( 'wpbdp-recaptcha-error', urlencode( base64_encode( $comment->comment_ID . '/' . $this->_comment_recaptcha_error ) ), $location );
+        $location .= '#commentform';
+
+        return $location;
+    }
+
+    public function restore_comment_fields() {
+        if ( !isset( $_GET['wpbdp-recaptcha-error'] ) || empty( $_GET['wpbdp-recaptcha-error'] ) )
+            return;
+
+        $error_data = explode('/', base64_decode( urldecode( $_GET['wpbdp-recaptcha-error'] ) ) );
+        $comment_id = $error_data ? intval( $error_data[0] ) : 0;
+        $comment = get_comment( $comment_id );
+
+        if ( !$comment )
+            return;
+
+        echo <<<JS
+        <script type="text/javascript">//<![CDATA[
+            jQuery('#comment').val("{$comment->comment_content}");
+        //]]></script>
+JS;
+    }
+
+    public function comment_recaptcha_workaround() {
+        $public_key = wpbdp_get_option( 'recaptcha-public-key' );
+
+        echo <<<JS
+        <script type="text/javascript">//<![CDATA[
+        jQuery(document).ready(function(){
+            jQuery('#comment, #wpbdp-contact-form-message').focusin(function(){
+                var recaptchaInUse = jQuery('#wpbdp-comment-recaptcha').children().length > 0 ? 'comment' : 'contact';
+                var focusedElement = jQuery(this).attr('id') == 'comment' ? 'comment' : 'contact';
+
+                if ( recaptchaInUse == focusedElement )
+                    return;
+
+                var recaptchaArea = focusedElement == 'comment' ? 'wpbdp-comment-recaptcha' : 'wpbdp-contact-form-recaptcha';
+
+                Recaptcha.destroy();
+                jQuery('#wpbdp-contact-form-recaptcha, #wpbdp-comment-recaptcha').attr('class', '').empty();
+                Recaptcha.create('{$public_key}', recaptchaArea);
+            });
+        });
+        //]]></script>
+JS;
+
+        if ( isset( $_GET['wpbdp-recaptcha-error'] ) && !empty( $_GET['wpbdp-recaptcha-error'] ) ) {
+            echo <<<JS
+            <script type="text/javascript">//<![CDATA[
+            jQuery(document).ready(function(){
+                jQuery('#comment').focus();
+            });
+            //]]></script>
+JS;
+        }
     }
 
 }
