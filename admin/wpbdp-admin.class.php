@@ -659,7 +659,7 @@ class WPBDP_Admin {
 
             case 'assignfee':
                 if ($listings_api->assign_fee($posts[0], $_GET['category_id'], $_GET['fee_id']))
-                    $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WBPDM');
+                    $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WPBDM');
                 break;
 
             case 'removecategory':
