@@ -458,7 +458,7 @@ class WPBDP_Settings {
         if (isset($args['use_textarea']) || strlen($value) > 100) {
             $html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" cols="50" rows="2">';
             $html .= esc_textarea($value);
-            $html .= '</textarea>';
+            $html .= '</textarea><br />';
         } else {
             $html = '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . esc_attr( $value ) . '" size="' . (strlen($value) > 0 ? strlen($value) : 20). '" />';
         }
