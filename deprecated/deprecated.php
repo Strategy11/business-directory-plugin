@@ -319,27 +319,24 @@ function wpbdp_get_formfields() {
  * @since 2.3
  */
 function wpbusdirman_get_the_business_email($post_id) {
-    $api = wpbdp_formfields_api();
-
-    // try first with the listing fields
-    foreach ( $api->get_fields() as $field ) {
-        if ( !$field->has_validator( 'email' ) )
-            continue;
-        
-        $value = $field->plain_value( $post_id );
-
-        if ( wpbdp_validate_value( $value, 'email' ) ) {
-            return $value;
-        }
+    $email_mode = wpbdp_get_option( 'listing-email-mode' );
+    
+    $email_field_value = '';
+    if ( $email_field = wpbdp_get_form_fields( 'validators=email&unique=1' ) ) {
+        $email_field_value = trim( $email_field->plain_value( $post_id ) );
     }
 
-    
-    // then with the author email
-    $post = get_post( $post_id );
-    if ( $email = get_the_author_meta( 'user_email', $post->post_author ) )
-        return $email;
+    if ( $email_mode == 'field' && !empty( $email_field_value ) )
+        return $email_field_value;
 
-    return '';
+    $author_email = '';
+    $post = get_post( $post_id );
+    $author_email = trim( get_the_author_meta( 'user_email', $post->post_author ) );
+
+    if ( empty( $author_email ) && !empty( $email_field_value ) )
+        return $email_field_value;
+    
+    return $author_email ? $author_email : '';
 }
 
 /**

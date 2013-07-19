@@ -106,6 +106,18 @@ class WPBDP_Settings {
                            array('choices' => array('draft', 'trash')));
 
         $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
+        $this->add_setting( $s,
+                            'listing-email-mode',
+                            _x( 'How to determine the listing\'s email address?', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'field',
+                            _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
+                            array( 'choices' => array(
+                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
+                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
+
+                            ) ) );
+
         $this->add_setting( $s, 'notify-admin', _x( 'Notify admin of new listings via email?', 'admin settings', 'WPBDM' ), 'boolean', false );
         $this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'email-confirmation-message', _x('Email confirmation message', 'admin settings', 'WPBDM'), 'text',
