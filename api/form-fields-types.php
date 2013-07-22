@@ -384,7 +384,40 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
 
     public function get_supported_associations() {
         return array( 'title', 'excerpt', 'content', 'meta' );
-    }    
+    }
+
+    public function render_field_settings( &$field=null, $association=null ) {
+        $settings = array();
+
+        $settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'WPBDM' );
+        $settings['allow_html'][] = '<input type="checkbox" value="1" name="field[allow_html]" ' . ( $field && $field->data( 'allow_html' ) ? ' checked="checked"' : '' ) . ' />';
+
+        return self::render_admin_settings( $settings );
+    }
+
+    public function process_field_settings( &$field ) {
+        $field->set_data( 'allow_html', isset( $_POST['field']['allow_html'] ) ? (bool) intval( $_POST['field']['allow_html'] ) : false );
+    }
+
+    public function get_field_html_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( $field->data( 'allow_html' ) ) {       
+            $value = wp_kses( $value, array( 'br' => array(),
+                                             'em' => array(),
+                                             'strong' => array(), 
+                                             'b' => array(),
+                                             'p' => array(),
+                                             'h1' => array(),
+                                             'h2' => array(),
+                                             'h3' => array(),
+                                             'h4' => array() ) );
+        } else {
+            $value = nl2br( wp_kses( $value, array() ) );
+        }
+
+        return $value;
+    }
 
 }
 
