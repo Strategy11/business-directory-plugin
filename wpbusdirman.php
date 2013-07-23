@@ -887,6 +887,11 @@ class WPBDP_Plugin {
         $api = wpbdp_listings_api();
         $api->notify_expiring_listings( 0, $now ); //  notify already expired listings first
         $api->notify_expiring_listings( wpbdp_get_option( 'renewal-email-threshold', 5 ), $now ); // notify listings expiring soon
+
+        if ( wpbdp_get_option( 'renewal-reminder' ) ) {
+            $threshold = -max( 1, intval( wpbdp_get_option( 'renewal-reminder-threshold' ) ) );
+            $api->notify_expiring_listings( $threshold, $now );
+        }
     }
 
 
