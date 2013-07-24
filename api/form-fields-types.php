@@ -403,15 +403,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
         $value = $field->value( $post_id );
 
         if ( $field->data( 'allow_html' ) ) {       
-            $value = wp_kses( $value, array( 'br' => array(),
-                                             'em' => array(),
-                                             'strong' => array(), 
-                                             'b' => array(),
-                                             'p' => array(),
-                                             'h1' => array(),
-                                             'h2' => array(),
-                                             'h3' => array(),
-                                             'h4' => array() ) );
+            $value = wp_kses_post( $value );
         } else {
             $value = nl2br( wp_kses( $value, array() ) );
         }
