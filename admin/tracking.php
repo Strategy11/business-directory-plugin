@@ -13,7 +13,7 @@ if ( !class_exists( 'WPBDP_SiteTracking' ) ) {
  */
 class WPBDP_SiteTracking {
 
-    const TRACKING_URL = 'http://localhost/dev.wpbdp/tracking.php';
+    const TRACKING_URL = 'http://data.businessdirectoryplugin.com/tr/';
 
     public function __construct() {
         if ( !wp_next_scheduled( 'wpbdp_site_tracking' ) ) {
@@ -21,7 +21,7 @@ class WPBDP_SiteTracking {
         }
 
         add_action( 'wpbdp_site_tracking', array( $this, 'tracking' ) );
-        do_action( 'wpbdp_site_tracking' );
+        // do_action( 'wpbdp_site_tracking' );
     }
 
     public function site_hash() {
@@ -135,7 +135,7 @@ class WPBDP_SiteTracking {
                 'body' => $data
             ) );
 
-            // set_transient( 'wpbdp-site_tracking_data', true, 7 * 60 * 60 * 24 );
+            set_transient( 'wpbdp-site_tracking_data', true, 7 * 60 * 60 * 24 );
         }
         // delete_transient( 'wpbdp-site_tracking_data' );
 
