@@ -83,7 +83,7 @@
     </table>
 
     <p class="submit">
-        <?php echo submit_button( _x( 'Test Export', 'admin csv-export', 'WPBDM' ), 'secondary', 'test-export', false ); ?>
+        <?php //echo submit_button( _x( 'Test Export', 'admin csv-export', 'WPBDM' ), 'secondary', 'test-export', false ); ?>
         <?php echo submit_button( _x( 'Export Listings', 'admin csv-export', 'WPBDM' ), 'primary', 'do-export', false ); ?>
     </p>
 </form>
