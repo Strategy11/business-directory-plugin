@@ -656,6 +656,10 @@ class WPBDP_FormField {
             }
         }
 
+        if ( in_array( 'required', $flags ) ) {
+            $this->add_validator( 'required' );
+        }
+
       if ( !in_array( $this->type->get_id(), $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
             return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
         }
