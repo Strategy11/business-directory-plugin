@@ -380,3 +380,7 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 .wpbdp-page-admin-transactions tr.more-details-row td dl dt {
     font-weight: bold;
 }
+
+ul.subsubsub li.paid {
+    margin-left: 20px;
+}
