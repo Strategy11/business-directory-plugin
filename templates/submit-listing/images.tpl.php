@@ -34,7 +34,7 @@ function wpbdp_listingform_delete_image(id) {
 			<input type="submit" class="submit" name="delete-image" onclick="return wpbdp_listingform_delete_image('<?php echo $image_id; ?>');" class="delete-image" value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>" /> <br />
 
 			<label>
-				<input type="radio" name="thumbnail_id" value="<?php echo $image_id; ?>" <?php echo (count($state->images) == 1 || $thumbnail_id == $image_id) ? 'checked="checked"' : ''; ?> />
+				<input type="radio" name="thumbnail_id" value="<?php echo $image_id; ?>" <?php echo (count($state->images) == 1 || $state->thumbnail_id == $image_id) ? 'checked="checked"' : ''; ?> />
 				<?php _ex('Set this image as the listing thumbnail.', 'templates', 'WPBDM'); ?>
 			</label>
 		</div>

@@ -377,7 +377,11 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             return $this->step_before_save();
 
         // sanitize $state->images just in case something disappeared (who knows)
-        $this->state->images = array_filter( $this->state->images, create_function( '$x', 'return get_post($x) !== null;' ) );        
+        $this->state->images = array_filter( $this->state->images, create_function( '$x', 'return get_post($x) !== null;' ) );
+
+        // Set thumbnail
+        $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : 0;
+        $this->state->thumbnail_id = in_array( $thumbnail_id, $this->state->images ) ? $thumbnail_id : 0;
 
         if ( isset( $_POST['upload-image'] ) && ( ( $this->state->allowed_images - count( $this->state->images ) - 1 ) >= 0 ) ) {
             if ( $image_file = $_FILES[ 'image' ] ) {
@@ -403,8 +407,6 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                 $this->messages[] = _x( 'Image deleted.', 'templates', 'WPBDM' );
             }
         } elseif ( isset( $_POST['finish'] ) ) {
-            $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : 0;
-            $this->state->thumbnail_id = in_array( $thumbnail_id, $this->state->images ) ? $thumbnail_id : 0;
             return $this->step_before_save();
         }
 
