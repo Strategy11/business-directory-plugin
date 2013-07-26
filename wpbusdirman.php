@@ -293,7 +293,7 @@ class WPBDP_Plugin {
 
         add_action( 'wp', array( $this, '_meta_setup' ) );
         add_action( 'wp', array( $this, '_jetpack_compat' ), 11, 1 );
-        add_action( 'wp_head', array( $this, '_handle_broken_plugin_filters' ), 99 );
+        add_action( 'wp_head', array( $this, '_handle_broken_plugin_filters' ), 0 );
 
         add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );        
 
@@ -683,6 +683,11 @@ class WPBDP_Plugin {
             $bad_filters['the_content'][] = 'shrsb_position_menu';
             $bad_filters['the_content'][] = 'shrsb_get_recommendations';
             $bad_filters['the_content'][] = 'shrsb_get_cb';
+        }
+
+        // Simple Facebook Connect (#481)
+        if ( function_exists( 'sfc_version' ) ) {
+            remove_action( 'wp_head', 'sfc_base_meta' );
         }
 
         // Quick AdSense - http://quicksense.net/
