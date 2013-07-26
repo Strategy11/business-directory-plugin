@@ -13,6 +13,8 @@
 <form id="wpbdp-listing-form-fields" class="wpbdp-listing-form" method="POST" action="">
 	<input type="hidden" name="_state" value="<?php echo $_state; ?>" />
 
+	<legend><?php _ex( '* Indicates required fields.', 'templates', 'WPBDM' ); ?></legend>
+
 	<?php foreach ( $fields as &$field ): ?>
 		<?php echo $field->render( wpbdp_getv( $state->fields, $field->get_id(), $field->convert_input( null ) ), 'submit', $state ); ?>
 	<?php endforeach; ?>

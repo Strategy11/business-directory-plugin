@@ -296,8 +296,18 @@ ul.wpbdp-categories > li {
     margin: 0;
 }
 
+.wpbdp-submit-page legend {
+    font-size: 85%;
+    margin-bottom: 20px;
+}
+
 .wpbdp-submit-page .wpbdp-form-field {
     margin-bottom: 8px;
+}
+
+.wpbdp-submit-page .wpbdp-form-field.required .wpbdp-form-field-label:after {
+    content: ' *';
+    font-size: 80%;
 }
 
 .wpbdp-form-field .field-description {
