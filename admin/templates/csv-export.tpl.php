@@ -2,13 +2,25 @@
     echo wpbdp_admin_header();
 ?>
 
-<?php wpbdp_admin_notices(); ?>
+<?php echo wpbdp_admin_notices(); ?>
 
 <form id="wpbdp-csv-export-form" action="" method="POST">
     <input type="hidden" name="action" value="do-export" />
 
     <h4><?php _ex('Export settings', 'admin csv-export', 'WPBDM'); ?></h4>
     <table class="form-table">
+        <tr>
+            <th scope="row">
+                <label> <?php _ex('Which listings to export?', 'admin csv-export', 'WPBDM'); ?></label>
+            </th>
+            <td>
+                <select name="settings[listing_status]">
+                    <option value="all"><?php _ex( 'All', 'admin csv-export', 'WPBDM' ); ?></option>
+                    <option value="publish"><?php _ex( 'Active Only', 'admin csv-export', 'WPBDM' ); ?></option>
+                    <option value="publish+draft"><?php _ex( 'Active + Pending Renewal', 'admin csv-export', 'WPBDM' ); ?></option>
+                </select>
+            </td>
+        </tr>      
         <tr>
             <th scope="row">
                 <label> <?php _ex('Export images?', 'admin csv-export', 'WPBDM'); ?></label>

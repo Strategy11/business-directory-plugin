@@ -70,7 +70,9 @@ class WPBDP_CSVExporter {
 
         'test-import' => false,
         'export-images' => false,
-        'include-users' => false
+        'include-users' => false,
+
+        'listing_status' => 'all'
     );
 
     private $workingdir = '';
@@ -116,8 +118,21 @@ class WPBDP_CSVExporter {
     public function export() {
         $csv_file = fopen( $this->workingdir . 'export.csv', 'wb' );
 
+        switch ( $this->settings['listing_status'] ) {
+            case 'publish+draft':
+                $post_status = array( 'publish', 'draft', 'pending' );
+                break;
+            case 'publish':
+                $post_status = 'publish';
+                break;
+            case 'all':
+            default:
+                $post_status = array( 'publish', 'draft', 'pending', 'future', 'trash' );
+                break;
+        }
+
         $posts = get_posts( array(
-            'post_status' => 'any',
+            'post_status' => $post_status,
             'posts_per_page' => -1,
             'post_type' => WPBDP_POST_TYPE
         ) );
@@ -287,7 +302,7 @@ class WPBDP_CSVExporter {
                     break;
             }
 
-            $data[ $colname ] = '"' . addslashes( $value ) . '"';
+            $data[ $colname ] = '"' . str_replace( '"', '""', $value ) . '"';
         }
 
         //         'images-separator' => ';',
