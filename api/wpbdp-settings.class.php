@@ -18,8 +18,16 @@ class WPBDP_Settings {
         /* General settings */
         $g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
 
-        $s = $this->add_section( $g, 'tracking', _x( 'Stats Tracking', 'admin settings', 'WPBDM' ) );
-        $this->add_setting( $s, 'tracking-on', _x( 'Enable anonymous site tracking?', 'admin settings', 'WPBDM' ), 'boolean', false );
+        $s = $this->add_section( $g, 'tracking', _x( 'Data Collection', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'tracking-on',
+                            _x( 'Allow BD to anonymously collect information about your installed plugins, themes and WP version?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            str_replace( '<a>',
+                                         '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank">',
+                                         _x( '<a>Learn more</a> about what BD does and does NOT track.', 'admin settings', 'WPBDM' ) )
+                          );
 
         $s = $this->add_section($g, 'permalink', _x('Permalink Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_POST_TYPE, null, null, array($this, '_validate_listings_permalink'));
