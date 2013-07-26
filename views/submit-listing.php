@@ -380,7 +380,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         $this->state->images = array_filter( $this->state->images, create_function( '$x', 'return get_post($x) !== null;' ) );
 
         // Set thumbnail
-        $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : 0;
+        $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
         $this->state->thumbnail_id = in_array( $thumbnail_id, $this->state->images ) ? $thumbnail_id : 0;
 
         if ( isset( $_POST['upload-image'] ) && ( ( $this->state->allowed_images - count( $this->state->images ) - 1 ) >= 0 ) ) {
