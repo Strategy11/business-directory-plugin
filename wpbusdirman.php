@@ -209,7 +209,7 @@ class WPBDP_Plugin {
         }
 
         global $post;
-        if ( ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
+        if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
             $id = get_query_var('id');
             $listing = get_post($id);
 
