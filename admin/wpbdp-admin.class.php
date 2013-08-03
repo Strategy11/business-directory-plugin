@@ -493,6 +493,8 @@ class WPBDP_Admin {
     }
 
     function admin_notices() {
+        $this->check_setup();
+
         foreach ($this->messages as $msg) {
             if (is_array($msg)) {
                 echo sprintf('<div class="%s"><p>%s</p></div>', $msg[1], $msg[0]);
@@ -1135,6 +1137,19 @@ class WPBDP_Admin {
                 foreach ($errors as $error) $this->messages[] = array($error, 'error');
             }
         }
+    }
+
+    public function check_setup() {
+        global $pagenow;
+
+        if ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpbdp_admin_settings' ) {
+            if ( wpbdp_get_option( 'require-login' ) && !get_option( 'users_can_register' ) ) {
+                $this->messages[] = array(
+                    str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' )  . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'WPBDM' ) ),
+                    'error' );
+            }
+        }
+
     }
 
 }
