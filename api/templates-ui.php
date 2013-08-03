@@ -82,7 +82,7 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     }
 
     foreach ( $terms as &$term ) {
-        $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . '">';
+        $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' ) . '">';
 
         $item_html = '';
         $item_html .= '<a href="' . esc_url( get_term_link( $term ) ) . '" ';
