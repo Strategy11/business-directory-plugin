@@ -305,6 +305,10 @@ ul.wpbdp-categories > li {
     margin-bottom: 8px;
 }
 
+.wpbdp-submit-page .wpbdp-form-field .wpbdmcheckboxclass checkbox {
+    margin-left: 0px;
+}
+
 .wpbdp-submit-page .wpbdp-form-field.required .wpbdp-form-field-label:after {
     content: ' *';
     font-size: 80%;
