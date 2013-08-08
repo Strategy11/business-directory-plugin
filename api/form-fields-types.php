@@ -232,7 +232,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                         'orderby' => wpbdp_get_option( 'categories-order-by' ),
                         'selected' => ( $this->is_multiple() ? null : ( $value ? $value[0] : null ) ),
                         'order' => wpbdp_get_option('categories-sort' ),
-                        'hide_empty' => 0,
+                        'hide_empty' => $context == 'search' && wpbdp_get_option( 'hide-empty-categories' ) ? 1 : 0,
                         'hierarchical' => 1,
                         'echo' => 0,
                         'id' => 'wpbdp-field-' . $field->get_id(),
