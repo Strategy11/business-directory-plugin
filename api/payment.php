@@ -276,8 +276,8 @@ class WPBDP_PaymentsAPI {
             $gateway_errors = call_user_func($gateway->check_callback);
 
             if ($gateway_errors) {
-                $gateway_messages = rtrim('&#149; ' . implode('&#149; ', $gateway_errors), '.');
-                $errors[] = sprintf(_x('The <b>%s</b> gateway is activate but not properly configured. The gateway won\'t be available until the following problems are fixed: <b>%s</b>. <br/> Check the <a href="%s">payment settings</a>.', 'payments-api', 'WPBDM'),
+                $gateway_messages = rtrim('&#149; ' . implode(' &#149; ', $gateway_errors), '.');
+                $errors[] = sprintf(_x('The <b>%s</b> gateway is active but not properly configured. The gateway won\'t be available until the following problems are fixed: <b>%s</b>. <br/> Check the <a href="%s">payment settings</a>.', 'payments-api', 'WPBDM'),
                                         $gateway->name,
                                         $gateway_messages,
                                         admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment') );
