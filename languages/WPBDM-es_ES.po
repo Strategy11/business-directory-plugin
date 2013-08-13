@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2013-07-26 16:16:14+00:00\n"
-"PO-Revision-Date: 2013-07-26 11:18-0500\n"
+"POT-Creation-Date: 2013-08-13 02:05:45+00:00\n"
+"PO-Revision-Date: 2013-08-12 21:11-0500\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1595,12 +1595,12 @@ msgctxt "admin transactions"
 msgid "Rejected"
 msgstr "Rechazadas"
 
-#: admin/transactions.php:243 admin/wpbdp-admin.class.php:647
+#: admin/transactions.php:243 admin/wpbdp-admin.class.php:649
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "La transacción ha sido aprobada."
 
-#: admin/transactions.php:254 admin/wpbdp-admin.class.php:657
+#: admin/transactions.php:254 admin/wpbdp-admin.class.php:659
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "La transacción ha sido rechazada."
@@ -1770,11 +1770,11 @@ msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr "Pendiente de Mejora"
 
-#: admin/wpbdp-admin.class.php:417 admin/wpbdp-admin.class.php:883
+#: admin/wpbdp-admin.class.php:417 admin/wpbdp-admin.class.php:885
 msgid "Upgrade to %s"
 msgstr "Mejorar a %s"
 
-#: admin/wpbdp-admin.class.php:424 admin/wpbdp-admin.class.php:890
+#: admin/wpbdp-admin.class.php:424 admin/wpbdp-admin.class.php:892
 msgid "Downgrade to %s"
 msgstr "Degradar a %s"
 
@@ -1788,178 +1788,178 @@ msgctxt "admin infometabox"
 msgid "Mark listing as Not paid"
 msgstr "Marcar listado como No pagado"
 
-#: admin/wpbdp-admin.class.php:515
+#: admin/wpbdp-admin.class.php:517
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr "Publicar Listado"
 
-#: admin/wpbdp-admin.class.php:517 admin/wpbdp-admin.class.php:893
+#: admin/wpbdp-admin.class.php:519 admin/wpbdp-admin.class.php:895
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr "Mejorar a Destacado"
 
-#: admin/wpbdp-admin.class.php:518
+#: admin/wpbdp-admin.class.php:520
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr "Degradar a Normal"
 
-#: admin/wpbdp-admin.class.php:520
+#: admin/wpbdp-admin.class.php:522
 msgctxt "admin actions"
 msgid "Set Paid"
 msgstr "Marcar Pagado"
 
-#: admin/wpbdp-admin.class.php:521
+#: admin/wpbdp-admin.class.php:523
 msgctxt "admin actions"
 msgid "Set Not Paid"
 msgstr "Marcar No Pagado"
 
-#: admin/wpbdp-admin.class.php:523
+#: admin/wpbdp-admin.class.php:525
 msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
 
-#: admin/wpbdp-admin.class.php:572
+#: admin/wpbdp-admin.class.php:574
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "El listado ha sido publicado."
 msgstr[1] "Los listados han sido publicados."
 
-#: admin/wpbdp-admin.class.php:584
+#: admin/wpbdp-admin.class.php:586
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "El listado se ha marcado como pagado."
 msgstr[1] "Los listados se han marcado como pagados."
 
-#: admin/wpbdp-admin.class.php:596
+#: admin/wpbdp-admin.class.php:598
 msgctxt "admin"
 msgid "The listing status has been set as \"not paid\"."
 msgid_plural "The listings status has been set as \"not paid\"."
 msgstr[0] "El estado del listado se ha configurado como \"no pagado\"."
 msgstr[1] "El estado de los listados se ha configurado como \"no pagado\"."
 
-#: admin/wpbdp-admin.class.php:608
+#: admin/wpbdp-admin.class.php:610
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "El listado ha sido modificado."
 msgstr[1] "Los listados han sido modificados."
 
-#: admin/wpbdp-admin.class.php:621
+#: admin/wpbdp-admin.class.php:623
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "El listado ha sido mejorado."
 msgstr[1] "Los listados han sido mejorados."
 
-#: admin/wpbdp-admin.class.php:633
+#: admin/wpbdp-admin.class.php:635
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "El listado ha sido degradado."
 msgstr[1] "Los listados han sido degradados."
 
-#: admin/wpbdp-admin.class.php:662
+#: admin/wpbdp-admin.class.php:664
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "La comisión se asignó satisfactoriamente."
 
-#: admin/wpbdp-admin.class.php:667
+#: admin/wpbdp-admin.class.php:669
 msgctxt "admin"
 msgid "Category information was updated."
 msgstr "La información de categoría fue actualizada."
 
-#: admin/wpbdp-admin.class.php:675
+#: admin/wpbdp-admin.class.php:677
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "El listado ha sido renovado."
 msgstr[1] "Los listados fueron renovados."
 
-#: admin/wpbdp-admin.class.php:735 admin/wpbdp-admin.class.php:854
+#: admin/wpbdp-admin.class.php:737 admin/wpbdp-admin.class.php:856
 msgid "Paid"
 msgstr "Pago"
 
-#: admin/wpbdp-admin.class.php:740
+#: admin/wpbdp-admin.class.php:742
 msgid "Unpaid"
 msgstr "No pagado"
 
-#: admin/wpbdp-admin.class.php:745 admin/wpbdp-admin.class.php:875
+#: admin/wpbdp-admin.class.php:747 admin/wpbdp-admin.class.php:877
 msgid "Pending Upgrade"
 msgstr "Pendientes de Mejora"
 
-#: admin/wpbdp-admin.class.php:750
+#: admin/wpbdp-admin.class.php:752
 msgctxt "admin"
 msgid "Expired"
 msgstr "Expirados"
 
-#: admin/wpbdp-admin.class.php:765
+#: admin/wpbdp-admin.class.php:767
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Conteo de Listados"
 
-#: admin/wpbdp-admin.class.php:777
+#: admin/wpbdp-admin.class.php:779
 msgctxt "admin"
 msgid "Categories"
 msgstr "Categorías"
 
-#: admin/wpbdp-admin.class.php:778
+#: admin/wpbdp-admin.class.php:780
 msgid "Payment Status"
 msgstr "Estado de Pago"
 
-#: admin/wpbdp-admin.class.php:779
+#: admin/wpbdp-admin.class.php:781
 msgid "Featured (Sticky) Status"
 msgstr "Estado Destacado/Sticky"
 
-#: admin/wpbdp-admin.class.php:791
+#: admin/wpbdp-admin.class.php:793
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: admin/wpbdp-admin.class.php:794
+#: admin/wpbdp-admin.class.php:796
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Eliminar Listado"
 
-#: admin/wpbdp-admin.class.php:834
+#: admin/wpbdp-admin.class.php:836
 msgctxt "admin"
 msgid "(Listing expired in this category)"
 msgstr "(El listado ha expirado en esta categoría)"
 
-#: admin/wpbdp-admin.class.php:858
+#: admin/wpbdp-admin.class.php:860
 msgid "Not paid"
 msgstr "No pagado"
 
-#: admin/wpbdp-admin.class.php:863
+#: admin/wpbdp-admin.class.php:865
 msgid "Set as"
 msgstr "Configurar como"
 
-#: admin/wpbdp-admin.class.php:999
+#: admin/wpbdp-admin.class.php:1001
 msgctxt "debug-info"
 msgid "BD Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1011
+#: admin/wpbdp-admin.class.php:1013
 msgid "Missing tables: %s"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1012
+#: admin/wpbdp-admin.class.php:1014
 msgctxt "debug-info"
 msgid "OK"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1020
+#: admin/wpbdp-admin.class.php:1022
 msgctxt "debug-info"
 msgid "BD Options"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1032
+#: admin/wpbdp-admin.class.php:1034
 msgctxt "debug-info"
 msgid "Environment"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1090
+#: admin/wpbdp-admin.class.php:1092
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -1968,7 +1968,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere campos con las siguientes "
 "asociaciones para funcionar correctamente: <b>%s</b>."
 
-#: admin/wpbdp-admin.class.php:1092
+#: admin/wpbdp-admin.class.php:1094
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1977,7 +1977,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
 "b> para funcionar correctamente."
 
-#: admin/wpbdp-admin.class.php:1096
+#: admin/wpbdp-admin.class.php:1098
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -1986,17 +1986,17 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: admin/wpbdp-admin.class.php:1100
+#: admin/wpbdp-admin.class.php:1102
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
 
-#: admin/wpbdp-admin.class.php:1103
+#: admin/wpbdp-admin.class.php:1105
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
 
-#: admin/wpbdp-admin.class.php:1115
+#: admin/wpbdp-admin.class.php:1117
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the <tt>"
@@ -2005,7 +2005,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere una página con el shortcode <tt>"
 "[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: admin/wpbdp-admin.class.php:1117
+#: admin/wpbdp-admin.class.php:1119
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -2014,10 +2014,23 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: admin/wpbdp-admin.class.php:1121
+#: admin/wpbdp-admin.class.php:1123
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
+
+#: admin/wpbdp-admin.class.php:1148
+msgctxt "admin"
+msgid ""
+"We noticed you want your Business Directory users to register before posting "
+"listings, but Registration for your site is currently disabled. Go [here] "
+"and check \"Anyone can register\" to make sure BD works properly."
+msgstr ""
+"Hemos notado que quiere que sus usuarios del Directorio de Negocios se "
+"registren antes de publicar listados, pero el registro de usuarios para su "
+"sitio está actualmente deshabilitado. Vaya [aquí] y revise las "
+"configuraciones para asegurarse de que Business Directory funcione "
+"correctamente."
 
 #: api/api.php:331
 msgctxt "templates"
@@ -2384,7 +2397,7 @@ msgstr ""
 #: api/payment.php:280
 msgctxt "payments-api"
 msgid ""
-"The <b>%s</b> gateway is activate but not properly configured. The gateway "
+"The <b>%s</b> gateway is active but not properly configured. The gateway "
 "won't be available until the following problems are fixed: <b>%s</b>. <br/> "
 "Check the <a href=\"%s\">payment settings</a>."
 msgstr ""
@@ -2421,35 +2434,35 @@ msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr "Su transacción ha sido aprobada."
 
-#: api/templates-ui.php:72
+#: api/templates-ui.php:78
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "No se encontraron categorías."
 
-#: api/templates-ui.php:164 deprecated/deprecated.php:214
+#: api/templates-ui.php:170 deprecated/deprecated.php:214
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: api/templates-ui.php:173 deprecated/deprecated.php:227
+#: api/templates-ui.php:179 deprecated/deprecated.php:227
 msgid "View Listings"
 msgstr "Ver Listados"
 
-#: api/templates-ui.php:183 deprecated/deprecated.php:238
+#: api/templates-ui.php:189 deprecated/deprecated.php:238
 msgid "Directory"
 msgstr "Directorio"
 
-#: api/templates-ui.php:210
+#: api/templates-ui.php:216
 #: deprecated/templates/wpbusdirman-index-categories.php:12
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: api/templates-ui.php:213
+#: api/templates-ui.php:219
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Búsqueda Avanzada"
 
-#: api/templates-ui.php:239
+#: api/templates-ui.php:245
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Order Por:"
