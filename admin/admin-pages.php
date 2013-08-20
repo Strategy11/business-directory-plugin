@@ -35,10 +35,10 @@ function wpbusdirman_home_screen() {
 
 	$html .= "<p>" . __("You are using version","WPBDM") . " <b>" . WPBDP_VERSION . "</b> </p>";
 	
-	if( !wpbdp_get_option('googlecheckout') && !wpbdp_get_option('paypal') && wpbdp_get_option('payments-on') ) {
-							$html .= "<p style=\"padding:10px;background:#ff0000;color:#ffffff;font-weight:bold;\">";
-							$html.=__("You have payments turned on but all your gateways are set to hidden. Your system will run as if payments are turned off until you fix the problem. To fix go to <i>Manage options > Payment</i> and unhide at least 1 payment gateway, or if it is your intention not to charge a payment fee set payments to off instead of on.","WPBDM");
-							$html.="</p>";
+	if( wpbdp_get_option('payments-on') && !wpbdp_payments_possible() ) {
+		$html .= "<p style=\"padding:10px;background:#ff0000;color:#ffffff;font-weight:bold;\">";
+		$html.=__("You have payments turned on but all your gateways are set to hidden. Your system will run as if payments are turned off until you fix the problem. To fix go to <i>Manage options > Payment</i> and unhide at least 1 payment gateway, or if it is your intention not to charge a payment fee set payments to off instead of on.","WPBDM");
+		$html.="</p>";
 	}
 	$html .= "<ul><li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdp_admin_settings\">" . __("Configure/Manage Options","WPBDM") . "</a></li>";
 	$html .= "<li class=\"button\" $listyle><a style=\"text-decoration:none;\" href=\"?page=wpbdp_admin_fees\">" . __("Setup/Manage Fees","WPBDM") . "</a></li>";
