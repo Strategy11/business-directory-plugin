@@ -78,6 +78,9 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
             $link = add_query_arg( array( 'action' => 'search' ), wpbdp_get_page_link( 'main' ) );
             break;
         default:
+            if ( !wpbdp_get_page_id( 'main' ) )
+                return '';
+
             $link = wpbdp_get_page_link( 'main' );
             break;
     }
