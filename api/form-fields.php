@@ -168,10 +168,10 @@ class WPBDP_FormFieldType {
                                   implode( ' ', $field->css_classes),
                                   $html_attributes );
                 $html .= '<div class="wpbdp-form-field-label">';
-                $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), esc_html( $field->get_label() ) );
+                $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), $field->get_label() );
 
                 if ( $field->get_description() )
-                    $html .= sprintf( '<span class="field-description">(%s)</span>', esc_html( $field->get_description() ) );
+                    $html .= sprintf( '<span class="field-description">(%s)</span>', $field->get_description() );
 
                 $html .= '</div>';
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
