@@ -1,5 +1,5 @@
 <div class="fee-options-for-category">
-	<?php if ( isset( $categories) && ( count( $categories ) > 1 ) ): ?><h4><?php echo sprintf( _x( '"%s" fee options', 'templates', 'WPBDM' ), $category->name ); ?></h4><?php endif; ?>
+	<?php if ( isset( $state->categories) && ( count( $state->categories ) > 1 ) ): ?><h4><?php echo sprintf( _x( '"%s" fee options', 'templates', 'WPBDM' ), $category->name ); ?></h4><?php endif; ?>
 	<table class="fee-options">
 		<thead>
 			<th></th>
