@@ -415,7 +415,16 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
 
     protected function step_before_save() {
         $this->state->step = 'before_save';
-        // TODO: implement extra_sections here!
+
+        if ( isset( $_POST['continue-with-save'] ) )
+            return $this->step_save();
+
+        $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections',
+                                             array( &$this->state ) );
+
+        if ( $extra )
+            return $this->render( 'extra-sections', array( 'output' => $extra ) );
+
         return $this->step_save();
     }
 
@@ -434,6 +443,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         }
 
         $res = null;
+
         if ( $listing_id = wpbdp_save_listing( $this->state, $res ) ) {
             // TODO:
             // $_SESSION['wpbdp-submitted-listing-id'] = $listing_id;
@@ -498,4 +508,6 @@ class WPBDP_SubmitState {
     public $thumbnail_id = 0;
 
     public $fields = array();
+
+    public $extra = array();
 }
