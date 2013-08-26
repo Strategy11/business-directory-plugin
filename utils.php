@@ -311,6 +311,17 @@ function wpbdp_capture_action($hook) {
 	return $output;
 }
 
+function wpbdp_capture_action_array($hook, $args=array()) {
+	$output = '';
+
+	ob_start();
+	do_action_ref_array($hook, $args);
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	return $output;
+}
+
 /**
  * @since 2.1.6
  */
