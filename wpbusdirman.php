@@ -848,6 +848,9 @@ class WPBDP_Plugin {
             case 'file-upload':
                 return $this->_handle_ajax_file_upload();
                 break;
+            default:
+                do_action( 'wpbdp_ajax_' . $action );
+                break;
         }
 
         exit;
