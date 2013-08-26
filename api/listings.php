@@ -1018,11 +1018,11 @@ function wpbdp_save_listing( $data, &$result=null ) {
     $result->listing_id = $listing_id;
 
     if ( !$editing )
-        do_action( 'wpbdp_create_listing', $listing_id, $data->fields );
+        do_action( 'wpbdp_create_listing', $listing_id, $data->fields, $data );
     else
-        do_action( 'wpbdp_edit_listing', $listing_id, $data->fields );
+        do_action( 'wpbdp_edit_listing', $listing_id, $data->fields, $data );
 
-    do_action( 'wpbdp_save_listing', $listing_id, $data->fields );
+    do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
 
     return $listing_id;
 }
