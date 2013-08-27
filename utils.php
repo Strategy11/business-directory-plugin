@@ -332,7 +332,8 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 	// TODO(future): it could be useful to have additional constraints available
 	$constraints = array_merge( array(
 									'image' => false,
-									'max-size' => 0
+									'max-size' => 0,
+									'mimetypes' => null
 							  ), $constraints );
 
 	if ($file['error'] == 0) {
@@ -342,6 +343,13 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 								size_format ($constraints['max-size'], 2)
 								);
 			return false;
+		}
+
+		if ( is_array( $constraints['mimetypes'] ) ) {
+			if ( !in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
+				$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'WPBDM' ), $file['type'] );
+				return false;
+			}
 		}
 
 		if ( $upload = wp_handle_upload( $file, array('test_form' => FALSE) ) ) {
