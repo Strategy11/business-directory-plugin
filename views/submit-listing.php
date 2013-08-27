@@ -44,7 +44,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         $state->edit = true;
         $state->categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
 
-        // recover fee info
+        // Recover fee information.
         $fees = wpbdp_listings_api()->get_listing_fees( $listing_id );
         foreach ( $fees as &$fee ) {
             $fee_ = (object) unserialize( $fee->fee );
@@ -53,16 +53,19 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
             $state->allowed_images += intval( $fee_->images );
         }
 
-        // image info
+        // Image information.
         $images = wpbdp_listings_api()->get_images( $listing_id );
         $state->images = array_map( create_function( '$x', 'return $x->ID;' ), $images );
         $state->thumbnail_id = intval( wpbdp_listings_api()->get_thumbnail_id( $listing_id ) );
 
-        // fields
+        // Fields.
         $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
         foreach ( $fields as &$f ) {
             $state->fields[ $f->get_id() ] = $f->value( $listing_id );
         }
+
+        // Recover additional information.
+        do_action_ref_array( 'wpbdp_submit_state_init', array( &$state ) );
 
         return $state;
     }
