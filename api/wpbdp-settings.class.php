@@ -524,17 +524,33 @@ class WPBDP_Settings {
 
         $value = $this->get($setting->name);
 
-        $html = '<select id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '">';
-        
-        foreach ($choices as $ch) {
-            $opt_label = is_array($ch) ? $ch[1] : $ch;
-            $opt_value = is_array($ch) ? $ch[0] : $ch;
+        $multiple = isset( $args['multiple'] ) && $args['multiple'] ? true : false;
+        $widget = $multiple ? ( isset( $args['use_checkboxes'] ) && $args['use_checkboxes'] ? 'checkbox' : 'multiselect' ) : 'select'; // TODO: Add support for radios.
+        $html = '';
 
-            $html .= '<option value="' . $opt_value . '"' . ($value == $opt_value ? ' selected="selected"' : '') . '>'
-                            . $opt_label . '</option>';
+        if ( $widget == 'select' || $widget == 'multiselect' ) {
+            // TODO: Add support for multiple.
+            $html .= '<select id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '">';
+            
+            foreach ($choices as $ch) {
+                $opt_label = is_array($ch) ? $ch[1] : $ch;
+                $opt_value = is_array($ch) ? $ch[0] : $ch;
+
+                $html .= '<option value="' . $opt_value . '"' . ($value == $opt_value ? ' selected="selected"' : '') . '>'
+                                . $opt_label . '</option>';
+            }
+
+            $html .= '</select>';
+        } elseif ( $widget == 'checkbox' ) {
+            foreach ( $choices as $k => $v ) {
+                $html .= sprintf( '<label><input type="checkbox" name="%s[]" value="%s" %s />%s</label> ',
+                                  $setting->name,
+                                  $k,
+                                  in_array( $k, $value, true ) ? 'checked="checked"' : '',
+                                  $v );
+            }
         }
 
-        $html .= '</select>';
         $html .= '<span class="description">' . $setting->help_text . '</span>';
 
         echo $html;
@@ -559,17 +575,29 @@ class WPBDP_Settings {
                                        array_merge($setting->args, array('label_for' => $setting->name, 'setting' => $setting))
                                        );
 
-                    if ($setting->validator) {
-                        add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n);'), 2);
+                    if ( $setting->validator || ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) ) {
+                        add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 2);
                     }
                 }
             }
         }
     }
 
-    public static function _validate_setting($name, $newvalue=null) {
+    public static function _validate_setting($name, $newvalue=null, $oldvalue=null) {
         $api = wpbdp_settings_api();
         $setting = $api->settings[$name];
+
+        if ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) {
+            if ( isset( $_POST[ $name ] ) ) {
+                $newvalue = $_POST[ $name ];
+                $newvalue = is_array( $newvalue ) ? $newvalue : array( $newvalue );
+
+                if ( $setting->validator )
+                    $newvalue = call_user_func( $setting->validator, $setting, $newvalue, $api->get( $setting->name ) );
+
+                return $newvalue;
+            }
+        }
 
         return call_user_func($setting->validator, $setting, $newvalue, $api->get($setting->name));
     }
