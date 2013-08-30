@@ -847,7 +847,7 @@ class WPBDP_ListingsAPI {
                 $email = new WPBDP_Email();
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
-                $email->message = str_replace( array_keys( $message_replacements ),
+                $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,
                                                nl2br( wpbdp_get_option( 'listing-renewal-message' ) ) );
                 $email->send();
@@ -858,7 +858,7 @@ class WPBDP_ListingsAPI {
                 $email = new WPBDP_Email();
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
-                $email->message = str_replace( array_keys( $message_replacements ),
+                $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,
                                                nl2br( wpbdp_get_option( 'renewal-pending-message' ) ) );
                 $email->send();
@@ -869,7 +869,7 @@ class WPBDP_ListingsAPI {
                 $email = new WPBDP_Email();
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
-                $email->message = str_replace( array_keys( $message_replacements ),
+                $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,
                                                nl2br( wpbdp_get_option( 'renewal-reminder-message' ) ) );
                 $email->send();
