@@ -447,11 +447,14 @@ class WPBDP_Admin {
 
         // Fees
         $expired_categories_ids = $listings_api->get_expired_categories( $post->ID );
-        $expired_categories = get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false, 'hierarchical' => false, 'include' => $expired_categories_ids ? $expired_categories_ids : array( 0 ) ) );
+        $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+        $post_categories = array_unique( array_merge( $current_categories, $expired_categories_ids ) );
+
+        ;
 
         echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-fees.tpl.php', array(
-                                'post_categories' => array_merge( wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX ), $expired_categories ),
-                                'expired_categories' => $expired_categories,
+                                'post_categories' => get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false, 'hierarchical' => false, 'include' => $post_categories ? $post_categories : array( 0 ) ) ),
+                                'expired_categories' => $expired_categories_ids,
                                 'post_id' => $post->ID,
                                 'image_count' => count($listings_api->get_images($post->ID))
                                 ));
