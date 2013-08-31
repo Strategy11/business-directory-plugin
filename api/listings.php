@@ -718,6 +718,9 @@ class WPBDP_ListingsAPI {
                                 //     $term = get_term_by( 'id', $term_name, WPBDP_TAGS_TAX );
 
                                 // if ( !$term )
+                                if ( strpos( $term_name, '&' ) !== false )
+                                    $term_name = htmlentities( $term_name, null, null, false );
+
                                 $term = get_term_by( 'name', $term_name, WPBDP_TAGS_TAX );
 
                                 if ( $term ) {
