@@ -42,10 +42,21 @@ class WPBDP_RenewListingPage extends WPBDP_View {
                                                  $tid ), 'error' );
 
         if ( isset( $_POST['cancel-renewal'] ) ) {
+            // Remove category from listing.
+            $terms = array_unique( array_map( 'intval', wp_get_post_terms( $this->listing->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ) );
+            wpbdp_array_remove_value( $terms, $this->feeinfo->category_id );
+            wp_set_post_terms( $this->listing->ID, $terms ? $terms : NULL, WPBDP_CATEGORY_TAX );
+
+            if ( !$terms )
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d",
+                              wpbdp_get_option( 'deleted-status' ),
+                              $this->listing->ID ) );
+
+            // Delete listing fee.
             $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d",
                                           $this->feeinfo->id ) );
 
-            // delete all pending transactions relating this renewal or category
+            // Delete all pending transactions relating this renewal or category.
             $transactions = wpbdp_payments_api()->get_transactions( $this->listing->ID );
             foreach ( $transactions as &$t ) {
                 if ( $t->payment_type != 'renewal' )
