@@ -820,10 +820,10 @@ class WPBDP_ListingsAPI {
             if ( !$listing || $listing->post_type != WPBDP_POST_TYPE )
                 continue;
 
-            if ( !has_term( intval( $r->category_id ), WPBDP_CATEGORY_TAX, $r->listing_id ) && !in_array( $r->category_id, $this->get_expired_categories( $r->listing_id ) ) ) {
+            /*if ( !has_term( intval( $r->category_id ), WPBDP_CATEGORY_TAX, $r->listing_id ) && !in_array( $r->category_id, $this->get_expired_categories( $r->listing_id ) ) ) {
                 $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $r->id ) );
                 continue;
-            }
+            }*/
 
             $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
                                            '[listing]' => esc_attr( $listing->post_title ),
