@@ -395,11 +395,23 @@ ul.validation-errors li {
 
 /*.wpbusdirmanerroralert { color:#ff0000;font-weight:bold;font-size:14px; }*/
 
-.wpbdp-submit-page .fee-options .fee-option .fee-label {
+.wpbdp-submit-page table.fee-options {
+    width: 100%;
+}
+
+.wpbdp-submit-page table.fee-options th, .wpbdp-submit-page table.fee-options td {
+    text-align: center;
+}
+
+.wpbdp-submit-page table.fee-options .fee-selection {
+    width: 5%;
+}
+
+.wpbdp-submit-page table.fee-options tr.fee-option td.fee-label {
     font-weight: bold;
 }
 
-.wpbdp-submit-page .fee-options .fee-description {
+.wpbdp-submit-page table.fee-options td.fee-description {
     font-size: 90%;
     color: #666;
 }
