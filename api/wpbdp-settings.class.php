@@ -576,7 +576,7 @@ class WPBDP_Settings {
                                        );
 
                     if ( $setting->validator || ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) ) {
-                        add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 2);
+                        add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o=null', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 2);
                     }
                 }
             }
