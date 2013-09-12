@@ -20,7 +20,7 @@
 	<?php endforeach; ?>
 
 	<?php if ( $terms_and_conditions ): ?>
-	<div class="wpbdp-form-field terms-and-conditions">
+	<div class="wpbdp-form-field terms-and-conditions required">
 		<?php echo $terms_and_conditions; ?>
 	</div>
 	<?php endif; ?>

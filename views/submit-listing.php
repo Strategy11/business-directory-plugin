@@ -333,7 +333,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                                              _x( 'Read our Terms and Conditions', 'templates', 'WPBDM' )
                                            );
                 } else {
-                    $terms_field .= '<div class="wpbpd-form-field-label">';
+                    $terms_field .= '<div class="wpbdp-form-field-label">';
                     $terms_field .= '<label>';
                     $terms_field .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
                     $terms_field .= '</label>';
