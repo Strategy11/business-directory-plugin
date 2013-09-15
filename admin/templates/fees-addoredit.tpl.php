@@ -116,8 +116,14 @@ $fee = isset($fee) ? $fee : null;
 						?>
 					</select>
 				</td>
-			</tr>			
+			</tr>
 	</table>
+
+	<?php if ( $fee_extra_settings ): ?>
+	<div class="extra-settings">
+	<?php echo $fee_extra_settings; ?>
+	</div>
+	<?php endif; ?>
 
 	<?php if ($fee): ?>
 		<?php echo submit_button(_x('Update Fee', 'fees admin', 'WPBDM')); ?>

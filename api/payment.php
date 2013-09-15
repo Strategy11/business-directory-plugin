@@ -24,6 +24,7 @@ class WPBDP_FeesAPI {
 
     private function normalize(&$fee) {
         $fee->categories = unserialize($fee->categories);
+        $fee->extra_data = unserialize( $fee->extra_data );
     }
 
     public function get_fees_for_category($catid) {
@@ -149,6 +150,15 @@ class WPBDP_FeesAPI {
 
         if ($this->is_valid_fee($fee, $errors)) {
             $fee['categories'] = serialize($fee['categories']);
+
+            if ( isset( $fee['id'] ) && !isset( $fee['extra_data'] ) )
+                $fee['extra_data'] = unserialize( $wpdb->get_var( $wpdb->prepare( "SELECT extra_data FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $fee['id'] ) ) );
+            
+            if ( !isset( $fee['extra_data'] ) || !is_array( $fee['extra_data'] ) )
+                $fee['extra_data'] = array();
+
+            do_action_ref_array( 'wpbdp_fee_before_save', array( &$fee ) );
+            $fee['extra_data'] = $fee['extra_data'] ? serialize( $fee['extra_data'] ) : null;
             
             if (isset($fee['id'])) {
                 return $wpdb->update("{$wpdb->prefix}wpbdp_fees", $fee, array('id' => $fee['id'])) !== false;

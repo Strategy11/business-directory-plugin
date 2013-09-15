@@ -141,7 +141,10 @@ class WPBDP_FeesAdmin {
 		$fee = isset($_GET['id']) ? $this->api->get_fee_by_id($_GET['id']) : null;
 
 		wpbdp_render_page(WPBDP_PATH . 'admin/templates/fees-addoredit.tpl.php',
-						  array('fee' => $fee),
+						  array(
+						  	'fee' => $fee,
+						  	'fee_extra_settings' => wpbdp_capture_action_array( 'wpbdp_admin_fee_form_extra_settings', array( &$fee ) )
+						  ),
 						  true);
 	}
 
