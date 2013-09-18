@@ -280,7 +280,7 @@ class WPBDP_DirectoryController {
                 $wpbdmsendtoemail=wpbusdirman_get_the_business_email($listing_id);
                 $time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
 
-                $body = wpbdp_render_page(WPBDP_PATH . 'templates/parts/contact.email', array(
+                $body = wpbdp_render_page(WPBDP_PATH . 'templates/email/contact.tpl.php', array(
                     'listing_url' => get_permalink($listing_id),
                     'name' => $author_name,
                     'email' => $author_email,

@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2013-08-13 02:05:45+00:00\n"
-"PO-Revision-Date: 2013-08-12 21:11-0500\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2013-09-18 11:57:52+00:00\n"
+"PO-Revision-Date: 2013-09-18 06:59-0500\n"
+"Last-Translator: Jorge Torres <jorge@sinapsis.co>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -363,7 +363,7 @@ msgctxt "fees admin"
 msgid "Fee updated."
 msgstr "Comisión actualizada."
 
-#: admin/fees.php:153
+#: admin/fees.php:156
 msgctxt "fees admin"
 msgid "Fee deleted."
 msgstr "Comisión eliminada."
@@ -808,12 +808,12 @@ msgctxt "fees admin"
 msgid "* All Categories *"
 msgstr "* Todas las Categorías *"
 
-#: admin/templates/fees-addoredit.tpl.php:123
+#: admin/templates/fees-addoredit.tpl.php:129
 msgctxt "fees admin"
 msgid "Update Fee"
 msgstr "Actualizar Comisión"
 
-#: admin/templates/fees-addoredit.tpl.php:125
+#: admin/templates/fees-addoredit.tpl.php:131
 msgctxt "fees admin"
 msgid "Add Fee"
 msgstr "Agregar Comisión"
@@ -1595,12 +1595,12 @@ msgctxt "admin transactions"
 msgid "Rejected"
 msgstr "Rechazadas"
 
-#: admin/transactions.php:243 admin/wpbdp-admin.class.php:649
+#: admin/transactions.php:243 admin/wpbdp-admin.class.php:652
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "La transacción ha sido aprobada."
 
-#: admin/transactions.php:254 admin/wpbdp-admin.class.php:659
+#: admin/transactions.php:254 admin/wpbdp-admin.class.php:662
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "La transacción ha sido rechazada."
@@ -1770,11 +1770,11 @@ msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr "Pendiente de Mejora"
 
-#: admin/wpbdp-admin.class.php:417 admin/wpbdp-admin.class.php:885
+#: admin/wpbdp-admin.class.php:417 admin/wpbdp-admin.class.php:888
 msgid "Upgrade to %s"
 msgstr "Mejorar a %s"
 
-#: admin/wpbdp-admin.class.php:424 admin/wpbdp-admin.class.php:892
+#: admin/wpbdp-admin.class.php:424 admin/wpbdp-admin.class.php:895
 msgid "Downgrade to %s"
 msgstr "Degradar a %s"
 
@@ -1788,178 +1788,178 @@ msgctxt "admin infometabox"
 msgid "Mark listing as Not paid"
 msgstr "Marcar listado como No pagado"
 
-#: admin/wpbdp-admin.class.php:517
+#: admin/wpbdp-admin.class.php:520
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr "Publicar Listado"
 
-#: admin/wpbdp-admin.class.php:519 admin/wpbdp-admin.class.php:895
+#: admin/wpbdp-admin.class.php:522 admin/wpbdp-admin.class.php:898
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr "Mejorar a Destacado"
 
-#: admin/wpbdp-admin.class.php:520
+#: admin/wpbdp-admin.class.php:523
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr "Degradar a Normal"
 
-#: admin/wpbdp-admin.class.php:522
+#: admin/wpbdp-admin.class.php:525
 msgctxt "admin actions"
 msgid "Set Paid"
 msgstr "Marcar Pagado"
 
-#: admin/wpbdp-admin.class.php:523
+#: admin/wpbdp-admin.class.php:526
 msgctxt "admin actions"
 msgid "Set Not Paid"
 msgstr "Marcar No Pagado"
 
-#: admin/wpbdp-admin.class.php:525
+#: admin/wpbdp-admin.class.php:528
 msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
 
-#: admin/wpbdp-admin.class.php:574
+#: admin/wpbdp-admin.class.php:577
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "El listado ha sido publicado."
 msgstr[1] "Los listados han sido publicados."
 
-#: admin/wpbdp-admin.class.php:586
+#: admin/wpbdp-admin.class.php:589
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "El listado se ha marcado como pagado."
 msgstr[1] "Los listados se han marcado como pagados."
 
-#: admin/wpbdp-admin.class.php:598
+#: admin/wpbdp-admin.class.php:601
 msgctxt "admin"
 msgid "The listing status has been set as \"not paid\"."
 msgid_plural "The listings status has been set as \"not paid\"."
 msgstr[0] "El estado del listado se ha configurado como \"no pagado\"."
 msgstr[1] "El estado de los listados se ha configurado como \"no pagado\"."
 
-#: admin/wpbdp-admin.class.php:610
+#: admin/wpbdp-admin.class.php:613
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "El listado ha sido modificado."
 msgstr[1] "Los listados han sido modificados."
 
-#: admin/wpbdp-admin.class.php:623
+#: admin/wpbdp-admin.class.php:626
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "El listado ha sido mejorado."
 msgstr[1] "Los listados han sido mejorados."
 
-#: admin/wpbdp-admin.class.php:635
+#: admin/wpbdp-admin.class.php:638
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "El listado ha sido degradado."
 msgstr[1] "Los listados han sido degradados."
 
-#: admin/wpbdp-admin.class.php:664
+#: admin/wpbdp-admin.class.php:667
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "La comisión se asignó satisfactoriamente."
 
-#: admin/wpbdp-admin.class.php:669
+#: admin/wpbdp-admin.class.php:672
 msgctxt "admin"
 msgid "Category information was updated."
 msgstr "La información de categoría fue actualizada."
 
-#: admin/wpbdp-admin.class.php:677
+#: admin/wpbdp-admin.class.php:680
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "El listado ha sido renovado."
 msgstr[1] "Los listados fueron renovados."
 
-#: admin/wpbdp-admin.class.php:737 admin/wpbdp-admin.class.php:856
+#: admin/wpbdp-admin.class.php:740 admin/wpbdp-admin.class.php:859
 msgid "Paid"
 msgstr "Pago"
 
-#: admin/wpbdp-admin.class.php:742
+#: admin/wpbdp-admin.class.php:745
 msgid "Unpaid"
 msgstr "No pagado"
 
-#: admin/wpbdp-admin.class.php:747 admin/wpbdp-admin.class.php:877
+#: admin/wpbdp-admin.class.php:750 admin/wpbdp-admin.class.php:880
 msgid "Pending Upgrade"
 msgstr "Pendientes de Mejora"
 
-#: admin/wpbdp-admin.class.php:752
+#: admin/wpbdp-admin.class.php:755
 msgctxt "admin"
 msgid "Expired"
 msgstr "Expirados"
 
-#: admin/wpbdp-admin.class.php:767
+#: admin/wpbdp-admin.class.php:770
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Conteo de Listados"
 
-#: admin/wpbdp-admin.class.php:779
+#: admin/wpbdp-admin.class.php:782
 msgctxt "admin"
 msgid "Categories"
 msgstr "Categorías"
 
-#: admin/wpbdp-admin.class.php:780
+#: admin/wpbdp-admin.class.php:783
 msgid "Payment Status"
 msgstr "Estado de Pago"
 
-#: admin/wpbdp-admin.class.php:781
+#: admin/wpbdp-admin.class.php:784
 msgid "Featured (Sticky) Status"
 msgstr "Estado Destacado/Sticky"
 
-#: admin/wpbdp-admin.class.php:793
+#: admin/wpbdp-admin.class.php:796
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: admin/wpbdp-admin.class.php:796
+#: admin/wpbdp-admin.class.php:799
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Eliminar Listado"
 
-#: admin/wpbdp-admin.class.php:836
+#: admin/wpbdp-admin.class.php:839
 msgctxt "admin"
 msgid "(Listing expired in this category)"
 msgstr "(El listado ha expirado en esta categoría)"
 
-#: admin/wpbdp-admin.class.php:860
+#: admin/wpbdp-admin.class.php:863
 msgid "Not paid"
 msgstr "No pagado"
 
-#: admin/wpbdp-admin.class.php:865
+#: admin/wpbdp-admin.class.php:868
 msgid "Set as"
 msgstr "Configurar como"
 
-#: admin/wpbdp-admin.class.php:1001
+#: admin/wpbdp-admin.class.php:1004
 msgctxt "debug-info"
 msgid "BD Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1013
+#: admin/wpbdp-admin.class.php:1016
 msgid "Missing tables: %s"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1014
+#: admin/wpbdp-admin.class.php:1017
 msgctxt "debug-info"
 msgid "OK"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1022
+#: admin/wpbdp-admin.class.php:1025
 msgctxt "debug-info"
 msgid "BD Options"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1034
+#: admin/wpbdp-admin.class.php:1037
 msgctxt "debug-info"
 msgid "Environment"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1092
+#: admin/wpbdp-admin.class.php:1095
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -1968,7 +1968,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere campos con las siguientes "
 "asociaciones para funcionar correctamente: <b>%s</b>."
 
-#: admin/wpbdp-admin.class.php:1094
+#: admin/wpbdp-admin.class.php:1097
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1977,7 +1977,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
 "b> para funcionar correctamente."
 
-#: admin/wpbdp-admin.class.php:1098
+#: admin/wpbdp-admin.class.php:1101
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -1986,17 +1986,17 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: admin/wpbdp-admin.class.php:1102
+#: admin/wpbdp-admin.class.php:1105
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
 
-#: admin/wpbdp-admin.class.php:1105
+#: admin/wpbdp-admin.class.php:1108
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
 
-#: admin/wpbdp-admin.class.php:1117
+#: admin/wpbdp-admin.class.php:1120
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the <tt>"
@@ -2005,7 +2005,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere una página con el shortcode <tt>"
 "[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: admin/wpbdp-admin.class.php:1119
+#: admin/wpbdp-admin.class.php:1122
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -2014,12 +2014,12 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: admin/wpbdp-admin.class.php:1123
+#: admin/wpbdp-admin.class.php:1126
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
 
-#: admin/wpbdp-admin.class.php:1148
+#: admin/wpbdp-admin.class.php:1151
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -2032,7 +2032,7 @@ msgstr ""
 "configuraciones para asegurarse de que Business Directory funcione "
 "correctamente."
 
-#: api/api.php:331
+#: api/api.php:334
 msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Listado Destacado"
@@ -2350,38 +2350,38 @@ msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Listado Gratuito"
 
-#: api/payment.php:96
+#: api/payment.php:97
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "El nombre de la Comisión es requerido."
 
-#: api/payment.php:99
+#: api/payment.php:100
 msgctxt "fees-api"
 msgid "Fee amount must be a non-negative decimal number."
 msgstr "El precio de la comisión de be ser un número decimal no negativo."
 
-#: api/payment.php:102 api/payment.php:105
+#: api/payment.php:103 api/payment.php:106
 msgctxt "fees-api"
 msgid "Fee must apply to at least one category."
 msgstr "La comisión debe aplicar al menos a una categoría."
 
-#: api/payment.php:108
+#: api/payment.php:109
 msgctxt "fees-api"
 msgid "Fee allowed images must be a non-negative integer."
 msgstr "El número de imágenes permitidas por la comisión debe ser no negativo."
 
-#: api/payment.php:111
+#: api/payment.php:112
 msgctxt "fees-api"
 msgid "Fee listing run must be a non-negative integer."
 msgstr "La Comisión de Listado debe ser un entero no negativo."
 
-#: api/payment.php:116
+#: api/payment.php:117
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 "La duración del listado debe ser un número menor a 10 años (3650 días)."
 
-#: api/payment.php:262
+#: api/payment.php:272
 msgctxt "payments-api"
 msgid ""
 "You are offering featured listings but have payments turned off. Go to <a "
@@ -2394,7 +2394,7 @@ msgstr ""
 "de pago. Hasta tanto la opción de <i>Mejorar a Destacado</i> estará "
 "deshabilitada."
 
-#: api/payment.php:280
+#: api/payment.php:290
 msgctxt "payments-api"
 msgid ""
 "The <b>%s</b> gateway is active but not properly configured. The gateway "
@@ -2406,7 +2406,7 @@ msgstr ""
 "siguientes problemas: <b>%s</b>.<br/> Revise sus <a href=\"%s"
 "\">configuraciones de pago</a>."
 
-#: api/payment.php:290
+#: api/payment.php:300
 msgctxt "admin"
 msgid ""
 "You have payments turned on but no gateway is active and properly "
@@ -2419,17 +2419,17 @@ msgstr ""
 "para cambiar las configuraciones de pago. Hasta tanto, el Directorio operará "
 "en <i>Modo Gratuito</i>."
 
-#: api/payment.php:307
+#: api/payment.php:317
 msgctxt "payments-api"
 msgid "Checkout"
 msgstr "Pago"
 
-#: api/payment.php:308
+#: api/payment.php:318
 msgctxt "payments-api"
 msgid "Pay %1$s through %2$s"
 msgstr "Pagar %1$s a través de %2$s"
 
-#: api/payment.php:315
+#: api/payment.php:325
 msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr "Su transacción ha sido aprobada."
@@ -3354,6 +3354,9 @@ msgid ""
 "incompatible with the current version of Business Directory. Please update "
 "the Regions module."
 msgstr ""
+"<b>Business Directory Plugin - Regions Module</b> fue deshabilitado porque "
+"es incompatible con la versión actual de Business Directory. Por favor "
+"actualice el módulode Regions."
 
 #: templates/businessdirectory-listings.tpl.php:20 templates/search.tpl.php:41
 msgctxt "templates"
@@ -3374,6 +3377,31 @@ msgstr "Siguiente &raquo;"
 msgctxt "templates"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
+
+#: templates/email/contact.tpl.php:2
+msgctxt "contact email"
+msgid "You have received a reply from your listing at %s."
+msgstr "Ha recibido una comunicación para su listado en %s."
+
+#: templates/email/contact.tpl.php:6
+msgctxt "contact email"
+msgid "Name:"
+msgstr "Nombre:"
+
+#: templates/email/contact.tpl.php:8
+msgctxt "contact email"
+msgid "Email:"
+msgstr "Correo Electrónico:"
+
+#: templates/email/contact.tpl.php:10
+msgctxt "contact email"
+msgid "Message:"
+msgstr "Mensaje:"
+
+#: templates/email/contact.tpl.php:16
+msgctxt "contact email"
+msgid "Time:"
+msgstr "Hora:"
 
 #: templates/email/listing-added.tpl.php:2
 msgctxt "emails"
@@ -3447,21 +3475,6 @@ msgstr "Mensaje"
 msgctxt "templates"
 msgid "Send"
 msgstr "Enviar"
-
-#: templates/listing-form-extra.tpl.php:4 views/submit-listing.php:129
-msgctxt "templates"
-msgid "Submit A Listing"
-msgstr "Enviar Un Listado"
-
-#: templates/listing-form-extra.tpl.php:4 views/submit-listing.php:129
-msgctxt "templates"
-msgid "Edit Your Listing"
-msgstr "Editar Su Listado"
-
-#: templates/listing-form-extra.tpl.php:17
-msgctxt "templates"
-msgid "Finish"
-msgstr "Finalizar"
 
 #: templates/listing-upgradetosticky.tpl.php:1 views/views.php:462
 msgctxt "templates"
@@ -3589,7 +3602,7 @@ msgid "We can not process your payment at this moment. Please try again later."
 msgstr ""
 "No podemos procesar su pago en este momento. Por favor intente más tarde."
 
-#: templates/renew-listing.tpl.php:7 views/renew-listing.php:74
+#: templates/renew-listing.tpl.php:7 views/renew-listing.php:85
 msgctxt "templates"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
@@ -3675,7 +3688,7 @@ msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr "Los cambios a su listado fueron guardados."
 
-#: templates/submit-listing/done.tpl.php:9 views/submit-listing.php:94
+#: templates/submit-listing/done.tpl.php:9 views/submit-listing.php:97
 #: views/views.php:426 views/views.php:435 views/views.php:457
 #: views/views.php:467
 msgctxt "templates"
@@ -3696,6 +3709,11 @@ msgstr "Ir a su listado"
 msgctxt "templates"
 msgid "Return to directory."
 msgstr "Regresar al Directorio."
+
+#: templates/submit-listing/extra-sections.tpl.php:4
+msgctxt "templates"
+msgid "Continue with listing submit"
+msgstr "Continuar con el envío del listado"
 
 #: templates/submit-listing/fee-selection.tpl.php:2
 msgctxt "templates"
@@ -3769,17 +3787,22 @@ msgctxt "templates"
 msgid "* Indicates required fields."
 msgstr "* Indica campos obligatorios."
 
-#: utils.php:329
+#: utils.php:341
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "El tamaño de archivo (%s) excede el tamaño máximo permitido de %s"
 
-#: utils.php:356
+#: utils.php:350
+msgctxt "utils"
+msgid "File type \"%s\" is not allowed"
+msgstr "El tipo de archivo \"%s\" no está permitido"
+
+#: utils.php:375
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "El archivo subido no es una imagen"
 
-#: utils.php:364
+#: utils.php:383
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
@@ -3809,17 +3832,17 @@ msgstr ""
 "Ya hay en el sistema una transacción pendiente (#%d) para esta renovación. "
 "Por favor contacte al administrador del sitio."
 
-#: views/renew-listing.php:59
+#: views/renew-listing.php:70
 msgctxt "renewal"
 msgid "Your renewal was successfully cancelled."
 msgstr "Su renovación fue cancelada satisfactoriamente."
 
-#: views/renew-listing.php:75
+#: views/renew-listing.php:86
 msgctxt "templates"
 msgid "Pay %1$s renewal fee via %2$s."
 msgstr "Pagar costo de renovación de %1$s vía %2$s."
 
-#: views/submit-listing.php:74
+#: views/submit-listing.php:77
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -3834,76 +3857,86 @@ msgstr ""
 "no pueden enviar listados en este momento. No pueden agregarse nuevos "
 "listados hasta tanto haya categorías en el Directorio de Negocios."
 
-#: views/submit-listing.php:76
+#: views/submit-listing.php:79
 msgctxt "templates"
 msgid "Your listing cannot be added at this time. Please try again later."
 msgstr ""
 "Su listado no puede agregarse en este momento. Por favor intente más tarde."
 
-#: views/submit-listing.php:89
+#: views/submit-listing.php:92
 msgctxt "templates"
 msgid "You are not authorized to edit this listing."
 msgstr "No está autorizado para editar este listado."
 
-#: views/submit-listing.php:93
+#: views/submit-listing.php:96
 msgctxt "templates"
 msgid "You can not edit your listing until its payment has been cleared."
 msgstr ""
 "No puede editar su listado hasta tanto el pago previo haya sido verificado."
 
-#: views/submit-listing.php:136
+#: views/submit-listing.php:132
+msgctxt "templates"
+msgid "Edit Your Listing"
+msgstr "Editar Su Listado"
+
+#: views/submit-listing.php:132
+msgctxt "templates"
+msgid "Submit A Listing"
+msgstr "Enviar Un Listado"
+
+#: views/submit-listing.php:139
 msgctxt "templates"
 msgid ""
 "You are logged in as an administrator. Any payment steps will be skipped."
 msgstr ""
 "Ha ingresado como administrador. Todos los pasos de pago serán saltados."
 
-#: views/submit-listing.php:236
+#: views/submit-listing.php:239
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr "Por favor elija una opción de pago para la categoría \"%s\"."
 
-#: views/submit-listing.php:300
+#: views/submit-listing.php:303
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: views/submit-listing.php:312
+#: views/submit-listing.php:315
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."
 
-#: views/submit-listing.php:330
+#: views/submit-listing.php:333
 msgctxt "templates"
 msgid "Read our Terms and Conditions"
 msgstr "Lea nuestros Términos y Condiciones"
 
-#: views/submit-listing.php:335
+#: views/submit-listing.php:338
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Términos y Condiciones:"
 
-#: views/submit-listing.php:346
+#: views/submit-listing.php:349
 msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "Acepto los Términos y Condiciones"
 
-#: views/submit-listing.php:407
+#: views/submit-listing.php:410
 msgctxt "templates"
 msgid "Image deleted."
 msgstr "Imagen eliminada."
 
-#: views/submit-listing.php:454
+#: views/submit-listing.php:467
 msgctxt "templates"
 msgid "5 - Checkout"
 msgstr "5 - Pago"
 
-#: views/submit-listing.php:456
+#: views/submit-listing.php:469
 msgctxt "templates"
 msgid "Pay %1$s listing fee via %2$s"
 msgstr "Pagar costo de publicación de %1$s a través de %2$s"
 
-#: views/submit-listing.php:480
+#: views/submit-listing.php:494
 msgctxt "templates"
 msgid "An error occurred while saving your listing. Please try again later."
 msgstr ""
@@ -4197,10 +4230,14 @@ msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
 
-#: wpbusdirman.php:926
+#: wpbusdirman.php:929
 msgctxt "comment-form"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."
+
+#~ msgctxt "templates"
+#~ msgid "Finish"
+#~ msgstr "Finalizar"
 
 #~ msgctxt "admin csv-export"
 #~ msgid "Test Export"
