@@ -245,12 +245,15 @@ function wpbdp_listing_sort_options() {
     $html .= _x('Sort By:', 'templates sort', 'WPBDM') . ' ';
 
     foreach ($sort_options as $id => $option) {
-        $html .= sprintf('<span class="%s %s"><a href="%s">%s</a> %s</span>',
+        $default_order = isset( $option[2] ) && !empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
+
+        $html .= sprintf('<span class="%s %s"><a href="%s" title="%s">%s</a> %s</span>',
                         $id,
                         ($current_sort && $current_sort->option == $id) ? 'current': '',
-                        ($current_sort && $current_sort->option == $id) ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', $id),
+                        ($current_sort && $current_sort->option == $id) ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' )  . $id ),
+                        isset( $option[1] ) && !empty( $option[1] ) ? esc_attr( $option[1] ) : esc_attr( $option[0] ),
                         $option[0],
-                        ($current_sort && $current_sort->option == $id) ? ($current_sort->order == 'ASC' ? '↑' : '↓') : '↑'
+                        ($current_sort && $current_sort->option == $id) ? ($current_sort->order == 'ASC' ? '↑' : '↓') : ( $default_order == 'DESC' ? '↓' : '↑' )
                         );
         $html .= ' | ';
     }
@@ -258,7 +261,7 @@ function wpbdp_listing_sort_options() {
     $html .= '<br />';
 
     if ($current_sort)
-        $html .= sprintf('(<a href="%s" class="reset">Reset</a>)', remove_query_arg('wpbdp_sort'));
+        $html .= sprintf( '(<a href="%s" class="reset">%s</a>)', remove_query_arg( 'wpbdp_sort' ), _x( 'Reset', 'sort', 'WPBDM' ) );
     $html .= '</div>';
 
     return $html;
