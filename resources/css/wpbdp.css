@@ -189,6 +189,7 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .extra-images ul li img {
+    display: inline;
     vertical-align: top;
     margin: 0 auto;
     max-width: 150px;
