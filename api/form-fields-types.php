@@ -392,18 +392,26 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
         $settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'WPBDM' );
         $settings['allow_html'][] = '<input type="checkbox" value="1" name="field[allow_html]" ' . ( $field && $field->data( 'allow_html' ) ? ' checked="checked"' : '' ) . ' />';
 
+        if ( ( $field && $field->get_association() == 'content' ) || ( $association == 'content' ) ) {
+            $settings['allow_filters'][] = _x( 'Allow execution of WordPress shortcodes and filters?', 'form-fields admin', 'WPBDM' );
+            $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' />';
+        }
+
         return self::render_admin_settings( $settings );
     }
 
     public function process_field_settings( &$field ) {
         $field->set_data( 'allow_html', isset( $_POST['field']['allow_html'] ) ? (bool) intval( $_POST['field']['allow_html'] ) : false );
+        $field->set_data( 'allow_filters', isset( $_POST['field']['allow_filters'] ) ? (bool) intval( $_POST['field']['allow_filters'] ) : false );
     }
 
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        if ( $field->data( 'allow_html' ) ) {       
-            $value = wp_kses_post( $value );
+        if ( $field->get_association() == 'content' && $field->data( 'allow_filters' ) ) {
+            $value = apply_filters( 'the_content', $value );
+        } elseif ( $field->data( 'allow_html' ) ) {
+            $value = nl2br( wp_kses_post( $value ) );
         } else {
             $value = nl2br( wp_kses( $value, array() ) );
         }
