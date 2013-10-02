@@ -913,12 +913,16 @@ function wpbdp_save_listing( $data, &$result=null ) {
         $title = trim( strip_tags( $data->fields[ $title_field->get_id() ] ) );
     }
 
-    $listing_id = wp_insert_post( array( 
+    $post_data = array(
         'post_title' => $title,
         'post_status' => $data->listing_id ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
-        'post_type' => WPBDP_POST_TYPE,
-        'ID' => $data->listing_id ? intval( $data->listing_id ) : null
-    ) );
+        'post_type' => WPBDP_POST_TYPE        
+    );
+
+    if ( $data->listing_id )
+        $post_data['ID'] = intval( $data->listing_id );
+
+    $listing_id = $data->listing_id ? wp_update_post( $post_data ) : wp_insert_post( $post_data );
 
     // create author user if needed
     if ( !$data->listing_id ) {
