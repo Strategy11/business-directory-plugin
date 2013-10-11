@@ -299,6 +299,10 @@ class WPBDP_PaymentsAPI {
         if (!$gateway_available) {
             $errors[] = sprintf(_x('You have payments turned on but no gateway is active and properly configured. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
                                 admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));
+        } else {
+            if ( count( $this->gateways ) >= 2 && $this->has_gateway( 'payfast' ) ) {
+                $errors[] = __( 'BD detected PayFast and another gateway were enabled. This setup is not recommended due to PayFast supporting only ZAR and the other gateways not supporting this currency.', 'admin', 'WPBDM' );
+            }
         }
 
         return $errors;
