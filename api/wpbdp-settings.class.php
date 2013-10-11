@@ -483,8 +483,8 @@ class WPBDP_Settings {
         ob_end_clean();
 
         $html .= $custom_content;
-        
-        echo $html;
+
+        echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
 
     public function _setting_text($args) {
@@ -501,7 +501,7 @@ class WPBDP_Settings {
 
         $html .= '<span class="description">' . $setting->help_text . '</span>';
 
-        echo $html;
+        echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
 
     public function _setting_boolean($args) {
@@ -515,7 +515,7 @@ class WPBDP_Settings {
         $html .= '&nbsp;<span class="description">' . $setting->help_text . '</span>';
         $html .= '</label>';
 
-        echo $html;
+        echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
 
     public function _setting_choice($args) {
@@ -553,7 +553,7 @@ class WPBDP_Settings {
 
         $html .= '<span class="description">' . $setting->help_text . '</span>';
 
-        echo $html;
+        echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
 
     public function register_in_admin() {
