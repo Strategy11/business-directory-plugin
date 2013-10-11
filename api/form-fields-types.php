@@ -876,7 +876,7 @@ class CategoryFormInputWalker extends Walker {
         $this->field = $field;
     }
 
-    public function start_el( &$output, $category, $depth, $args, $id = 0 ) {
+    public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
         switch ( $this->input_type ) {
             case 'checkbox':
                 $output .= '<div class="wpbdmcheckboxclass">';
