@@ -710,6 +710,18 @@ class WPBDP_Plugin {
         $action = $this->controller->get_current_action();
 
         switch ($action) {
+            case 'submitlisting':
+                return _x( 'Submit A Listing', 'title', 'WPBDM' ) . ' ' . $sep . ' ';
+                break;
+
+            case 'search':
+                return _x( 'Find a Listing', 'title', 'WPBDM' ) . ' ' . $sep . ' ';
+                break;
+
+            case 'viewlistings':
+                return _x( 'View All Listings', 'title', 'WPBDM' ) . ' ' . $sep . ' ';
+                break;                
+
             case 'browsetag':
                 $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
 
