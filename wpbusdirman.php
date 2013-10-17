@@ -711,15 +711,38 @@ class WPBDP_Plugin {
 
         switch ($action) {
             case 'submitlisting':
-                return _x( 'Submit A Listing', 'title', 'WPBDM' ) . ' ' . $sep . ' ';
+                $title = _x( 'Submit A Listing', 'title', 'WPBDM' );
+
+                if ( $this->_do_wpseo ) {
+                    $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
+                    return $title;
+                }                
+
+                return  $title . ' ' . $sep . ' ';
+
                 break;
 
             case 'search':
-                return _x( 'Find a Listing', 'title', 'WPBDM' ) . ' ' . $sep . ' ';
+                $title = _x( 'Find a Listing', 'title', 'WPBDM' );
+
+                if ( $this->_do_wpseo ) {
+                    $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
+                    return $title;
+                }
+
+                return $title . ' ' . $sep . ' ';
+
                 break;
 
             case 'viewlistings':
-                return _x( 'View All Listings', 'title', 'WPBDM' ) . ' ' . $sep . ' ';
+                $title = _x( 'View All Listings', 'title', 'WPBDM' );
+
+                if ( $this->_do_wpseo ) {
+                    $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
+                    return $title;
+                }
+
+                return $title . ' ' . $sep . ' ';
                 break;                
 
             case 'browsetag':
