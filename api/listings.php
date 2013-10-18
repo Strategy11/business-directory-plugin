@@ -549,6 +549,8 @@ class WPBDP_ListingsAPI {
         if ($row != null) {
             $fee = unserialize($row->fee);
             $fee['expires_on'] = $row->expires_on;
+            $fee['renewal_id'] = $row->id;
+            $fee['category_id'] = $row->category_id;
             return (object) $fee;
         }
 
@@ -770,6 +772,56 @@ class WPBDP_ListingsAPI {
         return $wpdb->get_col($query);
     }
 
+    // TODO: use hashes to verify users.
+    public function get_renewal_url( $renewal_id ) {
+        return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => $renewal_id ), wpbdp_get_page_link( 'main' ) );
+    }
+
+    public function send_renewal_email( $renewal_id, $email_message_type = 'auto' ) {
+        global $wpdb;
+
+        $renewal_id = intval( $renewal_id );
+        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $renewal_id ) );
+
+        if ( !$fee_info || !$fee_info->expires_on )
+            return false;
+
+        
+        $message_option = '';
+
+        if ( $email_message_type == 'auto' ) {
+            $expiration = strtotime( $fee_info->expires_on );
+            $current_time = time();
+
+            if ( $expiration > $current_time ) {
+                $message_option = 'renewal-pending-message';
+            } else {
+                $message_option = 'listing-renewal-message';
+            }
+        } elseif ( $email_message_type ) {
+            $message_option = $email_message_type;
+        } else {
+            $message_option = 'listing-renewal-message';
+        }
+
+        $renewal_url = $this->get_renewal_url( $fee_info->id );
+        $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                                       '[listing]' => esc_attr( get_the_title( $fee_info->listing_id ) ),
+                                       '[category]' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX )->name,
+                                       '[expiration]' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $fee_info->expires_on ) ),
+                                       '[link]' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
+                                     );
+
+        $email = new WPBDP_Email();
+        $email->to[] = wpbusdirman_get_the_business_email( $fee_info->listing_id );        
+        $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( get_the_title( $fee_info->listing_id ), array() ) );
+        $email->body = str_replace( array_keys( $message_replacements ),
+                                    $message_replacements,
+                                    nl2br( wpbdp_get_option( $message_option ) ) );
+        $email->send();
+        return true;
+    }
+
 
     /**
      * Notifies listings expiring soon. Despite its name this function also changes listings according to expiration rules (removing categories, unpublishing, etc.).
@@ -825,13 +877,12 @@ class WPBDP_ListingsAPI {
                 continue;
             }*/
 
+            $renewal_url = $this->get_renewal_url( $r->id );
             $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
                                            '[listing]' => esc_attr( $listing->post_title ),
                                            '[category]' => get_term( $r->category_id, WPBDP_CATEGORY_TAX )->name,
                                            '[expiration]' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $r->expires_on ) ),
-                                           '[link]' => sprintf( '<a href="%1$s">%1$s</a>',
-                                                                add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => $r->id ), wpbdp_get_page_link( 'main' ) )
-                                                              )
+                                           '[link]' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
                                          );
 
             if ( $threshold == 0 ) {
