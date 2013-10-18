@@ -680,11 +680,19 @@ class WPBDP_Admin {
                 $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'WPBDM' );
                 break;
 
+            case 'send-renewal-email':
+                $renewal_id = intval( $_GET['renewal_id'] );
+
+                if ( $listings_api->send_renewal_email( $renewal_id ) )
+                    $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
+                
+                break;
+
             default:
                 break;
         }
 
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u'), $_SERVER['REQUEST_URI'] );
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id'), $_SERVER['REQUEST_URI'] );
     }
 
     public function _dropdown_users($output) {

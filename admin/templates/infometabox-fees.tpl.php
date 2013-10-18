@@ -19,7 +19,8 @@
 		<?php $expired = $fee && $fee->expires_on && ( strtotime( $fee->expires_on ) < time() ) ? true : false; ?>
 
 		<dt class="category-name">
-			<?php if ( $expired ): ?><s><?php endif; ?><?php echo $term->name; ?><?php if ( $expired ): ?></s><?php endif; ?>
+			<?php if ( $expired ): ?><s><?php endif; ?><?php echo $term->name; ?><?php if ( $expired ): ?></s><?php endif; ?> 
+			<a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'removecategory', 'category_id' => $term->term_id ) ); ?>" class="removecategory-link"><?php _ex( 'Remove Category', 'admin infometabox', 'WPBDM' ); ?></a>
 		</dt>
 		<dd>
 			<?php if ( $fee ) : ?>
@@ -48,10 +49,13 @@
 				<?php _ex('No fee assigned.', 'admin infometabox', 'WPBDM'); ?>
 			<?php endif; ?>
 				<?php if (current_user_can('administrator')): ?>
-				<a href="#assignfee" class="assignfee-link">
-					<?php $fee ? ( $expired ? _ex( 'Renew...', 'admin infometabox', 'WPBDM' ) : _ex('Change fee...', 'admin infometabox', 'WPBDM') ) : _ex('Assign one', 'admin infometabox', 'WPBDM'); ?>
-				</a>
-				<?php if ( $fee ): ?> | <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'removecategory', 'category_id' => $term->term_id ) ); ?>" class="removecategory-link"><?php _ex( 'Remove Category', 'admin infometabox', 'WPBDM' ); ?></a><?php endif; ?>
+				<?php if ( $fee ): ?>
+				- <a href="#" onclick="window.prompt('<?php _ex( 'Renewal URL (copy & paste)', 'admin infometabox', 'WPBDM' ); ?>', '<?php echo wpbdp_listings_api()->get_renewal_url( $fee->renewal_id ); ?>'); return false;"><?php _ex( 'Show renewal link', 'admin infometabox', 'WPBDM' ); ?></a><br />
+				- <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'send-renewal-email',
+															'renewal_id' => $fee->renewal_id ) ); ?>"><?php _ex( 'Send renewal e-mail to user', 'admin infometabox', 'WPBDM' ); ?></a><br /><?php endif; ?>
+				- <a href="#assignfee" class="assignfee-link">
+					<?php $fee ? ( $expired ? _ex( 'Renew manually...', 'admin infometabox', 'WPBDM' ) : _ex('Change fee...', 'admin infometabox', 'WPBDM') ) : _ex('Assign one', 'admin infometabox', 'WPBDM'); ?>
+				</a>				
 
 				<div class="assignfee">
 					<span class="close-handle"><a href="#" title="<?php _ex('close', 'admin infometabox', 'WPBDM'); ?>">[x]</a></span>
