@@ -75,7 +75,8 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     $html = '';
 
     if ( !$terms && $depth == 0 ) {
-        $html .= '<p>' . _x( 'No listing categories found.', 'templates', 'WPBDM' ) . '</p>';
+        if ( $args['no_items_msg'] )
+            $html .= '<p>' . $args['no_items_msg'] . '</p>';
         return $html;
     }
 
@@ -105,7 +106,8 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
 
         if ( !$args['parent_only'] ) {
             $args['parent'] = $term->term_id;
-            $html .= _wpbdp_list_categories_walk( $term->term_id, $depth + 1, $args );
+            if ( $subcats = _wpbdp_list_categories_walk( $term->term_id, $depth + 1, $args ) )
+                $html .= $subcats;
         }
 
         $html .= '</li>';
@@ -131,6 +133,7 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
  *      'hide_empty' (boolean) default is False - Whether to hide empty categories or not.
  *      'parent_only' (boolean) default is False - Whether to show only direct childs of 'parent' or make a recursive list.
  *      'echo' (boolean) default is False - If True, the list will be printed in addition to returned by this function.
+ *      'no_items_msg' (string) default is "No listing categories found." - Message to display when no categories are found.
  *
  * @param string|array $args array of arguments to be used while creating the list.
  * @return string HTML output.
@@ -146,13 +149,17 @@ function wpbdp_list_categories( $args=array() ) {
         'show_count' => wpbdp_get_option('show-category-post-count'),
         'hide_empty' => false,
         'parent_only' => false,
-        'parent' => 0
+        'parent' => 0,
+        'no_items_msg' => _x( 'No listing categories found.', 'templates', 'WPBDM' )
     ) );
 
     $html  =  '';
-    $html .= '<ul class="wpbdp-categories ' . apply_filters( 'wpbdp_categories_list_css', '' )  . '">';
-    $html .= _wpbdp_list_categories_walk( 0, 0, $args );
-    $html .= '</ul>';
+
+    if ( $categories = _wpbdp_list_categories_walk( 0, 0, $args ) ) {
+        $html .= '<ul class="wpbdp-categories ' . apply_filters( 'wpbdp_categories_list_css', '' )  . '">';
+        $html .= $categories;
+        $html .= '</ul>';
+    }
 
     $html = apply_filters( 'wpbdp_categories_list', $html );
 
