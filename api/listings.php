@@ -373,7 +373,7 @@ class WPBDP_ListingsAPI {
             } else {
                 // assign a fee
                 $choices = $fees_api->get_fees_for_category($category->term_id);
-                $this->assign_fee($post_id, $category->term_id, $choices[0], $false);
+                $this->assign_fee($post_id, $category->term_id, $choices[0], false);
             }
         }
 
