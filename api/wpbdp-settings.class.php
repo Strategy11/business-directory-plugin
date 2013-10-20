@@ -11,10 +11,10 @@ class WPBDP_Settings {
         $this->groups = array();
         $this->settings = array();
 
-        $this->register_settings();
+        add_action( 'plugins_loaded', array( &$this, 'register_settings' ), 20 );
     }
 
-    private function register_settings() {
+    public function register_settings() {
         /* General settings */
         $g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
 

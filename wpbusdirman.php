@@ -266,12 +266,14 @@ class WPBDP_Plugin {
         
         $this->controller = new WPBDP_DirectoryController();
 
+        add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
         add_action('init', array($this, 'install_or_update_plugin'), 1);
         add_action('init', array($this, '_register_post_type'), 0);
 
         add_action('init', array($this, '_plugin_initialization'));
         add_action('init', array($this, '_session_start'));
         add_action('init', array($this, '_register_image_sizes'));
+        add_action( 'init', array( &$this, 'handle_recaptcha' ) );
 
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
 
@@ -301,15 +303,6 @@ class WPBDP_Plugin {
         add_action('wp_footer', array($this, '_credits_footer'));
 
         add_action('widgets_init', array($this, '_register_widgets'));
-
-        // Comments reCAPTCHA.
-        if ( wpbdp_get_option( 'recaptcha-for-comments' ) ) {
-            add_filter( 'comment_form_field_comment', array( &$this, 'recaptcha_in_comments' ) );
-            add_action( 'preprocess_comment', array( &$this, 'check_comment_recaptcha' ), 0 );
-                
-                // add_action('wp_head', array(&$this, 'saved_comment'), 0);
-            add_action( 'comment_post_redirect', array( &$this, 'comment_relative_redirect' ), 0, 2 );
-        }
 
         /* Shortcodes */
         add_shortcode('WPBUSDIRMANADDLISTING', array($this->controller, 'submit_listing'));
@@ -362,10 +355,12 @@ class WPBDP_Plugin {
     public function install_or_update_plugin() {
         $installer = new WPBDP_Installer();
         $installer->install();
-        
+    }
+
+    public function load_i18n() {
         $plugin_dir = basename( dirname( __FILE__ ) );
         $languages_dir = trailingslashit( $plugin_dir . '/languages' );
-        load_plugin_textdomain( 'WPBDM', false, $languages_dir );
+        load_plugin_textdomain( 'WPBDM', false, $languages_dir );        
     }
 
     function _session_start() {
@@ -422,6 +417,17 @@ class WPBDP_Plugin {
         // thumbnail size
         add_image_size( 'wpbdp-thumb', $thumbnail_width, 0, false );
         add_image_size( 'wpbdp-large', $max_width, $max_height, false );
+    }
+
+    public function handle_recaptcha() {
+        // Comments reCAPTCHA.
+        if ( wpbdp_get_option( 'recaptcha-for-comments' ) ) {
+            add_filter( 'comment_form_field_comment', array( &$this, 'recaptcha_in_comments' ) );
+            add_action( 'preprocess_comment', array( &$this, 'check_comment_recaptcha' ), 0 );
+                
+                // add_action('wp_head', array(&$this, 'saved_comment'), 0);
+            add_action( 'comment_post_redirect', array( &$this, 'comment_relative_redirect' ), 0, 2 );
+        }        
     }
 
     public function debug_on() {

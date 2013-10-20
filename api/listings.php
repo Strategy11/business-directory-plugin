@@ -9,6 +9,10 @@ class WPBDP_ListingUpgrades {
     private static $instance = null;
 
     private function __construct() {
+        add_action( 'init', array( &$this, 'register_default_levels' ) );
+    }
+
+    public function register_default_levels() {
         // register default levels
         $this->register('normal', null, array(
             'name' => _x('Normal Listing', 'listings-api', 'WPBDM'),
