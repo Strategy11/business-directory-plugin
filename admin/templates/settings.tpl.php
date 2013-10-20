@@ -17,7 +17,7 @@
 <?php endforeach; ?>
 	<a class="nav-tab <?php echo wpbdp_getv($_REQUEST, 'groupid') == 'resetdefaults' ? 'nav-tab-active' : ''; ?>"
         href="<?php echo add_query_arg('groupid', 'resetdefaults', remove_query_arg('settings-updated')); ?>">
-        <?php _e('Reset Defaults'); ?>
+        <?php _e('Reset Defaults', 'WPBDM'); ?>
    	</a>
 </h3>
 
@@ -26,7 +26,7 @@
 <p><?php _e('Use this option if you want to go back to the factory-settings. Please notice that all of your customizations will be lost.', 'WPBDM'); ?></p>
 <form action="" method="POST">
 	<input type="hidden" name="resetdefaults" value="1" />
-	<?php echo submit_button(__('Reset Defaults')); ?>
+	<?php echo submit_button(__('Reset Defaults', 'WPBDM')); ?>
 </form>
 
 <?php else: ?>
