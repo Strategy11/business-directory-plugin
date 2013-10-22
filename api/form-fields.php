@@ -196,7 +196,7 @@ class WPBDP_FormFieldType {
     public function cleanup( &$field ) {
         if ( $field->get_association() == 'meta' ) {
             global $wpdb;
-            $wpdb->query( $wpdb->prepare( "DELETE * FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[fields][' . $field->get_id() . ']' ) );
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[fields][' . $field->get_id() . ']' ) );
         }
 
 
