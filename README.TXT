@@ -2,10 +2,10 @@
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory, city portal, city portal plugin, city guide plugin, city guide
-Requires at least: 3.0
-Tested up to: 3.5.2
-Last Updated: 2013-Jul-5
-Stable tag: tags/3.1.1
+Requires at least: 3.4
+Tested up to: 3.7
+Last Updated: 2013-Oct-28
+Stable tag: tags/3.2
 License: GPLv2 or later
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
@@ -33,6 +33,7 @@ Business Directory Plugin allows you to build local directories, business provid
 * Assign features to paid or sticky listing plans to give users incentive to upgrade (Featured levels module) (NEW!)
 * Allow users to upload PDFs (File Upload Module) (NEW!)
 * Display Category Icons/Allow Parent-Child Category Navigation (Enhanced Category Module) (NEW!)
+* Manage attachments on listings (supports PDF, Text files, images)
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -42,13 +43,13 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
+NEW! [File Upload Module](http://businessdirectoryplugin.com/premium-modules/file-upload-module?ref=wp)
+
 NEW! [Featured Levels Module](http://businessdirectoryplugin.com/premium-modules/featured-levels-module?ref=wp)
 
 NEW! [ZIP Code Search Module](http://businessdirectoryplugin.com/premium-modules/zip-search-module?ref=wp)
 
-NEW! [File Upload Module](http://businessdirectoryplugin.com/premium-modules/file-upload-module?ref=wp)
-
-NEW! [Regions Module](http://businessdirectoryplugin.com/premium-modules/regions-module?ref=wp)
+[Regions Module](http://businessdirectoryplugin.com/premium-modules/regions-module?ref=wp)
 
 [Ratings Module](http://businessdirectoryplugin.com/premium-modules/ratings-module?ref=wp)
 
@@ -98,6 +99,44 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.2 =
+* Add option to track BD setups for testing purposes. 
+* Correctly import URLs through CSV files. 
+* Make the entire top button bar hidden if no button is displayed.  
+* Apply a more efficient query to count expired listings in admin as not to block the site.
+* Display expired categories just one time inside the category column admin-side. 
+* Make listing sort options uniform. 
+* Added random sort option for listings. 
+* Added option to display listing thumbnails in the Featured Listings widget. 
+* Change default to not trash expired listings. 
+* Added support for Terms & Conditions to be required at submit time. 
+* Added CSV export tool that exports listing info including featured status & expiration info. 
+* Added support for featured status & listing expiration date columns for CSV imports. 
+* Fully respect listing image display settings. 
+* Update bundled reCAPTCHA library to latest version. 
+* Do not import reCAPTCHA library when reCAPTCHA functions are already available. 
+* Add reCAPTCHA support to the listing comment form. 
+* Add official spanish (es_ES) translation. 
+* Fixed typos in strings
+* Allow admins to decide how listing owners are to be contacted. 
+* Added ability for reminder email on renewals past due. 
+* Added ability to allow HTML input in TextArea fields.
+* Make category field respect "hide empty categories" in search widget. 
+* Workaround for Simple Facebook Connect conflicts. 
+* Added notice on Registration tab when Registration is off on the site and listing submit requires login. 
+* Added special CSS class to subcategories in main category list. 
+* Fixed for category counts being incorrect in some special scenarios. 
+* Fixed payment gateway availability check in Directory - Main Menu page. 
+* Avoid recursion errors during wpbdp_get_page_link calls. 
+* Allow HTML in field label & description. 
+* Fixed expiration notification code that prevented emails from being sent in some cases. 
+* Workaround a WordPress bug that causes terms with ampersands to be missed in searches. 
+* Add option that allows execution of WP filters/shortcodes inside content fields. 
+* Fixed a bug where the author was being reverted to admin when editing a listing. 
+* Updated category walker code to match WP's 3.6.1. 
+* Improved SEO capabilities and Yoast SEO integration. 
+* Fixed an incorrect SQL query run when deleting form fields. 
 
 = Version 3.1.1 =
 * Fixed add listing shortcode issue
