@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 3.2
+Version: 3.3dev
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -28,15 +28,15 @@ License: GPLv2 or any later version
     reCAPTCHA used with permission of Mike Crawford & Ben Maurer, http://recaptcha.net
 */
 
-define( 'WPBDP_VERSION', '3.2' );
+define( 'WPBDP_VERSION', '3.3dev' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 
 define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
-define( 'WPBDP_CATEGORY_TAX', 'wpbdm-category' );
-define( 'WPBDP_TAGS_TAX', 'wpbdm-tags' );
+define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
+define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
 require_once( WPBDP_PATH . 'api/api.php' );
 require_once( WPBDP_PATH . 'deprecated/deprecated.php' );
@@ -404,8 +404,37 @@ class WPBDP_Plugin {
 
         register_post_type(WPBDP_POST_TYPE, $args);
 
-        register_taxonomy(WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE, array( 'hierarchical' => true, 'label' => 'Directory Categories', 'singular_name' => 'Directory Category', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count','query_var' => true, 'rewrite' => array('slug' => $category_slug) ) );
+        register_taxonomy( WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE,
+                           array( 'hierarchical' => true,
+                                  'label' => __( 'Directory Categories', 'WPBDM'),
+                                  'singular_name' => 'Directory Category',
+                                  'show_in_nav_menus' => true,
+                                  'query_var' => true,
+                                  'rewrite' => array('slug' => $category_slug) ) );
         register_taxonomy(WPBDP_TAGS_TAX, WPBDP_POST_TYPE, array( 'hierarchical' => false, 'label' => 'Directory Tags', 'singular_name' => 'Directory Tag', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count', 'query_var' => true, 'rewrite' => array('slug' => $tags_slug) ) );
+/*
+register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
+            'label' => _x('Directory Regions', 'regions-module', 'wpbdp-regions'),
+            'labels' => array(
+                'name' => _x('Directory Regions', 'regions-module', 'wpbdp-regions'),
+                'singular_name' => _x('Region', 'regions-module', 'wpbdp-regions'),
+                'search_items' => _x('Search Regions', 'regions-module', 'wpbdp-regions'),
+                'popular_items' => _x('Popular Regions', 'regions-module', 'wpbdp-regions'),
+                'all_items' => _x('All Regions', 'regions-module', 'wpbdp-regions'),
+                'parent_item' => _x('Parent Region', 'regions-module', 'wpbdp-regions'),
+                'parent_item_colon' => _x('Parent Region:', 'regions-module', 'wpbdp-regions'),
+                'edit_item' => _x('Edit Region', 'regions-module', 'wpbdp-regions'),
+                'update_item' => _x('Update Region', 'regions-module', 'wpbdp-regions'),
+                'add_new_item' => _x('Add New Region', 'regions-module', 'wpbdp-regions'),
+                'new_item_name' => _x('New Region Name', 'regions-module', 'wpbdp-regions'),
+                'menu_name' => _x('Manage Regions', 'regions-module', 'wpbdp-regions')
+            ),
+            'hierarchical' => true,
+            'show_in_nav_menus' => true,
+            'query_var' => true,
+
+            'rewrite' => array('slug' => wpbdp_get_option('regions-slug', self::TAXONOMY))
+        ));*/        
     }
 
     public function _register_image_sizes() {

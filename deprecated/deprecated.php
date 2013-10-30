@@ -6,8 +6,8 @@
 $wpbusdirmanconfigoptionsprefix = "wpbusdirman";
 
 $wpbdmposttype = "wpbdp_listing";
-$wpbdmposttypecategory = "wpbdm-category";
-$wpbdmposttypetags = "wpbdm-tags";
+$wpbdmposttypecategory = "wpbdp_category";
+$wpbdmposttypetags = "wpbdp_tag";
 
 define('WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/deprecated/templates');
 
