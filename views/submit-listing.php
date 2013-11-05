@@ -308,7 +308,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
                 if ( $private_key = wpbdp_get_option( 'recaptcha-private-key' ) ) {
                     if ( isset( $_POST['recaptcha_challenge_field'] ) ) {
                         if ( !function_exists( 'recaptcha_get_html' ) )
-                            require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+                            require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
 
                         $resp = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
                         if (!$resp->is_valid)
@@ -355,7 +355,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         if ( wpbdp_get_option('recaptcha-for-submits') ) {
             if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
                 if ( !function_exists( 'recaptcha_get_html' ) )
-                    require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+                    require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
                 
                 $recaptcha = recaptcha_get_html( $public_key );
             }
