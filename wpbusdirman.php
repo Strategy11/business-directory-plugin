@@ -40,7 +40,8 @@ define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
 require_once( WPBDP_PATH . 'api/api.php' );
 require_once( WPBDP_PATH . 'deprecated/deprecated.php' );
-include_once( WPBDP_PATH . 'gateways-googlecheckout.php' );
+// include_once( WPBDP_PATH . 'gateways-googlecheckout.php' );
+include_once( WPBDP_PATH . 'gateways-googlewallet.php' );
 require_once( WPBDP_PATH . 'utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/wpbdp-admin.class.php' );
@@ -629,6 +630,10 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
 
         if ( wpbdp_get_option( 'use-thickbox' ) ) {
             add_thickbox();
+        }
+
+        if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
+            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'resources/js/googlewallet.js', array( 'wpbdp-js' ) );
         }
     }
 
