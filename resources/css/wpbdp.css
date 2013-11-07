@@ -458,3 +458,15 @@ ul.validation-errors li {
 .wpbdp-recaptcha-error {
     color: #ff0000;
 }
+
+/*
+ * Google Wallet gateway.
+ */
+
+#wpbdp-submit-page .payment-gateway-googlewallet {
+}
+
+#wpbdp-submit-page .payment-gateway-googlewallet #googlewallet-buy img {
+    border: none;
+    box-shadow: none
+}
