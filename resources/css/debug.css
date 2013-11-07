@@ -8,7 +8,7 @@
 	clear:both;
 	font-size: 11px;
 	max-height: 150px;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 #wpbdp-debugging table { width: 100%; border-collapse: collapse; }
