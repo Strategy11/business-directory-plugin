@@ -2,7 +2,7 @@
  
  class WPBDP_Installer {
 
-    const DB_VERSION = '3.5';
+    const DB_VERSION = '3.4';
 
     private $installed_version = null;
 
@@ -106,7 +106,7 @@
     public function _update() {
         global $wpbdp;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -411,12 +411,6 @@
         
         $query = $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET email_sent = %d WHERE email_sent = %d", 2, 1 );
         $wpdb->query( $query );
-    }
-
-    public function upgrade_to_3_5() {
-        global $wpdb;
-        $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE taxonomy = %s", WPBDP_CATEGORY_TAX, 'wpbdm-category' ) );
-        $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE taxonomy = %s", WPBDP_TAGS_TAX, 'wpbdm-tags' ) );
     }
 
  }
