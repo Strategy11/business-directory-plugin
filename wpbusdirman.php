@@ -35,8 +35,8 @@ define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 
 define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
-define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
-define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
+define( 'WPBDP_CATEGORY_TAX', 'wpbdm-category' );
+define( 'WPBDP_TAGS_TAX', 'wpbdm-tags' );
 
 require_once( WPBDP_PATH . 'api/api.php' );
 require_once( WPBDP_PATH . 'deprecated/deprecated.php' );
