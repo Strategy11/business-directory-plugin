@@ -5,7 +5,7 @@ Tags: wordpress business directory, wordpress directory, wordpress directory plu
 Requires at least: 3.5
 Tested up to: 3.7.1
 Last Updated: 2013-Nov-8
-Stable tag: tags/3.2.1
+Stable tag: tags/3.2.2
 License: GPLv2 or later
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
@@ -99,6 +99,9 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.2.2 =
+* Patch for categories problem introduced by renaming in 3.2.1
 
 = Version 3.2.1 =
 * Migrate Google Checkout to Google Wallet, updated gateways, workflow, API
