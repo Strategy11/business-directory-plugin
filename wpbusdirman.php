@@ -1010,7 +1010,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             $html .= '<div id="wpbdp-comment-recaptcha">';
         } else {
             if ( !function_exists( 'recaptcha_get_html' ) )
-                require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+                require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
 
             $html .= '<div id="wpbdp-comment-recaptcha">';
             $html .= recaptcha_get_html( wpbdp_get_option( 'recaptcha-public-key' ) );
@@ -1038,7 +1038,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             return $comment_data;
 
         if ( !function_exists( 'recaptcha_get_html' ) )
-            require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+            require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
 
         $response = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
         
