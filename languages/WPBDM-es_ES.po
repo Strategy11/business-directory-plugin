@@ -2,14 +2,13 @@
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 3.2\n"
+"Project-Id-Version: Business Directory Plugin 3.2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2013-10-20 21:17:19+00:00\n"
-"PO-Revision-Date: 2013-10-20 16:17-0500\n"
+"POT-Creation-Date: 2013-11-07 23:49:15+00:00\n"
+"PO-Revision-Date: 2013-11-07 19:07-0500\n"
 "Last-Translator: Jorge Torres <jorge@sinapsis.co>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
 "com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2022,11 +2021,11 @@ msgstr "Crear estos campos requeridos por mi"
 #: admin/wpbdp-admin.class.php:1128
 msgctxt "admin"
 msgid ""
-"<b>Business Directory Plugin</b> requires a page with the "
-"<tt>[businessdirectory]</tt> shortcode to function properly."
+"<b>Business Directory Plugin</b> requires a page with the <tt>"
+"[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
-"<b>Business Directory Plugin</b> requiere una página con el shortcode "
-"<tt>[businessdirectory]</tt> para funcionar adecuadamente."
+"<b>Business Directory Plugin</b> requiere una página con el shortcode <tt>"
+"[businessdirectory]</tt> para funcionar adecuadamente."
 
 #: admin/wpbdp-admin.class.php:1130
 msgctxt "admin"
@@ -3185,21 +3184,6 @@ msgstr ""
 "Gracias por su pago. Su pago está siendo verificado y su listado revisado. "
 "Este proceso puede tardar hasta 48 horas."
 
-#: api/wpbdp-settings.class.php:255
-msgctxt "admin settings"
-msgid "Google Checkout Settings"
-msgstr "Configuración de Google Checkout"
-
-#: api/wpbdp-settings.class.php:256
-msgctxt "admin settings"
-msgid "Activate Google Checkout?"
-msgstr "Activar Google Checkout?"
-
-#: api/wpbdp-settings.class.php:257
-msgctxt "admin settings"
-msgid "Google Checkout Merchant ID"
-msgstr "Merchant ID de Google Checkout"
-
 #: api/wpbdp-settings.class.php:260
 msgctxt "admin settings"
 msgid "PayPal Gateway Settings"
@@ -3342,53 +3326,101 @@ msgstr "Eliminar"
 msgid "Upgrade Listing"
 msgstr "Mejorar Listado"
 
-#: deprecated/deprecated.php:255 wpbusdirman.php:382
+#: deprecated/deprecated.php:255 wpbusdirman.php:383
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: gateways-googlecheckout.php:12
-msgctxt "googlecheckout"
-msgid "Google Checkout"
-msgstr "Google Checkout"
+#: gateways-googlewallet.php:13
+msgid "Google Wallet"
+msgstr "Google Wallet"
 
-#: gateways-googlecheckout.php:28
-msgctxt "googlecheckout"
-msgid "Upgrade to featured listing."
-msgstr "Mejora de Listado a Destacado"
+#: gateways-googlewallet.php:16
+msgid "Activate Google Wallet?"
+msgstr "Activar Google Wallet?"
 
-#: gateways-googlecheckout.php:29
-msgctxt "googlecheckout"
-msgid "Payment for upgrading to featured listing \"%s\" with listing ID: %s."
-msgstr "Pago para mejorar a destacado el listado \"%\" con ID: %s."
-
-#: gateways-googlecheckout.php:31
-msgctxt "googlecheckout"
-msgid "Listing payment."
-msgstr "Pago de Listado."
-
-#: gateways-googlecheckout.php:32
-msgctxt "paypal-module"
-msgid "Payment for listing \"%s\" with listing ID: %s."
-msgstr "Pago por el listado \"%s\" con ID: %s."
-
-#: gateways-googlecheckout.php:51
-msgctxt "googlecheckout"
-msgid ""
-"Your listing has not been fully submitted yet. To complete the process you "
-"need to click the link below."
+#: gateways-googlewallet.php:22
+msgid "Seller Identifier"
 msgstr ""
-"Su listado no ha sido enviado aún. Para completar el proceso haga click en "
-"el enlace de abajo."
 
-#: gateways-googlecheckout.php:64
-msgctxt "googlecheckout"
-msgid "Pay With Google Checkout"
-msgstr "Pagar con Google Checkout"
+#: gateways-googlewallet.php:25
+msgid "Seller Secret"
+msgstr ""
 
-#: gateways-googlecheckout.php:96
-msgctxt "googlecheckout"
-msgid "\"Merchant ID\" is missing."
-msgstr "Hace falta el \"Merchant ID\"."
+#: gateways-googlewallet.php:30
+msgctxt "googlewallet"
+msgid "Google Wallet"
+msgstr "Google Wallet"
+
+#: gateways-googlewallet.php:45
+msgctxt "google-wallet"
+msgid "Seller ID is missing."
+msgstr "Falta el \"Seller ID\"."
+
+#: gateways-googlewallet.php:48
+msgctxt "google-wallet"
+msgid "Seller Secret is missing."
+msgstr "Hace falta el \"Seller Secret\"."
+
+#: gateways-googlewallet.php:59
+msgctxt "google-wallet"
+msgid "Listing Upgrade"
+msgstr "Mejora de Listado"
+
+#: gateways-googlewallet.php:60
+msgctxt "google-wallet"
+msgid "Upgrade for listing \"%s\""
+msgstr "Mejora para el listado \"%s\""
+
+#: gateways-googlewallet.php:62
+msgctxt "google-wallet"
+msgid "Listing Submit"
+msgstr "Envío de Listado"
+
+#: gateways-googlewallet.php:63
+msgctxt "google-wallet"
+msgid "Payment for listing submit (listing \"%s\")"
+msgstr "Pago por el envío del listado \"%s\""
+
+#: gateways-googlewallet.php:113
+msgctxt "google-wallet"
+msgid ""
+"Your payment has been rejected by Google Wallet (Transaction ID: %s). Please "
+"contact the site admin if you have any questions."
+msgstr ""
+"Su pago ha sido rechazado por Google Wallet (ID de transacción: %s). Por "
+"favor contacte al administrador del sitio si tiene alguna pregunta."
+
+#: gateways-googlewallet.php:137
+msgctxt "google-wallet"
+msgid ""
+"Your payment has been rejected because the data received does not look like "
+"a valid Google Wallet transaction. Please contact the admin if you have any "
+"questions. (Transaction ID: %s)"
+msgstr ""
+"Su pago fue rechazado porque los datos recibidos no parecen ser de una "
+"transacción de Google Wallet válida. Por favor contacte al administrador del "
+"sitio si tiene alguna pregunta. (ID de transacción: %s)"
+
+#: gateways-googlewallet.php:164
+msgctxt "google-wallet"
+msgid ""
+"Your payment has been rejected because an internal error occurred. Please "
+"contact the site admin to solve this using Transaction ID: %s and Listing "
+"ID: %d."
+msgstr ""
+"Su pago fue rechazado porque un error interno ocurrió. Por favor contacte al "
+"administrador del sitio para solucionarlo utilizando el ID de transacción: "
+"%s y el ID de listado: %d."
+
+#: gateways-googlewallet.php:172
+msgctxt "google-wallet"
+msgid "The transaction has been canceled as you requested."
+msgstr "La transacción ha sido cancelada por solicitud suya."
+
+#: gateways-googlewallet.php:184
+msgctxt "google-wallet"
+msgid "Invalid request."
+msgstr "Solicitud inválida."
 
 #: installer.php:404
 msgctxt "installer"
@@ -3830,7 +3862,7 @@ msgctxt "templates"
 msgid "* Indicates required fields."
 msgstr "* Indica campos obligatorios."
 
-#: utils.php:332
+#: utils.php:326
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -3838,22 +3870,22 @@ msgstr ""
 "Los datos enviados via POST superan el valor máximo configurado en PHP. "
 "Revise la directiva \"post_max_size\" de su configuración."
 
-#: utils.php:373
+#: utils.php:367
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "El tamaño de archivo (%s) excede el tamaño máximo permitido de %s"
 
-#: utils.php:382
+#: utils.php:376
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "El tipo de archivo \"%s\" no está permitido"
 
-#: utils.php:409
+#: utils.php:403
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "El archivo subido no es una imagen"
 
-#: utils.php:417
+#: utils.php:411
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
@@ -4226,80 +4258,121 @@ msgctxt "widgets"
 msgid "Search"
 msgstr "Buscar"
 
-#: wpbusdirman.php:378
+#: wpbusdirman.php:379
 msgctxt "post type general name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: wpbusdirman.php:379
+#: wpbusdirman.php:380
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: wpbusdirman.php:380
+#: wpbusdirman.php:381
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: wpbusdirman.php:381
+#: wpbusdirman.php:382
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: wpbusdirman.php:383
+#: wpbusdirman.php:384
 msgid "New Listing"
 msgstr "Nuevo Listado"
 
-#: wpbusdirman.php:384
+#: wpbusdirman.php:385
 msgid "View Listing"
 msgstr "Ver Listado"
 
-#: wpbusdirman.php:385
+#: wpbusdirman.php:386
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: wpbusdirman.php:386
+#: wpbusdirman.php:387
 msgid "No listings found"
 msgstr "No se encontraron listados"
 
-#: wpbusdirman.php:387
+#: wpbusdirman.php:388
 msgid "No listings found in trash"
 msgstr "No se encontraron listados en la papelera"
 
-#: wpbusdirman.php:490 wpbusdirman.php:497
+#: wpbusdirman.php:410
+msgid "Directory Categories"
+msgstr "Categorías de Directorio"
+
+#: wpbusdirman.php:520 wpbusdirman.php:527
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr ""
 
-#: wpbusdirman.php:510
+#: wpbusdirman.php:540
 msgctxt "credits footer"
 msgid "Directory powered by %s"
 msgstr "El Directorio de Negocios corre gracias a %s"
 
-#: wpbusdirman.php:720
+#: wpbusdirman.php:754
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: wpbusdirman.php:732
+#: wpbusdirman.php:766
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: wpbusdirman.php:744
+#: wpbusdirman.php:778
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: wpbusdirman.php:768
+#: wpbusdirman.php:802
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
 
-#: wpbusdirman.php:987
+#: wpbusdirman.php:1021
 msgctxt "comment-form"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."
+
+#~ msgctxt "admin settings"
+#~ msgid "Google Checkout Settings"
+#~ msgstr "Configuración de Google Checkout"
+
+#~ msgctxt "admin settings"
+#~ msgid "Google Checkout Merchant ID"
+#~ msgstr "Merchant ID de Google Checkout"
+
+#~ msgctxt "googlecheckout"
+#~ msgid "Google Checkout"
+#~ msgstr "Google Checkout"
+
+#~ msgctxt "googlecheckout"
+#~ msgid "Upgrade to featured listing."
+#~ msgstr "Mejora de Listado a Destacado"
+
+#~ msgctxt "googlecheckout"
+#~ msgid ""
+#~ "Payment for upgrading to featured listing \"%s\" with listing ID: %s."
+#~ msgstr "Pago para mejorar a destacado el listado \"%\" con ID: %s."
+
+#~ msgctxt "googlecheckout"
+#~ msgid "Listing payment."
+#~ msgstr "Pago de Listado."
+
+#~ msgctxt "googlecheckout"
+#~ msgid ""
+#~ "Your listing has not been fully submitted yet. To complete the process "
+#~ "you need to click the link below."
+#~ msgstr ""
+#~ "Su listado no ha sido enviado aún. Para completar el proceso haga click "
+#~ "en el enlace de abajo."
+
+#~ msgctxt "googlecheckout"
+#~ msgid "Pay With Google Checkout"
+#~ msgstr "Pagar con Google Checkout"
 
 #~ msgctxt "templates"
 #~ msgid "Finish"

@@ -5,7 +5,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 Plugin Name: Business Directory Plugin
 Plugin URI: http://www.businessdirectoryplugin.com
 Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
-Version: 3.3dev
+Version: 3.2.3
 Author: D. Rodenbaugh
 Author URI: http://businessdirectoryplugin.com
 License: GPLv2 or any later version
@@ -28,7 +28,7 @@ License: GPLv2 or any later version
     reCAPTCHA used with permission of Mike Crawford & Ben Maurer, http://recaptcha.net
 */
 
-define( 'WPBDP_VERSION', '3.3dev' );
+define( 'WPBDP_VERSION', '3.2.3' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -1010,7 +1010,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             $html .= '<div id="wpbdp-comment-recaptcha">';
         } else {
             if ( !function_exists( 'recaptcha_get_html' ) )
-                require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+                require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
 
             $html .= '<div id="wpbdp-comment-recaptcha">';
             $html .= recaptcha_get_html( wpbdp_get_option( 'recaptcha-public-key' ) );
@@ -1038,7 +1038,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             return $comment_data;
 
         if ( !function_exists( 'recaptcha_get_html' ) )
-            require_once( WPBDP_PATH . 'recaptcha/recaptchalib.php' );
+            require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
 
         $response = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
         

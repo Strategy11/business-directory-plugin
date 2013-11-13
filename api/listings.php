@@ -745,14 +745,14 @@ class WPBDP_ListingsAPI {
                             break;
                         case 'meta':
                             if (in_array($field->get_field_type()->get_id(), array('checkbox', 'multiselect', 'select'))) { // multivalued field
-                                $options = array_diff(is_array($q) ? $q : array($q), array(''));
-                                
+                                $options = array_diff( is_array( $q ) ? $q : array( $q ), array( '' ) );
+                                $options = array_map( 'preg_quote', $options );
                                 $pattern = '(' . implode('|', $options) . '){1}([tab]{0,1})';
 
                                 $query .= " INNER JOIN {$wpdb->postmeta} AS mt{$i}mv ON ({$wpdb->posts}.ID = mt{$i}mv.post_id)";
-                                $where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value REGEXP %s)",
+                                $where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value REGEXP %s )",
                                                          "_wpbdp[fields][" . $field->get_id() . "]",
-                                                         $pattern);
+                                                         $pattern );
                             } else { // single-valued field
                                 $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
                                 $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value LIKE '%%%s%%')",
@@ -772,6 +772,7 @@ class WPBDP_ListingsAPI {
         $query .= ' WHERE ' . apply_filters('wpbdp_search_where', $where, $args);
 
         wpbdp_debug($query);
+        // wpbdp_debug_e( $query );
 
         return $wpdb->get_col($query);
     }
