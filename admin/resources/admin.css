@@ -395,3 +395,7 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 ul.subsubsub li.paid {
     margin-left: 20px;
 }
+
+body.taxonomy-wpbdp_category .column-id {
+    width: 35px;
+}
