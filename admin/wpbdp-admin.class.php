@@ -1180,4 +1180,9 @@ class WPBDP_Admin {
 
 }
 
+function wpbdp_admin_message( $msg, $kind = '' ) {
+    global $wpbdp;
+    $wpbdp->admin->messages[] = $kind ? array( $msg, $kind ) : $msg;
+}
+
 }
