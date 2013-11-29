@@ -942,6 +942,8 @@ class WPBDP_Admin {
             $_REQUEST['groupid'] = 'general';
             unset($_REQUEST['resetdefaults']);
         }
+        
+        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );        
 
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
