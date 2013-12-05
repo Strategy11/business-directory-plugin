@@ -59,6 +59,9 @@ global $wpbdp;
 
 
 class WPBDP_Plugin {
+    
+    /* Access to standard APIs. */
+    public $formfields;
 
     public function __construct() {
         register_activation_hook(__FILE__, array($this, 'plugin_activation'));
