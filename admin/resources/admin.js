@@ -252,3 +252,21 @@ function wpbdp_load_placeholder($v) {
 
     $v.load(ajaxurl, {"action": action, "post_id": post_id, "baseurl": baseurl});
 }
+
+var WPBDP_Admin = {};
+
+// TODO: integrate this into $.
+WPBDP_Admin.ProgressBar = function($item, settings) {
+    $item.empty();
+    $item.html('<div class="wpbdp-progress-bar"><span class="progress-text">0%</span><div class="progress-bar"><div class="progress-bar-outer"><div class="progress-bar-inner" style="width: 0%;"></div></div></div>');
+    
+    this.$item = $item;
+    this.$text = $item.find('.progress-text');
+    this.$bar = $item.find('.progress-bar');
+    
+    this.set = function( completed, total ) {
+        var pcg = Math.round( 100 * parseInt( completed) / parseInt( total ) );
+        this.$text.text(pcg + '%');
+        this.$bar.find('.progress-bar-inner').attr('style', 'width: ' + pcg + '%;');
+    };
+};
