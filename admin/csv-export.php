@@ -66,7 +66,7 @@ require_once(ABSPATH . 'wp-admin/includes/image.php');
  */
 class WPBDP_CSVExporter {
     
-    const BATCH_SIZE = 150;
+    const BATCH_SIZE = 20;
 
     private $settings = array(
         'csv-file-separator' => ',',
