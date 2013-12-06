@@ -495,3 +495,36 @@ function wpbdp_format_time( $time, $format='mysql', $time_is_date=false ) {
 
 	return $time;
 }
+
+/**
+ * Returns the contents of a directory (ignoring . and .. special files).
+ * @param string $path a directory.
+ * @return array list of files within the directory.
+ * @since 3.3
+ */
+function wpbdp_scandir( $path ) {
+    return array_diff( scandir( $path ), array( '.', '..' ) );
+}
+
+/**
+ * Recursively deletes a directory.
+ * @param string $path a directory.
+ * @since 3.3
+ */
+function wpbdp_rrmdir( $path ) {
+    if ( !is_dir( $path ) )
+        return;
+    
+    $files = wpbdp_scandir( $path );
+
+    foreach ( $files as &$f ) {
+        $filepath = rtrim( $path, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . ltrim( $f, DIRECTORY_SEPARATOR );
+        
+        if ( is_dir( $filepath ) )
+            wpbdp_rrmdir( $filepath );
+        else
+            unlink( $filepath );
+    }
+    
+    rmdir( $path );
+}
