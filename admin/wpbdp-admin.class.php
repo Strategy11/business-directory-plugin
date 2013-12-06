@@ -52,6 +52,9 @@ class WPBDP_Admin {
 
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
+        
+        // CSV export page.
+        $this->csv_export = new WPBDP_Admin_CSVExport();
     }
 
     function enqueue_scripts() {
@@ -128,7 +131,6 @@ class WPBDP_Admin {
                               array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
                             );
         }
-
         add_submenu_page('wpbdp_admin',
                          _x('CSV Import', 'admin menu', 'WPBDM'),
                          _x('CSV Import', 'admin menu', 'WPBDM'),
@@ -140,7 +142,7 @@ class WPBDP_Admin {
                           _x( 'CSV Export', 'admin menu', 'WPBDM' ),
                           'activate_plugins',
                           'wpbdp-csv-export',
-                          array( 'WPBDP_Admin_CSVExport', 'menu_callback' ) );
+                          array( &$this->csv_export, 'dispatch' ) );
         add_submenu_page( 'wpbdp_admin',
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
@@ -1007,12 +1009,12 @@ class WPBDP_Admin {
 
                 break;
 
-            case 'wpbdp-csv-export':
-                if ( isset( $_POST['action'] ) && $_POST['action'] == 'do-export' ) {
-                    WPBDP_Admin_CSVExport::download();
-                }
-
-                break;
+            // case 'wpbdp-csv-export':
+            //     if ( isset( $_POST['action'] ) && $_POST['action'] == 'do-export' ) {
+            //         WPBDP_Admin_CSVExport::download();
+            //     }
+            // 
+            //     break;
 
             default:
                 break;
