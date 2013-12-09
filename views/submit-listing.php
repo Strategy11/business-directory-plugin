@@ -189,7 +189,7 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         return $this->render( 'category-selection', array( 'category_field' => $category_field ) );
     }
 
-    private function all_free_listings( &$available_fees ) {
+    private function all_free_fees( &$available_fees ) {
         foreach ( $available_fees as $cat_id => &$fees ) {
             if ( count( $fees ) > 1 )
                 return false;
@@ -214,8 +214,11 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         // available fees
         $available_fees = wpbdp_get_fees_for_category( $this->state->categories ) or die( '' );
 
-        // TODO: if all fees are free-fees, move on (and no upgrades available)
-        if ( $this->all_free_listings( $available_fees ) ) {
+        // If all fees are free-fees and upgrades aren't offered during submit, move on to the next step.
+        $all_free_fees = $this->all_free_fees( $available_fees );
+        $can_upgrade = !$this->state->listing_id && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' );
+        
+        if ( $all_free_fees && !$can_upgrade ) {
             $free_fee = wpbdp_get_fee( 0 );
 
             foreach ( $categories as $cat_id => &$term ) {
@@ -252,11 +255,9 @@ class WPBDP_SubmitListingPage extends WPBDP_View {
         }
 
         $upgrade_option = false;
-        if ( !$this->state->listing_id && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) ) {
+        if ( $can_upgrade ) {
             $upgrade_option = wpbdp_listing_upgrades_api()->get( 'sticky' );
         }
-
-        
 
         return $this->render( 'fee-selection', array(
             'categories' => $this->state->categories,

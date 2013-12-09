@@ -27,11 +27,13 @@ class WPBDP_Admin {
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
 
-        add_filter(sprintf('manage_edit-%s_columns', WPBDP_POST_TYPE),
-                   array($this, 'add_custom_columns'));
+        add_filter(sprintf('manage_edit-%s_columns', WPBDP_POST_TYPE), array( $this, 'add_custom_columns'));
         add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
-        add_filter('manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array($this, '_custom_taxonomy_columns'));
-        add_filter('manage_edit-' . WPBDP_TAGS_TAX . '_columns', array($this, '_custom_taxonomy_columns'));
+        
+        add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
+        add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
+
+        add_filter('manage_edit-' . WPBDP_TAGS_TAX . '_columns', array($this, 'add_custom_taxonomy_columns'));
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
         add_filter('views_edit-' . WPBDP_POST_TYPE, array($this, 'add_custom_views'));
         add_filter('request', array($this, 'apply_query_filters'));
@@ -50,6 +52,9 @@ class WPBDP_Admin {
 
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
+        
+        // CSV export page.
+        $this->csv_export = new WPBDP_Admin_CSVExport();
     }
 
     function enqueue_scripts() {
@@ -126,7 +131,6 @@ class WPBDP_Admin {
                               array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
                             );
         }
-
         add_submenu_page('wpbdp_admin',
                          _x('CSV Import', 'admin menu', 'WPBDM'),
                          _x('CSV Import', 'admin menu', 'WPBDM'),
@@ -138,7 +142,7 @@ class WPBDP_Admin {
                           _x( 'CSV Export', 'admin menu', 'WPBDM' ),
                           'activate_plugins',
                           'wpbdp-csv-export',
-                          array( 'WPBDP_Admin_CSVExport', 'menu_callback' ) );
+                          array( &$this->csv_export, 'dispatch' ) );
         add_submenu_page( 'wpbdp_admin',
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
@@ -774,9 +778,22 @@ class WPBDP_Admin {
 
     }
 
-    public function _custom_taxonomy_columns($cols) {
-        $cols['posts'] = _x('Listing Count', 'admin', 'WPBDM');
-        return $cols;
+    public function add_custom_taxonomy_columns( $cols ) {
+        if ( !isset( $_GET['taxonomy'] ) || $_GET['taxonomy'] != WPBDP_CATEGORY_TAX )
+            return $cols;
+        
+        $newcols = array_merge( array_slice( $cols, 0, 1 ),
+                                array( 'id' => _x( 'ID', 'admin category id', 'WPBDM' ) ),
+                                array_slice( $cols, 1, -1),
+                                array( 'posts' => _x('Listing Count', 'admin', 'WPBDM') ) );
+        return $newcols;
+    }
+    
+    public function custom_taxonomy_columns( $value, $column_name, $id ) {
+        if ( $column_name == 'id' )
+            return $id;
+        
+        return $value;
     }
 
     function add_custom_columns($columns_) {
@@ -927,6 +944,8 @@ class WPBDP_Admin {
             $_REQUEST['groupid'] = 'general';
             unset($_REQUEST['resetdefaults']);
         }
+        
+        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );        
 
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
@@ -990,12 +1009,12 @@ class WPBDP_Admin {
 
                 break;
 
-            case 'wpbdp-csv-export':
-                if ( isset( $_POST['action'] ) && $_POST['action'] == 'do-export' ) {
-                    WPBDP_Admin_CSVExport::download();
-                }
-
-                break;
+            // case 'wpbdp-csv-export':
+            //     if ( isset( $_POST['action'] ) && $_POST['action'] == 'do-export' ) {
+            //         WPBDP_Admin_CSVExport::download();
+            //     }
+            // 
+            //     break;
 
             default:
                 break;
@@ -1163,6 +1182,11 @@ class WPBDP_Admin {
 
     }
 
+}
+
+function wpbdp_admin_message( $msg, $kind = '' ) {
+    global $wpbdp;
+    $wpbdp->admin->messages[] = $kind ? array( $msg, $kind ) : $msg;
 }
 
 }

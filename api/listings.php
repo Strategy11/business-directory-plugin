@@ -83,7 +83,13 @@ class WPBDP_ListingUpgrades {
 
             $this->_levels[$upgrade_id] = $obj;
         } else {
-            // TODO: support updates too
+            // XXX We only allow changes to name, cost and description of currently registered levels.
+            foreach ( array( 'name', 'cost', 'description' ) as $k ) {
+                if ( isset( $data[ $k ] ) )
+                    $this->_levels[ $upgrade_id ]->{$k} = $data[ $k ];
+             }
+             
+             return;
         }
 
         if ($obj->downgrade) {

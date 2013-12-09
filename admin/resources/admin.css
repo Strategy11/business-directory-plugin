@@ -395,3 +395,45 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 ul.subsubsub li.paid {
     margin-left: 20px;
 }
+
+body.taxonomy-wpbdp_category .column-id {
+    width: 35px;
+}
+
+/* -- Progress bar. -- */
+.wpbpd-progress-bar {
+}
+
+.wpbpd-progress-bar .progress-text {
+}
+
+.wpbdp-progress-bar .progress-bar {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wpbdp-progress-bar .progress-bar-outer {
+    min-width: 200px;
+    height: 12px;
+    border: solid 1px #3366CC;
+    padding: 0;
+}
+
+.wpbdp-progress-bar .progress-bar-inner {
+   height: 100%;
+    background: #99CCFF;
+}
+
+/* -- WPBDP note messages. */
+.wpbdp-note {
+    padding: 5px 10px;
+    background: #d7f5ff;
+    margin: 5px 0 20px 0;
+    border: solid 1px #bad5df;
+    border-radius: 4px;
+}
+
+.wpbdp-note p {
+    margin: 0;
+}

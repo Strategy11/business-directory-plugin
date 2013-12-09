@@ -566,7 +566,8 @@ class WPBDP_FormField {
     }
 
     public function store_value( $post_id, $value ) {
-        return $this->type->store_field_value( $this, $post_id, $value );
+        $this->type->store_field_value( $this, $post_id, $value );
+        do_action_ref_array( 'wpbdp_form_field_store_value', array( &$this, $post_id, $value ) );
     }
 
     public function is_empty_value( $value ) {
