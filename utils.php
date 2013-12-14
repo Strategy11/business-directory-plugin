@@ -17,7 +17,6 @@ class WPBDP_Debugging {
 
 		add_action( 'wp_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
-		// add_action( 'admin_notices', create_function('', 'echo "<div>hi</div>";') );
 
 		add_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
 		add_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
