@@ -32,8 +32,8 @@ function wpbdp_the_directory_categories() {
  */
 function _wpbdp_padded_count( &$term ) {
     $count = intval( $term->count );
-
-    if ( $children = get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) ) {
+    
+    if ( $children = get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => 0, 'parent' => $term->term_id, 'fields' => 'ids' ) ) ) {
         foreach ( $children as $c_id ) {
             $c = get_term( $c_id, WPBDP_CATEGORY_TAX );
             $count += intval( apply_filters( '_wpbdp_padded_count_child', $c->count, $c ) );
