@@ -445,7 +445,14 @@ function wpbdp_ajaxurl($overwrite=false) {
     if ($overwrite || $ajaxurl === false) {
         $url = admin_url('admin-ajax.php');
         $parts = parse_url($url);
-        $ajaxurl = str_replace($parts['host'], wpbdp_get_current_domain(), $url);
+        
+        $domain = wpbdp_get_current_domain();
+
+        // Since $domain already contains the port remove it.
+        if ( isset( $parts['port'] ) && $parts['port'] )
+            $domain = str_replace( ':' . $parts['port'], '', $domain ); 
+
+        $ajaxurl = str_replace($parts['host'], $domain, $url);
     }
 
     return $ajaxurl;
