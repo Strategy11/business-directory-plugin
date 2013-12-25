@@ -1,11 +1,11 @@
 
 #wpbdp-debugging {
-	font-family: Consolas, Monaco, monospace;
+	font-family: Menlo, Monaco, monospace;
 	color: #000;
 	width: 100%;
 	margin: 2px 0;
 	clear:both;
-	font-size: 12px;
+	font-size: 11px;
 	max-height: 150px;
 	overflow-y: scroll;
 }
