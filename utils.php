@@ -17,7 +17,6 @@ class WPBDP_Debugging {
 
 		add_action( 'wp_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
-		// add_action( 'admin_notices', create_function('', 'echo "<div>hi</div>";') );
 
 		add_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
 		add_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
@@ -55,10 +54,18 @@ class WPBDP_Debugging {
 		if (!self::$debug)
 			return;
 
-		if (!self::$messages)
+		global $wpdb;
+		$queries = $wpdb->queries;
+
+		if (!self::$messages && !$queries)
 			return;
 
 		echo '<div id="wpbdp-debugging">';
+		echo '<ul class="tab-selector">';
+		echo '<li class="active"><a href="#logging">Logging</a></li>';
+		echo '<li><a href="#wpdbqueries">$wpdb queries</a></li>';
+		echo '</ul>';
+		echo '<div class="tab" id="wpbdp-debugging-tab-logging">';
 		echo '<table>';
 
 		foreach (self::$messages as $item) {
@@ -81,6 +88,32 @@ class WPBDP_Debugging {
 		}
 
 		echo '</table>';
+		echo '</div>';
+
+		echo '<div class="tab" id="wpbdp-debugging-tab-wpdbqueries">';
+		if ( !$queries ) {
+			echo 'No SQL queries were logged.';
+		} else {
+			echo '<table>';
+
+			foreach ( $queries as $q ) {
+				echo '<tr class="wpdbquery">';
+				echo '<td class="handle">&raquo;</td>';
+				echo '<td class="query">';
+				echo $q[0];
+				echo '<div class="extradata">';
+				echo '<dl>';
+				echo '<dt>Time Spent:</dt><dd>' . $q[1] . '</dd>';
+				echo '<dt>Backtrace:</dt><dd>' . $q[2] . '</dd>';
+				echo '</dl>';
+				echo '</div>';
+				echo '</td>';
+				echo '</tr>';
+			}
+
+			echo '</table>';
+		}
+		echo '</div>';
 		echo '</div>';
 
 		printf( '<script type="text/javascript" src="%s"></script>', WPBDP_URL . 'resources/js/debug.js' );
@@ -384,7 +417,7 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 					$error_msg = $upload['error'];
 					return false;
 				}
-				
+
 				return $upload;
 			}
 
@@ -446,7 +479,14 @@ function wpbdp_ajaxurl($overwrite=false) {
     if ($overwrite || $ajaxurl === false) {
         $url = admin_url('admin-ajax.php');
         $parts = parse_url($url);
-        $ajaxurl = str_replace($parts['host'], wpbdp_get_current_domain(), $url);
+
+        $domain = wpbdp_get_current_domain();
+
+        // Since $domain already contains the port remove it.
+        if ( isset( $parts['port'] ) && $parts['port'] )
+            $domain = str_replace( ':' . $parts['port'], '', $domain );
+
+        $ajaxurl = str_replace($parts['host'], $domain, $url);
     }
 
     return $ajaxurl;
@@ -514,17 +554,17 @@ function wpbdp_scandir( $path ) {
 function wpbdp_rrmdir( $path ) {
     if ( !is_dir( $path ) )
         return;
-    
+
     $files = wpbdp_scandir( $path );
 
     foreach ( $files as &$f ) {
         $filepath = rtrim( $path, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . ltrim( $f, DIRECTORY_SEPARATOR );
-        
+
         if ( is_dir( $filepath ) )
             wpbdp_rrmdir( $filepath );
         else
             unlink( $filepath );
     }
-    
+
     rmdir( $path );
 }

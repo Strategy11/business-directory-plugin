@@ -325,7 +325,7 @@ class WPBDP_Settings {
         $group = new StdClass();
         $group->wpslug = self::PREFIX . $slug;
         $group->slug = $slug;
-        $group->name = $name;
+        $group->name = esc_attr( $name );
         $group->help_text = $help_text;
         $group->sections = array();
 
@@ -336,7 +336,7 @@ class WPBDP_Settings {
 
     public function add_section($group_slug, $slug, $name, $help_text='') {
         $section = new StdClass();
-        $section->name = $name;
+        $section->name = esc_attr( $name );
         $section->slug = $slug;
         $section->help_text = $help_text;
         $section->settings = array();
@@ -391,7 +391,7 @@ class WPBDP_Settings {
             }
 
             $setting = new StdClass();
-            $setting->name = $name;
+            $setting->name = esc_attr( $name );
             $setting->label = $label;
             $setting->help_text = $help_text;
             $setting->default = $_default;
@@ -570,7 +570,7 @@ class WPBDP_Settings {
                 $callback = create_function('', ';');
 
                 if ($section->help_text)
-                    $callback = create_function('', 'echo "<p class=\"description\">' . $section->help_text . '</p>";');
+                    $callback = create_function('', 'echo "<p class=\"description\">' . addslashes( $section->help_text ) . '</p>";');
 
                 add_settings_section($section->slug, $section->name, $callback, $group->wpslug);
 
