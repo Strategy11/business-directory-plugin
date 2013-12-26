@@ -2,18 +2,18 @@
  
  class WPBDP_Installer {
 
-    const DB_VERSION = '3.5';
+    const DB_VERSION = '3.6';
 
     private $installed_version = null;
 
 
     public function __construct() {
         $this->installed_version = get_option( 'wpbdp-db-version', get_option( 'wpbusdirman_db_version', null ) );
-    }   
+    }
 
     public function install() {
         if ( $this->installed_version != self::DB_VERSION ) {
-            $this->_database_schema();
+            $this->update_database_schema();
 
             if ( !wpbdp_get_option( 'tracking-on', false ) )
                 delete_option( 'wpbdp-tracking-dismissed' );
@@ -40,14 +40,18 @@
         }        
     }
 
-    public function _database_schema() {
+    /**
+     * Builds the SQL queries (without running them) used to create all of the required database tables for BD.
+     * Calls the `wpbdp_database_schema` filter that allows plugins to modify the schema.
+     * @return array An associative array of (non prefixed)table => SQL items.
+     * @since 3.3
+     */
+    public function get_database_schema() {
         global $wpdb;
-        
-        wpbdp_log( 'Running dbDelta.' );
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        $schema = array();
 
-        $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
+        $schema['form_fields'] = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
             id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
             label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
             description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
@@ -59,48 +63,65 @@
             field_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        dbDelta($sql);
-
-        $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
+        $schema['fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
             id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
             label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-            amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-            days smallint UNSIGNED NOT NULL DEFAULT 0,
-            images smallint UNSIGNED NOT NULL DEFAULT 0,
+            amount decimal(10,2) NOT NULL DEFAULT 0.00,
+            days smallint unsigned NOT NULL DEFAULT 0,
+            images smallint unsigned NOT NULL DEFAULT 0,
             categories blob NOT NULL,
             extra_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        dbDelta($sql);
-
-        $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
+        $schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
             id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
             listing_id mediumint(9) NOT NULL,
             gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+            amount decimal(10,2) NOT NULL DEFAULT 0.00,
             payment_type varchar(255) NOT NULL,
             status varchar(255) NOT NULL,
-            created_on TIMESTAMP NOT NULL,
-            processed_on TIMESTAMP NULL,
+            created_on timestamp NOT NULL,
+            processed_on timestamp NULL,
             processed_by varchar(255) NOT NULL DEFAULT 'gateway',               
             payerinfo blob NULL,
             extra_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        dbDelta($sql);
-
-        $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
+        $schema['listing_fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
             id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
             listing_id mediumint(9) NOT NULL,
             category_id mediumint(9) NOT NULL,
             fee blob NOT NULL,
-            expires_on TIMESTAMP NULL DEFAULT NULL,
-            updated_on TIMESTAMP NOT NULL,
+            expires_on timestamp NULL DEFAULT NULL,
+            updated_on timestamp NOT NULL,
             charged tinyint(1) NOT NULL DEFAULT 0,
             email_sent tinyint(1) NOT NULL DEFAULT 0
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        dbDelta($sql);
+        $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
+            id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
+            status varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'edit',
+            step varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            user_id mediumint(9) NULL,
+            listing_id mediumint(9) NULL,
+            listing_data blob NULL,
+            extra_data blob NULL,
+            created datetime NOT NULL,
+            completed datetime NULL
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+        return apply_filters( 'wpbdp_database_schema', $schema );
+    }
+
+    public function update_database_schema() {
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+        wpbdp_log( 'Running dbDelta.' ); 
+
+        $schema = $this->get_database_schema();
+
+        foreach ( $schema as $table_sql )
+            dbDelta( $table_sql );
     }
 
     public function _update() {
