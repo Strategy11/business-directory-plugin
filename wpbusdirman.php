@@ -1006,6 +1006,10 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
         $html  = '';
         $html .= $comment_field;
 
+        // If this is not a BD page, ignore reCAPTCHA.
+        if ( ! $this->controller->get_current_action() )
+            return $html;
+
         if ( wpbdp_get_option( 'recaptcha-on' ) ) {
             // XXX: We can only have one reCAPTCHA per page, so workaround this limitation by sharing the one in the contact form.
             add_action( 'wp_footer', array( &$this, 'comment_recaptcha_workaround' ) );
@@ -1035,6 +1039,10 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
     }
     
     public function check_comment_recaptcha( $comment_data ) {
+        // If this is not a BD page, ignore reCAPTCHA.
+        if ( ! $this->controller->get_current_action() )
+            return $comment_data ;
+
         $private_key = wpbdp_get_option( 'recaptcha-private-key' );
 
         if ( !$private_key )
@@ -1054,6 +1062,10 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
     }
 
     public function comment_relative_redirect( $location, $comment ) {
+        // If this is not a BD page, ignore reCAPTCHA.
+        if ( ! $this->controller->get_current_action() )
+            return $location;
+
         if ( !isset( $this->_comment_recaptcha_error ) || empty( $this->_comment_recaptcha_error ) )
             return $location;
 
