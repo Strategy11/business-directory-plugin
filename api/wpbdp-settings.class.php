@@ -201,7 +201,8 @@ class WPBDP_Settings {
                             array( 'author', _x( 'Author', 'admin settings', 'WPBDM' ) ),
                             array( 'date', _x( 'Date posted', 'admin settings', 'WPBDM' ) ),
                             array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),
-                            array( 'rand', _x( 'Random', 'admin settings', 'WPBDM' ) )
+                            array( 'rand', _x( 'Random', 'admin settings', 'WPBDM' ) ),
+                            array( 'paid', _x( 'Paid first then free', 'admin settings', 'WPBDM' ) )
                           )));
         $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
                            _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
