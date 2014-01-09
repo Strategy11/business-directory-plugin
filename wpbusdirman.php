@@ -555,14 +555,32 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
     public function _listings_shortcode($atts) {
         if (!$this->controller->check_main_page($msg)) return $msg;
 
-        $atts = shortcode_atts(array('category' => null), $atts);
+        $atts = shortcode_atts( array(
+                                        'category' => null,
+                                        'operator' => 'OR'
+                                     ),
+                                $atts
+                              );
 
-        if ($atts['category']) {
-            return $this->controller->browse_category($atts['category']);
-        } else {
-            return $this->controller->view_listings(true);
+        if ( !$atts['category'] )
+            return $this->controller->view_listings( true );
+
+        $atts['category'] = explode( ',', $atts['category'] );
+        $categories = array();
+
+        foreach ( $atts['category'] as $cat ) {
+            $term = null;
+            if ( !is_numeric( $cat ) )
+                $term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+
+            if ( !$term && is_numeric( $cat ) )
+                $term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+
+            if ( $term )
+                $categories[] = $term->term_id;
         }
 
+        return $this->controller->browse_category( $categories );
     }
 
     /* theme filters */
