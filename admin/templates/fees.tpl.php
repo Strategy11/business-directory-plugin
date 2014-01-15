@@ -17,17 +17,17 @@
 			<b><?php _ex('Installed Payment Gateway Modules', 'WPBDM'); ?></b>
 			<ul>
 				<?php if (wpbdp_payments_api()->has_gateway('googlecheckout')): ?>
-					<li style="background:url(<?php echo WPBDP_URL . 'resources/images/check.png'; ?>) no-repeat left center; padding-left:30px;">
+					<li style="background:url(<?php echo WPBDP_URL . 'admin/resources/check.png'; ?>) no-repeat left center; padding-left:30px;">
 						<?php _ex('Google Checkout', 'admin templates', 'WPBDM'); ?>
 					</li>
 				<?php endif; ?>
 				<?php if (wpbdp_payments_api()->has_gateway('paypal')): ?>
-					<li style="background:url(<?php echo WPBDP_URL . 'resources/images/check.png'; ?>) no-repeat left center; padding-left:30px;">
+					<li style="background:url(<?php echo WPBDP_URL . 'admin/resources/check.png'; ?>) no-repeat left center; padding-left:30px;">
 						<?php _ex('PayPal', 'admin templates', 'WPBDM'); ?>
 					</li>
 				<?php endif; ?>
 				<?php if (wpbdp_payments_api()->has_gateway('2checkout')): ?>
-					<li style="background:url(<?php echo WPBDP_URL . 'resources/images/check.png'; ?>) no-repeat left center; padding-left:30px;">
+					<li style="background:url(<?php echo WPBDP_URL . 'admin/resources/check.png'; ?>) no-repeat left center; padding-left:30px;">
 						<?php _ex('2Checkout', 'admin templates', 'WPBDM'); ?>
 					</li>
 				<?php endif; ?>

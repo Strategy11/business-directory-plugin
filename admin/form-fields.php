@@ -162,7 +162,7 @@ class WPBDP_FormFieldsAdmin {
 
     /* preview form */
     private function previewForm() {
-        require_once( WPBDP_PATH . 'views/submit-listing.php' );
+        require_once( WPBDP_PATH . 'core/views/submit-listing.php' );
 
         if ( wpbdp()->has_module( 'featuredlevels' ) )
             wpbdp_admin()->messages[] = _x( 'This is a preview of the form as it will appear during "Submit a Listing". The users may not see all fields from "Manage Form Fields" because you have "Featured Levels" active and this is showing the base level.',
@@ -176,7 +176,7 @@ class WPBDP_FormFieldsAdmin {
         ));
         $html .= wpbdp_admin_notices();
 
-        $controller = new WPBDP_SubmitListingPage();
+        $controller = new WPBDP_Submit_Listing_Page();
         $html .= $controller->preview_listing_fields_form();
         $html .= wpbdp_admin_footer();
 

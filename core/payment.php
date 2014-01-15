@@ -1,9 +1,11 @@
 <?php
+require_once( WPBDP_PATH . 'core/class-payment.php' );
+
 /*
  * Fees/Payment API
  */
 
-if (!class_exists('WPBDP_PaymentsAPI')) {
+if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 
 class WPBDP_FeesAPI {
 
@@ -557,6 +559,93 @@ class WPBDP_PaymentsAPI {
         unset($getvars['page_id']);
 
         return call_user_func_array( $this->gateways[$gateway_id]->process_callback, array( array_merge($_POST, $getvars), &$error_message ) );
+    }
+
+    /**
+     * Resolves ?wpbdpx=payments requests.
+     * @since 3.3
+     */
+    public function process_request() {
+        $action = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
+        $payment = isset( $_GET['payment_id'] ) ? WPBDP_Payment::get( intval( $_GET['payment_id'] ) ) : null;
+
+        if ( ! in_array( $action, array( 'notify', 'return', 'cancel' ) ) || ! $payment )
+            return;
+
+        unset( $_GET['action'] );
+        unset( $_GET['payment_id'] );
+
+        $gateway = new WPBDP_PayPal_Gateway;
+        $gateway->process( $payment, $action );
+    }
+
+    /**
+     * Renders an invoice table for a given payment.
+     * @param $payment WPBDP_Payment
+     * @return string HTML output.
+     * @since 3.3
+     */
+    public function render_invoice( &$payment ) {
+        return wpbdp_render( 'payment/payment_items', array( 'payment' => $payment ), false );
+    }
+
+    // TODO: dodoc
+    public function render_payment_method_selection() {
+        $payment_methods = $this->get_available_methods();
+
+        $html  = '';
+        $html .= '<div class="wpbdp-payment-method-selection">';
+        $html .= '<h4>' . _x( 'Payment Method', 'checkout', 'WPBDM' ) . '</h4>';
+
+        $html .= '<select name="payment_method">';
+        $html .= '<option value="">-- Select a payment method --</option>';
+        foreach ( $payment_methods as &$method ) {
+            $html .= '<option value="' . $method->id . '">' . $method->name . '</option>';
+        }
+        $html .= '</select>';
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    // TODO: dodoc
+    public function render_payment_method_integration( &$payment ) {
+        // TODO: correct support for all registered gateways.
+        $paypal = new WPBDP_PayPal_Gateway();
+        return $paypal->render_integration( $payment );
+    }
+
+    // TODO: dodoc
+    public function render_standard_checkout_page( &$payment, $opts = array() ) {
+        if ( $payment->is_completed() )
+            return;
+
+        $opts = wp_parse_args( $opts,
+                               array( 'return_link' => '<a href="' . wpbdp_get_page_link( 'main' ) . '">' . _x( 'Return to Directory.', 'payment', 'WPBDM' ) . '</a>' )
+                             );
+
+        $html  = '';        
+
+        if ( $payment->is_pending() && $payment->has_been_processed() ) {
+            $html .= '<p>' . _x( 'Your payment is being processed by the payment gateway. Please reload this page in a moment to see if the status has changed or contact the site administrator.', 'payments', 'WPBDM' ) . '</p>';
+        } elseif ( $payment->is_rejected() ) {
+            if ( $opts['retry_rejected'] ) {
+                $html .= '<p>' . _x( 'The payment has been rejected by the payment gateway. Please contact the site administrator if you think there is an error or click "Change Payment Method" to select another payment method and try again.', 'payments', 'WPBDM' ) . '</p>';
+                $html .= '<p><a href="' . add_query_arg( 'change_payment_method', 1 )  . '">' . _x( 'Change Payment Method', 'payments', 'WPBDM' ) . '</a></p>';
+            } else {
+                $html .= '<p>' . _x( 'The payment has been rejected by the payment gateway. Please contact the site administrator if you think there is an error.', 'payments', 'WPBDM' ) . '</p>';
+            }
+        } elseif ( $payment->is_canceled() ) {
+            $html .= '<p>' . _x( 'The payment has been canceled at your request.', 'payments', 'WPBDM' ) . '</p>';
+        } elseif ( $payment->is_pending() && $payment->get_gateway() ) {
+            $html .= $this->render_invoice( $payment );
+            $html .= $this->render_payment_method_integration( $payment );            
+        }
+
+        if ( ! $opts['retry_rejected'] && $opts['return_link'] )
+            $html .= '<p>' . $opts['return_link'] . '</p>';
+
+        return $html;
     }
 
 }

@@ -61,7 +61,7 @@ class WPBDP_Admin {
         wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
         wp_enqueue_style('thickbox');
 
-        wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
+        wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'core/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
 
         // Ask for site tracking if needed.
@@ -78,7 +78,7 @@ class WPBDP_Admin {
                       'activate_plugins',
                       'wpbdp_admin',
                       'wpbusdirman_home_screen',
-                      WPBDP_URL . 'resources/images/menuico.png');
+                      WPBDP_URL . 'admin/resources/menuico.png');
         add_submenu_page('wpbdp_admin',
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          _x('Add New Listing', 'admin menu', 'WPBDM'),

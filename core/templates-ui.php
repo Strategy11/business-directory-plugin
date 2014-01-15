@@ -338,13 +338,13 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
         $image_img = get_the_post_thumbnail( $listing_id, 'wpbdp-thumb' );
     } elseif( !$main_image && wpbdp_get_option( 'use-default-picture' ) ) {
         $image_img = sprintf( '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
-                              WPBDP_URL . 'resources/images/default-image-big.gif',
+                              WPBDP_URL . 'core/images/default-image-big.gif',
                               get_the_title( $listing_id ),
                               get_the_title( $listing_id ),
                               wpbdp_get_option( 'thumbnail-width' ),
                               $image_classes
                             );
-        $image_link = $args['link'] == 'picture' ? WPBDP_URL . 'resources/images/default-image-big.gif' : '';
+        $image_link = $args['link'] == 'picture' ? WPBDP_URL . 'core/images/default-image-big.gif' : '';
     } elseif ( $main_image ) {
         $image_img = wp_get_attachment_image( $main_image->ID,
                                               'wpbdp-thumb',
@@ -399,7 +399,7 @@ function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() 
     if ( wpbdp_get_option( 'recaptcha-on' ) ) {
         if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
             if ( !function_exists( 'recaptcha_get_html' ) )
-                require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
+                require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
             
             $recaptcha = recaptcha_get_html( $public_key );            
         }

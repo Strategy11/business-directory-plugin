@@ -1,0 +1,605 @@
+<?php
+require_once( WPBDP_PATH . 'core/class-view.php' );
+
+/**
+ * Submit/edit listing process page.
+ * @since 3.3
+ */
+class WPBDP_Submit_Listing_Page extends WPBDP_View {
+    
+    private $state = null;
+    private $messages = array();
+    private $errors = array();
+
+    public function __construct( $listing_id = 0 ) {
+        $this->state = isset( $_REQUEST['_state'] ) && $_REQUEST['_state'] ? WPBDP_Listing_Submit_State::get( $_REQUEST['_state'] ) : new WPBDP_Listing_Submit_State( $listing_id );
+        $this->state->save();
+    }
+
+    public function get_page_name() {
+        return 'submitlisting';
+    }
+
+    public function dispatch() {
+        // Check there are categories available
+        if ( count( get_terms(WPBDP_CATEGORY_TAX, array( 'hide_empty' => false) ) ) == 0 ) {
+            if ( current_user_can( 'administrator' ) ) {
+                return wpbdp_render_msg( _x( 'There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM' ), 'error' );
+            } else {
+                return wpbdp_render_msg( _x( 'Your listing cannot be added at this time. Please try again later.', 'templates', 'WPBDM' ), 'error' ); 
+            }
+        }
+
+        // Login required?
+        if ( wpbdp_get_option( 'require-login' ) && !is_user_logged_in() )
+            return wpbdp_render( 'parts/login-required', array(), false );
+
+        // TODO:
+        // if ( $this->state->editing )  {
+        //     $current_user = wp_get_current_user();
+            
+        //     if ( ( get_post( $this->state->listing_id )->post_author != $current_user->ID ) && ( !current_user_can( 'administrator' ) ) )
+        //         return wpbdp_render_msg( _x( 'You are not authorized to edit this listing.', 'templates', 'WPBDM' ), 'error' );
+
+        //     if ( wpbdp_payment_status( $this->state->listing_id ) != 'paid' && !current_user_can( 'administrator' ) ) {
+        //         $html  = '';
+        //         $html .= wpbdp_render_msg( _x( 'You can not edit your listing until its payment has been cleared.', 'templates', 'WPBDM' ), 'error' );
+        //         $html .= sprintf( '<a href="%s">%s</a>', get_permalink( $this->state->listing_id ), _x( 'Return to listing.', 'templates', 'WPBDM' ) );
+        //         return $html;                
+        //     }
+        // }
+
+        $callback = 'step_' . $this->state->step;
+
+        if ( method_exists( $this, $callback ) )
+            return call_user_func( array( &$this, $callback) );
+        else
+            return 'STEP NOT IMPLEMENTED YET: ' . $this->state->get_step();
+    }
+
+    protected function render( $template, $args = array(), $skipouter = false, $is_html = false ) {
+        $html = '';
+        $html .= sprintf( '<div id="wpbdp-submit-page" class="wpbdp-submit-page businessdirectory-submit businessdirectory wpbdp-page step-%s">',
+                          str_replace( '_', '-', $this->state->step ) );
+        $html .= sprintf( '<h2>%s</h2>', $this->state->editing ? _x( 'Edit Your Listing', 'templates', 'WPBDM' ) : _x( 'Submit A Listing', 'templates', 'WPBDM' ) );
+
+        if ( current_user_can( 'administrator' ) ) {
+            if ( $errors = wpbdp_payments_api()->check_config() ) {
+                foreach ( $errors as $error ) $html .= wpbdp_render_msg( $error, 'error' );
+            }
+
+            $html .= wpbdp_render_msg( _x( 'You are logged in as an administrator. Any payment steps will be skipped.', 'templates', 'WPBDM' ) );
+        }
+
+        if ( $this->errors ) {
+            foreach ( $this->errors as &$e ) {
+                $html .= wpbdp_render_msg( $e, 'error' );
+            }
+        }
+
+        if ( $this->messages ) {
+            foreach ( $this->messages as &$m ) {
+                $html .= wpbdp_render_msg( $m );
+            }
+        }
+        
+        if ( ! $is_html )
+            $content = wpbdp_render( 'submit-listing/' . $template,
+                                     array_merge( array( '_state' => $this->state ), $args ),
+                                     false );
+        else
+            $content = $template;
+
+        $html .= $content;
+        $html .= '</div>';
+
+        return apply_filters_ref_array( 'wpbdp_view_submit_listing', array( $html, &$this->state ) );
+    }
+
+    protected function step_category_selection() {
+        $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
+
+        $post_value = isset( $_POST['listingfields'][ $category_field->get_id() ] ) ?
+                      $category_field->convert_input( $_POST['listingfields'][ $category_field->get_id() ] ) :
+                      array();
+
+        if ( $post_value ) {
+            $errors = null;
+
+            if ( !$category_field->validate( $post_value, $errors ) ) {
+                $this->errors = array_merge( $this->errors, $errors );
+            } else {
+                $this->state->categories = $post_value;
+                $this->state->advance();
+                return $this->dispatch();
+            }
+
+        }
+
+        return $this->render( 'category-selection', array( 'category_field' => $category_field ) );
+    }
+
+    private function all_free_fees( &$available_fees ) {
+        foreach ( $available_fees as $cat_id => &$fees ) {
+            if ( count( $fees ) > 1 )
+                return false;
+
+            if ( $fees[0]->id != 0 )
+                return false;
+        }
+
+        return true;
+    }
+
+    protected function step_fee_selection() {
+        if ( !$this->state->categories )
+            die();
+        
+        $categories = array();
+        foreach ( $this->state->categories as $cat_id )
+            $categories[ $cat_id ] = get_term( $cat_id, WPBDP_CATEGORY_TAX );
+        
+        // Available fees.
+        $available_fees = wpbdp_get_fees_for_category( $this->state->categories ) or die( '' );
+        
+        // If all fees are free-fees and upgrades aren't offered during submit, move on to the next step.
+        $all_free_fees = $this->all_free_fees( $available_fees );
+        $can_upgrade = ! $this->state->editing && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' );
+        
+        if ( $all_free_fees && !$can_upgrade ) {
+            $free_fee = wpbdp_get_fee( 0 );
+        
+            foreach ( $categories as $cat_id => &$term )
+                $this->state->fees[ $cat_id ] = $free_fee->id;
+        
+            $this->state->upgrade_to_sticky = false;
+
+            $this->state->advance();
+            return $this->dispatch();
+        }
+        
+        if ( isset( $_POST['fees'] ) ) {
+            $validates = true;
+
+            foreach ( $categories as $cat_id => &$term ) {
+                $selected_fee_id = wpbdp_getv( $_POST['fees'], $cat_id, null );
+
+                if ( $selected_fee_id === null || !isset( $available_fees[ $cat_id ] ) ) {
+                    $this->errors[] = sprintf( _x( 'Please select a fee option for the "%s" category.', 'templates', 'WPBDM' ), esc_html( $term->name ) );
+                    $validates = false;
+                } else {
+                    $this->state->fees[ $cat_id ] = $selected_fee_id;
+                }
+            }
+
+            if ( $validates ) {
+                $this->state->upgrade_to_sticky = isset( $_POST['upgrade-listing'] ) && $_POST['upgrade-listing'] == 'upgrade' ? true : false;
+                $this->state->autorenew_fees = isset( $_POST['autorenew_fees'] ) && $_POST['autorenew_fees'] == 'autorenew' ? true : false;
+
+                $this->state->advance();
+                return $this->dispatch();
+            }
+        }
+        
+        $upgrade_option = false;
+        if ( $can_upgrade ) {
+            $upgrade_option = wpbdp_listing_upgrades_api()->get( 'sticky' );
+        }
+
+        return $this->render( 'fee-selection', array(
+            'fees' => $available_fees,
+            'upgrade_option' => $upgrade_option,
+            'allow_recurring' => count( $categories ) <= 1 && wpbdp_get_option( 'listing-renewal-auto' )
+        ) );
+    }
+
+    public function preview_listing_fields_form() {
+        return $this->step_listing_fields();
+    }
+
+    protected function step_listing_fields() {
+        $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
+        $fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$fields, &$this->state ) );
+
+        $validation_errors = array();
+        if ( isset( $_POST['listingfields'] ) ) {
+            $_POST['listingfields'] = stripslashes_deep( $_POST['listingfields'] );
+            
+            foreach ( $fields as  &$f ) {
+                $value = $f->convert_input( wpbdp_getv( $_POST['listingfields'], $f->get_id(), null ) );
+                $this->state->fields[ $f->get_id() ] = $value;
+
+                $field_errors = null;
+                $validate_res = apply_filters_ref_array( 'wpbdp_listing_submit_validate_field', array(
+                                                            $f->validate( $value, $field_errors ),
+                                                            &$field_errors,
+                                                            &$f,
+                                                            $value,
+                                                            &$this->state
+                                                        ) );
+
+                if ( !$validate_res )
+                    $validation_errors = array_merge( $validation_errors, $field_errors );
+            }
+
+            if ( ! $this->state->editing && !current_user_can( 'administrator' ) && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+                $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
+
+                if ( $tos && ( !isset( $_POST['terms-and-conditions-agreement'] ) || $_POST['terms-and-conditions-agreement'] != 1 ) ) {
+                    $validation_errors[] = _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' );
+                }
+            }
+
+            if ( wpbdp_get_option( 'recaptcha-for-submits' ) ) {
+                if ( $private_key = wpbdp_get_option( 'recaptcha-private-key' ) ) {
+                    if ( isset( $_POST['recaptcha_challenge_field'] ) ) {
+                        if ( !function_exists( 'recaptcha_get_html' ) )
+                            require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
+
+                        $resp = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
+                        if (!$resp->is_valid)
+                            $validation_errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'templates', 'WPBDM' );
+                    }
+                }
+            }
+
+            if ( !$validation_errors ) {
+                $this->state->advance();
+                return $this->dispatch();
+            }
+        }
+
+        $terms_field = '';
+        if ( ! $this->state->editing /*&& !current_user_can( 'administrator' ) */&& wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+            $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
+
+            if ( $tos ) {
+                if ( wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false ) ) {
+                    $terms_field .= sprintf( '<a href="%s" target="_blank">%s</a>',
+                                             esc_url( $tos ),
+                                             _x( 'Read our Terms and Conditions', 'templates', 'WPBDM' )
+                                           );
+                } else {
+                    $terms_field .= '<div class="wpbdp-form-field-label">';
+                    $terms_field .= '<label>';
+                    $terms_field .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
+                    $terms_field .= '</label>';
+                    $terms_field .= '</div>';
+                    $terms_field .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
+                    $terms_field .= sprintf( '<textarea readonly="readonly" rows="5" cols="50">%s</textarea>',
+                                             esc_textarea( $tos ) );
+                    $terms_field .= '</div>';
+                }
+
+                $terms_field .= '<label>';
+                $terms_field .= '<input type="checkbox" name="terms-and-conditions-agreement" value="1" />';
+                $terms_field .= _x( 'I agree to the Terms and Conditions', 'templates', 'WPBDM' );
+                $terms_field .= '</label>';
+            }
+        }
+
+        $recaptcha = '';
+        if ( wpbdp_get_option('recaptcha-for-submits') ) {
+            if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
+                if ( !function_exists( 'recaptcha_get_html' ) )
+                    require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
+                
+                $recaptcha = recaptcha_get_html( $public_key );
+            }
+        }
+        
+        return $this->render( 'listing-fields',
+                              array(
+                                    'fields' => $fields,
+                                    'validation_errors' => $validation_errors,
+                                    'recaptcha' => $recaptcha,
+                                    'terms_and_conditions' => $terms_field
+                                   )
+                            );
+    }
+
+    protected function step_images() {
+        // Calculate image slots this listing can use.
+        $image_slots = 0;
+
+        if ( wpbdp_get_option( 'allow-images' ) ) {
+            foreach ( $this->state->fees as $fee_id )
+                $image_slots += wpbdp_get_fee( $fee_id )->images; // TODO: max() instead of + probably makes more sense here.
+        }
+        
+        // Move on if there are no slots.
+        if ( 0 == $image_slots ) {
+            $this->state->advance();
+            return $this->dispatch();
+        }
+
+        $images = &$this->state->images;
+        $thumbnail_id = &$this->state->thumbnail_id;
+        $image_slots_remaining = $image_slots - count( $images );
+        $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
+    
+        // Set thumbnail
+        $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
+        $this->state->thumbnail_id = $thumbnail_id;
+
+        if ( isset( $_POST['upload-image'] ) && ( ( $image_slots_remaining - 1 ) >= 0 ) ) {
+            if ( $image_file = $_FILES[ 'image' ] ) {
+                $image_error = '';
+        
+                if ( $attachment_id = wpbdp_media_upload( $image_file,
+                                                          true,
+                                                          true,
+                                                          array( 'image' => true,
+                                                                 'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 ),
+                                                          $image_error ) ) {
+                    $this->state->images[] = $attachment_id;
+                    $this->state->save();
+
+                    $image_slots_remaining--;
+                } else {
+                    $this->errors[] = $image_error;
+                }
+            }
+        } elseif ( isset( $_POST['delete-image'] ) && intval( $_POST['delete-image-id'] ) > 0 ) {
+            $attachment_id = intval( $_POST['delete-image-id'] );
+            wpbdp_array_remove_value( $this->state->images, $attachment_id );
+            wp_delete_attachment( $image_id, true );
+            $this->state->save();
+
+            $image_slots_remaining++;
+
+            $this->messages[] = _x( 'Image deleted.', 'templates', 'WPBDM' );
+        } elseif ( isset( $_POST['finish'] ) ) {
+            $this->state->advance();
+            return $this->dispatch();
+        }
+
+        return $this->render( 'images',
+                              compact( 'image_max_file_size',
+                                       'images',
+                                       'image_slots',
+                                       'image_slots_remaining' )
+                            );
+    }
+
+    protected function step_before_save() {
+        if ( isset( $_POST['continue-with-save'] ) ) {
+            $this->state->advance();
+            return $this->dispatch();
+        }
+
+        $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections',
+                                             array( &$this->state ) );
+
+        if ( !$extra ) {
+            $this->state->advance();
+            return $this->dispatch();
+        }
+        
+        // FIXME: restore support for this.
+        return $this->render( 'extra-sections', array( 'output' => $extra ) );
+    }
+
+    protected function step_save() {
+        $listing = $this->state->editing ? WPBDP_Listing::get( $this->state->listing_id ) : new WPBDP_Listing();
+        $listing->set_field_values( $fields = $this->state->fields );
+        $listing->set_images( $this->state->images );
+        $listing->save();
+
+        // Generate payment for the listing.
+        $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );
+        foreach ( $this->state->fees as $cat_id => $fee_id ) {
+            $fee = wpbdp_get_fee( $fee_id );
+            $current_fee = $listing->get_category_fee( $cat_id );
+
+            if ( ! $current_fee || ( $current_fee->fee_id != $fee_id  ) )
+                $payment->add_item( $this->state->autorenew_fees ? 'recurring_fee' : 'fee',
+                                    $fee->amount,
+                                    sprintf( _x( 'Fee "%s" for category "%s"%s', 'listings', 'WPBDM' ),
+                                             $fee->label,
+                                             wpbdp_get_term_name( $cat_id ),
+                                             $this->state->autorenew_fees ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
+                                    array( 'category_id' => $cat_id, 'fee' => $fee ) );
+        }
+
+        if ( $this->state->upgrade_to_sticky )
+            $payment->add_item( 'upgrade',
+                                wpbdp_get_option( 'featured-price' ),
+                                _x( 'Listing upgrade to featured', 'submit', 'WPBDM' ),
+                                array( 'level' => 'sticky' ) );
+
+        $payment->set_submit_state_id( $this->state->id );
+        $payment->save();
+
+        $this->state->listing_id = $listing->get_id();
+        $this->state->payment_id = $payment->get_id();
+
+        // FIXME: restores support for extra sections
+        // if ( $this->_extra_sections ) {
+        //     foreach ( $this->_extra_sections as &$section ) {
+        //         if ( $section->save )
+        //             call_user_func_array( $section->save, array( &$this->_listing_data['extra_sections'][$section->id], $listing_id) );
+        //     }
+
+        $this->state->advance();
+        return $this->dispatch();
+    }
+    
+    protected function step_checkout() {
+        global $wpbdp;
+
+        $payment = WPBDP_Payment::get( $this->state->payment_id );
+        
+        if ( ! $payment )
+            return wpbdp_render_msg( _x( 'Invalid submit state.', 'submit_state', 'WPBDM' ), 'error' );
+        
+        if ( $payment->is_completed() ) {
+            $this->state->advance();
+            return $this->dispatch();
+        }
+
+        if ( ( $payment->is_canceled() || $payment->is_rejected() ) && isset( $_GET['change_payment_method'] ) && $_GET['change_payment_method'] == 1 ) {
+            $_SERVER['REQUEST_URI'] = remove_query_arg( 'change_payment_method', $_SERVER['REQUEST_URI'] );
+
+            $payment->reset();
+            $payment->save();
+            return $this->dispatch();
+        }
+
+        $payment_page = '';
+
+        if ( $payment->is_pending() ) {
+            // Select payment gateway.            
+            if ( ! $payment->get_gateway() ) {
+                if ( isset( $_POST['payment_method'] ) ) {
+                    $payment_method = trim( $_POST['payment_method'] );
+
+                    if ( ! $payment_method ) {
+                        $this->errors[] = _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' );
+                    } else {
+                        $payment->set_payment_method( $payment_method );
+                        $payment->save();
+
+                        return $this->dispatch();
+                    }
+                }
+            } else {
+            }
+        }
+
+        $html  = '';
+        $html .= '<h3>' . _x( '5 - Checkout', 'templates', 'WPBDM' ) . '</h3>';
+
+        if ( ! $payment->get_gateway() ) {
+            $html .= '<form action="" method="POST">';
+            $html .= '<input type="hidden" name="_state" value="' . $this->state->id . '" />';
+            $html .= $wpbdp->payments->render_invoice( $payment );
+            $html .= $wpbdp->payments->render_payment_method_selection();
+            $html .= '<input type="submit" value="Continue" />';
+        } else {
+            $html .= $wpbdp->payments->render_standard_checkout_page( $payment, array( 'retry_rejected' => true ) );
+        }
+
+        return $this->render( $html, array(), false, true );
+    }
+    
+    protected function step_confirmation() {
+        return $this->render( 'done' );
+
+        //TODO:     
+        //     if ( wpbdp_get_option( 'send-email-confirmation' ) ) {
+        //         $message = wpbdp_get_option( 'email-confirmation-message' );
+        //         $message = str_replace( "[listing]", get_the_title( $listing_id ), $message );
+        //         
+        //         $email = new WPBDP_Email();
+        //         $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title( $listing_id ), array() );
+        //         $email->to[] = wpbusdirman_get_the_business_email( $listing_id );
+        //         $email->body = $message;
+        //         $email->send();
+        //     }
+    }
+
+}
+
+/**
+ * Lightweight object used to store the submit process advance.
+ * @since 3.3
+ */
+class WPBDP_Listing_Submit_State {
+
+    public static $STEPS = array( 'category_selection',
+                                  'fee_selection',
+                                  'listing_fields',
+                                  'images',
+                                  'before_save',
+                                  'save',
+                                  'checkout',
+                                  'confirmation' );
+
+    public $id = '';
+    public $step = 'category_selection';
+    public $fields = array();
+
+    public $categories = array();
+    public $fees = array();
+    public $autorenew_fees = false;
+    public $upgrade_to_sticky = false;
+    public $extra = array();
+    public $editing = false;
+
+    public $images = array();
+    public $thumbnail_id = 0;
+
+    public function __construct( $listing_id = 0 ) {
+        $this->editing = $listing_id > 0 ? true : false;
+
+        if ( $listing_id > 0 ) {
+            $listing = WPBDP_Listing::get( $listing_id );
+
+            if ( ! $listing->is_published() )
+                throw new Exception( 'You can not edit this listing.' );
+
+            $this->listing_id = $listing_id;
+
+            // Recover fee information.
+            $this->categories = wp_get_post_terms( $this->listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+
+            foreach ( $listing->get_fees() as $fee ) {
+                $this->fees[ $fee->category_id ] = $fee->fee_id;
+            }
+
+            // Image information.
+            $images = wpbdp_listings_api()->get_images( $this->listing_id );
+            $this->images = array_map( create_function( '$x', 'return $x->ID;' ), $images );
+            $this->thumbnail_id = intval( wpbdp_listings_api()->get_thumbnail_id( $this->listing_id ) );
+
+            // Fields.
+            $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
+            foreach ( $fields as &$f ) {
+                $this->fields[ $f->get_id() ] = $f->value( $this->listing_id );
+            }
+
+            // Recover additional information.
+            do_action_ref_array( 'wpbdp_submit_state_init', array( &$this ) );
+        }
+    }
+
+    public static function get( $id ) {
+        global $wpdb;
+        
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_submit_state WHERE id = %s", $id ) );
+        $state = unserialize( $row->state );
+
+        $obj = new self;
+        foreach ( $state as $k => &$v )
+            $obj->{$k} = $v;
+
+        return $obj;
+    }
+
+    public function save() {
+        global $wpdb;
+
+        $this->id = $this->id ? $this->id : md5( rand() . microtime() . wp_salt() );
+        $data = array( 'id' => $this->id,
+                       'state' => serialize( (array) $this ),
+                       'updated' => current_time( 'mysql' ) );
+        $wpdb->replace( $wpdb->prefix . 'wpbdp_submit_state', $data );
+
+        
+    }
+
+    public function advance() {
+        $current_step = $this->step;
+        
+        if ( 'confirmation' == $current_step )
+            return;
+        
+        $current_index = array_search( $this->step, self::$STEPS );
+        $this->step = self::$STEPS[ ++$current_index ];
+        
+        $this->save();
+    }
+
+
+}

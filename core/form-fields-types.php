@@ -3,7 +3,7 @@
  * Standard form field types.
  */
 
-require_once( WPBDP_PATH . 'api/form-fields.php' );
+require_once( WPBDP_PATH . '/core/form-fields.php' );
 
 
 class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {

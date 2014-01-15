@@ -1,4 +1,6 @@
 <?php
+require_once( WPBDP_PATH . 'core/class-listing.php' );
+
 if (!class_exists('WPBDP_ListingsAPI')) {
 
 /**
@@ -251,6 +253,8 @@ class WPBDP_ListingsAPI {
         // notify admins of new listings (if needed)
         add_action( 'wpbdp_create_listing', array( $this, '_new_listing_notify' ) );
 
+        add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
+
         $this->upgrades = WPBDP_ListingUpgrades::instance();
     }
 
@@ -322,6 +326,31 @@ class WPBDP_ListingsAPI {
             return wpbdp_get_option('show-comment-form');
         
         return $open;
+    }
+
+    /**
+     * @since 3.3
+     */
+    public function setup_listing_after_payment( &$payment ) {
+        $listing = WPBDP_Listing::get( $payment->get_listing_id() );
+
+        foreach ( $payment->get_items() as $item ) {
+            switch ( $item->item_type ) {
+                case 'recurring_fee':
+                case 'fee':
+                    $listing->assign_fee( $item->data['category_id'],
+                                          $payment->is_completed() ? $item->data['fee'] : null,
+                                          'recurring_fee' == $item->item_type );
+                    break;
+
+                case 'upgrade':
+                    $listing->upgrade( $item->data['level'] );
+
+                    break;
+            }
+        }
+
+        $listing->save();
     }
 
     public function _new_listing_notify( $listing_id ) {
@@ -949,6 +978,7 @@ class WPBDP_ListingsAPI {
 
 /**
  * @since 3.0.3
+ * @deprecated since 3.3
  */
 function wpbdp_save_listing( $data, &$result=null ) {
     global $wpdb;
@@ -1044,6 +1074,7 @@ function wpbdp_save_listing( $data, &$result=null ) {
     // set categories
     wp_set_post_terms ( $listing_id, $data->categories, WPBDP_CATEGORY_TAX, false );
 
+    $payment = new WPBDP_Payment( array( 'listing_id' => $listing_id ) );
     $listing_cost = 0.0;
 
     // register fee information
@@ -1053,47 +1084,32 @@ function wpbdp_save_listing( $data, &$result=null ) {
 
         wpbdp_listings_api()->assign_fee( $listing_id, $catid, $fee->id, ( $current_fee && $current_fee->id == $fee->id ) ? false : true );
 
+        $payment->add_item( 'category_fee',
+                            ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : $fee->amount,
+                            sprintf( _x( 'Fee "%s" for category "%s"', 'listings', 'WPBDM' ), $fee->label, wpbdp_get_term_name( $catid ) ),
+                            array( 'category_id' => $catid, 'fee_id' => $fee->id )
+                          );
+
         $listing_cost += ( $current_fee && $current_fee->id == $fee->id ) ? 0.0 : floatval( $fee->amount );
     }
 
     if ( !$data->listing_id && isset( $data->upgrade_to_sticky ) && $data->upgrade_to_sticky ) {
         $upgrades_api = wpbdp_listing_upgrades_api();
-        $upgrades_api->set_sticky( $listing_id, 'sticky' );            
+        $upgrades_api->set_sticky( $listing_id, 'sticky' );
 
         $level = $upgrades_api->get( 'sticky' );
         $listing_cost += $level->cost;
+        
+        $payment->add_item( 'listing_upgrade', $level->cost, _x( 'Upgrade to Featured', 'listings', 'WPBDM' ) );
     }
-
+    
     if ( $data->categories )
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', $data->categories ) . ")", $listing_id ) );
-
-    $payments = wpbdp_payments_api();
-    $transaction_id = $payments->save_transaction( array(
-        'amount' => $listing_cost,
-        'payment_type' => $data->listing_id > 0 ? 'edit' : 'initial',
-        'listing_id' => $listing_id
-    ) );
-    update_post_meta( $listing_id, '_wpbdp[payment_status]', !current_user_can( 'administrator' ) && ( $listing_cost > 0.0 ) ? 'not-paid' : 'paid' );
-
-    $result->transaction_id = $transaction_id;
-    $result->listing_cost = $listing_cost;
-
-    if ( !$data->listing_id && ( !$listing_cost || current_user_can( 'administrator' ) ) ) {
-        wp_update_post( array( 'ID' => $listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
-    }
-
-    $editing = $data->listing_id > 0 ? true : false;
-    $data->listing_id = $listing_id;
-    $result->listing_id = $listing_id;
-
-    if ( !$editing )
-        do_action( 'wpbdp_create_listing', $listing_id, $data->fields, $data );
-    else
-        do_action( 'wpbdp_edit_listing', $listing_id, $data->fields, $data );
-
-    do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
-
-    return $listing_id;
+    
+    $payment->set_listing( $listing_id );
+    $payment->save();
+    
+    return array( $listing_id, &$payment );
 }
 
 }

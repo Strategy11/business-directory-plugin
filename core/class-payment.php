@@ -1,0 +1,255 @@
+<?php
+require_once( WPBDP_PATH . 'core/class-db-model.php' );
+
+/**
+ * This class represents a listing payment.
+ *
+ * @since 3.3
+ */
+class WPBDP_Payment extends WPBDP_DB_Model {
+    
+    const TABLE_NAME = 'payments';
+    
+    const STATUS_UNKNOWN = 'unknown';
+    const STATUS_NEW = 'new';
+    const STATUS_PENDING = 'pending';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CANCELED = 'canceled';
+    const STATUS_REJECTED = 'rejected';
+
+    const HANDLER_GATEWAY = 'gateway';
+    const HANDLER_ADMIN = 'admin';
+    const HANDLER_SYSTEM = 'system';
+
+    private $items = array();
+
+    public function __construct( $data = array() ) {
+        $this->fill_from_data( $data, array(
+            'id' => 0,
+            'listing_id' => 0,
+            'gateway' => '',
+            'currency_code' => wpbdp_get_option( 'currency' ),
+            'amount' => 0.0,
+            'status' => self::STATUS_PENDING,
+            'created_on' => current_time( 'mysql' ),
+            'processed_on' => null,
+            'processed_by' => null,
+            'payerinfo' => array(),
+            'extra_data' => null,
+        ) );
+
+        $this->amount = floatval( $this->amount );
+
+        global $wpdb;
+
+        if ( $data['id'] > 0 ) {
+            foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = %d", $this->id ), ARRAY_A ) as $item ) {
+                $item['data'] = maybe_unserialize( $item['data'] );
+                $this->items[] = $item;
+            }
+        }
+    }
+
+    public function reset() {
+        $this->gateway = '';
+        $this->processed_by = '';
+        $this->processed_on = '';
+        $this->payerinfo = array();
+        $this->status = self::STATUS_PENDING;
+    }
+    
+    public function save() {
+        global $wpdb;
+
+        if ( $this->amount == 0.0 )
+            $this->set_status( self::STATUS_COMPLETED );        
+        
+        $row = array(
+            'listing_id' => $this->listing_id,
+            'gateway' => $this->gateway,
+            'amount' => $this->amount,
+            'status' => $this->status,
+            'created_on' => $this->created_on,
+            'processed_on' => $this->processed_on,
+            'processed_by' => $this->processed_by,
+            'payerinfo' => serialize( is_array( $this->payerinfo ) ? $this->payerinfo : array() ),
+            'extra_data' => serialize( is_array( $this->extra_data ) ? $this->extra_data : array() )
+        );
+        
+        if ( $this->id )
+            $row['id'] = $this->id;
+        
+        if ( false === $wpdb->replace( self::get_table(), $row ) )
+            return false;
+        
+        $this->id = $this->id ? $this->id : $wpdb->insert_id;
+
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = %d", $this->id ) );
+
+        foreach ( $this->items as &$item ) {
+            $wpdb->insert( $wpdb->prefix . 'wpbdp_payments_items',
+                           array( 'item_type' => $item['item_type'],
+                                  'amount' => $item['amount'],
+                                  'description' => $item['description'],
+                                  'payment_id' => $this->id,
+                                  'data' => serialize( $item['data'] ) )
+                         );
+        }
+        
+        // TODO: see transaction_save/act_on_transaction_save in listings.php/payment.php
+        do_action_ref_array( 'WPBDP_Payment::save', array( &$this ) );
+
+        return true;
+    }
+    
+    public function delete() {
+    }
+    
+    public function is_payment_due() {
+        return $this->amount > 0.0 && $this->status != self::STATUS_COMPLETED;
+    }
+
+    public function is_pending() {
+        return $this->status == self::STATUS_PENDING;
+    }
+
+    public function is_completed() {
+        return $this->status == self::STATUS_COMPLETED;
+    }
+
+    public function is_canceled() {
+        return $this->status == self::STATUS_CANCELED;
+    }
+
+    public function is_rejected() {
+        return $this->status == self::STATUS_REJECTED;
+    }
+
+    public function has_been_processed() {
+        return ! empty( $this->processed_by );
+    }
+    
+    public function add_item( $item_type = 'charge', $amount = 0.0, $description = '', $data = array() ) {
+        $amount = floatval( $amount );
+        
+        $this->items[] = array(
+            'item_type' => $item_type,
+            'amount' => $amount,
+            'description' => $description,
+            'data' => $data
+        );
+        
+        $this->amount += $amount;
+    }
+
+    public function has_item_type( $item_type ) {
+        foreach ( $this->items as &$item ) {
+            if ( $item['item_type'] == $item_type )
+                return true;
+        }
+
+        return false;
+    }
+
+    public function get_items() {
+        return array_map( create_function( '$x', 'return (object) $x;' ), $this->items );
+    }
+
+    public function get_listing_id() {
+        return $this->listing_id;
+    }
+    
+    public function get_total() {
+        return $this->amount;
+    }
+
+    public function get_status() {
+        return $this->status;
+    }
+
+    public function set_status( $newstatus, $processed_by = 'system', $processed_on = null ) {
+        $prev_status = $this->status;
+        $this->status = $newstatus;
+        $this->processed_by = $processed_by;
+        $this->processed_on = ! $processed_on ? current_time( 'mysql' ) : $processed_on;
+
+        if ( $prev_status != $newstatus )
+            do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $prev_status, $newstatus ) );
+    }
+
+    public function get_gateway() {
+        return $this->gateway;
+    }
+    
+    public function set_listing( $listing ) {
+        if ( is_object( $listing ) )
+            $this->listing_id = $listing->ID;
+        else
+            $this->listing_id = $listing;
+    }
+
+    public function set_payment_method( $method_id ) {
+        $this->gateway = $method_id;
+
+        // TODO: fire something here in case the payment method needs to setup something before actual payment
+        // takes place.
+    }
+
+    public function get_currency_code() {
+        return $this->currency_code;
+    }
+
+    public function get_description() {
+        if ( count( $this->items ) == 1 )
+            return $this->items[0]['description'];
+
+        return sprintf( 'Listing Payment (ID: %s)', $this->id );
+    }
+
+    public function set_data( $key, $value ) {
+        if ( !is_array( $this->extra_data ) )
+            $this->extra_data = array();
+
+        $this->extra_data[ $key ] = $value;
+    }
+
+    public function get_data( $key ) {
+        if ( ! is_array( $this->extra_data ) || ! isset( $this->extra_data[ $k ] ) )
+            return null;
+
+        return $this->extra_data[ $k ];
+    }
+
+    public function set_submit_state_id( $id ) {
+        $this->set_data( 'submit_state_id', $id );
+    }
+
+    public function get_submit_state_id() {
+        return $this->get_data( 'submit_state_id' );
+    }
+
+    public function add_error( $error_msg ) {
+        $errors = $this->get_data( 'errors' );
+        $errors = ! $errors ? array() : $errors;
+
+        $errors[] = $error_msg;
+
+        $this->set_data( 'errors', $errors );
+    }
+
+    public function clear_errors() {
+        $this->set_data( 'errors', array() );
+    }
+
+    public function set_payer_info( $key, $value ) {
+        $this->payerinfo[ $key ] = $value;
+    }
+
+    public function get_redirect_url() {
+        // TODO: support redirects for other things rather than submits.
+        $url = add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
+        return $url;
+    }
+
+}
+?>

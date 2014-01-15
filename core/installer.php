@@ -75,39 +75,46 @@
 
         $schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
             id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
-            listing_id mediumint(9) NOT NULL,
+            listing_id mediumint(9) NOT NULL DEFAULT 0,
             gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            currency_code varchar(3) NOT NULL DEFAULT 'USD',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
-            payment_type varchar(255) NOT NULL,
             status varchar(255) NOT NULL,
             created_on timestamp NOT NULL,
             processed_on timestamp NULL,
-            processed_by varchar(255) NOT NULL DEFAULT 'gateway',               
+            processed_by varchar(255) NOT NULL DEFAULT 'gateway',
             payerinfo blob NULL,
             extra_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+        $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
+            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            payment_id mediumint(9) NOT NULL,
+            amount decimal(10,2) NOT NULL DEFAULT 0.00,            
+            item_type varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'charge',
+            description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Charge',
+            data blob NULL
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
         $schema['listing_fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
             id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
             listing_id mediumint(9) NOT NULL,
             category_id mediumint(9) NOT NULL,
+            fee_id mediumint(9) NULL,
             fee blob NOT NULL,
             expires_on timestamp NULL DEFAULT NULL,
             updated_on timestamp NOT NULL,
             charged tinyint(1) NOT NULL DEFAULT 0,
-            email_sent tinyint(1) NOT NULL DEFAULT 0
+            email_sent tinyint(1) NOT NULL DEFAULT 0,
+            recurring tinyint(1) NOT NULL DEFAULT 0,
+            recurring_id varchar(255) NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
             id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
-            status varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'edit',
-            step varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            user_id mediumint(9) NULL,
-            listing_id mediumint(9) NULL,
-            listing_data blob NULL,
-            extra_data blob NULL,
+            state longblob NOT NULL,
             created datetime NOT NULL,
-            completed datetime NULL
+            updated datetime NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         return apply_filters( 'wpbdp_database_schema', $schema );
@@ -127,7 +134,7 @@
     public function _update() {
         global $wpbdp;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -438,6 +445,11 @@
         global $wpdb;
         $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE taxonomy = %s", WPBDP_CATEGORY_TAX, 'wpbdm-category' ) );
         $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE taxonomy = %s", WPBDP_TAGS_TAX, 'wpbdm-tags' ) );
+    }
+
+    public function upgrade_to_3_6() {
+        global $wpdb;
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP COLUMN payment_type" );     
     }
 
  }

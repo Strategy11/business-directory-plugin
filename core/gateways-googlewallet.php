@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'libs/jwt/JWT.php' );
+require_once( WPBDP_PATH . 'vendors/jwt/JWT.php' );
 
 class WPBDP_GoogleWalletGateway {
 
@@ -98,7 +98,7 @@ class WPBDP_GoogleWalletGateway {
                           esc_attr( $token ),
                           esc_url( $processing_url )
                         );
-        $html .= sprintf( '<img src="%s" />', WPBDP_URL . 'resources/images/googlewallet.gif' );
+        $html .= sprintf( '<img src="%s" />', WPBDP_URL . 'core/images/googlewallet.gif' );
         $html .= '</a>';
         $html .= '</form>';
 
