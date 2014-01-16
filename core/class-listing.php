@@ -2,7 +2,7 @@
 require_once( WPBDP_PATH . 'core/class-db-model.php' );
 require_once( WPBDP_PATH . 'core/class-payment.php' );
 
-// TODO: integrate SubmitState with this using a 'dirty' flag or something like that.
+// TODO: make this more 'calculated fields' and immediate action instead of doing stuff in ->save().
 class WPBDP_Listing extends WPBDP_DB_Model {
 
     const TABLE_NAME = null;
@@ -35,6 +35,7 @@ class WPBDP_Listing extends WPBDP_DB_Model {
                 if ( $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) ) ) {
                     $fee_info->fee = (object) unserialize( $fee_info->fee );
                 } else {
+                    $fee_info = null;
                     // TODO: handle non existant fees. (should not happen)
                     // $fee_info = new StdClass();
                     // $fee_info->fee = wpbdp_get_fee( 0 );
@@ -183,6 +184,7 @@ class WPBDP_Listing extends WPBDP_DB_Model {
             $post_data['ID'] = $this->id;
 
         $this->id = $this->id ? wp_update_post( $post_data ) : wp_insert_post( $post_data );
+        $recursion_guard = true;
 
         // Create author user if needed.
         if ( ! $editing ) {
@@ -274,8 +276,19 @@ class WPBDP_Listing extends WPBDP_DB_Model {
         return $this->fees;
     }
 
+    public function get_categories() {
+        return array_keys( $this->fees );
+    }
+
     public function is_published() {
         return 'publish' == $this->post_status;
     }
+
+    public function get_total_cost() {
+        global $wpdb;
+        $cost = floatval( $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) );
+        return round( $cost, 2 );
+    }
+
 
 }

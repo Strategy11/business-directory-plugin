@@ -415,6 +415,8 @@ class WPBDP_DirectoryController {
 
     /* Upgrade to sticky. */
     public function upgrade_to_sticky() {
+        // TODO: redo this view.
+        die();
         $listing_id = wpbdp_getv($_REQUEST, 'listing_id');
 
         if ( !$listing_id || !wpbdp_user_can('upgrade-to-sticky', $listing_id) )

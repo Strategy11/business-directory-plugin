@@ -185,20 +185,6 @@ class WPBDP_FeesAPI {
 
 }
 
-    // public function get_fee_by_id($id) {
-    //     global $wpdb;
-
-    //     if ($id == 0)
-    //         return $this->get_free_fee();
-
-    //     if ($fee = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $id))) {
-    //         $this->normalize($fee);
-    //         return $fee;
-    //     }
-
-    //     return null;
-    // }
-
 /**
  * Finds a fee by its ID. The special ID of 0 is reserved for the "free fee".
  * @param int $fee_id fee ID
@@ -443,11 +429,6 @@ class WPBDP_PaymentsAPI {
         }
     }
 
-    public function delete_transaction($trans_) {
-        global $wpdb;
-        $wpdb->query( $wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $trans_->id) );
-    }
-
     public function save_transaction($trans_) {
         global $wpdb;
 
@@ -548,17 +529,6 @@ class WPBDP_PaymentsAPI {
         }
 
         return null;
-    }
-
-    public function process_payment($gateway_id, &$error_message=null) {
-        if (!array_key_exists($gateway_id, $this->gateways))
-            return;
-
-        $getvars = $_GET;
-        unset($getvars['action']);
-        unset($getvars['page_id']);
-
-        return call_user_func_array( $this->gateways[$gateway_id]->process_callback, array( array_merge($_POST, $getvars), &$error_message ) );
     }
 
     /**

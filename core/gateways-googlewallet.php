@@ -1,6 +1,7 @@
 <?php
 require_once( WPBDP_PATH . 'vendors/jwt/JWT.php' );
 
+// TODO: redo this gateway.
 class WPBDP_GoogleWalletGateway {
 
 	public function __construct() {
