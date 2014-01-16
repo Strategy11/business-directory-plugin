@@ -543,6 +543,9 @@ function wpbdp_format_time( $time, $format='mysql', $time_is_date=false ) {
  * @since 3.3
  */
 function wpbdp_scandir( $path ) {
+	if ( !is_dir( $path ) )
+		return array();
+	
     return array_diff( scandir( $path ), array( '.', '..' ) );
 }
 
