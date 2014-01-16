@@ -48,7 +48,7 @@
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_form_fields (
-            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
             description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             field_type varchar(100) NOT NULL,
@@ -62,7 +62,7 @@
         dbDelta($sql);
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
-            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
+            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
             amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
             days smallint UNSIGNED NOT NULL DEFAULT 0,
@@ -74,8 +74,8 @@
         dbDelta($sql);
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
-            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
-            listing_id mediumint(9) NOT NULL,
+            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+            listing_id bigint(20) NOT NULL,
             gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
             payment_type varchar(255) NOT NULL,
@@ -90,9 +90,9 @@
         dbDelta($sql);
 
         $sql = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
-            id mediumint(9) PRIMARY KEY  AUTO_INCREMENT,
-            listing_id mediumint(9) NOT NULL,
-            category_id mediumint(9) NOT NULL,
+            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+            listing_id bigint(20) NOT NULL,
+            category_id bigint(20) NOT NULL,
             fee blob NOT NULL,
             expires_on TIMESTAMP NULL DEFAULT NULL,
             updated_on TIMESTAMP NOT NULL,
@@ -106,7 +106,7 @@
     public function _update() {
         global $wpbdp;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -417,6 +417,14 @@
         global $wpdb;
         $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE taxonomy = %s", WPBDP_CATEGORY_TAX, 'wpbdm-category' ) );
         $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE taxonomy = %s", WPBDP_TAGS_TAX, 'wpbdm-tags' ) );
+    }
+
+    public function upgrade_to_3_6() {
+        global $wpdb;
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields MODIFY id bigint(20) AUTO_INCREMENT" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees MODIFY id bigint(20) AUTO_INCREMENT" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments MODIFY id bigint(20) AUTO_INCREMENT" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees MODIFY id bigint(20) AUTO_INCREMENT" );
     }
 
  }
