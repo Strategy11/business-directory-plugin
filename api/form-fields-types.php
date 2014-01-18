@@ -261,7 +261,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
                               'inselect',
                               $field->is_required() ? 'required' : '');
 
-            if ( $field->data( 'empty_on_search' ) ) {
+            if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
                 $html .= sprintf( '<option value="-1">%s</option>',
                                   _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) );
             }
