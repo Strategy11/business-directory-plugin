@@ -84,6 +84,9 @@ class WPBDP_Settings {
         $g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'general', _x('General Settings', 'admin settings', 'WPBDM'));
         
+        $this->add_setting($s, 'listings-per-page', _x('Listings per page', 'admin settings', 'WPBDM'), 'text', '10',
+                           _x('Number of listings to show per page. Use a value of "-1" to show all listings.', 'admin settings', 'WPBDM'));
+
         $this->add_setting($s, 'listing-duration', _x('Listing duration for no-fee sites (in days)', 'admin settings', 'WPBDM'), 'text', '365',
                            _x('Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'admin settings', 'WPBDM'),
                            null,
