@@ -146,6 +146,17 @@ jQuery(document).ready(function($){
         $(this).parent('.assignfee').hide();
     });
 
+    $('#listing-metabox-fees a.listing-fee-expiration-change-link').click(function(e) {
+        e.preventDefault();
+
+        var expirationDate = prompt( wpbdp_admin_l10n.change_listing_fee_expiration_date, $(this).attr('data-expiration-date') );
+
+        if ( expirationDate ) {
+            location.href = $(this).attr('href') + '&expiration_date=' + expirationDate;
+        }
+        
+    });
+
 
     /* Ajax placeholders */
 

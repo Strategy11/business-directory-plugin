@@ -64,6 +64,10 @@ class WPBDP_Admin {
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
 
+        wp_localize_script( 'wpbdp-admin-js', 'wpbdp_admin_l10n', array(
+            'change_listing_fee_expiration_date' => _x( 'Expiration Date (format YYYY-MM-DD):', 'admin', 'WPBDM' ),
+        ) );        
+
         // Ask for site tracking if needed.
         if ( !wpbdp_get_option( 'tracking-on', false ) && !get_option( 'wpbdp-tracking-dismissed', false ) && current_user_can( 'administrator' ) ) {
             wp_enqueue_style( 'wp-pointer' );
@@ -664,6 +668,19 @@ class WPBDP_Admin {
                 wpbdp_payments_api()->save_transaction($trans);
 
                 $this->messages[] = _x('The transaction has been rejected.', 'admin', 'WPBDM');
+                break;
+
+            case 'change_expiration':
+                global $wpdb;
+
+                $expiration_time = isset( $_GET['expiration_date'] ) ? date( 'Y-m-d 00:00:00', strtotime( trim( $_GET['expiration_date'] ) ) ) : null;
+
+                if ( $expiration_time ) {
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = %s, email_sent = %d WHERE id = %d", $expiration_time, 0, intval( $_GET['listing_fee_id'] ) ) );
+                }
+                
+                $this->messages[] = _x( 'The expiration date has been changed.', 'admin', 'WPBDM' );
+
                 break;
 
             case 'assignfee':
