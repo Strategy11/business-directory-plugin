@@ -301,7 +301,11 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         $settings['options'][] = $content;
 
         $settings['empty_on_search'][] = _x('Allow empty selection on search?', 'form-fields admin', 'WPBDM');
-        $settings['empty_on_search'][] = '<input type="checkbox" value="1" name="field[x_empty_on_search]" ' . ( $field && $field->data( 'empty_on_search' ) ? ' checked="checked"' : '' ) . ' />';
+
+        $content  = '<span class="description">Empty search selection means users can make this field optional in searching. Turn it off if the field must always be searched on.</span><br />';
+        $content .= '<input type="checkbox" value="1" name="field[x_empty_on_search]" ' . ( !$field ? ' checked="checked"' : ($field->data( 'empty_on_search' ) ? ' checked="checked"' : '') ) . ' />';
+        
+        $settings['empty_on_search'][] = $content;
      
         return self::render_admin_settings( $settings );
     }
