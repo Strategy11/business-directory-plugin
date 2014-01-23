@@ -146,16 +146,22 @@ jQuery(document).ready(function($){
         $(this).parent('.assignfee').hide();
     });
 
-    $('#listing-metabox-fees a.listing-fee-expiration-change-link').click(function(e) {
-        e.preventDefault();
+    if ( $('#listing-metabox-fees' ).length > 0 ) {
+        var $datepicker = $('#listing-metabox-fees .listing-fee-expiration-datepicker').hide().datepicker({
+            dateFormat: 'yy-mm-dd',
+            defaultDate: $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('data-date'),
+            onSelect: function(newDate) {
+                location.href = $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('href') + '&expiration_date=' + newDate;
+            }
+        });
 
-        var expirationDate = prompt( wpbdp_admin_l10n.change_listing_fee_expiration_date, $(this).attr('data-expiration-date') );
 
-        if ( expirationDate ) {
-            location.href = $(this).attr('href') + '&expiration_date=' + expirationDate;
-        }
-        
-    });
+        $('#listing-metabox-fees a.listing-fee-expiration-change-link').click(function(e) {
+            e.preventDefault();
+            $datepicker.toggle();
+        });
+
+    }
 
 
     /* Ajax placeholders */

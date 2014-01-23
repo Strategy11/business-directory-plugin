@@ -58,15 +58,18 @@ class WPBDP_Admin {
     }
 
     function enqueue_scripts() {
+        global $pagenow;
+
         wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
         wp_enqueue_style('thickbox');
 
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
 
-        wp_localize_script( 'wpbdp-admin-js', 'wpbdp_admin_l10n', array(
-            'change_listing_fee_expiration_date' => _x( 'Expiration Date (format YYYY-MM-DD):', 'admin', 'WPBDM' ),
-        ) );        
+        if ( 'post.php' == $pagenow ) {
+            wp_enqueue_style( 'wpbdp-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
+            wp_enqueue_script( 'jquery-ui-datepicker' );
+        }
 
         // Ask for site tracking if needed.
         if ( !wpbdp_get_option( 'tracking-on', false ) && !get_option( 'wpbdp-tracking-dismissed', false ) && current_user_can( 'administrator' ) ) {

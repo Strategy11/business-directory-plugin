@@ -42,7 +42,7 @@
 							<a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'change_expiration', 'listing_fee_id' => $fee->renewal_id ) ); ?>"
 							   class="listing-fee-expiration-change-link"
 							   title="<?php _ex( 'Click to manually change expiration date.', 'admin infometabox', 'WPBDM' ); ?>"
-							   data-expiration-date="<?php echo date('Y-m-d', strtotime( $fee->expires_on ) ); ?>">
+							   data-date="<?php echo date('Y-m-d', strtotime( $fee->expires_on ) ); ?>">
 						<?php endif; ?>
 						<?php if ($fee->expires_on): ?>
 							<?php echo date_i18n(get_option('date_format'), strtotime($fee->expires_on)); ?>
@@ -51,9 +51,12 @@
 						<?php endif; ?>
 						<?php if (current_user_can('administrator')): ?>
 							</a>
+
+							<div class="listing-fee-expiration-datepicker"></div>
 						<?php endif; ?>
 					</dd>
 				</dl>
+
 			<?php else: ?>
 				<?php _ex('No fee assigned.', 'admin infometabox', 'WPBDM'); ?>
 			<?php endif; ?>

@@ -163,6 +163,13 @@ td.column-bd_sticky_status .status.sticky {
 }
 
 /* Listing info metabox / fees */
+#listing-metabox-fees .listing-fee-expiration-datepicker {
+    position: absolute;
+    z-index: 100;
+    right: 10px;
+    font-size: 80%;
+}
+
 #listing-metabox-fees .category-name {
     text-decoration: underline;
     font-weight: bold;
