@@ -33,7 +33,6 @@ class WPBDP_Admin {
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
         add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
 
-        add_filter('manage_edit-' . WPBDP_TAGS_TAX . '_columns', array($this, 'add_custom_taxonomy_columns'));
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
         add_filter('views_edit-' . WPBDP_POST_TYPE, array($this, 'add_custom_views'));
         add_filter('request', array($this, 'apply_query_filters'));
@@ -799,9 +798,6 @@ class WPBDP_Admin {
     }
 
     public function add_custom_taxonomy_columns( $cols ) {
-        if ( !isset( $_GET['taxonomy'] ) || $_GET['taxonomy'] != WPBDP_CATEGORY_TAX )
-            return $cols;
-        
         $newcols = array_merge( array_slice( $cols, 0, 1 ),
                                 array( 'id' => _x( 'ID', 'admin category id', 'WPBDM' ) ),
                                 array_slice( $cols, 1, -1),
