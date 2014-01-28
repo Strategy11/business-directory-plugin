@@ -2,7 +2,7 @@
  
  class WPBDP_Installer {
 
-    const DB_VERSION = '3.5';
+    const DB_VERSION = '3.6';
 
     private $installed_version = null;
 
