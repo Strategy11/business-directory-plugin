@@ -390,12 +390,17 @@ class WPBDP_Admin {
         // Payment status
         $payment_status = $listings_api->get_payment_status($post->ID);
 
+        // Determine selected tab.
+        $selected_tab = 'generalinfo';
+        if ( isset( $_GET['wpbdmaction'] ) && in_array( $_GET['wpbdmaction'], array( 'removecategory', 'assignfee', 'change_expiration' ), true ) )
+            $selected_tab = 'fees';
+
         echo '<div class="misc-pub-section">';
 
         echo '<ul class="listing-metabox-tabs">';
-        echo '<li class="tabs selected"><a href="#listing-metabox-generalinfo">' . _x('General Info', 'admin', 'WPBDM') . '</a></li>';
-        echo '<li class="tabs"><a href="#listing-metabox-fees">' . _x('Fee Details', 'admin', 'WPBDM') . '</a></li>';
-        echo '<li class="tabs"><a href="#listing-metabox-transactions">' . _x('Transactions', 'admin', 'WPBDM') . '</a></li>';
+        echo '<li class="tabs ' . ( $selected_tab == 'generalinfo' ? 'selected' : '' ) . '"><a href="#listing-metabox-generalinfo">' . _x('General Info', 'admin', 'WPBDM') . '</a></li>';
+        echo '<li class="tabs ' . ( $selected_tab == 'fees' ? 'selected' : '' ) . '"><a href="#listing-metabox-fees">' . _x('Fee Details', 'admin', 'WPBDM') . '</a></li>';
+        echo '<li class="tabs ' . ( $selected_tab == 'transactions' ? 'selected' : '' ) . '"><a href="#listing-metabox-transactions">' . _x('Transactions', 'admin', 'WPBDM') . '</a></li>';
         echo '</ul>';
 
         echo '<div id="listing-metabox-generalinfo">';
