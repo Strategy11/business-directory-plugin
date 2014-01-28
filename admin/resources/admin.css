@@ -3,7 +3,7 @@ span.tag {
     border-radius: 2px;
     padding: 2px 5px;
     color: #fff;
-    font-size: 90%;
+    /*font-size: 8px;*/
     margin-right: 2px;
 }
 
@@ -93,8 +93,8 @@ td.column-bd_sticky_status .status.sticky {
 
 #BusinessDirectory_listinginfo .listing-metabox-tabs li {
     display: inline;
-    padding: 3px 8px;
-    margin-right: 4px;
+    padding: 1px 8px;
+    margin: 0;
 }
 
 #BusinessDirectory_listinginfo .listing-metabox-tabs li a {
@@ -107,7 +107,6 @@ td.column-bd_sticky_status .status.sticky {
 
 #BusinessDirectory_listinginfo #listing-metabox-generalinfo, #BusinessDirectory_listinginfo #listing-metabox-fees, #BusinessDirectory_listinginfo #listing-metabox-transactions {
     display: none;
-    /*font-size: 95%;*/
 }
 
 #BusinessDirectory_listinginfo #listing-metabox-generalinfo > strong, #BusinessDirectory_listinginfo #listing-metabox-fees > strong, #BusinessDirectory_listinginfo #listing-metabox-transactions > strong {
@@ -247,7 +246,7 @@ table.wp-list-table.formfields th.column-label {
 }
 
 table.wp-list-table.formfields th.column-tags {
-    width: 180px;
+    width: 200px;
 }
 
 table.wp-list-table.formfields th.column-order {
