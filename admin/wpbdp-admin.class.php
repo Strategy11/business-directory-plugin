@@ -31,6 +31,7 @@ class WPBDP_Admin {
         add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
         
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
+        add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
         add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
 
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
@@ -803,6 +804,12 @@ class WPBDP_Admin {
                                 array_slice( $cols, 1, -1),
                                 array( 'posts' => _x('Listing Count', 'admin', 'WPBDM') ) );
         return $newcols;
+    }
+
+    public function tag_taxonomy_columns( $cols ) {
+        $newcols = array_merge( array_slice( $cols, 0, -1 ),
+                                array( 'posts' => _x('Listing Count', 'admin', 'WPBDM') ) );
+        return $newcols;        
     }
     
     public function custom_taxonomy_columns( $value, $column_name, $id ) {
