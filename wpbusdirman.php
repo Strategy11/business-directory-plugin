@@ -75,7 +75,7 @@ class WPBDP_Plugin {
             // category page query
             $query->set('post_status', 'publish');
             $query->set('post_type', WPBDP_POST_TYPE);
-            $query->set('posts_per_page', wpbdp_get_option('listings-per-page'));
+            $query->set('posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1);
             $query->set('orderby', wpbdp_get_option('listings-order-by', 'date'));
             $query->set('order', wpbdp_get_option('listings-sort', 'ASC'));
         }
