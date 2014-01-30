@@ -147,18 +147,20 @@ jQuery(document).ready(function($){
     });
 
     if ( $('#listing-metabox-fees' ).length > 0 ) {
-        var $datepicker = $('#listing-metabox-fees .listing-fee-expiration-datepicker').hide().datepicker({
-            dateFormat: 'yy-mm-dd',
-            defaultDate: $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('data-date'),
-            onSelect: function(newDate) {
-                location.href = $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('href') + '&expiration_date=' + newDate;
-            }
-        });
+        $('#listing-metabox-generalinfo, #listing-metabox-fees').each(function(i, v) {
+            var $tab = $(v);
+            var $datepicker = $tab.find('.listing-fee-expiration-datepicker').hide().datepicker({
+                dateFormat: 'yy-mm-dd',
+                defaultDate: $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('data-date'),
+                onSelect: function(newDate) {
+                    location.href = $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('href') + '&expiration_date=' + newDate;
+                }
+            });
 
-
-        $('#listing-metabox-fees a.listing-fee-expiration-change-link').click(function(e) {
-            e.preventDefault();
-            $datepicker.toggle();
+            $tab.find('a.listing-fee-expiration-change-link').click(function(e) {
+                e.preventDefault();
+                $datepicker.toggle();
+            });
         });
 
     }

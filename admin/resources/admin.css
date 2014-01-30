@@ -162,14 +162,14 @@ td.column-bd_sticky_status .status.sticky {
 }
 
 /* Listing info metabox / fees */
-#listing-metabox-fees .listing-fee-expiration-datepicker {
+#listing-metabox-generalinfo .listing-fee-expiration-datepicker, #listing-metabox-fees .listing-fee-expiration-datepicker {
     position: absolute;
     z-index: 100;
     right: 10px;
     font-size: 80%;
 }
 
-#listing-metabox-fees .category-name {
+#listing-metabox-generalinfo .category-name, #listing-metabox-fees .category-name {
     text-decoration: underline;
     font-weight: bold;
 }
@@ -180,13 +180,13 @@ td.column-bd_sticky_status .status.sticky {
     font-size: 95%;
 }
 
-#listing-metabox-fees dl.feeinfo dt {
+#listing-metabox-generalinfo dl.feeinfo dt, #listing-metabox-fees dl.feeinfo dt {
     float: left;
     color: #595959;
     width: 80px;
 }
 
-#listing-metabox-fees dl.feeinfo dd {
+#listing-metabox-generalinfo dl.feeinfo dd, #listing-metabox-fees dl.feeinfo dd {
     margin-bottom: 0;
 }
 

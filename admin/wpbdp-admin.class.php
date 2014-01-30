@@ -395,6 +395,12 @@ class WPBDP_Admin {
         if ( isset( $_GET['wpbdmaction'] ) && in_array( $_GET['wpbdmaction'], array( 'removecategory', 'assignfee', 'change_expiration' ), true ) )
             $selected_tab = 'fees';
 
+        // Some general info.
+        $expired_categories_ids = $listings_api->get_expired_categories( $post->ID );
+        $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+        $post_categories = array_unique( array_merge( $current_categories, $expired_categories_ids ) );
+        $categories = get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false, 'hierarchical' => false, 'include' => $post_categories ? $post_categories : array( -1 ) ) );        
+
         echo '<div class="misc-pub-section">';
 
         echo '<ul class="listing-metabox-tabs">';
@@ -453,27 +459,30 @@ class WPBDP_Admin {
                 echo sprintf('<a href="%s" class="button">%s</a>',
                              add_query_arg('wpbdmaction', 'setasnotpaid'),
                              _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
+
+            echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/infometabox-general-feesummary.tpl.php', array(
+                'post_categories' => $categories,
+                'expired_categories' => $expired_categories_ids,
+                'post_id' => $post->ID,                           
+            ) );
+
         }
+
         echo '</div>';
 
-        // Transactions
-        echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-transactions.tpl.php', array(
-                                'transactions' => wpbdp_payments_api()->get_transactions($post->ID)
-                               ));
-
         // Fees
-        $expired_categories_ids = $listings_api->get_expired_categories( $post->ID );
-        $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-        $post_categories = array_unique( array_merge( $current_categories, $expired_categories_ids ) );
-
-        $categories = get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false, 'hierarchical' => false, 'include' => $post_categories ? $post_categories : array( -1 ) ) );
-
         echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-fees.tpl.php', array(
                                 'post_categories' => $categories,
                                 'expired_categories' => $expired_categories_ids,
                                 'post_id' => $post->ID,
                                 'image_count' => count($listings_api->get_images($post->ID))
                                 ));
+
+        // Transactions
+        echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-transactions.tpl.php', array(
+                                'transactions' => wpbdp_payments_api()->get_transactions($post->ID)
+                               ));
+
         echo '</div>';
 
         echo '<div class="clear"></div>';
