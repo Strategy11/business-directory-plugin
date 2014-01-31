@@ -451,7 +451,11 @@ body.taxonomy-wpbdp_category .column-id {
     padding: 8px 20px;
 }
 
-.directory-admin_page_wpbdp_admin_settings input, .directory-admin_page_wpbdp_admin_settings textarea, .directory-admin_page_wpbdp_admin_settings select {
+.directory-admin_page_wpbdp_admin_settings input, .directory-admin_page_wpbdp_admin_settings select {
     font-size: 13px;
     line-height: 1.0;
+}
+
+.directory-admin_page_wpbdp_admin_settings textarea {
+    font-size: 13px;
 }
