@@ -105,6 +105,14 @@ td.column-bd_sticky_status .status.sticky {
     background: #ddd;
 }
 
+#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a {
+    color: #333;
+}
+
+#BusinessDirectory_listinginfo a.listing-fee-expiration-change-link {
+    margin-left: 3px;
+}
+
 #BusinessDirectory_listinginfo #listing-metabox-generalinfo, #BusinessDirectory_listinginfo #listing-metabox-fees, #BusinessDirectory_listinginfo #listing-metabox-transactions {
     display: none;
 }

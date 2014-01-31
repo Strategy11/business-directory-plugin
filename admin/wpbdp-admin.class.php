@@ -404,7 +404,7 @@ class WPBDP_Admin {
         echo '<div class="misc-pub-section">';
 
         echo '<ul class="listing-metabox-tabs">';
-        echo '<li class="tabs ' . ( $selected_tab == 'generalinfo' ? 'selected' : '' ) . '"><a href="#listing-metabox-generalinfo">' . _x('General Info', 'admin', 'WPBDM') . '</a></li>';
+        echo '<li class="tabs ' . ( $selected_tab == 'generalinfo' ? 'selected' : '' ) . '"><a href="#listing-metabox-generalinfo">' . _x('General', 'admin', 'WPBDM') . '</a></li>';
         echo '<li class="tabs ' . ( $selected_tab == 'fees' ? 'selected' : '' ) . '"><a href="#listing-metabox-fees">' . _x('Fee Details', 'admin', 'WPBDM') . '</a></li>';
         echo '<li class="tabs ' . ( $selected_tab == 'transactions' ? 'selected' : '' ) . '"><a href="#listing-metabox-transactions">' . _x('Transactions', 'admin', 'WPBDM') . '</a></li>';
         echo '</ul>';

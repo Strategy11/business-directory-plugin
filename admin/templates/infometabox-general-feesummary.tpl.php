@@ -1,6 +1,9 @@
 <div>
-    <p><strong><?php _ex('Listing Categories', 'admin infometabox', 'WPBDM'); ?></strong></p>
+    <p><strong><?php _ex('Categories for this listing', 'admin infometabox', 'WPBDM'); ?></strong></p>
 
+    <?php if ( ! $post_categories ): ?>
+    <p><?php _ex( 'No categories on this listing. Please add one to associate fees.', 'admin infometabox', 'WPBDM' ); ?></p>
+    <?php else: ?>
     <dl>
         <?php foreach ($post_categories as $term): ?>
         <?php $fee = wpbdp_listings_api()->get_listing_fee_for_category( $post_id, $term->term_id ); ?>
@@ -21,21 +24,20 @@
                         <?php endif; ?> 
                     </dt>
                     <dd>
-                        <?php if (current_user_can('administrator')): ?>
-                            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'change_expiration', 'listing_fee_id' => $fee->renewal_id ) ); ?>"
-                               class="listing-fee-expiration-change-link"
-                               title="<?php _ex( 'Click to manually change expiration date.', 'admin infometabox', 'WPBDM' ); ?>"
-                               data-date="<?php echo date('Y-m-d', strtotime( $fee->expires_on ) ); ?>">
-                        <?php endif; ?>
                         <?php if ($fee->expires_on): ?>
                             <?php echo date_i18n(get_option('date_format'), strtotime($fee->expires_on)); ?>
                         <?php else: ?>
                             <?php _ex('never', 'admin infometabox', 'WPBDM'); ?>
                         <?php endif; ?>
-                        <?php if (current_user_can('administrator')): ?>
-                            </a>
 
-                            <div class="listing-fee-expiration-datepicker"></div>
+                        <?php if ( current_user_can( 'administrator' ) ): ?>
+                            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'change_expiration', 'listing_fee_id' => $fee->renewal_id ) ); ?>"
+                               class="listing-fee-expiration-change-link"
+                               title="<?php _ex( 'Click to manually change expiration date.', 'admin infometabox', 'WPBDM' ); ?>"
+                               data-renewalid="<?php echo $fee->renewal_id; ?>"
+                               data-date="<?php echo date('Y-m-d', strtotime( $fee->expires_on ) ); ?>"><?php _ex( 'Edit', 'admin infometabox', 'WPBDM' ); ?></a>
+
+                            <div class="listing-fee-expiration-datepicker renewal-<?php echo $fee->renewal_id; ?>"></div>
                         <?php endif; ?>
                     </dd>
                 </dl>
@@ -54,9 +56,6 @@
         </dd>
         <?php endforeach; ?>
     </dl>
-
-    <?php if ( $expired_categories ): ?>
-    <a href="<?php echo add_query_arg( 'wpbdmaction', 'renewlisting' ); ?>" class="button-primary button"><?php _ex( 'Renew listing in all expired categories', 'admin infometabox', 'WPBDM'); ?></a>
     <?php endif; ?>
 
 </div>

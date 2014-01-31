@@ -120,6 +120,7 @@ jQuery(document).ready(function($){
         // show new tab
         $(this).parent('li').addClass('selected');
         $(href).show();
+        $('.listing-fee-expiration-datepicker').hide();
     });
 
     $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
@@ -149,17 +150,25 @@ jQuery(document).ready(function($){
     if ( $('#listing-metabox-fees' ).length > 0 ) {
         $('#listing-metabox-generalinfo, #listing-metabox-fees').each(function(i, v) {
             var $tab = $(v);
-            var $datepicker = $tab.find('.listing-fee-expiration-datepicker').hide().datepicker({
-                dateFormat: 'yy-mm-dd',
-                defaultDate: $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('data-date'),
-                onSelect: function(newDate) {
-                    location.href = $('#listing-metabox-fees a.listing-fee-expiration-change-link').attr('href') + '&expiration_date=' + newDate;
-                }
+            $tab.find('.listing-fee-expiration-datepicker').each(function(i, v) {
+                var $dp = $(v);
+                var $changeLink = $dp.siblings('a.listing-fee-expiration-change-link');
+
+                $dp.hide().datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    defaultDate: $changeLink.attr('data-date'),
+                    onSelect: function(newDate) {
+                        location.href = $changeLink.attr('href') + '&expiration_date=' + newDate;
+                    }
+                });
             });
 
             $tab.find('a.listing-fee-expiration-change-link').click(function(e) {
                 e.preventDefault();
-                $datepicker.toggle();
+
+                var renewal_id = $(this).attr('data-renewalid');
+                $('.listing-fee-expiration-datepicker').not('.renewal-' + renewal_id ).hide();
+                $('.listing-fee-expiration-datepicker.renewal-' + renewal_id).toggle();
             });
         });
 
