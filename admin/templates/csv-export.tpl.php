@@ -5,9 +5,11 @@
 <?php echo wpbdp_admin_notices(); ?>
 
 <div class="step-1">
-<h3><?php _ex( 'Export Configuration', 'admin csv-export', 'WPBDM' ); ?></h3>
+
+<!--<h3><?php _ex('Export Configuration', 'admin csv-export', 'WPBDM'); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">
-    <h4><?php _ex('Export settings', 'admin csv-export', 'WPBDM'); ?></h4>
+    
+    <h3><?php _ex( 'Export settings', 'admin csv-export', 'WPBDM' ); ?></h3>
     <table class="form-table">
         <tr>
             <th scope="row">
@@ -57,7 +59,7 @@
         </tr>
     </table>
 
-    <h4><?php _ex('CSV File Settings', 'admin csv-export', 'WPBDM'); ?></h4>
+    <h3><?php _ex('CSV File Settings', 'admin csv-export', 'WPBDM'); ?></h3>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">

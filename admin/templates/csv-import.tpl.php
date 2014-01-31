@@ -10,7 +10,7 @@
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
 
-    <h4><?php _ex('Import Files', 'admin csv-import'); ?></h4>
+    <h3><?php _ex('Import Files', 'admin csv-import'); ?></h3>
     <table class="form-table">
         <tbody>
             <tr class="form-field form-required">
@@ -35,7 +35,7 @@
             </tr>            
     </table>
 
-    <h4><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h4>
+    <h3><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h3>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
@@ -72,7 +72,7 @@
             </tr>
     </table>
 
-    <h4><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h4>
+    <h3><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h3>
     <table class="form-table">
 <!--            <tr class="form-required">
                 <th scope="row">
@@ -134,6 +134,7 @@
     </p>
 </form>
 
+<hr />
 <a name="help"></a>
 <h3><?php _ex('Help', 'admin csv-import', 'WPBDM'); ?></h3>
 <p>

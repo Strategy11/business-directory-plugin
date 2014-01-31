@@ -2,17 +2,18 @@
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 3.2.1\n"
+"Project-Id-Version: Business Directory Plugin 3.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2013-11-07 23:49:15+00:00\n"
-"PO-Revision-Date: 2013-11-07 19:07-0500\n"
+"POT-Creation-Date: 2014-01-26 18:10:14+00:00\n"
+"PO-Revision-Date: 2014-01-26 13:21-0500\n"
 "Last-Translator: Jorge Torres <jorge@sinapsis.co>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
 "com>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,-1,543\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -135,6 +136,24 @@ msgid ""
 msgstr ""
 "Puede ocultar estos consejos yendo a Configuraciones y activando la caja que "
 "dice \"Ocultar consejos de uso y otra información\""
+
+#: admin/csv-export.php:125
+msgctxt "admin csv-export"
+msgid "Could not create a temporary directory for handling this CSV export."
+msgstr ""
+"No se pudo crear un directorio temporal para exportar este archivo CSV."
+
+#: admin/csv-export.php:127
+msgctxt "admin csv-export"
+msgid "Could not create wpbdp-csv-exports directory."
+msgstr "No se pudo crear el directorio \"wpbdp-csv-exports\"."
+
+#: admin/csv-export.php:132
+msgctxt "admin csv-export"
+msgid "Error while creating a temporary directory for CSV export: %s"
+msgstr ""
+"Se presentó un error mientras se creaba el directorio temporal para exportar "
+"el archivo CSV: %s"
 
 #: admin/csv-import.php:39
 msgctxt "admin csv-import"
@@ -479,6 +498,11 @@ msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Campos requeridos creados satisfactoriamente."
 
+#: admin/templates/csv-export.tpl.php:8
+msgctxt "admin csv-export"
+msgid "Export Configuration"
+msgstr "Configuración de Exportación"
+
 #: admin/templates/csv-export.tpl.php:10
 msgctxt "admin csv-export"
 msgid "Export settings"
@@ -562,10 +586,88 @@ msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "Separador de categorías"
 
-#: admin/templates/csv-export.tpl.php:99
+#: admin/templates/csv-export.tpl.php:98
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "Exportar Listados"
+
+#: admin/templates/csv-export.tpl.php:104
+msgctxt "admin csv-export"
+msgid "Export in Progress..."
+msgstr "Proceso de exportación en progreso..."
+
+#: admin/templates/csv-export.tpl.php:105
+msgctxt "admin csv-export"
+msgid ""
+"Your export file is being prepared. Please <u>do not leave</u> this page "
+"until the export finishes."
+msgstr ""
+"Su archivo está siendo preparado. Por favor <u>no abandone</u> esta página "
+"hasta que el proceso termine."
+
+#: admin/templates/csv-export.tpl.php:108
+msgctxt "admin csv-export"
+msgid "No. of listings:"
+msgstr "Número de listados:"
+
+#: admin/templates/csv-export.tpl.php:110
+msgctxt "admin csv-export"
+msgid "Approximate export file size:"
+msgstr "Tamaño aproximado del archivo exportado:"
+
+#: admin/templates/csv-export.tpl.php:117
+msgctxt "admin csv-export"
+msgid "Cancel Export"
+msgstr "Cancelar Proceso"
+
+#: admin/templates/csv-export.tpl.php:122
+msgctxt "admin csv-export"
+msgid "Export Complete"
+msgstr "Exportación Completada"
+
+#: admin/templates/csv-export.tpl.php:123
+msgctxt "admin csv-export"
+msgid ""
+"Your export file has been successfully created and it is now ready for "
+"download."
+msgstr ""
+"Su archivo ha sido creado satisfactoriamente y se encuentra listo para ser "
+"descargado."
+
+#: admin/templates/csv-export.tpl.php:126
+msgctxt "admin csv-export"
+msgid "Download %s (%s)"
+msgstr "Descargar %s (%s)"
+
+#: admin/templates/csv-export.tpl.php:132
+msgctxt "admin csv-export"
+msgid ""
+"Click \"Cleanup\" once the file has been downloaded in order to remove all "
+"temporary data created by Business Directory during the export process."
+msgstr ""
+"Haga clic en \"Limpiar\" una vez el archivo haya sido descargado para "
+"eliminar todos los datos temporales creados durante el proceso de "
+"exportación."
+
+#: admin/templates/csv-export.tpl.php:133
+msgctxt "admin csv-export"
+msgid "Cleanup"
+msgstr "Limpiar"
+
+#: admin/templates/csv-export.tpl.php:138
+msgctxt "admin csv-export"
+msgid "Export Canceled"
+msgstr "Exportación Cancelada"
+
+#: admin/templates/csv-export.tpl.php:139
+msgctxt "admin csv-export"
+msgid "The export has been canceled."
+msgstr "La exportación ha sido cancelada."
+
+#: admin/templates/csv-export.tpl.php:140
+msgctxt "admin csv-export"
+msgid "← Return to CSV Export"
+msgstr "← Regresar a \"Exportar CSV\""
 
 #: admin/templates/csv-import.tpl.php:3 admin/templates/csv-import.tpl.php:138
 msgctxt "admin csv-import"
@@ -1117,74 +1219,79 @@ msgstr "Expira en"
 
 #: admin/templates/infometabox-fees.tpl.php:44
 msgctxt "admin infometabox"
+msgid "Click to manually change expiration date."
+msgstr "Clic para cambiar manualmente la fecha de expiración."
+
+#: admin/templates/infometabox-fees.tpl.php:50
+msgctxt "admin infometabox"
 msgid "never"
 msgstr "nunca"
 
-#: admin/templates/infometabox-fees.tpl.php:49
+#: admin/templates/infometabox-fees.tpl.php:61
 msgctxt "admin infometabox"
 msgid "No fee assigned."
 msgstr "Ninguna comisión asignada."
 
-#: admin/templates/infometabox-fees.tpl.php:53
+#: admin/templates/infometabox-fees.tpl.php:65
 msgctxt "admin infometabox"
 msgid "Renewal URL (copy & paste)"
 msgstr "URL de Renovación (copiar y pegar)"
 
-#: admin/templates/infometabox-fees.tpl.php:53
+#: admin/templates/infometabox-fees.tpl.php:65
 msgctxt "admin infometabox"
 msgid "Show renewal link"
 msgstr "Mostrar enlace de renovación"
 
-#: admin/templates/infometabox-fees.tpl.php:55
+#: admin/templates/infometabox-fees.tpl.php:67
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail to user"
 msgstr "Enviar correo electrónico de renovación al usuario"
 
-#: admin/templates/infometabox-fees.tpl.php:57
+#: admin/templates/infometabox-fees.tpl.php:69
 msgctxt "admin infometabox"
 msgid "Renew manually..."
 msgstr "Renovar manualmente..."
 
-#: admin/templates/infometabox-fees.tpl.php:57
+#: admin/templates/infometabox-fees.tpl.php:69
 msgctxt "admin infometabox"
 msgid "Change fee..."
 msgstr "Cambiar comisión..."
 
-#: admin/templates/infometabox-fees.tpl.php:57
+#: admin/templates/infometabox-fees.tpl.php:69
 msgctxt "admin infometabox"
 msgid "Assign one"
 msgstr "Asignar una"
 
-#: admin/templates/infometabox-fees.tpl.php:61
+#: admin/templates/infometabox-fees.tpl.php:73
 msgctxt "admin infometabox"
 msgid "close"
 msgstr "cerrar"
 
-#: admin/templates/infometabox-fees.tpl.php:67
+#: admin/templates/infometabox-fees.tpl.php:79
 msgctxt "admin infometabox"
 msgid "Use this"
 msgstr "Utilizar ésta"
 
-#: admin/templates/infometabox-fees.tpl.php:71
+#: admin/templates/infometabox-fees.tpl.php:83
 msgctxt "admin infometabox"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] "%d imagen"
 msgstr[1] "%d imágenes"
 
-#: admin/templates/infometabox-fees.tpl.php:73
+#: admin/templates/infometabox-fees.tpl.php:85
 msgctxt "admin infometabox"
 msgid "Unlimited listing days"
 msgstr "Días ilimitados de listado"
 
-#: admin/templates/infometabox-fees.tpl.php:75
+#: admin/templates/infometabox-fees.tpl.php:87
 msgctxt "admin infometabox"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d día"
 msgstr[1] "%d días"
 
-#: admin/templates/infometabox-fees.tpl.php:88
+#: admin/templates/infometabox-fees.tpl.php:100
 msgctxt "admin infometabox"
 msgid "Renew listing in all expired categories"
 msgstr "Renovar el listado en todas las categorías expiradas"
@@ -1612,12 +1719,12 @@ msgctxt "admin transactions"
 msgid "Rejected"
 msgstr "Rechazadas"
 
-#: admin/transactions.php:243 admin/wpbdp-admin.class.php:652
+#: admin/transactions.php:243 admin/wpbdp-admin.class.php:662
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "La transacción ha sido aprobada."
 
-#: admin/transactions.php:254 admin/wpbdp-admin.class.php:662
+#: admin/transactions.php:254 admin/wpbdp-admin.class.php:672
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "La transacción ha sido rechazada."
@@ -1627,361 +1734,372 @@ msgctxt "admin"
 msgid "The transaction has been deleted."
 msgstr "La transacción ha sido eliminada."
 
-#: admin/wpbdp-admin.class.php:71
+#: admin/wpbdp-admin.class.php:82
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Gestión de Directorio de Negocios"
 
-#: admin/wpbdp-admin.class.php:72
+#: admin/wpbdp-admin.class.php:83
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Gestión de Directorio"
 
-#: admin/wpbdp-admin.class.php:78 admin/wpbdp-admin.class.php:79
+#: admin/wpbdp-admin.class.php:89 admin/wpbdp-admin.class.php:90
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: admin/wpbdp-admin.class.php:84 admin/wpbdp-admin.class.php:85
+#: admin/wpbdp-admin.class.php:95 admin/wpbdp-admin.class.php:96
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Configuraciones"
 
-#: admin/wpbdp-admin.class.php:90 admin/wpbdp-admin.class.php:91
+#: admin/wpbdp-admin.class.php:101 admin/wpbdp-admin.class.php:102
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Administrar Comisiones"
 
-#: admin/wpbdp-admin.class.php:96 admin/wpbdp-admin.class.php:97
+#: admin/wpbdp-admin.class.php:107 admin/wpbdp-admin.class.php:108
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Administrar Campos de Formulario"
 
-#: admin/wpbdp-admin.class.php:102 admin/wpbdp-admin.class.php:103
+#: admin/wpbdp-admin.class.php:113 admin/wpbdp-admin.class.php:114
 msgctxt "admin menu"
 msgid "All Listings"
 msgstr "Todos los Listados"
 
-#: admin/wpbdp-admin.class.php:108 admin/wpbdp-admin.class.php:109
+#: admin/wpbdp-admin.class.php:119 admin/wpbdp-admin.class.php:120
 msgctxt "admin menu"
 msgid "Pending Upgrade"
 msgstr "Pendientes de mejora"
 
-#: admin/wpbdp-admin.class.php:114 admin/wpbdp-admin.class.php:115
+#: admin/wpbdp-admin.class.php:125 admin/wpbdp-admin.class.php:126
 msgctxt "admin menu"
 msgid "Pending Payment"
 msgstr "Pendientes de Pago"
 
-#: admin/wpbdp-admin.class.php:122 admin/wpbdp-admin.class.php:123
+#: admin/wpbdp-admin.class.php:133 admin/wpbdp-admin.class.php:134
 msgctxt "admin menu"
 msgid "Transactions"
 msgstr "Transacciones"
 
-#: admin/wpbdp-admin.class.php:131 admin/wpbdp-admin.class.php:132
+#: admin/wpbdp-admin.class.php:141 admin/wpbdp-admin.class.php:142
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr "Importar CSV"
 
-#: admin/wpbdp-admin.class.php:137 admin/wpbdp-admin.class.php:138
+#: admin/wpbdp-admin.class.php:147 admin/wpbdp-admin.class.php:148
 msgctxt "admin menu"
 msgid "CSV Export"
 msgstr "Exportar CSV"
 
-#: admin/wpbdp-admin.class.php:143 admin/wpbdp-admin.class.php:144
+#: admin/wpbdp-admin.class.php:153 admin/wpbdp-admin.class.php:154
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Depuración"
 
-#: admin/wpbdp-admin.class.php:154
+#: admin/wpbdp-admin.class.php:164
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr "Menú Principal"
 
-#: admin/wpbdp-admin.class.php:167
+#: admin/wpbdp-admin.class.php:177
 msgctxt "admin menu"
 msgid "Uninstall WPDB Manager"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:168
+#: admin/wpbdp-admin.class.php:178
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Desinstalar"
 
-#: admin/wpbdp-admin.class.php:195
+#: admin/wpbdp-admin.class.php:205
 msgid "Listing Information"
 msgstr "Información del Listado"
 
-#: admin/wpbdp-admin.class.php:203
+#: admin/wpbdp-admin.class.php:213
 msgctxt "admin"
 msgid "Listing Fields / Images"
 msgstr "Campos del Listado / Imágenes"
 
-#: admin/wpbdp-admin.class.php:218
+#: admin/wpbdp-admin.class.php:228
 msgctxt "admin"
 msgid "Listing Fields"
 msgstr "Campos del Listado"
 
-#: admin/wpbdp-admin.class.php:257
+#: admin/wpbdp-admin.class.php:267
 msgctxt "admin"
 msgid "Listing Images"
 msgstr "Imágenes del Listado"
 
-#: admin/wpbdp-admin.class.php:266
+#: admin/wpbdp-admin.class.php:276
 msgctxt "admin"
 msgid "Listing thumbnail"
 msgstr "Imagen destacada del Listado"
 
-#: admin/wpbdp-admin.class.php:271
+#: admin/wpbdp-admin.class.php:281
 msgctxt "admin"
 msgid "Delete Image"
 msgstr "Eliminar Imagen"
 
-#: admin/wpbdp-admin.class.php:284 admin/wpbdp-admin.class.php:285
-#: admin/wpbdp-admin.class.php:332
+#: admin/wpbdp-admin.class.php:294 admin/wpbdp-admin.class.php:295
+#: admin/wpbdp-admin.class.php:342
 msgctxt "admin"
 msgid "Upload Image"
 msgstr "Subir Imagen"
 
-#: admin/wpbdp-admin.class.php:334
+#: admin/wpbdp-admin.class.php:344
 msgctxt "admin"
 msgid "Upload"
 msgstr "Subir"
 
-#: admin/wpbdp-admin.class.php:385
+#: admin/wpbdp-admin.class.php:395
 msgctxt "admin"
 msgid "General Info"
 msgstr "Información General"
 
-#: admin/wpbdp-admin.class.php:386
+#: admin/wpbdp-admin.class.php:396
 msgctxt "admin"
 msgid "Fee Details"
 msgstr "Detalles de Comisión"
 
-#: admin/wpbdp-admin.class.php:387
+#: admin/wpbdp-admin.class.php:397
 msgctxt "admin"
 msgid "Transactions"
 msgstr "Transacciones"
 
-#: admin/wpbdp-admin.class.php:391
+#: admin/wpbdp-admin.class.php:401
 msgctxt "admin infometabox"
 msgid "General Info"
 msgstr "Información General"
 
-#: admin/wpbdp-admin.class.php:393
+#: admin/wpbdp-admin.class.php:403
 msgctxt "admin infometabox"
 msgid "Total Listing Cost"
 msgstr "Costo Total del Listado"
 
-#: admin/wpbdp-admin.class.php:395
+#: admin/wpbdp-admin.class.php:405
 msgctxt "admin infometabox"
 msgid "Payment Status"
 msgstr "Estado de Pago"
 
-#: admin/wpbdp-admin.class.php:399
+#: admin/wpbdp-admin.class.php:409
 msgctxt "admin infometabox"
 msgid "Featured (Sticky) Status"
 msgstr "Estado de Destacado"
 
-#: admin/wpbdp-admin.class.php:407
+#: admin/wpbdp-admin.class.php:417
 msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr "Pendiente de Mejora"
 
-#: admin/wpbdp-admin.class.php:417 admin/wpbdp-admin.class.php:896
+#: admin/wpbdp-admin.class.php:427 admin/wpbdp-admin.class.php:929
 msgid "Upgrade to %s"
 msgstr "Mejorar a %s"
 
-#: admin/wpbdp-admin.class.php:424 admin/wpbdp-admin.class.php:903
+#: admin/wpbdp-admin.class.php:434 admin/wpbdp-admin.class.php:936
 msgid "Downgrade to %s"
 msgstr "Degradar a %s"
 
-#: admin/wpbdp-admin.class.php:435
+#: admin/wpbdp-admin.class.php:445
 msgctxt "admin infometabox"
 msgid "Mark listing as Paid"
 msgstr "Marcar listado como Pagado"
 
-#: admin/wpbdp-admin.class.php:439
+#: admin/wpbdp-admin.class.php:449
 msgctxt "admin infometabox"
 msgid "Mark listing as Not paid"
 msgstr "Marcar listado como No pagado"
 
-#: admin/wpbdp-admin.class.php:520
+#: admin/wpbdp-admin.class.php:530
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr "Publicar Listado"
 
-#: admin/wpbdp-admin.class.php:522 admin/wpbdp-admin.class.php:906
+#: admin/wpbdp-admin.class.php:532 admin/wpbdp-admin.class.php:939
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr "Mejorar a Destacado"
 
-#: admin/wpbdp-admin.class.php:523
+#: admin/wpbdp-admin.class.php:533
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr "Degradar a Normal"
 
-#: admin/wpbdp-admin.class.php:525
+#: admin/wpbdp-admin.class.php:535
 msgctxt "admin actions"
 msgid "Set Paid"
 msgstr "Marcar Pagado"
 
-#: admin/wpbdp-admin.class.php:526
+#: admin/wpbdp-admin.class.php:536
 msgctxt "admin actions"
 msgid "Set Not Paid"
 msgstr "Marcar No Pagado"
 
-#: admin/wpbdp-admin.class.php:528
+#: admin/wpbdp-admin.class.php:538
 msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
 
-#: admin/wpbdp-admin.class.php:577
+#: admin/wpbdp-admin.class.php:587
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "El listado ha sido publicado."
 msgstr[1] "Los listados han sido publicados."
 
-#: admin/wpbdp-admin.class.php:589
+#: admin/wpbdp-admin.class.php:599
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "El listado se ha marcado como pagado."
 msgstr[1] "Los listados se han marcado como pagados."
 
-#: admin/wpbdp-admin.class.php:601
+#: admin/wpbdp-admin.class.php:611
 msgctxt "admin"
 msgid "The listing status has been set as \"not paid\"."
 msgid_plural "The listings status has been set as \"not paid\"."
 msgstr[0] "El estado del listado se ha configurado como \"no pagado\"."
 msgstr[1] "El estado de los listados se ha configurado como \"no pagado\"."
 
-#: admin/wpbdp-admin.class.php:613
+#: admin/wpbdp-admin.class.php:623
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "El listado ha sido modificado."
 msgstr[1] "Los listados han sido modificados."
 
-#: admin/wpbdp-admin.class.php:626
+#: admin/wpbdp-admin.class.php:636
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "El listado ha sido mejorado."
 msgstr[1] "Los listados han sido mejorados."
 
-#: admin/wpbdp-admin.class.php:638
+#: admin/wpbdp-admin.class.php:648
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "El listado ha sido degradado."
 msgstr[1] "Los listados han sido degradados."
 
-#: admin/wpbdp-admin.class.php:667
+#: admin/wpbdp-admin.class.php:684
+msgctxt "admin"
+msgid "The expiration date has been changed."
+msgstr "La fecha de expiración ha sido cambiada."
+
+#: admin/wpbdp-admin.class.php:690
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "La comisión se asignó satisfactoriamente."
 
-#: admin/wpbdp-admin.class.php:672
+#: admin/wpbdp-admin.class.php:695
 msgctxt "admin"
 msgid "Category information was updated."
 msgstr "La información de categoría fue actualizada."
 
-#: admin/wpbdp-admin.class.php:680
+#: admin/wpbdp-admin.class.php:703
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "El listado ha sido renovado."
 msgstr[1] "Los listados fueron renovados."
 
-#: admin/wpbdp-admin.class.php:687
+#: admin/wpbdp-admin.class.php:710
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Mensaje de correo electrónico de renovación enviado."
 
-#: admin/wpbdp-admin.class.php:748 admin/wpbdp-admin.class.php:867
+#: admin/wpbdp-admin.class.php:771 admin/wpbdp-admin.class.php:900
 msgid "Paid"
 msgstr "Pago"
 
-#: admin/wpbdp-admin.class.php:753
+#: admin/wpbdp-admin.class.php:776
 msgid "Unpaid"
 msgstr "No pagado"
 
-#: admin/wpbdp-admin.class.php:758 admin/wpbdp-admin.class.php:888
+#: admin/wpbdp-admin.class.php:781 admin/wpbdp-admin.class.php:921
 msgid "Pending Upgrade"
 msgstr "Pendientes de Mejora"
 
-#: admin/wpbdp-admin.class.php:763
+#: admin/wpbdp-admin.class.php:786
 msgctxt "admin"
 msgid "Expired"
 msgstr "Expirados"
 
-#: admin/wpbdp-admin.class.php:778
+#: admin/wpbdp-admin.class.php:802
+#, fuzzy
+msgctxt "admin category id"
+msgid "ID"
+msgstr "ID"
+
+#: admin/wpbdp-admin.class.php:804
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Conteo de Listados"
 
-#: admin/wpbdp-admin.class.php:790
+#: admin/wpbdp-admin.class.php:823
 msgctxt "admin"
 msgid "Categories"
 msgstr "Categorías"
 
-#: admin/wpbdp-admin.class.php:791
+#: admin/wpbdp-admin.class.php:824
 msgid "Payment Status"
 msgstr "Estado de Pago"
 
-#: admin/wpbdp-admin.class.php:792
+#: admin/wpbdp-admin.class.php:825
 msgid "Featured (Sticky) Status"
 msgstr "Estado Destacado/Sticky"
 
-#: admin/wpbdp-admin.class.php:804
+#: admin/wpbdp-admin.class.php:837
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: admin/wpbdp-admin.class.php:807
+#: admin/wpbdp-admin.class.php:840
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Eliminar Listado"
 
-#: admin/wpbdp-admin.class.php:847
+#: admin/wpbdp-admin.class.php:880
 msgctxt "admin"
 msgid "(Listing expired in this category)"
 msgstr "(El listado ha expirado en esta categoría)"
 
-#: admin/wpbdp-admin.class.php:871
+#: admin/wpbdp-admin.class.php:904
 msgid "Not paid"
 msgstr "No pagado"
 
-#: admin/wpbdp-admin.class.php:876
+#: admin/wpbdp-admin.class.php:909
 msgid "Set as"
 msgstr "Configurar como"
 
-#: admin/wpbdp-admin.class.php:1012
+#: admin/wpbdp-admin.class.php:1047
 msgctxt "debug-info"
 msgid "BD Info"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1024
+#: admin/wpbdp-admin.class.php:1059
 msgid "Missing tables: %s"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1025
+#: admin/wpbdp-admin.class.php:1060
 msgctxt "debug-info"
 msgid "OK"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1033
+#: admin/wpbdp-admin.class.php:1068
 msgctxt "debug-info"
 msgid "BD Options"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1045
+#: admin/wpbdp-admin.class.php:1080
 msgctxt "debug-info"
 msgid "Environment"
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:1103
+#: admin/wpbdp-admin.class.php:1138
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -1990,7 +2108,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere campos con las siguientes "
 "asociaciones para funcionar correctamente: <b>%s</b>."
 
-#: admin/wpbdp-admin.class.php:1105
+#: admin/wpbdp-admin.class.php:1140
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1999,7 +2117,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
 "b> para funcionar correctamente."
 
-#: admin/wpbdp-admin.class.php:1109
+#: admin/wpbdp-admin.class.php:1144
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -2008,26 +2126,26 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: admin/wpbdp-admin.class.php:1113
+#: admin/wpbdp-admin.class.php:1148
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
 
-#: admin/wpbdp-admin.class.php:1116
+#: admin/wpbdp-admin.class.php:1151
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
 
-#: admin/wpbdp-admin.class.php:1128
+#: admin/wpbdp-admin.class.php:1163
 msgctxt "admin"
 msgid ""
-"<b>Business Directory Plugin</b> requires a page with the <tt>"
-"[businessdirectory]</tt> shortcode to function properly."
+"<b>Business Directory Plugin</b> requires a page with the "
+"<tt>[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
-"<b>Business Directory Plugin</b> requiere una página con el shortcode <tt>"
-"[businessdirectory]</tt> para funcionar adecuadamente."
+"<b>Business Directory Plugin</b> requiere una página con el shortcode "
+"<tt>[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: admin/wpbdp-admin.class.php:1130
+#: admin/wpbdp-admin.class.php:1165
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -2036,12 +2154,12 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: admin/wpbdp-admin.class.php:1134
+#: admin/wpbdp-admin.class.php:1169
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
 
-#: admin/wpbdp-admin.class.php:1159
+#: admin/wpbdp-admin.class.php:1194
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -2104,91 +2222,96 @@ msgctxt "form-fields-api category-select"
 msgid "-- Choose Terms --"
 msgstr "-- Elija los términos --"
 
-#: api/form-fields-types.php:231
+#: api/form-fields-types.php:231 api/form-fields-types.php:266
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "-- Elija Uno --"
 
-#: api/form-fields-types.php:285 api/form-fields-types.php:479
-#: api/form-fields-types.php:595
+#: api/form-fields-types.php:292 api/form-fields-types.php:500
+#: api/form-fields-types.php:616
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 "Opciones del Campo (para listas de selección, botones de radio y casillas de "
 "verificación)."
 
-#: api/form-fields-types.php:304 api/form-fields-types.php:498
-#: api/form-fields-types.php:614
+#: api/form-fields-types.php:303
+msgctxt "form-fields admin"
+msgid "Allow empty selection on search?"
+msgstr "Permitir selección vacía en las búsquedas?"
+
+#: api/form-fields-types.php:320 api/form-fields-types.php:519
+#: api/form-fields-types.php:635
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "La lista de opciones del campo es requerida."
 
-#: api/form-fields-types.php:363
+#: api/form-fields-types.php:384
 msgctxt "form-fields api"
 msgid "Textarea"
 msgstr "Área de texto"
 
-#: api/form-fields-types.php:392
+#: api/form-fields-types.php:413
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr "Permitir entrada HTML en este campo?"
 
-#: api/form-fields-types.php:396
+#: api/form-fields-types.php:417
 msgctxt "form-fields admin"
 msgid "Allow execution of WordPress shortcodes and filters?"
 msgstr "Permitir ejecución de filtros y shortcodes de WordPress?"
 
-#: api/form-fields-types.php:427
+#: api/form-fields-types.php:448
 msgctxt "form-fields api"
 msgid "Radio button"
 msgstr "Botón de radio"
 
-#: api/form-fields-types.php:526
+#: api/form-fields-types.php:547
 msgctxt "form-fields api"
 msgid "Multiple select list"
 msgstr "Lista de selección múltiple"
 
-#: api/form-fields-types.php:531
+#: api/form-fields-types.php:552
 msgctxt "form-fields api"
 msgid "Multiselect List"
 msgstr "Lista de selección múltiple"
 
-#: api/form-fields-types.php:543
+#: api/form-fields-types.php:564
 msgctxt "form-fields api"
 msgid "Checkbox"
 msgstr "Casilla de verificación"
 
-#: api/form-fields-types.php:665
+#: api/form-fields-types.php:686
 msgctxt "form-fields api"
 msgid "Social Site (Twitter handle)"
 msgstr "Sitio Social (Twitter @)"
 
-#: api/form-fields-types.php:714
+#: api/form-fields-types.php:735
 msgctxt "form-fields api"
 msgid "Social Site (Facebook page)"
 msgstr "Sitio Social (Página de Facebook)"
 
-#: api/form-fields-types.php:762
+#: api/form-fields-types.php:783
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr "Sitio Social (Perfil de LinkedIn)"
 
-#: api/form-fields-types.php:807
+#: api/form-fields-types.php:828
 msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Imagen (archivo)"
 
-#: api/form-fields-types.php:839
+#: api/form-fields-types.php:860
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: api/form-fields.php:637
+#: api/form-fields.php:638
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "El nombre del campo es requerido."
 
-#: api/form-fields.php:654
+#: api/form-fields.php:655
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -2197,17 +2320,17 @@ msgstr ""
 "Solo puede haber un campo con asociación \"%s\". Por favor elija otra "
 "asociación."
 
-#: api/form-fields.php:664
+#: api/form-fields.php:665
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" es un tipo de campo inválido para esta asociación."
 
-#: api/form-fields.php:693
+#: api/form-fields.php:694
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID de campo inválido"
 
-#: api/form-fields.php:702
+#: api/form-fields.php:703
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -2216,138 +2339,138 @@ msgstr ""
 "Este campo de formulario no puede eliminarse porque es requerido para el "
 "funcionamiento del plugin."
 
-#: api/form-fields.php:711
+#: api/form-fields.php:712
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Un error ocurrió mientras se trataba de eliminar este campo."
 
-#: api/form-fields.php:818
+#: api/form-fields.php:819
 msgctxt "form-fields api"
 msgid "Post Title"
 msgstr "Título de la publicación"
 
-#: api/form-fields.php:819
+#: api/form-fields.php:820
 msgctxt "form-fields api"
 msgid "Post Content"
 msgstr "Contenido de la publicación"
 
-#: api/form-fields.php:820
+#: api/form-fields.php:821
 msgctxt "form-fields api"
 msgid "Post Excerpt"
 msgstr "Resumen/avance de la publicación"
 
-#: api/form-fields.php:821
+#: api/form-fields.php:822
 msgctxt "form-fields api"
 msgid "Post Category"
 msgstr "Categoría de la publicación"
 
-#: api/form-fields.php:822
+#: api/form-fields.php:823
 msgctxt "form-fields api"
 msgid "Post Tags"
 msgstr "Etiquetas de la publicación"
 
-#: api/form-fields.php:823
+#: api/form-fields.php:824
 msgctxt "form-fields api"
 msgid "Post Metadata"
 msgstr "Metadata"
 
-#: api/form-fields.php:1045
+#: api/form-fields.php:1046
 msgid "Business Name"
 msgstr "Nombre del Negocio"
 
-#: api/form-fields.php:1047
+#: api/form-fields.php:1048
 msgid "Business Genre"
 msgstr "Tipo de Negocio"
 
-#: api/form-fields.php:1049
+#: api/form-fields.php:1050
 msgid "Short Business Description"
 msgstr "Descripción corta del negocio"
 
-#: api/form-fields.php:1051
+#: api/form-fields.php:1052
 msgid "Long Business Description"
 msgstr "Descripción larga del negocio"
 
-#: api/form-fields.php:1053
+#: api/form-fields.php:1054
 msgid "Business Website Address"
 msgstr "Sitio web del negocio"
 
-#: api/form-fields.php:1055
+#: api/form-fields.php:1056
 msgid "Business Phone Number"
 msgstr "Número telefónico del negocio"
 
-#: api/form-fields.php:1057
+#: api/form-fields.php:1058
 msgid "Business Fax"
 msgstr "Fax del negocio"
 
-#: api/form-fields.php:1059
+#: api/form-fields.php:1060
 msgid "Business Contact Email"
 msgstr "Correo electrónico de contacto del negocio"
 
-#: api/form-fields.php:1061
+#: api/form-fields.php:1062
 msgid "Business Tags"
 msgstr "Etiquetas"
 
-#: api/form-fields.php:1139
+#: api/form-fields.php:1140
 msgctxt "form-fields-api"
 msgid "Email Validator"
 msgstr "Validador de Correo Electrónico"
 
-#: api/form-fields.php:1140
+#: api/form-fields.php:1141
 msgctxt "form-fields-api"
 msgid "URL Validator"
 msgstr "Validador de URLs"
 
-#: api/form-fields.php:1141
+#: api/form-fields.php:1142
 msgctxt "form-fields-api"
 msgid "Whole Number Validator"
 msgstr "Validador de números enteros"
 
-#: api/form-fields.php:1142
+#: api/form-fields.php:1143
 msgctxt "form-fields-api"
 msgid "Decimal Number Validator"
 msgstr "Validador de números decimales"
 
-#: api/form-fields.php:1143
+#: api/form-fields.php:1144
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr "Validador de fechas"
 
-#: api/form-fields.php:1150
+#: api/form-fields.php:1151
 msgctxt "form-fields-api validation"
 msgid "Field"
 msgstr "Campo"
 
-#: api/form-fields.php:1166 api/form-fields.php:1170
+#: api/form-fields.php:1167 api/form-fields.php:1171
 msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s es requerido."
 
-#: api/form-fields.php:1179 api/form-fields.php:1186
+#: api/form-fields.php:1180 api/form-fields.php:1187
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr "%s está mal escrita. Una URL válida es requerida. Incluya http://"
 
-#: api/form-fields.php:1200
+#: api/form-fields.php:1201
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s está mal escrito. Un correo electrónico válido es requerido."
 
-#: api/form-fields.php:1206
+#: api/form-fields.php:1207
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s debe ser un número entero. Valores decimales no están permitidos."
 
-#: api/form-fields.php:1212
+#: api/form-fields.php:1213
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s debe ser un número."
 
-#: api/form-fields.php:1223
+#: api/form-fields.php:1224
 msgctxt "form-fields-api validation"
 msgid "%s must be in the format MM/DD/YYYY."
 msgstr "%s debe estar en el formato MM/DD/YYYY."
 
-#: api/form-fields.php:1234
+#: api/form-fields.php:1235
 msgctxt "form-fields-api validation"
 msgid "%s is invalid. Value most be one of %s."
 msgstr "%s es inválido. El valor debe ser uno de %s."
@@ -2362,12 +2485,12 @@ msgctxt "listings-api"
 msgid "Featured Listing"
 msgstr "Listado Destacado"
 
-#: api/listings.php:335
+#: api/listings.php:341
 msgctxt "notify email"
 msgid "(not yet published)"
 msgstr "(aún sin publicar)"
 
-#: api/listings.php:350
+#: api/listings.php:356
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
@@ -2471,40 +2594,40 @@ msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr "Su transacción ha sido aprobada."
 
-#: api/templates-ui.php:153
+#: api/templates-ui.php:152
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "No se encontraron categorías."
 
-#: api/templates-ui.php:177 deprecated/deprecated.php:214
+#: api/templates-ui.php:176 deprecated/deprecated.php:214
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: api/templates-ui.php:186 deprecated/deprecated.php:227
+#: api/templates-ui.php:185 deprecated/deprecated.php:227
 msgid "View Listings"
 msgstr "Ver Listados"
 
-#: api/templates-ui.php:196 deprecated/deprecated.php:238
+#: api/templates-ui.php:195 deprecated/deprecated.php:238
 msgid "Directory"
 msgstr "Directorio"
 
-#: api/templates-ui.php:223
+#: api/templates-ui.php:222
 #: deprecated/templates/wpbusdirman-index-categories.php:12
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: api/templates-ui.php:226
+#: api/templates-ui.php:225
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Búsqueda Avanzada"
 
-#: api/templates-ui.php:252
+#: api/templates-ui.php:251
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Ordenar Por:"
 
-#: api/templates-ui.php:271
+#: api/templates-ui.php:270
 msgctxt "sort"
 msgid "Reset"
 msgstr "Restablecer"
@@ -2669,7 +2792,7 @@ msgctxt "admin settings"
 msgid "Give credit to plugin author?"
 msgstr "Dar crédito al autor del plugin?"
 
-#: api/wpbdp-settings.class.php:84 api/wpbdp-settings.class.php:288
+#: api/wpbdp-settings.class.php:84 api/wpbdp-settings.class.php:292
 msgctxt "admin settings"
 msgid "Listings"
 msgstr "Listados"
@@ -2681,10 +2804,24 @@ msgstr "Configuración General"
 
 #: api/wpbdp-settings.class.php:87
 msgctxt "admin settings"
+msgid "Listings per page"
+msgstr "Listados por página"
+
+#: api/wpbdp-settings.class.php:88
+msgctxt "admin settings"
+msgid ""
+"Number of listings to show per page. Use a value of \"-1\" to show all "
+"listings."
+msgstr ""
+"Número de listados a mostrar por página. Utilice un valor de \"-1\" para "
+"mostrar todos los listados."
+
+#: api/wpbdp-settings.class.php:90
+msgctxt "admin settings"
 msgid "Listing duration for no-fee sites (in days)"
 msgstr "Duración de Listado para sitios gratuitos (en días)"
 
-#: api/wpbdp-settings.class.php:88
+#: api/wpbdp-settings.class.php:91
 msgctxt "admin settings"
 msgid ""
 "Use a value of \"0\" to keep a listing alive indefinitely or enter a number "
@@ -2693,12 +2830,12 @@ msgstr ""
 "Utilice un valor de \"0\" para mantener los listados publicados "
 "indefinidamente o ingrese un número menor a 10 años (3650 días)."
 
-#: api/wpbdp-settings.class.php:94
+#: api/wpbdp-settings.class.php:97
 msgctxt "admin settings"
 msgid "Include listing contact form on listing pages?"
 msgstr "Incluir formulario de contacto en las páginas de los listados?"
 
-#: api/wpbdp-settings.class.php:97
+#: api/wpbdp-settings.class.php:100
 msgctxt "admin settings"
 msgid ""
 "Allows visitors to contact listing authors privately. Authors will receive "
@@ -2707,12 +2844,12 @@ msgstr ""
 "Permite a los visitantes contactar a los dueños de los listados de manera "
 "privada. Los dueños recibirán mensajes vía correo electrónico."
 
-#: api/wpbdp-settings.class.php:100
+#: api/wpbdp-settings.class.php:103
 msgctxt "admin settings"
 msgid "Include comment form on listing pages?"
 msgstr "Incluir formulario de comentarios en las páginas de los listados?"
 
-#: api/wpbdp-settings.class.php:103
+#: api/wpbdp-settings.class.php:106
 msgctxt "admin settings"
 msgid ""
 "Allow visitors to discuss listings using the standard WordPress comment "
@@ -2722,17 +2859,17 @@ msgstr ""
 "comentarios estándar de WordPress. Todos los comentarios (no SPAM) son "
 "públicos."
 
-#: api/wpbdp-settings.class.php:104
+#: api/wpbdp-settings.class.php:107
 msgctxt "admin settings"
 msgid "Show listings under categories on main page?"
 msgstr "Mostrar listados bajo las categorías en la página principal?"
 
-#: api/wpbdp-settings.class.php:107
+#: api/wpbdp-settings.class.php:110
 msgctxt "admin settings"
 msgid "Override email Blocking?"
 msgstr "Eliminar la protección para correos electrónicos?"
 
-#: api/wpbdp-settings.class.php:110
+#: api/wpbdp-settings.class.php:113
 msgctxt "admin settings"
 msgid ""
 "When checked, email addresses in listing fields will be displayed publicly. "
@@ -2741,27 +2878,27 @@ msgstr ""
 "Cuando está chequeado, las direcciones de correo electrónico en los campos "
 "de los listados serán mostradas públicamente. No recomendado."
 
-#: api/wpbdp-settings.class.php:111
+#: api/wpbdp-settings.class.php:114
 msgctxt "admin settings"
 msgid "Status of listings upon uninstalling plugin"
 msgstr "Estado de los listados luego de desinstalado el plugin"
 
-#: api/wpbdp-settings.class.php:113
+#: api/wpbdp-settings.class.php:116
 msgctxt "admin settings"
 msgid "Status of deleted listings"
 msgstr "Estado de los listados eliminados"
 
-#: api/wpbdp-settings.class.php:116
+#: api/wpbdp-settings.class.php:119
 msgctxt "admin settings"
 msgid "Listing email settings"
 msgstr "Correos electrónicos sobre listados"
 
-#: api/wpbdp-settings.class.php:119
+#: api/wpbdp-settings.class.php:122
 msgctxt "admin settings"
 msgid "How to determine the listing's email address?"
 msgstr "Cómo determinar el correo electrónico de un listado?"
 
-#: api/wpbdp-settings.class.php:122
+#: api/wpbdp-settings.class.php:125
 msgctxt "admin settings"
 msgid ""
 "This affects emails sent to listing owners via contact forms or when their "
@@ -2770,24 +2907,24 @@ msgstr ""
 "Esta configuración afecta cómo los dueños de los listados son contactados "
 "cuando sus listados expiran o a través de los formularios de contacto."
 
-#: api/wpbdp-settings.class.php:129
+#: api/wpbdp-settings.class.php:132
 msgctxt "admin settings"
 msgid "Notify admin of new listings via email?"
 msgstr "Notificar al administrador de nuevos listados vía correo electrónico?"
 
-#: api/wpbdp-settings.class.php:130
+#: api/wpbdp-settings.class.php:133
 msgctxt "admin settings"
 msgid "Send email confirmation to listing owner when listing is submitted?"
 msgstr ""
 "Enviar un correo electrónico de confirmación al dueño del listado tras su "
 "publicación?"
 
-#: api/wpbdp-settings.class.php:131
+#: api/wpbdp-settings.class.php:134
 msgctxt "admin settings"
 msgid "Email confirmation message"
 msgstr "Mensaje de Confirmación"
 
-#: api/wpbdp-settings.class.php:133
+#: api/wpbdp-settings.class.php:136
 msgctxt "admin settings"
 msgid ""
 "You can use the placeholder [listing] for the listing title. This setting "
@@ -2798,22 +2935,22 @@ msgstr ""
 "aplica únicamente para sitios gratuitos. Para sitios pagos, revise el tab de "
 "\"Pago\"."
 
-#: api/wpbdp-settings.class.php:135
+#: api/wpbdp-settings.class.php:138
 msgctxt "admin settings"
 msgid "Listing Renewal"
 msgstr "Renovación de Listados"
 
-#: api/wpbdp-settings.class.php:136
+#: api/wpbdp-settings.class.php:139
 msgctxt "admin settings"
 msgid "Turn on listing renewal option?"
 msgstr "Habilitar la renovación de listados?"
 
-#: api/wpbdp-settings.class.php:139
+#: api/wpbdp-settings.class.php:142
 msgctxt "admin settings"
 msgid "Listing renewal e-mail threshold (in days)"
 msgstr "Rango de envío del correo electrónico de renovación (en días)"
 
-#: api/wpbdp-settings.class.php:142
+#: api/wpbdp-settings.class.php:145
 msgctxt "admin settings"
 msgid ""
 "Configure how many days before listing expiration is the renewal e-mail sent."
@@ -2821,17 +2958,17 @@ msgstr ""
 "Configure con cuántos días de anticipación debe informarse al usuario que su "
 "listado está a punto de expirar."
 
-#: api/wpbdp-settings.class.php:146
+#: api/wpbdp-settings.class.php:149
 msgctxt "admin settings"
 msgid "Pending expiration e-mail message"
 msgstr "Mensaje correo electrónico sobre expiración pendiente"
 
-#: api/wpbdp-settings.class.php:152
+#: api/wpbdp-settings.class.php:155
 msgctxt "admin settings"
 msgid "Listing Renewal e-mail message"
 msgstr "Mensaje de correo electrónico sobre Renovación del Listado"
 
-#: api/wpbdp-settings.class.php:155
+#: api/wpbdp-settings.class.php:158
 msgctxt "admin settings"
 msgid ""
 "You can use the placeholders [listing] for the listing title, [category] for "
@@ -2842,18 +2979,18 @@ msgstr ""
 "[category] para la categoría, [expiration] para la fecha de expiración y "
 "[link] para el enlace a la página de renovación."
 
-#: api/wpbdp-settings.class.php:162
+#: api/wpbdp-settings.class.php:165
 msgctxt "admin settings"
 msgid "Remind listing owners of expired listings (past due)?"
 msgstr ""
 "Recordar a los dueños de listados expirados (después de su expiración)?"
 
-#: api/wpbdp-settings.class.php:167
+#: api/wpbdp-settings.class.php:170
 msgctxt "admin settings"
 msgid "Listing renewal reminder e-mail threshold (in days)"
 msgstr "Rango de envío del recordatorio de renovación (en días)"
 
-#: api/wpbdp-settings.class.php:170
+#: api/wpbdp-settings.class.php:173
 msgctxt "admin settings"
 msgid ""
 "Configure how many days after the expiration of a listing an e-mail reminder "
@@ -2862,12 +2999,12 @@ msgstr ""
 "Configure con cuántos días después de la fecha de expiración de un listado "
 "debe enviarse un recordatorio al dueño."
 
-#: api/wpbdp-settings.class.php:174
+#: api/wpbdp-settings.class.php:177
 msgctxt "admin settings"
 msgid "Renewal reminder e-mail message"
 msgstr "Recordatorio por correo electrónico de renovación del listado"
 
-#: api/wpbdp-settings.class.php:177
+#: api/wpbdp-settings.class.php:180
 msgctxt "admin settings"
 msgid ""
 "You can use the placeholders [listing] for the listing title, [category] for "
@@ -2879,139 +3016,144 @@ msgstr ""
 "[site] for la URL de este sitio y [link] para el enlace a la página de "
 "renovación."
 
-#: api/wpbdp-settings.class.php:181
+#: api/wpbdp-settings.class.php:184
 msgctxt "admin settings"
 msgid "Post/Category Settings"
 msgstr "Configuraciones de publicaciones/categorías"
 
-#: api/wpbdp-settings.class.php:182
+#: api/wpbdp-settings.class.php:185
 msgctxt "admin settings"
 msgid "Default new post status"
 msgstr "Estado por defecto de nuevas publicaciones"
 
-#: api/wpbdp-settings.class.php:185
+#: api/wpbdp-settings.class.php:188
 msgctxt "admin settings"
 msgid "Edit post status"
 msgstr "Estado tras edición de una publicación"
 
-#: api/wpbdp-settings.class.php:187
+#: api/wpbdp-settings.class.php:190
 msgctxt "admin settings"
 msgid "Order categories list by"
 msgstr "Ordenar la lista de categorías por"
 
-#: api/wpbdp-settings.class.php:189
+#: api/wpbdp-settings.class.php:192
 msgctxt "admin settings"
 msgid "Name"
 msgstr "Nombre"
 
-#: api/wpbdp-settings.class.php:190
+#: api/wpbdp-settings.class.php:193
 msgctxt "admin settings"
 msgid "Slug"
 msgstr "Slug"
 
-#: api/wpbdp-settings.class.php:191
+#: api/wpbdp-settings.class.php:194
 msgctxt "admin settings"
 msgid "Listing Count"
 msgstr "Conteo de Listados"
 
-#: api/wpbdp-settings.class.php:193
+#: api/wpbdp-settings.class.php:196
 msgctxt "admin settings"
 msgid "Sort order for categories"
 msgstr "Orden de las categorías"
 
-#: api/wpbdp-settings.class.php:194 api/wpbdp-settings.class.php:208
+#: api/wpbdp-settings.class.php:197 api/wpbdp-settings.class.php:212
 msgctxt "admin settings"
 msgid "Ascending"
 msgstr "Ascendente"
 
-#: api/wpbdp-settings.class.php:194 api/wpbdp-settings.class.php:208
+#: api/wpbdp-settings.class.php:197 api/wpbdp-settings.class.php:212
 msgctxt "admin settings"
 msgid "Descending"
 msgstr "Descendente"
 
-#: api/wpbdp-settings.class.php:195
+#: api/wpbdp-settings.class.php:198
 msgctxt "admin settings"
 msgid "Show category post count?"
 msgstr "Mostrar conteo de listados para cada categoría?"
 
-#: api/wpbdp-settings.class.php:196
+#: api/wpbdp-settings.class.php:199
 msgctxt "admin settings"
 msgid "Hide empty categories?"
 msgstr "Ocultar categorías vacías?"
 
-#: api/wpbdp-settings.class.php:197
+#: api/wpbdp-settings.class.php:200
 msgctxt "admin settings"
 msgid "Show only parent categories in category list?"
 msgstr ""
 "Mostrar únicamente las categorías de primer nivel en la lista de categorías?"
 
-#: api/wpbdp-settings.class.php:198
+#: api/wpbdp-settings.class.php:201
 msgctxt "admin settings"
 msgid "Order directory listings by"
 msgstr "Ordenar los listados del Directorio por"
 
-#: api/wpbdp-settings.class.php:200
+#: api/wpbdp-settings.class.php:203
 msgctxt "admin settings"
 msgid "Title"
 msgstr "Título"
 
-#: api/wpbdp-settings.class.php:201
+#: api/wpbdp-settings.class.php:204
 msgctxt "admin settings"
 msgid "Author"
 msgstr "Autor"
 
-#: api/wpbdp-settings.class.php:202
+#: api/wpbdp-settings.class.php:205
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Fecha de publicación"
 
-#: api/wpbdp-settings.class.php:203
+#: api/wpbdp-settings.class.php:206
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Fecha de última modificación"
 
-#: api/wpbdp-settings.class.php:204
+#: api/wpbdp-settings.class.php:207
 msgctxt "admin settings"
 msgid "Random"
 msgstr "Aleatorio"
 
-#: api/wpbdp-settings.class.php:206
+#: api/wpbdp-settings.class.php:208
+msgctxt "admin settings"
+msgid "Paid first then free"
+msgstr "Listados pagos primero, luego gratuitos."
+
+#: api/wpbdp-settings.class.php:210
 msgctxt "admin settings"
 msgid "Sort directory listings by"
 msgstr "Orden de los listados"
 
-#: api/wpbdp-settings.class.php:207
+#: api/wpbdp-settings.class.php:211
 msgctxt "admin settings"
 msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
 msgstr ""
 "Ascendente para orden alfabético A-Z; Descendente para orden alfabético Z-A"
 
-#: api/wpbdp-settings.class.php:210
+#: api/wpbdp-settings.class.php:214
 msgctxt "admin settings"
 msgid "Featured (Sticky) listing settings"
 msgstr "Configuración de Listados Destacados"
 
-#: api/wpbdp-settings.class.php:211
+#: api/wpbdp-settings.class.php:215
 msgctxt "admin settings"
 msgid "Offer sticky listings?"
 msgstr "Ofrecer listados destacados?"
 
-#: api/wpbdp-settings.class.php:212
+#: api/wpbdp-settings.class.php:216
 msgctxt "admin settings"
 msgid "Offer upgrades during submit process?"
 msgstr "Ofrecer mejoras a destacado durante el proceso de envío?"
 
-#: api/wpbdp-settings.class.php:213
+#: api/wpbdp-settings.class.php:217
 msgctxt "admin settings"
 msgid "Sticky listing price"
 msgstr "Precio de Listado Destacado"
 
-#: api/wpbdp-settings.class.php:214
+#: api/wpbdp-settings.class.php:218
 msgctxt "admin settings"
 msgid "Sticky listing page description text"
 msgstr "Texto descriptivo para Listados Destacados"
 
-#: api/wpbdp-settings.class.php:215
+#: api/wpbdp-settings.class.php:219
 msgctxt "admin settings"
 msgid ""
 "You can upgrade your listing to featured status. Featured listings will "
@@ -3020,162 +3162,162 @@ msgstr ""
 "Puede actualizar su listado a Destacado. Los listados destacados aparecen "
 "siempre encima de los listados regulares."
 
-#: api/wpbdp-settings.class.php:218
+#: api/wpbdp-settings.class.php:222
 msgctxt "admin settings"
 msgid "Payment"
 msgstr "Pago"
 
-#: api/wpbdp-settings.class.php:219
+#: api/wpbdp-settings.class.php:223
 msgctxt "admin settings"
 msgid "Payment Settings"
 msgstr "Configuración de Pago"
 
-#: api/wpbdp-settings.class.php:220
+#: api/wpbdp-settings.class.php:224
 msgctxt "admin settings"
 msgid "Turn On payments?"
 msgstr "Activar pagos?"
 
-#: api/wpbdp-settings.class.php:221
+#: api/wpbdp-settings.class.php:225
 msgctxt "admin settings"
 msgid "Put payment gateways in test mode?"
 msgstr "Utilizar las pasarelas de pago en modo de prueba?"
 
-#: api/wpbdp-settings.class.php:224
+#: api/wpbdp-settings.class.php:228
 msgctxt "admin settings"
 msgid "Currency Code"
 msgstr "Código de Moneda"
 
-#: api/wpbdp-settings.class.php:226
+#: api/wpbdp-settings.class.php:230
 msgctxt "admin settings"
 msgid "Australian Dollar (AUD)"
 msgstr "Dólar Australiano (AUD)"
 
-#: api/wpbdp-settings.class.php:227
+#: api/wpbdp-settings.class.php:231
 msgctxt "admin settings"
 msgid "Brazilian Real (BRL)"
 msgstr "Real Brasilero (BRL)"
 
-#: api/wpbdp-settings.class.php:228
+#: api/wpbdp-settings.class.php:232
 msgctxt "admin settings"
 msgid "Canadian Dollar (CAD)"
 msgstr "Dólar Canadiense (CAD)"
 
-#: api/wpbdp-settings.class.php:229
+#: api/wpbdp-settings.class.php:233
 msgctxt "admin settings"
 msgid "Czech Koruna (CZK)"
 msgstr "Corona Checa (CZK)"
 
-#: api/wpbdp-settings.class.php:230
+#: api/wpbdp-settings.class.php:234
 msgctxt "admin settings"
 msgid "Danish Krone (DKK)"
 msgstr "Corona Danesa (DKK)"
 
-#: api/wpbdp-settings.class.php:231
+#: api/wpbdp-settings.class.php:235
 msgctxt "admin settings"
 msgid "Euro (EUR)"
 msgstr "Euro (EUR)"
 
-#: api/wpbdp-settings.class.php:232
+#: api/wpbdp-settings.class.php:236
 msgctxt "admin settings"
 msgid "Hong Kong Dollar (HKD)"
 msgstr "Dólar de Hong Kong (HKD)"
 
-#: api/wpbdp-settings.class.php:233
+#: api/wpbdp-settings.class.php:237
 msgctxt "admin settings"
 msgid "Hungarian Forint (HUF)"
 msgstr "Forinte Húngaro (HUF)"
 
-#: api/wpbdp-settings.class.php:234
+#: api/wpbdp-settings.class.php:238
 msgctxt "admin settings"
 msgid "Israeli New Shequel (ILS)"
 msgstr "Nuevo Shékel Israelí (ILS)"
 
-#: api/wpbdp-settings.class.php:235
+#: api/wpbdp-settings.class.php:239
 msgctxt "admin settings"
 msgid "Japanese Yen (JPY)"
 msgstr "Yen Japonés (JPY)"
 
-#: api/wpbdp-settings.class.php:236
+#: api/wpbdp-settings.class.php:240
 msgctxt "admin settings"
 msgid "Malasian Ringgit (MYR)"
 msgstr "Ringgit de Malasia (MYR)"
 
-#: api/wpbdp-settings.class.php:237
+#: api/wpbdp-settings.class.php:241
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr "Peso Mexicano (MXN)"
 
-#: api/wpbdp-settings.class.php:238
+#: api/wpbdp-settings.class.php:242
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr "Corona Noruega (NOK)"
 
-#: api/wpbdp-settings.class.php:239
+#: api/wpbdp-settings.class.php:243
 msgctxt "admin settings"
 msgid "New Zealand Dollar (NZD)"
 msgstr "Dólar de Nueva Zelanda (NZD)"
 
-#: api/wpbdp-settings.class.php:240
+#: api/wpbdp-settings.class.php:244
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr "Peso Filipino (PHP)"
 
-#: api/wpbdp-settings.class.php:241
+#: api/wpbdp-settings.class.php:245
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr "Zloty Polaco (PLN)"
 
-#: api/wpbdp-settings.class.php:242
+#: api/wpbdp-settings.class.php:246
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr "Libra Esterlina (GBP)"
 
-#: api/wpbdp-settings.class.php:243
+#: api/wpbdp-settings.class.php:247
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr "Dólar de Singapur (SGD)"
 
-#: api/wpbdp-settings.class.php:244
+#: api/wpbdp-settings.class.php:248
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr "Corona Sueca (SEK)"
 
-#: api/wpbdp-settings.class.php:245
+#: api/wpbdp-settings.class.php:249
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr "Franco Suizo (CHF)"
 
-#: api/wpbdp-settings.class.php:246
+#: api/wpbdp-settings.class.php:250
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr "Dólar de Taiwán (TWD)"
 
-#: api/wpbdp-settings.class.php:247
+#: api/wpbdp-settings.class.php:251
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr "Baht de Tailandia (THB)"
 
-#: api/wpbdp-settings.class.php:248
+#: api/wpbdp-settings.class.php:252
 msgctxt "admin settings"
 msgid "Turkish Lira (TRY)"
 msgstr "Lira Turca (TRY)"
 
-#: api/wpbdp-settings.class.php:249
+#: api/wpbdp-settings.class.php:253
 msgctxt "admin settings"
 msgid "U.S. Dollar"
 msgstr "Dólar Americano (USD)"
 
-#: api/wpbdp-settings.class.php:251
+#: api/wpbdp-settings.class.php:255
 msgctxt "admin settings"
 msgid "Currency Symbol"
 msgstr "Símbolo de Moneda"
 
-#: api/wpbdp-settings.class.php:252
+#: api/wpbdp-settings.class.php:256
 msgctxt "admin settings"
 msgid "Thank you for payment message"
 msgstr "Mensaje de agradecimiento por el pago"
 
-#: api/wpbdp-settings.class.php:253
+#: api/wpbdp-settings.class.php:257
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
@@ -3184,17 +3326,17 @@ msgstr ""
 "Gracias por su pago. Su pago está siendo verificado y su listado revisado. "
 "Este proceso puede tardar hasta 48 horas."
 
-#: api/wpbdp-settings.class.php:260
+#: api/wpbdp-settings.class.php:264
 msgctxt "admin settings"
 msgid "PayPal Gateway Settings"
 msgstr "Configuración de PayPal"
 
-#: api/wpbdp-settings.class.php:261
+#: api/wpbdp-settings.class.php:265
 msgctxt "admin settings"
 msgid "Activate Paypal?"
 msgstr "Activar PayPal?"
 
-#: api/wpbdp-settings.class.php:262
+#: api/wpbdp-settings.class.php:266
 msgctxt "admin settings"
 msgid ""
 "Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-"
@@ -3203,22 +3345,22 @@ msgstr ""
 "Solo funcionará cuando el <a href=\"http://businessdirectoryplugin.com/"
 "premium-modules/\">módulo PayPal</a> esté instalado"
 
-#: api/wpbdp-settings.class.php:263
+#: api/wpbdp-settings.class.php:267
 msgctxt "admin settings"
 msgid "PayPal Business Email"
 msgstr "Correo electrónico del negocio PayPal"
 
-#: api/wpbdp-settings.class.php:265
+#: api/wpbdp-settings.class.php:269
 msgctxt "admin settings"
 msgid "2Checkout Gateway Settings"
 msgstr "Configuración de 2Checkout"
 
-#: api/wpbdp-settings.class.php:266
+#: api/wpbdp-settings.class.php:270
 msgctxt "admin settings"
 msgid "Activate 2Checkout?"
 msgstr "Activar 2Checkout?"
 
-#: api/wpbdp-settings.class.php:267
+#: api/wpbdp-settings.class.php:271
 msgctxt "admin settings"
 msgid ""
 "Will only work when the <a href=\"http://businessdirectoryplugin.com/premium-"
@@ -3227,67 +3369,67 @@ msgstr ""
 "Solo funcionará cuando el <a href=\"http://businessdirectoryplugin.com/"
 "premium-modules/\">módulo 2Checkout</a> esté instalado"
 
-#: api/wpbdp-settings.class.php:268
+#: api/wpbdp-settings.class.php:272
 msgctxt "admin settings"
 msgid "2Checkout seller/vendor ID"
 msgstr "Seller/Vendor ID de 2Checkout"
 
-#: api/wpbdp-settings.class.php:271
+#: api/wpbdp-settings.class.php:275
 msgctxt "admin settings"
 msgid "Registration"
 msgstr "Registro"
 
-#: api/wpbdp-settings.class.php:272
+#: api/wpbdp-settings.class.php:276
 msgctxt "admin settings"
 msgid "Registration Settings"
 msgstr "Configuración de Registro"
 
-#: api/wpbdp-settings.class.php:273
+#: api/wpbdp-settings.class.php:277
 msgctxt "admin settings"
 msgid "Require login?"
 msgstr "Requerir login?"
 
-#: api/wpbdp-settings.class.php:278
+#: api/wpbdp-settings.class.php:282
 msgctxt "admin settings"
 msgid "Image"
 msgstr "Imágenes"
 
-#: api/wpbdp-settings.class.php:279
+#: api/wpbdp-settings.class.php:283
 msgctxt "admin settings"
 msgid "Image Settings"
 msgstr "Configuración de Imágenes"
 
-#: api/wpbdp-settings.class.php:280
+#: api/wpbdp-settings.class.php:284
 msgctxt "admin settings"
 msgid "Allow images?"
 msgstr "Permitir imágenes?"
 
-#: api/wpbdp-settings.class.php:281
+#: api/wpbdp-settings.class.php:285
 msgctxt "admin settings"
 msgid "Max Image File Size (KB)"
 msgstr "Tamaño máximo de imagen (KB)"
 
-#: api/wpbdp-settings.class.php:283
+#: api/wpbdp-settings.class.php:287
 msgctxt "admin settings"
 msgid "Max image width"
 msgstr "Ancho máximo de imagen"
 
-#: api/wpbdp-settings.class.php:284
+#: api/wpbdp-settings.class.php:288
 msgctxt "admin settings"
 msgid "Max image height"
 msgstr "Alto máximo de imagen"
 
-#: api/wpbdp-settings.class.php:285
+#: api/wpbdp-settings.class.php:289
 msgctxt "admin settings"
 msgid "Thumbnail width"
 msgstr "Ancho de thumbnail"
 
-#: api/wpbdp-settings.class.php:286
+#: api/wpbdp-settings.class.php:290
 msgctxt "admin settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "Activar Thickbox/Lightbox?"
 
-#: api/wpbdp-settings.class.php:286
+#: api/wpbdp-settings.class.php:290
 msgctxt "admin settings"
 msgid ""
 "Uncheck if it conflicts with other elements or plugins installed on your site"
@@ -3295,17 +3437,17 @@ msgstr ""
 "Desmarque si entra en conflicto con otros elementos o plugins instalados en "
 "su sitio"
 
-#: api/wpbdp-settings.class.php:289
+#: api/wpbdp-settings.class.php:293
 msgctxt "admin settings"
 msgid "Number of free images"
 msgstr "Número de imágenes gratuitas"
 
-#: api/wpbdp-settings.class.php:290
+#: api/wpbdp-settings.class.php:294
 msgctxt "admin settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "Utilizar imagen por defecto en listados sin imagen?"
 
-#: api/wpbdp-settings.class.php:291
+#: api/wpbdp-settings.class.php:295
 msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Mostrar thumbnails en las páginas principales?"
@@ -3326,7 +3468,7 @@ msgstr "Eliminar"
 msgid "Upgrade Listing"
 msgstr "Mejorar Listado"
 
-#: deprecated/deprecated.php:255 wpbusdirman.php:383
+#: deprecated/deprecated.php:255 wpbusdirman.php:398
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
@@ -3862,7 +4004,7 @@ msgctxt "templates"
 msgid "* Indicates required fields."
 msgstr "* Indica campos obligatorios."
 
-#: utils.php:326
+#: utils.php:359
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -3870,22 +4012,22 @@ msgstr ""
 "Los datos enviados via POST superan el valor máximo configurado en PHP. "
 "Revise la directiva \"post_max_size\" de su configuración."
 
-#: utils.php:367
+#: utils.php:400
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "El tamaño de archivo (%s) excede el tamaño máximo permitido de %s"
 
-#: utils.php:376
+#: utils.php:409
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "El tipo de archivo \"%s\" no está permitido"
 
-#: utils.php:403
+#: utils.php:436
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "El archivo subido no es una imagen"
 
-#: utils.php:411
+#: utils.php:444
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
@@ -3974,52 +4116,52 @@ msgid ""
 msgstr ""
 "Ha ingresado como administrador. Todos los pasos de pago serán saltados."
 
-#: views/submit-listing.php:239
+#: views/submit-listing.php:242
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr "Por favor elija una opción de pago para la categoría \"%s\"."
 
-#: views/submit-listing.php:303
+#: views/submit-listing.php:304
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: views/submit-listing.php:315
+#: views/submit-listing.php:316
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."
 
-#: views/submit-listing.php:333
+#: views/submit-listing.php:334
 msgctxt "templates"
 msgid "Read our Terms and Conditions"
 msgstr "Lea nuestros Términos y Condiciones"
 
-#: views/submit-listing.php:338
+#: views/submit-listing.php:339
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Términos y Condiciones:"
 
-#: views/submit-listing.php:349
+#: views/submit-listing.php:350
 msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "Acepto los Términos y Condiciones"
 
-#: views/submit-listing.php:410
+#: views/submit-listing.php:411
 msgctxt "templates"
 msgid "Image deleted."
 msgstr "Imagen eliminada."
 
-#: views/submit-listing.php:467
+#: views/submit-listing.php:468
 msgctxt "templates"
 msgid "5 - Checkout"
 msgstr "5 - Pago"
 
-#: views/submit-listing.php:469
+#: views/submit-listing.php:470
 msgctxt "templates"
 msgid "Pay %1$s listing fee via %2$s"
 msgstr "Pagar costo de publicación de %1$s a través de %2$s"
 
-#: views/submit-listing.php:493
+#: views/submit-listing.php:494
 msgctxt "templates"
 msgid "An error occurred while saving your listing. Please try again later."
 msgstr ""
@@ -4258,81 +4400,81 @@ msgctxt "widgets"
 msgid "Search"
 msgstr "Buscar"
 
-#: wpbusdirman.php:379
+#: wpbusdirman.php:394
 msgctxt "post type general name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: wpbusdirman.php:380
+#: wpbusdirman.php:395
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: wpbusdirman.php:381
+#: wpbusdirman.php:396
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: wpbusdirman.php:382
+#: wpbusdirman.php:397
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: wpbusdirman.php:384
+#: wpbusdirman.php:399
 msgid "New Listing"
 msgstr "Nuevo Listado"
 
-#: wpbusdirman.php:385
+#: wpbusdirman.php:400
 msgid "View Listing"
 msgstr "Ver Listado"
 
-#: wpbusdirman.php:386
+#: wpbusdirman.php:401
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: wpbusdirman.php:387
+#: wpbusdirman.php:402
 msgid "No listings found"
 msgstr "No se encontraron listados"
 
-#: wpbusdirman.php:388
+#: wpbusdirman.php:403
 msgid "No listings found in trash"
 msgstr "No se encontraron listados en la papelera"
 
-#: wpbusdirman.php:410
+#: wpbusdirman.php:425
 msgid "Directory Categories"
 msgstr "Categorías de Directorio"
 
-#: wpbusdirman.php:520 wpbusdirman.php:527
+#: wpbusdirman.php:535 wpbusdirman.php:542
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr ""
 
-#: wpbusdirman.php:540
+#: wpbusdirman.php:555
 msgctxt "credits footer"
 msgid "Directory powered by %s"
 msgstr "El Directorio de Negocios corre gracias a %s"
 
-#: wpbusdirman.php:754
+#: wpbusdirman.php:787
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: wpbusdirman.php:766
+#: wpbusdirman.php:799
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: wpbusdirman.php:778
+#: wpbusdirman.php:811
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: wpbusdirman.php:802
+#: wpbusdirman.php:835
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
 
-#: wpbusdirman.php:1021
+#: wpbusdirman.php:1058
 msgctxt "comment-form"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."

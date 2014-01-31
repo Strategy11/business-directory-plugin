@@ -38,7 +38,7 @@ class WPBDP_Settings {
                                  'recaptcha',
                                  _x( 'reCAPTCHA Settings', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
-                                              '<a href=\'http://www.recaptcha.com\' target=\'_blank\'>',
+                                              '<a href="http://www.recaptcha.com" target="_blank">',
                                               _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'admin settings', 'WPBDM' ) )
                                 );
         $this->add_setting($s, 'recaptcha-on', _x('Use reCAPTCHA for contact forms', 'admin settings', 'WPBDM'), 'boolean', false);
@@ -85,7 +85,7 @@ class WPBDP_Settings {
         $s = $this->add_section($g, 'general', _x('General Settings', 'admin settings', 'WPBDM'));
         
         $this->add_setting($s, 'listings-per-page', _x('Listings per page', 'admin settings', 'WPBDM'), 'text', '10',
-                           _x('Number of listings to show per page. Use a value of "-1" to show all listings.', 'admin settings', 'WPBDM'));
+                           _x('Number of listings to show per page. Use a value of "0" to show all listings.', 'admin settings', 'WPBDM'));
 
         $this->add_setting($s, 'listing-duration', _x('Listing duration for no-fee sites (in days)', 'admin settings', 'WPBDM'), 'text', '365',
                            _x('Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'admin settings', 'WPBDM'),
@@ -496,7 +496,7 @@ class WPBDP_Settings {
         $value = $this->get($setting->name);
 
         if (isset($args['use_textarea']) || strlen($value) > 100) {
-            $html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" cols="50" rows="2">';
+            $html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" cols="80" rows="4">';
             $html .= esc_textarea($value);
             $html .= '</textarea><br />';
         } else {

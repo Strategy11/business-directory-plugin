@@ -3,7 +3,7 @@ span.tag {
     border-radius: 2px;
     padding: 2px 5px;
     color: #fff;
-    font-size: 90%;
+    /*font-size: 8px;*/
     margin-right: 2px;
 }
 
@@ -93,8 +93,8 @@ td.column-bd_sticky_status .status.sticky {
 
 #BusinessDirectory_listinginfo .listing-metabox-tabs li {
     display: inline;
-    padding: 3px 8px;
-    margin-right: 4px;
+    padding: 1px 8px;
+    margin: 0;
 }
 
 #BusinessDirectory_listinginfo .listing-metabox-tabs li a {
@@ -105,9 +105,16 @@ td.column-bd_sticky_status .status.sticky {
     background: #ddd;
 }
 
+#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a {
+    color: #333;
+}
+
+#BusinessDirectory_listinginfo a.listing-fee-expiration-change-link {
+    margin-left: 3px;
+}
+
 #BusinessDirectory_listinginfo #listing-metabox-generalinfo, #BusinessDirectory_listinginfo #listing-metabox-fees, #BusinessDirectory_listinginfo #listing-metabox-transactions {
     display: none;
-    /*font-size: 95%;*/
 }
 
 #BusinessDirectory_listinginfo #listing-metabox-generalinfo > strong, #BusinessDirectory_listinginfo #listing-metabox-fees > strong, #BusinessDirectory_listinginfo #listing-metabox-transactions > strong {
@@ -163,14 +170,14 @@ td.column-bd_sticky_status .status.sticky {
 }
 
 /* Listing info metabox / fees */
-#listing-metabox-fees .listing-fee-expiration-datepicker {
+#listing-metabox-generalinfo .listing-fee-expiration-datepicker, #listing-metabox-fees .listing-fee-expiration-datepicker {
     position: absolute;
     z-index: 100;
     right: 10px;
     font-size: 80%;
 }
 
-#listing-metabox-fees .category-name {
+#listing-metabox-generalinfo .category-name, #listing-metabox-fees .category-name {
     text-decoration: underline;
     font-weight: bold;
 }
@@ -181,13 +188,13 @@ td.column-bd_sticky_status .status.sticky {
     font-size: 95%;
 }
 
-#listing-metabox-fees dl.feeinfo dt {
+#listing-metabox-generalinfo dl.feeinfo dt, #listing-metabox-fees dl.feeinfo dt {
     float: left;
     color: #595959;
     width: 80px;
 }
 
-#listing-metabox-fees dl.feeinfo dd {
+#listing-metabox-generalinfo dl.feeinfo dd, #listing-metabox-fees dl.feeinfo dd {
     margin-bottom: 0;
 }
 
@@ -247,7 +254,7 @@ table.wp-list-table.formfields th.column-label {
 }
 
 table.wp-list-table.formfields th.column-tags {
-    width: 180px;
+    width: 200px;
 }
 
 table.wp-list-table.formfields th.column-order {
@@ -443,4 +450,20 @@ body.taxonomy-wpbdp_category .column-id {
 
 .wpbdp-note p {
     margin: 0;
+}
+
+/* Admin settings. */
+.directory-admin_page_wpbdp_admin_settings table.form-table th, .directory-admin_page_wpbdp_admin_settings table.form-table td {
+    font-size: 13px;
+    line-height: 1.0;
+    padding: 8px 20px;
+}
+
+.directory-admin_page_wpbdp_admin_settings input, .directory-admin_page_wpbdp_admin_settings select {
+    font-size: 13px;
+    line-height: 1.0;
+}
+
+.directory-admin_page_wpbdp_admin_settings textarea {
+    font-size: 13px;
 }
