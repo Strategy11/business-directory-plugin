@@ -414,6 +414,11 @@ body.taxonomy-wpbdp_category .column-id {
     width: 35px;
 }
 
+.transaction-status-container {
+    text-align: right;
+    padding: 5px;
+}
+
 /* -- Progress bar. -- */
 .wpbpd-progress-bar {
 }

@@ -176,7 +176,7 @@ class WPBDP_Settings {
                             'renewal-reminder-message',
                             _x( 'Renewal reminder e-mail message', 'admin settings', 'WPBDM' ),
                             'text',
-                            "Dear Costumer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
+                            "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
                             _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date, [site] for this site\'s URL and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
                             array( 'use_textarea' => true )
                           );

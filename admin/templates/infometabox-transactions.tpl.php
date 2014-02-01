@@ -16,7 +16,9 @@ $_transaction_types = array(
         <span class="handle"><a href="#" title="<?php _ex('Click for more details', 'admin infometabox', 'WPBDM'); ?>">+</a></span>
         <span class="date"><?php echo date_i18n(get_option('date_format'), strtotime($transaction->created_on)); ?></span>
         <span class="type"><?php echo $_transaction_types[$transaction->payment_type]; ?></span>
-        <span class="status tag <?php echo $transaction->status;?> "><?php echo $transaction->status; ?></span>
+        <div class="transaction-status-container">
+            <span class="status tag <?php echo $transaction->status;?> "><?php echo $transaction->status; ?></span>
+        </div>
     </div>
     <div class="details">
         <dl>
