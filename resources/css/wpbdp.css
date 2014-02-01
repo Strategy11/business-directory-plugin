@@ -143,7 +143,12 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing-single .stickytag {
     float: right;
-    margin-top: -20px;
+    margin-top: -68px;
+}
+
+.wpbdp-listing-single .stickytag img {
+    border: 0;
+    box-shadow: none;
 }
 
 .wpbdp-listing-single .listing-title {
