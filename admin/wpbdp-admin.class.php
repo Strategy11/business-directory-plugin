@@ -1018,6 +1018,7 @@ class WPBDP_Admin {
             wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
 
             // deactivate plugin
+            // TODO: fix this to use the new filename.
             $real_path = WPBDP_PATH . 'wpbusdirman.php';
             // if the plugin directory is a symlink, plugin_basename will return
             // the real path, which may not be the same path WP associated to
