@@ -794,7 +794,7 @@ class WPBDP_FormField {
 
 }
 
-require_once( WPBDP_PATH . 'api/form-fields-types.php' );
+require_once( WPBDP_PATH . 'core/form-fields-types.php' );
 
 class WPBDP_FormFields {
 

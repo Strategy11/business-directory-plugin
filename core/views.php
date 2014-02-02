@@ -89,6 +89,9 @@ class WPBDP_DirectoryController {
             case 'payment-process':
                 return $this->process_payment();
                 break;
+            case 'payment-return':
+                return $this->payment_return();
+                break;
             case 'search':
                 return $this->search();
                 break;
@@ -232,8 +235,8 @@ class WPBDP_DirectoryController {
     }
 
     public function submit_listing() {
-        require_once( WPBDP_PATH . 'views/submit-listing.php' );
-        $submit_page = new WPBDP_SubmitListingPage( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
+        require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+        $submit_page = new WPBDP_Submit_Listing_Page( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
         return $submit_page->dispatch();
     }
 
@@ -262,7 +265,7 @@ class WPBDP_DirectoryController {
             if (wpbdp_get_option('recaptcha-on')) {
                 if ($private_key = wpbdp_get_option('recaptcha-private-key')) {
                     if ( !function_exists( 'recaptcha_get_html' ) )
-                        require_once(WPBDP_PATH . 'libs/recaptcha/recaptchalib.php');
+                        require_once(WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php');
 
                     $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
                     if (!$resp->is_valid)
@@ -412,6 +415,8 @@ class WPBDP_DirectoryController {
 
     /* Upgrade to sticky. */
     public function upgrade_to_sticky() {
+        // TODO: redo this view.
+        die();
         $listing_id = wpbdp_getv($_REQUEST, 'listing_id');
 
         if ( !$listing_id || !wpbdp_user_can('upgrade-to-sticky', $listing_id) )

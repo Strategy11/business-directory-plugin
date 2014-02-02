@@ -38,21 +38,21 @@ define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
-require_once( WPBDP_PATH . 'api/api.php' );
-require_once( WPBDP_PATH . 'deprecated/deprecated.php' );
+require_once( WPBDP_PATH . 'core/api.php' );
+require_once( WPBDP_PATH . 'core/compatibility/deprecated.php' );
 // include_once( WPBDP_PATH . 'gateways-googlecheckout.php' );
-include_once( WPBDP_PATH . 'gateways-googlewallet.php' );
-require_once( WPBDP_PATH . 'utils.php' );
+include_once( WPBDP_PATH . 'core/gateways-googlewallet.php' );
+require_once( WPBDP_PATH . 'core/utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/wpbdp-admin.class.php' );
-require_once( WPBDP_PATH . 'api/wpbdp-settings.class.php' );
-require_once( WPBDP_PATH . 'api/form-fields.php' );
-require_once( WPBDP_PATH . 'api/payment.php' );
-require_once( WPBDP_PATH . 'api/listings.php' );
-require_once( WPBDP_PATH . 'api/templates-ui.php' );
-require_once( WPBDP_PATH . 'installer.php' );
-require_once( WPBDP_PATH . 'views/views.php' );
-require_once( WPBDP_PATH . 'widgets.php' );
+require_once( WPBDP_PATH . 'core/wpbdp-settings.class.php' );
+require_once( WPBDP_PATH . 'core/form-fields.php' );
+require_once( WPBDP_PATH . 'core/payment.php' );
+require_once( WPBDP_PATH . 'core/listings.php' );
+require_once( WPBDP_PATH . 'core/templates-ui.php' );
+require_once( WPBDP_PATH . 'core/installer.php' );
+require_once( WPBDP_PATH . 'core/views.php' );
+require_once( WPBDP_PATH . 'core/widgets.php' );
 
 
 global $wpbdp;
@@ -163,6 +163,7 @@ class WPBDP_Plugin {
         array_push($vars, 'category_id'); // TODO: are we really using this var?
         array_push($vars, 'category');
         array_push($vars, 'action'); // TODO: are we really using this var?
+        array_push( $vars, 'wpbdpx' );
 
         return $vars;
     }
@@ -187,6 +188,16 @@ class WPBDP_Plugin {
 
     public function _template_redirect() {
         global $wp_query;
+
+        if ( $wp_query->get( 'wpbdpx' ) ) {
+            // Handle some special wpbdpx actions.
+            $wpbdpx = $wp_query->get( 'wpbdpx' );
+            
+            if ( isset( $this->{$wpbdpx} ) && method_exists( $this->{$wpbdpx}, 'process_request' ) ) {
+                $this->{$wpbdpx}->process_request();
+                exit();
+            }
+        }
 
         if ( is_feed() )
             return;
@@ -414,7 +425,7 @@ class WPBDP_Plugin {
             'capability_type' => 'post',
             'hierarchical' => false,
             'menu_position' => null,
-            'menu_icon' => WPBDP_URL . 'resources/images/menuico.png',
+            'menu_icon' => WPBDP_URL . 'admin/resources/menuico.png',
             'supports' => array('title','editor','author','categories','tags','thumbnail','excerpt','comments','custom-fields','trackbacks')
         );
 
@@ -624,12 +635,12 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
 
     /* scripts & styles */
     public function _enqueue_scripts() {
-        wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'resources/css/wpbdp.css');
-        wp_enqueue_script('wpbdp-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
+        wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css');
+        wp_enqueue_script('wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array('jquery'));
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'resources/css/wpbdp-legacy.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.css');
 
         $counter = 0;
         foreach (array('wpbdp.css', 'wpbusdirman.css', 'wpbdp_custom_style.css', 'wpbdp_custom_styles.css', 'wpbdm_custom_style.css', 'wpbdm_custom_styles.css') as $stylesheet) {
@@ -666,7 +677,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
         }
 
         if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
-            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'resources/js/googlewallet.js', array( 'wpbdp-js' ) );
+            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet.js', array( 'wpbdp-js' ) );
         }
     }
 
@@ -1047,7 +1058,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             $html .= '<div id="wpbdp-comment-recaptcha">';
         } else {
             if ( !function_exists( 'recaptcha_get_html' ) )
-                require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
+                require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
 
             $html .= '<div id="wpbdp-comment-recaptcha">';
             $html .= recaptcha_get_html( wpbdp_get_option( 'recaptcha-public-key' ) );
@@ -1078,7 +1089,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             return $comment_data;
 
         if ( !function_exists( 'recaptcha_get_html' ) )
-            require_once( WPBDP_PATH . 'libs/recaptcha/recaptchalib.php' );
+            require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
 
         $response = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
         

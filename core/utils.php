@@ -23,7 +23,7 @@ class WPBDP_Debugging {
 	}
 
 	public static function _enqueue_scripts() {
-		wp_enqueue_style( 'wpbdp-debugging-styles', WPBDP_URL . 'resources/css/debug.css' );
+		wp_enqueue_style( 'wpbdp-debugging-styles', WPBDP_URL . 'core/css/debug.css' );
 	}
 
 	public static function _php_error_handler($errno, $errstr, $file, $line, $context) {
@@ -116,7 +116,7 @@ class WPBDP_Debugging {
 		echo '</div>';
 		echo '</div>';
 
-		printf( '<script type="text/javascript" src="%s"></script>', WPBDP_URL . 'resources/js/debug.js' );
+		printf( '<script type="text/javascript" src="%s"></script>', WPBDP_URL . 'core/js/debug.js' );
 	}
 
 	private static function _extract_context($stack) {
@@ -523,7 +523,7 @@ function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
 /**
  * @since 3.1
  */
-function wpbdp_format_time( $time, $format='mysql', $time_is_date=false ) {
+function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
 	// TODO: add more formats
 	switch ( $format ) {
 		case 'mysql':
@@ -570,4 +570,24 @@ function wpbdp_rrmdir( $path ) {
     }
 
     rmdir( $path );
+}
+
+/**
+ * Returns the name of a term.
+ * @param id|string $id_or_slug The term ID or slug (see `$field`).
+ * @param string $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
+ * @param string $field Field used for the term lookup. Defaults to "id".
+ * @param boolean $escape Whether to escape the name before returning or not. Defaults to `True`.
+ * @return string The term name (if found) or an empty string otherwise.
+ * @since 3.3
+ */
+function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $field = 'id', $escape = true ) {
+    $term = get_term_by( $field,
+                         'id' == $field ? intval( $id_or_slug ) : $id_or_slug,
+                         $taxonomy );
+
+    if ( ! $term )
+        return '';
+                  
+    return $term->name;
 }

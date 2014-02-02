@@ -3,7 +3,7 @@
  * Renew listing view
  */
 
-require_once( WPBDP_PATH . 'api/views.php' );
+require_once( WPBDP_PATH . 'core/views.php' );
 
 
 class WPBDP_RenewListingPage extends WPBDP_View {

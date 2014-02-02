@@ -63,7 +63,7 @@ class WPBDP_Admin {
         wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
         wp_enqueue_style('thickbox');
 
-        wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'resources/js/wpbdp.js', array('jquery'));
+        wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'core/js/wpbdp.js', array('jquery'));
         wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox'));
 
         if ( 'post.php' == $pagenow ) {
@@ -85,7 +85,7 @@ class WPBDP_Admin {
                       'activate_plugins',
                       'wpbdp_admin',
                       'wpbusdirman_home_screen',
-                      WPBDP_URL . 'resources/images/menuico.png');
+                      WPBDP_URL . 'admin/resources/menuico.png');
         add_submenu_page('wpbdp_admin',
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
@@ -358,34 +358,44 @@ class WPBDP_Admin {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
             return;
 
-        if (is_admin() && isset($_POST['post_type']) && $_POST['post_type'] == WPBDP_POST_TYPE) {
-            // Fix listings added through admin site
-            wpbdp_listings_api()->set_default_listing_settings( $post_id );
+        // Handle listings saved admin-side.
+        if ( is_admin() && isset( $_POST['post_type'] ) && $_POST['post_type'] == WPBDP_POST_TYPE ) {
+            $listing = WPBDP_Listing::get( $post_id );
 
-            // Save custom fields
-            if (isset($_POST['wpbdp-listing-fields-nonce']) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
-                // save custom fields
+            // Assign a default fee for all categories.
+            foreach ( $listing->get_categories() as $category_id ) {
+                if ( is_null( $listing->get_category_fee( $category_id ) ) ) {
+                    $choices = wpbdp_get_fees_for_category( $category_id );
+                    $listing->assign_fee( $category_id, $choices[0] );
+                }
+            }
+
+            // Save custom fields.
+            if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
                 $formfields_api = wpbdp_formfields_api();
-                $listingfields = wpbdp_getv($_POST, 'listingfields', array());
-                
-                foreach ( $formfields_api->find_fields( array('association' => 'meta' ) ) as $field ) {
+                $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
+
+                foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
                     if ( isset( $listingfields[ $field->get_id() ] ) ) {
                         $value = $field->convert_input( $listingfields[ $field->get_id() ] );
-                        $field->store_value( $post_id, $value );
+                        $field->store_value( $listing->get_id(), $value );
                     } else {
-                        $field->store_value( $post_id, $field->convert_input( null ) );
-                    }
+                        $field->store_value( $listing->get_id(), $field->convert_input( null ) );
+                    }                    
                 }
 
                 if ( isset( $_POST['thumbnail_id'] ) )
-                    update_post_meta( $post_id, '_wpbdp[thumbnail_id]', $_POST['thumbnail_id'] );
+                    $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
             }
+
         }
     }
 
     public function listing_metabox($post) {
         $listings_api = wpbdp_listings_api();
         $upgrades_api = wpbdp_listing_upgrades_api();
+
+        $listing = WPBDP_Listing::get( $post->ID );
 
         // Payment status
         $payment_status = $listings_api->get_payment_status($post->ID);
@@ -413,7 +423,7 @@ class WPBDP_Admin {
         echo '<strong>' . _x('General Info', 'admin infometabox', 'WPBDM') . '</strong>';        
         echo '<dl>';
             echo '<dt>'. _x('Total Listing Cost', 'admin infometabox', 'WPBDM') . '</dt>';
-            echo '<dd>' . wpbdp_get_option('currency-symbol') .$listings_api->cost_of_listing($post->ID) . '</dd>';
+            echo '<dd>' . wpbdp_format_currency( $listing->get_total_cost() ) . '</dd>';
             echo '<dt>'. _x('Payment Status', 'admin infometabox', 'WPBDM') . '</dt>';
             echo '<dd>';
                 echo sprintf('<span class="tag paymentstatus %1$s">%1$s</span>', $payment_status);
@@ -668,23 +678,19 @@ class WPBDP_Admin {
                 break;
 
             case 'approvetransaction':
-                $trans = wpbdp_payments_api()->get_transaction($_GET['transaction_id']);
-                $trans->processed_on = current_time('mysql');
-                $trans->processed_by = 'admin';
-                $trans->status = 'approved';
-                wpbdp_payments_api()->save_transaction($trans);
+                $transaction = WPBDP_Payment::get( $_GET['transaction_id'] );
+                $transaction->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
+                $transaction->save();
 
-                $this->messages[] = _x('The transaction has been approved.', 'admin', 'WPBDM');
+                $this->messages[] = _x( 'The transaction has been approved.', 'admin', 'WPBDM' );
                 break;
 
             case 'rejecttransaction':
-                $trans = wpbdp_payments_api()->get_transaction($_GET['transaction_id']);
-                $trans->processed_on = current_time('mysql');
-                $trans->processed_by = 'admin';
-                $trans->status = 'rejected';
-                wpbdp_payments_api()->save_transaction($trans);
+                $transaction = WPBDP_Payment::get( $_GET['transaction_id'] );
+                $transaction->set_status( WPBDP_Payment::STATUS_REJECTED, 'admin' );
+                $transaction->save();
 
-                $this->messages[] = _x('The transaction has been rejected.', 'admin', 'WPBDM');
+                $this->messages[] = _x( 'The transaction has been rejected.', 'admin', 'WPBDM' );
                 break;
 
             case 'change_expiration':

@@ -1,6 +1,4 @@
-<h3>
-	<?php _ex( '3 - Listing Information', 'templates', 'WPBDM' ); ?>
-</h3>
+<h3><?php _ex( '3 - Listing Information', 'templates', 'WPBDM' ); ?></h3>
 
 <?php if ($validation_errors): ?>
 	<ul class="validation-errors">
@@ -11,12 +9,12 @@
 <?php endif; ?>
 
 <form id="wpbdp-listing-form-fields" class="wpbdp-listing-form" method="POST" action="">
-	<input type="hidden" name="_state" value="<?php echo $_state; ?>" />
+	<input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
 
 	<legend><?php _ex( '* Indicates required fields.', 'templates', 'WPBDM' ); ?></legend>
 
 	<?php foreach ( $fields as &$field ): ?>
-		<?php echo $field->render( wpbdp_getv( $state->fields, $field->get_id(), $field->convert_input( null ) ), 'submit', $state ); ?>
+		<?php echo $field->render( isset( $_state->fields[ $field->get_id() ] ) ? $_state->fields[ $field->get_id() ] : $field->convert_input( null ) , 'submit', $_state ); ?>
 	<?php endforeach; ?>
 
 	<?php if ( $terms_and_conditions ): ?>

@@ -1,5 +1,16 @@
+<?php
+/*
+ * Template vars:
+ *  $multiple_categories boolean TRUE if multiple categories are being selected during this session.
+ *  $category object Category for which the fee is being selected.
+ *  $category_fees array Fees available for the category.
+ *  $current_fee int NULL if no fee is currently associated to this category, the fee ID otherwise.
+ */
+?>
 <div class="fee-options-for-category">
-	<?php if ( isset( $state->categories) && ( count( $state->categories ) > 1 ) ): ?><h4><?php echo sprintf( _x( '"%s" fee options', 'templates', 'WPBDM' ), $category->name ); ?></h4><?php endif; ?>
+	<?php if ( $multiple_categories ): ?>
+        <h4><?php echo sprintf( _x( '"%s" fee options', 'templates', 'WPBDM' ), $category->name ); ?></h4>
+    <?php endif; ?>
 	<table class="fee-options">
 		<thead>
 			<th class="fee-selection"></th>
@@ -10,11 +21,14 @@
 			<?php // do_action( 'wpbdp_fee_selection_extra_headers' ); ?>
 		</thead>
 		<tbody>
-			<?php $i = 0; foreach ( $fees as &$fee ): ?>					
+			<?php $i = 0; foreach ( $category_fees as &$fee ): ?>					
 			<tr class="fee-option fee-id-<?php echo $fee->id; ?>">
 				<td class="fee-selection">
-					<?php $fee_selected = ( !isset( $state->fees[ $category->term_id ] ) && $i == 0 ) || ( isset( $state->fees[ $category->term_id ] ) && $state->fees[ $category->term_id ] == $fee->id ) ? true : false; ?>
-					<input type="radio" id="wpbdp-fees-radio-<?php echo $fee->id; ?>" name="fees[<?php echo $category->term_id; ?>]" value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
+					<?php $fee_selected = ( ( $current_fee === null && $i == 0 ) || ( $current_fee == $fee->id ) ); ?>
+					<input type="radio"
+                           id="wpbdp-fees-radio-<?php echo $fee->id; ?>"
+                           name="fees[<?php echo $category->term_id; ?>]"
+                           value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
 				</td>
 				<td class="fee-label">
 					<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( $fee->label ); ?></label>
@@ -23,11 +37,11 @@
 					<?php echo wpbdp_format_currency( $fee->amount ); ?>
 				</td>
 				<td class="fee-duration">
-					<?php if ( $fee->days == 0 ): ?>
-						<?php echo _x( 'Unlimited', 'templates', 'WPBDM' ); ?>
-					<?php else : ?>
-						<?php echo sprintf( _nx( '%d day', '%d days', $fee->days, 'templates', 'WPBDM' ), $fee->days ); ?>
-					<?php endif; ?>
+				<?php if ( $fee->days == 0 ): ?>
+					<?php echo _x( 'Unlimited', 'templates', 'WPBDM' ); ?>
+				<?php else : ?>
+					<?php echo sprintf( _nx( '%d day', '%d days', $fee->days, 'templates', 'WPBDM' ), $fee->days ); ?>
+				<?php endif; ?>
 				</td>
 				<td class="fee-images">
 					<?php echo wpbdp_get_option('allow-images') ? $fee->images : '—'; ?>
