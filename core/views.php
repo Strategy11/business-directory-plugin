@@ -238,6 +238,8 @@ class WPBDP_DirectoryController {
     public function view_featured_listings($args) {
         extract($args);
 
+        $html = "";
+
         $posts = get_posts(array(
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
@@ -248,7 +250,11 @@ class WPBDP_DirectoryController {
             )
         ));
 
-        return wpbdp_render_listings($posts);
+        foreach ($posts as $post) {
+            $html .= wpbdp_render_listing($post->ID, 'excerpt');
+        }
+
+        return $html;
     }
 
     public function submit_listing() {

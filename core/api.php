@@ -276,19 +276,6 @@ function wpbdp_render_msg($msg, $type='status') {
  */
 
 /**
- * Displays a list of listings view taking into account all of the theme overrides.
- * @param array $listings listings objects to display.
- * @return string HTML output.
- */
-function wpbdp_render_listings($listings) {
-    $html = "";
-    foreach ($listings as $listing) {
-        $html .= wpbdp_render_listing($listing->ID, 'excerpt');
-    }
-    return $html;
-}
-
-/**
  * Displays a single listing view taking into account all of the theme overrides.
  * @param mixed $listing_id listing object or listing id to display.
  * @param string $view 'single' for single view or 'excerpt' for summary view.
