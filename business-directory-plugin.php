@@ -344,6 +344,9 @@ class WPBDP_Plugin {
         add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
         add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
         add_shortcode('business-directory', array($this->controller, 'dispatch'));
+        add_shortcode('WPBUSDIRMANVIEWFEATUREDLISTINGS', array($this, '_featured_listings_shortcode'));
+        add_shortcode('businessdirectory-featuredlistings', array($this, '_featured_listings_shortcode'));
+        add_shortcode('businessdirectory-viewfeaturedlistings', array($this, '_featured_listings_shortcode'));
 
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_notify_expiring_listings'), 0);
@@ -606,6 +609,18 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
         }
 
         return $this->controller->browse_category( $categories );
+    }
+
+    public function _featured_listings_shortcode($atts) {
+        if (!$this->controller->check_main_page($msg)) return $msg;
+
+        $atts = shortcode_atts( array(
+            'number_of_listings' => '10'
+            ),
+            $atts
+        );
+
+        return $this->controller->view_featured_listings( $atts );
     }
 
     /* theme filters */

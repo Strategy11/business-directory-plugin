@@ -234,6 +234,23 @@ class WPBDP_DirectoryController {
         return $html;
     }
 
+    /* display featured listings */
+    public function view_featured_listings($args) {
+        extract($args);
+
+        $posts = get_posts(array(
+            'post_type' => WPBDP_POST_TYPE,
+            'post_status' => 'publish',
+            'numberposts' => $args['number_of_listings'],
+            'orderby' => 'date',
+            'meta_query' => array(
+                array('key' => '_wpbdp[sticky]', 'value' => 'sticky')
+            )
+        ));
+
+        return wpbdp_render_listings($posts);
+    }
+
     public function submit_listing() {
         require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
         $submit_page = new WPBDP_Submit_Listing_Page( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
