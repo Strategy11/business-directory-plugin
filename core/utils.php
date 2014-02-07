@@ -411,6 +411,12 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 			}
 		}
 
+		// We do not accept TIFF format. Compatibility issues.
+		if ( in_array( strtolower( $file['type'] ), array('image/tiff') ) ) {
+			$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'WPBDM' ), $file['type'] );
+			return false;
+		}
+		
 		if ( $upload = wp_handle_upload( $file, array('test_form' => FALSE) ) ) {
 			if ( !$use_media_library ) {
 				if (!is_array($upload) || isset($upload['error'])) {
