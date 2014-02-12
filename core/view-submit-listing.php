@@ -381,10 +381,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
 
     protected function step_save() {
-        $listing = $this->state->editing ? WPBDP_Listing::get( $this->state->listing_id ) : new WPBDP_Listing();
-        $listing->set_field_values( $fields = $this->state->fields );
+        $listing = $this->state->editing ? WPBDP_Listing::get( $this->state->listing_id ) : WPBDP_Listing::create( $this->state );
+        $listing->set_field_values( $this->state->fields );
         $listing->set_images( $this->state->images );
-        $listing->save();
 
         // Generate payment for the listing.
         $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );

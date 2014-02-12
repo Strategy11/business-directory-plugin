@@ -214,29 +214,45 @@ class WPBDP_PaymentsAPI {
 
     public function __construct() {
         $this->gateways = array();
+
+        do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
     }
 
-    public function register_gateway($id, $options=array()) {
-        $default_options = array('name' => $id,
-                                 'html_callback' => null,
-                                 'check_callback' => create_function('', 'return array();'),
-                                 'process_callback' => null);
-        $options = array_merge($default_options, $options);
-
-        if (array_key_exists($id, $this->gateways))
+    public function register_gateway($id, $classorinstance ) {
+        if ( isset( $this->gateways[ $id ] ) )
             return false;
 
-        $gateway = new StdClass();
-        $gateway->id = $id;
-        $gateway->name = $options['name'];
-        $gateway->check_callback = $options['check_callback'];
-        $gateway->html_callback = $options['html_callback'];
-        $gateway->process_callback = $options['process_callback'];
+        if ( is_string( $classorinstance ) && ! class_exists( $classorinstance ) )
+            return false;
 
-        $this->gateways[$gateway->id] = $gateway;
+        if ( is_object( $classorinstance ) ) // TODO: implement.
+            return false;
+
+        $this->gateways[ $id ] = $classorinstance;
+        return true;
+
+        // wpbdp_debug_e( $id, $classorinstance );
+        // $default_options = array('name' => $id,
+        //                          'html_callback' => null,
+        //                          'check_callback' => create_function('', 'return array();'),
+        //                          'process_callback' => null);
+        // $options = array_merge($default_options, $options);
+
+        // if (array_key_exists($id, $this->gateways))
+        //     return false;
+
+        // $gateway = new StdClass();
+        // $gateway->id = $id;
+        // $gateway->name = $options['name'];
+        // $gateway->check_callback = $options['check_callback'];
+        // $gateway->html_callback = $options['html_callback'];
+        // $gateway->process_callback = $options['process_callback'];
+
+        // $this->gateways[$gateway->id] = $gateway;
     }
 
     public function get_available_methods() {
+        wpbdp_debug_e( 'hi' );
         $gateways = array();
 
         if (wpbdp_get_option('payments-on')) {

@@ -1,10 +1,83 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-payment.php' );
 
+/**
+ * @since 3.4
+ */
 class WPBDP_Listing {
 
-    public static function create() {
+    private $id = 0;
 
+    private function __construct( $id ) {
+        $this->id = intval( $id );
+    }
+
+    /**
+     * Sets the values for listing fields.
+     * @param array $values field_id => value associative array.
+     * @param boolean $append if TRUE the specified field values are set without clearing the values for the other fields.
+     */
+    public function set_field_values( $values = array(), $append = false ) {
+        $fields = wpbdp_get_form_fields( array( 'association' => array( '-title', '-category' ) ) );
+
+        foreach ( $fields as &$f ) {
+            if ( isset( $values[ $f->get_id() ] ) )
+                $f->store_value( $this->id, $values[ $f->get_id() ] );
+            elseif ( ! $append )
+                $f->store_value( $this->id, $f->convert_input( null ) );
+        }
+    }
+
+    /**
+     * Sets listing images.
+     * @param array $images array of image IDs.
+     * @param boolean $append TODO: if TRUE images will be appended without clearing previous ones.
+     */
+    public function set_images( $images = array(), $append = false ) {
+        foreach ( $images as $image_id )
+            wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
+    }
+
+    public function get_id() {
+        return $this->id;
+    }
+
+    public function get_category_fee( $category ) {
+        $category_id = intval( is_object( $category ) ? $category->term_id  : $category );
+
+        global $wpdb;
+        $listing_fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
+
+        if ( $listing_fee ) {
+            // TODO: Enhance object.
+        }
+
+        return $listing_fee;
+    }
+
+    public static function create( &$state ) {
+        $title = 'Untitled Listing';
+
+        if ( isset( $state->title ) ) {
+            $title = $state->title;
+        } else {
+            $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
+            
+            if ( isset( $state->fields[ $title_field->get_id() ] ) )
+                $title = $state->fields[ $title_field->get_id() ];
+        }
+
+        $title = trim( strip_tags( $title ) );
+
+        $post_data = array(
+            'post_title' => $title,
+            'post_status' => 'pending',
+            'post_type' => WPBDP_POST_TYPE
+        );
+
+        $post_id = wp_insert_post( $post_data );
+        
+        return new self( $post_id );
     }
 
 }
@@ -103,10 +176,6 @@ class WPBDP_Listing {
 //      * Image-related methods.
 //      */
     
-//     public function set_images( $images = array() ) {
-//         $this->images = $images;
-//     }
-
 //     /*
 //      * Category-related.
 //      */
@@ -192,7 +261,6 @@ class WPBDP_Listing {
 //             $post_data['ID'] = $this->id;
 
 //         $this->id = $this->id ? wp_update_post( $post_data ) : wp_insert_post( $post_data );
-//         $recursion_guard = true;
 
 //         // Create author user if needed.
 //         if ( ! $editing ) {
@@ -224,21 +292,7 @@ class WPBDP_Listing {
 //             }
 //         }
 
-//         // Store fields.
-//         $fields = wpbdp_get_form_fields( array( 'association' => array( '-title', '-category' ) ) );
-
-//         foreach ( $fields as &$f ) {
-//             if ( isset( $this->fields[ $f->get_id() ] ) ) {
-//                 $f->store_value( $this->id, $this->fields[ $f->get_id() ] );
-//             } else {
-//                 $f->store_value( $this->id, $f->convert_input( null ) );
-//             }
-//         }
-
-//         // Attach images.
-//         foreach ( $this->images as $image_id )
-//             wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
-        
+       
 //         // Set thumbnail image.
 //         if ( $this->thumbnail_id && in_array( $this->thumbnail_id, $this->images, true ) )
 //             update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $this->thumbnail_id );
@@ -271,12 +325,6 @@ class WPBDP_Listing {
 
 //         return true;
 //     }
-
-//     public function get_category_fee( $category ) {
-//         $category_id = intval( is_object( $category ) ? $category->term_id  : $category );
-//         return $this->fees[ $category_id ];
-//     }
-
 
 //     public function delete() { }
 

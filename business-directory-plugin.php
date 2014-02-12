@@ -42,14 +42,13 @@ define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
 require_once( WPBDP_PATH . 'core/api.php' );
 require_once( WPBDP_PATH . 'core/compatibility/deprecated.php' );
-// include_once( WPBDP_PATH . 'gateways-googlecheckout.php' );
-include_once( WPBDP_PATH . 'core/gateways-googlewallet.php' );
 require_once( WPBDP_PATH . 'core/utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/wpbdp-admin.class.php' );
 require_once( WPBDP_PATH . 'core/wpbdp-settings.class.php' );
 require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
+include_once( WPBDP_PATH . 'core/gateways-googlewallet.php' );
 require_once( WPBDP_PATH . 'core/listings.php' );
 require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );

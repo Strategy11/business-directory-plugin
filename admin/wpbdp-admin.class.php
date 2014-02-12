@@ -1184,7 +1184,7 @@ class WPBDP_Admin {
 
     /* Required pages check. */
     public function check_for_required_pages() {
-        if (!wpbdp_get_page_id('main')) {
+        if (!wpbdp_get_page_id('main') && current_user_can( 'administrator' ) ) {
             if (isset($_GET['action']) && $_GET['action'] == 'createmainpage') // do not show message in the page creating the main page
                 return;
 
