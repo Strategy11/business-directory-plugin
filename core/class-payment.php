@@ -199,6 +199,11 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return $this->currency_code;
     }
 
+    public function get_short_description() {
+        return $this->get_description();
+    }
+
+    // TODO
     public function get_description() {
         if ( count( $this->items ) == 1 )
             return $this->items[0]['description'];
