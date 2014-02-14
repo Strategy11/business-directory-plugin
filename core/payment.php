@@ -540,18 +540,21 @@ class WPBDP_PaymentsAPI {
      * @since 3.3
      */
     public function process_request() {
-        wpbdp_debug_e('payments process');
         $action = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
         $payment = isset( $_GET['payment_id'] ) ? WPBDP_Payment::get( intval( $_GET['payment_id'] ) ) : null;
 
-        if ( ! in_array( $action, array( 'notify', 'return', 'cancel' ) ) || ! $payment )
+        if ( ! in_array( $action, array( 'process', 'notify', 'return', 'cancel' ) ) || ! $payment )
             return;
 
         unset( $_GET['action'] );
         unset( $_GET['payment_id'] );
 
-        $gateway = new WPBDP_PayPal_Gateway;
-        $gateway->process( $payment, $action );
+        $gateway_id = $payment->get_gateway();
+
+        if ( ! $gateway_id || ! isset( $this->gateways[ $gateway_id ] )  )
+            return;
+
+        $this->gateways[ $gateway_id ]->process( $payment, $action );
     }
 
     /**
