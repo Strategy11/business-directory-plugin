@@ -2,6 +2,9 @@
 
 abstract class WPBDP_Payment_Gateway {
 
+    const INTEGRATION_BUTTON = 'button';
+    const CAPABILITIES_RECURRING = 'recurring';
+
     public function __construct() {
     }
 
@@ -11,10 +14,32 @@ abstract class WPBDP_Payment_Gateway {
         if ( $action == 'notify' )
             return 'http://bdtest.wpengine.com/wp-content/plugins/business-directory-plugin/ipn.php';
         
-        return add_query_arg( array( 'wpbdpx' => 'payments_process',
+        return add_query_arg( array( 'wpbdpx' => 'payments',
                                      'action' => $action,
                                      'payment_id' => $payment->get_id() ),
                               home_url( 'index.php' ) );
+    }
+
+    public function get_name() {
+        $classname = get_class( $this );
+        $classname = str_replace( 'WPBDP' , '', $classname );
+        $classname = str_replace( '_' , ' ', $classname );
+        $classname = trim( $classname );
+
+        return $classname;
+    }
+
+    abstract public function register_config( &$settings );
+    abstract public function validate_config();
+
+    public function get_supported_currencies() {
+        return array();
+    }
+
+    abstract public function get_integration_method();
+    
+    public function get_capabilities() {
+        return array();
     }
 
     abstract public function process( &$payment, $action );
