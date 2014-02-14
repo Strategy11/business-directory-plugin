@@ -216,6 +216,7 @@ class WPBDP_PaymentsAPI {
         $this->gateways = array();
 
         do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
+        add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
     }
 
     public function register_gateway($id, $classorinstance ) {
@@ -228,85 +229,72 @@ class WPBDP_PaymentsAPI {
         if ( is_object( $classorinstance ) ) // TODO: implement.
             return false;
 
-        $this->gateways[ $id ] = $classorinstance;
+        $this->gateways[ $id ] = new $classorinstance;
         return true;
+    }
 
-        // wpbdp_debug_e( $id, $classorinstance );
-        // $default_options = array('name' => $id,
-        //                          'html_callback' => null,
-        //                          'check_callback' => create_function('', 'return array();'),
-        //                          'process_callback' => null);
-        // $options = array_merge($default_options, $options);
-
-        // if (array_key_exists($id, $this->gateways))
-        //     return false;
-
-        // $gateway = new StdClass();
-        // $gateway->id = $id;
-        // $gateway->name = $options['name'];
-        // $gateway->check_callback = $options['check_callback'];
-        // $gateway->html_callback = $options['html_callback'];
-        // $gateway->process_callback = $options['process_callback'];
-
-        // $this->gateways[$gateway->id] = $gateway;
+    public function register_gateway_settings( &$settings ) {
+        foreach ( $this->gateways as &$gateway )
+            $gateway->register_config( $settings );
     }
 
     public function get_available_methods() {
-        wpbdp_debug_e( 'hi' );
-        $gateways = array();
+        $ok_gateways = array();
 
-        if (wpbdp_get_option('payments-on')) {
-            foreach ($this->gateways as &$gateway) {
-                if ( wpbdp_get_option($gateway->id) && count(call_user_func($gateway->check_callback)) == 0 ) {
-                    $gateways[] = $gateway;
-                }
+        if ( ! wpbdp_get_option( 'payments-on' ) )
+            return array();
+
+        foreach ( $this->gateways as $gateway_id => &$gateway ) {
+            if ( wpbdp_get_option( $gateway_id ) ) {
+                if ( 0 === count( $gateway->validate_config() ) )
+                    $ok_gateways[] = $gateway_id;
             }
         }
 
-        return $gateways;
+        return $ok_gateways;
     }
 
     public function payments_possible() {
-        return count($this->get_available_methods()) > 0;
+        return count( $this->get_available_methods() ) > 0;
     }
 
     public function check_config() {
-        if (wpbdp_get_option('featured-on') && !wpbdp_get_option('payments-on')) {
+        if ( wpbdp_get_option( 'featured-on' ) && ! wpbdp_get_option( 'payments-on' ) )
             return array(
-                sprintf(_x('You are offering featured listings but have payments turned off. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the <i>Upgrade to Featured</i> option will be disabled.', 'payments-api', 'WPBDM'), admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment') )
+                sprintf( _x( 'You are offering featured listings but have payments turned off. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the <i>Upgrade to Featured</i> option will be disabled.', 'payments-api', 'WPBDM' ), admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) )
             );
-        }
 
-        if (!wpbdp_get_option('payments-on'))
+        if ( ! wpbdp_get_option( 'payments-on' ) )
             return array();
 
+        // Check every registered & enabled gateway to see if it is properly configured.
         $errors = array();
-        $gateway_available = false;
+        $gateway_ok = false;
 
-        // check every registered & enabled gateway is properly configured
-        foreach ($this->gateways as &$gateway) {
-            if (!wpbdp_get_option($gateway->id)) continue;
+        foreach ( $this->gateways as $gateway_id => &$gateway ) {
+            if ( ! wpbdp_get_option( $gateway_id ) )
+                continue;
 
-            $gateway_errors = call_user_func($gateway->check_callback);
+            $gateway_errors = $gateway->validate_config();
 
-            if ($gateway_errors) {
+            if ( $gateway_errors ) {
                 $gateway_messages = rtrim('&#149; ' . implode(' &#149; ', $gateway_errors), '.');
                 $errors[] = sprintf(_x('The <b>%s</b> gateway is active but not properly configured. The gateway won\'t be available until the following problems are fixed: <b>%s</b>. <br/> Check the <a href="%s">payment settings</a>.', 'payments-api', 'WPBDM'),
                                         $gateway->name,
                                         $gateway_messages,
                                         admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment') );
             } else {
-                $gateway_available = true;
+                $gateway_ok = true;
             }
         }
 
-        if (!$gateway_available) {
+        if ( ! $gateway_ok ) {
             $errors[] = sprintf(_x('You have payments turned on but no gateway is active and properly configured. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
-                                admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));
+                                admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));            
         } else {
             if ( count( $this->gateways ) >= 2 && $this->has_gateway( 'payfast' ) ) {
                 $errors[] = __( 'BD detected PayFast and another gateway were enabled. This setup is not recommended due to PayFast supporting only ZAR and the other gateways not supporting this currency.', 'admin', 'WPBDM' );
-            }
+            }            
         }
 
         return $errors;
@@ -552,6 +540,7 @@ class WPBDP_PaymentsAPI {
      * @since 3.3
      */
     public function process_request() {
+        wpbdp_debug_e('payments process');
         $action = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
         $payment = isset( $_GET['payment_id'] ) ? WPBDP_Payment::get( intval( $_GET['payment_id'] ) ) : null;
 
@@ -585,8 +574,8 @@ class WPBDP_PaymentsAPI {
 
         $html .= '<select name="payment_method">';
         $html .= '<option value="">-- Select a payment method --</option>';
-        foreach ( $payment_methods as &$method ) {
-            $html .= '<option value="' . $method->id . '">' . $method->name . '</option>';
+        foreach ( $payment_methods as $method_id ) {
+            $html .= '<option value="' . $method_id . '">' . $this->gateways[ $method_id ]->get_name() . '</option>';
         }
         $html .= '</select>';
         $html .= '</div>';
@@ -596,9 +585,12 @@ class WPBDP_PaymentsAPI {
 
     // TODO: dodoc
     public function render_payment_method_integration( &$payment ) {
-        // TODO: correct support for all registered gateways.
-        $paypal = new WPBDP_PayPal_Gateway();
-        return $paypal->render_integration( $payment );
+        $gateway_id = $payment->get_gateway();
+
+        if ( ! isset( $this->gateways[ $gateway_id ] ) )
+            throw new Exception('Unknown gateway for payment.'); // TODO: maybe allow re-selection of the gateway?
+
+        return $this->gateways[ $gateway_id ]->render_integration( $payment );
     }
 
     // TODO: dodoc
