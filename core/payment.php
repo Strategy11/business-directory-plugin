@@ -226,10 +226,7 @@ class WPBDP_PaymentsAPI {
         if ( is_string( $classorinstance ) && ! class_exists( $classorinstance ) )
             return false;
 
-        if ( is_object( $classorinstance ) ) // TODO: implement.
-            return false;
-
-        $this->gateways[ $id ] = new $classorinstance;
+        $this->gateways[ $id ] = is_object( $classorinstance ) ? $classorinstance : new $classorinstance;
         return true;
     }
 
