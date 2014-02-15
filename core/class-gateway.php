@@ -29,7 +29,7 @@ abstract class WPBDP_Payment_Gateway {
         return $classname;
     }
 
-    abstract public function register_config( &$settings );
+    public function register_config( &$settings ) { }
     abstract public function validate_config();
 
     public function get_supported_currencies() {
