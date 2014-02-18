@@ -338,9 +338,9 @@ class WPBDP_ListingsAPI {
             switch ( $item->item_type ) {
                 case 'recurring_fee':
                 case 'fee':
-                    $listing->assign_fee( $item->data['category_id'],
-                                          $payment->is_completed() ? $item->data['fee'] : null,
-                                          'recurring_fee' == $item->item_type );
+                    $listing->add_category( $item->rel_id_1,
+                                            $payment->is_completed() ? $item->data['fee'] : null,
+                                            'recurring_fee' == $item->item_type );
                     break;
 
                 case 'upgrade':
@@ -481,13 +481,6 @@ class WPBDP_ListingsAPI {
         return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id));
     }
 
-    public function get_expired_categories( $listing_id ) {
-        global $wpdb;
-        return $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on < %s",
-                                               $listing_id,
-                                               current_time( 'mysql' ) ) );
-    }
-
     public function remove_category_info( $listing_id, $category_or_categories ) {
         global $wpdb;
 
@@ -544,22 +537,6 @@ class WPBDP_ListingsAPI {
         }
 
         return 'normal';
-    }
-
-    public function calculate_expiration_time($time, $fee) {
-        if ($fee->days == 0)
-            return null;
-
-        $expire_time = strtotime(sprintf('+%d days', $fee->days), $time);
-        return $expire_time;
-    }
-            // $start_time = get_post_time('U', false, $listing_id);
-
-    public function calculate_expiration_date($time, $fee) {
-        if ($expire_time = $this->calculate_expiration_time($time, $fee))
-            return date('Y-m-d H:i:s', $expire_time);
-        
-        return null;
     }
 
     /**
