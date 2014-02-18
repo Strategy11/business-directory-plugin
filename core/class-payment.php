@@ -128,17 +128,29 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function has_been_processed() {
         return ! empty( $this->processed_by );
     }
+
+    public function get_handler() {
+        return $this->processed_by;
+    }
+
+    public function get_processed_on() {
+        return $this->processed_on;
+    }
     
-    public function add_item( $item_type = 'charge', $amount = 0.0, $description = '', $data = array() ) {
-        $amount = floatval( $amount );
+    public function add_item( $item_type = 'charge', $amount = 0.0, $description = '', $data = array(), $rel_id_1 = 0, $rel_id_2 = 0 ) {
+        $item = array();
+        $item['item_type'] = $item_type;
+        $item['amount'] = floatval( $amount );
+        $item['description'] = $description;
+        $item['data'] = $data;
+
+        if ( $rel_id_1 )
+            $item['rel_id_1'] = $rel_id_1;
+
+        if ( $rel_id_2 )
+            $item['rel_id_2'] = $rel_id_2;
         
-        $this->items[] = array(
-            'item_type' => $item_type,
-            'amount' => $amount,
-            'description' => $description,
-            'data' => $data
-        );
-        
+        $this->items[] = $item;
         $this->amount += $amount;
     }
 
@@ -234,6 +246,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     }
 
     public function add_error( $error_msg ) {
+        // TODO: add datetime support.
         $errors = $this->get_data( 'errors' );
         $errors = ! $errors ? array() : $errors;
 
@@ -250,10 +263,21 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $this->payerinfo[ $key ] = $value;
     }
 
+    public function get_payer_info( $key ) {
+        if ( isset( $this->payerinfo[ $key ] ) )
+            return $this->payerinfo[ $key ];
+
+        return '';
+    }
+
     public function get_redirect_url() {
         // TODO: support redirects for other things rather than submits.
         $url = add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
         return $url;
+    }
+
+    public function get_created_on() {
+        return $this->created_on;
     }
 
 }

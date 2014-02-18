@@ -93,6 +93,8 @@
             amount decimal(10,2) NOT NULL DEFAULT 0.00,            
             item_type varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'charge',
             description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Charge',
+            rel_id_1 bigint(20) NULL,
+            rel_id_2 bigint(20) NULL,
             data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
