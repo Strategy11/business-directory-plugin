@@ -423,7 +423,10 @@ class WPBDP_CSVImporter {
 
         $listing_username = null;
 
-        $listing = array('categories' => array(), 'fields' => array(), 'images' => array());
+        $state = new StdClass();
+        $state->categories = array();
+        $state->fields = array();
+        $state->images = array();
 
         $listing_images = array();
         $listing_fields = array();
@@ -488,7 +491,7 @@ class WPBDP_CSVImporter {
                         continue;
 
                     if ($term = term_exists($category_name, WPBDP_CATEGORY_TAX)) {
-                        $listing['categories'][] = $term['term_id'];
+                        $state->categories[] = $term['term_id'];
                         // $listing_fields[$field->get_id()][] = $term['term_id'];
                     } else {
                         if ($this->settings['create-missing-categories']) {
@@ -496,8 +499,7 @@ class WPBDP_CSVImporter {
                                 continue;
 
                             if ($newterm = wp_insert_term($category_name, WPBDP_CATEGORY_TAX)) {
-                                $listing['categories'][] = $newterm['term_id'];
-                                // $listing_fields[$field->get_id()][] = $newterm['term_id'];
+                                $state->categories[] = $newterm['term_id'];
                             } else {
                                 $errors[] = sprintf(_x('Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $category_name);
                                 return false;
@@ -551,7 +553,7 @@ class WPBDP_CSVImporter {
                             $attach_data = wp_generate_attachment_metadata($attachment_id, $wp_image['file']);
                             wp_update_attachment_metadata($attachment_id, $attach_data);
 
-                            $listing['images'][] = $attachment_id;
+                            $state->images[] = $attachment_id;
 
                         } else {
                             $errors[] = sprintf(_x('Image file "%s" could not be inserted.', 'admin csv-import', 'WPBDM'), $filename);
@@ -568,14 +570,19 @@ class WPBDP_CSVImporter {
             }
         }
 
-        $listing['fields'] = $listing_fields;
+        $state->fields = $listing_fields;
 
         if ($this->settings['test-import'])
             return true;
-        $listing_id = wpbdp_save_listing( $listing );
+
+        $listing = WPBDP_Listing::create( $state );
+        $listing->set_field_values( $state->fields );
+        $listing->set_images( $state->images );
+        $listing->set_categories( $state->categories );
+        $listing->save();
 
         // create permalink
-        $post = get_post($listing_id);
+        $post = get_post($listing->get_id());
         wp_update_post(array('ID' => $post->ID,
                              'post_name' => wp_unique_post_slug(sanitize_title($post->post_title), $post->ID, $post->post_status, $post->post_type, $post->post_parent)
                       ));
@@ -584,10 +591,10 @@ class WPBDP_CSVImporter {
         if ($this->settings['assign-listings-to-user']) {
             if ($listing_username) {
                 if ($user = get_user_by('login', $listing_username))
-                    wp_update_post(array('ID' => $listing_id, 'post_author' => $user->ID));
+                    wp_update_post(array('ID' => $listing->get_id(), 'post_author' => $user->ID));
             } else {
                 if ($this->settings['default-user'])
-                    wp_update_post(array('ID' => $listing_id, 'post_author' => $this->settings['default-user']));
+                    wp_update_post(array('ID' => $listing->get_id(), 'post_author' => $this->settings['default-user']));
             }
         }
 
@@ -596,18 +603,18 @@ class WPBDP_CSVImporter {
             $upgrades_api = wpbdp_listing_upgrades_api();
 
             if ( $level = $upgrades_api->get( $listing_metadata['featured_level'] ) ) {
-                $upgrades_api->set_sticky( $listing_id, $level->id );
+                $upgrades_api->set_sticky( $listing->get_id(), $level->id );
             }
         }
 
         if ( $listing_metadata['expires_on'] ) {
             global $wpdb;
 
-            foreach ( $listing['categories'] as $i => $category_id ) {
+            foreach ( $state->categories as $i => $category_id ) {
                 if ( isset( $listing_metadata['expires_on'][ $i ] ) ) { // TODO: check is valid date
                     $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
                                    array( 'expires_on' => $listing_metadata['expires_on'][ $i ] ),
-                                   array( 'category_id' => $category_id, 'listing_id' => $listing_id )
+                                   array( 'category_id' => $category_id, 'listing_id' => $listing->get_id() )
                                  );
                 }
             }
@@ -615,7 +622,7 @@ class WPBDP_CSVImporter {
 
         set_time_limit(5);
 
-        return $listing_id > 0;
+        return true;
     }
 
     private function remove_directory($dir) {

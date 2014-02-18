@@ -175,10 +175,9 @@ class WPBDP_Listing {
                     case 'expired':
                     case 'ok':
                         $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
-                        $fee_info->fee = (object) unserialize( $fee_info->fee );
-
+                        
                         if ( ! $fee_info ) {
-                            $this->remove_category( $category_id );
+                            // $this->remove_category( $category_id );
                             continue;
                         }
 
@@ -208,6 +207,13 @@ class WPBDP_Listing {
         }
 
         return $results;
+    }
+
+    public function set_categories( $categories ) {
+        $category_ids = array_map( 'intval', $categories );
+
+        wp_set_post_terms( $this->id, $category_ids, WPBDP_CATEGORY_TAX, false );
+        $this->fix_categories();
     }
 
     public function fix_categories() {
