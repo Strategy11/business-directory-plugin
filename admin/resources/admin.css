@@ -182,7 +182,7 @@ td.column-bd_sticky_status .status.sticky {
     font-weight: bold;
 }
 
-#listing-metabox-fees .category-name .removecategory-link {
+#listing-metabox-generalinfo .category-name .removecategory-link, #listing-metabox-fees .category-name .removecategory-link {
     float: right;
     font-weight: normal;
     font-size: 95%;
@@ -222,7 +222,7 @@ td.column-bd_sticky_status .status.sticky {
     float: right;
 }
 
-#listing-metabox-fees a.removecategory-link {
+#listing-metabox-generalinfo a.removecategory-link, #listing-metabox-fees a.removecategory-link {
     color: #ff0000;
 }
 

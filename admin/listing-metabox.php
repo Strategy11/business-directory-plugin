@@ -1,0 +1,116 @@
+<?php
+class WPBDP_Admin_Listing_Metabox {
+
+    private $listing = null;
+
+    public function __construct( $listing_id ) {
+        $this->listing = WPBDP_Listing::get( $listing_id );
+    }
+
+    public function render() {
+        $tabs = array( 'generalinfo' => _x('General', 'admin', 'WPBDM'),
+                       'fees' => _x('Fee Details', 'admin', 'WPBDM'),
+                       'transactions' => _x('Transactions', 'admin', 'WPBDM') );
+
+        // Determine selected tab.
+        $selected_tab = 'generalinfo';
+        if ( isset( $_GET['wpbdmaction'] ) && in_array( $_GET['wpbdmaction'], array( 'removecategory', 'assignfee', 'change_expiration' ), true ) )
+            $selected_tab = 'fees';
+
+        echo '<div class="misc-pub-section">';
+
+        echo '<ul class="listing-metabox-tabs">';
+        foreach ( $tabs as $tab_id => $tab_label ) {
+            echo '<li class="tabs ' . ( $selected_tab === $tab_id ? 'selected' : '' ) . '"><a href="#listing-metabox-' . $tab_id . '">' . $tab_label  .'</a></li>';
+        }
+        echo '</ul>';
+
+        foreach ( array_keys( $tabs ) as $tab_id ) {
+            echo '<div id="listing-metabox-' . $tab_id . '">';
+            call_user_func( array( &$this, 'tab_' . $tab_id ) );
+            echo '</div>';
+        }
+
+        echo '</div>';
+        echo '<div class="clear"></div>';
+    }
+
+    private function tab_generalinfo() {
+        $upgrades_api = wpbdp_listing_upgrades_api();
+
+        echo '<strong>' . _x('General Info', 'admin infometabox', 'WPBDM') . '</strong>';        
+        echo '<dl>';
+            echo '<dt>'. _x('Total Listing Cost', 'admin infometabox', 'WPBDM') . '</dt>';
+            echo '<dd>' . wpbdp_format_currency( $this->listing->get_total_cost() ) . '</dd>';
+            echo '<dt>'. _x('Payment Status', 'admin infometabox', 'WPBDM') . '</dt>';
+            echo '<dd>';
+            echo sprintf('<span class="tag paymentstatus %1$s">%1$s</span>', $this->listing->get_payment_status() );
+            echo '</dd>';
+            echo '<dt>' . _x('Featured (Sticky) Status', 'admin infometabox', 'WPBDM') . '</dt>';
+            echo '<dd>';
+
+                // sticky information
+                $sticky_info = $upgrades_api->get_info( $this->listing->get_id() );
+
+                echo '<span><b>';
+                if ($sticky_info->pending) {
+                    echo _x('Pending Upgrade', 'admin metabox', 'WPBDM');
+                } else {
+                    echo esc_attr( $sticky_info->level->name );
+                }
+                echo '</b> </span><br />';
+
+                if (current_user_can('administrator')) {
+                    if ( $sticky_info->upgradeable ) {
+                        echo sprintf('<span><a href="%s">%s</a></span>',
+                                     add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $this->listing->get_id())),
+                                     '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
+                    }
+
+                    if ( $sticky_info->downgradeable ) {
+                        echo '<br />';
+                        echo sprintf('<span><a href="%s">%s</a></span>',
+                                     add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $this->listing->get_id())),
+                                     '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );                
+                    }
+                }
+
+            echo '</dd>';
+        echo '</dl>';
+
+    //     if (current_user_can('administrator')) {
+    //         if ($payment_status != 'paid')
+    //             echo sprintf('<a href="%s" class="button-primary">%s</a> ',
+    //                      add_query_arg('wpbdmaction', 'setaspaid'),
+    //                      _x('Mark listing as Paid', 'admin infometabox', 'WPBDM'));
+    //         else
+    //             echo sprintf('<a href="%s" class="button">%s</a>',
+    //                          add_query_arg('wpbdmaction', 'setasnotpaid'),
+    //                          _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
+
+        echo '<div>';
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-feesummary.tpl.php', array(
+            'categories' => $this->listing->get_categories( 'all' ),
+            'listing' => $this->listing
+        ) );
+        echo '</div>';
+    }
+
+    private function tab_fees() {
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-fees.tpl.php', array(
+                                'categories' => $this->listing->get_categories( 'all' ),
+                                'image_count' => count( $this->listing->get_images() ),
+                                'listing' => $this->listing
+                                ) );
+    }
+
+    private function tab_transactions() {
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-transactions.tpl.php',
+                                array( 'payments' => $this->listing->get_latest_payments() ) );
+    }
+
+    public static function metabox_callback( $post ) {
+        $instance = new self( $post->ID );
+        return $instance->render();
+    }
+}

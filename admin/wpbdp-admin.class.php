@@ -5,6 +5,7 @@ require_once(WPBDP_PATH . 'admin/form-fields.php');
 require_once( WPBDP_PATH . 'admin/transactions.php' );
 require_once(WPBDP_PATH . 'admin/csv-import.php');
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
+require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
 
 if (!class_exists('WPBDP_Admin')) {
 
@@ -202,13 +203,12 @@ class WPBDP_Admin {
     }
 
     function add_metaboxes() {
-        add_meta_box('BusinessDirectory_listinginfo',
-                     __('Listing Information', 'WPBDM'),
-                     array($this, 'listing_metabox'),
-                     WPBDP_POST_TYPE,
-                     'side',
-                     'core'
-                    );
+        add_meta_box( 'BusinessDirectory_listinginfo',
+                      __( 'Listing Information', 'WPBDM' ),
+                      array( 'WPBDP_Admin_Listing_Metabox', 'metabox_callback' ),
+                      WPBDP_POST_TYPE,
+                      'side',
+                      'core' );
 
         add_meta_box('wpbdp-listing-fields',
                     _x('Listing Fields / Images', 'admin', 'WPBDM'),
@@ -361,14 +361,7 @@ class WPBDP_Admin {
         // Handle listings saved admin-side.
         if ( is_admin() && isset( $_POST['post_type'] ) && $_POST['post_type'] == WPBDP_POST_TYPE ) {
             $listing = WPBDP_Listing::get( $post_id );
-
-            // Assign a default fee for all categories.
-            foreach ( $listing->get_categories() as $category_id ) {
-                if ( is_null( $listing->get_category_fee( $category_id ) ) ) {
-                    $choices = wpbdp_get_fees_for_category( $category_id );
-                    $listing->assign_fee( $category_id, $choices[0] );
-                }
-            }
+            $listing->fix_categories();
 
             // Save custom fields.
             if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
@@ -389,114 +382,6 @@ class WPBDP_Admin {
             }
 
         }
-    }
-
-    public function listing_metabox($post) {
-        $listings_api = wpbdp_listings_api();
-        $upgrades_api = wpbdp_listing_upgrades_api();
-
-        $listing = WPBDP_Listing::get( $post->ID );
-
-        // Payment status
-        $payment_status = $listings_api->get_payment_status($post->ID);
-
-        // Determine selected tab.
-        $selected_tab = 'generalinfo';
-        if ( isset( $_GET['wpbdmaction'] ) && in_array( $_GET['wpbdmaction'], array( 'removecategory', 'assignfee', 'change_expiration' ), true ) )
-            $selected_tab = 'fees';
-
-        // Some general info.
-        $expired_categories_ids = $listings_api->get_expired_categories( $post->ID );
-        $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-        $post_categories = array_unique( array_merge( $current_categories, $expired_categories_ids ) );
-        $categories = get_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false, 'hierarchical' => false, 'include' => $post_categories ? $post_categories : array( -1 ) ) );        
-
-        echo '<div class="misc-pub-section">';
-
-        echo '<ul class="listing-metabox-tabs">';
-        echo '<li class="tabs ' . ( $selected_tab == 'generalinfo' ? 'selected' : '' ) . '"><a href="#listing-metabox-generalinfo">' . _x('General', 'admin', 'WPBDM') . '</a></li>';
-        echo '<li class="tabs ' . ( $selected_tab == 'fees' ? 'selected' : '' ) . '"><a href="#listing-metabox-fees">' . _x('Fee Details', 'admin', 'WPBDM') . '</a></li>';
-        echo '<li class="tabs ' . ( $selected_tab == 'transactions' ? 'selected' : '' ) . '"><a href="#listing-metabox-transactions">' . _x('Transactions', 'admin', 'WPBDM') . '</a></li>';
-        echo '</ul>';
-
-        echo '<div id="listing-metabox-generalinfo">';
-        echo '<strong>' . _x('General Info', 'admin infometabox', 'WPBDM') . '</strong>';        
-        echo '<dl>';
-            echo '<dt>'. _x('Total Listing Cost', 'admin infometabox', 'WPBDM') . '</dt>';
-            echo '<dd>' . wpbdp_format_currency( $listing->get_total_cost() ) . '</dd>';
-            echo '<dt>'. _x('Payment Status', 'admin infometabox', 'WPBDM') . '</dt>';
-            echo '<dd>';
-                echo sprintf('<span class="tag paymentstatus %1$s">%1$s</span>', $payment_status);
-            echo '</dd>';
-            echo '<dt>' . _x('Featured (Sticky) Status', 'admin infometabox', 'WPBDM') . '</dt>';
-            echo '<dd>';
-
-                // sticky information
-                $sticky_info = $upgrades_api->get_info( $post->ID );
-
-                echo '<span><b>';
-                if ($sticky_info->pending) {
-                    echo _x('Pending Upgrade', 'admin metabox', 'WPBDM');
-                } else {
-                    echo esc_attr( $sticky_info->level->name );
-                }
-                echo '</b> </span><br />';
-
-                if (current_user_can('administrator')) {
-                    if ( $sticky_info->upgradeable ) {
-                        echo sprintf('<span><a href="%s">%s</a></span>',
-                                     add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post->ID)),
-                                     '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
-                    }
-
-                    if ( $sticky_info->downgradeable ) {
-                        echo '<br />';
-                        echo sprintf('<span><a href="%s">%s</a></span>',
-                                     add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post->ID)),
-                                     '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );                
-                    }
-                }
-
-            echo '</dd>';
-        echo '</dl>';
-
-        if (current_user_can('administrator')) {
-            if ($payment_status != 'paid')
-                echo sprintf('<a href="%s" class="button-primary">%s</a> ',
-                         add_query_arg('wpbdmaction', 'setaspaid'),
-                         _x('Mark listing as Paid', 'admin infometabox', 'WPBDM'));
-            else
-                echo sprintf('<a href="%s" class="button">%s</a>',
-                             add_query_arg('wpbdmaction', 'setasnotpaid'),
-                             _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
-
-            echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/infometabox-general-feesummary.tpl.php', array(
-                'post_categories' => $categories,
-                'expired_categories' => $expired_categories_ids,
-                'post_id' => $post->ID,                           
-            ) );
-
-        }
-
-        echo '</div>';
-
-        // Fees
-        echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-fees.tpl.php', array(
-                                'post_categories' => $categories,
-                                'expired_categories' => $expired_categories_ids,
-                                'post_id' => $post->ID,
-                                'image_count' => count($listings_api->get_images($post->ID))
-                                ));
-
-        // Transactions
-        echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/infometabox-transactions.tpl.php', array(
-                                'transactions' => wpbdp_payments_api()->get_transactions($post->ID)
-                               ));
-
-        echo '</div>';
-
-        echo '<div class="clear"></div>';
-
     }
 
     function apply_query_filters($request) {
@@ -707,13 +592,17 @@ class WPBDP_Admin {
                 break;
 
             case 'assignfee':
-                if ($listings_api->assign_fee($posts[0], $_GET['category_id'], $_GET['fee_id']))
-                    $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WPBDM');
+                $listing = WPBDP_Listing::get( $posts[0] );
+                $listing->add_category( $_GET['category_id'], $_GET['fee_id'] );
+                $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WPBDM');
+
                 break;
 
             case 'removecategory':
-                if ( $listings_api->remove_category_info( $posts[0], $_GET['category_id'] ) )
-                    $this->messages[] = _x( 'Category information was updated.', 'admin', 'WPBDM' );
+                $listing = WPBDP_Listing::get( $posts[0] );
+                $listing->remove_category( $_GET['category_id'] );
+                $this->messages[] = _x( 'Category information was updated.', 'admin', 'WPBDM' );
+
                 break;
 
             case 'renewlisting':
