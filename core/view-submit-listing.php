@@ -384,6 +384,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $listing = $this->state->editing ? WPBDP_Listing::get( $this->state->listing_id ) : WPBDP_Listing::create( $this->state );
         $listing->set_field_values( $this->state->fields );
         $listing->set_images( $this->state->images );
+        $listing->set_thumbnail_id( $this->state->thumbnail_id );
 
         // Generate payment for the listing.
         $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );
@@ -398,7 +399,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                                              $fee->label,
                                              wpbdp_get_term_name( $cat_id ),
                                              $this->state->autorenew_fees ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-                                    array( 'category_id' => $cat_id, 'fee' => $fee ) );
+                                    array( 'fee' => $fee ),
+                                    $cat_id,
+                                    $fee_id );
         }
 
         if ( $this->state->upgrade_to_sticky )
