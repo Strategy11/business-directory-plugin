@@ -616,11 +616,11 @@ function _wpbdp_resize_image_if_needed($id) {
 /*
  * @since 2.1.7
  */
-function wpbdp_format_currency($amount, $decimals=2) {
+function wpbdp_format_currency($amount, $decimals = 2, $currency = null) {
     if ( $amount == 0.0 )
         return '—';
     
-    return wpbdp_get_option( 'currency-symbol' ) . ' ' . number_format( $amount, $decimals );
+    return ( ! $currency ? wpbdp_get_option( 'currency-symbol' ) : $currency ) . ' ' . number_format( $amount, $decimals );
 }
 
 
