@@ -24,17 +24,29 @@ abstract class WPBDP_DB_Model {
         global $wpdb;
         
         $query = "SELECT * FROM " . static::get_table() . " WHERE 1=1";
-        $single = isset( $args['_single'] ) && true == $args['_single'];        
+        $single = isset( $args['_single'] ) && true == $args['_single'];
+        $order = isset( $args['_order'] ) && !empty( $args['_order'] ) ? trim( $args['_order'] ) : null;
+        $limit = isset( $args['_limit'] ) && !empty( $args['_limit'] ) ? intval( $args['_limit'] ) : null;
         
         foreach ( $args as $arg => $value ) {
-            if ( is_null( $value ) || '_single' == $arg )
+            if ( is_null( $value ) || in_array( $arg, array( '_single', '_order', '_limit' ), true ) )
                 continue;
             
             $query .= $wpdb->prepare( " AND {$arg}=" . ( is_int( $value ) ? '%d' : '%s' ), $value );
         }
-        
+
         if ( $single )
-            $query .= " LIMIT 1";
+            $limit = 1;
+
+        if ( $order ) {
+            $order_field = wpbdp_starts_with( $order, '-' ) ? substr( $order, 1 ) : $order;
+            $order_dir = wpbdp_starts_with( $order, '-' ) ? 'DESC' : 'ASC';
+
+            $query .= " ORDER BY {$order_field} {$order_dir}";
+        }
+
+        if ( $limit > 0 )
+            $query .= " LIMIT {$limit}";
         
         $results = $wpdb->get_results( $query, ARRAY_A );
         
