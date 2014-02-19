@@ -92,6 +92,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                                   'amount' => $item['amount'],
                                   'description' => $item['description'],
                                   'payment_id' => $this->id,
+                                  'rel_id_1' => $item['rel_id_1'],
+                                  'rel_id_2' => $item['rel_id_2'],
                                   'data' => serialize( $item['data'] ) )
                          );
         }
