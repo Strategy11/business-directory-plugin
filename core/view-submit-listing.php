@@ -497,18 +497,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
     
     protected function step_confirmation() {
-        
-        //     if ( wpbdp_get_option( 'send-email-confirmation' ) ) {
-        //         $message = wpbdp_get_option( 'email-confirmation-message' );
-        //         $message = str_replace( "[listing]", get_the_title( $listing_id ), $message );
-        //         
-        //         $email = new WPBDP_Email();
-        //         $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title( $listing_id ), array() );
-        //         $email->to[] = wpbusdirman_get_the_business_email( $listing_id );
-        //         $email->body = $message;
-        //         $email->send();
-        //     }
-        
+        $listing = WPBDP_Listing::get( $this->state->listing_id );
+        $listing->notify( $this->state->editing ? 'edit' : 'new', $this->state );
         return $this->render( 'done' );
     }
 
@@ -530,9 +520,11 @@ class WPBDP_Listing_Submit_State {
                                   'confirmation' );
 
     public $id = '';
+    public $listing_id = 0;    
     public $step = 'category_selection';
-    public $fields = array();
+    
 
+    public $fields = array();
     public $categories = array();
     public $autorenew_fees = false;
     public $upgrade_to_sticky = false;

@@ -263,8 +263,30 @@ class WPBDP_Listing {
     }
 
     public function save() {
-        // No op.
-    }   
+        // do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
+        do_action_ref_array( 'wpbdp_save_listing', array( &$this ) );
+    }
+
+    public function notify( $kind = 'save', &$extra = null ) {
+        if ( in_array( $kind, array( 'save', 'edit', 'new' ), true ) )
+            $this->save();
+
+        switch ( $kind ) {
+            case 'save':
+                break;
+
+            case 'edit':
+                do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
+                break;
+
+            case 'new':
+                do_action_ref_array( 'wpbdp_create_listing', array( &$this, &$extra ) );
+                break;
+
+            default:
+                break;
+        }
+    }
 
     public static function create( &$state ) {
         $title = 'Untitled Listing';
@@ -437,16 +459,6 @@ class WPBDP_Listing {
 
 //         if ( ! $editing )
 //            wp_update_post( array( 'ID' => $this->id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
-
-//        // TODO:
-//         // if ( !$editing ) {
-//         //     do_action( 'wpbdp_create_listing', $listing_id, $data->fields, $data );
-//         //     do_action( 'wpbdp_create_listing', $listing_id, $this->fields, (array) $this );
-//         // }
-//         // else
-//         //     do_action( 'wpbdp_edit_listing', $listing_id, $data->fields, $data );
-
-//         // do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );       
 
 //         return true;
 //     }

@@ -251,7 +251,8 @@ class WPBDP_ListingsAPI {
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
         // notify admins of new listings (if needed)
-        add_action( 'wpbdp_create_listing', array( $this, '_new_listing_notify' ) );
+        add_action( 'wpbdp_create_listing', array( &$this, 'new_listing_admin_email' ) );
+        add_action( 'wpbdp_create_listing', array( &$this, 'new_listing_confirmation_email' ) );
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
 
@@ -353,9 +354,29 @@ class WPBDP_ListingsAPI {
         $listing->save();
     }
 
-    public function _new_listing_notify( $listing_id ) {
-        if ( !wpbdp_get_option( 'notify-admin' ) )
+    //
+    // E-mail notifications.
+    //
+
+    public function new_listing_confirmation_email( &$listing ) {
+        if ( ! wpbdp_get_option( 'send-email-confirmation' ) )
             return;
+
+        $message = wpbdp_get_option( 'email-confirmation-message' );
+        $message = str_replace( "[listing]", get_the_title( $listing->get_id() ), $message );
+        
+        $email = new WPBDP_Email();
+        $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title( $listing->get_id() ), array() );
+        $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+        $email->body = $message;
+        $email->send();                
+    }
+
+   public function new_listing_admin_email( &$listing ) {
+        if ( ! wpbdp_get_option( 'notify-admin' ) )
+            return;
+
+        $listing_id = $listing->get_id();
 
         $categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'names' ) );
         if ( $categories ) {
