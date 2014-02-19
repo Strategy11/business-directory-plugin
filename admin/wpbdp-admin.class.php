@@ -805,19 +805,19 @@ class WPBDP_Admin {
     private function payment_status_column() {
         global $post;
 
-        $listings_api = wpbdp_listings_api();
+        $listing = WPBDP_Listing::get( $post->ID );
+        $paid_status = $listing->get_payment_status();
 
-        $paid_status = $listings_api->get_payment_status($post->ID);
         $status_links = '';
 
-        if ($paid_status != 'paid')
+        if ( $paid_status != 'ok' )
             $status_links .= sprintf('<span><a href="%s">%s</a></span>',
                                     add_query_arg(array('wpbdmaction' => 'setaspaid', 'post' => $post->ID)),
                                     __('Paid', 'WPBDM'));
-        else
-            $status_links .= sprintf('<span><a href="%s">%s</a></span>',
-                                  add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
-                                  __('Not paid', 'WPBDM'));
+        // else
+        //     $status_links .= sprintf('<span><a href="%s">%s</a></span>',
+        //                           add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
+        //                           __('Not paid', 'WPBDM'));
 
         echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
 

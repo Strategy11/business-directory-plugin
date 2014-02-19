@@ -49,7 +49,7 @@ td.column-bd_payment_status .status, td.column-bd_sticky_status .status {
     font-size: 90%;
 }
 
-td.column-bd_payment_status .status.paid {
+td.column-bd_payment_status .status.ok {
     background: green;
 }
 
