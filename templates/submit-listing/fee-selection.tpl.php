@@ -4,14 +4,13 @@
 	<input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
 
 	<?php
-    foreach ( $_state->categories as $cat_id ):
-        $category = get_term( $cat_id, WPBDP_CATEGORY_TAX );
+    foreach ( $fee_selection as &$f ):
     ?>
 		<?php echo wpbdp_render( 'parts/category-fee-selection',
-								 array( 'category' => $category,
-                                        'multiple_categories' => count( $_state->categories ) > 1,
-                                        'current_fee' => isset( $_state->fees[ $cat_id ] ) ? $_state->fees[ $cat_id ] : null,
-								 		'category_fees' => $fees[ $cat_id ] ) ); ?>
+								 array( 'category' => $f['term'],
+                                        'multiple_categories' => count( $fee_selection ) > 1,
+                                        'current_fee' => $f['fee_id'],
+								 		'category_fees' => $f[ 'options' ] ) ); ?>
 	<?php endforeach; ?>
 
 <?php if ( $upgrade_option ): ?>

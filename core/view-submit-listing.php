@@ -106,10 +106,16 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( $post_value ) {
             $errors = null;
 
-            if ( !$category_field->validate( $post_value, $errors ) ) {
+            if ( ! $category_field->validate( $post_value, $errors ) ) {
                 $this->errors = array_merge( $this->errors, $errors );
             } else {
-                $this->state->categories = $post_value;
+                $categories = array();
+
+                foreach ( $post_value as $category_id )
+                    $categories[ $category_id ] = isset( $this->state->categories[ $category_id ] ) ? $this->state->categories[ $category_id ] : null;
+
+                $this->state->categories = $categories;
+
                 $this->state->advance();
                 return $this->dispatch();
             }
@@ -119,12 +125,12 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         return $this->render( 'category-selection', array( 'category_field' => $category_field ) );
     }
 
-    private function all_free_fees( &$available_fees ) {
-        foreach ( $available_fees as $cat_id => &$fees ) {
-            if ( count( $fees ) > 1 )
+    private function all_free_fees( &$fee_selection ) {
+        foreach ( $fee_selection as &$f ) {
+            if ( count( $f['options'] ) > 1 )
                 return false;
 
-            if ( $fees[0]->id != 0 )
+            if ( $f['options'][0]->id != 0 )
                 return false;
         }
 
@@ -132,43 +138,48 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
 
     protected function step_fee_selection() {
-        if ( !$this->state->categories )
-            die();
-        
-        $categories = array();
-        foreach ( $this->state->categories as $cat_id )
-            $categories[ $cat_id ] = get_term( $cat_id, WPBDP_CATEGORY_TAX );
-        
-        // Available fees.
-        $available_fees = wpbdp_get_fees_for_category( $this->state->categories ) or die( '' );
-        
-        // If all fees are free-fees and upgrades aren't offered during submit, move on to the next step.
-        $all_free_fees = $this->all_free_fees( $available_fees );
-        $can_upgrade = ! $this->state->editing && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' );
-        
-        if ( $all_free_fees && !$can_upgrade ) {
-            $free_fee = wpbdp_get_fee( 0 );
-        
-            foreach ( $categories as $cat_id => &$term )
-                $this->state->fees[ $cat_id ] = $free_fee->id;
-        
-            $this->state->upgrade_to_sticky = false;
+        global $wpbdp;
 
-            $this->state->advance();
-            return $this->dispatch();
+        if ( ! $this->state->categories )
+            die();
+
+        $fee_selection = array();
+        foreach ( $this->state->categories as $cat_id => $fee_id ) {
+            $term = get_term( $cat_id, WPBDP_CATEGORY_TAX );
+
+            if ( ! $term )
+                unset( $this->state->categories[ $cat_id ] );
+
+            $fee_selection[ $cat_id ] = array( 'fee_id' => isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id,
+                                               'term' => $term,
+                                               'fee' =>  null,
+                                               'options' => wpbdp_get_fees_for_category( $cat_id ) );
         }
-        
+
+        $skip_fee_selection = $this->all_free_fees( $fee_selection ) &&
+                              ( ! $this->state->editing || ! wpbdp_get_option( 'featured-on' ) || ! wpbdp_get_option( 'featured-offer-in-submit' ) );
+
+        if ( $skip_fee_selection ) {
+            foreach ( $this->state->categories as $cat_id => $fee_id )
+                $this->state->categories[ $cat_id ] = 0; // 0 is the free fee.
+            
+            $this->state->upgrade_to_sticky = false;            
+            
+            $this->state->advance();
+            return $this->dispatch();            
+        }
+
         if ( isset( $_POST['fees'] ) ) {
             $validates = true;
 
-            foreach ( $categories as $cat_id => &$term ) {
-                $selected_fee_id = wpbdp_getv( $_POST['fees'], $cat_id, null );
+            foreach ( array_keys( $this->state->categories ) as $cat_id) {
+                $selected_fee_id = wpbdp_getv( $_POST['fees'], $cat_id, null );        
 
-                if ( $selected_fee_id === null || !isset( $available_fees[ $cat_id ] ) ) {
-                    $this->errors[] = sprintf( _x( 'Please select a fee option for the "%s" category.', 'templates', 'WPBDM' ), esc_html( $term->name ) );
-                    $validates = false;
+                if ( null === $selected_fee_id ) {
+                    $this->errors[] = sprintf( _x( 'Please select a fee option for the "%s" category.', 'templates', 'WPBDM' ), esc_html( $fee_selection[ $cat_id ]['term']->name ) );
+                    $validates = false;                    
                 } else {
-                    $this->state->fees[ $cat_id ] = $selected_fee_id;
+                    $this->state->categories[ $cat_id ] = $selected_fee_id;
                 }
             }
 
@@ -182,14 +193,14 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         }
         
         $upgrade_option = false;
-        if ( $can_upgrade ) {
+        if ( ! $this->state->editing && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) ) {
             $upgrade_option = wpbdp_listing_upgrades_api()->get( 'sticky' );
         }
 
         return $this->render( 'fee-selection', array(
-            'fees' => $available_fees,
+            'fee_selection' => $fee_selection,
             'upgrade_option' => $upgrade_option,
-            'allow_recurring' => count( $categories ) <= 1 && wpbdp_get_option( 'listing-renewal-auto' )
+            'allow_recurring' => count( $this->state->categories ) <= 1 && wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' )
         ) );
     }
 
@@ -303,7 +314,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $image_slots = 0;
 
         if ( wpbdp_get_option( 'allow-images' ) ) {
-            foreach ( $this->state->fees as $fee_id )
+            foreach ( $this->state->categories as $cat_id => $fee_id )
                 $image_slots += wpbdp_get_fee( $fee_id )->images; // TODO: max() instead of + probably makes more sense here.
         }
         
@@ -388,11 +399,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         // Generate payment for the listing.
         $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );
-        foreach ( $this->state->fees as $cat_id => $fee_id ) {
+        foreach ( $this->state->categories as $cat_id => $fee_id ) {
             $fee = wpbdp_get_fee( $fee_id );
-            $current_fee = $listing->get_category_fee( $cat_id );
+            $category_info = $listing->get_category_info( $cat_id );
 
-            if ( ! $current_fee || ( $current_fee->fee_id != $fee_id  ) )
+            if ( ! $category_info || ( $category_info->fee_id != $fee_id  ) )
                 $payment->add_item( $this->state->autorenew_fees ? 'recurring_fee' : 'fee',
                                     $fee->amount,
                                     sprintf( _x( 'Fee "%s" for category "%s"%s', 'listings', 'WPBDM' ),
@@ -476,7 +487,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             $html .= '<form action="" method="POST">';
             $html .= '<input type="hidden" name="_state" value="' . $this->state->id . '" />';
             $html .= $wpbdp->payments->render_invoice( $payment );
-            $html .= $wpbdp->payments->render_payment_method_selection();
+            $html .= $wpbdp->payments->render_payment_method_selection( $payment );
             $html .= '<input type="submit" value="Continue" />';
         } else {
             $html .= $wpbdp->payments->render_standard_checkout_page( $payment, array( 'retry_rejected' => true ) );
@@ -486,9 +497,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
     
     protected function step_confirmation() {
-        return $this->render( 'done' );
-
-        //TODO:     
+        
         //     if ( wpbdp_get_option( 'send-email-confirmation' ) ) {
         //         $message = wpbdp_get_option( 'email-confirmation-message' );
         //         $message = str_replace( "[listing]", get_the_title( $listing_id ), $message );
@@ -499,6 +508,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         //         $email->body = $message;
         //         $email->send();
         //     }
+        
+        return $this->render( 'done' );
     }
 
 }
@@ -523,7 +534,6 @@ class WPBDP_Listing_Submit_State {
     public $fields = array();
 
     public $categories = array();
-    public $fees = array();
     public $autorenew_fees = false;
     public $upgrade_to_sticky = false;
     public $extra = array();
@@ -538,24 +548,20 @@ class WPBDP_Listing_Submit_State {
         if ( $listing_id > 0 ) {
             $listing = WPBDP_Listing::get( $listing_id );
 
-            if ( ! $listing->is_published() )
+            if ( ! $listing || ! $listing->is_published() )
                 throw new Exception( 'You can not edit this listing.' );
 
             $this->listing_id = $listing_id;
 
-            // Recover fee information.
-            $this->categories = wp_get_post_terms( $this->listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-
-            foreach ( $listing->get_fees() as $fee ) {
-                $this->fees[ $fee->category_id ] = $fee->fee_id;
-            }
+            $categories = $listing->get_categories();
+            foreach ( $categories as &$category )
+                $this->categories[ $category->id ] = $category->fee_id;
 
             // Image information.
-            $images = wpbdp_listings_api()->get_images( $this->listing_id );
-            $this->images = array_map( create_function( '$x', 'return $x->ID;' ), $images );
-            $this->thumbnail_id = intval( wpbdp_listings_api()->get_thumbnail_id( $this->listing_id ) );
+            $this->images = $listing->get_images( 'ids' );
+            $this->thumbnail_id = $listing->get_thumbnail_id();
 
-            // Fields.
+            // // Fields.
             $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
             foreach ( $fields as &$f ) {
                 $this->fields[ $f->get_id() ] = $f->value( $this->listing_id );
