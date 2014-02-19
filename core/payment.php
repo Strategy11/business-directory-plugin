@@ -235,7 +235,7 @@ class WPBDP_PaymentsAPI {
             $gateway->register_config( $settings );
     }
 
-    public function get_available_methods() {
+    public function get_available_methods( $capabilities = array() ) {
         $ok_gateways = array();
 
         if ( ! wpbdp_get_option( 'payments-on' ) )
@@ -243,8 +243,23 @@ class WPBDP_PaymentsAPI {
 
         foreach ( $this->gateways as $gateway_id => &$gateway ) {
             if ( wpbdp_get_option( $gateway_id ) ) {
-                if ( 0 === count( $gateway->validate_config() ) )
-                    $ok_gateways[] = $gateway_id;
+                if ( 0 === count( $gateway->validate_config() ) ) {
+                    if ( $capabilities ) {
+                        $has_caps = true;
+
+                        foreach ( $capabilities as $cap ) {
+                            if ( ! in_array( $cap, $gateway->get_capabilities(), true ) ) {
+                                $has_caps = false;
+                                break;
+                            }
+                        }
+
+                        if ( $has_caps )
+                            $ok_gateways[] = $gateway_id;
+                    } else {
+                        $ok_gateways[] = $gateway_id;
+                    }
+                }
             }
         }
 
@@ -303,6 +318,15 @@ class WPBDP_PaymentsAPI {
 
     public function has_gateway($gateway) {
         return array_key_exists($gateway, $this->gateways);
+    }
+
+    public function check_capability( $cap ) {
+        foreach ( $this->get_available_methods() as $gateway_id ) {
+            if ( in_array( $cap, $this->gateways[ $gateway_id ]->get_capabilities(), true ) )
+                return true;
+        }
+
+        return false;
     }
 
     public function render_payment_page($options_) {
@@ -565,8 +589,8 @@ class WPBDP_PaymentsAPI {
     }
 
     // TODO: dodoc
-    public function render_payment_method_selection() {
-        $payment_methods = $this->get_available_methods();
+    public function render_payment_method_selection( &$payment ) {
+        $payment_methods = $this->get_available_methods( $payment->has_item_type( 'recurring_fee' ) ? array( 'recurring' ) : array() );
 
         $html  = '';
         $html .= '<div class="wpbdp-payment-method-selection">';
