@@ -814,16 +814,11 @@ class WPBDP_Admin {
             $status_links .= sprintf('<span><a href="%s">%s</a></span>',
                                     add_query_arg(array('wpbdmaction' => 'setaspaid', 'post' => $post->ID)),
                                     __('Paid', 'WPBDM'));
-        // else
-        //     $status_links .= sprintf('<span><a href="%s">%s</a></span>',
-        //                           add_query_arg(array('wpbdmaction' => 'setasnotpaid', 'post' => $post->ID)),
-        //                           __('Not paid', 'WPBDM'));
 
-        echo sprintf('<span class="status %s">%s</span>', $paid_status, strtoupper($paid_status));
+        printf( '<span class="status %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
 
-        if (current_user_can('administrator')) {
-            echo sprintf('<div class="row-actions"><b>%s:</b> %s</div>', __('Set as', 'WPBDM'), $status_links);
-        }
+        if ( $status_links && current_user_can( 'administrator' ) )
+            printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Set as', 'WPBDM' ), $status_links );
     }
 
     private function sticky_status_column() {
