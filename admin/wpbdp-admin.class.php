@@ -1,13 +1,13 @@
 <?php
-require_once(WPBDP_PATH . 'admin/admin-pages.php');
-require_once(WPBDP_PATH . 'admin/fees.php');
-require_once(WPBDP_PATH . 'admin/form-fields.php');
+require_once( WPBDP_PATH . 'admin/admin-pages.php' );
+require_once( WPBDP_PATH . 'admin/fees.php' );
+require_once( WPBDP_PATH . 'admin/form-fields.php' );
 require_once( WPBDP_PATH . 'admin/transactions.php' );
-require_once(WPBDP_PATH . 'admin/csv-import.php');
+require_once( WPBDP_PATH . 'admin/csv-import.php' );
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
 
-if (!class_exists('WPBDP_Admin')) {
+if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 class WPBDP_Admin {
 
@@ -779,27 +779,27 @@ class WPBDP_Admin {
     }
 
     private function category_column() {
-        global $wpdb;
         global $post;
 
-        $expired_categories = wpbdp_listings_api()->get_expired_categories( $post->ID );
-        $current_categories = wp_get_post_terms( $post->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-        $categories = array_unique( array_merge( $current_categories, $expired_categories ) );
+        $listing = WPBDP_Listing::get( $post->ID );
+        $categories = $listing->get_categories();
 
-        foreach ( $categories as $i => $category_id ) {
-            if ( $term = get_term( $category_id, WPBDP_CATEGORY_TAX, OBJECT, 'display' ) ) {
-                $expired = in_array( $category_id, $expired_categories, true );
+        $i = 0;
+        foreach ( $categories as &$category ) {
+            // Do not display information about pending categories here.
+            if ( 'pending' === $category->status )
+                continue;
 
-                print $expired ? '<s>' : '';
-                printf( '<a href="%s" title="%s">%s</a>',
-                        get_term_link( $term ),
-                        $expired ? _x( '(Listing expired in this category)', 'admin', 'WPBDM' ) : '',
-                        $term->name );
-                print $expired ? '</s>' : '';
-                print ( ( $i + 1 ) != count( $categories ) ? ', ' : '' );                
-            }
+            print $category->expired ? '<s>' : '';
+            printf( '<a href="%s" title="%s">%s</a>',
+                    get_term_link( $category->id, WPBDP_CATEGORY_TAX ),
+                    $category->expired ? _x( '(Listing expired in this category)', 'admin', 'WPBDM' ) : '',
+                    $category->name );
+            print $category->expired ? '</s>' : '';
+            print ( ( $i + 1 ) != count( $categories ) ? ', ' : '' );
+
+            $i++;
         }
-
     }
 
     private function payment_status_column() {
