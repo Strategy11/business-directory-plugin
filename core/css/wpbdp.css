@@ -169,6 +169,10 @@ form#wpbdmsearchform a.advanced-search-link {
     padding: 5px;
 }
 
+.wpbdp-listing-single .main-image a {
+    position: relative !important;
+}
+
 .wpbdp-listing-single .main-image img {
     border: solid 1px #333;
 }

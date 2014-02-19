@@ -372,8 +372,8 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
         } else {
             return sprintf( '<div class="listing-thumbnail"><a href="%s" class="%s" rel="%s">%s</a></div>',
                             $image_link,
+                            $args['link'] == 'picture' ? 'thickbox' : '',
                             $args['link'] == 'picture' ? 'lightbox' : '',
-                            $args['link'] == 'picture' ? 'thickbox lightbox fancybox' : '',
                             $image_img );
         }
     }
