@@ -28,7 +28,7 @@ class WPBDP_Listing {
         }
     }
 
-    public function get_images() {
+    public function get_images( $fields = 'all' ) {
         $attachments = get_posts( array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id ));
         $result = array();
 
@@ -36,6 +36,9 @@ class WPBDP_Listing {
             if ( wp_attachment_is_image( $attachment->ID ) )
                 $result[] = $attachment;
         }
+
+        if ( 'ids' === $fields )
+            return array_map( create_function( '$x', 'return $x->ID;' ), $result );
 
         return $result;
     }    
@@ -55,6 +58,19 @@ class WPBDP_Listing {
             return delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
         
         return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
+    }
+
+    public function get_thumbnail_id() {
+        if ( $thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true ) ) {
+            return intval( $thumbnail_id );
+        } else {
+            if ( $images = $this->get_images( 'ids' ) ) {
+                update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $images[0] );
+                return $images[0];
+            }
+        }
+        
+        return 0;
     }
 
     public function get_id() {
@@ -182,7 +198,7 @@ class WPBDP_Listing {
                         }
 
                         $category->fee_id = intval( isset( $fee_info->fee_id ) ? $fee_info->fee_id : $fee_info->fee['id'] );
-                        $category->fee = $fee_info->fee;
+                        $category->fee = unserialize( $fee_info->fee );
                         $category->expires_on = $fee_info->expires_on;
                         $category->expired = ( $category->expires_on && strtotime( $category->expires_on ) < time() ) ? true : false;
                         $category->renewal_id = $fee_info->id;
@@ -232,7 +248,11 @@ class WPBDP_Listing {
         global $wpdb;
         $cost = floatval( $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) );
         return round( $cost, 2 );
-    } 
+    }
+
+    public function is_published() {
+        return 'publish' == get_post_status( $this->id );
+    }
 
     public function get_payment_status() {
         return WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ), true ) ? 'pending' : 'ok';
