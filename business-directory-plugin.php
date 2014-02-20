@@ -280,6 +280,12 @@ class WPBDP_Plugin {
 
         wpbdp_log('WPBDP_Plugin::init()');
 
+        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
+            $installer = new WPBDP_Installer();
+            $installer->setup_manual_upgrade();
+            return;
+        }
+
         $this->settings = new WPBDP_Settings();
         $this->formfields = WPBDP_FormFields::instance();
         $this->fees = new WPBDP_FeesAPI();

@@ -77,14 +77,15 @@
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             listing_id bigint(20) NOT NULL DEFAULT 0,
             gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            currency_code varchar(3) NOT NULL DEFAULT 'USD',
+            currency_code varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'USD',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
-            status varchar(255) NOT NULL,
+            status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
             created_on timestamp NOT NULL,
             processed_on timestamp NULL,
-            processed_by varchar(255) NOT NULL DEFAULT 'gateway',
+            processed_by varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             payerinfo blob NULL,
-            extra_data blob NULL
+            extra_data blob NULL,
+            history blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
@@ -109,7 +110,7 @@
             charged tinyint(1) NOT NULL DEFAULT 0,
             email_sent tinyint(1) NOT NULL DEFAULT 0,
             recurring tinyint(1) NOT NULL DEFAULT 0,
-            recurring_id varchar(255) NULL
+            recurring_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
@@ -136,7 +137,7 @@
     public function _update() {
         global $wpbdp;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -146,6 +147,19 @@
                 update_option('wpbdp-db-version', $v);
             }
         }
+    }
+
+    public function request_manual_upgrade( $callback ) {
+        update_option( 'wpbdp-manual-upgrade-pending', $callback );
+    }
+
+    public function setup_manual_upgrade() {
+        $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
+
+        if ( ! $manual_upgrade )
+            return;
+
+        new WPBDP_Installer_Manual_Upgrade( $this, $manual_upgrade );
     }
 
 
@@ -461,8 +475,105 @@
     }
 
     public function upgrade_to_3_7() {
+        $this->request_manual_upgrade( 'upgrade_to_3_7_migrate_payments' );
+    }
+
+    public function upgrade_to_3_7_migrate_payments() {
         global $wpdb;
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP COLUMN payment_type" );     
+
+        $done = false;
+        $status_msg = _x( 'Migrating previous transactions to new Payments API...', 'installer', 'WPBDM' );
+
+        if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_payments LIKE %s", 'migrated' ) ) )
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments ADD migrated tinyint(1) DEFAULT 0" );
+        
+        $transactions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE migrated = %d ORDER BY id ASC LIMIT 20", 0 ), ARRAY_A );
+        wpbdp_debug_e( $transactions );
+        foreach ( $transactions as &$t ) {
+
+        }
+
+        if ( $done )
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP COLUMN payment_type" );
+
+        $res = array( 'ok' => true,
+                      'done' => $done,
+                      'status' => $status_msg );
+
+        return $res;
     }
 
  }
+
+class WPBDP_Installer_Manual_Upgrade {
+
+    private $installer;
+    private $callback;
+
+    public function __construct( &$installer, $callback ) {
+        add_action( 'admin_notices', array( &$this, 'upgrade_required_notice' ) );        
+        add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
+        add_action( 'wp_ajax_wpbdp-manual-upgrade', array( &$this, 'handle_ajax' ) );
+
+        $this->installer = &$installer;
+        $this->callback = $callback;
+    }
+
+    public function upgrade_required_notice() {
+        global $pagenow;
+
+        if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' === $_GET['page'] )
+            return;
+
+        print '<div class="error"><p>';
+        print '<strong>' . __( 'Business Directory - Manual Upgrade Required', 'WPBDM' ) . '</strong>';
+        print '<br />';
+        _e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before continuing.', 'WPBDM' );
+        print '<br /><br />';
+        printf( '<a class="button button-primary" href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-upgrade-page' ), __( 'Perform Manual Upgrade', 'WPBDM' ) );
+        print '</p></div>';
+    }
+
+    public function add_upgrade_page() {
+        add_submenu_page( null,
+                          __( 'Business Directory - Manual Upgrade', 'WPBDM' ),
+                          __( 'Business Directory - Manual Upgrade', 'WPBDM' ),
+                          'administrator',
+                          'wpbdp-upgrade-page',
+                          array( &$this, 'upgrade_page' ) );
+    }
+
+    public function enqueue_scripts( $hook ) {
+        if ( 'admin_page_wpbdp-upgrade-page' !== $hook )
+            return;
+
+        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'admin/resources/manual-upgrade.js' );
+    }
+
+    public function upgrade_page() {
+        print wpbdp_admin_header( __( 'Business Directory - Manual Upgrade', 'WPBDM' ), 'manual-upgrade', null, false );
+
+        print '<p>';
+        print '<a href="#" class="start-upgrade button button-primary">' . _x( 'Start Upgrade', 'manual-upgrade', 'WPBDM' ) . '</a>';
+        print ' ';
+        print '<a href="#" class="pause-upgrade button">' . _x( 'Pause Upgrade', 'manual-upgrade', 'WPBDM' ) . '</a>';
+        print '</p>';
+
+        print '<textarea id="manual-upgrade-progress" rows="20" style="width: 90%; font-family: courier, monospaced; font-size: 12px;" readonly="readonly"></textarea>';
+
+        print wpbdp_admin_footer();
+    }
+
+    public function handle_ajax() {
+        // if ( ! current_user_can( 'administrator' ) || ! isset( $_POST['action'] ) )
+        //     return;
+
+        $response = call_user_func( array( $this->installer, $this->callback ) );
+
+        print json_encode( $response );
+
+        exit();
+    }
+
+}
