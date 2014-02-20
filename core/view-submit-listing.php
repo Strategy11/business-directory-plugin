@@ -82,7 +82,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 $html .= wpbdp_render_msg( $m );
             }
         }
-        
+
         if ( ! $is_html )
             $content = wpbdp_render( 'submit-listing/' . $template,
                                      array_merge( array( '_state' => $this->state ), $args ),
@@ -379,15 +379,14 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections',
-                                             array( &$this->state ) );
+        $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) );
+        $this->state->save(); // Save state in case extra sections modified it.
 
         if ( !$extra ) {
             $this->state->advance();
             return $this->dispatch();
         }
         
-        // FIXME: restore support for this.
         return $this->render( 'extra-sections', array( 'output' => $extra ) );
     }
 
@@ -427,12 +426,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $this->state->listing_id = $listing->get_id();
         $this->state->payment_id = $payment->get_id();
 
-        // FIXME: restores support for extra sections
-        // if ( $this->_extra_sections ) {
-        //     foreach ( $this->_extra_sections as &$section ) {
-        //         if ( $section->save )
-        //             call_user_func_array( $section->save, array( &$this->_listing_data['extra_sections'][$section->id], $listing_id) );
-        //     }
+        do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
 
         $this->state->advance();
         return $this->dispatch();
@@ -520,7 +514,7 @@ class WPBDP_Listing_Submit_State {
                                   'confirmation' );
 
     public $id = '';
-    public $listing_id = 0;    
+    public $listing_id = 0;
     public $step = 'category_selection';
     
 
