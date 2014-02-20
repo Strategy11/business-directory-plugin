@@ -481,23 +481,99 @@
     public function upgrade_to_3_7_migrate_payments() {
         global $wpdb;
 
-        $done = false;
-        $status_msg = _x( 'Migrating previous transactions to new Payments API...', 'installer', 'WPBDM' );
+        // TODO: Fix incorrect listing fees (fees for categories that don't exist, etc.)
 
+        // Migrate transactions.
         if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_payments LIKE %s", 'migrated' ) ) )
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments ADD migrated tinyint(1) DEFAULT 0" );
-        
-        $transactions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE migrated = %d ORDER BY id ASC LIMIT 20", 0 ), ARRAY_A );
-        wpbdp_debug_e( $transactions );
-        foreach ( $transactions as &$t ) {
 
+        $n_transactions = intval( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments" ) );
+        $n_transactions_migrated = intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments WHERE migrated = %d", 1 ) ) );
+        $transactions_done = ( $n_transactions_migrated == $n_transactions ) ? true : false;
+
+        if ( $transactions_done ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP COLUMN payment_type" );
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP COLUMN migrated" );
+        } else {
+            $status_msg = sprintf( _x( 'Migrating previous transactions to new Payments API... %d/%d', 'installer', 'WPBDM' ), $n_transactions_migrated, $n_transactions );
+
+            $transactions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE migrated = %d ORDER BY id ASC LIMIT 20", 0 ), ARRAY_A );
+            
+            foreach ( $transactions as &$t ) {
+                $t['status'] = 'approved' == $t['status'] ? 'completed' : ( 'pending' == $t['status'] ? 'pending' : 'rejected' );
+                $t['currency_code'] = get_option( 'wpbdp-currency' );
+                $t['migrated'] = 1;
+
+                switch ( $t['payment_type'] ) {
+                    case 'initial':
+                        $wpdb->insert( $wpdb->prefix . 'wpbdp_payments_items',
+                                       array( 'payment_id' => $t['id'],
+                                              'amount' => $t['amount'],
+                                              'item_type' => 'charge',
+                                              'description' => _x( 'Initial listing payment (BD < 3.4)', 'installer', 'WPBDM' )
+                                            ) );
+                        $wpdb->update( $wpdb->prefix . 'wpbdp_payments', $t, array( 'id' => $t['id'] ) );
+
+                        break;
+
+                    case 'edit':
+                        $wpdb->insert( $wpdb->prefix . 'wpbdp_payments_items',
+                                       array( 'payment_id' => $t['id'],
+                                              'amount' => $t['amount'],
+                                              'item_type' => 'charge',
+                                              'description' => _x( 'Listing edit payment (BD < 3.4)', 'installer', 'WPBDM' )
+                                            ) );
+                        $wpdb->update( $wpdb->prefix . 'wpbdp_payments', $t, array( 'id' => $t['id'] ) );
+
+                        break;
+
+                    case 'renewal':
+                        $data = unserialize( $t['extra_data'] );
+                        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $data['renewal_id'] ) );
+
+                        if ( ! $fee_info || ! term_exists( intval( $fee_info->category_id ), WPBDP_CATEGORY_TAX ) ) {
+                            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $t['id'] ) );
+                            continue;
+                        }
+
+                        $fee_info->fee = unserialize( $fee_info->fee );
+
+                        $item = array();
+                        $item['payment_id'] = $t['id'];
+                        $item['amount'] = $t['amount'];
+                        $item['item_type'] = 'fee';
+                        $item['description'] = sprintf( _x( 'Renewal fee "%s" for category "%s"', 'installer', 'WPBDM' ),
+                                                        $fee_info->fee['label'],
+                                                        wpbdp_get_term_name( $fee_info->category_id ) );
+                        $item['data'] = serialize( array( 'fee' => $fee_info->fee ) );
+                        $item['rel_id_1'] = $fee_info->category_id;
+                        $item['rel_id_2'] = $fee_info->fee['id'];
+ 
+                        $wpdb->insert( $wpdb->prefix . 'wpbdp_payments_items', $item );
+                        $wpdb->update( $wpdb->prefix . 'wpbdp_payments', $t, array( 'id' => $t['id'] ) );
+
+                        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $data['renewal_id'] ) );
+
+                        break;
+
+                    case 'upgrade-to-sticky':
+                        $wpdb->insert( $wpdb->prefix . 'wpbdp_payments_items',
+                                       array( 'payment_id' => $t['id'],
+                                              'amount' => $t['amount'],
+                                              'item_type' => 'upgrade',
+                                              'description' => _x( 'Listing upgrade to featured', 'installer', 'WPBDM' )
+                                            ) );
+                        $wpdb->update( $wpdb->prefix . 'wpbdp_payments', $t, array( 'id' => $t['id'] ) );
+
+                        break;
+                }
+
+                
+            }
         }
 
-        if ( $done )
-            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP COLUMN payment_type" );
-
         $res = array( 'ok' => true,
-                      'done' => $done,
+                      'done' => $transactions_done,
                       'status' => $status_msg );
 
         return $res;
@@ -572,6 +648,9 @@ class WPBDP_Installer_Manual_Upgrade {
         $response = call_user_func( array( $this->installer, $this->callback ) );
 
         print json_encode( $response );
+
+        if ( $response['done'] )
+            delete_option( 'wpbdp-manual-upgrade-pending' );
 
         exit();
     }
