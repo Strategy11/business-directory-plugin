@@ -15,7 +15,11 @@ jQuery(function($) {
 
             $progressArea.val(currentText + newLine + "\n");
 
-            makeProgress();
+            if (response.done) {
+                alert('Done!');
+            } else {
+                makeProgress();
+            }
         }, 'json');
     };
     

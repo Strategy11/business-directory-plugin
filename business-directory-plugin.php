@@ -280,29 +280,30 @@ class WPBDP_Plugin {
 
         wpbdp_log('WPBDP_Plugin::init()');
 
+        $this->settings = new WPBDP_Settings();
+
+        $this->_config = array('main_page' => 0); // some stuff we can know from the start and cache
+
+        add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
+        add_action('init', array($this, 'install_or_update_plugin'), 1);
+        add_action('init', array($this, '_register_post_type'), 0);
+
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
             $installer = new WPBDP_Installer();
             $installer->setup_manual_upgrade();
             return;
         }
 
-        $this->settings = new WPBDP_Settings();
-        $this->formfields = WPBDP_FormFields::instance();
-        $this->fees = new WPBDP_FeesAPI();
-        $this->payments = new WPBDP_PaymentsAPI();
-        $this->listings = new WPBDP_ListingsAPI();
-
-        $this->_config = array('main_page' => 0); // some stuff we can know from the start and cache
-
         if (is_admin()) {
             $this->admin = new WPBDP_Admin();
         }
         
-        $this->controller = new WPBDP_DirectoryController();
+        $this->controller = new WPBDP_DirectoryController();        
 
-        add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
-        add_action('init', array($this, 'install_or_update_plugin'), 1);
-        add_action('init', array($this, '_register_post_type'), 0);
+        $this->formfields = WPBDP_FormFields::instance();
+        $this->fees = new WPBDP_FeesAPI();
+        $this->payments = new WPBDP_PaymentsAPI();
+        $this->listings = new WPBDP_ListingsAPI();        
 
         add_action('init', array($this, '_plugin_initialization'));
         add_action('init', array($this, '_session_start'));
