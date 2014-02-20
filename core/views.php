@@ -375,26 +375,6 @@ class WPBDP_DirectoryController {
      * Submit listing process.
      */
 
-    /*
-     * @since 2.1.6
-     */
-    public function register_listing_form_section($id, $section=array()) {
-        $section = array_merge( array(
-            'title' => '',
-            'display' => null,
-            'process' => null,
-            'save' => null
-        ), $section);
-
-        if (!$section['display'] && !$section['process'])
-            return false;
-
-        $section['id'] = $id;
-        $this->_extra_sections[$id] = (object) $section;
-
-        return true;
-    }
-
     /* Manage Listings */
     public function manage_listings() {
         if (!$this->check_main_page($msg)) return $msg;

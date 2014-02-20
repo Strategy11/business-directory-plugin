@@ -592,13 +592,6 @@ function wpbdp_get_current_sort_option() {
 /*
  * @since 2.1.6
  */
-function wpbdp_listing_form_register_section($id, $section=array()) {
-    return wpbdp()->controller->register_listing_form_section($id, $section);
-}
-
-/*
- * @since 2.1.6
- */
 function _wpbdp_resize_image_if_needed($id) {
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
