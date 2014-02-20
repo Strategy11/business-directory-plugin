@@ -10,7 +10,7 @@
 			<?php endif; ?>
 		</h2>
 		
-		<?php echo $sidebar = wpbdp_admin_sidebar(); ?>
+		<?php echo $sidebar = $sidebar ? wpbdp_admin_sidebar() : false; ?>
 
 		<div class="wpbdp-admin-content <?php echo !empty($sidebar) ? 'with-sidebar' : 'without-sidebar'; ?>">
 			<!-- <div class="postbox"> -->
