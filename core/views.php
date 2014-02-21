@@ -22,7 +22,7 @@ class WPBDP_DirectoryController {
         $msg = '';
 
         $wpbdp = wpbdp();
-        if (!$wpbdp->_config['main_page']) {
+        if ( ! wpbdp_get_page_id( 'main' ) ) {
             if (current_user_can('administrator') || current_user_can('activate_plugins'))
                 $msg = __('You need to create a page with the [businessdirectory] shortcode for the Business Directory plugin to work correctly.', 'WPBDM');
             else

@@ -257,10 +257,6 @@ class WPBDP_Plugin {
         
     }
 
-    public function _plugin_initialization() {
-        $this->_config['main_page'] = wpbdp_get_page_id('main');
-    }
-
     public function plugin_activation() {
         add_action('init', array($this, 'flush_rules'), 11);
     }
@@ -281,8 +277,6 @@ class WPBDP_Plugin {
         wpbdp_log('WPBDP_Plugin::init()');
 
         $this->settings = new WPBDP_Settings();
-
-        $this->_config = array('main_page' => 0); // some stuff we can know from the start and cache
 
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
         add_action('init', array($this, 'install_or_update_plugin'), 1);
@@ -305,7 +299,6 @@ class WPBDP_Plugin {
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_ListingsAPI();        
 
-        add_action('init', array($this, '_plugin_initialization'));
         add_action('init', array($this, '_session_start'));
         add_action('init', array($this, '_register_image_sizes'));
         add_action( 'init', array( &$this, 'handle_recaptcha' ) );
