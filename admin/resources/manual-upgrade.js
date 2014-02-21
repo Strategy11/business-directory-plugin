@@ -11,12 +11,13 @@ jQuery(function($) {
         var data = { action: 'wpbdp-manual-upgrade' };
         $.get(ajaxurl, data, function(response) {
             var currentText = $progressArea.val();
-            var newLine = (response.ok ? "*" : "!") + " " + response.statusText;
+            var newLine = (response.ok ? "*" : "!") + " " + response.status;
 
             $progressArea.val(currentText + newLine + "\n");
+            $progressArea.scrollTop($progressArea[0].scrollHeight - $progressArea.height());
 
             if (response.done) {
-                alert('Done!');
+                $( 'div.step-upgrade' ).fadeOut(function() { $('div.step-done').fadeIn() });
             } else {
                 makeProgress();
             }

@@ -428,7 +428,7 @@ class WPBDP_Plugin {
             'labels' => $labels,
             'public' => true,
             'publicly_queryable' => true,
-            'show_ui' => true,
+            'show_ui' => get_option( 'wpbdp-manual-upgrade-pending', false ) ? false : true,
             'query_var' => true,
             'rewrite' => array('slug'=> $post_type_slug, 'with_front' => false, 'feeds' => true),
             'capability_type' => 'post',
