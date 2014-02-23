@@ -782,14 +782,10 @@ class WPBDP_Admin {
         global $post;
 
         $listing = WPBDP_Listing::get( $post->ID );
-        $categories = $listing->get_categories();
+        $categories = $listing->get_categories( 'all' );
 
         $i = 0;
         foreach ( $categories as &$category ) {
-            // Do not display information about pending categories here.
-            if ( 'pending' === $category->status )
-                continue;
-
             print $category->expired ? '<s>' : '';
             printf( '<a href="%s" title="%s">%s</a>',
                     get_term_link( $category->id, WPBDP_CATEGORY_TAX ),
