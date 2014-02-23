@@ -125,30 +125,29 @@ class WPBDP_Listing {
         if ( is_null( $fee ) || ! $fee || ! term_exists( $category_id ) )
             return;
 
+        $fee = (array) $fee;
+
         $fee_info = array();
         $fee_info['listing_id'] = $this->id;
         $fee_info['category_id'] = $category_id;
-        $fee_info['fee'] = serialize( (array) $fee );
-        $fee_info['charged'] = 1;
+        $fee_info['fee_id'] = intval( isset( $fee['id'] ) ? $fee['id'] : ( isset( $fee['fee_id'] ) ? $fee['fee_id'] : 0 ) );
+        $fee_info['fee_days'] = intval( isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'] );
+        $fee_info['fee_images'] = intval( isset( $fee['images'] ) ? $fee['images'] : $fee['fee_images'] );
         $fee_info['recurring'] = $recurring ? 1 : 0;
-
-        if ( isset( $fee->id ) )
-            $fee_info['fee_id'] = intval( $fee->id );
 
         if ( $expiration_date = $this->calculate_expiration_date( time(), $fee ) )
             $fee_info['expires_on'] = $expiration_date;
 
         $wpdb->insert( $wpdb->prefix . 'wpbdp_listing_fees', $fee_info );
-
         wp_set_post_terms( $this->id, array( $category_id ), WPBDP_CATEGORY_TAX, true );
     }
 
 
     private function calculate_expiration_date( $time, &$fee ) {
-        if ( 0 == $fee->days )
+        if ( 0 == $fee['days'] )
             return null;
 
-        $expire_time = strtotime( sprintf( '+%d days', $fee->days ), $time );
+        $expire_time = strtotime( sprintf( '+%d days', $fee['days'] ), $time );
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
@@ -157,7 +156,7 @@ class WPBDP_Listing {
     public function get_categories( $info = 'current' ) {
         global $wpdb;
 
-        $current_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on >= %s OR expires_on IS NULL",
+        $current_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND (expires_on >= %s OR expires_on IS NULL)",
                                                    $this->id,
                                                    current_time( 'mysql' ) ) );    
         $expired_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on IS NOT NULL AND expires_on < %s",
@@ -169,6 +168,7 @@ class WPBDP_Listing {
                                                            'fee', 'recurring_fee',
                                                            'pending',
                                                            $this->id ) );
+
         $pending = array();
         foreach ( $pending_payments as &$p )
             $pending[ intval( $p->rel_id_1 ) ] = $p->id;
@@ -180,7 +180,7 @@ class WPBDP_Listing {
         foreach ( array_merge( $current_ids, $expired_ids, $pending_ids ) as $category_id ) {
             if ( $category_info = get_term( intval( $category_id ), WPBDP_CATEGORY_TAX ) ) {
                 $category = new StdClass();
-                $category->id = $category_info->term_id;                
+                $category->id = $category_info->term_id;
                 $category->name = $category_info->name;
                 $category->slug = $category_info->slug;
                 $category->term_id = $category_info->term_id;
@@ -197,8 +197,10 @@ class WPBDP_Listing {
                             continue;
                         }
 
-                        $category->fee_id = intval( isset( $fee_info->fee_id ) ? $fee_info->fee_id : $fee_info->fee['id'] );
-                        $category->fee = unserialize( $fee_info->fee );
+                        $category->fee_id = intval( $fee_info->fee_id );
+                        $category->fee = wpbdp_get_fee( $category->fee_id );
+                        $category->fee_days = intval( $fee_info->fee_days );
+                        $category->fee_images = intval( $fee_info->fee_images );
                         $category->expires_on = $fee_info->expires_on;
                         $category->expired = ( $category->expires_on && strtotime( $category->expires_on ) < time() ) ? true : false;
                         $category->renewal_id = $fee_info->id;
@@ -210,9 +212,11 @@ class WPBDP_Listing {
                         $payment_info->data = unserialize( $payment_info->data );
 
                         $category->fee_id = intval( $payment_info->rel_id_2 );
-                        $category->fee = (object) $payment_info->data['fee'];
+                        $category->fee = wpbdp_get_fee( $category->fee_id );
+                        $category->fee_days = intval( $payment_info->data['fee_days'] );
+                        $category->fee_images = intval( $payment_info->data['fee_images'] );
                         $category->expires_on = null; // TODO: calculate expiration date.
-                        $category->expired = ( $category->expires_on && strtotime( $category->expires_on ) < time() ) ? true : false;
+                        $category->expired = false;
                         $category->renewal_id = 0;
 
                         break;

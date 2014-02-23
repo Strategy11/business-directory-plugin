@@ -36,13 +36,14 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'processed_by' => null,
             'payerinfo' => array(),
             'extra_data' => null,
+            'notes' => array()
         ) );
 
         $this->amount = floatval( $this->amount );
 
         global $wpdb;
 
-        if ( $data['id'] > 0 ) {
+        if ( $this->id > 0 ) {
             foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = %d", $this->id ), ARRAY_A ) as $item ) {
                 $item['data'] = maybe_unserialize( $item['data'] );
                 $this->items[] = $item;
@@ -61,9 +62,6 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function save() {
         global $wpdb;
 
-        if ( $this->amount == 0.0 )
-            $this->set_status( self::STATUS_COMPLETED );        
-        
         $row = array(
             'listing_id' => $this->listing_id,
             'gateway' => $this->gateway,
@@ -73,7 +71,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'processed_on' => $this->processed_on,
             'processed_by' => $this->processed_by,
             'payerinfo' => serialize( is_array( $this->payerinfo ) ? $this->payerinfo : array() ),
-            'extra_data' => serialize( is_array( $this->extra_data ) ? $this->extra_data : array() )
+            'extra_data' => serialize( is_array( $this->extra_data ) ? $this->extra_data : array() ),
+            'notes' => serialize( is_array( $this->notes ) ? $this->notes : array() )
         );
         
         if ( $this->id )
@@ -98,8 +97,12 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                          );
         }
         
-        // TODO: see transaction_save/act_on_transaction_save in listings.php/payment.php
         do_action_ref_array( 'WPBDP_Payment::save', array( &$this ) );
+
+        if ( $this->status != self::STATUS_COMPLETED && $this->amount == 0.0 ) {
+            $this->set_status( self::STATUS_COMPLETED );
+            $this->save();
+        }
 
         return true;
     }
@@ -247,20 +250,6 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return $this->get_data( 'submit_state_id' );
     }
 
-    public function add_error( $error_msg ) {
-        // TODO: add datetime support.
-        $errors = $this->get_data( 'errors' );
-        $errors = ! $errors ? array() : $errors;
-
-        $errors[] = $error_msg;
-
-        $this->set_data( 'errors', $errors );
-    }
-
-    public function clear_errors() {
-        $this->set_data( 'errors', array() );
-    }
-
     public function set_payer_info( $key, $value ) {
         $this->payerinfo[ $key ] = $value;
     }
@@ -280,6 +269,24 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
     public function get_created_on() {
         return $this->created_on;
+    }
+
+    public function add_error( $error_msg ) {
+        // TODO: add datetime support.
+        $errors = $this->get_data( 'errors' );
+        $errors = ! $errors ? array() : $errors;
+
+        $errors[] = $error_msg;
+
+        $this->set_data( 'errors', $errors );
+    }
+
+    public function clear_errors() {
+        $this->set_data( 'errors', array() );
+    }
+
+    public function get_notes() {
+        return $this->notes;
     }
 
 }

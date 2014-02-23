@@ -335,24 +335,72 @@ class WPBDP_ListingsAPI {
     public function setup_listing_after_payment( &$payment ) {
         $listing = WPBDP_Listing::get( $payment->get_listing_id() );
 
+        if ( ! $payment->is_completed() )
+            return;
+
         foreach ( $payment->get_items() as $item ) {
             switch ( $item->item_type ) {
                 case 'recurring_fee':
                 case 'fee':
                     $listing->add_category( $item->rel_id_1,
-                                            $payment->is_completed() ? $item->data['fee'] : null,
+                                            $item->rel_id_2,
                                             'recurring_fee' == $item->item_type );
                     break;
 
                 case 'upgrade':
-                    $listing->upgrade( $item->data['level'] );
+                    $listing->upgrade();
 
                     break;
             }
         }
 
         $listing->save();
+
+    // private function act_on_transaction_save($transaction) {
+    //     global $wpdb;
+
+    //     if ($transaction->id == $this->get_last_transaction($transaction->listing_id)->id) {
+    //         update_post_meta($transaction->listing_id, '_wpbdp[payment_status]', $transaction->status == 'approved' ? 'paid' : 'not-paid');
+
+    //         if ( $transaction->status == 'approved' && $transaction->payment_type == 'initial' ) {
+    //             if ( get_post_status( $transaction->listing_id ) == 'publish' ) {
+    //             } else {
+    //                 wp_update_post( array( 'ID' => $transaction->listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
+    //             }
+    //         }
+    //     }
+
+    //     if ($transaction->status == 'approved') {
+    //         if ($transaction->payment_type == 'upgrade-to-sticky') {
+    //             $upgrades_api = wpbdp_listing_upgrades_api();
+    //             $sticky_info = $upgrades_api->get_info( $transaction->listing_id );
+
+    //             if ($sticky_info->upgradeable)
+    //                 $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->upgrade->id, true );
+
+    //         } elseif ($transaction->payment_type == 'renewal') {
+    //             $listingsapi = wpbdp_listings_api();
+
+    //             $extradata = $transaction->extra_data;
+    //             $renewalinfo = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $extradata['renewal_id'] ) );
+                
+    //             $listingsapi->assign_fee( $transaction->listing_id, $renewalinfo->category_id, $extradata['fee'], true );
+
+    //             wp_update_post( array( 'post_status' => 'publish', 'ID' => $transaction->listing_id ) );
+    //         }
+    //     } elseif ($transaction->status == 'rejected') {
+    //         if ($transaction->payment_type == 'upgrade-to-sticky') {
+    //             $upgrades_api = wpbdp_listing_upgrades_api();
+    //             $sticky_info = $upgrades_api->get_info( $transaction->listing_id );
+
+    //             if ($sticky_info->pending)
+    //                 $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->level->id );
+    //         }
+    //     }
+    // }        
     }
+
+
 
     //
     // E-mail notifications.
@@ -378,6 +426,7 @@ class WPBDP_ListingsAPI {
 
         $listing_id = $listing->get_id();
 
+        // FIXME: this is not the actual list of categories since some of them might be pending. Use Listings::get_categories().
         $categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'names' ) );
         if ( $categories ) {
             $categories_str = implode( ',', $categories );
@@ -409,39 +458,6 @@ class WPBDP_ListingsAPI {
         $email->send();
     }
 
-
-    public function assign_fee($listing_id, $category_id, $fee_id, $charged=false) {
-        global $wpdb;
-
-        wp_set_post_terms( $listing_id, array( intval( $category_id ) ), WPBDP_CATEGORY_TAX, true );
-
-        $fee = is_object($fee_id) ? $fee_id : wpbdp_fees_api()->get_fee_by_id($fee_id);
-
-        if ($fee) {
-            if ($fee->categories['all'] || count(array_intersect(wpbdp_get_parent_catids($category_id), $fee->categories['categories'])) > 0) {
-                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $category_id));
-
-                $feerow = array(
-                    'listing_id' => $listing_id,
-                    'category_id' => $category_id,
-                    'fee' => serialize((array) $fee),
-                    'charged' => $charged ? 1 : 0
-                );
-
-                $expiration_date = $this->calculate_expiration_date(time(), $fee);
-                if ($expiration_date != null)
-                    $feerow['expires_on'] = $expiration_date;
-
-                // wpbdp_debug_e($feerow);
-
-                $wpdb->insert($wpdb->prefix . 'wpbdp_listing_fees', $feerow);
-
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public function get_thumbnail_id($listing_id) {
         if ($thumbnail_id = get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true)) {
