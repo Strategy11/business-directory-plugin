@@ -25,15 +25,30 @@ $display_renew_button = false;
 	?>
 	<dt class="category-name">
 		<?php if ( $category->expired ): ?><s><?php endif; ?><?php echo $category->name; ?><?php if ( $category->expired ): ?></s><?php endif; ?>
-		<a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'removecategory', 'category_id' => $category->id ) ); ?>" class="removecategory-link"><?php _ex( 'Remove Category', 'admin infometabox', 'WPBDM' ); ?></a>
+		<span class="tag category-status <?php echo $category->status; ?>">
+			<?php
+			switch ( $category->status ):
+				case 'expired':
+					_ex( 'Expired', 'admin infometabox', 'WPBDM' );
+					break;
+				case 'pending':
+					_ex( 'Payment Pending', 'admin infometabox', 'WPBDM' );
+					break;
+				case 'ok':
+				default:
+					_ex( 'OK', 'admin infometabox', 'WPBDM');
+			endswitch;
+			?>
+		</span>
 	</dt>
 	<dd>
-		<?php if ( $category->expired ): ?> (<?php _ex( 'Expired', 'admin infometabox', 'WPBDM' ); ?>)<?php endif; ?>
 		<dl class="feeinfo">
 			<dt><?php _ex('Fee', 'admin infometabox', 'WPBDM'); ?></dt>
 			<dd><?php echo $category->fee->label; ?></dd>
 			<dt><?php _ex('# Images', 'admin infometabox', 'WPBDM'); ?></dt>
-			<dd><?php echo min( $image_count, $category->fee->images); ?> / <?php echo $category->fee->images; ?></dd>
+			<dd><?php echo min( $image_count, $category->fee_images); ?> / <?php echo $category->fee_images; ?></dd>
+
+			<?php if ( 'pending' != $category->status ): ?>
 			<dt>
 				<?php if ( $category->expired ): ?>
 					<?php _ex('Expired on', 'admin infometabox', 'WPBDM'); ?>
@@ -57,37 +72,44 @@ $display_renew_button = false;
                     <div class="listing-fee-expiration-datepicker renewal-<?php echo $category->renewal_id; ?>"></div>
                 <?php endif; ?>
 			</dd>
+			<?php endif; ?>
 		</dl>
 
-			<?php if (current_user_can('administrator')): ?>
-			- <a href="#" onclick="window.prompt('<?php _ex( 'Renewal URL (copy & paste)', 'admin infometabox', 'WPBDM' ); ?>', '<?php echo wpbdp_listings_api()->get_renewal_url( $category->renewal_id ); ?>'); return false;"><?php _ex( 'Show renewal link', 'admin infometabox', 'WPBDM' ); ?></a><br />
-			- <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'send-renewal-email',
-														'renewal_id' => $category->renewal_id ) ); ?>"><?php _ex( 'Send renewal e-mail to user', 'admin infometabox', 'WPBDM' ); ?></a><br /><?php endif; ?>
-			- <a href="#assignfee" class="assignfee-link">
-				<?php ( $category->expired ? _ex( 'Renew manually...', 'admin infometabox', 'WPBDM' ) : _ex('Change fee...', 'admin infometabox', 'WPBDM') ); ?>
-			</a>				
+		<?php if ( current_user_can( 'administrator' ) ): ?>
+			<?php if ( 'pending' == $category->status ) : ?>
+				<a href="#" class=""><?php _ex( 'See payment info', 'admin infometabox', 'WPBDM' ); ?></a>			
+			<?php else: ?>
+				- <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'removecategory', 'category_id' => $category->id ) ); ?>" class="removecategory-link"><?php _ex( 'Remove Category', 'admin infometabox', 'WPBDM' ); ?></a><br /><br />
+				- <a href="#" onclick="window.prompt('<?php _ex( 'Renewal URL (copy & paste)', 'admin infometabox', 'WPBDM' ); ?>', '<?php echo wpbdp_listings_api()->get_renewal_url( $category->renewal_id ); ?>'); return false;"><?php _ex( 'Show renewal link', 'admin infometabox', 'WPBDM' ); ?></a><br />
+				- <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'send-renewal-email',
+															'renewal_id' => $category->renewal_id ) ); ?>"><?php _ex( 'Send renewal e-mail to user', 'admin infometabox', 'WPBDM' ); ?></a><br />
+				- <a href="#assignfee" class="assignfee-link">
+					<?php ( $category->expired ? _ex( 'Renew manually...', 'admin infometabox', 'WPBDM' ) : _ex('Change fee...', 'admin infometabox', 'WPBDM') ); ?>
+				</a>
 
-			<div class="assignfee">
-				<span class="close-handle"><a href="#" title="<?php _ex('close', 'admin infometabox', 'WPBDM'); ?>">[x]</a></span>
-				<?php foreach (wpbdp_fees_api()->get_fees_for_category($category->term_id) as $fee_option): ?>
-				<div class="feeoption">
-					<strong><?php echo $fee_option->label; ?></strong> (<?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee_option->amount; ?>)
+				<div class="assignfee">
+					<span class="close-handle"><a href="#" title="<?php _ex('close', 'admin infometabox', 'WPBDM'); ?>">[x]</a></span>
+					<?php foreach (wpbdp_fees_api()->get_fees_for_category($category->term_id) as $fee_option): ?>
+					<div class="feeoption">
+						<strong><?php echo $fee_option->label; ?></strong> (<?php echo wpbdp_get_option('currency-symbol'); ?><?php echo $fee_option->amount; ?>)
 
-					<a href="<?php echo add_query_arg(array('wpbdmaction' => 'assignfee', 'category_id' => $category->term_id, 'fee_id' => $fee_option->id)); ?>" class="button">
-						<?php _ex('Use this', 'admin infometabox', 'WPBDM'); ?>
-					</a>
-											
-					<div class="details">
-						<?php echo sprintf(_nx('%d image', '%d images', $fee_option->images, 'admin infometabox', 'WPBDM'), $fee_option->images); ?> &#149;
-						<?php if ($fee_option->days == 0): ?>
-							<?php _ex('Unlimited listing days', 'admin infometabox', 'WPBDM'); ?>
-						<?php else: ?>
-							<?php echo sprintf(_nx('%d day', '%d days', $fee_option->days, 'admin infometabox', 'WPBDM'), $fee_option->days); ?>
-						<?php endif; ?>
+						<a href="<?php echo add_query_arg(array('wpbdmaction' => 'assignfee', 'category_id' => $category->term_id, 'fee_id' => $fee_option->id)); ?>" class="button">
+							<?php _ex('Use this', 'admin infometabox', 'WPBDM'); ?>
+						</a>
+												
+						<div class="details">
+							<?php echo sprintf(_nx('%d image', '%d images', $fee_option->images, 'admin infometabox', 'WPBDM'), $fee_option->images); ?> &#149;
+							<?php if ($fee_option->days == 0): ?>
+								<?php _ex('Unlimited listing days', 'admin infometabox', 'WPBDM'); ?>
+							<?php else: ?>
+								<?php echo sprintf(_nx('%d day', '%d days', $fee_option->days, 'admin infometabox', 'WPBDM'), $fee_option->days); ?>
+							<?php endif; ?>
+						</div>
 					</div>
-				</div>
-				<?php endforeach; ?>
-			</div>
+					<?php endforeach; ?>
+				</div>				
+			<?php endif; ?>		
+		<?php endif; ?>
 
 	</dd>
 	<?php endforeach; ?>

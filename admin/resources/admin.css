@@ -182,10 +182,27 @@ td.column-bd_sticky_status .status.sticky {
     font-weight: bold;
 }
 
+#listing-metabox-generalinfo .category-name .category-status, #listing-metabox-fees .category-name .category-status {
+    font-size: 80%;
+    float: right;
+}
+
+#listing-metabox-generalinfo .category-name .category-status.ok, #listing-metabox-fees .category-name .category-status.ok {
+    background: green;
+}
+
+#listing-metabox-generalinfo .category-name .category-status.pending, #listing-metabox-fees .category-name .category-status.pending {
+    background: red;
+}
+
 #listing-metabox-generalinfo .category-name .removecategory-link, #listing-metabox-fees .category-name .removecategory-link {
     float: right;
     font-weight: normal;
     font-size: 95%;
+}
+
+#listing-metabox-generalinfo dl.feeinfo, #listing-metabox-fees dl.feeinfo {
+    clear: both;
 }
 
 #listing-metabox-generalinfo dl.feeinfo dt, #listing-metabox-fees dl.feeinfo dt {
@@ -234,7 +251,7 @@ td.column-bd_sticky_status .status.sticky {
     text-transform: uppercase;
 }
 
-#listing-metabox-generalinfo .tag.paymentstatus.paid {
+#listing-metabox-generalinfo .tag.paymentstatus.ok {
     background: green;
 }
 
