@@ -114,7 +114,7 @@ class WPBDP_Listing {
         wp_set_post_terms( $this->id, $listing_terms, WPBDP_CATEGORY_TAX );
     }
 
-    public function add_category( $category, $fee, $recurring = false ) {
+    public function add_category( $category, $fee, $recurring = false, $recurring_data = array() ) {
         global $wpdb;
 
         $this->remove_category( $category );
@@ -135,6 +135,12 @@ class WPBDP_Listing {
         $fee_info['fee_images'] = intval( isset( $fee['images'] ) ? $fee['images'] : $fee['fee_images'] );
         $fee_info['recurring'] = $recurring ? 1 : 0;
 
+        if ( isset( $recurring_data ) )
+            $fee_info['recurring_data'] = serialize( $recurring_data );
+
+        if ( isset( $recurring_data['recurring_id'] ) )
+            $fee_info['recurring_id'] = $recurring_data['recurring_id'];
+
         if ( $expiration_date = $this->calculate_expiration_date( time(), $fee ) )
             $fee_info['expires_on'] = $expiration_date;
 
@@ -144,10 +150,12 @@ class WPBDP_Listing {
 
 
     private function calculate_expiration_date( $time, &$fee ) {
-        if ( 0 == $fee['days'] )
+        $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
+
+        if ( 0 == $days )
             return null;
 
-        $expire_time = strtotime( sprintf( '+%d days', $fee['days'] ), $time );
+        $expire_time = strtotime( sprintf( '+%d days', $days ), $time );
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
@@ -204,6 +212,8 @@ class WPBDP_Listing {
                         $category->expires_on = $fee_info->expires_on;
                         $category->expired = ( $category->expires_on && strtotime( $category->expires_on ) < time() ) ? true : false;
                         $category->renewal_id = $fee_info->id;
+                        $category->recurring = $fee_info->recurring ? true : false;
+                        $category->recurring_id = trim( $fee_info->recurring_id );
 
                         break;
 
@@ -218,6 +228,8 @@ class WPBDP_Listing {
                         $category->expires_on = null; // TODO: calculate expiration date.
                         $category->expired = false;
                         $category->renewal_id = 0;
+                        $category->recurring = ( 'recurring_fee' == $payment_info->item_type ? true : false );
+                        $category->recurring_id = '';
 
                         break;
                 }
@@ -319,7 +331,7 @@ class WPBDP_Listing {
 
     public static function get( $id ) {
         if ( WPBDP_POST_TYPE !== get_post_type( $id ) )
-            throw new Exception( 'Post is not a BD listing.' );
+            return null;
 
         return new self( $id );
     }

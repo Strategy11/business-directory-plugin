@@ -11,9 +11,6 @@ abstract class WPBDP_Payment_Gateway {
     public function get_url( &$payment, $action = '' ) {
         // TODO: support pretty URLs
 
-        if ( $action == 'notify' )
-            return 'http://bdtest.wpengine.com/wp-content/plugins/business-directory-plugin/ipn.php';
-        
         return add_query_arg( array( 'wpbdpx' => 'payments',
                                      'action' => $action,
                                      'payment_id' => $payment->get_id() ),

@@ -134,12 +134,32 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return ! empty( $this->processed_by );
     }
 
+    public function is_first_recurring_payment() {
+        return $this->has_item_type( 'recurring_fee' ) && ( ! $this->get_data( 'recurring_id' ) );
+    }
+
     public function get_handler() {
         return $this->processed_by;
     }
 
     public function get_processed_on() {
         return $this->processed_on;
+    }
+
+    public function cancel_recurring() {
+        if ( ! $this->id )
+            return;
+
+        $listing = WPBDP_Listing::get( $this->get_listing_id() );
+        $recurring_item = $this->get_recurring_item();
+
+        if ( $recurring_item )
+            $listing->remove_category( $recurring_item->rel_id_1 );
+    }
+
+    public function get_recurring_item() {
+        $items = $this->get_items( array( 'item_type' => 'recurring_fee' ) );
+        return $items ? $items[0] : null;
     }
     
     public function add_item( $item_type = 'charge', $amount = 0.0, $description = '', $data = array(), $rel_id_1 = 0, $rel_id_2 = 0 ) {
@@ -168,8 +188,19 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return false;
     }
 
-    public function get_items() {
-        return array_map( create_function( '$x', 'return (object) $x;' ), $this->items );
+    public function get_items( $args = array() ) {
+        $items = array();
+
+        foreach ( $this->items as &$item ) {
+            if ( isset( $args['item_type'] ) ) {
+                if ( $args['item_type'] == $item['item_type'] )
+                    $items[] = $item;
+            } else {
+                $items[] = $item;
+            }
+        }
+
+        return array_map( create_function( '$x', 'return (object) $x;' ), $items );
     }
 
     public function get_listing_id() {
@@ -236,10 +267,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     }
 
     public function get_data( $key ) {
-        if ( ! is_array( $this->extra_data ) || ! isset( $this->extra_data[ $k ] ) )
+        if ( ! is_array( $this->extra_data ) || ! isset( $this->extra_data[ $key ] ) )
             return null;
 
-        return $this->extra_data[ $k ];
+        return $this->extra_data[ $key ];
     }
 
     public function set_submit_state_id( $id ) {
@@ -256,7 +287,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
     public function get_payer_info( $key ) {
         if ( isset( $this->payerinfo[ $key ] ) )
-            return $this->payerinfo[ $key ];
+            return $this->payerinfo[ $key ];
 
         return '';
     }
