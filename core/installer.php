@@ -2,7 +2,7 @@
  
  class WPBDP_Installer {
 
-    const DB_VERSION = '3.7';
+    const DB_VERSION = '3.8';
 
     private $installed_version = null;
 
@@ -109,6 +109,7 @@
             expires_on timestamp NULL DEFAULT NULL,
             email_sent tinyint(1) NOT NULL DEFAULT 0,
             recurring tinyint(1) NOT NULL DEFAULT 0,
+            recurring_id varchar(255) NULL,
             recurring_data blob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
@@ -551,6 +552,8 @@
                     $t['status'] = 'approved' == $t['status'] ? 'completed' : ( 'pending' == $t['status'] ? 'pending' : 'rejected' );
                     $t['currency_code'] = get_option( 'wpbdp-currency' );
                     $t['migrated'] = 1;
+
+                    // TODO: delete duplicated pending transactions (i.e. two renewals for the same category & listing ID that are 'pending').
 
                     switch ( $t['payment_type'] ) {
                         case 'initial':
