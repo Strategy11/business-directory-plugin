@@ -5,6 +5,16 @@
 <h2><?php _ex('Login', 'templates', 'WPBDM'); ?></h2>
 <?php wp_login_form(); ?>
 
+<?php
+$registration_url = wpbdp_get_option( 'registration-url', '' );
+wpbdp_debug( $registration_url );
+if ( empty( $registration_url ) && function_exists( 'wp_registration_url' ) ) {
+    $registration_url = wp_registration_url();
+} else if ( empty( $registration_url ) ) {
+    $registration_url = site_url( 'wp-login.php?action=register', 'login' );
+}
+?>
+
 <?php if (get_option('users_can_register')): ?>
-<a href="<?php echo site_url('wp-login.php?action=register', 'login'); ?>"><?php _ex('Not yet registered?', 'templates', 'WPBDM'); ?></a>
+<a href="<?php echo $registration_url; ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a>
 <?php endif; ?>
