@@ -7,7 +7,6 @@
 
 <?php
 $registration_url = wpbdp_get_option( 'registration-url', '' );
-wpbdp_debug( $registration_url );
 if ( empty( $registration_url ) && function_exists( 'wp_registration_url' ) ) {
     $registration_url = wp_registration_url();
 } else if ( empty( $registration_url ) ) {
