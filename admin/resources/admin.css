@@ -152,7 +152,7 @@ td.column-bd_sticky_status .status.sticky {
     margin-right: 4px;
 }
 
-#listing-metabox-transactions .transaction .summary .status.approved {
+#listing-metabox-transactions .transaction .summary .status.completed {
     background: green;
 }
 
