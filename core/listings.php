@@ -335,16 +335,17 @@ class WPBDP_ListingsAPI {
     public function setup_listing_after_payment( &$payment ) {
         $listing = WPBDP_Listing::get( $payment->get_listing_id() );
 
-        if ( ! $payment->is_completed() )
+        if ( ! $listing || ! $payment->is_completed() )
             return;
 
         foreach ( $payment->get_items() as $item ) {
             switch ( $item->item_type ) {
                 case 'recurring_fee':
+                    $listing->add_category( $item->rel_id_1, (object) $item->data, true, array( 'recurring_id' => $payment->get_data( 'recurring_id' ),
+                                                                                                'payment_id' => $payment->get_id()  ) );
+                    break;                
                 case 'fee':
-                    $listing->add_category( $item->rel_id_1,
-                                            $item->rel_id_2,
-                                            'recurring_fee' == $item->item_type );
+                    $listing->add_category( $item->rel_id_1, $item->rel_id_2, false );
                     break;
 
                 case 'upgrade':
