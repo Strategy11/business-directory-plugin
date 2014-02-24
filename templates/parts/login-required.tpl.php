@@ -7,13 +7,17 @@
 
 <?php
 $registration_url = wpbdp_get_option( 'registration-url', '' );
+
 if ( empty( $registration_url ) && function_exists( 'wp_registration_url' ) ) {
     $registration_url = wp_registration_url();
 } else if ( empty( $registration_url ) ) {
     $registration_url = site_url( 'wp-login.php?action=register', 'login' );
 }
+
+$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$registration_url = add_query_arg( array( 'redirect_to' => urlencode( $current_url ) ), $registration_url );
 ?>
 
 <?php if (get_option('users_can_register')): ?>
-<a href="<?php echo $registration_url; ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a>
+<a href="<?php echo esc_url( $registration_url ); ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a>
 <?php endif; ?>
