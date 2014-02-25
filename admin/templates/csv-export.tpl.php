@@ -4,7 +4,28 @@
 
 <?php echo wpbdp_admin_notices(); ?>
 
+<a name="exporterror"></a>
+<div class="error" style="display: none;"><p>
+<?php _ex( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.',
+           'admin csv-export',
+           'WPBDM' ); ?>
+</p></div>
+
 <div class="step-1">
+
+<div class="wpbdp-note"><p>
+<?php
+$notice = _x( "Please note that the export process is a resource intensive task. If your export does not succeed try disabling other plugins first and/or increasing the values of the 'memory_limit' and 'max_execution_time' directives in your server's php.ini configuration file.",
+              'admin csv-export',
+              'WPBDM' );
+$notice = str_replace( array( 'memory_limit', 'max_execution_time' ),
+                       array( '<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank">memory_limit</a>',
+                              '<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank">max_execution_time</a>' ),
+                       $notice );
+echo $notice;
+?>
+</p>
+</div>
 
 <!--<h3><?php _ex('Export Configuration', 'admin csv-export', 'WPBDM'); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">
@@ -32,7 +53,7 @@
                        type="checkbox"
                        value="1" /> <?php _ex('Export images', 'admin csv-export', 'WPBDM'); ?></label> <br />
                 <span class="description">
-                    When checked, instead of just a CSV file a ZIP file will be generated with both a CSV file and listing images.
+                    <?php _ex( 'When checked, instead of just a CSV file a ZIP file will be generated with both a CSV file and listing images.', 'admin csv-export', 'WPBDM' ); ?>
                 </span>
             </td>
         </tr>

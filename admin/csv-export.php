@@ -23,29 +23,35 @@ class WPBDP_Admin_CSVExport {
     }
     
     public function ajax_csv_export() {
-        if ( !isset( $_REQUEST['state'] ) ) {
-            $export = new WPBDP_CSVExporter( array_merge( $_REQUEST['settings'], array() ) );
-        } else {
-            $export = WPBDP_CSVExporter::from_state( unserialize( base64_decode( $_REQUEST['state'] ) ) );
-            
-            if ( isset( $_REQUEST['cleanup'] ) && $_REQUEST['cleanup'] == 1 ) {
-                $export->cleanup();
+        $error = '';
+
+        try {
+            if ( !isset( $_REQUEST['state'] ) ) {
+                $export = new WPBDP_CSVExporter( array_merge( $_REQUEST['settings'], array() ) );
             } else {
-                $export->advance();
-            }  
+                $export = WPBDP_CSVExporter::from_state( unserialize( base64_decode( $_REQUEST['state'] ) ) );
+                
+                if ( isset( $_REQUEST['cleanup'] ) && $_REQUEST['cleanup'] == 1 ) {
+                    $export->cleanup();
+                } else {
+                    $export->advance();
+                }  
+            }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
         }
         
-        $state = $export->get_state();
+        $state = ! $error ? $export->get_state() : null;
         
         $response = array();
-        $response['error'] = '';
-        $response['state'] = base64_encode( serialize( $state ) );
-        $response['count'] = count( $state['listings'] );
-        $response['exported'] = $state['exported'];
-        $response['filesize'] = size_format( $state['filesize'] );
-        $response['isDone'] = $state['done'];
-        $response['fileurl'] = $state['done'] ? $export->get_file_url() : '';        
-        $response['filename'] = $state['done'] ? basename( $export->get_file_url() ) : '';
+        $response['error'] = $error;
+        $response['state'] = $state ? base64_encode( serialize( $state ) ) : null;
+        $response['count'] = $state ? count( $state['listings'] ) : 0;
+        $response['exported'] = $state ? $state['exported'] : 0;
+        $response['filesize'] = $state ? size_format( $state['filesize'] ) : 0;
+        $response['isDone'] = $state ? $state['done'] : false;
+        $response['fileurl'] = $state ? ( $state['done'] ? $export->get_file_url() : '' ) : '';
+        $response['filename'] = $state ? ( $state['done'] ? basename( $export->get_file_url() ) : '' ) : '';
         
         echo json_encode( $response );
         

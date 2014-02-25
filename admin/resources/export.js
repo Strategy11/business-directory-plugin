@@ -5,9 +5,29 @@ jQuery(function($) {
     var cancelExport = false;
     var lastState = null;
 
+    var handleError = function(msg, res) {
+        if (msg)
+            $('.wpbdp-page-csv-export div.error p').text(msg);
+
+        if (res && res.state) {
+            $.ajax(ajaxurl, {data: { 'action': 'wpbdp-csv-export', 'state': state, 'cleanup': 1}, type: 'POST' });
+        }
+
+        cancelExport = true;
+        exportInProgress = false;
+
+        $('.step-1, .step-2, .step-3').hide();
+        $('.wpbdp-page-csv-export div.error').show();
+        $('.canceled-export').show();
+
+        $('html, body').animate({ scrollTop: 0 }, 'medium');
+    };
+
     var advanceExport = function(state) {
         if (!exportInProgress)
             return;
+
+        lastState = state;
             
         if (cancelExport) {
             exportInProgress = false
@@ -32,9 +52,9 @@ jQuery(function($) {
             type: 'POST',
             dataType: 'json',
             success: function(res) {
-                if (res.error) {
+                if (!res || res.error) {
                     exportInProgress = false;
-                    alert(res.error);
+                    handleError(res.error ? res.error : null, res);
                     return;
                 }
 
@@ -44,7 +64,6 @@ jQuery(function($) {
                 
                 if (res.isDone) {
                     exportInProgress = false;
-                    lastState = state;
                     
                     $('.step-2').fadeOut(function() {
                         $('.step-3 .download-link a').attr('href', res.fileurl);
@@ -59,7 +78,8 @@ jQuery(function($) {
                 } else {                
                     advanceExport(res.state);
                 }
-            }
+            },
+            error: function() { handleError(); }
         });
     };
     
@@ -73,10 +93,11 @@ jQuery(function($) {
            type: 'POST',
            dataType: 'json',
            success: function(res) {
-               if (res.error) {
-                   alert(res.error);
-                   return;
-               }
+                if (!res || res.error) {
+                    exportInProgress = false;
+                    handleError(res.error ? res.error : null, res);
+                    return;
+                }
             
                $('.step-1').fadeOut(function(){
                    exportInProgress = true;
@@ -87,7 +108,8 @@ jQuery(function($) {
                        advanceExport(res.state);
                    });
                });
-           }
+           },
+           error: function() { handleError(); }
         });
     });
     
