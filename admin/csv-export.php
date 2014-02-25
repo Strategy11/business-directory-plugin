@@ -1,6 +1,4 @@
 <?php
-require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-
 /**
  * CSV Export admin pages.
  * @since 3.2
@@ -121,7 +119,7 @@ class WPBDP_CSVExporter {
                 if ( is_dir( $csvexportsdir ) || mkdir( $csvexportsdir ) ) {
                     $this->workingdir = rtrim( $csvexportsdir . DIRECTORY_SEPARATOR . uniqid(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR;
 
-                    if ( !mkdir( $this->workingdir ) )
+                    if ( !mkdir( $this->workingdir, 0777 ) )
                         $direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'WPBDM' );
                 } else {
                     $direrror = _x( 'Could not create wpbdp-csv-exports directory.', 'admin csv-export', 'WPBDM' );
@@ -211,6 +209,9 @@ class WPBDP_CSVExporter {
     public function advance() {
         if ( $this->is_done() )
             return;
+
+        define( 'PCLZIP_TEMPORARY_DIR', $this->workingdir );
+        require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
         
         $csvfile = fopen( $this->workingdir . 'export.csv', 'a' );
         
@@ -318,11 +319,10 @@ class WPBDP_CSVExporter {
     
                             if ( !is_readable( $img_path ) )
                                 continue;
-                            
+
                             $this->images_archive = !isset( $this->images_archive ) ? new PclZip( $this->workingdir . 'images.zip' ) : $this->images_archive;
-                            $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH );
-                            
-                            $listing_images[] = basename( $img_path );
+                            if ( $res = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) )
+                                $listing_images[] = basename( $img_path );
                         }
                     }
     
