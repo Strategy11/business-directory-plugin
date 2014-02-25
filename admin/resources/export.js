@@ -3,6 +3,7 @@ jQuery(function($) {
 
     var exportInProgress = false;
     var cancelExport = false;
+    var lastState = null;
 
     var advanceExport = function(state) {
         if (!exportInProgress)
@@ -43,6 +44,7 @@ jQuery(function($) {
                 
                 if (res.isDone) {
                     exportInProgress = false;
+                    lastState = state;
                     
                     $('.step-2').fadeOut(function() {
                         $('.step-3 .download-link a').attr('href', res.fileurl);
@@ -96,5 +98,17 @@ jQuery(function($) {
     
     $('.step-3 .download-link a').click(function(e) {
         $('.step-3 .cleanup-link').fadeIn(); 
+    });
+
+    $('.step-3 .cleanup-link a').click(function(e) {
+        e.preventDefault();
+        $.ajax(ajaxurl, {
+            data: { 'action': 'wpbdp-csv-export', 'state': lastState, 'cleanup': 1 },
+            type: 'POST',
+            dataType: 'json',
+            success: function(res) {
+                location.href = '';
+            }
+        });
     });
 });
