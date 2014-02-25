@@ -12,6 +12,11 @@ class WPBDP_Debugging {
 		self::$debug = true;
 
 		error_reporting(E_ALL | E_DEPRECATED);
+
+		// Disable our debug util for AJAX requests in order to be able to see the errors.
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			return;
+
 		// @ini_set('display_errors', '1');
 		set_error_handler(array('WPBDP_Debugging', '_php_error_handler'));
 
