@@ -54,7 +54,7 @@ jQuery(function($) {
             success: function(res) {
                 if (!res || res.error) {
                     exportInProgress = false;
-                    handleError(res.error ? res.error : null, res);
+                    handleError((res && res.error) ? res.error : null, res);
                     return;
                 }
 
@@ -95,7 +95,7 @@ jQuery(function($) {
            success: function(res) {
                 if (!res || res.error) {
                     exportInProgress = false;
-                    handleError(res.error ? res.error : null, res);
+                    handleError((res && res.error) ? res.error : null, res);
                     return;
                 }
             
