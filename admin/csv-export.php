@@ -159,18 +159,24 @@ class WPBDP_CSVExporter {
         }
     }
     
-    public function &from_state( $state ) {
+    public static function &from_state( $state ) {
         $export = new self( $state['settings'], trailingslashit( $state['workingdir'] ), (array) $state['listings'] );
         $export->exported = abs( intval( $state['exported'] ) );
-        
+
         // Setup columns.
         $shortnames = wpbdp_formfields_api()->get_short_names();
         foreach ( $state['columns'] as $fshortname ) {
-            $field_id = array_search( $fshortname );
+            if ( in_array( $fshortname, array( 'images', 'username', 'featured_level', 'expires_on' ) ) ) {
+                $export->columns[ $fshortname ] = $fshortname;
+                continue;
+            }
+
+            $field_id = array_search( $fshortname, $shortnames );
+
             if ( $field_id === FALSE )
                 throw new Exception( 'Invalid field shortname.' );
 
-            $this->columns[ $fshortname ] = wpbdp_get_form_field( $field_id );
+            $export->columns[ $fshortname ] = wpbdp_get_form_field( $field_id );
         }
         
         return $export;
@@ -183,7 +189,7 @@ class WPBDP_CSVExporter {
             'workingdir' => $this->workingdir,
             'listings' => $this->listings,
             'exported' => $this->exported,
-            'filesize' => filesize( $this->workingdir . ( file_exists( $this->workingdir . 'export.zip' ) ? 'export.zip' : 'export.csv' ) ),
+            'filesize' => file_exists( $this->get_file_path() ) ?  filesize( $this->get_file_path() ) : 0,
             'done' => $this->is_done()
         );
     }
@@ -243,6 +249,13 @@ class WPBDP_CSVExporter {
     
     public function is_done() {
         return $this->exported == count( $this->listings );
+    }
+
+    public function get_file_path() {
+        if ( file_exists( $this->workingdir . 'export.zip' ) )
+            return $this->workingdir . 'export.zip';
+        else
+            return $this->workingdir . 'export.csv';
     }
     
     public function get_file_url() {
