@@ -147,7 +147,6 @@ class WPBDP_Plugin {
 
     public function _wp_loaded() {
         if ($rules = get_option( 'rewrite_rules' )) {
-            // wpbdp_debug_e($this->get_rewrite_rules());
             foreach ($this->get_rewrite_rules() as $k => $v) {
                 if (!isset($rules[$k]) || $rules[$k] != $v) {
                     global $wp_rewrite;
@@ -1034,6 +1033,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
     /* Listing expiration. */
     public function _notify_expiring_listings() {
         global $wpdb;
+        return; // TODO.
 
         if ( !wpbdp_get_option( 'listing-renewal' ) )
             return;
