@@ -80,9 +80,11 @@ $display_renew_button = false;
 				<a href="#" class=""><?php _ex( 'See payment info', 'admin infometabox', 'WPBDM' ); ?></a>			
 			<?php else: ?>
 				- <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'removecategory', 'category_id' => $category->id ) ); ?>" class="removecategory-link"><?php _ex( 'Remove Category', 'admin infometabox', 'WPBDM' ); ?></a><br /><br />
+				<?php if ( $category->expired ): ?>				
 				- <a href="#" onclick="window.prompt('<?php _ex( 'Renewal URL (copy & paste)', 'admin infometabox', 'WPBDM' ); ?>', '<?php echo wpbdp_listings_api()->get_renewal_url( $category->renewal_id ); ?>'); return false;"><?php _ex( 'Show renewal link', 'admin infometabox', 'WPBDM' ); ?></a><br />
 				- <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'send-renewal-email',
 															'renewal_id' => $category->renewal_id ) ); ?>"><?php _ex( 'Send renewal e-mail to user', 'admin infometabox', 'WPBDM' ); ?></a><br />
+				<?php endif; ?>
 				- <a href="#assignfee" class="assignfee-link">
 					<?php ( $category->expired ? _ex( 'Renew manually...', 'admin infometabox', 'WPBDM' ) : _ex('Change fee...', 'admin infometabox', 'WPBDM') ); ?>
 				</a>
