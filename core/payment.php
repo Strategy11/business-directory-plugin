@@ -560,7 +560,7 @@ class WPBDP_PaymentsAPI {
             $html .= '<p>' . $opts['return_link'] . '</p>';
 
         return $html;
-    }
+    }    
 
 }
 

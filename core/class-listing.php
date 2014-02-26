@@ -105,6 +105,7 @@ class WPBDP_Listing {
     }
 
     public function remove_category( $category, $remove_fee = true ) {
+        // TODO: maybe delete pending transactions involving this category?
         global $wpdb;
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
@@ -231,6 +232,7 @@ class WPBDP_Listing {
                         $category->renewal_id = $fee_info->id;
                         $category->recurring = $fee_info->recurring ? true : false;
                         $category->recurring_id = trim( $fee_info->recurring_id );
+                        $category->payment_id = 0;
 
                         break;
 
@@ -247,6 +249,7 @@ class WPBDP_Listing {
                         $category->renewal_id = 0;
                         $category->recurring = ( 'recurring_fee' == $payment_info->item_type ? true : false );
                         $category->recurring_id = '';
+                        $category->payment_id = intval( $payment_info->payment_id );
 
                         break;
                 }
@@ -305,6 +308,12 @@ class WPBDP_Listing {
     public function save() {
         // do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
         do_action_ref_array( 'wpbdp_save_listing', array( &$this ) );
+    }
+
+    public function delete() {
+        global $wpdb;
+        $wpdb->update( $wpdb->posts, array( 'post_status' => wpbdp_get_option( 'deleted-status' ) ), array( 'ID' => $this->id ) );
+        clean_post_cache( $this->id );
     }
 
     public function notify( $kind = 'save', &$extra = null ) {

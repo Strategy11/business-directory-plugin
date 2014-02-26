@@ -81,10 +81,10 @@ class WPBDP_DirectoryController {
                 return $this->view_listings(true);
                 break;
             case 'renewlisting':
-                require_once( WPBDP_PATH . 'views/renew-listing.php' );
-                $renew_page = new WPBDP_RenewListingPage();
+                require_once( WPBDP_PATH . 'core/view-renew-listing.php' );
+                $renew_page = new WPBDP_Renew_Listing_Page();
                 return $renew_page->dispatch();
-                
+
                 break;
             case 'payment-process':
                 return $this->process_payment();
@@ -94,6 +94,11 @@ class WPBDP_DirectoryController {
                 break;
             case 'search':
                 return $this->search();
+                break;
+            case 'checkout':
+                require_once( WPBDP_PATH . 'core/view-checkout.php' );
+                $checkout_page = new WPBDP_Checkout_Page();
+                return $checkout_page->dispatch();
                 break;
             default:
                 return $this->main_page();
