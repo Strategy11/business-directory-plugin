@@ -17,7 +17,8 @@ abstract class WPBDP_DB_Model {
     }    
     
     public static function get( $id ) {
-        return static::find( array( 'id' => $id, '_single' => true ) );
+        $res = static::find( array( 'id' => $id, '_single' => true ) );
+        return $res;
     }
 
     public static function find( $args = array(), $lightweight=false ) {
@@ -47,7 +48,7 @@ abstract class WPBDP_DB_Model {
 
         if ( $limit > 0 )
             $query .= " LIMIT {$limit}";
-        
+
         $results = $wpdb->get_results( $query, ARRAY_A );
         
         if ( ! $lightweight ) {
@@ -56,7 +57,7 @@ abstract class WPBDP_DB_Model {
             }
         }
         
-        return $results && $single ? $results[0] : $results;
+        return ( $results && $single ) ? $results[0] : $results;
     }
     
     abstract public function save();
