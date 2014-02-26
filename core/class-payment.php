@@ -138,6 +138,30 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return $this->has_item_type( 'recurring_fee' ) && ( ! $this->get_data( 'recurring_id' ) );
     }
 
+    public function generate_recurring_payment() {
+        $recurring_item = $this->get_recurring_item();
+
+        if ( ! $recurring_item )
+            return null;
+
+        $rp = new WPBDP_Payment( array( 'listing_id' => $this->get_listing_id(),
+                                        'gateway' => $this->get_gateway(),
+                                        'currency_code' => $this->get_currency_code(),
+                                        'amount' => 0.0,
+                                        'payerinfo' => $this->payerinfo,
+                                        'extra_data' => array( 'recurring_id' => $this->get_data( 'recurring_id' ),
+                                                               'parent_payment_id' => $this->id )
+                                 ) );
+        $rp->add_item( 'recurring_fee',
+                       $recurring_item->amount,
+                       $recurring_item->description,
+                       $recurring_item->data,
+                       $recurring_item->rel_id_1,
+                       $recurring_item->rel_id_2 );
+        $rp->save();
+        return $rp;
+    }
+
     public function get_handler() {
         return $this->processed_by;
     }
