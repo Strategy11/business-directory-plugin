@@ -251,8 +251,6 @@
                 delete_option('wpbusdirman_postform_field_hide_' . $i);
                 delete_option('wpbusdirman_postform_field_options_' . $i);
                 delete_option('wpbusdirman_postform_field_order_' . $i);
-            } else {
-                wpbdp_debug_e( 'not added', $newfield );                
             }
 
         }
