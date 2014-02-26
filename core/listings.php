@@ -355,8 +355,8 @@ class WPBDP_ListingsAPI {
             }
         }
 
-        $listing->publish();
         $listing->save();
+        $listing->publish();        
 
     // private function act_on_transaction_save($transaction) {
     //     global $wpdb;
@@ -851,20 +851,15 @@ class WPBDP_ListingsAPI {
             return;
 
         foreach ( $rs as &$r ) {
-            $listing = get_post( $r->listing_id );
+            $listing = WPBDP_Listing::get( $r->listing_id );
 
-            if ( !$listing || $listing->post_type != WPBDP_POST_TYPE )
+            if ( ! $listing )
                 continue;
-
-            /*if ( !has_term( intval( $r->category_id ), WPBDP_CATEGORY_TAX, $r->listing_id ) && !in_array( $r->category_id, $this->get_expired_categories( $r->listing_id ) ) ) {
-                $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $r->id ) );
-                continue;
-            }*/
 
             $renewal_url = $this->get_renewal_url( $r->id );
             $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-                                           '[listing]' => esc_attr( $listing->post_title ),
-                                           '[category]' => get_term( $r->category_id, WPBDP_CATEGORY_TAX )->name,
+                                           '[listing]' => esc_attr( $listing->get_title() ),
+                                           '[category]' => wpbdp_get_term_name( $r->category_id ),
                                            '[expiration]' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $r->expires_on ) ),
                                            '[link]' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
                                          );
@@ -873,18 +868,16 @@ class WPBDP_ListingsAPI {
                 // handle expired listings
                 
                 // remove expired category from post
-                $listing_terms = wp_get_post_terms( $r->listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-                wpbdp_array_remove_value( $listing_terms, $r->category_id );
-                wp_set_post_terms( $r->listing_id, $listing_terms, WPBDP_CATEGORY_TAX );
+                $listing->remove_category( $r->category_id, false );
 
-                if ( !$listing_terms ) {
+                if ( ! $listing->get_categories( 'current' ) ) {
                     // $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", 'draft', $r->listing_id ) );
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", 'draft', $listing->get_id() ) );
                 }
 
                 $email = new WPBDP_Email();
-                $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
-                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
+                $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
                 $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,
                                                nl2br( wpbdp_get_option( 'listing-renewal-message' ) ) );
@@ -894,8 +887,8 @@ class WPBDP_ListingsAPI {
             } elseif ( $threshold > 0 ) {
                 // notify about coming expirations
                 $email = new WPBDP_Email();
-                $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
-                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
+                $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
                 $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,
                                                nl2br( wpbdp_get_option( 'renewal-pending-message' ) ) );
@@ -905,8 +898,8 @@ class WPBDP_ListingsAPI {
             } elseif ( $threshold < 0 ) {
                 // remind about expired listings
                 $email = new WPBDP_Email();
-                $email->to[] = wpbusdirman_get_the_business_email( $listing->ID );
-                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->post_title, array() ) );
+                $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
                 $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,
                                                nl2br( wpbdp_get_option( 'renewal-reminder-message' ) ) );

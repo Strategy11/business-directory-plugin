@@ -1033,9 +1033,8 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
     /* Listing expiration. */
     public function _notify_expiring_listings() {
         global $wpdb;
-        return; // TODO.
 
-        if ( !wpbdp_get_option( 'listing-renewal' ) )
+        if ( ! wpbdp_get_option( 'listing-renewal' ) )
             return;
 
         wpbdp_log('Running expirations hook.');
