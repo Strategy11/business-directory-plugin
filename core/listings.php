@@ -355,6 +355,7 @@ class WPBDP_ListingsAPI {
             }
         }
 
+        $listing->publish();
         $listing->save();
 
     // private function act_on_transaction_save($transaction) {
@@ -554,7 +555,7 @@ class WPBDP_ListingsAPI {
         $row = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $listing_id, $catid));
 
         if ($row != null) {
-            $fee = unserialize($row->fee);
+            // $fee = unserialize($row->fee);
             $fee['expires_on'] = $row->expires_on;
             $fee['renewal_id'] = $row->id;
             $fee['category_id'] = $row->category_id;
