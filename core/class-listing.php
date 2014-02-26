@@ -278,6 +278,13 @@ class WPBDP_Listing {
         return WPBDP_Payment::find( array( 'listing_id' => $this->id, '_order' => '-id', '_limit' => 10 ) );
     }
 
+    public function publish() {
+        if ( ! $this->id )
+            return;
+
+        wp_update_post( array( 'post_status' => 'publish', 'ID' => $this->id ) );
+    }
+
     public function save() {
         // do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
         do_action_ref_array( 'wpbdp_save_listing', array( &$this ) );
