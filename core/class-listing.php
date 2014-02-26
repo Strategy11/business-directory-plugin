@@ -73,6 +73,10 @@ class WPBDP_Listing {
         return 0;
     }
 
+    public function get_title() {
+        return get_the_title( $this->id );
+    }
+
     public function get_id() {
         return $this->id;
     }
@@ -100,14 +104,15 @@ class WPBDP_Listing {
         return null;
     }
 
-    public function remove_category( $category ) {
+    public function remove_category( $category, $remove_fee = true ) {
         global $wpdb;
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
 
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d",
-                                      $this->id,
-                                      $category_id ) );
+        if ( $remove_fee )
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d",
+                                          $this->id,
+                                          $category_id ) );
 
         $listing_terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
         wpbdp_array_remove_value( $listing_terms, $category_id );
@@ -159,8 +164,7 @@ class WPBDP_Listing {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
-    // TODO: add actual support for the $info parameter.
-    // info = 'current' current categories, 'expired' expired categories, 'pending' pending categories (payment not completed), 'all' everything!
+    // TODO: if there are pending payments for a category but the category is already approved/not expired correct the information and don't consider it pending.
     public function get_categories( $info = 'current' ) {
         global $wpdb;
 
@@ -180,12 +184,25 @@ class WPBDP_Listing {
         $pending = array();
         foreach ( $pending_payments as &$p )
             $pending[ intval( $p->rel_id_1 ) ] = $p->id;
-
         $pending_ids = array_keys( $pending );
+
+        $category_ids = array();
+        switch ( $info ) {
+            case 'all':
+                $category_ids = array_merge( $current_ids, $expired_ids, $pending_ids );
+                break;
+            case 'pending':
+                $category_ids = $pending_ids;
+                break;
+            case 'current':
+            default:
+                $category_ids = $current_ids;
+                break;
+        }
 
         $results = array();
 
-        foreach ( array_merge( $current_ids, $expired_ids, $pending_ids ) as $category_id ) {
+        foreach ( $category_ids as $category_id ) {
             if ( $category_info = get_term( intval( $category_id ), WPBDP_CATEGORY_TAX ) ) {
                 $category = new StdClass();
                 $category->id = $category_info->term_id;
@@ -236,7 +253,7 @@ class WPBDP_Listing {
 
                 $results[ $category_id ] = $category;
             }
-        }
+        }        
 
         return $results;
     }
