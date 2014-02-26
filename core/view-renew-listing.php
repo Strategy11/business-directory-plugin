@@ -1,117 +1,138 @@
 <?php
-/*
- * Renew listing view
+require_once( WPBDP_PATH . 'core/class-view.php' );
+
+/**
+ * Renew listing view.
  */
+class WPBDP_Renew_Listing_Page extends WPBDP_View {
 
-require_once( WPBDP_PATH . 'core/views.php' );
-
-
-class WPBDP_RenewListingPage extends WPBDP_View {
+    private $category = null;
+    private $listing = null;
 
     public function get_page_name() {
         return 'renewlisting';
     }
 
     public function dispatch() {
-        if ( !wpbdp_get_option( 'listing-renewal' ) )
-            return wpbdp_render_msg( _x( 'Listing renewal is disabled at this moment. Please try again later.', 'renewal', 'WPBDM' ),
-                                    'error' );
+        if ( ! wpbdp_get_option( 'listing-renewal' ) )
+            return wpbdp_render_msg( _x( 'Listing renewal is disabled at this moment. Please try again later.', 'renewal', 'WPBDM' ), 'error' );
 
-        global $wpdb;
-
-        $feeinfo = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL AND email_sent <> 0",
-                                                   intval( wpbdp_getv( $_REQUEST, 'renewal_id', 0 ) ) ) );
-        if ( !$feeinfo)
+       if ( ! $this->obtain_renewal_info() )
             return wpbdp_render_msg( _x( 'Your renewal ID is invalid. Please use the URL you were given on the renewal e-mail message.', 'renewal', 'WPBDM' ), 'error' );
 
-        $this->feeinfo = $feeinfo;
-        $this->listing = get_post( $feeinfo->listing_id );
+        if ( ! wpbdp_user_can( 'edit', $this->listing->get_id() ) )
+            return wpbdp_render_msg( _x( 'You don\'t have permission to access this page.', 'renewal', 'WPBDM' ), 'error' );
 
-        if ( !$this->listing || $this->listing->post_type != WPBDP_POST_TYPE )
-            return;
+        if ( $this->category->recurring )
+            die('Handle recurring!');
 
-        return $this->renew_listing();
+        $step = 'fee_selection';
+
+        if ( $this->category->payment_id )
+            $step = 'checkout';
+
+        return call_user_func( array( &$this, $step ) );
     }
 
-    public function renew_listing() {
-        global $wpdb;
-
-        // Check there are no currently pending transactions for this same renewal
-        if ( $tid = $this->check_pending_transactions() )
-            return wpbdp_render_msg( sprintf( _x( 'There is a transaction (#%d) awaiting approval for this renewal in our system. Please contact the site administrator.', 'renewal', 'WPBDM' ),
-                                                 $tid ), 'error' );
-
+    private function fee_selection() {
+        // Cancel renewal?
         if ( isset( $_POST['cancel-renewal'] ) ) {
-            // Remove category from listing.
-            $terms = array_unique( array_map( 'intval', wp_get_post_terms( $this->listing->ID, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ) );
-            wpbdp_array_remove_value( $terms, $this->feeinfo->category_id );
-            wp_set_post_terms( $this->listing->ID, $terms ? $terms : NULL, WPBDP_CATEGORY_TAX );
-
-            if ( !$terms )
-                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d",
-                              wpbdp_get_option( 'deleted-status' ),
-                              $this->listing->ID ) );
-
-            // Delete listing fee.
-            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d",
-                                          $this->feeinfo->id ) );
-
-            // Delete all pending transactions relating this renewal or category.
-            $transactions = wpbdp_payments_api()->get_transactions( $this->listing->ID );
-            foreach ( $transactions as &$t ) {
-                if ( $t->payment_type != 'renewal' )
-                    continue;
-
-                $extra_data = is_array( $t->extra_data ) ? $t->extra_data : array();
-                if ( isset( $extra_data['renewal_id'] ) && $extra_data['renewal_id'] == $this->feeinfo->id )
-                    $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $t->id ) );
-            }
+            $this->listing->remove_category( $this->category->id );
+            
+            if ( ! $this->listing->get_categories( 'all' ) )
+                $this->listing->delete();
 
             return wpbdp_render_msg( _x( 'Your renewal was successfully cancelled.', 'renewal', 'WPBDM' ) );
-
         }
 
-        $available_fees = wpbdp_get_fees_for_category( $this->feeinfo->category_id ) or die( '' );
+        $fees = wpbdp_get_fees_for_category( $this->category->id );
 
-        if ( isset( $_POST['fees'] ) && isset( $_POST['fees'][ $this->feeinfo->category_id ] ) ) {
-            if ( $fee = wpbdp_get_fee( $_POST['fees'][ $this->feeinfo->category_id ] ) ) {
-                // TODO: check fee works with category_id
+        if ( isset( $_POST['fees'] ) && isset( $_POST['fees'][ $this->category->id ] ) ) {
+            $fee_id = intval( $_POST['fees'][ $this->category->id ] );
 
-                $listings_api = wpbdp_listings_api();
-                $payments_api = wpbdp_payments_api();
+            if ( $fee = wpbdp_get_fee( $fee_id ) ) {
+                // Remove current fee info.
+                $this->listing->remove_category( $this->category->id );
 
-                if ( $transaction_id = $listings_api->renew_listing( $this->feeinfo->id, $fee ) ) {
-                    return $payments_api->render_payment_page( array(
-                        'title' => _x('Renew Listing', 'templates', 'WPBDM'),
-                        'item_text' => _x('Pay %1$s renewal fee via %2$s.', 'templates', 'WPBDM'),
-                        'transaction_id' => $transaction_id,
-                    ) );
-                }
+                $payment = new WPBDP_Payment( array( 'listing_id' => $this->listing->get_id() ) );
+                $payment->add_item( 'fee',
+                                    $fee->amount,
+                                    sprintf( _x( 'Fee "%s" renewal for category "%s"', 'listings', 'WPBDM' ),
+                                             $fee->label,
+                                             wpbdp_get_term_name( $this->category->id ) ),
+                                    array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
+                                    $this->category->id,
+                                    $fee_id );
+                $payment->save();
+                return $this->dispatch();
             }
         }
 
-        return wpbdp_render( 'renew-listing',
-                             array( 'listing' => $this->listing,
-                                    'category' => get_term( $this->feeinfo->category_id, WPBDP_CATEGORY_TAX ),
-                                    'fees' => $available_fees
-                                  ) );
+        return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing, 'category' => $this->category, 'fees' => $fees ) );
     }
 
-    private function check_pending_transactions() {
-        $payments_api = wpbdp_payments_api();
-        $transactions = $payments_api->get_transactions( $this->listing->ID );
+    private function checkout() {
+        $payment = WPBDP_Payment::get( $this->category->payment_id );
 
-        foreach ( $transactions as &$t ) {
-            if ( $t->payment_type != 'renewal' )
-                continue;
+        if ( ! $payment )
+            return wpbdp_render_msg( _x( 'Invalid renewal state.', 'renewal', 'WPBDM' ), 'error' );
 
-            $extra_data = $t->extra_data;
+        global $wpbdp;
 
-            if ( isset( $extra_data['renewal_id'] ) && $extra_data['renewal_id'] == $this->feeinfo->id && $t->status == 'pending' )
-                return intval( $t->id );
-        }
+        $html  = '';
+        $html .= '<div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">';
+        $html .= '<form action="' . $payment->get_checkout_url() . '" method="POST">';
+        $html .= '<input type="submit" value="' . _x( 'Proceed to Checkout', 'renewal', 'WPBDM' ) . '"/>';
+        $html .= '</form>';
+        $html .= '</div>';
 
-        return 0;
+        
+        return $html;
     }
+
+    private function obtain_renewal_info() {
+        $renewal_id = urldecode( trim( $_GET['renewal_id'] ) );
+
+        if ( ! $renewal_id )
+            return false;
+
+        parse_str( base64_decode( $renewal_id ), $renewal_data );
+
+        if ( ! $renewal_data || ! isset( $renewal_data['listing_id'] ) || ! isset( $renewal_data['category_id'] ) )
+            return false;
+
+        $listing = WPBDP_Listing::get( intval( $renewal_data['listing_id'] ) );
+        $category_id = intval( $renewal_data['category_id'] );
+        
+        if ( ! $listing )
+            return false;
+
+        $category_info = $listing->get_category_info( $category_id );
+
+        if ( ! $category_info )
+            return false;
+
+        $this->category = $category_info;
+        $this->listing = $listing;
+
+        return true;
+    }
+        //     if ( isset( $_POST['fees'] ) && isset( $_POST['fees'][ $this->feeinfo->category_id ] ) ) {
+    //         if ( $fee = wpbdp_get_fee( $_POST['fees'][ $this->feeinfo->category_id ] ) ) {
+    //             // TODO: check fee works with category_id
+
+    //             $listings_api = wpbdp_listings_api();
+    //             $payments_api = wpbdp_payments_api();
+
+    //             if ( $transaction_id = $listings_api->renew_listing( $this->feeinfo->id, $fee ) ) {
+    //                 return $payments_api->render_payment_page( array(
+    //                     'title' => _x('Renew Listing', 'templates', 'WPBDM'),
+    //                     'item_text' => _x('Pay %1$s renewal fee via %2$s.', 'templates', 'WPBDM'),
+    //                     'transaction_id' => $transaction_id,
+    //                 ) );
+    //             }
+    //         }
+    //     }
+    // }
 
 }

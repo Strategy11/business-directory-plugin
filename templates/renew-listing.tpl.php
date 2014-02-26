@@ -8,13 +8,16 @@
     <p><?php printf( _x( 'You are about to renew your listing "%s" publication inside category "%s".',
                          'templates',
                          'WPBDM' ),
-                     esc_html( $listing->post_title ),
-                     esc_html( $category->name ) ); ?></p>
+                     esc_html( $listing->get_title() ),
+                     esc_html( wpbdp_get_term_name( $category->id ) ) ); ?></p>
     <p><?php _ex( 'Please select a fee option or click "Do not renew my listing" to cancel your renewal.', 'WPBDM' ); ?></p>
 
     <form id="wpbdp-renewlisting-form" method="POST" action="">
-    <?php echo wpbdp_render( 'parts/category-fee-selection', array( 'category' => $category, 'fees' => $fees  ), false ); ?>
-    <input type="submit" class="submit" name="submit" value="<?php _ex('Proceed to checkout', 'templates', 'WPBDM'); ?>" />
+    <?php echo wpbdp_render( 'parts/category-fee-selection', array( 'category' => get_term( $category->id, WPBDP_CATEGORY_TAX ),
+                                                                    'category_fees' => $fees,
+                                                                    'current_fee' => $category->fee_id,
+                                                                    'multiple_categories' => false  ), false ); ?>
+    <input type="submit" class="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
 
     <div class="do-not-renew-listing">
         <div class="header"><?php _ex( 'Cancel Listing Renewal', 'renewal', 'WPBDM' ); ?></div>
