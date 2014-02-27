@@ -507,7 +507,7 @@ class WPBDP_PaymentsAPI {
      * Renders an invoice table for a given payment.
      * @param $payment WPBDP_Payment
      * @return string HTML output.
-     * @since 3.3
+     * @since 3.4
      */
     public function render_invoice( &$payment ) {
         return wpbdp_render( 'payment/payment_items', array( 'payment' => $payment ), false );
@@ -532,7 +532,12 @@ class WPBDP_PaymentsAPI {
         return $html;
     }
 
-    // TODO: dodoc
+    /**
+     * Renders payment method selection for a given payment. Takes into account gateways supporting recurring items.
+     * @param $payment WPBDP_Payment
+     * @return string HTML output.
+     * @since 3.4
+     */
     public function render_payment_method_selection( &$payment ) {
         $payment_methods = $this->get_available_methods( $payment->has_item_type( 'recurring_fee' ) ? array( 'recurring' ) : array() );
 
