@@ -520,7 +520,10 @@
                     $f['fee'] = '';
                     $f['migrated'] = 1;
 
-                    $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees', $f, array( 'id' => $f['id'] ) );                
+                    if ( ! $f['expires_on'] )
+                        unset( $f['expires_on'] );
+
+                    $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees', $f, array( 'id' => $f['id'] ) );
                 }
             }
         }
