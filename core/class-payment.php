@@ -321,9 +321,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     }
 
     public function get_redirect_url() {
-        // TODO: support redirects for other things rather than submits.
-        $url = add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
-        return $url;
+        if ( $this->get_submit_state_id() )
+            return add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
+       
+        return $this->get_checkout_url();
     }
 
     public function get_created_on() {
