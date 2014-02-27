@@ -500,6 +500,25 @@ class WPBDP_PaymentsAPI {
         return wpbdp_render( 'payment/payment_items', array( 'payment' => $payment ), false );
     }
 
+    public function render_details( &$payment ) {
+        $html  = '';
+        $html .= '<div class="wpbdp-payment-details">';
+        $html .= '<h4>' . _x( 'Payment Details', 'payments', 'WPBDM' ) . '</h4>';
+
+        // TODO: better payment information.
+        // if ( ! $payment->is_pending() ) {
+        //     $html .= '<dl class="details">';
+        //     $html .= '<dt>' . _x( 'Gateway', 'payments', 'WPBDM' ) . '</dt>';
+        //     $html .= '<dd>' . $payment->get_gateway() && isset( $this->gateways[ $payment->get_gateway() ] ) ? $this->gateways[ $payment->get_gateway() ]->get_name() : '–'  . '</dd>';
+        //     $html .= '</dl>';
+        // }
+
+        $html .= $this->render_invoice( $payment );
+        $html .= '</div>';
+
+        return $html;
+    }
+
     // TODO: dodoc
     public function render_payment_method_selection( &$payment ) {
         $payment_methods = $this->get_available_methods( $payment->has_item_type( 'recurring_fee' ) ? array( 'recurring' ) : array() );
