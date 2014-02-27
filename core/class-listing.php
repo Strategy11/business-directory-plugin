@@ -46,9 +46,18 @@ class WPBDP_Listing {
     /**
      * Sets listing images.
      * @param array $images array of image IDs.
-     * @param boolean $append TODO: if TRUE images will be appended without clearing previous ones.
+     * @param boolean $append if TRUE images will be appended without clearing previous ones.
      */
     public function set_images( $images = array(), $append = false ) {
+        if ( ! $append ) {
+            $current = $this->get_images( 'ids' );
+
+            foreach ( $current as $img_id ) {
+                if ( ! in_array( $img_id, $images, true ) && wp_attachment_is_image( $img_id ) )
+                    wp_delete_attachment( $img_id, true );
+            }
+        }
+
         foreach ( $images as $image_id )
             wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
     }
@@ -81,18 +90,6 @@ class WPBDP_Listing {
         return $this->id;
     }
 
-    // public function get_category_fee( $category ) {
-    //     $category_id = intval( is_object( $category ) ? $category->term_id  : $category );
-
-    //     global $wpdb;
-    //     $listing_fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
-
-    //     if ( $listing_fee ) {
-    //         // TODO: Enhance object.
-    //     }
-
-    //     return $listing_fee;
-    // }
 
     public function get_category_info( $category ) {
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
@@ -105,7 +102,6 @@ class WPBDP_Listing {
     }
 
     public function remove_category( $category, $remove_fee = true ) {
-        // TODO: maybe delete pending transactions involving this category?
         global $wpdb;
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
@@ -113,7 +109,7 @@ class WPBDP_Listing {
         if ( $remove_fee )
             $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d",
                                           $this->id,
-                                          $category_id ) );
+                                          $category_id ) );        
 
         $listing_terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
         wpbdp_array_remove_value( $listing_terms, $category_id );
@@ -293,10 +289,23 @@ class WPBDP_Listing {
     }
 
     public function fix_categories() {
-        // TODO: Remove fee information related to categories that no longer exist.
+        global $wpdb;
 
-        // Assign a default fee for categories without a fee.
-        foreach ( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, 'fields=ids' ) as $category_id ) {
+        // Delete fee information for categories that no longer exist.
+        $wpdb->query( $wpdb->prepare( "DELETE lf FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = %d AND lf.category_id NOT IN (SELECT tt.term_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy=%s)",
+                                      $this->id, WPBDP_CATEGORY_TAX ) );
+
+        $terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, 'fields=ids' );
+        
+        // Remove listing information for categories that no longer apply to the listing.
+        $removed_cats = array_diff( array_keys( $this->get_categories( 'current' ) ), $terms );
+        if ( $removed_cats ) {
+            $cats = implode( ',', $removed_cats );
+            $wpdb->query( $wpdb->prepare( "DELETE lf FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = %d AND lf.category_id IN ({$cats})", $this->id ) );
+        }
+
+        // Assign a default fee for categories without a fee.        
+        foreach ( $terms as $category_id ) {
             if ( ! $this->get_category_info( $category_id ) ) {
                 $fee_choices = wpbdp_get_fees_for_category( $category_id );
                 $this->add_category( $category_id, $fee_choices[0] );
@@ -394,6 +403,33 @@ class WPBDP_Listing {
         );
 
         $post_id = wp_insert_post( $post_data );
+
+        // Create author user if needed.
+        $current_user = wp_get_current_user();
+
+        if ( $current_user->ID == 0 ) {
+            if ( wpbdp_get_option( 'require-login' ) )
+                throw new Exception('Login required.');
+
+            // Create user.
+            if ( $email_field = wpbdp_get_form_fields( array( 'validator' => 'email', 'unique' => 1 ) ) ) {
+                $email = $state->fields[ $email_field->get_id() ];
+                
+                if ( email_exists( $email ) ) {
+                    $post_author = get_user_by_email( $email )->ID;
+                } else {
+                    $randvalue = wpbdp_generate_password( 5, 2 );
+                    $post_author = wp_insert_user( array(
+                        'display_name' => 'Guest ' . $randvalue,
+                        'user_login' => 'guest_' . $randvalue,
+                        'user_email' => $email,
+                        'user_pass' => wpbdp_generate_password( 7, 2 )
+                    ) );
+                }
+
+                wp_update_post( array( 'ID' => $post_id, 'post_author' => $post_author ) );
+            }
+        }
         
         return new self( $post_id );
     }
@@ -406,146 +442,3 @@ class WPBDP_Listing {
     }
 
 }
-
-
-//     public function __construct( $data = array() ) {
-//         global $wpdb;
-
-//         $this->id = isset( $data['id'] ) ? intval( $data['id'] ) : 0;
-
-//         if ( $this->id > 0 ) {
-//             $post = get_post( $this->id );
-
-//             if ( ! $post || $post->post_type != WPBDP_POST_TYPE )
-//                 throw new Exception( 'Invalid listing ID.' );
-
-//             $this->post_status = $post->post_status;
-            
-//             // Obtain fees & categories.
-//             $categories = array_merge( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ),
-//                                        $wpdb->get_col( $wpdb->prepare( "SELECT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $this->id ) )
-//                                      );
-//             foreach ( $categories as $category_id ) {
-//                 if ( $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) ) ) {
-//                     $fee_info->fee = (object) unserialize( $fee_info->fee );
-//                 } else {
-//                     $fee_info = null;
-//                     // TODO: handle non existant fees. (should not happen)
-//                     // $fee_info = new StdClass();
-//                     // $fee_info->fee = wpbdp_get_fee( 0 );
-//                     // $fee_info->fee_id = 0;
-//                     // $fee_info->category_id = $category_id;
-//                     // $fee_info->id = 
-//                 }
-
-//                 $this->fees[ $category_id ] = $fee_info;
-//             }
-
-//             // Obtain images.
-//             $attachments = get_posts( array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id, 'fields' => 'ids' ) );
-//             foreach ( $attachments as &$a ) {
-//                 if ( wp_attachment_is_image( $a ) )
-//                     $this->images[] = $a;
-//             }
-
-//             // Fill in fields.
-//             $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
-//             foreach ( $fields as &$f )
-//                 $this->fields[ $f->get_id() ] = $f->value( $this->id );
-
-//             // TODO: fill in sticky status and thumbnail_id.
-
-//         } else {
-//             $this->post_status = isset( $data['post_status'] ) ? $data['post_status'] : wpbdp_get_option( 'new-post-status' );
-//         }
-//     }
-
-//     public function upgrade( $newlevel = 'sticky' ) {
-//         $upgrades_api = wpbdp_listing_upgrades_api();
-//         $sticky_info = $upgrades_api->get_info( $this->id );
-
-//         if ( $sticky_info->upgradeable )
-//             $upgrades_api->set_sticky( $this->id, $sticky_info->upgrade->id, true );
-//     }
-    
-//     /*
-//      * Category-related.
-//      */
-//     public function save() {
-//         global $wpdb;
-
-//         $editing = $this->id > 0 ? true : false;
-
-//         // Obtain listing's title
-//         $title = 'Untitled Listing';
-//         $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
-//         if ( isset( $this->fields[ $title_field->get_id() ] ) ) {
-//             $title = trim( strip_tags( $this->fields[ $title_field->get_id() ] ) );
-//         }
-
-//         $post_data = array(
-//             'post_title' => $title,
-//             'post_status' => $editing ? wpbdp_get_option( 'edit-post-status' ) : 'pending',
-//             'post_type' => WPBDP_POST_TYPE
-//         );
-
-//         if ( $this->id )
-//             $post_data['ID'] = $this->id;
-
-//         $this->id = $this->id ? wp_update_post( $post_data ) : wp_insert_post( $post_data );
-
-//         // Create author user if needed.
-//         if ( ! $editing ) {
-//             $current_user = wp_get_current_user();
-
-//             if ( $current_user->ID == 0 ) {
-//                 if ( wpbdp_get_option( 'require-login' ) ) {
-//                     return false;
-//                 }
-
-//                 // Create user.
-//                 if ( $email_field = wpbdp_get_form_fields( array( 'validator' => 'email', 'unique' => 1 ) ) ) {
-//                     $email = $this->fields[ $email_field->get_id() ];
-                    
-//                     if ( email_exists( $email ) ) {
-//                         $post_author = get_user_by_email( $email )->ID;
-//                     } else {
-//                         $randvalue = wpbdp_generate_password( 5, 2 );
-//                         $post_author = wp_insert_user( array(
-//                             'display_name' => 'Guest ' . $randvalue,
-//                             'user_login' => 'guest_' . $randvalue,
-//                             'user_email' => $email,
-//                             'user_pass' => wpbdp_generate_password( 7, 2 )
-//                         ) );
-//                     }
-
-//                     wp_update_post( array( 'ID' => $this->id, 'post_author' => $post_author ) );
-//                 }
-//             }
-//         }
-
-       
-//         // Set thumbnail image.
-//         if ( $this->thumbnail_id && in_array( $this->thumbnail_id, $this->images, true ) )
-//             update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $this->thumbnail_id );
-//         else
-//             update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $this->images ? $this->images[0] : 0 );
-
-//         // Save categories & fees.
-//         if ( $this->fees )
-//            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id NOT IN (" . join( ',', array_keys( $this->fees ) ) . ")", $this->id ) );
-        
-//         wp_set_post_terms( $this->id, array(), WPBDP_CATEGORY_TAX, false );
-
-//         foreach ( $this->fees as $category_id => &$fee_info ) {
-//             // TODO: do not set expired categories here.
-//             wp_set_post_terms( $this->id, $category_id, WPBDP_CATEGORY_TAX, true );
-//         }
-
-//         if ( ! $editing )
-//            wp_update_post( array( 'ID' => $this->id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
-
-//         return true;
-//     }
-
-// }
