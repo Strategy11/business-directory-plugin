@@ -66,7 +66,24 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     }
 
     private function done() {
-        return '[done page]';
+        $listing = WPBDP_Listing::get( $this->payment->get_listing_id() );
+
+        $html  = '';
+        $html .= wpbdp_render_msg( _x( 'Your payment was received sucessfully.', 'checkout', 'WPBDM' ) );
+        $html .= $this->api->render_details( $this->payment );
+        
+        $html .= '<p>';
+        if ( $listing->is_published() )
+            $html .= sprintf( '<a href="%s">%s</a>',
+                              $listing->get_permalink(),
+                              _x( '← Return to your listing.', 'checkout', 'WPBDM' ) );            
+        else
+            $html .= sprintf( '<a href="%s">%s</a>',
+                              wpbdp_get_page_link( 'main' ),
+                              _x( '← Return to Directory.', 'checkout', 'WPBDM' ) );
+        $html .= '</p>';
+
+        return $html;
     }
 
 }
