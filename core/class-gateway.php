@@ -39,6 +39,8 @@ abstract class WPBDP_Payment_Gateway {
         return array();
     }
 
+    public function render_unsubscribe_integration( &$category, &$listing) {}
+
     abstract public function process( &$payment, $action );
     abstract public function render_integration( &$payment );
 

@@ -490,6 +490,19 @@ class WPBDP_PaymentsAPI {
         $this->gateways[ $gateway_id ]->process( $payment, $action );
     }
 
+    public function render_unbuscribe_integration( &$category, &$listing ) {
+        global $wpdb;
+
+        if ( ! $category || ! $listing )
+            return;
+
+        // TODO: we only support PayPal for now.
+        if ( ! $this->gateways['paypal'] )
+            return;
+
+        return $this->gateways['paypal']->render_unsubscribe_integration( $category, $listing );
+    }
+
     /**
      * Renders an invoice table for a given payment.
      * @param $payment WPBDP_Payment
