@@ -217,25 +217,6 @@ class WPBDP_ListingUpgrades {
         }
     }
 
-    public function request_upgrade($listing_id) {
-        $payments_api = wpbdp_payments_api();
-        
-        $info = $this->get_info($listing_id);
-
-        if ( !$info->pending && $info->upgradeable && $payments_api->payments_possible() ) {
-            $transaction_id = $payments_api->save_transaction(array(
-                'payment_type' => 'upgrade-to-sticky',
-                'listing_id' => $listing_id,
-                'amount' => $info->upgrade->cost
-            ));
-
-            update_post_meta( $listing_id, '_wpbdp[sticky]', 'pending' );
-            return $transaction_id;
-        }
-
-        return 0;
-    }
-
 }
 
 
@@ -335,6 +316,8 @@ class WPBDP_ListingsAPI {
     public function setup_listing_after_payment( &$payment ) {
         $listing = WPBDP_Listing::get( $payment->get_listing_id() );
 
+        // TODO: handle some rejected payments (i.e. downgrade listing if pending upgrade, etc.)
+
         if ( ! $listing || ! $payment->is_completed() )
             return;
 
@@ -349,57 +332,18 @@ class WPBDP_ListingsAPI {
                     break;
 
                 case 'upgrade':
-                    $listing->upgrade();
+                    $upgrades_api = wpbdp_listing_upgrades_api();
+                    $sticky_info = $upgrades_api->get_info( $listing->get_id() );
+
+                    if ( $sticky_info->upgradeable )
+                        $upgrades_api->set_sticky( $listing->get_id(), $sticky_info->upgrade->id, true );
 
                     break;
             }
         }
 
         $listing->save();
-        $listing->publish();        
-
-    // private function act_on_transaction_save($transaction) {
-    //     global $wpdb;
-
-    //     if ($transaction->id == $this->get_last_transaction($transaction->listing_id)->id) {
-    //         update_post_meta($transaction->listing_id, '_wpbdp[payment_status]', $transaction->status == 'approved' ? 'paid' : 'not-paid');
-
-    //         if ( $transaction->status == 'approved' && $transaction->payment_type == 'initial' ) {
-    //             if ( get_post_status( $transaction->listing_id ) == 'publish' ) {
-    //             } else {
-    //                 wp_update_post( array( 'ID' => $transaction->listing_id, 'post_status' => wpbdp_get_option( 'new-post-status' ) ) );
-    //             }
-    //         }
-    //     }
-
-    //     if ($transaction->status == 'approved') {
-    //         if ($transaction->payment_type == 'upgrade-to-sticky') {
-    //             $upgrades_api = wpbdp_listing_upgrades_api();
-    //             $sticky_info = $upgrades_api->get_info( $transaction->listing_id );
-
-    //             if ($sticky_info->upgradeable)
-    //                 $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->upgrade->id, true );
-
-    //         } elseif ($transaction->payment_type == 'renewal') {
-    //             $listingsapi = wpbdp_listings_api();
-
-    //             $extradata = $transaction->extra_data;
-    //             $renewalinfo = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $extradata['renewal_id'] ) );
-                
-    //             $listingsapi->assign_fee( $transaction->listing_id, $renewalinfo->category_id, $extradata['fee'], true );
-
-    //             wp_update_post( array( 'post_status' => 'publish', 'ID' => $transaction->listing_id ) );
-    //         }
-    //     } elseif ($transaction->status == 'rejected') {
-    //         if ($transaction->payment_type == 'upgrade-to-sticky') {
-    //             $upgrades_api = wpbdp_listing_upgrades_api();
-    //             $sticky_info = $upgrades_api->get_info( $transaction->listing_id );
-
-    //             if ($sticky_info->pending)
-    //                 $upgrades_api->set_sticky( $transaction->listing_id, $sticky_info->level->id );
-    //         }
-    //     }
-    // }        
+        $listing->publish();    
     }
 
 
