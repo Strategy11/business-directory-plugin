@@ -1,0 +1,72 @@
+<?php
+require_once( WPBDP_PATH . 'core/class-view.php' );
+
+class WPBDP_Checkout_Page extends WPBDP_View {
+
+    private $api = null;
+    private $payment = null;
+    private $errors = array();
+
+    public function __construct() {
+        $this->api = wpbdp_payments_api();
+    }
+
+    public function get_page_name() {
+        return 'checkout';
+    }
+
+    public function dispatch() {
+        $this->payment = WPBDP_Payment::get( $_REQUEST['payment_id'] ); // TODO: obfuscate/verify payment_id.
+
+        if ( ! $this->payment )
+            return wpbdp_render_msg( _x( 'Invalid payment id.', 'payments', 'WPBDM' ), 'error' );
+
+        $step = 'gateway_selection';
+
+        if ( ! $this->payment->is_pending() )
+            $step = 'done';
+        elseif ( $this->payment->get_gateway() )
+            $step = 'checkout';
+
+        return call_user_func( array( &$this, $step ) );
+    }
+
+    private function gateway_selection() {
+        $html  = '';
+
+        global $wpbdp;
+
+        if ( isset( $_POST['payment_method'] ) ) {
+            $payment_method = trim( $_POST['payment_method'] );
+            
+            if ( ! $payment_method ) {
+                $html .= wpbdp_render_msg( _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' ), 'error' );
+            } else {
+                $this->payment->set_payment_method( $payment_method );
+                $this->payment->save();
+                return $this->checkout();
+            }
+
+        }
+
+        $html .= '<form action="" method="POST">';
+        $html .= $wpbdp->payments->render_invoice( $this->payment );
+        $html .= $wpbdp->payments->render_payment_method_selection( $this->payment );
+        $html .= '<input type="submit" value="Continue" />';
+        $html .= '</form>';
+
+        return $html;
+    }
+
+    private function checkout() {
+        $html  = '';
+        $html .= $this->api->render_standard_checkout_page( $this->payment, array( 'retry_rejected' => true ) );
+
+        return $html;
+    }
+
+    private function done() {
+        return '[done page]';
+    }
+
+}
