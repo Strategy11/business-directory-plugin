@@ -225,9 +225,21 @@ class WPBDP_Listing {
                         }
 
                         $category->fee_id = intval( $fee_info->fee_id );
-                        $category->fee = wpbdp_get_fee( $category->fee_id );
                         $category->fee_days = intval( $fee_info->fee_days );
                         $category->fee_images = intval( $fee_info->fee_images );
+                        
+                        $category->fee = wpbdp_get_fee( $category->fee_id );
+                        if ( ! $category->fee ) {
+                            $category->fee = new StdClass();
+                            $category->fee->id = $category->fee_id;
+                            $category->fee->label = _x( '(Fee Unavailable)', 'listing', 'WPBDM' );
+                            $category->fee->amount = 0.0;
+                            $category->fee->days = $category->fee_days;
+                            $category->fee->images = $category->fee_images;
+                            $category->fee->categories = array();
+                            $category->fee->extra_data = array();
+                        }
+
                         $category->expires_on = $fee_info->expires_on;
                         $category->expired = ( $category->expires_on && strtotime( $category->expires_on ) < time() ) ? true : false;
                         $category->renewal_id = $fee_info->id;
@@ -243,6 +255,17 @@ class WPBDP_Listing {
 
                         $category->fee_id = intval( $payment_info->rel_id_2 );
                         $category->fee = wpbdp_get_fee( $category->fee_id );
+                        if ( ! $category->fee ) {
+                            $category->fee = new StdClass();
+                            $category->fee->id = $category->fee_id;
+                            $category->fee->label = _x( '(Fee Unavailable)', 'listing', 'WPBDM' );
+                            $category->fee->amount = 0.0;
+                            $category->fee->days = $category->fee_days;
+                            $category->fee->images = $category->fee_images;
+                            $category->fee->categories = array();
+                            $category->fee->extra_data = array();
+                        }
+
                         $category->fee_days = intval( $payment_info->data['fee_days'] );
                         $category->fee_images = intval( $payment_info->data['fee_images'] );
                         $category->expires_on = null; // TODO: calculate expiration date.
