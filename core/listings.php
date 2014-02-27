@@ -756,11 +756,6 @@ class WPBDP_ListingsAPI {
         return $wpdb->get_col($query);
     }
 
-    // TODO: use hashes to verify users.
-    public function get_renewal_url( $renewal_id ) {
-        return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => $renewal_id ), wpbdp_get_page_link( 'main' ) );
-    }
-
     public function send_renewal_email( $renewal_id, $email_message_type = 'auto' ) {
         global $wpdb;
 
@@ -788,7 +783,9 @@ class WPBDP_ListingsAPI {
             $message_option = 'listing-renewal-message';
         }
 
-        $renewal_url = $this->get_renewal_url( $fee_info->id );
+        $listing = WPBDP_Listing::get( $fee_info->listing_id );
+
+        $renewal_url = $listing->get_renewal_url( $fee_info->category_id );
         $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
                                        '[listing]' => esc_attr( get_the_title( $fee_info->listing_id ) ),
                                        '[category]' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX )->name,
@@ -856,7 +853,7 @@ class WPBDP_ListingsAPI {
             if ( ! $listing )
                 continue;
 
-            $renewal_url = $this->get_renewal_url( $r->id );
+            $renewal_url = $listing->get_renewal_url( $r->category_id );
             $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
                                            '[listing]' => esc_attr( $listing->get_title() ),
                                            '[category]' => wpbdp_get_term_name( $r->category_id ),

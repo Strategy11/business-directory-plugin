@@ -120,6 +120,7 @@ class WPBDP_Listing {
         wp_set_post_terms( $this->id, $listing_terms, WPBDP_CATEGORY_TAX );
     }
 
+    // TODO: if there is 'current' information for the category respect the expiration time left.
     public function add_category( $category, $fee, $recurring = false, $recurring_data = array() ) {
         global $wpdb;
 
@@ -165,7 +166,7 @@ class WPBDP_Listing {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
-    // TODO: if there are pending payments for a category but the category is already approved/not expired correct the information and don't consider it pending.
+    // TODO: what happens when sections clash? i.e. there is a payment pending for a renewal and somehow the category is also in 'expired'
     public function get_categories( $info = 'current' ) {
         global $wpdb;
 
@@ -335,6 +336,11 @@ class WPBDP_Listing {
             default:
                 break;
         }
+    }
+
+    public function get_renewal_url( $category_id ) {
+        $hash = base64_encode( 'listing_id=' . $this->id . '&category_id=' . $category_id );
+        return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => urlencode( $hash ) ), wpbdp_get_page_link( 'main' ) ); 
     }
 
     public static function create( &$state ) {
