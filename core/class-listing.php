@@ -291,6 +291,13 @@ class WPBDP_Listing {
         return 'publish' == get_post_status( $this->id );
     }
 
+    public function get_permalink() {
+        if ( ! $this->id )
+            return '';
+        
+        return get_permalink( $this->id );
+    }
+
     public function get_payment_status() {
         return WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ), true ) ? 'pending' : 'ok';
     }
