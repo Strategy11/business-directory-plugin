@@ -24,7 +24,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
             return wpbdp_render_msg( _x( 'You don\'t have permission to access this page.', 'renewal', 'WPBDM' ), 'error' );
 
         if ( $this->category->recurring )
-            die('Handle recurring!');
+            return $this->recurring_management();
 
         if ( $this->category->payment_id )
             return $this->checkout();
@@ -77,6 +77,30 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
                                                      'payment' => $payment ) );
     }
 
+    private function recurring_management() {
+        global $wpbdp;
+
+        $html  = '';
+        $html .=  '<div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">';
+        $html .= '<h2>' . _x('Recurring Fee Management', 'templates', 'WPBDM') . '</h2>';
+        $html .= '<p>' . _x( 'Because you are on a recurring fee plan you don\'t have to renew your listing right now as this will be handled automatically when renewal comes.', 'renew', 'WPBDM' ) . '</p>';
+
+        $html .= '<h4>' . _x( 'Current Fee Details', 'renewal', 'WPBDM' ) . '</h4>';
+        $html .= '<dl class="recurring-fee-details">';
+        $html .= '<dt>' . _x( 'Number of images:', 'renewal', 'WPBDM' ) . '</dt>';
+        $html .= '<dd>' . $this->category->fee_images . '</dd>';
+        $html .= '<dt>' . _x( 'Expiration date:', 'renewal', 'WPBDM' ) . '</dt>';
+        $html .= '<dd>' . date_i18n( get_option( 'date_format' ), strtotime( $this->category->expires_on ) ) . '</dd>';        
+        $html .= '</dl>';
+
+        $html .= '<p>' . _x( 'However, if you want to cancel your subscription you can do this on this page. When the renewal time comes you\'ll be able to change your settings again.', 'renew', 'WPBDM' ) . '</p>';
+        $html .= $wpbdp->payments->render_unbuscribe_integration( $this->category, $this->listing );
+
+        $html .= '</div>';
+
+        return $html;
+    }
+
     private function obtain_renewal_info() {
         $renewal_id = urldecode( trim( $_GET['renewal_id'] ) );
 
@@ -104,22 +128,5 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
 
         return true;
     }
-        //     if ( isset( $_POST['fees'] ) && isset( $_POST['fees'][ $this->feeinfo->category_id ] ) ) {
-    //         if ( $fee = wpbdp_get_fee( $_POST['fees'][ $this->feeinfo->category_id ] ) ) {
-    //             // TODO: check fee works with category_id
-
-    //             $listings_api = wpbdp_listings_api();
-    //             $payments_api = wpbdp_payments_api();
-
-    //             if ( $transaction_id = $listings_api->renew_listing( $this->feeinfo->id, $fee ) ) {
-    //                 return $payments_api->render_payment_page( array(
-    //                     'title' => _x('Renew Listing', 'templates', 'WPBDM'),
-    //                     'item_text' => _x('Pay %1$s renewal fee via %2$s.', 'templates', 'WPBDM'),
-    //                     'transaction_id' => $transaction_id,
-    //                 ) );
-    //             }
-    //         }
-    //     }
-    // }
 
 }

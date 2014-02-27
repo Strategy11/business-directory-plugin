@@ -1,6 +1,6 @@
 <div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">
 
-    <h2><?php _ex('Renew Listing', 'templates', 'WPBDM'); ?></h2>    
+    <h2><?php _ex('Renew Listing', 'templates', 'WPBDM'); ?></h2>
 
     <?php if ( isset( $payment ) && $payment ): ?>
         <form action="<?php echo $payment->get_checkout_url(); ?>" method="POST">
