@@ -60,11 +60,9 @@
                 <a href="#" class=""><?php _ex( 'See payment info', 'admin infometabox', 'WPBDM' ); ?></a>          
             <?php else: ?>
                 - <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'removecategory', 'category_id' => $category->id ) ); ?>" class="removecategory-link"><?php _ex( 'Remove Category', 'admin infometabox', 'WPBDM' ); ?></a><br /><br />
-                <?php if ( $category->expired ): ?>
                 - <a href="#" onclick="window.prompt('<?php _ex( 'Renewal URL (copy & paste)', 'admin infometabox', 'WPBDM' ); ?>', '<?php echo $listing->get_renewal_url( $category->id ); ?>'); return false;"><?php _ex( 'Show renewal link', 'admin infometabox', 'WPBDM' ); ?></a><br />
                 - <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'send-renewal-email',
                                                             'renewal_id' => $category->renewal_id ) ); ?>"><?php _ex( 'Send renewal e-mail to user', 'admin infometabox', 'WPBDM' ); ?></a>
-                <?php endif; ?>
             <?php endif; ?>     
         <?php endif; ?>
 
