@@ -26,18 +26,16 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         if ( $this->category->recurring )
             die('Handle recurring!');
 
-        $step = 'fee_selection';
-
         if ( $this->category->payment_id )
-            $step = 'checkout';
+            return $this->checkout();
 
-        return call_user_func( array( &$this, $step ) );
+        return $this->fee_selection();
     }
 
     private function fee_selection() {
         // Cancel renewal?
         if ( isset( $_POST['cancel-renewal'] ) ) {
-            $this->listing->remove_category( $this->category->id );
+            $this->listing->remove_category( $this->category->id, true );
             
             if ( ! $this->listing->get_categories( 'all' ) )
                 $this->listing->delete();
@@ -51,9 +49,6 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
             $fee_id = intval( $_POST['fees'][ $this->category->id ] );
 
             if ( $fee = wpbdp_get_fee( $fee_id ) ) {
-                // Remove current fee info.
-                $this->listing->remove_category( $this->category->id );
-
                 $payment = new WPBDP_Payment( array( 'listing_id' => $this->listing->get_id() ) );
                 $payment->add_item( 'fee',
                                     $fee->amount,
@@ -77,17 +72,9 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         if ( ! $payment )
             return wpbdp_render_msg( _x( 'Invalid renewal state.', 'renewal', 'WPBDM' ), 'error' );
 
-        global $wpbdp;
-
-        $html  = '';
-        $html .= '<div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">';
-        $html .= '<form action="' . $payment->get_checkout_url() . '" method="POST">';
-        $html .= '<input type="submit" value="' . _x( 'Proceed to Checkout', 'renewal', 'WPBDM' ) . '"/>';
-        $html .= '</form>';
-        $html .= '</div>';
-
-        
-        return $html;
+        return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing,
+                                                     'category' => $this->category,
+                                                     'payment' => $payment ) );
     }
 
     private function obtain_renewal_info() {
