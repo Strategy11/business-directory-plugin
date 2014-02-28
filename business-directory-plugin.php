@@ -302,7 +302,8 @@ class WPBDP_Plugin {
         add_action('init', array($this, '_register_image_sizes'));
         add_action( 'init', array( &$this, 'handle_recaptcha' ) );
 
-        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); // XXX For testing only
+        // For testing the expiration routine only.
+        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); 
 
         add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
 
@@ -1065,7 +1066,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
             return $html;
 
         if ( wpbdp_get_option( 'recaptcha-on' ) && wpbdp_get_option( 'show-contact-form' ) ) {
-            // XXX: We can only have one reCAPTCHA per page, so workaround this limitation by sharing the one in the contact form.
+            // Only one reCAPTCHA is allowed per page, so we work around this limitation by sharing the one in the contact form.
             add_action( 'wp_footer', array( &$this, 'comment_recaptcha_workaround' ) );
 
             $html .= '<div id="wpbdp-comment-recaptcha">';
