@@ -602,3 +602,30 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
                   
     return $term->name;
 }
+
+class WPBDP_AJAX_Response {
+	public $success = true;
+	public $error = '';
+	public $data = array();
+
+	public function add( $k, $v ) {
+		$this->data[ $k ] = $v;
+	}
+
+	public function send_error( $error = null ) {
+		if ( $error )
+			$this->error = $error;
+
+		$this->success = false;
+		$this->data = null;
+	}
+
+	public function send() {
+		$response = array();
+		$response['success'] = $this->success;
+		$response['data'] = $this->data;
+
+		print json_encode( $response );
+		die();
+	}
+}
