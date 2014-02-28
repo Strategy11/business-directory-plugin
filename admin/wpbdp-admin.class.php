@@ -2,7 +2,8 @@
 require_once( WPBDP_PATH . 'admin/admin-pages.php' );
 require_once( WPBDP_PATH . 'admin/fees.php' );
 require_once( WPBDP_PATH . 'admin/form-fields.php' );
-require_once( WPBDP_PATH . 'admin/transactions.php' );
+require_once( WPBDP_PATH . 'admin/payments.php' );
+// require_once( WPBDP_PATH . 'admin/transactions.php' );
 require_once( WPBDP_PATH . 'admin/csv-import.php' );
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
@@ -53,8 +54,8 @@ class WPBDP_Admin {
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
         
-        // CSV export page.
         $this->csv_export = new WPBDP_Admin_CSVExport();
+        $this->payments = new WPBDP_Admin_Payments();
     }
 
     function enqueue_scripts() {
@@ -129,15 +130,15 @@ class WPBDP_Admin {
                          'wpbdp_manage_payments',
                          '__return_false');
 
-        if ( wpbdp_payments_api()->payments_possible() ) {
-            add_submenu_page( 'wpbdp_admin',
-                              _x( 'Transactions', 'admin menu', 'WPBDM' ),
-                              _x( 'Transactions', 'admin menu', 'WPBDM' ),
-                              'activate_plugins',
-                              'wpbdp_manage_transactions',
-                              array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
-                            );
-        }
+        // if ( wpbdp_payments_api()->payments_possible() ) {
+        //     add_submenu_page( 'wpbdp_admin',
+        //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
+        //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
+        //                       'activate_plugins',
+        //                       'wpbdp_manage_transactions',
+        //                       array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
+        //                     );
+        // }
         add_submenu_page('wpbdp_admin',
                          _x('CSV Import', 'admin menu', 'WPBDM'),
                          _x('CSV Import', 'admin menu', 'WPBDM'),
