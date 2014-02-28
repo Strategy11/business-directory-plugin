@@ -237,6 +237,8 @@ class WPBDP_ListingsAPI {
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
 
+        add_action( 'deleted_post', array( &$this, 'after_listing_delete' ) );
+
         $this->upgrades = WPBDP_ListingUpgrades::instance();
     }
 
@@ -311,7 +313,7 @@ class WPBDP_ListingsAPI {
     }
 
     /**
-     * @since 3.3
+     * @since 3.4
      */
     public function setup_listing_after_payment( &$payment ) {
         $listing = WPBDP_Listing::get( $payment->get_listing_id() );
@@ -344,6 +346,29 @@ class WPBDP_ListingsAPI {
 
         $listing->save();
         $listing->publish();    
+    }
+
+    /**
+     * Handles cleanup after a listing is deleted.
+     * @since 3.4
+     */
+    public function after_listing_delete( $post_id ) {
+        global $wpdb;
+
+        if ( WPBDP_POST_TYPE != get_post_type( $post_id ) )
+            return;
+
+        // Remove attachments.
+        $attachments = get_posts( array( 'post_type' => 'attachment', 'post_parent' => $post_id, 'numberposts' => -1, 'fields' => 'ids' ) );
+        foreach ( $attachments as $attachment_id )
+            wp_delete_attachment( $attachment_id, true );
+
+        // Remove listing fees.
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post_id ) );
+
+        // Remove payment information.
+        $wpdb->query( $wpdb->prepare( "DELETE pi.* FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id IN (SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d)", $post_id ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id ) );
     }
 
 
