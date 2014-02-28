@@ -3,8 +3,10 @@ span.tag {
     border-radius: 2px;
     padding: 2px 5px;
     color: #fff;
-    /*font-size: 8px;*/
+    font-size: 9px;
     margin-right: 2px;
+    text-transform: uppercase;
+    text-decoration: none !important;
 }
 
 /* Sidebar */
@@ -120,53 +122,6 @@ td.column-bd_sticky_status .status.sticky {
 #BusinessDirectory_listinginfo #listing-metabox-generalinfo > strong, #BusinessDirectory_listinginfo #listing-metabox-fees > strong, #BusinessDirectory_listinginfo #listing-metabox-transactions > strong {
     display: block;
     margin-bottom: 10px;
-}
-
-#listing-metabox-transactions > .transaction {
-    border-top: solid 1px #ddd;
-}
-
-#listing-metabox-transactions .transaction {
-    background: #fff;    
-    border-bottom: solid 1px #ddd;
-}
-
-#listing-metabox-transactions .transaction .summary {
-    cursor: pointer;
-    padding: 2px;
-}
-
-#listing-metabox-transactions .transaction.open .summary {
-    background: #efefef;
-}
-
-#listing-metabox-transactions .transaction .summary .handle a {
-    font-weight: bold;
-    text-decoration: none;
-    padding: 0 2px;
-    width: 10px;
-    display: inline-block;
-}
-
-#listing-metabox-transactions .transaction .summary span {
-    margin-right: 4px;
-}
-
-#listing-metabox-transactions .transaction .summary .status.completed {
-    background: green;
-}
-
-#listing-metabox-transactions .transaction .summary .status.pending {
-    background: red;
-}
-
-#listing-metabox-transactions .transaction .details {
-    display: none;
-    margin-left: 5px;
-}
-
-#listing-metabox-transactions .transaction .details dt {
-    color: #595959;
 }
 
 /* Listing info metabox / fees */
@@ -488,4 +443,87 @@ body.taxonomy-wpbdp_category .column-id {
 
 .directory-admin_page_wpbdp_admin_settings textarea {
     font-size: 13px;
+}
+
+.tag.payment-status.completed {
+    background: green;
+}
+
+.tag.payment-status.pending {
+    background: red;
+}
+
+
+/* Listing metabox - Transactions. */
+#listing-metabox-transactions table.payments-list {
+    width: 100%;
+    border-spacing: 0;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment td {
+    border-bottom: solid 1px #efefef;
+    padding: 2px 0;    
+}
+
+#listing-metabox-transactions table.payments-list tr.payment td.status {
+    text-align: right;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment.completed td {
+    color: green;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment.pending td {
+    color: red;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment.rejected td {
+    color: #bbb;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment.canceled td {
+    text-decoration: line-through;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#listing-metabox-transactions table.payments-list tr.payment a:hover {
+    text-decoration: underline;
+}
+
+
+/* Payment Details. */
+.wpbdp-payment-details {
+}
+
+.wpbdp-payment-details .tag {
+    float: right;
+}
+
+.wpbdp-payment-details .details, .wpbdp-payment-details .invoice, .wpbdp-payment-details .actions {
+    clear: both;
+    margin: 20px 0;
+}
+
+.wpbdp-payment-details .details dl dt {
+    font-weight: bold;
+}
+
+.wpbdp-payment-details .details dl dd {
+}
+
+.wpbdp-payment-details table.wpbdp-payment-items-table {
+    width: 100%;
+}
+
+.wpbdp-payment-details table.wpbdp-payment-items-table th {
+    text-transform: uppercase;
+}
+
+.wpbdp-payment-details table.wpbdp-payment-items-table td {
+    border-top: 1px solid #bbb;
+    padding: 6px 10px 6px 0;    
 }

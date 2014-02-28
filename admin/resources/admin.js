@@ -126,15 +126,6 @@ jQuery(document).ready(function($){
     $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
 
 
-    /* Listing Info metabox / Transactions */
-
-    $('#listing-metabox-transactions .transaction .summary').click(function(e){
-        e.preventDefault();
-        $(this).find('.handle a').text($(this).parent('.transaction').hasClass('open') ? '+' : '-');
-        $(this).parent('.transaction').toggleClass('open');
-        $(this).siblings('.details').toggle();
-    });
-
     /* Listing info metabox / fees */
 
     $('#listing-metabox-fees a.assignfee-link').click(function(e){
@@ -281,7 +272,9 @@ function wpbdp_load_placeholder($v) {
     $v.load(ajaxurl, {"action": action, "post_id": post_id, "baseurl": baseurl});
 }
 
+
 var WPBDP_Admin = {};
+WPBDP_Admin.payments = {};
 
 // TODO: integrate this into $.
 WPBDP_Admin.ProgressBar = function($item, settings) {
@@ -298,3 +291,33 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         this.$bar.find('.progress-bar-inner').attr('style', 'width: ' + pcg + '%;');
     };
 };
+
+
+(function($) {
+    var payments = WPBDP_Admin.payments;
+
+    payments._initialize = function() {
+        $('#listing-metabox-transactions a.payment-details-link').click(function(e) {
+            e.preventDefault();
+            payments.viewPaymentDetails( $(this).attr('data-id') );
+        });
+
+        $('#listing-metabox-transactions a.payment-details-link')[6].click();
+
+        if ($('#wpbdp-modal-dialog').length == 0) {
+            $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
+        }
+    };
+
+    payments.viewPaymentDetails = function(id) {
+        $.get( ajaxurl, { 'action': 'wpbdp-payment-details', 'id': id }, function(res) {
+            if (res && res.success)
+                $('#wpbdp-modal-dialog').html(res.data.html);
+                tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
+        }, 'json' );
+    };
+
+    // Initialize payments.
+    $(document).ready(function(){ payments._initialize(); });
+
+})(jQuery);

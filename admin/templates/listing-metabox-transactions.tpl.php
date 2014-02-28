@@ -8,51 +8,27 @@ $_transaction_types = array(
 
 ?>
 <strong><?php _ex('Payments History', 'admin', 'WPBDM'); ?></strong>
+<?php if ( current_user_can( 'administrator' ) ): ?>
+<p><?php _ex( 'Click a payment to see the details or approve/reject the transaction.', 'admin listing metabox', 'WPBDM' ); ?></p>
+<?php endif; ?>
 
+<?php if ( ! $payments ): ?>
+<p><?php _ex( 'There are no transactions associated to this listing.', 'listing metabox', 'WPBDM' ); ?></p>
+<?php else: ?>
+<table class="payments-list">
 <?php foreach ( $payments as &$payment ): ?>
-<div class="transaction">
-    <div class="summary">
-        <span class="handle"><a href="#" title="<?php _ex('Click for more details', 'admin infometabox', 'WPBDM'); ?>">+</a></span>
-        <span class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->get_created_on() ) ); ?></span>
-        <div class="transaction-status-container">
-            <span class="status tag <?php echo $payment->get_status();?> "><?php echo $payment->get_status(); ?></span>
-        </div>
-    </div>
-    <div class="details">
-        <dl>
-            <dt><?php echo _ex('Date', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd><?php echo $payment->get_created_on(); ?></dd>
-
-            <dt><?php _ex('Amount', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd><?php echo wpbdp_format_currency( $payment->get_total(), 2, $payment->get_currency_code() ); ?></dd>
-
-            <dt><?php _ex('Gateway', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd><?php echo $payment->get_gateway(); ?></dd>
-
-            <dt><?php _ex('Payer Info', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd>
-                Name: <span class="name"><?php echo $payment->get_payer_info( 'name' ) ? $payment->get_payer_info( 'name' ) : '--'; ?></span><br />
-                Email: <span class="email"><?php echo $payment->get_payer_info( 'email' ) ? $payment->get_payer_info( 'email' ) : '--'; ?></span>
-            </dd>
-
-            <?php if ( $payment->has_been_processed() ): ?>
-            <dt><?php _ex('Processed on', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd><?php echo $payment->get_processed_on(); ?></dd>
-            <dt><?php _ex('Processed by', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd><?php echo $payment->get_handler(); ?></dd>
-            <?php endif; ?>
-        </dl>
-
-        <?php if ( $payment->is_pending() && current_user_can( 'administrator' ) ): ?>
-        <p>
-            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'approvetransaction', 'transaction_id' => $payment->get_id() ) ); ?>" class="button-primary">
-                <?php _ex('Approve payment', 'admin infometabox', 'WPBDM'); ?>
-            </a>&nbsp;
-            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'rejecttransaction', 'transaction_id' => $payment->get_id() ) ); ?>" class="button">
-                <?php _ex('Reject payment', 'admin infometabox', 'WPBDM'); ?>
+    <tr class="payment <?php echo $payment->get_status(); ?>">
+        <td class="date">
+            <a href="#" class="payment-details-link" data-id="<?php echo $payment->get_id(); ?>">
+                <?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->get_created_on() ) ); ?>
             </a>
-        </p>
-        <?php endif; ?>
-    </div>
-</div>
+        </td>
+        <td class="total">
+            <a href="#" class="payment-details-link" data-id="<?php echo $payment->get_id(); ?>">
+                <?php echo wpbdp_format_currency( $payment->get_total(), 2, $payment->get_currency_code() ); ?>
+            </a></td>
+        <td class="status"><span class="tag payment-status <?php echo $payment->get_status(); ?>"><?php echo $payment->get_status(); ?></span></td>
+    </tr>
 <?php endforeach; ?>
+</table>
+<?php endif; ?>
