@@ -7,6 +7,7 @@ span.tag {
     margin-right: 2px;
     text-transform: uppercase;
     text-decoration: none !important;
+    line-height: 1.5 !important;
 }
 
 /* Sidebar */
@@ -138,8 +139,8 @@ td.column-bd_sticky_status .status.sticky {
 }
 
 #listing-metabox-generalinfo .category-name .category-status, #listing-metabox-fees .category-name .category-status {
-    font-size: 80%;
     float: right;
+    font-weight: normal;
 }
 
 #listing-metabox-generalinfo .category-name .category-status.ok, #listing-metabox-fees .category-name .category-status.ok {
@@ -526,4 +527,8 @@ body.taxonomy-wpbdp_category .column-id {
 .wpbdp-payment-details table.wpbdp-payment-items-table td {
     border-top: 1px solid #bbb;
     padding: 6px 10px 6px 0;    
+}
+
+.wpbdp-payment-details .actions a.button-primary {
+    color: #fff !important;
 }

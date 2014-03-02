@@ -35,11 +35,12 @@
 
     <div class="actions">
         <?php if ( $payment->is_pending() ): ?>
-            <?php echo remove_query_arg( 'wpbdmaction', '' ); ?>
-            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'approvetransaction', 'transaction_id' => $payment->get_id() ) ); ?>" class="button-primary">
+            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'approvetransaction', 'transaction_id' => $payment->get_id() ),
+                                               admin_url('post.php?post=' . $payment->get_listing_id() . '&action=edit' ) ); ?>" class="button-primary">
                 <?php _ex('Approve payment', 'admin payments', 'WPBDM'); ?>
             </a>&nbsp;
-            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'rejecttransaction', 'transaction_id' => $payment->get_id() ) ); ?>" class="button">
+            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'rejecttransaction', 'transaction_id' => $payment->get_id() ),
+                                               admin_url('post.php?post=' . $payment->get_listing_id() . '&action=edit' )  ); ?>" class="button">
                 <?php _ex('Reject payment', 'admin payments', 'WPBDM'); ?>
             </a>
         <?php endif; ?>  
