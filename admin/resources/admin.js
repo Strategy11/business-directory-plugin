@@ -302,8 +302,6 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             payments.viewPaymentDetails( $(this).attr('data-id') );
         });
 
-        $('#listing-metabox-transactions a.payment-details-link')[6].click();
-
         if ($('#wpbdp-modal-dialog').length == 0) {
             $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
         }
