@@ -316,6 +316,15 @@ class WPBDP_Listing {
         }
     }
 
+    public function make_category_non_recurring( $category_id ) {
+        global $wpdb;
+        $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees",
+                       array( 'recurring' => 0,
+                              'recurring_id' => null,
+                              'recurring_data' => null ),
+                       array( 'listing_id' => $this->id, 'category_id' => $category_id ) );
+    }
+
     public function get_total_cost() {
         global $wpdb;
         $cost = floatval( $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) );
