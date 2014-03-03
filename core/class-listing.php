@@ -7,6 +7,7 @@ require_once( WPBDP_PATH . 'core/class-payment.php' );
 class WPBDP_Listing {
 
     private $id = 0;
+    private $new = true;
 
     private function __construct( $id ) {
         $this->id = intval( $id );
@@ -123,7 +124,7 @@ class WPBDP_Listing {
         $this->remove_category( $category );
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
-        $fee = is_null( $fee ) ? $fee : ( is_object( $fee ) ? $fee : wpbdp_get_fee( $fee ) );
+        $fee =  ( null === $fee ) ? $fee : ( is_object( $fee ) ? $fee : wpbdp_get_fee( $fee ) );
 
         if ( is_null( $fee ) || ! $fee || ! term_exists( $category_id ) )
             return;
@@ -358,6 +359,12 @@ class WPBDP_Listing {
     }
 
     public function save() {
+        if ( $this->new )
+            do_action_ref_array( 'WPBDP_Listing::listing_created', array( &$this ) );
+
+        $this->new = false;
+        do_action_ref_array( 'WPBDP_Listing::listing_saved', array( &$this ) );
+
         // do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
         do_action_ref_array( 'wpbdp_save_listing', array( &$this ) );
     }
@@ -380,10 +387,6 @@ class WPBDP_Listing {
                 do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
                 break;
 
-            case 'new':
-                do_action_ref_array( 'wpbdp_create_listing', array( &$this, &$extra ) );
-                break;
-
             default:
                 break;
         }
@@ -392,6 +395,14 @@ class WPBDP_Listing {
     public function get_renewal_url( $category_id ) {
         $hash = base64_encode( 'listing_id=' . $this->id . '&category_id=' . $category_id );
         return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => urlencode( $hash ) ), wpbdp_get_page_link( 'main' ) ); 
+    }
+
+    public function get_author_meta( $meta ) {
+        if ( ! $this->id )
+            return '';
+
+        $post = get_post( $this->id );
+        return get_the_author_meta( $meta, $post->post_author );
     }
 
     public static function create( &$state ) {
@@ -450,7 +461,10 @@ class WPBDP_Listing {
         if ( WPBDP_POST_TYPE !== get_post_type( $id ) )
             return null;
 
-        return new self( $id );
+        $l = new self( $id );
+        $l->new = false;
+
+        return $l;
     }
 
 }

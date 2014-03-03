@@ -193,11 +193,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $item['description'] = $description;
         $item['data'] = $data;
 
-        if ( $rel_id_1 )
-            $item['rel_id_1'] = $rel_id_1;
-
-        if ( $rel_id_2 )
-            $item['rel_id_2'] = $rel_id_2;
+        $item['rel_id_1'] = $rel_id_1;
+        $item['rel_id_2'] = $rel_id_2;
         
         $this->items[] = $item;
         $this->amount += $amount;
