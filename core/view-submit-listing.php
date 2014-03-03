@@ -453,6 +453,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
 
+        $listing->save();
+
         $this->state->advance();
         return $this->dispatch();
     }

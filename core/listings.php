@@ -231,9 +231,8 @@ class WPBDP_ListingsAPI {
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
-        // notify admins of new listings (if needed)
-        add_action( 'wpbdp_create_listing', array( &$this, 'new_listing_admin_email' ) );
-        add_action( 'wpbdp_create_listing', array( &$this, 'new_listing_confirmation_email' ) );
+        add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_admin_email' ) );
+        add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_confirmation_email' ) );
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
 
@@ -373,59 +372,28 @@ class WPBDP_ListingsAPI {
 
 
 
-    //
-    // E-mail notifications.
-    //
-
     public function new_listing_confirmation_email( &$listing ) {
         if ( ! wpbdp_get_option( 'send-email-confirmation' ) )
             return;
 
         $message = wpbdp_get_option( 'email-confirmation-message' );
-        $message = str_replace( "[listing]", get_the_title( $listing->get_id() ), $message );
+        $message = str_replace( "[listing]", $listing->get_title(), $message );
         
         $email = new WPBDP_Email();
         $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title( $listing->get_id() ), array() );
         $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
         $email->body = $message;
-        $email->send();                
+        $email->send();
     }
 
    public function new_listing_admin_email( &$listing ) {
         if ( ! wpbdp_get_option( 'notify-admin' ) )
             return;
 
-        $listing_id = $listing->get_id();
-
-        // FIXME: this is not the actual list of categories since some of them might be pending. Use Listings::get_categories().
-        $categories = wp_get_post_terms( $listing_id, WPBDP_CATEGORY_TAX, array( 'fields' => 'names' ) );
-        if ( $categories ) {
-            $categories_str = implode( ',', $categories );
-        } else {
-            $categories_str = '-';
-        }
-
-        if ( get_post_status( $listing_id ) == 'publish' ) {
-            $url = get_permalink( $listing_id );
-        } else {
-            $url = _x( '(not yet published)', 'notify email', 'WPBDM' );
-        }
-
-        $post = get_post( $listing_id );
-
-        $message = wpbdp_render( 'email/listing-added', array(
-            'id' => $listing_id,
-            'title' => get_the_title( $listing_id ),
-            'url' => $url,
-            'categories' => $categories_str,
-            'user_name' => get_the_author_meta( 'user_login', $post->post_author ),
-            'user_email' => get_the_author_meta( 'user_email', $post->post_author )
-        ), false );
-
         $email = new WPBDP_Email();
         $email->subject = sprintf( _x( '[%s] New listing notification', 'notify email', 'WPBDM' ), get_bloginfo( 'name' ) );
         $email->to[] = get_bloginfo( 'admin_email' );
-        $email->body = $message;
+        $email->body = wpbdp_render( 'email/listing-added', array( 'listing' => $listing ), false );
         $email->send();
     }
 
