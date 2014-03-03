@@ -377,10 +377,6 @@ class WPBDP_PaymentsAPI {
         return true;
     }
 
-    public function get_uri_id_for_transaction($transaction) {
-        return urlencode(base64_encode(sprintf('%d.%s', $transaction->id, strtotime($transaction->created_on))));
-    }
-
     public function get_transaction_from_uri_id() {
         if (!isset($_GET['tid']))
             return null;
@@ -398,13 +394,11 @@ class WPBDP_PaymentsAPI {
         return null;
     }
 
+    /**
+     * @deprecated since 3.4
+     */
     public function get_processing_url($gateway, $transaction=null) {
-        $args = array('action' => 'payment-process', 'gateway' => $gateway);
-
-        if ($transaction)
-            $args['tid'] = $this->get_uri_id_for_transaction($transaction);
-
-        return add_query_arg($args, wpbdp_get_page_link('main'));
+        throw new Exception( sprintf( 'get_processing_url() is deprecated. Please upgrade your "%s" gateway.', $gateway ) );
     }
 
     public function in_test_mode() {
@@ -490,13 +484,12 @@ class WPBDP_PaymentsAPI {
         $this->gateways[ $gateway_id ]->process( $payment, $action );
     }
 
-    public function render_unbuscribe_integration( &$category, &$listing ) {
+    public function render_unsubscribe_integration( &$category, &$listing ) {
         global $wpdb;
 
         if ( ! $category || ! $listing )
             return;
 
-        // TODO: we only support PayPal for now.
         if ( ! $this->gateways['paypal'] )
             return;
 

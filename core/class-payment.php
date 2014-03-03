@@ -314,12 +314,17 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     }
 
     public function get_checkout_url() {
-        return add_query_arg( array( 'action' => 'checkout', 'payment_id' => $this->id ), wpbdp_get_page_link( 'main' ) );
+        $payment_id = $this->id;
+        $payment_q = base64_encode('payment_id=' . $payment_id . '&verify=0' ); // TODO: add a 'verify' parameter to avoid false links being generated.
+
+        return add_query_arg( array( 'action' => 'checkout', 'payment' => urlencode( $payment_q ) ), wpbdp_get_page_link( 'main' ) );
     }
 
     public function get_redirect_url() {
-        if ( $this->get_submit_state_id() )
-            return add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
+        if ( $this->get_submit_state_id() ) {
+            if ( $this->is_completed() )
+                return add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
+        }
        
         return $this->get_checkout_url();
     }

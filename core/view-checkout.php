@@ -16,7 +16,15 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     }
 
     public function dispatch() {
-        $this->payment = WPBDP_Payment::get( $_REQUEST['payment_id'] ); // TODO: obfuscate/verify payment_id.
+        $q = isset( $_REQUEST['payment'] ) ? $_REQUEST['payment'] : null;
+        if ( $q ) {
+            $q = urldecode( base64_decode( $q ) );
+            parse_str( $q, $payment_data );
+
+            if ( isset( $payment_data['payment_id'] ) && isset( $payment_data['verify'] ) ) { // TODO: check 'verify'.
+                $this->payment = WPBDP_Payment::get( $payment_data['payment_id'] );
+            } 
+        }
 
         if ( ! $this->payment )
             return wpbdp_render_msg( _x( 'Invalid payment id.', 'payments', 'WPBDM' ), 'error' );
@@ -87,3 +95,11 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     }
 
 }
+        // TODO: allow changing gateway/payment method if transactions fails
+        // if ( ( $payment->is_canceled() || $payment->is_rejected() ) && isset( $_GET['change_payment_method'] ) && $_GET['change_payment_method'] == 1 ) {
+        //     $_SERVER['REQUEST_URI'] = remove_query_arg( 'change_payment_method', $_SERVER['REQUEST_URI'] );
+
+        //     $payment->reset();
+        //     $payment->save();
+        //     return $this->dispatch();
+        // }
