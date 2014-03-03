@@ -393,7 +393,6 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
 	require_once(ABSPATH . 'wp-admin/includes/file.php');
 	require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-	// TODO(future): it could be useful to have additional constraints available
 	$constraints = array_merge( array(
 									'image' => false,
 									'max-size' => 0,
