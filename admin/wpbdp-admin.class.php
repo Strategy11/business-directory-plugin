@@ -46,6 +46,11 @@ class WPBDP_Admin {
         add_action('wp_ajax_wpbdp-uploadimage', array($this, '_upload_image'));
         add_action('wp_ajax_wpbdp-deleteimage', array($this, '_delete_image'));
         add_action('wp_ajax_wpbdp-listingimages', array($this, '_listing_images'));
+        
+        // Listing admin.
+        add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
+        add_action( 'wp_ajax_wpbdp-listing_remove_category', array( &$this, 'ajax_listing_remove_category' ) );
+        add_action( 'wp_ajax_wpbdp-listing_change_fee', array( &$this, 'ajax_listing_change_fee' ) );        
 
         add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
 
@@ -70,6 +75,7 @@ class WPBDP_Admin {
         if ( 'post.php' == $pagenow ) {
             wp_enqueue_style( 'wpbdp-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
             wp_enqueue_script( 'jquery-ui-datepicker' );
+            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.css' );
         }
 
         // Ask for site tracking if needed.
@@ -364,6 +370,65 @@ class WPBDP_Admin {
 
         }
     }
+    
+    /*
+     * AJAX listing actions.
+     */
+    public function ajax_listing_set_expiration() {
+        $response = new WPBDP_Ajax_Response();
+
+        $renewal_id = intval( isset( $_POST['renewal_id'] ) ? $_POST['renewal_id'] : 0 );
+        $expiration_time = isset( $_POST['expiration_date'] ) ? date( 'Y-m-d 00:00:00', strtotime( trim( $_POST['expiration_date'] ) ) ) : '';
+
+        if ( ! $renewal_id || ! $expiration_time || ! current_user_can( 'administrator' ) )
+            $response->send_error();
+
+        global $wpdb;
+
+        if ( $expiration_time )
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = %s, email_sent = %d WHERE id = %d", $expiration_time, 0, $renewal_id ) );
+
+        $response->add( 'formattedExpirationDate', date_i18n( get_option( 'date_format' ), strtotime( $expiration_time ) ) );
+        $response->send();
+    }
+    
+    public function ajax_listing_remove_category() {
+        $response = new WPBDP_Ajax_Response();
+
+        $listing = WPBDP_Listing::get( intval( isset( $_POST['listing'] ) ? $_POST['listing'] : 0 ) );
+        $category = intval( isset( $_POST['category'] ) ? $_POST['category'] : 0 );
+        if ( ! $listing || ! $category )
+            $response->send_error();
+        
+        $listing->remove_category( $category );
+        $response->send(); 
+    }
+
+    public function ajax_listing_change_fee() {
+        global $wpdb;
+        
+        $response = new WPBDP_Ajax_Response();
+        
+        if ( ! current_user_can( 'administrator' ) )
+            $response->send_error();        
+        
+        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d",  isset( $_POST['renewal'] ) ? $_POST['renewal'] : 0 ) );
+        
+        if ( ! $fee_info )
+            $response->send_error();
+        
+        $listing = WPBDP_Listing::get( $fee_info->listing_id );
+        $category = $listing->get_category_info( $fee_info->category_id );
+        
+        if ( ! $listing || ! $category || 'pending' == $category->status )
+            $response->send_error();
+        
+        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-change-fee.tpl.php',
+                                                   array( 'category' => $category,
+                                                          'listing' => $listing,
+                                                          'fees' => wpbdp_get_fees_for_category( $fee_info->category_id ) ) ) );
+        $response->send();
+    }
 
     function apply_query_filters($request) {
         global $current_screen;
@@ -559,30 +624,10 @@ class WPBDP_Admin {
                 $this->messages[] = _x( 'The transaction has been rejected.', 'admin', 'WPBDM' );
                 break;
 
-            case 'change_expiration':
-                global $wpdb;
-
-                $expiration_time = isset( $_GET['expiration_date'] ) ? date( 'Y-m-d 00:00:00', strtotime( trim( $_GET['expiration_date'] ) ) ) : null;
-
-                if ( $expiration_time ) {
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = %s, email_sent = %d WHERE id = %d", $expiration_time, 0, intval( $_GET['listing_fee_id'] ) ) );
-                }
-                
-                $this->messages[] = _x( 'The expiration date has been changed.', 'admin', 'WPBDM' );
-
-                break;
-
             case 'assignfee':
                 $listing = WPBDP_Listing::get( $posts[0] );
                 $listing->add_category( $_GET['category_id'], $_GET['fee_id'] );
                 $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WPBDM');
-
-                break;
-
-            case 'removecategory':
-                $listing = WPBDP_Listing::get( $posts[0] );
-                $listing->remove_category( $_GET['category_id'] );
-                $this->messages[] = _x( 'Category information was updated.', 'admin', 'WPBDM' );
 
                 break;
 

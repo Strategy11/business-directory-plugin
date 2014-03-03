@@ -16,6 +16,7 @@ class WPBDP_Admin_Listing_Metabox {
         $selected_tab = 'generalinfo';
         if ( isset( $_GET['wpbdmaction'] ) && in_array( $_GET['wpbdmaction'], array( 'removecategory', 'assignfee', 'change_expiration' ), true ) )
             $selected_tab = 'fees';
+        $selected_tab = 'fees';
 
         echo '<div class="misc-pub-section">';
 
@@ -26,7 +27,7 @@ class WPBDP_Admin_Listing_Metabox {
         echo '</ul>';
 
         foreach ( array_keys( $tabs ) as $tab_id ) {
-            echo '<div id="listing-metabox-' . $tab_id . '">';
+            echo '<div id="listing-metabox-' . $tab_id . '" class="listing-metabox-tab">';
             call_user_func( array( &$this, 'tab_' . $tab_id ) );
             echo '</div>';
         }
@@ -88,18 +89,15 @@ class WPBDP_Admin_Listing_Metabox {
     //                          add_query_arg('wpbdmaction', 'setasnotpaid'),
     //                          _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
 
-        echo '<div>';
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-feesummary.tpl.php', array(
             'categories' => $this->listing->get_categories( 'all' ),
             'listing' => $this->listing
         ) );
-        echo '</div>';
     }
 
     private function tab_fees() {
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-fees.tpl.php', array(
                                 'categories' => $this->listing->get_categories( 'all' ),
-                                'image_count' => count( $this->listing->get_images() ),
                                 'listing' => $this->listing
                                 ) );
     }

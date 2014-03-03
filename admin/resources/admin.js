@@ -138,34 +138,6 @@ jQuery(document).ready(function($){
         $(this).parent('.assignfee').hide();
     });
 
-    if ( $('#listing-metabox-fees' ).length > 0 ) {
-        $('#listing-metabox-generalinfo, #listing-metabox-fees').each(function(i, v) {
-            var $tab = $(v);
-            $tab.find('.listing-fee-expiration-datepicker').each(function(i, v) {
-                var $dp = $(v);
-                var $changeLink = $dp.siblings('a.listing-fee-expiration-change-link');
-
-                $dp.hide().datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    defaultDate: $changeLink.attr('data-date'),
-                    onSelect: function(newDate) {
-                        location.href = $changeLink.attr('href') + '&expiration_date=' + newDate;
-                    }
-                });
-            });
-
-            $tab.find('a.listing-fee-expiration-change-link').click(function(e) {
-                e.preventDefault();
-
-                var renewal_id = $(this).attr('data-renewalid');
-                $('.listing-fee-expiration-datepicker').not('.renewal-' + renewal_id ).hide();
-                $('.listing-fee-expiration-datepicker.renewal-' + renewal_id).toggle();
-            });
-        });
-
-    }
-
-
     /* Ajax placeholders */
 
     $('.wpbdp-ajax-placeholder').each(function(i,v){
@@ -275,6 +247,7 @@ function wpbdp_load_placeholder($v) {
 
 var WPBDP_Admin = {};
 WPBDP_Admin.payments = {};
+WPBDP_Admin.listingMetabox = {};
 
 // TODO: integrate this into $.
 WPBDP_Admin.ProgressBar = function($item, settings) {
@@ -291,6 +264,16 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         this.$bar.find('.progress-bar-inner').attr('style', 'width: ' + pcg + '%;');
     };
 };
+
+(function($) {
+    WPBDP_Admin.dialog = {};
+    var dialog = WPBDP_Admin.dialog;
+
+        // if ($('#wpbdp-modal-dialog').length == 0) {
+        //     $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
+        // }    
+})(jQuery);
+
 
 
 (function($) {
@@ -309,9 +292,10 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
     payments.viewPaymentDetails = function(id) {
         $.get( ajaxurl, { 'action': 'wpbdp-payment-details', 'id': id }, function(res) {
-            if (res && res.success)
+            if (res && res.success) {
                 $('#wpbdp-modal-dialog').html(res.data.html);
                 tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
+            }
         }, 'json' );
     };
 
@@ -319,3 +303,92 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     $(document).ready(function(){ payments._initialize(); });
 
 })(jQuery);
+
+(function($) {
+    var metabox = WPBDP_Admin.listingMetabox;
+
+    metabox._initialize = function() {
+        // Expiration date changing.
+        $('#listing-metabox-generalinfo, #listing-metabox-fees').each(function(i, v) {
+            var $tab = $(v);
+            $tab.find('.expiration-date-info .datepicker').each(function(i, v) {
+                var $dp = $(v);
+                var $changeLink = $dp.siblings('a.expiration-change-link');
+
+                $dp.hide().datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    defaultDate: $changeLink.attr('data-date'),
+                    onSelect: function(newDate) {
+                        if (newDate) {
+                            var $expirationDate = $(this).siblings('.expiration-date');
+                            var $spinner = $(this).parents('.listing-category').find('.spinner:first');
+
+                            $expirationDate.text('--'); $spinner.show();
+
+                            $.post(ajaxurl, {action: 'wpbdp-listing_set_expiration', renewal_id: $changeLink.attr('data-renewal_id'), expiration_date: newDate}, function(res) {
+                                    if (res && res.success)
+                                    $spinner.hide();
+                                    $expirationDate.text(res.data.formattedExpirationDate).show();
+                                }, 'json');
+                        }
+
+                        $(this).hide();
+                        
+                    }
+                });
+            });
+
+            $tab.find('a.expiration-change-link').click(function(e) {
+                e.preventDefault();
+
+                var renewal_id = $(this).attr('data-renewal_id');
+                $('.expiration-date-info .datepicker').not('.renewal-' + renewal_id ).hide();
+                $('.expiration-date-info .datepicker.renewal-' + renewal_id).toggle();
+            });
+        });
+
+        // Listing category deletion.
+        $('.listing-category a.category-delete').click(function(e) {
+            e.preventDefault();
+            
+            var listingID = $(this).attr('data-listing');
+            var categoryID = $(this).attr('data-category');
+            
+            if ( !listingID || !categoryID ) {
+                return;
+            }
+            
+            var $category = $('.listing-category-' + categoryID);
+            $.post(ajaxurl, {action: 'wpbdp-listing_remove_category', 'listing': listingID, 'category': categoryID}, function(res) {
+                if (res && res.success) {
+                    $('input[name="tax_input[wpbdp_category][]"][value="' + categoryID + '"]').attr('checked', false);
+                    $category.fadeOut(function(){ $(this).remove(); });
+                }
+            }, 'json');
+        });
+        
+        // Listing category fee change.
+        $('.listing-category a.category-change-fee').click(function(e) {
+            e.preventDefault();
+            
+            if ($('#wpbdp-modal-dialog').length == 0) {
+                $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
+            }
+
+            $.post(ajaxurl, {'action': 'wpbdp-listing_change_fee', 'renewal': $(this).attr('data-renewal')}, function(res) {
+                if (res && res.success) {
+                    $('#wpbdp-modal-dialog').html(res.data.html);
+                    tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
+                }
+            }, 'json');
+        });
+    };
+
+    $(document).ready(function(){
+        if ( $('#listing-metabox-fees').length > 0 ) {
+            metabox._initialize();
+        }
+    });
+
+})(jQuery);
+

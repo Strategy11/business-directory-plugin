@@ -192,6 +192,9 @@ class WPBDP_Listing {
             case 'pending':
                 $category_ids = $pending_ids;
                 break;
+            case 'expired':
+                $category_ids = $expired_ids;
+                break;
             case 'current':
             default:
                 $category_ids = $current_ids;

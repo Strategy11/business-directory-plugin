@@ -81,137 +81,6 @@ td.column-bd_sticky_status .status.sticky {
     background: green;
 }
 
-#BusinessDirectory_listinginfo .inside {
-    margin: 0;
-    padding: 0;
-}
-
-#BusinessDirectory_listinginfo .inside .clear {
-}
-
-#BusinessDirectory_listinginfo .listing-metabox-tabs {
-    display: block;
-    border-bottom: solid 1px #ddd !important;
-}
-
-#BusinessDirectory_listinginfo .listing-metabox-tabs li {
-    display: inline;
-    padding: 1px 8px;
-    margin: 0;
-}
-
-#BusinessDirectory_listinginfo .listing-metabox-tabs li a {
-    text-decoration: none;
-}
-
-#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected {
-    background: #ddd;
-}
-
-#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a {
-    color: #333;
-}
-
-#BusinessDirectory_listinginfo a.listing-fee-expiration-change-link {
-    margin-left: 3px;
-}
-
-#BusinessDirectory_listinginfo #listing-metabox-generalinfo, #BusinessDirectory_listinginfo #listing-metabox-fees, #BusinessDirectory_listinginfo #listing-metabox-transactions {
-    display: none;
-}
-
-#BusinessDirectory_listinginfo #listing-metabox-generalinfo > strong, #BusinessDirectory_listinginfo #listing-metabox-fees > strong, #BusinessDirectory_listinginfo #listing-metabox-transactions > strong {
-    display: block;
-    margin-bottom: 10px;
-}
-
-/* Listing info metabox / fees */
-#listing-metabox-generalinfo .listing-fee-expiration-datepicker, #listing-metabox-fees .listing-fee-expiration-datepicker {
-    position: absolute;
-    z-index: 100;
-    right: 10px;
-    font-size: 80%;
-}
-
-#listing-metabox-generalinfo .category-name, #listing-metabox-fees .category-name {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-#listing-metabox-generalinfo .category-name .category-status, #listing-metabox-fees .category-name .category-status {
-    float: right;
-    font-weight: normal;
-}
-
-#listing-metabox-generalinfo .category-name .category-status.ok, #listing-metabox-fees .category-name .category-status.ok {
-    background: green;
-}
-
-#listing-metabox-generalinfo .category-name .category-status.pending, #listing-metabox-fees .category-name .category-status.pending {
-    background: red;
-}
-
-#listing-metabox-generalinfo .category-name .removecategory-link, #listing-metabox-fees .category-name .removecategory-link {
-    float: right;
-    font-weight: normal;
-    font-size: 95%;
-}
-
-#listing-metabox-generalinfo dl.feeinfo, #listing-metabox-fees dl.feeinfo {
-    clear: both;
-}
-
-#listing-metabox-generalinfo dl.feeinfo dt, #listing-metabox-fees dl.feeinfo dt {
-    float: left;
-    color: #595959;
-    width: 80px;
-}
-
-#listing-metabox-generalinfo dl.feeinfo dd, #listing-metabox-fees dl.feeinfo dd {
-    margin-bottom: 0;
-}
-
-#listing-metabox-fees .assignfee {
-    display: none;
-}
-
-#listing-metabox-fees .assignfee .close-handle a {
-    display: block;
-    text-align: right;
-    font-size: 9px;
-    color: #900000;
-    text-decoration: underline;
-}
-
-
-#listing-metabox-fees .assignfee .feeoption {
-    padding: 5px;
-    background: #efefef;
-    border-bottom: solid 1px #ddd;
-    color: #494949;
-}
-
-#listing-metabox-fees .assignfee .feeoption .button {
-    float: right;
-}
-
-#listing-metabox-generalinfo a.removecategory-link, #listing-metabox-fees a.removecategory-link {
-    color: #ff0000;
-}
-
-#listing-metabox-generalinfo dl dt {
-    color: #595959;
-}
-
-#listing-metabox-generalinfo .tag.paymentstatus {
-    text-transform: uppercase;
-}
-
-#listing-metabox-generalinfo .tag.paymentstatus.ok {
-    background: green;
-}
-
-
 /* Form fields list table */
 table.wp-list-table td .tag {
     background: #444;
@@ -532,3 +401,29 @@ body.taxonomy-wpbdp_category .column-id {
 .wpbdp-payment-details .actions a.button-primary {
     color: #fff !important;
 }
+
+/* @group Listing fee change. */
+.listing-fee-change .fee-selection .fee {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: dotted 1px #ccc;
+    opacity: 0.85;
+}
+
+.listing-fee-change .fee-selection .fee:hover {
+    opacity: 1.0;
+}
+
+.listing-fee-change .fee-selection .fee .details {
+    margin-left: 10px;
+}
+
+.listing-fee-change .fee-selection .fee .tag {
+    float: right;
+}
+
+.listing-fee-change .fee-selection .fee .choose-this {
+    float: right;
+}
+
+/* @end */
