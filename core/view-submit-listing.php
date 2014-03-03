@@ -34,20 +34,12 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( wpbdp_get_option( 'require-login' ) && !is_user_logged_in() )
             return wpbdp_render( 'parts/login-required', array(), false );
 
-        // TODO:
-        // if ( $this->state->editing )  {
-        //     $current_user = wp_get_current_user();
+        if ( $this->state->editing )  {
+            $current_user = wp_get_current_user();
             
-        //     if ( ( get_post( $this->state->listing_id )->post_author != $current_user->ID ) && ( !current_user_can( 'administrator' ) ) )
-        //         return wpbdp_render_msg( _x( 'You are not authorized to edit this listing.', 'templates', 'WPBDM' ), 'error' );
-
-        //     if ( wpbdp_payment_status( $this->state->listing_id ) != 'paid' && !current_user_can( 'administrator' ) ) {
-        //         $html  = '';
-        //         $html .= wpbdp_render_msg( _x( 'You can not edit your listing until its payment has been cleared.', 'templates', 'WPBDM' ), 'error' );
-        //         $html .= sprintf( '<a href="%s">%s</a>', get_permalink( $this->state->listing_id ), _x( 'Return to listing.', 'templates', 'WPBDM' ) );
-        //         return $html;                
-        //     }
-        // }
+            if ( ( get_post( $this->state->listing_id )->post_author != $current_user->ID ) && ( !current_user_can( 'administrator' ) ) )
+                return wpbdp_render_msg( _x( 'You are not authorized to edit this listing.', 'templates', 'WPBDM' ), 'error' );
+        }
 
         $callback = 'step_' . $this->state->step;
 
@@ -471,55 +463,13 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         
         if ( ! $payment )
             return wpbdp_render_msg( _x( 'Invalid submit state.', 'submit_state', 'WPBDM' ), 'error' );
-        
+
         if ( $payment->is_completed() ) {
             $this->state->advance();
             return $this->dispatch();
-        }
+        }        
 
-        if ( ( $payment->is_canceled() || $payment->is_rejected() ) && isset( $_GET['change_payment_method'] ) && $_GET['change_payment_method'] == 1 ) {
-            $_SERVER['REQUEST_URI'] = remove_query_arg( 'change_payment_method', $_SERVER['REQUEST_URI'] );
-
-            $payment->reset();
-            $payment->save();
-            return $this->dispatch();
-        }
-
-        $payment_page = '';
-
-        if ( $payment->is_pending() ) {
-            // Select payment gateway.            
-            if ( ! $payment->get_gateway() ) {
-                if ( isset( $_POST['payment_method'] ) ) {
-                    $payment_method = trim( $_POST['payment_method'] );
-
-                    if ( ! $payment_method ) {
-                        $this->errors[] = _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' );
-                    } else {
-                        $payment->set_payment_method( $payment_method );
-                        $payment->save();
-
-                        return $this->dispatch();
-                    }
-                }
-            } else {
-            }
-        }
-
-        $html  = '';
-        $html .= '<h3>' . _x( '5 - Checkout', 'templates', 'WPBDM' ) . '</h3>';
-
-        if ( ! $payment->get_gateway() ) {
-            $html .= '<form action="" method="POST">';
-            $html .= '<input type="hidden" name="_state" value="' . $this->state->id . '" />';
-            $html .= $wpbdp->payments->render_invoice( $payment );
-            $html .= $wpbdp->payments->render_payment_method_selection( $payment );
-            $html .= '<input type="submit" value="Continue" />';
-        } else {
-            $html .= $wpbdp->payments->render_standard_checkout_page( $payment, array( 'retry_rejected' => true ) );
-        }
-
-        return $this->render( $html, array(), false, true );
+        return sprintf( '<a href="%s">Continue to checkout</a>', $payment->get_checkout_url() );
     }
     
     protected function step_confirmation() {
