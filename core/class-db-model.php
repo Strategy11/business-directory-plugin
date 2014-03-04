@@ -1,30 +1,55 @@
 <?php
-// TODO: static:: requires PHP 5.3.0. Check if this is OK.
-
 abstract class WPBDP_DB_Model {
     
-    const TABLE_NAME = '';
-
     protected $id = null;
-    
-    public static function get_table() {
-        global $wpdb;
 
-        if ( !static::TABLE_NAME )
-            throw new Exception( 'Table name for model not specified.' );
-
-        return $wpdb->prefix . 'wpbdp_' . static::TABLE_NAME;
-    }    
+    abstract public function save();
+    abstract public function delete();
     
-    public static function get( $id ) {
-        $res = static::find( array( 'id' => $id, '_single' => true ) );
-        return $res;
+    public function get_id() {
+        return $this->id;
     }
 
-    public static function find( $args = array(), $lightweight=false ) {
+    protected function fill_from_data( &$data = array(), $defaults = array() ) {
+        $data = (array) $data;
+        $keys = array_unique( array_merge( array_keys( $data ), array_keys( $defaults ) ) );
+        
+        foreach ( $keys as $k ) {
+            $v = isset( $data[ $k ] ) ? maybe_unserialize( $data[ $k ] ) : null;
+            
+            if ( $v )
+                $this->{$k} = $v;
+            elseif( isset( $defaults [ $k ] ) )
+                $this->{$k} = $defaults[ $k ];
+        }
+    }
+
+    /**
+     * Convenience method to obtain a record from the database by ID.
+     * Subclasses should override this method because we have to support PHP 5.2 where late static binding is not available.
+     * @param int $id The row ID.
+     * @return object
+     */
+    public static function get( $id ) {
+        throw new Exception('get() method not implemented.');
+    }
+
+    /**
+     * Convenience method to search records in a database table.
+     * Subclasses should override this method because we have to support PHP 5.2 where late static binding is not available.
+     * @return array
+     */
+    public static function find( $args = array(), $lightweight = false ) {
+        throw new Exception('find() method not implemented.');
+    }
+
+    protected static function _find( $args = array(), $lightweight = false, $table, $classname = '' ) {
+        if ( ! $table || ! $classname || ! class_exists( $classname ) )
+            throw new Exception( 'Please provide a table and class name.' );
+
         global $wpdb;
         
-        $query = "SELECT * FROM " . static::get_table() . " WHERE 1=1";
+        $query = "SELECT * FROM {$table} WHERE 1=1";
         $single = isset( $args['_single'] ) && true == $args['_single'];
         $order = isset( $args['_order'] ) && !empty( $args['_order'] ) ? trim( $args['_order'] ) : null;
         $limit = isset( $args['_limit'] ) && !empty( $args['_limit'] ) ? intval( $args['_limit'] ) : null;
@@ -53,32 +78,15 @@ abstract class WPBDP_DB_Model {
         
         if ( ! $lightweight ) {
             foreach ( $results as &$r ) {
-                $r = new static( $r );
+                $r = new $classname( $r );
             }
         }
         
-        return ( $results && $single ) ? $results[0] : $results;
-    }
-    
-    abstract public function save();
-    abstract public function delete();
-    
-    public function get_id() {
-        return $this->id;
+        return $single ? ( $results ? $results[0] : null ) : $results;
     }
 
-    protected function fill_from_data( &$data = array(), $defaults = array() ) {
-        $data = (array) $data;
-        $keys = array_unique( array_merge( array_keys( $data ), array_keys( $defaults ) ) );
-        
-        foreach ( $keys as $k ) {
-            $v = isset( $data[ $k ] ) ? maybe_unserialize( $data[ $k ] ) : null;
-            
-            if ( $v )
-                $this->{$k} = $v;
-            elseif( isset( $defaults [ $k ] ) )
-                $this->{$k} = $defaults[ $k ];
-        }
+    protected static function _get( $id, $table, $classname = '' ) {
+        return self::_find( array( 'id' => $id, '_single' => true ), false, $table, $classname );
     }
 
 }

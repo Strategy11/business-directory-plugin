@@ -8,8 +8,6 @@ require_once( WPBDP_PATH . 'core/class-db-model.php' );
  */
 class WPBDP_Payment extends WPBDP_DB_Model {
     
-    const TABLE_NAME = 'payments';
-    
     const STATUS_UNKNOWN = 'unknown';
     const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
@@ -78,7 +76,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         if ( $this->id )
             $row['id'] = $this->id;
         
-        if ( false === $wpdb->replace( self::get_table(), $row ) )
+        if ( false === $wpdb->replace( $wpdb->prefix . 'wpbdp_payments', $row ) )
             return false;
         
         $this->id = $this->id ? $this->id : $wpdb->insert_id;
@@ -349,6 +347,18 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
     public function get_notes() {
         return $this->notes;
+    }
+
+    /* @override */
+    public static function find( $args = array(), $lightweight = false ) {
+        global $wpdb;
+        return parent::_find( $args, $lightweight, $wpdb->prefix . 'wpbdp_payments', __CLASS__ );
+    }
+
+    /* @override */
+    public static function get( $id ) {
+        global $wpdb;
+        return parent::_get( $id, $wpdb->prefix . 'wpbdp_payments', __CLASS__ );
     }
 
 }
