@@ -215,8 +215,12 @@ class WPBDP_PaymentsAPI {
     public function __construct() {
         $this->gateways = array();
 
+        add_action( 'plugins_loaded', array( &$this, 'init' ) );
+    }
+
+    public function init() {
         do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
-        add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
+        add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );        
     }
 
     public function register_gateway($id, $classorinstance ) {
