@@ -3,7 +3,7 @@ span.tag {
     border-radius: 2px;
     padding: 2px 5px;
     color: #fff;
-    font-size: 9px;
+    font-size: 9px !important;
     margin-right: 2px;
     text-transform: uppercase;
     text-decoration: none !important;
