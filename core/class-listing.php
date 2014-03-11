@@ -29,6 +29,25 @@ class WPBDP_Listing {
         }
     }
 
+    public function get_field_value( $id ) {
+        $field = null;
+
+        if ( is_numeric( $id ) ) {
+            $field = wpbdp_get_form_field( $id );
+        } else {
+            $field = wpbdp_get_form_fields( array( 'association' => $id, 'unique' => true ) );
+        }
+
+        return $field ? $field->html_value( $this->id )  : '';
+    }
+
+    public function get_modified_date() {
+        if ( ! $this->id )
+            return '';
+
+        return date_i18n( get_option( 'date_format' ), get_post_modified_time( 'U', false, $this->id ) );
+    }
+
     public function get_images( $fields = 'all' ) {
         $attachments = get_posts( array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id ));
         $result = array();
