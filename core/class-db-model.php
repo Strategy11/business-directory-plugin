@@ -122,14 +122,26 @@ class WPBDP_DB_Model2 {
     public function save( $validate = true ) {
         global $wpdb;
 
-        if ( $this->id )
+        if ( isset( $this->attrs['id'] ) && $this->attrs['id'] )
             return $this->update( $validate );
         else
             return $this->insert( $validate );
     }
 
     private function insert( $validate = true ) {
-        wpbdp_debug_e('insert()');
+        global $wpdb;
+        $table = $wpdb->prefix . 'wpbdp_' . $this->table;
+
+        $row = array();
+        foreach ( $this->attrs as $k => $v )
+            $row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ): $v;
+
+        if ( false !== $wpdb->insert( $table, $row ) ) {
+            $this->attrs['id'] = intval( $wpdb->insert_id );
+            return true;
+        }
+
+        return false;
     }
 
     private function update( $validate = true ) {
@@ -171,10 +183,10 @@ class WPBDP_DB_Model2 {
             return call_user_func( array( &$this, "set_$k" ), $v );
         }
 
-        if ( array_key_exists( $k, $this->attrs ) )
-            return $this->set_attr( $k, $v );
+        // if ( array_key_exists( $k, $this->attrs ) )
+        return $this->set_attr( $k, $v );
 
-        throw new Exception( 'Undefined Property: ' . $k );
+        // throw new Exception( 'Undefined Property: ' . $k );
     }
 
     /**
