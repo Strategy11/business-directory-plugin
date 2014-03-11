@@ -804,7 +804,7 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
 
     }
 
-    public function _meta_title($title, $sep, $seplocation) {
+    public function _meta_title( $title = '', $sep = '»', $seplocation = 'right' ) {
         $action = $this->controller->get_current_action();
 
         switch ($action) {
