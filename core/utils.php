@@ -605,10 +605,15 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
 class WPBDP_AJAX_Response {
 	public $success = true;
 	public $error = '';
+	public $message = '';
 	public $data = array();
 
 	public function add( $k, $v ) {
 		$this->data[ $k ] = $v;
+	}
+
+	public function set_message( $s ) {
+		$this->message = $s;
 	}
 
 	public function send_error( $error = null ) {
@@ -616,13 +621,22 @@ class WPBDP_AJAX_Response {
 			$this->error = $error;
 
 		$this->success = false;
+		$this->message = '';
 		$this->data = null;
+
+		$this->send();
 	}
 
 	public function send() {
 		$response = array();
 		$response['success'] = $this->success;
-		$response['data'] = $this->data;
+
+		if ( ! $this->success ) {
+			$response['error'] = $this->error ? $this->error : 'Unknown error';
+		} else {
+			$response['data'] = $this->data;
+			$response['message'] = $this->message;
+		}
 
 		print json_encode( $response );
 		die();
