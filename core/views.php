@@ -132,7 +132,15 @@ class WPBDP_DirectoryController {
         if ( isset($_GET['preview']) )
             $html .= wpbdp_render_msg( _x('This is just a preview. The listing has not been published yet.', 'preview', 'WPBDM') );
 
-        $html .= wpbdp_render_listing($listing_id, 'single', false, true);
+        // Handle ?v=viewname argument for alternative views (other than 'single').
+        $view = '';
+        if ( isset( $_GET['v'] ) )
+            $view = wpbdp_capture_action_array( 'wpbdp_listing_view_' . trim( $_GET['v'] ), array( $listing_id ) );
+
+        if ( ! $view )
+            $html .= wpbdp_render_listing($listing_id, 'single', false, true);
+        else
+            $html .= $view;
 
         return $html;
     }
