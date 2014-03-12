@@ -128,10 +128,30 @@ class WPBDP_DB_Model2 {
         else
             return $this->insert( $validate );
     }
+    
+    private function validate() {
+        $this->errors = $this->_validate();
+        return empty( $this->errors ) ? true : false;
+    }
+    
+    protected function _validate() {
+        return array();
+    }
+    
+    public function is_valid() {
+        return $this->validate();
+    }
+    
+    public function is_invalid() {
+        return ! $this->is_valid();
+    }
 
     private function insert( $validate = true ) {
         global $wpdb;
         $table = $wpdb->prefix . 'wpbdp_' . $this->table;
+        
+        if ( $validate && ! $this->validate() )
+            return false;
 
         $row = array();
         foreach ( $this->attrs as $k => $v )
