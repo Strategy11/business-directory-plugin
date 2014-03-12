@@ -115,8 +115,9 @@ class WPBDP_DB_Model2 {
     }
 
     public function fill( $data = array() ) {
-        foreach ( $data as $k => $v )
-            $this->attrs[ $k ] = in_array( $k, $this->serialized, true) ? maybe_unserialize( $v ) : $v;
+        foreach ( $data as $k => $v ) {
+            $this->attrs[ $k ] = ( in_array( $k, $this->serialized, true) && $v ) ? maybe_unserialize( $v ) : $v;
+        }
     }
 
     public function save( $validate = true ) {
@@ -159,10 +160,13 @@ class WPBDP_DB_Model2 {
     }
 
     public function &get_attr( $k ) {
-        if ( array_key_exists( $k, $this->attrs ) )
-            return $this->attrs[ $k ];
+        if ( array_key_exists( $k, $this->attrs ) ) {
+            $value = $this->attrs[ $k ];
+        } else {
+            $value = null;
+        }
 
-        throw new Exception( 'Undefined Property: ' . $k );
+        return $value;
     }
 
     public function set_attr( $k, $v ) {
