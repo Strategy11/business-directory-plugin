@@ -266,6 +266,8 @@ class WPBDP_DB_Model2 {
             if ( is_array( $value ) ) {
                 $value_str = implode( ',', $value );
                 $query .= " AND {$arg} IN ({$value_str})";
+            } elseif ( $value[0] == '>' ) {
+                $query .= " AND {$arg} {$value}";
             } else {
                 $query .= $wpdb->prepare( " AND {$arg}=" . ( is_int( $value ) ? '%d' : '%s' ), $value );    
             }
