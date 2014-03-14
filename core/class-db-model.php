@@ -262,8 +262,13 @@ class WPBDP_DB_Model2 {
         foreach ( $args as $arg => $value ) {
             if ( is_null( $value ) || in_array( $arg, array( '_single', '_order', '_limit' ), true ) )
                 continue;
-            
-            $query .= $wpdb->prepare( " AND {$arg}=" . ( is_int( $value ) ? '%d' : '%s' ), $value );
+
+            if ( is_array( $value ) ) {
+                $value_str = implode( ',', $value );
+                $query .= " AND {$arg} IN ({$value_str})";
+            } else {
+                $query .= $wpdb->prepare( " AND {$arg}=" . ( is_int( $value ) ? '%d' : '%s' ), $value );    
+            }
         }
 
         if ( $order ) {
