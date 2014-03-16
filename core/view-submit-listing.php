@@ -224,7 +224,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$fields, &$this->state ) );
 
         $validation_errors = array();
-        if ( isset( $_POST['listingfields'] ) ) {
+        if ( isset( $_POST['listingfields'] ) && isset( $_POST['step'] ) && 'listing_fields' == $_POST['step']  ) {
             $_POST['listingfields'] = stripslashes_deep( $_POST['listingfields'] );
             
             foreach ( $fields as  &$f ) {

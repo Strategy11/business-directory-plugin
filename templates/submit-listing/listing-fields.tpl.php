@@ -10,6 +10,7 @@
 
 <form id="wpbdp-listing-form-fields" class="wpbdp-listing-form" method="POST" action="">
 	<input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
+	<input type="hidden" name="step" value="listing_fields" />
 
 	<legend><?php _ex( '* Indicates required fields.', 'templates', 'WPBDM' ); ?></legend>
 
