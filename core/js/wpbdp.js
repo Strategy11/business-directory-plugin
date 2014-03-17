@@ -2,6 +2,10 @@ if (typeof(window.WPBDP) == 'undefined') {
     window.WPBDP = {};
 }
 
+if (typeof(window.wpbdp) == 'undefined') {
+    window.wpbdp = {};
+}
+
 jQuery(document).ready(function($){
 
     $('.listing-actions input.delete-listing').click(function(e){
