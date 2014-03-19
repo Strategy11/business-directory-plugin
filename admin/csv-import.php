@@ -404,7 +404,7 @@ class WPBDP_CSVImporter {
     }
 
     private function extract_images($zipfile) {
-        $dir = trailingslashit(trailingslashit(sys_get_temp_dir()) . 'wpbdp_' . time());
+        $dir = trailingslashit(trailingslashit(get_temp_dir()) . 'wpbdp_' . time());
 
         require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
 
