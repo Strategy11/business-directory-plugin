@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory, city portal, city portal plugin, city guide plugin, city guide
 Requires at least: 3.5
-Tested up to: 3.7.1
-Last Updated: 2013-Nov-11
-Stable tag: tags/3.2.3
+Tested up to: 3.8.1
+Last Updated: 2014-Feb-1
+Stable tag: tags/3.3
 License: GPLv2 or later
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
@@ -66,7 +66,7 @@ If you love the plugin, [please consider purchasing a Premium Module](http://bus
 
 
 == Credits ==
-Copyright 2009-13, D. Rodenbaugh 
+Copyright 2009-14, D. Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -100,10 +100,19 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
-= Version 3.2.3 =
-* Fix for Advanced search yielding no results when drop-downs are used
-* Fix for reCAPTCHA include fatal error on comment forms
-* Updated standard menu editor in WP to allow display of BD categories
+= Version 3.3 =
+* Minor changes for WP 3.8 compatibility (admin CSS). 
+* Show fee selection screen when offer upgrades on submit is active so listings can be upgraded even when no fees are configured. 
+* Display category ID on the Directory Categories table. 
+* CSV export now works in batches to avoid timeout and memory limits. 
+* Fix escaping issue in settings API. 
+* Fix incorrect category counts. 
+* Allow multiple categories when using the category shortcode. 
+* Fix reCAPTCHA conflicts with regular post comments. 
+* Add a separate setting for listings per page. 
+* Allow for empty selection of select fields in searches. 
+* Allow changing expiration dates of listing fees in the admin. 
+* Change int columns to bigint for scalability reasons.
 
 = Version 3.2.2 =
 * Patch for categories problem introduced by renaming in 3.2.1
