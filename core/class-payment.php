@@ -30,10 +30,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'amount' => 0.0,
             'status' => self::STATUS_PENDING,
             'created_on' => current_time( 'mysql' ),
-            'processed_on' => null,
-            'processed_by' => null,
+            'processed_on' => '',
+            'processed_by' => '',
             'payerinfo' => array(),
-            'extra_data' => null,
+            'extra_data' => array(),
             'notes' => array()
         ) );
 
