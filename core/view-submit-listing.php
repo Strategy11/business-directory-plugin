@@ -390,6 +390,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
+
         $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) );
         $this->state->save(); // Save state in case extra sections modified it.
 
@@ -397,7 +398,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             $this->state->advance();
             return $this->dispatch();
         }
-        
+
         return $this->render( 'extra-sections', array( 'output' => $extra ) );
     }
 
@@ -437,6 +438,10 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                                     _x( 'Listing upgrade to featured', 'submit', 'WPBDM' ) );
 
             $payment->set_submit_state_id( $this->state->id );
+
+            if ( current_user_can( 'administrator' ) )
+                $payment->set_status( WPBDP_Payment::STATUS_COMPLETED );
+
             $payment->save();
 
             $this->state->listing_id = $listing->get_id();
@@ -460,18 +465,18 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         }
 
         $payment = WPBDP_Payment::get( $this->state->payment_id );
-        
+
         if ( ! $payment )
             return wpbdp_render_msg( _x( 'Invalid submit state.', 'submit_state', 'WPBDM' ), 'error' );
 
         if ( $payment->is_completed() ) {
             $this->state->advance();
             return $this->dispatch();
-        }        
+        }
 
         return sprintf( '<a href="%s">Continue to checkout</a>', $payment->get_checkout_url() );
     }
-    
+
     protected function step_confirmation() {
         $listing = WPBDP_Listing::get( $this->state->listing_id );
         $listing->notify( $this->state->editing ? 'edit' : 'new', $this->state );
