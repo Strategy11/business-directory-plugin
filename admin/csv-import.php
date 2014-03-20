@@ -134,6 +134,15 @@ class WPBDP_CSVImportAdmin {
     }
 
     private function import_settings() {
+        $tempdir = get_temp_dir();
+
+        if ( ! $tempdir || ! is_dir( $tempdir ) || ! is_writable ( $tempdir ) )  
+            wpbdp_admin_message( sprintf( __( 'A valid temporary directory with write permissions is required for CSV imports to function properly. Your server is using "%s" but this path does not seem to be writable. Please consult with your host.',
+                                              'csv import',
+                                              'WPBDM' ),
+                                         $tempdir ),
+                                'error' );
+
         echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/csv-import.tpl.php');
     }
 
