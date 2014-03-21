@@ -76,6 +76,11 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-search-form-in-results', _x('Display search form when displaying search results?', 'admin settings', 'WPBDM'), 'boolean', true);
 
+        $s = $this->add_section( $g, 'email', _x( 'E-Mail Settings', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s, 'email-cc', _x( 'CC this e-mail address on replies?', 'admin settings', 'WPBDM' ), 'boolean', false );
+        $this->add_setting( $s, 'email-cc-address', _x( 'CC e-mail address', 'admin settings', 'WPBDM' ), 'text', get_bloginfo( 'admin_email'  ) );
+        
+
         $s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'credit-author', _x('Give credit to plugin author?', 'admin settings', 'WPBDM'), 'boolean', true);

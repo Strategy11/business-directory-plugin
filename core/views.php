@@ -314,10 +314,13 @@ class WPBDP_DirectoryController {
             }
 
             if (!$validation_errors) {
-                $headers =  "MIME-Version: 1.0\n" .
-                        "From: $author_name <$author_email>\n" .
-                        "Reply-To: $author_email\n" .
-                        "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
+                $headers =  "MIME-Version: 1.0\r\n" .
+                        "From: $author_name <$author_email>\r\n" .
+                        "Reply-To: $author_email\r\n" .
+                        "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\r\n";
+
+                if ( wpbdp_get_option( 'email-cc' ) )
+                    $headers .= "Cc: " . wpbdp_get_option( 'email-cc-address' ) . "\r\n";
 
                 $subject = "[" . get_option( 'blogname' ) . "] " . sprintf(_x('Contact via "%s"', 'contact email', 'WPBDM'), wp_kses( get_the_title($listing_id), array() ));
                 $wpbdmsendtoemail=wpbusdirman_get_the_business_email($listing_id);
