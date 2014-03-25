@@ -387,12 +387,16 @@ class WPBDP_ListingsAPI {
     }
 
    public function new_listing_admin_email( &$listing ) {
-        if ( ! wpbdp_get_option( 'notify-admin' ) )
+        if ( ! in_array( 'new-listing', wpbdp_get_option( 'admin-notifications' ), true ) )
             return;
 
         $email = new WPBDP_Email();
         $email->subject = sprintf( _x( '[%s] New listing notification', 'notify email', 'WPBDM' ), get_bloginfo( 'name' ) );
         $email->to[] = get_bloginfo( 'admin_email' );
+
+        if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+            $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+
         $email->body = wpbdp_render( 'email/listing-added', array( 'listing' => $listing ), false );
         $email->send();
     }
@@ -811,6 +815,14 @@ class WPBDP_ListingsAPI {
 
                 $email = new WPBDP_Email();
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+
+                if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+                    $email->cc[] = get_option( 'admin_email' );
+
+                    if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+                        $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                }
+
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
                 $email->body = str_replace( array_keys( $message_replacements ),
                                                $message_replacements,

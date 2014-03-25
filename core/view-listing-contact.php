@@ -80,7 +80,7 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
         $email->to = wpbusdirman_get_the_business_email( $listing_id );
         $email->reply_to = $this->email;
 
-        if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications') ) ) {
+        if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications' ), true ) ) {
             $email->cc[] = get_bloginfo( 'admin_email' );
 
             if ( wpbdp_get_option( 'admin-notifications-cc' ) )

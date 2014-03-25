@@ -76,10 +76,6 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-search-form-in-results', _x('Display search form when displaying search results?', 'admin settings', 'WPBDM'), 'boolean', true);
 
-        $s = $this->add_section( $g, 'email', _x( 'E-Mail Settings', 'admin settings', 'WPBDM' ) );
-        $this->add_setting( $s, 'email-cc', _x( 'CC this e-mail address on replies?', 'admin settings', 'WPBDM' ), 'boolean', false );
-        $this->add_setting( $s, 'email-cc-address', _x( 'CC e-mail address', 'admin settings', 'WPBDM' ), 'text', get_bloginfo( 'admin_email'  ) );
-        
 
         $s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
@@ -110,35 +106,10 @@ class WPBDP_Settings {
                             false,
                             _x( 'Allow visitors to discuss listings using the standard WordPress comment form. Comments are public.', 'admin settings', 'WPBDM' ) );
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
-        $this->add_setting( $s,
-                            'override-email-blocking',
-                            _x( 'Override email Blocking?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false,
-                            _x('When checked, email addresses in listing fields will be displayed publicly. Not recommended.', 'admin settings', 'WPBDM') );
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
                            array('choices' => array('draft', 'trash')));
         $this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
                            array('choices' => array('draft', 'trash')));
-
-        $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
-        $this->add_setting( $s,
-                            'listing-email-mode',
-                            _x( 'How to determine the listing\'s email address?', 'admin settings', 'WPBDM' ),
-                            'choice',
-                            'field',
-                            _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
-                            array( 'choices' => array(
-                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
-                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
-
-                            ) ) );
-
-        $this->add_setting( $s, 'notify-admin', _x( 'Notify admin of new listings via email?', 'admin settings', 'WPBDM' ), 'boolean', false );
-        $this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
-        $this->add_setting($s, 'email-confirmation-message', _x('Email confirmation message', 'admin settings', 'WPBDM'), 'text',
-                           'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
-                          _x('You can use the placeholder [listing] for the listing title. This setting applies to non-paying listings only; for paying listings check the "Payment" settings tab.', 'admin settings', 'WPBDM'));
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
@@ -230,6 +201,57 @@ class WPBDP_Settings {
         $this->add_setting($s, 'featured-price', _x('Sticky listing price', 'admin settings', 'WPBDM'), 'text', '39.99');
         $this->add_setting($s, 'featured-description', _x('Sticky listing page description text', 'admin settings', 'WPBDM'), 'text',
                            _x('You can upgrade your listing to featured status. Featured listings will always appear on top of regular listings.', 'admin settings', 'WPBDM'));
+
+        /*
+         * E-Mail settings.
+         */
+        $g = $this->add_group( 'email', _x( 'E-Mail', 'admin settings', 'WPBDM' ) );
+        $s = $this->add_section( $g, 'email-general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'override-email-blocking',
+                            _x( 'Override email Blocking?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            _x('When checked, email addresses in listing fields will be displayed publicly. Not recommended.', 'admin settings', 'WPBDM') );
+
+        $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
+        $this->add_setting( $s,
+                            'listing-email-mode',
+                            _x( 'How to determine the listing\'s email address?', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'field',
+                            _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
+                            array( 'choices' => array(
+                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
+                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
+
+                            ) ) );
+
+        $this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
+        $this->add_setting($s, 'email-confirmation-message', _x('Email confirmation message', 'admin settings', 'WPBDM'), 'text',
+                           'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
+                          _x('You can use the placeholder [listing] for the listing title. This setting applies to non-paying listings only; for paying listings check the "Payment" settings tab.', 'admin settings', 'WPBDM'));
+
+        $s = $this->add_section( $g, 'email-notifications', _x( 'Admin Notifications', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'admin-notifications',
+                            _x( 'Notify admin via e-mail when...', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            array(),
+                            '',
+                            array( 'choices' => array( 'new-listing' => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
+                                                       'renewal' => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
+                                                       'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ) ),
+                                   'use_checkboxes' => true,
+                                   'multiple' => true )
+                          );
+        $this->add_setting( $s,
+                            'admin-notifications-cc',
+                            _x( 'CC this e-mail address too', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '' );
+
+
 
         /* Payment settings */
         $g = $this->add_group('payment', _x('Payment', 'admin settings', 'WPBDM'));
@@ -562,7 +584,7 @@ class WPBDP_Settings {
             $html .= '</select>';
         } elseif ( $widget == 'checkbox' ) {
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<label><input type="checkbox" name="%s[]" value="%s" %s />%s</label> ',
+                $html .= sprintf( '<label><input type="checkbox" name="%s[]" value="%s" %s />%s</label><br />',
                                   $setting->name,
                                   $k,
                                   in_array( $k, $value, true ) ? 'checked="checked"' : '',

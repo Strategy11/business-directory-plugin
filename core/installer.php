@@ -481,6 +481,10 @@
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP charged" );
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP updated_on" );
 
+        // Update notify-admin email option.
+        if ( get_option( WPBDP_Settings::PREFIX . 'notify-admin', false ) )
+            update_option( WPBDP_Settings::PREFIX . 'admin-notifications', array( 'new-listing') );
+
         $this->request_manual_upgrade( 'upgrade_to_3_7_migrate_payments' );
     }
 
