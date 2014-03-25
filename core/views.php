@@ -69,7 +69,9 @@ class WPBDP_DirectoryController {
                 return $this->submit_listing();
                 break;
             case 'sendcontactmessage':
-                return $this->send_contact_message();
+                require_once( WPBDP_PATH . 'core/view-listing-contact.php' );
+                $page = new WPBDP_Listing_Contact_Page();
+                return $page->dispatch();
                 break;
             case 'deletelisting':
                 return $this->delete_listing();
@@ -278,78 +280,6 @@ class WPBDP_DirectoryController {
         require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
         $submit_page = new WPBDP_Submit_Listing_Page( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
         return $submit_page->dispatch();
-    }
-
-    /*
-     * Send contact message to listing owner.
-     */
-    public function send_contact_message() {
-        if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id', 0)) {
-            $current_user = is_user_logged_in() ? wp_get_current_user() : null;
-
-            $author_name = htmlspecialchars(trim(wpbdp_getv($_POST, 'commentauthorname', $current_user ? $current_user->data->user_login : '')));
-            $author_email = trim(wpbdp_getv($_POST, 'commentauthoremail', $current_user ? $current_user->data->user_email : ''));
-            $message = trim(wp_kses(stripslashes(wpbdp_getv($_POST, 'commentauthormessage', '')), array()));
-
-            $validation_errors = array();
-
-            if (!$author_name)
-                $validation_errors[] = _x("Please enter your name.", 'contact-message', "WPBDM");
-
-            if ( !wpbdp_validate_value( $author_email, 'email' ) )
-                $validation_errors[] = _x("Please enter a valid email.", 'contact-message', "WPBDM");
-
-            if (!$message)
-                $validation_errors[] = _x('You did not enter a message.', 'contact-message', 'WPBDM');
-
-            if (wpbdp_get_option('recaptcha-on')) {
-                if ($private_key = wpbdp_get_option('recaptcha-private-key')) {
-                    if ( !function_exists( 'recaptcha_get_html' ) )
-                        require_once(WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php');
-
-                    $resp = recaptcha_check_answer($private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-                    if (!$resp->is_valid)
-                        $validation_errors[] = _x("The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM');
-                }
-            }
-
-            if (!$validation_errors) {
-                $headers =  "MIME-Version: 1.0\r\n" .
-                        "From: $author_name <$author_email>\r\n" .
-                        "Reply-To: $author_email\r\n" .
-                        "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\r\n";
-
-                if ( wpbdp_get_option( 'email-cc' ) )
-                    $headers .= "Cc: " . wpbdp_get_option( 'email-cc-address' ) . "\r\n";
-
-                $subject = "[" . get_option( 'blogname' ) . "] " . sprintf(_x('Contact via "%s"', 'contact email', 'WPBDM'), wp_kses( get_the_title($listing_id), array() ));
-                $wpbdmsendtoemail=wpbusdirman_get_the_business_email($listing_id);
-                $time = date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) );
-
-                $body = wpbdp_render_page(WPBDP_PATH . 'templates/email/contact.tpl.php', array(
-                    'listing_url' => get_permalink($listing_id),
-                    'name' => $author_name,
-                    'email' => $author_email,
-                    'message' => $message,
-                    'time' => $time
-                ), false);
-
-                $html = '';
-
-                // TODO: should use WPBDP_Email instead
-                if(wp_mail( $wpbdmsendtoemail, $subject, $body, $headers )) {
-                    $html .= "<p>" . _x("Your message has been sent.", 'contact-message', "WPBDM") . "</p>";
-                } else {
-                    $html .= "<p>" . _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM") . "</p>";
-                }
-
-                $html .= sprintf('<p><a href="%s">%s</a></p>', get_permalink($listing_id), _x('Return to listing.', 'contact-message', "WPBDM"));
-
-                return $html;
-            } else {
-                return wpbdp_listing_contact_form( $listing_id, $validation_errors );
-            }
-        }
     }
 
     /*
