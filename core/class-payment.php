@@ -68,6 +68,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'created_on' => $this->created_on,
             'processed_on' => $this->processed_on,
             'processed_by' => $this->processed_by,
+            'currency_code' => $this->currency_code,
             'payerinfo' => serialize( is_array( $this->payerinfo ) ? $this->payerinfo : array() ),
             'extra_data' => serialize( is_array( $this->extra_data ) ? $this->extra_data : array() ),
             'notes' => serialize( is_array( $this->notes ) ? $this->notes : array() )
