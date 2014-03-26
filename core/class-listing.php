@@ -454,11 +454,12 @@ class WPBDP_Listing {
                 throw new Exception('Login required.');
 
             // Create user.
-            if ( $email_field = wpbdp_get_form_fields( array( 'validator' => 'email', 'unique' => 1 ) ) ) {
+            if ( $email_field = wpbdp_get_form_fields( array( 'validators' => 'email', 'unique' => 1 ) ) ) {
                 $email = $state->fields[ $email_field->get_id() ];
                 
                 if ( email_exists( $email ) ) {
-                    $post_author = get_user_by_email( $email )->ID;
+                    $post_author = get_user_by( 'email', $email );
+                    $post_author = $post_author->ID;
                 } else {
                     $randvalue = wpbdp_generate_password( 5, 2 );
                     $post_author = wp_insert_user( array(
