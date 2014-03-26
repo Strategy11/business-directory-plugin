@@ -561,7 +561,7 @@ class WPBDP_Listing_Submit_State {
     public function save() {
         global $wpdb;
 
-        $this->id = $this->id ? $this->id : md5( rand() . microtime() . wp_salt() );
+        $this->id = $this->id ? $this->id : md5( microtime() . rand() . wp_salt() );
         $data = array( 'id' => $this->id,
                        'state' => serialize( (array) $this ),
                        'updated' => current_time( 'mysql' ) );
