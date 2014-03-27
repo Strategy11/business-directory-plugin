@@ -355,6 +355,7 @@ class WPBDP_Plugin {
 
         add_action('init', array($this, '_init_modules'));
         add_action('wp_ajax_wpbdp-ajax', array($this, '_handle_ajax'));
+        add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
     }
 
     public function _init_modules() {
@@ -1182,3 +1183,4 @@ JS;
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
+
