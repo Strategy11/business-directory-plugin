@@ -622,6 +622,10 @@
                             $wpdb->update( $wpdb->prefix . 'wpbdp_payments', $t, array( 'id' => $t['id'] ) );
 
                             break;
+
+                        default:
+                            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $t['id'] ) );
+                            break;
                     }
 
                     
