@@ -121,6 +121,7 @@ class WPBDP_FormFieldType {
                 wp_set_post_terms( $post_id, $value, WPBDP_TAGS_TAX, false );
                 break;
             case 'meta':
+            default:
                 update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', $value );
                 break;
         }        
@@ -526,12 +527,14 @@ class WPBDP_FormField {
      * @param int|object $post_id post ID or object.
      * @return mixed
      */
-    public function value( $post_id ) {
+    public function value( $post_id, $raw = false ) {
         if ( !get_post_type( $post_id ) == WPBDP_POST_TYPE )
             return null;        
 
         $value = $this->type->get_field_value( $this, $post_id );
-        $value = apply_filters( 'wpbdp_form_field_value', $value, $post_id, $this );
+
+        if ( ! $raw )
+            $value = apply_filters( 'wpbdp_form_field_value', $value, $post_id, $this );
 
         return $value;
     }

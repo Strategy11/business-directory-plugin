@@ -27,6 +27,8 @@ class WPBDP_Listing {
             elseif ( ! $append )
                 $f->store_value( $this->id, $f->convert_input( null ) );
         }
+
+        do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this, $values ) );
     }
 
     public function get_field_value( $id ) {
