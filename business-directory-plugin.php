@@ -332,18 +332,8 @@ class WPBDP_Plugin {
 
         add_action('widgets_init', array($this, '_register_widgets'));
 
-        /* Shortcodes */
-        add_shortcode('WPBUSDIRMANADDLISTING', array($this->controller, 'submit_listing'));
-        add_shortcode('businessdirectory-submitlisting', array($this->controller, 'submit_listing'));
-        add_shortcode('WPBUSDIRMANMANAGELISTING', array($this->controller, 'manage_listings'));
-        add_shortcode('businessdirectory-managelistings', array($this->controller, 'manage_listings'));
-        add_shortcode('WPBUSDIRMANMVIEWLISTINGS', array($this, '_listings_shortcode'));
-        add_shortcode('businessdirectory-viewlistings', array($this, '_listings_shortcode'));
-        add_shortcode('businessdirectory-listings', array($this, '_listings_shortcode'));        
-        add_shortcode('WPBUSDIRMANUI', array($this->controller, 'dispatch'));
-        add_shortcode('businessdirectory', array($this->controller, 'dispatch'));
-        add_shortcode('business-directory', array($this->controller, 'dispatch'));
-        add_shortcode('businessdirectory-featuredlistings', array($this, '_featured_listings_shortcode'));
+        // Register shortcodes.
+        $this->register_shortcodes();
 
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_notify_expiring_listings'), 0);
@@ -356,6 +346,29 @@ class WPBDP_Plugin {
         add_action('init', array($this, '_init_modules'));
         add_action('wp_ajax_wpbdp-ajax', array($this, '_handle_ajax'));
         add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
+    }
+
+    private function register_shortcodes() {
+        $shortcodes = array();
+        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANADDLISTING',
+                                               'businessdirectory-submitlisting' ),
+                                        array( &$this->controller, 'submit_listing' ) );
+        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANMANAGELISTING',
+                                               'businessdirectory-manage_listings' ),
+                                        array( &$this->controller, 'manage_listings' ) );
+        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANVIEWLISTINGS',
+                                               'businessdirectory-view_listings',
+                                               'businessdirectory-listings' ),
+                                        array( &$this, '_listings_shortcode' ) );
+        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANUI',
+                                               'businessdirectory',
+                                               'business-directory' ),
+                                        array( &$this->controller, 'dispatch' ) );
+        $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
+        $shortcodes = apply_filters( 'wpbdp_shortcodes', $shortcodes );
+
+        foreach ( $shortcodes as $shortcode => &$handler )
+            add_shortcode( $shortcode, $handler );
     }
 
     public function _init_modules() {
@@ -442,29 +455,6 @@ class WPBDP_Plugin {
                                   'query_var' => true,
                                   'rewrite' => array('slug' => $category_slug) ) );
         register_taxonomy(WPBDP_TAGS_TAX, WPBDP_POST_TYPE, array( 'hierarchical' => false, 'label' => 'Directory Tags', 'singular_name' => 'Directory Tag', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count', 'query_var' => true, 'rewrite' => array('slug' => $tags_slug) ) );
-/*
-register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
-            'label' => _x('Directory Regions', 'regions-module', 'wpbdp-regions'),
-            'labels' => array(
-                'name' => _x('Directory Regions', 'regions-module', 'wpbdp-regions'),
-                'singular_name' => _x('Region', 'regions-module', 'wpbdp-regions'),
-                'search_items' => _x('Search Regions', 'regions-module', 'wpbdp-regions'),
-                'popular_items' => _x('Popular Regions', 'regions-module', 'wpbdp-regions'),
-                'all_items' => _x('All Regions', 'regions-module', 'wpbdp-regions'),
-                'parent_item' => _x('Parent Region', 'regions-module', 'wpbdp-regions'),
-                'parent_item_colon' => _x('Parent Region:', 'regions-module', 'wpbdp-regions'),
-                'edit_item' => _x('Edit Region', 'regions-module', 'wpbdp-regions'),
-                'update_item' => _x('Update Region', 'regions-module', 'wpbdp-regions'),
-                'add_new_item' => _x('Add New Region', 'regions-module', 'wpbdp-regions'),
-                'new_item_name' => _x('New Region Name', 'regions-module', 'wpbdp-regions'),
-                'menu_name' => _x('Manage Regions', 'regions-module', 'wpbdp-regions')
-            ),
-            'hierarchical' => true,
-            'show_in_nav_menus' => true,
-            'query_var' => true,
-
-            'rewrite' => array('slug' => wpbdp_get_option('regions-slug', self::TAXONOMY))
-        ));*/        
     }
 
     public function _register_image_sizes() {
@@ -650,6 +640,10 @@ register_taxonomy(self::TAXONOMY, WPBDP_POST_TYPE, array(
 
     /* scripts & styles */
     public function _enqueue_scripts() {
+//        global $post;
+//        wpbdp_debug_e( $post );
+//        wpbdp_debug_e( 'enqueue scripts' );
+
         wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css');
         wp_enqueue_script('wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array('jquery'));
 
