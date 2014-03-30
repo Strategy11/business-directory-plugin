@@ -556,6 +556,17 @@ class WPBDP_Plugin {
         if ( !wpbdp_get_option( 'credit-author') )
             return;
 
+        echo '<style type="text/css">';
+        echo '.wpbdp-credit-info {
+                font-size: 9px;
+                text-align: center;
+                color: #494949;
+              }
+
+              .wpbdp-credit-info a {
+                color: inherit;
+              }';
+        echo '</style>';
         echo '<div class="wpbdp-credit-info wpbdmac">';
         printf( _x( 'Directory powered by %s', 'credits footer', 'WPBDM' ),
                 '<a href="http://businessdirectoryplugin.com">Business Directory Plugin</a>' );
@@ -653,9 +664,6 @@ class WPBDP_Plugin {
             }
 
             // TODO: $is_plugin_page detection should take into account custom post type/tax templates.
-
-            if ( get_option( 'credit-author' ) )
-                $is_plugin_page = true;
         }
 
         if ( $only_in_plugin_pages && ! $is_plugin_page )

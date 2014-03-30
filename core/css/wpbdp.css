@@ -426,17 +426,6 @@ ul.validation-errors li {
     color: #666;
 }
 
-/* credits footer */
-.wpbdp-credit-info {
-    font-size: 9px;
-    text-align: center;
-    color: #494949;
-}
-
-.wpbdp-credit-info a {
-    color: inherit;
-}
-
 #wpbdp-renewal-page .do-not-renew-listing {
     margin: 40px 0;
     border: solid 1px #eee;
