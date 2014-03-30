@@ -663,20 +663,22 @@ class WPBDP_Plugin {
                     $is_plugin_page = true;
             }
 
+            if ( 'template' == _wpbdp_template_mode ('single' ) || 'template' == _wpbdp_template_mode( 'category' ) )
+                $is_plugin_page = true;
             // TODO: $is_plugin_page detection should take into account custom post type/tax templates.
         }
 
         if ( $only_in_plugin_pages && ! $is_plugin_page )
             return;
 
-        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
-        wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
+        wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
 
         do_action( 'wpbdp_enqueue_scripts' );
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.min.css');
 
         $counter = 0;
         foreach (array('wpbdp.css', 'wpbusdirman.css', 'wpbdp_custom_style.css', 'wpbdp_custom_styles.css', 'wpbdm_custom_style.css', 'wpbdm_custom_styles.css') as $stylesheet) {
@@ -716,7 +718,7 @@ class WPBDP_Plugin {
         wp_enqueue_script( 'wpbdp-js' );
 
         if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
-            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet.js', array( 'wpbdp-js' ) );
+            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet.min.js', array( 'wpbdp-js' ) );
         }
     }
 
