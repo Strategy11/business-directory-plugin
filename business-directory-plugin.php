@@ -277,6 +277,9 @@ class WPBDP_Plugin {
 
         $this->settings = new WPBDP_Settings();
 
+        $plugin_filename = plugin_basename( __FILE__ );
+        add_filter( 'plugin_action_links_' . $plugin_filename, array( &$this, 'plugin_action_links' ) );
+
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
         add_action('init', array($this, 'install_or_update_plugin'), 1);
         add_action('init', array($this, '_register_post_type'), 0);
@@ -399,6 +402,11 @@ class WPBDP_Plugin {
     public function install_or_update_plugin() {
         $installer = new WPBDP_Installer();
         $installer->install();
+    }
+
+    public function plugin_action_links( $links ) {
+        $links['settings'] = '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'WPBDM' ) . '</a>';
+        return $links;
     }
 
     public function load_i18n() {
