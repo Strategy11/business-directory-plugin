@@ -30,6 +30,11 @@ class WPBDP_Debugging {
 	}
 
 	public static function _enqueue_scripts() {
+	    wp_enqueue_script( 'wpbdp-debugging-js',
+	                       WPBDP_URL . 'core/js/debug.js',
+	                       array( 'jquery' ),
+	                       null,
+	                       true );
 		wp_enqueue_style( 'wpbdp-debugging-styles', WPBDP_URL . 'core/css/debug.css' );
 	}
 
@@ -122,8 +127,6 @@ class WPBDP_Debugging {
 		}
 		echo '</div>';
 		echo '</div>';
-
-		printf( '<script type="text/javascript" src="%s"></script>', WPBDP_URL . 'core/js/debug.js' );
 	}
 
 	private static function _extract_context($stack) {
