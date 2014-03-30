@@ -60,7 +60,7 @@ global $wpbdp;
 
 
 class WPBDP_Plugin {
-    
+
     /* Access to standard APIs. */
     public $formfields;
 
@@ -333,7 +333,10 @@ class WPBDP_Plugin {
         add_action('widgets_init', array($this, '_register_widgets'));
 
         // Register shortcodes.
-        $this->register_shortcodes();
+        $shortcodes = $this->get_shortcodes();
+
+        foreach ( $shortcodes as $shortcode => &$handler )
+            add_shortcode( $shortcode, $handler );
 
         /* Expiration hook */
         add_action('wpbdp_listings_expiration_check', array($this, '_notify_expiring_listings'), 0);
@@ -348,7 +351,7 @@ class WPBDP_Plugin {
         add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
     }
 
-    private function register_shortcodes() {
+    private function get_shortcodes() {
         $shortcodes = array();
         $shortcodes += array_fill_keys( array( 'WPBUSDIRMANADDLISTING',
                                                'businessdirectory-submitlisting' ),
@@ -365,10 +368,8 @@ class WPBDP_Plugin {
                                                'business-directory' ),
                                         array( &$this->controller, 'dispatch' ) );
         $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
-        $shortcodes = apply_filters( 'wpbdp_shortcodes', $shortcodes );
 
-        foreach ( $shortcodes as $shortcode => &$handler )
-            add_shortcode( $shortcode, $handler );
+        return apply_filters( 'wpbdp_shortcodes', $shortcodes );
     }
 
     public function _init_modules() {
@@ -640,12 +641,30 @@ class WPBDP_Plugin {
 
     /* scripts & styles */
     public function _enqueue_scripts() {
-//        global $post;
-//        wpbdp_debug_e( $post );
-//        wpbdp_debug_e( 'enqueue scripts' );
+        $only_in_plugin_pages = true;
+        $is_plugin_page = false;
 
-        wp_enqueue_style('wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css');
-        wp_enqueue_script('wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array('jquery'));
+        if ( $only_in_plugin_pages ) {
+            global $post;
+
+            foreach ( array_keys( $this->get_shortcodes() ) as $shortcode ) {
+                if ( has_shortcode( $post->post_content, $shortcode ) )
+                    $is_plugin_page = true;
+            }
+
+            // TODO: $is_plugin_page detection should take into account custom post type/tax templates.
+
+            if ( get_option( 'credit-author' ) )
+                $is_plugin_page = true;
+        }
+
+        if ( $only_in_plugin_pages && ! $is_plugin_page )
+            return;
+
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
+        wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
+
+        do_action( 'wpbdp_enqueue_scripts' );
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
@@ -684,6 +703,9 @@ class WPBDP_Plugin {
         if ( wpbdp_get_option( 'use-thickbox' ) ) {
             add_thickbox();
         }
+
+        wp_enqueue_style( 'wpbdp-base-css' );
+        wp_enqueue_script( 'wpbdp-js' );
 
         if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
             wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet.js', array( 'wpbdp-js' ) );
