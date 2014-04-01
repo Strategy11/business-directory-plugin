@@ -475,6 +475,13 @@
     public function upgrade_to_3_7() {
         global $wpdb;
 
+        // Try to disable incompatible modules.
+        include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+        if ( is_plugin_active( 'business-directory-regions/business-directory-regions.php' ) ) {
+            deactivate_plugins( 'business-directory-regions/business-directory-regions.php' );
+        }
+
         // Remove invalid listing fees (quick).
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
         $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id NOT IN (SELECT term_id FROM {$wpdb->terms})" );
