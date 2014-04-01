@@ -587,4 +587,25 @@ class WPBDP_AJAX_Response {
 	}
 }
 
+/**
+ * No op object used to prevent modules from breaking a site while performing a manual upgrade
+ * or something similar.
+ * @since 3.4dev
+ */
+class WPBDP_NoopObject {
+
+    public function __construct() {
+    }
+
+    public function __set( $k, $v ) { }
+    public function __get( $k ) { return null; }
+    public function __isset( $k ) { return false; }
+    public function __unset( $k ) { }
+
+    public function __call( $name, $args = array() ) {
+        return false;
+    }
+
+}
+
 

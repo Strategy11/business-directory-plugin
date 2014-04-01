@@ -287,6 +287,15 @@ class WPBDP_Plugin {
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
             $installer = new WPBDP_Installer();
             $installer->setup_manual_upgrade();
+
+            // Load dummy objects in case plugins try to do some basic stuff.
+            $noop = new WPBDP_NoopObject();
+            $this->controller = &$noop;
+            $this->formfields = &$noop;
+            $this->admin = &$noop;
+            $this->fees = &$noop;
+            $this->payments = &$noop;
+            $this->listings = &$noop;
             return;
         }
 
