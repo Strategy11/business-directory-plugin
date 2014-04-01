@@ -906,26 +906,30 @@ class WPBDP_Admin {
         global $wpdb;
 
         if (isset($_POST['doit']) && $_POST['doit'] == 1) {
+            $installer = new WPBDP_Installer();
+
+            // Delete listings.
             $post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE post_type = %s", WPBDP_POST_TYPE ) );
 
-            foreach ($post_ids as $post_id) {
-                wp_delete_post($post_id, true);
-            }
+            foreach ( $post_ids as $post_id )
+                wp_delete_post( $post_id, true );
 
-            $tables = array( 'wpbdp_form_fields', 'wpbdp_fees', 'wpbdp_payments', 'wpbdp_listing_fees' );
+            // Drop tables.
+            $tables = array_keys( $installer->get_database_schema() );
             foreach ( $tables as &$table ) {
-                $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}{$table}" );
+                $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}wpbdp_{$table}" );
             }
 
+            // Delete options.
             delete_option( 'wpbdp-db-version' );
             delete_option( 'wpbusdirman_db_version' );
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'wpbdp%' ) );
 
-            // clear scheduled hooks
+            // Clear scheduled hooks.
             wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
 
-            // deactivate plugin
-            // TODO: fix this to use the new filename.
-            $real_path = WPBDP_PATH . 'wpbusdirman.php';
+            // Deactivate plugin.
+            $real_path = WPBDP_PATH . 'business-directory-plugin.php';
             // if the plugin directory is a symlink, plugin_basename will return
             // the real path, which may not be the same path WP associated to
             // the plugin. Plugin paths must be of the form:
