@@ -6,13 +6,15 @@
 
     <?php echo $__page__['before_content']; ?>
 
-    <h2 class="category-name">
-        <?php if ( $is_tag ): ?>
-            <?php echo sprintf( _x( 'Listings tagged: %s', 'templates', 'WPBDM' ), $category->name ); ?>
-        <?php else: ?>
-            <?php echo esc_attr($category->name); ?>
-        <?php endif; ?>
-    </h2>
+    <?php if ( $title ): ?>
+        <h2 class="category-name">
+            <?php if ( $is_tag ): ?>
+                <?php echo sprintf( _x( 'Listings tagged: %s', 'templates', 'WPBDM' ), $title ); ?>
+            <?php else: ?>
+                <?php echo $title; ?>
+            <?php endif; ?>
+        </h2>
+    <?php endif; ?>
 
     <?php do_action( 'wpbdp_before_category_page', $category ); ?>
     <?php

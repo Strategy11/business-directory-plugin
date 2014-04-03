@@ -625,7 +625,7 @@ class WPBDP_Plugin {
                 $categories[] = $term->term_id;
         }
 
-        return $this->controller->browse_category( $categories );
+        return $this->controller->browse_category( $categories, array(), true );
     }
 
     public function _featured_listings_shortcode($atts) {

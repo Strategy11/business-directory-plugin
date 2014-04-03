@@ -148,7 +148,7 @@ class WPBDP_DirectoryController {
     }
 
     /* Display category. */
-    public function browse_category($category_id=null) {
+    public function browse_category( $category_id=null, $args = array(), $in_listings_shortcode = false ) {
         if (!$this->check_main_page($msg)) return $msg;
 
         if (get_query_var('category')) {
@@ -160,6 +160,7 @@ class WPBDP_DirectoryController {
         }
 
         $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
+        $category_id = is_array( $category_id ) && 1 == count( $category_id ) ? $category_id[0] : $category_id;
 
         $listings_api = wpbdp_listings_api();
 
@@ -177,9 +178,18 @@ class WPBDP_DirectoryController {
             )
         ));
 
+        if ( is_array( $category_id ) || $in_listings_shortcode ) {
+            $title = '';
+            $category = null;
+        } else {
+            $category = get_term( $category_id, WPBDP_CATEGORY_TAX );
+            $title = esc_attr( $category->name );
+        }
+
         $html = wpbdp_render( 'category',
                              array(
-                                'category' => get_term( $category_id, WPBDP_CATEGORY_TAX ),
+                                'title' => $title,
+                                'category' => $category,
                                 'is_tag' => false
                                 ),
                              false );
