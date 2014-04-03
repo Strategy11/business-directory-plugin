@@ -44,7 +44,7 @@ class WPBDP_Email {
             $headers['MIME-Version'] = '1.0';
 
         if ( ! isset( $this->headers['Content-Type'] ) )
-            $headers['Content-Type'] = 'text/html; charset="' . get_option( 'blog_charset' ) . '"';
+            $headers['Content-Type'] = 'text/html; charset=' . get_option( 'blog_charset' );
 
         $headers['From'] = $this->from;
 
@@ -74,13 +74,20 @@ class WPBDP_Email {
 		$this->prepare_html();
 		$this->prepare_plain();
 
-		$from = $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
+		$this->from = $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
 		$to = $this->to;
 
 		if ( ! $this->to )
 		    return false;
 
-		$headers = $this->get_headers();
+        // Workaround a known WP bug where some headers are ignored if passed inside an array.
+        $headers = '';
+        foreach ( $this->get_headers() as $h => $v ) {
+            $headers .= $h . ': ' . $v . "\r\n";
+        }
+
+		wp_mail( $this->to, $this->subject, $this->html, $headers );
+		wpbdp_debug_e( $this->html, $headers );
 		return wp_mail( $this->to, $this->subject, $this->html, $headers );
 	}
 
