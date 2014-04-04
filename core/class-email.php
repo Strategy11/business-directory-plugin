@@ -86,8 +86,6 @@ class WPBDP_Email {
             $headers .= $h . ': ' . $v . "\r\n";
         }
 
-		wp_mail( $this->to, $this->subject, $this->html, $headers );
-		wpbdp_debug_e( $this->html, $headers );
 		return wp_mail( $this->to, $this->subject, $this->html, $headers );
 	}
 
