@@ -626,15 +626,12 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
     }
 
     public function process_field_settings( &$field ) {
-        if ( !array_key_exists( 'x_options', $_POST['field'] ) )
-            return;
-
-        $options = trim( $_POST['field']['x_options'] );
+        $options = isset( $_POST['x_options'] ) ? trim( $_POST['field']['x_options'] ) : '';
 
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', explode(',', $options ) );
+        $field->set_data( 'options', $options ? explode(',', $options ) : array() );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
