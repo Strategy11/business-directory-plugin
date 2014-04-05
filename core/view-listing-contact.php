@@ -87,13 +87,13 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
                 $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
         }
 
-        $email->body = wpbdp_render_page( WPBDP_PATH . 'templates/email/contact.tpl.php', array(
-            'listing_url' => get_permalink( $listing_id ),
-            'name' => $this->name,
-            'email' => $this->email,
-            'message' => $this->message,
-            'time' => date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) )
-        ), false );
+        $replacements = array( '[listing-url]' => get_permalink( $listing_id  ),
+                               '[listing]' => get_the_title( $listing_id ),
+                               '[name]' => $this->name,
+                               '[email]' => $this->email,
+                               '[message]' => $this->message,
+                               '[date]' => date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) ) );
+        $email->body = str_replace( array_keys( $replacements ), $replacements, wpbdp_get_option( 'email-templates-contact' ) );
 
         $html = '';
 

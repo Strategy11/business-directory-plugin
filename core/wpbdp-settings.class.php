@@ -232,6 +232,26 @@ class WPBDP_Settings {
                            'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
                           _x('You can use the placeholder [listing] for the listing title. This setting applies to non-paying listings only; for paying listings check the "Payment" settings tab.', 'admin settings', 'WPBDM'));
 
+        // Listing contact.
+        $email_contact_template  = '';
+        $email_contact_template .= sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'WPBDM' ), '[listing-url]' ) . "\n\n";
+        $email_contact_template .= sprintf( _x( 'Name: %s', 'contact email', 'WPBDM' ), '[name]' ) . "\n";
+        $email_contact_template .= sprintf( _x( 'E-Mail: %s', 'contact email', 'WPBDM' ), '[email]' ) . "\n";
+        $email_contact_template .= _x( 'Message:', 'contact email', 'WPBDM' ) . "\n";
+        $email_contact_template .= '[message]' . "\n\n";
+        $email_contact_template .= sprintf( _x( 'Time: %s', 'contact email', 'WPBDM' ), '[date]' );
+        
+        $s = $this->add_section( $g, 'email/templates', _x( 'E-Mail Templates', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'email-templates-contact',
+                            _x( 'Listing Contact Message', 'admin settings', 'WPBDM' ),
+                            'text',
+                            $email_contact_template,
+                            _x( 'You can use the placeholders [listing-url] for the listing\'s URL, [listing] for the listing\'s title, [name] for the sender\'s name, [email] for the sender\'s email, [message] for the contact message and [date] for the date the message was sent.',
+                                'admin settings',
+                                'WPBDM' ),
+                            array( 'use_textarea' => true ) );
+
         $s = $this->add_section( $g, 'email-notifications', _x( 'Admin Notifications', 'admin settings', 'WPBDM' ) );
         $this->add_setting( $s,
                             'admin-notifications',
@@ -748,3 +768,4 @@ class WPBDP_Settings {
         }
     }
 }
+
