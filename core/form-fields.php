@@ -942,11 +942,13 @@ class WPBDP_FormFields {
         return $field;
     }
 
-    public function &get_fields() {
+    public function &get_fields( $lightweight = false ) {
         global $wpdb;
 
-        $res = array();
+        if ( $lightweight )
+            return $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC" );
 
+        $res = array();
         $field_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC" );
 
         foreach ( $field_ids as $field_id ) {
