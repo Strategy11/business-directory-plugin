@@ -34,7 +34,13 @@ function wpbdp_get_page_id($name='main') {
         $where .= sprintf(" OR post_content LIKE '%%[%s]%%'", $shortcode);
     }
 
-    $id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE ({$where}) AND post_status = 'publish' AND post_type = 'page' LIMIT 1");
+    $id = wp_cache_get( "pages[{$name}]", 'wpbdp' );
+
+    if ( ! $id )
+        $id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE ({$where}) AND post_status = 'publish' AND post_type = 'page' LIMIT 1");
+
+    wp_cache_set( "pages[{$name}]", $id, 'wpbdp' );
+
     return $id;
 }
 
