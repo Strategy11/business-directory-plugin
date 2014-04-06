@@ -12,12 +12,13 @@
     }
 
     public function install() {
-        if ( $this->installed_version != self::DB_VERSION ) {
-            $this->update_database_schema();
+        if ( self::DB_VERSION == $this->installed_version )
+            return;
 
-            if ( !wpbdp_get_option( 'tracking-on', false ) )
-                delete_option( 'wpbdp-tracking-dismissed' );
-        }
+        $this->update_database_schema();
+
+        if ( !wpbdp_get_option( 'tracking-on', false ) )
+            delete_option( 'wpbdp-tracking-dismissed' );
 
         if ( $this->installed_version ) {
             wpbdp_log('WPBDP is already installed.');
@@ -25,7 +26,7 @@
         } else {
             wpbdp_log('New installation. Creating default form fields.');
             global $wpbdp;
-            $wpbdp->formfields->create_default_fields();                    
+            $wpbdp->formfields->create_default_fields();
         }
 
         delete_option('wpbusdirman_db_version');
