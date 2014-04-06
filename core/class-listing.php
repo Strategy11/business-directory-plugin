@@ -104,6 +104,10 @@ class WPBDP_Listing {
         return 0;
     }
 
+    public function set_title( $title ) {
+        wp_update_post( array( 'ID' => $this->id, 'post_title' => $title ) );
+    }
+
     public function get_title() {
         return get_the_title( $this->id );
     }
