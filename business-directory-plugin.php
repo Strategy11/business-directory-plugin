@@ -275,6 +275,8 @@ class WPBDP_Plugin {
 
         wpbdp_log('WPBDP_Plugin::init()');
 
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields' ) );
+
         $this->settings = new WPBDP_Settings();
 
         $plugin_filename = plugin_basename( __FILE__ );
