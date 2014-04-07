@@ -685,6 +685,9 @@ class WPBDP_FormField {
             $this->id = intval( $wpdb->insert_id );
         }
 
+        wpbdp_debug_e('save()', $this->id);
+        wp_cache_delete( $this->id, 'wpbdp formfields' );
+
         $api->_calculate_short_names();
     }
 
@@ -710,6 +713,9 @@ class WPBDP_FormField {
 
         if ( $wpdb->query( $wpdb->prepare( "DELETE FROM  {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $this->id ) ) !== false ) {
             $this->type->cleanup( $this );
+
+            wp_cache_delete( $this->id, 'wpbdp formfields' );
+
             $this->id = 0;
         } else {
             return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'WPBDM' ) );
@@ -777,22 +783,29 @@ class WPBDP_FormField {
     public static function get( $id ) {
         global $wpdb;
 
-        $field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
+        $_field = wp_cache_get( $id, 'wpbdp formfields' );
 
-        if ( !$field )
-            return null;
+        if ( ! $_field ) {
+            $_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
 
-        $field = (array) $field;
+            if ( ! $_field )
+                return null;
 
-        $field['display_flags'] = explode( ',', $field['display_flags'] ); 
-        $field['validators'] = explode( ',', $field['validators'] );
-        $field['field_data'] = unserialize( $field['field_data'] );
+            $_field = (array) $_field;
+
+            $_field['display_flags'] = explode( ',', $_field['display_flags'] ); 
+            $_field['validators'] = explode( ',', $_field['validators'] );
+            $_field['field_data'] = unserialize( $_field['field_data'] );
+
+            wp_cache_set( $id, $_field, 'wpbdp formfields' );
+        }
 
         try {
-            return new WPBDP_FormField( $field );
-        } catch (Exception $e) {
+            return new WPBDP_FormField( $_field );
+        } catch (Exception $e ) {
             return null;
         }
+
     }
 
 }
