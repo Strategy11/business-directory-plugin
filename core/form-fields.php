@@ -685,7 +685,6 @@ class WPBDP_FormField {
             $this->id = intval( $wpdb->insert_id );
         }
 
-        wpbdp_debug_e('save()', $this->id);
         wp_cache_delete( $this->id, 'wpbdp formfields' );
 
         $api->_calculate_short_names();
