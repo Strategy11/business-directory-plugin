@@ -474,7 +474,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        return sprintf( '<a href="%s">Continue to checkout</a>', $payment->get_checkout_url() );
+        require_once( WPBDP_PATH . 'core/view-checkout.php' );
+        $checkout = new WPBDP_Checkout_Page( $payment );
+        return $checkout->dispatch();
+
+//        return sprintf( '<a href="%s">Continue to checkout</a>', $payment->get_checkout_url() );
     }
 
     protected function step_confirmation() {

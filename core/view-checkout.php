@@ -7,8 +7,9 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     private $payment = null;
     private $errors = array();
 
-    public function __construct() {
+    public function __construct( &$payment = null ) {
         $this->api = wpbdp_payments_api();
+        $this->payment = $payment;
     }
 
     public function get_page_name() {
@@ -16,14 +17,17 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     }
 
     public function dispatch() {
-        $q = isset( $_REQUEST['payment'] ) ? $_REQUEST['payment'] : null;
-        if ( $q ) {
-            $q = urldecode( base64_decode( $q ) );
-            parse_str( $q, $payment_data );
+        if ( ! $this->payment ) {
+            $q = isset( $_REQUEST['payment'] ) ? $_REQUEST['payment'] : null;
 
-            if ( isset( $payment_data['payment_id'] ) && isset( $payment_data['verify'] ) ) { // TODO: check 'verify'.
-                $this->payment = WPBDP_Payment::get( $payment_data['payment_id'] );
-            } 
+            if ( $q ) {
+                $q = urldecode( base64_decode( $q ) );
+                parse_str( $q, $payment_data );
+
+                if ( isset( $payment_data['payment_id'] ) && isset( $payment_data['verify'] ) ) { // TODO: check 'verify'.
+                    $this->payment = WPBDP_Payment::get( $payment_data['payment_id'] );
+                } 
+            }
         }
 
         if ( ! $this->payment )
@@ -57,7 +61,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         }
 
-        $html .= '<form action="" method="POST">';
+        $html .= '<form action="' . esc_url( $this->payment->get_checkout_url() ) . '" method="POST">';
         $html .= $wpbdp->payments->render_invoice( $this->payment );
         $html .= $wpbdp->payments->render_payment_method_selection( $this->payment );
         $html .= '<input type="submit" value="Continue" />';

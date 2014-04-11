@@ -259,8 +259,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function set_payment_method( $method_id ) {
         $this->gateway = $method_id;
 
-        // TODO: fire something here in case the payment method needs to setup something before actual payment
-        // takes place.
+        do_action_ref_array( 'WPBDP_Payment::set_payment_method', array( &$this, $method_id ) );
     }
 
     public function get_currency_code() {

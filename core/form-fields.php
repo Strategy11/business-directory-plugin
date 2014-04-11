@@ -363,7 +363,6 @@ class WPBDP_FormField {
         $this->weight = intval( $attrs['weight'] );
 
         /* Validators */
-        // TODO: make sure validators are valid here
         if ( is_array( $attrs['validators'] ) ) {
             foreach ( $attrs['validators'] as $validator ) {
                 if ( $validator && !in_array( $validator, $this->validators, true ) )
