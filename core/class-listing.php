@@ -127,7 +127,7 @@ class WPBDP_Listing {
         return null;
     }
 
-    public function remove_category( $category, $remove_fee = true ) {
+    public function remove_category( $category, $remove_fee = true, $cleanup = false ) {
         global $wpdb;
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
@@ -135,18 +135,41 @@ class WPBDP_Listing {
         if ( $remove_fee )
             $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d",
                                           $this->id,
-                                          $category_id ) );        
+                                          $category_id ) );
 
         $listing_terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
         wpbdp_array_remove_value( $listing_terms, $category_id );
         wp_set_post_terms( $this->id, $listing_terms, WPBDP_CATEGORY_TAX );
+
+        if ( $cleanup ) {
+            // Remove all payment items related to this category.
+            $payment_ids = $wpdb->get_col( $wpdb->prepare( "SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d AND
+                                                            p.status = %s AND
+                                                            EXISTS( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id = p.id
+                                                            AND pi.item_type IN (%s, %s) AND pi.rel_id_1 = %d)",
+                                                           $this->id,
+                                                           'pending',
+                                                           'fee',
+                                                           'recurring_fee',
+                                                           $category_id ) );
+            foreach ( $payment_ids as $pid ) {
+                $payment = WPBDP_Payment::get( $pid );
+                $items = $payment->get_items( array( 'item_type' => array( 'fee', 'recurring_fee' ),
+                                                     'rel_id_1' => $category_id ) );
+                foreach ( $items as &$item ) {
+                    $payment->delete_item( $item );
+                }
+
+                $payment->save();
+            }
+        }
     }
 
     // TODO: if there is 'current' information for the category respect the expiration time left.
-    public function add_category( $category, $fee, $recurring = false, $recurring_data = array() ) {
+    public function add_category( $category, $fee, $recurring = false, $recurring_data = array(), $cleanup = false ) {
         global $wpdb;
 
-        $this->remove_category( $category );
+        $this->remove_category( $category, true, $cleanup );
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
         $fee =  ( null === $fee ) ? $fee : ( is_object( $fee ) ? $fee : wpbdp_get_fee( $fee ) );
@@ -335,7 +358,11 @@ class WPBDP_Listing {
 
         // Assign a default fee for categories without a fee.        
         foreach ( $terms as $category_id ) {
-            if ( ! $this->get_category_info( $category_id ) ) {
+            $category_info = $this->get_category_info( $category_id );
+
+            if ( $category_info && 'pending' == $category_info->status ) {
+                $this->add_category( $category_id, $category_info->fee, false, null, true );
+            } elseif ( ! $category_info ) {
                 $fee_choices = wpbdp_get_fees_for_category( $category_id );
                 $this->add_category( $category_id, $fee_choices[0] );
             }

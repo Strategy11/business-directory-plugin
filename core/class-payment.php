@@ -199,6 +199,16 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $this->amount += $amount;
     }
 
+    public function delete_item( &$item ) {
+        $index = array_search( (array) $item, $this->items, true );
+
+        if ( false === $index )
+            return;
+
+        unset( $this->items[ $index ] );
+        $this->amount -= $item->amount;
+    }
+
     public function has_item_type( $item_type ) {
         foreach ( $this->items as &$item ) {
             if ( $item['item_type'] == $item_type )
@@ -211,13 +221,19 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function get_items( $args = array() ) {
         $items = array();
 
+        if ( isset( $args['item_type'] ) )
+            $args['item_type'] = is_array( $args['item_type'] ) ? $args['item_type'] : array( $args['item_type'] );
+        else
+            $args['item_type'] = null;
+
         foreach ( $this->items as &$item ) {
-            if ( isset( $args['item_type'] ) ) {
-                if ( $args['item_type'] == $item['item_type'] )
-                    $items[] = $item;
-            } else {
-                $items[] = $item;
-            }
+            if ( isset( $args['item_type'] ) && ! in_array( $item['item_type'], $args['item_type'], true ) )
+                continue;
+
+            if ( isset( $args['rel_id_1'] ) && $args['rel_id_1'] != $item['rel_id_1'] )
+                continue;
+
+            $items[] = $item;
         }
 
         return array_map( create_function( '$x', 'return (object) $x;' ), $items );
