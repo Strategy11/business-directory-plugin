@@ -894,8 +894,12 @@ class WPBDP_Plugin {
 
                 if ( $this->_do_wpseo ) {
                     global $wpseo_front;
-                    
-                    $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
+
+                    if ( method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ) {
+                        $title = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
+                    } else {
+                        $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
+                    }
 
                     if ( !empty( $title ) )
                         return wpseo_replace_vars( $title, (array) $term );
@@ -914,7 +918,11 @@ class WPBDP_Plugin {
                 if ( $this->_do_wpseo ) {
                     global $wpseo_front;
 
-                    $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
+                    if ( method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ) {
+                        $title = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
+                    } else {
+                        $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
+                    }
 
                     if ( !empty( $title ) )
                         return wpseo_replace_vars( $title, (array) $term );
@@ -991,7 +999,9 @@ class WPBDP_Plugin {
                 }
 
                 if ( $term ) {
-                    $metadesc = wpseo_get_term_meta( $term, $term->taxonomy, 'desc' );
+                    $metadesc = method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ?
+                                WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'desc' ) : 
+                                wpseo_get_term_meta( $term, $term->taxonomy, 'desc' );
                     if ( !$metadesc && isset( $wpseo_front->options['metadesc-' . $term->taxonomy] ) )
                         $metadesc = wpseo_replace_vars( $wpseo_front->options['metadesc-' . $term->taxonomy], (array) $term );
 
