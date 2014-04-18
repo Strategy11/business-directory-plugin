@@ -678,7 +678,7 @@ class WPBDP_Plugin {
             global $post;
 
             foreach ( array_keys( $this->get_shortcodes() ) as $shortcode ) {
-                if ( has_shortcode( $post->post_content, $shortcode ) )
+                if ( wpbdp_has_shortcode( $post->post_content, $shortcode ) )
                     $is_plugin_page = true;
             }
 
