@@ -850,6 +850,7 @@ class WPBDP_Plugin {
 
     }
 
+    // TODO: it'd be nice to move workarounds outside this class.
     public function _meta_title( $title = '', $sep = '»', $seplocation = 'right' ) {
         $action = $this->controller->get_current_action();
 
@@ -904,7 +905,7 @@ class WPBDP_Plugin {
                     if ( !empty( $title ) )
                         return wpseo_replace_vars( $title, (array) $term );
 
-                    return $wpseo_front->get_title_from_options( 'title-' . $term->taxonomy, $term );
+                    return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
                 }
 
                 return sprintf( _x( 'Listings tagged: %s', 'title', 'WPBDM' ), $term->name ) . ' ' . $sep . ' ';
@@ -927,7 +928,7 @@ class WPBDP_Plugin {
                     if ( !empty( $title ) )
                         return wpseo_replace_vars( $title, (array) $term );
 
-                    return $wpseo_front->get_title_from_options( 'title-' . $term->taxonomy, $term );
+                    return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
                 }
 
                 return $term->name . ' ' . $sep . ' ';
@@ -1002,8 +1003,8 @@ class WPBDP_Plugin {
                     $metadesc = method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ?
                                 WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'desc' ) : 
                                 wpseo_get_term_meta( $term, $term->taxonomy, 'desc' );
-                    if ( !$metadesc && isset( $wpseo_front->options['metadesc-' . $term->taxonomy] ) )
-                        $metadesc = wpseo_replace_vars( $wpseo_front->options['metadesc-' . $term->taxonomy], (array) $term );
+                    if ( !$metadesc && isset( $wpseo_front->options['metadesc-tax-' . $term->taxonomy] ) )
+                        $metadesc = wpseo_replace_vars( $wpseo_front->options['metadesc-tax-' . $term->taxonomy], (array) $term );
 
                     if ( $metadesc )
                         echo '<meta name="description" content="' . esc_attr( strip_tags( stripslashes( $metadesc ) ) ) . '"/>' . "\n";
