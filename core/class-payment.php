@@ -56,7 +56,9 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $this->payerinfo = array();
         $this->status = self::STATUS_PENDING;
     }
-    
+
+
+    // TODO: when a payment is saved (and it's completed) all payments it superseeds should be removed/rejected (i.e. a payment for the same category or an already pending upgrade)
     public function save() {
         global $wpdb;
 
