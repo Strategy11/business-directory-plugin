@@ -371,6 +371,7 @@ class WPBDP_Plugin {
                                                'businessdirectory-submitlisting' ),
                                         array( &$this->controller, 'submit_listing' ) );
         $shortcodes += array_fill_keys( array( 'WPBUSDIRMANMANAGELISTING',
+                                               'businessdirectory-managelistings',
                                                'businessdirectory-manage_listings' ),
                                         array( &$this->controller, 'manage_listings' ) );
         $shortcodes += array_fill_keys( array( 'WPBUSDIRMANVIEWLISTINGS',
