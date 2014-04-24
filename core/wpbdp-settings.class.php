@@ -74,8 +74,19 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-search-listings', _x('Show "Search listings".', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
-        $this->add_setting($s, 'show-search-form-in-results', _x('Display search form when displaying search results?', 'admin settings', 'WPBDM'), 'boolean', true);
 
+        // Directory search.
+        $s = $this->add_section( $g,
+                                 'search',
+                                 _x( 'Directory Search', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'show-search-form-in-results',
+                            _x( 'Display search form when displaying search results?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            true );
+
+
+        // Misc. settings.
 
         $s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
