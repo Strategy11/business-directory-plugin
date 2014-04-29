@@ -312,7 +312,6 @@ class WPBDP_Plugin {
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_ListingsAPI();        
 
-        add_action('init', array($this, '_session_start'));
         add_action('init', array($this, '_register_image_sizes'));
         add_action( 'init', array( &$this, 'handle_recaptcha' ) );
 
@@ -425,12 +424,6 @@ class WPBDP_Plugin {
         $plugin_dir = basename( dirname( __FILE__ ) );
         $languages_dir = trailingslashit( $plugin_dir . '/languages' );
         load_plugin_textdomain( 'WPBDM', false, $languages_dir );        
-    }
-
-    function _session_start() {
-        if (session_id() == '') {
-            session_start();
-        }
     }
 
     function _register_post_type() {
