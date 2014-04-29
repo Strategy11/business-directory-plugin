@@ -425,5 +425,32 @@ body.taxonomy-wpbdp_category .column-id {
 .listing-fee-change .fee-selection .fee .choose-this {
     float: right;
 }
-
 /* @end */
+
+.wpbdp-draggable-highlight {
+    background: red;
+}
+
+/* {{{ Compatibility check. */
+
+.wpbdp-module-compat-check .module-info {
+    margin-bottom: 3px;
+}
+
+.wpbdp-module-compat-check .module-info .module-version, .wpbdp-module-compat-check .module-info .module-required { 
+    color: #666;
+}
+
+.wpbdp-module-compat-check .module-info .module-version {
+    margin-left: 15px;
+}
+
+.wpbdp-module-compat-check .module-info .module-version b {
+    color: #333;
+}
+
+.wpbdp-module-compat-check .module-info .module-required b {
+    color: #900000;
+}
+
+/* }}} */

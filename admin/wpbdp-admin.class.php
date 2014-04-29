@@ -66,11 +66,11 @@ class WPBDP_Admin {
     function enqueue_scripts() {
         global $pagenow;
 
-        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.min.css');
+        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
         wp_enqueue_style('thickbox');
 
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'core/js/wpbdp.min.js', array('jquery'));
-        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.min.js', array('jquery', 'thickbox'));
+        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox', 'jquery-ui-sortable' ));
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wp_enqueue_style( 'wpbdp-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
@@ -462,6 +462,7 @@ class WPBDP_Admin {
     }
 
     function admin_notices() {
+        $this->check_compatibility();
         $this->check_setup();
 
         foreach ($this->messages as $msg) {
@@ -1088,7 +1089,7 @@ class WPBDP_Admin {
                                 admin_url('admin.php?page=wpbdp_admin_formfields&action=createrequired'),
                                 _x('Create these required fields for me', 'admin', 'WPBDM'));
 
-            $this->messages[] = array($message, 'error');            
+            $this->messages[] = array($message, 'error');
         }
     }
 
@@ -1120,6 +1121,44 @@ class WPBDP_Admin {
             if ($errors = wpbdp_payments_api()->check_config()) {
                 foreach ($errors as $error) $this->messages[] = array($error, 'error');
             }
+        }
+    }
+
+    private function check_compatibility() {
+        global $wpbdp;
+
+        $modules_msg = '';
+        $modules = $wpbdp->get_premium_modules_data();
+
+        foreach ( $modules as $module_id => &$module_info ) {
+            if ( $module_info['installed'] && version_compare( $module_info['version'], $module_info['required'], '<' ) ) {
+                $modules_msg .= '<li class="module-info">';
+                $modules_msg .= 'business-directory-<b>' . $module_id . '</b><br />';
+                $modules_msg .= '<span class="module-version">';
+                $modules_msg .= sprintf( _x( 'Installed: %s', 'admin compat', 'WPBDM' ), '<b>' . ( null === $module_info['version'] ? _x( 'N/A', 'admin compat', 'WPBDM' ) : $module_info['version'] ) . '</b>' );
+                $modules_msg .= '</span> -- ';
+                $modules_msg .= '<span class="module-required">';
+                $modules_msg .= sprintf( _x( 'Required: %s', 'admin compat', 'WPBDM' ), '<b>' . $module_info['required'] . '</b>' );
+                $modules_msg .= '</span>';
+                $modules_msg .= '</li>';
+
+/*                $modules_msg .= sprintf( _x( '&#149; %s (installed: %s, required: %s).', 'admin compat', 'WPBDM' ),
+                                         '<span class="module-name">business-directory-<b>' . $module_id . '</b></span>',
+                                         '<span class="module-version">' . ( null === $module_info['version'] ? _x( 'N/A', 'admin compat', 'WPBDM' ) : $module_info['version'] ) . '</span>',
+                                         '<span class="module-required">' . $module_info['required'] . '</span>' );*/
+            }
+        }
+
+        if ( $modules_msg ) {
+            $message  = '';
+            $message .= _x( 'Business Directory has detected some incompatible premium module versions installed.', 'admin compat', 'WPBDM' );
+            $message .= '<br />';
+            $message .= _x( 'Please upgrade to the required versions indicated below to make sure everything functions properly.', 'admin compat', 'WPBDM' );
+            $message .= '<ul class="wpbdp-module-compat-check">';
+            $message .= $modules_msg;
+            $message .= '</ul>';
+
+            $this->messages[] = array( $message, 'error' );
         }
     }
 

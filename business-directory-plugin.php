@@ -69,6 +69,58 @@ class WPBDP_Plugin {
         register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
     }
 
+    // {{{ Premium modules.
+
+    /**
+     * Return information about known premium modules.
+     * @return array An array in the form $module_id => $module_information where $module_information contains the keys
+     *               'installed' (True or False),
+     *               'version' (if installed, NULL otherwise),
+     *               'required' (required module version as known to current core version).
+     * @since 3.4
+     */
+    public function get_premium_modules_data() {
+        static $modules = array(
+            '2checkout' => array( 'WPBDP_2Checkout_Module', '3.4dev' ),
+            'attachments' => array( 'WPBDP_ListingAttachmentsModule', '3.4dev' ),
+            'categories' => array( 'WPBDP_CategoriesModule', '3.4dev' ),
+            'featured-levels' => array( 'WPBDP_FeaturedLevelsModule', '3.4dev' ),
+            'googlemaps' => array( 'BusinessDirectory_GoogleMapsPlugin', '3.4dev' ),
+            'payfast' => array( 'WPBDP_Gateways_PayFast', '3.4dev' ),
+            'paypal' => array( 'WPBDP_PayPal_Module', '3.4dev' ),
+            'ratings' => array( 'BusinessDirectory_RatingsModule', '3.4dev' ),
+            'regions' => array( 'WPBDP_RegionsPlugin', '3.4dev' ),
+            'stripe' => array( 'WPBDP_Stripe_Module', '3.4dev' ),
+            'zipcodesearch' => array( 'WPBDP_ZIPCodeSearchModule', '3.4dev' )
+        );
+
+        static $data = null;
+
+        if ( null !== $data )
+            return $data;
+
+        $data = array();
+
+        foreach ( $modules as $module_id => $module_ ) {
+            $module_class = $module_[0];
+            $data[ $module_id ] = array( 'installed' => false,
+                                         'version' => null,
+                                         'required' => $module_[1] );
+
+            if ( class_exists( $module_class ) ) {
+                $data[ $module_id ]['installed'] = true;
+
+                if ( defined( $module_class . '::VERSION' ) ) {
+                    $data[ $module_id ]['version'] = $module_class::VERSION;
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    // }}}
+
     public function _pre_get_posts(&$query) {
         global $wpdb;
 
