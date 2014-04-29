@@ -227,6 +227,9 @@ class WPBDP_PaymentsAPI {
         if ( isset( $this->gateways[ $id ] ) )
             return false;
 
+        if ( ! is_string( $classorinstance ) && ! is_object( $classorinstance ) )
+            return false;
+
         if ( is_string( $classorinstance ) && ! class_exists( $classorinstance ) )
             return false;
 
