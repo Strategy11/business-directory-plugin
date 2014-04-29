@@ -770,8 +770,42 @@ class WPBDP_FormField {
             }
 
         }
+    }
 
-    } 
+    public function build_quick_search_query( $q = '', &$pieces ) {
+        global $wpdb;
+
+        $association = $this->get_association();
+        $id = $this->get_id();
+
+        // Do not allow quick search to be performed on e-mail fields for security.
+        if ( $this->has_validator( 'email' ) )
+            return;
+
+        switch ( $association ) {
+            case 'title':
+            case 'excerpt':
+            case 'content':
+                $pieces['fields'] .= "";
+                $pieces['where'] .= $wpdb->prepare( " OR ({$wpdb->posts}.post_{$association} LIKE '%%%s%%')", $q );
+                break;
+            case 'category':
+            case 'tags':
+                $pieces['fields'] .= "";
+                $pieces['join'] .= " LEFT JOIN {$wpdb->term_relationships} AS trel{$id} ON {$wpdb->posts}.ID = trel{$id}.object_id LEFT JOIN {$wpdb->term_taxonomy} AS ttax{$id} ON trel{$id}.term_taxonomy_id = ttax{$id}.term_taxonomy_id LEFT JOIN {$wpdb->terms} AS tterms{$id} ON ttax{$id}.term_id = tterms{$id}.term_id";
+                $pieces['where'] .= $wpdb->prepare( " OR (ttax{$id}.taxonomy = %s AND (tterms{$id}.slug LIKE '%%%s%%' OR tterms{$id}.name LIKE '%%%s%%'))",
+                                                    'tags' == $association ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX, $q, $q );
+                break;
+            case 'meta':
+                $pieces['fields'] .= '';
+                $pieces['join'] = " LEFT JOIN {$wpdb->postmeta} AS mt{$id} ON {$wpdb->posts}.ID = mt{$id}.post_id";
+                $pieces['where'] = $wpdb->prepare( " OR (mt{$id}.meta_key = %s AND mt{$id}.meta_value LIKE '%%%s%%') ",
+                                                   '_wpbdp[fields][' . $id . ']',
+                                                   $q
+                                                 );
+                break;
+        }
+    }
 
     /**
      * Creates a WPBDP_FormField from a database record.

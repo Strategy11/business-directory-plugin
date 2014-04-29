@@ -75,7 +75,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
 
-        // Directory search.
+        // {{{ Directory search.
         $s = $this->add_section( $g,
                                  'search',
                                  _x( 'Directory Search', 'admin settings', 'WPBDM' ) );
@@ -85,6 +85,21 @@ class WPBDP_Settings {
                             'boolean',
                             true );
 
+        // Quick search fields.
+        $quicksearch_fields = array();
+        foreach ( wpbdp_get_form_fields() as $field ) {
+            $quicksearch_fields[] = array( $field->get_id(), $field->get_label() );
+        }
+
+        $this->add_setting( $s,
+                            'quick-search-fields',
+                            _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            array(),
+                            '',
+                            array( 'choices' => $quicksearch_fields, 'use_checkboxes' => false, 'multiple' => true )
+                        );
+        // }}}
 
         // Misc. settings.
 
@@ -598,17 +613,22 @@ class WPBDP_Settings {
 
         $multiple = isset( $args['multiple'] ) && $args['multiple'] ? true : false;
         $widget = $multiple ? ( isset( $args['use_checkboxes'] ) && $args['use_checkboxes'] ? 'checkbox' : 'multiselect' ) : 'select'; // TODO: Add support for radios.
+
+        if ( 'multiselect' == $widget )
+            $multiple = true;
+
         $html = '';
 
         if ( $widget == 'select' || $widget == 'multiselect' ) {
-            // TODO: Add support for multiple.
-            $html .= '<select id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '">';
-            
+            $html .= '<select id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
+
+            $value = is_array( $value ) ? $value : array( $value );
+
             foreach ($choices as $ch) {
                 $opt_label = is_array($ch) ? $ch[1] : $ch;
                 $opt_value = is_array($ch) ? $ch[0] : $ch;
 
-                $html .= '<option value="' . $opt_value . '"' . ($value == $opt_value ? ' selected="selected"' : '') . '>'
+                $html .= '<option value="' . $opt_value . '"' . ( $value && in_array( $opt_value, $value ) ? ' selected="selected"' : '') . '>'
                                 . $opt_label . '</option>';
             }
 
@@ -660,8 +680,8 @@ class WPBDP_Settings {
         $setting = $api->settings[$name];
 
         if ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) {
-            if ( isset( $_POST[ $name ] ) ) {
-                $newvalue = $_POST[ $name ];
+            if ( isset( $_POST[ self::PREFIX . $name ] ) ) {
+                $newvalue = $_POST[ self::PREFIX . $name ];
                 $newvalue = is_array( $newvalue ) ? $newvalue : array( $newvalue );
 
                 if ( $setting->validator )

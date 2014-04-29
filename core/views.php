@@ -433,7 +433,11 @@ class WPBDP_DirectoryController {
                 $search_args['extra'][ $label ] = $field;
 
             $listings_api = wpbdp_listings_api();
-            $results = $listings_api->search( $search_args );
+
+            if ( $search_args['q'] && ! $search_args['fields'] && ! $search_args['extra'] )
+                $results = $listings_api->quick_search( $search_args['q'] );
+            else
+                $results = $listings_api->search( $search_args );
         }
 
         $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );

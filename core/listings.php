@@ -575,6 +575,60 @@ class WPBDP_ListingsAPI {
         return 0;
     }
 
+    // {{{ Quick search.
+
+    private function get_quick_search_fields() {
+        $fields = array();
+        
+        foreach ( wpbdp_get_option( 'quick-search-fields', array() ) as $field_id ) {
+            if ( $field = WPBDP_FormField::get( $field_id ) )
+                $fields[] = $field;
+        }
+
+        if ( ! $fields ) {
+            // Use default fields.
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
+     * @uses WPBDP_ListingsAPI::get_quick_search_fields().
+     * @param string $q The string used for searching.
+     * @return array The listing IDs.
+     * @since 3.4
+     */
+    public function quick_search( $q = '' ) {
+        if ( ! $q )
+            return array();
+
+        global $wpdb;
+        
+        $fields = $this->get_quick_search_fields();
+        $query_pieces = array( 'where' => '',
+                               'join' => '',
+                               'orderby' => '',
+                               'distinct' => '',
+                               'fields' => "{$wpdb->posts}.ID",
+                               'limits' => '' );
+        foreach ( $fields as &$f )
+            $f->build_quick_search_query( $q, $query_pieces );
+
+        $query_pieces = apply_filters( 'wpbdp_quick_search_query_pieces', $query_pieces );
+        $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE 1=0 %s GROUP BY {$wpdb->posts}.ID %s %s",
+                          $query_pieces['distinct'],
+                          $query_pieces['fields'],
+                          $query_pieces['join'],
+                          $query_pieces['where'],
+                          $query_pieces['orderby'],
+                          $query_pieces['limits'] );
+
+        return $wpdb->get_col( $query );
+    }
+
+    // }}}
+
     /* listings search */
     public function search($args) {
         global $wpdb;
