@@ -86,17 +86,21 @@ class WPBDP_Settings {
                             true );
 
         // Quick search fields.
+        $default_fields = array();
         $quicksearch_fields = array();
         foreach ( wpbdp_get_form_fields() as $field ) {
             $quicksearch_fields[] = array( $field->get_id(), $field->get_label() );
+
+            if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ), true ) )
+                $default_fields[] = $field->get_id();
         }
 
         $this->add_setting( $s,
                             'quick-search-fields',
                             _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
                             'choice',
-                            array(),
-                            '',
+                            $default_fields,
+                            _x( 'Choosing several fields here can result in very slow searches.', 'admin settings', 'WPBDM' ),
                             array( 'choices' => $quicksearch_fields, 'use_checkboxes' => false, 'multiple' => true )
                         );
         // }}}

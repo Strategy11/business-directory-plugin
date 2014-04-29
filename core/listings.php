@@ -587,6 +587,10 @@ class WPBDP_ListingsAPI {
 
         if ( ! $fields ) {
             // Use default fields.
+            foreach( wpbdp_get_form_fields() as &$field ) {
+                if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ) ) )
+                    $fields[] = $field;
+            }
         }
 
         return $fields;
