@@ -83,14 +83,14 @@ class WPBDP_Plugin {
         static $modules = array(
             '2checkout' => array( 'WPBDP_2Checkout_Module', '3.4dev' ),
             'attachments' => array( 'WPBDP_ListingAttachmentsModule', '3.4dev' ),
-            'categories' => array( 'WPBDP_CategoriesModule', '3.4dev' ),
+            'categories' => array( 'WPBDP_CategoriesModule', '3.2' ),
             'featured-levels' => array( 'WPBDP_FeaturedLevelsModule', '3.4dev' ),
             'googlemaps' => array( 'BusinessDirectory_GoogleMapsPlugin', '3.4dev' ),
             'payfast' => array( 'WPBDP_Gateways_PayFast', '3.4dev' ),
             'paypal' => array( 'WPBDP_PayPal_Module', '3.4dev' ),
             'ratings' => array( 'BusinessDirectory_RatingsModule', '3.4dev' ),
             'regions' => array( 'WPBDP_RegionsPlugin', '3.4dev' ),
-            'stripe' => array( 'WPBDP_Stripe_Module', '3.4dev' ),
+            'stripe' => array( 'WPBDP_Stripe_Module', '0.2dev' ),
             'zipcodesearch' => array( 'WPBDP_ZIPCodeSearchModule', '3.4dev' )
         );
 
