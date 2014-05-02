@@ -13,6 +13,10 @@ var WPBDP_associations_fieldtypes = {};
 
             WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
             WPBDPAdmin_FormFields.$f_fieldtype.change( WPBDPAdmin_FormFields.onFieldTypeChange );
+
+/*            $('table.formfields tbody').sortable({
+                placeholder: 'wpbdp-draggable-highlight'
+            });*/
         },
 
         onFieldTypeChange: function() {
