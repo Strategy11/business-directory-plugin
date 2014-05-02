@@ -66,11 +66,11 @@ class WPBDP_Admin {
     function enqueue_scripts() {
         global $pagenow;
 
-        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.css');
+        wp_enqueue_style('wpbdp-admin', WPBDP_URL . 'admin/resources/admin.min.css');
         wp_enqueue_style('thickbox');
 
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'core/js/wpbdp.min.js', array('jquery'));
-        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox', 'jquery-ui-sortable' ));
+        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.min.js', array('jquery', 'thickbox', 'jquery-ui-sortable' ));
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wp_enqueue_style( 'wpbdp-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
@@ -87,12 +87,12 @@ class WPBDP_Admin {
     }
 
     function admin_menu() {
-        add_menu_page(_x("Business Directory Admin", 'admin menu', "WPBDM"),
-                      _x('Directory Admin', 'admin menu', 'WPBDM'),
-                      'activate_plugins',
-                      'wpbdp_admin',
-                      'wpbusdirman_home_screen',
-                      WPBDP_URL . 'admin/resources/menuico.png');
+        add_menu_page( _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
+                       _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
+                       'activate_plugins',
+                       'wpbdp_admin',
+                       array( &$this, 'main_menu' ),
+                       WPBDP_URL . 'admin/resources/menuico.png' );
         add_submenu_page('wpbdp_admin',
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
@@ -1172,7 +1172,18 @@ class WPBDP_Admin {
                     'error' );
             }
         }
+    }
 
+    public function main_menu() {
+        if ( isset( $_GET['action'] ) && 'createmainpage' == $_GET['action'] && ! wpbdp_get_page_id( 'main' ) ) {
+            $page = array( 'post_status' => 'publish',
+                           'post_title' => _x( 'Business Directory', 'admin', 'WPBDM' ),
+                           'post_type' => 'page',
+                           'post_content' => '[businessdirectory]' );
+            wp_insert_post( $page );
+        }
+
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/home.tpl.php' );
     }
 
 }
