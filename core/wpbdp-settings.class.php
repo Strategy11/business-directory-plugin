@@ -508,8 +508,12 @@ class WPBDP_Settings {
         if (!is_null($ifempty) && empty($value))
             $value = $ifempty;
 
-        if ($this->settings[$name]->type == 'boolean')
+        if ($this->settings[$name]->type == 'boolean') {
             return (boolean) intval($value);
+        } elseif ( 'choice' == $this->settings[$name]->type && isset( $this->settings[$name]->args['multiple'] ) && $this->settings[$name]->args['multiple'] ) {
+            if ( ! $value )
+                return array();
+        }
 
         return $value;
     }
@@ -640,9 +644,9 @@ class WPBDP_Settings {
         } elseif ( $widget == 'checkbox' ) {
             foreach ( $choices as $k => $v ) {
                 $html .= sprintf( '<label><input type="checkbox" name="%s[]" value="%s" %s />%s</label><br />',
-                                  $setting->name,
+                                  self::PREFIX . $setting->name,
                                   $k,
-                                  in_array( $k, $value, true ) ? 'checked="checked"' : '',
+                                  ( $value && in_array( $k, $value ) ) ? 'checked="checked"' : '',
                                   $v );
             }
         }
