@@ -111,7 +111,7 @@ class WPBDP_Plugin {
                 $data[ $module_id ]['installed'] = true;
 
                 if ( defined( $module_class . '::VERSION' ) ) {
-                    $data[ $module_id ]['version'] = $module_class::VERSION;
+                    $data[ $module_id ]['version'] = constant( $module_class . '::VERSION' );
                 }
             }
         }
