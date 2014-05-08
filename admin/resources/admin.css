@@ -459,6 +459,25 @@ body.taxonomy-wpbdp_category .column-id {
 
 /* }}} */
 
+/* {{{ Admin main page. */
+.toplevel_page_wpbdp_admin .welcome-message  {
+    padding: 10px;
+    font-size: 105%;
+}
+
+.toplevel_page_wpbdp_admin .welcome-message p {
+    font-size: inherit;
+}
+
+.toplevel_page_wpbdp_admin .welcome-message h4 {
+    font-size: 120%;
+}
+
+.toplevel_page_wpbdp_admin .welcome-message ul {
+    list-style-position: inside;
+    list-style-type: disc;
+}
+
 .toplevel_page_wpbdp_admin ul.shortcuts {
     margin: auto;
 }
@@ -471,3 +490,5 @@ body.taxonomy-wpbdp_category .column-id {
 .toplevel_page_wpbdp_admin ul.shortcuts li.clear {
     margin: 0;
 }
+/* }}} */
+

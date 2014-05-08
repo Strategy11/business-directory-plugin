@@ -1,6 +1,6 @@
 <?php echo wpbdp_admin_header(); ?>
 
-<div class="wpbdp-note">
+<div class="wpbdp-note welcome-message">
     <h4><?php _ex( 'Welcome to Business Directory Plugin', 'admin home', 'WPBDM' ); ?></h4>
     <p><?php _ex( 'Thanks for choosing us.  There\'s a lot you probably want to get done, so let\'s jump right in!',
                   'admin home',
@@ -8,7 +8,7 @@
     <ul>
         <li>
             <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/docs" target="_blank">',
-                                    _x( 'Our complete documentation is <a>here</a> which we encourage you to use while setting things up', 'admin home', 'WPBDM' ) ); ?>
+                                    _x( 'Our complete documentation is <a>here</a> which we encourage you to use while setting things up.', 'admin home', 'WPBDM' ) ); ?>
         <li>
             <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank">',
                                     _x( 'We have some quick-start scenarios that you will find useful regarding setup and configuration <a>here</a>.', 'admin home', 'WPBDM' ) ); ?>
