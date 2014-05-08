@@ -107,6 +107,7 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-listing .listing-details .field-value {
     margin-bottom: 10px;
     width: 100%;
+    float: none;
 }
 
 .wpbdmsingledetails .singledetailsview .field-value {
