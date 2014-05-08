@@ -239,10 +239,10 @@ class WPBDP_Settings {
         $s = $this->add_section( $g, 'email-general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
         $this->add_setting( $s,
                             'override-email-blocking',
-                            _x( 'Override email Blocking?', 'admin settings', 'WPBDM' ),
+                            _x( 'Display email address fields publicly?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             false,
-                            _x('When checked, email addresses in listing fields will be displayed publicly. Not recommended.', 'admin settings', 'WPBDM') );
+                            _x('Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'admin settings', 'WPBDM') );
 
         $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
         $this->add_setting( $s,
