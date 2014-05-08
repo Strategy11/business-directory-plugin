@@ -613,7 +613,9 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         if ( $association != 'meta' && $association != 'tags' )
             return '';
 
-        $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
+        $settings = array();
+
+        $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
         
         $content  = '<span class="description">Comma (,) separated list of options</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
@@ -622,16 +624,21 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
             $content .= implode( ',', $field->data( 'options' ) );
         $content .= '</textarea>';
 
-        return self::render_admin_settings( array( array( $label, $content ) ) );
+        $settings['options'][] = $content;
+
+        return self::render_admin_settings( $settings );
     }
 
     public function process_field_settings( &$field ) {
-        $options = isset( $_POST['x_options'] ) ? trim( $_POST['field']['x_options'] ) : '';
+        if ( !array_key_exists( 'x_options', $_POST['field'] ) )
+            return;
+
+        $options = trim( $_POST['field']['x_options'] );
 
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', $options ? explode(',', $options ) : array() );
+        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
