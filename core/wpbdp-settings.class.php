@@ -148,7 +148,7 @@ class WPBDP_Settings {
                             _x( 'Allow recurring renewal payments?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             false,
-                            _x( 'Allow users to opt in for automatical renewal of their listings. The fee is charged at the time the listing expires without user intervention.', 'admin settings', 'WPBDM' )
+                            _x( 'Allow users to opt in for automatic renewal of their listings. The fee is charged at the time the listing expires without user intervention.', 'admin settings', 'WPBDM' )
                           );
 
         $this->add_setting( $s,
