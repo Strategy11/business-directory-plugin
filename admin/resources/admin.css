@@ -319,6 +319,10 @@ body.taxonomy-wpbdp_category .column-id {
     font-size: 13px;
 }
 
+.directory-admin_page_wpbdp_admin_settings select {
+    display: block;
+}
+
 .tag.payment-status.completed {
     background: green;
 }

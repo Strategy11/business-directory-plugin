@@ -75,7 +75,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
 
-        // {{{ Directory search.
+        // {{ Directory search.
         $s = $this->add_section( $g,
                                  'search',
                                  _x( 'Directory Search', 'admin settings', 'WPBDM' ) );
@@ -100,10 +100,10 @@ class WPBDP_Settings {
                             _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
                             'choice',
                             $default_fields,
-                            _x( 'Choosing several fields here can result in very slow searches.', 'admin settings', 'WPBDM' ),
+                            _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' ),
                             array( 'choices' => $quicksearch_fields, 'use_checkboxes' => false, 'multiple' => true )
                         );
-        // }}}
+        // }}
 
         // Misc. settings.
 
