@@ -1,4 +1,4 @@
-<h3><?php _ex( '6 - Submission Received', 'templates', 'WPBDM' ); ?></h3>
+<h3><?php echo $_state->step_number . ' - '; ?><?php _ex( 'Submission Received', 'templates', 'WPBDM' ); ?></h3>
 
 <?php if ( ! $_state->editing ): ?>
     <p><?php _ex( 'Your listing has been submitted.', 'templates', 'WPBDM' ); ?></p>

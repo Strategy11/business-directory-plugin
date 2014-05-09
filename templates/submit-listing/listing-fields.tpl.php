@@ -1,4 +1,4 @@
-<h3><?php _ex( '3 - Listing Information', 'templates', 'WPBDM' ); ?></h3>
+<h3><?php echo $_state->step_number . ' - '; ?><?php _ex( 'Listing Information', 'templates', 'WPBDM' ); ?></h3>
 
 <?php if ($validation_errors): ?>
 	<ul class="validation-errors">

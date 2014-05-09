@@ -90,7 +90,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
     protected function step_category_selection() {
         if ( $this->state->editing ) {
-            $this->state->advance();
+            $this->state->advance( false );
             return $this->dispatch();
         }
 
@@ -176,7 +176,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             
             $this->state->upgrade_to_sticky = false;            
             
-            $this->state->advance();
+            $this->state->advance( false );
             return $this->dispatch();            
         }
 
@@ -328,10 +328,10 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             foreach ( $this->state->categories as $cat_id => $fee_id )
                 $image_slots += wpbdp_get_fee( $fee_id )->images; // TODO: max() instead of + probably makes more sense here.
         }
-        
+
         // Move on if there are no slots.
         if ( 0 == $image_slots ) {
-            $this->state->advance();
+            $this->state->advance( false );
             return $this->dispatch();
         }
 
@@ -339,7 +339,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $thumbnail_id = &$this->state->thumbnail_id;
         $image_slots_remaining = $image_slots - count( $images );
         $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
-    
+
         // Set thumbnail
         $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
         $this->state->thumbnail_id = $thumbnail_id;
@@ -347,7 +347,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( isset( $_POST['upload-image'] ) && ( ( $image_slots_remaining - 1 ) >= 0 ) ) {
             if ( $image_file = $_FILES[ 'image' ] ) {
                 $image_error = '';
-        
+
                 if ( $attachment_id = wpbdp_media_upload( $image_file,
                                                           true,
                                                           true,
@@ -395,7 +395,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $this->state->save(); // Save state in case extra sections modified it.
 
         if ( !$extra ) {
-            $this->state->advance();
+            $this->state->advance( false );
             return $this->dispatch();
         }
 
@@ -452,7 +452,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         $listing->save();
 
-        $this->state->advance();
+        $this->state->advance( false ); // This step is 'invisible'.
         return $this->dispatch();
     }
     
@@ -460,7 +460,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         global $wpbdp;
 
         if ( $this->state->editing ) {
-            $this->state->advance();
+            $this->state->advance( false );
             return $this->dispatch();
         }
 
@@ -470,7 +470,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return wpbdp_render_msg( _x( 'Invalid submit state.', 'submit_state', 'WPBDM' ), 'error' );
 
         if ( $payment->is_completed() ) {
-            $this->state->advance();
+            $this->state->advance( false );
             return $this->dispatch();
         }
 
@@ -506,8 +506,9 @@ class WPBDP_Listing_Submit_State {
 
     public $id = '';
     public $listing_id = 0;
+
+    public $step_number = 1;
     public $step = 'category_selection';
-    
 
     public $fields = array();
     public $categories = array();
@@ -518,6 +519,7 @@ class WPBDP_Listing_Submit_State {
 
     public $images = array();
     public $thumbnail_id = 0;
+
 
     public function __construct( $listing_id = 0 ) {
         $this->editing = $listing_id > 0 ? true : false;
@@ -574,7 +576,7 @@ class WPBDP_Listing_Submit_State {
         
     }
 
-    public function advance() {
+    public function advance( $increase_step_number = true ) {
         $current_step = $this->step;
         
         if ( 'confirmation' == $current_step )
@@ -582,9 +584,11 @@ class WPBDP_Listing_Submit_State {
         
         $current_index = array_search( $this->step, self::$STEPS );
         $this->step = self::$STEPS[ ++$current_index ];
+
+        if ( $increase_step_number )
+            $this->step_number++;
         
         $this->save();
     }
-
 
 }
