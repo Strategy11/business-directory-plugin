@@ -585,6 +585,9 @@ class WPBDP_Plugin {
             case 'featuredlevels':
                 return class_exists( 'WPBDP_FeaturedLevelsModule' );
                 break;
+            case 'stripe':
+                return class_exists( 'WPBDP_Stripe_Module' );
+                break;
             case 'categories':
                 return class_exists( 'WPBDP_CategoriesModule' );
                 break;
