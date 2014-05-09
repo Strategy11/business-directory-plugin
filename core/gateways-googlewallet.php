@@ -33,9 +33,12 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
         $settings->add_setting( $s,
                                 'googlewallet-seller-id',
                                 __( 'Seller Identifier', 'google-wallet', 'WPBDM' ) );
+        $settings->register_dep( 'googlewallet-seller-id', 'requires-true', 'googlewallet' );
+        
         $settings->add_setting( $s,
                                 'googlewallet-seller-secret',
-                                __( 'Seller Secret', 'google-wallet', 'WPBDM' ) ); 
+                                __( 'Seller Secret', 'google-wallet', 'WPBDM' ) );
+        $settings->register_dep( 'googlewallet-seller-secret', 'requires-true', 'googlewallet' );
     }
 
     public function validate_config() {
