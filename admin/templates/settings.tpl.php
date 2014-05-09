@@ -1,6 +1,16 @@
 <?php
 	echo wpbdp_admin_header(__('Business Directory Settings', 'WPBDM'), 'admin-settings');
 ?>
+<script type="text/javascript">
+<?php
+foreach ( $wpbdp_settings->get_dependencies( 'type=requires-true' ) as $s => $data_ ):
+    $parent = array_pop( $data_ );
+?>
+WPBDP_Admin.settings.add_requirement( '<?php echo $s; ?>', '<?php echo $parent; ?>', 'boolean-true' );
+<?php
+endforeach;
+?>
+</script>
 
 <h3 class="nav-tab-wrapper">
 <?php if (isset($_REQUEST['settings-updated'])): ?>
@@ -34,7 +44,7 @@
 	$group = $wpbdp_settings->groups[wpbdp_getv($_REQUEST, 'groupid', 'general')];
 ?>
 
-<form action="<?php echo admin_url('options.php'); ?>" method="POST">
+<form action="<?php echo admin_url('options.php'); ?>" method="POST" id="wpbdp-admin-settings">
 	<input type="hidden" name="groupid" value="<?php echo $group->slug; ?>" />
 	<?php if ($group->help_text): ?>
 		<p class="description"><?php echo $group->help_text; ?></p>

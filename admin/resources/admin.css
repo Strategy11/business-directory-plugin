@@ -331,6 +331,9 @@ body.taxonomy-wpbdp_category .column-id {
     background: red;
 }
 
+#wpbdp-admin-settings tr.disabled {
+    opacity: 0.7;
+}
 
 /* Listing metabox - Transactions. */
 #listing-metabox-transactions table.payments-list {

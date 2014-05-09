@@ -7,11 +7,15 @@ class WPBDP_Settings {
     const _EMAIL_RENEWAL_MESSAGE = "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]";
     const _EMAIL_PENDING_RENEWAL_MESSAGE = 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].';
 
+    private $deps = array();
+
+
     public function __construct() {
         $this->groups = array();
         $this->settings = array();
 
         add_action( 'plugins_loaded', array( &$this, 'register_settings' ), 20 );
+        add_filter( 'wpbdp_settings_render', array( &$this, 'after_render' ), 0, 3 );
     }
 
     public function register_settings() {
@@ -307,7 +311,9 @@ class WPBDP_Settings {
         $g = $this->add_group('payment', _x('Payment', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'general', _x('Payment Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'payments-on', _x('Turn On payments?', 'admin settings', 'WPBDM'), 'boolean', false);
+
         $this->add_setting($s, 'payments-test-mode', _x('Put payment gateways in test mode?', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->register_dep( 'payments-test-mode', 'requires-true', 'payments-on' );
 
         // PayPal currency codes from https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes
         $this->add_setting($s, 'currency', _x('Currency Code', 'admin settings', 'WPBDM'), 'choice', 'USD', '',
@@ -337,25 +343,14 @@ class WPBDP_Settings {
                                 array('TRY', _x('Turkish Lira (TRY)', 'admin settings', 'WPBDM')),
                                 array('USD', _x('U.S. Dollar', 'admin settings', 'WPBDM')),
                             )));
+        $this->register_dep( 'currency', 'requires-true', 'payments-on' );
+        
         $this->add_setting($s, 'currency-symbol', _x('Currency Symbol', 'admin settings', 'WPBDM'), 'text', '$');
+        $this->register_dep( 'currency-symbol', 'requires-true', 'payments-on' );
+
         $this->add_setting($s, 'payment-message', _x('Thank you for payment message', 'admin settings', 'WPBDM'), 'text',
                         _x('Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM'));
-
-        // $s = $this->add_section($g, 'googlecheckout', _x('Google Checkout Settings', 'admin settings', 'WPBDM'));
-        // $this->add_setting($s, 'googlecheckout', _x('Activate Google Checkout?', 'admin settings', 'WPBDM'), 'boolean', false);
-        // $this->add_setting($s, 'googlecheckout-merchant', _x('Google Checkout Merchant ID', 'admin settings', 'WPBDM'));
-        // // $this->add_setting($s, 'googlecheckout-seller', _x('Google Checkout Seller ID', 'admin settings', 'WPBDM'));
-
-        $s = $this->add_section($g, 'paypal', _x('PayPal Gateway Settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'paypal', _x('Activate Paypal?', 'admin settings', 'WPBDM'), 'boolean', false,
-                           _x('Will only work when the <a href="http://businessdirectoryplugin.com/premium-modules/">PayPal module</a> is installed', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'paypal-business-email', _x('PayPal Business Email', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'paypal-merchant-id', _x('PayPal Merchant ID', 'admin settings', 'WPBDM'));
-
-        $s = $this->add_section($g, '2checkout', _x('2Checkout Gateway Settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, '2checkout', _x('Activate 2Checkout?', 'admin settings', 'WPBDM'), 'boolean', false,
-                           _x('Will only work when the <a href="http://businessdirectoryplugin.com/premium-modules/">2Checkout module</a> is installed', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, '2checkout-seller', _x('2Checkout seller/vendor ID', 'admin settings', 'WPBDM'));
+        $this->register_dep( 'payment-message', 'requires-true', 'payments-on' );
 
         /* Registration settings */
         $g = $this->add_group('registration', _x('Registration', 'admin settings', 'WPBDM'));
@@ -446,7 +441,9 @@ class WPBDP_Settings {
         return true;
     }
 
-    public function add_setting($section_key, $name, $label, $type='text', $default=null, $help_text='', $args=array(), $validator=null, $callback=null) {
+    public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(),
+                                 $validator = null, $callback = null ) {
+        
         if ( $type == 'core' )
             return $this->add_core_setting( $name, $default );
 
@@ -490,7 +487,38 @@ class WPBDP_Settings {
             $this->settings[$name] = $setting;
         }
 
-        return true;
+        return $name;
+    }
+
+    public function register_dep( $setting, $dep, $arg = null ) {
+        if ( ! isset( $this->deps[ $setting ] ) )
+            $this->deps[ $setting ] = array();
+
+        $this->deps[ $setting ][ $dep ] = $arg;
+    }
+
+    public function get_dependencies( $args = array() ) {
+        $args = wp_parse_args( $args, array(
+            'setting' => null,
+            'type' => null
+        ) );
+        extract( $args );
+
+        if ( $setting )
+            return isset( $this->deps[ $setting ] ) ? $this->deps[ $setting ] : array();
+
+        if ( $type ) {
+            $res = array();
+
+            foreach ( $this->deps as $s => $deps ) {
+                foreach ( $deps as $d => $a ) {
+                    if ( $type == $d )
+                        $res[ $s ] = $a;
+                }
+            }
+        }
+
+        return $this->deps;
     }
 
     public function get($name, $ifempty=null) {
@@ -566,6 +594,10 @@ class WPBDP_Settings {
     /*
      * admin
      */
+    public function after_render( $html, $setting, $args = array() ) {
+        return $html;
+    }
+
     public function _setting_custom($args) {
         $setting = $args['setting'];
         $value = $this->get( $setting->name );

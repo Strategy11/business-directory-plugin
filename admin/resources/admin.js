@@ -1,5 +1,6 @@
 var WPBDP_associations_fieldtypes = {};
 
+
 (function($) {
 
     /* Form Fields */
@@ -396,3 +397,60 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
 })(jQuery);
 
+/* {{ Settings. */
+(function($) {
+    var s = WPBDP_Admin.settings = {
+        _whenTrueActivateChilds: {},
+
+        init: function() {
+            var t = this;
+
+            $.each( this._whenTrueActivateChilds, function( p, chs ) {
+                $('input[name="wpbdp-' + p + '"]').change(function(e) {
+                    t.handleToggle( p );
+                });
+
+                t.handleToggle( p );
+            } );
+        },
+
+        handleToggle: function( setting ) {
+            var childs = this._whenTrueActivateChilds[ setting ];
+
+            if ( 'undefined' === typeof( childs ) )
+                return;
+
+            var checked = $( 'input[name="wpbdp-' + setting + '"]').is(':checked');
+            
+            $.each( this._whenTrueActivateChilds[ setting ], function( i, c ) {
+                var $c = $( '[name="wpbdp-' + c + '"]' );
+                var $row = $c.parents( 'tr' );
+
+                if ( checked ) {
+                    $c.removeAttr( 'disabled' );
+                    $c.removeAttr( 'contenteditable' );
+                    $row.removeClass('disabled');
+                } else {
+                    $c.attr( 'disabled', 'disabled' );
+                    $c.attr( 'contenteditable', 'false' );
+                    $row.addClass('disabled');
+                }
+            } );
+        },
+
+        add_requirement: function( setting, parent_, req ) {
+            if ( 'undefined' === typeof this._whenTrueActivateChilds[ parent_ ] )
+                this._whenTrueActivateChilds[ parent_ ] = [];
+
+            this._whenTrueActivateChilds[ parent_ ].push( setting );
+        }
+    };
+
+    $(document).ready(function(){
+        if ( 0 == $('body.directory-admin_page_wpbdp_admin_settings').length )
+            return;
+
+        s.init();
+    });
+})(jQuery);
+/* }} */
