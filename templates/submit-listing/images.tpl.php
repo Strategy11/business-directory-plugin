@@ -9,6 +9,9 @@ function wpbdp_listingform_delete_image(id) {
 <h3><?php echo $_state->step_number . ' - '; ?><?php _ex( 'Listing Images', 'templates', 'WPBDM' ); ?></h3>
 
 <form id="wpbdp-listing-form-images" class="wpbdp-listing-form" method="POST" action="" enctype="multipart/form-data">
+    <span class="confirm-submit-message" style="display: none;"><?php _ex( 'There is an image pending upload. Would you still like to continue without saving the image?',
+                                                                           'templates',
+                                                                           'WPBDM' ); ?></span>
 	<input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
 	<input type="hidden" name="delete-image-id" value="0" />
 

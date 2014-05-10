@@ -70,3 +70,33 @@ WPBDP.fileUpload = {
     }
 
 };
+
+
+// {{ Listing submit process.
+( function( $ ) {
+    var sb = wpbdp.listingSubmit = {
+        init: function() {
+            console.log( $('.step-images form').length );
+            $('.step-images input[name="finish"]').click(function(e) {
+                var filename = $( '.upload-form input[name="image"]' ).val();
+
+                if ( ! filename )
+                    return true;
+
+                if ( true == confirm( $( '.step-images .confirm-submit-message' ).text()  ) )
+                    return true;
+
+                return false;
+            });
+        }
+    };
+
+    $( document ).ready( function() {
+        if ( 0 == $( '.wpbdp-submit-page' ).length )
+            return;
+
+        sb.init();
+    } );
+} )( jQuery );
+
+// }}
