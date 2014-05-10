@@ -365,7 +365,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         } elseif ( isset( $_POST['delete-image'] ) && intval( $_POST['delete-image-id'] ) > 0 ) {
             $attachment_id = intval( $_POST['delete-image-id'] );
             wpbdp_array_remove_value( $this->state->images, $attachment_id );
-            wp_delete_attachment( $image_id, true );
+            wp_delete_attachment( $attachment_id, true );
             $this->state->save();
 
             $image_slots_remaining++;
