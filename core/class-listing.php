@@ -363,8 +363,7 @@ class WPBDP_Listing {
             if ( $category_info && 'pending' == $category_info->status ) {
                 $this->add_category( $category_id, $category_info->fee, false, null, true );
             } elseif ( ! $category_info ) {
-                $fee_choices = wpbdp_get_fees_for_category( $category_id );
-                $this->add_category( $category_id, $fee_choices[0] );
+                $this->add_category( $category_id, 0 );
             }
         }
     }
