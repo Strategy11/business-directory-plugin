@@ -11,9 +11,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     private $messages = array();
     private $errors = array();
 
-    public function __construct( $listing_id = 0 ) {
+    public function __construct( $listing_id = 0, $preview = false ) {
         $this->state = isset( $_REQUEST['_state'] ) && $_REQUEST['_state'] ? WPBDP_Listing_Submit_State::get( $_REQUEST['_state'] ) : new WPBDP_Listing_Submit_State( $listing_id );
-        $this->state->save();
+
+        if ( ! $preview )
+            $this->state->save();
     }
 
     public function get_page_name() {
