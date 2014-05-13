@@ -14,7 +14,7 @@ class WPBDP_Settings {
         $this->groups = array();
         $this->settings = array();
 
-        add_action( 'plugins_loaded', array( &$this, 'register_settings' ), 20 );
+        add_action( 'init', array( &$this, 'register_settings' ), 2 );
         add_filter( 'wpbdp_settings_render', array( &$this, 'after_render' ), 0, 3 );
     }
 
