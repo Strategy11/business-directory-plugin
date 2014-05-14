@@ -550,7 +550,8 @@ class WPBDP_Admin {
 
             case 'setaspaid':
                 foreach ($posts as $post_id) {
-                    $listings_api->set_payment_status($post_id, 'paid');
+                    $listing = WPBDP_Listing::get( $post_id );
+                    $listing->mark_as_paid();
                 }
 
                 $this->messages[] = _nx('The listing status has been set as paid.',
@@ -841,7 +842,7 @@ class WPBDP_Admin {
         printf( '<span class="status %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
 
         if ( $status_links && current_user_can( 'administrator' ) )
-            printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Set as', 'WPBDM' ), $status_links );
+            printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Mark as', 'WPBDM' ), $status_links );
     }
 
     private function sticky_status_column() {

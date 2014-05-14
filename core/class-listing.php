@@ -223,14 +223,17 @@ class WPBDP_Listing {
                                                    current_time( 'mysql' ) ) );
         
         // Pending info.
-        $pending_payments = $wpdb->get_results( $wpdb->prepare( "SELECT pi.id, pi.rel_id_1 FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type IN (%s, %s) AND p.status = %s AND p.listing_id = %d",
-                                                           'fee', 'recurring_fee',
-                                                           'pending',
-                                                           $this->id ) );
+        $pending_payments = $wpdb->get_results( $wpdb->prepare( "SELECT pi.payment_id, pi.id, pi.rel_id_1 FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type IN (%s, %s) AND p.status = %s AND p.listing_id = %d",
+                                                                'fee', 'recurring_fee',
+                                                                'pending',
+                                                                $this->id ) );
 
         $pending = array();
-        foreach ( $pending_payments as &$p )
+        foreach ( $pending_payments as &$p ) {
             $pending[ intval( $p->rel_id_1 ) ] = $p->id;
+//            $pending_payment_ids[ intval( $p->rel_id_1 ) ] = $p->payment_id;
+        }
+
         $pending_ids = array_keys( $pending );
 
         $category_ids = array();
@@ -328,7 +331,7 @@ class WPBDP_Listing {
 
                 $results[ $category_id ] = $category;
             }
-        }        
+        }
 
         return $results;
     }
@@ -397,6 +400,15 @@ class WPBDP_Listing {
     public function get_payment_status() {
         return WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ), true ) ? 'pending' : 'ok';
     }
+
+    public function mark_as_paid() {
+        $pending = WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ) );
+        foreach ( $pending as &$p ) {
+            $p->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
+            $p->save();
+        }
+    }
+
 
     public function get_latest_payments() {
         return WPBDP_Payment::find( array( 'listing_id' => $this->id, '_order' => '-id', '_limit' => 10 ) );
