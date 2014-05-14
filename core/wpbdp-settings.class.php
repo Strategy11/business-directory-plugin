@@ -154,6 +154,13 @@ class WPBDP_Settings {
                             false,
                             _x( 'Allow users to opt in for automatic renewal of their listings. The fee is charged at the time the listing expires without user intervention.', 'admin settings', 'WPBDM' )
                           );
+        $this->add_setting( $s,
+                            'listing-renewal-auto-dontask',
+                            _x( 'Default to recurring payments?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            _x( 'Enable automatic renewal without having users opt in during the submit process.', 'admin settings', 'WPBDM' ) );
+        $this->register_dep( 'listing-renewal-auto-dontask', 'requires-true', 'listing-renewal-auto' );
 
         $this->add_setting( $s,
                             'renewal-email-threshold',
@@ -619,7 +626,7 @@ class WPBDP_Settings {
         $value = $this->get($setting->name);
 
         if (isset($args['use_textarea']) || strlen($value) > 100) {
-            $html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" cols="80" rows="4">';
+            $html  = '<textarea id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" rows="4">';
             $html .= esc_textarea($value);
             $html .= '</textarea><br />';
         } else {
