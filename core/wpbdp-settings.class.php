@@ -156,7 +156,7 @@ class WPBDP_Settings {
                           );
         $this->add_setting( $s,
                             'listing-renewal-auto-dontask',
-                            _x( 'Default to recurring payments?', 'admin settings', 'WPBDM' ),
+                            _x( 'Use recurring payments as the default payment method?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             false,
                             _x( 'Enable automatic renewal without having users opt in during the submit process.', 'admin settings', 'WPBDM' ) );
