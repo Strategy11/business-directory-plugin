@@ -83,7 +83,7 @@ if ( ! isset( $admin_actions ) )
 <?php if ( $admin_actions && current_user_can( 'administrator' ) ): ?>
 <ul class="admin-actions">
     <?php if ( 'pending' == $category->status ) : ?>
-        <li><a href="#" class=""><?php _ex( 'See payment info', 'admin infometabox', 'WPBDM' ); ?></a></li>
+        <li><a href="#" class="payment-details-link" data-id="<?php echo $category->payment_id; ?>"><?php _ex( 'See payment info', 'admin infometabox', 'WPBDM' ); ?></a></li>
     <?php else: ?>
 
     <?php if ( in_array( 'renewal url', $admin_actions, true ) ): ?>

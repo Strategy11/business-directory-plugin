@@ -285,7 +285,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     var payments = WPBDP_Admin.payments;
 
     payments._initialize = function() {
-        $('#listing-metabox-transactions a.payment-details-link').click(function(e) {
+        $('#BusinessDirectory_listinginfo a.payment-details-link').click(function(e) {
             e.preventDefault();
             payments.viewPaymentDetails( $(this).attr('data-id') );
         });
