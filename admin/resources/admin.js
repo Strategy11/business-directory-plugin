@@ -423,7 +423,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             var checked = $( 'input[name="wpbdp-' + setting + '"]').is(':checked');
             
             $.each( this._whenTrueActivateChilds[ setting ], function( i, c ) {
-                var $c = $( '[name="wpbdp-' + c + '"]' );
+                var $c = $( '[name="wpbdp-' + c + '"], [name="wpbdp-' + c + '[]"]' );
                 var $row = $c.parents( 'tr' );
 
                 if ( checked ) {

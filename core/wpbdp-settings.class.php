@@ -223,6 +223,8 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-category-post-count', _x('Show category post count?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'hide-empty-categories', _x('Hide empty categories?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-only-parent-categories', _x('Show only parent categories in category list?', 'admin settings', 'WPBDM'), 'boolean', false);
+
+        $s = $this->add_section( $g, 'post/sorting', _x( 'Listings Sorting', 'admin settings', 'WPBDM' ) );
         $this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', '',
                           array('choices' => array(
                             array( 'title', _x( 'Title', 'admin settings', 'WPBDM' ) ),
@@ -235,6 +237,22 @@ class WPBDP_Settings {
         $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
                            _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
                            array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
+
+        $this->add_setting( $s,
+                            'listings-sortbar-enabled',
+                            _x( 'Enable sort bar?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
+        $this->add_setting( $s,
+                            'listings-sortbar-fields',
+                            _x( 'Sortbar Fields', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            array(),
+                            '',
+                            array( 'choices' => array( &$this, 'sortbar_fields_cb' ),
+                                   'use_checkboxes' => true,
+                                   'multiple' =>true ) );
+        $this->register_dep( 'listings-sortbar-fields', 'requires-true', 'listings-sortbar-enabled' );
 
         $s = $this->add_section($g, 'featured', _x('Featured (Sticky) listing settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'featured-on', _x('Offer sticky listings?', 'admin settings', 'WPBDM'), 'boolean', true);
@@ -382,6 +400,25 @@ class WPBDP_Settings {
         $this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
         $this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
+    }
+
+    public function sortbar_fields_cb() {
+        $fields = array();
+
+        foreach (  wpbdp_get_form_fields() as $f ) {
+            if ( in_array( $f->get_field_type_id(), array( 'textarea', 'select', 'checkbox', 'url' ), true ) || 
+                 in_array( $f->get_association(), array( 'category', 'tags' ), true ) )
+                continue;
+
+            $fields[ $f->get_id() ] = $f->get_label();
+        }
+        
+        $fields['user_login'] = 'User';
+        $fields['user_registered'] = 'User registration date';
+        $fields['date'] = 'Date posted';
+        $fields['modified'] = 'Date last modified';
+
+        return $fields;
     }
 
     public function _validate_listings_permalink($setting, $newvalue, $oldvalue=null) {
@@ -654,7 +691,7 @@ class WPBDP_Settings {
 
     public function _setting_choice($args) {
         $setting = $args['setting'];
-        $choices = $args['choices'];
+        $choices = is_callable( $args['choices'] ) ? call_user_func( $args['choices'] ) : $args['choices'];
 
         $value = $this->get($setting->name);
 
