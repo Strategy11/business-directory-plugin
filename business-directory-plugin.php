@@ -414,6 +414,11 @@ class WPBDP_Plugin {
         add_action('init', array($this, '_init_modules'));
         add_action('wp_ajax_wpbdp-ajax', array($this, '_handle_ajax'));
         add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
+
+        // Core sorting options.
+        add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
+        add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
+        add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
     }
 
     private function get_shortcodes() {
@@ -1284,6 +1289,106 @@ JS;
         }
     }
 
+    // {{ Sorting options.
+    public function sortbar_sort_options( $options ) {
+        if ( ! wpbdp_get_option( 'listings-sortbar-enabled' ) )
+            return $options;
+
+        $sortbar_fields = $this->settings->sortbar_fields_cb();
+        $sortbar = wpbdp_get_option( 'listings-sortbar-fields' );
+
+        foreach ( $sortbar as $field_id ) {
+            if ( ! array_key_exists( $field_id, $sortbar_fields ) )
+                continue;
+            $options[ 'field-' . $field_id ] = array( $sortbar_fields[ $field_id ], '', 'ASC' );
+        }
+
+        return $options;
+    }
+
+    public function sortbar_query_fields( $fields ) {
+        global $wpdb;
+
+        $sort = wpbdp_get_current_sort_option();
+
+        if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) )
+            return $fields;
+
+        $sname = str_replace( 'field-', '', $sort->option );
+        $q = '';
+
+        switch ( $sname ) {
+            case 'user_login':
+                $q = "(SELECT user_login FROM {$wpdb->users} WHERE {$wpdb->users}.ID = {$wpdb->posts}.post_author) AS user_login";
+                break;
+            case 'user_registered':
+                $q = "(SELECT user_registered FROM {$wpdb->users} WHERE {$wpdb->users}.ID = {$wpdb->posts}.post_author) AS user_registered";
+                break;
+            case 'date':
+            case 'modified':
+                break;
+            default:
+                $field = wpbdp_get_form_field( $sname );
+
+                if ( ! $field || 'meta' != $field->get_association() )
+                    break;
+
+                $q = $wpdb->prepare( "(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}", '_wpbdp[fields][' . $field->get_id() . ']' );
+                break;
+        }
+
+        if ( $q )
+            return $fields . ', ' . $q;
+        else
+            return $fields;
+    }
+
+    public function sortbar_orderby( $orderby ) {
+        global $wpdb;
+
+        $sort = wpbdp_get_current_sort_option();
+
+        if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) )
+            return $fields;
+
+        $sname = str_replace( 'field-', '', $sort->option );
+        $qn = '';
+
+        switch ( $sname ) {
+            case 'user_login':
+            case 'user_registered':
+                $qn = $sname;
+                break;
+            case 'date':
+            case 'modified':
+                $qn = "{$wpdb->posts}.post_{$sname}";
+                break;
+            default:
+                $field = wpbdp_get_form_field( $sname );
+
+                if ( ! $field )
+                    break;
+
+                switch ( $field->get_association() ) {
+                    case 'title':
+                    case 'excerpt':
+                    case 'content':
+                        $qn = "{$wpdb->posts}.post_" . $field->get_association();
+                        break;
+                    case 'meta':
+                        $qn = "field_{$sname}";
+                        break;
+                }
+
+                break;
+        }
+        
+        if ( $qn )
+            return $orderby . ', ' . $qn . ' ' . $sort->order;
+        else
+            return $orderby;
+    }
+    // }}
 }
 
 $wpbdp = new WPBDP_Plugin();
