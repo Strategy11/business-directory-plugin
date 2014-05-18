@@ -1349,7 +1349,7 @@ JS;
         $sort = wpbdp_get_current_sort_option();
 
         if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) )
-            return $fields;
+            return $orderby;
 
         $sname = str_replace( 'field-', '', $sort->option );
         $qn = '';
