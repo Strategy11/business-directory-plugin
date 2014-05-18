@@ -389,9 +389,12 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
  * @since 2.3
  */
 function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() ) {
-    if ( !$listing_id ) $listing_id = get_the_ID();
+    if ( ! $listing_id )
+        $listing_id = get_the_ID();
 
-    if ( !wpbdp_get_option( 'show-contact-form' ) )
+    $show_contact_form = apply_filters( 'wpbdp_show_contact_form', wpbdp_get_option( 'show-contact-form' ), $listing_id );
+
+    if ( ! $show_contact_form )
         return '';
 
     $action = '';
