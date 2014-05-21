@@ -340,24 +340,9 @@ function _wpbdp_render_single() {
                         _x('Featured Listing', 'templates', 'WPBDM'),
                         the_title(null, null, false));
 
-    $formfields_api = WPBDP_FormFields::instance();
-
-    $listing_fields = '';
-    $social_fields = '';
-
-    $ffields = wpbdp_get_form_fields();
-    $ffields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$ffields, $post->ID ) );
-
-    foreach ( $ffields as &$field ) {
-        if ( !$field->display_in( 'listing' ) )
-            continue;
-
-        if ( $field->display_in( 'social' ) ) {
-            $social_fields .= $field->display( $post->ID, 'social' );
-        } else {
-            $listing_fields .= $field->display( $post->ID, 'listing' );
-        }
-    }
+    $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
+    $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
+    $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
 
     // images
     $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id($post->ID);
@@ -391,6 +376,8 @@ function _wpbdp_render_single() {
         'title' => get_the_title(),
         'main_image' => wpbdp_get_option( 'allow-images' ) ? wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' ) : '',
         'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID),
+        'fields' => $d->fields,
+        'listing_id' => $post->ID,
         'extra_images' => $extra_images
     );
 
@@ -439,31 +426,18 @@ function _wpbdp_render_excerpt() {
                      ($counter & 1) ? 'odd':  'even');
     $html .= wpbdp_capture_action('wpbdp_before_excerpt_view', $post->ID);
 
-    $formfields_api = WPBDP_FormFields::instance();
+    $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
+    $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
+    $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
 
-    $listing_fields = '';
-    $social_fields = '';
-
-    $ffields = wpbdp_get_form_fields();
-    $ffields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$ffields, $post->ID ) );
-
-    foreach ( $ffields as &$field) {
-        if ( !$field->display_in( 'excerpt' ) )
-            continue;
-
-        if ( $field->display_in( 'social' ) ) {
-            $social_fields .= $field->display( $post->ID, 'social' );
-        } else {
-            $listing_fields .= $field->display( $post->ID, 'excerpt' );
-        }
-
-    }
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
         'thumbnail' => ( wpbdp_get_option( 'allow-images' ) && wpbdp_get_option( 'show-thumbnail' ) ) ? wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ) : '',
         'title' => get_the_title(),
-        'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID)
+        'listing_fields' => apply_filters('wpbdp_excerpt_listing_fields', $listing_fields, $post->ID),
+        'fields' => $d->fields,
+        'listing_id' => $post->ID
     );
 
     $html .= wpbdp_render('businessdirectory-excerpt', $vars, true);

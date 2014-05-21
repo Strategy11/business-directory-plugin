@@ -421,3 +421,81 @@ function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() 
                          'recaptcha' => $recaptcha
                         ), false );
 }
+
+class WPBDP_ListingFieldDisplayItem {
+    private $listing_id = 0;
+    private $display = '';
+
+    private $html_ = '';
+    private $html_value_ = '';
+    private $value_ = null;
+
+    public $id = 0;
+    public $field;
+
+    public function __construct( &$field, $listing_id = 0, $display ) {
+        $this->field = &$field;
+        $this->id = $this->field->get_id();
+        $this->listing_id = $listing_id;
+        $this->display = $display;
+    }
+
+    public function __get( $key ) {
+        switch ( $key ) {
+            case 'html':
+                if ( $this->html_ )
+                    return $this->html_;
+
+                $this->html_ = $this->field->display( $this->listing_id, $this->display );
+                return $this->html_;
+                break;
+
+            case 'html_value':
+                if ( $this->html_value_ )
+                    return $this->html_value_;
+
+                $this->html_value_ = $this->field->html_value( $this->listing_id );
+                return $this->html_value_;
+                break;
+
+            case 'value':
+                if ( $this->value_ )
+                    return $this->value_;
+
+                $this->value_ = $this->field->value( $this->listing_id );
+                return $this->value_;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public static function prepare_set( $listing_id, $display ) {
+        $res = (object) array( 'fields' => array(), 'social' => array() );
+
+        $form_fields = wpbdp_get_form_fields();
+        $form_fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$form_fields, $listing_id ) );
+
+        foreach ( $form_fields as &$f ) {
+            if ( ! $f->display_in( $display ) )
+                continue;
+
+            if ( $f->display_in( 'social' ) )
+                $res->social[ $f->get_id() ] = new self( $f, $listing_id, 'social' );
+            else
+                $res->fields[ $f->get_id() ] = new self( $f, $listing_id, $display );
+        }
+
+        return $res;
+    }
+
+    public static function walk_set( $prop, $fields = array() ) {
+        $res = array();
+
+        foreach ( $fields as $k => &$f )
+            $res[ $k ] = $f->{$prop};
+
+        return $res;
+    }
+}
