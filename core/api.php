@@ -329,7 +329,11 @@ function _wpbdp_render_single() {
 
     $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
 
-    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s" itemscope itemtype="http://schema.org/LocalBusiness">', $post->ID, 'single', $sticky_status);
+    $html .= sprintf( '<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s %s" itemscope itemtype="http://schema.org/LocalBusiness">',
+                      $post->ID,
+                      'single',
+                      $sticky_status,
+                      apply_filters( 'wpbdp_listing_view_css', '', $post->ID ) );
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_before_single_view', $post->ID);
 
@@ -420,10 +424,11 @@ function _wpbdp_render_excerpt() {
     $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
 
     $html = '';
-    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing excerpt wpbdp-listing-excerpt %s %s cf">',
+    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing excerpt wpbdp-listing-excerpt %s %s %s cf">',
                      $post->ID,
                      $sticky_status,
-                     ($counter & 1) ? 'odd':  'even');
+                     ($counter & 1) ? 'odd':  'even',
+                     apply_filters( 'wpbdp_excerpt_view_css', '', $post->ID ) );
     $html .= wpbdp_capture_action('wpbdp_before_excerpt_view', $post->ID);
 
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );

@@ -750,6 +750,7 @@ class WPBDP_ListingsAPI {
         }
 
         $query .= ' WHERE ' . apply_filters('wpbdp_search_where', $where, $args);
+        $query = apply_filters( 'wpbdp_search_query ', $query, $args );
 
         return $wpdb->get_col($query);
     }

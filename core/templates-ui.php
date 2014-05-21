@@ -205,7 +205,7 @@ function wpbdp_main_links() {
     }
 
     if ( $html )
-        $html = '<div class="wpbdp-main-links">' . $html . '</div>';
+        $html = '<div class="wpbdp-main-links">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
 
     return $html;
 }
