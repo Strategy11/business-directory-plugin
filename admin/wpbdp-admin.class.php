@@ -348,6 +348,10 @@ class WPBDP_Admin {
         // Handle listings saved admin-side.
         if ( is_admin() && isset( $_POST['post_type'] ) && $_POST['post_type'] == WPBDP_POST_TYPE ) {
             $listing = WPBDP_Listing::get( $post_id );
+
+            if ( ! $listing )
+                return;
+
             $listing->fix_categories();
 
             // Save custom fields.
