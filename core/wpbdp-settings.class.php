@@ -169,20 +169,6 @@ class WPBDP_Settings {
                             '5',
                             _x( 'Configure how many days before listing expiration is the renewal e-mail sent.', 'admin settings', 'WPBDM' )
                             );
-        $this->add_setting( $s,
-                            'renewal-pending-message',
-                            _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
-                            'text',
-                            self::_EMAIL_PENDING_RENEWAL_MESSAGE,
-                            '',
-                            array( 'use_textarea' => true ));
-        $this->add_setting( $s,
-                            'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'),
-                            'text',
-                            self::_EMAIL_RENEWAL_MESSAGE,
-                            _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
-                            array( 'use_textarea' => true )
-                          );
 
         // Renewal Reminders
         $this->add_setting( $s,
@@ -196,14 +182,6 @@ class WPBDP_Settings {
                             'text',
                             '10',
                             _x( 'Configure how many days after the expiration of a listing an e-mail reminder should be sent to the owner.', 'admin settings', 'WPBDM' )
-                          );
-        $this->add_setting( $s,
-                            'renewal-reminder-message',
-                            _x( 'Renewal reminder e-mail message', 'admin settings', 'WPBDM' ),
-                            'text',
-                            "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
-                            _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date, [site] for this site\'s URL and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
-                            array( 'use_textarea' => true )
                           );
 
         $s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
@@ -310,6 +288,29 @@ class WPBDP_Settings {
                                 'admin settings',
                                 'WPBDM' ),
                             array( 'use_textarea' => true ) );
+        $this->add_setting( $s,
+                            'renewal-pending-message',
+                            _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
+                            'text',
+                            self::_EMAIL_PENDING_RENEWAL_MESSAGE,
+                            '',
+                            array( 'use_textarea' => true ));
+        $this->add_setting( $s,
+                            'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'),
+                            'text',
+                            self::_EMAIL_RENEWAL_MESSAGE,
+                            _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
+                            array( 'use_textarea' => true )
+                          );
+        $this->add_setting( $s,
+                            'renewal-reminder-message',
+                            _x( 'Renewal reminder e-mail message', 'admin settings', 'WPBDM' ),
+                            'text',
+                            "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
+                            _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date, [site] for this site\'s URL and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
+                            array( 'use_textarea' => true )
+                          );
+
 
         $s = $this->add_section( $g, 'email-notifications', _x( 'Admin Notifications', 'admin settings', 'WPBDM' ) );
         $this->add_setting( $s,
