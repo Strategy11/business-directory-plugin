@@ -403,15 +403,16 @@ class WPBDP_ListingsAPI {
 
 
     public function get_thumbnail_id($listing_id) {
-        if ($thumbnail_id = get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true)) {
-            return intval($thumbnail_id);
-        } else {
-            if ($images = $this->get_images($listing_id)) {
-                update_post_meta($listing_id, '_wpbdp[thumbnail_id]', $images[0]->ID);
-                return $images[0]->ID;
-            }
+        if ( $thumbnail_id = get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true ) ) {
+            if ( false !== get_post_status( $thumbnail_id ) )
+                return intval( $thumbnail_id );
         }
-        
+
+        if ( $images = $this->get_images( $listing_id ) ) {
+            update_post_meta( $listing_id, '_wpbdp[thumbnail_id]', $images[0]->ID );
+            return $images[0]->ID;
+        }
+
         return 0;
     }
 
