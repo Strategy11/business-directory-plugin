@@ -1,58 +1,31 @@
-<script type="text/javascript">
-function wpbdp_listingform_delete_image(id) {
-	var form = document.getElementById('wpbdp-listing-form-images');
-	form['delete-image-id'].value = id;
-	return true;
-}
-</script>
-
 <h3><?php echo $_state->step_number . ' - '; ?><?php _ex( 'Listing Images', 'templates', 'WPBDM' ); ?></h3>
 
 <form id="wpbdp-listing-form-images" class="wpbdp-listing-form" method="POST" action="" enctype="multipart/form-data">
     <span class="confirm-submit-message" style="display: none;"><?php _ex( 'There is an image pending upload. Would you still like to continue without saving the image?',
                                                                            'templates',
                                                                            'WPBDM' ); ?></span>
-	<input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
-	<input type="hidden" name="delete-image-id" value="0" />
+    <input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
 
-	<dl class="image-conditions">
-		<dt><?php _ex( 'Image slots available:', 'templates', 'WPBDM' ); ?></dt>
-		<dd>
-			<?php printf( '%d / %d', $image_slots_remaining, $image_slots ); ?>
-		</dd>
+    <h4><?php _ex( 'Current Images', 'templates', 'WPBDM' ); ?></h4>
+    <div id="no-images-message" style="<?php echo ( $images ? 'display: none;' : '' ); ?>"><?php _ex( 'There are no images currently attached to your listing.', 'templates', 'WPBDM' ); ?></div>
+    <div id="wpbdp-uploaded-images" class="cf">
+    <?php
+    foreach ( $images as $image_id ):
+        echo wpbdp_render( 'submit-listing/images-single',
+                           array( 'image_id' => $image_id,
+                                  'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ) ),
+                           false );
+    endforeach;
+    ?>
+    </div>
 
-		<dt><?php _ex( 'Max. file size:', 'templates', 'WPBDM' ); ?></dt>
-		<dd>
-			<?php echo $image_max_file_size; ?>
-		</dd>
-	</dl>
+    <?php
+    echo wpbdp_render( 'submit-listing/images-upload-form',
+                       array( 'slots' => $image_slots,
+                              'slots_available' => $image_slots_remaining,
+                              'max_file_size' => $image_max_file_size ),
+                       false );
+    ?>
 
-	<?php if ( $images ): ?>
-	<h4><?php _ex( 'Current Images', 'templates', 'WPBDM' ); ?></h4>
-		<?php foreach ( $images as $image_id ): ?>
-		<div class="image">
-			<img src="<?php echo wp_get_attachment_thumb_url( $image_id ); ?>" /><br />
-			<input type="submit" class="submit" name="delete-image" onclick="return wpbdp_listingform_delete_image('<?php echo $image_id; ?>');" class="delete-image" value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>" /> <br />
-
-			<label>
-				<input type="radio" name="thumbnail_id" value="<?php echo $image_id; ?>" <?php echo ( count( $images ) == 1 || $thumbnail_id == $image_id) ? 'checked="checked"' : ''; ?> />
-				<?php _ex('Set this image as the listing thumbnail.', 'templates', 'WPBDM'); ?>
-			</label>
-		</div>
-	<?php endforeach; ?>
-	<?php endif; ?>
-
-	<?php if ( $image_slots_remaining > 0 ): ?>
-	<h4><?php _ex( 'Upload Image', 'templates', 'WPBDM' ); ?></h4>
-	<div class="upload-form">
-		<input type="file" name="image" />
-		<input type="submit" class="submit" name="upload-image" value="<?php _ex('Upload Image', 'templates', 'WPBDM'); ?>" />
-	</div>
-	<?php else: ?>
-	<p style="clear: both;"><?php _ex( 'Your image slots are all full at this time.  You may click "Continue" if you are done, or "Delete Image" to upload a new image in place of a current one.', 'templates', 'WPBDM' ); ?></p>
-	<?php endif; ?>
-
-	<input type="submit" class="submit" name="finish" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?>" />		
-
-
+    <input type="submit" class="submit" name="finish" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?>" />      
 </form>

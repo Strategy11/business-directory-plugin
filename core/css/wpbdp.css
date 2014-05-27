@@ -358,11 +358,11 @@ ul.validation-errors li {
     margin-bottom: 5px;
 }
 
-.wpbdp-submit-page.step-images .upload-form {
+.wpbdp-submit-page.step-images #image-upload-form {
     margin: 15px 10px;
 }
 
-.wpbdp-submit-page.step-images .image {
+.wpbdp-submit-page.step-images .wpbdp-image {
     float: left;
     border-bottom: dotted 1px #efefef;
     margin-right: 10px;
@@ -370,14 +370,74 @@ ul.validation-errors li {
     vertical-align: top;
 }
 
-.wpbdp-submit-page.step-images .image img {
+.wpbdp-submit-page.step-images .wpbdp-image img {
     vertical-align: top;
-    text-align: center;    
+    text-align: center;
     max-width: 150px;
     height: auto;
 }
 
-.wpbdp-submit-page.step-images .image .delete-image {
+.wpbdp-dnd-area {
+    margin: 0 auto;
+    border: 2px dashed #ddd;
+    width: 98%;
+    height: 180px;
+    color: #666;
+}
+
+.wpbdp-dnd-area.error {
+}
+
+.wpbdp-dnd-area.dragging {
+    background: #efefef;
+}
+
+.wpbdp-dnd-area .dnd-area-inside {
+    margin: 30px auto 0;
+    text-align: center;
+    color: #aaa;
+}
+
+.wpbdp-dnd-area .dnd-area-inside-working {
+    color: #000;
+    text-align: center;
+    margin: 50px auto 0;
+}
+
+.wpbdp-dnd-area .dnd-area-inside-working span {
+    font-weight: bold;
+}
+
+.wpbdp-dnd-area .dnd-area-inside-error {
+    font-size: 95%;
+    color: #900000;
+    text-align: center;
+    margin: 50px 25px;
+}
+
+.wpbdp-submit-page.step-images .area-and-conditions #image-upload-dnd-area {
+    float: left;
+    width: 72%;
+}
+
+.wpbdp-submit-page.step-images .area-and-conditions #image-upload-conditions {
+    float: right;
+    width: 25%;
+    color: #666;
+}
+
+.wpbdp-submit-page.step-images .area-and-conditions #image-upload-conditions dl {
+    margin: 0;
+}
+
+.wpbdp-submit-page.step-images #image-upload-form-no-js {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.wpbdp-submit-page.step-images .wpbdp-image .delete-image {
     color: #ff0000;
 }
 

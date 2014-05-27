@@ -342,38 +342,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $image_slots_remaining = $image_slots - count( $images );
         $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
 
-        // Set thumbnail
+        // Set thumbnail.
         $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
         $this->state->thumbnail_id = $thumbnail_id;
 
-        if ( isset( $_POST['upload-image'] ) && ( ( $image_slots_remaining - 1 ) >= 0 ) ) {
-            if ( $image_file = $_FILES[ 'image' ] ) {
-                $image_error = '';
-
-                if ( $attachment_id = wpbdp_media_upload( $image_file,
-                                                          true,
-                                                          true,
-                                                          array( 'image' => true,
-                                                                 'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 ),
-                                                          $image_error ) ) {
-                    $this->state->images[] = $attachment_id;
-                    $this->state->save();
-
-                    $image_slots_remaining--;
-                } else {
-                    $this->errors[] = $image_error;
-                }
-            }
-        } elseif ( isset( $_POST['delete-image'] ) && intval( $_POST['delete-image-id'] ) > 0 ) {
-            $attachment_id = intval( $_POST['delete-image-id'] );
-            wpbdp_array_remove_value( $this->state->images, $attachment_id );
-            wp_delete_attachment( $attachment_id, true );
-            $this->state->save();
-
-            $image_slots_remaining++;
-
-            $this->messages[] = _x( 'Image deleted.', 'templates', 'WPBDM' );
-        } elseif ( isset( $_POST['finish'] ) ) {
+        if ( isset( $_POST['finish'] ) ) {
             $this->state->advance();
             return $this->dispatch();
         }
@@ -387,6 +360,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
 
     protected function step_before_save() {
+        //wpbdp_debug_e( $this->state );
         if ( isset( $_POST['continue-with-save'] ) ) {
             $this->state->advance();
             return $this->dispatch();
@@ -553,17 +527,28 @@ class WPBDP_Listing_Submit_State {
         }
     }
 
-    public static function get( $id ) {
+    public static function &get( $id ) {
         global $wpdb;
+
+        $state = wp_cache_get( $id, 'wpbdp submit state' );
+
+        if ( ! $state ) {
+            $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_submit_state WHERE id = %s", $id ) );
         
-        $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_submit_state WHERE id = %s", $id ) );
-        $state = unserialize( $row->state );
+            if ( ! $row )
+                return null;
 
-        $obj = new self;
-        foreach ( $state as $k => &$v )
-            $obj->{$k} = $v;
+            $state = unserialize( $row->state );
 
-        return $obj;
+            $obj = new self;
+            foreach ( $state as $k => &$v )
+                $obj->{$k} = $v;
+
+            $state = &$obj;
+            wp_cache_set( $id, $state, 'wpbdp submit state' );
+        }
+
+        return $state;
     }
 
     public function save() {
@@ -580,17 +565,16 @@ class WPBDP_Listing_Submit_State {
 
     public function advance( $increase_step_number = true ) {
         $current_step = $this->step;
-        
+
         if ( 'confirmation' == $current_step )
             return;
-        
+
         $current_index = array_search( $this->step, self::$STEPS );
         $this->step = self::$STEPS[ ++$current_index ];
 
         if ( $increase_step_number )
             $this->step_number++;
-        
+
         $this->save();
     }
-
 }
