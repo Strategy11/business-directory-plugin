@@ -289,7 +289,7 @@ class WPBDP_Plugin {
 
         global $post;
         if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
-            $id = get_query_var('id');
+            $id = get_query_var('id') ? get_query_var('id') : get_query_var('preview_id');
             $listing = get_post($id);
 
             if ( $listing && get_query_var('preview') ) {
@@ -327,7 +327,7 @@ class WPBDP_Plugin {
 
         wpbdp_log('WPBDP_Plugin::init()');
 
-        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp' ) );
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp submit state', 'wpbdp' ) );
 
         $this->settings = new WPBDP_Settings();
 
@@ -415,10 +415,87 @@ class WPBDP_Plugin {
         add_action('wp_ajax_wpbdp-ajax', array($this, '_handle_ajax'));
         add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
 
+        add_action( 'wp_ajax_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
+        add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
+
         // Core sorting options.
         add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
         add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
         add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
+    }
+
+    // TODO: better validation.
+    public function ajax_listing_submit_image_upload() {
+        require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+
+        $state_id = trim( $_REQUEST['state'] );
+        $state = WPBDP_Listing_Submit_State::get( $state_id );
+
+        $content_range = null;
+        $size = null;
+
+        if ( isset( $_SERVER['HTTP_CONTENT_RANGE'] ) ) {
+            $content_range = preg_split('/[^0-9]+/', $_SERVER['HTTP_CONTENT_RANGE']);
+            $size =  $content_range ? $content_range[3] : null;
+        }
+
+        $attachments = array();
+        $files = wpbdp_flatten_files_array( isset( $_FILES['images'] ) ? $_FILES['images'] : array() );
+        $errors = array();
+
+        foreach ( $files as $i => $file ) {
+            $image_error = '';
+            $attachment_id = wpbdp_media_upload( $file,
+                                                 true,
+                                                 true,
+                                                 array( 'image' => true,
+                                                        'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 ),
+                                                 $image_error ); // TODO: handle errors.
+
+            if ( $image_error )
+                $errors[] = $image_error;
+            else
+                $attachments[] = $attachment_id;
+        }
+
+        $html = '';
+        foreach ( $attachments as $attachment_id ) {
+            $state->images[] = $attachment_id;
+            $html .= wpbdp_render( 'submit-listing/images-single',
+                                   array( 'image_id' => $attachment_id ),
+                                   false );
+        }
+
+        $state->save();
+
+        $res = new WPBDP_Ajax_Response();
+        $res->add( 'attachmentIds', $attachments );
+        $res->add( 'html', $html );
+        $res->send();
+    }
+
+    public function ajax_listing_submit_image_delete() {
+        require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+
+        $image_id = intval( $_REQUEST['image_id'] );
+        $state_id = trim( $_REQUEST['state'] );
+
+        $res = new WPBDP_Ajax_Response();
+
+        if ( ! $image_id || ! $state_id )
+            $res->send_error();
+
+        $state = WPBDP_Listing_Submit_State::get( $state_id );
+
+        if ( ! $state || ! in_array( $image_id, $state->images ) )
+            $res->send_error();
+
+        wpbdp_array_remove_value( $state->images, $image_id );
+        wp_delete_attachment( $image_id, true );
+        $state->save();
+
+        $res->add( 'imageId', $image_id );
+        $res->send();
     }
 
     private function get_shortcodes() {
@@ -548,6 +625,10 @@ class WPBDP_Plugin {
                 // add_action('wp_head', array(&$this, 'saved_comment'), 0);
             add_action( 'comment_post_redirect', array( &$this, 'comment_relative_redirect' ), 0, 2 );
         }        
+    }
+
+    public function is_debug_on() {
+        return WPBDP_Debugging::is_debug_on();
     }
 
     public function debug_on() {
@@ -744,8 +825,17 @@ class WPBDP_Plugin {
         if ( $only_in_plugin_pages && ! $is_plugin_page )
             return;
 
-        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
-        wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
+        if ( $this->is_debug_on() ) {
+            wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
+            wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
+
+            wp_enqueue_script( 'fileupload-r1', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget.js', array( 'jquery' ) );
+            wp_enqueue_script( 'fileupload-r2', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.js' );
+            wp_enqueue_script( 'fileupload', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.js', array( 'jquery' ) );
+        } else {
+            wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
+            wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
+        }
 
         do_action( 'wpbdp_enqueue_scripts' );
 
@@ -1382,7 +1472,7 @@ JS;
 
                 break;
         }
-        
+
         if ( $qn )
             return $orderby . ', ' . $qn . ' ' . $sort->order;
         else
@@ -1393,4 +1483,3 @@ JS;
 
 $wpbdp = new WPBDP_Plugin();
 $wpbdp->init();
-

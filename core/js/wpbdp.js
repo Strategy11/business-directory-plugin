@@ -76,18 +76,131 @@ WPBDP.fileUpload = {
 ( function( $ ) {
     var sb = wpbdp.listingSubmit = {
         init: function() {
-            console.log( $('.step-images form').length );
-            $('.step-images input[name="finish"]').click(function(e) {
-                var filename = $( '.upload-form input[name="image"]' ).val();
+            if ( $( '.wpbdp-submit-page.step-images' ).length > 0 )
+                sb.images.init();
+        }
+    };
 
-                if ( ! filename )
+    var sbImages = sb.images = wpbdp.listingSubmit.images = {
+        _slots: 0,
+        _slotsRemaining: 0,
+        _working: false,
+
+        init: function() {
+            var t = this;
+
+            // Initialize slot quantities.
+            sb.images._slots = parseInt( $( '#image-slots-total' ).text() );
+            sb.images._slotsRemaining = parseInt( $( '#image-slots-remaining' ).text() );
+
+            // Handle image deletes.
+            $( '#wpbdp-uploaded-images' ).delegate( '.delete-image', 'click', function( e ) {
+                e.preventDefault();
+                var url = $( this ).attr('data-action');
+
+                $.post( url, { 'state': $( 'form#wpbdp-listing-form-images input[name="_state"]' ).val() }, function( res ) {
+                    if ( ! res.success )
+                        return;
+
+                    $( '#wpbdp-uploaded-images .wpbdp-image[data-imageid="' + res.data.imageId + '"]' ).fadeOut( function() {
+                        $( this ).remove();
+
+                        t._slotsRemaining++;
+                        $( '#image-slots-remaining' ).text( t._slotsRemaining );
+
+                        if ( t._slotsRemaining == t._slots )
+                            $( '#no-images-message' ).show();
+                    } );
+                }, 'json' );
+            } );
+
+            $('#image-upload-input').fileupload({
+                url: '/wp-admin/admin-ajax.php',
+                sequentialUploads: true,
+                dataType: 'json',
+                formData: sb.images.formDataCallback,
+                singleFileUploads: false,
+                dropZone: $( '.wpbdp-dnd-area' ),
+/*                drop: function(e, data) {
                     return true;
-
-                if ( true == confirm( $( '.step-images .confirm-submit-message' ).text()  ) )
+                },*/
+/*                add: function(e, data) {
+                    data.process().done(function() {
+                        data.submit();
+                    });
+                },*/
+/*                submit: function(e, data) {
+                    console.log('submit');
                     return true;
+                },*/
+                send: function(e, data) {
+                    if ( this._working )
+                        return false;
 
-                return false;
+                    $( '#image-upload-dnd-area' ).removeClass( 'dragging' );
+                    $( '#image-upload-dnd-area' ).removeClass( 'error' );
+                    this._working = true;
+                    $( '#image-upload-dnd-area .dnd-area-inside' ).fadeOut( 'fast', function() {
+                        $( '#image-upload-dnd-area .dnd-area-inside-working span' ).text( data.files.length );
+                        $( '#image-upload-dnd-area .dnd-area-inside-working' ).fadeIn( 'fast' );
+                    } );
+
+                    return true;
+                },
+                done: function(e, data) {
+                    var res = data.result;
+
+                    if ( ! res.success ) {
+                        return;
+                    }
+
+                    t._slotsRemaining -= res.data.attachmentIds.length;
+                    $( '#image-slots-remaining' ).text( t._slotsRemaining );
+
+                    t._working = false;
+
+                    $( '#image-upload-dnd-area .dnd-area-inside-working' ).fadeOut( 'fast', function() {
+                        if ( 0 == t._slotsRemaining ) {
+                            $( '#noslots-message' ).show();
+                            $( '#image-upload-dnd-area' ).addClass('error');
+                            $( '#image-upload-dnd-area .dnd-area-inside-error' ).fadeIn( 'fast' );
+                        } else {
+                            $( '#image-upload-dnd-area .dnd-area-inside' ).fadeIn( 'fast' );
+                        }
+                    } );
+
+                    $( '#no-images-message' ).hide();
+                    $( '#wpbdp-uploaded-images' ).append( res.data.html );
+                }
+/*                always: function(e, data) {
+                    console.log(data.result);
+                    console.log('success,abort,error');
+                },*/
+/*                progressall: function(e, data) {
+                    console.log('progress');
+                }*/
             });
+
+            $( '.wpbdp-dnd-area')
+                .on( 'dragover', function( e ) {
+                    if ( ! $( this ).hasClass( 'dragging' ) )
+                        $( this ).addClass( 'dragging' );
+                } )
+                .on( 'dragleave', function( e ) {
+                    if ( $( this ).hasClass('dragging') )
+                        $( this ).removeClass( 'dragging' );
+                } );
+            $( '.wpbdp-dnd-area .dnd-buttons input' ).click(function( e ) {
+                e.preventDefault();
+                $( '#image-upload-input' ).trigger( 'click' );
+            } );
+        },
+
+        formDataCallback: function( form ) {
+            return [
+                { name: 'action', value: 'wpbdp-listing-submit-image-upload' },
+                { name: 'state', value: $( 'input[name="_state"]', form ).val() }
+            ];
         }
     };
 
