@@ -344,7 +344,7 @@ class WPBDP_ListingsAPI {
         }
 
         $listing->save();
-        $listing->publish();    
+//        $listing->maybe_publish();
     }
 
     /**

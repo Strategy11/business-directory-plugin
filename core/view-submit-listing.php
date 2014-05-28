@@ -427,6 +427,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
 
         $listing->save();
+        $listing->set_post_status( $this->state->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
 
         $this->state->advance( false ); // This step is 'invisible'.
         return $this->dispatch();

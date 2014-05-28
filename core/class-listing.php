@@ -421,6 +421,13 @@ class WPBDP_Listing {
         wp_update_post( array( 'post_status' => 'publish', 'ID' => $this->id ) );
     }
 
+    public function set_post_status( $status ) {
+        if ( ! $this->id )
+            return;
+
+        wp_update_post( array( 'post_status' => $status, 'ID' => $this->id ) );
+    }
+
     public function save() {
         if ( $this->new )
             do_action_ref_array( 'WPBDP_Listing::listing_created', array( &$this ) );
