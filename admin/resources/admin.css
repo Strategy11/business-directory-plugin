@@ -127,7 +127,7 @@ table.wp-list-table.formfields .tag.in-listing {
     display: block;
 }
 
-#wpbdp-listing-fields div.listing-images .image {
+#wpbdp-listing-fields #wpbdp-uploaded-images .wpbdp-image {
     padding: 5px;
     /*border-right: 1px solid #ddd;*/
     width: 150px;

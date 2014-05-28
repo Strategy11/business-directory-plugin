@@ -114,94 +114,22 @@ WPBDP.fileUpload = {
                 }, 'json' );
             } );
 
-            $('#image-upload-input').fileupload({
-                url: '/wp-admin/admin-ajax.php',
-                sequentialUploads: true,
-                dataType: 'json',
-                formData: sb.images.formDataCallback,
-                singleFileUploads: false,
-                dropZone: $( '.wpbdp-dnd-area' ),
-/*                drop: function(e, data) {
-                    return true;
-                },*/
-/*                add: function(e, data) {
-                    data.process().done(function() {
-                        data.submit();
-                    });
-                },*/
-/*                submit: function(e, data) {
-                    console.log('submit');
-                    return true;
-                },*/
-                send: function(e, data) {
-                    if ( this._working )
-                        return false;
-
-                    $( '#image-upload-dnd-area' ).removeClass( 'dragging' );
-                    $( '#image-upload-dnd-area' ).removeClass( 'error' );
-                    this._working = true;
-                    $( '#image-upload-dnd-area .dnd-area-inside' ).fadeOut( 'fast', function() {
-                        $( '#image-upload-dnd-area .dnd-area-inside-working span' ).text( data.files.length );
-                        $( '#image-upload-dnd-area .dnd-area-inside-working' ).fadeIn( 'fast' );
-                    } );
-
-                    return true;
-                },
-                done: function(e, data) {
-                    var res = data.result;
-
-                    if ( ! res.success ) {
-                        return;
-                    }
+            wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), $( '#image-upload-input' ), {
+                done: function( res ) {
+                    $( '#no-images-message' ).hide();
+                    $( '#wpbdp-uploaded-images' ).append( res.data.html );
 
                     t._slotsRemaining -= res.data.attachmentIds.length;
                     $( '#image-slots-remaining' ).text( t._slotsRemaining );
-
-                    t._working = false;
-
-                    $( '#image-upload-dnd-area .dnd-area-inside-working' ).fadeOut( 'fast', function() {
-                        if ( 0 == t._slotsRemaining ) {
-                            $( '#noslots-message' ).show();
-                            $( '#image-upload-dnd-area' ).addClass('error');
-                            $( '#image-upload-dnd-area .dnd-area-inside-error' ).fadeIn( 'fast' );
-                        } else {
-                            $( '#image-upload-dnd-area .dnd-area-inside' ).fadeIn( 'fast' );
-                        }
-                    } );
-
-                    $( '#no-images-message' ).hide();
-                    $( '#wpbdp-uploaded-images' ).append( res.data.html );
+                    
+                    if ( 0 == t._slotsRemaining ) {
+                        $( '#noslots-message' ).show();
+                        $( '#image-upload-dnd-area' ).addClass('error');
+                        $( '#image-upload-dnd-area .dnd-area-inside-error' ).fadeIn( 'fast' );
+                    }
                 }
-/*                always: function(e, data) {
-                    console.log(data.result);
-                    console.log('success,abort,error');
-                },*/
-/*                progressall: function(e, data) {
-                    console.log('progress');
-                }*/
-            });
-
-            $( '.wpbdp-dnd-area')
-                .on( 'dragover', function( e ) {
-                    if ( ! $( this ).hasClass( 'dragging' ) )
-                        $( this ).addClass( 'dragging' );
-                } )
-                .on( 'dragleave', function( e ) {
-                    if ( $( this ).hasClass('dragging') )
-                        $( this ).removeClass( 'dragging' );
-                } );
-            $( '.wpbdp-dnd-area .dnd-buttons input' ).click(function( e ) {
-                e.preventDefault();
-                $( '#image-upload-input' ).trigger( 'click' );
             } );
         },
-
-        formDataCallback: function( form ) {
-            return [
-                { name: 'action', value: 'wpbdp-listing-submit-image-upload' },
-                { name: 'state', value: $( 'input[name="_state"]', form ).val() }
-            ];
-        }
     };
 
     $( document ).ready( function() {

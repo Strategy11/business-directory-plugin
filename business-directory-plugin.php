@@ -338,6 +338,9 @@ class WPBDP_Plugin {
         add_action('init', array($this, 'install_or_update_plugin'), 1);
         add_action('init', array($this, '_register_post_type'), 0);
 
+        add_action( 'wp_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'register_common_scripts' ) );        
+
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
             $installer = new WPBDP_Installer();
             $installer->setup_manual_upgrade();
@@ -416,7 +419,9 @@ class WPBDP_Plugin {
         add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
 
         add_action( 'wp_ajax_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
         add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
 
         // Core sorting options.
         add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
@@ -426,10 +431,26 @@ class WPBDP_Plugin {
 
     // TODO: better validation.
     public function ajax_listing_submit_image_upload() {
-        require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+        $res = new WPBDP_Ajax_Response();
 
-        $state_id = trim( $_REQUEST['state'] );
-        $state = WPBDP_Listing_Submit_State::get( $state_id );
+        $listing_id = 0;
+        $state_id = 0;
+        $state = null;
+
+        if ( isset( $_REQUEST['state'] ) ) {
+            require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+    
+            $state_id = trim( $_REQUEST['state'] );
+            $state = WPBDP_Listing_Submit_State::get( $state_id );
+
+            if ( ! $state )
+                $res->send_error();
+        } else {
+            $listing_id = intval( $_REQUEST['listing_id'] );
+
+            if ( ! $listing_id )
+                $res->send_error();
+        }
 
         $content_range = null;
         $size = null;
@@ -466,33 +487,42 @@ class WPBDP_Plugin {
                                    false );
         }
 
-        $state->save();
+        if ( $listing_id ) {
+            $listing = WPBDP_Listing::get( $listing_id );
+            $listing->set_images( $attachments, true );
+        } elseif ( $state ) {
+            $state->save();
+        }
 
-        $res = new WPBDP_Ajax_Response();
         $res->add( 'attachmentIds', $attachments );
         $res->add( 'html', $html );
         $res->send();
     }
 
     public function ajax_listing_submit_image_delete() {
-        require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-
-        $image_id = intval( $_REQUEST['image_id'] );
-        $state_id = trim( $_REQUEST['state'] );
-
         $res = new WPBDP_Ajax_Response();
+        $image_id = intval( $_REQUEST['image_id'] );
 
-        if ( ! $image_id || ! $state_id )
+        if ( ! $image_id )
             $res->send_error();
 
-        $state = WPBDP_Listing_Submit_State::get( $state_id );
+        if ( ! current_user_can( 'administrator' ) ) {
+            require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+            $state_id = trim( $_REQUEST['state'] );
 
-        if ( ! $state || ! in_array( $image_id, $state->images ) )
-            $res->send_error();
+            if ( ! $state_id )
+                $res->send_error();
 
-        wpbdp_array_remove_value( $state->images, $image_id );
+            $state = WPBDP_Listing_Submit_State::get( $state_id );
+
+            if ( ! $state || ! in_array( $image_id, $state->images ) )
+                $res->send_error();
+
+            wpbdp_array_remove_value( $state->images, $image_id );
+            $state->save();
+        }
+
         wp_delete_attachment( $image_id, true );
-        $state->save();
 
         $res->add( 'imageId', $image_id );
         $res->send();
@@ -805,6 +835,28 @@ class WPBDP_Plugin {
     }
 
     /* scripts & styles */
+
+    /**
+     * Registers scripts and styles that can be used either by frontend or backend code.
+     * The scripts are just registered, not enqueued.
+     *
+     * @since 3.4
+     */
+    public function register_common_scripts() {
+        // jQuery-FileUpload.
+        wp_register_script( 'jquery-fileupload-ui-widget', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget.js' );
+        wp_register_script( 'jquery-fileupload-iframe-transport', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.js' );
+        wp_register_script( 'jquery-fileupload',
+                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.js',
+                            array( 'jquery',
+                                   'jquery-fileupload-ui-widget',
+                                   'jquery-fileupload-iframe-transport' ) );
+
+        // Drag & Drop.
+        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.css' );
+        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.js', array( 'jquery-fileupload' ) );
+    }
+
     public function _enqueue_scripts() {
         $only_in_plugin_pages = true;
         $is_plugin_page = false;
@@ -828,14 +880,13 @@ class WPBDP_Plugin {
         if ( $this->is_debug_on() ) {
             wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
             wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
-
-            wp_enqueue_script( 'fileupload-r1', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget.js', array( 'jquery' ) );
-            wp_enqueue_script( 'fileupload-r2', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.js' );
-            wp_enqueue_script( 'fileupload', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.js', array( 'jquery' ) );
         } else {
             wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
             wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
         }
+
+        wp_enqueue_style( 'wpbdp-dnd-upload' );
+        wp_enqueue_script( 'wpbdp-dnd-upload' );
 
         do_action( 'wpbdp_enqueue_scripts' );
 

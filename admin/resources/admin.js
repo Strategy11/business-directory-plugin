@@ -149,16 +149,6 @@ jQuery(document).ready(function($){
         wpbdp_load_placeholder($(v));
     });
 
-    $('a.delete-image-button').live('click', function(e){
-        e.preventDefault();
-        jQuery.get($(this).attr('href'), function(res){
-            wpbdp_load_placeholder($("#wpbdp-listing-images")); 
-        });
-
-        return false;
-    }); 
-
-
     /*
      * Admin bulk actions
      */
