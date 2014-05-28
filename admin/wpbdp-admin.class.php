@@ -7,6 +7,7 @@ require_once( WPBDP_PATH . 'admin/payments.php' );
 require_once( WPBDP_PATH . 'admin/csv-import.php' );
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
+require_once( WPBDP_PATH . 'admin/class-listing-fields-metabox.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -30,7 +31,7 @@ class WPBDP_Admin {
 
         add_filter(sprintf('manage_edit-%s_columns', WPBDP_POST_TYPE), array( $this, 'add_custom_columns'));
         add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
-        
+
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
         add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
         add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
@@ -43,10 +44,6 @@ class WPBDP_Admin {
 
         add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
 
-        add_action('wp_ajax_wpbdp-uploadimage', array($this, '_upload_image'));
-        add_action('wp_ajax_wpbdp-deleteimage', array($this, '_delete_image'));
-        add_action('wp_ajax_wpbdp-listingimages', array($this, '_listing_images'));
-        
         // Listing admin.
         add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
         add_action( 'wp_ajax_wpbdp-listing_remove_category', array( &$this, 'ajax_listing_remove_category' ) );
@@ -76,6 +73,9 @@ class WPBDP_Admin {
             wp_enqueue_style( 'wpbdp-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
             wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
+
+            wp_enqueue_style( 'wpbdp-dnd-upload' );
+            wp_enqueue_script( 'wpbdp-admin-listing', WPBDP_URL . 'admin/js/listing.js', array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ) );
         }
 
         // Ask for site tracking if needed.
@@ -197,148 +197,17 @@ class WPBDP_Admin {
                       'side',
                       'core' );
 
-        add_meta_box('wpbdp-listing-fields',
-                    _x('Listing Fields / Images', 'admin', 'WPBDM'),
-                    array($this, '_listing_fields_metabox'),
-                    WPBDP_POST_TYPE,
-                    'normal',
-                    'core');
-    }
-
-    public function _listing_fields_metabox($post) {
-        $formfields_api = wpbdp_formfields_api();
-
-        $post_values = wpbdp_getv( $_POST, 'listingfields', array() );
-
-        echo wp_nonce_field( plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce' );
-
-        echo '<div style="border-bottom: solid 1px #dedede; padding-bottom: 10px;">';
-        echo sprintf( '<strong>%s</strong>', _x( 'Listing Fields', 'admin', 'WPBDM' ) );
-        echo '<div style="padding-left: 10px;">';
-        foreach ($formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-            $value = isset( $post_values[ $field->get_id() ] ) ? $field->convert_input( $post_values[ $field->get_id() ] ) : $field->value( $post->ID );
-            echo $field->render( $value, 'admin-submit' );
-        }
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="clear"></div>';      
-
-        // listing images
-        if ( current_user_can('edit_posts') ) {
-            echo sprintf('<div id="wpbdp-listing-images" class="wpbdp-ajax-placeholder"
-                               data-action="wpbdp-listingimages"
-                               data-post_id="%s"
-                               data-baseurl="%s"></div>',
-                        $post->ID,
-                        remove_query_arg(array('message', 'wpbdmaction')));
-        }
+        add_meta_box( 'wpbdp-listing-fields',
+                      _x( 'Listing Fields / Images', 'admin', 'WPBDM' ),
+                      array( 'WPBDP_Admin_Listing_Fields_Metabox', 'metabox_callback' ),
+                      WPBDP_POST_TYPE,
+                      'normal',
+                      'core' );
     }
 
     public function _checklist_args($args) {
         $args['checked_ontop'] = false;
         return $args;
-    }
-
-    /*
-     * Listing image handling
-     */
-
-    public function _listing_images() {
-        $post_id = intval($_POST['post_id']);
-
-        if (wpbdp_get_option('allow-images')) {
-            $listings_api = wpbdp_listings_api();
-            $thumbnail_id = $listings_api->get_thumbnail_id($post_id);
-            $images = $listings_api->get_images($post_id);
-
-            echo '<div style="margin-top: 10px;">';
-            echo sprintf('<strong>%s</strong>', _x('Listing Images', 'admin', 'WPBDM'));
-            echo '<div class="listing-images" style="padding-left: 10px;">';
-
-            foreach ($images as $image) {
-                echo '<div class="image">';
-                echo sprintf('<img src="%s" /><br />', wp_get_attachment_thumb_url($image->ID));
-                echo sprintf('<label><input type="radio" name="thumbnail_id" value="%d" %s/> %s</label><br /><br />',
-                             $image->ID,
-                             $thumbnail_id == $image->ID ? 'checked="checked"' : '',
-                             _x('Listing thumbnail', 'admin', 'WPBDM'));
-                echo sprintf('<a href="%s" class="button delete-image-button">%s</a>',
-                            add_query_arg(array('action' => 'wpbdp-deleteimage',
-                                                'image_id' => $image->ID),
-                                          admin_url('admin-ajax.php')),
-                            _x('Delete Image', 'admin', 'WPBDM'));
-                echo '</div>';
-            }
-
-            echo '</div>';
-
-            echo '<p style="clear: both; margin-top: 10px;">';
-            echo sprintf('<a id="upload-listing-image" href="%s" class="thickbox button-primary" title="%s">%s</a>',
-                         add_query_arg(array('action' => 'wpbdp-uploadimage',
-                                             'post_id' => $post_id,
-                                             'width' => '600',
-                                             'TB_iframe' => 1),
-                                        admin_url('admin-ajax.php')),
-                         _x('Upload Image', 'admin', 'WPBDM'),
-                         _x('Upload Image', 'admin', 'WPBDM'));
-            echo '</p>';
-
-            echo '</div>';
-        }
-
-        exit;
-    }
-
-    public function _upload_image() {
-        echo '<script type="text/javascript">';
-        echo 'parent.jQuery("#TB_window, #TB_iframeContent").width(350).height(150)';
-        echo '</script>';
-
-        if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] == 0) {
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
-            require_once(ABSPATH . 'wp-admin/includes/image.php');            
-
-            $wp_image_ = wp_handle_upload($_FILES['image_upload'], array('test_form' => FALSE));
-
-            if (!isset($wp_image_['error'])) {
-                if ($attachment_id = wp_insert_attachment(array(
-                                                'post_mime_type' => $wp_image_['type'],
-                                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($wp_image_['file'])),
-                                                'post_content' => '',
-                                                'post_status' => 'inherit',
-                                                'post_parent' => $_REQUEST['post_id']
-                                                ), $wp_image_['file'])) {
-
-                    $attach_data = wp_generate_attachment_metadata($attachment_id, $wp_image_['file']);
-                    wp_update_attachment_metadata($attachment_id, $attach_data);
-
-                    if (!wp_attachment_is_image($attachment_id)) {
-                        wp_delete_attachment($attachment_id, true);
-                    }
-                }
-            }
-
-            echo '<script type="text/javascript">';
-            echo 'parent.jQuery("#TB_closeWindowButton").click();';
-            echo 'parent.wpbdp_load_placeholder(parent.jQuery("#wpbdp-listing-images"))';
-            echo '</script>';
-            exit;
-        }
-
-        echo '<div class="wrap">';
-        echo '<form action="" method="POST" enctype="multipart/form-data">';
-        echo '<strong>' . _x('Upload Image', 'admin', 'WPBDM') . '</strong><br />';
-        echo '<input type="file" name="image_upload" />';
-        echo sprintf('<input type="submit" value="%s" class="button" />', _x('Upload', 'admin', 'WPBDM'));
-        echo '</form>';
-        echo '</div>';
-        exit;
-    }
-
-    public function _delete_image() {
-        wp_delete_attachment($_GET['image_id'], true);
-        delete_post_meta($post_id, '_wpbdp[thumbnail_id]', $_GET['image_id']);
-        exit;
     }
 
     public function _save_post($post_id) {
