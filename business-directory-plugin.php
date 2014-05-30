@@ -857,24 +857,27 @@ class WPBDP_Plugin {
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.js', array( 'jquery-fileupload' ) );
     }
 
-    public function _enqueue_scripts() {
-        $only_in_plugin_pages = true;
-        $is_plugin_page = false;
+    public function is_plugin_page() {
+        global $post;
 
-        if ( $only_in_plugin_pages ) {
-            global $post;
-
-            foreach ( array_keys( $this->get_shortcodes() ) as $shortcode ) {
-                if ( wpbdp_has_shortcode( $post->post_content, $shortcode ) )
-                    $is_plugin_page = true;
+        foreach ( array_keys( $this->get_shortcodes() ) as $shortcode ) {
+            if ( wpbdp_has_shortcode( $post->post_content, $shortcode ) ) {
+                return true;
+                break;
             }
-
-            if ( 'template' == _wpbdp_template_mode ('single' ) || 'template' == _wpbdp_template_mode( 'category' ) )
-                $is_plugin_page = true;
-            // TODO: $is_plugin_page detection should take into account custom post type/tax templates.
         }
 
-        if ( $only_in_plugin_pages && ! $is_plugin_page )
+        if ( 'template' == _wpbdp_template_mode ('single' ) || 'template' == _wpbdp_template_mode( 'category' ) )
+            return true;
+         // TODO: $is_plugin_page detection should take into account custom post type/tax templates.
+
+        return false;
+    }
+
+    public function _enqueue_scripts() {
+        $only_in_plugin_pages = true;
+
+        if ( $only_in_plugin_pages && ! $this->is_plugin_page() )
             return;
 
         if ( $this->is_debug_on() ) {
