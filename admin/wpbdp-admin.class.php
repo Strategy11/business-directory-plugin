@@ -224,7 +224,8 @@ class WPBDP_Admin {
             $listing->fix_categories();
 
             // Save custom fields.
-            if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
+            //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
+            if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) ) {
                 $formfields_api = wpbdp_formfields_api();
                 $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
 
