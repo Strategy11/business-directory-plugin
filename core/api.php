@@ -384,8 +384,8 @@ function _wpbdp_render_single() {
         'listing_id' => $post->ID,
         'extra_images' => $extra_images
     );
-    $vars = apply_filters( 'wpbdp_listing_view_template_vars', $vars, $post->ID );
-    $vars = apply_filters( 'wpbdp_single_view_template_vars', $vars, $post->ID );
+    $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
+    $vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post->ID );
 
     $html .= wpbdp_render('businessdirectory-listing', $vars, true);
 
@@ -446,8 +446,8 @@ function _wpbdp_render_excerpt() {
         'fields' => $d->fields,
         'listing_id' => $post->ID
     );
-    $vars = apply_filters( 'wpbdp_listing_view_template_vars', $vars, $post->ID );
-    $vars = apply_filters( 'wpbdp_excerpt_view_template_vars', $vars, $post->ID );
+    $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
+    $vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
 
     $html .= wpbdp_render('businessdirectory-excerpt', $vars, true);
 
