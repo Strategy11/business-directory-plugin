@@ -43,9 +43,11 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                                     esc_url( add_query_arg( array( 'action' => 'editfield', 'id' => $field->get_id() ) ) ),
                                     _x( 'Edit', 'form-fields admin', 'WPBDM' ) );
 
-        $actions['delete'] = sprintf( '<a href="%s">%s</a>',
-                                     esc_url( add_query_arg( array( 'action' => 'deletefield', 'id' => $field->get_id() ) ) ),
-                                     _x( 'Delete', 'form-fields admin', 'WPBDM') );
+        if ( ! $field->has_behavior_flag( 'no-delete' ) ) {
+            $actions['delete'] = sprintf( '<a href="%s">%s</a>',
+                                         esc_url( add_query_arg( array( 'action' => 'deletefield', 'id' => $field->get_id() ) ) ),
+                                         _x( 'Delete', 'form-fields admin', 'WPBDM') );
+        }
 
         $html = '';
         $html .= sprintf( '<strong><a href="%s">%s</a></strong> (as <i>%s</i>)',
@@ -221,7 +223,7 @@ class WPBDP_FormFieldsAdmin {
         wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
                            array(
                             'field' => $field,
-                            'field_associations' => $api->get_associations(),
+                            'field_associations' => $api->get_associations_with_flags(),
                             'field_types' => $api->get_field_types(),
                             'validators' => $api->get_validators(),
                             'association_field_types' => $api->get_association_field_types()
@@ -234,7 +236,7 @@ class WPBDP_FormFieldsAdmin {
 
         $field = WPBDP_FormField::get( $_REQUEST['id'] );
 
-        if ( !$field )
+        if ( !$field || $field->has_behavior_flag( 'no-delete' ) )
             return;
 
         if ( isset( $_POST['doit'] ) ) {

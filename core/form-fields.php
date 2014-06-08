@@ -10,7 +10,10 @@ class WPBDP_FormFieldType {
 
     private $name = null;
 
-    public function __construct( $name ) {
+    public function __construct( $name = '' ) {
+        if ( ! $name )
+            $name = str_replace( array( 'WPBDP_', '_' ), array( '', ' ' ), get_class( $this ) );
+
         $this->name = trim( $name );
     }
 
@@ -28,6 +31,14 @@ class WPBDP_FormFieldType {
      */
     public function setup_field( &$field ) {
         return;
+    }
+
+    /**
+     * TODO: dodoc.
+     * @since 3.4
+     */
+    public function get_behavior_flags( &$field ) {
+        return array();
     }
 
     public function get_field_value( &$field, $post_id ) {
@@ -242,14 +253,15 @@ class WPBDP_FormFieldType {
             if ( $labelorfield->has_display_flag( 'social' ) )
                 return $content;
 
-            $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/' ), '', $labelorfield->get_label() ) ) . ' ' . $labelorfield->get_association() . ' ';
+            $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/', '(', ')' ), '', $labelorfield->get_label() ) ) . ' ' . $labelorfield->get_association() . ' ';
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
         } else {
             $label = $labelorfield;
         }
 
         $html  = '';
-        $html .= '<div class="' . $css_classes . '">';
+        $tag_attrs = isset( $args['tag_attrs'] ) ? self::html_attributes( $args['tag_attrs'] ) : '';
+        $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
         
         if ( $label )
             $html .= '<label>' . esc_html( $label ) . ':</label> ';
@@ -492,6 +504,23 @@ class WPBDP_FormField {
     }
 
     /**
+     * TODO: dodoc.
+     * Valid behavior (override default behavior) flags: display-only, no-delete, no-validation
+     * @since 3.4
+     */
+    public function get_behavior_flags() {
+        return $this->type->get_behavior_flags( $this );
+    }
+
+    /**
+     * TODO: dodoc.
+     * @since 3.4
+     */
+    public function has_behavior_flag( $flag ) {
+        return in_array( $flag, $this->get_behavior_flags(), true );
+    }
+
+    /**
      * Returns field-type specific configuration options for this field.
      * @param string $key configuration key name
      * @return mixed|array if $key is ommitted an array of all key/values will be returned
@@ -624,6 +653,13 @@ class WPBDP_FormField {
      */
     public function render( $value=null, $display_context='submit', &$extra=null ) {
         do_action_ref_array( 'wpbdp_form_field_pre_render', array( &$this, $value, $display_context ) );
+
+        if ( $this->has_behavior_flag( 'display-only' ) )
+            return '';
+
+        if ( 'submit' == $display_context && $this->has_behavior_flag( 'no-submit' ) )
+            return '';
+
         return $this->type->render_field( $this, $value, $display_context, $extra );
     }
 
@@ -663,7 +699,7 @@ class WPBDP_FormField {
             $this->add_validator( 'required' );
         }
 
-      if ( !in_array( $this->type->get_id(), $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
+      if ( !in_array( $this->type->get_id(), (array) $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
             return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
         }
 
@@ -870,8 +906,8 @@ class WPBDP_FormFields {
         $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
         $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
         $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'WPBDM' ) );
-        
-        // $this->register_association( 'custom', _x('Custom', 'form-fields api', 'WPBDM'), array( 'private' ) );
+
+        $this->register_association( 'custom', _x('Custom', 'form-fields api', 'WPBDM'), array( ) );
 
         // register core field types
         $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
@@ -912,7 +948,7 @@ class WPBDP_FormFields {
         return $this->associations;
     }
 
-    public function &get_association_field_types( $association=null ) {
+    public function get_association_field_types( $association=null ) {
         if ( $association ) {
             if ( in_array( $association, array_keys( $this->associations ), true ) ) {
                 return $this->association_field_types[ $association ];    
@@ -920,7 +956,6 @@ class WPBDP_FormFields {
                 return null;
             }
         }
-            
 
         return $this->association_field_types;
     }
@@ -952,7 +987,23 @@ class WPBDP_FormFields {
         }
 
         return $res;
-    }    
+    }
+
+    /**
+     * Get associations with their flags at the same time.
+     *
+     * @since 3.4
+     */
+    public function &get_associations_with_flags() {
+        $res = array();
+
+        foreach ( $this->associations as $assoc_id => $assoc_label ) {
+            $flags = $this->association_flags[ $assoc_id ];
+            $res[] = (object) array( 'id' => $assoc_id, 'label' => $assoc_label, 'flags' => $flags );
+        }
+
+        return $res;
+    }
 
     public function &get_required_field_associations() {
         return $this->get_associations_with_flag( 'required' );
@@ -1012,6 +1063,7 @@ class WPBDP_FormFields {
 
         $args = wp_parse_args( $args, array(
             'association' => null,
+            'field_type' => null,
             'validators' => null,
             'display_flags' => null,
             'unique' => false
@@ -1049,6 +1101,27 @@ class WPBDP_FormFields {
             }
 
             // $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
+        }
+
+        if ( $args['field_type'] ) {
+            $field_types_in = array();
+            $field_types_not_in = array();
+
+            $field_type = ! is_array( $field_type ) ? array( $field_type ) : $field_type;
+
+            foreach ( $field_type as $f ) {
+                if ( wpbdp_starts_with( $f, '-' ) ) {
+                    $field_types_not_in[] = substr( $f, 1 );
+                } else {
+                    $field_types_in[] = $f;
+                }
+            }
+
+            if ( $field_types_in )
+                $where .= ' AND ( field_type IN ( \'' . implode( '\',\'', $field_types_in )  . '\' ) ) ';
+
+            if ( $field_types_not_in )
+                $where .= ' AND ( field_type NOT IN ( \'' . implode( '\',\'', $field_types_not_in )  . '\' ) ) ';
         }
 
         foreach ( $display_flags as $f ) {

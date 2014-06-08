@@ -13,11 +13,19 @@
                     <label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
+                    <?php if ( 'custom' === $field->get_association() ): ?>
                     <select name="field[association]" id="field-association">
-                    <?php foreach ( $field_associations as $association => $name ): ?>
-                        <option value="<?php echo $association; ?>" <?php echo $field->get_association() == $association ? ' selected="selected"' : ''; ?> ><?php echo $name; ?></option>
+                        <option value="custom"><?php _ex( 'Custom', 'form-fields admin', 'WPBDM' ); ?></option>
+                    </select>
+                    <?php else: ?>
+                    <select name="field[association]" id="field-association">
+                    <?php foreach ( $field_associations as &$association ): ?>
+                        <?php if ( ! in_array( 'private', $association->flags, true ) ): ?>
+                        <option value="<?php echo $association->id; ?>" <?php echo $field->get_association() == $association->id ? ' selected="selected"' : ''; ?> ><?php echo $association->label; ?></option>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                     </select>
+                    <?php endif; ?>
                 </td>
             </tr>
 
@@ -27,6 +35,11 @@
                     <label> <?php _ex('Field Type', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
+                    <?php if ( 'custom' === $field->get_association() ): ?>
+                    <select name="field[field_type]" id="field-type">
+                        <option value="<?php echo $field->get_field_type_id(); ?>"><?php echo $field->get_field_type()->get_name(); ?></option>
+                    </select>
+                    <?php else: ?>
                     <select name="field[field_type]" id="field-type">
                         <?php foreach ( $field_types as $key => &$field_type ) : ?>
                             <?php if ( !in_array( $field->get_association(), $field_type->get_supported_associations() ) ): ?>
@@ -36,6 +49,7 @@
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
+                    <?php endif; ?>
                 </td>
             </tr>
 
@@ -77,6 +91,7 @@
     <!-- /field-specific settings -->
 
     <!-- validation -->
+    <?php if ( ! $field->has_behavior_flag( 'no-validation' ) ): ?>
     <h3><?php _ex('Field validation options', 'form-fields admin', 'WPBDM'); ?></h3>
     <table class="form-table">
             <tr>
@@ -105,6 +120,7 @@
                 </td>
             </tr>
     </table>
+    <?php endif; ?>
 
     <!-- display options -->
     <h3><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h3>
