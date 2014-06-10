@@ -35,10 +35,14 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         $step = 'gateway_selection';
 
-        if ( ! $this->payment->is_pending() )
+        if ( ! $this->payment->is_pending() ) {
             $step = 'done';
-        elseif ( $this->payment->get_gateway() )
-            $step = 'checkout';
+        } else {
+            if ( $this->payment->get_data( 'returned' ) )
+                $step = 'pending_verification';
+            elseif ( $this->payment->get_gateway() )
+                $step = 'checkout'; 
+        }
 
         return call_user_func( array( &$this, $step ) );
     }
@@ -50,7 +54,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         if ( isset( $_POST['payment_method'] ) ) {
             $payment_method = trim( $_POST['payment_method'] );
-            
+
             if ( ! $payment_method ) {
                 $html .= wpbdp_render_msg( _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' ), 'error' );
             } else {
@@ -77,6 +81,24 @@ class WPBDP_Checkout_Page extends WPBDP_View {
         return $html;
     }
 
+    private function pending_verification() {
+        $message = wpbdp_get_option( 'payment-message' );
+
+        if ( ! $message )
+            $message .= wpbdp_render_msg( _x( 'Your payment is being verified. This usually takes a few minutes but can take up to 24 hours.', 'checkout', 'WPBDM' ) );
+
+        $html  = '';
+        $html .= $message;
+        $html .= $this->api->render_details( $this->payment );
+        $html .= '<p>';
+        $html .= sprintf( '<a href="%s">%s</a>',
+                          wpbdp_get_page_link( 'main' ),
+                          _x( '← Return to Directory.', 'checkout', 'WPBDM' ) );
+        $html .= '</p>';
+
+        return $html;
+    }
+
     private function done() {
         $listing = WPBDP_Listing::get( $this->payment->get_listing_id() );
 
@@ -99,11 +121,3 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     }
 
 }
-        // TODO: allow changing gateway/payment method if transactions fails
-        // if ( ( $payment->is_canceled() || $payment->is_rejected() ) && isset( $_GET['change_payment_method'] ) && $_GET['change_payment_method'] == 1 ) {
-        //     $_SERVER['REQUEST_URI'] = remove_query_arg( 'change_payment_method', $_SERVER['REQUEST_URI'] );
-
-        //     $payment->reset();
-        //     $payment->save();
-        //     return $this->dispatch();
-        // }

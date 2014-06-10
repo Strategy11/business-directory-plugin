@@ -341,7 +341,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             if ( $this->is_completed() )
                 return add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
         }
-       
+
         return $this->get_checkout_url();
     }
 
