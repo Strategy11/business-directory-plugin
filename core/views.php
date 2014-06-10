@@ -95,9 +95,6 @@ class WPBDP_DirectoryController {
             case 'payment-process':
                 return $this->process_payment();
                 break;
-            case 'payment-return':
-                return $this->payment_return();
-                break;
             case 'search':
                 return $this->search();
                 break;
@@ -374,44 +371,6 @@ class WPBDP_DirectoryController {
                       . $this->main_page();
             }
         }
-    }
-
-    /* payment processing */
-    public function process_payment() {
-        $html = '';
-        $api = wpbdp_payments_api();
-
-        if ($transaction_id = $api->process_payment($_REQUEST['gateway'], $error_message)) {
-            if ( $error_message ) {
-                return wpbdp_render_msg($error_message, $type='error');
-            }
-
-            $transaction = $api->get_transaction($transaction_id);
-
-            if ($transaction->payment_type == 'upgrade-to-sticky') {
-                $html .= sprintf('<h2>%s</h2>', _x('Listing Upgrade Payment Status', 'templates', 'WPBDM'));
-            } elseif ($transaction->payment_type == 'initial') {
-                $html .= sprintf('<h2>%s</h2>', _x('Listing Submitted', 'templates', 'WPBDM'));
-            } else {
-                $html .= sprintf('<h2>%s</h2>', _x('Listing Payment Confirmation', 'templates', 'WPBDM'));
-            }
-
-            if (wpbdp_get_option('send-email-confirmation')) {
-                $listing_id = $transaction->listing_id;
-                $message = wpbdp_get_option('payment-message');
-                $message = str_replace("[listing]", get_the_title($listing_id), $message);
-
-                $email = new WPBDP_Email();
-                $email->subject = "[" . get_option( 'blogname' ) . "] " . wp_kses( get_the_title($listing_id), array() );
-                $email->to[] = wpbusdirman_get_the_business_email($listing_id);
-                $email->body = $message;
-                $email->send();
-            }
-
-            $html .= sprintf('<p>%s</p>', wpbdp_get_option('payment-message'));
-        }
-
-        return $html;
     }
 
     /*
