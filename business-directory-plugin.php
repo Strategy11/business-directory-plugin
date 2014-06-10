@@ -722,14 +722,14 @@ class WPBDP_Plugin {
         echo "\n<!-- Business Directory RSS feed -->\n";
         echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
                       sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
-                      add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) )
+                      esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) ) )
                     );
 
         if ( $action == 'browsetag' || $action == 'browsecategory' ) {
             echo "\n";
             echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
                           sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
-                          add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, WPBDP_CATEGORY_TAX => get_query_var( 'category' ) ),  get_bloginfo( 'rss2_url' ) )
+                          esc_url( add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, WPBDP_CATEGORY_TAX => get_query_var( 'category' ) ),  get_bloginfo( 'rss2_url' ) ) )
                         );
         }
 
@@ -1228,7 +1228,7 @@ class WPBDP_Plugin {
         if ( !$action )
             return rel_canonical();
 
-        if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'upgradetostickylisting', 'renewlisting', 'payment-process' ) ) )
+        if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'upgradetostickylisting', 'renewlisting' ) ) )
             return;
 
         if ( $action == 'showlisting' ) {
@@ -1238,7 +1238,7 @@ class WPBDP_Plugin {
             $link = $_SERVER['REQUEST_URI'];
         }
 
-        echo sprintf( '<link rel="canonical" href="%s" />', $link );
+        echo sprintf( '<link rel="canonical" href="%s" />', esc_url( $link ) );
     }
 
     public function get_ajax_url($action, $args=array()) {
