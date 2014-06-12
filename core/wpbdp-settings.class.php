@@ -771,9 +771,9 @@ class WPBDP_Settings {
 
                 if ( $setting->validator )
                     $newvalue = call_user_func( $setting->validator, $setting, $newvalue, $api->get( $setting->name ) );
-
-                return $newvalue;
             }
+
+            return $newvalue;
         }
 
         return call_user_func($setting->validator, $setting, $newvalue, $api->get($setting->name));
