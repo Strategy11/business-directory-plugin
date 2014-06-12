@@ -1230,6 +1230,22 @@ class WPBDP_FormFields {
         return $names;
     }
 
+    public function set_fields_order( $fields_order = array() ) {
+        if ( ! $fields_order )
+            return false;
+
+        global $wpdb;
+
+        $total = count( $fields_order );
+
+        foreach ( $fields_order as $i => $field_id )
+            $wpdb->update( $wpdb->prefix . 'wpbdp_form_fields',
+                           array( 'weight' => ( $total - $i ) ),
+                           array( 'id' => $field_id ) );
+
+        return true;
+    }
+
 }
 
 /*

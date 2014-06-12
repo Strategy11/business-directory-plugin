@@ -44,7 +44,8 @@ class WPBDP_Admin {
 
         add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
 
-        // Listing admin.
+        add_action( 'wp_ajax_wpbdp-formfields-reorder', array( &$this, 'ajax_formfields_reorder' ) );
+
         add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
         add_action( 'wp_ajax_wpbdp-listing_remove_category', array( &$this, 'ajax_listing_remove_category' ) );
         add_action( 'wp_ajax_wpbdp-listing_change_fee', array( &$this, 'ajax_listing_change_fee' ) );        
@@ -243,6 +244,25 @@ class WPBDP_Admin {
             }
 
         }
+    }
+
+    public function ajax_formfields_reorder() {
+        $response = new WPBDP_Ajax_Response();
+
+        if ( ! current_user_can( 'administrator' ) )
+            $response->send_error();
+
+        $order = array_map( 'intval', isset( $_REQUEST['order'] ) ? $_REQUEST['order'] : array() );
+
+        if ( ! $order )
+            $response->send_error();
+
+        global $wpbdp;
+
+        if ( ! $wpbdp->formfields->set_fields_order( $order ) )
+            $response->send_error();
+
+        $response->send();
     }
     
     /*

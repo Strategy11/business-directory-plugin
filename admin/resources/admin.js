@@ -15,9 +15,22 @@ var WPBDP_associations_fieldtypes = {};
             WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
             WPBDPAdmin_FormFields.$f_fieldtype.change( WPBDPAdmin_FormFields.onFieldTypeChange );
 
-/*            $('table.formfields tbody').sortable({
-                placeholder: 'wpbdp-draggable-highlight'
-            });*/
+            $('table.formfields tbody').sortable({
+                placeholder: 'wpbdp-draggable-highlight',
+                handle: '.wpbdp-drag-handle',
+                axis: 'y',
+                cursor: 'move',
+                opacity: 0.9,
+                update: function( event, ui ) {
+                    var sorted_items = [];
+                    $( this ).find( '.wpbdp-drag-handle' ).each( function( i, v ) {
+                        sorted_items.push( $( v ).attr('data-field-id') );
+                    } );
+
+                    if ( sorted_items )
+                        $.post( ajaxurl, { 'action': 'wpbdp-formfields-reorder', 'order': sorted_items } );
+                }
+            });
         },
 
         onFieldTypeChange: function() {

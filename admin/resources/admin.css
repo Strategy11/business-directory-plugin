@@ -95,12 +95,24 @@ table.wp-list-table.formfields th.column-label {
     width: 40%;
 }
 
-table.wp-list-table.formfields th.column-tags {
+table.wp-list-table.formfields th.column-tags, table.wp-list-table.formfields td.column-tags {
     width: 200px;
 }
 
-table.wp-list-table.formfields th.column-order {
-    width: 40px;
+table.wp-list-table.formfields th.column-order, table.wp-list-table.formfields td.column-order  {
+    width: 55px;
+}
+
+table.wp-list-table.formfields td.column-order .wpbdp-drag-handle {
+    visibility: hidden;
+}
+
+/*table.wp-list-table.formfields tbody tr:hover {
+    cursor: move;
+}*/
+
+table.wp-list-table.formfields tr:hover .wpbdp-drag-handle {
+    visibility: visible;
 }
 
 table.wp-list-table.formfields .tag.required {
@@ -113,6 +125,15 @@ table.wp-list-table.formfields .tag.in-excerpt {
 
 table.wp-list-table.formfields .tag.in-listing {
     background: green;
+}
+
+table.wp-list-table.formfields tr.wpbdp-draggable-highlight {
+    height: 54px;
+}
+
+table.wp-list-table.formfields tr.ui-sortable-helper {
+    background: #fff;
+    border: 1px dashed #c1c1c1;
 }
 
 #wpbdp-listing-fields input[type="text"] {
@@ -443,9 +464,24 @@ body.taxonomy-wpbdp_category .column-id {
 }
 /* @end */
 
-.wpbdp-draggable-highlight {
+/* {{{ Drag and Drop. */
+.wpbdp-drag-handle {
     background: red;
+    width: 6px;
+    height: 10px;
+    display: inline-block;
+    background: url('drag-handle.png') 0 0;
+    cursor: move;
+    float: left;
+    margin: 5px 5px 0 0;
+    vertical-align: middle;
 }
+
+.wpbdp-draggable-highlight {
+    background: #bbb;
+}
+
+/* }}} */
 
 /* {{{ Compatibility check. */
 

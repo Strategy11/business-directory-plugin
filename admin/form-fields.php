@@ -31,7 +31,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
     /* Rows */
     public function column_order($field) {
-        return sprintf( '<a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
+        return sprintf( '<span class="wpbdp-drag-handle" data-field-id="%s"></span> <a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
+                        $field->get_id(),
                         esc_url( add_query_arg( array('action' => 'fieldup', 'id' => $field->get_id() ) ) ) ,
                         esc_url( add_query_arg( array('action' => 'fielddown', 'id' => $field->get_id() ) ) )
                        );
