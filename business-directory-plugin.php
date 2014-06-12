@@ -415,9 +415,9 @@ class WPBDP_Plugin {
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
 
         add_action('init', array($this, '_init_modules'));
-        add_action('wp_ajax_wpbdp-ajax', array($this, '_handle_ajax'));
-        add_action( 'wp_ajax_nopriv_wpbdp-ajax', array( &$this, '_handle_ajax' ) );
 
+        add_action( 'wp_ajax_wpbdp-file-field-upload', array( &$this, 'ajax_file_field_upload' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-file-field-upload', array( &$this, 'ajax_file_field_upload' ) );
         add_action( 'wp_ajax_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
         add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
@@ -1241,27 +1241,7 @@ class WPBDP_Plugin {
         echo sprintf( '<link rel="canonical" href="%s" />', esc_url( $link ) );
     }
 
-    public function get_ajax_url($action, $args=array()) {
-        $args = array_merge( array('action' => 'wpbdp-ajax', 'wpbdp_action' => $action), $args );
-        return add_query_arg( $args, admin_url( 'admin-ajax.php' ) );
-    }
-
-    public function _handle_ajax() {
-        $action = wpbdp_getv($_REQUEST, 'wpbdp_action', null);
-
-        switch ($action) {
-            case 'file-upload':
-                return $this->_handle_ajax_file_upload();
-                break;
-            default:
-                do_action( 'wpbdp_ajax_' . $action );
-                break;
-        }
-
-        exit;
-    }
-
-    private function _handle_ajax_file_upload() {
+    public function ajax_file_field_upload() {
         echo '<form action="" method="POST" enctype="multipart/form-data">';
         echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
         echo '</form>';
