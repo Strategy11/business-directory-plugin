@@ -6,7 +6,7 @@ require_once( WPBDP_PATH . 'core/class-view.php' );
  * @since 3.3
  */
 class WPBDP_Submit_Listing_Page extends WPBDP_View {
-    
+
     private $state = null;
     private $messages = array();
     private $errors = array();
@@ -38,7 +38,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         if ( $this->state->editing )  {
             $current_user = wp_get_current_user();
-            
+
             if ( ( get_post( $this->state->listing_id )->post_author != $current_user->ID ) && ( !current_user_can( 'administrator' ) ) )
                 return wpbdp_render_msg( _x( 'You are not authorized to edit this listing.', 'templates', 'WPBDM' ), 'error' );
         }
@@ -150,9 +150,13 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                     $options = wpbdp_get_fees_for_category( $cat_id );
 
                     if ( count( $options ) > 1 || $options[0]->id != 0 ) {
-                        $fee_selection[ $cat_id ] = array( 'fee_id' => isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id, 'term' => $term, 'options' => $options );
+                        $fee_selection[ $cat_id ] = array( 'fee_id' => isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id,
+                                                           'term' => $term,
+                                                           'options' => $options );
                     } else {
-                        $fee_selection[ $cat_id ] = array( 'fee_id' => 0, 'term' => $term, 'options' => $options );
+                        $fee_selection[ $cat_id ] = array( 'fee_id' => 0,
+                                                           'term' => $term,
+                                                           'options' => $options );
                     }
 
                 } else {
@@ -175,11 +179,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( $this->skip_fee_selection( $fee_selection ) ) {
             foreach ( array_keys( $this->state->categories ) as $cat_id )
                 $this->state->categories[ $cat_id ] = $fee_selection[ $cat_id ][ 'fee_id' ];
-            
-            $this->state->upgrade_to_sticky = false;            
-            
+
+            $this->state->upgrade_to_sticky = false;
+
             $this->state->advance( false );
-            return $this->dispatch();            
+            return $this->dispatch();
         }
 
         if ( isset( $_POST['fees'] ) ) {
@@ -190,7 +194,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
                 if ( null === $selected_fee_id ) {
                     $this->errors[] = sprintf( _x( 'Please select a fee option for the "%s" category.', 'templates', 'WPBDM' ), esc_html( $fee_selection[ $cat_id ]['term']->name ) );
-                    $validates = false;                    
+                    $validates = false;
                 } else {
                     $this->state->categories[ $cat_id ] = $selected_fee_id;
                 }
@@ -198,13 +202,20 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
             if ( $validates ) {
                 $this->state->upgrade_to_sticky = isset( $_POST['upgrade-listing'] ) && $_POST['upgrade-listing'] == 'upgrade' ? true : false;
-                $this->state->autorenew_fees = isset( $_POST['autorenew_fees'] ) && $_POST['autorenew_fees'] == 'autorenew' ? true : false;
+                $this->state->autorenew_fees = false;
+
+                if ( isset( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] && 1 == count( $this->state->categories ) ) {
+                    $fee = wpbdp_get_fee( end( $this->state->categories ) );
+
+                    if ( $fee->amount > 0.0 && $fee->days > 0 )
+                        $this->state->autorenew_fees = true;
+                }
 
                 $this->state->advance();
                 return $this->dispatch();
             }
         }
-        
+
         $upgrade_option = false;
         if ( ! $this->state->editing && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) ) {
             $upgrade_option = wpbdp_listing_upgrades_api()->get( 'sticky' );
