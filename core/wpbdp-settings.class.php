@@ -92,7 +92,7 @@ class WPBDP_Settings {
         // Quick search fields.
         $default_fields = array();
         $quicksearch_fields = array();
-        foreach ( wpbdp_get_form_fields() as $field ) {
+        foreach ( wpbdp_get_form_fields( 'association=-custom' ) as $field ) {
             $quicksearch_fields[] = array( $field->get_id(), $field->get_label() );
 
             if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ), true ) )
