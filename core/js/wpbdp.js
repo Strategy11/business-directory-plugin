@@ -76,6 +76,18 @@ WPBDP.fileUpload = {
 ( function( $ ) {
     var sb = wpbdp.listingSubmit = {
         init: function() {
+            if ( $( '.wpbdp-submit-page.step-fee-selection' ).length > 0 ) {
+                $( '#wpbdp-listing-form-fees .fee-selection input' ).change(function( e ) {
+                    console.log(this);
+                    if ( 1 == $( this ).attr( 'data-canrecur' ) ) {
+                        if ( $( '.make-charges-recurring-option' ).not( ':visible' ) )
+                            $( '.make-charges-recurring-option' ).fadeIn( 'fast' );
+                    } else {
+                        $( '.make-charges-recurring-option' ).fadeOut( 'fast' );
+                    }
+                }).filter( ':checked' ).trigger( 'change' );
+            }
+
             if ( $( '.wpbdp-submit-page.step-images' ).length > 0 )
                 sb.images.init();
         }

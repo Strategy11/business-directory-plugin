@@ -28,7 +28,8 @@
 					<input type="radio"
                            id="wpbdp-fees-radio-<?php echo $fee->id; ?>"
                            name="fees[<?php echo $category->term_id; ?>]"
-                           value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> />
+                           value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?>
+                           data-canrecur="<?php echo ( $fee->days > 0 && $fee->amount > 0.0 ) ? 1 : 0  ?>" />
 				</td>
 				<td class="fee-label">
 					<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( $fee->label ); ?></label>
