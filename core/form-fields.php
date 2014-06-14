@@ -365,11 +365,11 @@ class WPBDP_FormField {
         $this->description = $attrs['description'];
         $this->type = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
 
-        // if ( !$this->type )
-        //     throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'WPBDM' ) );
+        if ( !$this->type )
+            throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'WPBDM' ) );
 
-        if ( !$this->type ) // temporary workaround related to 3.0 upgrade issues (issue #365)
-            $this->type = WPBDP_FormFields::instance()->get_field_type( 'textfield' );
+/*        if ( !$this->type ) // temporary workaround related to 3.0 upgrade issues (issue #365)
+            $this->type = WPBDP_FormFields::instance()->get_field_type( 'textfield' );*/
 
         $this->association = $attrs['association'];
         $this->weight = intval( $attrs['weight'] );
