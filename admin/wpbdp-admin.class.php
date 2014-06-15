@@ -336,7 +336,7 @@ class WPBDP_Admin {
                     break;
                 case 'paid':
                     $request['meta_key'] = '_wpbdp[payment_status]';
-                    $request['meta_value'] = 'paid';
+                    $request['meta_value'] = 'ok';
                     break;
                 case 'expired':
                     $expired_post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s", current_time( 'mysql' ) ) );
@@ -383,8 +383,7 @@ class WPBDP_Admin {
                                           'upgradefeatured' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
                                           'cancelfeatured' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
                                           'sep2' => '--',
-                                          'setaspaid' => _x('Set Paid', 'admin actions', 'WPBDM'),
-                                          'setasnotpaid' => _x('Set Not Paid', 'admin actions', 'WPBDM'),
+                                          'setaspaid' => _x('Mark as Paid', 'admin actions', 'WPBDM'),
                                           'sep3' => '--',
                                           'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
                                          );
@@ -455,18 +454,6 @@ class WPBDP_Admin {
                                         'WPBDM');
                 break;
             
-            case 'setasnotpaid':
-                foreach ($posts as $post_id) {
-                    $listings_api->set_payment_status($post_id, 'not-paid');
-                }
-
-                $this->messages[] = _nx('The listing status has been set as "not paid".',
-                                        'The listings status has been set as "not paid".',
-                                        count($posts),
-                                        'admin',
-                                        'WPBDM');
-                break;
-
             case 'changesticky':
                 foreach ( $posts as $post_id ):
                     $upgrades_api->set_sticky( $post_id, wpbdp_getv($_GET, 'u') );
@@ -580,7 +567,7 @@ class WPBDP_Admin {
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                                WPBDP_POST_TYPE,
                                                                '_wpbdp[payment_status]',
-                                                               'paid');
+                                                               'ok');
 
             $paid = $wpdb->get_var( $paid_query);
 
@@ -588,7 +575,7 @@ class WPBDP_Admin {
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",
                                                                WPBDP_POST_TYPE,
                                                                '_wpbdp[payment_status]',
-                                                               'paid') );
+                                                               'ok') );
             $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                                WPBDP_POST_TYPE,
