@@ -409,7 +409,6 @@ class WPBDP_Listing {
         }
     }
 
-
     public function get_latest_payments() {
         return WPBDP_Payment::find( array( 'listing_id' => $this->id, '_order' => '-id', '_limit' => 10 ) );
     }

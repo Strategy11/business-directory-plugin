@@ -433,30 +433,6 @@ class WPBDP_ListingsAPI {
         return $result;
     }
 
-    public function get_payment_status($listing_id) {
-        if ($payment_status = get_post_meta($listing_id, '_wpbdp[payment_status]', true))
-            return $payment_status;
-
-        return 'not-paid';
-    }
-
-    public function set_payment_status($listing_id, $status='not-paid') {
-        // global $wpdb;
-
-        // if ($last_transaction = wpbdp_payments_api()->get_last_transaction($listing_id)) {
-        //  $last_transaction->processed_on = current_time('mysql');
-        //  $last_transaction->processed_by = 'admin';
-        //  $last_transaction->status = ($status == 'paid') ? 'approved' : 'rejected';
-        //  wpbdp_payments_api()->save_transaction($last_transaction);
-        //  return true;
-        // }
-
-        // return false;
-
-        update_post_meta($listing_id, '_wpbdp[payment_status]', $status);
-        return true;
-    }
-
     public function get_listing_fees($listing_id) {
         global $wpdb;
         return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id));

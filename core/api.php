@@ -140,10 +140,6 @@ function wpbdp_payments_possible() {
     return wpbdp_payments_api()->payments_possible();
 }
 
-function wpbdp_payment_status($listing_id) {
-    return wpbdp_listings_api()->get_payment_status($listing_id);
-}
-
 function wpbdp_fees_api() {
     return wpbdp()->fees;
 }
@@ -162,35 +158,6 @@ function wpbdp_listing_upgrades_api() {
 }
 
 /* Misc. */
-function _wpbdp_save_object($obj_, $table, $id='id') {
-    global $wpdb;
-
-    $obj = is_object($obj_) ? (array) $obj_ : $obj_;
-
-    if (!$obj) return 0;
-
-    foreach ($obj as $k => $v) {
-        if (is_array($v) || is_object($v))
-            $obj[$k] = serialize($v);
-    }
-
-    $obj_id = 0;
-
-    if (isset($obj[$id])) {
-        if ($wpdb->update("{$wpdb->prefix}wpbdp_" . $table, $obj, array($id => $obj[$id])) !== false)
-            $obj_id = $obj[$id];
-    } else {
-        if ($wpdb->insert("{$wpdb->prefix}wpbdp_" . $table, $obj)) {
-            $obj_id = $wpdb->insert_id;
-        }
-    }
-
-    // if ($obj_id)
-    //  do_action('wpbdp_save_' . $table, $obj_id);
-
-    return $obj_id;
-}
-
 function wpbdp_categories_list($parent=0, $hierarchical=true) {
     $terms = get_categories(array(
         'taxonomy' => WPBDP_CATEGORY_TAX,

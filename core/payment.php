@@ -358,32 +358,6 @@ class WPBDP_PaymentsAPI {
             ));
     }
 
-    public function cancel_transaction( &$transaction ) {
-        if ( !$transaction || !is_object( $transaction ) )
-            return false;
-
-        global $wpdb;
-
-        switch ( $transaction->payment_type ) {
-            case 'upgrade-to-sticky':
-                $upgrades_api = wpbdp_listing_upgrades_api();
-                $info = $upgrades_api->get_info( $transaction->listing_id );
-
-                if ( $info->downgradeable )
-                    $upgrades_api->set_sticky( $transaction->listing_id, $info->downgrade->id );
-
-                wpbdp_listings_api()->set_payment_status( $transaction->listing_id, 'paid' );
-
-
-                break;
-            case 'initial':
-            default:
-                break;
-        }
-
-        return true;
-    }
-
     public function get_transaction_from_uri_id() {
         if (!isset($_GET['tid']))
             return null;

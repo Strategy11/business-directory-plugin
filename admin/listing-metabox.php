@@ -79,15 +79,11 @@ class WPBDP_Admin_Listing_Metabox {
             echo '</dd>';
         echo '</dl>';
 
-    //     if (current_user_can('administrator')) {
-    //         if ($payment_status != 'paid')
-    //             echo sprintf('<a href="%s" class="button-primary">%s</a> ',
-    //                      add_query_arg('wpbdmaction', 'setaspaid'),
-    //                      _x('Mark listing as Paid', 'admin infometabox', 'WPBDM'));
-    //         else
-    //             echo sprintf('<a href="%s" class="button">%s</a>',
-    //                          add_query_arg('wpbdmaction', 'setasnotpaid'),
-    //                          _x('Mark listing as Not paid', 'admin infometabox', 'WPBDM'));
+        if ( current_user_can( 'administrator' ) && 'ok' != $this->listing->get_payment_status() ) {
+            echo sprintf( '<a href="%s" class="button-primary">%s</a> ',
+                          add_query_arg('wpbdmaction', 'setaspaid' ),
+                          _x( 'Mark listing as Paid', 'admin infometabox', 'WPBDM' ) );
+        }
 
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-feesummary.tpl.php', array(
             'categories' => $this->listing->get_categories( 'all' ),
