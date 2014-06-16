@@ -330,7 +330,7 @@ function _wpbdp_render_single() {
             $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
             $full_image_url = $full_image_data[0];
 
-            $extra_images[] = sprintf('<a href="%s" class="thickbox" rel="lightbox" target="_blank">%s</a>',
+            $extra_images[] = sprintf('<a href="%s" class="thickbox" data-lightbox="wpbdpgal" target="_blank">%s</a>',
                                         $full_image_url,
                                         wp_get_attachment_image( $img->ID, 'wpbdp-thumb', false, array(
                                             'class' => 'wpbdp-thumbnail size-thumbnail',
