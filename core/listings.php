@@ -536,7 +536,7 @@ class WPBDP_ListingsAPI {
 
         if ( $renewal = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d AND expires_on IS NOT NULL", $renewal_id, current_time( 'mysql' ) ) ) ) {
             // set payment status to not-paid
-            update_post_meta( $renewal->listing_id, '_wpbdp[payment_status]', 'not-paid' );
+//            update_post_meta( $renewal->listing_id, '_wpbdp[payment_status]', 'not-paid' );
 
             // register the new transaction
             $transaction_id = wpbdp_payments_api()->save_transaction( array(
