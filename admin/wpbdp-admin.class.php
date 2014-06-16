@@ -39,6 +39,7 @@ class WPBDP_Admin {
         add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
         add_filter('views_edit-' . WPBDP_POST_TYPE, array($this, 'add_custom_views'));
         add_filter('request', array($this, 'apply_query_filters'));
+        add_filter( 'posts_clauses', array( &$this, 'listings_admin_filters' ) );
 
         add_action('save_post', array($this, '_save_post'));
 
@@ -165,7 +166,6 @@ class WPBDP_Admin {
                           'wpbdp-debug-info',
                           array( $this, '_debug_info_page' ) );        
 
-        // XXX: just a little hack
         global $submenu;
         
         if (current_user_can('administrator')) {
@@ -324,6 +324,28 @@ class WPBDP_Admin {
         $response->send();
     }
 
+    function listings_admin_filters( $pieces  ) {
+        global $current_screen;
+        global $wpdb;
+
+        if ( ! is_admin() || ! isset( $_REQUEST['wpbdmfilter'] ) ||  'edit-' . WPBDP_POST_TYPE !=  $current_screen->id )
+            return $pieces;
+
+        switch ( $_REQUEST['wpbdmfilter'] ) {
+            case 'paid':
+                $pieces['where'] .= $wpdb->prepare( " AND NOT EXISTS ( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments WHERE {$wpdb->posts}.ID = {$wpdb->prefix}wpbdp_payments.listing_id AND ( {$wpdb->prefix}wpbdp_payments.status IS NULL OR {$wpdb->prefix}wpbdp_payments.status != %s ) )", 'pending' );
+                break;
+            case 'unpaid':
+                $pieces['join'] .= " LEFT JOIN {$wpdb->prefix}wpbdp_payments ON {$wpdb->posts}.ID = {$wpdb->prefix}wpbdp_payments.listing_id ";
+                $pieces['where'] .= $wpdb->prepare( " AND {$wpdb->prefix}wpbdp_payments.status = %s ", 'pending' );
+                break;
+            default:
+                break;
+        }
+
+        return $pieces;
+    }
+
     function apply_query_filters($request) {
         global $current_screen;
         global $wpdb;
@@ -334,19 +356,10 @@ class WPBDP_Admin {
                     $request['meta_key'] = '_wpbdp[sticky]';
                     $request['meta_value'] = 'pending';
                     break;
-                case 'paid':
-                    $request['meta_key'] = '_wpbdp[payment_status]';
-                    $request['meta_value'] = 'ok';
-                    break;
                 case 'expired':
                     $expired_post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s", current_time( 'mysql' ) ) );
                     $expired_post_ids = $expired_post_ids ? $expired_post_ids : array( 0 );
                     $request['post__in'] = $expired_post_ids;
-                    break;
-                default:
-                    $request['meta_key'] = '_wpbdp[payment_status]';
-                    $request['meta_value'] = 'paid';
-                    $request['meta_compare'] = '!=';
                     break;
             }
 
@@ -563,19 +576,19 @@ class WPBDP_Admin {
         if (current_user_can('administrator')) {
             $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
 
-            $paid_query = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                               WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
-                                                               WPBDP_POST_TYPE,
-                                                               '_wpbdp[payment_status]',
-                                                               'ok');
+            $paid = $wpdb->get_var( $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})
+                AND NOT EXISTS ( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments ps WHERE ps.listing_id = p.ID AND ps.status = %s )",
+                WPBDP_POST_TYPE,
+                'pending'
+            ) );
 
-            $paid = $wpdb->get_var( $paid_query);
-
-            $unpaid = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                               WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND NOT pm.meta_value = %s) ) GROUP BY p.ID",
-                                                               WPBDP_POST_TYPE,
-                                                               '_wpbdp[payment_status]',
-                                                               'ok') );
+            $unpaid = $wpdb->get_var( $wpdb->prepare(
+                "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON p.ID = ps.listing_id
+                 WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ps.status = %s",
+                 WPBDP_POST_TYPE,
+                 'pending'
+            ) );
             $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                                WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                                WPBDP_POST_TYPE,
