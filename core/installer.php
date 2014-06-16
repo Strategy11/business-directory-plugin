@@ -35,7 +35,7 @@
         // schedule expiration hook if needed
         if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
             wpbdp_log('Expiration check was not in schedule. Scheduling.');
-            wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check'); // TODO change to daily
+            wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
         } else {
             wpbdp_log('Expiration check was in schedule. Nothing to do.');
         }        
@@ -556,6 +556,7 @@
                 $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP migrated" );
                 $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP fee" );                
                 $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP migrated" );
+                $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[payment_status]' ) );
             } else {
                 $status_msg = sprintf( _x( 'Migrating previous transactions to new Payments API... %d/%d', 'installer', 'WPBDM' ), $n_transactions_migrated, $n_transactions );
 
