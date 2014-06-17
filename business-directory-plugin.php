@@ -963,6 +963,9 @@ class WPBDP_Plugin {
 
         remove_filter( 'wp_head', 'rel_canonical' );
         add_filter( 'wp_head', array( $this, '_meta_rel_canonical' ) );
+
+        if ( 'showlisting' == $action && wpbdp_rewrite_on() )
+            add_action( 'wp_head', array( &$this, 'listing_opentags' ) );
     }
 
     /*
@@ -1239,6 +1242,21 @@ class WPBDP_Plugin {
         }
 
         echo sprintf( '<link rel="canonical" href="%s" />', esc_url( $link ) );
+    }
+
+    function listing_opentags() {
+        $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+        $listing = WPBDP_Listing::get( $listing_id );
+
+        echo '<meta property="og:type" content="website" />';
+        echo '<meta property="og:title" content="' . esc_attr( $listing->get_title() ) . '" />';
+        echo '<meta property="og:url" content="' . esc_url( $listing->get_permalink() ) . '" />';
+        echo '<meta property="og:description" content="" />';
+
+        if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
+            if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
+                echo '<meta property="og:image" content="' . $img[0] . '" />';
+        }
     }
 
     public function ajax_file_field_upload() {
