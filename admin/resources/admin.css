@@ -44,7 +44,7 @@ span.tag {
 }
 
 /* Directory list-table */
-td.column-bd_payment_status .status, td.column-bd_sticky_status .status {
+td.column-payment_status .status, td.column-sticky_status .status {
     background: #444;
     border-radius: 2px;
     padding: 2px 5px;
@@ -52,32 +52,32 @@ td.column-bd_payment_status .status, td.column-bd_sticky_status .status {
     font-size: 90%;
 }
 
-td.column-bd_payment_status .status.ok {
+td.column-payment_status .status.ok {
     background: green;
 }
 
-td.column-bd_payment_status .paymentdata {
+td.column-payment_status .paymentdata {
     font-size: 85%;
 }
 
-td.column-bd_payment_status .paymentdata b {
+td.column-payment_status .paymentdata b {
     font-weight: normal;
 }
 
-td.column-bd_payment_status .paymentdata span {
+td.column-payment_status .paymentdata span {
     font-style: italic;
 }
 
-td.column-bd_sticky_status .status.notpaid {
+td.column-sticky_status .status.notpaid {
     background: orange;
 }
 
-td.column-bd_sticky_status .status.pending {
+td.column-sticky_status .status.pending {
     background: red;
     font-weight: bold;
 }
 
-td.column-bd_sticky_status .status.sticky {
+td.column-sticky_status .status.sticky {
     background: green;
 }
 

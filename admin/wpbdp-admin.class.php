@@ -1,5 +1,6 @@
 <?php
 require_once( WPBDP_PATH . 'admin/admin-pages.php' );
+require_once( WPBDP_PATH . 'admin/class-admin-listings.php' );
 require_once( WPBDP_PATH . 'admin/fees.php' );
 require_once( WPBDP_PATH . 'admin/form-fields.php' );
 require_once( WPBDP_PATH . 'admin/payments.php' );
@@ -29,17 +30,11 @@ class WPBDP_Admin {
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
 
-        add_filter(sprintf('manage_edit-%s_columns', WPBDP_POST_TYPE), array( $this, 'add_custom_columns'));
         add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
 
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
         add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
         add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
-
-        add_action(sprintf('manage_posts_custom_column'), array($this, 'custom_columns'));
-        add_filter('views_edit-' . WPBDP_POST_TYPE, array($this, 'add_custom_views'));
-        add_filter('request', array($this, 'apply_query_filters'));
-        add_filter( 'posts_clauses', array( &$this, 'listings_admin_filters' ) );
 
         add_action('save_post', array($this, '_save_post'));
 
@@ -57,7 +52,8 @@ class WPBDP_Admin {
 
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
-        
+
+        $this->listings = new WPBDP_Admin_Listings();
         $this->csv_export = new WPBDP_Admin_CSVExport();
         $this->payments = new WPBDP_Admin_Payments();
     }
@@ -324,50 +320,6 @@ class WPBDP_Admin {
         $response->send();
     }
 
-    function listings_admin_filters( $pieces  ) {
-        global $current_screen;
-        global $wpdb;
-
-        if ( ! is_admin() || ! isset( $_REQUEST['wpbdmfilter'] ) ||  'edit-' . WPBDP_POST_TYPE !=  $current_screen->id )
-            return $pieces;
-
-        switch ( $_REQUEST['wpbdmfilter'] ) {
-            case 'paid':
-                $pieces['where'] .= $wpdb->prepare( " AND NOT EXISTS ( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments WHERE {$wpdb->posts}.ID = {$wpdb->prefix}wpbdp_payments.listing_id AND ( {$wpdb->prefix}wpbdp_payments.status IS NULL OR {$wpdb->prefix}wpbdp_payments.status != %s ) )", 'pending' );
-                break;
-            case 'unpaid':
-                $pieces['join'] .= " LEFT JOIN {$wpdb->prefix}wpbdp_payments ON {$wpdb->posts}.ID = {$wpdb->prefix}wpbdp_payments.listing_id ";
-                $pieces['where'] .= $wpdb->prepare( " AND {$wpdb->prefix}wpbdp_payments.status = %s ", 'pending' );
-                break;
-            default:
-                break;
-        }
-
-        return $pieces;
-    }
-
-    function apply_query_filters($request) {
-        global $current_screen;
-        global $wpdb;
-
-        if (is_admin() && isset($_REQUEST['wpbdmfilter']) && $current_screen->id == 'edit-' . WPBDP_POST_TYPE) {
-            switch ($_REQUEST['wpbdmfilter']) {
-                case 'pendingupgrade':
-                    $request['meta_key'] = '_wpbdp[sticky]';
-                    $request['meta_value'] = 'pending';
-                    break;
-                case 'expired':
-                    $expired_post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on < %s", current_time( 'mysql' ) ) );
-                    $expired_post_ids = $expired_post_ids ? $expired_post_ids : array( 0 );
-                    $request['post__in'] = $expired_post_ids;
-                    break;
-            }
-
-        }
-
-        return $request;
-    }
-
     function admin_notices() {
         $this->check_compatibility();
         $this->check_setup();
@@ -570,65 +522,6 @@ class WPBDP_Admin {
         return $output;
     }
 
-    function add_custom_views($views) {
-        global $wpdb;
-
-        if (current_user_can('administrator')) {
-            $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
-
-            $paid = $wpdb->get_var( $wpdb->prepare(
-                "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})
-                AND NOT EXISTS ( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments ps WHERE ps.listing_id = p.ID AND ps.status = %s )",
-                WPBDP_POST_TYPE,
-                'pending'
-            ) );
-
-            $unpaid = $wpdb->get_var( $wpdb->prepare(
-                "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON p.ID = ps.listing_id
-                 WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ps.status = %s",
-                 WPBDP_POST_TYPE,
-                 'pending'
-            ) );
-            $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                               WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
-                                                               WPBDP_POST_TYPE,
-                                                               '_wpbdp[sticky]',
-                                                               'pending') );
-            $expired = $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT COUNT(p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listing_fees lf ON lf.listing_id = p.ID WHERE lf.expires_on < %s",
-                                                       current_time( 'mysql' ) ) );
-
-            $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                     add_query_arg('wpbdmfilter', 'paid', remove_query_arg('post')),
-                                     wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'paid' ? 'current' : '',
-                                     __('Paid', 'WPBDM'),
-                                     number_format_i18n($paid));
-            $views['unpaid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                       add_query_arg('wpbdmfilter', 'unpaid', remove_query_arg('post')),
-                                       wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'unpaid' ? 'current' : '',
-                                       __('Unpaid', 'WPBDM'),
-                                       number_format_i18n($unpaid));
-            $views['featured'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                       add_query_arg('wpbdmfilter', 'pendingupgrade', remove_query_arg('post')),
-                                       wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'pendingupgrade' ? 'current' : '',
-                                       __('Pending Upgrade', 'WPBDM'),
-                                       number_format_i18n($pending_upgrade));
-            $views['expired'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                         add_query_arg( 'wpbdmfilter', 'expired', remove_query_arg( 'post' ) ),
-                                         wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) == 'expired' ? 'current' : '' ,
-                                         _x( 'Expired', 'admin', 'WPBDM' ),
-                                         number_format_i18n( $expired )
-                                        );
-        } elseif (current_user_can('contributor')) {
-            if (isset($views['mine']))
-                return array($views['mine']);
-            else
-                return array();
-        }
-
-        return $views;
-
-    }
-
     public function add_custom_taxonomy_columns( $cols ) {
         $newcols = array_merge( array_slice( $cols, 0, 1 ),
                                 array( 'id' => _x( 'ID', 'admin category id', 'WPBDM' ) ),
@@ -650,23 +543,6 @@ class WPBDP_Admin {
         return $value;
     }
 
-    function add_custom_columns($columns_) {
-        $columns = array();
-
-        foreach (array_keys($columns_) as $key) {
-            $columns[$key] = $columns_[$key];
-
-            if ($key == 'title') {
-                // add custom columns *after* the title column
-                $columns['bd_category'] = _x('Categories', 'admin', 'WPBDM');
-                $columns['bd_payment_status'] = __('Payment Status', 'WPBDM');
-                $columns['bd_sticky_status'] = __('Featured (Sticky) Status', 'WPBDM');
-            }
-        }
-
-        return $columns;
-    }
-
     public function _row_actions($actions, $post) {
         if ($post->post_type == WPBDP_POST_TYPE && current_user_can('contributor')) {
             if (wpbdp_user_can('edit', $post->ID))
@@ -679,97 +555,6 @@ class WPBDP_Admin {
         }
 
         return $actions;
-    }
-
-    function custom_columns($column) {
-        switch ($column) {
-            case 'bd_category':
-                $this->category_column();
-                break;
-
-            case 'bd_payment_status':
-                $this->payment_status_column();
-                break;
-
-            case 'bd_sticky_status':
-                $this->sticky_status_column();
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private function category_column() {
-        global $post;
-
-        $listing = WPBDP_Listing::get( $post->ID );
-        $categories = $listing->get_categories( 'all' );
-
-        $i = 0;
-        foreach ( $categories as &$category ) {
-            print $category->expired ? '<s>' : '';
-            printf( '<a href="%s" title="%s">%s</a>',
-                    get_term_link( $category->id, WPBDP_CATEGORY_TAX ),
-                    $category->expired ? _x( '(Listing expired in this category)', 'admin', 'WPBDM' ) : '',
-                    $category->name );
-            print $category->expired ? '</s>' : '';
-            print ( ( $i + 1 ) != count( $categories ) ? ', ' : '' );
-
-            $i++;
-        }
-    }
-
-    private function payment_status_column() {
-        global $post;
-
-        $listing = WPBDP_Listing::get( $post->ID );
-        $paid_status = $listing->get_payment_status();
-
-        $status_links = '';
-
-        if ( $paid_status != 'ok' )
-            $status_links .= sprintf('<span><a href="%s">%s</a></span>',
-                                    add_query_arg(array('wpbdmaction' => 'setaspaid', 'post' => $post->ID)),
-                                    __('Paid', 'WPBDM'));
-
-        printf( '<span class="status %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
-
-        if ( $status_links && current_user_can( 'administrator' ) )
-            printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Mark as', 'WPBDM' ), $status_links );
-    }
-
-    private function sticky_status_column() {
-        global $post;
-
-        $upgrades_api = wpbdp_listing_upgrades_api();
-        $sticky_info = $upgrades_api->get_info( $post->ID );
-
-        echo sprintf('<span class="status %s">%s</span><br />',
-                    str_replace(' ', '', $sticky_info->status),
-                    $sticky_info->pending ? __('Pending Upgrade', 'WPBDM') : esc_attr($sticky_info->level->name) );
-
-        echo '<div class="row-actions">';
-
-        if ( current_user_can('administrator') ) {
-            if ( $sticky_info->upgradeable ) {
-                echo sprintf('<span><a href="%s">%s</a></span>',
-                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post->ID)),
-                             '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
-                echo '<br />';
-            }
-
-            if ( $sticky_info->downgradeable ) {
-                echo sprintf('<span><a href="%s">%s</a></span>',
-                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post->ID)),
-                             '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );                
-            }
-        } elseif ( current_user_can('contributor') && wpbdp_user_can( 'upgrade-to-sticky', $post->ID ) ) {
-                echo sprintf('<span><a href="%s"><b>↑</b> %s</a></span>', wpbdp_get_page_link('upgradetostickylisting', $post->ID), _x('Upgrade to Featured', 'admin actions', 'WPBDM'));            
-        }
-
-        echo '</div>';
-
     }
 
     /* Settings page */
