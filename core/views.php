@@ -14,10 +14,6 @@ class WPBDP_DirectoryController {
         $this->_extra_sections = array();
     }
 
-    public function init() {
-        $this->listings = wpbdp_listings_api();
-    }
-
     public function check_main_page(&$msg) {
         $msg = '';
 

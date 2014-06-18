@@ -9,5 +9,3 @@ foreach ( $active_plugins as &$plugin ) {
 }
 
 update_option( 'active_plugins', $active_plugins );
-
-// require_once( plugin_dir_path( __FILE__ ) . 'business-directory-plugin.php' );
