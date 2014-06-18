@@ -86,18 +86,18 @@ class WPBDP_Admin_Listings {
         if ( current_user_can('administrator') ) {
             if ( $sticky_info->upgradeable ) {
                 echo sprintf('<span><a href="%s">%s</a></span>',
-                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post->ID)),
+                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post_id)),
                              '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
                 echo '<br />';
             }
 
             if ( $sticky_info->downgradeable ) {
                 echo sprintf('<span><a href="%s">%s</a></span>',
-                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post->ID)),
+                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post_id)),
                              '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );                
             }
-        } elseif ( current_user_can('contributor') && wpbdp_user_can( 'upgrade-to-sticky', $post->ID ) ) {
-                echo sprintf('<span><a href="%s"><b>↑</b> %s</a></span>', wpbdp_get_page_link('upgradetostickylisting', $post->ID), _x('Upgrade to Featured', 'admin actions', 'WPBDM'));            
+        } elseif ( current_user_can('contributor') && wpbdp_user_can( 'upgrade-to-sticky', $post_id ) ) {
+                echo sprintf('<span><a href="%s"><b>↑</b> %s</a></span>', wpbdp_get_page_link('upgradetostickylisting', $post_id), _x('Upgrade to Featured', 'admin actions', 'WPBDM'));            
         }
 
         echo '</div>';

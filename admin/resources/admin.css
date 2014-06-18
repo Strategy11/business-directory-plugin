@@ -1,3 +1,12 @@
+.cf:before, .cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after { clear: both; }
+.cf { *zoom: 1; }
+
+
 span.tag {
     background: #444;
     border-radius: 2px;
@@ -42,6 +51,28 @@ span.tag {
     border-width: 3px;
     background: #FFFFCF;
 }
+
+/* {{{ "Manage Fees" page. */
+
+.wpbdp-page-admin-fees .purchase-gateways {
+    padding: 10px;
+}
+
+.wpbdp-page-admin-fees .purchase-gateways .gateway {
+    float: left;
+    width: 30%;
+    margin-right: 25px;
+}
+
+.wpbdp-page-admin-fees .purchase-gateways .gateway a.price {
+    margin-top: 10px;
+    display: block;
+    color: green;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* }}} */
 
 /* Directory list-table */
 td.column-payment_status .status, td.column-sticky_status .status {
@@ -180,6 +211,10 @@ ul#wpbusdirmanerrors { margin-left:20px; }
     font-family: monospace;
     height: 100%;
     white-space: nowrap;
+}
+
+#wpbdp-csv-import-form input[type="file"] {
+    border: none;
 }
 
 table.wpbdp-csv-import-results, table.wpbdp-csv-import-warnings {

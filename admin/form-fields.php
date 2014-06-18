@@ -18,7 +18,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             'label' => _x('Label / Association', 'form-fields admin', 'WPBDM'),
             'type' => _x('Type', 'form-fields admin', 'WPBDM'),
             'validator' => _x('Validator', 'form-fields admin', 'WPBDM'),
-            'tags' => '',
+            'tags' => _x( 'Field Attributes', 'form-fields admin', 'WPBDM' ),
         );
     }
 

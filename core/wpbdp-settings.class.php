@@ -384,10 +384,17 @@ class WPBDP_Settings {
         $this->add_setting($s, 'require-login', _x('Require login?', 'admin settings', 'WPBDM'), 'boolean', true);
         //$this->add_setting($s, 'login-url', _x('Login URL', 'admin settings', 'WPBDM'), 'text', wp_login_url()); // deprecated as of 2.1
         // deprecated as of 2.1, added again for 3.4
-        $this->add_setting( $s, 'registration-url', _x( 'Registration URL', 'admin settings', 'WPBDM' ), 'text', '' );
+        $this->add_setting( $s,
+                            'registration-url',
+                            _x( 'Registration URL', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '',
+                            _x( 'URL of your membership plugin\'s registration page.  Only enter this if using a membership plugin or custom registration page.', 'admin settings', 'WPBDM' ) );
 
         /* Image settings */
-        $g = $this->add_group('image', _x('Image', 'admin settings', 'WPBDM'));
+        $g = $this->add_group( 'image',
+                               _x( 'Image', 'admin settings', 'WPBDM' ),
+                               _x( 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.', 'admin settings', 'WPBDM' ) );
         $s = $this->add_section($g, 'image', _x('Image Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'allow-images', _x('Allow images?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'image-max-filesize', _x('Max Image File Size (KB)', 'admin settings', 'WPBDM'), 'text', '10000');
