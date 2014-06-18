@@ -1058,39 +1058,33 @@ class WPBDP_Plugin {
 
         switch ($action) {
             case 'submitlisting':
-                $title = _x( 'Submit A Listing', 'title', 'WPBDM' );
-
                 if ( $this->_do_wpseo ) {
                     $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
                     return $title;
-                }                
+                }
 
-                return  $title . ' ' . $sep . ' ';
+                return  _x( 'Submit A Listing', 'title', 'WPBDM' ) . ' ' . $sep . ' ' . $title;
 
                 break;
 
             case 'search':
-                $title = _x( 'Find a Listing', 'title', 'WPBDM' );
-
                 if ( $this->_do_wpseo ) {
                     $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
                     return $title;
                 }
 
-                return $title . ' ' . $sep . ' ';
+                return _x( 'Find a Listing', 'title', 'WPBDM' ) . ' ' . $sep . ' ' . $title;
 
                 break;
 
             case 'viewlistings':
-                $title = _x( 'View All Listings', 'title', 'WPBDM' );
-
                 if ( $this->_do_wpseo ) {
                     $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
                     return $title;
                 }
 
-                return $title . ' ' . $sep . ' ';
-                break;                
+                return _x( 'View All Listings', 'title', 'WPBDM' ) . ' ' . $sep . ' ' . $title;
+                break;
 
             case 'browsetag':
                 $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
@@ -1110,7 +1104,7 @@ class WPBDP_Plugin {
                     return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
                 }
 
-                return sprintf( _x( 'Listings tagged: %s', 'title', 'WPBDM' ), $term->name ) . ' ' . $sep . ' ';
+                return sprintf( _x( 'Listings tagged: %s', 'title', 'WPBDM' ), $term->name ) . ' ' . $sep . ' ' . $title;
 
                 break;
 
@@ -1133,7 +1127,7 @@ class WPBDP_Plugin {
                     return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
                 }
 
-                return $term->name . ' ' . $sep . ' ';
+                return $term->name . ' ' . $sep . ' ' . $title;
 
                 break;
 
@@ -1152,7 +1146,7 @@ class WPBDP_Plugin {
                     $post_title = get_the_title($listing_id);
                 }
 
-                return $post_title . ' '.  $sep . ' ';
+                return $post_title . ' '.  $sep . ' ' . $title;
                 break;
 
             case 'main':
@@ -1163,7 +1157,7 @@ class WPBDP_Plugin {
                     $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );                    
                 }
                 
-                break;                
+                break;
 
             default:
                 break;
