@@ -708,25 +708,30 @@ class WPBDP_Installer_Manual_Upgrade {
     }
 
     public function upgrade_page() {
-        print wpbdp_admin_header( __( 'Business Directory - Manual Upgrade', 'WPBDM' ), 'manual-upgrade', null, false );
+        echo wpbdp_admin_header( __( 'Business Directory - Manual Upgrade', 'WPBDM' ), 'manual-upgrade', null, false );
 
-        print '<div class="step-upgrade">';
-        print '<p>';
-        print '<a href="#" class="start-upgrade button button-primary">' . _x( 'Start Upgrade', 'manual-upgrade', 'WPBDM' ) . '</a>';
-        print ' ';
-        print '<a href="#" class="pause-upgrade button">' . _x( 'Pause Upgrade', 'manual-upgrade', 'WPBDM' ) . '</a>';
-        print '</p>';
-        print '<textarea id="manual-upgrade-progress" rows="20" style="width: 90%; font-family: courier, monospaced; font-size: 12px;" readonly="readonly"></textarea>';
-        print '</div>';
+        echo '<div class="step-upgrade">';
+        echo '<p>';
+        _e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before it can be used.', 'WPBDM' );
+        echo '<br />';
+        _e( 'Click "Start Upgrade" and wait until the process finishes.', 'WPBDM' );
+        echo '</p>';
+        echo '<p>';
+        echo '<a href="#" class="start-upgrade button button-primary">' . _x( 'Start Upgrade', 'manual-upgrade', 'WPBDM' ) . '</a>';
+        echo ' ';
+        echo '<a href="#" class="pause-upgrade button">' . _x( 'Pause Upgrade', 'manual-upgrade', 'WPBDM' ) . '</a>';
+        echo '</p>';
+        echo '<textarea id="manual-upgrade-progress" rows="20" style="width: 90%; font-family: courier, monospaced; font-size: 12px;" readonly="readonly"></textarea>';
+        echo '</div>';
 
-        print '<div class="step-done" style="display: none;">';
-        print '<p>' . _x( 'The upgrade was sucessfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
+        echo '<div class="step-done" style="display: none;">';
+        echo '<p>' . _x( 'The upgrade was sucessfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
         printf ( '<a href="%s" class="button button-primary">%s</a>',
                  admin_url( 'admin.php?page=wpbdp_admin' ),
                  _x( 'Go to "Directory Admin"', 'manual-upgrade', 'WPBDM' ) );
-        print '</div>';
+        echo '</div>';
 
-        print wpbdp_admin_footer();
+        echo wpbdp_admin_footer();
     }
 
     public function handle_ajax() {
