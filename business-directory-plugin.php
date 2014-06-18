@@ -61,12 +61,128 @@ global $wpbdp;
 
 class WPBDP_Plugin {
 
-    /* Access to standard APIs. */
-    public $formfields;
-
     public function __construct() {
-        register_activation_hook(__FILE__, array($this, 'plugin_activation'));
-        register_deactivation_hook(__FILE__, array($this, 'plugin_deactivation'));
+        register_activation_hook( __FILE__, array( &$this, 'plugin_activation' ) );
+        register_deactivation_hook( __FILE__, array( &$this, 'plugin_deactivation' ) );
+
+        // Enable debugging if needed.
+        if ( get_option( 'wpbdp-debug-on', false ) )
+            $this->debug_on();
+
+        // Load dummy objects in case plugins try to do something at an early stage.
+        $noop = new WPBDP_NoopObject();
+        $this->settings = $noop;
+        $this->controller = $noop;
+        $this->formfields = $noop;
+        $this->admin = $noop;
+        $this->fees = $noop;
+        $this->payments = $noop;
+        $this->listings = $noop;
+
+        add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
+        add_action( 'init', array( &$this, 'init' ) );
+
+        // For testing the expiration routine only.
+        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); 
+    }
+
+    function load_i18n() {
+        $plugin_dir = basename( dirname( __FILE__ ) );
+        $languages_dir = trailingslashit( $plugin_dir . '/languages' );
+        load_plugin_textdomain( 'WPBDM', false, $languages_dir );
+    }
+
+    function init() {
+        // Register cache groups.
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp submit state', 'wpbdp' ) );
+
+        // Register some basic JS resources.
+        add_action( 'wp_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
+
+        // Initialize settings API.
+        $this->settings = new WPBDP_Settings();
+        $this->formfields = WPBDP_FormFields::instance();
+
+        // Install plugin.
+        $this->_register_post_type();
+        $this->install_or_update_plugin();
+
+        $this->settings->register_settings();
+
+        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
+            $installer = new WPBDP_Installer();
+            $installer->setup_manual_upgrade();
+            return;
+        }
+
+        // Display "Settings" link on Plugins page.
+        $plugin_filename = plugin_basename( __FILE__ );
+        add_filter( 'plugin_action_links_' . $plugin_filename, array( &$this, 'plugin_action_links' ) );
+
+        // Initialize APIs.
+        $this->admin = is_admin() ? new WPBDP_Admin() : null;
+        $this->controller = new WPBDP_DirectoryController();
+        $this->fees = new WPBDP_FeesAPI();
+        $this->payments = new WPBDP_PaymentsAPI();
+        $this->listings = new WPBDP_ListingsAPI();
+
+        $this->_register_image_sizes();
+        $this->handle_recaptcha();
+
+        add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
+        add_filter('rewrite_rules_array', array( &$this, '_rewrite_rules'));
+        add_filter('query_vars', array( &$this, '_query_vars'));
+        add_filter( 'redirect_canonical', array( &$this, '_redirect_canonical' ), 10, 2 );
+        add_action('template_redirect', array( &$this, '_template_redirect'));
+        add_action('wp_loaded', array( &$this, '_wp_loaded'));
+
+        add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
+        add_action('posts_fields', array( &$this, '_posts_fields'), 10, 2);
+        add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+
+        add_filter('comments_template', array( &$this, '_comments_template'));
+        add_filter('taxonomy_template', array( &$this, '_category_template'));
+        add_filter('single_template', array( &$this, '_single_template'));
+
+        add_action( 'wp', array( &$this, '_meta_setup' ) );
+        add_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
+        add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
+
+        add_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );        
+
+        add_action( 'wp_head', array( &$this, '_rss_feed' ) );
+        add_action('wp_footer', array( &$this, '_credits_footer'));
+
+        add_action('widgets_init', array( &$this, '_register_widgets'));
+
+        // Register shortcodes.
+        $shortcodes = $this->get_shortcodes();
+
+        foreach ( $shortcodes as $shortcode => &$handler )
+            add_shortcode( $shortcode, $handler );
+
+        // Expiration hook.
+        add_action( 'wpbdp_listings_expiration_check', array( &$this, '_notify_expiring_listings' ), 0 );
+
+        // Scripts & styles.
+        add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
+
+        // Plugin modules initialization.
+        $this->_init_modules();
+
+        // AJAX actions.
+        add_action( 'wp_ajax_wpbdp-file-field-upload', array( &$this, 'ajax_file_field_upload' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-file-field-upload', array( &$this, 'ajax_file_field_upload' ) );
+        add_action( 'wp_ajax_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
+        add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
+
+        // Core sorting options.
+        add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
+        add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
+        add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
     }
 
     // {{{ Premium modules.
@@ -321,114 +437,6 @@ class WPBDP_Plugin {
             flush_rewrite_rules(false);
     }
 
-    public function init() {
-        // add_option('wpbdp-debug-on', true);
-        if (get_option('wpbdp-debug-on', false)) $this->debug_on();
-
-        wpbdp_log('WPBDP_Plugin::init()');
-
-        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp submit state', 'wpbdp' ) );
-
-        $this->settings = new WPBDP_Settings();
-
-        $plugin_filename = plugin_basename( __FILE__ );
-        add_filter( 'plugin_action_links_' . $plugin_filename, array( &$this, 'plugin_action_links' ) );
-
-        add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
-        add_action('init', array($this, 'install_or_update_plugin'), 1);
-        add_action('init', array($this, '_register_post_type'), 0);
-
-        add_action( 'wp_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( &$this, 'register_common_scripts' ) );        
-
-        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
-            $installer = new WPBDP_Installer();
-            $installer->setup_manual_upgrade();
-
-            // Load dummy objects in case plugins try to do some basic stuff.
-            $noop = new WPBDP_NoopObject();
-            $this->controller = &$noop;
-            $this->formfields = &$noop;
-            $this->admin = &$noop;
-            $this->fees = &$noop;
-            $this->payments = &$noop;
-            $this->listings = &$noop;
-            return;
-        }
-
-        if (is_admin()) {
-            $this->admin = new WPBDP_Admin();
-        }
-        
-        $this->controller = new WPBDP_DirectoryController();        
-
-        $this->formfields = WPBDP_FormFields::instance();
-        $this->fees = new WPBDP_FeesAPI();
-        $this->payments = new WPBDP_PaymentsAPI();
-        $this->listings = new WPBDP_ListingsAPI();        
-
-        add_action('init', array($this, '_register_image_sizes'));
-        add_action( 'init', array( &$this, 'handle_recaptcha' ) );
-
-        // For testing the expiration routine only.
-        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); 
-
-        add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
-
-        add_filter('rewrite_rules_array', array($this, '_rewrite_rules'));
-        add_filter('query_vars', array($this, '_query_vars'));
-        add_filter( 'redirect_canonical', array( $this, '_redirect_canonical' ), 10, 2 );
-        add_action('template_redirect', array($this, '_template_redirect'));
-        add_action('wp_loaded', array($this, '_wp_loaded'));
-
-        add_action('pre_get_posts', array($this, '_pre_get_posts'));
-        add_action('posts_fields', array($this, '_posts_fields'), 10, 2);
-        add_action('posts_orderby', array($this, '_posts_orderby'), 10, 2);
-
-        add_filter('comments_template', array($this, '_comments_template'));
-        add_filter('taxonomy_template', array($this, '_category_template'));
-        add_filter('single_template', array($this, '_single_template'));
-
-        add_action( 'wp', array( $this, '_meta_setup' ) );
-        add_action( 'wp', array( $this, '_jetpack_compat' ), 11, 1 );
-        add_action( 'wp_head', array( $this, '_handle_broken_plugin_filters' ), 0 );
-
-        add_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );        
-
-        add_action( 'wp_head', array( $this, '_rss_feed' ) );
-        add_action('wp_footer', array($this, '_credits_footer'));
-
-        add_action('widgets_init', array($this, '_register_widgets'));
-
-        // Register shortcodes.
-        $shortcodes = $this->get_shortcodes();
-
-        foreach ( $shortcodes as $shortcode => &$handler )
-            add_shortcode( $shortcode, $handler );
-
-        /* Expiration hook */
-        add_action('wpbdp_listings_expiration_check', array($this, '_notify_expiring_listings'), 0);
-
-        $this->controller->init();
-
-        /* scripts & styles */
-        add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
-
-        add_action('init', array($this, '_init_modules'));
-
-        add_action( 'wp_ajax_wpbdp-file-field-upload', array( &$this, 'ajax_file_field_upload' ) );
-        add_action( 'wp_ajax_nopriv_wpbdp-file-field-upload', array( &$this, 'ajax_file_field_upload' ) );
-        add_action( 'wp_ajax_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
-        add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
-        add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
-        add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
-
-        // Core sorting options.
-        add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
-        add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
-        add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
-    }
-
     // TODO: better validation.
     public function ajax_listing_submit_image_upload() {
         $res = new WPBDP_Ajax_Response();
@@ -552,7 +560,6 @@ class WPBDP_Plugin {
 
     public function _init_modules() {
         do_action('wpbdp_modules_loaded');
-        // do_action( 'wpbdp_register_settings', $this->settings );
         do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
         do_action('wpbdp_register_fields', $this->formfields);
         do_action('wpbdp_modules_init');
@@ -584,12 +591,6 @@ class WPBDP_Plugin {
         return $links;
     }
 
-    public function load_i18n() {
-        $plugin_dir = basename( dirname( __FILE__ ) );
-        $languages_dir = trailingslashit( $plugin_dir . '/languages' );
-        load_plugin_textdomain( 'WPBDM', false, $languages_dir );        
-    }
-
     function _register_post_type() {
         $post_type_slug = $this->settings->get('permalinks-directory-slug', WPBDP_POST_TYPE);
         $category_slug = $this->settings->get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
@@ -613,7 +614,7 @@ class WPBDP_Plugin {
             'labels' => $labels,
             'public' => true,
             'publicly_queryable' => true,
-            'show_ui' => get_option( 'wpbdp-manual-upgrade-pending', false ) ? false : true,
+            'show_ui' => true,
             'query_var' => true,
             'rewrite' => array('slug'=> $post_type_slug, 'with_front' => false, 'feeds' => true),
             'capability_type' => 'post',
@@ -1534,4 +1535,3 @@ JS;
 }
 
 $wpbdp = new WPBDP_Plugin();
-$wpbdp->init();
