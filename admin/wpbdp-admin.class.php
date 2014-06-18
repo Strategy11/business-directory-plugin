@@ -24,9 +24,13 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'check_for_required_fields'));
         add_action('admin_init', array($this, 'check_for_required_pages'));
         add_action('admin_init', array($this, 'check_payments_possible'));
-        add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
+
+        // Admin menu.
+        add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+        add_filter( 'custom_menu_order', '__return_true' );
+        add_filter( 'menu_order', array( &$this, 'admin_menu_reorder' ) );
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
 
@@ -184,6 +188,31 @@ class WPBDP_Admin {
                          'activate_plugins',
                          'wpbdp_uninstall',
                          array($this, 'uninstall_plugin'));        
+    }
+
+    function admin_menu_reorder( $menu_order ) {
+        $admin_index = array_search( 'wpbdp_admin', $menu_order, true );
+        $dir_index = array_search( 'edit.php?post_type=' . WPBDP_POST_TYPE, $menu_order, true );
+
+        if ( false === $admin_index || false === $dir_index )
+            return $menu_order;
+
+        $min_key = min( $admin_index, $dir_index );
+
+        $res = array();
+        foreach ( $menu_order as $i => $v ) {
+            if ( $i == $min_key ) {
+                $res[] = $menu_order[ $dir_index ];
+                $res[] = $menu_order[ $admin_index ];
+                continue;
+            } elseif ( $admin_index == $i || $dir_index == $i ) {
+                continue;
+            }
+
+            $res[] = $v;
+        }
+
+        return $res;
     }
 
     function add_metaboxes() {
