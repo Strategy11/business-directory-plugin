@@ -669,7 +669,7 @@ class WPBDP_Installer_Manual_Upgrade {
     public function upgrade_required_notice() {
         global $pagenow;
 
-        if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' === $_GET['page'] )
+        if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' == $_GET['page'] )
             return;
 
         print '<div class="error"><p>';
@@ -682,6 +682,16 @@ class WPBDP_Installer_Manual_Upgrade {
     }
 
     public function add_upgrade_page() {
+        global $submenu;
+
+        // Make "Directory" menu items point to upgrade page.
+        $menu_id = 'edit.php?post_type=' . WPBDP_POST_TYPE;
+        if ( isset( $submenu[ $menu_id ] ) ) {
+            foreach ( $submenu[ $menu_id ] as &$item ) {
+                $item[2] = admin_url( 'admin.php?page=wpbdp-upgrade-page' );
+            }
+        }
+
         add_submenu_page( null,
                           __( 'Business Directory - Manual Upgrade', 'WPBDM' ),
                           __( 'Business Directory - Manual Upgrade', 'WPBDM' ),
