@@ -72,9 +72,9 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         if ( ! $payment )
             return wpbdp_render_msg( _x( 'Invalid renewal state.', 'renewal', 'WPBDM' ), 'error' );
 
-        return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing,
-                                                     'category' => $this->category,
-                                                     'payment' => $payment ) );
+        require_once( WPBDP_PATH . 'core/view-checkout.php' );
+        $checkout = new WPBDP_Checkout_Page( $payment );
+        return $checkout->dispatch();
     }
 
     private function recurring_management() {

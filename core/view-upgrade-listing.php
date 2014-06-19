@@ -55,12 +55,9 @@ class WPBDP_Upgrade_Listing_Page extends WPBDP_View {
         $payment->save();
         update_post_meta( $this->listing->get_id(), '_wpbdp[sticky]', 'pending' ); // FIXME: maybe this should be set automatically when saving the payment?
 
-        $html  = '';
-        $html .=  '<form action="' . $payment->get_checkout_url() . '" method="POST">';
-        $html .= '<input type="submit" value="' . _x( 'Proceed to Checkout', 'renewal', 'WPBDM' ) . '" />';
-        $html .= '</form>';
-
-        return $html;
+        require_once( WPBDP_PATH . 'core/view-checkout.php' );
+        $checkout = new WPBDP_Checkout_Page( $payment );
+        return $checkout->dispatch();
     }
 
 }
