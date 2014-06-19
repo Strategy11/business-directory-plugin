@@ -384,11 +384,16 @@ body.taxonomy-wpbdp_category .column-id {
     display: block;
 }
 
-.tag.payment-status.completed {
+
+.tag.paymentstatus.ok {
     background: green;
 }
 
-.tag.payment-status.pending {
+.tag.paymentstatus.completed {
+    background: green;
+}
+
+.tag.paymentstatus.pending {
     background: red;
 }
 

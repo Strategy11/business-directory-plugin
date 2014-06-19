@@ -67,7 +67,7 @@ class WPBDP_Admin_Listings {
                                     add_query_arg( array( 'wpbdmaction' => 'setaspaid', 'post' => $post_id ) ),
                                     __('Paid', 'WPBDM'));
 
-        printf( '<span class="tag status %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
+        printf( '<span class="tag paymentstatus %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
 
         if ( $status_links && current_user_can( 'administrator' ) )
             printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Mark as', 'WPBDM' ), $status_links );
