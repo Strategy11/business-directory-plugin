@@ -215,6 +215,8 @@ class WPBDP_ListingUpgrades {
             update_post_meta( $listing_id, '_wpbdp[sticky]', 'sticky' );
             update_post_meta( $listing_id, '_wpbdp[sticky_level]', $level_id );
         }
+
+        // TODO: approve/cancel transactions related to this operation.
     }
 
 }

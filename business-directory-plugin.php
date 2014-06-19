@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 3.4dev
+ * Version: 3.4
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * License: GPLv2 or any later version
@@ -30,7 +30,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) ) 
     exit();
 
-define( 'WPBDP_VERSION', '3.4dev' );
+define( 'WPBDP_VERSION', '3.4' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -197,17 +197,17 @@ class WPBDP_Plugin {
      */
     public function get_premium_modules_data() {
         static $modules = array(
-            '2checkout' => array( 'WPBDP_2Checkout_Module', '3.4dev' ),
-            'attachments' => array( 'WPBDP_ListingAttachmentsModule', '3.4dev' ),
-            'categories' => array( 'WPBDP_CategoriesModule', '3.2' ),
-            'featured-levels' => array( 'WPBDP_FeaturedLevelsModule', '3.4dev' ),
-            'googlemaps' => array( 'BusinessDirectory_GoogleMapsPlugin', '3.4dev' ),
-            'payfast' => array( 'WPBDP_Gateways_PayFast', '3.4dev' ),
-            'paypal' => array( 'WPBDP_PayPal_Module', '3.4dev' ),
-            'ratings' => array( 'BusinessDirectory_RatingsModule', '3.4dev' ),
-            'regions' => array( 'WPBDP_RegionsPlugin', '3.4dev' ),
-            'stripe' => array( 'WPBDP_Stripe_Module', '0.2dev' ),
-            'zipcodesearch' => array( 'WPBDP_ZIPCodeSearchModule', '3.4dev' )
+            '2checkout' => array( 'WPBDP_2Checkout_Module', '3.4' ),
+            'attachments' => array( 'WPBDP_ListingAttachmentsModule', '3.4' ),
+            'categories' => array( 'WPBDP_CategoriesModule', '3.4' ),
+            'featured-levels' => array( 'WPBDP_FeaturedLevelsModule', '3.4' ),
+            'googlemaps' => array( 'BusinessDirectory_GoogleMapsPlugin', '3.4' ),
+            'payfast' => array( 'WPBDP_Gateways_PayFast', '3.4' ),
+            'paypal' => array( 'WPBDP_PayPal_Module', '3.4' ),
+            'ratings' => array( 'BusinessDirectory_RatingsModule', '3.4' ),
+            'regions' => array( 'WPBDP_RegionsPlugin', '3.4' ),
+            'stripe' => array( 'WPBDP_Stripe_Module', '1.0' ),
+            'zipcodesearch' => array( 'WPBDP_ZIPCodeSearchModule', '3.4' )
         );
 
         static $data = null;
