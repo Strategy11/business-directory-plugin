@@ -429,12 +429,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 var $c = $( '[name="wpbdp-' + c + '"], [name="wpbdp-' + c + '[]"]' );
                 var $row = $c.parents( 'tr' );
 
+                // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
                 if ( checked ) {
-                    $c.removeAttr( 'disabled' );
+//                    $c.removeAttr( 'disabled' );
                     $c.removeAttr( 'contenteditable' );
                     $row.removeClass('disabled');
                 } else {
-                    $c.attr( 'disabled', 'disabled' );
+//                    $c.attr( 'disabled', 'disabled' );
                     $c.attr( 'contenteditable', 'false' );
                     $row.addClass('disabled');
                 }
