@@ -567,6 +567,18 @@
                     $t['currency_code'] = get_option( 'wpbdp-currency' );
                     $t['migrated'] = 1;
 
+                    if ( ! isset( $t['processed_on'] ) || empty( $t['processed_on'] ) )
+                        unset( $t['processed_on'] );
+
+                    if ( ! isset( $t['created_on'] ) || empty( $t['created_on'] ) )
+                        unset( $t['created_on'] );
+
+                    if ( ! isset( $t['listing_id'] ) || empty( $t['listing_id'] ) )
+                        $t['listing_id'] = 0;
+
+                    if ( ! isset( $t['amount'] ) || empty( $t['amount'] ) )
+                        $t['amount'] = '0.0';
+
                     // TODO: delete duplicated pending transactions (i.e. two renewals for the same category & listing ID that are 'pending').
 
                     switch ( $t['payment_type'] ) {
