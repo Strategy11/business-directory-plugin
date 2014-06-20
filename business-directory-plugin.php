@@ -81,6 +81,7 @@ class WPBDP_Plugin {
 
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
         add_action( 'init', array( &$this, 'init' ) );
+        add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
 
         // For testing the expiration routine only.
         // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20); 
@@ -153,8 +154,6 @@ class WPBDP_Plugin {
 
         add_action( 'wp_head', array( &$this, '_rss_feed' ) );
         add_action('wp_footer', array( &$this, '_credits_footer'));
-
-        add_action('widgets_init', array( &$this, '_register_widgets'));
 
         // Register shortcodes.
         $shortcodes = $this->get_shortcodes();
