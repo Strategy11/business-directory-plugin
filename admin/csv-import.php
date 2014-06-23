@@ -596,7 +596,7 @@ class WPBDP_CSVImporter {
         if ( isset( $listing_metadata['sequence_id'] ) && $listing_metadata['sequence_id'] ) {
             $post_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s LIMIT 1",
                                                                '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] ) ) );
-            if ( $post_id )
+            if ( $post_id && false !== get_post_status( $post_id ) )
                 $listing = WPBDP_Listing::get( $post_id );
         }
 
@@ -605,9 +605,11 @@ class WPBDP_CSVImporter {
             $listing->set_field_values( $state->fields );
             $listing->set_images( $state->images );
             $listing->set_categories( $state->categories );
+            $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
             $listing->save();
         } else {
             $listing->update( $state );
+            $listing->set_post_status( wpbdp_get_option( 'edit-post-status' ) );
         }
 
         // create permalink
