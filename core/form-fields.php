@@ -834,8 +834,8 @@ class WPBDP_FormField {
                 break;
             case 'meta':
                 $pieces['fields'] .= '';
-                $pieces['join'] = " LEFT JOIN {$wpdb->postmeta} AS mt{$id} ON {$wpdb->posts}.ID = mt{$id}.post_id";
-                $pieces['where'] = $wpdb->prepare( " OR (mt{$id}.meta_key = %s AND mt{$id}.meta_value LIKE '%%%s%%') ",
+                $pieces['join'] .= " LEFT JOIN {$wpdb->postmeta} AS mt{$id} ON {$wpdb->posts}.ID = mt{$id}.post_id";
+                $pieces['where'] .= $wpdb->prepare( " OR (mt{$id}.meta_key = %s AND mt{$id}.meta_value LIKE '%%%s%%') ",
                                                    '_wpbdp[fields][' . $id . ']',
                                                    $q
                                                  );
