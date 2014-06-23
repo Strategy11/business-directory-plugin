@@ -1,6 +1,8 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-gateway.php' );
-require_once( WPBDP_PATH . 'vendors/jwt/JWT.php' );
+
+if ( ! class_exists( 'JWT' ) )
+    require_once( WPBDP_PATH . 'vendors/jwt/JWT.php' );
 
 
 class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
