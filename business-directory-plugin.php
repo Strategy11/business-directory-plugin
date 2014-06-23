@@ -106,10 +106,9 @@ class WPBDP_Plugin {
         $this->formfields = WPBDP_FormFields::instance();
 
         // Install plugin.
+        $this->settings->register_settings();
         $this->_register_post_type();
         $this->install_or_update_plugin();
-
-        $this->settings->register_settings();
 
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
             $installer = new WPBDP_Installer();
