@@ -474,6 +474,37 @@ class WPBDP_Listing {
         return get_the_author_meta( $meta, $post->post_author );
     }
 
+    public function update( $state ) {
+        // Set title.
+        $title = false;
+
+        if ( isset( $state->title ) ) {
+            $title = $state->title;
+        } else {
+            if ( $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) ) ) {
+                if ( isset( $state->fields[ $title_field->get_id() ] ) )
+                    $title = $state->fields[ $title_field->get_id() ];
+            }
+        }
+
+        if ( $title )
+            $this->set_title( $title );
+
+        // Set categories.
+        if ( isset( $state->categories ) ) {
+            $this->set_categories( $state->categories );
+        }
+
+        if ( isset( $state->fields ) ) {
+            $this->set_field_values( $state->fields );
+        }
+
+        if ( isset( $state->images ) )
+            $this->set_images( $state->images );
+
+        $this->save();
+    }
+
     public static function create( &$state ) {
         $title = 'Untitled Listing';
 
