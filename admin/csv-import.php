@@ -427,6 +427,8 @@ class WPBDP_CSVImporter {
     }
 
     private function import_row($data, &$errors=null, &$warnings=null) {
+        global $wpdb;
+
         $errors = array();
         $warnings = array();
 
@@ -440,6 +442,7 @@ class WPBDP_CSVImporter {
         $listing_images = array();
         $listing_fields = array();
         $listing_metadata = array( 'featured_level' => '', 'expires_on' => array() );
+
 
         foreach ($this->header as $i => $header_name) {
             if ( ($header_name == 'image' || $header_name == 'images') ) {
@@ -475,6 +478,11 @@ class WPBDP_CSVImporter {
 
             if ( $header_name == 'expires_on' ) {
                 $listing_metadata['expires_on'] = explode( '/',  $data[ $i ] );
+                continue;
+            }
+
+            if ( 'sequence_id' == $header_name ) {
+                $listing_metadata['sequence_id'] = $data[ $i ];
                 continue;
             }
 
@@ -584,11 +592,23 @@ class WPBDP_CSVImporter {
         if ($this->settings['test-import'])
             return true;
 
-        $listing = WPBDP_Listing::create( $state );
-        $listing->set_field_values( $state->fields );
-        $listing->set_images( $state->images );
-        $listing->set_categories( $state->categories );
-        $listing->save();
+        $listing = false;
+        if ( isset( $listing_metadata['sequence_id'] ) && $listing_metadata['sequence_id'] ) {
+            $post_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s LIMIT 1",
+                                                               '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] ) ) );
+            if ( $post_id )
+                $listing = WPBDP_Listing::get( $post_id );
+        }
+
+        if ( ! $listing ) {
+            $listing = WPBDP_Listing::create( $state );
+            $listing->set_field_values( $state->fields );
+            $listing->set_images( $state->images );
+            $listing->set_categories( $state->categories );
+            $listing->save();
+        } else {
+            $listing->update( $state );
+        }
 
         // create permalink
         $post = get_post($listing->get_id());
@@ -617,8 +637,6 @@ class WPBDP_CSVImporter {
         }
 
         if ( $listing_metadata['expires_on'] ) {
-            global $wpdb;
-
             foreach ( $state->categories as $i => $category_id ) {
                 if ( isset( $listing_metadata['expires_on'][ $i ] ) ) { // TODO: check is valid date
                     $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
@@ -628,6 +646,9 @@ class WPBDP_CSVImporter {
                 }
             }
         }
+
+        if ( isset( $listing_metadata['sequence_id'] ) && $listing_metadata['sequence_id'] )
+            update_post_meta( $listing->get_id(), '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] );
 
         set_time_limit(5);
 

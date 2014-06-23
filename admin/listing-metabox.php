@@ -76,6 +76,12 @@ class WPBDP_Admin_Listing_Metabox {
                     }
                 }
 
+                $import_id = get_post_meta( $this->listing->get_id(), '_wpbdp[import_sequence_id]', true );
+                if ( current_user_can( 'administrator' ) && $import_id ) {
+                    echo '<dt>' . _x( 'CSV Import Sequence ID', 'admin infometabox', 'WPBDM' ) . '</dt>';
+                    echo '<dd>' . $import_id . '</dd>';
+                }
+
             echo '</dd>';
         echo '</dl>';
 

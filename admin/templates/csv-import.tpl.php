@@ -1,8 +1,8 @@
 <?php
-    echo wpbdp_admin_header(null, null, array(
-        array(_x('Help', 'admin csv-import', 'WPBDM'), '#help'),
-        array(_x('See an example CSV import file', 'admin csv-import', 'WPBDM'), esc_url(add_query_arg('action', 'example-csv')))
-        ) );
+echo wpbdp_admin_header(null, null, array(
+    array(_x('Help', 'admin csv-import', 'WPBDM'), '#help'),
+    array(_x('See an example CSV import file', 'admin csv-import', 'WPBDM'), esc_url(add_query_arg('action', 'example-csv')))
+    ) );
 ?>
 
 <?php wpbdp_admin_notices(); ?>
@@ -177,7 +177,14 @@
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
-        </tr>            
+        </tr>
+        <tr class="<?php echo ($i + 2) % 2 == 0 ? 'alt' : ''; ?>">
+            <td class="header-name">sequence_id</td>
+            <td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
+            <td class="field-type">-</td>
+            <td class="field-is-required"></td>
+            <td class="field-is-multivalued"></td>
+        </tr>
     </tbody>
 </table>
 
