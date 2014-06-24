@@ -443,10 +443,10 @@ class WPBDP_Plugin {
         $state_id = 0;
         $state = null;
 
-        if ( isset( $_REQUEST['state'] ) ) {
+        if ( isset( $_REQUEST['state_id'] ) ) {
             require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
     
-            $state_id = trim( $_REQUEST['state'] );
+            $state_id = trim( $_REQUEST['state_id'] );
             $state = WPBDP_Listing_Submit_State::get( $state_id );
 
             if ( ! $state )
@@ -480,16 +480,19 @@ class WPBDP_Plugin {
                                                  $image_error ); // TODO: handle errors.
 
             if ( $image_error )
-                $errors[] = $image_error;
+                $errors[ $file['name'] ] = $image_error;
             else
                 $attachments[] = $attachment_id;
         }
 
         $html = '';
         foreach ( $attachments as $attachment_id ) {
-            $state->images[] = $attachment_id;
+            if ( $state )
+                $state->images[] = $attachment_id;
+
             $html .= wpbdp_render( 'submit-listing/images-single',
-                                   array( 'image_id' => $attachment_id ),
+                                   array( 'image_id' => $attachment_id,
+                                          'state_id' => $state ? $state->id : '' ),
                                    false );
         }
 
@@ -498,6 +501,15 @@ class WPBDP_Plugin {
             $listing->set_images( $attachments, true );
         } elseif ( $state ) {
             $state->save();
+        }
+
+        if ( $errors ) {
+            $error_msg = '';
+
+            foreach ( $errors as $fname => $error )
+                $error_msg .= sprintf( '&#149; %s: %s', $fname, $error ) . '<br />';
+
+            $res->add( 'uploadErrors', $error_msg );
         }
 
         $res->add( 'attachmentIds', $attachments );
@@ -512,9 +524,10 @@ class WPBDP_Plugin {
         if ( ! $image_id )
             $res->send_error();
 
-        if ( ! current_user_can( 'administrator' ) ) {
+        $state_id = isset( $_REQUEST['state_id'] ) ? $_REQUEST['state_id'] : '';
+
+        if ( $state_id ) {
             require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-            $state_id = trim( $_REQUEST['state'] );
 
             if ( ! $state_id )
                 $res->send_error();
@@ -845,17 +858,20 @@ class WPBDP_Plugin {
      */
     public function register_common_scripts() {
         // jQuery-FileUpload.
-        wp_register_script( 'jquery-fileupload-ui-widget', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget.js' );
-        wp_register_script( 'jquery-fileupload-iframe-transport', WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.js' );
+        wp_register_script( 'jquery-fileupload-ui-widget',
+                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget.' . ( ! $this->debug_on() ? 'min' : '' ) . '.js' );
+        wp_register_script( 'jquery-fileupload-iframe-transport',
+                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.' . ( ! $this->debug_on() ? 'min' : '' ) . '.js' );
         wp_register_script( 'jquery-fileupload',
-                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.js',
+                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.' . ( ! $this->debug_on() ? 'min' : '' ) . '.js',
                             array( 'jquery',
                                    'jquery-fileupload-ui-widget',
                                    'jquery-fileupload-iframe-transport' ) );
 
         // Drag & Drop.
-        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.css' );
-        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.js', array( 'jquery-fileupload' ) );
+        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.' . ( ! $this->debug_on() ? 'min' : '' ) . '.css' );
+        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.' . ( ! $this->debug_on() ? 'min' : '' ) . '.js',
+                            array( 'jquery-fileupload' ) );
     }
 
     public function is_plugin_page() {

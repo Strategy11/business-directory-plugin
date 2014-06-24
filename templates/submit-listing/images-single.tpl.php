@@ -8,6 +8,7 @@ $is_thumbnail = isset( $is_thumbnail ) ? $is_thumbnail : false;
            class="button delete-image"
            value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>"
            data-action="<?php echo esc_url( add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-delete',
+                                                                  'state_id' => isset( $state_id ) ? $state_id : '',
                                                                   'image_id' => $image_id ), admin_url( 'admin-ajax.php' ) ) ); ?>" /> <br />
 
     <label>

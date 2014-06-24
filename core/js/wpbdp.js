@@ -122,22 +122,48 @@ WPBDP.fileUpload = {
 
                         if ( t._slotsRemaining == t._slots )
                             $( '#no-images-message' ).show();
+
+                        if (  t._slotsRemaining > 0 ) {
+                            $( '#image-upload-dnd-area .dnd-area-inside' ).show();
+                            $( '#noslots-message' ).hide();
+                            $( '#image-upload-dnd-area' ).removeClass('error');
+                            $( '#image-upload-dnd-area .dnd-area-inside-error' ).hide();
+                        }
+
                     } );
                 }, 'json' );
             } );
 
-            wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), $( '#image-upload-input' ), {
+            wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), {
+                init: function() {
+                    if ( t._slotsRemaining > 0 )
+                        return;
+
+                    $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
+                    $( '#noslots-message' ).show();
+                    $( '#image-upload-dnd-area' ).addClass('error');
+                    $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
+                },
+                validate: function( data ) {
+                    $( this ).siblings( '.wpbdp-msg' ).remove();
+                    return ( t._slotsRemaining - data.files.length ) >= 0;
+                },
                 done: function( res ) {
                     $( '#no-images-message' ).hide();
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );
 
                     t._slotsRemaining -= res.data.attachmentIds.length;
                     $( '#image-slots-remaining' ).text( t._slotsRemaining );
-                    
+
                     if ( 0 == t._slotsRemaining ) {
+                        $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
                         $( '#noslots-message' ).show();
                         $( '#image-upload-dnd-area' ).addClass('error');
-                        $( '#image-upload-dnd-area .dnd-area-inside-error' ).fadeIn( 'fast' );
+                        $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
+                        $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
+                    } else if ( 'undefined' !== typeof res.data.uploadErrors ) {
+                        var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( res.data.uploadErrors );
+                        $( '.area-and-conditions' ).prepend( errorMsg );
                     }
                 }
             } );

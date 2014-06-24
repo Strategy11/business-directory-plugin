@@ -1,5 +1,6 @@
 <?php
 $admin = isset( $admin ) ? $admin : false;
+$listing_id = isset( $listing_id ) ? $listing_id : 0;
 
 $action = '';
 if ( $admin && $listing_id ) {
@@ -8,7 +9,7 @@ if ( $admin && $listing_id ) {
                              admin_url( 'admin-ajax.php' ) );
 } else {
     $action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
-                                    'state' => $state_id ),
+                                    'state_id' => $state_id ),
                              admin_url( 'admin-ajax.php' ) );
 }
 ?>
@@ -20,7 +21,12 @@ if ( $admin && $listing_id ) {
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
                 <p>or</p>
-                <p class="dnd-buttons"><input type="button" class="button" value="<?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?>" /></p>
+                <p class="dnd-buttons">
+                    <span class="upload-button">
+                         <a><?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?></a>
+                         <input type="file" name="images[]" multiple="multiple" />
+                    </span>
+                </p>
             </div>
             <div class="dnd-area-inside-working" style="display: none;">
                 <p><?php echo sprintf( _x( 'Uploading %s file(s)... Please wait.', 'templates', 'WPBDM' ), '<span>0</span>' ); ?></p>
@@ -47,11 +53,6 @@ if ( $admin && $listing_id ) {
             </dl>
         </div>
         <?php endif; ?>
-    </div>
-
-    <div id="image-upload-form-no-js" class="hide-if-js">
-        <input type="file" id="image-upload-input" name="images[]" multiple="multiple" />
-        <input type="submit" class="submit" name="upload-image" value="<?php _ex('Upload Image', 'templates', 'WPBDM'); ?>" />
     </div>
 </div>
 

@@ -2,8 +2,9 @@ var wpbdp = window.wpbdp || {};
 
 ( function( $ ) {
     var dnd = wpbdp.dnd = {
-        setup: function( $area, $input, options ) {
+        setup: function( $area, options ) {
             var options = $.extend( options, {} );
+            var $input = $area.find( 'input[type="file"]' );
 
             $area.data( 'dnd-working', false );
             $area.on( 'dragover',
@@ -16,11 +17,6 @@ var wpbdp = window.wpbdp || {};
                         if ( $( this ).hasClass('dragging') )
                             $( this ).removeClass( 'dragging' );
                       } );
-            $area.find( '.dnd-buttons input' ).click(function( e ) {
-                e.preventDefault();
-                $input.trigger( 'click' );
-            } );
-
             $input.fileupload({
                 url: $area.attr( 'data-action' ) ? $area.attr( 'data-action' ) : options.url,
                 sequentialUploads: true,
@@ -33,6 +29,10 @@ var wpbdp = window.wpbdp || {};
                 send: function( e, data ) {
                     if ( $area.data('dnd-working' ) )
                         return false;
+
+                    if ( 'undefined' !== typeof options.validate )
+                        if ( ! options.validate.call( $area, data ) )
+                            return false;
 
                     $area.removeClass( 'dragging' );
                     $area.removeClass( 'error' );
@@ -53,14 +53,17 @@ var wpbdp = window.wpbdp || {};
                         return;
 
                     $area.data( 'dnd-working', false );
-                    $area.find( '.dnd-area-inside-working' ).fadeOut( 'fast', function() {
-                        $area.find( '.dnd-area-inside' ).fadeIn( 'fast' );
-                    } );
+                    $area.find( '.dnd-area-inside-working' ).hide();
+                    $area.find( '.dnd-area-inside' ).fadeIn( 'fast' );
 
                     if ( 'undefined' !== typeof options.done )
                         options.done.call( $area, res );
                 }
             });
+
+            if ( 'undefined' !== typeof options.init ) {
+                options.init.call( $area );
+            }
         }
     };
 

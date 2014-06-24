@@ -23,7 +23,7 @@ var admin = wpbdp.admin = wpbdp.admin || {};
             } );
 
             // Image upload.
-            wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), $( '#image-upload-input' ), {
+            wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), {
                 done: function( res ) {
                     $( '#no-images-message' ).hide();
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );

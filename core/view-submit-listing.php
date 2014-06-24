@@ -348,8 +348,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        $images = &$this->state->images;
-        $thumbnail_id = &$this->state->thumbnail_id;
+        $images = $this->state->images;
+        $thumbnail_id = $this->state->thumbnail_id;
         $image_slots_remaining = $image_slots - count( $images );
         $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
 
@@ -371,7 +371,6 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
 
     protected function step_before_save() {
-        //wpbdp_debug_e( $this->state );
         if ( isset( $_POST['continue-with-save'] ) ) {
             $this->state->advance();
             return $this->dispatch();
@@ -554,7 +553,7 @@ class WPBDP_Listing_Submit_State {
             foreach ( $state as $k => &$v )
                 $obj->{$k} = $v;
 
-            $state = &$obj;
+            $state = $obj;
             wp_cache_set( $id, $state, 'wpbdp submit state' );
         }
 
@@ -569,8 +568,6 @@ class WPBDP_Listing_Submit_State {
                        'state' => serialize( (array) $this ),
                        'updated' => current_time( 'mysql' ) );
         $wpdb->replace( $wpdb->prefix . 'wpbdp_submit_state', $data );
-
-        
     }
 
     public function advance( $increase_step_number = true ) {

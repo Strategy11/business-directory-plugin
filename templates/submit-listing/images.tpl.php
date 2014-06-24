@@ -1,3 +1,6 @@
+<?php
+$thumbnail_id = ! isset( $thumbnail_id ) ? 0 : intval( $thumbnail_id );
+?>
 <h3><?php echo $_state->step_number . ' - '; ?><?php _ex( 'Listing Images', 'templates', 'WPBDM' ); ?></h3>
 
 <form id="wpbdp-listing-form-images" class="wpbdp-listing-form" method="POST" action="" enctype="multipart/form-data">
@@ -13,7 +16,8 @@
     foreach ( $images as $image_id ):
         echo wpbdp_render( 'submit-listing/images-single',
                            array( 'image_id' => $image_id,
-                                  'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ) ),
+                                  'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
+                                  'state_id' => $_state->id ),
                            false );
     endforeach;
     ?>
