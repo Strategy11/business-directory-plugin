@@ -184,35 +184,34 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
             $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'WPBDM' ), $file['type'] );
             return false;
         }
-        
-        if ( $upload = wp_handle_upload( $file, array('test_form' => FALSE) ) ) {
-            if ( !$use_media_library ) {
-                if (!is_array($upload) || isset($upload['error'])) {
-                    $error_msg = $upload['error'];
-                    return false;
-                }
 
-                return $upload;
+        $upload = wp_handle_upload( $file, array('test_form' => FALSE) );
+
+        if( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
+            $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'WPBDM' );
+            return false;
+        }
+
+        if ( !$use_media_library )
+            return $upload;
+
+        if ( $attachment_id = wp_insert_attachment(array(
+            'post_mime_type' => $upload['type'],
+            'post_title' => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
+            'post_content' => '',
+            'post_status' => 'inherit'
+        ), $upload['file']) ) {
+            $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
+            wp_update_attachment_metadata( $attachment_id, $attach_metadata );
+
+            if ( $check_image && !wp_attachment_is_image( $attachment_id ) ) {
+                wp_delete_attachment( $attachment_id, true );
+
+                $error_msg = _x('Uploaded file is not an image', 'utils', 'WPBDM');
+                return false;
             }
 
-            if ( $attachment_id = wp_insert_attachment(array(
-                'post_mime_type' => $upload['type'],
-                'post_title' => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
-                'post_content' => '',
-                'post_status' => 'inherit'
-            ), $upload['file']) ) {
-                $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
-                wp_update_attachment_metadata( $attachment_id, $attach_metadata );
-
-                if ( $check_image && !wp_attachment_is_image( $attachment_id ) ) {
-                    wp_delete_attachment( $attachment_id, true );
-
-                    $error_msg = _x('Uploaded file is not an image', 'utils', 'WPBDM');
-                    return false;
-                }
-
-                return $attachment_id;
-            }
+            return $attachment_id;
         }
     } else {
         $error_msg = _x('Error while uploading file', 'utils', 'WPBDM');
