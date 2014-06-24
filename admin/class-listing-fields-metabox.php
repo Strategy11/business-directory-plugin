@@ -3,7 +3,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
     private $listing = null;
 
     public function __construct( &$listing ) {
-        $this->listing = &$listing;
+        $this->listing = $listing;
     }
 
     public function render() {

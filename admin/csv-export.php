@@ -99,7 +99,7 @@ class WPBDP_CSVExporter {
         // Setup columns.
         $fields = wpbdp_get_form_fields();
         foreach ( $fields as &$f ) {
-            $this->columns[ $f->get_short_name() ] = &$f;
+            $this->columns[ $f->get_short_name() ] = $f;
         }
 
         if ( $this->settings['export-images'] )

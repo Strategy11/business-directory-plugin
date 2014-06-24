@@ -674,7 +674,7 @@ class WPBDP_Installer_Manual_Upgrade {
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-manual-upgrade', array( &$this, 'handle_ajax' ) );
 
-        $this->installer = &$installer;
+        $this->installer = $installer;
         $this->callback = $callback;
     }
 

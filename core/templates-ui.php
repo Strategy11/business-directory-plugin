@@ -436,7 +436,7 @@ class WPBDP_ListingFieldDisplayItem {
     public $field;
 
     public function __construct( &$field, $listing_id = 0, $display ) {
-        $this->field = &$field;
+        $this->field = $field;
         $this->id = $this->field->get_id();
         $this->listing_id = $listing_id;
         $this->display = $display;
