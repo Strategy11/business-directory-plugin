@@ -152,7 +152,7 @@ class WPBDP_FormFieldType {
 
         switch ( $render_context ) {
             case 'search':
-                $html .= sprintf( '<div class="search-filter %s %s" %s>',
+                $html .= sprintf( '<div class="wpbdp-search-filter %s %s" %s>',
                                   $field->get_field_type()->get_id(),
                                   implode(' ', $field->css_classes ),
                                   $this->html_attributes( $field->html_attributes ) );
@@ -253,7 +253,8 @@ class WPBDP_FormFieldType {
             if ( $labelorfield->has_display_flag( 'social' ) )
                 return $content;
 
-            $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/', '(', ')' ), '', $labelorfield->get_label() ) ) . ' ' . $labelorfield->get_association() . ' ';
+            $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/', '(', ')' ), '', $labelorfield->get_label() ) ) . ' ';
+            $css_classes .= 'wpbdp-field-' . $labelorfield->get_association() . ' ';
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
         } else {
             $label = $labelorfield;

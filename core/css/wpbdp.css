@@ -23,29 +23,29 @@ form#wpbdmsearchform a.advanced-search-link {
     padding-left: 10px;
 }
 
-#wpbdp-search-form .search-filter {
+#wpbdp-search-form .wpbdp-search-filter {
     margin-bottom: 10px;
     clear: both;
 }
 
-#wpbdp-search-form .search-filter > div.label {
+#wpbdp-search-form .wpbdp-search-filter > div.label {
     display: block;
     width: 40%;
     float: left;
 }
 
-#wpbdp-search-form .search-filter > div.field {
+#wpbdp-search-form .wpbdp-search-filter > div.field {
     display: block;
     width: 60%;
     margin-left: 40%;
     padding-left: 5px;
 }
 
-#wpbdp-search-form .search-filter > div.field > input[type="text"] {
+#wpbdp-search-form .wpbdp-search-filter > div.field > input[type="text"] {
     width: 90%;
 }
 
-#wpbdp-search-form .search-filter > div.field > select {
+#wpbdp-search-form .wpbdp-search-filter > div.field > select {
     width: 90%;
 }
 
