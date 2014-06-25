@@ -1,7 +1,7 @@
 <?php echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ) ); ?>
 <?php wpbdp_admin_notices(); ?>
 
-<form id="wpbdp-formfield-form" action="" method="POST">
+<form id="wpbdp-formfield-form" action="" method="post">
     <input type="hidden" name="field[id]" value="<?php echo $field->get_id(); ?>" />
     <input type="hidden" name="field[weight]" value="<?php echo $field->get_weight(); ?>" />
 
@@ -13,16 +13,16 @@
                     <label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
-                    <?php if ( 'custom' === $field->get_association() ): ?>
+                    <?php $field_association_info = $field_associations[ $field->get_association() ]; ?>
+                    <?php if ( in_array( 'private', $field_association_info->flags, true ) ): ?>
                     <select name="field[association]" id="field-association">
-                        <option value="custom"><?php _ex( 'Custom', 'form-fields admin', 'WPBDM' ); ?></option>
+                        <option value="<?php echo $field_association_info->id; ?>"><?php echo $field_association_info->label; ?></option>
                     </select>
                     <?php else: ?>
                     <select name="field[association]" id="field-association">
                     <?php foreach ( $field_associations as &$association ): ?>
-                        <?php if ( ! in_array( 'private', $association->flags, true ) ): ?>
+                        <?php if ( in_array( 'private', $field_association_info->flags, true ) ) continue; ?>
                         <option value="<?php echo $association->id; ?>" <?php echo $field->get_association() == $association->id ? ' selected="selected"' : ''; ?> ><?php echo $association->label; ?></option>
-                        <?php endif; ?>
                     <?php endforeach; ?>
                     </select>
                     <?php endif; ?>

@@ -1000,7 +1000,7 @@ class WPBDP_FormFields {
 
         foreach ( $this->associations as $assoc_id => $assoc_label ) {
             $flags = $this->association_flags[ $assoc_id ];
-            $res[] = (object) array( 'id' => $assoc_id, 'label' => $assoc_label, 'flags' => $flags );
+            $res[ $assoc_id ] = (object) array( 'id' => $assoc_id, 'label' => $assoc_label, 'flags' => $flags );
         }
 
         return $res;
