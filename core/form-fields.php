@@ -908,7 +908,7 @@ class WPBDP_FormFields {
         $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
         $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'WPBDM' ) );
 
-        $this->register_association( 'custom', _x('Custom', 'form-fields api', 'WPBDM'), array( ) );
+        $this->register_association( 'custom', _x('Custom', 'form-fields api', 'WPBDM'), array( 'private' ) );
 
         // register core field types
         $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
