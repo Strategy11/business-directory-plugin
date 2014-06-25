@@ -367,7 +367,6 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
 
 function wpbdp_has_shortcode( &$content, $shortcode ) {
     $check = has_shortcode( $content, $shortcode );
-    $check = false;
 
     if ( ! $check ) {
         // Sometimes has_shortcode() fails so we try another approach.
