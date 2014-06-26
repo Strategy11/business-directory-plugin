@@ -309,7 +309,11 @@ class WPBDP_PaymentsAPI {
         } else {
             if ( count( $this->get_available_methods() ) >= 2 && $this->has_gateway( 'payfast' ) ) {
                 $errors[] = __( 'BD detected PayFast and another gateway were enabled. This setup is not recommended due to PayFast supporting only ZAR and the other gateways not supporting this currency.', 'admin', 'WPBDM' );
-            }            
+            }
+
+            if ( wpbdp_get_option( 'listing-renewal-auto' ) && ! $this->check_capability( 'recurring' ) ) {
+                $errors[] = __( 'You have recurring renewal of listing fees enabled but the payment gateways installed don\'t support recurring payments. Until a gateway that supports recurring payments (such as PayPal) is enabled automatic renewals will be disabled.', 'WPBDM' );
+            }
         }
 
         return $errors;
