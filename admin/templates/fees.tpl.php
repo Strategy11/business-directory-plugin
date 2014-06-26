@@ -33,7 +33,7 @@
                 <?php endif; ?>
             </ul></p>
 
-            <?php if (!wpbdp_payments_api()->has_gateway('googlecheckout') && !wpbdp_payments_api()->has_gateway('paypal') && !wpbdp_payments_api()->has_gateway('2checkout')): ?>
+            <?php if (!wpbdp_payments_api()->payments_possible()): ?>
             <p><?php _ex("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit", 'admin templates', "WPBDM"); ?></p>
             <p><a href="http://businessdirectoryplugin.com/premium-modules/">http://businessdirectoryplugin.com/premium-modules/</a></p>            
             <?php endif; ?>
