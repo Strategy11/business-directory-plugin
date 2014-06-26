@@ -952,7 +952,7 @@ class WPBDP_Plugin {
         wp_enqueue_script( 'wpbdp-js' );
 
         if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
-            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet.min.js', array( 'wpbdp-js' ) );
+            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet' . ( $this->is_debug_on() ? '.min' : '' ) .  '.js', array( 'wpbdp-js' ) );
         }
     }
 
