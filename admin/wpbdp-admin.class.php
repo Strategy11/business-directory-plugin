@@ -91,50 +91,50 @@ class WPBDP_Admin {
     function admin_menu() {
         add_menu_page( _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
                        _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
-                       'activate_plugins',
+                       'administrator',
                        'wpbdp_admin',
                        array( &$this, 'main_menu' ),
                        WPBDP_URL . 'admin/resources/menuico.png' );
         add_submenu_page('wpbdp_admin',
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_add_listing',
                          '__return_null');
         add_submenu_page('wpbdp_admin',
                          _x('Manage Options', 'admin menu', 'WPBDM'),
                          _x('Manage Options', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_admin_settings',
                          array($this, 'admin_settings'));
         add_submenu_page('wpbdp_admin',
                          _x('Manage Fees', 'admin menu', 'WPBDM'),
                          _x('Manage Fees', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_admin_fees',
                          array('WPBDP_FeesAdmin', 'admin_menu_cb'));
         add_submenu_page('wpbdp_admin',
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
                          _x('Manage Form Fields', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_admin_formfields',
                          array('WPBDP_FormFieldsAdmin', 'admin_menu_cb'));
         add_submenu_page('wpbdp_admin',
                          _x('All Listings', 'admin menu', 'WPBDM'),
                          _x('All Listings', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_all_listings',
                          '__return_false');        
         add_submenu_page('wpbdp_admin',
                          _x('Pending Upgrade', 'admin menu', 'WPBDM'),
                          _x('Pending Upgrade', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_manage_featured',
                          '__return_false');
         add_submenu_page('wpbdp_admin',
                          _x('Pending Payment', 'admin menu', 'WPBDM'),
                          _x('Pending Payment', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_manage_payments',
                          '__return_false');
 
@@ -142,7 +142,7 @@ class WPBDP_Admin {
         //     add_submenu_page( 'wpbdp_admin',
         //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
         //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
-        //                       'activate_plugins',
+        //                       'administrator',
         //                       'wpbdp_manage_transactions',
         //                       array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
         //                     );
@@ -150,19 +150,19 @@ class WPBDP_Admin {
         add_submenu_page('wpbdp_admin',
                          _x('CSV Import', 'admin menu', 'WPBDM'),
                          _x('CSV Import', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp-csv-import',
                          array('WPBDP_CSVImportAdmin', 'admin_menu_cb'));
         add_submenu_page( 'wpbdp_admin',
                           _x( 'CSV Export', 'admin menu', 'WPBDM' ),
                           _x( 'CSV Export', 'admin menu', 'WPBDM' ),
-                          'activate_plugins',
+                          'administrator',
                           'wpbdp-csv-export',
                           array( &$this->csv_export, 'dispatch' ) );
         add_submenu_page( 'wpbdp_admin',
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
-                          'activate_plugins',
+                          'administrator',
                           'wpbdp-debug-info',
                           array( $this, '_debug_info_page' ) );        
 
@@ -185,7 +185,7 @@ class WPBDP_Admin {
         add_submenu_page('wpbdp_admin',
                          _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
                          _x('Uninstall', 'admin menu', 'WPBDM'),
-                         'activate_plugins',
+                         'administrator',
                          'wpbdp_uninstall',
                          array($this, 'uninstall_plugin'));        
     }
