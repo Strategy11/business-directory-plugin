@@ -566,6 +566,9 @@ class WPBDP_Plugin {
                                                'businessdirectory',
                                                'business-directory' ),
                                         array( &$this->controller, 'dispatch' ) );
+        $shortcodes += array_fill_keys( array( 'businessdirectory-search',
+                                               'businessdirectory_search' ),
+                                        array( &$this->controller, 'search' ) );
         $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
 
         return apply_filters( 'wpbdp_shortcodes', $shortcodes );
