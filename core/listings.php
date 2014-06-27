@@ -264,7 +264,7 @@ class WPBDP_ListingsAPI {
             }
         }
 
-        return $link;                
+        return $link;
     }
 
     public function _post_link($url, $post) {
@@ -416,6 +416,26 @@ class WPBDP_ListingsAPI {
         }
 
         return 0;
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function calculate_sequence_id( $listing_id ) {
+        $sequence_id = get_post_meta( $listing_id, '_wpbdp[import_sequence_id]', true );
+
+        if ( ! $sequence_id ) {
+            global $wpdb;
+            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT (MAX(meta_value) + 1) FROM {$wpdb->postmeta} WHERE meta_key = %s",
+                                                                 '_wpbdp[import_sequence_id]' ) ) );
+
+            if ( false == add_post_meta( $listing_id, '_wpbdp[import_sequence_id]', $candidate, true ) )
+                $sequence_id = 0;
+            else
+                $sequence_id = $candidate;
+        }
+
+        return $sequence_id;
     }
 
     public function get_images($listing_id) {

@@ -62,6 +62,10 @@ echo $notice;
                 <label> <?php _ex('Additional metadata to export:', 'admin csv-export', 'WPBDM'); ?></label>
             </th>
             <td>
+                <label><input name="settings[generate-sequence-ids]"
+                       type="checkbox"
+                       value="1" /> <?php _ex('Include unique IDs for each listing (sequence_id column)', 'admin csv-export', 'WPBDM'); ?></label> <br />
+
                 <label><input name="settings[include-users]"
                        type="checkbox"
                        value="1"
