@@ -704,7 +704,7 @@ class WPBDP_Installer_Manual_Upgrade {
             }
         }
 
-        add_submenu_page( null,
+        add_submenu_page( 'options.php',
                           __( 'Business Directory - Manual Upgrade', 'WPBDM' ),
                           __( 'Business Directory - Manual Upgrade', 'WPBDM' ),
                           'administrator',
