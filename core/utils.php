@@ -361,7 +361,7 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
 
     if ( ! $term )
         return '';
-                  
+
     return $term->name;
 }
 
@@ -375,6 +375,59 @@ function wpbdp_has_shortcode( &$content, $shortcode ) {
     }
 
     return $check;
+}
+
+function wpbdp_admin_pointer( $selector, $title, $content_ = '',
+                              $primary_button = false, $primary_action = '',
+                              $secondary_button = false, $secondary_action = '',
+                              $options = array() ) {
+    if ( ! current_user_can( 'administrator' ) || ( get_bloginfo( 'version' ) < '3.3' ) )
+        return;
+
+    $content  = '';
+    $content .= '<h3>' . $title . '</h3>';
+    $content .= '<p>' . $content_ . '</p>';
+?>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function( $ ) {
+        var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({
+            'content': <?php echo json_encode( $content ); ?>,
+            'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
+                          'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
+            'buttons': function( e, t ) {
+                <?php if ( ! $secondary_button ): ?>
+                var b = $( '<a id="wpbdp-pointer-b1" class="button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
+                <?php else: ?>
+                var b = $( '<a id="wpbdp-pointer-b2" class="button-secondary" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
+                <?php endif; ?>
+                return b;
+            }
+        }).pointer('open');
+
+        <?php if ( $secondary_button ): ?>
+        $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
+        $( '#wpbdp-pointer-b2' ).click(function(e) {
+            e.preventDefault();
+            <?php if ( $secondary_action ): ?>
+            <?php echo $secondary_action; ?>
+            <?php endif; ?>
+            wpbdp_pointer.pointer( 'close' );
+        });
+        <?php endif; ?>
+
+        $( '#wpbdp-pointer-b1' ).click(function(e) {
+            e.preventDefault();
+            <?php if ( $primary_action ): ?>
+            <?php echo $primary_action; ?>
+            <?php endif; ?>
+            wpbdp_pointer.pointer( 'close' );
+        });
+
+});
+//]]>
+</script>
+<?php
 }
 
 /**
