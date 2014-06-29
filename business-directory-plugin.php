@@ -66,7 +66,7 @@ class WPBDP_Plugin {
         register_deactivation_hook( __FILE__, array( &$this, 'plugin_deactivation' ) );
 
         // Enable debugging if needed.
-        if ( get_option( 'wpbdp-debug-on', false ) )
+        if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG )
             $this->debug_on();
 
         // Load dummy objects in case plugins try to do something at an early stage.
