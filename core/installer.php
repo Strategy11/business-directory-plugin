@@ -27,6 +27,8 @@
             wpbdp_log('New installation. Creating default form fields.');
             global $wpbdp;
             $wpbdp->formfields->create_default_fields();
+
+            add_option( 'wpbdp-show-drip-pointer', 1 );
         }
 
         delete_option('wpbusdirman_db_version');
@@ -38,7 +40,7 @@
             wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
         } else {
             wpbdp_log('Expiration check was in schedule. Nothing to do.');
-        }        
+        }
     }
 
     /**

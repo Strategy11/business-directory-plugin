@@ -52,6 +52,7 @@ class WPBDP_Admin {
 
         add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
 
+        add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );
         add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
 
         add_action('admin_footer', array($this, '_add_bulk_actions'));
@@ -86,6 +87,109 @@ class WPBDP_Admin {
             wp_enqueue_script( 'wp-pointer' );
             add_action( 'admin_print_footer_scripts', 'WPBDP_SiteTracking::request_js' );
         }
+
+        if ( current_user_can( 'administrator' ) && get_option( 'wpbdp-show-drip-pointer', 0 ) ) {
+            wp_enqueue_style( 'wp-pointer' );
+            wp_enqueue_script( 'wp-pointer' );
+            add_action( 'admin_print_footer_scripts', array( $this, 'drip_pointer' ) );
+        }
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    private function get_drip_api_info( $key = '' ) {
+        $info = array(
+            'url' => 'https://api.getdrip.com/v1',
+            'api_key' => 'usskquea6f3yipbcitys',
+            'account_id' => '4037583',
+            'campaign' => '4494091'
+        );
+
+        if ( array_key_exists( $key, $info ) )
+            return $info[ $key ];
+
+        return '';
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function drip_pointer() {
+        global $current_user;
+        get_currentuserinfo();
+
+        $js = '$.post( ajaxurl, { action: "wpbdp-drip_subscribe",
+                                  email: $( "#wpbdp-drip-pointer-email" ).val(),
+                                  nonce: "'. wp_create_nonce( 'drip pointer subscribe') .'",
+                                  subscribe: "%d" } );';
+
+        $content  = '';
+        $content .= '(Intro Text)' . '<br />';
+        $content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
+
+        wpbdp_admin_pointer( '#wpadminbar',
+                             'Pointer - Title',
+                             $content,
+                             'Ok',
+                             sprintf( $js, 1 ),
+                             'No, thanks',
+                             sprintf( $js, 0 ) );
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function ajax_drip_subscribe() {
+        global $current_user;
+        get_currentuserinfo();
+
+        $res = new WPBDP_Ajax_Response();
+        $subscribe = ( '1' == $_POST['subscribe'] ) ? true : false;
+
+        if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $_POST['nonce'], 'drip pointer subscribe' ) )
+            $res->send_error();
+
+        delete_option( 'wpbdp-show-drip-pointer' );
+
+        if ( $subscribe ) {
+            if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) )
+                $res->send_error();
+
+            // Make request to Drip.
+            $payload = array( 'status' => 'active',
+                              'subscribers' => array( array(
+                                      'email' => $_POST['email'],
+                                      'utc_offset' => 660,
+                                      'double_optin' => false,
+                                      'starting_email_index' => 0,
+                                      'reactivate_if_subscribed' => true,
+                                      'custom_fields' => array( 'name' => $current_user->display_name,
+                                                                'url' => get_bloginfo( 'url' ) )
+                              ) )
+                            );
+            $url = sprintf( '%s/%s/campaigns/%s/subscribers',
+                            $this->get_drip_api_info( 'url' ),
+                            $this->get_drip_api_info( 'account_id' ),
+                            $this->get_drip_api_info( 'campaign' ) );
+
+            if ( function_exists( 'curl_init' ) ) {
+                $ch = curl_init();
+                curl_setopt( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ); 
+                curl_setopt( $ch, CURLOPT_USERPWD, $this->get_drip_api_info( 'api_key' ) . ':' ); 
+                curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)" ); 
+                curl_setopt( $ch, CURLOPT_HEADER, false );
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+                curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) );
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $payload ) );
+                curl_setopt( $ch, CURLOPT_URL, $url );
+                $result = curl_exec( $ch );
+                curl_close( $ch );
+            }
+        }
+
+        $res->send();
     }
 
     function admin_menu() {
