@@ -89,22 +89,13 @@ class WPBDP_Settings {
                             true );
 
         // Quick search fields.
-        $default_fields = array();
-        $quicksearch_fields = array();
-        foreach ( wpbdp_get_form_fields( 'association=-custom' ) as $field ) {
-            $quicksearch_fields[] = array( $field->get_id(), $field->get_label() );
-
-            if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ), true ) )
-                $default_fields[] = $field->get_id();
-        }
-
         $this->add_setting( $s,
                             'quick-search-fields',
                             _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
                             'choice',
-                            $default_fields,
+                            array(),
                             _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' ),
-                            array( 'choices' => $quicksearch_fields, 'use_checkboxes' => false, 'multiple' => true )
+                            array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'use_checkboxes' => false, 'multiple' => true )
                         );
         // }}
 
@@ -407,6 +398,19 @@ class WPBDP_Settings {
         $this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
         $this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
+    }
+
+    public function quicksearch_fields_cb() {
+        $fields = array();
+
+        foreach ( wpbdp_get_form_fields( 'association=-custom' ) as $field ) {
+            $fields[] = array( $field->get_id(), $field->get_label() );
+
+/*            if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ), true ) )
+                $default_fields[] = $field->get_id();*/
+        }
+
+        return $fields;
     }
 
     public function sortbar_fields_cb() {
