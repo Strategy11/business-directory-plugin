@@ -342,7 +342,7 @@ class WPBDP_CSVExporter {
                     }
 
                     if ( $listing_images )
-                        $value = '"' . implode( $this->settings['images-separator'], $listing_images ) . '"';
+                        $value = implode( $this->settings['images-separator'], $listing_images );
 
                     break;
 
@@ -380,7 +380,7 @@ class WPBDP_CSVExporter {
                                                 $col->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                                                 'fields=names' );
                     if ( $terms )
-                        $value = implode( '"' . $this->settings['category-separator']  . '"',  $terms );
+                        $value = implode( $this->settings['category-separator'],  $terms );
                     break;
                 case 'meta':
                 default:

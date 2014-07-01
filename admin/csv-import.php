@@ -503,6 +503,7 @@ class WPBDP_CSVImporter {
 
                 foreach ($categories as $category_name) {
                     $category_name = strip_tags(str_replace("\n", "-", $category_name));
+                    $category_name = str_replace( array( '"', "'" ), '', $category_name );
 
                     if (!$category_name)
                         continue;
