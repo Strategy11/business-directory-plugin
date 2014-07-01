@@ -384,7 +384,7 @@ class WPBDP_CSVExporter {
                     break;
                 case 'meta':
                 default:
-                    $value = $col->plain_value( $post->ID );
+                    $value = $col->csv_value( $post->ID );
 
                     break;
             }

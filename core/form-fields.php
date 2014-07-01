@@ -106,12 +106,26 @@ class WPBDP_FormFieldType {
         return $this->get_field_value( $field, $post_id );
     }
 
+    /**
+     * @since 3.4.1
+     */
+    public function get_field_csv_value( &$field, $post_id ) {
+        return $this->get_field_plain_value( $field, $post_id );
+    }
+
     public function is_empty_value( $value ) {
         return empty( $value );
     }
 
     public function convert_input( &$field, $input ) {
         return $input;
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function convert_csv_input( &$field, $input = '' ) {
+        return $this->convert_input( $field, $input );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
@@ -589,12 +603,27 @@ class WPBDP_FormField {
     }
 
     /**
+     * @since 3.4.1
+     */
+    public function csv_value( $post_id ) {
+        $value = $this->type->get_field_csv_value( $this, $post_id );
+        return apply_filters( 'wpbdp_form_field_csv_value', $value, $post_id, $this );
+    }
+
+    /**
      * Converts input from forms to a value useful for this field.
      * @param mixed $input form input.
      * @return mixed
      */
     public function convert_input( $input=null ) {
         return $this->type->convert_input( $this, $input );
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function convert_csv_input( $input = '' ) {
+        return $this->type->convert_csv_input( $this, $input );
     }
 
     public function store_value( $post_id, $value ) {

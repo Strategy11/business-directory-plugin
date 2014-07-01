@@ -536,7 +536,7 @@ class WPBDP_CSVImporter {
                 // $tags = $field->convert_input( $tags );
                 $listing_fields[$field->get_id()] = $tags;
             } else {
-                $listing_fields[$field->get_id()] = $field->convert_input( $data[$i] );
+                $listing_fields[$field->get_id()] = $field->convert_csv_input( $data[$i] );
             }
         }
 

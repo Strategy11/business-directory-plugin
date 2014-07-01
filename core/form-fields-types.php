@@ -214,6 +214,22 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         return $res;
     }
 
+    /**
+     * @since 3.4.1
+     */
+    public function convert_csv_input( &$field, $input = '' ) {
+        if ( 'meta' != $field->get_association() )
+            return $this->convert_input( $field, $input );
+
+        if ( ! $input )
+            return array();
+
+        if ( ! $this->is_multiple() )
+            return array( str_replace( ',', '', $input ) );
+
+        return explode( ',', $input );
+    }
+
     public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
         $value = is_array( $value ) ? $value : array( $value );
@@ -374,6 +390,17 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
         }
 
         return $value;
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function get_field_csv_value( &$field, $post_id ) {
+        if ( 'meta' != $field->get_association() )
+            return $this->get_field_plain_value( $field, $post_id );
+
+        $value = $field->value( $post_id );
+        return esc_attr( implode( ',', $value ) );
     }
 
 }
@@ -682,6 +709,29 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
         return strval( $value );
     }
 
+    /**
+     * @since 3.4.1
+     */
+    public function get_field_csv_value( &$field, $post_id ) {
+        if ( 'meta' != $field->get_association() )
+            return $this->get_field_plain_value( $field, $post_id );
+
+        $value = $field->value( $post_id );
+        return esc_attr( implode( ',', $value ) );
+    }
+
+    /**
+     * @since 3.4.1
+     */
+    public function convert_csv_input( &$field, $input = '' ) {
+        if ( 'meta' != $field->get_association() )
+            return $this->convert_input( $field, $input );
+
+        if ( ! $input )
+            return array();
+
+        return explode( ',', $input );
+    }
 }
 
 class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
