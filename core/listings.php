@@ -238,7 +238,7 @@ class WPBDP_ListingsAPI {
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
 
-        add_action( 'deleted_post', array( &$this, 'after_listing_delete' ) );
+        add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
 
         $this->upgrades = WPBDP_ListingUpgrades::instance();
     }
