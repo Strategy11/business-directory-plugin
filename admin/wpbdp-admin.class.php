@@ -125,15 +125,19 @@ class WPBDP_Admin {
                                   subscribe: "%d" } );';
 
         $content  = '';
-        $content .= '(Intro Text)' . '<br />';
+        $content .= _x( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course. Get a FREE premium module just for signing up.', 'drip pointer', 'WPBDM' ) . '<br /><br />';
+        $content .= '<label>';
+        $content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'WPBDM' ) . '</b>';
+        $content .= '<br />';
         $content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
+        $content .= '</label>';
 
         wpbdp_admin_pointer( '#wpadminbar',
-                             'Pointer - Title',
+                             _x( 'Want to know the Secrets of Building an Awesome Business Directory?', 'drip pointer', 'WPBDM' ),
                              $content,
-                             'Ok',
+                             _x( 'Yes, please!', 'drip pointer', 'WPBDM' ),
                              sprintf( $js, 1 ),
-                             'No, thanks',
+                             _x( 'No, thanks', 'drip pointer', 'WPBDM' ),
                              sprintf( $js, 0 ) );
     }
 
