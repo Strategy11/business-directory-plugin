@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 3.4.1dev
+ * Version: 3.4.1
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * License: GPLv2 or any later version
@@ -1072,7 +1072,7 @@ class WPBDP_Plugin {
     }
 
     // TODO: it'd be nice to move workarounds outside this class.
-    public function _meta_title( $title = '', $sep = '»', $seplocation = 'right' ) {
+    public function _meta_title( $title = '', $sep = '��', $seplocation = 'right' ) {
         $action = $this->controller->get_current_action();
 
         switch ($action) {

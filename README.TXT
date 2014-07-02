@@ -2,10 +2,10 @@
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory, city portal, city portal plugin, city guide plugin, city guide
-Requires at least: 3.5
-Tested up to: 3.8.1
-Last Updated: 2014-Feb-1
-Stable tag: tags/3.3
+Requires at least: 3.6
+Tested up to: 3.9.3
+Last Updated: 2014-July-2
+Stable tag: tags/3.4.1
 License: GPLv2 or later
 
 Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
@@ -21,19 +21,24 @@ Business Directory Plugin allows you to build local directories, business provid
 = Features =
 * Fully customizable form fields
 * Accept payment for listings OR have free listings
+* Full support for recurring payments
 * Allow for featured/sticky listings for an upgrade fee
 * Create multiple fee plans, which can be assigned to categories for posting
+* Built in CSV import and export
 * Support for reCAPTCHA to avoid spam listings
 * Users who post can edit listings without access to WP dashboard
-* SEO Friendly
-* Rate businesses in your directory (now with Microformat support) (Ratings Module)
-* Display the location of the business (categories, search, details--now with custom map sizes) (Google Maps Module)
-* Location based result filtering (Regions Module) (NEW!)
-* ZIP code radius searches (ZIP Search Module) (NEW!)
-* Assign features to paid or sticky listing plans to give users incentive to upgrade (Featured levels module) (NEW!)
-* Allow users to upload PDFs (File Upload Module) (NEW!)
-* Display Category Icons/Allow Parent-Child Category Navigation (Enhanced Category Module) (NEW!)
-* Manage attachments on listings (supports PDF, Text files, images)
+* SEO Friendly using Yoast SEO
+* Configurable quick-search field and sorting bar for listings
+* Rate businesses in your directory (now with Microformat support) (using the Ratings Module)
+* Display the location of the business (categories, search, details--now with custom map sizes) (using the Google Maps Module)
+* Location based result filtering (using the Regions Module)
+* ZIP code radius searches (using the ZIP Search Module)
+* Assign features to paid or sticky listing plans to give users incentive to upgrade (using the Featured levels module)
+* Allow users to upload PDFs (using the File Upload Module) (NEW!)
+* Display Category Icons/Allow Parent-Child Category Navigation (using the Enhanced Category Module)
+* Manage attachments on listings (using the Attachments module, supports PDF, Text files, images)
+* Accept payments using Stripe (using the Stripe Gateway Module) (NEW!)
+* Accept payments using PayFast (using the PayFast Gateway Module) (NEW!)
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -43,11 +48,15 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
+NEW! [PayFast Gateway Module](http://businessdirectoryplugin.com/premium-modules/payfast-module?ref=wp)
+
+NEW! [Stripe Gateway Module](http://businessdirectoryplugin.com/premium-modules/stripe-module?ref=wp)
+
 NEW! [File Upload Module](http://businessdirectoryplugin.com/premium-modules/file-upload-module?ref=wp)
 
-NEW! [Featured Levels Module](http://businessdirectoryplugin.com/premium-modules/featured-levels-module?ref=wp)
+[Featured Levels Module](http://businessdirectoryplugin.com/premium-modules/featured-levels-module?ref=wp)
 
-NEW! [ZIP Code Search Module](http://businessdirectoryplugin.com/premium-modules/zip-search-module?ref=wp)
+[ZIP Code Search Module](http://businessdirectoryplugin.com/premium-modules/zip-search-module?ref=wp)
 
 [Regions Module](http://businessdirectoryplugin.com/premium-modules/regions-module?ref=wp)
 
@@ -66,7 +75,7 @@ If you love the plugin, [please consider purchasing a Premium Module](http://bus
 
 
 == Credits ==
-Copyright 2009-14, D. Rodenbaugh 
+Copyright 2009-14, Dave Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -99,6 +108,91 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.4.1 =
+* Various upgrade routine fixes
+* Respect default post statuses after CSV import
+* Quick search fixes
+* Better handle JWT class conflicts
+* Fix typo to support old shortcodes
+* Prefix some CSS classes to avoid theme conflicts
+* Better support for MySQL’s STRICT mode
+* Fix shortcode detection
+* Various image upload fixes
+* Added shortcode for advanced search page [businessdirectory-search]
+
+= Version 3.4 =
+* New [businessdirectory-featuredlistings] shortcode. 
+* New Payments API that supports recurring payments. 
+* New listing submit/edit process. 
+* Add OpenTags metadata for better Facebook sharing support
+* New "sort bar" that allows users to sort listings on front end by various criteria configurable on back end. 
+* Add support for CC'ing notifications to an e-mail address other than the admin's. 
+* Do not allow change or category fees for frontend edits. 
+* Allow admins to override registration URL. 
+* Redirect users back to the page they were before registration. 
+* Fix PHP warnings during CSV exports. 
+* Workaround for static binding support in PHP < 5.3. 
+* Add rel="lightbox" to listing thumbnails. 
+* Add default arguments to _meta_title hook. 
+* Use get_temp_dir() to locate WP's temp directory. 
+* Alert admin when there is not a valid temp directory for CSV imports. 
+* Do not allow TIFF images to be uploaded. 
+* Check compatibility with WP 3.9. 
+* Streamline listing edit process. 
+* Correct typo affecting anonymous listing submits. 
+* Do not send notification emails when a listing is edited. 
+* Fix some CSV export file path problems. 
+* Add more robust error handling to the CSV export process. 
+* Prevent multiple listing submits. 
+* Fix compatibility with latest Yoast version. 
+* Load CSS and JS resources only on directory pages to improve site performance.
+* Minify CSS and JS resources to improve response times. 
+* Support both [businessdirectory-manage_listings] and [businessdirectory-managelistings]. 
+* Fix admin-side renewal of listings. 
+* Remove PHP session usage from BD. 
+* Fix anonymous users not being able to upload images in Image fields. 
+* Add new update/migration routine. 
+* Add a 'Settings' link on Plugins page. 
+* Contact messages template can now be changed via "Manage Options".
+* Fix support for tag fields of checkbox type. 
+* Improve listings shortcode display when multiple categories are used. 
+* Fix a bug where uninstall would not remove all tables and data. 
+* Add password recovery link to login template. 
+* Quick searches can now be performed in all fields. Other search improvements. 
+* Several admin-side UI improvements. 
+* Add a dedicated e-mail settings tab. 
+* Improve compatibility with PHP 5.2. 
+* Fix an error when saving multivalued form fields. 
+* Work around for Google Analytics plugin rewriting javascript-callback links. 
+* Consolidate all e-mail template settings in one place. 
+* Correctly apply default post status after listing submits. 
+* Form fields can now be sorted via drag and drop. 
+* Integrate all gateways with 3.4 submit process. 
+* Integrate all gateways with new Payments API. 
+* Improve "Manage Restrictions" screen usability. 
+* Integrate with the new 3.4 submit process. 
+* Make character restrictions ignore new lines. 
+* Fix truncation of text when character restrictions are in place. 
+* Allow module to restrict "reply to" listing functionality. 
+* Make sure themes or plugins don't override Google Maps JS sensor argument. 
+* Replace cURL function calls with wp_remote_get calls. 
+* Show admins a warning when listings have not been geocoded due to Google API limits. 
+* Play nice with other themes/plugins to avoid including the Google Maps JS API multiple times. 
+* Add support for subscriptions (recurring payments). 
+* Fix incorrect search query being generated when ratings field was not visible. 
+* Fix typo in Ratings that caused AJAX edits to fail. 
+* Add email notification for ratings pending approval. 
+* Allow users to choose where the rating field appears. 
+* Stripe gateway initial release. 
+* Add Mexico postal code database support. 
+* Updated US database. 
+* Fix typo in search algorithm. 
+* Fix cache expiration detection code. 
+* Integrate with 3.4 submit process. 
+* Index some MySQL columns for improved performance. 
+* Allow admins to configure how radius search works. 
+* Fix detection of incompatible gateways being enabled at the same time as PayFast. 
 
 = Version 3.3 =
 * Minor changes for WP 3.8 compatibility (admin CSS). 
