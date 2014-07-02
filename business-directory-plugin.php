@@ -1169,13 +1169,6 @@ class WPBDP_Plugin {
                 break;
 
             case 'main':
-                if ( $this->_do_wpseo ) {
-                    global $wpseo_front;
-
-                    $title = $wpseo_front->get_content_title( get_post( $listing_id ) );
-                    $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );                    
-                }
-                
                 break;
 
             default:
