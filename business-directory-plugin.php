@@ -30,7 +30,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) ) 
     exit();
 
-define( 'WPBDP_VERSION', '3.4.1dev' );
+define( 'WPBDP_VERSION', '3.4.1' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
