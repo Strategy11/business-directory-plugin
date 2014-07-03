@@ -141,8 +141,6 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
             );
         }
 
-        wpbdp_debug_e( $payload );
-
         $token = JWT::encode( $payload, wpbdp_get_option( 'googlewallet-seller-secret' ) );
 
         // HTML button.
