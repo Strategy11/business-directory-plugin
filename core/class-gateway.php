@@ -10,7 +10,6 @@ abstract class WPBDP_Payment_Gateway {
 
     public function get_url( &$payment, $action = '' ) {
         // TODO: support pretty URLs
-
         return add_query_arg( array( 'wpbdpx' => 'payments',
                                      'action' => $action,
                                      'payment_id' => $payment->get_id() ),
@@ -34,12 +33,14 @@ abstract class WPBDP_Payment_Gateway {
     }
 
     abstract public function get_integration_method();
-    
+
     public function get_capabilities() {
         return array();
     }
 
     public function render_unsubscribe_integration( &$category, &$listing) {}
+
+    public function setup_payment( &$payment ) {}
 
     abstract public function process( &$payment, $action );
     abstract public function render_integration( &$payment );

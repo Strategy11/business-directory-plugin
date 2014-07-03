@@ -23,6 +23,39 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
         return array( 'USD', 'EUR', 'CAD', 'GBP', 'AUD', 'HKD', 'JPY', 'DKK', 'NOK', 'SEK' );
     }
 
+    public function get_capabilities() {
+        return array( 'recurring' );
+    }
+
+    /**
+     * @since 3.4.2
+     */
+    public function setup_payment( &$payment ) {
+        if ( ! $payment->has_item_type( 'recurring_fee' ) )
+            return;
+
+        $items = $payment->get_items();
+
+        // XXX: Google Wallet is full of limitations:
+        // - It doesn't handle subscription frequencies different than 30 days, so we must make those kind of fees
+        //   non recurring.
+        // - It doesn't notify of renewals so we must assume all recurring fees are of indefinite length until we
+        //   receive a cancellation notification.
+        foreach ( $items as &$item ) {
+            if ( 'recurring_fee' != $item->item_type )
+                continue;
+
+            if ( $item->data['fee_days'] != 30 ) {
+                $item->item_type = 'fee';
+                continue;
+            }
+
+            $item->data['fee_days'] = 0;
+        }
+
+        $payment->update_items( $items );
+    }
+
     public function register_config( &$settings ) {
         $s = $settings->add_section( 'payment',
                                      'googlewallet',
@@ -36,7 +69,7 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
                                 'googlewallet-seller-id',
                                 __( 'Seller Identifier', 'google-wallet', 'WPBDM' ) );
         $settings->register_dep( 'googlewallet-seller-id', 'requires-true', 'googlewallet' );
-        
+
         $settings->add_setting( $s,
                                 'googlewallet-seller-secret',
                                 __( 'Seller Secret', 'google-wallet', 'WPBDM' ) );
@@ -53,26 +86,62 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
             $errors[] = _x( 'Seller ID is missing.', 'google-wallet', 'WPBDM' );
 
         if ( ! $seller_secret )
-            $errors[] = _x( 'Seller Secret is missing.', 'google-wallet', 'WPBDM' );            
+            $errors[] = _x( 'Seller Secret is missing.', 'google-wallet', 'WPBDM' );
 
         return $errors;
     }
 
     public function render_integration( &$payment ) {
         // See https://developers.google.com/commerce/wallet/digital/docs/jsreference#jwt.
+
         $payload = array();
         $payload['iss'] = wpbdp_get_option( 'googlewallet-seller-id' );
         $payload['aud'] = 'Google';
-        $payload['typ'] = 'google/payments/inapp/item/v1';
         $payload['exp'] = time() + 900; // Item expires in 15 mins.
         $payload['iat'] = time();
-        $payload['request'] = array(
-            'name' => $payment->get_short_description(),
-            'description' => $payment->get_description(),
-            'price' => round( $payment->get_total(), 0 ),
-            'currencyCode' => $payment->get_currency_code(),
-            'sellerData' => 'payment_id=' . $payment->get_id() . '&listing_id=' . $payment->get_listing_id()
-        );
+
+        if ( $payment->has_item_type( 'recurring_fee' ) ) {
+            $regular_items = array();
+            $recurring_item = null;
+
+            foreach ( $payment->get_items() as $item ) {
+                if ( $item->item_type == 'recurring_fee' ) {
+                    $recurring_item = $item;
+                    continue;
+                }
+
+                $regular_items[] = $item;
+            }
+
+            $payload['typ'] = 'google/payments/inapp/subscription/v1';
+            $payload['request'] = array();
+            $payload['request']['name'] = $regular_items ? _x( 'One time payment + recurring payment for renewal fees', 'google-wallet', 'WPBDM' ) : $recurring_item->description;
+            $payload['request']['sellerData'] = 'payment_id=' . $payment->get_id() . '&listing_id=' . $payment->get_listing_id();
+            $payload['request']['recurrence'] = array(
+                    'price' => number_format( $recurring_item->amount, 2, '.', '' ),
+                    'currencyCode' => $payment->get_currency_code(),
+                    'frequency' => 'monthly'
+            );
+
+            if ( $regular_items ) {
+                $payload['request']['initialPayment'] = array(
+                    'price' => number_format( $regular_items[0]->amount, 2, '.', '' ),
+                    'currencyCode' => $payment->get_currency_code(),
+                    'paymentType' => 'free_trial'
+                );
+            }
+        } else {
+            $payload['typ'] = 'google/payments/inapp/item/v1';
+            $payload['request'] = array(
+                'name' => $payment->get_short_description(),
+                'description' => $payment->get_description(),
+                'price' => round( $payment->get_total(), 0 ),
+                'currencyCode' => $payment->get_currency_code(),
+                'sellerData' => 'payment_id=' . $payment->get_id() . '&listing_id=' . $payment->get_listing_id()
+            );
+        }
+
+        wpbdp_debug_e( $payload );
 
         $token = JWT::encode( $payload, wpbdp_get_option( 'googlewallet-seller-secret' ) );
 
@@ -144,7 +213,7 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
                 break;
 
             case 'postback':
-                // TODO: implement postback URL support.            
+                // TODO: implement postback URL support.
                 break;
 
             default:

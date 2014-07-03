@@ -216,7 +216,10 @@ class WPBDP_PaymentsAPI {
         $this->gateways = array();
 
         do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
-        add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );        
+        add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
+
+        add_action( 'WPBDP_Payment::set_payment_method', array( &$this, 'gateway_payment_setup' ), 10, 2 );
+//        add_action( 'WPBDP_Payment::before_save', array( &$this, 'gateway_payment_save' ) );
     }
 
     public function register_gateway($id, $classorinstance ) {
@@ -313,6 +316,11 @@ class WPBDP_PaymentsAPI {
 
             if ( wpbdp_get_option( 'listing-renewal-auto' ) && ! $this->check_capability( 'recurring' ) ) {
                 $errors[] = __( 'You have recurring renewal of listing fees enabled but the payment gateways installed don\'t support recurring payments. Until a gateway that supports recurring payments (such as PayPal) is enabled automatic renewals will be disabled.', 'WPBDM' );
+            }
+
+            if ( wpbdp_get_option( 'listing-renewal-auto' ) && $this->has_gateway( 'googlewallet' )
+                 && isset( $_GET['page'] ) && 'wpbdp_admin_fees' == $_GET['page'] ) {
+                $errors[] = __( 'Due to Google Wallet limitations only monthly (30 days) recurring fees are supported by the gateway. All other fees will be charged as non-recurring.', 'WPBDM' );
             }
         }
 
@@ -571,7 +579,18 @@ class WPBDP_PaymentsAPI {
             $html .= '<p>' . $opts['return_link'] . '</p>';
 
         return $html;
-    }    
+    }
+
+    /**
+     * @since 3.4.2
+     */
+    public function gateway_payment_setup( &$payment, $method_id = '' ) {
+        if ( ! $method_id || ! isset( $this->gateways[ $method_id ] ) )
+            return;
+
+        $gateway = $this->gateways[ $method_id ];
+        $gateway->setup_payment( $payment );
+    }
 
 }
 

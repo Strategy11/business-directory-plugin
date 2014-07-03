@@ -7,7 +7,7 @@ require_once( WPBDP_PATH . 'core/class-db-model.php' );
  * @since 3.3
  */
 class WPBDP_Payment extends WPBDP_DB_Model {
-    
+
     const STATUS_UNKNOWN = 'unknown';
     const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
@@ -62,6 +62,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function save() {
         global $wpdb;
 
+//        do_action_ref_array( 'WPBDP_Payment::before_save', array( &$this ) );
+
         $row = array(
             'listing_id' => $this->listing_id,
             'gateway' => $this->gateway,
@@ -75,13 +77,13 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'extra_data' => serialize( is_array( $this->extra_data ) ? $this->extra_data : array() ),
             'notes' => serialize( is_array( $this->notes ) ? $this->notes : array() )
         );
-        
+
         if ( $this->id )
             $row['id'] = $this->id;
-        
+
         if ( false === $wpdb->replace( $wpdb->prefix . 'wpbdp_payments', $row ) )
             return false;
-        
+
         $this->id = $this->id ? $this->id : $wpdb->insert_id;
 
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = %d", $this->id ) );
@@ -97,7 +99,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                                   'data' => serialize( $item['data'] ) )
                          );
         }
-        
+
         do_action_ref_array( 'WPBDP_Payment::save', array( &$this ) );
 
         if ( $this->status != self::STATUS_COMPLETED && $this->amount == 0.0 ) {
@@ -107,10 +109,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
         return true;
     }
-    
+
     public function delete() {
     }
-    
+
     public function is_payment_due() {
         return $this->amount > 0.0 && $this->status != self::STATUS_COMPLETED;
     }
@@ -186,7 +188,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $items = $this->get_items( array( 'item_type' => 'recurring_fee' ) );
         return $items ? $items[0] : null;
     }
-    
+
     public function add_item( $item_type = 'charge', $amount = 0.0, $description = '', $data = array(), $rel_id_1 = 0, $rel_id_2 = 0 ) {
         $item = array();
         $item['item_type'] = $item_type;
@@ -196,9 +198,20 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
         $item['rel_id_1'] = $rel_id_1;
         $item['rel_id_2'] = $rel_id_2;
-        
+
         $this->items[] = $item;
         $this->amount += $amount;
+    }
+
+    public function update_items( $items = array() ) {
+        $this->amount = 0.0;
+        $this->items = array();
+
+        foreach ( $items as $item ) {
+            $item = (array) $item;
+            $this->items[] = $item;
+            $this->amount += $item['amount'];
+        }
     }
 
     public function delete_item( &$item ) {
@@ -244,7 +257,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function get_listing_id() {
         return $this->listing_id;
     }
-    
+
     public function get_total() {
         return $this->amount;
     }
@@ -266,7 +279,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     public function get_gateway() {
         return $this->gateway;
     }
-    
+
     public function set_listing( $listing ) {
         if ( is_object( $listing ) )
             $this->listing_id = $listing->ID;
