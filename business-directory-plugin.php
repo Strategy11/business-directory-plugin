@@ -313,6 +313,7 @@ class WPBDP_Plugin {
 
     public function _wp_loaded() {
         if ($rules = get_option( 'rewrite_rules' )) {
+//            wpbdp_debug_e( $this->get_rewrite_rules() );
             foreach ($this->get_rewrite_rules() as $k => $v) {
                 if (!isset($rules[$k]) || $rules[$k] != $v) {
                     global $wp_rewrite;
@@ -955,7 +956,7 @@ class WPBDP_Plugin {
         wp_enqueue_script( 'wpbdp-js' );
 
         if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
-            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet' . ( $this->is_debug_on() ? '.min' : '' ) .  '.js', array( 'wpbdp-js' ) );
+            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet' . ( ! $this->is_debug_on() ? '.min' : '' ) .  '.js', array( 'wpbdp-js' ) );
         }
     }
 
