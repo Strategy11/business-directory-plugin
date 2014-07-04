@@ -8,6 +8,18 @@ abstract class WPBDP_Payment_Gateway {
     public function __construct() {
     }
 
+    public function get_id() {
+        return '';
+    }
+
+    public function get_gateway_url( $args = array() ) {
+        return add_query_arg( array_merge( array( 'wpbdpx' => 'payments',
+                                                  'action' => 'postback',
+                                                  'gid' => $this->get_id() ),
+                                           $args ),
+                              home_url( 'index.php' ) );
+    }
+
     public function get_url( &$payment, $action = '' ) {
         // TODO: support pretty URLs
         return add_query_arg( array( 'wpbdpx' => 'payments',
@@ -41,6 +53,10 @@ abstract class WPBDP_Payment_Gateway {
     public function render_unsubscribe_integration( &$category, &$listing) {}
 
     public function setup_payment( &$payment ) {}
+
+    public function process_generic( $action = '' ) {
+        return;
+    }
 
     abstract public function process( &$payment, $action );
     abstract public function render_integration( &$payment );

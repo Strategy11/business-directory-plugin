@@ -458,19 +458,28 @@ class WPBDP_PaymentsAPI {
     public function process_request() {
         $action = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
         $payment = isset( $_GET['payment_id'] ) ? WPBDP_Payment::get( intval( $_GET['payment_id'] ) ) : null;
+        $gid = isset( $_GET['gid'] ) ? trim( $_GET['gid'] ) : '';
 
-        if ( ! in_array( $action, array( 'process', 'notify', 'return', 'cancel' ) ) || ! $payment )
+        if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel' ) ) || ( ! $payment && ! $gid ) )
             return;
 
         unset( $_GET['action'] );
-        unset( $_GET['payment_id'] );
 
-        $gateway_id = $payment->get_gateway();
+        if ( $payment )
+            unset( $_GET['payment_id'] );
+
+        if ( $gid )
+            unset( $_GET['gid'] );
+
+        $gateway_id = $payment ? $payment->get_gateway() : $gid;
 
         if ( ! $gateway_id || ! isset( $this->gateways[ $gateway_id ] )  )
             return;
 
-        $this->gateways[ $gateway_id ]->process( $payment, $action );
+        if ( ! $payment )
+            $this->gateways[ $gateway_id ]->process_generic( $action );
+        else
+            $this->gateways[ $gateway_id ]->process( $payment, $action );
     }
 
     public function render_unsubscribe_integration( &$category, &$listing ) {

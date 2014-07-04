@@ -10,6 +10,9 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
     const LIVE_JS = 'https://wallet.google.com/inapp/lib/buy.js';
     const SANDBOX_JS = 'https://sandbox.google.com/checkout/inapp/lib/buy.js';
 
+    public function get_id() {
+        return 'googlewallet';
+    }
 
     public function get_name() {
         return __( 'Google Wallet', 'google-wallet', 'WPBDM' );
@@ -57,9 +60,26 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
     }
 
     public function register_config( &$settings ) {
+        global $wpbdp;
+
+        $desc  = '';
+
+        if ( wpbdp_get_option( 'listing-renewal-auto' ) ) {
+            $msg = _x( 'For recurring payments to work you need to <a>specify a postback URL</a> in your Google Wallet settings. Please use "%s" as value.',
+                       'google-wallet',
+                       'WPBDM' );
+            $url = $wpbdp->payments->gateways['googlewallet']->get_gateway_url();
+            $desc .= str_replace( array( '<a>',
+                                         '%s' ),
+                                  array( '<a href="https://developers.google.com/wallet/digital/docs/postback" target="_blank">',
+                                         $url ),
+                                  $msg );
+        }
+
         $s = $settings->add_section( 'payment',
                                      'googlewallet',
-                                     $this->get_name() );
+                                     $this->get_name(),
+                                     $desc );
         $settings->add_setting( $s,
                                 'googlewallet',
                                 __( 'Activate Google Wallet?', 'google-wallet', 'WPBDM' ),
@@ -161,6 +181,36 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
         $html .= '</form>';
 
         return $html;
+    }
+
+    /**
+     * @since 3.4.2
+     */
+    public function process_generic( $action = '' ) {
+        if ( 'postback' != $action )
+            return;
+
+        $jwt = JWT::decode( wpbdp_getv( $_REQUEST, 'jwt', '' ), wpbdp_get_option( 'googlewallet-seller-secret' ) );
+
+        if ( ! is_object( $jwt ) || ! isset( $jwt->request) || ! isset( $jwt->request->sellerData ) || ! isset( $jwt->response ) )
+            die();
+
+        parse_str( $jwt->request->sellerData, $data );
+
+        if ( ! isset( $data['payment_id'] ) )
+            die();
+
+        $payment_id = intval( $data['payment_id'] );
+        $payment = WPBDP_Payment::get( $payment_id );
+
+        if ( 'googlewallet' != $payment->get_gateway() )
+            die();
+
+        if ( 'SUBSCRIPTION_CANCELED' == $jwt->response->statusCode ) {
+            $payment->cancel_recurring();
+        }
+
+        die();
     }
 
     public function process( &$payment, $action ) {
