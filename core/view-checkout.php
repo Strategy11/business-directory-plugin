@@ -35,7 +35,9 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         $step = 'gateway_selection';
 
-        if ( ! $this->payment->is_pending() ) {
+        if ( $this->payment->is_rejected() )
+            $step = 'rejected';
+        elseif ( ! $this->payment->is_pending() ) {
             $step = 'done';
         } else {
             if ( $this->payment->get_data( 'returned' ) )
@@ -116,6 +118,14 @@ class WPBDP_Checkout_Page extends WPBDP_View {
                               wpbdp_get_page_link( 'main' ),
                               _x( '← Return to Directory.', 'checkout', 'WPBDM' ) );
         $html .= '</p>';
+
+        return $html;
+    }
+
+    private function rejected() {
+        $html  = '';
+        $html .= wpbdp_render_msg( implode( '<br />', $this->payment->get_data('errors') ), 'error' );
+        $html .= $this->api->render_details( $this->payment );
 
         return $html;
     }
