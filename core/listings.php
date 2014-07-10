@@ -734,7 +734,7 @@ class WPBDP_ListingsAPI {
                                                          $pattern );
                             } else { // single-valued field
                                 $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
-                                $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value LIKE '%%%s%%')",
+                                $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value = %s)",
                                                          '_wpbdp[fields][' . $field->get_id() . ']',
                                                          $q);
                             }
