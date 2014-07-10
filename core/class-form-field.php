@@ -524,10 +524,17 @@ class WPBDP_Form_Field {
                 break;
             case 'category':
             case 'tags':
+            case 'region':
+                $tax = WPBDP_CATEGORY_TAX;
+                if ( 'tags' == $association )
+                    $tax = WPBDP_TAGS_TAX;
+                elseif ( 'region' == $association && function_exists( 'wpbdp_regions_taxonomy' ) )
+                    $tax = wpbdp_regions_taxonomy();
+
                 $pieces['fields'] .= "";
                 $pieces['join'] .= " LEFT JOIN {$wpdb->term_relationships} AS trel{$id} ON {$wpdb->posts}.ID = trel{$id}.object_id LEFT JOIN {$wpdb->term_taxonomy} AS ttax{$id} ON trel{$id}.term_taxonomy_id = ttax{$id}.term_taxonomy_id LEFT JOIN {$wpdb->terms} AS tterms{$id} ON ttax{$id}.term_id = tterms{$id}.term_id";
                 $pieces['where'] .= $wpdb->prepare( " OR (ttax{$id}.taxonomy = %s AND (tterms{$id}.slug LIKE '%%%s%%' OR tterms{$id}.name LIKE '%%%s%%'))",
-                                                    'tags' == $association ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX, $q, $q );
+                                                    $tax, $q, $q );
                 break;
             case 'meta':
                 $pieces['fields'] .= '';
