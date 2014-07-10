@@ -44,9 +44,6 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
         if ( ! $this->message )
             $this->errors[] = _x( 'You did not enter a message.', 'contact-message', 'WPBDM' );
 
-        if ( $this->errors )
-            return false;
-
         if ( wpbdp_get_option( 'recaptcha-on' ) ) {
             if ( $private_key = wpbdp_get_option( 'recaptcha-private-key' ) ) {
                 if ( ! function_exists( 'recaptcha_get_html' ) )
@@ -59,7 +56,7 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
             }
         }
 
-        return true;
+        return empty( $this->errors );
     }
 
     public function dispatch() {
