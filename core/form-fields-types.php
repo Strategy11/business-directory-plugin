@@ -3,10 +3,10 @@
  * Standard form field types.
  */
 
-require_once( WPBDP_PATH . '/core/form-fields.php' );
+require_once( WPBDP_PATH . '/core/class-form-field-type.php' );
 
 
-class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Textfield', 'form-fields api', 'WPBDM') );
@@ -61,7 +61,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_FormFieldType {
 
 }
 
-class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
     
     public function __construct() {
         parent::__construct( _x( 'URL Field', 'form-fields api', 'WPBDM' ) );        
@@ -183,7 +183,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_FormFieldType {
 
 }
 
-class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
     private $multiselect = false;
 
@@ -405,7 +405,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_FormFieldType {
 
 }
 
-class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Textarea', 'form-fields api', 'WPBDM') );
@@ -469,7 +469,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_FormFieldType {
 
 }
 
-class WPBDP_FieldTypes_RadioButton extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Radio button', 'form-fields api', 'WPBDM') );
@@ -585,7 +585,7 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 
 }
 
-class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Checkbox', 'form-fields api', 'WPBDM') );
@@ -734,7 +734,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_FormFieldType {
     }
 }
 
-class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Social Site (Twitter handle)', 'form-fields api', 'WPBDM') );
@@ -783,7 +783,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_FormFieldType {
 
 }
 
-class WPBDP_FieldTypes_Facebook extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Social Site (Facebook page)', 'form-fields api', 'WPBDM') );
@@ -831,7 +831,7 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_FormFieldType {
 
 }
 
-class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Social Site (LinkedIn profile)', 'form-fields api', 'WPBDM') );
@@ -876,7 +876,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_FormFieldType {
 }
 
 
-class WPBDP_FieldTypes_Image extends WPBDP_FormFieldType {
+class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x( 'Image (file upload)', 'form-fields api', 'WPBDM' ) );

@@ -44,7 +44,7 @@ require_once( WPBDP_PATH . 'core/api.php' );
 require_once( WPBDP_PATH . 'core/compatibility/deprecated.php' );
 require_once( WPBDP_PATH . 'core/utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
-require_once( WPBDP_PATH . 'admin/wpbdp-admin.class.php' );
+require_once( WPBDP_PATH . 'admin/class-admin.php' );
 require_once( WPBDP_PATH . 'core/wpbdp-settings.class.php' );
 require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
@@ -680,6 +680,13 @@ class WPBDP_Plugin {
     }
 
     public function debug_on() {
+        global $wpdb;
+
+        // Set MySQL strict mode.
+        $wpdb->show_errors();
+        $wpdb->query( "SET @@sql_mode = 'TRADITIONAL'" );
+
+        // Enable BD debugging.
         WPBDP_Debugging::debug_on();
     }
 
