@@ -1263,6 +1263,9 @@ class WPBDP_Plugin {
         $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
         $listing = WPBDP_Listing::get( $listing_id );
 
+        if ( ! $listing )
+            return;
+
         echo '<meta property="og:type" content="website" />';
         echo '<meta property="og:title" content="' . esc_attr( $listing->get_title() ) . '" />';
         echo '<meta property="og:url" content="' . esc_url( $listing->get_permalink() ) . '" />';
