@@ -713,7 +713,8 @@ class WPBDP_Admin {
             if ( $s->type == 'core' || in_array( $s->name, $blacklisted ) )
                 continue;
 
-            $debug_info['options'][ $s->name ] = wpbdp_get_option( $s->name );
+            $value = wpbdp_get_option( $s->name );
+            $debug_info['options'][ $s->name ] = is_array( $value ) ? implode( ',', $value ) : $value;
         }
         $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
 
