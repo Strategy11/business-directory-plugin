@@ -1269,7 +1269,7 @@ class WPBDP_Plugin {
         echo '<meta property="og:type" content="website" />';
         echo '<meta property="og:title" content="' . esc_attr( $listing->get_title() ) . '" />';
         echo '<meta property="og:url" content="' . esc_url( $listing->get_permalink() ) . '" />';
-        echo '<meta property="og:description" content="" />';
+        echo '<meta property="og:description" content="' . esc_attr( $listing->get_field_value( 'excerpt' ) ) . '" />';
 
         if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
