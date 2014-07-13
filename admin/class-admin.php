@@ -9,6 +9,7 @@ require_once( WPBDP_PATH . 'admin/csv-import.php' );
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
 require_once( WPBDP_PATH . 'admin/class-listing-fields-metabox.php' );
+require_once( WPBDP_PATH . 'admin/page-debug.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -17,7 +18,6 @@ class WPBDP_Admin {
     public $messages = array();
 
     function __construct() {
-        add_action('admin_init', array($this, '_handle_downloads'));
         add_action('admin_init', array($this, 'handle_actions'));
         add_action('admin_init', array($this, 'register_settings'));
 
@@ -44,7 +44,7 @@ class WPBDP_Admin {
 
         add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
         add_action( 'wp_ajax_wpbdp-listing_remove_category', array( &$this, 'ajax_listing_remove_category' ) );
-        add_action( 'wp_ajax_wpbdp-listing_change_fee', array( &$this, 'ajax_listing_change_fee' ) );        
+        add_action( 'wp_ajax_wpbdp-listing_change_fee', array( &$this, 'ajax_listing_change_fee' ) );
 
         add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
 
@@ -55,6 +55,7 @@ class WPBDP_Admin {
         $this->listings = new WPBDP_Admin_Listings();
         $this->csv_export = new WPBDP_Admin_CSVExport();
         $this->payments = new WPBDP_Admin_Payments();
+        $this->debug_page = new WPBDP_Admin_Debug_Page();
     }
 
     function enqueue_scripts() {
@@ -173,9 +174,9 @@ class WPBDP_Admin {
 
             if ( function_exists( 'curl_init' ) ) {
                 $ch = curl_init();
-                curl_setopt( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ); 
-                curl_setopt( $ch, CURLOPT_USERPWD, $this->get_drip_api_info( 'api_key' ) . ':' ); 
-                curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)" ); 
+                curl_setopt( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
+                curl_setopt( $ch, CURLOPT_USERPWD, $this->get_drip_api_info( 'api_key' ) . ':' );
+                curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)" );
                 curl_setopt( $ch, CURLOPT_HEADER, false );
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
@@ -226,7 +227,7 @@ class WPBDP_Admin {
                          _x('All Listings', 'admin menu', 'WPBDM'),
                          'administrator',
                          'wpbdp_all_listings',
-                         '__return_false');        
+                         '__return_false');
         add_submenu_page('wpbdp_admin',
                          _x('Pending Upgrade', 'admin menu', 'WPBDM'),
                          _x('Pending Upgrade', 'admin menu', 'WPBDM'),
@@ -266,10 +267,10 @@ class WPBDP_Admin {
                           _x( 'Debug', 'admin menu', 'WPBDM' ),
                           'administrator',
                           'wpbdp-debug-info',
-                          array( $this, '_debug_info_page' ) );        
+                          array( &$this->debug_page, 'dispatch' ) );
 
         global $submenu;
-        
+
         if (current_user_can('administrator')) {
             $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', WPBDP_POST_TYPE));
             $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
@@ -289,7 +290,7 @@ class WPBDP_Admin {
                          _x('Uninstall', 'admin menu', 'WPBDM'),
                          'administrator',
                          'wpbdp_uninstall',
-                         array($this, 'uninstall_plugin'));        
+                         array($this, 'uninstall_plugin'));
     }
 
     function admin_menu_reorder( $menu_order ) {
@@ -340,7 +341,7 @@ class WPBDP_Admin {
 
         $response->send();
     }
-    
+
     /*
      * AJAX listing actions.
      */
@@ -361,7 +362,7 @@ class WPBDP_Admin {
         $response->add( 'formattedExpirationDate', date_i18n( get_option( 'date_format' ), strtotime( $expiration_time ) ) );
         $response->send();
     }
-    
+
     public function ajax_listing_remove_category() {
         $response = new WPBDP_Ajax_Response();
 
@@ -369,30 +370,30 @@ class WPBDP_Admin {
         $category = intval( isset( $_POST['category'] ) ? $_POST['category'] : 0 );
         if ( ! $listing || ! $category )
             $response->send_error();
-        
+
         $listing->remove_category( $category );
-        $response->send(); 
+        $response->send();
     }
 
     public function ajax_listing_change_fee() {
         global $wpdb;
-        
+
         $response = new WPBDP_Ajax_Response();
-        
+
         if ( ! current_user_can( 'administrator' ) )
-            $response->send_error();        
-        
+            $response->send_error();
+
         $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d",  isset( $_POST['renewal'] ) ? $_POST['renewal'] : 0 ) );
-        
+
         if ( ! $fee_info )
             $response->send_error();
-        
+
         $listing = WPBDP_Listing::get( $fee_info->listing_id );
         $category = $listing->get_category_info( $fee_info->category_id );
-        
+
         if ( ! $listing || ! $category || 'pending' == $category->status )
             $response->send_error();
-        
+
         $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-change-fee.tpl.php',
                                                    array( 'category' => $category,
                                                           'listing' => $listing,
@@ -453,7 +454,7 @@ class WPBDP_Admin {
                                         'admin',
                                         'WPBDM');
                 break;
-            
+
             case 'changesticky':
                 foreach ( $posts as $post_id ):
                     $upgrades_api->set_sticky( $post_id, wpbdp_getv($_GET, 'u') );
@@ -463,7 +464,7 @@ class WPBDP_Admin {
                                         'The listings have been modified.',
                                         count($posts),
                                         'admin',
-                                        'WPBDM');             
+                                        'WPBDM');
 
                 break;
 
@@ -471,7 +472,7 @@ class WPBDP_Admin {
                 foreach ( $posts as $post_id ):
                     $upgrades_api->set_sticky( $post_id, 'sticky', true );
                 endforeach;
-            
+
                 $this->messages[] = _nx('The listing has been upgraded.',
                                         'The listings have been upgraded.',
                                         count($posts),
@@ -483,7 +484,7 @@ class WPBDP_Admin {
                 foreach ($posts as $post_id ):
                     $upgrades_api->set_sticky( $post_id, 'normal' );
                 endforeach;
-                
+
                 $this->messages[] = _nx('The listing has been downgraded.',
                                         'The listings have been downgraded.',
                                         count($posts),
@@ -527,7 +528,7 @@ class WPBDP_Admin {
 
                 if ( $listings_api->send_renewal_email( $renewal_id ) )
                     $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
-                
+
                 break;
 
             default:
@@ -568,13 +569,13 @@ class WPBDP_Admin {
     public function tag_taxonomy_columns( $cols ) {
         $newcols = array_merge( array_slice( $cols, 0, -1 ),
                                 array( 'posts' => _x('Listing Count', 'admin', 'WPBDM') ) );
-        return $newcols;        
+        return $newcols;
     }
-    
+
     public function custom_taxonomy_columns( $value, $column_name, $id ) {
         if ( $column_name == 'id' )
             return $id;
-        
+
         return $value;
     }
 
@@ -596,8 +597,8 @@ class WPBDP_Admin {
             $_REQUEST['groupid'] = 'general';
             unset($_REQUEST['resetdefaults']);
         }
-        
-        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );        
+
+        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
 
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
@@ -644,125 +645,6 @@ class WPBDP_Admin {
         } else {
             echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-confirm.tpl.php');
         }
-    }
-
-    /* Debug info page. */
-    public function _handle_downloads() {
-        global $pagenow;
-
-        if ( !current_user_can( 'administrator' ) || $pagenow != 'admin.php' || !isset( $_GET['page'] ) )
-            return;
-
-        switch ( $_GET['page'] ) {
-            case 'wpbdp-debug-info':
-                if ( isset( $_GET['download'] ) && $_GET['download'] == 1 ) {
-                    header( 'Content-Description: File Transfer' );
-                    header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
-                    header( 'Content-Disposition: attachment; filename=' . 'wpbdp-debug-info.txt' );
-                    header( 'Pragma: no-cache' );
-                    $this->_debug_info_page( true );
-                    exit;
-                }
-
-                break;
-
-            // case 'wpbdp-csv-export':
-            //     if ( isset( $_POST['action'] ) && $_POST['action'] == 'do-export' ) {
-            //         WPBDP_Admin_CSVExport::download();
-            //     }
-            // 
-            //     break;
-
-            default:
-                break;
-        }
-
-    }
-
-    public function _debug_info_page( $plain=false ) {
-        global $wpdb;
-
-        $debug_info = array();
-
-        // basic BD setup info & tests
-        $debug_info['basic']['_title'] = _x( 'BD Info', 'debug-info', 'WPBDM' );
-        $debug_info['basic']['BD version'] = WPBDP_VERSION;
-        $debug_info['basic']['BD database revision (current)'] = WPBDP_Installer::DB_VERSION;
-        $debug_info['basic']['BD database revision (installed)'] = get_option( 'wpbdp-db-version' );
-
-        $tables = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_fees', 'wpbdp_payments', 'wpbdp_listing_fees' ) );
-        $missing_tables = array();
-        foreach ( $tables as &$t ) {
-            if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . $t) ) == '' )
-                $missing_tables[] = $t;
-        }
-        $debug_info['basic']['Table check'] = $missing_tables
-                                              ? sprintf( _( 'Missing tables: %s', 'debug-info', 'WPBDM' ), implode(',', $missing_tables) )
-                                              : _x( 'OK', 'debug-info', 'WPBDM' );
-
-        $debug_info['basic']['Main Page'] = sprintf( '%d (%s)', wpbdp_get_page_id( 'main' ), get_post_status( wpbdp_get_page_id( 'main' ) ) );
-        $debug_info['basic'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['basic'], 'basic' );        
-
-
-        // BD options
-        $blacklisted = array( 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
-        $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'WPBDM' );
-
-        $settings_api = wpbdp_settings_api();
-        foreach ( $settings_api->settings as &$s  ) {
-            if ( $s->type == 'core' || in_array( $s->name, $blacklisted ) )
-                continue;
-
-            $value = wpbdp_get_option( $s->name );
-            $debug_info['options'][ $s->name ] = is_array( $value ) ? implode( ',', $value ) : $value;
-        }
-        $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
-
-        // environment info
-        $debug_info['environment']['_title'] = _x( 'Environment', 'debug-info', 'WPBDM' );
-        $debug_info['environment']['WordPress version'] = get_bloginfo( 'version', 'raw' );
-        $debug_info['environment']['OS'] = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
-        
-        if ( function_exists( 'apache_get_version' ) ) {
-            $apache_version = apache_get_version();
-            $debug_info['environment']['Apache version'] = $apache_version;
-        }
-
-        $debug_info['environment']['PHP version'] = phpversion();
-
-        $mysql_version = $wpdb->get_var( 'SELECT @@version' );
-        if ( $sql_mode = $wpdb->get_var( 'SELECT @@sql_mode' ) )
-            $mysql_version .= ' ( ' . $sql_mode . ' )';
-        $debug_info['environment']['MySQL version'] = $mysql_version ? $mysql_version : 'N/A';
-
-        $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): ( function_exists( 'sqlite_libversion' ) ? sqlite_libversion() : null );
-        $debug_info['environment']['SQLite version'] = $sqlite_version ? $sqlite_version : 'N/A';
-
-        $debug_info['environment']['cURL version'] = function_exists( 'curl_init' ) ? wpbdp_getv( curl_version(), 'version' ) : 'N/A';
-
-        $debug_info['environment'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['environment'], 'environment' );
-
-        $debug_info = apply_filters( 'wpbdp_debug_info', $debug_info );
-
-        if ( $plain ) {
-            foreach ( $debug_info as &$section ) {
-                foreach ( $section as $k => $v ) {
-                    if ( $k == '_title' ) {
-                        printf( '== %s ==', $v );
-                        print PHP_EOL;
-                        continue;
-                    }
-
-                    printf( "%-33s = %s", $k, $v );
-                    print PHP_EOL;
-                }
-
-                print str_repeat( PHP_EOL, 2 );
-            }
-            return;
-        }
-
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/debug-info.tpl.php', array( 'debug_info' => $debug_info ) );
     }
 
     /* Required fields check. */
