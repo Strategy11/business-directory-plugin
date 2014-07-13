@@ -20,7 +20,7 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, '_handle_downloads'));
         add_action('admin_init', array($this, 'handle_actions'));
         add_action('admin_init', array($this, 'register_settings'));
-        add_action('admin_init', array($this, 'add_metaboxes'));
+
         add_action('admin_init', array($this, 'check_for_required_fields'));
         add_action('admin_init', array($this, 'check_for_required_pages'));
         add_action('admin_init', array($this, 'check_payments_possible'));
@@ -34,13 +34,9 @@ class WPBDP_Admin {
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
 
-        add_filter('post_row_actions', array($this, '_row_actions'), 10, 2);
-
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
         add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
         add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
-
-        add_action('save_post', array($this, '_save_post'));
 
         add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
 
@@ -55,8 +51,6 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );
         add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
 
-        add_action('admin_footer', array($this, '_add_bulk_actions'));
-        add_action('admin_footer', array($this, '_fix_new_links'));
 
         $this->listings = new WPBDP_Admin_Listings();
         $this->csv_export = new WPBDP_Admin_CSVExport();
@@ -323,60 +317,9 @@ class WPBDP_Admin {
         return $res;
     }
 
-    function add_metaboxes() {
-        add_meta_box( 'BusinessDirectory_listinginfo',
-                      __( 'Listing Information', 'WPBDM' ),
-                      array( 'WPBDP_Admin_Listing_Metabox', 'metabox_callback' ),
-                      WPBDP_POST_TYPE,
-                      'side',
-                      'core' );
-
-        add_meta_box( 'wpbdp-listing-fields',
-                      _x( 'Listing Fields / Images', 'admin', 'WPBDM' ),
-                      array( 'WPBDP_Admin_Listing_Fields_Metabox', 'metabox_callback' ),
-                      WPBDP_POST_TYPE,
-                      'normal',
-                      'core' );
-    }
-
     public function _checklist_args($args) {
         $args['checked_ontop'] = false;
         return $args;
-    }
-
-    public function _save_post($post_id) {
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-            return;
-
-        // Handle listings saved admin-side.
-        if ( is_admin() && isset( $_POST['post_type'] ) && $_POST['post_type'] == WPBDP_POST_TYPE ) {
-            $listing = WPBDP_Listing::get( $post_id );
-
-            if ( ! $listing )
-                return;
-
-            $listing->fix_categories();
-
-            // Save custom fields.
-            //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) ) {
-            if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) ) {
-                $formfields_api = wpbdp_formfields_api();
-                $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
-
-                foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-                    if ( isset( $listingfields[ $field->get_id() ] ) ) {
-                        $value = $field->convert_input( $listingfields[ $field->get_id() ] );
-                        $field->store_value( $listing->get_id(), $value );
-                    } else {
-                        $field->store_value( $listing->get_id(), $field->convert_input( null ) );
-                    }                    
-                }
-
-                if ( isset( $_POST['thumbnail_id'] ) )
-                    $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
-            }
-
-        }
     }
 
     public function ajax_formfields_reorder() {
@@ -470,51 +413,6 @@ class WPBDP_Admin {
         }
 
         $this->messages = array();
-    }
-
-    public function _add_bulk_actions() {
-        if (!current_user_can('administrator'))
-            return;
-        
-        if ($screen = get_current_screen()) {
-            if ($screen->id == 'edit-' . WPBDP_POST_TYPE) {
-                if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
-                    $bulk_actions = array('sep0' => '--',
-                                          'publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
-                                          'sep1' => '--',
-                                          'upgradefeatured' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
-                                          'cancelfeatured' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
-                                          'sep2' => '--',
-                                          'setaspaid' => _x('Mark as Paid', 'admin actions', 'WPBDM'),
-                                          'sep3' => '--',
-                                          'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
-                                         );
-
-
-                    // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
-                    echo '<script type="text/javascript">';
-
-                    foreach ($bulk_actions as $action => $text) {
-                        echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
-                                    'action', 'listing-' . $action, add_query_arg('wpbdmaction', $action), $text);
-                        echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
-                                    'action2', 'listing-' . $action, '', $text);          
-                    }
-
-                    echo '</script>';
-                }
-            }
-        }
-    }
-
-    public function _fix_new_links() {
-        // 'contributors' should still use the frontend to add listings (editors, authors and admins are allowed to add things directly)
-        // XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
-        if (current_user_can('contributor') && isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
-            echo '<script type="text/javascript">';
-            echo sprintf('jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link('add-listing'));
-            echo '</script>';
-        }
     }
 
     function handle_actions() {
@@ -680,19 +578,6 @@ class WPBDP_Admin {
         return $value;
     }
 
-    public function _row_actions($actions, $post) {
-        if ($post->post_type == WPBDP_POST_TYPE && current_user_can('contributor')) {
-            if (wpbdp_user_can('edit', $post->ID))
-                $actions['edit'] = sprintf('<a href="%s">%s</a>',
-                                            wpbdp_get_page_link('editlisting', $post->ID),
-                                            _x('Edit Listing', 'admin actions', 'WPBDM'));
-
-            if (wpbdp_user_can('delete', $listing_id))
-                $actions['delete'] = sprintf('<a href="%s">%s</a>', wpbdp_get_page_link('deletelisting', $listing_id), _x('Delete Listing', 'admin actions', 'WPBDM'));
-        }
-
-        return $actions;
-    }
 
     /* Settings page */
     public function register_settings() {
