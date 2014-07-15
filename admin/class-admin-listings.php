@@ -145,19 +145,23 @@ class WPBDP_Admin_Listings {
 
         $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
 
-        $paid = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})
-            AND NOT EXISTS ( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments ps WHERE ps.listing_id = p.ID AND ps.status = %s )",
-            WPBDP_POST_TYPE,
-            'pending'
-        ) );
-
+//        $unpaid = $wpdb->get_var( $wpdb->prepare(
+//            "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON p.ID = ps.listing_id
+//             WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ps.status = %s",
+//             WPBDP_POST_TYPE,
+//             'pending'
+//        ) );
         $unpaid = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON p.ID = ps.listing_id
-             WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ps.status = %s",
-             WPBDP_POST_TYPE,
-             'pending'
-        ) );
+            "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps
+             ON (ps.listing_id = p.ID AND ps.status = %s) WHERE p.post_type = %s
+             AND p.post_status IN ({$post_statuses}) AND ps.status IS NOT NULL",
+             'pending',
+             WPBDP_POST_TYPE ) );
+
+        $paid = intval( $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})",
+            WPBDP_POST_TYPE ) ) ) - $unpaid;
+
         $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
                                                            WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
                                                            WPBDP_POST_TYPE,
