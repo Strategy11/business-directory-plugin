@@ -136,7 +136,7 @@ class WPBDP_Admin_Listings {
     function listing_views( $views ) {
         global $wpdb;
 
-        if ( ! current_user_can( 'administrator' ) ) {
+        if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
             if ( current_user_can( 'contributor' ) && isset( $views['mine'] ) )
                 return array( $views['mine'] );
 
