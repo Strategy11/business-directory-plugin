@@ -89,14 +89,19 @@ class WPBDP_Settings {
                             true );
 
         // Quick search fields.
+        $desc  = '';
+        $desc .= '<span class="text-fields-warning wpbdp-note" style="display: none;">';
+        $desc .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'WPBDM' );
+        $desc .= '</span>';
+        $desc .= _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' );
         $this->add_setting( $s,
                             'quick-search-fields',
                             _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
                             'choice',
                             array(),
-                            _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' ),
+                            $desc,
                             array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'use_checkboxes' => false, 'multiple' => true )
-                        );
+                         );
         // }}
 
         // Misc. settings.
@@ -404,10 +409,12 @@ class WPBDP_Settings {
         $fields = array();
 
         foreach ( wpbdp_get_form_fields( 'association=-custom' ) as $field ) {
-            $fields[] = array( $field->get_id(), $field->get_label() );
+            $is_text_field = false;
 
-/*            if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ), true ) )
-                $default_fields[] = $field->get_id();*/
+            if ( in_array( $field->get_association(), array( 'excerpt', 'content' ) ) || 'textarea' == $field->get_field_type_id() )
+                $is_text_field = true;
+
+            $fields[] = array( $field->get_id(), $field->get_label(), $is_text_field ? 'textfield' : '' );
         }
 
         return $fields;
@@ -722,9 +729,10 @@ class WPBDP_Settings {
             foreach ($choices as $ch) {
                 $opt_label = is_array($ch) ? $ch[1] : $ch;
                 $opt_value = is_array($ch) ? $ch[0] : $ch;
+                $opt_class = ( is_array( $ch ) && isset( $ch[2] ) ) ? $ch[2] : '';
 
-                $html .= '<option value="' . $opt_value . '"' . ( $value && in_array( $opt_value, $value ) ? ' selected="selected"' : '') . '>'
-                                . $opt_label . '</option>';
+                $html .= '<option value="' . $opt_value . '"' . ( $value && in_array( $opt_value, $value ) ? ' selected="selected"' : '') . ' class="' . $opt_class . '">'
+                          . $opt_label . '</option>';
             }
 
             $html .= '</select>';

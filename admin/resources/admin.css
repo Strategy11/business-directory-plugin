@@ -404,6 +404,12 @@ body.taxonomy-wpbdp_category .column-id {
     opacity: 0.7;
 }
 
+#wpbdp-admin-settings .text-fields-warning {
+    font-size: 90%;
+    display: block;
+    margin-bottom: 2px;
+}
+
 /* Listing metabox - Transactions. */
 #listing-metabox-transactions table.payments-list {
     width: 100%;

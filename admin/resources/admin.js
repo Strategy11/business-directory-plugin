@@ -408,6 +408,16 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         init: function() {
             var t = this;
 
+            $('select#quick-search-fields').change(function() {
+                var selected = $(this).find( 'option.textfield:selected' ).length;
+
+                if ( selected > 0 ) {
+                    $('span.text-fields-warning').fadeIn('fast');
+                } else {
+                    $('span.text-fields-warning').fadeOut('fast');
+                }
+            });
+
             $.each( this._whenTrueActivateChilds, function( p, chs ) {
                 $('input[name="wpbdp-' + p + '"]').change(function(e) {
                     t.handleToggle( p );
