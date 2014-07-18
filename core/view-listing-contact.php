@@ -44,17 +44,8 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
         if ( ! $this->message )
             $this->errors[] = _x( 'You did not enter a message.', 'contact-message', 'WPBDM' );
 
-        if ( wpbdp_get_option( 'recaptcha-on' ) ) {
-            if ( $private_key = wpbdp_get_option( 'recaptcha-private-key' ) ) {
-                if ( ! function_exists( 'recaptcha_get_html' ) )
-                    require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
-
-                $resp = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
-
-                if ( ! $resp->is_valid )
-                    $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM' );
-            }
-        }
+        if ( ! wpbdp_recaptcha_check_answer() )
+            $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM' );
 
         return empty( $this->errors );
     }

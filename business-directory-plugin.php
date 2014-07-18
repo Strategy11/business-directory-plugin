@@ -50,6 +50,8 @@ require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
 include_once( WPBDP_PATH . 'core/gateways-googlewallet.php' );
 require_once( WPBDP_PATH . 'core/listings.php' );
+require_once( WPBDP_PATH . 'core/templates-generic.php' );
+require_once( WPBDP_PATH . 'core/templates-listings.php' );
 require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
@@ -683,8 +685,8 @@ class WPBDP_Plugin {
         global $wpdb;
 
         // Set MySQL strict mode.
-        $wpdb->show_errors();
-        $wpdb->query( "SET @@sql_mode = 'TRADITIONAL'" );
+        //$wpdb->show_errors();
+        //$wpdb->query( "SET @@sql_mode = 'TRADITIONAL'" );
 
         // Enable BD debugging.
         WPBDP_Debugging::debug_on();
@@ -1342,11 +1344,8 @@ class WPBDP_Plugin {
 
             $html .= '<div id="wpbdp-comment-recaptcha">';
         } else {
-            if ( !function_exists( 'recaptcha_get_html' ) )
-                require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
-
             $html .= '<div id="wpbdp-comment-recaptcha">';
-            $html .= recaptcha_get_html( wpbdp_get_option( 'recaptcha-public-key' ) );
+            $html .= wpbdp_recaptcha();
         }
 
         $error = '';
@@ -1368,17 +1367,7 @@ class WPBDP_Plugin {
         if ( !isset( $_POST['recaptcha_challenge_field'] ) )
             return $comment_data;
 
-        $private_key = wpbdp_get_option( 'recaptcha-private-key' );
-
-        if ( !$private_key )
-            return $comment_data;
-
-        if ( !function_exists( 'recaptcha_get_html' ) )
-            require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
-
-        $response = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
-        
-        if ( !$response->is_valid ) {
+        if ( ! wpbdp_recaptcha_check_answer( $this->_comment_recaptcha_error ) ) {
             $this->_comment_recaptcha_error = $response->error;
             add_filter( 'pre_comment_approved', create_function( '$a', 'return \'spam\';' ) );
         }

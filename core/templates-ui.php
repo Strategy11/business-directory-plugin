@@ -404,16 +404,7 @@ function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() 
         return '';
 
     $action = '';
-    $recaptcha = null;
-
-    if ( wpbdp_get_option( 'recaptcha-on' ) ) {
-        if ( $public_key = wpbdp_get_option( 'recaptcha-public-key' ) ) {
-            if ( !function_exists( 'recaptcha_get_html' ) )
-                require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
-            
-            $recaptcha = recaptcha_get_html( $public_key );            
-        }
-    }
+    $recaptcha = wpbdp_recaptcha();
 
     return wpbdp_render( 'listing-contactform', array(
                          'action' => $action,
