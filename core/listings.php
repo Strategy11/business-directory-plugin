@@ -268,7 +268,10 @@ class WPBDP_ListingsAPI {
     }
 
     public function _post_link($url, $post) {
-        if (is_admin())
+/*        if (is_admin())
+            return $url;*/
+
+        if ( ! wpbdp_get_page_id( 'main' ) )
             return $url;
 
         if ( ($post->post_type == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
@@ -640,7 +643,6 @@ class WPBDP_ListingsAPI {
                           $query_pieces['where'],
                           $query_pieces['orderby'],
                           $query_pieces['limits'] );
-        wpbdp_debug( $query );
 
         return $wpdb->get_col( $query );
     }
