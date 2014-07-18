@@ -139,6 +139,9 @@
     public function _update() {
         global $wpbdp;
 
+        if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
+            break;
+
         $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9' );
 
         foreach ( $upgrade_routines as $v ) {
