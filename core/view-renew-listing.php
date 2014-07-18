@@ -22,7 +22,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
 
         if ( ! wpbdp_user_can( 'edit', $this->listing->get_id() ) ) {
             $html  = '';
-            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page. Please login.', 'renewal', 'WPBDM' ), 'error' );
+//            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page. Please login.', 'renewal', 'WPBDM' ), 'error' );
             $html .= wpbdp_render( 'parts/login-required', array(), false );
             return $html;
         }
