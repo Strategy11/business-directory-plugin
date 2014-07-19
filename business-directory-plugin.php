@@ -45,7 +45,7 @@ require_once( WPBDP_PATH . 'core/compatibility/deprecated.php' );
 require_once( WPBDP_PATH . 'core/utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/class-admin.php' );
-require_once( WPBDP_PATH . 'core/wpbdp-settings.class.php' );
+require_once( WPBDP_PATH . 'core/class-settings.php' );
 require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
 include_once( WPBDP_PATH . 'core/gateways-googlewallet.php' );
