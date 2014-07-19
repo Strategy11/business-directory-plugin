@@ -82,7 +82,7 @@ function wpbdp_recaptcha() {
         return '';
 
     $public_key = wpbdp_get_option( 'recaptcha-public-key' );
-º
+
     if ( ! $public_key )
         return '';
 

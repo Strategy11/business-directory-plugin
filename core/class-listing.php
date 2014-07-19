@@ -543,7 +543,7 @@ class WPBDP_Listing {
                     $post_author = $post_author->ID;
                 } else {
                     $post_author = wp_insert_user( array(
-                        'user_login' => 'guest_' . wp_generate_password( 5, false false ),
+                        'user_login' => 'guest_' . wp_generate_password( 5, false, false ),
                         'user_email' => $email,
                         'user_pass' => wp_generate_password()
                     ) );
