@@ -542,12 +542,10 @@ class WPBDP_Listing {
                     $post_author = get_user_by( 'email', $email );
                     $post_author = $post_author->ID;
                 } else {
-                    $randvalue = wpbdp_generate_password( 5, 2 );
                     $post_author = wp_insert_user( array(
-                        'display_name' => 'Guest ' . $randvalue,
-                        'user_login' => 'guest_' . $randvalue,
+                        'user_login' => 'guest_' . wp_generate_password( 5, false false ),
                         'user_email' => $email,
-                        'user_pass' => wpbdp_generate_password( 7, 2 )
+                        'user_pass' => wp_generate_password()
                     ) );
                 }
 

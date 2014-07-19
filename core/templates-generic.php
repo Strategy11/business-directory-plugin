@@ -1,5 +1,21 @@
 <?php
 
+function wpbdp_render_page($template, $vars=array(), $echo_output=false) {
+    if ($vars) {
+        extract($vars);
+    }
+
+    ob_start();
+    include($template);
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    if ($echo_output)
+        echo $html;
+
+    return $html;
+}
+
 function wpbdp_locate_template($template, $allow_override=true, $try_defaults=true) {
     $template_file = '';
 

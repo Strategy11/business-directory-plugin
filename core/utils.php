@@ -3,6 +3,7 @@ require_once( WPBDP_PATH . 'core/debugging.php' );
 require_once( WPBDP_PATH . 'core/class-email.php' );
 require_once( WPBDP_PATH . 'core/class-ajax-response.php' );
 
+
 /**
  * Restructures multidimensional $_FILES arrays into one key-based array per file.
  * Single-file arrays are returned as an array of one item for consistency.
@@ -45,48 +46,6 @@ function wpbdp_getv($dict, $key, $default=false) {
         return $_dict[$key];
 
     return $default;
-}
-
-function wpbdp_render_page($template, $vars=array(), $echo_output=false) {
-    if ($vars) {
-        extract($vars);
-    }
-
-    ob_start();
-    include($template);
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    if ($echo_output)
-        echo $html;
-
-    return $html;
-}
-
-function wpbdp_generate_password($length=6, $level=2) {
-   list($usec, $sec) = explode(' ', microtime());
-   srand((float) $sec + ((float) $usec * 100000));
-
-   $validchars[1] = "0123456789abcdfghjkmnpqrstvwxyz";
-   $validchars[2] = "0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-   $validchars[3] = "0123456789_!@#$%&*()-=+/abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_!@#$%&*()-=+/";
-
-   $password  = "";
-   $counter   = 0;
-
-   while ($counter < $length)
-   {
-     $actChar = substr($validchars[$level], rand(0, strlen($validchars[$level])-1), 1);
-
-     // All character must be different
-     if (!strstr($password, $actChar))
-     {
-        $password .= $actChar;
-        $counter++;
-     }
-   }
-
-   return $password;
 }
 
 function wpbdp_capture_action($hook) {
