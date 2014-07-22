@@ -21,7 +21,7 @@
                     <?php else: ?>
                     <select name="field[association]" id="field-association">
                     <?php foreach ( $field_associations as &$association ): ?>
-                        <?php if ( in_array( 'private', $field_association_info->flags, true ) ) continue; ?>
+                        <?php if ( in_array( 'private', $association->flags, true ) ) continue; ?>
                         <option value="<?php echo $association->id; ?>" <?php echo $field->get_association() == $association->id ? ' selected="selected"' : ''; ?> ><?php echo $association->label; ?></option>
                     <?php endforeach; ?>
                     </select>
