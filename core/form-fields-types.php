@@ -583,6 +583,10 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
         return 'multiselect';
     }
 
+    public function get_supported_associations() {
+        return array( 'category', 'tags', 'meta' );
+    }
+
 }
 
 class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
