@@ -171,8 +171,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     protected function step_fee_selection() {
         global $wpbdp;
 
-        if ( ! $this->state->categories )
+        if ( ! $this->state->categories ) {
             die();
+        }
 
         $fee_selection = $this->setup_fee_selection();
 
@@ -504,7 +505,7 @@ class WPBDP_Listing_Submit_State {
 
             $this->listing_id = $listing_id;
 
-            $categories = $listing->get_categories();
+            $categories = $listing->get_categories( 'all' );
             foreach ( $categories as &$category )
                 $this->categories[ $category->id ] = $category->fee_id;
 
