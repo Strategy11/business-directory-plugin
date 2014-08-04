@@ -532,6 +532,7 @@ class WPBDP_Admin {
                 break;
 
             default:
+                do_action( 'wpbdp_admin_directory_handle_action', $action );
                 break;
         }
 

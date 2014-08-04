@@ -52,13 +52,13 @@ class WPBDP_Admin_Listings {
                 $columns = array_merge( $columns, $custom_columns );
         }
 
-        return $columns;
+        return apply_filters( 'wpbdp_admin_directory_columns', $columns );
     }
 
 
     function listing_column( $column, $post_id ) {
         if ( ! method_exists( $this, 'listing_column_' . $column ) )
-            return;
+            return do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
 
         call_user_func( array( &$this, 'listing_column_' . $column ), $post_id );
     }
@@ -295,7 +295,7 @@ class WPBDP_Admin_Listings {
                                           'sep3' => '--',
                                           'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
                                          );
-
+                    $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
 
                     // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
                     echo '<script type="text/javascript">';
