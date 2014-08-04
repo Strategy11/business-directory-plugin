@@ -246,6 +246,26 @@ class WPBDP_Settings {
                             false,
                             _x('Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'admin settings', 'WPBDM') );
 
+        $s = $this->add_section( $g, 'email-notifications', _x( 'Admin Notifications', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'admin-notifications',
+                            _x( 'Notify admin via e-mail when...', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            array(),
+                            '',
+                            array( 'choices' => array( 'new-listing' => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
+                                                       'renewal' => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
+                                                       'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ) ),
+                                   'use_checkboxes' => true,
+                                   'multiple' => true )
+                          );
+        $this->add_setting( $s,
+                            'admin-notifications-cc',
+                            _x( 'CC this e-mail address too', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '' );
+
+
         $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
         $this->add_setting( $s,
                             'listing-email-mode',
@@ -305,28 +325,6 @@ class WPBDP_Settings {
                             _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date, [site] for this site\'s URL and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
                             array( 'use_textarea' => true )
                           );
-
-
-        $s = $this->add_section( $g, 'email-notifications', _x( 'Admin Notifications', 'admin settings', 'WPBDM' ) );
-        $this->add_setting( $s,
-                            'admin-notifications',
-                            _x( 'Notify admin via e-mail when...', 'admin settings', 'WPBDM' ),
-                            'choice',
-                            array(),
-                            '',
-                            array( 'choices' => array( 'new-listing' => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
-                                                       'renewal' => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
-                                                       'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ) ),
-                                   'use_checkboxes' => true,
-                                   'multiple' => true )
-                          );
-        $this->add_setting( $s,
-                            'admin-notifications-cc',
-                            _x( 'CC this e-mail address too', 'admin settings', 'WPBDM' ),
-                            'text',
-                            '' );
-
-
 
         /* Payment settings */
         $g = $this->add_group('payment', _x('Payment', 'admin settings', 'WPBDM'));
@@ -583,6 +581,13 @@ class WPBDP_Settings {
         return $this->deps;
     }
 
+    function get_setting( $name ) {
+        if ( isset( $this->settings[ $name ] ) )
+            return $this->settings[ $name ];
+
+        return false;
+    }
+
     public function get($name, $ifempty=null) {
         $value =  get_option(self::PREFIX . $name, null);
 
@@ -691,6 +696,36 @@ class WPBDP_Settings {
         $html .= '<span class="description">' . $setting->help_text . '</span>';
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
+    }
+
+    public function _setting_text_template( $args ) {
+        $setting = $args['setting'];
+        $help_text_original = $setting->help_text;
+
+        $placeholders = isset( $args['placeholders'] ) ? $args['placeholders'] : array();
+
+        if ( $placeholders ) {
+            $placeholders_text = '';
+
+            foreach ( $placeholders as $pholder => $desc ) {
+                $placeholders_text .= sprintf( '%s - %s', '[' . $pholder . ']', $desc );
+            }
+
+            $setting->help_text = sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'WPBDM' ),
+                                           $placeholders_text );
+        }
+
+        $args['use_textarea'] = true;
+
+        // TODO: this is a proxy for _setting_text (for now).
+        ob_start();
+        $this->_setting_text( $args );
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        $setting->help_text = $help_text_original;
+
+        echo $html;
     }
 
     public function _setting_boolean($args) {

@@ -336,6 +336,35 @@ function wpbdp_has_shortcode( &$content, $shortcode ) {
     return $check;
 }
 
+/**
+ * TODO: dodoc.
+ * @since 3.4.2
+ */
+function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
+    global $wpbdp;
+
+    $setting = $wpbdp->settings->get_setting( $setting_name );
+
+    if ( ! $setting )
+        return false;
+
+    $text = wpbdp_get_option( $setting_name );
+
+    if ( ! $text )
+        return false;
+
+    $placeholders = isset( $setting->args['placeholders'] ) ? array_keys( $setting->args['placeholders'] ) : array();
+
+    foreach ( $replacements as $pholder => $repl ) {
+        if ( ! in_array( $pholder, $placeholders, true ) )
+            continue;
+
+        $text = str_replace( '[' . $pholder . ']', $repl, $text );
+    }
+
+    return $text;
+}
+
 function wpbdp_admin_pointer( $selector, $title, $content_ = '',
                               $primary_button = false, $primary_action = '',
                               $secondary_button = false, $secondary_action = '',
