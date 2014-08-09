@@ -191,6 +191,9 @@ class WPBDP_Admin_Listings {
                                      _x( 'Expired', 'admin', 'WPBDM' ),
                                      number_format_i18n( $expired )
                                     );
+
+        $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
+
         return $views;
     }
 

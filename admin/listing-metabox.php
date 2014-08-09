@@ -83,6 +83,7 @@ class WPBDP_Admin_Listing_Metabox {
                 }
 
             echo '</dd>';
+        do_action( 'wpbdp_admin_metabox_generalinfo_list', $this->listing->get_id() );
         echo '</dl>';
 
         if ( current_user_can( 'administrator' ) && 'ok' != $this->listing->get_payment_status() ) {
