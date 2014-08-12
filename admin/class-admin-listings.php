@@ -223,6 +223,7 @@ class WPBDP_Admin_Listings {
                 $pieces['groupby'] .= " {$wpdb->posts}.ID ";
                 break;
             default:
+                $pieces = apply_filters( 'wpbdp_admin_directory_filter', $pieces, $_REQUEST['wpbdmfilter'] );
                 break;
         }
 
