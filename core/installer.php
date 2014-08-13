@@ -728,10 +728,7 @@ class WPBDP_Installer_Manual_Upgrade {
                           array( &$this, 'upgrade_page' ) );
     }
 
-    public function enqueue_scripts( $hook ) {
-        if ( 'admin_page_wpbdp-upgrade-page' !== $hook )
-            return;
-
+    public function enqueue_scripts() {
         wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'admin/resources/manual-upgrade.js' );
     }
 
