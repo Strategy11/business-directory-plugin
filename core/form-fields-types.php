@@ -24,7 +24,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         }
 
         return $input;
-    } 
+    }
 
     public function get_field_value( &$field, $value ) {
         $value = parent::get_field_value( $field, $value );
@@ -62,9 +62,9 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 }
 
 class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
-    
+
     public function __construct() {
-        parent::__construct( _x( 'URL Field', 'form-fields api', 'WPBDM' ) );        
+        parent::__construct( _x( 'URL Field', 'form-fields api', 'WPBDM' ) );
     }
 
     public function get_id() {
@@ -85,7 +85,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $settings['new-window'][] = '<input type="checkbox" value="1" name="field[x_open_in_new_window]" ' . ( $field && $field->data( 'open_in_new_window' ) ? ' checked="checked"' : '' ) . ' />';
 
         $settings['nofollow'][] = _x( 'Use rel="nofollow" when displaying the link?', 'form-fields admin', 'WPBDM' );
-        $settings['nofollow'][] = '<input type="checkbox" value="1" name="field[x_use_nofollow]" ' . ( $field && $field->data( 'use_nofollow' ) ? ' checked="checked"' : '' ) . ' />';        
+        $settings['nofollow'][] = '<input type="checkbox" value="1" name="field[x_use_nofollow]" ' . ( $field && $field->data( 'use_nofollow' ) ? ' checked="checked"' : '' ) . ' />';
 
         return self::render_admin_settings( $settings );
     }
@@ -234,7 +234,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
         $value = is_array( $value ) ? $value : array( $value );
 
-        $html = '';   
+        $html = '';
 
         if ( $field->get_association() == 'tags' && !$options ) {
             $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
@@ -255,7 +255,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                         'name' => 'listingfields[' . $field->get_id() . ']',
                         'class' => $field->is_required() ? 'inselect required' : 'inselect'
                     ) );
-            
+
                 if ( $this->is_multiple() ) {
                     $html = preg_replace( "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
                                           "<select name=\"$3[]\" multiple=\"multiple\" $1 $5>",
@@ -289,7 +289,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                                   esc_attr( $label ) );
             }
 
-            $html .= '</select>';            
+            $html .= '</select>';
         }
 
         return $html;
@@ -306,7 +306,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $settings = array();
 
         $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
-        
+
         $content  = '<span class="description">Comma (,) separated list of options</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
@@ -320,9 +320,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $content  = '<span class="description">Empty search selection means users can make this field optional in searching. Turn it off if the field must always be searched on.</span><br />';
         $content .= '<input type="checkbox" value="1" name="field[x_empty_on_search]" ' . ( !$field ? ' checked="checked"' : ($field->data( 'empty_on_search' ) ? ' checked="checked"' : '') ) . ' />';
-        
+
         $settings['empty_on_search'][] = $content;
-     
+
         return self::render_admin_settings( $settings );
     }
 
@@ -353,7 +353,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     }
 
     public function get_field_value( &$field, $post_id ) {
-        $value = parent::get_field_value( $field, $post_id );        
+        $value = parent::get_field_value( $field, $post_id );
 
         if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
             if ( !empty( $value ) )
@@ -362,7 +362,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         if ( !$value )
             return array();
-        
+
         $value = is_array( $value ) ? $value : array( $value );
         return $value;
     }
@@ -370,7 +370,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         if ( $field->get_association() == 'meta' ) {
             $value = $field->value( $post_id );
-            
+
             return esc_attr( implode( ', ', $value ) );
         }
 
@@ -383,7 +383,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
             $term_names = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
                                      array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) );
-            
+
             return join( ', ', $term_names );
         } elseif ( $field->get_association() == 'meta' ) {
             return esc_attr( implode( ', ', $value ) );
@@ -397,7 +397,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
      */
     public function get_field_csv_value( &$field, $post_id ) {
         if ( 'meta' != $field->get_association() )
-            return $this->get_field_plain_value( $field, $post_id );
+            return $field->plain_value( $post_id );
 
         $value = $field->value( $post_id );
         return esc_attr( implode( ',', $value ) );
@@ -492,12 +492,12 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
                 'order' => wpbdp_get_option( 'categories-sort' ),
                 'hide_empty' => 0,
                 'echo' => 0,
-                'depth' => 0,                
+                'depth' => 0,
                 'walker' => new CategoryFormInputWalker( 'radio', $value, $field ),
                 'show_option_none' => '',
                 'title_li' => '',
             ) );
-            
+
             return $html;
         }
 
@@ -525,7 +525,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
             return '';
 
         $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
-        
+
         $content  = '<span class="description">Comma (,) separated list of options</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
@@ -612,13 +612,13 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
                 'order' => wpbdp_get_option( 'categories-sort' ),
                 'hide_empty' => 0,
                 'echo' => 0,
-                'depth' => 0,                
+                'depth' => 0,
                 'walker' => new CategoryFormInputWalker( 'checkbox', $value, $field ),
                 'show_option_none' => '',
                 'title_li' => '',
             ) );
-            
-            return $html;            
+
+            return $html;
         }
 
         $html = '';
@@ -647,7 +647,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         $settings = array();
 
         $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
-        
+
         $content  = '<span class="description">Comma (,) separated list of options</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
@@ -677,7 +677,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             $value =  implode( "\t", is_array( $value ) ? $value : array( $value ) );
         }
 
-        parent::store_field_value( $field, $post_id, $value );        
+        parent::store_field_value( $field, $post_id, $value );
     }
 
     public function get_field_value( &$field, $post_id ) {
@@ -687,7 +687,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         if ( is_string( $value ) )
             return explode( "\t", $value );
 
-        return $value; 
+        return $value;
     }
 
     public function get_field_html_value( &$field, $post_id ) {
@@ -704,7 +704,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
             $term_names = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
                                      array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) );
-            
+
             return join( ', ', $term_names );
         } elseif ( $field->get_association() == 'meta' ) {
             return esc_attr( implode( ', ', $value ) );
@@ -742,7 +742,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Social Site (Twitter handle)', 'form-fields api', 'WPBDM') );
-    }   
+    }
 
     public function get_id() {
         return 'social-twitter';
@@ -805,7 +805,7 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
         // facebook fields are rendered as normal textfields
         global $wpbdp;
         return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
-    }   
+    }
 
     public function get_supported_associations() {
         return array( 'meta' );
@@ -847,7 +847,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
     public function setup_field( &$field ) {
         $field->add_display_flag( 'social' );
-    }    
+    }
 
     public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         // LinkedIn fields are rendered as normal textfields
@@ -940,7 +940,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $value = $field->value( $post_id );
 
         return '<br />' . wp_get_attachment_image( $value, 'thumb', false );
-    }    
+    }
 
 }
 

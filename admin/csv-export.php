@@ -10,8 +10,10 @@ class WPBDP_Admin_CSVExport {
         add_action( 'wp_ajax_wpbdp-csv-export', array( &$this, 'ajax_csv_export' ) );
     }
 
-    public function enqueue_scripts( $hook ) {
-        if ( $hook != 'directory-admin_page_wpbdp-csv-export' )
+    public function enqueue_scripts() {
+        global $plugin_page;
+
+        if ( 'wpbdp-csv-export' != $plugin_page )
             return;
 
         wp_enqueue_script( 'wpbdp-admin-export-js', WPBDP_URL . 'admin/resources/export.js', array( 'wpbdp-admin-js', 'jquery-ui-dialog' ) );
@@ -388,6 +390,9 @@ class WPBDP_CSVExporter {
 
                     break;
             }
+
+            if ( ! is_string( $value ) )
+                $value = strval( $value );
 
             $data[ $colname ] = '"' . str_replace( '"', '""', $value ) . '"';
         }
