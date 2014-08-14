@@ -1364,11 +1364,10 @@ class WPBDP_Plugin {
     }
 
     public function check_comment_recaptcha( $comment_data ) {
-        if ( !isset( $_POST['recaptcha_challenge_field'] ) )
+        if ( ! wpbdp_get_option( 'recaptcha-for-comments' ) )
             return $comment_data;
 
         if ( ! wpbdp_recaptcha_check_answer( $this->_comment_recaptcha_error ) ) {
-            $this->_comment_recaptcha_error = $response->error;
             add_filter( 'pre_comment_approved', create_function( '$a', 'return \'spam\';' ) );
         }
 
