@@ -13,6 +13,7 @@
 <form method="POST" action="<?php echo wpbdp_get_page_link('main'); ?>">
 	<input type="hidden" name="action" value="sendcontactmessage" />
 	<input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
+	<?php wp_nonce_field( 'contact-form-' . $listing_id ); ?>
 
 	<?php if ($current_user): ?>
 		<p>

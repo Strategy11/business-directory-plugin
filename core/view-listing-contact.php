@@ -35,6 +35,15 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
     private function validate() {
         $this->errors = array();
 
+        if ( ! isset( $_REQUEST['listing_id'] ) )
+            die();
+
+        // Verify nonce.
+        if ( ! isset( $_POST['_wpnonce'] )
+             || ! isset( $_POST['_wp_http_referer'] )
+             || ! wp_verify_nonce( $_POST['_wpnonce'], 'contact-form-' . $_REQUEST['listing_id'] ) )
+            die();
+
         if ( ! $this->name )
             $this->errors[] = _x( 'Please enter your name.', 'contact-message', 'WPBDM' );
 
@@ -44,13 +53,16 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
         if ( ! $this->message )
             $this->errors[] = _x( 'You did not enter a message.', 'contact-message', 'WPBDM' );
 
-        if ( ! wpbdp_recaptcha_check_answer() )
+        if ( wpbdp_get_option( 'recaptcha-on' ) && ! wpbdp_recaptcha_check_answer() )
             $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM' );
 
         return empty( $this->errors );
     }
 
     public function dispatch() {
+        if ( ! wpbdp_get_option( 'show-contact-form' ) )
+            die();
+
         $listing_id = intval( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
 
         if ( ! $listing_id )

@@ -78,9 +78,6 @@ function _wpbdp_template_mode($template) {
  * @since 3.4.2
  */
 function wpbdp_recaptcha() {
-    if ( ! wpbdp_get_option( 'recaptcha-on' ) )
-        return '';
-
     $public_key = wpbdp_get_option( 'recaptcha-public-key' );
 
     if ( ! $public_key )
@@ -98,9 +95,6 @@ function wpbdp_recaptcha() {
  * @since 3.4.2
  */
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
-    if ( ! wpbdp_get_option( 'recaptcha-on' ) )
-        return true;
-
     $private_key = wpbdp_get_option( 'recaptcha-private-key' );
 
     if ( ! $private_key )

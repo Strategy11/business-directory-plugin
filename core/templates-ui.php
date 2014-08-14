@@ -404,7 +404,7 @@ function wpbdp_listing_contact_form ( $listing_id=0, $validation_errors=array() 
         return '';
 
     $action = '';
-    $recaptcha = wpbdp_recaptcha();
+    $recaptcha = wpbdp_get_option( 'recaptcha-on' ) ? wpbdp_recaptcha() : '';
 
     return wpbdp_render( 'listing-contactform', array(
                          'action' => $action,
