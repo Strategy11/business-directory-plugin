@@ -86,12 +86,20 @@ class WPBDP_FeaturedListingsWidget extends WP_Widget {
                 $this->get_field_id( 'show_images' ),
                 _x( 'Show thumbnails', 'widgets', 'WPBDM' )
               );
+        printf( '<p><input id="%s" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
+                $this->get_field_id( 'random_order' ),
+                $this->get_field_name( 'random_order' ),
+                ( isset( $instance['random_order'] ) && $instance['random_order'] == 1 ) ? 'checked="checked"' : '',
+                $this->get_field_id( 'random_order' ),
+                _x( 'Display listings in random order', 'widgets', 'WPBDM' )
+              );
     }
 
     public function update($new_instance, $old_instance) {
         $new_instance['title'] = strip_tags($new_instance['title']);
         $new_instance['number_of_listings'] = max(intval($new_instance['number_of_listings']), 0);
         $new_instance['show_images'] = intval( $new_instance['show_images'] ) == 1 ? 1 : 0;
+        $new_instance['random_order'] = intval( $new_instance['random_order'] ) == 1 ? 1 : 0;
         return $new_instance;
     }
 
@@ -103,7 +111,7 @@ class WPBDP_FeaturedListingsWidget extends WP_Widget {
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'numberposts' => $instance['number_of_listings'],
-            'orderby' => 'date',
+            'orderby' => ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'rand' : 'date',
             'meta_query' => array(
                 array('key' => '_wpbdp[sticky]', 'value' => 'sticky')
             )
