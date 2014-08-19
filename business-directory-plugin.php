@@ -56,6 +56,7 @@ require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
 require_once( WPBDP_PATH . 'core/widgets.php' );
+require_once( WPBDP_PATH . 'core/licensing.php' );
 
 
 global $wpbdp;
