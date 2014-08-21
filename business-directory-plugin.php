@@ -303,6 +303,8 @@ class WPBDP_Plugin {
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
+
+            $rules = apply_filters( 'wpbdp_rewrite_rules', $rules );
         }
 
         return $rules;
@@ -333,6 +335,7 @@ class WPBDP_Plugin {
         array_push($vars, 'category');
         array_push($vars, 'action'); // TODO: are we really using this var?
         array_push( $vars, 'wpbdpx' );
+        array_push( $vars, 'region' );
 
         return $vars;
     }

@@ -244,15 +244,17 @@ class WPBDP_ListingsAPI {
     }
 
     public function _category_link($link, $category, $taxonomy) {
-        if ( ($taxonomy == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-            if (wpbdp_rewrite_on()) {
-                return rtrim(wpbdp_get_page_link('main'), '/') . '/' . wpbdp_get_option('permalinks-category-slug') . '/' . $category->slug . '/';
-            } else {
-                return add_query_arg('category', $category->slug, wpbdp_get_page_link('main'));
-            }
+        if ( WPBDP_CATEGORY_TAX != $taxonomy )
+            return $link;
+
+        if ( 'page' == _wpbdp_template_mode( 'category' ) ) {
+            if ( wpbdp_rewrite_on() )
+                $link = rtrim( wpbdp_get_page_link( 'main' ), '/' ) . '/' . wpbdp_get_option( 'permalinks-category-slug' ) . '/' . $category->slug . '/';
+            else
+                $link = add_query_arg( 'category', $category->slug, wpbdp_get_page_link( 'main' ) );
         }
 
-        return $link;
+        return apply_filters( 'wpbdp_category_link', $link, $category );
     }
 
     public function _tag_link($link, $tag, $taxonomy) {

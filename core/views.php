@@ -100,6 +100,11 @@ class WPBDP_DirectoryController {
                 return $checkout_page->dispatch();
                 break;
             default:
+                // Handle custom actions.
+                $page = wpbdp_capture_action_array( 'wpbdp_action_page_' . $this->action );
+                if ( $page )
+                    return $page;
+
                 return $this->main_page();
                 break;
         }
