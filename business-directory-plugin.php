@@ -82,6 +82,8 @@ class WPBDP_Plugin {
         $this->payments = $noop;
         $this->listings = $noop;
 
+        $this->licensing = new WPBDP_Licensing();
+
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
         add_action( 'init', array( &$this, 'init' ) );
         add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
