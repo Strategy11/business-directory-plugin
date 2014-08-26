@@ -56,6 +56,7 @@ require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
 require_once( WPBDP_PATH . 'core/widgets.php' );
+require_once( WPBDP_PATH . 'core/licensing.php' );
 
 
 global $wpbdp;
@@ -80,6 +81,8 @@ class WPBDP_Plugin {
         $this->fees = $noop;
         $this->payments = $noop;
         $this->listings = $noop;
+
+        $this->licensing = new WPBDP_Licensing();
 
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
         add_action( 'init', array( &$this, 'init' ) );

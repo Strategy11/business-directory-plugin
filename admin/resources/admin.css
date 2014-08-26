@@ -387,6 +387,19 @@ body.taxonomy-wpbdp_category .column-id {
     display: block;
 }
 
+.directory-admin_page_wpbdp_admin_settings .license-activation .status-message {
+    font-size: 85%;
+    color: #595959;
+    font-style: italic;
+}
+
+.directory-admin_page_wpbdp_admin_settings .license-activation .status-message.ok {
+    color: green;
+}
+
+.directory-admin_page_wpbdp_admin_settings .license-activation .status-message.error {
+    color: red;
+}
 
 .tag.paymentstatus.ok {
     background: green;

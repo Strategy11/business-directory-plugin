@@ -698,6 +698,37 @@ class WPBDP_Settings {
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
 
+    public function _setting_license_key($args) {
+        $setting = $args['setting'];
+        $value = trim( $this->get( $setting->name ) );
+
+        $module_id = str_replace( 'license-key-', '', $setting->name );
+        $license_status = get_option( 'wpbdp-license-status-' . $module_id, false );
+
+        $html  = '';
+        $html .= '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . esc_attr( $value ) . '" size="25" />';
+
+        if ( $value ) {
+            $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
+            $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
+            $html .= '<input type="button"
+                             value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
+                             class="button-secondary license-deactivate"
+                             data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
+                             style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
+            $html .= '<input type="button"
+                             value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
+                             class="button-secondary license-activate"
+                             data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
+                             style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
+            $html .= '<br />';
+            $html .= '<span class="status-message"></span>';
+            $html .= '</span>';
+        }
+
+        echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
+    }
+
     public function _setting_text_template( $args ) {
         $setting = $args['setting'];
         $help_text_original = $setting->help_text;
@@ -797,7 +828,7 @@ class WPBDP_Settings {
                 add_settings_section($section->slug, $section->name, $callback, $group->wpslug);
 
                 foreach ($section->settings as $setting) {
-                    register_setting($group->wpslug, self::PREFIX . $setting->name);
+                    register_setting($group->wpslug, self::PREFIX . $setting->name/*, array( &$this, 'filter_x' ) */);
                     add_settings_field(self::PREFIX . $setting->name, $setting->label,
                                        array($this, '_setting_' . $setting->type),
                                        $group->wpslug,
@@ -806,7 +837,7 @@ class WPBDP_Settings {
                                        );
 
                     if ( $setting->validator || ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) ) {
-                        add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o=null', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 2);
+                        add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o=null', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 10, 2);
                     }
                 }
             }
