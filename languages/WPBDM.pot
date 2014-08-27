@@ -2,66 +2,375 @@
 # This file is distributed under the same license as the Business Directory Plugin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 3.4\n"
+"Project-Id-Version: Business Directory Plugin 3.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2014-06-19 03:49:30+00:00\n"
+"POT-Creation-Date: 2014-08-27 15:36:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2014-08-27 10:39-0500\n"
+"Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
+"Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.6.8\n"
 
-#: admin/class-admin-listings.php:17
+#: admin/class-admin-listings.php:24
+msgid "Listing Information"
+msgstr ""
+
+#: admin/class-admin-listings.php:31
+msgctxt "admin"
+msgid "Listing Fields / Images"
+msgstr ""
+
+#: admin/class-admin-listings.php:42
 msgctxt "admin"
 msgid "Categories"
 msgstr ""
 
-#: admin/class-admin-listings.php:18
+#: admin/class-admin-listings.php:43
 msgid "Payment Status"
 msgstr ""
 
-#: admin/class-admin-listings.php:19
+#: admin/class-admin-listings.php:44
 msgid "Featured (Sticky) Status"
 msgstr ""
 
-#: admin/class-admin-listings.php:50
+#: admin/class-admin-listings.php:75
 msgctxt "admin"
 msgid "(Listing expired in this category)"
 msgstr ""
 
-#: admin/class-admin-listings.php:68 admin/class-admin-listings.php:147
+#: admin/class-admin-listings.php:93 admin/class-admin-listings.php:176
 msgid "Paid"
 msgstr ""
 
-#: admin/class-admin-listings.php:73
+#: admin/class-admin-listings.php:98
 msgid "Mark as"
 msgstr ""
 
-#: admin/class-admin-listings.php:82 admin/class-admin-listings.php:157
+#: admin/class-admin-listings.php:107 admin/class-admin-listings.php:186
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/class-admin-listings.php:90 admin/listing-metabox.php:68
+#: admin/class-admin-listings.php:115 admin/listing-metabox.php:68
 msgid "Upgrade to %s"
 msgstr ""
 
-#: admin/class-admin-listings.php:97 admin/listing-metabox.php:75
+#: admin/class-admin-listings.php:122 admin/listing-metabox.php:75
 msgid "Downgrade to %s"
 msgstr ""
 
-#: admin/class-admin-listings.php:100 admin/wpbdp-admin.class.php:377
+#: admin/class-admin-listings.php:125 admin/class-admin-listings.php:295
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/class-admin-listings.php:152
+#: admin/class-admin-listings.php:181
 msgid "Unpaid"
 msgstr ""
 
-#: admin/class-admin-listings.php:162
+#: admin/class-admin-listings.php:191
 msgctxt "admin"
 msgid "Expired"
+msgstr ""
+
+#: admin/class-admin-listings.php:241
+msgctxt "admin actions"
+msgid "Edit Listing"
+msgstr ""
+
+#: admin/class-admin-listings.php:244
+msgctxt "admin actions"
+msgid "Delete Listing"
+msgstr ""
+
+#: admin/class-admin-listings.php:293
+msgctxt "admin actions"
+msgid "Publish Listing"
+msgstr ""
+
+#: admin/class-admin-listings.php:296
+msgctxt "admin actions"
+msgid "Downgrade to Normal"
+msgstr ""
+
+#: admin/class-admin-listings.php:298
+msgctxt "admin actions"
+msgid "Mark as Paid"
+msgstr ""
+
+#: admin/class-admin-listings.php:300
+msgctxt "admin actions"
+msgid "Renew Listing"
+msgstr ""
+
+#: admin/class-admin.php:123
+msgctxt "drip pointer"
+msgid ""
+"Find out how to create a compelling, thriving business directory from "
+"scratch in this ridiculously actionable (and FREE) 5-part email course. Get "
+"a FREE premium module just for signing up."
+msgstr ""
+
+#: admin/class-admin.php:125
+msgctxt "drip pointer"
+msgid "Email Address:"
+msgstr ""
+
+#: admin/class-admin.php:131
+msgctxt "drip pointer"
+msgid "Want to know the Secrets of Building an Awesome Business Directory?"
+msgstr ""
+
+#: admin/class-admin.php:133
+msgctxt "drip pointer"
+msgid "Yes, please!"
+msgstr ""
+
+#: admin/class-admin.php:135
+msgctxt "drip pointer"
+msgid "No, thanks"
+msgstr ""
+
+#: admin/class-admin.php:195
+msgctxt "admin menu"
+msgid "Business Directory Admin"
+msgstr ""
+
+#: admin/class-admin.php:196
+msgctxt "admin menu"
+msgid "Directory Admin"
+msgstr ""
+
+#: admin/class-admin.php:202 admin/class-admin.php:203
+msgctxt "admin menu"
+msgid "Add New Listing"
+msgstr ""
+
+#: admin/class-admin.php:208 admin/class-admin.php:209
+msgctxt "admin menu"
+msgid "Manage Options"
+msgstr ""
+
+#: admin/class-admin.php:214 admin/class-admin.php:215
+msgctxt "admin menu"
+msgid "Manage Fees"
+msgstr ""
+
+#: admin/class-admin.php:220 admin/class-admin.php:221
+msgctxt "admin menu"
+msgid "Manage Form Fields"
+msgstr ""
+
+#: admin/class-admin.php:226 admin/class-admin.php:227
+msgctxt "admin menu"
+msgid "All Listings"
+msgstr ""
+
+#: admin/class-admin.php:232 admin/class-admin.php:233
+msgctxt "admin menu"
+msgid "Pending Upgrade"
+msgstr ""
+
+#: admin/class-admin.php:238 admin/class-admin.php:239
+msgctxt "admin menu"
+msgid "Pending Payment"
+msgstr ""
+
+#: admin/class-admin.php:254 admin/class-admin.php:255
+msgctxt "admin menu"
+msgid "CSV Import"
+msgstr ""
+
+#: admin/class-admin.php:260 admin/class-admin.php:261
+msgctxt "admin menu"
+msgid "CSV Export"
+msgstr ""
+
+#: admin/class-admin.php:266 admin/class-admin.php:267
+msgctxt "admin menu"
+msgid "Debug"
+msgstr ""
+
+#: admin/class-admin.php:276
+msgctxt "admin menu"
+msgid "Main Menu"
+msgstr ""
+
+#: admin/class-admin.php:289
+msgctxt "admin menu"
+msgid "Uninstall WPDB Manager"
+msgstr ""
+
+#: admin/class-admin.php:290
+msgctxt "admin menu"
+msgid "Uninstall"
+msgstr ""
+
+#: admin/class-admin.php:438
+msgctxt "admin"
+msgid "The listing has been published."
+msgid_plural "The listings have been published."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin.php:451
+msgctxt "admin"
+msgid "The listing status has been set as paid."
+msgid_plural "The listings status has been set as paid."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin.php:463
+msgctxt "admin"
+msgid "The listing has been modified."
+msgid_plural "The listings have been modified."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin.php:476
+msgctxt "admin"
+msgid "The listing has been upgraded."
+msgid_plural "The listings have been upgraded."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin.php:488
+msgctxt "admin"
+msgid "The listing has been downgraded."
+msgid_plural "The listings have been downgraded."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin.php:500 admin/transactions.php:243
+msgctxt "admin"
+msgid "The transaction has been approved."
+msgstr ""
+
+#: admin/class-admin.php:508 admin/transactions.php:254
+msgctxt "admin"
+msgid "The transaction has been rejected."
+msgstr ""
+
+#: admin/class-admin.php:514
+msgctxt "admin"
+msgid "The fee was successfully assigned."
+msgstr ""
+
+#: admin/class-admin.php:523
+msgctxt "admin"
+msgid "Listing was renewed."
+msgid_plural "Listings were renewed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin.php:530
+msgctxt "admin"
+msgid "Renewal email sent."
+msgstr ""
+
+#: admin/class-admin.php:564
+msgctxt "admin category id"
+msgid "ID"
+msgstr ""
+
+#: admin/class-admin.php:566 admin/class-admin.php:572
+msgctxt "admin"
+msgid "Listing Count"
+msgstr ""
+
+#: admin/class-admin.php:663
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires fields with the following "
+"associations in order to work correctly: <b>%s</b>."
+msgstr ""
+
+#: admin/class-admin.php:665
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
+"association in order to work correctly."
+msgstr ""
+
+#: admin/class-admin.php:669
+msgctxt "admin"
+msgid ""
+"You can create these custom fields by yourself inside \"Manage Form Fields\" "
+"or let Business Directory do this for you automatically."
+msgstr ""
+
+#: admin/class-admin.php:673
+msgctxt "admin"
+msgid "Go to \"Manage Form Fields\""
+msgstr ""
+
+#: admin/class-admin.php:676
+msgctxt "admin"
+msgid "Create these required fields for me"
+msgstr ""
+
+#: admin/class-admin.php:688
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires a page with the "
+"<tt>[businessdirectory]</tt> shortcode to function properly."
+msgstr ""
+
+#: admin/class-admin.php:690
+msgctxt "admin"
+msgid ""
+"You can create this page by yourself or let Business Directory do this for "
+"you automatically."
+msgstr ""
+
+#: admin/class-admin.php:694
+msgctxt "admin"
+msgid "Create required pages for me"
+msgstr ""
+
+#: admin/class-admin.php:724
+msgctxt "admin compat"
+msgid "Installed: %s"
+msgstr ""
+
+#: admin/class-admin.php:724
+msgctxt "admin compat"
+msgid "N/A"
+msgstr ""
+
+#: admin/class-admin.php:727
+msgctxt "admin compat"
+msgid "Required: %s"
+msgstr ""
+
+#: admin/class-admin.php:740
+msgctxt "admin compat"
+msgid ""
+"Business Directory has detected some incompatible premium module versions "
+"installed."
+msgstr ""
+
+#: admin/class-admin.php:742
+msgctxt "admin compat"
+msgid ""
+"Please upgrade to the required versions indicated below to make sure "
+"everything functions properly."
+msgstr ""
+
+#: admin/class-admin.php:757
+msgctxt "admin"
+msgid ""
+"We noticed you want your Business Directory users to register before posting "
+"listings, but Registration for your site is currently disabled. Go [here] "
+"and check \"Anyone can register\" to make sure BD works properly."
+msgstr ""
+
+#: admin/class-admin.php:766
+msgctxt "admin"
+msgid "Business Directory"
 msgstr ""
 
 #: admin/class-listing-fields-metabox.php:21
@@ -70,7 +379,7 @@ msgid "Listing Fields"
 msgstr ""
 
 #: admin/class-listing-fields-metabox.php:40
-#: templates/submit-listing/images.tpl.php:9
+#: templates/submit-listing/images.tpl.php:12
 msgctxt "templates"
 msgid "Current Images"
 msgstr ""
@@ -80,17 +389,17 @@ msgctxt "templates"
 msgid "There are no images currently attached to the listing."
 msgstr ""
 
-#: admin/csv-export.php:129
+#: admin/csv-export.php:136
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 
-#: admin/csv-export.php:131
+#: admin/csv-export.php:138
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr ""
 
-#: admin/csv-export.php:136
+#: admin/csv-export.php:143
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr ""
@@ -208,42 +517,42 @@ msgctxt "admin csv-import"
 msgid "Malformed row (too many columns)"
 msgstr ""
 
-#: admin/csv-import.php:464
+#: admin/csv-import.php:467
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr ""
 
-#: admin/csv-import.php:482
+#: admin/csv-import.php:490
 msgctxt "admin csv-import"
 msgid "Ignoring unknown field \"%s\""
 msgstr ""
 
-#: admin/csv-import.php:489
+#: admin/csv-import.php:497
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr ""
 
-#: admin/csv-import.php:513
+#: admin/csv-import.php:522
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: admin/csv-import.php:518
+#: admin/csv-import.php:527
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
 
-#: admin/csv-import.php:536
+#: admin/csv-import.php:545
 msgctxt "admin csv-import"
 msgid "Images were specified but no image file was uploaded."
 msgstr ""
 
-#: admin/csv-import.php:568
+#: admin/csv-import.php:577
 msgctxt "admin csv-import"
 msgid "Image file \"%s\" could not be inserted."
 msgstr ""
 
-#: admin/csv-import.php:572
+#: admin/csv-import.php:581
 msgctxt "admin csv-import"
 msgid "Image file \"%s\" could not be uploaded."
 msgstr ""
@@ -480,9 +789,38 @@ msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/listing-metabox.php:85
+#: admin/listing-metabox.php:81
+msgctxt "admin infometabox"
+msgid "CSV Import Sequence ID"
+msgstr ""
+
+#: admin/listing-metabox.php:92
 msgctxt "admin infometabox"
 msgid "Mark listing as Paid"
+msgstr ""
+
+#: admin/page-debug.php:15
+msgctxt "debug-info"
+msgid "BD Info"
+msgstr ""
+
+#: admin/page-debug.php:27
+msgid "Missing tables: %s"
+msgstr ""
+
+#: admin/page-debug.php:28
+msgctxt "debug-info"
+msgid "OK"
+msgstr ""
+
+#: admin/page-debug.php:36
+msgctxt "debug-info"
+msgid "BD Options"
+msgstr ""
+
+#: admin/page-debug.php:49
+msgctxt "debug-info"
+msgid "Environment"
 msgstr ""
 
 #: admin/templates/csv-export.tpl.php:9
@@ -554,33 +892,39 @@ msgctxt "admin csv-export"
 msgid "Additional metadata to export:"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:68
+#: admin/templates/csv-export.tpl.php:67
+msgctxt "admin csv-export"
+msgid "Include unique IDs for each listing (sequence_id column)"
+msgstr ""
+
+#: admin/templates/csv-export.tpl.php:72
 msgctxt "admin csv-export"
 msgid "Author information (username)"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:73
+#: admin/templates/csv-export.tpl.php:77
 msgctxt "admin csv-export"
 msgid "Sticky/featured status"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:78
+#: admin/templates/csv-export.tpl.php:82
 msgctxt "admin csv-export"
 msgid "Listing expiration date"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:83
+#: admin/templates/csv-export.tpl.php:87
 msgctxt "admin csv-export"
 msgid "CSV File Settings"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:87
+#: admin/templates/csv-export.tpl.php:91
 msgctxt "admin csv-export"
 msgid "Column Separator"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:87 admin/templates/csv-export.tpl.php:98
-#: admin/templates/csv-export.tpl.php:109
+#: admin/templates/csv-export.tpl.php:91
+#: admin/templates/csv-export.tpl.php:102
+#: admin/templates/csv-export.tpl.php:113
 #: admin/templates/csv-import.tpl.php:18 admin/templates/csv-import.tpl.php:42
 #: admin/templates/csv-import.tpl.php:53 admin/templates/csv-import.tpl.php:64
 #: admin/templates/csv-import.tpl.php:91
@@ -588,88 +932,88 @@ msgctxt "admin forms"
 msgid "required"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:98
+#: admin/templates/csv-export.tpl.php:102
 msgctxt "admin csv-export"
 msgid "Image Separator"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:109
+#: admin/templates/csv-export.tpl.php:113
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:121
+#: admin/templates/csv-export.tpl.php:125
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:127
+#: admin/templates/csv-export.tpl.php:131
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:128
+#: admin/templates/csv-export.tpl.php:132
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
 "until the export finishes."
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:131
+#: admin/templates/csv-export.tpl.php:135
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:133
+#: admin/templates/csv-export.tpl.php:137
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:140
+#: admin/templates/csv-export.tpl.php:144
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:145
+#: admin/templates/csv-export.tpl.php:149
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:146
+#: admin/templates/csv-export.tpl.php:150
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
 "download."
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:149
+#: admin/templates/csv-export.tpl.php:153
 msgctxt "admin csv-export"
 msgid "Download %s (%s)"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:155
+#: admin/templates/csv-export.tpl.php:159
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
 "temporary data created by Business Directory during the export process."
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:156
+#: admin/templates/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:161
+#: admin/templates/csv-export.tpl.php:165
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:162
+#: admin/templates/csv-export.tpl.php:166
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr ""
 
-#: admin/templates/csv-export.tpl.php:163
+#: admin/templates/csv-export.tpl.php:167
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr ""
@@ -834,6 +1178,12 @@ msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr ""
 
+#: admin/templates/csv-import.tpl.php:183
+msgctxt "admin csv-import"
+msgid ""
+"Internal Sequence ID used to allow listing updates from external sources."
+msgstr ""
+
 #: admin/templates/debug-info.tpl.php:5
 msgctxt "debug-info"
 msgid ""
@@ -993,11 +1343,6 @@ msgctxt "form-fields admin"
 msgid "Field Association"
 msgstr ""
 
-#: admin/templates/form-fields-addoredit.tpl.php:18
-msgctxt "form-fields admin"
-msgid "Custom"
-msgstr ""
-
 #: admin/templates/form-fields-addoredit.tpl.php:35
 msgctxt "form-fields admin"
 msgid "Field Type"
@@ -1128,7 +1473,6 @@ msgctxt "form-fields admin"
 msgid "Make changes to your existing form fields."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -1797,409 +2141,1050 @@ msgctxt "admin transactions"
 msgid "Rejected"
 msgstr ""
 
-#: admin/transactions.php:243 admin/wpbdp-admin.class.php:493
-msgctxt "admin"
-msgid "The transaction has been approved."
-msgstr ""
-
-#: admin/transactions.php:254 admin/wpbdp-admin.class.php:501
-msgctxt "admin"
-msgid "The transaction has been rejected."
-msgstr ""
-
 #: admin/transactions.php:259
 msgctxt "admin"
 msgid "The transaction has been deleted."
 msgstr ""
 
-#: admin/wpbdp-admin.class.php:92
-msgctxt "admin menu"
-msgid "Business Directory Admin"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:93
-msgctxt "admin menu"
-msgid "Directory Admin"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:99 admin/wpbdp-admin.class.php:100
-msgctxt "admin menu"
-msgid "Add New Listing"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:105 admin/wpbdp-admin.class.php:106
-msgctxt "admin menu"
-msgid "Manage Options"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:111 admin/wpbdp-admin.class.php:112
-msgctxt "admin menu"
-msgid "Manage Fees"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:117 admin/wpbdp-admin.class.php:118
-msgctxt "admin menu"
-msgid "Manage Form Fields"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:123 admin/wpbdp-admin.class.php:124
-msgctxt "admin menu"
-msgid "All Listings"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:129 admin/wpbdp-admin.class.php:130
-msgctxt "admin menu"
-msgid "Pending Upgrade"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:135 admin/wpbdp-admin.class.php:136
-msgctxt "admin menu"
-msgid "Pending Payment"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:151 admin/wpbdp-admin.class.php:152
-msgctxt "admin menu"
-msgid "CSV Import"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:157 admin/wpbdp-admin.class.php:158
-msgctxt "admin menu"
-msgid "CSV Export"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:163 admin/wpbdp-admin.class.php:164
-msgctxt "admin menu"
-msgid "Debug"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:173
-msgctxt "admin menu"
-msgid "Main Menu"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:186
-msgctxt "admin menu"
-msgid "Uninstall WPDB Manager"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:187
-msgctxt "admin menu"
-msgid "Uninstall"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:220
-msgid "Listing Information"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:227
-msgctxt "admin"
-msgid "Listing Fields / Images"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:375
-msgctxt "admin actions"
-msgid "Publish Listing"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:378
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:380
-msgctxt "admin actions"
-msgid "Mark as Paid"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:382
-msgctxt "admin actions"
-msgid "Renew Listing"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:431
-msgctxt "admin"
-msgid "The listing has been published."
-msgid_plural "The listings have been published."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin/wpbdp-admin.class.php:444
-msgctxt "admin"
-msgid "The listing status has been set as paid."
-msgid_plural "The listings status has been set as paid."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin/wpbdp-admin.class.php:456
-msgctxt "admin"
-msgid "The listing has been modified."
-msgid_plural "The listings have been modified."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin/wpbdp-admin.class.php:469
-msgctxt "admin"
-msgid "The listing has been upgraded."
-msgid_plural "The listings have been upgraded."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin/wpbdp-admin.class.php:481
-msgctxt "admin"
-msgid "The listing has been downgraded."
-msgid_plural "The listings have been downgraded."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin/wpbdp-admin.class.php:507
-msgctxt "admin"
-msgid "The fee was successfully assigned."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:516
-msgctxt "admin"
-msgid "Listing was renewed."
-msgid_plural "Listings were renewed."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin/wpbdp-admin.class.php:523
-msgctxt "admin"
-msgid "Renewal email sent."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:556
-msgctxt "admin category id"
-msgid "ID"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:558 admin/wpbdp-admin.class.php:564
-msgctxt "admin"
-msgid "Listing Count"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:580
-msgctxt "admin actions"
-msgid "Edit Listing"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:583
-msgctxt "admin actions"
-msgid "Delete Listing"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:695
-msgctxt "debug-info"
-msgid "BD Info"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:707
-msgid "Missing tables: %s"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:708
-msgctxt "debug-info"
-msgid "OK"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:716
-msgctxt "debug-info"
-msgid "BD Options"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:728
-msgctxt "debug-info"
-msgid "Environment"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:786
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires fields with the following "
-"associations in order to work correctly: <b>%s</b>."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:788
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
-"association in order to work correctly."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:792
-msgctxt "admin"
-msgid ""
-"You can create these custom fields by yourself inside \"Manage Form Fields\" "
-"or let Business Directory do this for you automatically."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:796
-msgctxt "admin"
-msgid "Go to \"Manage Form Fields\""
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:799
-msgctxt "admin"
-msgid "Create these required fields for me"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:811
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires a page with the "
-"<tt>[businessdirectory]</tt> shortcode to function properly."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:813
-msgctxt "admin"
-msgid ""
-"You can create this page by yourself or let Business Directory do this for "
-"you automatically."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:817
-msgctxt "admin"
-msgid "Create required pages for me"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:847
-msgctxt "admin compat"
-msgid "Installed: %s"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:847
-msgctxt "admin compat"
-msgid "N/A"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:850
-msgctxt "admin compat"
-msgid "Required: %s"
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:863
-msgctxt "admin compat"
-msgid ""
-"Business Directory has detected some incompatible premium module versions "
-"installed."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:865
-msgctxt "admin compat"
-msgid ""
-"Please upgrade to the required versions indicated below to make sure "
-"everything functions properly."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:880
-msgctxt "admin"
-msgid ""
-"We noticed you want your Business Directory users to register before posting "
-"listings, but Registration for your site is currently disabled. Go [here] "
-"and check \"Anyone can register\" to make sure BD works properly."
-msgstr ""
-
-#: admin/wpbdp-admin.class.php:889
-msgctxt "admin"
-msgid "Business Directory"
-msgstr ""
-
-#: business-directory-plugin.php:590
+#: business-directory-plugin.php:615
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr ""
 
-#: business-directory-plugin.php:600
+#: business-directory-plugin.php:625
 msgctxt "post type general name"
 msgid "Directory"
 msgstr ""
 
-#: business-directory-plugin.php:601
+#: business-directory-plugin.php:626
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr ""
 
-#: business-directory-plugin.php:602
+#: business-directory-plugin.php:627
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr ""
 
-#: business-directory-plugin.php:603
+#: business-directory-plugin.php:628
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr ""
 
-#: business-directory-plugin.php:604 core/compatibility/deprecated.php:255
+#: business-directory-plugin.php:629 core/compatibility/deprecated.php:255
 msgid "Edit Listing"
 msgstr ""
 
-#: business-directory-plugin.php:605
+#: business-directory-plugin.php:630
 msgid "New Listing"
 msgstr ""
 
-#: business-directory-plugin.php:606
+#: business-directory-plugin.php:631
 msgid "View Listing"
 msgstr ""
 
-#: business-directory-plugin.php:607
+#: business-directory-plugin.php:632
 msgid "Search Listings"
 msgstr ""
 
-#: business-directory-plugin.php:608
+#: business-directory-plugin.php:633
 msgid "No listings found"
 msgstr ""
 
-#: business-directory-plugin.php:609
+#: business-directory-plugin.php:634
 msgid "No listings found in trash"
 msgstr ""
 
-#: business-directory-plugin.php:631
+#: business-directory-plugin.php:656
 msgid "Directory Categories"
 msgstr ""
 
-#: business-directory-plugin.php:725 business-directory-plugin.php:732
+#: business-directory-plugin.php:757 business-directory-plugin.php:764
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr ""
 
-#: business-directory-plugin.php:756
+#: business-directory-plugin.php:788
 msgctxt "credits footer"
 msgid "Directory powered by %s"
 msgstr ""
 
-#: business-directory-plugin.php:1066
+#: business-directory-plugin.php:1101
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr ""
 
-#: business-directory-plugin.php:1076
+#: business-directory-plugin.php:1111
 msgctxt "title"
 msgid "Find a Listing"
 msgstr ""
 
-#: business-directory-plugin.php:1086
+#: business-directory-plugin.php:1121
 msgctxt "title"
 msgid "View All Listings"
 msgstr ""
 
-#: business-directory-plugin.php:1107
+#: business-directory-plugin.php:1142
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr ""
 
-#: business-directory-plugin.php:1331
+#: business-directory-plugin.php:1359
 msgctxt "comment-form"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
 
-#: core/api.php:311
-msgctxt "templates"
-msgid "Featured Listing"
+#: core/class-form-field.php:51
+msgctxt "form-fields-api"
+msgid "Invalid form field type"
+msgstr ""
+
+#: core/class-form-field.php:373
+msgctxt "form-fields-api"
+msgid "Field label is required."
+msgstr ""
+
+#: core/class-form-field.php:390
+msgctxt "form-fields-api"
+msgid ""
+"There can only be one field with association \"%s\". Please select another "
+"association."
+msgstr ""
+
+#: core/class-form-field.php:400
+msgctxt "form-fields-api"
+msgid "\"%s\" is an invalid field type for this association."
+msgstr ""
+
+#: core/class-form-field.php:431
+msgctxt "form-fields-api"
+msgid "Invalid field ID"
+msgstr ""
+
+#: core/class-form-field.php:440
+msgctxt "form-fields api"
+msgid ""
+"This form field can't be deleted because it is required for the plugin to "
+"work."
+msgstr ""
+
+#: core/class-form-field.php:452
+msgctxt "form-fields-api"
+msgid "An error occurred while trying to delete this field."
 msgstr ""
 
 #: core/class-listing.php:286 core/class-listing.php:312
 msgctxt "listing"
 msgid "(Fee Unavailable)"
+msgstr ""
+
+#: core/class-settings.php:22
+msgctxt "admin settings"
+msgid "General"
+msgstr ""
+
+#: core/class-settings.php:24
+msgctxt "admin settings"
+msgid "Data Collection"
+msgstr ""
+
+#: core/class-settings.php:27
+msgctxt "admin settings"
+msgid ""
+"Allow BD to anonymously collect information about your installed plugins, "
+"themes and WP version?"
+msgstr ""
+
+#: core/class-settings.php:32
+msgctxt "admin settings"
+msgid "<a>Learn more</a> about what BD does and does NOT track."
+msgstr ""
+
+#: core/class-settings.php:35
+msgctxt "admin settings"
+msgid "Permalink Settings"
+msgstr ""
+
+#: core/class-settings.php:36
+msgctxt "admin settings"
+msgid "Directory Listings Slug"
+msgstr ""
+
+#: core/class-settings.php:37
+msgctxt "admin settings"
+msgid "Categories Slug"
+msgstr ""
+
+#: core/class-settings.php:37
+msgctxt "admin settings"
+msgid ""
+"The slug can't be in use by another term. Avoid \"category\", for instance."
+msgstr ""
+
+#: core/class-settings.php:38
+msgctxt "admin settings"
+msgid "Tags Slug"
+msgstr ""
+
+#: core/class-settings.php:38
+msgctxt "admin settings"
+msgid "The slug can't be in use by another term. Avoid \"tag\", for instance."
+msgstr ""
+
+#: core/class-settings.php:42
+msgctxt "admin settings"
+msgid "reCAPTCHA Settings"
+msgstr ""
+
+#: core/class-settings.php:45
+msgctxt "admin settings"
+msgid "Need API keys for reCAPTCHA? Get them <a>here</a>."
+msgstr ""
+
+#: core/class-settings.php:47
+msgctxt "admin settings"
+msgid "Use reCAPTCHA for contact forms"
+msgstr ""
+
+#: core/class-settings.php:48
+msgctxt "admin settings"
+msgid "Use reCAPTCHA for listing submits"
+msgstr ""
+
+#: core/class-settings.php:51
+msgctxt "admin settings"
+msgid "Use reCAPTCHA for listing comments?"
+msgstr ""
+
+#: core/class-settings.php:54
+msgctxt "admin settings"
+msgid "reCAPTCHA Public Key"
+msgstr ""
+
+#: core/class-settings.php:55
+msgctxt "admin settings"
+msgid "reCAPTCHA Private Key"
+msgstr ""
+
+#: core/class-settings.php:59 core/class-settings.php:68
+msgctxt "admin settings"
+msgid "Terms and Conditions"
+msgstr ""
+
+#: core/class-settings.php:62
+msgctxt "admin settings"
+msgid "Display and require user agreement to Terms and Conditions"
+msgstr ""
+
+#: core/class-settings.php:71
+msgctxt "admin settings"
+msgid ""
+"Enter text or a URL starting with http. If you use a URL, the Terms and "
+"Conditions text will be replaced by a link to the appropiate page."
+msgstr ""
+
+#: core/class-settings.php:75
+msgctxt "admin settings"
+msgid "Directory Display Options"
+msgstr ""
+
+#: core/class-settings.php:76
+msgctxt "admin settings"
+msgid "Show the \"Submit listing\" button."
+msgstr ""
+
+#: core/class-settings.php:77
+msgctxt "admin settings"
+msgid "Show \"Search listings\"."
+msgstr ""
+
+#: core/class-settings.php:78
+msgctxt "admin settings"
+msgid "Show the \"View Listings\" button."
+msgstr ""
+
+#: core/class-settings.php:79
+msgctxt "admin settings"
+msgid "Show the \"Directory\" button."
+msgstr ""
+
+#: core/class-settings.php:84
+msgctxt "admin settings"
+msgid "Directory Search"
+msgstr ""
+
+#: core/class-settings.php:87
+msgctxt "admin settings"
+msgid "Display search form when displaying search results?"
+msgstr ""
+
+#: core/class-settings.php:94
+msgctxt "admin settings"
+msgid ""
+"You have selected a textarea field to be included in quick searches. "
+"Searches involving those fields are very expensive and could result in "
+"timeouts and/or general slowness."
+msgstr ""
+
+#: core/class-settings.php:96
+msgctxt "admin settings"
+msgid ""
+"Choosing too many fields for inclusion into Quick Search can result in very "
+"slow search performance."
+msgstr ""
+
+#: core/class-settings.php:99
+msgctxt "admin settings"
+msgid "Quick search fields"
+msgstr ""
+
+#: core/class-settings.php:109
+msgctxt "admin settings"
+msgid "Miscellaneous Settings"
+msgstr ""
+
+#: core/class-settings.php:110
+msgctxt "admin settings"
+msgid "Hide tips for use and other information?"
+msgstr ""
+
+#: core/class-settings.php:111
+msgctxt "admin settings"
+msgid "Give credit to plugin author?"
+msgstr ""
+
+#: core/class-settings.php:114 core/class-settings.php:400
+msgctxt "admin settings"
+msgid "Listings"
+msgstr ""
+
+#: core/class-settings.php:115 core/class-settings.php:241
+msgctxt "admin settings"
+msgid "General Settings"
+msgstr ""
+
+#: core/class-settings.php:117
+msgctxt "admin settings"
+msgid "Listings per page"
+msgstr ""
+
+#: core/class-settings.php:118
+msgctxt "admin settings"
+msgid ""
+"Number of listings to show per page. Use a value of \"0\" to show all "
+"listings."
+msgstr ""
+
+#: core/class-settings.php:120
+msgctxt "admin settings"
+msgid "Listing duration for no-fee sites (in days)"
+msgstr ""
+
+#: core/class-settings.php:121
+msgctxt "admin settings"
+msgid ""
+"Use a value of \"0\" to keep a listing alive indefinitely or enter a number "
+"less than 10 years (3650 days)."
+msgstr ""
+
+#: core/class-settings.php:127
+msgctxt "admin settings"
+msgid "Include listing contact form on listing pages?"
+msgstr ""
+
+#: core/class-settings.php:130
+msgctxt "admin settings"
+msgid ""
+"Allows visitors to contact listing authors privately. Authors will receive "
+"the messages via email."
+msgstr ""
+
+#: core/class-settings.php:133
+msgctxt "admin settings"
+msgid "Include comment form on listing pages?"
+msgstr ""
+
+#: core/class-settings.php:136
+msgctxt "admin settings"
+msgid ""
+"Allow visitors to discuss listings using the standard WordPress comment "
+"form. Comments are public."
+msgstr ""
+
+#: core/class-settings.php:137
+msgctxt "admin settings"
+msgid "Show listings under categories on main page?"
+msgstr ""
+
+#: core/class-settings.php:138
+msgctxt "admin settings"
+msgid "Status of listings upon uninstalling plugin"
+msgstr ""
+
+#: core/class-settings.php:140
+msgctxt "admin settings"
+msgid "Status of deleted listings"
+msgstr ""
+
+#: core/class-settings.php:143
+msgctxt "admin settings"
+msgid "Listing Renewal"
+msgstr ""
+
+#: core/class-settings.php:144
+msgctxt "admin settings"
+msgid "Turn on listing renewal option?"
+msgstr ""
+
+#: core/class-settings.php:147
+msgctxt "admin settings"
+msgid "Allow recurring renewal payments?"
+msgstr ""
+
+#: core/class-settings.php:150
+msgctxt "admin settings"
+msgid ""
+"Allow users to opt in for automatic renewal of their listings. The fee is "
+"charged at the time the listing expires without user intervention."
+msgstr ""
+
+#: core/class-settings.php:154
+msgctxt "admin settings"
+msgid "Use recurring payments as the default payment method?"
+msgstr ""
+
+#: core/class-settings.php:157
+msgctxt "admin settings"
+msgid ""
+"Enable automatic renewal without having users opt in during the submit "
+"process."
+msgstr ""
+
+#: core/class-settings.php:162
+msgctxt "admin settings"
+msgid "Listing renewal e-mail threshold (in days)"
+msgstr ""
+
+#: core/class-settings.php:165
+msgctxt "admin settings"
+msgid ""
+"Configure how many days before listing expiration is the renewal e-mail sent."
+msgstr ""
+
+#: core/class-settings.php:171
+msgctxt "admin settings"
+msgid "Remind listing owners of expired listings (past due)?"
+msgstr ""
+
+#: core/class-settings.php:176
+msgctxt "admin settings"
+msgid "Listing renewal reminder e-mail threshold (in days)"
+msgstr ""
+
+#: core/class-settings.php:179
+msgctxt "admin settings"
+msgid ""
+"Configure how many days after the expiration of a listing an e-mail reminder "
+"should be sent to the owner."
+msgstr ""
+
+#: core/class-settings.php:182
+msgctxt "admin settings"
+msgid "Post/Category Settings"
+msgstr ""
+
+#: core/class-settings.php:183
+msgctxt "admin settings"
+msgid "Default new post status"
+msgstr ""
+
+#: core/class-settings.php:186
+msgctxt "admin settings"
+msgid "Edit post status"
+msgstr ""
+
+#: core/class-settings.php:188
+msgctxt "admin settings"
+msgid "Order categories list by"
+msgstr ""
+
+#: core/class-settings.php:190
+msgctxt "admin settings"
+msgid "Name"
+msgstr ""
+
+#: core/class-settings.php:191
+msgctxt "admin settings"
+msgid "Slug"
+msgstr ""
+
+#: core/class-settings.php:192
+msgctxt "admin settings"
+msgid "Listing Count"
+msgstr ""
+
+#: core/class-settings.php:194
+msgctxt "admin settings"
+msgid "Sort order for categories"
+msgstr ""
+
+#: core/class-settings.php:195 core/class-settings.php:212
+msgctxt "admin settings"
+msgid "Ascending"
+msgstr ""
+
+#: core/class-settings.php:195 core/class-settings.php:212
+msgctxt "admin settings"
+msgid "Descending"
+msgstr ""
+
+#: core/class-settings.php:196
+msgctxt "admin settings"
+msgid "Show category post count?"
+msgstr ""
+
+#: core/class-settings.php:197
+msgctxt "admin settings"
+msgid "Hide empty categories?"
+msgstr ""
+
+#: core/class-settings.php:198
+msgctxt "admin settings"
+msgid "Show only parent categories in category list?"
+msgstr ""
+
+#: core/class-settings.php:200
+msgctxt "admin settings"
+msgid "Listings Sorting"
+msgstr ""
+
+#: core/class-settings.php:201
+msgctxt "admin settings"
+msgid "Order directory listings by"
+msgstr ""
+
+#: core/class-settings.php:203
+msgctxt "admin settings"
+msgid "Title"
+msgstr ""
+
+#: core/class-settings.php:204
+msgctxt "admin settings"
+msgid "Author"
+msgstr ""
+
+#: core/class-settings.php:205
+msgctxt "admin settings"
+msgid "Date posted"
+msgstr ""
+
+#: core/class-settings.php:206
+msgctxt "admin settings"
+msgid "Date last modified"
+msgstr ""
+
+#: core/class-settings.php:207
+msgctxt "admin settings"
+msgid "Random"
+msgstr ""
+
+#: core/class-settings.php:208
+msgctxt "admin settings"
+msgid "Paid first then free"
+msgstr ""
+
+#: core/class-settings.php:210
+msgctxt "admin settings"
+msgid "Sort directory listings by"
+msgstr ""
+
+#: core/class-settings.php:211
+msgctxt "admin settings"
+msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
+msgstr ""
+
+#: core/class-settings.php:216
+msgctxt "admin settings"
+msgid "Enable sort bar?"
+msgstr ""
+
+#: core/class-settings.php:221
+msgctxt "admin settings"
+msgid "Sortbar Fields"
+msgstr ""
+
+#: core/class-settings.php:230
+msgctxt "admin settings"
+msgid "Featured (Sticky) listing settings"
+msgstr ""
+
+#: core/class-settings.php:231
+msgctxt "admin settings"
+msgid "Offer sticky listings?"
+msgstr ""
+
+#: core/class-settings.php:232
+msgctxt "admin settings"
+msgid "Offer upgrades during submit process?"
+msgstr ""
+
+#: core/class-settings.php:233
+msgctxt "admin settings"
+msgid "Sticky listing price"
+msgstr ""
+
+#: core/class-settings.php:234
+msgctxt "admin settings"
+msgid "Sticky listing page description text"
+msgstr ""
+
+#: core/class-settings.php:235
+msgctxt "admin settings"
+msgid ""
+"You can upgrade your listing to featured status. Featured listings will "
+"always appear on top of regular listings."
+msgstr ""
+
+#: core/class-settings.php:240
+msgctxt "admin settings"
+msgid "E-Mail"
+msgstr ""
+
+#: core/class-settings.php:244
+msgctxt "admin settings"
+msgid "Display email address fields publicly?"
+msgstr ""
+
+#: core/class-settings.php:247
+msgctxt "admin settings"
+msgid ""
+"Shows the email address of the listing owner to all web users. NOT "
+"RECOMMENDED as this increases spam to the address and allows spam bots to "
+"harvest it for future use."
+msgstr ""
+
+#: core/class-settings.php:249
+msgctxt "admin settings"
+msgid "Admin Notifications"
+msgstr ""
+
+#: core/class-settings.php:252
+msgctxt "admin settings"
+msgid "Notify admin via e-mail when..."
+msgstr ""
+
+#: core/class-settings.php:256
+msgctxt "admin settings"
+msgid "A new listing is submitted."
+msgstr ""
+
+#: core/class-settings.php:257
+msgctxt "admin settings"
+msgid "A listing expires."
+msgstr ""
+
+#: core/class-settings.php:258
+msgctxt "admin settings"
+msgid "A contact message is sent to a listing's owner."
+msgstr ""
+
+#: core/class-settings.php:264
+msgctxt "admin settings"
+msgid "CC this e-mail address too"
+msgstr ""
+
+#: core/class-settings.php:269
+msgctxt "admin settings"
+msgid "Listing email settings"
+msgstr ""
+
+#: core/class-settings.php:272
+msgctxt "admin settings"
+msgid "How to determine the listing's email address?"
+msgstr ""
+
+#: core/class-settings.php:275
+msgctxt "admin settings"
+msgid ""
+"This affects emails sent to listing owners via contact forms or when their "
+"listings expire."
+msgstr ""
+
+#: core/class-settings.php:282
+msgctxt "admin settings"
+msgid "Send email confirmation to listing owner when listing is submitted?"
+msgstr ""
+
+#: core/class-settings.php:283
+msgctxt "admin settings"
+msgid "Email confirmation message"
+msgstr ""
+
+#: core/class-settings.php:285
+msgctxt "admin settings"
+msgid ""
+"You can use the placeholder [listing] for the listing title. This setting "
+"applies to non-paying listings only; for paying listings check the \"Payment"
+"\" settings tab."
+msgstr ""
+
+#: core/class-settings.php:289
+msgctxt "contact email"
+msgid "You have received a reply from your listing at %s."
+msgstr ""
+
+#: core/class-settings.php:290
+msgctxt "contact email"
+msgid "Name: %s"
+msgstr ""
+
+#: core/class-settings.php:291
+msgctxt "contact email"
+msgid "E-Mail: %s"
+msgstr ""
+
+#: core/class-settings.php:292
+msgctxt "contact email"
+msgid "Message:"
+msgstr ""
+
+#: core/class-settings.php:294
+msgctxt "contact email"
+msgid "Time: %s"
+msgstr ""
+
+#: core/class-settings.php:296
+msgctxt "admin settings"
+msgid "E-Mail Templates"
+msgstr ""
+
+#: core/class-settings.php:299
+msgctxt "admin settings"
+msgid "Listing Contact Message"
+msgstr ""
+
+#: core/class-settings.php:302
+msgctxt "admin settings"
+msgid ""
+"You can use the placeholders [listing-url] for the listing's URL, [listing] "
+"for the listing's title, [name] for the sender's name, [email] for the "
+"sender's email, [message] for the contact message and [date] for the date "
+"the message was sent."
+msgstr ""
+
+#: core/class-settings.php:308
+msgctxt "admin settings"
+msgid "Pending expiration e-mail message"
+msgstr ""
+
+#: core/class-settings.php:314
+msgctxt "admin settings"
+msgid "Listing Renewal e-mail message"
+msgstr ""
+
+#: core/class-settings.php:317
+msgctxt "admin settings"
+msgid ""
+"You can use the placeholders [listing] for the listing title, [category] for "
+"the category, [expiration] for the expiration date and [link] for the actual "
+"renewal link."
+msgstr ""
+
+#: core/class-settings.php:322
+msgctxt "admin settings"
+msgid "Renewal reminder e-mail message"
+msgstr ""
+
+#: core/class-settings.php:325
+msgctxt "admin settings"
+msgid ""
+"You can use the placeholders [listing] for the listing title, [category] for "
+"the category, [expiration] for the expiration date, [site] for this site's "
+"URL and [link] for the actual renewal link."
+msgstr ""
+
+#: core/class-settings.php:330
+msgctxt "admin settings"
+msgid "Payment"
+msgstr ""
+
+#: core/class-settings.php:331
+msgctxt "admin settings"
+msgid "Payment Settings"
+msgstr ""
+
+#: core/class-settings.php:332
+msgctxt "admin settings"
+msgid "Turn On payments?"
+msgstr ""
+
+#: core/class-settings.php:334
+msgctxt "admin settings"
+msgid "Put payment gateways in test mode?"
+msgstr ""
+
+#: core/class-settings.php:338
+msgctxt "admin settings"
+msgid "Currency Code"
+msgstr ""
+
+#: core/class-settings.php:340
+msgctxt "admin settings"
+msgid "Australian Dollar (AUD)"
+msgstr ""
+
+#: core/class-settings.php:341
+msgctxt "admin settings"
+msgid "Brazilian Real (BRL)"
+msgstr ""
+
+#: core/class-settings.php:342
+msgctxt "admin settings"
+msgid "Canadian Dollar (CAD)"
+msgstr ""
+
+#: core/class-settings.php:343
+msgctxt "admin settings"
+msgid "Czech Koruna (CZK)"
+msgstr ""
+
+#: core/class-settings.php:344
+msgctxt "admin settings"
+msgid "Danish Krone (DKK)"
+msgstr ""
+
+#: core/class-settings.php:345
+msgctxt "admin settings"
+msgid "Euro (EUR)"
+msgstr ""
+
+#: core/class-settings.php:346
+msgctxt "admin settings"
+msgid "Hong Kong Dollar (HKD)"
+msgstr ""
+
+#: core/class-settings.php:347
+msgctxt "admin settings"
+msgid "Hungarian Forint (HUF)"
+msgstr ""
+
+#: core/class-settings.php:348
+msgctxt "admin settings"
+msgid "Israeli New Shequel (ILS)"
+msgstr ""
+
+#: core/class-settings.php:349
+msgctxt "admin settings"
+msgid "Japanese Yen (JPY)"
+msgstr ""
+
+#: core/class-settings.php:350
+msgctxt "admin settings"
+msgid "Malasian Ringgit (MYR)"
+msgstr ""
+
+#: core/class-settings.php:351
+msgctxt "admin settings"
+msgid "Mexican Peso (MXN)"
+msgstr ""
+
+#: core/class-settings.php:352
+msgctxt "admin settings"
+msgid "Norwegian Krone (NOK)"
+msgstr ""
+
+#: core/class-settings.php:353
+msgctxt "admin settings"
+msgid "New Zealand Dollar (NZD)"
+msgstr ""
+
+#: core/class-settings.php:354
+msgctxt "admin settings"
+msgid "Philippine Peso (PHP)"
+msgstr ""
+
+#: core/class-settings.php:355
+msgctxt "admin settings"
+msgid "Polish Zloty (PLN)"
+msgstr ""
+
+#: core/class-settings.php:356
+msgctxt "admin settings"
+msgid "Pound Sterling (GBP)"
+msgstr ""
+
+#: core/class-settings.php:357
+msgctxt "admin settings"
+msgid "Singapore Dollar (SGD)"
+msgstr ""
+
+#: core/class-settings.php:358
+msgctxt "admin settings"
+msgid "Swedish Krona (SEK)"
+msgstr ""
+
+#: core/class-settings.php:359
+msgctxt "admin settings"
+msgid "Swiss Franc (CHF)"
+msgstr ""
+
+#: core/class-settings.php:360
+msgctxt "admin settings"
+msgid "Taiwan Dollar (TWD)"
+msgstr ""
+
+#: core/class-settings.php:361
+msgctxt "admin settings"
+msgid "Thai Baht (THB)"
+msgstr ""
+
+#: core/class-settings.php:362
+msgctxt "admin settings"
+msgid "Turkish Lira (TRY)"
+msgstr ""
+
+#: core/class-settings.php:363
+msgctxt "admin settings"
+msgid "U.S. Dollar"
+msgstr ""
+
+#: core/class-settings.php:367
+msgctxt "admin settings"
+msgid "Currency Symbol"
+msgstr ""
+
+#: core/class-settings.php:370
+msgctxt "admin settings"
+msgid "Thank you for payment message"
+msgstr ""
+
+#: core/class-settings.php:371
+msgctxt "admin settings"
+msgid ""
+"Thank you for your payment. Your payment is being verified and your listing "
+"reviewed. The verification and review process could take up to 48 hours."
+msgstr ""
+
+#: core/class-settings.php:375
+msgctxt "admin settings"
+msgid "Registration"
+msgstr ""
+
+#: core/class-settings.php:376
+msgctxt "admin settings"
+msgid "Registration Settings"
+msgstr ""
+
+#: core/class-settings.php:377
+msgctxt "admin settings"
+msgid "Require login?"
+msgstr ""
+
+#: core/class-settings.php:382
+msgctxt "admin settings"
+msgid "Registration URL"
+msgstr ""
+
+#: core/class-settings.php:385
+msgctxt "admin settings"
+msgid ""
+"URL of your membership plugin's registration page.  Only enter this if using "
+"a membership plugin or custom registration page."
+msgstr ""
+
+#: core/class-settings.php:389
+msgctxt "admin settings"
+msgid "Image"
+msgstr ""
+
+#: core/class-settings.php:390
+msgctxt "admin settings"
+msgid ""
+"Any changes to these settings will affect new listings only.  Existing "
+"listings will not be affected.  If you wish to change existing listings, you "
+"will need to re-upload the image(s) on that listing after changing things "
+"here."
+msgstr ""
+
+#: core/class-settings.php:391
+msgctxt "admin settings"
+msgid "Image Settings"
+msgstr ""
+
+#: core/class-settings.php:392
+msgctxt "admin settings"
+msgid "Allow images?"
+msgstr ""
+
+#: core/class-settings.php:393
+msgctxt "admin settings"
+msgid "Max Image File Size (KB)"
+msgstr ""
+
+#: core/class-settings.php:395
+msgctxt "admin settings"
+msgid "Max image width"
+msgstr ""
+
+#: core/class-settings.php:396
+msgctxt "admin settings"
+msgid "Max image height"
+msgstr ""
+
+#: core/class-settings.php:397
+msgctxt "admin settings"
+msgid "Thumbnail width"
+msgstr ""
+
+#: core/class-settings.php:398
+msgctxt "admin settings"
+msgid "Turn on thickbox/lightbox?"
+msgstr ""
+
+#: core/class-settings.php:398
+msgctxt "admin settings"
+msgid ""
+"Uncheck if it conflicts with other elements or plugins installed on your site"
+msgstr ""
+
+#: core/class-settings.php:401
+msgctxt "admin settings"
+msgid "Number of free images"
+msgstr ""
+
+#: core/class-settings.php:402
+msgctxt "admin settings"
+msgid "Use default picture for listings with no picture?"
+msgstr ""
+
+#: core/class-settings.php:403
+msgctxt "admin settings"
+msgid "Show Thumbnail on main listings page?"
+msgstr ""
+
+#: core/class-settings.php:715
+msgctxt "settings"
+msgid "Deactivate License"
+msgstr ""
+
+#: core/class-settings.php:717
+msgctxt "settings"
+msgid "Deactivating license..."
+msgstr ""
+
+#: core/class-settings.php:720
+msgctxt "settings"
+msgid "Activate License"
+msgstr ""
+
+#: core/class-settings.php:722
+msgctxt "settings"
+msgid "Activating license..."
+msgstr ""
+
+#: core/class-settings.php:745
+msgctxt "admin settings"
+msgid "Valid placeholders: %s"
 msgstr ""
 
 #: core/compatibility/deprecated.php:144
@@ -2276,312 +3261,285 @@ msgctxt "form-fields api"
 msgid "Select List"
 msgstr ""
 
-#: core/form-fields-types.php:231
+#: core/form-fields-types.php:247
 msgctxt "form-fields-api category-select"
 msgid "-- Choose Terms --"
 msgstr ""
 
-#: core/form-fields-types.php:231 core/form-fields-types.php:266
+#: core/form-fields-types.php:247 core/form-fields-types.php:282
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr ""
 
-#: core/form-fields-types.php:292 core/form-fields-types.php:500
-#: core/form-fields-types.php:618
+#: core/form-fields-types.php:308 core/form-fields-types.php:527
+#: core/form-fields-types.php:649
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 
-#: core/form-fields-types.php:303
+#: core/form-fields-types.php:319
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr ""
 
-#: core/form-fields-types.php:320 core/form-fields-types.php:519
-#: core/form-fields-types.php:639
+#: core/form-fields-types.php:336 core/form-fields-types.php:546
+#: core/form-fields-types.php:670
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr ""
 
-#: core/form-fields-types.php:384
+#: core/form-fields-types.php:411
 msgctxt "form-fields api"
 msgid "Textarea"
 msgstr ""
 
-#: core/form-fields-types.php:413
+#: core/form-fields-types.php:440
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr ""
 
-#: core/form-fields-types.php:417
+#: core/form-fields-types.php:444
 msgctxt "form-fields admin"
 msgid "Allow execution of WordPress shortcodes and filters?"
 msgstr ""
 
-#: core/form-fields-types.php:448
+#: core/form-fields-types.php:475
 msgctxt "form-fields api"
 msgid "Radio button"
 msgstr ""
 
-#: core/form-fields-types.php:547
+#: core/form-fields-types.php:574
 msgctxt "form-fields api"
 msgid "Multiple select list"
 msgstr ""
 
-#: core/form-fields-types.php:552
+#: core/form-fields-types.php:579
 msgctxt "form-fields api"
 msgid "Multiselect List"
 msgstr ""
 
-#: core/form-fields-types.php:564
+#: core/form-fields-types.php:595
 msgctxt "form-fields api"
 msgid "Checkbox"
 msgstr ""
 
-#: core/form-fields-types.php:690
+#: core/form-fields-types.php:744
 msgctxt "form-fields api"
 msgid "Social Site (Twitter handle)"
 msgstr ""
 
-#: core/form-fields-types.php:739
+#: core/form-fields-types.php:793
 msgctxt "form-fields api"
 msgid "Social Site (Facebook page)"
 msgstr ""
 
-#: core/form-fields-types.php:787
+#: core/form-fields-types.php:841
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr ""
 
-#: core/form-fields-types.php:832
+#: core/form-fields-types.php:886
 msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr ""
 
-#: core/form-fields-types.php:864
+#: core/form-fields-types.php:918
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr ""
 
-#: core/form-fields.php:369
-msgctxt "form-fields-api"
-msgid "Invalid form field type"
-msgstr ""
-
-#: core/form-fields.php:676
-msgctxt "form-fields-api"
-msgid "Field label is required."
-msgstr ""
-
-#: core/form-fields.php:693
-msgctxt "form-fields-api"
-msgid ""
-"There can only be one field with association \"%s\". Please select another "
-"association."
-msgstr ""
-
-#: core/form-fields.php:703
-msgctxt "form-fields-api"
-msgid "\"%s\" is an invalid field type for this association."
-msgstr ""
-
-#: core/form-fields.php:734
-msgctxt "form-fields-api"
-msgid "Invalid field ID"
-msgstr ""
-
-#: core/form-fields.php:743
-msgctxt "form-fields api"
-msgid ""
-"This form field can't be deleted because it is required for the plugin to "
-"work."
-msgstr ""
-
-#: core/form-fields.php:755
-msgctxt "form-fields-api"
-msgid "An error occurred while trying to delete this field."
-msgstr ""
-
-#: core/form-fields.php:903
+#: core/form-fields.php:31
 msgctxt "form-fields api"
 msgid "Post Title"
 msgstr ""
 
-#: core/form-fields.php:904
+#: core/form-fields.php:32
 msgctxt "form-fields api"
 msgid "Post Content"
 msgstr ""
 
-#: core/form-fields.php:905
+#: core/form-fields.php:33
 msgctxt "form-fields api"
 msgid "Post Excerpt"
 msgstr ""
 
-#: core/form-fields.php:906
+#: core/form-fields.php:34
 msgctxt "form-fields api"
 msgid "Post Category"
 msgstr ""
 
-#: core/form-fields.php:907
+#: core/form-fields.php:35
 msgctxt "form-fields api"
 msgid "Post Tags"
 msgstr ""
 
-#: core/form-fields.php:908
+#: core/form-fields.php:36
 msgctxt "form-fields api"
 msgid "Post Metadata"
 msgstr ""
 
-#: core/form-fields.php:910
+#: core/form-fields.php:38
 msgctxt "form-fields api"
 msgid "Custom"
 msgstr ""
 
-#: core/form-fields.php:1171
+#: core/form-fields.php:299
 msgid "Business Name"
 msgstr ""
 
-#: core/form-fields.php:1173
+#: core/form-fields.php:301
 msgid "Business Genre"
 msgstr ""
 
-#: core/form-fields.php:1175
+#: core/form-fields.php:303
 msgid "Short Business Description"
 msgstr ""
 
-#: core/form-fields.php:1177
+#: core/form-fields.php:305
 msgid "Long Business Description"
 msgstr ""
 
-#: core/form-fields.php:1179
+#: core/form-fields.php:307
 msgid "Business Website Address"
 msgstr ""
 
-#: core/form-fields.php:1181
+#: core/form-fields.php:309
 msgid "Business Phone Number"
 msgstr ""
 
-#: core/form-fields.php:1183
+#: core/form-fields.php:311
 msgid "Business Fax"
 msgstr ""
 
-#: core/form-fields.php:1185
+#: core/form-fields.php:313
 msgid "Business Contact Email"
 msgstr ""
 
-#: core/form-fields.php:1187
+#: core/form-fields.php:315
 msgid "Business Tags"
 msgstr ""
 
-#: core/form-fields.php:1281
+#: core/form-fields.php:409
 msgctxt "form-fields-api"
 msgid "Email Validator"
 msgstr ""
 
-#: core/form-fields.php:1282
+#: core/form-fields.php:410
 msgctxt "form-fields-api"
 msgid "URL Validator"
 msgstr ""
 
-#: core/form-fields.php:1283
+#: core/form-fields.php:411
 msgctxt "form-fields-api"
 msgid "Whole Number Validator"
 msgstr ""
 
-#: core/form-fields.php:1284
+#: core/form-fields.php:412
 msgctxt "form-fields-api"
 msgid "Decimal Number Validator"
 msgstr ""
 
-#: core/form-fields.php:1285
+#: core/form-fields.php:413
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr ""
 
-#: core/form-fields.php:1292
+#: core/form-fields.php:420
 msgctxt "form-fields-api validation"
 msgid "Field"
 msgstr ""
 
-#: core/form-fields.php:1308 core/form-fields.php:1312
+#: core/form-fields.php:436 core/form-fields.php:440
 msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr ""
 
-#: core/form-fields.php:1321 core/form-fields.php:1328
+#: core/form-fields.php:449 core/form-fields.php:456
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
 
-#: core/form-fields.php:1342
+#: core/form-fields.php:470
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr ""
 
-#: core/form-fields.php:1348
+#: core/form-fields.php:476
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr ""
 
-#: core/form-fields.php:1354
+#: core/form-fields.php:482
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr ""
 
-#: core/form-fields.php:1365
+#: core/form-fields.php:493
 msgctxt "form-fields-api validation"
 msgid "%s must be in the format MM/DD/YYYY."
 msgstr ""
 
-#: core/form-fields.php:1376
+#: core/form-fields.php:504
 msgctxt "form-fields-api validation"
 msgid "%s is invalid. Value most be one of %s."
 msgstr ""
 
-#: core/gateways-googlewallet.php:13
+#: core/gateways-googlewallet.php:18
 msgid "Google Wallet"
 msgstr ""
 
-#: core/gateways-googlewallet.php:30
+#: core/gateways-googlewallet.php:68
+msgctxt "google-wallet"
+msgid ""
+"For recurring payments to work you need to <a>specify a postback URL</a> in "
+"your Google Wallet settings. Please use \"%s\" as value."
+msgstr ""
+
+#: core/gateways-googlewallet.php:85
 msgid "Activate Google Wallet?"
 msgstr ""
 
-#: core/gateways-googlewallet.php:35
+#: core/gateways-googlewallet.php:90
 msgid "Seller Identifier"
 msgstr ""
 
-#: core/gateways-googlewallet.php:40
+#: core/gateways-googlewallet.php:95
 msgid "Seller Secret"
 msgstr ""
 
-#: core/gateways-googlewallet.php:51
+#: core/gateways-googlewallet.php:106
 msgctxt "google-wallet"
 msgid "Seller ID is missing."
 msgstr ""
 
-#: core/gateways-googlewallet.php:54
+#: core/gateways-googlewallet.php:109
 msgctxt "google-wallet"
 msgid "Seller Secret is missing."
 msgstr ""
 
-#: core/gateways-googlewallet.php:115
+#: core/gateways-googlewallet.php:138
+msgctxt "google-wallet"
+msgid "One time payment + recurring payment for renewal fees"
+msgstr ""
+
+#: core/gateways-googlewallet.php:234
 msgctxt "google-wallet"
 msgid ""
 "Payment was rejected because internal data does not look like a valid Google "
 "Wallet transaction."
 msgstr ""
 
-#: core/gateways-googlewallet.php:130
+#: core/gateways-googlewallet.php:249
 msgctxt "google-wallet"
 msgid "Payment has been rejected because an internal error occurred."
 msgstr ""
 
-#: core/gateways-googlewallet.php:136
+#: core/gateways-googlewallet.php:255
 msgctxt "google-wallet"
 msgid "The transaction has been canceled at user's request."
 msgstr ""
 
-#: core/installer.php:447
+#: core/installer.php:454
 msgctxt "installer"
 msgid ""
 "<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
@@ -2589,84 +3547,152 @@ msgid ""
 "the Regions module."
 msgstr ""
 
-#: core/installer.php:513
+#: core/installer.php:520
 msgctxt "installer"
 msgid "Cleaning up listing fees information... %d/%d"
 msgstr ""
 
-#: core/installer.php:561
+#: core/installer.php:568
 msgctxt "installer"
 msgid "Migrating previous transactions to new Payments API... %d/%d"
 msgstr ""
 
-#: core/installer.php:578
+#: core/installer.php:597
 msgctxt "installer"
 msgid "Initial listing payment (BD < 3.4)"
 msgstr ""
 
-#: core/installer.php:589
+#: core/installer.php:608
 msgctxt "installer"
 msgid "Listing edit payment (BD < 3.4)"
 msgstr ""
 
-#: core/installer.php:610
+#: core/installer.php:629
 msgctxt "installer"
 msgid "Renewal fee \"%s\" for category \"%s\""
 msgstr ""
 
-#: core/installer.php:629
+#: core/installer.php:648
 msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr ""
 
-#: core/installer.php:676
+#: core/installer.php:707
 msgid "Business Directory - Manual Upgrade Required"
 msgstr ""
 
-#: core/installer.php:678
+#: core/installer.php:709
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
 msgstr ""
 
-#: core/installer.php:680
+#: core/installer.php:711
 msgid "Perform Manual Upgrade"
 msgstr ""
 
-#: core/installer.php:696 core/installer.php:697 core/installer.php:711
+#: core/installer.php:727 core/installer.php:728 core/installer.php:739
 msgid "Business Directory - Manual Upgrade"
 msgstr ""
 
-#: core/installer.php:715
+#: core/installer.php:743
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
 msgstr ""
 
-#: core/installer.php:717
+#: core/installer.php:745
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 
-#: core/installer.php:720
+#: core/installer.php:748
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr ""
 
-#: core/installer.php:722
+#: core/installer.php:750
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr ""
 
-#: core/installer.php:728
+#: core/installer.php:756
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was sucessfully performed. Business Directory Plugin is now "
 "available."
 msgstr ""
 
-#: core/installer.php:731
+#: core/installer.php:759
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
+msgstr ""
+
+#: core/licensing.php:31
+msgctxt "settings"
+msgid "Licenses"
+msgstr ""
+
+#: core/licensing.php:34
+msgctxt "settings"
+msgid "Premium Modules"
+msgstr ""
+
+#: core/licensing.php:59 core/licensing.php:93
+msgctxt "licensing"
+msgid "Invalid module ID"
+msgstr ""
+
+#: core/licensing.php:64
+msgctxt "licensing"
+msgid "No license key provided"
+msgstr ""
+
+#: core/licensing.php:79 core/licensing.php:109
+msgctxt "licensing"
+msgid "Could not contact licensing server"
+msgstr ""
+
+#: core/licensing.php:84 core/licensing.php:114
+msgctxt "licensing"
+msgid "License key is invalid"
+msgstr ""
+
+#: core/licensing.php:117
+msgctxt "licensing"
+msgid "Deactivation failed"
+msgstr ""
+
+#: core/licensing.php:167
+msgctxt "licensing"
+msgid "Business Directory - License Key Required"
+msgstr ""
+
+#: core/licensing.php:170
+msgctxt "licensing"
+msgid ""
+"The following premium modules will not work until a valid license key is "
+"provided. Go to <a>Manage Options - Licenses</a> to enter your license "
+"information."
+msgstr ""
+
+#: core/licensing.php:195
+msgctxt "licensing"
+msgid "Could not activate license: %s."
+msgstr ""
+
+#: core/licensing.php:197
+msgctxt "licensing"
+msgid "License activated"
+msgstr ""
+
+#: core/licensing.php:213
+msgctxt "licensing"
+msgid "Could not deactivate license: %s."
+msgstr ""
+
+#: core/licensing.php:215
+msgctxt "licensing"
+msgid "License deactivated"
 msgstr ""
 
 #: core/listings.php:20
@@ -2679,7 +3705,7 @@ msgctxt "listings-api"
 msgid "Featured Listing"
 msgstr ""
 
-#: core/listings.php:396
+#: core/listings.php:401
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr ""
@@ -2719,7 +3745,7 @@ msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 
-#: core/payment.php:279
+#: core/payment.php:282
 msgctxt "payments-api"
 msgid ""
 "You are offering featured listings but have payments turned off. Go to <a "
@@ -2728,7 +3754,7 @@ msgid ""
 "disabled."
 msgstr ""
 
-#: core/payment.php:297
+#: core/payment.php:300
 msgctxt "payments-api"
 msgid ""
 "The <b>%s</b> gateway is active but not properly configured. The gateway "
@@ -2736,7 +3762,7 @@ msgid ""
 "Check the <a href=\"%s\">payment settings</a>."
 msgstr ""
 
-#: core/payment.php:307
+#: core/payment.php:310
 msgctxt "admin"
 msgid ""
 "You have payments turned on but no gateway is active and properly "
@@ -2745,44 +3771,58 @@ msgid ""
 "<i>Free Mode</i>."
 msgstr ""
 
-#: core/payment.php:311
+#: core/payment.php:314
 msgid ""
 "BD detected PayFast and another gateway were enabled. This setup is not "
 "recommended due to PayFast supporting only ZAR and the other gateways not "
 "supporting this currency."
 msgstr ""
 
-#: core/payment.php:337
+#: core/payment.php:318
+msgid ""
+"You have recurring renewal of listing fees enabled but the payment gateways "
+"installed don't support recurring payments. Until a gateway that supports "
+"recurring payments (such as PayPal) is enabled automatic renewals will be "
+"disabled."
+msgstr ""
+
+#: core/payment.php:323
+msgid ""
+"Due to Google Wallet limitations only monthly (30 days) recurring fees are "
+"supported by the gateway. All other fees will be charged as non-recurring."
+msgstr ""
+
+#: core/payment.php:349
 msgctxt "payments-api"
 msgid "Checkout"
 msgstr ""
 
-#: core/payment.php:338
+#: core/payment.php:350
 msgctxt "payments-api"
 msgid "Pay %1$s through %2$s"
 msgstr ""
 
-#: core/payment.php:345
+#: core/payment.php:357
 msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr ""
 
-#: core/payment.php:489
+#: core/payment.php:510
 msgctxt "payments"
 msgid "Payment Details"
 msgstr ""
 
-#: core/payment.php:516
+#: core/payment.php:537
 msgctxt "checkout"
 msgid "Payment Method"
 msgstr ""
 
-#: core/payment.php:545
+#: core/payment.php:566
 msgctxt "payment"
 msgid "Return to Directory."
 msgstr ""
 
-#: core/payment.php:551
+#: core/payment.php:572
 msgctxt "payments"
 msgid ""
 "Your payment is being processed by the payment gateway. Please reload this "
@@ -2790,7 +3830,7 @@ msgid ""
 "administrator."
 msgstr ""
 
-#: core/payment.php:554
+#: core/payment.php:575
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
@@ -2798,21 +3838,26 @@ msgid ""
 "Method\" to select another payment method and try again."
 msgstr ""
 
-#: core/payment.php:555
+#: core/payment.php:576
 msgctxt "payments"
 msgid "Change Payment Method"
 msgstr ""
 
-#: core/payment.php:557
+#: core/payment.php:578
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
 "site administrator if you think there is an error."
 msgstr ""
 
-#: core/payment.php:560
+#: core/payment.php:581
 msgctxt "payments"
 msgid "The payment has been canceled at your request."
+msgstr ""
+
+#: core/templates-listings.php:63
+msgctxt "templates"
+msgid "Featured Listing"
 msgstr ""
 
 #: core/templates-ui.php:158
@@ -2835,28 +3880,33 @@ msgctxt "sort"
 msgid "Reset"
 msgstr ""
 
-#: core/utils.php:145
+#: core/utils.php:104
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
 msgstr ""
 
-#: core/utils.php:168
+#: core/utils.php:127
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr ""
 
-#: core/utils.php:177 core/utils.php:184
+#: core/utils.php:136 core/utils.php:143
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr ""
 
-#: core/utils.php:210
+#: core/utils.php:150
+msgctxt "utils"
+msgid "Unkown error while uploading file."
+msgstr ""
+
+#: core/utils.php:169
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr ""
 
-#: core/utils.php:218
+#: core/utils.php:176
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr ""
@@ -2866,49 +3916,49 @@ msgctxt "payments"
 msgid "Invalid payment id."
 msgstr ""
 
-#: core/view-checkout.php:59
+#: core/view-checkout.php:61
 msgctxt "checkout"
 msgid "Please select a valid payment method."
 msgstr ""
 
-#: core/view-checkout.php:88
+#: core/view-checkout.php:90
 msgctxt "checkout"
 msgid ""
 "Your payment is being verified. This usually takes a few minutes but can "
 "take up to 24 hours."
 msgstr ""
 
-#: core/view-checkout.php:96 core/view-checkout.php:117
+#: core/view-checkout.php:98 core/view-checkout.php:119
 msgctxt "checkout"
 msgid "← Return to Directory."
 msgstr ""
 
-#: core/view-checkout.php:106
+#: core/view-checkout.php:108
 msgctxt "checkout"
 msgid "Your payment was received sucessfully."
 msgstr ""
 
-#: core/view-checkout.php:113
+#: core/view-checkout.php:115
 msgctxt "checkout"
 msgid "← Return to your listing."
 msgstr ""
 
-#: core/view-listing-contact.php:39
+#: core/view-listing-contact.php:48
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr ""
 
-#: core/view-listing-contact.php:42
+#: core/view-listing-contact.php:51
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr ""
 
-#: core/view-listing-contact.php:45
+#: core/view-listing-contact.php:54
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr ""
 
-#: core/view-listing-contact.php:58
+#: core/view-listing-contact.php:57
 msgctxt "contact-message"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
@@ -2949,54 +3999,49 @@ msgid ""
 "e-mail message."
 msgstr ""
 
-#: core/view-renew-listing.php:24
-msgctxt "renewal"
-msgid "You don't have permission to access this page."
-msgstr ""
-
-#: core/view-renew-listing.php:43
+#: core/view-renew-listing.php:47
 msgctxt "renewal"
 msgid "Your renewal was successfully cancelled."
 msgstr ""
 
-#: core/view-renew-listing.php:55
+#: core/view-renew-listing.php:59
 msgctxt "listings"
 msgid "Fee \"%s\" renewal for category \"%s\""
 msgstr ""
 
-#: core/view-renew-listing.php:73
+#: core/view-renew-listing.php:77
 msgctxt "renewal"
 msgid "Invalid renewal state."
 msgstr ""
 
-#: core/view-renew-listing.php:85
+#: core/view-renew-listing.php:89
 msgctxt "templates"
 msgid "Recurring Fee Management"
 msgstr ""
 
-#: core/view-renew-listing.php:86
+#: core/view-renew-listing.php:90
 msgctxt "renew"
 msgid ""
 "Because you are on a recurring fee plan you don't have to renew your listing "
 "right now as this will be handled automatically when renewal comes."
 msgstr ""
 
-#: core/view-renew-listing.php:88
+#: core/view-renew-listing.php:92
 msgctxt "renewal"
 msgid "Current Fee Details"
 msgstr ""
 
-#: core/view-renew-listing.php:90
+#: core/view-renew-listing.php:94
 msgctxt "renewal"
 msgid "Number of images:"
 msgstr ""
 
-#: core/view-renew-listing.php:92
+#: core/view-renew-listing.php:96
 msgctxt "renewal"
 msgid "Expiration date:"
 msgstr ""
 
-#: core/view-renew-listing.php:96
+#: core/view-renew-listing.php:100
 msgctxt "renew"
 msgid ""
 "However, if you want to cancel your subscription you can do this on this "
@@ -3040,52 +4085,52 @@ msgid ""
 "You are logged in as an administrator. Any payment steps will be skipped."
 msgstr ""
 
-#: core/view-submit-listing.php:196
+#: core/view-submit-listing.php:197
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr ""
 
-#: core/view-submit-listing.php:264
+#: core/view-submit-listing.php:265
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr ""
 
-#: core/view-submit-listing.php:276
+#: core/view-submit-listing.php:271
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
 
-#: core/view-submit-listing.php:295
+#: core/view-submit-listing.php:288
 msgctxt "templates"
 msgid "Read our Terms and Conditions"
 msgstr ""
 
-#: core/view-submit-listing.php:300
+#: core/view-submit-listing.php:293
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr ""
 
-#: core/view-submit-listing.php:311
+#: core/view-submit-listing.php:304
 msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr ""
 
-#: core/view-submit-listing.php:412
+#: core/view-submit-listing.php:399
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr ""
 
-#: core/view-submit-listing.php:415
+#: core/view-submit-listing.php:402
 msgctxt "listings"
 msgid "(recurring)"
 msgstr ""
 
-#: core/view-submit-listing.php:425 core/view-upgrade-listing.php:54
+#: core/view-submit-listing.php:412 core/view-upgrade-listing.php:54
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr ""
 
-#: core/view-submit-listing.php:458
+#: core/view-submit-listing.php:445
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr ""
@@ -3105,11 +4150,6 @@ msgctxt "templates"
 msgid "Return to listing."
 msgstr ""
 
-#: core/view-upgrade-listing.php:60 templates/renew-listing.tpl.php:7
-msgctxt "renewal"
-msgid "Proceed to Checkout"
-msgstr ""
-
 #: core/views.php:23
 msgid ""
 "You need to create a page with the [businessdirectory] shortcode for the "
@@ -3120,12 +4160,12 @@ msgstr ""
 msgid "The directory is temporarily disabled."
 msgstr ""
 
-#: core/views.php:128
+#: core/views.php:133
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 
-#: core/views.php:296
+#: core/views.php:301
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -3135,12 +4175,12 @@ msgid ""
 "categories to the business directory."
 msgstr ""
 
-#: core/views.php:298
+#: core/views.php:303
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr ""
 
-#: core/views.php:366
+#: core/views.php:371
 msgctxt "templates"
 msgid "The listing has been deleted."
 msgstr ""
@@ -3160,13 +4200,13 @@ msgctxt "widgets"
 msgid "Latest Listings"
 msgstr ""
 
-#: core/widgets.php:22 core/widgets.php:70 core/widgets.php:159
-#: core/widgets.php:243
+#: core/widgets.php:22 core/widgets.php:70 core/widgets.php:167
+#: core/widgets.php:251
 msgctxt "widgets"
 msgid "Title:"
 msgstr ""
 
-#: core/widgets.php:29 core/widgets.php:77 core/widgets.php:166
+#: core/widgets.php:29 core/widgets.php:77 core/widgets.php:174
 msgctxt "widgets"
 msgid "Number of listings to display:"
 msgstr ""
@@ -3191,940 +4231,69 @@ msgctxt "widgets"
 msgid "Show thumbnails"
 msgstr ""
 
-#: core/widgets.php:147
+#: core/widgets.php:94
 msgctxt "widgets"
-msgid "Business Directory - Random Listings"
-msgstr ""
-
-#: core/widgets.php:148
-msgctxt "widgets"
-msgid "Displays a list of random listings from the Business Directory."
+msgid "Display listings in random order"
 msgstr ""
 
 #: core/widgets.php:155
 msgctxt "widgets"
+msgid "Business Directory - Random Listings"
+msgstr ""
+
+#: core/widgets.php:156
+msgctxt "widgets"
+msgid "Displays a list of random listings from the Business Directory."
+msgstr ""
+
+#: core/widgets.php:163
+msgctxt "widgets"
 msgid "Random Listings"
-msgstr ""
-
-#: core/widgets.php:231
-msgctxt "widgets"
-msgid "Business Directory - Search"
-msgstr ""
-
-#: core/widgets.php:232
-msgctxt "widgets"
-msgid "Displays a search form to look for Business Directory listings."
 msgstr ""
 
 #: core/widgets.php:239
 msgctxt "widgets"
-msgid "Search the Business Directory"
+msgid "Business Directory - Search"
 msgstr ""
 
-#: core/widgets.php:250
+#: core/widgets.php:240
 msgctxt "widgets"
-msgid "Form Style:"
+msgid "Displays a search form to look for Business Directory listings."
+msgstr ""
+
+#: core/widgets.php:247
+msgctxt "widgets"
+msgid "Search the Business Directory"
 msgstr ""
 
 #: core/widgets.php:258
 msgctxt "widgets"
-msgid "Basic"
+msgid "Form Style:"
 msgstr ""
 
 #: core/widgets.php:266
 msgctxt "widgets"
+msgid "Basic"
+msgstr ""
+
+#: core/widgets.php:274
+msgctxt "widgets"
 msgid "Advanced"
 msgstr ""
 
-#: core/widgets.php:270
+#: core/widgets.php:278
 msgctxt "widgets"
 msgid "Search Fields (advanced mode):"
 msgstr ""
 
-#: core/widgets.php:271
+#: core/widgets.php:279
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr ""
 
-#: core/widgets.php:323
+#: core/widgets.php:331
 msgctxt "widgets"
 msgid "Search"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:22
-msgctxt "admin settings"
-msgid "General"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:24
-msgctxt "admin settings"
-msgid "Data Collection"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:27
-msgctxt "admin settings"
-msgid ""
-"Allow BD to anonymously collect information about your installed plugins, "
-"themes and WP version?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:32
-msgctxt "admin settings"
-msgid "<a>Learn more</a> about what BD does and does NOT track."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:35
-msgctxt "admin settings"
-msgid "Permalink Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:36
-msgctxt "admin settings"
-msgid "Directory Listings Slug"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:37
-msgctxt "admin settings"
-msgid "Categories Slug"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:37
-msgctxt "admin settings"
-msgid ""
-"The slug can't be in use by another term. Avoid \"category\", for instance."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:38
-msgctxt "admin settings"
-msgid "Tags Slug"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:38
-msgctxt "admin settings"
-msgid "The slug can't be in use by another term. Avoid \"tag\", for instance."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:42
-msgctxt "admin settings"
-msgid "reCAPTCHA Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:45
-msgctxt "admin settings"
-msgid "Need API keys for reCAPTCHA? Get them <a>here</a>."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:47
-msgctxt "admin settings"
-msgid "Use reCAPTCHA for contact forms"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:48
-msgctxt "admin settings"
-msgid "Use reCAPTCHA for listing submits"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:51
-msgctxt "admin settings"
-msgid "Use reCAPTCHA for listing comments?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:54
-msgctxt "admin settings"
-msgid "reCAPTCHA Public Key"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:55
-msgctxt "admin settings"
-msgid "reCAPTCHA Private Key"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:59 core/wpbdp-settings.class.php:68
-msgctxt "admin settings"
-msgid "Terms and Conditions"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:62
-msgctxt "admin settings"
-msgid "Display and require user agreement to Terms and Conditions"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:71
-msgctxt "admin settings"
-msgid ""
-"Enter text or a URL starting with http. If you use a URL, the Terms and "
-"Conditions text will be replaced by a link to the appropiate page."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:75
-msgctxt "admin settings"
-msgid "Directory Display Options"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:76
-msgctxt "admin settings"
-msgid "Show the \"Submit listing\" button."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:77
-msgctxt "admin settings"
-msgid "Show \"Search listings\"."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:78
-msgctxt "admin settings"
-msgid "Show the \"View Listings\" button."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:79
-msgctxt "admin settings"
-msgid "Show the \"Directory\" button."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:84
-msgctxt "admin settings"
-msgid "Directory Search"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:87
-msgctxt "admin settings"
-msgid "Display search form when displaying search results?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:103
-msgctxt "admin settings"
-msgid "Quick search fields"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:106
-msgctxt "admin settings"
-msgid ""
-"Choosing too many fields for inclusion into Quick Search can result in very "
-"slow search performance."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:113
-msgctxt "admin settings"
-msgid "Miscellaneous Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:114
-msgctxt "admin settings"
-msgid "Hide tips for use and other information?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:115
-msgctxt "admin settings"
-msgid "Give credit to plugin author?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:118 core/wpbdp-settings.class.php:406
-msgctxt "admin settings"
-msgid "Listings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:119 core/wpbdp-settings.class.php:245
-msgctxt "admin settings"
-msgid "General Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:121
-msgctxt "admin settings"
-msgid "Listings per page"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:122
-msgctxt "admin settings"
-msgid ""
-"Number of listings to show per page. Use a value of \"0\" to show all "
-"listings."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:124
-msgctxt "admin settings"
-msgid "Listing duration for no-fee sites (in days)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:125
-msgctxt "admin settings"
-msgid ""
-"Use a value of \"0\" to keep a listing alive indefinitely or enter a number "
-"less than 10 years (3650 days)."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:131
-msgctxt "admin settings"
-msgid "Include listing contact form on listing pages?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:134
-msgctxt "admin settings"
-msgid ""
-"Allows visitors to contact listing authors privately. Authors will receive "
-"the messages via email."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:137
-msgctxt "admin settings"
-msgid "Include comment form on listing pages?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:140
-msgctxt "admin settings"
-msgid ""
-"Allow visitors to discuss listings using the standard WordPress comment "
-"form. Comments are public."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:141
-msgctxt "admin settings"
-msgid "Show listings under categories on main page?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:142
-msgctxt "admin settings"
-msgid "Status of listings upon uninstalling plugin"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:144
-msgctxt "admin settings"
-msgid "Status of deleted listings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:147
-msgctxt "admin settings"
-msgid "Listing Renewal"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:148
-msgctxt "admin settings"
-msgid "Turn on listing renewal option?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:151
-msgctxt "admin settings"
-msgid "Allow recurring renewal payments?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:154
-msgctxt "admin settings"
-msgid ""
-"Allow users to opt in for automatic renewal of their listings. The fee is "
-"charged at the time the listing expires without user intervention."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:158
-msgctxt "admin settings"
-msgid "Use recurring payments as the default payment method?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:161
-msgctxt "admin settings"
-msgid ""
-"Enable automatic renewal without having users opt in during the submit "
-"process."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:166
-msgctxt "admin settings"
-msgid "Listing renewal e-mail threshold (in days)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:169
-msgctxt "admin settings"
-msgid ""
-"Configure how many days before listing expiration is the renewal e-mail sent."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:175
-msgctxt "admin settings"
-msgid "Remind listing owners of expired listings (past due)?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:180
-msgctxt "admin settings"
-msgid "Listing renewal reminder e-mail threshold (in days)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:183
-msgctxt "admin settings"
-msgid ""
-"Configure how many days after the expiration of a listing an e-mail reminder "
-"should be sent to the owner."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:186
-msgctxt "admin settings"
-msgid "Post/Category Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:187
-msgctxt "admin settings"
-msgid "Default new post status"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:190
-msgctxt "admin settings"
-msgid "Edit post status"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:192
-msgctxt "admin settings"
-msgid "Order categories list by"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:194
-msgctxt "admin settings"
-msgid "Name"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:195
-msgctxt "admin settings"
-msgid "Slug"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:196
-msgctxt "admin settings"
-msgid "Listing Count"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:198
-msgctxt "admin settings"
-msgid "Sort order for categories"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:199 core/wpbdp-settings.class.php:216
-msgctxt "admin settings"
-msgid "Ascending"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:199 core/wpbdp-settings.class.php:216
-msgctxt "admin settings"
-msgid "Descending"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:200
-msgctxt "admin settings"
-msgid "Show category post count?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:201
-msgctxt "admin settings"
-msgid "Hide empty categories?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:202
-msgctxt "admin settings"
-msgid "Show only parent categories in category list?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:204
-msgctxt "admin settings"
-msgid "Listings Sorting"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:205
-msgctxt "admin settings"
-msgid "Order directory listings by"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:207
-msgctxt "admin settings"
-msgid "Title"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:208
-msgctxt "admin settings"
-msgid "Author"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:209
-msgctxt "admin settings"
-msgid "Date posted"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:210
-msgctxt "admin settings"
-msgid "Date last modified"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:211
-msgctxt "admin settings"
-msgid "Random"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:212
-msgctxt "admin settings"
-msgid "Paid first then free"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:214
-msgctxt "admin settings"
-msgid "Sort directory listings by"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:215
-msgctxt "admin settings"
-msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:220
-msgctxt "admin settings"
-msgid "Enable sort bar?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:225
-msgctxt "admin settings"
-msgid "Sortbar Fields"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:234
-msgctxt "admin settings"
-msgid "Featured (Sticky) listing settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:235
-msgctxt "admin settings"
-msgid "Offer sticky listings?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:236
-msgctxt "admin settings"
-msgid "Offer upgrades during submit process?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:237
-msgctxt "admin settings"
-msgid "Sticky listing price"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:238
-msgctxt "admin settings"
-msgid "Sticky listing page description text"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:239
-msgctxt "admin settings"
-msgid ""
-"You can upgrade your listing to featured status. Featured listings will "
-"always appear on top of regular listings."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:244
-msgctxt "admin settings"
-msgid "E-Mail"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:248
-msgctxt "admin settings"
-msgid "Display email address fields publicly?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:251
-msgctxt "admin settings"
-msgid ""
-"Shows the email address of the listing owner to all web users. NOT "
-"RECOMMENDED as this increases spam to the address and allows spam bots to "
-"harvest it for future use."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:253
-msgctxt "admin settings"
-msgid "Listing email settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:256
-msgctxt "admin settings"
-msgid "How to determine the listing's email address?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:259
-msgctxt "admin settings"
-msgid ""
-"This affects emails sent to listing owners via contact forms or when their "
-"listings expire."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:266
-msgctxt "admin settings"
-msgid "Send email confirmation to listing owner when listing is submitted?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:267
-msgctxt "admin settings"
-msgid "Email confirmation message"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:269
-msgctxt "admin settings"
-msgid ""
-"You can use the placeholder [listing] for the listing title. This setting "
-"applies to non-paying listings only; for paying listings check the \"Payment"
-"\" settings tab."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:273
-msgctxt "contact email"
-msgid "You have received a reply from your listing at %s."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:274
-msgctxt "contact email"
-msgid "Name: %s"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:275
-msgctxt "contact email"
-msgid "E-Mail: %s"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:276
-msgctxt "contact email"
-msgid "Message:"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:278
-msgctxt "contact email"
-msgid "Time: %s"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:280
-msgctxt "admin settings"
-msgid "E-Mail Templates"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:283
-msgctxt "admin settings"
-msgid "Listing Contact Message"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:286
-msgctxt "admin settings"
-msgid ""
-"You can use the placeholders [listing-url] for the listing's URL, [listing] "
-"for the listing's title, [name] for the sender's name, [email] for the "
-"sender's email, [message] for the contact message and [date] for the date "
-"the message was sent."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:292
-msgctxt "admin settings"
-msgid "Pending expiration e-mail message"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:298
-msgctxt "admin settings"
-msgid "Listing Renewal e-mail message"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:301
-msgctxt "admin settings"
-msgid ""
-"You can use the placeholders [listing] for the listing title, [category] for "
-"the category, [expiration] for the expiration date and [link] for the actual "
-"renewal link."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:306
-msgctxt "admin settings"
-msgid "Renewal reminder e-mail message"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:309
-msgctxt "admin settings"
-msgid ""
-"You can use the placeholders [listing] for the listing title, [category] for "
-"the category, [expiration] for the expiration date, [site] for this site's "
-"URL and [link] for the actual renewal link."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:314
-msgctxt "admin settings"
-msgid "Admin Notifications"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:317
-msgctxt "admin settings"
-msgid "Notify admin via e-mail when..."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:321
-msgctxt "admin settings"
-msgid "A new listing is submitted."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:322
-msgctxt "admin settings"
-msgid "A listing expires."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:323
-msgctxt "admin settings"
-msgid "A contact message is sent to a listing's owner."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:329
-msgctxt "admin settings"
-msgid "CC this e-mail address too"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:336
-msgctxt "admin settings"
-msgid "Payment"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:337
-msgctxt "admin settings"
-msgid "Payment Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:338
-msgctxt "admin settings"
-msgid "Turn On payments?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:340
-msgctxt "admin settings"
-msgid "Put payment gateways in test mode?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:344
-msgctxt "admin settings"
-msgid "Currency Code"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:346
-msgctxt "admin settings"
-msgid "Australian Dollar (AUD)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:347
-msgctxt "admin settings"
-msgid "Brazilian Real (BRL)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:348
-msgctxt "admin settings"
-msgid "Canadian Dollar (CAD)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:349
-msgctxt "admin settings"
-msgid "Czech Koruna (CZK)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:350
-msgctxt "admin settings"
-msgid "Danish Krone (DKK)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:351
-msgctxt "admin settings"
-msgid "Euro (EUR)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:352
-msgctxt "admin settings"
-msgid "Hong Kong Dollar (HKD)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:353
-msgctxt "admin settings"
-msgid "Hungarian Forint (HUF)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:354
-msgctxt "admin settings"
-msgid "Israeli New Shequel (ILS)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:355
-msgctxt "admin settings"
-msgid "Japanese Yen (JPY)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:356
-msgctxt "admin settings"
-msgid "Malasian Ringgit (MYR)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:357
-msgctxt "admin settings"
-msgid "Mexican Peso (MXN)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:358
-msgctxt "admin settings"
-msgid "Norwegian Krone (NOK)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:359
-msgctxt "admin settings"
-msgid "New Zealand Dollar (NZD)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:360
-msgctxt "admin settings"
-msgid "Philippine Peso (PHP)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:361
-msgctxt "admin settings"
-msgid "Polish Zloty (PLN)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:362
-msgctxt "admin settings"
-msgid "Pound Sterling (GBP)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:363
-msgctxt "admin settings"
-msgid "Singapore Dollar (SGD)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:364
-msgctxt "admin settings"
-msgid "Swedish Krona (SEK)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:365
-msgctxt "admin settings"
-msgid "Swiss Franc (CHF)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:366
-msgctxt "admin settings"
-msgid "Taiwan Dollar (TWD)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:367
-msgctxt "admin settings"
-msgid "Thai Baht (THB)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:368
-msgctxt "admin settings"
-msgid "Turkish Lira (TRY)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:369
-msgctxt "admin settings"
-msgid "U.S. Dollar"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:373
-msgctxt "admin settings"
-msgid "Currency Symbol"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:376
-msgctxt "admin settings"
-msgid "Thank you for payment message"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:377
-msgctxt "admin settings"
-msgid ""
-"Thank you for your payment. Your payment is being verified and your listing "
-"reviewed. The verification and review process could take up to 48 hours."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:381
-msgctxt "admin settings"
-msgid "Registration"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:382
-msgctxt "admin settings"
-msgid "Registration Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:383
-msgctxt "admin settings"
-msgid "Require login?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:388
-msgctxt "admin settings"
-msgid "Registration URL"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:391
-msgctxt "admin settings"
-msgid ""
-"URL of your membership plugin's registration page.  Only enter this if using "
-"a membership plugin or custom registration page."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:395
-msgctxt "admin settings"
-msgid "Image"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:396
-msgctxt "admin settings"
-msgid ""
-"Any changes to these settings will affect new listings only.  Existing "
-"listings will not be affected.  If you wish to change existing listings, you "
-"will need to re-upload the image(s) on that listing after changing things "
-"here."
-msgstr ""
-
-#: core/wpbdp-settings.class.php:397
-msgctxt "admin settings"
-msgid "Image Settings"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:398
-msgctxt "admin settings"
-msgid "Allow images?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:399
-msgctxt "admin settings"
-msgid "Max Image File Size (KB)"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:401
-msgctxt "admin settings"
-msgid "Max image width"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:402
-msgctxt "admin settings"
-msgid "Max image height"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:403
-msgctxt "admin settings"
-msgid "Thumbnail width"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:404
-msgctxt "admin settings"
-msgid "Turn on thickbox/lightbox?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:404
-msgctxt "admin settings"
-msgid ""
-"Uncheck if it conflicts with other elements or plugins installed on your site"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:407
-msgctxt "admin settings"
-msgid "Number of free images"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:408
-msgctxt "admin settings"
-msgid "Use default picture for listings with no picture?"
-msgstr ""
-
-#: core/wpbdp-settings.class.php:409
-msgctxt "admin settings"
-msgid "Show Thumbnail on main listings page?"
 msgstr ""
 
 #: templates/businessdirectory-listings.tpl.php:20 templates/search.tpl.php:41
@@ -4194,29 +4363,29 @@ msgctxt "templates"
 msgid "Listing Title: "
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:19
+#: templates/listing-contactform.tpl.php:20
 msgctxt "templates"
 msgid ""
 "You are currently logged in as %s. Your message will be sent using your "
 "logged in contact email."
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:24
+#: templates/listing-contactform.tpl.php:25
 msgctxt "templates"
 msgid "Your Name"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:28
+#: templates/listing-contactform.tpl.php:29
 msgctxt "templates"
 msgid "Your Email"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:33
+#: templates/listing-contactform.tpl.php:34
 msgctxt "templates"
 msgid "Message"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:41
+#: templates/listing-contactform.tpl.php:42
 msgctxt "templates"
 msgid "Send"
 msgstr ""
@@ -4330,12 +4499,12 @@ msgctxt "templates"
 msgid "Login"
 msgstr ""
 
-#: templates/parts/login-required.tpl.php:24
+#: templates/parts/login-required.tpl.php:26
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr ""
 
-#: templates/parts/login-required.tpl.php:26
+#: templates/parts/login-required.tpl.php:28
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr ""
@@ -4365,6 +4534,11 @@ msgctxt "templates"
 msgid "Renew Listing"
 msgstr ""
 
+#: templates/renew-listing.tpl.php:7
+msgctxt "renewal"
+msgid "Proceed to Checkout"
+msgstr ""
+
 #: templates/renew-listing.tpl.php:10
 msgctxt "templates"
 msgid ""
@@ -4382,7 +4556,7 @@ msgstr ""
 #: templates/renew-listing.tpl.php:22
 #: templates/submit-listing/category-selection.tpl.php:8
 #: templates/submit-listing/fee-selection.tpl.php:37
-#: templates/submit-listing/images.tpl.php:31
+#: templates/submit-listing/images.tpl.php:35
 #: templates/submit-listing/listing-fields.tpl.php:33
 msgctxt "templates"
 msgid "Continue"
@@ -4489,32 +4663,32 @@ msgctxt "templates"
 msgid "Delete Image"
 msgstr ""
 
-#: templates/submit-listing/images-single.tpl.php:15
+#: templates/submit-listing/images-single.tpl.php:16
 msgctxt "templates"
 msgid "Set this image as the listing thumbnail."
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:16
+#: templates/submit-listing/images-upload-form.tpl.php:17
 msgctxt "templates"
 msgid "Upload Images"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:21
+#: templates/submit-listing/images-upload-form.tpl.php:22
 msgctxt "templates"
 msgid "Drop files here"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:23
+#: templates/submit-listing/images-upload-form.tpl.php:26
 msgctxt "templates"
 msgid "Select images from your hard drive"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:26
+#: templates/submit-listing/images-upload-form.tpl.php:32
 msgctxt "templates"
 msgid "Uploading %s file(s)... Please wait."
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:30
+#: templates/submit-listing/images-upload-form.tpl.php:36
 msgctxt "templates"
 msgid ""
 "Your image slots are all full at this time.  You may click \"Continue\" if "
@@ -4522,34 +4696,29 @@ msgid ""
 "current one."
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:38
+#: templates/submit-listing/images-upload-form.tpl.php:44
 msgctxt "templates"
 msgid "Image slots available:"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:43
+#: templates/submit-listing/images-upload-form.tpl.php:49
 msgctxt "templates"
 msgid "Max. file size:"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:54
-msgctxt "templates"
-msgid "Upload Image"
-msgstr ""
-
-#: templates/submit-listing/images.tpl.php:1
+#: templates/submit-listing/images.tpl.php:4
 msgctxt "templates"
 msgid "Listing Images"
 msgstr ""
 
-#: templates/submit-listing/images.tpl.php:4
+#: templates/submit-listing/images.tpl.php:7
 msgctxt "templates"
 msgid ""
 "There is an image pending upload. Would you still like to continue without "
 "saving the image?"
 msgstr ""
 
-#: templates/submit-listing/images.tpl.php:10
+#: templates/submit-listing/images.tpl.php:13
 msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr ""
