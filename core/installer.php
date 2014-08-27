@@ -140,7 +140,7 @@
         global $wpbdp;
 
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
-            break;
+            return;
 
         $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9' );
 
@@ -150,6 +150,9 @@
                 $_v = str_replace( '.', '_', $v );
                 call_user_func( array( $this, 'upgrade_to_' . $_v ) );
                 update_option('wpbdp-db-version', $v);
+
+                if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
+                    break;
             }
         }
     }
