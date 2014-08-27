@@ -1,6 +1,6 @@
 <?php
- 
- class WPBDP_Installer {
+
+class WPBDP_Installer {
 
     const DB_VERSION = '3.9';
 
