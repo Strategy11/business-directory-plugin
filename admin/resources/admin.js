@@ -505,6 +505,11 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
                     $('input.license-' + action, $container).hide();
                     $('input[type="button"]', $container).not( '.license-' + action ).show();
+
+                    if ( 'activate' == action )
+                        $( 'input[type="text"]#license-key-' + module ).attr('readonly', 'readonly');
+                    else
+                        $( 'input[type="text"]#license-key-' + module ).removeAttr('readonly');
                 } else {
                     $msg.hide()
                         .html(res.error)

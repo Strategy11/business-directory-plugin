@@ -706,7 +706,12 @@ class WPBDP_Settings {
         $license_status = get_option( 'wpbdp-license-status-' . $module_id, false );
 
         $html  = '';
-        $html .= '<input type="text" id="' . $setting->name . '" name="' . self::PREFIX . $setting->name . '" value="' . esc_attr( $value ) . '" size="25" />';
+        $html .= '<input type="text"
+                         id="' . $setting->name . '"
+                         name="' . self::PREFIX . $setting->name . '"
+                         value="' . esc_attr( $value ) . '"
+                         size="25"
+                         ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . '/>';
 
         if ( $value ) {
             $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
