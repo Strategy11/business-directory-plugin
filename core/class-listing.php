@@ -19,7 +19,7 @@ class WPBDP_Listing {
      * @param boolean $append if TRUE the specified field values are set without clearing the values for the other fields.
      */
     public function set_field_values( $values = array(), $append = false ) {
-        $fields = wpbdp_get_form_fields( array( 'association' => array( '-title', '-category' ) ) );
+        $fields = wpbdp_get_form_fields( array( 'association' => array( '-category' ) ) );
 
         foreach ( $fields as &$f ) {
             if ( isset( $values[ $f->get_id() ] ) )

@@ -364,7 +364,6 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-
         $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) );
         $this->state->save(); // Save state in case extra sections modified it.
 
