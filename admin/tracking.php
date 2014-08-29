@@ -136,6 +136,7 @@ class WPBDP_SiteTracking {
             ) );
 
             set_transient( 'wpbdp-site_tracking_data', true, 7 * 60 * 60 * 24 );
+
         }
         // delete_transient( 'wpbdp-site_tracking_data' );
 

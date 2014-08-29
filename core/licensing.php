@@ -18,6 +18,12 @@ class WPBDP_Licensing {
         add_action( 'wp_ajax_wpbdp-activate-license', array( &$this, 'ajax_activate_license' ) );
         add_action( 'wp_ajax_wpbdp-deactivate-license', array( &$this, 'ajax_deactivate_license' ) );
 
+        add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
+
+        if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
+//            wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
+        }
+
         if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
             require_once ( WPBDP_PATH . 'vendors/edd/EDD_SL_Plugin_Updater.php' );
         }
@@ -140,6 +146,7 @@ class WPBDP_Licensing {
     }
 
     public function admin_init() {
+        do_action( 'wpbdp_license_check' );
         foreach ( $this->modules as $module => $data ) {
             new EDD_SL_Plugin_Updater( self::STORE_URL,
                                        $data['file'],
@@ -151,6 +158,7 @@ class WPBDP_Licensing {
     }
 
     public function admin_notices() {
+        // Modules missing license.
         $invalid_licenses = array();
 
         foreach ( $this->modules as $module => $data ) {
@@ -160,22 +168,99 @@ class WPBDP_Licensing {
             $invalid_licenses[] = array( 'id' => $data['id'], 'name' => $data['name'], 'version' => $data['version'] );
         }
 
-        if ( ! $invalid_licenses )
+        if ( $invalid_licenses ) {
+            echo '<div class="error"><p>';
+            echo '<b>' . _x( 'Business Directory - License Key Required', 'licensing', 'WPBDM' ) . '</b><br />';
+            echo str_replace( '<a>',
+                              '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=licenses' ) ) . '">',
+                              _x( 'The following premium modules will not work until a valid license key is provided. Go to <a>Manage Options - Licenses</a> to enter your license information.',
+                                  'licensing',
+                                  'WPBDM' ) );
+            echo '<br /><br />';
+
+            foreach ( $invalid_licenses as $l )
+                echo '&#149; ' . $l['name'] . ' ' . $l['version'] . '<br />';
+
+            echo '</p></div>';
+        }
+
+        // Expired licenses.
+        $expired = array();
+        $check_data = get_transient( 'wpbdp-license-check-data' );
+
+        foreach ( $check_data['expired'] as $m ) {
+            $module = isset( $this->modules[ $m[0] ] ) ? $this->modules[ $m[0] ] : null;
+
+            if ( ! $module || ( $m[1] !== $module['license'] ) )
+                continue;
+
+            $expired[] = $module;
+        }
+
+        if ( $expired ) {
+            echo '<div class="error">';
+            echo '<a class="wpbdp-expired-licenses-panel-dismiss">Dismiss</a>';
+            echo '<p>';
+            echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
+            echo _x( 'The license key for the following premium modules has expired. The modules will continue to work but you will not receive any more updates until the license is renewed.',
+                     'licensing',
+                     'WPBDM' );
+            echo '<br /><br />';
+
+            foreach( $expired as $m )
+                echo '&#149; ' . $m['name'] . ' ' . $m['version'] . '<br />';
+
+            echo '<br />';
+            echo '<a href="#" class="button">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
+            echo '<a href="#" target="_blank" class="button-primary">' . _x( 'Renew License Keys', 'licensing', 'WPBDM' ) . '</a>';
+            echo '</p></div>';
+        }
+    }
+
+    function license_check() {
+        if ( ! $this->modules )
             return;
 
-        echo '<div class="error"><p>';
-        echo '<b>' . _x( 'Business Directory - License Key Required', 'licensing', 'WPBDM' ) . '</b><br />';
-        echo str_replace( '<a>',
-                          '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=licenses' ) ) . '">',
-                          _x( 'The following premium modules will not work until a valid license key is provided. Go to <a>Manage Options - Licenses</a> to enter your license information.',
-                              'licensing',
-                              'WPBDM' ) );
-        echo '<br /><br />';
+        wpbdp_log( 'Performing (scheduled) license check.' );
 
-        foreach ( $invalid_licenses as $l )
-            echo '&#149; ' . $l['name'] . ' ' . $l['version'] . '<br />';
+        $data = get_transient( 'wpbdp-license-check-data' );
 
-        echo '</p></div>';
+        if ( ! $data ) {
+            wpbdp_log( 'Gathering license status data.' );
+            $data = array( 'expired' => array(), 'dismissed' => 'no' );
+
+            foreach ( $this->modules as $module ) {
+                if ( ! $this->check_module_license( $module['id'] ) )
+                    $data['expired'][] = array( $module['id'], $module['license'] );
+            }
+
+            set_transient( 'wpbdp-license-check-data', $data, 2 * WEEK_IN_SECONDS );
+        }
+
+        //delete_transient( 'wpbdp-license-check-data' );
+    }
+
+    function check_module_license( $module ) {
+        $data = isset( $this->modules[ $module ] ) ? $this->modules[ $module ] : null;
+
+        if ( ! $data || ! isset( $data['license'] ) || ! $data['license'] )
+            return null;
+
+        $request = array( 'edd_action' => 'check_license',
+                          'license' => $data['license'],
+                          'item_name' => urlencode( $data['name'] ),
+                          'url' => home_url() );
+        $response = wp_remote_get( add_query_arg( $request, self::STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+
+        if ( is_wp_error( $response ) )
+            return null;
+
+        $license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+        if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) )
+            return null;
+
+        return ( 'valid' == $license_data->license ? true : false );
     }
 
     function ajax_activate_license() {

@@ -1,6 +1,5 @@
 var WPBDP_associations_fieldtypes = {};
 
-
 (function($) {
 
     /* Form Fields */
