@@ -298,7 +298,7 @@ class WPBDP_PaymentsAPI {
             if ( $gateway_errors ) {
                 $gateway_messages = rtrim('&#149; ' . implode(' &#149; ', $gateway_errors), '.');
                 $errors[] = sprintf(_x('The <b>%s</b> gateway is active but not properly configured. The gateway won\'t be available until the following problems are fixed: <b>%s</b>. <br/> Check the <a href="%s">payment settings</a>.', 'payments-api', 'WPBDM'),
-                                        $gateway->name,
+                                        $gateway->get_name(),
                                         $gateway_messages,
                                         admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment') );
             } else {
@@ -319,7 +319,7 @@ class WPBDP_PaymentsAPI {
             }
 
             if ( wpbdp_get_option( 'listing-renewal-auto' ) && $this->has_gateway( 'googlewallet' )
-                 && isset( $_GET['page'] ) && 'wpbdp_admin_fees' == $_GET['page'] ) {
+                 && wpbdp_get_option('googlewallet' ) && isset( $_GET['page'] ) && 'wpbdp_admin_fees' == $_GET['page'] ) {
                 $errors[] = __( 'Due to Google Wallet limitations only monthly (30 days) recurring fees are supported by the gateway. All other fees will be charged as non-recurring.', 'WPBDM' );
             }
         }
