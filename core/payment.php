@@ -488,10 +488,17 @@ class WPBDP_PaymentsAPI {
         if ( ! $category || ! $listing )
             return;
 
-        if ( ! $this->gateways['paypal'] )
-            return;
+        $payment = WPBDP_Payment::get( $category->payment_id );
 
-        return $this->gateways['paypal']->render_unsubscribe_integration( $category, $listing );
+        if ( ! $payment )
+            return '';
+
+        $gateway = $payment->get_gateway();
+
+        if ( ! isset( $this->gateways[ $gateway ] ) )
+            return '';
+
+        return $this->gateways[ $gateway ]->render_unsubscribe_integration( $category, $listing );
     }
 
     /**

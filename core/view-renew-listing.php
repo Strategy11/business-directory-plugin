@@ -97,7 +97,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         $html .= '<dd>' . date_i18n( get_option( 'date_format' ), strtotime( $this->category->expires_on ) ) . '</dd>';        
         $html .= '</dl>';
 
-        $html .= '<p>' . _x( 'However, if you want to cancel your subscription you can do this on this page. When the renewal time comes you\'ll be able to change your settings again.', 'renew', 'WPBDM' ) . '</p>';
+        $html .= '<p>' . _x( 'However, if you want to cancel your subscription you can do that on this page. When the renewal time comes you\'ll be able to change your settings again.', 'renew', 'WPBDM' ) . '</p>';
         $html .= $wpbdp->payments->render_unsubscribe_integration( $this->category, $this->listing );
 
         $html .= '</div>';

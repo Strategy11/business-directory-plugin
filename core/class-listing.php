@@ -269,6 +269,7 @@ class WPBDP_Listing {
                     case 'expired':
                     case 'ok':
                         $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
+                        $fee_info_recurring_data = unserialize( $fee_info->recurring_data );
                         
                         if ( ! $fee_info ) {
                             // $this->remove_category( $category_id );
@@ -296,7 +297,7 @@ class WPBDP_Listing {
                         $category->renewal_id = $fee_info->id;
                         $category->recurring = $fee_info->recurring ? true : false;
                         $category->recurring_id = trim( $fee_info->recurring_id );
-                        $category->payment_id = 0;
+                        $category->payment_id = isset( $fee_info_recurring_data['payment_id'] ) ? $fee_info_recurring_data['payment_id'] : 0;
 
                         break;
 
