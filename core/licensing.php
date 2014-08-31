@@ -21,7 +21,7 @@ class WPBDP_Licensing {
         add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
 
         if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
-//            wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
+            wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
         }
 
         if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
@@ -146,7 +146,8 @@ class WPBDP_Licensing {
     }
 
     public function admin_init() {
-        do_action( 'wpbdp_license_check' );
+        //delete_transient( 'wpbdp-license-check-data' );
+        //do_action( 'wpbdp_license_check' );
         foreach ( $this->modules as $module => $data ) {
             new EDD_SL_Plugin_Updater( self::STORE_URL,
                                        $data['file'],
@@ -236,8 +237,6 @@ class WPBDP_Licensing {
 
             set_transient( 'wpbdp-license-check-data', $data, 2 * WEEK_IN_SECONDS );
         }
-
-        //delete_transient( 'wpbdp-license-check-data' );
     }
 
     function check_module_license( $module ) {
