@@ -310,11 +310,22 @@ class WPBDP_DirectoryController {
                     $html .= wpbdp_render_msg($error, 'error');
                 }
             }
-        }        
+        }
 
         $listings = '';
         if (wpbdp_get_option('show-listings-under-categories'))
             $listings = $this->view_listings(false);
+
+        if ( current_user_can( 'administrator' ) && wpbdp_get_option( 'hide-empty-categories' ) &&
+             wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=0' ) > 0 && wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=1' ) == 0 ) {
+            $msg = _x( 'You have "Hide Empty Categories" on and some categories that don\'t have listings in them. That means they won\'t show up on the front end of your site. If you didn\'t want that, click <a>here</a> to change the setting.',
+                       'templates',
+                       'WPBDM' );
+            $msg = str_replace( '<a>',
+                                '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=listings#hide-empty-categories' ) . '">',
+                                $msg );
+            $html .= wpbdp_render_msg( $msg );
+        }
 
         $html .= wpbdp_render(array('businessdirectory-main-page', 'wpbusdirman-index-categories'),
                                array(

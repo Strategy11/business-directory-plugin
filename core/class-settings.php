@@ -662,6 +662,7 @@ class WPBDP_Settings {
      * admin
      */
     public function after_render( $html, $setting, $args = array() ) {
+        $html = '<a name="' . $setting->name . '"></a>' . $html;
         return $html;
     }
 
