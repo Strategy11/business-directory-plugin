@@ -17,7 +17,7 @@ abstract class WPBDP_Payment_Gateway {
                                                   'action' => 'postback',
                                                   'gid' => $this->get_id() ),
                                            $args ),
-                              home_url( 'index.php' ) );
+                              home_url('/') );
     }
 
     public function get_url( &$payment, $action = '' ) {
@@ -25,7 +25,7 @@ abstract class WPBDP_Payment_Gateway {
         return add_query_arg( array( 'wpbdpx' => 'payments',
                                      'action' => $action,
                                      'payment_id' => $payment->get_id() ),
-                              home_url( 'index.php' ) );
+                              home_url( '/' ) );
     }
 
     public function get_name() {
