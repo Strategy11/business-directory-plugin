@@ -524,6 +524,19 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     $(document).ready(function() {
         if ( $( 'input.license-activate, input.license-deactivate' ).length > 0 )
             l.init();
+
+        if ( $( '.wpbdp-license-expired-warning' ).length > 0 ) {
+            $( '.wpbdp-license-expired-warning .dismiss' ).click(function (e) {
+                e.preventDefault();
+
+                var nonce = $(this).attr('data-nonce');
+                $.post( ajaxurl, {'action': 'wpbdp-license-expired-warning-dismiss', 'nonce': nonce}, function(res) {
+                    if ( res.success ) {
+                        $( '.wpbdp-license-expired-warning' ).fadeOut( 'fast' );
+                    }
+                }, 'json' );
+            });
+        }
     });
 })(jQuery);
 // }}
