@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2014-08-27 15:32:01+00:00\n"
-"PO-Revision-Date: 2014-08-27 11:14-0500\n"
+"POT-Creation-Date: 2014-09-03 02:03:16+00:00\n"
+"PO-Revision-Date: 2014-09-02 21:09-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -1254,6 +1254,15 @@ msgstr ""
 "ID de secuencia interno utilizado para permitir actualizaciones a los "
 "listados desde fuentes externas."
 
+#: admin/templates/csv-import.tpl.php:190
+msgctxt "admin csv-import"
+msgid ""
+"Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
+"adding or updating listings from external sources."
+msgstr ""
+"Fecha de expiración del listado en formato AAAA-MM-DD. Utilice esta columna "
+"cuando esté agregando o actualizando listados desde fuentes externas."
+
 #: admin/templates/debug-info.tpl.php:5
 msgctxt "debug-info"
 msgid ""
@@ -1357,38 +1366,41 @@ msgctxt "fees admin"
 msgid "Add New Listing Fee"
 msgstr "Agregar Nueva Comisión de Listado"
 
-#: admin/templates/fees.tpl.php:9
+#: admin/templates/fees.tpl.php:10
+msgctxt "fees admin"
+msgid "Payments are currently turned off."
+msgstr "Los pagos se encuentran actualmente deshabitados."
+
+#: admin/templates/fees.tpl.php:13
 msgctxt "fees admin"
 msgid ""
-"Payments are currently turned off. To manage fees you need to go to the "
-"Manage Options page and check the box next to 'Turn on payments' under "
-"'General Payment Settings'"
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
 msgstr ""
-"Los pagos están desactivados actualmente. Para administrar las comisiones "
-"debe ir a Configuraciones y chequear la caja al lado de 'Activar pagos' bajo "
-"'Configuración General de Pagos'"
+"Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
+"Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
 
-#: admin/templates/fees.tpl.php:17
+#: admin/templates/fees.tpl.php:24
 msgctxt "WPBDM"
 msgid "Installed Payment Gateway Modules"
 msgstr "Paraselas de Pago Instaladas"
 
-#: admin/templates/fees.tpl.php:21
+#: admin/templates/fees.tpl.php:28
 msgctxt "admin templates"
 msgid "Google Checkout"
 msgstr "Google Checkout"
 
-#: admin/templates/fees.tpl.php:26
+#: admin/templates/fees.tpl.php:33
 msgctxt "admin templates"
 msgid "PayPal"
 msgstr "PayPal"
 
-#: admin/templates/fees.tpl.php:31
+#: admin/templates/fees.tpl.php:38
 msgctxt "admin templates"
 msgid "2Checkout"
 msgstr "2Checkout"
 
-#: admin/templates/fees.tpl.php:37
+#: admin/templates/fees.tpl.php:44
 msgctxt "admin templates"
 msgid ""
 "It does not appear you have any of the payment gateway modules installed. "
@@ -1399,7 +1411,7 @@ msgstr ""
 "una pasarela de pago para poder cobrar una comisión por los listados. Para "
 "comprar una pasarela utilice los botones abajo o visite"
 
-#: admin/templates/fees.tpl.php:47
+#: admin/templates/fees.tpl.php:54
 msgctxt "admin templates"
 msgid ""
 "You can buy the <a>PayPal</a> gateway module to add <a>PayPal</a> as a "
@@ -1408,7 +1420,7 @@ msgstr ""
 "Puede comprar la pasarela de pago de <a>PayPal</a> para agregar <a>PayPal</"
 "a> como opción de pago para sus usuarios."
 
-#: admin/templates/fees.tpl.php:58
+#: admin/templates/fees.tpl.php:65
 msgctxt "WPBDM"
 msgid ""
 "You can buy the <a>2Checkout</a> gateway module to add <a>2Checkout</a> as a "
@@ -2089,12 +2101,12 @@ msgctxt "admin uninstall"
 msgid "Proceed with Uninstall"
 msgstr "Proceder con la Desinstalación"
 
-#: admin/tracking.php:160
+#: admin/tracking.php:161
 msgctxt "tracking"
 msgid "Help Improve Business Directory"
 msgstr "Ayúdenos a Mejorar el Directorio de Negocios"
 
-#: admin/tracking.php:162
+#: admin/tracking.php:163
 msgctxt "tracking"
 msgid ""
 "Can Business Directory keep track of your theme, plugins, and other non-"
@@ -2105,17 +2117,17 @@ msgstr ""
 "tema, plugins instalados y otros datos técnicos (no personales) para "
 "ayudarnos a mejorar nuestro producto en futuras versiones?"
 
-#: admin/tracking.php:164
+#: admin/tracking.php:165
 msgctxt "tracking"
 msgid "What do you track?"
 msgstr "Qué información se incluye? (en inglés)"
 
-#: admin/tracking.php:186
+#: admin/tracking.php:187
 msgctxt "tracking"
 msgid "No, Thanks."
 msgstr "No, gracias."
 
-#: admin/tracking.php:193
+#: admin/tracking.php:194
 msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Permitir Seguimiento"
@@ -2386,7 +2398,7 @@ msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Un error ocurrió mientras se trataba de eliminar este campo."
 
-#: core/class-listing.php:286 core/class-listing.php:312
+#: core/class-listing.php:287 core/class-listing.php:313
 msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Comisión no disponible)"
@@ -3331,42 +3343,51 @@ msgstr ""
 "Desmarque si entra en conflicto con otros elementos o plugins instalados en "
 "su sitio"
 
-#: core/class-settings.php:401
+#: core/class-settings.php:403
 msgctxt "admin settings"
 msgid "Number of free images"
 msgstr "Número de imágenes gratuitas"
 
-#: core/class-settings.php:402
+#: core/class-settings.php:408
+msgctxt "admin settings"
+msgid ""
+"For paid listing images, configure that by adding or editing a <a>Fee Plan</"
+"a> instead of this setting, which is ignored for paid listings."
+msgstr ""
+"Configure las imágenes de listados pagos agregando o editando una "
+"<a>comisión</a> pues este valor será ignorado para listados pagos."
+
+#: core/class-settings.php:409
 msgctxt "admin settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "Utilizar imagen por defecto en listados sin imagen?"
 
-#: core/class-settings.php:403
+#: core/class-settings.php:410
 msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Mostrar thumbnails en las páginas principales?"
 
-#: core/class-settings.php:715
+#: core/class-settings.php:728
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Desactivar Licencia"
 
-#: core/class-settings.php:717
+#: core/class-settings.php:730
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Desactivando licencia..."
 
-#: core/class-settings.php:720
+#: core/class-settings.php:733
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Activar Licencia"
 
-#: core/class-settings.php:722
+#: core/class-settings.php:735
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Activando licencia..."
 
-#: core/class-settings.php:745
+#: core/class-settings.php:758
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Comodines válidos: %s"
@@ -3678,40 +3699,44 @@ msgstr "Google Wallet"
 msgctxt "google-wallet"
 msgid ""
 "For recurring payments to work you need to <a>specify a postback URL</a> in "
-"your Google Wallet settings. Please use \"%s\" as value."
+"your Google Wallet settings."
 msgstr ""
 "Para que los pagos recurrentes funcionen debe <a>especificar una URL de "
-"postback</a> en su configuración de Google Wallet. Por favor utilice \"%s\" "
-"como dicho valor."
+"postback</a> en su configuración de Google Wallet."
 
-#: core/gateways-googlewallet.php:85
+#: core/gateways-googlewallet.php:69
+msgctxt "google-wallet"
+msgid "Please use %s as the postback URL."
+msgstr "Por favor utilice %s como la URL de postback."
+
+#: core/gateways-googlewallet.php:84
 msgid "Activate Google Wallet?"
 msgstr "Activar Google Wallet?"
 
-#: core/gateways-googlewallet.php:90
+#: core/gateways-googlewallet.php:89
 msgid "Seller Identifier"
 msgstr "Identificador Vendedor"
 
-#: core/gateways-googlewallet.php:95
+#: core/gateways-googlewallet.php:94
 msgid "Seller Secret"
 msgstr "Clave Vendedor"
 
-#: core/gateways-googlewallet.php:106
+#: core/gateways-googlewallet.php:105
 msgctxt "google-wallet"
 msgid "Seller ID is missing."
 msgstr "Falta el \"Seller ID\"."
 
-#: core/gateways-googlewallet.php:109
+#: core/gateways-googlewallet.php:108
 msgctxt "google-wallet"
 msgid "Seller Secret is missing."
 msgstr "Hace falta el \"Seller Secret\"."
 
-#: core/gateways-googlewallet.php:138
+#: core/gateways-googlewallet.php:137
 msgctxt "google-wallet"
 msgid "One time payment + recurring payment for renewal fees"
 msgstr "Pago inicial + pago recurrente por costos de renovación"
 
-#: core/gateways-googlewallet.php:234
+#: core/gateways-googlewallet.php:233
 msgctxt "google-wallet"
 msgid ""
 "Payment was rejected because internal data does not look like a valid Google "
@@ -3720,12 +3745,12 @@ msgstr ""
 "El pago fue rechazado porque los datos recibidos no parecen ser de una "
 "transacción de Google Wallet válida."
 
-#: core/gateways-googlewallet.php:249
+#: core/gateways-googlewallet.php:248
 msgctxt "google-wallet"
 msgid "Payment has been rejected because an internal error occurred."
 msgstr "El pago ha sido rechazado porque ocurrió un error interno."
 
-#: core/gateways-googlewallet.php:255
+#: core/gateways-googlewallet.php:254
 msgctxt "google-wallet"
 msgid "The transaction has been canceled at user's request."
 msgstr "La transacción ha sido cancelada por solicitud del usuario."
@@ -3830,47 +3855,47 @@ msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Ir a \"Administración del Directorio\""
 
-#: core/licensing.php:31
+#: core/licensing.php:38
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licencias"
 
-#: core/licensing.php:34
+#: core/licensing.php:41
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Módulos Premium"
 
-#: core/licensing.php:59 core/licensing.php:93
+#: core/licensing.php:66 core/licensing.php:100
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Módulo de ID inválido"
 
-#: core/licensing.php:64
+#: core/licensing.php:71
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "No se ingresó una licencia"
 
-#: core/licensing.php:79 core/licensing.php:109
+#: core/licensing.php:86 core/licensing.php:116
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: core/licensing.php:84 core/licensing.php:114
+#: core/licensing.php:91 core/licensing.php:121
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: core/licensing.php:117
+#: core/licensing.php:124
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "La desactivación de licencia falló"
 
-#: core/licensing.php:167
+#: core/licensing.php:175
 msgctxt "licensing"
 msgid "Business Directory - License Key Required"
 msgstr "Directorio de Negocios - Licencia Requerida"
 
-#: core/licensing.php:170
+#: core/licensing.php:178
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -3881,22 +3906,48 @@ msgstr ""
 "válida para cada uno. Vaya a <a>Configuraciones - Licencias</a> para "
 "ingresar su información de licencias."
 
-#: core/licensing.php:195
+#: core/licensing.php:213
+msgctxt "licensing"
+msgid "Business Directory - License Key Expired"
+msgstr "Directorio de Negocios - Licencias Expiradas"
+
+#: core/licensing.php:214
+msgctxt "licensing"
+msgid ""
+"The license key for the following premium modules has expired. The modules "
+"will continue to work but you will not receive any more updates until the "
+"license is renewed."
+msgstr ""
+"La clave de licencia para los siguientes módulos premium ha expirado. Los "
+"módulos seguirán funcionando pero no recibirá más actualizaciones hasta que "
+"la licencia se renueve."
+
+#: core/licensing.php:223
+msgctxt "licensing"
+msgid "Remind me later"
+msgstr "Recordar luego"
+
+#: core/licensing.php:224
+msgctxt "licensing"
+msgid "Renew License Keys"
+msgstr "Renovar Licencias"
+
+#: core/licensing.php:287
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: core/licensing.php:197
+#: core/licensing.php:289
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
 
-#: core/licensing.php:213
+#: core/licensing.php:305
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
 
-#: core/licensing.php:215
+#: core/licensing.php:307
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
@@ -4036,22 +4087,22 @@ msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr "Su transacción ha sido aprobada."
 
-#: core/payment.php:510
+#: core/payment.php:517
 msgctxt "payments"
 msgid "Payment Details"
 msgstr "Detalles del Pago"
 
-#: core/payment.php:537
+#: core/payment.php:544
 msgctxt "checkout"
 msgid "Payment Method"
 msgstr "Método de Pago"
 
-#: core/payment.php:566
+#: core/payment.php:573
 msgctxt "payment"
 msgid "Return to Directory."
 msgstr "Regresar al Directorio."
 
-#: core/payment.php:572
+#: core/payment.php:579
 msgctxt "payments"
 msgid ""
 "Your payment is being processed by the payment gateway. Please reload this "
@@ -4062,7 +4113,7 @@ msgstr ""
 "esta página en un momento para ver el estado actualizado del mismo o "
 "contacte al administrador del sitio."
 
-#: core/payment.php:575
+#: core/payment.php:582
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
@@ -4074,12 +4125,12 @@ msgstr ""
 "\"Cambiar Método de Pago\" para seleccionar un método distinto de pago e "
 "intentar nuevamente."
 
-#: core/payment.php:576
+#: core/payment.php:583
 msgctxt "payments"
 msgid "Change Payment Method"
 msgstr "Cambiar Método de Pago"
 
-#: core/payment.php:578
+#: core/payment.php:585
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
@@ -4088,7 +4139,7 @@ msgstr ""
 "El pago ha sido rechazado por la pasarela de pago. Por favor contacte el "
 "administrador del sitio si cree que ha ocurrido un error."
 
-#: core/payment.php:581
+#: core/payment.php:588
 msgctxt "payments"
 msgid "The payment has been canceled at your request."
 msgstr "La transacción ha sido cancelada por solicitud suya."
@@ -4293,7 +4344,7 @@ msgstr "Fecha de expiración:"
 #: core/view-renew-listing.php:100
 msgctxt "renew"
 msgid ""
-"However, if you want to cancel your subscription you can do this on this "
+"However, if you want to cancel your subscription you can do that on this "
 "page. When the renewal time comes you'll be able to change your settings "
 "again."
 msgstr ""
@@ -4374,22 +4425,22 @@ msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "Acepto los Términos y Condiciones"
 
-#: core/view-submit-listing.php:399
+#: core/view-submit-listing.php:398
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr "Comisión \"%s\" para categoría \"%s\"%s"
 
-#: core/view-submit-listing.php:402
+#: core/view-submit-listing.php:401
 msgctxt "listings"
 msgid "(recurring)"
 msgstr "(recurrente)"
 
-#: core/view-submit-listing.php:412 core/view-upgrade-listing.php:54
+#: core/view-submit-listing.php:411 core/view-upgrade-listing.php:54
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr "Mejora a Destacado"
 
-#: core/view-submit-listing.php:445
+#: core/view-submit-listing.php:444
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr "Solicitud inválida."
@@ -4448,7 +4499,18 @@ msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr "No hay listados en el Directorio."
 
-#: core/views.php:371
+#: core/views.php:321
+msgctxt "templates"
+msgid ""
+"You have \"Hide Empty Categories\" on and some categories that don't have "
+"listings in them. That means they won't show up on the front end of your "
+"site. If you didn't want that, click <a>here</a> to change the setting."
+msgstr ""
+"Tiene \"Ocultar categorías vacías\" habilitado y algunas categorías vacías. "
+"Esto significa que no aparecerán acá. Si desea mostrar las categorías "
+"vacías, haga <a>clic aquí</a> para cambiar la configuración."
+
+#: core/views.php:382
 msgctxt "templates"
 msgid "The listing has been deleted."
 msgstr "El listado ha sido eliminado."
