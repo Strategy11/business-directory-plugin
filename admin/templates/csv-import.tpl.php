@@ -185,6 +185,13 @@ echo wpbdp_admin_header(null, null, array(
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
+        <tr class="<?php echo ($i + 3) % 2 == 0 ? 'alt' : ''; ?>">
+            <td class="header-name">expires_on</td>
+            <td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Used to add or update listings from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
+            <td class="field-type">-</td>
+            <td class="field-is-required"></td>
+            <td class="field-is-multivalued"></td>
+        </tr>
     </tbody>
 </table>
 
