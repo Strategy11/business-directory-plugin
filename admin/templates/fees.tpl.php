@@ -6,7 +6,14 @@
     <?php wpbdp_admin_notices(); ?>
 
     <?php if (!wpbdp_get_option('payments-on')): ?>
-        <p><?php _ex('Payments are currently turned off. To manage fees you need to go to the Manage Options page and check the box next to \'Turn on payments\' under \'General Payment Settings\'', 'fees admin', 'WPBDM'); ?></p>
+    <div class="wpbdp-note"><p>
+    <?php _ex('Payments are currently turned off.', 'fees admin', 'WPBDM' ); ?><br />
+    <?php echo str_replace( '<a>',
+                            '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">',
+                            _x( 'To manage fees you need to go to the <a>Manage Options - Payment</a> page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.',
+                                'fees admin',
+                                'WPBDM' ) ); ?></p>
+    </div>
     <?php else: ?>
 
         <?php $table->views(); ?>
