@@ -201,7 +201,7 @@ class WPBDP_Licensing {
         foreach ( $check_data['expired'] as $m ) {
             $module = isset( $this->modules[ $m[0] ] ) ? $this->modules[ $m[0] ] : null;
 
-            if ( ! $module || ( $m[1] !== $module['license'] ) )
+            if ( ! $module || ! $module['license'] || ( $m[1] !== $module['license'] ) )
                 continue;
 
             $expired[] = $module;

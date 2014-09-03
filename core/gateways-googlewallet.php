@@ -65,10 +65,9 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
         $desc  = '';
 
         if ( wpbdp_get_option( 'listing-renewal-auto' ) ) {
-            $msg = _x( 'For recurring payments to work you need to <a>specify a postback URL</a> in your Google Wallet settings. Please use "%s" as value.',
-                       'google-wallet',
-                       'WPBDM' );
-            $url = $wpbdp->payments->gateways['googlewallet']->get_gateway_url();
+            $msg = _x( 'For recurring payments to work you need to <a>specify a postback URL</a> in your Google Wallet settings.', 'google-wallet', 'WPBDM' ) . '<br /> ' . 
+                   _x( 'Please use %s as the postback URL.', 'google-wallet', 'WPBDM' );
+            $url = '<b>' . $wpbdp->payments->gateways['googlewallet']->get_gateway_url() . '</b>';
             $desc .= str_replace( array( '<a>',
                                          '%s' ),
                                   array( '<a href="https://developers.google.com/wallet/digital/docs/postback" target="_blank">',

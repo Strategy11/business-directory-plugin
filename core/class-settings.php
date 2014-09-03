@@ -398,7 +398,14 @@ class WPBDP_Settings {
         $this->add_setting( $s, 'use-thickbox', _x( 'Turn on thickbox/lightbox?', 'admin settings', 'WPBDM' ), 'boolean', false, _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'admin settings', 'WPBDM' ) );
 
         $s = $this->add_section($g, 'listings', _x('Listings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'free-images', _x('Number of free images', 'admin settings', 'WPBDM'), 'text', '2');
+        $this->add_setting( $s,
+                            'free-images',
+                            _x( 'Number of free images', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '2',
+                           str_replace( '<a>',
+                                        '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
+                                        _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'WPBDM' ) ) );
         $this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
     }
