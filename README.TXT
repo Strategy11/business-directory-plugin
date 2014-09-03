@@ -1,14 +1,14 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory, city portal, city portal plugin, city guide plugin, city guide
+Tags: directory, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory, city portal, city portal plugin, city guide plugin, city guide
 Requires at least: 3.6
-Tested up to: 3.9.3
-Last Updated: 2014-July-2
-Stable tag: tags/3.4.1
+Tested up to: 3.9.2
+Last Updated: 2014-Sep-3
+Stable tag: tags/3.5
 License: GPLv2 or later
 
-Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections and more. 
+Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
 
 == Description ==
 
@@ -21,7 +21,7 @@ Business Directory Plugin allows you to build local directories, business provid
 = Features =
 * Fully customizable form fields
 * Accept payment for listings OR have free listings
-* Full support for recurring payments
+* Full support for recurring payments (PayPal, Wallet, Stripe)
 * Allow for featured/sticky listings for an upgrade fee
 * Create multiple fee plans, which can be assigned to categories for posting
 * Built in CSV import and export
@@ -108,6 +108,31 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.5 =
+* Various upgrade routine fixes
+* Added more robust reCAPTCHA checks and anti SPAM measures for contact and comment forms. 
+* Improve registration URL behavior. 
+* Various minor CSV import/export fixes. 
+* Fix an issue that prevented listings from being displayed when sorting paid listings first
+* Show empty categories by default. 
+* Added warning when empty categories is on and categories are empty
+* Submit listing no longer ignores invalid reCAPTCHAs. 
+* Fix fatal error occurring when no title could be obtained for a listing. 
+* Include OpenGraph tags on listing pages for better FB sharing experiences. 
+* Search single valued fields in an exact manner for improved performance. 
+* Various quick search fixes.
+* Display a warning when choosing too many text quick search fields. 
+* Display directory counts for users with editor permissions. 
+* Add support for updating listings via CSV imports. 
+* Various code quality fixes. 
+* Count listings in admin more efficiently. 
+* Allow listings with expired categories to be edited if they are published
+* Make backend use frontend permalinks for previews. 
+* Workaround WP's bug #18857 that results in admin pages slugs being translated and resources not loading. 
+* Checked compatibility with WordPress 4.0. 
+* Various manual upgrade fixes.
+* Integrate Easy Digital Downloads cart support for premium modules. 
 
 = Version 3.4.1 =
 * Various upgrade routine fixes

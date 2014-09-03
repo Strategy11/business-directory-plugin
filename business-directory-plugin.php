@@ -9,7 +9,7 @@
  * License: GPLv2 or any later version
  */
 
-/*  Copyright 2009-2013, Skyline Consulting and D. Rodenbaugh
+/*  Copyright 2009-2015, Skyline Consulting and D. Rodenbaugh
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2 or later, as
