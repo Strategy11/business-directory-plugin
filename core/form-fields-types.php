@@ -137,6 +137,26 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         return $value[0];
     }
 
+    public function convert_csv_input( &$field, $input = '' ) {
+        $input = str_replace( array( '"', '\'' ), '', $input );
+        $parts = explode( ',', $input );
+
+        if ( 1 == count( $parts ) )
+            return array( $parts[0], $parts[0] );
+
+        return array( $parts[0], $parts[1] );
+    }
+
+    public function get_field_csv_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( is_array( $value ) && count( $value ) > 1 ) {
+            return sprintf( '%s,%s', $value[0], $value[1] );
+        }
+
+        return is_array( $value ) ? $value[0] : '';
+    }
+
     public function convert_input( &$field, $input ) {
         if ( $input === null )
             return array( '', '' );
