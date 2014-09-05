@@ -641,7 +641,7 @@ class WPBDP_CSVImporter {
 
         if ( $listing_metadata['expires_on'] ) {
             foreach ( $state->categories as $i => $category_id ) {
-                if ( isset( $listing_metadata['expires_on'][ $i ] ) ) { // TODO: check is valid date
+                if ( isset( $listing_metadata['expires_on'][ $i ] ) && ! empty( $listing_metadata['expires_on'][ $i ] ) ) { // TODO: check is valid date
                     $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
                                    array( 'expires_on' => $listing_metadata['expires_on'][ $i ] ),
                                    array( 'category_id' => $category_id, 'listing_id' => $listing->get_id() )
