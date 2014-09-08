@@ -229,7 +229,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
             break;
         case 'edit':
         case 'delete':
-            return user_can($user_id, 'administrator') || ($post->post_author == $user_id);
+            return user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
             break;
         case 'upgrade-to-sticky':
             if ( !wpbdp_get_option('featured-on') || !wpbdp_get_option('payments-on') )
