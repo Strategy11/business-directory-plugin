@@ -344,7 +344,7 @@ class WPBDP_Listing {
         $this->fix_categories();
     }
 
-    public function fix_categories() {
+    public function fix_categories( $charge = false ) {
         global $wpdb;
 
         // Delete fee information for categories that no longer exist.
@@ -360,14 +360,23 @@ class WPBDP_Listing {
             $wpdb->query( $wpdb->prepare( "DELETE lf FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = %d AND lf.category_id IN ({$cats})", $this->id ) );
         }
 
-        // Assign a default fee for categories without a fee.        
+        // Assign a default fee for categories without a fee.
         foreach ( $terms as $category_id ) {
             $category_info = $this->get_category_info( $category_id );
 
             if ( $category_info && 'pending' == $category_info->status ) {
                 $this->add_category( $category_id, $category_info->fee, false, null, true );
             } elseif ( ! $category_info ) {
-                $this->add_category( $category_id, 0 );
+                $fee_options = wpbdp_get_fees_for_category( $category_id );
+
+                if ( $charge ) {
+                    $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
+                    $payment->add_category_fee_item( $category_id, $fee_options[0] );
+                    $payment->set_status( WPBDP_Payment::STATUS_COMPLETED );
+                    $payment->save();
+                } else {
+                    $this->add_category( $category_id, $fee_options[0] );
+                }
             }
         }
     }

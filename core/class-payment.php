@@ -203,6 +203,25 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $this->amount += $amount;
     }
 
+    public function add_category_fee_item( $category_id, $fee ) {
+        if ( is_int( $fee ) ) {
+            $fee = wpbdp_get_fee( $fee );
+
+            if ( ! $fee )
+                return false;
+        }
+
+        $this->add_item( 'fee',
+                         $fee->amount,
+                         sprintf( _x( 'Fee "%s" for category "%s"', 'listings', 'WPBDM' ),
+                                  $fee->label,
+                                  wpbdp_get_term_name( $category_id ) ),
+                         array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
+                         $category_id,
+                         $fee->id );
+        return true;
+    }
+
     public function update_items( $items = array() ) {
         $this->amount = 0.0;
         $this->items = array();

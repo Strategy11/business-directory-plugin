@@ -258,7 +258,7 @@ class WPBDP_Admin_Listings {
             if ( ! $listing )
                 return;
 
-            $listing->fix_categories();
+            $listing->fix_categories( true  );
 
             // Save custom fields.
             //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
