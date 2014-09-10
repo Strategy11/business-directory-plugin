@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: directory, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress directory theme, wordpress business directory, business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget, church directory, address book, address, member directory, members directory, city portal, city portal plugin, city guide plugin, city guide
+Tags: wordpress business directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 3.6
-Tested up to: 3.9.2
-Last Updated: 2014-Sep-3
-Stable tag: tags/3.5
+Tested up to: 4.0
+Last Updated: 2014-Sep-10
+Stable tag: tags/3.5.1
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -108,6 +108,13 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.5.1 =
+* Fix loading of custom CSS styles. 
+* Add random sorting to Featured Listings widget.
+* Do not allow editing/deleting listings with no author from the front end. 
+* Fix a warning related to EDD. 
+* Minor fixes to the upgrade procedure. 
 
 = Version 3.5 =
 * Various upgrade routine fixes
