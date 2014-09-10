@@ -539,6 +539,8 @@ class WPBDP_Installer {
                     $f['fee'] = '';
                     $f['migrated'] = 1;
 
+                    unset( $f['fee'] );
+
                     if ( ! $f['expires_on'] )
                         unset( $f['expires_on'] );
 
