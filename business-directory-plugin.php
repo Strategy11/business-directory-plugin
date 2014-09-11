@@ -57,6 +57,7 @@ require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
 require_once( WPBDP_PATH . 'core/widgets.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
+require_once( WPBDP_PATH . 'core/seo.php' );
 
 
 global $wpbdp;
@@ -1276,9 +1277,9 @@ class WPBDP_Plugin {
             return;
 
         echo '<meta property="og:type" content="website" />';
-        echo '<meta property="og:title" content="' . esc_attr( $listing->get_title() ) . '" />';
+        echo '<meta property="og:title" content="' . esc_attr( WPBDP_SEO::listing_title( $listing_id ) ) . '" />';
         echo '<meta property="og:url" content="' . esc_url( $listing->get_permalink() ) . '" />';
-        echo '<meta property="og:description" content="' . esc_attr( $listing->get_field_value( 'excerpt' ) ) . '" />';
+        echo '<meta property="og:description" content="' . esc_attr( WPBDP_SEO::listing_og_description( $listing_id ) ) . '" />';
 
         if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
