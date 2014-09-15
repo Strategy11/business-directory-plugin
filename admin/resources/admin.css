@@ -401,6 +401,15 @@ body.taxonomy-wpbdp_category .column-id {
     color: red;
 }
 
+.directory-admin_page_wpbdp_admin_settings .group-error {
+    border-top: solid 1px red;
+}
+
+.directory-admin_page_wpbdp_admin_settings .group-warning {
+    border-top: solid 1px yellow;
+}
+
+
 .tag.paymentstatus.ok {
     background: green;
 }
