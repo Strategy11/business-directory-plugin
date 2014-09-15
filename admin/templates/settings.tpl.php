@@ -20,9 +20,9 @@ endforeach;
 <?php endif; ?>
 
 <?php foreach($wpbdp_settings->groups as $g): ?>
-	<a class="nav-tab <?php echo $g->slug == wpbdp_getv($_REQUEST, 'groupid', 'general') ? 'nav-tab-active': ''; ?>"
+	<a class="nav-tab <?php echo $g->slug == wpbdp_getv($_REQUEST, 'groupid', 'general') ? 'nav-tab-active': ''; ?> <?php echo apply_filters( 'wpbdp_settings_group_tab_css', '', $g ); ?>"
 	   href="<?php echo add_query_arg('groupid', $g->slug, remove_query_arg('settings-updated')); ?>">
-	   <?php echo $g->name; ?>
+	   <?php echo apply_filters( 'wpbdp_settings_group_tab_name', $g->name, $g ); ?>
 	</a>
 <?php endforeach; ?>
 	<a class="nav-tab <?php echo wpbdp_getv($_REQUEST, 'groupid') == 'resetdefaults' ? 'nav-tab-active' : ''; ?>"

@@ -6,7 +6,7 @@
  */
 class WPBDP_Licensing {
 
-    const STORE_URL = 'http://www.businessdirectoryplugin.com';
+    const STORE_URL = 'http://www.businessdirectoryplugin.com/';
 
     private $modules = array();
 
@@ -20,6 +20,8 @@ class WPBDP_Licensing {
         add_action( 'wp_ajax_wpbdp-license-expired-warning-dismiss', array( &$this, 'ajax_dismiss_license_warning' ) );
 
         add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
+
+        add_filter( 'wpbdp_settings_group_tab_css', array( &$this, 'licenses_tab_css' ), 10, 2 );
 
         if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
             wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
@@ -59,6 +61,16 @@ class WPBDP_Licensing {
             delete_option( 'wpbdp-license-status-' . $module );
 
         return $new_value;
+    }
+
+    function licenses_tab_css( $css = '', $group ) {
+        if ( 'licenses' !== $group->slug )
+            return $css;
+
+        foreach ( $this->modules as $module => $data ) {
+            if ( ! $data['valid_license'] )
+                return $css . ' group-error';
+        }
     }
 
     function activate_license( $module ) {
