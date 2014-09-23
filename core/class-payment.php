@@ -273,6 +273,15 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return array_map( create_function( '$x', 'return (object) $x;' ), $items );
     }
 
+    public function get_item( $args = array() ) {
+        $items = $this->get_items( $args );
+
+        if ( $items )
+            return array_pop( $items );
+
+        return null;
+    }
+
     public function get_listing_id() {
         return $this->listing_id;
     }
