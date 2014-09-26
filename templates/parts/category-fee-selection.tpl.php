@@ -5,6 +5,7 @@
  *  $category object Category for which the fee is being selected.
  *  $category_fees array Fees available for the category.
  *  $current_fee int NULL if no fee is currently associated to this category, the fee ID otherwise.
+ *  $fee_rows_filter callback Allows to modify the HTML for the fee rows before display.
  */
 ?>
 <div class="fee-options-for-category">
@@ -21,6 +22,10 @@
 			<?php // do_action( 'wpbdp_fee_selection_extra_headers' ); ?>
 		</thead>
 		<tbody>
+		    <?php
+		        $rows_html = '';
+		        ob_start();
+		    ?>
 			<?php $i = 0; foreach ( $category_fees as &$fee ): ?>					
 			<tr class="fee-option fee-id-<?php echo $fee->id; ?>">
 				<td class="fee-selection">
@@ -56,6 +61,15 @@
 			</tr>
 			<?php endif; ?>
 			<?php $i++; endforeach; ?>
+			<?php
+    			$rows_html = ob_get_clean();
+
+    			if ( isset( $fee_rows_filter ) && is_callable( $fee_rows_filter )  ) {
+    			    $rows_html = call_user_func( $fee_rows_filter, $rows_html, $category );
+    			}
+
+                echo $rows_html;
+			?>
 		</tbody>
 	</table>
 
