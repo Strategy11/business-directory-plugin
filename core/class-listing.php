@@ -258,11 +258,11 @@ class WPBDP_Listing {
         foreach ( $category_ids as $category_id ) {
             if ( $category_info = get_term( intval( $category_id ), WPBDP_CATEGORY_TAX ) ) {
                 $category = new StdClass();
-                $category->id = $category_info->term_id;
+                $category->id = intval( $category_info->term_id );
                 $category->name = $category_info->name;
                 $category->slug = $category_info->slug;
-                $category->term_id = $category_info->term_id;
-                $category->term_taxonomy_id = $category_info->term_taxonomy_id;
+                $category->term_id = intval( $category_info->term_id );
+                $category->term_taxonomy_id = intval( $category_info->term_taxonomy_id );
                 $category->status = in_array( $category_id, $pending_ids, true ) ? 'pending' : ( in_array( $category_id, $expired_ids, true ) ? 'expired' : 'ok' );
 
                 switch ( $category->status ) {
