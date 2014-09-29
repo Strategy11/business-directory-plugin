@@ -752,8 +752,9 @@ class WPBDP_Settings {
             $placeholders_text = '';
 
             foreach ( $placeholders as $pholder => $desc ) {
-                $placeholders_text .= sprintf( '%s - %s', '[' . $pholder . ']', $desc );
+                $placeholders_text .= sprintf( '%s - %s, ', '[' . $pholder . ']', $desc );
             }
+            $placeholders_text = substr( $placeholders_text, 0, -2 ) . '.';
 
             $setting->help_text = sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'WPBDM' ),
                                            $placeholders_text );
