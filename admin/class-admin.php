@@ -402,6 +402,9 @@ class WPBDP_Admin {
     }
 
     function admin_notices() {
+        if ( ! current_user_can( 'administrator' ) )
+            return;
+
         $this->check_compatibility();
         $this->check_setup();
 
