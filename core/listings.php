@@ -278,6 +278,7 @@ class WPBDP_ListingsAPI {
 
         if ( ($post->post_type == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
             if (wpbdp_rewrite_on()){
+                //return rtrim(wpbdp_get_page_link('main'), '/') . '/' . ($post->post_name ? $post->post_name . '/' : '');
                 return rtrim(wpbdp_get_page_link('main'), '/') . '/' . $post->ID . '/' . ($post->post_name ? $post->post_name . '/' : '');
             } else {
                 return add_query_arg( 'id', $post->ID, wpbdp_get_page_link( 'main' ) );
