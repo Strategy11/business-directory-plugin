@@ -834,7 +834,7 @@ class WPBDP_Settings {
     public function register_in_admin() {
         foreach ($this->groups as $group) {
             foreach ($group->sections as $section) {
-                $callback = create_function('', ';');
+                $callback = create_function('', 'echo "<a name=\"' . $section->slug . '\"></a>";');
 
                 if ($section->help_text)
                     $callback = create_function('', 'echo "<p class=\"description\">' . addslashes( $section->help_text ) . '</p>";');
