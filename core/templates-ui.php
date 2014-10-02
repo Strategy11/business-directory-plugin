@@ -379,7 +379,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
             return sprintf( '<div class="listing-thumbnail"><a href="%s" class="%s" %s>%s</a></div>',
                             $image_link,
                             $args['link'] == 'picture' ? 'thickbox' : '',
-                            $args['link'] == 'picture' ? 'data-lightbox="wpbdpgal"' : '',
+                            $args['link'] == 'picture' ? 'data-lightbox="wpbdpgal" rel="wpbdpgal"' : '',
                             $image_img );
         }
     }
