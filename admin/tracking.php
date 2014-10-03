@@ -16,6 +16,9 @@ class WPBDP_SiteTracking {
     const TRACKING_URL = 'http://data.businessdirectoryplugin.com/tr/';
 
     public function __construct() {
+        if ( ! wpbdp_get_option( 'tracking-on', false ) )
+            return;
+
         if ( !wp_next_scheduled( 'wpbdp_site_tracking' ) ) {
             wp_schedule_event( current_time( 'timestamp' ), 'daily', 'wpbdp_site_tracking' );
         }
@@ -139,8 +142,32 @@ class WPBDP_SiteTracking {
 
         }
         // delete_transient( 'wpbdp-site_tracking_data' );
+    }
 
+    /**
+     * @since 3.5.2
+     */
+    public function track_uninstall( $data = array() ) {
+        $data = is_array( $data ) ? $data : null;
+        $hash = $this->site_hash();
 
+        if ( ! isset( $data['reason_id'] ) )
+            return;
+
+        $reason = $data['reason_id'];
+        $text = isset( $data['reason_text'] ) ? trim( $data['reason_text'] ) : '';
+
+        if ( $reason < 0 || $reason > 4 )
+            return;
+
+        wp_remote_post( self::TRACKING_URL, array(
+            'method' => 'POST',
+            'blocking' => true,
+            'body' => array( 'uninstall' => '1',
+                             'hash' => $hash,
+                             'reason' => $reason,
+                             'text' => $text )
+        ) );
     }
 
     public static function handle_ajax_response() {

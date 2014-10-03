@@ -286,7 +286,7 @@ class WPBDP_Admin {
         do_action('wpbdp_admin_menu', 'wpbdp_admin');
 
         add_submenu_page('wpbdp_admin',
-                         _x('Uninstall WPDB Manager', 'admin menu', 'WPBDM'),
+                         _x('Uninstall Business Directory Plugin', 'admin menu', 'WPBDM'),
                          _x('Uninstall', 'admin menu', 'WPBDM'),
                          'administrator',
                          'wpbdp_uninstall',
@@ -613,7 +613,9 @@ class WPBDP_Admin {
     public function uninstall_plugin() {
         global $wpdb;
 
-        if (isset($_POST['doit']) && $_POST['doit'] == 1) {
+        $nonce = isset( $_POST['_wpnonce'] ) ? trim( $_POST['_wpnonce'] ) : '';
+
+        if ( $nonce && wp_verify_nonce( $nonce, 'uninstall bd' ) ) {
             $installer = new WPBDP_Installer();
 
             // Delete listings.
@@ -635,6 +637,9 @@ class WPBDP_Admin {
 
             // Clear scheduled hooks.
             wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
+
+            $tracking = new WPBDP_SiteTracking();
+            $tracking->track_uninstall( isset( $_POST['uninstall'] ) ? $_POST['uninstall'] : null );
 
             // Deactivate plugin.
             $real_path = WPBDP_PATH . 'business-directory-plugin.php';

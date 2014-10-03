@@ -468,6 +468,31 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 })(jQuery);
 /* }} */
 
+/* {{ Uninstall. */
+(function($) {
+    var u = WPBDP_Admin.uninstall = {
+        init: function() {
+            $( 'form#wpbdp-uninstall-capture-form input[name="uninstall[reason_id]"]' ).change(function(e) {
+                var val = $(this).val();
+
+                if ( '0' == val ) {
+                    $( 'form#wpbdp-uninstall-capture-form textarea[name="uninstall[reason_text]"]' ).fadeIn();
+                } else {
+                    $( 'form#wpbdp-uninstall-capture-form textarea[name="uninstall[reason_text]"]' ).fadeOut( 'fast', function() {
+                        $(this).val('');
+                    } );
+                }
+            });
+        }
+    };
+
+    $(document).ready(function(){
+        if ( $( 'body.directory-admin_page_wpbdp_uninstall' ).length > 0 )
+            u.init();
+    });
+})(jQuery);
+/* }} */
+
 // {{ Settings - License Activation.
 (function($) {
     var l = WPBDP_Admin.licensing = {

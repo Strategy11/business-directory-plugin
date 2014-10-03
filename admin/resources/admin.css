@@ -611,3 +611,19 @@ body.taxonomy-wpbdp_category .column-id {
 }
 /* }}} */
 
+/* {{ Uninstall. */
+#wpbdp-uninstall-capture-form .reasons {
+    margin-left: 15px;
+}
+
+#wpbdp-uninstall-capture-form .reasons .reason {
+    margin-bottom: 5px;
+}
+
+#wpbdp-uninstall-capture-form textarea {
+    margin: 10px 0 0 0;
+    width: 50%;
+    min-height: 100px;
+    display: none;
+}
+/* }} */
