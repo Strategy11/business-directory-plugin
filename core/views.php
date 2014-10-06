@@ -389,6 +389,8 @@ class WPBDP_DirectoryController {
      * Search functionality
      */
     public function search() {
+        $_REQUEST = stripslashes_deep( $_REQUEST );
+
         $results = array();
 
         if ( isset( $_GET['dosrch'] ) ) {
