@@ -420,14 +420,16 @@ class WPBDP_DirectoryController {
             $fields .= $field->render( $field_value, 'search' );
         }
 
-        query_posts( array(
+        $args = array(
             'post_type' => WPBDP_POST_TYPE,
             'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
             'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
             'post__in' => $results ? $results : array(0),
             'orderby' => wpbdp_get_option( 'listings-order-by', 'date' ),
             'order' => wpbdp_get_option( 'listings-sort', 'ASC' )
-        ) );
+        );
+        $args = apply_filters( 'wpbdp_search_query_posts_args', $args, $search_args );
+        query_posts( $args );
 
         $html = wpbdp_render( 'search',
                                array( 
