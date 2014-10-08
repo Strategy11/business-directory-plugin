@@ -235,6 +235,7 @@ class WPBDP_ListingsAPI {
 
         add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_admin_email' ) );
         add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_confirmation_email' ) );
+        add_action( 'wpbdp_edit_listing', array( &$this, 'edit_listing_admin_email' ) );
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
 
@@ -409,6 +410,21 @@ class WPBDP_ListingsAPI {
         $email->send();
     }
 
+   public function edit_listing_admin_email( &$listing ) {
+        if ( ! in_array( 'listing-edit', wpbdp_get_option( 'admin-notifications' ), true ) )
+            return;
+
+        $email = new WPBDP_Email();
+        $email->subject = sprintf( _x( '[%s] Listing edit notification', 'notify email', 'WPBDM' ), get_bloginfo( 'name' ) );
+        $email->to[] = get_bloginfo( 'admin_email' );
+
+        if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+            $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+
+        $email->body = wpbdp_render( 'email/listing-edited', array( 'listing' => $listing ), false );
+
+        $email->send();
+    }
 
     public function get_thumbnail_id($listing_id) {
         if ( $thumbnail_id = get_post_meta($listing_id, '_wpbdp[thumbnail_id]', true ) ) {

@@ -440,6 +440,8 @@ class WPBDP_Listing {
     public function save() {
         if ( $this->new )
             do_action_ref_array( 'WPBDP_Listing::listing_created', array( &$this ) );
+        else
+            do_action_ref_array( 'WPBDP_Listing::listing_edited', array( &$this ) );
 
         $this->new = false;
         do_action_ref_array( 'WPBDP_Listing::listing_saved', array( &$this ) );

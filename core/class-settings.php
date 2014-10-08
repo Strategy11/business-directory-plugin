@@ -254,6 +254,7 @@ class WPBDP_Settings {
                             array(),
                             '',
                             array( 'choices' => array( 'new-listing' => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
+                                                       'listing-edit' => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
                                                        'renewal' => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
                                                        'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ) ),
                                    'use_checkboxes' => true,
