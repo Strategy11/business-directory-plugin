@@ -217,7 +217,7 @@ class WPBDP_Listing {
 
         $current_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND (expires_on >= %s OR expires_on IS NULL)",
                                                    $this->id,
-                                                   current_time( 'mysql' ) ) );    
+                                                   current_time( 'mysql' ) ) );
         $expired_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on IS NOT NULL AND expires_on < %s",
                                                    $this->id,
                                                    current_time( 'mysql' ) ) );

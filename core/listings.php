@@ -238,6 +238,7 @@ class WPBDP_ListingsAPI {
         add_action( 'wpbdp_edit_listing', array( &$this, 'edit_listing_admin_email' ) );
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
+        add_action( 'WPBDP_Payment::status_change', array( &$this, 'auto_renewal_notification_email' ) );
 
         add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
 
@@ -354,6 +355,37 @@ class WPBDP_ListingsAPI {
 
         $listing->save();
 //        $listing->maybe_publish();
+    }
+
+    /**
+     * @since 3.5.2
+     */
+    public function auto_renewal_notification_email( &$payment ) {
+        if ( ! $payment->is_completed() || ! $payment->has_item_type( 'recurring_fee' ) )
+            return;
+
+        if ( ! $payment->get_data( 'parent_payment_id' ) )
+            return;
+
+        $recurring_item = $payment->get_recurring_item();
+
+        $replacements = array();
+        $replacements['listing'] = sprintf( '<a href="%s">%s</a>',
+                                            get_permalink( $payment->get_listing_id() ),
+                                            get_the_title( $payment->get_listing_id() ) );
+        $replacements['author'] = get_the_author_meta( 'display_name', get_post( $payment->get_listing_id() )->post_author );
+        $replacements['category'] = wpbdp_get_term_name( $recurring_item->rel_id_1 );
+        $replacements['date'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
+                                           strtotime( $payment->get_processed_on() ) );
+        $replacements['site'] = sprintf( '<a href="%s">%s</a>',
+                                         get_bloginfo( 'url' ),
+                                         get_bloginfo( 'name' ) );
+
+        $email = new WPBDP_Email();
+        $email->to[] = wpbusdirman_get_the_business_email( $payment->get_listing_id() );
+        $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( get_the_title( $payment->get_listing_id() ), array() ) );
+        $email->body = nl2br( wpbdp_text_from_template( 'listing-autorenewal-message', $replacements ) );
+        $email->send();
     }
 
     /**
