@@ -14,6 +14,7 @@ class WPBDP_Licensing {
         add_action( 'admin_init', array( &$this, 'admin_init' ), 0 );
         add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
         add_action( 'wpbdp_register_settings', array( &$this, 'register_settings' ) );
+        add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
 
         add_action( 'wp_ajax_wpbdp-activate-license', array( &$this, 'ajax_activate_license' ) );
         add_action( 'wp_ajax_wpbdp-deactivate-license', array( &$this, 'ajax_deactivate_license' ) );
@@ -51,6 +52,32 @@ class WPBDP_Licensing {
                                     '',
                                     null,
                                     array( &$this, '_validate_license_setting' ) );
+        }
+    }
+
+    function admin_menu( $menu ) {
+        if ( ! current_user_can( 'administrator' ) || ! $this->modules  )
+            return;
+
+        add_submenu_page( 'wpbdp_admin',
+                          _x( 'Licenses', 'settings', 'WPBDM' ),
+                          _x( 'Licenses', 'settings', 'WPBDM' ),
+                          'administrator',
+                          'wpbdp-licenses',
+                          '__return_false' );
+        global $submenu;
+
+        foreach ( $submenu as $menu_id => &$m ) {
+            if ( $menu == $menu_id  ) {
+                foreach ( $m as &$i ) {
+                    if ( 'wpbdp-licenses' == $i[2] ) {
+                        $i[2] = admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=licenses' );
+                        break;
+                    }
+                }
+
+                break;
+            }
         }
     }
 
@@ -139,7 +166,12 @@ class WPBDP_Licensing {
         return true;
     }
 
+    function sort_modules_by_name( $x, $y ) {
+        return strncasecmp( $x['name'], $y['name'], 4 );
+    }
+
     function register_module( $name = '', $module = '', $version = '' ) {
+        //return true;
         $module = trim( $module );
         $name = trim( $name );
         $module_name = trim( str_replace( '.php', '', basename( $module ) ) );
@@ -154,6 +186,9 @@ class WPBDP_Licensing {
                                                 'file' => $module,
                                                 'name' => $name ? $name : $module_name,
                                                 'version' => $version );
+
+        // Keep modules sorted by name.
+        uasort( $this->modules, array( &$this, 'sort_modules_by_name' ) );
 
         return $this->modules[ $module_name ]['valid_license'];
     }
