@@ -1,12 +1,14 @@
 <?php
 //set_site_transient( 'update_plugins', null );
 
+
 /**
  * @since 3.4.2
  */
 class WPBDP_Licensing {
 
     const STORE_URL = 'http://www.businessdirectoryplugin.com/';
+    //const STORE_URL = 'http://localhost:8080/';
 
     private $modules = array();
 
@@ -290,7 +292,7 @@ class WPBDP_Licensing {
                     $data['expired'][] = array( $module['id'], $module['license'] );
             }
 
-            set_transient( 'wpbdp-license-check-data', $data, 2 * WEEK_IN_SECONDS );
+            set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
         }
     }
 
