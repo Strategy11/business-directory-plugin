@@ -298,6 +298,12 @@ ul.wpbdp-categories > li {
     margin: 0;
 }
 
+@media screen and (max-width: 704px) {
+    ul.wpbdp-categories > li {
+        float: none;
+    }
+}
+
 /* submit listing page */
 .wpbdp-submit-page h3 {
     margin-bottom: 10px;
