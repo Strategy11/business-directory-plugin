@@ -165,8 +165,9 @@ jQuery(document).ready(function($){
      * Admin bulk actions
      */
 
-    $('input[id="doaction"]').click(function(e) {
-        var $selected_option = $('select[name="action"] option:selected');
+    $('input#doaction, input#doaction2').click(function(e) {
+        var action_name = ( 'doaction' == $(this).attr('id') ) ? 'action' : 'action2';
+        var $selected_option = $('select[name="' + action_name + '"] option:selected');
         var action_val = $selected_option.val();
 
         if (action_val.split('-')[0] == 'listing') {
