@@ -541,6 +541,9 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                         .removeClass('ok')
                         .addClass('error')
                         .show();
+
+                    if ( 'deactivate' == action )
+                        $( 'input[type="text"]#license-key-' + module ).removeAttr('readonly');
                 }
             }, 'json' );
         }

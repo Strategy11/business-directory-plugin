@@ -97,7 +97,7 @@ class WPBDP_Licensing {
             return $css;
 
         foreach ( $this->modules as $module => $data ) {
-            if ( ! $data['valid_license'] )
+            if ( 'valid' != $data['license_status'] )
                 return $css . ' group-error';
         }
     }
@@ -140,6 +140,8 @@ class WPBDP_Licensing {
         if ( ! in_array( $module, array_keys( $this->modules ), true ) )
             return new WP_Error( 'invalid-module', _x( 'Invalid module ID', 'licensing', 'WPBDM' ), $module );
 
+        delete_option( 'wpbdp-license-status-' . $module );
+
         $key = trim( get_option( 'wpbdp-license-key-' . $module, '' ) );
         $module_data = $this->modules[ $module ];
 
@@ -158,13 +160,14 @@ class WPBDP_Licensing {
 
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
+        delete_option( 'wpbdp-license-status-' . $module );
+
         if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) )
             return new WP_Error( 'invalid-license', _x( 'License key is invalid', 'licensing', 'WPBDM' ) );
 
         if ( 'deactivated' !== $license_data->license )
             return new WP_Error( 'deactivation-failed', _x( 'Deactivation failed', 'licensing', 'WPBDM' ) );
 
-        delete_option( 'wpbdp-license-status-' . $module );
         return true;
     }
 
@@ -183,7 +186,7 @@ class WPBDP_Licensing {
             return false;
 
         $this->modules[ $module_name ] = array( 'license' => get_option( 'wpbdp-license-key-' . $module_name, '' ),
-                                                'valid_license' => ( 'valid' == get_option( 'wpbdp-license-status-' . $module_name ) ? true : false ),
+                                                'license_status' => get_option( 'wpbdp-license-status-' . $module_name, 'invalid' ),
                                                 'id' => $module_name,
                                                 'file' => $module,
                                                 'name' => $name ? $name : $module_name,
@@ -191,13 +194,11 @@ class WPBDP_Licensing {
 
         // Keep modules sorted by name.
         uasort( $this->modules, array( &$this, 'sort_modules_by_name' ) );
-
-        return $this->modules[ $module_name ]['valid_license'];
+        return ( 'valid' == $this->modules[ $module_name ]['license_status'] );
     }
 
     public function admin_init() {
-        //delete_transient( 'wpbdp-license-check-data' );
-        //do_action( 'wpbdp_license_check' );
+        //delete_transient( 'wpbdp-license-check-data' ); do_action( 'wpbdp_license_check' );
         foreach ( $this->modules as $module => $data ) {
             new EDD_SL_Plugin_Updater( self::STORE_URL,
                                        $data['file'],
@@ -209,17 +210,23 @@ class WPBDP_Licensing {
     }
 
     public function admin_notices() {
-        // Modules missing license.
-        $invalid_licenses = array();
+        $invalid = array();
+        $expired = array();
 
         foreach ( $this->modules as $module => $data ) {
-            if ( $data['valid_license'] )
-                continue;
-
-            $invalid_licenses[] = array( 'id' => $data['id'], 'name' => $data['name'], 'version' => $data['version'] );
+            switch ( $data['license_status'] ) {
+                case 'valid':
+                    break;
+                case 'expired':
+                    $expired[] = $data;
+                    break;
+                default:
+                    $invalid[] = $data;
+                    break;
+            }
         }
 
-        if ( $invalid_licenses ) {
+        if ( $invalid ) {
             echo '<div class="error"><p>';
             echo '<b>' . _x( 'Business Directory - License Key Required', 'licensing', 'WPBDM' ) . '</b><br />';
             echo str_replace( '<a>',
@@ -229,34 +236,18 @@ class WPBDP_Licensing {
                                   'WPBDM' ) );
             echo '<br /><br />';
 
-            foreach ( $invalid_licenses as $l )
-                echo '&#149; ' . $l['name'] . ' ' . $l['version'] . '<br />';
+            foreach ( $invalid as $d )
+                echo '&#149; ' . $d['name'] . ' ' . $d['version'] . '<br />';
 
             echo '</p></div>';
         }
 
         // Expired licenses.
-        $expired = array();
-        $check_data = get_transient( 'wpbdp-license-check-data' );
-
-        if ( ! $check_data )
-            $this->license_check();
-
-        $check_data = get_transient( 'wpbdp-license-check-data' );
-
-        if ( ! $check_data || $check_data['dismissed'] )
-            return;
-
-        foreach ( $check_data['expired'] as $m ) {
-            $module = isset( $this->modules[ $m[0] ] ) ? $this->modules[ $m[0] ] : null;
-
-            if ( ! $module || ! $module['license'] || ( $m[1] !== $module['license'] ) )
-                continue;
-
-            $expired[] = $module;
-        }
-
         if ( $expired ) {
+            $check_data = get_transient( 'wpbdp-license-check-data' );
+            if ( $check_data && $check_data['warning-dismissed'] )
+                return;
+
             echo '<div class="error wpbdp-license-expired-warning">';
             echo '<p>';
             echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
@@ -265,8 +256,8 @@ class WPBDP_Licensing {
                      'WPBDM' );
             echo '<br /><br />';
 
-            foreach( $expired as $m )
-                echo '&#149; ' . $m['name'] . ' ' . $m['version'] . '<br />';
+            foreach( $expired as $d )
+                echo '&#149; ' . $d['name'] . ' ' . $d['version'] . '<br />';
 
             echo '<br />';
             echo '<a href="#" class="dismiss button" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
@@ -280,16 +271,20 @@ class WPBDP_Licensing {
             return;
 
         wpbdp_log( 'Performing (scheduled) license check.' );
-
         $data = get_transient( 'wpbdp-license-check-data' );
 
         if ( ! $data ) {
-            wpbdp_log( 'Gathering license status data.' );
-            $data = array( 'expired' => array(), 'dismissed' => false );
+            $data = array( 'date' => current_time('mysql'), 'warning-dismissed' => false );
 
             foreach ( $this->modules as $module ) {
-                if ( ! $this->check_module_license( $module['id'] ) )
-                    $data['expired'][] = array( $module['id'], $module['license'] );
+                if ( null == ( $status = $this->check_module_license( $module['id'] ) ) )
+                    continue;
+
+                    if ( ! isset( $data[ $status ] ) )
+                        $data[ $status ] = array();
+
+                    $data[ $status ][ $module['id'] ] = $module['license'];
+                    update_option( 'wpbdp-license-status-' . $module['id'], $status );
             }
 
             set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
@@ -316,7 +311,8 @@ class WPBDP_Licensing {
         if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) )
             return null;
 
-        return ( 'valid' == $license_data->license ? true : false );
+        return $license_data->license;
+        //return ( 'valid' == $license_data->license ? true : false );
     }
 
     function ajax_activate_license() {
@@ -366,8 +362,8 @@ class WPBDP_Licensing {
             $res->send_error();
 
         $data = get_transient( 'wpbdp-license-check-data' );
-        $data['dismissed'] = true;
-        set_transient( 'wpbdp-license-check-data', $data, 2 * WEEK_IN_SECONDS );
+        $data['warning-dismissed'] = true;
+        set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
 
         $res->send();
     }
