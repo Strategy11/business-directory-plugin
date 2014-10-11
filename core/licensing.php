@@ -176,7 +176,6 @@ class WPBDP_Licensing {
     }
 
     function register_module( $name = '', $module = '', $version = '' ) {
-        //return true;
         $module = trim( $module );
         $name = trim( $name );
         $module_name = trim( str_replace( '.php', '', basename( $module ) ) );
@@ -194,7 +193,8 @@ class WPBDP_Licensing {
 
         // Keep modules sorted by name.
         uasort( $this->modules, array( &$this, 'sort_modules_by_name' ) );
-        return ( 'valid' == $this->modules[ $module_name ]['license_status'] );
+        return in_array( $this->modules[ $module_name ]['license_status'], array( 'valid', 'expired' ), true );
+        //return ( 'valid' == $this->modules[ $module_name ]['license_status'] );
     }
 
     public function admin_init() {
