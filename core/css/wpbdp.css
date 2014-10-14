@@ -81,12 +81,16 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .listing-actions input {
     margin: 0;
-    padding: 0;
 }
 
 .listing-actions input.delete-listing {
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 30px;
     color: #ff0000;
+}
+
+.listing-actions .back-to-dir {
+/*    margin-left: 25px;*/
 }
 
 /*.listing-actions a {
@@ -150,6 +154,7 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-listing-single .stickytag img {
     border: 0;
     box-shadow: none;
+    background: transparent;
 }
 
 .wpbdp-listing-single .listing-title {

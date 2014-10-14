@@ -1,10 +1,8 @@
-<?php if ($is_sticky): ?>
-    <?php echo $sticky_tag; ?>
-<?php endif; ?>
-
 <div class="listing-title">
     <h2 itemprop="name"><?php echo $title; ?></h2>
 </div>
+
+<?php echo $is_sticky ? $sticky_tag : ''; ?>
 
 <?php if ($actions): ?>
     <?php echo $actions; ?>
