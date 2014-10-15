@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 3.6
 Tested up to: 4.0
-Last Updated: 2014-Sep-10
-Stable tag: tags/3.5.1
+Last Updated: 2014-Oct-14
+Stable tag: tags/3.5.2
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -48,25 +48,25 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
-NEW! [PayFast Gateway Module](http://businessdirectoryplugin.com/premium-modules/payfast-module?ref=wp)
+NEW! [PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
 
-NEW! [Stripe Gateway Module](http://businessdirectoryplugin.com/premium-modules/stripe-module?ref=wp)
+NEW! [Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
 
-NEW! [File Upload Module](http://businessdirectoryplugin.com/premium-modules/file-upload-module?ref=wp)
+NEW! [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
 
-[Featured Levels Module](http://businessdirectoryplugin.com/premium-modules/featured-levels-module?ref=wp)
+[Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
 
-[ZIP Code Search Module](http://businessdirectoryplugin.com/premium-modules/zip-search-module?ref=wp)
+[ZIP Code Search Module](http://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
 
-[Regions Module](http://businessdirectoryplugin.com/premium-modules/regions-module?ref=wp)
+[Regions Module](http://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
 
-[Ratings Module](http://businessdirectoryplugin.com/premium-modules/ratings-module?ref=wp)
+[Ratings Module](http://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
 
-[Google Maps Module](http://businessdirectoryplugin.com/premium-modules/google-maps-module?ref=wp)
+[Google Maps Module](http://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
 
-[PayPal Gateway Module](http://businessdirectoryplugin.com/premium-modules/paypal-module?ref=wp)
+[PayPal Gateway Module](http://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
 
-[2Checkout Gateway Module](http://businessdirectoryplugin.com/premium-modules/2checkout-module?ref=wp)
+[2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
 
 For more information and support please visit [http://businessdirectoryplugin.com](http://businessdirectoryplugin.com?ref=wp)
 For plugin support please visit [http://businessdirectoryplugin.com/forums](http://businessdirectoryplugin.com/forums)
@@ -108,6 +108,19 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.5.2 =
+* Fix inexact searches for text fields. 
+* Strip slashes from search terms before performing the search. 
+* Fix display of search terms containing apostrophes. 
+* Add setting for notifying admins of listing edits. 
+* Do not send expiration notices for listing fees that auto-renew. 
+* Notify users via e-mail after auto-renewal of listing fees. 
+* Add support for Lightbox gallery mode. 
+* Add form to capture uninstall reasons. 
+* Listing cost now includes fees assigned using the backend. 
+* Support Yoast's OpenGraph tags. 
+* Minor WordPress API changes for 3.6 compatibility. 
 
 = Version 3.5.1 =
 * Fix loading of custom CSS styles. 
