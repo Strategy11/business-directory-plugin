@@ -261,7 +261,7 @@ class WPBDP_Licensing {
 
             echo '<br />';
             echo '<a href="#" class="dismiss button" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
-            echo '<a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank" class="button-primary">' . _x( 'Renew License Keys', 'licensing', 'WPBDM' ) . '</a>';
+            echo '<a href="http://businessdirectoryplugin.com/renewal/" target="_blank" class="button-primary">' . _x( 'Renew License Keys', 'licensing', 'WPBDM' ) . '</a>';
             echo '</p></div>';
         }
     }
