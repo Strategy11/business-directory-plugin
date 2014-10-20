@@ -20,56 +20,47 @@
         <?php $table->display(); ?>
 
         <hr />
-        <p>
-            <b><?php _ex('Installed Payment Gateway Modules', 'WPBDM'); ?></b>
-            <ul>
-                <?php if (wpbdp_payments_api()->has_gateway('googlecheckout')): ?>
-                    <li style="background:url(<?php echo WPBDP_URL . 'admin/resources/check.png'; ?>) no-repeat left center; padding-left:30px;">
-                        <?php _ex('Google Checkout', 'admin templates', 'WPBDM'); ?>
-                    </li>
-                <?php endif; ?>
-                <?php if (wpbdp_payments_api()->has_gateway('paypal')): ?>
-                    <li style="background:url(<?php echo WPBDP_URL . 'admin/resources/check.png'; ?>) no-repeat left center; padding-left:30px;">
-                        <?php _ex('PayPal', 'admin templates', 'WPBDM'); ?>
-                    </li>
-                <?php endif; ?>
-                <?php if (wpbdp_payments_api()->has_gateway('2checkout')): ?>
-                    <li style="background:url(<?php echo WPBDP_URL . 'admin/resources/check.png'; ?>) no-repeat left center; padding-left:30px;">
-                        <?php _ex('2Checkout', 'admin templates', 'WPBDM'); ?>
-                    </li>
-                <?php endif; ?>
-            </ul></p>
+        <?php
+        $modules = array(
+            array( 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'WPBDM' ), 'PayPal' ),
+            array( '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'WPBDM' ), '2Checkout' ),
+            array( 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'WPBDM' ), 'PayFast' ),
+            array( 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'WPBDM' ), 'Stripe' )
+        );
 
-            <?php if (!wpbdp_payments_api()->payments_possible()): ?>
-            <p><?php _ex("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit", 'admin templates', "WPBDM"); ?></p>
-            <p><a href="http://businessdirectoryplugin.com/premium-modules/">http://businessdirectoryplugin.com/premium-modules/</a></p>            
+        global $wpbdp;
+        ?>
+        <?php if ( ! $wpbdp->payments->payments_possible() ): ?>
+        <p><?php _ex("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit", 'admin templates', "WPBDM"); ?></p>
+        <p><a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank">http://businessdirectoryplugin.com/premium-modules/</a></p>
+        <?php endif; ?>
+
+        <div class="purchase-gateways cf">
+        <?php
+        foreach ( $modules as $mod_info ):
+        ?>
+        <div class="gateway <?php echo $mod_info[0]; ?> <?php echo $wpbdp->has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
+            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank">
+                <img src="<?php echo WPBDP_URL; ?>admin/resources/<?php echo $mod_info[0]; ?>.png" class="gateway-logo"><br />
+                <a href="http://">
+            </a>
+            <?php if ( $wpbdp->has_module( $mod_info[0] ) ): ?>
+                <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp"><?php echo $mod_info[1]; ?></a><br />
+                <span class="check-mark">✓</span> <?php _ex( 'Already installed.', 'admin templates', 'WPBDM' ); ?>
+            <?php else: ?>
+            <?php echo str_replace(
+                '<a>',
+                '<a href="http://businessdirectoryplugin.com/downloads/' . $mod_info[0] . '/?ref=wp" target="_blank">',
+                sprintf( _x( 'You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your users.',
+                             'admin templates',
+                             'WPBDM' ), $mod_info[1], $mod_info[2] )
+            ); ?>
+            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank" class="price">$49.99</a>
             <?php endif; ?>
-
-            <?php if (!wpbdp_payments_api()->has_gateway('2checkout') || !wpbdp_payments_api()->has_gateway('paypal')): ?>
-            <div class="purchase-gateways cf">
-                <?php if ( ! wpbdp_payments_api()->has_gateway( 'paypal' ) ): ?>
-                <div class="gateway">
-                    <?php echo str_replace( '<a>',
-                                            '<a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/">',
-                                            _x( 'You can buy the <a>PayPal</a> gateway module to add <a>PayPal</a> as a payment option for your users.',
-                                                'admin templates',
-                                                'WPBDM' ) ); ?><br />
-                    <a href="http://businessdirectoryplugin.com/premium-modules/paypal-module/" class="price">$49.99</a>
-                </div>
-                <?php endif; ?>
-
-                <?php if ( ! wpbdp_payments_api()->has_gateway( '2checkout' ) ): ?>
-                <div class="gateway">
-                    <?php echo str_replace( '<a>',
-                                            '<a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/">',
-                                            _x( 'You can buy the <a>2Checkout</a> gateway module to add <a>2Checkout</a> as a payment option for your users.', 'WPBDM' ) ); ?><br />
-                    <a href="http://businessdirectoryplugin.com/premium-modules/2checkout-module/" class="price">$49.99</a>
-                </div>
-                <?php endif; ?>
-            </div>
-            <?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+        </div>
 
     <?php endif; ?>
 
 <?php echo wpbdp_admin_footer(); ?>
-

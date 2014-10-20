@@ -58,13 +58,26 @@ span.tag {
 /* {{{ "Manage Fees" page. */
 
 .wpbdp-page-admin-fees .purchase-gateways {
-    padding: 10px;
+    margin-left: 20px;
 }
 
 .wpbdp-page-admin-fees .purchase-gateways .gateway {
     float: left;
-    width: 30%;
-    margin-right: 25px;
+    width: 35%;
+    margin: 30px 20px 0 0;
+/*    height: 180px;*/
+}
+
+.wpbdp-page-admin-fees .purchase-gateways .gateway.installed {
+    opacity: 0.5;
+}
+
+.wpbdp-page-admin-fees .purchase-gateways .gateway a img.gateway-logo {
+/*    width: 30%;*/
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 .wpbdp-page-admin-fees .purchase-gateways .gateway a.price {
@@ -73,6 +86,12 @@ span.tag {
     color: green;
     font-size: 22px;
     font-weight: bold;
+}
+
+.wpbdp-page-admin-fees .purchase-gateways .gateway .check-mark {
+    font-size: 150%;
+    font-weight: bold;
+    color: green;
 }
 
 /* }}} */
