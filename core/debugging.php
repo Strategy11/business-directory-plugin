@@ -60,6 +60,14 @@ class WPBDP_Debugging {
 		remove_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
 	}
 
+    public static function register_dummy_gateway( &$payments ) {
+        if ( ! self::$debug )
+            return;
+
+        require_once ( WPBDP_PATH . 'core/gateways-dummy.php' );
+        $payments->register_gateway( 'dummy', 'WPBDP_Dummy_Gateway' );
+    }
+
 	public static function _debug_bar_footer() {
 		if (!self::$debug)
 			return;
@@ -211,3 +219,6 @@ function wpbdp_debug_e() {
 	$args = func_get_args();
 	call_user_func_array(array('WPBDP_Debugging', 'debug_e'), $args);
 }
+
+
+add_action( 'wpbdp_register_gateways', array( 'WPBDP_Debugging', 'register_dummy_gateway' ) );
