@@ -248,7 +248,7 @@ class WPBDP_PaymentsAPI {
             return array();
 
         foreach ( $this->gateways as $gateway_id => &$gateway ) {
-            if ( wpbdp_get_option( $gateway_id ) ) {
+            if ( wpbdp_get_option( $gateway_id ) || 'dummy' == $gateway_id ) {
                 if ( 0 === count( $gateway->validate_config() ) ) {
                     if ( $capabilities ) {
                         $has_caps = true;
@@ -588,7 +588,7 @@ class WPBDP_PaymentsAPI {
             $html .= '<p>' . _x( 'The payment has been canceled at your request.', 'payments', 'WPBDM' ) . '</p>';
         } elseif ( $payment->is_pending() && $payment->get_gateway() ) {
             $html .= $this->render_invoice( $payment );
-            $html .= $this->render_payment_method_integration( $payment );            
+            $html .= $this->render_payment_method_integration( $payment );
         }
 
         if ( ! $opts['retry_rejected'] && $opts['return_link'] )

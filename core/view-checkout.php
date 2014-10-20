@@ -54,11 +54,13 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         global $wpbdp;
 
+        do_action_ref_array( 'wpbdp_checkout_page_process', array( &$this->payment ) );
+
         if ( isset( $_POST['payment_method'] ) ) {
             $payment_method = trim( $_POST['payment_method'] );
 
             if ( ! $payment_method ) {
-                $html .= wpbdp_render_msg( _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' ), 'error' );
+//                $html .= wpbdp_render_msg( _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' ), 'error' );
             } else {
                 $this->payment->set_payment_method( $payment_method );
                 $this->payment->save();
@@ -69,8 +71,9 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         $html .= '<form action="' . esc_url( $this->payment->get_checkout_url() ) . '" method="POST">';
         $html .= $wpbdp->payments->render_invoice( $this->payment );
+        $html .= wpbdp_capture_action_array( 'wpbdp_checkout_page_before_method_selection', array( &$this->payment ) );
         $html .= $wpbdp->payments->render_payment_method_selection( $this->payment );
-        $html .= '<input type="submit" value="Continue" />';
+        $html .= '<input type="submit" value="' . _x( 'Continue', 'checkout', 'WPBDM' ) . '" />';
         $html .= '</form>';
 
         return $html;
