@@ -35,7 +35,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         $step = 'gateway_selection';
 
-        if ( $this->payment->is_rejected() )
+        if ( $this->payment->is_rejected() || $this->payment->is_canceled() )
             $step = 'rejected';
         elseif ( ! $this->payment->is_pending() ) {
             $step = 'done';
