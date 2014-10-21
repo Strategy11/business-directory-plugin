@@ -558,10 +558,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             $( '.wpbdp-license-expired-warning .dismiss' ).click(function (e) {
                 e.preventDefault();
 
+                var module_id = $(this).attr('data-module');
                 var nonce = $(this).attr('data-nonce');
-                $.post( ajaxurl, {'action': 'wpbdp-license-expired-warning-dismiss', 'nonce': nonce}, function(res) {
+                var $warning = $(this).parents('.wpbdp-license-expired-warning');
+
+                $.post( ajaxurl, {'action': 'wpbdp-license-expired-warning-dismiss', 'nonce': nonce, 'module': module_id}, function(res) {
                     if ( res.success ) {
-                        $( '.wpbdp-license-expired-warning' ).fadeOut( 'fast' );
+                        $warning.fadeOut( 'fast' );
                     }
                 }, 'json' );
             });

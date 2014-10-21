@@ -245,24 +245,23 @@ class WPBDP_Licensing {
         // Expired licenses.
         if ( $expired ) {
             $check_data = get_transient( 'wpbdp-license-check-data' );
-            if ( $check_data && $check_data['warning-dismissed'] )
-                return;
 
-            echo '<div class="error wpbdp-license-expired-warning">';
-            echo '<p>';
-            echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
-            echo _x( 'The license key for the following premium modules has expired. The modules will continue to work but you will not receive any more updates until the license is renewed.',
-                     'licensing',
-                     'WPBDM' );
-            echo '<br /><br />';
+            foreach ( $expired as $d ) {
+                if ( $check_data && is_array( $check_data['warning-dismissed'] ) && in_array( $d['id'], $check_data['warning-dismissed'], true ) )
+                    continue;
 
-            foreach( $expired as $d )
-                echo '&#149; ' . $d['name'] . ' ' . $d['version'] . '<br />';
-
-            echo '<br />';
-            echo '<a href="#" class="dismiss button" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
-            echo '<a href="http://businessdirectoryplugin.com/renewal/" target="_blank" class="button-primary">' . _x( 'Renew License Keys', 'licensing', 'WPBDM' ) . '</a>';
-            echo '</p></div>';
+                echo '<div class="error wpbdp-license-expired-warning">';
+                echo '<p>';
+                echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
+                printf( _x( 'The license key for <span class="module-name">%s %s</span> has expired. The module will continue to work but you will not receive any more updates until the license is renewed.',
+                            'licensing',
+                            'WPBDM' ), $d['name'], $d['version'] );
+                echo '<br /><br />';
+                echo '<a href="#" class="dismiss button" data-module="' . esc_attr( $d['id'] ) . '" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
+                $url = add_query_arg( array( 'item_name' => urlencode( $d['name'] ), 'edd_license_key' => urlencode( $d['license'] ) ), 'http://businessdirectoryplugin.com/checkout/' );
+                echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
+                echo '</p></div>';
+            }
         }
     }
 
@@ -355,6 +354,7 @@ class WPBDP_Licensing {
 
     function ajax_dismiss_license_warning() {
         $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+        $module = isset( $_POST['module'] ) ? $_POST['module'] : '';
 
         $res = new WPBDP_Ajax_Response();
 
@@ -362,7 +362,13 @@ class WPBDP_Licensing {
             $res->send_error();
 
         $data = get_transient( 'wpbdp-license-check-data' );
-        $data['warning-dismissed'] = true;
+
+        if ( ! is_array( $data['warning-dismissed'] ) )
+            $data['warning-dismissed'] = array();
+
+        if ( ! in_array( $module, $data['warning-dismissed'], true ) )
+            $data['warning-dismissed'][] = $module;
+
         set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
 
         $res->send();

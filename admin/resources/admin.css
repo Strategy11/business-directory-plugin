@@ -646,3 +646,13 @@ body.taxonomy-wpbdp_category .column-id {
     display: none;
 }
 /* }} */
+
+.wpbdp-license-expired-warning .module-name {
+    background: #fff9aa;
+    padding: 0 5px;
+    color: #000;
+}
+
+.wpbdp-license-expired-warning .dismiss {
+    margin-right: 10px;
+}
