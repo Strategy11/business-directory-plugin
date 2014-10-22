@@ -37,6 +37,11 @@ class WPBDP_Settings {
         $this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_POST_TYPE, null, null, array($this, '_validate_listings_permalink'));
         $this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_CATEGORY_TAX, _x('The slug can\'t be in use by another term. Avoid "category", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
         $this->add_setting($s, 'permalinks-tags-slug', _x('Tags Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_TAGS_TAX, _x('The slug can\'t be in use by another term. Avoid "tag", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
+        $this->add_setting( $s,
+                            'permalinks-no-id',
+                            _x( 'Remove listing ID from directory URLs?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
 
         $s = $this->add_section( $g,
                                  'recaptcha',
@@ -165,6 +170,11 @@ class WPBDP_Settings {
                             '5',
                             _x( 'Configure how many days before listing expiration is the renewal e-mail sent.', 'admin settings', 'WPBDM' )
                             );
+        $this->add_setting( $s,
+                            'send-autorenewal-expiration-notice',
+                            _x( 'Send expiration notices including a cancel links to auto-renewed listings?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
 
         // Renewal Reminders
         $this->add_setting( $s,
