@@ -2,7 +2,7 @@
 /**
  * Listing category (general & fee information) display.
  * @since 3.4
- * @param $categories array The categories (from {@link WPBDP_Listing::get_ca+tegories()}).
+ * @param $categories array The categories (from {@link WPBDP_Listing::get_categories()}).
  * @param $display array() Optional.
  * @param $admin_actions array() Optional.
  */
