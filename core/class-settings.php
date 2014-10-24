@@ -1,4 +1,5 @@
 <?php
+// FIXME: this class is huge.
 
 class WPBDP_Settings {
 
@@ -6,6 +7,7 @@ class WPBDP_Settings {
 
     const _EMAIL_RENEWAL_MESSAGE = "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]";
     const _EMAIL_AUTORENEWAL_MESSAGE = "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [date] for another period.\n\nIf you have any questions, contact us at [site].";
+    const _EMAIL_AUTORENEWAL_PENDING_MESSAGE = "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [date] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site].";
     const _EMAIL_PENDING_RENEWAL_MESSAGE = 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].';
 
     private $deps = array();
@@ -318,16 +320,39 @@ class WPBDP_Settings {
         $this->add_setting( $s,
                             'renewal-pending-message',
                             _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
-                            'text',
+                            'text_template',
                             self::_EMAIL_PENDING_RENEWAL_MESSAGE,
                             '',
-                            array( 'use_textarea' => true ));
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+                                                            'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
+                                                            'category' => _x( 'Category that is going to expire', 'settings', 'WPBDM' ),
+                                                            'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
+                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
+                            );
         $this->add_setting( $s,
                             'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'),
-                            'text',
+                            'text_template',
                             self::_EMAIL_RENEWAL_MESSAGE,
-                            _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
-                            array( 'use_textarea' => true )
+                            '',
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+                                                            'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
+                                                            'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
+                                                            'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
+                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
+                          );
+        $this->add_setting( $s,
+                            'listing-autorenewal-notice', _x( 'Listing auto-renewal reminder (recurring payments)', 'admin settings', 'WPBDM'),
+                            'text_template',
+                            self::_EMAIL_AUTORENEWAL_PENDING_MESSAGE,
+                            '',
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+                                                            'date' => _x( 'Renewal date', 'settings', 'WPBDM' ),
+                                                            'category' => _x( 'Category that is going to be renewed', 'settings', 'WPBDM' ),
+                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' ),
+                                                            'link' => _x( 'Link to manage subscriptions', 'settings', 'WPBDM' ) ) )
                           );
         $this->add_setting( $s,
                             'listing-autorenewal-message', _x('Listing Renewal e-mail message (recurring payments)', 'admin settings', 'WPBDM'),
@@ -343,10 +368,15 @@ class WPBDP_Settings {
         $this->add_setting( $s,
                             'renewal-reminder-message',
                             _x( 'Renewal reminder e-mail message', 'admin settings', 'WPBDM' ),
-                            'text',
+                            'text_template',
                             "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
-                            _x( 'You can use the placeholders [listing] for the listing title, [category] for the category, [expiration] for the expiration date, [site] for this site\'s URL and [link] for the actual renewal link.', 'admin settings', 'WPBDM' ),
-                            array( 'use_textarea' => true )
+                            '',
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+                                                            'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
+                                                            'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
+                                                            'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
+                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
                           );
 
         /* Payment settings */

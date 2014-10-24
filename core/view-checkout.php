@@ -26,7 +26,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
                 if ( isset( $payment_data['payment_id'] ) && isset( $payment_data['verify'] ) ) { // TODO: check 'verify'.
                     $this->payment = WPBDP_Payment::get( $payment_data['payment_id'] );
-                } 
+                }
             }
         }
 
@@ -43,7 +43,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
             if ( $this->payment->get_data( 'returned' ) )
                 $step = 'pending_verification';
             elseif ( $this->payment->get_gateway() )
-                $step = 'checkout'; 
+                $step = 'checkout';
         }
 
         return call_user_func( array( &$this, $step ) );
@@ -110,12 +110,12 @@ class WPBDP_Checkout_Page extends WPBDP_View {
         $html  = '';
         $html .= wpbdp_render_msg( _x( 'Your payment was received sucessfully.', 'checkout', 'WPBDM' ) );
         $html .= $this->api->render_details( $this->payment );
-        
+
         $html .= '<p>';
         if ( $listing->is_published() )
             $html .= sprintf( '<a href="%s">%s</a>',
                               $listing->get_permalink(),
-                              _x( '← Return to your listing.', 'checkout', 'WPBDM' ) );            
+                              _x( '← Return to your listing.', 'checkout', 'WPBDM' ) );
         else
             $html .= sprintf( '<a href="%s">%s</a>',
                               wpbdp_get_page_link( 'main' ),

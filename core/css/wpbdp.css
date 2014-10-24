@@ -500,3 +500,22 @@ ul.validation-errors li {
     border: none;
     box-shadow: none
 }
+
+/*
+ * Manage Subscriptions.
+ */
+table#wpbdp-manage-subscriptions th.listing-title,
+table#wpbdp-manage-subscriptions td.listing-title {
+    min-width: 200px;
+}
+
+table#wpbdp-manage-subscriptions a.cancel-subscription {
+    color: #ff0000;
+}
+
+#wpbdp-manage-subscriptions-cancel dl dd {
+    margin-left: 10px;
+}
+
+#wpbdp-manage-subscriptions-cancel .cancel-instructions {
+}

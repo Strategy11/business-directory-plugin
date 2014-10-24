@@ -99,6 +99,11 @@ class WPBDP_DirectoryController {
                 $checkout_page = new WPBDP_Checkout_Page();
                 return $checkout_page->dispatch();
                 break;
+            case 'manage-subscriptions':
+                require_once( WPBDP_PATH . 'core/view-manage-subscriptions.php' );
+                $page = new WPBDP_Manage_Subscriptions_View();
+                return $page->dispatch();
+                break;
             default:
                 // Handle custom actions.
                 $page = wpbdp_capture_action_array( 'wpbdp_action_page_' . $this->action );

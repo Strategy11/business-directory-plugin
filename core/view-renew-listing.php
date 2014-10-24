@@ -40,7 +40,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         // Cancel renewal?
         if ( isset( $_POST['cancel-renewal'] ) ) {
             $this->listing->remove_category( $this->category->id, true );
-            
+
             if ( ! $this->listing->get_categories( 'all' ) )
                 $this->listing->delete();
 
@@ -94,7 +94,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         $html .= '<dt>' . _x( 'Number of images:', 'renewal', 'WPBDM' ) . '</dt>';
         $html .= '<dd>' . $this->category->fee_images . '</dd>';
         $html .= '<dt>' . _x( 'Expiration date:', 'renewal', 'WPBDM' ) . '</dt>';
-        $html .= '<dd>' . date_i18n( get_option( 'date_format' ), strtotime( $this->category->expires_on ) ) . '</dd>';        
+        $html .= '<dd>' . date_i18n( get_option( 'date_format' ), strtotime( $this->category->expires_on ) ) . '</dd>';
         $html .= '</dl>';
 
         $html .= '<p>' . _x( 'However, if you want to cancel your subscription you can do that on this page. When the renewal time comes you\'ll be able to change your settings again.', 'renew', 'WPBDM' ) . '</p>';
@@ -118,7 +118,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
 
         $listing = WPBDP_Listing::get( intval( $renewal_data['listing_id'] ) );
         $category_id = intval( $renewal_data['category_id'] );
-        
+
         if ( ! $listing )
             return false;
 

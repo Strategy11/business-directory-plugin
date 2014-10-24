@@ -863,19 +863,18 @@ class WPBDP_ListingsAPI {
         $listing = WPBDP_Listing::get( $fee_info->listing_id );
 
         $renewal_url = $listing->get_renewal_url( $fee_info->category_id );
-        $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-                                       '[listing]' => esc_attr( get_the_title( $fee_info->listing_id ) ),
-                                       '[category]' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX )->name,
-                                       '[expiration]' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $fee_info->expires_on ) ),
-                                       '[link]' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
+        $message_replacements = array( 'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                                       'listing' => esc_attr( get_the_title( $fee_info->listing_id ) ),
+                                       'category' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX )->name,
+                                       'expiration' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $fee_info->expires_on ) ),
+                                       'link' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
                                      );
 
         $email = new WPBDP_Email();
         $email->to[] = wpbusdirman_get_the_business_email( $fee_info->listing_id );
         $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( get_the_title( $fee_info->listing_id ), array() ) );
-        $email->body = str_replace( array_keys( $message_replacements ),
-                                    $message_replacements,
-                                    nl2br( wpbdp_get_option( $message_option ) ) );
+        $email->body = nl2br( wpbdp_text_from_template( $message_option, $message_replacements ) );
+
         $email->send();
         return true;
     }
@@ -907,11 +906,18 @@ class WPBDP_ListingsAPI {
             if ( $threshold > 0 ) {
                 $end_date = wpbdp_format_time( strtotime( sprintf( '+%d days', $threshold ), $now ), 'mysql' );
 
-                $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on >= %s AND expires_on <= %s AND email_sent = %d ORDER BY expires_on LIMIT 100",
-                                         0,
-                                         $now_date,
-                                         $end_date,
-                                         0 );
+                if ( wpbdp_get_option( 'send-autorenewal-expiration-notice' ) ) {
+                    $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on >= %s AND expires_on <= %s AND email_sent = %d ORDER BY expires_on LIMIT 100",
+                                             $now_date,
+                                             $end_date,
+                                             0 );
+                } else {
+                    $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on >= %s AND expires_on <= %s AND email_sent = %d ORDER BY expires_on LIMIT 100",
+                                             0,
+                                             $now_date,
+                                             $end_date,
+                                             0 );
+                 }
             } else {
                 $exp_date = wpbdp_format_time( strtotime( sprintf( '%d days', $threshold ), $now ), 'mysql' );
 
@@ -933,15 +939,26 @@ class WPBDP_ListingsAPI {
             if ( ! $listing )
                 continue;
 
-            $renewal_url = $listing->get_renewal_url( $r->category_id );
-            $message_replacements = array( '[site]' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-                                           '[listing]' => esc_attr( $listing->get_title() ),
-                                           '[category]' => wpbdp_get_term_name( $r->category_id ),
-                                           '[expiration]' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $r->expires_on ) ),
-                                           '[link]' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
-                                         );
+            $base_replacements = array( 'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                                        'author' => get_the_author_meta( 'display_name', get_post( $r->listing_id )->post_author ),
+                                        'listing' => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
+                                        'category' => wpbdp_get_term_name( $r->category_id ),
+                                        'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $r->expires_on ) )
+            );
 
-            if ( $threshold == 0 ) {
+            if ( ! $r->recurring ) {
+                $renewal_url = $listing->get_renewal_url( $r->category_id );
+                $message_replacements = array_merge( $base_replacements, array(
+                    'link' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
+                ) );
+            } else {
+                $message_replacements = array_merge( $base_replacements, array(
+                    'date' => $base_replacements['expiration'],
+                    'link' => sprintf( '<a href="%1$s">%1$s</a>', add_query_arg( 'action', 'manage-subscriptions', wpbdp_get_page_link( 'main' ) ) )
+                ) );
+            }
+
+            if ( 0 == $threshold ) {
                 // handle expired listings
 
                 // remove expired category from post
@@ -963,9 +980,7 @@ class WPBDP_ListingsAPI {
                 }
 
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
-                $email->body = str_replace( array_keys( $message_replacements ),
-                                               $message_replacements,
-                                               nl2br( wpbdp_get_option( 'listing-renewal-message' ) ) );
+                $email->body = nl2br( wpbdp_text_from_template( 'listing-renewal-message', $message_replacements ) );
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
@@ -974,9 +989,8 @@ class WPBDP_ListingsAPI {
                 $email = new WPBDP_Email();
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
-                $email->body = str_replace( array_keys( $message_replacements ),
-                                               $message_replacements,
-                                               nl2br( wpbdp_get_option( 'renewal-pending-message' ) ) );
+                $email->body = nl2br( wpbdp_text_from_template( ( $r->recurring ? 'listing-autorenewal-notice' : 'renewal-pending-message' ),
+                                                                $message_replacements ) );
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
@@ -985,9 +999,7 @@ class WPBDP_ListingsAPI {
                 $email = new WPBDP_Email();
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
                 $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
-                $email->body = str_replace( array_keys( $message_replacements ),
-                                               $message_replacements,
-                                               nl2br( wpbdp_get_option( 'renewal-reminder-message' ) ) );
+                $email->body = nl2br( wpbdp_text_from_template( 'renewal-reminder-message', $message_replacements ) );
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 3 ), array( 'id' => $r->id ) );
