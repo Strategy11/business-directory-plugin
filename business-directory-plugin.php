@@ -403,9 +403,6 @@ class WPBDP_Plugin {
             if (get_query_var('name')) {
                 wp_redirect( add_query_arg('listing', get_query_var('name'), $url) ); // XXX
             } else {
-                if ( get_query_var('preview') == true )
-                    $url = add_query_arg( 'preview', 1, $url );
-
                 wp_redirect( add_query_arg('id', get_query_var('p'), $url) ); // XXX
             }
 
@@ -415,11 +412,10 @@ class WPBDP_Plugin {
         global $post;
         if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
             $id = get_query_var('id') ? get_query_var('id') : get_query_var('preview_id');
-            $listing = get_post($id);
+            $listing = get_post( $id );
 
-            if ( $listing && get_query_var('preview') ) {
-                if ( current_user_can('edit_posts') )
-                    return;
+            if ( $listing && 'publish' != $listing->post_status && current_user_can( 'edit_posts' ) ) {
+                return;
             }
 
             if (!$listing || $listing->post_type != WPBDP_POST_TYPE || $listing->post_status != 'publish') {

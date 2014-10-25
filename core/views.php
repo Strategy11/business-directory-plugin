@@ -120,7 +120,7 @@ class WPBDP_DirectoryController {
         if (!$this->check_main_page($msg)) return $msg;
 
         if (get_query_var('listing') || isset($_GET['listing'])) {
-            if ($posts = get_posts(array('post_status' => 'publish', 'numberposts' => 1, 'post_type' => WPBDP_POST_TYPE, 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
+            if ($posts = get_posts(array('post_status' => 'any', 'numberposts' => 1, 'post_type' => WPBDP_POST_TYPE, 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
                 $listing_id = $posts[0]->ID;
             } else {
                 $listing_id = null;
@@ -134,8 +134,12 @@ class WPBDP_DirectoryController {
 
         $html  = '';
 
-        if ( isset($_GET['preview']) )
-            $html .= wpbdp_render_msg( _x('This is just a preview. The listing has not been published yet.', 'preview', 'WPBDM') );
+        if ( 'publish' != get_post_status( $listing_id ) ) {
+            if ( current_user_can( 'edit_posts' ) )
+                $html .= wpbdp_render_msg( _x('This is just a preview. The listing has not been published yet.', 'preview', 'WPBDM') );
+            else
+                return;
+        }
 
         // Handle ?v=viewname argument for alternative views (other than 'single').
         $view = '';

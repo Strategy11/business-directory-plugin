@@ -15,7 +15,7 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
     if ($listing_id)  {
         $args = array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id );
 
-        if ( !isset( $_GET['preview'] ) )
+        if ( ! current_user_can( 'edit_posts') )
             $args['post_status'] = 'publish';
 
         query_posts( $args );
