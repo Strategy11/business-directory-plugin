@@ -477,7 +477,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $value = $field->value( $post_id );
 
         if ( $field->get_association() == 'content' && $field->data( 'allow_filters' ) ) {
-            $value = apply_filters( 'the_content', $value );
+            //$value = apply_filters( 'the_content', $value );
+            $value = do_shortcode( $value );
         } elseif ( $field->data( 'allow_html' ) ) {
             $value = nl2br( wp_kses_post( $value ) );
         } else {
