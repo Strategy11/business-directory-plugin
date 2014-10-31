@@ -993,8 +993,12 @@ class WPBDP_Plugin {
     public function _meta_setup() {
         $action = $this->controller->get_current_action();
 
-        if ( !$action )
+        if ( ! $action )
             return;
+
+        require_once( WPBDP_PATH . 'class-page-meta.php' );
+        $this->page_meta = new WPBDP_Page_Meta( $action );
+
 
         $this->_do_wpseo = defined( 'WPSEO_VERSION' ) ? true : false;
 
