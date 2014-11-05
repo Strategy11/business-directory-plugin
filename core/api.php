@@ -316,7 +316,7 @@ function wpbdp_has_module( $module ) {
 /**
  * @since 3.5.3
  */
-function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id' ) {
+function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
     if ( 'slug' == $try_first )
         $strategies = array( 'slug', 'id' );
     else
@@ -341,6 +341,9 @@ function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id' ) 
 
     if ( ! $listing_id )
         return null;
+
+    if ( 'id' == $result )
+        return $listing_id;
 
     return get_post( $listing_id );
 }

@@ -117,8 +117,17 @@ class WPBDP_DirectoryController {
 
     /* Show listing. */
     public function show_listing() {
-        if (!$this->check_main_page($msg)) return $msg;
+        if ( ! $this->check_main_page( $msg ) )
+            return $msg;
 
+        $id_or_slug = '';
+        if ( get_query_var( 'listing' ) || isset( $_GET['listing'] ) )
+            $id_or_slug = get_query_var( 'listing' ) ? get_query_var( 'listing' ) : wpbdp_getv( $_GET, 'listing', 0 );
+        else
+            $id_or_slug = get_query_var( 'id' ) ? get_query_var( 'id' ) : wpbdp_getv( $_GET, 'id', 0 );
+
+        $listing_id = wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+/*
         if (get_query_var('listing') || isset($_GET['listing'])) {
             if ($posts = get_posts(array('post_status' => 'any', 'numberposts' => 1, 'post_type' => WPBDP_POST_TYPE, 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
                 $listing_id = $posts[0]->ID;
@@ -127,7 +136,7 @@ class WPBDP_DirectoryController {
             }
         } else {
             $listing_id = get_query_var('id') ? get_query_var('id') : wpbdp_getv($_GET, 'id', null);
-        }
+        }*/
 
         if ( !$listing_id )
             return;
