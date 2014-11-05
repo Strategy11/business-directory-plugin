@@ -312,3 +312,36 @@ function wpbdp_has_module( $module ) {
     global $wpbdp;
     return $wpbdp->has_module( $module );
 }
+
+/**
+ * @since 3.5.3
+ */
+function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id' ) {
+    if ( 'slug' == $try_first )
+        $strategies = array( 'slug', 'id' );
+    else
+        $strategies = array( 'id', 'slug' );
+
+    global $wpdb;
+    $listing_id = 0;
+
+    foreach ( $strategies as $s ) {
+        switch ( $s ) {
+            case 'id':
+                $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE ID = %d AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE ) ) );
+                break;
+            case 'slug':
+                $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE ) ) );
+                break;
+        }
+
+        if ( $listing_id )
+            break;
+    }
+
+    if ( ! $listing_id )
+        return null;
+
+    return get_post( $listing_id );
+}
+

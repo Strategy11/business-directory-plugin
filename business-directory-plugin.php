@@ -301,14 +301,17 @@ class WPBDP_Plugin {
             $rewrite_base = str_replace('index.php/', '', rtrim(str_replace(home_url() . '/', '', $page_link), '/'));
 
             $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
-            $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
             $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
 
-            if ( wpbdp_get_option( 'permalinks-no-id' ) )
+            if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
+                //$rules['(' . $rewrite_base . ')/([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
                 $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
+            } else {
+                $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
+            }
 
             $rules = apply_filters( 'wpbdp_rewrite_rules', $rules );
         }
@@ -410,20 +413,24 @@ class WPBDP_Plugin {
         }
 
         global $post;
-        if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id')) ) {
-            $id = get_query_var('id') ? get_query_var('id') : get_query_var('preview_id');
-            $listing = get_post( $id );
+        if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id') || get_query_var('listing')) ) {
+            $id_or_slug = false;
 
-            if ( $listing && 'publish' != $listing->post_status && current_user_can( 'edit_posts' ) ) {
-                return;
+            foreach ( array( 'id', 'preview_id', 'listing' ) as $x ) {
+                if ( get_query_var( $x ) ) {
+                    $id_or_slug = get_query_var( $x );
+                    break;
+                }
             }
 
-            if (!$listing || $listing->post_type != WPBDP_POST_TYPE || $listing->post_status != 'publish') {
+            $listing = wpbdp_get_post_by_id_or_slug( $id_or_slug, wpbdp_get_option( 'permalinks-no-id' ) ? 'slug' : 'id' );
+
+            if ( ! $listing || ( 'publish' != $listing->post_status && ! current_user_can( 'edit_posts' ) )  ) {
                 $this->controller->action = null;
                 status_header(404);
                 nocache_headers();
                 include( get_404_template() );
-                exit;
+                exit();
             }
         }
 
