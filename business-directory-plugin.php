@@ -171,6 +171,7 @@ class WPBDP_Plugin {
 
         // Scripts & styles.
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
+        add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_css_override' ), 30, 0 );
 
         // Plugin modules initialization.
         $this->_init_modules();
@@ -961,37 +962,46 @@ class WPBDP_Plugin {
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
             wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.min.css');
+    }
 
-        $counter = 0;
-        foreach (array('wpbdp.css', 'wpbusdirman.css', 'wpbdp_custom_style.css', 'wpbdp_custom_styles.css', 'wpbdm_custom_style.css', 'wpbdm_custom_styles.css') as $stylesheet) {
-            if (file_exists( get_stylesheet_directory() . '/' . $stylesheet )) {
-                wp_enqueue_style('wpbdp-custom-css-' . $counter, get_stylesheet_directory_uri() . '/' . $stylesheet);
-                $counter++;
-            }
+    /**
+     * @since 3.5.3
+     */
+    public function enqueue_css_override() {
+        $stylesheet_dir = trailingslashit( get_stylesheet_directory() );
+        $stylesheet_dir_uri = trailingslashit( get_stylesheet_directory_uri() );
+        $template_dir = trailingslashit( get_template_directory() );
+        $template_dir_uri = trailingslashit( get_template_directory_uri() );
 
-            if (file_exists( get_stylesheet_directory() . '/css/' . $stylesheet )) {
-                wp_enqueue_style('wpbdp-custom-css-' . $counter, get_stylesheet_directory_uri() . '/css/' . $stylesheet);
-                $counter++;
-            }
+        $folders_uris = array(
+            array( trailingslashit( WP_PLUGIN_DIR ), trailingslashit( WP_PLUGIN_URL ) ),
+            array( $stylesheet_dir, $stylesheet_dir_uri ),
+            array( $stylesheet_dir . 'css/', $stylesheet_dir_uri . 'css/' )
+        );
 
-            if (get_template_directory() != get_stylesheet_directory()) {
-                if (file_exists( get_template_directory() . '/' . $stylesheet )) {
-                    wp_enqueue_style('wpbdp-custom-css-' . $counter, get_template_directory_uri() . '/' . $stylesheet);
-                    $counter++;
-                }
-
-                if (file_exists( get_template_directory() . '/css/' . $stylesheet )) {
-                    wp_enqueue_style('wpbdp-custom-css-' . $counter, get_template_directory_uri() . '/css/' . $stylesheet);
-                    $counter++;
-                }
-            }
-
-            if (file_exists(WP_PLUGIN_DIR . '/' . $stylesheet)) {
-                wp_enqueue_style('wpbdp-custom-css-' . $counter, WP_PLUGIN_URL . '/' . $stylesheet);
-                $counter++;
-            }
+        if ( $template_dir != $stylesheet_dir ) {
+            $folders_uris[] = array( $template_dir, $template_dir_uri );
+            $folders_uris[] = array( $template_dir . 'css/', $template_dir_uri . 'css/' );
         }
 
+        $filenames = array( 'wpbdp.css',
+                            'wpbusdirman.css',
+                            'wpbdp_custom_style.css',
+                            'wpbdp_custom_styles.css',
+                            'wpbdm_custom_style.css',
+                            'wpbdm_custom_styles.css' );
+
+        $n = 0;
+        foreach ( $folders_uris as $folder_uri ) {
+            list( $dir, $uri ) = $folder_uri;
+
+            foreach ( $filenames as $f ) {
+                if ( file_exists( $dir . $f ) ) {
+                    wp_enqueue_style( 'wpbdp-custom-' . $n, $uri . $f );
+                    $n++;
+                }
+            }
+        }
     }
 
     /*
