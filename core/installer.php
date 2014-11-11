@@ -26,6 +26,10 @@ class WPBDP_Installer {
         } else {
             wpbdp_log('New installation. Creating default form fields.');
             global $wpbdp;
+
+            // Create default category.
+            wp_insert_term( _x( 'General', 'default category name', 'WPBDM' ), WPBDP_CATEGORY_TAX );
+
             $wpbdp->formfields->create_default_fields();
 
             add_option( 'wpbdp-show-drip-pointer', 1 );
