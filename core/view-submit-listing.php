@@ -28,7 +28,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             if ( current_user_can( 'administrator' ) ) {
                 return wpbdp_render_msg( _x( 'There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM' ), 'error' );
             } else {
-                return wpbdp_render_msg( _x( 'Your listing cannot be added at this time. Please try again later.', 'templates', 'WPBDM' ), 'error' ); 
+                return wpbdp_render_msg( _x( 'Your listing cannot be added at this time. Please try again later. If this is not the first time you see this warning, please ask the site administrator to set up one or more categories inside the Directory.', 'templates', 'WPBDM' ), 'error' ); 
             }
         }
 
