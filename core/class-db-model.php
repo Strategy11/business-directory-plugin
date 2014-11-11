@@ -270,10 +270,8 @@ class WPBDP_DB_Model2 {
             throw new Exception( 'Please provide a table and class name.' );
 
         global $wpdb;
-        
-        $single = false;
 
-        $query = "SELECT * FROM {$table} WHERE 1=1";
+        $single = false;
 
         switch ( $id ) {
             case 'first':
@@ -301,26 +299,46 @@ class WPBDP_DB_Model2 {
         $single = (  ! $single && isset( $args['_single'] ) && true == $args['_single'] ) ? true : $single;
         $order = isset( $args['_order'] ) ? $args['_order'] : '';
         $limit = isset( $args['_limit'] ) ? $args['_limit'] : '';
+        $extra = isset( $args['_query_extra'] ) ? $args['_query_extra'] : array();
+
+        $query = "SELECT t.*";
+
+        if ( isset( $extra['fields'] ) )
+            $query .= ', ' . $extra['fields'];
+
+        $query .= " FROM {$table} t";
+        if ( isset( $extra['table'] ) )
+            $query .= ', ' . $extra['table'] . ' ';
+
+        $query .= " WHERE 1=1";
+        if ( isset( $extra['where'] ) )
+            $query .= ' ' . $extra['where'] . ' ';
 
         foreach ( $args as $arg => $value ) {
-            if ( is_null( $value ) || in_array( $arg, array( '_single', '_order', '_limit' ), true ) )
+            if ( is_null( $value ) || in_array( $arg, array( '_single', '_order', '_limit', '_query_extra' ), true ) )
                 continue;
 
             if ( is_array( $value ) ) {
                 $value_str = implode( ',', $value );
-                $query .= " AND {$arg} IN ({$value_str})";
+                $query .= " AND t.{$arg} IN ({$value_str})";
             } elseif ( $value[0] == '>' ) {
-                $query .= " AND {$arg} {$value}";
+                $query .= " AND t.{$arg} {$value}";
             } else {
-                $query .= $wpdb->prepare( " AND {$arg}=" . ( is_int( $value ) ? '%d' : '%s' ), $value );    
+                $query .= $wpdb->prepare( " AND t.{$arg}=" . ( is_int( $value ) ? '%d' : '%s' ), $value );
             }
         }
+
+        if ( isset( $extra['groupby'] ) )
+            $query .= ' GROUP BY ' . $extra['groupby'];
 
         if ( $order ) {
             $order_field = wpbdp_starts_with( $order, '-' ) ? substr( $order, 1 ) : $order;
             $order_dir = wpbdp_starts_with( $order, '-' ) ? 'DESC' : 'ASC';
 
-            $query .= " ORDER BY {$order_field} {$order_dir}";
+            if ( isset( $extra['orderby'] ) )
+                $query .= ' ORDER BY ' . $extra['orderby'];
+            else
+                $query .= " ORDER BY t.{$order_field} {$order_dir}";
         }
 
         if ( $limit > 0 )
