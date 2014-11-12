@@ -656,3 +656,9 @@ body.taxonomy-wpbdp_category .column-id {
 .wpbdp-license-expired-warning .dismiss {
     margin-right: 10px;
 }
+
+/* {{ Widget config. */
+.wp-admin.widgets-php .widget-content span.help {
+    color: #666;
+}
+/* }} */

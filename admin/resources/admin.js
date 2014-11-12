@@ -494,6 +494,27 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 })(jQuery);
 /* }} */
 
+// {{ Widgets.
+(function($) {
+    $(document).ready(function() {
+        if ( $('body.wp-admin.widgets-php').length == 0 ) {
+            return;
+        }
+
+        $( 'input.wpbdp-toggle-images' ).change(function() {
+            var checked = $(this).is(':checked');
+
+            if ( checked ) {
+                $(this).parents('.widget').find('.thumbnail-width-config, .thumbnail-height-config').fadeIn('fast');
+            } else {
+                $(this).parents('.widget').find('.thumbnail-width-config, .thumbnail-height-config').fadeOut('fast');
+            }
+        });
+
+    });
+})(jQuery);
+// }}
+
 // {{ Settings - License Activation.
 (function($) {
     var l = WPBDP_Admin.licensing = {

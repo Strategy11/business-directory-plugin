@@ -55,7 +55,6 @@ require_once( WPBDP_PATH . 'core/templates-listings.php' );
 require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
-require_once( WPBDP_PATH . 'core/widgets.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
 
@@ -810,8 +809,13 @@ class WPBDP_Plugin {
     }
 
     public function _register_widgets() {
-        register_widget('WPBDP_LatestListingsWidget');
+        include_once ( WPBDP_PATH . 'core/widget-featured-listings.php' );
+        include_once ( WPBDP_PATH . 'core/widget-latest-listings.php' );
+        include_once ( WPBDP_PATH . 'core/widget-random-listings.php' );
+        include_once ( WPBDP_PATH . 'core/widget-search.php' );
+
         register_widget('WPBDP_FeaturedListingsWidget');
+        register_widget('WPBDP_LatestListingsWidget');
         register_widget('WPBDP_RandomListingsWidget');
         register_widget('WPBDP_SearchWidget');
     }
