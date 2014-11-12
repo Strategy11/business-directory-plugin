@@ -232,7 +232,7 @@ ul#wpbusdirmanerrors { margin-left:20px; }
     font-size: 90%;
     font-family: monospace;
     height: 100%;
-    white-space: nowrap;
+    white-space: pre;
 }
 
 #wpbdp-csv-import-form input[type="file"] {
