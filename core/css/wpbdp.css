@@ -480,14 +480,6 @@ ul.validation-errors li {
     color: #900000;
 }
 
-.widget_wpbdp_featuredlistingswidget .listing-thumbnail img {
-    max-width: 100%;
-}
-
-.widget_wpbdp_featuredlistingswidget li {
-    margin-bottom: 4px;
-}
-
 .wpbdp-recaptcha-error {
     color: #ff0000;
 }

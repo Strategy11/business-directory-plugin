@@ -936,6 +936,8 @@ class WPBDP_Plugin {
     public function _enqueue_scripts() {
         $only_in_plugin_pages = true;
 
+        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.min.css' );
+
         if ( $only_in_plugin_pages && ! $this->is_plugin_page() )
             return;
 

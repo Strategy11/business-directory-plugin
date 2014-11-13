@@ -112,22 +112,31 @@ class WPBDP_Listings_Widget extends WP_Widget {
         if ( ! empty( $title ) )
             echo $before_title . $title . $after_title;
 
-        $show_images = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
-        $thumb_w = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
-        $thumb_h = isset( $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : 0;
-
         $out = $this->print_listings( $instance );
 
         if ( ! $out ) {
             if ( $listings = $this->get_listings( $instance ) ) {
-                $out .= '<ul>';
+                $show_images = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
+                $thumb_w = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
+                $thumb_h = isset( $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : 0;
+
+                $img_size = 'wpbdp-thumb';
+                if ( $show_images && ( $thumb_w > 0 || $thumb_h > 0 ) ) {
+                    $img_size = array( $thumb_w, $thumb_h );
+                }
+
+                $out .= '<ul class="wpbdp-listings-widget-list">';
 
                 foreach ( $listings as &$post ) {
+                    $listing = WPBDP_Listing::get( $post->ID );
+
                     $out .= '<li>';
-                    $out .= sprintf( '<a href="%s">%s</a>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
+                    $out .= sprintf( '<a class="listing-title" href="%s">%s</a>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
 
                     if ( $show_images ) {
-                        $out .= wpbdp_listing_thumbnail( $post->ID, 'link=listing' );
+                        if ( $img_id = $listing->get_thumbnail_id() ) {
+                            $out .= '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
+                        }
                     }
 
                     $out .= '</li>';
