@@ -387,6 +387,14 @@ class WPBDP_Settings {
         $this->add_setting($s, 'payments-test-mode', _x('Put payment gateways in test mode?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->register_dep( 'payments-test-mode', 'requires-true', 'payments-on' );
 
+        $this->add_setting( $s,
+                            'payments-use-https',
+                            _x( 'Perform checkouts on the secure (HTTPS) version of your site?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            _x( 'Recommended for added security. For this to work you need to enable HTTPS on your server and <a>obtain an SSL certificate</a>.', 'admin settings', 'WPBDM' ) );
+        $this->register_dep( 'payments-use-https', 'requires-true', 'payments-on' );
+
         // PayPal currency codes from https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes
         $this->add_setting($s, 'currency', _x('Currency Code', 'admin settings', 'WPBDM'), 'choice', 'USD', '',
                             array('choices' => array(

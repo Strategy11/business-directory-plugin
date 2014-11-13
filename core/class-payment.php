@@ -370,11 +370,17 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return '';
     }
 
-    public function get_checkout_url() {
+    public function get_checkout_url( $force_http = false ) {
         $payment_id = $this->id;
         $payment_q = base64_encode('payment_id=' . $payment_id . '&verify=0' ); // TODO: add a 'verify' parameter to avoid false links being generated.
 
-        return add_query_arg( array( 'action' => 'checkout', 'payment' => urlencode( $payment_q ) ), wpbdp_get_page_link( 'main' ) );
+        $base_url = wpbdp_get_page_link( 'main' );
+
+        if ( ! $force_http && ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) ) {
+            $base_url = set_url_scheme( $base_url, 'https' );
+        }
+
+        return add_query_arg( array( 'action' => 'checkout', 'payment' => urlencode( $payment_q ) ), $base_url );
     }
 
     public function get_redirect_url() {
@@ -383,7 +389,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                 return add_query_arg( array( '_state' => $this->get_submit_state_id() ), wpbdp_get_page_link( 'submit' ) );
         }
 
-        return $this->get_checkout_url();
+        return $this->get_checkout_url( true );
     }
 
     public function get_created_on() {
