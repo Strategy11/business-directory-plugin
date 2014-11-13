@@ -511,3 +511,31 @@ table#wpbdp-manage-subscriptions a.cancel-subscription {
 
 #wpbdp-manage-subscriptions-cancel .cancel-instructions {
 }
+
+/* {{ Credit Card details form. */
+.wpbdp-cc-form {
+    padding: 0;
+}
+
+.wpbdp-cc-form h4 {
+    margin: 0;
+}
+
+.wpbdp-cc-field {
+    font-size: 90%;
+    padding: 0;
+    margin: 3px 0 0 10px;
+}
+
+.wpbdp-cc-field label span {
+    display: block;
+}
+
+.wpbdp-cc-field input {
+    margin-left: 10px;
+}
+
+.wpbdp-cc-form input.submit {
+    margin: 10px 0 0 0;
+}
+/* }} */
