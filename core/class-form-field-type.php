@@ -311,11 +311,12 @@ class WPBDP_Form_Field_Type {
         return $html;
     }
 
-    public static function html_attributes( $attrs ) {
+    public static function html_attributes( $attrs, $exceptions = array( 'class' ) ) {
         $html = '';
 
         foreach ( $attrs as $k => $v ) {
-            if ( $k == 'class' ) continue; // use ->css_classes for this
+            if ( in_array( $k, $exceptions, true ) )
+                continue;
 
             $html .= sprintf( '%s="%s" ', $k, $v );
         }

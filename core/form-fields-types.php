@@ -303,10 +303,19 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             }
 
             foreach ( $options as $option => $label ) {
+                $option_data = array( 'label' => $label,
+                                      'value' => esc_attr( $option ),
+                                      'attributes' => array() );
+
+                if ( in_array( $option, $value ) )
+                    $option_data['attributes']['selected'] = 'selected';
+
+                $option_data = apply_filters( 'wpbdp_form_field_select_option', $option_data, $field );
+
                 $html .= sprintf( '<option value="%s" %s>%s</option>',
-                                  esc_attr( $option ),
-                                  in_array( $option, $value ) ? 'selected="selected"' : '',
-                                  esc_attr( $label ) );
+                                  esc_attr( $option_data['value'] ),
+                                  $this->html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
+                                  esc_attr( $option_data['label'] ) );
             }
 
             $html .= '</select>';
