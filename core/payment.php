@@ -310,7 +310,7 @@ class WPBDP_PaymentsAPI {
             $errors[] = sprintf(_x('You have payments turned on but no gateway is active and properly configured. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
                                 admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));            
         } else {
-            if ( count( $this->get_available_methods() ) >= 2 && $this->has_gateway( 'payfast' ) ) {
+            if ( count( $this->get_available_methods() ) >= 2 && $this->is_available( 'payfast' ) ) {
                 $errors[] = __( 'BD detected PayFast and another gateway were enabled. This setup is not recommended due to PayFast supporting only ZAR and the other gateways not supporting this currency.', 'admin', 'WPBDM' );
             }
 
@@ -318,7 +318,7 @@ class WPBDP_PaymentsAPI {
                 $errors[] = __( 'You have recurring renewal of listing fees enabled but the payment gateways installed don\'t support recurring payments. Until a gateway that supports recurring payments (such as PayPal) is enabled automatic renewals will be disabled.', 'WPBDM' );
             }
 
-            if ( wpbdp_get_option( 'listing-renewal-auto' ) && $this->has_gateway( 'googlewallet' )
+            if ( wpbdp_get_option( 'listing-renewal-auto' ) && $this->is_available( 'googlewallet' )
                  && wpbdp_get_option('googlewallet' ) && isset( $_GET['page'] ) && 'wpbdp_admin_fees' == $_GET['page'] ) {
                 $errors[] = __( 'Due to Google Wallet limitations only monthly (30 days) recurring fees are supported by the gateway. All other fees will be charged as non-recurring.', 'WPBDM' );
             }
@@ -329,6 +329,13 @@ class WPBDP_PaymentsAPI {
 
     public function get_registered_methods() {
         return $this->gateways;
+    }
+
+    /**
+     * @since 3.5.3
+     */
+    public function is_available($gateway) {
+        return in_array( $gateway, $this->get_available_methods(), true );
     }
 
     public function has_gateway($gateway) {
