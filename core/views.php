@@ -240,7 +240,8 @@ class WPBDP_DirectoryController {
 
         $html = wpbdp_render( 'category',
                              array(
-                                'category' => get_term( $tag_id, WPBDP_TAGS_TAX ),
+                                'title' => esc_attr( $tag->name ),
+                                'category' => $tag,
                                 'is_tag' => true
                                 ),
                              false );        
@@ -409,10 +410,10 @@ class WPBDP_DirectoryController {
     public function search() {
         $_REQUEST = stripslashes_deep( $_REQUEST );
 
+        $search_args = array();
         $results = array();
 
         if ( isset( $_GET['dosrch'] ) ) {
-            $search_args = array();
             $search_args['q'] = wpbdp_getv($_GET, 'q', null);
             $search_args['fields'] = array(); // standard search fields
             $search_args['extra'] = array(); // search fields added by plugins
