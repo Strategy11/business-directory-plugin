@@ -186,6 +186,32 @@ class WPBDP_Form_Field {
     }
 
     /**
+     * @since 3.5.3
+     */
+    public function get_css_classes( $render_context = '' ) {
+        $css_classes = array();
+        $css_classes[] = 'wpbdp-form-field';
+        $css_classes[] = 'wpbdp-form-field-id-' . $this->get_id();
+        $css_classes[] = 'wpbdp-form-field-type-' . $this->get_field_type()->get_id();
+        $css_classes[] = 'wpbdp-form-field-label-' . WPBDP_Form_Field_Type::normalize_name( $this->get_label() );
+        $css_classes[] = 'wpbdp-form-field-association-' . $this->get_association();
+
+        // For backwards compatibility.
+        $css_classes[] = $this->get_field_type()->get_id();
+
+        if ( $this->get_description() )
+            $css_classes[] = 'with-description';
+
+        if ( $this->get_validators() )
+            $css_classes = array_merge( $css_classes, $this->get_validators() );
+
+        // Add own custom CSS classes.
+        $css_classes = array_merge( $css_classes, $this->css_classes );
+
+        return apply_filters( 'wpbdp_form_field_css_classes', $css_classes, $this, $render_context );
+    }
+
+    /**
      * TODO: dodoc.
      * Valid behavior (override default behavior) flags: display-only, no-delete, no-validation
      * @since 3.4

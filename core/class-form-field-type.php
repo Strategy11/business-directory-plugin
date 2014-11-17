@@ -168,7 +168,7 @@ class WPBDP_Form_Field_Type {
 
                 $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra );
                 $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );
-                
+
                 $html .= $field_inner;
                 $html .= '</div>';
                 $html .= '</div>';
@@ -180,11 +180,8 @@ class WPBDP_Form_Field_Type {
             default:
                 $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
-                $html .= sprintf( '<div class="wpbdp-form-field %s %s %s %s" %s>',
-                                  $field->get_field_type()->get_id(),
-                                  $field->get_description() ? 'with-description' : '',
-                                  implode( ' ', $field->get_validators() ),
-                                  implode( ' ', $field->css_classes),
+                $html .= sprintf( '<div class="%s" %s>',
+                                  implode( ' ', $field->get_css_classes( $render_context ) ),
                                   $html_attributes );
                 $html .= '<div class="wpbdp-form-field-label">';
                 $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), $field->get_label() );
@@ -322,6 +319,19 @@ class WPBDP_Form_Field_Type {
         }
 
         return $html;
+    }
+
+    /**
+     * @since 3.5.3
+     */
+    public static function normalize_name( $name ) {
+        $name = strtolower( $name );
+        $name = remove_accents( strip_tags( $name ) );
+        $name = str_replace( array( '/', '"', "'", "\\" ), '', $name );
+        $name = str_replace( ' ', '_', $name );
+
+        return esc_attr( $name );
+
     }
 
 }
