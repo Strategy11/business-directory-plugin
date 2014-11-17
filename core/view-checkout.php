@@ -50,10 +50,17 @@ class WPBDP_Checkout_Page extends WPBDP_View {
     }
 
     private function gateway_selection() {
-        $html  = '';
-
         global $wpbdp;
 
+        // Auto-select gateway if there is only one available.
+        $gateways = $wpbdp->payments->get_available_methods();
+        if ( 1 == count( $gateways ) ) {
+            $this->payment->set_payment_method( array_pop( $gateways ) );
+            $this->payment->save();
+            return $this->checkout();
+        }
+
+        $html  = '';
         do_action_ref_array( 'wpbdp_checkout_page_process', array( &$this->payment ) );
 
         if ( isset( $_POST['payment_method'] ) ) {
@@ -66,7 +73,6 @@ class WPBDP_Checkout_Page extends WPBDP_View {
                 $this->payment->save();
                 return $this->checkout();
             }
-
         }
 
         $html .= '<form action="' . esc_url( $this->payment->get_checkout_url() ) . '" method="POST">';

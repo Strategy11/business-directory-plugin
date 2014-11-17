@@ -515,6 +515,7 @@ table#wpbdp-manage-subscriptions a.cancel-subscription {
 /* {{ Credit Card details form. */
 .wpbdp-cc-form {
     padding: 0;
+    width: 90%;
 }
 
 .wpbdp-cc-form h4 {
@@ -522,20 +523,17 @@ table#wpbdp-manage-subscriptions a.cancel-subscription {
 }
 
 .wpbdp-cc-field {
-    font-size: 90%;
-    padding: 0;
-    margin: 3px 0 0 10px;
-}
-
-.wpbdp-cc-field label span {
-    display: block;
 }
 
 .wpbdp-cc-field input {
-    margin-left: 10px;
+    width: auto;
 }
 
-.wpbdp-cc-form input.submit {
-    margin: 10px 0 0 0;
+.wpbdp-cc-field label {
+    display: block;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
 }
+
 /* }} */
