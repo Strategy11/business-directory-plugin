@@ -175,7 +175,7 @@ class WPBDP_SiteTracking {
             exit();
 
         if ( isset( $_POST['enable_tracking'] ) ) {
-            update_option( 'wpbdp-tracking-dismissed', true );
+            update_option( 'wpbdp-show-tracking-pointer', 0 );
 
             if ( intval( $_POST['enable_tracking'] ) ) {
                 wpbdp_set_option( 'tracking-on', true );

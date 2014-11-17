@@ -77,7 +77,7 @@ class WPBDP_Admin {
         }
 
         // Ask for site tracking if needed.
-        if ( !wpbdp_get_option( 'tracking-on', false ) && !get_option( 'wpbdp-tracking-dismissed', false ) && current_user_can( 'administrator' ) ) {
+        if ( ! wpbdp_get_option( 'tracking-on', false ) && get_option( 'wpbdp-show-tracking-pointer', 0 ) && current_user_can( 'administrator' ) ) {
             wp_enqueue_style( 'wp-pointer' );
             wp_enqueue_script( 'wp-pointer' );
             add_action( 'admin_print_footer_scripts', 'WPBDP_SiteTracking::request_js' );

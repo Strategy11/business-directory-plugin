@@ -17,9 +17,6 @@ class WPBDP_Installer {
 
         $this->update_database_schema();
 
-        if ( !wpbdp_get_option( 'tracking-on', false ) )
-            delete_option( 'wpbdp-tracking-dismissed' );
-
         if ( $this->installed_version ) {
             wpbdp_log('WPBDP is already installed.');
             $this->_update();
@@ -33,6 +30,7 @@ class WPBDP_Installer {
             $wpbdp->formfields->create_default_fields();
 
             add_option( 'wpbdp-show-drip-pointer', 1 );
+            add_option( 'wpbdp-show-tracking-pointer', 1 );
         }
 
         delete_option('wpbusdirman_db_version');
