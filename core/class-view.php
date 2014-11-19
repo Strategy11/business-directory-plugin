@@ -18,8 +18,4 @@ abstract class WPBDP_View {
     	return '';
     }
 
-    public function render() {
-        return $this->dispatch();
-    }
-
 }
