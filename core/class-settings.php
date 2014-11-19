@@ -137,6 +137,21 @@ class WPBDP_Settings {
                             true,
                             _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'admin settings', 'WPBDM' ) );
         $this->add_setting( $s,
+                            'contact-form-require-login',
+                            _x( 'Require login for using the contact form?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
+        $this->register_dep( 'contact-form-require-login', 'requires-true', 'show-contact-form' );
+        $this->add_setting( $s,
+                            'contact-form-daily-limit',
+                            _x( 'Maximum number of contact form submits per day', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '0',
+                            _x( 'Use this to prevent spamming of listing owners. 0 means unlimited submits per day.',
+                                'admin settings',
+                                'WPBDM') );
+        $this->register_dep( 'contact-form-daily-limit', 'requires-true', 'show-contact-form' );
+        $this->add_setting( $s,
                             'show-comment-form',
                             _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
                             'boolean',

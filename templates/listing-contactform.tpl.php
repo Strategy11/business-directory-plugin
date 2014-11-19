@@ -1,4 +1,3 @@
-
 <?php if ($validation_errors): ?>
 	<ul class="validation-errors">
 		<?php foreach($validation_errors as $error_msg): ?>
@@ -7,7 +6,6 @@
 	</ul>
 <?php endif; ?>
 
-<h3><?php _ex('Send Message to listing owner', 'templates', 'WPBDM'); ?></h3>
 <p><label><?php _ex('Listing Title: ', 'templates', 'WPBDM'); ?></label><?php echo get_the_title($listing_id); ?></p>
 
 <form method="POST" action="<?php echo wpbdp_get_page_link('main'); ?>">

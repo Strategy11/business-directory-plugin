@@ -66,7 +66,7 @@ class WPBDP_DirectoryController {
                 break;
             case 'sendcontactmessage':
                 require_once( WPBDP_PATH . 'core/view-listing-contact.php' );
-                $page = new WPBDP_Listing_Contact_Page();
+                $page = new WPBDP_Listing_Contact_View();
                 return $page->dispatch();
                 break;
             case 'deletelisting':

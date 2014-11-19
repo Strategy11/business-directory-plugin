@@ -5,7 +5,7 @@ require_once( WPBDP_PATH . 'core/class-view.php' );
  * Listing contact page.
  * @since 3.4
  */
-class WPBDP_Listing_Contact_Page extends WPBDP_View {
+class WPBDP_Listing_Contact_View extends WPBDP_View {
 
     private $errors = array();
 
@@ -59,19 +59,96 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
         return empty( $this->errors );
     }
 
-    public function dispatch() {
-        if ( ! wpbdp_get_option( 'show-contact-form' ) )
-            die();
+    private function can_submit( $listing_id = 0, &$error_msg = '' ) {
+        if ( wpbdp_get_option( 'contact-form-require-login' ) && ! is_user_logged_in() ) {
+            $error_msg = str_replace( '<a>',
+                                      '<a href="' . wp_login_url( site_url( $_SERVER['REQUEST_URI'] ) ) . '">',
+                                      _x( 'Please <a>log in</a> to be able to send messages to the listing owner.', 'contact form', 'WPBDM' ) );
+            return false;
+        }
 
+        $daily_limit = max( 0, intval( wpbdp_get_option( 'contact-form-daily-limit' ) ) );
+
+        if ( ! $daily_limit )
+            return true;
+
+        $today = date( 'Ymd', current_time( 'timestamp' ) );
+        $data = get_post_meta( $listing_id, '_wpbdp_contact_limit', true );
+
+        if ( ! $data || ! is_array( $data ) )
+            $data = array( 'last_date' => $today, 'count' => 0 );
+
+        if ( $today != $data['last_date'] )
+            $data['count'] = 0;
+
+        if ( $data['count'] >= $daily_limit ) {
+            $error_msg = _x( 'This contact form is temporarily disabled. Please try again later.', 'contact form', 'WPBDM' );
+            return false;
+        }
+
+        return true;
+    }
+
+    private function update_contacts( $listing_id ) {
+        $daily_limit = max( 0, intval( wpbdp_get_option( 'contact-form-daily-limit' ) ) );
+
+        if ( ! $daily_limit )
+            return;
+
+        $today = date( 'Ymd', current_time( 'timestamp' ) );
+        $data = get_post_meta( $listing_id, '_wpbdp_contact_limit', true );
+
+        if ( ! $data || ! is_array( $data ) )
+            $data = array( 'last_date' => $today, 'count' => 0 );
+
+        if ( $today != $data['last_date'] )
+            $data['count'] = 0;
+        
+        $data['count'] = $data['count'] + 1;
+        update_post_meta( $listing_id, '_wpbdp_contact_limit', $data );
+    }
+
+    public function render_form( $listing_id = 0, $validation_errors = array() ) {
+        if ( ! $listing_id || ! apply_filters('wpbdp_show_contact_form', wpbdp_get_option( 'show-contact-form' ), $listing_id ) )
+            return '';
+
+        $html  = '';
+        $html .= '<div class="contact-form">';
+        $html .= '<h3>' . _x('Send Message to listing owner', 'templates', 'WPBDM') . '</h3>';
+
+        $form = '';
+
+        if ( ! $this->can_submit( $listing_id, $error_msg ) ) {
+            $form = wpbdp_render_msg( $error_msg );
+        } else {
+            $form = wpbdp_render( 'listing-contactform', array(
+                                        'validation_errors' => $validation_errors,
+                                        'listing_id' => $listing_id,
+                                        'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
+                                        'recaptcha' => wpbdp_get_option( 'recaptcha-on' ) ? wpbdp_recaptcha() : '',
+                                  false ) );
+        }
+
+        $html .= $form;
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public function dispatch() {
         $listing_id = intval( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
 
         if ( ! $listing_id )
-            return;
+            return '';
 
+        if ( ! $this->can_submit( $listing_id, $error_msg ) )
+            return wpbdp_render_msg( $error_msg, 'error' );
+
+        $this->listing_id = $listing_id;
         $this->prepare_input();
 
         if ( ! $this->validate() )
-            return wpbdp_listing_contact_form( $listing_id, $this->errors );
+            return $this->render_form( $listing_id, $this->errors );
 
         // Prepare e-mail message.
         $email = new WPBDP_Email();
@@ -99,6 +176,7 @@ class WPBDP_Listing_Contact_Page extends WPBDP_View {
 
         if( $email->send() ) {
             $html .= "<p>" . _x("Your message has been sent.", 'contact-message', "WPBDM") . "</p>";
+            $this->update_contacts( $listing_id );
         } else {
             $html .= "<p>" . _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM") . "</p>";
         }
