@@ -515,6 +515,35 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 })(jQuery);
 // }}
 
+// {{ Create main page warning.
+(function($) {
+    $(document).ready(function() {
+        $( 'a.wpbdp-create-main-page-button' ).click(function(e) {
+            e.preventDefault();
+            var $msg = $(this).parents('div.error');
+
+            $.ajax({
+                'url': ajaxurl,
+                'data': { 'action': 'wpbdp-create-main-page',
+                          '_wpnonce': $(this).attr('data-nonce') },
+                'dataType': 'json',
+                success: function(res) {
+                    if ( ! res.success )
+                        return;
+
+                    $msg.fadeOut( 'fast', function() {
+                        $(this).html( '<p>' + res.message + '</p>' )
+                        $(this).removeClass('error')
+                        $(this).addClass('updated')
+                        $(this).fadeIn( 'fast' );
+                    } );
+                }
+            });
+        });
+    });
+})(jQuery);
+// }}
+
 // {{ Settings - License Activation.
 (function($) {
     var l = WPBDP_Admin.licensing = {
