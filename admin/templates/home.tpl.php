@@ -1,7 +1,7 @@
 <?php echo wpbdp_admin_header(); ?>
 
 <div class="wpbdp-note welcome-message">
-    <h4><?php _ex( 'Welcome to Business Directory Plugin', 'admin home', 'WPBDM' ); ?></h4>
+    <h4><?php printf( _x( 'Welcome to Business Directory Plugin. You are using %s.', 'admin home', 'WPBDM' ), '<span class="version">' . wpbdp_get_version() . '</span>' ); ?></h4>
     <p><?php _ex( 'Thanks for choosing us.  There\'s a lot you probably want to get done, so let\'s jump right in!',
                   'admin home',
                   'WPBDM' ); ?></p>
