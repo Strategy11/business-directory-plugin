@@ -57,6 +57,11 @@ span.tag {
 
 /* {{{ "Manage Fees" page. */
 
+.wpbdp-page-admin-fees .wp-list-table .wpbdp-drag-handle {
+    margin-right: 15px;
+    display: none;
+}
+
 .wpbdp-page-admin-fees .purchase-gateways {
     margin-left: 20px;
 }

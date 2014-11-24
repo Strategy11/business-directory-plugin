@@ -89,7 +89,7 @@ var WPBDP_associations_fieldtypes = {};
 
 jQuery(document).ready(function($){
 
-    /* Manage Fees */
+    // {{ Manage Fees.
     $('form#wpbdp-fee-form input[name="_days"]').change(function(){
         var value = $(this).val();
 
@@ -107,12 +107,47 @@ jQuery(document).ready(function($){
         return true;
     });
 
+    $('.wpbdp-page-admin-fees .wp-list-table.fees tbody').sortable({
+        placeholder: 'wpbdp-draggable-highlight',
+        handle: '.wpbdp-drag-handle',
+        axis: 'y',
+        cursor: 'move',
+        opacity: 0.9,
+        update: function( event, ui ) {
+            var sorted_items = [];
+            $( this ).find( '.wpbdp-drag-handle' ).each( function( i, v ) {
+                sorted_items.push( $( v ).attr('data-fee-id') );
+            } );
+
+            if ( sorted_items )
+        $.post( ajaxurl, { 'action': 'wpbdp-admin-fees-reorder', 'order': sorted_items } );
+        }
+    });
+
     $('form#wpbdp-fee-form').submit(function(){
         // alert($('form#wpbdp-fee-form input[name="fee[days]"]').val());
         // return false;
         $('form input[name="fee[days]"]').removeAttr('disabled');
         return true;
     });
+
+    $( 'select[name="fee_order[method]"], select[name="fee_order[order]"]' ).change(function(e) {
+        $.ajax({
+            url: ajaxurl,
+            data: $(this).parent('form').serialize(),
+            dataType: 'json',
+            type: 'POST',
+            success: function(res) {
+                if ( res.success )
+                    location.reload();
+            }
+        });
+    });
+
+    if ( 'custom' == $('select[name="fee_order[method]"]').val() ) {
+        $( '.wpbdp-page-admin-fees .wp-list-table .wpbdp-drag-handle' ).show();
+    }
+    // }}
 
 
     /* Listing Info Metabox */

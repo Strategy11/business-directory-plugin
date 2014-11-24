@@ -15,6 +15,29 @@
                                 'WPBDM' ) ); ?></p>
     </div>
     <?php else: ?>
+        <div class="fees-order">
+            <form>
+            <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
+            <?php wp_nonce_field( 'change fees order' ); ?>
+            <b><?php _ex( 'Order fees on the frontend by:', 'fees admin', 'WPBDM' ); ?></b><br />
+            <select name="fee_order[method]">
+            <?php foreach ( $order_options as $k => $l ): ?>
+            <option value="<?php echo $k; ?>" <?php echo ( $k == $current_order['method'] ) ? 'selected="selected"' : ''; ?> ><?php echo $l; ?></option>
+            <?php endforeach; ?>
+            </select>
+
+            <select name="fee_order[order]" style="<?php echo ( 'custom' == $current_order['method'] ) ? 'display: none;' : ''; ?>">
+            <?php foreach ( array( 'asc' => _x( '↑ Ascending', 'fees admin', 'WPBDM' ), 'desc' => _x( '↓ Descending', 'fees admin', 'WPBDM' ) ) as $o => $l ): ?>
+                <option value="<?php echo $o; ?>" <?php echo ( $o == $current_order['order'] ) ? 'selected="selected"' : ''; ?> ><?php echo $l; ?></option>
+            <?php endforeach; ?>
+            </select>
+
+            <?php if ( 'custom' == $current_order['method'] ): ?>
+            <span><?php _ex( 'Drag and drop to re-order fees.', 'fees admin', 'WPBDM' ); ?></span>
+            <?php endif; ?>
+
+            </form>
+        </div>
 
         <?php $table->views(); ?>
         <?php $table->display(); ?>

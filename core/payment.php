@@ -29,6 +29,39 @@ class WPBDP_FeesAPI {
         $fee->extra_data = unserialize( $fee->extra_data );
     }
 
+    public function _sort_fees( &$fees ) {
+        $order = wpbdp_get_option( 'fee-order' );
+        $res = array_merge( array(), $fees );
+
+        if ( 'custom' == $order['method'] ) {
+            usort( $res, create_function( '$a, $b', 'return $a->weight < $b->weight;' ) );
+            return $res;
+        }
+
+        $field = $order['method'];
+        $asc = ( 'asc' == $order['order'] ) ? true : false;
+
+        switch ( $field ) {
+            case 'label':
+                usort( $res, create_function( '$a, $b', 'return strnatcmp( $a->label, $b->label );' ) );
+                break;
+            case 'days':
+                usort( $res, create_function( '$a, $b', 'return ( 0 == $a->days ? 1 : ( 0 == $b->days ? -1 : $a->days > $b->days ) );' ) );
+                break;
+            case 'amount':
+            case 'images':
+                usort( $res, create_function( '$a, $b', 'return ($a->' . $field . '*100) > ($b->' . $field . '*100);' ) );
+                break;
+        }
+
+        if ( ! $asc )
+            $res = array_reverse( $res );
+
+        return $res;
+
+//        wpbdp_debug_e( $order, $res );
+    }
+
     public function get_fees_for_category($catid) {
         $fees = array();
 
@@ -64,7 +97,7 @@ class WPBDP_FeesAPI {
 
             foreach ($categories as $catid) {
                 $category_fees = $this->get_fees_for_category($catid);
-                $fees[$catid] = $category_fees;
+                $fees[$catid] = $this->_sort_fees( $category_fees );
             }
 
             return $fees;
@@ -73,6 +106,8 @@ class WPBDP_FeesAPI {
             
             foreach ($fees as &$fee)
                 $this->normalize($fee);
+
+            $fees = $this->_sort_fees( $fees );
 
             return $fees;
         }

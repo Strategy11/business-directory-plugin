@@ -397,6 +397,8 @@ class WPBDP_Settings {
         /* Payment settings */
         $g = $this->add_group('payment', _x('Payment', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'general', _x('Payment Settings', 'admin settings', 'WPBDM'));
+
+        $this->add_setting( $s, 'fee-order', 'Fee Order', 'core', array( 'method' => 'label', 'order' => 'asc' ) );
         $this->add_setting($s, 'payments-on', _x('Turn On payments?', 'admin settings', 'WPBDM'), 'boolean', false);
 
         $this->add_setting($s, 'payments-test-mode', _x('Put payment gateways in test mode?', 'admin settings', 'WPBDM'), 'boolean', true);

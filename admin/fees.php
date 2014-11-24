@@ -18,6 +18,7 @@ class WPBDP_FeesTable extends WP_List_Table {
 
     public function get_columns() {
         return array(
+/*            'order' => _x( 'Order', 'fees admin', 'WPBDM' ),*/
         	'label' => _x('Label', 'fees admin', 'WPBDM'),
         	'amount' => _x('Amount', 'fees admin', 'WPBDM'),
         	'duration' => _x('Duration', 'fees admin', 'WPBDM'),
@@ -34,7 +35,15 @@ class WPBDP_FeesTable extends WP_List_Table {
 	}
 
 	/* Rows */
-	public function column_label($fee) {
+    public function column_order( $fee ) {
+        return sprintf( '<span class="wpbdp-drag-handle" data-fee-id="%s"></span> <a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
+                        $fee->id, 
+                        esc_url( add_query_arg( array('action' => 'feeup', 'id' => $fee->id ) ) ),
+                        esc_url( add_query_arg( array('action' => 'feedown', 'id' => $fee->id ) ) )
+                       );
+    }
+
+    public function column_label($fee) {
 		$actions = array();
 		$actions['edit'] = sprintf('<a href="%s">%s</a>',
 								   esc_url(add_query_arg(array('action' => 'editfee', 'id' => $fee->id))),
@@ -44,6 +53,9 @@ class WPBDP_FeesTable extends WP_List_Table {
 								   _x('Delete', 'fees admin', 'WPBDM'));
 
 		$html = '';
+        $html .= sprintf( '<span class="wpbdp-drag-handle" data-fee-id="%s"></span></a>',
+                        $fee->id );
+
 		$html .= sprintf('<strong><a href="%s">%s</a></strong>',
 					   	 esc_url(add_query_arg(array('action' => 'editfee', 'id' => $fee->id))),
 					     esc_attr($fee->label));
@@ -119,9 +131,20 @@ class WPBDP_FeesAdmin {
     	$table = new WPBDP_FeesTable();
     	$table->prepare_items();
 
+        $order_options = array();
+        foreach ( array( 'label' => _x( 'Label', 'fees order', 'WPBDM' ),
+                         'amount' => _x( 'Amount', 'fees order', 'WPBDM' ),
+                         'days' => _x( 'Duration', 'fees order', 'WPBDM' ),
+                         'images' => _x( 'Images', 'fees order', 'WPBDM' ),
+                         'custom' => _x( 'Custom Order', 'fees order', 'WPBDM' ) ) as $k => $l ) {
+            $order_options[ $k ] = $l;
+        }
+
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/fees.tpl.php',
-                          array('table' => $table),
-                          true);    		    	
+                          array( 'table' => $table,
+                                 'order_options' => $order_options,
+                                 'current_order' => wpbdp_get_option( 'fee-order' ) ),
+                          true);
     }
 
 	private function processFieldForm() {

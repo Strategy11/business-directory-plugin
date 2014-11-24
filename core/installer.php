@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '3.9';
+    const DB_VERSION = '4.0';
 
     private $installed_version = null;
 
@@ -75,7 +75,8 @@ class WPBDP_Installer {
             days smallint unsigned NOT NULL DEFAULT 0,
             images smallint unsigned NOT NULL DEFAULT 0,
             categories blob NOT NULL,
-            extra_data blob NULL
+            extra_data blob NULL,
+            weight int(5) NOT NULL DEFAULT 0
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (

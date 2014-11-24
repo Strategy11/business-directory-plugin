@@ -41,6 +41,9 @@ class WPBDP_Admin {
         add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
 
         add_action( 'wp_ajax_wpbdp-formfields-reorder', array( &$this, 'ajax_formfields_reorder' ) );
+        
+        add_action( 'wp_ajax_wpbdp-admin-fees-set-order', array( &$this, 'ajax_fees_set_order' ) );
+        add_action( 'wp_ajax_wpbdp-admin-fees-reorder', array( &$this, 'ajax_fees_reorder' ) );
 
         add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
         add_action( 'wp_ajax_wpbdp-listing_remove_category', array( &$this, 'ajax_listing_remove_category' ) );
@@ -65,7 +68,7 @@ class WPBDP_Admin {
         wp_enqueue_style('thickbox');
 
         wp_enqueue_script('wpbdp-frontend-js', WPBDP_URL . 'core/js/wpbdp.min.js', array('jquery'));
-        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.js', array('jquery', 'thickbox', 'jquery-ui-sortable' ));
+        wp_enqueue_script('wpbdp-admin-js', WPBDP_URL . 'admin/resources/admin.min.js', array('jquery', 'thickbox', 'jquery-ui-sortable' ));
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wp_enqueue_style( 'wpbdp-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
@@ -366,6 +369,40 @@ class WPBDP_Admin {
 
         if ( ! $wpbdp->formfields->set_fields_order( $order ) )
             $response->send_error();
+
+        $response->send();
+    }
+
+    public function ajax_fees_set_order() {
+        $nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+        $order = isset( $_POST['fee_order'] ) ? $_POST['fee_order'] : false;
+
+        if ( ! wp_verify_nonce( $nonce, 'change fees order' ) || ! $order )
+            exit();
+
+        $res = new WPBDP_Ajax_Response();
+        wpbdp_set_option( 'fee-order', $order );
+        $res->send();
+    }
+
+    public function ajax_fees_reorder() {
+        global $wpdb;
+
+        $response = new WPBDP_Ajax_Response();
+
+        if ( ! current_user_can( 'administrator' ) )
+            $response->send_error();
+
+        $order = array_map( 'intval', isset( $_REQUEST['order'] ) ? $_REQUEST['order'] : array() );
+
+        if ( ! $order )
+            $response->send_error();
+
+        $weight = count( $order ) - 1;
+        foreach( $order as $fee_id ) {
+            $wpdb->update( $wpdb->prefix . 'wpbdp_fees', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
+            $weight--;
+        }
 
         $response->send();
     }
