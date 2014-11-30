@@ -12,6 +12,14 @@ class WPBDP_Installer {
     }
 
     public function install() {
+        // schedule expiration hook if needed
+        if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
+            wpbdp_log('Expiration check was not in schedule. Scheduling.');
+            wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
+        } else {
+            wpbdp_log('Expiration check was in schedule. Nothing to do.');
+        }
+
         if ( self::DB_VERSION == $this->installed_version )
             return;
 
@@ -35,14 +43,6 @@ class WPBDP_Installer {
 
         delete_option('wpbusdirman_db_version');
         update_option('wpbdp-db-version', self::DB_VERSION);
-
-        // schedule expiration hook if needed
-        if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
-            wpbdp_log('Expiration check was not in schedule. Scheduling.');
-            wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
-        } else {
-            wpbdp_log('Expiration check was in schedule. Nothing to do.');
-        }
     }
 
     /**

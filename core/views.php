@@ -62,12 +62,16 @@ class WPBDP_DirectoryController {
                 break;
             case 'editlisting':
             case 'submitlisting':
-                return $this->submit_listing();
+                require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+                $submit_page = new WPBDP_Submit_Listing_Page( isset( $_REQUEST['listing_id'] ) ? $_REQUEST['listing_id'] : 0 );
+                return $submit_page->dispatch();
+
                 break;
             case 'sendcontactmessage':
                 require_once( WPBDP_PATH . 'core/view-listing-contact.php' );
                 $page = new WPBDP_Listing_Contact_View();
                 return $page->dispatch();
+
                 break;
             case 'deletelisting':
                 return $this->delete_listing();
@@ -76,7 +80,6 @@ class WPBDP_DirectoryController {
                 require_once( WPBDP_PATH . 'core/view-upgrade-listing.php' );
                 $upgrade_page = new WPBDP_Upgrade_Listing_Page();
                 return $upgrade_page->dispatch();
-
 
                 break;
             case 'viewlistings':
