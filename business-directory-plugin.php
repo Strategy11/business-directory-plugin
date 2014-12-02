@@ -62,6 +62,9 @@ require_once( WPBDP_PATH . 'core/seo.php' );
 global $wpbdp;
 
 
+/**
+ * The main plugin class.
+ */
 class WPBDP_Plugin {
 
     public function __construct() {
@@ -1127,7 +1130,7 @@ class WPBDP_Plugin {
     }
 
     // TODO: it'd be nice to move workarounds outside this class.
-    public function _meta_title( $title = '', $sep = '��', $seplocation = 'right' ) {
+    public function _meta_title( $title = '', $sep = '»', $seplocation = 'right' ) {
         $action = $this->controller->get_current_action();
 
         switch ($action) {
