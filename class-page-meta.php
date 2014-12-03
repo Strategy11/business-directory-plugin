@@ -1,5 +1,6 @@
 <?php
 
+// TODO: we need to disable the date filters after a moment to not affect everything (when?).
 class WPBDP_Page_Meta {
 
     private $action = '';
@@ -27,7 +28,7 @@ class WPBDP_Page_Meta {
         if ( ! $d )
             $d = get_option( 'time_format' );
 
-        remove_filter( 'get_the_time', array( &$this, 'listing_page__get_the_time' ), 10, 2 );
+        //remove_filter( 'get_the_time', array( &$this, 'listing_page__get_the_time' ), 10, 2 );
         return get_post_time( $d, false, $this->listing_id, true );
     }
 
@@ -38,8 +39,8 @@ class WPBDP_Page_Meta {
         if ( ! $d )
             $d = get_option( 'date_format' );
 
-        remove_filter( 'get_the_date', array( &$this, 'listing_page__get_the_date' ), 10, 2 );
-        return get_the_date( $d, $this->listing_id );
+        //remove_filter( 'get_the_date', array( &$this, 'listing_page__get_the_date' ), 10, 2 );
+        return get_post_time( $d, $this->listing_id );
     }
 
     public function listing_page__get_the_modified_time( $the_time, $d = '' ) {
@@ -49,7 +50,7 @@ class WPBDP_Page_Meta {
         if ( ! $d )
             $d = get_option( 'time_format' );
 
-        remove_filter( 'get_the_modified_time', array( &$this, 'listing_page__get_the_modified_time' ), 10, 2 );
+        //remove_filter( 'get_the_modified_time', array( &$this, 'listing_page__get_the_modified_time' ), 10, 2 );
         return get_post_modified_time( $d, false, $this->listing_id, true );
     }
 
@@ -60,7 +61,7 @@ class WPBDP_Page_Meta {
         if ( ! $d )
             $d = get_option( 'date_format' );
 
-        remove_filter( 'get_the_modified_date', array( &$this, 'listing_page__get_the_modified_date' ), 10, 2 );
+        //remove_filter( 'get_the_modified_date', array( &$this, 'listing_page__get_the_modified_date' ), 10, 2 );
         return get_post_modified_time( $d, false, $this->listing_id, true );
     }
 
