@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress business directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 3.6
-Tested up to: 4.0
-Last Updated: 2014-Oct-14
-Stable tag: tags/3.5.2
+Tested up to: 4.0.1
+Last Updated: 2014-Dec-3
+Stable tag: tags/3.5.3
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -108,6 +108,24 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.5.3 =
+* Various changes related to EDD. 
+* Allow removal of listing ID from URLs.
+* New e-mail template for expiration notices of auto-renewed listings. 
+* Add "Manage Subscriptions" page to review/cancel subscriptions. 
+* Fix permalink generation issues for unpublished listings. 
+* Fix preview support. 
+* Use the "do_shortcode" action instead of "the_content" filter for processing content fields. 
+* Make listing page dates match those from the listing being displayed.
+* Add a default category on install. 
+* Add support for images to all widgets. 
+* Improve form fields CSS classes. 
+* Fix a couple of undefined variables warnings. 
+* Add ability to limit sending of contact messages. 
+* Allow re-ordering of fee plans. 
+* Display current version in admin panel. 
+* Re-schedule expiration hook if it is somehow disabled. 
 
 = Version 3.5.2 =
 * Fix inexact searches for text fields. 
