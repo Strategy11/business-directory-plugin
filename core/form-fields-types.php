@@ -485,13 +485,17 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        if ( $field->get_association() == 'content' && $field->data( 'allow_filters' ) ) {
-            //$value = apply_filters( 'the_content', $value );
-            $value = do_shortcode( $value );
-        } elseif ( $field->data( 'allow_html' ) ) {
-            $value = nl2br( wp_kses_post( $value ) );
+        if ( $field->data( 'allow_html' ) ) {
+            $value = wp_kses_post( $value );
         } else {
-            $value = nl2br( wp_kses( $value, array() ) );
+            $value = wp_kses( $value, array() );
+        }
+
+        $value = nl2br( $value );
+
+        if ( $field->get_association() == 'content' && $field->data( 'allow_filters' ) ) {
+//            $value = apply_filters( 'the_content', $value );
+            $value = do_shortcode( $value );
         }
 
         return $value;
