@@ -30,7 +30,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '3.5.3dev' );
+define( 'WPBDP_VERSION', '3.5.3' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -41,7 +41,7 @@ define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
 require_once( WPBDP_PATH . 'core/api.php' );
-require_once( WPBDP_PATH . 'core/compatibility/deprecated.php' );
+require_once( WPBDP_PATH . 'core/compatibility/class-compat.php' );
 require_once( WPBDP_PATH . 'core/utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/class-admin.php' );
@@ -62,6 +62,9 @@ require_once( WPBDP_PATH . 'core/seo.php' );
 global $wpbdp;
 
 
+/**
+ * The main plugin class.
+ */
 class WPBDP_Plugin {
 
     public function __construct() {
@@ -99,6 +102,8 @@ class WPBDP_Plugin {
     }
 
     function init() {
+        $this->compat = new WPBDP_Compat();
+
         // Register cache groups.
         wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp submit state', 'wpbdp' ) );
 
@@ -157,13 +162,14 @@ class WPBDP_Plugin {
         add_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
 
         add_action( 'wp_head', array( &$this, '_rss_feed' ) );
-        add_action('wp_footer', array( &$this, '_credits_footer'));
 
         // Register shortcodes.
         $shortcodes = $this->get_shortcodes();
 
         foreach ( $shortcodes as $shortcode => &$handler )
             add_shortcode( $shortcode, $handler );
+
+        do_action( 'wpbdp_loaded' );
 
         // Expiration hook.
         add_action( 'wpbdp_listings_expiration_check', array( &$this, '_notify_expiring_listings' ), 0 );
@@ -787,27 +793,6 @@ class WPBDP_Plugin {
         echo "\n";
     }
 
-    public function _credits_footer() {
-        if ( !wpbdp_get_option( 'credit-author') )
-            return;
-
-        echo '<style type="text/css">';
-        echo '.wpbdp-credit-info {
-                font-size: 9px;
-                text-align: center;
-                color: #494949;
-              }
-
-              .wpbdp-credit-info a {
-                color: inherit;
-              }';
-        echo '</style>';
-        echo '<div class="wpbdp-credit-info wpbdmac">';
-        printf( _x( 'Directory powered by %s', 'credits footer', 'WPBDM' ),
-                '<a href="http://businessdirectoryplugin.com">Business Directory Plugin</a>' );
-        echo '</div>';
-    }
-
     public function _register_widgets() {
         include_once ( WPBDP_PATH . 'core/widget-featured-listings.php' );
         include_once ( WPBDP_PATH . 'core/widget-latest-listings.php' );
@@ -1127,7 +1112,7 @@ class WPBDP_Plugin {
     }
 
     // TODO: it'd be nice to move workarounds outside this class.
-    public function _meta_title( $title = '', $sep = '��', $seplocation = 'right' ) {
+    public function _meta_title( $title = '', $sep = '»', $seplocation = 'right' ) {
         $action = $this->controller->get_current_action();
 
         switch ($action) {

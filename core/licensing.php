@@ -7,7 +7,7 @@
  */
 class WPBDP_Licensing {
 
-    const STORE_URL = 'http://www.businessdirectoryplugin.com/';
+    const STORE_URL = 'http://businessdirectoryplugin.com/';
     //const STORE_URL = 'http://localhost:8080/';
 
     private $modules = array();
