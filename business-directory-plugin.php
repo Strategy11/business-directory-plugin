@@ -679,7 +679,7 @@ class WPBDP_Plugin {
         $max_height = intval( wpbdp_get_option('image-max-height') );
 
         // thumbnail size
-        add_image_size( 'wpbdp-thumb', $thumbnail_width, 0, false );
+        add_image_size( 'wpbdp-thumb', $thumbnail_width, $max_height, false );
         add_image_size( 'wpbdp-large', $max_width, $max_height, false );
     }
 
