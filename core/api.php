@@ -320,7 +320,7 @@ function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $
     if ( 'slug' == $try_first )
         $strategies = array( 'slug', 'id' );
     else
-        $strategies = array( 'id', 'slug' );
+        $strategies = is_numeric( $id_or_slug ) ? array( 'id', 'slug' ) : array( 'slug' );
 
     global $wpdb;
     $listing_id = 0;
