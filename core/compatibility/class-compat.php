@@ -4,14 +4,14 @@ require_once ( WPBDP_PATH . 'core/compatibility/deprecated.php' );
 class WPBDP_Compat {
 
     function __construct() {
-//        add_action( 'wpbdp_loaded', array( &$this, 'load_integrations' ) );
+        add_action( 'wpbdp_loaded', array( &$this, 'load_integrations' ) );
     }
 
-//    function load_integrations() {
-//        if ( ! is_admin() && isset( $GLOBALS['sitepress'] ) ) {
-//            require_once( WPBDP_PATH . 'core/compatibility/class-wpml-compat.php' );
-//            $wpml_integration = new WPBDP_WPML_Compat();
-//        }
-//    }
+    function load_integrations() {
+        if ( ! is_admin() && isset( $GLOBALS['sitepress'] ) ) {
+            require_once( WPBDP_PATH . 'core/compatibility/class-wpml-compat.php' );
+            $wpml_integration = new WPBDP_WPML_Compat();
+        }
+    }
 
 }

@@ -21,7 +21,7 @@ class WPBDP_WPML_Compat {
         if ( ! $lang )
             return;
 
-        $this->wpml->switch_lang('es');
+        //$this->wpml->switch_lang('es');
     }
 
     function add_language_to_link( $link ) {
