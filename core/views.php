@@ -30,7 +30,7 @@ class WPBDP_DirectoryController {
     }
 
     public function _handle_action(&$wp) {
-        if ( is_page() && get_the_ID() == wpbdp_get_page_id( 'main' ) ) {
+        if ( is_page() && in_array( get_the_ID(), wpbdp_get_page_id( 'main', false ) ) ) {
             $action = get_query_var('action') ? get_query_var('action') : ( isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '' );
 
             if (get_query_var('category_id') || get_query_var('category')) $action = 'browsecategory';

@@ -12,7 +12,7 @@ function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
-function wpbdp_get_page_id($name='main') {
+function wpbdp_get_page_id($name='main', $unique=true) {
     global $wpdb;
 
     static $shortcodes = array(
@@ -34,14 +34,21 @@ function wpbdp_get_page_id($name='main') {
         $where .= sprintf(" OR post_content LIKE '%%[%s]%%'", $shortcode);
     }
 
-    $id = wp_cache_get( $name, 'wpbdp pages' );
+    $page_ids = wp_cache_get( $name, 'wpbdp pages' );
 
-    if ( ! $id )
-        $id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE ({$where}) AND post_status = 'publish' AND post_type = 'page' LIMIT 1");
+    if ( ! $page_ids ) {
+        $query = "SELECT ID FROM {$wpdb->posts} WHERE ({$where}) AND post_status = 'publish' AND post_type = 'page' ORDER BY ID";
+        $page_ids = $wpdb->get_col( $query );
+        wp_cache_set( $name, $page_ids, 'wpbdp pages' );
+    }
 
-    wp_cache_set( $name, $id, 'wpbdp pages' );
+    if ( ! $page_ids )
+        return false;
 
-    return $id;
+    if ( ! is_array( $page_ids ) )
+        $page_ids = array( $page_ids );
+
+    return $unique ? $page_ids[0] : $page_ids;
 }
 
 function wpbdp_get_page_link($name='main', $arg0=null) {
