@@ -8,6 +8,7 @@ class WPBDP_WPML_Compat {
         $this->wpml = $GLOBALS['sitepress'];
         $this->switch_language_if_needed();
 
+        add_filter( 'wpbdp_listing_link', array( &$this, 'add_language_to_link' ) );
         add_filter( 'wpbdp_category_link', array( &$this, 'add_language_to_link' ) );
     }
 
