@@ -470,8 +470,13 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $settings['allow_html'][] = '<input type="checkbox" value="1" name="field[allow_html]" ' . ( $field && $field->data( 'allow_html' ) ? ' checked="checked"' : '' ) . ' />';
 
         if ( ( $field && $field->get_association() == 'content' ) || ( $association == 'content' ) ) {
-            $settings['allow_filters'][] = _x( 'Allow execution of WordPress shortcodes and filters?', 'form-fields admin', 'WPBDM' );
-            $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' />';
+            $settings['allow_shortcodes'][] = _x( 'Allow WordPress shortcodes in this field?', 'form-fields admin', 'WPBDM' );
+            $settings['allow_shortcodes'][] = '<input type="checkbox" value="1" name="field[allow_shortcodes]" ' . ( $field && $field->data( 'allow_shortcodes' ) ? ' checked="checked"' : '' ) . ' />';
+
+            //$desc  = _x( 'Useful for integrating with some plugins.', 'form-fields admin', 'WPBDM' ) . '<br />';
+            $desc = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'WPBDM' );
+            $settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'WPBDM' );
+            $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
         }
 
         return self::render_admin_settings( $settings );
@@ -480,6 +485,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     public function process_field_settings( &$field ) {
         $field->set_data( 'allow_html', isset( $_POST['field']['allow_html'] ) ? (bool) intval( $_POST['field']['allow_html'] ) : false );
         $field->set_data( 'allow_filters', isset( $_POST['field']['allow_filters'] ) ? (bool) intval( $_POST['field']['allow_filters'] ) : false );
+        $field->set_data( 'allow_shortcodes', isset( $_POST['field']['allow_shortcodes'] ) ? (bool) intval( $_POST['field']['allow_shortcodes'] ) : false );
     }
 
     public function get_field_html_value( &$field, $post_id ) {
@@ -491,11 +497,16 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $value = wp_kses( $value, array() );
         }
 
-        $value = nl2br( $value );
-
-        if ( $field->get_association() == 'content' && $field->data( 'allow_filters' ) ) {
-//            $value = apply_filters( 'the_content', $value );
-            $value = do_shortcode( $value );
+        if ( 'content' == $field->get_association() ) {
+            if ( $field->data( 'allow_filters' ) ) {
+                $value = apply_filters( 'the_content', $value );
+            } elseif ( $field->data( 'allow_shortcodes' ) ) {
+                $value = do_shortcode( nl2br( $value ) );
+            } else {
+                $value = nl2br( $value );
+            }
+        } else {
+            $value = nl2br( $value );
         }
 
         return $value;
