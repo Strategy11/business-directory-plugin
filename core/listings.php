@@ -294,12 +294,14 @@ class WPBDP_ListingsAPI {
 
         if ( $rewrite ) {
             if ( wpbdp_get_option( 'permalinks-no-id' ) && $post->post_name )
-                return $baseurl . '/' . $post->post_name . '/';
+                $url = $baseurl . '/' . $post->post_name . '/';
             else
-                return $baseurl . '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' );
+                $url = $baseurl . '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' );
+        } else {
+            $url = add_query_arg( 'id', $post->ID, $baseurl );
         }
 
-        return add_query_arg( 'id', $post->ID, $baseurl );
+        return apply_filters( 'wpbdp_listing_link', $url, $post->ID );
     }
 
     public function _short_link( $shortlink, $id = 0, $context = 'post', $allow_slugs = true ) {
