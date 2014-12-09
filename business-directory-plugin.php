@@ -297,32 +297,31 @@ class WPBDP_Plugin {
 
     private function get_rewrite_rules() {
         global $wpdb;
+        global $wp_rewrite;
 
         $rules = array();
 
-        if ($page_id = wpbdp_get_page_id('main')) {
-            global $wp_rewrite;
+        if ( $page_ids = wpbdp_get_page_id( 'main', false ) ) {
+            foreach ( $page_ids as $page_id ) {
+                $page_link = _get_page_link( $page_id );
+                $rewrite_base = str_replace('index.php/', '', rtrim(str_replace(home_url() . '/', '', $page_link), '/'));
 
-            $page_link = wpbdp_get_page_link('main');
-            $rewrite_base = str_replace('index.php/', '', rtrim(str_replace(home_url() . '/', '', $page_link), '/'));
+                $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
+                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
 
-            $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
-            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
-            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
-            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
-            $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
-
-            if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
-                //$rules['(' . $rewrite_base . ')/([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
-                $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
-            } else {
-                $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
+                if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
+                    //$rules['(' . $rewrite_base . ')/([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
+                    $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
+                } else {
+                    $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
+                }
             }
-
-            $rules = apply_filters( 'wpbdp_rewrite_rules', $rules );
         }
 
-        return $rules;
+        return apply_filters( 'wpbdp_rewrite_rules', $rules );
     }
 
     public function _rewrite_rules($rules) {
