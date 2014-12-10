@@ -48,7 +48,7 @@ function wpbdp_get_page_id($name='main', $unique=true) {
     if ( ! is_array( $page_ids ) )
         $page_ids = array( $page_ids );
 
-    return $unique ? $page_ids[0] : $page_ids;
+    return $unique ? apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name ) : $page_ids;
 }
 
 function wpbdp_get_page_link($name='main', $arg0=null) {
