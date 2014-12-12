@@ -839,10 +839,11 @@ class WPBDP_Plugin {
         if (!$this->controller->check_main_page($msg)) return $msg;
 
         $atts = shortcode_atts( array(
-            'number_of_listings' => '10'
+            'number_of_listings' => wpbdp_get_option( 'listings-per-page' )
             ),
             $atts
         );
+        $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
 
         return $this->controller->view_featured_listings( $atts );
     }

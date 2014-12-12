@@ -285,23 +285,31 @@ class WPBDP_DirectoryController {
 
     /* display featured listings */
     public function view_featured_listings($args) {
-        extract($args);
+        $no_listings = isset( $args['number_of_listings'] ) ? intval( $args['number_of_listings'] ) : 0;
 
-        $html = "";
+        if ( ! $no_listings )
+            $no_listings = wpbdp_get_option( 'listings-per-page' );
 
-        $posts = get_posts(array(
+        $html  = '';
+
+        global $wp_query;
+        $old_query = $wp_query;
+
+        query_posts( array(
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
-            'numberposts' => $args['number_of_listings'],
-            'orderby' => 'date',
+            'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+            'posts_per_page' => $no_listings,
             'meta_query' => array(
-                array('key' => '_wpbdp[sticky]', 'value' => 'sticky')
+                array( 'key' => '_wpbdp[sticky]', 'value' => 'sticky' )
             )
-        ));
+        ) );
 
-        foreach ($posts as $post) {
-            $html .= wpbdp_render_listing($post->ID, 'excerpt');
-        }
+        $html  = '';
+        $html .= wpbdp_render( 'businessdirectory-listings' );
+
+        $wp_query = $old_query;
+        wp_reset_query();
 
         return $html;
     }
