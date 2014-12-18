@@ -309,6 +309,17 @@ ul.wpbdp-categories > li {
     }
 }
 
+@media screen and (max-width: 500px) {
+    ul.wpbdp-categories {
+        font-size: 90%;
+    }
+
+    ul.wpbdp-categories ul.children li.cat-item {
+        margin-left: 10px;
+        padding: 0;
+    }
+}
+
 /* submit listing page */
 .wpbdp-submit-page h3 {
     margin-bottom: 10px;
