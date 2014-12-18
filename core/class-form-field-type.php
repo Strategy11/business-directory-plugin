@@ -163,7 +163,7 @@ class WPBDP_Form_Field_Type {
                                   $field->get_field_type()->get_id(),
                                   implode(' ', $field->css_classes ),
                                   $this->html_attributes( $field->html_attributes ) );
-                $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_html( $field->get_label() ) );
+                $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_html( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) );
                 $html .= '<div class="field inner">';
 
                 $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra );
@@ -184,10 +184,10 @@ class WPBDP_Form_Field_Type {
                                   implode( ' ', $field->get_css_classes( $render_context ) ),
                                   $html_attributes );
                 $html .= '<div class="wpbdp-form-field-label">';
-                $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), $field->get_label() );
+                $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) );
 
                 if ( $field->get_description() )
-                    $html .= sprintf( '<span class="field-description">(%s)</span>', $field->get_description() );
+                    $html .= sprintf( '<span class="field-description">(%s)</span>', apply_filters( 'wpbdp_render_field_description', $field->get_description(), $field ) );
 
                 $html .= '</div>';
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
@@ -269,7 +269,7 @@ class WPBDP_Form_Field_Type {
         $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
         
         if ( $label )
-            $html .= '<label>' . esc_html( $label ) . ':</label> ';
+            $html .= '<label>' . esc_html( apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) ) . ':</label> ';
         
         if ($content)
             $html .= '<span class="value">' . $content . '</span>';

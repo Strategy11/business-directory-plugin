@@ -8,7 +8,7 @@ class WPBDP_Compat {
     }
 
     function load_integrations() {
-        if ( ! is_admin() && isset( $GLOBALS['sitepress'] ) ) {
+        if ( isset( $GLOBALS['sitepress'] ) ) {
             require_once( WPBDP_PATH . 'core/compatibility/class-wpml-compat.php' );
             $wpml_integration = new WPBDP_WPML_Compat();
         }

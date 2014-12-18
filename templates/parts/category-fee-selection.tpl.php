@@ -37,7 +37,7 @@
                            data-canrecur="<?php echo ( $fee->days > 0 && $fee->amount > 0.0 ) ? 1 : 0  ?>" />
 				</td>
 				<td class="fee-label">
-					<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( $fee->label ); ?></label>
+					<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $fee->label, $fee ) ); ?></label>
 				</td>
 				<td class="fee-amount">
 					<?php echo wpbdp_format_currency( $fee->amount ); ?>
