@@ -101,6 +101,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $post_value = isset( $_POST['listingfields'][ $category_field->get_id() ] ) ?
                       $category_field->convert_input( $_POST['listingfields'][ $category_field->get_id() ] ) :
                       array();
+        if ( $post_value && ! is_array( $post_value ) )
+            $post_value = array( $post_value );
 
         if ( $post_value ) {
             $errors = null;
