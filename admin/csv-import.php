@@ -505,6 +505,11 @@ class WPBDP_CSVImporter {
                     $category_name = strip_tags(str_replace("\n", "-", $category_name));
                     $category_name = str_replace( array( '"', "'" ), '', $category_name );
 
+                    // Workaround for WP #30419.
+                    if ( false !== strpos( $category_name, '&' ) ) {
+                        $category_name = str_replace( '&', '&amp;', $category_name );
+                    }
+
                     if (!$category_name)
                         continue;
 
@@ -515,6 +520,8 @@ class WPBDP_CSVImporter {
                         if ($this->settings['create-missing-categories']) {
                             if ($this->in_test_mode())
                                 continue;
+
+                            $category_name = str_replace( '&amp;', '&', $category_name );
 
                             if ($newterm = wp_insert_term($category_name, WPBDP_CATEGORY_TAX)) {
                                 $state->categories[] = $newterm['term_id'];
