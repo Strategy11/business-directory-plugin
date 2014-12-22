@@ -885,14 +885,14 @@ class WPBDP_Plugin {
      */
     public function register_common_scripts() {
         // jQuery-FileUpload.
-        wp_register_script( 'jquery-fileupload-ui-widget',
-                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
+//        wp_register_script( 'jquery-fileupload-ui-widget',
+//                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
         wp_register_script( 'jquery-fileupload-iframe-transport',
                             WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
         wp_register_script( 'jquery-fileupload',
                             WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
                             array( 'jquery',
-                                   'jquery-fileupload-ui-widget',
+                                   'jquery-ui-widget',
                                    'jquery-fileupload-iframe-transport' ) );
 
         // Drag & Drop.
