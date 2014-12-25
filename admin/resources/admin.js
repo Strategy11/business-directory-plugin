@@ -443,6 +443,70 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         init: function() {
             var t = this;
 
+            // E-mail template editors.
+            $( '.wpbdp-settings-email' ).each(function(i, v) {
+                var $email = $(v);
+                var $preview = $email.find('.short-preview');
+                var $editor = $email.find('.editor');
+                var $subject = $editor.find('.subject-text');
+                var $body = $editor.find('.body-text');
+                var data = {'subject': '', 'body': ''};
+
+                $preview.click(function(e) {
+                    data['subject'] = $subject.val();
+                    data['body'] = $body.val();
+
+                    $preview.hide();
+                    $editor.show();
+                });
+
+                $( '.cancel', $editor ).click(function(e) {
+                    e.preventDefault();
+
+                    $subject.val(data['subject']);
+                    $body.val(data['body']);
+
+                    $editor.hide();
+                    $preview.show();
+                });
+
+                $( '.save', $editor ).click(function(e) {
+                    e.preventDefault();
+                    $('form#wpbdp-admin-settings #submit').click();
+                });
+
+                $( '.preview-email', $editor ).click(function(e) {
+                    e.preventDefault();
+
+                    var subject = $subject.val();
+                    var body = $body.val();
+
+                    $.ajax({
+                        url: ajaxurl,
+                        data: { 'action': 'wpbdp-admin-settings-email-preview',
+                                'nonce': $editor.attr('data-preview-nonce'),
+                                'setting': $email.attr('data-setting'),
+                                'subject': subject,
+                                'body': body },
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function(res) {
+                            if ( ! res.success ) {
+                                return;
+                            }
+
+                            if ( 0 == $( '#wpbdp-modal-dialog' ).length )
+                                $( 'body' ).append( '<div id="wpbdp-modal-dialog"></div>' );
+
+                            $( '#wpbdp-modal-dialog' ).html(res.data.html);
+                            tb_show( '', '#TB_inline?inlineId=wpbdp-modal-dialog' );
+                        }
+                    });
+
+                });
+
+            });
+
             $('select#quick-search-fields').change(function() {
                 var selected = $(this).find( 'option.textfield:selected' ).length;
 

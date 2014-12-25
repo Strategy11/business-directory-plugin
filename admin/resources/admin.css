@@ -456,6 +456,110 @@ body.taxonomy-wpbdp_category .column-id {
     margin-bottom: 2px;
 }
 
+#wpbdp-admin-settings .wpbdp-settings-email {
+    margin: 5px 0 0 0;
+    border: solid 1px #ccc;
+    padding: 5px;
+    background: #fff;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview {
+    color: #999;
+    font-size: 90%;
+    height: 45px;
+    cursor: pointer;
+    overflow: hidden;
+} 
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview h4 {
+    margin: 0 0 10px 0;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview .edit-toggle {
+/*    visibility: hidden;*/
+    float: right;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview:hover .edit-toggle {
+    visibility: visible;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview dl {
+    margin: 0;
+    padding: 0;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview dt {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .short-preview dd {
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor {
+    margin-left: 10px;
+    font-size: 90%;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor table.form-table {
+    margin: 0;
+    padding: 0;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email table.form-table th {
+    padding-left: 4px;
+    padding-right: 0;
+    min-width: 0;
+    width: 20%;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor input[type="text"] {
+    width: 70%;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor textarea {
+    width: 100%;
+    min-height: 150px;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .placeholders {
+    margin: 10px 0 0 0;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .placeholder {
+    font-size: 90%;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .placeholder-separator {
+    margin-top: 10px;;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .placeholder .placeholder-code {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .placeholder .placeholder-description {
+    font-style: italic;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .buttons {
+    margin: 30px 0 0 0;
+    text-align: right;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .buttons .preview-email {
+    float: left;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email .editor .buttons .cancel {
+    margin-right: 10px;
+}
+
 /* Listing metabox - Transactions. */
 #listing-metabox-transactions table.payments-list {
     width: 100%;

@@ -17,6 +17,7 @@ class WPBDP_Settings {
         $this->groups = array();
         $this->settings = array();
 
+        add_action( 'wp_ajax_wpbdp-admin-settings-email-preview', array( &$this, '_ajax_email_preview' ) );
         add_filter( 'wpbdp_settings_render', array( &$this, 'after_render' ), 0, 3 );
     }
 
@@ -120,7 +121,7 @@ class WPBDP_Settings {
         /* Listings settings */
         $g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'general', _x('General Settings', 'admin settings', 'WPBDM'));
-        
+
         $this->add_setting($s, 'listings-per-page', _x('Listings per page', 'admin settings', 'WPBDM'), 'text', '10',
                            _x('Number of listings to show per page. Use a value of "0" to show all listings.', 'admin settings', 'WPBDM'));
 
@@ -128,9 +129,9 @@ class WPBDP_Settings {
                            _x('Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'admin settings', 'WPBDM'),
                            null,
                            array($this, '_validate_listing_duration'));
-        
+
         $this->add_setting( $s,
-                            'show-contact-form', 
+                            'show-contact-form',
                             _x( 'Include listing contact form on listing pages?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             true,
@@ -322,16 +323,21 @@ class WPBDP_Settings {
         $email_contact_template .= sprintf( _x( 'Time: %s', 'contact email', 'WPBDM' ), '[date]' );
 
         $s = $this->add_section( $g, 'email/templates', _x( 'E-Mail Templates', 'admin settings', 'WPBDM' ) );
+
         $this->add_setting( $s,
                             'email-templates-contact',
                             _x( 'Listing Contact Message', 'admin settings', 'WPBDM' ),
-                            'text',
-                            $email_contact_template,
-                            _x( 'You can use the placeholders [listing-url] for the listing\'s URL, [listing] for the listing\'s title, [name] for the sender\'s name, [email] for the sender\'s email, [message] for the contact message and [date] for the date the message was sent.',
-                                'admin settings',
-                                'WPBDM' ),
-                            array( 'use_textarea' => true ) );
-        $this->add_setting( $s,
+                            'email_template',
+                            array( 'subject' => '[[site-title]] Contact via "[listing]"',
+                                   'body'    => $email_contact_template ),
+                            _x( 'Sent to listing owners when someone uses the contact form on their listing pages.', 'admin settings', 'WPBDM' ),
+                            array( 'placeholders' => array( 'listing-url' => 'Listing\'s URL',
+                                                            'listing' => 'Listing\'s title',
+                                                            'name' => 'Sender\'s name',
+                                                            'email' => 'Sender\'s e-mail address',
+                                                            'message' => 'Contact message',
+                                                            'date' => 'Date and time the message was sent' ) ) );
+                $this->add_setting( $s,
                             'renewal-pending-message',
                             _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
                             'text_template',
@@ -440,7 +446,7 @@ class WPBDP_Settings {
                                 array('USD', _x('U.S. Dollar', 'admin settings', 'WPBDM')),
                             )));
         $this->register_dep( 'currency', 'requires-true', 'payments-on' );
-        
+
         $this->add_setting($s, 'currency-symbol', _x('Currency Symbol', 'admin settings', 'WPBDM'), 'text', '$');
         $this->register_dep( 'currency-symbol', 'requires-true', 'payments-on' );
 
@@ -506,13 +512,13 @@ class WPBDP_Settings {
         $fields = array();
 
         foreach (  wpbdp_get_form_fields() as $f ) {
-            if ( in_array( $f->get_field_type_id(), array( 'textarea', 'select', 'checkbox', 'url' ), true ) || 
+            if ( in_array( $f->get_field_type_id(), array( 'textarea', 'select', 'checkbox', 'url' ), true ) ||
                  in_array( $f->get_association(), array( 'category', 'tags' ), true ) )
                 continue;
 
             $fields[ $f->get_id() ] = $f->get_label();
         }
-        
+
         $fields['user_login'] = 'User';
         $fields['user_registered'] = 'User registration date';
         $fields['date'] = 'Date posted';
@@ -587,7 +593,7 @@ class WPBDP_Settings {
 
     public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(),
                                  $validator = null, $callback = null ) {
-        
+
         if ( $type == 'core' )
             return $this->add_core_setting( $name, $default );
 
@@ -623,6 +629,11 @@ class WPBDP_Settings {
             $setting->args = $args;
             $setting->validator = $validator;
             $setting->callback = $callback;
+
+            $setup_cb = '_setting_' . $setting->type . '_setup';
+            if ( is_callable( array( $this, $setup_cb ) ) ) {
+                call_user_func_array( array( $this, $setup_cb ), array( &$setting ) );
+            }
 
             $this->groups[$group]->sections[$section]->settings[$name] = $setting;
         }
@@ -848,6 +859,149 @@ class WPBDP_Settings {
         $setting->help_text = $help_text_original;
 
         echo $html;
+    }
+
+    function _setting_email_template( $args ) {
+        $setting = $args['setting'];
+        $value = $this->get( $setting->name );
+
+        $html  = '';
+        $html .= '<span class="description">' . $setting->help_text . '</span>';
+        $html .= sprintf( '<div class="wpbdp-settings-email" data-setting="%s">',
+                          $setting->name );
+
+        $html .= '<div class="short-preview" title="' . _x( 'Click to edit e-mail', 'settings email', 'WPBDM' ) . '">';
+        $html .= '<span class="edit-toggle tag">' . _x( 'Click to edit e-mail', 'settings email', 'WPBDM' ) . '</span>';
+        $html .= '<h4>';
+        $html .= $value['subject'];
+        $html .= '</h4>';
+        $html .= $value['body'];
+        $html .=  '...';
+        $html .= '</div>';
+
+        $html .= sprintf( '<div class="editor" style="display: none;" data-preview-nonce="%s">', wp_create_nonce( 'preview email ' . $setting->name ) );
+        $html .= '<table class="form-table"><tbody>';
+        $html .= '<tr>';
+        $html .= sprintf( '<th scope="row"><label for="%s-subject">%s</label</th>',
+                          $setting->name,
+                          _x( 'E-Mail Subject', 'settings email', 'WPBDM' ) );
+        $html .= '<td>';
+        $html .= sprintf( '<input type="text" name="%s" value="%s" id="%s" class="subject-text">',
+                          self::PREFIX . $setting->name . '[subject]',
+                          esc_attr( $value['subject'] ),
+                          $setting->name . '-subject' );
+        $html .= '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= sprintf( '<th scope="row"><label for="%s-body">%s</label</th>',
+                          $setting->name,
+                          _x( 'E-Mail Body', 'settings email', 'WPBDM' ) );
+        $html .= '<td>';
+        $html .= sprintf( '<textarea id="%s" name="%s" class="body-text">%s</textarea>',
+                          $setting->name . '-body',
+                          self::PREFIX . $setting->name . '[body]',
+                          esc_textarea( $value['body'] ) );
+
+        $placeholders = isset( $args['placeholders'] ) ? $args['placeholders'] : array();
+
+        if ( $placeholders ) {
+            $html .= '<div class="placeholders">';
+            $html .= _x( 'You can use the following placeholders:', 'settings email', 'WPBDM' );
+            $html .= '<br /><br />';
+
+            $added_sep = false;
+
+            foreach ( $placeholders as $placeholder => $placeholder_data ) {
+                $description = is_array( $placeholder_data ) ? $placeholder_data[0] : $placeholder_data;
+                $is_core_placeholder = is_array( $placeholder_data ) && isset( $placeholder_data[2] ) && $placeholder_data[2];
+
+                if ( $is_core_placeholder && ! $added_sep ) {
+                    $html .= '<div class="placeholder-separator"></div>';
+                    $added_sep = true;
+                }
+
+                $html .= sprintf( '<div class="placeholder" data-placeholder="%s"><span class="placeholder-code">[%s]</span> - <span class="placeholder-description">%s</span></div>',
+                                  esc_attr( $placeholder ),
+                                  $placeholder,
+                                  $description );
+            }
+            $html .= '</div>';
+        }
+
+        $html .= '<div class="buttons">';
+        $html .= '<a href="#" class="button preview-email">' . _x( 'Preview e-mail', 'settings email', 'WPBDM' ) . '</a> ';
+        $html .= '<a href="#" class="button cancel">' . _x( 'Cancel', 'settings email', 'WPBDM' ) . '</a> ';
+        $html .= '<a href="#" class="button button-primary save">' . _x( 'Save Changes', 'settings email', 'WPBDM' ) . '</a> ';
+        $html .= '</div>';
+
+        $html .= '</td>';
+        $html .= '</tr>';
+        $html .= '</tbody></table>';
+        $html .= '</div>';
+
+        $html .= '</div>';
+
+        echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
+    }
+
+    function _setting_email_template_setup( &$setting ) {
+        if ( ! isset( $setting->args['placeholders'] ) || ! is_array( $setting->args['placeholders'] ) )
+            $setting->args['placeholders'] = array();
+
+        // Add default placeholders.
+        $setting->args['placeholders'] = array_merge( $setting->args['placeholders'], array(
+            'site-title'    => array( _x( 'Site title', 'settings email', 'WPBDM' ),
+                                      get_bloginfo( 'name' ),
+                                      'core' ),
+            'site-link'    => array( _x( 'Site title (with link)', 'settings email', 'WPBDM' ),
+                                      sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                                      'core' ),
+            'site-url'      => array( _x( 'Site address (with link)', 'settings email', 'WPBDM' ),
+                                      sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
+                                      'core' ),
+            'directory-url' => array( _x( 'Directory URL (with link)', 'settings email', 'WPBDM' ),
+                                      sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
+                                      'core' ),
+            'today'         => array( _x( 'Current date', 'settings email', 'WPBDM' ),
+                                      date_i18n( get_option( 'date_format' ) ),
+                                      'core' ),
+            'now'           => array( _x( 'Current time', 'settings email', 'WPBDM' ),
+                                      date_i18n( get_option( 'time_format' ) ),
+                                      'core' )
+        ) );
+    }
+
+    function _ajax_email_preview() {
+        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+        $setting = $this->get_setting( isset( $_POST['setting'] ) ? $_POST['setting'] : '' );
+
+        if ( ! $setting || 'email_template' != $setting->type || ! wp_verify_nonce( $nonce, 'preview email ' . $setting->name ) )
+            die();
+
+        $placeholders = isset( $setting->args['placeholders'] ) ? $setting->args['placeholders'] : array();
+
+        $subject = stripslashes( isset( $_POST['subject'] ) ? trim( $_POST['subject'] ) : '' );
+        $body = stripslashes( isset( $_POST['body'] ) ? trim( $_POST['body'] ) : '' );
+
+        $res = new WPBDP_Ajax_Response();
+
+        foreach ( $placeholders as $pholder => $pdata ) {
+            $repl = ( is_array( $pdata ) && count( $pdata ) >= 2 && $pdata[1] ) ? $pdata[1] : '[' . $pholder . ']';
+
+            $subject = str_replace( '[' . $pholder . ']', $repl, $subject );
+            $body = str_replace( '[' . $pholder . ']', $repl, $body );
+        }
+
+        $html  = '';
+        $html .= '<div class="wpbdp-settings-email-preview">';
+        $html .= '<h4>' . $subject . '</h4>';
+        $html .= nl2br( $body );
+        $html .= '</div>';
+
+        $res->add( 'subject', $subject );
+        $res->add( 'body', $body );
+        $res->add( 'html', $html );
+        $res->send();
     }
 
     public function _setting_boolean($args) {

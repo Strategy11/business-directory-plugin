@@ -365,6 +365,57 @@ function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
     return $text;
 }
 
+/**
+ * @since 3.5.4
+ */
+function wpbdp_email_from_template( $setting, $replacements = array(), $args = array() ) {
+    global $wpbdp;
+
+    $setting = $wpbdp->settings->get_setting( $setting );
+
+    if ( ! $setting || 'email_template' != $setting->type )
+        return false;
+
+    if ( ! class_exists( 'WPBDP_Email' ) )
+        require_once( WPBDP_PATH . 'core/class-email.php' );
+
+    $placeholders = isset( $setting->args['placeholders'] ) && is_array( $setting->args['placeholders'] ) ? $setting->args['placeholders'] : array();
+    $value = wpbdp_get_option( $setting->name );
+
+    // Add core replacements.
+    $replacements = array_merge( $replacements, array(
+        'site-title'    => get_bloginfo( 'name' ),
+        'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+        'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
+        'directory-url' => sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
+        'today'         => date_i18n( get_option( 'date_format' ) ),
+        'now'           => date_i18n( get_option( 'time_format' ) )
+    ) );
+
+    // Support old-style settings.
+    if ( ! is_array( $value ) ) {
+        $subject = $setting->default['subject'];
+        $body = $setting->default['body'];
+    } else {
+        $subject = $value['subject'];
+        $body = $value['body'];
+    }
+
+    $email = new WPBDP_Email();
+    $email->subject = $subject;
+    $email->body = $body;
+
+    foreach ( array_keys( $placeholders ) as $placeholder ) {
+        if ( ! isset( $replacements[ $placeholder ] ) )
+            continue;
+
+        $email->subject = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $email->subject );
+        $email->body = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $email->body );
+    }
+
+    return $email;
+}
+
 function wpbdp_admin_pointer( $selector, $title, $content_ = '',
                               $primary_button = false, $primary_action = '',
                               $secondary_button = false, $secondary_action = '',
