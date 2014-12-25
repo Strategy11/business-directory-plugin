@@ -272,9 +272,20 @@ class WPBDP_Settings {
                             _x( 'Display email address fields publicly?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             false,
-                            _x('Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'admin settings', 'WPBDM') );
+                           _x('Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'admin settings', 'WPBDM') );
+        $this->add_setting( $s,
+                            'listing-email-mode',
+                            _x( 'How to determine the listing\'s email address?', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'field',
+                            _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
+                            array( 'choices' => array(
+                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
+                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
 
-        $s = $this->add_section( $g, 'email-notifications', _x( 'Admin Notifications', 'admin settings', 'WPBDM' ) );
+                            ) ) );
+
+        $s = $this->add_section( $g, 'email-notifications', _x( 'E-Mail Notifications', 'admin settings', 'WPBDM' ) );
         $this->add_setting( $s,
                             'admin-notifications',
                             _x( 'Notify admin via e-mail when...', 'admin settings', 'WPBDM' ),
@@ -294,24 +305,7 @@ class WPBDP_Settings {
                             'text',
                             '' );
 
-
-        $s = $this->add_section($g, 'listings/email', _x('Listing email settings', 'admin settings', 'WPBDM'));
-        $this->add_setting( $s,
-                            'listing-email-mode',
-                            _x( 'How to determine the listing\'s email address?', 'admin settings', 'WPBDM' ),
-                            'choice',
-                            'field',
-                            _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
-                            array( 'choices' => array(
-                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
-                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
-
-                            ) ) );
-
         $this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
-        $this->add_setting($s, 'email-confirmation-message', _x('Email confirmation message', 'admin settings', 'WPBDM'), 'text',
-                           'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
-                          _x('You can use the placeholder [listing] for the listing title. This setting applies to non-paying listings only; for paying listings check the "Payment" settings tab.', 'admin settings', 'WPBDM'));
 
         // Listing contact.
         $email_contact_template  = '';
@@ -324,6 +318,22 @@ class WPBDP_Settings {
 
         $s = $this->add_section( $g, 'email/templates', _x( 'E-Mail Templates', 'admin settings', 'WPBDM' ) );
 
+        $this->add_setting( $s,
+                            'email-confirmation-message', _x( 'Email confirmation message', 'admin settings', 'WPBDM' ),
+                            'email_template',
+                            array( 'subject' => '',
+                                   'body' => 'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.' ),
+                            _x( 'Sent after a listing has been submitted.', 'admin settings', 'WPBDM' ),
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ) )
+                          );
+        $this->add_setting( $s,
+                            'email-templates-listing-approved', _x( 'Listing published message', 'admin settings', 'WPBDM' ),
+                            'email_template',
+                            array( 'subject' => '',
+                                   'body' => 'LISTING PUBLISHED' ), // TODO
+                            _x( 'Sent when the listing has been published or approved by an admin.', 'admin settings', 'WPBDM' ),
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ) )
+                          );
         $this->add_setting( $s,
                             'email-templates-contact',
                             _x( 'Listing Contact Message', 'admin settings', 'WPBDM' ),
@@ -864,6 +874,14 @@ class WPBDP_Settings {
     function _setting_email_template( $args ) {
         $setting = $args['setting'];
         $value = $this->get( $setting->name );
+
+        if ( ! is_array( $value ) ) {
+            $body = $value;
+
+            $value = array();
+            $value['subject'] = $setting->default['subject'];
+            $value['body'] = $body;
+        }
 
         $html  = '';
         $html .= '<span class="description">' . $setting->help_text . '</span>';
