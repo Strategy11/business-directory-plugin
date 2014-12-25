@@ -30,6 +30,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
         $this->name = $current_user ? $current_user->data->user_login : ( isset( $_POST['commentauthorname'] ) ? trim( $_POST['commentauthorname'] ) : '' );
         $this->email = $current_user ? $current_user->data->user_email : ( isset( $_POST['commentauthoremail'] ) ? trim( $_POST['commentauthoremail'] ) : '' );
         $this->message = isset( $_POST['commentauthormessage'] ) ? trim( wp_kses( $_POST['commentauthormessage'], array() ) ) : '';
+
     }
 
     private function validate() {
@@ -150,9 +151,15 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
         if ( ! $this->validate() )
             return $this->render_form( $listing_id, $this->errors );
 
-        // Prepare e-mail message.
-        $email = new WPBDP_Email();
-        $email->subject = "[" . get_option( 'blogname' ) . "] " . sprintf(_x('Contact via "%s"', 'contact email', 'WPBDM'), wp_kses( get_the_title($listing_id), array() ) );
+        // Compose e-mail message.
+        $replacements = array( 'listing-url' => get_permalink( $listing_id  ),
+                               'listing'     => get_the_title( $listing_id ),
+                               'name'        => $this->name,
+                               'email'       => $this->email,
+                               'message'     => $this->message,
+                               'date'        => date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) ) );
+        $email = wpbdp_email_from_template( 'email-templates-contact',
+                                            $replacements );
         $email->from = "{$this->name} <{$this->email}>";
         $email->to = wpbusdirman_get_the_business_email( $listing_id );
         $email->reply_to = $this->email;
@@ -164,21 +171,13 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
                 $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
         }
 
-        $replacements = array( '[listing-url]' => get_permalink( $listing_id  ),
-                               '[listing]' => get_the_title( $listing_id ),
-                               '[name]' => $this->name,
-                               '[email]' => $this->email,
-                               '[message]' => $this->message,
-                               '[date]' => date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) ) );
-        $email->body = str_replace( array_keys( $replacements ), $replacements, wpbdp_get_option( 'email-templates-contact' ) );
-
         $html = '';
 
         if( $email->send() ) {
-            $html .= "<p>" . _x("Your message has been sent.", 'contact-message', "WPBDM") . "</p>";
+            $html .= wpbdp_render_msg( 'Your message has been sent.', 'contact-message', 'WPBDM' );
             $this->update_contacts( $listing_id );
         } else {
-            $html .= "<p>" . _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM") . "</p>";
+            $html .= wpbdp_render_msg( _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM"), 'error' );
         }
 
         $html .= sprintf('<p><a href="%s">%s</a></p>', get_permalink($listing_id), _x('Return to listing.', 'contact-message', "WPBDM"));
