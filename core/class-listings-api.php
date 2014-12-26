@@ -68,9 +68,10 @@ class WPBDP_Listings_API {
 
         $rewrite = wpbdp_rewrite_on();
         $baseurl = untrailingslashit( wpbdp_get_page_link( 'main' ) );
+        $querystring = parse_url( $url, PHP_URL_QUERY );
 
         if ( $sample && $rewrite ) {
-            return rtrim ( wpbdp_get_page_link( 'main' ), '/' ) . '/' . '%' . WPBDP_POST_TYPE . '%' . '/';
+            return rtrim( wpbdp_get_page_link( 'main' ), '/' ) . '/' . '%' . WPBDP_POST_TYPE . '%' . '/' . ( $querystring ? '?' . $querystring : '' );
         }
 
 //        if ( $leavename ) {
@@ -79,9 +80,9 @@ class WPBDP_Listings_API {
 
         if ( $rewrite ) {
             if ( wpbdp_get_option( 'permalinks-no-id' ) && $post->post_name )
-                $url = $baseurl . '/' . $post->post_name . '/';
+                $url = $baseurl . '/' . $post->post_name . '/' . ( $querystring ? '?' . $querystring : '' );
             else
-                $url = $baseurl . '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' );
+                $url = $baseurl . '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' ) . ( $querystring ? '?' . $querystring : '' );
         } else {
             $url = add_query_arg( 'id', $post->ID, $baseurl );
         }
