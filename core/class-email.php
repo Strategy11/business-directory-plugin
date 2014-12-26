@@ -1,5 +1,5 @@
 <?php
-
+// TODO: apply wp_kses() to subjects
 /**
  * E-mail handling class.
  * @since 2.1

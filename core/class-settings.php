@@ -1,6 +1,4 @@
 <?php
-// FIXME: this class is huge.
-
 class WPBDP_Settings {
 
     const PREFIX = 'wpbdp-';
@@ -305,7 +303,22 @@ class WPBDP_Settings {
                             'text',
                             '' );
 
-        $this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
+        $this->add_setting( $s,
+                            'user-notifications',
+                            _x( 'Notify users via e-mail when...', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            array( 'new-listing', 'listing-published'/*, 'payment-status-change'*/ ),
+                            _x( 'You can modify the text template used for most of these e-mails below.', 'admin settings', 'WPBDM' ),
+                            array( 'choices' => array( 'new-listing' => _x( 'Their listing is submitted.', 'admin settings', 'WPBDM' ),
+                                                       'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' )/*,
+                                                       'payment-status-change' => _x( 'A payment status changes (sends a receipt).', 'admin settings', 'WPBDM' ),*/
+                                                        ),
+                                   'use_checkboxes' => true,
+                                   'multiple' => true )
+                          );
+
+        // TODO: migrate
+        //$this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
 
         // Listing contact.
         $email_contact_template  = '';
@@ -321,18 +334,19 @@ class WPBDP_Settings {
         $this->add_setting( $s,
                             'email-confirmation-message', _x( 'Email confirmation message', 'admin settings', 'WPBDM' ),
                             'email_template',
-                            array( 'subject' => '',
+                            array( 'subject' => '[[site-title]] Listing "[listing]" received',
                                    'body' => 'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.' ),
                             _x( 'Sent after a listing has been submitted.', 'admin settings', 'WPBDM' ),
                             array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ) )
                           );
         $this->add_setting( $s,
-                            'email-templates-listing-approved', _x( 'Listing published message', 'admin settings', 'WPBDM' ),
+                            'email-templates-listing-published', _x( 'Listing published message', 'admin settings', 'WPBDM' ),
                             'email_template',
-                            array( 'subject' => '',
-                                   'body' => 'LISTING PUBLISHED' ), // TODO
+                            array( 'subject' => '[[site-title]] Listing "[listing]" published',
+                                   'body' => _x( 'Your listing "[listing]" is now available at [listing-url] and can be viewed by the public.', 'admin settings', 'WPBDM' ) ),
                             _x( 'Sent when the listing has been published or approved by an admin.', 'admin settings', 'WPBDM' ),
-                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ) )
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ),
+                                                            'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'WPBDM' ) ) )
                           );
         $this->add_setting( $s,
                             'email-templates-contact',
@@ -347,6 +361,8 @@ class WPBDP_Settings {
                                                             'email' => 'Sender\'s e-mail address',
                                                             'message' => 'Contact message',
                                                             'date' => 'Date and time the message was sent' ) ) );
+
+        $s = $this->add_section( $g, 'email-renewal-reminders', _x( 'Renewal Reminders', 'admin settings', 'WPBDM' ) );
                 $this->add_setting( $s,
                             'renewal-pending-message',
                             _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
