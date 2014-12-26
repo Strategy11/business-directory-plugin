@@ -1,8 +1,8 @@
-<h3><?php _ex( 'Manage Subscriptions', 'manage subscriptions', 'WPBDM' ); ?></h3>
+<h3><?php _ex( 'Manage Recurring Payments', 'manage recurring', 'WPBDM' ); ?></h3>
 
 <table id="wpbdp-manage-recurring">
     <thead>
-        <th class="listing-title"><?php _ex( 'Listing', 'manage subscriptions', 'WPBDM' ); ?></th>
+        <th class="listing-title"><?php _ex( 'Listing', 'manage recurring', 'WPBDM' ); ?></th>
         <th class="subscription-details"><?php _ex( 'Subscription / Fee Plan', 'manage subscriptions', 'WPBDM' ); ?></th>
     </thead>
     <tbody>
@@ -24,11 +24,11 @@
         <td class="subscription-details">
         <?php foreach ( $subscriptions as $s ): ?>
             <b><?php echo $s->fee->label; ?>:</b><br />
-            <?php printf( _x( '%s each %s days. Next renewal is on %s.', 'manage subscriptions', 'WPBDM' ),
+            <?php printf( _x( '%s each %s days. Next renewal is on %s.', 'manage recurring', 'WPBDM' ),
                           wpbdp_format_currency( $s->fee->amount ),
                           '<i>' . $s->fee_days . '</i>',
                           '<i>' . date_i18n( get_option( 'date_format' ), strtotime( $s->expires_on ) ) . '</i>' ); ?><br />
-            <a href="<?php echo esc_url( add_query_arg( 'cancel', $listing->get_renewal_hash( $s->term_id ) ) ); ?>" class="cancel-subscription"><?php _ex( 'Cancel Subscription', 'manage subscriptions', 'WPBDM' ); ?></a>
+            <a href="<?php echo esc_url( add_query_arg( 'cancel', $listing->get_renewal_hash( $s->term_id ) ) ); ?>" class="cancel-subscription"><?php _ex( 'Cancel recurring payment', 'manage recurring', 'WPBDM' ); ?></a>
         <?php endforeach; ?>
         </td>
     </tr>
