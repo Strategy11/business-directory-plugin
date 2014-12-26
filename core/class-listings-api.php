@@ -30,7 +30,7 @@ class WPBDP_Listings_API {
 
         add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
 
-        $this->upgrades = WPBDP_ListingUpgrades::instance();
+        $this->upgrades = WPBDP_Listing_Upgrade_API::instance();
     }
 
     public function _category_link($link, $category, $taxonomy) {
