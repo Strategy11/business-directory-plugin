@@ -203,10 +203,8 @@ class WPBDP_Listings_API {
                                          get_bloginfo( 'url' ),
                                          get_bloginfo( 'name' ) );
 
-        $email = new WPBDP_Email();
+        $email = wpbdp_email_from_template( 'listing-autorenewal-message', $replacements );
         $email->to[] = wpbusdirman_get_the_business_email( $payment->get_listing_id() );
-        $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( get_the_title( $payment->get_listing_id() ), array() ) );
-        $email->body = nl2br( wpbdp_text_from_template( 'listing-autorenewal-message', $replacements ) );
         $email->send();
     }
 
@@ -705,12 +703,10 @@ class WPBDP_Listings_API {
                                        'link' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
                                      );
 
-        $email = new WPBDP_Email();
+        $email = wpbdp_email_from_template( $message_option, $message_replacements );
         $email->to[] = wpbusdirman_get_the_business_email( $fee_info->listing_id );
-        $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( get_the_title( $fee_info->listing_id ), array() ) );
-        $email->body = nl2br( wpbdp_text_from_template( $message_option, $message_replacements ) );
-
         $email->send();
+
         return true;
     }
 
@@ -804,7 +800,7 @@ class WPBDP_Listings_API {
                     $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", 'draft', $listing->get_id() ) );
                 }
 
-                $email = new WPBDP_Email();
+                $email = wpbdp_email_from_template( 'listing-renewal-message', $message_replacements );
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
 
                 if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
@@ -814,27 +810,21 @@ class WPBDP_Listings_API {
                         $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
                 }
 
-                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
-                $email->body = nl2br( wpbdp_text_from_template( 'listing-renewal-message', $message_replacements ) );
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
             } elseif ( $threshold > 0 ) {
                 // notify about coming expirations
-                $email = new WPBDP_Email();
+                $email = wpbdp_email_from_template( ( $r->recurring ? 'listing-autorenewal-notice' : 'renewal-pending-message' ),
+                                                    $message_replacements );
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
-                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
-                $email->body = nl2br( wpbdp_text_from_template( ( $r->recurring ? 'listing-autorenewal-notice' : 'renewal-pending-message' ),
-                                                                $message_replacements ) );
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
             } elseif ( $threshold < 0 ) {
                 // remind about expired listings
-                $email = new WPBDP_Email();
+                $email = wpbdp_email_from_template( 'renewal-reminder-message', $message_replacements );
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
-                $email->subject = sprintf( '[%s] %s', get_option( 'blogname' ), wp_kses( $listing->get_title(), array() ) );
-                $email->body = nl2br( wpbdp_text_from_template( 'renewal-reminder-message', $message_replacements ) );
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 3 ), array( 'id' => $r->id ) );
