@@ -1,6 +1,6 @@
 <h3><?php _ex( 'Manage Subscriptions', 'manage subscriptions', 'WPBDM' ); ?></h3>
 
-<table id="wpbdp-manage-subscriptions">
+<table id="wpbdp-manage-recurring">
     <thead>
         <th class="listing-title"><?php _ex( 'Listing', 'manage subscriptions', 'WPBDM' ); ?></th>
         <th class="subscription-details"><?php _ex( 'Subscription / Fee Plan', 'manage subscriptions', 'WPBDM' ); ?></th>

@@ -55,7 +55,7 @@ class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
     }
 
     private function subscription_list() {
-        return wpbdp_render( 'manage-subscriptions', array( 'subscriptions' => $this->subscriptions ), false );
+        return wpbdp_render( 'manage-recurring', array( 'subscriptions' => $this->subscriptions ), false );
     }
 
     private function decode_subscription_hash( $hash = '' ) {
@@ -93,7 +93,7 @@ class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
         $unsubscribe_form = $wpbdp->payments->render_unsubscribe_integration( $data['category_info'],
                                                                               $data['listing'] );
 
-        return wpbdp_render( 'manage-subscriptions-cancel', array( 'listing' => $data['listing'],
+        return wpbdp_render( 'manage-recurring-cancel', array( 'listing' => $data['listing'],
                                                                    'subscription' => $data['category_info'],
                                                                    'unsubscribe_form' => $unsubscribe_form ) );
     }

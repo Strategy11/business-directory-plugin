@@ -507,20 +507,20 @@ ul.validation-errors li {
 /*
  * Manage Subscriptions.
  */
-table#wpbdp-manage-subscriptions th.listing-title,
-table#wpbdp-manage-subscriptions td.listing-title {
+table#wpbdp-manage-recurring th.listing-title,
+table#wpbdp-manage-recurring td.listing-title {
     min-width: 200px;
 }
 
-table#wpbdp-manage-subscriptions a.cancel-subscription {
+table#wpbdp-manage-recurring a.cancel-subscription {
     color: #ff0000;
 }
 
-#wpbdp-manage-subscriptions-cancel dl dd {
+#wpbdp-manage-recurring-cancel dl dd {
     margin-left: 10px;
 }
 
-#wpbdp-manage-subscriptions-cancel .cancel-instructions {
+#wpbdp-manage-recurring-cancel .cancel-instructions {
 }
 
 /* {{ Credit Card details form. */

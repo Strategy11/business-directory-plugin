@@ -1,7 +1,7 @@
 <h3><?php _ex( 'Manage Subscriptions - Cancel Subscription', 'manage subscriptions', 'WPBDM' ); ?></h3>
     <?php //_ex( 'If you want to cancel your subscription you can do so on this page. When the renewal time comes you\'ll be able to change your settings again'. )> ?>
 
-<div id="wpbdp-manage-subscriptions-cancel">
+<div id="wpbdp-manage-recurring-cancel">
     <h4><?php _ex( 'Plan Details', 'manage subscriptions', 'WPBDM' ); ?></h4>
 
     <dl>
