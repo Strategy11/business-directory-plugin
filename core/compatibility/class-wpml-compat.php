@@ -116,7 +116,7 @@ class WPBDP_WPML_Compat {
     }
 
     function translate_form_field_label( $label, $field ) {
-        if ( ! is_object( $field ) )
+        if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) )
             return $label;
 
         return icl_t( 'Business Directory Plugin',
@@ -125,7 +125,7 @@ class WPBDP_WPML_Compat {
     }
 
     function translate_form_field_description( $description, $field ) {
-        if ( ! is_object( $field ) )
+        if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) )
             return $description;
 
         return icl_t( 'Business Directory Plugin',
@@ -151,6 +151,9 @@ class WPBDP_WPML_Compat {
     }
 
     function translate_fee_label( $label, $fee ) {
+        if ( ! function_exists( 'icl_t' ) )
+            return $label;
+
         return icl_t( 'Business Directory Plugin',
                       sprintf( 'Fee label (#%d)', $fee->id ),
                       $fee->label );
