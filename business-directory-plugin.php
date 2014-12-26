@@ -135,7 +135,7 @@ class WPBDP_Plugin {
         $this->controller = new WPBDP_DirectoryController();
         $this->fees = new WPBDP_FeesAPI();
         $this->payments = new WPBDP_PaymentsAPI();
-        $this->listings = new WPBDP_ListingsAPI();
+        $this->listings = new WPBDP_Listings_API();
 
         $this->_register_image_sizes();
         $this->handle_recaptcha();
