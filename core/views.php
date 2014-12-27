@@ -74,7 +74,10 @@ class WPBDP_DirectoryController {
 
                 break;
             case 'deletelisting':
-                return $this->delete_listing();
+                require_once( WPBDP_PATH . 'core/view-delete-listing.php' );
+                $v = new WPBDP_Delete_Listing_View();
+                return $v->dispatch();
+
                 break;
             case 'upgradetostickylisting':
                 require_once( WPBDP_PATH . 'core/view-upgrade-listing.php' );
@@ -398,21 +401,6 @@ class WPBDP_DirectoryController {
             wp_reset_query();
 
         return $html;
-    }
-
-    public function delete_listing() {
-        if ($listing_id = wpbdp_getv($_REQUEST, 'listing_id')) {
-            if ( (wp_get_current_user()->ID == get_post($listing_id)->post_author) || (current_user_can('administrator')) ) {
-                $post_update = array('ID' => $listing_id,
-                                     'post_type' => WPBDP_POST_TYPE,
-                                     'post_status' => wpbdp_get_option('deleted-status'));
-                
-                wp_update_post($post_update);
-
-                return wpbdp_render_msg(_x('The listing has been deleted.', 'templates', 'WPBDM'))
-                      . $this->main_page();
-            }
-        }
     }
 
     /*

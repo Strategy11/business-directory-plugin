@@ -1,4 +1,4 @@
-<h2><?php _ex('Upgrade listing', 'templates', 'WPBDM'); ?></h2>
+<h3><?php _ex('Upgrade listing', 'templates', 'WPBDM'); ?></h3>
 
 <?php if ( $featured_text = wpbdp_get_option( 'featured-description' ) ): ?>
 	<p><?php echo $featured_text; ?></p>

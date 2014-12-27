@@ -1,4 +1,9 @@
+<?php
+$show_message = isset( $show_message ) ? $show_message : true;
+?>
+<?php if ( $show_message ): ?>
 <?php echo wpbdp_render_msg(_x("You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM')); ?>
+<?php endif; ?>
 
 <p></p>
 
