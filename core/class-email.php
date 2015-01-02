@@ -15,8 +15,8 @@ class WPBDP_Email {
     public $bcc = array();
 
     public $body = '';
-    private $plain = '';
-    private $html = '';
+    public $plain = '';
+    public $html = '';
 
 
 	public function __construct() {
