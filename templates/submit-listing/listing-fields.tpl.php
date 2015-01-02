@@ -17,6 +17,7 @@
 	<?php foreach ( $fields as &$field ): ?>
 		<?php echo $field->render( isset( $_state->fields[ $field->get_id() ] ) ? $_state->fields[ $field->get_id() ] : $field->convert_input( null ) , 'submit', $_state ); ?>
 	<?php endforeach; ?>
+    <?php do_action( 'wpbdp_view_submit_listing-after_fields', $_state ); ?>
 
 	<?php if ( $terms_and_conditions ): ?>
 	<div class="wpbdp-form-field terms-and-conditions required">
