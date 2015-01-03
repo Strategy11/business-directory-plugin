@@ -153,7 +153,12 @@ echo wpbdp_admin_header(null, null, array(
         </tr>
     </thead>
     <tbody>
-    <?php $i = 0; foreach ( wpbdp_formfields_api()->get_fields() as $field ) : ?>
+    <?php $i = 0; foreach ( wpbdp_get_form_fields() as $field ) : ?>
+        <?php
+            if ( 'custom' == $field->get_association() ):
+                continue;
+            endif
+        ?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name"><?php echo $field->get_short_name(); ?></td>
             <td class="field-label"><?php echo $field->get_label(); ?></td>
