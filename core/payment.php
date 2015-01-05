@@ -254,6 +254,7 @@ class WPBDP_PaymentsAPI {
         add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
 
         add_action( 'WPBDP_Payment::set_payment_method', array( &$this, 'gateway_payment_setup' ), 10, 2 );
+        //add_action( 'WPBDP_Payment::status_change', array( &$this, 'payment_notification' ) );
 //        add_action( 'WPBDP_Payment::before_save', array( &$this, 'gateway_payment_save' ) );
     }
 
@@ -649,6 +650,18 @@ class WPBDP_PaymentsAPI {
         $gateway = $this->gateways[ $method_id ];
         $gateway->setup_payment( $payment );
     }
+
+//    public function payment_notification( &$payment ) {
+//        if ( ! in_array( 'payment-status-change', wpbdp_get_option( 'user-notifications' ), true ) )
+//            return;
+//
+//        if ( 0.0 == $payment->get_total() )
+//            return;
+//
+//
+//
+//        wpbdp_debug_e( $payment );
+//    }
 
 }
 

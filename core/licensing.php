@@ -8,7 +8,7 @@
 class WPBDP_Licensing {
 
     const STORE_URL = 'http://businessdirectoryplugin.com/';
-    //const STORE_URL = 'http://localhost:8080/';
+    //const STORE_URL = 'http://192.168.13.37/';
 
     private $modules = array();
 
@@ -380,5 +380,6 @@ class WPBDP_Licensing {
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
     global $wpbdp;
+	return true;
     return $wpbdp->licensing->register_module( $name, $file_, $version );
 }
