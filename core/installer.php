@@ -145,7 +145,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -683,6 +683,16 @@ class WPBDP_Installer {
             $wpdb->query( "UPDATE {$wpdb->prefix}wpbdp_submit_state SET updated_on = updated" );
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_submit_state DROP COLUMN updated" );
         }
+    }
+
+    public function upgrade_to_4_0() {
+        $o = (bool) get_option( WPBDP_Settings::PREFIX . 'send-email-confirmation', false );
+
+        if ( ! $o ) {
+            update_option( WPBDP_Settings::PREFIX . 'user-notifications', array( 'listing-published' ) );
+        }
+        delete_option( WPBDP_Settings::PREFIX . 'send-email-confirmation' );
+
     }
 
  }

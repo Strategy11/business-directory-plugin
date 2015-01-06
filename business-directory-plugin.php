@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 3.5.4dev
+ * Version: 3.5.4
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * License: GPLv2 or any later version
@@ -30,7 +30,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '3.5.4dev' );
+define( 'WPBDP_VERSION', '3.5.4' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -92,7 +92,7 @@ class WPBDP_Plugin {
         add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
 
         // For testing the expiration routine only.
-        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
+        //add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
     }
 
     function load_i18n() {
