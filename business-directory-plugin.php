@@ -1009,7 +1009,7 @@ class WPBDP_Plugin {
         if ( ! $action )
             return;
 
-        require_once( WPBDP_PATH . 'class-page-meta.php' );
+        require_once( WPBDP_PATH . 'core/class-page-meta.php' );
         $this->page_meta = new WPBDP_Page_Meta( $action );
 
 
