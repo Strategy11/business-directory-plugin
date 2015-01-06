@@ -336,8 +336,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     payments.viewPaymentDetails = function(id) {
         $.get( ajaxurl, { 'action': 'wpbdp-payment-details', 'id': id }, function(res) {
             if (res && res.success) {
+                if ($('#wpbdp-modal-dialog').length == 0) {
+                    $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
+                }
+
                 $('#wpbdp-modal-dialog').html(res.data.html);
                 tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
+                $('#wpbdp-modal-dialog').remove();
             }
         }, 'json' );
     };
@@ -422,6 +427,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 if (res && res.success) {
                     $('#wpbdp-modal-dialog').html(res.data.html);
                     tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
+                    $('#wpbdp-modal-dialog').remove();
                 }
             }, 'json');
         });
