@@ -496,10 +496,11 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                             }
 
                             if ( 0 == $( '#wpbdp-modal-dialog' ).length )
-                                $( 'body' ).append( '<div id="wpbdp-modal-dialog"></div>' );
+                                $( 'body' ).append( '<div id="wpbdp-modal-dialog" style="display: none;"></div>' );
 
                             $( '#wpbdp-modal-dialog' ).html(res.data.html);
                             tb_show( '', '#TB_inline?inlineId=wpbdp-modal-dialog' );
+                            $( '#wpbdp-modal-dialog' ).remove();
                         }
                     });
 

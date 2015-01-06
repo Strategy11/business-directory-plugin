@@ -317,9 +317,6 @@ class WPBDP_Settings {
                                    'multiple' => true )
                           );
 
-        // TODO: migrate
-        //$this->add_setting($s, 'send-email-confirmation', _x('Send email confirmation to listing owner when listing is submitted?', 'admin settings', 'WPBDM'), 'boolean', false);
-
         // Listing contact.
         $email_contact_template  = '';
         $email_contact_template .= sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'WPBDM' ), '[listing-url]' ) . "\n\n";
@@ -337,7 +334,7 @@ class WPBDP_Settings {
                             array( 'subject' => '[[site-title]] Listing "[listing]" received',
                                    'body' => 'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.' ),
                             _x( 'Sent after a listing has been submitted.', 'admin settings', 'WPBDM' ),
-                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ) )
+                            array( 'placeholders' => array( 'listing' => array( _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ) ) )
                           );
         $this->add_setting( $s,
                             'email-templates-listing-published', _x( 'Listing published message', 'admin settings', 'WPBDM' ),
@@ -916,7 +913,7 @@ class WPBDP_Settings {
                           $setting->name );
 
         $html .= '<div class="short-preview" title="' . _x( 'Click to edit e-mail', 'settings email', 'WPBDM' ) . '">';
-        $html .= '<span class="edit-toggle tag">' . _x( 'Click to edit e-mail', 'settings email', 'WPBDM' ) . '</span>';
+        $html .= '<span class="edit-toggle tag">' . _x( 'Click to edit', 'settings email', 'WPBDM' ) . '</span>';
         $html .= '<h4>';
         $html .= $value['subject'];
         $html .= '</h4>';
