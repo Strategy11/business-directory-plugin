@@ -380,6 +380,5 @@ class WPBDP_Licensing {
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
     global $wpbdp;
-	return true;
     return $wpbdp->licensing->register_module( $name, $file_, $version );
 }
