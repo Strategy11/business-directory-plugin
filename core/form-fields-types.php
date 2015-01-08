@@ -409,11 +409,16 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     public function get_field_plain_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $term_names = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
-                                     array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' ) );
+        if ( ! $value )
+            return '';
 
+        if ( $field->get_association() == 'category' ) {
+            $args = array( 'include' => $value, 'hide_empty' => 0, 'fields' => 'names' );
+            $term_names = get_terms( $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
+                                     $args );
             return join( ', ', $term_names );
+        } elseif ( $field->get_association() == 'tags' ) {
+            return join( ', ', $value );
         } elseif ( $field->get_association() == 'meta' ) {
             return esc_attr( implode( ', ', $value ) );
         }
