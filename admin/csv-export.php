@@ -391,8 +391,13 @@ class WPBDP_CSVExporter {
                     break;
             }
 
-            if ( ! is_string( $value ) )
-                $value = strval( $value );
+            if ( ! is_string( $value ) ) {
+                if ( is_array( $value ) ) {
+                    $value = '';
+                } else {
+                    $value = strval( $value );
+                }
+            }
 
             $data[ $colname ] = '"' . str_replace( '"', '""', $value ) . '"';
         }

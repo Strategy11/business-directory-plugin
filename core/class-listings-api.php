@@ -316,8 +316,9 @@ class WPBDP_Listings_API {
 
         if ( ! $sequence_id ) {
             global $wpdb;
-            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT (MAX(meta_value) + 1) FROM {$wpdb->postmeta} WHERE meta_key = %s",
+            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT MAX(meta_value) FROM {$wpdb->postmeta} WHERE meta_key = %s",
                                                                  '_wpbdp[import_sequence_id]' ) ) );
+            $candidate++;
 
             if ( false == add_post_meta( $listing_id, '_wpbdp[import_sequence_id]', $candidate, true ) )
                 $sequence_id = 0;
