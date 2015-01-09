@@ -32,12 +32,17 @@ class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
 
     private function get_subscription_info() {
         global $wpdb;
-        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_author = %d",
-                                                    get_current_user_id() ) );
+        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s",
+                                                    get_current_user_id(),
+                                                    WPBDP_POST_TYPE ) );
         $info = array();
 
         foreach ( $listings as $listing_id ) {
             $listing = WPBDP_Listing::get( $listing_id );
+
+            if ( ! $listing )
+                continue;
+
             $categories = $listing->get_categories( 'all' );
 
             foreach ( $categories as $cat ) {
