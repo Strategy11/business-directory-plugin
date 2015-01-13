@@ -79,6 +79,8 @@ class WPBDP_Listings_API {
                 $url = $baseurl . '/' . $post->post_name . '/' . ( $querystring ? '?' . $querystring : '' );
             else
                 $url = $baseurl . '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' ) . ( $querystring ? '?' . $querystring : '' );
+
+            $url = remove_query_arg( 'p', $url );
         } else {
             $url = add_query_arg( 'id', $post->ID, $baseurl );
         }
