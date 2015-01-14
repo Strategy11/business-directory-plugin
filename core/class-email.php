@@ -16,6 +16,7 @@ class WPBDP_Email {
     public $body = '';
     public $plain = '';
     public $html = '';
+    public $template = '';
 
 
 	public function __construct() {
@@ -87,7 +88,15 @@ class WPBDP_Email {
             $headers .= $h . ': ' . $v . "\r\n";
         }
 
-		return wp_mail( $this->to, $this->subject, $this->html, $headers );
+        $html = $this->html;
+        if ( $this->template ) {
+            if ( $html_ = wpbdp_render( $this->template, array( 'subject' => $this->subject,
+                                                                'body' => $this->html ) ) ) {
+                $html = $html_;
+            }
+        }
+
+		return wp_mail( $this->to, $this->subject, $html, $headers );
 	}
 
 }

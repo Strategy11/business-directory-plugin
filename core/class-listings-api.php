@@ -207,6 +207,7 @@ class WPBDP_Listings_API {
 
         $email = wpbdp_email_from_template( 'listing-autorenewal-message', $replacements );
         $email->to[] = wpbusdirman_get_the_business_email( $payment->get_listing_id() );
+        $email->template = 'businessdirectory-email';
         $email->send();
     }
 
@@ -225,6 +226,7 @@ class WPBDP_Listings_API {
             'listing-url' => get_permalink( $post->ID )
         ) );
         $email->to[] = wpbusdirman_get_the_business_email( $post->ID );
+        $email->template = 'businessdirectory-email';
         $email->send();
     }
 
@@ -261,6 +263,7 @@ class WPBDP_Listings_API {
             'listing' => $listing->get_title()
         ) );
         $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+        $email->template = 'businessdirectory-email';
         $email->send();
     }
 
@@ -708,6 +711,7 @@ class WPBDP_Listings_API {
 
         $email = wpbdp_email_from_template( $message_option, $message_replacements );
         $email->to[] = wpbusdirman_get_the_business_email( $fee_info->listing_id );
+        $email->template = 'businessdirectory-email';
         $email->send();
 
         return true;
@@ -813,6 +817,7 @@ class WPBDP_Listings_API {
                         $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
                 }
 
+                $email->template = 'businessdirectory-email';
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
@@ -821,6 +826,7 @@ class WPBDP_Listings_API {
                 $email = wpbdp_email_from_template( ( $r->recurring ? 'listing-autorenewal-notice' : 'renewal-pending-message' ),
                                                     $message_replacements );
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+                $email->template = 'businessdirectory-email';
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
@@ -828,6 +834,7 @@ class WPBDP_Listings_API {
                 // remind about expired listings
                 $email = wpbdp_email_from_template( 'renewal-reminder-message', $message_replacements );
                 $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+                $email->template = 'businessdirectory-email';
                 $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 3 ), array( 'id' => $r->id ) );
