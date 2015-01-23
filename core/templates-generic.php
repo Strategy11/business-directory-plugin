@@ -72,6 +72,20 @@ function _wpbdp_template_mode($template) {
     return 'page';
 }
 
+
+/**
+ * @since 3.5.6
+ */
+function _wpbdp_recaptchalib_mode() {
+    if ( function_exists( 'recaptcha_get_html' ) )
+        return 'classic';
+
+    if ( class_exists( 'ReCaptcha' ) && class_exists( 'ReCaptchaResponse' ) )
+        return 'default';
+
+    return 'none';
+}
+
 /**
  * Displays a reCAPTCHA field using the configured settings.
  * @return string HTML for the reCAPTCHA field.
@@ -83,10 +97,23 @@ function wpbdp_recaptcha() {
     if ( ! $public_key )
         return '';
 
-    if ( ! function_exists( 'recaptcha_get_html' ) )
-        require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
+    $html = '';
 
-    return recaptcha_get_html( $public_key );
+    switch ( _wpbdp_recaptchalib_mode() ) {
+        case 'none':
+            require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
+        case 'classic':
+            $html = recaptcha_get_html( $public_key );
+            break;
+        case 'default':
+            $html = sprintf( '<div class="g-recaptcha" data-sitekey="%s"></div>', $public_key );
+            $html .= sprintf( '<script type="text/javascript" src="%s"></script>', 'https://www.google.com/recaptcha/api.js?hl=en' );
+            break;
+        default:
+            break;
+    }
+
+    return $html;
 }
 
 /**
@@ -100,13 +127,26 @@ function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
     if ( ! $private_key )
         return true;
 
-    if ( ! function_exists( 'recaptcha_check_answer' ) )
-        require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
+    switch ( _wpbdp_recaptchalib_mode() ) {
+        case 'none':
+            require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
+        case 'classic':
+            $resp = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
 
-    $resp = recaptcha_check_answer( $private_key, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field'] );
+            if ( ! $resp->is_valid )
+                $error_msg = $resp->error;
 
-    if ( ! $resp->is_valid )
-        $error_msg = $resp->error;
+            return $resp->is_valid;
+            break;
+        case 'default':
+            $reCaptcha = new ReCaptcha( $private_key );
+            $resp = $reCaptcha->verifyResponse( $_SERVER['REMOTE_ADDR'], $_POST['g-recaptcha-response'] );
 
-    return $resp->is_valid;
+            return ( null != $resp && $resp->success );
+            break;
+        default:
+            break;
+    }
+
+    return false;
 }
