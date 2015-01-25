@@ -103,7 +103,7 @@ function wpbdp_recaptcha() {
         case 'none':
             require_once( WPBDP_PATH . 'vendors/recaptcha/recaptchalib.php' );
         case 'classic':
-            $html = recaptcha_get_html( $public_key );
+            $html = recaptcha_get_html( $public_key, null, is_ssl() );
             break;
         case 'default':
             $html = sprintf( '<div class="g-recaptcha" data-sitekey="%s"></div>', $public_key );
