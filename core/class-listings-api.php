@@ -320,7 +320,8 @@ class WPBDP_Listings_API {
 
         if ( ! $sequence_id ) {
             global $wpdb;
-            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT MAX(meta_value) FROM {$wpdb->postmeta} WHERE meta_key = %s",
+
+            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT MAX(CAST(meta_value AS UNSIGNED INTEGER )) FROM {$wpdb->postmeta} WHERE meta_key = %s",
                                                                  '_wpbdp[import_sequence_id]' ) ) );
             $candidate++;
 
