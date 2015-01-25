@@ -266,23 +266,24 @@ class WPBDP_DirectoryController {
         elseif (get_query_var('paged'))
             $paged = get_query_var('paged');
 
-        query_posts(array(
+        $args = array(
             'post_type' => WPBDP_POST_TYPE,
             'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
             'post_status' => 'publish',
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC')
-        ));
+        );
+        query_posts( $args );
 
         $html = wpbdp_capture_action( 'wpbdp_before_viewlistings_page' );
         $html .= wpbdp_render('businessdirectory-listings', array(
+                'query' => new WP_Query($args),
                 'excludebuttons' => !$include_buttons
             ), true);
         $html .= wpbdp_capture_action( 'wpbdp_after_viewlistings_page' );
 
         wp_reset_query();
-
         return $html;
     }
 
