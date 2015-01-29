@@ -148,8 +148,9 @@ class WPBDP_Plugin {
         add_action('wp_loaded', array( &$this, '_wp_loaded'));
 
         add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
-        add_action('posts_fields', array( &$this, '_posts_fields'), 10, 2);
-        add_action('posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+        add_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10 );
+        add_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
+        add_filter( 'posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
 
         add_filter('comments_template', array( &$this, '_comments_template'));
         add_filter('taxonomy_template', array( &$this, '_category_template'));
@@ -258,6 +259,15 @@ class WPBDP_Plugin {
             $query->set('orderby', wpbdp_get_option('listings-order-by', 'date'));
             $query->set('order', wpbdp_get_option('listings-sort', 'ASC'));
         }
+    }
+
+    function _posts_clauses( $pieces ) {
+        global $wp_query;
+
+        if ( is_admin() || ! isset( $wp_query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $wp_query->query_vars['post_type'] )
+            return $pieces;
+
+        return apply_filters( 'wpbdp_query_clauses', $pieces );
     }
 
     public function _posts_fields($fields, $query) {
