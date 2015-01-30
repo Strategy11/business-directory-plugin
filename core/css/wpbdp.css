@@ -557,3 +557,23 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 }
 
 /* }} */
+
+/* {{ Mobile CSS. */
+
+@media screen and (max-width: 500px) {
+    .wpbdp-bar .wpbdp-main-links {
+        display: block;
+    }
+
+    .wpbdp-bar .wpbdp-main-links input[type="button"] {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .wpbdp-bar form.wpbdp-search-form {
+        display: block;
+    }
+
+}
+
+/* }} */
