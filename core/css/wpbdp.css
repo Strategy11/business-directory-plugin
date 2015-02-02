@@ -571,7 +571,34 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     }
 
     .wpbdp-bar form.wpbdp-search-form {
+        width: 49%;
         display: block;
+    }
+
+    .wpbdp-bar form.wpbdp-search-form input[type="text"] {
+        padding: 4px 0;
+        margin: 0 0 2px 0;
+    }
+
+    .wpbdp-listings-sort-options {
+        font-size: 90%;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt {
+        font-size: 80%;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .field-value > label {
+        display: block;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail {
+        width: 40%;
+        padding: 5px;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-actions input {
+        font-size: 85%;
     }
 
 }
