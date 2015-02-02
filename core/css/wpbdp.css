@@ -599,8 +599,8 @@ table#wpbdp-manage-recurring a.cancel-subscription {
         font-size: 90%;
     }
 
-    .wpbdp-listing.wpbdp-listing-excerpt {
-        font-size: 80%;
+    .wpbdp-listing.wpbdp-listing {
+        font-size: 90%;
     }
 
     .wpbdp-listing.wpbdp-listing-excerpt .field-value > label {
@@ -612,8 +612,25 @@ table#wpbdp-manage-recurring a.cancel-subscription {
         padding: 5px;
     }
 
-    .wpbdp-listing.wpbdp-listing-excerpt .listing-actions input {
+    .wpbdp-listing .listing-actions input {
         font-size: 85%;
+    }
+
+    .wpbdp-listing .listing-actions input.back-to-dir {
+        float: right;
+    }
+
+    .wpbdp-listing.wpbdp-listing-single .main-image {
+        display: block;
+        float: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .wpbdp-listing.wpbdp-listing-single .field-value > label {
+        display: block;
     }
 
 }
