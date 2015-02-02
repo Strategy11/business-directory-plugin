@@ -633,6 +633,44 @@ table#wpbdp-manage-recurring a.cancel-subscription {
         display: block;
     }
 
+    .wpbdp-submit-page.step-images #image-upload-dnd-area {
+        font-size: 90%;
+        float: none !important;
+        width: 100% !important;
+    }
+
+    .wpbdp-submit-page.step-images .dnd-area-inside-error {
+        margin-top: 30px;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions {
+        width: 100% !important;
+        float: none !important;
+        font-size: 90%;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions dl {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions dl dt {
+        margin: 0;
+        margin-right: 5px;
+        padding: 0;
+        float: left;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions dl dd {
+        margin: 0;
+        padding: 0;
+        display: block;
+    }
+
+    .wpbdp-submit-page.step-images .wpbdp-image img {
+        max-width: 50%;
+    }
+
 }
 
 /* }} */
