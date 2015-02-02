@@ -114,7 +114,10 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
             return '';
 
         $html  = '';
+
         $html .= '<div class="contact-form">';
+        $html .= '<input type="button" class="wpbdp-show-on-mobile send-message-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" />';
+        $html .= '<div class="wpbdp-hide-on-mobile contact-form-wrapper">';
         $html .= '<h3>' . _x('Send Message to listing owner', 'templates', 'WPBDM') . '</h3>';
 
         $form = '';
@@ -131,6 +134,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
         }
 
         $html .= $form;
+        $html .= '</div>';
         $html .= '</div>';
 
         return $html;

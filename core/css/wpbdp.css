@@ -230,6 +230,10 @@ form#wpbdmsearchform a.advanced-search-link {
     padding-left: 10px;
 }
 
+.wpbdp-listing .contact-form .send-message-button {
+    margin-left: -10px;
+}
+
 .wpbdp-listing .contact-form h3 {
     margin-left: -10px;
 }
@@ -559,8 +563,19 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 /* }} */
 
 /* {{ Mobile CSS. */
+.wpbdp-show-on-mobile {
+    display: none;
+}
 
 @media screen and (max-width: 500px) {
+    .wpbdp-show-on-mobile {
+        display: inline;
+    }
+
+    .wpbdp-hide-on-mobile {
+        display: none;
+    }
+
     .wpbdp-bar .wpbdp-main-links {
         display: block;
     }
