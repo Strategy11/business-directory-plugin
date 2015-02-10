@@ -1453,20 +1453,64 @@ JS;
 
         echo <<<JS
         <script type="text/javascript">//<![CDATA[
-        jQuery(document).ready(function(){
-            jQuery('#comment, #wpbdp-contact-form-message').focusin(function(){
-                var recaptchaInUse = jQuery('#wpbdp-comment-recaptcha').children().length > 0 ? 'comment' : 'contact';
-                var focusedElement = jQuery(this).attr('id') == 'comment' ? 'comment' : 'contact';
+        jQuery(function($) {
+            var recaptchas_in_page = [];
+            var active = '';
 
-                if ( recaptchaInUse == focusedElement )
+            if ( $( '#wpbdp-claim-listings-form' ).length > 0 )
+                recaptchas_in_page.push( 'claim-listings' );
+
+            if ( $( '#wpbdp-comment-recaptcha' ) )
+                recaptchas_in_page.push( 'comment' );
+
+            if ( $( '#wpbdp-contact-form-recaptcha' ) )
+                recaptchas_in_page.push( 'contact' );
+
+            if ( recaptchas_in_page.length <= 1 )
+                return;
+
+            var active = recaptchas_in_page[0];
+
+            var move_recaptcha_to = function( dest ) {
+                if ( active == dest )
                     return;
 
-                var recaptchaArea = focusedElement == 'comment' ? 'wpbdp-comment-recaptcha' : 'wpbdp-contact-form-recaptcha';
-
                 Recaptcha.destroy();
-                jQuery('#wpbdp-contact-form-recaptcha, #wpbdp-comment-recaptcha').attr('class', '').empty();
-                Recaptcha.create('{$public_key}', recaptchaArea);
+                $( '#wpbdp-contact-form-recaptcha, #wpbdp-comment-recaptcha' ).attr( 'class', '' ).empty();
+                $( '#wpbdp-claim-listings-form .field.recaptcha' ).empty();
+
+                var recaptcha_area = '';
+
+                if ( 'comment' == dest ) {
+                    recaptcha_area = 'wpbdp-comment-recaptcha';
+                } else if ( 'contact' == dest ) {
+                    recaptcha_area = 'wpbdp-contact-form-recaptcha';
+                } else if ( 'claim-listings' == dest ) {
+                    $( '#wpbdp-claim-listings-form .field.recaptcha' ).html( '<div id="wpbdp-claim-listings-recaptcha"></div>' );
+                    recaptcha_area = 'wpbdp-claim-listings-recaptcha';
+                }
+
+                if ( recaptcha_area )
+                    Recaptcha.create( '{$public_key}', recaptcha_area );
+
+                active = dest;
+            };
+
+            $( '#comment' ).focusin(function() {
+                move_recaptcha_to( 'comment' );
             });
+            $( '#wpbdp-contact-form-message' ).focusin(function() {
+                    move_recaptcha_to( 'contact' );
+            });
+            $( '.wpbdp-claim-listings .claim-listing-link' ).click(function(e) {
+                var open = $(this).parent( '.wpbdp-claim-listings' ).hasClass('open');
+
+                if ( ! open )
+                    return;
+
+                move_recaptcha_to( 'claim-listings' );
+            });
+
         });
         //]]></script>
 JS;
