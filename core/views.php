@@ -258,7 +258,7 @@ class WPBDP_DirectoryController {
     }    
 
     /* display listings */
-    public function view_listings($include_buttons=false) {
+    public function view_listings($include_buttons=false, $args_ = array()) {
         $paged = 1;
 
         if (get_query_var('page'))
@@ -272,8 +272,10 @@ class WPBDP_DirectoryController {
             'post_status' => 'publish',
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-            'order' => wpbdp_get_option('listings-sort', 'ASC')
+            'order' => wpbdp_get_option('listings-sort', 'ASC'),
         );
+        if ( isset( $args_['numberposts'] ) )
+            $args['numberposts'] = $args_['numberposts'];
         query_posts( $args );
 
         $html = wpbdp_capture_action( 'wpbdp_before_viewlistings_page' );
