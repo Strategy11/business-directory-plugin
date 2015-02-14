@@ -513,26 +513,31 @@ class WPBDP_Listings_API {
                                'distinct' => '',
                                'fields' => "{$wpdb->posts}.ID",
                                'limits' => '' );
+        $optimization = array( 'global' => array(), 'words' => array() );
 
         $words = array_map( 'trim', explode( ' ', $q ) );
 
         $query_pieces['where'] .= '';
 
         foreach ( $words as $i => $w ) {
+            $optimization['words'][ $i ] = array();
+
             $query_pieces['where'] .= ' AND ( 1=0 ';
 
             foreach ( $fields as &$f ) {
-                $f->build_quick_search_query( $w, $query_pieces, $q, $i );
+                $f->build_quick_search_query( $w, $query_pieces, $q, $i, $optimization );
             }
 
             $query_pieces['where'] .= ' )';
         }
 
         $query_pieces = apply_filters( 'wpbdp_quick_search_query_pieces', $query_pieces );
-        $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE 1=1 %s GROUP BY {$wpdb->posts}.ID %s %s",
+        $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE 1=1 AND ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') %s GROUP BY {$wpdb->posts}.ID %s %s",
                           $query_pieces['distinct'],
                           $query_pieces['fields'],
                           $query_pieces['join'],
+                          WPBDP_POST_TYPE,
+                          'publish',
                           $query_pieces['where'],
                           $query_pieces['orderby'],
                           $query_pieces['limits'] );
