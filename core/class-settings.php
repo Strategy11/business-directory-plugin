@@ -109,6 +109,12 @@ class WPBDP_Settings {
                             $desc,
                             array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'use_checkboxes' => false, 'multiple' => true )
                          );
+        $this->add_setting( $s,
+                            'quick-search-enable-performance-tricks',
+                            _x( 'Enable high performance searches?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            _x( 'Enabling this makes BD sacrifice result quality to improve speed.', 'admin settings', 'WPBDM' ) );
         // }}
 
         // Misc. settings.

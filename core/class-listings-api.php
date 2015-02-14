@@ -515,7 +515,7 @@ class WPBDP_Listings_API {
                                'limits' => '' );
         $optimization = array( 'global' => array(), 'words' => array() );
 
-        $words = array_map( 'trim', explode( ' ', $q ) );
+        $words = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( trim( $q ) ) : array_map( 'trim', explode( ' ', $q ) );
 
         $query_pieces['where'] .= '';
 
