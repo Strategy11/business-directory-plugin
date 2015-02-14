@@ -278,6 +278,7 @@ class WPBDP_CSVImporter {
 
         'assign-listings-to-user' => true,
         'default-user' => '0',
+        'disable-email-notifications' => true,
 
         'test-import' => false
     );
@@ -315,6 +316,7 @@ class WPBDP_CSVImporter {
         $this->settings['create-missing-categories'] = (boolean) $this->settings['create-missing-categories'];
         $this->settings['assign-listings-to-user'] = (boolean) $this->settings['assign-listings-to-user'];
         $this->settings['default-user'] = intval($this->settings['default-user']);
+        $this->settings['disable-email-notifications'] = intval($this->settings['disable-email-notifications']);
     }
 
     public function in_test_mode() {
@@ -335,9 +337,14 @@ class WPBDP_CSVImporter {
     }
 
     public function import($csv_file, $zipfile) {
+        global $wpbdp;
+
         $this->reset();
         $this->extract_data($csv_file);
         $this->extract_images($zipfile);
+
+        $wpbdp->_importing_csv = true;
+        $wpbdp->_importing_csv_no_email = (bool) $this->settings['disable-email-notifications'];
 
         foreach ($this->rows as $row) {
             if ($this->import_row($row['data'], $errors, $warnings)) {
@@ -356,6 +363,9 @@ class WPBDP_CSVImporter {
         // delete $imagesdir
         if ($this->imagesdir)
             $this->remove_directory($this->imagesdir);
+
+        unset( $wpbdp->_importing_csv );
+        unset( $wpbdp->_importing_csv_no_email );
     }
 
     private function process_line($row) {

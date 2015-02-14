@@ -191,6 +191,10 @@ class WPBDP_Listings_API {
         if ( ! $payment->get_data( 'parent_payment_id' ) )
             return;
 
+        global $wpbdp;
+        if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
+            return;
+
         $recurring_item = $payment->get_recurring_item();
 
         $replacements = array();
@@ -219,6 +223,10 @@ class WPBDP_Listings_API {
             return;
 
         if ( $new_status == $old_status || 'publish' != $new_status || ( 'pending' != $old_status && 'draft' != $old_status ) )
+            return;
+
+        global $wpbdp;
+        if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
             return;
 
         $email = wpbdp_email_from_template( 'email-templates-listing-published', array(
@@ -259,6 +267,10 @@ class WPBDP_Listings_API {
         if ( ! in_array( 'new-listing', wpbdp_get_option( 'user-notifications' ), true ) )
             return;
 
+        global $wpbdp;
+        if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
+            return;
+
         $email = wpbdp_email_from_template( 'email-confirmation-message', array(
             'listing' => $listing->get_title()
         ) );
@@ -269,6 +281,10 @@ class WPBDP_Listings_API {
 
    public function new_listing_admin_email( &$listing ) {
         if ( ! in_array( 'new-listing', wpbdp_get_option( 'admin-notifications' ), true ) )
+            return;
+
+        global $wpbdp;
+        if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
             return;
 
         $email = new WPBDP_Email();
@@ -284,6 +300,10 @@ class WPBDP_Listings_API {
 
    public function edit_listing_admin_email( &$listing ) {
         if ( ! in_array( 'listing-edit', wpbdp_get_option( 'admin-notifications' ), true ) )
+            return;
+
+        global $wpbdp;
+        if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
             return;
 
         $email = new WPBDP_Email();

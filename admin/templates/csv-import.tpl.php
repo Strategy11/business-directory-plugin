@@ -74,18 +74,6 @@ echo wpbdp_admin_header(null, null, array(
 
     <h3><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h3>
     <table class="form-table">
-<!--            <tr class="form-required">
-                <th scope="row">
-                    <label> <?php _ex('Allow partial imports?', 'admin csv-import', 'WPBDM'); ?></label>
-                </th>
-                <td>
-                    <label><input name="settings[allow-partial-imports]"
-                           type="checkbox"
-                           value="1" checked="checked" /> <?php _ex('Allow partial imports.', 'admin csv-import', 'WPBDM'); ?></label>
-
-                    <span class="description"><?php _ex('If checked, invalid lines from the CSV file will be ignored.', 'admin csv-import', 'WPBDM'); ?></span>
-                </td>
-            </tr>    -->    
             <tr class="form-required">
                 <th scope="row">
                     <label> <?php _ex('Missing categories handling', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
@@ -125,7 +113,17 @@ echo wpbdp_admin_header(null, null, array(
                     </label>
                     <span class="description"><?php _ex('This user will be used if the username column is not present in the CSV file.', 'admin csv-import', 'WPBDM'); ?></span>
                 </td>
-            </tr>            
+            </tr>
+            <tr class="form-required">
+                <th scope="row">
+                    <label> <?php _ex( 'Disable e-mail notifications during import?', 'admin csv-import', 'WPBDM' ); ?>
+                </th>
+                <td>
+                    <label><input name="settings[disable-email-notifications]"
+                           type="checkbox"
+                           value="1" checked="checked" /> <?php _ex( 'Disable e-mail notifications.', 'admin csv-import', 'WPBDM' ); ?></label>
+                </td>
+            </tr>
     </table>
 
     <p class="submit">
