@@ -161,10 +161,13 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         if ( $input === null )
             return array( '', '' );
 
-        if ( !is_array( $input ) )
-            return array( $input, $input );
+        $url = strtolower( trim( is_array( $input ) ? $input[0] : array( $input ) ) );
+        $text = trim( is_array( $input ) ? $input[1] : $url );
 
-        return $input;
+        if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) )
+            $url = 'http://' . $url;
+
+        return array( $url, $text );
     }
 
     public function is_empty_value( $value ) {
