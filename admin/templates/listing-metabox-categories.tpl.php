@@ -71,7 +71,8 @@ if ( ! isset( $admin_actions ) )
                 <?php if ( current_user_can( 'administrator' ) ): ?>
                     <a href="#" class="expiration-change-link" title="<?php _ex( 'Click to manually change expiration date.', 'admin infometabox', 'WPBDM' ); ?>"
                        data-renewal_id="<?php echo $category->renewal_id; ?>"
-                       data-date="<?php echo date('Y-m-d', strtotime( $category->expires_on ) ); ?>"><?php _ex( 'Edit', 'admin infometabox', 'WPBDM' ); ?></a>
+                       data-date="<?php echo $category->expires_on ? date('Y-m-d', strtotime( $category->expires_on ) ) : date( 'Y-m-d', strtotime( '+10 years' ) ); ?>"
+                       data-never-text="<?php _ex( 'Never expires', 'admin infometabox', 'WPBDM' ); ?>"><?php _ex( 'Edit', 'admin infometabox', 'WPBDM' ); ?></a>
                     <div class="datepicker renewal-<?php echo $category->renewal_id; ?>"></div>
                 <?php endif; ?>
             </dd>

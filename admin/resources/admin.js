@@ -356,7 +356,64 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     var metabox = WPBDP_Admin.listingMetabox;
 
     metabox._initialize = function() {
+        // Hack from
+        // http://stackoverflow.com/questions/3961963/beforeshow-event-not-firing-on-jqueryui-datepicker.
+        $.extend( $.datepicker, {
+            _inlineDatepicker2: $.datepicker._inlineDatepicker,
+            // Override the _inlineDatepicker method
+            _inlineDatepicker: function (target, inst) {
+                // Call the original
+                this._inlineDatepicker2(target, inst);
+                var beforeShow = $.datepicker._get(inst, 'beforeShow');
+
+                if (beforeShow) {
+                    beforeShow.apply(target, [target, inst]);
+                }
+            }
+        });
+
         // Expiration date changing.
+        var _addNeverButton = function( instance ) {
+            setTimeout( function() {
+                var $buttonPane = $(instance).find( '.ui-datepicker-buttonpane' );
+
+                if ( $buttonPane.find( '.ui-datepicker-never' ).length > 0 )
+                return;
+
+            var $button = $( '<button>', {
+                text: 'Never Expires',
+                click: function() {
+                    _updateExpiration( $(instance), 'never' );
+                    return false;
+                },
+            }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
+
+            $buttonPane.append($button);
+            }, 1 );
+        };
+
+        var _updateExpiration = function( $instance, newDate ) {
+            if ( ! newDate )
+                return;
+
+            var $changeLink = $instance.siblings('a.expiration-change-link');
+            var $expirationDate = $instance.siblings('.expiration-date');
+            var $spinner = $instance.parents('.listing-category').find('.spinner:first');
+
+            $expirationDate.text('--');
+            $spinner.show();
+
+            $instance.hide();
+            _addNeverButton($instance.get(0));
+
+            $.post(ajaxurl, {action: 'wpbdp-listing_set_expiration', renewal_id: $changeLink.attr('data-renewal_id'), expiration_date: newDate}, function(res) {
+                if (res && res.success) {
+                    $spinner.hide();
+                    $expirationDate.text(res.data.formattedExpirationDate).show();
+                }
+            }, 'json');
+        };
+
         $('#listing-metabox-generalinfo, #listing-metabox-fees').each(function(i, v) {
             var $tab = $(v);
             $tab.find('.expiration-date-info .datepicker').each(function(i, v) {
@@ -366,22 +423,15 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 $dp.hide().datepicker({
                     dateFormat: 'yy-mm-dd',
                     defaultDate: $changeLink.attr('data-date'),
+                    showButtonPanel: true,
+                    beforeShow: function( input ) {
+                        _addNeverButton( input );
+                    },
+                    onChangeMonthYear: function( year, month, instance ) {
+                        _addNeverButton(instance.input);
+                    },
                     onSelect: function(newDate) {
-                        if (newDate) {
-                            var $expirationDate = $(this).siblings('.expiration-date');
-                            var $spinner = $(this).parents('.listing-category').find('.spinner:first');
-
-                            $expirationDate.text('--'); $spinner.show();
-
-                            $.post(ajaxurl, {action: 'wpbdp-listing_set_expiration', renewal_id: $changeLink.attr('data-renewal_id'), expiration_date: newDate}, function(res) {
-                                    if (res && res.success)
-                                    $spinner.hide();
-                                    $expirationDate.text(res.data.formattedExpirationDate).show();
-                                }, 'json');
-                        }
-
-                        $(this).hide();
-                        
+                        _updateExpiration( $(this), newDate );
                     }
                 });
             });

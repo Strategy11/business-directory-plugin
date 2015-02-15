@@ -423,17 +423,20 @@ class WPBDP_Admin {
         $response = new WPBDP_Ajax_Response();
 
         $renewal_id = intval( isset( $_POST['renewal_id'] ) ? $_POST['renewal_id'] : 0 );
-        $expiration_time = isset( $_POST['expiration_date'] ) ? date( 'Y-m-d 00:00:00', strtotime( trim( $_POST['expiration_date'] ) ) ) : '';
+        $expiration_time = isset( $_POST['expiration_date'] ) ? ( 'never' == $_POST['expiration_date'] ? 'never' : date( 'Y-m-d 00:00:00', strtotime( trim( $_POST['expiration_date'] ) ) ) ) : '';
 
         if ( ! $renewal_id || ! $expiration_time || ! current_user_can( 'administrator' ) )
             $response->send_error();
 
         global $wpdb;
 
-        if ( $expiration_time )
+        if ( 'never' == $expiration_time ) {
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = NULL, email_sent = %d WHERE id = %d", 0, $renewal_id ) );
+        } else {
             $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = %s, email_sent = %d WHERE id = %d", $expiration_time, 0, $renewal_id ) );
+        }
 
-        $response->add( 'formattedExpirationDate', date_i18n( get_option( 'date_format' ), strtotime( $expiration_time ) ) );
+        $response->add( 'formattedExpirationDate', 'never' == $expiration_time ? _x( 'never', 'admin infometabox', 'WPBDM' ) : date_i18n( get_option( 'date_format' ), strtotime( $expiration_time ) ) );
         $response->send();
     }
 
