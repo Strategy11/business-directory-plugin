@@ -16,6 +16,11 @@ jQuery(document).ready(function($){
         $( '.contact-form .contact-form-wrapper' ).toggle();
     });
 
+    $( '.wpbdp-listings-sort-options.wpbdp-show-on-mobile select' ).change(function(e) {
+        var selected = $(this).val();
+        location.href = selected;
+    });
+
 });
 
 WPBDP.fileUpload = {

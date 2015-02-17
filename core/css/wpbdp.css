@@ -671,6 +671,10 @@ table#wpbdp-manage-recurring a.cancel-subscription {
         max-width: 50%;
     }
 
+    .wpbdp-listings-sort-options.wpbdp-show-on-mobile {
+        margin-bottom: 10px;
+    }
+
 }
 
 /* }} */
