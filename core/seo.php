@@ -8,7 +8,12 @@ class WPBDP_SEO {
 
     public static function listing_title( $listing_id ) {
         if ( self::is_wp_seo_enabled() ) {
-            global $wpseo_front;
+            $wpseo_front = null;
+
+            if ( isset( $GLOBALS['wpseo_front'] ) )
+                $wpseo_front = $GLOBALS['wpseo_front'];
+            elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) )
+                $wpseo_front = WPSEO_Frontend::get_instance();
 
             $title = $wpseo_front->get_content_title( get_post( $listing_id ) );
             $title = esc_html( strip_tags( stripslashes( apply_filters( 'wpseo_title', $title ) ) ) );
@@ -21,7 +26,13 @@ class WPBDP_SEO {
 
     public static function listing_og_description( $listing_id ) {
         if ( self::is_wp_seo_enabled() ) {
-            global $wpseo_front;
+            $wpseo_front = null;
+
+            if ( isset( $GLOBALS['wpseo_front'] ) )
+                $wpseo_front = $GLOBALS['wpseo_front'];
+            elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) )
+                $wpseo_front = WPSEO_Frontend::get_instance();
+
             global $post;
 
             $prev_post = $post;
