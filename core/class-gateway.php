@@ -3,6 +3,7 @@
 abstract class WPBDP_Payment_Gateway {
 
     const INTEGRATION_BUTTON = 'button';
+    const INTEGRATION_FORM = 'form';
     const CAPABILITIES_RECURRING = 'recurring';
 
     public function __construct() {
@@ -61,5 +62,89 @@ abstract class WPBDP_Payment_Gateway {
     abstract public function process( &$payment, $action );
     abstract public function render_integration( &$payment );
 
+    /**
+     * @since 3.5.8
+     */
+    public function render_billing_information_form( &$payment, $args = array() ) {
+        $defaults = array(
+            'action' => $this->get_url( $payment, 'process' ),
+            'posted' => $payment->get_data( 'billing-information' ),
+            'errors' => $payment->get_data( 'validation-errors' ),
+        );
+        $args = wp_parse_args( $args, $defaults );
+        $args['payment'] = $payment;
+
+        // Clear errors.
+        $payment->set_data( 'billing-information', false );
+        $payment->set_data( 'validation-errors', false );
+        $payment->save();
+
+        return wpbdp_render( 'billing-information-form', $args );
+    }
+
+    /**
+     * @since 3.5.8
+     */
+    public function sanitize_billing_information( $data ) {
+        $fields = array(
+            'first_name',
+            'last_name',
+            'cc_number',
+            'cc_exp_month',
+            'cc_exp_year',
+            'cc_cvc',
+            'address_country',
+            'address_state',
+            'address_city',
+            'address_line1',
+            'address_line2'
+        );
+
+        $sanitized_data = array();
+
+        foreach ( $fields as $f )
+            $sanitized_data[ $f ] = ! empty( $data[ $f ] ) ? trim( $data[ $f ] ) : '';
+
+        if ( 2 == strlen( $sanitized_data['cc_exp_year'] ) )
+            $sanitized_data['cc_exp_year'] = '20' . $sanitized_data['cc_exp_year'];
+
+        return $sanitized_data;
+    }
+
+    /**
+     * @since 3.5.8
+     */
+    public function validate_billing_information( &$payment ) {
+        $errors = array();
+
+        $data = $this->sanitize_billing_information( stripslashes_deep( $_POST ) );
+
+        if ( ! $data['first_name'] )
+            $errors[] = _x( 'First name is required.', 'billing info', 'WPBDM' );
+
+        if ( ! $data['last_name'] )
+            $errors[] = _x( 'Last name is required.', 'billing info', 'WPBDM' );
+
+        if ( ! $data['cc_number'] )
+            $errors[] = _x( 'Credit card number is required.', 'billing info', 'WPBDM' );
+
+        if ( ! $data['cc_exp_month'] || ! $data['cc_exp_year'] )
+            $errors[] = _x( 'Credit card expiration date is invalid.', 'billing info', 'WPBDM' );
+
+        if ( ! $data['cc_cvc'] )
+            $errors[] = _x( 'Credit card CVC number is required.', 'billing info', 'WPBDM' );
+
+        if ( ! $data['address_country'] )
+            $errors[] = _x( 'Country is required.', 'billing info', 'WPBDM' );
+
+        if ( ! $data['address_line1'] && ! $data['address_line2'] )
+            $errors[] = _x( 'Address is required.', 'billing info', 'WPBDM' );
+
+        $payment->set_data( 'billing-information', $data );
+        $payment->set_data( 'validation-errors', $errors );
+        $payment->save();
+
+        return empty( $errors );
+    }
 
 }

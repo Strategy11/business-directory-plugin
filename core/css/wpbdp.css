@@ -562,6 +562,20 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* }} */
 
+/* {{ Billing information form. */
+#wpbdp-billing-information .billing-info-section h4 {
+    margin-bottom: 5px;
+}
+
+#wpbdp-billing-information .billing-info-section table {
+    margin: 10px 0 0 20px;
+}
+
+#wpbdp-billing-information .form-buttons {
+    margin: 15px 0;
+}
+/* }} */
+
 /* {{ Mobile CSS. */
 .wpbdp-show-on-mobile {
     display: none;
