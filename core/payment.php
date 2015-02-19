@@ -1,4 +1,5 @@
 <?php
+require_once( WPBDP_PATH . 'core/gateways-authorize-net.php' );
 require_once( WPBDP_PATH . 'core/class-payment.php' );
 
 /*
@@ -249,10 +250,10 @@ class WPBDP_PaymentsAPI {
 
     public function __construct() {
         $this->gateways = array();
+        $this->register_gateway( 'authorize-net', 'WPBDP_Authorize_Net_Gateway' );
 
         do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
         add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
-
         add_action( 'WPBDP_Payment::set_payment_method', array( &$this, 'gateway_payment_setup' ), 10, 2 );
         //add_action( 'WPBDP_Payment::status_change', array( &$this, 'payment_notification' ) );
 //        add_action( 'WPBDP_Payment::before_save', array( &$this, 'gateway_payment_save' ) );
