@@ -63,7 +63,9 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
                                     $this->category->id,
                                     $fee_id );
                 $payment->save();
-                return $this->dispatch();
+
+                $this->category->payment_id = $payment->get_id();
+                return $this->checkout();
             }
         }
 
