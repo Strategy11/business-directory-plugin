@@ -137,7 +137,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         return $value[0];
     }
 
-    public function convert_csv_input( &$field, $input = '' ) {
+    public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
         $input = str_replace( array( '"', '\'' ), '', $input );
         $parts = explode( ',', $input );
 
@@ -240,7 +240,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     /**
      * @since 3.4.1
      */
-    public function convert_csv_input( &$field, $input = '' ) {
+    public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
         if ( 'meta' != $field->get_association() )
             return $this->convert_input( $field, $input );
 
@@ -362,7 +362,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( !array_key_exists( 'x_options', $_POST['field'] ) )
             return;
 
-        $options = trim( $_POST['field']['x_options'] );
+        $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
@@ -600,7 +600,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         if ( !array_key_exists( 'x_options', $_POST['field'] ) )
             return;
 
-        $options = trim( $_POST['field']['x_options'] );
+        $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
@@ -733,7 +733,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         if ( !array_key_exists( 'x_options', $_POST['field'] ) )
             return;
 
-        $options = trim( $_POST['field']['x_options'] );
+        $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
@@ -796,7 +796,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
     /**
      * @since 3.4.1
      */
-    public function convert_csv_input( &$field, $input = '' ) {
+    public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
         if ( 'meta' != $field->get_association() )
             return $this->convert_input( $field, $input );
 
