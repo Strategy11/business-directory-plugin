@@ -30,11 +30,7 @@
 			<tr class="fee-option fee-id-<?php echo $fee->id; ?>">
 				<td class="fee-selection">
 					<?php $fee_selected = ( ( $current_fee === null && $i == 0 ) || ( $current_fee == $fee->id ) ); ?>
-					<input type="radio"
-                           id="wpbdp-fees-radio-<?php echo $fee->id; ?>"
-                           name="fees[<?php echo $category->term_id; ?>]"
-                           value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?>
-                           data-canrecur="<?php echo ( $fee->days > 0 && $fee->amount > 0.0 ) ? 1 : 0  ?>" />
+					<input type="radio" id="wpbdp-fees-radio-<?php echo $fee->id; ?>" name="fees[<?php echo $category->term_id; ?>]" value="<?php echo $fee->id; ?>" <?php echo $fee_selected ? 'checked="checked"' : ''; ?> data-canrecur="<?php echo ( $fee->days > 0 && $fee->amount > 0.0 ) ? 1 : 0  ?>" />
 				</td>
 				<td class="fee-label">
 					<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $fee->label, $fee ) ); ?></label>
