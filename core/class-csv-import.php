@@ -1,0 +1,612 @@
+<?php
+require_once( ABSPATH . 'wp-admin/includes/file.php' );
+require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+/**
+ * Replaces `WPBDP_CSVImporter` (from 2.1) and adds support for sequential imports.
+ * @since 3.5.8
+ */
+class WPBDP_CSV_Import {
+
+    private static $PERSISTENT = array( 'settings', 'header', 'total_lines', 'processed_lines', 'current_line', 'imported', 'rejected', 'errors', 'done' );
+
+    private $state_id = '';
+    private $working_dir = '';
+
+    private $state_file = '';
+    private $csv_file = '';
+    private $images_file = '';
+
+    private $settings = array();
+
+    private $header = array();
+    private $fields = array();
+
+    private $total_lines = 0;
+    private $processed_lines = 0;
+    private $current_line = 0;
+
+    private $imported = 0;
+    private $rejected = 0;
+    private $errors = array();
+    private $done = false;
+
+
+    public function __construct( $state_id = '', $csv_file = '', $images_file = '', $settings = array() ) {
+        $defaults = array(
+            'allow-partial-imports' => true,
+            'csv-file-separator' => ',',
+            'images-separator' => ';',
+            'category-separator' => ';',
+            'create-missing-categories' => true,
+
+            'assign-listings-to-user' => true,
+            'default-user' => '0',
+            'disable-email-notifications' => true,
+
+            'test-import' => false,
+
+            'batch-size' => 40
+        );
+
+        if ( $state_id ) {
+            $this->restore_state( $state_id );
+        } else {
+            if ( ! is_readable( $csv_file ) )
+                throw new Exception('Invalid CSV file.');
+
+            $this->setup_working_dir( $csv_file, $images_file );
+            $this->settings = wp_parse_args( $settings, $defaults );
+
+            $file = new SplFileObject( $this->csv_file );
+            $file->seek( PHP_INT_MAX );
+            $this->total_lines = absint( $file->key() );
+            $file = null;
+        }
+
+        if ( ! $this->header )
+            $this->read_header();
+    }
+
+    public function do_work() {
+        @ini_set( 'auto_detect_line_endings', true );
+
+        if ( $this->done )
+            return;
+
+        $file = new SplFileObject( $this->csv_file );
+        $file->seek( $this->current_line );
+
+        $n = 0;
+        while ( $n < $this->settings['batch-size'] ) {
+            if ( $file->eof() ) {
+                $this->done = true;
+                break;
+            }
+
+            $line = $file->current();
+            // We can't use fgetcsv() directly due to https://bugs.php.net/bug.php?id=46569.
+            $line_data = str_getcsv( $line, $this->settings['csv-file-separator'] );
+
+            $file->next();
+            $n = $file->key();
+            $this->current_line = $n;
+            $this->processed_lines++;
+
+            if ( ! $line_data || ( count( $line_data ) == 1 && empty( $line_data[0] ) ) )
+                continue;
+
+            list( $listing_data, $errors ) = $this->sanitize_and_validate_row( $line_data );
+
+            if ( $errors ) {
+                foreach ( $errors as $e )
+                    $this->errors[] = array( 'line' => $n, 'content' => $line, 'error' => $e );
+
+                $this->rejected++;
+                continue;
+            }
+
+            $result = $this->import_row( $listing_data );
+            @set_time_limit( 2 );
+
+            if ( is_wp_error( $result ) ) {
+                foreach ( $result->get_error_messages() as $e )
+                    $this->errors[] = array( 'line' => $n, 'content' => $line, 'error' => $e );
+
+                $this->rejected++;
+                continue;
+            }
+
+            $this->imported++;
+        }
+
+        $file = null;
+        $this->state_persist();
+    }
+
+    public function get_import_id() {
+        return $this->state_id;
+    }
+
+    public function get_import_rows_count() {
+        return max( 0, $this->total_lines - 1 );
+    }
+
+    public function get_imported_rows_count() {
+        return $this->imported;
+    }
+
+    public function get_rejected_rows_count() {
+        return $this->rejected;
+    }
+
+    public function get_setting( $k ) {
+        if ( isset( $this->settings[ $k ] ) )
+            return $this->settings[ $k ];
+
+        return null;
+    }
+
+    public function get_settings() {
+        return $this->settings;
+    }
+
+    public function get_errors() {
+        return $this->errors;
+    }
+
+    public function get_progress( $format = 'n' ) {
+        $total = $this->get_import_rows_count();
+        $done = $this->processed_lines;
+
+        switch ( $format ) {
+            case '%': // As a percentage.
+                return round( 100 * $this->get_progress( 'f' ) );
+                break;
+            case 'f': // As a fraction.
+                return round( $done / $total, 3 );
+                break;
+            case 'n': // As # of items read.
+                return $done;
+                break;
+            case 'r': // As # of items remaining.
+                return max( 0, $total - $done );
+                break;
+        }
+    }
+
+    public function in_test_mode() {
+        return (bool) $this->settings['test-import'];
+    }
+
+    public function done() {
+        return $this->done;
+    }
+
+    public function cleanup() {
+        wpbdp_rrmdir( $this->working_dir );
+    }
+
+    private function restore_state( $state_id ) {
+        $upload_dir = wp_upload_dir();
+
+        if ( $upload_dir['error'] )
+            throw new Exception();
+
+        $csv_imports_dir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports' . DIRECTORY_SEPARATOR . $state_id;
+
+        // TODO: validate $state_id is really an uniqid() string and does not contain other chars (maybe someone is 
+        // trying to access parts that it shouldn't in the FS).
+        if ( ! is_dir( $csv_imports_dir ) )
+            throw new Exception( 'Invalid state ID' );
+
+        $this->working_dir = $csv_imports_dir;
+        $this->state_id = basename( $this->working_dir );
+        $this->csv_file = $this->working_dir . DIRECTORY_SEPARATOR . 'data.csv';
+
+        $state_file = $this->working_dir . DIRECTORY_SEPARATOR . 'import.state';
+        $this->state_file = $state_file;
+
+        $this->state_load();
+    }
+
+    private function setup_working_dir( $csv_file, $images_file = '' ) {
+        $upload_dir = wp_upload_dir();
+
+        if ( $upload_dir['error'] )
+            throw new Exception();
+
+        $csv_imports_dir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports';
+        if ( is_dir( $csv_imports_dir ) || mkdir( $csv_imports_dir ) ) {
+            $working_dir = rtrim( $csv_imports_dir, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . uniqid();
+
+            if ( is_dir( $working_dir ) || mkdir( $working_dir, 0777 ) ) {
+                $this->working_dir = $working_dir;
+            }
+        }
+
+        if ( ! $this->working_dir )
+            throw new Exception( 'Could not set working dir' );
+
+        if ( ! copy( $csv_file, $this->working_dir . DIRECTORY_SEPARATOR . 'data.csv' ) )
+            throw new Exception( 'Could not copy CSV file to working directory' );
+
+        $this->state_id = basename( $this->working_dir );
+        $this->csv_file = $this->working_dir . DIRECTORY_SEPARATOR . 'data.csv';
+        $this->state_file = $this->working_dir . DIRECTORY_SEPARATOR . 'import.state';
+
+        $this->state_persist();
+    }
+
+    private function read_header() {
+        $file = new SplFileObject( $this->csv_file );
+
+        $this->set_header( str_getcsv( $file->current() ) );
+        $file->next();
+        $this->current_line = $file->key();
+        $file = null;
+
+        $this->state_persist();
+    }
+
+    private function set_header( $header ) {
+        if ( ! $header || ( count( $header ) == 1 && is_null( $header[0] ) ) ) {
+            throw new Exception('Invalid header');
+        }
+
+        $required_fields = wpbdp_get_form_fields( 'validators=required' );
+        $fields_in_header = array_map( 'trim', $header );
+
+        foreach ( $required_fields as $rf ) {
+            if ( ! in_array( $rf->get_short_name(), $fields_in_header, true ) )
+                throw new Exception( sprintf( 'Required header column "%s" missing', $rf->get_short_name() ) );
+        }
+
+        $this->header = array();
+
+        $short_names = get_option( 'wpbdp-field-short-names', array() );
+        foreach ( $fields_in_header as $short_name ) {
+            $field_id = 0;
+
+            $key = array_search( $short_name, $short_names, true );
+
+            if ( false === $key )
+                $field_id = 0;
+
+            if ( $f = wpbdp_get_form_field( $key) )
+                $field_id = $f->get_id();
+
+            $this->header[] = array( 'short_name' => $short_name, 'field_id' => $field_id );
+        }
+    }
+
+    private function state_load() {
+        if ( ! file_exists( $this->state_file ) )
+            return;
+
+        if ( ! is_readable( $this->state_file ) )
+            throw new Exception('XXX');
+
+        $state = unserialize( file_get_contents( $this->state_file ) );
+
+        foreach ( self::$PERSISTENT as $key )
+            $this->{$key} = $state[ $key ];
+    }
+
+    private function state_persist() {
+        $state = array();
+        $state['settings'] = $this->settings;
+        $state['header'] = $this->header;
+        $state['current_line'] = $this->current_line;
+        $state['imported'] = $this->imported;
+        $state['errors'] = $this->errors;
+        $state['done'] = $this->done;
+
+        foreach( self::$PERSISTENT as $key )
+            $state[ $key ] = $this->{$key};
+
+        if ( false === file_put_contents( $this->state_file, serialize( $state ) ) )
+            throw new Exception('Could not write persistent data');
+    }
+
+    private function import_row( $data ) {
+        global $wpdb;
+        global $wpbdp;
+
+        if ( $this->settings['test-import'] )
+            return;
+
+        extract( $data );
+
+        $state = (object) array( 'fields' => array(),
+                                 'images' => array(),
+                                 'categories' => array() );
+        $errors = array();
+
+        // Create categories.
+        foreach( $categories as &$c ) {
+            if ( $c['term_id'] ) {
+                $state->categories[] = intval( $c['term_id'] );
+                continue;
+            }
+
+            if ( $t = term_exists( str_replace( '&', '&amp;', $c['name'] ), WPBDP_CATEGORY_TAX ) ) {
+                $c['term_id'] = $t['term_id'];
+            } else {
+                if ( $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ) ) ) {
+                    $c['term_id'] = $t['term_id'];
+                } else {
+                    $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $c['name'] );
+                }
+            }
+
+            if ( $c['term_id'] )
+                $state->categories[] = intval( $c['term_id'] );
+        }
+
+        $listing_id = 0;
+
+        // Support sequence_id.
+        if ( $meta['sequence_id'] ) {
+            $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s LIMIT 1",
+                                                                  '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] ) ) );
+            if ( WPBDP_POST_TYPE != get_post_type( $listing_id ) )
+                $listing_id = 0;
+        }
+
+        // Handle fields.
+        $state->fields = $fields;
+
+        // Handle images.
+        // TODO
+
+        // Insert or update listing.
+        if ( $listing_id ) {
+            $listing = WPBDP_Listing::get( $listing_id );
+            $listing->update( $state );
+            $listing->set_post_status( wpbdp_get_option( 'edit-post-status' ) );
+        } else {
+            $listing = WPBDP_Listing::create( $state );
+            $listing->set_field_values( $state->fields );
+            $listing->set_images( $state->images );
+            $listing->set_categories( $state->categories );
+            $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
+            $listing->save();
+        }
+
+        // Set username.
+        if ( $u = get_user_by( 'login', $meta['username'] ) )
+            wp_update_post( array( 'ID' => $listing->get_id(), 'post_author' => $u->ID ) );
+
+        // Set featured level.
+        if ( $meta['featured_level'] ) {
+            if ( $l = $wpbdp->listings->upgrades->get( $meta['featured_level'] ) )
+                $wpbdp->listings->upgrades->set_sticky( $listing->get_id(), $l->id );
+        }
+
+        // Create permalink.
+        $post = get_post( $listing->get_id() );
+        wp_update_post( array('ID' => $post->ID,
+                              'post_name' => wp_unique_post_slug( sanitize_title( $post->post_title ),
+                                                                  $post->ID,
+                                                                  $post->post_status,
+                                                                  $post->post_type,
+                                                                  $post->post_parent ) ) );
+
+        // Update expiration dates.
+        foreach ( $categories as $c ) {
+            if ( ! $c['expires_on'] )
+                continue;
+
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
+                           array( 'expires_on' => $c['expires_on'] ),
+                           array( 'category_id' => $c['term_id'],
+                                  'listing_id' => $listing->get_id() ) );
+        }
+
+        // Update sequence_id.
+        if ( $meta['sequence_id'] )
+            update_post_meta( $listing->get_id(), '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] );
+
+        if ( $errors ) {
+            $error = new WP_Error();
+
+            foreach ( $errors as $e )
+                $error->add( 'listing-add-error', $e );
+
+            return $error;
+        }
+
+        return $listing->get_id();
+    }
+
+    private function sanitize_and_validate_row( $data ) {
+        global $wpbdp;
+
+        $errors = array();
+
+        $categories = array();
+        $fields = array();
+        $images = array();
+        $expires_on = array();
+
+        $meta = array();
+        $meta['sequence_id'] = 0;
+        $meta['username'] = '';
+        $meta['featured_level'] = '';
+
+        foreach ( $this->header as $i => $col_info ) {
+            $column = $col_info['short_name'];
+            $field = $col_info['field_id'] ? wpbdp_get_form_field( $col_info['field_id'] ) : null;
+            $value = stripslashes( trim( isset( $data[ $i ] ) ? $data[ $i ] : '' ) );
+
+            switch( $column ) {
+                case 'image':
+                case 'images':
+                    $file_names = explode( $this->settings['images-separator'], $value );
+
+                    foreach ( $file_names as $f ) {
+                        $f = trim( $f );
+
+                        if ( $f )
+                            $images[] = $f;
+                    }
+
+                    break;
+
+                case 'username':
+                    if ( $this->settings['assign-listings-to-user'] ) {
+                        if ( ! $value && $this->settings['default-user'] )
+                            $value = $this->settings['default-user'];
+
+                        if ( ! username_exists( $value ) ) {
+                            $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'WPBDM' ), $value );
+                        } else {
+                            $meta['username'] = $value;
+                        }
+                    }
+
+                    break;
+
+                case 'featured_level':
+                    $meta['featured_level'] = $value;
+
+                    break;
+
+                case 'expires_on':
+                    $dates = explode( '/', $value );
+
+                    foreach ( $dates as $d )
+                        $expires_on[] = $d;
+
+                    break;
+
+                case 'sequence_id':
+                    $meta['sequence_id'] = absint( $value );
+
+                    break;
+
+                default:
+                    if ( ! $field ) {
+                        break;
+                    }
+
+                    if ( $field->is_required() && $field->is_empty_value( $value ) ) {
+                        $errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'WPBDM' ), $column );
+                        break;
+                    }
+
+                    if ( 'category' == $field->get_association() ) {
+                        $csv_categories = array_map( 'trim', explode( $this->settings['category-separator'], $value ) );
+
+                        foreach ( $csv_categories as $csv_category_ ) {
+                            $csv_category = $csv_category_;
+                            $csv_category = strip_tags( str_replace( "\n", "-", $csv_category ) );
+                            $csv_category = str_replace( array( '"', "'" ), '', $csv_category );
+                            $csv_category = str_replace( '&', '&amp;', $csv_category );
+
+                            if ( ! $csv_category )
+                                continue;
+
+                            if ( $term = term_exists( $csv_category, WPBDP_CATEGORY_TAX ) ) {
+                                $categories[] = array( 'name' => $csv_category, 'term_id' => $term['term_id'], 'expires_on' => '' );
+                            } else {
+                                if ( ! $this->settings['create-missing-categories'] ) {
+                                    $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'WPBDM' ), $csv_category );
+                                    continue;
+                                }
+
+                                if ( $this->settings['test-import'] )
+                                    continue;
+
+                                $categories[] = array( 'name' => $csv_category, 'term_id' => 0, 'expires_on' => '' );
+                            }
+                        }
+                    }/* else if ( 'tags' == $field->get_association() ) {
+                        $tags = array_map( 'trim', explode( $this->settings['category-separator'], $value ) );
+                        $fields[ $field->get_id() ] = $tags;
+                    }*/ else {
+                        $fields[ $field->get_id() ] = $field->convert_csv_input( $value, $this->settings );
+                    }
+
+                    break;
+            }
+        }
+
+        if ( $categories && $expires_on ) {
+            foreach ( $categories as $i => &$category_data ) {
+                if ( ! empty( $expires_on[ $i ] ) )
+                    $category_data['expires_on'] = $expires_on[ $i ];
+            }
+        }
+
+        return array( compact( 'categories', 'fields', 'images', 'meta' ), $errors );
+    }
+
+}
+
+/*
+    private function extract_images($zipfile) {
+        $dir = trailingslashit(trailingslashit(get_temp_dir()) . 'wpbdp_' . time());
+
+        require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+
+        $zip = new PclZip($zipfile);
+        if ($files = $zip->extract(PCLZIP_OPT_PATH, $dir, PCLZIP_OPT_REMOVE_ALL_PATH)) {
+            $this->imagesdir = $dir;
+            return true;
+        }
+
+        return false;
+    }
+
+        if ($listing_images) {
+            if (!$this->imagesdir) {
+                $errors[] = _x('Images were specified but no image file was uploaded.', 'admin csv-import', 'WPBDM');
+                return false;
+            }
+
+            foreach ($listing_images as $filename) {
+                if (file_exists($this->imagesdir . $filename)) {
+                    $filepath = $this->imagesdir . $filename;
+
+                    $file = array('name' => basename($filepath),
+                                  'tmp_name' => $filepath,
+                                  'error' => 0,
+                                  'size' => filesize($filepath)
+                    );
+
+                    copy($filepath, $filepath . '.backup'); // make a file backup becase wp_handle_sideload() moves the original file and it may be needed for other listings
+                    $wp_image = wp_handle_sideload($file, array('test_form' => FALSE));
+                    rename($filepath . '.backup', $filepath);
+
+                    if (!isset($wp_image['error'])) {
+                        if ($attachment_id = wp_insert_attachment(array(
+                                'post_mime_type' => $wp_image['type'],
+                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($wp_image['file'])),
+                                'post_content' => '',
+                                'post_status' => 'inherit'
+                            ), $wp_image['file'])) {
+
+                            $attach_data = wp_generate_attachment_metadata($attachment_id, $wp_image['file']);
+                            wp_update_attachment_metadata($attachment_id, $attach_data);
+
+                            $state->images[] = $attachment_id;
+
+                        } else {
+                            $errors[] = sprintf(_x('Image file "%s" could not be inserted.', 'admin csv-import', 'WPBDM'), $filename);
+                            return false;
+                        }
+                    } else {
+                        $errors[] = sprintf(_x('Image file "%s" could not be uploaded.', 'admin csv-import', 'WPBDM'), $filename);
+                        return false;
+                    }
+                } else {
+                    $errors[] = sprintf(_x('Referenced image file "%s" was not found inside ZIP file.', 'admin csv-import'. 'WPBDM'), $filename);
+                    return false;
+                }
+            }
+        }
+    }
+
+ }*/

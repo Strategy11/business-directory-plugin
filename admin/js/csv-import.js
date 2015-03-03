@@ -1,0 +1,157 @@
+jQuery(function( $ ) {
+    var csvimport = {};
+
+    csvimport.CSV_Import = function() {
+        this.import_id = $( '#wpbdp-csv-import-state' ).attr( 'data-import-id' );
+
+        this.in_progress = false;
+        this.canceled = false;
+
+        this.processed_rows = 0;
+        this.total_rows = 0;
+        this.imported_rows = 0;
+        this.rejected_rows = 0;
+        this.warnings = [];
+
+        this.$state = $( '#wpbdp-csv-import-state' );
+        this.$success = $( '#wpbdp-csv-import-summary' );
+        this.$progress_bar = new WPBDP_Admin.ProgressBar( $( '.import-progress' ) );
+
+        this._setup_events();
+    };
+
+    $.extend( csvimport.CSV_Import.prototype, {
+        _setup_events: function() {
+            var t = this;
+
+            $( 'a.cancel-import' ).click(function(e) {
+                e.preventDefault();
+                t.cancel();
+            });
+
+            $( 'a.resume-import' ).click(function(e) {
+                e.preventDefault();
+                t.start_or_resume();
+            });
+        },
+
+        _advance: function() {
+            var t = this;
+
+            if ( ! t.in_progress )
+                return;
+
+            if ( t.in_progress && t.canceled ) {
+                t.in_progress = false;
+            }
+
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                dataType: 'json',
+                data: { 'action': 'wpbdp-csv-import', 'import_id': t.import_id },
+                success: function( res ) {
+                    if ( ! res || ! res.success )
+                        return t._fatal_error( res.error );
+
+                    t.processed_rows = res.data.progress;
+                    t.total_rows = res.data.total;
+                    t.imported_rows = res.data.imported;
+                    t.rejected_rows = res.data.rejected;
+                    t.$progress_bar.set( t.processed_rows, t.total_rows );
+
+                    if ( res.data.done ) {
+                        t.in_progress = false;
+                        t.warnings = res.data.warnings;
+                        t._show_success_screen();
+                    } else {
+                        t._advance();
+                    }
+
+                },
+                error: function() {
+                    return t._fatal_error();
+                }
+            });
+        },
+
+        _show_success_screen: function() {
+            var t = this;
+
+            t.$state.fadeOut( function() {
+                t.$state.remove();
+
+                t.$success.find( '.placeholder-imported-rows' ).html( t.imported_rows );
+                t.$success.find( '.placeholder-rejected-rows' ).html( t.rejected_rows );
+
+                if ( 0 == t.warnings.length ) {
+                    t.$success.find( '.no-warnings' ).show();
+                    t.$success.fadeIn( 'fast' );
+                    return;
+                }
+
+                var $warnings_table = t.$success.find( '.wpbdp-csv-import-warnings tbody' );
+                var $template_row = $warnings_table.find( '.row-template' );
+
+                $.each( t.warnings, function( i, v ) {
+                    var $r = $template_row.clone();
+
+                    $r.find( '.col-line-no' ).html( v.line );
+                    $r.find( '.col-line-content' ).html( v.content );
+                    $r.find( '.col-warning' ).html( v.error );
+                    $warnings_table.append( $r.show() );
+                } );
+
+                t.$success.find( '.with-warnings' ).show();
+                t.$success.find( '.wpbdp-csv-import-warnings' ).show();
+                t.$success.fadeIn( 'fast' );
+            } );
+        },
+
+        _fatal_error: function( msg ) {
+            var t = this;
+
+            var $fatal_error = $( '#wpbdp-csv-import-fatal-error' );
+            var $with_reason = $fatal_error.find( '.with-reason' );
+            var $no_reason = $fatal_error.find( '.no-reason' );
+
+            if ( msg ) {
+                $with_reason.html( $with_reason.html().replace( '%s', msg ) ).show();
+            } else {
+                $no_reason.show();
+            }
+
+            $fatal_error.show();
+            $( 'html, body' ).animate( { scrollTop: 0 }, 'medium' );
+
+            t.cancel();
+        },
+
+        start_or_resume: function() {
+            if ( this.in_progress || this.canceled )
+                return;
+
+            this.in_progress = true;
+            this._advance();
+        },
+
+        cancel: function() {
+            var t = this;
+
+            t.canceled = true;
+            $( '.canceled-import' ).show();
+            t.$state.remove();
+
+            // Try to clean up.
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                dataType: 'json',
+                data: { 'action': 'wpbdp-csv-import', 'import_id': t.import_id, 'cleanup': 1 }
+            });
+        }
+    } );
+
+
+    var import_in_page = new csvimport.CSV_Import();
+});

@@ -56,6 +56,7 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
 
         $this->listings = new WPBDP_Admin_Listings();
+        $this->csv_import = new WPBDP_CSVImportAdmin();
         $this->csv_export = new WPBDP_Admin_CSVExport();
         $this->payments = new WPBDP_Admin_Payments();
         $this->debug_page = new WPBDP_Admin_Debug_Page();
@@ -290,12 +291,12 @@ class WPBDP_Admin {
         //                       array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
         //                     );
         // }
-        add_submenu_page('wpbdp_admin',
-                         _x('CSV Import', 'admin menu', 'WPBDM'),
-                         _x('CSV Import', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp-csv-import',
-                         array('WPBDP_CSVImportAdmin', 'admin_menu_cb'));
+        add_submenu_page( 'wpbdp_admin',
+                          _x( 'CSV Import', 'admin menu', 'WPBDM' ),
+                          _x( 'CSV Import', 'admin menu', 'WPBDM' ),
+                          'administrator',
+                          'wpbdp-csv-import',
+                          array( &$this->csv_import, 'dispatch' ) );
         add_submenu_page( 'wpbdp_admin',
                           _x( 'CSV Export', 'admin menu', 'WPBDM' ),
                           _x( 'CSV Export', 'admin menu', 'WPBDM' ),

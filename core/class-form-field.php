@@ -315,8 +315,8 @@ class WPBDP_Form_Field {
     /**
      * @since 3.4.1
      */
-    public function convert_csv_input( $input = '' ) {
-        return $this->type->convert_csv_input( $this, $input );
+    public function convert_csv_input( $input = '', $import_settings = array() ) {
+        return $this->type->convert_csv_input( $this, $input, $import_settings );
     }
 
     public function store_value( $post_id, $value ) {
@@ -585,6 +585,11 @@ class WPBDP_Form_Field {
      */
     public static function get( $id ) {
         global $wpdb;
+
+        $id = absint( $id );
+
+        if ( ! $id )
+            return null;
 
         $_field = wp_cache_get( $id, 'wpbdp formfields' );
 

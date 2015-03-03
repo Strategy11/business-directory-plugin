@@ -1,0 +1,28 @@
+#wpbdp-csv-import-fatal-error {
+    display: none;
+}
+
+.wpbdp-page-csv-import .canceled-import {
+    display: none;
+}
+
+.wpbdp-page-csv-import a.cancel-import {
+    margin-left: 35px;
+    color: red;
+}
+
+.wpbdp-page-csv-import dl {
+    margin-left: 10px;
+}
+
+.wpbdp-page-csv-import .status-msg {
+    margin: 5px 0 0 0;
+    font-style: italic;
+}
+
+.wpbdp-page-csv-import #wpbdp-csv-import-summary,
+.wpbdp-page-csv-import #wpbdp-csv-import-summary .no-warnings,
+.wpbdp-page-csv-import #wpbdp-csv-import-summary .with-warnings,
+.wpbdp-page-csv-import #wpbdp-csv-import-summary .wpbdp-csv-import-warnings {
+    display: none;
+}

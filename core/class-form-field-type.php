@@ -117,7 +117,7 @@ class WPBDP_Form_Field_Type {
     /**
      * @since 3.4.1
      */
-    public function convert_csv_input( &$field, $input = '' ) {
+    public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
         return $this->convert_input( $field, $input );
     }
 
