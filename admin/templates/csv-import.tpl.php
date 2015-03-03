@@ -32,7 +32,7 @@ echo wpbdp_admin_header(null, null, array(
                            type="file"
                            aria-required="true" />
                 </td>
-            </tr>            
+            </tr>
     </table>
 
     <h3><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h3>

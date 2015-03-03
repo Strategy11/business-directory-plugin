@@ -112,9 +112,31 @@ function wpbdp_media_upload_check_env( &$error ) {
 /**
  * @since 2.1.6
  */
-function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null) {
+function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null, $sideload=false) {
     require_once(ABSPATH . 'wp-admin/includes/file.php');
     require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+    $sideload = ( is_string( $file_ ) && file_exists( $file_ ) ) ? true : false;
+
+    if ( $sideload ) {
+        $mime_type = '';
+
+        if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
+            $mime_type = finfo_file( $finfo, $file_ );
+            $mime_type = trim( explode( ';', $mime_type )[0] );
+            finfo_close( $finfo );
+        }
+
+        $file = array(
+            'name' => basename( $file_ ),
+            'tmp_name' => $file_,
+            'type' => $mime_type,
+            'error' => 0,
+            'size' => filesize( $file_ )
+        );
+    } else {
+        $file = $file_;
+    }
 
     $constraints = array_merge( array(
                                     'image' => false,
@@ -144,7 +166,7 @@ function wpbdp_media_upload($file, $use_media_library=true, $check_image=false, 
             return false;
         }
 
-        $upload = wp_handle_upload( $file, array('test_form' => FALSE) );
+        $upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => FALSE ) ) : wp_handle_upload( $file, array('test_form' => FALSE) );
 
         if( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
             $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'WPBDM' );

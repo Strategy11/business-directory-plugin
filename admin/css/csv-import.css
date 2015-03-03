@@ -26,3 +26,6 @@
 .wpbdp-page-csv-import #wpbdp-csv-import-summary .wpbdp-csv-import-warnings {
     display: none;
 }
+
+.wpbdp-page-csv-import .wpbdp-csv-import-warnings tbody .col-line-content {
+}

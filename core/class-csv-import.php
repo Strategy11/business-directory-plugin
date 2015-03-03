@@ -15,7 +15,7 @@ class WPBDP_CSV_Import {
 
     private $state_file = '';
     private $csv_file = '';
-    private $images_file = '';
+    private $images_dir = '';
 
     private $settings = array();
 
@@ -203,6 +203,7 @@ class WPBDP_CSV_Import {
         $this->working_dir = $csv_imports_dir;
         $this->state_id = basename( $this->working_dir );
         $this->csv_file = $this->working_dir . DIRECTORY_SEPARATOR . 'data.csv';
+        $this->images_dir = is_dir(  $this->working_dir . DIRECTORY_SEPARATOR . 'images' ) ? $this->working_dir . DIRECTORY_SEPARATOR . 'images' : '';
 
         $state_file = $this->working_dir . DIRECTORY_SEPARATOR . 'import.state';
         $this->state_file = $state_file;
@@ -230,6 +231,22 @@ class WPBDP_CSV_Import {
 
         if ( ! copy( $csv_file, $this->working_dir . DIRECTORY_SEPARATOR . 'data.csv' ) )
             throw new Exception( 'Could not copy CSV file to working directory' );
+
+        if ( $images_file && file_exists( $images_file ) ) {
+            $dest = $this->working_dir . DIRECTORY_SEPARATOR . 'images.zip';
+            if ( ! copy( $images_file, $dest ) ) // XXX: maybe move?
+                throw new Exception( 'Could not copy images ZIP file to working directory' );
+
+            require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+            $zip = new PclZip( $dest );
+            if ( $files = $zip->extract( PCLZIP_OPT_PATH, $this->working_dir . DIRECTORY_SEPARATOR . 'images', PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
+                $this->images_dir = $this->working_dir . DIRECTORY_SEPARATOR . 'images';
+
+                @unlink( $dest );
+            } else {
+                throw new Exception( 'Images ZIP file could not be uncompressed' );
+            }
+        }
 
         $this->state_id = basename( $this->working_dir );
         $this->csv_file = $this->working_dir . DIRECTORY_SEPARATOR . 'data.csv';
@@ -333,7 +350,7 @@ class WPBDP_CSV_Import {
             if ( $t = term_exists( str_replace( '&', '&amp;', $c['name'] ), WPBDP_CATEGORY_TAX ) ) {
                 $c['term_id'] = $t['term_id'];
             } else {
-                if ( $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ) ) ) {
+                if ( $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ), WPBDP_CATEGORY_TAX ) ) {
                     $c['term_id'] = $t['term_id'];
                 } else {
                     $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $c['name'] );
@@ -358,7 +375,10 @@ class WPBDP_CSV_Import {
         $state->fields = $fields;
 
         // Handle images.
-        // TODO
+        foreach ( $data['images'] as $filename ) {
+            if ( $img_id = $this->upload_image( $filename ) )
+                $state->images[] = $img_id;
+        }
 
         // Insert or update listing.
         if ( $listing_id ) {
@@ -543,70 +563,17 @@ class WPBDP_CSV_Import {
         return array( compact( 'categories', 'fields', 'images', 'meta' ), $errors );
     }
 
+    private function upload_image( $filename ) {
+        $filepath = $this->images_dir . DIRECTORY_SEPARATOR . $filename;
+        if ( ! $this->images_dir || ! file_exists( $filepath ) )
+            return false;
+
+        // Make a copy of the file because wpbdp_media_upload() moves the original file.
+        copy( $filepath, $filepath . '.backup' );
+        $media_id = wpbdp_media_upload( $filepath, true, true );
+        rename( $filepath . '.backup', $filepath );
+
+        return $media_id;
+    }
+
 }
-
-/*
-    private function extract_images($zipfile) {
-        $dir = trailingslashit(trailingslashit(get_temp_dir()) . 'wpbdp_' . time());
-
-        require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
-
-        $zip = new PclZip($zipfile);
-        if ($files = $zip->extract(PCLZIP_OPT_PATH, $dir, PCLZIP_OPT_REMOVE_ALL_PATH)) {
-            $this->imagesdir = $dir;
-            return true;
-        }
-
-        return false;
-    }
-
-        if ($listing_images) {
-            if (!$this->imagesdir) {
-                $errors[] = _x('Images were specified but no image file was uploaded.', 'admin csv-import', 'WPBDM');
-                return false;
-            }
-
-            foreach ($listing_images as $filename) {
-                if (file_exists($this->imagesdir . $filename)) {
-                    $filepath = $this->imagesdir . $filename;
-
-                    $file = array('name' => basename($filepath),
-                                  'tmp_name' => $filepath,
-                                  'error' => 0,
-                                  'size' => filesize($filepath)
-                    );
-
-                    copy($filepath, $filepath . '.backup'); // make a file backup becase wp_handle_sideload() moves the original file and it may be needed for other listings
-                    $wp_image = wp_handle_sideload($file, array('test_form' => FALSE));
-                    rename($filepath . '.backup', $filepath);
-
-                    if (!isset($wp_image['error'])) {
-                        if ($attachment_id = wp_insert_attachment(array(
-                                'post_mime_type' => $wp_image['type'],
-                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($wp_image['file'])),
-                                'post_content' => '',
-                                'post_status' => 'inherit'
-                            ), $wp_image['file'])) {
-
-                            $attach_data = wp_generate_attachment_metadata($attachment_id, $wp_image['file']);
-                            wp_update_attachment_metadata($attachment_id, $attach_data);
-
-                            $state->images[] = $attachment_id;
-
-                        } else {
-                            $errors[] = sprintf(_x('Image file "%s" could not be inserted.', 'admin csv-import', 'WPBDM'), $filename);
-                            return false;
-                        }
-                    } else {
-                        $errors[] = sprintf(_x('Image file "%s" could not be uploaded.', 'admin csv-import', 'WPBDM'), $filename);
-                        return false;
-                    }
-                } else {
-                    $errors[] = sprintf(_x('Referenced image file "%s" was not found inside ZIP file.', 'admin csv-import'. 'WPBDM'), $filename);
-                    return false;
-                }
-            }
-        }
-    }
-
- }*/

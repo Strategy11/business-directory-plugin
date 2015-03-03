@@ -202,28 +202,36 @@ class WPBDP_CSVImportAdmin {
     }
 
     private function import() {
-        $csvfile = $_FILES['csv-file'];
-        $zipfile = $_FILES['images-file'];
+        $sources = array();
+        $csv_file = '';
+        $zip_file = '';
 
-        if ($csvfile['error'] || !is_uploaded_file($csvfile['tmp_name'])) {
+        if ( empty( $_FILES['csv-file'] ) || $_FILES['csv-file']['error'] || ! is_uploaded_file( $_FILES['csv-file']['tmp_name'] ) ) {
             wpbdp_admin_message( _x( 'There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
             return $this->import_settings();
+        } else {
+            $sources[] = $_FILES['csv-file']['name'];
+            $csv_file = $_FILES['csv-file']['tmp_name'];
         }
 
-        if (strtolower(pathinfo($csvfile['name'], PATHINFO_EXTENSION)) != 'csv' &&
+        if ( ! empty( $_FILES['images-file'] ) && ( $_FILES['images-file']['error'] || ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) ) {
+            wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'WPBDM' ), 'error' );
+            return $this->import_settings();
+        } else {
+            $sources[] = $_FILES['images-file']['name'];
+            $zip_file = $_FILES['images-file']['tmp_name'];
+        }
+
+/*        if (strtolower(pathinfo($csvfile['name'], PATHINFO_EXTENSION)) != 'csv' &&
             $csvfile['type'] != 'text/csv') {
             wpbdp_admin_message( _x( 'The uploaded file does not look like a CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
             return $this->import_settings();
-        }
+        }*/
 
-        $sources = array();
-        $sources[] = $csvfile['name'];
-        if ( $zipfile && is_uploaded_file( $zipfile['tmp_name'] ) )
-            $sources[] = $zipfile['name'];
 
         $import = new WPBDP_CSV_Import( '',
-                                        $csvfile['tmp_name'],
-                                        '',
+                                        $csv_file,
+                                        $zip_file,
                                         array_merge( $_POST['settings'], array( 'test-import' => ! empty( $_POST['test-import'] ) ) ) );
 
         if ( $import->in_test_mode() )
