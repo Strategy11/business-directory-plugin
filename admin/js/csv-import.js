@@ -132,6 +132,11 @@ jQuery(function( $ ) {
                 return;
 
             this.in_progress = true;
+
+            $( 'a.resume-import' ).css( 'opacity', '0.4' );
+            $( '.status-msg .not-started' ).hide();
+            $( '.status-msg .in-progress' ).show();
+
             this._advance();
         },
 

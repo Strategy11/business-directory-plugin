@@ -27,5 +27,19 @@
     display: none;
 }
 
+.wpbdp-page-csv-import .wpbdp-csv-import-warnings .col-line-no {
+    width: 40px;
+}
+
+.wpbdp-page-csv-import .wpbdp-csv-import-warnings .col-warning {
+}
+
 .wpbdp-page-csv-import .wpbdp-csv-import-warnings tbody .col-line-content {
+    font-family: monospace;
+    font-size: 90%;
+    width: 350px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

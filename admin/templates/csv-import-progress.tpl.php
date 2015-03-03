@@ -36,11 +36,8 @@
         <dd>
             <div class="import-progress"></div>
             <div class="status-msg">
-                <?php if ( $import->get_progress() > 0 ): ?>
-                    <?php _ex( 'Import paused. Click "Resume Import" to resume.', 'admin csv-import', 'WPBDM' ); ?>
-                <?php else: ?>
-                    <?php _ex( 'Import has not started. Click "Start Import" to begin.', 'admin csv-import', 'WPBDM' ); ?>
-                <?php endif; ?>
+                <span class="not-started"><?php _ex( 'Import has not started. Click "Start Import" to begin.', 'admin csv-import', 'WPBDM' ); ?></span>
+                <span class="in-progress"><?php _ex( 'Importing CSV file...', 'admin csv-import', 'WPBDM' ); ?></span>
             </div>
         </dd>
     </dl>

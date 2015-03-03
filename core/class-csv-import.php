@@ -157,7 +157,7 @@ class WPBDP_CSV_Import {
 
     public function get_progress( $format = 'n' ) {
         $total = $this->get_import_rows_count();
-        $done = $this->processed_lines;
+        $done = min( $total, $this->processed_lines );
 
         switch ( $format ) {
             case '%': // As a percentage.
