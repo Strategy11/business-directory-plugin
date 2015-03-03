@@ -78,7 +78,6 @@
                              'admin templates',
                              'WPBDM' ), $mod_info[1], $mod_info[2] )
             ); ?>
-            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank" class="price">$49.99</a>
             <?php endif; ?>
         </div>
         <?php endforeach; ?>
