@@ -571,6 +571,7 @@ class WPBDP_Listings_API {
     public function search($args) {
         global $wpdb;
 
+        $args = stripslashes_deep( $args );
         $term = str_replace('*', '', trim(wpbdp_getv($args, 'q', '')));
 
         if (!$term && (!isset($args['fields']) || !$args['fields']) && (!isset($args['extra']) || !$args['extra']) )
