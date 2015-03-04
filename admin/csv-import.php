@@ -214,7 +214,7 @@ class WPBDP_CSVImportAdmin {
             $csv_file = $_FILES['csv-file']['tmp_name'];
         }
 
-        if ( ! empty( $_FILES['images-file'] ) && ( $_FILES['images-file']['error'] || ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) ) {
+        if ( ( ! empty( $_FILES['images-file'] ) && $_FILES['images-file']['error'] != UPLOAD_ERR_NO_FILE ) && ( $_FILES['images-file']['error'] || ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) ) {
             wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'WPBDM' ), 'error' );
             return $this->import_settings();
         } else {
