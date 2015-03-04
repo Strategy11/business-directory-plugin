@@ -7,36 +7,27 @@
  * @return string HTML output.
  */
 function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
-    if (is_object($listing_id)) $listing_id = $listing_id->ID;
+    $listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : absint( $listing_id ) ) : get_the_ID();
 
-    global $post;
-    $listings_api = wpbdp_listings_api();
+    $args = array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id );
+    if ( ! current_user_can( 'edit_posts' ) )
+        $args['post_status'] = 'publish';
 
-    if ($listing_id)  {
-        $args = array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id );
-
-        if ( ! current_user_can( 'edit_posts') )
-            $args['post_status'] = 'publish';
-
-        query_posts( $args );
-
-        if (have_posts()) the_post();
-    }
-
-    if (!$post || $post->post_type != WPBDP_POST_TYPE) {
+    $q = new WP_Query( $args );
+    if ( ! $q->have_posts() )
         return '';
-    }
+
+    $q->the_post();
 
     if ($view == 'excerpt')
         $html = _wpbdp_render_excerpt();
     else
         $html = _wpbdp_render_single();
 
-    if ($listing_id)
-        wp_reset_query();
-
-    if ($echo)
+    if ( $echo )
         echo $html;
+
+    wp_reset_postdata();
 
     return $html;
 }
