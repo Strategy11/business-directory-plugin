@@ -277,16 +277,28 @@ class WPBDP_DirectoryController {
         );
         if ( isset( $args_['numberposts'] ) )
             $args['numberposts'] = $args_['numberposts'];
-        query_posts( $args );
+
+        $compat = false;
+
+        if ( $compat ) {
+            query_posts( $args );
+            $q = false;
+        } else {
+            $q = new WP_Query( $args );
+        }
 
         $html = wpbdp_capture_action( 'wpbdp_before_viewlistings_page' );
         $html .= wpbdp_render('businessdirectory-listings', array(
-                'query' => new WP_Query($args),
+                'query' => $q,
                 'excludebuttons' => !$include_buttons
             ), true);
         $html .= wpbdp_capture_action( 'wpbdp_after_viewlistings_page' );
 
-        wp_reset_query();
+        if ( $compat )
+            wp_reset_query();
+       else
+            wp_reset_postdata();
+
         return $html;
     }
 

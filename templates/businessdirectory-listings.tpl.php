@@ -1,3 +1,11 @@
+<?php
+/**
+ * Template parameters:
+ *  $query - The WP_Query object for this page. Do not call query_posts() in this template.
+ */
+
+$query = isset( $query ) ? $query : $GLOBALS['wp_query']; // For backwards compat.
+?>
 <div id="wpbdp-view-listings-page" class="wpbdp-view-listings-page wpbdp-page <?php echo join(' ', $__page__['class']); ?>">
 
     <?php if (!isset($stickies)) $stickies = null; ?>
@@ -16,22 +24,20 @@
 
         <?php wpbdp_the_listing_sort_options(); ?>
 
-        <?php if (!have_posts()): ?>
+        <?php if ( ! $query->have_posts()): ?>
             <?php _ex("No listings found.", 'templates', "WPBDM"); ?>
         <?php else: ?>
             <div class="listings">
-                <?php while (have_posts()): the_post(); ?>
+                <?php while ( $query->have_posts() ): $query->the_post(); ?>
                     <?php echo wpbdp_render_listing(null, 'excerpt'); ?>
                 <?php endwhile; ?>
 
                 <div class="wpbdp-pagination">
                 <?php if (function_exists('wp_pagenavi')) : ?>
-                        <?php wp_pagenavi(); ?>
-                <?php elseif (function_exists('wp_paginate')): ?>
-                        <?php wp_paginate(); ?>
+                        <?php wp_pagenavi( array( 'query' => $query ) ); ?>
                 <?php else: ?>
-                    <span class="prev"><?php previous_posts_link(_x('&laquo; Previous ', 'templates', 'WPBDM')); ?></span>
-                    <span class="next"><?php next_posts_link(_x('Next &raquo;', 'templates', 'WPBDM')); ?></span>
+                    <span class="prev"><?php previous_posts_link( _x( '&laquo; Previous ', 'templates', 'WPBDM' ) ); ?></span>
+                    <span class="next"><?php next_posts_link( _x( 'Next &raquo;', 'templates', 'WPBDM'), $query->max_num_pages ); ?></span>
                 <?php endif; ?>
                 </div>
             </div>
