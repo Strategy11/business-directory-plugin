@@ -294,10 +294,10 @@ class WPBDP_DirectoryController {
             ), true);
         $html .= wpbdp_capture_action( 'wpbdp_after_viewlistings_page' );
 
-        if ( $compat )
-            wp_reset_query();
-       else
+        if ( ! $compat )
             wp_reset_postdata();
+
+        wp_reset_query();
 
         return $html;
     }
@@ -472,7 +472,7 @@ class WPBDP_DirectoryController {
                                       'show_form' => !isset( $_GET['dosrch'] ) || wpbdp_get_option( 'show-search-form-in-results' )
                                     ),
                               false );
-        wp_reset_query();
+        wp_reset_query(); 
 
         return $html;
     }
