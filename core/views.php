@@ -166,6 +166,7 @@ class WPBDP_DirectoryController {
         else
             $html .= $view;
 
+        wp_reset_query(); // Just in case some shortcode messed this up.
         return $html;
     }
 
