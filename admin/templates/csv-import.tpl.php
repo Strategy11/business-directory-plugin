@@ -15,7 +15,7 @@ echo wpbdp_admin_header(null, null, array(
         <tbody>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('CSV File', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('CSV File', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="csv-file"
@@ -39,7 +39,7 @@ echo wpbdp_admin_header(null, null, array(
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Column Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Column Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[csv-file-separator]"
@@ -76,7 +76,19 @@ echo wpbdp_admin_header(null, null, array(
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Missing categories handling', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Post status of imported listings', 'admin csv-import', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <select name="settings[post-status]">
+                        <?php foreach ( get_post_statuses() as $post_status => $post_status_label ): ?>
+                        <option value="<?php echo $post_status; ?>" <?php echo 'publish' == $post_status ? 'selected="selected"' : ''; ?>><?php echo $post_status_label; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr class="form-required">
+                <th scope="row">
+                    <label> <?php _ex('Missing categories handling', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <label><input name="settings[create-missing-categories]"
@@ -100,7 +112,7 @@ echo wpbdp_admin_header(null, null, array(
             </tr>
             <tr class="form-required default-user-selection">
                 <th scope="row">
-                    <label> <?php _ex('Default listing user', 'admin csv-import', 'WPBDM'); ?>
+                    <label> <?php _ex('Default listing user', 'admin csv-import', 'WPBDM'); ?></label>
                 </th>
                 <td>
                     <label>

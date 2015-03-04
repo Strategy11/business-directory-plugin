@@ -42,6 +42,7 @@ class WPBDP_CSV_Import {
 
             'assign-listings-to-user' => true,
             'default-user' => '0',
+            'post-status' => 'publish',
             'disable-email-notifications' => true,
 
             'test-import' => false,
@@ -390,7 +391,7 @@ class WPBDP_CSV_Import {
             $listing->set_field_values( $state->fields );
             $listing->set_images( $state->images );
             $listing->set_categories( $state->categories );
-            $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
+            $listing->set_post_status( $this->settings['post-status'] );
             $listing->save();
         }
 
