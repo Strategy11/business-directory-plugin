@@ -122,6 +122,19 @@ class WPBDP_Settings {
         $s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
         // $this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
 
+        $desc  = '';
+        $desc .= _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'WPBDM' );
+        $desc .=str_replace( '<a>',
+                             '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank">',
+                             _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'ajax-compat-mode',
+                            _x( 'Enable AJAX compatibility mode?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false,
+                            $desc,
+                            null,
+                            array( &$this, 'setup_ajax_compat_mode' ) );
 
         /* Listings settings */
         $g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
@@ -570,6 +583,55 @@ class WPBDP_Settings {
 
     public function _validate_listings_permalink($setting, $newvalue, $oldvalue=null) {
         return trim(str_replace(' ', '', $newvalue));
+    }
+
+    public function setup_ajax_compat_mode( $setting, $newvalue, $oldvalue = null ) {
+        if ( $newvalue == $oldvalue )
+            return;
+
+        $mu_dir = ( defined( 'WPMU_PLUGIN_DIR' ) && defined( 'WPMU_PLUGIN_URL' ) ) ? WPMU_PLUGIN_DIR : trailingslashit( WP_CONTENT_DIR ) . 'mu-plugins';
+        $source = WPBDP_PATH . 'core/compatibility/wpbdp-ajax-compat-mu.php';
+        $dest   = trailingslashit( $mu_dir ) . basename( $source );
+
+        $message = false;
+        $install = (bool) $newvalue;
+
+        if ( $install ) {
+            // Install plugin.
+            if ( wp_mkdir_p( $mu_dir ) ) {
+                if ( ! copy( $source, $dest ) ) {
+                    $message = array( sprintf( _x( 'Could not copy the AJAX compatibility plugin "%s". Compatibility mode was not activated.', 'admin settings', 'WPBDM' ),
+                                               $dest ),
+                                      'error' );
+                    $newvalue = $oldvalue;
+                }/* else {
+                    $message = _x( 'AJAX compatibility mode activated. "Business Directory Plugin - AJAX Compatibility Module" was installed.', 'admin settings', 'WPBDM' );
+                }*/
+            } else {
+                $message = array( sprintf( _x( 'Could not activate AJAX Compatibility mode: the directory "%s" could not be created.', 'admin settings', 'WPBDM' ),
+                                           $mu_dir ),
+                                  'error' );
+                $newvalue = $oldvalue;
+            }
+        } else {
+            // Uninstall.
+            if ( file_exists( $dest ) && ! unlink( $dest ) ) {
+                $message = array(
+                    sprintf( _x( 'Could not remove the "Business Directory Plugin - AJAX Compatibility Module". Please remove the file "%s" manually or deactivate the plugin.',
+                                 'admin settings',
+                                 'WPBDM' ),
+                             $dest ),
+                    'error'
+                );
+
+                $newvalue = $oldvalue;
+            }
+        }
+
+        if ( $message )
+            update_option( 'wpbdp-ajax-compat-mode-notice', $message );
+
+        return $newvalue;
     }
 
     public function _validate_term_permalink($setting, $newvalue, $oldvalue=null) {

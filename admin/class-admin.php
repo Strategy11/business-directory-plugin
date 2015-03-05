@@ -485,6 +485,7 @@ class WPBDP_Admin {
 
         $this->check_compatibility();
         $this->check_setup();
+        $this->check_ajax_compat_mode();
 
         foreach ($this->messages as $msg) {
             if (is_array($msg)) {
@@ -841,6 +842,21 @@ class WPBDP_Admin {
                     'error' );
             }
         }
+    }
+
+    public function check_ajax_compat_mode() {
+        global $pagenow;
+
+        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
+            return;
+
+        $notice = get_option( 'wpbdp-ajax-compat-mode-notice' );
+
+        if ( ! $notice )
+            return;
+
+        $this->messages[] = $notice;
+        delete_option( 'wpbdp-ajax-compat-mode-notice' );
     }
 
     public function main_menu() {
