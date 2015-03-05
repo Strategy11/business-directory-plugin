@@ -120,7 +120,8 @@ class WPBDP_Settings {
         // Misc. settings.
 
         $s = $this->add_section($g, 'misc', _x('Miscellaneous Settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
+        // $this->add_setting($s, 'hide-tips', _x('Hide tips for use and other information?', 'admin settings', 'WPBDM'), 'boolean', false);
+
 
         /* Listings settings */
         $g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
