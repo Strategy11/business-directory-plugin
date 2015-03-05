@@ -21,6 +21,27 @@ echo wpbdp_admin_header(null, null, array(
                     <input name="csv-file"
                            type="file"
                            aria-required="true" />
+
+                    <?php if ( $files['csv'] ): ?>
+                    <div class="file-local-selection">
+                        <?php
+                        echo str_replace( '<a>',
+                                          '<a href="#" class="toggle-selection">',
+                                          _x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'WPBDM' ) );
+                        ?>
+
+                        <ul>
+                            <?php foreach ( $files['csv'] as $f ): ?>
+                            <li><label>
+                                <input type="radio" name="csv-file-local" value="<?php echo basename( $f ); ?>" /> <?php echo basename( $f ); ?>
+                            </label></li>
+                            <?php endforeach; ?>
+                            <li>
+                                <label><input type="radio" name="csv-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'WPBDM' ); ?></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
                 </td>
             </tr>
             <tr class="form-field">
@@ -31,6 +52,27 @@ echo wpbdp_admin_header(null, null, array(
                     <input name="images-file"
                            type="file"
                            aria-required="true" />
+
+                    <?php if ( $files['images'] ): ?>
+                    <div class="file-local-selection">
+                        <?php
+                        echo str_replace( '<a>',
+                                          '<a href="#" class="toggle-selection">',
+                                          _x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'WPBDM' ) );
+                        ?>
+
+                        <ul>
+                            <?php foreach ( $files['images'] as $f ): ?>
+                            <li><label>
+                                <input type="radio" name="images-file-local" value="<?php echo basename( $f ); ?>" /> <?php echo basename( $f ); ?>
+                            </label></li>
+                            <?php endforeach; ?>
+                            <li>
+                                <label><input type="radio" name="images-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'WPBDM' ); ?></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
                 </td>
             </tr>
     </table>

@@ -188,17 +188,63 @@ class WPBDP_CSVImportAdmin {
         echo wpbdp_admin_footer();
     }
 
-    private function import_settings() {
-        $tempdir = get_temp_dir();
+    private function get_imports_dir() {
+        $upload_dir = wp_upload_dir();
 
-        if ( ! $tempdir || ! is_dir( $tempdir ) || ! is_writable ( $tempdir ) )  
+        if ( $upload_dir['error'] )
+            return false;
+
+        $imports_dir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports';
+        return $imports_dir;
+    }
+
+    private function find_uploaded_files() {
+        $base_dir = $this->get_imports_dir();
+
+        $res = array( 'images' => array(), 'csv' => array() );
+
+        if ( is_dir( $base_dir ) ) {
+            $files = wpbdp_scandir( $base_dir );
+
+            foreach ( $files as $f_ ) {
+                $f = $base_dir . DIRECTORY_SEPARATOR . $f_;
+
+                if ( ! is_file( $f ) || ! is_readable( $f ) )
+                    continue;
+
+                switch ( strtolower( substr( $f, -4 ) ) ) {
+                    case '.csv':
+                        $res['csv'][] = $f;
+                        break;
+                    case '.zip':
+                        $res['images'][] = $f;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        return $res;
+    }
+
+    private function import_settings() {
+        $import_dir = $this->get_imports_dir();
+
+        if ( $import_dir && ! is_dir( $import_dir ) )
+            @mkdir( $import_dir, 0777 );
+
+        $files = array();
+
+        if ( ! $import_dir || ! is_dir( $import_dir ) || ! is_writable( $import_dir ) ) {
             wpbdp_admin_message( sprintf( __( 'A valid temporary directory with write permissions is required for CSV imports to function properly. Your server is using "%s" but this path does not seem to be writable. Please consult with your host.',
                                               'csv import',
                                               'WPBDM' ),
-                                         $tempdir ),
-                                'error' );
+                                         $import_dir ) );
+        }
 
-        echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/csv-import.tpl.php');
+        $files = $this->find_uploaded_files();
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/csv-import.tpl.php', array( 'files' => $files ) );
     }
 
     private function import() {
@@ -206,28 +252,43 @@ class WPBDP_CSVImportAdmin {
         $csv_file = '';
         $zip_file = '';
 
-        if ( empty( $_FILES['csv-file'] ) || $_FILES['csv-file']['error'] || ! is_uploaded_file( $_FILES['csv-file']['tmp_name'] ) ) {
-            wpbdp_admin_message( _x( 'There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
-            return $this->import_settings();
-        } else {
-            $sources[] = $_FILES['csv-file']['name'];
-            $csv_file = $_FILES['csv-file']['tmp_name'];
+        // CSV file.
+        if ( ! empty( $_POST['csv-file-local'] ) ) {
+            $csv_file = $this->get_imports_dir() . DIRECTORY_SEPARATOR . basename( $_POST['csv-file-local'] );
+            $sources[] = basename( $csv_file );
         }
 
-        if ( ( ! empty( $_FILES['images-file'] ) && $_FILES['images-file']['error'] != UPLOAD_ERR_NO_FILE ) && ( $_FILES['images-file']['error'] || ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) ) {
-            wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'WPBDM' ), 'error' );
+        if ( ! $csv_file && ! empty( $_FILES['csv-file'] ) ) {
+            if ( ! $_FILES['csv-file']['error'] && is_uploaded_file( $_FILES['csv-file']['tmp_name'] ) ) {
+                $sources[] = $_FILES['csv-file']['name'];
+                $csv_file = $_FILES['csv-file']['tmp_name'];
+            } elseif ( UPLOAD_ERR_NO_FILE != $_FILES['csv-file']['error'] ) {
+                wpbdp_admin_message( _x( 'There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
+                return $this->import_settings();
+            }
+        }
+
+        if ( ! $csv_file ) {
+            wpbdp_admin_message( _x( 'Please upload or select a CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
             return $this->import_settings();
-        } else {
-            $sources[] = $_FILES['images-file']['name'];
+        }
+
+        // Images file.
+        if ( ! empty( $_POST['images-file-local'] ) ) {
+            $zip_file = $this->get_imports_dir() . DIRECTORY_SEPARATOR . basename( $_POST['images-file-local'] );
+            $sources[] = basename( $zip_file );
+        }
+
+        if ( ! $zip_file && ! empty( $_FILES['images-file'] ) ) {
+            if ( UPLOAD_ERR_NO_FILE == $_FILES['images-file']['error'] ) {
+            } else if ( ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) {
+                wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'WPBDM' ), 'error' );
+                return $this->import_settings();
+            }
+
             $zip_file = $_FILES['images-file']['tmp_name'];
+            $sources[] = $_FILES['images-file']['name'];
         }
-
-/*        if (strtolower(pathinfo($csvfile['name'], PATHINFO_EXTENSION)) != 'csv' &&
-            $csvfile['type'] != 'text/csv') {
-            wpbdp_admin_message( _x( 'The uploaded file does not look like a CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
-            return $this->import_settings();
-        }*/
-
 
         $import = new WPBDP_CSV_Import( '',
                                         $csv_file,

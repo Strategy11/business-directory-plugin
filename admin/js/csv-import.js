@@ -157,6 +157,29 @@ jQuery(function( $ ) {
         }
     } );
 
+    // Import progress page.
+    if ( $( '#wpbdp-csv-import-state' ).length > 0 ) {
+        var import_in_page = new csvimport.CSV_Import();
+        return;
+    }
 
-    var import_in_page = new csvimport.CSV_Import();
+    // Import config. page.
+    $( '.directory-admin_page_wpbdp-csv-import .file-local-selection a.toggle-selection' ).click(function(e) {
+        e.preventDefault();
+        var $files = $( this ).siblings( 'ul' );
+        $files.toggle();
+
+        if ( ! $files.is(':visible') )
+            $files.find( 'input[type="radio"]' ).prop( 'checked', false );
+    });
+
+    $( '.directory-admin_page_wpbdp-csv-import .file-local-selection input[type="radio"]' ).change(function(e) {
+        var sel = $(this).filter(':checked').val();
+
+        if ( "" == sel ) {
+            $(this).prop( 'checked', false );
+            $(this).parents( '.file-local-selection' ).hide();
+        }
+    });
+
 });

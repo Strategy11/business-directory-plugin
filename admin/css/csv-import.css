@@ -43,3 +43,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.file-local-selection {
+    margin: 10px 0 0 0;
+}
+
+.file-local-selection ul {
+    margin-left: 5px;
+    border-left: solid 3px #ddd;
+    padding-left: 10px;
+    display: none;
+}
+
+.file-local-selection ul li {
+    margin: 0;
+    padding: 0;
+}
