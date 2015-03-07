@@ -40,7 +40,8 @@ class WPBDP_CSVImportAdmin {
         try {
             $import = new WPBDP_CSV_Import( $import_id );
         } catch ( Exception $e ) {
-            $import->cleanup();
+            if ( $import )
+                $import->cleanup();
             $res->send_error( $e->getMessage() );
         }
 

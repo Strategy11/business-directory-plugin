@@ -90,8 +90,8 @@ class WPBDP_CSV_Import {
             $line_data = str_getcsv( $line, $this->settings['csv-file-separator'] );
 
             $file->next();
-            $n = $file->key();
-            $this->current_line = $n;
+            $n++;
+            $this->current_line = $file->key();
             $this->processed_lines++;
 
             if ( ! $line_data || ( count( $line_data ) == 1 && empty( $line_data[0] ) ) )
@@ -101,7 +101,7 @@ class WPBDP_CSV_Import {
 
             if ( $errors ) {
                 foreach ( $errors as $e )
-                    $this->errors[] = array( 'line' => $n, 'content' => $line, 'error' => $e );
+                    $this->errors[] = array( 'line' => $this->current_line, 'content' => $line, 'error' => $e );
 
                 $this->rejected++;
                 continue;
@@ -112,7 +112,7 @@ class WPBDP_CSV_Import {
 
             if ( is_wp_error( $result ) ) {
                 foreach ( $result->get_error_messages() as $e )
-                    $this->errors[] = array( 'line' => $n, 'content' => $line, 'error' => $e );
+                    $this->errors[] = array( 'line' => $this->current_line, 'content' => $line, 'error' => $e );
 
                 $this->rejected++;
                 continue;
