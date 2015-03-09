@@ -386,6 +386,10 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( ! $this->state->editing ) {
             // Generate payment for the listing.
             $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );
+
+            if ( ! $this->state->editing )
+                $payment->tag( 'initial' );
+
             foreach ( $this->state->categories as $cat_id => $fee_id ) {
                 $category_info = $listing->get_category_info( $cat_id );
 

@@ -380,6 +380,34 @@ class WPBDP_Settings {
                                                             'date' => 'Date and time the message was sent' ) ) );
 
         $s = $this->add_section( $g,
+                                 'email-payments',
+                                 _x( 'Payment related', 'admin settings', 'WPBDM' ) );
+        $body_template = <<<EOF
+Hi there,
+
+We noticed that you tried submitting a listing on [site-link] but didn't finish
+the process.  If you want to complete the payment and get your listing
+included, just click here to continue:
+
+[link]
+
+If you have any issues, please contact us directly by hitting reply to this
+email!
+
+Thanks,
+- The Administrator of [site-title]
+EOF;
+        $this->add_setting( $s,
+                            'email-templates-payment-abandoned', _x( 'Payment abandoned reminder message', 'admin settings', 'WPBDM' ),
+                            'email_template',
+                            array( 'subject' => '[[site-title]] Pending payment for "[listing]"',
+                                   'body' => $body_template ),
+                            _x( 'Sent some time after a pending payment is abandoned by users.', 'admin settings', 'WPBDM' ),
+                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ),
+                                                            'link' => _x( 'Checkout URL link', 'admin settings', 'WPBDM' ) ) )
+                          );
+
+        $s = $this->add_section( $g,
                                  'email-renewal-reminders',
                                  _x( 'Renewal Reminders', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
@@ -507,6 +535,24 @@ class WPBDP_Settings {
         $this->add_setting($s, 'payment-message', _x('Thank you for payment message', 'admin settings', 'WPBDM'), 'text',
                         _x('Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM'));
         $this->register_dep( 'payment-message', 'requires-true', 'payments-on' );
+
+        $this->add_setting( $s,
+                            'payment-abandonment',
+                            _x( 'Remind users of abandoned payments?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
+        $this->register_dep( 'payment-abandonment', 'requires-true', 'payments-on' );
+        $this->add_setting( $s,
+                            'payment-abandonment-threshold',
+                            _x( 'Listing abandonment threshold (hours)', 'admin settings', 'WPBDM' ),
+                            'text',
+                            '24',
+                            str_replace( '<a>',
+                                         '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=email' ) . '#email-templates-payment-abandoned">',
+                                         _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'WPBDM' )
+                                        ) );
+        $this->register_dep( 'payment-abandonment-threshold', 'requires-true', 'payment-abandonment' );
+
 
         /* Registration settings */
         $g = $this->add_group('registration', _x('Registration', 'admin settings', 'WPBDM'));

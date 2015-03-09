@@ -408,7 +408,12 @@ class WPBDP_Listing {
     }
 
     public function get_payment_status() {
-        return WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ), true ) ? 'pending' : 'ok';
+        $status = 'ok';
+
+        if ( WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ), true ) )
+            $status = 'pending';
+
+        return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
     }
 
     public function mark_as_paid() {

@@ -442,7 +442,8 @@ body.taxonomy-wpbdp_category .column-id {
     background: green;
 }
 
-.tag.paymentstatus.pending {
+.tag.paymentstatus.pending,
+.tag.paymentstatus.pending-abandonment {
     background: red;
 }
 

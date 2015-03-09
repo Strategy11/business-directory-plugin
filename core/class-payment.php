@@ -34,7 +34,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'processed_by' => '',
             'payerinfo' => array(),
             'extra_data' => array(),
-            'notes' => array()
+            'notes' => array(),
+            'tag' => ''
         ) );
 
         $this->amount = floatval( $this->amount );
@@ -75,7 +76,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'currency_code' => $this->currency_code,
             'payerinfo' => serialize( is_array( $this->payerinfo ) ? $this->payerinfo : array() ),
             'extra_data' => serialize( is_array( $this->extra_data ) ? $this->extra_data : array() ),
-            'notes' => serialize( is_array( $this->notes ) ? $this->notes : array() )
+            'notes' => serialize( is_array( $this->notes ) ? $this->notes : array() ),
+            'tag' => $this->tag
         );
 
         if ( $this->id )
@@ -394,6 +396,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
     public function get_created_on() {
         return $this->created_on;
+    }
+
+    public function tag( $tag ) {
+        $this->tag = strtolower( trim( $tag ) );
     }
 
     public function add_error( $error_msg ) {

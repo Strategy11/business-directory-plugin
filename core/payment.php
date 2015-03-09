@@ -255,6 +255,10 @@ class WPBDP_PaymentsAPI {
         do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
         add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
         add_action( 'WPBDP_Payment::set_payment_method', array( &$this, 'gateway_payment_setup' ), 10, 2 );
+
+        // Listing abandonment.
+        add_filter( 'WPBDP_Listing::get_payment_status', array( &$this, 'abandonment_status' ), 10, 2 );
+
         //add_action( 'WPBDP_Payment::status_change', array( &$this, 'payment_notification' ) );
 //        add_action( 'WPBDP_Payment::before_save', array( &$this, 'gateway_payment_save' ) );
     }
@@ -663,6 +667,80 @@ class WPBDP_PaymentsAPI {
 //
 //        wpbdp_debug_e( $payment );
 //    }
+
+
+    /**
+     * @since 3.5.8
+     */
+    public function abandonment_status( $status, $listing_id ) {
+        // For now, we only consider abandonment if it involves listings with pending INITIAL payments.
+        if ( 'pending' != $status || ! $listing_id || ! wpbdp_get_option( 'payment-abandonment' ) )
+            return $status;
+
+        $last_pending = WPBDP_Payment::find( array( 'listing_id' => $listing_id, 'status' => 'pending', '_single' => true, '_order' => '-created_on' ), true );
+
+        if ( ! $last_pending || 'initial' != $last_pending['tag'] )
+            return $status;
+
+        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+        $hours_elapsed = ( current_time( 'timestamp' ) - strtotime( $last_pending['created_on'] ) ) / ( 60 * 60 );
+
+        if ( $hours_elapsed <= 0 )
+            return $status;
+
+        if ( $hours_elapsed >= ( 2 * $threshold ) ) {
+            return 'payment-abandoned';
+        } elseif ( $hours_elapsed >= $threshold ) {
+            return 'pending-abandonment';
+        }
+
+        return $status;
+    }
+
+
+    /**
+     * @since 3.5.8
+     */
+    public function notify_abandoned_payments() {
+        global $wpdb;
+
+        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+        $time_for_pending = wpbdp_format_time( strtotime( "-{$threshold} hours", current_time( 'timestamp' ) ), 'mysql' );
+        $notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
+
+        if ( ! is_array( $notified ) )
+            $notified = array();
+
+        // For now, we only notify listings with pending INITIAL payments.
+        $to_notify = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND processed_on IS NULL AND created_on < %s ORDER BY created_on",
+                            'pending',
+                            'initial',
+                            $time_for_pending )
+        );
+
+        foreach ( $to_notify as &$data ) {
+            if ( in_array( $data->id, $notified ) )
+                continue;
+
+            $payment = WPBDP_Payment::get( $data->id );
+
+            // Send e-mail.
+            $replacements = array(
+                'listing' => get_the_title( $payment->get_listing_id() ),
+                'link' => sprintf( '<a href="%1$s">%1$s</a>', $payment->get_checkout_url() )
+            );
+
+            $email = wpbdp_email_from_template( 'email-templates-payment-abandoned', $replacements );
+            $email->to[] = wpbusdirman_get_the_business_email( $payment->get_listing_id() );
+            $email->template = 'businessdirectory-email';
+            $email->send();
+
+            $notified[] = $data->id;
+        }
+
+        update_option( 'wpbdp-payment-abandonment-notified', $notified );
+    }
 
 }
 

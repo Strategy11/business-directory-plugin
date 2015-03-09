@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '4.0';
+    const DB_VERSION = '4.1';
 
     private $installed_version = null;
 
@@ -91,13 +91,14 @@ class WPBDP_Installer {
             processed_by varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             payerinfo blob NULL,
             extra_data longblob NULL,
-            notes longblob NULL
+            notes longblob NULL,
+            tag varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             payment_id bigint(20) NOT NULL,
-            amount decimal(10,2) NOT NULL DEFAULT 0.00,            
+            amount decimal(10,2) NOT NULL DEFAULT 0.00,
             item_type varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'charge',
             description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Charge',
             rel_id_1 bigint(20) NULL,

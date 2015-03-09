@@ -92,7 +92,7 @@ class WPBDP_Plugin {
         add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
 
         // For testing the expiration routine only.
-        //add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
+        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
     }
 
     function load_i18n() {
@@ -1374,6 +1374,9 @@ class WPBDP_Plugin {
     public function _notify_expiring_listings() {
         global $wpdb;
 
+        if ( wpbdp_get_option( 'payment-abandonment' ) )
+            $this->payments->notify_abandoned_payments();
+
         if ( ! wpbdp_get_option( 'listing-renewal' ) )
             return;
 
@@ -1651,3 +1654,10 @@ JS;
 
 $wpbdp = new WPBDP_Plugin();
 
+
+function shortcode_test() {
+    query_posts( 'post_type=wpbdp_listing' );
+    $res = 'shortcode test';
+    return $res;
+}
+add_shortcode( 'testshortcode', 'shortcode_test' );
