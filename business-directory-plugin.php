@@ -1652,10 +1652,3 @@ JS;
 
 $wpbdp = new WPBDP_Plugin();
 
-
-function shortcode_test() {
-    query_posts( 'post_type=wpbdp_listing' );
-    $res = 'shortcode test';
-    return $res;
-}
-add_shortcode( 'testshortcode', 'shortcode_test' );
