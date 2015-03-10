@@ -122,8 +122,8 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
         $mime_type = '';
 
         if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
-            $mime_type = finfo_file( $finfo, $file_ );
-            $mime_type = trim( explode( ';', $mime_type )[0] );
+            $mime_type = trim( explode( ';', finfo_file( $finfo, $file_ ) ) );
+            $mime_type = $mime_type[0];
             finfo_close( $finfo );
         }
 
