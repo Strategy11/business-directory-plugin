@@ -93,20 +93,39 @@ form#wpbdmsearchform a.advanced-search-link {
 /*    margin-left: 25px;*/
 }
 
-/*.listing-actions a {
-    background: none repeat scroll 0 0 #000;
-    border-radius: 3px 3px 3px 3px;
-    color: #fff;
-    padding: 2px 8px;
+.listing-actions a.button {
+    padding: 5px 10px;
+    font-size: 11px;
     text-decoration: none;
-    margin-right: 8px;
-    text-align: center;
+    background-color: #e6e6e6;
+    color: #7c7c7c;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(top, #f4f4f4, #e6e6e6);
+    background-image: -ms-linear-gradient(top, #f4f4f4, #e6e6e6);
+    background-image: -webkit-linear-gradient(top, #f4f4f4, #e6e6e6);
+    background-image: -o-linear-gradient(top, #f4f4f4, #e6e6e6);
+    background-image: linear-gradient(top, #f4f4f4, #e6e6e6);
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(64, 64, 64, 0.1);
+    margin-right: 3px;
+}
+
+.listing-actions a.button:hover {
+    color: #5e5e5e;
+    background-color: #ebebeb;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(top, #f9f9f9, #ebebeb);
+    background-image: -ms-linear-gradient(top, #f9f9f9, #ebebeb);
+    background-image: -webkit-linear-gradient(top, #f9f9f9, #ebebeb);
+    background-image: -o-linear-gradient(top, #f9f9f9, #ebebeb);
+    background-image: linear-gradient(top, #f9f9f9, #ebebeb);
 }
 
 .listing-actions a.delete-listing {
     margin-left: 20px;
-    background: #ff0000;
-}*/
+    color: #ff0000;
+}
 
 .wpbdp-listing .listing-details .field-value {
     margin-bottom: 10px;
