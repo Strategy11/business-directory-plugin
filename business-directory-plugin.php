@@ -1372,8 +1372,6 @@ class WPBDP_Plugin {
 
     /* Listing expiration. */
     public function _notify_expiring_listings() {
-        global $wpdb;
-
         if ( wpbdp_get_option( 'payment-abandonment' ) )
             $this->payments->notify_abandoned_payments();
 
