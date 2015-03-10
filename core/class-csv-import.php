@@ -2,6 +2,8 @@
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
+@ini_set( 'auto_detect_line_endings', true );
+
 /**
  * Replaces `WPBDP_CSVImporter` (from 2.1) and adds support for sequential imports.
  * @since 3.5.8
@@ -70,8 +72,6 @@ class WPBDP_CSV_Import {
     }
 
     public function do_work() {
-        @ini_set( 'auto_detect_line_endings', true );
-
         if ( $this->done )
             return;
 
