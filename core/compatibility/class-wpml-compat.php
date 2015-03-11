@@ -1,5 +1,4 @@
 <?php
-
 class WPBDP_WPML_Compat {
 
     private $wpml;
@@ -18,6 +17,8 @@ class WPBDP_WPML_Compat {
             add_filter( 'wpbdp_display_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
 
             add_filter( 'wpbdp_category_fee_selection_label', array( &$this, 'translate_fee_label' ), 10, 2 );
+
+            add_filter( 'icl_ls_languages', array( &$this, 'language_switcher' ) );
         }
 
         add_action( 'admin_footer-directory-admin_page_wpbdp_admin_formfields', array( &$this, 'register_form_fields_strings' ) );
@@ -72,8 +73,8 @@ class WPBDP_WPML_Compat {
     }
 
 
-    function translate_link( $link ) {
-        $lang = $this->get_current_language();
+    function translate_link( $link, $lang = null ) {
+        $lang = $lang ? $lang : $this->get_current_language();
 
         if ( ! $lang )
             return $link;
@@ -93,6 +94,69 @@ class WPBDP_WPML_Compat {
 
 
         return $link;
+    }
+
+    function language_switcher( $languages ) {
+        global $wpbdp;
+
+        $action = $wpbdp->controller->get_current_action();
+
+        switch ( $action ) {
+            case 'browsecategory':
+                if (get_query_var('category')) {
+                    if ($term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX)) {
+                        $category_id = $term->term_id;
+                    } else {
+                        $category_id = intval(get_query_var('category'));
+                    }
+                }
+
+                $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
+                $category_id = is_array( $category_id ) && 1 == count( $category_id ) ? $category_id[0] : $category_id;
+
+                if ( ! $category_id )
+                    return $languages;
+
+                foreach ( $languages as $l_code => $l ) {
+                    $trans_id = (int) icl_object_id( $category_id, WPBDP_CATEGORY_TAX, false, $languages[ $l_code ]['language_code'] );
+                    $link = get_term_link( $trans_id, WPBDP_CATEGORY_TAX );
+
+                    if ( ! $trans_id || is_wp_error( $link ) )
+                        unset( $languages[ $l_code ] );
+
+                    $languages[ $l_code ]['url'] = $this->translate_link( $link, $languages[ $l_code ]['language_code'] );
+                }
+
+                break;
+
+            case 'showlisting':
+                $id_or_slug = '';
+                if ( get_query_var( 'listing' ) || isset( $_GET['listing'] ) )
+                    $id_or_slug = get_query_var( 'listing' ) ? get_query_var( 'listing' ) : wpbdp_getv( $_GET, 'listing', 0 );
+                else
+                    $id_or_slug = get_query_var( 'id' ) ? get_query_var( 'id' ) : wpbdp_getv( $_GET, 'id', 0 );
+
+                $listing_id = wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+
+                if ( ! $listing_id )
+                    break;
+
+                foreach ( $languages as $l_code => $l ) {
+                    $trans_id = icl_object_id( $listing_id, WPBDP_POST_TYPE, true, $languages[ $l_code ]['language_code'] );
+
+                    if ( ! $trans_id )
+                        unset( $languages[ $l_code ] );
+
+                    $languages[ $l_code ]['url'] = $this->translate_link( get_permalink( $trans_id ), $languages[ $l_code ]['language_code'] );
+                }
+
+                break;
+
+            default:
+                break;
+        }
+
+        return $languages;
     }
 
     // {{{ Form Fields integration.
