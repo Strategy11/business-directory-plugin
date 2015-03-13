@@ -200,6 +200,8 @@ class WPBDP_DirectoryController {
                       'terms' => $category_id)
             )
         ));
+        $q = $GLOBALS['wp_query'];
+        wpbdp_push_query( $q );
 
         if ( is_array( $category_id ) || $in_listings_shortcode ) {
             $title = '';
@@ -218,6 +220,7 @@ class WPBDP_DirectoryController {
                              false );
 
         wp_reset_query();
+        wpbdp_pop_query();
 
         return $html;
     }
@@ -244,6 +247,7 @@ class WPBDP_DirectoryController {
                       'terms' => $tag_id)
             )
         ));
+        wpbdp_push_query( $GLOBALS['wp_query'] );
 
         $html = wpbdp_render( 'category',
                              array(
@@ -251,9 +255,10 @@ class WPBDP_DirectoryController {
                                 'category' => $tag,
                                 'is_tag' => true
                                 ),
-                             false );        
+                             false );
 
         wp_reset_query();
+        wpbdp_pop_query();
 
         return $html;
     }    
@@ -282,10 +287,12 @@ class WPBDP_DirectoryController {
 
         if ( $compat ) {
             query_posts( $args );
-            $q = false;
+            $q = $GLOBALS['wp_query'];
         } else {
             $q = new WP_Query( $args );
         }
+
+        wpbdp_push_query( $q );
 
         $html = wpbdp_capture_action( 'wpbdp_before_viewlistings_page' );
         $html .= wpbdp_render('businessdirectory-listings', array(
@@ -298,6 +305,7 @@ class WPBDP_DirectoryController {
             wp_reset_postdata();
 
         wp_reset_query();
+        wpbdp_pop_query( $q );
 
         return $html;
     }
@@ -323,12 +331,14 @@ class WPBDP_DirectoryController {
                 array( 'key' => '_wpbdp[sticky]', 'value' => 'sticky' )
             )
         ) );
+        wpbdp_push_query( $GLOBALS['wp_query'] );
 
         $html  = '';
         $html .= wpbdp_render( 'businessdirectory-listings' );
 
         $wp_query = $old_query;
         wp_reset_query();
+        wpbdp_pop_query();
 
         return $html;
     }
@@ -407,14 +417,17 @@ class WPBDP_DirectoryController {
                 'post_status' => 'publish',
                 'paged' => get_query_var('paged') ? get_query_var('paged') : 1
             ));
+            wpbdp_push_query( $GLOBALS['wp_query'] );
         }
 
         $html = wpbdp_render('manage-listings', array(
             'current_user' => $current_user
             ), false);
 
-        if ($current_user)
+        if ($current_user) {
             wp_reset_query();
+            wpbdp_pop_query();
+        }
 
         return $html;
     }
@@ -464,6 +477,7 @@ class WPBDP_DirectoryController {
         );
         $args = apply_filters( 'wpbdp_search_query_posts_args', $args, $search_args );
         query_posts( $args );
+        wpbdp_push_query( $GLOBALS['wp_query'] );
 
         $html = wpbdp_render( 'search',
                                array( 
@@ -472,7 +486,8 @@ class WPBDP_DirectoryController {
                                       'show_form' => !isset( $_GET['dosrch'] ) || wpbdp_get_option( 'show-search-form-in-results' )
                                     ),
                               false );
-        wp_reset_query(); 
+        wp_reset_query();
+        wpbdp_pop_query();
 
         return $html;
     }

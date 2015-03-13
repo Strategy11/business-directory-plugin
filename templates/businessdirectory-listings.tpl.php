@@ -3,8 +3,7 @@
  * Template parameters:
  *  $query - The WP_Query object for this page. Do not call query_posts() in this template.
  */
-
-$query = isset( $query ) ? $query : $GLOBALS['wp_query']; // For backwards compat.
+$query = isset( $query ) ? $query : wpbdp_current_query();
 ?>
 <div id="wpbdp-view-listings-page" class="wpbdp-view-listings-page wpbdp-page <?php echo join(' ', $__page__['class']); ?>">
 

@@ -67,6 +67,9 @@ global $wpbdp;
  */
 class WPBDP_Plugin {
 
+    var $_query_stack = array();
+
+
     public function __construct() {
         register_activation_hook( __FILE__, array( &$this, 'plugin_activation' ) );
         register_deactivation_hook( __FILE__, array( &$this, 'plugin_deactivation' ) );

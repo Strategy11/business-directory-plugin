@@ -357,3 +357,33 @@ function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $
     return get_post( $listing_id );
 }
 
+/**
+ * @since 3.5.8
+ */
+function wpbdp_push_query( &$q ) {
+    global $wpbdp;
+
+    $wpbdp->_query_stack[] = $q;
+}
+
+/**
+ * @since 3.5.8
+ */
+function wpbdp_pop_query() {
+    global $wpbdp;
+    return array_pop( $wpbdp->_query_stack );
+}
+
+/**
+ * @since 3.5.8
+ */
+function wpbdp_current_query() {
+    global $wpbdp;
+
+    $len = count( $wpbdp->_query_stack );
+
+    if ( $len == 0 )
+        return null;
+
+    return $wpbdp->_query_stack[ $len - 1 ];
+}
