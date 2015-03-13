@@ -7,8 +7,13 @@
     </p>
 
     <p class="no-reason" style="display: none;">
-        <?php _ex( 'A fatal error occurred during the import. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.', 'admin csv-import', 'WPBDM' ); ?>
+        <?php _ex( 'A fatal error occurred during the import. If connection wasn\'t lost during the import, please make sure that you have enough free disk space and memory available to PHP. Check your error logs for details.', 'admin csv-import', 'WPBDM' ); ?>
     </p>
+
+    <p class="last-imported-line">
+        <?php _ex( 'Last imported line from file:', 'admin csv-import', 'WPBDM' ); ?>
+        <span class="placeholder">0</span>.
+    </P>
 
     <p><a href="" class="button"><?php _ex( '← Return to CSV Import', 'admin csv-import', 'WPBDM' ); ?></a></p>
 </div>

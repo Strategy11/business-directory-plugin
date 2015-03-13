@@ -2,6 +2,10 @@
     display: none;
 }
 
+#wpbdp-csv-import-fatal-error .last-imported-line .placeholder {
+    font-weight: bold;
+}
+
 .wpbdp-page-csv-import .canceled-import {
     display: none;
 }

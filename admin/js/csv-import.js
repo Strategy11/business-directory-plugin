@@ -115,6 +115,11 @@ jQuery(function( $ ) {
             var $with_reason = $fatal_error.find( '.with-reason' );
             var $no_reason = $fatal_error.find( '.no-reason' );
 
+            if ( t.processed_rows > 0 ) {
+                var $last_line = $fatal_error.find( '.last-imported-line' );
+                $last_line.find( '.placeholder' ).html( t.processed_rows );
+            }
+
             if ( msg ) {
                 $with_reason.html( $with_reason.html().replace( '%s', msg ) ).show();
             } else {
