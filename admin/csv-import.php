@@ -245,7 +245,15 @@ class WPBDP_CSVImportAdmin {
         }
 
         $files = $this->find_uploaded_files();
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/csv-import.tpl.php', array( 'files' => $files ) );
+
+        // Retrieve last used settings to use as defaults.
+        $defaults = get_user_option( 'wpbdp-csv-import-settings' );
+        if ( ! $defaults || ! is_array( $defaults ) )
+            $defaults = array();
+
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/csv-import.tpl.php',
+                                array( 'files' => $files,
+                                       'defaults' => $defaults ) );
     }
 
     private function import() {
@@ -290,6 +298,9 @@ class WPBDP_CSVImportAdmin {
             $zip_file = $_FILES['images-file']['tmp_name'];
             $sources[] = $_FILES['images-file']['name'];
         }
+
+        // Store settings to use as defaults next time.
+        update_user_option( get_current_user_id(), 'wpbdp-csv-import-settings', $_POST['settings'], false );
 
         $import = new WPBDP_CSV_Import( '',
                                         $csv_file,
