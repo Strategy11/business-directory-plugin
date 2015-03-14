@@ -696,12 +696,17 @@ class WPBDP_Plugin {
     }
 
     public function handle_recaptcha() {
+        if ( wpbdp_get_option( 'recaptcha-on' ) ) {
+            // Only one reCAPTCHA is allowed per page, so we work around this limitation by sharing the one in the contact form.
+            add_action( 'wp_footer', array( &$this, 'comment_recaptcha_workaround' ) );
+        }
+
         // Comments reCAPTCHA.
         if ( wpbdp_get_option( 'recaptcha-for-comments' ) ) {
-            add_filter( 'comment_form_field_comment', array( &$this, 'recaptcha_in_comments' ) );
+            add_filter( 'comment_form', array( &$this, 'recaptcha_in_comments' ) );
             add_action( 'preprocess_comment', array( &$this, 'check_comment_recaptcha' ), 0 );
 
-                // add_action('wp_head', array(&$this, 'saved_comment'), 0);
+            // add_action('wp_head', array(&$this, 'saved_comment'), 0);
             add_action( 'comment_post_redirect', array( &$this, 'comment_relative_redirect' ), 0, 2 );
         }
     }
@@ -1399,18 +1404,17 @@ class WPBDP_Plugin {
     /*
      *  Comments reCAPTCHA.
      */
-
     public function recaptcha_in_comments( $comment_field ) {
         $html  = '';
-        $html .= $comment_field;
+//        $html .= $comment_field;
 
         // If this is not a BD page, ignore reCAPTCHA.
         if ( ! $this->controller->get_current_action() )
             return $html;
 
-        if ( wpbdp_get_option( 'recaptcha-on' ) && wpbdp_get_option( 'show-contact-form' ) ) {
+        if ( wpbdp_get_option( 'recaptcha-on' ) ) {
             // Only one reCAPTCHA is allowed per page, so we work around this limitation by sharing the one in the contact form.
-            add_action( 'wp_footer', array( &$this, 'comment_recaptcha_workaround' ) );
+//            add_action( 'wp_footer', array( &$this, 'comment_recaptcha_workaround' ) );
 
             $html .= '<div id="wpbdp-comment-recaptcha">';
         } else {
@@ -1430,8 +1434,9 @@ class WPBDP_Plugin {
         if ( $error )
             $html .= sprintf( '<p class="wpbdp-recaptcha-error">%s</p>', $error );
 
-        return $html;
+        echo $html;
     }
+
 
     public function check_comment_recaptcha( $comment_data ) {
         if ( ! wpbdp_get_option( 'recaptcha-for-comments' ) )
