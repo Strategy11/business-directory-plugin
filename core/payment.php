@@ -258,6 +258,8 @@ class WPBDP_PaymentsAPI {
 
         // Listing abandonment.
         add_filter( 'WPBDP_Listing::get_payment_status', array( &$this, 'abandonment_status' ), 10, 2 );
+        add_filter( 'wpbdp_admin_directory_views', array( &$this, 'abandonment_admin_views' ), 10, 2 );
+        add_filter( 'wpbdp_admin_directory_filter', array( &$this, 'abandonment_admin_filter' ), 10, 2 );
 
         //add_action( 'WPBDP_Payment::status_change', array( &$this, 'payment_notification' ) );
 //        add_action( 'WPBDP_Payment::before_save', array( &$this, 'gateway_payment_save' ) );
@@ -697,6 +699,81 @@ class WPBDP_PaymentsAPI {
         return $status;
     }
 
+    /**
+     * @since 3.5.8
+     */
+    public function abandonment_admin_views( $views, $post_statuses ) {
+        global $wpdb;
+
+        if ( ! wpbdp_get_option( 'payment-abandonment' ) )
+            return $views;
+
+        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+        $now = current_time( 'timestamp' );
+
+        $within_pending = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold ), $now ), 'mysql' );
+        $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
+
+        $count_pending = $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_on > %s AND ps.created_on <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
+            $within_abandonment,
+            $within_pending,
+            'pending',
+            'initial'
+        ) );
+        $count_abandoned = $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_on <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
+            $within_abandonment,
+            'pending',
+            'initial'
+        ) );
+
+        $views['pending-abandonment'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+                                                 add_query_arg( 'wpbdmfilter', 'pending-abandonment' ),
+                                                 'pending-abandonment' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
+                                                 _x( 'Pending Abandonment', 'admin', 'WPBDM' ),
+                                                 number_format_i18n( $count_pending ) );
+        $views['abandoned'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+                                        add_query_arg( 'wpbdmfilter', 'abandoned' ),
+                                        'abandoned' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
+                                        _x( 'Abandoned', 'admin', 'WPBDM' ),
+                                        number_format_i18n( $count_abandoned ) );
+
+        return $views;
+    }
+
+    /**
+     * @since 3.5.8
+     */
+    public function abandonment_admin_filter( $pieces, $filter = '' ) {
+        if ( ! wpbdp_get_option( 'payment-abandonment' ) || 
+             ! in_array( $filter, array( 'abandoned', 'pending-abandonment' ), true ) )
+            return $pieces;
+
+        global $wpdb;
+
+        // TODO: move this code elsewhere since it is used in several places.
+        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+        $now = current_time( 'timestamp' );
+
+        $within_pending = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold ), $now ), 'mysql' );
+        $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
+
+        $pieces['join'] .= " LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON {$wpdb->posts}.ID = ps.listing_id";
+        $pieces['where'] .= $wpdb->prepare( ' AND ps.tag = %s AND ps.status = %s ', 'initial', 'pending' );
+
+        switch ( $filter ) {
+            case 'abandoned':
+                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_on <= %s ', $within_abandonment );
+                break;
+
+            case 'pending-abandonment':
+                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_on > %s AND ps.created_on <= %s ', $within_abandonment, $within_pending );
+                break;
+        }
+
+        return $pieces;
+    }
 
     /**
      * @since 3.5.8
@@ -709,7 +786,7 @@ class WPBDP_PaymentsAPI {
         $notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
 
         if ( ! is_array( $notified ) )
-            $notified = array();
+               $notified = array();
 
         // For now, we only notify listings with pending INITIAL payments.
         $to_notify = $wpdb->get_results(
