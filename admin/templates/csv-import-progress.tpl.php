@@ -78,21 +78,23 @@
         <dd><span class="placeholder-rejected-rows">0</span></dd>
     </dl>
 
-    <h4><?php _ex( 'Import Warnings', 'admin csv-import', 'WPBDM' ); ?></h4>
-    <table class="wpbdp-csv-import-warnings wp-list-table widefat">
-        <thead><tr>
-            <th class="col-line-no"><?php _ex( 'Line #', 'admin csv-import', 'WPBDM' ); ?></th>
-            <th class="col-line-content"><?php _ex( 'Line', 'admin csv-import', 'WPBDM' ); ?></th>
-            <th class="col-warning"><?php _ex( 'Warning', 'admin csv-import', 'WPBDM' ); ?></th>
-        </tr></thead>
-        <tbody>
-            <tr class="row-template" style="display: none;">
-                <td class="col-line-no">0</td>
-                <td class="col-line-content">...</td>
-                <td class="col-warning">...</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="wpbdp-csv-import-warnings">
+        <h4><?php _ex( 'Import Warnings', 'admin csv-import', 'WPBDM' ); ?></h4>
+        <table class="wp-list-table widefat">
+            <thead><tr>
+                <th class="col-line-no"><?php _ex( 'Line #', 'admin csv-import', 'WPBDM' ); ?></th>
+                <th class="col-line-content"><?php _ex( 'Line', 'admin csv-import', 'WPBDM' ); ?></th>
+                <th class="col-warning"><?php _ex( 'Warning', 'admin csv-import', 'WPBDM' ); ?></th>
+            </tr></thead>
+            <tbody>
+                <tr class="row-template" style="display: none;">
+                    <td class="col-line-no">0</td>
+                    <td class="col-line-content">...</td>
+                    <td class="col-warning">...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <!-- </screen: import summary> ! -->
 
