@@ -577,12 +577,28 @@ EOF;
                                _x( 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.', 'admin settings', 'WPBDM' ) );
         $s = $this->add_section($g, 'image', _x('Image Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'allow-images', _x('Allow images?', 'admin settings', 'WPBDM'), 'boolean', true);
+
+        $this->add_setting($s, 'image-min-filesize', _x('Min Image File Size (KB)', 'admin settings', 'WPBDM'), 'text', '0' );
         $this->add_setting($s, 'image-max-filesize', _x('Max Image File Size (KB)', 'admin settings', 'WPBDM'), 'text', '10000');
-        // $this->add_setting($s, 'image-min-filesize', _x('Minimum Image File Size (KB)', 'admin settings', 'WPBDM'), 'text', '50');
-        $this->add_setting($s, 'image-max-width', _x('Max image width', 'admin settings', 'WPBDM'), 'text', '500');
-        $this->add_setting($s, 'image-max-height', _x('Max image height', 'admin settings', 'WPBDM'), 'text', '500');
-        $this->add_setting($s, 'thumbnail-width', _x('Thumbnail width', 'admin settings', 'WPBDM'), 'text', '150');
+
+        $this->add_setting($s, 'image-min-width', _x( 'Min image width (px)', 'admin settings', 'WPBDM'), 'text', '0' );
+        $this->add_setting($s, 'image-min-height', _x( 'Min image height (px)', 'admin settings', 'WPBDM'), 'text', '0' );
+
+        $this->add_setting($s, 'image-max-width', _x('Max image width (px)', 'admin settings', 'WPBDM'), 'text', '500');
+        $this->add_setting($s, 'image-max-height', _x('Max image height (px)', 'admin settings', 'WPBDM'), 'text', '500');
+
         $this->add_setting( $s, 'use-thickbox', _x( 'Turn on thickbox/lightbox?', 'admin settings', 'WPBDM' ), 'boolean', false, _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'admin settings', 'WPBDM' ) );
+
+        $s = $this->add_section( $g, 'image/thumbnails', _x( 'Thumbnails', 'admin settings', 'WPBDM' ) );
+        $this->add_setting($s, 'thumbnail-width', _x('Thumbnail width (px)', 'admin settings', 'WPBDM'), 'text', '150');
+        $this->add_setting($s, 'thumbnail-height', _x('Thumbnail height (px)', 'admin settings', 'WPBDM'), 'text', '150');
+        $this->add_setting( $s,
+                            'thumbnail-crop',
+                            _x( 'Crop thumbnails to exact dimensions?', 'admin settings', 'WPBDM'),
+                            'boolean',
+                            false,
+                            _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'admin settings', 'WPBDM' )
+                           );
 
         $s = $this->add_section($g, 'listings', _x('Listings', 'admin settings', 'WPBDM'));
         $this->add_setting( $s,

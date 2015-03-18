@@ -140,15 +140,31 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
 
     $constraints = array_merge( array(
                                     'image' => false,
+                                    'min-size' => 0,
                                     'max-size' => 0,
+                                    'min-width' => 0,
+                                    'min-height' => 0,
+                                    'max-width' => 0,
+                                    'max-height' => 0,
                                     'mimetypes' => null
                               ), $constraints );
+
+    foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k )
+        $constraints[ $k ] = absint( $constraints[ $k ] );
 
     if ($file['error'] == 0) {
         if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
             $error_msg = sprintf( _x( 'File size (%s) exceeds maximum file size of %s', 'utils', 'WPBDM' ),
                                 size_format ($file['size'], 2),
                                 size_format ($constraints['max-size'], 2)
+                                );
+            return false;
+        }
+
+        if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
+            $error_msg = sprintf( _x( 'File size (%s) is inferior to the required minimum file size of %s', 'utils', 'WPBDM' ),
+                                size_format( $file['size'], 2 ),
+                                size_format( $constraints['min-size'], 2 )
                                 );
             return false;
         }
@@ -185,11 +201,45 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
             $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
             wp_update_attachment_metadata( $attachment_id, $attach_metadata );
 
-            if ( $check_image && !wp_attachment_is_image( $attachment_id ) ) {
+            if ( $check_image && ! wp_attachment_is_image( $attachment_id ) ) {
                 wp_delete_attachment( $attachment_id, true );
 
                 $error_msg = _x('Uploaded file is not an image', 'utils', 'WPBDM');
                 return false;
+            }
+
+            if ( wp_attachment_is_image( $attachment_id ) ) {
+                $meta = wp_get_attachment_metadata( $attachment_id );
+                $failed = false;
+
+                if ( ! $failed && $meta && $constraints['min-width'] > 0 && $meta['width'] < $constraints['min-width'] ) {
+                    $error_msg = sprintf( _x( 'Image width (%s px) is inferior to minimum required width of %s px.', 'utils', 'WPBDM' ),
+                                          $meta['width'],
+                                          $constraints['min-width'] );
+                }
+
+                if ( ! $failed && $meta && $constraints['min-height'] > 0 && $meta['height'] < $constraints['min-height'] ) {
+                    $error_msg = sprintf( _x( 'Image height (%s px) is inferior to minimum required height of %s px.', 'utils', 'WPBDM' ),
+                                          $meta['height'],
+                                          $constraints['min-height'] );
+                }
+
+                if ( ! $failed && $meta && $constraints['max-width'] > 0 && $meta['width'] > $constraints['max-width'] ) {
+                    $error_msg = sprintf( _x( 'Image width (%s px) is greater than maximum allowed width of %s px.', 'utils', 'WPBDM' ),
+                                          $meta['width'],
+                                          $constraints['max-width'] );
+                }
+
+                if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
+                    $error_msg = sprintf( _x( 'Image height (%s px) is greater than maximum required height of %s px.', 'utils', 'WPBDM' ),
+                                          $meta['height'],
+                                          $constraints['max-height'] );
+                }
+
+                if ( $failed ) {
+                    wp_delete_attachment( $attachment_id, true );
+                    return false;
+                }
             }
 
             return $attachment_id;

@@ -508,7 +508,11 @@ class WPBDP_Plugin {
                                                  true,
                                                  true,
                                                  array( 'image' => true,
-                                                        'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 ),
+                                                        'min-size' => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
+                                                        'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
+                                                        'min-width' => wpbdp_get_option( 'image-min-width' ),
+                                                        'min-height' => wpbdp_get_option( 'image-min-height' )
+                                                     ),
                                                  $image_error ); // TODO: handle errors.
 
             if ( $image_error )
@@ -685,13 +689,14 @@ class WPBDP_Plugin {
     }
 
     public function _register_image_sizes() {
-        $thumbnail_width = intval( wpbdp_get_option( 'thumbnail-width' ) );
+        $thumbnail_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
+        $thumbnail_height = absint( wpbdp_get_option( 'thumbnail-height' ) );
 
-        $max_width = intval( wpbdp_get_option('image-max-width') );
-        $max_height = intval( wpbdp_get_option('image-max-height') );
+        $max_width = absint( wpbdp_get_option('image-max-width') );
+        $max_height = absint( wpbdp_get_option('image-max-height') );
 
         // thumbnail size
-        add_image_size( 'wpbdp-thumb', $thumbnail_width, $max_height, false );
+        add_image_size( 'wpbdp-thumb', $thumbnail_width, $thumbnail_height, (bool) wpbdp_get_option( 'thumbnail-crop' ) );
         add_image_size( 'wpbdp-large', $max_width, $max_height, false );
     }
 
