@@ -997,7 +997,7 @@ EOF;
             }
             $placeholders_text = substr( $placeholders_text, 0, -2 ) . '.';
 
-            $setting->help_text = sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'WPBDM' ),
+            $setting->help_text = ( $help_text_original ? $help_text_original . '<br  />' : '' ) . sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'WPBDM' ),
                                            $placeholders_text );
         }
 
@@ -1228,8 +1228,10 @@ EOF;
             foreach ($group->sections as $section) {
                 $callback = create_function('', 'echo "<a name=\"' . $section->slug . '\"></a>";');
 
-                if ($section->help_text)
-                    $callback = create_function('', 'echo "<p class=\"description\">' . addslashes( $section->help_text ) . '</p>";');
+                if ($section->help_text) {
+                    $t = addslashes( $section->help_text );
+                    $callback = create_function( '', 'echo \'<p class="description">' . $t . '</p>\';' );
+                }
 
                 add_settings_section($section->slug, $section->name, $callback, $group->wpslug);
 
