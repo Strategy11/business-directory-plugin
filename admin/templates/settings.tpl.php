@@ -33,7 +33,7 @@ endforeach;
 
 <?php if (wpbdp_getv($_REQUEST, 'groupid', 'general') == 'resetdefaults'): ?>
 
-<p><?php _e('Use this option if you want to go back to the factory-settings. Please notice that all of your customizations will be lost.', 'WPBDM'); ?></p>
+<p><?php _e('Use this option if you want to go back to the original factory settings for BD. <b>Please note that all of your existing settings will be lost.</b>', 'WPBDM'); ?></p>
 <form action="" method="POST">
 	<input type="hidden" name="resetdefaults" value="1" />
 	<?php echo submit_button(__('Reset Defaults', 'WPBDM')); ?>

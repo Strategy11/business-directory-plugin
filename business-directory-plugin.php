@@ -781,6 +781,9 @@ class WPBDP_Plugin {
             case 'categories':
                 return class_exists( 'WPBDP_CategoriesModule' );
                 break;
+            case 'claim-listings-module':
+                return class_exists( 'WPBDP_Claim_Listings_Module' );
+                break;
         }
 
         return false;

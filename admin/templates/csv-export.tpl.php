@@ -64,7 +64,10 @@ echo $notice;
             <td>
                 <label><input name="settings[generate-sequence-ids]"
                        type="checkbox"
-                       value="1" /> <?php _ex('Include unique IDs for each listing (sequence_id column)', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                       value="1" /> <?php _ex('Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'WPBDM' ); ?></label><br />
+                <span class="description">
+                <strong><?php _ex( 'If you plan to re-import the listings into BD and don\'t want new ones created, select this option!', 'admin csv-export', 'WPBDM'); ?></strong>
+                </span> <br /><br />
 
                 <label><input name="settings[include-users]"
                        type="checkbox"

@@ -54,8 +54,13 @@
         global $wpbdp;
         ?>
         <?php if ( ! $wpbdp->payments->payments_possible() ): ?>
-        <p><?php _ex("It does not appear you have any of the payment gateway modules installed. You need to purchase a payment gateway module in order to charge a fee for listings. To purchase payment gateways use the buttons below or visit", 'admin templates', "WPBDM"); ?></p>
-        <p><a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank">http://businessdirectoryplugin.com/premium-modules/</a></p>
+        <p>
+        <?php
+        echo str_replace( '<a>',
+                          '<a href="' . admin_url( 'admin.php' ) . '?page=wpbdp_admin_settings&groupid=payment">',
+                          sprintf ( _x( 'It does not appear you have any of the payment gateway modules enabled. Either <a>enable the default Authorize.net gateway</a> with your account info, or purchase a different payment gateway module in order to charge a fee for listings. To purchase additional payment gateways use the buttons below or visit %s.','admin templates', 'WPBDM' ),
+                                    '<a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank">http://businessdirectoryplugin.com/premium-modules/</a>' ) );
+        ?></p>
         <?php endif; ?>
 
         <div class="purchase-gateways cf">

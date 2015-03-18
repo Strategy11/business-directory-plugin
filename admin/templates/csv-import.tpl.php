@@ -16,6 +16,22 @@ echo wpbdp_admin_header(null, null, array(
 
 <?php wpbdp_admin_notices(); ?>
 
+<div class="wpbdp-note">
+<p><?php
+_ex( 'Here, you can import data into your directory using the CSV format.',
+     'admin csv-import',
+     'WPBDM' );
+?><br />
+<?php
+echo str_replace(
+    '<a>',
+    '<a href="http://businessdirectoryplugin.com/docs/#admin-import" target="_blank">',
+    _x( 'We strongly recommend reading our <a>CSV import documentation</a> first to help you do things in the right order.',
+        'admin csv-import',
+        'WPBDM' ) );
+?></p>
+</div>
+
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
 

@@ -1,8 +1,9 @@
 <?php
 $modules = array(
-    array( 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'WPBDM' ), 'new' ),
-    array( 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'WPBDM' ), 'new' ),
-    array( 'file-attachments-module', _x( 'File Upload Module', 'admin sidebar', 'WPBDM' ), 'new' ),
+    array( 'claim-listings-module', _x( 'Claim Listings Module', 'admin sidebar', 'WPBDM' ), 'new' ),
+    array( 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'WPBDM' ) ),
+    array( 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'WPBDM' ) ),
+    array( 'file-attachments-module', _x( 'File Upload Module', 'admin sidebar', 'WPBDM' ) ),
     array( 'featured-levels-module', _x( 'Featured Levels Module', 'admin sidebar', 'WPBDM' ) ),
     array( 'zip-search-module', _x( 'ZIP Code Search Module', 'admin sidebar', 'WPBDM' ) ),
     array( 'regions-module', _x( 'Regions Module', 'admin sidebar', 'WPBDM' ) ),
@@ -54,8 +55,9 @@ $modules = array(
                                             _x( 'If you\'ve found a bug or need support <a>visit the forums!</a>', 'admin sidebar', 'WPBDM' ) ); ?>
                 </p>
                 <p>
-                    &#149; <a href="http://businessdirectoryplugin.com/docs/"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
-                    &#149; <a href="http://businessdirectoryplugin.com/quick-start-guide/"><?php _ex( 'Quick Start Guide', 'admin sidebar', 'WPBDM' ); ?></a>
+                    &#149; <a href="http://businessdirectoryplugin.com/docs/" target="_blank"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
+                    &#149; <a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank"><?php _ex( 'Quick Start Guide', 'admin sidebar', 'WPBDM' ); ?></a><br />
+                    &#149; <a href="http://businessdirectoryplugin.com/video-tutorials/" target="_blank"><?php _ex( 'Video Tutorials', 'admin sidebar', 'WPBDM' ); ?></a>
                 </p>
             </div>
         </div>

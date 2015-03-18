@@ -264,24 +264,11 @@ class WPBDP_Admin {
                          'wpbdp_admin_formfields',
                          array('WPBDP_FormFieldsAdmin', 'admin_menu_cb'));
         add_submenu_page('wpbdp_admin',
-                         _x('All Listings', 'admin menu', 'WPBDM'),
-                         _x('All Listings', 'admin menu', 'WPBDM'),
+                         _x('Listings', 'admin menu', 'WPBDM'),
+                         _x('Listings', 'admin menu', 'WPBDM'),
                          'administrator',
                          'wpbdp_all_listings',
                          '__return_false');
-        add_submenu_page('wpbdp_admin',
-                         _x('Pending Upgrade', 'admin menu', 'WPBDM'),
-                         _x('Pending Upgrade', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_manage_featured',
-                         '__return_false');
-        add_submenu_page('wpbdp_admin',
-                         _x('Pending Payment', 'admin menu', 'WPBDM'),
-                         _x('Pending Payment', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_manage_payments',
-                         '__return_false');
-
         // if ( wpbdp_payments_api()->payments_possible() ) {
         //     add_submenu_page( 'wpbdp_admin',
         //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
@@ -316,8 +303,6 @@ class WPBDP_Admin {
             $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', WPBDP_POST_TYPE));
             $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
             $submenu['wpbdp_admin'][5][2] = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
-            $submenu['wpbdp_admin'][6][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', WPBDP_POST_TYPE, 'pendingupgrade'));
-            $submenu['wpbdp_admin'][7][2] = admin_url(sprintf('edit.php?post_type=%s&wpbdmfilter=%s', WPBDP_POST_TYPE, 'unpaid'));
         } elseif (current_user_can('contributor')) {
             $m = $submenu['edit.php?post_type=' . WPBDP_POST_TYPE];
             $keys = array_keys($m);

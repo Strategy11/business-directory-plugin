@@ -42,7 +42,8 @@ class WPBDP_Settings {
                             'permalinks-no-id',
                             _x( 'Remove listing ID from directory URLs?', 'admin settings', 'WPBDM' ),
                             'boolean',
-                            false );
+                            false,
+                            _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title". Check this setting to remove the ID for better SEO.', 'admin settings', 'WPBDM' ) );
 
         $s = $this->add_section( $g,
                                  'recaptcha',
@@ -100,7 +101,7 @@ class WPBDP_Settings {
         $desc .= '<span class="text-fields-warning wpbdp-note" style="display: none;">';
         $desc .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'WPBDM' );
         $desc .= '</span>';
-        $desc .= _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' );
+        $desc .= _x( 'Use Ctrl-Click to include multiple fields in the search. Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' );
         $this->add_setting( $s,
                             'quick-search-fields',
                             _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
@@ -114,7 +115,7 @@ class WPBDP_Settings {
                             _x( 'Enable high performance searches?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             false,
-                            _x( 'Enabling this makes BD sacrifice result quality to improve speed.', 'admin settings', 'WPBDM' ) );
+                            _x( 'Enabling this makes BD sacrifice result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'admin settings', 'WPBDM' ) );
         // }}
 
         // Misc. settings.
@@ -538,9 +539,12 @@ EOF;
 
         $this->add_setting( $s,
                             'payment-abandonment',
-                            _x( 'Remind users of abandoned payments?', 'admin settings', 'WPBDM' ),
+                            _x( 'Ask users to come back for abandoned payments?', 'admin settings', 'WPBDM' ),
                             'boolean',
-                            false );
+                            false,
+                            _x( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  BD can remind them to come back and continue.', 'admin settings', 'WPBDM' )
+                );
+
         $this->register_dep( 'payment-abandonment', 'requires-true', 'payments-on' );
         $this->add_setting( $s,
                             'payment-abandonment-threshold',
@@ -557,7 +561,7 @@ EOF;
         /* Registration settings */
         $g = $this->add_group('registration', _x('Registration', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'registration', _x('Registration Settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'require-login', _x('Require login?', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->add_setting($s, 'require-login', _x('Require login to post listings?', 'admin settings', 'WPBDM'), 'boolean', true);
         //$this->add_setting($s, 'login-url', _x('Login URL', 'admin settings', 'WPBDM'), 'text', wp_login_url()); // deprecated as of 2.1
         // deprecated as of 2.1, added again for 3.4
         $this->add_setting( $s,

@@ -3,6 +3,7 @@ require_once( WPBDP_PATH . 'core/class-gateway.php' );
 
 // TODO: add a warning about other currencies not being supporte and link to the relevant docs.
 // TODO: add a warning about SSL not being on and being required for Authorize.net (unless in test mode).
+// TODO: add a warning if CURL and the other reqs for Authorize are not present.
 
 /**
  * @since 3.5.7
@@ -18,12 +19,15 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
                                 __( 'Activate Authorize.net?', 'authorize-net', 'WPBDM' ),
                                 'boolean',
                                 false );
+        $settings->register_dep( 'authorize-net', 'requires-true', 'payments-on' );
         $settings->add_setting( $s,
                                 'authorize-net-login-id',
                                 __( 'Login ID', 'authorize-net', 'WPBDM' ) );
+        $settings->register_dep( 'authorize-net-login-id', 'requires-true', 'authorize-net' );
         $settings->add_setting( $s,
                                 'authorize-net-transaction-key',
                                 __( 'Transaction Key', 'authorize-net', 'WPBDM' ) );
+        $settings->register_dep( 'authorize-net-transaction-key', 'requires-true', 'authorize-net' );
     }
 
     public function validate_config() {
@@ -39,6 +43,10 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
             $errors[] = _x( 'Transaction Key is missing.', 'authorize-net', 'WPBDM' );
 
         return $errors;
+    }
+
+    public function get_capabilities() {
+        return array( 'recurring' );
     }
 
     public function get_integration_method() {
