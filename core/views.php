@@ -203,19 +203,23 @@ class WPBDP_DirectoryController {
         $q = $GLOBALS['wp_query'];
         wpbdp_push_query( $q );
 
-        if ( is_array( $category_id ) || $in_listings_shortcode ) {
+        if ( is_array( $category_id ) ) {
             $title = '';
             $category = null;
         } else {
             $category = get_term( $category_id, WPBDP_CATEGORY_TAX );
             $title = esc_attr( $category->name );
+
+            if ( $in_listings_shortcode )
+                $title = '';
         }
 
         $html = wpbdp_render( 'category',
                              array(
                                 'title' => $title,
                                 'category' => $category,
-                                'is_tag' => false
+                                'is_tag' => false,
+                                'in_shortcode' => $in_listings_shortcode
                                 ),
                              false );
 
