@@ -91,7 +91,13 @@ class WPBDP_Plugin {
         $this->licensing = new WPBDP_Licensing();
 
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
-        add_action( 'init', array( &$this, 'init' ) );
+
+        if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON ) {
+            add_action( 'init', array( &$this, 'init' ), 9 );
+        } else {
+            add_action( 'init', array( &$this, 'init' ) );
+        }
+
         add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
 
         // For testing the expiration routine only.
@@ -303,6 +309,7 @@ class WPBDP_Plugin {
                 $orderby = 'wpbdp_is_sticky DESC' . $wpbdp_orderby . ', ' . $orderby;
             }
 
+            $orderby = apply_filters( 'wpbdp_query_full_orderby', $orderby );
         }
 
         return $orderby;
