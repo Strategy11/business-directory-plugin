@@ -169,7 +169,7 @@ jQuery(function( $ ) {
     }
 
     // Import config. page.
-    $( '.directory-admin_page_wpbdp-csv-import .file-local-selection a.toggle-selection' ).click(function(e) {
+    $( '.wpbdp-page-csv-import .file-local-selection a.toggle-selection' ).click(function(e) {
         e.preventDefault();
         var $files = $( this ).siblings( 'ul' );
         $files.toggle();
@@ -178,7 +178,7 @@ jQuery(function( $ ) {
             $files.find( 'input[type="radio"]' ).prop( 'checked', false );
     });
 
-    $( '.directory-admin_page_wpbdp-csv-import .file-local-selection input[type="radio"]' ).change(function(e) {
+    $( '.wpbdp-page-csv-import .file-local-selection input[type="radio"]' ).change(function(e) {
         var sel = $(this).filter(':checked').val();
 
         if ( "" == sel ) {

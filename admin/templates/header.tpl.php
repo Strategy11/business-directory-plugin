@@ -1,4 +1,4 @@
-<div class="wrap wpbdp-admin <?php echo isset($page_id) ? 'wpbdp-page-' . $page_id : ''; ?>">
+<div class="wrap wpbdp-admin <?php echo isset($page_id) ? 'wpbdp-page-' . $page_id : 'wpbdp-page'; ?>">
 	<div id="icon-edit-pages" class="icon32"></div>
 		<h2>
 			<?php echo isset($page_title) ? $page_title : __("Business Directory Plugin","WPBDM"); ?>

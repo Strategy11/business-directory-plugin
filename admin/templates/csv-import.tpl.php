@@ -8,7 +8,7 @@ function _defaults_or( $defs, $k, $v ) {
 ?>
 
 <?php
-echo wpbdp_admin_header(null, null, array(
+echo wpbdp_admin_header(null, 'csv-import', array(
     array(_x('Help', 'admin csv-import', 'WPBDM'), '#help'),
     array(_x('See an example CSV import file', 'admin csv-import', 'WPBDM'), esc_url(add_query_arg('action', 'example-csv')))
     ) );

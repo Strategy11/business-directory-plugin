@@ -617,7 +617,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     };
 
     $(document).ready(function(){
-        if ( 0 == $('body.directory-admin_page_wpbdp_admin_settings').length )
+        if ( 0 == $('.wpbdp-page-admin-settings').length )
             return;
 
         s.init();
@@ -644,7 +644,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     };
 
     $(document).ready(function(){
-        if ( $( 'body.directory-admin_page_wpbdp_uninstall' ).length > 0 )
+        if ( $( '.wpbdp-page-admin-uninstall' ).length > 0 )
             u.init();
     });
 })(jQuery);
@@ -657,7 +657,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             return;
         }
 
-        $( 'input.wpbdp-toggle-images' ).change(function() {
+        $( 'body.wp-admin.widgets-php' ).on( 'change', 'input.wpbdp-toggle-images', function() {
             var checked = $(this).is(':checked');
 
             if ( checked ) {
