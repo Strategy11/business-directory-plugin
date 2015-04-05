@@ -373,6 +373,21 @@ class WPBDP_CSV_Import {
         }
 
         // Handle fields.
+        foreach ( $fields as $field_id => $field_data ) {
+            $f = wpbdp_get_form_field( $field_id );
+
+            if ( 'image' != $f->get_field_type_id() )
+                continue;
+
+            $img = trim( $field_data );
+
+            if ( ! $img )
+                continue;
+
+            $media_id = $this->upload_image( $img );
+            $fields[ $field_id ] = $media_id ? $media_id : '';
+        }
+
         $state->fields = $fields;
 
         // Handle images.
