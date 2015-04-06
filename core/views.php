@@ -287,7 +287,10 @@ class WPBDP_DirectoryController {
         if ( isset( $args_['numberposts'] ) )
             $args['numberposts'] = $args_['numberposts'];
 
-        $compat = false;
+        // See if we need to call query_posts() directly in case the user is using the template without
+        // the $query argument.
+        $template = file_get_contents( wpbdp_locate_template( 'businessdirectory-listings' ) );
+        $compat = ( false === stripos( $template, '$query->the_post' ) ) ? true : false;
 
         if ( $compat ) {
             query_posts( $args );
