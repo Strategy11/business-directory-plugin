@@ -51,6 +51,13 @@ abstract class WPBDP_Payment_Gateway {
         return array();
     }
 
+    /**
+     * @since 3.5.8
+     */
+    public function has_capability( $cap ) {
+        return in_array( $cap, $this->get_capabilities(), true );
+    }
+
     public function render_unsubscribe_integration( &$category, &$listing) {}
 
     public function setup_payment( &$payment ) {}
