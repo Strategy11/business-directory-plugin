@@ -46,7 +46,7 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
     }
 
     public function get_capabilities() {
-        return array( 'recurring' );
+        return array( 'recurring', 'handles-expiration' );
     }
 
     public function get_integration_method() {
@@ -67,11 +67,17 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         if ( 'pending' != $payment->get_status() )
             die();
 
+        $payment->clear_errors();
+
         if ( ! class_exists( 'AuthorizeNetAIM' ) )
             require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
 
-        $data = $payment->get_data( 'billing-information' );
+        if ( $payment->has_item_type( 'recurring_fee' ) ) {
+            // TODO: round fees not within 7-365 days (or make non-recurring).
+            return $this->process_recurring( $payment );
+        }
 
+        $data = $payment->get_data( 'billing-information' );
         $aim = new AuthorizeNetAIM( wpbdp_get_option( 'authorize-net-login-id' ),
                                     wpbdp_get_option( 'authorize-net-transaction-key' ) );
 
@@ -129,7 +135,89 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         wp_redirect( $payment->get_redirect_url() ); die();
     }
 
+    private function process_recurring( &$payment ) {
+        $data = $payment->get_data( 'billing-information' );
 
+        $arb = new AuthorizeNetARB( wpbdp_get_option( 'authorize-net-login-id' ),
+                                    wpbdp_get_option( 'authorize-net-transaction-key' ) );
+
+        if ( wpbdp_get_option( 'payments-test-mode' ) )
+            $arb->setSandbox( true );
+
+        $recurring_item = $payment->get_recurring_item();
+        //wpbdp_debug_e( $recurring_item );
+
+        $s = new AuthorizeNet_Subscription();
+        $s->intervalLength = $recurring_item->data['fee_days'];
+        $s->intervalUnit = 'days';
+        $s->totalOccurrences = '9999';
+        $s->startDate = date( 'Y-m-d',
+                              strtotime( '+1 day', current_time( 'timestamp' ) ) );
+        $s->amount = $recurring_item->amount;
+
+        $s->creditCardCardNumber = $data['cc_number'];
+        $s->creditCardExpirationDate = $data['cc_exp_year'] . '-' . $data['cc_exp_month'];
+        $s->creditCardCardCode = $data['cc_cvc'];
+
+        $s->billToFirstName = $data['first_name'];
+        $s->billToLastName = $data['last_name'];
+        $s->billToAddress = $data['address_line1'];
+        $s->billToCity = $data['address_city'];
+        $s->billToState = $data['address_state'];
+        $s->billToCountry = $data['address_country'];
+
+        $s->orderInvoiceNumber = $payment->get_id();
+        $s->orderDescription = $payment->get_short_description();
+        // TODO: maybe add zip, phone, email, cust_id.
+
+        $response = $arb->createSubscription( $s );
+
+        if ( ! $response->isOk() ) {
+            $payment->add_error( _x( 'Could not process payment.', 'authorize-net', 'WPBDM' ) );
+            $payment->set_status( WPBDP_Payment::STATUS_REJECTED, WPBDP_Payment::HANDLER_GATEWAY );
+        } else {
+            $subscription_id = $response->getSubscriptionId();
+
+            $payment->set_data( 'recurring_id', $subscription_id );
+            $payment->set_status( WPBDP_Payment::STATUS_COMPLETED, WPBDP_Payment::HANDLER_GATEWAY );
+        }
+
+        $payment->save();
+        wp_redirect( $payment->get_redirect_url() );
+    }
+
+    public function handle_expiration( $payment ) {
+        if ( ! class_exists( 'AuthorizeNetAIM' ) )
+            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
+
+        $recurring = $payment->get_recurring_item();
+        $listing = WPBDP_Listing::get( $payment->get_listing_id() );
+
+        if ( ! $listing || ! $recurring )
+            return;
+
+        $recurring_id = $payment->get_data( 'recurring_id' );
+
+        $arb = new AuthorizeNetARB( wpbdp_get_option( 'authorize-net-login-id' ),
+                                    wpbdp_get_option( 'authorize-net-transaction-key' ) );
+
+        if ( wpbdp_get_option( 'payments-test-mode' ) )
+            $arb->setSandbox( true );
+
+        $response = $arb->getSubscriptionStatus( $recurring_id );
+        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
+
+        if ( 'active' == $status ) {
+            // If subscription is active, renew automatically for another period.
+            $term_payment = $payment->generate_recurring_payment();
+            $term_payment->set_status( WPBDP_Payment::STATUS_COMPLETED, WPBDP_Payment::HANDLER_GATEWAY );
+            $term_payment->save();
+        } else {
+            // If subscription is not active, make item non recurring so it expires normally next time.
+            $recurring_item = $payment->get_recurring_item();
+            $listing->make_category_non_recurring( $recurring_item->rel_id_1 );
+        }
+    }
 
 }
 
