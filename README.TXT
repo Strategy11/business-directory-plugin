@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 3.7
-Tested up to: 4.1
-Last Updated: 2015-Jan-6
-Stable tag: tags/3.5.4
+Tested up to: 4.1.1
+Last Updated: 2015-Apr-7
+Stable tag: tags/3.6
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -34,11 +34,13 @@ Business Directory Plugin allows you to build local directories, business provid
 * Location based result filtering (using the Regions Module)
 * ZIP code radius searches (using the ZIP Search Module)
 * Assign features to paid or sticky listing plans to give users incentive to upgrade (using the Featured levels module)
-* Allow users to upload PDFs (using the File Upload Module) (NEW!)
+* Allow users to upload PDFs (using the File Upload Module)
 * Display Category Icons/Allow Parent-Child Category Navigation (using the Enhanced Category Module)
 * Manage attachments on listings (using the Attachments module, supports PDF, Text files, images)
-* Accept payments using Stripe (using the Stripe Gateway Module) (NEW!)
-* Accept payments using PayFast (using the PayFast Gateway Module) (NEW!)
+* Accept payments using Stripe (using the Stripe Gateway Module)
+* Accept payments using PayFast (using the PayFast Gateway Module)
+* Post claimable listings that other businesses can pay (or not) to claim (using the Claim Listings Module) (NEW!)
+* FULL responsive support when installed with a responsive theme (NEW!)
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -48,11 +50,13 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
+NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
+
 NEW! [PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
 
 NEW! [Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
 
-NEW! [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
+[File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
 
 [Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
 
@@ -108,8 +112,38 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.6 =
+* Added Authorize.net as a payment gateway.
+* Added "AJAX compatibility mode" to help with Javascript/AJAX conflicts.
+* New sequential CSV import process that improves performance and reliability especially for large imports.
+* Improved display on mobile devices (full responsive support).
+* Work around some themes not firing some of the hooks for the comments form.
+* Improved quick search performance by reducing the number of JOINs required.
+* Added an optional quick search mode that increases performance by reducing search accuracy (shared hosting support).
+* Preprend 'http://' to data entered into URL fields automatically.
+* Apply strip_slashes() to multivalued field options.
+* Add setting that allows admins to automatically remind users of abandoned payments.
+* Allow setting the post status for listings imported via CSV.
+* Allow users to upload CSV and ZIP files for CSV imports via FTP.
+* Add an option to disable e-mail notifications when importing listings via CSV.
+* Disable geocoding and expensive operations while importing listings via CSV.
+* Improve date picker usability when modifying a listing's expiration date.
+* Fixed a problem with renewal process when all available fee plans are free.
+* Fix category selections problems on jQuery 1.9+ when jquery-compat is not available.
+
+= Version 3.5.7 =
+* Second emergency Yoast SEO patch to fix issue with get_content_title() API change (1.7.2 and higher in Yoast)
+
+= Version 3.5.6 =
+* Emergency Yoast SEO patch to fix issue with metadesc() API change (1.7.2 and higher in Yoast)
+
+= Version 3.5.5 =
+* Fixed activation bug.
+* Claim Listings added.
+
 = Version 3.5.4 =
-* Improve "the_content" filter support.
+* Improved "the_content" filter support.
 * Add pagination support to the featured levels shortcode. 
 * Make category list responsive. 
 * Work around a WP bug related to importing categories with ampersands. 
