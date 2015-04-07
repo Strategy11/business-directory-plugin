@@ -11,7 +11,7 @@ abstract class AuthorizeNetRequest
     protected $_api_login;
     protected $_transaction_key;
     protected $_post_string; 
-    public $VERIFY_PEER = true; // Set to false if getting connection errors.
+    public $VERIFY_PEER = false; // Set to false if getting connection errors.
     protected $_sandbox = true;
     protected $_log_file = false;
     
@@ -99,7 +99,7 @@ abstract class AuthorizeNetRequest
         if (preg_match('/xml/',$post_url)) {
             curl_setopt($curl_request, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
         }
-        
+
         $response = curl_exec($curl_request);
         
         if ($this->_log_file) {
