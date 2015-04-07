@@ -114,9 +114,11 @@ If you are having problems please visit [support forum](http://www.businessdirec
 == Changelog ==
 
 = Version 3.6 =
-* Added Authorize.net as a payment gateway.
+* Added Authorize.net as the default (free) payment gateway, replacing Google Wallet which was discontinued in March 2015.
+* Dropped support for Google Wallet for Business (http://www.businessnewsdaily.com/7468-google-wallet-discontinued.html)
 * Added "AJAX compatibility mode" to help with Javascript/AJAX conflicts.
 * New sequential CSV import process that improves performance and reliability especially for large imports.
+* Added new German translation to core plugin
 * Improved display on mobile devices (full responsive support).
 * Work around some themes not firing some of the hooks for the comments form.
 * Improved quick search performance by reducing the number of JOINs required.
