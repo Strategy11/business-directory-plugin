@@ -762,6 +762,8 @@ class WPBDP_Listings_API {
         $now_date = wpbdp_format_time( $now, 'mysql' );
 
         if ( $threshold == 0 ) {
+            $this->notify_expired_listings_recurring( $now );
+
             $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on < %s AND email_sent <> %d AND email_sent <> %d ORDER BY expires_on LIMIT 100",
                                      0,
                                      $now_date,
@@ -869,6 +871,29 @@ class WPBDP_Listings_API {
         }
 
     }
+
+    private function notify_expired_listings_recurring( $now ) {
+        global $wpdb, $wpbdp;
+
+        $now_date = wpbdp_format_time( $now, 'mysql' );
+
+        $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on < %s ORDER BY expires_on LIMIT 100",
+                1,
+                $now_date );
+        $rs = $wpdb->get_results( $query );
+
+        foreach ( $rs as $r ) {
+            $recurring_id = $r->recurring_id;
+            $data = unserialize( $r->recurring_data );
+
+            if ( ! isset( $data['payment_id'] ) )
+                continue;
+
+            $wpbdp->payments->process_recurring_expiration( $data['payment_id'] );
+        }
+    }
+
+
 
 }
 

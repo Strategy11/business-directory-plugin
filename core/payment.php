@@ -532,6 +532,27 @@ class WPBDP_PaymentsAPI {
             $this->gateways[ $gateway_id ]->process( $payment, $action );
     }
 
+    /**
+     * @since 3.5.8
+     */
+    public function process_recurring_expiration( $payment_id = 0 ) {
+        $payment = WPBDP_Payment::get( $payment_id );
+
+        if ( ! $payment || ! $payment->is_completed() )
+            return;
+
+        $gateway = $payment->get_gateway();
+        if ( ! $this->is_available( $gateway ) )
+            return;
+
+        $gateway = $this->gateways[ $gateway ];
+
+        if ( ! $gateway->has_capability( 'handles-expiration' ) )
+            return;
+
+        $gateway->handle_expiration( $payment );
+    }
+
     public function render_unsubscribe_integration( &$category, &$listing ) {
         global $wpdb;
 
