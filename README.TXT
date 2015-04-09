@@ -5,7 +5,7 @@ Tags: wordpress directory,wordpress directory plugin, wordpress directory theme,
 Requires at least: 3.7
 Tested up to: 4.1.1
 Last Updated: 2015-Apr-9
-Stable tag: tags/3.6.2
+Stable tag: tags/3.6.2.1
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -112,6 +112,9 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.6.2.1 =
+* Added EDD updater class change to bring class up to 1.6
 
 = Version 3.6.2 =
 * Fixed WP thumbnail issue where "close enough" sizes were not exactly sized to requested size (thumbnail issue)
