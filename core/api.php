@@ -292,15 +292,38 @@ function wpbdp_get_current_sort_option() {
 function _wpbdp_resize_image_if_needed($id) {
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
-    if ( $metadata = wp_get_attachment_metadata( $id ) ) {
-        if ( !isset( $metadata['sizes']['wpbdp-thumb'] ) || !isset( $metadata['sizes']['wpbdp-thumb'] ) || 
-            (isset($metadata['sizes']['wpbdp-thumb']) && (abs( intval($metadata['sizes']['wpbdp-thumb']['width']) - intval( wpbdp_get_option( 'thumbnail-width' ) ) ) >= 15) ) ) {
-            wpbdp_log( sprintf( 'Re-creating thumbnails for attachment %d', $id ) );
-            $filename = get_attached_file($id, true);
-            $attach_data = wp_generate_attachment_metadata( $id, $filename );
-            wp_update_attachment_metadata( $id,  $attach_data );
-        }
+    $metadata = wp_get_attachment_metadata( $id );
+
+    if ( ! $metadata )
+        return;
+
+    $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
+    $def_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
+ 
+    $width = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
+
+    if ( $width < $def_width )
+        return;
+
+    $thumb_info = isset( $metadata['sizes']['wpbdp-thumb'] ) ? $metadata['sizes']['wpbdp-thumb'] : false;
+
+    if ( ! $width )
+        return;
+
+    if ( $thumb_info ) {
+        $thumb_width = absint( $thumb_info['width'] );
+        $def_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
+
+        // 10px of tolerance.
+        if ( abs( $thumb_width - $def_width ) < 10 )
+            return;
     }
+
+    $filename = get_attached_file( $id, true );
+    $attach_data = wp_generate_attachment_metadata( $id, $filename );
+    wp_update_attachment_metadata( $id, $attach_data );
+
+    wpbdp_log( sprintf( 'Resized image "%s" [ID: %d] to match updated size constraints.', $filename, $id ) );
 }
 
 /*

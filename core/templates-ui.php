@@ -376,6 +376,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
                             );
         $image_link = $args['link'] == 'picture' ? WPBDP_URL . 'core/images/default-image-big.gif' : '';
     } elseif ( $main_image ) {
+        _wpbdp_resize_image_if_needed( $main_image->ID );
         $image_img = wp_get_attachment_image( $main_image->ID,
                                               'wpbdp-thumb',
                                               false,

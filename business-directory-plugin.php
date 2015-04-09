@@ -702,8 +702,10 @@ class WPBDP_Plugin {
         $max_width = absint( wpbdp_get_option('image-max-width') );
         $max_height = absint( wpbdp_get_option('image-max-height') );
 
+        $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
+
         // thumbnail size
-        add_image_size( 'wpbdp-thumb', $thumbnail_width, $thumbnail_height, (bool) wpbdp_get_option( 'thumbnail-crop' ) );
+        add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop );
         add_image_size( 'wpbdp-large', $max_width, $max_height, false );
     }
 

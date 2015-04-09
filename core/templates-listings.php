@@ -140,7 +140,6 @@ function _wpbdp_render_excerpt() {
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
     $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
 
-
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
         'thumbnail' => ( wpbdp_get_option( 'allow-images' ) && wpbdp_get_option( 'show-thumbnail' ) ) ? wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' ) : '',
