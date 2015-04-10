@@ -408,11 +408,12 @@ EOF;
                                                             'link' => _x( 'Checkout URL link', 'admin settings', 'WPBDM' ) ) )
                           );
 
+        $url = admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=listings' ) . '#listings/renewals';
         $s = $this->add_section( $g,
                                  'email-renewal-reminders',
                                  _x( 'Renewal Reminders', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
-                                              '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=listings#listings/renewals' ) . '">',
+                                              '<a href="' . esc_url( $url ) . '">',
                                               _x( 'This section refers only to the text of the renewal/expiration notices. You can also <a>configure when the e-mails are sent</a>.', 'admin settings', 'WPBDM' ) ) );
 
         $this->add_setting( $s,
@@ -649,6 +650,12 @@ EOF;
 
     public function _validate_listings_permalink($setting, $newvalue, $oldvalue=null) {
         return trim(str_replace(' ', '', $newvalue));
+    }
+
+    public function _print_help_text( $s ) {
+        $section = $s;
+        wpbdp_debug_e( $section );
+        echo 'HI THERE';
     }
 
     public function setup_ajax_compat_mode( $setting, $newvalue, $oldvalue = null ) {
@@ -1242,13 +1249,7 @@ EOF;
     public function register_in_admin() {
         foreach ($this->groups as $group) {
             foreach ($group->sections as $section) {
-                $callback = create_function('', 'echo "<a name=\"' . $section->slug . '\"></a>";');
-
-                if ($section->help_text) {
-                    $t = addslashes( $section->help_text );
-                    $callback = create_function( '', 'echo \'<p class="description">' . $t . '</p>\';' );
-                }
-
+                $callback = create_function( '', 'WPBDP_Settings::_section_cb("' . $group->slug . '", "' . $section->slug . '");' );
                 add_settings_section($section->slug, $section->name, $callback, $group->wpslug);
 
                 foreach ($section->settings as $setting) {
@@ -1265,6 +1266,21 @@ EOF;
                     }
                 }
             }
+        }
+    }
+
+    public static function _section_cb( $g, $s ) {
+        $api = wpbdp_settings_api();
+
+        $group = $api->groups[ $g ];
+        $section = $group->sections[ $s ];
+
+        echo '<a name="' . $section->slug . '"></a>';
+
+        if ( $section->help_text ) {
+            echo '<p class="description">';
+            echo stripslashes( $section->help_text );
+            echo '</p>';
         }
     }
 
@@ -1391,5 +1407,6 @@ EOF;
             delete_option('wpbusdirman_settings_config');
         }
     }
+
 }
 
