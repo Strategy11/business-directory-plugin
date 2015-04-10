@@ -94,7 +94,7 @@ class WPBDP_Listings_API {
 
         $post = get_post( $id );
 
-        if ( WPBDP_POST_TYPE != $post->post_type )
+        if ( WPBDP_POST_TYPE != get_post_type( $post ) || ! wpbdp_get_page_id( 'main' ) )
             return $shortlink;
 
         return $this->_post_link( $shortlink, $post );
@@ -116,6 +116,9 @@ class WPBDP_Listings_API {
     }
 
     public function _preview_post_link( $url, $post ) {
+        if ( WPBDP_POST_TYPE != get_post_type( $post ) || ! wpbdp_get_page_id( 'main' ) )
+            return $url ;
+
         if ( wpbdp_rewrite_on() )
             $url = remove_query_arg( array( 'post_type', 'p' ), $url );
 
