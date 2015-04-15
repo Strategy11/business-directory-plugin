@@ -259,7 +259,7 @@ class WPBDP_CSV_Import {
     private function read_header() {
         $file = new SplFileObject( $this->csv_file );
 
-        $this->set_header( str_getcsv( $file->current() ) );
+        $this->set_header( str_getcsv( $file->current(), $this->settings['csv-file-separator'] ) );
         $file->next();
         $this->current_line = $file->key();
         $file = null;
