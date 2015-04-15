@@ -648,7 +648,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     }
 
     .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail {
-        width: 40%;
+        /*width: 40%;*/
         padding: 5px;
     }
 
