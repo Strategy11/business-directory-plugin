@@ -43,7 +43,7 @@ function wpbdp_get_page_id($name='main', $unique=true) {
     }
 
     if ( ! $page_ids )
-        return false;
+        return $unique ? false : array();
 
     if ( ! is_array( $page_ids ) )
         $page_ids = array( $page_ids );
