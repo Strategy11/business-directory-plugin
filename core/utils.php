@@ -564,4 +564,17 @@ class WPBDP_NoopObject {
 
 }
 
+// For compat with PHP < 5.3
+if ( ! function_exists( 'str_getcsv' ) ) {
+    function str_getcsv( $input, $delimiter = ',', $enclosure = '"', $escape = "\\" ) {
+        $f = tmpfile();
+        fwrite( $f, $input );
+        fseek( $f, 0 );
 
+        $res = fgetcsv( $f, 0, $delimiter, $enclosure );
+
+        fclose( $f );
+
+        return $res;
+    }
+}
