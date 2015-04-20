@@ -652,12 +652,6 @@ EOF;
         return trim(str_replace(' ', '', $newvalue));
     }
 
-    public function _print_help_text( $s ) {
-        $section = $s;
-        wpbdp_debug_e( $section );
-        echo 'HI THERE';
-    }
-
     public function setup_ajax_compat_mode( $setting, $newvalue, $oldvalue = null ) {
         if ( $newvalue == $oldvalue )
             return;
