@@ -2,10 +2,10 @@
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
-Requires at least: 3.7
-Tested up to: 4.1.1
-Last Updated: 2015-Apr-10
-Stable tag: tags/3.6.3
+Requires at least: 3.8
+Tested up to: 4.2
+Last Updated: 2015-Apr-20
+Stable tag: tags/3.6.4
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -112,6 +112,12 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.6.4 =
+* Include an str_getcsv() alternative for setups running PHP < 5.2.
+* Fix PHP warning appearing when using the directory without a main page defined.
+* Minor CSS fix for image display on mobile devices.
+* Add support for WP 4.2 split terms.
 
 = Version 3.6.3 =
 * Fixed bug where a post in draft mode was not displaying due to BD
