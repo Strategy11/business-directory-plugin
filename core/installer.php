@@ -712,6 +712,9 @@ class WPBDP_Installer {
             $this->process_term_split( $term_id );
     }
 
+    /**
+     * @since 3.6.4
+     */
     private function gather_pre_split_term_ids() {
         global $wpdb;
 
