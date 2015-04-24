@@ -59,7 +59,7 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
     }
 
     public function process( &$payment, $action ) {
-        if ( ! $this->validate_billing_information( $payment, $errors ) ) {
+        if ( ! $this->validate_billing_information( $payment ) ) {
             wp_redirect( $payment->get_checkout_url() );
             die();
         }
