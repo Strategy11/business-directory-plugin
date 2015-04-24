@@ -148,6 +148,14 @@ WPBDP.fileUpload = {
                     return ( t._slotsRemaining - data.files.length ) >= 0;
                 },
                 done: function( res ) {
+                    var uploadErrors = ( 'undefined' !== typeof res.data.uploadErrors ) ? res.data.uploadErrors : false;
+
+                    if ( uploadErrors ) {
+                        var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( res.data.uploadErrors );
+                        $( '.area-and-conditions' ).prepend( errorMsg );
+                        return;
+                    }
+
                     $( '#no-images-message' ).hide();
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );
 
@@ -160,9 +168,6 @@ WPBDP.fileUpload = {
                         $( '#image-upload-dnd-area' ).addClass('error');
                         $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
                         $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
-                    } else if ( 'undefined' !== typeof res.data.uploadErrors ) {
-                        var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( res.data.uploadErrors );
-                        $( '.area-and-conditions' ).prepend( errorMsg );
                     }
                 }
             } );
