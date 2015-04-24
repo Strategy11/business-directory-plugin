@@ -24,7 +24,19 @@ var admin = wpbdp.admin = wpbdp.admin || {};
 
             // Image upload.
             wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), {
+                validate: function( data ) {
+                    $( this ).siblings( '.wpbdp-msg' ).remove();
+                    return true;
+                },
                 done: function( res ) {
+                    var uploadErrors = ( 'undefined' !== typeof res.data.uploadErrors ) ? res.data.uploadErrors : false;
+
+                    if ( uploadErrors ) {
+                        var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( '<p>' + res.data.uploadErrors + '</p>' );
+                        $( '.area-and-conditions' ).prepend( errorMsg );
+                        return;
+                    }
+
                     $( '#no-images-message' ).hide();
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );
                 }
