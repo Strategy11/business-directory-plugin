@@ -54,7 +54,13 @@ class WPBDP_Checkout_Page extends WPBDP_View {
 
         // Auto-select gateway if there is only one available.
         $gateways = $wpbdp->payments->get_available_methods();
-        if ( 1 == count( $gateways ) ) {
+        $skip_gateway_selection = false;
+
+        if ( 1 == count( $gateways ) )
+            $skip_gateway_selection = true;
+
+        $skip_gateway_selection = apply_filters( 'wpbdp_checkout_skip_gateway_selection', $skip_gateway_selection );
+        if ( $skip_gateway_selection ) {
             $this->payment->set_payment_method( array_pop( $gateways ) );
             $this->payment->save();
             return $this->checkout();
