@@ -89,7 +89,7 @@ class WPBDP_Admin_Listings {
 
         if ( $paid_status != 'ok' )
             $status_links .= sprintf('<span><a href="%s">%s</a></span>',
-                                    add_query_arg( array( 'wpbdmaction' => 'setaspaid', 'post' => $post_id ) ),
+                                    esc_url( add_query_arg( array( 'wpbdmaction' => 'setaspaid', 'post' => $post_id ) ) ),
                                     __('Paid', 'WPBDM'));
 
         printf( '<span class="tag paymentstatus %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
@@ -111,14 +111,14 @@ class WPBDP_Admin_Listings {
         if ( current_user_can('administrator') ) {
             if ( $sticky_info->upgradeable ) {
                 echo sprintf('<span><a href="%s">%s</a></span>',
-                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post_id)),
+                             esc_url( add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post_id)) ),
                              '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
                 echo '<br />';
             }
 
             if ( $sticky_info->downgradeable ) {
                 echo sprintf('<span><a href="%s">%s</a></span>',
-                             add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post_id)),
+                             esc_url( add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post_id)) ),
                              '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );
             }
         } elseif ( current_user_can('contributor') && wpbdp_user_can( 'upgrade-to-sticky', $post_id ) ) {
@@ -171,22 +171,22 @@ class WPBDP_Admin_Listings {
                                                    current_time( 'mysql' ) ) );
 
         $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                 add_query_arg('wpbdmfilter', 'paid', remove_query_arg('post')),
+                                 esc_url( add_query_arg('wpbdmfilter', 'paid', remove_query_arg('post')) ),
                                  wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'paid' ? 'current' : '',
                                  __('Paid', 'WPBDM'),
                                  number_format_i18n($paid));
         $views['unpaid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                   add_query_arg('wpbdmfilter', 'unpaid', remove_query_arg('post')),
+                                   esc_url( add_query_arg('wpbdmfilter', 'unpaid', remove_query_arg('post')) ),
                                    wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'unpaid' ? 'current' : '',
                                    __('Unpaid', 'WPBDM'),
                                    number_format_i18n($unpaid));
         $views['featured'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                   add_query_arg('wpbdmfilter', 'pendingupgrade', remove_query_arg('post')),
+                                   esc_url( add_query_arg('wpbdmfilter', 'pendingupgrade', remove_query_arg('post')) ),
                                    wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'pendingupgrade' ? 'current' : '',
                                    __('Pending Upgrade', 'WPBDM'),
                                    number_format_i18n($pending_upgrade));
         $views['expired'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                     add_query_arg( 'wpbdmfilter', 'expired', remove_query_arg( 'post' ) ),
+                                     esc_url( add_query_arg( 'wpbdmfilter', 'expired', remove_query_arg( 'post' ) ) ),
                                      wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) == 'expired' ? 'current' : '' ,
                                      _x( 'Expired', 'admin', 'WPBDM' ),
                                      number_format_i18n( $expired )
@@ -306,9 +306,9 @@ class WPBDP_Admin_Listings {
 
                     foreach ($bulk_actions as $action => $text) {
                         echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
-                                    'action', 'listing-' . $action, add_query_arg('wpbdmaction', $action), $text);
+                                    'action', 'listing-' . $action, esc_url( add_query_arg('wpbdmaction', $action) ), $text);
                         echo sprintf('jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
-                                    'action2', 'listing-' . $action, add_query_arg('wpbdmaction', $action), $text);
+                                    'action2', 'listing-' . $action, esc_url( add_query_arg('wpbdmaction', $action) ), $text);
                     }
 
                     echo '</script>';

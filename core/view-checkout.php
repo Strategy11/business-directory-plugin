@@ -89,7 +89,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
         if ( ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) ) {
             return wpbdp_render_msg(
                     str_replace( '<a>',
-                                 '<a href="' . $this->payment->get_checkout_url() . '">',
+                                 '<a href="' . esc_url( $this->payment->get_checkout_url() ) . '">',
                                  _x( 'Payments are not allowed on the non-secure version of this site. Please <a>continue to the secure server to proceed with your payment</a>.', 'checkout', 'WPBDM' ) ),
                     'error'
             );

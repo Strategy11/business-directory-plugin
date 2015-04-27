@@ -9,5 +9,5 @@ echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-categories
 ?>
 
 <?php if ( $listing->get_categories( 'expired' ) ): ?>
-<a href="<?php echo add_query_arg( 'wpbdmaction', 'renewlisting' ); ?>" class="button-primary button"><?php _ex( 'Renew listing in all expired categories', 'admin infometabox', 'WPBDM'); ?></a>
+<a href="<?php echo esc_url( add_query_arg( 'wpbdmaction', 'renewlisting' ) ); ?>" class="button-primary button"><?php _ex( 'Renew listing in all expired categories', 'admin infometabox', 'WPBDM'); ?></a>
 <?php endif; ?>

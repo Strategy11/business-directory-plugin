@@ -68,7 +68,7 @@ class WPBDP_Dummy_Gateway extends WPBDP_Payment_Gateway {
         $payment->set_status( $new_status, WPBDP_Payment::HANDLER_GATEWAY );
         $payment->save();
 
-        wp_redirect( $payment->get_redirect_url() );
+        wp_redirect( esc_url_raw( $payment->get_redirect_url() ) );
     }
 
 }

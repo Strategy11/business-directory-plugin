@@ -227,7 +227,7 @@ function wpbdp_search_form() {
     $html .= sprintf('<input id="wpbdmsearchsubmit" class="submit" type="submit" value="%s" />',
                      _x('Search Listings', 'templates', 'WPBDM'));
     $html .= sprintf('<a href="%s" class="advanced-search-link">%s</a>',
-                     add_query_arg('action', 'search', wpbdp_get_page_link('main')),
+                     esc_url( add_query_arg('action', 'search', wpbdp_get_page_link('main')) ),
                      _x('Advanced Search', 'templates', 'WPBDM'));
     $html .= '</form>';
 
@@ -262,7 +262,7 @@ function wpbdp_listing_sort_options() {
         $html .= sprintf('<span class="%s %s"><a href="%s" title="%s">%s</a> %s</span>',
                         $id,
                         ($current_sort && $current_sort->option == $id) ? 'current': '',
-                        ($current_sort && $current_sort->option == $id) ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' )  . $id ),
+                        esc_url( ($current_sort && $current_sort->option == $id) ? add_query_arg('wpbdp_sort', ($current_sort->order == 'ASC' ? '-' : '') . $id) : add_query_arg('wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' )  . $id ) ),
                         isset( $option[1] ) && !empty( $option[1] ) ? esc_attr( $option[1] ) : esc_attr( $option[0] ),
                         $option[0],
                         ($current_sort && $current_sort->option == $id) ? ($current_sort->order == 'ASC' ? '↑' : '↓') : ( $default_order == 'DESC' ? '↓' : '↑' )
@@ -285,7 +285,7 @@ function wpbdp_listing_sort_options() {
         $default_order = isset( $option[2] ) && !empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
 
         $html .= sprintf( '<option value="%s" %s>%s%s %s</option>',
-                          ( $current_sort && $current_sort->option == $id ) ? add_query_arg( 'wpbdp_sort', ( $current_sort->order == 'ASC' ? '-' : '' ) . $id ) : add_query_arg('wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' )  . $id ),
+                          esc_url( ( $current_sort && $current_sort->option == $id ) ? add_query_arg( 'wpbdp_sort', ( $current_sort->order == 'ASC' ? '-' : '' ) . $id ) : add_query_arg('wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' )  . $id ) ),
                           ( $current_sort && $current_sort->option == $id ) ? 'selected="selected"' : '',
                           str_repeat( '&nbsp;', 3 ),
                           $option[0],

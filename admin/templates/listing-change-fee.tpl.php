@@ -10,7 +10,7 @@
             <?php if ( $category->fee_id == $f->id ): ?>
                 <span class="tag"><?php _ex( 'Current', 'admin listing fee', 'WPBDM' ); ?></span>
             <?php else: ?>
-                <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'assignfee', 'category_id' => $category->id, 'fee_id' => $f->id ), admin_url( 'post.php?post=' . $listing->get_id() . '&action=edit' ) ); ?>" class="button choose-this">
+                <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'assignfee', 'category_id' => $category->id, 'fee_id' => $f->id ), admin_url( 'post.php?post=' . $listing->get_id() . '&action=edit' ) ) ); ?>" class="button choose-this">
                     <?php _ex( 'Use this fee', 'admin listing fee', 'WPBDM' ); ?>
                 </a>
             <?php endif; ?>

@@ -3,7 +3,7 @@
     <h2><?php _ex('Renew Listing', 'templates', 'WPBDM'); ?></h2>
 
     <?php if ( isset( $payment ) && $payment ): ?>
-        <form action="<?php echo $payment->get_checkout_url(); ?>" method="POST">
+        <form action="<?php echo esc_url( $payment->get_checkout_url() ); ?>" method="POST">
         <input type="submit" value="<?php _ex( 'Proceed to Checkout', 'renewal', 'WPBDM' ); ?>" />
         </form>
     <?php else: ?>

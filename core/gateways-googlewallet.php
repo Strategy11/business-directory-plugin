@@ -269,7 +269,7 @@ class WPBDP_Google_Wallet_Gateway extends WPBDP_Payment_Gateway {
 
         $payment->save();
 
-        wp_redirect( $payment->get_redirect_url() );
+        wp_redirect( esc_url_raw( $payment->get_redirect_url() ) );
     }
 
     private function validate_jwt( &$jwt, &$payment ) {

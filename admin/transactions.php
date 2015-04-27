@@ -97,11 +97,11 @@ class WPBDP_TransactionsTable extends WP_List_Table {
 
         if ( $item->status == 'pending' ) {
             $actions['approve_'] = sprintf( '<a href="%s">%s</a>',
-                                            add_query_arg( array( 'action' => 'approve', 'id' => $item->id ) ),
+                                            esc_url( add_query_arg( array( 'action' => 'approve', 'id' => $item->id ) ) ),
                                             _x( 'Approve', 'admin transactions', 'WPBDM' )
                                           );
             $actions['reject_'] = sprintf( '<a href="%s">%s</a>',
-                                            add_query_arg( array( 'action' => 'reject', 'id' => $item->id ) ),
+                                            esc_url( add_query_arg( array( 'action' => 'reject', 'id' => $item->id ) ) ),
                                             _x( 'Reject', 'admin transactions', 'WPBDM' )
                                           );
         }
@@ -112,7 +112,7 @@ class WPBDP_TransactionsTable extends WP_List_Table {
                                           );
 
         $actions['delete'] = sprintf( '<a href="%s" class="delete">%s</a>',
-                                        add_query_arg( array( 'action' => 'delete', 'id' => $item->id ) ),
+                                        esc_url( add_query_arg( array( 'action' => 'delete', 'id' => $item->id ) ) ),
                                         _x( 'Delete', 'admin transactions', 'WPBDM' )
                                       );        
 
@@ -135,7 +135,7 @@ class WPBDP_TransactionsTable extends WP_List_Table {
         // filter by status
         $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments" );
         $views['all'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                 add_query_arg( 'status', 'all' ),
+                                 esc_url( add_query_arg( 'status', 'all' ) ),
                                  wpbdp_getv( $_REQUEST, 'status' ) == 'all' ? 'current' : '',
                                  _x( 'All', 'admin transactions', 'WPBDM' ) ,
                                  number_format_i18n( $count )
@@ -143,7 +143,7 @@ class WPBDP_TransactionsTable extends WP_List_Table {
 
         $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s", 'approved' ) );
         $views['approved'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                      add_query_arg( 'status', 'approved' ),
+                                      esc_url( add_query_arg( 'status', 'approved' ) ),
                                       wpbdp_getv( $_REQUEST, 'status' ) == 'approved' ? 'current' : '',
                                       _x( 'Approved', 'admin transactions', 'WPBDM' ) ,
                                       number_format_i18n( $count )
@@ -151,7 +151,7 @@ class WPBDP_TransactionsTable extends WP_List_Table {
 
         $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s", 'pending' ) );
         $views['pending'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                      add_query_arg( 'status', 'pending' ),
+                                      esc_url( add_query_arg( 'status', 'pending' ) ),
                                       wpbdp_getv( $_REQUEST, 'status', 'pending' ) == 'pending' ? 'current' : '',
                                       _x( 'Pending', 'admin transactions', 'WPBDM' ) ,
                                       number_format_i18n( $count )
@@ -159,7 +159,7 @@ class WPBDP_TransactionsTable extends WP_List_Table {
         
         $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s", 'rejected' ) );        
         $views['rejected'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                      add_query_arg( 'status', 'rejected' ),
+                                      esc_url( add_query_arg( 'status', 'rejected' ) ),
                                       wpbdp_getv( $_REQUEST, 'status' ) == 'rejected' ? 'current' : '',
                                       _x( 'Rejected', 'admin transactions', 'WPBDM' ) ,
                                       number_format_i18n( $count )

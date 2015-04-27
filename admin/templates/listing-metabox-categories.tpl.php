@@ -95,7 +95,7 @@ if ( ! isset( $admin_actions ) )
 
     <?php if ( in_array( 'renewal email', $admin_actions, true ) ): ?>
         <li>
-            <a href="<?php echo add_query_arg( array( 'wpbdmaction' => 'send-renewal-email', 'renewal_id' => $category->renewal_id ) ); ?>">
+            <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'send-renewal-email', 'renewal_id' => $category->renewal_id ) ) ); ?>">
                 <?php _ex( 'Send renewal e-mail to user', 'admin infometabox', 'WPBDM' ); ?>
             </a>
         </li>

@@ -64,14 +64,14 @@ class WPBDP_Admin_Listing_Metabox {
                 if (current_user_can('administrator')) {
                     if ( $sticky_info->upgradeable ) {
                         echo sprintf('<span><a href="%s">%s</a></span>',
-                                     add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $this->listing->get_id())),
+                                     esc_url( add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $this->listing->get_id())) ),
                                      '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
                     }
 
                     if ( $sticky_info->downgradeable ) {
                         echo '<br />';
                         echo sprintf('<span><a href="%s">%s</a></span>',
-                                     add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $this->listing->get_id())),
+                                     esc_url( add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $this->listing->get_id())) ),
                                      '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );                
                     }
                 }
@@ -88,7 +88,7 @@ class WPBDP_Admin_Listing_Metabox {
 
         if ( current_user_can( 'administrator' ) && 'ok' != $this->listing->get_payment_status() ) {
             echo sprintf( '<a href="%s" class="button-primary">%s</a> ',
-                          add_query_arg('wpbdmaction', 'setaspaid' ),
+                          esc_url( add_query_arg('wpbdmaction', 'setaspaid' ) ),
                           _x( 'Mark listing as Paid', 'admin infometabox', 'WPBDM' ) );
         }
 

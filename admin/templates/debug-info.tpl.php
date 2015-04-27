@@ -6,7 +6,7 @@
 	<strong><u><?php _ex( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'debug-info', 'WPBDM' ); ?></u></strong>
 </p>
 <p style="text-align: right;">
-	<a href="<?php echo add_query_arg( 'download', '1' ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'WPBDM' ); ?></a>
+	<a href="<?php echo esc_url( add_query_arg( 'download', '1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'WPBDM' ); ?></a>
 </p>
 
 <h3 class="nav-tab-wrapper">

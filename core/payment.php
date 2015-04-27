@@ -651,7 +651,7 @@ class WPBDP_PaymentsAPI {
         } elseif ( $payment->is_rejected() ) {
             if ( $opts['retry_rejected'] ) {
                 $html .= '<p>' . _x( 'The payment has been rejected by the payment gateway. Please contact the site administrator if you think there is an error or click "Change Payment Method" to select another payment method and try again.', 'payments', 'WPBDM' ) . '</p>';
-                $html .= '<p><a href="' . add_query_arg( 'change_payment_method', 1 )  . '">' . _x( 'Change Payment Method', 'payments', 'WPBDM' ) . '</a></p>';
+                $html .= '<p><a href="' . esc_url( add_query_arg( 'change_payment_method', 1 ) )  . '">' . _x( 'Change Payment Method', 'payments', 'WPBDM' ) . '</a></p>';
             } else {
                 $html .= '<p>' . _x( 'The payment has been rejected by the payment gateway. Please contact the site administrator if you think there is an error.', 'payments', 'WPBDM' ) . '</p>';
             }
@@ -750,12 +750,12 @@ class WPBDP_PaymentsAPI {
         ) );
 
         $views['pending-abandonment'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                                 add_query_arg( 'wpbdmfilter', 'pending-abandonment' ),
+                                                 esc_url( add_query_arg( 'wpbdmfilter', 'pending-abandonment' ) ),
                                                  'pending-abandonment' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
                                                  _x( 'Pending Abandonment', 'admin', 'WPBDM' ),
                                                  number_format_i18n( $count_pending ) );
         $views['abandoned'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                        add_query_arg( 'wpbdmfilter', 'abandoned' ),
+                                        esc_url( add_query_arg( 'wpbdmfilter', 'abandoned' ) ),
                                         'abandoned' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
                                         _x( 'Abandoned', 'admin', 'WPBDM' ),
                                         number_format_i18n( $count_abandoned ) );
@@ -826,7 +826,7 @@ class WPBDP_PaymentsAPI {
             // Send e-mail.
             $replacements = array(
                 'listing' => get_the_title( $payment->get_listing_id() ),
-                'link' => sprintf( '<a href="%1$s">%1$s</a>', $payment->get_checkout_url() )
+                'link' => sprintf( '<a href="%1$s">%1$s</a>', esc_url( $payment->get_checkout_url() ) )
             );
 
             $email = wpbdp_email_from_template( 'email-templates-payment-abandoned', $replacements );
