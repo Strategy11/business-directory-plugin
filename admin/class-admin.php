@@ -106,23 +106,6 @@ class WPBDP_Admin {
     /**
      * @since 3.4.1
      */
-    private function get_drip_api_info( $key = '' ) {
-        $info = array(
-            'url' => 'https://api.getdrip.com/v1',
-            'api_key' => 'usskquea6f3yipbcitys',
-            'account_id' => '4037583',
-            'campaign' => '4494091'
-        );
-
-        if ( array_key_exists( $key, $info ) )
-            return $info[ $key ];
-
-        return '';
-    }
-
-    /**
-     * @since 3.4.1
-     */
     public function drip_pointer() {
         global $current_user;
         get_currentuserinfo();
@@ -190,43 +173,37 @@ class WPBDP_Admin {
         if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $_POST['nonce'], 'drip pointer subscribe' ) )
             $res->send_error();
 
-        delete_option( 'wpbdp-show-drip-pointer' );
+//        delete_option( 'wpbdp-show-drip-pointer' );
 
         if ( $subscribe ) {
             if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) )
-                $res->send_error();
+                return $res->send_error( _x( 'Invalid e-mail address.', 'drip pointer', 'WPBDM' ) );
 
-            // Make request to Drip.
-            $payload = array( 'status' => 'active',
-                              'subscribers' => array( array(
-                                      'email' => $_POST['email'],
-                                      'utc_offset' => 660,
-                                      'double_optin' => false,
-                                      'starting_email_index' => 0,
-                                      'reactivate_if_subscribed' => true,
-                                      'custom_fields' => array( 'name' => $current_user->display_name,
-                                                                'url' => get_bloginfo( 'url' ) )
-                              ) )
-                            );
-            $url = sprintf( '%s/%s/campaigns/%s/subscribers',
-                            $this->get_drip_api_info( 'url' ),
-                            $this->get_drip_api_info( 'account_id' ),
-                            $this->get_drip_api_info( 'campaign' ) );
+            // Build fields for POSTing to Drip.
+            $data = array();
+            $data['name'] = '';
 
-            if ( function_exists( 'curl_init' ) ) {
-                $ch = curl_init();
-                curl_setopt( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
-                curl_setopt( $ch, CURLOPT_USERPWD, $this->get_drip_api_info( 'api_key' ) . ':' );
-                curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)" );
-                curl_setopt( $ch, CURLOPT_HEADER, false );
-                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-                curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) );
-                curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $payload ) );
-                curl_setopt( $ch, CURLOPT_URL, $url );
-                $result = curl_exec( $ch );
-                curl_close( $ch );
+            foreach ( array(  'first_name', 'display_name', 'user_login', 'username' ) as $k ) {
+                if ( empty ( $current_user->{$k} ) )
+                    continue;
+
+                $data['name'] = $current_user->{$k};
+                break;
             }
+
+            $data['email'] = $_POST['email'];
+            $data['website'] = get_bloginfo( 'url' );
+            $data['gmt_offset'] = get_option( 'gmt_offset' );
+
+            $response = wp_remote_post( 'https://www.getdrip.com/forms/6877690/submissions', array(
+                        'body' => array(
+                            'fields[name]' => $data['name'],
+                            'fields[email]' => $data['email'],
+                            'fields[website]' => $data['website'],
+                            'fields[gmt_offset]' => $data['gmt_offset'] )
+            ) );
+
+            wpbdp_debug_e( $response );
         }
 
         $res->send();
