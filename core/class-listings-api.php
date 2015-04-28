@@ -839,18 +839,20 @@ class WPBDP_Listings_API {
                     $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", 'draft', $listing->get_id() ) );
                 }
 
-                $email = wpbdp_email_from_template( 'listing-renewal-message', $message_replacements );
-                $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+                if ( wpbdp_get_option( 'listing-renewal' ) ) {
+                    $email = wpbdp_email_from_template( 'listing-renewal-message', $message_replacements );
+                    $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
 
-                if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-                    $email->cc[] = get_option( 'admin_email' );
+                    if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+                        $email->cc[] = get_option( 'admin_email' );
 
-                    if ( wpbdp_get_option( 'admin-notifications-cc' ) )
-                        $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                        if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+                            $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                    }
+
+                    $email->template = 'businessdirectory-email';
+                    $email->send();
                 }
-
-                $email->template = 'businessdirectory-email';
-                $email->send();
 
                 $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
             } elseif ( $threshold > 0 ) {
