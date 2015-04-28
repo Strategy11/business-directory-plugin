@@ -173,7 +173,7 @@ class WPBDP_Admin {
         if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $_POST['nonce'], 'drip pointer subscribe' ) )
             $res->send_error();
 
-//        delete_option( 'wpbdp-show-drip-pointer' );
+        delete_option( 'wpbdp-show-drip-pointer' );
 
         if ( $subscribe ) {
             if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) )
@@ -202,8 +202,6 @@ class WPBDP_Admin {
                             'fields[website]' => $data['website'],
                             'fields[gmt_offset]' => $data['gmt_offset'] )
             ) );
-
-            wpbdp_debug_e( $response );
         }
 
         $res->send();
