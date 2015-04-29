@@ -12,6 +12,11 @@ class WPBDP_Compat {
             require_once( WPBDP_PATH . 'core/compatibility/class-wpml-compat.php' );
             $wpml_integration = new WPBDP_WPML_Compat();
         }
+
+        if ( function_exists( 'bcn_display' ) ) {
+            require_once( WPBDP_PATH . 'core/compatibility/class-navxt-integration.php' );
+            $navxt_integration = new WPBDP_NavXT_Integration();
+        }
     }
 
 }
