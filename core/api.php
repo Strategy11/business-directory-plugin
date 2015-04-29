@@ -97,10 +97,7 @@ function wpbdp_get_page_id( $name = 'main' ) {
     $page_ids = wpbdp_get_page_ids( $name );
 
     if ( ! $page_ids )
-        return $unique ? false : $page_ids;
-
-    if ( ! $unique )
-        return $page_ids;
+        return false;
 
     return apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name );
 }
