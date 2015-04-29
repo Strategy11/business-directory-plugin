@@ -41,6 +41,10 @@ class WPBDP_NavXT_Integration {
                 $this->doing = 'submit';
                 break;
 
+            case 'search':
+                $this->doing = 'search';
+                break;
+
             default:
                 $this->doing = '';
         }
@@ -60,6 +64,14 @@ class WPBDP_NavXT_Integration {
             call_user_func( array( $this, 'after_' . $this->doing ), $trail );
 
         $this->doing = '';
+    }
+
+    function main_page_breadcrumb() {
+        return new bcn_breadcrumb( get_the_title( wpbdp_get_page_id() ),
+                                   '',
+                                   array(),
+                                   wpbdp_get_page_link(),
+                                   wpbdp_get_page_id() );
     }
 
     // {{ Handlers.
@@ -84,6 +96,8 @@ class WPBDP_NavXT_Integration {
     function after_listing( $trail ) {
         $GLOBALS['post'] = $this->state['post'];
         unset( $this->state['post'] );
+
+        $trail->add( $this->main_page_breadcrumb() );
     }
 
     function before_category( $trail ) {
@@ -114,8 +128,39 @@ class WPBDP_NavXT_Integration {
 
         $wp_query->queried_object = $this->state['queried'];
         $wp_query->is_singular = true;
-
         unset( $this->state['queried'] );
+
+        $trail->add( $this->main_page_breadcrumb() );
+    }
+
+    function before_tag( $trail ) {
+        $tag = get_term_by( 'slug', get_query_var( 'tag' ), WPBDP_TAGS_TAX );
+
+        if ( ! $tag )
+            return;
+
+        global $wp_query;
+        $term = get_term( $category_id, WPBDP_CATEGORY_TAX );
+        $this->state['queried'] = $wp_query->get_queried_object();
+
+        $wp_query->is_singular = false;
+        $wp_query->queried_object = $tag;
+    }
+
+    function after_tag( $trail ) {
+        $this->after_category( $trail );
+    }
+
+    function before_submit( $trail ) {
+        $trail->add( new bcn_breadcrumb( _x( 'Submit Listing', 'navxt', 'WPBDM' ) ) );
+    }
+
+    function before_edit( $trail ) {
+        $trail->add( new bcn_breadcrumb( _x( 'Edit Listing', 'navxt', 'WPBDM' ) ) );
+    }
+
+    function before_search( $trail ) {
+        $trail->add( new bcn_breadcrumb( _x( 'Search', 'navxt', 'WPBDM' ) ) );
     }
 
     // }}
