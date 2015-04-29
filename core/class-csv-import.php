@@ -367,7 +367,7 @@ class WPBDP_CSV_Import {
         // Support sequence_id.
         if ( $meta['sequence_id'] ) {
             $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s LIMIT 1",
-                                                                  '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] ) ) );
+                                                                  '_wpbdp[import_sequence_id]', $meta['sequence_id'] ) ) );
             if ( WPBDP_POST_TYPE != get_post_type( $listing_id ) )
                 $listing_id = 0;
         }
@@ -442,7 +442,7 @@ class WPBDP_CSV_Import {
 
         // Update sequence_id.
         if ( $meta['sequence_id'] )
-            update_post_meta( $listing->get_id(), '_wpbdp[import_sequence_id]', $listing_metadata['sequence_id'] );
+            update_post_meta( $listing->get_id(), '_wpbdp[import_sequence_id]', $meta['sequence_id'] );
 
         if ( $errors ) {
             $error = new WP_Error();
