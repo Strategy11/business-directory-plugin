@@ -66,12 +66,16 @@ class WPBDP_NavXT_Integration {
         $this->doing = '';
     }
 
-    function main_page_breadcrumb() {
-        return new bcn_breadcrumb( get_the_title( wpbdp_get_page_id() ),
-                                   '',
-                                   array(),
-                                   wpbdp_get_page_link(),
-                                   wpbdp_get_page_id() );
+    function main_page_breadcrumb( $trail ) {
+        $last = $trail->trail[ count( $trail->trail ) - 1 ];
+        if ( in_array( 'home', $last->type, true ) )
+            array_pop( $trail->trail );
+
+        $trail->add( new bcn_breadcrumb( get_the_title( wpbdp_get_page_id() ),
+                                         '',
+                                         array(),
+                                         wpbdp_get_page_link(),
+                                         wpbdp_get_page_id() ) );
     }
 
     // {{ Handlers.
@@ -97,7 +101,7 @@ class WPBDP_NavXT_Integration {
         $GLOBALS['post'] = $this->state['post'];
         unset( $this->state['post'] );
 
-        $trail->add( $this->main_page_breadcrumb() );
+        $this->main_page_breadcrumb( $trail );
     }
 
     function before_category( $trail ) {
@@ -130,7 +134,7 @@ class WPBDP_NavXT_Integration {
         $wp_query->is_singular = true;
         unset( $this->state['queried'] );
 
-        $trail->add( $this->main_page_breadcrumb() );
+        $this->main_page_breadcrumb( $trail );
     }
 
     function before_tag( $trail ) {
