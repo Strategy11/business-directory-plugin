@@ -156,6 +156,7 @@ class WPBDP_Plugin {
         add_action('template_redirect', array( &$this, '_template_redirect'));
         add_action('wp_loaded', array( &$this, '_wp_loaded'));
 
+        add_action( 'save_post_page', array( &$this, '_invalidate_pages_cache' ) );
         add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
         add_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10 );
         add_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
@@ -257,6 +258,10 @@ class WPBDP_Plugin {
 
     // }}}
 
+    public function _invalidate_pages_cache( $arg0 = false ) {
+        delete_transient( 'wpbdp-page-ids' );
+    }
+
     public function _pre_get_posts(&$query) {
         global $wpdb;
 
@@ -321,7 +326,8 @@ class WPBDP_Plugin {
 
         $rules = array();
 
-        if ( $page_ids = wpbdp_get_page_id( 'main', false ) ) {
+        // TODO: move this to WPML Compat.
+        if ( $page_ids = wpbdp_get_page_ids( 'main' ) ) {
             foreach ( $page_ids as $page_id ) {
                 $page_link = _get_page_link( $page_id );
                 $rewrite_base = str_replace('index.php/', '', rtrim(str_replace(home_url() . '/', '', $page_link), '/'));
@@ -463,6 +469,8 @@ class WPBDP_Plugin {
 
     public function plugin_activation() {
         add_action('init', array($this, 'flush_rules'), 11);
+
+        $this->_invalidate_pages_cache();
     }
 
     public function plugin_deactivation() {

@@ -12,43 +12,97 @@ function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
-function wpbdp_get_page_id($name='main', $unique=true) {
+function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
 
     static $shortcodes = array(
         'main' => array('businessdirectory', 'business-directory', 'WPBUSDIRMANUI'),
         'add-listing' => array('businessdirectory-submitlisting', 'WPBUSDIRMANADDLISTING'),
         'manage-listings' => array('businessdirectory-managelistings', 'WPBUSDIRMANMANAGELISTING'),
-        'view-listings' => array('businessdirectory-viewlistings', 'businessdirectory-listings', 'WPBUSDIRMANMVIEWLISTINGS'),
-        'paypal' => 'WPBUSDIRMANPAYPAL',
-        '2checkout' => 'WPBUSDIRMANTWOCHECKOUT',
-        'googlecheckout' => 'WPBUSDIRMANGOOGLECHECKOUT'
+        'view-listings' => array('businessdirectory-viewlistings', 'businessdirectory-listings', 'WPBUSDIRMANMVIEWLISTINGS')
     );
 
-    if (!array_key_exists($name, $shortcodes))
-        return null;
+    if ( ! array_key_exists( $page_id, $shortcodes ) )
+        return false;
 
-    $where = '1=0';
-    $options = is_string($shortcodes[$name]) ? array($shortcodes[$name]) : $shortcodes[$name];
-    foreach ($options as $shortcode) {
-        $where .= sprintf(" OR post_content LIKE '%%[%s]%%'", $shortcode);
+    if ( $count ) {
+        $query  = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND ( 1=0";
+    } else {
+        $query  = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND ( 1=0";
     }
 
-    $page_ids = wp_cache_get( $name, 'wpbdp pages' );
-
-    if ( ! $page_ids ) {
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE ({$where}) AND post_status = 'publish' AND post_type = 'page' ORDER BY ID";
-        $page_ids = $wpdb->get_col( $query );
-        wp_cache_set( $name, $page_ids, 'wpbdp pages' );
+    foreach ( $shortcodes[ $page_id ] as $s ) {
+        $query .= sprintf( " OR post_content LIKE '%%[%s]%%' ", $s );
     }
+    $query .= ')';
+
+    return $query;
+}
+
+function wpbdp_get_page_ids( $page_id = 'main' ) {
+    global $wpdb;
+
+    static $request_cached = array();
+
+    if ( isset( $request_cached[ $page_id ] ) ) {
+        wpbdp_debug( 'Using request cache' );
+        return $request_cached[ $page_id ];
+    }
+
+    $cached_ids = get_transient( 'wpbdp-page-ids' );
+
+    if ( is_array( $cached_ids ) && isset( $cached_ids[ $page_id ] ) ) {
+        // Validate the cached IDs.
+        wpbdp_debug( 'Validating transient cache' );
+
+        if ( $page_ids = $cached_ids[ $page_id ] ) {
+            $query  = _wpbdp_page_lookup_query( $page_id, true );
+            $query .= ' AND ID IN ( ' . implode( ',', array_map( 'intval', $page_ids ) ) . ' ) ';
+
+            $count = intval( $wpdb->get_var( $query ) );
+
+            if ( $count == count( $page_ids ) ) {
+                wpbdp_debug( 'Cache valid' );
+                // Cache is valid.
+                $request_cached[ $page_id ] = $page_ids;
+                return $page_ids;
+            }
+
+            wpbdp_debug( 'Cache invalid' );
+        }
+    }
+
+    wpbdp_debug( 'Page lookup' );
+
+    // Look up for pages.
+    $q = _wpbdp_page_lookup_query( $page_id );
+    if ( ! $q )
+        return array();
+
+    $q .= ' ORDER BY ID ASC ';
+
+    $page_ids = $wpdb->get_col( $q );
+    $request_cached[ $page_id ] = $page_ids;
+
+    if ( ! is_array( $cached_ids ) )
+        $cached_ids = array();
+
+    $cached_ids[ $page_id ] = $page_ids;
+    set_transient( 'wpbdp-page-ids', $cached_ids, 60 * 60 * 24 * 30 );
+
+    return (array) $page_ids;
+}
+
+function wpbdp_get_page_id( $name = 'main' ) {
+    $page_ids = wpbdp_get_page_ids( $name );
 
     if ( ! $page_ids )
-        return $unique ? false : array();
+        return $unique ? false : $page_ids;
 
-    if ( ! is_array( $page_ids ) )
-        $page_ids = array( $page_ids );
+    if ( ! $unique )
+        return $page_ids;
 
-    return $unique ? apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name ) : $page_ids;
+    return apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name );
 }
 
 function wpbdp_get_page_link($name='main', $arg0=null) {
