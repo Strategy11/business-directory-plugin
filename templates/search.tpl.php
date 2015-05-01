@@ -13,7 +13,7 @@ $api = wpbdp_formfields_api();
 <!-- Search Form -->
 <div id="wpbdp-search-form-wrapper" style="<?php echo !$show_form ? 'display: none;' : ''; ?>">
 <h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
-<form action="" id="wpbdp-search-form" method="GET">
+<form action="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>" id="wpbdp-search-form" method="GET">
     <input type="hidden" name="action" value="search" />
     <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id('main'); ?>" />
     <input type="hidden" name="dosrch" value="1" />
