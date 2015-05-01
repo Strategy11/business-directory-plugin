@@ -302,10 +302,23 @@ class WPBDP_CSVImportAdmin {
         // Store settings to use as defaults next time.
         update_user_option( get_current_user_id(), 'wpbdp-csv-import-settings', $_POST['settings'], false );
 
-        $import = new WPBDP_CSV_Import( '',
-                                        $csv_file,
-                                        $zip_file,
-                                        array_merge( $_POST['settings'], array( 'test-import' => ! empty( $_POST['test-import'] ) ) ) );
+        $import = null;
+        try {
+            $import = new WPBDP_CSV_Import( '',
+                                            $csv_file,
+                                            $zip_file,
+                                            array_merge( $_POST['settings'], array( 'test-import' => ! empty( $_POST['test-import'] ) ) ) );
+        } catch ( Exception $e ) {
+            if ( $import )
+                $import->cleanup();
+
+            $error  = _x( 'An error was detected while validating the CSV file for import. Please fix this before proceeding.', 'admin csv-import', 'WPBDM' );
+            $error .= '<br />';
+            $error .= '<b>' . $e->getMessage() . '</b>';
+
+            wpbdp_admin_message( $error, 'error' );
+            return $this->import_settings();
+        }
 
         if ( $import->in_test_mode() )
             wpbdp_admin_message( _x( 'Import is in "test mode". Nothing will be inserted into the database.', 'admin csv-import', 'WPBDM' ) );
