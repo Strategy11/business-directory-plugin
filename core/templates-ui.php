@@ -161,7 +161,7 @@ function wpbdp_list_categories( $args=array() ) {
     $html  =  '';
 
     if ( $categories = _wpbdp_list_categories_walk( 0, 0, $args ) ) {
-        $html .= '<ul class="wpbdp-categories ' . apply_filters( 'wpbdp_categories_list_css', '' )  . '">';
+        $html .= '<ul class="wpbdp-categories cf ' . apply_filters( 'wpbdp_categories_list_css', '' )  . '">';
         $html .= $categories;
         $html .= '</ul>';
     }
