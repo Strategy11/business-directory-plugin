@@ -158,7 +158,7 @@ class WPBDP_Plugin {
 
         add_action( 'save_post_page', array( &$this, '_invalidate_pages_cache' ) );
         add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
-        add_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10 );
+        add_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
         add_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
         add_filter( 'posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
 
@@ -275,10 +275,8 @@ class WPBDP_Plugin {
         }
     }
 
-    function _posts_clauses( $pieces ) {
-        global $wp_query;
-
-        if ( is_admin() || ! isset( $wp_query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $wp_query->query_vars['post_type'] )
+    function _posts_clauses( $pieces, $query ) {
+        if ( is_admin() || ! isset( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] )
             return $pieces;
 
         return apply_filters( 'wpbdp_query_clauses', $pieces );
@@ -714,6 +712,7 @@ class WPBDP_Plugin {
 
         // thumbnail size
         add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop );
+//        add_image_size( 'wpbdp-thumb', $thumbnail_width, $thumbnail_height, true );
         add_image_size( 'wpbdp-large', $max_width, $max_height, false );
     }
 
