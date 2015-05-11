@@ -69,6 +69,10 @@ class WPBDP_Checkout_Page extends WPBDP_View {
         $html  = '';
         do_action_ref_array( 'wpbdp_checkout_page_process', array( &$this->payment ) );
 
+        // Check if the payment changed in case we need to update something.
+        if ( 0.0 == $this->payment->get_total() )
+            return $this->dispatch();
+
         if ( isset( $_POST['payment_method'] ) ) {
             $payment_method = trim( $_POST['payment_method'] );
 
