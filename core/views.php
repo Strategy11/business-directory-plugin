@@ -188,6 +188,7 @@ class WPBDP_DirectoryController {
         $listings_api = wpbdp_listings_api();
 
         query_posts(array(
+            'wpbdp_action' => 'browsecategory',
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
