@@ -603,16 +603,16 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* {{ Mobile CSS. */
 .wpbdp-show-on-mobile {
-    display: none;
+    display: none !important;
 }
 
 @media screen and (max-width: 500px) {
     .wpbdp-show-on-mobile {
-        display: inline;
+        display: inline !important;
     }
 
     .wpbdp-hide-on-mobile {
-        display: none;
+        display: none !important;
     }
 
     .wpbdp-bar .wpbdp-main-links {
