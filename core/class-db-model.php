@@ -190,8 +190,10 @@ class WPBDP_DB_Model2 {
 
         $row = array();
         foreach ( $this->attrs as $k => $v ) {
-            if ( ! is_null( $v ) )
-                $row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ): $v;
+            if ( is_null( $v ) )
+                continue;
+
+            $row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ): $v;
         }
 
         $row = $this->update_timestamps( $row );
