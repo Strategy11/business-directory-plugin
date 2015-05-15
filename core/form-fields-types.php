@@ -1079,14 +1079,15 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( 'meta' != $association )
             return '';
 
+        $now = current_time( 'timestamp' );
         $current_format = $this->date_format( $field );
 
         $select = '';
-        foreach ( $this->get_formats() as $f => $l ) {
+        foreach ( $this->get_formats() as $format => $data ) {
             $select .= sprintf( '<label><input type="radio" name="field[x_date_format]" value="%s" %s />%s</label><br />',
-                                $f,
-                                checked ( $f, $current_format, false ),
-                                $l );
+                                $format,
+                                checked ( $format, $current_format, false ),
+                                sprintf( __( '%s (ex. %s)', 'form-fields api', 'WPBDM' ), strtoupper( $format ), date( $data['date_format'], $now ) ) );
         }
 
         $settings = array(
@@ -1113,8 +1114,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( 'date_' != $validator )
             return;
 
-        $format = $field->data( 'date_format' ) ? $field->data( 'date_format' ) : 'd/m/y';
-        return array( 'format' => $format );
+        return array( 'format' => $this->date_format( $field ) );
     }
 
     public function render_field_inner( &$field, $value, $context, &$extra=null ) {
@@ -1127,17 +1127,15 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
             $enqueued = true;
         }
 
+        $format = $this->date_format( $field, true );
+
         $html = '';
-
-//       if ( $field->has_validator( 'date' ) )
-//            $html .= _x( 'Format 01/31/1969', 'form-fields api', 'WPBDM' );
-
         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" data-date-format="%s" />',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']',
                           $field->is_required() ? 'inselect required' : 'inselect',
                           esc_attr( $value ),
-                          $this->date_format( $field ) );
+                          $format['datepicker_format'] );
 
         wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
 
@@ -1148,35 +1146,41 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( 'meta' != $field->get_association() )
             return;
 
-        if ( $value ) {
-            $format = $this->date_format( $field );
-            $parts = explode( '/', $value );
+        $value = preg_replace('/[^0-9]/','', $value); // Normalize value.
+        $format = str_replace( array( '/', '.', '-' ), '', $this->date_format( $field ) );
 
-            $d = 0;
-            $m = 0;
-            $y = 0;
+        if ( ! $value || strlen( $format ) != strlen( $value ) )
+            return parent::store_field_value( $field, $post_id, null );
 
-            switch ( $format ) {
-                case 'd/m/y':
-                case 'dd/mm/yy':
-                    $d = $parts[0];
-                    $m = $parts[1];
-                    $y = $parts[2];
-                    break;
-                case 'm/d/y':
-                case 'mm/dd/yy':
-                    $d = $parts[1];
-                    $m = $parts[0];
-                    $y = $parts[2];
-                    break;
-                default:
-                    break;
-            }
+        $d = 0; $m = 0; $y = 0;
 
-            $value = sprintf( "%'.04d%'.02d%'.02d", $y, $m, $d );
+        switch ( $format ) {
+            case 'ddmmyy':
+                $d = substr( $value, 0, 2 );
+                $m = substr( $value, 2, 2 );
+                $y = substr( $value, 4, 2 );
+                break;
+            case 'ddmmyyyy':
+                $d = substr( $value, 0, 2 );
+                $m = substr( $value, 2, 2 );
+                $y = substr( $value, 4, 4 );
+                break;
+            case 'mmddyy':
+                $m = substr( $value, 0, 2 );
+                $d = substr( $value, 2, 2 );
+                $y = substr( $value, 4, 2 );
+                break;
+            case 'mmddyyyy':
+                $m = substr( $value, 0, 2 );
+                $d = substr( $value, 2, 2 );
+                $y = substr( $value, 4, 4 );
+                break;
+            default:
+                break;
         }
 
-        parent::store_field_value( $field, $post_id, $value );
+        $value = sprintf( "%'.04d%'.02d%'.02d", $y, $m, $d );
+        return parent::store_field_value( $field, $post_id, $value );
     }
 
     public function get_field_value( &$field, $post_id ) {
@@ -1185,35 +1189,41 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( empty( $value ) )
             return '';
 
-        $format = $this->date_format( $field );
+        $format = $this->date_format( $field, true );
         $y = substr( $value, 0, 4 );
         $m = substr( $value, 4, 2 );
         $d = substr( $value, 6, 2 );
 
-        switch ( $format ) {
-            case 'd/m/y':
-            case 'dd/mm/yy':
-                return sprintf( '%s/%s/%s', $d, $m, $y );
-                break;
-            case 'm/d/y':
-            case 'mm/dd/yy':
-                return sprintf( '%s/%s/%s', $m, $d, $y );
-                break;
-        }
-
-        return $value;
+        return date( $format['date_format'], strtotime( $y . '-' . $m . '-' . $d ) );
     }
 
     private function get_formats() {
         $formats = array();
-        $formats['dd/mm/yy'] = _x( 'DD/MM/YYYY (ex. 30/12/2015)', 'form-fields api', 'WPBDM' );
-        $formats['mm/dd/yy'] = _X( 'MM/DD/YYYY (ex. 12/30/2015)', 'form-fields api', 'WPBDM' );
+
+        $formats['dd/mm/yy'] = array( 'date_format' => 'd/m/y', 'datepicker_format' => 'dd/mm/y' );
+        $formats['dd.mm.yy'] = array( 'date_format' => 'd.m.y', 'datepicker_format' => 'dd.mm.y' );
+
+        $formats['dd/mm/yyyy'] = array( 'date_format' => 'd/m/Y', 'datepicker_format' => 'dd/mm/yy' );
+        $formats['dd.mm.yyyy'] = array( 'date_format' => 'd.m.Y', 'datepicker_format' => 'dd.mm.yy' );
+
+        $formats['mm/dd/yy'] = array( 'date_format' => 'm/d/y', 'datepicker_format' => 'mm/dd/y' );
+        $formats['mm/dd/yyyy'] = array( 'date_format' => 'm/d/Y', 'datepicker_format' => 'mm/dd/yy' );
 
         return $formats;
     }
 
-    private function date_format( &$field ) {
-        return ( $field && $field->data( 'date_format' ) ) ? $field->data( 'date_format' ) : 'dd/mm/yy';
+    private function date_format( &$field, $full_info ) {
+        if ( $full_info ) {
+            $formats = $this->get_formats();
+            $format = $this->date_format( $field, false );
+
+            return $formats[ $format ];
+        }
+
+        if ( ! $field || ! $field->data( 'date_format' ) || ! array_key_exists( $field->data( 'date_format' ), $this->get_formats() ) )
+            return 'dd/mm/yyyy';
+
+        return $field->data( 'date_format' );
     }
 
 }

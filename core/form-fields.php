@@ -485,30 +485,40 @@ class WPBDP_FieldValidation {
 
     /* DateValidator */
     private function date_( $value, $args=array() ) {
-        $args = wp_parse_args( $args, array( 'format' => 'dd/mm/yy' ) );
+        $args = wp_parse_args( $args, array( 'format' => 'dd/mm/yyyy' ) );
         $format = $args['format'];
 
-        $parts = explode( '/', $value );
+        // Normalize separators.
+        $format_ = str_replace( array( '/', '.', '-' ), '', $format );
+        $value_ = str_replace( array( '/', '.', '-' ), '', $value );
 
-        if ( ! $parts || 3 != count( $parts ) )
+        if ( strlen( $format_ ) != strlen( $value_ ) )
             return WPBDP_ValidationError( sprintf( _x( '%s must be in the format %s.', 'form-fields-api validation', 'WPBDM' ),
                                                    esc_attr( $args['field-label'] ),
                                                    $format  ) );
 
         $d = 0; $m = 0; $y = 0;
 
-        switch ( $format ) {
-            case 'd/m/y':
-            case 'dd/mm/yy':
-                $d = $parts[0];
-                $m = $parts[1];
-                $y = $parts[2];
+        switch ( $format_ ) {
+            case 'ddmmyy':
+                $d = substr( $value_, 0, 2 );
+                $m = substr( $value_, 2, 2 );
+                $y = substr( $value_, 4, 2 );
                 break;
-            case 'm/d/y':
-            case 'mm/dd/yy':
-                $d = $parts[1];
-                $m = $parts[0];
-                $y = $parts[2];
+            case 'ddmmyyyy':
+                $d = substr( $value_, 0, 2 );
+                $m = substr( $value_, 2, 2 );
+                $y = substr( $value_, 4, 4 );
+                break;
+            case 'mmddyy':
+                $m = substr( $value_, 0, 2 );
+                $d = substr( $value_, 2, 2 );
+                $y = substr( $value_, 4, 2 );
+                break;
+            case 'mmddyyyy':
+                $m = substr( $value_, 0, 2 );
+                $d = substr( $value_, 2, 2 );
+                $y = substr( $value_, 4, 4 );
                 break;
             default:
                 break;
