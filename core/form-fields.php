@@ -40,7 +40,7 @@ class WPBDP_FormFields {
         // register core field types
         $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
         $this->register_field_type( 'WPBDP_FieldTypes_Select', 'select' );
-        $this->register_field_type( 'WPBDP_FieldTypes_URL', 'url' );        
+        $this->register_field_type( 'WPBDP_FieldTypes_URL', 'url' );
         $this->register_field_type( 'WPBDP_FieldTypes_TextArea', 'textarea' );
         $this->register_field_type( 'WPBDP_FieldTypes_RadioButton', 'radio' );
         $this->register_field_type( 'WPBDP_FieldTypes_MultiSelect', 'multiselect' );
@@ -49,6 +49,7 @@ class WPBDP_FormFields {
         $this->register_field_type( 'WPBDP_FieldTypes_Facebook', 'social-facebook' );
         $this->register_field_type( 'WPBDP_FieldTypes_LinkedIn', 'social-linkedin' );
         $this->register_field_type( 'WPBDP_FieldTypes_Image', 'image' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Date', 'date' );
     }
 
     /**
@@ -484,13 +485,37 @@ class WPBDP_FieldValidation {
 
     /* DateValidator */
     private function date_( $value, $args=array() ) {
-        $args = wp_parse_args( $args, array( 'format' => 'm/d/Y' ) );
+        $args = wp_parse_args( $args, array( 'format' => 'dd/mm/yy' ) );
+        $format = $args['format'];
 
-        // TODO: validate with format
-        list( $m, $d, $y ) = explode( '/', $value );
+        $parts = explode( '/', $value );
 
-        if ( !is_numeric( $m ) || !is_numeric( $d ) || !is_numeric( $y ) || !checkdate( $m, $d, $y ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be in the format MM/DD/YYYY.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+        if ( ! $parts || 3 != count( $parts ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s must be in the format %s.', 'form-fields-api validation', 'WPBDM' ),
+                                                   esc_attr( $args['field-label'] ),
+                                                   $format  ) );
+
+        $d = 0; $m = 0; $y = 0;
+
+        switch ( $format ) {
+            case 'd/m/y':
+            case 'dd/mm/yy':
+                $d = $parts[0];
+                $m = $parts[1];
+                $y = $parts[2];
+                break;
+            case 'm/d/y':
+            case 'mm/dd/yy':
+                $d = $parts[1];
+                $m = $parts[0];
+                $y = $parts[2];
+                break;
+            default:
+                break;
+        }
+
+        if ( ! is_numeric( $m ) || ! is_numeric( $d ) || ! is_numeric( $y ) || ! checkdate( $m, $d, $y ) )
+            return WPBDP_ValidationError( sprintf( _x( '%s must be a valid date.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
     private function any_of( $value, $args=array() ) {

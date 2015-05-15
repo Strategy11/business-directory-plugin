@@ -1057,3 +1057,163 @@ class CategoryFormInputWalker extends Walker {
 
     }
 }
+
+/**
+ * @since 3.6.5
+ */
+class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
+
+    public function get_name() {
+        return _x( 'Date Field', 'form-fields api', 'WPBDM' );
+    }
+
+    public function get_id() {
+        return 'date';
+    }
+
+    public function get_supported_associations() {
+        return array( 'meta' );
+    }
+
+    public function render_field_settings(  &$field = null, $association = null) {
+        if ( 'meta' != $association )
+            return '';
+
+        $current_format = $this->date_format( $field );
+
+        $select = '';
+        foreach ( $this->get_formats() as $f => $l ) {
+            $select .= sprintf( '<label><input type="radio" name="field[x_date_format]" value="%s" %s />%s</label><br />',
+                                $f,
+                                checked ( $f, $current_format, false ),
+                                $l );
+        }
+
+        $settings = array(
+            'date_format' => array( _x( 'Date Format', 'form-fields api', 'WPBDM' ),
+                                    $select )
+        );
+
+        return self::render_admin_settings( $settings );
+    }
+
+    public function process_field_settings( &$field ) {
+        if ( ! array_key_exists( 'x_date_format', $_POST['field'] ) )
+            return;
+
+        $date_format = $_POST['field']['x_date_format'];
+        $field->set_data( 'date_format', $date_format );
+    }
+
+    public function setup_field( &$field ) {
+        $field->add_validator( 'date_' );
+    }
+
+    public function setup_validation( $field, $validator, $value ) {
+        if ( 'date_' != $validator )
+            return;
+
+        $format = $field->data( 'date_format' ) ? $field->data( 'date_format' ) : 'd/m/y';
+        return array( 'format' => $format );
+    }
+
+    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
+        static $enqueued = false;
+
+        if ( ! $enqueued ) {
+            wp_enqueue_style( 'wpbdp-jquery-ui-css',
+                              'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/smoothness/jquery-ui.css' );
+            wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+            $enqueued = true;
+        }
+
+        $html = '';
+
+//       if ( $field->has_validator( 'date' ) )
+//            $html .= _x( 'Format 01/31/1969', 'form-fields api', 'WPBDM' );
+
+        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" data-date-format="%s" />',
+                          'wpbdp-field-' . $field->get_id(),
+                          'listingfields[' . $field->get_id() . ']',
+                          $field->is_required() ? 'inselect required' : 'inselect',
+                          esc_attr( $value ),
+                          $this->date_format( $field ) );
+
+        wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+
+        return $html;
+    }
+
+    public function store_field_value( &$field, $post_id, $value ) {
+        if ( 'meta' != $field->get_association() )
+            return;
+
+        if ( $value ) {
+            $format = $this->date_format( $field );
+            $parts = explode( '/', $value );
+
+            $d = 0;
+            $m = 0;
+            $y = 0;
+
+            switch ( $format ) {
+                case 'd/m/y':
+                case 'dd/mm/yy':
+                    $d = $parts[0];
+                    $m = $parts[1];
+                    $y = $parts[2];
+                    break;
+                case 'm/d/y':
+                case 'mm/dd/yy':
+                    $d = $parts[1];
+                    $m = $parts[0];
+                    $y = $parts[2];
+                    break;
+                default:
+                    break;
+            }
+
+            $value = sprintf( "%'.04d%'.02d%'.02d", $y, $m, $d );
+        }
+
+        parent::store_field_value( $field, $post_id, $value );
+    }
+
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
+
+        if ( empty( $value ) )
+            return '';
+
+        $format = $this->date_format( $field );
+        $y = substr( $value, 0, 4 );
+        $m = substr( $value, 4, 2 );
+        $d = substr( $value, 6, 2 );
+
+        switch ( $format ) {
+            case 'd/m/y':
+            case 'dd/mm/yy':
+                return sprintf( '%s/%s/%s', $d, $m, $y );
+                break;
+            case 'm/d/y':
+            case 'mm/dd/yy':
+                return sprintf( '%s/%s/%s', $m, $d, $y );
+                break;
+        }
+
+        return $value;
+    }
+
+    private function get_formats() {
+        $formats = array();
+        $formats['dd/mm/yy'] = _x( 'DD/MM/YYYY (ex. 30/12/2015)', 'form-fields api', 'WPBDM' );
+        $formats['mm/dd/yy'] = _X( 'MM/DD/YYYY (ex. 12/30/2015)', 'form-fields api', 'WPBDM' );
+
+        return $formats;
+    }
+
+    private function date_format( &$field ) {
+        return ( $field && $field->data( 'date_format' ) ) ? $field->data( 'date_format' ) : 'dd/mm/yy';
+    }
+
+}

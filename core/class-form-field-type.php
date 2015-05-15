@@ -27,6 +27,14 @@ class WPBDP_Form_Field_Type {
     }
 
     /**
+     * Called before field validation takes place.
+     * @since 3.6.5
+     */
+    public function setup_validation( $field, $validator, $value ) {
+        return array();
+    }
+
+    /**
      * TODO: dodoc.
      * @since 3.4
      */
@@ -142,7 +150,7 @@ class WPBDP_Form_Field_Type {
             default:
                 update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', $value );
                 break;
-        }        
+        }
     }
 
     // this function should not try to hide values depending on field, context or value itself.

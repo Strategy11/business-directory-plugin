@@ -20,7 +20,28 @@ jQuery(document).ready(function($){
         var selected = $(this).val();
         location.href = selected;
     });
+});
 
+jQuery(function( $ ) {
+
+    var form_fields = {
+        init: function() {
+            var t = this;
+
+            $( '.wpbdp-form-field-type-date' ).each(function(i, v) {
+                t.configure_date_picker( $(v).find( 'input' ) );
+            });
+        },
+
+        configure_date_picker: function( $e ) {
+            $e.datepicker({
+                dateFormat: $e.attr( 'data-date-format' ),
+                defaultDate: $e.val()
+            });
+        }
+    };
+
+    form_fields.init();
 });
 
 WPBDP.fileUpload = {

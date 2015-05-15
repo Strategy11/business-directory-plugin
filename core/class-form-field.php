@@ -337,7 +337,10 @@ class WPBDP_Form_Field {
             return true;
 
         foreach ( $this->validators as $validator ) {
-            $res = $validation_api->validate_field( $this, $value, $validator );
+            $args = $this->type->setup_validation( $this, $validator, $value );
+            $args = is_array( $args ) ? $args : array();
+
+            $res = $validation_api->validate_field( $this, $value, $validator, $args );
 
             if ( is_wp_error( $res ) ) {
                 $errors[] = $res->get_error_message();
