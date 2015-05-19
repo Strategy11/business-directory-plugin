@@ -237,12 +237,13 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing .social-field {
-    float: left;
-    margin-right: 10px;
+    margin: 5px 0;
+    height: 30px;
+    vertical-align: middle;
 }
 
 /* Work-around a known FB like button CSS issue (http://stackoverflow.com/questions/8311012/facebook-like-button-dialog-overflow-issue) */
-.social-field.facebook .fb-like span {
+.social-field.facebook .fb-like > span {
     overflow: visible !important;
     width: 450px !important;
     margin-right: -375px;
