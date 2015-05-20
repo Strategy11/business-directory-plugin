@@ -1134,7 +1134,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']',
                           $field->is_required() ? 'inselect required' : 'inselect',
-                          esc_attr( $value ),
+                          date( $format['date_format'], strtotime( $value ) ),
                           $format['datepicker_format'] );
 
         wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
@@ -1179,6 +1179,15 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
                 break;
         }
 
+        if ( strlen( $y ) < 4 ) {
+            $y_ = intval( $y );
+
+            if ( $y_ < 0 )
+                $y = '19' . $y;
+            else
+                $y = '20' . $y;
+        }
+
         $value = sprintf( "%'.04d%'.02d%'.02d", $y, $m, $d );
         return parent::store_field_value( $field, $post_id, $value );
     }
@@ -1189,12 +1198,25 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( empty( $value ) )
             return '';
 
+        return $value;
+    }
+
+    public function get_field_plain_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( empty( $value ) )
+            return '';
+
         $format = $this->date_format( $field, true );
         $y = substr( $value, 0, 4 );
         $m = substr( $value, 4, 2 );
         $d = substr( $value, 6, 2 );
 
         return date( $format['date_format'], strtotime( $y . '-' . $m . '-' . $d ) );
+    }
+
+    public function get_field_html_value( &$field, $post_id ) {
+        return $this->get_field_plain_value( $field, $post_id );
     }
 
     private function get_formats() {
