@@ -332,6 +332,9 @@ class WPBDP_FormFields {
             $names = $this->_calculate_short_names();
 
         if ( $fieldid ) {
+            if ( ! isset( $names[ $fieldid ] ) )
+                $names = $this->_calculate_short_names();
+
             return isset( $names[ $fieldid ] ) ? $names[ $fieldid ] : null;
         }
 
