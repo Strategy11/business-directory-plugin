@@ -86,6 +86,10 @@ class WPBDP_CSV_Import {
             }
 
             $line = $file->current();
+
+            // Some code to circumvent limitations in str_getcsv() while PHP #46569 is fixed.
+            $line = str_replace( '\n', "\n", $line );
+
             // We can't use fgetcsv() directly due to https://bugs.php.net/bug.php?id=46569.
             $line_data = str_getcsv( $line, $this->settings['csv-file-separator'] );
 
