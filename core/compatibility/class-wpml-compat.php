@@ -121,8 +121,10 @@ class WPBDP_WPML_Compat {
                     $trans_id = (int) icl_object_id( $category_id, WPBDP_CATEGORY_TAX, false, $languages[ $l_code ]['language_code'] );
                     $link = get_term_link( $trans_id, WPBDP_CATEGORY_TAX );
 
-                    if ( ! $trans_id || is_wp_error( $link ) )
+                    if ( ! $trans_id || is_wp_error( $link ) ) {
                         unset( $languages[ $l_code ] );
+                        continue;
+                    }
 
                     $languages[ $l_code ]['url'] = $this->translate_link( $link, $languages[ $l_code ]['language_code'] );
                 }
@@ -144,8 +146,10 @@ class WPBDP_WPML_Compat {
                 foreach ( $languages as $l_code => $l ) {
                     $trans_id = icl_object_id( $listing_id, WPBDP_POST_TYPE, true, $languages[ $l_code ]['language_code'] );
 
-                    if ( ! $trans_id )
+                    if ( ! $trans_id ) {
                         unset( $languages[ $l_code ] );
+                        continue;
+                    }
 
                     $languages[ $l_code ]['url'] = $this->translate_link( get_permalink( $trans_id ), $languages[ $l_code ]['language_code'] );
                 }
