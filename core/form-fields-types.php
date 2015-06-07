@@ -1134,7 +1134,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']',
                           $field->is_required() ? 'inselect required' : 'inselect',
-                          date( $format['date_format'], strtotime( $value ) ),
+                          $value ? date( $format['date_format'], strtotime( $value ) ) : '',
                           $format['datepicker_format'] );
 
         wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
