@@ -210,7 +210,7 @@ class WPBDP_Form_Field_Type {
                 break;
         }
 
-        return $html;      
+        return $html;
     }
 
     /**
@@ -265,23 +265,26 @@ class WPBDP_Form_Field_Type {
             if ( $labelorfield->has_display_flag( 'social' ) )
                 return $content;
 
-            $css_classes .= 'wpbdp-field-' . strtolower( str_replace( array( ' ', '/', '(', ')' ), '', $labelorfield->get_label() ) ) . ' ';
+            $css_classes .= 'wpbdp-field-' . self::normalize_name( $labelorfield->get_label() ) . ' ';
             $css_classes .= 'wpbdp-field-' . $labelorfield->get_association() . ' ';
+            $css_classes .= 'wpbdp-field-type-' . $labelorfield->get_field_type_id() . ' ';
+            $css_classes .= 'wpbdp-field-association-' . $labelorfield->get_association() . ' ';
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
         } else {
+            $css_classes .= 'wpbdp-field-' . self::normalize_name( $labelorfield ) . ' ';
             $label = $labelorfield;
         }
 
         $html  = '';
         $tag_attrs = isset( $args['tag_attrs'] ) ? self::html_attributes( $args['tag_attrs'] ) : '';
         $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
-        
+
         if ( $label )
             $html .= '<label>' . esc_html( apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) ) . ':</label> ';
-        
+
         if ($content)
             $html .= '<span class="value">' . $content . '</span>';
-        
+
         $html .= '</div>';
 
         return $html;
@@ -334,12 +337,11 @@ class WPBDP_Form_Field_Type {
      */
     public static function normalize_name( $name ) {
         $name = strtolower( $name );
-        $name = remove_accents( strip_tags( $name ) );
-        $name = str_replace( array( '/', '"', "'", "\\" ), '', $name );
-        $name = str_replace( ' ', '_', $name );
+        $name = remove_accents( $name );
+        $name = preg_replace( '/\s+/', '_', $name );
+        $name = preg_replace( '/[^a-zA-Z0-9_-]+/', '', $name );
 
-        return esc_attr( $name );
-
+        return $name;
     }
 
 }

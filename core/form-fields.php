@@ -346,14 +346,12 @@ class WPBDP_FormFields {
         $names = array();
 
         foreach ( $fields as $field ) {
-            $name = strtolower( $field->get_label() );
-            $name = str_replace( array( ',', ';' ), '', $name );
-            $name = str_replace( array( ' ', '/' ), '-', $name );
-
+            $name = WPBDP_Form_Field_Type::normalize_name( $field->get_label() );
+ 
             if ( $name == 'images' || $name == 'image' || $name == 'username' || $name == 'featured_level' || $name == 'expires_on' || $name == 'sequence_id' || in_array( $name, $names, true ) ) {
-                $name = $field->get_id() . '/' . $name;
+                $name = $name . '-' . $field->get_id();
             }
-            
+
             $names[ $field->get_id() ] = $name;
         }
 
