@@ -2,10 +2,10 @@
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
-Requires at least: 3.8
-Tested up to: 4.2
-Last Updated: 2015-Apr-20
-Stable tag: tags/3.6.4
+Requires at least: 3.9
+Tested up to: 4.2.2
+Last Updated: 2015-Jun-9
+Stable tag: tags/3.6.5
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -112,6 +112,22 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.6.5 =
+* Added full French translation
+* Add support for NavXT breadcrumbs plugin 
+* New Date form field type.
+* Update Drip code with use of API key
+* Handle expiring of listing regardless of renewal being enabled.
+* Fix some image uploading issues on the backend.
+* Improved CSV import error handling.
+* Allow Advanced Search to work when BD's main page is also the front page.
+* Minor fixes to image uploading.
+* Fix "Back to Directory" link after trying to delete a listing.
+* Work around Facebook + Twitter button issues when next to each other.
+* Fix PHP error in WPML integration.
+* Some CSS fixes.
+* Allow modules to work on secondary listing queries.
 
 = Version 3.6.4 =
 * Include an str_getcsv() alternative for setups running PHP < 5.2.
