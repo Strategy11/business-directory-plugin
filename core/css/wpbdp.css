@@ -336,6 +336,7 @@ ul.wpbdp-categories > li {
 @media screen and (max-width: 704px) {
     ul.wpbdp-categories > li {
         float: none;
+        width: initial;
     }
 }
 
