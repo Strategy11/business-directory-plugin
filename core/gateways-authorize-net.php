@@ -83,6 +83,8 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
 
         if ( wpbdp_get_option( 'payments-test-mode' ) )
             $aim->setSandbox( true );
+        else
+            $aim->setSandbox( false );
 
         // Order info.
         $aim->setFields( array(
@@ -143,6 +145,8 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
 
         if ( wpbdp_get_option( 'payments-test-mode' ) )
             $arb->setSandbox( true );
+        else
+            $arb->setSandbox( false );
 
         $recurring_item = $payment->get_recurring_item();
         //wpbdp_debug_e( $recurring_item );
@@ -203,6 +207,8 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
 
         if ( wpbdp_get_option( 'payments-test-mode' ) )
             $arb->setSandbox( true );
+        else
+            $arb->setSandbox( false );
 
         $response = $arb->getSubscriptionStatus( $recurring_id );
         $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
