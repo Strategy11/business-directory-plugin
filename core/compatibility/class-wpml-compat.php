@@ -43,16 +43,30 @@ class WPBDP_WPML_Compat {
     }
 
     function add_lang_to_link( $link ) {
+        global $sitepress;
+
         $lang = $this->get_current_language();
 
         if ( ! $lang )
             return $link;
+
+        $nego_type = absint( $sitepress->get_setting( 'language_negotiation_type' ) );
+        if ( 1 == $nego_type ) {
+            if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
+                $real_link = get_permalink( $trans_id );
+                $used_link = _get_page_link( $trans_id );
+
+                $link = str_replace( $used_link, $real_link, $link );
+                return $link;
+            }
+        }
 
         $link = add_query_arg( 'lang', $lang, $link );
         return $link;
     }
 
     function correct_page_link( $link, $name = '', $arg0 = '' ) {
+        global $sitepress;
         $lang = $this->get_current_language();
 
         if ( ! $lang )
