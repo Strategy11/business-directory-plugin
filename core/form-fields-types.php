@@ -1238,7 +1238,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return $formats;
     }
 
-    private function date_format( &$field, $full_info ) {
+    private function date_format( &$field, $full_info = false ) {
         if ( $full_info ) {
             $formats = $this->get_formats();
             $format = $this->date_format( $field, false );
