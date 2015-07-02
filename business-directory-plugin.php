@@ -1464,7 +1464,7 @@ class WPBDP_Plugin {
 
 
     public function check_comment_recaptcha( $comment_data ) {
-        if ( ! wpbdp_get_option( 'recaptcha-for-comments' ) )
+        if ( ! $this->controller->get_current_action() || ! wpbdp_get_option( 'recaptcha-for-comments' ) )
             return $comment_data;
 
         if ( ! wpbdp_recaptcha_check_answer( $this->_comment_recaptcha_error ) ) {
