@@ -34,7 +34,7 @@
 	</p>
 
 	<?php if ($recaptcha): ?>
-	<div id="wpbdp-contact-form-recaptcha"><?php echo $recaptcha; ?></div>
+	<?php echo $recaptcha; ?>
 	<?php endif; ?>	
 
 	<input type="submit" class="submit" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />

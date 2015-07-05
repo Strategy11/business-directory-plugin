@@ -133,7 +133,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
                                         'validation_errors' => $validation_errors,
                                         'listing_id' => $listing_id,
                                         'current_user' => is_user_logged_in() ? wp_get_current_user() : null,
-                                        'recaptcha' => wpbdp_get_option( 'recaptcha-on' ) ? wpbdp_recaptcha() : '',
+                                        'recaptcha' => wpbdp_get_option( 'recaptcha-on' ) ? wpbdp_recaptcha( 'wpbdp-contact-form-recaptcha' ) : '',
                                   false ) );
         }
 
