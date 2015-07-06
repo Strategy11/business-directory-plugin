@@ -122,6 +122,14 @@ $months = array(
                     <input type="text" id="wpbdp-billing-field-address-2" name="address_line2" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'address_line2' ) ); ?>" />
                 </td>
             </tr>
+            <tr class="wpbdp-billing-field customer-zip-code">
+                <td scope="row">
+                    <label for="wpbdp-billing-field-zip-code"><?php _ex( 'ZIP Code:', 'checkout form', 'WPBDM' ); ?></label>
+                </td>
+                <td>
+                    <input type="text" id="wpbdp-billing-field-zip-code" name="zipcode" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'zipcode' ) ); ?>" />
+                </td>
+            </tr>
         </table>
     </div>
 

@@ -104,7 +104,8 @@ abstract class WPBDP_Payment_Gateway {
             'address_state',
             'address_city',
             'address_line1',
-            'address_line2'
+            'address_line2',
+            'zipcode'
         );
 
         $sanitized_data = array();
