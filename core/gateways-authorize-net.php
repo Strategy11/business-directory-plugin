@@ -107,7 +107,8 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
             'address' => $data['address_line1'],
             'city' => $data['address_city'],
             'state' => $data['address_state'],
-            'country' => $data['address_country']
+            'country' => $data['address_country'],
+            'zip' => $data['zipcode']
         ));
         // TODO: maybe add zip, phone, email and cust_id
 
@@ -169,6 +170,7 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         $s->billToCity = $data['address_city'];
         $s->billToState = $data['address_state'];
         $s->billToCountry = $data['address_country'];
+        $s->billToZip = $data['zipcode'];
 
         $s->orderInvoiceNumber = $payment->get_id();
         $s->orderDescription = $payment->get_short_description();
