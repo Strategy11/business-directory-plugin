@@ -204,9 +204,10 @@ class WPBDP_Plugin {
         add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
 
         // Enable reCAPTCHA if needed.
-        if ( wpbdp_get_option( 'recaptcha-on' ) || wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-comments' ) )
+        if ( wpbdp_get_option( 'recaptcha-on' ) || wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-comments' ) ) {
             require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
             $this->recaptcha = new WPBDP_reCAPTCHA();
+        }
     }
 
     // {{{ Premium modules.
