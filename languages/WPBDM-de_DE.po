@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2015-06-09 16:02:40+00:00\n"
+"POT-Creation-Date: 2015-07-07 12:40:16+00:00\n"
 "PO-Revision-Date: 2015-03-10 03:22+0100\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -1698,7 +1698,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.5)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2421,88 +2421,83 @@ msgctxt "admin"
 msgid "The transaction has been deleted."
 msgstr "Die Transaktion wurde gelöscht."
 
-#: business-directory-plugin.php:655
+#: business-directory-plugin.php:658
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: business-directory-plugin.php:665
+#: business-directory-plugin.php:668
 msgctxt "post type general name"
 msgid "Directory"
 msgstr "Verzeichnis"
 
-#: business-directory-plugin.php:666
+#: business-directory-plugin.php:669
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr "Verzeichnis"
 
-#: business-directory-plugin.php:667
+#: business-directory-plugin.php:670
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Neuen Eintrag erstellen"
 
-#: business-directory-plugin.php:668
+#: business-directory-plugin.php:671
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Neuen Eintrag erstellen"
 
-#: business-directory-plugin.php:669 core/compatibility/deprecated.php:255
+#: business-directory-plugin.php:672 core/compatibility/deprecated.php:255
 msgid "Edit Listing"
 msgstr "Eintrag Bearbeiten"
 
-#: business-directory-plugin.php:670
+#: business-directory-plugin.php:673
 msgid "New Listing"
 msgstr "Neuer Eintag"
 
-#: business-directory-plugin.php:671
+#: business-directory-plugin.php:674
 msgid "View Listing"
 msgstr "Eintrag anschauen"
 
-#: business-directory-plugin.php:672
+#: business-directory-plugin.php:675
 msgid "Search Listings"
 msgstr "Einträge durchsuchen"
 
-#: business-directory-plugin.php:673
+#: business-directory-plugin.php:676
 msgid "No listings found"
 msgstr "Keine Einträge gefunden"
 
-#: business-directory-plugin.php:674
+#: business-directory-plugin.php:677
 msgid "No listings found in trash"
 msgstr "Keine Einträge im Papierkorb gefunden"
 
-#: business-directory-plugin.php:696
+#: business-directory-plugin.php:699
 msgid "Directory Categories"
 msgstr "Verzeichnis Kategorien"
 
-#: business-directory-plugin.php:822 business-directory-plugin.php:829
+#: business-directory-plugin.php:809 business-directory-plugin.php:816
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "% Feed"
 
-#: business-directory-plugin.php:1187
+#: business-directory-plugin.php:1174
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Eintrag zusenden"
 
-#: business-directory-plugin.php:1197
+#: business-directory-plugin.php:1184
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Eintrag finden"
 
-#: business-directory-plugin.php:1207
+#: business-directory-plugin.php:1194
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Alle Einträge anschauen"
 
-#: business-directory-plugin.php:1227
+#: business-directory-plugin.php:1214
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Einträge getaggt: %s"
-
-#: business-directory-plugin.php:1452
-msgctxt "comment-form"
-msgid "The reCAPTCHA wasn't entered correctly."
-msgstr "Das reCAPTCHA wurde nicht korrekt eingegeben."
 
 #: core/class-csv-import.php:361
 msgctxt "admin csv-import"
@@ -2567,42 +2562,42 @@ msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Während der Löschung des Feldes ist ein Fehler aufgetreten."
 
-#: core/class-gateway.php:130
+#: core/class-gateway.php:131
 #, fuzzy
 msgctxt "billing info"
 msgid "First name is required."
 msgstr "Feldbezeichnung ist Pflichtfeld."
 
-#: core/class-gateway.php:133
+#: core/class-gateway.php:134
 #, fuzzy
 msgctxt "billing info"
 msgid "Last name is required."
 msgstr "%s ist ein Pflichtfeld."
 
-#: core/class-gateway.php:136
+#: core/class-gateway.php:137
 #, fuzzy
 msgctxt "billing info"
 msgid "Credit card number is required."
 msgstr "Feldbezeichnung ist Pflichtfeld."
 
-#: core/class-gateway.php:139
+#: core/class-gateway.php:140
 msgctxt "billing info"
 msgid "Credit card expiration date is invalid."
 msgstr ""
 
-#: core/class-gateway.php:142
+#: core/class-gateway.php:143
 #, fuzzy
 msgctxt "billing info"
 msgid "Credit card CVC number is required."
 msgstr "Feldbezeichnung ist Pflichtfeld."
 
-#: core/class-gateway.php:145
+#: core/class-gateway.php:146
 #, fuzzy
 msgctxt "billing info"
 msgid "Country is required."
 msgstr "%s ist ein Pflichtfeld."
 
-#: core/class-gateway.php:148
+#: core/class-gateway.php:149
 #, fuzzy
 msgctxt "billing info"
 msgid "Address is required."
@@ -2677,6 +2672,12 @@ msgstr "Freilassen für automatische Höhe."
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\""
 msgstr "Preis \"%s\" für Kategorie \"%s\""
+
+#: core/class-recaptcha.php:81 core/class-recaptcha.php:96
+#, fuzzy
+msgctxt "recaptcha"
+msgid "The reCAPTCHA wasn't entered correctly."
+msgstr "Das reCAPTCHA wurde nicht korrekt eingegeben."
 
 #: core/class-settings.php:24
 msgctxt "admin settings"
@@ -4181,8 +4182,8 @@ msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "-- Auswählen --"
 
-#: core/form-fields-types.php:340 core/form-fields-types.php:587
-#: core/form-fields-types.php:718
+#: core/form-fields-types.php:340 core/form-fields-types.php:591
+#: core/form-fields-types.php:722
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
@@ -4193,8 +4194,8 @@ msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Erlaube leere Auswahl bei Suche?"
 
-#: core/form-fields-types.php:368 core/form-fields-types.php:606
-#: core/form-fields-types.php:739
+#: core/form-fields-types.php:368 core/form-fields-types.php:610
+#: core/form-fields-types.php:743
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Feldliste von Optionen wird benötigt."
@@ -4228,62 +4229,62 @@ msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "\"the_content\" Filter zuweisen bevor das Feld angezeigt wird?"
 
-#: core/form-fields-types.php:528
+#: core/form-fields-types.php:532
 msgctxt "form-fields api"
 msgid "Radio button"
 msgstr "Radiobutton"
 
-#: core/form-fields-types.php:634
+#: core/form-fields-types.php:638
 msgctxt "form-fields api"
 msgid "Multiple select list"
 msgstr "Multiple Auswahlliste"
 
-#: core/form-fields-types.php:639
+#: core/form-fields-types.php:643
 msgctxt "form-fields api"
 msgid "Multiselect List"
 msgstr "Mehrfachauswahlliste"
 
-#: core/form-fields-types.php:655
+#: core/form-fields-types.php:659
 msgctxt "form-fields api"
 msgid "Checkbox"
 msgstr "Kontrollkästchen"
 
-#: core/form-fields-types.php:813
+#: core/form-fields-types.php:817
 msgctxt "form-fields api"
 msgid "Social Site (Twitter handle)"
 msgstr "Soziale Seite (Twitter)"
 
-#: core/form-fields-types.php:862
+#: core/form-fields-types.php:866
 msgctxt "form-fields api"
 msgid "Social Site (Facebook page)"
 msgstr "Soziale Seite (Facebook)"
 
-#: core/form-fields-types.php:910
+#: core/form-fields-types.php:914
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr "Soziale Seite (LinkedIn)"
 
-#: core/form-fields-types.php:955
+#: core/form-fields-types.php:959
 msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Bild (Datei hochladen)"
 
-#: core/form-fields-types.php:987
+#: core/form-fields-types.php:991
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Entfernen"
 
-#: core/form-fields-types.php:1067
+#: core/form-fields-types.php:1071
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Date Field"
 msgstr "Feld aktualisieren"
 
-#: core/form-fields-types.php:1090
+#: core/form-fields-types.php:1094
 msgid "%s (ex. %s)"
 msgstr ""
 
-#: core/form-fields-types.php:1094
+#: core/form-fields-types.php:1098
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Date Format"
@@ -4461,26 +4462,26 @@ msgctxt "authorize-net"
 msgid "Transaction Key is missing."
 msgstr "Transaktionen"
 
-#: core/gateways-authorize-net.php:121
+#: core/gateways-authorize-net.php:124
 msgctxt "authorize-net"
 msgid ""
 "The payment gateway didn't accept your credit card or billing information. "
 "The following reason was given: \"%s\"."
 msgstr ""
 
-#: core/gateways-authorize-net.php:125
+#: core/gateways-authorize-net.php:128
 msgctxt "authorize-net"
 msgid ""
 "Your payment is being held for review by the payment gateway. The following "
 "reason was given: \"%s\"."
 msgstr ""
 
-#: core/gateways-authorize-net.php:128
+#: core/gateways-authorize-net.php:131
 msgctxt "authorize-net"
 msgid "Payment was rejected. The following reason was given: \"%s\"."
 msgstr ""
 
-#: core/gateways-authorize-net.php:176
+#: core/gateways-authorize-net.php:182
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Could not process payment."
@@ -5653,13 +5654,18 @@ msgctxt "checkout form"
 msgid "Address Line 2:"
 msgstr ""
 
-#: templates/billing-information-form.tpl.php:129
+#: templates/billing-information-form.tpl.php:127
+msgctxt "checkout form"
+msgid "ZIP Code:"
+msgstr ""
+
+#: templates/billing-information-form.tpl.php:137
 #, fuzzy
 msgctxt "WPBDM"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/billing-information-form.tpl.php:130
+#: templates/billing-information-form.tpl.php:138
 #, fuzzy
 msgctxt "WPBDM"
 msgid "Submit Payment"
