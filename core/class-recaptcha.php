@@ -69,14 +69,19 @@ class WPBDP_reCAPTCHA {
         if ( ! $_REQUEST['g-recaptcha-response'] )
             return false;
 
-        if ( ! class_exists( 'ReCaptcha\ReCaptcha' ) )
-            require( WPBDP_PATH . 'vendors/recaptcha/autoload.php' );
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $res = wp_remote_post( $url,
+                               array( 'body' => array( 'secret' => $this->private_key,
+                                                       'response' => $_REQUEST['g-recaptcha-response'],
+                                                       'remoteip' => $_SERVER['REMOTE_ADDR'] ) )
+        );
 
-        $recaptcha = new \ReCaptcha\ReCaptcha( $this->private_key );
-        $res = $recaptcha->verify( $_REQUEST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR'] );
+        if ( ! is_wp_error( $res ) ) {
+            $js = json_decode( $res['body'] );
 
-        if ( $res->isSuccess() )
-            return true;
+            if ( $js && isset( $js->success ) && $js->success )
+                return true;
+        }
 
         $error_msg = _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' );
         return false;
