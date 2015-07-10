@@ -8,6 +8,8 @@ if (!class_exists('WPBDP_DirectoryController')) {
 class WPBDP_DirectoryController {
 
     public $action = null;
+    private $current_category = 0;
+
 
     public function __construct() {
         add_action( 'wp', array( $this, '_handle_action'), 10, 1 );
@@ -47,6 +49,10 @@ class WPBDP_DirectoryController {
 
     public function get_current_action() {
         return $this->action;
+    }
+
+    public function current_category_id() {
+        return $this->current_category;
     }
 
     public function dispatch() {
@@ -184,6 +190,9 @@ class WPBDP_DirectoryController {
 
         $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
         $category_id = is_array( $category_id ) && 1 == count( $category_id ) ? $category_id[0] : $category_id;
+
+        if ( ! $in_listings_shortcode )
+            $this->current_category = $category_id;
 
         $listings_api = wpbdp_listings_api();
 
@@ -502,4 +511,12 @@ class WPBDP_DirectoryController {
 
 }
 
+
+function wpbdp_current_category_id() {
+    global $wpbdp;
+    return $wpbdp->controller->current_category_id();
 }
+
+}
+
+
