@@ -48,7 +48,18 @@ class WPBDP_WPML_Compat {
     function add_lang_to_link( $link ) {
         global $sitepress;
 
-        $lang = $this->get_current_language();
+        $lang = '';
+
+        if ( false !== ($index = strpos( $link, '?' ) ) ) {
+            // We honor the ?lang argument from the link itself (if present).
+            $data = array();
+            wp_parse_str( substr( $link, $index + 1 ), $data );
+
+            if ( !empty( $data['lang'] ) )
+                $lang = $data['lang'];
+        } else {
+           $lang = $this->get_current_language();
+        }
 
         if ( ! $lang )
             return $link;
