@@ -19,6 +19,9 @@ class WPBDP_WPML_Compat {
             add_filter( 'wpbdp_category_fee_selection_label', array( &$this, 'translate_fee_label' ), 10, 2 );
 
             add_filter( 'icl_ls_languages', array( &$this, 'language_switcher' ) );
+
+            // Regions
+            add_filter( 'wpbdp_region_link', array( &$this, 'add_lang_to_link' ) );
         }
 
         add_action( 'admin_footer-directory-admin_page_wpbdp_admin_formfields', array( &$this, 'register_form_fields_strings' ) );
