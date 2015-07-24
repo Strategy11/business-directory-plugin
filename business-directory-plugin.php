@@ -741,8 +741,6 @@ class WPBDP_Plugin {
 
     public function has_module($name) {
         switch (strtolower($name)) {
-            default:
-                break;
             case 'payfast':
             case 'payfast-payment-module':
                 return class_exists( 'WPBDP_Gateways_PayFast' );
@@ -792,6 +790,11 @@ class WPBDP_Plugin {
                 break;
             case 'claim-listings-module':
                 return class_exists( 'WPBDP_Claim_Listings_Module' );
+                break;
+            case 'discount-codes-module':
+                return class_exists( 'WPBDP_Coupons_Module' );
+                break;
+            default:
                 break;
         }
 

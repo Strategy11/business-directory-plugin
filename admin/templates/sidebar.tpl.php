@@ -1,5 +1,6 @@
 <?php
 $modules = array(
+    array( 'discount-codes-module', _x( 'Discount Codes Module', 'admin sidebar', 'WPBDM' ), 'new' ),
     array( 'claim-listings-module', _x( 'Claim Listings Module', 'admin sidebar', 'WPBDM' ), 'new' ),
     array( 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'WPBDM' ) ),
     array( 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'WPBDM' ) ),
