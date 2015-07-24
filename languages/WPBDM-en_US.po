@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2015-07-07 12:40:16+00:00\n"
+"POT-Creation-Date: 2015-07-24 03:31:54+00:00\n"
 "PO-Revision-Date: 2015-04-07 11:11-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1415,22 +1415,22 @@ msgctxt "fees admin"
 msgid "Drag and drop to re-order fees."
 msgstr ""
 
-#: admin/templates/fees.tpl.php:48 admin/templates/sidebar.tpl.php:12
+#: admin/templates/fees.tpl.php:48 admin/templates/sidebar.tpl.php:13
 msgctxt "admin sidebar"
 msgid "PayPal Gateway Module"
 msgstr ""
 
-#: admin/templates/fees.tpl.php:49 admin/templates/sidebar.tpl.php:13
+#: admin/templates/fees.tpl.php:49 admin/templates/sidebar.tpl.php:14
 msgctxt "admin sidebar"
 msgid "2Checkout Gateway Module"
 msgstr ""
 
-#: admin/templates/fees.tpl.php:50 admin/templates/sidebar.tpl.php:4
+#: admin/templates/fees.tpl.php:50 admin/templates/sidebar.tpl.php:5
 msgctxt "admin sidebar"
 msgid "PayFast Payment Module"
 msgstr ""
 
-#: admin/templates/fees.tpl.php:51 admin/templates/sidebar.tpl.php:5
+#: admin/templates/fees.tpl.php:51 admin/templates/sidebar.tpl.php:6
 msgctxt "admin sidebar"
 msgid "Stripe Payment Module"
 msgstr ""
@@ -1605,7 +1605,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.6)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.8dev)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -1941,120 +1941,125 @@ msgstr ""
 
 #: admin/templates/sidebar.tpl.php:3
 msgctxt "admin sidebar"
-msgid "Claim Listings Module"
+msgid "Discount Codes Module"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:6
+#: admin/templates/sidebar.tpl.php:4
 msgctxt "admin sidebar"
-msgid "File Upload Module"
+msgid "Claim Listings Module"
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:7
 msgctxt "admin sidebar"
-msgid "Featured Levels Module"
+msgid "File Upload Module"
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:8
 msgctxt "admin sidebar"
-msgid "ZIP Code Search Module"
+msgid "Featured Levels Module"
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:9
 msgctxt "admin sidebar"
-msgid "Regions Module"
+msgid "ZIP Code Search Module"
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:10
 msgctxt "admin sidebar"
-msgid "Ratings Module"
+msgid "Regions Module"
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:11
 msgctxt "admin sidebar"
+msgid "Ratings Module"
+msgstr ""
+
+#: admin/templates/sidebar.tpl.php:12
+msgctxt "admin sidebar"
 msgid "Google Maps Module"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:20
+#: admin/templates/sidebar.tpl.php:21
 msgctxt "admin sidebar"
 msgid "Like this plugin?"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:22
+#: admin/templates/sidebar.tpl.php:23
 msgctxt "admin sidebar"
 msgid "Why not do any or all of the following:"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:24
+#: admin/templates/sidebar.tpl.php:25
 msgctxt "admin sidebar"
 msgid "Give it a good rating on WordPress.org."
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:25
+#: admin/templates/sidebar.tpl.php:26
 msgctxt "admin sidebar"
 msgid "Let other people know that it works with your WordPress setup."
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:26
+#: admin/templates/sidebar.tpl.php:27
 msgctxt "admin sidebar"
 msgid "Buy a Premium Module"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:33
+#: admin/templates/sidebar.tpl.php:34
 msgctxt "admin sidebar"
 msgid "Get a Premium Module"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:42
+#: admin/templates/sidebar.tpl.php:43
 msgctxt "admin sidebar"
 msgid "Single Site License Combo Pack"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:43
+#: admin/templates/sidebar.tpl.php:44
 msgctxt "admin sidebar"
 msgid "Multi Site License Combo Pack"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:50
+#: admin/templates/sidebar.tpl.php:51
 msgctxt "admin sidebar"
 msgid "Found a bug? Need support?"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:55
+#: admin/templates/sidebar.tpl.php:56
 msgctxt "admin sidebar"
 msgid "If you've found a bug or need support <a>visit the forums!</a>"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:58
+#: admin/templates/sidebar.tpl.php:59
 msgctxt "admin sidebar"
 msgid "Full plugin documentation"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:59
+#: admin/templates/sidebar.tpl.php:60
 msgctxt "admin sidebar"
 msgid "Quick Start Guide"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:60
+#: admin/templates/sidebar.tpl.php:61
 msgctxt "admin sidebar"
 msgid "Video Tutorials"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:68
+#: admin/templates/sidebar.tpl.php:69
 msgctxt "admin sidebar"
 msgid "Installed Modules"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:79 admin/templates/sidebar.tpl.php:88
+#: admin/templates/sidebar.tpl.php:80 admin/templates/sidebar.tpl.php:89
 msgctxt "admin sidebar"
 msgid "Installed"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:81 admin/templates/sidebar.tpl.php:88
+#: admin/templates/sidebar.tpl.php:82 admin/templates/sidebar.tpl.php:89
 msgctxt "admin sidebar"
 msgid "Not Installed"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:87
+#: admin/templates/sidebar.tpl.php:88
 msgctxt "admin sidebar"
 msgid "Enhanced Categories Module"
 msgstr ""
@@ -2295,80 +2300,80 @@ msgctxt "admin"
 msgid "The transaction has been deleted."
 msgstr ""
 
-#: business-directory-plugin.php:658
+#: business-directory-plugin.php:659
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr ""
 
-#: business-directory-plugin.php:668
+#: business-directory-plugin.php:669
 msgctxt "post type general name"
 msgid "Directory"
 msgstr ""
 
-#: business-directory-plugin.php:669
+#: business-directory-plugin.php:670
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr ""
 
-#: business-directory-plugin.php:670
+#: business-directory-plugin.php:671
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr ""
 
-#: business-directory-plugin.php:671
+#: business-directory-plugin.php:672
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr ""
 
-#: business-directory-plugin.php:672 core/compatibility/deprecated.php:255
+#: business-directory-plugin.php:673 core/compatibility/deprecated.php:255
 msgid "Edit Listing"
 msgstr ""
 
-#: business-directory-plugin.php:673
+#: business-directory-plugin.php:674
 msgid "New Listing"
 msgstr ""
 
-#: business-directory-plugin.php:674
+#: business-directory-plugin.php:675
 msgid "View Listing"
 msgstr ""
 
-#: business-directory-plugin.php:675
+#: business-directory-plugin.php:676
 msgid "Search Listings"
 msgstr ""
 
-#: business-directory-plugin.php:676
+#: business-directory-plugin.php:677
 msgid "No listings found"
 msgstr ""
 
-#: business-directory-plugin.php:677
+#: business-directory-plugin.php:678
 msgid "No listings found in trash"
 msgstr ""
 
-#: business-directory-plugin.php:699
+#: business-directory-plugin.php:700
 msgid "Directory Categories"
 msgstr ""
 
-#: business-directory-plugin.php:809 business-directory-plugin.php:816
+#: business-directory-plugin.php:813 business-directory-plugin.php:820
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr ""
 
-#: business-directory-plugin.php:1174
+#: business-directory-plugin.php:1178
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr ""
 
-#: business-directory-plugin.php:1184
+#: business-directory-plugin.php:1188
 msgctxt "title"
 msgid "Find a Listing"
 msgstr ""
 
-#: business-directory-plugin.php:1194
+#: business-directory-plugin.php:1198
 msgctxt "title"
 msgid "View All Listings"
 msgstr ""
 
-#: business-directory-plugin.php:1214
+#: business-directory-plugin.php:1218
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr ""
@@ -2537,7 +2542,7 @@ msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\""
 msgstr ""
 
-#: core/class-recaptcha.php:81 core/class-recaptcha.php:96
+#: core/class-recaptcha.php:86 core/class-recaptcha.php:101
 msgctxt "recaptcha"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
@@ -5040,22 +5045,22 @@ msgctxt "templates"
 msgid "Return to listing."
 msgstr ""
 
-#: core/views.php:23
+#: core/views.php:25
 msgid ""
 "You need to create a page with the [businessdirectory] shortcode for the "
 "Business Directory plugin to work correctly."
 msgstr ""
 
-#: core/views.php:25
+#: core/views.php:27
 msgid "The directory is temporarily disabled."
 msgstr ""
 
-#: core/views.php:154
+#: core/views.php:160
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 
-#: core/views.php:368
+#: core/views.php:377
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -5065,12 +5070,12 @@ msgid ""
 "categories to the business directory."
 msgstr ""
 
-#: core/views.php:370
+#: core/views.php:379
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr ""
 
-#: core/views.php:388
+#: core/views.php:397
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "

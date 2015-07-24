@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2015-07-07 12:40:16+00:00\n"
+"POT-Creation-Date: 2015-07-24 03:31:54+00:00\n"
 "PO-Revision-Date: 2015-07-07 07:45-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1502,22 +1502,22 @@ msgctxt "fees admin"
 msgid "Drag and drop to re-order fees."
 msgstr "Arrastre y suelte para reordenar las comisiones."
 
-#: admin/templates/fees.tpl.php:48 admin/templates/sidebar.tpl.php:12
+#: admin/templates/fees.tpl.php:48 admin/templates/sidebar.tpl.php:13
 msgctxt "admin sidebar"
 msgid "PayPal Gateway Module"
 msgstr "Módulo pasarela de pago PayPal"
 
-#: admin/templates/fees.tpl.php:49 admin/templates/sidebar.tpl.php:13
+#: admin/templates/fees.tpl.php:49 admin/templates/sidebar.tpl.php:14
 msgctxt "admin sidebar"
 msgid "2Checkout Gateway Module"
 msgstr "Módulo pasarela de pago 2Checkout"
 
-#: admin/templates/fees.tpl.php:50 admin/templates/sidebar.tpl.php:4
+#: admin/templates/fees.tpl.php:50 admin/templates/sidebar.tpl.php:5
 msgctxt "admin sidebar"
 msgid "PayFast Payment Module"
 msgstr "Módulo pasarela de pago PayFast"
 
-#: admin/templates/fees.tpl.php:51 admin/templates/sidebar.tpl.php:5
+#: admin/templates/fees.tpl.php:51 admin/templates/sidebar.tpl.php:6
 msgctxt "admin sidebar"
 msgid "Stripe Payment Module"
 msgstr "Módulo pasarela de pago Stripe"
@@ -1703,6 +1703,7 @@ msgstr ""
 "Por favor vea la <a>documentación de Campos de Formulario</a> para más "
 "detalles."
 
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.8dev)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2054,122 +2055,128 @@ msgstr ""
 "fábrica. <b>Tenga en cuenta que todas sus modificaciones se perderán</b>."
 
 #: admin/templates/sidebar.tpl.php:3
+#, fuzzy
+msgctxt "admin sidebar"
+msgid "Discount Codes Module"
+msgstr "Regions Module"
+
+#: admin/templates/sidebar.tpl.php:4
 msgctxt "admin sidebar"
 msgid "Claim Listings Module"
 msgstr ""
 
-#: admin/templates/sidebar.tpl.php:6
+#: admin/templates/sidebar.tpl.php:7
 msgctxt "admin sidebar"
 msgid "File Upload Module"
 msgstr "File Upload Module"
 
-#: admin/templates/sidebar.tpl.php:7
+#: admin/templates/sidebar.tpl.php:8
 msgctxt "admin sidebar"
 msgid "Featured Levels Module"
 msgstr "Featured Levels Module"
 
-#: admin/templates/sidebar.tpl.php:8
+#: admin/templates/sidebar.tpl.php:9
 msgctxt "admin sidebar"
 msgid "ZIP Code Search Module"
 msgstr "ZIP Code Search Module"
 
-#: admin/templates/sidebar.tpl.php:9
+#: admin/templates/sidebar.tpl.php:10
 msgctxt "admin sidebar"
 msgid "Regions Module"
 msgstr "Regions Module"
 
-#: admin/templates/sidebar.tpl.php:10
+#: admin/templates/sidebar.tpl.php:11
 msgctxt "admin sidebar"
 msgid "Ratings Module"
 msgstr "Ratings Module"
 
-#: admin/templates/sidebar.tpl.php:11
+#: admin/templates/sidebar.tpl.php:12
 msgctxt "admin sidebar"
 msgid "Google Maps Module"
 msgstr "Google Maps Module"
 
-#: admin/templates/sidebar.tpl.php:20
+#: admin/templates/sidebar.tpl.php:21
 msgctxt "admin sidebar"
 msgid "Like this plugin?"
 msgstr "Le gusta este plugin?"
 
-#: admin/templates/sidebar.tpl.php:22
+#: admin/templates/sidebar.tpl.php:23
 msgctxt "admin sidebar"
 msgid "Why not do any or all of the following:"
 msgstr "Por qué no hace alguna o todas de las siguientes cosas:"
 
-#: admin/templates/sidebar.tpl.php:24
+#: admin/templates/sidebar.tpl.php:25
 msgctxt "admin sidebar"
 msgid "Give it a good rating on WordPress.org."
 msgstr "Darle una buena calificación en WordPress.org."
 
-#: admin/templates/sidebar.tpl.php:25
+#: admin/templates/sidebar.tpl.php:26
 msgctxt "admin sidebar"
 msgid "Let other people know that it works with your WordPress setup."
 msgstr ""
 "Contarle a otras personas que funciona con su instalación de WordPress."
 
-#: admin/templates/sidebar.tpl.php:26
+#: admin/templates/sidebar.tpl.php:27
 msgctxt "admin sidebar"
 msgid "Buy a Premium Module"
 msgstr "Comprar un Módulo Premium"
 
-#: admin/templates/sidebar.tpl.php:33
+#: admin/templates/sidebar.tpl.php:34
 msgctxt "admin sidebar"
 msgid "Get a Premium Module"
 msgstr "Obtener un Módulo Premium"
 
-#: admin/templates/sidebar.tpl.php:42
+#: admin/templates/sidebar.tpl.php:43
 msgctxt "admin sidebar"
 msgid "Single Site License Combo Pack"
 msgstr "Single Site License Combo Pack"
 
-#: admin/templates/sidebar.tpl.php:43
+#: admin/templates/sidebar.tpl.php:44
 msgctxt "admin sidebar"
 msgid "Multi Site License Combo Pack"
 msgstr "Multi Site License Combo Pack"
 
-#: admin/templates/sidebar.tpl.php:50
+#: admin/templates/sidebar.tpl.php:51
 msgctxt "admin sidebar"
 msgid "Found a bug? Need support?"
 msgstr "Encontró un error? Necesita soporte?"
 
-#: admin/templates/sidebar.tpl.php:55
+#: admin/templates/sidebar.tpl.php:56
 msgctxt "admin sidebar"
 msgid "If you've found a bug or need support <a>visit the forums!</a>"
 msgstr "Si ha encontrado un error o necesita soporte <a>¡visite los foros!</a>"
 
-#: admin/templates/sidebar.tpl.php:58
+#: admin/templates/sidebar.tpl.php:59
 msgctxt "admin sidebar"
 msgid "Full plugin documentation"
 msgstr "Documentación completa del plugin"
 
-#: admin/templates/sidebar.tpl.php:59
+#: admin/templates/sidebar.tpl.php:60
 msgctxt "admin sidebar"
 msgid "Quick Start Guide"
 msgstr "Guía de Inicio Rápido"
 
-#: admin/templates/sidebar.tpl.php:60
+#: admin/templates/sidebar.tpl.php:61
 msgctxt "admin sidebar"
 msgid "Video Tutorials"
 msgstr "Videotutoriales"
 
-#: admin/templates/sidebar.tpl.php:68
+#: admin/templates/sidebar.tpl.php:69
 msgctxt "admin sidebar"
 msgid "Installed Modules"
 msgstr "Módulos Instalados"
 
-#: admin/templates/sidebar.tpl.php:79 admin/templates/sidebar.tpl.php:88
+#: admin/templates/sidebar.tpl.php:80 admin/templates/sidebar.tpl.php:89
 msgctxt "admin sidebar"
 msgid "Installed"
 msgstr "Instalado"
 
-#: admin/templates/sidebar.tpl.php:81 admin/templates/sidebar.tpl.php:88
+#: admin/templates/sidebar.tpl.php:82 admin/templates/sidebar.tpl.php:89
 msgctxt "admin sidebar"
 msgid "Not Installed"
 msgstr "No Instalado"
 
-#: admin/templates/sidebar.tpl.php:87
+#: admin/templates/sidebar.tpl.php:88
 msgctxt "admin sidebar"
 msgid "Enhanced Categories Module"
 msgstr "Enhanced Categories Module"
@@ -2417,80 +2424,80 @@ msgctxt "admin"
 msgid "The transaction has been deleted."
 msgstr "La transacción ha sido eliminada."
 
-#: business-directory-plugin.php:658
+#: business-directory-plugin.php:659
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: business-directory-plugin.php:668
+#: business-directory-plugin.php:669
 msgctxt "post type general name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: business-directory-plugin.php:669
+#: business-directory-plugin.php:670
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: business-directory-plugin.php:670
+#: business-directory-plugin.php:671
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: business-directory-plugin.php:671
+#: business-directory-plugin.php:672
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: business-directory-plugin.php:672 core/compatibility/deprecated.php:255
+#: business-directory-plugin.php:673 core/compatibility/deprecated.php:255
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: business-directory-plugin.php:673
+#: business-directory-plugin.php:674
 msgid "New Listing"
 msgstr "Nuevo Listado"
 
-#: business-directory-plugin.php:674
+#: business-directory-plugin.php:675
 msgid "View Listing"
 msgstr "Ver Listado"
 
-#: business-directory-plugin.php:675
+#: business-directory-plugin.php:676
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: business-directory-plugin.php:676
+#: business-directory-plugin.php:677
 msgid "No listings found"
 msgstr "No se encontraron listados"
 
-#: business-directory-plugin.php:677
+#: business-directory-plugin.php:678
 msgid "No listings found in trash"
 msgstr "No se encontraron listados en la papelera"
 
-#: business-directory-plugin.php:699
+#: business-directory-plugin.php:700
 msgid "Directory Categories"
 msgstr "Categorías de Directorio"
 
-#: business-directory-plugin.php:809 business-directory-plugin.php:816
+#: business-directory-plugin.php:813 business-directory-plugin.php:820
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "Feed %s"
 
-#: business-directory-plugin.php:1174
+#: business-directory-plugin.php:1178
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: business-directory-plugin.php:1184
+#: business-directory-plugin.php:1188
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: business-directory-plugin.php:1194
+#: business-directory-plugin.php:1198
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: business-directory-plugin.php:1214
+#: business-directory-plugin.php:1218
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
@@ -2663,7 +2670,7 @@ msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\""
 msgstr "Comisión \"%s\" para categoría \"%s\""
 
-#: core/class-recaptcha.php:81 core/class-recaptcha.php:96
+#: core/class-recaptcha.php:86 core/class-recaptcha.php:101
 msgctxt "recaptcha"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."
@@ -5376,7 +5383,7 @@ msgctxt "templates"
 msgid "Return to listing."
 msgstr "Regresar al listado."
 
-#: core/views.php:23
+#: core/views.php:25
 msgid ""
 "You need to create a page with the [businessdirectory] shortcode for the "
 "Business Directory plugin to work correctly."
@@ -5384,17 +5391,17 @@ msgstr ""
 "Debe crear una página con el shortcode [businessdirectory] para que el "
 "Directorio de Negocios funcione correctamente."
 
-#: core/views.php:25
+#: core/views.php:27
 msgid "The directory is temporarily disabled."
 msgstr "El Directorio está temporalmente deshabilitado."
 
-#: core/views.php:154
+#: core/views.php:160
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Esta es tan solo una previsualización. El listado no ha sido publicado aún."
 
-#: core/views.php:368
+#: core/views.php:377
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -5409,12 +5416,12 @@ msgstr ""
 "no pueden enviar listados en este momento. No pueden agregarse nuevos "
 "listados hasta tanto haya categorías en el Directorio de Negocios."
 
-#: core/views.php:370
+#: core/views.php:379
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr "No hay listados en el Directorio."
 
-#: core/views.php:388
+#: core/views.php:397
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "
