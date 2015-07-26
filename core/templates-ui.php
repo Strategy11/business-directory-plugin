@@ -33,6 +33,7 @@ function wpbdp_the_directory_categories() {
 function _wpbdp_padded_count( &$term ) {
     global $wpdb;
 
+    $found = false;
     $count = intval( wp_cache_get( 'term-padded-count-' . $term->term_id ,'wpbdp', false, $found ) );
 
     if ( ! $count && ! $found ) {
