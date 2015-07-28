@@ -80,6 +80,9 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             'tag' => $this->tag
         );
 
+        if ( ! $this->processed_on )
+            unset( $row['processed_on'] );
+
         if ( $this->id )
             $row['id'] = $this->id;
 

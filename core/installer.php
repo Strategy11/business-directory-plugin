@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '5';
+    const DB_VERSION = '6';
 
     private $installed_version = null;
 
@@ -88,8 +88,8 @@ class WPBDP_Installer {
             currency_code varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'USD',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
             status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-            created_on timestamp NOT NULL,
-            processed_on timestamp NULL,
+            created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            processed_on timestamp NULL DEFAULT NULL,
             processed_by varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             payerinfo blob NULL,
             extra_data longblob NULL,
@@ -148,7 +148,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -829,6 +829,13 @@ class WPBDP_Installer {
             return;
 
         $this->process_term_split( $old_id );
+    }
+
+    public function upgrade_to_6() {
+        global $wpdb;
+
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments MODIFY created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP" );
+        $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_payments SET processed_on = NULL WHERE processed_on = %s", '0000-00-00 00:00:00' ) );
     }
 
 }
