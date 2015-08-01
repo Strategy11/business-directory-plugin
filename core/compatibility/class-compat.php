@@ -5,6 +5,8 @@ class WPBDP_Compat {
 
     function __construct() {
         add_action( 'wpbdp_loaded', array( &$this, 'load_integrations' ) );
+
+        $this->workarounds_for_wp_bugs();
     }
 
     function load_integrations() {
@@ -18,5 +20,27 @@ class WPBDP_Compat {
             $navxt_integration = new WPBDP_NavXT_Integration();
         }
     }
+
+    // Work around WP bugs. {{{
+
+    function workarounds_for_wp_bugs() {
+        // #1466 (related to https://core.trac.wordpress.org/ticket/28081).
+        add_filter( 'wpbdp_query_clauses', array( &$this, '_fix_pagination_issue' ), 10, 2 );
+    }
+
+    function _fix_pagination_issue( $clauses, $query ) {
+        $posts_per_page = intval( $query->get( 'posts_per_page' ) );
+        $paged = intval( $query->get( 'paged' ) );
+
+        if ( -1 != $posts_per_page || $paged <= 1 )
+            return $clauses;
+
+        // Force no results for pages outside of the scope of the query.
+        $clauses['where'] .= ' AND 1=0 ';
+
+        return $clauses;
+    }
+
+    // }}}
 
 }

@@ -283,7 +283,7 @@ class WPBDP_Plugin {
         if ( is_admin() || ! isset( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] )
             return $pieces;
 
-        return apply_filters( 'wpbdp_query_clauses', $pieces );
+        return apply_filters( 'wpbdp_query_clauses', $pieces, $query );
     }
 
     public function _posts_fields($fields, $query) {
