@@ -56,6 +56,7 @@ require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
+require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
 
 
 global $wpbdp;
@@ -203,11 +204,7 @@ class WPBDP_Plugin {
         add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
         add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
 
-        // Enable reCAPTCHA if needed.
-        if ( wpbdp_get_option( 'recaptcha-on' ) || wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-comments' ) ) {
-            require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
-            $this->recaptcha = new WPBDP_reCAPTCHA();
-        }
+        $this->recaptcha = new WPBDP_reCAPTCHA();
     }
 
     // {{{ Premium modules.
