@@ -161,7 +161,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         if ( $input === null )
             return array( '', '' );
 
-        $url = strtolower( trim( is_array( $input ) ? $input[0] : $input ) );
+        $url = trim( is_array( $input ) ? $input[0] : $input );
         $text = trim( is_array( $input ) ? $input[1] : $url );
 
         if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) )
