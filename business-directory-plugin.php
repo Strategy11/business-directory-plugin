@@ -1341,7 +1341,7 @@ class WPBDP_Plugin {
             $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
             $link = get_permalink( $listing_id );
         } else {
-            $link = $_SERVER['REQUEST_URI'];
+            $link = site_url( $_SERVER['REQUEST_URI'] );
         }
 
         echo sprintf( '<link rel="canonical" href="%s" />', esc_url( $link ) );
