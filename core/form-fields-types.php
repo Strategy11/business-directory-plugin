@@ -1132,6 +1132,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         }
 
         $format = $this->date_format( $field, true );
+        $value = $this->date_to_storage_format( $field, $value );
 
         $html = '';
         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" data-date-format="%s" />',
