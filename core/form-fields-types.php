@@ -20,6 +20,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         $input = strval( $input );
 
         if ( $field->get_association() == 'tags' ) {
+            $input = str_replace( ';', ',', $input );
             return explode( ',', $input );
         }
 
