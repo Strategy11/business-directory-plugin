@@ -140,6 +140,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
     public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
         $input = str_replace( array( '"', '\'' ), '', $input );
+        $input = str_replace( ';', ',', $input ); // Support ; as a separator here.
         $parts = explode( ',', $input );
 
         if ( 1 == count( $parts ) )
