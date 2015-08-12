@@ -672,6 +672,17 @@ class WPBDP_Listings_API {
                                 $where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value REGEXP %s )",
                                                          "_wpbdp[fields][" . $field->get_id() . "]",
                                                          $pattern );
+                            } elseif ( 'date' == $field->get_field_type_id() ) {
+                                $field_type = $field->get_field_type();
+                                $q = $field_type->date_to_storage_format( $field, $q );
+
+                                if ( ! $q )
+                                    continue;
+
+                                $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
+                                $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value = %s)",
+                                                         '_wpbdp[fields][' . $field->get_id() . ']',
+                                                         $q);
                             } else { // Single-valued field.
                                 if ( in_array( $field->get_field_type()->get_id(),
                                                array( 'textfield', 'textarea' ) ) ) {

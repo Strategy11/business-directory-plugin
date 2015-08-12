@@ -1146,15 +1146,12 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return $html;
     }
 
-    public function store_field_value( &$field, $post_id, $value ) {
-        if ( 'meta' != $field->get_association() )
-            return;
-
+    public function date_to_storage_format( &$field, $value ) {
         $value = preg_replace('/[^0-9]/','', $value); // Normalize value.
         $format = str_replace( array( '/', '.', '-' ), '', $this->date_format( $field ) );
 
         if ( ! $value || strlen( $format ) != strlen( $value ) )
-            return parent::store_field_value( $field, $post_id, null );
+            return null;
 
         $d = 0; $m = 0; $y = 0;
 
@@ -1193,7 +1190,15 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         }
 
         $value = sprintf( "%'.04d%'.02d%'.02d", $y, $m, $d );
-        return parent::store_field_value( $field, $post_id, $value );
+        return $value;
+    }
+
+    public function store_field_value( &$field, $post_id, $value ) {
+        if ( 'meta' != $field->get_association() )
+            return false;
+
+        $val = $this->date_to_storage_format( $field, $value );
+        return parent::store_field_value( $field, $post_id, $val );
     }
 
     public function get_field_value( &$field, $post_id ) {
