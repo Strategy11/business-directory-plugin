@@ -499,6 +499,15 @@ class WPBDP_Listing {
         return get_the_author_meta( $meta, $post->post_author );
     }
 
+    /**
+     * @since next-release
+     */
+    public function get_sticky_status() {
+        $sticky_status = get_post_meta( $this->id, '_wpbdp[sticky]', true );
+        return $sticky_status ? $sticky_status : 'normal';
+    }
+
+
     public function update( $state ) {
         // Set title.
         $title = false;
