@@ -1,0 +1,43 @@
+jQuery(function($) {
+
+    $( '.wpbdp-theme .choose-theme' ).click(function(e) {
+        e.preventDefault();
+
+        var $theme = $(this).parents( '.wpbdp-theme' );
+        var is_current_theme = $theme.hasClass( 'active' );
+        var id = $theme.attr( 'data-theme-id' );
+        var nonce = $(this).attr( 'data-nonce' );
+
+        if ( ! id || ! nonce || is_current_theme )
+            return;
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            cache: false,
+            data: { 'action': 'wpbdp-theme-set', 'theme_id': id, 'nonce': nonce },
+            dataType: 'json',
+            success: function(res) {
+                if ( ! res )
+                    return;
+
+                var msg = res.success ? res.message : res.error;
+                if ( ! msg )
+                    return;
+
+                $( '.themes-status-msg' ).remove();
+
+                if ( res.success ) {
+                    $( '.wpbdp-theme' ).removeClass( 'active' );
+                    $( '.wpbdp-theme[data-theme-id="' + id + '"]' ).addClass( 'active' );
+                }
+
+                var $msg = $( '<div class="themes-status-msg ' + ( res.success ? 'updated' : 'error' ) + '"><p></p></div>' ).hide();
+                $msg.find( 'p' ).html( msg );
+                $msg.insertBefore( '.wpbdp-admin-content' ).fadeIn( 'fast' );
+            }
+        });
+    });
+
+});
+
