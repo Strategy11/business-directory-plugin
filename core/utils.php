@@ -2,6 +2,7 @@
 require_once( WPBDP_PATH . 'core/debugging.php' );
 require_once( WPBDP_PATH . 'core/class-email.php' );
 require_once( WPBDP_PATH . 'core/class-ajax-response.php' );
+require_once( WPBDP_PATH . 'core/helpers/class-fs.php' );
 
 
 /**
@@ -346,34 +347,38 @@ function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
  * @return array list of files within the directory.
  * @since 3.3
  */
-function wpbdp_scandir( $path ) {
+function wpbdp_scandir( $path, $args = array() ) {
     if ( !is_dir( $path ) )
         return array();
-    
-    return array_diff( scandir( $path ), array( '.', '..' ) );
+/*
+    $defaults = array(
+        'filter' => false
+    );
+    $args = wp_parse_args( $args, $defaults );
+    extract( $args );
+
+    $filter = is_array( $filter ) ? $filter : ( $filter ? (array) $filter : false );*/
+    $res = array_diff( scandir( $path ), array( '.', '..' ) );
+
+/*    foreach ( $res as $i => &$r ) {
+        $r = untrailingslashit( $path ) . '/' . $r;
+
+        if ( $filter && ( ( ! in_array( 'dir', $filter ) && is_dir( $r ) ) || ( ! in_array( 'file', $filter ) && is_file( $r ) ) ) )
+            unset( $res[ $i ] );
+    }
+*/
+    return $res;
+//    return array_diff( scandir( $path ), array( '.', '..' ) );
 }
 
 /**
  * Recursively deletes a directory.
  * @param string $path a directory.
  * @since 3.3
+ * @deprecated since next-release. Use {@link WPBDP_FS::rmdir} instead.
  */
 function wpbdp_rrmdir( $path ) {
-    if ( !is_dir( $path ) )
-        return;
-
-    $files = wpbdp_scandir( $path );
-
-    foreach ( $files as &$f ) {
-        $filepath = rtrim( $path, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . ltrim( $f, DIRECTORY_SEPARATOR );
-
-        if ( is_dir( $filepath ) )
-            wpbdp_rrmdir( $filepath );
-        else
-            unlink( $filepath );
-    }
-
-    rmdir( $path );
+    return WPBDP_FS::rmdir( $path );
 }
 
 /**
