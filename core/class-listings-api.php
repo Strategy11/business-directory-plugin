@@ -17,7 +17,8 @@ class WPBDP_Listings_API {
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
-        add_action( 'wpbdp_after_single_view', array( &$this, '_show_contact_form' ), 0 );
+        if ( ! wpbdp_experimental( 'themes' ) )
+            add_action( 'wpbdp_after_single_view', array( &$this, '_show_contact_form' ), 0 );
 
         add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_admin_email' ) );
         add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_confirmation_email' ) );

@@ -2,7 +2,7 @@
 require_once ( WPBDP_PATH . 'core/class-field-display-list.php' );
 
 /**
- * @since next-release
+ * @since themes-release
  */
 class WPBDP_Listing_Display_Helper {
 
@@ -127,7 +127,7 @@ class WPBDP_Listing_Display_Helper {
 }
 
 /**
- * @since next-release
+ * @since themes-release
  */
 class _WPBDP_Listing_Display_Image {
 }

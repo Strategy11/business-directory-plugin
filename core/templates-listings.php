@@ -1,4 +1,7 @@
 <?php
+if ( wpbdp_experimental( 'themes' ) )
+    require_once ( WPBDP_PATH . 'core/class-listing-display-helper.php' );
+
 
 /**
  * Displays a single listing view taking into account all of the theme overrides.
@@ -19,10 +22,17 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
 
     $q->the_post();
 
-    if ($view == 'excerpt')
-        $html = _wpbdp_render_excerpt();
-    else
-        $html = _wpbdp_render_single();
+    if ( 'excerpt' == $view ) {
+        if ( wpbdp_experimental( 'themes' ) )
+            $html = WPBDP_Listing_Display_Helper::excerpt();
+        else
+            $html = _wpbdp_render_excerpt();
+    } else {
+        if ( wpbdp_experimental( 'themes' ) )
+            $html = WPBDP_Listing_Display_Helper::single();
+        else
+            $html = _wpbdp_render_single();
+    }
 
     if ( $echo )
         echo $html;

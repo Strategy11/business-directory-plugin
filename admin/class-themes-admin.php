@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @since themes-release
+ */
 class WPBDP_Themes_Admin {
 
     private $api;

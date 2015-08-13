@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since themes-release
  */
 class WPBDP_Field_Display_List implements IteratorAggregate {
 
@@ -97,7 +97,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 }
 
 /**
- * @since next-release
+ * @since themes-release
  */
 class _WPBDP_Lightweight_Field_Display_Item {
 

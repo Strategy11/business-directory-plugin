@@ -58,6 +58,11 @@ require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
 require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
 
+if ( wpbdp_experimental( 'themes' ) ) {
+    require_once( WPBDP_PATH . 'core/themes.php' );
+    require_once( WPBDP_PATH . 'core/template-sections.php' );
+}
+
 
 global $wpbdp;
 
@@ -87,6 +92,9 @@ class WPBDP_Plugin {
         $this->fees = $noop;
         $this->payments = $noop;
         $this->listings = $noop;
+
+        if ( wpbdp_experimental( 'themes' ) )
+            $this->themes = new WPBDP_Themes();
 
         $this->licensing = new WPBDP_Licensing();
 

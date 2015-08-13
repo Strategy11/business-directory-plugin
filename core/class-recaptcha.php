@@ -1,7 +1,6 @@
 <?php
-
 /**
- * @since next-release
+ * @since 3.6.8
  */
 class WPBDP_reCAPTCHA {
 

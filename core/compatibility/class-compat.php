@@ -19,6 +19,11 @@ class WPBDP_Compat {
             require_once( WPBDP_PATH . 'core/compatibility/class-navxt-integration.php' );
             $navxt_integration = new WPBDP_NavXT_Integration();
         }
+
+        if ( wpbdp_experimental( 'themes' ) ) {
+            require_once( WPBDP_PATH . 'core/compatibility/templates.php' );
+            $theme_layer = new WPBDP_Theme_Compat_Layer();
+        }
     }
 
     // Work around WP bugs. {{{

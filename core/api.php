@@ -461,3 +461,10 @@ function wpbdp_current_query() {
 
     return $wpbdp->_query_stack[ $len - 1 ];
 }
+
+/**
+ * @since next-release
+ */
+function wpbdp_experimental( $feature ) {
+    return false;
+}
