@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '6';
+    const DB_VERSION = '7';
 
     private $installed_version = null;
 
@@ -67,7 +67,9 @@ class WPBDP_Installer {
             validators text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             weight int(5) NOT NULL DEFAULT 0,
             display_flags text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            field_data blob NULL
+            field_data blob NULL,
+            shortname varchar(255) NOT NULL DEFAULT '',
+            tag varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
