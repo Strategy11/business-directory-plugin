@@ -314,8 +314,12 @@ class WPBDP_FormFields {
             'meta3' => array( 'label' => __("Business Contact Email","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 2,
                              'validators' => array( 'email', 'required' ), 'display_flags' => array( 'excerpt', 'listing' ) ),
             'meta4' => array( 'label' => __("Business Tags","WPBDM"), 'field_type' => 'textfield', 'association' => 'tags', 'weight' => 1,
-                              'display_flags' => array( 'excerpt', 'listing', 'search' ) )
-        );      
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
+            'address' => array( 'label' => __("Business Address", "WPBDM"), 'field_type' => 'textarea', 'association' => 'meta', 'weight' => 1,
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'address' ),
+            'zip' => array( 'label' => __("ZIP Code", "WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 1,
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'zip' )
+        );
 
         $fields_to_create = $identifiers ? array_intersect_key( $default_fields, array_flip ( $identifiers ) ) : $default_fields;
 
@@ -325,7 +329,23 @@ class WPBDP_FormFields {
         }
     }
 
+    /**
+     * @deprecated since themes-release.
+     */
     public function get_short_names( $fieldid=null ) {
+        if ( wpbdp_experimental( 'themes' ) ) {
+            $fields = $this->get_fields();
+            $shortnames = array();
+
+            foreach ( $fields as $f )
+                $shortnames[ $f->get_id()] = $f->get_shortname();
+
+            if ( $fieldid )
+                return isset( $shortnames[ $fieldid ] ) ? $shortnames[ $fieldid ] : null;
+
+            return $shortnames;
+        }
+
         $names = get_option( 'wpbdp-field-short-names', false );
 
         if ( !$names )

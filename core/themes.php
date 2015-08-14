@@ -24,12 +24,24 @@ class WPBDP_Themes {
         // Core templates are last priority.
         $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'core/templates' );
 
+        // Load special theme .php file.
+        $this->call_theme_function('');
+        $this->call_theme_function('init');
+
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
-        add_action( 'wpbdp_modules_init', array( &$this, 'register_sections' ) );
     }
 
-    function register_sections() {
-        do_action( 'wpbdp_register_template_sections', $this );
+    function call_theme_function( $fname, $args = array() ) {
+        $theme = $this->get_active_theme_data();
+
+        // If no function name is provided, just load the file.
+        if ( ! $fname && file_exists( $theme->path . 'theme.php' ) )
+            include_once( $theme->path . 'theme.php' );
+
+        $theme_name = str_replace( array( '-' ), array( '_' ), $theme->id );
+
+        if ( function_exists( $theme_name . '_' . $fname ) )
+            call_user_func_array( $theme_name . '_' . $fname, $args );
     }
 
     function enqueue_theme_scripts() {
@@ -46,6 +58,8 @@ class WPBDP_Themes {
             wp_enqueue_script( $theme->id . '-' . $this->_normalize_asset_name( $j ),
                                $theme->url . 'assets/' . $j );
         }
+
+        $this->call_theme_function( 'enqueue_scripts' );
     }
 
     function _normalize_asset_name( $a ) {
@@ -369,6 +383,8 @@ class WPBDP_Themes {
     }
 
     function register_template_section( $template_id, $template_area, $section_id, $callback, $priority = 10 ) {
+        $priority = absint( $priority );
+
         if ( ! isset( $this->template_areas[ $template_id ] ) )
             $this->template_areas[ $template_id ] = array();
 

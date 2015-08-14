@@ -9,8 +9,8 @@ class _WPBDP_Template_Sections {
     }
 
     function register_sections( $themes ) {
-        $themes->register_template_section( 'single', 'after', 'comments', array( &$this, 'listing_comments' ) );
-        $themes->register_template_section( 'single', 'after', 'contact_form', array( &$this, 'listing_contact_form' ), 0 );
+        $themes->register_template_section( 'single', 'after', 'comments', array( &$this, 'listing_comments' ), 11 );
+        $themes->register_template_section( 'single', 'after', 'contact_form', array( &$this, 'listing_contact_form' ), 10 );
     }
 
     function listing_comments( $listing_id ) {

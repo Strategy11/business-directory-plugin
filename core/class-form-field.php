@@ -10,13 +10,15 @@ class WPBDP_Form_Field {
     private $type;
     private $association;
 
+    private $shortname;
     private $label;
-    private $description;    
+    private $description;
+    private $tag;
 
     private $weight = 0;
 
     private $validators = array();
-    
+
     private $display_flags = array();
     private $field_data = array();
 
@@ -27,7 +29,9 @@ class WPBDP_Form_Field {
     public function __construct( $attrs=array() ) {
         $defaults = array(
             'id' => 0,
+            'shortname' => '',
             'label' => '',
+            'tag' => '',
             'description' => '',
             'field_type' => 'textfield',
             'association' => 'meta',
@@ -43,6 +47,7 @@ class WPBDP_Form_Field {
         $formfields = WPBDP_FormFields::instance();
 
         $this->id = intval( $attrs['id'] );
+        $this->shortname = $attrs['shortname'];
         $this->label = $attrs['label'];
         $this->description = $attrs['description'];
         $this->type = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
@@ -67,6 +72,7 @@ class WPBDP_Form_Field {
         /* display_options */
         $this->display_flags = $attrs['display_flags'];
         $this->field_data = $attrs['field_data'];
+        $this->tag = trim( $attrs['tag'] );
 
         if ( $this->association == 'category' ) {
             $this->field_data['options'] = array();
@@ -126,7 +132,45 @@ class WPBDP_Form_Field {
         return $this->description;
     }
 
+    /**
+     * @since themes-release
+     */
+    public function get_shortname() {
+        if ( ! wpbdp_experimental( 'themes' ) )
+            return $this->get_short_name();
+
+        static $protected_shortnames = array( 'images', 'image', 'username', 'featured_level', 'expires_on', 'sequence_id' );
+
+        if ( $this->shortname )
+            return $this->shortname;
+
+        if ( ! $this->label ) {
+            $this->shortname = 'field_' . $this->id;
+        } else {
+            // TODO: normalize field using rules from master.
+            $shortname = strtolower( $this->label );
+            $shortname = str_replace( array( ',', ';', '(', ')' ), '', $shortname );
+            $shortname = str_replace( array( ' ', '/' ), '_', $shortname );
+
+            if ( in_array( $shortname, $protected_shortnames, true ) )
+                $shortname .= '__' . $this->id;
+        }
+
+        $this->shortname = $shortname;
+
+        if ( $this->id ) {
+            global $wpdb;
+            $wpdb->update( $wpdb->prefix . 'wpbdp_form_fields', array( 'shortname' => $shortname ), array( 'id' => $this->id ) );
+        }
+
+        return $shortname;
+    }
+
     public function get_short_name() {
+        if ( wpbdp_experimental( 'themes' ) ) {
+            return $this->get_shortname();
+        }
+
         global $wpbdp;
         return $wpbdp->formfields->get_short_names( $this->id );
     }
@@ -430,6 +474,7 @@ class WPBDP_Form_Field {
         }
 
         $data = array();
+        $data['shortname'] = $this->get_shortname();
         $data['label'] = $this->label;
         $data['description'] = trim( $this->description );
         $data['field_type'] = $this->type->get_id();
@@ -438,6 +483,7 @@ class WPBDP_Form_Field {
         $data['weight'] = $this->weight;
         $data['display_flags'] = implode( ',', $this->display_flags );
         $data['field_data'] = serialize( $this->field_data );
+        $data['tag'] = $this->tag;
 
         if ( $this->id ) {
             $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", $data, array( 'id' => $this->id ) );
@@ -448,7 +494,8 @@ class WPBDP_Form_Field {
 
         wp_cache_delete( $this->id, 'wpbdp formfields' );
 
-        $api->_calculate_short_names();
+        if ( ! wpbdp_experimental( 'themes' ) )
+            $api->_calculate_short_names();
     }
 
     /**
@@ -481,8 +528,10 @@ class WPBDP_Form_Field {
             return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'WPBDM' ) );
         }
 
-        $api = wpbdp_formfields_api();
-        $api->_calculate_short_names();
+        if ( ! wpbdp_experimental( 'themes' ) ) {
+            $api = wpbdp_formfields_api();
+            $api->_calculate_short_names();
+        }
 
         return true;
     }
