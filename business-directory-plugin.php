@@ -80,7 +80,7 @@ class WPBDP_Plugin {
         register_deactivation_hook( __FILE__, array( &$this, 'plugin_deactivation' ) );
 
         // Enable debugging if needed.
-        if ( defined( 'WPBDP_DEBUG' ) && true == WPBDP_DEBUG )
+        if ( ( defined( 'WPBDP_DEBUG' ) && true == WPBDP_DEBUG ) || wpbdp_experimental( 'debug_on' ) )
             $this->debug_on();
 
         // Load dummy objects in case plugins try to do something at an early stage.
@@ -156,7 +156,9 @@ class WPBDP_Plugin {
 
         $this->_register_image_sizes();
 
-        add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;')); // used for debugging
+        if ( $this->is_debug_on() )
+            add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;'));
+
         add_filter('rewrite_rules_array', array( &$this, '_rewrite_rules'));
         add_filter('query_vars', array( &$this, '_query_vars'));
         add_filter( 'redirect_canonical', array( &$this, '_redirect_canonical' ), 10, 2 );

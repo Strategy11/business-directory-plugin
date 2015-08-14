@@ -466,5 +466,7 @@ function wpbdp_current_query() {
  * @since next-release
  */
 function wpbdp_experimental( $feature ) {
-    return false;
+    global $wpbdp_development;
+    return $wpbdp_development->option_get( $feature );
 }
+

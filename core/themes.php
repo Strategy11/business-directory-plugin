@@ -91,7 +91,10 @@ class WPBDP_Themes {
         $themes = array();
 
         foreach ( $this->get_themes_directories() as $path => $url ) {
-            $dirs = wpbdp_scandir( $path, array( 'filter' => 'dir' ) );
+            $dirs = WPBDP_FS::ls( $path, 'filter=dir' );
+
+            if ( ! $dirs )
+                continue;
 
             foreach ( $dirs as $d ) {
                 $info = $this->_get_theme_info( $d );

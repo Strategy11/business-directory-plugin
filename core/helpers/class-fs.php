@@ -11,7 +11,7 @@ final class WPBDP_FS {
         $dir = wp_normalize_path( untrailingslashit( $dir ) );
 
         $args = wp_parse_args( $args,
-                               array( 'recursive' => true,
+                               array( 'recursive' => false,
                                       'filter' => false,
                                       'output' => 'path' ) );
         extract( $args );
