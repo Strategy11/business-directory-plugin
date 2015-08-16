@@ -39,10 +39,12 @@ class WPBDP_Listings_API {
             return $link;
 
         if ( 'page' == _wpbdp_template_mode( 'category' ) ) {
-            if ( wpbdp_rewrite_on() )
-                $link = rtrim( wpbdp_get_page_link( 'main' ), '/' ) . '/' . wpbdp_get_option( 'permalinks-category-slug' ) . '/' . $category->slug . '/';
-            else
+            if ( wpbdp_rewrite_on() ) {
+                $main_page = wpbdp_get_page_link( 'main' );
+                $link = rtrim( $main_page, '/' ) . '/' . wpbdp_get_option( 'permalinks-category-slug' ) . '/' . $category->slug . '/';
+            } else {
                 $link = add_query_arg( 'category', $category->slug, wpbdp_get_page_link( 'main' ) );
+            }
         }
 
         return apply_filters( 'wpbdp_category_link', $link, $category );

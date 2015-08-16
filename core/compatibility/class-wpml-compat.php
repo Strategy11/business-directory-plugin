@@ -8,8 +8,10 @@ class WPBDP_WPML_Compat {
 
         if ( ! is_admin() ) {
             add_filter( 'wpbdp_get_page_id', array( &$this, 'page_id'), 10, 2 );
+
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_category_link', array( &$this, 'add_lang_to_link' ) );
+            add_filter( 'wpbdp__get_page_link', array( &$this, 'fix_get_page_link' ), 10, 2 );
             add_filter( 'wpbdp_get_page_link', array( &$this, 'correct_page_link' ), 10, 3 );
 
             add_filter( 'wpbdp_render_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
@@ -34,6 +36,18 @@ class WPBDP_WPML_Compat {
 
     function get_current_language() {
         return $this->wpml->get_current_language();
+    }
+
+    function fix_get_page_link( $link, $post_id ) {
+        if ( ! wpbdp_rewrite_on() )
+            return $link;
+
+        $page_ids = wpbdp_get_page_ids( 'main' );
+        if ( ! in_array( $post_id, $page_ids ) )
+            return $link;
+
+        $link = preg_replace( '/\?.*/', '', $link );
+        return $link;
     }
 
     function page_id( $id, $page_name = '' ) {

@@ -107,6 +107,7 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
 
     if ( $page_id ) {
         $link = _get_page_link( $page_id );
+        $link = apply_filters( 'wpbdp__get_page_link', $link, $page_id, $name, $arg0 );
     } else {
         switch ( $name ) {
             case 'view':

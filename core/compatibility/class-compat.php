@@ -4,9 +4,8 @@ require_once ( WPBDP_PATH . 'core/compatibility/deprecated.php' );
 class WPBDP_Compat {
 
     function __construct() {
-        add_action( 'wpbdp_loaded', array( &$this, 'load_integrations' ) );
-
         $this->workarounds_for_wp_bugs();
+        $this->load_integrations();
     }
 
     function load_integrations() {
