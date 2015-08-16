@@ -91,7 +91,8 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         if ( $field_id && isset( $this->items[ $field_id ] ) )
             return $this->items[ $field_id ];
 
-        throw new Exception('Invalid key: ' . $key);
+        wpbdp_debug( 'Invalid field key: ' . $key );
+        return false;
     }
 
 }
