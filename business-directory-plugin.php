@@ -300,7 +300,7 @@ class WPBDP_Plugin {
             $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
                                                '_wpbdp[sticky]', 'sticky');
 
-            if ( 'paid' == wpbdp_get_option( 'listings-order-by' ) ) {
+            if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
                 $is_paid_query = "(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments pp WHERE pp.listing_id = {$wpdb->posts}.ID AND pp.amount > 0 LIMIT 1 ) AS wpbdp_is_paid";
                 $fields = $fields . ', ' . $is_sticky_query . ', ' . $is_paid_query;
             } else {
@@ -317,7 +317,10 @@ class WPBDP_Plugin {
         if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE) {
             $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
 
-            if ( 'paid' == wpbdp_get_option( 'listings-order-by' ) ) {
+            if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
+                if ( 'paid-title' == wpbdp_get_option( 'listings-order-by' ) )
+                    $orderby = 'wp_posts.post_title ASC, ' . $orderby;
+
                 $orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
             } else {
                 $orderby = 'wpbdp_is_sticky DESC' . $wpbdp_orderby . ', ' . $orderby;
