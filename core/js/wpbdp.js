@@ -137,6 +137,9 @@ WPBDP.fileUpload = {
                     $( '#wpbdp-uploaded-images .wpbdp-image[data-imageid="' + res.data.imageId + '"]' ).fadeOut( function() {
                         $( this ).remove();
 
+                        if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length )
+                            $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
+
                         t._slotsRemaining++;
                         $( '#image-slots-remaining' ).text( t._slotsRemaining );
 
@@ -179,6 +182,10 @@ WPBDP.fileUpload = {
 
                     $( '#no-images-message' ).hide();
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );
+
+                    if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) {
+                        $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
+                    }
 
                     t._slotsRemaining -= res.data.attachmentIds.length;
                     $( '#image-slots-remaining' ).text( t._slotsRemaining );
