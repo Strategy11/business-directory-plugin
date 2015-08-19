@@ -468,6 +468,10 @@ function wpbdp_current_query() {
  */
 function wpbdp_experimental( $feature ) {
     global $wpbdp_development;
+
+    if ( ! isset( $wpbdp_development ) )
+        return false;
+
     return $wpbdp_development->option_get( $feature );
 }
 
