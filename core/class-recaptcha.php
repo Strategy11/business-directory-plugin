@@ -33,9 +33,11 @@ class WPBDP_reCAPTCHA {
         global $wpbdp;
 
         wp_enqueue_script( 'wpbdp-recaptcha',
-                            WPBDP_URL . 'core/js/recaptcha' . ( ! $wpbdp->is_debug_on() ? '.min' : '' ) . '.js' );
+                            WPBDP_URL . 'core/js/recaptcha' . ( ! $wpbdp->is_debug_on() ? '.min' : '' ) . '.js',
+                            false,
+                            true );
         wp_enqueue_script( 'google-recaptcha',
-                           'https://www.google.com/recaptcha/api.js?onload=wpbdp_recaptcha&render=explicit' );
+                           'https://www.google.com/recaptcha/api.js?onload=wpbdp_recaptcha_callback&render=explicit' );
     }
 
     function render( $name = '' ) {

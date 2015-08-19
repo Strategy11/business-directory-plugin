@@ -1,13 +1,47 @@
-wpbdp_recaptcha = function() {
-    var $ = jQuery;
+jQuery( function( $ ) {
+    var reCAPTCHA_Handler = function() {
+        this.max_attempts = 20;
+        this.attempts = 0;
+        this.max_delay = 1500;
+        this.timeout = false;
+    }
+
+    $.extend( reCAPTCHA_Handler.prototype, {
+        render_widgets: function() {
+            if ( this.timeout )
+                clearTimeout( this.timeout );
+
+            $( '.wpbdp-recaptcha' ).each(function(i, v) {
+                var $captcha = $(v);
+
+                if ( $captcha.data( 'wpbdp-recaptcha-enabled' ) )
+                    return;
+
+                grecaptcha.render( $captcha[0], { 'sitekey': $captcha.attr( 'data-key' ),
+                                                  'theme': 'light' } );
+                $captcha.data( 'wpbdp-recaptcha-enabled', true );
+            });
+        },
+
+        render_widgets_when_ready: function() {
+            if ( typeof grecaptcha !== 'undefined' )
+                return this.render_widgets();
+
+            var self = this;
+            this.timeout = setTimeout( function() { self.render_widgets_when_ready() }, this.max_delay * Math.pow( this.attempts / this.max_attempts, 2 ) );
+            this.attempts++;
+        }
+    });
 
     if ( 0 == $( '.wpbdp-recaptcha' ).length )
-        return;
+            return;
 
-    $( '.wpbdp-recaptcha' ).each(function(i, v) {
-        var $captcha = $(v);
+    var wpbdp_rh = new reCAPTCHA_Handler();
+    wpbdp_rh.render_widgets_when_ready();
 
-        grecaptcha.render( $captcha[0], { 'sitekey': $captcha.attr( 'data-key' ),
-                                          'theme': 'light' } );
-    });
-};
+    window.wpbdp_recaptcha_callback = function() {
+        if ( typeof wpbdp_rh == 'undefined' )
+            wpbdp_rh = new reCAPTCHA_Handler();
+        wpbdp_rh.render_widgets();
+    }
+} );
