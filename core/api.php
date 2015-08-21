@@ -45,7 +45,6 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
     static $request_cached = array();
 
     if ( isset( $request_cached[ $page_id ] ) ) {
-        wpbdp_debug( 'Using request cache' );
         return $request_cached[ $page_id ];
     }
 
@@ -53,7 +52,6 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
 
     if ( is_array( $cached_ids ) && isset( $cached_ids[ $page_id ] ) ) {
         // Validate the cached IDs.
-        wpbdp_debug( 'Validating transient cache' );
 
         if ( $page_ids = $cached_ids[ $page_id ] ) {
             $query  = _wpbdp_page_lookup_query( $page_id, true );
@@ -62,17 +60,14 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
             $count = intval( $wpdb->get_var( $query ) );
 
             if ( $count == count( $page_ids ) ) {
-                wpbdp_debug( 'Cache valid' );
                 // Cache is valid.
                 $request_cached[ $page_id ] = $page_ids;
                 return $page_ids;
             }
 
-            wpbdp_debug( 'Cache invalid' );
+            wpbdp_debug( 'Page cache is invalid.' );
         }
     }
-
-    wpbdp_debug( 'Page lookup' );
 
     // Look up for pages.
     $q = _wpbdp_page_lookup_query( $page_id );
