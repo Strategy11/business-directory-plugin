@@ -4,7 +4,6 @@ require_once( WPBDP_PATH . 'admin/class-admin-listings.php' );
 require_once( WPBDP_PATH . 'admin/fees.php' );
 require_once( WPBDP_PATH . 'admin/form-fields.php' );
 require_once( WPBDP_PATH . 'admin/payments.php' );
-// require_once( WPBDP_PATH . 'admin/transactions.php' );
 require_once( WPBDP_PATH . 'admin/csv-import.php' );
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
