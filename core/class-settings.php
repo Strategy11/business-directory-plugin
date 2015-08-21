@@ -528,12 +528,22 @@ EOF;
                                 array('TWD', _x('Taiwan Dollar (TWD)', 'admin settings', 'WPBDM')),
                                 array('THB', _x('Thai Baht (THB)', 'admin settings', 'WPBDM')),
                                 array('TRY', _x('Turkish Lira (TRY)', 'admin settings', 'WPBDM')),
-                                array('USD', _x('U.S. Dollar', 'admin settings', 'WPBDM')),
+                                array('USD', _x('U.S. Dollar (USD)', 'admin settings', 'WPBDM')),
                             )));
         $this->register_dep( 'currency', 'requires-true', 'payments-on' );
 
         $this->add_setting($s, 'currency-symbol', _x('Currency Symbol', 'admin settings', 'WPBDM'), 'text', '$');
         $this->register_dep( 'currency-symbol', 'requires-true', 'payments-on' );
+
+        $this->add_setting( $s, 
+                            'currency-symbol-position',
+                            _x( 'Currency symbol display', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'left',
+                            '',
+                            array( 'choices' => array( array( 'left', _x( 'Show currency symbol on the left', 'admin settings', 'WPBDM' ) ),
+                                                       array( 'right', _x( 'Show currency symbol on the right', 'admin settings', 'WPBDM' ) ),
+                                                       array( 'none', _x( 'Do not show currency symbol', 'admin settings', 'WPBDM' ) ) ) ) );
 
         $this->add_setting($s, 'payment-message', _x('Thank you for payment message', 'admin settings', 'WPBDM'), 'text',
                         _x('Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM'));

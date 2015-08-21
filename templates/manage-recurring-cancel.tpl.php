@@ -16,7 +16,7 @@
         </dt>
         <dd>
             <?php printf( _x( '%s every %s days.', 'manage recurring', 'WPBDM' ),
-                              wpbdp_format_currency( $subscription->fee->amount ),
+                              wpbdp_currency_format( $subscription->fee->amount ),
                               $subscription->fee_days ); ?>
         </dd>
         <!--<dt>

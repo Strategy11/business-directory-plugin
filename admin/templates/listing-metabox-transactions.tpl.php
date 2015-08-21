@@ -25,7 +25,7 @@ $_transaction_types = array(
         </td>
         <td class="total">
             <a href="#" class="payment-details-link" data-id="<?php echo $payment->get_id(); ?>">
-                <?php echo wpbdp_format_currency( $payment->get_total(), 2, $payment->get_currency_code() ); ?>
+                <?php echo wpbdp_currency_format( $payment->get_total(), array( 'currency' => $payment->get_currency_code() ) ); ?>
             </a></td>
         <td class="status"><span class="tag paymentstatus <?php echo $payment->get_status(); ?>"><?php echo $payment->get_status(); ?></span></td>
     </tr>

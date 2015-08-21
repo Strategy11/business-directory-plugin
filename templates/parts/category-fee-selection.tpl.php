@@ -36,7 +36,7 @@
 					<label for="wpbdp-fees-radio-<?php echo $fee->id; ?>"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $fee->label, $fee ) ); ?></label>
 				</td>
 				<td class="fee-amount">
-					<?php echo wpbdp_format_currency( $fee->amount ); ?>
+					<?php echo wpbdp_currency_format( $fee->amount ); ?>
 				</td>
 				<td class="fee-duration">
 				<?php if ( $fee->days == 0 ): ?>

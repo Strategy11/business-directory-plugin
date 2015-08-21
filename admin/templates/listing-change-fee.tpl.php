@@ -17,7 +17,7 @@
 
             <strong><?php echo $f->label; ?></strong><br />
             <div class="details">
-                <?php echo wpbdp_format_currency( $f->amount ); ?> &#149;
+                <?php echo wpbdp_currency_format( $f->amount ); ?> &#149;
                 <?php echo sprintf(_nx('%d image', '%d images', $f->images, 'admin infometabox', 'WPBDM'), $f->images); ?> &#149;
                 <?php if ($f->days == 0): ?>
                     <?php _ex('Listing never expires', 'admin infometabox', 'WPBDM'); ?>

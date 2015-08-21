@@ -25,7 +25,7 @@
         <?php foreach ( $subscriptions as $s ): ?>
             <b><?php echo $s->fee->label; ?>:</b><br />
             <?php printf( _x( '%s each %s days. Next renewal is on %s.', 'manage recurring', 'WPBDM' ),
-                          wpbdp_format_currency( $s->fee->amount ),
+                          wpbdp_currency_format( $s->fee->amount ),
                           '<i>' . $s->fee_days . '</i>',
                           '<i>' . date_i18n( get_option( 'date_format' ), strtotime( $s->expires_on ) ) . '</i>' ); ?><br />
             <a href="<?php echo esc_url( add_query_arg( 'cancel', $listing->get_renewal_hash( $s->term_id ) ) ); ?>" class="cancel-subscription"><?php _ex( 'Cancel recurring payment', 'manage recurring', 'WPBDM' ); ?></a>

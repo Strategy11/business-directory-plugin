@@ -17,7 +17,7 @@
             <dd><?php echo $payment->get_created_on(); ?></dd>
 
             <dt><?php _ex('Amount', 'admin infometabox', 'WPBDM'); ?></dt>
-            <dd><?php echo wpbdp_format_currency( $payment->get_total(), 2, $payment->get_currency_code() ); ?></dd>            
+            <dd><?php echo wpbdp_currency_format( $payment->get_total(), array( 'currency' => $payment->get_currency_code() ) ); ?></dd>            
 
             <dt><?php _ex('Gateway', 'admin infometabox', 'WPBDM'); ?></dt>
             <dd><?php echo $payment->get_gateway() ? $payment->get_gateway() : '–'; ?></dd>
