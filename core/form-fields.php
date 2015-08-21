@@ -29,7 +29,7 @@ class WPBDP_FormFields {
     private function __construct() {
         // register core associations
         $this->register_association( 'title', _x( 'Post Title', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
-        $this->register_association( 'content', _x( 'Post Content', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
+        $this->register_association( 'content', _x( 'Post Content', 'form-fields api', 'WPBDM' ), array( 'required', 'unique', 'optional' ) );
         $this->register_association( 'excerpt', _x( 'Post Excerpt', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
         $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
         $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ), array( 'unique' ) );

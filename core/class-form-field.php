@@ -465,7 +465,7 @@ class WPBDP_Form_Field {
             }
         }
 
-        if ( in_array( 'required', $flags ) ) {
+        if ( in_array( 'required', $flags ) && ! in_array( 'optional', $flags ) ) {
             $this->add_validator( 'required' );
         }
 
