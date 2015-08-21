@@ -857,32 +857,55 @@ class WPBDP_Plugin {
     public function _listings_shortcode($atts) {
         if (!$this->controller->check_main_page($msg)) return $msg;
 
-        $atts = shortcode_atts( array(
-                                        'category' => null,
-                                        'operator' => 'OR'
-                                     ),
-                                $atts
-                              );
+        $atts = shortcode_atts( array( 'tag' => '',
+                                       'tags' => '',
+                                       'category' => '',
+                                       'categories' => '',
+                                       'title' => '',
+                                       'operator' => 'OR' ),
+                                $atts );
+        $atts = array_map( 'trim', $atts );
 
-        if ( !$atts['category'] )
+        if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] )
             return $this->controller->view_listings( true );
 
-        $atts['category'] = explode( ',', $atts['category'] );
-        $categories = array();
+        if ( $atts['category'] || $atts['categories'] ) {
+            $requested_categories = array();
 
-        foreach ( $atts['category'] as $cat ) {
-            $term = null;
-            if ( !is_numeric( $cat ) )
-                $term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+            if ( $atts['category'] )
+                $requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
 
-            if ( !$term && is_numeric( $cat ) )
-                $term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+            if ( $atts['categories'] )
+                $requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
 
-            if ( $term )
-                $categories[] = $term->term_id;
+            $categories = array();
+
+            foreach ( $requested_categories as $cat ) {
+                $term = null;
+                if ( !is_numeric( $cat ) )
+                    $term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+
+                if ( !$term && is_numeric( $cat ) )
+                    $term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+
+                if ( $term )
+                    $categories[] = $term->term_id;
+            }
+
+            return $this->controller->browse_category( $categories, array(), true );
+        } elseif ( $atts['tag'] || $atts['tags'] ) {
+            $requested_tags = array();
+
+            if ( $atts['tag'] )
+                $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tag'] ) );
+
+            if ( $atts['tags'] )
+                $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
+
+            return $this->controller->browse_tag( array( 'tags' => $requested_tags, 'title' => $atts['title'], 'only_listings' => true ) );
         }
 
-        return $this->controller->browse_category( $categories, array(), true );
+        return '';
     }
 
     public function _featured_listings_shortcode($atts) {

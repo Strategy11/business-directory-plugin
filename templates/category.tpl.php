@@ -2,7 +2,7 @@
 $in_shortcode = ! isset( $in_shortcode ) ? false : (bool) $in_shortcode;
 ?>
 <div id="wpbdp-category-page" class="wpbdp-category-page businessdirectory-category businessdirectory wpbdp-page">
-    <?php if ( ! $in_shortcode ): ?>
+    <?php if ( empty( $only_listings ) && ! $in_shortcode ): ?>
     <div class="wpbdp-bar cf">
         <?php wpbdp_the_main_links(); ?>
         <?php wpbdp_the_search_form(); ?>
@@ -13,11 +13,7 @@ $in_shortcode = ! isset( $in_shortcode ) ? false : (bool) $in_shortcode;
 
     <?php if ( $title ): ?>
         <h2 class="category-name">
-            <?php if ( $is_tag ): ?>
-                <?php echo sprintf( _x( 'Listings tagged: %s', 'templates', 'WPBDM' ), $title ); ?>
-            <?php else: ?>
-                <?php echo $title; ?>
-            <?php endif; ?>
+            <?php echo $title; ?>
         </h2>
     <?php endif; ?>
 

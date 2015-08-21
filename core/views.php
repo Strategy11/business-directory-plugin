@@ -259,13 +259,35 @@ class WPBDP_DirectoryController {
     }
 
     /* Display category. */
-    public function browse_tag() {
-        if (!$this->check_main_page($msg)) return $msg;
+    public function browse_tag( $args = array() ) {
+        if ( ! $this->check_main_page( $msg ) )
+            return $msg;
 
-        $tag = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
-        $tag_id = $tag->term_id;
+        $args = wp_parse_args( $args, array( 'tags' => array(), 'title' => '', 'only_listings' => false ) );
 
-        $listings_api = wpbdp_listings_api();
+        $tags = array();
+        $tag_list = '';
+
+        if ( ! $args['tags'] ) {
+            $tag = get_term_by( 'slug', get_query_var( 'tag' ), WPBDP_TAGS_TAX );
+            $tags = array( $tag );
+            $tag_list = $tag->name;
+        } else {
+            foreach ( $args['tags'] as $t ) {
+                $tag = false;
+
+                if ( ! is_numeric( $t ) )
+                    $tag = get_term_by( 'name', $t, WPBDP_TAGS_TAX );
+
+                if ( ! $tag && is_numeric( $t ) )
+                    $tag = get_term_by( 'id', $t, WPBDP_TAGS_TAX );
+
+                if ( $tag )
+                    $tags[] = $tag;
+
+                $tag_list = implode( ', ', wp_list_pluck( $tags, 'name' ) );
+            }
+        }
 
         query_posts(array(
             'post_type' => WPBDP_POST_TYPE,
@@ -275,20 +297,20 @@ class WPBDP_DirectoryController {
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
             'tax_query' => array(
-                array('taxonomy' => WPBDP_TAGS_TAX,
-                      'field' => 'id',
-                      'terms' => $tag_id)
+                array( 'taxonomy' => WPBDP_TAGS_TAX,
+                       'field' => 'id',
+                       'terms' => wp_list_pluck( $tags, 'term_id' ) )
             )
         ));
         wpbdp_push_query( $GLOBALS['wp_query'] );
 
         $html = wpbdp_render( 'category',
-                             array(
-                                'title' => esc_attr( $tag->name ),
-                                'category' => $tag,
-                                'is_tag' => true
-                                ),
-                             false );
+                              array( 'title' => $args['title'] ? $args['title'] : sprintf( _x( 'Listings tagged: %s', 'templates', 'WPBDM' ), $tag_list ),
+                                     'category' => $tag,
+                                     'is_tag' => true,
+                                     'tag_list' => $tag_list,
+                                     'only_listings' => $args['only_listings'] ),
+                              false );
 
         wp_reset_query();
         wpbdp_pop_query();
