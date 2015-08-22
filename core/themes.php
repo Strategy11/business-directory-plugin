@@ -260,14 +260,16 @@ class WPBDP_Themes {
         if ( ! $path )
             throw new Exception( 'Invalid template id or file: "' . $id_or_file . '"' );
 
-        // Setup default and hook-added variables.
-        $this->_configure_template_vars( $id_or_file, $path, $vars );
+        if ( ! isset( $vars['_in_wrapper'] ) ) {
+            // Setup default and hook-added variables.
+            $this->_configure_template_vars( $id_or_file, $path, $vars );
 
-        // Process variables using templates or callbacks.
-        $this->_process_template_vars( $vars );
+            // Process variables using templates or callbacks.
+            $this->_process_template_vars( $vars );
 
-        // Configure blocks depending on theme overrides.
-        $this->_configure_template_blocks( $vars );
+            // Configure blocks depending on theme overrides.
+            $this->_configure_template_blocks( $vars );
+        }
 
         extract( $vars );
 
@@ -276,17 +278,44 @@ class WPBDP_Themes {
         $html = ob_get_contents();
         ob_end_clean();
 
-        if ( $vars['_full'] ) {
-            $vars['_full'] = false; // Stop recursion.
-            $html = $this->render( 'page',
-                                   array_merge( $vars, array( 'page' => $html ) ) );
+        $template_meta = ( isset( $__template__ ) && is_array( $__template__ ) ) ? $__template__ : array();
+        $template_blocks = ! empty( $template_meta['blocks'] ) ? $template_meta['blocks'] : array();
+
+        // Check for wrapper template.
+        $wrapper_name = '';
+
+        if ( isset( $vars['_wrapper'] ) && false === $vars['_wrapper'] ) {
+            // Do not use a wrapper.
         } else {
-            // Add before/after to the HTML directly.
-            $html = $vars['blocks']['before'] .
-                    $vars['blocks']['before_inner'] .
-                    $html .
-                    $vars['blocks']['after_inner'] .
-                    $vars['blocks']['after'];
+            if ( isset( $vars['_wrapper'] ) )
+                $wrapper_name = $vars['_wrapper'];
+
+            if ( ! $wrapper_name && ! empty( $template_meta['wrapper'] ) )
+                $wrapper_name = $template_meta['wrapper'];
+
+            if ( ! $wrapper_name )
+                $wrapper_name = $id_or_file . '_wrapper';
+        }
+
+        $wrapper = $wrapper_name ? $this->locate_template( $wrapper_name ) : false;
+
+        // Add before/after to the HTML directly.
+        $html = ( in_array( 'before', $template_meta['blocks'], true ) ? '' : $vars['blocks']['before'] ) .
+                ( in_array( 'before_inner', $template_meta['blocks'], true ) ? '' : $vars['blocks']['before_inner'] ) .
+                $html .
+                ( in_array( 'after_inner', $template_meta['blocks'], true ) ? '' : $vars['blocks']['after_inner'] ) .
+                ( in_array( 'after', $template_meta['blocks'], true ) ? '' : $vars['blocks']['after'] );
+
+        if ( $wrapper ) {
+            $vars['_wrapper'] = false; // Stop recursion.
+            $vars['_in_wrapper'] = true;
+
+            $wrapper_vars = array_merge( $vars, array( 'content' => $html ) );
+            unset( $wrapper_vars['blocks'] );
+
+            $html = $this->render( $wrapper_name,
+                                   $wrapper_vars );
+        } else {
         }
 
         return $html;
