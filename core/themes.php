@@ -8,7 +8,6 @@ class WPBDP_Themes {
     private $template_dirs = array();
     private $cache = array( 'templates' => array(),
                             'rendered' => array() );
-    private $template_areas = array();
 
 
     function __construct() {
@@ -29,6 +28,8 @@ class WPBDP_Themes {
         $this->call_theme_function('init');
 
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
+
+        add_shortcode( 'businessdirectory-theme-test', array( &$this, 'theme_test' ) );
     }
 
     function call_theme_function( $fname, $args = array() ) {
@@ -174,7 +175,7 @@ class WPBDP_Themes {
             array( 'author_url', 'url', '' ),
             array( 'requires', 'string', '4.0dev' ),
             array( 'assets', 'array', array( 'css' => null, 'js' => null ), array( 'allow_other_keys' => false ) ),
-            array( 'sections', 'array', array() )
+            array( 'template_variables', 'array', array() )
 /*            array( 'assets/css', 'array/string', array() ),
             array( 'assets/js', 'array/string', array() )*/
         );
@@ -259,48 +260,16 @@ class WPBDP_Themes {
         if ( ! $path )
             throw new Exception( 'Invalid template id or file: "' . $id_or_file . '"' );
 
-        $defaults = array(
-            '_id' => str_replace( array( '.tpl.php', ' ', '-page', 'page-', 'page' ),
-                                  array( '', '-', '', '', '' ),
-                                  $id_or_file ),
-            '_template' => $id_or_file,
-            '_view' => null,
-            '_full' => false,
-            '_bar' => false,
-            '_bar_items' => array( 'links', 'search' ),
-            '_class' => '',
-            '_inner_class' => ''
-        );
+        // Setup default and hook-added variables.
+        $this->_configure_template_vars( $id_or_file, $path, $vars );
 
-        if ( isset( $vars['_full'] ) && $vars['_full'] && ! array_key_exists( '_bar', $vars ) )
-            $defaults['_bar'] = true;
+        // Process variables using templates or callbacks.
+        $this->_process_template_vars( $vars );
 
-        $vars = array_merge( $defaults, $vars );
-        $vars = apply_filters( 'wpbdp_render_vars', $vars, $id_or_file, $path );
-        $vars = apply_filters( 'wpbdp_render_' . $id_or_file . '_vars', $vars, $path );
-        $vars['_vars'] = $vars;
+        // Configure blocks depending on theme overrides.
+        $this->_configure_template_blocks( $vars );
 
-        $current_theme = $this->get_active_theme_data();
-        $theme_handled_items = ( isset ( $current_theme->sections->{$id_or_file} ) ) ? $current_theme->sections->{$id_or_file} : array();
-        $areas = $this->_template_areas( $id_or_file, $vars );
-
-        foreach ( $areas as $a => $items ) {
-            $vars[ 'area_' . $a ] = '';
-
-            foreach ( $items as $section_id => $item ) { 
-                // Theme-handled items are removed from the area because they are manually shown somewhere by the theme.
-                // Instead, they are added as regular variables.
-                if ( in_array( $section_id, $theme_handled_items, true ) ) {
-                    $vars[ $section_id ] = $item;
-                    continue;
-                }
-
-                $vars[ 'area_' . $a ] .= $item;
-            }
-        }
-
-        if ( $vars )
-            extract( $vars );
+        extract( $vars );
 
         ob_start();
         include( $path );
@@ -313,53 +282,111 @@ class WPBDP_Themes {
                                    array_merge( $vars, array( 'page' => $html ) ) );
         } else {
             // Add before/after to the HTML directly.
-            $html = $vars['area_before'] .
-                    $vars['area_before_inner'] .
+            $html = $vars['blocks']['before'] .
+                    $vars['blocks']['before_inner'] .
                     $html .
-                    $vars['area_after_inner'] .
-                    $vars['area_after'];
+                    $vars['blocks']['after_inner'] .
+                    $vars['blocks']['after'];
         }
 
         return $html;
     }
 
-    function _template_areas( $id_or_file, $vars ) {
-        $registered = isset( $this->template_areas[ $id_or_file ] ) ? $this->template_areas[ $id_or_file ] : array();
-        $areas = array_unique( array_merge( array_keys( $registered ),
-                               array( 'before', 'before_inner', 'after_inner', 'after' ) ) );
+    function _configure_template_vars ( $id_or_file, $path, &$vars ) {
+        $defaults = array(
+            '_id' => str_replace( array( '.tpl.php', ' ', '-page', 'page-', 'page' ),
+                                  array( '', '-', '', '', '' ),
+                                  $id_or_file ),
+            '_template' => $id_or_file,
+            '_path' => $path,
+            '_view' => null,
+            '_full' => false,
+            '_bar' => false,
+            '_bar_items' => array( 'links', 'search' ),
+            '_class' => '',
+            '_inner_class' => ''
+        );
 
-        $items = array();
-        foreach ( $areas as $a ) {
-            $area_content = array();
+        if ( isset( $vars['_full'] ) && $vars['_full'] && ! array_key_exists( '_bar', $vars ) )
+            $defaults['_bar'] = true;
 
-            if ( ! empty( $registered[ $a ] ) ) {
-                // Sort registered areas/sections by priority.
-                ksort( $registered[ $a ], SORT_NUMERIC );
+        $vars = array_merge( $defaults, $vars );
+        $vars = apply_filters( 'wpbdp_template_vars', $vars, $id_or_file );
+        $vars = apply_filters( 'wpbdp_template_vars__' . $id_or_file, $vars, $path );
+    }
 
-                foreach ( $registered[ $a ] as $prio => $sections ) {
-                    foreach ( $sections as $section_id => $callback_or_template ) {
-                        ob_start();
+    function _process_template_vars( &$vars ) {
+        foreach ( $vars as $k => $v ) {
+            if ( '#' != $k[0] )
+                continue;
 
-                        if ( 'single' == $id_or_file ) {
-                            call_user_func( $callback_or_template, $vars['listing_id'], $vars );
-                        } else {
-                            call_user_func( $callback_or_template, $vars );
-                        }
-                        $output = ob_get_clean();
+            $k_ = substr( $k, 1 );
 
-                        $area_content = array_merge( $area_content, array( $section_id => $output ) );
-                    }
+            if ( ! is_array( $v ) || ! array_key_exists( 'position', $v ) ) {
+                $vars[ $k_ ] = $v;
+                unset( $vars[ $k ] );
+            }
+
+            $vars[ $k ]['weight'] = isset( $v['weight'] ) ? intval( $v['weight'] ) : 10;
+
+            if ( array_key_exists( 'value', $v ) )
+                continue;
+
+            if ( array_key_exists( 'callback', $v ) ) {
+                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], $vars ); // TODO: support 'echo'ed output too. 
+                unset( $vars[ $k ]['callback'] );
+            }
+        }
+    }
+
+    function _configure_template_blocks( &$vars ) {
+        $template_id = $vars['_template'];
+
+        // FUTURE: Maybe support new blocks per template?
+        $blocks = array( 'after' => array(), 'before' => array(), 'before_inner' => array(), 'after_inner' => array() );
+        $vars['blocks'] = array();
+
+        // Current theme info.
+        $current_theme = $this->get_active_theme_data();
+        $theme_vars = ( isset ( $current_theme->template_variables->{$template_id} ) ) ? $current_theme->template_variables->{$template_id} : array();
+
+        foreach ( $vars as $var => $content ) {
+            if ( '#' != $var[0] )
+                continue;
+
+            $new_key = substr( $var, 1 );
+            $var_position = $content['position'];
+            $var_value = $content['value'];
+            $var_weight = $content['weight'];
+
+            if ( ! in_array( $new_key, $theme_vars, true ) ) {
+                if ( isset( $blocks[ $var_position ] ) ) {
+                    if ( ! isset( $blocks[ $var_position ][ $var_weight ] ) )
+                        $blocks[ $var_position ][ $var_weight ] = array();
+
+                    $blocks[ $var_position ][ $var_weight ][ $new_key ] = $var_value;
+                } else {
+                    $vars[ $new_key ] = $var_value;
                 }
-           }
+            } else {
+                $vars[ $new_key ] = $var_value;
+            }
 
-            $area_content['inline']  = '';
-            $area_content['inline'] .= wpbdp_capture_action( 'wpbdp_template_' . $a, $vars['_id'], $vars['_template'], $vars );
-            $area_content['inline'] .= wpbdp_capture_action( 'wpbdp_template_' . $vars['_id'] . '_' . $a, $vars );
-
-            $items[ $a ] = $area_content;
+            unset( $vars[ $var ] );
         }
 
-        return $items;
+        // Sort blocks.
+        foreach ( $blocks as $block_id => &$block_content ) {
+            $vars['blocks'][ $block_id ] = '';
+
+            if ( ! $block_content )
+                continue;
+
+            ksort( $block_content, SORT_NUMERIC );
+
+            foreach ( $block_content as $prio => $c )
+                $vars['blocks'][ $block_id ] .= implode( '', $c );
+        }
     }
 
     function locate_template( $id ) {
@@ -383,21 +410,6 @@ class WPBDP_Themes {
             $this->cache['templates'][ $id ] = $path;
 
         return $path;
-    }
-
-    function register_template_section( $template_id, $template_area, $section_id, $callback, $priority = 10 ) {
-        $priority = absint( $priority );
-
-        if ( ! isset( $this->template_areas[ $template_id ] ) )
-            $this->template_areas[ $template_id ] = array();
-
-        if ( ! isset( $this->template_areas[ $template_id ][ $template_area ] ) )
-            $this->template_areas[ $template_id ][ $template_area ] = array();
-
-        if ( ! isset( $this->template_areas[ $template_id ][ $template_area ][ $priority ] ) )
-            $this->template_areas[ $template_id ][ $template_area ][ $priority ] = array();
-
-        $this->template_areas[ $template_id ][ $template_area ][ $priority ][ $section_id ] = $callback;
     }
 
     function install_theme( $file ) {
@@ -435,6 +447,24 @@ class WPBDP_Themes {
         return $dest_dir;
     }
 
+    function theme_test_template_vars( $vars ) {
+        $vars['module_added_var'] = 2;
+        $vars['#constant_before'] = array( 'position' => 'before', 'value' => '!BEFORE!', 'weight' => 11 );
+        $vars['#constant_before2'] = array( 'position' => 'before', 'value' => '!BEFORE BUT FIRST!', 'weight' => 9 );
+        $vars['#googlemaps'] = array( 'position' => 'after', 'callback' => array( &$this, 'theme_test_googlemap' ) );
+
+        return $vars;
+    }
+
+    function theme_test_googlemap( $vars ) {
+        return '!MY GOOGLE MAP!';
+    }
+
+    function theme_test() {
+        add_filter( 'wpbdp_template_vars__theme_test', array( &$this, 'theme_test_template_vars' ) );
+        return wpbdp_x_render( 'theme_test', array( 'my_template_var' => 1, 'my_other_template_var' => 0 ) );
+    }
+
 }
 
 function wpbdp_x_render( $id_or_file, $vars = array() ) {
@@ -447,8 +477,3 @@ function wpbdp_add_template_dir( $dir_or_file ) {
     return $wpbdp->themes->add_template_dir( $dir_or_file );
 }
 
-
-function wpbdp_register_template_section( $template_id, $template_area, $section_id, $callback, $priority = 10 ) {
-    global $wpbdp;
-    return $wpbdp->themes->register_template_section( $template_id, $template_area, $section_id, $callback, $priority );
-}
