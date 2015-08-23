@@ -10,7 +10,7 @@
     <?php //do_action( 'wpbdp_page_before_inner', $_id, $_template, $_vars ); ?>
     <?php //do_action( 'wpbdp_page_' . $_id . '_before_inner', $_vars ); ?>
     <div class="wpbdp-page-inner <?php echo $_inner_class; ?>">
-        <?php echo $page; ?>
+        <?php echo $content; ?>
     </div>
     <?php //do_action( 'wpbdp_page_' . $_id . '_after_inner', $_vars ); ?>
     <?php //do_action( 'wpbdp_page_after_inner', $_id, $_template, $_vars ); ?>

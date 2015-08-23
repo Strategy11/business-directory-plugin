@@ -451,7 +451,7 @@ class WPBDP_DirectoryController {
         }
 
         if ( wpbdp_experimental( 'themes' ) ) {
-            $html .= wpbdp_x_render( 'main page', array( '_full' => true, 'listings' => false ) );
+            $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => false ) );
             return $html;
         }
 

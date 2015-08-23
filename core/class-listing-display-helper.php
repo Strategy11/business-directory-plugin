@@ -18,9 +18,7 @@ class WPBDP_Listing_Display_Helper {
         $vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
 
         // TODO: what do we do with 'wpbdp_excerpt_listing_fields' ?
-
-        return wpbdp_x_render( 'excerpt-wrapper', array_merge( $vars,
-                                                               array( 'content' => wpbdp_x_render( 'excerpt', $vars ) ) ) );
+        return wpbdp_x_render( 'excerpt', $vars );
     }
 
     public static function single() {
@@ -37,7 +35,7 @@ class WPBDP_Listing_Display_Helper {
         // TODO: is this really used? can it be changed to something else?
         // 'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID), This is 
         // complete HTML
-        return wpbdp_x_render( 'single-wrapper', array_merge( $vars,
+        return wpbdp_x_render( 'single', array_merge( $vars,
                                                               array( 'content' => wpbdp_x_render( 'single', $vars ) ) ) );
     }
 
