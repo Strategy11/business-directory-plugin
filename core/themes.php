@@ -300,11 +300,11 @@ class WPBDP_Themes {
         $wrapper = $wrapper_name ? $this->locate_template( $wrapper_name ) : false;
 
         // Add before/after to the HTML directly.
-        $html = ( in_array( 'before', $template_meta['blocks'], true ) ? '' : $vars['blocks']['before'] ) .
-                ( in_array( 'before_inner', $template_meta['blocks'], true ) ? '' : $vars['blocks']['before_inner'] ) .
+        $html = ( in_array( 'before', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['before'] ) ? $vars['blocks']['before'] : '' ) ) .
+                ( in_array( 'before_inner', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['before_inner'] ) ? $vars['blocks']['before_inner'] : '' ) ) .
                 $html .
-                ( in_array( 'after_inner', $template_meta['blocks'], true ) ? '' : $vars['blocks']['after_inner'] ) .
-                ( in_array( 'after', $template_meta['blocks'], true ) ? '' : $vars['blocks']['after'] );
+                ( in_array( 'after_inner', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['after_inner'] ) ? $vars['blocks']['after_inner'] : '' ) ) .
+                ( in_array( 'after', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['after'] ) ? $vars['blocks']['after'] : '' ) );
 
         if ( $wrapper ) {
             $vars['_wrapper'] = false; // Stop recursion.
@@ -340,8 +340,8 @@ class WPBDP_Themes {
             $defaults['_bar'] = true;
 
         $vars = array_merge( $defaults, $vars );
-        $vars = apply_filters( 'wpbdp_template_vars', $vars, $id_or_file );
-        $vars = apply_filters( 'wpbdp_template_vars__' . $id_or_file, $vars, $path );
+        $vars = apply_filters( 'wpbdp_template_variables', $vars, $id_or_file );
+        $vars = apply_filters( 'wpbdp_template_variables__' . $id_or_file, $vars, $path );
     }
 
     function _process_template_vars( &$vars ) {
@@ -490,7 +490,7 @@ class WPBDP_Themes {
     }
 
     function theme_test() {
-        add_filter( 'wpbdp_template_vars__theme_test', array( &$this, 'theme_test_template_vars' ) );
+        add_filter( 'wpbdp_template_variables__theme_test', array( &$this, 'theme_test_template_vars' ) );
         return wpbdp_x_render( 'theme_test', array( 'my_template_var' => 1, 'my_other_template_var' => 0 ) );
     }
 

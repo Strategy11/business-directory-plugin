@@ -10,25 +10,12 @@ class WPBDP_Theme_Compat_Layer {
 
 
     function __construct() {
-        add_action( 'wpbdp_page_listings_after', array( &$this, 'after_viewlistings_page' ) );
-
-        add_filter( 'wpbdp_render_vars', array( &$this, 'render_vars' ), 9999, 2 );
-
-        add_action( 'wpbdp_template_before_inner', array( &$this, 'prepare_before_inner' ), 0, 3 );
-        add_action( 'wpbdp_template_before_inner', array( &$this, 'before_inner' ), 9999, 3 );
-
-        add_action( 'wpbdp_template_after_inner', array( &$this, 'prepare_after_inner' ), 0, 3 );
-        add_action( 'wpbdp_template_after_inner', array( &$this, 'after_inner' ), 9999, 3 );
+        add_filter( 'wpbdp_template_variables', array( &$this, 'template_vars' ), 999, 2 );
     }
 
-    function after_viewlistings_page() {
-        do_action( 'wpbdp_after_viewlistings_page' );
-    }
-
-    function render_vars( $vars, $template ) {
-        $this->current_vars[ $template ] = $vars;
-        $this->templates_before[ $template ] = '';
-        $this->templates_after[ $template ] = '';
+    function template_vars( $vars, $id_or_file ) {
+        $before = array();
+        $after = array();
 
         // Fake some old integrations.
         $old_vars = array(
@@ -36,79 +23,58 @@ class WPBDP_Theme_Compat_Layer {
                                  'content_class' => array(),
                                  'before_content' => '' )
         );
-        $old_template_name = '';
 
-        if ( 'main page' == $template )
+        if ( 'main_page' == $id_or_file )
             $old_template_name = 'businessdirectory-main-page';
-        elseif ( 'listings' == $template )
+        elseif ( 'listings' == $id_or_file )
             $old_template_name = 'businessdirectory-listings';
         else
-            $old_template_name = $template;
+            $old_template_name = $id_or_file;
 
         $old_vars = apply_filters( 'wpbdp_template_vars', array_merge( $vars, $old_vars ), $old_template_name );
+        $vars['_class'] .= ' ' . implode( ' ', isset( $old_vars['__page__']['class'] ) ? $old_vars['__page__']['class'] : array() );
+        $vars['_inner_class'] .= ' wpbdp-page-content ' . implode( ' ', isset( $old_vars['__page__']['content_class'] ) ? $old_vars['__page__']['content_class'] : array() );
 
-        $page_var = $old_vars['__page__'];
-        if ( empty( $page_var['class'] ) && empty( $page_var['content_class'] ) && empty( $page_var['before_content'] ) )
-            return $vars;
+        if ( ! empty( $old_vars['__page__']['before_content'] ) )
+            $before[] = $old_vars['__page__']['before_content'];
 
-        $vars['_class'] .= '  ' . implode( ' ', $page_var['class'] );
-        $vars['_inner_class'] .= ' wpbdp-page-content ' . implode( ' ', $page_var['content_class'] );
+        // Page-specific handling.
+        switch ( $id_or_file ) {
+            case 'main_page':
+                $vars['_class'] .= ' wpbdp-main-page';
 
-        if ( 'main page' == $template ) {
-            $vars['_class'] .= ' wpbdp-main-page';
-        } elseif ( 'listings' == $template ) {
-            $vars['_class'] .= ' wpbdp-view-listings-page';
-        }
+                break;
+            case 'listings':
+                $vars['_class'] .= ' wpbdp-view-listings-page';
+                $before[] = wpbdp_capture_action( 'wpbdp_before_viewlistings_page' );
+                $after[] = wpbdp_capture_action( 'wpbdp_after_viewlistings_page' );
 
-        $this->templates_before[ $template ] .= $page_var['before_content'];
-        return $vars;
-    }
-
-    function prepare_before_inner( $id, $template, $vars ) {
-        $html = '';
-
-        if ( 'category' == $id ) {
-            $html = wpbdp_capture_action( 'wpbdp_before_category_page', $this->current_vars[ $template ]['category'] );
-        } elseif ( 'single' == $id ) {
-            $html .= apply_filters(  'wpbdp_listing_view_before', '', $vars['listing_id'], 'single' );
-            $html .= wpbdp_capture_action( 'wpbdp_before_single_view', $vars['listing_id'] );
-        }
-
-        if ( $html )
-            $this->templates_before[ $template ] .= $html;
-    }
-
-    function before_inner( $id, $template, $vars ) {
-        if ( empty( $this->templates_before[ $template ] ) )
-            return;
-
-        echo $this->templates_before[ $template ];
-    }
-
-    function prepare_after_inner( $id, $template, $vars ) {
-        $html = '';
-
-        switch ( $id ) {
+                break;
             case 'category':
-                $html .= wpbdp_capture_action( 'wpbdp_after_category_page', $this->current_vars[ $template ]['category'] );
+                $before[] = wpbdp_capture_action( 'wpbdp_before_category_page', $vars['category'] );
+                $after[] = wpbdp_capture_action( 'wpbdp_after_category_page', $vars['category'] );
+
                 break;
             case 'single':
-                $html .= apply_filters(  'wpbdp_listing_view_after', '', $vars['listing_id'], 'single' );
-                $html .= wpbdp_capture_action( 'wpbdp_after_single_view', $vars['listing_id'] );
-                break;
-            default:
+                $before[] = apply_filters( 'wpbdp_listing_view_before', '', $vars['listing_id'], 'single' );
+                $before[] = apply_filters( 'wpbdp_before_single_view', $vars['listing_id'] );
+                $after[] = apply_filters( 'wpbdp_listing_view_after', '', $vars['listing_id'], 'single' );
+                $after[] = apply_filters( 'wpbdp_after_single_view', $vars['listing_id'] );
+
                 break;
         }
 
-        if ( $html )
-            $this->templates_after[ $template ] .= $html;
-    }
+        foreach ( array( 'before', 'after' ) as $pos ) {
+            foreach ( $$pos as $i => $content ) {
+                if ( ! $content )
+                    continue;
 
-    function after_inner( $id, $template, $vars ) {
-        if ( empty( $this->templates_after[ $template ] ) )
-            return;
+                $vars[ '#compat_' . $pos . '_' . $i ] = array( 'position' => $pos,
+                                                              'value' => $content );
+            }
+        }
 
-        echo $this->templates_after[ $template ];
+        return $vars;
     }
 
 }
