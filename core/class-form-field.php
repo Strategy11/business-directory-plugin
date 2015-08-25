@@ -147,10 +147,7 @@ class WPBDP_Form_Field {
         if ( ! $this->label ) {
             $this->shortname = 'field_' . $this->id;
         } else {
-            // TODO: normalize field using rules from master.
-            $shortname = strtolower( $this->label );
-            $shortname = str_replace( array( ',', ';', '(', ')' ), '', $shortname );
-            $shortname = str_replace( array( ' ', '/' ), '_', $shortname );
+            $shortname = WPBDP_Form_Field_Type::normalize_name( $this->label );
 
             if ( in_array( $shortname, $protected_shortnames, true ) )
                 $shortname .= '__' . $this->id;
