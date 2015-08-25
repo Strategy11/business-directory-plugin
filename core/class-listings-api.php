@@ -118,7 +118,10 @@ class WPBDP_Listings_API {
         return $url;
     }
 
-    public function _preview_post_link( $url, $post ) {
+    public function _preview_post_link( $url, $post = null ) {
+        if ( is_null( $post ) && isset( $GLOBALS['post'] ) )
+            $post = $GLOBALS['post'];
+
         if ( WPBDP_POST_TYPE != get_post_type( $post ) || ! wpbdp_get_page_id( 'main' ) )
             return $url ;
 
@@ -922,3 +925,4 @@ class WPBDP_Listings_API {
 class WPBDP_ListingsAPI extends WPBDP_Listings_API {}
 
 }
+
