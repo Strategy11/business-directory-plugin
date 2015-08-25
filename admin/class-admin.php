@@ -18,11 +18,14 @@ class WPBDP_Admin {
 
     function __construct() {
         add_action('admin_init', array($this, 'handle_actions'));
-        add_action('admin_init', array($this, 'register_settings'));
 
+        add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'check_for_required_fields'));
         add_action('admin_init', array($this, 'check_for_required_pages'));
         add_action('admin_init', array($this, 'check_payments_possible'));
+
+        add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
+
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 
@@ -446,6 +449,8 @@ class WPBDP_Admin {
         $this->check_setup();
         $this->check_ajax_compat_mode();
 
+        do_action( 'wpbdp_admin_notices' );
+
         foreach ($this->messages as $msg) {
             if (is_array($msg)) {
                 echo sprintf('<div class="%s"><p>%s</p></div>', $msg[1], $msg[0]);
@@ -750,6 +755,15 @@ class WPBDP_Admin {
             if ($errors = wpbdp_payments_api()->check_config()) {
                 foreach ($errors as $error) $this->messages[] = array($error, 'error');
             }
+        }
+    }
+
+    /**
+     * @since next-release
+     */
+    function process_admin_action() {
+        if ( isset( $_REQUEST['wpbdp-action'] ) ) {
+            do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
         }
     }
 

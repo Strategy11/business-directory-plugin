@@ -22,6 +22,10 @@ span.tag {
     line-height: 1.5 !important;
 }
 
+.button-primary.next-to-secondary {
+    margin-left: 30px;
+}
+
 /* Sidebar */
 .wpbdp-admin-content.with-sidebar {
     margin-top: 20px;

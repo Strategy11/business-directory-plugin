@@ -295,32 +295,47 @@ class WPBDP_FormFields {
         return array_diff( $missing, $res );
     }
 
-    public function create_default_fields( $identifiers=array() ) {
+    /**
+     * @since next-release
+     */
+    public function get_default_fields( $id = '' ) {
         $default_fields = array(
             'title' => array( 'label' => __('Business Name', 'WPBDM'), 'field_type' => 'textfield', 'association' => 'title', 'weight' => 9,
-                              'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
+                              'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'title' ),
             'category' => array( 'label' => __('Business Genre', 'WPBDM'), 'field_type' => 'select', 'association' => 'category', 'weight' => 8,
-                                 'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
+                                 'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'category' ),
             'excerpt' => array( 'label' => __('Short Business Description', 'WPBDM'), 'field_type' => 'textarea', 'association' => 'excerpt', 'weight' => 7,
-                                'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
+                                'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'excerpt' ),
             'content' => array( 'label' => __("Long Business Description","WPBDM"), 'field_type' => 'textarea', 'association' => 'content', 'weight' => 6,
-                                'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta0' => array( 'label' => __("Business Website Address","WPBDM"), 'field_type' => 'url', 'association' => 'meta', 'weight' => 5,
-                              'validators' => array( 'url' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta1' => array( 'label' => __("Business Phone Number","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 4,
-                              'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta2' => array( 'label' => __("Business Fax","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 3,
-                              'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
-            'meta3' => array( 'label' => __("Business Contact Email","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 2,
-                             'validators' => array( 'email', 'required' ), 'display_flags' => array( 'excerpt', 'listing' ) ),
-            'meta4' => array( 'label' => __("Business Tags","WPBDM"), 'field_type' => 'textfield', 'association' => 'tags', 'weight' => 1,
-                              'display_flags' => array( 'excerpt', 'listing', 'search' ) ),
+                                'validators' => array( 'required' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'content' ),
+            'website' => array( 'label' => __("Business Website Address","WPBDM"), 'field_type' => 'url', 'association' => 'meta', 'weight' => 5,
+                              'validators' => array( 'url' ), 'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'website' ),
+            'phone' => array( 'label' => __("Business Phone Number","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 4,
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'phone' ),
+            'fax' => array( 'label' => __("Business Fax","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 3,
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'fax' ),
+            'email' => array( 'label' => __("Business Contact Email","WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 2,
+                             'validators' => array( 'email', 'required' ), 'display_flags' => array( 'excerpt', 'listing' ), 'tag' => 'email' ),
+            'tags' => array( 'label' => __("Business Tags","WPBDM"), 'field_type' => 'textfield', 'association' => 'tags', 'weight' => 1,
+                              'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'tags' ),
             'address' => array( 'label' => __("Business Address", "WPBDM"), 'field_type' => 'textarea', 'association' => 'meta', 'weight' => 1,
                               'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'address' ),
             'zip' => array( 'label' => __("ZIP Code", "WPBDM"), 'field_type' => 'textfield', 'association' => 'meta', 'weight' => 1,
                               'display_flags' => array( 'excerpt', 'listing', 'search' ), 'tag' => 'zip' )
         );
 
+        if ( $id ) {
+            if ( isset( $default_fields[ $id ] ) )
+                return $default_fields[ $id ];
+            else
+                return null;
+        }
+
+        return $default_fields;
+    }
+
+    public function create_default_fields( $identifiers=array() ) {
+        $default_fields = $this->get_default_fields();
         $fields_to_create = $identifiers ? array_intersect_key( $default_fields, array_flip ( $identifiers ) ) : $default_fields;
 
         foreach ( $fields_to_create as &$f) {

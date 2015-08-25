@@ -175,6 +175,13 @@ class WPBDP_Form_Field {
         return $wpbdp->formfields->get_short_names( $this->id );
     }
 
+    /**
+     * @since next-release
+     */
+    public function get_tag() {
+        return $this->tag;
+    }
+
     public function &get_validators() {
         return $this->validators;
     }

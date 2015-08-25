@@ -148,9 +148,41 @@ class WPBDP_Themes {
      * Retrieves theme information for the current active theme.
      * @return object
      */
-    function get_active_theme_data() {
+    function get_active_theme_data( $key = null ) {
         $active = $this->get_active_theme();
-        return $this->themes[ $active ];
+        $data = $this->themes[ $active ];
+
+        if ( ! is_null( $key ) )
+            return isset( $data->{$key} ) ? $data->{$key} : false;
+
+        return $data;
+    }
+
+    /**
+     * @since next-release
+     */
+    function missing_suggested_fields( $key = '' ) {
+        global $wpbdp;
+        global $wpdb;
+
+        $key = ( ! $key ) ? 'tag' : $key;
+
+        $missing = array();
+        $suggested_fields = $this->get_active_theme_data( 'suggested_fields' );
+        $current_fields_tags = $wpdb->get_col( "SELECT tag FROM {$wpdb->prefix}wpbdp_form_fields" );
+
+        $missing_tags = array_diff( $suggested_fields, $current_fields_tags );
+
+        foreach ( $missing_tags as $mt ) {
+            $info = $wpbdp->formfields->get_default_fields( $mt );
+
+            if ( ! $info )
+                continue;
+
+            $missing[] = $info[ $key ];
+        }
+
+        return $missing;
     }
 
     function _get_theme_info( $d ) {
@@ -175,7 +207,8 @@ class WPBDP_Themes {
             array( 'author_url', 'url', '' ),
             array( 'requires', 'string', '4.0dev' ),
             array( 'assets', 'array', array( 'css' => null, 'js' => null ), array( 'allow_other_keys' => false ) ),
-            array( 'template_variables', 'array', array() )
+            array( 'template_variables', 'array', array() ),
+            array( 'suggested_fields', 'array', array() )
 /*            array( 'assets/css', 'array/string', array() ),
             array( 'assets/js', 'array/string', array() )*/
         );

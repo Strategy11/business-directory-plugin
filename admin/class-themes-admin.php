@@ -10,8 +10,12 @@ class WPBDP_Themes_Admin {
         $this->api = $api;
 
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
+        add_action( 'wpbdp_admin_notices', array( &$this, 'theme_fields_check' ) );
+
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-        add_action( 'wp_ajax_wpbdp-theme-set', array( &$this, 'ajax_set_active_theme' ) );
+
+        add_action( 'wpbdp_dispatch_set-active-theme', array( &$this, 'set_active_theme' ) );
+        add_action( 'wpbdp_dispatch_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
     }
 
     function admin_menu( $slug ) {
@@ -21,6 +25,13 @@ class WPBDP_Themes_Admin {
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
+    }
+
+    function theme_fields_check() {
+        if ( ! isset( $_GET['theme-activated'] ) || 1 != $_GET['theme-activated'] )
+            return;
+
+        $theme_fields = $this->api->get_active_theme_data( 'suggested_fields' );
     }
 
     function enqueue_scripts() {
@@ -35,20 +46,30 @@ class WPBDP_Themes_Admin {
                            WPBDP_URL . 'admin/js/themes' . ( ! $debug_on ? '.min' : '' ) . '.js' );
     }
 
-    function ajax_set_active_theme() {
+    function set_active_theme() {
         $theme_id = isset( $_POST['theme_id'] ) ? $_POST['theme_id'] : '';
-        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
-        if ( ! current_user_can( 'administrator' ) || ! $theme_id || ! $nonce || ! wp_verify_nonce( $nonce, 'activate theme ' . $theme_id ) )
-            exit();
-
-        $res = new WPBDP_Ajax_Response();
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'activate theme ' . $theme_id ) )
+            wp_die();
 
         if ( ! $this->api->set_active_theme( $theme_id ) )
-            $res->send_error( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'WPBDM' ), $theme_id ) );
+            wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'WPBDM' ), $theme_id ) );
 
-        $res->set_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'WPBDM' ), $theme_id ) );
-        $res->send();
+        wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
+        exit;
+    }
+
+    function create_suggested_fields() {
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'create_suggested_fields' ) )
+            wp_die();
+
+        $missing = $this->api->missing_suggested_fields();
+
+        global $wpbdp;
+        $wpbdp->formfields->create_default_fields( $missing );
+
+        wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=2' ) );
+        exit;
     }
 
     function dispatch() {
@@ -66,6 +87,37 @@ class WPBDP_Themes_Admin {
     }
 
     function theme_selection() {
+        $msg = isset( $_GET['message'] ) ? $_GET['message'] : '';
+
+        switch ( $msg ) {
+            case 1:
+                wpbdp_admin_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'WPBDM' ), $this->api->get_active_theme() ) );
+
+                if ( $missing_fields = $this->api->missing_suggested_fields( 'label' ) ) {
+                    $msg  = sprintf( _x( 'For better results, "%s" theme suggests the following form fields to be created.', 'themes', 'WPBDM' ), $this->api->get_active_theme() );
+                    $msg .= '<br />';
+
+                    foreach ( $missing_fields as $mf )
+                        $msg .= '<span class="tag">' . $mf . '</span>';
+
+                    $msg .= '<br /><br />';
+                    $msg .= sprintf( '<a href="#" class="button button-secondary" id="dismiss-suggested-fields-warning">%s</a>', _x( 'Dismiss this warning', 'themes', 'WPBDM' ) );
+                    $msg .= sprintf( '<a href="%s" class="button button-primary next-to-secondary">%s</a>',
+                                     wp_nonce_url( admin_url( 'admin.php?page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ),
+                                     _x( 'Create suggested fields', 'themes', 'WPBDM' ) );
+
+                    wpbdp_admin_message( $msg, 'error' );
+                }
+
+                break;
+            case 2:
+                wpbdp_admin_message( _x( 'Suggested fields created successfully.', 'themes', 'WPBDM' ) );
+
+                break;
+            default:
+                break;
+        }
+
         $themes = $this->api->get_installed_themes();
 
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes.tpl.php',
