@@ -521,7 +521,7 @@ class WPBDP_FieldValidation {
 
     /* DateValidator */
     private function date_( $value, $args=array() ) {
-        $args = wp_parse_args( $args, array( 'format' => 'dd/mm/yyyy' ) );
+        $args = wp_parse_args( $args, array( 'format' => 'dd/mm/yyyy', 'messages' => array() ) );
         $format = $args['format'];
 
         // Normalize separators.
@@ -529,11 +529,9 @@ class WPBDP_FieldValidation {
         $value_ = str_replace( array( '/', '.', '-' ), '', $value );
 
         if ( strlen( $format_ ) != strlen( $value_ ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be in the format %s.', 'form-fields-api validation', 'WPBDM' ),
-                                                   esc_attr( $args['field-label'] ),
-                                                   $format  ) );
+            return WPBDP_ValidationError( ( ! empty ( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( _x( '%s must be in the format %s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), $format  ) );
 
-        $d = 0; $m = 0; $y = 0;
+        $d = '0'; $m = '0'; $y = '0';
 
         switch ( $format_ ) {
             case 'ddmmyy':
@@ -556,12 +554,17 @@ class WPBDP_FieldValidation {
                 $d = substr( $value_, 2, 2 );
                 $y = substr( $value_, 4, 4 );
                 break;
+            case 'yyyymmdd':
+                $m = substr( $value_, 4, 2 );
+                $d = substr( $value_, 6, 2 );
+                $y = substr( $value_, 0, 4 );
+                break;
             default:
                 break;
         }
 
-        if ( ! is_numeric( $m ) || ! is_numeric( $d ) || ! is_numeric( $y ) || ! checkdate( $m, $d, $y ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s must be a valid date.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+        if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( $m, $d, $y ) )
+            return WPBDP_ValidationError( ( ! empty ( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( _x( '%s must be a valid date.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
     }
 
     private function any_of( $value, $args=array() ) {

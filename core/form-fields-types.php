@@ -1120,7 +1120,14 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( 'date_' != $validator )
             return;
 
-        return array( 'format' => $this->date_format( $field ) );
+        $args = array();
+        $args['format'] = 'yyyymmdd';
+        $args['messages'] = array( 'incorrect_format' => sprintf( _x( '%s must be in the format %s.', 'date field', 'WPBDM' ),
+                                                                  esc_attr( $field->get_label() ),
+                                                                  $this->date_format( $field ) ),
+                                   'invalid' => sprintf( _x( '%s must be a valid date.', 'date field', 'WPBDM' ),
+                                                         esc_attr( $field->get_label() ) ) );
+        return $args;
     }
 
     public function render_field_inner( &$field, $value, $context, &$extra=null ) {
@@ -1134,12 +1141,11 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         }
 
         $format = $this->date_format( $field, true );
-        $value = $this->date_to_storage_format( $field, $value );
 
         $html = '';
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" data-date-format="%s" />',
-                          'wpbdp-field-' . $field->get_id(),
+        $html .= sprintf( '<input type="text" name="%s" class="intextbox %s %s" value="%s" data-date-format="%s" />',
                           'listingfields[' . $field->get_id() . ']',
+                          'wpbdp-field-' . $field->get_id(),
                           $field->is_required() ? 'inselect required' : 'inselect',
                           $value ? date( $format['date_format'], strtotime( $value ) ) : '',
                           $format['datepicker_format'] );
@@ -1147,6 +1153,10 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
 
         return $html;
+    }
+
+    public function convert_input( &$field, $input ) {
+        return $this->date_to_storage_format( $field, $input );
     }
 
     public function date_to_storage_format( &$field, $value ) {
@@ -1200,8 +1210,8 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( 'meta' != $field->get_association() )
             return false;
 
-        $val = $this->date_to_storage_format( $field, $value );
-        return parent::store_field_value( $field, $post_id, $val );
+//        $val = $this->date_to_storage_format( $field, $value );
+        return parent::store_field_value( $field, $post_id, $value );
     }
 
     public function get_field_value( &$field, $post_id ) {
