@@ -59,6 +59,13 @@ class WPBDP_CSV_Import {
                 throw new Exception('Invalid CSV file.');
 
             $this->setup_working_dir( $csv_file, $images_file );
+
+            if ( ! array_key_exists( 'assign-listings-to-user', $settings ) )
+                $settings['assign-listings-to-user'] = false;
+
+            if ( ! array_key_exists( 'disable-email-notifications', $settings ) )
+                $settings['disable-email-notifications'] = false;
+
             $this->settings = wp_parse_args( $settings, $defaults );
 
             $file = new SplFileObject( $this->csv_file );
@@ -286,7 +293,8 @@ class WPBDP_CSV_Import {
 
         $this->header = array();
 
-        $short_names = get_option( 'wpbdp-field-short-names', array() );
+        global $wpbdp;
+        $short_names = $wpbdp->formfields->get_short_names();
         foreach ( $fields_in_header as $short_name ) {
             $field_id = 0;
 
@@ -475,6 +483,11 @@ class WPBDP_CSV_Import {
         $meta['username'] = '';
         $meta['featured_level'] = '';
 
+        if ( $this->settings['assign-listings-to-user'] && $this->settings['default-user'] ) {
+            if ( $u = get_user_by( 'id', $this->settings['default-user'] ) )
+                $meta['username'] = $u->user_login;
+        }
+
         foreach ( $this->header as $i => $col_info ) {
             $column = $col_info['short_name'];
             $field = $col_info['field_id'] ? wpbdp_get_form_field( $col_info['field_id'] ) : null;
@@ -495,10 +508,7 @@ class WPBDP_CSV_Import {
                     break;
 
                 case 'username':
-                    if ( $this->settings['assign-listings-to-user'] ) {
-                        if ( ! $value && $this->settings['default-user'] )
-                            $value = $this->settings['default-user'];
-
+                    if ( $this->settings['assign-listings-to-user'] && $value ) {
                         if ( ! username_exists( $value ) ) {
                             $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'WPBDM' ), $value );
                         } else {
