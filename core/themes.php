@@ -7,7 +7,8 @@ class WPBDP_Themes {
     private $themes = array();
     private $template_dirs = array();
     private $cache = array( 'templates' => array(),
-                            'rendered' => array() );
+                            'rendered' => array(),
+                            'template_vars_stack' => array() );
 
 
     function __construct() {
@@ -24,8 +25,8 @@ class WPBDP_Themes {
         $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'core/templates' );
 
         // Load special theme .php file.
-        $this->call_theme_function('');
-        $this->call_theme_function('init');
+        $this->call_theme_function( '' );
+        $this->call_theme_function( 'init' );
 
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
 
@@ -286,10 +287,13 @@ class WPBDP_Themes {
     }
 
     function render( $id_or_file, $vars = array() ) {
-        if ( file_exists( $id_or_file ) )
-            return 'RENDER AS FILE';
+        $path = '';
 
-        $path = $this->locate_template( $id_or_file );
+        if ( file_exists( $id_or_file ) )
+            $path = $id_or_file;
+        else
+            $path = $this->locate_template( $id_or_file );
+
         if ( ! $path )
             throw new Exception( 'Invalid template id or file: "' . $id_or_file . '"' );
 
@@ -304,6 +308,7 @@ class WPBDP_Themes {
             $this->_configure_template_blocks( $vars );
         }
 
+        array_push( $this->cache['template_vars_stack'], $vars );
         extract( $vars );
 
         ob_start();
@@ -351,7 +356,23 @@ class WPBDP_Themes {
         } else {
         }
 
+        array_pop( $this->cache['template_vars_stack'] );
+
         return $html;
+    }
+
+    function render_part( $id_or_file ) {
+        $output = '';
+
+        $last = count( $this->cache['template_vars_stack'] ) - 1;
+
+        if ( $last >= 0 )
+            $vars = $this->cache['template_vars_stack'][ $last ];
+        else
+            $vars = array();
+
+        $output = $this->render( $id_or_file, $vars );
+        return $this->render( $id_or_file, $vars );
     }
 
     function _configure_template_vars ( $id_or_file, $path, &$vars ) {
@@ -512,14 +533,9 @@ class WPBDP_Themes {
     function theme_test_template_vars( $vars ) {
         $vars['module_added_var'] = 2;
         $vars['#constant_before'] = array( 'position' => 'before', 'value' => '!BEFORE!', 'weight' => 11 );
-        $vars['#constant_before2'] = array( 'position' => 'before', 'value' => '!BEFORE BUT FIRST!', 'weight' => 9 );
-        $vars['#googlemaps'] = array( 'position' => 'after', 'callback' => array( &$this, 'theme_test_googlemap' ) );
+        $vars['#constant_after'] = array( 'position' => 'after', 'value' => '!AFTER!', 'weight' => 9 );
 
         return $vars;
-    }
-
-    function theme_test_googlemap( $vars ) {
-        return '!MY GOOGLE MAP!';
     }
 
     function theme_test() {
@@ -532,6 +548,11 @@ class WPBDP_Themes {
 function wpbdp_x_render( $id_or_file, $vars = array() ) {
     global $wpbdp;
     return $wpbdp->themes->render( $id_or_file, $vars );
+}
+
+function wpbdp_x_part( $id_or_file ) {
+    global $wpbdp;
+    echo $wpbdp->themes->render_part( $id_or_file );
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {

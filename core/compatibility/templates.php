@@ -57,9 +57,14 @@ class WPBDP_Theme_Compat_Layer {
                 break;
             case 'single':
                 $before[] = apply_filters( 'wpbdp_listing_view_before', '', $vars['listing_id'], 'single' );
-                $before[] = apply_filters( 'wpbdp_before_single_view', $vars['listing_id'] );
+                $before[] = wpbdp_capture_action( 'wpbdp_before_single_view', $vars['listing_id'] );
                 $after[] = apply_filters( 'wpbdp_listing_view_after', '', $vars['listing_id'], 'single' );
-                $after[] = apply_filters( 'wpbdp_after_single_view', $vars['listing_id'] );
+                $after[] = wpbdp_capture_action( 'wpbdp_after_single_view', $vars['listing_id'] );
+
+                break;
+            case 'excerpt':
+                $before[] = wpbdp_capture_action( 'wpbdp_before_excerpt_view', $vars['listing_id'] );
+                $after[] = wpbdp_capture_action( 'wpbdp_after_excerpt_view', $vars['listing_id'] );
 
                 break;
         }
@@ -70,7 +75,7 @@ class WPBDP_Theme_Compat_Layer {
                     continue;
 
                 $vars[ '#compat_' . $pos . '_' . $i ] = array( 'position' => $pos,
-                                                              'value' => $content );
+                                                               'value' => $content );
             }
         }
 

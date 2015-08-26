@@ -6,16 +6,22 @@ require_once ( WPBDP_PATH . 'core/class-field-display-list.php' );
  */
 class WPBDP_Listing_Display_Helper {
 
+
     public static function excerpt() {
+        static $n = 0;
+
         global $post;
 
         $vars = array();
+        $vars = array_merge( $vars, array( 'even_or_odd' => ( ( $n & 1 ) ? 'odd' : 'even' ) ) );
         $vars = array_merge( $vars, self::basic_vars( $post->ID ) );
         $vars = array_merge( $vars, self::fields_vars( $post->ID, 'excerpt' ) );
         $vars = array_merge( $vars, self::images_vars( $post->ID, 'excerpt' ) );
 
         $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
         $vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
+
+        $n++;
 
         // TODO: what do we do with 'wpbdp_excerpt_listing_fields' ?
         return wpbdp_x_render( 'excerpt', $vars );

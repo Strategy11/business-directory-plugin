@@ -338,7 +338,8 @@ class WPBDP_DirectoryController {
             wpbdp_push_query( $q );
 
             $html = wpbdp_x_render( 'listings', array( '_id' => 'listings',
-                                                       '_full' => true,
+                                                       '_wrapper' => 'page',
+                                                       '_bar' => true,
                                                        'query' => $q ) );
             wp_reset_postdata();
         } else {
