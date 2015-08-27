@@ -29,6 +29,7 @@ class WPBDP_Themes {
         $this->call_theme_function( 'init' );
 
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
+        add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 
         add_shortcode( 'businessdirectory-theme-test', array( &$this, 'theme_test' ) );
     }
@@ -62,6 +63,29 @@ class WPBDP_Themes {
         }
 
         $this->call_theme_function( 'enqueue_scripts' );
+    }
+
+    function field_theme_override( $html = '', &$field, $context, $listing_id ) {
+        $options = array( 'field_' . $field->get_id(), 'field_' . $field->get_short_name() );
+        if ( $field->get_tag() )
+            $options[] = 'field_' . $field->get_tag();
+
+        $path = '';
+        foreach ( $options as $o ) {
+            if ( $path = $this->locate_template( $o ) )
+                break;
+        }
+
+        if ( ! $path )
+            return $html;
+
+        $vars = array( 'field' => $field,
+                       'context' => $context,
+                       'listing_id' => $listing_id,
+                       'value' => $field->html_value( $listing_id ),
+                       'raw' => $field->value( $listing_id ) );
+
+        return $this->render( $path, $vars );
     }
 
     function _normalize_asset_name( $a ) {
