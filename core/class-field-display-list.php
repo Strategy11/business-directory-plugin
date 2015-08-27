@@ -9,6 +9,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
     private $frozen = false;
 
     private $items = array();
+    private $displayed_fields = array();
     private $names_to_ids = array();
 
 
@@ -26,15 +27,22 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
             return;
 
         if ( $f instanceof _WPBDP_Lightweight_Field_Display_Item ) {
+            $this->items[ $f->id ] = $f;
+            $this->names_to_ids[ $f->field->get_short_name() ] = $f->id;
+
             if ( $f->field->display_in( $this->display ) )
-                $this->items[ $f->id ] = $f;
+                $this->displayed_fields[] = $f->id;
+
             return;
         }
 
         $field_id = $f->get_id();
 
-        if ( ! $f->display_in( $this->display) || isset( $this->items[ $field_id ] ) )
+        if ( isset( $this->items[ $field_id ] ) )
             return;
+
+        if( $f->display_in( $this->display ) )
+            $this->displayed_fields[] = $field_id;
 
         $this->items[ $field_id ] = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
         $this->names_to_ids[ $f->get_short_name() ] = $field_id;
@@ -72,14 +80,31 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
     }
 
     public function getIterator() {
-        return new ArrayIterator( $this->items );
+        return new ArrayIterator( $this->items_for_display() );
+    }
+
+    public function items_for_display() {
+        $valid_ids = $this->displayed_fields;
+        $fields = array();
+
+        if ( ! $valid_ids )
+            return array();
+
+        foreach ( $this->items as $i ) {
+            if ( ! in_array( $i->id, $valid_ids ) )
+                continue;
+
+            $fields[] = $i;
+        }
+
+        return $fields;
     }
 
     public function __get( $key ) {
         $field_id = 0;
 
         if ( 'html' == $key ) {
-            return implode( '', wp_list_pluck( $this->items, 'html' ) );
+            return implode( '', wp_list_pluck( $this->items_for_display(), 'html' ) );
         }
 
         if ( 'id' == substr( $key, 0, 2 ) )
