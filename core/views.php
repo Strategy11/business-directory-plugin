@@ -8,7 +8,10 @@ if (!class_exists('WPBDP_DirectoryController')) {
 class WPBDP_DirectoryController {
 
     public $action = null;
+
     private $current_category = 0;
+    private $current_tag = 0;
+    private $current_listing = 0;
 
 
     public function __construct() {
@@ -53,6 +56,14 @@ class WPBDP_DirectoryController {
 
     public function current_category_id() {
         return $this->current_category;
+    }
+
+    public function current_tag_id() {
+        return $this->current_tag;
+    }
+
+    public function current_listing_id() {
+        return $this->current_listing;
     }
 
     public function dispatch() {
@@ -140,6 +151,7 @@ class WPBDP_DirectoryController {
             $id_or_slug = get_query_var( 'id' ) ? get_query_var( 'id' ) : wpbdp_getv( $_GET, 'id', 0 );
 
         $listing_id = wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+        $this->current_listing = $listing_id;
 /*
         if (get_query_var('listing') || isset($_GET['listing'])) {
             if ($posts = get_posts(array('post_status' => 'any', 'numberposts' => 1, 'post_type' => WPBDP_POST_TYPE, 'name' => get_query_var('listing') ? get_query_var('listing') : wpbdp_getv($_GET, 'listing', null) ) )) {
@@ -208,6 +220,9 @@ class WPBDP_DirectoryController {
         );
 
         if ( wpbdp_experimental( 'themes' ) ) {
+            if ( ! $in_listings_shortcode )
+                $this->current_category = $category_id;
+
             $q = new WP_Query( $args );
             wpbdp_push_query( $q );
 
@@ -288,6 +303,8 @@ class WPBDP_DirectoryController {
                 $tag_list = implode( ', ', wp_list_pluck( $tags, 'name' ) );
             }
         }
+
+        $this->current_tag = ( 1 == count( $tags ) ) ? $tags[0]->term_id : 0;
 
         query_posts(array(
             'post_type' => WPBDP_POST_TYPE,
@@ -568,6 +585,21 @@ class WPBDP_DirectoryController {
 function wpbdp_current_category_id() {
     global $wpbdp;
     return $wpbdp->controller->current_category_id();
+}
+
+function wpbdp_current_tag_id() {
+    global $wpbdp;
+    return $wpbdp->controller->current_tag_id();
+}
+
+function wpbdp_current_action() {
+    global $wpbdp;
+    return $wpbdp->controller->get_current_action();
+}
+
+function wpbdp_current_listing_id() {
+    global $wpbdp;
+    return $wpbdp->controller->current_listing_id();
 }
 
 }
