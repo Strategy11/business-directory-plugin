@@ -1012,9 +1012,16 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
     }
 
     public function get_field_html_value( &$field, $post_id ) {
-        $value = $field->value( $post_id );
+        $img_id = $field->value( $post_id );
+        $img = wp_get_attachment_image_src( $img_id, 'large' );
 
-        return '<br />' . wp_get_attachment_image( $value, 'thumb', false );
+        $html  = '';
+        $html .= '<br />';
+        $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' )  . '>';
+        $html .= wp_get_attachment_image( $img_id, 'thumb', false );
+        $html .= '</a>';
+
+        return $html;
     }
 
 }
