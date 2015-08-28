@@ -218,8 +218,8 @@ class WPBDP_DB_Model2 {
 
         $row = $this->update_timestamps( $row );
 
-        // if ( $validate )
-        //     $this->validate();
+        if ( $validate && ! $this->validate() )
+            return false;
 
         return false !== $wpdb->update( $table, $row, array( 'id' => $this->id ) );
     }
