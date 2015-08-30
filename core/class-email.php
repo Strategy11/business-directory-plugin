@@ -70,14 +70,15 @@ class WPBDP_Email {
 	 * @return boolean true on success, false otherwise
 	 */
 	public function send($format='both') {
-        $this->subject = strip_tags( $this->subject );
+        $this->subject = $this->subject . "\n" . 'X' . "\r" . 'Y' . "\r\n" . 'Z';
+        $this->subject = preg_replace( '/[\n\r]/', '', strip_tags( $this->subject ) );
 
 		// TODO: implement 'plain' and 'both'
 		$this->prepare_html();
 		$this->prepare_plain();
 
-		$this->from = $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) );
-		$to = $this->to;
+		$this->from = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) ) );
+		$to = preg_replace( '/[\n\r]/', '', $this->to );
 
 		if ( ! $this->to )
 		    return false;
@@ -85,7 +86,7 @@ class WPBDP_Email {
         // Workaround a known WP bug where some headers are ignored if passed inside an array.
         $headers = '';
         foreach ( $this->get_headers() as $h => $v ) {
-            $headers .= $h . ': ' . $v . "\r\n";
+            $headers .= $h . ': ' . preg_replace( '/[\n\r]/', '', $v ) . "\r\n";
         }
 
         $html = $this->html;

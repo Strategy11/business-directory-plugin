@@ -27,10 +27,9 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
 
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
-        $this->name = $current_user ? $current_user->data->user_login : ( isset( $_POST['commentauthorname'] ) ? trim( $_POST['commentauthorname'] ) : '' );
-        $this->email = $current_user ? $current_user->data->user_email : ( isset( $_POST['commentauthoremail'] ) ? trim( $_POST['commentauthoremail'] ) : '' );
+        $this->name = wp_strip_all_tags( $current_user ? $current_user->data->user_login : ( isset( $_POST['commentauthorname'] ) ? trim( $_POST['commentauthorname'] ) : '' ) );
+        $this->email = sanitize_email( $current_user ? $current_user->data->user_email : ( isset( $_POST['commentauthoremail'] ) ? trim( $_POST['commentauthoremail'] ) : '' ) );
         $this->message = isset( $_POST['commentauthormessage'] ) ? trim( wp_kses( $_POST['commentauthormessage'], array() ) ) : '';
-
     }
 
     private function validate() {
@@ -110,6 +109,8 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
     }
 
     public function render_form( $listing_id = 0, $validation_errors = array() ) {
+        $listing_id = absint( $listing_id );
+
         if ( ! $listing_id || ! apply_filters('wpbdp_show_contact_form', wpbdp_get_option( 'show-contact-form' ), $listing_id ) )
             return '';
 
