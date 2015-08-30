@@ -440,7 +440,7 @@ class WPBDP_Themes {
                 continue;
 
             if ( array_key_exists( 'callback', $v ) ) {
-                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], $vars ); // TODO: support 'echo'ed output too. 
+                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], array( $vars, $id_or_file ) ); // TODO: support 'echo'ed output too. 
                 unset( $vars[ $k ]['callback'] );
             }
         }

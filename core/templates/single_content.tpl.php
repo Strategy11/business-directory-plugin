@@ -1,12 +1,3 @@
-<hr>
-
-<?php
-if ( $fields->zip_code )
-    echo $fields->zip_code->html;
-?>
-
-<hr>
-
 <?php if ( $images->main ): ?>
     <div class="main-image"><?php echo $images->main->html; ?></div>
 <?php endif; ?>
