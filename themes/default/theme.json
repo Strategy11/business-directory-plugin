@@ -9,5 +9,6 @@
     "assets": {
         "css": [ "styles.css" ],
         "js": []
-    }
+    },
+    "suggested_fields": [ "address", "zip", "phone", "website" ]
 }
