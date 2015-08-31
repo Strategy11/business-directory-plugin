@@ -215,8 +215,9 @@ class WPBDP_Themes {
 
         $manifest_file = $d . 'theme.json';
 
-        if ( ! is_readable( $manifest_file ) )
+        if ( ! is_readable( $manifest_file ) ) {
             return false;
+        }
 
         $manifest = (array) json_decode( file_get_contents( $manifest_file ) );
         if ( ! $manifest )
@@ -440,7 +441,7 @@ class WPBDP_Themes {
                 continue;
 
             if ( array_key_exists( 'callback', $v ) ) {
-                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], array( $vars, $id_or_file ) ); // TODO: support 'echo'ed output too. 
+                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], array( $vars, $vars['_template'] ) ); // TODO: support 'echo'ed output too. 
                 unset( $vars[ $k ]['callback'] );
             }
         }
