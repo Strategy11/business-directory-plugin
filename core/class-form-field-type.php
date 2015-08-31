@@ -259,7 +259,7 @@ class WPBDP_Form_Field_Type {
 
     /* Utils. */
     public static function standard_display_wrapper( $labelorfield, $content=null, $extra_classes='', $args=array() ) {
-        $css_classes = 'field-value ';
+        $css_classes .= 'wpbdp-field-display wpbdp-field wpbdp-field-value field-display field-value ';
 
         if ( is_object( $labelorfield ) ) {
             if ( $labelorfield->has_display_flag( 'social' ) )

@@ -29,6 +29,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         if ( $f instanceof _WPBDP_Lightweight_Field_Display_Item ) {
             $this->items[ $f->id ] = $f;
             $this->names_to_ids[ $f->field->get_short_name() ] = $f->id;
+            $this->names_to_ids[ 't_' . $f->field->get_tag() ] = $f->id;
 
             if ( $f->field->display_in( $this->display ) )
                 $this->displayed_fields[] = $f->id;
@@ -46,6 +47,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
         $this->items[ $field_id ] = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
         $this->names_to_ids[ $f->get_short_name() ] = $field_id;
+        $this->names_to_ids[ 't_' . $f->get_tag() ] = $field_id;
     }
 
     public function freeze() {
@@ -76,6 +78,25 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         $res = new self( $this->listing_id, $this->display, $filtered );
         $res->freeze();
 
+        return $res;
+    }
+
+    public function exclude( $fields_ ) {
+        $exclude = is_array( $fields_ ) ? $fields_ : explode( ',', $fields_ );
+        $filtered = array();
+
+        if ( ! $exclude )
+            return $this;
+
+        foreach ( $this->items as $f ) {
+            if ( in_array( 'id_' . $f->id, $exclude ) || in_array( 't_' . $f->field->get_tag(), $exclude, true ) || in_array( $f->field->get_short_name(), $exclude, true ) )
+                continue;
+
+            $filtered[] = $f;
+        }
+
+        $res = new self( $this->listing_id, $this->display, $filtered );
+        $res->freeze();
         return $res;
     }
 
