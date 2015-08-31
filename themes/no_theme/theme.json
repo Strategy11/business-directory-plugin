@@ -1,0 +1,13 @@
+{
+    "name": "No Theme",
+    "description": "Uses core and plugin provided templates.",
+    "version": 1,
+    "author": "BD Team",
+    "author_email": "support@businessdirectoryplugin.com",
+    "author_url": "http://businessdirectoryplugin.com",
+    "requires": "4.0dev",
+    "assets": {
+        "css": [],
+        "js": []
+    }
+}
