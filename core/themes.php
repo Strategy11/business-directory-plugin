@@ -450,8 +450,15 @@ class WPBDP_Themes {
     function _configure_template_blocks( &$vars ) {
         $template_id = $vars['_template'];
 
-        // FUTURE: Maybe support new blocks per template?
         $blocks = array( 'after' => array(), 'before' => array(), 'before_inner' => array(), 'after_inner' => array() );
+        // Merge blocks from parent.
+        // TODO: how do we handle cases where the parent says it is going to handle a block and a "part" should do that?
+        // Maybe we should not process blocks for "parts" and just use whatever the calling template had?
+        if ( isset( $vars['blocks'] ) && $vars['blocks'] ) {
+            foreach ( $vars['blocks'] as $pos => $bl ) {
+                $vars['#inherited_' . $pos] = array( 'position' => $pos, 'value' => $bl, 'weight' => 0 );
+            }
+        }
         $vars['blocks'] = array();
 
         // Current theme info.
