@@ -1,6 +1,6 @@
 <?php wpbdp_the_listing_sort_options(); ?>
 
-<div class="listings">
+<div class="listings wpbdp-listings list">
     <?php if ( ! $query->have_posts() ): ?>
         <span class="no-listings">
             <?php _ex("No listings found.", 'templates', "WPBDM"); ?>

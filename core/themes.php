@@ -360,14 +360,15 @@ class WPBDP_Themes {
                 $wrapper_name = $id_or_file . '_wrapper';
         }
 
+        $is_part = isset( $vars['_part'] ) && $vars['_part'];
         $wrapper = $wrapper_name ? $this->locate_template( $wrapper_name ) : false;
 
         // Add before/after to the HTML directly.
-        $html = ( in_array( 'before', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['before'] ) ? $vars['blocks']['before'] : '' ) ) .
-                ( in_array( 'before_inner', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['before_inner'] ) ? $vars['blocks']['before_inner'] : '' ) ) .
+        $html = ( ( $is_part || in_array( 'before', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['before'] ) ? $vars['blocks']['before'] : '' ) ) .
+                ( ( $is_part || in_array( 'before_inner', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['before_inner'] ) ? $vars['blocks']['before_inner'] : '' ) ) .
                 $html .
-                ( in_array( 'after_inner', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['after_inner'] ) ? $vars['blocks']['after_inner'] : '' ) ) .
-                ( in_array( 'after', $template_blocks, true ) ? '' : ( ! empty( $vars['blocks']['after'] ) ? $vars['blocks']['after'] : '' ) );
+                ( ( $is_part || in_array( 'after_inner', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['after_inner'] ) ? $vars['blocks']['after_inner'] : '' ) ) .
+                ( ( $is_part || in_array( 'after', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['after'] ) ? $vars['blocks']['after'] : '' ) );
 
         if ( $wrapper ) {
             $vars['_wrapper'] = false; // Stop recursion.
@@ -396,6 +397,7 @@ class WPBDP_Themes {
         else
             $vars = array();
 
+        $vars['_part'] = true;
         $output = $this->render( $id_or_file, $vars );
         return $this->render( $id_or_file, $vars );
     }
