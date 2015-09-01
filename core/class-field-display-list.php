@@ -125,7 +125,15 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         $field_id = 0;
 
         if ( 'html' == $key ) {
-            return implode( '', wp_list_pluck( $this->items_for_display(), 'html' ) );
+            $html  = '';
+            $html .= implode( '', wp_list_pluck( $this->items_for_display(), 'html' ) );
+
+            // FIXME: move this to a compat layer.
+            if ( 'listing' == $this->display ) {
+                $html = apply_filters( 'wpbdp_single_listing_fields', $html, $this->listing_id );
+            }
+
+            return $html;
         }
 
         if ( 'id' == substr( $key, 0, 2 ) )
