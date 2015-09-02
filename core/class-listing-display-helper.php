@@ -93,6 +93,7 @@ class WPBDP_Listing_Display_Helper {
         // Main image.
         $thumbnail_id = $listing->get_thumbnail_id();
         $main_image = new StdClass();
+        $main_image->id = $thumbnail_id;
         $main_image->html = wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' );
 
         $vars['images']->main = $main_image;
