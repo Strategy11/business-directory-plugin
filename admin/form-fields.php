@@ -221,6 +221,16 @@ class WPBDP_FormFieldsAdmin {
             $field = isset( $_GET['id'] ) ? WPBDP_FormField::get( $_GET['id'] ) : new WPBDP_FormField( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
         }
 
+        if ( ! wpbdp_get_option( 'override-email-blocking' ) && $field->has_validator( 'email' ) && ( $field->display_in( 'excerpt' ) || $field->display_in( 'listing' ) )  ) {
+            $msg = _x( '<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
+                       'form-fields admin',
+                       'WPBDM' );
+            $msg = str_replace( '<a>',
+                                '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=email' ) . '">',
+                                $msg );
+            wpbdp_admin_message( $msg, 'error' );
+        }
+
         wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
                            array(
                             'field' => $field,
