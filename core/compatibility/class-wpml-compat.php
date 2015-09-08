@@ -89,6 +89,7 @@ class WPBDP_WPML_Compat {
                 $used_link = _get_page_link( $trans_id );
 
                 $link = str_replace( $used_link, $real_link, $link );
+
                 return $link;
             }
         }
@@ -120,6 +121,8 @@ class WPBDP_WPML_Compat {
 
 
     function translate_link( $link, $lang = null ) {
+        global $sitepress;
+
         $lang = $lang ? $lang : $this->get_current_language();
 
         if ( ! $lang )
@@ -132,12 +135,19 @@ class WPBDP_WPML_Compat {
             if ( ! $trans_id )
                 return $link;
 
-            $link = str_replace( _get_page_link( $main_id ), _get_page_link( $trans_id ), $link );
-            $link = add_query_arg( 'lang', $lang, $link );
+            $main_link = $this->fix_get_page_link( get_page_link( $main_id ), $main_id );
+            $main_trans_link = $this->fix_get_page_link( get_page_link( $trans_id ), $trans_id );
+
+            $link = str_replace( $main_link, $main_trans_link, $link );
+
+            $nego_type = absint( $sitepress->get_setting( 'language_negotiation_type' ) );
+
+            if ( 3 == $nego_type ) {
+                $link = add_query_arg( 'lang', $lang, $link );
+            }
         } else {
             $link = add_query_arg( 'lang', $lang, $link );
         }
-
 
         return $link;
     }
