@@ -560,6 +560,8 @@ class WPBDP_Listings_API {
             $query_pieces['where'] .= ' )';
         }
 
+//        wpbdp_debug_e( 'search', $query_pieces, $q, $optimization );
+
         $query_pieces = apply_filters( 'wpbdp_quick_search_query_pieces', $query_pieces );
         $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE 1=1 AND ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') %s GROUP BY {$wpdb->posts}.ID %s %s",
                           $query_pieces['distinct'],

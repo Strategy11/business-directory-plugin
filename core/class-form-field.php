@@ -265,7 +265,7 @@ class WPBDP_Form_Field {
      * @since 3.4
      */
     public function get_behavior_flags() {
-        return $this->type->get_behavior_flags( $this );
+        return apply_filters( 'WPBDP_Form_Field::get_behavior_flags', $this->type->get_behavior_flags( $this ), $this );
     }
 
     /**
@@ -597,6 +597,11 @@ class WPBDP_Form_Field {
         if ( $this->has_validator( 'email' ) )
             return;
 
+        if ( $this->has_behavior_flag( 'quick-search-external' ) ) {
+            do_action_ref_array( 'WPBDP_Form_Field::build_quick_search_query', array( $this, $q, &$pieces, $search_term, $w_no, &$optimization ) );
+            return;
+        }
+
         switch ( $association ) {
             case 'title':
             case 'excerpt':
@@ -632,6 +637,8 @@ class WPBDP_Form_Field {
                                                    $q );
                 break;
         }
+
+        do_action_ref_array( 'WPBDP_Form_Field::build_quick_search_query', array( $q, &$pieces, $search_term, $w_no, &$optimization ) );
     }
 
     /**
