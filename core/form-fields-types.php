@@ -47,11 +47,15 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         if ( $field->has_validator( 'date' ) )
             $html .= _x( 'Format 01/31/1969', 'form-fields api', 'WPBDM' );
 
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
+        if ( isset( $extra['html_before'] ) )
+            $html .= $extra['html_before'];
+
+        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" %s />',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']',
                           $field->is_required() ? 'inselect required' : 'inselect',
-                          esc_attr( $value ) );
+                          esc_attr( $value ),
+                          ( isset( $extra['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $extra['placeholder'] ) ) : '' ) );
 
         return $html;
     }
@@ -927,6 +931,12 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
     public function render_field_inner( &$field, $value, $context, &$extra=null ) {
         // LinkedIn fields are rendered as normal textfields
         global $wpbdp;
+
+        if ( ! $extra )
+            $extra = array();
+
+        $extra['placeholder'] = _x( 'Put only the Company ID here. Links will not work.', 'form-fields api', 'WPBDM' );
+
         return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
     }
 
