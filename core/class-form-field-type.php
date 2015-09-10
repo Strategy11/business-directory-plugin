@@ -158,11 +158,11 @@ class WPBDP_Form_Field_Type {
         return self::standard_display_wrapper( $field, $field->html_value( $post_id ) );
     }
 
-    public function render_field_inner( &$field, $value, $render_context, &$extra=null ) {
+    public function render_field_inner( &$field, $value, $render_context, &$extra=null, $field_settings = array() ) {
         return '';
     }
 
-    public function render_field( &$field, $value, $render_context, &$extra=null ) {
+    public function render_field( &$field, $value, $render_context, &$extra=null, $field_settings = array() ) {
         $html = '';
 
         switch ( $render_context ) {
@@ -174,7 +174,7 @@ class WPBDP_Form_Field_Type {
                 $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_html( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) );
                 $html .= '<div class="field inner">';
 
-                $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra );
+                $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra, $field_settings );
                 $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );
 
                 $html .= $field_inner;
@@ -200,7 +200,7 @@ class WPBDP_Form_Field_Type {
                 $html .= '</div>';
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
 
-                $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra );
+                $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra, $field_settings );
                 $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );                
 
                 $html .= $field_inner;

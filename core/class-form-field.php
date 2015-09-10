@@ -425,7 +425,7 @@ class WPBDP_Form_Field {
      * @param string $display_context the rendering context. defaults to 'submit'.
      * @return string
      */
-    public function render( $value=null, $display_context='submit', &$extra=null ) {
+    public function render( $value = null, $display_context = 'submit', &$extra = null, $field_settings = array() ) {
         do_action_ref_array( 'wpbdp_form_field_pre_render', array( &$this, $value, $display_context ) );
 
         if ( $this->has_behavior_flag( 'display-only' ) )
@@ -434,7 +434,7 @@ class WPBDP_Form_Field {
         if ( 'submit' == $display_context && $this->has_behavior_flag( 'no-submit' ) )
             return '';
 
-        return $this->type->render_field( $this, $value, $display_context, $extra );
+        return $this->type->render_field( $this, $value, $display_context, $extra, $field_settings );
     }
 
     /**

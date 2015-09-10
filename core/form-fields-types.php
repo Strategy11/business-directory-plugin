@@ -38,7 +38,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         return $value;
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
         if ( is_array( $value ) )
             $value = implode( ',', $value );
 
@@ -47,15 +47,15 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         if ( $field->has_validator( 'date' ) )
             $html .= _x( 'Format 01/31/1969', 'form-fields api', 'WPBDM' );
 
-        if ( isset( $extra['html_before'] ) )
-            $html .= $extra['html_before'];
+        if ( isset( $field_settings['html_before'] ) )
+            $html .= $field_settings['html_before'];
 
         $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" %s />',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']',
                           $field->is_required() ? 'inselect required' : 'inselect',
                           esc_attr( $value ),
-                          ( isset( $extra['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $extra['placeholder'] ) ) : '' ) );
+                          ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' ) );
 
         return $html;
     }
@@ -928,16 +928,13 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         $field->add_display_flag( 'social' );
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null ) {
+    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
         // LinkedIn fields are rendered as normal textfields
         global $wpbdp;
 
-        if ( ! $extra )
-            $extra = array();
+        $field_settings['placeholder'] = _x( 'Put only the Company ID here. Links will not work.', 'form-fields api', 'WPBDM' );
 
-        $extra['placeholder'] = _x( 'Put only the Company ID here. Links will not work.', 'form-fields api', 'WPBDM' );
-
-        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra );
+        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
     }
 
     public function get_supported_associations() {
