@@ -84,3 +84,6 @@
     padding: 0;
 }
 
+.wpbdp-theme-details p.desc {
+    font-size: inherit;
+}
