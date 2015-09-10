@@ -20,8 +20,8 @@ class WPBDP_Themes_Admin {
 
     function admin_menu( $slug ) {
         add_submenu_page( $slug,
-                          _x( 'Themes', 'themes', 'WPBDM' ),
-                          _x( 'Themes', 'themes', 'WPBDM' ),
+                          _x( 'Directory Themes', 'themes', 'WPBDM' ),
+                          _x( 'Directory Themes', 'themes', 'WPBDM' ),
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
