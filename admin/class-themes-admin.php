@@ -15,6 +15,7 @@ class WPBDP_Themes_Admin {
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
         add_action( 'wpbdp_dispatch_set-active-theme', array( &$this, 'set_active_theme' ) );
+        add_action( 'wpbdp_dispatch_upload-theme', array( &$this, 'upload_theme' ) );
         add_action( 'wpbdp_dispatch_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
     }
 
@@ -114,6 +115,9 @@ class WPBDP_Themes_Admin {
                 wpbdp_admin_message( _x( 'Suggested fields created successfully.', 'themes', 'WPBDM' ) );
 
                 break;
+            case 3:
+                wpbdp_admin_message( _x( 'Theme installed successfully.', 'themes', 'WPBDM' ) );
+
             default:
                 break;
         }
@@ -125,35 +129,38 @@ class WPBDP_Themes_Admin {
                                        'active_theme' => $this->api->get_active_theme() ) );
     }
 
-    function theme_install() {
-        $nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
-        $theme_file = false;
+    function upload_theme() {
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'upload theme zip' ) )
+            wp_die();
 
-        if ( wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
-            if ( isset( $_FILES['themezip'] ) && UPLOAD_ERR_OK == $_FILES['themezip']['error'] &&
-                 is_uploaded_file( $_FILES['themezip']['tmp_name'] ) ) {
-                $theme_file = $_FILES['themezip'];
-                $dest = wp_normalize_path( untrailingslashit( get_temp_dir() ) . DIRECTORY_SEPARATOR . $theme_file['name'] );
+        $theme_file = isset( $_FILES['themezip'] ) ? $_FILES['themezip'] : false;
 
-                if ( ! move_uploaded_file( $theme_file['tmp_name'], $dest ) ) {
-                    wpbdp_admin_message( sprintf( _x( 'Could not move "%s" to a temporary directory.', 'themes', 'WPBDM' ),
-                                                  $theme_file['name'] ),
-                                         'error' );
-                } else {
-                    $res = $this->api->install_theme( $dest );
-                    
-                    if ( is_wp_error( $res ) ) {
-                        wpbdp_admin_message( $res->get_error_message(), 'error' );
-                    } else {
-                        wpbdp_admin_message( _x( 'Theme installed successfully.', 'themes', 'WPBDM' ) );
-                        return $this->theme_selection();
-                    }
-                }
-            } else {
-                wpbdp_admin_message( _x( 'Please upload a valid theme file.', 'themes', 'WPBDM' ), 'error' );
-            }
+        if ( ! $theme_file || ! is_uploaded_file( $theme_file['tmp_name'] ) || UPLOAD_ERR_OK != $_FILES['themezip']['error'] ) {
+            wpbdp_admin_message( _x( 'Please upload a valid theme file.', 'themes', 'WPBDM' ), 'error' );
+            return;
         }
 
+        $dest = wp_normalize_path( untrailingslashit( get_temp_dir() ) . DIRECTORY_SEPARATOR . $theme_file['name'] );
+
+        if ( ! move_uploaded_file( $theme_file['tmp_name'], $dest ) ) {
+            wpbdp_admin_message( sprintf( _x( 'Could not move "%s" to a temporary directory.', 'themes', 'WPBDM' ),
+                                          $theme_file['name'] ),
+                                 'error' );
+            return;
+        }
+
+        $res = $this->api->install_theme( $dest );
+
+        if ( is_wp_error( $res ) ) {
+            wpbdp_admin_message( $res->get_error_message(), 'error' );
+            return;
+        }
+
+        wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=3' ) );
+        exit;
+    }
+
+    function theme_install() {
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-install.tpl.php',
                                 array() );
     }

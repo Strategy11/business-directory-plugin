@@ -4,6 +4,7 @@ echo wpbdp_admin_header( _x( 'Upload Theme', 'themes', 'WPBDM' ), 'themes-instal
 <?php echo wpbdp_admin_notices(); ?>
 
 <form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="wpbdp-action" value="upload-theme" />
     <?php wp_nonce_field( 'upload theme zip' ); ?>
 
     <table class="form-table">
