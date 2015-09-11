@@ -123,10 +123,16 @@ class WPBDP_Themes_Admin {
         }
 
         $themes = $this->api->get_installed_themes();
+        $active_theme = $this->api->get_active_theme();
+
+        // Make sure the current theme is always first.
+        $current = $themes[ $active_theme ];
+        unset( $themes[ $active_theme ] );
+        array_unshift( $themes, $current );
 
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes.tpl.php',
                                 array( 'themes' => $themes,
-                                       'active_theme' => $this->api->get_active_theme() ) );
+                                       'active_theme' => $active_theme ) );
     }
 
     function upload_theme() {

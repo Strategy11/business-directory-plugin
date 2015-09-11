@@ -9,7 +9,10 @@ echo wpbdp_admin_notices();
 <div class="wpbdp-theme-selection cf">
 <?php foreach ( $themes as &$t ): ?>
     <div class="wpbdp-theme <?php echo $t->id; ?> <?php echo ( $t->id == $active_theme ) ? 'active' : ''; ?>">
-        <h3 class="wpbdp-theme-name"><?php echo $t->name; ?></h3>
+        <h3 class="wpbdp-theme-name">
+            <?php if ( $t->id == $active_theme ): ?><span><?php _ex( 'Active:', 'themes', 'WPBDM' ); ?></span> <?php endif; ?>
+            <?php echo $t->name; ?>
+        </h3>
 
         <div class="wpbdp-theme-actions">
             <form action="" method="post">

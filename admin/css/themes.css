@@ -8,7 +8,7 @@
 }
 
 .wpbdp-theme.active {
-    border: 1px solid #666;
+    border: 1px solid #2f2f2f;
 }
 
 .wpbdp-theme-thumbnail {
@@ -42,8 +42,20 @@
     padding: 8px;
     margin: 0;
     background: #fafafa;
-    font-weight: normal;
+    font-weight: bold;
+    font-size: 15px;
     border-bottom: 1px solid #ddd;
+}
+
+.wpbdp-theme.active .wpbdp-theme-name {
+    background: #2f2f2f;
+    color: #fff;
+    border-bottom: 1px solid #2f2f2f;
+    font-weight: normal;
+}
+
+.wpbdp-theme.active .wpbdp-theme-name span {
+    font-weight: bold;
 }
 
 .wpbdp-theme .wpbdp-theme-details {
