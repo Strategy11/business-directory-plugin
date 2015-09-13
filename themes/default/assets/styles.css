@@ -2,7 +2,7 @@
     border: none;
     border-bottom: 1px solid #044F8D;
     margin-bottom: 8px;
-    background: #fff;
+    background: inherit;
 }
 
 .wpbdp-listing a {
