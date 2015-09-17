@@ -124,6 +124,9 @@ class WPBDP_FormFieldsAdmin {
             case 'createrequired':
                 $this->createRequiredFields();
                 break;
+            case 'updatetags':
+                $this->update_field_tags();
+                break;
             default:
                 $this->fieldsTable();
                 break;
@@ -276,6 +279,56 @@ class WPBDP_FormFieldsAdmin {
         }
 
         return $this->fieldsTable();
+    }
+
+    private function update_field_tags() {
+        $special_tags = array(
+            'title' => _x( 'Title', 'form-fields admin', 'WPBDM' ),
+            'category' => _x( 'Category', 'form-fields admin', 'WPBDM' ),
+            'excerpt' => _x( 'Excerpt', 'form-fields admin', 'WPBDM' ),
+            'content' => _x( 'Content', 'form-fields admin', 'WPBDM' ),
+            'tags' => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
+            'address' => _x( 'Address', 'form-fields admin', 'WPBDM' ),
+            'zip' => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
+            'fax' => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
+            'phone' => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),
+            'rating' => _x( 'Ratings Field', 'form-fields admin', 'WPBDM' ),
+            'twitter' => _x( 'Twitter', 'form-fields admin', 'WPBDM' ),
+            'website' => _x( 'Website', 'form-fields admin', 'WPBDM' )
+        );
+        $fixed_tags = array( 'title', 'category', 'excerpt', 'content', 'tags', 'rating' );
+        $field_tags = array();
+
+        if ( isset( $_POST['field_tags'] ) ) {
+            global $wpdb;
+
+            $posted = $_POST['field_tags'];
+
+            foreach ( $posted as $tag => $field_id ) {
+                if ( in_array( $tag, $fixed_tags, true ) )
+                    continue;
+
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_form_fields SET tag = %s WHERE tag = %s",
+                                              '', $tag ) );
+                $wpdb->query ($wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_form_fields SET tag = %s WHERE id = %d",
+                                              $tag,
+                                              $field_id ) );
+            }
+
+            wpbdp_admin_message( _x( 'Tags updated.', 'form-fields admin', 'WPBDM' ) );
+        }
+
+        foreach ( $special_tags as $t => $td ) {
+            $f = WPBDP_Form_Field::find_by_tag( $t );
+
+            $field_tags[] = array( 'tag' => $t,
+                                   'description' => $td,
+                                   'field_id' => ( $f ? $f->get_id() : 0 ),
+                                   'fixed' => ( in_array( $t, $fixed_tags, true ) ? true : false ) );
+        }
+
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-tags.tpl.php',
+                                array( 'field_tags' => $field_tags ) );
     }
 
 }
