@@ -676,7 +676,17 @@ class WPBDP_Form_Field {
         } catch (Exception $e ) {
             return null;
         }
+    }
 
+    public static function find_by_tag( $tag ) {
+        global $wpdb;
+
+        $field_id = absint( $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields WHERE tag = %s LIMIT 1", $tag ) ) );
+
+        if ( ! $field_id )
+            return null;
+
+        return self::get( $field_id );
     }
 
 }
