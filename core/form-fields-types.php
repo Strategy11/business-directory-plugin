@@ -858,6 +858,9 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
+        if ( ! $value )
+            return '';
+
         $html  = '';
         $html .= '<div class="social-field twitter">';
         $html .= sprintf('<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="false" data-lang="%s">Follow @%s</a>',
@@ -1024,6 +1027,10 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function get_field_html_value( &$field, $post_id ) {
         $img_id = $field->value( $post_id );
+
+        if ( ! $img_id )
+            return '';
+
         $img = wp_get_attachment_image_src( $img_id, 'large' );
 
         $html  = '';

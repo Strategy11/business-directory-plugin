@@ -194,6 +194,9 @@ class _WPBDP_Lightweight_Field_Display_Item {
             case 'label':
                 return $this->field->get_label();
                 break;
+            case 'tag':
+                return $this->field->get_tag();
+                break;
             case 'field':
                 return $this->field;
             default:
