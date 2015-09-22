@@ -20,7 +20,7 @@ if ( $admin && $listing_id ) {
         <div id="image-upload-dnd-area" class="wpbdp-dnd-area" data-action="<?php echo $action; ?>">
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
-                <p>or</p>
+                <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
                 <p class="dnd-buttons">
                     <span class="upload-button">
                          <a><?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?></a>
