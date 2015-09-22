@@ -638,7 +638,7 @@ class WPBDP_Form_Field {
                 break;
         }
 
-        do_action_ref_array( 'WPBDP_Form_Field::build_quick_search_query', array( $q, &$pieces, $search_term, $w_no, &$optimization ) );
+        do_action_ref_array( 'WPBDP_Form_Field::build_quick_search_query', array( $this, $q, &$pieces, $search_term, $w_no, &$optimization ) );
     }
 
     /**
