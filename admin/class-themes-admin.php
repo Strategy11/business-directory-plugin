@@ -14,9 +14,9 @@ class WPBDP_Themes_Admin {
 
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
-        add_action( 'wpbdp_dispatch_set-active-theme', array( &$this, 'set_active_theme' ) );
-        add_action( 'wpbdp_dispatch_upload-theme', array( &$this, 'upload_theme' ) );
-        add_action( 'wpbdp_dispatch_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
+        add_action( 'wpbdp_action_set-active-theme', array( &$this, 'set_active_theme' ) );
+        add_action( 'wpbdp_action_upload-theme', array( &$this, 'upload_theme' ) );
+        add_action( 'wpbdp_action_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
     }
 
     function admin_menu( $slug ) {

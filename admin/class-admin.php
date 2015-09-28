@@ -763,7 +763,8 @@ class WPBDP_Admin {
      */
     function process_admin_action() {
         if ( isset( $_REQUEST['wpbdp-action'] ) ) {
-            do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
+            do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
+//            do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
         }
     }
 
