@@ -99,3 +99,22 @@
 .wpbdp-theme-details p.desc {
     font-size: inherit;
 }
+
+.wpbdp-theme a.delete-theme-link {
+    display: none;
+    box-sizing: border-box;
+    position: absolute;
+    right: 4px;
+    bottom: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #900000;
+    padding: 2px 5px;
+    border-radius: 2px;
+}
+
+.wpbdp-theme:hover a.delete-theme-link {
+    display: block;
+}

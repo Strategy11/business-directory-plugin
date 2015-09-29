@@ -183,6 +183,13 @@ class WPBDP_Themes {
         return $data;
     }
 
+    public function get_theme( $theme_id ) {
+        if ( isset( $this->themes[ $theme_id ] ) )
+            return $this->themes[ $theme_id ];
+        
+        return false;
+    }
+
     /**
      * @since next-release
      */

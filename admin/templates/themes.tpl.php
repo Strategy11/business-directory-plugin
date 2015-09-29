@@ -38,6 +38,10 @@ echo wpbdp_admin_notices();
 
             <p class="desc"><?php echo $t->description; ?></p>
         </div>
+
+            <?php if ( ! in_array( $t->id, array( $active_theme, 'default', 'no_theme' ), true ) ): ?>
+            <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'delete-theme', 'theme_id' => $t->id ) ) ); ?>" class="delete-theme-link">Delete</a>
+            <?php endif; ?>
     </div>
 <?php endforeach; ?>
 </div>

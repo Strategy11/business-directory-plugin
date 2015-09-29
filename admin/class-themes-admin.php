@@ -15,6 +15,7 @@ class WPBDP_Themes_Admin {
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
         add_action( 'wpbdp_action_set-active-theme', array( &$this, 'set_active_theme' ) );
+        add_action( 'wpbdp_action_delete-theme', array( &$this, 'delete_theme' ) );
         add_action( 'wpbdp_action_upload-theme', array( &$this, 'upload_theme' ) );
         add_action( 'wpbdp_action_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
     }
@@ -80,6 +81,9 @@ class WPBDP_Themes_Admin {
             case 'theme-install':
                 return $this->theme_install();
                 break;
+            case 'delete-theme':
+                return $this->theme_delete_confirm();
+                break;
             case 'theme-selection':
             default:
                 return $this->theme_selection();
@@ -113,11 +117,16 @@ class WPBDP_Themes_Admin {
                 break;
             case 2:
                 wpbdp_admin_message( _x( 'Suggested fields created successfully.', 'themes', 'WPBDM' ) );
-
                 break;
             case 3:
                 wpbdp_admin_message( _x( 'Theme installed successfully.', 'themes', 'WPBDM' ) );
-
+                break;
+            case 4:
+                wpbdp_admin_message( _x( 'Theme was deleted sucessfully.', 'themes', 'WPBDM' ) );
+                break;
+            case 5:
+                wpbdp_admin_message( _x( 'Could not delete theme directory. Check permissions.', 'themes', 'WPBDM' ), 'error' );
+                break;
             default:
                 break;
         }
@@ -169,6 +178,48 @@ class WPBDP_Themes_Admin {
     function theme_install() {
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-install.tpl.php',
                                 array() );
+    }
+
+    function theme_delete_confirm() {
+        $theme_id = $_REQUEST['theme_id'];
+        $theme = $this->api->get_theme( $theme_id );
+
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-delete-confirm.tpl.php',
+                                array( 'theme' => $theme ) );
+    }
+
+    function delete_theme() {
+        if ( ! isset( $_POST['dodelete'] ) || 1 != $_POST['dodelete'] )
+            return;
+
+        $theme_id = isset( $_POST['theme_id'] ) ? $_POST['theme_id'] : '';
+        $nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'delete theme ' . $theme_id ) )
+            wp_die();
+
+        $active_theme = $this->api->get_active_theme();
+        $theme = $this->api->get_theme( $theme_id );
+
+        if ( in_array( $theme_id, array( 'default', 'no_theme', $active_theme ), true ) || ! $theme )
+            wp_die();
+
+        $theme = $this->api->get_theme( $theme_id );
+        $path = rtrim( $theme->path, '/\\' );
+        $removed = false;
+
+        if ( is_link( $path ) ) {
+            $removed = unlink( $path );
+        } elseif ( is_dir( $path ) ) {
+            $removed = WPBDP_FS::rmdir( $path );
+        }
+
+        if ( $removed )
+            wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
+        else
+            wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
+
+        exit;
     }
 
 }
