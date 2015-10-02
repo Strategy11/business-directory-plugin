@@ -5,5 +5,5 @@
 
 	<?php echo $category_field->render( array_keys( $_state->categories ) ); ?>
 
-	<input type="submit" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?> " />	
+	<input type="submit" class="submit" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?> " />	
 </form>

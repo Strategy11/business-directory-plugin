@@ -31,5 +31,5 @@
 	</div>
 	<?php endif; ?>
 
-	<input type="submit" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?> " />	
+	<input type="submit" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?> " class="submit" />
 </form>

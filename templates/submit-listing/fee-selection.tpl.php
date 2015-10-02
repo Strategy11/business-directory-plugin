@@ -34,5 +34,5 @@
 <?php endif; ?>
 <?php endif; ?>
 
-	<input type="submit" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?> " />
+	<input type="submit" class="submit" value="<?php _ex( 'Continue', 'templates', 'WPBDM' ); ?> " />
 </form>
