@@ -234,7 +234,7 @@ class WPBDP_Admin_Listings {
 
 
     public function row_actions($actions, $post) {
-        if ($post->post_type == WPBDP_POST_TYPE && current_user_can('contributor')) {
+        if ($post->post_type == WPBDP_POST_TYPE && current_user_can('contributor') && ! current_user_can( 'administrator' ) ) {
             if (wpbdp_user_can('edit', $post->ID))
                 $actions['edit'] = sprintf('<a href="%s">%s</a>',
                                             wpbdp_get_page_link('editlisting', $post->ID),
