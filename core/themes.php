@@ -31,7 +31,6 @@ class WPBDP_Themes {
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
         add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 
-        add_shortcode( 'businessdirectory-theme-test', array( &$this, 'theme_test' ) );
     }
 
     function call_theme_function( $fname, $args = array() ) {
@@ -66,7 +65,7 @@ class WPBDP_Themes {
     }
 
     function field_theme_override( $html = '', &$field, $context, $listing_id ) {
-        $options = array( 'field_' . $field->get_id(), 'field_' . $field->get_short_name() );
+        $options = array( 'field_' . $field->get_id(), 'field_' . $field->get_short_name(), 'field_' . $field->get_field_type_id() );
         if ( $field->get_tag() )
             $options[] = 'field_' . $field->get_tag();
 
@@ -430,6 +429,11 @@ class WPBDP_Themes {
         $vars = array_merge( $defaults, $vars );
         $vars = apply_filters( 'wpbdp_template_variables', $vars, $id_or_file );
         $vars = apply_filters( 'wpbdp_template_variables__' . $id_or_file, $vars, $path );
+
+        // Add info about current theme.
+        $theme = $this->get_active_theme_data();
+        $vars['THEME_PATH'] = $theme->path;
+        $vars['THEME_URL'] = $theme->url;
     }
 
     function _process_template_vars( &$vars ) {
@@ -569,19 +573,6 @@ class WPBDP_Themes {
         WPBDP_FS::rmdir( $temp_dir );
 
         return $dest_dir;
-    }
-
-    function theme_test_template_vars( $vars ) {
-        $vars['module_added_var'] = 2;
-        $vars['#constant_before'] = array( 'position' => 'before', 'value' => '!BEFORE!', 'weight' => 11 );
-        $vars['#constant_after'] = array( 'position' => 'after', 'value' => '!AFTER!', 'weight' => 9 );
-
-        return $vars;
-    }
-
-    function theme_test() {
-        add_filter( 'wpbdp_template_variables__theme_test', array( &$this, 'theme_test_template_vars' ) );
-        return wpbdp_x_render( 'theme_test', array( 'my_template_var' => 1, 'my_other_template_var' => 0 ) );
     }
 
 }
