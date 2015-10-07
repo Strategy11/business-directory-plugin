@@ -1,7 +1,14 @@
 <?php
-echo wpbdp_admin_header( _x( 'Upload Theme', 'themes', 'WPBDM' ), 'themes-install', array() );
+echo wpbdp_admin_header( _x( 'Upload Directory Theme', 'themes', 'WPBDM' ), 'themes-install', array() );
 ?>
 <?php echo wpbdp_admin_notices(); ?>
+
+<div class="wpbdp-note">
+<p><?php
+printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'themes', 'WPBDM' ),
+        '<a href="http://businessdirectoryplugin.com/premium-modules/">http://businessdirectoryplugin.com/premium-modules/</a>' );
+?></p>
+</div>
 
 <form action="" method="post" enctype="multipart/form-data">
     <input type="hidden" name="wpbdp-action" value="upload-theme" />
@@ -11,7 +18,7 @@ echo wpbdp_admin_header( _x( 'Upload Theme', 'themes', 'WPBDM' ), 'themes-instal
         <tbody>
             <tr>
                 <th>
-                    <?php _ex( 'Theme file', 'themes', 'WPBDM' ); ?>
+                    <?php _ex( 'BD Theme archive (ZIP file)', 'themes', 'WPBDM' ); ?>
                 </th>
                 <td>
                     <input type="file" name="themezip" />

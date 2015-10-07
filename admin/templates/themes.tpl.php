@@ -1,6 +1,6 @@
 <?php
 echo wpbdp_admin_header( null, 'themes', array(
-    array( _x( 'Upload Theme', 'themes', 'WPBDM' ), esc_url( add_query_arg( 'action', 'theme-install' ) ) )
+    array( _x( 'Upload Directory Theme', 'themes', 'WPBDM' ), esc_url( add_query_arg( 'action', 'theme-install' ) ) )
 ) );
 
 echo wpbdp_admin_notices();
