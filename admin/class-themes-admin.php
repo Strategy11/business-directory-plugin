@@ -10,6 +10,8 @@ class WPBDP_Themes_Admin {
         $this->api = $api;
 
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
+        add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
+
         add_action( 'wpbdp_admin_notices', array( &$this, 'theme_fields_check' ) );
 
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
@@ -27,6 +29,26 @@ class WPBDP_Themes_Admin {
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
+    }
+
+    function admin_menu_move_themes_up( $menu ) {
+        $themes_key = false;
+
+        foreach ( $menu as $k => $i ) {
+            if ( 'wpbdp-themes' === $i[2] ) {
+                $themes_key = $k;
+                break;
+            }
+        }
+
+        if ( false === $themes_key )
+            return $menu;
+
+        $themes = $menu[ $themes_key ];
+        unset( $menu[ $themes_key ] );
+        $menu = array_merge( array( $menu[0], $themes ), array_slice( $menu, 1 ) );
+
+        return $menu;
     }
 
     function theme_fields_check() {
@@ -56,6 +78,9 @@ class WPBDP_Themes_Admin {
 
         if ( ! $this->api->set_active_theme( $theme_id ) )
             wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'WPBDM' ), $theme_id ) );
+
+//        $this->api->try_active_theme();
+//        wpbdp_debug_e( $theme_id );
 
         wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
         exit;
