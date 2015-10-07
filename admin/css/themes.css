@@ -65,8 +65,8 @@
 .wpbdp-theme:hover .wpbdp-theme-details {
     display: block;
     position: absolute;
-    top: 25%;
-    bottom: 25%;
+    top: 20%;
+    bottom: 20%;
     left: 5%;
     right: 5%;
     padding: 10px;
