@@ -449,6 +449,19 @@ class WPBDP_Form_Field {
         if ( !$this->label || trim( $this->label ) == '' )
             return new WP_Error( 'wpbdp-save-error', _x('Field label is required.', 'form-fields-api', 'WPBDM') );
 
+        // If performing a field conversion, make sure the types are compatible.
+        if ( $this->id ) {
+            $orig_type = $wpdb->get_var( $wpdb->prepare( "SELECT field_type FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $this->id ) );
+            $new_type = $this->type->get_id();
+
+            if ( $orig_type != $new_type ) {
+                if ( 'url' == $new_type || 'image' == $new_type || 'url' == $orig_type || 'image' == $orig_type ) {
+                    $this->type = WPBDP_FormFields::instance()->get_field_type( $orig_type );
+                    return new WP_Error( 'wpbdp-field-error', _x( 'Requested field type change is incompatible. Type will not be modified.', 'form-fields-api', 'WPBDM' ) );
+                }
+            }
+        }
+
         if ( isset( $_POST['field'] ) ) {
             $res = $this->type->process_field_settings( $this );
             do_action_ref_array( 'wpbdp_form_field_settings_process', array( &$this ) );
@@ -478,7 +491,10 @@ class WPBDP_Form_Field {
         }
 
         $data = array();
-        $data['shortname'] = $this->get_shortname();
+
+        if ( wpbdp_experimental( 'themes' ) )
+            $data['shortname'] = $this->get_shortname();
+
         $data['label'] = $this->label;
         $data['description'] = trim( $this->description );
         $data['field_type'] = $this->type->get_id();
