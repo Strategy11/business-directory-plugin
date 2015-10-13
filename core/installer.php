@@ -150,7 +150,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -838,6 +838,32 @@ class WPBDP_Installer {
 
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments MODIFY created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP" );
         $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_payments SET processed_on = NULL WHERE processed_on = %s", '0000-00-00 00:00:00' ) );
+    }
+
+    public function upgrade_to_7() {
+        global $wpdb;
+
+        $fields = $wpdb->get_results( $wpdb->prepare( "SELECT id, field_type FROM {$wpdb->prefix}wpbdp_form_fields WHERE field_type IN (%s, %s, %s, %s) AND association = %s",
+                                                      'select', 'multiselect', 'checkbox', 'radio', 'meta' ) );
+
+        foreach ( $fields as $f ) {
+            $listing_values = $wpdb->get_results( $wpdb->prepare( "SELECT meta_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s",
+                                                                  '_wpbdp[fields][' . $f->id . ']' ) );
+
+            foreach ( $listing_values as $lv ) {
+                $v = maybe_unserialize( $lv->meta_value );
+
+                if ( in_array( $f->field_type, array( 'select', 'radio' ), true ) ) {
+                    if ( is_array( $v ) )
+                        $v = array_pop( $v );
+                } else {
+                    if ( is_array( $v ) )
+                        $v = implode( "\t", $v );
+                }
+
+                $wpdb->update( $wpdb->postmeta, array( 'meta_value' => $v ), array( 'meta_id' => $lv->meta_id ) );
+            }
+        }
     }
 
 }
