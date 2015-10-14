@@ -479,7 +479,11 @@ class WPBDP_Plugin {
                 $this->controller->action = null;
                 status_header(404);
                 nocache_headers();
-                include( get_404_template() );
+                $template_404 = get_404_template();
+
+                if( $template_404 )
+                    include( $template_404 );
+
                 exit();
             }
         }
