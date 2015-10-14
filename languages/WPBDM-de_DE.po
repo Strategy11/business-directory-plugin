@@ -4921,8 +4921,8 @@ msgid ""
 "provided. Go to <a>Manage Options - Licenses</a> to enter your license "
 "information."
 msgstr ""
-"Folgende Premium Module funktionieren nicht bis ein Lizenzschlüssel "
-"angegeben wurde. Nach <a> Optionen verwalten - Lizenzen<a> um eine "
+"Folgende Premium Module funktionieren nicht, bis ein gültiger Lizenzschlüssel "
+"angegeben wurde. Gehen Sie zu <a>Optionen verwalten - Lizenzen</a>, um Ihre "
 "Lizenzinformation einzugeben."
 
 #: core/licensing.php:254
