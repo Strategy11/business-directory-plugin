@@ -118,3 +118,15 @@
 .wpbdp-theme:hover a.delete-theme-link {
     display: block;
 }
+
+#wpbdp-admin-page-theme-delete #delete-theme {
+    margin-left: 20px;
+    color: #a00;
+}
+
+#wpbdp-admin-page-theme-delete #delete-theme:hover {
+    background: #d54e21;
+    border-color: #d54e21;
+    color: #fff;
+    box-shadow: none;
+}

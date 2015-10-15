@@ -217,6 +217,12 @@ class WPBDP_Themes_Admin {
         if ( ! isset( $_POST['dodelete'] ) || 1 != $_POST['dodelete'] )
             return;
 
+        // Cancel. Return to themes page.
+        if ( empty( $_POST['delete-theme'] ) ) {
+            wp_redirect( admin_url( 'admin.php?page=wpbdp-themes' ) );
+            exit;
+        }
+
         $theme_id = isset( $_POST['theme_id'] ) ? $_POST['theme_id'] : '';
         $nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
 
