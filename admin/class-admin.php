@@ -295,7 +295,8 @@ class WPBDP_Admin {
                          'wpbdp_uninstall',
                          array($this, 'uninstall_plugin'));
 
-        $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
+        if ( isset( $submenu['wpbdp_admin'] ) )
+            $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
     }
 
     function admin_menu_reorder( $menu_order ) {
