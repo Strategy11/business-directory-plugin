@@ -27,7 +27,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
                 'hide_empty' => 0,
                 'echo' => 0,
                 'depth' => 0,
-                'walker' => new CategoryFormInputWalker( 'checkbox', $value, $field ),
+                'walker' => new WPBDP_CategoryFormInputWalker( 'checkbox', $value, $field ),
                 'show_option_none' => '',
                 'title_li' => '',
             ) );
