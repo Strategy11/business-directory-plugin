@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,business directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
+Tags: business directory,directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 3.9
-Tested up to: 4.2.2
-Last Updated: 2015-Jun-9
-Stable tag: tags/3.6.5
+Tested up to: 4.3.1
+Last Updated: 2015-Oct-15
+Stable tag: tags/3.6.9.1
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -21,7 +21,7 @@ Business Directory Plugin allows you to build local directories, business provid
 = Features =
 * Fully customizable form fields
 * Accept payment for listings OR have free listings
-* Full support for recurring payments (PayPal, Wallet, Stripe)
+* Full support for recurring payments (PayPal, Authorize.net, Stripe)
 * Allow for featured/sticky listings for an upgrade fee
 * Create multiple fee plans, which can be assigned to categories for posting
 * Built in CSV import and export
@@ -29,7 +29,7 @@ Business Directory Plugin allows you to build local directories, business provid
 * Users who post can edit listings without access to WP dashboard
 * SEO Friendly using Yoast SEO
 * Configurable quick-search field and sorting bar for listings
-* Rate businesses in your directory (now with Microformat support) (using the Ratings Module)
+* Rate businesses in your directory (now with Schema.org microformat support) (using the Ratings Module)
 * Display the location of the business (categories, search, details--now with custom map sizes) (using the Google Maps Module)
 * Location based result filtering (using the Regions Module)
 * ZIP code radius searches (using the ZIP Search Module)
@@ -41,6 +41,8 @@ Business Directory Plugin allows you to build local directories, business provid
 * Accept payments using PayFast (using the PayFast Gateway Module)
 * Post claimable listings that other businesses can pay (or not) to claim (using the Claim Listings Module) (NEW!)
 * FULL responsive support when installed with a responsive theme (NEW!)
+* Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
+* Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) (NEW!)
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -50,11 +52,13 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
+NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
+
 NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
 
-NEW! [PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
+[PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
 
-NEW! [Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
+[Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
 
 [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
 
@@ -113,6 +117,52 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
+= Version 3.6.9.1 =
+* Fixed critical problem with checkbox fields used with categories
+* Fixed conflicts with other Membership plugin (PHP warnings)
+* Fixed error in German translation
+
+= Version 3.6.9 =
+* Add search support for date fields.
+* Fix canonical links for non-listing pages.
+* Automatically check thumbnail checkbox for listings with one image.
+* Add support for title and date as secondary sort options when sorting listings "paid first".
+* Fix possible conflict with other plugins in reCAPTCHA initialization order.
+* Allow content field to be optional.
+* Allow users to configure how prices are formatted.
+* Add shortcode to display listings with a certain tag.
+* Improve compatibility with some themes.
+* Fixes for date fields.
+* Fix PHP error due to incorrect quotes in CSV files.
+* Add image fields to Lightbox galleries.
+* Show a warning on e-mail fields when e-mail display is disabled.
+* Add a placeholder description to LinkedIn fields.
+* WPML support improvements.
+* Add missing translatable strings.
+
+= Version 3.6.8 =
+* Added support for Discount Codes module
+* Translation file updates (all)
+* Minor fix for mobile devices.
+* Fix reCAPTCHA conflict with Claim Listings.
+* Fix a pagination issue when pagination was disabled.
+* Fixed URL capitalization filter issue to allow mixed-case URLs with parameters
+	
+= Version 3.6.7 =
+* Removed namespace support from new reCAPTCHA library to support PHP 5.2 and 5.3
+
+= Version 3.6.6 =
+* Updated full French translation
+* Added full Polish translation
+* New reCAPTCHA version and library.
+* Support use of language-specific URLs for WPML
+* Add ZIP code field to billing information page
+* Update bundled version of Auth.net SDK
+* Fix date field issue resulting in PHP warnings
+* Add French postal code database to ZIP search module
+* Fixed sidebar issues on Google Maps with unclosed tag
+* Fixed Regions bug to be consistent on selector and sidelist for hiding empty regions
+
 = Version 3.6.5 =
 * Added full French translation
 * Add support for NavXT breadcrumbs plugin 
@@ -152,15 +202,15 @@ If you are having problems please visit [support forum](http://www.businessdirec
 = Version 3.6 =
 * Added Authorize.net as the default (free) payment gateway, replacing Google Wallet which was discontinued in March 2015.
 * Dropped support for Google Wallet for Business (http://www.businessnewsdaily.com/7468-google-wallet-discontinued.html)
-* Added "AJAX compatibility mode" to help with Javascript/AJAX conflicts.
+* Added "AJAX compatibility mode" to help with JavaScript/AJAX conflicts.
 * New sequential CSV import process that improves performance and reliability especially for large imports.
 * Added new German translation to core plugin
 * Improved display on mobile devices (full responsive support).
 * Work around some themes not firing some of the hooks for the comments form.
 * Improved quick search performance by reducing the number of JOINs required.
 * Added an optional quick search mode that increases performance by reducing search accuracy (shared hosting support).
-* Preprend 'http://' to data entered into URL fields automatically.
-* Apply strip_slashes() to multivalued field options.
+* Prepend 'http://' to data entered into URL fields automatically.
+* Apply strip_slashes() to multi-valued field options.
 * Add setting that allows admins to automatically remind users of abandoned payments.
 * Allow setting the post status for listings imported via CSV.
 * Allow users to upload CSV and ZIP files for CSV imports via FTP.
