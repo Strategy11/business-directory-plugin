@@ -720,3 +720,36 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* }} */
 
+/* {{ Some fixes for Thickbox on BD pages. */
+
+body.business-directory #TB_ImageOff .screen-reader-text,
+body.business-directory #TB_closeWindowButton .screen-reader-text {
+    visibility: hidden;
+}
+
+body.business-directory #TB_next {
+    float: right;
+}
+
+body.business-directory #TB_prev {
+    float: left;
+}
+
+body.business-directory #TB_caption {
+    float: none !important;
+}
+
+body.business-directory #TB_closeWindow {
+    padding: 0;
+    height: 0px;
+}
+
+body.business-directory #TB_closeWindow .screen-reader-text {
+    display: none;
+}
+
+body.business-directory #TB_secondLine {
+    text-align: center;
+}
+
+/* }} */
