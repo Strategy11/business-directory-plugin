@@ -287,11 +287,72 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return null;
     }
 
+    public function summarize() {
+        $regular = 0.0;
+        $discounts = 0.0;
+        $recurring = 0.0;
+        $recurring_days = 0;
+
+        $res = array( 'trial' => false,
+                      'trial_amount' => 0.0,
+                      'recurring' => false,
+                      'recurring_amount' => 0.0,
+                      'recurring_days' => 0,
+                      'recurring_description' => '',
+                      'balance' => 0.0,
+                      'description' => '' );
+
+        $recurring = $this->get_item( array( 'item_type' => 'recurring_fee' ) );
+
+        if ( ! $recurring ) {
+            $res['balance'] = $this->get_total();
+        } else {
+            $recurring_amt = $recurring->amount;
+            $discounts_amt = abs( $this->get_total( 'coupon' ) );
+            $others_amt = ( $this->get_total() + $discounts_amt ) - $recurring_amt;
+
+            $res['recurring'] = true;
+            $res['recurring_amount'] = $recurring_amt;
+            $res['recurring_days'] = $recurring->data['fee_days'];
+            $res['recurring_description'] = $recurring->description;
+
+            if ( $discounts_amt > 0.0 ) {
+                if ( $others_amt > 0.0 ) {
+                    $others_rem = $others_amt - $discounts_amt;
+
+                    if ( $others_rem > 0.0 ) {
+                        $res['balance'] = $others_rem;
+                    } else {
+                        $res['trial_amount'] = max( 0.0, $recurring_amt + $others_rem );
+                        $res['trial'] = true;
+                    }
+                } else {
+                    $res['trial'] = true;
+                    $res['trial_amount'] = max( 0.0, $recurring_amt - $discounts_amt );
+                }
+            } else {
+                $res['balance'] = $others_amt;
+            }
+        }
+
+        return $res;
+    }
+
     public function get_listing_id() {
         return $this->listing_id;
     }
 
-    public function get_total() {
+    public function get_total( $item_type = 'all' ) {
+        if ( $item_type && 'all' != $item_type ) {
+            $res = 0.0;
+            $items = $this->get_items( array( 'item_type' =>  $item_type ) );
+
+            foreach ( $items as $i )
+                $res += $i->amount;
+
+            return $res;
+        }
+
         return $this->amount;
     }
 
