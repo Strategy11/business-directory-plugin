@@ -300,16 +300,16 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                       'recurring_days' => 0,
                       'recurring_description' => '',
                       'balance' => 0.0,
-                      'description' => '' );
+                      'description' => $this->get_short_description() );
 
         $recurring = $this->get_item( array( 'item_type' => 'recurring_fee' ) );
 
         if ( ! $recurring ) {
-            $res['balance'] = $this->get_total();
+            $res['balance'] = floatval( $this->get_total() );
         } else {
-            $recurring_amt = $recurring->amount;
-            $discounts_amt = abs( $this->get_total( 'coupon' ) );
-            $others_amt = ( $this->get_total() + $discounts_amt ) - $recurring_amt;
+            $recurring_amt = floatval( $recurring->amount );
+            $discounts_amt = abs( floatval( $this->get_total( 'coupon' ) ) );
+            $others_amt = ( floatval( $this->get_total() ) + $discounts_amt ) - $recurring_amt;
 
             $res['recurring'] = true;
             $res['recurring_amount'] = $recurring_amt;
