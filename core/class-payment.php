@@ -299,10 +299,12 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                       'recurring_amount' => 0.0,
                       'recurring_days' => 0,
                       'recurring_description' => '',
+                      'recurring_obj' => null,
                       'balance' => 0.0,
                       'description' => $this->get_short_description() );
 
         $recurring = $this->get_item( array( 'item_type' => 'recurring_fee' ) );
+        $res['recurring_obj'] = $recurring;
 
         if ( ! $recurring ) {
             $res['balance'] = floatval( $this->get_total() );
