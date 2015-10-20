@@ -78,44 +78,12 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         }
 
         $data = $payment->get_data( 'billing-information' );
-        $aim = new AuthorizeNetAIM( wpbdp_get_option( 'authorize-net-login-id' ),
-                                    wpbdp_get_option( 'authorize-net-transaction-key' ) );
 
-        if ( wpbdp_get_option( 'payments-test-mode' ) )
-            $aim->setSandbox( true );
-        else
-            $aim->setSandbox( false );
-
-        // Order info.
-        $aim->setFields( array(
-            'amount' => $payment->get_total(),
-            'description' => $payment->get_short_description(),
-            'invoice_num' => $payment->get_id()
-        ) );
-
-        // Card info.
-        $aim->setFields(array(
-            'card_num' => $data['cc_number'],
-            'exp_date' => $data['cc_exp_month'] . substr( $data['cc_exp_year'], 0, 2 ),
-            'card_code' => $data['cc_cvc']
-        ));
-
-        // Billing addres info.
-        $aim->setFields(array(
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'address' => $data['address_line1'],
-            'city' => $data['address_city'],
-            'state' => $data['address_state'],
-            'country' => $data['address_country'],
-            'zip' => $data['zipcode']
-        ));
-        // TODO: maybe add zip, phone, email and cust_id
-
-        $aim->setCustomField( 'payment_id', $payment->get_id() );
-        $aim->setCustomField( 'listing_id', $payment->get_listing_id() );
-
-        $response = $aim->authorizeAndCapture();
+        $response = $this->doAIM( $payment->get_total(),
+                                  $payment->get_short_description(),
+                                  $payment->get_id(),
+                                  $payment->get_listing_id(),
+                                  $data );
 
         if ( $response->approved ) {
             $payment->set_status( WPBDP_Payment::STATUS_COMPLETED, WPBDP_Payment::HANDLER_GATEWAY );
@@ -141,6 +109,26 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
     private function process_recurring( &$payment ) {
         $data = $payment->get_data( 'billing-information' );
 
+        $summary = $payment->summarize();
+
+        if ( $summary['balance'] > 0.0 ) {
+            $res1 = $this->doAIM( $summary['balance'],
+                                  _x( 'Setup fee' ,'authorize-net', 'WPBDM' ),
+                                  $payment->get_id(),
+                                  $payment->get_listing_id(),
+                                  $data );
+
+            if ( ! $res1->approved ) {
+                $payment->add_error( sprintf( _x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
+                                          '(' . $res1->response_reason_code . ') ' . rtrim( $res1->response_reason_text, '.' ) ) );
+                $payment->set_status( WPBDP_Payment::STATUS_REJECTED, WPBDP_Payment::HANDLER_GATEWAY );
+                $payment->save();
+
+                wp_redirect( esc_url_raw( $payment->get_redirect_url() ) );
+                die();
+            }
+        }
+
         $arb = new AuthorizeNetARB( wpbdp_get_option( 'authorize-net-login-id' ),
                                     wpbdp_get_option( 'authorize-net-transaction-key' ) );
 
@@ -149,16 +137,19 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         else
             $arb->setSandbox( false );
 
-        $recurring_item = $payment->get_recurring_item();
-        //wpbdp_debug_e( $recurring_item );
 
         $s = new AuthorizeNet_Subscription();
-        $s->intervalLength = $recurring_item->data['fee_days'];
+        $s->intervalLength = $summary['recurring_days'];
         $s->intervalUnit = 'days';
         $s->totalOccurrences = '9999';
         $s->startDate = date( 'Y-m-d',
                               strtotime( '+1 day', current_time( 'timestamp' ) ) );
-        $s->amount = $recurring_item->amount;
+        $s->amount = $summary['recurring_amount'];
+
+        if ( $summary['trial'] ) {
+            $s->trialOccurrences = '1';
+            $s->trialAmount = $summary['trial_amount'];
+        }
 
         $s->creditCardCardNumber = $data['cc_number'];
         $s->creditCardExpirationDate = $data['cc_exp_year'] . '-' . $data['cc_exp_month'];
@@ -225,6 +216,47 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
             $recurring_item = $payment->get_recurring_item();
             $listing->make_category_non_recurring( $recurring_item->rel_id_1 );
         }
+    }
+
+    private function doAIM( $amount, $desc, $invoice, $listing_id, $data ) {
+        $aim = new AuthorizeNetAIM( wpbdp_get_option( 'authorize-net-login-id' ),
+                                    wpbdp_get_option( 'authorize-net-transaction-key' ) );
+
+        if ( wpbdp_get_option( 'payments-test-mode' ) )
+            $aim->setSandbox( true );
+        else
+            $aim->setSandbox( false );
+
+        // Order info.
+        $aim->setFields( array( 'amount' => $amount,
+                                'description' => $desc,
+                                'invoice_num' => $invoice ) );
+
+        // Card info.
+        $aim->setFields(array(
+            'card_num' => $data['cc_number'],
+            'exp_date' => $data['cc_exp_month'] . substr( $data['cc_exp_year'], 0, 2 ),
+            'card_code' => $data['cc_cvc']
+        ));
+
+        // Billing addres info.
+        $aim->setFields(array(
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'address' => $data['address_line1'],
+            'city' => $data['address_city'],
+            'state' => $data['address_state'],
+            'country' => $data['address_country'],
+            'zip' => $data['zipcode']
+        ));
+        // TODO: maybe add zip, phone, email and cust_id
+
+        $aim->setCustomField( 'payment_id', $invoice );
+        $aim->setCustomField( 'listing_id', $listing_id );
+
+        $response = $aim->authorizeAndCapture();
+
+        return $response;
     }
 
 }
