@@ -5,7 +5,7 @@ $is_thumbnail = isset( $is_thumbnail ) ? $is_thumbnail : false;
 <div class="wpbdp-image" data-imageid="<?php echo $image_id; ?>">
     <img src="<?php echo wp_get_attachment_thumb_url( $image_id ); ?>" /><br />
     <input type="button"
-           class="button delete-image"
+           class="wpbdp-button button delete-image"
            value="<?php _ex('Delete Image', 'templates', 'WPBDM'); ?>"
            data-action="<?php echo esc_url( add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-delete',
                                                                   'state_id' => isset( $state_id ) ? $state_id : '',

@@ -119,7 +119,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
         $html .= '<div class="contact-form">';
 
         if ( ! $_POST ) {
-            $html .= '<input type="button" class="wpbdp-show-on-mobile send-message-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" />';
+            $html .= '<input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" />';
             $html .= '<div class="wpbdp-hide-on-mobile contact-form-wrapper">';
         }
 

@@ -21,8 +21,8 @@
 
 <?php wp_nonce_field( 'delete listing ' . $listing->get_id() ); ?>
 
-<input type="button" onclick="location.href = '<?php echo wpbdp_get_page_link( 'main'); ?>'; return false;" value="<?php _ex('No. Take me back to the directory.', 'delete listing', 'WPBDM' ); ?>" />
-<input class="delete-listing-confirm" type="submit" value="<?php _ex( 'Yes. Delete my listing.', 'delete listing', 'WPBDM' ); ?>" />
+<input type="button" onclick="location.href = '<?php echo wpbdp_get_page_link( 'main'); ?>'; return false;" value="<?php _ex('No. Take me back to the directory.', 'delete listing', 'WPBDM' ); ?>" class="wpbdp-button button" />
+<input class="delete-listing-confirm wpbdp-submit wpbdp-button" type="submit" value="<?php _ex( 'Yes. Delete my listing.', 'delete listing', 'WPBDM' ); ?>" />
 </form>
 
 </div>
