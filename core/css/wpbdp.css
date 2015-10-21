@@ -86,7 +86,7 @@ form#wpbdmsearchform a.advanced-search-link {
 .listing-actions input.delete-listing {
     margin-left: 5px;
     margin-right: 30px;
-    color: #ff0000;
+    color: #ff0000 !important;
 }
 
 .listing-actions .back-to-dir {

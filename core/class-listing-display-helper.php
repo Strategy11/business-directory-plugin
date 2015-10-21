@@ -92,9 +92,15 @@ class WPBDP_Listing_Display_Helper {
 
         // Main image.
         $thumbnail_id = $listing->get_thumbnail_id();
+        $data_main = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large', false );
+
+
         $main_image = new StdClass();
         $main_image->id = $thumbnail_id;
         $main_image->html = wpbdp_listing_thumbnail( null, 'link=picture&class=wpbdp-single-thumbnail' );
+        $main_image->url = $data_main[0];
+        $main_image->width = $data_main[1];
+        $main_image->height = $data_main[2];
 
         $vars['images']->main = $main_image;
 
