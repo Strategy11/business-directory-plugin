@@ -16,6 +16,8 @@ class WPBDP_DirectoryController {
 
     public function __construct() {
         add_action( 'wp', array( $this, '_handle_action'), 10, 1 );
+        add_action( 'template_redirect', array( &$this, 'handle_login_redirect' ), 20 );
+
         $this->_extra_sections = array();
     }
 
@@ -64,6 +66,21 @@ class WPBDP_DirectoryController {
 
     public function current_listing_id() {
         return $this->current_listing;
+    }
+
+    function handle_login_redirect() {
+        $action = $this->get_current_action();
+        $login_url = trim( wpbdp_get_option( 'login-url' ) );
+
+        if ( ! $login_url || is_user_logged_in() || ! wpbdp_get_option( 'require-login' ) )
+            return;
+
+        if ( ! in_array( $action, array( 'editlisting', 'submitlisting', 'deletelisting' ), true ) )
+            return;
+
+        $url = add_query_arg( 'redirect_to', urlencode( home_url( $_SERVER['REQUEST_URI'] ) ), $login_url );
+        wp_redirect( esc_url_raw( $url ) );
+        exit();
     }
 
     public function dispatch() {

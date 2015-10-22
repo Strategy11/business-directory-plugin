@@ -571,10 +571,22 @@ EOF;
 
 
         /* Registration settings */
-        $g = $this->add_group('registration', _x('Registration', 'admin settings', 'WPBDM'));
-        $s = $this->add_section($g, 'registration', _x('Registration Settings', 'admin settings', 'WPBDM'));
+        $g = $this->add_group( 'registration',
+                               _x('Registration', 'admin settings', 'WPBDM' ) );
+        $msg = __( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.",
+                   'admin settings',
+                   'WPBDM' );
+        $s = $this->add_section( $g, 'registration', _x( 'Registration Settings', 'admin settings', 'WPBDM' ), $msg );
         $this->add_setting($s, 'require-login', _x('Require login to post listings?', 'admin settings', 'WPBDM'), 'boolean', true);
-        //$this->add_setting($s, 'login-url', _x('Login URL', 'admin settings', 'WPBDM'), 'text', wp_login_url()); // deprecated as of 2.1
+
+        // deprecated as of 2.1, added again for @next-release
+        $this->add_setting( $s,
+                            'login-url',
+                            _x( 'Login URL', 'admin settings', 'WPBDM'),
+                            'text',
+                            '',
+                            _x( 'URL of your membership plugin\'s login page.  Only enter this if using a membership plugin or custom registration page.', 'admin settings', 'WPBDM' ) );
+
         // deprecated as of 2.1, added again for 3.4
         $this->add_setting( $s,
                             'registration-url',
