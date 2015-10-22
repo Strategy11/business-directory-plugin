@@ -15,7 +15,7 @@ class _WPBDP_Template_Sections {
 
         $vars['#contact_form'] = array( 'callback' => array( &$this, 'listing_contact_form' ),
                                         'position' => 'after',
-                                        'weight' => 0 );
+                                        'weight' => 10 );
         return $vars;
     }
 
