@@ -102,7 +102,10 @@
                     <select name="field[validators][]" id="field-validator">
                         <option value=""><?php _ex('No validation', 'form-fields admin', 'WPBDM'); ?></label>
                         <?php foreach ( $validators as $key => $name): ?>
-                        <option value="<?php echo $key; ?>" <?php echo in_array( $key, $field->get_validators(), true ) ? 'selected="selected"' : ''; ?>><?php echo $name; ?></option>
+                        <?php
+                        $disable_validator = ( 'url' == $field->get_field_type_id() && 'url' != $key ) ? true : false;
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo in_array( $key, $field->get_validators(), true ) ? 'selected="selected"' : ''; ?> <?php echo $disable_validator ? 'disabled="disabled"' : ''; ?> ><?php echo $name; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </td>
