@@ -75,7 +75,7 @@ class WPBDP_DirectoryController {
         if ( ! $login_url || is_user_logged_in() || ! wpbdp_get_option( 'require-login' ) )
             return;
 
-        if ( ! in_array( $action, array( 'editlisting', 'submitlisting', 'deletelisting' ), true ) )
+        if ( ! in_array( $action, array( 'editlisting', 'submitlisting', 'deletelisting', 'renewlisting' ), true ) )
             return;
 
         $url = add_query_arg( 'redirect_to', urlencode( home_url( $_SERVER['REQUEST_URI'] ) ), $login_url );
