@@ -25,6 +25,8 @@ echo wpbdp_admin_notices();
 
         <?php if ( $t->thumbnail ): ?>
         <img src="<?php echo $t->thumbnail; ?>" class="wpbdp-theme-thumbnail" />
+        <?php else: ?>
+        <div class="wpbdp-theme-thumbnail"></div>
         <?php endif; ?>
 
         <div class="wpbdp-theme-details">
