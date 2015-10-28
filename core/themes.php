@@ -232,6 +232,7 @@ class WPBDP_Themes {
         $theme_keys = array(
             array( 'id', 'string', basename( $d ) ),
             array( 'name', 'string', basename( $d ) ),
+            array( 'edd_name', 'string', '' ),
             array( 'description', 'string', '' ),
             array( 'version', 'int', 0 ),
             array( 'author', 'string', '' ),
@@ -240,7 +241,7 @@ class WPBDP_Themes {
             array( 'requires', 'string', '4.0dev' ),
             array( 'assets', 'array', array( 'css' => null, 'js' => null ), array( 'allow_other_keys' => false ) ),
             array( 'template_variables', 'array', array() ),
-            array( 'suggested_fields', 'array', array() )
+            array( 'suggested_fields', 'array', array() ),
 /*            array( 'assets/css', 'array/string', array() ),
             array( 'assets/js', 'array/string', array() )*/
         );
@@ -280,6 +281,18 @@ class WPBDP_Themes {
 
         if ( ! $this->_guess_theme_path_info( $info ) )
             return false;
+
+        $info->license_key = '';
+        $info->license_status = '';
+
+        if ( $license_data = get_option( 'wpbdp-themes-licenses', array() ) ) {
+            $theme_license = isset( $license_data[ $info->id ] ) ? $license_data[ $info->id ] : array();
+
+            $info->license_key = isset( $theme_license['license'] ) ? $theme_license['license'] : '';
+            $info->license_status = isset( $theme_license['status'] ) ? $theme_license['status'] : '';
+        }
+
+        $info->is_core_theme = in_array( $info->id, array( 'no_theme', 'default' ), true );
 
         return $info;
     }

@@ -6,7 +6,11 @@ echo wpbdp_admin_header( null, 'themes', array(
 echo wpbdp_admin_notices();
 ?>
 
-<div class="wpbdp-theme-selection cf">
+<div id="wpbdp-admin-page-themes-tabs">
+
+<?php echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-tabs.tpl.php' ); ?>
+
+<div id="wpbdp-theme-selection" class="wpbdp-theme-selection cf">
 <?php foreach ( $themes as &$t ): ?>
     <div class="wpbdp-theme <?php echo $t->id; ?> <?php echo ( $t->id == $active_theme ) ? 'active' : ''; ?>">
         <h3 class="wpbdp-theme-name">
@@ -46,6 +50,26 @@ echo wpbdp_admin_notices();
             <?php endif; ?>
     </div>
 <?php endforeach; ?>
+</div>
+
+<div id="wpbdp-theme-licenses" style="display: none;">
+    <table class="form-table">
+        <tbody>
+        <?php foreach ( $themes as $t ): ?>
+        <?php if ( $t->is_core_theme ): continue; endif; ?>
+            <tr>
+                <th scope="row">
+                    <?php echo $t->name; ?>
+                </th>
+                <td>
+                    <input type="textfield" size="25" name="licenses[<?php echo $t->id; ?>]" />
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
 </div>
 
 <?php

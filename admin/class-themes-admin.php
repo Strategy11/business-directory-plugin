@@ -5,9 +5,16 @@
 class WPBDP_Themes_Admin {
 
     private $api;
+    private $update_checker;
+
 
     function __construct( &$api ) {
         $this->api = $api;
+
+        require_once( WPBDP_PATH . 'core/helpers/class-themes-update-checker.php' );
+        $this->update_checker = new WPBDP_Themes_Update_Checker( $this->api );
+
+        add_action( 'wp_ajax_wpbdp-themes-activate-license', array( &$this, 'ajax_activate_license' ) );
 
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
@@ -58,9 +65,12 @@ class WPBDP_Themes_Admin {
         $theme_fields = $this->api->get_active_theme_data( 'suggested_fields' );
     }
 
-    function enqueue_scripts() {
+    function enqueue_scripts( $hook ) {
         global $wpbdp;
         global $pagenow;
+
+        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] )
+            return;
 
         $debug_on = $wpbdp->is_debug_on();
 
@@ -100,7 +110,7 @@ class WPBDP_Themes_Admin {
     }
 
     function dispatch() {
-        $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
+        $action = isset( $_GET['action'] ) ? $_GET['action'] : ( isset( $_GET['v'] ) ? $_GET['v'] : '' );
 
         switch ( $action ) {
             case 'theme-install':
@@ -108,6 +118,9 @@ class WPBDP_Themes_Admin {
                 break;
             case 'delete-theme':
                 return $this->theme_delete_confirm();
+                break;
+            case 'licenses':
+                return $this->theme_licenses();
                 break;
             case 'theme-selection':
             default:
@@ -251,6 +264,72 @@ class WPBDP_Themes_Admin {
             wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
 
         exit;
+    }
+
+    function ajax_activate_license() {
+        if ( ! current_user_can( 'administrator' ) )
+            die();
+
+        $nonce = $_POST['_wpnonce'];
+        $theme = $_POST['theme'];
+        $license = trim( $_POST['license'] );
+
+        if ( ! wp_verify_nonce( $nonce, 'activate ' . $theme ) )
+            die();
+
+        // Try to activate license.
+        $info = $this->api->get_theme( $theme );
+        if ( ! $info )
+            die();
+
+        $edd_name = isset( $info->edd_name ) ? $info->edd_name : '';
+        if ( ! $edd_name )
+            die();
+
+        // Try to activate theme.
+        $error = false;
+        $request_vars = array(
+            'edd_action' => 'activate_license',
+            'license' => $license,
+            'item_name' => urlencode( $edd_name ),
+            'url' => home_url()
+        );
+        $request = wp_remote_get( add_query_arg( $request_vars, 'http://bdtest.wpengine.com/' ), array( 'timeout' => 15, 'sslverify' => false ) );
+
+        if ( is_wp_error( $request ) )
+            $error = _x( 'Could not contact licensing server', 'licensing', 'WPBDM' );
+
+        if ( ! $error  ) {
+            $request_result = json_decode( wp_remote_retrieve_body( $request ) );
+
+            if ( ! is_object( $request_result ) || ! $request_result || ! isset( $request_result->license ) || 'valid' !== $request_result->license )
+                $error = _x( 'License key is invalid', 'licensing', 'WPBDM' );
+        }
+
+        $response = new WPBDP_Ajax_Response();
+        if ( $error )
+            return $response->send_error( sprintf( _x( 'Could not activate license: %s.', 'licensing', 'WPBDM' ), $error ) );
+
+        // Store license details.
+        $theme_licenses = get_option( 'wpbdp-themes-licenses', array() );
+        if ( ! is_array( $theme_licenses ) )
+            $theme_licenses = array();
+
+        $theme_licenses[ $theme ] = array( 'license' => $license,
+                                           'status' => 'valid',
+                                           'updated' => time() );
+
+        update_option( 'wpbdp-themes-licenses', $theme_licenses );
+
+        $response->set_message( _x( 'License activated', 'licensing', 'WPBDM' ) );
+        $response->send();
+    }
+
+    function theme_licenses() {
+        $themes = $this->api->get_installed_themes();
+
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-licenses.tpl.php',
+                                array( 'themes' => $themes ) );
     }
 
 }
