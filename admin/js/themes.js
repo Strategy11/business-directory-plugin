@@ -4,6 +4,14 @@ jQuery(function($) {
         $( this ).parents( 'div.error' ).fadeOut( 'fast' );
     } );
 
+    $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).attr( 'disabled', 'disabled' );
+    $( '#wpbdp-admin-page-themes-install input[name="themezip"]' ).change( function( e ) {
+        var v = $( this ).val();
+
+        if ( v )
+            $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).removeAttr( 'disabled' );
+    } );
+
     $( '#wpbdp-admin-page-themes form.license-activation' ).submit( function( e ) {
         e.preventDefault();
 
