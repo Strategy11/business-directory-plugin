@@ -1,7 +1,7 @@
 {
     "name": "3.x Template Display",
     "description": "This is the default look of Business Directory prior to BD version 4.0. If you customized your directory templates and don’t want to use our themes, use this option.",
-    "version": 1,
+    "version": "1.0",
     "author": "BD Team",
     "author_email": "support@businessdirectoryplugin.com",
     "author_url": "http://businessdirectoryplugin.com",
