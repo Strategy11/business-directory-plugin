@@ -5,14 +5,14 @@
 class WPBDP_Themes_Admin {
 
     private $api;
-    private $update_checker;
+    private $updater;
 
 
     function __construct( &$api ) {
         $this->api = $api;
 
-        require_once( WPBDP_PATH . 'core/helpers/class-themes-update-checker.php' );
-        $this->update_checker = new WPBDP_Themes_Update_Checker( $this->api );
+        require_once( WPBDP_PATH . 'core/helpers/class-themes-updater.php' );
+        $this->updater = new WPBDP_Themes_Updater( $this->api );
 
         add_action( 'wp_ajax_wpbdp-themes-activate-license', array( &$this, 'ajax_activate_license' ) );
 

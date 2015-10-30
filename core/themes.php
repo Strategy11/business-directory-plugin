@@ -12,10 +12,7 @@ class WPBDP_Themes {
 
 
     function __construct() {
-        if ( is_admin() ) {
-            require_once( WPBDP_PATH . 'admin/class-themes-admin.php' );
-            $this->admin = new WPBDP_Themes_Admin( $this );
-        }
+        $this->find_themes();
 
         // Theme template dir is priority 1.
         $theme = $this->get_active_theme_data();
@@ -24,6 +21,9 @@ class WPBDP_Themes {
         // Core templates are last priority.
         $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'core/templates' );
 
+        // Add some extra data to theme information.
+        $this->add_theme_data();
+
         // Load special theme .php file.
         $this->call_theme_function( '' );
         $this->call_theme_function( 'init' );
@@ -31,6 +31,10 @@ class WPBDP_Themes {
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
         add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 
+        if ( is_admin() ) {
+            require_once( WPBDP_PATH . 'admin/class-themes-admin.php' );
+            $this->admin = new WPBDP_Themes_Admin( $this );
+        }
     }
 
     function call_theme_function( $fname, $args = array() ) {
@@ -94,6 +98,10 @@ class WPBDP_Themes {
         return $a;
     }
 
+    function get_themes_dir() {
+        return WP_CONTENT_DIR . '/businessdirectory-themes/';
+    }
+
     function get_themes_directories() {
         $res = array();
 
@@ -113,7 +121,15 @@ class WPBDP_Themes {
         if ( ! empty( $this->themes ) )
             return $this->themes;
 
-        $themes = array();
+        $this->find_themes();
+        return $this->themes;
+    }
+
+    function find_themes( $reload = false ) {
+        if ( ! empty( $this->themes ) && ! $reload )
+            return;
+
+        $this->themes = array();
 
         foreach ( $this->get_themes_directories() as $path => $url ) {
             $dirs = WPBDP_FS::ls( $path, 'filter=dir' );
@@ -127,12 +143,9 @@ class WPBDP_Themes {
                 if ( ! $info )
                     continue;
 
-                $themes[ $info->id ] = $info;
+                $this->themes[ $info->id ] = $info;
             }
         }
-
-        $this->themes = $themes;
-        return $themes;
     }
 
     /**
@@ -234,7 +247,7 @@ class WPBDP_Themes {
             array( 'name', 'string', basename( $d ) ),
             array( 'edd_name', 'string', '' ),
             array( 'description', 'string', '' ),
-            array( 'version', 'int', 0 ),
+            array( 'version', 'string', '0' ),
             array( 'author', 'string', '' ),
             array( 'author_email', 'email', '' ),
             array( 'author_url', 'url', '' ),
@@ -256,7 +269,7 @@ class WPBDP_Themes {
                 case 'string':
                 case 'email':
                 case 'url':
-                    $value = is_string( $value ) ? $value : null;
+                    $value = is_string( $value ) ? $value : strval( $value );
                     break;
 
                 case 'int':
@@ -282,19 +295,24 @@ class WPBDP_Themes {
         if ( ! $this->_guess_theme_path_info( $info ) )
             return false;
 
-        $info->license_key = '';
-        $info->license_status = '';
-
-        if ( $license_data = get_option( 'wpbdp-themes-licenses', array() ) ) {
-            $theme_license = isset( $license_data[ $info->id ] ) ? $license_data[ $info->id ] : array();
-
-            $info->license_key = isset( $theme_license['license'] ) ? $theme_license['license'] : '';
-            $info->license_status = isset( $theme_license['status'] ) ? $theme_license['status'] : '';
-        }
-
-        $info->is_core_theme = in_array( $info->id, array( 'no_theme', 'default' ), true );
-
         return $info;
+    }
+
+    function add_theme_data() {
+        foreach ( $this->themes as &$t ) {
+            $t->license_key = '';
+            $t->license_status = '';
+
+            if ( $license_data = get_option( 'wpbdp-themes-licenses', array() ) ) {
+                $theme_license = isset( $license_data[ $t->id ] ) ? $license_data[ $t->id ] : array();
+
+                $t->license_key = isset( $theme_license['license'] ) ? $theme_license['license'] : '';
+                $t->license_status = isset( $theme_license['status'] ) ? $theme_license['status'] : '';
+            }
+
+            $t->is_core_theme = in_array( $t->id, array( 'no_theme', 'default' ), true );
+            $t->active = ( $t->id == $this->get_active_theme() );
+        }
     }
 
     function _guess_theme_path_info( &$theme ) {

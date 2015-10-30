@@ -112,7 +112,7 @@ final class WPBDP_FS {
                                  sprintf( _x( 'Destination dir "%s" is not writable.', 'fs helper', 'WPBDM' ), $destdir ) );
         }
 
-        $normalized = basename( strtolower( $zipfile ), '.zip' );
+        $normalized = basename( basename( strtolower( $zipfile ), '.zip' ), '.tmp' );
         $destdir = untrailingslashit( $destdir );
 
         $zip = new PclZip( $zipfile );

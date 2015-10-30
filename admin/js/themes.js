@@ -33,7 +33,34 @@ jQuery(function($) {
             $( 'input[type="submit"]', $form ).hide();
             $( 'input[name="license"]', $form ).attr( 'readonly', 'readonly' );
         }, 'json' );
+    } );
+
+    $( '#wpbdp-admin-page-themes .wpbdp-theme .update-link' ).click( function( e ) {
+        e.preventDefault();
+
+        var $theme = $( this ).parents( '.wpbdp-theme' );
+        var $info = $( '.wpbdp-theme-update-info', $theme );
+        var $msg = $( '.update-message', $info );
+
+        $msg.html( $info.attr( 'data-l10n-updating' ) );
+
+        $.post( ajaxurl, {
+            'action': 'wpbdp-themes-update',
+            '_wpnonce': $( this ).attr( 'data-nonce' ),
+            'theme': $( this ).attr( 'data-theme-id' ) }, function( res ) {
+                if ( ! res.success ) {
+                    $info.addClass( 'update-error' );
+                    $msg.html( res.error );
+                    return;
+                }
+
+                var $html = $( res.data.html );
+                $( '.wpbdp-theme-details-wrapper', $theme ).replaceWith( $( '.wpbdp-theme-details-wrapper', $html ) );
+                $info.removeClass( 'update-available' ).addClass( 'theme-updated' );
+                $msg.html( $info.attr( 'data-l10n-updated' ) );
+        }, 'json' );
 
     } );
+
 });
 

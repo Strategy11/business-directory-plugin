@@ -1,4 +1,5 @@
 .wpbdp-theme {
+    max-width: 310px;
     float: left;
     display: block;
     margin:  10px 10px 10px 0;
@@ -9,6 +10,14 @@
 
 .wpbdp-theme.active {
     border: 1px solid #2f2f2f;
+}
+
+.wpbdp-theme-actions form { margin: 0; padding: 0; display: inline; }
+.wpbdp-theme-actions form input[type="submit"] { margin: 0; }
+
+.wpbdp-theme-details-wrapper {
+    display: block;
+    position: relative;
 }
 
 .wpbdp-theme-thumbnail {
@@ -65,7 +74,7 @@
 .wpbdp-theme:hover .wpbdp-theme-details {
     display: block;
     position: absolute;
-    top: 20%;
+    top: 15%;
     bottom: 20%;
     left: 5%;
     right: 5%;
@@ -108,15 +117,14 @@
     bottom: 10px;
     color: #fff;
     text-decoration: none;
-    font-size: 10px;
-    text-transform: uppercase;
+    font-size: 9px;
     background: #900000;
     padding: 2px 5px;
     border-radius: 2px;
 }
 
 .wpbdp-theme:hover a.delete-theme-link {
-    display: block;
+    display: inline-block;
 }
 
 #wpbdp-admin-page-theme-delete #delete-theme {
@@ -129,4 +137,39 @@
     border-color: #d54e21;
     color: #fff;
     box-shadow: none;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info {
+    padding: 5px 10px;
+    border-top: solid 2px;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info.update-available {
+    background: #fef7f1;
+    border-color: #D34F2B;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info.theme-updated {
+    background: #F7FCFE;
+    border-color: #1AA1D0;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info.update-error {
+    border-color: red;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info .update-message {
+    padding: 2px 4px;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info.update-available .update-message {
+    background: #fcf3ef;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info.update-error .update-message {
+    color: red;
+}
+
+.wpbdp-theme .wpbdp-theme-update-info.theme-updated .update-message {
+    background: #F0F5F7;
 }
