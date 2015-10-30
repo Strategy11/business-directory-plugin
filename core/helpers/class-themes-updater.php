@@ -18,6 +18,20 @@ class WPBDP_Themes_Updater {
         add_action( 'wpbdp-admin-themes-extra', array( &$this, '_show_update_info' ) );
     }
 
+    public function get_updates_count() {
+        if ( ! $this->data )
+            return 0;
+
+        $count = 0;
+
+        foreach ( array_keys( $this->data ) as $theme_id ) {
+            if ( $this->get_update_info( $theme_id ) )
+                $count++;
+        }
+
+        return $count;
+    }
+
     private function check_for_updates() {
         $data = get_transient( 'wpbdp-themes-updates' );
         if ( ! is_array( $data ) )

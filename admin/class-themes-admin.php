@@ -30,9 +30,16 @@ class WPBDP_Themes_Admin {
     }
 
     function admin_menu( $slug ) {
+        $count = $this->updater->get_updates_count();
+
+        if ( $count )
+            $count_html = '<span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
+        else
+            $count_html = '';
+
         add_submenu_page( $slug,
                           _x( 'Directory Themes', 'themes', 'WPBDM' ),
-                          _x( 'Directory Themes', 'themes', 'WPBDM' ),
+                          sprintf( _x( 'Directory Themes %s', 'themes', 'WPBDM' ), $count_html ),
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
