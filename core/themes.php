@@ -60,6 +60,11 @@ class WPBDP_Themes {
                               $theme->url . 'assets/' . $c );
         }
 
+        if ( 'theme' == wpbdp_get_option( 'themes-button-style' ) && file_exists( $theme->path . 'assets/buttons.css' ) ) {
+            wp_enqueue_style( $theme->id . '-buttons',
+                              $theme->url . 'assets/buttons.css' );
+        }
+
         foreach ( $js as $j ) {
             wp_enqueue_script( $theme->id . '-' . $this->_normalize_asset_name( $j ),
                                $theme->url . 'assets/' . $j );

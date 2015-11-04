@@ -569,6 +569,21 @@ EOF;
                                         ) );
         $this->register_dep( 'payment-abandonment-threshold', 'requires-true', 'payment-abandonment' );
 
+        // TODO: we probably should merge this and 'Images' into an 'Appearance' tab.
+        if ( wpbdp_experimental( 'themes' ) ) {
+            $g = $this->add_group( 'themes', _x( 'Themes', 'admin settings', 'WPBDM' ) );
+            $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
+
+            $this->add_setting( $s,
+                                'themes-button-style',
+                                _x( 'Theme button style', 'admin settings', 'WPBDM' ),
+                                'choice',
+                                'theme',
+                                '',
+                                array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
+                                                           array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
+                                       'use_checkboxes' => false ) );
+        }
 
         /* Registration settings */
         $g = $this->add_group( 'registration',
@@ -622,7 +637,7 @@ EOF;
                             'boolean',
                             false,
                             _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'admin settings', 'WPBDM' )
-                           );
+                        );
 
         $s = $this->add_section($g, 'listings', _x('Listings', 'admin settings', 'WPBDM'));
         $this->add_setting( $s,
