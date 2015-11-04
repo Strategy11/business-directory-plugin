@@ -37,5 +37,5 @@
 	<?php echo $recaptcha; ?>
 	<?php endif; ?>	
 
-	<input type="submit" class="submit" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />
+	<input type="submit" class="wpbdp-button wpbdp-submit submit" value="<?php _ex('Send', 'templates', 'WPBDM'); ?>" />
 </form>

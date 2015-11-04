@@ -23,8 +23,8 @@ $api = wpbdp_formfields_api();
     <?php do_action('wpbdp_after_search_fields'); ?>
 
     <p>
-        <input type="reset" class="reset" value="<?php _ex( 'Clear', 'search', 'WPBDM' ); ?> " onclick="window.location.href = '<?php echo wpbdp_get_page_link( 'search' ); ?>';" />
-        <input type="submit" class="submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" />
+        <input type="reset" class="wpbdp-button reset" value="<?php _ex( 'Clear', 'search', 'WPBDM' ); ?> " onclick="window.location.href = '<?php echo wpbdp_get_page_link( 'search' ); ?>';" />
+        <input type="submit" class="wpbdp-submit wpbdp-button submit" value="<?php _ex('Search', 'search', 'WPBDM'); ?>" />
     </p>
 </form>
 </div>

@@ -28,7 +28,7 @@ class WPBDP_Themes {
         $this->call_theme_function( '' );
         $this->call_theme_function( 'init' );
 
-        add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 20 );
+        add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 999 );
         add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 
         if ( is_admin() ) {
