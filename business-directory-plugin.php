@@ -316,12 +316,14 @@ class WPBDP_Plugin {
     }
 
     public function _posts_orderby($orderby, $query) {
+        global $wpdb;
+
         if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE) {
             $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
 
             if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
                 if ( 'paid-title' == wpbdp_get_option( 'listings-order-by' ) )
-                    $orderby = 'wp_posts.post_title ASC, ' . $orderby;
+                    $orderby = "{$wpdb->posts}post_title ASC, " . $orderby;
 
                 $orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
             } else {
