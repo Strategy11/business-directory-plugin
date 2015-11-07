@@ -117,15 +117,24 @@ class WPBDP_FeesAPI {
     public function get_fee_by_id($id) {
         global $wpdb;
 
-        if ($id == 0)
+        $id = absint( $id );
+
+        if ( 0 == $id )
             return $this->get_free_fee();
 
-        if ($fee = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $id))) {
-            $this->normalize($fee);
-            return $fee;
+        $fee = wp_cache_get( $id, 'wpbdp fees' );
+
+        if ( ! $fee ) {
+            $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $id ) );
+
+            if ( ! $fee )
+                return null;
+
+            $this->normalize( $fee );
+            wp_cache_set( $id, $fee, 'wpbdp fees' );
         }
 
-        return null;
+        return $fee;
     }
 
     public function is_valid_fee($fee=array(), &$errors=null) {

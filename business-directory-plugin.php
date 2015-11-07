@@ -122,7 +122,7 @@ class WPBDP_Plugin {
         $this->compat = new WPBDP_Compat();
 
         // Register cache groups.
-        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp submit state', 'wpbdp' ) );
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
 
         // Register some basic JS resources.
         add_action( 'wp_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
