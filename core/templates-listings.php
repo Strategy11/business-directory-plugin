@@ -1,6 +1,6 @@
 <?php
 if ( wpbdp_experimental( 'themes' ) )
-    require_once ( WPBDP_PATH . 'core/class-listing-display-helper.php' );
+    require_once ( WPBDP_PATH . 'core/helpers/class-listing-display-helper.php' );
 
 
 /**
