@@ -20,16 +20,16 @@
 		</p>
 	<?php else: ?>
 			<p>
-			   <label style="width:4em;"><?php _ex('Your Name', 'templates', 'WPBDM'); ?></label>
+			   <label><?php _ex('Your Name', 'templates', 'WPBDM'); ?></label>
 			   <input type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr(wpbdp_getv($_POST, 'commentauthorname', '')); ?>" />
 			</p>
 			<p>
-				<label style="width:4em;"><?php _ex("Your Email", 'templates', "WPBDM"); ?></label>
+				<label><?php _ex("Your Email", 'templates', "WPBDM"); ?></label>
 				<input type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr(wpbdp_getv($_POST, 'commentauthoremail')); ?>" />
 			</p>
 	<?php endif; ?>
 
-	<p><label style="width:4em;"><?php _ex("Message", 'templates', "WPBDM"); ?></label><br/>
+	<p><label><?php _ex("Message", 'templates', "WPBDM"); ?></label><br/>
 	   <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
 	</p>
 
