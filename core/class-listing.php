@@ -215,14 +215,23 @@ class WPBDP_Listing {
     public function get_categories( $info = 'current' ) {
         global $wpdb;
 
-        $current_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND (expires_on >= %s OR expires_on IS NULL)",
-                                                   $this->id,
-                                                   current_time( 'mysql' ) ) );
-        $expired_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND expires_on IS NOT NULL AND expires_on < %s",
-                                                   $this->id,
-                                                   current_time( 'mysql' ) ) );
-        
-        // Pending info.
+        $current_ids = array();
+        $expired_ids = array();
+        $pending_ids = array();
+        $known = array();
+
+        foreach ( $wpdb->get_results( $wpdb->prepare(
+                    "SELECT *, IF ( expires_on >= %s OR expires_on IS NULL, 0, 1 ) AS _expired FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d",
+                    current_time( 'mysql' ),
+                    $this->id ) ) as $r ) {
+            $known[ $r->category_id ] = $r;
+
+            if ( 1 == $r->_expired )
+                $expired_ids[] = $r->category_id;
+            else
+                $current_ids[] = $r->category_id;
+        }
+
         $pending_payments = $wpdb->get_results( $wpdb->prepare( "SELECT pi.payment_id, pi.id, pi.rel_id_1 FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type IN (%s, %s) AND p.status = %s AND p.listing_id = %d",
                                                                 'fee', 'recurring_fee',
                                                                 'pending',
@@ -231,7 +240,6 @@ class WPBDP_Listing {
         $pending = array();
         foreach ( $pending_payments as &$p ) {
             $pending[ intval( $p->rel_id_1 ) ] = $p->id;
-//            $pending_payment_ids[ intval( $p->rel_id_1 ) ] = $p->payment_id;
         }
 
         $pending_ids = array_keys( $pending );
@@ -268,7 +276,8 @@ class WPBDP_Listing {
                 switch ( $category->status ) {
                     case 'expired':
                     case 'ok':
-                        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
+                        $fee_info = $known[ $category_id ];
+                        //$fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
                         $fee_info_recurring_data = unserialize( $fee_info->recurring_data );
                         
                         if ( ! $fee_info ) {
