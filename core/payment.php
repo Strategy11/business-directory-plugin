@@ -624,7 +624,7 @@ class WPBDP_PaymentsAPI {
         $html .= '<h4>' . _x( 'Payment Method', 'checkout', 'WPBDM' ) . '</h4>';
 
         $html .= '<select name="payment_method">';
-        $html .= '<option value="">-- Select a payment method --</option>';
+        $html .= '<option value="none">-- Select a payment method --</option>';
         foreach ( $payment_methods as $method_id ) {
             $html .= '<option value="' . $method_id . '">' . $this->gateways[ $method_id ]->get_name() . '</option>';
         }

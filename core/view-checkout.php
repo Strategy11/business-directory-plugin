@@ -76,7 +76,7 @@ class WPBDP_Checkout_Page extends WPBDP_View {
         if ( isset( $_POST['payment_method'] ) ) {
             $payment_method = trim( $_POST['payment_method'] );
 
-            if ( ! $payment_method ) {
+            if ( ! $payment_method || 'none' == $payment_method ) {
 //                $html .= wpbdp_render_msg( _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' ), 'error' );
             } else {
                 $this->payment->set_payment_method( $payment_method );
