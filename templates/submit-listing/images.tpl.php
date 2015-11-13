@@ -27,6 +27,7 @@ $thumbnail_id = ! isset( $thumbnail_id ) ? 0 : intval( $thumbnail_id );
     echo wpbdp_render( 'submit-listing/images-upload-form',
                        array( 'slots' => $image_slots,
                               'slots_available' => $image_slots_remaining,
+                              'min_file_size' => $image_min_file_size,
                               'max_file_size' => $image_max_file_size,
                               'state_id' => $_state->id ),
                        false );

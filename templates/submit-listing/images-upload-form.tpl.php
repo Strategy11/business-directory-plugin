@@ -46,6 +46,13 @@ if ( $admin && $listing_id ) {
                     <span id="image-slots-remaining"><?php echo $slots_available; ?></span> / <span id="image-slots-total"><?php echo $slots; ?></span>
                 </dd>
 
+                <?php if ( $min_file_size ): ?>
+                <dt><?php _ex( 'Min. file size:', 'templates', 'WPBDM' ); ?></dt>
+                <dd>
+                    <?php echo $min_file_size; ?>
+                </dd>
+                <?php endif; ?>
+
                 <dt><?php _ex( 'Max. file size:', 'templates', 'WPBDM' ); ?></dt>
                 <dd>
                     <?php echo $max_file_size; ?>

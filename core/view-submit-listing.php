@@ -341,6 +341,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $images = $this->state->images;
         $thumbnail_id = $this->state->thumbnail_id;
         $image_slots_remaining = $image_slots - count( $images );
+        $image_min_file_size = size_format( intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024 );
         $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
 
         // Set thumbnail.
@@ -354,6 +355,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         return $this->render( 'images',
                               compact( 'image_max_file_size',
+                                       'image_min_file_size',
                                        'images',
                                        'image_slots',
                                        'image_slots_remaining' )
