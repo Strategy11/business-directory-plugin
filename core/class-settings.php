@@ -90,11 +90,20 @@ class WPBDP_Settings {
         $s = $this->add_section( $g,
                                  'search',
                                  _x( 'Directory Search', 'admin settings', 'WPBDM' ) );
+//        $this->add_setting( $s,
+//                            'show-search-form-in-results',
+//                            _x( 'Display search form when displaying search results?', 'admin settings', 'WPBDM' ),
+//                            'boolean',
+//                            true );
         $this->add_setting( $s,
-                            'show-search-form-in-results',
-                            _x( 'Display search form when displaying search results?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            true );
+                            'search-form-in-results',
+                            _x( 'Search form display', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'above',
+                            '',
+                            array( 'choices' => array( array( 'above', _x( 'Above results', 'admin settings', 'WPBDM' ) ),
+                                                       array( 'below', _x( 'Below results', 'admin settings', 'WPBDM' ) ),
+                                                       array( 'none', _x( 'Don\'t show with results', 'admin settings', 'WPBDM' ) ) ) ) );
 
         // Quick search fields.
         $desc  = '';

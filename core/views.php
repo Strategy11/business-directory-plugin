@@ -583,11 +583,17 @@ class WPBDP_DirectoryController {
         query_posts( $args );
         wpbdp_push_query( $GLOBALS['wp_query'] );
 
+        $searching = isset( $_GET['dosrch'] ) ? true : false;
+        $search_form = '';
+
+        if ( ! $searching || 'none' != wpbdp_get_option( 'search-form-in-results' ) )
+            $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields ) );
+
         $html = wpbdp_render( 'search',
-                               array( 
+                               array( 'search_form' => $search_form,
+                                      'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
                                       'fields' => $fields,
-                                      'searching' => isset( $_GET['dosrch'] ) ? true : false,
-                                      'show_form' => !isset( $_GET['dosrch'] ) || wpbdp_get_option( 'show-search-form-in-results' )
+                                      'searching' => $searching
                                     ),
                               false );
         wp_reset_query();

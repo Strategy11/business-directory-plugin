@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '7';
+    const DB_VERSION = '8';
 
     private $installed_version = null;
 
@@ -150,7 +150,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -864,6 +864,12 @@ class WPBDP_Installer {
                 $wpdb->update( $wpdb->postmeta, array( 'meta_value' => $v ), array( 'meta_id' => $lv->meta_id ) );
             }
         }
+    }
+
+    public function upgrade_to_8() {
+        if ( get_option( WPBDP_Settings::PREFIX . 'show-search-form-in-results', false ) )
+            update_option( WPBDP_Settings::PREFIX . 'search-form-in-results', 'above' );
+        delete_option( WPBDP_Settings::PREFIX . 'show-search-form-in-results' );
     }
 
 }
