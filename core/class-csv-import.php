@@ -270,7 +270,9 @@ class WPBDP_CSV_Import {
     private function read_header() {
         $file = new SplFileObject( $this->csv_file );
 
-        $this->set_header( str_getcsv( $file->current(), $this->settings['csv-file-separator'] ) );
+        $header_line = $this->remove_bom( $file->current() );
+
+        $this->set_header( str_getcsv( $header_line, $this->settings['csv-file-separator'] ) );
         $file->next();
         $this->current_line = $file->key();
         $file = null;
@@ -604,6 +606,13 @@ class WPBDP_CSV_Import {
         rename( $filepath . '.backup', $filepath );
 
         return $media_id;
+    }
+
+    private function remove_bom( $str ) {
+        if ( substr( $str, 0, 3 ) == pack( "CCC", 0xef, 0xbb, 0xbf ) )
+            $str = substr( $str, 3 );
+
+        return $str;
     }
 
 }
