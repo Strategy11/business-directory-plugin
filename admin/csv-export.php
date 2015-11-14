@@ -301,6 +301,8 @@ class WPBDP_CSVExporter {
     }
 
     private function extract_data( $post_id ) {
+        global $wpdb;
+
         $post = get_post( $post_id );
 
         if ( !$post || $post->post_type != WPBDP_POST_TYPE )
@@ -358,19 +360,20 @@ class WPBDP_CSVExporter {
                     break;
 
                 case 'expires_on':
+                    $value = '';
                     $terms = wp_get_post_terms( $post->ID,
                                                 WPBDP_CATEGORY_TAX,
                                                 'fields=ids' );
+                    $expiresdata = $wpdb->get_results( $wpdb->prepare( "SELECT category_id, expires_on FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post->ID ) );
+                    $expiresdata = wp_list_pluck( $data, 'expires_on', 'category_id' );
                     $expiration_dates = array();
 
                     foreach ( $terms as $term_id ) {
-                        if ( $fee = $listings_api->get_listing_fee_for_category( $post->ID, $term_id ) ) {
-                            $expiration_dates[] = $fee->expires_on;
-                        } else {
+                        if ( isset( $expiresdata[ $term_id ] ) )
+                            $expiration_dates[] = $expiresdata[ $term_id ];
+                        else
                             $expiration_dates[] = '';
-                        }
                     }
-
                     $value = implode( '/', $expiration_dates );
 
                     break;
