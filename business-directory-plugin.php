@@ -664,6 +664,7 @@ class WPBDP_Plugin {
                                                'businessdirectory_search' ),
                                         array( &$this->controller, 'search' ) );
         $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
+        $shortcodes['businessdirectory-listing'] = array( &$this, '_single_listing_shortcode' );
 
         return apply_filters( 'wpbdp_shortcodes', $shortcodes );
     }
@@ -953,6 +954,19 @@ class WPBDP_Plugin {
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
 
         return $this->controller->view_featured_listings( $atts );
+    }
+
+    /**
+     * @since next-release
+     */
+    function _single_listing_shortcode( $atts ) {
+        $atts = shortcode_atts( array( 'id' => null, 'slug' => null ), $atts );
+        $listing_id = wpbdp_get_post_by_id_or_slug( $atts['id'] ? $atts['id'] : $atts['slug'], 'id', 'id' );
+
+        if ( ! $listing_id )
+            return '';
+
+        return wpbdp_render_listing( $listing_id, 'single' );
     }
 
     /* theme filters */
