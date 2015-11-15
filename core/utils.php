@@ -3,6 +3,7 @@ require_once( WPBDP_PATH . 'core/debugging.php' );
 require_once( WPBDP_PATH . 'core/class-email.php' );
 require_once( WPBDP_PATH . 'core/class-ajax-response.php' );
 require_once( WPBDP_PATH . 'core/helpers/class-fs.php' );
+require_once( WPBDP_PATH . 'core/class-utils.php' );
 
 
 /**
@@ -234,7 +235,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
                 if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
                     $error_msg = sprintf( _x( 'Image height (%s px) is greater than maximum required height of %s px.', 'utils', 'WPBDM' ),
                                           $meta['height'],
-                                          $constraints['max-height'] );
+                                         $constraints['max-height'] );
                 }
 
                 if ( $failed ) {
