@@ -52,6 +52,7 @@ function _wpbdp_render_single() {
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_before_single_view', $post->ID);
 
+    $sticky_status = wpbdp_listings_api()->get_sticky_status( $post->ID );
     $sticky_tag = '';
     if ($sticky_status == 'sticky')
         $sticky_tag = sprintf('<div class="stickytag"><img src="%s" alt="%s" border="0" title="%s"></div>',
@@ -142,6 +143,8 @@ function _wpbdp_render_excerpt() {
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'excerpt' );
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
     $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
+
+    $sticky_status = wpbdp_listings_api()->get_sticky_status( $post->ID );
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
