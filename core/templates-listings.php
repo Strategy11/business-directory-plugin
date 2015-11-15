@@ -45,15 +45,10 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
 function _wpbdp_render_single() {
     global $post;
 
-    $html = '';
-
-    $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
-
-    $html .= sprintf( '<div id="wpbdp-listing-%d" class="wpbdp-listing wpbdp-listing-single %s %s %s" itemscope itemtype="http://schema.org/LocalBusiness">',
+    $html  = '';
+    $html .= sprintf( '<div id="wpbdp-listing-%d" class="%s" itemscope itemtype="http://schema.org/LocalBusiness">',
                       $post->ID,
-                      'single',
-                      $sticky_status,
-                      apply_filters( 'wpbdp_listing_view_css', '', $post->ID ) );
+                      wpbdp_listing_css_class( array( 'single', 'wpbdp-listing-single' ) ) );
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_before_single_view', $post->ID);
 
@@ -136,15 +131,13 @@ function _wpbdp_render_excerpt() {
     global $post;
     static $counter = 0;
 
-    $sticky_status = wpbdp_listings_api()->get_sticky_status($post->ID);
-
     $html = '';
-    $html .= sprintf('<div id="wpbdp-listing-%d" class="wpbdp-listing excerpt wpbdp-listing-excerpt %s %s %s cf">',
+    $html .= sprintf('<div id="wpbdp-listing-%d" class="%s">',
                      $post->ID,
-                     $sticky_status,
-                     ($counter & 1) ? 'odd':  'even',
-                     apply_filters( 'wpbdp_excerpt_view_css', '', $post->ID ) );
-    $html .= wpbdp_capture_action('wpbdp_before_excerpt_view', $post->ID);
+                     wpbdp_listing_css_class( array( ( $counter & 1 ) ? 'odd' : 'even',
+                                                     'excerpt',
+                                                     'wpbdp-listing-excerpt' ) ) );
+    $html .= wpbdp_capture_action( 'wpbdp_before_excerpt_view', $post->ID );
 
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'excerpt' );
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
@@ -199,4 +192,50 @@ function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_it
     $html .= $after;
 
     return $html;
+}
+
+/**
+ * @since next-release
+ */
+function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
+    global $wpdb;
+    global $post;
+
+    if ( ! $post_id && $post )
+        $post_id = $post->ID;
+
+    if ( WPBDP_POST_TYPE != get_post_type( $post_id ) )
+        return '';
+
+    $css_classes = array();
+    $css_classes[] = 'wpbdp-listing';
+    $css_classes[] = 'wpbdp-listing-' . $post_id;
+    $css_classes[] = 'cf';
+
+    if ( is_string( $class_ ) )
+        $css_classes = array_merge( $css_classes, explode( ' ', $class_ ) );
+    elseif ( is_array( $class_ ) )
+        $css_classes = array_merge( $css_classes, $class_ );
+
+    // Sticky status.
+    $sticky = wpbdp_listings_api()->get_sticky_status( $post_id );
+    $css_classes[] = $sticky; // For backwards compat.
+    $css_classes[] = 'wpbdp-' . $sticky;
+    $css_classes[] = 'wpbdp-level-' . $sticky;
+
+    // Fees and categories.
+    $listing = WPBDP_Listing::get( $post_id );
+    foreach ( $listing->get_categories() as $c ) {
+        $css_classes[] = 'wpbdp-listing-category-' . $c->term_id;
+        $css_classes[] = 'wpbdp-listing-category-' . $c->slug;
+
+        $css_classes[] = 'wpbdp-listing-fee-' . $c->fee_id;
+
+        if ( isset( $c->fee ) && isset( $c->fee->label ) )
+            $css_classes[] = 'wpbdp-listing-fee-' . WPBDP_Utils::normalize( $c->fee->label );
+    }
+
+    $css_classes = apply_filters( 'wpbdp_listing_css_class', $css_classes, $post_id );
+
+    return implode( ' ', $css_classes );
 }
