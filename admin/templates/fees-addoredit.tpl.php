@@ -95,6 +95,17 @@ $fee = isset($fee) ? $fee : null;
 						   value="<?php echo wpbdp_getv($post_values, 'images', $fee ? $fee->images : '0'); ?>"
 						   style="width: 80px;" />
 				</td>
+            </tr>
+			<tr class="form-field form-required">
+				<th scope="row">
+					<label> <?php _ex('Is sticky?', 'fees admin', 'WPBDM'); ?></label>
+				</th>
+				<td>
+					<input name="fee[sticky]"
+						   type="checkbox"
+                           value="1"
+                           <?php echo wpbdp_getv( $post_values, 'sticky', $fee ? $fee->sticky : false ) ? 'checked="checked"' : ''; ?>" />
+				</td>
 			</tr>
 			<?php
 			$post_values_categories = wpbdp_getv(isset($post_values['categories']) ? $post_values['categories'] : array(), 'categories', $fee ? $fee->categories['categories'] : array());

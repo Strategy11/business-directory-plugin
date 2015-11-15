@@ -186,6 +186,7 @@ class WPBDP_Listing {
         $fee_info['fee_days'] = intval( isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'] );
         $fee_info['fee_images'] = intval( isset( $fee['images'] ) ? $fee['images'] : $fee['fee_images'] );
         $fee_info['recurring'] = $recurring ? 1 : 0;
+        $fee_info['sticky'] = $fee['sticky'];
 
         if ( isset( $recurring_data ) )
             $fee_info['recurring_data'] = serialize( $recurring_data );

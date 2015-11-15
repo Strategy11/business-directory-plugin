@@ -80,7 +80,8 @@ class WPBDP_Installer {
             images smallint unsigned NOT NULL DEFAULT 0,
             categories blob NOT NULL,
             extra_data blob NULL,
-            weight int(5) NOT NULL DEFAULT 0
+            weight int(5) NOT NULL DEFAULT 0,
+            sticky tinyint(1) NOT NULL DEFAULT 0
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
@@ -121,7 +122,8 @@ class WPBDP_Installer {
             email_sent tinyint(1) NOT NULL DEFAULT 0,
             recurring tinyint(1) NOT NULL DEFAULT 0,
             recurring_id varchar(255) NULL,
-            recurring_data blob NULL
+            recurring_data blob NULL,
+            sticky tinyint(1) NOT NULL DEFAULT 0
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (

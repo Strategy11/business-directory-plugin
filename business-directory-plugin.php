@@ -302,6 +302,22 @@ class WPBDP_Plugin {
             $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
                                                '_wpbdp[sticky]', 'sticky');
 
+            // Handle fee-based sticky listings.
+            if ( 'browsecategory' == wpbdp_current_action() ) {
+                $cat_id = wpbdp_current_category_id();
+
+                if ( $cat_id && is_numeric( $cat_id ) ) {
+                    $cat_sticky = $wpdb->prepare( "(SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d AND lf.category_id = %d LIMIT 1 ) AS wpbdp_cat_sticky",
+                                                  1,
+                                                  $cat_id );
+                    $is_sticky_query .= ', ' . $cat_sticky;
+                } else {
+                    $is_sticky_query .=', (SELECT 0) AS wpbdp_cat_sticky';
+                }
+            } else {
+                $is_sticky_query .=', (SELECT 0) AS wpbdp_cat_sticky';
+            }
+
             if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
                 $is_paid_query = "(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments pp WHERE pp.listing_id = {$wpdb->posts}.ID AND pp.amount > 0 LIMIT 1 ) AS wpbdp_is_paid";
                 $fields = $fields . ', ' . $is_sticky_query . ', ' . $is_paid_query;
@@ -325,9 +341,9 @@ class WPBDP_Plugin {
                 if ( 'paid-title' == wpbdp_get_option( 'listings-order-by' ) )
                     $orderby = "{$wpdb->posts}post_title ASC, " . $orderby;
 
-                $orderby = 'wpbdp_is_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
+                $orderby = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
             } else {
-                $orderby = 'wpbdp_is_sticky DESC' . $wpbdp_orderby . ', ' . $orderby;
+                $orderby = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC ' . $wpbdp_orderby . ', ' . $orderby;
             }
 
             $orderby = apply_filters( 'wpbdp_query_full_orderby', $orderby );

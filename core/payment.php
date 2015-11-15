@@ -193,6 +193,11 @@ class WPBDP_FeesAPI {
         if (!$fee['categories']['categories'])
             $fee['categories']['all'] = true;
 
+        if ( isset( $fee['sticky'] ) && $fee['sticky'] )
+            $fee['sticky'] = 1;
+        else
+            $fee['sticky'] = 0;
+
         // TODO: delete unnecessary categories: if a parent of a category is in the list, remove the category
 
         if ($this->is_valid_fee($fee, $errors)) {
