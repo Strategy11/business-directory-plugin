@@ -609,7 +609,7 @@ EOF;
                             _x( 'Login URL', 'admin settings', 'WPBDM'),
                             'text',
                             '',
-                            _x( 'URL of your membership plugin\'s login page.  Only enter this if using a membership plugin or custom registration page.', 'admin settings', 'WPBDM' ) );
+                            _x( 'URL of your membership plugin\'s login page.  Only enter this if using a membership plugin or custom login page.', 'admin settings', 'WPBDM' ) );
 
         // deprecated as of 2.1, added again for 3.4
         $this->add_setting( $s,
