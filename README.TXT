@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory,directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 3.9
 Tested up to: 4.3.1
-Last Updated: 2015-Oct-15
-Stable tag: tags/3.6.9.1
+Last Updated: 2015-Nov-17
+Stable tag: tags/3.6.10
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -116,6 +116,20 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.6.10 =
+* Fixes for recurring payments.
+* New "Login URL" setting to control registration redirects
+* Do not allow changing of validator for URL fields.
+* Fix an issue with table prefixes when using "Paid first" for sorting listings.
+* Several performance improvements on listings in the backend.
+* Improved performance for CSV exports.
+* Correct some styles in contact form.
+* Allow placement of advanced search form.
+* Show minimum file size in image upload form.
+* Add sticky/featured option to fee plans.
+* Add CSS classes for fee plans.
+* Add shortcode [businessdirectory-listing] for displaying single listings.
 
 = Version 3.6.9.1 =
 * Fixed critical problem with checkbox fields used with categories
