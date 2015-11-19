@@ -365,7 +365,7 @@ class WPBDP_CSVExporter {
                                                 WPBDP_CATEGORY_TAX,
                                                 'fields=ids' );
                     $expiresdata = $wpdb->get_results( $wpdb->prepare( "SELECT category_id, expires_on FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post->ID ) );
-                    $expiresdata = wp_list_pluck( $data, 'expires_on', 'category_id' );
+                    $expiresdata = wp_list_pluck( $expiresdata, 'expires_on', 'category_id' );
                     $expiration_dates = array();
 
                     foreach ( $terms as $term_id ) {
