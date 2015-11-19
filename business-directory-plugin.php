@@ -339,7 +339,7 @@ class WPBDP_Plugin {
 
             if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
                 if ( 'paid-title' == wpbdp_get_option( 'listings-order-by' ) )
-                    $orderby = "{$wpdb->posts}post_title ASC, " . $orderby;
+                    $orderby = "{$wpdb->posts}.post_title ASC, " . $orderby;
 
                 $orderby = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
             } else {
