@@ -401,9 +401,17 @@ class WPBDP_Listing {
     }
 
     public function get_total_cost() {
-        global $wpdb;
-        $cost = floatval( $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) );
-        return round( $cost, 2 );
+        $cost = 0.0;
+
+        foreach ( $this->get_categories( 'current' ) as $c ) {
+            if ( $c->fee )
+                $cost += floatval( $c->fee->amount );
+        }
+
+        return $cost;
+//        global $wpdb;
+//        $cost = floatval( $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) );
+//        return round( $cost, 2 );
     }
 
     public function is_published() {
