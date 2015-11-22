@@ -171,7 +171,7 @@ class WPBDP_Form_Field_Type {
                                   $field->get_field_type()->get_id(),
                                   implode(' ', $field->get_css_classes( $render_context ) ),
                                   $this->html_attributes( $field->html_attributes ) );
-                $html .= sprintf( '<div class="label"><label>%s</label></div>', esc_html( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) );
+                $html .= sprintf( '<div class="wpbdp-search-field-label"><label>%s</label></div>', esc_html( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) );
                 $html .= '<div class="field inner">';
 
                 $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra, $field_settings );

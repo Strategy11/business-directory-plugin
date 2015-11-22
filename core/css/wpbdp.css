@@ -28,7 +28,7 @@ form#wpbdmsearchform a.advanced-search-link {
     clear: both;
 }
 
-#wpbdp-search-form .wpbdp-search-filter > div.label {
+#wpbdp-search-form .wpbdp-search-filter > .wpbdp-search-field-label {
     display: block;
     width: 40%;
     float: left;
