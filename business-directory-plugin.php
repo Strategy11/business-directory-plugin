@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 3.6.11dev
+ * Version: 3.6.10.1
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * License: GPLv2 or any later version
@@ -29,7 +29,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '3.6.11dev' );
+define( 'WPBDP_VERSION', '3.6.10.1' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -289,7 +289,7 @@ class WPBDP_Plugin {
     }
 
     function _posts_clauses( $pieces, $query ) {
-        if ( is_admin() || ! isset( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] )
+        if ( is_admin() || ! isset( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || $query->query_vars['p'] )
             return $pieces;
 
         return apply_filters( 'wpbdp_query_clauses', $pieces, $query );
@@ -298,7 +298,7 @@ class WPBDP_Plugin {
     public function _posts_fields($fields, $query) {
         global $wpdb;
 
-        if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE) {
+        if ( ! is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE && ! $query->query_vars['p'] ) {
             $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
                                                '_wpbdp[sticky]', 'sticky');
 
@@ -334,7 +334,7 @@ class WPBDP_Plugin {
     public function _posts_orderby($orderby, $query) {
         global $wpdb;
 
-        if (!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE) {
+        if ( ! is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE && ! $query->query_vars['p'] ) {
             $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
 
             if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
