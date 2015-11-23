@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '8';
+    const DB_VERSION = '9';
 
     private $installed_version = null;
 
@@ -69,7 +69,8 @@ class WPBDP_Installer {
             display_flags text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             field_data blob NULL,
             shortname varchar(255) NOT NULL DEFAULT '',
-            tag varchar(255) NOT NULL DEFAULT ''
+            tag varchar(255) NOT NULL DEFAULT '',
+            KEY field_type (field_type)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
@@ -97,7 +98,9 @@ class WPBDP_Installer {
             payerinfo blob NULL,
             extra_data longblob NULL,
             notes longblob NULL,
-            tag varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL
+            tag varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            KEY listing_id (listing_id),
+            KEY status (status)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
@@ -123,7 +126,9 @@ class WPBDP_Installer {
             recurring tinyint(1) NOT NULL DEFAULT 0,
             recurring_id varchar(255) NULL,
             recurring_data blob NULL,
-            sticky tinyint(1) NOT NULL DEFAULT 0
+            sticky tinyint(1) NOT NULL DEFAULT 0,
+            KEY listing_cat (listing_id,category_id),
+            KEY expires_and_email (expires_on,email_sent)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
