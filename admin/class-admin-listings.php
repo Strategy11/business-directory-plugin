@@ -17,7 +17,49 @@ class WPBDP_Admin_Listings {
 
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
+
+        // Filter by category.
+        add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
+        add_action( 'parse_query', array( &$this, '_apply_category_filter' ) );
     }
+
+    // Category filter. {{
+
+    function _add_category_filter() {
+        global $typenow;
+        global $wp_query;
+
+        if ( WPBDP_POST_TYPE != $typenow )
+            return;
+
+        wp_dropdown_categories( array(
+            'show_option_all' => _x( 'All categories',  'admin category filter', 'WPBDM' ),
+            'taxonomy' => WPBDP_CATEGORY_TAX,
+            'name' => WPBDP_CATEGORY_TAX,
+            'orderby' => 'name',
+            'selected' => ( ! empty ( $wp_query->query[ WPBDP_CATEGORY_TAX ] ) ? $wp_query->query[ WPBDP_CATEGORY_TAX ] : 0 ),
+            'hierarchical' => true
+        ) );
+    }
+
+    function _apply_category_filter( $query ) {
+        $screen = get_current_screen();
+
+        if ( ! is_admin() || 'edit' != $screen->base ||  WPBDP_POST_TYPE != $screen->post_type )
+            return;
+
+        if ( empty( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) || ! is_numeric( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) )
+            return;
+
+        $term = get_term_by( 'id', $query->query_vars[ WPBDP_CATEGORY_TAX ], WPBDP_CATEGORY_TAX );
+
+        if ( ! $term )
+            return;
+
+        $query->query_vars[ WPBDP_CATEGORY_TAX ] = $term->slug;
+    }
+
+    // }}
 
     function add_metaboxes() {
         add_meta_box( 'BusinessDirectory_listinginfo',
