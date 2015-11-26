@@ -384,6 +384,15 @@ ul.wpbdp-categories > li {
     font-size: 80%;
 }
 
+.wpbdp-submit-page .wpbdp-form-field-type-textarea textarea {
+    width: 90%;
+    min-height: 50px;
+}
+
+.wpbdp-submit-page .wpbdp-form-field-association-content textarea {
+    min-height: 80px;
+}
+
 .wpbdp-form-field .field-description {
     font-size: 90%;
     color: #696969;
