@@ -46,6 +46,7 @@ class WPBDP_CSV_Import {
             'default-user' => '0',
             'post-status' => 'publish',
             'disable-email-notifications' => true,
+            'append-images' => true,
 
             'test-import' => false,
 
@@ -65,6 +66,9 @@ class WPBDP_CSV_Import {
 
             if ( ! array_key_exists( 'disable-email-notifications', $settings ) )
                 $settings['disable-email-notifications'] = false;
+
+            if ( ! array_key_exists( 'append-images', $settings ) )
+                $settings['append-images'] = false;
 
             $this->settings = wp_parse_args( $settings, $defaults );
 
@@ -413,7 +417,7 @@ class WPBDP_CSV_Import {
         // Insert or update listing.
         if ( $listing_id ) {
             $listing = WPBDP_Listing::get( $listing_id );
-            $listing->update( $state );
+            $listing->update( $state, array( 'append-images' => $this->settings['append-images'] ) );
             $listing->set_post_status( wpbdp_get_option( 'edit-post-status' ) );
         } else {
             $listing = WPBDP_Listing::create( $state );

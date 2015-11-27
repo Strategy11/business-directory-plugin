@@ -526,7 +526,7 @@ class WPBDP_Listing {
     }
 
 
-    public function update( $state ) {
+    public function update( $state, $opts = array() ) {
         // Set title.
         $title = false;
 
@@ -551,8 +551,10 @@ class WPBDP_Listing {
             $this->set_field_values( $state->fields );
         }
 
-        if ( isset( $state->images ) )
-            $this->set_images( $state->images );
+        if ( isset( $state->images ) ) {
+            $append = ( ! empty( $opts['append-images'] ) );
+            $this->set_images( $state->images, $append );
+        }
 
         $this->save();
     }

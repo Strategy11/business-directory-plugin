@@ -168,6 +168,17 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
+                    <label> <?php _ex( 'Keep existing listing images?', 'admin csv-import', 'WPBDM' ); ?>
+                </th>
+                <td>
+                    <label><input name="settings[append-images]"
+                           type="checkbox"
+                           value="1" checked="checked" /> <?php _ex( 'Keep existing images.', 'admin csv-import', 'WPBDM' ); ?></label>
+                    <span class="description"><?php _ex( 'Appends new images while keeping current ones.', 'admin csv-import', 'WPBDM' ); ?></span>
+                </td>
+            </tr>
+            <tr class="form-required">
+                <th scope="row">
                     <label> <?php _ex('Assign listings to a user?', 'admin csv-import', 'WPBDM'); ?>
                 </th>
                 <td>
