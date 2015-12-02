@@ -83,7 +83,7 @@
     ob_end_clean();
     ?>
     <div id="wpbdp-fieldsettings" style="<?php echo $field_settings ? '' : 'display: none;'; ?>">
-    <h3><?php _ex('Field-specific settings', 'form-fields admin', 'WPBDM'); ?></h3>
+    <h2><?php _ex('Field-specific settings', 'form-fields admin', 'WPBDM'); ?></h2>
     <div id="wpbdp-fieldsettings-html">
         <?php echo $field_settings; ?>
     </div>
@@ -92,7 +92,7 @@
 
     <!-- validation -->
     <?php if ( ! $field->has_behavior_flag( 'no-validation' ) ): ?>
-    <h3><?php _ex('Field validation options', 'form-fields admin', 'WPBDM'); ?></h3>
+    <h2><?php _ex('Field validation options', 'form-fields admin', 'WPBDM'); ?></h2>
     <table class="form-table">
             <tr>
                 <th scope="row">
@@ -126,7 +126,7 @@
     <?php endif; ?>
 
     <!-- display options -->
-    <h3><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h3>
+    <h2><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h2>
     <table class="form-table">
             <tr>
                 <th scope="row">

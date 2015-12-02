@@ -35,7 +35,7 @@ echo str_replace(
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
 
-    <h3><?php _ex('Import Files', 'admin csv-import'); ?></h3>
+    <h2><?php _ex('Import Files', 'admin csv-import'); ?></h2>
     <table class="form-table">
         <tbody>
             <tr class="form-field form-required">
@@ -102,7 +102,7 @@ echo str_replace(
             </tr>
     </table>
 
-    <h3><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h3>
+    <h2><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
@@ -139,7 +139,7 @@ echo str_replace(
             </tr>
     </table>
 
-    <h3><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h3>
+    <h2><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
@@ -224,7 +224,7 @@ echo str_replace(
 
 <hr />
 <a name="help"></a>
-<h3><?php _ex('Help', 'admin csv-import', 'WPBDM'); ?></h3>
+<h2><?php _ex('Help', 'admin csv-import', 'WPBDM'); ?></h2>
 <p>
     <?php echo sprintf(_x('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'admin csv-import', 'WPBDM'),
                   esc_url(add_query_arg('action', 'example-csv'))); ?>

@@ -30,7 +30,7 @@ echo $notice;
 <!--<h3><?php _ex('Export Configuration', 'admin csv-export', 'WPBDM'); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">
     
-    <h3><?php _ex( 'Export settings', 'admin csv-export', 'WPBDM' ); ?></h3>
+    <h2><?php _ex( 'Export settings', 'admin csv-export', 'WPBDM' ); ?></h2>
     <table class="form-table">
         <tr>
             <th scope="row">
@@ -87,7 +87,7 @@ echo $notice;
         </tr>
     </table>
 
-    <h3><?php _ex('CSV File Settings', 'admin csv-export', 'WPBDM'); ?></h3>
+    <h2><?php _ex('CSV File Settings', 'admin csv-export', 'WPBDM'); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
@@ -131,7 +131,7 @@ echo $notice;
 </div>
 
 <div class="step-2">
-    <h3><?php _ex( 'Export in Progress...', 'admin csv-export', 'WPBDM' ); ?></h3>
+    <h2><?php _ex( 'Export in Progress...', 'admin csv-export', 'WPBDM' ); ?></h2>
     <p><?php _ex( 'Your export file is being prepared. Please <u>do not leave</u> this page until the export finishes.', 'admin csv-export', 'WPBDM' ); ?></p>
     
     <dl>
@@ -149,7 +149,7 @@ echo $notice;
 </div>
 
 <div class="step-3">
-    <h3><?php _ex( 'Export Complete', 'admin csv-export' )?></h3>
+    <h2><?php _ex( 'Export Complete', 'admin csv-export' )?></h2>
     <p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'WPBDM' ); ?></p>
     <div class="download-link">
         <a href="" class="button button-primary">
@@ -165,7 +165,7 @@ echo $notice;
 </div>
 
 <div class="canceled-export">
-    <h3><?php _ex( 'Export Canceled', 'admin csv-export' )?></h3>
+    <h2><?php _ex( 'Export Canceled', 'admin csv-export' )?></h2>
     <p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'WPBDM' ); ?></p>
     <p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'WPBDM' ); ?></a></p>
 </div>
