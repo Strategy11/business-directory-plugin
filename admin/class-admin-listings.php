@@ -39,6 +39,7 @@ class WPBDP_Admin_Listings {
             'orderby' => 'name',
             'selected' => ( ! empty ( $wp_query->query[ WPBDP_CATEGORY_TAX ] ) ? $wp_query->query[ WPBDP_CATEGORY_TAX ] : 0 ),
             'hierarchical' => true,
+            'hide_empty' => false,
             'depth' => 4
         ) );
     }
