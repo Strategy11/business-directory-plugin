@@ -21,6 +21,7 @@ class WPBDP_FeesAPI {
         $fee->days = intval(wpbdp_get_option('listing-duration'));
         $fee->categories = array('all' => true, 'categories' => array());
         $fee->extra_data = null;
+        $fee->sticky = 0;
 
         return $fee;
     }
