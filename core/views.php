@@ -19,6 +19,8 @@ class WPBDP_DirectoryController {
         add_action( 'template_redirect', array( &$this, 'handle_login_redirect' ), 20 );
 
         $this->_extra_sections = array();
+
+        add_action( 'wpbdp_enqueue_scripts', array( &$this, '_enqueue_view_scripts' ) );
     }
 
     public function check_main_page(&$msg) {
@@ -49,6 +51,17 @@ class WPBDP_DirectoryController {
             $this->action = $action;
         } else {
             $this->action = null;
+        }
+    }
+
+    function _enqueue_view_scripts() {
+        switch ( $this->action ) {
+            case 'submitlisting':
+            case 'editlisting':
+                wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'core/js/submit-listing.js', array( 'jquery-ui-sortable' ) );
+                break;
+            default:
+                break;
         }
     }
 

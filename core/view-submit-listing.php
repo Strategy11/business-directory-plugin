@@ -323,6 +323,28 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                             );
     }
 
+    private function sort_images( $images_, $meta ) {
+        // Sort inside $meta first.
+        uasort( $meta, create_function( '$x, $y', "return \$y['order'] - \$x['order'];" ) );
+
+        // Sort $images_ considering $meta.
+        $images = array();
+
+        foreach ( array_keys( $meta ) as $img_id ) {
+            if ( in_array( $img_id, $images_, true ) )
+                $images[] = $img_id;
+        }
+
+        foreach ( $images_ as $img_id ) {
+            if ( in_array( $img_id, $images, true ) )
+                continue;
+
+            $images[] = $img_id;
+        }
+
+        return $images;
+    }
+
     protected function step_images() {
         // Calculate image slots this listing can use.
         $image_slots = 0;
@@ -338,7 +360,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        $images = $this->state->images;
+        $images_meta = $this->state->images_meta;
+        $images = $this->sort_images( $this->state->images, $images_meta );
+
         $thumbnail_id = $this->state->thumbnail_id;
         $image_slots_remaining = $image_slots - count( $images );
         $image_min_file_size = size_format( intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024 );
@@ -349,6 +373,13 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $this->state->thumbnail_id = $thumbnail_id;
 
         if ( isset( $_POST['finish'] ) ) {
+            foreach ( $this->state->images as $img_id ) {
+                $img_meta = isset( $_POST['images_meta'][ $img_id ] ) ? (array) $_POST['images_meta'][ $img_id ] : array();
+
+                $this->state->images_meta[ $img_id ]['order'] = ( ! empty( $img_meta['order'] ) ) ? intval( $img_meta['order'] ) : 0;
+                $this->state->images_meta[ $img_id ]['caption'] = ( ! empty( $img_meta['caption'] ) ) ? strval( $img_meta['caption'] ) : '';
+            }
+
             $this->state->advance();
             return $this->dispatch();
         }
@@ -357,6 +388,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                               compact( 'image_max_file_size',
                                        'image_min_file_size',
                                        'images',
+                                       'images_meta',
                                        'image_slots',
                                        'image_slots_remaining' )
                             );
@@ -384,6 +416,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $listing->set_field_values( $this->state->fields );
         $listing->set_images( $this->state->images );
         $listing->set_thumbnail_id( $this->state->thumbnail_id );
+
+        foreach ( $this->state->images_meta as $img_id => $img_meta ) {
+            update_post_meta( $img_id, '_wpbdp_image_weight', $img_meta[ 'order' ] );
+            update_post_meta( $img_id, '_wpbdp_image_caption', $img_meta[ 'caption' ] );
+        }
 
         if ( ! $this->state->editing ) {
             // Generate payment for the listing.
@@ -498,6 +535,7 @@ class WPBDP_Listing_Submit_State {
     public $editing = false;
 
     public $images = array();
+    public $images_meta = array();
     public $thumbnail_id = 0;
 
 
@@ -518,6 +556,7 @@ class WPBDP_Listing_Submit_State {
 
             // Image information.
             $this->images = $listing->get_images( 'ids' );
+            $this->images_meta = $listing->get_images_meta();
             $this->thumbnail_id = $listing->get_thumbnail_id();
 
             // Fields.

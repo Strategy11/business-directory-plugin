@@ -51,7 +51,9 @@ class WPBDP_Listing {
     }
 
     public function get_images( $fields = 'all' ) {
-        $attachments = get_posts( array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id ));
+        $q = array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id );
+        $attachments = get_posts( $q );
+
         $result = array();
 
         foreach ( $attachments as $attachment ) {
@@ -63,7 +65,22 @@ class WPBDP_Listing {
             return array_map( create_function( '$x', 'return $x->ID;' ), $result );
 
         return $result;
-    }    
+    }
+
+    /**
+     * @since next-release
+     */
+    public function get_images_meta() {
+        $images = $this->get_images( 'ids' );
+        $meta = array();
+
+        foreach ( $images as $img_id ) {
+            $meta[ $img_id ] = array( 'order' => (int) get_post_meta( $img_id, '_wpbdp_image_weight', true ),
+                                      'caption' => strval( get_post_meta( $img_id, '_wpbdp_image_caption', true ) ) );
+        }
+
+        return $meta;
+    }
 
     /**
      * Sets listing images.

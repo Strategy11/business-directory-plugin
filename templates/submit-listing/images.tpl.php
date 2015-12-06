@@ -17,6 +17,8 @@ $thumbnail_id = ! isset( $thumbnail_id ) ? 0 : intval( $thumbnail_id );
         echo wpbdp_render( 'submit-listing/images-single',
                            array( 'image_id' => $image_id,
                                   'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
+                                  'weight' => $images_meta[ $image_id ]['order'],
+                                  'caption' => $images_meta[ $image_id ]['caption'],
                                   'state_id' => $_state->id ),
                            false );
     endforeach;
