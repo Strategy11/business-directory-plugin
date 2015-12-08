@@ -19,7 +19,7 @@ class WPBDP_reCAPTCHA {
         if ( empty( $this->public_key ) || empty( $this->private_key ) )
             return;
 
-        add_action( 'wpbdp_enqueue_scripts', array( &$this, '_enqueue_js_api' ) );
+        add_action( 'wp_enqueue_scripts', array( &$this, '_enqueue_js_api' ) );
 
         if ( wpbdp_get_option( 'recaptcha-for-comments' ) ) {
             add_filter( 'comment_form_field_comment', array( &$this, '_recaptcha_in_comments' ) );
@@ -31,6 +31,9 @@ class WPBDP_reCAPTCHA {
 
     function _enqueue_js_api() {
         global $wpbdp;
+
+        if ( ! $wpbdp->controller->action )
+            return '';
 
         wp_enqueue_script( 'wpbdp-recaptcha',
                             WPBDP_URL . 'core/js/recaptcha' . ( ! $wpbdp->is_debug_on() ? '.min' : '' ) . '.js',
