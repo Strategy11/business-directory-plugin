@@ -30,7 +30,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $html .= '<div class="preview">';
         if ($value)
-            $html .= wp_get_attachment_image( $value, 'thumb', false );
+            $html .= wp_get_attachment_image( $value, 'wpbdp-thumb', false );
 
         $html .= sprintf( '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d);" style="%s">%s</a>',
                           $field->get_id(),
@@ -62,12 +62,13 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         if ( ! $img_id )
             return '';
 
+        _wpbdp_resize_image_if_needed( $img_id );
         $img = wp_get_attachment_image_src( $img_id, 'large' );
 
         $html  = '';
         $html .= '<br />';
         $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' )  . '>';
-        $html .= wp_get_attachment_image( $img_id, 'thumb', false );
+        $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false );
         $html .= '</a>';
 
         return $html;
