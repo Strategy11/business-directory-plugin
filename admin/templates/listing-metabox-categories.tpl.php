@@ -7,7 +7,7 @@
  * @param $admin_actions array() Optional.
  */
 
-$image_count = count( $listing->get_images() );
+$image_count = count( $listing->get_images( 'ids' ) );
 
 if ( ! isset( $display ) )
     $display = array( 'fee label', 'fee images', 'expiration' );

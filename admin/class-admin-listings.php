@@ -321,6 +321,16 @@ class WPBDP_Admin_Listings {
 
                 if ( isset( $_POST['thumbnail_id'] ) )
                     $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+
+                // Images info.
+                if ( isset( $_POST['images_meta'] ) ) {
+                    $meta = $_POST['images_meta'];
+
+                    foreach ( $meta as $img_id => $img_meta ) {
+                        update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
+                        update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
+                    }
+                }
             }
 
         }

@@ -1,5 +1,6 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-payment.php' );
+require_once( WPBDP_PATH . 'core/class-listing-image.php' );
 
 /**
  * @since 3.4
@@ -50,19 +51,23 @@ class WPBDP_Listing {
         return date_i18n( get_option( 'date_format' ), get_post_modified_time( 'U', false, $this->id ) );
     }
 
-    public function get_images( $fields = 'all' ) {
+    public function get_images( $fields = 'all', $sorted = false ) {
         $q = array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id );
-        $attachments = get_posts( $q );
-
         $result = array();
 
-        foreach ( $attachments as $attachment ) {
-            if ( wp_attachment_is_image( $attachment->ID ) )
-                $result[] = $attachment;
+        foreach ( get_posts( $q ) as $attachment ) {
+            if ( ! wp_attachment_is_image( $attachment->ID ) )
+                continue;
+
+            if ( 'id' == $fields || 'ids' == $fields )
+                $result[] = $attachment->ID;
+            else
+                $result[] = WPBDP_Listing_Image::get( $attachment->ID );
         }
 
-        if ( 'ids' === $fields )
-            return array_map( create_function( '$x', 'return $x->ID;' ), $result );
+        if ( $result && $sorted ) {
+            uasort( $result, create_function( '$x, $y', "return \$y->weight - \$x->weight;" ) );
+        }
 
         return $result;
     }

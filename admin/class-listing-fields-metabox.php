@@ -33,7 +33,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         if ( ! current_user_can( 'edit_posts' ) )
             return;
 
-        $images = $this->listing->get_images( 'ids' );
+        $images = $this->listing->get_images( 'all', true );
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
         // Current images.
@@ -41,10 +41,10 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         echo '<div id="no-images-message" style="' . ( $images ? 'display: none;' : '' ) . '">' . _x( 'There are no images currently attached to the listing.', 'templates', 'WPBDM' ) . '</div>';
         echo '<div id="wpbdp-uploaded-images" class="cf">';
         
-        foreach ( $images as $image_id ):
+        foreach ( $images as $image ):
             echo wpbdp_render( 'submit-listing/images-single',
-                           array( 'image_id' => $image_id,
-                                  'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ) ),
+                           array( 'image' => $image,
+                                  'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image->id ) ),
                            false );
         endforeach;
         echo '</div>';

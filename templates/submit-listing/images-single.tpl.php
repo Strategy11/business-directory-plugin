@@ -1,10 +1,16 @@
 <?php
 $is_thumbnail = isset( $is_thumbnail ) ? $is_thumbnail : false;
+
+if ( isset( $image ) ) {
+    $image_id = $image->id;
+    $weight = $image->weight;
+    $caption = $image->caption;
+}
 ?>
 
 <div class="wpbdp-image" data-imageid="<?php echo $image_id; ?>">
-<input type="hidden" name="images_meta[<?php echo $image_id; ?>][order]" value="<?php echo $weight; ?>" />
-    <input type="hidden" name="images_meta[<?php echo $image_id; ?>][caption]" value="<?php esc_attr_e( $caption ); ?>" />
+<input type="hidden" name="images_meta[<?php echo $image_id; ?>][order]" value="<?php echo ( isset( $weight ) ? $weight : 0 ); ?>" />
+    <input type="hidden" name="images_meta[<?php echo $image_id; ?>][caption]" value="<?php echo ( isset( $caption ) ? esc_attr( $caption ) : '' ); ?>" />
 
     <img src="<?php echo wp_get_attachment_thumb_url( $image_id ); ?>" /><br />
     <input type="button"

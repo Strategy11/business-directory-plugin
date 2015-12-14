@@ -64,24 +64,26 @@ function _wpbdp_render_single() {
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
     $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
 
+    $listing = WPBDP_Listing::get( $post->ID );
+
     // images
-    $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id($post->ID);
-    $images = wpbdp_listings_api()->get_images($post->ID);
+    $thumbnail_id = $listing->get_thumbnail_id();
+    $images = $listing->get_images( 'all', true );
     $extra_images = array();
 
     if ( wpbdp_get_option( 'allow-images' ) ) {
         foreach ($images as $img) {
             // create thumbnail of correct size if needed (only in single view to avoid consuming server resources)
-            _wpbdp_resize_image_if_needed( $img->ID );
+            _wpbdp_resize_image_if_needed( $img->id );
 
-            if ($img->ID == $thumbnail_id) continue;
+            if ($img->id == $thumbnail_id) continue;
 
-            $full_image_data = wp_get_attachment_image_src( $img->ID, 'wpbdp-large', false );
+            $full_image_data = wp_get_attachment_image_src( $img->id, 'wpbdp-large', false );
             $full_image_url = $full_image_data[0];
 
             $extra_images[] = sprintf('<a href="%s" class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal" target="_blank">%s</a>',
                                         $full_image_url,
-                                        wp_get_attachment_image( $img->ID, 'wpbdp-thumb', false, array(
+                                        wp_get_attachment_image( $img->id, 'wpbdp-thumb', false, array(
                                             'class' => 'wpbdp-thumbnail size-thumbnail',
                                             'alt' => the_title(null, null, false),
                                             'title' => the_title(null, null, false)
