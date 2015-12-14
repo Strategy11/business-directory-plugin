@@ -375,7 +375,7 @@ function _wpbdp_resize_image_if_needed($id) {
 
 /*
  * @since 2.1.7
- * @deprecated since next-release. See {@link wpbdp_currency_format()}.
+ * @deprecated since 3.6.10. See {@link wpbdp_currency_format()}.
  */
 function wpbdp_format_currency($amount, $decimals = 2, $currency = null) {
     if ( $amount == 0.0 )
@@ -385,7 +385,7 @@ function wpbdp_format_currency($amount, $decimals = 2, $currency = null) {
 }
 
 /**
- * @since next-release
+ * @since 3.6.10
  */
 function wpbdp_currency_format( $amount, $args = array() ) {
     // We don't actually allow modification of the "format" string for now, but it could be useful in the future.
@@ -502,7 +502,7 @@ function wpbdp_current_query() {
 }
 
 /**
- * @since next-release
+ * @since 3.6.10
  */
 function wpbdp_experimental( $feature ) {
     global $wpbdp_development;

@@ -296,7 +296,7 @@ class WPBDP_FormFields {
     }
 
     /**
-     * @since next-release
+     * @since 3.6.9
      */
     public function get_default_fields( $id = '' ) {
         $default_fields = array(

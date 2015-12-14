@@ -603,7 +603,7 @@ EOF;
         $s = $this->add_section( $g, 'registration', _x( 'Registration Settings', 'admin settings', 'WPBDM' ), $msg );
         $this->add_setting($s, 'require-login', _x('Require login to post listings?', 'admin settings', 'WPBDM'), 'boolean', true);
 
-        // deprecated as of 2.1, added again for @next-release
+        // deprecated as of 2.1, added again for 3.6.10
         $this->add_setting( $s,
                             'login-url',
                             _x( 'Login URL', 'admin settings', 'WPBDM'),

@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since 3.6.10
  */
 final class WPBDP_FS {
 

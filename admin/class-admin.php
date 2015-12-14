@@ -762,7 +762,7 @@ class WPBDP_Admin {
     }
 
     /**
-     * @since next-release
+     * @since 3.6.10
      */
     function process_admin_action() {
         if ( isset( $_REQUEST['wpbdp-action'] ) ) {

@@ -376,7 +376,7 @@ function wpbdp_scandir( $path, $args = array() ) {
  * Recursively deletes a directory.
  * @param string $path a directory.
  * @since 3.3
- * @deprecated since next-release. Use {@link WPBDP_FS::rmdir} instead.
+ * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
  */
 function wpbdp_rrmdir( $path ) {
     return WPBDP_FS::rmdir( $path );

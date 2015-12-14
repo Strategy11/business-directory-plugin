@@ -200,7 +200,7 @@ function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_it
 }
 
 /**
- * @since next-release
+ * @since 3.6.10
  */
 function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
     global $wpdb;

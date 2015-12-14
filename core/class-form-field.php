@@ -173,7 +173,7 @@ class WPBDP_Form_Field {
     }
 
     /**
-     * @since next-release
+     * @since 3.6.10
      */
     public function get_tag() {
         return $this->tag;

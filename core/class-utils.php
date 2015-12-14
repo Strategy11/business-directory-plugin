@@ -3,7 +3,7 @@
 class WPBDP_Utils {
 
     /**
-     * @since next-release
+     * @since 3.6.10
      */
     public static function normalize( $val = '', $opts = array() ) {
         $res = strtolower( $val );

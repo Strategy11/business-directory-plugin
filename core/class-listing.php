@@ -73,7 +73,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 3.6.11
      */
     public function get_images_meta() {
         $images = $this->get_images( 'ids' );
@@ -540,7 +540,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 3.6.9
      */
     public function get_sticky_status() {
         $sticky_status = get_post_meta( $this->id, '_wpbdp[sticky]', true );
