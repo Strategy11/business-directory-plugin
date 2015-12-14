@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2015-11-17 23:37:00+00:00\n"
+"POT-Creation-Date: 2015-12-14 21:54:34+00:00\n"
 "PO-Revision-Date: 2015-04-07 11:11-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -16,93 +16,98 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: admin/class-admin-listings.php:24
+#: admin/class-admin-listings.php:36
+msgctxt "admin category filter"
+msgid "All categories"
+msgstr ""
+
+#: admin/class-admin-listings.php:68
 msgid "Listing Information"
-msgstr ""
-
-#: admin/class-admin-listings.php:31
-msgctxt "admin"
-msgid "Listing Fields / Images"
-msgstr ""
-
-#: admin/class-admin-listings.php:42
-msgctxt "admin"
-msgid "Categories"
-msgstr ""
-
-#: admin/class-admin-listings.php:43
-msgid "Payment Status"
-msgstr ""
-
-#: admin/class-admin-listings.php:44
-msgid "Featured (Sticky) Status"
 msgstr ""
 
 #: admin/class-admin-listings.php:75
 msgctxt "admin"
+msgid "Listing Fields / Images"
+msgstr ""
+
+#: admin/class-admin-listings.php:86
+msgctxt "admin"
+msgid "Categories"
+msgstr ""
+
+#: admin/class-admin-listings.php:87
+msgid "Payment Status"
+msgstr ""
+
+#: admin/class-admin-listings.php:88
+msgid "Featured (Sticky) Status"
+msgstr ""
+
+#: admin/class-admin-listings.php:119
+msgctxt "admin"
 msgid "(Listing expired in this category)"
 msgstr ""
 
-#: admin/class-admin-listings.php:93 admin/class-admin-listings.php:176
+#: admin/class-admin-listings.php:137 admin/class-admin-listings.php:220
 msgid "Paid"
 msgstr ""
 
-#: admin/class-admin-listings.php:98
+#: admin/class-admin-listings.php:142
 msgid "Mark as"
 msgstr ""
 
-#: admin/class-admin-listings.php:107 admin/class-admin-listings.php:186
+#: admin/class-admin-listings.php:151 admin/class-admin-listings.php:230
 msgid "Pending Upgrade"
 msgstr ""
 
-#: admin/class-admin-listings.php:115 admin/listing-metabox.php:68
+#: admin/class-admin-listings.php:159 admin/listing-metabox.php:68
 msgid "Upgrade to %s"
 msgstr ""
 
-#: admin/class-admin-listings.php:122 admin/listing-metabox.php:75
+#: admin/class-admin-listings.php:166 admin/listing-metabox.php:75
 msgid "Downgrade to %s"
 msgstr ""
 
-#: admin/class-admin-listings.php:125 admin/class-admin-listings.php:295
+#: admin/class-admin-listings.php:169 admin/class-admin-listings.php:349
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr ""
 
-#: admin/class-admin-listings.php:181
+#: admin/class-admin-listings.php:225
 msgid "Unpaid"
 msgstr ""
 
-#: admin/class-admin-listings.php:191
+#: admin/class-admin-listings.php:235
 msgctxt "admin"
 msgid "Expired"
 msgstr ""
 
-#: admin/class-admin-listings.php:241
+#: admin/class-admin-listings.php:285
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr ""
 
-#: admin/class-admin-listings.php:244
+#: admin/class-admin-listings.php:288
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr ""
 
-#: admin/class-admin-listings.php:293
+#: admin/class-admin-listings.php:347
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr ""
 
-#: admin/class-admin-listings.php:296
+#: admin/class-admin-listings.php:350
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr ""
 
-#: admin/class-admin-listings.php:298
+#: admin/class-admin-listings.php:352
 msgctxt "admin actions"
 msgid "Mark as Paid"
 msgstr ""
 
-#: admin/class-admin-listings.php:300
+#: admin/class-admin-listings.php:354
 msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr ""
@@ -1249,7 +1254,7 @@ msgctxt "admin csv-import"
 msgid "Warning"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:12 admin/templates/csv-import.tpl.php:216
+#: admin/templates/csv-import.tpl.php:12 admin/templates/csv-import.tpl.php:227
 msgctxt "admin csv-import"
 msgid "Help"
 msgstr ""
@@ -1343,51 +1348,66 @@ msgstr ""
 
 #: admin/templates/csv-import.tpl.php:171
 msgctxt "admin csv-import"
-msgid "Assign listings to a user?"
+msgid "Keep existing listing images?"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:176
+msgctxt "admin csv-import"
+msgid "Keep existing images."
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:177
 msgctxt "admin csv-import"
-msgid "Assign listings to a user."
+msgid "Appends new images while keeping current ones."
 msgstr ""
 
 #: admin/templates/csv-import.tpl.php:182
 msgctxt "admin csv-import"
+msgid "Assign listings to a user?"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:188
+msgctxt "admin csv-import"
+msgid "Assign listings to a user."
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:193
+msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:187
+#: admin/templates/csv-import.tpl.php:198
 msgctxt "admin csv-import"
 msgid "Use spreadsheet information only."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:193
+#: admin/templates/csv-import.tpl.php:204
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:198
+#: admin/templates/csv-import.tpl.php:209
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications during import?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:203
+#: admin/templates/csv-import.tpl.php:214
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:209
+#: admin/templates/csv-import.tpl.php:220
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:210
+#: admin/templates/csv-import.tpl.php:221
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:218
+#: admin/templates/csv-import.tpl.php:229
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -1396,48 +1416,48 @@ msgid ""
 "how an import file should look like."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:225
+#: admin/templates/csv-import.tpl.php:236
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:226
+#: admin/templates/csv-import.tpl.php:237
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:227
+#: admin/templates/csv-import.tpl.php:238
 msgctxt "admin csv-import"
 msgid "Type"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:228
+#: admin/templates/csv-import.tpl.php:239
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:229
+#: admin/templates/csv-import.tpl.php:240
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:251
+#: admin/templates/csv-import.tpl.php:262
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:258
+#: admin/templates/csv-import.tpl.php:269
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:265
+#: admin/templates/csv-import.tpl.php:276
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
 msgstr ""
 
-#: admin/templates/csv-import.tpl.php:272
+#: admin/templates/csv-import.tpl.php:283
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1795,7 +1815,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.10)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.6.11)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2490,22 +2510,22 @@ msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr ""
 
-#: core/class-csv-import.php:371
+#: core/class-csv-import.php:375
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: core/class-csv-import.php:515
+#: core/class-csv-import.php:519
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr ""
 
-#: core/class-csv-import.php:547
+#: core/class-csv-import.php:551
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr ""
 
-#: core/class-csv-import.php:567
+#: core/class-csv-import.php:571
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
@@ -2599,7 +2619,7 @@ msgctxt "listings-api"
 msgid "Featured Listing"
 msgstr ""
 
-#: core/class-listing.php:297 core/class-listing.php:323
+#: core/class-listing.php:319 core/class-listing.php:345
 msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr ""
@@ -2659,7 +2679,7 @@ msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\""
 msgstr ""
 
-#: core/class-recaptcha.php:87 core/class-recaptcha.php:102
+#: core/class-recaptcha.php:90 core/class-recaptcha.php:105
 msgctxt "recaptcha"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr ""
@@ -4208,24 +4228,41 @@ msgctxt "form-fields api"
 msgid "Textarea"
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:35
+#: core/fieldtypes/class-fieldtypes-textarea.php:50
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:39
+#: core/fieldtypes/class-fieldtypes-textarea.php:54
 msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:43
+#: core/fieldtypes/class-fieldtypes-textarea.php:57
+msgctxt "form-fields admin"
+msgid "Display a WYSIWYG editor on the frontend?"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:60
+msgctxt "form-fields admin"
+msgid ""
+"<b>Warning:</b> Users can use this feature to get around your image limits "
+"in fee plans."
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:61
+msgctxt "form-fields admin"
+msgid "Allow images in WYSIWYG editor?"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:64
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
 "switch it unless you know what you're doing."
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:44
+#: core/fieldtypes/class-fieldtypes-textarea.php:65
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr ""
@@ -4605,7 +4642,7 @@ msgctxt "default category name"
 msgid "General"
 msgstr ""
 
-#: core/installer.php:464
+#: core/installer.php:469
 msgctxt "installer"
 msgid ""
 "<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
@@ -4613,82 +4650,82 @@ msgid ""
 "the Regions module."
 msgstr ""
 
-#: core/installer.php:530
+#: core/installer.php:535
 msgctxt "installer"
 msgid "Cleaning up listing fees information... %d/%d"
 msgstr ""
 
-#: core/installer.php:580
+#: core/installer.php:585
 msgctxt "installer"
 msgid "Migrating previous transactions to new Payments API... %d/%d"
 msgstr ""
 
-#: core/installer.php:609
+#: core/installer.php:614
 msgctxt "installer"
 msgid "Initial listing payment (BD < 3.4)"
 msgstr ""
 
-#: core/installer.php:620
+#: core/installer.php:625
 msgctxt "installer"
 msgid "Listing edit payment (BD < 3.4)"
 msgstr ""
 
-#: core/installer.php:641
+#: core/installer.php:646
 msgctxt "installer"
 msgid "Renewal fee \"%s\" for category \"%s\""
 msgstr ""
 
-#: core/installer.php:660
+#: core/installer.php:665
 msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr ""
 
-#: core/installer.php:902
+#: core/installer.php:907
 msgid "Business Directory - Manual Upgrade Required"
 msgstr ""
 
-#: core/installer.php:904
+#: core/installer.php:909
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
 msgstr ""
 
-#: core/installer.php:906
+#: core/installer.php:911
 msgid "Perform Manual Upgrade"
 msgstr ""
 
-#: core/installer.php:922 core/installer.php:923 core/installer.php:934
+#: core/installer.php:927 core/installer.php:928 core/installer.php:939
 msgid "Business Directory - Manual Upgrade"
 msgstr ""
 
-#: core/installer.php:938
+#: core/installer.php:943
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
 msgstr ""
 
-#: core/installer.php:940
+#: core/installer.php:945
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 
-#: core/installer.php:943
+#: core/installer.php:948
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr ""
 
-#: core/installer.php:945
+#: core/installer.php:950
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr ""
 
-#: core/installer.php:951
+#: core/installer.php:956
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was sucessfully performed. Business Directory Plugin is now "
 "available."
 msgstr ""
 
-#: core/installer.php:954
+#: core/installer.php:959
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr ""
@@ -4769,37 +4806,37 @@ msgctxt "fees-api"
 msgid "Free Listing"
 msgstr ""
 
-#: core/payment.php:144
+#: core/payment.php:145
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr ""
 
-#: core/payment.php:147
+#: core/payment.php:148
 msgctxt "fees-api"
 msgid "Fee amount must be a non-negative decimal number."
 msgstr ""
 
-#: core/payment.php:150 core/payment.php:153
+#: core/payment.php:151 core/payment.php:154
 msgctxt "fees-api"
 msgid "Fee must apply to at least one category."
 msgstr ""
 
-#: core/payment.php:156
+#: core/payment.php:157
 msgctxt "fees-api"
 msgid "Fee allowed images must be a non-negative integer."
 msgstr ""
 
-#: core/payment.php:159
+#: core/payment.php:160
 msgctxt "fees-api"
 msgid "Fee listing run must be a non-negative integer."
 msgstr ""
 
-#: core/payment.php:164
+#: core/payment.php:165
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 
-#: core/payment.php:339
+#: core/payment.php:340
 msgctxt "payments-api"
 msgid ""
 "You are offering featured listings but have payments turned off. Go to <a "
@@ -4808,7 +4845,7 @@ msgid ""
 "disabled."
 msgstr ""
 
-#: core/payment.php:357
+#: core/payment.php:358
 msgctxt "payments-api"
 msgid ""
 "The <b>%s</b> gateway is active but not properly configured. The gateway "
@@ -4816,7 +4853,7 @@ msgid ""
 "Check the <a href=\"%s\">payment settings</a>."
 msgstr ""
 
-#: core/payment.php:367
+#: core/payment.php:368
 msgctxt "admin"
 msgid ""
 "You have payments turned on but no gateway is active and properly "
@@ -4825,14 +4862,14 @@ msgid ""
 "<i>Free Mode</i>."
 msgstr ""
 
-#: core/payment.php:371
+#: core/payment.php:372
 msgid ""
 "BD detected PayFast and another gateway were enabled. This setup is not "
 "recommended due to PayFast supporting only ZAR and the other gateways not "
 "supporting this currency."
 msgstr ""
 
-#: core/payment.php:375
+#: core/payment.php:376
 msgid ""
 "You have recurring renewal of listing fees enabled but the payment gateways "
 "installed don't support recurring payments. Until a gateway that supports "
@@ -4840,43 +4877,43 @@ msgid ""
 "disabled."
 msgstr ""
 
-#: core/payment.php:380
+#: core/payment.php:381
 msgid ""
 "Due to Google Wallet limitations only monthly (30 days) recurring fees are "
 "supported by the gateway. All other fees will be charged as non-recurring."
 msgstr ""
 
-#: core/payment.php:413
+#: core/payment.php:414
 msgctxt "payments-api"
 msgid "Checkout"
 msgstr ""
 
-#: core/payment.php:414
+#: core/payment.php:415
 msgctxt "payments-api"
 msgid "Pay %1$s through %2$s"
 msgstr ""
 
-#: core/payment.php:421
+#: core/payment.php:422
 msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr ""
 
-#: core/payment.php:602
+#: core/payment.php:603
 msgctxt "payments"
 msgid "Payment Details"
 msgstr ""
 
-#: core/payment.php:629
+#: core/payment.php:630
 msgctxt "checkout"
 msgid "Payment Method"
 msgstr ""
 
-#: core/payment.php:658
+#: core/payment.php:659
 msgctxt "payment"
 msgid "Return to Directory."
 msgstr ""
 
-#: core/payment.php:664
+#: core/payment.php:665
 msgctxt "payments"
 msgid ""
 "Your payment is being processed by the payment gateway. Please reload this "
@@ -4884,7 +4921,7 @@ msgid ""
 "administrator."
 msgstr ""
 
-#: core/payment.php:667
+#: core/payment.php:668
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
@@ -4892,29 +4929,29 @@ msgid ""
 "Method\" to select another payment method and try again."
 msgstr ""
 
-#: core/payment.php:668
+#: core/payment.php:669
 msgctxt "payments"
 msgid "Change Payment Method"
 msgstr ""
 
-#: core/payment.php:670
+#: core/payment.php:671
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
 "site administrator if you think there is an error."
 msgstr ""
 
-#: core/payment.php:673
+#: core/payment.php:674
 msgctxt "payments"
 msgid "The payment has been canceled at your request."
 msgstr ""
 
-#: core/payment.php:769
+#: core/payment.php:770
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr ""
 
-#: core/payment.php:774
+#: core/payment.php:775
 msgctxt "admin"
 msgid "Abandoned"
 msgstr ""
@@ -5288,22 +5325,22 @@ msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr ""
 
-#: core/view-submit-listing.php:406
+#: core/view-submit-listing.php:443
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr ""
 
-#: core/view-submit-listing.php:409
+#: core/view-submit-listing.php:446
 msgctxt "listings"
 msgid "(recurring)"
 msgstr ""
 
-#: core/view-submit-listing.php:419 core/view-upgrade-listing.php:54
+#: core/view-submit-listing.php:456 core/view-upgrade-listing.php:54
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr ""
 
-#: core/view-submit-listing.php:452
+#: core/view-submit-listing.php:489
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr ""
@@ -5323,27 +5360,27 @@ msgctxt "templates"
 msgid "Return to listing."
 msgstr ""
 
-#: core/views.php:30
+#: core/views.php:32
 msgid ""
 "You need to create a page with the [businessdirectory] shortcode for the "
 "Business Directory plugin to work correctly."
 msgstr ""
 
-#: core/views.php:32
+#: core/views.php:34
 msgid "The directory is temporarily disabled."
 msgstr ""
 
-#: core/views.php:190
+#: core/views.php:203
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 
-#: core/views.php:342
+#: core/views.php:355
 msgctxt "templates"
 msgid "Listings tagged: %s"
 msgstr ""
 
-#: core/views.php:459
+#: core/views.php:472
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -5353,12 +5390,12 @@ msgid ""
 "categories to the business directory."
 msgstr ""
 
-#: core/views.php:461
+#: core/views.php:474
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr ""
 
-#: core/views.php:479
+#: core/views.php:492
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "
@@ -5952,7 +5989,7 @@ msgstr ""
 #: templates/renew-listing.tpl.php:22
 #: templates/submit-listing/category-selection.tpl.php:8
 #: templates/submit-listing/fee-selection.tpl.php:37
-#: templates/submit-listing/images.tpl.php:36
+#: templates/submit-listing/images.tpl.php:38
 #: templates/submit-listing/listing-fields.tpl.php:34
 msgctxt "templates"
 msgid "Continue"
@@ -6049,12 +6086,12 @@ msgid ""
 "Would you like to make your fee renew automatically at the end of the period?"
 msgstr ""
 
-#: templates/submit-listing/images-single.tpl.php:9
+#: templates/submit-listing/images-single.tpl.php:18
 msgctxt "templates"
 msgid "Delete Image"
 msgstr ""
 
-#: templates/submit-listing/images-single.tpl.php:16
+#: templates/submit-listing/images-single.tpl.php:24
 msgctxt "templates"
 msgid "Set this image as the listing thumbnail."
 msgstr ""
