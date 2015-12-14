@@ -26,7 +26,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                        array( 'textarea_name' => 'listingfields[' . $field->get_id() . ']',
                               'drag_drop_upload' => false,
                               'media_buttons' => false,
-                              'quicktags' => false  ) );
+                              'quicktags' => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false  ) );
             $html .= ob_get_contents();
             ob_end_clean();
         } else {
@@ -57,7 +57,10 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $settings['wysiwyg_editor'][] = _x( 'Display a WYSIWYG editor on the frontend?', 'form-fields admin', 'WPBDM' );
             $settings['wysiwyg_editor'][] = '<input type="checkbox" value="1" name="field[wysiwyg_editor]" ' . ( $field && $field->data( 'wysiwyg_editor' ) ? ' checked="checked"' : '' ) . ' />';
 
-            //$desc  = _x( 'Useful for integrating with some plugins.', 'form-fields admin', 'WPBDM' ) . '<br />';
+            $desc = _x( '<b>Warning:</b> Users can use this feature to get around your image limits in fee plans.', 'form-fields admin', 'WPBDM' );
+            $settings['wysiwyg_images'][] = _x( 'Allow images in WYSIWYG editor?', 'form-fields admin', 'WPBDM' );
+            $settings['wysiwyg_images'][] = '<input type="checkbox" value="1" name="field[wysiwyg_images]" ' . ( $field && $field->data( 'wysiwyg_images' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
+
             $desc = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'WPBDM' );
             $settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'WPBDM' );
             $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
@@ -71,6 +74,22 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $field->set_data( 'allow_filters', isset( $_POST['field']['allow_filters'] ) ? (bool) intval( $_POST['field']['allow_filters'] ) : false );
         $field->set_data( 'allow_shortcodes', isset( $_POST['field']['allow_shortcodes'] ) ? (bool) intval( $_POST['field']['allow_shortcodes'] ) : false );
         $field->set_data( 'wysiwyg_editor', isset( $_POST['field']['wysiwyg_editor'] ) ? (bool) intval( $_POST['field']['wysiwyg_editor'] ) : false );
+        $field->set_data( 'wysiwyg_images', isset( $_POST['field']['wysiwyg_images'] ) ? (bool) intval( $_POST['field']['wysiwyg_images'] ) : false );
+    }
+
+    public function store_field_value( &$field, $post_id, $value ) {
+        if ( 'content' == $field->get_association() ) {
+            if ( $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' ) && ! $field->data( 'wysiwyg_images' ) ) {
+                $tags = wp_kses_allowed_html( 'post' );
+
+                if ( isset( $tags['img'] ) )
+                    unset( $tags['img'] );
+
+                $value = wp_kses( $value, $tags );
+            }
+        }
+
+        return parent::store_field_value( $field, $post_id, $value );
     }
 
     public function get_field_html_value( &$field, $post_id ) {
