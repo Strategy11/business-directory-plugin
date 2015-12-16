@@ -2,10 +2,10 @@
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory,directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
-Requires at least: 3.9
-Tested up to: 4.3.1
-Last Updated: 2015-Nov-23
-Stable tag: tags/3.6.10.1
+Requires at least: 4.0
+Tested up to: 4.4
+Last Updated: 2015-Dec-16
+Stable tag: tags/3.6.12
 License: GPLv2 or later
 
 Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
@@ -83,7 +83,7 @@ If you love the plugin, [please consider purchasing a Premium Module](http://bus
 
 
 == Credits ==
-Copyright 2009-15, Dave Rodenbaugh 
+Copyright 2009-16, Dave Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -116,6 +116,19 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 3.6.12 =
+* Fixed bug where get_current_screen changed behavior in WP API and documented use changed, making it potentially unsafe on admin_init hook.  Added conditional to fix on some configs.
+
+= Version 3.6.11 =
+* Allow content fields to use a WYSIWYG editor on the frontend.
+* Listing images can now be re-ordered by drag and drop.
+* Make "Total listing cost" on the backend show the current listing cost.
+* Rename some CSS classes to avoid conflicts with themes using Bootstrap.
+* Allow filtering of listings by category on the backend.
+* Add option to not delete previous listing images during CSV import.
+* Add some database indexes to improve query performance.
+* Update heading hierarchy for WP 4.4.
+* Do not enqueue reCAPTCHA resources on non-BD pages to prevent conflicts.
 
 = Version 3.6.10.1 =
 * Fixes "no listings found" bug on some setups
