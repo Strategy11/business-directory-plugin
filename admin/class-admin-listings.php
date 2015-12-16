@@ -45,9 +45,18 @@ class WPBDP_Admin_Listings {
     }
 
     function _apply_category_filter( $query ) {
+        if ( ! is_admin() )
+            return;
+
+        if ( ! function_exists( 'get_current_screen' ) )
+            return;
+
         $screen = get_current_screen();
 
-        if ( ! is_admin() || 'edit' != $screen->base ||  WPBDP_POST_TYPE != $screen->post_type )
+        if ( ! $screen )
+            return;
+
+        if ( 'edit' != $screen->base ||  WPBDP_POST_TYPE != $screen->post_type )
             return;
 
         if ( empty( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) || ! is_numeric( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) )
