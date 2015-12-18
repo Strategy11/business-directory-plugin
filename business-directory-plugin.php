@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 3.6.12
+ * Version: 3.6.13dev
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * License: GPLv2 or any later version
@@ -29,7 +29,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '3.6.12' );
+define( 'WPBDP_VERSION', '3.6.13dev' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -1463,7 +1463,16 @@ class WPBDP_Plugin {
 
         if ( isset($_FILES['file']) && $_FILES['file']['error'] == 0 ) {
             // TODO: we support only images for now but we could use this for anything later
-            if ( $media_id = wpbdp_media_upload( $_FILES['file'], true, true, array(), $errors ) ) {
+            if ( $media_id = wpbdp_media_upload( $_FILES['file'],
+                                                 true,
+                                                 true,
+                                                 array( 'image' => true,
+                                                        'min-size' => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
+                                                        'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
+                                                        'min-width' => wpbdp_get_option( 'image-min-width' ),
+                                                        'min-height' => wpbdp_get_option( 'image-min-height' )
+                                                     ),
+                                                 $errors ) ) {
                 echo '<div class="preview" style="display: none;">';
                 echo wp_get_attachment_image( $media_id, 'thumb', false );
                 echo '</div>';
