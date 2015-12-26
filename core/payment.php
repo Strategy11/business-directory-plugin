@@ -594,7 +594,12 @@ class WPBDP_PaymentsAPI {
      * @since 3.4
      */
     public function render_invoice( &$payment ) {
-        return wpbdp_render( 'payment/payment_items', array( 'payment' => $payment ), false );
+        $html  = '';
+        $html .= '<div class="wpbdp-checkout-invoice">';
+        $html .= wpbdp_render( 'payment/payment_items', array( 'payment' => $payment ), false );
+        $html .= '</div>';
+
+        return $html;
     }
 
     public function render_details( &$payment ) {
@@ -647,7 +652,12 @@ class WPBDP_PaymentsAPI {
         if ( ! isset( $this->gateways[ $gateway_id ] ) )
             throw new Exception('Unknown gateway for payment.'); // TODO: maybe allow re-selection of the gateway?
 
-        return $this->gateways[ $gateway_id ]->render_integration( $payment );
+        $html  = '';
+        $html .= sprintf( '<div class="wpbdp-checkout-gateway-integration %s">', $gateway_id );
+        $html .= $this->gateways[ $gateway_id ]->render_integration( $payment );
+        $html .= '</div>';
+
+        return $html;
     }
 
     // TODO: dodoc
@@ -659,7 +669,8 @@ class WPBDP_PaymentsAPI {
                                array( 'return_link' => '<a href="' . wpbdp_get_page_link( 'main' ) . '">' . _x( 'Return to Directory.', 'payment', 'WPBDM' ) . '</a>' )
                              );
 
-        $html  = '';        
+        $html  = '';
+        $html .= '<div class="wpbdp-checkout">';
 
         if ( $payment->is_pending() && $payment->has_been_processed() ) {
             $html .= '<p>' . _x( 'Your payment is being processed by the payment gateway. Please reload this page in a moment to see if the status has changed or contact the site administrator.', 'payments', 'WPBDM' ) . '</p>';
@@ -679,6 +690,8 @@ class WPBDP_PaymentsAPI {
 
         if ( ! $opts['retry_rejected'] && $opts['return_link'] )
             $html .= '<p>' . $opts['return_link'] . '</p>';
+
+        $html .= '</div>';
 
         return $html;
     }
