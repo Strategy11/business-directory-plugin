@@ -1,5 +1,9 @@
 <?php
-	echo wpbdp_admin_header(__('Business Directory Settings', 'WPBDM'), 'admin-settings');
+echo wpbdp_admin_header( __( 'Business Directory Settings', 'WPBDM' ),
+                         'admin-settings',
+                         array( array( _x( 'Reset Defaults', 'settings', 'WPBDM' ),
+                                       admin_url( 'admin.php?page=wpbdp_admin_settings&action=reset' ) )
+                              ) );
 ?>
 <script type="text/javascript">
 <?php
@@ -25,21 +29,8 @@ endforeach;
 	   <?php echo apply_filters( 'wpbdp_settings_group_tab_name', $g->name, $g ); ?>
 	</a>
 <?php endforeach; ?>
-	<a class="nav-tab <?php echo wpbdp_getv($_REQUEST, 'groupid') == 'resetdefaults' ? 'nav-tab-active' : ''; ?>"
-        href="<?php echo esc_url( add_query_arg('groupid', 'resetdefaults', remove_query_arg('settings-updated')) ); ?>">
-        <?php _e('Reset Defaults', 'WPBDM'); ?>
-   	</a>
 </h3>
 
-<?php if (wpbdp_getv($_REQUEST, 'groupid', 'general') == 'resetdefaults'): ?>
-
-<p><?php _e('Use this option if you want to go back to the original factory settings for BD. <b>Please note that all of your existing settings will be lost.</b>', 'WPBDM'); ?></p>
-<form action="" method="POST">
-	<input type="hidden" name="resetdefaults" value="1" />
-	<?php echo submit_button(__('Reset Defaults', 'WPBDM')); ?>
-</form>
-
-<?php else: ?>
 <?php
 	$group = $wpbdp_settings->groups[wpbdp_getv($_REQUEST, 'groupid', 'general')];
 ?>
@@ -53,7 +44,6 @@ endforeach;
 	<?php do_settings_sections($group->wpslug); ?>
 	<?php echo submit_button(); ?>
 </form>
-<?php endif; ?>
 
 <?php
 	echo wpbdp_admin_footer();

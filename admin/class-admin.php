@@ -57,6 +57,9 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );
         add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
 
+        // Reset settings action.
+        add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
+
         $this->listings = new WPBDP_Admin_Listings();
         $this->csv_import = new WPBDP_CSVImportAdmin();
         $this->csv_export = new WPBDP_Admin_CSVExport();
@@ -641,11 +644,12 @@ class WPBDP_Admin {
 
         flush_rewrite_rules(false);
 
-        if (isset($_REQUEST['resetdefaults']) && intval($_REQUEST['resetdefaults']) == 1) {
-            $wpbdp->settings->reset_defaults();
-            $_REQUEST['settings-updated'] = true;
-            $_REQUEST['groupid'] = 'general';
-            unset($_REQUEST['resetdefaults']);
+        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
+
+        $reset_defaults = ( isset( $_GET['action'] ) && 'reset' == $_GET['action'] );
+        if ( $reset_defaults ) {
+            echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-reset.tpl.php' );
+            return;
         }
 
         $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
@@ -653,6 +657,18 @@ class WPBDP_Admin {
         wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
                           true);
+    }
+
+    public function settings_reset_defaults() {
+        $do_reset = ( ! empty ( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) );
+
+        if ( $do_reset ) {
+            global $wpbdp;
+            $wpbdp->settings->reset_defaults();
+        }
+
+        wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_settings&settings-updated=1&groupid=general' ) );
+        exit();
     }
 
     /* Uninstall. */

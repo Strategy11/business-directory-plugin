@@ -390,6 +390,11 @@ body.taxonomy-wpbdp_category .column-id {
     margin: 0 0 8px 0;
 }
 
+.wpbdp-note.error, .wpbdp-note.warning {
+    background-color: #FFEBE8;
+    border-color: #C00;
+}
+
 /* Admin settings. */
 .directory-admin_page_wpbdp_admin_settings table.form-table th, .directory-admin_page_wpbdp_admin_settings table.form-table td {
     font-size: 13px;
