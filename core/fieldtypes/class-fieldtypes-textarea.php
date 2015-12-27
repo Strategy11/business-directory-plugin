@@ -107,19 +107,19 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             } else {
                 if ( ! $field->data( 'wysiwyg_editor' ) ) {
                     // Do not modify HTML output from WYSIWYG editor.
-                    $value = nl2br( $value );
+                    $value = wpautop( $value );
                 }
 
                 if ( $field->data( 'allow_shortcodes' ) ) {
                     global $post;
                     // Try to protect us from sortcodes messing things for us.
                     $current_post = $post;
-                    $value = do_shortcode( nl2br( $value ) );
+                    $value = do_shortcode( shortcode_unautop( wpautop( $value ) ) );
                     $post = $current_post;
                 }
             }
         } else {
-            $value = nl2br( $value );
+            $value = wpautop( $value );
         }
 
         return $value;
