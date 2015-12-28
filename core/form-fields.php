@@ -50,6 +50,7 @@ class WPBDP_FormFields {
         $this->register_field_type( 'WPBDP_FieldTypes_LinkedIn', 'social-linkedin' );
         $this->register_field_type( 'WPBDP_FieldTypes_Image', 'image' );
         $this->register_field_type( 'WPBDP_FieldTypes_Date', 'date' );
+        $this->register_field_type( 'WPBDP_FieldTypes_Phone_Number' );
     }
 
     /**
@@ -154,9 +155,15 @@ class WPBDP_FormFields {
 
     public function register_field_type( $field_type_class, $alias=null ) {
         $field_type = new $field_type_class();
-        
+
+        if ( ! $alias )
+            $alias = $field_type->get_id();
+
+        if ( ! $alias )
+            $alias = $field_type_class;
+
         $this->field_types[ $alias ? $alias : $field_type_class ] = $field_type;
-        
+
         foreach ( $field_type->get_supported_associations() as $association ) {
             $this->association_field_types[ $association ] = array_merge( isset( $this->association_field_types[ $association ] ) ? $this->association_field_types[ $association ] : array(), array( $alias ? $alias : $field_type_class ) );
         }

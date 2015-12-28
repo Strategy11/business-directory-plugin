@@ -7,6 +7,7 @@ require_once( WPBDP_PATH . '/core/class-form-field-type.php' );
 
 // Standard types.
 require_once( WPBDP_PATH . '/core/fieldtypes/class-fieldtypes-textfield.php' );
+require_once( WPBDP_PATH . '/core/fieldtypes/class-fieldtypes-phone-number.php' );
 require_once( WPBDP_PATH . '/core/fieldtypes/class-fieldtypes-textarea.php' );
 require_once( WPBDP_PATH . '/core/fieldtypes/class-fieldtypes-select.php' );
 require_once( WPBDP_PATH . '/core/fieldtypes/class-fieldtypes-multiselect.php' );
