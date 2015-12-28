@@ -4,17 +4,29 @@ class WPBDP_Form_Field_Type {
     private $name = null;
 
     public function __construct( $name = '' ) {
-        if ( ! $name )
-            $name = str_replace( array( 'WPBDP_', '_' ), array( '', ' ' ), get_class( $this ) );
-
-        $this->name = trim( $name );
+        if ( ! empty( $name ) )
+            $this->name = $name;
     }
 
     public function get_id() {
-        return get_class( $this );
+        $id = strtolower( get_class( $this ) );
+        $id = str_replace( 'wpbdp_fieldtypes_', '', $id );
+        $id = str_replace( 'wpbdp_', '', $id );
+
+        return $id;
     }
 
     public function get_name() {
+        if ( empty( $this->name ) ) {
+            $name = get_class( $this );
+            $name = str_replace( 'WPBDP_FieldTypes_', '', $name );
+            $name = str_replace( 'WPBDP_', '', $name );
+            $name = str_replace( '_', ' ', $name );
+            $name = trim( $name );
+
+            $this->name = $name;
+        }
+
         return $this->name;
     }
 
