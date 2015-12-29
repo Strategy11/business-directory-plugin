@@ -39,6 +39,8 @@ class WPBDP_DirectoryController {
     }
 
     public function _handle_action(&$wp) {
+        global $wpbdp;
+
         if ( is_page() && in_array( get_the_ID(), wpbdp_get_page_ids( 'main' ) ) ) {
             $action = get_query_var('action') ? get_query_var('action') : ( isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '' );
 
@@ -51,6 +53,18 @@ class WPBDP_DirectoryController {
             $this->action = $action;
         } else {
             $this->action = null;
+
+            if ( $wpbdp->is_plugin_page() ) {
+                global $post;
+
+                if ( wpbdp_has_shortcode( $post->post_content, 'businessdirectory-submitlisting' ) ||
+                     wpbdp_has_shortcode( $post->post_content, 'WPBUSDIRMANADDLISTING' ) ) {
+                     $this->action = 'submitlisting';
+                } elseif ( wpbdp_has_shortcode( $post->post_content, 'businessdirectory-search' ) ||
+                           wpbdp_has_shortcode( $post->post_content, 'businessdirectory_search' ) ) {
+                    $this->action = 'search';
+                }
+            }
         }
     }
 
