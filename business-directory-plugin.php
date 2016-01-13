@@ -47,7 +47,6 @@ require_once( WPBDP_PATH . 'admin/class-admin.php' );
 require_once( WPBDP_PATH . 'core/class-settings.php' );
 require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
-include_once( WPBDP_PATH . 'core/gateways-googlewallet.php' );
 require_once( WPBDP_PATH . 'core/listings.php' );
 require_once( WPBDP_PATH . 'core/templates-generic.php' );
 require_once( WPBDP_PATH . 'core/templates-listings.php' );
@@ -1146,8 +1145,10 @@ class WPBDP_Plugin {
 
             remove_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
             add_filter( 'wp_title', array( $this, '_meta_title' ), 16, 3 );
+            add_filter( 'pre_get_document_title', array( $this, '_meta_title' ), 16 );
 
             if ( is_object( $wpseo_front ) ) {
+                remove_filter( 'pre_get_document_title', array( &$wpseo_front, 'title' ), 15 );
                 remove_filter( 'wp_title', array( &$wpseo_front, 'title' ), 15, 3 );
                 remove_action( 'wp_head', array( &$wpseo_front, 'head' ), 1, 1 );
             }
