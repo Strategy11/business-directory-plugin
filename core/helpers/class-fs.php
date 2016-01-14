@@ -113,6 +113,7 @@ final class WPBDP_FS {
         }
 
         $normalized = basename( basename( strtolower( $zipfile ), '.zip' ), '.tmp' );
+        $normalized = str_replace( array( 'business-directory-', 'businessdirectory' ), '', $normalized );
         $destdir = untrailingslashit( $destdir );
 
         $zip = new PclZip( $zipfile );
