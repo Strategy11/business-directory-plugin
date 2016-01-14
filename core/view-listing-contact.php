@@ -172,7 +172,6 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
                                'date'        => date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) ) );
         $email = wpbdp_email_from_template( 'email-templates-contact',
                                             $replacements );
-        $email->from = "{$this->name} <{$this->email}>";
         $email->to = wpbusdirman_get_the_business_email( $listing_id );
         $email->reply_to = $this->email;
         $email->template = 'businessdirectory-email';
