@@ -85,12 +85,24 @@ class WPBDP_Admin_Listings {
             || ! isset( $_GET['s'] ) || ! $wp_query->is_search )
             return $pieces;
 
-        $s = '%' . $wpdb->esc_like( $_GET['s'] ) . '%';
+        $orig_s = urldecode( $_GET['s'] );
+        $orig_s = '%' . $wpdb->esc_like( $orig_s ) . '%';
+
+        $s = str_replace( '*', '%', $wpdb->esc_like( urldecode( $_GET['s'] ) ) );
+
+        if ( false !== strstr( $s, '%' ) ) {
+            $where = "$wpdb->users.user_login LIKE '$s' OR $wpdb->users.display_name LIKE '$s'";
+        } else {
+            $where = $wpdb->prepare( "$wpdb->users.user_login = %s OR $wpdb->users.display_name = %s",
+                                     $s,
+                                     $s );
+        }
+
+        $regex = "/($wpdb->posts.post_title LIKE '" . preg_quote( $orig_s ) . "')/i";
 
         $pieces['join'] .= " LEFT JOIN $wpdb->users ON $wpdb->posts.post_author = $wpdb->users.ID ";
-        $pieces['where'] = preg_replace( "/($wpdb->posts.post_title LIKE '$s')/i",
-                                         " $0 OR $wpdb->users.user_login LIKE '$s' OR $wpdb->users.display_name LIKE '$s' ",
-                                         $pieces['where'] );
+        $pieces['where'] = preg_replace( $regex, " $0 OR " . $where, $pieces['where'] );
+
         return $pieces;
     }
 
