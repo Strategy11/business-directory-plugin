@@ -63,8 +63,8 @@ class WPBDP_Settings {
         $this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
 
        // {{ Registration settings.
-        $s = $this->add_group( 'registration',
-                               _x('Registration', 'admin settings', 'WPBDM' ) );
+//        $s = $this->add_group( 'registration',
+//                               _x('Registration', 'admin settings', 'WPBDM' ) );
         $msg = __( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.",
                    'admin settings',
                    'WPBDM' );
@@ -311,7 +311,7 @@ class WPBDP_Settings {
         $this->register_dep( 'listings-sortbar-fields', 'requires-true', 'listings-sortbar-enabled' );
 
         $s = $this->add_section($g, 'featured', _x('Featured (Sticky) listing settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'featured-on', _x('Offer sticky listings?', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->add_setting($s, 'featured-on', _x('Offer sticky listings?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'featured-offer-in-submit', _x('Offer upgrades during submit process?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'featured-price', _x('Sticky listing price', 'admin settings', 'WPBDM'), 'text', '39.99');
         $this->add_setting($s, 'featured-description', _x('Sticky listing page description text', 'admin settings', 'WPBDM'), 'text',
