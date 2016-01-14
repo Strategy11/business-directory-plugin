@@ -173,7 +173,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
         $email = wpbdp_email_from_template( 'email-templates-contact',
                                             $replacements );
         $email->to = wpbusdirman_get_the_business_email( $listing_id );
-        $email->reply_to = $this->email;
+        $email->reply_to = "{$this->name} <{$this->email}>";
         $email->template = 'businessdirectory-email';
 
         if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications' ), true ) ) {

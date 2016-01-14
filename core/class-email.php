@@ -52,7 +52,10 @@ class WPBDP_Email {
 		    $headers['Cc'] = implode( ',', is_array( $this->cc ) ? $this->cc : array( $this->cc ) );
 
 		if ( $this->bcc )
-		    $headers['Bcc'] = implode( ',', is_array( $this->bcc ) ? $this->bcc : array( $this->bcc ) );
+            $headers['Bcc'] = implode( ',', is_array( $this->bcc ) ? $this->bcc : array( $this->bcc ) );
+
+        if ( $this->reply_to )
+            $headers['Reply-To'] = $this->reply_to;
 
 		foreach ( $this->headers as $k => $v ) {
 		    if ( in_array( $k, array( 'MIME-Version', 'Content-Type', 'From', 'Cc', 'Bcc' ) ) )
