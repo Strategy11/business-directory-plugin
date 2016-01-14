@@ -21,6 +21,9 @@ class WPBDP_Admin_Listings {
         // Filter by category.
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
         add_action( 'parse_query', array( &$this, '_apply_category_filter' ) );
+
+        // Augment search with username search.
+        add_filter( 'posts_clauses', array( &$this, '_username_search_support' ) );
     }
 
     // Category filter. {{
@@ -71,6 +74,25 @@ class WPBDP_Admin_Listings {
     }
 
     // }}
+
+    function _username_search_support( $pieces ) {
+        global $wp_query, $wpdb;
+
+        $screen = get_current_screen();
+
+        if ( ! is_admin() || ! $screen
+            || 'edit' != $screen->base || WPBDP_POST_TYPE != $screen->post_type
+            || ! isset( $_GET['s'] ) || ! $wp_query->is_search )
+            return $pieces;
+
+        $s = '%' . $wpdb->esc_like( $_GET['s'] ) . '%';
+
+        $pieces['join'] .= " LEFT JOIN $wpdb->users ON $wpdb->posts.post_author = $wpdb->users.ID ";
+        $pieces['where'] = preg_replace( "/($wpdb->posts.post_title LIKE '$s')/i",
+                                         " $0 OR $wpdb->users.user_login LIKE '$s' OR $wpdb->users.display_name LIKE '$s' ",
+                                         $pieces['where'] );
+        return $pieces;
+    }
 
     function add_metaboxes() {
         add_meta_box( 'BusinessDirectory_listinginfo',
