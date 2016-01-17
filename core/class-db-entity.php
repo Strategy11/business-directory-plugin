@@ -263,8 +263,16 @@ class WPBDP_DB_Entity {
             if ( is_array( $query['where'] ) ) {
                 $parts = array();
 
-                foreach ( $query['where'] as $c => $v )
-                    $parts[] = $wpdb->prepare( $c . ' = ' . ( is_numeric( $v ) ? '%d' : '%s' ), $v );
+                foreach ( $query['where'] as $c => $v ) {
+                    $op = '=';
+
+                    if ( '-' == $c[0] ) {
+                        $c = substr( $c, 1 );
+                        $op = '!=';
+                    }
+
+                    $parts[] = $wpdb->prepare( $c . ' ' . $op . ' ' . ( is_numeric( $v ) ? '%d' : '%s' ), $v );
+                }
 
                 $sql .= ' WHERE ( ' . implode( ' AND ', $parts ) . ' )';
             } elseif ( is_string( $query['where'] ) ) {
