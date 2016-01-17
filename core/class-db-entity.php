@@ -271,7 +271,7 @@ class WPBDP_DB_Entity {
                         $op = '!=';
                     }
 
-                    $parts[] = $wpdb->prepare( $c . ' ' . $op . ' ' . ( is_numeric( $v ) ? '%d' : '%s' ), $v );
+                    $parts[] = $wpdb->prepare( $c . ' ' . $op . ' ' . '%s', $v );
                 }
 
                 $sql .= ' WHERE ( ' . implode( ' AND ', $parts ) . ' )';
