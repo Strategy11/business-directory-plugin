@@ -6,6 +6,8 @@
  * Version: 3.6.13dev
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
+ * Text Domain: WPBDM
+ * Domain Path: /languages/
  * License: GPLv2 or any later version
  */
 
