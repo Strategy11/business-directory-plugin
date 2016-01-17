@@ -352,3 +352,37 @@ function wpbdp_post_type() {
 function wpbdp_categories_taxonomy() {
     return WPBDP_CATEGORY_TAX;
 }
+
+/**
+ * Finds a fee by its ID. The special ID of 0 is reserved for the "free fee".
+ * @param int $fee_id fee ID
+ * @return object a fee object or NULL if nothing is found
+ * @since 3.0.3
+ * @deprecated since next-release. Use {@link WPBDP_Fee_Plan::find()} instead.
+ */
+function wpbdp_get_fee( $fee_id ) {
+    if ( 0 == $fee_id )
+        return WPBDP_Fee_Plan::get_free_plan();
+
+    $fee = WPBDP_Fee_Plan::find( $fee_id );
+    return $fee;
+}
+
+/**
+ * Finds fees available for one or more directory categories.
+ * @param int|array $categories term ID or array of term IDs
+ * @return object|
+ * @since 3.0.3
+ * @deprecated since next-release. Use {@link WPBDP_Fee_Plan::for_category()} instead.
+ */
+function wpbdp_get_fees_for_category( $categories=null ) {
+    $categories_ = is_array( $categories ) ? $categories : array( $categories );
+
+    if ( wpbdp_payments_possible() ) {
+        $results = wpbdp_fees_api()->get_fees( $categories_ );
+    } else {
+        $results = array( WPBDP_Fee_Plan::find( array( 'amount' => '0.0' ) ) );
+    }
+
+    return is_array( $categories) ? $results : array_pop( $results );
+}

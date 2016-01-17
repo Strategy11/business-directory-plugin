@@ -130,15 +130,18 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( $this->state->editing )
             return true;
 
-        $all_free_fees = true;
-        foreach ( $fee_selection as &$f ) {
-            if ( ( count( $f['options'] ) > 1 ) || ( $f['options'][0]->id != 0 ) ) {
-                $all_free_fees = false;
+        $skip = true;
+        foreach ( $fee_selection as $fs ) {
+            if ( count( $fs['options'] ) > 1 ) {
+                $skip = false;
                 break;
             }
         }
 
-        return $all_free_fees && ( ! wpbdp_get_option( 'featured-on' ) || ! wpbdp_get_option( 'featured-offer-in-submit' ) );
+        if ( wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) )
+            $skip = false;
+
+        return $skip;
     }
 
     private function setup_fee_selection() {
@@ -151,16 +154,14 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 if ( $term = get_term( $cat_id, WPBDP_CATEGORY_TAX ) ) {
                     $options = wpbdp_get_fees_for_category( $cat_id );
 
-                    if ( count( $options ) > 1 || $options[0]->id != 0 ) {
-                        $fee_selection[ $cat_id ] = array( 'fee_id' => isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id,
-                                                           'term' => $term,
-                                                           'options' => $options );
-                    } else {
-                        $fee_selection[ $cat_id ] = array( 'fee_id' => 0,
-                                                           'term' => $term,
-                                                           'options' => $options );
-                    }
+                    if ( count( $options ) == 1 )
+                        $fee_id = $options[0]->id;
+                    else
+                        $fee_id = isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id;
 
+                    $fee_selection[ $cat_id ] = array( 'fee_id' => $fee_id,
+                                                       'term' => $term,
+                                                       'options' => $options );
                 } else {
                     unset( $this->state->categories[ $cat_id ] );
                 }

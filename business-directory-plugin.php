@@ -149,7 +149,7 @@ class WPBDP_Plugin {
         // Initialize APIs.
         $this->admin = is_admin() ? new WPBDP_Admin() : null;
         $this->controller = new WPBDP_DirectoryController();
-        $this->fees = new WPBDP_FeesAPI();
+        $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_Listings_API();
 
@@ -1068,10 +1068,6 @@ class WPBDP_Plugin {
 
         wp_enqueue_style( 'wpbdp-base-css' );
         wp_enqueue_script( 'wpbdp-js' );
-
-        if ( wpbdp_get_option( 'payments-on') && wpbdp_get_option( 'googlewallet' ) ) {
-            wp_enqueue_script( 'wpbdp-googlewallet', WPBDP_URL . 'core/js/googlewallet' . ( ! $this->is_debug_on() ? '.min' : '' ) .  '.js', array( 'wpbdp-js' ) );
-        }
 
         do_action( 'wpbdp_enqueue_scripts' );
 

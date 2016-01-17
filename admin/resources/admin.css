@@ -59,8 +59,20 @@ span.tag {
     background: #FFFFCF;
 }
 
-/* {{{ "Manage Fees" page. */
+.wp-list-table tr.wpbdp-item-message-tr {
+}
 
+.wp-list-table tr.wpbdp-item-message-tr td {
+}
+
+.wp-list-table tr.wpbdp-item-message-tr td div {
+    margin: 0 15px;
+    padding: 6px 12px 8px 12px;
+    background-color: #fef7f1;
+    font-size: 12px;
+}
+
+/* {{{ "Manage Fees" page. */
 .wpbdp-page-admin-fees .wp-list-table .wpbdp-drag-handle {
     margin-right: 15px;
     display: none;

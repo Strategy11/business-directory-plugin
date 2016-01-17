@@ -14,7 +14,7 @@
                                 'fees admin',
                                 'WPBDM' ) ); ?></p>
     </div>
-    <?php else: ?>
+    <?php endif; ?>
         <div class="fees-order">
             <form>
             <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
@@ -87,7 +87,5 @@
         </div>
         <?php endforeach; ?>
         </div>
-
-    <?php endif; ?>
 
 <?php echo wpbdp_admin_footer(); ?>
