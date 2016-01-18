@@ -90,7 +90,7 @@ class WPBDP_DB_Entity {
             //$value = array_key_exists( $col_name, $this->data ) ? $this->data[ $col_name ] : $col_data['default'];
             $value = isset( $this->{$col_name} ) ? $this->{$col_name} : $col_data['default'];
 
-            if ( $col_data['serialized'] && ! is_null( $value ) )
+            if ( $col_data['serialized'] && ! is_scalar( $value ) )
                 $value = maybe_serialize( $value );
 
             $row[ $col_name ] = $value;
@@ -117,8 +117,6 @@ class WPBDP_DB_Entity {
 
         $where = array();
         $where[ $info['primary_key'] ] = $this->{$info['primary_key']};
-
-        wpbdp_debug_e( $row );
 
         $res = $wpdb->update( $info['table'], $row, $where );
         return false !== $res;
