@@ -56,7 +56,7 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
             $this->errors->add( 'days', _x('Fee listing duration must be a number less than 10 years (3650 days).', 'fees-api', 'WPBDM') );
     }
 
-    public function save( $validate = true, $recursion_guard = false ) {
+    public function save( $validate = true ) {
         // For backwards compat.
         $fee = (array) $this;
         do_action_ref_array( 'wpbdp_fee_before_save', array( &$fee ) );
