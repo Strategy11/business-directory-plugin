@@ -659,7 +659,9 @@ EOF;
                             '2',
                            str_replace( '<a>',
                                         '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
-                                        _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'WPBDM' ) ) );
+                                        _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'WPBDM' ) ),
+                           null,
+                           array( &$this, '_validate_free_images' ) );
         $this->add_setting($s, 'use-default-picture', _x('Use default picture for listings with no picture?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-thumbnail', _x('Show Thumbnail on main listings page?', 'admin settings', 'WPBDM'), 'boolean', true);
     }
@@ -762,10 +764,29 @@ EOF;
         return trim(str_replace(' ', '', $newvalue));
     }
 
+    public function _validate_free_images( $setting, $newvalue, $oldvalue = null ) {
+        $v = absint( $newvalue );
+
+        global $_wpbdp_fee_plan_recursion_guard;
+        if ( ! isset( $_wpbdp_fee_plan_recursion_guard ) || ! $_wpbdp_fee_plan_recursion_guard ) {
+            $freeplan = WPBDP_Fee_Plan::get_free_plan();
+            $freeplan->update( array( 'images' => $v ) );
+        }
+
+        return $v;
+    }
+
     public function _validate_listing_duration($setting, $newvalue, $oldvalue=null) {
         // limit 'duration' because of TIMESTAMP limited range (issue #157).
         // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
         $v = min(max(intval($newvalue), 0), 3650);
+
+        global $_wpbdp_fee_plan_recursion_guard;
+        if ( ! isset( $_wpbdp_fee_plan_recursion_guard ) || ! $_wpbdp_fee_plan_recursion_guard ) {
+            $freeplan = WPBDP_Fee_Plan::get_free_plan();
+            $freeplan->update( array( 'days' => $v ) );
+        }
+
         return $v;
     }
 

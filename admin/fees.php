@@ -56,7 +56,11 @@ class WPBDP_FeesTable extends WP_List_Table {
             echo '<tr></tr>';
             echo '<tr class="wpbdp-item-message-tr">';
             echo '<td colspan="' . count( $this->get_columns() ) . '">';
-            echo '<div>Message about this fee plan here...</div>';
+            echo '<div>';
+            _ex( 'This is the <i>default</i> free plan for your directory. It can\'t be deleted or be anything but free and is only visible when your directory is in <i>free mode</i>. You can create other fee plans if you wish to charge for listings instead.',
+                 'fees admin',
+                 'WPBDM' );
+            echo '</div>';
             echo '</td>';
             echo '</tr>';
         }
@@ -193,13 +197,16 @@ class WPBDP_FeesAdmin {
     }
 
     private function processFieldForm() {
-        $fee = isset( $_GET['id'] ) ? WPBDP_Fee_Plan::find( absint( $_GET['id'] ) ) : new WPBDP_Fee_Plan();
+        $fee_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+        $fee = $fee_id ? WPBDP_Fee_Plan::find( $fee_id ) : new WPBDP_Fee_Plan();
 
         if ( isset( $_POST['fee'] ) ) {
-            if ( ! $fee->save_or_update( $_POST['fee'] ) )
+            if ( ! $fee->update( $_POST['fee'] ) )
                 $this->admin->messages[] = array( $fee->errors->html() , 'error' );
             else
                 $this->admin->messages[] = _x('Fee updated.', 'fees admin', 'WPBDM');
+
+            return $this->feesTable();
         }
 
         wpbdp_render_page( WPBDP_PATH . 'admin/templates/fees-addoredit.tpl.php',
