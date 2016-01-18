@@ -34,12 +34,12 @@ class WPBDP_Fees_API {
 
     // TODO: check if this is being used.
     /**
-     * @deprecated since next-release.
+     * @deprecated since 3.6.13.
      */
     public static function get_free_fee() { return false; }
 
     /**
-     * @deprecated since next-release. See {@link WPBDP_Fee_Plan}.
+     * @deprecated since 3.6.13. See {@link WPBDP_Fee_Plan}.
      */
     public function get_fees( $categories = null ) {
         global $wpdb;

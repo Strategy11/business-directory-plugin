@@ -2,7 +2,7 @@
 require_once( WPBDP_PATH . 'core/class-db-entity-error-list.php' );
 
 /**
- * @since next-release
+ * @since 3.6.13
  */
 class WPBDP_DB_Entity {
 

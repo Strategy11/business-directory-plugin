@@ -63,6 +63,7 @@ span.tag {
 }
 
 .wp-list-table tr.wpbdp-item-message-tr td {
+    padding-top: 0;
 }
 
 .wp-list-table tr.wpbdp-item-message-tr td div {
