@@ -289,7 +289,7 @@ class WPBDP_Themes_Admin {
         if ( ! $info )
             die();
 
-        $edd_name = isset( $info->edd_name ) ? $info->edd_name : '';
+        $edd_name = isset( $info->edd_name ) ? $info->edd_name : $info->name;
         if ( ! $edd_name )
             die();
 
