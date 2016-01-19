@@ -78,9 +78,12 @@ class WPBDP_Admin_Listings {
     function _username_search_support( $pieces ) {
         global $wp_query, $wpdb;
 
+        if ( ! function_exists( 'get_current_screen' ) || ! is_admin() )
+            return $pieces;
+
         $screen = get_current_screen();
 
-        if ( ! is_admin() || ! $screen
+        if ( ! $screen
             || 'edit' != $screen->base || WPBDP_POST_TYPE != $screen->post_type
             || ! isset( $_GET['s'] ) || ! $wp_query->is_search )
             return $pieces;
