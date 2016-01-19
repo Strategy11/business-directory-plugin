@@ -76,7 +76,7 @@ class WPBDP_Themes_Updater {
             'url' => home_url(),
             'license' => $theme->license_key
         );
-        $response = wp_remote_get( add_query_arg( $request, 'http://bdtest.wpengine.com/' ), array( 'timeout' => 15, 'sslverify' => false ) );
+        $response = wp_remote_get( add_query_arg( $request, 'http://businessdirectoryplugin.com/' ), array( 'timeout' => 15, 'sslverify' => false ) );
 
         if ( is_wp_error( $response ) )
             return false;

@@ -301,7 +301,7 @@ class WPBDP_Themes_Admin {
             'item_name' => urlencode( $edd_name ),
             'url' => home_url()
         );
-        $request = wp_remote_get( add_query_arg( $request_vars, 'http://bdtest.wpengine.com/' ), array( 'timeout' => 15, 'sslverify' => false ) );
+        $request = wp_remote_get( add_query_arg( $request_vars, 'http://businessdirectoryplugin.com/' ), array( 'timeout' => 15, 'sslverify' => false ) );
 
         if ( is_wp_error( $request ) )
             $error = _x( 'Could not contact licensing server', 'licensing', 'WPBDM' );
