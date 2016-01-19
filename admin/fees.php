@@ -57,7 +57,7 @@ class WPBDP_FeesTable extends WP_List_Table {
             echo '<tr class="wpbdp-item-message-tr">';
             echo '<td colspan="' . count( $this->get_columns() ) . '">';
             echo '<div>';
-            _ex( 'This is the <i>default</i> free plan for your directory. It can\'t be deleted or be anything but free and is only visible when your directory is in <i>free mode</i>. You can create other fee plans if you wish to charge for listings instead.',
+            _ex( 'This is the default free plan for your directory.  You can\'t delete it and it\'s always free, but you can edit the name and other settings. It\'s only available when the directory is in Free mode.  You can always create other fee plans, including ones for 0.00 (free) if you wish.',
                  'fees admin',
                  'WPBDM' );
             echo '</div>';
@@ -92,9 +92,9 @@ class WPBDP_FeesTable extends WP_List_Table {
                                    _x('Edit', 'fees admin', 'WPBDM'));
 
         if ( 'free' == $fee->tag ) {
-            $actions['delete'] = sprintf('<a href="%s">%s</a>',
-                                       esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
-                                       _x('Disable', 'fees admin', 'WPBDM'));
+//            $actions['delete'] = sprintf('<a href="%s">%s</a>',
+//                                       esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
+//                                       _x('Disable', 'fees admin', 'WPBDM'));
         } else {
             $actions['delete'] = sprintf('<a href="%s">%s</a>',
                                        esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),

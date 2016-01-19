@@ -91,7 +91,7 @@ echo wpbdp_admin_header( $fee->is_new() ? _x( 'Add Listing Fee', 'fees admin', '
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Is sticky?', 'fees admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex('Is featured listing/sticky?', 'fees admin', 'WPBDM'); ?></label>
                 </th>
                 <td>
                     <input name="fee[sticky]"
@@ -99,6 +99,7 @@ echo wpbdp_admin_header( $fee->is_new() ? _x( 'Add Listing Fee', 'fees admin', '
                            value="1"
                            <?php echo $fee->sticky ? 'checked="checked"' : ''; ?>
                            <?php echo ( 'free' == $fee->tag ) ? 'disabled="disabled"' : ''; ?> />
+                    <span class="description"><?php _ex( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'fees admin', 'WPBDM' ); ?></span>
                 </td>
             </tr>
             <tr class="form-field form-required">
