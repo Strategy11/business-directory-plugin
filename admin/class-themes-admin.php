@@ -15,6 +15,7 @@ class WPBDP_Themes_Admin {
         $this->updater = new WPBDP_Themes_Updater( $this->api );
 
         add_action( 'wp_ajax_wpbdp-themes-activate-license', array( &$this, 'ajax_activate_license' ) );
+        add_action( 'wp_ajax_wpbdp-themes-deactivate-license', array( &$this, 'ajax_deactivate_license' ) );
 
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
@@ -277,7 +278,7 @@ class WPBDP_Themes_Admin {
         if ( ! current_user_can( 'administrator' ) )
             die();
 
-        $nonce = $_POST['_wpnonce'];
+        $nonce = $_POST['nonce'];
         $theme = $_POST['theme'];
         $license = trim( $_POST['license'] );
 
@@ -329,6 +330,66 @@ class WPBDP_Themes_Admin {
         update_option( 'wpbdp-themes-licenses', $theme_licenses );
 
         $response->set_message( _x( 'License activated', 'licensing', 'WPBDM' ) );
+        $response->send();
+    }
+
+    function ajax_deactivate_license() {
+        if ( ! current_user_can( 'administrator' ) )
+            die();
+
+        $nonce = $_POST['nonce'];
+        $theme = $_POST['theme'];
+
+        if ( ! wp_verify_nonce( $nonce, 'deactivate ' . $theme ) )
+            die();
+
+        // Try to activate license.
+        $info = $this->api->get_theme( $theme );
+        if ( ! $info )
+            die();
+
+        $edd_name = ! empty ( $info->edd_name ) ? $info->edd_name : $info->name;
+        if ( ! $edd_name )
+            die();
+
+        if ( empty( $info->license_key ) )
+            die();
+
+        // Try to deactivate the key.
+        $error = false;
+        $request_vars = array(
+            'edd_action' => 'deactivate_license',
+            'license' => $info->license_key,
+            'item_name' => urlencode( $edd_name ),
+            'url' => home_url()
+        );
+        $request = wp_remote_get( add_query_arg( $request_vars, 'http://businessdirectoryplugin.com/' ), array( 'timeout' => 15, 'sslverify' => false ) );
+
+        if ( is_wp_error( $request ) )
+            $error = _x( 'Could not contact licensing server', 'licensing', 'WPBDM' );
+
+        if ( ! $error  ) {
+            $request_result = json_decode( wp_remote_retrieve_body( $request ) );
+
+            if ( ! is_object( $request_result ) || ! $request_result || ! isset( $request_result->success ) || ! $request_result->success )
+                $error = _x( 'Invalid response from server', 'licensing', 'WPBDM' );
+        }
+
+        $response = new WPBDP_Ajax_Response();
+//        if ( $error )
+//            return $response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'WPBDM' ), $error ) );
+
+        // Store license details.
+        $theme_licenses = get_option( 'wpbdp-themes-licenses', array() );
+        if ( ! is_array( $theme_licenses ) )
+            $theme_licenses = array();
+
+        if ( isset( $theme_licenses[ $theme ] ) )
+            unset( $theme_licenses[ $theme ] );
+
+        update_option( 'wpbdp-themes-licenses', $theme_licenses );
+
+        $response->set_message( _x( 'License deactivated', 'licensing', 'WPBDM' ) );
         $response->send();
     }
 

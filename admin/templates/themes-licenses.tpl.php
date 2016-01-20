@@ -18,15 +18,21 @@ echo wpbdp_admin_notices();
                     <?php echo $t->name; ?>
                 </th>
                 <td>
-                    <form action="" method="post" class="license-activation">
-                        <input type="hidden" name="action" value="wpbdp-themes-activate-license" />
-                        <?php wp_nonce_field( 'activate ' . $t->id ); ?>
-                        <input type="hidden" name="theme" value="<?php echo $t->id; ?>" />
-                        <input type="textfield" size="25" name="license" value="<?php echo $t->license_key; ?>" />
-                        <input type="submit" name="activate" class="button button-primary" value="Activate License"
-                               data-l10n="Activating license..." />
+                    <div class="license-activation">
+                    <input type="textfield" size="25" name="license" value="<?php echo $t->license_key; ?>" <?php echo $t->license_key ? 'readonly="readonly"' : ''; ?> />
+
+                        <input type="button" name="deactivate" class="button button-secondary" value="<?php _ex( 'Deactivate License', 'themes', 'WPBDM' ); ?>"
+                               data-nonce="<?php echo wp_create_nonce( 'deactivate ' . $t->id ); ?>"
+                               data-theme="<?php echo $t->id; ?>"
+                               data-l10n="<?php _ex( 'Deactivating license...', 'themes', 'WPBDM' ); ?>"
+                               style="<?php echo ( empty( $t->license_key ) ) ? 'display: none;' : '' ; ?>" />
+                        <input type="button" name="activate" class="button button-primary" value="<?php _ex( 'Activate License', 'themes', 'WPBDM' ); ?>"
+                               data-l10n="<?php _ex( 'Activating license...', 'themes', 'WPBDM' ); ?>"
+                               data-nonce="<?php echo wp_create_nonce( 'activate ' . $t->id ); ?>"
+                               data-theme="<?php echo $t->id; ?>"
+                               style="<?php echo ( ! empty( $t->license_key ) ) ? 'display: none;' : '' ; ?>" />
                         <span class="status-message"></span>
-                    </form>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>

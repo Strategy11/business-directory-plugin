@@ -12,15 +12,25 @@ jQuery(function($) {
             $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).removeAttr( 'disabled' );
     } );
 
-    $( '#wpbdp-admin-page-themes form.license-activation' ).submit( function( e ) {
-        e.preventDefault();
 
-        var $form = $( this );
+    $( '#wpbdp-admin-page-themes .license-activation input[type="button"]' ).click( function() {
+        var activate = $( this ).is( '[name="activate"]' );
+
+        var $form = $( this ).parents( '.license-activation' );
+        var $license = $( 'input[name="license"]', $form );
         var $msg = $( '.status-message', $form );
-        var data = $( this ).serialize();
+        var data = { 'nonce': $( this ).attr( 'data-nonce' ),
+                     'theme': $( this ).attr( 'data-theme' ) };
+
+        if ( activate ) {
+            data['action'] = 'wpbdp-themes-activate-license';
+            data['license'] = $license.val();
+        } else {
+            data['action'] = 'wpbdp-themes-deactivate-license';
+        }
 
         $msg.removeClass( 'ok error' );
-        $msg.html( $( 'input[type="submit"]', $form ).attr( 'data-l10n' ) );
+        $msg.html( $( this ).attr( 'data-l10n' ) );
 
         $.post( ajaxurl, data, function( res ) {
             if ( ! res.success ) {
@@ -38,10 +48,29 @@ jQuery(function($) {
                 .addClass( 'ok' )
                 .show();
 
-            $( 'input[type="submit"]', $form ).hide();
-            $( 'input[name="license"]', $form ).attr( 'readonly', 'readonly' );
+            if ( activate ) {
+                $( 'input[name="activate"]', $form ).hide();
+                $( 'input[name="deactivate"]', $form ).show();
+                $license.attr( 'readonly', 'readonly' );
+            } else {
+                $license.removeAttr( 'readonly' ).val( '' );
+                $( 'input[name="deactivate"]', $form ).hide();
+                $( 'input[name="activate"]', $form ).show();
+            }
         }, 'json' );
     } );
+
+/*    $( '#wpbdp-admin-page-themes form.license-activation' ).submit( function( e ) {
+            $msg.hide()
+                .html( res.message )
+                .removeClass( 'error' )
+                .addClass( 'ok' )
+                .show();
+
+            $( 'input[name="activate"]', $form ).hide();
+            $( 'input[name="license"]', $form ).attr( 'readonly', 'readonly' );
+        }, 'json' );
+    } );*/
 
     $( '#wpbdp-admin-page-themes .wpbdp-theme .update-link' ).click( function( e ) {
         e.preventDefault();
