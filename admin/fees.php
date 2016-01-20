@@ -100,8 +100,8 @@ class WPBDP_FeesTable extends WP_List_Table {
         echo '</tr>';
 
         if ( 'free' == $item->tag ) {
-            echo '<tr></tr>';
-            echo '<tr class="wpbdp-item-message-tr">';
+            echo '<tr class="free-fee-related-tr"></tr>';
+            echo '<tr class="wpbdp-item-message-tr free-fee-related-tr">';
             echo '<td colspan="' . count( $this->get_columns() ) . '">';
             echo '<div>';
             _ex( 'This is the default free plan for your directory.  You can\'t delete it and it\'s always free, but you can edit the name and other settings. It\'s only available when the directory is in Free mode.  You can always create other fee plans, including ones for 0.00 (free) if you wish.',

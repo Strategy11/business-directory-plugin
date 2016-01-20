@@ -122,13 +122,16 @@ jQuery(document).ready(function($){
         cursor: 'move',
         opacity: 0.9,
         update: function( event, ui ) {
+            var rel_rows = $( '.free-fee-related-tr' ).remove();
+            $( 'tr.free-fee' ).after( rel_rows );
+
             var sorted_items = [];
             $( this ).find( '.wpbdp-drag-handle' ).each( function( i, v ) {
                 sorted_items.push( $( v ).attr('data-fee-id') );
             } );
 
             if ( sorted_items )
-        $.post( ajaxurl, { 'action': 'wpbdp-admin-fees-reorder', 'order': sorted_items } );
+                $.post( ajaxurl, { 'action': 'wpbdp-admin-fees-reorder', 'order': sorted_items } );
         }
     });
 
