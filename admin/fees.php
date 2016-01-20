@@ -59,7 +59,7 @@ class WPBDP_FeesTable extends WP_List_Table {
             'amount' => _x('Amount', 'fees admin', 'WPBDM'),
             'duration' => _x('Duration', 'fees admin', 'WPBDM'),
             'images' => _x('Images', 'fees admin', 'WPBDM'),
-            'categories' => _x('Applied To', 'fees admin', 'WPBDM')
+            'sticky' => _x( 'Sticky?', 'fees admin', 'WPBDM' )
         );
     }
 
@@ -187,6 +187,10 @@ class WPBDP_FeesTable extends WP_List_Table {
         }
 
         return $names ? join($names, ', ') : '--';
+    }
+
+    public function column_sticky( $fee ) {
+        return $fee->sticky ? _x( 'Yes', 'fees admin', 'WPBDM' ) : '';
     }
 
 }
