@@ -1,7 +1,7 @@
 <?php
-    echo wpbdp_admin_header(null, 'admin-fees', wpbdp_get_option('payments-on') ? array(
+    echo wpbdp_admin_header(null, 'admin-fees', array(
         array(_x('Add New Listing Fee', 'fees admin', 'WPBDM'), esc_url(add_query_arg('action', 'addfee'))),
-    ) : null);
+    ) );
 ?>
     <?php wpbdp_admin_notices(); ?>
 
@@ -15,6 +15,8 @@
                                 'WPBDM' ) ); ?></p>
     </div>
     <?php endif; ?>
+
+    <?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ): ?>
         <div class="fees-order">
             <form>
             <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
@@ -38,6 +40,19 @@
 
             </form>
         </div>
+
+        <br class="clear" />
+        <?php endif; ?>
+
+        <?php if ( 'disabled' == $table->get_current_view() ): ?>
+        <div class="wpbdp-note"><p>
+            <?php echo str_replace( '<a>',
+                                    '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">', 
+                                    _x( 'These fees are configured in your system, but are not active because of the <a>payment settings</a> (currently set to Free).',
+                                        'admin fees',
+                                        'WPBDM' ) ); ?>
+        </p></div>
+        <?php endif; ?>
 
         <?php $table->views(); ?>
         <?php $table->display(); ?>

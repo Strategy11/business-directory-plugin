@@ -16,6 +16,42 @@ class WPBDP_FeesTable extends WP_List_Table {
         echo _x('You do not have any listing fees setup yet.', 'fees admin', 'WPBDM');
     }
 
+    public function get_current_view() {
+        return wpbdp_getv( $_GET, 'fee_status', 'active' );
+    }
+
+    public function get_views() {
+        global $wpdb;
+
+        $views = array();
+
+        if ( wpbdp_payments_possible() )
+            return $views;
+
+        $all = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees" ) );
+        $views['all'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+                                 esc_url( add_query_arg( 'fee_status', 'all' ) ),
+                                 'all' == $this->get_current_view() ? 'current' : '',
+                                 _x( 'All', 'admin fees table', 'WPBDM' ),
+                                 number_format_i18n( $all ) );
+
+        $active = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE amount = %s", '0.0' ) ) );
+        $views['active'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+                                    esc_url( add_query_arg( 'fee_status', 'active' ) ),
+                                    'active' == $this->get_current_view() ? 'current' : '',
+                                    _x( 'Active', 'admin fees table', 'WPBDM' ),
+                                    number_format_i18n( $active ) );
+
+        $views['disabled'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+                                      esc_url( add_query_arg( 'fee_status', 'disabled' ) ),
+                                      'disabled' == $this->get_current_view() ? 'current' : '',
+                                      _x( 'Disabled', 'admin fees table', 'WPBDM' ),
+                                      number_format_i18n( $all - $active ) );
+
+
+        return $views;
+    }
+
     public function get_columns() {
         return array(
 /*            'order' => _x( 'Order', 'fees admin', 'WPBDM' ),*/
@@ -34,7 +70,18 @@ class WPBDP_FeesTable extends WP_List_Table {
         if ( wpbdp_payments_possible() ) {
             $this->items = WPBDP_Fee_Plan::find( array( '-tag' => 'free' ) );
         } else {
-            $this->items = WPBDP_Fee_Plan::find( 'all' );
+            switch ( $this->get_current_view() ) {
+                case 'active':
+                    $this->items = WPBDP_Fee_Plan::find( array( 'amount' => 0.0 ) );
+                    break;
+                case 'disabled':
+                    $this->items = WPBDP_Fee_Plan::find( array( '-amount' => 0.0 ) );
+                    break;
+                case 'all':
+                default:
+                    $this->items = WPBDP_Fee_Plan::find();
+                    break;
+            }
         }
     }
 
@@ -65,16 +112,16 @@ class WPBDP_FeesTable extends WP_List_Table {
             echo '</tr>';
         }
 
-        if ( $free_mode && $item->amount > 0.0 ) {
-            echo '<tr></tr>';
-            echo '<tr class="wpbdp-item-message-tr">';
-            echo '<td colspan="' . count( $this->get_columns() ) . '">';
-            echo '<div>';
-            _ex( 'Fee plan disabled because directory is in free mode.', 'fees admin', 'WPBDM' );
-            echo '</div>';
-            echo '</td>';
-            echo '</tr>';
-        }
+//        if ( $free_mode && $item->amount > 0.0 ) {
+//            echo '<tr></tr>';
+//            echo '<tr class="wpbdp-item-message-tr">';
+//            echo '<td colspan="' . count( $this->get_columns() ) . '">';
+//            echo '<div>';
+//            _ex( 'Fee plan disabled because directory is in free mode.', 'fees admin', 'WPBDM' );
+//            echo '</div>';
+//            echo '</td>';
+//            echo '</tr>';
+//        }
     }
 
     public function column_order( $fee ) {
