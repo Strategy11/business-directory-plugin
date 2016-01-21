@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since 3.6.13
+ * @since 3.7
  */
 class WPBDP_DB_Entity_Error_List {
 

@@ -358,7 +358,7 @@ function wpbdp_categories_taxonomy() {
  * @param int $fee_id fee ID
  * @return object a fee object or NULL if nothing is found
  * @since 3.0.3
- * @deprecated since 3.6.13. Use {@link WPBDP_Fee_Plan::find()} instead.
+ * @deprecated since 3.7. Use {@link WPBDP_Fee_Plan::find()} instead.
  */
 function wpbdp_get_fee( $fee_id ) {
     if ( 0 == $fee_id )
@@ -373,7 +373,7 @@ function wpbdp_get_fee( $fee_id ) {
  * @param int|array $categories term ID or array of term IDs
  * @return object|
  * @since 3.0.3
- * @deprecated since 3.6.13. Use {@link WPBDP_Fee_Plan::for_category()} instead.
+ * @deprecated since 3.7. Use {@link WPBDP_Fee_Plan::for_category()} instead.
  */
 function wpbdp_get_fees_for_category( $categories=null ) {
     $categories_ = is_array( $categories ) ? $categories : array( $categories );
