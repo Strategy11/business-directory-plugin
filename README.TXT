@@ -3,24 +3,24 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory,directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 4.0
-Tested up to: 4.4
-Last Updated: 2015-Dec-16
-Stable tag: tags/3.6.12
+Tested up to: 4.4.1
+Last Updated: 2016-Jan-21
+Stable tag: tags/3.7
 License: GPLv2 or later
 
-Build local directories, business provider listings, Yellow-Pages directories, Yelp-like review sections and much more! 
+Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
 
 == Description ==
 
 [Main Site](http://businessdirectoryplugin.com/) | [Support Forum](http://businessdirectoryplugin.com/support-forum/) | [Documentation](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-modules/)
 
-Business Directory Plugin is the most popular, widely-used, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
+Business Directory Plugin is the most popular, versatile, widely-installed, easiest to use, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
-Business Directory Plugin allows you to build local directories, business provider listings, Yellow-Pages style business directories, Yelp-like review sections, create a church directory, build an address book and much more.  You can add any kind of directory using Business Directory plugin.
+Business Directory Plugin allows you to build a local directory, directory of business providers, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory using Business Directory plugin.
 
 = Features =
 * Fully customizable form fields
-* Accept payment for listings OR have free listings
+* Accept payment for listings OR have free listings in your business directory
 * Full support for recurring payments (PayPal, Authorize.net, Stripe)
 * Allow for featured/sticky listings for an upgrade fee
 * Create multiple fee plans, which can be assigned to categories for posting
@@ -31,15 +31,15 @@ Business Directory Plugin allows you to build local directories, business provid
 * Configurable quick-search field and sorting bar for listings
 * Rate businesses in your directory (now with Schema.org microformat support) (using the Ratings Module)
 * Display the location of the business (categories, search, details--now with custom map sizes) (using the Google Maps Module)
-* Location based result filtering (using the Regions Module)
+* Location based directory result filtering (using the Regions Module)
 * ZIP code radius searches (using the ZIP Search Module)
 * Assign features to paid or sticky listing plans to give users incentive to upgrade (using the Featured levels module)
 * Allow users to upload PDFs (using the File Upload Module)
 * Display Category Icons/Allow Parent-Child Category Navigation (using the Enhanced Category Module)
-* Manage attachments on listings (using the Attachments module, supports PDF, Text files, images)
+* Manage attachments on directory listings (using the Attachments module, supports PDF, Text files, images)
 * Accept payments using Stripe (using the Stripe Gateway Module)
 * Accept payments using PayFast (using the PayFast Gateway Module)
-* Post claimable listings that other businesses can pay (or not) to claim (using the Claim Listings Module) (NEW!)
+* Post claimable listings in your business directory that other users can pay (or not) to claim (using the Claim Listings Module) (NEW!)
 * FULL responsive support when installed with a responsive theme (NEW!)
 * Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
 * Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) (NEW!)
@@ -77,9 +77,9 @@ NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-
 [2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
 
 For more information and support please visit [http://businessdirectoryplugin.com](http://businessdirectoryplugin.com?ref=wp)
-For plugin support please visit [http://businessdirectoryplugin.com/forums](http://businessdirectoryplugin.com/forums)
+For Business Directory plugin support please visit [http://businessdirectoryplugin.com/forums](http://businessdirectoryplugin.com/forums)
 
-If you love the plugin, [please consider purchasing a Premium Module](http://businessdirectoryplugin.com/premium-modules/?ref=wp)!
+If you love Business Directory plugin, [please consider purchasing a Premium Module](http://businessdirectoryplugin.com/premium-modules/?ref=wp)!
 
 
 == Credits ==
@@ -116,6 +116,22 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 3.7 =
+* NEW:  Improved Fee admin interface
+* NEW:  Allow content fields to use a WYSIWYG editor on the frontend.
+* NEW:  Allow admins to search listings by username on the backend.
+* NEW:  "Phone Number" field type.
+* NEW:  Added Russian translation.
+* Image fields now adhere to global image size restrictions.
+* Fix handling of tags in select fields, during CSV imports.
+* Improve CSS classes on checkout screens.
+* Improve handling of line breaks in content fields.
+* Improve presentation of settings pages.
+* Better handle reCAPTCHA fields outside of the main page.
+* Maintain Yoast SEO compatibility when title-tag is used by the theme.
+* Remove Google Wallet support from the plugin.
+* Use "Reply-To" header for listing contact emails.
+
 = Version 3.6.12 =
 * Fixed bug where get_current_screen changed behavior in WP API and documented use changed, making it potentially unsafe on admin_init hook.  Added conditional to fix on some configs.
 
