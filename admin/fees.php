@@ -13,7 +13,31 @@ class WPBDP_FeesTable extends WP_List_Table {
     }
 
     public function no_items() {
-        echo _x('You do not have any listing fees setup yet.', 'fees admin', 'WPBDM');
+        if ( 'all' == $this->get_current_view() ) {
+            echo str_replace( '<a>',
+                              '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees&action=addfee' ) . '">',
+                              _x( 'There are no fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'WPBDM' ) );
+            return;
+        }
+
+        switch ( $this->get_current_view() ) {
+            case 'active':
+                $view_name = _x( 'Active', 'fees admin', 'WPBDM' );
+                break;
+            case 'unavailable':
+                $view_name = _x( 'Not Available', 'fees admin', 'WPBDM' );
+                break;
+            case 'disabled':
+                $view_name = _x( 'Disabled', 'fees admin', 'WPBDM' );
+                break;
+            default:
+                $view_name = '';
+                break;
+        }
+        printf( str_replace( '<a>',
+                             '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees&action=addfee' ) . '">',
+                             _x( 'There are no "%s" fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'WPBDM' ) ),
+                $view_name );
     }
 
     public function get_current_view() {
