@@ -381,7 +381,7 @@ function wpbdp_get_fees_for_category( $categories=null ) {
     if ( wpbdp_payments_possible() ) {
         $results = wpbdp_fees_api()->get_fees( $categories_ );
     } else {
-        $results = array( WPBDP_Fee_Plan::find( array( 'amount' => '0.0' ) ) );
+        $results = array( WPBDP_Fee_Plan::find( array( 'tag' => 'free' ) ) );
     }
 
     return is_array( $categories) ? $results : array_pop( $results );

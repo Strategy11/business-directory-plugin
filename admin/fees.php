@@ -25,9 +25,6 @@ class WPBDP_FeesTable extends WP_List_Table {
 
         $views = array();
 
-        if ( wpbdp_payments_possible() )
-            return $views;
-
         $all = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees" ) );
         $views['all'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                  esc_url( add_query_arg( 'fee_status', 'all' ) ),
@@ -35,53 +32,80 @@ class WPBDP_FeesTable extends WP_List_Table {
                                  _x( 'All', 'admin fees table', 'WPBDM' ),
                                  number_format_i18n( $all ) );
 
-        $active = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE amount = %s", '0.0' ) ) );
+
+        if ( ! wpbdp_payments_possible() )
+            $active = 1;
+        else
+            $active = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE enabled = %d AND tag != %s", 1, 'free' ) ) );
+
         $views['active'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                     esc_url( add_query_arg( 'fee_status', 'active' ) ),
                                     'active' == $this->get_current_view() ? 'current' : '',
                                     _x( 'Active', 'admin fees table', 'WPBDM' ),
                                     number_format_i18n( $active ) );
 
+
+        $disabled = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE enabled = %d", 0 ) ) );
+        $unavailable = $all - $active - $disabled;
+
+        $views['unavailable'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+                                      esc_url( add_query_arg( 'fee_status', 'unavailable' ) ),
+                                      'unavailable' == $this->get_current_view() ? 'current' : '',
+                                      _x( 'Not Available', 'admin fees table', 'WPBDM' ),
+                                      number_format_i18n( $unavailable ) );
+
+
         $views['disabled'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                       esc_url( add_query_arg( 'fee_status', 'disabled' ) ),
                                       'disabled' == $this->get_current_view() ? 'current' : '',
                                       _x( 'Disabled', 'admin fees table', 'WPBDM' ),
-                                      number_format_i18n( $all - $active ) );
+                                      number_format_i18n( $disabled ) );
 
 
         return $views;
     }
 
     public function get_columns() {
-        return array(
-/*            'order' => _x( 'Order', 'fees admin', 'WPBDM' ),*/
+        $cols = array(
             'label' => _x('Label', 'fees admin', 'WPBDM'),
             'amount' => _x('Amount', 'fees admin', 'WPBDM'),
             'duration' => _x('Duration', 'fees admin', 'WPBDM'),
             'images' => _x('Images', 'fees admin', 'WPBDM'),
-            'sticky' => _x( 'Sticky?', 'fees admin', 'WPBDM' )
+            'sticky' => _x( 'Featured/Sticky', 'fees admin', 'WPBDM' )
         );
+
+        if ( 'all' == $this->get_current_view() ) {
+            $cols[ 'status' ] = _x( 'Status', 'fees admin', 'WPBDM' );
+        }
+
+        return $cols;
     }
 
     public function prepare_items() {
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
 
-        // XXX: For now, we keep the free plan a 'secret' when payments are enabled. This is for backwards compat.
-        if ( wpbdp_payments_possible() ) {
-            $this->items = WPBDP_Fee_Plan::find( array( '-tag' => 'free' ) );
-        } else {
-            switch ( $this->get_current_view() ) {
-                case 'active':
-                    $this->items = WPBDP_Fee_Plan::find( array( 'amount' => 0.0 ) );
-                    break;
-                case 'disabled':
-                    $this->items = WPBDP_Fee_Plan::find( array( '-amount' => 0.0 ) );
-                    break;
-                case 'all':
-                default:
-                    $this->items = WPBDP_Fee_Plan::find();
-                    break;
-            }
+        switch ( $this->get_current_view() ) {
+            case 'active':
+                if ( wpbdp_payments_possible() )
+                    $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 1, '-tag' => 'free' ) );
+                else
+                    $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 1, 'tag' => 'free' ) );
+
+                break;
+            case 'disabled':
+                $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 0 ) );
+                break;
+            case 'unavailable':
+                if ( wpbdp_payments_possible() )
+                    $this->items = WPBDP_Fee_Plan::find( array( 'tag' => 'free' ) );
+                else
+                    $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 1, '-tag' => 'free' ) );
+
+                break;
+            case 'all':
+            default:
+                $this->items = WPBDP_Fee_Plan::find();
+                break;
         }
     }
 
@@ -143,6 +167,15 @@ class WPBDP_FeesTable extends WP_List_Table {
 //                                       esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
 //                                       _x('Disable', 'fees admin', 'WPBDM'));
         } else {
+            if ( $fee->enabled )
+                $actions['disable'] = sprintf('<a href="%s">%s</a>',
+                                           esc_url(add_query_arg(array('action' => 'disablefee', 'id' => $fee->id))),
+                                           _x('Disable', 'fees admin', 'WPBDM'));
+            else
+                $actions['enable'] = sprintf('<a href="%s">%s</a>',
+                                           esc_url(add_query_arg(array('action' => 'enablefee', 'id' => $fee->id))),
+                                           _x('Enable', 'fees admin', 'WPBDM'));
+
             $actions['delete'] = sprintf('<a href="%s">%s</a>',
                                        esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
                                        _x('Delete', 'fees admin', 'WPBDM'));
@@ -190,7 +223,17 @@ class WPBDP_FeesTable extends WP_List_Table {
     }
 
     public function column_sticky( $fee ) {
-        return $fee->sticky ? _x( 'Yes', 'fees admin', 'WPBDM' ) : '';
+        return $fee->sticky ? _x( 'Yes', 'fees admin', 'WPBDM' ) : _x( 'No', 'fees admin', 'WPBDM' );
+    }
+
+    public function column_status( $fee ) {
+        if ( ! $fee->enabled )
+            return _x( 'Disabled', 'fees admin', 'WPBDM' );
+
+        if ( ( ! wpbdp_payments_possible() && 'free' != $fee->tag ) || ( wpbdp_payments_possible() && 'free' == $fee->tag ) )
+            return _x( 'Not Available', 'fees admin', 'WPBDM' );
+
+        return _x( 'Active', 'fees admin', 'WPBDM' );
     }
 
 }
@@ -211,6 +254,22 @@ class WPBDP_FeesAdmin {
             case 'addfee':
             case 'editfee':
                 $this->processFieldForm();
+                break;
+            case 'enablefee':
+                $fee = WPBDP_Fee_Plan::find( $_REQUEST['id'] );
+                if ( $fee && $fee->update( array( 'enabled' => 1 ) ) )
+                    wpbdp_admin_message( _x( 'Fee enabled.', 'fees admin', 'WPBDM' ) );
+
+                return $this->feesTable();
+
+                break;
+            case 'disablefee':
+                $fee = WPBDP_Fee_Plan::find( $_REQUEST['id'] );
+                if ( $fee && $fee->update( array( 'enabled' => 0 ) ) )
+                    wpbdp_admin_message( _x( 'Fee disabled.', 'fees admin', 'WPBDM' ) );
+
+                return $this->feesTable();
+
                 break;
             case 'deletefee':
                 $this->delete_fee();

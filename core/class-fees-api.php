@@ -54,7 +54,7 @@ class WPBDP_Fees_API {
             // XXX: For now, we keep the free plan a 'secret' when payments are enabled. This is for backwards compat.
             if ( wpbdp_payments_possible() ) {
                 foreach ( $category_fees as $k => $v ) {
-                    if ( 'free' == $v->tag )
+                    if ( 'free' == $v->tag || ! $v->enabled )
                         unset( $category_fees[ $k ] );
                 }
             }

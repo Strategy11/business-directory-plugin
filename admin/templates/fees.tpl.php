@@ -44,15 +44,41 @@
         <br class="clear" />
         <?php endif; ?>
 
-        <?php if ( 'disabled' == $table->get_current_view() ): ?>
+
         <div class="wpbdp-note"><p>
-            <?php echo str_replace( '<a>',
-                                    '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">', 
-                                    _x( 'These fees are configured in your system, but are not active because of the <a>payment settings</a> (currently set to Free).',
-                                        'admin fees',
-                                        'WPBDM' ) ); ?>
+        <?php switch ( $table->get_current_view() ):
+                case 'active':
+        ?>
+                <?php printf( str_replace( '<a>',
+                                           '<a href="' . add_query_arg( 'fee_status', 'unavailable' ) . '">',
+                                           _x( 'These are all of the fee plans displayed to the user when they place a listing. Your current mode of "%s" restricts what you see here. Those on the <a>Not Available</a> filter will become active when you change the payment mode.',
+                                               'fees admin',
+                                               'WPBDM' ) ),
+                              wpbdp_payments_possible() ? _x( 'Paid', 'fees admin', 'WPBDM' ) : _x( 'Free', 'fees admin', 'WPBDM' ) ); ?>
+            <?php break; ?>
+            <?php case 'unavailable': ?>
+                <?php printf( _x( 'These are all of the fee plans that aren\'t available because you\'re in "%s" mode. Those on the Active filter will become Not Available when you change the payment mode.',
+                                  'fees admin',
+                                  'WPBDM' ),
+                              wpbdp_payments_possible() ? _x( 'Paid', 'fees admin', 'WPBDM' ) : _x( 'Free', 'fees admin', 'WPBDM' ) ); ?>
+            <?php break; ?>
+            <?php case 'disabled': ?>
+                <?php _ex( 'These fee plans were disabled by the admin and will not show to the end user regardless of mode until you enable them.',
+                           'fees admin',
+                           'WPBDM' ); ?>
+            <?php break; ?>
+            <?php case 'all': ?>
+            <?php default: ?>
+                <?php printf( str_replace( '<a>',
+                                           '<a href="' . add_query_arg( 'fee_status', 'active' ) . '">',
+                                           _x( 'These are all of the fee plans you have configured. Not all of them are available for the current mode (currently set to "%s"). To see the fee plans for this mode click <a>Active</a>.',
+                                               'fees admin',
+                                               'WPBDM' ) ),
+                              wpbdp_payments_possible() ? _x( 'Paid', 'fees admin', 'WPBDM' ) : _x( 'Free', 'fees admin', 'WPBDM' ) ); ?>
+            <?php break; ?>
+        <?php endswitch; ?>
         </p></div>
-        <?php endif; ?>
+
 
         <?php $table->views(); ?>
         <?php $table->display(); ?>

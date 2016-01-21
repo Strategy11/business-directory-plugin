@@ -24,6 +24,7 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
             $this->amount = 0.0;
             $this->sticky = false;
             $this->categories = array( 'all' => true, 'categories' => array() );
+            $this->enabled = true;
         }
 
         $this->categories = wp_parse_args( $this->categories,
@@ -73,15 +74,6 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         }
 
         return parent::save( $validate );
-    }
-
-    public function destroy() {
-        if ( 'free' == $this->tag ) {
-            $this->enabled = false;
-            return $this->save();
-        }
-
-        return parent::destroy();
     }
 
     public function supports_category( $category_id ) {
