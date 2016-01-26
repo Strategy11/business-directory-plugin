@@ -403,11 +403,11 @@ class WPBDP_Listing {
 
                 if ( $charge ) {
                     $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
-                    $payment->add_category_fee_item( $category_id, $fee_options[0] );
+                    $payment->add_category_fee_item( $category_id, reset( $fee_options ) );
                     $payment->set_status( WPBDP_Payment::STATUS_COMPLETED );
                     $payment->save();
                 } else {
-                    $this->add_category( $category_id, $fee_options[0] );
+                    $this->add_category( $category_id, reset( $fee_options ) );
                 }
             }
         }
