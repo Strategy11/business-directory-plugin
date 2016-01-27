@@ -16,7 +16,7 @@
 <?php if ( $upgrade_option ): ?>
 <div class="upgrade-to-featured-option">
 	<b><?php echo sprintf( _x('Would you like to upgrade your listing to "%s" for %s more?', 'templates', 'WPBDM'), esc_attr( $upgrade_option->name ), wpbdp_get_option( 'currency-symbol' ) . ' ' . $upgrade_option->cost ); ?></b>	
-	<p class="description"><?php echo esc_html( $upgrade_option->description ); ?></p>
+	<p class="description"><?php echo wp_kses_post( $upgrade_option->description ); ?></p>
 	<p>
 		<label><input type="checkbox" name="upgrade-listing" value="upgrade" <?php echo wpbdp_getv( $_POST, 'upgrade-listing', '') == 'upgrade' ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Yes, upgrade my listing now.', 'templates', 'WPBDM'); ?></label>
 	</p>
