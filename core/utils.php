@@ -123,10 +123,15 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
     if ( $sideload ) {
         $mime_type = '';
 
-        if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
-            $mime_type = explode( ';', finfo_file( $finfo, $file_ ) );
-            $mime_type = trim( $mime_type[0] );
-            finfo_close( $finfo );
+        if ( function_exists( 'finfo_open' ) ) {
+            if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
+                $mime_type = explode( ';', finfo_file( $finfo, $file_ ) );
+                $mime_type = trim( $mime_type[0] );
+                finfo_close( $finfo );
+            }
+        } else {
+            $type_info = wp_check_filetype( $file_, wp_get_mime_types() );
+            $mime_type = $type_info['type'];
         }
 
         $file = array(
