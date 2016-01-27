@@ -505,11 +505,19 @@ function wpbdp_current_query() {
  * @since 3.6.10
  */
 function wpbdp_experimental( $feature ) {
+    static $file_overrides = false;
     global $wpbdp_development;
 
-    if ( ! isset( $wpbdp_development ) )
-        return false;
+    if ( file_exists( WPBDP_PATH . '.experimental' ) )
+        $file_overrides = explode( ',', trim( file_get_contents( WPBDP_PATH . '.experimental' ) ) );
 
-    return $wpbdp_development->option_get( $feature );
+    $res = false;
+    if ( isset( $wpbdp_development ) )
+        $res = $wpbdp_development->option_get( $feature );
+
+    if ( $file_overrides && in_array( $feature, $file_overrides, true ) )
+        $res = true;
+
+    return $res;
 }
 
