@@ -1,7 +1,7 @@
 <h3><?php _ex('Upgrade listing', 'templates', 'WPBDM'); ?></h3>
 
 <?php if ( $featured_text = wpbdp_get_option( 'featured-description' ) ): ?>
-	<p><?php echo $featured_text; ?></p>
+	<p><?php echo wpautop( wp_kses_post( $featured_text ) ); ?></p>
 <?php endif; ?>
 
 <form action="" method="POST">
