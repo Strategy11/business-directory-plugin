@@ -1,5 +1,4 @@
 <?php
-delete_transient( 'wpbdp-themes-updates' );
 
 class WPBDP_Themes_Updater {
 
