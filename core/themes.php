@@ -318,6 +318,7 @@ class WPBDP_Themes {
 
             $t->is_core_theme = in_array( $t->id, array( 'no_theme', 'default' ), true );
             $t->active = ( $t->id == $this->get_active_theme() );
+            $t->can_be_activated = ( $t->is_core_theme || 'valid' == $t->license_status || $t->active );
         }
     }
 

@@ -23,6 +23,7 @@
 .wpbdp-theme-details-wrapper {
     display: block;
     position: relative;
+    height: 268px;
 }
 
 .wpbdp-theme-thumbnail {
@@ -36,6 +37,7 @@
     opacity: 0.4;
 }
 
+.wpbdp-theme .enter-license,
 .wpbdp-theme .choose-theme {
     display: none;
     position: absolute;
@@ -45,6 +47,11 @@
     right: 10px;
 }
 
+.wpbdp-theme .enter-license {
+    color: #a00;
+}
+
+.wpbdp-theme:hover .enter-license,
 .wpbdp-theme:hover .choose-theme {
     display: block;
 }
@@ -180,3 +187,11 @@
 .wpbdp-theme .wpbdp-theme-update-info.theme-updated .update-message {
     background: #F0F5F7;
 }
+
+.wpbdp-theme .wpbdp-theme-license-required-row {
+    padding: 5px 10px;
+    border-top: solid 2px;
+    background: #fef7f1;
+    border-color: #D34F2B;
+}
+

@@ -28,6 +28,8 @@ class WPBDP_Themes_Admin {
         add_action( 'wpbdp_action_delete-theme', array( &$this, 'delete_theme' ) );
         add_action( 'wpbdp_action_upload-theme', array( &$this, 'upload_theme' ) );
         add_action( 'wpbdp_action_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
+
+        add_action( 'wpbdp-admin-themes-extra', array( &$this, 'enter_license_key_row' ) );
     }
 
     function admin_menu( $slug ) {
@@ -398,6 +400,15 @@ class WPBDP_Themes_Admin {
 
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-licenses.tpl.php',
                                 array( 'themes' => $themes ) );
+    }
+
+    function enter_license_key_row( $theme ) {
+        if ( $theme->can_be_activated )
+            return;
+
+        echo '<div class="wpbdp-theme-license-required-row">';
+        echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) .  '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'WPBDM' ) );
+        echo '</div>';
     }
 
 }
