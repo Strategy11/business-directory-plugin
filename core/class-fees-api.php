@@ -59,6 +59,8 @@ class WPBDP_Fees_API {
                 }
             }
 
+            // Do this so the first fee is at index 0.
+            $category_fees = array_merge( array(), $category_fees );
             $fees[ $cat_id ] = $category_fees;
         }
 

@@ -154,10 +154,12 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 if ( $term = get_term( $cat_id, WPBDP_CATEGORY_TAX ) ) {
                     $options = wpbdp_get_fees_for_category( $cat_id );
 
-                    if ( count( $options ) == 1 )
-                        $fee_id = $options[0]->id;
-                    else
+                    if ( count( $options ) == 1 ) {
+                        $fee = reset( $options );
+                        $fee_id = $fee->id;
+                    } else {
                         $fee_id = isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id;
+                    }
 
                     $fee_selection[ $cat_id ] = array( 'fee_id' => $fee_id,
                                                        'term' => $term,
@@ -167,6 +169,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 }
             }
         }
+
 
         return $fee_selection;
     }
