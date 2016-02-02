@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.13\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-01-18 20:20:16+00:00\n"
+"POT-Creation-Date: 2016-02-02 17:14:20+00:00\n"
 "PO-Revision-Date: 2016-01-18 15:22-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -22,93 +22,93 @@ msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Todas las categorías"
 
-#: admin/class-admin-listings.php:111
+#: admin/class-admin-listings.php:114
 msgid "Listing Information"
 msgstr "Información del Listado"
 
-#: admin/class-admin-listings.php:118
+#: admin/class-admin-listings.php:121
 msgctxt "admin"
 msgid "Listing Fields / Images"
 msgstr "Campos del Listado / Imágenes"
 
-#: admin/class-admin-listings.php:129
+#: admin/class-admin-listings.php:132
 msgctxt "admin"
 msgid "Categories"
 msgstr "Categorías"
 
-#: admin/class-admin-listings.php:130
+#: admin/class-admin-listings.php:133
 msgid "Payment Status"
 msgstr "Estado de Pago"
 
-#: admin/class-admin-listings.php:131
+#: admin/class-admin-listings.php:134
 msgid "Featured (Sticky) Status"
 msgstr "Estado Destacado/Sticky"
 
-#: admin/class-admin-listings.php:162
+#: admin/class-admin-listings.php:165
 msgctxt "admin"
 msgid "(Listing expired in this category)"
 msgstr "(El listado ha expirado en esta categoría)"
 
-#: admin/class-admin-listings.php:180 admin/class-admin-listings.php:263
+#: admin/class-admin-listings.php:183 admin/class-admin-listings.php:266
 msgid "Paid"
 msgstr "Pago"
 
-#: admin/class-admin-listings.php:185
+#: admin/class-admin-listings.php:188
 msgid "Mark as"
 msgstr "Marcar como"
 
-#: admin/class-admin-listings.php:194 admin/class-admin-listings.php:273
+#: admin/class-admin-listings.php:197 admin/class-admin-listings.php:276
 msgid "Pending Upgrade"
 msgstr "Pendientes de Mejora"
 
-#: admin/class-admin-listings.php:202 admin/listing-metabox.php:68
+#: admin/class-admin-listings.php:205 admin/listing-metabox.php:68
 msgid "Upgrade to %s"
 msgstr "Mejorar a %s"
 
-#: admin/class-admin-listings.php:209 admin/listing-metabox.php:75
+#: admin/class-admin-listings.php:212 admin/listing-metabox.php:75
 msgid "Downgrade to %s"
 msgstr "Degradar a %s"
 
-#: admin/class-admin-listings.php:212 admin/class-admin-listings.php:392
+#: admin/class-admin-listings.php:215 admin/class-admin-listings.php:395
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr "Mejorar a Destacado"
 
-#: admin/class-admin-listings.php:268
+#: admin/class-admin-listings.php:271
 msgid "Unpaid"
 msgstr "No pagado"
 
-#: admin/class-admin-listings.php:278
+#: admin/class-admin-listings.php:281
 msgctxt "admin"
 msgid "Expired"
 msgstr "Expirados"
 
-#: admin/class-admin-listings.php:328
+#: admin/class-admin-listings.php:331
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: admin/class-admin-listings.php:331
+#: admin/class-admin-listings.php:334
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Eliminar Listado"
 
-#: admin/class-admin-listings.php:390
+#: admin/class-admin-listings.php:393
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr "Publicar Listado"
 
-#: admin/class-admin-listings.php:393
+#: admin/class-admin-listings.php:396
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr "Degradar a Normal"
 
-#: admin/class-admin-listings.php:395
+#: admin/class-admin-listings.php:398
 msgctxt "admin actions"
 msgid "Mark as Paid"
 msgstr "Marcar listado como Pagado"
 
-#: admin/class-admin-listings.php:397
+#: admin/class-admin-listings.php:400
 msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
@@ -227,85 +227,85 @@ msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Desinstalar"
 
-#: admin/class-admin.php:408
+#: admin/class-admin.php:410
 #: admin/templates/listing-metabox-categories.tpl.php:69
 msgctxt "admin infometabox"
 msgid "never"
 msgstr "nunca"
 
-#: admin/class-admin.php:490
+#: admin/class-admin.php:492
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "El listado ha sido publicado."
 msgstr[1] "Los listados han sido publicados."
 
-#: admin/class-admin.php:503
+#: admin/class-admin.php:505
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "El listado se ha marcado como pagado."
 msgstr[1] "Los listados se han marcado como pagados."
 
-#: admin/class-admin.php:515
+#: admin/class-admin.php:517
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "El listado ha sido modificado."
 msgstr[1] "Los listados han sido modificados."
 
-#: admin/class-admin.php:528
+#: admin/class-admin.php:530
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "El listado ha sido mejorado."
 msgstr[1] "Los listados han sido mejorados."
 
-#: admin/class-admin.php:540
+#: admin/class-admin.php:542
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "El listado ha sido degradado."
 msgstr[1] "Los listados han sido degradados."
 
-#: admin/class-admin.php:552
+#: admin/class-admin.php:554
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "La transacción ha sido aprobada."
 
-#: admin/class-admin.php:560
+#: admin/class-admin.php:562
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "La transacción ha sido rechazada."
 
-#: admin/class-admin.php:566
+#: admin/class-admin.php:568
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "La comisión se asignó satisfactoriamente."
 
-#: admin/class-admin.php:575
+#: admin/class-admin.php:577
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "El listado ha sido renovado."
 msgstr[1] "Los listados fueron renovados."
 
-#: admin/class-admin.php:582
+#: admin/class-admin.php:584
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Mensaje de correo electrónico de renovación enviado."
 
-#: admin/class-admin.php:616
+#: admin/class-admin.php:618
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
-#: admin/class-admin.php:618 admin/class-admin.php:624
+#: admin/class-admin.php:620 admin/class-admin.php:626
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Conteo de Listados"
 
-#: admin/class-admin.php:733
+#: admin/class-admin.php:735
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -314,7 +314,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere campos con las siguientes "
 "asociaciones para funcionar correctamente: <b>%s</b>."
 
-#: admin/class-admin.php:735
+#: admin/class-admin.php:737
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -323,7 +323,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
 "b> para funcionar correctamente."
 
-#: admin/class-admin.php:739
+#: admin/class-admin.php:741
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -332,17 +332,17 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: admin/class-admin.php:743
+#: admin/class-admin.php:745
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
 
-#: admin/class-admin.php:746
+#: admin/class-admin.php:748
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
 
-#: admin/class-admin.php:755
+#: admin/class-admin.php:757
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -351,7 +351,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere una página con el shortcode "
 "<tt>[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: admin/class-admin.php:757
+#: admin/class-admin.php:759
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -360,27 +360,27 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: admin/class-admin.php:761
+#: admin/class-admin.php:763
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
 
-#: admin/class-admin.php:801
+#: admin/class-admin.php:803
 msgctxt "admin compat"
 msgid "Installed: %s"
 msgstr "Instalado: %s"
 
-#: admin/class-admin.php:801
+#: admin/class-admin.php:803
 msgctxt "admin compat"
 msgid "N/A"
 msgstr "N/A"
 
-#: admin/class-admin.php:804
+#: admin/class-admin.php:806
 msgctxt "admin compat"
 msgid "Required: %s"
 msgstr "Requerido: %s"
 
-#: admin/class-admin.php:817
+#: admin/class-admin.php:819
 msgctxt "admin compat"
 msgid ""
 "Business Directory has detected some incompatible premium module versions "
@@ -389,7 +389,7 @@ msgstr ""
 "Business Directory ha detectado algunas versiones incompatibles de módulos "
 "instaladas."
 
-#: admin/class-admin.php:819
+#: admin/class-admin.php:821
 msgctxt "admin compat"
 msgid ""
 "Please upgrade to the required versions indicated below to make sure "
@@ -398,7 +398,7 @@ msgstr ""
 "Por favor actualice a las versiones requeridas indicadas abajo para "
 "asegurarse de que todo funcione correctamente."
 
-#: admin/class-admin.php:834
+#: admin/class-admin.php:836
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -427,94 +427,109 @@ msgctxt "templates"
 msgid "There are no images currently attached to the listing."
 msgstr "No hay imágenes actualmente asociadas al listado."
 
-#: admin/class-themes-admin.php:41
+#: admin/class-themes-admin.php:44
 msgctxt "themes"
 msgid "Directory Themes"
 msgstr ""
 
-#: admin/class-themes-admin.php:42
+#: admin/class-themes-admin.php:45
 msgctxt "themes"
 msgid "Directory Themes %s"
 msgstr ""
 
-#: admin/class-themes-admin.php:97
+#: admin/class-themes-admin.php:100
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr ""
 
-#: admin/class-themes-admin.php:144
+#: admin/class-themes-admin.php:147
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr ""
 
-#: admin/class-themes-admin.php:147
+#: admin/class-themes-admin.php:150
 msgctxt "themes"
 msgid ""
 "For better results, \"%s\" theme suggests the following form fields to be "
 "created."
 msgstr ""
 
-#: admin/class-themes-admin.php:154
+#: admin/class-themes-admin.php:157
 msgctxt "themes"
 msgid "Dismiss this warning"
 msgstr ""
 
-#: admin/class-themes-admin.php:157
+#: admin/class-themes-admin.php:160
 msgctxt "themes"
 msgid "Create suggested fields"
 msgstr ""
 
-#: admin/class-themes-admin.php:164
+#: admin/class-themes-admin.php:167
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:167
+#: admin/class-themes-admin.php:170
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:170
+#: admin/class-themes-admin.php:173
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:173
+#: admin/class-themes-admin.php:176
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr ""
 
-#: admin/class-themes-admin.php:199
+#: admin/class-themes-admin.php:202
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr ""
 
-#: admin/class-themes-admin.php:206
+#: admin/class-themes-admin.php:209
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr ""
 
-#: admin/class-themes-admin.php:307 core/licensing.php:127
-#: core/licensing.php:159
+#: admin/class-themes-admin.php:310 admin/class-themes-admin.php:371
+#: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: admin/class-themes-admin.php:313 core/licensing.php:132
+#: admin/class-themes-admin.php:316 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: admin/class-themes-admin.php:318 core/licensing.php:330
+#: admin/class-themes-admin.php:321 core/licensing.php:330
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: admin/class-themes-admin.php:331 core/licensing.php:332
+#: admin/class-themes-admin.php:334 core/licensing.php:332
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
+
+#: admin/class-themes-admin.php:377
+msgctxt "licensing"
+msgid "Invalid response from server"
+msgstr ""
+
+#: admin/class-themes-admin.php:394 core/licensing.php:350
+msgctxt "licensing"
+msgid "License deactivated"
+msgstr "Licencia desactivada"
+
+#: admin/class-themes-admin.php:410
+msgctxt "themes"
+msgid "Activate your <a>license key</a> to use this theme."
+msgstr ""
 
 #: admin/csv-export.php:136
 msgctxt "admin csv-export"
@@ -604,120 +619,198 @@ msgctxt "fees admin"
 msgid "fees"
 msgstr "comisiones"
 
-#: admin/fees.php:16
+#: admin/fees.php:19
 msgctxt "fees admin"
-msgid "You do not have any listing fees setup yet."
-msgstr "Usted no tiene comisiones configuradas aún."
+msgid "There are no fees right now. You can <a>create one</a>, if you want."
+msgstr ""
 
-#: admin/fees.php:22
+#: admin/fees.php:25 admin/fees.php:260
+#, fuzzy
+msgctxt "fees admin"
+msgid "Active"
+msgstr "Activos únicamente"
+
+#: admin/fees.php:28 admin/fees.php:258
+#, fuzzy
+msgctxt "fees admin"
+msgid "Not Available"
+msgstr "Casillas de imagen disponibles:"
+
+#: admin/fees.php:31 admin/fees.php:255
+#, fuzzy
+msgctxt "fees admin"
+msgid "Disabled"
+msgstr "Desactivar Comisión"
+
+#: admin/fees.php:39
+msgctxt "fees admin"
+msgid ""
+"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
+msgstr ""
+
+#: admin/fees.php:56
+#, fuzzy
+msgctxt "admin fees table"
+msgid "All"
+msgstr "Todos"
+
+#: admin/fees.php:68
+#, fuzzy
+msgctxt "admin fees table"
+msgid "Active"
+msgstr "Activos únicamente"
+
+#: admin/fees.php:78
+#, fuzzy
+msgctxt "admin fees table"
+msgid "Not Available"
+msgstr "Casillas de imagen disponibles:"
+
+#: admin/fees.php:85
+#, fuzzy
+msgctxt "admin fees table"
+msgid "Disabled"
+msgstr "Desactivar Comisión"
+
+#: admin/fees.php:94
 msgctxt "fees admin"
 msgid "Label"
 msgstr "Nombre"
 
-#: admin/fees.php:23
+#: admin/fees.php:95
 msgctxt "fees admin"
 msgid "Amount"
 msgstr "Precio"
 
-#: admin/fees.php:24
+#: admin/fees.php:96
 msgctxt "fees admin"
 msgid "Duration"
 msgstr "Duración"
 
-#: admin/fees.php:25
+#: admin/fees.php:97
 msgctxt "fees admin"
 msgid "Images"
 msgstr "No. de Imágenes"
 
-#: admin/fees.php:26
+#: admin/fees.php:98
+#, fuzzy
 msgctxt "fees admin"
-msgid "Applied To"
-msgstr "Aplica A"
+msgid "Featured/Sticky"
+msgstr "Estado Destacado/Sticky"
 
-#: admin/fees.php:60
+#: admin/fees.php:102
+#, fuzzy
+msgctxt "fees admin"
+msgid "Status"
+msgstr "Estado"
+
+#: admin/fees.php:155
 msgctxt "fees admin"
 msgid ""
-"This is the <i>default</i> free plan for your directory. It can't be deleted "
-"or be anything but free and is only visible when your directory is in "
-"<i>free mode</i>. You can create other fee plans if you wish to charge for "
-"listings instead."
+"This is the default free plan for your directory.  You can't delete it and "
+"it's always free, but you can edit the name and other settings. It's only "
+"available when the directory is in Free mode.  You can always create other "
+"fee plans, including ones for 0.00 (free) if you wish."
 msgstr ""
 
-#: admin/fees.php:73
-msgctxt "fees admin"
-msgid "Fee plan disabled because directory is in free mode."
-msgstr ""
-
-#: admin/fees.php:92
+#: admin/fees.php:187
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "Editar"
 
-#: admin/fees.php:97
+#: admin/fees.php:197
 msgctxt "fees admin"
 msgid "Disable"
 msgstr ""
 
-#: admin/fees.php:101
+#: admin/fees.php:201
+msgctxt "fees admin"
+msgid "Enable"
+msgstr ""
+
+#: admin/fees.php:205
 msgctxt "fees admin"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: admin/fees.php:122
+#: admin/fees.php:226
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Para siempre"
 
-#: admin/fees.php:123
+#: admin/fees.php:227
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d día"
 msgstr[1] "%d días"
 
-#: admin/fees.php:127
+#: admin/fees.php:231
 msgctxt "fees admin"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] "%d imagen"
 msgstr[1] "%d imágenes"
 
-#: admin/fees.php:132
+#: admin/fees.php:236
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Todas las categorías"
 
-#: admin/fees.php:184
+#: admin/fees.php:250
+msgctxt "fees admin"
+msgid "Yes"
+msgstr ""
+
+#: admin/fees.php:250
+#, fuzzy
+msgctxt "fees admin"
+msgid "No"
+msgstr "Nov"
+
+#: admin/fees.php:285
+#, fuzzy
+msgctxt "fees admin"
+msgid "Fee enabled."
+msgstr "Comisión eliminada."
+
+#: admin/fees.php:293
+#, fuzzy
+msgctxt "fees admin"
+msgid "Fee disabled."
+msgstr "Comisión eliminada."
+
+#: admin/fees.php:318
 msgctxt "fees order"
 msgid "Label"
 msgstr "Nombre"
 
-#: admin/fees.php:185
+#: admin/fees.php:319
 msgctxt "fees order"
 msgid "Amount"
 msgstr "Precio"
 
-#: admin/fees.php:186
+#: admin/fees.php:320
 msgctxt "fees order"
 msgid "Duration"
 msgstr "Duración"
 
-#: admin/fees.php:187
+#: admin/fees.php:321
 msgctxt "fees order"
 msgid "Images"
 msgstr "No. de Imágenes"
 
-#: admin/fees.php:188
+#: admin/fees.php:322
 msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Orden Especial"
 
-#: admin/fees.php:207
+#: admin/fees.php:341
 msgctxt "fees admin"
 msgid "Fee updated."
 msgstr "Comisión actualizada."
 
-#: admin/fees.php:230
+#: admin/fees.php:364
 msgctxt "fees admin"
 msgid "Fee deleted."
 msgstr "Comisión eliminada."
@@ -1638,27 +1731,35 @@ msgid "Number of images allowed"
 msgstr "Número de imágenes permitidas"
 
 #: admin/templates/fees-addoredit.tpl.php:94
+#, fuzzy
 msgctxt "fees admin"
-msgid "Is sticky?"
-msgstr "Es destacado?"
+msgid "Is featured listing/sticky?"
+msgstr "Listados Destacados"
 
-#: admin/templates/fees-addoredit.tpl.php:106
+#: admin/templates/fees-addoredit.tpl.php:102
+msgctxt "fees admin"
+msgid ""
+"This floats the listing to the top of search results and browsing the "
+"directory when the user buys this plan."
+msgstr ""
+
+#: admin/templates/fees-addoredit.tpl.php:107
 msgctxt "fees admin"
 msgid "Apply to category"
 msgstr "Aplicar a categoría"
 
-#: admin/templates/fees-addoredit.tpl.php:110
-#: admin/templates/fees-addoredit.tpl.php:113
+#: admin/templates/fees-addoredit.tpl.php:111
+#: admin/templates/fees-addoredit.tpl.php:114
 msgctxt "fees admin"
 msgid "* All Categories *"
 msgstr "* Todas las Categorías *"
 
-#: admin/templates/fees-addoredit.tpl.php:133
+#: admin/templates/fees-addoredit.tpl.php:134
 msgctxt "fees admin"
 msgid "Add Fee"
 msgstr "Agregar Comisión"
 
-#: admin/templates/fees-addoredit.tpl.php:133
+#: admin/templates/fees-addoredit.tpl.php:134
 msgctxt "fees admin"
 msgid "Update Fee"
 msgstr "Actualizar Comisión"
@@ -1707,47 +1808,93 @@ msgstr ""
 "Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
 "Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
 
-#: admin/templates/fees.tpl.php:22
+#: admin/templates/fees.tpl.php:24
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
 msgstr "Ordenar comisiones del lado del usuario por:"
 
-#: admin/templates/fees.tpl.php:30
+#: admin/templates/fees.tpl.php:32
 msgctxt "fees admin"
 msgid "↑ Ascending"
 msgstr "Ascendente"
 
-#: admin/templates/fees.tpl.php:30
+#: admin/templates/fees.tpl.php:32
 msgctxt "fees admin"
 msgid "↓ Descending"
 msgstr "Descendente"
 
-#: admin/templates/fees.tpl.php:36
+#: admin/templates/fees.tpl.php:38
 msgctxt "fees admin"
 msgid "Drag and drop to re-order fees."
 msgstr "Arrastre y suelte para reordenar las comisiones."
 
-#: admin/templates/fees.tpl.php:48 admin/templates/sidebar.tpl.php:13
+#: admin/templates/fees.tpl.php:54
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%s\" restricts what you see here. Those on "
+"the <a>Not Available</a> filter will become active when you change the "
+"payment mode."
+msgstr ""
+
+#: admin/templates/fees.tpl.php:57 admin/templates/fees.tpl.php:63
+#: admin/templates/fees.tpl.php:77
+#, fuzzy
+msgctxt "fees admin"
+msgid "Paid"
+msgstr "Pago"
+
+#: admin/templates/fees.tpl.php:57 admin/templates/fees.tpl.php:63
+#: admin/templates/fees.tpl.php:77
+#, fuzzy
+msgctxt "fees admin"
+msgid "Free"
+msgstr "Gratuito"
+
+#: admin/templates/fees.tpl.php:60
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+
+#: admin/templates/fees.tpl.php:66
+msgctxt "fees admin"
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+
+#: admin/templates/fees.tpl.php:74
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%s\"). To see the fee "
+"plans for this mode click <a>Active</a>."
+msgstr ""
+
+#: admin/templates/fees.tpl.php:89 admin/templates/sidebar.tpl.php:13
 msgctxt "admin sidebar"
 msgid "PayPal Gateway Module"
 msgstr "Módulo pasarela de pago PayPal"
 
-#: admin/templates/fees.tpl.php:49 admin/templates/sidebar.tpl.php:14
+#: admin/templates/fees.tpl.php:90 admin/templates/sidebar.tpl.php:14
 msgctxt "admin sidebar"
 msgid "2Checkout Gateway Module"
 msgstr "Módulo pasarela de pago 2Checkout"
 
-#: admin/templates/fees.tpl.php:50 admin/templates/sidebar.tpl.php:5
+#: admin/templates/fees.tpl.php:91 admin/templates/sidebar.tpl.php:5
 msgctxt "admin sidebar"
 msgid "PayFast Payment Module"
 msgstr "Módulo pasarela de pago PayFast"
 
-#: admin/templates/fees.tpl.php:51 admin/templates/sidebar.tpl.php:6
+#: admin/templates/fees.tpl.php:92 admin/templates/sidebar.tpl.php:6
 msgctxt "admin sidebar"
 msgid "Stripe Payment Module"
 msgstr "Módulo pasarela de pago Stripe"
 
-#: admin/templates/fees.tpl.php:61
+#: admin/templates/fees.tpl.php:102
 msgctxt "admin templates"
 msgid ""
 "It does not appear you have any of the payment gateway modules enabled. "
@@ -1761,12 +1908,12 @@ msgstr ""
 "cobrar por los listados. Para comprar pasarelas adicionales utilice los "
 "botones abajo o visite %s."
 
-#: admin/templates/fees.tpl.php:77
+#: admin/templates/fees.tpl.php:118
 msgctxt "admin templates"
 msgid "Already installed."
 msgstr "Ya instalado."
 
-#: admin/templates/fees.tpl.php:82
+#: admin/templates/fees.tpl.php:123
 msgctxt "admin templates"
 msgid ""
 "You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your "
@@ -1953,6 +2100,7 @@ msgstr ""
 "Por favor vea la <a>documentación de Campos de Formulario</a> para más "
 "detalles."
 
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.7.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2489,20 +2637,44 @@ msgctxt "themes"
 msgid "Active:"
 msgstr ""
 
-#: admin/templates/themes-item.tpl.php:12
+#: admin/templates/themes-item.tpl.php:13
 msgctxt "themes"
 msgid "Activate"
 msgstr ""
 
-#: admin/templates/themes-item.tpl.php:29
+#: admin/templates/themes-item.tpl.php:33
 msgctxt "themes"
 msgid "Version:"
 msgstr ""
 
-#: admin/templates/themes-item.tpl.php:32
+#: admin/templates/themes-item.tpl.php:36
 msgctxt "themes"
 msgid "Author:"
 msgstr ""
+
+#: admin/templates/themes-licenses.tpl.php:24
+#, fuzzy
+msgctxt "themes"
+msgid "Deactivate License"
+msgstr "Desactivar Licencia"
+
+#: admin/templates/themes-licenses.tpl.php:27
+#, fuzzy
+msgctxt "themes"
+msgid "Deactivating license..."
+msgstr "Desactivando licencia..."
+
+#: admin/templates/themes-licenses.tpl.php:29
+#, fuzzy
+msgctxt "themes"
+msgid "Activate License"
+msgstr "Activar Licencia"
+
+#: admin/templates/themes-licenses.tpl.php:30
+#, fuzzy
+msgctxt "themes"
+msgid "Activating license..."
+msgstr "Activando licencia..."
 
 #: admin/templates/transactions.tpl.php:2
 msgctxt "admin transactions"
@@ -2710,22 +2882,22 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La categoría \"%s\" no existe"
 
-#: core/class-fee-plan.php:45
+#: core/class-fee-plan.php:46
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "El nombre de la Comisión es requerido."
 
-#: core/class-fee-plan.php:48
+#: core/class-fee-plan.php:49
 msgctxt "fees-api"
 msgid "Fee amount must be a non-negative decimal number."
 msgstr "El precio de la comisión de be ser un número decimal no negativo."
 
-#: core/class-fee-plan.php:51
+#: core/class-fee-plan.php:52
 msgctxt "fees-api"
 msgid "Fee must apply to at least one category."
 msgstr "La comisión debe aplicar al menos a una categoría."
 
-#: core/class-fee-plan.php:56
+#: core/class-fee-plan.php:57
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
@@ -2766,12 +2938,12 @@ msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" es un tipo de campo inválido para esta asociación."
 
-#: core/class-form-field.php:527
+#: core/class-form-field.php:531
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID de campo inválido"
 
-#: core/class-form-field.php:536
+#: core/class-form-field.php:540
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -2780,7 +2952,7 @@ msgstr ""
 "Este campo de formulario no puede eliminarse porque es requerido para el "
 "funcionamiento del plugin."
 
-#: core/class-form-field.php:548
+#: core/class-form-field.php:552
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Un error ocurrió mientras se trataba de eliminar este campo."
@@ -4895,37 +5067,43 @@ msgctxt "fs helper"
 msgid "Destination dir \"%s\" is not writable."
 msgstr "El directorio de destino \"%s\" no se puede escribir."
 
-#: core/helpers/class-themes-updater.php:126
+#: core/helpers/class-themes-updater.php:125
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr ""
 
-#: core/helpers/class-themes-updater.php:127
+#: core/helpers/class-themes-updater.php:126
 msgctxt "themes"
 msgid "Theme updated."
 msgstr ""
 
-#: core/helpers/class-themes-updater.php:129
+#: core/helpers/class-themes-updater.php:128
 msgctxt "themes"
 msgid "New version available (<b>%s</b>). <a>Update now.</a>"
 msgstr ""
 
-#: core/helpers/class-themes-updater.php:157
+#: core/helpers/class-themes-updater.php:156
 msgctxt "themes"
 msgid "Could not update theme: %s"
 msgstr ""
 
-#: core/helpers/class-themes-updater.php:163
+#: core/helpers/class-themes-updater.php:162
 msgctxt "themes"
 msgid "Theme was updated sucessfully."
 msgstr ""
 
-#: core/installer.php:38
+#: core/installer.php:42
 msgctxt "default category name"
 msgid "General"
 msgstr "General"
 
-#: core/installer.php:471
+#: core/installer.php:50
+#, fuzzy
+msgctxt "installer"
+msgid "Default Fee"
+msgstr "Eliminar Comisión"
+
+#: core/installer.php:484
 msgctxt "installer"
 msgid ""
 "<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
@@ -4936,41 +5114,41 @@ msgstr ""
 "es incompatible con la versión actual de Business Directory. Por favor "
 "actualice el módulode Regions."
 
-#: core/installer.php:537
+#: core/installer.php:550
 msgctxt "installer"
 msgid "Cleaning up listing fees information... %d/%d"
 msgstr "Actualizando información de comisiones de listados... %d/%d"
 
-#: core/installer.php:587
+#: core/installer.php:600
 msgctxt "installer"
 msgid "Migrating previous transactions to new Payments API... %d/%d"
 msgstr "Migrando transacciones anteriores a la nueva API de pagos... %d/%d"
 
-#: core/installer.php:616
+#: core/installer.php:629
 msgctxt "installer"
 msgid "Initial listing payment (BD < 3.4)"
 msgstr "Pago inicial de listado (BD < 3.4)"
 
-#: core/installer.php:627
+#: core/installer.php:640
 msgctxt "installer"
 msgid "Listing edit payment (BD < 3.4)"
 msgstr "Pago por edición de listado (BD < 3.4)"
 
-#: core/installer.php:648
+#: core/installer.php:661
 msgctxt "installer"
 msgid "Renewal fee \"%s\" for category \"%s\""
 msgstr "Comisión de renovación \"%s\" para categoría \"%s\""
 
-#: core/installer.php:667
+#: core/installer.php:680
 msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Mejora a Destacado"
 
-#: core/installer.php:909
+#: core/installer.php:933
 msgid "Business Directory - Manual Upgrade Required"
 msgstr "Business Directory - Actualización Manual Requerida"
 
-#: core/installer.php:911
+#: core/installer.php:935
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
@@ -4978,15 +5156,15 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabitadas pues es "
 "necesario realizar una actualización manual antes de continuar."
 
-#: core/installer.php:913
+#: core/installer.php:937
 msgid "Perform Manual Upgrade"
 msgstr "Realizar Actualización Manual"
 
-#: core/installer.php:929 core/installer.php:930 core/installer.php:941
+#: core/installer.php:953 core/installer.php:954 core/installer.php:965
 msgid "Business Directory - Manual Upgrade"
 msgstr "Business Directory - Actualización Manual"
 
-#: core/installer.php:945
+#: core/installer.php:969
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -4995,23 +5173,23 @@ msgstr ""
 "necesario realizar una actualización manual antes de que el plugin pueda ser "
 "utilizado."
 
-#: core/installer.php:947
+#: core/installer.php:971
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 "Haga clic en \"Iniciar Actualización\" y espere hasta que el proceso "
 "finalice."
 
-#: core/installer.php:950
+#: core/installer.php:974
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "Iniciar Actualización"
 
-#: core/installer.php:952
+#: core/installer.php:976
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "Detener Actualización"
 
-#: core/installer.php:958
+#: core/installer.php:982
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was sucessfully performed. Business Directory Plugin is now "
@@ -5020,7 +5198,7 @@ msgstr ""
 "La actualización fue ejecutada con éxito. Business Directory Plugin ahora se "
 "encienta disponible para su uso."
 
-#: core/installer.php:961
+#: core/installer.php:985
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Ir a \"Administración del Directorio\""
@@ -5097,12 +5275,7 @@ msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
 
-#: core/licensing.php:350
-msgctxt "licensing"
-msgid "License deactivated"
-msgstr "Licencia desactivada"
-
-#: core/payment.php:89
+#: core/payment.php:91
 msgctxt "payments-api"
 msgid ""
 "You are offering featured listings but have payments turned off. Go to <a "
@@ -5115,7 +5288,7 @@ msgstr ""
 "de pago. Hasta tanto la opción de <i>Mejorar a Destacado</i> estará "
 "deshabilitada."
 
-#: core/payment.php:107
+#: core/payment.php:109
 msgctxt "payments-api"
 msgid ""
 "The <b>%s</b> gateway is active but not properly configured. The gateway "
@@ -5127,7 +5300,7 @@ msgstr ""
 "siguientes problemas: <b>%s</b>.<br/> Revise sus <a href=\"%s"
 "\">configuraciones de pago</a>."
 
-#: core/payment.php:117
+#: core/payment.php:119
 msgctxt "admin"
 msgid ""
 "You have payments turned on but no gateway is active and properly "
@@ -5140,7 +5313,7 @@ msgstr ""
 "para cambiar las configuraciones de pago. Hasta tanto, el Directorio operará "
 "en <i>Modo Gratuito</i>."
 
-#: core/payment.php:121
+#: core/payment.php:123
 msgid ""
 "BD detected PayFast and another gateway were enabled. This setup is not "
 "recommended due to PayFast supporting only ZAR and the other gateways not "
@@ -5150,7 +5323,7 @@ msgstr ""
 "habilitadas. Esta configuración no es recomendada pues PayFast únicamente "
 "soporta la moneda ZAR y las demás pasarelas no la soportan."
 
-#: core/payment.php:125
+#: core/payment.php:127
 msgid ""
 "You have recurring renewal of listing fees enabled but the payment gateways "
 "installed don't support recurring payments. Until a gateway that supports "
@@ -5162,37 +5335,44 @@ msgstr ""
 "recurrentes. Hasta tanto una pasarela que soporte pagos recurrentes (como "
 "PayPal) sea habilitada las renovaciones automáticas estarán deshabilitadas."
 
-#: core/payment.php:158
+#: core/payment.php:135
+msgid ""
+"You have payments enabled but there are no fees available. Users won't be "
+"able to post listings. Please <a href=\"fees\">create some fees</a> or <a "
+"href=\"settings\">configure the Directory</a> to operate in \"Free Mode\"."
+msgstr ""
+
+#: core/payment.php:169
 msgctxt "payments-api"
 msgid "Checkout"
 msgstr "Pago"
 
-#: core/payment.php:159
+#: core/payment.php:170
 msgctxt "payments-api"
 msgid "Pay %1$s through %2$s"
 msgstr "Pagar %1$s a través de %2$s"
 
-#: core/payment.php:166
+#: core/payment.php:177
 msgctxt "payments-api"
 msgid "Your transaction has been approved."
 msgstr "Su transacción ha sido aprobada."
 
-#: core/payment.php:352
+#: core/payment.php:363
 msgctxt "payments"
 msgid "Payment Details"
 msgstr "Detalles del Pago"
 
-#: core/payment.php:379
+#: core/payment.php:390
 msgctxt "checkout"
 msgid "Payment Method"
 msgstr "Método de Pago"
 
-#: core/payment.php:413
+#: core/payment.php:424
 msgctxt "payment"
 msgid "Return to Directory."
 msgstr "Regresar al Directorio."
 
-#: core/payment.php:420
+#: core/payment.php:431
 msgctxt "payments"
 msgid ""
 "Your payment is being processed by the payment gateway. Please reload this "
@@ -5203,7 +5383,7 @@ msgstr ""
 "esta página en un momento para ver el estado actualizado del mismo o "
 "contacte al administrador del sitio."
 
-#: core/payment.php:423
+#: core/payment.php:434
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
@@ -5215,12 +5395,12 @@ msgstr ""
 "\"Cambiar Método de Pago\" para seleccionar un método distinto de pago e "
 "intentar nuevamente."
 
-#: core/payment.php:424
+#: core/payment.php:435
 msgctxt "payments"
 msgid "Change Payment Method"
 msgstr "Cambiar Método de Pago"
 
-#: core/payment.php:426
+#: core/payment.php:437
 msgctxt "payments"
 msgid ""
 "The payment has been rejected by the payment gateway. Please contact the "
@@ -5229,17 +5409,17 @@ msgstr ""
 "El pago ha sido rechazado por la pasarela de pago. Por favor contacte el "
 "administrador del sitio si cree que ha ocurrido un error."
 
-#: core/payment.php:429
+#: core/payment.php:440
 msgctxt "payments"
 msgid "The payment has been canceled at your request."
 msgstr "La transacción ha sido cancelada por solicitud suya."
 
-#: core/payment.php:527
+#: core/payment.php:538
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Casi abandonado"
 
-#: core/payment.php:532
+#: core/payment.php:543
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Abandonados"
@@ -5293,22 +5473,22 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reestablecer)"
 
-#: core/themes.php:587
+#: core/themes.php:597
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr ""
 
-#: core/themes.php:593
+#: core/themes.php:603
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: core/themes.php:601
+#: core/themes.php:611
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: core/themes.php:607
+#: core/themes.php:617
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -5321,54 +5501,54 @@ msgstr ""
 "Los datos enviados via POST superan el valor máximo configurado en PHP. "
 "Revise la directiva \"post_max_size\" de su configuración."
 
-#: core/utils.php:159
+#: core/utils.php:164
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "El tamaño de archivo (%s) excede el tamaño máximo permitido de %s"
 
-#: core/utils.php:167
+#: core/utils.php:172
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "El tamaño de archivo (%s) es inferior al tamaño mínimo requerido de %s"
 
-#: core/utils.php:176 core/utils.php:183
+#: core/utils.php:181 core/utils.php:188
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "El tipo de archivo \"%s\" no está permitido"
 
-#: core/utils.php:190
+#: core/utils.php:195
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Error desconocido mientras se subía el archivo."
 
-#: core/utils.php:209
+#: core/utils.php:214
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "El archivo subido no es una imagen"
 
-#: core/utils.php:218
+#: core/utils.php:223
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr ""
 "El ancho de la imagen (%s px) es inferior al mínimo requerido de %s px."
 
-#: core/utils.php:224
+#: core/utils.php:229
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr "El alto de la imagen (%s px) es inferior al mínimo requerido de %s px."
 
-#: core/utils.php:230
+#: core/utils.php:235
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "El ancho de la imagen (%s px) es superior al máximo permitido de %s px."
 
-#: core/utils.php:236
+#: core/utils.php:241
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr "El alto de la imagen (%s px) es superior al máximo permitido de %s px."
 
-#: core/utils.php:250
+#: core/utils.php:255
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
@@ -5612,52 +5792,52 @@ msgid ""
 msgstr ""
 "Ha ingresado como administrador. Todos los pasos de pago serán saltados."
 
-#: core/view-submit-listing.php:200
+#: core/view-submit-listing.php:205
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr "Por favor elija una opción de pago para la categoría \"%s\"."
 
-#: core/view-submit-listing.php:268
+#: core/view-submit-listing.php:273
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: core/view-submit-listing.php:274
+#: core/view-submit-listing.php:279
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "El reCAPTCHA no fue ingresado correctamente."
 
-#: core/view-submit-listing.php:291
+#: core/view-submit-listing.php:296
 msgctxt "templates"
 msgid "Read our Terms and Conditions"
 msgstr "Lea nuestros Términos y Condiciones"
 
-#: core/view-submit-listing.php:296
+#: core/view-submit-listing.php:301
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Términos y Condiciones:"
 
-#: core/view-submit-listing.php:307
+#: core/view-submit-listing.php:312
 msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "Acepto los Términos y Condiciones"
 
-#: core/view-submit-listing.php:444
+#: core/view-submit-listing.php:449
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr "Comisión \"%s\" para categoría \"%s\"%s"
 
-#: core/view-submit-listing.php:447
+#: core/view-submit-listing.php:452
 msgctxt "listings"
 msgid "(recurring)"
 msgstr "(recurrente)"
 
-#: core/view-submit-listing.php:457 core/view-upgrade-listing.php:54
+#: core/view-submit-listing.php:462 core/view-upgrade-listing.php:54
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr "Mejora a Destacado"
 
-#: core/view-submit-listing.php:490
+#: core/view-submit-listing.php:495
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr "Solicitud inválida."
@@ -6217,12 +6397,18 @@ msgctxt "templates"
 msgid "Images Allowed"
 msgstr "Imágenes Permitidas"
 
-#: templates/parts/category-fee-selection.tpl.php:43
+#: templates/parts/category-fee-selection.tpl.php:28
+#, fuzzy
+msgctxt "templates"
+msgid "There are no fees available for this category."
+msgstr "Por favor elija una opción de pago para la categoría \"%s\"."
+
+#: templates/parts/category-fee-selection.tpl.php:50
 msgctxt "templates"
 msgid "Unlimited"
 msgstr "Ilimitado"
 
-#: templates/parts/category-fee-selection.tpl.php:45
+#: templates/parts/category-fee-selection.tpl.php:52
 msgctxt "templates"
 msgid "%d day"
 msgid_plural "%d days"
@@ -6577,6 +6763,18 @@ msgstr "D. Rodenbaugh"
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
 
+#~ msgctxt "fees admin"
+#~ msgid "You do not have any listing fees setup yet."
+#~ msgstr "Usted no tiene comisiones configuradas aún."
+
+#~ msgctxt "fees admin"
+#~ msgid "Applied To"
+#~ msgstr "Aplica A"
+
+#~ msgctxt "fees admin"
+#~ msgid "Is sticky?"
+#~ msgstr "Es destacado?"
+
 #~ msgctxt "admin settings"
 #~ msgid "Registration"
 #~ msgstr "Registro"
@@ -6680,10 +6878,6 @@ msgstr "http://businessdirectoryplugin.com"
 #~ msgctxt "admin transactions"
 #~ msgid "Listing"
 #~ msgstr "Listado"
-
-#~ msgctxt "admin transactions"
-#~ msgid "Status"
-#~ msgstr "Estado"
 
 #~ msgctxt "admin transactions"
 #~ msgid "Amount"
