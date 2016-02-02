@@ -45,6 +45,15 @@ class WPBDP_Installer {
 
             add_option( 'wpbdp-show-drip-pointer', 1 );
             add_option( 'wpbdp-show-tracking-pointer', 1 );
+
+            // Create default paid fee.
+            $fee = new WPBDP_Fee_Plan( array( 'label' => _x( 'Default Fee', 'installer', 'WPBDM' ),
+                                              'amount' => 1.0,
+                                              'days' => 365,
+                                              'images' => 1,
+                                              'categories' => array( 'all' => true, 'categories' => array() ),
+                                              'enabled' => 1 ) );
+            $fee->save();
         }
 
         delete_option('wpbusdirman_db_version');
