@@ -403,6 +403,10 @@ class WPBDP_Listing {
             } elseif ( ! $category_info ) {
                 $fee_options = wpbdp_get_fees_for_category( $category_id );
 
+                // Allow backend listing categories editing to always succeed.
+                if ( ! $fee_options && is_admin() && current_user_can( 'administrator' ) )
+                    $fee_options[] = WPBDP_Fee_Plan::get_free_plan();
+
                 if ( $charge ) {
                     $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
                     $payment->add_category_fee_item( $category_id, reset( $fee_options ) );
