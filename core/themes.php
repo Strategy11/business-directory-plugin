@@ -74,9 +74,18 @@ class WPBDP_Themes {
     }
 
     function field_theme_override( $html = '', &$field, $context, $listing_id ) {
-        $options = array( 'field_' . $field->get_id(), 'field_' . $field->get_short_name(), 'field_' . $field->get_field_type_id() );
-        if ( $field->get_tag() )
-            $options[] = 'field_' . $field->get_tag();
+        $options = array();
+
+        foreach ( array( $context . '-', '' ) as $prefix ) {
+            $options[] = $prefix . 'field-' . $field->get_id();
+            $options[] = $prefix . 'field-' . $field->get_short_name();
+
+            if ( $field->get_tag() )
+                $options[] = $prefix . 'field-' . $field->get_tag();
+
+            $options[] = $prefix . 'fieldtype-' . $field->get_field_type_id();
+            $options[] = $prefix . 'field';
+        }
 
         $path = '';
         foreach ( $options as $o ) {
