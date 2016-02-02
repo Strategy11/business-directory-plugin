@@ -335,12 +335,12 @@ class WPBDP_FeesAdmin {
         $fee = $fee_id ? WPBDP_Fee_Plan::find( $fee_id ) : new WPBDP_Fee_Plan();
 
         if ( isset( $_POST['fee'] ) ) {
-            if ( ! $fee->update( $_POST['fee'] ) )
-                $this->admin->messages[] = array( $fee->errors->html() , 'error' );
-            else
+            if ( $fee->update( $_POST['fee'] ) ) {
                 $this->admin->messages[] = _x('Fee updated.', 'fees admin', 'WPBDM');
+                return $this->feesTable();
+            }
 
-            return $this->feesTable();
+            $this->admin->messages[] = array( $fee->errors->html() , 'error' );
         }
 
         wpbdp_render_page( WPBDP_PATH . 'admin/templates/fees-addoredit.tpl.php',
