@@ -84,6 +84,8 @@ class WPBDP_PaymentsAPI {
     }
 
     public function check_config() {
+        global $wpdb;
+
         if ( wpbdp_get_option( 'featured-on' ) && ! wpbdp_get_option( 'payments-on' ) )
             return array(
                 sprintf( _x( 'You are offering featured listings but have payments turned off. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the <i>Upgrade to Featured</i> option will be disabled.', 'payments-api', 'WPBDM' ), admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) )
@@ -125,12 +127,14 @@ class WPBDP_PaymentsAPI {
                 $errors[] = __( 'You have recurring renewal of listing fees enabled but the payment gateways installed don\'t support recurring payments. Until a gateway that supports recurring payments (such as PayPal) is enabled automatic renewals will be disabled.', 'WPBDM' );
             }
 
-            $errors[] = str_replace( array( '<a href="fees">',
-                                            '<a href="settings">' ),
-                                     array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
-                                            '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">' ),
-                                     __( 'You have payments enabled but there are no fees available. Users won\'t be able to post listings. Please <a href="fees">create some fees</a> or <a href="settings">configure the Directory</a> to operate in "Free Mode".',
-                                         'WPBDM' ) );
+            if ( 0 == absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE tag != %s AND enabled = %d", 'free', 1 ) ) ) ) {
+                $errors[] = str_replace( array( '<a href="fees">',
+                                                '<a href="settings">' ),
+                                         array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
+                                                '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">' ),
+                                         __( 'You have payments enabled but there are no fees available. Users won\'t be able to post listings. Please <a href="fees">create some fees</a> or <a href="settings">configure the Directory</a> to operate in "Free Mode".',
+                                             'WPBDM' ) );
+            }
         }
 
         return $errors;
