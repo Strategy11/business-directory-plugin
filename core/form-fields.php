@@ -24,7 +24,7 @@ class WPBDP_FormFields {
         }
 
         return self::$instance;
-    }   
+    }
 
     private function __construct() {
         // register core associations
@@ -65,7 +65,7 @@ class WPBDP_FormFields {
 
         $this->associations[ $association ] = $name ? $name : $association;
         $this->association_flags[ $association ] = is_array( $flags ) ? $flags : array( strval( $flags ) );
-        
+
         if ( !isset( $this->association_field_types[ $association ] ) )
             $this->association_field_types[ $association ] = array();
     }
@@ -81,7 +81,7 @@ class WPBDP_FormFields {
     public function get_association_field_types( $association=null ) {
         if ( $association ) {
             if ( in_array( $association, array_keys( $this->associations ), true ) ) {
-                return $this->association_field_types[ $association ];    
+                return $this->association_field_types[ $association ];
             } else {
                 return null;
             }
@@ -287,7 +287,7 @@ class WPBDP_FormFields {
         }
 
         $res = $unique ? ( $res ? $res[0] : null ) : $res;
-        
+
         return $res;
     }
 
@@ -389,7 +389,7 @@ class WPBDP_FormFields {
 
         foreach ( $fields as $field ) {
             $name = WPBDP_Form_Field_Type::normalize_name( $field->get_label() );
- 
+
             if ( $name == 'images' || $name == 'image' || $name == 'username' || $name == 'featured_level' || $name == 'expires_on' || $name == 'sequence_id' || in_array( $name, $names, true ) ) {
                 $name = $name . '-' . $field->get_id();
             }
@@ -582,7 +582,7 @@ class WPBDP_FieldValidation {
             $values = explode( ',', $values );
 
         if ( !in_array( $value, $values ) )
-            return WPBDP_ValidationError( sprintf( _x( '%s is invalid. Value most be one of %s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), call_user_func( $formatter, $values ) ) );        
+            return WPBDP_ValidationError( sprintf( _x( '%s is invalid. Value most be one of %s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), call_user_func( $formatter, $values ) ) );
     }
 
 }
