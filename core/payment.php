@@ -115,7 +115,7 @@ class WPBDP_PaymentsAPI {
 
         if ( ! $gateway_ok ) {
             $errors[] = sprintf(_x('You have payments turned on but no gateway is active and properly configured. Go to <a href="%s">Manage Options - Payment</a> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'admin', 'WPBDM'),
-                                admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));            
+                                admin_url('admin.php?page=wpbdp_admin_settings&groupid=payment'));
         } else {
             if ( count( $this->get_available_methods() ) >= 2 && $this->is_available( 'payfast' ) ) {
                 $errors[] = __( 'BD detected PayFast and another gateway were enabled. This setup is not recommended due to PayFast supporting only ZAR and the other gateways not supporting this currency.', 'admin', 'WPBDM' );
@@ -124,6 +124,13 @@ class WPBDP_PaymentsAPI {
             if ( wpbdp_get_option( 'listing-renewal-auto' ) && ! $this->check_capability( 'recurring' ) ) {
                 $errors[] = __( 'You have recurring renewal of listing fees enabled but the payment gateways installed don\'t support recurring payments. Until a gateway that supports recurring payments (such as PayPal) is enabled automatic renewals will be disabled.', 'WPBDM' );
             }
+
+            $errors[] = str_replace( array( '<a href="fees">',
+                                            '<a href="settings">' ),
+                                     array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
+                                            '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">' ),
+                                     __( 'You have payments enabled but there are no fees available. Users won\'t be able to post listings. Please <a href="fees">create some fees</a> or <a href="settings">configure the Directory</a> to operate in "Free Mode".',
+                                         'WPBDM' ) );
         }
 
         return $errors;
