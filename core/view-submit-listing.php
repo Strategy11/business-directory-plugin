@@ -132,7 +132,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         $skip = true;
         foreach ( $fee_selection as $fs ) {
-            if ( count( $fs['options'] ) > 1 ) {
+            if ( ! $fs['options'] || count( $fs['options'] ) > 1 ) {
                 $skip = false;
                 break;
             }
@@ -152,13 +152,15 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 $fee_selection[ $cat_id ] = array( 'fee_id' => $fee_id );
             } else {
                 if ( $term = get_term( $cat_id, WPBDP_CATEGORY_TAX ) ) {
-                    $options = wpbdp_get_fees_for_category( $cat_id );
-
-                    if ( count( $options ) == 1 ) {
-                        $fee = reset( $options );
-                        $fee_id = $fee->id;
+                    if ( $options = wpbdp_get_fees_for_category( $cat_id ) ) {
+                        if ( count( $options ) == 1 ) {
+                            $fee = reset( $options );
+                            $fee_id = $fee->id;
+                        } else {
+                            $fee_id = isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id;
+                        }
                     } else {
-                        $fee_id = isset( $_POST['fees'][ $cat_id ] ) ? $_POST['fees'][ $cat_id ] : $fee_id;
+                        $fee_id = null;
                     }
 
                     $fee_selection[ $cat_id ] = array( 'fee_id' => $fee_id,
@@ -197,7 +199,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             $validates = true;
 
             foreach ( array_keys( $this->state->categories ) as $cat_id) {
-                $selected_fee_id = wpbdp_getv( $_POST['fees'], $cat_id, null );        
+                $selected_fee_id = wpbdp_getv( $_POST['fees'], $cat_id, null );
 
                 if ( null === $selected_fee_id ) {
                     $this->errors[] = sprintf( _x( 'Please select a fee option for the "%s" category.', 'templates', 'WPBDM' ), esc_html( $fee_selection[ $cat_id ]['term']->name ) );

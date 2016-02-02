@@ -21,7 +21,14 @@
 			<th class="fee-images"><?php echo _x( 'Images Allowed', 'templates', 'WPBDM' ); ?></th>
 			<?php // do_action( 'wpbdp_fee_selection_extra_headers' ); ?>
 		</thead>
-		<tbody>
+        <tbody>
+            <?php if ( ! $category_fees ): ?>
+            <tr class="fee-option fee-id-none">
+                <td colspan="5">
+                    <?php _ex( 'There are no fees available for this category.', 'templates', 'WPBDM'); ?>
+                </td>
+            </tr>
+            <?php else: ?>
 		    <?php
 		        $rows_html = '';
 		        ob_start();
@@ -65,7 +72,8 @@
     			}
 
                 echo $rows_html;
-			?>
+            ?>
+            <?php endif; ?>
 		</tbody>
 	</table>
 
