@@ -344,8 +344,10 @@ class WPBDP_Listing {
                             $category->fee->id = $category->fee_id;
                             $category->fee->label = _x( '(Fee Unavailable)', 'listing', 'WPBDM' );
                             $category->fee->amount = 0.0;
-                            $category->fee->days = $category->fee_days;
-                            $category->fee->images = $category->fee_images;
+                            $category->fee_days = intval( $payment_info->data['fee_days'] );
+                            $category->fee_images = intval( $payment_info->data['fee_images'] );
+//                            $category->fee->days = $category->fee_days;
+//                            $category->fee->images = $category->fee_images;
                             $category->fee->categories = array();
                             $category->fee->extra_data = array();
                         }
