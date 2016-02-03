@@ -117,7 +117,7 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
-= Version 3.7.1 =
+= Version 3.7.2 =
 * Add alternative code for MIME type checking on image upload when FINFO is not available to prevent fatal errors.
 * Fix fee selection on the frontend after Fees API update.
 * Add warning to admins when the Directory is in paid mode and there are no fees active.
