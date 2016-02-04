@@ -399,8 +399,8 @@ class WPBDP_DirectoryController {
             wpbdp_push_query( $q );
 
             $html = wpbdp_x_render( 'listings', array( '_id' => 'listings',
-                                                       '_wrapper' => 'page',
-                                                       '_bar' => true,
+                                                       '_wrapper' => $include_buttons ? 'page' : '',
+                                                       '_bar' => $include_buttons ? true : false,
                                                        'query' => $q ) );
             wp_reset_postdata();
         } else {
@@ -513,7 +513,7 @@ class WPBDP_DirectoryController {
         }
 
         if ( wpbdp_experimental( 'themes' ) ) {
-            $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => false ) );
+            $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => $listings ) );
             return $html;
         }
 
