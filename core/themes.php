@@ -461,6 +461,7 @@ class WPBDP_Themes {
                                   array( '', '-', '', '', '' ),
                                   $id_or_file ),
             '_template' => $id_or_file,
+            '_parent' => '',
             '_path' => $path,
             '_view' => null,
             '_full' => false,
@@ -474,6 +475,15 @@ class WPBDP_Themes {
             $defaults['_bar'] = true;
 
         $vars = array_merge( $defaults, $vars );
+
+        if ( $this->cache['template_vars_stack'] ) {
+            $cnt = count( $this->cache['template_vars_stack'] );
+            $last = $this->cache['template_vars_stack'][ $cnt - 1 ];
+
+            if ( ! empty( $last['_template'] ) )
+                $vars['_parent'] = $last['_template'];
+        }
+
         $vars = apply_filters( 'wpbdp_template_variables', $vars, $id_or_file );
         $vars = apply_filters( 'wpbdp_template_variables__' . $id_or_file, $vars, $path );
 
