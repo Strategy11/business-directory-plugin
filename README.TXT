@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory,directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 4.0
-Tested up to: 4.4.1
-Last Updated: 2016-Jan-21
-Stable tag: tags/3.7
+Tested up to: 4.4.2
+Last Updated: 2016-Feb-2
+Stable tag: tags/3.7.2
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -116,6 +116,16 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.7.2 =
+* Add alternative code for MIME type checking on image upload when FINFO is not available to prevent fatal errors.
+* Fix fee selection on the frontend after Fees API update.
+* Add warning to admins when the Directory is in paid mode and there are no fees active.
+* Several minor improvements to the Fees API.
+
+= Version 3.7.1 =
+* Fixed bug where users can't change the category on listings during submit
+
 = Version 3.7 =
 * NEW:  Improved Fee admin interface
 * NEW:  Allow content fields to use a WYSIWYG editor on the frontend.
