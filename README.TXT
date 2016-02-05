@@ -1,7 +1,7 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: business directory,directory,wordpress directory,wordpress directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory plugin,business directory plugin,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
+Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,directory plugin,directory wizard,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 4.0
 Tested up to: 4.4.2
 Last Updated: 2016-Feb-2
