@@ -83,7 +83,7 @@ class WPBDP_Themes {
             if ( $field->get_tag() )
                 $options[] = $prefix . 'field-' . $field->get_tag();
 
-            $options[] = $prefix . 'fieldtype-' . $field->get_field_type_id();
+            $options[] = $prefix . 'field-type-' . $field->get_field_type_id();
             $options[] = $prefix . 'field';
         }
 
