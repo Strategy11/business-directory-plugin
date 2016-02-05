@@ -80,8 +80,14 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         if ( $this->categories['all'] )
             return true;
 
-        return in_array( $category_id,
-                         wpbdp_get_parent_catids( $category_id ) );
+        $requested_cats = wpbdp_get_parent_catids( $category_id );
+
+        foreach ( $this->categories['categories'] as $s_cat_id ) {
+            if ( in_array( $s_cat_id, $requested_cats ) )
+                return true;
+        }
+
+        return false;
     }
 
     public static function for_category( $category_id ) {

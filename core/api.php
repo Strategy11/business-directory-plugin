@@ -509,7 +509,7 @@ function wpbdp_experimental( $feature ) {
     global $wpbdp_development;
 
     if ( file_exists( WPBDP_PATH . '.experimental' ) )
-        $file_overrides = explode( ',', trim( file_get_contents( WPBDP_PATH . '.experimental' ) ) );
+        $file_overrides = explode( ',', trim( file_get_contents( WPBDP_PATH . 'experimental' ) ) );
 
     $res = false;
     if ( isset( $wpbdp_development ) )

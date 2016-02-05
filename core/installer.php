@@ -905,6 +905,14 @@ class WPBDP_Installer {
         }
     }
 
+//    public function upgrade_to_12() {
+//        global $wpdb;
+//
+//        $wpdb->query( $wpdb->prepare( 
+//            "DELETE lf.* FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.category_id NOT IN ( SELECT tt.term_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = %s )",
+//            WPBDP_CATEGORY_TAX ) );
+//    }
+
 }
 
 

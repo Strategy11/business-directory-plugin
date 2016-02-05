@@ -399,8 +399,8 @@ class WPBDP_DirectoryController {
             wpbdp_push_query( $q );
 
             $html = wpbdp_x_render( 'listings', array( '_id' => 'listings',
-                                                       '_wrapper' => 'page',
-                                                       '_bar' => true,
+                                                       '_wrapper' => $include_buttons ? 'page' : '',
+                                                       '_bar' => $include_buttons ? true : false,
                                                        'query' => $q ) );
             wp_reset_postdata();
         } else {
@@ -513,7 +513,7 @@ class WPBDP_DirectoryController {
         }
 
         if ( wpbdp_experimental( 'themes' ) ) {
-            $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => false ) );
+            $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => $listings ) );
             return $html;
         }
 
@@ -616,13 +616,35 @@ class WPBDP_DirectoryController {
         if ( ! $searching || 'none' != wpbdp_get_option( 'search-form-in-results' ) )
             $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields ) );
 
-        $html = wpbdp_render( 'search',
-                               array( 'search_form' => $search_form,
-                                      'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
-                                      'fields' => $fields,
-                                      'searching' => $searching
-                                    ),
-                              false );
+        if ( wpbdp_experimental( 'themes' ) ) {
+            $results = false;
+
+            if ( have_posts() ) {
+                $results  = '';
+                $results .= wpbdp_capture_action( 'wpbdp_before_search_results' );
+                $results .= wpbdp_x_render( 'listings', array( '_parent' => 'search',
+                                                               'query' => wpbdp_current_query() ) );
+                $results .= wpbdp_capture_action( 'wpbdp_after_search_results' );
+            }
+
+            $html = wpbdp_x_render( 'search',
+                                    array( 'search_form' => $search_form,
+                                           'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
+                                           'fields' => $fields,
+                                           'searching' => $searching,
+                                           'results' => $results
+                                       ) );
+ 
+        } else {
+            $html = wpbdp_render( 'search',
+                                  array( 'search_form' => $search_form,
+                                         'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
+                                         'fields' => $fields,
+                                         'searching' => $searching
+                                       ),
+                                  false );
+        }
+
         wp_reset_query();
         wpbdp_pop_query();
 
