@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,directory plugin,directory wizard,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 4.0
 Tested up to: 4.4.2
-Last Updated: 2016-Feb-2
-Stable tag: tags/3.7.2
+Last Updated: 2016-Feb-5
+Stable tag: tags/3.7.3
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -116,6 +116,9 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 3.7.3 =
+* Make category-specific fees work again.
+* Improve the handling of deleted categories.
 
 = Version 3.7.2 =
 * Add alternative code for MIME type checking on image upload when FINFO is not available to prevent fatal errors.
