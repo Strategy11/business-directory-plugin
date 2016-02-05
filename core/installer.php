@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '11';
+    const DB_VERSION = '12';
 
     private $installed_version = null;
 
@@ -172,7 +172,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -903,6 +903,14 @@ class WPBDP_Installer {
             foreach ( $fields as &$f )
                 $f->save();
         }
+    }
+
+    public function upgrade_to_12() {
+        global $wpdb;
+
+        $wpdb->query( $wpdb->prepare( 
+            "DELETE lf.* FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.category_id NOT IN ( SELECT tt.term_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = %s )",
+            WPBDP_CATEGORY_TAX ) );
     }
 
 }

@@ -30,6 +30,7 @@ class WPBDP_Listings_API {
         add_action( 'transition_post_status', array( &$this, 'listing_published_notification' ), 10, 3 );
 
         add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
+        add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
 
         $this->upgrades = WPBDP_Listing_Upgrade_API::instance();
     }
@@ -270,7 +271,14 @@ class WPBDP_Listings_API {
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id ) );
     }
 
+    public function handle_delete_term( $term_id, $tt_id, $taxonomy ) {
+        global $wpdb;
 
+        if ( WPBDP_CATEGORY_TAX != $taxonomy )
+            return;
+
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id = %d", $term_id ) );
+    }
 
     public function new_listing_confirmation_email( &$listing ) {
         if ( ! in_array( 'new-listing', wpbdp_get_option( 'user-notifications' ), true ) )
@@ -825,8 +833,10 @@ class WPBDP_Listings_API {
         foreach ( $rs as &$r ) {
             $listing = WPBDP_Listing::get( $r->listing_id );
 
-            if ( ! $listing )
+            if ( ! $listing || ! term_exists( absint( $r->category_id ), WPBDP_CATEGORY_TAX ) ) {
+                $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $r->id ) );
                 continue;
+            }
 
             $base_replacements = array( 'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
                                         'author' => get_the_author_meta( 'display_name', get_post( $r->listing_id )->post_author ),
