@@ -461,7 +461,7 @@ class WPBDP_FieldValidation {
     }
 
     public function validate_field( $field, $value, $validator, $args=array() ) {
-        $args['field-label'] = is_object( $field ) && $field ? $field->get_label() : _x( 'Field', 'form-fields-api validation', 'WPBDM' );
+        $args['field-label'] = is_object( $field ) && $field ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : _x( 'Field', 'form-fields-api validation', 'WPBDM' );
         $args['field'] = $field;
 
         return call_user_func( array( $this, $validator ) , $value, $args );
