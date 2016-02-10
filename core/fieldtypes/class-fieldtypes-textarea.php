@@ -105,17 +105,14 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             if ( $field->data( 'allow_filters' ) ) {
                 $value = apply_filters( 'the_content', $value );
             } else {
-                if ( ! $field->data( 'wysiwyg_editor' ) ) {
-                    // Do not modify HTML output from WYSIWYG editor.
-                    $value = wpautop( $value );
-                }
-
                 if ( $field->data( 'allow_shortcodes' ) ) {
                     global $post;
                     // Try to protect us from sortcodes messing things for us.
                     $current_post = $post;
                     $value = do_shortcode( shortcode_unautop( wpautop( $value ) ) );
                     $post = $current_post;
+                } else {
+                    $value = wpautop( $value );
                 }
             }
         } else {
