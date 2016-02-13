@@ -122,5 +122,13 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         return $value;
     }
 
+    public function get_field_csv_value( &$field, $post_id ) {
+        $value = parent::get_field_csv_value( $field, $post_id );
+        $value = str_replace( "\r\n", "\n", $value );
+        $value = str_replace( "\n", "\\n", $value );
+
+        return $value;
+    }
+
 }
 
