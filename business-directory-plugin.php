@@ -370,11 +370,14 @@ class WPBDP_Plugin {
 
                 $rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( $home_url . '/', '', $page_link ), '/' ) );
 
+                $category_slug = urlencode( wpbdp_get_option( 'permalinks-category-slug' ) );
+                $tags_slug = urlencode( wpbdp_get_option( 'permalinks-tags-slug' ) );
+
                 $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
-                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-category-slug') . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
-                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . wpbdp_get_option('permalinks-tags-slug') . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
+                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                     //$rules['(' . $rewrite_base . ')/([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
@@ -385,9 +388,20 @@ class WPBDP_Plugin {
             }
         }
 
-//        wpbdp_debug_e($rules);
+        $rules = apply_filters( 'wpbdp_rewrite_rules', $rules );
 
-        return apply_filters( 'wpbdp_rewrite_rules', $rules );
+        // Create uppercase versions of rules involving octets (support for cyrillic characters).
+        foreach ( $rules as $def => $redirect ) {
+            $upper_r = preg_replace_callback( '/%[0-9a-zA-Z]{2}/',
+                                              create_function( '$x', 'return strtoupper( $x[0] );' ),
+                                              $def );
+
+            if ( 0 !== strcmp( $def, $upper_r ) ) {
+                $rules[ $upper_r ] = $redirect;
+            }
+        }
+
+        return $rules;
     }
 
     public function _rewrite_rules($rules) {
