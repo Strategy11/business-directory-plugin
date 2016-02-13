@@ -30,7 +30,7 @@ function wpbdp_the_directory_categories() {
  * @since 2.3
  * @access private
  */
-function _wpbdp_padded_count( &$term ) {
+function _wpbdp_padded_count( &$term, $return = false ) {
     global $wpdb;
 
     $found = false;
@@ -43,6 +43,9 @@ function _wpbdp_padded_count( &$term ) {
         $query = $wpdb->prepare( "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN (" . implode( ',', $tt_ids ) . ")", 'publish', WPBDP_POST_TYPE );
         $count = apply_filters( '_wpbdp_padded_count', intval( $wpdb->get_var( $query ) ), $term );
     }
+
+    if ( $return )
+        return $count;
 
     $term->count = $count;
 }
