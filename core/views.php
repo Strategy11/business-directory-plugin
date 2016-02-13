@@ -389,10 +389,13 @@ class WPBDP_DirectoryController {
             'post_status' => 'publish',
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-            'order' => wpbdp_get_option('listings-sort', 'ASC'),
+            'order' => wpbdp_get_option('listings-sort', 'ASC')
         );
         if ( isset( $args_['numberposts'] ) )
             $args['numberposts'] = $args_['numberposts'];
+
+        if ( ! empty( $args_['author'] ) )
+            $args['author'] = $args_['author'];
 
         if ( wpbdp_experimental( 'themes' ) ) {
             $q = new WP_Query( $args );

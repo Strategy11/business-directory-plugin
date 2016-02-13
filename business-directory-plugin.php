@@ -912,12 +912,28 @@ class WPBDP_Plugin {
                                        'category' => '',
                                        'categories' => '',
                                        'title' => '',
-                                       'operator' => 'OR' ),
+                                       'operator' => 'OR',
+                                       'author' => '' ),
                                 $atts );
         $atts = array_map( 'trim', $atts );
 
-        if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] )
-            return $this->controller->view_listings( true );
+        if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] ) {
+            $args = array();
+
+            if ( ! empty( $atts['author'] ) ) {
+                $u = false;
+
+                if ( is_numeric( $atts['author'] ) )
+                    $u = get_user_by( 'id', absint( $atts['author'] ) );
+                else
+                    $u = get_user_by( 'login', $atts['author'] );
+
+                if ( $u )
+                    $args['author'] = $u->ID;
+            }
+
+            return $this->controller->view_listings( true, $args );
+        }
 
         if ( $atts['category'] || $atts['categories'] ) {
             $requested_categories = array();
