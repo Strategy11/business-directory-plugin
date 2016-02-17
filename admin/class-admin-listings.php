@@ -288,10 +288,9 @@ class WPBDP_Admin_Listings {
     }
 
     function listings_admin_filters( $pieces  ) {
-        global $current_screen;
         global $wpdb;
 
-        if ( ! is_admin() || ! isset( $_REQUEST['wpbdmfilter'] ) ||  'edit-' . WPBDP_POST_TYPE !=  $current_screen->id )
+        if ( ! is_admin() || ! isset( $_REQUEST['wpbdmfilter'] ) || ! function_exists( 'get_current_screen' ) || ! get_current_screen() || 'edit-' . WPBDP_POST_TYPE != get_current_screen()->id )
             return $pieces;
 
         switch ( $_REQUEST['wpbdmfilter'] ) {
