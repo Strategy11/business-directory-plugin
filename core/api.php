@@ -508,7 +508,7 @@ function wpbdp_experimental( $feature ) {
     static $file_overrides = false;
     global $wpbdp_development;
 
-    if ( file_exists( WPBDP_PATH . '.experimental' ) )
+    if ( file_exists( WPBDP_PATH . 'experimental' ) )
         $file_overrides = explode( ',', trim( file_get_contents( WPBDP_PATH . 'experimental' ) ) );
 
     $res = false;
