@@ -282,6 +282,8 @@ class WPBDP_FormFieldsAdmin {
     }
 
     private function update_field_tags() {
+        global $wpbdp;
+
         $special_tags = array(
             'title' => _x( 'Title', 'form-fields admin', 'WPBDM' ),
             'category' => _x( 'Category', 'form-fields admin', 'WPBDM' ),
@@ -318,6 +320,8 @@ class WPBDP_FormFieldsAdmin {
             wpbdp_admin_message( _x( 'Tags updated.', 'form-fields admin', 'WPBDM' ) );
         }
 
+        $missing_fields = $wpbdp->themes->missing_suggested_fields( 'label' );
+
         foreach ( $special_tags as $t => $td ) {
             $f = WPBDP_Form_Field::find_by_tag( $t );
 
@@ -328,7 +332,7 @@ class WPBDP_FormFieldsAdmin {
         }
 
         echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-tags.tpl.php',
-                                array( 'field_tags' => $field_tags ) );
+                                array( 'field_tags' => $field_tags, 'missing_fields' => $missing_fields ) );
     }
 
 }

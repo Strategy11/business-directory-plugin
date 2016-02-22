@@ -115,7 +115,7 @@ class WPBDP_Themes_Admin {
         global $wpbdp;
         $wpbdp->formfields->create_default_fields( $missing );
 
-        wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=2' ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) );
         exit;
     }
 
@@ -147,17 +147,16 @@ class WPBDP_Themes_Admin {
                 wpbdp_admin_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'WPBDM' ), $this->api->get_active_theme() ) );
 
                 if ( $missing_fields = $this->api->missing_suggested_fields( 'label' ) ) {
-                    $msg  = sprintf( _x( 'For better results, "%s" theme suggests the following form fields to be created.', 'themes', 'WPBDM' ), $this->api->get_active_theme() );
+                    $msg  = sprintf( _x( '%s requires that you tag your existing fields to match some places we want to put your data on the theme. Below are fields we think are missing.', 'themes', 'WPBDM' ), $this->api->get_active_theme() );
                     $msg .= '<br />';
 
                     foreach ( $missing_fields as $mf )
                         $msg .= '<span class="tag">' . $mf . '</span>';
 
                     $msg .= '<br /><br />';
-                    $msg .= sprintf( '<a href="#" class="button button-secondary" id="dismiss-suggested-fields-warning">%s</a>', _x( 'Dismiss this warning', 'themes', 'WPBDM' ) );
-                    $msg .= sprintf( '<a href="%s" class="button button-primary next-to-secondary">%s</a>',
-                                     wp_nonce_url( admin_url( 'admin.php?page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ),
-                                     _x( 'Create suggested fields', 'themes', 'WPBDM' ) );
+                    $msg .= sprintf( '<a href="%s" class="button button-primary">%s</a>',
+                                     admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
+                                     _x( 'Map My Fields', 'themes', 'WPBDM' ) );
 
                     wpbdp_admin_message( $msg, 'error' );
                 }

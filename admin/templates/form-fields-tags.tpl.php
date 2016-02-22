@@ -14,6 +14,15 @@ function _fields_dropdown( $name, $field_id, $fixed = false ) {
 <?php echo wpbdp_admin_header( _x( 'Theme Tags', 'form-fields admin', 'WPBDM' ) ); ?>
 <?php wpbdp_admin_notices(); ?>
 
+<?php if ( $missing_fields ): ?>
+<div class="wpbdp-note">
+<?php _ex( 'Before you create fields, make sure you\'ve mapped all of your EXISTING ones first, otherwise you\'ll appear to be "missing data" on your listings.',
+           'form-fields admin',
+           'WPBDM' ); ?><br /><br />
+<a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ); ?>" class="button"><?php _ex( 'Create Missing Fields', 'form-fields admin', 'WPBDM'); ?></a>
+</div>
+<?php endif; ?>
+
 <form action="" method="post">
     <table class="form-table">
     <!--    <thead>

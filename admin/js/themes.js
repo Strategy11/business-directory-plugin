@@ -1,9 +1,4 @@
 jQuery(function($) {
-    $( '#wpbdp-admin-page-themes #dismiss-suggested-fields-warning' ).click( function( e ) {
-        e.preventDefault();
-        $( this ).parents( 'div.error' ).fadeOut( 'fast' );
-    } );
-
     $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).attr( 'disabled', 'disabled' );
     $( '#wpbdp-admin-page-themes-install input[name="themezip"]' ).change( function( e ) {
         var v = $( this ).val();
