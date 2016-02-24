@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.13\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-02-02 17:14:20+00:00\n"
+"POT-Creation-Date: 2016-02-24 20:36:14+00:00\n"
 "PO-Revision-Date: 2016-01-18 15:22-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -69,7 +69,7 @@ msgstr "Mejorar a %s"
 msgid "Downgrade to %s"
 msgstr "Degradar a %s"
 
-#: admin/class-admin-listings.php:215 admin/class-admin-listings.php:395
+#: admin/class-admin-listings.php:215 admin/class-admin-listings.php:394
 msgctxt "admin actions"
 msgid "Upgrade to Featured"
 msgstr "Mejorar a Destacado"
@@ -83,32 +83,32 @@ msgctxt "admin"
 msgid "Expired"
 msgstr "Expirados"
 
-#: admin/class-admin-listings.php:331
+#: admin/class-admin-listings.php:330
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: admin/class-admin-listings.php:334
+#: admin/class-admin-listings.php:333
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Eliminar Listado"
 
-#: admin/class-admin-listings.php:393
+#: admin/class-admin-listings.php:392
 msgctxt "admin actions"
 msgid "Publish Listing"
 msgstr "Publicar Listado"
 
-#: admin/class-admin-listings.php:396
+#: admin/class-admin-listings.php:395
 msgctxt "admin actions"
 msgid "Downgrade to Normal"
 msgstr "Degradar a Normal"
 
-#: admin/class-admin-listings.php:398
+#: admin/class-admin-listings.php:397
 msgctxt "admin actions"
 msgid "Mark as Paid"
 msgstr "Marcar listado como Pagado"
 
-#: admin/class-admin-listings.php:400
+#: admin/class-admin-listings.php:399
 msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
@@ -450,83 +450,79 @@ msgstr ""
 #: admin/class-themes-admin.php:150
 msgctxt "themes"
 msgid ""
-"For better results, \"%s\" theme suggests the following form fields to be "
-"created."
+"%s requires that you tag your existing fields to match some places we want "
+"to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: admin/class-themes-admin.php:157
+#: admin/class-themes-admin.php:159
+#, fuzzy
 msgctxt "themes"
-msgid "Dismiss this warning"
-msgstr ""
+msgid "Map My Fields"
+msgstr "Administrar Campos de Formulario"
 
-#: admin/class-themes-admin.php:160
-msgctxt "themes"
-msgid "Create suggested fields"
-msgstr ""
-
-#: admin/class-themes-admin.php:167
+#: admin/class-themes-admin.php:166
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:170
+#: admin/class-themes-admin.php:169
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:173
+#: admin/class-themes-admin.php:172
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:176
+#: admin/class-themes-admin.php:175
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr ""
 
-#: admin/class-themes-admin.php:202
+#: admin/class-themes-admin.php:201
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr ""
 
-#: admin/class-themes-admin.php:209
+#: admin/class-themes-admin.php:208
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr ""
 
-#: admin/class-themes-admin.php:310 admin/class-themes-admin.php:371
+#: admin/class-themes-admin.php:309 admin/class-themes-admin.php:370
 #: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: admin/class-themes-admin.php:316 core/licensing.php:132
+#: admin/class-themes-admin.php:315 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: admin/class-themes-admin.php:321 core/licensing.php:330
+#: admin/class-themes-admin.php:320 core/licensing.php:330
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: admin/class-themes-admin.php:334 core/licensing.php:332
+#: admin/class-themes-admin.php:333 core/licensing.php:332
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
 
-#: admin/class-themes-admin.php:377
+#: admin/class-themes-admin.php:376
 msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr ""
 
-#: admin/class-themes-admin.php:394 core/licensing.php:350
+#: admin/class-themes-admin.php:393 core/licensing.php:350
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
 
-#: admin/class-themes-admin.php:410
+#: admin/class-themes-admin.php:409
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr ""
@@ -805,7 +801,7 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Orden Especial"
 
-#: admin/fees.php:341
+#: admin/fees.php:339
 msgctxt "fees admin"
 msgid "Fee updated."
 msgstr "Comisión actualizada."
@@ -943,67 +939,67 @@ msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Campos requeridos creados satisfactoriamente."
 
-#: admin/form-fields.php:286
+#: admin/form-fields.php:288
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr ""
 
-#: admin/form-fields.php:287
+#: admin/form-fields.php:289
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr ""
 
-#: admin/form-fields.php:288
+#: admin/form-fields.php:290
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr ""
 
-#: admin/form-fields.php:289
+#: admin/form-fields.php:291
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr ""
 
-#: admin/form-fields.php:290
+#: admin/form-fields.php:292
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr ""
 
-#: admin/form-fields.php:291
+#: admin/form-fields.php:293
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr ""
 
-#: admin/form-fields.php:292
+#: admin/form-fields.php:294
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr ""
 
-#: admin/form-fields.php:293
+#: admin/form-fields.php:295
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr ""
 
-#: admin/form-fields.php:294
+#: admin/form-fields.php:296
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr ""
 
-#: admin/form-fields.php:295
+#: admin/form-fields.php:297
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr ""
 
-#: admin/form-fields.php:296
+#: admin/form-fields.php:298
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr ""
 
-#: admin/form-fields.php:297
+#: admin/form-fields.php:299
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr ""
 
-#: admin/form-fields.php:318
+#: admin/form-fields.php:320
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr ""
@@ -2057,12 +2053,25 @@ msgctxt "form-fields admin"
 msgid "Theme Tags"
 msgstr ""
 
-#: admin/templates/form-fields-tags.tpl.php:21
+#: admin/templates/form-fields-tags.tpl.php:19
+msgctxt "form-fields admin"
+msgid ""
+"Before you create fields, make sure you've mapped all of your EXISTING ones "
+"first, otherwise you'll appear to be \"missing data\" on your listings."
+msgstr ""
+
+#: admin/templates/form-fields-tags.tpl.php:22
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Create Missing Fields"
+msgstr "Campos del Listado"
+
+#: admin/templates/form-fields-tags.tpl.php:30
 msgctxt "form-fields admin"
 msgid "Field Tag"
 msgstr ""
 
-#: admin/templates/form-fields-tags.tpl.php:22
+#: admin/templates/form-fields-tags.tpl.php:31
 msgctxt "form-fields admin"
 msgid "Field"
 msgstr ""
@@ -2100,7 +2109,7 @@ msgstr ""
 "Por favor vea la <a>documentación de Campos de Formulario</a> para más "
 "detalles."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.7.2)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.7.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2784,80 +2793,80 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Permitir Seguimiento"
 
-#: business-directory-plugin.php:702
+#: business-directory-plugin.php:716
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: business-directory-plugin.php:712
+#: business-directory-plugin.php:726
 msgctxt "post type general name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: business-directory-plugin.php:713
+#: business-directory-plugin.php:727
 msgctxt "post type singular name"
 msgid "Directory"
 msgstr "Directorio"
 
-#: business-directory-plugin.php:714
+#: business-directory-plugin.php:728
 msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: business-directory-plugin.php:715
+#: business-directory-plugin.php:729
 msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: business-directory-plugin.php:716 core/compatibility/deprecated.php:255
+#: business-directory-plugin.php:730 core/compatibility/deprecated.php:255
 msgid "Edit Listing"
 msgstr "Editar Listado"
 
-#: business-directory-plugin.php:717
+#: business-directory-plugin.php:731
 msgid "New Listing"
 msgstr "Nuevo Listado"
 
-#: business-directory-plugin.php:718
+#: business-directory-plugin.php:732
 msgid "View Listing"
 msgstr "Ver Listado"
 
-#: business-directory-plugin.php:719
+#: business-directory-plugin.php:733
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: business-directory-plugin.php:720
+#: business-directory-plugin.php:734
 msgid "No listings found"
 msgstr "No se encontraron listados"
 
-#: business-directory-plugin.php:721
+#: business-directory-plugin.php:735
 msgid "No listings found in trash"
 msgstr "No se encontraron listados en la papelera"
 
-#: business-directory-plugin.php:743
+#: business-directory-plugin.php:757
 msgid "Directory Categories"
 msgstr "Categorías de Directorio"
 
-#: business-directory-plugin.php:856 business-directory-plugin.php:863
+#: business-directory-plugin.php:870 business-directory-plugin.php:877
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "Feed %s"
 
-#: business-directory-plugin.php:1265
+#: business-directory-plugin.php:1295
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: business-directory-plugin.php:1275
+#: business-directory-plugin.php:1305
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: business-directory-plugin.php:1285
+#: business-directory-plugin.php:1315
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: business-directory-plugin.php:1305
+#: business-directory-plugin.php:1335
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
@@ -3007,12 +3016,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Comisión no disponible)"
 
-#: core/class-listings-api.php:300
+#: core/class-listings-api.php:308
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
 
-#: core/class-listings-api.php:319
+#: core/class-listings-api.php:327
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notificación de listado editado"
@@ -4599,20 +4608,20 @@ msgstr "Eliminar"
 msgid "Upgrade Listing"
 msgstr "Mejorar Listado"
 
-#: core/compatibility/deprecated.php:214 core/templates-ui.php:183
+#: core/compatibility/deprecated.php:214 core/templates-ui.php:186
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: core/compatibility/deprecated.php:227 core/templates-ui.php:192
+#: core/compatibility/deprecated.php:227 core/templates-ui.php:195
 msgid "View Listings"
 msgstr "Ver Listados"
 
-#: core/compatibility/deprecated.php:238 core/templates-ui.php:202
+#: core/compatibility/deprecated.php:238 core/templates-ui.php:205
 msgid "Directory"
 msgstr "Directorio"
 
 #: core/compatibility/templates/wpbusdirman-index-categories.php:12
-#: core/templates-ui.php:229
+#: core/templates-ui.php:232
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Buscar Listados"
@@ -5144,11 +5153,11 @@ msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Mejora a Destacado"
 
-#: core/installer.php:933
+#: core/installer.php:941
 msgid "Business Directory - Manual Upgrade Required"
 msgstr "Business Directory - Actualización Manual Requerida"
 
-#: core/installer.php:935
+#: core/installer.php:943
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
@@ -5156,15 +5165,15 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabitadas pues es "
 "necesario realizar una actualización manual antes de continuar."
 
-#: core/installer.php:937
+#: core/installer.php:945
 msgid "Perform Manual Upgrade"
 msgstr "Realizar Actualización Manual"
 
-#: core/installer.php:953 core/installer.php:954 core/installer.php:965
+#: core/installer.php:961 core/installer.php:962 core/installer.php:973
 msgid "Business Directory - Manual Upgrade"
 msgstr "Business Directory - Actualización Manual"
 
-#: core/installer.php:969
+#: core/installer.php:977
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -5173,23 +5182,23 @@ msgstr ""
 "necesario realizar una actualización manual antes de que el plugin pueda ser "
 "utilizado."
 
-#: core/installer.php:971
+#: core/installer.php:979
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 "Haga clic en \"Iniciar Actualización\" y espere hasta que el proceso "
 "finalice."
 
-#: core/installer.php:974
+#: core/installer.php:982
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "Iniciar Actualización"
 
-#: core/installer.php:976
+#: core/installer.php:984
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "Detener Actualización"
 
-#: core/installer.php:982
+#: core/installer.php:990
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was sucessfully performed. Business Directory Plugin is now "
@@ -5198,7 +5207,7 @@ msgstr ""
 "La actualización fue ejecutada con éxito. Business Directory Plugin ahora se "
 "encienta disponible para su uso."
 
-#: core/installer.php:985
+#: core/installer.php:993
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Ir a \"Administración del Directorio\""
@@ -5430,7 +5439,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Listado Destacado"
 
-#: core/templates/listings.tpl.php:6
+#: core/templates/listings.tpl.php:6 core/templates/search.tpl.php:17
 #: templates/businessdirectory-listings.tpl.php:27 templates/search.tpl.php:21
 msgctxt "templates"
 msgid "No listings found."
@@ -5448,47 +5457,64 @@ msgctxt "templates"
 msgid "Next &raquo;"
 msgstr "Siguiente &raquo;"
 
-#: core/templates-ui.php:159
+#: core/templates/search.tpl.php:3 templates/search-form.tpl.php:15
+#: templates/search.tpl.php:6
+msgctxt "search"
+msgid "Search"
+msgstr "Buscar"
+
+#: core/templates/search.tpl.php:10 templates/search.tpl.php:14
+msgctxt "search"
+msgid "Search Results"
+msgstr "Resultados de Búsqueda"
+
+#: core/templates/search.tpl.php:20 templates/manage-listings.tpl.php:11
+#: templates/search.tpl.php:24
+msgctxt "templates"
+msgid "Return to directory"
+msgstr "Regresar al Directorio"
+
+#: core/templates-ui.php:162
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "No se encontraron categorías."
 
-#: core/templates-ui.php:232
+#: core/templates-ui.php:235
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Búsqueda Avanzada"
 
-#: core/templates-ui.php:258 core/templates-ui.php:283
+#: core/templates-ui.php:261 core/templates-ui.php:286
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Ordenar Por:"
 
-#: core/templates-ui.php:277
+#: core/templates-ui.php:280
 msgctxt "sort"
 msgid "Reset"
 msgstr "Restablecer"
 
-#: core/templates-ui.php:299
+#: core/templates-ui.php:302
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reestablecer)"
 
-#: core/themes.php:597
+#: core/themes.php:607
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr ""
 
-#: core/themes.php:603
+#: core/themes.php:613
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: core/themes.php:611
+#: core/themes.php:621
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: core/themes.php:617
+#: core/themes.php:627
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -5881,7 +5907,7 @@ msgctxt "templates"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
 
-#: core/views.php:486
+#: core/views.php:489
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -5896,12 +5922,12 @@ msgstr ""
 "no pueden enviar listados en este momento. No pueden agregarse nuevos "
 "listados hasta tanto haya categorías en el Directorio de Negocios."
 
-#: core/views.php:488
+#: core/views.php:491
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr "No hay listados en el Directorio."
 
-#: core/views.php:506
+#: core/views.php:509
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "
@@ -6307,11 +6333,6 @@ msgctxt "templates"
 msgid "You do not currently have any listings in the directory."
 msgstr "Actualmente no tiene listados en el Directorio."
 
-#: templates/manage-listings.tpl.php:11 templates/search.tpl.php:24
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Regresar al Directorio"
-
 #: templates/manage-recurring-cancel.tpl.php:1
 msgctxt "manage recurring"
 msgid "Manage Recurring Payments - Cancel"
@@ -6553,16 +6574,6 @@ msgstr "Encontrar un listado"
 msgctxt "search"
 msgid "Clear"
 msgstr "Limpiar"
-
-#: templates/search-form.tpl.php:15 templates/search.tpl.php:6
-msgctxt "search"
-msgid "Search"
-msgstr "Buscar"
-
-#: templates/search.tpl.php:14
-msgctxt "search"
-msgid "Search Results"
-msgstr "Resultados de Búsqueda"
 
 #: templates/submit-listing/category-selection.tpl.php:1
 msgctxt "templates"
