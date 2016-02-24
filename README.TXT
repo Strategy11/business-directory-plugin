@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,directory plugin,directory wizard,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
+Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
 Requires at least: 4.0
 Tested up to: 4.4.2
-Last Updated: 2016-Feb-5
-Stable tag: tags/3.7.3
+Last Updated: 2016-Feb-24
+Stable tag: tags/3.7.4
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -116,6 +116,15 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.7.4 =
+* Show WPML translations of form field labels in validation errors.
+* Improve handling of line breaks in textarea fields.
+* Fix handling of permalink URLs with cyrillic characters.
+* Support "author" attribute in listings shortcode.
+* Make CSV export encode line breaks in a way that is compatible with CSV import.
+* Fix PHP warning on backend.
+
 = Version 3.7.3 =
 * Make category-specific fees work again.
 * Improve the handling of deleted categories.
