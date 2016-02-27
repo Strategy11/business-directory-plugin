@@ -599,9 +599,19 @@ class WPBDP_Themes {
 
     function install_theme( $file ) {
         $themes_dir = wp_normalize_path( WP_CONTENT_DIR . '/businessdirectory-themes/' ); // TODO: do not hardcode this directory.
-        list( $temp_dir, $unzipped_dir, $package_name ) = WPBDP_FS::unzip_to_temp_dir( $file );
+        list( $temp_dir, $unzipped_dir, ) = WPBDP_FS::unzip_to_temp_dir( $file );
+        $package_dir = $unzipped_dir;
 
-        if ( ! file_exists( WPBDP_FS::join( $unzipped_dir, 'theme.json' ) ) ) {
+        // Search for a dir containing 'theme.json'.
+        $files = WPBDP_FS::ls( $unzipped_dir, 'recursive=1' );
+        foreach ( $files as $f ) {
+            if ( 'theme.json' == basename( $f ) ) {
+                $package_dir = dirname( $f );
+                break;
+            }
+        }
+
+        if ( ! file_exists( WPBDP_FS::join( $package_dir, 'theme.json' ) ) ) {
             WPBDP_FS::rmdir( $temp_dir );
             return new WP_Error( 'no-theme-file',
                                  _x( 'ZIP file is not a valid BD theme file.', 'themes', 'WPBDM' ) );
@@ -613,7 +623,7 @@ class WPBDP_Themes {
                                  _x( 'Could not create themes directory.', 'themes', 'WPBDM' ) );
         }
 
-        $dest_dir = $themes_dir . $package_name;
+        $dest_dir = $themes_dir . basename( $package_dir );
 
         if ( ! WPBDP_FS::rmdir( $dest_dir ) ) {
             WPBDP_FS::rmdir( $temp_dir );
@@ -622,7 +632,7 @@ class WPBDP_Themes {
                                           $dest_dir ) );
         }
 
-        if ( ! WPBDP_FS::movedir( $unzipped_dir, $themes_dir ) ) {
+        if ( ! WPBDP_FS::movedir( $package_dir, $themes_dir ) ) {
             WPBDP_FS::rmdir( $temp_dir );
             return new WP_Error( 'theme-not-copied', _x( 'Could not move new theme into theme directory.', 'themes', 'WPBDM' ) );
         }
