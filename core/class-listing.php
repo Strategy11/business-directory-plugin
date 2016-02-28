@@ -109,7 +109,7 @@ class WPBDP_Listing {
     public function set_thumbnail_id( $image_id ) {
         if ( ! $image_id )
             return delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
-        
+
         return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
     }
 
@@ -122,7 +122,7 @@ class WPBDP_Listing {
                 return $images[0];
             }
         }
-        
+
         return 0;
     }
 
@@ -302,7 +302,7 @@ class WPBDP_Listing {
                         $fee_info = $known[ $category_id ];
                         //$fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
                         $fee_info_recurring_data = unserialize( $fee_info->recurring_data );
-                        
+
                         if ( ! $fee_info ) {
                             // $this->remove_category( $category_id );
                             continue;
@@ -311,7 +311,7 @@ class WPBDP_Listing {
                         $category->fee_id = intval( $fee_info->fee_id );
                         $category->fee_days = intval( $fee_info->fee_days );
                         $category->fee_images = intval( $fee_info->fee_images );
-                        
+
                         $category->fee = wpbdp_get_fee( $category->fee_id );
                         if ( ! $category->fee ) {
                             $category->fee = new StdClass();
@@ -386,7 +386,7 @@ class WPBDP_Listing {
                                       $this->id, WPBDP_CATEGORY_TAX ) );
 
         $terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, 'fields=ids' );
-        
+
         // Remove listing information for categories that no longer apply to the listing.
         $removed_cats = array_diff( array_keys( $this->get_categories( 'current' ) ), $terms );
         if ( $removed_cats ) {
@@ -449,7 +449,7 @@ class WPBDP_Listing {
     public function get_permalink() {
         if ( ! $this->id )
             return '';
-        
+
         return get_permalink( $this->id );
     }
 
@@ -534,7 +534,17 @@ class WPBDP_Listing {
 
     public function get_renewal_url( $category_id ) {
         $hash = $this->get_renewal_hash( $category_id );
-        return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => urlencode( $hash ) ), wpbdp_get_page_link( 'main' ) ); 
+        return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => urlencode( $hash ) ), wpbdp_get_page_link( 'main' ) );
+    }
+
+    public function get_access_key() {
+        if ( $key = get_post_meta( $this->id, '_wpbdp[access_key]', true ) )
+            return $key;
+
+        // Generate access key.
+        $new_key = sha1( sprintf( '%s%s%d', AUTH_KEY, uniqid( '', true ), rand( 1, 1000 ) ) );
+        if ( update_post_meta( $this->id, '_wpbdp[access_key]', $new_key ) )
+            return $new_key;
     }
 
     public function get_author_meta( $meta ) {
@@ -594,7 +604,7 @@ class WPBDP_Listing {
             $title = $state->title;
         } else {
             $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
-            
+
             if ( isset( $state->fields[ $title_field->get_id() ] ) )
                 $title = $state->fields[ $title_field->get_id() ];
         }
@@ -619,7 +629,7 @@ class WPBDP_Listing {
             // Create user.
             if ( $email_field = wpbdp_get_form_fields( array( 'validators' => 'email', 'unique' => 1 ) ) ) {
                 $email = $state->fields[ $email_field->get_id() ];
-                
+
                 if ( email_exists( $email ) ) {
                     $post_author = get_user_by( 'email', $email );
                     $post_author = $post_author->ID;
@@ -634,7 +644,7 @@ class WPBDP_Listing {
                 wp_update_post( array( 'ID' => $post_id, 'post_author' => $post_author ) );
             }
         }
-        
+
         return new self( $post_id );
     }
 

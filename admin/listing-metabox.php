@@ -41,6 +41,8 @@ class WPBDP_Admin_Listing_Metabox {
 
         echo '<strong>' . _x('General Info', 'admin infometabox', 'WPBDM') . '</strong>';        
         echo '<dl>';
+            echo '<dt>' . _x( 'Access Key', 'admin infometabox', 'WPBDM' ) . '</dt>';
+            echo '<dd><input type="text" value="' . esc_attr( $this->listing->get_access_key() ) . '" /></dd>';
             echo '<dt>'. _x('Total Listing Cost', 'admin infometabox', 'WPBDM') . '</dt>';
             echo '<dd>' . wpbdp_currency_format( $this->listing->get_total_cost() ) . '</dd>';
             echo '<dt>'. _x('Payment Status', 'admin infometabox', 'WPBDM') . '</dt>';
