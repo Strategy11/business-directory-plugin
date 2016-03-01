@@ -330,6 +330,21 @@ class WPBDP_Form_Field {
      */
     public function html_value( $post_id ) {
         $value = $this->type->get_field_html_value( $this, $post_id );
+
+        if ( $value && in_array( 'email', $this->validators, true ) ) {
+            // At least obfuscate the address if we're going to show it.
+            $out = '';
+
+            for ( $i = 0; $i < strlen( $value ); $i++ ) {
+                if ( '.' == $value[ $i ] || '@' == $value[ $i ] )
+                    $out .= $value [ $i ];
+                else
+                    $out .= '&#' . ord( $value[ $i ] ) . ';';
+            }
+
+            $value = sprintf( '<a href="mailto:%s">%s</a>', $out, $out );
+        }
+
         return apply_filters( 'wpbdp_form_field_html_value', $value , $post_id, $this );
     }
 
@@ -408,8 +423,10 @@ class WPBDP_Form_Field {
      * @return string
      */
     public function display( $post_id, $display_context='listing' ) {
-        if ( in_array( 'email', $this->validators, true ) && !wpbdp_get_option('override-email-blocking') )
-            return '';
+        if ( in_array( 'email', $this->validators, true ) ) {
+            if ( ! wpbdp_get_option('override-email-blocking') )
+                return '';
+        }
 
         if ( $this->type->is_empty_value( $this->value( $post_id ) ) )
             return '';
