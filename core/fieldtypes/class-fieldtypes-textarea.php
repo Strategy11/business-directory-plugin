@@ -116,8 +116,14 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                 }
             }
         } else {
-            $value = wpautop( $value );
+            if ( $field->data( 'allow_html' ) ) {
+                $value = wpautop( $value );
+            } else {
+                $value = nl2br( $value );
+            }
         }
+
+
 
         return $value;
     }
