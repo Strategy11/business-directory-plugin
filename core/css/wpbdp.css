@@ -782,3 +782,14 @@ body.business-directory #TB_secondLine {
 }
 
 /* }} */
+
+/* General forms. {{ */
+.wpbdp-form-row label {
+    display: block;
+}
+
+.wpbdp-form-row.wpbdp-form-textfield input[type="text"] {
+    width: 400px;
+}
+
+/* }} */
