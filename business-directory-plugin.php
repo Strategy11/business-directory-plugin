@@ -430,6 +430,9 @@ class WPBDP_Plugin {
         array_push( $vars, 'wpbdpx' );
         array_push( $vars, 'region' );
 
+        if ( wpbdp_experimental( 'routing' ) )
+            array_push( $vars, 'v' );
+
         return $vars;
     }
 
