@@ -537,6 +537,9 @@ class WPBDP_Listing {
         return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => urlencode( $hash ) ), wpbdp_get_page_link( 'main' ) );
     }
 
+    /**
+     * @since next-release
+     */
     public function get_access_key() {
         if ( $key = get_post_meta( $this->id, '_wpbdp[access_key]', true ) )
             return $key;
