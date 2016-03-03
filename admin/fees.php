@@ -335,6 +335,9 @@ class WPBDP_FeesAdmin {
         $fee = $fee_id ? WPBDP_Fee_Plan::find( $fee_id ) : new WPBDP_Fee_Plan();
 
         if ( isset( $_POST['fee'] ) ) {
+            if ( ! isset( $_POST['fee']['sticky'] ) )
+                $_POST['fee']['sticky'] = 0;
+
             if ( $fee->update( $_POST['fee'] ) ) {
                 $this->admin->messages[] = _x('Fee updated.', 'fees admin', 'WPBDM');
                 return $this->feesTable();
