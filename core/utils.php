@@ -451,19 +451,24 @@ function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
 /**
  * @since 3.5.4
  */
-function wpbdp_email_from_template( $setting, $replacements = array(), $args = array() ) {
+function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $args = array() ) {
     global $wpbdp;
 
-    $setting = $wpbdp->settings->get_setting( $setting );
+    $setting = null;
+    $file = null;
 
-    if ( ! $setting || 'email_template' != $setting->type )
+    if ( is_file( $setting_or_file ) && is_readable( $setting_or_file ) )
+        $file = $setting_or_file;
+    else
+        $setting = $wpbdp->settings->get_setting( $setting_or_file );
+
+    if ( ( ! $setting && ! $file ) || ( $setting && 'email_template' != $setting->type ) )
         return false;
 
     if ( ! class_exists( 'WPBDP_Email' ) )
         require_once( WPBDP_PATH . 'core/class-email.php' );
 
-    $placeholders = isset( $setting->args['placeholders'] ) && is_array( $setting->args['placeholders'] ) ? $setting->args['placeholders'] : array();
-    $value = wpbdp_get_option( $setting->name );
+    $placeholders = $setting ? ( isset( $setting->args['placeholders'] ) && is_array( $setting->args['placeholders'] ) ? $setting->args['placeholders'] : array() ) : array();
 
     // Add core replacements.
     $replacements = array_merge( $replacements, array(
@@ -475,26 +480,49 @@ function wpbdp_email_from_template( $setting, $replacements = array(), $args = a
         'now'           => date_i18n( get_option( 'time_format' ) )
     ) );
 
-    // Support old-style settings.
-    if ( ! is_array( $value ) ) {
-        $subject = $setting->default['subject'];
-        $body = $setting->default['body'];
-    } else {
-        $subject = $value['subject'];
-        $body = $value['body'];
+    if ( $file ) {
+        $keys = array_keys( $replacements );
+        $values = array_values( $replacements );
+
+        // Normalize keys for PHP usage.
+        foreach ( $keys as &$k )
+            $k = str_replace( '-', '_', $k );
+
+        $replacements = array_combine( $keys, $values );
+    }
+
+    $subject = '';
+    $body = '';
+
+    if ( $setting ) {
+        $value = wpbdp_get_option( $setting->name );
+
+        // Support old-style settings.
+        if ( ! is_array( $value ) ) {
+            $subject = $setting->default['subject'];
+            $body = $setting->default['body'];
+        } else {
+            $subject = $value['subject'];
+            $body = $value['body'];
+        }
+
+        foreach ( array_keys( $placeholders ) as $placeholder ) {
+            if ( ! isset( $replacements[ $placeholder ] ) )
+                continue;
+
+            $subject = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $subject );
+            $body = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $body );
+        }
+    } elseif ( $file ) {
+        $body = wpbdp_render_page( $file, $replacements );
     }
 
     $email = new WPBDP_Email();
-    $email->subject = $subject;
+
+    if ( $subject )
+        $email->subject = $subject;
+
     $email->body = $body;
-
-    foreach ( array_keys( $placeholders ) as $placeholder ) {
-        if ( ! isset( $replacements[ $placeholder ] ) )
-            continue;
-
-        $email->subject = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $email->subject );
-        $email->body = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $email->body );
-    }
 
     return $email;
 }
