@@ -5,7 +5,7 @@ $api = wpbdp_formfields_api();
     <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
     <h2 class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></h2>
 
-    <?php if ( 'above' == $search_form_position ): ?>
+    <?php if ( 'none' == $search_form_position || 'above' == $search_form_position ): ?>
     <?php echo $search_form; ?>
     <?php endif; ?>
 

@@ -655,7 +655,7 @@ class WPBDP_DirectoryController {
         $searching = isset( $_GET['dosrch'] ) ? true : false;
         $search_form = '';
 
-        if ( ! $searching || 'none' != wpbdp_get_option( 'search-form-in-results' ) )
+        if ( ( $searching && 'none' != wpbdp_get_option( 'search-form-in-results' ) ) || ! $searching )
             $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields ) );
 
         if ( wpbdp_experimental( 'themes' ) ) {
