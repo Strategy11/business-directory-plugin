@@ -6,7 +6,7 @@
 	<strong><u><?php _ex( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'debug-info', 'WPBDM' ); ?></u></strong>
 </p>
 <p style="text-align: right;">
-	<a href="<?php echo esc_url( add_query_arg( 'download', '1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'WPBDM' ); ?></a>
+    <a href="<?php echo esc_url( add_query_arg( 'download', '1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'WPBDM' ); ?></a>
 </p>
 
 <h3 class="nav-tab-wrapper">
@@ -22,12 +22,37 @@
 		<?php if ( wpbdp_starts_with( $k, '_') ): continue; endif; ?>
 		<tr>
 			<th scope="row"><?php echo esc_attr( $k ); ?></th>
-			<td><?php echo esc_attr( $v ); ?></td>
+            <td>
+                <?php if ( is_array( $v ) ): ?>
+                    <?php echo isset( $v['html'] ) ? $v['html'] : esc_attr( $v['value'] ); ?>
+                <?php else: ?>
+                    <?php echo esc_attr( $v ); ?>
+                <?php endif; ?>
+            </td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
 <?php endforeach; ?>
 </div>
+
+<script type="text/javascript">
+jQuery( function( $ ) {
+    $( '#wpbdp-admin-debug-info-page a.test-ssl-link' ).click( function( e ) {
+        e.preventDefault();
+
+        var $textarea = $( 'textarea.test-ssl-results' );
+
+        if ( 0 == $textarea.length )
+            $textarea = $( '<textarea class="test-ssl-results"></textarea>' ).insertAfter( $( this ) );
+
+        $textarea.text( 'Loading...' );
+
+        $.post( ajaxurl, { action: 'wpbdp-debugging-ssltest' }, function( res ) {
+            $textarea.text( res );
+        }, 'text' );
+    } );
+} );
+</script>
 
 <?php echo wpbdp_admin_footer(); ?>

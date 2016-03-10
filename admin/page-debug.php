@@ -4,6 +4,7 @@ class WPBDP_Admin_Debug_Page {
 
     function __construct() {
         add_action( 'admin_init', array($this, 'handle_download' ) );
+        add_action( 'wp_ajax_wpbdp-debugging-ssltest', array( &$this, 'ajax_ssl_test' ) );
     }
 
     function dispatch( $plain = false ) {
@@ -65,7 +66,17 @@ class WPBDP_Admin_Debug_Page {
         $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): ( function_exists( 'sqlite_libversion' ) ? sqlite_libversion() : null );
         $debug_info['environment']['SQLite version'] = $sqlite_version ? $sqlite_version : 'N/A';
 
-        $debug_info['environment']['cURL version'] = function_exists( 'curl_init' ) ? wpbdp_getv( curl_version(), 'version' ) : 'N/A';
+        if ( function_exists( 'curl_init' ) ) {
+            $data = curl_version();
+
+            $debug_info['environment']['cURL version'] = $data['version'];
+            $debug_info['environment']['cURL SSL library'] = $data['ssl_version'];
+            $debug_info['environment']['Test SSL setup'] = array( 'exclude' => true,
+                                                                  'html' => '<a href="#" class="test-ssl-link">' . _x( 'Test SSL setup...', 'debug info', 'WPBDM' ) . '</a>' );
+        } else {
+            $debug_info['environment']['cURL version'] = 'N/A';
+            $debug_info['environment']['cURL SSL library'] = 'N/A';
+        }
 
         $debug_info['environment'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['environment'], 'environment' );
 
@@ -78,6 +89,14 @@ class WPBDP_Admin_Debug_Page {
                         printf( '== %s ==', $v );
                         print PHP_EOL;
                         continue;
+                    }
+
+                    if ( is_array( $v ) ) {
+                        if ( isset( $v['exclude'] ) && $v['exclude'] )
+                            continue;
+
+                        if ( ! empty( $v['html'] ) )
+                            continue;
                     }
 
                     printf( "%-33s = %s", $k, $v );
@@ -107,5 +126,31 @@ class WPBDP_Admin_Debug_Page {
                     $this->dispatch( true );
                     exit;
         }
+    }
+
+    function ajax_ssl_test() {
+        if ( ! function_exists( 'curl_init' ) )
+            die( 'cURL not available.' );
+
+        $ch = curl_init( 'https://www.howsmyssl.com/a/check' );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_SSLVERSION, 6 );
+        $data = curl_exec($ch);
+
+        if ( 0 !== curl_errno( $ch ) )
+            die( 'cURL error: ' . curl_error( $ch ) );
+
+        curl_close($ch);
+
+        if ( ! $data )
+            die( 'No response from remote server.' );
+
+        $json = json_decode( $data );
+
+        echo "Cipher Suites:\n" . implode( ',', $json->given_cipher_suites ) . "\n\n";
+        echo "TLS Version:\n" . $json->tls_version . "\n\n";
+        echo "Rating:\n" . $json->rating;
+
+        exit();
     }
 }
