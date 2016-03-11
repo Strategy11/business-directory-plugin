@@ -24,6 +24,9 @@ class WPBDP_Themes_Updater {
         $count = 0;
 
         foreach ( array_keys( $this->data ) as $theme_id ) {
+            if ( ! $this->themes_api->get_theme( $theme_id ) )
+                continue;
+
             if ( $this->get_update_info( $theme_id ) )
                 $count++;
         }
