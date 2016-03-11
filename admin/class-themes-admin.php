@@ -20,6 +20,7 @@ class WPBDP_Themes_Admin {
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
+        add_action( 'wpbdp_admin_notices', array( &$this, 'pre_themes_templates_warning' ) );
         add_action( 'wpbdp_admin_notices', array( &$this, 'theme_fields_check' ) );
 
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
@@ -66,6 +67,36 @@ class WPBDP_Themes_Admin {
         $menu = array_merge( array( $menu[0], $themes ), array_slice( $menu, 1 ) );
 
         return $menu;
+    }
+
+    function pre_themes_templates_warning() {
+        $pre_themes_templates = array( 'businessdirectory-excerpt',
+                                       'businessdirectory-listing',
+                                       'businessdirectory-listings',
+                                       'businessdirectory-main-page' );
+        $overridden = array();
+
+        foreach ( $pre_themes_templates as $t ) {
+            if ( $f = wpbdp_locate_template( $t, true, false ) )
+                $overridden[ $t ] = str_replace( WP_CONTENT_DIR, '', $f );
+        }
+
+        if ( ! $overridden )
+            return;
+
+        $msg  =  '';
+        $msg .= '<strong>' . _x( 'Business Directory Plugin - Your template overrides need to be reviewed!', 'admin themes', 'WPBDM' ) . '</strong>';
+        $msg .= '<br />';
+        $msg .= _x( 'Starting with version 4.0, Business Directory is using a new theming system that is not compatible with the templates used in previous versions.', 'admin themes', 'WPBDM' );
+        $msg .= '<br />';
+        $msg .= _x( 'Because of this, your template overrides below have been disabled. You should <a>review our documentation on customization</a> in order adjust your templates.', 'admin themes', 'WBPDM' );
+        $msg .= '<br /><br />';
+
+        foreach ( $overridden as $t => $relpath ) {
+            $msg .= '&#149; <tt>' . $relpath . '</tt><br />';
+        }
+
+        wpbdp_admin_message( $msg, 'error' );
     }
 
     function theme_fields_check() {
