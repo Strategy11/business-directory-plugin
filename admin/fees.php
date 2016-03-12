@@ -338,7 +338,7 @@ class WPBDP_FeesAdmin {
             if ( ! isset( $_POST['fee']['sticky'] ) )
                 $_POST['fee']['sticky'] = 0;
 
-            if ( $fee->update( $_POST['fee'] ) ) {
+            if ( $fee->update( stripslashes_deep( $_POST['fee'] ) ) ) {
                 $this->admin->messages[] = _x('Fee updated.', 'fees admin', 'WPBDM');
                 return $this->feesTable();
             }
