@@ -221,12 +221,16 @@ function wpbdp_the_main_links() {
 }
 
 function wpbdp_search_form() {
-    $html = '';
-    $html .= sprintf('<form id="wpbdmsearchform" action="" method="GET" class="wpbdp-search-form">
-                      <input type="hidden" name="action" value="search" />
-                      <input type="hidden" name="page_id" value="%d" />
-                      <input type="hidden" name="dosrch" value="1" />',
-                      wpbdp_get_page_id('main'));
+    $html  = '';
+    $html .= sprintf( '<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
+                      wpbdp_rewrite_on() ? esc_url( add_query_arg( 'action', 'search', wpbdp_get_page_link( 'main' ) ) ) : '' );
+        $html .= '<input type="hidden" name="action" value="search" />';
+
+    if ( ! wpbdp_rewrite_on() ) {
+        $html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
+    }
+
+    $html .= '<input type="hidden" name="dosrch" value="1" />';
     $html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
     $html .= sprintf('<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
                      _x('Search Listings', 'templates', 'WPBDM'));
