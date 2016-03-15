@@ -36,9 +36,10 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
                                  'post_status' => 'publish',
                                  'numberposts' => $instance['number_of_listings'],
                                  'orderby' => ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'rand' : 'date',
-                                 'meta_query' => array(
-                                        array( 'key' => '_wpbdp[sticky]', 'value' => 'sticky' )
-                                ) ) );
+                                 'wpbdp_is_main_query' => false,
+                                 'wpbdp_listing_type' => 'sticky',
+                                 'suppress_filters' => false
+                                ) );
     }
 
 }
