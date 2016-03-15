@@ -167,7 +167,7 @@ class WPBDP_Plugin {
         add_action('wp_loaded', array( &$this, '_wp_loaded'));
 
         add_action( 'save_post_page', array( &$this, '_invalidate_pages_cache' ) );
-        add_action('pre_get_posts', array( &$this, '_pre_get_posts'));
+        add_action( 'pre_get_posts', array( &$this, '_pre_get_posts'));
         add_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
         add_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
         add_filter( 'posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
@@ -289,15 +289,48 @@ class WPBDP_Plugin {
         }
     }
 
+    function _clauses_config( $pieces, $query ) {
+        global $wpdb;
+
+        // Type.
+        if ( ! empty( $query->query_vars['wpbdp_listing_type'] ) ) {
+            switch ( $query->query_vars['wpbdp_listing_type'] ) {
+                case 'sticky':
+                    $subquery_1 = $wpdb->prepare( "SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1",
+                                                  '_wpbdp[sticky]',
+                                                  'sticky' );
+                    $subquery_2 = $wpdb->prepare( "SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d LIMIT 1",
+                                                  1 );
+
+                    $pieces['where'] .= ' AND ( EXISTS(' . $subquery_1 . ') OR EXISTS(' . $subquery_2 . ') ) ';
+                    break;
+
+                case 'all':
+                default:
+                    break;
+            }
+        }
+
+        return $pieces;
+    }
+
     function _posts_clauses( $pieces, $query ) {
         if ( is_admin() || ! isset( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || $query->query_vars['p'] )
             return $pieces;
+
+        $pieces = $this->_clauses_config( $pieces, $query );
 
         return apply_filters( 'wpbdp_query_clauses', $pieces, $query );
     }
 
     public function _posts_fields($fields, $query) {
         global $wpdb;
+
+        if ( is_admin() || empty( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || ! empty( $query->query_vars['p'] ) )
+            return $fields;
+
+        if ( isset( $query->query_vars['wpbdp_is_main_query'] ) && false == $query->query_vars['wpbdp_is_main_query'] )
+            return $fields;
 
         if ( ! is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE && ! $query->query_vars['p'] ) {
             $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
@@ -334,6 +367,12 @@ class WPBDP_Plugin {
 
     public function _posts_orderby($orderby, $query) {
         global $wpdb;
+
+        if ( is_admin() || empty( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || ! empty( $query->query_vars['p'] ) )
+            return $orderby;
+
+        if ( isset( $query->query_vars['wpbdp_is_main_query'] ) && false == $query->query_vars['wpbdp_is_main_query'] )
+            return $orderby;
 
         if ( ! is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE && ! $query->query_vars['p'] ) {
             $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
