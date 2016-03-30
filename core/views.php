@@ -716,7 +716,8 @@ function wpbdp_current_listing_id() {
     return $wpbdp->controller->current_listing_id();
 }
 
-}
 
+
+}
 
 

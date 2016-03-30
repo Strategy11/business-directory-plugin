@@ -22,23 +22,25 @@ function wpbdp_locate_template($template, $allow_override=true, $try_defaults=tr
     if (!is_array($template))
         $template = array($template);
 
-    if ($allow_override) {
-        $search_for = array();
+    if ( ! wpbdp_experimental( 'typeintegration' ) ) {
+        if ($allow_override) {
+            $search_for = array();
 
-        foreach ($template as $t) {
-            $search_for[] = $t . '.tpl.php';
-            $search_for[] = $t . '.php';
-            $search_for[] = 'single/' . $t . '.tpl.php';
-            $search_for[] = 'single/' . $t . '.php';
+            foreach ($template as $t) {
+                $search_for[] = $t . '.tpl.php';
+                $search_for[] = $t . '.php';
+                $search_for[] = 'single/' . $t . '.tpl.php';
+                $search_for[] = 'single/' . $t . '.php';
+            }
+
+            $template_file = locate_template($search_for);
         }
-
-        $template_file = locate_template($search_for);
     }
 
     if (!$template_file && $try_defaults) {
         foreach ($template as $t) {
             $template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php'; 
-            
+
             if (file_exists($template_path)) {
                 $template_file = $template_path;
                 break;
