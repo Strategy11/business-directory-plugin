@@ -41,6 +41,7 @@ define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
+require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
 require_once( WPBDP_PATH . 'core/api.php' );
 require_once( WPBDP_PATH . 'core/compatibility/class-compat.php' );
 require_once( WPBDP_PATH . 'core/utils.php' );
@@ -135,7 +136,13 @@ class WPBDP_Plugin {
 
         // Install plugin.
         $this->settings->register_settings();
-        $this->_register_post_type();
+
+        // WPBDP is intended to replace this whole class in the near future.
+        require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
+        $bd = new WPBDP();
+        $bd->init();
+        $this->dispatcher = $bd->dispatcher;
+
         $this->install_or_update_plugin();
 
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
@@ -157,9 +164,6 @@ class WPBDP_Plugin {
 
         $this->_register_image_sizes();
 
-        if ( $this->is_debug_on() )
-            add_filter('posts_request', create_function('$x', 'wpbdp_debug($x); return $x;'));
-
         add_filter('rewrite_rules_array', array( &$this, '_rewrite_rules'));
         add_filter('query_vars', array( &$this, '_query_vars'));
         add_filter( 'redirect_canonical', array( &$this, '_redirect_canonical' ), 10, 2 );
@@ -178,11 +182,35 @@ class WPBDP_Plugin {
 
         add_action( 'wp', array( &$this, '_meta_setup' ) );
         add_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
-        add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
 
         add_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
-
         add_action( 'wp_head', array( &$this, '_rss_feed' ) );
+
+        if ( wpbdp_experimental( 'typeintegration' ) ) {
+            remove_action( 'pre_get_posts', array( &$this, '_pre_get_posts'));
+            remove_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
+            remove_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
+            remove_filter( 'posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
+
+            remove_filter('comments_template', array( &$this, '_comments_template'));
+            remove_filter('taxonomy_template', array( &$this, '_category_template'));
+            remove_filter('single_template', array( &$this, '_single_template'));
+
+            remove_action( 'wp', array( &$this, '_meta_setup' ) );
+            remove_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
+
+            remove_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
+            remove_action( 'wp_head', array( &$this, '_rss_feed' ) );
+
+            remove_filter('comments_template', array( &$this, '_comments_template'));
+            remove_filter('taxonomy_template', array( &$this, '_category_template'));
+            remove_filter('single_template', array( &$this, '_single_template'));
+
+            remove_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
+            remove_action( 'wp_head', array( &$this, '_rss_feed' ) );
+        }
+
+        add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
 
         add_filter( 'body_class', array( &$this, '_body_class' ), 10 );
 
@@ -468,6 +496,7 @@ class WPBDP_Plugin {
         array_push($vars, 'action'); // TODO: are we really using this var?
         array_push( $vars, 'wpbdpx' );
         array_push( $vars, 'region' );
+        array_push( $vars, 'wpbdp_view' );
 
         if ( wpbdp_experimental( 'routing' ) )
             array_push( $vars, 'v' );
@@ -517,6 +546,10 @@ class WPBDP_Plugin {
             wp_redirect( $url ); exit;
         }
 
+        if ( wpbdp_experimental( 'typeintegration') && (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
+            return;
+        }
+
         if ( (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
             wp_redirect( esc_url_raw( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
             exit;
@@ -525,6 +558,10 @@ class WPBDP_Plugin {
         if ( (get_query_var('taxonomy') == WPBDP_TAGS_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
             wp_redirect( esc_url_raw( add_query_arg('tag', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
             exit;
+        }
+
+        if ( wpbdp_experimental( 'typeintegration' ) && is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
+            return;
         }
 
         if ( is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
@@ -757,51 +794,6 @@ class WPBDP_Plugin {
     public function plugin_action_links( $links ) {
         $links['settings'] = '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'WPBDM' ) . '</a>';
         return $links;
-    }
-
-    function _register_post_type() {
-        $post_type_slug = $this->settings->get('permalinks-directory-slug', WPBDP_POST_TYPE);
-        $category_slug = $this->settings->get('permalinks-category-slug', WPBDP_CATEGORY_TAX);
-        $tags_slug = $this->settings->get('permalinks-tags-slug', WPBDP_TAGS_TAX);
-
-        $labels = array(
-            'name' => _x('Directory', 'post type general name', 'WPBDM'),
-            'singular_name' => _x('Directory', 'post type singular name', 'WPBDM'),
-            'add_new' => _x('Add New Listing', 'listing', 'WPBDM'),
-            'add_new_item' => _x('Add New Listing', 'post type', 'WPBDM'),
-            'edit_item' => __('Edit Listing', 'WPBDM'),
-            'new_item' => __('New Listing', 'WPBDM'),
-            'view_item' => __('View Listing', 'WPBDM'),
-            'search_items' => __('Search Listings', 'WPBDM'),
-            'not_found' =>  __('No listings found', 'WPBDM'),
-            'not_found_in_trash' => __('No listings found in trash', 'WPBDM'),
-            'parent_item_colon' => ''
-            );
-
-        $args = array(
-            'labels' => $labels,
-            'public' => true,
-            'publicly_queryable' => true,
-            'show_ui' => true,
-            'query_var' => true,
-            'rewrite' => array('slug'=> $post_type_slug, 'with_front' => false, 'feeds' => true),
-            'capability_type' => 'post',
-            'hierarchical' => false,
-            'menu_position' => null,
-            'menu_icon' => WPBDP_URL . 'admin/resources/menuico.png',
-            'supports' => array('title','editor','author','categories','tags','thumbnail','excerpt','comments','custom-fields','trackbacks')
-        );
-
-        register_post_type(WPBDP_POST_TYPE, $args);
-
-        register_taxonomy( WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE,
-                           array( 'hierarchical' => true,
-                                  'label' => __( 'Directory Categories', 'WPBDM'),
-                                  'singular_name' => 'Directory Category',
-                                  'show_in_nav_menus' => true,
-                                  'query_var' => true,
-                                  'rewrite' => array('slug' => $category_slug) ) );
-        register_taxonomy(WPBDP_TAGS_TAX, WPBDP_POST_TYPE, array( 'hierarchical' => false, 'label' => 'Directory Tags', 'singular_name' => 'Directory Tag', 'show_in_nav_menus' => true, 'update_count_callback' => '_update_post_term_count', 'query_var' => true, 'rewrite' => array('slug' => $tags_slug) ) );
     }
 
     public function _register_image_sizes() {
