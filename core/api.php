@@ -521,3 +521,10 @@ function wpbdp_experimental( $feature ) {
     return $res;
 }
 
+/**
+ * @since next-release
+ */
+function wpbdp_current_view_output() {
+    global $wpbdp;
+    return $wpbdp->dispatcher->current_view_output();
+}
