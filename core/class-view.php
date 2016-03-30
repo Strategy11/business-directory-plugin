@@ -25,14 +25,16 @@ class WPBDP_NView {
     private $router = null;
 
 
-    function __construct( $router = null ) {
-        $this->router = $router;
+    public function __construct() {}
+
+    public function enqueue_resources() {
     }
 
-    function dispatch( $params = array() ) {
+    public function dispatch() {
+        return '';
     }
 
-    function http_404() {
+    public final function _http_404() {
         status_header( 404 );
         nocache_headers();
 
@@ -42,13 +44,13 @@ class WPBDP_NView {
         exit;
     }
 
-    function redirect( $redir ) {
+    public final function _redirect( $url ) {
         wp_redirect( $redir );
         exit;
     }
 
-    function render( $template, $params = array() ) {
-        return wpbdp_render( $template, $params );
+    public final function _render( $template, $args = array() ) {
+        return wpbdp_render( $template, $args );
     }
 
 }
