@@ -6,6 +6,12 @@
     color: #666;
 }
 
+ .wpbdp-dnd-area p {
+    margin-top: 13px !important;
+    margin-bottom: 13px !important;
+/*     line-height: 1.5; */
+}
+
 .wpbdp-dnd-area .upload-button {
     background: #fff;
     position: relative;
@@ -27,7 +33,7 @@
     height: 100%;
     opacity: 0;
     cursor: pointer;
-    border: none;
+    border: none !important;
 }
 
 .wpbdp-dnd-area.dragging {

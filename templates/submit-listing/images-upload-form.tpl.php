@@ -21,12 +21,7 @@ if ( $admin && $listing_id ) {
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
                 <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
-                <p class="dnd-buttons">
-                    <span class="upload-button">
-                         <a><?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?></a>
-                         <input type="file" name="images[]" multiple="multiple" />
-                    </span>
-                </p>
+                <p class="dnd-buttons"><span class="upload-button"><a><?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?></a><input type="file" name="images[]" multiple="multiple" /></span></p>
             </div>
             <div class="dnd-area-inside-working" style="display: none;">
                 <p><?php echo sprintf( _x( 'Uploading %s file(s)... Please wait.', 'templates', 'WPBDM' ), '<span>0</span>' ); ?></p>
