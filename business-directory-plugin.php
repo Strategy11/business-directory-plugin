@@ -1073,18 +1073,18 @@ class WPBDP_Plugin {
         // jQuery-FileUpload.
 //        wp_register_script( 'jquery-fileupload-ui-widget',
 //                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
-        wp_register_script( 'jquery-fileupload-iframe-transport',
+        wp_register_script( 'jquery-file-upload-iframe-transport',
                             WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
-        wp_register_script( 'jquery-fileupload',
+        wp_register_script( 'jquery-file-upload',
                             WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
                             array( 'jquery',
                                    'jquery-ui-widget',
-                                   'jquery-fileupload-iframe-transport' ) );
+                                   'jquery-file-upload-iframe-transport' ) );
 
         // Drag & Drop.
         wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.css' );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
-                            array( 'jquery-fileupload' ) );
+                            array( 'jquery-file-upload' ) );
     }
 
     public function is_plugin_page() {
