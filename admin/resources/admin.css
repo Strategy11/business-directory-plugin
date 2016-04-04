@@ -215,6 +215,14 @@ table.wp-list-table.formfields tr.ui-sortable-helper {
     border: 1px dashed #c1c1c1;
 }
 
+#wpbdp-admin-page-field-form .iframe-confirm {
+    display: none;
+}
+
+#wpbdp-admin-page-field-form .iframe-confirm p {
+    font-size: 90%;
+}
+
 #wpbdp-listing-fields input[type="text"] {
     width: 70%;
 }

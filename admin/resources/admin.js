@@ -14,6 +14,25 @@ var WPBDP_associations_fieldtypes = {};
             WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
             WPBDPAdmin_FormFields.$f_fieldtype.change( WPBDPAdmin_FormFields.onFieldTypeChange );
 
+            $( '#wpbdp-fieldsettings .iframe-confirm a' ).click(function(e) {
+                e.preventDefault();
+
+                if ( $( this ).hasClass( 'yes' ) ) {
+                    $( this ).parents( '.iframe-confirm' ).hide();
+                } else {
+                    $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).removeAttr( 'checked' );
+                    $( this ).parents( '.iframe-confirm' ).hide();
+                }
+            })
+
+            $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).change(function() {
+                if ( $( this ).is(':checked') ) {
+                    $( '.iframe-confirm' ).show();
+                } else {
+                    $( '.iframe-confirm' ).hide();
+                }
+            });
+
             $('table.formfields tbody').sortable({
                 placeholder: 'wpbdp-draggable-highlight',
                 handle: '.wpbdp-drag-handle',

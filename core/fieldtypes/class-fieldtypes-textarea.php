@@ -50,6 +50,15 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'WPBDM' );
         $settings['allow_html'][] = '<input type="checkbox" value="1" name="field[allow_html]" ' . ( $field && $field->data( 'allow_html' ) ? ' checked="checked"' : '' ) . ' />';
 
+        $settings['allow_iframes'][] = _x( 'Allow IFRAME tags in content?', 'form-fields admin', 'WPBDM' );
+        $settings['allow_iframes'][] =
+            '<div class="iframe-confirm wpbdp-note warning">' . 
+            '<p>' . _x( 'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?', 'admin form-fields', 'WPBDM' ) . '</p>' .
+            '<a href="#" class="button button-secondary no">' . _x( 'No', 'form-fields admin', 'WPBDM' ) . '</a> ' .
+            '<a href="#" class="button button-primary yes">' . _x( 'Yes', 'form-fields admin', 'WPBDM' ) . '</a>' .
+            '</div>' .
+            '<input type="checkbox" value="1" name="field[allow_iframes]" ' . ( $field && $field->data( 'allow_iframes' ) ? ' checked="checked"' : '' ) . ' />';
+
         if ( ( $field && $field->get_association() == 'content' ) || ( $association == 'content' ) ) {
             $settings['allow_shortcodes'][] = _x( 'Allow WordPress shortcodes in this field?', 'form-fields admin', 'WPBDM' );
             $settings['allow_shortcodes'][] = '<input type="checkbox" value="1" name="field[allow_shortcodes]" ' . ( $field && $field->data( 'allow_shortcodes' ) ? ' checked="checked"' : '' ) . ' />';
@@ -71,6 +80,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     public function process_field_settings( &$field ) {
         $field->set_data( 'allow_html', isset( $_POST['field']['allow_html'] ) ? (bool) intval( $_POST['field']['allow_html'] ) : false );
+        $field->set_data( 'allow_iframes', isset( $_POST['field']['allow_iframes'] ) ? (bool) intval( $_POST['field']['allow_iframes'] ) : false );
         $field->set_data( 'allow_filters', isset( $_POST['field']['allow_filters'] ) ? (bool) intval( $_POST['field']['allow_filters'] ) : false );
         $field->set_data( 'allow_shortcodes', isset( $_POST['field']['allow_shortcodes'] ) ? (bool) intval( $_POST['field']['allow_shortcodes'] ) : false );
         $field->set_data( 'wysiwyg_editor', isset( $_POST['field']['wysiwyg_editor'] ) ? (bool) intval( $_POST['field']['wysiwyg_editor'] ) : false );
@@ -85,6 +95,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                 if ( isset( $tags['img'] ) )
                     unset( $tags['img'] );
 
+                if ( $field->data( 'allow_iframes' ) )
+                    $tags['iframe'] = array( 'src' => true );
+
                 $value = wp_kses( $value, $tags );
             }
         }
@@ -94,12 +107,16 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
+        $allowed_tags = array();
 
         if ( $field->data( 'allow_html' ) ) {
-            $value = wp_kses_post( $value );
-        } else {
-            $value = wp_kses( $value, array() );
+            $allowed_tags = wp_kses_allowed_html( 'post' );
+
+            if ( $field->data( 'allow_iframes' ) )
+                $allowed_tags['iframe'] = array( 'src' => true );
         }
+
+        $value = wp_kses( $value, $allowed_tags );
 
         if ( 'content' == $field->get_association() ) {
             if ( $field->data( 'allow_filters' ) ) {

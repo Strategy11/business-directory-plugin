@@ -1,4 +1,4 @@
-<?php echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ) ); ?>
+<?php echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), 'field-form' ); ?>
 <?php wpbdp_admin_notices(); ?>
 
 <form id="wpbdp-formfield-form" action="" method="post">
