@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-02-24 20:36:14+00:00\n"
+"POT-Creation-Date: 2016-04-05 16:03:18+00:00\n"
 "PO-Revision-Date: 2016-01-21 08:45-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -62,11 +62,11 @@ msgstr "Markieren als"
 msgid "Pending Upgrade"
 msgstr "Ausstehende Aktualisierung"
 
-#: admin/class-admin-listings.php:205 admin/listing-metabox.php:68
+#: admin/class-admin-listings.php:205 admin/listing-metabox.php:70
 msgid "Upgrade to %s"
 msgstr "Aktualisieren auf %s"
 
-#: admin/class-admin-listings.php:212 admin/listing-metabox.php:75
+#: admin/class-admin-listings.php:212 admin/listing-metabox.php:77
 msgid "Downgrade to %s"
 msgstr "Zurücksetzen auf %s"
 
@@ -427,110 +427,131 @@ msgid "There are no images currently attached to the listing."
 msgstr ""
 "Es sind keine Bilder vorhanden die dem Eintrag aktuell hinzugefügt wurden."
 
-#: admin/class-themes-admin.php:44
+#: admin/class-themes-admin.php:45
 #, fuzzy
 msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Verzeichnis Kategorien"
 
-#: admin/class-themes-admin.php:45
+#: admin/class-themes-admin.php:46
 #, fuzzy
 msgctxt "themes"
 msgid "Directory Themes %s"
 msgstr "Verzeichnis Kategorien"
 
-#: admin/class-themes-admin.php:100
+#: admin/class-themes-admin.php:88
+msgctxt "admin themes"
+msgid ""
+"Business Directory Plugin - Your template overrides need to be reviewed!"
+msgstr ""
+
+#: admin/class-themes-admin.php:90
+msgctxt "admin themes"
+msgid ""
+"Starting with version 4.0, Business Directory is using a new theming system "
+"that is not compatible with the templates used in previous versions."
+msgstr ""
+
+#: admin/class-themes-admin.php:92
+msgctxt "admin themes"
+msgid ""
+"Because of this, your template overrides below have been disabled. You "
+"should <a>review our documentation on customization</a> in order adjust your "
+"templates."
+msgstr ""
+
+#: admin/class-themes-admin.php:131
 #, fuzzy
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: admin/class-themes-admin.php:147
+#: admin/class-themes-admin.php:178
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr ""
 
-#: admin/class-themes-admin.php:150
+#: admin/class-themes-admin.php:181
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
 "to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: admin/class-themes-admin.php:159
+#: admin/class-themes-admin.php:190
 #, fuzzy
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Form Felder verwalten"
 
-#: admin/class-themes-admin.php:166
+#: admin/class-themes-admin.php:197
 #, fuzzy
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Benötigtes Feld wurde erfolgreich erstellt."
 
-#: admin/class-themes-admin.php:169
+#: admin/class-themes-admin.php:200
 #, fuzzy
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Benötigtes Feld wurde erfolgreich erstellt."
 
-#: admin/class-themes-admin.php:172
+#: admin/class-themes-admin.php:203
 #, fuzzy
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr "Der Import wurde erfolgreich abgeschlossen."
 
-#: admin/class-themes-admin.php:175
+#: admin/class-themes-admin.php:206
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr ""
 
-#: admin/class-themes-admin.php:201
+#: admin/class-themes-admin.php:232
 #, fuzzy
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: admin/class-themes-admin.php:208
+#: admin/class-themes-admin.php:239
 #, fuzzy
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: admin/class-themes-admin.php:309 admin/class-themes-admin.php:370
+#: admin/class-themes-admin.php:340 admin/class-themes-admin.php:401
 #: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Eine Verbindung zum Lizenzserver konnte nicht hergestellt werden."
 
-#: admin/class-themes-admin.php:315 core/licensing.php:132
+#: admin/class-themes-admin.php:346 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Lizenzschlüssel ungültig "
 
-#: admin/class-themes-admin.php:320 core/licensing.php:330
+#: admin/class-themes-admin.php:351 core/licensing.php:330
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Konnte Lizenz nicht aktivieren: %s"
 
-#: admin/class-themes-admin.php:333 core/licensing.php:332
+#: admin/class-themes-admin.php:364 core/licensing.php:332
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Lizenz aktiviert"
 
-#: admin/class-themes-admin.php:376
+#: admin/class-themes-admin.php:407
 msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr ""
 
-#: admin/class-themes-admin.php:393 core/licensing.php:350
+#: admin/class-themes-admin.php:424 core/licensing.php:350
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Lizenz deaktiviert"
 
-#: admin/class-themes-admin.php:409
+#: admin/class-themes-admin.php:440
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr ""
@@ -808,12 +829,12 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Benutzerdefinierter Auftrag"
 
-#: admin/fees.php:339
+#: admin/fees.php:342
 msgctxt "fees admin"
 msgid "Fee updated."
 msgstr "Preis aktualisiert."
 
-#: admin/fees.php:364
+#: admin/fees.php:367
 msgctxt "fees admin"
 msgid "Fee deleted."
 msgstr "Preis gelöscht."
@@ -1035,57 +1056,67 @@ msgstr "Allgemeine Informationen"
 
 #: admin/listing-metabox.php:44
 msgctxt "admin infometabox"
+msgid "Access Key"
+msgstr ""
+
+#: admin/listing-metabox.php:46
+msgctxt "admin infometabox"
 msgid "Total Listing Cost"
 msgstr "Gesamt Eintragskosten"
 
-#: admin/listing-metabox.php:46
+#: admin/listing-metabox.php:48
 msgctxt "admin infometabox"
 msgid "Payment Status"
 msgstr "Bezahlstatus"
 
-#: admin/listing-metabox.php:50
+#: admin/listing-metabox.php:52
 msgctxt "admin infometabox"
 msgid "Featured (Sticky) Status"
 msgstr "Unterstützter (unbeweglicher) Status"
 
-#: admin/listing-metabox.php:58
+#: admin/listing-metabox.php:60
 msgctxt "admin metabox"
 msgid "Pending Upgrade"
 msgstr "Ausstehende Aktualisierung"
 
-#: admin/listing-metabox.php:81
+#: admin/listing-metabox.php:83
 msgctxt "admin infometabox"
 msgid "CSV Import Sequence ID"
 msgstr "CSV Import Sequenz ID"
 
-#: admin/listing-metabox.php:92
+#: admin/listing-metabox.php:94
 msgctxt "admin infometabox"
 msgid "Mark listing as Paid"
 msgstr "Eintrag als bezahlt markieren"
 
-#: admin/page-debug.php:15
+#: admin/page-debug.php:16
 msgctxt "debug-info"
 msgid "BD Info"
 msgstr "Branchenbuch Info"
 
-#: admin/page-debug.php:27
+#: admin/page-debug.php:28
 msgid "Missing tables: %s"
 msgstr "Nicht vorhandene Tabellen: %s"
 
-#: admin/page-debug.php:28
+#: admin/page-debug.php:29
 msgctxt "debug-info"
 msgid "OK"
 msgstr "OK"
 
-#: admin/page-debug.php:36
+#: admin/page-debug.php:37
 msgctxt "debug-info"
 msgid "BD Options"
 msgstr "Branchenbuch Optionen"
 
-#: admin/page-debug.php:49
+#: admin/page-debug.php:50
 msgctxt "debug-info"
 msgid "Environment"
 msgstr "Umgebung"
+
+#: admin/page-debug.php:75
+msgctxt "debug info"
+msgid "Test SSL setup..."
+msgstr ""
 
 #: admin/templates/csv-export.tpl.php:9
 msgctxt "admin csv-export"
@@ -2124,7 +2155,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.7.4)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 3.7.5)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2826,80 +2857,32 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Verfolgung erlauben"
 
-#: business-directory-plugin.php:716
+#: business-directory-plugin.php:795
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: business-directory-plugin.php:726
-msgctxt "post type general name"
-msgid "Directory"
-msgstr "Verzeichnis"
-
-#: business-directory-plugin.php:727
-msgctxt "post type singular name"
-msgid "Directory"
-msgstr "Verzeichnis"
-
-#: business-directory-plugin.php:728
-msgctxt "listing"
-msgid "Add New Listing"
-msgstr "Neuen Eintrag erstellen"
-
-#: business-directory-plugin.php:729
-msgctxt "post type"
-msgid "Add New Listing"
-msgstr "Neuen Eintrag erstellen"
-
-#: business-directory-plugin.php:730 core/compatibility/deprecated.php:255
-msgid "Edit Listing"
-msgstr "Eintrag Bearbeiten"
-
-#: business-directory-plugin.php:731
-msgid "New Listing"
-msgstr "Neuer Eintag"
-
-#: business-directory-plugin.php:732
-msgid "View Listing"
-msgstr "Eintrag anschauen"
-
-#: business-directory-plugin.php:733
-msgid "Search Listings"
-msgstr "Einträge durchsuchen"
-
-#: business-directory-plugin.php:734
-msgid "No listings found"
-msgstr "Keine Einträge gefunden"
-
-#: business-directory-plugin.php:735
-msgid "No listings found in trash"
-msgstr "Keine Einträge im Papierkorb gefunden"
-
-#: business-directory-plugin.php:757
-msgid "Directory Categories"
-msgstr "Verzeichnis Kategorien"
-
-#: business-directory-plugin.php:870 business-directory-plugin.php:877
+#: business-directory-plugin.php:904 business-directory-plugin.php:911
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "% Feed"
 
-#: business-directory-plugin.php:1295
+#: business-directory-plugin.php:1329
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Eintrag zusenden"
 
-#: business-directory-plugin.php:1305
+#: business-directory-plugin.php:1339
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Eintrag finden"
 
-#: business-directory-plugin.php:1315
+#: business-directory-plugin.php:1349
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Alle Einträge anschauen"
 
-#: business-directory-plugin.php:1335
+#: business-directory-plugin.php:1369
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Einträge getaggt: %s"
@@ -2956,17 +2939,17 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Ungültige Formfeldtyp"
 
-#: core/class-form-field.php:450
+#: core/class-form-field.php:467
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Feldbezeichnung ist Pflichtfeld."
 
-#: core/class-form-field.php:460
+#: core/class-form-field.php:477
 msgctxt "form-fields-api"
 msgid "Requested field type change is incompatible. Type will not be modified."
 msgstr ""
 
-#: core/class-form-field.php:480
+#: core/class-form-field.php:497
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -2975,17 +2958,17 @@ msgstr ""
 "Es kann nur ein Feld mit \"%s\" verbunden werden. Bitte wähle eine andere "
 "Verbindung."
 
-#: core/class-form-field.php:490
+#: core/class-form-field.php:507
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" ist ein ungültiger Feldtyp für diese Verbindung."
 
-#: core/class-form-field.php:531
+#: core/class-form-field.php:548
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Ungültige Feld ID"
 
-#: core/class-form-field.php:540
+#: core/class-form-field.php:557
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -2994,7 +2977,7 @@ msgstr ""
 "Dieses Formfeld kann nicht gelöscht werden, weil es ein Pflichtfeld ist, "
 "damit das Modul richtig funktioniert."
 
-#: core/class-form-field.php:552
+#: core/class-form-field.php:569
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Während der Löschung des Feldes ist ein Fehler aufgetreten."
@@ -3055,12 +3038,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Preis nicht verfügbar)"
 
-#: core/class-listings-api.php:308
+#: core/class-listings-api.php:312
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] neue Eintragsbenachrichtigung"
 
-#: core/class-listings-api.php:327
+#: core/class-listings-api.php:331
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Eintrag bearbeiten Benachrichtigung"
@@ -4601,6 +4584,70 @@ msgctxt "settings email"
 msgid "Current time"
 msgstr "Aktuelle Zeit"
 
+#: core/class-wpbdp.php:32
+msgctxt "post type general name"
+msgid "Directory"
+msgstr "Verzeichnis"
+
+#: core/class-wpbdp.php:33
+#, fuzzy
+msgctxt "post type singular name"
+msgid "Listing"
+msgstr "Einträge"
+
+#: core/class-wpbdp.php:34
+msgctxt "listing"
+msgid "Add New Listing"
+msgstr "Neuen Eintrag erstellen"
+
+#: core/class-wpbdp.php:35
+msgctxt "post type"
+msgid "Add New Listing"
+msgstr "Neuen Eintrag erstellen"
+
+#: core/class-wpbdp.php:36 core/compatibility/deprecated.php:255
+msgid "Edit Listing"
+msgstr "Eintrag Bearbeiten"
+
+#: core/class-wpbdp.php:37
+msgid "New Listing"
+msgstr "Neuer Eintag"
+
+#: core/class-wpbdp.php:38
+msgid "View Listing"
+msgstr "Eintrag anschauen"
+
+#: core/class-wpbdp.php:39
+msgid "Search Listings"
+msgstr "Einträge durchsuchen"
+
+#: core/class-wpbdp.php:40
+msgid "No listings found"
+msgstr "Keine Einträge gefunden"
+
+#: core/class-wpbdp.php:41
+msgid "No listings found in trash"
+msgstr "Keine Einträge im Papierkorb gefunden"
+
+#: core/class-wpbdp.php:57
+msgid "Directory Categories"
+msgstr "Verzeichnis Kategorien"
+
+#: core/class-wpbdp.php:58
+#, fuzzy
+msgid "Directory Category"
+msgstr "Verzeichnis Kategorien"
+
+#: core/class-wpbdp.php:69
+#, fuzzy
+msgid "Directory Tags"
+msgstr "Verzeichnis Kategorien"
+
+#: core/class-wpbdp.php:70
+#, fuzzy
+msgid "Directory Tag"
+msgstr "Verzeichnis"
+
 #: core/compatibility/class-navxt-integration.php:159
 #, fuzzy
 msgctxt "navxt"
@@ -4648,7 +4695,7 @@ msgid "Directory"
 msgstr "Verzeichnis"
 
 #: core/compatibility/templates/wpbusdirman-index-categories.php:12
-#: core/templates-ui.php:232
+#: core/templates-ui.php:236
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Eintrag suchen"
@@ -4778,29 +4825,54 @@ msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr "Erlaube HTML Eingaben für dieses Feld?"
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:54
+#: core/fieldtypes/class-fieldtypes-textarea.php:53
+msgctxt "form-fields admin"
+msgid "Allow IFRAME tags in content?"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:56
+msgctxt "admin form-fields"
+msgid ""
+"Enabling iframe support in your listings can allow users to execute "
+"arbitrary scripts on a page if they want, which can possibly infect your "
+"site with malware. We do NOT recommend using this setting UNLESS you are "
+"posting the listings yourself and have sole control over the content. Are "
+"you sure you want to enable this?"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:57
+msgctxt "form-fields admin"
+msgid "No"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:58
+msgctxt "form-fields admin"
+msgid "Yes"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-textarea.php:63
 msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Erlaube Wordpress Shortcodes in diesem Feld?"
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:57
+#: core/fieldtypes/class-fieldtypes-textarea.php:66
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:60
+#: core/fieldtypes/class-fieldtypes-textarea.php:69
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
 "in fee plans."
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:61
+#: core/fieldtypes/class-fieldtypes-textarea.php:70
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr ""
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:64
+#: core/fieldtypes/class-fieldtypes-textarea.php:73
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -4809,7 +4881,7 @@ msgstr ""
 "<b>Nur für Administratoren!</b> Wenn es dir nicht ausdrücklich gesagt wurde, "
 "ändere diese Einstellung nicht bevor du nicht weist was du genau tust."
 
-#: core/fieldtypes/class-fieldtypes-textarea.php:65
+#: core/fieldtypes/class-fieldtypes-textarea.php:74
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "\"the_content\" Filter zuweisen bevor das Feld angezeigt wird?"
@@ -5112,29 +5184,29 @@ msgctxt "fs helper"
 msgid "Destination dir \"%s\" is not writable."
 msgstr "Eintragskategorie \"%s\" existiert nicht"
 
-#: core/helpers/class-themes-updater.php:125
+#: core/helpers/class-themes-updater.php:128
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr ""
 
-#: core/helpers/class-themes-updater.php:126
+#: core/helpers/class-themes-updater.php:129
 #, fuzzy
 msgctxt "themes"
 msgid "Theme updated."
 msgstr "Preis aktualisiert."
 
-#: core/helpers/class-themes-updater.php:128
+#: core/helpers/class-themes-updater.php:131
 msgctxt "themes"
 msgid "New version available (<b>%s</b>). <a>Update now.</a>"
 msgstr ""
 
-#: core/helpers/class-themes-updater.php:156
+#: core/helpers/class-themes-updater.php:159
 #, fuzzy
 msgctxt "themes"
 msgid "Could not update theme: %s"
 msgstr "Konnte Lizenz nicht deaktivieren: %s"
 
-#: core/helpers/class-themes-updater.php:162
+#: core/helpers/class-themes-updater.php:165
 #, fuzzy
 msgctxt "themes"
 msgid "Theme was updated sucessfully."
@@ -5489,7 +5561,7 @@ msgctxt "templates"
 msgid "Next &raquo;"
 msgstr "Nächste &raquo;"
 
-#: core/templates/search.tpl.php:3 templates/search-form.tpl.php:15
+#: core/templates/search.tpl.php:3 templates/search-form.tpl.php:19
 #: templates/search.tpl.php:6
 msgctxt "search"
 msgid "Search"
@@ -5511,46 +5583,46 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Keine Eintragskategorie gefunden."
 
-#: core/templates-ui.php:235
+#: core/templates-ui.php:239
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Erweiterte Suche"
 
-#: core/templates-ui.php:261 core/templates-ui.php:286
+#: core/templates-ui.php:265 core/templates-ui.php:290
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortieren nach"
 
-#: core/templates-ui.php:280
+#: core/templates-ui.php:284
 msgctxt "sort"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: core/templates-ui.php:302
+#: core/templates-ui.php:306
 #, fuzzy
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "Zurücksetzen"
 
-#: core/themes.php:607
+#: core/themes.php:617
 #, fuzzy
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: core/themes.php:613
+#: core/themes.php:623
 #, fuzzy
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: core/themes.php:621
+#: core/themes.php:631
 #, fuzzy
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: core/themes.php:627
+#: core/themes.php:637
 #, fuzzy
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
@@ -5923,7 +5995,37 @@ msgctxt "templates"
 msgid "Return to listing."
 msgstr "Zurück zum Eintrag."
 
-#: core/views.php:32
+#: core/views/request_access_keys.php:17
+#, fuzzy
+msgctxt "request_access_keys"
+msgid "Please enter a valid e-mail address."
+msgstr "Bitte eine gültige E-mailadresse eingeben."
+
+#: core/views/request_access_keys.php:22
+#, fuzzy
+msgctxt "request_access_keys"
+msgid "There are no listings associated to your e-mail address."
+msgstr "Es sind keine Transaktionen mit diesem Eintrag verbunden."
+
+#: core/views/request_access_keys.php:26
+#, fuzzy
+msgctxt "request_access_keys"
+msgid "Listing Access Keys"
+msgstr "Eintrag Felder / Bilder"
+
+#: core/views/request_access_keys.php:30
+msgctxt "request_access_keys"
+msgid "Access keys have been sent to your e-mail address."
+msgstr ""
+
+#: core/views/request_access_keys.php:32
+msgctxt "request_access_keys"
+msgid ""
+"An error occurred while sending the access keys to your e-mail address. "
+"Please try again."
+msgstr ""
+
+#: core/views.php:45
 msgid ""
 "You need to create a page with the [businessdirectory] shortcode for the "
 "Business Directory plugin to work correctly."
@@ -5931,21 +6033,21 @@ msgstr ""
 "Sie müssen ein Seite erstellen die den [businessdirecory] Shortcode enthält "
 "damit die Erweiterung richtig funktioniert."
 
-#: core/views.php:34
+#: core/views.php:47
 msgid "The directory is temporarily disabled."
 msgstr "Das Verzeichnis wurde temporär deaktiviert."
 
-#: core/views.php:217
+#: core/views.php:256
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Dies ist nur eine Vorschau. Der Eintrag wurde bisher nicht publiziert."
 
-#: core/views.php:369
+#: core/views.php:408
 msgctxt "templates"
 msgid "Listings tagged: %s"
 msgstr "Getaggte Einträge: %s"
 
-#: core/views.php:489
+#: core/views.php:528
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -5960,12 +6062,12 @@ msgstr ""
 "nicht erstellt werden kann. Einträge können nicht erstellt werden bis ein "
 "Kategorie zugewiesen wurde."
 
-#: core/views.php:491
+#: core/views.php:530
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr "Keine Einträge im Verzeichnis vorhanden. "
 
-#: core/views.php:509
+#: core/views.php:548
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "
@@ -6325,6 +6427,24 @@ msgstr ""
 "Ein Eintrag im Verzeichnis wurde kürzlich bearbeitet. EIntragsdetails siehe "
 "unten."
 
+#: templates/email-access-keys.tpl.php:1
+msgctxt "request_access_keys"
+msgid ""
+"Below you'll find the access keys for all the listings registered with your "
+"e-mail address on our site."
+msgstr ""
+
+#: templates/email-access-keys.tpl.php:5
+msgctxt "request_access_keys"
+msgid "Access Key:"
+msgstr ""
+
+#: templates/email-access-keys.tpl.php:6
+#, fuzzy
+msgctxt "request_access_keys"
+msgid "URL:"
+msgstr "URL:"
+
 #: templates/listing-contactform.tpl.php:9
 msgctxt "templates"
 msgid "Listing Title: "
@@ -6621,10 +6741,22 @@ msgctxt "templates"
 msgid "Find a listing"
 msgstr "Einen Eintrag finden"
 
-#: templates/search-form.tpl.php:14
+#: templates/search-form.tpl.php:18
 msgctxt "search"
 msgid "Clear"
 msgstr "Säubern"
+
+#: templates/send-access-keys.tpl.php:5
+#, fuzzy
+msgctxt "send-access-keys"
+msgid "Enter your e-mail address"
+msgstr "Ungültiger Erneuerungszustand."
+
+#: templates/send-access-keys.tpl.php:9
+#, fuzzy
+msgctxt "send-access-keys"
+msgid "Continue"
+msgstr "Weiter"
 
 #: templates/submit-listing/category-selection.tpl.php:1
 msgctxt "templates"
@@ -6712,17 +6844,17 @@ msgctxt "templates image upload"
 msgid "or"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:26
+#: templates/submit-listing/images-upload-form.tpl.php:24
 msgctxt "templates"
 msgid "Select images from your hard drive"
 msgstr "Wählen Sie Bilder von Ihrer Festplatte aus"
 
-#: templates/submit-listing/images-upload-form.tpl.php:32
+#: templates/submit-listing/images-upload-form.tpl.php:27
 msgctxt "templates"
 msgid "Uploading %s file(s)... Please wait."
 msgstr "Datei(en) %s hochladen... Bitte warten."
 
-#: templates/submit-listing/images-upload-form.tpl.php:36
+#: templates/submit-listing/images-upload-form.tpl.php:31
 msgctxt "templates"
 msgid ""
 "Your image slots are all full at this time.  You may click \"Continue\" if "
@@ -6732,18 +6864,18 @@ msgstr ""
 "Sie haben die maximale Anzahl der kostenlosen Bilder erreicht. Klicken Sie "
 "\"Weiter\" oder auf \"Bild Löschen\" um ein neues Bild hochzuladen."
 
-#: templates/submit-listing/images-upload-form.tpl.php:44
+#: templates/submit-listing/images-upload-form.tpl.php:39
 msgctxt "templates"
 msgid "Image slots available:"
 msgstr "verfügbare Bilder:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:50
+#: templates/submit-listing/images-upload-form.tpl.php:45
 #, fuzzy
 msgctxt "templates"
 msgid "Min. file size:"
 msgstr "Max. Dateigröße:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:56
+#: templates/submit-listing/images-upload-form.tpl.php:51
 msgctxt "templates"
 msgid "Max. file size:"
 msgstr "Max. Dateigröße:"
@@ -6822,6 +6954,10 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Directory"
+#~ msgstr "Verzeichnis"
 
 #, fuzzy
 #~ msgctxt "themes"
