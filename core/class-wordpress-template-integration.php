@@ -39,7 +39,8 @@ class WPBDP__WordPress_Template_Integration {
             return;
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
-        add_filter( 'the_content', array( $this, 'display_view_in_content' ), 10 );
+        remove_filter( 'the_content', 'wpautop' );
+        add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
 
@@ -49,7 +50,8 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function display_view_in_content( $content = '' ) {
-        remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 10 );
+        remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+        add_filter( 'the_content', 'wpautop' );
         $this->restore_things();
 
         $html = wpbdp_current_view_output();
