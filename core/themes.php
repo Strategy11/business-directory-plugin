@@ -440,7 +440,7 @@ class WPBDP_Themes {
         return $html;
     }
 
-    function render_part( $id_or_file ) {
+    function render_part( $id_or_file, $additional_vars = array() ) {
         $output = '';
 
         $last = count( $this->cache['template_vars_stack'] ) - 1;
@@ -451,8 +451,9 @@ class WPBDP_Themes {
             $vars = array();
 
         $vars['_part'] = true;
-        $output = $this->render( $id_or_file, $vars );
-        return $this->render( $id_or_file, $vars );
+
+        $output = $this->render( $id_or_file, array_merge( $additional_vars, $vars ) );
+        return $output;
     }
 
     function _configure_template_vars ( $id_or_file, $path, &$vars ) {
@@ -649,9 +650,9 @@ function wpbdp_x_render( $id_or_file, $vars = array() ) {
     return $wpbdp->themes->render( $id_or_file, $vars );
 }
 
-function wpbdp_x_part( $id_or_file ) {
+function wpbdp_x_part( $id_or_file, $vars = array() ) {
     global $wpbdp;
-    echo $wpbdp->themes->render_part( $id_or_file );
+    echo $wpbdp->themes->render_part( $id_or_file, $vars );
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {
