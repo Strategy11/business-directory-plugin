@@ -16,10 +16,10 @@ class WPBDP {
     public function init() {
         $this->register_post_type();
 
-        new WPBDP__Query_Integration();
-        $this->dispatcher = new WPBDP__Dispatcher();
-
         if ( wpbdp_experimental( 'typeintegration' ) ) {
+            new WPBDP__Query_Integration();
+            $this->dispatcher = new WPBDP__Dispatcher();
+
             require_once( WPBDP_PATH . 'core/class-wordpress-template-integration.php' );
             new WPBDP__WordPress_Template_Integration();
         }
