@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,church directory,address book,address,member directory,members directory,city portal,city portal plugin,city guide plugin,city guide
+Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,church directory,address book,address,member directory,members directory,city portal,city guide,chamber of commerce
 Requires at least: 4.0
-Tested up to: 4.4.2
-Last Updated: 2016-Feb-24
-Stable tag: tags/3.7.4
+Tested up to: 4.5
+Last Updated: 2016-Apr-7
+Stable tag: tags/3.7.5
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -39,10 +39,11 @@ Business Directory Plugin allows you to build a local directory, directory of bu
 * Manage attachments on directory listings (using the Attachments module, supports PDF, Text files, images)
 * Accept payments using Stripe (using the Stripe Gateway Module)
 * Accept payments using PayFast (using the PayFast Gateway Module)
-* Post claimable listings in your business directory that other users can pay (or not) to claim (using the Claim Listings Module) (NEW!)
-* FULL responsive support when installed with a responsive theme (NEW!)
+* Post claimable listings in your business directory that other users can pay (or not) to claim (using the Claim Listings Module) 
+* FULL responsive support when installed with a responsive theme 
 * Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
-* Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) (NEW!)
+* Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) 
+* Multi-language support in your directory with WPML
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -53,34 +54,35 @@ These are optional modules that you can use to enhance Business Directory Plugin
 support future development:
 
 NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
-
 NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
 
-[PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
-
-[Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
-
 [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
-
 [Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
-
 [ZIP Code Search Module](http://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
-
 [Regions Module](http://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
-
 [Ratings Module](http://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
-
 [Google Maps Module](http://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
 
+Additional payment gateways:
+[Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
 [PayPal Gateway Module](http://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
-
 [2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
+[PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
 
 For more information and support please visit [http://businessdirectoryplugin.com](http://businessdirectoryplugin.com?ref=wp)
 For Business Directory plugin support please visit [http://businessdirectoryplugin.com/forums](http://businessdirectoryplugin.com/forums)
 
 If you love Business Directory plugin, [please consider purchasing a Premium Module](http://businessdirectoryplugin.com/premium-modules/?ref=wp)!
 
+= Languages Supported =
+Business Directory fully supports [WPML](http://wpml.org) for dynamic language switching.  But if you need just one single language, we support these out of the box!
+* Spanish
+* French
+* German
+* Russian
+* Polish
+
+And you can easily [translate it yourself](http://businessdirectoryplugin.com/quick-start-guide/#translate) if you need to.
 
 == Credits ==
 Copyright 2009-16, Dave Rodenbaugh 
@@ -116,6 +118,16 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 3.7.5 =
+* Fix queries involving featured listings to include listings made sticky by plan (not level).
+* Add SSL debugging info to "Debug" page.
+* Include certificate bundle for use by gateways.
+* Fix some backend fee editing issues.
+* Fix search form not appearing on Advanced Search in some cases.
+* Compatibility test with WP 4.5
+* Rename file upload JS to avoid conflicts with Visual Form Builder Pro.
+* Add IFRAME support for textarea fields.
 
 = Version 3.7.4 =
 * Show WPML translations of form field labels in validation errors.
