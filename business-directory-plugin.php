@@ -759,7 +759,7 @@ class WPBDP_Plugin {
                                         array( &$this->controller, 'search' ) );
         $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
         $shortcodes['businessdirectory-listing'] = array( &$this, '_single_listing_shortcode' );
-
+        $shortcodes['businessdirectory-categories'] = array( &$this, '_listing_categories' );
         return apply_filters( 'wpbdp_shortcodes', $shortcodes );
     }
 
@@ -1019,6 +1019,13 @@ class WPBDP_Plugin {
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
 
         return $this->controller->view_featured_listings( $atts );
+    }
+
+    /**
+     * @since 3.6.10
+     */
+    function _listing_categories( $atts ) {
+        return wpbdp_list_categories( $atts );
     }
 
     /**

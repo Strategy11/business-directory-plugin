@@ -63,12 +63,12 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
                                'parent' => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ),
                                'fields' => 'ids' )
                         );
-    
+
     $terms = array();
     foreach ( $term_ids as $term_id ) {
         $t = get_term( $term_id, WPBDP_CATEGORY_TAX );
         // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
-        // we need a workaround until the bug is fixed.        
+        // we need a workaround until the bug is fixed.
         _wpbdp_padded_count( $t );
 
         $terms[] = $t;
@@ -94,7 +94,6 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
             $html .= '<ul class="children">';
         }
     }
-
     foreach ( $terms as &$term ) {
         $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' ) . '">';
 
@@ -104,7 +103,7 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
         $item_html .= esc_attr( $term->name );
         $item_html .= '</a>';
 
-        if ( $args['show_count'] ) {
+        if ( filter_var( $args['show_count'], FILTER_VALIDATE_BOOLEAN ) ) {
             $count_str = ' (' . intval( $term->count ) . ')';
             $count_str = apply_filters( 'wpbdp_categories_item_count_str', $count_str, $term );
             $item_html .= $count_str;
@@ -193,7 +192,7 @@ function wpbdp_main_links() {
     if (wpbdp_get_option('show-view-listings')) {
         $html .= sprintf('<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('View Listings', 'WPBDM'),
-                          wpbdp_get_page_link('view-listings'));        
+                          wpbdp_get_page_link('view-listings'));
 /*        $html .= sprintf('<a href="%s">%s</a>',
                          wpbdp_get_page_link('view-listings'),
                          __('View Listings', 'WPBDM')
@@ -367,7 +366,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
         $main_image = get_post( $thumbnail_id );
     } else {
         $images = wpbdp_listings_api()->get_images( $listing_id );
-        
+
         if ( $images )
             $main_image = $images[0];
     }
