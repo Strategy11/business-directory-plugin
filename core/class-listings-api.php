@@ -170,14 +170,24 @@ class WPBDP_Listings_API {
         if ( ! $listing || ! $payment->is_completed() )
             return;
 
+        $is_renewal = false;
+
         foreach ( $payment->get_items() as $item ) {
             switch ( $item->item_type ) {
                 case 'recurring_fee':
                     $listing->add_category( $item->rel_id_1, (object) $item->data, true, array( 'recurring_id' => $payment->get_data( 'recurring_id' ),
                                                                                                 'payment_id' => $payment->get_id()  ) );
+
+                    if ( ! empty( $item->data['is_renewal'] ) )
+                        $is_renewal = true;
+
                     break;
                 case 'fee':
                     $listing->add_category( $item->rel_id_1, $item->rel_id_2, false );
+
+                    if ( ! empty( $item->data['is_renewal'] ) )
+                        $is_renewal = true;
+
                     break;
 
                 case 'upgrade':
@@ -192,7 +202,9 @@ class WPBDP_Listings_API {
         }
 
         $listing->save();
-//        $listing->maybe_publish();
+
+        if ( $is_renewal )
+            $listing->set_post_status( 'publish' );
     }
 
     /**
