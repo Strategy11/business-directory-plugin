@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 3.7.5
+ * Version: 3.7.6dev
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,7 +31,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '3.7.5' );
+define( 'WPBDP_VERSION', '3.7.6dev' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -759,8 +759,59 @@ class WPBDP_Plugin {
                                         array( &$this->controller, 'search' ) );
         $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
         $shortcodes['businessdirectory-listing'] = array( &$this, '_single_listing_shortcode' );
+        $shortcodes += array_fill_keys( array( 'bd-listing-count',
+                                               'businessdirectory-listing-count',
+                                               'business-directory-listing-count' ),
+                                        array( $this, 'listing_count_shortcode' ) );
 
         return apply_filters( 'wpbdp_shortcodes', $shortcodes );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function listing_count_shortcode( $atts ) {
+        $atts = shortcode_atts( array( 'category' => false, 'region' => false ), $atts );
+        extract( $atts );
+
+        // All listings.
+        if ( ! $category && ! $region ) {
+            $count = wp_count_posts( WPBDP_POST_TYPE );
+            return $count->publish;
+        }
+
+        if ( ! function_exists( 'wpbdp_regions_taxonomy' ) )
+            $region = false;
+
+        $term = false;
+        $region_term = false;
+
+        if ( $category ) {
+            foreach ( array( 'id', 'name', 'slug' ) as $field ) {
+                if ( $term = get_term_by( $field, $category, WPBDP_CATEGORY_TAX ) )
+                    break;
+            }
+        }
+
+        if ( $region ) {
+            foreach ( array( 'id', 'name', 'slug' ) as $field ) {
+                if ( $region_term = get_term_by( $field, $region, wpbdp_regions_taxonomy() ) )
+                    break;
+            }
+        }
+
+        if ( ( $region && ! $region_term ) || ( $category && ! $term ) )
+            return '0';
+
+        if ( $region ) {
+            $regions_api = wpbdp_regions_api();
+            return $regions_api->count_listings( (int) $region_term->term_id, $term ? (int) $term->term_id : 0 );
+        } else {
+            _wpbdp_padded_count( $term );
+            return $term->count;
+        }
+
+        return '0';
     }
 
     public function _init_modules() {
