@@ -6,7 +6,7 @@ echo wpbdp_admin_header( _x( 'Upload Directory Theme', 'themes', 'WPBDM' ), 'the
 <div class="wpbdp-note">
 <p><?php
 printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'themes', 'WPBDM' ),
-        '<a href="http://businessdirectoryplugin.com/premium-modules/">http://businessdirectoryplugin.com/premium-modules/</a>' );
+        '<a href="http://businessdirectoryplugin.com/premium-themes/">http://businessdirectoryplugin.com/premium-themes/</a>' );
 ?></p>
 </div>
 
