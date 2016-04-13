@@ -4,6 +4,7 @@ class WPBDP_Admin_Listings {
 
     function __construct() {
         add_action('admin_init', array($this, 'add_metaboxes'));
+        add_action( 'wpbdp_admin_notices', array( $this, 'no_category_edit_notice' ) );
 
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'add_columns' ) );
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
@@ -107,6 +108,29 @@ class WPBDP_Admin_Listings {
         $pieces['where'] = preg_replace( $regex, " $0 OR " . $where, $pieces['where'] );
 
         return $pieces;
+    }
+
+    function no_category_edit_notice() {
+        if ( ! function_exists( 'get_current_screen' ) )
+            return;
+
+        $screen = get_current_screen();
+
+        if ( ! $screen || WPBDP_POST_TYPE != $screen->id || 'add' == $screen->action  )
+            return;
+
+        global $post;
+
+        if ( ! $post )
+            return;
+
+        $listing = WPBDP_Listing::get( $post->ID );
+
+        if ( ! $listing )
+            return;
+
+        if( ! $listing->get_categories( 'all' ) )
+            wpbdp_admin_message( _x( 'This listing doesn\'t have any category assigned. At least one category (and its resp. fee) is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'WPBDM' ), 'error' );
     }
 
     function add_metaboxes() {
