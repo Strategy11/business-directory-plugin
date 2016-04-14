@@ -5,6 +5,10 @@
         </h3>
 
         <div class="wpbdp-theme-actions">
+            <?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>
+            <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'delete-theme', 'theme_id' => $theme->id ) ) ); ?>" class="button delete-theme-link">Delete</a>
+            <?php endif; ?>
+
             <?php if ( $theme->can_be_activated ): ?>
             <form action="" method="post">
                 <input type="hidden" name="wpbdp-action" value="set-active-theme" />
@@ -12,8 +16,6 @@
                 <?php wp_nonce_field( 'activate theme ' . $theme->id ); ?>
                 <input type="submit" class="button choose-theme button-primary" value="<?php _ex( 'Activate', 'themes', 'WPBDM' ); ?>" />
             </form>
-            <?php else: ?>
-            <!--<span class="license-required-message">License required</span>-->
             <?php endif; ?>
         </div>
 
@@ -40,9 +42,6 @@
                 <p class="desc"><?php echo $theme->description; ?></p>
             </div>
 
-            <?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>
-            <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'delete-theme', 'theme_id' => $theme->id ) ) ); ?>" class="delete-theme-link">Delete</a>
-            <?php endif; ?>
         </div>
 
         <?php do_action( 'wpbdp-admin-themes-extra', $theme ); ?>
