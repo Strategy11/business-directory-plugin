@@ -130,7 +130,7 @@ class WPBDP_Admin_Listings {
             return;
 
         if( ! $listing->get_categories( 'all' ) )
-            wpbdp_admin_message( _x( 'This listing doesn\'t have any category assigned. At least one category (and its resp. fee) is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'WPBDM' ), 'error' );
+            wpbdp_admin_message( _x( 'This listing doesn\'t have any category assigned. At least one category (and its respective fee) is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'WPBDM' ), 'error' );
     }
 
     function add_metaboxes() {
