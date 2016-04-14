@@ -45,6 +45,8 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
 function _wpbdp_render_single() {
     global $post;
 
+    $listing = WPBDP_Listing::get( $post->ID );
+
     $html  = '';
     $html .= sprintf( '<div id="wpbdp-listing-%d" class="%s" itemscope itemtype="http://schema.org/LocalBusiness">',
                       $post->ID,
@@ -52,7 +54,7 @@ function _wpbdp_render_single() {
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_before_single_view', $post->ID);
 
-    $sticky_status = wpbdp_listings_api()->get_sticky_status( $post->ID );
+    $sticky_status = $listing->get_sticky_status();
     $sticky_tag = '';
     if ($sticky_status == 'sticky')
         $sticky_tag = sprintf('<div class="stickytag"><img src="%s" alt="%s" border="0" title="%s"></div>',
@@ -63,8 +65,6 @@ function _wpbdp_render_single() {
     $d = WPBDP_ListingFieldDisplayItem::prepare_set( $post->ID, 'listing' );
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
     $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
-
-    $listing = WPBDP_Listing::get( $post->ID );
 
     // images
     $thumbnail_id = $listing->get_thumbnail_id();
@@ -134,6 +134,8 @@ function _wpbdp_render_excerpt() {
     global $post;
     static $counter = 0;
 
+    $listing = WPBDP_Listing::get( $post->ID );
+
     $html = '';
     $html .= sprintf('<div id="wpbdp-listing-%d" class="%s">',
                      $post->ID,
@@ -146,7 +148,7 @@ function _wpbdp_render_excerpt() {
     $listing_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->fields ) );
     $social_fields = implode( '', WPBDP_ListingFieldDisplayItem::walk_set( 'html', $d->social ) );
 
-    $sticky_status = wpbdp_listings_api()->get_sticky_status( $post->ID );
+    $sticky_status = $listing->get_sticky_status();
 
     $vars = array(
         'is_sticky' => $sticky_status == 'sticky',
@@ -212,6 +214,8 @@ function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
     if ( WPBDP_POST_TYPE != get_post_type( $post_id ) )
         return '';
 
+    $listing = WPBDP_Listing::get( $post_id );
+
     $css_classes = array();
     $css_classes[] = 'wpbdp-listing';
     $css_classes[] = 'wpbdp-listing-' . $post_id;
@@ -223,7 +227,7 @@ function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
         $css_classes = array_merge( $css_classes, $class_ );
 
     // Sticky status.
-    $sticky = wpbdp_listings_api()->get_sticky_status( $post_id );
+    $sticky = $listing->get_sticky_status();
     $css_classes[] = $sticky; // For backwards compat.
     $css_classes[] = 'wpbdp-' . $sticky;
     $css_classes[] = 'wpbdp-level-' . $sticky;
