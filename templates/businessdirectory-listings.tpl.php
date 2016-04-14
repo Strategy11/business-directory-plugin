@@ -26,7 +26,7 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
         <?php if ( ! $query->have_posts()): ?>
             <?php _ex("No listings found.", 'templates', "WPBDM"); ?>
         <?php else: ?>
-            <div class="listings">
+            <div class="listings wpbdp-listings-list">
                 <?php while ( $query->have_posts() ): $query->the_post(); ?>
                     <?php echo wpbdp_render_listing(null, 'excerpt'); ?>
                 <?php endwhile; ?>
