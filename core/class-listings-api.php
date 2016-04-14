@@ -459,12 +459,13 @@ class WPBDP_Listings_API {
      */
 
     // TODO: deprecate (move to ListingUpgrades)
-    public function get_sticky_status($listing_id) {
-        if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
-            return $sticky_status;
-        }
+    public function get_sticky_status( $listing_id ) {
+        $listing = WPBDP_Listing::get( $listing_id );
 
-        return 'normal';
+        if ( ! $listing )
+            return 'normal';
+
+        return $listing->get_sticky_status( false );
     }
 
     /**
