@@ -895,14 +895,6 @@ class WPBDP_Installer {
     }
 
     public function upgrade_to_11() {
-        // Save all form-fields again to set tags and shortnames.
-        // XXX: we might need to do this again once themes is officially released.
-        if ( wpbdp_experimental( 'themes' ) ) {
-            $fields = wpbdp_get_form_fields();
-
-            foreach ( $fields as &$f )
-                $f->save();
-        }
     }
 
 //    public function upgrade_to_12() {
