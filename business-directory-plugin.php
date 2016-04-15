@@ -182,10 +182,9 @@ class WPBDP_Plugin {
 
         add_action( 'wp', array( &$this, '_meta_setup' ) );
         add_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
-
         add_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
+        add_filter( 'pre_get_document_title', array( &$this, '_meta_title' ), 10, 3 );
         add_action( 'wp_head', array( &$this, '_rss_feed' ) );
-
         if ( wpbdp_experimental( 'typeintegration' ) ) {
             remove_action( 'pre_get_posts', array( &$this, '_pre_get_posts'));
             remove_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
