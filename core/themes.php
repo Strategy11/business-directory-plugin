@@ -46,8 +46,16 @@ class WPBDP_Themes {
 
         $theme_name = str_replace( array( '-' ), array( '_' ), $theme->id );
 
-        if ( function_exists( $theme_name . '_' . $fname ) )
-            call_user_func_array( $theme_name . '_' . $fname, $args );
+        $alternatives = array( 'wpbdp_themes__' . $theme_name . '_' . $fname,
+                               'wpbdp_' . $theme_name . '_' . $fname,
+                               $theme_name . '_' . $fname );
+
+        foreach ( $alternatives as $alt ) {
+            if ( function_exists( $alt ) ) {
+                call_user_func_array( $alt, $args );
+                return;
+            }
+        }
     }
 
     function enqueue_theme_scripts() {
