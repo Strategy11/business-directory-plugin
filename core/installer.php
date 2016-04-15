@@ -185,6 +185,8 @@ class WPBDP_Installer {
                     break;
             }
         }
+
+        $wpbdp->formfields->maybe_correct_tags();
     }
 
     public function request_manual_upgrade( $callback ) {
