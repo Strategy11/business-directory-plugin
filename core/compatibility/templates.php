@@ -33,7 +33,7 @@ class WPBDP_Theme_Compat_Layer {
 
         $old_vars = apply_filters( 'wpbdp_template_vars', array_merge( $vars, $old_vars ), $old_template_name );
         $vars['_class'] .= ' ' . implode( ' ', isset( $old_vars['__page__']['class'] ) ? $old_vars['__page__']['class'] : array() );
-        $vars['_inner_class'] .= ' wpbdp-page-content ' . implode( ' ', isset( $old_vars['__page__']['content_class'] ) ? $old_vars['__page__']['content_class'] : array() );
+        $vars['_inner_class'] .= ' ' . implode( ' ', isset( $old_vars['__page__']['content_class'] ) ? $old_vars['__page__']['content_class'] : array() );
 
         if ( ! empty( $old_vars['__page__']['before_content'] ) )
             $before[] = $old_vars['__page__']['before_content'];

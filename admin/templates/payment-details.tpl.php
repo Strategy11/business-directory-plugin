@@ -35,10 +35,12 @@
 
     <div class="actions">
         <?php if ( $payment->is_pending() ): ?>
+            <?php if ( ! $payment->has_item_type( 'recurring_fee' ) ): ?>
             <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'approvetransaction', 'transaction_id' => $payment->get_id() ),
                                                admin_url('post.php?post=' . $payment->get_listing_id() . '&action=edit' ) ) ); ?>" class="button-primary">
                 <?php _ex('Approve payment', 'admin payments', 'WPBDM'); ?>
             </a>&nbsp;
+            <?php endif; ?>
             <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'rejecttransaction', 'transaction_id' => $payment->get_id() ),
                                                admin_url('post.php?post=' . $payment->get_listing_id() . '&action=edit' )  ) ); ?>" class="button">
                 <?php _ex('Reject payment', 'admin payments', 'WPBDM'); ?>

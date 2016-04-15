@@ -444,7 +444,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                     if ( ! $fee )
                         continue;
 
-                    $payment->add_item( $this->state->autorenew_fees ? 'recurring_fee' : 'fee',
+                    $payment->add_item( ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees ) ? 'recurring_fee' : 'fee',
                                         $fee->amount,
                                         sprintf( _x( 'Fee "%s" for category "%s"%s', 'listings', 'WPBDM' ),
                                                  $fee->label,

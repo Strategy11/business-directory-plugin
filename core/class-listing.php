@@ -464,10 +464,19 @@ class WPBDP_Listing {
 
     public function mark_as_paid() {
         $pending = WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ) );
+        $ok = true;
+
         foreach ( $pending as &$p ) {
+            if ( $p->has_item_type( 'recurring_fee' ) ) {
+                $ok = false;
+                continue;
+            }
+
             $p->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
             $p->save();
         }
+
+        return $ok;
     }
 
     public function get_latest_payments() {

@@ -418,6 +418,19 @@ class WPBDP_FormFields {
         return true;
     }
 
+    /**
+     * @since themes-release
+     */
+    public function maybe_correct_tags() {
+        $fields = wpbdp_get_form_fields();
+
+        foreach ( $fields as $f ) {
+            if ( $f->get_tag() )
+                continue;
+
+            $f->save();
+        }
+    }
 }
 
 /*

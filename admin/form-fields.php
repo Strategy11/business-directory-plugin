@@ -284,6 +284,9 @@ class WPBDP_FormFieldsAdmin {
     private function update_field_tags() {
         global $wpbdp;
 
+        // Before starting, check if we need to update tags.
+        $wpbdp->formfields->maybe_correct_tags();
+
         $special_tags = array(
             'title' => _x( 'Title', 'form-fields admin', 'WPBDM' ),
             'category' => _x( 'Category', 'form-fields admin', 'WPBDM' ),
@@ -294,11 +297,11 @@ class WPBDP_FormFieldsAdmin {
             'zip' => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
             'fax' => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
             'phone' => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),
-            'rating' => _x( 'Ratings Field', 'form-fields admin', 'WPBDM' ),
+            'ratings' => _x( 'Ratings Field', 'form-fields admin', 'WPBDM' ),
             'twitter' => _x( 'Twitter', 'form-fields admin', 'WPBDM' ),
             'website' => _x( 'Website', 'form-fields admin', 'WPBDM' )
         );
-        $fixed_tags = array( 'title', 'category', 'excerpt', 'content', 'tags', 'rating' );
+        $fixed_tags = array( 'title', 'category', 'excerpt', 'content', 'tags', 'ratings' );
         $field_tags = array();
 
         if ( isset( $_POST['field_tags'] ) ) {
