@@ -453,6 +453,9 @@ class WPBDP_Admin {
         if ( ! current_user_can( 'administrator' ) )
             return;
 
+        if ( ! isset( $this->displayed_warnings ) )
+            $this->displayed_warnings = array();
+
         $this->check_compatibility();
         $this->check_setup();
         $this->check_ajax_compat_mode();
@@ -460,11 +463,18 @@ class WPBDP_Admin {
         do_action( 'wpbdp_admin_notices' );
 
         foreach ($this->messages as $msg) {
-            if (is_array($msg)) {
+            $msg_sha1 = sha1( is_array( $msg ) ? $msg[0] : $msg );
+
+            if ( in_array( $msg_sha1, $this->displayed_warnings, true ) )
+                continue;
+
+            if ( is_array($msg)) {
                 echo sprintf('<div class="%s"><p>%s</p></div>', $msg[1], $msg[0]);
             } else {
                 echo sprintf('<div class="updated"><p>%s</p></div>', $msg);
             }
+
+            $this->displayed_warnings[] = $msg_sha1;
         }
 
         $this->messages = array();
