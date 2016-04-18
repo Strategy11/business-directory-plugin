@@ -186,7 +186,14 @@ class WPBDP_Themes {
         if ( $theme_id == $this->get_active_theme() )
             return true;
 
-        return update_option( 'wpbdp-active-theme', $theme_id );
+        $ok = update_option( 'wpbdp-active-theme', $theme_id );
+
+        if ( $ok ) {
+            global $wpbdp;
+            $wpbdp->formfields->maybe_correct_tags();
+        }
+
+        return $ok;
     }
 
     /**
