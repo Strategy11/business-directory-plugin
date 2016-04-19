@@ -219,6 +219,9 @@ class WPBDP_Settings {
         $this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
                            array('choices' => array('draft', 'trash')));
 
+        $this->add_setting( $s, 'submit-instructions', _x( 'Submit Listing instructions message', 'admin settings', 'WPBDM' ), 'text','', _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'admin settings', 'WPBDM' ), array( 'use_textarea' => true ) );
+
+
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting( $s,

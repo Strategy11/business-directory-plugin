@@ -28,7 +28,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             if ( current_user_can( 'administrator' ) ) {
                 return wpbdp_render_msg( _x( 'There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that they cannot add their listing at this time. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM' ), 'error' );
             } else {
-                return wpbdp_render_msg( _x( 'Your listing cannot be added at this time. Please try again later. If this is not the first time you see this warning, please ask the site administrator to set up one or more categories inside the Directory.', 'templates', 'WPBDM' ), 'error' ); 
+                return wpbdp_render_msg( _x( 'Your listing cannot be added at this time. Please try again later. If this is not the first time you see this warning, please ask the site administrator to set up one or more categories inside the Directory.', 'templates', 'WPBDM' ), 'error' );
             }
         }
 
@@ -75,6 +75,11 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             foreach ( $this->messages as &$m ) {
                 $html .= wpbdp_render_msg( $m );
             }
+        }
+
+        $listing_instructions = wpbdp_get_option( 'submit-instructions' );
+        if( $template == 'category-selection' && !empty( $listing_instructions ) ){
+            $html .= wpbdp_render_msg( $listing_instructions );
         }
 
         if ( ! $is_html )
@@ -248,7 +253,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $validation_errors = array();
         if ( isset( $_POST['listingfields'] ) && isset( $_POST['step'] ) && 'listing_fields' == $_POST['step']  ) {
             $_POST['listingfields'] = stripslashes_deep( $_POST['listingfields'] );
-            
+
             foreach ( $fields as  &$f ) {
                 $value = $f->convert_input( wpbdp_getv( $_POST['listingfields'], $f->get_id(), null ) );
                 $this->state->fields[ $f->get_id() ] = $value;
@@ -480,7 +485,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $this->state->advance( false ); // This step is 'invisible'.
         return $this->dispatch();
     }
-    
+
     protected function step_checkout() {
         global $wpbdp;
 
@@ -583,7 +588,7 @@ class WPBDP_Listing_Submit_State {
 
         if ( ! $state ) {
             $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_submit_state WHERE id = %s", $id ) );
-        
+
             if ( ! $row )
                 return null;
 
