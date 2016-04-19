@@ -53,6 +53,7 @@ class WPBDP_Settings {
                                               _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'admin settings', 'WPBDM' ) )
                                 );
         $this->add_setting($s, 'recaptcha-on', _x('Use reCAPTCHA for contact forms', 'admin settings', 'WPBDM'), 'boolean', false);
+        $this->add_setting($s, 'hide-recaptcha-loggedin', _x('Turn off reCAPTCHA for logged in users?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'recaptcha-for-submits', _x('Use reCAPTCHA for listing submits', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting( $s,
                             'recaptcha-for-comments',
@@ -61,6 +62,7 @@ class WPBDP_Settings {
                             false );
         $this->add_setting($s, 'recaptcha-public-key', _x('reCAPTCHA Public Key', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
+        
 
        // {{ Registration settings.
 //        $s = $this->add_group( 'registration',
@@ -570,7 +572,7 @@ EOF;
         $this->add_setting($s, 'currency-symbol', _x('Currency Symbol', 'admin settings', 'WPBDM'), 'text', '$');
         $this->register_dep( 'currency-symbol', 'requires-true', 'payments-on' );
 
-        $this->add_setting( $s, 
+        $this->add_setting( $s,
                             'currency-symbol-position',
                             _x( 'Currency symbol display', 'admin settings', 'WPBDM' ),
                             'choice',
@@ -620,7 +622,7 @@ EOF;
                                        'use_checkboxes' => false ) );
         }
 
-        
+
 
         /* Image settings */
         $g = $this->add_group( 'image',
