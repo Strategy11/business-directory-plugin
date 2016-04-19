@@ -146,6 +146,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         if ( wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) )
             $skip = false;
 
+        if ( wpbdp_get_option( 'listing-renewal-auto' ) && ! wpbdp_get_option( 'listing-renewal-auto-dontask' ) )
+            $skip = false;
+
         return $skip;
     }
 
@@ -195,6 +198,14 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 $this->state->categories[ $cat_id ] = $fee_selection[ $cat_id ][ 'fee_id' ];
 
             $this->state->upgrade_to_sticky = false;
+
+            // Auto-renew fees.
+            if ( wpbdp_get_option( 'listing-renewal-auto' ) && wpbdp_get_option( 'listing-renewal-auto-dontask' ) && 1 == count( $this->state->categories ) ) {
+                $fee = wpbdp_get_fee( end( $this->state->categories ) );
+
+                if ( $fee->amount > 0.0 && $fee->days > 0 )
+                    $this->state->autorenew_fees = true;
+            }
 
             $this->state->advance( false );
             return $this->dispatch();
