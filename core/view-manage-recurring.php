@@ -94,11 +94,27 @@ class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
         if ( ! $data )
             return wpbdp_render_msg( _x( 'Invalid subscription.', 'manage subscriptions', 'WPBDM' ), 'error' );
 
+        $payment = (! empty( $data['category_info']->payment_id ) ) ? WPBDP_Payment::get( $data['category_info']->payment_id ) : false;
+
+        if ( ! $payment && ! $data['category_info']->recurring_id ) {
+            // This is a 'false' positive (probably an incomplete payment that was manually approved).
+            $data['listing']->make_category_non_recurring( $data['category_info']->term_id );
+
+            $html  = '';
+            $html .= wpbdp_render_msg( _x( 'Subscription canceled.', 'manage subscriptions', 'WPBDM' ) );
+
+            $this->subscriptions = $this->get_subscription_info(); // Refresh subscription info.
+
+            $html .= $this->subscription_list();
+
+            return $html;
+        }
+
         global $wpbdp;
         $unsubscribe_form = $wpbdp->payments->render_unsubscribe_integration( $data['category_info'],
                                                                               $data['listing'] );
 
-        return wpbdp_render( 'manage-recurring-cancel', array( 'listing' => $data['listing'],
+        return wpbdp_render( 'manage-recurring-cancel', array(     'listing' => $data['listing'],
                                                                    'subscription' => $data['category_info'],
                                                                    'unsubscribe_form' => $unsubscribe_form ) );
     }
