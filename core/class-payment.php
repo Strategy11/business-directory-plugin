@@ -185,8 +185,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $listing = WPBDP_Listing::get( $this->get_listing_id() );
         $recurring_item = $this->get_recurring_item();
 
-        if ( $recurring_item )
-            $listing->remove_category( $recurring_item->rel_id_1 );
+        if ( $recurring_item ) {
+            $listing->make_category_non_recurring( $recurring_item->rel_id_1 );
+            // $listing->remove_category( $recurring_item->rel_id_1 );
+        }
     }
 
     public function get_recurring_item() {
