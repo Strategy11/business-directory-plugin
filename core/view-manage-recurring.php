@@ -96,11 +96,13 @@ class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
 
         $payment = (! empty( $data['category_info']->payment_id ) ) ? WPBDP_Payment::get( $data['category_info']->payment_id ) : false;
 
+        $html = '';
+        $html .= '<p><a href="' . esc_url( wpbdp_get_page_link( 'deletelisting', $data['listing']->get_id() ) ) . '">' . _x( '← Return to "Delete Listing".', 'manage subscriptions', 'WPBDM' ) . '</a></p>';
+
         if ( ! $payment && ! $data['category_info']->recurring_id ) {
             // This is a 'false' positive (probably an incomplete payment that was manually approved).
             $data['listing']->make_category_non_recurring( $data['category_info']->term_id );
 
-            $html  = '';
             $html .= wpbdp_render_msg( _x( 'Subscription canceled.', 'manage subscriptions', 'WPBDM' ) );
 
             $this->subscriptions = $this->get_subscription_info(); // Refresh subscription info.
@@ -114,9 +116,10 @@ class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
         $unsubscribe_form = $wpbdp->payments->render_unsubscribe_integration( $data['category_info'],
                                                                               $data['listing'] );
 
-        return wpbdp_render( 'manage-recurring-cancel', array(     'listing' => $data['listing'],
-                                                                   'subscription' => $data['category_info'],
-                                                                   'unsubscribe_form' => $unsubscribe_form ) );
+        $html .= wpbdp_render( 'manage-recurring-cancel', array( 'listing' => $data['listing'],
+                                                                 'subscription' => $data['category_info'],
+                                                                 'unsubscribe_form' => $unsubscribe_form ) );
+        return $html;
     }
 
 }
