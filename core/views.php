@@ -290,7 +290,11 @@ class WPBDP_DirectoryController {
                 $category_id = intval(get_query_var('category'));
             }
         }
-
+        if( !empty( $args['items_per_page'] ) ){
+            $items_per_page = $args['items_per_page'];
+        }else{
+           $items_per_page = wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1;
+        }
         $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
         $category_id = is_array( $category_id ) && 1 == count( $category_id ) ? $category_id[0] : $category_id;
 
@@ -298,7 +302,7 @@ class WPBDP_DirectoryController {
                     'wpbdp_action' => 'browsecategory',
                     'post_type' => WPBDP_POST_TYPE,
                     'post_status' => 'publish',
-                    'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
+                    'posts_per_page' => $items_per_page ,
                     'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
                     'orderby' => wpbdp_get_option('listings-order-by', 'date'),
                     'order' => wpbdp_get_option('listings-sort', 'ASC'),
@@ -683,7 +687,7 @@ class WPBDP_DirectoryController {
                                            'searching' => $searching,
                                            'results' => $results
                                        ) );
- 
+
         } else {
             $html = wpbdp_render( 'search',
                                   array( 'search_form' => $search_form,

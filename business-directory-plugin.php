@@ -1003,10 +1003,11 @@ class WPBDP_Plugin {
                                        'categories' => '',
                                        'title' => '',
                                        'operator' => 'OR',
-                                       'author' => '' ),
+                                       'author' => '',
+                                       'items_per_page' => '' ),
+
                                 $atts );
         $atts = array_map( 'trim', $atts );
-
         if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] ) {
             $args = array();
 
@@ -1048,7 +1049,7 @@ class WPBDP_Plugin {
                     $categories[] = $term->term_id;
             }
 
-            return $this->controller->browse_category( $categories, array(), true );
+            return $this->controller->browse_category( $categories, array('items_per_page'=> $atts['items_per_page']), true );
         } elseif ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();
 
