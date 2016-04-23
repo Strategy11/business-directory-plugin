@@ -111,7 +111,7 @@ class WPBDP_Plugin {
         add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
 
         // For testing the expiration routine only.
-        //add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
+        add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
     }
 
     function load_i18n() {
@@ -212,6 +212,7 @@ class WPBDP_Plugin {
         add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
 
         add_filter( 'body_class', array( &$this, '_body_class' ), 10 );
+        do_action( 'wpbdp_loaded' );
 
         // Register shortcodes.
         $shortcodes = $this->get_shortcodes();
@@ -219,10 +220,8 @@ class WPBDP_Plugin {
         foreach ( $shortcodes as $shortcode => &$handler )
             add_shortcode( $shortcode, $handler );
 
-        do_action( 'wpbdp_loaded' );
-
         // Expiration hook.
-        add_action( 'wpbdp_listings_expiration_check', array( &$this, '_notify_expiring_listings' ), 0 );
+        // add_action( 'wpbdp_listings_expiration_check', array( &$this, '_notify_expiring_listings' ), 0 );
 
         // Scripts & styles.
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
@@ -440,8 +439,15 @@ class WPBDP_Plugin {
                 $tags_slug = urlencode( wpbdp_get_option( 'permalinks-tags-slug' ) );
 
                 $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
-                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+
+                if ( wpbdp_experimental( 'typeintegration' ) ) {
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?wpbdp_category=$matches[2]&paged=$matches[3]';
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?wpbdp_category=$matches[2]';
+                } else {
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+                }
+
                 $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
                 $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
 

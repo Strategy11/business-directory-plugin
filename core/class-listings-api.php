@@ -14,10 +14,10 @@ class WPBDP_Listings_API {
             add_filter( 'get_shortlink', array( &$this, '_short_link' ), 10, 4 );
             add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
             add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 2);
-
-            add_filter('term_link', array($this, '_category_link'), 10, 3);
-            add_filter('term_link', array($this, '_tag_link'), 10, 3);
         }
+
+        add_filter('term_link', array($this, '_category_link'), 10, 3);
+        add_filter('term_link', array($this, '_tag_link'), 10, 3);
 
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 

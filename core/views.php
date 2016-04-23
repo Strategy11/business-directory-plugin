@@ -115,6 +115,13 @@ class WPBDP_DirectoryController {
     }
 
     public function get_current_action() {
+        if ( wpbdp_experimental( 'typeintegration' ) ) {
+            global $wp_query;
+
+            if ( ! empty ( $wp_query->wpbdp_view ) )
+                return $wp_query->wpbdp_view;
+        }
+
         return $this->action;
     }
 

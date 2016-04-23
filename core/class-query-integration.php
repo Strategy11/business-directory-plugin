@@ -7,8 +7,6 @@ class WPBDP__Query_Integration {
     public function __construct() {
         add_action( 'parse_query', array( $this, 'set_query_flags' ), 50 );
         add_action( 'template_redirect', array( $this, 'set_404_flag' ), 0 );
-
-        // add_action( 'parse_query', array( &$this, 'parse_query' ), 999 );
     }
 
     public function set_query_flags( $query ) {
@@ -37,7 +35,9 @@ class WPBDP__Query_Integration {
 
         $query->wpbdp_our_query = ( $query->wpbdp_is_listing || $query->wpbdp_is_category || $query->wpbdp_is_tag );
 
-        do_action_ref_array( 'wpbdp_query_flags', $query );
+        // wpbdp_debug_e( $query );
+
+        do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
 
 			// $query->tribe_is_event_venue = ( in_array( Tribe__Events__Main::VENUE_POST_TYPE, $types ) )
 			// 	? true // it was an event venue
@@ -52,12 +52,8 @@ class WPBDP__Query_Integration {
         if ( ! $wp_query->wpbdp_our_query )
             return;
 
-        if ( 'show_listing' == $wp_query->wpbdp_view && empty( $wp_query->posts ) )
+        if ( ( 'show_listing' == $wp_query->wpbdp_view || $wp_query->wpbdp_is_category ) && empty( $wp_query->posts ) )
             $wp_query->is_404 = true;
-    }
-
-    public function parse_query( $q ) {
-        wpbdp_debug_e( $q );
     }
 
 }
