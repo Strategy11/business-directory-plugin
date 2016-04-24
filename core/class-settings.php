@@ -944,6 +944,9 @@ EOF;
         if (!is_null($ifempty) && empty($value))
             $value = $ifempty;
 
+        if ( ! isset( $this->settings[ $name ] ) )
+            return false;
+
         if ($this->settings[$name]->type == 'boolean') {
             return (boolean) intval($value);
         } elseif ( 'choice' == $this->settings[$name]->type && isset( $this->settings[$name]->args['multiple'] ) && $this->settings[$name]->args['multiple'] ) {
