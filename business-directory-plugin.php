@@ -452,8 +452,11 @@ class WPBDP_Plugin {
                 $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
-                    //$rules['(' . $rewrite_base . ')/([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
-                    $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
+                    if ( wpbdp_experimental( 'typeintegration' ) ) {
+                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?wpbdp_listing=$matches[2]';
+                    } else {
+                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
+                    }
                 } else {
                     $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
                 }
