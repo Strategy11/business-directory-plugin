@@ -245,7 +245,7 @@ function wpbdp_get_parent_categories($catid) {
 
 function wpbdp_get_parent_catids($catid) {
     $parent_categories = wpbdp_get_parent_categories($catid);
-    array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));    
+    array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
 
     return $parent_categories;
 }
@@ -281,7 +281,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
 
     switch ($action) {
         case 'view':
-            return true;
+            return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
             break;
         case 'edit':
         case 'delete':
@@ -346,7 +346,7 @@ function _wpbdp_resize_image_if_needed($id) {
 
     $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
     $def_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
- 
+
     $width = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
 
     if ( $width < $def_width )
@@ -405,7 +405,7 @@ function wpbdp_currency_format( $amount, $args = array() ) {
     $defaults = array( 'decimals' => 2,
                        'currency' => wpbdp_get_option( 'currency' ),
                        'symbol' => wpbdp_get_option( 'currency-symbol' ),
-                       'format' => $def_format ); 
+                       'format' => $def_format );
 
     $args = wp_parse_args( $args, $defaults );
     extract( $args );
