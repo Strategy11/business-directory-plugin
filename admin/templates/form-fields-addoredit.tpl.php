@@ -3,6 +3,7 @@
 
 <form id="wpbdp-formfield-form" action="" method="post">
     <input type="hidden" name="field[id]" value="<?php echo $field->get_id(); ?>" />
+    <input type="hidden" name="field[tag]" value="<?php echo $field->get_tag(); ?>" />
     <input type="hidden" name="field[weight]" value="<?php echo $field->get_weight(); ?>" />
 
     <table class="form-table">
