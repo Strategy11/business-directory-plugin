@@ -291,6 +291,10 @@ form#wpbdmsearchform a.advanced-search-link {
     float: left;
 }
 
+.wpbdp-bar .wpbdp-main-links #wpbdp-bar-view-listings-button,.wpbdp-bar .wpbdp-main-links #wpbdp-bar-show-directory-button{
+    margin-right: 5px;
+}
+
 .wpbdp-bar .wpbdp-search-form {
     margin: 0;
     padding: 0 !important;
@@ -313,7 +317,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 /* sort options */
 .wpbdp-listings-sort-options {
-    font-size: 90%;    
+    font-size: 90%;
     margin: 5px 0;
     text-align: right;
 }
