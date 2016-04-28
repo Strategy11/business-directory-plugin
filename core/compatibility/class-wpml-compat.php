@@ -156,6 +156,7 @@ class WPBDP_WPML_Compat {
         global $wpbdp;
 
         $action = $wpbdp->controller->get_current_action();
+        $this->workaround_autoids();
 
         switch ( $action ) {
             case 'browsecategory':
@@ -216,7 +217,30 @@ class WPBDP_WPML_Compat {
                 break;
         }
 
+        $this->workaround_autoids();
+
         return $languages;
+    }
+
+    function workaround_autoids() {
+        global $sitepress_settings;
+
+        if ( ! $this->wpml->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) )
+            return;
+
+        if ( ! isset( $this->workaround ) ) {
+            $this->workaround = true;
+        } else {
+            $this->workaround = ! $this->workaround;
+        }
+
+        if ( $this->workaround ) {
+            // Magic here.
+            $sitepress_settings['auto_adjust_ids'] = 0;
+        } else {
+            // Undo magic.
+            $sitepress_settings['auto_adjust_ids'] = 1;
+        }
     }
 
     // {{{ Form Fields integration.
