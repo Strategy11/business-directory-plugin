@@ -245,7 +245,7 @@ function wpbdp_get_parent_categories($catid) {
 
 function wpbdp_get_parent_catids($catid) {
     $parent_categories = wpbdp_get_parent_categories($catid);
-    array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));    
+    array_walk($parent_categories, create_function('&$x', '$x = intval($x->term_id);'));
 
     return $parent_categories;
 }
@@ -346,7 +346,7 @@ function _wpbdp_resize_image_if_needed($id) {
 
     $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
     $def_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
- 
+
     $width = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
 
     if ( $width < $def_width )
@@ -388,6 +388,11 @@ function wpbdp_format_currency($amount, $decimals = 2, $currency = null) {
  * @since 3.6.10
  */
 function wpbdp_currency_format( $amount, $args = array() ) {
+
+    if( $amount == '0'){
+        return __( 'Free', 'WPBDM' );
+    }
+
     // We don't actually allow modification of the "format" string for now, but it could be useful in the future.
     switch ( wpbdp_get_option( 'currency-symbol-position' ) ) {
         case 'none':
@@ -405,7 +410,7 @@ function wpbdp_currency_format( $amount, $args = array() ) {
     $defaults = array( 'decimals' => 2,
                        'currency' => wpbdp_get_option( 'currency' ),
                        'symbol' => wpbdp_get_option( 'currency-symbol' ),
-                       'format' => $def_format ); 
+                       'format' => $def_format );
 
     $args = wp_parse_args( $args, $defaults );
     extract( $args );
