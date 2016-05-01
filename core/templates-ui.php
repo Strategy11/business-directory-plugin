@@ -498,3 +498,18 @@ class WPBDP_ListingFieldDisplayItem {
         return $res;
     }
 }
+
+/**
+ * @since next-release
+ */
+function wpbdp_the_main_box() {
+    echo wpbdp_main_box();
+}
+
+/**
+ * @since next-release
+ */
+function wpbdp_main_box( $args = null ) {
+    $html = wpbdp_render( 'main-box' );
+    return $html;
+}
