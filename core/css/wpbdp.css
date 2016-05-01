@@ -797,3 +797,25 @@ body.business-directory #TB_secondLine {
 }
 
 /* }} */
+
+/* Main search box. {{ */
+#wpbdp-main-box {
+    background: #f7f7f7;
+    margin: 10px 0 20px 0;
+    border-radius: 4px;
+}
+
+#wpbdp-main-box .box-row {
+    padding: 5px;
+}
+
+#wpbdp-main-box .box-row.with-separator {
+    border-top: 1px solid #ddd;
+}
+
+#wpbdp-main-box .main-fields {
+    padding: 10px;
+}
+
+/* }} */
+
