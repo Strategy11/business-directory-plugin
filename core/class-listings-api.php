@@ -601,6 +601,27 @@ class WPBDP_Listings_API {
         return $wpdb->get_col( $query );
     }
 
+    public function quick_search_2( $keywords, $location = false ) {
+        $keywords = trim( $keywords );
+
+        if ( ! $keywords && ! $location )
+            return array();
+
+        $fields = $this->get_quick_search_fields();
+        require_once( WPBDP_PATH . 'core/helpers/class-search-helper.php' );
+
+        $args = array();
+        foreach ( $fields as $f ) {
+            $args[ $f->get_id() ] = $keywords;
+        }
+
+        $helper = new WPBDP__Search_Helper( $args, 'OR' );
+        $helper->set_location( $location );
+        $helper->prepare();
+
+        // wpbdp_debug_e( $helper->args );
+    }
+
     // }}}
 
     /* listings search */

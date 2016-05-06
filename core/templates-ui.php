@@ -510,6 +510,9 @@ function wpbdp_the_main_box() {
  * @since next-release
  */
 function wpbdp_main_box( $args = null ) {
-    $html = wpbdp_render( 'main-box' );
+    $extra_fields = wpbdp_capture_action( 'wpbdp_main_box_extra_fields' );
+    $search_url = esc_url( add_query_arg( 'wpbdp_view', 'search', wpbdp_get_page_link( 'main' ) ) );
+
+    $html = wpbdp_render( 'main-box', compact( 'extra_fields', 'search_url' ) );
     return $html;
 }

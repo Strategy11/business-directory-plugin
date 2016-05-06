@@ -115,12 +115,13 @@ class WPBDP_DirectoryController {
     }
 
     public function get_current_action() {
-        if ( wpbdp_experimental( 'typeintegration' ) ) {
-            global $wp_query;
+        global $wp_query;
 
-            if ( ! empty ( $wp_query->wpbdp_view ) )
-                return $wp_query->wpbdp_view;
-        }
+        if ( ! empty ( $wp_query->wpbdp_view ) )
+            return $wp_query->wpbdp_view;
+
+        if ( $wp_query->get( 'wpbdp_view' ) )
+            return $wp_query->get( 'wpbdp_view' );
 
         return $this->action;
     }
@@ -157,7 +158,7 @@ class WPBDP_DirectoryController {
             return $this->output;
         }
 
-        switch ($this->action) {
+        switch ($this->get_current_action()) {
             case 'showlisting':
                 return $this->show_listing();
                 break;
@@ -206,7 +207,10 @@ class WPBDP_DirectoryController {
                 return $this->process_payment();
                 break;
             case 'search':
-                return $this->search();
+                require_once ( WPBDP_PATH . 'core/views/search.php' );
+                $v = new WPBDP__Views__Search();
+                return $v->dispatch();
+                // return $this->search();
                 break;
             case 'checkout':
                 require_once( WPBDP_PATH . 'core/view-checkout.php' );
