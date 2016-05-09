@@ -14,7 +14,6 @@ class WPBDP__Views__Search extends WPBDP_NView {
             $location = ! empty( $_POST['location'] ) ? $_POST['location'] : '';
 
             $results = $listings_api->quick_search( $keywords, $location );
-
             wpbdp_debug_e( $results );
         }
 

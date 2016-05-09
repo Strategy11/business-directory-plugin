@@ -115,7 +115,6 @@ class WPBDP__Search_Helper {
                           $query_pieces['where'],
                           $query_pieces['orderby'],
                           $query_pieces['limits'] );
-        wpbdp_debug_e($query);
         $this->resultset = $wpdb->get_col( $query );
     }
 
