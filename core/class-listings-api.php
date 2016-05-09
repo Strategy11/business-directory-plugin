@@ -548,78 +548,26 @@ class WPBDP_Listings_API {
     /**
      * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
      * @uses WPBDP_ListingsAPI::get_quick_search_fields().
-     * @param string $q The string used for searching.
+     * @param string $keywords The string used for searching.
+     * @param mixed $location Location information.
      * @return array The listing IDs.
      * @since 3.4
      */
-    public function quick_search( $q = '' ) {
-        $q = trim( $q );
-
-        if ( ! $q )
-            return array();
-
-        global $wpdb;
-
-        $fields = $this->get_quick_search_fields();
-        $query_pieces = array( 'where' => '',
-                               'join' => '',
-                               'orderby' => '',
-                               'distinct' => '',
-                               'fields' => "{$wpdb->posts}.ID",
-                               'limits' => '' );
-        $optimization = array( 'global' => array(), 'words' => array() );
-
-        $words = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( trim( $q ) ) : array_map( 'trim', explode( ' ', $q ) );
-
-        $query_pieces['where'] .= '';
-
-        foreach ( $words as $i => $w ) {
-            $optimization['words'][ $i ] = array();
-
-            $query_pieces['where'] .= ' AND ( 1=0 ';
-
-            foreach ( $fields as &$f ) {
-                $f->build_quick_search_query( $w, $query_pieces, $q, $i, $optimization );
-            }
-
-            $query_pieces['where'] .= ' )';
-        }
-
-//        wpbdp_debug_e( 'search', $query_pieces, $q, $optimization );
-
-        $query_pieces = apply_filters( 'wpbdp_quick_search_query_pieces', $query_pieces );
-        $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE 1=1 AND ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') %s GROUP BY {$wpdb->posts}.ID %s %s",
-                          $query_pieces['distinct'],
-                          $query_pieces['fields'],
-                          $query_pieces['join'],
-                          WPBDP_POST_TYPE,
-                          'publish',
-                          $query_pieces['where'],
-                          $query_pieces['orderby'],
-                          $query_pieces['limits'] );
-
-        return $wpdb->get_col( $query );
-    }
-
-    public function quick_search_2( $keywords, $location = false ) {
+    public function quick_search( $keywords, $location = false ) {
         $keywords = trim( $keywords );
 
         if ( ! $keywords && ! $location )
             return array();
 
-        $fields = $this->get_quick_search_fields();
         require_once( WPBDP_PATH . 'core/helpers/class-search-helper.php' );
 
-        $args = array();
-        foreach ( $fields as $f ) {
-            $args[ $f->get_id() ] = $keywords;
-        }
+        $args = array( 'query' => $keywords,
+                       'mode' => 'quick-search',
+                       'location' => $location,
+                       'fields' => $this->get_quick_search_fields() );
 
-        $helper = new WPBDP__Search_Helper( $args, 'OR' );
-        $helper->set_location( $location );
-        $helper->prepare();
-
-        // wpbdp_debug_e( $helper->args );
+        $helper = new WPBDP__Search_Helper( $args );
+        return $helper->get_posts();
     }
 
     // }}}
