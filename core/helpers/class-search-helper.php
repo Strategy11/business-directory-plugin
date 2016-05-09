@@ -83,6 +83,7 @@ class WPBDP__Search_Helper {
                                'distinct' => '',
                                'fields' => "{$wpdb->posts}.ID",
                                'limits' => '' );
+        $query_pieces = apply_filters_ref_array( 'wpbdp_search_query_pieces_before', array( $query_pieces, $this ) );
 
         if ( 'quick-search' == $this->mode ) {
             $query_pieces['where'] .= '1=1 ';
@@ -106,6 +107,8 @@ class WPBDP__Search_Helper {
             }
         }
 
+        $query_pieces = apply_filters_ref_array( 'wpbdp_search_query_pieces', array( $query_pieces, $this ) );
+
         $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') AND %s GROUP BY {$wpdb->posts}.ID %s %s",
                           $query_pieces['distinct'],
                           $query_pieces['fields'],
@@ -115,7 +118,9 @@ class WPBDP__Search_Helper {
                           $query_pieces['where'],
                           $query_pieces['orderby'],
                           $query_pieces['limits'] );
+
         $this->resultset = $wpdb->get_col( $query );
+        $this->resultset = apply_filters_ref_array( 'wpbdp_search_resultset', array( $this->resultset, $this ) );
     }
 
     public function get_posts() {
