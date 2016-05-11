@@ -810,11 +810,25 @@ body.business-directory #TB_secondLine {
 }
 
 #wpbdp-main-box .box-row.with-separator {
-    border-top: 1px solid #ddd;
+    border-top: 2px solid #999;
 }
 
 #wpbdp-main-box .main-fields {
     padding: 10px;
+    text-align: right;
+}
+
+#wpbdp-main-box input[type="submit"] {
+}
+
+#wpbdp-main-box .advanced-search-link {
+    display: block;
+    font-size: 11px;
+    text-align: right;
+}
+
+#wpbdp-main-box .wpbdp-main-links {
+    text-align: right;
 }
 
 /* }} */
