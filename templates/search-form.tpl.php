@@ -1,7 +1,7 @@
 <div id="wpbdp-search-form-wrapper">
 
 <h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
-<form action="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>" id="wpbdp-search-form" method="GET">
+<form action="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>" id="wpbdp-search-form" method="post">
     <input type="hidden" name="action" value="search" />
 
     <?php if ( ! wpbdp_rewrite_on() ): ?>

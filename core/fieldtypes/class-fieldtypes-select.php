@@ -240,4 +240,32 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         return esc_attr( implode( ',', $value ) );
     }
 
+    /**
+     * @since next-release
+     */
+    public function configure_search( &$field, $query, &$search ) {
+        global $wpdb;
+
+        if ( 'meta' != $field->get_association() )
+            return false;
+
+        $query = array_map( 'preg_quote', array_diff( is_array( $query ) ? $query : array( $query ), array( -1, '' ) ) );
+
+        if ( ! $query )
+            return false;
+
+        $search_res = array();
+        list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
+
+        if ( ! $reused )
+            $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
+
+        $pattern = '(' . implode('|', $query) . '){1}([tab]{0,1})';
+        $search_res['where'] = $wpdb->prepare( "{$alias}.meta_key = %s AND {$alias}.meta_value REGEXP %s",
+                                               "_wpbdp[fields][" . $field->get_id() . "]",
+                                               $pattern );
+
+        return $search_res;
+    }
+
 }

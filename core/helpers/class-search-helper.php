@@ -35,7 +35,7 @@ class WPBDP__Search_Helper {
                 if ( ! $f )
                     continue;
 
-                $this->keywords[ $field_id ] = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( $keywords ) : array_map( 'trim', explode( ' ', $keywords ) );
+                $this->keywords[ $field_id ] = $keywords;
                 $this->fields[ $field_id ] = $f;
             }
         } elseif ( 'quick-search' == $this->mode ) {
@@ -52,7 +52,6 @@ class WPBDP__Search_Helper {
         }
 
         do_action_ref_array( 'wpbdp_search_after_init', array( $this ) );
-
     }
 
     public function execute() {
@@ -74,6 +73,12 @@ class WPBDP__Search_Helper {
                     $f = $this->fields[ $field_query['field'] ];
                     $execution[ $keyword ][] = $f->configure_search( $keyword, $this );
                 }
+            }
+        } else {
+            foreach ( $this->plan as $field_id => $field_query ) {
+                $field = $this->fields[ $field_id ];
+                $res = $field->configure_search( $field_query, $this );
+                $execution[ $field_id ] = $res;
             }
         }
 
@@ -104,6 +109,20 @@ class WPBDP__Search_Helper {
                 }
 
                 $query_pieces['where'] .= ') ';
+            }
+        } elseif ( 'advanced' == $this->mode ) {
+            $query_pieces['where'] .= ' 1=1 ';
+
+            foreach ( $execution as $e ) {
+                foreach ( array_keys( $query_pieces ) as $i ) {
+                    if ( ! isset( $e[ $i ] ) )
+                        continue;
+
+                    if ( 'where' == $i )
+                        $e[ $i ] = ' AND (' . $e[ $i ] . ')';
+
+                    $query_pieces[ $i ] .= ' ' . $e[ $i ] . ' ';
+                }
             }
         }
 
@@ -160,6 +179,7 @@ class WPBDP__Search_Helper {
                 }
             }
         } elseif ( 'advanced' == $this->mode ) {
+            $plan = $this->keywords;
         }
 
         return $plan;

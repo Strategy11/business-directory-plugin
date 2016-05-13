@@ -629,24 +629,64 @@ class WPBDP_Form_Field {
     /**
      * @since next-release
      */
-    public function configure_search( $keyword, &$search ) {
+    public function configure_search( $query, &$search ) {
         global $wpdb;
 
         $search_res = array();
 
+        // If there's a field type specific handling, use it.
+        $search_res = $this->type->configure_search( $this, $query, $search );
+
+        if ( $search_res ) {
+            $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( $search_res, $this, $query, $search ) );
+            return $search_res;
+        }
+
+        // Otherwise, fall back to the default handling.
         switch ( $this->get_association() ) {
             case 'title':
             case 'excerpt':
             case 'content':
-                $search_res['where'] = $wpdb->prepare( "{$wpdb->posts}.post_{$this->get_association()} LIKE '%%%s%%'", $keyword );
+                if ( ! $query )
+                    break;
+
+                $search_res['where'] = $wpdb->prepare( "{$wpdb->posts}.post_{$this->get_association()} LIKE '%%%s%%'", $query );
                 break;
             case 'tags':
             case 'category':
-                $tax = ( 'tags' == $this->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX );
+                $query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? array_map( 'trim', explode( ',', $query ) ) : $query;
+                $query = is_array( $query ) ? $query : array( $query );
+                $query = array_diff( $query, array( -1, 0, '' ) );
 
-                $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
-                                                          $tax,
-                                                          $keyword ) );
+                $tax = ( 'tags' == $this->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX );
+                $tt_ids = array();
+
+                if ( ! $query )
+                    continue;
+
+                foreach ( $query as $term_ ) {
+                    if ( is_string( $term_ ) && 'quick-search' == $search->mode ) {
+                        $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
+                                                                  $tax,
+                                                                  $query ) );
+                    } elseif ( is_string( $term_ ) && WPBDP_TAGS_TAX == $tax ) {
+                        $term = get_term_by( 'name', $term_, $tax );
+
+                        if ( ! $term )
+                            continue;
+
+                        $tt_ids[] = $term->term_taxonomy_id;
+                    } elseif ( is_numeric( $term_ ) ) {
+                        $term = get_term( intval( $term_ ), $tax );
+
+                        if ( ! $term )
+                            continue;
+
+                        $t_ids = array_merge( array( $term->term_id ), get_term_children( $term->term_id, $tax ) );
+                        $tt_ids = array_merge( $tt_ids,
+                                               $wpdb->get_col( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = '{$tax}' AND tt.term_id IN (" . implode( ',', $t_ids ) . ")" ) );
+                    }
+                }
 
                 if ( $tt_ids ) {
                     list( $alias, $reused ) = $search->join_alias( $wpdb->term_relationships, false );
@@ -661,19 +701,30 @@ class WPBDP_Form_Field {
 
                 break;
             case 'meta':
-                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, true );
+                if ( ! $query )
+                    break;
+
+                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, 'advanced' == $search->mode ? false : true );
 
                 if ( ! $reused )
                     $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
 
-                $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value LIKE '%%%s%%')",
-                                                       '_wpbdp[fields][' . $this->get_id() . ']',
-                                                       $keyword );
+                if ( in_array( $this->get_field_type_id(), array( 'textfield', 'textarea' ), true ) ) {
+                    $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value LIKE '%%%s%%')",
+                                                           '_wpbdp[fields][' . $this->get_id() . ']',
+                                                           $query );
+                } else {
+                    $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value = %s)",
+                                                           '_wpbdp[fields][' . $this->get_id() . ']',
+                                                           $query );
+                }
 
+                break;
+            default:
                 break;
         }
 
-        $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( $search_res, $this, $keyword, $search ) );
+        $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( $search_res, $this, $query, $search ) );
 
         return $search_res;
     }
