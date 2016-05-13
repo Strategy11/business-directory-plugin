@@ -1500,6 +1500,7 @@ class WPBDP_Plugin {
                 if ( is_object( $wpseo_front ) ) {
                     $wpseo_front->metadesc();
                     $wpseo_front->metakeywords();
+                    $wpseo_front->webmaster_tools_authentication();
                 }
 
                 $post = $prev_post;
@@ -1532,6 +1533,7 @@ class WPBDP_Plugin {
                 if ( is_object( $wpseo_front ) ) {
                     $wpseo_front->metadesc();
                     $wpseo_front->metakeywords();
+                    $wpseo_front->webmaster_tools_authentication();
                 }
 
                 break;
