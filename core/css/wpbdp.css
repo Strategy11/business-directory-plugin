@@ -652,6 +652,17 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
     .wpbdp-bar .wpbdp-main-links {
         display: block;
+        float: none;
+        text-align: center;
+    }
+    .wpbdp-bar .wpbdp-main-links #wpbdp-bar-submit-listing-button{
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+    .wpbdp-bar .wpbdp-main-links #wpbdp-bar-view-listings-button{
+        display: inline-block;
+        float: left;
+        margin-right: 20px;
     }
 
     .wpbdp-bar .wpbdp-main-links input[type="button"] {
@@ -660,8 +671,14 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     }
 
     .wpbdp-bar form.wpbdp-search-form {
-        width: 49%;
+       /* width: 49%;*/
         display: block;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .wpbdp-bar form.wpbdp-search-form  #intextbox{
+        margin-bottom: 5px;
+        padding: 4px;
     }
 
     .wpbdp-bar form.wpbdp-search-form input[type="text"] {
