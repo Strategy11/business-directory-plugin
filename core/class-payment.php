@@ -185,8 +185,10 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $listing = WPBDP_Listing::get( $this->get_listing_id() );
         $recurring_item = $this->get_recurring_item();
 
-        if ( $recurring_item )
-            $listing->remove_category( $recurring_item->rel_id_1 );
+        if ( $recurring_item ) {
+            $listing->make_category_non_recurring( $recurring_item->rel_id_1 );
+            // $listing->remove_category( $recurring_item->rel_id_1 );
+        }
     }
 
     public function get_recurring_item() {
@@ -208,7 +210,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         $this->amount += $amount;
     }
 
-    public function add_category_fee_item( $category_id, $fee ) {
+    public function add_category_fee_item( $category_id, $fee, $recurring = false ) {
         if ( is_int( $fee ) ) {
             $fee = wpbdp_get_fee( $fee );
 
@@ -216,11 +218,12 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                 return false;
         }
 
-        $this->add_item( 'fee',
+        $this->add_item( $recurring ? 'recurring_fee' : 'fee',
                          $fee->amount,
-                         sprintf( _x( 'Fee "%s" for category "%s"', 'listings', 'WPBDM' ),
+                         sprintf( _x( 'Fee "%s" for category "%s"%s', 'listings', 'WPBDM' ),
                                   $fee->label,
-                                  wpbdp_get_term_name( $category_id ) ),
+                                  wpbdp_get_term_name( $category_id ),
+                                  $recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
                          array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
                          $category_id,
                          $fee->id );

@@ -453,6 +453,9 @@ class WPBDP_Admin {
         if ( ! current_user_can( 'administrator' ) )
             return;
 
+        if ( ! isset( $this->displayed_warnings ) )
+            $this->displayed_warnings = array();
+
         $this->check_compatibility();
         $this->check_setup();
         $this->check_ajax_compat_mode();
@@ -460,11 +463,18 @@ class WPBDP_Admin {
         do_action( 'wpbdp_admin_notices' );
 
         foreach ($this->messages as $msg) {
-            if (is_array($msg)) {
+            $msg_sha1 = sha1( is_array( $msg ) ? $msg[0] : $msg );
+
+            if ( in_array( $msg_sha1, $this->displayed_warnings, true ) )
+                continue;
+
+            if ( is_array($msg)) {
                 echo sprintf('<div class="%s"><p>%s</p></div>', $msg[1], $msg[0]);
             } else {
                 echo sprintf('<div class="updated"><p>%s</p></div>', $msg);
             }
+
+            $this->displayed_warnings[] = $msg_sha1;
         }
 
         $this->messages = array();
@@ -497,16 +507,34 @@ class WPBDP_Admin {
                 break;
 
             case 'setaspaid':
+                $ok = true;
+
                 foreach ($posts as $post_id) {
                     $listing = WPBDP_Listing::get( $post_id );
-                    $listing->mark_as_paid();
+
+                    if ( ! $listing->mark_as_paid() )
+                        $ok = false;
                 }
 
-                $this->messages[] = _nx('The listing status has been set as paid.',
-                                        'The listings status has been set as paid.',
-                                        count($posts),
-                                        'admin',
-                                        'WPBDM');
+                if ( $ok ) {
+                    $this->messages[] = _nx('The listing status has been set as paid.',
+                                            'The listings status has been set as paid.',
+                                            count($posts),
+                                            'admin',
+                                            'WPBDM');
+                } else {
+                    $msg = _nx( 'Only invoices containing non-recurring items were marked as paid. Please review the <a>Transactions</a> tab for the listing to manage recurring items or check the gateway\'s backend.',
+                                'Only invoices containing non-recurring items were marked as paid. Recurring payments have to be managed through the gateway.',
+                                count( $posts ),
+                                'admin',
+                                'WPBDM' );
+
+                    if ( 1 == count( $posts ) )
+                        $msg = str_replace( '<a>', '<a href="' . admin_url( 'post.php?post=' . $posts[0] . '&action=edit#listing-metabox-transactions' ) . '">', $msg );
+
+                    $this->messages[] = array( $msg, 'error' );
+                }
+
                 break;
 
             case 'changesticky':
@@ -548,10 +576,16 @@ class WPBDP_Admin {
 
             case 'approvetransaction':
                 $transaction = WPBDP_Payment::get( $_GET['transaction_id'] );
-                $transaction->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
-                $transaction->save();
 
-                $this->messages[] = _x( 'The transaction has been approved.', 'admin', 'WPBDM' );
+                if( $transaction->has_item_type( 'recurring_fee' ) ) {
+                    $this->messages[] = array( _x( 'The payment status was not changed. Recurring payments can\'t be manually approved. Please check your gateway\'s backend to see if the payment really went through.', 'admin payments', 'WPBDM' ), 'error' );
+                } else {
+                    $transaction->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
+                    $transaction->save();
+
+                    $this->messages[] = _x( 'The transaction has been approved.', 'admin', 'WPBDM' );
+                }
+
                 break;
 
             case 'rejecttransaction':

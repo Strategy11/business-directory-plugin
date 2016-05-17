@@ -14,10 +14,10 @@ class WPBDP_Listings_API {
             add_filter( 'get_shortlink', array( &$this, '_short_link' ), 10, 4 );
             add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
             add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 2);
-
-            add_filter('term_link', array($this, '_category_link'), 10, 3);
-            add_filter('term_link', array($this, '_tag_link'), 10, 3);
         }
+
+        add_filter('term_link', array($this, '_category_link'), 10, 3);
+        add_filter('term_link', array($this, '_tag_link'), 10, 3);
 
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
@@ -170,14 +170,24 @@ class WPBDP_Listings_API {
         if ( ! $listing || ! $payment->is_completed() )
             return;
 
+        $is_renewal = false;
+
         foreach ( $payment->get_items() as $item ) {
             switch ( $item->item_type ) {
                 case 'recurring_fee':
                     $listing->add_category( $item->rel_id_1, (object) $item->data, true, array( 'recurring_id' => $payment->get_data( 'recurring_id' ),
                                                                                                 'payment_id' => $payment->get_id()  ) );
+
+                    if ( ! empty( $item->data['is_renewal'] ) )
+                        $is_renewal = true;
+
                     break;
                 case 'fee':
                     $listing->add_category( $item->rel_id_1, $item->rel_id_2, false );
+
+                    if ( ! empty( $item->data['is_renewal'] ) )
+                        $is_renewal = true;
+
                     break;
 
                 case 'upgrade':
@@ -192,7 +202,9 @@ class WPBDP_Listings_API {
         }
 
         $listing->save();
-//        $listing->maybe_publish();
+
+        if ( $is_renewal )
+            $listing->set_post_status( 'publish' );
     }
 
     /**
@@ -447,12 +459,13 @@ class WPBDP_Listings_API {
      */
 
     // TODO: deprecate (move to ListingUpgrades)
-    public function get_sticky_status($listing_id) {
-        if ($sticky_status = get_post_meta($listing_id, '_wpbdp[sticky]', true)) {
-            return $sticky_status;
-        }
+    public function get_sticky_status( $listing_id ) {
+        $listing = WPBDP_Listing::get( $listing_id );
 
-        return 'normal';
+        if ( ! $listing )
+            return 'normal';
+
+        return $listing->get_sticky_status( false );
     }
 
     /**

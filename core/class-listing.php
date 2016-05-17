@@ -464,10 +464,19 @@ class WPBDP_Listing {
 
     public function mark_as_paid() {
         $pending = WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ) );
+        $ok = true;
+
         foreach ( $pending as &$p ) {
+            if ( $p->has_item_type( 'recurring_fee' ) ) {
+                $ok = false;
+                continue;
+            }
+
             $p->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
             $p->save();
         }
+
+        return $ok;
     }
 
     public function get_latest_payments() {
@@ -561,8 +570,21 @@ class WPBDP_Listing {
     /**
      * @since 3.6.9
      */
-    public function get_sticky_status() {
+    public function get_sticky_status( $consider_plans = true ) {
         $sticky_status = get_post_meta( $this->id, '_wpbdp[sticky]', true );
+
+        if ( $sticky_status )
+            return $sticky_status;
+
+        if ( $consider_plans ) {
+            global $wpdb;
+
+            $has_sticky_plan = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND sticky = %d", $this->id, 1 ) );
+
+            if ( $has_sticky_plan )
+                $sticky_status = 'sticky';
+        }
+
         return $sticky_status ? $sticky_status : 'normal';
     }
 

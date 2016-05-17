@@ -53,29 +53,31 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
-NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
-NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
+= NEW Modules =
+* NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
+* NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
 
-[File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
-[Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
-[ZIP Code Search Module](http://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
-[Regions Module](http://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
-[Ratings Module](http://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
-[Google Maps Module](http://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
+= Feature Add On Modules =
+* [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
+* [Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
+* [ZIP Code Search Module](http://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
+* [Regions Module](http://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
+* [Ratings Module](http://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
+* [Google Maps Module](http://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
 
-Additional payment gateways:
-[Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
-[PayPal Gateway Module](http://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
-[2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
-[PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
+= Payment Gateway Modules =
+* [Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
+* [PayPal Gateway Module](http://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
+* [2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
+* [PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
 
 For more information and support please visit [http://businessdirectoryplugin.com](http://businessdirectoryplugin.com?ref=wp)
 For Business Directory plugin support please visit [http://businessdirectoryplugin.com/forums](http://businessdirectoryplugin.com/forums)
 
 If you love Business Directory plugin, [please consider purchasing a Premium Module](http://businessdirectoryplugin.com/premium-modules/?ref=wp)!
 
+Business Directory fully supports [WPML](http://wpml.org) for dynamic language switching.  But if you need just one single language, we include and support these out of the box!
 = Languages Supported =
-Business Directory fully supports [WPML](http://wpml.org) for dynamic language switching.  But if you need just one single language, we support these out of the box!
 * Spanish
 * French
 * German

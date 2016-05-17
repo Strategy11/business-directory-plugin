@@ -205,7 +205,12 @@ jQuery(document).ready(function($){
         $('.listing-fee-expiration-datepicker').hide();
     });
 
-    $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
+    var url_tab = $(location).attr( 'hash' );
+    if ( url_tab && $( url_tab ).length > 0 ) {
+        $( '#BusinessDirectory_listinginfo a[href="' + url_tab  + '"]' ).click();
+    } else {
+        $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
+    }
 
 
     /* Listing info metabox / fees */
@@ -372,6 +377,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
                 $('#wpbdp-modal-dialog').html(res.data.html);
                 tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
+
+                // Workaround WP bug https://core.trac.wordpress.org/ticket/27473.
+                $( '#TB_window' ).width( $( '#TB_ajaxContent' ).outerWidth() );
+
+                if ( $( '#TB_window' ).height() > $( '#TB_ajaxContent' ).outerHeight() )
+                    $( '#TB_ajaxContent' ).height( $( '#TB_window' ).height() );
+
                 $('#wpbdp-modal-dialog').remove();
             }
         }, 'json' );
@@ -494,11 +506,11 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 }
             }, 'json');
         });
-        
+
         // Listing category fee change.
         $('.listing-category a.category-change-fee').click(function(e) {
             e.preventDefault();
-            
+
             if ($('#wpbdp-modal-dialog').length == 0) {
                 $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
             }

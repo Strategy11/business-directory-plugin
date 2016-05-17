@@ -521,8 +521,10 @@ class WPBDP_Form_Field {
         $data['display_flags'] = implode( ',', $this->display_flags );
         $data['field_data'] = serialize( $this->field_data );
 
-        if ( in_array( $this->association, array( 'title', 'excerpt', 'content', 'category', 'tags', 'rating' ), true ) )
+        if ( in_array( $this->association, array( 'title', 'excerpt', 'content', 'category', 'tags' ), true ) )
             $data['tag'] = $this->association;
+        else if ( 'ratings' == $this->type->get_id() )
+            $data['tag'] = 'ratings';
         else
             $data['tag'] = $this->tag;
 

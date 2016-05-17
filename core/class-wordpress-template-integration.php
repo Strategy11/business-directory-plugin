@@ -51,7 +51,7 @@ class WPBDP__WordPress_Template_Integration {
 
     public function display_view_in_content( $content = '' ) {
         remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
-        add_filter( 'the_content', 'wpautop' );
+        // add_filter( 'the_content', 'wpautop' );
         $this->restore_things();
 
         $html = wpbdp_current_view_output();

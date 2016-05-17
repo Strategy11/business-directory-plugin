@@ -103,7 +103,7 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
         $item_html .= esc_attr( $term->name );
         $item_html .= '</a>';
 
-        if ( filter_var( $args['show_count'], FILTER_VALIDATE_BOOLEAN ) ) {
+        if ( $args['show_count'] ) {
             $count_str = ' (' . intval( $term->count ) . ')';
             $count_str = apply_filters( 'wpbdp_categories_item_count_str', $count_str, $term );
             $item_html .= $count_str;

@@ -21,7 +21,7 @@ class WPBDP_Themes_Admin {
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
         add_action( 'wpbdp_admin_notices', array( &$this, 'pre_themes_templates_warning' ) );
-        add_action( 'wpbdp_admin_notices', array( &$this, 'theme_fields_check' ) );
+        add_action( 'wpbdp_admin_notices', array( &$this, 'warn_about_licenses' ) );
 
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
@@ -99,11 +99,29 @@ class WPBDP_Themes_Admin {
         wpbdp_admin_message( $msg, 'error' );
     }
 
-    function theme_fields_check() {
-        if ( ! isset( $_GET['theme-activated'] ) || 1 != $_GET['theme-activated'] )
+    function warn_about_licenses() {
+        global $pagenow;
+
+        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] )
             return;
 
-        $theme_fields = $this->api->get_active_theme_data( 'suggested_fields' );
+        $themes = $this->api->get_installed_themes();
+        $licenses_needed = false;
+
+        foreach ( $themes as $t ) {
+            if ( ! $t->can_be_activated ) {
+                $licenses_needed = true;
+                break;
+            }
+        }
+
+        if ( ! $licenses_needed )
+            return;
+
+        $msg = _x( 'You need to <a>activate your theme\'s license key</a> before you can activate the theme. <a>Click here</a> to do that.',
+                   'admin themes',
+                   'WPBDM' );
+        wpbdp_admin_message( $msg, 'error' );
     }
 
     function enqueue_scripts( $hook ) {

@@ -47,6 +47,11 @@ class WPBDP_reCAPTCHA {
         if ( empty( $this->public_key ) || empty( $this->private_key ) )
             return '';
 
+        $hide_recaptcha  = wpbdp_get_option( 'hide-recaptcha-loggedin' );
+        if( is_user_logged_in() && $hide_recaptcha ){
+            return '';
+        }
+
         $html  = '';
 
         if ( $name )
@@ -69,6 +74,11 @@ class WPBDP_reCAPTCHA {
 
         if ( empty( $this->public_key ) || empty( $this->private_key ) )
             return true;
+
+        $hide_recaptcha  = wpbdp_get_option( 'hide-recaptcha-loggedin' );
+        if( is_user_logged_in() && $hide_recaptcha ){
+            return true;
+        }
 
         if ( ! $_REQUEST['g-recaptcha-response'] )
             return false;

@@ -17,6 +17,13 @@
     border: 1px solid #2f2f2f;
 }
 
+.wpbdp-theme-actions {
+    position: absolute;
+    float: none;
+    top: 3px;
+    right: 10px;
+}
+
 .wpbdp-theme-actions form { margin: 0; padding: 0; display: inline; }
 .wpbdp-theme-actions form input[type="submit"] { margin: 0; }
 
@@ -37,8 +44,7 @@
     opacity: 0.4;
 }
 
-.wpbdp-theme .enter-license,
-.wpbdp-theme .choose-theme {
+.wpbdp-theme .enter-license {
     display: none;
     position: absolute;
     float: none;
@@ -51,9 +57,12 @@
     color: #a00;
 }
 
-.wpbdp-theme:hover .enter-license,
-.wpbdp-theme:hover .choose-theme {
+.wpbdp-theme:hover .enter-license {
     display: block;
+}
+
+.wpbdp-theme:hover .choose-theme {
+    display: inline-block;
 }
 
 .wpbdp-theme.active .choose-theme,
@@ -125,16 +134,18 @@
 
 .wpbdp-theme a.delete-theme-link {
     display: none;
-    box-sizing: border-box;
-    position: absolute;
-    right: 4px;
-    bottom: 10px;
     color: #fff;
-    text-decoration: none;
-    font-size: 9px;
+    border-color: #d54e21;
     background: #900000;
-    padding: 2px 5px;
-    border-radius: 2px;
+    margin-right: 10px;
+    opacity: 0.8;
+}
+
+.wpbdp-theme a.delete-theme-link:hover {
+    background: #900000;
+    color: #fff;
+    border-color: #d54e21;
+    opacity: 1.0;
 }
 
 .wpbdp-theme:hover a.delete-theme-link {

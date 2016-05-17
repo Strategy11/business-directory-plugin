@@ -2,7 +2,7 @@
     <?php echo wpbdp_x_render( 'bar', array( 'items' => $_bar_items ) ); ?>
 <?php endif; ?>
 
-<?php //do_action( 'wpbdp_page_before', $_id, $_template, $_vars ); ?>
+<?php do_action( 'wpbdp_page_before', $_id, $vars ); ?>
 <?php //do_action( 'wpbdp_page_' . $_id . '_before', $_vars ); ?>
 
 <div id="wpbdp-page-<?php echo $_id; ?>" class="wpbdp-page wpbdp-page-<?php echo $_id; ?> <?php echo $_class; ?>">

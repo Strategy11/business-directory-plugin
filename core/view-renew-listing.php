@@ -59,7 +59,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
                                     sprintf( _x( 'Fee "%s" renewal for category "%s"', 'listings', 'WPBDM' ),
                                              $fee->label,
                                              wpbdp_get_term_name( $this->category->id ) ),
-                                    array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
+                                    array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images, 'is_renewal' => true ),
                                     $this->category->id,
                                     $fee_id );
                 $payment->save();

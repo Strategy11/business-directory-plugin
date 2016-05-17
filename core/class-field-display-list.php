@@ -42,9 +42,13 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         if ( isset( $this->items[ $field_id ] ) )
             return;
 
-        if( $f->display_in( $this->display ) )
-            $this->displayed_fields[] = $field_id;
+        if ( ! $f->display_in( $this->display ) )
+            return;
 
+        // if( $f->display_in( $this->display ) )
+        //     $this->displayed_fields[] = $field_id;
+
+        $this->displayed_fields[] = $field_id;
         $this->items[ $field_id ] = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
         $this->names_to_ids[ $f->get_short_name() ] = $field_id;
         $this->names_to_ids[ 't_' . $f->get_tag() ] = $field_id;
