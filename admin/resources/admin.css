@@ -259,7 +259,7 @@ ul#wpbusdirmanerrors { margin-left:20px; }
 /* CSV import */
 .wpbdp-csv-import-example {
     width: 100%;
-    padding: 10px;   
+    padding: 10px;
     display: block;
     background: #fff;
     border: solid 1px #ddd;
@@ -475,6 +475,9 @@ body.taxonomy-wpbdp_category .column-id {
     border-top: solid 1px yellow;
 }
 
+.wpbdp-notice.dismissible {
+    position: relative;
+}
 
 .tag.paymentstatus.ok {
     background: green;
@@ -512,7 +515,7 @@ body.taxonomy-wpbdp_category .column-id {
     height: 45px;
     cursor: pointer;
     overflow: hidden;
-} 
+}
 
 #wpbdp-admin-settings .wpbdp-settings-email .short-preview h4 {
     margin: 0 0 10px 0;
@@ -615,7 +618,7 @@ body.taxonomy-wpbdp_category .column-id {
 
 #listing-metabox-transactions table.payments-list tr.payment td {
     border-bottom: solid 1px #efefef;
-    padding: 2px 0;    
+    padding: 2px 0;
 }
 
 #listing-metabox-transactions table.payments-list tr.payment td.status {
@@ -678,7 +681,7 @@ body.taxonomy-wpbdp_category .column-id {
 
 .wpbdp-payment-details table.wpbdp-payment-items-table td {
     border-top: 1px solid #bbb;
-    padding: 6px 10px 6px 0;    
+    padding: 6px 10px 6px 0;
 }
 
 .wpbdp-payment-details .actions a.button-primary {
@@ -735,7 +738,7 @@ body.taxonomy-wpbdp_category .column-id {
     margin-bottom: 3px;
 }
 
-.wpbdp-module-compat-check .module-info .module-version, .wpbdp-module-compat-check .module-info .module-required { 
+.wpbdp-module-compat-check .module-info .module-version, .wpbdp-module-compat-check .module-info .module-required {
     color: #666;
 }
 

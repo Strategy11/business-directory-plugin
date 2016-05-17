@@ -102,7 +102,7 @@ var WPBDP_associations_fieldtypes = {};
             if ( $f_fieldtype.find('option:selected').attr('disabled') == 'disabled' ) {
                 $f_fieldtype.find('option').removeAttr('selected');
                 $f_fieldtype.find('option[value="' + valid_types[0] + '"]').attr('selected', 'selected');
-            }     
+            }
         }
     };
 
@@ -303,7 +303,7 @@ jQuery(document).ready(function($){
         var $tr_details = $tr.next('tr.more-details-row');
         if ( $tr_details.length > 0 ) {
             $tr_details.remove();
-            $(this).text( $(this).text().replace( '-', '+' ) );            
+            $(this).text( $(this).text().replace( '-', '+' ) );
             return;
         } else {
             $(this).text( $(this).text().replace( '+', '-' ) );
@@ -331,11 +331,11 @@ WPBDP_Admin.listingMetabox = {};
 WPBDP_Admin.ProgressBar = function($item, settings) {
     $item.empty();
     $item.html('<div class="wpbdp-progress-bar"><span class="progress-text">0%</span><div class="progress-bar"><div class="progress-bar-outer"><div class="progress-bar-inner" style="width: 0%;"></div></div></div>');
-    
+
     this.$item = $item;
     this.$text = $item.find('.progress-text');
     this.$bar = $item.find('.progress-bar');
-    
+
     this.set = function( completed, total ) {
         var pcg = Math.round( 100 * parseInt( completed) / parseInt( total ) );
         this.$text.text(pcg + '%');
@@ -349,7 +349,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
         // if ($('#wpbdp-modal-dialog').length == 0) {
         //     $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
-        // }    
+        // }
 })(jQuery);
 
 
@@ -490,14 +490,14 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         // Listing category deletion.
         $('.listing-category a.category-delete').click(function(e) {
             e.preventDefault();
-            
+
             var listingID = $(this).attr('data-listing');
             var categoryID = $(this).attr('data-category');
-            
+
             if ( !listingID || !categoryID ) {
                 return;
             }
-            
+
             var $category = $('.listing-category-' + categoryID);
             $.post(ajaxurl, {action: 'wpbdp-listing_remove_category', 'listing': listingID, 'category': categoryID}, function(res) {
                 if (res && res.success) {
@@ -632,7 +632,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 return;
 
             var checked = $( 'input[name="wpbdp-' + setting + '"]').is(':checked');
-            
+
             $.each( this._whenTrueActivateChilds[ setting ], function( i, c ) {
                 var $c = $( '[name="wpbdp-' + c + '"], [name="wpbdp-' + c + '[]"]' );
                 var $row = $c.parents( 'tr' );
@@ -820,3 +820,23 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     });
 })(jQuery);
 // }}
+
+// Dismissible Messages
+(function($) {
+    $(function(){
+        $( '.wpbdp-notice.dismissible > .notice-dismiss' ).click( function( e ) {
+            e.preventDefault();
+
+            var $notice = $( this ).parent( '.wpbdp-notice' );
+            var dismissible_id = $( this ).data( 'dismissible-id' );
+            var nonce = $( this ).data( 'nonce' );
+
+            $.post( ajaxurl,
+                    { action: 'wpbdp_dismiss_notification', id: dismissible_id, nonce: nonce },
+                    function() {
+                        $notice.fadeOut( 'fast', function(){ $notice.remove(); } );
+                    }
+            );
+        } );
+    });
+})(jQuery);
