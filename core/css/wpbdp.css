@@ -238,7 +238,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing .social-field {
     margin: 5px 0;
-    height: 30px;
+    height: 20px;
     vertical-align: middle;
 }
 
@@ -246,6 +246,7 @@ form#wpbdmsearchform a.advanced-search-link {
     .social-field.facebook .fb-like > span {
         overflow: visible !important;
         width: 450px !important;
+        vertical-align: top !important;
 /*        margin-right: -375px;*/
     }
 
