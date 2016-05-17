@@ -113,6 +113,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-search-listings', _x('Show "Search listings".', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->add_setting( $s, 'disable-cpt', _x( 'Disable CPT integration.', 'admin settings', 'WPBDM' ), 'boolean', false );
 
         // {{ Directory search.
         $s = $this->add_section( $g,
