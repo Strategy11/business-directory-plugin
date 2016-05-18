@@ -58,6 +58,7 @@ require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/views.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
+require_once( WPBDP_PATH . 'core/class-shortcodes.php' );
 require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
 
 if ( wpbdp_experimental( 'themes' ) ) {
@@ -161,6 +162,7 @@ class WPBDP_Plugin {
         $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_Listings_API();
+        $this->shortcodes = new WPBDP__Shortcodes();
 
         $this->_register_image_sizes();
 
@@ -185,7 +187,8 @@ class WPBDP_Plugin {
         add_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
         add_filter( 'pre_get_document_title', array( &$this, '_meta_title' ), 10, 3 );
         add_action( 'wp_head', array( &$this, '_rss_feed' ) );
-        if ( wpbdp_experimental( 'typeintegration' ) ) {
+
+        if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
             remove_action( 'pre_get_posts', array( &$this, '_pre_get_posts'));
             remove_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
             remove_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
@@ -200,13 +203,6 @@ class WPBDP_Plugin {
 
             remove_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
             remove_action( 'wp_head', array( &$this, '_rss_feed' ) );
-
-            remove_filter('comments_template', array( &$this, '_comments_template'));
-            remove_filter('taxonomy_template', array( &$this, '_category_template'));
-            remove_filter('single_template', array( &$this, '_single_template'));
-
-            remove_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
-            remove_action( 'wp_head', array( &$this, '_rss_feed' ) );
         }
 
         add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
@@ -214,11 +210,6 @@ class WPBDP_Plugin {
         add_filter( 'body_class', array( &$this, '_body_class' ), 10 );
         do_action( 'wpbdp_loaded' );
 
-        // Register shortcodes.
-        $shortcodes = $this->get_shortcodes();
-
-        foreach ( $shortcodes as $shortcode => &$handler )
-            add_shortcode( $shortcode, $handler );
 
         // Expiration hook.
         // add_action( 'wpbdp_listings_expiration_check', array( &$this, '_notify_expiring_listings' ), 0 );
@@ -244,6 +235,9 @@ class WPBDP_Plugin {
         add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
 
         $this->recaptcha = new WPBDP_reCAPTCHA();
+
+        // Register shortcodes.
+        $this->shortcodes->register();
     }
 
     // {{{ Premium modules.
@@ -743,86 +737,6 @@ class WPBDP_Plugin {
         $res->send();
     }
 
-    private function get_shortcodes() {
-        $shortcodes = array();
-        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANADDLISTING',
-                                               'businessdirectory-submitlisting' ),
-                                        array( &$this->controller, 'submit_listing' ) );
-        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANMANAGELISTING',
-                                               'businessdirectory-managelistings',
-                                               'businessdirectory-manage_listings' ),
-                                        array( &$this->controller, 'manage_listings' ) );
-        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANVIEWLISTINGS',
-                                               'WPBUSDIRMANMVIEWLISTINGS',
-                                               'businessdirectory-view_listings',
-                                               'businessdirectory-viewlistings',
-                                               'businessdirectory-listings' ),
-                                        array( &$this, '_listings_shortcode' ) );
-        $shortcodes += array_fill_keys( array( 'WPBUSDIRMANUI',
-                                               'businessdirectory',
-                                               'business-directory' ),
-                                        array( &$this->controller, 'dispatch' ) );
-        $shortcodes += array_fill_keys( array( 'businessdirectory-search',
-                                               'businessdirectory_search' ),
-                                        array( &$this->controller, 'search' ) );
-        $shortcodes['businessdirectory-featuredlistings'] = array( &$this, '_featured_listings_shortcode' );
-        $shortcodes['businessdirectory-listing'] = array( &$this, '_single_listing_shortcode' );
-        $shortcodes['businessdirectory-categories'] = array( &$this, '_listing_categories_shortcode' );
-        $shortcodes += array_fill_keys( array( 'bd-listing-count',
-                                               'businessdirectory-listing-count',
-                                               'business-directory-listing-count' ),
-                                        array( $this, 'listing_count_shortcode' ) );
-
-        return apply_filters( 'wpbdp_shortcodes', $shortcodes );
-    }
-
-    /**
-     * @since next-release
-     */
-    public function listing_count_shortcode( $atts ) {
-        $atts = shortcode_atts( array( 'category' => false, 'region' => false ), $atts );
-        extract( $atts );
-
-        // All listings.
-        if ( ! $category && ! $region ) {
-            $count = wp_count_posts( WPBDP_POST_TYPE );
-            return $count->publish;
-        }
-
-        if ( ! function_exists( 'wpbdp_regions_taxonomy' ) )
-            $region = false;
-
-        $term = false;
-        $region_term = false;
-
-        if ( $category ) {
-            foreach ( array( 'id', 'name', 'slug' ) as $field ) {
-                if ( $term = get_term_by( $field, $category, WPBDP_CATEGORY_TAX ) )
-                    break;
-            }
-        }
-
-        if ( $region ) {
-            foreach ( array( 'id', 'name', 'slug' ) as $field ) {
-                if ( $region_term = get_term_by( $field, $region, wpbdp_regions_taxonomy() ) )
-                    break;
-            }
-        }
-
-        if ( ( $region && ! $region_term ) || ( $category && ! $term ) )
-            return '0';
-
-        if ( $region ) {
-            $regions_api = wpbdp_regions_api();
-            return $regions_api->count_listings( (int) $region_term->term_id, $term ? (int) $term->term_id : 0 );
-        } else {
-            _wpbdp_padded_count( $term );
-            return $term->count;
-        }
-
-        return '0';
-    }
-
     public function _init_modules() {
         do_action('wpbdp_modules_loaded');
         do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
@@ -1159,7 +1073,7 @@ class WPBDP_Plugin {
         global $post;
 
         if ( $post && 'page' == $post->post_type ) {
-            foreach ( array_keys( $this->get_shortcodes() ) as $shortcode ) {
+            foreach ( array_keys( $this->shortcodes->get_shortcodes() ) as $shortcode ) {
                 if ( wpbdp_has_shortcode( $post->post_content, $shortcode ) ) {
                     return true;
                     break;
