@@ -207,7 +207,6 @@ class WPBDP_Plugin {
 
         add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
 
-        add_filter( 'body_class', array( &$this, '_body_class' ), 10 );
         do_action( 'wpbdp_loaded' );
 
 
@@ -540,70 +539,71 @@ class WPBDP_Plugin {
         if ( is_feed() )
             return;
 
+        // FIXME for themes + 1530 release
         // handle some deprecated stuff
-        if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == WPBDP_POST_TYPE ) {
-            $url = esc_url_raw( add_query_arg( array( 'action' => 'search',
-                                         'dosrch' => 1,
-                                         'q' => wpbdp_getv( $_REQUEST, 's', '' ) ), wpbdp_get_page_link( 'main' ) ) );
-            wp_redirect( $url ); exit;
-        }
-
-        if ( wpbdp_experimental( 'typeintegration') && (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-            return;
-        }
-
-        if ( (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-            wp_redirect( esc_url_raw( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
-            exit;
-        }
-
-        if ( (get_query_var('taxonomy') == WPBDP_TAGS_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-            wp_redirect( esc_url_raw( add_query_arg('tag', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
-            exit;
-        }
-
-        if ( wpbdp_experimental( 'typeintegration' ) && is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
-            return;
-        }
-
-        if ( is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
-            $url = wpbdp_get_page_link( 'main' );
-
-            if (get_query_var('name')) {
-                wp_redirect( esc_url_raw( add_query_arg('listing', get_query_var('name'), $url) ) ); // XXX
-            } else {
-                wp_redirect( esc_url_raw( add_query_arg('id', get_query_var('p'), $url) ) ); // XXX
-            }
-
-            exit;
-        }
-
-        global $post;
-        if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id') || get_query_var('listing')) ) {
-            $id_or_slug = false;
-
-            foreach ( array( 'id', 'preview_id', 'listing' ) as $x ) {
-                if ( get_query_var( $x ) ) {
-                    $id_or_slug = get_query_var( $x );
-                    break;
-                }
-            }
-
-            $listing = wpbdp_get_post_by_id_or_slug( $id_or_slug, wpbdp_get_option( 'permalinks-no-id' ) ? 'slug' : 'id' );
-
-            if ( ! $listing || ( 'publish' != $listing->post_status && ! current_user_can( 'edit_posts' ) )  ) {
-                $this->controller->action = null;
-                status_header(404);
-                nocache_headers();
-                $template_404 = get_404_template();
-
-                if( $template_404 )
-                    include( $template_404 );
-
-                exit();
-            }
-        }
-
+        // if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == WPBDP_POST_TYPE ) {
+        //     $url = esc_url_raw( add_query_arg( array( 'action' => 'search',
+        //                                  'dosrch' => 1,
+        //                                  'q' => wpbdp_getv( $_REQUEST, 's', '' ) ), wpbdp_get_page_link( 'main' ) ) );
+        //     wp_redirect( $url ); exit;
+        // }
+        //
+        // if ( wpbdp_experimental( 'typeintegration') && (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
+        //     return;
+        // }
+        //
+        // if ( (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
+        //     wp_redirect( esc_url_raw( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
+        //     exit;
+        // }
+        //
+        // if ( (get_query_var('taxonomy') == WPBDP_TAGS_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
+        //     wp_redirect( esc_url_raw( add_query_arg('tag', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
+        //     exit;
+        // }
+        //
+        // if ( wpbdp_experimental( 'typeintegration' ) && is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
+        //     return;
+        // }
+        //
+        // if ( is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
+        //     $url = wpbdp_get_page_link( 'main' );
+        //
+        //     if (get_query_var('name')) {
+        //         wp_redirect( esc_url_raw( add_query_arg('listing', get_query_var('name'), $url) ) ); // XXX
+        //     } else {
+        //         wp_redirect( esc_url_raw( add_query_arg('id', get_query_var('p'), $url) ) ); // XXX
+        //     }
+        //
+        //     exit;
+        // }
+        //
+        // global $post;
+        // if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id') || get_query_var('listing')) ) {
+        //     $id_or_slug = false;
+        //
+        //     foreach ( array( 'id', 'preview_id', 'listing' ) as $x ) {
+        //         if ( get_query_var( $x ) ) {
+        //             $id_or_slug = get_query_var( $x );
+        //             break;
+        //         }
+        //     }
+        //
+        //     $listing = wpbdp_get_post_by_id_or_slug( $id_or_slug, wpbdp_get_option( 'permalinks-no-id' ) ? 'slug' : 'id' );
+        //
+        //     if ( ! $listing || ( 'publish' != $listing->post_status && ! current_user_can( 'edit_posts' ) )  ) {
+        //         $this->controller->action = null;
+        //         status_header(404);
+        //         nocache_headers();
+        //         $template_404 = get_404_template();
+        //
+        //         if( $template_404 )
+        //             include( $template_404 );
+        //
+        //         exit();
+        //     }
+        // }
+        //
     }
 
     public function plugin_activation() {
@@ -888,16 +888,6 @@ class WPBDP_Plugin {
         }
 
         echo "\n";
-    }
-
-    function _body_class( $classes = array() ) {
-        global $post;
-
-        if ( ! $this->is_plugin_page() )
-            return $classes;
-
-        $classes[] = 'business-directory';
-        return $classes;
     }
 
     public function _register_widgets() {

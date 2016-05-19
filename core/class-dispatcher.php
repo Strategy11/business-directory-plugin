@@ -33,11 +33,20 @@ class WPBDP__Dispatcher {
 
         $this->current_view = apply_filters( 'wpbdp_current_view', $this->current_view );
         $this->current_view_obj = $this->load_view( $this->current_view );
+
+        wpbdp_debug( '[Dispatching Details] view = ' . $this->current_view . ', is_main_page = ' . $wp_query->wpbdp_is_main_page );
     }
 
     public function _execute_view( $template ) {
-        if ( ! $this->current_view_obj )
+        global $wp_query;
+
+        if ( ! $this->current_view )
             return $template;
+
+        if ( ! $this->current_view_obj ) {
+            $wp_query->is_404 = true;
+            return;
+        }
 
         $res = $this->current_view_obj->dispatch();
 

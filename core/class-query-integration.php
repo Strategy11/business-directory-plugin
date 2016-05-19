@@ -15,6 +15,7 @@ class WPBDP__Query_Integration {
 
         // Defaults.
         $query->wpbdp_view = '';
+        $query->wpbdp_is_main_page = false;
         $query->wpbdp_is_listing = false;
         $query->wpbdp_is_category = false;
         $query->wpbdp_is_tag = false;
@@ -33,17 +34,21 @@ class WPBDP__Query_Integration {
             $query->wpbdp_view = 'show_category';
         }
 
+        // Is this the main page?
+        if ( $query->get( 'page_id' ) == wpbdp_get_page_id() ) {
+            $query->wpbdp_is_main_page = true;
+        }
+
+        if ( ! $query->wpbdp_view ) {
+            if ( $query->get( 'wpbdp_view' ) )
+                $query->wpbdp_view = $query->get( 'wpbdp_view' );
+            else
+                $query->wpbdp_view = 'main';
+        }
+
         $query->wpbdp_our_query = ( $query->wpbdp_is_listing || $query->wpbdp_is_category || $query->wpbdp_is_tag );
 
-        // wpbdp_debug_e( $query );
-
         do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
-
-			// $query->tribe_is_event_venue = ( in_array( Tribe__Events__Main::VENUE_POST_TYPE, $types ) )
-			// 	? true // it was an event venue
-			// 	: false;
-            //
-            //
     }
 
     public function set_404_flag() {

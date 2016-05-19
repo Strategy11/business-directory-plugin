@@ -12,11 +12,13 @@ class WPBDP__WordPress_Template_Integration {
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
         add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
         add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
+        add_filter( 'body_class', array( &$this, 'body_class' ), 10 );
     }
 
     public function template_include( $template ) {
         global $wp_query;
 
+        // if ( ! $wp_query->wpbdp_our_query )
         if ( ! $wp_query->wpbdp_our_query )
             return $template;
 
@@ -135,6 +137,17 @@ class WPBDP__WordPress_Template_Integration {
         $this->wp_head_done = true;
     }
 
+    public function body_class( $classes = array() ) {
+        global $wp_query;
+
+        // FIXME: we need a better way to handle this, since it might be that a shortcode is being used and not something
+        // really dispatched through BD.
+        if ( $wp_query->wpbdp_view )
+            $classes[] = 'business-directory';
+
+        return $classes;
+    }
+
     private function restore_things() {
         global $wp_query, $post;
 
@@ -169,4 +182,5 @@ class WPBDP__WordPress_Template_Integration {
         $wp_query->current_post = -1;
         $wp_query->post_count   = 0;
     }
+
 }

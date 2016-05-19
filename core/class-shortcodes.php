@@ -26,7 +26,7 @@ class WPBDP__Shortcodes {
         global $wpbdp;
 
         $this->add( 'businessdirectory',
-                    array( $wpbdp->controller, 'dispatch' ),
+                    array( $this, 'sc_main' ),
                     array( 'business-directory', 'WPBUSDIRMANUI' ) );
         $this->add( 'businessdirectory-submit-listing',
                     array( $wpbdp->controller, 'submit_listing' ),
@@ -61,6 +61,21 @@ class WPBDP__Shortcodes {
     //
     // {{ Built-in shortcodes.
     //
+/*
+        require_once( WPBDP_PATH . 'core/views/main.php' );
+
+        $v = new WPBDP__Views__Main();
+        return $v->dispatch();
+ */
+
+    public function sc_main( $atts ) {
+        global $wp_query;
+
+        // if ( empty( $wp_query->wpbdp_is_main_page ) )
+        //     return '';
+
+        return wpbdp_current_view_output();
+    }
 
     public function sc_listings( $atts ) {
         global $wpbdp;
