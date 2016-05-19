@@ -40,14 +40,8 @@ class WPBDP__Views__Main extends WPBDP_NView {
             return $html;
         }
 
-        $html .= wpbdp_render(array('businessdirectory-main-page', 'wpbusdirman-index-categories'),
-                               array(
-                                'submit_listing_button' => wpbusdirman_post_menu_button_submitlisting(),
-                                'view_listings_button' => wpbusdirman_post_menu_button_viewlistings(),
-                                'action_links' => wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_post_menu_button_viewlistings(),
-                                'search_form' => wpbdp_get_option('show-search-listings') ? wpbdp_search_form() : '',
-                                'listings' => $listings
-                               ));
+        $html .= wpbdp_render( array('businessdirectory-main-page', 'wpbusdirman-index-categories'),
+                               array( 'listings' => $listings ) );
 
         return $html;
     }
