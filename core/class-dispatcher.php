@@ -74,7 +74,7 @@ class WPBDP__Dispatcher {
                 if ( ! file_exists( $path ) )
                     continue;
 
-                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( '_', rtrim( $f, '.php' ) ) ) );
+                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( '_', str_replace( '.php', '', $f ) ) ) );
                 include( $path );
 
                 if ( ! class_exists( $classname ) )
