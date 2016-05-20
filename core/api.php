@@ -533,3 +533,26 @@ function wpbdp_current_view_output() {
     global $wpbdp;
     return $wpbdp->dispatcher->current_view_output();
 }
+
+/**
+ * @since next-release
+ */
+function wpbdp_url( $pathorview = '/', $args = array() ) {
+    $base_url = wpbdp_get_page_link( 'main' );
+    $url = '';
+
+    switch ( $pathorview ) {
+        case 'submit_listing':
+        case 'view_listings':
+        case 'search':
+            $url = add_query_arg( 'wpbdp_view', $pathorview, $base_url );
+            break;
+        case '/':
+            $url = $base_url;
+            break;
+        default:
+            break;
+    }
+
+    return $url;
+}

@@ -183,30 +183,19 @@ function wpbdp_main_links() {
     if (wpbdp_get_option('show-submit-listing')) {
         $html .= sprintf('<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Submit A Listing', 'WPBDM'),
-                          wpbdp_get_page_link('add-listing'));
-/*        $html .= sprintf('<a href="%s">%s</a>',
-                         wpbdp_get_page_link('add-listing'),
-                         __('Submit A Listing', 'WPBDM'));*/
+                          wpbdp_url( 'submit_listing' ) );
     }
 
     if (wpbdp_get_option('show-view-listings')) {
         $html .= sprintf('<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('View Listings', 'WPBDM'),
-                          wpbdp_get_page_link('view-listings'));
-/*        $html .= sprintf('<a href="%s">%s</a>',
-                         wpbdp_get_page_link('view-listings'),
-                         __('View Listings', 'WPBDM')
-                        );*/
+                          wpbdp_url( 'view_listings' ) );
     }
 
     if (wpbdp_get_option('show-directory-button')) {
         $html .= sprintf( '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Directory', 'WPBDM'),
-                          wpbdp_get_page_link('main') );
-/*        $html .= sprintf('<a href="%s">%s</a>',
-                         wpbdp_get_page_link('main'),
-                         __('Directory', 'WPBDM')
-                        );*/
+                          wpbdp_url( '/' ) );
     }
 
     if ( $html )
@@ -222,7 +211,7 @@ function wpbdp_the_main_links() {
 function wpbdp_search_form() {
     $html  = '';
     $html .= sprintf( '<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
-                      wpbdp_rewrite_on() ? esc_url( add_query_arg( 'action', 'search', wpbdp_get_page_link( 'main' ) ) ) : '' );
+                      wpbdp_url( 'search' ) );
         $html .= '<input type="hidden" name="action" value="search" />';
 
     if ( ! wpbdp_rewrite_on() ) {
@@ -234,7 +223,7 @@ function wpbdp_search_form() {
     $html .= sprintf('<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
                      _x('Search Listings', 'templates', 'WPBDM'));
     $html .= sprintf('<a href="%s" class="advanced-search-link">%s</a>',
-                     esc_url( add_query_arg('action', 'search', wpbdp_get_page_link('main')) ),
+                     esc_url( wpbdp_url( 'search' ) ),
                      _x('Advanced Search', 'templates', 'WPBDM'));
     $html .= '</form>';
 
