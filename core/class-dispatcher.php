@@ -45,13 +45,15 @@ class WPBDP__Dispatcher {
 
         if ( ! $this->current_view_obj ) {
             $wp_query->is_404 = true;
-            return;
+            return $template;
         }
 
         $res = $this->current_view_obj->dispatch();
 
         if ( is_string( $res ) )
             $this->output = $res;
+
+        return $template;
     }
 
     public function get_view_locations() {

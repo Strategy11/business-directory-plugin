@@ -43,6 +43,10 @@ class WPBDP_Listings_API {
         if ( WPBDP_CATEGORY_TAX != $taxonomy )
             return $link;
 
+        // FIXME: use the base url too.
+        if ( ! wpbdp_get_option( 'disable-cpt' ) )
+            return $link;
+
         if ( 'page' == _wpbdp_template_mode( 'category' ) ) {
             if ( wpbdp_rewrite_on() ) {
                 $main_page = wpbdp_get_page_link( 'main' );
