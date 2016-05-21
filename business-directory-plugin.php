@@ -433,7 +433,7 @@ class WPBDP_Plugin {
 
                 $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
 
-                if ( wpbdp_experimental( 'typeintegration' ) ) {
+                if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?wpbdp_category=$matches[2]&paged=$matches[3]';
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?wpbdp_category=$matches[2]';
                 } else {
@@ -445,7 +445,7 @@ class WPBDP_Plugin {
                 $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
-                    if ( wpbdp_experimental( 'typeintegration' ) ) {
+                    if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
                         $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?wpbdp_listing=$matches[2]';
                     } else {
                         $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
@@ -539,7 +539,7 @@ class WPBDP_Plugin {
         if ( is_feed() )
             return;
 
-        // FIXME for themes + 1530 release
+        // FIXME for themes-release
         // handle some deprecated stuff
         // if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == WPBDP_POST_TYPE ) {
         //     $url = esc_url_raw( add_query_arg( array( 'action' => 'search',
