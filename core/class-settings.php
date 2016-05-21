@@ -610,22 +610,20 @@ EOF;
                                         ) );
         $this->register_dep( 'payment-abandonment-threshold', 'requires-true', 'payment-abandonment' );
 
-        // TODO: we probably should merge this and 'Images' into an 'Appearance' tab.
-        if ( wpbdp_experimental( 'themes' ) ) {
-            $g = $this->add_group( 'themes', _x( 'Themes', 'admin settings', 'WPBDM' ) );
-            $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
+        // TODO: we probably should merge this and 'Images' into an 'Appearance' tab. {
+        $g = $this->add_group( 'themes', _x( 'Themes', 'admin settings', 'WPBDM' ) );
+        $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
 
-            $this->add_setting( $s,
-                                'themes-button-style',
-                                _x( 'Theme button style', 'admin settings', 'WPBDM' ),
-                                'choice',
-                                'theme',
-                                '',
-                                array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
-                                                           array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
-                                       'use_checkboxes' => false ) );
-        }
-
+        $this->add_setting( $s,
+                            'themes-button-style',
+                            _x( 'Theme button style', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'theme',
+                            '',
+                            array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
+                                                       array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
+                            'use_checkboxes' => false ) );
+        // }
 
 
         /* Image settings */

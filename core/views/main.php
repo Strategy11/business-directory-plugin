@@ -35,13 +35,7 @@ class WPBDP__Views__Main extends WPBDP_NView {
             $html .= wpbdp_render_msg( $msg );
         }
 
-        if ( wpbdp_experimental( 'themes' ) ) {
-            $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => $listings ) );
-            return $html;
-        }
-
-        $html .= wpbdp_render( array('businessdirectory-main-page', 'wpbusdirman-index-categories'),
-                               array( 'listings' => $listings ) );
+        $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => $listings ) );
 
         return $html;
     }

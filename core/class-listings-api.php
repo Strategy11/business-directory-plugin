@@ -21,9 +21,6 @@ class WPBDP_Listings_API {
 
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
-        if ( ! wpbdp_experimental( 'themes' ) )
-            add_action( 'wpbdp_after_single_view', array( &$this, '_show_contact_form' ), 0 );
-
         add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_admin_email' ) );
         add_action( 'WPBDP_Listing::listing_created', array( &$this, 'new_listing_confirmation_email' ) );
         add_action( 'wpbdp_edit_listing', array( &$this, 'edit_listing_admin_email' ) );
@@ -150,17 +147,6 @@ class WPBDP_Listings_API {
             return wpbdp_get_option('show-comment-form');
 
         return $open;
-    }
-
-    /**
-     * @since 3.5.3
-     */
-    function _show_contact_form( $listing_id ) {
-        if ( ! class_exists( 'WPBDP_Listing_Contact_View' ) )
-            require_once( WPBDP_PATH . 'core/view-listing-contact.php' );
-
-        $v = new WPBDP_Listing_Contact_View();
-        echo $v->render_form( $listing_id );
     }
 
     /**

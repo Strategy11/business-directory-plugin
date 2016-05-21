@@ -136,9 +136,6 @@ class WPBDP_Form_Field {
      * @since themes-release
      */
     public function get_shortname() {
-        if ( ! wpbdp_experimental( 'themes' ) )
-            return $this->get_short_name();
-
         static $protected_shortnames = array( 'images', 'image', 'username', 'featured_level', 'expires_on', 'sequence_id' );
 
         if ( $this->shortname )
@@ -164,12 +161,7 @@ class WPBDP_Form_Field {
     }
 
     public function get_short_name() {
-        if ( wpbdp_experimental( 'themes' ) ) {
-            return $this->get_shortname();
-        }
-
-        global $wpbdp;
-        return $wpbdp->formfields->get_short_names( $this->id );
+        return $this->get_shortname();
     }
 
     /**
@@ -509,9 +501,7 @@ class WPBDP_Form_Field {
 
         $data = array();
 
-        if ( wpbdp_experimental( 'themes' ) )
-            $data['shortname'] = $this->get_shortname();
-
+        $data['shortname'] = $this->get_shortname();
         $data['label'] = $this->label;
         $data['description'] = trim( $this->description );
         $data['field_type'] = $this->type->get_id();
@@ -536,9 +526,6 @@ class WPBDP_Form_Field {
         }
 
         wp_cache_delete( $this->id, 'wpbdp formfields' );
-
-        if ( ! wpbdp_experimental( 'themes' ) )
-            $api->_calculate_short_names();
     }
 
     /**
@@ -569,11 +556,6 @@ class WPBDP_Form_Field {
             $this->id = 0;
         } else {
             return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'WPBDM' ) );
-        }
-
-        if ( ! wpbdp_experimental( 'themes' ) ) {
-            $api = wpbdp_formfields_api();
-            $api->_calculate_short_names();
         }
 
         return true;

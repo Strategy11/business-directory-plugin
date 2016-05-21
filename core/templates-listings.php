@@ -1,6 +1,5 @@
 <?php
-if ( wpbdp_experimental( 'themes' ) )
-    require_once ( WPBDP_PATH . 'core/helpers/class-listing-display-helper.php' );
+require_once ( WPBDP_PATH . 'core/helpers/class-listing-display-helper.php' );
 
 
 /**
@@ -22,17 +21,11 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
 
     $q->the_post();
 
-    if ( 'excerpt' == $view ) {
-        if ( wpbdp_experimental( 'themes' ) )
-            $html = WPBDP_Listing_Display_Helper::excerpt();
-        else
-            $html = _wpbdp_render_excerpt();
-    } else {
-        if ( wpbdp_experimental( 'themes' ) )
-            $html = WPBDP_Listing_Display_Helper::single();
-        else
-            $html = _wpbdp_render_single();
-    }
+    // TODO: review filters/actions before next-release (previously _wpbdp_render_excerpt() and _wpbdp_render_single().
+    if ( 'excerpt' == $view )
+        $html = WPBDP_Listing_Display_Helper::excerpt();
+    else
+        $html = WPBDP_Listing_Display_Helper::single();
 
     if ( $echo )
         echo $html;

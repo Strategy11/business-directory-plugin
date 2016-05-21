@@ -355,32 +355,16 @@ class WPBDP_FormFields {
      * @deprecated since themes-release.
      */
     public function get_short_names( $fieldid=null ) {
-        if ( wpbdp_experimental( 'themes' ) ) {
-            $fields = $this->get_fields();
-            $shortnames = array();
+        $fields = $this->get_fields();
+        $shortnames = array();
 
-            foreach ( $fields as $f )
-                $shortnames[ $f->get_id()] = $f->get_shortname();
+        foreach ( $fields as $f )
+            $shortnames[ $f->get_id()] = $f->get_shortname();
 
-            if ( $fieldid )
-                return isset( $shortnames[ $fieldid ] ) ? $shortnames[ $fieldid ] : null;
+        if ( $fieldid )
+            return isset( $shortnames[ $fieldid ] ) ? $shortnames[ $fieldid ] : null;
 
-            return $shortnames;
-        }
-
-        $names = get_option( 'wpbdp-field-short-names', false );
-
-        if ( !$names )
-            $names = $this->_calculate_short_names();
-
-        if ( $fieldid ) {
-            if ( ! isset( $names[ $fieldid ] ) )
-                $names = $this->_calculate_short_names();
-
-            return isset( $names[ $fieldid ] ) ? $names[ $fieldid ] : null;
-        }
-
-        return $names;
+        return $shortnames;
     }
 
     public function _calculate_short_names() {
