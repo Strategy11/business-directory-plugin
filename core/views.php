@@ -114,15 +114,17 @@ class WPBDP_DirectoryController {
         }
     }
 
+    /**
+     * @deprecated since themes-release
+     */
     public function get_current_action() {
-        if ( wpbdp_experimental( 'typeintegration' ) ) {
-            global $wp_query;
+        global $wp_query;
 
-            if ( ! empty ( $wp_query->wpbdp_view ) )
-                return $wp_query->wpbdp_view;
-        }
+        if ( ! empty ( $wp_query->wpbdp_view ) )
+            return $wp_query->wpbdp_view;
 
-        return $this->action;
+        if ( ! empty ( $_REQUEST['wpbdp_view'] ) )
+            return $_REQUEST['wpbdp_view'];
     }
 
     public function current_category_id() {
