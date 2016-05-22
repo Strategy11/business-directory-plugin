@@ -97,6 +97,9 @@ function wpbdp_get_page_id( $name = 'main' ) {
     return apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name );
 }
 
+/**
+ * @deprecated since themes-release
+ */
 function wpbdp_get_page_link($name='main', $arg0=null) {
     $page_id = wpbdp_get_page_id( $name );
 
@@ -121,11 +124,11 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
             case 'upgradetostickylisting':
             case 'upgradelisting':
             case 'upgrade-listing':
-                $link = add_query_arg( array( 'action' => $name, 'listing_id' => intval( $arg0 ) ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'upgrade_listing', $arg0 );
                 break;
             case 'viewlistings':
             case 'view-listings':
-                $link = add_query_arg( array( 'action' => 'viewlistings' ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'all_listings' );
                 break;
             case 'add':
             case 'addlisting':
@@ -133,13 +136,13 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
             case 'submit':
             case 'submitlisting':
             case 'submit-listing':
-                $link = add_query_arg( array( 'action' => 'submitlisting' ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'submit_listing' );
                 break;
             case 'search':
-                $link = add_query_arg( array( 'action' => 'search' ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'search' );
                 break;
             default:
-                if ( !wpbdp_get_page_id( 'main' ) )
+                if ( ! wpbdp_get_page_id( 'main' ) )
                     return '';
 
                 $link = wpbdp_get_page_link( 'main' );
