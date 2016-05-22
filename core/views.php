@@ -147,28 +147,6 @@ class WPBDP_DirectoryController {
         }
 
         switch ($this->action) {
-            case 'sendcontactmessage':
-                require_once( WPBDP_PATH . 'core/view-listing-contact.php' );
-                $page = new WPBDP_Listing_Contact_View();
-                return $page->dispatch();
-
-                break;
-            case 'deletelisting':
-                require_once( WPBDP_PATH . 'core/view-delete-listing.php' );
-                $v = new WPBDP_Delete_Listing_View();
-                return $v->dispatch();
-
-                break;
-            case 'upgradetostickylisting':
-                require_once( WPBDP_PATH . 'core/view-upgrade-listing.php' );
-                $upgrade_page = new WPBDP_Upgrade_Listing_Page();
-                return $upgrade_page->dispatch();
-
-                break;
-            case 'view-listings':
-            case 'viewlistings':
-                return $this->view_listings(true);
-                break;
             case 'renewlisting':
                 require_once( WPBDP_PATH . 'core/view-renew-listing.php' );
                 $renew_page = new WPBDP_Renew_Listing_Page();
@@ -177,11 +155,6 @@ class WPBDP_DirectoryController {
                 break;
             case 'payment-process':
                 return $this->process_payment();
-                break;
-            case 'checkout':
-                require_once( WPBDP_PATH . 'core/view-checkout.php' );
-                $checkout_page = new WPBDP_Checkout_Page();
-                return $checkout_page->dispatch();
                 break;
             case 'manage-recurring':
                 require_once( WPBDP_PATH . 'core/view-manage-recurring.php' );

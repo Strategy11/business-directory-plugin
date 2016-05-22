@@ -451,7 +451,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
             $base_url = set_url_scheme( $base_url, 'https' );
         }
 
-        return add_query_arg( array( 'action' => 'checkout', 'payment' => urlencode( $payment_q ) ), $base_url );
+        return add_query_arg( array( 'wpbdp_view' => 'checkout', 'payment' => urlencode( $payment_q ) ), $base_url );
     }
 
     public function get_redirect_url() {

@@ -1,17 +1,12 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
-class WPBDP_Upgrade_Listing_Page extends WPBDP_View {
+class WPBDP__Views__Upgrade_Listing extends WPBDP_NView {
 
     private $listing = null;
     private $upgrades_api = null;
 
+
     public function __construct() {
         $this->upgrades_api = wpbdp_listing_upgrades_api();
-    }
-
-    public function get_page_name() {
-        return 'upgradetostickylisting';
     }
 
     public function dispatch() {

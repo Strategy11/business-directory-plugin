@@ -4,7 +4,7 @@
     <form action="<?php echo wpbdp_get_page_link('editlisting', $listing_id); ?>" method="POST"><input type="submit" name="" value="<?php _ex('Edit', 'templates', 'WPBDM'); ?>" class="button wpbdp-button edit-listing" /></form>
     <?php endif; ?>
     <?php if (wpbdp_user_can('upgrade-to-sticky', $listing_id)): ?>
-    <form action="<?php echo wpbdp_get_page_link('upgradetostickylisting', $listing_id); ?>" method="POST"><input type="submit" name="" value="<?php _ex('Upgrade Listing', 'templates', 'WPBDM'); ?>" class="button wpbdp-button upgrade-to-sticky" /></form>
+    <form action="<?php echo wpbdp_url( 'upgrade_listing', $listing_id); ?>" method="POST"><input type="submit" name="" value="<?php _ex('Upgrade Listing', 'templates', 'WPBDM'); ?>" class="button wpbdp-button upgrade-to-sticky" /></form>
     <?php endif; ?>
     <?php if (wpbdp_user_can('delete', $listing_id)): ?>
     <form action="<?php echo wpbdp_url( 'delete_listing', $listing_id ); ?>" method="post"><input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="button wpbdp-button delete-listing" data-confirmation-message="<?php _ex('Are you sure you wish to delete this listing?', 'templates', 'WPBDM'); ?>" /></form>
