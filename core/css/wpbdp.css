@@ -256,23 +256,22 @@ form#wpbdmsearchform a.advanced-search-link {
     }
 }
 
-/* listing contact form */
-.wpbdp-listing .contact-form {
+.wpbdp-listing-contact-form {
     margin-top: 20px;
     border-top: dotted 1px #ddd;
     padding-top: 20px;
     padding-left: 10px;
 }
 
-.wpbdp-listing .contact-form .send-message-button {
+.wpbdp-listing-contact-form .send-message-button {
     margin-left: -10px;
 }
 
-.wpbdp-listing .contact-form h3 {
+.wpbdp-listing-contact-form h3 {
     margin-left: -10px;
 }
 
-.wpbdp-listing .contact-form textarea {
+.wpbdp-listing-contact-form textarea {
     width: 98% !important;
 }
 

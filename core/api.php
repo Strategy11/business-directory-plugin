@@ -551,6 +551,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'delete_listing':
         case 'edit_listing':
         case 'upgrade_listing':
+        case 'listing_contact':
             $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'listing_id' => $args ), $base_url );
             break;
         case '/':
