@@ -153,14 +153,7 @@ class WPBDP_DirectoryController {
                 return $renew_page->dispatch();
 
                 break;
-            case 'payment-process':
-                return $this->process_payment();
-                break;
             case 'manage-recurring':
-                require_once( WPBDP_PATH . 'core/view-manage-recurring.php' );
-                $page = new WPBDP_Manage_Subscriptions_View();
-                return $page->dispatch();
-                break;
             default:
                 // Handle custom actions.
                 $page = wpbdp_capture_action_array( 'wpbdp_action_page_' . $this->action );

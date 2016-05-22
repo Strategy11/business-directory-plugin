@@ -860,7 +860,7 @@ class WPBDP_Listings_API {
             } else {
                 $message_replacements = array_merge( $base_replacements, array(
                     'date' => $base_replacements['expiration'],
-                    'link' => sprintf( '<a href="%1$s">%1$s</a>', esc_url( add_query_arg( 'action', 'manage-recurring', wpbdp_get_page_link( 'main' ) ) ) )
+                    'link' => sprintf( '<a href="%1$s">%1$s</a>', esc_url( wpbdp_url( 'manage_recurring' ) ) )
                 ) );
             }
 
