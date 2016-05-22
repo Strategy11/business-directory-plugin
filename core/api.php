@@ -554,6 +554,9 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'listing_contact':
             $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'listing_id' => $args ), $base_url );
             break;
+        case 'renew_listing':
+            $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'renewal_id' => $args ), $base_url );
+            break;
         case '/':
             $url = $base_url;
             break;
@@ -582,4 +585,12 @@ function wpbdp_current_action() {
 function wpbdp_current_listing_id() {
     global $wpbdp;
     return $wpbdp->controller->current_listing_id();
+}
+
+/**
+ * @since next-release
+ */
+function wpbdp_load_view( $view, $arg0 = null ) {
+    global $wpbdp;
+    return $wpbdp->dispatcher->load_view( $view, $arg0 );
 }

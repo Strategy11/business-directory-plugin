@@ -71,7 +71,7 @@ class WPBDP__Dispatcher {
         return apply_filters( 'wpbdp_view_locations', $dirs );
     }
 
-    public function load_view( $view_name ) {
+    public function load_view( $view_name, $args = null ) {
         $filenames = array( $view_name . '.php',
                             'views-' . $view_name . '.php' );
 
@@ -88,7 +88,14 @@ class WPBDP__Dispatcher {
                 if ( ! class_exists( $classname ) )
                     continue;
 
-                return new $classname;
+                if ( is_null( $args ) ) {
+                    return new $classname;
+                } else {
+                    // TODO: this is terrible. Maybe we can use an `init()` function for all views and use that instead.
+                    // That way all views can be instantiated without arguments.
+                    $class = new ReflectionClass( $classname );
+                    return $class->newInstanceArgs( array( $args ) );
+                }
             }
         }
 
