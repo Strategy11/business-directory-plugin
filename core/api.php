@@ -543,9 +543,15 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
 
     switch ( $pathorview ) {
         case 'submit_listing':
+        case 'all_listings':
         case 'view_listings':
         case 'search':
             $url = add_query_arg( 'wpbdp_view', $pathorview, $base_url );
+            break;
+        case 'delete_listing':
+        case 'edit_listing':
+        case 'upgrade_listing':
+            $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'listing_id' => $args ), $base_url );
             break;
         case '/':
             $url = $base_url;
@@ -555,4 +561,24 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
     }
 
     return $url;
+}
+
+function wpbdp_current_category_id() {
+    global $wpbdp;
+    return $wpbdp->controller->current_category_id();
+}
+
+function wpbdp_current_tag_id() {
+    global $wpbdp;
+    return $wpbdp->controller->current_tag_id();
+}
+
+function wpbdp_current_action() {
+    global $wpbdp;
+    return $wpbdp->controller->get_current_action();
+}
+
+function wpbdp_current_listing_id() {
+    global $wpbdp;
+    return $wpbdp->controller->current_listing_id();
 }

@@ -15,6 +15,7 @@ class WPBDP__Dispatcher {
     public function __construct() {
         add_action( 'wp', array( $this, '_lookup_current_view' ) );
         add_action( 'template_redirect', array( $this, '_execute_view' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
     }
 
     public function _lookup_current_view( $wp ) {
@@ -54,6 +55,13 @@ class WPBDP__Dispatcher {
             $this->output = $res;
 
         return $template;
+    }
+
+    public function _enqueue_view_scripts() {
+        if ( ! $this->current_view_obj )
+            return;
+
+        $this->current_view_obj->enqueue_resources();
     }
 
     public function get_view_locations() {

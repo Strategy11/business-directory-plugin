@@ -927,6 +927,7 @@ class WPBDP_Plugin {
                     $args['author'] = $u->ID;
             }
 
+            // TODO: themes-release
             return $this->controller->view_listings( true, $args );
         }
 
@@ -953,6 +954,7 @@ class WPBDP_Plugin {
                     $categories[] = $term->term_id;
             }
 
+            // TODO: themes-release
             return $this->controller->browse_category( $categories, array('items_per_page'=> $atts['items_per_page']), true );
         } elseif ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();
@@ -963,6 +965,7 @@ class WPBDP_Plugin {
             if ( $atts['tags'] )
                 $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
 
+            // TODO: themes-release
             return $this->controller->browse_tag( array( 'tags' => $requested_tags, 'title' => $atts['title'], 'only_listings' => true ) );
         }
 

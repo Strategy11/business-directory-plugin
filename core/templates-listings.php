@@ -241,3 +241,20 @@ function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
 
     return implode( ' ', $css_classes );
 }
+
+/**
+ * @since next-release
+ */
+function wpbdp_the_listing_actions( $args = array() ) {
+    echo wpbdp_listing_actions();
+}
+
+/**
+ * @since next-release
+ */
+function wpbdp_listing_actions( $args = array() ) {
+    return wpbdp_render( 'parts/listing-buttons',
+                         array( 'listing_id' => get_the_ID(),
+                         'view' => 'excerpt' ),
+                         false );
+}

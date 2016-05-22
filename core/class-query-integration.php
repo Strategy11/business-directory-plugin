@@ -34,6 +34,11 @@ class WPBDP__Query_Integration {
             $query->wpbdp_view = 'show_category';
         }
 
+        if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) ) {
+            $query->wpbdp_is_tag = true;
+            $query->wpbdp_view = 'show_tag';
+        }
+
         // Is this the main page?
         if ( $query->get( 'page_id' ) == wpbdp_get_page_id() ) {
             $query->wpbdp_is_main_page = true;

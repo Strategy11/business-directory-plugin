@@ -25,7 +25,10 @@ class WPBDP_NView {
     private $router = null;
 
 
-    public function __construct() {}
+    public function __construct( $args = array() ) {
+        foreach ( $args as $k => $v )
+            $this->{$k} = $v;
+    }
 
     public function enqueue_resources() {
     }
@@ -49,8 +52,12 @@ class WPBDP_NView {
         exit;
     }
 
-    public final function _render( $template, $args = array() ) {
-        return wpbdp_render( $template, $args );
+    public final function _render() {
+        return call_user_func_array( 'wpbdp_x_render', func_get_args() );
+    }
+
+    public final function _render_page() {
+        return call_user_func_array( 'wpbdp_x_render_page', func_get_args() );
     }
 
 }
