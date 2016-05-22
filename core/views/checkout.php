@@ -5,7 +5,7 @@ class WPBDP__Views__Checkout extends WPBDP_NView {
     private $payment = null;
     private $errors = array();
 
-    public function __construct( &$payment = null ) {
+    public function __construct( $payment = null ) {
         $this->api = wpbdp_payments_api();
         $this->payment = $payment;
     }

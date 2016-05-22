@@ -515,8 +515,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        require_once( WPBDP_PATH . 'core/view-checkout.php' );
-        $checkout = new WPBDP_Checkout_Page( $payment );
+        $checkout = wpbdp_load_view( 'checkout', $payment );
         return $checkout->dispatch();
     }
 
