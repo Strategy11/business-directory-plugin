@@ -495,9 +495,6 @@ class WPBDP_Plugin {
         array_push( $vars, 'region' );
         array_push( $vars, 'wpbdp_view' );
 
-        if ( wpbdp_experimental( 'routing' ) )
-            array_push( $vars, 'v' );
-
         return $vars;
     }
 

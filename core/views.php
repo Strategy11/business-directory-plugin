@@ -18,15 +18,6 @@ class WPBDP_DirectoryController {
 
 
     public function __construct() {
-        if ( wpbdp_experimental( 'routing' ) ) {
-            require_once ( WPBDP_PATH . 'core/class-router.php' );
-
-            $this->router = new WPBDP_Router();
-            $this->router->add_view_path( WPBDP_PATH . 'core/views/' );
-            $this->setup_routes();
-        }
-
-        $this->urlconf[] = array( '/request_access_keys', 'WPBDP_Views__Request_Access_Keys', 'name' => 'request_access_keys' );
 
         add_action( 'wp', array( $this, '_handle_action'), 10, 1 );
         add_action( 'template_redirect', array( &$this, 'handle_login_redirect' ), 20 );
@@ -78,27 +69,6 @@ class WPBDP_DirectoryController {
             }
         }
 
-        if ( wpbdp_experimental( 'routing' ) )
-            return $this->process_view();
-    }
-
-    private function setup_routes() {
-//        $this->router->add( '/?v=request_access_keys', 'WPBDP_Request_Access_Keys_View', null, 'request_access_keys' );
-        $this->router->add( '/request_access_keys', 'WPBDP_Request_Access_Keys_View', null, 'request_access_keys' );
-
-        do_action_ref_array( 'wpbdp-add-routes', array( $this->router ) );
-    }
-
-    private function process_view() {
-        $view = $this->router->route();
-
-        if ( ! $view )
-            return;
-
-        $response = $view->dispatch();
-
-        if ( is_string( $response ) )
-            $this->output = $response;
     }
 
     /**
@@ -142,18 +112,7 @@ class WPBDP_DirectoryController {
     }
 
     public function dispatch() {
-        if ( wpbdp_experimental( 'routing' ) && ! empty( $this->output ) ) {
-            return $this->output;
-        }
-
         switch ($this->action) {
-            case 'renewlisting':
-                require_once( WPBDP_PATH . 'core/view-renew-listing.php' );
-                $renew_page = new WPBDP_Renew_Listing_Page();
-                return $renew_page->dispatch();
-
-                break;
-            case 'manage-recurring':
             default:
                 // Handle custom actions.
                 $page = wpbdp_capture_action_array( 'wpbdp_action_page_' . $this->action );
