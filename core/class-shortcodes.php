@@ -131,6 +131,7 @@ class WPBDP__Shortcodes {
                     $categories[] = $term->term_id;
             }
 
+            // TODO: themes-release
             return $wpbdp->controller->browse_category( $categories, array('items_per_page'=> $atts['items_per_page']), true );
         } elseif ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();

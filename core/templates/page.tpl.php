@@ -1,9 +1,13 @@
-<?php if ( $_bar ): ?>
-    <?php echo wpbdp_x_render( 'bar', array( 'items' => $_bar_items ) ); ?>
-<?php endif; ?>
+<div id="wpbdp-page-<?php echo $_child->_id; ?>" class="wpbdp-page wpbdp-page-<?php echo $_child->_id; ?> <?php echo $_class; ?>">
+    <?php if ( ! isset( $_bar ) || $_bar ): ?><?php echo wpbdp_x_render( 'bar' ); ?><?php endif; ?>
 
-<?php do_action( 'wpbdp_page_before', $_id, $vars ); ?>
-<?php //do_action( 'wpbdp_page_' . $_id . '_before', $_vars ); ?>
+    <?php echo $content; ?>
+</div>
+
+<?php
+/*
+<?php // do_action( 'wpbdp_page_before', $_id, $vars ); ?>
+<?php ////do_action( 'wpbdp_page_' . $_id . '_before', $_vars ); ?>
 
 <div id="wpbdp-page-<?php echo $_id; ?>" class="wpbdp-page wpbdp-page-<?php echo $_id; ?> <?php echo $_class; ?>">
 
@@ -19,3 +23,4 @@
 
 <?php //do_action( 'wpbdp_page_' . $_id . '_after', $_vars ); ?>
 <?php //do_action( 'wpbdp_page_after', $_id, $_template, $_vars ); ?>
+ */
