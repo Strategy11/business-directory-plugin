@@ -3,6 +3,10 @@
 class WPBDP__Views__Show_Listing extends WPBDP_NView {
 
     public function dispatch() {
+        // if ( 'publish' != get_post_status( $listing_id ) ) {
+        //     if ( current_user_can( 'edit_posts' ) )
+        //         $html .= wpbdp_render_msg( _x('This is just a preview. The listing has not been published yet.', 'preview', 'WPBDM') );
+
 /*        // Handle ?v=viewname argument for alternative views (other than 'single').
         $view = '';
         if ( isset( $_GET['v'] ) )

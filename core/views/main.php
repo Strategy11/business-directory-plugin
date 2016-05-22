@@ -1,9 +1,7 @@
 <?php
 class WPBDP__Views__Main extends WPBDP_NView {
 
-    public function dispatch() {
-        $html = '';
-
+    private function warnings() {
         if ( count(get_terms(WPBDP_CATEGORY_TAX, array('hide_empty' => 0))) == 0 ) {
             if (is_user_logged_in() && current_user_can('install_plugins')) {
                 $html .= wpbdp_render_msg( _x('There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM'), 'error' );
@@ -20,10 +18,6 @@ class WPBDP__Views__Main extends WPBDP_NView {
             }
         }
 
-        $listings = '';
-        if (wpbdp_get_option('show-listings-under-categories'))
-            $listings = $this->view_listings(false);
-
         if ( current_user_can( 'administrator' ) && wpbdp_get_option( 'hide-empty-categories' ) &&
              wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=0' ) > 0 && wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=1' ) == 0 ) {
             $msg = _x( 'You have "Hide Empty Categories" on and some categories that don\'t have listings in them. That means they won\'t show up on the front end of your site. If you didn\'t want that, click <a>here</a> to change the setting.',
@@ -34,8 +28,24 @@ class WPBDP__Views__Main extends WPBDP_NView {
                                 $msg );
             $html .= wpbdp_render_msg( $msg );
         }
+    }
 
-        $html .= wpbdp_x_render( 'main_page', array( '_full' => true, 'listings' => $listings ) );
+    public function dispatch() {
+        global $wpbdp;
+
+        $html = '';
+
+        // Warnings and messages for admins.
+        $html .= $this->warnings();
+
+        // Listings under categories?
+        if ( wpbdp_get_option( 'show-listings-under-categories' ) ) {
+            $listings = $wpbdp->controller->view_listings( false );
+        } else {
+            $listings = '';
+        }
+
+        $html = $this->_render_page( 'main_page', array( 'listings' => $listings ) );
 
         return $html;
     }
