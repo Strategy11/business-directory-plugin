@@ -543,7 +543,7 @@ class WPBDP_Listing {
 
     public function get_renewal_url( $category_id ) {
         $hash = $this->get_renewal_hash( $category_id );
-        return add_query_arg( array( 'action' => 'renewlisting', 'renewal_id' => urlencode( $hash ) ), wpbdp_get_page_link( 'main' ) );
+        return wpbdp_url( 'renew_listing', urlencode( $hash ) );
     }
 
     /**
