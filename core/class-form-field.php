@@ -323,7 +323,7 @@ class WPBDP_Form_Field {
     public function html_value( $post_id ) {
         $value = $this->type->get_field_html_value( $this, $post_id );
 
-        if ( $value && in_array( 'email', $this->validators, true ) ) {
+        if ( $value && in_array( 'email', $this->validators, true ) && wpbdp_get_option('override-email-blocking') ) {
             // At least obfuscate the address if we're going to show it.
             $out = '';
 
