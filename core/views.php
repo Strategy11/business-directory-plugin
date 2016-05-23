@@ -187,35 +187,6 @@ class WPBDP_DirectoryController {
         return $v->dispatch();
     }
 
-    /* Manage Listings */
-    public function manage_listings() {
-        if (!$this->check_main_page($msg)) return $msg;
-
-        $current_user = is_user_logged_in() ? wp_get_current_user() : null;
-        $listings = array();
-
-        if ($current_user) {
-            query_posts(array(
-                'author' => $current_user->ID,
-                'post_type' => WPBDP_POST_TYPE,
-                'post_status' => 'publish',
-                'paged' => get_query_var('paged') ? get_query_var('paged') : 1
-            ));
-            wpbdp_push_query( $GLOBALS['wp_query'] );
-        }
-
-        $html = wpbdp_render('manage-listings', array(
-            'current_user' => $current_user
-            ), false);
-
-        if ($current_user) {
-            wp_reset_query();
-            wpbdp_pop_query();
-        }
-
-        return $html;
-    }
-
 }
 
 }
