@@ -72,6 +72,7 @@ class WPBDP__Dispatcher {
     }
 
     public function load_view( $view_name, $args = null ) {
+        // TODO: add some filters so plugins can override default view loading.
         $filenames = array( $view_name . '.php',
                             'views-' . $view_name . '.php' );
 
