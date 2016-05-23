@@ -342,12 +342,13 @@ class WPBDP_Plugin {
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?wpbdp_listing=$matches[2]';
+                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]';
                     } else {
-                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&listing=$matches[2]';
+                        // TODO: how to do this when CPT is disabled?
+                        // $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&wpbdp_view=show_listing&listing_id=$matches[2]';
                     }
                 } else {
-                    $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&id=$matches[2]';
+                    $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?p=$matches[2]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
                 }
             }
         }

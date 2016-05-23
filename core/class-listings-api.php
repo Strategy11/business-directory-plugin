@@ -8,13 +8,10 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 class WPBDP_Listings_API {
 
     public function __construct() {
-
-        if ( wpbdp_get_option( 'disable-cpt' )  ) {
-            add_filter( 'post_type_link', array( &$this, '_post_link' ), 10, 3 );
-            add_filter( 'get_shortlink', array( &$this, '_short_link' ), 10, 4 );
-            add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
-            add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 2);
-        }
+        add_filter( 'post_type_link', array( &$this, '_post_link' ), 10, 3 );
+        add_filter( 'get_shortlink', array( &$this, '_short_link' ), 10, 4 );
+        // add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
+        add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 2);
 
         add_filter('term_link', array($this, '_category_link'), 10, 3);
         add_filter('term_link', array($this, '_tag_link'), 10, 3);
@@ -40,17 +37,10 @@ class WPBDP_Listings_API {
         if ( WPBDP_CATEGORY_TAX != $taxonomy )
             return $link;
 
-        // FIXME: use the base url (main page) for rewrites.
-        // if ( ! wpbdp_get_option( 'disable-cpt' ) )
+        if ( ! wpbdp_rewrite_on() )
+            return $link;
 
-        // if ( 'page' == _wpbdp_template_mode( 'category' ) ) {
-        //     if ( wpbdp_rewrite_on() ) {
-        //         $main_page = wpbdp_get_page_link( 'main' );
-        //         $link = rtrim( $main_page, '/' ) . '/' . wpbdp_get_option( 'permalinks-category-slug' ) . '/' . $category->slug . '/';
-        //     } else {
-        //         $link = add_query_arg( 'category', $category->slug, wpbdp_get_page_link( 'main' ) );
-        //     }
-        // }
+        $link = wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-category-slug' ), $category->slug ) );
 
         return apply_filters( 'wpbdp_category_link', $link, $category );
     }
@@ -67,44 +57,36 @@ class WPBDP_Listings_API {
         return $link;
     }
 
-    public function _post_link( $url, $post = null, $leavename = false ) {
-        if ( WPBDP_POST_TYPE != get_post_type( $post ) || ! wpbdp_get_page_id( 'main' ) )
-            return $url;
+    public function _post_link( $link, $post = null, $leavename = false ) {
+        if ( WPBDP_POST_TYPE != get_post_type( $post ) )
+            return $link;
 
-        if ( 'page' != _wpbdp_template_mode( 'single' ) )
-            return $url;
+        if ( ! wpbdp_rewrite_on() )
+            return $link;
 
-        $rewrite = wpbdp_rewrite_on();
-        $baseurl = untrailingslashit( wpbdp_get_page_link( 'main' ) );
-        $querystring = parse_url( $url, PHP_URL_QUERY );
+        if ( $querystring = parse_url( $link, PHP_URL_QUERY ) ) 
+            $querystring = '?' . $querystring;
+        else
+            $querystring = '';
 
-        if ( $leavename && $rewrite ) {
-            return rtrim( wpbdp_get_page_link( 'main' ), '/' ) . '/' . '%' . WPBDP_POST_TYPE . '%' . '/' . ( $querystring ? '?' . $querystring : '' );
-        }
+        if ( $leavename )
+            return wpbdp_url( '/' . '%' . WPBDP_POST_TYPE . '%' . '/' . $querystring );
 
-        if ( $rewrite ) {
-            if ( wpbdp_get_option( 'permalinks-no-id' ) && $post->post_name )
-                $url = $baseurl . '/' . $post->post_name . '/' . ( $querystring ? '?' . $querystring : '' );
-            else
-                $url = $baseurl . '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' ) . ( $querystring ? '?' . $querystring : '' );
+        if ( wpbdp_get_option( 'permalinks-no-id' ) && $post->post_name )
+            $link = wpbdp_url( '/' . $post->post_name . '/' );
+        else
+            $link = wpbdp_url( '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name : '' ) );
 
-            $url = remove_query_arg( 'p', $url );
-        } else {
-            $url = add_query_arg( 'id', $post->ID, $baseurl );
-        }
+        $link .= $querystring;
 
-        return apply_filters( 'wpbdp_listing_link', $url, $post->ID );
+        return apply_filters( 'wpbdp_listing_link', $link, $post->ID );
     }
 
     public function _short_link( $shortlink, $id = 0, $context = 'post', $allow_slugs = true ) {
-        if ( 'post' !== $context )
+        if ( 'post' !== $context || WPBDP_POST_TYPE != get_post_type( $id ) )
             return $shortlink;
 
         $post = get_post( $id );
-
-        if ( WPBDP_POST_TYPE != get_post_type( $post ) || ! wpbdp_get_page_id( 'main' ) )
-            return $shortlink;
-
         return $this->_post_link( $shortlink, $post );
     }
 
@@ -127,7 +109,7 @@ class WPBDP_Listings_API {
         if ( is_null( $post ) && isset( $GLOBALS['post'] ) )
             $post = $GLOBALS['post'];
 
-        if ( WPBDP_POST_TYPE != get_post_type( $post ) || ! wpbdp_get_page_id( 'main' ) )
+        if ( WPBDP_POST_TYPE != get_post_type( $post ) )
             return $url ;
 
         if ( wpbdp_rewrite_on() )

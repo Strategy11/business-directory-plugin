@@ -560,16 +560,21 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'renew_listing':
             $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'renewal_id' => $args ), $base_url );
             break;
+        case 'main':
         case '/':
             $url = $base_url;
             break;
         default:
+            if ( wpbdp_starts_with( $pathorview, '/' ) )
+                $url = rtrim( wpbdp_url( '/' ), '/' ) . '/' . substr( $pathorview, 1 );
+
             break;
     }
 
     return $url;
 }
 
+// TODO: update before themes-release
 function wpbdp_current_category_id() {
     global $wpbdp;
     return $wpbdp->controller->current_category_id();
