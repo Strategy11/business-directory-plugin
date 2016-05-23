@@ -450,6 +450,8 @@ class WPBDP_Themes {
             $vars = array();
 
         $vars['_part'] = true;
+        $vars['_wrapper'] = '';
+        $vars['_wrapper_path'] = '';
 
         $output = $this->render( $id_or_file, array_merge( $additional_vars, $vars ) );
         return $output;
