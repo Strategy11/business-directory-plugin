@@ -1,26 +1,13 @@
 <div id="wpbdp-page-<?php echo $_child->_id; ?>" class="wpbdp-page wpbdp-page-<?php echo $_child->_id; ?> <?php echo $_class; ?>">
     <?php if ( ! isset( $_bar ) || $_bar ): ?><?php echo wpbdp_x_render( 'bar' ); ?><?php endif; ?>
 
+    <?php
+    // TODO: Try to use blocks for this too, instead of actions.
+    ?>
+
+    <?php do_action( 'wpbdp_page_before', $_child->_id ); ?>
+    <?php do_action( 'wpbdp_page_' . $_child->_id . '_before' ); ?>
     <?php echo $content; ?>
+    <?php do_action( 'wpbdp_page_after', $_child->_id ); ?>
+    <?php do_action( 'wpbdp_page_' . $_child->_id . '_after' ); ?>
 </div>
-
-<?php
-/*
-<?php // do_action( 'wpbdp_page_before', $_id, $vars ); ?>
-<?php ////do_action( 'wpbdp_page_' . $_id . '_before', $_vars ); ?>
-
-<div id="wpbdp-page-<?php echo $_id; ?>" class="wpbdp-page wpbdp-page-<?php echo $_id; ?> <?php echo $_class; ?>">
-
-    <?php //do_action( 'wpbdp_page_before_inner', $_id, $_template, $_vars ); ?>
-    <?php //do_action( 'wpbdp_page_' . $_id . '_before_inner', $_vars ); ?>
-    <div class="wpbdp-page-inner <?php echo $_inner_class; ?>">
-        <?php echo $content; ?>
-    </div>
-    <?php //do_action( 'wpbdp_page_' . $_id . '_after_inner', $_vars ); ?>
-    <?php //do_action( 'wpbdp_page_after_inner', $_id, $_template, $_vars ); ?>
-
-</div>
-
-<?php //do_action( 'wpbdp_page_' . $_id . '_after', $_vars ); ?>
-<?php //do_action( 'wpbdp_page_after', $_id, $_template, $_vars ); ?>
- */
