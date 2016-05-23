@@ -244,7 +244,7 @@ function wpbdp_listing_sort_options() {
     $sort_options = apply_filters('wpbdp_listing_sort_options', $sort_options);
 
     if (!$sort_options)
-        return '';
+        return apply_filters( 'wpbdp_listing_sort_options_html', '' );
 
     $current_sort = wpbdp_get_current_sort_option();
 
@@ -296,7 +296,7 @@ function wpbdp_listing_sort_options() {
     $html .= '</select>';
     $html .= '</div>';
 
-    return $html;
+    return apply_filters( 'wpbdp_listing_sort_options_html', $html );
 }
 
 function wpbdp_the_listing_sort_options() {
