@@ -40,18 +40,17 @@ class WPBDP_Listings_API {
         if ( WPBDP_CATEGORY_TAX != $taxonomy )
             return $link;
 
-        // FIXME: use the base url too.
-        if ( ! wpbdp_get_option( 'disable-cpt' ) )
-            return $link;
+        // FIXME: use the base url (main page) for rewrites.
+        // if ( ! wpbdp_get_option( 'disable-cpt' ) )
 
-        if ( 'page' == _wpbdp_template_mode( 'category' ) ) {
-            if ( wpbdp_rewrite_on() ) {
-                $main_page = wpbdp_get_page_link( 'main' );
-                $link = rtrim( $main_page, '/' ) . '/' . wpbdp_get_option( 'permalinks-category-slug' ) . '/' . $category->slug . '/';
-            } else {
-                $link = add_query_arg( 'category', $category->slug, wpbdp_get_page_link( 'main' ) );
-            }
-        }
+        // if ( 'page' == _wpbdp_template_mode( 'category' ) ) {
+        //     if ( wpbdp_rewrite_on() ) {
+        //         $main_page = wpbdp_get_page_link( 'main' );
+        //         $link = rtrim( $main_page, '/' ) . '/' . wpbdp_get_option( 'permalinks-category-slug' ) . '/' . $category->slug . '/';
+        //     } else {
+        //         $link = add_query_arg( 'category', $category->slug, wpbdp_get_page_link( 'main' ) );
+        //     }
+        // }
 
         return apply_filters( 'wpbdp_category_link', $link, $category );
     }
