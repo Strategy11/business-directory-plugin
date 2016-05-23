@@ -5,7 +5,7 @@
     "author": "BD Team",
     "author_email": "support@businessdirectoryplugin.com",
     "author_url": "http://businessdirectoryplugin.com",
-    "requires": "4.0dev",
+    "requires": "4.0",
     "assets": {
         "css": [ "styles.css" ],
         "js": []
