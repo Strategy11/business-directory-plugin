@@ -169,10 +169,6 @@ class WPBDP_Plugin {
         add_action('wp_loaded', array( &$this, '_wp_loaded'));
 
         add_action( 'save_post_page', array( &$this, '_invalidate_pages_cache' ) );
-        add_action( 'pre_get_posts', array( &$this, '_pre_get_posts'));
-        add_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
-        add_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
-        add_filter( 'posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
 
         add_filter('comments_template', array( &$this, '_comments_template'));
         add_filter('taxonomy_template', array( &$this, '_category_template'));
@@ -185,11 +181,6 @@ class WPBDP_Plugin {
         add_action( 'wp_head', array( &$this, '_rss_feed' ) );
 
         if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-            remove_action( 'pre_get_posts', array( &$this, '_pre_get_posts'));
-            remove_filter( 'posts_clauses', array( &$this, '_posts_clauses' ), 10, 2 );
-            remove_filter( 'posts_fields', array( &$this, '_posts_fields'), 10, 2);
-            remove_filter( 'posts_orderby', array( &$this, '_posts_orderby'), 10, 2);
-
             remove_filter('comments_template', array( &$this, '_comments_template'));
             remove_filter('taxonomy_template', array( &$this, '_category_template'));
             remove_filter('single_template', array( &$this, '_single_template'));
@@ -291,19 +282,6 @@ class WPBDP_Plugin {
         delete_transient( 'wpbdp-page-ids' );
     }
 
-    public function _pre_get_posts(&$query) {
-        global $wpdb;
-
-        if (!$query->is_admin && $query->is_archive && $query->get(WPBDP_CATEGORY_TAX)) {
-            // category page query
-            $query->set('post_status', 'publish');
-            $query->set('post_type', WPBDP_POST_TYPE);
-            $query->set('posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1);
-            $query->set('orderby', wpbdp_get_option('listings-order-by', 'date'));
-            $query->set('order', wpbdp_get_option('listings-sort', 'ASC'));
-        }
-    }
-
     function _clauses_config( $pieces, $query ) {
         global $wpdb;
 
@@ -327,84 +305,6 @@ class WPBDP_Plugin {
         }
 
         return $pieces;
-    }
-
-    function _posts_clauses( $pieces, $query ) {
-        if ( is_admin() || ! isset( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || $query->query_vars['p'] )
-            return $pieces;
-
-        $pieces = $this->_clauses_config( $pieces, $query );
-
-        return apply_filters( 'wpbdp_query_clauses', $pieces, $query );
-    }
-
-    public function _posts_fields($fields, $query) {
-        global $wpdb;
-
-        if ( is_admin() || empty( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || ! empty( $query->query_vars['p'] ) )
-            return $fields;
-
-        if ( isset( $query->query_vars['wpbdp_is_main_query'] ) && false == $query->query_vars['wpbdp_is_main_query'] )
-            return $fields;
-
-        if ( ! is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE && ! $query->query_vars['p'] ) {
-            $is_sticky_query = $wpdb->prepare("(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
-                                               '_wpbdp[sticky]', 'sticky');
-
-            // Handle fee-based sticky listings.
-            if ( 'browsecategory' == wpbdp_current_action() ) {
-                $cat_id = wpbdp_current_category_id();
-
-                if ( $cat_id && is_numeric( $cat_id ) ) {
-                    $cat_sticky = $wpdb->prepare( "(SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d AND lf.category_id = %d LIMIT 1 ) AS wpbdp_cat_sticky",
-                                                  1,
-                                                  $cat_id );
-                    $is_sticky_query .= ', ' . $cat_sticky;
-                } else {
-                    $is_sticky_query .=', (SELECT 0) AS wpbdp_cat_sticky';
-                }
-            } else {
-                $is_sticky_query .=', (SELECT 0) AS wpbdp_cat_sticky';
-            }
-
-            if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
-                $is_paid_query = "(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments pp WHERE pp.listing_id = {$wpdb->posts}.ID AND pp.amount > 0 LIMIT 1 ) AS wpbdp_is_paid";
-                $fields = $fields . ', ' . $is_sticky_query . ', ' . $is_paid_query;
-            } else {
-                $fields = $fields . ', ' . $is_sticky_query;
-            }
-
-            $fields = apply_filters('wpbdp_query_fields', $fields);
-        }
-
-        return $fields;
-    }
-
-    public function _posts_orderby($orderby, $query) {
-        global $wpdb;
-
-        if ( is_admin() || empty( $query->query_vars['post_type'] ) || WPBDP_POST_TYPE != $query->query_vars['post_type'] || ! empty( $query->query_vars['p'] ) )
-            return $orderby;
-
-        if ( isset( $query->query_vars['wpbdp_is_main_query'] ) && false == $query->query_vars['wpbdp_is_main_query'] )
-            return $orderby;
-
-        if ( ! is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == WPBDP_POST_TYPE && ! $query->query_vars['p'] ) {
-            $wpbdp_orderby = apply_filters('wpbdp_query_orderby', '');
-
-            if ( in_array( wpbdp_get_option( 'listings-order-by' ), array( 'paid', 'paid-title' ), true ) ) {
-                if ( 'paid-title' == wpbdp_get_option( 'listings-order-by' ) )
-                    $orderby = "{$wpdb->posts}.post_title ASC, " . $orderby;
-
-                $orderby = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_is_paid DESC' . $wpbdp_orderby . ', ' . $orderby;
-            } else {
-                $orderby = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC ' . $wpbdp_orderby . ', ' . $orderby;
-            }
-
-            $orderby = apply_filters( 'wpbdp_query_full_orderby', $orderby );
-        }
-
-        return $orderby;
     }
 
     private function get_rewrite_rules() {

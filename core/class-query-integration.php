@@ -7,10 +7,19 @@ class WPBDP__Query_Integration {
     public function __construct() {
         add_action( 'parse_query', array( $this, 'set_query_flags' ), 50 );
         add_action( 'template_redirect', array( $this, 'set_404_flag' ), 0 );
+
+        add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10, 1 );
+        add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
     }
 
     public function set_query_flags( $query ) {
-        if ( is_admin() || ! $query->is_main_query() )
+        if ( is_admin() )
+            return;
+
+        $main_query = ( ! $query->is_main_query() && isset( $query->query_vars['wpbdp_main_query'] ) && $query->query_vars['wpbdp_main_query'] )
+                      || $query->is_main_query();
+
+        if ( ! $main_query )
             return;
 
         // Defaults.
@@ -66,4 +75,67 @@ class WPBDP__Query_Integration {
             $wp_query->is_404 = true;
     }
 
+    public function pre_get_posts( &$query ) {
+        if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query )
+            return;
+
+        $query->set( 'posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 );
+        $query->set( 'orderby', wpbdp_get_option('listings-order-by', 'date' ) );
+        $query->set( 'order', wpbdp_get_option('listings-sort', 'ASC' ) );
+    }
+
+    public function posts_clauses( $pieces, $query ) {
+        global $wpdb;
+
+        if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query )
+            return $pieces;
+
+        $pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
+
+        // Sticky listings.
+        $is_sticky_query = $wpdb->prepare( "(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
+                                           '_wpbdp[sticky]', 'sticky' );
+        $pieces['fields'] .= ', ' . $is_sticky_query . ' ';
+
+        // Sticky listings (per fee).
+        if ( ! empty( $query->wpbdp_is_category ) ) {
+            $category = $query->get_queried_object();
+            $pieces['fields'] .= ', ' . $wpdb->prepare( "(SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d AND lf.category_id = %d LIMIT 1 ) AS wpbdp_cat_sticky",
+                                                        1,
+                                                        $category->term_id );
+        } else {
+            $pieces['fields'] .= ', (SELECT 0) AS wpbdp_cat_sticky';
+        }
+
+        // Paid first query order.
+        if ( in_array( $query->get( 'order' ), array( 'paid', 'paid-title' ), true ) ) {
+            $is_paid_query = "(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments pp WHERE pp.listing_id = {$wpdb->posts}.ID AND pp.amount > 0 LIMIT 1 ) AS wpbdp_is_paid";
+            $pieces['fields'] .= ', ' . $is_paid_query;
+        } else {
+            $pieces['fields'] .= ', (SELECT 0) AS wpbdp_is_paid';
+        }
+
+        $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_is_paid DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
+        $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );
+
+        return $pieces;
+    }
+
 }
+/*
+        // Type.
+        if ( ! empty( $query->query_vars['wpbdp_listing_type'] ) ) {
+            switch ( $query->query_vars['wpbdp_listing_type'] ) {
+                case 'sticky':
+                    $subquery_1 = $wpdb->prepare( "SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1",
+                                                  '_wpbdp[sticky]',
+                                                  'sticky' );
+                    $subquery_2 = $wpdb->prepare( "SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d LIMIT 1",
+                                                  1 );
+
+                    $pieces['where'] .= ' AND ( EXISTS(' . $subquery_1 . ') OR EXISTS(' . $subquery_2 . ') ) ';
+                    break;
+            }
+        }
+    }*/
+

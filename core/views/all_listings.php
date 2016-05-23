@@ -12,7 +12,8 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
             'post_status' => 'publish',
             'paged' => intval($paged),
             'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-            'order' => wpbdp_get_option('listings-sort', 'ASC')
+            'order' => wpbdp_get_option('listings-sort', 'ASC'),
+            'wpbdp_main_query' => true
         );
         if ( isset( $args_['numberposts'] ) )
             $args['numberposts'] = $args_['numberposts'];
