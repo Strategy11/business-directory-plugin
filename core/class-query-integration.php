@@ -31,6 +31,7 @@ class WPBDP__Query_Integration {
         $query->wpbdp_our_query = false;
 
         // Is this a listing query?
+        // FIXME: this results in false positives frequently
         $types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
         if ( in_array( WPBDP_POST_TYPE, $types ) && count( $types ) < 2 ) {
             $query->wpbdp_is_listing = true;
@@ -49,7 +50,10 @@ class WPBDP__Query_Integration {
         }
 
         // Is this the main page?
-        if ( $query->get_queried_object_id() == wpbdp_get_page_id() ) {
+        // FIXME: make this more robust.
+        if ( $query->is_page
+             && ( in_array( (int) $query->get_queried_object_id(), array_map( 'absint', wpbdp_get_page_ids() ), true )
+                  || in_array( (int) $query->get( 'page_id' ), array_map( 'absint', wpbdp_get_page_ids() ), true ) ) ) {
             $query->wpbdp_is_main_page = true;
         }
 
