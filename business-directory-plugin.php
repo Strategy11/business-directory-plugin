@@ -810,6 +810,7 @@ class WPBDP_Plugin {
                             array( 'jquery-file-upload' ) );
     }
 
+    // TODO: remove in a release after themes-release.
     public function is_plugin_page() {
         global $post;
 
@@ -825,9 +826,9 @@ class WPBDP_Plugin {
         if ( $post && WPBDP_POST_TYPE == $post->post_type )
             return true;
 
-        if ( 'template' == _wpbdp_template_mode ('single' ) || 'template' == _wpbdp_template_mode( 'category' ) )
+        global $wp_query;
+        if ( ! empty( $wp_query->wpbdp_our_query ) || ! empty( $wp_query->wpbdp_view ) )
             return true;
-         // TODO: $is_plugin_page detection should take into account custom post type/tax templates.
 
         return false;
     }
