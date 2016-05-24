@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since 4.0
  */
 class WPBDP__Query_Integration {
 
@@ -49,14 +49,14 @@ class WPBDP__Query_Integration {
         }
 
         // Is this the main page?
-        if ( $query->get( 'page_id' ) == wpbdp_get_page_id() ) {
+        if ( $query->get_queried_object_id() == wpbdp_get_page_id() ) {
             $query->wpbdp_is_main_page = true;
         }
 
         if ( ! $query->wpbdp_view ) {
             if ( $query->get( 'wpbdp_view' ) )
                 $query->wpbdp_view = $query->get( 'wpbdp_view' );
-            else
+            elseif ( $query->wpbdp_is_main_page )
                 $query->wpbdp_view = 'main';
         }
 
@@ -79,9 +79,14 @@ class WPBDP__Query_Integration {
         if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query )
             return;
 
-        $query->set( 'posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 );
-        $query->set( 'orderby', wpbdp_get_option('listings-order-by', 'date' ) );
-        $query->set( 'order', wpbdp_get_option('listings-sort', 'ASC' ) );
+        if ( ! $query->get( 'posts_per_page' ) )
+            $query->set( 'posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 );
+
+        if ( ! $query->get( 'orderby' ) )
+            $query->set( 'orderby', wpbdp_get_option('listings-order-by', 'date' ) );
+
+        if ( ! $query->get( 'order' ) )
+            $query->set( 'order', wpbdp_get_option('listings-sort', 'ASC' ) );
     }
 
     public function posts_clauses( $pieces, $query ) {

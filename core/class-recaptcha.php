@@ -32,7 +32,7 @@ class WPBDP_reCAPTCHA {
     function _enqueue_js_api() {
         global $wpbdp;
 
-        if ( ! $wpbdp->controller->action )
+        if ( ! wpbdp_current_view() )
             return '';
 
         wp_enqueue_script( 'wpbdp-recaptcha',
@@ -104,7 +104,7 @@ class WPBDP_reCAPTCHA {
     function _recaptcha_in_comments( $field ) {
         global $wpbdp;
 
-        if ( ! $wpbdp->controller->action )
+        if ( ! wpbdp_current_view() )
             return $field;
 
         $html  = '';

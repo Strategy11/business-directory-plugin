@@ -133,7 +133,7 @@ class WPBDP_Form_Field {
     }
 
     /**
-     * @since themes-release
+     * @since 4.0
      */
     public function get_shortname() {
         static $protected_shortnames = array( 'images', 'image', 'username', 'featured_level', 'expires_on', 'sequence_id' );

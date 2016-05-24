@@ -232,7 +232,7 @@ class WPBDP_Themes {
     }
 
     /**
-     * @since next-release
+     * @since 4.0
      */
     function missing_suggested_fields( $key = '' ) {
         global $wpbdp;

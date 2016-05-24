@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since 4.0
  */
 class WPBDP__Shortcodes {
 
@@ -38,7 +38,7 @@ class WPBDP__Shortcodes {
                     array( $this, 'sc_listings' ),
                     array( 'WPBUSDIRMANVIEWLISTINGS', 'WPBUSDIRMANMVIEWLISTINGS', 'businessdirectory-view_listings', 'businessdirectory-viewlistings' ) );
         $this->add( 'businessdirectory-search',
-                    array( $wpbdp->controller, 'search' ),
+                    array( $this, 'sc_search' ),
                     array( 'business-directory-search', 'businessdirectory_search', 'business-directory_search' ) );
         $this->add( 'businessdirectory-featuredlistings', array( $this, 'sc_featured_listings' ) );
         $this->add( 'businessdirectory-listing', array( $this, 'sc_single_listing' ) );
@@ -72,12 +72,13 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_submit_listing() {
-        // FIXME
-        return 'SUBMIT LISTING SHORTCODE';
+        $v = wpbdp_load_view( 'submit_listing' );
+        return $v->dispatch();
     }
 
     public function sc_listings( $atts ) {
         global $wpbdp;
+        require_once ( WPBDP_PATH . 'core/views/all_listings.php' );
 
         $atts = shortcode_atts( array( 'tag' => '',
                                        'tags' => '',
@@ -86,12 +87,14 @@ class WPBDP__Shortcodes {
                                        'title' => '',
                                        'operator' => 'OR',
                                        'author' => '',
-                                       'items_per_page' => '' ),
-
+                                       'items_per_page' => -1 ),
                                 $atts );
         $atts = array_map( 'trim', $atts );
+
         if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] ) {
+
             $args = array();
+            $args['numberposts'] = $atts['items_per_page'];
 
             if ( ! empty( $atts['author'] ) ) {
                 $u = false;
@@ -105,7 +108,8 @@ class WPBDP__Shortcodes {
                     $args['author'] = $u->ID;
             }
 
-            return $wpbdp->controller->view_listings( true, $args );
+            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
+            return $v->dispatch();
         }
 
         if ( $atts['category'] || $atts['categories'] ) {
@@ -131,8 +135,15 @@ class WPBDP__Shortcodes {
                     $categories[] = $term->term_id;
             }
 
-            // TODO: themes-release
-            return $wpbdp->controller->browse_category( $categories, array('items_per_page'=> $atts['items_per_page']), true );
+            $args = array( 'items_per_page' => $atts['items_per_page'],
+                           'tax_query' => array(
+                               array( 'taxonomy' => WPBDP_CATEGORY_TAX,
+                                      'field' => 'id',
+                                      'terms' => $categories ) )
+            );
+
+            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
+            return $v->dispatch();
         } elseif ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();
 
@@ -142,7 +153,15 @@ class WPBDP__Shortcodes {
             if ( $atts['tags'] )
                 $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
 
-            return $wpbdp->controller->browse_tag( array( 'tags' => $requested_tags, 'title' => $atts['title'], 'only_listings' => true ) );
+            $args = array( 'items_per_page' => $atts['items_per_page'],
+                           'tax_query' => array(
+                               array( 'taxonomy' => WPBDP_TAGS_TAX,
+                                      'field' => 'id',
+                                      'terms' => $categories ) )
+            );
+
+            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
+            return $v->dispatch();
         }
 
         return '';
@@ -154,7 +173,21 @@ class WPBDP__Shortcodes {
         $atts = shortcode_atts( array( 'number_of_listings' => wpbdp_get_option( 'listings-per-page' ) ), $atts );
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
 
-        return $wpbdp->controller->view_featured_listings( $atts );
+        $args = array(
+            'post_type' => WPBDP_POST_TYPE,
+            'post_status' => 'publish',
+            'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+            'posts_per_page' => $atts['number_of_listings'],
+            'meta_query' => array( array( 'key' => '_wpbdp[sticky]', 'value' => 'sticky' ) )
+        );
+        $q = new WP_Query( $args );
+        wpbdp_push_query( $q );
+
+        $html = wpbdp_x_render( 'listings', array( 'query' => $q ) );
+
+        wpbdp_pop_query();
+
+        return $html;
     }
 
     /**
@@ -171,14 +204,14 @@ class WPBDP__Shortcodes {
     }
 
     /**
-     * @since next-release
+     * @since 4.0
      */
     function sc_categories( $atts ) {
         return wpbdp_list_categories( $atts );
     }
 
     /**
-     * @since next-release
+     * @since 4.0
      */
     public function listing_count_shortcode( $atts ) {
         $atts = shortcode_atts( array( 'category' => false, 'region' => false ), $atts );
@@ -226,6 +259,11 @@ class WPBDP__Shortcodes {
 
     public function sc_manage_listings() {
         $v = wpbdp_load_view( 'manage_listings' );
+        return $v->dispatch();
+    }
+
+    public function sc_search() {
+        $v = wpbdp_load_view( 'search' );
         return $v->dispatch();
     }
 

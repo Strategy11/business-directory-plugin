@@ -327,7 +327,7 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 /* main page */
-.wpbdp-main-page #wpbdp-categories {
+.wpbdp-page-main_page #wpbdp-categories {
     clear: both;
     margin-bottom: 20px;
 }

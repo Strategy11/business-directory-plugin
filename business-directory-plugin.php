@@ -55,7 +55,6 @@ require_once( WPBDP_PATH . 'core/templates-generic.php' );
 require_once( WPBDP_PATH . 'core/templates-listings.php' );
 require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );
-require_once( WPBDP_PATH . 'core/views.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
 require_once( WPBDP_PATH . 'core/class-shortcodes.php' );
@@ -154,7 +153,6 @@ class WPBDP_Plugin {
 
         // Initialize APIs.
         $this->admin = is_admin() ? new WPBDP_Admin() : null;
-        $this->controller = new WPBDP_DirectoryController();
         $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_Listings_API();
@@ -472,32 +470,21 @@ class WPBDP_Plugin {
         //     exit;
         // }
         //
-        // global $post;
-        // if ( $post && ($post->ID == wpbdp_get_page_id('main')) && (get_query_var('id') || get_query_var('listing')) ) {
-        //     $id_or_slug = false;
-        //
-        //     foreach ( array( 'id', 'preview_id', 'listing' ) as $x ) {
-        //         if ( get_query_var( $x ) ) {
-        //             $id_or_slug = get_query_var( $x );
-        //             break;
-        //         }
-        //     }
-        //
-        //     $listing = wpbdp_get_post_by_id_or_slug( $id_or_slug, wpbdp_get_option( 'permalinks-no-id' ) ? 'slug' : 'id' );
-        //
-        //     if ( ! $listing || ( 'publish' != $listing->post_status && ! current_user_can( 'edit_posts' ) )  ) {
-        //         $this->controller->action = null;
-        //         status_header(404);
-        //         nocache_headers();
-        //         $template_404 = get_404_template();
-        //
-        //         if( $template_404 )
-        //             include( $template_404 );
-        //
-        //         exit();
-        //     }
-        // }
-        //
+
+        // Handle login URL for some views.
+        if ( in_array( wpbdp_current_view(), array( 'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing' ), true )
+             && wpbdp_get_option( 'require-login' )
+             && ! is_user_logged_in() ) {
+
+            $login_url = trim( wpbdp_get_option( 'login-url' ) );
+
+            if ( ! $login_url )
+                return;
+
+            $url = add_query_arg( 'redirect_to', urlencode( home_url( $_SERVER['REQUEST_URI'] ) ), $login_url );
+            wp_redirect( esc_url_raw( $url ) );
+            exit();
+        }
     }
 
     public function plugin_activation() {
@@ -761,11 +748,10 @@ class WPBDP_Plugin {
     }
 
     public function _rss_feed() {
-        $action = $this->controller->get_current_action();
-        $main_page_id = wpbdp_get_page_id( 'main' );
-
-        if ( !$action || !$main_page_id )
+        if ( ! wpbdp_current_view() )
             return;
+
+        $main_page_id = wpbdp_get_page_id();
 
         echo "\n<!-- Business Directory RSS feed -->\n";
         echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
@@ -773,7 +759,7 @@ class WPBDP_Plugin {
                       esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) ) )
                     );
 
-        if ( $action == 'browsetag' || $action == 'browsecategory' ) {
+        if ( 'show_category' == wpbdp_current_view() ) {
             echo "\n";
             echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
                           sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
@@ -794,113 +780,6 @@ class WPBDP_Plugin {
         register_widget('WPBDP_LatestListingsWidget');
         register_widget('WPBDP_RandomListingsWidget');
         register_widget('WPBDP_SearchWidget');
-    }
-
-    public function _listings_shortcode($atts) {
-        if (!$this->controller->check_main_page($msg)) return $msg;
-
-        $atts = shortcode_atts( array( 'tag' => '',
-                                       'tags' => '',
-                                       'category' => '',
-                                       'categories' => '',
-                                       'title' => '',
-                                       'operator' => 'OR',
-                                       'author' => '',
-                                       'items_per_page' => '' ),
-
-                                $atts );
-        $atts = array_map( 'trim', $atts );
-        if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] ) {
-            $args = array();
-
-            if ( ! empty( $atts['author'] ) ) {
-                $u = false;
-
-                if ( is_numeric( $atts['author'] ) )
-                    $u = get_user_by( 'id', absint( $atts['author'] ) );
-                else
-                    $u = get_user_by( 'login', $atts['author'] );
-
-                if ( $u )
-                    $args['author'] = $u->ID;
-            }
-
-            // TODO: themes-release
-            return $this->controller->view_listings( true, $args );
-        }
-
-        if ( $atts['category'] || $atts['categories'] ) {
-            $requested_categories = array();
-
-            if ( $atts['category'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
-
-            if ( $atts['categories'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
-
-            $categories = array();
-
-            foreach ( $requested_categories as $cat ) {
-                $term = null;
-                if ( !is_numeric( $cat ) )
-                    $term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
-
-                if ( !$term && is_numeric( $cat ) )
-                    $term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
-
-                if ( $term )
-                    $categories[] = $term->term_id;
-            }
-
-            // TODO: themes-release
-            return $this->controller->browse_category( $categories, array('items_per_page'=> $atts['items_per_page']), true );
-        } elseif ( $atts['tag'] || $atts['tags'] ) {
-            $requested_tags = array();
-
-            if ( $atts['tag'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tag'] ) );
-
-            if ( $atts['tags'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
-
-            // TODO: themes-release
-            return $this->controller->browse_tag( array( 'tags' => $requested_tags, 'title' => $atts['title'], 'only_listings' => true ) );
-        }
-
-        return '';
-    }
-
-    public function _featured_listings_shortcode($atts) {
-        if (!$this->controller->check_main_page($msg)) return $msg;
-
-        $atts = shortcode_atts( array(
-            'number_of_listings' => wpbdp_get_option( 'listings-per-page' )
-            ),
-            $atts
-        );
-        $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
-
-        return $this->controller->view_featured_listings( $atts );
-    }
-
-    /**
-     * @since 3.6.10
-     */
-    function _listing_categories_shortcode( $atts ) {
-        return wpbdp_list_categories( $atts );
-    }
-
-    /**
-     * @since 3.6.10
-     */
-    function _single_listing_shortcode( $atts ) {
-        $atts = shortcode_atts( array( 'id' => null, 'slug' => null ), $atts );
-        $listing_id = wpbdp_get_post_by_id_or_slug( $atts['id'] ? $atts['id'] : $atts['slug'], 'id', 'id' );
-
-        if ( ! $listing_id )
-            return '';
-
-        return wpbdp_render_listing( $listing_id, 'single' );
     }
 
     /* theme filters */
@@ -1055,7 +934,8 @@ class WPBDP_Plugin {
      * Page metadata
      */
     public function _meta_setup() {
-        $action = $this->controller->get_current_action();
+        // TODO fix before themes-release
+        $action = '';
 
         if ( ! $action )
             return;
@@ -1100,7 +980,8 @@ class WPBDP_Plugin {
     public function _jetpack_compat( &$wp ) {
         static $incompatible_actions = array( 'submitlisting', 'editlisting', 'upgradetostickylisting' );
 
-        $action = $this->controller->get_current_action();
+        // TODO: fix before themes-release
+        $action = '';
 
         if ( !$action )
             return;
@@ -1112,7 +993,8 @@ class WPBDP_Plugin {
     }
 
     public function _handle_broken_plugin_filters() {
-        $action = $this->controller->get_current_action();
+        // TODO: fix before themes-release
+        $action = '';
 
         if ( !$action )
             return;
@@ -1186,7 +1068,8 @@ class WPBDP_Plugin {
         elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) )
             $wpseo_front = WPSEO_Frontend::get_instance();
 
-        $action = $this->controller->get_current_action();
+        // TODO: fix before themes-release
+        $action = '';
 
         switch ($action) {
             case 'submitlisting':
@@ -1295,7 +1178,8 @@ class WPBDP_Plugin {
         elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) )
             $wpseo_front = WPSEO_Frontend::get_instance();
 
-        $current_action = $this->controller->get_current_action();
+        // TODO: fix before themes-release
+        $current_action = '';
 
         switch ( $current_action ){
             case 'showlisting':
@@ -1354,7 +1238,8 @@ class WPBDP_Plugin {
     }
 
     public function _meta_rel_canonical() {
-        $action = $this->controller->get_current_action();
+        // TODO: fix before themes-release
+        $action = '';
 
         if ( !$action )
             return rel_canonical();

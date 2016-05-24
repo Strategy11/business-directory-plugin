@@ -2,7 +2,7 @@
 require_once( WPBDP_PATH . 'core/class-view.php' );
 
 /**
- * @since next-release
+ * @since 4.0
  */
 
 class WPBDP__Dispatcher {
@@ -14,7 +14,7 @@ class WPBDP__Dispatcher {
 
     public function __construct() {
         add_action( 'wp', array( $this, '_lookup_current_view' ) );
-        add_action( 'template_redirect', array( $this, '_execute_view' ) );
+        add_action( 'template_redirect', array( $this, '_execute_view' ), 11 );
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since 4.0
  */
 class WPBDP__WordPress_Template_Integration {
 

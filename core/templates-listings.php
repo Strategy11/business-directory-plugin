@@ -243,14 +243,14 @@ function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
 }
 
 /**
- * @since next-release
+ * @since 4.0
  */
 function wpbdp_the_listing_actions( $args = array() ) {
     echo wpbdp_listing_actions();
 }
 
 /**
- * @since next-release
+ * @since 4.0
  */
 function wpbdp_listing_actions( $args = array() ) {
     return wpbdp_render( 'parts/listing-buttons',

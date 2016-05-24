@@ -1,6 +1,6 @@
 <?php
 /**
- * @since themes-release
+ * @since 4.0
  */
 class _WPBDP_Template_Sections {
 

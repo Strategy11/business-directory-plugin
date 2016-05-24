@@ -22,7 +22,6 @@ class WPBDP_Installer {
             wpbdp_log('Expiration check was in schedule. Nothing to do.');
         }
 
-        // As of @next-release we'll begin using this option to store DB migrations that were run.
         if ( false === get_option( 'wpbdp-db-migrations', false ) )
             update_option( 'wpbdp-db-migrations', array(), false );
 

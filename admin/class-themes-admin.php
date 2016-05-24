@@ -1,6 +1,6 @@
 <?php
 /**
- * @since themes-release
+ * @since 4.0
  */
 class WPBDP_Themes_Admin {
 

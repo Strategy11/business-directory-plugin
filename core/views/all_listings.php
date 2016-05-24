@@ -4,6 +4,7 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
 
     public function dispatch() {
         $this->include_buttons = ! isset( $this->include_buttons ) ? true : $this->include_buttons;
+        $args_ = isset( $this->query_args ) ? $this->query_args : array();
 
         $paged = get_query_var( 'page' ) ? get_query_var( 'page' ) : ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
         $args = array(
@@ -15,8 +16,12 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
             'order' => wpbdp_get_option('listings-sort', 'ASC'),
             'wpbdp_main_query' => true
         );
+
         if ( isset( $args_['numberposts'] ) )
-            $args['numberposts'] = $args_['numberposts'];
+            $args['posts_per_page'] = $args_['numberposts'];
+
+        if ( isset( $args_['items_per_page'] ) )
+            $args['posts_per_page'] = $args_['items_per_page'];
 
         if ( ! empty( $args_['author'] ) )
             $args['author'] = $args_['author'];

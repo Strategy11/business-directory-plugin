@@ -352,7 +352,7 @@ class WPBDP_FormFields {
     }
 
     /**
-     * @deprecated since themes-release.
+     * @deprecated since 4.0.
      */
     public function get_short_names( $fieldid=null ) {
         $fields = $this->get_fields();
@@ -403,7 +403,7 @@ class WPBDP_FormFields {
     }
 
     /**
-     * @since themes-release
+     * @since 4.0
      */
     public function maybe_correct_tags() {
         $fields = wpbdp_get_form_fields();

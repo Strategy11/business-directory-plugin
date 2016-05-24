@@ -1,6 +1,6 @@
 <?php
 /**
- * @since themes-release
+ * @since 4.0
  */
 class WPBDP__Views__Delete_Listing extends WPBDP_NView {
 

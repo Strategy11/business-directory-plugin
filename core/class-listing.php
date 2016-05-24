@@ -547,7 +547,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 4.0
      */
     public function get_access_key() {
         if ( $key = get_post_meta( $this->id, '_wpbdp[access_key]', true ) )

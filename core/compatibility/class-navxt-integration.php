@@ -18,26 +18,26 @@ class WPBDP_NavXT_Integration {
             return;
 
         global $wpbdp;
-        $action = $wpbdp->controller->get_current_action();
+        $action = wpbdp_current_view();
 
         switch ( $action ) {
-            case 'showlisting':
+            case 'show_listing':
                 $this->doing = 'listing';
                 break;
 
-            case 'browsecategory':
+            case 'show_category':
                 $this->doing = 'category';
                 break;
 
-            case 'browsetag':
+            case 'show_tag':
                 $this->doing = 'tag';
                 break;
 
-            case 'editlisting':
+            case 'edit_listing':
                 $this->doing = 'edit';
                 break;
 
-            case 'submitlisting':
+            case 'submit_listing':
                 $this->doing = 'submit';
                 break;
 

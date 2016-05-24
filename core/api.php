@@ -98,7 +98,8 @@ function wpbdp_get_page_id( $name = 'main' ) {
 }
 
 /**
- * @deprecated since themes-release
+ * @deprecated since 4.0. Use `wpbdp_url()` instead.
+ * @see wpbdp_url()
  */
 function wpbdp_get_page_link($name='main', $arg0=null) {
     $page_id = wpbdp_get_page_id( $name );
@@ -530,7 +531,7 @@ function wpbdp_experimental( $feature ) {
 }
 
 /**
- * @since next-release
+ * @since 4.0
  */
 function wpbdp_current_view_output() {
     global $wpbdp;
@@ -538,7 +539,7 @@ function wpbdp_current_view_output() {
 }
 
 /**
- * @since next-release
+ * @since 4.0
  */
 function wpbdp_url( $pathorview = '/', $args = array() ) {
     $base_url = wpbdp_get_page_link( 'main' );
@@ -576,27 +577,44 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
 
 // TODO: update before themes-release
 function wpbdp_current_category_id() {
-    global $wpbdp;
-    return $wpbdp->controller->current_category_id();
+    global $wp_query;
+
+    if ( empty( $wp_query->wpbdp_is_category ) )
+        return false;
+
+    $term = $wp_query->get_queried_object();
+    return $term->term_id;
 }
 
 function wpbdp_current_tag_id() {
-    global $wpbdp;
-    return $wpbdp->controller->current_tag_id();
+    global $wp_query;
+
+    if ( empty( $wp_query->wpbdp_is_tag ) )
+        return false;
+
+    $term = $wp_query->get_queried_object();
+    return $term->term_id;
 }
 
 function wpbdp_current_action() {
-    global $wpbdp;
-    return $wpbdp->controller->get_current_action();
+    return wpbdp_current_view();
 }
 
+// TODO: how to implement now with CPT? (themes-release)
 function wpbdp_current_listing_id() {
-    global $wpbdp;
-    return $wpbdp->controller->current_listing_id();
+    return 0;
 }
 
 /**
- * @since next-release
+ * @since 4.0
+ */
+function wpbdp_current_view() {
+    global $wpbdp;
+    return $wpbdp->dispatcher->current_view();
+}
+
+/**
+ * @since 4.0
  */
 function wpbdp_load_view( $view, $arg0 = null ) {
     global $wpbdp;
