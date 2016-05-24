@@ -33,7 +33,7 @@ class WPBDP__Query_Integration {
         // Is this a listing query?
         // FIXME: this results in false positives frequently
         $types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
-        if ( in_array( WPBDP_POST_TYPE, $types ) && count( $types ) < 2 ) {
+        if ( $query->is_single && in_array( WPBDP_POST_TYPE, $types ) && count( $types ) < 2 ) {
             $query->wpbdp_is_listing = true;
             $query->wpbdp_view = 'show_listing';
         }
@@ -65,6 +65,9 @@ class WPBDP__Query_Integration {
         }
 
         $query->wpbdp_our_query = ( $query->wpbdp_is_listing || $query->wpbdp_is_category || $query->wpbdp_is_tag );
+
+        if ( ! empty( $query->query_vars['wpbdp_main_query'] ) )
+            $query->wpbdp_our_query = true;
 
         do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
     }
