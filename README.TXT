@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,church directory,address book,address,member directory,members directory,city portal,city guide,chamber of commerce
-Requires at least: 4.0
+Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory theme
+Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-Apr-7
-Stable tag: tags/3.7.5
+Last Updated: 2016-May-24
+Stable tag: tags/4.0
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -44,6 +44,7 @@ Business Directory Plugin allows you to build a local directory, directory of bu
 * Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
 * Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) 
 * Multi-language support in your directory with WPML
+* Ability to re-skin the directory with a few clicks (directory themes)
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -52,6 +53,14 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 = Premium Module Links: =
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
+
+= NEW Themes =
+* NEW! [Theme Pack](http://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
+* NEW! [Business Card Theme](http://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
+* NEW! [Tabbed Business Theme](http://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
+* NEW! [Elegant Business Theme](http://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
+* NEW! [Mobile Compact Theme](http://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
+* NEW! [Restaurant Theme](http://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
 
 = NEW Modules =
 * NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
@@ -120,6 +129,22 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.0 =
+* NEW: Add support for theming the directory + 5 premium and 1 default themes.
+* NEW: Added listing categories shortcode `businessdirectory-categories`.
+* NEW: Better integrate with WP's main query.
+* NEW: Allow reCAPTCHA to be disabled for logged-in users.
+* NEW: Allow admins to add a message with instructions during submit.
+* Add support for LinkedIn URLs (not just company IDs).
+* Fixes for recurring payments.
+* Fixes for SEO validation with Yoast.
+* Fixes for new WPML functionality.
+* Allow registration warning to be dismissed.
+* Quick search bar fixes for mobile users.
+* Add support for recurring payments for listing claims.
+* Added support for HTML tags in ratings comments.
+* Regions fixes for PHP 7.
 
 = Version 3.7.5 =
 * Fix queries involving featured listings to include listings made sticky by plan (not level).
