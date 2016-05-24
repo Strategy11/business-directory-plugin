@@ -107,6 +107,10 @@ class WPBDP__Dispatcher {
         return $this->current_view;
     }
 
+    public function current_view_object() {
+        return $this->current_view_obj;
+    }
+
     public function current_view_output() {
         return $this->output;
     }

@@ -2,6 +2,10 @@
 
 class WPBDP__Views__All_Listings extends WPBDP_NView {
 
+    public function get_title() {
+        return _x( 'View All Listings', 'views', 'WPBDM' );
+    }
+
     public function dispatch() {
         $this->include_buttons = ! isset( $this->include_buttons ) ? true : $this->include_buttons;
         $args_ = isset( $this->query_args ) ? $this->query_args : array();

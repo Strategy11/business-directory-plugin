@@ -2,6 +2,10 @@
 
 class WPBDP__Views__Search extends WPBDP_NView {
 
+    public function get_title() {
+        return _x( 'Find A Listing', 'views', 'WPBDM' );
+    }
+
     public function dispatch() {
         $_REQUEST = stripslashes_deep( $_REQUEST );
 

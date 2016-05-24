@@ -30,6 +30,10 @@ class WPBDP_NView {
             $this->{$k} = $v;
     }
 
+    public function get_title() {
+        return '';
+    }
+
     public function enqueue_resources() {
     }
 

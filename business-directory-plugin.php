@@ -187,7 +187,10 @@ class WPBDP_Plugin {
             remove_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
 
             remove_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
+            remove_filter( 'pre_get_document_title', array( &$this, '_meta_title' ), 10, 3 );
             remove_action( 'wp_head', array( &$this, '_rss_feed' ) );
+
+            add_filter( 'document_title_parts', array( &$this, 'set_view_title' ), 10 );
         }
 
         add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
@@ -1033,6 +1036,23 @@ class WPBDP_Plugin {
             }
         }
 
+    }
+
+    public function set_view_title( $title = false ) {
+        global $wp_query;
+
+        if ( empty( $wp_query->wpbdp_view ) || ! is_array( $title ) )
+            return $title;
+
+        $current_view = $this->dispatcher->current_view_object();
+
+        if ( ! $current_view )
+            return true;
+
+        if ( $view_title = $current_view->get_title() )
+            $title['title'] = $view_title;
+
+        return $title;
     }
 
     // TODO: it'd be nice to move workarounds outside this class.
