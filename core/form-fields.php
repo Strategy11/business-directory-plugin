@@ -282,8 +282,12 @@ class WPBDP_FormFields {
         $ids = $wpdb->get_col( $sql );
 
         foreach ( $ids as $id ) {
-            if ( $field = WPBDP_FormField::get( $id ) )
+            if ( $field = WPBDP_FormField::get( $id ) ) {
+                if ( ! in_array( $field->get_association(), array_keys( $this->associations ), true ) )
+                    continue;
+
                 $res[] = $field;
+            }
         }
 
         $res = $unique ? ( $res ? $res[0] : null ) : $res;
