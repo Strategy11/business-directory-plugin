@@ -131,20 +131,4 @@ class WPBDP__Query_Integration {
     }
 
 }
-/*
-        // Type.
-        if ( ! empty( $query->query_vars['wpbdp_listing_type'] ) ) {
-            switch ( $query->query_vars['wpbdp_listing_type'] ) {
-                case 'sticky':
-                    $subquery_1 = $wpdb->prepare( "SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1",
-                                                  '_wpbdp[sticky]',
-                                                  'sticky' );
-                    $subquery_2 = $wpdb->prepare( "SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d LIMIT 1",
-                                                  1 );
-
-                    $pieces['where'] .= ' AND ( EXISTS(' . $subquery_1 . ') OR EXISTS(' . $subquery_2 . ') ) ';
-                    break;
-            }
-        }
-    }*/
 
