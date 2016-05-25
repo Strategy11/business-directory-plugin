@@ -313,8 +313,8 @@ class WPBDP_Plugin {
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
                 }
 
-                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]&paged=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&tag=$matches[2]';
+                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]';
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
