@@ -150,6 +150,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
             return $this->items[ $field_id ];
 
         wpbdp_debug( 'Invalid field key: ' . $key );
+        return new WPBDP_NoopObject(); // FIXME: templates shouldn't rely on a field existing.
         return false;
     }
 
