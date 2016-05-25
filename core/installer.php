@@ -896,6 +896,8 @@ class WPBDP_Installer {
     }
 
     public function upgrade_to_11() {
+        // Users upgrading from < 4.x get the pre-4.0 theme.
+        update_option( 'wpbdp-active-theme', 'no_theme' );
     }
 
 //    public function upgrade_to_12() {
