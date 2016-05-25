@@ -82,9 +82,12 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo $before_widget;
         if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 
-        echo sprintf('<form action="%s" method="GET">', wpbdp_get_page_link() );
-        echo '<input type="hidden" name="action" value="search" />';
-        echo sprintf('<input type="hidden" name="page_id" value="%s" />', wpbdp_get_page_id('main'));
+        echo sprintf('<form action="%s" method="GET">', wpbdp_url( '/' ) );
+
+        if ( ! wpbdp_rewrite_on() )
+            echo sprintf('<input type="hidden" name="page_id" value="%s" />', wpbdp_get_page_id('main'));
+
+        echo '<input type="hidden" name="wpbdp_view" value="search" />';
         echo '<input type="hidden" name="dosrch" value="1" />';
 
         if (wpbdp_getv($instance, 'form_mode', 'basic') == 'advanced') {

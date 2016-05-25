@@ -212,7 +212,7 @@ function wpbdp_search_form() {
     $html  = '';
     $html .= sprintf( '<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
                       wpbdp_url( 'search' ) );
-        $html .= '<input type="hidden" name="action" value="search" />';
+        $html .= '<input type="hidden" name="wpbdp_view" value="search" />';
 
     if ( ! wpbdp_rewrite_on() ) {
         $html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
