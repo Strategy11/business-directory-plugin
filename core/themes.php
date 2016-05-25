@@ -44,6 +44,9 @@ class WPBDP_Themes {
         if ( ! $fname && file_exists( $theme->path . 'theme.php' ) )
             include_once( $theme->path . 'theme.php' );
 
+        if ( ! $fname )
+            return;
+
         $theme_name = str_replace( array( '-' ), array( '_' ), $theme->id );
 
         $alternatives = array( 'wpbdp_themes__' . $theme_name . '_' . $fname,
