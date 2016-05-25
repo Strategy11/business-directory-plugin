@@ -57,11 +57,13 @@ class WPBDP_NView {
     }
 
     public final function _render() {
-        return call_user_func_array( 'wpbdp_x_render', func_get_args() );
+        $args = func_get_args();
+        return call_user_func_array( 'wpbdp_x_render', $args );
     }
 
     public final function _render_page() {
-        return call_user_func_array( 'wpbdp_x_render_page', func_get_args() );
+        $args = func_get_args();
+        return call_user_func_array( 'wpbdp_x_render_page', $args );
     }
 
 }
