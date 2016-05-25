@@ -30,6 +30,8 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
         if ( ! empty( $args_['author'] ) )
             $args['author'] = $args_['author'];
 
+        $args = array_merge( $args, $args_ );
+
         $q = new WP_Query( $args );
         wpbdp_push_query( $q );
 

@@ -157,7 +157,7 @@ class WPBDP__Shortcodes {
                            'tax_query' => array(
                                array( 'taxonomy' => WPBDP_TAGS_TAX,
                                       'field' => 'id',
-                                      'terms' => $categories ) )
+                                      'terms' => $requested_tags ) )
             );
 
             $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
