@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory theme
+Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-May-24
-Stable tag: tags/4.0
+Last Updated: 2016-May-25
+Stable tag: tags/4.0.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -129,6 +129,13 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.0.1 =
+* Fix some PHP warnings and errors
+* Fix listings shortcode category support.
+* Fix search issue in Featured Listings widget.
+* Fix tag pages.
+* Make "Pre-4.0 Template" the default theme for upgrades from 3.x.
 
 = Version 4.0 =
 * NEW: Add support for theming the directory + 5 premium and 1 default themes.
