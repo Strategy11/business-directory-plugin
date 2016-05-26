@@ -5,6 +5,7 @@
 class WPBDP__WordPress_Template_Integration {
 
     private $wp_head_done = false;
+    private $displayed = false;
     private $original_post_title = '';
 
 
@@ -42,6 +43,7 @@ class WPBDP__WordPress_Template_Integration {
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
+        // add_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
@@ -51,20 +53,41 @@ class WPBDP__WordPress_Template_Integration {
         remove_action( 'the_post', array( $this, 'spoof_post' ) );
     }
 
+    public function display_view_in_excerpt( $excerpt = '' ) {
+        if ( $this->displayed ) {
+            remove_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
+            return '';
+        }
+
+        remove_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
+        $this->restore_things();
+
+        $html = wpbdp_current_view_output();
+
+        if ( ! is_404() )
+            $this->end_query();
+
+        $this->displayed = true;
+
+        return $html;
+    }
+
     public function display_view_in_content( $content = '' ) {
+        if ( $this->displayed ) {
+            remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+            return '';
+        }
+
         remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         // add_filter( 'the_content', 'wpautop' );
         $this->restore_things();
 
         $html = wpbdp_current_view_output();
 
-        // if ( $view = wpbdp_current_view_output() )
-        //     $html = $view->render();
-        // else
-        //     $html = '';
-
         if ( ! is_404() )
             $this->end_query();
+
+        $this->displayed = true;
 
         return $html;
     }
