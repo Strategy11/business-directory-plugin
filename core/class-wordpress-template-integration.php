@@ -19,7 +19,6 @@ class WPBDP__WordPress_Template_Integration {
     public function template_include( $template ) {
         global $wp_query;
 
-        // if ( ! $wp_query->wpbdp_our_query )
         if ( ! $wp_query->wpbdp_our_query )
             return $template;
 
@@ -27,7 +26,7 @@ class WPBDP__WordPress_Template_Integration {
             return get_404_template();
 
         global $post;
-        if ( ! isset( $post ) || ! $post instanceof WP_Post )
+        if ( empty( $wp_query->wpbdp_view ) && ( ! isset( $post ) || ! $post instanceof WP_Post ) )
             return $template;
 
         add_filter( 'document_title_parts', array( $this, 'modify_global_post_title' ), 1000 );
@@ -43,7 +42,7 @@ class WPBDP__WordPress_Template_Integration {
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
-        // add_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
+        add_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
@@ -94,6 +93,9 @@ class WPBDP__WordPress_Template_Integration {
 
     public function modify_global_post_title( $title = '' ) {
         global $post;
+
+        if ( ! $post )
+            return $title;
 
         // Set the title to an empty string (but record the original)
         $this->original_post_title = $post->post_title;

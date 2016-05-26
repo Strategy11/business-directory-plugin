@@ -78,7 +78,7 @@ class WPBDP__Query_Integration {
         if ( ! $wp_query->wpbdp_our_query )
             return;
 
-        if ( ( 'show_listing' == $wp_query->wpbdp_view || $wp_query->wpbdp_is_category ) && empty( $wp_query->posts ) )
+        if ( 'show_listing' == $wp_query->wpbdp_view && empty( $wp_query->posts ) )
             $wp_query->is_404 = true;
     }
 
