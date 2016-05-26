@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '11';
+    const DB_VERSION = '12';
 
     private $installed_version = null;
 
@@ -171,7 +171,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -898,6 +898,10 @@ class WPBDP_Installer {
     public function upgrade_to_11() {
         // Users upgrading from < 4.x get the pre-4.0 theme.
         update_option( 'wpbdp-active-theme', 'no_theme' );
+    }
+
+    public function upgrade_to_12() {
+        delete_transient( 'wpbdp-themes-updates' );
     }
 
 //    public function upgrade_to_12() {
