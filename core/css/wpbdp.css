@@ -814,3 +814,19 @@ body.business-directory #TB_secondLine {
 }
 
 /* }} */
+
+/*
+ * {{ Some compat fixes for themes.
+ */
+
+.single-wpbdp_listing header.entry-header,
+.wpbdp-view-show_category header.entry-header,
+.wpbdp-view-show_tag header.entry-header,
+.wpbdp-view-search header.entry-header,
+.wpbdp-view-submit_listing header.entry-header {
+    display: none;
+}
+
+/*
+ * }}
+ */
