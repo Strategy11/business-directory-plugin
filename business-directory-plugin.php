@@ -1038,7 +1038,7 @@ class WPBDP_Plugin {
 
     }
 
-    public function set_view_title( $title = false ) {
+    public function set_view_title( $title ) {
         global $wp_query;
 
         if ( empty( $wp_query->wpbdp_view ) || ! is_array( $title ) )
@@ -1047,7 +1047,7 @@ class WPBDP_Plugin {
         $current_view = $this->dispatcher->current_view_object();
 
         if ( ! $current_view )
-            return true;
+            return $title;
 
         if ( $view_title = $current_view->get_title() )
             $title['title'] = $view_title;
