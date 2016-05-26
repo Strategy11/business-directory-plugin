@@ -244,7 +244,7 @@ class WPBDP_Themes {
         $key = ( ! $key ) ? 'tag' : $key;
 
         $missing = array();
-        $suggested_fields = $this->get_active_theme_data( 'suggested_fields' );
+        $suggested_fields = array_filter( (array) $this->get_active_theme_data( 'suggested_fields' ) );
         $current_fields_tags = $wpdb->get_col( "SELECT tag FROM {$wpdb->prefix}wpbdp_form_fields" );
 
         $missing_tags = array_diff( $suggested_fields, $current_fields_tags );
