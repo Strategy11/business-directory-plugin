@@ -7,8 +7,8 @@
 
     <?php if ( ! wpbdp_rewrite_on() ): ?>
     <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id(); ?>" />
-    <input type="hidden" name="wpbdp_view" value="search" />
     <?php endif; ?>
+    <input type="hidden" name="wpbdp_view" value="search" />
 
     <?php echo $fields; ?>
     <?php do_action('wpbdp_after_search_fields'); ?>
