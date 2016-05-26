@@ -78,7 +78,7 @@ class WPBDP__Dispatcher {
 
         foreach ( $this->get_view_locations() as $dir ) {
             foreach ( $filenames as $f ) {
-                $path = WPBDP_FS::join( $dir, $f );
+                $path = wp_normalize_path( WPBDP_FS::join( $dir, $f ) );
 
                 if ( ! file_exists( $path ) )
                     continue;
