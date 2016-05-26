@@ -45,7 +45,7 @@ class WPBDP__WordPress_Template_Integration {
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
-        add_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
+        // add_filter( 'the_excerpt', array( $this, 'display_view_in_excerpt' ), 5 );
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
