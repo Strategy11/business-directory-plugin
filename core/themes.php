@@ -63,8 +63,8 @@ class WPBDP_Themes {
 
     function enqueue_theme_scripts() {
         $theme = $this->get_active_theme_data();
-        $css = $theme->assets->css;
-        $js = $theme->assets->js;
+        $css = array_filter( (array) $theme->assets->css );
+        $js = array_filter( (array) $theme->assets->js );
 
         foreach ( $css as $c ) {
             wp_enqueue_style( $theme->id . '-' . $this->_normalize_asset_name( $c ),
