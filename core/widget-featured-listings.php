@@ -38,7 +38,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
             "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts} JOIN {$wpdb->postmeta} pm ON pm.post_id = {$wpdb->posts}.ID
              JOIN {$wpdb->prefix}wpbdp_listing_fees lf ON lf.listing_id = {$wpdb->posts}.ID
              WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND ( lf.sticky = 1 OR ( pm.meta_key = %s AND pm.meta_value = %s ) )
-             ORDER BY " . ( ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'RAND' : $wpdb->posts . '.post_date' ) . 
+             ORDER BY " . ( ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'RAND()' : $wpdb->posts . '.post_date' ) . 
             " LIMIT %d",
             'publish', WPBDP_POST_TYPE, '_wpbdp[sticky]', 'sticky', $instance['number_of_listings'] );
         $featured = $wpdb->get_col( $q );
