@@ -33,7 +33,10 @@ class WPBDP__WordPress_Template_Integration {
         add_filter( 'wp_title', array( $this, 'modify_global_post_title' ), 1000 );
         add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
-        return locate_template( 'page.php' );
+        if ( $page_template = locate_template( 'page.php' ) )
+            $template = locate_template( 'page.php' );
+
+        return $template;
     }
 
     public function setup_post_hooks( $query ) {
