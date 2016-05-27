@@ -5,7 +5,7 @@ Tags: address book, business directory, chamber of commerce business directory, 
 Requires at least: 4.1
 Tested up to: 4.5
 Last Updated: 2016-May-27
-Stable tag: tags/4.0.2
+Stable tag: tags/4.0.3
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -129,6 +129,14 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.0.3 =
+* Restore WPBUSDIRMANMANAGELISTING as a valid "Manage Listings" shortcode.
+* Prevent view classes from being loaded more than one to prevent PHP strict errors.
+* Improve compatibility with Graphene theme.
+* Restore listing count shortcode functionality.
+* Fix "Address" section appearing on default theme even when no address was available.
+* Add missing ORDER BY clause resulting in "paid first" sort order not working correctly.
 
 = Version 4.0.2 =
 * Fixes for themes showing "Untitled" on some directory pages.
