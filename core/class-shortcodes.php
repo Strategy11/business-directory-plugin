@@ -213,7 +213,7 @@ class WPBDP__Shortcodes {
     /**
      * @since 4.0
      */
-    public function listing_count_shortcode( $atts ) {
+    public function sc_count( $atts ) {
         $atts = shortcode_atts( array( 'category' => false, 'region' => false ), $atts );
         extract( $atts );
 
