@@ -827,6 +827,15 @@ body.business-directory #TB_secondLine {
     display: none;
 }
 
+.wpbdp-wp-theme-graphene.single-wpbdp_listing h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-show_category h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-show_tag h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-search h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-submit_listing h1.post-title
+{
+    display: none;
+}
+
 /*
  * }}
  */
