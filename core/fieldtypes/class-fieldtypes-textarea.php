@@ -126,7 +126,10 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                     global $post;
                     // Try to protect us from sortcodes messing things for us.
                     $current_post = $post;
-                    $value = do_shortcode( shortcode_unautop( wpautop( $value ) ) );
+                    // TODO: With #1530 this no longer seems to be necessary or it can lead to problems. Review for a
+                    // future release.
+                    // $value = do_shortcode( shortcode_unautop( wpautop( $value ) ) );
+                    $value = wpautop( $value );
                     $post = $current_post;
                 } else {
                     $value = wpautop( $value );
