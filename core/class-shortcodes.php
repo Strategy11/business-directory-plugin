@@ -33,7 +33,7 @@ class WPBDP__Shortcodes {
                     array( 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' ) );
         $this->add( 'businessdirectory-manage-listings',
                     array( $this, 'sc_manage_listings' ),
-                    array( 'businessdirectory-managelistings', 'business-directory-manage-listings', 'businessdirectory-manage_listings' ) );
+                    array( 'businessdirectory-managelistings', 'business-directory-manage-listings', 'businessdirectory-manage_listings', 'WPBUSDIRMANMANAGELISTING' ) );
         $this->add( 'businessdirectory-listings',
                     array( $this, 'sc_listings' ),
                     array( 'WPBUSDIRMANVIEWLISTINGS', 'WPBUSDIRMANMVIEWLISTINGS', 'businessdirectory-view_listings', 'businessdirectory-viewlistings' ) );
