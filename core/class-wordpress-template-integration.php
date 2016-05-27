@@ -167,12 +167,18 @@ class WPBDP__WordPress_Template_Integration {
 
     public function body_class( $classes = array() ) {
         global $wp_query;
+        global $wpbdp;
 
         // FIXME: we need a better way to handle this, since it might be that a shortcode is being used and not something
         // really dispatched through BD.
         if ( $wp_query->wpbdp_view ) {
             $classes[] = 'business-directory';
             $classes[] = 'wpbdp-view-' . $wp_query->wpbdp_view;
+
+            if ( $theme = wp_get_theme() )
+                $classes[] = 'wpbdp-wp-theme-' . strtolower( $theme->Name );
+
+            $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
         }
 
         return $classes;
