@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 4.0.2
+ * Version: 4.0.3dev
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,7 +31,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '4.0.2' );
+define( 'WPBDP_VERSION', '4.0.3dev' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
