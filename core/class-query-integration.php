@@ -127,6 +127,9 @@ class WPBDP__Query_Integration {
             $pieces['fields'] .= ', (SELECT 0) AS wpbdp_is_paid';
         }
 
+        if ( 'paid-title' == $query->get( 'orderby' ) )
+            $pieces['orderby'] = "{$wpdb->posts}.post_title ASC, " . $pieces['orderby'];
+
         $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_is_paid DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
         $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );
 
