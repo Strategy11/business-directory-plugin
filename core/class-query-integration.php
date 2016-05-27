@@ -120,7 +120,7 @@ class WPBDP__Query_Integration {
         }
 
         // Paid first query order.
-        if ( in_array( $query->get( 'order' ), array( 'paid', 'paid-title' ), true ) ) {
+        if ( in_array( $query->get( 'orderby' ), array( 'paid', 'paid-title' ), true ) ) {
             $is_paid_query = "(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments pp WHERE pp.listing_id = {$wpdb->posts}.ID AND pp.amount > 0 LIMIT 1 ) AS wpbdp_is_paid";
             $pieces['fields'] .= ', ' . $is_paid_query;
         } else {
