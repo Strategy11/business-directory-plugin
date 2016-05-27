@@ -15,7 +15,6 @@ class WPBDP__Views__Show_Listing extends WPBDP_NView {
         $html = wpbdp_render_listing( null, 'single', false, true );
 
         return $html;
-//        return 'HI THERE';
     }
 
 }
