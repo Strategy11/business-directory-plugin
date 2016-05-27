@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-May-25
-Stable tag: tags/4.0.1
+Last Updated: 2016-May-27
+Stable tag: tags/4.0.2
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -129,6 +129,18 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.0.2 =
+* Fixes for themes showing "Untitled" on some directory pages.
+* Fixes for Avada theme.
+* Reduce themes update checking periodicity to 48 hrs.
+* Add missing argument to search form to prevent incorrect search results being returned.
+* Fix to locate a replacement for page.php template for themes that don't have it.
+* Fix random ordering in Featured Listings widget.
+* Fix title filter for modern themes.
+* Fixes for path handling on Windows environments.
+* Fix some PHP warnings resulting from JSON decoding theme files.
+* Do not show a 404 error for empty categories.
 
 = Version 4.0.1 =
 * Fix some PHP warnings and errors
