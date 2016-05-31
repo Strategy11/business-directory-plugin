@@ -13,15 +13,17 @@ class WPBDP__CPT_Compat_Mode {
     }
 
     public function maybe_change_current_view( $viewname ) {
+        global $wp_query;
+
         $slug_dir = wpbdp_get_option( 'permalinks-directory-slug' );
         $slug_cat = wpbdp_get_option( 'permalinks-category-slug' );
         $slug_tag = wpbdp_get_option( 'permalinks-tags-slug' );
 
-        if ( ! empty( $_GET[ '_' . $slug_dir ] ) )
+        if ( get_query_var( '_' . $slug_dir ) )
             $this->current_view = 'show_listing';
-        elseif ( ! empty( $_GET[ '_' . $slug_cat ] ) )
+        elseif ( get_query_var( '_' . $slug_cat ) )
             $this->current_view = 'show_category';
-        elseif ( ! empty( $_GET[ '_' . $slug_tag] ) )
+        elseif ( get_query_var( '_' . $slug_tag ) )
             $this->current_view = 'show_tag';
 
         if ( $this->current_view )
@@ -42,8 +44,12 @@ class WPBDP__CPT_Compat_Mode {
             case 'show_listing':
                 $this->data['wp_query'] = $wp_query;
 
+                $listing_id = wpbdp_get_post_by_id_or_slug( get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
+                                                            'id',
+                                                            'id' );
+
                 $args = array( 'post_type' => WPBDP_POST_TYPE,
-                               'name' => $_GET['_' . wpbdp_get_option( 'permalinks-directory-slug' ) ] );
+                               'p' => $listing_id );
                 $wp_query = new WP_Query( $args );
                 $wp_query->the_post();
 
@@ -52,7 +58,7 @@ class WPBDP__CPT_Compat_Mode {
             case 'show_category':
                 $this->data['wp_query'] = $wp_query;
 
-                $args = array( WPBDP_CATEGORY_TAX => $_GET[ '_' . wpbdp_get_option( 'permalinks-category-slug' ) ] );
+                $args = array( WPBDP_CATEGORY_TAX => get_query_var( '_' . wpbdp_get_option( 'permalinks-category-slug' ) ) );
                 $wp_query = new WP_Query( $args );
 
                 break;
@@ -60,7 +66,7 @@ class WPBDP__CPT_Compat_Mode {
             case 'show_tag':
                 $this->data['wp_query'] = $wp_query;
 
-                $args = array( WPBDP_TAGS_TAX => $_GET[ '_' . wpbdp_get_option( 'permalinks-tags-slug' ) ] );
+                $args = array( WPBDP_TAGS_TAX => get_query_var( '_' . wpbdp_get_option( 'permalinks-tags-slug' ) ) );
                 $wp_query = new WP_Query( $args );
 
                 break;
