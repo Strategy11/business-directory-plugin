@@ -177,7 +177,7 @@ class WPBDP_Form_Field {
         if ( ! $in_use )
             return $shortname;
 
-        $n = absint( $this->id ? $this->id : 1 );
+        $n = 1;
 
         // Find an alternative name.
         while ( true ) {
