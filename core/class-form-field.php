@@ -141,6 +141,7 @@ class WPBDP_Form_Field {
         if ( $this->shortname )
             return $this->shortname;
 
+                // $name = $name . '-' . $field->get_id();
         if ( ! $this->label ) {
             $this->shortname = 'field_' . $this->id;
         } else {
@@ -155,6 +156,39 @@ class WPBDP_Form_Field {
         if ( $this->id ) {
             global $wpdb;
             $wpdb->update( $wpdb->prefix . 'wpbdp_form_fields', array( 'shortname' => $shortname ), array( 'id' => $this->id ) );
+        }
+
+        return $shortname;
+    }
+
+    /**
+     * @since 4.0.4
+     */
+    public function shortname_noconflict( $shortname ) {
+        global $wpdb;
+
+        $in_use = false;
+
+        if ( ! $this->id )
+            $in_use = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s LIMIT 1", $shortname ) );
+        else
+            $in_use = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s AND id != %d LIMIT 1", $shortname, $this->id ) );
+
+        if ( ! $in_use )
+            return $shortname;
+
+        $n = absint( $this->id ? $this->id : 1 );
+
+        // Find an alternative name.
+        while ( true ) {
+            $check = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s LIMIT 1", $shortname . '_' . $n ) );
+
+            if ( ! $check ) {
+                $shortname = $shortname . '_' . $n;
+                break;
+            }
+
+            $n++;
         }
 
         return $shortname;
@@ -501,8 +535,8 @@ class WPBDP_Form_Field {
 
         $data = array();
 
-        $data['shortname'] = $this->get_shortname();
         $data['label'] = $this->label;
+        $data['shortname'] = $this->shortname_noconflict( $this->get_shortname() );
         $data['description'] = trim( $this->description );
         $data['field_type'] = $this->type->get_id();
         $data['association'] = $this->association;
