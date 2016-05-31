@@ -117,8 +117,6 @@ class WPBDP_Plugin {
     }
 
     function init() {
-        $this->compat = new WPBDP_Compat();
-
         // Register cache groups.
         wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
 
@@ -157,6 +155,7 @@ class WPBDP_Plugin {
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_Listings_API();
         $this->shortcodes = new WPBDP__Shortcodes();
+        $this->compat = new WPBDP_Compat();
 
         $this->_register_image_sizes();
 

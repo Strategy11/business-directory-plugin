@@ -10,6 +10,9 @@ class WPBDP__WordPress_Template_Integration {
 
 
     public function __construct() {
+        if ( wpbdp_get_option( 'disable-cpt' ) )
+            return;
+
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
         add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
         add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
@@ -40,7 +43,10 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function setup_post_hooks( $query ) {
-        if ( ! $query->is_main_query() || ! $this->wp_head_done )
+        if ( ! $this->wp_head_done )
+            return;
+
+        if ( ! $query->is_main_query() )
             return;
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );

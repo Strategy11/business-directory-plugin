@@ -37,8 +37,12 @@ class WPBDP_Listings_API {
         if ( WPBDP_CATEGORY_TAX != $taxonomy )
             return $link;
 
-        if ( ! wpbdp_rewrite_on() )
+        if ( ! wpbdp_rewrite_on() ) {
+            if ( wpbdp_get_option( 'disable-cpt' ) )
+                return wpbdp_url( '/' ) . '&_' . wpbdp_get_option( 'permalinks-category-slug' ) . '=' . $category->slug;
+
             return $link;
+        }
 
         $link = wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-category-slug' ), $category->slug ) );
 
@@ -49,8 +53,12 @@ class WPBDP_Listings_API {
         if ( WPBDP_TAGS_TAX != $taxonomy )
             return $link;
 
-        if ( ! wpbdp_rewrite_on() )
+        if ( ! wpbdp_rewrite_on() ) {
+            if ( wpbdp_get_option( 'disable-cpt' ) )
+                $link = wpbdp_url( '/' ) . '&_' . wpbdp_get_option( 'permalinks-tags-slug' ) . '=' . $tag->slug;
+
             return $link;
+        }
 
         $link = wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-tags-slug' ), $tag->slug ) );
 
@@ -61,23 +69,26 @@ class WPBDP_Listings_API {
         if ( WPBDP_POST_TYPE != get_post_type( $post ) )
             return $link;
 
-        if ( ! wpbdp_rewrite_on() )
-            return $link;
-
         if ( $querystring = parse_url( $link, PHP_URL_QUERY ) ) 
             $querystring = '?' . $querystring;
         else
             $querystring = '';
 
-        if ( $leavename )
-            return wpbdp_url( '/' . '%' . WPBDP_POST_TYPE . '%' . '/' . $querystring );
+        if ( ! wpbdp_rewrite_on() ) {
+            if ( wpbdp_get_option( 'disable-cpt' ) ) {
+                $link = wpbdp_url( '/' ) . '&' . '_' . wpbdp_get_option( 'permalinks-directory-slug' ) . '=' . $post->post_name;
+            }
+        } else {
+            if ( $leavename )
+                return wpbdp_url( '/' . '%' . WPBDP_POST_TYPE . '%' . '/' . $querystring );
 
-        if ( wpbdp_get_option( 'permalinks-no-id' ) && $post->post_name )
-            $link = wpbdp_url( '/' . $post->post_name . '/' );
-        else
-            $link = wpbdp_url( '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name : '' ) );
+            if ( wpbdp_get_option( 'permalinks-no-id' ) && $post->post_name )
+                $link = wpbdp_url( '/' . $post->post_name . '/' );
+            else
+                $link = wpbdp_url( '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name : '' ) );
 
-        $link .= $querystring;
+            $link .= $querystring;
+        }
 
         return apply_filters( 'wpbdp_listing_link', $link, $post->ID );
     }
