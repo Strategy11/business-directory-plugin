@@ -181,8 +181,10 @@ class WPBDP__WordPress_Template_Integration {
             $classes[] = 'business-directory';
             $classes[] = 'wpbdp-view-' . $wp_query->wpbdp_view;
 
-            if ( $theme = wp_get_theme() )
-                $classes[] = 'wpbdp-wp-theme-' . strtolower( $theme->Name );
+            if ( $theme = wp_get_theme() ) {
+                $classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
+                $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
+            }
 
             $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
         }
