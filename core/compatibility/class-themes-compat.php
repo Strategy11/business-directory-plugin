@@ -50,7 +50,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function get_themes_with_fixes() {
-        $themes_with_fixes = array( 'genesis', 'hmtpro5' );
+        $themes_with_fixes = array( 'genesis', 'hmtpro5', 'customizr', 'customizr-pro' );
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
     }
 
@@ -74,7 +74,6 @@ class WPBDP__Themes_Compat {
             return;
 
         add_action( 'wp_head', array( $this, 'theme_hmtpro5_after_head' ), 999 );
-        add_filter( 'comments_open', array( $this, 'theme_hmtpro5_no_comments' ), 999 );
     }
 
     public function theme_hmtpro5_after_head() {
@@ -83,7 +82,17 @@ class WPBDP__Themes_Compat {
         $wp_query->is_page = true;
     }
 
-    public function theme_hmtpro5_no_comments() {
+    public function theme_customizr() {
+        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
+            return;
+
+        add_filter( 'tc_is_grid_enabled', '__return_false', 999 );
+        add_filter( 'tc_show_excerpt', '__return_false', 999 );
+        add_filter( 'tc_post_list_controller', '__return_true', 999 );
+    }
+
+    public function theme_customizr_pro() {
+        return $this->theme_customizr();
     }
 
     //
