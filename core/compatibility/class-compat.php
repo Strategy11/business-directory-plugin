@@ -7,8 +7,13 @@ class WPBDP_Compat {
         $this->workarounds_for_wp_bugs();
         $this->load_integrations();
 
-        if ( wpbdp_get_option( 'disable-cpt' ) )
-            $this->cpt_compat_mode();
+        if ( wpbdp_get_option( 'disable-cpt' ) ) {
+            require_once( WPBDP_PATH . 'core/compatibility/class-cpt-compat-mode.php' );
+            $nocpt = new WPBDP__CPT_Compat_Mode();
+        } else {
+            require_once( WPBDP_PATH . 'core/compatibility/class-themes-compat.php' );
+            new WPBDP__Themes_Compat();
+        }
     }
 
     function load_integrations() {
