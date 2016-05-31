@@ -83,12 +83,16 @@ class WPBDP__Themes_Compat {
     }
 
     public function theme_customizr() {
+        add_filter( 'tc_show_single_post_content', '__return_false', 999 );
+        add_filter( 'tc_show_single_post_footer', '__return_false', 999 );
+
         if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
             return;
 
         add_filter( 'tc_is_grid_enabled', '__return_false', 999 );
         add_filter( 'tc_show_excerpt', '__return_false', 999 );
         add_filter( 'tc_post_list_controller', '__return_true', 999 );
+        add_filter( 'tc_show_tax_archive_title', '__return_false', 999 );
     }
 
     public function theme_customizr_pro() {
