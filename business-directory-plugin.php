@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 4.0.4dev
+ * Version: 4.0.4
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,7 +31,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '4.0.4dev' );
+define( 'WPBDP_VERSION', '4.0.4' );
 
 define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
@@ -299,6 +299,7 @@ class WPBDP_Plugin {
 
                 $rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( $home_url . '/', '', $page_link ), '/' ) );
 
+                $dir_slug = urlencode( wpbdp_get_option( 'permalinks-directory-slug' ) );
                 $category_slug = urlencode( wpbdp_get_option( 'permalinks-category-slug' ) );
                 $tags_slug = urlencode( wpbdp_get_option( 'permalinks-tags-slug' ) );
 
@@ -308,22 +309,30 @@ class WPBDP_Plugin {
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?wpbdp_category=$matches[2]&paged=$matches[3]';
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?wpbdp_category=$matches[2]';
                 } else {
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]&paged=$matches[3]';
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&category=$matches[2]';
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]&paged=$matches[3]';
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]';
                 }
 
-                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]';
+                if ( ! wpbdp_get_option( 'disable-cpt') ) {
+                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
+                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]';
+                } else {
+                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' .$page_id .'&_' . $tags_slug . '=$matches[2]&paged=$matches[3]';
+                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&_' . $tags_slug . '=$matches[2]';
+                }
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
                         $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]';
                     } else {
-                        // TODO: how to do this when CPT is disabled?
-                        // $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&wpbdp_view=show_listing&listing_id=$matches[2]';
+                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
                     }
                 } else {
-                    $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?p=$matches[2]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
+                    if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
+                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?p=$matches[2]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
+                    } else {
+                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
+                    }
                 }
             }
         }
@@ -370,6 +379,12 @@ class WPBDP_Plugin {
         array_push( $vars, 'wpbdpx' );
         array_push( $vars, 'region' );
         array_push( $vars, 'wpbdp_view' );
+
+        if ( wpbdp_get_option( 'disable-cpt' ) ) {
+            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
+            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-category-slug' ) );
+            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-tags-slug' ) );
+        }
 
         return $vars;
     }
