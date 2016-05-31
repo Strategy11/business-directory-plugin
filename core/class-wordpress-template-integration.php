@@ -37,7 +37,7 @@ class WPBDP__WordPress_Template_Integration {
         add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
         if ( $page_template = locate_template( 'page.php' ) )
-            $template = locate_template( 'page.php' );
+            $template = $page_template;
 
         return $template;
     }
