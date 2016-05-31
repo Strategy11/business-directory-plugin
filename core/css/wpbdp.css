@@ -836,7 +836,14 @@ body.business-directory #TB_secondLine {
     display: none;
 }
 
-.wpbdp-wp-theme-genesis.wpbdp-view-show_category .archive-description
+.wpbdp-wp-theme-genesis.wpbdp-view-show_category .archive-description,
+.wpbdp-wp-theme-genesis.wpbdp-view-show_tag .archive-description
+{
+    display: none;
+}
+
+.wpbdp-wp-theme-hmtpro5.wpbdp-view-show_category .post-details,
+.wpbdp-wp-theme-hmtpro5.wpbdp-view-show_tag .post-details
 {
     display: none;
 }

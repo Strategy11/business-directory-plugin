@@ -25,6 +25,12 @@ class WPBDP__Themes_Compat {
     }
 
     public function add_workarounds() {
+        $current_view = wpbdp_current_view();
+
+        if ( ! $current_view )
+            return;
+
+
         $themes_with_fixes = $this->get_themes_with_fixes();
         $themes_to_try = array( $this->theme, $this->parent_theme );
 
@@ -44,7 +50,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function get_themes_with_fixes() {
-        $themes_with_fixes = array( 'genesis' );
+        $themes_with_fixes = array( 'genesis', 'hmtpro5' );
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
     }
 
@@ -53,12 +59,7 @@ class WPBDP__Themes_Compat {
     //
 
     public function theme_genesis() {
-        $current_view = wpbdp_current_view();
-
-        if ( ! $current_view )
-            return;
-
-        if ( ! in_array( $current_view, array( 'show_listing', 'show_category', 'show_tag' ), true ) )
+        if ( ! in_array( wpbdp_current_view(), array( 'show_listing', 'show_category', 'show_tag' ), true ) )
             return;
 
         // Workaround taken from https://theeventscalendar.com/knowledgebase/genesis-theme-framework-integration/.
@@ -66,6 +67,23 @@ class WPBDP__Themes_Compat {
         remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
         remove_action( 'genesis_after_entry', 'genesis_do_author_box_single', 8 );
         add_action( 'genesis_entry_content', 'the_content', 15 );
+    }
+
+    public function theme_hmtpro5() {
+        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
+            return;
+
+        add_action( 'wp_head', array( $this, 'theme_hmtpro5_after_head' ), 999 );
+        add_filter( 'comments_open', array( $this, 'theme_hmtpro5_no_comments' ), 999 );
+    }
+
+    public function theme_hmtpro5_after_head() {
+        global $wp_query;
+
+        $wp_query->is_page = true;
+    }
+
+    public function theme_hmtpro5_no_comments() {
     }
 
     //
