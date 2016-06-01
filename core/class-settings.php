@@ -1057,23 +1057,21 @@ EOF;
                          size="25"
                          ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . '/>';
 
-        if ( $value ) {
-            $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
-            $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
-            $html .= '<input type="button"
-                             value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
-                             class="button-secondary license-deactivate"
-                             data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
-                             style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
-            $html .= '<input type="button"
-                             value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
-                             class="button-secondary license-activate"
-                             data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
-                             style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
-            $html .= '<br />';
-            $html .= '<span class="status-message"></span>';
-            $html .= '</span>';
-        }
+        $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
+        $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
+        $html .= '<input type="button"
+                         value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
+                         class="button-secondary license-deactivate"
+                         data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
+                         style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
+        $html .= '<input type="button"
+                         value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
+                         class="button-secondary license-activate"
+                         data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
+                         style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
+        $html .= '<br />';
+        $html .= '<span class="status-message"></span>';
+        $html .= '</span>';
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
