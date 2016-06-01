@@ -50,7 +50,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function get_themes_with_fixes() {
-        $themes_with_fixes = array( 'genesis', 'hmtpro5', 'customizr', 'customizr-pro' );
+        $themes_with_fixes = array( 'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro' );
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
     }
 
@@ -74,6 +74,12 @@ class WPBDP__Themes_Compat {
             return;
 
         add_action( 'wp_head', array( $this, 'theme_hmtpro5_after_head' ), 999 );
+    }
+
+    public function theme_atahualpa() {
+        global $wp_query;
+
+        $wp_query->is_page = true;
     }
 
     public function theme_hmtpro5_after_head() {

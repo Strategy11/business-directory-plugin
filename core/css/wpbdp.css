@@ -848,6 +848,13 @@ body.business-directory #TB_secondLine {
     display: none;
 }
 
+.wpbdp-wp-theme-atahualpa.wpbdp-view-show_category .post-footer,
+.wpbdp-wp-theme-atahualpa.wpbdp-view-show_tag .post-footer,
+.wpbdp-wp-theme-atahualpa.wpbdp-view-show_listing .post-footer
+{
+    display: none;
+}
+
 /*
  * }}
  */
