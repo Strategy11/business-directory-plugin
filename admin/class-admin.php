@@ -484,9 +484,15 @@ class WPBDP_Admin {
 
             $this->displayed_warnings[] = $msg_sha1;
 
-            $class = is_array( $msg ) ? $msg[1] : 'updated';
-            $text = is_array( $msg ) ? $msg[0] : $msg;
-            $extra = ( is_array( $msg ) && is_array( $msg[2] ) ) ? $msg[2] : array();
+            if ( is_array( $msg ) ) {
+                $class = isset( $msg[1] ) ? $msg[1] : 'updated';
+                $text = isset( $msg[0] ) ? $msg[0] : '';
+                $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : array();
+            } else {
+                $class = 'updated';
+                $text = $msg;
+                $extra = array();
+            }
 
             echo '<div class="wpbdp-notice ' . $class . '">';
             echo '<p>' . $text . '</p>';
