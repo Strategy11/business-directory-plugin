@@ -618,6 +618,40 @@ if ( ! function_exists( 'str_getcsv' ) ) {
     }
 }
 
+/**
+ * @since 4.0.5dev
+ */
+function wpbdp_detect_encoding( $content ) {
+    static $encodings = array(
+        'UTF-8', 'ASCII',
+        'ISO-8859-1', 'ISO-8859-2', 'ISO-8859-3', 'ISO-8859-4', 'ISO-8859-5',
+        'ISO-8859-6', 'ISO-8859-7', 'ISO-8859-8', 'ISO-8859-9', 'ISO-8859-10',
+        'ISO-8859-13', 'ISO-8859-14', 'ISO-8859-15', 'ISO-8859-16',
+        'Windows-1251', 'Windows-1252', 'Windows-1254',
+    );
+
+    if ( function_exists( 'mb_detect_encoding' ) ) {
+        return mb_detect_encoding( $content, $encodings, true );
+    } else {
+        return wpbdp_mb_detect_encoding( $content, $encodings );
+    }
+}
+
+/**
+ * Taken from http://php.net/manual/en/function.mb-detect-encoding.php#113983
+ * @since 4.0.5dev
+ */
+function wpbdp_mb_detect_encoding( $content, $encodings ) {
+   foreach ( $encodings as $encoding ) {
+        $sample = iconv( $encoding, $encoding, $string );
+        if ( md5( $sample ) == md5( $string ) ) {
+            return $encoding;
+        }
+    }
+
+    return false;
+}
+
 function wpbdp_render_user_field( $args = array() ) {
     $args = wp_parse_args( $args, array(
         'class' => '',
