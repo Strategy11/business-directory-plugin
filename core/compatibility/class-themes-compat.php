@@ -50,7 +50,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function get_themes_with_fixes() {
-        $themes_with_fixes = array( 'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro' );
+        $themes_with_fixes = array( 'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas' );
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
     }
 
@@ -103,6 +103,24 @@ class WPBDP__Themes_Compat {
 
     public function theme_customizr_pro() {
         return $this->theme_customizr();
+    }
+
+    public function theme_canvas() {
+        add_filter( 'woo_template_parts', array( $this, 'theme_canvas_set_template' ) );
+        add_filter( 'the_excerpt', array( $this, 'theme_canvas_the_excerpt' ), 999 );
+    }
+
+    public function theme_canvas_set_template( $templates ) {
+        $templates = array();
+        $templates[] = 'content-page.php';
+
+        return $templates;
+    }
+
+    public function theme_canvas_the_excerpt( $excerpt ) {
+        remove_filter( 'the_excerpt', array( $this, 'theme_canvas_the_excerpt' ) );
+
+        return wpbdp_current_view_output();
     }
 
     //
