@@ -190,16 +190,22 @@ echo str_replace(
             </tr>
             <tr class="form-required default-user-selection">
                 <th scope="row">
+                    <label> <?php _ex( 'Use a default user for listings?', 'admin csv-import', 'WPBDM' ); ?></label>
+                </th>
+                <td>
+                    <label><input
+                           type="checkbox"
+                           class="use-default-listing-user"
+                           value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'WPBDM' ); ?></label>
+                </td>
+            </tr>
+            <tr class="form-required default-user-selection">
+                <th scope="row">
                     <label> <?php _ex('Default listing user', 'admin csv-import', 'WPBDM'); ?></label>
                 </th>
                 <td>
                     <label>
-                        <select name="settings[default-user]" class="default-user">
-                            <option value="0"><?php _ex('Use spreadsheet information only.', 'admin csv-import', 'WPBDM'); ?></option>
-                            <?php foreach (get_users('orderby=display_name') as $user): ?>
-                            <option value="<?php echo $user->ID; ?>" <?php echo ( _defaults_or( $defaults, 'default-user', '' ) == $user->ID ) ? 'selected="selected"' : ''; ?> ><?php echo $user->display_name; ?> (<?php echo $user->user_login; ?>)</option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
                     </label>
                     <span class="description"><?php _ex('This user will be used if the username column is not present in the CSV file.', 'admin csv-import', 'WPBDM'); ?></span>
                 </td>

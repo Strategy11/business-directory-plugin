@@ -617,3 +617,43 @@ if ( ! function_exists( 'str_getcsv' ) ) {
         return $res;
     }
 }
+
+function wpbdp_render_user_field( $args = array() ) {
+    $args = wp_parse_args( $args, array(
+        'class' => '',
+        'name' => 'user',
+        'value' => null,
+    ) );
+
+    $users_query = new WP_User_Query( array( 'count_total' => true, 'fields' => 'ID', 'number' => 200 ) );
+
+    if ( $users_query->get_total() <= 200 ) {
+        $output = '<select class="' . esc_attr( $args['class'] ) . '" name="' . esc_attr( $args['name'] ) . '">';
+
+        foreach ( get_users( 'orderby=display_name' ) as $user ) {
+            $selected = $args['value'] == $user->ID ? ' selected="selected"' : '';
+
+            $output .= '<option value="' . $user->ID . '"' . $selected . '>';
+            $output .= "{$user->display_name} ({$user->user_login})";
+            $output .= '</option>';
+        }
+
+        $output .= '</select>';
+    } else {
+        if ( $args['value'] ) {
+            $user = get_user_by( 'ID', $args['value'] );
+            $text_value = "{$user->display_name} ({$user->user_login})";
+            $hidden_value = $user->ID;
+        } else {
+            $text_value = '';
+            $hidden_value = 0;
+        }
+
+        $hidden_field_id = 'autocomplete-value-' . uniqid();
+
+        $output = '<input class="wpbdp-user-autocomplete ' . esc_attr( $args['class'] ) . '" type="text" value="' . esc_attr( $text_value ) . '" data-hidden-field="' . $hidden_field_id . '" />';
+        $output.= '<input id="' . $hidden_field_id . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . esc_attr( $hidden_value ) . '">';
+    }
+
+    return $output;
+}

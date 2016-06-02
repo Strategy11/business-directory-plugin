@@ -267,16 +267,49 @@ jQuery(document).ready(function($){
     });
 
     /* CSV import */
-    $('form#wpbdp-csv-import-form input.assign-listings-to-user').change(function(e){
-        if ( $(this).is(':checked') ) {
-            $('form#wpbdp-csv-import-form .default-user-selection').show();
-            //$('form#wpbdp-csv-import-form select.default-user').hide('disabled');
-        } else {
-            $('form#wpbdp-csv-import-form .default-user-selection').hide();
-            //$('form#wpbdp-csv-import-form select.default-user').attr('disabled', 'disabled');
+    (function() {
+        var $form = $( 'form#wpbdp-csv-import-form' ),
+            $use_default_user_checkbox = $form.find( 'input.use-default-listing-user' ),
+            $default_user_field;
+
+        $form.find( 'input.assign-listings-to-user').change(function(e){
+            if ( $(this).is(':checked') ) {
+                $form.find( '.default-user-selection' ).show();
+            } else {
+                $form.find( '.default-user-selection' ).hide();
+            }
+
+            $use_default_user_checkbox.change();
+        }).change();
+
+        $use_default_user_checkbox.change(function(){
+            if ( $(this).is(':checked') ) {
+                $form.find( 'select.default-user, input.default-user' ).closest( 'tr' ).show();
+            } else {
+                $form.find( 'select.default-user, input.default-user' ).closest( 'tr' ).hide();
+            }
+        }).change();
+
+        function update_textfield_value( event, ui ) {
+            event.preventDefault();
+
+            if ( typeof ui.item == 'undefined' ) {
+                return;
+            }
+
+            $default_user_field.val( ui.item.label );
+            $default_user_field.siblings( '#' + $default_user_field.attr( 'data-hidden-field' ) )
+                .val( ui.item.value );
         }
 
-    }).change();
+        $default_user_field = $form.find( '.wpbdp-user-autocomplete' ).autocomplete({
+            source: ajaxurl + '?action=wpbdp-autocomplete-user',
+            delay: 500,
+            minLength: 2,
+            select: update_textfield_value,
+            focus: update_textfield_value
+        });
+    })();
 
     /* Debug info page */
     $('#wpbdp-admin-debug-info-page a.nav-tab').click(function(e){
