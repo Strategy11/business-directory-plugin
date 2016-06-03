@@ -59,7 +59,7 @@ class WPBDP__CPT_Compat_Mode {
                 $this->data['wp_query'] = $wp_query;
 
                 $args = array( WPBDP_CATEGORY_TAX => get_query_var( '_' . wpbdp_get_option( 'permalinks-category-slug' ) ) );
-                $wp_query = new WP_Query( $args );
+                $wp_query = $this->get_archive_query( $args );
 
                 break;
 
@@ -67,12 +67,22 @@ class WPBDP__CPT_Compat_Mode {
                 $this->data['wp_query'] = $wp_query;
 
                 $args = array( WPBDP_TAGS_TAX => get_query_var( '_' . wpbdp_get_option( 'permalinks-tags-slug' ) ) );
-                $wp_query = new WP_Query( $args );
+                $wp_query = $this->get_archive_query( $args );
 
                 break;
         }
 
         // wpbdp_debug_e( $wp_query, $this->current_view );
+    }
+
+    private function get_archive_query( $args ) {
+        $args = wp_parse_args( $args, array(
+            'posts_per_page' => get_query_var( 'posts_per_page' ),
+            'order' => get_query_var( 'order' ),
+            'orderby' => get_query_var( 'orderby' ),
+        ) );
+
+        return new WP_Query( $args );
     }
 
     public function after_dispatch() {
