@@ -36,10 +36,28 @@ class WPBDP__WordPress_Template_Integration {
         add_filter( 'wp_title', array( $this, 'modify_global_post_title' ), 1000 );
         add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
-        if ( $page_template = locate_template( array( 'page.php', 'single.php', 'singular.php' ) ) )
+        if ( $page_template = locate_template( $this->get_template_alternatives() ) )
             $template = $page_template;
 
         return $template;
+    }
+
+    private function get_template_alternatives() {
+        $templates = array( 'page.php', 'single.php', 'singular.php' );
+
+        $main_page_id = wpbdp_get_page_id( 'main' );
+
+        if ( ! $main_page_id ) {
+            return $templates;
+        }
+
+        $main_page_template = get_page_template_slug( $main_page_id );
+
+        if ( $main_page_template ) {
+            array_unshift( $templates, $main_page_template );
+        }
+
+        return $templates;
     }
 
     public function setup_post_hooks( $query ) {
