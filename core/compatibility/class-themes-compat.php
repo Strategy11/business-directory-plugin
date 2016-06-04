@@ -50,7 +50,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function get_themes_with_fixes() {
-        $themes_with_fixes = array( 'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas' );
+        $themes_with_fixes = array( 'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'Divi' );
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
     }
 
@@ -121,6 +121,28 @@ class WPBDP__Themes_Compat {
         remove_filter( 'the_excerpt', array( $this, 'theme_canvas_the_excerpt' ) );
 
         return wpbdp_current_view_output();
+    }
+
+    public function theme_divi() {
+        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ) ) ) {
+            return;
+        }
+
+        if ( 'et_full_width_page' != get_post_meta( wpbdp_get_page_id( 'main' ), '_et_pb_page_layout', true ) ) {
+            return;
+        }
+
+        add_filter( 'body_class', array( $this, 'theme_divi_add_full_with_page_body_class' ) );
+        add_filter( 'is_active_sidebar', array( $this, 'theme_divi_disable_sidebar' ), 999, 2 );
+    }
+
+    public function theme_divi_add_full_with_page_body_class( $classes ) {
+        $classes[] = 'et_full_width_page';
+        return $classes;
+    }
+
+    public function theme_divi_disable_sidebar( $is_active_sidebar, $index ) {
+        return $index == 'sidebar-1' ? false : $is_active_sidebar;
     }
 
     //
