@@ -92,7 +92,13 @@ class WPBDP__Themes_Compat {
         add_filter( 'tc_show_single_post_content', '__return_false', 999 );
         add_filter( 'tc_show_single_post_footer', '__return_false', 999 );
 
-        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
+        $current_view = wpbdp_current_view();
+
+        if ( $current_view == 'show_listing' ) {
+            $this->theme_customizr_hide_post_thumb();
+        }
+
+        if ( ! in_array( $current_view, array( 'show_category', 'show_tag' ), true ) )
             return;
 
         add_filter( 'tc_is_grid_enabled', '__return_false', 999 );
@@ -102,16 +108,48 @@ class WPBDP__Themes_Compat {
         add_filter( 'tc_show_breadcrumb_in_context', array( $this, 'theme_customizr_show_breadcrumb_in_context' ), 999 );
     }
 
-    public function theme_customizr_show_breadcrumb_in_context() {
-        if ( ! class_exists( 'TC_utils' ) ) {
+    /**
+     * The code that setups the filter that this function attempts to remove,
+     * is attached to 'wp' hook, so it gets executed before any of the workarounds
+     * has a chance to do anything.
+     *
+     * Also, the filter is dynamically configured, so we need to duplicate the
+     * configuartion logic here, in order to figure out what filter to remove.
+     *
+     * @since 4.0.5dev
+     */
+    private function theme_customizr_hide_post_thumb() {
+        if ( ! class_exists( 'TC_post' ) ) {
             return;
+        }
+
+        $post_thumb_location = $this->theme_customizr_get_option( 'tc_single_post_thumb_location' );
+
+        if ( $post_thumb_location == 'hide' ) {
+            return;
+        }
+
+        $location_parts = explode( '|', $post_thumb_location );
+        $hook = isset( $location_parts[0] ) ? $location_parts[0] : '__before_content';
+        $priority = isset( $location_parts[1] ) ? $location_parts[1] : 200;
+
+        remove_filter( $hook, array( TC_post::$instance, 'tc_single_post_prepare_thumb' ), $priority );
+    }
+
+    private function theme_customizr_get_option( $option_name ) {
+        if ( ! class_exists( 'TC_utils' ) ) {
+            return null;
         }
 
         if ( ! is_object( TC_utils::$inst ) || ! method_exists( TC_utils::$inst, 'tc_opt' ) ) {
-            return;
+            return null;
         }
 
-        return TC_utils::$inst->tc_opt( 'tc_show_breadcrumb_in_pages' );
+        return TC_utils::$inst->tc_opt( $option_name );
+    }
+
+    public function theme_customizr_show_breadcrumb_in_context() {
+        return $this->theme_customizr_get_option( 'tc_show_breadcrumb_in_pages' );
     }
 
     public function theme_customizr_pro() {
