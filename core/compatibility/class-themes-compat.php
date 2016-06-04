@@ -96,6 +96,7 @@ class WPBDP__Themes_Compat {
 
         if ( $current_view == 'show_listing' ) {
             $this->theme_customizr_hide_post_thumb();
+            $this->theme_customizr_disable_comments();
         }
 
         if ( ! in_array( $current_view, array( 'show_category', 'show_tag' ), true ) )
@@ -146,6 +147,14 @@ class WPBDP__Themes_Compat {
         }
 
         return TC_utils::$inst->tc_opt( $option_name );
+    }
+
+    private function theme_customizr_disable_comments() {
+        if ( ! class_exists( 'TC_comments' ) ) {
+            return;
+        }
+
+        remove_action( '__after_loop', array( TC_comments::$instance , 'tc_comments' ), 10 );
     }
 
     public function theme_customizr_show_breadcrumb_in_context() {
