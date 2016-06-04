@@ -99,6 +99,19 @@ class WPBDP__Themes_Compat {
         add_filter( 'tc_show_excerpt', '__return_false', 999 );
         add_filter( 'tc_post_list_controller', '__return_true', 999 );
         add_filter( 'tc_show_tax_archive_title', '__return_false', 999 );
+        add_filter( 'tc_show_breadcrumb_in_context', array( $this, 'theme_customizr_show_breadcrumb_in_context' ), 999 );
+    }
+
+    public function theme_customizr_show_breadcrumb_in_context() {
+        if ( ! class_exists( 'TC_utils' ) ) {
+            return;
+        }
+
+        if ( ! is_object( TC_utils::$inst ) || ! method_exists( TC_utils::$inst, 'tc_opt' ) ) {
+            return;
+        }
+
+        return TC_utils::$inst->tc_opt( 'tc_show_breadcrumb_in_pages' );
     }
 
     public function theme_customizr_pro() {
