@@ -62,7 +62,7 @@ class WPBDP__Themes_Compat {
     //
 
     public function theme_genesis() {
-        if ( ! in_array( wpbdp_current_view(), array( 'show_listing', 'show_category', 'show_tag' ), true ) )
+        if ( ! in_array( wpbdp_current_view(), array( 'all_listings', 'show_listing', 'show_category', 'show_tag' ), true ) )
             return;
 
         // Workaround taken from https://theeventscalendar.com/knowledgebase/genesis-theme-framework-integration/.
