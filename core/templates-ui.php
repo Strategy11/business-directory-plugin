@@ -240,8 +240,11 @@ function wpbdp_the_listing_excerpt() {
 }
 
 function wpbdp_listing_sort_options() {
-    $sort_options = array();
-    $sort_options = apply_filters('wpbdp_listing_sort_options', $sort_options);
+    if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
+        $sort_options = apply_filters( 'wpbdp_listing_sort_options', $sort_options );
+    } else {
+        $sort_options = array();
+    }
 
     if (!$sort_options)
         return apply_filters( 'wpbdp_listing_sort_options_html', '' );

@@ -1344,9 +1344,6 @@ class WPBDP_Plugin {
 
     // {{ Sorting options.
     public function sortbar_sort_options( $options ) {
-        if ( ! wpbdp_get_option( 'listings-sortbar-enabled' ) )
-            return $options;
-
         $sortbar_fields = $this->settings->sortbar_fields_cb();
         $sortbar = wpbdp_get_option( 'listings-sortbar-fields' );
 
