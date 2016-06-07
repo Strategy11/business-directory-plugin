@@ -241,7 +241,7 @@ function wpbdp_the_listing_excerpt() {
 
 function wpbdp_listing_sort_options() {
     if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
-        $sort_options = apply_filters( 'wpbdp_listing_sort_options', $sort_options );
+        $sort_options = apply_filters( 'wpbdp_listing_sort_options', array() );
     } else {
         $sort_options = array();
     }
