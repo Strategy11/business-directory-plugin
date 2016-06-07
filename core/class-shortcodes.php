@@ -156,7 +156,7 @@ class WPBDP__Shortcodes {
             $args = array( 'items_per_page' => $atts['items_per_page'],
                            'tax_query' => array(
                                array( 'taxonomy' => WPBDP_TAGS_TAX,
-                                      'field' => 'id',
+                                      'field' => 'slug',
                                       'terms' => $requested_tags ) )
             );
 
