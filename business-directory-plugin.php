@@ -202,7 +202,7 @@ class WPBDP_Plugin {
 
         // Scripts & styles.
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
-        add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_css_override' ), 30, 0 );
+        add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_css_override' ), 9999, 0 );
 
         // Plugin modules initialization.
         $this->_init_modules();
