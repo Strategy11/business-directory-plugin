@@ -1,5 +1,8 @@
+<?php
+$show_bar = ( isset( $_child->_bar ) ? $_child->_bar : ( isset( $_bar ) ? $_bar : true ) );
+?>
 <div id="wpbdp-page-<?php echo $_child->_id; ?>" class="wpbdp-page wpbdp-page-<?php echo $_child->_id; ?> <?php echo $_class; ?>">
-    <?php if ( ! isset( $_bar ) || $_bar ): ?><?php echo wpbdp_x_render( 'bar' ); ?><?php endif; ?>
+    <?php if ( $show_bar ): ?><?php echo wpbdp_x_render( 'bar' ); ?><?php endif; ?>
 
     <?php
     // TODO: Try to use blocks for this too, instead of actions.

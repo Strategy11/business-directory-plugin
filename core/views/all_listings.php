@@ -35,11 +35,12 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
         $q = new WP_Query( $args );
         wpbdp_push_query( $q );
 
-        // TODO: review use of wpbdp_before_viewlistings_page, wpbdp_after_viewlistings_page.
-        $html = wpbdp_x_render( 'listings', array( '_id' => $this->include_buttons ? 'all_listings' : 'listings',
-                                                   '_wrapper' => $this->include_buttons ? 'page' : '',
-                                                   '_bar' => $this->include_buttons ? true : false,
-                                                   'query' => $q ) );
+        $template_args = array( '_id' => $this->include_buttons ? 'all_listings' : 'listings',
+                                '_wrapper' => $this->include_buttons ? 'page' : '',
+                                '_bar' => ( ! empty ( $args['tax_query'] ) ? false : ( $this->include_buttons ? true : false ) ),
+                                'query' => $q );
+
+        $html = wpbdp_x_render( 'listings', $template_args );
         wp_reset_postdata();
         wpbdp_pop_query( $q );
 

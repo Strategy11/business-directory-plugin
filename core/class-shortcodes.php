@@ -108,7 +108,7 @@ class WPBDP__Shortcodes {
                     $args['author'] = $u->ID;
             }
 
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
+            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => true, 'query_args' => $args ) );
             return $v->dispatch();
         }
 
@@ -142,7 +142,7 @@ class WPBDP__Shortcodes {
                                       'terms' => $categories ) )
             );
 
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
+            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => true, 'query_args' => $args ) );
             return $v->dispatch();
         } elseif ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();
@@ -160,7 +160,7 @@ class WPBDP__Shortcodes {
                                       'terms' => $requested_tags ) )
             );
 
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false, 'query_args' => $args ) );
+            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => true, 'query_args' => $args ) );
             return $v->dispatch();
         }
 
