@@ -69,7 +69,11 @@ class WPBDP__Themes_Compat {
         remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
         remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
         remove_action( 'genesis_after_entry', 'genesis_do_author_box_single', 8 );
+        remove_action( 'genesis_post_content', 'genesis_do_post_image', 10 );
+        remove_action( 'genesis_post_content', 'genesis_do_post_content', 10 );
+        remove_action( 'genesis_after_post', 'genesis_do_author_box_single', 10 );
         add_action( 'genesis_entry_content', 'the_content', 15 );
+        add_action( 'genesis_post_content', 'the_content', 15 );
     }
 
     public function theme_hmtpro5() {
