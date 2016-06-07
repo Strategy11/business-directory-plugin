@@ -82,7 +82,7 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo $before_widget;
         if ( ! empty( $title ) ) echo $before_title . $title . $after_title;
 
-        echo sprintf('<form action="%s" method="GET">', wpbdp_url( '/' ) );
+        echo sprintf('<form action="%s" method="get">', wpbdp_url( '/' ) );
 
         if ( ! wpbdp_rewrite_on() )
             echo sprintf('<input type="hidden" name="page_id" value="%s" />', wpbdp_get_page_id('main'));
@@ -98,6 +98,8 @@ class WPBDP_SearchWidget extends WP_Widget {
                     echo $field->render( null, 'search' );
                 }
             }
+
+            echo '<input type="hidden" name="q" value="" />';
         } else {
             echo '<input type="text" name="q" value="" />';
         }
