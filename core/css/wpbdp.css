@@ -287,6 +287,12 @@ form#wpbdmsearchform a.advanced-search-link {
     padding: 5px 10px;
 }
 
+.wpbdp-bar:before, .wpbdp-bar:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
 .wpbdp-bar .wpbdp-main-links {
     float: left;
 }
@@ -852,6 +858,12 @@ body.business-directory #TB_secondLine {
 .wpbdp-wp-theme-atahualpa.wpbdp-view-show_tag .post-footer,
 .wpbdp-wp-theme-atahualpa.wpbdp-view-show_listing .post-footer
 {
+    display: none;
+}
+
+.wpbdp-wp-theme-ultimate-silostorm-pro.wpbdp-view-show_category .entry-content .featured-image,
+.wpbdp-wp-theme-ultimate-silostorm-pro.wpbdp-view-show_tag .entry-content .featured-image,
+.wpbdp-wp-theme-ultimate-silostorm-pro.wpbdp-view-show_listing .entry-content .featured-image {
     display: none;
 }
 
