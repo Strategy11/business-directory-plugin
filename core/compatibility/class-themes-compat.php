@@ -13,11 +13,11 @@ class WPBDP__Themes_Compat {
 
         $current_theme = wp_get_theme();
 
-        $this->theme = $current_theme->get_stylesheet();
+        $this->theme = strtolower( $current_theme->get_stylesheet() );
         $this->theme_version = $current_theme->get( 'Version' );
 
         if ( $parent = $current_theme->parent() ) {
-            $this->parent_theme = $parent->get_stylesheet();
+            $this->parent_theme = strtolower( $parent->get_stylesheet() );
             $this->parent_theme_version = $parent->get( 'Version' );
         }
 
@@ -51,7 +51,7 @@ class WPBDP__Themes_Compat {
 
     public function get_themes_with_fixes() {
         $themes_with_fixes = array(
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'Divi', 'longevity'
+            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity'
         );
 
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
@@ -218,6 +218,22 @@ class WPBDP__Themes_Compat {
 
     public function theme_longevity_excerpt_content_mod( $value ) {
         return 'content';
+    }
+
+    public function theme_builder() {
+        global $wp_filter;
+
+//builder_get_current_layout_id
+
+//        remove_all_actions( 'builder_layout_engine_render_content' );
+
+        //remove_action( 'builder_layout_engine_render_content', 'render_content' );
+        // add_filter( 'builder_get_current_layout_id', array( $this, 'theme_builder_change_layout' ), 999 );
+        // add_filter( 'builder_filter_current_layout', array( $this, 'theme_builder_change_layout' ), 999 );
+    }
+
+    public function theme_builder_change_layout( $layout_id = '' ) {
+        wpbdp_debug_e( $layout_id );
     }
 
     //

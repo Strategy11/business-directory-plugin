@@ -69,6 +69,8 @@ class WPBDP__WordPress_Template_Integration {
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
+        // TODO: we should probably be more clever here to avoid conflicts. Run last so other hooks don't break our
+        // output.
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
