@@ -463,6 +463,24 @@ class WPBDP_Plugin {
         // }
         //
 
+        // Redirect some old views.
+        if ( 'main' == wpbdp_current_view() && ! empty( $_GET['action'] ) ) {
+            switch ( $_GET['action'] ) {
+                case 'submitlisting':
+                    $newview = 'submit_listing';
+                    break;
+                case 'search':
+                    $newview = 'search';
+                    break;
+                default:
+                    $newview = '';
+                    break;
+            }
+
+            wp_redirect( add_query_arg( 'wpbdp_view', $newview, remove_query_arg( 'action' ) ) );
+            exit();
+        }
+
         // Handle login URL for some views.
         if ( in_array( wpbdp_current_view(), array( 'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing' ), true )
              && wpbdp_get_option( 'require-login' )
