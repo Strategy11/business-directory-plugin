@@ -845,8 +845,16 @@ class WPBDP_Plugin {
                             array( 'jquery-file-upload' ) );
     }
 
-    // TODO: remove in a release after themes-release.
     public function is_plugin_page() {
+        if ( wpbdp_current_view() ) {
+            return true;
+        }
+
+        global $wp_query;
+
+        if ( ! empty( $wp_query->wpbdp_our_query ) || ! empty( $wp_query->wpbdp_view ) )
+            return true;
+
         global $post;
 
         if ( $post && 'page' == $post->post_type ) {
@@ -859,10 +867,6 @@ class WPBDP_Plugin {
         }
 
         if ( $post && WPBDP_POST_TYPE == $post->post_type )
-            return true;
-
-        global $wp_query;
-        if ( ! empty( $wp_query->wpbdp_our_query ) || ! empty( $wp_query->wpbdp_view ) )
             return true;
 
         return false;

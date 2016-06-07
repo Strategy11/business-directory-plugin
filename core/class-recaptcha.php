@@ -32,7 +32,7 @@ class WPBDP_reCAPTCHA {
     function _enqueue_js_api() {
         global $wpbdp;
 
-        if ( ! wpbdp_current_view() )
+        if ( ! $wpbdp->is_plugin_page() )
             return '';
 
         wp_enqueue_script( 'wpbdp-recaptcha',
