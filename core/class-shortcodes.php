@@ -87,7 +87,7 @@ class WPBDP__Shortcodes {
                                        'title' => '',
                                        'operator' => 'OR',
                                        'author' => '',
-                                       'items_per_page' => -1 ),
+                                       'items_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ),
                                 $atts );
         $atts = array_map( 'trim', $atts );
 
