@@ -140,6 +140,9 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
             return $html;
         }
 
+        if ( '_h_' == substr( $key, 0, 3 ) )
+            return method_exists( $this, 'helper__' . substr( $key, 3 ) ) ? call_user_func( array( $this, 'helper__' . substr( $key, 3 ) ) ) : '';
+
         if ( 'id' == substr( $key, 0, 2 ) )
             $field_id = absint( substr( $key, 2 ) );
 
@@ -154,6 +157,29 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         return false;
     }
 
+    //
+    // Helpers. {{
+    //
+
+    public function helper__address() {
+        $address = trim( $this->t_address->value );
+        $city = trim( $this->t_city->value );
+        $state = trim( $this->t_state->value );
+        $zip = trim( $this->t_zip->value );
+
+        $html  = '';
+        $html .= $address;
+        $html .= ( $city || $state || $zip ) ? '<br />' : '';
+        $html .= $city;
+        $html .= ( $city && $state ) ? ', ' . $state : $state;
+        $html .= $zip ? ' ' . $zip : '';
+
+        return $html;
+    }
+
+    //
+    // }}
+    //
 }
 
 /**
