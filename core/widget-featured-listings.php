@@ -47,6 +47,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
             'post__in' => $featured ? $featured : array( -1 ),
+            'posts_per_page' => $instance['number_of_listings'],
             'orderby' => 'post__in'
         );
         $posts = get_posts( $args );
