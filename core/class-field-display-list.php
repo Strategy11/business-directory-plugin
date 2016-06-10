@@ -177,6 +177,10 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         return $html;
     }
 
+    public function helper__address_nobr() {
+        return str_replace( '<br />', ', ', $this->helper__address() );
+    }
+
     //
     // }}
     //
