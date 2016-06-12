@@ -228,3 +228,4 @@ class WPBDP__WordPress_Template_Integration {
     }
 
 }
+
