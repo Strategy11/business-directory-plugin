@@ -87,30 +87,15 @@ class WPBDP__Shortcodes {
                                        'title' => '',
                                        'operator' => 'OR',
                                        'author' => '',
+                                       'menu' => null,
                                        'items_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ),
                                 $atts );
-        $atts = array_map( 'trim', $atts );
 
-        if ( ! $atts['category'] && ! $atts['categories'] && ! $atts['tag'] && ! $atts['tags'] ) {
+        if ( ! is_null( $atts['menu'] ) )
+            $atts['menu'] = ( 1 === $atts['menu'] || 'true' === $atts['menu'] ) ? true : false;
 
-            $args = array();
-            $args['numberposts'] = $atts['items_per_page'];
-
-            if ( ! empty( $atts['author'] ) ) {
-                $u = false;
-
-                if ( is_numeric( $atts['author'] ) )
-                    $u = get_user_by( 'id', absint( $atts['author'] ) );
-                else
-                    $u = get_user_by( 'login', $atts['author'] );
-
-                if ( $u )
-                    $args['author'] = $u->ID;
-            }
-
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => true, 'query_args' => $args ) );
-            return $v->dispatch();
-        }
+        $query_args = array();
+        $query_args['items_per_page'] = $atts['items_per_page'];
 
         if ( $atts['category'] || $atts['categories'] ) {
             $requested_categories = array();
@@ -135,15 +120,9 @@ class WPBDP__Shortcodes {
                     $categories[] = $term->term_id;
             }
 
-            $args = array( 'items_per_page' => $atts['items_per_page'],
-                           'tax_query' => array(
-                               array( 'taxonomy' => WPBDP_CATEGORY_TAX,
-                                      'field' => 'id',
-                                      'terms' => $categories ) )
-            );
-
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => true, 'query_args' => $args ) );
-            return $v->dispatch();
+            $query_args['tax_query'] = array( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
+                                                     'field' => 'id',
+                                                     'terms' => $categories ) );
         } elseif ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();
 
@@ -153,18 +132,21 @@ class WPBDP__Shortcodes {
             if ( $atts['tags'] )
                 $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
 
-            $args = array( 'items_per_page' => $atts['items_per_page'],
-                           'tax_query' => array(
-                               array( 'taxonomy' => WPBDP_TAGS_TAX,
-                                      'field' => 'slug',
-                                      'terms' => $requested_tags ) )
-            );
-
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => true, 'query_args' => $args ) );
-            return $v->dispatch();
+            $query_args['tax_query'] = array( array( 'taxonomy' => WPBDP_TAGS_TAX,
+                                                     'field' => 'slug',
+                                                     'terms' => $requested_tags ) );
         }
 
-        return '';
+        if ( ! empty( $atts['author'] ) ) {
+            $u = false;
+            $u = is_numeric( $atts['author'] ) ? get_user_by( 'id', absint( $atts['author'] ) ) : get_user_by( 'login', $atts['author'] );
+
+            if ( $u )
+                $query_args['author'] = $u->ID;
+        }
+
+        $v = new WPBDP__Views__All_Listings( array(  'menu' => $atts['menu'], 'query_args' => $query_args ) );
+        return $v->dispatch();
     }
 
     public function sc_featured_listings( $atts ) {

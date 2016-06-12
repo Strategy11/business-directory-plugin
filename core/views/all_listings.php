@@ -7,7 +7,6 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
     }
 
     public function dispatch() {
-        $this->include_buttons = ! isset( $this->include_buttons ) ? true : $this->include_buttons;
         $args_ = isset( $this->query_args ) ? $this->query_args : array();
 
         $paged = get_query_var( 'page' ) ? get_query_var( 'page' ) : ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
@@ -35,9 +34,11 @@ class WPBDP__Views__All_Listings extends WPBDP_NView {
         $q = new WP_Query( $args );
         wpbdp_push_query( $q );
 
-        $template_args = array( '_id' => $this->include_buttons ? 'all_listings' : 'listings',
-                                '_wrapper' => $this->include_buttons ? 'page' : '',
-                                '_bar' => ( ! empty ( $args['tax_query'] ) ? false : ( $this->include_buttons ? true : false ) ),
+        $show_menu = isset( $this->menu ) ? $this->menu : ( ! empty ( $args['tax_query'] ) ? false : true );
+
+        $template_args = array( '_id' => $show_menu ? 'all_listings' : 'listings',
+                                '_wrapper' => $show_menu ? 'page' : '',
+                                '_bar' =>  $show_menu,
                                 'query' => $q );
 
         $html = wpbdp_x_render( 'listings', $template_args );
