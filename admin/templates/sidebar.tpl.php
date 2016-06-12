@@ -36,7 +36,7 @@ $modules = array(
                 <ul>
                 <?php foreach ( $modules as $mod_info ): ?>
                     <li class="li_link">
-                        <?php if ( isset( $mod_info[2] ) && 'new' == $mod_info[2] ): ?><img src="<?php echo WPBDP_URL; ?>admin/resources/new.gif" /> <?php endif; ?>
+                        <?php if ( isset( $mod_info[2] ) && 'new' == $mod_info[2] ): ?><span class="tag new"><?php _ex( 'new', 'admin sidebar', 'WPBDM' ); ?></span> <?php endif; ?>
                         <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank"><?php echo $mod_info[1]; ?></a>
                     </li>
                 <?php endforeach; ?>

@@ -59,6 +59,12 @@ span.tag {
     background: #FFFFCF;
 }
 
+.wpbdp-admin .premium-modules .tag.new {
+    background: #00A000;
+    color: #fff;
+    font-size: 8px !important;
+}
+
 .wp-list-table tr.wpbdp-item-message-tr {
 }
 
