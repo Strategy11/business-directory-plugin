@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-May-27
-Stable tag: tags/4.0.3
+Last Updated: 2016-June-14
+Stable tag: tags/4.0.6
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -129,6 +129,40 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.0.5 =
+* Compatibility fixes for Canvas theme.
+* Compatibility fixes for X theme.
+* Add "City" and "State" as taggable fields in themes.
+* Improve display of addresses in themes.
+* Fix for Featured Listings widget not honoring configured number of posts setting.
+* Add "menu" attribute to listings shortcode.
+* Prevent Jetpack sharing from being displayed twice on listings.
+* Update admin sidebar.
+* Fix minor translation omission.
+
+= Version 4.0.5 =
+* Atahualpa theme compatibility fixes.
+* Use an auto-complete field instead of a dropdown for the users field on the CSV import screen to avoid performance problems.
+* Several fixes for encoding detection and handling during CSV imports.
+* Longevity theme compatibility fixes.
+* Divi theme compatibility fixes.
+* Do not show any sortbar filters when sortbar is disabled.
+* Additional fixes for the Genesis theme
+* Fix sorting and other query problems when in CPT compatibility mode.
+* Fix search query integration with sortbar.
+* Restore pre-4.0 behavior (regarding Regions and Maps) of the listings shortcode.
+* Add redirects for old submit listing URLs.
+* Restore tag functionality for the listings shortcode.
+
+= Version 4.0.4 =
+* Add compatibility mode that disables CPT integration for setups having issues or theme conflicts.
+* Try single and singular templates along with page.php for improved theme compatibility.
+* Add compatibility layer for themes.
+* Genesis theme compatibility fixes.
+* HMTPro5 theme compatibility fixes.
+* Customizr and Customizr-Pro theme compatibility fixes.
+* Prevent duplication of CSV labels for fields.
 
 = Version 4.0.3 =
 * Restore WPBUSDIRMANMANAGELISTING as a valid "Manage Listings" shortcode.
