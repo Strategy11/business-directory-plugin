@@ -67,7 +67,7 @@ class WPBDP_Settings {
        // {{ Registration settings.
 //        $s = $this->add_group( 'registration',
 //                               _x('Registration', 'admin settings', 'WPBDM' ) );
-        $msg = __( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.",
+        $msg = _x( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.",
                    'admin settings',
                    'WPBDM' );
         $s = $this->add_section( $g, 'registration', _x( 'Registration Settings', 'admin settings', 'WPBDM' ), $msg );
