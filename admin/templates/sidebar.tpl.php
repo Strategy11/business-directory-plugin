@@ -13,6 +13,14 @@ $modules = array(
     array( 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'WPBDM' ) ),
     array( '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'WPBDM' ) )
 );
+
+$themes = array(
+    array( 'business-card-theme', _x( 'Business Card Theme', 'admin sidebar', 'WPBDM' ), 'new' ),
+    array( 'mobile-compact-theme', _x( 'Mobile Compact Theme', 'admin sidebar', 'WPBDM' ), 'new' ),
+    array( 'restaurant-theme', _x( 'Restaurant Theme', 'admin sidebar', 'WPBDM' ), 'new' ),
+    array( 'tabbed-business-theme', _x( 'Tabbed Business Theme', 'admin sidebar', 'WPBDM' ), 'new' ),
+    array( 'elegant-business-theme', _x( 'Elegant Business Theme', 'admin sidebar', 'WPBDM' ), 'new' )
+);
 ?>
 <div class="sidebar">
     <div class="meta-box-sortables metabox-holder ui-sortable" id="side-sortables">
@@ -34,14 +42,29 @@ $modules = array(
             <h3 class="hndle"><span><?php _ex( 'Get a Premium Module', 'admin sidebar', 'WPBDM'); ?></span></h3>
             <div class="inside">
                 <ul>
+                <li class="li_link"><span class="tag best-deal"><?php _ex( 'best deal', 'admin sidebar', 'WPBDM' ); ?></span> <strong><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/"><?php _ex( 'Combo Pack', 'admin sidebar', 'WPBDM' ); ?></a><br /><?php _ex( '(All Modules)', 'admin sidebar', 'WPBDM' ); ?></strong></li>
                 <?php foreach ( $modules as $mod_info ): ?>
                     <li class="li_link">
                         <?php if ( isset( $mod_info[2] ) && 'new' == $mod_info[2] ): ?><span class="tag new"><?php _ex( 'new', 'admin sidebar', 'WPBDM' ); ?></span> <?php endif; ?>
                         <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank"><?php echo $mod_info[1]; ?></a>
                     </li>
                 <?php endforeach; ?>
-                    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/"><?php _ex('Single Site License Combo Pack', 'admin sidebar', 'WPBDM'); ?></a></li>
-                    <li class="li_link"><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack-multi-site/"><?php _ex('Multi Site License Combo Pack', 'admin sidebar', 'WPBDM'); ?></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Themes -->
+        <div class="postbox premium-modules">
+            <h3 class="hndle"><span><?php _ex( 'Get a Directory Theme', 'admin sidebar', 'WPBDM'); ?></span></h3>
+            <div class="inside">
+                <ul>
+                <li class="li_link"><span class="tag best-deal"><?php _ex( 'best deal', 'admin sidebar', 'WPBDM' ); ?></span> <strong><a href="http://businessdirectoryplugin.com/downloads/business-directory-theme-pack/"><?php _ex( 'Theme Pack', 'admin sidebar', 'WPBDM' ); ?></a><br /><?php _ex( '(All Themes)', 'admin sidebar', 'WPBDM' ); ?></strong></li>
+                <?php foreach ( $themes as $mod_info ): ?>
+                    <li class="li_link">
+                        <?php if ( isset( $mod_info[2] ) && 'new' == $mod_info[2] ): ?><span class="tag new"><?php _ex( 'new', 'admin sidebar', 'WPBDM' ); ?></span> <?php endif; ?>
+                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank"><?php echo $mod_info[1]; ?></a>
+                    </li>
+                <?php endforeach; ?>
                 </ul>
             </div>
         </div>
