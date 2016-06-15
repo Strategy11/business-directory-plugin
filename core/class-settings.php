@@ -612,7 +612,9 @@ EOF;
 
         // TODO: we probably should merge this and 'Images' into an 'Appearance' tab. {
         $g = $this->add_group( 'themes', _x( 'Themes', 'admin settings', 'WPBDM' ) );
-        $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
+
+        $msg = str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp-themes' ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'WPBDM' ) );
+        $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ), $msg );
 
         $this->add_setting( $s,
                             'themes-button-style',
