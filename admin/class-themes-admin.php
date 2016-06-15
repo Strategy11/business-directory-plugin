@@ -17,6 +17,8 @@ class WPBDP_Themes_Admin {
         add_action( 'wp_ajax_wpbdp-themes-activate-license', array( &$this, 'ajax_activate_license' ) );
         add_action( 'wp_ajax_wpbdp-themes-deactivate-license', array( &$this, 'ajax_deactivate_license' ) );
 
+
+        add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
@@ -47,6 +49,10 @@ class WPBDP_Themes_Admin {
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
+    }
+
+    function admin_menu_badge_count( $cnt = 0 ) {
+        return ( (int) $cnt ) + $this->updater->get_updates_count();
     }
 
     function admin_menu_move_themes_up( $menu ) {
