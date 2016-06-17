@@ -51,10 +51,11 @@ class WPBDP__Dispatcher {
 
         do_action( 'wpbdp_before_dispatch' );
         $res = $this->current_view_obj->dispatch();
-        do_action( 'wpbdp_after_dispatch' );
 
         if ( is_string( $res ) )
             $this->output = $res;
+ 
+        do_action( 'wpbdp_after_dispatch' );
 
         return $template;
     }
