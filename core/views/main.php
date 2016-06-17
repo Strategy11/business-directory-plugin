@@ -41,7 +41,7 @@ class WPBDP__Views__Main extends WPBDP_NView {
         // Listings under categories?
         if ( wpbdp_get_option( 'show-listings-under-categories' ) ) {
             require_once ( WPBDP_PATH . 'core/views/all_listings.php' );
-            $v = new WPBDP__Views__All_Listings( array( 'include_buttons' => false ) );
+            $v = new WPBDP__Views__All_Listings( array( 'menu' => false ) );
             $listings = $v->dispatch();
         } else {
             $listings = '';
