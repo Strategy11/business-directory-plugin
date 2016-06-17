@@ -40,13 +40,13 @@ class WPBDP__Query_Integration {
 
         // Is this a category query?
         $category_slug = wpbdp_get_option( 'permalinks-category-slug' );
-        if ( ! empty( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) || ! empty( $query->query_vars[ "_{$category_slug}" ] ) ) {
+        if ( ! empty( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) ) {
             $query->wpbdp_is_category = true;
             $query->wpbdp_view = 'show_category';
         }
 
         $tags_slug = wpbdp_get_option( 'permalinks-tags-slug' );
-        if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) || ! empty( $query->query_vars[ "_{$tags_slug}" ] ) ) {
+        if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) ) {
             $query->wpbdp_is_tag = true;
             $query->wpbdp_view = 'show_tag';
         }

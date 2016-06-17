@@ -76,11 +76,16 @@ class WPBDP__CPT_Compat_Mode {
     }
 
     private function get_archive_query( $args ) {
-        $args = wp_parse_args( $args, array(
-            'posts_per_page' => get_query_var( 'posts_per_page' ),
-            'order' => get_query_var( 'order' ),
-            'orderby' => get_query_var( 'orderby' ),
-        ) );
+        $args['wpbdp_main_query'] = true;
+        $args['paged'] = get_query_var( 'paged' );
+
+        // $args = wp_parse_args( $args, array(
+        //     'wpbdp_main_query' => true,
+        //     'paged' => get_query_var( 'paged' ),
+        //     'posts_per_page' => get_query_var( 'posts_per_page' ),
+        //     'order' => get_query_var( 'order' ),
+        //     'orderby' => get_query_var( 'orderby' ),
+        // ) );
 
         return new WP_Query( $args );
     }
