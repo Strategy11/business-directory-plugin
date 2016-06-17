@@ -706,7 +706,14 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
     .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail {
         /*width: 40%;*/
+        float: none;
         padding: 5px;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-details {
+        margin: 0 5px;
+        float: none;
+        display: block;
     }
 
     .wpbdp-listing .listing-actions input {
