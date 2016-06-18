@@ -341,8 +341,8 @@ class WPBDP_Settings {
                             'field',
                             _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
                             array( 'choices' => array(
-                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
-                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
+                                array( 'field', _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'WPBDM' ) ),
+                                array( 'user',  _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'WPBDM' ) )
 
                             ) ) );
 
@@ -698,10 +698,10 @@ EOF;
             $fields[ $f->get_id() ] = $f->get_label();
         }
 
-        $fields['user_login'] = 'User';
-        $fields['user_registered'] = 'User registration date';
-        $fields['date'] = 'Date posted';
-        $fields['modified'] = 'Date last modified';
+        $fields['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
+        $fields['user_registered'] = _x( 'User registration date', 'admin settings', 'WPBDM' );
+        $fields['date'] = _x( 'Date posted', 'admin settings', 'WPBDM' );
+        $fields['modified'] = _x( 'Date last modified', 'admin settings', 'WPBDM' );
 
         return $fields;
     }

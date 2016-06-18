@@ -290,7 +290,7 @@ class WPBDP_FormFieldsAdmin {
         $special_tags = array(
             'title' => _x( 'Title', 'form-fields admin', 'WPBDM' ),
             'category' => _x( 'Category', 'form-fields admin', 'WPBDM' ),
-            'excerpt' => _x( 'Excerpt', 'form-fields admin', 'WPBD' ),
+            'excerpt' => _x( 'Excerpt', 'form-fields admin', 'WPBDM' ),
             'content' => _x( 'Content', 'form-fields admin', 'WPBDM' ),
             'tags' => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
             'address' => _x( 'Address', 'form-fields admin', 'WPBDM' ),

@@ -35,7 +35,7 @@ echo str_replace(
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
 
-    <h2><?php _ex('Import Files', 'admin csv-import'); ?></h2>
+    <h2><?php _ex('Import Files', 'admin csv-import', 'WPBDM' ); ?></h2>
     <table class="form-table">
         <tbody>
             <tr class="form-field form-required">
@@ -117,7 +117,7 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Image Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Image Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"
@@ -128,7 +128,7 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Category Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Category Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[category-separator]"
