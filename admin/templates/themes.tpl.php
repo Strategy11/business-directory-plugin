@@ -1,6 +1,7 @@
 <?php
 echo wpbdp_admin_header( null, 'themes', array(
     array( _x( 'Upload Directory Theme', 'themes', 'WPBDM' ), esc_url( add_query_arg( 'action', 'theme-install' ) ) ),
+    array( _x( 'Manage Theme Tags', 'form-fields admin', 'WPBDM' ), esc_url( add_query_arg( 'action', 'updatetags' ) ) ),
     array( _x( 'Settings', 'themes', 'WPBDM' ), esc_url( admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=themes' ) ) )
 ) );
 
