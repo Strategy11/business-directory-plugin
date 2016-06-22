@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-06-14 20:52:18+00:00\n"
+"POT-Creation-Date: 2016-06-21 22:32:39+00:00\n"
 "PO-Revision-Date: 2016-02-24 15:34-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -170,97 +170,103 @@ msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Adresse e-mail non valide"
 
-#: admin/class-admin.php:216
+#: admin/class-admin.php:219
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Administrateur de l'Annuaire Professionnel"
 
-#: admin/class-admin.php:217
+#: admin/class-admin.php:220
+#, fuzzy
+msgctxt "admin menu"
+msgid "Dir. Admin"
+msgstr "Administrateur de l'Annuaire"
+
+#: admin/class-admin.php:220
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Administrateur de l'Annuaire"
 
-#: admin/class-admin.php:223 admin/class-admin.php:224
+#: admin/class-admin.php:226 admin/class-admin.php:227
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Ajoutez une nouvelle annonce"
 
-#: admin/class-admin.php:229 admin/class-admin.php:230
+#: admin/class-admin.php:232 admin/class-admin.php:233
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Gestion des options"
 
-#: admin/class-admin.php:235 admin/class-admin.php:236
+#: admin/class-admin.php:238 admin/class-admin.php:239
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Gestion des frais"
 
-#: admin/class-admin.php:241 admin/class-admin.php:242
+#: admin/class-admin.php:244 admin/class-admin.php:245
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Gestion des champs"
 
-#: admin/class-admin.php:247 admin/class-admin.php:248
+#: admin/class-admin.php:250 admin/class-admin.php:251
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Listes"
 
-#: admin/class-admin.php:262 admin/class-admin.php:263
+#: admin/class-admin.php:265 admin/class-admin.php:266
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr "Importation CSV"
 
-#: admin/class-admin.php:268 admin/class-admin.php:269
+#: admin/class-admin.php:271 admin/class-admin.php:272
 msgctxt "admin menu"
 msgid "CSV Export"
 msgstr "Exportation CSV"
 
-#: admin/class-admin.php:274 admin/class-admin.php:275
+#: admin/class-admin.php:277 admin/class-admin.php:278
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Déboguer"
 
-#: admin/class-admin.php:284
+#: admin/class-admin.php:287
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: admin/class-admin.php:295
+#: admin/class-admin.php:298
 msgctxt "admin menu"
 msgid "Uninstall Business Directory Plugin"
 msgstr "Désinstaller le Plugin Annuaire Professionnel"
 
-#: admin/class-admin.php:296
+#: admin/class-admin.php:299
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Désinstaller"
 
-#: admin/class-admin.php:410
+#: admin/class-admin.php:413
 #: admin/templates/listing-metabox-categories.tpl.php:69
 msgctxt "admin infometabox"
 msgid "never"
 msgstr "jamais"
 
-#: admin/class-admin.php:504
+#: admin/class-admin.php:507
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/class-admin.php:532
+#: admin/class-admin.php:535
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "L'annonce a été publiée."
 msgstr[1] "Les annonces ont été publiées."
 
-#: admin/class-admin.php:550
+#: admin/class-admin.php:553
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "Le statut de l'annonce a été défini comme étant payée."
 msgstr[1] "Le statut des annocnes a été défini comme étant payées."
 
-#: admin/class-admin.php:556
+#: admin/class-admin.php:559
 msgctxt "admin"
 msgid ""
 "Only invoices containing non-recurring items were marked as paid. Please "
@@ -272,28 +278,28 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-admin.php:575
+#: admin/class-admin.php:578
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "L'annonce a été modifiée."
 msgstr[1] "Les annonces ont été modifiées."
 
-#: admin/class-admin.php:588
+#: admin/class-admin.php:591
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "L'annonce a été mise à jour."
 msgstr[1] "Les annonces ont été mise à jour."
 
-#: admin/class-admin.php:600
+#: admin/class-admin.php:603
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "L'annonce a été rétrogradée."
 msgstr[1] "Les annonces ont été rétrogradées."
 
-#: admin/class-admin.php:611
+#: admin/class-admin.php:614
 msgctxt "admin payments"
 msgid ""
 "The payment status was not changed. Recurring payments can't be manually "
@@ -301,44 +307,44 @@ msgid ""
 "went through."
 msgstr ""
 
-#: admin/class-admin.php:616
+#: admin/class-admin.php:619
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "La transaction a été approuvée."
 
-#: admin/class-admin.php:626
+#: admin/class-admin.php:629
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "La transaction a été rejetée."
 
-#: admin/class-admin.php:632
+#: admin/class-admin.php:635
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Les frais ont bien été assignés."
 
-#: admin/class-admin.php:641
+#: admin/class-admin.php:644
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "L'annonce a été renouvelée."
 msgstr[1] "Les annonces ont été renouvelées."
 
-#: admin/class-admin.php:648
+#: admin/class-admin.php:651
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Email de renouvellement envoyé"
 
-#: admin/class-admin.php:682
+#: admin/class-admin.php:685
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
-#: admin/class-admin.php:684 admin/class-admin.php:690
+#: admin/class-admin.php:687 admin/class-admin.php:693
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Compteur d'annonces"
 
-#: admin/class-admin.php:799
+#: admin/class-admin.php:802
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -347,7 +353,7 @@ msgstr ""
 "<b>Plugin d'Annuaire Professionnel</b> requiert des champs avec les "
 "associations suivantes pour marcher correctement: <b>%s</b>"
 
-#: admin/class-admin.php:801
+#: admin/class-admin.php:804
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -356,7 +362,7 @@ msgstr ""
 "<b>Plugin d'Annuaire Professionnel</b> requiert un champ avec un <b>%s</b> "
 "association en ordre pour marcher correctement."
 
-#: admin/class-admin.php:805
+#: admin/class-admin.php:808
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -365,17 +371,17 @@ msgstr ""
 "Vous pouvez créer ces champs personnalisés pas vous-mêmes dans \"Gestion des "
 "Champs\" ou laissez le plugin le faire pour vous automatiquement."
 
-#: admin/class-admin.php:809
+#: admin/class-admin.php:812
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Aller à \"Gestion des Champs\""
 
-#: admin/class-admin.php:812
+#: admin/class-admin.php:815
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Créer ces champs obligatoires pour moi"
 
-#: admin/class-admin.php:821
+#: admin/class-admin.php:824
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -384,7 +390,7 @@ msgstr ""
 "<b>Business Directory  Plugin</b> requiert une page avec le code "
 "d'activation <tt>[businessdirectory]</tt> pour marcher correctement."
 
-#: admin/class-admin.php:823
+#: admin/class-admin.php:826
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -393,27 +399,27 @@ msgstr ""
 "Vous pouvez créer cette page par vous-mêmes ou laisser le plugin la faire "
 "pour vous automatiquement."
 
-#: admin/class-admin.php:827
+#: admin/class-admin.php:830
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Créer les pages requises pour moi."
 
-#: admin/class-admin.php:867
+#: admin/class-admin.php:870
 msgctxt "admin compat"
 msgid "Installed: %s"
 msgstr "Installé: %s"
 
-#: admin/class-admin.php:867
+#: admin/class-admin.php:870
 msgctxt "admin compat"
 msgid "N/A"
 msgstr "N/A"
 
-#: admin/class-admin.php:870
+#: admin/class-admin.php:873
 msgctxt "admin compat"
 msgid "Required: %s"
 msgstr "Requis: %s"
 
-#: admin/class-admin.php:882
+#: admin/class-admin.php:885
 msgctxt "admin compat"
 msgid ""
 "Business Directory has detected some incompatible premium module versions "
@@ -422,7 +428,7 @@ msgstr ""
 "Le plugin a détecté une/des modules incomptatible de la version premium "
 "installé."
 
-#: admin/class-admin.php:884
+#: admin/class-admin.php:887
 msgctxt "admin compat"
 msgid ""
 "Please upgrade to the required versions indicated below to make sure "
@@ -431,7 +437,7 @@ msgstr ""
 "Veuillez mettre à jour vers la version requise, indiquée ci-dessous, pour "
 "assurer le bon fonctionnement des fonctions. "
 
-#: admin/class-admin.php:904
+#: admin/class-admin.php:907
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -460,31 +466,31 @@ msgctxt "templates"
 msgid "There are no images currently attached to the listing."
 msgstr "Il n'y a aucune image attaché à cette annonce."
 
-#: admin/class-themes-admin.php:45
+#: admin/class-themes-admin.php:47
 msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Catégories de l'annuaire"
 
-#: admin/class-themes-admin.php:46
+#: admin/class-themes-admin.php:48
 #, fuzzy
 msgctxt "themes"
 msgid "Directory Themes %s"
 msgstr "Catégories de l'annuaire"
 
-#: admin/class-themes-admin.php:88
+#: admin/class-themes-admin.php:94
 msgctxt "admin themes"
 msgid ""
 "Business Directory Plugin - Your template overrides need to be reviewed!"
 msgstr ""
 
-#: admin/class-themes-admin.php:90
+#: admin/class-themes-admin.php:96
 msgctxt "admin themes"
 msgid ""
 "Starting with version 4.0, Business Directory is using a new theming system "
 "that is not compatible with the templates used in previous versions."
 msgstr ""
 
-#: admin/class-themes-admin.php:92
+#: admin/class-themes-admin.php:98
 msgctxt "admin themes"
 msgid ""
 "Because of this, your template overrides below have been disabled. You "
@@ -492,99 +498,99 @@ msgid ""
 "templates."
 msgstr ""
 
-#: admin/class-themes-admin.php:121
+#: admin/class-themes-admin.php:127
 msgctxt "admin themes"
 msgid ""
 "You need to <a>activate your theme's license key</a> before you can activate "
 "the theme. <a>Click here</a> to do that."
 msgstr ""
 
-#: admin/class-themes-admin.php:149
+#: admin/class-themes-admin.php:155
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Vous ne pouvez pas changer le thème actif pour \"%s\""
 
-#: admin/class-themes-admin.php:196
+#: admin/class-themes-admin.php:202
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Thème actuel modifié vers \"%s\"."
 
-#: admin/class-themes-admin.php:199
+#: admin/class-themes-admin.php:205
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
 "to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: admin/class-themes-admin.php:208
+#: admin/class-themes-admin.php:214
 #, fuzzy
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Gestion des champs"
 
-#: admin/class-themes-admin.php:215
+#: admin/class-themes-admin.php:221
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Champs créés avec succès."
 
-#: admin/class-themes-admin.php:218
+#: admin/class-themes-admin.php:224
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Thème installé avec succès"
 
-#: admin/class-themes-admin.php:221
+#: admin/class-themes-admin.php:227
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr "Le thème a été supprimé"
 
-#: admin/class-themes-admin.php:224
+#: admin/class-themes-admin.php:230
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "Impossible de supprimer le dossier du thème. Vérifier les permissions."
 
-#: admin/class-themes-admin.php:250
+#: admin/class-themes-admin.php:256
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Veuillez télécharger un fichier de thème valide"
 
-#: admin/class-themes-admin.php:257
+#: admin/class-themes-admin.php:263
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Impossible de déplacer \"%s\" vers un dossier temporaire"
 
-#: admin/class-themes-admin.php:358 admin/class-themes-admin.php:419
+#: admin/class-themes-admin.php:364 admin/class-themes-admin.php:425
 #: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Impossible de contacter le serveur de licences"
 
-#: admin/class-themes-admin.php:364 core/licensing.php:132
+#: admin/class-themes-admin.php:370 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La clé de licence est invalide"
 
-#: admin/class-themes-admin.php:369 core/licensing.php:333
+#: admin/class-themes-admin.php:375 core/licensing.php:333
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: admin/class-themes-admin.php:382 core/licensing.php:335
+#: admin/class-themes-admin.php:388 core/licensing.php:335
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: admin/class-themes-admin.php:425
+#: admin/class-themes-admin.php:431
 msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr "Invalid response from server"
 
-#: admin/class-themes-admin.php:442 core/licensing.php:353
+#: admin/class-themes-admin.php:448 core/licensing.php:353
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
-#: admin/class-themes-admin.php:458
+#: admin/class-themes-admin.php:464
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème"
@@ -2027,6 +2033,14 @@ msgctxt "form-fields admin"
 msgid "Field Association"
 msgstr "Association de champ"
 
+#: admin/templates/form-fields-addoredit.tpl.php:14
+#: admin/templates/form-fields-addoredit.tpl.php:36
+#: admin/templates/form-fields-addoredit.tpl.php:60
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "required"
+msgstr "Requis"
+
 #: admin/templates/form-fields-addoredit.tpl.php:36
 msgctxt "form-fields admin"
 msgid "Field Type"
@@ -2041,6 +2055,12 @@ msgstr "Etiquette du champ"
 msgctxt "form-fields admin"
 msgid "Field description"
 msgstr "Description du champ"
+
+#: admin/templates/form-fields-addoredit.tpl.php:70
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "optional"
+msgstr "Optionnel"
 
 #: admin/templates/form-fields-addoredit.tpl.php:87
 msgctxt "form-fields admin"
@@ -2186,7 +2206,7 @@ msgctxt "form-fields admin"
 msgid "Preview Form"
 msgstr "Formulaire précédent"
 
-#: admin/templates/form-fields.tpl.php:6
+#: admin/templates/form-fields.tpl.php:6 admin/templates/themes.tpl.php:4
 msgctxt "form-fields admin"
 msgid "Manage Theme Tags"
 msgstr "Gestion des étiquettes du thème"
@@ -2209,7 +2229,7 @@ msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.0.6)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.0.7)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2858,7 +2878,25 @@ msgctxt "themes"
 msgid "Activating license..."
 msgstr "Activation de la license"
 
-#: admin/templates/themes.tpl.php:13
+#: admin/templates/themes-tabs.tpl.php:6
+#, fuzzy
+msgctxt "admin themes"
+msgid "Available Themes"
+msgstr "Thèmes"
+
+#: admin/templates/themes-tabs.tpl.php:7
+#, fuzzy
+msgctxt "admin themes"
+msgid "Licenses"
+msgstr "Licences"
+
+#: admin/templates/themes.tpl.php:5
+#, fuzzy
+msgctxt "themes"
+msgid "Settings"
+msgstr "Paramètres"
+
+#: admin/templates/themes.tpl.php:15
 msgctxt "themes"
 msgid ""
 "<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business "
@@ -2866,7 +2904,7 @@ msgid ""
 "We have a number of them available for purchase <a>here</a>."
 msgstr ""
 
-#: admin/templates/themes.tpl.php:14
+#: admin/templates/themes.tpl.php:16
 msgctxt "themes"
 msgid ""
 "They are <strong>different</strong> than your regular WordPress theme and "
@@ -3548,13 +3586,13 @@ msgctxt "admin settings"
 msgid "Enable AJAX compatibility mode?"
 msgstr "Activer le mode de comptabilité AJAX ?"
 
-#: core/class-settings.php:179 core/class-settings.php:658
+#: core/class-settings.php:179 core/class-settings.php:660
 msgctxt "admin settings"
 msgid "Listings"
 msgstr "Annonces"
 
 #: core/class-settings.php:180 core/class-settings.php:330
-#: core/class-settings.php:615
+#: core/class-settings.php:617
 msgctxt "admin settings"
 msgid "General Settings"
 msgstr "Paramètres généraux"
@@ -3833,12 +3871,12 @@ msgctxt "admin settings"
 msgid "Author"
 msgstr "Auteur"
 
-#: core/class-settings.php:293
+#: core/class-settings.php:293 core/class-settings.php:703
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
-#: core/class-settings.php:294
+#: core/class-settings.php:294 core/class-settings.php:704
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
@@ -3948,6 +3986,16 @@ msgid ""
 msgstr ""
 "Cela affecte l'envoie des e-mails aux propriétaires des annonces via le "
 "formulaire de contact ou quand leurs annonces expirent."
+
+#: core/class-settings.php:344
+msgctxt "admin settings"
+msgid "Try listing's email field first, then author's email."
+msgstr ""
+
+#: core/class-settings.php:345
+msgctxt "admin settings"
+msgid "Try author's email first and then listing's email field."
+msgstr ""
 
 #: core/class-settings.php:349
 msgctxt "admin settings"
@@ -4501,27 +4549,32 @@ msgctxt "admin settings"
 msgid "Themes"
 msgstr "Thèmes"
 
-#: core/class-settings.php:619
+#: core/class-settings.php:616
+msgctxt "admin settings"
+msgid "You can manage your themes on <a>Directory Themes</a>."
+msgstr ""
+
+#: core/class-settings.php:621
 msgctxt "admin settings"
 msgid "Theme button style"
 msgstr "Boutons de thèmes"
 
-#: core/class-settings.php:623
+#: core/class-settings.php:625
 msgctxt "admin settings"
 msgid "Use the BD theme style for BD buttons"
 msgstr "Utiliser le thème BD pour les boutons BD"
 
-#: core/class-settings.php:624
+#: core/class-settings.php:626
 msgctxt "admin settings"
 msgid "Use the WP theme style for BD buttons"
 msgstr "Utiliser le thème WP pour les boutons BD"
 
-#: core/class-settings.php:631
+#: core/class-settings.php:633
 msgctxt "admin settings"
 msgid "Image"
 msgstr "Image"
 
-#: core/class-settings.php:632
+#: core/class-settings.php:634
 msgctxt "admin settings"
 msgid ""
 "Any changes to these settings will affect new listings only.  Existing "
@@ -4535,52 +4588,52 @@ msgstr ""
 "télécharger l'image (s) sur cette annonce, après avoir cfait les "
 "modifications voulue."
 
-#: core/class-settings.php:633
+#: core/class-settings.php:635
 msgctxt "admin settings"
 msgid "Image Settings"
 msgstr "Paraamètres des images"
 
-#: core/class-settings.php:634
+#: core/class-settings.php:636
 msgctxt "admin settings"
 msgid "Allow images?"
 msgstr "Autoriser les images ?"
 
-#: core/class-settings.php:636
+#: core/class-settings.php:638
 msgctxt "admin settings"
 msgid "Min Image File Size (KB)"
 msgstr "Taille minnimal des fichiers images (KB)"
 
-#: core/class-settings.php:637
+#: core/class-settings.php:639
 msgctxt "admin settings"
 msgid "Max Image File Size (KB)"
 msgstr "Taille maximal des fichiers images (KB)"
 
-#: core/class-settings.php:639
+#: core/class-settings.php:641
 msgctxt "admin settings"
 msgid "Min image width (px)"
 msgstr "Largeur minnimal des images (px)"
 
-#: core/class-settings.php:640
+#: core/class-settings.php:642
 msgctxt "admin settings"
 msgid "Min image height (px)"
 msgstr "Hauteur minnimal des images (px)"
 
-#: core/class-settings.php:642
+#: core/class-settings.php:644
 msgctxt "admin settings"
 msgid "Max image width (px)"
 msgstr "Largeur maximal des images (px)"
 
-#: core/class-settings.php:643
+#: core/class-settings.php:645
 msgctxt "admin settings"
 msgid "Max image height (px)"
 msgstr "Hauteur maximal des images (px)"
 
-#: core/class-settings.php:645
+#: core/class-settings.php:647
 msgctxt "admin settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "Activer thickbox/lightbox ?"
 
-#: core/class-settings.php:645
+#: core/class-settings.php:647
 msgctxt "admin settings"
 msgid ""
 "Uncheck if it conflicts with other elements or plugins installed on your site"
@@ -4588,27 +4641,27 @@ msgstr ""
 "Décochez si vela entre en conflit avec d'autres éléments ou plugins "
 "installés sur votre site"
 
-#: core/class-settings.php:647
+#: core/class-settings.php:649
 msgctxt "admin settings"
 msgid "Thumbnails"
 msgstr "Miniatures"
 
-#: core/class-settings.php:648
+#: core/class-settings.php:650
 msgctxt "admin settings"
 msgid "Thumbnail width (px)"
 msgstr "Largeur des miniatures (en pixel)"
 
-#: core/class-settings.php:649
+#: core/class-settings.php:651
 msgctxt "admin settings"
 msgid "Thumbnail height (px)"
 msgstr "Hauteur des miniatures (en pixel)"
 
-#: core/class-settings.php:652
+#: core/class-settings.php:654
 msgctxt "admin settings"
 msgid "Crop thumbnails to exact dimensions?"
 msgstr "Recadrer les miniatures aux dimensions exactes ?"
 
-#: core/class-settings.php:655
+#: core/class-settings.php:657
 msgctxt "admin settings"
 msgid ""
 "When enabled images will match exactly the dimensions above but part of the "
@@ -4623,12 +4676,12 @@ msgstr ""
 "proportionnellement. Selon les images téléchargées, les miniatures peuvent "
 "avoir différentes hauteurs."
 
-#: core/class-settings.php:661
+#: core/class-settings.php:663
 msgctxt "admin settings"
 msgid "Number of free images"
 msgstr "Nombre d'images gratuites"
 
-#: core/class-settings.php:666
+#: core/class-settings.php:668
 msgctxt "admin settings"
 msgid ""
 "For paid listing images, configure that by adding or editing a <a>Fee Plan</"
@@ -4638,17 +4691,28 @@ msgstr ""
 "ou modification d'un <a>plan de frais</a> au lieu de ce paramètre, qui est "
 "ignoré pour les annonces payées."
 
-#: core/class-settings.php:669
+#: core/class-settings.php:671
 msgctxt "admin settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "Utiliser l'image par défault pour les annonces sans images ?"
 
-#: core/class-settings.php:670
+#: core/class-settings.php:672
 msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Montrer les miniatures sur page principale des annonces ?"
 
-#: core/class-settings.php:726
+#: core/class-settings.php:701
+msgctxt "admin settings"
+msgid "User"
+msgstr ""
+
+#: core/class-settings.php:702
+#, fuzzy
+msgctxt "admin settings"
+msgid "User registration date"
+msgstr "Date d'expiration de l'annonce"
+
+#: core/class-settings.php:728
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -4657,7 +4721,7 @@ msgstr ""
 "Impossible de copier le plugin de compatibilité AJAX \"% s\". Le mode de "
 "compatibilité n'a pas été activé."
 
-#: core/class-settings.php:734
+#: core/class-settings.php:736
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -4666,7 +4730,7 @@ msgstr ""
 "Impossible d'activer le mode de compatibilité AJAX: le répertoire \"% s \" "
 "ne peux pas être créé."
 
-#: core/class-settings.php:743
+#: core/class-settings.php:745
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -4675,97 +4739,97 @@ msgstr ""
 "Impossible de supprimer le \"Module de comptabilité AJAX du plugin \". "
 "Veuillez supprimer le fichier \"% s \" manuellement ou désactiver le plugin."
 
-#: core/class-settings.php:1063
+#: core/class-settings.php:1065
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Désactiver la licence"
 
-#: core/class-settings.php:1065
+#: core/class-settings.php:1067
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Désactivation de la licence..."
 
-#: core/class-settings.php:1068
+#: core/class-settings.php:1070
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Activer la licence"
 
-#: core/class-settings.php:1070
+#: core/class-settings.php:1072
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Activation de la licence"
 
-#: core/class-settings.php:1093
+#: core/class-settings.php:1095
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Espaces réservés valides:% s"
 
-#: core/class-settings.php:1127
+#: core/class-settings.php:1129
 msgctxt "settings email"
 msgid "Click to edit e-mail"
 msgstr "Cliquer pour éditer l'e-mail"
 
-#: core/class-settings.php:1128
+#: core/class-settings.php:1130
 msgctxt "settings email"
 msgid "Click to edit"
 msgstr "Cliquer pour éditer"
 
-#: core/class-settings.php:1141
+#: core/class-settings.php:1143
 msgctxt "settings email"
 msgid "E-Mail Subject"
 msgstr "Sujet de l'e-mail"
 
-#: core/class-settings.php:1152
+#: core/class-settings.php:1154
 msgctxt "settings email"
 msgid "E-Mail Body"
 msgstr "Corps de l'e-mail"
 
-#: core/class-settings.php:1163
+#: core/class-settings.php:1165
 msgctxt "settings email"
 msgid "You can use the following placeholders:"
 msgstr "Vous pouvez utiliser les paramètres suivantes:"
 
-#: core/class-settings.php:1186
+#: core/class-settings.php:1188
 msgctxt "settings email"
 msgid "Preview e-mail"
 msgstr "E-mail précédents"
 
-#: core/class-settings.php:1187
+#: core/class-settings.php:1189
 msgctxt "settings email"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: core/class-settings.php:1188
+#: core/class-settings.php:1190
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Sauvegarder les changements"
 
-#: core/class-settings.php:1207
+#: core/class-settings.php:1209
 msgctxt "settings email"
 msgid "Site title"
 msgstr "Titre du site"
 
-#: core/class-settings.php:1210
+#: core/class-settings.php:1212
 msgctxt "settings email"
 msgid "Site title (with link)"
 msgstr "Titre du site (avec lien)"
 
-#: core/class-settings.php:1213
+#: core/class-settings.php:1215
 msgctxt "settings email"
 msgid "Site address (with link)"
 msgstr "Adresse du site (avec lien)"
 
-#: core/class-settings.php:1216
+#: core/class-settings.php:1218
 msgctxt "settings email"
 msgid "Directory URL (with link)"
 msgstr "Annuaire des URL (avec lien)"
 
-#: core/class-settings.php:1219
+#: core/class-settings.php:1221
 msgctxt "settings email"
 msgid "Current date"
 msgstr "Date actuelle"
 
-#: core/class-settings.php:1222
+#: core/class-settings.php:1224
 msgctxt "settings email"
 msgid "Current time"
 msgstr "Heure actuelle"
