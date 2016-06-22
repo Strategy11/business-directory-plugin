@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-June-14
-Stable tag: tags/4.0.6
+Last Updated: 2016-June-21
+Stable tag: tags/4.0.7
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -130,7 +130,15 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
-= Version 4.0.5 =
+= Version 4.0.7 =
+* Improve excerpt display on mobile devices. 
+* Show themes update badge inside main menu item too.
+* Improved usability for Directory Themes screen. 
+* Fix some query issues when on CPT compat mode.
+* Mark some strings as translatable.
+* Restore the routine that handled expiration of listings.
+
+= Version 4.0.6 =
 * Compatibility fixes for Canvas theme.
 * Compatibility fixes for X theme.
 * Add "City" and "State" as taggable fields in themes.
