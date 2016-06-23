@@ -91,7 +91,7 @@ echo $notice;
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Column Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Column Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[csv-file-separator]"
@@ -102,7 +102,7 @@ echo $notice;
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Image Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Image Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"
@@ -113,7 +113,7 @@ echo $notice;
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Category Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms'); ?>)</span></label>
+                    <label> <?php _ex('Category Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[category-separator]"
