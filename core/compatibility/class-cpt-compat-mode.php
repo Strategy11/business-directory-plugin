@@ -78,6 +78,7 @@ class WPBDP__CPT_Compat_Mode {
     private function get_archive_query( $args ) {
         $args['wpbdp_main_query'] = true;
         $args['paged'] = get_query_var( 'paged' );
+        $args['post_type'] = WPBDP_POST_TYPE;
 
         // $args = wp_parse_args( $args, array(
         //     'wpbdp_main_query' => true,
