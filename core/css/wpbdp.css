@@ -704,13 +704,15 @@ table#wpbdp-manage-recurring a.cancel-subscription {
         display: block;
     }
 
-    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail {
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail,
+    .wpbdp-listing.wpbdp-listing-single .listing-thumbnail {
         /*width: 40%;*/
         float: none;
         padding: 5px;
     }
 
-    .wpbdp-listing.wpbdp-listing-excerpt .listing-details {
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-details,
+    .wpbdp-listing.wpbdp-listing-single .listing-details {
         margin: 0 5px;
         float: none;
         display: block;
