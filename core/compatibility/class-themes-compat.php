@@ -51,7 +51,7 @@ class WPBDP__Themes_Compat {
 
     public function get_themes_with_fixes() {
         $themes_with_fixes = array(
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x'
+            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis'
         );
 
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
@@ -231,7 +231,7 @@ class WPBDP__Themes_Compat {
     }
 
     /**
-     * @since next-release
+     * @since 4.0.6
      */
     public function theme_x() {
         if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
@@ -244,6 +244,31 @@ class WPBDP__Themes_Compat {
     public function theme_x__toggle_singular() {
         global $wp_query;
         $wp_query->is_singular = ! $wp_query->is_singular;
+    }
+
+    // public function theme_thesis() {
+    //     add_action( 'thesis_hook_before_post', array( $this, 'theme_thesis_before_post' ) );
+    //     // wpbdp_debug_e( wpbdp_current_view_output() );
+    // }
+    //
+    // public function theme_thesis_before_post() {
+    //     add_filter( 'the_content', array( $this, 'theme_thesis_the_content' ), 999 );
+    // }
+    //
+    // public function theme_thesis_the_content( $content = '' ) {
+    //     global $post;
+    //
+    //     if ( 0 == $post->ID )
+    //         return wpbdp_current_view_output();
+    //
+    //     return '';
+    // }
+
+    /**
+     * @since next-release
+     */
+    public function theme_u_design() {
+        remove_filter( 'the_content', 'autoinsert_rel_prettyPhoto', 10 );
     }
 
     //
