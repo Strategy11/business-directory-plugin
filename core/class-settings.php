@@ -216,12 +216,10 @@ class WPBDP_Settings {
                             _x( 'Allow visitors to discuss listings using the standard WordPress comment form. Comments are public.', 'admin settings', 'WPBDM' ) );
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
-                           array('choices' => array('draft', 'trash')));
+                           array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
         $this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
-                           array('choices' => array('draft', 'trash')));
-
+                           array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
         $this->add_setting( $s, 'submit-instructions', _x( 'Submit Listing instructions message', 'admin settings', 'WPBDM' ), 'text','', _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'admin settings', 'WPBDM' ), array( 'use_textarea' => true ) );
-
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
@@ -269,10 +267,10 @@ class WPBDP_Settings {
 
         $s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'new-post-status', _x('Default new post status', 'admin settings', 'WPBDM'), 'choice', 'pending', '',
-                           array('choices' => array('publish', 'pending'))
+                           array('choices' => array( array( 'publish', _x( 'Published', 'post status' ) ), array( 'pending', _x( 'Pending', 'post status' ) ) ))
                            );
         $this->add_setting($s, 'edit-post-status', _x('Edit post status', 'admin settings', 'WPBDM'), 'choice', 'publish', '',
-                           array('choices' => array('publish', 'pending')));
+                           array('choices' => array( array( 'publish', _x( 'Published', 'post status' ) ), array( 'pending', _x( 'Pending', 'post status' ) ) ) ) );
         $this->add_setting( $s, 'categories-order-by', _x('Order categories list by', 'admin settings', 'WPBDM'), 'choice', 'name', '',
                            array('choices' => array(
                             array( 'name', _x( 'Name', 'admin settings', 'WPBDM' ) ),
