@@ -803,22 +803,33 @@ body.business-directory #TB_secondLine {
     background: #f7f7f7;
     margin: 10px 0 20px 0;
     border-radius: 4px;
+    width: 100%;
+}
+
+#wpbdp-main-box * {
+    box-sizing: border-box;
 }
 
 #wpbdp-main-box .box-row {
+    margin: 0;
     padding: 5px;
+    width: 100%;
+    clear: both;
 }
 
 #wpbdp-main-box .box-row.with-separator {
     border-top: 2px solid #999;
 }
 
-#wpbdp-main-box .main-fields {
-    padding: 10px;
-    text-align: right;
+#wpbdp-main-box .box-col {
+    padding: 0 5px;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle;
 }
 
-#wpbdp-main-box input[type="submit"] {
+#wpbdp-main-box #wpbdp-main-box-keyword-field {
+    width: 100%;
 }
 
 #wpbdp-main-box .advanced-search-link {
@@ -829,6 +840,10 @@ body.business-directory #TB_secondLine {
 
 #wpbdp-main-box .wpbdp-main-links {
     text-align: right;
+}
+
+#wpbdp-main-box .wpbdp-main-links .button {
+    margin: 0 5px;
 }
 
 /* }} */

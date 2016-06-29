@@ -7,6 +7,81 @@ if (typeof(window.wpbdp) == 'undefined') {
 }
 
 jQuery(document).ready(function($){
+    /**
+     * Handles flex behavior for main box columns.
+     * @since next-release
+     */
+    wpbdp.main_box = {
+        init: function() {
+            this.$box = $( '#wpbdp-main-box' );
+            this.$cols = this.$box.find( '.box-col' );
+            this.$cols_expanding = this.$cols.filter( '.box-col-expand' );
+            this.$cols_fixed = this.$cols.not(this.$cols_expanding);
+            var self = this;
+
+            $( window ).on( 'load', function() {
+                var max_height = 0;
+
+                // Obtain original width for cols.
+                self.$cols.each(function() {
+                    $(this).data( 'initial-width', $(this).outerWidth() );
+                    max_height = Math.max( max_height, $(this).height() );
+                });
+
+                self.$cols.height(max_height);
+                self.resize();
+            });
+
+            $( window ).on( 'resize', function() {
+                self.resize();
+            } );
+        },
+
+        sum_width: function( $selector, prop ) {
+            var prop = ( 'undefined' === typeof( prop ) ) ? 'width' : prop;
+            var sum = 0;
+
+            $selector.each(function() {
+                var w = 0;
+
+                if ( 'initial' == prop )
+                    w = $(this).data( 'initial-width' );
+                else if ( 'outer' == prop )
+                    w = $(this).outerWidth();
+                else if ( 'inner' == prop )
+                    w = $(this).innerWidth();
+                else
+                    w = $(this).width();
+
+                sum += parseInt( w );
+            });
+
+            return sum;
+        },
+
+        min_width: function() {
+            return this.sum_width( this.$cols_fixed, 'initial' );
+        },
+
+        should_resize: function() {
+            return ( this.$box.find('form').width() > this.min_width() );
+        },
+
+        resize: function() {
+            if ( ! this.should_resize() )
+                return;
+
+            var available_width = this.$box.find('form').innerWidth() - this.min_width();
+            var flex_width = Math.floor( available_width / this.$cols_expanding.length ) - 2;
+
+            this.$cols_expanding.each(function() {
+                $(this).outerWidth( flex_width );
+            });
+        }
+    };
+
+    if ( $( '#wpbdp-main-box' ).length > 0 )
+        wpbdp.main_box.init();
 
     if ( $('.wpbdp-bar').children().length == 0 && $.trim( $('.wpbdp-bar').text() ) == '' ) {
         $('.wpbdp-bar').remove();
