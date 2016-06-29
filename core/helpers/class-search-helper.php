@@ -172,6 +172,9 @@ class WPBDP__Search_Helper {
 
         if ( 'quick-search' == $this->mode ) {
             foreach ( $this->keywords as $k ) {
+                if ( ! $k )
+                    continue;
+
                 $plan[ $k ] = array();
 
                 foreach ( $this->fields as $f ) {

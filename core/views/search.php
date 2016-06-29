@@ -7,7 +7,7 @@ class WPBDP__Views__Search extends WPBDP_NView {
         $quick_search = false;
         $results = array();
 
-        if ( ! empty ( $_POST['q'] ) )
+        if ( isset ( $_POST['q'] ) )
             $quick_search = true;
 
         if ( $quick_search ) {
