@@ -31,6 +31,9 @@ class _WPBDP_Template_Sections {
         if ( 'single' != $template )
             return $vars;
 
+        $vars['#comments'] = array( 'callback' => array( $this, 'listing_comments' ),
+                                    'position' => 'after',
+                                    'weight' => 100 );
         return $vars;
     }
 
@@ -38,9 +41,15 @@ class _WPBDP_Template_Sections {
         if ( ! wpbdp_get_option( 'show-comment-form' ) )
             return;
 
-        echo '<div class="comments">';
+        $html = '<div class="comments">';
+
+        ob_start();
         comments_template( null, true );
-        echo '</div>';
+        $html .= ob_get_clean();
+
+        $html .= '</div>';
+
+        return $html;
     }
 
 
