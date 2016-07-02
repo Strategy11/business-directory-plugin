@@ -1,6 +1,6 @@
 <?php
 /**
- * @since themes-release
+ * @since 4.0
  */
 class WPBDP_Field_Display_List implements IteratorAggregate {
 
@@ -42,9 +42,13 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         if ( isset( $this->items[ $field_id ] ) )
             return;
 
-        if( $f->display_in( $this->display ) )
-            $this->displayed_fields[] = $field_id;
+        if ( ! $f->display_in( $this->display ) )
+            return;
 
+        // if( $f->display_in( $this->display ) )
+        //     $this->displayed_fields[] = $field_id;
+
+        $this->displayed_fields[] = $field_id;
         $this->items[ $field_id ] = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
         $this->names_to_ids[ $f->get_short_name() ] = $field_id;
         $this->names_to_ids[ 't_' . $f->get_tag() ] = $field_id;
@@ -136,6 +140,9 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
             return $html;
         }
 
+        if ( '_h_' == substr( $key, 0, 3 ) )
+            return method_exists( $this, 'helper__' . substr( $key, 3 ) ) ? call_user_func( array( $this, 'helper__' . substr( $key, 3 ) ) ) : '';
+
         if ( 'id' == substr( $key, 0, 2 ) )
             $field_id = absint( substr( $key, 2 ) );
 
@@ -146,13 +153,41 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
             return $this->items[ $field_id ];
 
         wpbdp_debug( 'Invalid field key: ' . $key );
+        return new WPBDP_NoopObject(); // FIXME: templates shouldn't rely on a field existing.
         return false;
     }
 
+    //
+    // Helpers. {{
+    //
+
+    public function helper__address() {
+        $address = trim( $this->t_address->value );
+        $city = trim( $this->t_city->value );
+        $state = trim( $this->t_state->value );
+        $zip = trim( $this->t_zip->value );
+
+        $html  = '';
+        $html .= $address;
+        $html .= ( $city || $state || $zip ) ? '<br />' : '';
+        $html .= $city;
+        $html .= ( $city && $state ) ? ', ' . $state : $state;
+        $html .= $zip ? ' ' . $zip : '';
+
+        return $html;
+    }
+
+    public function helper__address_nobr() {
+        return str_replace( '<br />', ', ', $this->helper__address() );
+    }
+
+    //
+    // }}
+    //
 }
 
 /**
- * @since themes-release
+ * @since 4.0
  */
 class _WPBDP_Lightweight_Field_Display_Item {
 

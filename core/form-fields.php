@@ -282,8 +282,12 @@ class WPBDP_FormFields {
         $ids = $wpdb->get_col( $sql );
 
         foreach ( $ids as $id ) {
-            if ( $field = WPBDP_FormField::get( $id ) )
+            if ( $field = WPBDP_FormField::get( $id ) ) {
+                if ( ! in_array( $field->get_association(), array_keys( $this->associations ), true ) )
+                    continue;
+
                 $res[] = $field;
+            }
         }
 
         $res = $unique ? ( $res ? $res[0] : null ) : $res;
@@ -352,35 +356,19 @@ class WPBDP_FormFields {
     }
 
     /**
-     * @deprecated since themes-release.
+     * @deprecated since 4.0.
      */
     public function get_short_names( $fieldid=null ) {
-        if ( wpbdp_experimental( 'themes' ) ) {
-            $fields = $this->get_fields();
-            $shortnames = array();
+        $fields = $this->get_fields();
+        $shortnames = array();
 
-            foreach ( $fields as $f )
-                $shortnames[ $f->get_id()] = $f->get_shortname();
+        foreach ( $fields as $f )
+            $shortnames[ $f->get_id()] = $f->get_shortname();
 
-            if ( $fieldid )
-                return isset( $shortnames[ $fieldid ] ) ? $shortnames[ $fieldid ] : null;
+        if ( $fieldid )
+            return isset( $shortnames[ $fieldid ] ) ? $shortnames[ $fieldid ] : null;
 
-            return $shortnames;
-        }
-
-        $names = get_option( 'wpbdp-field-short-names', false );
-
-        if ( !$names )
-            $names = $this->_calculate_short_names();
-
-        if ( $fieldid ) {
-            if ( ! isset( $names[ $fieldid ] ) )
-                $names = $this->_calculate_short_names();
-
-            return isset( $names[ $fieldid ] ) ? $names[ $fieldid ] : null;
-        }
-
-        return $names;
+        return $shortnames;
     }
 
     public function _calculate_short_names() {
@@ -419,7 +407,7 @@ class WPBDP_FormFields {
     }
 
     /**
-     * @since themes-release
+     * @since 4.0
      */
     public function maybe_correct_tags() {
         $fields = wpbdp_get_form_fields();

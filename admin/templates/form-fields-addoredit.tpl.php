@@ -3,6 +3,7 @@
 
 <form id="wpbdp-formfield-form" action="" method="post">
     <input type="hidden" name="field[id]" value="<?php echo $field->get_id(); ?>" />
+    <input type="hidden" name="field[tag]" value="<?php echo $field->get_tag(); ?>" />
     <input type="hidden" name="field[weight]" value="<?php echo $field->get_weight(); ?>" />
 
     <table class="form-table">
@@ -10,7 +11,7 @@
             <!-- association -->
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <?php $field_association_info = $field_associations[ $field->get_association() ]; ?>
@@ -32,7 +33,7 @@
             <!-- field type -->
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Field Type', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label> <?php _ex('Field Type', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <?php if ( 'custom' === $field->get_association() ): ?>
@@ -56,7 +57,7 @@
             <!-- label -->
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Field Label', 'form-fields admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label> <?php _ex('Field Label', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="field[label]" type="text" aria-required="true" value="<?php echo esc_attr( $field->get_label() ); ?>" />
@@ -66,7 +67,7 @@
             <!-- description -->
             <tr class="form-field">
                 <th scope="row">
-                    <label> <?php _ex('Field description', 'form-fields admin', 'WPBDM'); ?> <span class="description">(optional)</span></label>
+                    <label> <?php _ex('Field description', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'optional', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="field[description]" type="text" value="<?php echo esc_attr( $field->get_description() ); ?> " />

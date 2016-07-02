@@ -1,17 +1,12 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
 /**
  * Renew listing view.
  */
-class WPBDP_Renew_Listing_Page extends WPBDP_View {
+class WPBDP__Views__Renew_Listing extends WPBDP_NView {
 
     private $category = null;
     private $listing = null;
 
-    public function get_page_name() {
-        return 'renewlisting';
-    }
 
     public function dispatch() {
         if ( ! wpbdp_get_option( 'listing-renewal' ) )
@@ -78,8 +73,7 @@ class WPBDP_Renew_Listing_Page extends WPBDP_View {
         if ( ! $payment )
             return wpbdp_render_msg( _x( 'Invalid renewal state.', 'renewal', 'WPBDM' ), 'error' );
 
-        require_once( WPBDP_PATH . 'core/view-checkout.php' );
-        $checkout = new WPBDP_Checkout_Page( $payment );
+        $checkout = wpbdp_load_view( 'checkout', $payment );
         return $checkout->dispatch();
     }
 

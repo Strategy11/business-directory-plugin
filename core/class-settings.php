@@ -67,7 +67,7 @@ class WPBDP_Settings {
        // {{ Registration settings.
 //        $s = $this->add_group( 'registration',
 //                               _x('Registration', 'admin settings', 'WPBDM' ) );
-        $msg = __( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.",
+        $msg = _x( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.",
                    'admin settings',
                    'WPBDM' );
         $s = $this->add_section( $g, 'registration', _x( 'Registration Settings', 'admin settings', 'WPBDM' ), $msg );
@@ -103,7 +103,7 @@ class WPBDP_Settings {
                             'terms-and-conditions',
                             _x( 'Terms and Conditions', 'admin settings', 'WPBDM' ),
                             'text',
-                            "Terms and Conditions text goes here...\n\n",
+                            _x( "Terms and Conditions text goes here...\n\n", 'admin settings', 'WPBDM' ),
                             _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'admin settings', 'WPBDM' ),
                             array( 'use_textarea' => true )
                             );
@@ -113,6 +113,7 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-search-listings', _x('Show "Search listings".', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->add_setting( $s, 'disable-cpt', _x( 'Disable advanced CPT integration.', 'admin settings', 'WPBDM' ), 'boolean', false );
 
         // {{ Directory search.
         $s = $this->add_section( $g,
@@ -215,12 +216,10 @@ class WPBDP_Settings {
                             _x( 'Allow visitors to discuss listings using the standard WordPress comment form. Comments are public.', 'admin settings', 'WPBDM' ) );
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
-                           array('choices' => array('draft', 'trash')));
+                           array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
         $this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
-                           array('choices' => array('draft', 'trash')));
-
+                           array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
         $this->add_setting( $s, 'submit-instructions', _x( 'Submit Listing instructions message', 'admin settings', 'WPBDM' ), 'text','', _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'admin settings', 'WPBDM' ), array( 'use_textarea' => true ) );
-
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
@@ -268,10 +267,10 @@ class WPBDP_Settings {
 
         $s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'new-post-status', _x('Default new post status', 'admin settings', 'WPBDM'), 'choice', 'pending', '',
-                           array('choices' => array('publish', 'pending'))
+                           array('choices' => array( array( 'publish', _x( 'Published', 'post status' ) ), array( 'pending', _x( 'Pending', 'post status' ) ) ))
                            );
         $this->add_setting($s, 'edit-post-status', _x('Edit post status', 'admin settings', 'WPBDM'), 'choice', 'publish', '',
-                           array('choices' => array('publish', 'pending')));
+                           array('choices' => array( array( 'publish', _x( 'Published', 'post status' ) ), array( 'pending', _x( 'Pending', 'post status' ) ) ) ) );
         $this->add_setting( $s, 'categories-order-by', _x('Order categories list by', 'admin settings', 'WPBDM'), 'choice', 'name', '',
                            array('choices' => array(
                             array( 'name', _x( 'Name', 'admin settings', 'WPBDM' ) ),
@@ -340,8 +339,8 @@ class WPBDP_Settings {
                             'field',
                             _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
                             array( 'choices' => array(
-                                array( 'field', 'Try listing\'s email field first, then author\'s email.' ),
-                                array( 'user',  'Try author\'s email first and then listing\'s email field.' )
+                                array( 'field', _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'WPBDM' ) ),
+                                array( 'user',  _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'WPBDM' ) )
 
                             ) ) );
 
@@ -609,22 +608,22 @@ EOF;
                                         ) );
         $this->register_dep( 'payment-abandonment-threshold', 'requires-true', 'payment-abandonment' );
 
-        // TODO: we probably should merge this and 'Images' into an 'Appearance' tab.
-        if ( wpbdp_experimental( 'themes' ) ) {
-            $g = $this->add_group( 'themes', _x( 'Themes', 'admin settings', 'WPBDM' ) );
-            $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ) );
+        // TODO: we probably should merge this and 'Images' into an 'Appearance' tab. {
+        $g = $this->add_group( 'themes', _x( 'Themes', 'admin settings', 'WPBDM' ) );
 
-            $this->add_setting( $s,
-                                'themes-button-style',
-                                _x( 'Theme button style', 'admin settings', 'WPBDM' ),
-                                'choice',
-                                'theme',
-                                '',
-                                array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
-                                                           array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
-                                       'use_checkboxes' => false ) );
-        }
+        $msg = str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp-themes' ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'WPBDM' ) );
+        $s = $this->add_section( $g, 'general', _x( 'General Settings', 'admin settings', 'WPBDM' ), $msg );
 
+        $this->add_setting( $s,
+                            'themes-button-style',
+                            _x( 'Theme button style', 'admin settings', 'WPBDM' ),
+                            'choice',
+                            'theme',
+                            '',
+                            array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
+                                                       array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
+                            'use_checkboxes' => false ) );
+        // }
 
 
         /* Image settings */
@@ -697,10 +696,10 @@ EOF;
             $fields[ $f->get_id() ] = $f->get_label();
         }
 
-        $fields['user_login'] = 'User';
-        $fields['user_registered'] = 'User registration date';
-        $fields['date'] = 'Date posted';
-        $fields['modified'] = 'Date last modified';
+        $fields['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
+        $fields['user_registered'] = _x( 'User registration date', 'admin settings', 'WPBDM' );
+        $fields['date'] = _x( 'Date posted', 'admin settings', 'WPBDM' );
+        $fields['modified'] = _x( 'Date last modified', 'admin settings', 'WPBDM' );
 
         return $fields;
     }
@@ -944,6 +943,9 @@ EOF;
         if (!is_null($ifempty) && empty($value))
             $value = $ifempty;
 
+        if ( ! isset( $this->settings[ $name ] ) )
+            return false;
+
         if ($this->settings[$name]->type == 'boolean') {
             return (boolean) intval($value);
         } elseif ( 'choice' == $this->settings[$name]->type && isset( $this->settings[$name]->args['multiple'] ) && $this->settings[$name]->args['multiple'] ) {
@@ -1055,23 +1057,21 @@ EOF;
                          size="25"
                          ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . '/>';
 
-        if ( $value ) {
-            $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
-            $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
-            $html .= '<input type="button"
-                             value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
-                             class="button-secondary license-deactivate"
-                             data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
-                             style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
-            $html .= '<input type="button"
-                             value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
-                             class="button-secondary license-activate"
-                             data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
-                             style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
-            $html .= '<br />';
-            $html .= '<span class="status-message"></span>';
-            $html .= '</span>';
-        }
+        $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
+        $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
+        $html .= '<input type="button"
+                         value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
+                         class="button-secondary license-deactivate"
+                         data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
+                         style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
+        $html .= '<input type="button"
+                         value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
+                         class="button-secondary license-activate"
+                         data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
+                         style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
+        $html .= '<br />';
+        $html .= '<span class="status-message"></span>';
+        $html .= '</span>';
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }

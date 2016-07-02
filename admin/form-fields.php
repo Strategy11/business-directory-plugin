@@ -294,6 +294,8 @@ class WPBDP_FormFieldsAdmin {
             'content' => _x( 'Content', 'form-fields admin', 'WPBDM' ),
             'tags' => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
             'address' => _x( 'Address', 'form-fields admin', 'WPBDM' ),
+            'city' => _x( 'City', 'form-fields admin', 'WPBDM' ),
+            'state' => _x( 'State', 'form-fields admin', 'WPBDM' ),
             'zip' => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
             'fax' => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
             'phone' => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),

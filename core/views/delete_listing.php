@@ -1,7 +1,8 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
-class WPBDP_Delete_Listing_View extends WPBDP_View {
+/**
+ * @since 4.0
+ */
+class WPBDP__Views__Delete_Listing extends WPBDP_NView {
 
     function dispatch() {
         $listing_id = intval( $_REQUEST['listing_id'] );

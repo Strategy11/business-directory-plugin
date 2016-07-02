@@ -12,6 +12,7 @@ class WPBDP_CSVImportAdmin {
 
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-csv-import', array( &$this, 'ajax_csv_import' ) );
+        add_action( 'wp_ajax_wpbdp-autocomplete-user', array( &$this, 'ajax_autocomplete_user' ) );
     }
 
     function enqueue_scripts() {
@@ -20,7 +21,7 @@ class WPBDP_CSVImportAdmin {
         if ( 'wpbdp-csv-import' != $plugin_page )
             return;
 
-        wp_enqueue_script( 'wpbdp-admin-import-js', WPBDP_URL . 'admin/js/csv-import.js', array( 'wpbdp-admin-js' ) );
+        wp_enqueue_script( 'wpbdp-admin-import-js', WPBDP_URL . 'admin/js/csv-import.js', array( 'wpbdp-admin-js', 'jquery-ui-autocomplete' ) );
         wp_enqueue_style( 'wpbdp-admin-import-css', WPBDP_URL . 'admin/css/csv-import.css' );
     }
 
@@ -69,6 +70,19 @@ class WPBDP_CSVImportAdmin {
         }
 
         $res->send();
+    }
+
+    public function ajax_autocomplete_user() {
+        $users = get_users( array( 'search' => "*{$_REQUEST['term']}*" ) );
+
+        foreach ( $users as $user ) {
+            $return[] = array(
+                'label' => "{$user->display_name} ({$user->user_login})",
+                'value' => $user->ID,
+            );
+        }
+
+        wp_die( wp_json_encode( $return ) );
     }
 
     function dispatch() {

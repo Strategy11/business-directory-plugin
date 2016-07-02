@@ -1,6 +1,5 @@
 <?php
-if ( wpbdp_experimental( 'themes' ) )
-    require_once ( WPBDP_PATH . 'core/helpers/class-listing-display-helper.php' );
+require_once ( WPBDP_PATH . 'core/helpers/class-listing-display-helper.php' );
 
 
 /**
@@ -22,17 +21,11 @@ function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
 
     $q->the_post();
 
-    if ( 'excerpt' == $view ) {
-        if ( wpbdp_experimental( 'themes' ) )
-            $html = WPBDP_Listing_Display_Helper::excerpt();
-        else
-            $html = _wpbdp_render_excerpt();
-    } else {
-        if ( wpbdp_experimental( 'themes' ) )
-            $html = WPBDP_Listing_Display_Helper::single();
-        else
-            $html = _wpbdp_render_single();
-    }
+    // TODO: review filters/actions before next-release (previously _wpbdp_render_excerpt() and _wpbdp_render_single().
+    if ( 'excerpt' == $view )
+        $html = WPBDP_Listing_Display_Helper::excerpt();
+    else
+        $html = WPBDP_Listing_Display_Helper::single();
 
     if ( $echo )
         echo $html;
@@ -247,4 +240,21 @@ function wpbdp_listing_css_class( $class_ = '', $post_id = null ) {
     $css_classes = apply_filters( 'wpbdp_listing_css_class', $css_classes, $post_id );
 
     return implode( ' ', $css_classes );
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_the_listing_actions( $args = array() ) {
+    echo wpbdp_listing_actions();
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_listing_actions( $args = array() ) {
+    return wpbdp_render( 'parts/listing-buttons',
+                         array( 'listing_id' => get_the_ID(),
+                         'view' => 'excerpt' ),
+                         false );
 }

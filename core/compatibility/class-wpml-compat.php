@@ -155,20 +155,12 @@ class WPBDP_WPML_Compat {
     function language_switcher( $languages ) {
         global $wpbdp;
 
-        $action = $wpbdp->controller->get_current_action();
+        $action = wpbdp_current_view();
+        $this->workaround_autoids();
 
         switch ( $action ) {
-            case 'browsecategory':
-                if (get_query_var('category')) {
-                    if ($term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX)) {
-                        $category_id = $term->term_id;
-                    } else {
-                        $category_id = intval(get_query_var('category'));
-                    }
-                }
-
-                $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
-                $category_id = is_array( $category_id ) && 1 == count( $category_id ) ? $category_id[0] : $category_id;
+            case 'show_category':
+                $category_id = wpbdp_current_category_id();
 
                 if ( ! $category_id )
                     return $languages;
@@ -187,7 +179,7 @@ class WPBDP_WPML_Compat {
 
                 break;
 
-            case 'showlisting':
+            case 'show_listing':
                 $id_or_slug = '';
                 if ( get_query_var( 'listing' ) || isset( $_GET['listing'] ) )
                     $id_or_slug = get_query_var( 'listing' ) ? get_query_var( 'listing' ) : wpbdp_getv( $_GET, 'listing', 0 );
@@ -216,7 +208,30 @@ class WPBDP_WPML_Compat {
                 break;
         }
 
+        $this->workaround_autoids();
+
         return $languages;
+    }
+
+    function workaround_autoids() {
+        global $sitepress_settings;
+
+        if ( ! $this->wpml->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) )
+            return;
+
+        if ( ! isset( $this->workaround ) ) {
+            $this->workaround = true;
+        } else {
+            $this->workaround = ! $this->workaround;
+        }
+
+        if ( $this->workaround ) {
+            // Magic here.
+            $sitepress_settings['auto_adjust_ids'] = 0;
+        } else {
+            // Undo magic.
+            $sitepress_settings['auto_adjust_ids'] = 1;
+        }
     }
 
     // {{{ Form Fields integration.

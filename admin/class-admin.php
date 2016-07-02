@@ -43,7 +43,7 @@ class WPBDP_Admin {
         add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
 
         add_action( 'wp_ajax_wpbdp-formfields-reorder', array( &$this, 'ajax_formfields_reorder' ) );
-        
+
         add_action( 'wp_ajax_wpbdp-admin-fees-set-order', array( &$this, 'ajax_fees_set_order' ) );
         add_action( 'wp_ajax_wpbdp-admin-fees-reorder', array( &$this, 'ajax_fees_reorder' ) );
 
@@ -56,7 +56,7 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-create-main-page', array( &$this, 'ajax_create_main_page' ) );
         add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );
         add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
-
+        add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
         // Reset settings action.
         add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
@@ -213,8 +213,11 @@ class WPBDP_Admin {
     }
 
     function admin_menu() {
+        $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
+        $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
+
         add_menu_page( _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
-                       _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
+                       $count_html ? _x( 'Dir. Admin', 'admin menu', 'WPBDM' ) . $count_html : _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
                        'administrator',
                        'wpbdp_admin',
                        array( &$this, 'main_menu' ),
@@ -449,6 +452,20 @@ class WPBDP_Admin {
         $response->send();
     }
 
+    function ajax_dismiss_notification() {
+        $id = isset( $_POST['id'] ) ? $_POST['id'] : '';
+        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+        $user_id = get_current_user_id();
+
+        $res = new WPBDP_Ajax_Response();
+
+        if ( ! $id || ! $nonce || ! $user_id || ! wp_verify_nonce( $nonce, 'dismiss notice ' . $id ) )
+            $res->send_error();
+
+        update_user_meta( $user_id, 'wpbdp_notice_dismissed[' . $id . ']', true );
+        $res->send();
+    }
+
     function admin_notices() {
         if ( ! current_user_can( 'administrator' ) )
             return;
@@ -468,13 +485,29 @@ class WPBDP_Admin {
             if ( in_array( $msg_sha1, $this->displayed_warnings, true ) )
                 continue;
 
-            if ( is_array($msg)) {
-                echo sprintf('<div class="%s"><p>%s</p></div>', $msg[1], $msg[0]);
+            $this->displayed_warnings[] = $msg_sha1;
+
+            if ( is_array( $msg ) ) {
+                $class = isset( $msg[1] ) ? $msg[1] : 'updated';
+                $text = isset( $msg[0] ) ? $msg[0] : '';
+                $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : array();
             } else {
-                echo sprintf('<div class="updated"><p>%s</p></div>', $msg);
+                $class = 'updated';
+                $text = $msg;
+                $extra = array();
             }
 
-            $this->displayed_warnings[] = $msg_sha1;
+            echo '<div class="wpbdp-notice ' . $class . '">';
+            echo '<p>' . $text . '</p>';
+
+            if ( ! empty ( $extra['dismissible-id'] ) ) {
+                printf( '<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
+                        $extra['dismissible-id'],
+                        wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
+                        _x( 'Dismiss this notice.', 'admin', 'WPBDM' ) );
+            }
+
+            echo '</div>';
         }
 
         $this->messages = array();
@@ -843,8 +876,7 @@ class WPBDP_Admin {
 
 /*                $modules_msg .= sprintf( _x( '&#149; %s (installed: %s, required: %s).', 'admin compat', 'WPBDM' ),
                                          '<span class="module-name">business-directory-<b>' . $module_id . '</b></span>',
-                                         '<span class="module-version">' . ( null === $module_info['version'] ? _x( 'N/A', 'admin compat', 'WPBDM' ) : $module_info['version'] ) . '</span>',
-                                         '<span class="module-required">' . $module_info['required'] . '</span>' );*/
+                                         '<span class="module-version">' . ( null === $module_info['version'] ? _x( 'N/A', 'admin compat', 'WPBDM' ) : $module_info['version'] ) .  $module_info['required'] . '</span>' );*/
             }
         }
 
@@ -864,12 +896,18 @@ class WPBDP_Admin {
     public function check_setup() {
         global $pagenow;
 
-        if ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpbdp_admin_settings' ) {
-            if ( wpbdp_get_option( 'require-login' ) && !get_option( 'users_can_register' ) ) {
+        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
+            return;
+
+        // Registration disabled message.
+        if ( wpbdp_get_option( 'require-login')
+             && ! get_option( 'users_can_register')
+             && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
                 $this->messages[] = array(
                     str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' )  . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'WPBDM' ) ),
-                    'error' );
-            }
+                    'error dismissible',
+                    array( 'dismissible-id' => 'registration_disabled' )
+                );
         }
     }
 

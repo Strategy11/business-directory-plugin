@@ -63,12 +63,12 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
                                'parent' => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ),
                                'fields' => 'ids' )
                         );
-    
+
     $terms = array();
     foreach ( $term_ids as $term_id ) {
         $t = get_term( $term_id, WPBDP_CATEGORY_TAX );
         // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
-        // we need a workaround until the bug is fixed.        
+        // we need a workaround until the bug is fixed.
         _wpbdp_padded_count( $t );
 
         $terms[] = $t;
@@ -94,7 +94,6 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
             $html .= '<ul class="children">';
         }
     }
-
     foreach ( $terms as &$term ) {
         $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' ) . '">';
 
@@ -184,30 +183,19 @@ function wpbdp_main_links() {
     if (wpbdp_get_option('show-submit-listing')) {
         $html .= sprintf('<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Submit A Listing', 'WPBDM'),
-                          wpbdp_get_page_link('add-listing'));
-/*        $html .= sprintf('<a href="%s">%s</a>',
-                         wpbdp_get_page_link('add-listing'),
-                         __('Submit A Listing', 'WPBDM'));*/
+                          wpbdp_url( 'submit_listing' ) );
     }
 
     if (wpbdp_get_option('show-view-listings')) {
         $html .= sprintf('<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('View Listings', 'WPBDM'),
-                          wpbdp_get_page_link('view-listings'));        
-/*        $html .= sprintf('<a href="%s">%s</a>',
-                         wpbdp_get_page_link('view-listings'),
-                         __('View Listings', 'WPBDM')
-                        );*/
+                          wpbdp_url( 'all_listings' ) );
     }
 
     if (wpbdp_get_option('show-directory-button')) {
         $html .= sprintf( '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Directory', 'WPBDM'),
-                          wpbdp_get_page_link('main') );
-/*        $html .= sprintf('<a href="%s">%s</a>',
-                         wpbdp_get_page_link('main'),
-                         __('Directory', 'WPBDM')
-                        );*/
+                          wpbdp_url( '/' ) );
     }
 
     if ( $html )
@@ -223,8 +211,8 @@ function wpbdp_the_main_links() {
 function wpbdp_search_form() {
     $html  = '';
     $html .= sprintf( '<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
-                      wpbdp_rewrite_on() ? esc_url( add_query_arg( 'action', 'search', wpbdp_get_page_link( 'main' ) ) ) : '' );
-        $html .= '<input type="hidden" name="action" value="search" />';
+                      wpbdp_url( 'search' ) );
+        $html .= '<input type="hidden" name="wpbdp_view" value="search" />';
 
     if ( ! wpbdp_rewrite_on() ) {
         $html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
@@ -235,7 +223,7 @@ function wpbdp_search_form() {
     $html .= sprintf('<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
                      _x('Search Listings', 'templates', 'WPBDM'));
     $html .= sprintf('<a href="%s" class="advanced-search-link">%s</a>',
-                     esc_url( add_query_arg('action', 'search', wpbdp_get_page_link('main')) ),
+                     esc_url( wpbdp_url( 'search' ) ),
                      _x('Advanced Search', 'templates', 'WPBDM'));
     $html .= '</form>';
 
@@ -252,11 +240,14 @@ function wpbdp_the_listing_excerpt() {
 }
 
 function wpbdp_listing_sort_options() {
-    $sort_options = array();
-    $sort_options = apply_filters('wpbdp_listing_sort_options', $sort_options);
+    if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
+        $sort_options = apply_filters( 'wpbdp_listing_sort_options', array() );
+    } else {
+        $sort_options = array();
+    }
 
     if (!$sort_options)
-        return '';
+        return apply_filters( 'wpbdp_listing_sort_options_html', '' );
 
     $current_sort = wpbdp_get_current_sort_option();
 
@@ -308,7 +299,7 @@ function wpbdp_listing_sort_options() {
     $html .= '</select>';
     $html .= '</div>';
 
-    return $html;
+    return apply_filters( 'wpbdp_listing_sort_options_html', $html );
 }
 
 function wpbdp_the_listing_sort_options() {
@@ -367,7 +358,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
         $main_image = get_post( $thumbnail_id );
     } else {
         $images = wpbdp_listings_api()->get_images( $listing_id );
-        
+
         if ( $images )
             $main_image = $images[0];
     }

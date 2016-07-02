@@ -1,11 +1,9 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
 /**
  * Listing contact page.
  * @since 3.4
  */
-class WPBDP_Listing_Contact_View extends WPBDP_View {
+class WPBDP__Views__Listing_Contact extends WPBDP_NView {
 
     private $errors = array();
 
@@ -13,13 +11,6 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
     private $email = '';
     private $message = '';
 
-
-    public function __construct() {
-    }
-
-    public function get_page_name() {
-        return 'sendcontactmessage';
-    }
 
     private function prepare_input() {
         if ( $_POST )
@@ -116,7 +107,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
 
         $html  = '';
 
-        $html .= '<div class="contact-form">';
+        $html .= '<div class="wpbdp-listing-contact-form">';
 
         if ( ! $_POST ) {
             $html .= '<input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" />';

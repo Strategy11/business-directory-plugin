@@ -1,15 +1,14 @@
 <div id="wpbdp-search-form-wrapper">
 
 <h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
-<form action="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>" id="wpbdp-search-form" method="GET">
-    <input type="hidden" name="action" value="search" />
-
-    <?php if ( ! wpbdp_rewrite_on() ): ?>
-    <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id('main'); ?>" />
-    <?php endif; ?>
-
+<form action="<?php echo esc_url( wpbdp_url( 'search' ) ); ?>" id="wpbdp-search-form" method="get">
     <input type="hidden" name="dosrch" value="1" />
     <input type="hidden" name="q" value="" />
+
+    <?php if ( ! wpbdp_rewrite_on() ): ?>
+    <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id(); ?>" />
+    <?php endif; ?>
+    <input type="hidden" name="wpbdp_view" value="search" />
 
     <?php echo $fields; ?>
     <?php do_action('wpbdp_after_search_fields'); ?>

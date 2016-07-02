@@ -44,6 +44,9 @@ class WPBDP_Themes {
         if ( ! $fname && file_exists( $theme->path . 'theme.php' ) )
             include_once( $theme->path . 'theme.php' );
 
+        if ( ! $fname )
+            return;
+
         $theme_name = str_replace( array( '-' ), array( '_' ), $theme->id );
 
         $alternatives = array( 'wpbdp_themes__' . $theme_name . '_' . $fname,
@@ -60,8 +63,8 @@ class WPBDP_Themes {
 
     function enqueue_theme_scripts() {
         $theme = $this->get_active_theme_data();
-        $css = $theme->assets->css;
-        $js = $theme->assets->js;
+        $css = array_filter( (array) $theme->assets->css );
+        $js = array_filter( (array) $theme->assets->js );
 
         foreach ( $css as $c ) {
             wp_enqueue_style( $theme->id . '-' . $this->_normalize_asset_name( $c ),
@@ -232,7 +235,7 @@ class WPBDP_Themes {
     }
 
     /**
-     * @since next-release
+     * @since 4.0
      */
     function missing_suggested_fields( $key = '' ) {
         global $wpbdp;
@@ -241,7 +244,7 @@ class WPBDP_Themes {
         $key = ( ! $key ) ? 'tag' : $key;
 
         $missing = array();
-        $suggested_fields = $this->get_active_theme_data( 'suggested_fields' );
+        $suggested_fields = array_filter( (array) $this->get_active_theme_data( 'suggested_fields' ) );
         $current_fields_tags = $wpdb->get_col( "SELECT tag FROM {$wpdb->prefix}wpbdp_form_fields" );
 
         $missing_tags = array_diff( $suggested_fields, $current_fields_tags );
@@ -380,6 +383,7 @@ class WPBDP_Themes {
     }
 
     function render( $id_or_file, $vars = array() ) {
+        $in_wrapper = isset( $vars['_child'] );
         $path = '';
 
         if ( file_exists( $id_or_file ) )
@@ -390,7 +394,7 @@ class WPBDP_Themes {
         if ( ! $path )
             throw new Exception( 'Invalid template id or file: "' . $id_or_file . '"' );
 
-        if ( ! isset( $vars['_in_wrapper'] ) ) {
+        if ( ! $in_wrapper ) {
             // Setup default and hook-added variables.
             $this->_configure_template_vars( $id_or_file, $path, $vars );
 
@@ -412,42 +416,25 @@ class WPBDP_Themes {
         $template_meta = ( isset( $__template__ ) && is_array( $__template__ ) ) ? $__template__ : array();
         $template_blocks = ! empty( $template_meta['blocks'] ) ? $template_meta['blocks'] : array();
 
-        // Check for wrapper template.
-        $wrapper_name = '';
-
-        if ( isset( $vars['_wrapper'] ) && false === $vars['_wrapper'] ) {
-            // Do not use a wrapper.
-        } else {
-            if ( isset( $vars['_wrapper'] ) )
-                $wrapper_name = $vars['_wrapper'];
-
-            if ( ! $wrapper_name && ! empty( $template_meta['wrapper'] ) )
-                $wrapper_name = $template_meta['wrapper'];
-
-            if ( ! $wrapper_name )
-                $wrapper_name = $id_or_file . '_wrapper';
-        }
-
         $is_part = isset( $vars['_part'] ) && $vars['_part'];
-        $wrapper = $wrapper_name ? $this->locate_template( $wrapper_name ) : false;
 
         // Add before/after to the HTML directly.
         $html = ( ( $is_part || in_array( 'before', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['before'] ) ? $vars['blocks']['before'] : '' ) ) .
-                ( ( $is_part || in_array( 'before_inner', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['before_inner'] ) ? $vars['blocks']['before_inner'] : '' ) ) .
                 $html .
-                ( ( $is_part || in_array( 'after_inner', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['after_inner'] ) ? $vars['blocks']['after_inner'] : '' ) ) .
                 ( ( $is_part || in_array( 'after', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['after'] ) ? $vars['blocks']['after'] : '' ) );
 
-        if ( $wrapper ) {
-            $vars['_wrapper'] = false; // Stop recursion.
-            $vars['_in_wrapper'] = true;
+        if ( ! $in_wrapper && $vars['_wrapper_path'] ) {
+            $in_wrapper = true;
 
-            $wrapper_vars = array_merge( $vars, array( 'content' => $html ) );
-            unset( $wrapper_vars['blocks'] );
+            $vars2 = array( '_template' => $vars['_wrapper'],
+                            '_path' => $vars['_wrapper_path'],
+                            '_class' => $vars['_class'],
+                            '_child' => (object) $vars,
+                            'content' => $html );
+            $wrapper_html = $this->render( $vars['_wrapper_path'], $vars2 );
 
-            $html = $this->render( $wrapper_name,
-                                   $wrapper_vars );
-        } else {
+            $in_wrapper = false;
+            $html = $wrapper_html;
         }
 
         array_pop( $this->cache['template_vars_stack'] );
@@ -466,6 +453,8 @@ class WPBDP_Themes {
             $vars = array();
 
         $vars['_part'] = true;
+        $vars['_wrapper'] = '';
+        $vars['_wrapper_path'] = '';
 
         $output = $this->render( $id_or_file, array_merge( $additional_vars, $vars ) );
         return $output;
@@ -473,24 +462,27 @@ class WPBDP_Themes {
 
     function _configure_template_vars ( $id_or_file, $path, &$vars ) {
         $defaults = array(
-            '_id' => str_replace( array( '.tpl.php', ' ', '-page', 'page-', 'page' ),
-                                  array( '', '-', '', '', '' ),
+            '_id' => str_replace( array( '.tpl.php', ' ' ),
+                                  array( '', '-' ),
                                   $id_or_file ),
             '_template' => $id_or_file,
-            '_parent' => '',
             '_path' => $path,
-            '_view' => null,
-            '_full' => false,
-            '_bar' => false,
-            '_bar_items' => array( 'links', 'search' ),
-            '_class' => '',
-            '_inner_class' => ''
+            '_wrapper' => '',
+            '_wrapper_path' => '',
+            '_parent' => '',
+/*            '_bar' => false,
+'_bar_items' => array( 'links', 'search' ),*/
+            '_class' => ''
         );
 
-        if ( isset( $vars['_full'] ) && $vars['_full'] && ! array_key_exists( '_bar', $vars ) )
-            $defaults['_bar'] = true;
-
         $vars = array_merge( $defaults, $vars );
+
+        if ( $vars['_wrapper'] ) {
+            $vars['_wrapper_path'] = $this->locate_template( $vars['_wrapper'] );
+
+            if ( ! $vars['_wrapper_path'] )
+                $vars['_wrapper'] = '';
+        }
 
         if ( $this->cache['template_vars_stack'] ) {
             $cnt = count( $this->cache['template_vars_stack'] );
@@ -536,7 +528,7 @@ class WPBDP_Themes {
     function _configure_template_blocks( &$vars ) {
         $template_id = $vars['_template'];
 
-        $blocks = array( 'after' => array(), 'before' => array(), 'before_inner' => array(), 'after_inner' => array() );
+        $blocks = array( 'after' => array(), 'before' => array() );
         // Merge blocks from parent.
         // TODO: how do we handle cases where the parent says it is going to handle a block and a "part" should do that?
         // Maybe we should not process blocks for "parts" and just use whatever the calling template had?
@@ -660,9 +652,17 @@ class WPBDP_Themes {
 
 }
 
-function wpbdp_x_render( $id_or_file, $vars = array() ) {
+function wpbdp_x_render( $id_or_file, $vars = array(), $wrapper = '' ) {
     global $wpbdp;
+
+    if ( $wrapper && ! isset( $vars['_wrapper'] ) )
+        $vars['_wrapper'] = $wrapper;
+
     return $wpbdp->themes->render( $id_or_file, $vars );
+}
+
+function wpbdp_x_render_page( $id_or_file, $vars = array() ) {
+    return wpbdp_x_render( $id_or_file, $vars, 'page' );
 }
 
 function wpbdp_x_part( $id_or_file, $vars = array() ) {

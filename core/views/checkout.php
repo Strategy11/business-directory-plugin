@@ -1,19 +1,13 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
-class WPBDP_Checkout_Page extends WPBDP_View {
+class WPBDP__Views__Checkout extends WPBDP_NView {
 
     private $api = null;
     private $payment = null;
     private $errors = array();
 
-    public function __construct( &$payment = null ) {
+    public function __construct( $payment = null ) {
         $this->api = wpbdp_payments_api();
         $this->payment = $payment;
-    }
-
-    public function get_page_name() {
-        return 'checkout';
     }
 
     public function dispatch() {

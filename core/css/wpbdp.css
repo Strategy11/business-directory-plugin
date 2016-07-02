@@ -238,7 +238,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing .social-field {
     margin: 5px 0;
-    height: 30px;
+    height: 20px;
     vertical-align: middle;
 }
 
@@ -246,6 +246,7 @@ form#wpbdmsearchform a.advanced-search-link {
     .social-field.facebook .fb-like > span {
         overflow: visible !important;
         width: 450px !important;
+        vertical-align: top !important;
 /*        margin-right: -375px;*/
     }
 
@@ -255,23 +256,22 @@ form#wpbdmsearchform a.advanced-search-link {
     }
 }
 
-/* listing contact form */
-.wpbdp-listing .contact-form {
+.wpbdp-listing-contact-form {
     margin-top: 20px;
     border-top: dotted 1px #ddd;
     padding-top: 20px;
     padding-left: 10px;
 }
 
-.wpbdp-listing .contact-form .send-message-button {
+.wpbdp-listing-contact-form .send-message-button {
     margin-left: -10px;
 }
 
-.wpbdp-listing .contact-form h3 {
+.wpbdp-listing-contact-form h3 {
     margin-left: -10px;
 }
 
-.wpbdp-listing .contact-form textarea {
+.wpbdp-listing-contact-form textarea {
     width: 98% !important;
 }
 
@@ -287,8 +287,18 @@ form#wpbdmsearchform a.advanced-search-link {
     padding: 5px 10px;
 }
 
+.wpbdp-bar:before, .wpbdp-bar:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
 .wpbdp-bar .wpbdp-main-links {
     float: left;
+}
+
+.wpbdp-bar .wpbdp-main-links #wpbdp-bar-view-listings-button,.wpbdp-bar .wpbdp-main-links #wpbdp-bar-show-directory-button{
+    margin-right: 5px;
 }
 
 .wpbdp-bar .wpbdp-search-form {
@@ -313,7 +323,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 /* sort options */
 .wpbdp-listings-sort-options {
-    font-size: 90%;    
+    font-size: 90%;
     margin: 5px 0;
     text-align: right;
 }
@@ -323,7 +333,7 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 /* main page */
-.wpbdp-main-page #wpbdp-categories {
+.wpbdp-page-main_page #wpbdp-categories {
     clear: both;
     margin-bottom: 20px;
 }
@@ -648,6 +658,17 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
     .wpbdp-bar .wpbdp-main-links {
         display: block;
+        float: none;
+        text-align: center;
+    }
+    .wpbdp-bar .wpbdp-main-links #wpbdp-bar-submit-listing-button{
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+    .wpbdp-bar .wpbdp-main-links #wpbdp-bar-view-listings-button{
+        display: inline-block;
+        float: left;
+        margin-right: 20px;
     }
 
     .wpbdp-bar .wpbdp-main-links input[type="button"] {
@@ -656,8 +677,14 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     }
 
     .wpbdp-bar form.wpbdp-search-form {
-        width: 49%;
+       /* width: 49%;*/
         display: block;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .wpbdp-bar form.wpbdp-search-form  #intextbox{
+        margin-bottom: 5px;
+        padding: 4px;
     }
 
     .wpbdp-bar form.wpbdp-search-form input[type="text"] {
@@ -677,9 +704,18 @@ table#wpbdp-manage-recurring a.cancel-subscription {
         display: block;
     }
 
-    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail {
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail,
+    .wpbdp-listing.wpbdp-listing-single .listing-thumbnail {
         /*width: 40%;*/
+        float: none;
         padding: 5px;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-details,
+    .wpbdp-listing.wpbdp-listing-single .listing-details {
+        margin: 0 5px;
+        float: none;
+        display: block;
     }
 
     .wpbdp-listing .listing-actions input {
@@ -793,3 +829,53 @@ body.business-directory #TB_secondLine {
 }
 
 /* }} */
+
+/*
+ * {{ Some compat fixes for themes.
+ */
+
+.single-wpbdp_listing header.entry-header,
+.wpbdp-view-show_category header.entry-header,
+.wpbdp-view-show_tag header.entry-header,
+.wpbdp-view-search header.entry-header,
+.wpbdp-view-submit_listing header.entry-header {
+    display: none;
+}
+
+.wpbdp-wp-theme-graphene.single-wpbdp_listing h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-show_category h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-show_tag h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-search h1.post-title,
+.wpbdp-wp-theme-graphene.wpbdp-view-submit_listing h1.post-title
+{
+    display: none;
+}
+
+.wpbdp-wp-theme-genesis.wpbdp-view-show_category .archive-description,
+.wpbdp-wp-theme-genesis.wpbdp-view-show_tag .archive-description
+{
+    display: none;
+}
+
+.wpbdp-wp-theme-hmtpro5.wpbdp-view-show_category .post-details,
+.wpbdp-wp-theme-hmtpro5.wpbdp-view-show_tag .post-details
+{
+    display: none;
+}
+
+.wpbdp-wp-theme-atahualpa.wpbdp-view-show_category .post-footer,
+.wpbdp-wp-theme-atahualpa.wpbdp-view-show_tag .post-footer,
+.wpbdp-wp-theme-atahualpa.wpbdp-view-show_listing .post-footer
+{
+    display: none;
+}
+
+.wpbdp-wp-theme-ultimate-silostorm-pro.wpbdp-view-show_category .entry-content .featured-image,
+.wpbdp-wp-theme-ultimate-silostorm-pro.wpbdp-view-show_tag .entry-content .featured-image,
+.wpbdp-wp-theme-ultimate-silostorm-pro.wpbdp-view-show_listing .entry-content .featured-image {
+    display: none;
+}
+
+/*
+ * }}
+ */
