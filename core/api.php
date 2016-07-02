@@ -279,27 +279,27 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     if ( isset($_GET['preview']) )
         return false;
 
+    $res = false;
+
     switch ($action) {
         case 'view':
-            return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
+            $res = true;
+            // return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
             break;
         case 'edit':
         case 'delete':
-            return user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
+            $res = user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
             break;
         case 'upgrade-to-sticky':
-            if ( !wpbdp_get_option('featured-on') || !wpbdp_get_option('payments-on') )
-                return false;
-
-            if ( !wpbdp_payments_possible() )
-                return false;
-
             $sticky_info = wpbdp_listing_upgrades_api()->get_info( $listing_id );
-            return $sticky_info->upgradeable && (user_can($user_id, 'administrator') || ($post->post_author == $user_id));
+            $res = wpbdp_get_option( 'featured-on' ) && wpbdp_payments_possible() && $sticky_info->upgradeable && ( user_can($user_id, 'administrator') || ( $post->post_author == $user_id ) );
             break;
     }
 
-    return false;
+    $res = apply_filters( 'wpbdp_user_can', $res, $action, $listing_id, $user_id );
+    $res = apply_filters( 'wpbdp_user_can_' . $action, $res, $listing_id, $user_id );
+
+    return $res;
 }
 
 function wpbdp_get_post_by_slug($slug, $post_type=null) {
