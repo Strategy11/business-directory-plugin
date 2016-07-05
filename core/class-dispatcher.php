@@ -44,8 +44,8 @@ class WPBDP__Dispatcher {
     public function _execute_view( $template ) {
         global $wp_query;
 
-        // if ( ! $this->current_view )
-        //     return $template;
+        if ( ! $this->current_view )
+            return $template;
 
         if ( ! $this->current_view_obj ) {
             $wp_query->is_404 = true;
