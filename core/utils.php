@@ -633,7 +633,10 @@ function wpbdp_detect_encoding( $content ) {
     if ( function_exists( 'mb_detect_encoding' ) ) {
         return mb_detect_encoding( $content, $encodings, true );
     } else {
-        return wpbdp_mb_detect_encoding( $content, $encodings );
+        if ( ! function_exists( 'iconv' ) )
+            return 'UTF-8';
+        else
+            return wpbdp_mb_detect_encoding( $content, $encodings );
     }
 }
 
