@@ -35,8 +35,8 @@ class WPBDP__Dispatcher {
         $this->current_view = apply_filters( 'wpbdp_current_view', $this->current_view );
         $this->current_view_obj = $this->load_view( $this->current_view );
 
-        if ( ! $this->current_view_obj )
-            $this->current_view = '';
+        // if ( ! $this->current_view_obj )
+        //     $this->current_view = '';
 
         wpbdp_debug( '[Dispatching Details] view = ' . $this->current_view . ', is_main_page = ' . $wp_query->wpbdp_is_main_page );
     }
