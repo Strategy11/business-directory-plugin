@@ -177,17 +177,20 @@ class WPBDP__WordPress_Template_Integration {
 
         // FIXME: we need a better way to handle this, since it might be that a shortcode is being used and not something
         // really dispatched through BD.
-        if ( $wp_query->wpbdp_view ) {
-            $classes[] = 'business-directory';
-            $classes[] = 'wpbdp-view-' . $wp_query->wpbdp_view;
+        $view = wpbdp_current_view();
 
-            if ( $theme = wp_get_theme() ) {
-                $classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
-                $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
-            }
+        if ( ! $view )
+            return $classes;
 
-            $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
+        $classes[] = 'business-directory';
+        $classes[] = 'wpbdp-view-' . $view;
+
+        if ( $theme = wp_get_theme() ) {
+            $classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
+            $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
         }
+
+        $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
 
         return $classes;
     }

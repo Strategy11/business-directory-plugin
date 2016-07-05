@@ -71,6 +71,10 @@ class WPBDP__Query_Integration {
         if ( ! empty( $query->query_vars['wpbdp_main_query'] ) )
             $query->wpbdp_our_query = true;
 
+        // Normalize view name.
+        if ( ! empty( $query->wpbdp_view ) )
+            $query->wpbdp_view = WPBDP_Utils::normalize( $query->wpbdp_view );
+
         do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
     }
 
