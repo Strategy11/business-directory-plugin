@@ -266,14 +266,14 @@ class WPBDP__Themes_Compat {
     // }
 
     /**
-     * @since next-release
+     * @since 4.0.8
      */
     public function theme_u_design() {
         remove_filter( 'the_content', 'autoinsert_rel_prettyPhoto', 10 );
     }
 
     /**
-     * @since next-release
+     * @since 4.0.8
      */
     public function theme_takeawaywp() {
         $main_id = wpbdp_get_page_id( 'main' );
