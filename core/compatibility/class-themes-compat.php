@@ -51,7 +51,8 @@ class WPBDP__Themes_Compat {
 
     public function get_themes_with_fixes() {
         $themes_with_fixes = array(
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis'
+            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis',
+            'takeawaywp'
         );
 
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
@@ -269,6 +270,22 @@ class WPBDP__Themes_Compat {
      */
     public function theme_u_design() {
         remove_filter( 'the_content', 'autoinsert_rel_prettyPhoto', 10 );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function theme_takeawaywp() {
+        $main_id = wpbdp_get_page_id( 'main' );
+
+        if ( ! $main_id )
+            return;
+
+        if ( 'page-fullwidth.php' != get_page_template_slug( $main_id ) )
+            return;
+
+        // page-fullwidth.php has a bug. It doesn't call the_post(), so we do it for them :/.
+        add_action( 'wp_head', 'the_post', 999 );
     }
 
     //
