@@ -932,9 +932,9 @@ class WPBDP_Admin {
 
 }
 
-function wpbdp_admin_message( $msg, $kind = '' ) {
+function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
     global $wpbdp;
-    $wpbdp->admin->messages[] = $kind ? array( $msg, $kind ) : $msg;
+    $wpbdp->admin->messages[] = ( $kind || $extra ) ? array( $msg, $kind, $extra ) : $msg;
 }
 
 }
