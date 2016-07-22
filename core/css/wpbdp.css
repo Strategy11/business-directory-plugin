@@ -165,6 +165,10 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-bottom: 25px;
 }
 
+.wpbdp-listing-single.sticky {
+    margin-top: 30px;
+}
+
 .wpbdp-listing-single .stickytag {
     float: right;
     margin-top: -68px;
