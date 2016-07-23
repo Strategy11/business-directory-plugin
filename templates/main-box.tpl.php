@@ -3,9 +3,9 @@
 <div class="main-fields box-row cols-2">
     <form action="<?php echo $search_url; ?>" method="post">
         <div class="box-col search-fields">
-            <div class="box-row cols-2 cols-<?php echo $search_fields_cols; ?>">
+            <div class="box-row cols-<?php echo $no_cols; ?>">
                 <div class="box-col main-input">
-                    <input type="text" id="wpbdp-main-box-keyword-field" class="keywords-field" name="q" placeholder="<?php _ex( 'Find listings for: (Keywords)', 'main box', 'WPBDM' ); ?>" />
+                    <input type="text" id="wpbdp-main-box-keyword-field" class="keywords-field" name="q" placeholder="<?php esc_attr_e( _x( 'Find listings for <keywords>', 'main box', 'WPBDM' ) ); ?>" />
                 </div>
                 <?php echo $extra_fields; ?>
             </div>

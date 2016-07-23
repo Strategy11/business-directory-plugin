@@ -512,7 +512,11 @@ function wpbdp_the_main_box() {
 function wpbdp_main_box( $args = null ) {
     $extra_fields = wpbdp_capture_action( 'wpbdp_main_box_extra_fields' );
     $search_url = esc_url( add_query_arg( 'wpbdp_view', 'search', wpbdp_get_page_link( 'main' ) ) );
+    $no_cols = 1;
 
-    $html = wpbdp_render( 'main-box', compact( 'extra_fields', 'search_url' ) );
+    if ( $extra_fields )
+        $no_cols = 2;
+
+    $html = wpbdp_render( 'main-box', compact( 'extra_fields', 'search_url', 'no_cols' ) );
     return $html;
 }
