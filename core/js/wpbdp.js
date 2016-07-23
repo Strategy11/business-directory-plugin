@@ -13,6 +13,7 @@ jQuery(document).ready(function($){
      */
     wpbdp.main_box = {
         init: function() {
+            return;
             this.$box = $( '#wpbdp-main-box' );
             this.$cols = this.$box.find( '.box-col' );
             this.$cols_expanding = this.$cols.filter( '.box-col-expand' );
