@@ -33,7 +33,7 @@ if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
 
 define( 'WPBDP_VERSION', '4.0.9dev' );
 
-define( 'WPBDP_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 

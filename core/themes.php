@@ -133,6 +133,9 @@ class WPBDP_Themes {
         $res[ WPBDP_PATH . 'themes/' ] = WPBDP_URL . 'themes/';
         $res[ WP_CONTENT_DIR . '/businessdirectory-themes/' ] = WP_CONTENT_URL . '/businessdirectory-themes/';
 
+        $res = array_combine( array_map( 'wp_normalize_path', array_keys( $res ) ),
+                              array_values( $res ) );
+
         return $res;
     }
 
@@ -370,7 +373,7 @@ class WPBDP_Themes {
         if ( ! is_dir( $dir_or_file ) )
             return false;
 
-        $path = trailingslashit( $dir_or_file );
+        $path = trailingslashit( wp_normalize_path( $dir_or_file ) );
 
         if ( in_array( $path, $this->template_dirs, true ) )
             return true;
