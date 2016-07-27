@@ -439,6 +439,7 @@ class WPBDP_Themes {
 
         array_pop( $this->cache['template_vars_stack'] );
 
+        $html = apply_filters( 'wpbdp_x_render', $html, $id_or_file, $vars );
         return $html;
     }
 
