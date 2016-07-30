@@ -387,8 +387,17 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         $thumbnail_id = $this->state->thumbnail_id;
         $image_slots_remaining = $image_slots - count( $images );
-        $image_min_file_size = size_format( intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024 );
-        $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
+
+        $image_min_file_size = intval( wpbdp_get_option( 'image-min-filesize' ) );
+        $image_min_file_size = $image_min_file_size ? size_format( $image_min_file_size * 1024 ) : '0';
+
+        $image_max_file_size = intval( wpbdp_get_option( 'image-max-filesize' ) );
+        $image_max_file_size = $image_max_file_size ? size_format( $image_max_file_size * 1024 ) : '0';
+
+        $image_min_width = intval( wpbdp_get_option( 'image-min-width' ) );
+        $image_max_width = intval( wpbdp_get_option( 'image-max-width' ) );
+        $image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
+        $image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
         // Set thumbnail.
         $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
@@ -409,6 +418,10 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         return $this->render( 'images',
                               compact( 'image_max_file_size',
                                        'image_min_file_size',
+                                       'image_min_width',
+                                       'image_max_width',
+                                       'image_min_height',
+                                       'image_max_height',
                                        'images',
                                        'images_meta',
                                        'image_slots',

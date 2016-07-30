@@ -2,7 +2,7 @@
     margin: 0 auto;
     border: 2px dashed #ddd;
     width: 98%;
-    height: 180px;
+    height: 252px;
     color: #666;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .wpbdp-dnd-area .dnd-area-inside {
-    margin: 30px auto 0;
+    margin: 76px auto 0;
     text-align: center;
     color: #aaa;
 }
