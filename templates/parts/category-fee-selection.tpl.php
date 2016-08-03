@@ -57,7 +57,9 @@
 				</td>
 				<?php // do_action( 'wpbdp_fee_selection_extra_columns', $fee ); ?>
 			</tr>
-			<?php if ( $fee_description = apply_filters( 'wpbdp_fee_selection_fee_description', '', $fee ) ): ?>
+            <?php $fee_description = $fee->description ? wpautop( wp_kses_post( $fee->description ) ) : ''; ?>
+            <?php $fee_description = apply_filters( 'wpbdp_fee_selection_fee_description', $fee_description, $fee ); ?>
+            <?php if ( $fee_description ) : ?>
 			<tr class="fee-description fee-id-<?php echo $fee->id; ?>">
 				<td></td>
 				<td colspan="4"><?php echo $fee_description; ?></td>

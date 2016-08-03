@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '13';
+    const DB_VERSION = '14';
 
     private $installed_version = null;
 
@@ -88,6 +88,7 @@ class WPBDP_Installer {
         $schema['fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+            description TEXT DEFAULT '',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
             days smallint unsigned NOT NULL DEFAULT 0,
             images smallint unsigned NOT NULL DEFAULT 0,

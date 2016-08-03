@@ -522,8 +522,14 @@ ul.validation-errors li {
     width: 100%;
 }
 
-.wpbdp-submit-page table.fee-options th, .wpbdp-submit-page table.fee-options td {
+.wpbdp-submit-page table.fee-options th,
+.wpbdp-submit-page table.fee-options td {
     text-align: center;
+}
+
+.wpbdp-submit-page table.fee-options td.fee-label,
+.wpbdp-submit-page table.fee-options tr.fee-description td {
+    text-align: left;
 }
 
 .wpbdp-submit-page table.fee-options .fee-selection {
