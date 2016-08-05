@@ -11,6 +11,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
     }
 
     public function dispatch() {
+        if ( 'submit_listing' == wpbdp_current_view() && wpbdp_get_option( 'disable-submit-listing' ) ) {
+            if ( current_user_can( 'administrator' ) )
+                $msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'WPBDM' );
+            else
+                $msg = _x( 'View not available.', 'templates', 'WPBDM' );
+
+            return wpbdp_render_msg( $msg, 'error');
+        }
+
         // FIXME: move the actual view to this class.
         require_once ( WPBDP_PATH . 'core/view-submit-listing.php' );
 

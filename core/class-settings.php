@@ -109,11 +109,13 @@ class WPBDP_Settings {
                             );
 
         $s = $this->add_section($g, 'displayoptions', _x('Directory Display Options', 'admin settings', 'WPBDM'));
+        $this->add_setting( $s, 'disable-submit-listing', _x( 'Disable Frontend Listing Submission?', 'admin settings', 'WPBDM' ), 'boolean', false );
         $this->add_setting($s, 'show-submit-listing', _x('Show the "Submit listing" button.', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->register_dep( 'show-submit-listing', 'requires-false', 'disable-submit-listing' );
         $this->add_setting($s, 'show-search-listings', _x('Show "Search listings".', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-view-listings', _x('Show the "View Listings" button.', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'show-directory-button', _x('Show the "Directory" button.', 'admin settings', 'WPBDM'), 'boolean', true);
-        $this->add_setting( $s, 'disable-cpt', _x( 'Disable advanced CPT integration.', 'admin settings', 'WPBDM' ), 'boolean', false );
+        $this->add_setting( $s, 'disable-cpt', _x( 'Disable advanced CPT integration?', 'admin settings', 'WPBDM' ), 'boolean', false );
 
         // {{ Directory search.
         $s = $this->add_section( $g,
@@ -918,7 +920,7 @@ EOF;
             }
         }
 
-        return $this->deps;
+        return $res;
     }
 
     function get_setting( $name ) {

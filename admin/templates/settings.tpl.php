@@ -6,14 +6,13 @@ echo wpbdp_admin_header( __( 'Business Directory Settings', 'WPBDM' ),
                               ) );
 ?>
 <script type="text/javascript">
-<?php
-foreach ( $wpbdp_settings->get_dependencies( 'type=requires-true' ) as $s => $data_ ):
-    $parent = array_pop( $data_ );
-?>
-WPBDP_Admin.settings.add_requirement( '<?php echo $s; ?>', '<?php echo $parent; ?>', 'boolean-true' );
-<?php
-endforeach;
-?>
+<?php foreach ( $wpbdp_settings->get_dependencies( 'type=requires-true' ) as $s => $parent_s ): ?>
+    WPBDP_Admin.settings.add_requirement( '<?php echo $s; ?>', '<?php echo $parent_s; ?>', 'boolean-true' );
+<?php endforeach; ?>
+
+<?php foreach ( $wpbdp_settings->get_dependencies( 'type=requires-false' ) as $s => $parent_s ): ?>
+    WPBDP_Admin.settings.add_requirement( '<?php echo $s; ?>', '<?php echo $parent_s; ?>', 'boolean-false' );
+<?php endforeach; ?>
 </script>
 
 <h3 class="nav-tab-wrapper">

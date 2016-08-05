@@ -178,11 +178,11 @@ function wpbdp_list_categories( $args=array() ) {
 }
 
 function wpbdp_main_links() {
-    $html  = '';
+    $html = '';
 
-    if (wpbdp_get_option('show-submit-listing')) {
-        $html .= sprintf('<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-                          __('Submit A Listing', 'WPBDM'),
+    if ( ! wpbdp_get_option( 'disable-submit-listing' ) && wpbdp_get_option( 'show-submit-listing' ) ) {
+        $html .= sprintf( '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
+                          __( 'Submit A Listing', 'WPBDM' ),
                           wpbdp_url( 'submit_listing' ) );
     }
 

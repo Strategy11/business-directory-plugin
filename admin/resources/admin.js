@@ -525,6 +525,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 (function($) {
     var s = WPBDP_Admin.settings = {
         _whenTrueActivateChilds: {},
+        _whenFalseActivateChilds: {},
 
         init: function() {
             var t = this;
@@ -614,27 +615,39 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         },
 
         handleToggle: function( setting ) {
-            var childs = this._whenTrueActivateChilds[ setting ];
+            var childs_true = this._whenTrueActivateChilds[ setting ];
+            var childs_false = this._whenFalseActivateChilds[ setting ];
+            var childs = { 'true': childs_true, 'false': childs_false };
+            var checked = $( 'input[name="wpbdp-' + setting + '"]' ).is( ':checked' );
 
-            if ( 'undefined' === typeof( childs ) )
-                return;
+            $.each( childs, function( req, settings ) {
+                $.each( settings, function( i, s ) {
+                    var $s = $( '[name="wpbdp-' + s + '"], [name="wpbdp-' + s + '[]"]' );
+                    var $row = $s.parents( 'tr' );
 
-            var checked = $( 'input[name="wpbdp-' + setting + '"]').is(':checked');
-
-            $.each( this._whenTrueActivateChilds[ setting ], function( i, c ) {
-                var $c = $( '[name="wpbdp-' + c + '"], [name="wpbdp-' + c + '[]"]' );
-                var $row = $c.parents( 'tr' );
-
-                // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
-                if ( checked ) {
-//                    $c.removeAttr( 'disabled' );
-                    $c.removeAttr( 'contenteditable' );
-                    $row.removeClass('disabled');
-                } else {
-//                    $c.attr( 'disabled', 'disabled' );
-                    $c.attr( 'contenteditable', 'false' );
-                    $row.addClass('disabled');
-                }
+                    // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
+                    if ( 'true' === req ) {
+                        if ( checked ) {
+                            // $s.removeAttr( 'disabled' );
+                            $s.removeAttr( 'contenteditable' );
+                            $row.removeClass( 'disabled' );
+                        } else {
+                            // $s.attr( 'disabled', 'disabled' );
+                            $s.attr( 'contenteditable', 'false' );
+                            $row.addClass( 'disabled' );
+                        }
+                    } else if ( 'false' === req ) {
+                        if ( checked ) {
+                            // $s.attr( 'disabled', 'disabled' );
+                            $s.attr( 'contenteditable', 'false' );
+                            $row.addClass( 'disabled' );
+                        } else {
+                            // $s.removeAttr( 'disabled' );
+                            $s.removeAttr( 'contenteditable' );
+                            $row.removeClass( 'disabled' );
+                        }
+                    }
+                } );
             } );
         },
 
@@ -642,7 +655,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             if ( 'undefined' === typeof this._whenTrueActivateChilds[ parent_ ] )
                 this._whenTrueActivateChilds[ parent_ ] = [];
 
-            this._whenTrueActivateChilds[ parent_ ].push( setting );
+            if ( 'undefined' === typeof this._whenFalseActivateChilds[ parent_ ] )
+                this._whenFalseActivateChilds[ parent_ ] = [];
+
+            if ( 'boolean-true' == req )
+                this._whenTrueActivateChilds[ parent_ ].push( setting );
+            else if ( 'boolean-false' == req )
+                this._whenFalseActivateChilds[ parent_ ].push( setting );
         }
     };
 
