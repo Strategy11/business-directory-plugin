@@ -253,7 +253,17 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         ) );
     }
 
-    public function preview_listing_fields_form() {
+    public function preview_listing_fields_form( $preview_config = array() ) {
+        $preview_config = wp_parse_args( $preview_config,
+                                         array( 'fee' => 0,
+                                                'level' => 'normal' ) );
+        $preview_config = apply_filters( 'wpbdp_view_submit_listing_preview_config', $preview_config );
+
+        $this->state->step = 'listing_fields';
+        $this->state->step_number = 3;
+        $this->state->categories = array( $preview_config['fee'] );
+        $this->state->featured_level  = $preview_config['level'];
+
         return $this->step_listing_fields();
     }
 
