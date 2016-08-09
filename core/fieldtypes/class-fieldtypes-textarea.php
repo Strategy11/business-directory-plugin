@@ -75,6 +75,11 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
         }
 
+        if ( ( $field && $field->get_association() == 'excerpt' ) || ( $association == 'excerpt' ) ) {
+            $settings['auto_excerpt'][] = _x( 'Automatically generate excerpt from content field?', 'form-fields admin', 'WPBDM' );
+            $settings['auto_excerpt'][] = '<input type="checkbox" value="1" name="field[auto_excerpt]" ' . ( $field && $field->data( 'auto_excerpt' ) ? ' checked="checked"' : '' ) . ' />';
+        }
+
         return self::render_admin_settings( $settings );
     }
 
@@ -85,6 +90,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $field->set_data( 'allow_shortcodes', isset( $_POST['field']['allow_shortcodes'] ) ? (bool) intval( $_POST['field']['allow_shortcodes'] ) : false );
         $field->set_data( 'wysiwyg_editor', isset( $_POST['field']['wysiwyg_editor'] ) ? (bool) intval( $_POST['field']['wysiwyg_editor'] ) : false );
         $field->set_data( 'wysiwyg_images', isset( $_POST['field']['wysiwyg_images'] ) ? (bool) intval( $_POST['field']['wysiwyg_images'] ) : false );
+        $field->set_data( 'auto_excerpt', isset( $_POST['field']['auto_excerpt'] ) ? (bool) intval( $_POST['field']['auto_excerpt'] ) : false );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
@@ -103,6 +109,16 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         return parent::store_field_value( $field, $post_id, $value );
+    }
+
+    public function get_field_value( &$field, $post_id ) {
+        $value = parent::get_field_value( $field, $post_id );
+
+        // Only return auto-generated excerpt if there's no value at all.
+        if ( 'excerpt' == $field->get_association() && $field->data( 'auto_excerpt') && ! $value )
+            $value = $this->get_field_html_value( $field, $post_id );
+
+        return $value;
     }
 
     public function get_field_html_value( &$field, $post_id ) {
@@ -143,6 +159,15 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                 } else {
                     $value = wpautop( $value );
                 }
+            }
+        } elseif ( 'excerpt' == $field->get_association() ) {
+            if ( $field->data( 'auto_excerpt' ) ) {
+                global $post;
+
+                $current_post = $post;
+                $post = get_post( $post_id );
+                $value = apply_filters( 'get_the_excerpt', '' );
+                $post = $current_post;
             }
         } else {
             if ( $field->data( 'allow_html' ) ) {
