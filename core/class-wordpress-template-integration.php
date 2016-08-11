@@ -1,17 +1,22 @@
 <?php
 /**
- * @since next-release
+ * @since 4.0
  */
 class WPBDP__WordPress_Template_Integration {
 
     private $wp_head_done = false;
+    private $displayed = false;
     private $original_post_title = '';
 
 
     public function __construct() {
+        if ( wpbdp_get_option( 'disable-cpt' ) )
+            return;
+
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
         add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
         add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
+        add_filter( 'body_class', array( &$this, 'body_class' ), 10 );
     }
 
     public function template_include( $template ) {
@@ -24,22 +29,48 @@ class WPBDP__WordPress_Template_Integration {
             return get_404_template();
 
         global $post;
-        if ( ! isset( $post ) || ! $post instanceof WP_Post )
+        if ( empty( $wp_query->wpbdp_view ) && ( ! isset( $post ) || ! $post instanceof WP_Post ) )
             return $template;
 
         add_filter( 'document_title_parts', array( $this, 'modify_global_post_title' ), 1000 );
         add_filter( 'wp_title', array( $this, 'modify_global_post_title' ), 1000 );
         add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
-        return locate_template( 'page.php' );
+        if ( $page_template = locate_template( $this->get_template_alternatives() ) )
+            $template = $page_template;
+
+        return $template;
+    }
+
+    private function get_template_alternatives() {
+        $templates = array( 'page.php', 'single.php', 'singular.php' );
+
+        $main_page_id = wpbdp_get_page_id( 'main' );
+
+        if ( ! $main_page_id ) {
+            return $templates;
+        }
+
+        $main_page_template = get_page_template_slug( $main_page_id );
+
+        if ( $main_page_template ) {
+            array_unshift( $templates, $main_page_template );
+        }
+
+        return $templates;
     }
 
     public function setup_post_hooks( $query ) {
-        if ( ! $query->is_main_query() || ! $this->wp_head_done )
+        if ( ! $this->wp_head_done )
+            return;
+
+        if ( ! $query->is_main_query() )
             return;
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
+        // TODO: we should probably be more clever here to avoid conflicts. Run last so other hooks don't break our
+        // output.
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
@@ -50,25 +81,30 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function display_view_in_content( $content = '' ) {
+        if ( $this->displayed ) {
+            remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+            return '';
+        }
+
         remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         // add_filter( 'the_content', 'wpautop' );
         $this->restore_things();
 
         $html = wpbdp_current_view_output();
 
-        // if ( $view = wpbdp_current_view_output() )
-        //     $html = $view->render();
-        // else
-        //     $html = '';
-
         if ( ! is_404() )
             $this->end_query();
+
+        $this->displayed = true;
 
         return $html;
     }
 
     public function modify_global_post_title( $title = '' ) {
         global $post;
+
+        if ( ! $post )
+            return $title;
 
         // Set the title to an empty string (but record the original)
         $this->original_post_title = $post->post_title;
@@ -135,6 +171,30 @@ class WPBDP__WordPress_Template_Integration {
         $this->wp_head_done = true;
     }
 
+    public function body_class( $classes = array() ) {
+        global $wp_query;
+        global $wpbdp;
+
+        // FIXME: we need a better way to handle this, since it might be that a shortcode is being used and not something
+        // really dispatched through BD.
+        $view = wpbdp_current_view();
+
+        if ( ! $view )
+            return $classes;
+
+        $classes[] = 'business-directory';
+        $classes[] = 'wpbdp-view-' . $view;
+
+        if ( $theme = wp_get_theme() ) {
+            $classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
+            $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
+        }
+
+        $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
+
+        return $classes;
+    }
+
     private function restore_things() {
         global $wp_query, $post;
 
@@ -169,4 +229,6 @@ class WPBDP__WordPress_Template_Integration {
         $wp_query->current_post = -1;
         $wp_query->post_count   = 0;
     }
+
 }
+

@@ -14,7 +14,7 @@
                          esc_html( wpbdp_get_term_name( $category->id ) ) ); ?></p>
         <p><?php _ex( 'Please select a fee option or click "Do not renew my listing" to cancel your renewal.', 'WPBDM' ); ?></p>
 
-        <form id="wpbdp-renewlisting-form" method="POST" action="">
+        <form id="wpbdp-renewlisting-form" method="post" action="">
         <?php echo wpbdp_render( 'parts/category-fee-selection', array( 'category' => get_term( $category->id, WPBDP_CATEGORY_TAX ),
                                                                         'category_fees' => $fees,
                                                                         'current_fee' => $category->fee_id,

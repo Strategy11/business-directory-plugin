@@ -169,22 +169,16 @@ class WPBDP_FormFieldsAdmin {
     /* preview form */
     private function previewForm() {
         require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-
-        if ( wpbdp()->has_module( 'featuredlevels' ) )
-            wpbdp_admin()->messages[] = _x( 'This is a preview of the form as it will appear during "Submit a Listing". The users may not see all fields from "Manage Form Fields" because you have "Featured Levels" active and this is showing the base level.',
-                                            'formfields-preview',
-                                            'WPBDM' );
+        $controller = new WPBDP_Submit_Listing_Page( 0, true );
 
         $html = '';
-
         $html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), 'formfields-preview', array(
             array(_x('← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM'), esc_url(remove_query_arg('action')))
         ));
         $html .= wpbdp_admin_notices();
-
-        $controller = new WPBDP_Submit_Listing_Page( 0, true );
+        $html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
         $html .= $controller->preview_listing_fields_form();
-
+        $html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
         $html .= wpbdp_admin_footer();
 
         echo $html;
@@ -294,6 +288,8 @@ class WPBDP_FormFieldsAdmin {
             'content' => _x( 'Content', 'form-fields admin', 'WPBDM' ),
             'tags' => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
             'address' => _x( 'Address', 'form-fields admin', 'WPBDM' ),
+            'city' => _x( 'City', 'form-fields admin', 'WPBDM' ),
+            'state' => _x( 'State', 'form-fields admin', 'WPBDM' ),
             'zip' => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
             'fax' => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
             'phone' => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),

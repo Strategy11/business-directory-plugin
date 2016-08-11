@@ -123,6 +123,15 @@ echo wpbdp_admin_header( $fee->is_new() ? _x( 'Add Listing Fee', 'fees admin', '
                     <?php endif; ?>
                 </td>
             </tr>
+            <tr class="form-field">
+                <th scope="row">
+                    <label> <?php _ex( 'Fee Description', 'fees admin', 'WPBDM' ); ?></label>
+                </th>
+                <td>
+                    <textarea name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ); ?></textarea>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
     <?php if ( $fee_extra_settings ): ?>

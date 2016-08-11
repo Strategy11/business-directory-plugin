@@ -135,9 +135,11 @@ final class WPBDP_FS {
 
         $res = '';
         foreach ( $args as $a ) {
-            $a = trim( $a, $sep );
-            $res .= $sep . $a;
+            $a = rtrim( $a, $sep );
+            $res .= $a . $sep;
         }
+
+        $res = substr( $res, 0, -1 );
 
         return $res;
     }

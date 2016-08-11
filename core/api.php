@@ -97,6 +97,10 @@ function wpbdp_get_page_id( $name = 'main' ) {
     return apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name );
 }
 
+/**
+ * @deprecated since 4.0. Use `wpbdp_url()` instead.
+ * @see wpbdp_url()
+ */
 function wpbdp_get_page_link($name='main', $arg0=null) {
     $page_id = wpbdp_get_page_id( $name );
 
@@ -121,11 +125,11 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
             case 'upgradetostickylisting':
             case 'upgradelisting':
             case 'upgrade-listing':
-                $link = add_query_arg( array( 'action' => $name, 'listing_id' => intval( $arg0 ) ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'upgrade_listing', $arg0 );
                 break;
             case 'viewlistings':
             case 'view-listings':
-                $link = add_query_arg( array( 'action' => 'viewlistings' ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'all_listings' );
                 break;
             case 'add':
             case 'addlisting':
@@ -133,13 +137,13 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
             case 'submit':
             case 'submitlisting':
             case 'submit-listing':
-                $link = add_query_arg( array( 'action' => 'submitlisting' ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'submit_listing' );
                 break;
             case 'search':
-                $link = add_query_arg( array( 'action' => 'search' ), wpbdp_get_page_link( 'main' ) );
+                $link = wpbdp_url( 'search' );
                 break;
             default:
-                if ( !wpbdp_get_page_id( 'main' ) )
+                if ( ! wpbdp_get_page_id( 'main' ) )
                     return '';
 
                 $link = wpbdp_get_page_link( 'main' );
@@ -279,27 +283,27 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     if ( isset($_GET['preview']) )
         return false;
 
+    $res = false;
+
     switch ($action) {
         case 'view':
-            return true;
+            $res = true;
+            // return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
             break;
         case 'edit':
         case 'delete':
-            return user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
+            $res = user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
             break;
         case 'upgrade-to-sticky':
-            if ( !wpbdp_get_option('featured-on') || !wpbdp_get_option('payments-on') )
-                return false;
-
-            if ( !wpbdp_payments_possible() )
-                return false;
-
             $sticky_info = wpbdp_listing_upgrades_api()->get_info( $listing_id );
-            return $sticky_info->upgradeable && (user_can($user_id, 'administrator') || ($post->post_author == $user_id));
+            $res = wpbdp_get_option( 'featured-on' ) && wpbdp_payments_possible() && $sticky_info->upgradeable && ( user_can($user_id, 'administrator') || ( $post->post_author == $user_id ) );
             break;
     }
 
-    return false;
+    $res = apply_filters( 'wpbdp_user_can', $res, $action, $listing_id, $user_id );
+    $res = apply_filters( 'wpbdp_user_can_' . $action, $res, $listing_id, $user_id );
+
+    return $res;
 }
 
 function wpbdp_get_post_by_slug($slug, $post_type=null) {
@@ -527,9 +531,92 @@ function wpbdp_experimental( $feature ) {
 }
 
 /**
- * @since next-release
+ * @since 4.0
  */
 function wpbdp_current_view_output() {
     global $wpbdp;
     return $wpbdp->dispatcher->current_view_output();
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_url( $pathorview = '/', $args = array() ) {
+    $base_url = wpbdp_get_page_link( 'main' );
+    $url = '';
+
+    switch ( $pathorview ) {
+        case 'submit_listing':
+        case 'all_listings':
+        case 'view_listings':
+        case 'search':
+            $url = add_query_arg( 'wpbdp_view', $pathorview, $base_url );
+            break;
+        case 'delete_listing':
+        case 'edit_listing':
+        case 'upgrade_listing':
+        case 'listing_contact':
+            $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'listing_id' => $args ), $base_url );
+            break;
+        case 'renew_listing':
+            $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'renewal_id' => $args ), $base_url );
+            break;
+        case 'main':
+        case '/':
+            $url = $base_url;
+            break;
+        default:
+            if ( wpbdp_starts_with( $pathorview, '/' ) )
+                $url = rtrim( wpbdp_url( '/' ), '/' ) . '/' . substr( $pathorview, 1 );
+
+            break;
+    }
+
+    return $url;
+}
+
+// TODO: update before themes-release
+function wpbdp_current_category_id() {
+    global $wp_query;
+
+    if ( empty( $wp_query->wpbdp_is_category ) )
+        return false;
+
+    $term = $wp_query->get_queried_object();
+    return $term->term_id;
+}
+
+function wpbdp_current_tag_id() {
+    global $wp_query;
+
+    if ( empty( $wp_query->wpbdp_is_tag ) )
+        return false;
+
+    $term = $wp_query->get_queried_object();
+    return $term->term_id;
+}
+
+function wpbdp_current_action() {
+    return wpbdp_current_view();
+}
+
+// TODO: how to implement now with CPT? (themes-release)
+function wpbdp_current_listing_id() {
+    return 0;
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_current_view() {
+    global $wpbdp;
+    return $wpbdp->dispatcher->current_view();
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_load_view( $view, $arg0 = null ) {
+    global $wpbdp;
+    return $wpbdp->dispatcher->load_view( $view, $arg0 );
 }

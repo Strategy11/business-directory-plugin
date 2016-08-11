@@ -1,11 +1,9 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
 /**
  * Listing contact page.
  * @since 3.4
  */
-class WPBDP_Listing_Contact_View extends WPBDP_View {
+class WPBDP__Views__Listing_Contact extends WPBDP_NView {
 
     private $errors = array();
 
@@ -13,13 +11,6 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
     private $email = '';
     private $message = '';
 
-
-    public function __construct() {
-    }
-
-    public function get_page_name() {
-        return 'sendcontactmessage';
-    }
 
     private function prepare_input() {
         if ( $_POST )
@@ -116,7 +107,7 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
 
         $html  = '';
 
-        $html .= '<div class="contact-form">';
+        $html .= '<div class="wpbdp-listing-contact-form">';
 
         if ( ! $_POST ) {
             $html .= '<input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" />';
@@ -176,18 +167,26 @@ class WPBDP_Listing_Contact_View extends WPBDP_View {
         $email->reply_to = "{$this->name} <{$this->email}>";
         $email->template = 'businessdirectory-email';
 
-        if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-            $email->cc[] = get_bloginfo( 'admin_email' );
-
-            if ( wpbdp_get_option( 'admin-notifications-cc' ) )
-                $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
-        }
-
         $html = '';
 
         if( $email->send() ) {
             $html .= wpbdp_render_msg( 'Your message has been sent.', 'contact-message', 'WPBDM' );
             $this->update_contacts( $listing_id );
+
+            // Notify admin.
+            if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+                $replacements[ 'listing-url' ] = sprintf( _x( '%s (admin: %s)', 'contact-message', 'WPBDM' ),
+                                                          $replacements['listing-url'],
+                                                          get_edit_post_link( $listing_id ) );
+                $admin_email = wpbdp_email_from_template( 'email-templates-contact', $replacements );
+                $admin_email->to = get_bloginfo( 'admin_email' );
+
+                if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+                    $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+
+                $admin_email->template = 'businessdirectory-email';
+                $admin_email->send();
+            }
         } else {
             $html .= wpbdp_render_msg( _x("There was a problem encountered. Your message has not been sent", 'contact-message', "WPBDM"), 'error' );
         }

@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: business directory,directory,wordpress directory,wordpress directory plugin,directory plugin,business directory plugin, wordpress directory theme,wordpress business directory,wordpress local directory,classified ads,classifieds,directory widget,church directory,address book,address,member directory,members directory,city portal,city guide,chamber of commerce
-Requires at least: 4.0
+Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
+Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-Apr-7
-Stable tag: tags/3.7.5
+Last Updated: 2016-June-21
+Stable tag: tags/4.0.7
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -44,6 +44,7 @@ Business Directory Plugin allows you to build a local directory, directory of bu
 * Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
 * Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) 
 * Multi-language support in your directory with WPML
+* Ability to re-skin the directory with a few clicks (directory themes)
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
@@ -52,6 +53,14 @@ Please report any bugs you find via http://businessdirectoryplugin.com/support-f
 = Premium Module Links: =
 These are optional modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
+
+= NEW Themes =
+* NEW! [Theme Pack](http://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
+* NEW! [Business Card Theme](http://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
+* NEW! [Tabbed Business Theme](http://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
+* NEW! [Elegant Business Theme](http://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
+* NEW! [Mobile Compact Theme](http://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
+* NEW! [Restaurant Theme](http://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
 
 = NEW Modules =
 * NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
@@ -120,6 +129,91 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.0.7 =
+* Improve excerpt display on mobile devices. 
+* Show themes update badge inside main menu item too.
+* Improved usability for Directory Themes screen. 
+* Fix some query issues when on CPT compat mode.
+* Mark some strings as translatable.
+* Restore the routine that handled expiration of listings.
+
+= Version 4.0.6 =
+* Compatibility fixes for Canvas theme.
+* Compatibility fixes for X theme.
+* Add "City" and "State" as taggable fields in themes.
+* Improve display of addresses in themes.
+* Fix for Featured Listings widget not honoring configured number of posts setting.
+* Add "menu" attribute to listings shortcode.
+* Prevent Jetpack sharing from being displayed twice on listings.
+* Update admin sidebar.
+* Fix minor translation omission.
+
+= Version 4.0.5 =
+* Atahualpa theme compatibility fixes.
+* Use an auto-complete field instead of a dropdown for the users field on the CSV import screen to avoid performance problems.
+* Several fixes for encoding detection and handling during CSV imports.
+* Longevity theme compatibility fixes.
+* Divi theme compatibility fixes.
+* Do not show any sortbar filters when sortbar is disabled.
+* Additional fixes for the Genesis theme
+* Fix sorting and other query problems when in CPT compatibility mode.
+* Fix search query integration with sortbar.
+* Restore pre-4.0 behavior (regarding Regions and Maps) of the listings shortcode.
+* Add redirects for old submit listing URLs.
+* Restore tag functionality for the listings shortcode.
+
+= Version 4.0.4 =
+* Add compatibility mode that disables CPT integration for setups having issues or theme conflicts.
+* Try single and singular templates along with page.php for improved theme compatibility.
+* Add compatibility layer for themes.
+* Genesis theme compatibility fixes.
+* HMTPro5 theme compatibility fixes.
+* Customizr and Customizr-Pro theme compatibility fixes.
+* Prevent duplication of CSV labels for fields.
+
+= Version 4.0.3 =
+* Restore WPBUSDIRMANMANAGELISTING as a valid "Manage Listings" shortcode.
+* Prevent view classes from being loaded more than one to prevent PHP strict errors.
+* Improve compatibility with Graphene theme.
+* Restore listing count shortcode functionality.
+* Fix "Address" section appearing on default theme even when no address was available.
+* Add missing ORDER BY clause resulting in "paid first" sort order not working correctly.
+
+= Version 4.0.2 =
+* Fixes for themes showing "Untitled" on some directory pages.
+* Fixes for Avada theme.
+* Reduce themes update checking periodicity to 48 hrs.
+* Add missing argument to search form to prevent incorrect search results being returned.
+* Fix to locate a replacement for page.php template for themes that don't have it.
+* Fix random ordering in Featured Listings widget.
+* Fix title filter for modern themes.
+* Fixes for path handling on Windows environments.
+* Fix some PHP warnings resulting from JSON decoding theme files.
+* Do not show a 404 error for empty categories.
+
+= Version 4.0.1 =
+* Fix some PHP warnings and errors
+* Fix listings shortcode category support.
+* Fix search issue in Featured Listings widget.
+* Fix tag pages.
+* Make "Pre-4.0 Template" the default theme for upgrades from 3.x.
+
+= Version 4.0 =
+* NEW: Add support for theming the directory + 5 premium and 1 default themes.
+* NEW: Added listing categories shortcode `businessdirectory-categories`.
+* NEW: Better integrate with WP's main query.
+* NEW: Allow reCAPTCHA to be disabled for logged-in users.
+* NEW: Allow admins to add a message with instructions during submit.
+* Add support for LinkedIn URLs (not just company IDs).
+* Fixes for recurring payments.
+* Fixes for SEO validation with Yoast.
+* Fixes for new WPML functionality.
+* Allow registration warning to be dismissed.
+* Quick search bar fixes for mobile users.
+* Add support for recurring payments for listing claims.
+* Added support for HTML tags in ratings comments.
+* Regions fixes for PHP 7.
 
 = Version 3.7.5 =
 * Fix queries involving featured listings to include listings made sticky by plan (not level).

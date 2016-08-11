@@ -1,16 +1,13 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
-
 /**
  * @since 3.5.3
  */ 
-class WPBDP_Manage_Subscriptions_View extends WPBDP_View {
+class WPBDP__Views__Manage_Recurring extends WPBDP_NView {
 
     private $subscriptions = array();
 
 
-    public function __construct() {
-    }
+    public function __construct() { }
 
     public function dispatch() {
         if ( ! is_user_logged_in() ) {

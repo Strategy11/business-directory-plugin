@@ -22,7 +22,7 @@ function wpbdp_locate_template($template, $allow_override=true, $try_defaults=tr
     if (!is_array($template))
         $template = array($template);
 
-    if ( ! wpbdp_experimental( 'typeintegration' ) ) {
+    if ( wpbdp_get_option( 'disable-cpt' ) ) {
         if ($allow_override) {
             $search_for = array();
 

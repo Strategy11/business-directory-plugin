@@ -253,7 +253,17 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         ) );
     }
 
-    public function preview_listing_fields_form() {
+    public function preview_listing_fields_form( $preview_config = array() ) {
+        $preview_config = wp_parse_args( $preview_config,
+                                         array( 'fee' => 0,
+                                                'level' => 'normal' ) );
+        $preview_config = apply_filters( 'wpbdp_view_submit_listing_preview_config', $preview_config );
+
+        $this->state->step = 'listing_fields';
+        $this->state->step_number = 3;
+        $this->state->categories = array( $preview_config['fee'] );
+        $this->state->featured_level  = $preview_config['level'];
+
         return $this->step_listing_fields();
     }
 
@@ -387,8 +397,17 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         $thumbnail_id = $this->state->thumbnail_id;
         $image_slots_remaining = $image_slots - count( $images );
-        $image_min_file_size = size_format( intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024 );
-        $image_max_file_size = size_format( intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024 );
+
+        $image_min_file_size = intval( wpbdp_get_option( 'image-min-filesize' ) );
+        $image_min_file_size = $image_min_file_size ? size_format( $image_min_file_size * 1024 ) : '0';
+
+        $image_max_file_size = intval( wpbdp_get_option( 'image-max-filesize' ) );
+        $image_max_file_size = $image_max_file_size ? size_format( $image_max_file_size * 1024 ) : '0';
+
+        $image_min_width = intval( wpbdp_get_option( 'image-min-width' ) );
+        $image_max_width = intval( wpbdp_get_option( 'image-max-width' ) );
+        $image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
+        $image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
         // Set thumbnail.
         $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
@@ -409,6 +428,10 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         return $this->render( 'images',
                               compact( 'image_max_file_size',
                                        'image_min_file_size',
+                                       'image_min_width',
+                                       'image_max_width',
+                                       'image_min_height',
+                                       'image_max_height',
                                        'images',
                                        'images_meta',
                                        'image_slots',
@@ -515,8 +538,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        require_once( WPBDP_PATH . 'core/view-checkout.php' );
-        $checkout = new WPBDP_Checkout_Page( $payment );
+        $checkout = wpbdp_load_view( 'checkout', $payment );
         return $checkout->dispatch();
     }
 

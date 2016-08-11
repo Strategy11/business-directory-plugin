@@ -137,32 +137,6 @@ function wpbusdirman_display_the_thumbnail() {
 
 function wpbusdirman_sticky_loop() { return; }
 
-function wpbusdirman_view_edit_delete_listing_button() {
-    $wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
-    $html = '';
-
-    $html .= '<div style="clear:both;"></div><div class="vieweditbuttons"><div class="vieweditbutton"><form method="post" action="' . get_permalink() . '"><input type="hidden" name="action" value="viewlisting" /><input type="hidden" name="wpbusdirmanlistingid" value="' . get_the_id() . '" /><input type="submit" value="' . __("View","WPBDM") . '" class="button" /></form></div>';
-
-    if ( (wp_get_current_user()->ID == get_the_author_meta('ID')) || current_user_can('administrator')) {
-        $html .= '<div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Edit","WPBDM") . '" /></form></div><div class="vieweditbutton"><form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="deletelisting" /><input type="hidden" name="listing_id" value="' . get_the_id() . '" /><input type="submit" value="' . __("Delete","WPBDM") . '" class="button" /></form></div>';
-    }
-    $html .= '</div>';
-
-    return $html;
-}
-
-function wpbusdirman_menu_button_upgradelisting() {
-    $post_id = get_the_ID();
-
-    if ( wpbdp_get_option('featured-on') &&
-         (get_post($post_id)->post_author == wp_get_current_user()->ID) &&
-         wpbdp_listings_api()->get_sticky_status(get_the_ID()) == 'normal' ) {
-            return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="hidden" name="action" value="upgradetostickylisting" /><input type="hidden" name="listing_id" value="' . $post_id . '" /><input type="submit" class="updradetostickylistingbutton" value="' . __("Upgrade Listing","WPBDM") . '" /></form>';
-    }
-
-    return '';
-}
-
 function wpbusdirman_latest_listings($numlistings) {
     return wpbdp_latest_listings($numlistings);
 }
@@ -189,107 +163,8 @@ function wpbusdirman_post_list_categories() {
     return wpbdp_directory_categories();
 }
 
-function wpbusdirman_menu_buttons()
-{
-    echo wpbusdirman_post_menu_buttons();
-}
-
-function wpbusdirman_post_menu_buttons()
-{
-    $html = '';
-    $html .= '<div>' . wpbusdirman_post_menu_button_submitlisting() . wpbusdirman_menu_button_directory() . '</div><div style="clear: both;"></div>';
-    return $html;
-}
-
-function wpbusdirman_menu_button_submitlisting()
-{
-    echo wpbusdirman_post_menu_button_submitlisting();
-}
-
-function wpbusdirman_post_menu_button_submitlisting()
-{
-    if (!wpbdp_get_option('show-submit-listing'))
-        return '';
-
-    return '<form method="post" action="' . wpbdp_get_page_link('add-listing') . '"><input type="hidden" name="action" value="submitlisting" /><input type="submit" class="submitlistingbutton" value="' . __("Submit A Listing","WPBDM") . '" /></form>';
-}
-
-function wpbusdirman_menu_button_viewlistings()
-{
-    echo wpbusdirman_post_menu_button_viewlistings();
-}
-
-function wpbusdirman_post_menu_button_viewlistings()
-{
-    if (!wpbdp_get_option('show-view-listings'))
-        return '';
-    
-    return '<form method="post" action="' . wpbdp_get_page_link('view-listings') . '"><input type="hidden" name="action" value="viewlistings" /><input type="submit" class="viewlistingsbutton" value="' . __("View Listings","WPBDM") . '" /></form>';
-}
-
-function wpbusdirman_menu_button_directory()
-{
-
-    echo wpbusdirman_post_menu_button_directory();
-}
-
-function wpbusdirman_post_menu_button_directory()
-{
-    return '<form method="post" action="' . wpbdp_get_page_link('main') . '"><input type="submit" class="viewlistingsbutton" value="' . __("Directory","WPBDM") . '" /></form>';
-}
-
-function wpbusdirman_menu_button_editlisting()
-{
-    global $post;
-    $wpbusdirman_permalink=get_permalink(wpbdp_get_page_id('main'));
-    $html = '';
-
-    if(is_user_logged_in())
-    {
-        global $current_user;
-        get_currentuserinfo();
-        $wpbusdirmanloggedinuseremail=$current_user->user_email;
-        $wpbusdirmanauthoremail=get_the_author_meta('user_email');
-        if($wpbusdirmanloggedinuseremail == $wpbusdirmanauthoremail || current_user_can('administrator') || (wp_get_current_user()->ID == get_the_author_meta('ID')))
-        {
-            $html .= '<form method="post" action="' . $wpbusdirman_permalink . '"><input type="hidden" name="action" value="editlisting" /><input type="hidden" name="listing_id" value="' . $post->ID . '" /><input type="submit" class="editlistingbutton" value="' . __("Edit Listing","WPBDM") . '" /></form>';
-        }
-    }
-
-    return $html;
-}
-
 /* deprecated since 2.1.4 */
 function wpbdp_sticky_loop($category_id=null, $taxonomy=null) { return ''; }
-
-/* deprecated since 2.1.6 */
-function wpbusdirman_dropdown_categories() {
-    $html  = '';
-
-    $html .= sprintf('<form action="%s">', site_url('/'));
-    $html .= wp_dropdown_categories(array(
-                   'taxonomy' => WPBDP_CATEGORY_TAX,
-                   'show_option_none' => '—',
-                   'order' => wpbdp_get_option('categories-sort'),                   
-                   'orderby' => wpbdp_get_option('categories-order-by'),
-                   'hide_empty' => wpbdp_get_option('hide-empty-categories'),
-                   'hierarchical' => !wpbdp_get_option('show-only-parent-categories'),
-                   'echo' => false,
-                   'name' => WPBDP_CATEGORY_TAX
-             ));
-
-    $html = preg_replace("/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
-                         "<select name=\"$3\" onchange=\"return this.form.submit();\" $1 $5>",
-                         $html);
-
-    // no-script support
-    $html .= '<noscript>';
-    $html .= '<input type="submit" value="→" />';
-    $html .= '</noscript>';
-    $html .= '</form>';
-
-    return $html;
-}
 
 /**
  * Small compatibility layer with old forms API. To be removed in later releases.

@@ -191,6 +191,9 @@ class WPBDP_Licensing {
                                                 'name' => $name ? $name : $module_name,
                                                 'version' => $version );
 
+        if ( ! $this->modules[ $module_name ]['license'] )
+            $this->modules[ $module_name ]['license_status'] = 'invalid';
+
         // Keep modules sorted by name.
         uasort( $this->modules, array( &$this, 'sort_modules_by_name' ) );
         return in_array( $this->modules[ $module_name ]['license_status'], array( 'valid', 'expired' ), true );

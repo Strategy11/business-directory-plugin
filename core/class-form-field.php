@@ -133,17 +133,15 @@ class WPBDP_Form_Field {
     }
 
     /**
-     * @since themes-release
+     * @since 4.0
      */
     public function get_shortname() {
-        if ( ! wpbdp_experimental( 'themes' ) )
-            return $this->get_short_name();
-
         static $protected_shortnames = array( 'images', 'image', 'username', 'featured_level', 'expires_on', 'sequence_id' );
 
         if ( $this->shortname )
             return $this->shortname;
 
+                // $name = $name . '-' . $field->get_id();
         if ( ! $this->label ) {
             $this->shortname = 'field_' . $this->id;
         } else {
@@ -163,13 +161,41 @@ class WPBDP_Form_Field {
         return $shortname;
     }
 
-    public function get_short_name() {
-        if ( wpbdp_experimental( 'themes' ) ) {
-            return $this->get_shortname();
+    /**
+     * @since 4.0.4
+     */
+    public function shortname_noconflict( $shortname ) {
+        global $wpdb;
+
+        $in_use = false;
+
+        if ( ! $this->id )
+            $in_use = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s LIMIT 1", $shortname ) );
+        else
+            $in_use = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s AND id != %d LIMIT 1", $shortname, $this->id ) );
+
+        if ( ! $in_use )
+            return $shortname;
+
+        $n = 1;
+
+        // Find an alternative name.
+        while ( true ) {
+            $check = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s LIMIT 1", $shortname . '_' . $n ) );
+
+            if ( ! $check ) {
+                $shortname = $shortname . '_' . $n;
+                break;
+            }
+
+            $n++;
         }
 
-        global $wpbdp;
-        return $wpbdp->formfields->get_short_names( $this->id );
+        return $shortname;
+    }
+
+    public function get_short_name() {
+        return $this->get_shortname();
     }
 
     /**
@@ -331,7 +357,7 @@ class WPBDP_Form_Field {
     public function html_value( $post_id ) {
         $value = $this->type->get_field_html_value( $this, $post_id );
 
-        if ( $value && in_array( 'email', $this->validators, true ) ) {
+        if ( $value && in_array( 'email', $this->validators, true ) && wpbdp_get_option('override-email-blocking') ) {
             // At least obfuscate the address if we're going to show it.
             $out = '';
 
@@ -509,10 +535,8 @@ class WPBDP_Form_Field {
 
         $data = array();
 
-        if ( wpbdp_experimental( 'themes' ) )
-            $data['shortname'] = $this->get_shortname();
-
         $data['label'] = $this->label;
+        $data['shortname'] = $this->shortname_noconflict( $this->get_shortname() );
         $data['description'] = trim( $this->description );
         $data['field_type'] = $this->type->get_id();
         $data['association'] = $this->association;
@@ -536,9 +560,6 @@ class WPBDP_Form_Field {
         }
 
         wp_cache_delete( $this->id, 'wpbdp formfields' );
-
-        if ( ! wpbdp_experimental( 'themes' ) )
-            $api->_calculate_short_names();
     }
 
     /**
@@ -569,11 +590,6 @@ class WPBDP_Form_Field {
             $this->id = 0;
         } else {
             return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'WPBDM' ) );
-        }
-
-        if ( ! wpbdp_experimental( 'themes' ) ) {
-            $api = wpbdp_formfields_api();
-            $api->_calculate_short_names();
         }
 
         return true;

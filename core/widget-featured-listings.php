@@ -32,14 +32,27 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
     }
 
     public function get_listings( $instance ) {
-        return get_posts( array( 'post_type' => WPBDP_POST_TYPE,
-                                 'post_status' => 'publish',
-                                 'numberposts' => $instance['number_of_listings'],
-                                 'orderby' => ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'rand' : 'date',
-                                 'wpbdp_is_main_query' => false,
-                                 'wpbdp_listing_type' => 'sticky',
-                                 'suppress_filters' => false
-                                ) );
+        global $wpdb;
+
+        $q = $wpdb->prepare(
+            "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts} JOIN {$wpdb->postmeta} pm ON pm.post_id = {$wpdb->posts}.ID
+             JOIN {$wpdb->prefix}wpbdp_listing_fees lf ON lf.listing_id = {$wpdb->posts}.ID
+             WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND ( lf.sticky = 1 OR ( pm.meta_key = %s AND pm.meta_value = %s ) )
+             ORDER BY " . ( ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'RAND()' : $wpdb->posts . '.post_date' ) . 
+            " LIMIT %d",
+            'publish', WPBDP_POST_TYPE, '_wpbdp[sticky]', 'sticky', $instance['number_of_listings'] );
+        $featured = $wpdb->get_col( $q );
+
+        $args = array(
+            'post_type' => WPBDP_POST_TYPE,
+            'post_status' => 'publish',
+            'post__in' => $featured ? $featured : array( -1 ),
+            'posts_per_page' => $instance['number_of_listings'],
+            'orderby' => 'post__in'
+        );
+        $posts = get_posts( $args );
+
+        return $posts;
     }
 
 }

@@ -9,6 +9,5 @@ $__template__ = array( 'blocks' => array( 'before', 'after' ) );
     <?php wpbdp_x_part( 'excerpt_content' ); ?>
     <?php echo $blocks['after']; ?>
 
-    <?php echo wpbdp_render('parts/listing-buttons', array( 'listing_id' => $listing_id, 'view' => 'excerpt' ), false ); ?>
-
+    <?php echo wpbdp_the_listing_actions(); ?>
 </div>

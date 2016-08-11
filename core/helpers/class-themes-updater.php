@@ -67,7 +67,7 @@ class WPBDP_Themes_Updater {
                                         'checked' => time() );
         }
 
-        set_transient( 'wpbdp-themes-updates', $data, 60 * 60 * 24 * 7 ); // Make this available a full week.
+        set_transient( 'wpbdp-themes-updates', $data, 60 * 60 * 24 * 2 ); // Make this available for 48 hours.
         $this->data = $data;
     }
 

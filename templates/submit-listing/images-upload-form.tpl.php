@@ -41,17 +41,26 @@ if ( $admin && $listing_id ) {
                     <span id="image-slots-remaining"><?php echo $slots_available; ?></span> / <span id="image-slots-total"><?php echo $slots; ?></span>
                 </dd>
 
-                <?php if ( $min_file_size ): ?>
-                <dt><?php _ex( 'Min. file size:', 'templates', 'WPBDM' ); ?></dt>
+                <?php if ( $min_file_size || $max_file_size ): ?>
+                <dt><?php _ex( 'File size:', 'templates', 'WPBDM' ); ?></dt>
                 <dd>
-                    <?php echo $min_file_size; ?>
+                    <?php echo $min_file_size; ?> - <?php echo $max_file_size ? $max_file_size : _x( 'No limit', 'templates', 'WPBDM' ); ?>
                 </dd>
                 <?php endif; ?>
 
-                <dt><?php _ex( 'Max. file size:', 'templates', 'WPBDM' ); ?></dt>
+                <?php if ( $image_min_width || $image_max_width ): ?>
+                <dt><?php _ex( 'Image width:', 'templates', 'WPBDM' ); ?></dt>
                 <dd>
-                    <?php echo $max_file_size; ?>
+                    <?php echo $image_min_width . 'px'; ?> - <?php echo $image_max_width ? $image_max_width . 'px' : _x( 'No limit', 'templates', 'WPBDM' ); ?>
                 </dd>
+                <?php endif; ?>
+
+                <?php if ( $image_min_height || $image_max_height ): ?>
+                <dt><?php _ex( 'Image height:', 'templates', 'WPBDM' ); ?></dt>
+                <dd>
+                    <?php echo $image_min_height . 'px'; ?> - <?php echo $image_max_height ? $image_max_height . 'px' : _x( 'No limit', 'templates', 'WPBDM' ); ?>
+                </dd>
+                <?php endif; ?>
             </dl>
         </div>
         <?php endif; ?>

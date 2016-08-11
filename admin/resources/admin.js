@@ -102,7 +102,7 @@ var WPBDP_associations_fieldtypes = {};
             if ( $f_fieldtype.find('option:selected').attr('disabled') == 'disabled' ) {
                 $f_fieldtype.find('option').removeAttr('selected');
                 $f_fieldtype.find('option[value="' + valid_types[0] + '"]').attr('selected', 'selected');
-            }     
+            }
         }
     };
 
@@ -266,18 +266,6 @@ jQuery(document).ready(function($){
         alert('This form is just a preview. It doesn\'t work.');
     });
 
-    /* CSV import */
-    $('form#wpbdp-csv-import-form input.assign-listings-to-user').change(function(e){
-        if ( $(this).is(':checked') ) {
-            $('form#wpbdp-csv-import-form .default-user-selection').show();
-            //$('form#wpbdp-csv-import-form select.default-user').hide('disabled');
-        } else {
-            $('form#wpbdp-csv-import-form .default-user-selection').hide();
-            //$('form#wpbdp-csv-import-form select.default-user').attr('disabled', 'disabled');
-        }
-
-    }).change();
-
     /* Debug info page */
     $('#wpbdp-admin-debug-info-page a.nav-tab').click(function(e){
         e.preventDefault();
@@ -303,7 +291,7 @@ jQuery(document).ready(function($){
         var $tr_details = $tr.next('tr.more-details-row');
         if ( $tr_details.length > 0 ) {
             $tr_details.remove();
-            $(this).text( $(this).text().replace( '-', '+' ) );            
+            $(this).text( $(this).text().replace( '-', '+' ) );
             return;
         } else {
             $(this).text( $(this).text().replace( '+', '-' ) );
@@ -331,11 +319,11 @@ WPBDP_Admin.listingMetabox = {};
 WPBDP_Admin.ProgressBar = function($item, settings) {
     $item.empty();
     $item.html('<div class="wpbdp-progress-bar"><span class="progress-text">0%</span><div class="progress-bar"><div class="progress-bar-outer"><div class="progress-bar-inner" style="width: 0%;"></div></div></div>');
-    
+
     this.$item = $item;
     this.$text = $item.find('.progress-text');
     this.$bar = $item.find('.progress-bar');
-    
+
     this.set = function( completed, total ) {
         var pcg = Math.round( 100 * parseInt( completed) / parseInt( total ) );
         this.$text.text(pcg + '%');
@@ -349,7 +337,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
         // if ($('#wpbdp-modal-dialog').length == 0) {
         //     $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
-        // }    
+        // }
 })(jQuery);
 
 
@@ -490,14 +478,14 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         // Listing category deletion.
         $('.listing-category a.category-delete').click(function(e) {
             e.preventDefault();
-            
+
             var listingID = $(this).attr('data-listing');
             var categoryID = $(this).attr('data-category');
-            
+
             if ( !listingID || !categoryID ) {
                 return;
             }
-            
+
             var $category = $('.listing-category-' + categoryID);
             $.post(ajaxurl, {action: 'wpbdp-listing_remove_category', 'listing': listingID, 'category': categoryID}, function(res) {
                 if (res && res.success) {
@@ -537,6 +525,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 (function($) {
     var s = WPBDP_Admin.settings = {
         _whenTrueActivateChilds: {},
+        _whenFalseActivateChilds: {},
 
         init: function() {
             var t = this;
@@ -626,27 +615,39 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         },
 
         handleToggle: function( setting ) {
-            var childs = this._whenTrueActivateChilds[ setting ];
+            var childs_true = this._whenTrueActivateChilds[ setting ];
+            var childs_false = this._whenFalseActivateChilds[ setting ];
+            var childs = { 'true': childs_true, 'false': childs_false };
+            var checked = $( 'input[name="wpbdp-' + setting + '"]' ).is( ':checked' );
 
-            if ( 'undefined' === typeof( childs ) )
-                return;
+            $.each( childs, function( req, settings ) {
+                $.each( settings, function( i, s ) {
+                    var $s = $( '[name="wpbdp-' + s + '"], [name="wpbdp-' + s + '[]"]' );
+                    var $row = $s.parents( 'tr' );
 
-            var checked = $( 'input[name="wpbdp-' + setting + '"]').is(':checked');
-            
-            $.each( this._whenTrueActivateChilds[ setting ], function( i, c ) {
-                var $c = $( '[name="wpbdp-' + c + '"], [name="wpbdp-' + c + '[]"]' );
-                var $row = $c.parents( 'tr' );
-
-                // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
-                if ( checked ) {
-//                    $c.removeAttr( 'disabled' );
-                    $c.removeAttr( 'contenteditable' );
-                    $row.removeClass('disabled');
-                } else {
-//                    $c.attr( 'disabled', 'disabled' );
-                    $c.attr( 'contenteditable', 'false' );
-                    $row.addClass('disabled');
-                }
+                    // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
+                    if ( 'true' === req ) {
+                        if ( checked ) {
+                            // $s.removeAttr( 'disabled' );
+                            $s.removeAttr( 'contenteditable' );
+                            $row.removeClass( 'disabled' );
+                        } else {
+                            // $s.attr( 'disabled', 'disabled' );
+                            $s.attr( 'contenteditable', 'false' );
+                            $row.addClass( 'disabled' );
+                        }
+                    } else if ( 'false' === req ) {
+                        if ( checked ) {
+                            // $s.attr( 'disabled', 'disabled' );
+                            $s.attr( 'contenteditable', 'false' );
+                            $row.addClass( 'disabled' );
+                        } else {
+                            // $s.removeAttr( 'disabled' );
+                            $s.removeAttr( 'contenteditable' );
+                            $row.removeClass( 'disabled' );
+                        }
+                    }
+                } );
             } );
         },
 
@@ -654,7 +655,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             if ( 'undefined' === typeof this._whenTrueActivateChilds[ parent_ ] )
                 this._whenTrueActivateChilds[ parent_ ] = [];
 
-            this._whenTrueActivateChilds[ parent_ ].push( setting );
+            if ( 'undefined' === typeof this._whenFalseActivateChilds[ parent_ ] )
+                this._whenFalseActivateChilds[ parent_ ] = [];
+
+            if ( 'boolean-true' == req )
+                this._whenTrueActivateChilds[ parent_ ].push( setting );
+            else if ( 'boolean-false' == req )
+                this._whenFalseActivateChilds[ parent_ ].push( setting );
         }
     };
 
@@ -820,3 +827,23 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     });
 })(jQuery);
 // }}
+
+// Dismissible Messages
+(function($) {
+    $(function(){
+        $( '.wpbdp-notice.dismissible > .notice-dismiss' ).click( function( e ) {
+            e.preventDefault();
+
+            var $notice = $( this ).parent( '.wpbdp-notice' );
+            var dismissible_id = $( this ).data( 'dismissible-id' );
+            var nonce = $( this ).data( 'nonce' );
+
+            $.post( ajaxurl,
+                    { action: 'wpbdp_dismiss_notification', id: dismissible_id, nonce: nonce },
+                    function() {
+                        $notice.fadeOut( 'fast', function(){ $notice.remove(); } );
+                    }
+            );
+        } );
+    });
+})(jQuery);

@@ -1,6 +1,6 @@
 <?php
 /**
- * @since themes-release
+ * @since 4.0
  */
 class _WPBDP_Template_Sections {
 
@@ -20,10 +20,10 @@ class _WPBDP_Template_Sections {
     }
 
     function listing_contact_form( $vars ) {
-        if ( ! class_exists( 'WPBDP_Listing_Contact_View' ) )
-            require_once( WPBDP_PATH . 'core/view-listing-contact.php' );
+        if ( ! class_exists( 'WPBDP__Views__Listing_Contact' ) )
+            require_once( WPBDP_PATH . 'core/views/listing_contact.php' );
 
-        $v = new WPBDP_Listing_Contact_View();
+        $v = new WPBDP__Views__Listing_Contact();
         return $v->render_form( $vars['listing_id'] );
     }
 
@@ -31,6 +31,9 @@ class _WPBDP_Template_Sections {
         if ( 'single' != $template )
             return $vars;
 
+        $vars['#comments'] = array( 'callback' => array( $this, 'listing_comments' ),
+                                    'position' => 'after',
+                                    'weight' => 100 );
         return $vars;
     }
 
@@ -38,9 +41,15 @@ class _WPBDP_Template_Sections {
         if ( ! wpbdp_get_option( 'show-comment-form' ) )
             return;
 
-        echo '<div class="comments">';
+        $html = '<div class="comments">';
+
+        ob_start();
         comments_template( null, true );
-        echo '</div>';
+        $html .= ob_get_clean();
+
+        $html .= '</div>';
+
+        return $html;
     }
 
 

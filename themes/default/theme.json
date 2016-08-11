@@ -1,11 +1,11 @@
 {
     "name": "Default Theme",
     "description": "This is the new default look of Business Directory starting with version 4.0. A cleaner, basic look to the directory with improved layout. This theme is always installed and cannot be removed.",
-    "version": "1.0",
+    "version": "4.0.4",
     "author": "BD Team",
     "author_email": "support@businessdirectoryplugin.com",
     "author_url": "http://businessdirectoryplugin.com",
-    "requires": "4.0dev",
+    "requires": "4.0",
     "assets": {
         "css": [ "styles.css" ],
         "js": []

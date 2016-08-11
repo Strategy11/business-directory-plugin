@@ -1,13 +1,15 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-query-integration.php' );
 require_once( WPBDP_PATH . 'core/class-dispatcher.php' );
+require_once( WPBDP_PATH . 'core/class-wordpress-template-integration.php' );
 
 
-
-class WPBDP {
+final class WPBDP {
 
     // FIXME: only to allow the global object to access it (for now).
     public $dispatcher = null;
+    public $query_integration = null;
+    public $template_integration = null;
 
 
     public function __construct() {
@@ -16,13 +18,9 @@ class WPBDP {
     public function init() {
         $this->register_post_type();
 
-        if ( wpbdp_experimental( 'typeintegration' ) ) {
-            new WPBDP__Query_Integration();
-            $this->dispatcher = new WPBDP__Dispatcher();
-
-            require_once( WPBDP_PATH . 'core/class-wordpress-template-integration.php' );
-            new WPBDP__WordPress_Template_Integration();
-        }
+        $this->query_integration = new WPBDP__Query_Integration();
+        $this->dispatcher = new WPBDP__Dispatcher();
+        $this->template_integration = new WPBDP__WordPress_Template_Integration();
     }
 
     public function register_post_type() {
