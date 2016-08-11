@@ -530,202 +530,56 @@ class WPBDP_Listings_API {
     /**
      * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
      * @uses WPBDP_ListingsAPI::get_quick_search_fields().
-     * @param string $q The string used for searching.
+     * @param string $keywords The string used for searching.
+     * @param mixed $location Location information.
      * @return array The listing IDs.
      * @since 3.4
      */
-    public function quick_search( $q = '' ) {
-        $q = trim( $q );
+    public function quick_search( $keywords, $location = false ) {
+        $keywords = trim( $keywords );
 
-        if ( ! $q )
+        if ( ! $keywords && ! $location )
             return array();
 
-        global $wpdb;
+        require_once( WPBDP_PATH . 'core/helpers/class-search-helper.php' );
 
-        $fields = $this->get_quick_search_fields();
-        $query_pieces = array( 'where' => '',
-                               'join' => '',
-                               'orderby' => '',
-                               'distinct' => '',
-                               'fields' => "{$wpdb->posts}.ID",
-                               'limits' => '' );
-        $optimization = array( 'global' => array(), 'words' => array() );
+        $args = array( 'query' => $keywords,
+                       'mode' => 'quick-search',
+                       'location' => $location,
+                       'fields' => $this->get_quick_search_fields() );
 
-        $words = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( trim( $q ) ) : array_map( 'trim', explode( ' ', $q ) );
-
-        $query_pieces['where'] .= '';
-
-        foreach ( $words as $i => $w ) {
-            $optimization['words'][ $i ] = array();
-
-            $query_pieces['where'] .= ' AND ( 1=0 ';
-
-            foreach ( $fields as &$f ) {
-                $f->build_quick_search_query( $w, $query_pieces, $q, $i, $optimization );
-            }
-
-            $query_pieces['where'] .= ' )';
-        }
-
-//        wpbdp_debug_e( 'search', $query_pieces, $q, $optimization );
-
-        $query_pieces = apply_filters( 'wpbdp_quick_search_query_pieces', $query_pieces );
-        $query = sprintf( "SELECT %s %s FROM {$wpdb->posts} %s WHERE 1=1 AND ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') %s GROUP BY {$wpdb->posts}.ID %s %s",
-                          $query_pieces['distinct'],
-                          $query_pieces['fields'],
-                          $query_pieces['join'],
-                          WPBDP_POST_TYPE,
-                          'publish',
-                          $query_pieces['where'],
-                          $query_pieces['orderby'],
-                          $query_pieces['limits'] );
-
-        return $wpdb->get_col( $query );
+        $helper = new WPBDP__Search_Helper( $args );
+        return $helper->get_posts();
     }
 
     // }}}
 
     /* listings search */
     public function search($args) {
+        // TODO: what to do with this?
+        // $query .= ' WHERE ' . apply_filters('wpbdp_search_where', $where, $args);
+        // $query = apply_filters( 'wpbdp_search_query ', $query, $args );
+    }
+
+    public function search_2( $args ) {
         global $wpdb;
 
         $args = stripslashes_deep( $args );
-        $term = str_replace('*', '', trim(wpbdp_getv($args, 'q', '')));
+        $search_args = array( 'mode' => 'advanced',
+                              'query' => array() );
+        $results = array();
 
-        if (!$term && (!isset($args['fields']) || !$args['fields']) && (!isset($args['extra']) || !$args['extra']) )
-            return array();
+        if ( empty( $args ) )
+            return $results;
 
-        $query = "SELECT DISTINCT ID FROM {$wpdb->posts}";
-        $where = $wpdb->prepare("{$wpdb->posts}.post_type = %s AND {$wpdb->posts}.post_status = %s",
-                                WPBDP_POST_TYPE, 'publish');
+        foreach ( $args as $field_id => $field_query )
+            $search_args['query'][ $field_id ] = $field_query;
 
-        if ($term) {
-            // process term
-            $where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_title LIKE '%%%s%%' OR {$wpdb->posts}.post_content LIKE '%%%s%%' OR {$wpdb->posts}.post_excerpt LIKE '%%%s%%')", $term, $term, $term);
-        }
+        if ( ! class_exists( 'WPBDP__Search_Helper' ) )
+            require_once( WPBDP_PATH . 'core/helpers/class-search-helper.php' );
 
-        if (isset($args['fields'])) {
-            foreach ($args['fields'] as $i => $meta_search) {
-
-                if ( $field = wpbdp_get_formfield( $meta_search['field_id'] ) ) {
-                    $q = is_array( $meta_search['q'] ) ? array_map( 'trim', $meta_search['q'] ) : trim( $meta_search['q'] );
-
-                    if (!$q) continue;
-
-                    switch ( $field->get_association() ) {
-                        case 'title':
-                            $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE '%%%s%%'", $q);
-                            break;
-                        case 'content':
-                            $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_content LIKE '%%%s%%'", $q);
-                            break;
-                        case 'excerpt':
-                            $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_excerpt LIKE '%%%s%%'", $q);
-                            break;
-                        case 'category':
-                            $term_ids = array_diff( is_array($q) ? $q : array($q), array('-1', '0') ) ;
-                            $terms = array();
-
-                            // $term_ids = implode(',',  array_diff($term_ids, array('-1', '0')) );
-
-                            foreach ( $term_ids as $tid ) {
-                                $terms[] = $tid;
-                                $terms = array_merge( $terms, get_term_children( $tid, WPBDP_CATEGORY_TAX ) );
-                            }
-
-                            if ($terms) {
-                                $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel1 ON ({$wpdb->posts}.ID = trel1.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax1 ON (trel1.term_taxonomy_id = ttax1.term_taxonomy_id)";
-                                $where .= " AND ttax1.term_id IN (" . implode( ',', $terms ) . ") ";
-                            }
-
-                            break;
-                        case 'tags':
-                            $terms = is_array($q) ? array_values($q) : explode(',', $q);
-                            $term_ids = array();
-
-                            foreach ($terms as $term_name) {
-                                $term = null;
-
-                                if ( $term_name === '-1' || $term_name === '0' )
-                                    continue;
-
-                                // if ( is_numeric( $term_name ) )
-                                //     $term = get_term_by( 'id', $term_name, WPBDP_TAGS_TAX );
-
-                                // if ( !$term )
-                                if ( strpos( $term_name, '&' ) !== false )
-                                    $term_name = htmlentities( $term_name, null, null, false );
-
-                                $term = get_term_by( 'name', $term_name, WPBDP_TAGS_TAX );
-
-                                if ( $term ) {
-                                    $term_ids[] = $term->term_id;
-                                } else {
-                                    $where .= ' AND 1=0'; // force no results when a tag does not exist
-                                }
-                            }
-
-                            if ($term_ids) {
-                                $term_ids = implode(',', $term_ids);
-                                $query .= " LEFT JOIN {$wpdb->term_relationships} AS trel2 ON ({$wpdb->posts}.ID = trel2.object_id) LEFT JOIN {$wpdb->term_taxonomy} AS ttax2 ON (trel2.term_taxonomy_id = ttax2.term_taxonomy_id)";
-                                $where .= " AND ttax2.term_id IN ({$term_ids}) ";
-                            }
-
-                            break;
-                        case 'meta':
-                            // Multi-valued field.
-                            if (in_array($field->get_field_type()->get_id(), array('checkbox', 'multiselect', 'select'))) {
-                                $options = array_diff( is_array( $q ) ? $q : array( $q ), array( '-1' ) );
-                                $options = array_map( 'preg_quote', $options );
-
-                                if (!$options)
-                                    continue;
-
-                                $pattern = '(' . implode('|', $options) . '){1}([tab]{0,1})';
-
-                                $query .= " INNER JOIN {$wpdb->postmeta} AS mt{$i}mv ON ({$wpdb->posts}.ID = mt{$i}mv.post_id)";
-                                $where .= $wpdb->prepare(" AND (mt{$i}mv.meta_key = %s AND mt{$i}mv.meta_value REGEXP %s )",
-                                                         "_wpbdp[fields][" . $field->get_id() . "]",
-                                                         $pattern );
-                            } elseif ( 'date' == $field->get_field_type_id() ) {
-                                $field_type = $field->get_field_type();
-                                $q = $field_type->date_to_storage_format( $field, $q );
-
-                                if ( ! $q )
-                                    continue;
-
-                                $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
-                                $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value = %s)",
-                                                         '_wpbdp[fields][' . $field->get_id() . ']',
-                                                         $q);
-                            } else { // Single-valued field.
-                                if ( in_array( $field->get_field_type()->get_id(),
-                                               array( 'textfield', 'textarea' ) ) ) {
-                                    $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
-                                    $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value LIKE '%%%s%%')",
-                                                             '_wpbdp[fields][' . $field->get_id() . ']',
-                                                             $q);
-                                } else {
-                                    $query .= sprintf(" INNER JOIN {$wpdb->postmeta} AS mt%1$1d ON ({$wpdb->posts}.ID = mt%1$1d.post_id)", $i);
-                                    $where .= $wpdb->prepare(" AND (mt{$i}.meta_key = %s AND mt{$i}.meta_value = %s)",
-                                                             '_wpbdp[fields][' . $field->get_id() . ']',
-                                                             $q);
-                                }
-                            }
-
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-            }
-        }
-
-        $query .= ' WHERE ' . apply_filters('wpbdp_search_where', $where, $args);
-        $query = apply_filters( 'wpbdp_search_query ', $query, $args );
-
-        return $wpdb->get_col($query);
+        $helper = new WPBDP__Search_Helper( $search_args );
+        return $helper->get_posts();
     }
 
     public function send_renewal_email( $renewal_id, $email_message_type = 'auto' ) {

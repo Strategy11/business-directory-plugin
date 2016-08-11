@@ -177,6 +177,27 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return $this->get_field_plain_value( $field, $post_id );
     }
 
+    public function configure_search( &$field, $query, &$search ) {
+        global $wpdb;
+
+        $query = $this->date_to_storage_format( $field, $query );
+
+        if ( ! $query )
+            return false;
+
+        $search_res = array();
+        list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
+
+        if ( ! $reused )
+            $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
+
+        $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value = %s)",
+                                               '_wpbdp[fields][' . $field->get_id() . ']',
+                                               $query );
+
+        return $search_res;
+    }
+
     private function get_formats() {
         $formats = array();
 

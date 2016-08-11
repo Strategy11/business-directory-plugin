@@ -180,22 +180,22 @@ function wpbdp_list_categories( $args=array() ) {
 function wpbdp_main_links() {
     $html = '';
 
-    if ( ! wpbdp_get_option( 'disable-submit-listing' ) && wpbdp_get_option( 'show-submit-listing' ) ) {
-        $html .= sprintf( '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-                          __( 'Submit A Listing', 'WPBDM' ),
-                          wpbdp_url( 'submit_listing' ) );
-    }
-
-    if (wpbdp_get_option('show-view-listings')) {
-        $html .= sprintf('<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-                          __('View Listings', 'WPBDM'),
-                          wpbdp_url( 'all_listings' ) );
-    }
-
-    if (wpbdp_get_option('show-directory-button')) {
+    if ( wpbdp_get_option( 'show-directory-button' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Directory', 'WPBDM'),
                           wpbdp_url( '/' ) );
+    }
+
+    if ( wpbdp_get_option( 'show-view-listings' ) ) {
+        $html .= sprintf( '<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
+                          __('View All Listings', 'WPBDM'),
+                          wpbdp_url( 'all_listings' ) );
+    }
+
+    if ( ! wpbdp_get_option( 'disable-submit-listing' ) && wpbdp_get_option( 'show-submit-listing' ) ) {
+        $html .= sprintf( '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
+                          __( 'Create A Listing', 'WPBDM' ),
+                          wpbdp_url( 'submit_listing' ) );
     }
 
     if ( $html )
@@ -488,4 +488,26 @@ class WPBDP_ListingFieldDisplayItem {
 
         return $res;
     }
+}
+
+/**
+ * @since next-release
+ */
+function wpbdp_the_main_box() {
+    echo wpbdp_main_box();
+}
+
+/**
+ * @since next-release
+ */
+function wpbdp_main_box( $args = null ) {
+    $extra_fields = wpbdp_capture_action( 'wpbdp_main_box_extra_fields' );
+    $search_url = esc_url( add_query_arg( 'wpbdp_view', 'search', wpbdp_get_page_link( 'main' ) ) );
+    $no_cols = 1;
+
+    if ( $extra_fields )
+        $no_cols = 2;
+
+    $html = wpbdp_render( 'main-box', compact( 'extra_fields', 'search_url', 'no_cols' ) );
+    return $html;
 }

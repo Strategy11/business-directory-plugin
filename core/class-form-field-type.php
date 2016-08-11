@@ -268,6 +268,13 @@ class WPBDP_Form_Field_Type {
         return;
     }
 
+    /**
+     * @since next-release
+     */
+    public function configure_search( &$field, $query, &$search ) {
+        return false;
+    }
+
 
     /* Utils. */
     public static function standard_display_wrapper( $labelorfield, $content=null, $extra_classes='', $args=array() ) {
