@@ -648,15 +648,18 @@ class WPBDP_Form_Field {
     public function configure_search( $query, &$search ) {
         global $wpdb;
 
-        $search_res = array();
-
         // If there's a field type specific handling, use it.
         $search_res = $this->type->configure_search( $this, $query, $search );
 
-        if ( $search_res ) {
-            $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( $search_res, $this, $query, $search ) );
-            return $search_res;
+        if ( ! $search_res && ! is_array( $search_res ) ) {
+            $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( array(), $this, $query, $search ) );
+
+            if ( $search_res )
+                return $search_res;
         }
+
+        if ( ! is_array( $search_res ) )
+            $search_res = array();
 
         // Otherwise, fall back to the default handling.
         switch ( $this->get_association() ) {
@@ -678,14 +681,10 @@ class WPBDP_Form_Field {
                 $tt_ids = array();
 
                 if ( ! $query )
-                    continue;
+                    break;
 
                 foreach ( $query as $term_ ) {
-                    if ( is_string( $term_ ) && 'quick-search' == $search->mode ) {
-                        $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
-                                                                  $tax,
-                                                                  $query ) );
-                    } elseif ( is_string( $term_ ) && WPBDP_TAGS_TAX == $tax ) {
+                    if ( is_string( $term_ ) && WPBDP_TAGS_TAX == $tax ) {
                         $term = get_term_by( 'name', $term_, $tax );
 
                         if ( ! $term )
@@ -702,6 +701,13 @@ class WPBDP_Form_Field {
                         $tt_ids = array_merge( $tt_ids,
                                                $wpdb->get_col( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = '{$tax}' AND tt.term_id IN (" . implode( ',', $t_ids ) . ")" ) );
                     }
+
+                //     if ( is_string( $term_ ) && 'quick-search' == $search->mode ) {
+                //         $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
+                //                                                   $tax,
+                //                                                   $query ) );
+                // }
+                //
                 }
 
                 if ( $tt_ids ) {

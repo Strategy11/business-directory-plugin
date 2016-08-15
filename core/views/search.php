@@ -1,4 +1,6 @@
 <?php
+require_once( WPBDP_PATH . 'core/helpers/class-listing-search.php' );
+
 
 class WPBDP__Views__Search extends WPBDP_NView {
 
@@ -7,82 +9,49 @@ class WPBDP__Views__Search extends WPBDP_NView {
     }
 
     public function dispatch() {
-        $_REQUEST = stripslashes_deep( $_REQUEST );
+        $searching = ! empty( $_POST );
 
-        // $search_args = array();
-        // if ( isset( $_GET['dosrch'] ) ) {
-        //     $search_args['q'] = wpbdp_getv($_GET, 'q', null);
-        //     $search_args['fields'] = array(); // standard search fields
-        //     $search_args['extra'] = array(); // search fields added by plugins
-        //
-        //     foreach ( wpbdp_getv( $_GET, 'listingfields', array() ) as $field_id => $field_search )
-        //         $search_args['fields'][] = array( 'field_id' => $field_id, 'q' => $field_search );
-        //
-        //     foreach ( wpbdp_getv( $_GET, '_x', array() ) as $label => $field )
-        //         $search_args['extra'][ $label ] = $field;
-        //
-        //     $listings_api = wpbdp_listings_api();
-        //
-        //     if ( $search_args['q'] && ! $search_args['fields'] && ! $search_args['extra'] )
-        //         $results = $listings_api->quick_search( $search_args['q'] );
-        //     else
-        //         $results = $listings_api->search( $search_args );
-        // }
+        if ( $searching ) {
+            $_POST = stripslashes_deep( $_POST );
+            $_POST['q'] = isset( $_POST['q'] ) ? trim( $_POST['q'] ) : '';
 
-        $listings_api = wpbdp_listings_api();
-        $quick_search = false;
-        $results = array();
-
-        if ( isset ( $_POST['q'] ) )
-            $quick_search = true;
-
-        if ( $quick_search ) {
-            $keywords = trim( $_POST['q'] );
-            $location = ! empty( $_POST['location'] ) ? $_POST['location'] : '';
-
-            $results = $listings_api->quick_search( $keywords, $location );
-        } elseif ( ! empty( $_POST ) ) {
-            // Advanced search.
-            $results = $listings_api->search_2( $_POST['listingfields'] );
+            $search = WPBDP__Listing_Search::from_request( $_POST );
         }
 
+        $search_form = '';
         $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );
         $fields = '';
         foreach ( $form_fields as &$field ) {
-            $field_value = isset( $_REQUEST['listingfields'] ) && isset( $_REQUEST['listingfields'][ $field->get_id() ] ) ? $field->convert_input( $_REQUEST['listingfields'][ $field->get_id() ] ) : $field->convert_input( null );
+            // $field_value = isset( $_REQUEST['listingfields'] ) && isset( $_REQUEST['listingfields'][ $field->get_id() ] ) ? $field->convert_input( $_REQUEST['listingfields'][ $field->get_id() ] ) : $field->convert_input( null );
+            $field_value = $field->convert_input(null);
             $fields .= $field->render( $field_value, 'search' );
         }
 
-        $args = array(
-            'post_type' => WPBDP_POST_TYPE,
-            'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
-            'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-            'post__in' => $results ? $results : array(0),
-            'orderby' => wpbdp_get_option( 'listings-order-by', 'date' ),
-            'order' => wpbdp_get_option( 'listings-sort', 'ASC' ),
-            'wpbdp_main_query' => true
-        );
-
-        // TODO: restore this before @next-release.
-        // $args = apply_filters( 'wpbdp_search_query_posts_args', $args );
-
-        query_posts( $args );
-        wpbdp_push_query( $GLOBALS['wp_query'] );
-
-        $searching = $quick_search || ! empty( $_POST );
-        $search_form = '';
+        if ( $searching ) {
+            $args = array(
+                'post_type' => WPBDP_POST_TYPE,
+                'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
+                'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+                'post__in' => $search->get_results() ? $search->get_results() : array( 0 ),
+                'orderby' => wpbdp_get_option( 'listings-order-by', 'date' ),
+                'order' => wpbdp_get_option( 'listings-sort', 'ASC' ),
+                'wpbdp_main_query' => true
+            );
+            query_posts( $args );
+            wpbdp_push_query( $GLOBALS['wp_query'] );
+        }
 
         if ( ( $searching && 'none' != wpbdp_get_option( 'search-form-in-results' ) ) || ! $searching )
             $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields ) );
 
-        $results = false;
-
-        if ( have_posts() ) {
+        if ( $searching && have_posts() ) {
             $results  = '';
             $results .= wpbdp_capture_action( 'wpbdp_before_search_results' );
             $results .= wpbdp_x_render( 'listings', array( '_parent' => 'search',
                                                            'query' => wpbdp_current_query() ) );
             $results .= wpbdp_capture_action( 'wpbdp_after_search_results' );
+        } else {
+            $results = '';
         }
 
         $html = wpbdp_x_render( 'search',
@@ -93,8 +62,10 @@ class WPBDP__Views__Search extends WPBDP_NView {
                                        'results' => $results
                                    ) );
 
-        wp_reset_query();
-        wpbdp_pop_query();
+        if ( $searching ) {
+            wp_reset_query();
+            wpbdp_pop_query();
+        }
 
         return $html;
     }

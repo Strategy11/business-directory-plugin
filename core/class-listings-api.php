@@ -561,26 +561,7 @@ class WPBDP_Listings_API {
         // $query = apply_filters( 'wpbdp_search_query ', $query, $args );
     }
 
-    public function search_2( $args ) {
-        global $wpdb;
 
-        $args = stripslashes_deep( $args );
-        $search_args = array( 'mode' => 'advanced',
-                              'query' => array() );
-        $results = array();
-
-        if ( empty( $args ) )
-            return $results;
-
-        foreach ( $args as $field_id => $field_query )
-            $search_args['query'][ $field_id ] = $field_query;
-
-        if ( ! class_exists( 'WPBDP__Search_Helper' ) )
-            require_once( WPBDP_PATH . 'core/helpers/class-search-helper.php' );
-
-        $helper = new WPBDP__Search_Helper( $search_args );
-        return $helper->get_posts();
-    }
 
     public function send_renewal_email( $renewal_id, $email_message_type = 'auto' ) {
         global $wpdb;

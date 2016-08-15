@@ -202,6 +202,7 @@ class WPBDP_FormFields {
             'field_type' => null,
             'validators' => null,
             'display_flags' => null,
+            'output' => 'object',
             'unique' => false
         ) );
 
@@ -218,7 +219,7 @@ class WPBDP_FormFields {
             $associations_in = array();
             $associations_not_in = array();
 
-            $association = !is_array( $association) ? array( $association ) : $association;
+            $association = !is_array( $association) ? explode( ',', $association ) : $association;
 
             foreach ( $association as &$assoc ) {
                 if ( wpbdp_starts_with( $assoc, '-' ) ) {
@@ -280,6 +281,9 @@ class WPBDP_FormFields {
             $sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC";
 
         $ids = $wpdb->get_col( $sql );
+
+        if ( 'ids' == $output )
+            return $ids;
 
         foreach ( $ids as $id ) {
             if ( $field = WPBDP_FormField::get( $id ) ) {
