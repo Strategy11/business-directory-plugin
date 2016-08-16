@@ -9,14 +9,13 @@ class WPBDP__Views__Search extends WPBDP_NView {
     }
 
     public function dispatch() {
-        $searching = ! empty( $_POST );
+        $searching = ( ! empty( $_GET ) && ( isset( $_GET['q'] ) || ! empty( $_GET['dosrch'] ) ) );
         $search = null;
 
         if ( $searching ) {
-            $_POST = stripslashes_deep( $_POST );
-            $_POST['q'] = isset( $_POST['q'] ) ? trim( $_POST['q'] ) : '';
+            $_GET = stripslashes_deep( $_GET );
 
-            $search = WPBDP__Listing_Search::from_request( $_POST );
+            $search = WPBDP__Listing_Search::from_request( $_GET );
             $search->execute();
         }
 

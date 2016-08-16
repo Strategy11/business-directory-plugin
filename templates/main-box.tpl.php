@@ -1,7 +1,8 @@
 <div id="wpbdp-main-box">
 
 <div class="main-fields box-row cols-2">
-    <form action="<?php echo $search_url; ?>" method="post">
+    <form action="<?php echo $search_url; ?>" method="get">
+        <input type="hidden" name="wpbdp_view" value="search" />
         <div class="box-col search-fields">
             <div class="box-row cols-<?php echo $no_cols; ?>">
                 <div class="box-col main-input">

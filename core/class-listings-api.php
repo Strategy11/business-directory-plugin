@@ -554,15 +554,6 @@ class WPBDP_Listings_API {
 
     // }}}
 
-    /* listings search */
-    public function search($args) {
-        // TODO: what to do with this?
-        // $query .= ' WHERE ' . apply_filters('wpbdp_search_where', $where, $args);
-        // $query = apply_filters( 'wpbdp_search_query ', $query, $args );
-    }
-
-
-
     public function send_renewal_email( $renewal_id, $email_message_type = 'auto' ) {
         global $wpdb;
 

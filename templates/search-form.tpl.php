@@ -1,7 +1,7 @@
 <div id="wpbdp-search-form-wrapper">
 
 <h3><?php _ex('Find a listing', 'templates', 'WPBDM'); ?></h3>
-<form action="<?php echo esc_url( wpbdp_url( 'search' ) ); ?>" id="wpbdp-search-form" method="post">
+<form action="<?php echo esc_url( wpbdp_url( 'search' ) ); ?>" id="wpbdp-search-form" method="get">
     <input type="hidden" name="dosrch" value="1" />
     <input type="hidden" name="q" value="" />
 
