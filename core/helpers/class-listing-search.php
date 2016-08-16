@@ -20,6 +20,18 @@ class WPBDP__Listing_Search {
             array_unshift( $this->tree, 'and' );
     }
 
+    public function terms_for_field( $field ) {
+        $field = is_object( $field ) ? $field->get_id() : absint( $field );
+        $result = array();
+
+        foreach ( $this->parts as $p ) {
+            if ( $field == $p[0] )
+                $result[] = $p[1];
+        }
+
+        return $result;
+    }
+
     public function get_tree() {
         return $this->tree;
     }

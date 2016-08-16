@@ -37,6 +37,8 @@ class WPBDP__Views__Search extends WPBDP_NView {
                 'order' => wpbdp_get_option( 'listings-sort', 'ASC' ),
                 'wpbdp_main_query' => true
             );
+            $args = apply_filters( 'wpbdp_search_query_posts_args', $args, $search );
+
             query_posts( $args );
             wpbdp_push_query( $GLOBALS['wp_query'] );
         }
