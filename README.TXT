@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.5
-Last Updated: 2016-June-21
-Stable tag: tags/4.0.7
+Last Updated: 2016-Aug-16
+Stable tag: tags/4.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -92,6 +92,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 * German
 * Russian
 * Polish
+* Arabic
 
 And you can easily [translate it yourself](http://businessdirectoryplugin.com/quick-start-guide/#translate) if you need to.
 
@@ -130,6 +131,29 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
+= Version 4.1 =
+* Show width/height/size constraints for images in the image upload form.
+* Allow disabling of frontend listing submission.
+* Improve handling of paths on Windows systems.
+* Allow fee plans to have a description that is shown during fee selection
+* Add option to enable auto-generation of excerpt from listing content.
+* Add backend listing URL to e-mail notifications sent to admins.
+* Fix contact form toggle not working on mobile devices.
+* Various improvements to search.
+* New design for the quick search bar that integrates with Regions and ZIP Code Search.
+	
+= Version 4.0.8 =
+* Added Arabic translation to core
+* Some query improvements when in CPT compatibility mode.
+* Work around a bug in U-Design theme.
+* Improve compatibility with fullwidth template in takeawaywp theme.
+* Translate some settings that were missing a translation.
+* Fix comments and comment form not appearing eve when enabled.
+* Fixes for mobile devices.
+* Add filtering to allow overriding security policy in `wpbdp_user_can()`.
+* Fallback implementation for `wpbdp_detect_encoding()` when `iconv` is not available.
+* Improve security inside dispatching subsystem.
+	
 = Version 4.0.7 =
 * Improve excerpt display on mobile devices. 
 * Show themes update badge inside main menu item too.
