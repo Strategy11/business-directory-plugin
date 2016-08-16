@@ -149,8 +149,8 @@ class WPBDP__Listing_Search {
         $res = array();
 
         // Quick search.
-        if ( ! empty( $request['q'] ) ) {
-            $keywords = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( $request['q'] ) : explode( ' ', $request['q'] );
+        if ( ! empty( $request['kw'] ) ) {
+            $keywords = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( $request['kw'] ) : explode( ' ', $request['kw'] );
             $fields = wpbdp_get_option( 'quick-search-fields' );
             $fields = $fields ? $fields : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
 
