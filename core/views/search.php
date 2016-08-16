@@ -10,21 +10,30 @@ class WPBDP__Views__Search extends WPBDP_NView {
 
     public function dispatch() {
         $searching = ! empty( $_POST );
+        $search = null;
 
         if ( $searching ) {
             $_POST = stripslashes_deep( $_POST );
             $_POST['q'] = isset( $_POST['q'] ) ? trim( $_POST['q'] ) : '';
 
             $search = WPBDP__Listing_Search::from_request( $_POST );
+            $search->execute();
         }
 
         $search_form = '';
         $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );
         $fields = '';
         foreach ( $form_fields as &$field ) {
-            // $field_value = isset( $_REQUEST['listingfields'] ) && isset( $_REQUEST['listingfields'][ $field->get_id() ] ) ? $field->convert_input( $_REQUEST['listingfields'][ $field->get_id() ] ) : $field->convert_input( null );
-            $field_value = $field->convert_input(null);
-            $fields .= $field->render( $field_value, 'search' );
+            $field_value = null;
+
+            if ( $search ) {
+                $terms = $search->terms_for_field( $field );
+
+                if ( $terms )
+                    $field_value = array_pop( $terms );
+            }
+
+            $fields .= $field->render( $field->convert_input( $field_value ), 'search' );
         }
 
         if ( $searching ) {

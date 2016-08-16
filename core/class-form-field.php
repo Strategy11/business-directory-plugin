@@ -398,6 +398,11 @@ class WPBDP_Form_Field {
      * @return mixed
      */
     public function convert_input( $input=null ) {
+        $val = apply_filters( 'wpbdp_form_field_pre_convert_input', null, $this );
+
+        if ( ! is_null( $val ) )
+            return $val;
+
         return $this->type->convert_input( $this, $input );
     }
 
@@ -648,18 +653,20 @@ class WPBDP_Form_Field {
     public function configure_search( $query, &$search ) {
         global $wpdb;
 
+        // Check if the search has been short-circuited.
+        $res = apply_filters_ref_array( 'wpbdp_pre_configure_search', array( false, $this, $query, $search ) );
+        if ( is_array( $res ) )
+            return apply_filters_ref_array( 'wpbdp_configure_search', array( $res, $this, $query, $search ) );
+
         // If there's a field type specific handling, use it.
         $search_res = $this->type->configure_search( $this, $query, $search );
 
-        if ( ! $search_res && ! is_array( $search_res ) ) {
-            $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( array(), $this, $query, $search ) );
-
-            if ( $search_res )
-                return $search_res;
+        if ( $search_res ) {
+            $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( $search_res, $this, $query, $search ) );
+            return $search_res;
         }
 
-        if ( ! is_array( $search_res ) )
-            $search_res = array();
+        $search_res = array();
 
         // Otherwise, fall back to the default handling.
         switch ( $this->get_association() ) {

@@ -272,7 +272,7 @@ class WPBDP_Form_Field_Type {
      * @since next-release
      */
     public function configure_search( &$field, $query, &$search ) {
-        return false;
+        return array();
     }
 
 
