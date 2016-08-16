@@ -3,7 +3,7 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
-Tested up to: 4.5
+Tested up to: 4.6
 Last Updated: 2016-Aug-16
 Stable tag: tags/4.1
 License: GPLv2 or later
