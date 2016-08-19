@@ -1,5 +1,6 @@
 <div id="wpbdp-main-box">
 
+<?php if ( wpbdp_get_option( 'show-search-listings' ) ): ?>
 <div class="main-fields box-row cols-2">
     <form action="<?php echo $search_url; ?>" method="get">
         <input type="hidden" name="wpbdp_view" value="search" />
@@ -19,6 +20,7 @@
 </div>
 
 <div class="box-row separator"></div>
+<?php endif; ?>
 
 <div class="box-row">
     <?php wpbdp_the_main_links(); ?>
