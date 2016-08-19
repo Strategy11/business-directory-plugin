@@ -14,6 +14,12 @@ class WPBDP_Themes {
     function __construct() {
         $this->find_themes();
 
+        // Overrides dir is priority 0.
+        $this->template_dirs[] = trailingslashit( get_stylesheet_directory() ) . 'business-directory/';
+
+        if ( get_stylesheet_directory() != get_template_directory() )
+            $this->template_dirs[] = trailingslashit( get_template_directory() ) . 'business-directory/';
+
         // Theme template dir is priority 1.
         $theme = $this->get_active_theme_data();
         $this->template_dirs[] = $theme->path . 'templates/';
