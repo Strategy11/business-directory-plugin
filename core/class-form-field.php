@@ -691,14 +691,7 @@ class WPBDP_Form_Field {
                     break;
 
                 foreach ( $query as $term_ ) {
-                    if ( is_string( $term_ ) && WPBDP_TAGS_TAX == $tax ) {
-                        $term = get_term_by( 'name', $term_, $tax );
-
-                        if ( ! $term )
-                            continue;
-
-                        $tt_ids[] = $term->term_taxonomy_id;
-                    } elseif ( is_numeric( $term_ ) ) {
+                    if ( is_numeric( $term_ ) ) {
                         $term = get_term( intval( $term_ ), $tax );
 
                         if ( ! $term )
@@ -707,14 +700,11 @@ class WPBDP_Form_Field {
                         $t_ids = array_merge( array( $term->term_id ), get_term_children( $term->term_id, $tax ) );
                         $tt_ids = array_merge( $tt_ids,
                                                $wpdb->get_col( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = '{$tax}' AND tt.term_id IN (" . implode( ',', $t_ids ) . ")" ) );
+                    } elseif ( is_string( $term_ ) ) {
+                        $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
+                                                                  $tax,
+                                                                  $term_ ) );
                     }
-
-                //     if ( is_string( $term_ ) && 'quick-search' == $search->mode ) {
-                //         $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
-                //                                                   $tax,
-                //                                                   $query ) );
-                // }
-                //
                 }
 
                 if ( $tt_ids ) {
