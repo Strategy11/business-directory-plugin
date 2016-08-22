@@ -280,7 +280,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     if ($post->post_type != WPBDP_POST_TYPE)
         return false;
 
-    if ( isset($_GET['preview']) )
+    if ( isset( $_GET['preview'] ) && ( $action != 'view' ) )
         return false;
 
     $res = false;
@@ -619,4 +619,19 @@ function wpbdp_current_view() {
 function wpbdp_load_view( $view, $arg0 = null ) {
     global $wpbdp;
     return $wpbdp->dispatcher->load_view( $view, $arg0 );
+}
+
+function wpbdp_field_preview_listing_id( $listing_id, $field ) {
+    $list = array( 'title', 'category', 'excerpt', 'content' );
+    return $listing_id;
+
+    if ( is_preview() && in_array( $field->get_association(), $list ) ) {
+        $preview = wp_get_post_revisions( $listing_id );print_r($preview);
+//        $preview = get_children( array( "post_parent" => $listing_id, "post_status" => 'inherit', "post_type" => "revision", "posts_per_page" => -1, ) );
+        if ( $preview ){
+            echo "preview";
+            $listing_id = end( $preview )->ID;
+        }
+    }
+    return $listing_id;
 }

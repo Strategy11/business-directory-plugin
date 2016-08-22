@@ -49,7 +49,10 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         //     $this->displayed_fields[] = $field_id;
 
         $this->displayed_fields[] = $field_id;
-        $this->items[ $field_id ] = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
+
+        $listing_id = wpbdp_field_preview_listing_id( $this->listing_id, $f );
+
+        $this->items[ $field_id ] = new _WPBDP_Lightweight_Field_Display_Item( $f, $listing_id, $this->display );
         $this->names_to_ids[ $f->get_short_name() ] = $field_id;
         $this->names_to_ids[ 't_' . $f->get_tag() ] = $field_id;
     }
