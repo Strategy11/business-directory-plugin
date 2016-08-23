@@ -99,9 +99,9 @@ class WPBDP_SearchWidget extends WP_Widget {
                 }
             }
 
-            echo '<input type="hidden" name="q" value="" />';
+            echo '<input type="hidden" name="kw" value="" />';
         } else {
-            echo '<input type="text" name="q" value="" />';
+            echo '<input type="text" name="kw" value="" />';
         }
 
         echo sprintf('<p><input type="submit" value="%s" class="submit wpbdp-search-widget-submit" /></p>', _x('Search', 'widgets', 'WPBDM'));
