@@ -60,11 +60,18 @@ class WPBDP__Listing_Search {
                                'distinct' => '',
                                'fields' => "{$wpdb->posts}.ID",
                                'limits' => '' );
+
         foreach ( $this->parts as $key => $data )  {
             $field = wpbdp_get_form_field( $data[0] );
             $res = $field->configure_search( $data[1], $this );
 
-            $query_pieces['where'] = str_replace( '%' . $key . '%', ! empty( $res['where'] ) ? $res['where'] : '', $query_pieces['where'] );
+            if ( ! empty( $res['where'] ) ) {
+                $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
+            } else {
+                // This prevents incorrect queries from being created.
+                $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
+                $query_pieces['where'] = str_replace( 'OR %' . $key . '%', '', $query_pieces['where'] );
+            }
 
             foreach ( $res as $k => $v ) {
                 if ( 'where' == $k )
