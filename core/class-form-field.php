@@ -661,7 +661,7 @@ class WPBDP_Form_Field {
         // If there's a field type specific handling, use it.
         $search_res = $this->type->configure_search( $this, $query, $search );
 
-        if ( $search_res ) {
+        if ( is_array( $search_res ) ) {
             $search_res = apply_filters_ref_array( 'wpbdp_configure_search', array( $search_res, $this, $query, $search ) );
             return $search_res;
         }

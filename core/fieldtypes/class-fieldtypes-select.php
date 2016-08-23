@@ -252,7 +252,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $query = array_map( 'preg_quote', array_diff( is_array( $query ) ? $query : array( $query ), array( -1, '' ) ) );
 
         if ( ! $query )
-            return false;
+            return array();
 
         $search_res = array();
         list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );

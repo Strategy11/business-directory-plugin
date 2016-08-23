@@ -183,7 +183,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         $query = $this->date_to_storage_format( $field, $query );
 
         if ( ! $query )
-            return false;
+            return array();
 
         $search_res = array();
         list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
