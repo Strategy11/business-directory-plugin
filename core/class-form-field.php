@@ -708,7 +708,7 @@ class WPBDP_Form_Field {
                 }
 
                 if ( $tt_ids ) {
-                    list( $alias, $reused ) = $search->join_alias( $wpdb->term_relationships, false );
+                    list( $alias, $reused ) = $search->join_alias( $wpdb->term_relationships );
 
                     if ( ! $reused )
                         $search_res['join'] = " LEFT JOIN {$wpdb->term_relationships} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.object_id";
@@ -723,7 +723,7 @@ class WPBDP_Form_Field {
                 if ( ! $query )
                     break;
 
-                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, 'advanced' == $search->mode ? false : true );
+                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta );
 
                 if ( ! $reused )
                     $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
