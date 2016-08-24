@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-08-16 14:58:52+00:00\n"
+"POT-Creation-Date: 2016-08-24 22:42:45+00:00\n"
 "PO-Revision-Date: 2016-01-21 08:45-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -2231,7 +2231,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -5870,25 +5870,25 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "Zurücksetzen"
 
-#: core/themes.php:629
+#: core/themes.php:635
 #, fuzzy
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: core/themes.php:635
+#: core/themes.php:641
 #, fuzzy
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: core/themes.php:643
+#: core/themes.php:649
 #, fuzzy
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: core/themes.php:649
+#: core/themes.php:655
 #, fuzzy
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
@@ -6778,13 +6778,13 @@ msgctxt "templates"
 msgid "Upgrade listing to %s for %s."
 msgstr "Eintrag aktualisieren zu %s für %s."
 
-#: templates/main-box.tpl.php:15
+#: templates/main-box.tpl.php:16
 #, fuzzy
 msgctxt "main box"
 msgid "Find Listings"
 msgstr "Eintrag finden"
 
-#: templates/main-box.tpl.php:16
+#: templates/main-box.tpl.php:17
 #, fuzzy
 msgctxt "main box"
 msgid "Advanced Search"

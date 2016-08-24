@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-08-16 14:58:52+00:00\n"
+"POT-Creation-Date: 2016-08-24 22:42:45+00:00\n"
 "PO-Revision-Date: 2016-02-24 15:34-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -2223,7 +2223,7 @@ msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -5891,22 +5891,22 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Réinitialiser)"
 
-#: core/themes.php:629
+#: core/themes.php:635
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Le fichier ZIP n'est pas un fichier de thème valide"
 
-#: core/themes.php:635
+#: core/themes.php:641
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossible de créer le répertoire de thèmes"
 
-#: core/themes.php:643
+#: core/themes.php:649
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossible de supprimer le dossier de thème précédent \"%s\"."
 
-#: core/themes.php:649
+#: core/themes.php:655
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Impossible de déplacer le nouveau thème dans le dossier à thèmes"
@@ -6800,13 +6800,13 @@ msgctxt "templates"
 msgid "Upgrade listing to %s for %s."
 msgstr "Mettre à jour l'annonce de %s vers %s."
 
-#: templates/main-box.tpl.php:15
+#: templates/main-box.tpl.php:16
 #, fuzzy
 msgctxt "main box"
 msgid "Find Listings"
 msgstr "Trouver une annonce"
 
-#: templates/main-box.tpl.php:16
+#: templates/main-box.tpl.php:17
 #, fuzzy
 msgctxt "main box"
 msgid "Advanced Search"
