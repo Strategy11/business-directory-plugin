@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.6
-Last Updated: 2016-Aug-16
-Stable tag: tags/4.1
+Last Updated: 2016-Aug-25
+Stable tag: tags/4.1.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -130,6 +130,13 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.1 =
+* Fix searching involving multivalued fields.
+* Re-enable user template overrides for core and theme templates
+* Fix: "Show search listings" setting wasn't being honored.
+* Fix searches involving category fields.
+* Fix searches involving meta fields.
 
 = Version 4.1 =
 * Show width/height/size constraints for images in the image upload form.
