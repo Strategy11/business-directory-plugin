@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
 "POT-Creation-Date: 2016-08-24 22:42:45+00:00\n"
-"PO-Revision-Date: 2016-02-24 15:34-0500\n"
+"PO-Revision-Date: 2016-08-29 18:17-0300\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -2223,7 +2223,6 @@ msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -4909,12 +4908,11 @@ msgstr "Aucunes annonces trouvées dans la corbeille"
 
 #: core/class-wpbdp.php:55
 msgid "Directory Categories"
-msgstr "Catégories de l'aannuaire"
+msgstr "Catégories de l'annuaire"
 
 #: core/class-wpbdp.php:56
-#, fuzzy
 msgid "Directory Category"
-msgstr "Catégories de l'aannuaire"
+msgstr "Catégories de l'annuaire"
 
 #: core/class-wpbdp.php:67
 #, fuzzy
