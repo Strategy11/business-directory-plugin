@@ -62,7 +62,7 @@ class WPBDP_Settings {
                             false );
         $this->add_setting($s, 'recaptcha-public-key', _x('reCAPTCHA Public Key', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'recaptcha-private-key', _x('reCAPTCHA Private Key', 'admin settings', 'WPBDM'));
-        
+
 
        // {{ Registration settings.
 //        $s = $this->add_group( 'registration',
@@ -195,6 +195,11 @@ class WPBDP_Settings {
                             'boolean',
                             true,
                             _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'admin settings', 'WPBDM' ) );
+          $this->add_setting( $s,
+                            'listing-link-in-new-tab',
+                            _x( 'Open detailed view of listing in new tab?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false);
         $this->add_setting( $s,
                             'contact-form-require-login',
                             _x( 'Require login for using the contact form?', 'admin settings', 'WPBDM' ),

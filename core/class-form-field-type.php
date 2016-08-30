@@ -92,7 +92,10 @@ class WPBDP_Form_Field_Type {
 
         switch ( $field->get_association() ) {
             case 'title':
-                $value = sprintf( '<a href="%s">%s</a>', get_permalink( $post_id ), get_the_title( $post_id ) );
+                $value = sprintf( '<a href="%s" target="%s" >%s</a>',
+                                  get_permalink( $post_id ),
+                                  wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self',
+                                  get_the_title( $post_id ) );
                 break;
             case 'excerpt':
                 $value = apply_filters( 'get_the_excerpt', wpautop( $post->post_excerpt, true ) );
@@ -213,7 +216,7 @@ class WPBDP_Form_Field_Type {
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
 
                 $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra, $field_settings );
-                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );                
+                $field_inner = apply_filters_ref_array( 'wpbdp_render_field_inner', array( $field_inner, &$field, $value, $render_context, &$extra ) );
 
                 $html .= $field_inner;
                 $html .= '</div>';

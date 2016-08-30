@@ -352,6 +352,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     $main_image = false;
     $image_img = '';
     $image_link = '';
+    $listing_link_in_new_tab = '';
     $image_classes = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
     if ( $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id( $listing_id ) ) {
@@ -393,15 +394,18 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
 
     }
 
-    if ( !$image_link && $args['link'] == 'listing' )
+    if ( !$image_link && $args['link'] == 'listing' ){
         $image_link = get_permalink( $listing_id );
+        $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self';
+    }
 
     if ( $image_img ) {
         if ( !$image_link ) {
             return $image_img;
         } else {
-            return sprintf( '<div class="listing-thumbnail"><a href="%s" class="%s" %s>%s</a></div>',
+            return sprintf( '<div class="listing-thumbnail"><a href="%s" target="%s" class="%s" %s>%s</a></div>',
                             $image_link,
+                            $listing_link_in_new_tab,
                             $args['link'] == 'picture' ? 'thickbox' : '',
                             $args['link'] == 'picture' ? 'data-lightbox="wpbdpgal" rel="wpbdpgal"' : '',
                             $image_img );
