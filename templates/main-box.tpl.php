@@ -10,7 +10,7 @@
         <div class="box-col search-fields">
             <div class="box-row cols-<?php echo $no_cols; ?>">
                 <div class="box-col main-input">
-                    <input type="text" id="wpbdp-main-box-keyword-field" class="keywords-field" name="kw" placeholder="<?php esc_attr_e( _x( 'Find listings for <keywords>', 'main box', 'WPBDM' ) ); ?>" />
+                    <input type="text" id="wpbdp-main-box-keyword-field" class="keywords-field" name="kw" placeholder="<?php echo esc_attr( _x( 'Find listings for <keywords>', 'main box', 'WPBDM' ) ); ?>" />
                 </div>
                 <?php echo $extra_fields; ?>
             </div>
