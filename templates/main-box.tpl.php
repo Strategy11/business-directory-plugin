@@ -4,6 +4,9 @@
 <div class="main-fields box-row cols-2">
     <form action="<?php echo $search_url; ?>" method="get">
         <input type="hidden" name="wpbdp_view" value="search" />
+        <?php if ( ! wpbdp_rewrite_on() ): ?>
+        <input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id(); ?>" />
+        <?php endif; ?>
         <div class="box-col search-fields">
             <div class="box-row cols-<?php echo $no_cols; ?>">
                 <div class="box-col main-input">
