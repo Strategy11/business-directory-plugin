@@ -847,3 +847,13 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         } );
     });
 })(jQuery);
+
+// {{ Hide Preview Button for published posts.
+(function($) {
+    $(document).ready(function() {
+        var post_status = $( 'body.post-type-wpbdp_listing form#post #original_post_status' );
+            $( 'body.post-type-wpbdp_listing form#post #minor-publishing-actions' ).hide();
+        }
+    });
+})(jQuery);
+// }}
