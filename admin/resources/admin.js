@@ -852,6 +852,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 (function($) {
     $(document).ready(function() {
         var post_status = $( 'body.post-type-wpbdp_listing form#post #original_post_status' );
+        if ( post_status.length && post_status.val() != 'draft' && post_status.val() != 'pending' ) {
             $( 'body.post-type-wpbdp_listing form#post #minor-publishing-actions' ).hide();
         }
     });
