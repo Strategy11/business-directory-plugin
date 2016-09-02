@@ -158,10 +158,11 @@ class WPBDP_Admin_Listings {
 
     public function _metabox_fee_plan( $post ) {
         $listing = WPBDP_Listing::get( $post->ID );
+        $current_plan = $listing->get_fee_plan();
         $plans = WPBDP_Fee_Plan::find( 'all' );
 
         foreach ( $plans as $p ) {
-            echo '<label><input type="radio" name="listing_plan" value="' . $p->id . '">' . $p->label . ' (' . $p->amount . ')</label><br />';
+            echo '<label><input type="radio" name="listing_plan" value="' . $p->id . '" ' . checked( $p->id, $current_plan->fee_id, false ) . '>' . $p->label . ' (' . $p->amount . ')</label><br />';
         }
 
     }
@@ -246,7 +247,7 @@ class WPBDP_Admin_Listings {
         if ( $plan->is_sticky )
             echo '<span class="tag sticky">' . _x( 'Sticky', 'admin listings', 'WPBDM' ) . '</span>';
 
-        if ( $plan->is_sticky )
+        if ( $plan->is_recurring )
             echo '<span class="tag recurring">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
     }
 
@@ -319,7 +320,7 @@ class WPBDP_Admin_Listings {
                                                            WPBDP_POST_TYPE,
                                                            '_wpbdp[sticky]',
                                                            'pending') );
-        $expired = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listing_fees lf ON lf.listing_id = p.ID WHERE lf.expires_on < %s",
+        $expired = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings_plans WHERE expiration_date IS NOT NULL AND expiration_date < %s",
                                                    current_time( 'mysql' ) ) );
 
         $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
@@ -357,8 +358,8 @@ class WPBDP_Admin_Listings {
 
         switch ( $_REQUEST['wpbdmfilter'] ) {
             case 'expired':
-                $pieces['join'] = " LEFT JOIN {$wpdb->prefix}wpbdp_listing_fees ON {$wpdb->prefix}wpbdp_listing_fees.listing_id = {$wpdb->posts}.ID ";
-                $pieces['where'] = $wpdb->prepare( " AND {$wpdb->prefix}wpbdp_listing_fees.expires_on IS NOT NULL AND {$wpdb->prefix}wpbdp_listing_fees.expires_on < %s ", current_time( 'mysql' ) );
+                $pieces['join'] = " LEFT JOIN {$wpdb->prefix}wpbdp_listings_plans lp ON lp.listing_id = {$wpdb->posts}.ID ";
+                $pieces['where'] = $wpdb->prepare( " AND lp.expiration_date IS NOT NULL AND lp.expiration_date < %s ", current_time( 'mysql' ) );
                 $pieces['groupby'] = " {$wpdb->posts}.ID ";
                 break;
             case 'pendingupgrade':
@@ -413,38 +414,34 @@ class WPBDP_Admin_Listings {
         if ( ! $listing->has_fee_plan() && ! empty( $_POST['listing_plan'] ) )
             $listing->set_fee_plan( $_POST['listing_plan'] );
 
-        //     $listing->fix_categories( true  );
-        //
-        //     // Save custom fields.
-        //     //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
-        //     if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) ) {
-        //         $formfields_api = wpbdp_formfields_api();
-        //         $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
-        //
-        //         foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-        //             if ( isset( $listingfields[ $field->get_id() ] ) ) {
-        //                 $value = $field->convert_input( $listingfields[ $field->get_id() ] );
-        //                 $field->store_value( $listing->get_id(), $value );
-        //             } else {
-        //                 $field->store_value( $listing->get_id(), $field->convert_input( null ) );
-        //             }
-        //         }
-        //
-        //         if ( isset( $_POST['thumbnail_id'] ) )
-        //             $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
-        //
-        //         // Images info.
-        //         if ( isset( $_POST['images_meta'] ) ) {
-        //             $meta = $_POST['images_meta'];
-        //
-        //             foreach ( $meta as $img_id => $img_meta ) {
-        //                 update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
-        //                 update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
-        //             }
-        //         }
-        //     }
-        //
-        // }
+        // Save custom fields.
+        if ( ! isset( $_POST['wpbdp-listing-fields-nonce'] ) )
+            return;
+
+        $formfields_api = wpbdp_formfields_api();
+        $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
+
+        foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
+            if ( isset( $listingfields[ $field->get_id() ] ) ) {
+                $value = $field->convert_input( $listingfields[ $field->get_id() ] );
+                $field->store_value( $listing->get_id(), $value );
+            } else {
+                $field->store_value( $listing->get_id(), $field->convert_input( null ) );
+            }
+        }
+
+        if ( isset( $_POST['thumbnail_id'] ) )
+            $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+
+        // Images info.
+        if ( isset( $_POST['images_meta'] ) ) {
+            $meta = $_POST['images_meta'];
+
+            foreach ( $meta as $img_id => $img_meta ) {
+                update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
+                update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
+            }
+        }
     }
 
     public function _add_bulk_actions() {
