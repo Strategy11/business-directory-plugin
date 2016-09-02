@@ -639,6 +639,8 @@ class WPBDP_Listing {
 
         // TODO: use a proper DB_Entity for this relation.
         $res = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d LIMIT 1", $this->id ) );
+        if ( ! $res )
+            return false;
 
         if ( $res->fee_id )
             $fee = WPBDP_Fee_Plan::find( $res->fee_id );
