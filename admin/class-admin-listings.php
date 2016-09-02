@@ -134,6 +134,13 @@ class WPBDP_Admin_Listings {
     }
 
     function add_metaboxes() {
+        add_meta_box( 'wpbdp-listing-plan',
+                      __( 'Fee Plan', 'WPBDM' ),
+                      array( $this, '_metabox_fee_plan' ),
+                      WPBDP_POST_TYPE,
+                      'side',
+                      'core' );
+
         add_meta_box( 'BusinessDirectory_listinginfo',
                       __( 'Listing Information', 'WPBDM' ),
                       array( 'WPBDP_Admin_Listing_Metabox', 'metabox_callback' ),
@@ -149,13 +156,25 @@ class WPBDP_Admin_Listings {
                       'core' );
     }
 
+    public function _metabox_fee_plan( $post ) {
+        $listing = WPBDP_Listing::get( $post->ID );
+        $plans = WPBDP_Fee_Plan::find( 'all' );
+
+        foreach ( $plans as $p ) {
+            echo '<label><input type="radio" name="listing_plan" value="' . $p->id . '">' . $p->label . ' (' . $p->amount . ')</label><br />';
+        }
+
+    }
+
     // {{{ Custom columns.
 
     function add_columns( $columns_ ) {
         $custom_columns = array();
         $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
-        $custom_columns['payment_status'] = __( 'Payment Status', 'WPBDM' );
-        $custom_columns['sticky_status'] = __( 'Featured (Sticky) Status', 'WPBDM' );
+        $custom_columns['status'] = __( 'Status', 'WPBDM' );
+        $custom_columns['fee_plan'] = __( 'Fee Plan', 'WPBDM' );
+        $custom_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
+        // $custom_columns['sticky_status'] = __( 'Featured (Sticky) Status', 'WPBDM' );
 
         $columns = array();
 
@@ -178,24 +197,16 @@ class WPBDP_Admin_Listings {
     }
 
     function listing_column_category( $post_id ) {
-        $listing = WPBDP_Listing::get( $post_id );
-        $categories = $listing->get_categories( 'all' );
+        $terms = wp_get_post_terms( $post_id, WPBDP_CATEGORY_TAX );
+        foreach ( $terms as $i => $term ) {
+            printf( '<a href="%s">%s</a>', get_term_link( $term->term_id, WPBDP_CATEGORY_TAX ), $term->name );
 
-        $i = 0;
-        foreach ( $categories as &$category ) {
-            print $category->expired ? '<s>' : '';
-            printf( '<a href="%s" title="%s">%s</a>',
-                    get_term_link( $category->id, WPBDP_CATEGORY_TAX ),
-                    $category->expired ? _x( '(Listing expired in this category)', 'admin', 'WPBDM' ) : '',
-                    $category->name );
-            print $category->expired ? '</s>' : '';
-            print ( ( $i + 1 ) != count( $categories ) ? ', ' : '' );
-
-            $i++;
+            if ( ( $i + 1 ) != count( $terms ) )
+                echo ', ';
         }
     }
 
-    function listing_column_payment_status( $post_id ) {
+    function listing_column_status( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
         $paid_status = $listing->get_payment_status();
 
@@ -210,6 +221,33 @@ class WPBDP_Admin_Listings {
 
         if ( $status_links && current_user_can( 'administrator' ) )
             printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Mark as', 'WPBDM' ), $status_links );
+    }
+
+    public function listing_column_expiration_date( $post_id ) {
+        $listing = WPBDP_Listing::get( $post_id );
+        $exp_date = $listing->get_expiration_date();
+
+        if ( $exp_date )
+            echo date_i18n( get_option( 'date_format' ), strtotime( $exp_date ) );
+        else
+            echo _x( 'Never', 'admin listings', 'WPBDM' );
+    }
+
+
+    /**
+     * @since next-release
+     */
+    public function listing_column_fee_plan( $post_id ) {
+        $listing = WPBDP_Listing::get( $post_id );
+        $plan = $listing->get_fee_plan();
+
+        echo $plan->fee_label;
+
+        if ( $plan->is_sticky )
+            echo '<span class="tag sticky">' . _x( 'Sticky', 'admin listings', 'WPBDM' ) . '</span>';
+
+        if ( $plan->is_sticky )
+            echo '<span class="tag recurring">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
     }
 
     function listing_column_sticky_status( $post_id ) {
@@ -364,45 +402,49 @@ class WPBDP_Admin_Listings {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
             return;
 
-        // Handle listings saved admin-side.
-        if ( is_admin() && isset( $_POST['post_type'] ) && $_POST['post_type'] == WPBDP_POST_TYPE ) {
-            $listing = WPBDP_Listing::get( $post_id );
+        if ( ! is_admin() || ! isset( $_POST['post_type'] ) || WPBDP_POST_TYPE != $_POST['post_type'] )
+            return;
 
-            if ( ! $listing )
-                return;
+        $listing = WPBDP_Listing::get( $post_id );
 
-            $listing->fix_categories( true  );
+        if ( ! $listing )
+            return;
 
-            // Save custom fields.
-            //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
-            if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) ) {
-                $formfields_api = wpbdp_formfields_api();
-                $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
+        if ( ! $listing->has_fee_plan() && ! empty( $_POST['listing_plan'] ) )
+            $listing->set_fee_plan( $_POST['listing_plan'] );
 
-                foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-                    if ( isset( $listingfields[ $field->get_id() ] ) ) {
-                        $value = $field->convert_input( $listingfields[ $field->get_id() ] );
-                        $field->store_value( $listing->get_id(), $value );
-                    } else {
-                        $field->store_value( $listing->get_id(), $field->convert_input( null ) );
-                    }
-                }
-
-                if ( isset( $_POST['thumbnail_id'] ) )
-                    $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
-
-                // Images info.
-                if ( isset( $_POST['images_meta'] ) ) {
-                    $meta = $_POST['images_meta'];
-
-                    foreach ( $meta as $img_id => $img_meta ) {
-                        update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
-                        update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
-                    }
-                }
-            }
-
-        }
+        //     $listing->fix_categories( true  );
+        //
+        //     // Save custom fields.
+        //     //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
+        //     if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) ) {
+        //         $formfields_api = wpbdp_formfields_api();
+        //         $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
+        //
+        //         foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
+        //             if ( isset( $listingfields[ $field->get_id() ] ) ) {
+        //                 $value = $field->convert_input( $listingfields[ $field->get_id() ] );
+        //                 $field->store_value( $listing->get_id(), $value );
+        //             } else {
+        //                 $field->store_value( $listing->get_id(), $field->convert_input( null ) );
+        //             }
+        //         }
+        //
+        //         if ( isset( $_POST['thumbnail_id'] ) )
+        //             $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+        //
+        //         // Images info.
+        //         if ( isset( $_POST['images_meta'] ) ) {
+        //             $meta = $_POST['images_meta'];
+        //
+        //             foreach ( $meta as $img_id => $img_meta ) {
+        //                 update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
+        //                 update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
+        //             }
+        //         }
+        //     }
+        //
+        // }
     }
 
     public function _add_bulk_actions() {

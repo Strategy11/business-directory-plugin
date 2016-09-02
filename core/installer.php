@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '14';
+    const DB_VERSION = '15.2';
 
     private $installed_version = null;
 
@@ -144,6 +144,18 @@ class WPBDP_Installer {
             sticky tinyint(1) NOT NULL DEFAULT 0,
             KEY listing_cat (listing_id,category_id),
             KEY expires_and_email (expires_on,email_sent)
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+        $schema['listings_plans'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listings_plans (
+            listing_id bigint(20) PRIMARY KEY,
+            fee_id bigint(20) NOT NULL,
+            fee_price decimal(10,2) NOT NULL DEFAULT 0.00,
+            fee_days smallint unsigned NOT NULL,
+            fee_images smallint unsigned NOT NULL DEFAULT 0,
+            expiration_date timestamp NULL DEFAULT NULL,
+            is_recurring tinyint(1) NOT NULL DEFAULT 0,
+            is_sticky tinyint(1) NOT NULL DEFAULT 0,
+            subscription_id bigint(20) NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (

@@ -225,6 +225,7 @@ class WPBDP_Listing {
 
 
     private function calculate_expiration_date( $time, &$fee ) {
+        $fee = (array) $fee;
         $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
 
         if ( 0 == $days )
@@ -621,6 +622,68 @@ class WPBDP_Listing {
 
         $this->save();
     }
+
+    /**
+     * @since next-release
+     */
+    public function has_fee_plan( $fee = false ) {
+        $current = $this->get_fee_plan();
+        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->id == $fee );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function get_fee_plan() {
+        global $wpdb;
+
+        // TODO: use a proper DB_Entity for this relation.
+        $res = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d LIMIT 1", $this->id ) );
+
+        if ( $res->fee_id )
+            $fee = WPBDP_Fee_Plan::find( $res->fee_id );
+        else
+            $fee = null;
+
+        $res->fee = $fee;
+        $res->fee_label = $fee ? $fee->label : _x( '(Unavailable Plan)', 'listing', 'WPBDM' );
+
+        return $res;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function set_fee_plan( $fee ) {
+        global $wpdb;
+
+        $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
+
+        if ( ! $fee )
+            return false;
+
+        $row =  array( 'listing_id' => $this->id,
+                       'fee_id' => $fee->id,
+                       'fee_days' => $fee->days,
+                       'fee_images' => $fee->images,
+                       'fee_price' => $fee->amount,
+                       'is_recurring' => 0,
+                       'is_sticky' => (int) $fee->sticky );
+
+        if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
+            $row['expiration_date'] = $expiration;
+
+        return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings_plans', $row );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function get_expiration_date() {
+        $plan = $this->get_fee_plan();
+        return $plan->expiration_date;
+    }
+
 
     public static function create( &$state ) {
         $title = 'Untitled Listing';
