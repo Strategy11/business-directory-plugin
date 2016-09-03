@@ -58,6 +58,7 @@ require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
 require_once( WPBDP_PATH . 'core/class-shortcodes.php' );
+require_once( WPBDP_PATH . 'core/class-cron.php' );
 require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
 require_once( WPBDP_PATH . 'core/themes.php' );
 require_once( WPBDP_PATH . 'core/template-sections.php' );
@@ -154,6 +155,7 @@ class WPBDP_Plugin {
         $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
         $this->listings = new WPBDP_Listings_API();
+        $this->cron = new WPBDP__Cron();
         $this->shortcodes = new WPBDP__Shortcodes();
         $this->compat = new WPBDP_Compat();
 
