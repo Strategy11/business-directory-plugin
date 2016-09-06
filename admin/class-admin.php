@@ -636,6 +636,7 @@ class WPBDP_Admin {
 
                 break;
 
+            // FIXME: before next-release
             case 'renewlisting':
                 foreach ( $posts as $post_id ):
                     $listings_api->auto_renew( $post_id );
@@ -644,6 +645,7 @@ class WPBDP_Admin {
                 $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'WPBDM' );
                 break;
 
+            // FIXME: before next-release
             case 'send-renewal-email':
                 $renewal_id = intval( $_GET['renewal_id'] );
 
@@ -767,7 +769,8 @@ class WPBDP_Admin {
             $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'wpbdp%' ) );
 
             // Clear scheduled hooks.
-            wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
+            wp_clear_scheduled_hook('wpbdp_hourly_events');
+            wp_clear_scheduled_hook('wpbdp_daily_events');
 
             $tracking = new WPBDP_SiteTracking();
             $tracking->track_uninstall( isset( $_POST['uninstall'] ) ? $_POST['uninstall'] : null );

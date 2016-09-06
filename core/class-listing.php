@@ -491,6 +491,66 @@ class WPBDP_Listing {
         wp_update_post( array( 'post_status' => 'publish', 'ID' => $this->id ) );
     }
 
+    /**
+     * @since next-release
+     */
+    public function send_renewal_notice( $notice = 'expired', $force_resend = false ) {
+        static $templates = array(
+            'expired' => 'listing-renewal-message',
+            'future' => 'renewal-pending-message',
+            'reminder' => 'renewal-reminder-message'
+        );
+
+        $already_sent = (int) get_post_meta( $this->id, '_wpbdp_renewal_notice_sent_' . $notice, true );
+
+        if ( $already_sent && ! $force_resend )
+            return false;
+
+        $replacements = array(
+            'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+            'author' => $this->get_author_meta( 'display_name' ),
+            'listing' => sprintf( '<a href="%s">%s</a>', $this->get_permalink(), esc_attr( $this->get_title() ) ),
+            'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $this->get_expiration_date() ) ),
+            'link' => sprintf( '<a href="%1$s">%1$s</a>', $this->get_renewal_url() )
+        );
+
+        $email = wpbdp_email_from_template( $templates[ $notice ], $replacements );
+        $email->template = 'businessdirectory-email';
+        $email->to[] = wpbusdirman_get_the_business_email( $this->id );
+
+        if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+            $email->cc[] = get_option( 'admin_email' );
+
+            if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+                $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+        }
+
+        $res = $email->send();
+
+        if ( $res )
+            update_post_meta( $this->id, '_wpbdp_renewal_notice_sent_' . $notice, current_time( 'timestamp' ) );
+
+        return $res;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function set_status( $status ) {
+        // XXX: we don't really do much here, for now...
+
+        switch ( $status ) {
+        case 'expired':
+            wp_update_post( array( 'ID' => $this->id, 'post_status' => 'draft' ) ); // Change status to draft.
+
+            if ( ! wpbdp_get_option( 'listing-renewal' ) )
+                break;
+
+            $this->send_renewal_notice( 'expired' );
+            break;
+        }
+    }
+
     public function set_post_status( $status ) {
         if ( ! $this->id )
             return;
@@ -537,14 +597,13 @@ class WPBDP_Listing {
     /**
      * @since 3.5.3
      */
-    public function get_renewal_hash( $category_id ) {
-        $hash = base64_encode( 'listing_id=' . $this->id . '&category_id=' . $category_id );
+    public function get_renewal_hash( $deprecated = 0 ) {
+        $hash = base64_encode( 'listing_id=' . $this->id . '&category_id=' . $deprecated );
         return $hash;
     }
 
-    public function get_renewal_url( $category_id ) {
-        $hash = $this->get_renewal_hash( $category_id );
-        return wpbdp_url( 'renew_listing', urlencode( $hash ) );
+    public function get_renewal_url( $deprecated = 0 ) {
+        return wpbdp_url( 'renew_listing', $this->id );
     }
 
     /**

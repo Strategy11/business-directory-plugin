@@ -2,6 +2,9 @@
 
 if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 
+require_once( WPBDP_PATH . 'core/class-listing-expiration.php' );
+
+
 /**
  * @since 3.5.4
  */
@@ -31,6 +34,7 @@ class WPBDP_Listings_API {
         add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
 
         $this->upgrades = WPBDP_Listing_Upgrade_API::instance();
+        $this->expiration = new WPBDP__Listing_Expiration();
     }
 
     public function _category_link($link, $category, $taxonomy) {
@@ -553,206 +557,6 @@ class WPBDP_Listings_API {
     }
 
     // }}}
-
-    public function send_renewal_email( $renewal_id, $email_message_type = 'auto' ) {
-        global $wpdb;
-
-        $renewal_id = intval( $renewal_id );
-        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $renewal_id ) );
-
-        if ( !$fee_info || !$fee_info->expires_on )
-            return false;
-
-
-        $message_option = '';
-
-        if ( $email_message_type == 'auto' ) {
-            $expiration = strtotime( $fee_info->expires_on );
-            $current_time = time();
-
-            if ( $expiration > $current_time ) {
-                $message_option = 'renewal-pending-message';
-            } else {
-                $message_option = 'listing-renewal-message';
-            }
-        } elseif ( $email_message_type ) {
-            $message_option = $email_message_type;
-        } else {
-            $message_option = 'listing-renewal-message';
-        }
-
-        $listing = WPBDP_Listing::get( $fee_info->listing_id );
-
-        $renewal_url = $listing->get_renewal_url( $fee_info->category_id );
-        $message_replacements = array( 'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-                                       'listing' => esc_attr( get_the_title( $fee_info->listing_id ) ),
-                                       'category' => get_term( $fee_info->category_id, WPBDP_CATEGORY_TAX )->name,
-                                       'expiration' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $fee_info->expires_on ) ),
-                                       'link' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
-                                     );
-
-        $email = wpbdp_email_from_template( $message_option, $message_replacements );
-        $email->to[] = wpbusdirman_get_the_business_email( $fee_info->listing_id );
-        $email->template = 'businessdirectory-email';
-        $email->send();
-
-        return true;
-    }
-
-
-    /**
-     * Notifies listings expiring soon. Despite its name this function also changes listings according to expiration rules (removing categories, unpublishing, etc.).
-     * @param int $threshold A threshold (in days) to use for checking listing expiration times: 0 means already expired listings and a positive
-     *                       value checks listings expiring between now and now + $threshold.
-     * @param int $now Timestamp to use as current time. Defaults to the value of `current_time( 'timestamp' )`.
-     * @since 3.1
-     */
-    public function notify_expiring_listings( $threshold=0, $now=null ) {
-        global $wpdb;
-
-        $threshold = intval( $threshold );
-        $now = $now > 0 ? intval( $now ) : current_time( 'timestamp' );
-
-        $query = '';
-        $now_date = wpbdp_format_time( $now, 'mysql' );
-
-        if ( $threshold == 0 ) {
-            $this->notify_expired_listings_recurring( $now );
-
-            $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on < %s AND email_sent <> %d AND email_sent <> %d ORDER BY expires_on LIMIT 100",
-                                     0,
-                                     $now_date,
-                                     2,
-                                     3 );
-        } else {
-            if ( $threshold > 0 ) {
-                $end_date = wpbdp_format_time( strtotime( sprintf( '+%d days', $threshold ), $now ), 'mysql' );
-
-                if ( wpbdp_get_option( 'send-autorenewal-expiration-notice' ) ) {
-                    $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE expires_on IS NOT NULL AND expires_on >= %s AND expires_on <= %s AND email_sent = %d ORDER BY expires_on LIMIT 100",
-                                             $now_date,
-                                             $end_date,
-                                             0 );
-                } else {
-                    $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on >= %s AND expires_on <= %s AND email_sent = %d ORDER BY expires_on LIMIT 100",
-                                             0,
-                                             $now_date,
-                                             $end_date,
-                                             0 );
-                 }
-            } else {
-                $exp_date = wpbdp_format_time( strtotime( sprintf( '%d days', $threshold ), $now ), 'mysql' );
-
-                $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on < %s AND email_sent = %d",
-                                         0,
-                                         $exp_date,
-                                         2 );
-            }
-        }
-
-        $rs = $wpdb->get_results( $query );
-
-        if ( !$rs )
-            return;
-
-        foreach ( $rs as &$r ) {
-            $listing = WPBDP_Listing::get( $r->listing_id );
-
-            if ( ! $listing || ! term_exists( absint( $r->category_id ), WPBDP_CATEGORY_TAX ) ) {
-                $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d", $r->id ) );
-                continue;
-            }
-
-            $base_replacements = array( 'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-                                        'author' => get_the_author_meta( 'display_name', get_post( $r->listing_id )->post_author ),
-                                        'listing' => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
-                                        'category' => wpbdp_get_term_name( $r->category_id ),
-                                        'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $r->expires_on ) )
-            );
-
-            if ( ! $r->recurring ) {
-                $renewal_url = $listing->get_renewal_url( $r->category_id );
-                $message_replacements = array_merge( $base_replacements, array(
-                    'link' => sprintf( '<a href="%1$s">%1$s</a>', $renewal_url )
-                ) );
-            } else {
-                $message_replacements = array_merge( $base_replacements, array(
-                    'date' => $base_replacements['expiration'],
-                    'link' => sprintf( '<a href="%1$s">%1$s</a>', esc_url( wpbdp_url( 'manage_recurring' ) ) )
-                ) );
-            }
-
-            if ( 0 == $threshold ) {
-                // handle expired listings
-
-                // remove expired category from post
-                $listing->remove_category( $r->category_id, false );
-
-                if ( ! $listing->get_categories( 'current' ) ) {
-                    // $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", wpbdp_get_option( 'deleted-status' ), $r->listing_id ) );
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_status = %s WHERE ID = %d", 'draft', $listing->get_id() ) );
-                }
-
-                if ( wpbdp_get_option( 'listing-renewal' ) ) {
-                    $email = wpbdp_email_from_template( 'listing-renewal-message', $message_replacements );
-                    $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
-
-                    if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-                        $email->cc[] = get_option( 'admin_email' );
-
-                        if ( wpbdp_get_option( 'admin-notifications-cc' ) )
-                            $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
-                    }
-
-                    $email->template = 'businessdirectory-email';
-                    $email->send();
-                }
-
-                $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 2 ), array( 'id' => $r->id ) );
-            } elseif ( $threshold > 0 ) {
-                // notify about coming expirations
-                $email = wpbdp_email_from_template( ( $r->recurring ? 'listing-autorenewal-notice' : 'renewal-pending-message' ),
-                                                    $message_replacements );
-                $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
-                $email->template = 'businessdirectory-email';
-                $email->send();
-
-                $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 1 ), array( 'id' => $r->id ) );
-            } elseif ( $threshold < 0 ) {
-                // remind about expired listings
-                $email = wpbdp_email_from_template( 'renewal-reminder-message', $message_replacements );
-                $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
-                $email->template = 'businessdirectory-email';
-                $email->send();
-
-                $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees", array( 'email_sent' => 3 ), array( 'id' => $r->id ) );
-            }
-        }
-
-    }
-
-    private function notify_expired_listings_recurring( $now ) {
-        global $wpdb, $wpbdp;
-
-        $now_date = wpbdp_format_time( $now, 'mysql' );
-
-        $query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring = %d AND expires_on IS NOT NULL AND expires_on < %s ORDER BY expires_on LIMIT 100",
-                1,
-                $now_date );
-        $rs = $wpdb->get_results( $query );
-
-        foreach ( $rs as $r ) {
-            $recurring_id = $r->recurring_id;
-            $data = unserialize( $r->recurring_data );
-
-            if ( ! isset( $data['payment_id'] ) )
-                continue;
-
-            $wpbdp->payments->process_recurring_expiration( $data['payment_id'] );
-        }
-    }
-
-
 
 }
 

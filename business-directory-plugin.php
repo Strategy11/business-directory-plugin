@@ -106,9 +106,6 @@ class WPBDP_Plugin {
         }
 
         add_action( 'widgets_init', array( &$this, '_register_widgets' ) );
-
-        // For testing the expiration routine only.
-        // add_action('init', create_function('', 'do_action("wpbdp_listings_expiration_check");'), 20);
     }
 
     function load_i18n() {
@@ -197,10 +194,6 @@ class WPBDP_Plugin {
         add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
 
         do_action( 'wpbdp_loaded' );
-
-
-        // Expiration hook.
-        add_action( 'wpbdp_listings_expiration_check', array( &$this, '_notify_expiring_listings' ), 0 );
 
         // Scripts & styles.
         add_action('wp_enqueue_scripts', array($this, '_enqueue_scripts'));
@@ -506,7 +499,8 @@ class WPBDP_Plugin {
     }
 
     public function plugin_deactivation() {
-        wp_clear_scheduled_hook('wpbdp_listings_expiration_check');
+        wp_clear_scheduled_hook('wpbdp_hourly_events');
+        wp_clear_scheduled_hook('wpbdp_daily_events');
     }
 
     public function flush_rules() {
@@ -1341,29 +1335,6 @@ class WPBDP_Plugin {
         echo sprintf( '<script type="text/javascript">window.parent.WPBDP.fileUpload.resizeIFrame(%d);</script>', $_REQUEST['field_id'] );
 
         exit;
-    }
-
-    /* Listing expiration. */
-    public function _notify_expiring_listings() {
-        if ( wpbdp_get_option( 'payment-abandonment' ) )
-            $this->payments->notify_abandoned_payments();
-
-        wpbdp_log('Running expirations hook.');
-
-        $now = current_time( 'timestamp' );
-
-        $api = wpbdp_listings_api();
-        $api->notify_expiring_listings( 0, $now ); //  notify already expired listings first
-
-        if ( ! wpbdp_get_option( 'listing-renewal' ) )
-            return;
-
-        $api->notify_expiring_listings( wpbdp_get_option( 'renewal-email-threshold', 5 ), $now ); // notify listings expiring soon
-
-        if ( wpbdp_get_option( 'renewal-reminder' ) ) {
-            $threshold = -max( 1, intval( wpbdp_get_option( 'renewal-reminder-threshold' ) ) );
-            $api->notify_expiring_listings( $threshold, $now );
-        }
     }
 
     // {{ Sorting options.
