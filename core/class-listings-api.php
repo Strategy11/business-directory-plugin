@@ -169,7 +169,7 @@ class WPBDP_Listings_API {
 
                     break;
                 case 'fee':
-                    $listing->add_category( $item->rel_id_1, $item->rel_id_2, false );
+                    $listing->set_fee_plan( $item->rel_id_1 );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;
