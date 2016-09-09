@@ -1351,6 +1351,9 @@ class WPBDP_Plugin {
         if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
                 echo '<meta property="og:image" content="' . $img[0] . '" />';
+        } else {
+            $image_url = WPBDP_URL . 'core/images/default-image-big.gif';
+            echo '<meta property="og:image" content="' . $image_url . '" />';
         }
     }
 
