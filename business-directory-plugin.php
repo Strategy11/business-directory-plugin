@@ -984,8 +984,9 @@ class WPBDP_Plugin {
         remove_filter( 'wp_head', 'rel_canonical' );
         add_filter( 'wp_head', array( $this, '_meta_rel_canonical' ) );
 
-        if ( 'showlisting' == $action && wpbdp_rewrite_on() )
+        if ( 'show_listing' == $action && wpbdp_rewrite_on() ) {
             add_action( 'wp_head', array( &$this, 'listing_opentags' ) );
+        }
     }
 
     private function _get_wpseo_frontend() {
@@ -1323,7 +1324,12 @@ class WPBDP_Plugin {
     }
 
     function listing_opentags() {
-        $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+        $listing_id = wpbdp_get_post_by_id_or_slug(
+            get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
+            'id',
+            'id'
+        );
+
         $listing = WPBDP_Listing::get( $listing_id );
 
         if ( ! $listing )
