@@ -1,4 +1,4 @@
-<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page">
+<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class; ?>">
     <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
     <h2 class="title"><?php _ex('Search', 'search', 'WPBDM'); ?></h2>
 
