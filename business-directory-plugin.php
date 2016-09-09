@@ -1304,23 +1304,31 @@ class WPBDP_Plugin {
     }
 
     public function _meta_rel_canonical() {
-        // TODO: fix before themes-release
-        $action = '';
+        $action = wpbdp_current_view();
 
         if ( !$action )
             return rel_canonical();
 
-        if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'upgradetostickylisting', 'renewlisting' ) ) )
+        $not_supported_views = array(
+            'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing',
+            'listing_contact', 'upgradetostickylisting',
+        );
+
+        if ( in_array( $action, $not_supported_views ) )
             return;
 
-        if ( $action == 'showlisting' ) {
-            $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
-            $link = get_permalink( $listing_id );
+        if ( $action == 'show_listing' ) {
+            $listing_id = wpbdp_get_post_by_id_or_slug(
+                get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
+                'id',
+                'id'
+            );
+            $url = get_permalink( $listing_id );
         } else {
-            $link = site_url( $_SERVER['REQUEST_URI'] );
+            $url = site_url( $_SERVER['REQUEST_URI'] );
         }
 
-        echo sprintf( '<link rel="canonical" href="%s" />', esc_url( $link ) );
+        echo sprintf( '<link rel="canonical" href="%s" />', esc_url( user_trailingslashit( $url ) ) );
     }
 
     function listing_opentags() {
@@ -1337,7 +1345,7 @@ class WPBDP_Plugin {
 
         echo '<meta property="og:type" content="website" />';
         echo '<meta property="og:title" content="' . esc_attr( WPBDP_SEO::listing_title( $listing_id ) ) . '" />';
-        echo '<meta property="og:url" content="' . esc_url( $listing->get_permalink() ) . '" />';
+        echo '<meta property="og:url" content="' . esc_url( user_trailingslashit( $listing->get_permalink() ) ) . '" />';
         echo '<meta property="og:description" content="' . esc_attr( WPBDP_SEO::listing_og_description( $listing_id ) ) . '" />';
 
         if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
