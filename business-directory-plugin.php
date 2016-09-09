@@ -1227,21 +1227,19 @@ class WPBDP_Plugin {
     }
 
     public function _meta_keywords() {
-        $wpseo_front = null;
+        $wpseo_front = $this->_get_wpseo_frontend();
 
-        if ( isset( $GLOBALS['wpseo_front'] ) )
-            $wpseo_front = $GLOBALS['wpseo_front'];
-        elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) )
-            $wpseo_front = WPSEO_Frontend::get_instance();
+        $current_view = wpbdp_current_view();
 
-        // TODO: fix before themes-release
-        $current_action = '';
-
-        switch ( $current_action ){
-            case 'showlisting':
+        switch ( $current_view ){
+            case 'show_listing':
                 global $post;
 
-                $listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+                $listing_id = wpbdp_get_post_by_id_or_slug(
+                    get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
+                    'id',
+                    'id'
+                );
 
                 $prev_post = $post;
                 $post = get_post( $listing_id );
@@ -1255,13 +1253,24 @@ class WPBDP_Plugin {
                 $post = $prev_post;
 
                 break;
-            case 'browsecategory':
-            case 'browsetag':
-                if ( $current_action == 'browsetag' ) {
-                    $term = get_term_by('slug', get_query_var('tag'), WPBDP_TAGS_TAX);
+            case 'show_category':
+            case 'show_tag':
+                if ( $current_view == 'show_tag' ) {
+                    $term = get_term_by(
+                        'slug',
+                        get_query_var( '_' . wpbdp_get_option( 'permalinks-tags-slug' ) ),
+                        WPBDP_TAGS_TAX
+                    );
                 } else {
-                    $term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX);
-                    if (!$term && get_query_var('category_id')) $term = get_term_by('id', get_query_var('category_id'), WPBDP_CATEGORY_TAX);
+                    $term = get_term_by(
+                        'slug',
+                        get_query_var( '_' . wpbdp_get_option( 'permalinks-category-slug' ) ),
+                        WPBDP_CATEGORY_TAX
+                    );
+
+                    if ( ! $term && get_query_var( 'category_id' ) ) {
+                        $term = get_term_by( 'id', get_query_var( 'category_id' ), WPBDP_CATEGORY_TAX );
+                    }
                 }
 
                 if ( $term ) {
