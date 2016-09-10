@@ -287,7 +287,11 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
 
     switch ($action) {
         case 'view':
-            $res = isset( $_GET['preview'] ) ? user_can( $user_id, 'administrator' ) || ( $post->post_author && $post->post_author == $user_id ) : true;
+            if ( isset( $_GET['preview'] ) ) {
+                $res = user_can( $user_id, 'administrator' ) || ( $post->post_author && $post->post_author == $user_id );
+            } else {
+                $res = true;
+            }
             // return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
             break;
         case 'edit':
