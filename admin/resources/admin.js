@@ -851,9 +851,11 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 // {{ Hide Preview Button for published posts.
 (function($) {
     $(document).ready(function() {
-        var post_status = $( 'body.post-type-wpbdp_listing form#post #original_post_status' );
+        var $form = $( 'body.post-type-wpbdp_listing form#post' ),
+            post_status = $form.find( '#original_post_status' );
+
         if ( post_status.length && post_status.val() != 'draft' && post_status.val() != 'pending' ) {
-            $( 'body.post-type-wpbdp_listing form#post #minor-publishing-actions' ).hide();
+            $form.find( '#preview-action' ).hide();
         }
     });
 })(jQuery);
