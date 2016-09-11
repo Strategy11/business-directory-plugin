@@ -151,8 +151,6 @@ class WPBDP_Listings_API {
     public function setup_listing_after_payment( &$payment ) {
         $listing = WPBDP_Listing::get( $payment->get_listing_id() );
 
-        // TODO: handle some rejected payments (i.e. downgrade listing if pending upgrade, etc.)
-
         if ( ! $listing || ! $payment->is_completed() )
             return;
 
@@ -160,22 +158,26 @@ class WPBDP_Listings_API {
 
         foreach ( $payment->get_items() as $item ) {
             switch ( $item->item_type ) {
+                case 'recurring_plan':
+                case 'plan':
+                    $listing->set_fee_plan( $item->rel_id_1, 'recurring_plan' == $item->item_type ? true : false );
+
+                    if ( ! empty( $item->data['is_renewal'] ) )
+                        $is_renewal = true;
+
+                    break;
                 case 'recurring_fee':
-                    $listing->add_category( $item->rel_id_1, (object) $item->data, true, array( 'recurring_id' => $payment->get_data( 'recurring_id' ),
-                                                                                                'payment_id' => $payment->get_id()  ) );
+                    $listing->set_fee_plan( $item->rel_id_2, true );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;
 
                     break;
                 case 'fee':
-                    $listing->set_fee_plan( $item->rel_id_1 );
-
-                    if ( ! empty( $item->data['is_renewal'] ) )
-                        $is_renewal = true;
-
+                    // This item type is no longer used as of next-release, but we have this for backwards-compat.
+                    if ( ! $listing->is_recurring() )
+                        $listing->set_fee_plan( $item->rel_id_2 );
                     break;
-
                 case 'upgrade':
                     $upgrades_api = wpbdp_listing_upgrades_api();
                     $sticky_info = $upgrades_api->get_info( $listing->get_id() );

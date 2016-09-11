@@ -140,6 +140,7 @@ class WPBDP_Listing {
 
 
     public function get_category_info( $category ) {
+        wpbdp_debug_e( 'get_category_info', 'who called me?', debug_backtrace() );
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
         $categories = $this->get_categories( 'all' );
 
@@ -150,6 +151,7 @@ class WPBDP_Listing {
     }
 
     public function remove_category( $category, $remove_fee = true, $cleanup = false ) {
+        wpbdp_debug_e( 'remove_category', 'who called me?', debug_backtrace() );
         global $wpdb;
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
@@ -189,6 +191,8 @@ class WPBDP_Listing {
 
     // TODO: if there is 'current' information for the category respect the expiration time left.
     public function add_category( $category, $fee, $recurring = false, $recurring_data = array(), $cleanup = false ) {
+        wpbdp_debug_e( 'add_category', 'who called me?', debug_backtrace() );
+
         global $wpdb;
 
         $this->remove_category( $category, true, $cleanup );
@@ -237,6 +241,7 @@ class WPBDP_Listing {
 
     // TODO: what happens when sections clash? i.e. there is a payment pending for a renewal and somehow the category is also in 'expired'
     public function get_categories( $info = 'current' ) {
+        wpbdp_debug_e( 'get_categories', 'who called me?', debug_backtrace() );
         global $wpdb;
 
         $current_ids = array();
@@ -715,7 +720,7 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function set_fee_plan( $fee ) {
+    public function set_fee_plan( $fee, $recurring = false ) {
         global $wpdb;
 
         $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;

@@ -412,7 +412,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             if ( ! $fee )
                 $fee = WPBDP_Fee_Plan::get_free_plan();
 
-            $payment->add_item( ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees ) ? 'recurring_fee' : 'fee',
+            $payment->add_item( ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees ) ? 'recurring_plan' : 'plan',
                                 $fee->amount,
                                 sprintf( _x( 'Listing plan "%s"%s', 'submit', 'WPBDM' ),
                                          $fee->label, $this->state->autorenew_fees ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
