@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '15.2';
+    const DB_VERSION = '15';
 
     private $installed_version = null;
 
@@ -176,7 +176,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12', '13' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12', '13', '15' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -917,6 +917,84 @@ class WPBDP_Installer {
              $f->save();
     }
 
+    public function upgrade_to_15() {
+        $this->request_manual_upgrade( '_upgrade_to_15_migrate_fees' );
+    }
+
+    public function _upgrade_to_15_migrate_fees() {
+        global $wpdb;
+
+        // Remove orphan everything first to make things easier for us.
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
+        $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id NOT IN (SELECT id FROM {$wpdb->prefix}wpbdp_payments)" );
+
+        $listings_count = $wpdb->get_var( "SELECT COUNT(DISTINCT listing_id) FROM {$wpdb->prefix}wpbdp_listing_fees" );
+        $listings = $wpdb->get_col( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees ORDER BY listing_id LIMIT 1" );
+
+        if ( ! $listings )
+            return array( 'ok' => true, 'done' => true, 'status' => '' );
+
+        foreach ( $listings as $listing_id )
+            $this->_upgrade_to_15_migrate_fees_do_listing( $listing_id );
+
+        return array( 'ok' => true, 'done' => false, 'status' => sprintf( '%d listings', count( $listings ) ) );
+    }
+
+    public function _upgrade_to_15_migrate_fees_do_listing( $listing_id ) {
+        global $wpdb;
+
+        $fee_days = -1;
+        $fee_images = -1;
+        $expires_on = -1;
+        $is_sticky = 0;
+        $is_recurring = 0;
+        $recurring_id = '';
+
+        // Check if the listing has a recurring fee. Use it if available and remove the others.
+        if ( $recurring_fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND recurring = %d LIMIT 1", $listing_id, 1 ) ) ) {
+            $is_recurring = 1;
+            $fee_days = (int) $recurring_fee->fee_days;
+            $fee_images = (int) $recurring_fee->fee_images;
+            $expires_on = $recurring_fee->expires_on;
+            $is_sticky = (int) $recurring_fee->sticky;
+            $recurring_id = $recurring_fee->recurring_id;
+        } else {
+            // For non-recurring listings, obtain the "best" features of all fees (including expiration).
+            $fees = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
+            foreach ( $fees as $f ) {
+                if ( ! $f->expires_on )
+                    $expires_on = null;
+                else if ( ! is_null( $expires_on ) )
+                    $expires_on = max( strtotime( $f->expires_on ), $expires_on );
+
+                if ( 0 == (int) $f->fee_days )
+                    $fee_days = 0;
+                else if ( 0 !== $fee_days )
+                    $fee_days = max( (int) $f->fee_days, $fee_days );
+
+                $fee_images = max( (int) $f->fee_images, $fee_images );
+                $is_sticky = max( (int) $f->sticky, $is_sticky );
+            }
+            $expires_on = ! is_null( $expires_on ) ? date( 'Y-m-d H:i:s', $expires_on ) : null;
+        }
+
+        // Insert new plan record and delete everything from old fees table.
+        $record = array( 'listing_id' => $listing_id,
+                         'fee_id' => 0,
+                         'fee_price' => 0.0,
+                         'fee_days' => $fee_days,
+                         'fee_images' => $fee_images,
+                         'is_sticky' => $is_sticky,
+                         'is_recurring' => $is_recurring,
+                         'subscription_id' => $recurring_id );
+        if ( $expires_on )
+            $record['expiration_date'] = $expires_on;
+
+        $wpdb->insert( $wpdb->prefix . 'wpbdp_listings_plans', $record );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
+    }
+
 }
 
 
@@ -939,6 +1017,9 @@ class WPBDP_Installer_Manual_Upgrade {
         global $pagenow;
 
         if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' == $_GET['page'] )
+            return;
+
+        if ( ! current_user_can( 'administrator' ) )
             return;
 
         print '<div class="error"><p>';
