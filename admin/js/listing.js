@@ -61,4 +61,14 @@ var admin = wpbdp.admin = wpbdp.admin || {};
         images.init();
     } );
 
+    // Hide Preview Button for published posts.
+    $( document ).ready( function() {
+        var $form = $( 'body.post-type-wpbdp_listing form#post' ),
+            post_status = $form.find( '#original_post_status' );
+
+        if ( post_status.length && post_status.val() != 'draft' && post_status.val() != 'pending' ) {
+            $form.find( '#preview-action' ).hide();
+        }
+    } );
+
 } )( jQuery );
