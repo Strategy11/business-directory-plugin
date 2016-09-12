@@ -91,7 +91,18 @@ class WPBDP_Admin {
             wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
-            wp_enqueue_script( 'wpbdp-admin-listing', WPBDP_URL . 'admin/js/listing.js', array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ) );
+            wp_enqueue_script(
+                'wpbdp-admin-listing',
+                WPBDP_URL . 'admin/js/listing.js',
+                array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' )
+            );
+
+            wp_localize_script( 'wpbdp-admin-listing', 'WPBDP_admin_listings_config', array(
+                'messages' => array(
+                    'preview_button_tooltip' => __( "Preview is only available after you've saved the first draft. This is due
+to how WordPress stores the data.", 'WPBDM' )
+                )
+            ) );
         }
 
         // Ask for site tracking if needed.
