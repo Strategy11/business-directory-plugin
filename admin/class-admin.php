@@ -85,8 +85,8 @@ class WPBDP_Admin {
                            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
-            wp_enqueue_style( 'wpbdp-jquery-ui-css',
-                              'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
+            wpbdp_enqueue_jquery_ui_style();
+
             wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
 
