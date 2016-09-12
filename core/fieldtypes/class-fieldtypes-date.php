@@ -70,8 +70,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         static $enqueued = false;
 
         if ( ! $enqueued ) {
-            wp_enqueue_style( 'wpbdp-jquery-ui-css',
-                              'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/smoothness/jquery-ui.css' );
+            wpbdp_enqueue_jquery_ui_style();
             wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
             $enqueued = true;
         }

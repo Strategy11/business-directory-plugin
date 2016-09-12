@@ -85,13 +85,24 @@ class WPBDP_Admin {
                            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
-            wp_enqueue_style( 'wpbdp-jquery-ui-css',
-                              'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
+            wpbdp_enqueue_jquery_ui_style();
+
             wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
-            wp_enqueue_script( 'wpbdp-admin-listing', WPBDP_URL . 'admin/js/listing.js', array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ) );
+            wp_enqueue_script(
+                'wpbdp-admin-listing',
+                WPBDP_URL . 'admin/js/listing.js',
+                array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' )
+            );
+
+            wp_localize_script( 'wpbdp-admin-listing', 'WPBDP_admin_listings_config', array(
+                'messages' => array(
+                    'preview_button_tooltip' => __( "Preview is only available after you've saved the first draft. This is due
+to how WordPress stores the data.", 'WPBDM' )
+                )
+            ) );
         }
 
         // Ask for site tracking if needed.
