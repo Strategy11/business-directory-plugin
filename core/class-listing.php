@@ -720,7 +720,7 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function set_fee_plan( $fee, $recurring = false ) {
+    public function set_fee_plan( $fee, $recurring = false, $status = 'ok' ) {
         global $wpdb;
 
         $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
@@ -734,12 +734,29 @@ class WPBDP_Listing {
                        'fee_images' => $fee->images,
                        'fee_price' => $fee->amount,
                        'is_recurring' => 0,
-                       'is_sticky' => (int) $fee->sticky );
+                       'is_sticky' => (int) $fee->sticky,
+                       'status' => $status );
 
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;
 
         return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings_plans', $row );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function set_fee_with_payment( $fee, $recurring = false ) {
+        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
+        $payment->add_item( $recurring ? 'recurring_plan' : 'plan',
+                            $fee->amount,
+                            sprintf( _x( 'Listing plan "%s"%s', 'submit', 'WPBDM' ),
+                                     $fee->label, $recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
+                            array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
+                            $fee->id );
+        $this->set_fee_plan( $fee, $recurring, 'pending' );
+
+        return $payment;
     }
 
     /**

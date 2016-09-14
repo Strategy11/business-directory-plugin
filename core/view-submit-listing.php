@@ -401,29 +401,14 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         // Save categories.
         wp_set_post_terms( $listing->get_id(), $this->state->categories, WPBDP_CATEGORY_TAX, false );
 
+        // Assign fee plan.
+        $fee = wpbdp_get_fee( $this->state->fee_id );
+        if ( ! $fee )
+            $fee = WPBDP_Fee_Plan::get_free_plan();
+
         if ( ! $this->state->editing ) {
-            // Generate payment for the listing.
-            $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );
-
-            if ( ! $this->state->editing )
-                $payment->tag( 'initial' );
-
-            $fee = wpbdp_get_fee( $this->state->fee_id );
-            if ( ! $fee )
-                $fee = WPBDP_Fee_Plan::get_free_plan();
-
-            $payment->add_item( ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees ) ? 'recurring_plan' : 'plan',
-                                $fee->amount,
-                                sprintf( _x( 'Listing plan "%s"%s', 'submit', 'WPBDM' ),
-                                         $fee->label, $this->state->autorenew_fees ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-                                array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
-                                $fee->id );
-
-            // if ( $this->state->upgrade_to_sticky )
-            //     $payment->add_item( 'upgrade',
-            //                         wpbdp_get_option( 'featured-price' ),
-            //                         _x( 'Listing upgrade to featured', 'submit', 'WPBDM' ) );
-
+            $payment = $listing->set_fee_with_payment( $fee, ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees ) );
+            $payment->tag( 'initial' );
             $payment->set_submit_state_id( $this->state->id );
 
             if ( current_user_can( 'administrator' ) )
@@ -434,6 +419,12 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             $this->state->listing_id = $listing->get_id();
             $this->state->payment_id = $payment->get_id();
         }
+
+        // if ( $this->state->upgrade_to_sticky )
+        //     $payment->add_item( 'upgrade',
+        //                         wpbdp_get_option( 'featured-price' ),
+        //                         _x( 'Listing upgrade to featured', 'submit', 'WPBDM' ) );
+        // }
 
         do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
 
