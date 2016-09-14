@@ -1341,6 +1341,8 @@ EOF;
                     if ( $setting->validator || ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) ) {
                         add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o=null', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 10, 2);
                     }
+
+                    add_action( 'update_option_' . self::PREFIX . $setting->name, array( $this, '_option_updated' ), 10, 3 );
                 }
             }
         }
@@ -1378,6 +1380,10 @@ EOF;
         }
 
         return call_user_func($setting->validator, $setting, $newvalue, $api->get($setting->name));
+    }
+
+    public function _option_updated( $old_value, $new_value, $option_name ) {
+        do_action( 'wpbdp_option_updated_' . str_replace( self::PREFIX, '', $option_name ), $old_value, $new_value );
     }
 
     /* upgrade from old-style settings to new options */
