@@ -127,16 +127,16 @@ class WPBDP__Query_Integration {
 
         // Paid first query order.
         if ( in_array( $query->get( 'orderby' ), array( 'paid', 'paid-title' ), true ) ) {
-            $is_paid_query = "(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments pp WHERE pp.listing_id = {$wpdb->posts}.ID AND pp.amount > 0 LIMIT 1 ) AS wpbdp_is_paid";
+            $is_paid_query = "(SELECT fee_price FROM {$wpdb->prefix}wpbdp_listings_plans lp WHERE lp.listing_id = {$wpdb->posts}.ID LIMIT 1 ) AS wpbdp_paid_amount";
             $pieces['fields'] .= ', ' . $is_paid_query;
         } else {
-            $pieces['fields'] .= ', (SELECT 0) AS wpbdp_is_paid';
+            $pieces['fields'] .= ', (SELECT 0) AS wpbdp_paid_amount';
         }
 
         if ( 'paid-title' == $query->get( 'orderby' ) )
             $pieces['orderby'] = "{$wpdb->posts}.post_title ASC, " . $pieces['orderby'];
 
-        $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_is_paid DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
+        $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_paid_amount DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
         $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );
 
         return $pieces;
