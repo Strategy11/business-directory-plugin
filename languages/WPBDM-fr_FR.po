@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-08-31 13:37:27+00:00\n"
+"POT-Creation-Date: 2016-09-14 23:43:31+00:00\n"
 "PO-Revision-Date: 2016-08-29 18:17-0300\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -121,7 +121,13 @@ msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renouveler l'annonce"
 
-#: admin/class-admin.php:124
+#: admin/class-admin.php:102
+msgid ""
+"Preview is only available after you've saved the first draft. This is due\n"
+"to how WordPress stores the data."
+msgstr ""
+
+#: admin/class-admin.php:135
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -132,141 +138,141 @@ msgstr ""
 "zéro dans ce cours (GRATUIT) en 5 parties (envoyé via e-mail). Obtenez un "
 "module premium GRATUIT juste après votre inscription."
 
-#: admin/class-admin.php:126
+#: admin/class-admin.php:137
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Adresse e-mail:"
 
-#: admin/class-admin.php:132
+#: admin/class-admin.php:143
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr ""
 "Voulez-vous connaître les secrets de la création d'un superbe annuaire "
 "professionnel ?"
 
-#: admin/class-admin.php:134
+#: admin/class-admin.php:145
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Oui, s'il vous plait !"
 
-#: admin/class-admin.php:136
+#: admin/class-admin.php:147
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Non, merci"
 
-#: admin/class-admin.php:153
+#: admin/class-admin.php:164
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Annuaire Professionnel"
 
-#: admin/class-admin.php:164
+#: admin/class-admin.php:175
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Vous êtes prêt. Visitez votre nouvelle page <a>Annuaire Professionnel</a>"
 
-#: admin/class-admin.php:185
+#: admin/class-admin.php:196
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Adresse e-mail non valide"
 
-#: admin/class-admin.php:219
+#: admin/class-admin.php:230
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Administrateur de l'Annuaire Professionnel"
 
-#: admin/class-admin.php:220
+#: admin/class-admin.php:231
 #, fuzzy
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Administrateur de l'Annuaire"
 
-#: admin/class-admin.php:220
+#: admin/class-admin.php:231
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Administrateur de l'Annuaire"
 
-#: admin/class-admin.php:226 admin/class-admin.php:227
+#: admin/class-admin.php:237 admin/class-admin.php:238
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Ajoutez une nouvelle annonce"
 
-#: admin/class-admin.php:232 admin/class-admin.php:233
+#: admin/class-admin.php:243 admin/class-admin.php:244
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Gestion des options"
 
-#: admin/class-admin.php:238 admin/class-admin.php:239
+#: admin/class-admin.php:249 admin/class-admin.php:250
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Gestion des frais"
 
-#: admin/class-admin.php:244 admin/class-admin.php:245
+#: admin/class-admin.php:255 admin/class-admin.php:256
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Gestion des champs"
 
-#: admin/class-admin.php:250 admin/class-admin.php:251
+#: admin/class-admin.php:261 admin/class-admin.php:262
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Listes"
 
-#: admin/class-admin.php:265 admin/class-admin.php:266
+#: admin/class-admin.php:276 admin/class-admin.php:277
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr "Importation CSV"
 
-#: admin/class-admin.php:271 admin/class-admin.php:272
+#: admin/class-admin.php:282 admin/class-admin.php:283
 msgctxt "admin menu"
 msgid "CSV Export"
 msgstr "Exportation CSV"
 
-#: admin/class-admin.php:277 admin/class-admin.php:278
+#: admin/class-admin.php:288 admin/class-admin.php:289
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Déboguer"
 
-#: admin/class-admin.php:287
+#: admin/class-admin.php:298
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: admin/class-admin.php:298
+#: admin/class-admin.php:309
 msgctxt "admin menu"
 msgid "Uninstall Business Directory Plugin"
 msgstr "Désinstaller le Plugin Annuaire Professionnel"
 
-#: admin/class-admin.php:299
+#: admin/class-admin.php:310
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Désinstaller"
 
-#: admin/class-admin.php:413
+#: admin/class-admin.php:424
 #: admin/templates/listing-metabox-categories.tpl.php:69
 msgctxt "admin infometabox"
 msgid "never"
 msgstr "jamais"
 
-#: admin/class-admin.php:507
+#: admin/class-admin.php:518
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/class-admin.php:535
+#: admin/class-admin.php:546
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "L'annonce a été publiée."
 msgstr[1] "Les annonces ont été publiées."
 
-#: admin/class-admin.php:553
+#: admin/class-admin.php:564
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "Le statut de l'annonce a été défini comme étant payée."
 msgstr[1] "Le statut des annocnes a été défini comme étant payées."
 
-#: admin/class-admin.php:559
+#: admin/class-admin.php:570
 msgctxt "admin"
 msgid ""
 "Only invoices containing non-recurring items were marked as paid. Please "
@@ -278,28 +284,28 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-admin.php:578
+#: admin/class-admin.php:589
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "L'annonce a été modifiée."
 msgstr[1] "Les annonces ont été modifiées."
 
-#: admin/class-admin.php:591
+#: admin/class-admin.php:602
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "L'annonce a été mise à jour."
 msgstr[1] "Les annonces ont été mise à jour."
 
-#: admin/class-admin.php:603
+#: admin/class-admin.php:614
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "L'annonce a été rétrogradée."
 msgstr[1] "Les annonces ont été rétrogradées."
 
-#: admin/class-admin.php:614
+#: admin/class-admin.php:625
 msgctxt "admin payments"
 msgid ""
 "The payment status was not changed. Recurring payments can't be manually "
@@ -307,44 +313,44 @@ msgid ""
 "went through."
 msgstr ""
 
-#: admin/class-admin.php:619
+#: admin/class-admin.php:630
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "La transaction a été approuvée."
 
-#: admin/class-admin.php:629
+#: admin/class-admin.php:640
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "La transaction a été rejetée."
 
-#: admin/class-admin.php:635
+#: admin/class-admin.php:646
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Les frais ont bien été assignés."
 
-#: admin/class-admin.php:644
+#: admin/class-admin.php:655
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "L'annonce a été renouvelée."
 msgstr[1] "Les annonces ont été renouvelées."
 
-#: admin/class-admin.php:651
+#: admin/class-admin.php:662
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Email de renouvellement envoyé"
 
-#: admin/class-admin.php:685
+#: admin/class-admin.php:696
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
-#: admin/class-admin.php:687 admin/class-admin.php:693
+#: admin/class-admin.php:698 admin/class-admin.php:704
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Compteur d'annonces"
 
-#: admin/class-admin.php:802
+#: admin/class-admin.php:813
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -353,7 +359,7 @@ msgstr ""
 "<b>Plugin d'Annuaire Professionnel</b> requiert des champs avec les "
 "associations suivantes pour marcher correctement: <b>%s</b>"
 
-#: admin/class-admin.php:804
+#: admin/class-admin.php:815
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -362,7 +368,7 @@ msgstr ""
 "<b>Plugin d'Annuaire Professionnel</b> requiert un champ avec un <b>%s</b> "
 "association en ordre pour marcher correctement."
 
-#: admin/class-admin.php:808
+#: admin/class-admin.php:819
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -371,17 +377,17 @@ msgstr ""
 "Vous pouvez créer ces champs personnalisés pas vous-mêmes dans \"Gestion des "
 "Champs\" ou laissez le plugin le faire pour vous automatiquement."
 
-#: admin/class-admin.php:812
+#: admin/class-admin.php:823
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Aller à \"Gestion des Champs\""
 
-#: admin/class-admin.php:815
+#: admin/class-admin.php:826
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Créer ces champs obligatoires pour moi"
 
-#: admin/class-admin.php:824
+#: admin/class-admin.php:835
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -390,7 +396,7 @@ msgstr ""
 "<b>Business Directory  Plugin</b> requiert une page avec le code "
 "d'activation <tt>[businessdirectory]</tt> pour marcher correctement."
 
-#: admin/class-admin.php:826
+#: admin/class-admin.php:837
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -399,27 +405,27 @@ msgstr ""
 "Vous pouvez créer cette page par vous-mêmes ou laisser le plugin la faire "
 "pour vous automatiquement."
 
-#: admin/class-admin.php:830
+#: admin/class-admin.php:841
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Créer les pages requises pour moi."
 
-#: admin/class-admin.php:870
+#: admin/class-admin.php:881
 msgctxt "admin compat"
 msgid "Installed: %s"
 msgstr "Installé: %s"
 
-#: admin/class-admin.php:870
+#: admin/class-admin.php:881
 msgctxt "admin compat"
 msgid "N/A"
 msgstr "N/A"
 
-#: admin/class-admin.php:873
+#: admin/class-admin.php:884
 msgctxt "admin compat"
 msgid "Required: %s"
 msgstr "Requis: %s"
 
-#: admin/class-admin.php:885
+#: admin/class-admin.php:896
 msgctxt "admin compat"
 msgid ""
 "Business Directory has detected some incompatible premium module versions "
@@ -428,7 +434,7 @@ msgstr ""
 "Le plugin a détecté une/des modules incomptatible de la version premium "
 "installé."
 
-#: admin/class-admin.php:887
+#: admin/class-admin.php:898
 msgctxt "admin compat"
 msgid ""
 "Please upgrade to the required versions indicated below to make sure "
@@ -437,7 +443,7 @@ msgstr ""
 "Veuillez mettre à jour vers la version requise, indiquée ci-dessous, pour "
 "assurer le bon fonctionnement des fonctions. "
 
-#: admin/class-admin.php:907
+#: admin/class-admin.php:918
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -2223,7 +2229,7 @@ msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.1)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.2dev)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3044,7 +3050,7 @@ msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Annonces marquées: %s"
 
-#: core/api.php:397
+#: core/api.php:401
 #, fuzzy
 msgid "Free"
 msgstr "Gratuit"
