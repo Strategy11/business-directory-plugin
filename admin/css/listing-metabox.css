@@ -43,89 +43,63 @@
 }
 /* @end */
 
-/* @group Categories. */
-.listing-metabox-tab .listing-categories {
-    margin: 20px 0;
-}
-
-.listing-category {
+/* @group Fees. */
+#listing-metabox-fees .listing-plan {
     border-bottom: dotted 1px #bbb;
 }
 
-.listing-category .header {
-    margin-top: 8px;
-    min-height: 25px;
-}
-
-.listing-category .header .spinner {
-    float: right;
-    background-size: 15px 15px;
-}
-
-.listing-category .category-name {
+#listing-metabox-fees .listing-plan .plan-label {
     text-decoration: underline;
     font-weight: bold;
 }
 
-.listing-category.expired .category-name {
-    text-decoration: line-through underline;
+#listing-metabox-fees .listing-plan .plan-status {
 }
 
-.listing-category .category-status {
-    float: right;
-}
+#listing-metabox-fees .listing-plan .plan-status.ok { background: green; }
+#listing-metabox-fees .listing-plan .plan-status.pending { background: red; }
 
-.listing-category .category-status.ok { background: green; }
-.listing-category .category-status.pending { background: red; }
-
-.listing-category .category-details {
+#listing-metabox-fees .listing-plan .plan-details {
     margin-left: 25px;
 }
 
-.listing-category dl {
+a dl {
     margin: 0;
-    clear: both;    
+    clear: both;
 }
 
-.listing-category dt {
+#listing-metabox-fees .listing-plan dt {
     float: left;
     color: #595959;
     width: 80px;
 }
 
-.listing-category dd {
+#listing-metabox-fees .listing-plan .listing-category dd {
     margin-bottom: 0;
 }
 
-.listing-category .expiration-date-info .spinner { float: left; }
-
-.listing-category a.expiration-change-link {
-    float: right;
+#listing-metabox-fees .listing-plan .spinner {
+    text-align: center;
+    display: block;
+    float: none;
+    margin: 10px auto;
 }
 
-.listing-category .datepicker {
+#listing-metabox-fees .listing-plan .datepicker {
     position: absolute;
     z-index: 100;
     right: 10px;
     font-size: 80%;
 }
 
-.listing-category .admin-actions {
+#listing-metabox-fees .listing-plan .admin-actions {
     margin-top: 10px;
     margin-left: 25px;
-    clear: both;    
+    clear: both;
 }
 
-.listing-category .admin-actions li {
+#listing-metabox-fees .listing-plan .admin-actions li {
     margin: 0;
     padding: 0;
-}
-
-.listing-category .admin-actions li.delete {
-    margin-top: 10px;
-}
-    
-.listing-category .admin-actions a.category-delete {
-    color: #ff0000;
 }
 /* @end */

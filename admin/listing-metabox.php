@@ -44,7 +44,7 @@ class WPBDP_Admin_Listing_Metabox {
             echo '<dt>' . _x( 'Access Key', 'admin infometabox', 'WPBDM' ) . '</dt>';
             echo '<dd><input type="text" value="' . esc_attr( $this->listing->get_access_key() ) . '" /></dd>';
             echo '<dt>'. _x('Total Listing Cost', 'admin infometabox', 'WPBDM') . '</dt>';
-            echo '<dd>' . wpbdp_currency_format( $this->listing->get_total_cost() ) . '</dd>';
+            echo '<dd>' . wpbdp_currency_format( $this->listing->get_fee_plan()->fee_price ) . '</dd>';
             echo '<dt>'. _x('Payment Status', 'admin infometabox', 'WPBDM') . '</dt>';
             echo '<dd>';
             echo sprintf('<span class="tag paymentstatus %1$s">%1$s</span>', $this->listing->get_payment_status() );
@@ -93,16 +93,10 @@ class WPBDP_Admin_Listing_Metabox {
                           esc_url( add_query_arg('wpbdmaction', 'setaspaid' ) ),
                           _x( 'Mark listing as Paid', 'admin infometabox', 'WPBDM' ) );
         }
-
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-feesummary.tpl.php', array(
-            'categories' => $this->listing->get_categories( 'all' ),
-            'listing' => $this->listing
-        ) );
     }
 
     private function tab_fees() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-fees.tpl.php', array(
-                                'categories' => $this->listing->get_categories( 'all' ),
+        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-plan.tpl.php', array(
                                 'listing' => $this->listing
                                 ) );
     }

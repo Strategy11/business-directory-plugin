@@ -48,7 +48,6 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-admin-fees-reorder', array( &$this, 'ajax_fees_reorder' ) );
 
         add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
-        add_action( 'wp_ajax_wpbdp-listing_remove_category', array( &$this, 'ajax_listing_remove_category' ) );
         add_action( 'wp_ajax_wpbdp-listing_change_fee', array( &$this, 'ajax_listing_change_fee' ) );
 
         add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
@@ -88,7 +87,7 @@ class WPBDP_Admin {
             wp_enqueue_style( 'wpbdp-jquery-ui-css',
                               'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
             wp_enqueue_script( 'jquery-ui-datepicker' );
-            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
+            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
             wp_enqueue_script( 'wpbdp-admin-listing', WPBDP_URL . 'admin/js/listing.js', array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ) );
@@ -396,33 +395,21 @@ class WPBDP_Admin {
     public function ajax_listing_set_expiration() {
         $response = new WPBDP_Ajax_Response();
 
-        $renewal_id = intval( isset( $_POST['renewal_id'] ) ? $_POST['renewal_id'] : 0 );
+        $listing_id = intval( isset( $_POST['listing_id'] ) ? $_POST['listing_id'] : 0 );
         $expiration_time = isset( $_POST['expiration_date'] ) ? ( 'never' == $_POST['expiration_date'] ? 'never' : date( 'Y-m-d 00:00:00', strtotime( trim( $_POST['expiration_date'] ) ) ) ) : '';
 
-        if ( ! $renewal_id || ! $expiration_time || ! current_user_can( 'administrator' ) )
+        if ( ! $listing_id || ! $expiration_time || ! current_user_can( 'administrator' ) )
             $response->send_error();
 
         global $wpdb;
 
         if ( 'never' == $expiration_time ) {
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = NULL, email_sent = %d WHERE id = %d", 0, $renewal_id ) );
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET expiration_date = NULL WHERE listing_id = %d", $listing_id ) );
         } else {
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET expires_on = %s, email_sent = %d WHERE id = %d", $expiration_time, 0, $renewal_id ) );
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET expiration_date = %s WHERE listing_id = %d", $expiration_time, $listing_id ) );
         }
 
         $response->add( 'formattedExpirationDate', 'never' == $expiration_time ? _x( 'never', 'admin infometabox', 'WPBDM' ) : date_i18n( get_option( 'date_format' ), strtotime( $expiration_time ) ) );
-        $response->send();
-    }
-
-    public function ajax_listing_remove_category() {
-        $response = new WPBDP_Ajax_Response();
-
-        $listing = WPBDP_Listing::get( intval( isset( $_POST['listing'] ) ? $_POST['listing'] : 0 ) );
-        $category = intval( isset( $_POST['category'] ) ? $_POST['category'] : 0 );
-        if ( ! $listing || ! $category )
-            $response->send_error();
-
-        $listing->remove_category( $category );
         $response->send();
     }
 
@@ -434,21 +421,16 @@ class WPBDP_Admin {
         if ( ! current_user_can( 'administrator' ) )
             $response->send_error();
 
-        $fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE id = %d",  isset( $_POST['renewal'] ) ? $_POST['renewal'] : 0 ) );
+        $listing = WPBDP_Listing::get( $_REQUEST['listing_id'] );
 
-        if ( ! $fee_info )
+        if ( ! $listing )
             $response->send_error();
 
-        $listing = WPBDP_Listing::get( $fee_info->listing_id );
-        $category = $listing->get_category_info( $fee_info->category_id );
 
-        if ( ! $listing || ! $category || 'pending' == $category->status )
-            $response->send_error();
-
+        $plans = WPBDP_Fee_Plan::find(); // FIXME: before next-release
         $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-change-fee.tpl.php',
-                                                   array( 'category' => $category,
-                                                          'listing' => $listing,
-                                                          'fees' => wpbdp_get_fees_for_category( $fee_info->category_id ) ) ) );
+                                                   array( 'listing' => $listing,
+                                                          'plans' => $plans ) ) );
         $response->send();
     }
 
@@ -631,7 +613,9 @@ class WPBDP_Admin {
 
             case 'assignfee':
                 $listing = WPBDP_Listing::get( $posts[0] );
-                $listing->add_category( $_GET['category_id'], $_GET['fee_id'] );
+                $fee_id = (int) $_GET['fee_id'];
+                $listing->set_fee_plan( $fee_id );
+
                 $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WPBDM');
 
                 break;
@@ -645,12 +629,15 @@ class WPBDP_Admin {
                 $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'WPBDM' );
                 break;
 
-            // FIXME: before next-release
             case 'send-renewal-email':
-                $renewal_id = intval( $_GET['renewal_id'] );
+                $listing_id = intval( $_GET['listing_id'] );
+                $listing = WPBDP_Listing::get( $listing_id );
 
-                if ( $listings_api->send_renewal_email( $renewal_id ) )
-                    $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
+                if ( ! $listing )
+                    break;
+
+                $listing->send_renewal_notice( 'auto', true );
+                $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
 
                 break;
 

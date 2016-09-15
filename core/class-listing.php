@@ -434,20 +434,6 @@ class WPBDP_Listing {
                        array( 'listing_id' => $this->id, 'category_id' => $category_id ) );
     }
 
-    public function get_total_cost() {
-        $cost = 0.0;
-
-        foreach ( $this->get_categories( 'current' ) as $c ) {
-            if ( $c->fee )
-                $cost += floatval( $c->fee->amount );
-        }
-
-        return $cost;
-//        global $wpdb;
-//        $cost = floatval( $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) );
-//        return round( $cost, 2 );
-    }
-
     public function is_published() {
         return 'publish' == get_post_status( $this->id );
     }
@@ -505,6 +491,16 @@ class WPBDP_Listing {
             'future' => 'renewal-pending-message',
             'reminder' => 'renewal-reminder-message'
         );
+
+        if ( 'auto' == $notice ) {
+            $now = (int) current_time( 'timestamp' );
+            $exp = (int) strtotime( $this->get_expiration_date() );
+
+            if ( $now >= $exp )
+                $notice = 'expired';
+            else
+                $notice = 'future';
+        }
 
         $already_sent = (int) get_post_meta( $this->id, '_wpbdp_renewal_notice_sent_' . $notice, true );
 
@@ -717,6 +713,7 @@ class WPBDP_Listing {
 
         $res->fee = $fee;
         $res->fee_label = $fee ? $fee->label : _x( '(Unavailable Plan)', 'listing', 'WPBDM' );
+        $res->expired = ( strtotime( $res->expiration_date ) <= current_time( 'timestamp' ) );
 
         return $res;
     }
