@@ -580,6 +580,8 @@ class WPBDP_Listing {
         global $wpdb;
         $wpdb->update( $wpdb->posts, array( 'post_status' => wpbdp_get_option( 'deleted-status' ) ), array( 'ID' => $this->id ) );
         clean_post_cache( $this->id );
+
+        return true;
     }
 
     public function notify( $kind = 'save', &$extra = null ) {
@@ -608,6 +610,8 @@ class WPBDP_Listing {
     }
 
     public function get_renewal_url( $deprecated = 0 ) {
+        // TODO: we should probably encode the ID somehow using info that only we have so external users can't
+        // start checking renewal for all listings just by changing the ID.
         return wpbdp_url( 'renew_listing', $this->id );
     }
 

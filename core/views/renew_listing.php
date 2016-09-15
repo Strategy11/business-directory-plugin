@@ -4,71 +4,84 @@
  */
 class WPBDP__Views__Renew_Listing extends WPBDP_NView {
 
-    private $category = null;
     private $listing = null;
+    private $plan = null;
+    private $payment_id = 0;
 
 
     public function dispatch() {
+        global $wpdb;
+
         if ( ! wpbdp_get_option( 'listing-renewal' ) )
             return wpbdp_render_msg( _x( 'Listing renewal is disabled at this moment. Please try again later.', 'renewal', 'WPBDM' ), 'error' );
 
-       if ( ! $this->obtain_renewal_info() )
+        if ( ! ( $this->listing = WPBDP_Listing::get( $_GET['renewal_id'] ) ) )
             return wpbdp_render_msg( _x( 'Your renewal ID is invalid. Please use the URL you were given on the renewal e-mail message.', 'renewal', 'WPBDM' ), 'error' );
 
-        if ( ! wpbdp_user_can( 'edit', $this->listing->get_id() ) ) {
+        $this->plan = $this->listing->get_fee_plan();
+
+        if ( ! wpbdp_user_can( 'edit', $this->listing->get_id() ) || 'ok' != $this->plan->status ) {
             $html  = '';
-//            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page. Please login.', 'renewal', 'WPBDM' ), 'error' );
+            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page. Please login.', 'renewal', 'WPBDM' ), 'error' );
             $html .= wpbdp_render( 'parts/login-required', array(), false );
             return $html;
         }
 
-        if ( $this->category->recurring )
-            return $this->recurring_management();
-
-        if ( $this->category->payment_id )
-            return $this->checkout();
-
-        return $this->fee_selection();
-    }
-
-    private function fee_selection() {
-        // Cancel renewal?
-        if ( isset( $_POST['cancel-renewal'] ) ) {
-            $this->listing->remove_category( $this->category->id, true );
-
-            if ( ! $this->listing->get_categories( 'all' ) )
-                $this->listing->delete();
-
-            return wpbdp_render_msg( _x( 'Your renewal was successfully cancelled.', 'renewal', 'WPBDM' ) );
+        // Check if there's a pending payment for this renewal. If there is, move to checkout.
+        $this->payment_id = $wpdb->get_var( $wpdb->prepare(
+            "SELECT pi.payment_id FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type = %s AND p.status = %s AND p.listing_id = %d",
+            'plan_renewal',
+            'pending',
+            $this->listing->get_id()
+        ) );
+        if ( $this->payment_id ) {
+            $html  = '';
+            $html .= wpbdp_render_msg( _x( 'There\'s a renewal already in process. Please continue with the checkout process.', 'renewal', 'WPBDM' ) );
+            $html .= $this->checkout();
+            return $html;
         }
 
-        $fees = wpbdp_get_fees_for_category( $this->category->id );
+        if ( $this->plan->is_recurring )
+            return $this->recurring_management();
 
-        if ( isset( $_POST['fees'] ) && isset( $_POST['fees'][ $this->category->id ] ) ) {
-            $fee_id = intval( $_POST['fees'][ $this->category->id ] );
+        // Handle removal.
+        if ( isset( $_POST['cancel-renewal'] ) ) {
+            if ( $this->listing->delete() )
+                return wpbdp_render_msg( _x( 'Your listing has been removed from the directory.', 'renewal', 'WPBDM' ) );
+            else
+                return wpbdp_render_msg( _x( 'Could not remove listing from directory.', 'renewal', 'WPBDM' ), 'error' );
+        }
 
-            if ( $fee = wpbdp_get_fee( $fee_id ) ) {
+        return $this->plan_selection();
+    }
+
+    private function plan_selection() {
+        // FIXME: consider categories here before next-release.
+        $plans = WPBDP_Fee_Plan::find( 'all' );
+
+        if ( isset( $_POST['listing_plan'] ) ) {
+            if ( $fee = wpbdp_get_fee( absint( $_POST['listing_plan'] ) ) ) {
                 $payment = new WPBDP_Payment( array( 'listing_id' => $this->listing->get_id() ) );
-                $payment->add_item( 'fee',
+                $payment->add_item( 'plan_renewal',
                                     $fee->amount,
-                                    sprintf( _x( 'Fee "%s" renewal for category "%s"', 'listings', 'WPBDM' ),
-                                             $fee->label,
-                                             wpbdp_get_term_name( $this->category->id ) ),
+                                    sprintf( _x( 'Fee "%s" renewal.', 'listings', 'WPBDM' ),
+                                             $fee->label ),
                                     array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images, 'is_renewal' => true ),
-                                    $this->category->id,
-                                    $fee_id );
+                                    $fee->id );
                 $payment->save();
 
-                $this->category->payment_id = $payment->get_id();
+                $this->payment_id = $payment->get_id();
                 return $this->checkout();
             }
         }
 
-        return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing, 'category' => $this->category, 'fees' => $fees ) );
+        return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing,
+                                                     'current_plan' => $this->plan->fee,
+                                                     'plans' => $plans ) );
     }
 
     private function checkout() {
-        $payment = WPBDP_Payment::get( $this->category->payment_id );
+        $payment = WPBDP_Payment::get( $this->payment_id );
 
         if ( ! $payment )
             return wpbdp_render_msg( _x( 'Invalid renewal state.', 'renewal', 'WPBDM' ), 'error' );
@@ -77,6 +90,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP_NView {
         return $checkout->dispatch();
     }
 
+    // FIXME: before next-release
     private function recurring_management() {
         global $wpbdp;
 
@@ -99,34 +113,6 @@ class WPBDP__Views__Renew_Listing extends WPBDP_NView {
         $html .= '</div>';
 
         return $html;
-    }
-
-    private function obtain_renewal_info() {
-        $renewal_id = urldecode( trim( $_GET['renewal_id'] ) );
-
-        if ( ! $renewal_id )
-            return false;
-
-        parse_str( base64_decode( $renewal_id ), $renewal_data );
-
-        if ( ! $renewal_data || ! isset( $renewal_data['listing_id'] ) || ! isset( $renewal_data['category_id'] ) )
-            return false;
-
-        $listing = WPBDP_Listing::get( intval( $renewal_data['listing_id'] ) );
-        $category_id = intval( $renewal_data['category_id'] );
-
-        if ( ! $listing )
-            return false;
-
-        $category_info = $listing->get_category_info( $category_id );
-
-        if ( ! $category_info )
-            return false;
-
-        $this->category = $category_info;
-        $this->listing = $listing;
-
-        return true;
     }
 
 }

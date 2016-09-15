@@ -26,7 +26,8 @@ class WPBDP_Listings_API {
         add_action( 'wpbdp_edit_listing', array( &$this, 'edit_listing_admin_email' ) );
 
         add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
-        add_action( 'WPBDP_Payment::status_change', array( &$this, 'auto_renewal_notification_email' ) );
+        // FIXME: review before next-release.
+        // add_action( 'WPBDP_Payment::status_change', array( &$this, 'auto_renewal_notification_email' ) );
 
         add_action( 'transition_post_status', array( &$this, 'listing_published_notification' ), 10, 3 );
 
@@ -160,6 +161,7 @@ class WPBDP_Listings_API {
             switch ( $item->item_type ) {
                 case 'recurring_plan':
                 case 'plan':
+                case 'plan_renewal':
                     $listing->set_fee_plan( $item->rel_id_1, 'recurring_plan' == $item->item_type ? true : false );
 
                     if ( ! empty( $item->data['is_renewal'] ) )

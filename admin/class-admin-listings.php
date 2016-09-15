@@ -4,7 +4,7 @@ class WPBDP_Admin_Listings {
 
     function __construct() {
         add_action('admin_init', array($this, 'add_metaboxes'));
-        add_action( 'wpbdp_admin_notices', array( $this, 'no_category_edit_notice' ) );
+        add_action( 'wpbdp_admin_notices', array( $this, 'no_plan_edit_notice' ) );
 
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'add_columns' ) );
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
@@ -110,7 +110,7 @@ class WPBDP_Admin_Listings {
         return $pieces;
     }
 
-    function no_category_edit_notice() {
+    function no_plan_edit_notice() {
         if ( ! function_exists( 'get_current_screen' ) )
             return;
 
@@ -129,8 +129,8 @@ class WPBDP_Admin_Listings {
         if ( ! $listing )
             return;
 
-        if( ! $listing->get_categories( 'all' ) )
-            wpbdp_admin_message( _x( 'This listing doesn\'t have any category assigned. At least one category (and its respective fee) is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'WPBDM' ), 'error' );
+        if( ! $listing->has_fee_plan() )
+            wpbdp_admin_message( _x( 'This listing doesn\'t have a fee plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'WPBDM' ), 'error' );
     }
 
     function add_metaboxes() {
@@ -159,6 +159,10 @@ class WPBDP_Admin_Listings {
     public function _metabox_fee_plan( $post ) {
         $listing = WPBDP_Listing::get( $post->ID );
         $current_plan = $listing->get_fee_plan();
+
+        if ( ! $current_plan )
+            $current_plan = (object) array( 'fee_id' => 0 );
+
         $plans = WPBDP_Fee_Plan::find( 'all' );
 
         foreach ( $plans as $p ) {
