@@ -538,11 +538,15 @@ class WPBDP_Listing {
      * @since next-release
      */
     public function set_status( $status ) {
+        global $wpdb;
         // XXX: we don't really do much here, for now...
 
         switch ( $status ) {
         case 'expired':
             wp_update_post( array( 'ID' => $this->id, 'post_status' => 'draft' ) ); // Change status to draft.
+
+            // TODO(next-release): Maybe drop sticky status?.
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 0 ), array( 'listing_id' => $this->id ) );
 
             if ( ! wpbdp_get_option( 'listing-renewal' ) )
                 break;
