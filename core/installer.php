@@ -137,6 +137,7 @@ class WPBDP_Installer {
             KEY expires_and_email (expires_on,email_sent)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
+        // TODO: featured_price and featured_level are temporary while we decide what to do with featured levels.
         $schema['listings_plans'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listings_plans (
             listing_id bigint(20) PRIMARY KEY,
             fee_id bigint(20) NOT NULL,
@@ -147,7 +148,9 @@ class WPBDP_Installer {
             is_recurring tinyint(1) NOT NULL DEFAULT 0,
             is_sticky tinyint(1) NOT NULL DEFAULT 0,
             subscription_id bigint(20) NULL,
-            status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ok'
+            status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ok',
+            featured_price decimal(10,2) NOT NULL DEFAULT 0.00,
+            featured_level VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (

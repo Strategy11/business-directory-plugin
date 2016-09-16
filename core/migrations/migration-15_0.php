@@ -24,6 +24,9 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
         if ( $done )
             $done = $this->fix_orphans( $status_msg );
 
+        if ( $done )
+            $done = $this->migrate_sticky_info( $status_msg );
+
         return array( 'ok' => true, 'done' => $done, 'status' => $status_msg );
     }
 
@@ -182,7 +185,7 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
     public function fix_orphans( &$msg ) {
         global $wpdb;
 
-        $msg = 'x';
+        $msg = '';
         static $batch_size = 20;
 
         $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND ID NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans)", WPBDP_POST_TYPE ) );
@@ -198,6 +201,49 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
         }
 
         $msg = sprintf( _x( 'Assigning fees to orphan listings: %d listings remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
+        return false;
+    }
+
+    public function migrate_sticky_info( &$msg ) {
+        global $wpdb;
+        static $batch_size = 40;
+
+        $msg = '';
+        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings_plans WHERE featured_level IS NULL OR featured_level = %s", '' ) );
+        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans WHERE featured_level IS NULL OR featured_level = %s ORDER BY listing_id LIMIT %d", '', $batch_size ) );
+
+        if ( ! $listings ) {
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET featured_level = NULL WHERE featured_level = %s", 'normal' ) );
+            return true;
+        }
+
+        $record = array( 'featured_price' => 0.0, 'featured_level' => 'normal', 'is_sticky' => 0 );
+
+        foreach ( $listings as $listing_id ) {
+            $status = get_post_meta( $listing_id, '_wpbdp[sticky]', true );
+            $level = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true );
+
+            if ( ! $status || 'pending' == $status ) {
+                $record['featured_level'] = 'normal';
+            } elseif ( 'sticky' == $status ) {
+                $record['is_sticky'] = 1;
+
+                if ( $level != 'sticky' )
+                    $price = (float) $wpdb->get_var( $wpdb->prepare( "SELECT cost FROM {$wpdb->prefix}wpbdp_x_featured_levels WHERE id = %s", $level ) );
+                else
+                    $price = (float) wpbdp_get_option( 'featured-price' );
+
+                $record['featured_price'] = $price;
+                $record['featured_level'] = ( $level ? $level : 'sticky' );
+            }
+
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans',
+                           $record,
+                           array( 'listing_id' => $listing_id ) );
+        }
+
+        $msg = sprintf( _x( 'Migrating featured level information: %d listings remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
+
         return false;
     }
 
