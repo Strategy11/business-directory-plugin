@@ -68,6 +68,17 @@ class WPBDP__Views__Renew_Listing extends WPBDP_NView {
                                              $fee->label ),
                                     array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images, 'is_renewal' => true ),
                                     $fee->id );
+
+                if ( ! empty( $_POST['featured'] ) && 'yes' == $_POST['featured'] ) {
+                    $payment->add_item( 'featured_upgrade',
+                                        $this->plan->featured_price,
+                                        _x( 'Upgrade to featured.', 'renewal', 'WPBDM' ),
+                                        array( 'featured_level' => $this->plan->featured_level, 'featured_price' => $this->plan->featured_price ) );
+                } else {
+                    global $wpdb;
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET featured_price = 0.0, featured_level = NULL WHERE listing_id = %d", $this->listing->get_id() ) );
+                }
+
                 $payment->save();
 
                 $this->payment_id = $payment->get_id();
@@ -76,6 +87,8 @@ class WPBDP__Views__Renew_Listing extends WPBDP_NView {
         }
 
         return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing,
+                                                     'offer_featured' => $this->plan->featured_level ? true : false,
+                                                     'featured_price' => $this->plan->featured_level ? wpbdp_currency_format( $this->plan->featured_price ) : 0.0,
                                                      'current_plan' => $this->plan->fee,
                                                      'plans' => $plans ) );
     }

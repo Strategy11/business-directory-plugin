@@ -180,6 +180,10 @@ class WPBDP_Listings_API {
                     if ( ! $listing->is_recurring() )
                         $listing->set_fee_plan( $item->rel_id_2 );
                     break;
+                case 'featured_upgrade':
+                    global $wpdb;
+                    $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 1 ), array( 'listing_id' => $listing->get_id() ) );
+                    break;
                 case 'upgrade':
                     $upgrades_api = wpbdp_listing_upgrades_api();
                     $sticky_info = $upgrades_api->get_info( $listing->get_id() );
