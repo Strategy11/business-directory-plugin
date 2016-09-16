@@ -237,9 +237,10 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
                 $record['featured_level'] = ( $level ? $level : 'sticky' );
             }
 
-            $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans',
-                           $record,
-                           array( 'listing_id' => $listing_id ) );
+            if ( false !== $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $record, array( 'listing_id' => $listing_id ) ) ) {
+                delete_post_meta( $listing_id, '_wpbdp[sticky]' );
+                delete_post_meta( $listing_id, '_wpbdp[sticky_level]' );
+            }
         }
 
         $msg = sprintf( _x( 'Migrating featured level information: %d listings remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
