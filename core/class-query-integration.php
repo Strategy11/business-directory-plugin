@@ -111,19 +111,8 @@ class WPBDP__Query_Integration {
         $pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
         // Sticky listings.
-        $is_sticky_query = $wpdb->prepare( "(SELECT 1 FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s AND {$wpdb->postmeta}.meta_value = %s LIMIT 1 ) AS wpbdp_is_sticky",
-                                           '_wpbdp[sticky]', 'sticky' );
+        $is_sticky_query =  "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings_plans wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
         $pieces['fields'] .= ', ' . $is_sticky_query . ' ';
-
-        // Sticky listings (per fee).
-        if ( ! empty( $query->wpbdp_is_category ) ) {
-            $category = $query->get_queried_object();
-            $pieces['fields'] .= ', ' . $wpdb->prepare( "(SELECT 1 FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = {$wpdb->posts}.ID AND lf.sticky = %d AND lf.category_id = %d LIMIT 1 ) AS wpbdp_cat_sticky",
-                                                        1,
-                                                        $category->term_id );
-        } else {
-            $pieces['fields'] .= ', (SELECT 0) AS wpbdp_cat_sticky';
-        }
 
         // Paid first query order.
         if ( in_array( $query->get( 'orderby' ), array( 'paid', 'paid-title' ), true ) ) {
@@ -136,7 +125,7 @@ class WPBDP__Query_Integration {
         if ( 'paid-title' == $query->get( 'orderby' ) )
             $pieces['orderby'] = "{$wpdb->posts}.post_title ASC, " . $pieces['orderby'];
 
-        $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_cat_sticky DESC, wpbdp_paid_amount DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
+        $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_paid_amount DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
         $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );
 
         return $pieces;
