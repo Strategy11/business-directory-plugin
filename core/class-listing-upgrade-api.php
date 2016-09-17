@@ -153,37 +153,34 @@ class WPBDP_Listing_Upgrade_API {
     }
 
     public function get_listing_level($listing_id) {
-        $sticky_status = get_post_meta( $listing_id, '_wpbdp[sticky]', true );
-        $level = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true );
+        $listing = WPBDP_Listing::get( $listing_id );
+        $plan = $listing->get_fee_plan();
 
-        switch ($sticky_status) {
-            case 'sticky':
-                if (!$level)
-                    return $this->get('sticky');
-                else
-                    return $this->get($level) ? $this->get($level) : $this->get('sticky');
+        if ( ! $plan->is_sticky )
+            return $this->get( 'normal' );
 
-                break;
-            case 'pending':
-                if (!$level)
-                    return $this->get('normal');
-                else
-                    return $this->get($level) ? $this->get($level) : $this->get('sticky');
-
-                break;
-            case 'normal':
-            default:
-                return $this->get('normal');
-                break;
-        }
-
+        if ( $plan->featured_level )
+            return $this->get( $plan->featured_level );
     }
 
     public function get_info($listing_id) {
+        global $wpdb;
+
         if (!$listing_id)
             return null;
 
-        $sticky_status = get_post_meta( $listing_id, '_wpbdp[sticky]', true );
+        $plan = WPBDP_Listing::get( $listing_id );
+        $is_pending = (bool) $wpdb->get_var( $wpdb->prepare(
+            "SELECT 1 AS x_ FROM {$wpdb->prefix}wpbdp_payments_items pi JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type = %s AND p.status = %s AND p.listing_id = %d",
+            'upgrade',
+            'pending',
+            $listing_id ) );
+
+        $sticky_status = 'normal';
+        if ( $is_pending )
+            $sticky_status = 'pending';
+        else
+            $sticky_status = ( ( $plan->is_sticky || $plan->featured_level ) ? 'sticky' : 'normal' );
 
         $res = new StdClass();
         $res->level = $this->get_listing_level( $listing_id );
@@ -199,17 +196,25 @@ class WPBDP_Listing_Upgrade_API {
     }
 
     public function set_sticky($listing_id, $level_id, $only_upgrade=false) {
+        global $wpdb;
+
         $current_info = $this->get_info( $listing_id );
 
         if ( $only_upgrade && (array_search($level_id, $this->_order) < array_search($current_info->level->id, $this->_order)) )
             return false;
 
         if ( $level_id == 'normal' ) {
-            delete_post_meta( $listing_id, '_wpbdp[sticky]' );
-            delete_post_meta( $listing_id, '_wpbdp[sticky_level]' );
+            $wpdb->query(
+                $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET is_sticky = 0, featured_price = 0.0, featured_level = NULL WHERE listing_id = %d",
+                                $listing_id )
+            );
         } else {
-            update_post_meta( $listing_id, '_wpbdp[sticky]', 'sticky' );
-            update_post_meta( $listing_id, '_wpbdp[sticky_level]', $level_id );
+            $wpdb->query(
+                $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET is_sticky = 1, featured_price = %s, featured_level = %s WHERE listing_id = %d",
+                                $this->get( $level_id )->cost,
+                                $level_id,
+                                $listing_id )
+            );
         }
 
         // TODO: approve/cancel transactions related to this operation.

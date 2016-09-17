@@ -48,7 +48,6 @@ class WPBDP__Views__Upgrade_Listing extends WPBDP_NView {
                             $sticky_info->upgrade->cost,
                             _x( 'Listing upgrade to featured', 'submit', 'WPBDM' ) );
         $payment->save();
-        update_post_meta( $this->listing->get_id(), '_wpbdp[sticky]', 'pending' ); // FIXME: maybe this should be set automatically when saving the payment?
 
         $checkout = wpbdp_load_view( 'checkout', $payment );
         return $checkout->dispatch();
