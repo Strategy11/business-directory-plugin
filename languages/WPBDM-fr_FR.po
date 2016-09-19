@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-09-14 23:43:31+00:00\n"
+"POT-Creation-Date: 2016-09-19 17:12:35+00:00\n"
 "PO-Revision-Date: 2016-08-29 18:17-0300\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1394,118 +1394,113 @@ msgstr ""
 "suffisamment d'espace disque et de mémoire disponible sur PHP. Vérifiez "
 "votre journal d'erreurs pour plus de détails."
 
-#: admin/templates/csv-import-progress.tpl.php:14
-msgctxt "admin csv-import"
-msgid "Last imported line from file:"
-msgstr "Dernière ligne importée depuis le fichier:"
-
-#: admin/templates/csv-import-progress.tpl.php:18
-#: admin/templates/csv-import-progress.tpl.php:25
+#: admin/templates/csv-import-progress.tpl.php:13
+#: admin/templates/csv-import-progress.tpl.php:20
 msgctxt "admin csv-import"
 msgid "← Return to CSV Import"
 msgstr "← Retourner vers l'importation CSV"
 
-#: admin/templates/csv-import-progress.tpl.php:23
+#: admin/templates/csv-import-progress.tpl.php:18
 msgctxt "admin csv-import"
 msgid "Import Canceled"
 msgstr "Importation annulée"
 
-#: admin/templates/csv-import-progress.tpl.php:24
+#: admin/templates/csv-import-progress.tpl.php:19
 msgctxt "admin csv-import"
 msgid "The import has been canceled."
 msgstr "L'importation a été annulée."
 
-#: admin/templates/csv-import-progress.tpl.php:31
+#: admin/templates/csv-import-progress.tpl.php:26
 msgid "Import Progress"
 msgstr "Progression de l'importation"
 
-#: admin/templates/csv-import-progress.tpl.php:34
+#: admin/templates/csv-import-progress.tpl.php:29
 msgctxt "admin csv-import"
 msgid "Files"
 msgstr "Fichiers"
 
-#: admin/templates/csv-import-progress.tpl.php:37
+#: admin/templates/csv-import-progress.tpl.php:32
 msgctxt "admin csv-import"
 msgid "Rows in file"
 msgstr "Lignes dans le fichier"
 
-#: admin/templates/csv-import-progress.tpl.php:40
+#: admin/templates/csv-import-progress.tpl.php:35
 msgctxt "admin csv-import"
 msgid "Progress"
 msgstr "Progression"
 
-#: admin/templates/csv-import-progress.tpl.php:44
+#: admin/templates/csv-import-progress.tpl.php:39
 msgctxt "admin csv-import"
 msgid "Import has not started. Click \"Start Import\" to begin."
 msgstr ""
 "L'importation n'a pas commencé. Cliquez sur \"Commencer l'importation\"."
 
-#: admin/templates/csv-import-progress.tpl.php:45
+#: admin/templates/csv-import-progress.tpl.php:40
 msgctxt "admin csv-import"
 msgid "Importing CSV file..."
 msgstr "Importer le fichier CSV..."
 
-#: admin/templates/csv-import-progress.tpl.php:51
+#: admin/templates/csv-import-progress.tpl.php:46
 msgctxt "admin csv-import"
 msgid "Start Import"
 msgstr "Commencer l'importation"
 
-#: admin/templates/csv-import-progress.tpl.php:52
+#: admin/templates/csv-import-progress.tpl.php:47
 msgctxt "admin csv-import"
 msgid "Cancel Import"
 msgstr "Annuler l'importation "
 
-#: admin/templates/csv-import-progress.tpl.php:59
+#: admin/templates/csv-import-progress.tpl.php:54
 msgctxt "admin csv-import"
 msgid "Import finished"
 msgstr "Importation achevée"
 
-#: admin/templates/csv-import-progress.tpl.php:62
+#: admin/templates/csv-import-progress.tpl.php:57
 msgctxt "admin csv-import"
 msgid "Import was completed successfully."
 msgstr "L'importation s'est déroulée sans accroc."
 
-#: admin/templates/csv-import-progress.tpl.php:66
+#: admin/templates/csv-import-progress.tpl.php:61
 msgctxt "admin csv-import"
 msgid "Import was completed but some rows were rejected."
 msgstr "L'importation est finie, mais certaines lignes ont été rejetées."
 
-#: admin/templates/csv-import-progress.tpl.php:69
+#: admin/templates/csv-import-progress.tpl.php:64
 msgctxt "admin csv-import"
 msgid "Import Summary"
 msgstr "Sommaire de l'importation"
 
-#: admin/templates/csv-import-progress.tpl.php:71
+#: admin/templates/csv-import-progress.tpl.php:66
 msgctxt "admin csv-import"
 msgid "Rows in file:"
 msgstr "Lignes dans le fichier:"
 
-#: admin/templates/csv-import-progress.tpl.php:74
+#: admin/templates/csv-import-progress.tpl.php:69
 msgctxt "admin csv-import"
 msgid "Imported rows:"
 msgstr "Lignes importées:"
 
-#: admin/templates/csv-import-progress.tpl.php:77
+#: admin/templates/csv-import-progress.tpl.php:72
 msgctxt "admin csv-import"
 msgid "Rejected rows:"
 msgstr "Lignes rejetées:"
 
-#: admin/templates/csv-import-progress.tpl.php:82
+#: admin/templates/csv-import-progress.tpl.php:77
 msgctxt "admin csv-import"
 msgid "Import Warnings"
 msgstr "Alertes d'importation:"
 
-#: admin/templates/csv-import-progress.tpl.php:85
+#: admin/templates/csv-import-progress.tpl.php:80
 msgctxt "admin csv-import"
 msgid "Line #"
 msgstr "Ligne #"
 
-#: admin/templates/csv-import-progress.tpl.php:86
+#: admin/templates/csv-import-progress.tpl.php:81
 msgctxt "admin csv-import"
 msgid "Line"
 msgstr "Ligne"
 
-#: admin/templates/csv-import-progress.tpl.php:87
+#: admin/templates/csv-import-progress.tpl.php:82
 msgctxt "admin csv-import"
 msgid "Warning"
 msgstr "Alerte"
@@ -3055,22 +3050,29 @@ msgstr "Annonces marquées: %s"
 msgid "Free"
 msgstr "Gratuit"
 
-#: core/class-csv-import.php:391
+#: core/class-csv-import.php:394
+msgctxt "admin csv-import"
+msgid ""
+"Could not create listing category \"<category-name>\". The operation failed "
+"with the following error: <error-message>."
+msgstr ""
+
+#: core/class-csv-import.php:400
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Vous ne pouvez pas créer cette catégorie d'annonce \"%s\""
 
-#: core/class-csv-import.php:535
+#: core/class-csv-import.php:544
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Le nom d'utilisateur \"%s\" n'existe pas"
 
-#: core/class-csv-import.php:567
+#: core/class-csv-import.php:576
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Absence d'un champ requis: %s"
 
-#: core/class-csv-import.php:587
+#: core/class-csv-import.php:596
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La catégorie d'annonce \"%s\" n'existe pas"
@@ -7299,6 +7301,10 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "admin csv-import"
+#~ msgid "Last imported line from file:"
+#~ msgstr "Dernière ligne importée depuis le fichier:"
 
 #~ msgctxt "formfields-preview"
 #~ msgid ""

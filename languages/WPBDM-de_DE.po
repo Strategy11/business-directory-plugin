@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-09-14 23:43:31+00:00\n"
+"POT-Creation-Date: 2016-09-19 17:12:35+00:00\n"
 "PO-Revision-Date: 2016-01-21 08:45-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -1404,128 +1404,123 @@ msgstr ""
 "stelle sicher, dass du genügend Speicherplatz für PHP vorhanden ist. Schaue "
 "ins Fehlerprotokoll."
 
-#: admin/templates/csv-import-progress.tpl.php:14
-msgctxt "admin csv-import"
-msgid "Last imported line from file:"
-msgstr ""
-
-#: admin/templates/csv-import-progress.tpl.php:18
-#: admin/templates/csv-import-progress.tpl.php:25
+#: admin/templates/csv-import-progress.tpl.php:13
+#: admin/templates/csv-import-progress.tpl.php:20
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "← Return to CSV Import"
 msgstr "Zurück nach \"CSV Importieren\""
 
-#: admin/templates/csv-import-progress.tpl.php:23
+#: admin/templates/csv-import-progress.tpl.php:18
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Import Canceled"
 msgstr "Export abgebrochen"
 
-#: admin/templates/csv-import-progress.tpl.php:24
+#: admin/templates/csv-import-progress.tpl.php:19
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "The import has been canceled."
 msgstr "Der Export wurde abgebrochen."
 
-#: admin/templates/csv-import-progress.tpl.php:31
+#: admin/templates/csv-import-progress.tpl.php:26
 #, fuzzy
 msgid "Import Progress"
 msgstr "Export wird durchgeführt..."
 
-#: admin/templates/csv-import-progress.tpl.php:34
+#: admin/templates/csv-import-progress.tpl.php:29
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Files"
 msgstr "CSV Datei"
 
-#: admin/templates/csv-import-progress.tpl.php:37
+#: admin/templates/csv-import-progress.tpl.php:32
 msgctxt "admin csv-import"
 msgid "Rows in file"
 msgstr ""
 
-#: admin/templates/csv-import-progress.tpl.php:40
+#: admin/templates/csv-import-progress.tpl.php:35
 msgctxt "admin csv-import"
 msgid "Progress"
 msgstr ""
 
-#: admin/templates/csv-import-progress.tpl.php:44
+#: admin/templates/csv-import-progress.tpl.php:39
 msgctxt "admin csv-import"
 msgid "Import has not started. Click \"Start Import\" to begin."
 msgstr ""
 
-#: admin/templates/csv-import-progress.tpl.php:45
+#: admin/templates/csv-import-progress.tpl.php:40
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Importing CSV file..."
 msgstr "Import Dateien"
 
-#: admin/templates/csv-import-progress.tpl.php:51
+#: admin/templates/csv-import-progress.tpl.php:46
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Start Import"
 msgstr "CSV Datei importieren"
 
-#: admin/templates/csv-import-progress.tpl.php:52
+#: admin/templates/csv-import-progress.tpl.php:47
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Cancel Import"
 msgstr "Export abbrechen"
 
-#: admin/templates/csv-import-progress.tpl.php:59
+#: admin/templates/csv-import-progress.tpl.php:54
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Import finished"
 msgstr "Import Dateien"
 
-#: admin/templates/csv-import-progress.tpl.php:62
+#: admin/templates/csv-import-progress.tpl.php:57
 msgctxt "admin csv-import"
 msgid "Import was completed successfully."
 msgstr "Der Import wurde erfolgreich abgeschlossen."
 
-#: admin/templates/csv-import-progress.tpl.php:66
+#: admin/templates/csv-import-progress.tpl.php:61
 msgctxt "admin csv-import"
 msgid "Import was completed but some rows were rejected."
 msgstr "Der Import ist komplett. Einige Zeilen wurden abgelehnt."
 
-#: admin/templates/csv-import-progress.tpl.php:69
+#: admin/templates/csv-import-progress.tpl.php:64
 msgctxt "admin csv-import"
 msgid "Import Summary"
 msgstr "Import Zusammenfassung"
 
-#: admin/templates/csv-import-progress.tpl.php:71
+#: admin/templates/csv-import-progress.tpl.php:66
 msgctxt "admin csv-import"
 msgid "Rows in file:"
 msgstr ""
 
-#: admin/templates/csv-import-progress.tpl.php:74
+#: admin/templates/csv-import-progress.tpl.php:69
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Imported rows:"
 msgstr "Korrekt importierte Zeilen:"
 
-#: admin/templates/csv-import-progress.tpl.php:77
+#: admin/templates/csv-import-progress.tpl.php:72
 msgctxt "admin csv-import"
 msgid "Rejected rows:"
 msgstr "Abgelehnte Zeilen:"
 
-#: admin/templates/csv-import-progress.tpl.php:82
+#: admin/templates/csv-import-progress.tpl.php:77
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Import Warnings"
 msgstr "Importeinstellungen"
 
-#: admin/templates/csv-import-progress.tpl.php:85
+#: admin/templates/csv-import-progress.tpl.php:80
 msgctxt "admin csv-import"
 msgid "Line #"
 msgstr "Zeile #"
 
-#: admin/templates/csv-import-progress.tpl.php:86
+#: admin/templates/csv-import-progress.tpl.php:81
 msgctxt "admin csv-import"
 msgid "Line"
 msgstr "Zeile"
 
-#: admin/templates/csv-import-progress.tpl.php:87
+#: admin/templates/csv-import-progress.tpl.php:82
 msgctxt "admin csv-import"
 msgid "Warning"
 msgstr "Warnung"
@@ -3063,22 +3058,29 @@ msgstr "Einträge getaggt: %s"
 msgid "Free"
 msgstr "Kostenlos"
 
-#: core/class-csv-import.php:391
+#: core/class-csv-import.php:394
+msgctxt "admin csv-import"
+msgid ""
+"Could not create listing category \"<category-name>\". The operation failed "
+"with the following error: <error-message>."
+msgstr ""
+
+#: core/class-csv-import.php:400
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: core/class-csv-import.php:535
+#: core/class-csv-import.php:544
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Benutzername \"%s\" existiert nicht"
 
-#: core/class-csv-import.php:567
+#: core/class-csv-import.php:576
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Benötigtes nicht vorhandenes Feld: %s"
 
-#: core/class-csv-import.php:587
+#: core/class-csv-import.php:596
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Eintragskategorie \"%s\" existiert nicht"
