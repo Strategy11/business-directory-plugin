@@ -179,7 +179,6 @@ class WPBDP_Admin_Listings {
         $custom_columns['status'] = __( 'Status', 'WPBDM' );
         $custom_columns['fee_plan'] = __( 'Fee Plan', 'WPBDM' );
         $custom_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
-        // $custom_columns['sticky_status'] = __( 'Featured (Sticky) Status', 'WPBDM' );
 
         $columns = array();
 
