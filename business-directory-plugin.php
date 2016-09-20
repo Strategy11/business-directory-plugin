@@ -305,13 +305,19 @@ class WPBDP_Plugin {
 
                 $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
 
+                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&feed=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&feed=$matches[3]';
+
                 if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?wpbdp_category=$matches[2]&paged=$matches[3]';
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?wpbdp_category=$matches[2]';
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&paged=$matches[3]';
+                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]';
                 } else {
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]&paged=$matches[3]';
                     $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]';
                 }
+
+                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
+                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
 
                 if ( ! wpbdp_get_option( 'disable-cpt') ) {
                     $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
