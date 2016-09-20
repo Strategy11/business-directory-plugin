@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-09-19 17:12:35+00:00\n"
+"POT-Creation-Date: 2016-09-20 02:40:34+00:00\n"
 "PO-Revision-Date: 2016-09-19 12:18-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -2243,6 +2243,7 @@ msgstr ""
 "Por favor vea la <a>documentación de Campos de Formulario</a> para más "
 "detalles."
 
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3011,32 +3012,32 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Permitir Seguimiento"
 
-#: business-directory-plugin.php:660
+#: business-directory-plugin.php:666
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: business-directory-plugin.php:768 business-directory-plugin.php:775
+#: business-directory-plugin.php:774 business-directory-plugin.php:781
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "Feed %s"
 
-#: business-directory-plugin.php:1113
+#: business-directory-plugin.php:1119
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: business-directory-plugin.php:1123
+#: business-directory-plugin.php:1129
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: business-directory-plugin.php:1133
+#: business-directory-plugin.php:1139
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: business-directory-plugin.php:1153
+#: business-directory-plugin.php:1159
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"

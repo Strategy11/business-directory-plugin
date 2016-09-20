@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Business Directory Plugin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 4.1.2dev\n"
+"Project-Id-Version: Business Directory Plugin 4.1.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-09-19 17:12:35+00:00\n"
+"POT-Creation-Date: 2016-09-20 02:40:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2088,7 +2088,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.2dev)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2824,32 +2824,32 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr ""
 
-#: business-directory-plugin.php:660
+#: business-directory-plugin.php:666
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr ""
 
-#: business-directory-plugin.php:768 business-directory-plugin.php:775
+#: business-directory-plugin.php:774 business-directory-plugin.php:781
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr ""
 
-#: business-directory-plugin.php:1113
+#: business-directory-plugin.php:1119
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr ""
 
-#: business-directory-plugin.php:1123
+#: business-directory-plugin.php:1129
 msgctxt "title"
 msgid "Find a Listing"
 msgstr ""
 
-#: business-directory-plugin.php:1133
+#: business-directory-plugin.php:1139
 msgctxt "title"
 msgid "View All Listings"
 msgstr ""
 
-#: business-directory-plugin.php:1153
+#: business-directory-plugin.php:1159
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr ""
