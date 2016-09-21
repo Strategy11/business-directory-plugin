@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
-Tested up to: 4.6
-Last Updated: 2016-Aug-25
-Stable tag: tags/4.1.1
+Tested up to: 4.6.1
+Last Updated: 2016-Sep 20
+Stable tag: tags/4.1.2
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -130,6 +130,17 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.2 =
+* Fix meta tag generation when CPT integration is disabled.
+* Add option to display single view in a new browser tab/window
+* Fix typo in French translation.
+* Improve behavior of "Preview" button on listings backend.
+* Add some missing translatable strings.
+* Fix for search form not working when permalinks were disabled.
+* Fix shortcode execution in content fields under certain circumstances.
+* Fix fatal error trying to create a category in CSV Import.
+* Add rewrite rules for feed URLs for categories and tags
 
 = Version 4.1.1 =
 * Fix searching involving multivalued fields.
