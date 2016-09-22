@@ -14,4 +14,11 @@ class WPBDP_Utils {
         return $res;
     }
 
+    /**
+     * @since next-release
+     */
+    public static function sort_by_property( &$array, $prop ) {
+        uasort( $array,
+                create_function( '$x, $y', '$x_ = (array) $x; $y_ = (array) $y; return $x_["' . $prop . '"] - $y_["' . $prop . '"];' ) );
+    }
 }
