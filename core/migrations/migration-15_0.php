@@ -16,7 +16,10 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
     public function _upgrade_to_15_migrate_fees() {
         $status_msg = '';
         $done = false;
-        $done = $this->_upgrade_to_15_migrate_fees_fees( $status_msg );
+        $done = $this->_migrate_fee_plans( $status_msg );
+
+        if ( $done )
+            $done = $this->_upgrade_to_15_migrate_fees_fees( $status_msg );
 
         if ( $done )
             $done = $this->_upgrade_to_15_migrate_fees_payments( $status_msg );
@@ -28,6 +31,38 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
             $done = $this->migrate_sticky_info( $status_msg );
 
         return array( 'ok' => true, 'done' => $done, 'status' => $status_msg );
+    }
+
+    public function _migrate_fee_plans( &$msg ) {
+        global $wpdb;
+
+        $msg = _x( 'Migrating fee plans columns...', 'installer', 'WPBDM' );
+
+        foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_fees" ) as $fee ) {
+            $old_categories = isset( $fee->categories ) ? unserialize( $fee->categories ) : array();
+            $update = array();
+
+            if ( empty( $fee->supported_categories ) ) {
+                if ( ! is_array( $old_categories ) || empty( $old_categories ) || ( isset( $old_categories['all'] ) && $old_categories['all'] ) )
+                    $update['supported_categories'] = 'all';
+                else
+                    $update['supported_categories'] = implode( ',', array_map( 'absint', $old_categories['categories'] ) );
+            }
+
+            if ( empty( $fee->pricing_model ) )
+                $update['pricing_model'] = 'flat';
+
+            if ( empty( $fee->category_limit ) )
+                $update['category_limit'] = '0';
+
+            if ( false === $wpdb->update( $wpdb->prefix . 'wpbdp_fees', $update, array( 'id' => $fee->id ) ) ) {
+                $msg = sprintf( _x( '! Could not migrate fee "%s" (%d)', 'installer', 'WPBDM' ), $fee->label, $fee->id );
+                return false;
+            }
+        }
+
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
+        return true;
     }
 
     public function _upgrade_to_15_migrate_fees_fees( &$msg ) {
