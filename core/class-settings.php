@@ -669,7 +669,7 @@ EOF;
                             'text',
                             '2',
                            str_replace( '<a>',
-                                        '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
+                                        '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees' ) . '">',
                                         _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'WPBDM' ) ),
                            null,
                            array( &$this, '_validate_free_images' ) );

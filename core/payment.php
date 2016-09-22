@@ -130,7 +130,7 @@ class WPBDP_PaymentsAPI {
             if ( 0 == absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE tag != %s AND enabled = %d", 'free', 1 ) ) ) ) {
                 $errors[] = str_replace( array( '<a href="fees">',
                                                 '<a href="settings">' ),
-                                         array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_fees' ) . '">',
+                                         array( '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees' ) . '">',
                                                 '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">' ),
                                          __( 'You have payments enabled but there are no fees available. Users won\'t be able to post listings. Please <a href="fees">create some fees</a> or <a href="settings">configure the Directory</a> to operate in "Free Mode".',
                                              'WPBDM' ) );

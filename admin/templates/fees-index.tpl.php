@@ -1,6 +1,6 @@
 <?php
     echo wpbdp_admin_header(null, 'admin-fees', array(
-        array(_x('Add New Listing Fee', 'fees admin', 'WPBDM'), esc_url(add_query_arg('action', 'addfee'))),
+        array(_x('Add New Listing Fee', 'fees admin', 'WPBDM'), esc_url(add_query_arg('wpbdp-view', 'add-fee'))),
     ) );
 ?>
     <?php wpbdp_admin_notices(); ?>

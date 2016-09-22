@@ -27,7 +27,7 @@ class WPBDP_WPML_Compat {
         }
 
         add_action( 'admin_footer-directory-admin_page_wpbdp_admin_formfields', array( &$this, 'register_form_fields_strings' ) );
-        add_action( 'admin_footer-directory-admin_page_wpbdp_admin_fees', array( &$this, 'register_fees_strings' ) );
+        add_action( 'admin_footer-directory-admin_page_wpbdp-admin-fees', array( &$this, 'register_fees_strings' ) );
 
         // Regions.
         add_filter( 'wpbdp_regions__get_hierarchy_option', array( &$this, 'use_cache_per_lang' ) );

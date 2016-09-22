@@ -1,7 +1,6 @@
 <?php
 require_once( WPBDP_PATH . 'admin/admin-pages.php' );
 require_once( WPBDP_PATH . 'admin/class-admin-listings.php' );
-require_once( WPBDP_PATH . 'admin/fees.php' );
 require_once( WPBDP_PATH . 'admin/form-fields.php' );
 require_once( WPBDP_PATH . 'admin/payments.php' );
 require_once( WPBDP_PATH . 'admin/csv-import.php' );
@@ -9,11 +8,13 @@ require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
 require_once( WPBDP_PATH . 'admin/class-listing-fields-metabox.php' );
 require_once( WPBDP_PATH . 'admin/page-debug.php' );
+require_once( WPBDP_PATH . 'admin/class-admin-controller.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 class WPBDP_Admin {
 
+    private $menu = array();
     public $messages = array();
 
     function __construct() {
@@ -221,87 +222,136 @@ class WPBDP_Admin {
                        'wpbdp_admin',
                        array( &$this, 'main_menu' ),
                        WPBDP_URL . 'admin/resources/menuico.png' );
-        add_submenu_page('wpbdp_admin',
-                         _x('Add New Listing', 'admin menu', 'WPBDM'),
-                         _x('Add New Listing', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_add_listing',
-                         '__return_null');
-        add_submenu_page('wpbdp_admin',
-                         _x('Manage Options', 'admin menu', 'WPBDM'),
-                         _x('Manage Options', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_admin_settings',
-                         array($this, 'admin_settings'));
-        add_submenu_page('wpbdp_admin',
-                         _x('Manage Fees', 'admin menu', 'WPBDM'),
-                         _x('Manage Fees', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_admin_fees',
-                         array('WPBDP_FeesAdmin', 'admin_menu_cb'));
-        add_submenu_page('wpbdp_admin',
-                         _x('Manage Form Fields', 'admin menu', 'WPBDM'),
-                         _x('Manage Form Fields', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_admin_formfields',
-                         array('WPBDP_FormFieldsAdmin', 'admin_menu_cb'));
-        add_submenu_page('wpbdp_admin',
-                         _x('Listings', 'admin menu', 'WPBDM'),
-                         _x('Listings', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_all_listings',
-                         '__return_false');
-        // if ( wpbdp_payments_api()->payments_possible() ) {
-        //     add_submenu_page( 'wpbdp_admin',
-        //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
-        //                       _x( 'Transactions', 'admin menu', 'WPBDM' ),
-        //                       'administrator',
-        //                       'wpbdp_manage_transactions',
-        //                       array( 'WPBDP_TransactionsAdmin', 'admin_menu_cb' )
-        //                     );
+
+        $menu['wpbdp-admin-add-listing'] = array(
+            'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
+            'callback' => '__return_false'
+        );
+        $menu['wpbdp_admin_settings'] = array(
+            'title' => _x('Manage Options', 'admin menu', 'WPBDM'),
+            'callback' => array( $this, 'admin_settings' )
+        );
+        $menu['wpbdp-admin-fees'] = array(
+            'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
+        );
+        $menu['wpbdp_all_listings'] = array(
+            'title' => _x('Listings', 'admin menu', 'WPBDM'),
+            'callback' => '__return_false'
+        );
+        $menu['wpbdp_admin_formfields'] = array(
+            'title' => _x('Manage Form Fields', 'admin menu', 'WPBDM'),
+            'callback' => array('WPBDP_FormFieldsAdmin', 'admin_menu_cb')
+        );
+        $menu['wpbdp-csv-import'] = array(
+            'title' => _x( 'CSV Import', 'admin menu', 'WPBDM' ),
+            'callback' => array( &$this->csv_import, 'dispatch' )
+        );
+        $menu['wpbdp-csv-export'] = array(
+            'title' => _x( 'CSV Export', 'admin menu', 'WPBDM' ),
+            'callback' => array( &$this->csv_export, 'dispatch' )
+        );
+        $menu['wpbdp-debug-info'] = array(
+            'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
+            'callback' => array( &$this->debug_page, 'dispatch' )
+        );
+        // do_action('wpbdp_admin_menu', 'wpbdp_admin');
+        $menu['wpbdp_uninstall'] = array(
+            'title' => _x('Uninstall Business Directory Plugin', 'admin menu', 'WPBDM'),
+            'label' => _x('Uninstall', 'admin menu', 'WPBDM'),
+            'callback' => array($this, 'uninstall_plugin')
+        );
+        // FIXME: before next-release
+        // global $submenu;
+        //
+        // if (current_user_can('administrator')) {
+        //     $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', WPBDP_POST_TYPE));
+        //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
+        //     $submenu['wpbdp_admin'][5][2] = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+        // } elseif (current_user_can('contributor')) {
+        //     $m = $submenu['edit.php?post_type=' . WPBDP_POST_TYPE];
+        //     $keys = array_keys($m);
+        //     $m[$keys[1]][2] = wpbdp_get_page_link('add-listing');
         // }
-        add_submenu_page( 'wpbdp_admin',
-                          _x( 'CSV Import', 'admin menu', 'WPBDM' ),
-                          _x( 'CSV Import', 'admin menu', 'WPBDM' ),
-                          'administrator',
-                          'wpbdp-csv-import',
-                          array( &$this->csv_import, 'dispatch' ) );
-        add_submenu_page( 'wpbdp_admin',
-                          _x( 'CSV Export', 'admin menu', 'WPBDM' ),
-                          _x( 'CSV Export', 'admin menu', 'WPBDM' ),
-                          'administrator',
-                          'wpbdp-csv-export',
-                          array( &$this->csv_export, 'dispatch' ) );
-        add_submenu_page( 'wpbdp_admin',
-                          _x( 'Debug', 'admin menu', 'WPBDM' ),
-                          _x( 'Debug', 'admin menu', 'WPBDM' ),
-                          'administrator',
-                          'wpbdp-debug-info',
-                          array( &$this->debug_page, 'dispatch' ) );
+        // if ( isset( $submenu['wpbdp_admin'] ) )
+        //     $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
 
-        global $submenu;
+        $this->prepare_menu( $menu );
+        $this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
 
-        if (current_user_can('administrator')) {
-            $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', WPBDP_POST_TYPE));
-            $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-            $submenu['wpbdp_admin'][5][2] = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
-        } elseif (current_user_can('contributor')) {
-            $m = $submenu['edit.php?post_type=' . WPBDP_POST_TYPE];
-            $keys = array_keys($m);
-            $m[$keys[1]][2] = wpbdp_get_page_link('add-listing');
+        // Register menu items.
+        foreach ( $this->menu as $item_slug => &$item_data ) {
+            $item_data['hook'] = add_submenu_page( 'wpbdp_admin',
+                                                   $item_data['title'],
+                                                   $item_data['label'],
+                                                   'administrator',
+                                                   $item_slug,
+                                                   array( $this, 'menu_dispatch' ) );
+        }
+    }
+
+    /**
+     * @since next-release
+     */
+    private function prepare_menu( &$menu ) {
+        $n = 1;
+
+        foreach ( $menu as &$item ) {
+            if ( ! isset( $item['priority'] ) )
+                $item['priority'] = $n++;
+
+            if ( ! isset( $item['title'] ) )
+                $item['title'] = _x( 'Untitled Menu', 'admin', 'WPBDM' );
+
+            if ( ! isset( $item['label'] ) )
+                $item['label'] = $item['title'];
+
+            if ( ! isset( $item['file'] ) )
+                $item['file'] = '';
+
+            if ( ! isset( $item['callback'] ) )
+                $item['callback'] = '';
         }
 
-        do_action('wpbdp_admin_menu', 'wpbdp_admin');
+        WPBDP_Utils::sort_by_property( $menu, 'priority' );
+    }
 
-        add_submenu_page('wpbdp_admin',
-                         _x('Uninstall Business Directory Plugin', 'admin menu', 'WPBDM'),
-                         _x('Uninstall', 'admin menu', 'WPBDM'),
-                         'administrator',
-                         'wpbdp_uninstall',
-                         array($this, 'uninstall_plugin'));
+    /**
+     * @since next-release
+     */
+    function menu_dispatch() {
+        global $plugin_page;
 
-        if ( isset( $submenu['wpbdp_admin'] ) )
-            $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
+        if ( ! isset( $this->menu[ $plugin_page ] ) )
+            return;
+
+        $item = $this->menu[ $plugin_page ];
+        $slug = $plugin_page;
+        $callback = $item['callback'];
+
+        if ( $callback && is_callable( $callback ) )
+            return call_user_func( $callback );
+
+        $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
+
+        $candidates = array( $item['file'],
+                             WPBDP_PATH . 'admin/class-admin-' . $id . '.php',
+                             WPBDP_PATH . 'admin/' . $id . '.php' );
+        foreach ( $candidates as $c ) {
+            if ( $c && file_exists( $c ) )
+                require_once( $c );
+        }
+
+        // Maybe loading one of the candidate files made the callback available.
+        if ( $callback && is_callable( $callback ) )
+            return call_user_func( $callback );
+
+        $classname = 'WPBDP__Admin__' . ucfirst( $id );
+
+        if ( ! class_exists( $classname ) )
+            return;
+
+        $admin = new $classname;
+        return $admin->_dispatch();
     }
 
     function admin_menu_reorder( $menu_order ) {
