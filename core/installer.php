@@ -150,7 +150,7 @@ class WPBDP_Installer {
             subscription_id bigint(20) NULL,
             status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ok',
             featured_price decimal(10,2) NOT NULL DEFAULT 0.00,
-            featured_level VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            featured_level VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
