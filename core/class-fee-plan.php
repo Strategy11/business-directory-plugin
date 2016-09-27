@@ -86,7 +86,9 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
 
     protected function prepare_row() {
         $row = parent::prepare_row();
-        $row['supported_categories'] = implode( ',', $row['supported_categories'] );
+
+        if ( 'all' != $row['supported_categories'] )
+            $row['supported_categories'] = implode( ',', $row['supported_categories'] );
 
         return $row;
     }
