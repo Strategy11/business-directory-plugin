@@ -32,7 +32,25 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function add_fee() {
-        return 'ADD FEE';
+        if ( ! empty( $_POST['fee'] ) ) {
+            $posted_values = stripslashes_deep( $_POST['fee'] );
+
+            if ( ! isset( $_POST['limit_categories'] ) )
+                $posted_values['supported_categories'] = 'all';
+
+            $fee = new WPBDP_Fee_Plan( $posted_values );
+
+            if ( $fee->save() ) {
+                wpbdp_admin_message( _x( 'Fee updated.', 'fees admin', 'WPBDM' ) );
+                return $this->_redirect( 'index' );
+            }
+
+            wpbdp_admin_message( $fee->errors->html(), 'error' );
+        } else {
+            $fee = new WPBDP_Fee_Plan();
+        }
+
+        return array( 'fee' => $fee );
     }
 
 }

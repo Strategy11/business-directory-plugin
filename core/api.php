@@ -219,24 +219,6 @@ function wpbdp_listing_upgrades_api() {
 }
 
 /* Misc. */
-function wpbdp_categories_list($parent=0, $hierarchical=true) {
-    $terms = get_categories(array(
-        'taxonomy' => WPBDP_CATEGORY_TAX,
-        'parent' => $parent,
-        'orderby' => 'name',
-        'hide_empty' => 0,
-        'hierarchical' => 0
-    ));
-
-    if ($hierarchical) {
-        foreach ($terms as &$term) {
-            $term->subcategories = wpbdp_categories_list($term->term_id, true);
-        }
-    }
-
-    return $terms;
-}
-
 function wpbdp_get_parent_categories($catid) {
     $category = get_term(intval($catid), WPBDP_CATEGORY_TAX);
 

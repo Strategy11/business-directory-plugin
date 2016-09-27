@@ -132,6 +132,10 @@ span.tag {
     color: green;
 }
 
+#wpbdp-fee-form .limit-categories-list {
+    display: none;
+}
+
 /* }}} */
 
 /* Directory list-table */

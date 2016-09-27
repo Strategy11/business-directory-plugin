@@ -825,3 +825,19 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         } );
     });
 })(jQuery);
+
+// Some utilities for our admin forms.
+jQuery(function( $ ) {
+
+    $( '.wpbdp-js-toggle' ).change(function() {
+        var checked = $(this).is(':checked');
+        var $dest = $('#' + $(this).attr('data-toggles'));
+
+        if ( 0 == $dest.length )
+            return;
+
+        $dest.toggleClass('hidden');
+    });
+
+});
+

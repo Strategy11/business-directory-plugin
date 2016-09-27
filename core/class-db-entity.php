@@ -82,7 +82,7 @@ class WPBDP_DB_Entity {
     }
 
 
-    private function prepare_row() {
+    protected function prepare_row() {
         $info = self::get_entity_info( $this );
         $row = array();
 

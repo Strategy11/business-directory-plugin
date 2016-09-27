@@ -15,7 +15,9 @@ class WPBDP__Admin__Controller {
     }
 
     function _dispatch() {
-        $this->current_view = isset( $_GET['wpbdp-view'] ) ? $_GET['wpbdp-view'] : 'index';
+        if ( empty( $this->current_view ) )
+            $this->current_view = isset( $_GET['wpbdp-view'] ) ? $_GET['wpbdp-view'] : 'index';
+
         $this->current_view = WPBDP_Utils::normalize( $this->current_view );
 
         $result = false;
@@ -38,6 +40,11 @@ class WPBDP__Admin__Controller {
         }
 
         echo $output;
+    }
+
+    function _redirect( $view_or_url ) {
+        $this->current_view = $view_or_url;
+        return $this->_dispatch();
     }
 
 }

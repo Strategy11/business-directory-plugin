@@ -5,7 +5,7 @@ require_once( WPBDP_PATH . 'core/class-db-entity.php' );
 class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
 
     static $_table_name = 'wpbdp_fees';
-    static $_serialized = array( 'categories', 'extra_data' );
+    static $_serialized = array( 'pricing_details', 'extra_data' );
 
 
     public function __construct( $args = array() ) {
@@ -19,22 +19,30 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         $this->images = absint( $this->images );
         $this->days = absint( $this->days );
         $this->sticky = (bool) $this->sticky;
+        $this->pricing_model = empty( $this->pricing_model  ) ? 'flat' : $this->pricing_model;
+        $this->category_limit = 0;
 
         if ( 'free' == $this->tag ) {
             $this->amount = 0.0;
             $this->sticky = false;
-            $this->categories = array( 'all' => true, 'categories' => array() );
+            $this->supported_categories = 'all';
             $this->enabled = true;
         }
 
-        $this->categories = wp_parse_args( $this->categories,
-                                           array( 'all' => false, 'categories' => array() ) );
-        $this->categories['categories'] = array_map( 'absint', $this->categories['categories'] );
+        if ( 'all' !== $this->supported_categories ) {
+            if ( is_string( $this->supported_categories ) )
+                $this->supported_categories = explode( ',', $this->supported_categories );
 
-        // Adding 0 as a supported category is a shortcut to allowing all categories.
-        if ( in_array( 0, $this->categories['categories'], true ) ) {
-            $this->categories['all'] = true;
-            $this->categories['categories'] = array();
+            $this->supported_categories = array_map( 'absint', (array) $this->supported_categories  );
+        }
+
+        // Remove unnecessary pricing details.
+        if ( 'extra' != $this->pricing_model )
+            unset( $this->pricing_details['extra'] );
+
+        if ( 'flat' != $this->pricing_model && 'all' != $this->supported_categories ) {
+            // Unset details for categories that are not supported.
+            $this->pricing_details = wp_array_slice_assoc( $this->pricing_details, $this->supported_categories );
         }
 
         if ( ! is_array( $this->extra_data ) )
@@ -48,8 +56,8 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         if ( $this->amount < 0.0 )
             $this->errors->add( 'amount', _x('Fee amount must be a non-negative decimal number.', 'fees-api', 'WPBDM') );
 
-        if ( ! $this->categories || ( empty( $this->categories['all'] ) && empty( $this->categories['categories'] ) ) )
-            $this->errors->add( 'categories', _x('Fee must apply to at least one category.', 'fees-api', 'WPBDM') );
+        if ( ! $this->supported_categories )
+            $this->errors->add( 'supported_categories', _x('Fee must apply to at least one category.', 'fees-api', 'WPBDM') );
 
         // limit 'duration' because of TIMESTAMP limited range (issue #157).
         // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
@@ -74,6 +82,13 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         }
 
         return parent::save( $validate );
+    }
+
+    protected function prepare_row() {
+        $row = parent::prepare_row();
+        $row['supported_categories'] = implode( ',', $row['supported_categories'] );
+
+        return $row;
     }
 
     public function supports_category( $category_id ) {

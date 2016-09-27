@@ -261,3 +261,24 @@ function wpbdp_get_fees_for_category( $categories=null ) {
 
     return is_array( $categories) ? $results : array_pop( $results );
 }
+
+/**
+ * @deprecated since next-release
+ */
+function wpbdp_categories_list($parent=0, $hierarchical=true) {
+    $terms = get_categories(array(
+        'taxonomy' => WPBDP_CATEGORY_TAX,
+        'parent' => $parent,
+        'orderby' => 'name',
+        'hide_empty' => 0,
+        'hierarchical' => 0
+    ));
+
+    if ($hierarchical) {
+        foreach ($terms as &$term) {
+            $term->subcategories = wpbdp_categories_list($term->term_id, true);
+        }
+    }
+
+    return $terms;
+}
