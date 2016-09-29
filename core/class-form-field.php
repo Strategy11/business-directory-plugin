@@ -728,7 +728,7 @@ class WPBDP_Form_Field {
                 if ( ! $reused )
                     $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
 
-                if ( in_array( $this->get_field_type_id(), array( 'textfield', 'textarea' ), true ) ) {
+                if ( in_array( $this->get_field_type_id(), array( 'textfield', 'textarea', 'url' ), true ) ) {
                     $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value LIKE '%%%s%%')",
                                                            '_wpbdp[fields][' . $this->get_id() . ']',
                                                            $query );
