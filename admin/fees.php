@@ -38,6 +38,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             if ( ! isset( $_POST['limit_categories'] ) )
                 $posted_values['supported_categories'] = 'all';
 
+            if ( ! isset( $posted_values['sticky'] ) )
+                $posted_values['sticky'] = 0;
+
             $fee = new WPBDP_Fee_Plan( $posted_values );
 
             if ( $fee->save() ) {
@@ -48,6 +51,32 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             wpbdp_admin_message( $fee->errors->html(), 'error' );
         } else {
             $fee = new WPBDP_Fee_Plan();
+        }
+
+        return array( 'fee' => $fee );
+    }
+
+    function edit_fee() {
+        $fee = WPBDP_Fee_Plan::find( $_GET['id'] );
+
+        if ( ! $fee  )
+            wp_die();
+
+        if ( ! empty( $_POST['fee'] ) ) {
+            $posted_values = stripslashes_deep( $_POST['fee'] );
+
+            if ( ! isset( $_POST['limit_categories'] ) )
+                $posted_values['supported_categories'] = 'all';
+
+            if ( ! isset( $posted_values['sticky'] ) )
+                $posted_values['sticky'] = 0;
+
+            if ( $fee->update( $posted_values ) ) {
+                wpbdp_admin_message( _x( 'Fee updated.', 'fees admin', 'WPBDM' ) );
+                return $this->_redirect( 'index' );
+            } else {
+                wpbdp_admin_message( $fee->errors->html(), 'error' );
+            }
         }
 
         return array( 'fee' => $fee );

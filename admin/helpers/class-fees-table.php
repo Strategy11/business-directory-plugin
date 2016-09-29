@@ -16,7 +16,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function no_items() {
         if ( 'all' == $this->get_current_view() ) {
             echo str_replace( '<a>',
-                              '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees&action=addfee' ) . '">',
+                              '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) . '">',
                               _x( 'There are no fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'WPBDM' ) );
             return;
         }
@@ -36,7 +36,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                 break;
         }
         printf( str_replace( '<a>',
-                             '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees&action=addfee' ) . '">',
+                             '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) . '">',
                              _x( 'There are no "%s" fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'WPBDM' ) ),
                 $view_name );
     }
@@ -184,7 +184,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function column_label($fee) {
         $actions = array();
         $actions['edit'] = sprintf('<a href="%s">%s</a>',
-                                   esc_url(add_query_arg(array('action' => 'editfee', 'id' => $fee->id))),
+                                   esc_url(add_query_arg(array('wpbdp-view' => 'edit-fee', 'id' => $fee->id))),
                                    _x('Edit', 'fees admin', 'WPBDM'));
 
         if ( 'free' == $fee->tag ) {
@@ -211,7 +211,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                         $fee->id );
 
         $html .= sprintf('<strong><a href="%s">%s</a></strong>',
-                         esc_url(add_query_arg(array('action' => 'editfee', 'id' => $fee->id))),
+                         esc_url(add_query_arg(array('wpbdp-view' => 'edit-fee', 'id' => $fee->id))),
                          esc_attr($fee->label));
         $html .= $this->row_actions($actions);
 

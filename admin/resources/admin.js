@@ -161,6 +161,24 @@ jQuery(document).ready(function($){
         return true;
     });
 
+    // Limit categories and variable pricing handling.
+    $('form#wpbdp-fee-form #limit-categories-list .term-cb').change(function(e) {
+        var $dest = $( '.wpbdp-variable-pricing-configurator-row[data-term-id="' + $(this).val() + '"]' );
+
+        if ( $(this).is(':checked') )
+            $dest.removeClass('hidden');
+        else
+            $dest.addClass('hidden');
+    });
+    $('form#wpbdp-fee-form input[name="limit_categories"]').change(function(e) {
+        if ( ! $(this).is(':checked') ) {
+            $('#wpbdp-fee-form #limit-categories-list .term-cb').prop('checked', false);
+            $('.wpbdp-variable-pricing-configurator-row').removeClass('hidden');
+        } else {
+            $('.wpbdp-variable-pricing-configurator-row').addClass('hidden');
+        }
+    });
+
     $( 'select[name="fee_order[method]"], select[name="fee_order[order]"]' ).change(function(e) {
         $.ajax({
             url: ajaxurl,
@@ -830,11 +848,27 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 jQuery(function( $ ) {
 
     $( '.wpbdp-js-toggle' ).change(function() {
-        var checked = $(this).is(':checked');
-        var $dest = $('#' + $(this).attr('data-toggles'));
+        var name = $(this).attr('name');
+        var value = $(this).val();
+        var is_checkbox = $(this).is(':checkbox');
+        var is_radio = $(this).is(':radio');
+        var toggles = $(this).attr('data-toggles');
+        var $dest = ( toggles.startsWith('#') || toggles.startsWith('-') ) ? $(toggles) : $( '#' + toggles + ', .' + toggles );
 
-        if ( 0 == $dest.length )
+        if ( 0 == $dest.length || ( ! is_radio && ! is_checkbox ) )
             return;
+
+        if ( is_checkbox && $(this).is(':checked') ) {
+            $dest.toggleClass('hidden');
+            return;
+        }
+
+        // If item is a radio, hide destination from other toggles in the same group.
+        var other_opts = $('input[name="' + name + '"]').not('[value="' + value + '"]').each(function() {
+            var toggles_i = $(this).attr('data-toggles');
+            var $dest_i = ( toggles_i.startsWith('#') || toggles_i.startsWith('-') ) ? $(toggles_i) : $( '#' + toggles_i + ', .' + toggles_i );
+            $dest_i.addClass('hidden');
+        });
 
         $dest.toggleClass('hidden');
     });
