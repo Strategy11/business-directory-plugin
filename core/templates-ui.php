@@ -398,11 +398,18 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
         $image_link = get_permalink( $listing_id );
         $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self';
     }
-
+    
     if ( $image_img ) {
         if ( !$image_link ) {
             return $image_img;
         } else {
+            $image_link = apply_filters( 'wpbdp_listing_thumbnail_link', $image_link, $listing_id, $args );
+
+            if ( ! $image_link ) {
+                return sprintf( '<div class="listing-thumbnail">%s</div>',
+                                $image_img );
+            }
+
             return sprintf( '<div class="listing-thumbnail"><a href="%s" target="%s" class="%s" %s>%s</a></div>',
                             $image_link,
                             $listing_link_in_new_tab,
