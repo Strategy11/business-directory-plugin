@@ -680,9 +680,9 @@ class WPBDP_Form_Field {
                 break;
             case 'tags':
             case 'category':
-                $query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? array_map( 'trim', explode( ',', $query ) ) : $query;
+                $query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? explode( ',', $query ) : $query;
                 $query = is_array( $query ) ? $query : array( $query );
-                $query = array_diff( $query, array( -1, 0, '' ) );
+                $query = array_diff( array_map( 'trim', $query ), array( -1, 0, '' ) );
 
                 $tax = ( 'tags' == $this->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX );
                 $tt_ids = array();
