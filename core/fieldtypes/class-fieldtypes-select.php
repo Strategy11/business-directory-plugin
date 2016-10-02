@@ -165,7 +165,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
+        $field->set_data( 'options', $options ? array_map( 'trim', explode( ',', $options ) ) : array() );
 
         if ( array_key_exists( 'x_empty_on_search', $_POST['field'] ) ) {
             $empty_on_search = (bool) intval( $_POST['field']['x_empty_on_search'] );

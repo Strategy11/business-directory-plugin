@@ -86,7 +86,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
+        $field->set_data( 'options', $options ? array_map( 'trim', explode( ',', $options ) ) : array() );
     }
 
     public function get_field_value( &$field, $post_id ) {
