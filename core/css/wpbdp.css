@@ -56,13 +56,14 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 
+.wpbdp-clearfix:after,
 .cf:before, .cf:after {
     content: " "; /* 1 */
     display: table; /* 2 */
 }
 
-.cf:after { clear: both; }
-.cf { *zoom: 1; }
+.wpbdp-clearfix:after, .cf:after { clear: both; }
+.wpbdp-clearfix, .cf { *zoom: 1; }
 
 .wpbdp-pagination {
     margin: 25px 0 0 0;
@@ -1026,3 +1027,92 @@ body.business-directory #TB_secondLine {
 /*
  * }}
  */
+
+.wpbdp-plan-selection-list .wpbdp-plan {
+    padding: 10px;
+    margin: 0 0 6px 0;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px;
+    background: #fafafa;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan:last-child {
+    margin-bottom: 0;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-duration,
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-details,
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-price {
+    float: left;
+    box-sizing: border-box;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-duration {
+    width: 15%;
+    text-align: center;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-duration-amount {
+    font-size: 34px;
+    font-weight: bold;
+    display: block;
+    line-height: 1.0em;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-duration-period {
+    font-size: 24px;
+    display: block;
+    line-height: 1.0em;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-details {
+    width: 60%;
+    padding: 0 10px;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-description {
+    margin: 0 0 10px 0;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-feature-list {
+    margin: 0 0 0 10px;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-details p {
+    margin: 0;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-feature-list li {
+    list-style-position: inside;
+    margin: 0;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-price {
+    width: 25%;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-price label {
+    font-size: 20px;
+    border: 1px solid #f3f3f3;
+    background: #fdfdfd;
+    border-radius: 2px;
+    cursor: pointer;
+    display: block;
+    padding: 4px 8px;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-price label:hover {
+    border-color: #d0d0d0;
+    background: #fff;
+}
+
+.wpbdp-plan-selection-list .wpbdp-plan .wpbdp-plan-price label input {
+    margin: 0 4px 0 0;
+    vertical-align: 2px;
+}

@@ -3,7 +3,7 @@
 <form id="wpbdp-listing-form-fees" class="wpbdp-listing-form" method="POST" action="">
     <input type="hidden" name="_state" value="<?php echo $_state->id; ?>" />
 
-    <?php echo wpbdp_render( 'plan-selection', array( 'plans' => $plans ) ); ?>
+    <?php echo wpbdp_render( 'plan-selection', array( 'plans' => $plans, 'categories' => $_state->categories ) ); ?>
 
 
 <?php

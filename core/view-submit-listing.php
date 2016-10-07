@@ -127,7 +127,9 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
         }
 
-        return $this->render( 'category-selection', array( 'category_field' => $category_field ) );
+        $plans = WPBDP_Fee_Plan::find( 'all' );
+        unset($plans[1]);
+        return $this->render( 'category-selection', array( 'category_field' => $category_field, 'plans' => $plans ) );
     }
 
     private function skip_fee_selection( &$fee_selection ) {
