@@ -40,7 +40,10 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         if ( 'extra' != $this->pricing_model )
             unset( $this->pricing_details['extra'] );
 
-        if ( 'flat' != $this->pricing_model && 'all' != $this->supported_categories ) {
+        if ( 'extra' == $this->pricing_model )
+            $this->pricing_details = array( 'extra' => $this->pricing_details['extra'] );
+
+        if ( 'variable' == $this->pricing_model && 'all' != $this->supported_categories ) {
             // Unset details for categories that are not supported.
             $this->pricing_details = wp_array_slice_assoc( $this->pricing_details, $this->supported_categories );
         }
@@ -105,6 +108,45 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         }
 
         return false;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function get_feature_list() {
+        $items = array();
+
+        if ( wpbdp_get_option( 'allow-images' ) ) {
+            if ( ! $this->images )
+                $items['images'] = _x( 'No images allowed.', 'fee plan', 'WPBDM' );
+            else
+                $items['images'] = sprintf( _nx( '%d image allowed.', '%d images allowed.', $this->images, 'fee plan', 'WPBDM' ), $this->images );
+        }
+
+        return $items;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function calculate_amount( $categories = array() ) {
+        $amount = 0.0;
+        $pricing_info = $this->pricing_details;
+
+        switch ( $this->pricing_model ) {
+        case 'variable':
+            $amount = array_sum( wp_array_slice_assoc( $pricing_info, $categories ) );
+            break;
+        case 'extra':
+            $amount = $this->amount + ( $pricing_info['extra'] * count( $categories ) );
+            break;
+        case 'flat':
+        default:
+            $amount = $this->amount;
+            break;
+        }
+
+        return $amount;
     }
 
     public static function for_category( $category_id ) {
