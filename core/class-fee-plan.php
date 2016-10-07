@@ -149,6 +149,22 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         return $amount;
     }
 
+    /**
+     * @since next-release
+     */
+    public function supports_category_selection( $categories = array() ) {
+        if ( ! $categories )
+            return true;
+
+        if ( is_string( $this->supported_categories ) && 'all' == $this->supported_categories )
+            return true;
+
+        if ( array_diff( $categories, $this->supported_categories ) )
+            return false;
+
+        return true;
+    }
+
     public static function for_category( $category_id ) {
         $res = array();
 

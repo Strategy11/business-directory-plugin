@@ -95,95 +95,53 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         return apply_filters_ref_array( 'wpbdp_view_submit_listing', array( $html, &$this->state ) );
     }
 
-    protected function step_category_selection() {
+    protected function step_plan_selection() {
         if ( $this->state->editing ) {
-            $this->state->advance( false );
-            return $this->dispatch();
+            $this->state->advance( false ); return $this->dispatch();
         }
 
+        $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
+        $plans = WPBDP_Fee_Plan::find( 'all' ); unset($plans[1]);
 
-        $post_value = isset( $_POST['listingfields'][ $category_field->get_id() ] ) ?
-                      $category_field->convert_input( $_POST['listingfields'][ $category_field->get_id() ] ) :
-                      array();
-        if ( $post_value && ! is_array( $post_value ) )
-            $post_value = array( $post_value );
-
-        if ( $post_value ) {
+        if ( ! empty( $_POST ) ) {
+            $categories = isset( $_POST['listingfields'][ $category_field->get_id() ] ) ?
+                          $category_field->convert_input( $_POST['listingfields'][ $category_field->get_id() ] ) :
+                          array();
+            $categories = $categories ? (array) $categories : array();
+            $listing_plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
+            $listing_plan = null;
             $errors = null;
 
-            if ( ! $category_field->validate( $post_value, $errors ) ) {
-                $this->errors = array_merge( $this->errors, $errors );
+            if ( ! $categories ) {
+                $this->errors[] = _x( 'Please select a category for your listing.', 'submit listing', 'WPBDM' );
             } else {
-                $this->state->categories = $post_value;
-                // $categories = array();
-                //
-                // foreach ( $post_value as $category_id )
-                //     $categories[ $category_id ] = isset( $this->state->categories[ $category_id ] ) ? $this->state->categories[ $category_id ] : null;
+                if ( ! $category_field->validate( $categories, $errors ) ) {
+                    $this->errors = array_merge( $this->errors, $errors );
+                } else {
+                    $this->state->categories = $categories;
 
-                $this->state->advance();
-                return $this->dispatch();
-            }
+                    if ( ! $listing_plan_id ) {
+                        $this->errors[] = _x( 'Please select a plan for your listing.', 'submit listing', 'WPBDM' );
+                    } else {
+                        $listing_plan = WPBDP_Fee_Plan::find( $listing_plan_id );
 
-        }
+                        if ( ! $listing_plan->supports_category_selection( $categories ) ) {
+                            $this->errors[] = _x( 'Invalid plan for the selected categories.', 'submit listing', 'WPBDM' );
+                        } else {
+                            // Everything's ok. Move on.
+                            $this->state->fee_id = $listing_plan_id;
+                            $this->state->autorenew_fees = $allow_recurring && ( wpbdp_get_option( 'listing-renewal-auto-dontask' ) || ( ! empty( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] ) );
 
-        $plans = WPBDP_Fee_Plan::find( 'all' );
-        unset($plans[1]);
-        return $this->render( 'category-selection', array( 'category_field' => $category_field, 'plans' => $plans ) );
-    }
-
-    private function skip_fee_selection( &$fee_selection ) {
-        if ( $this->state->editing )
-            return true;
-
-        $skip = true;
-        foreach ( $fee_selection as $fs ) {
-            if ( ! $fs['options'] || count( $fs['options'] ) > 1 ) {
-                $skip = false;
-                break;
+                            $this->state->advance();
+                            return $this->dispatch();
+                        }
+                    }
+                }
             }
         }
 
-        if ( wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) )
-            $skip = false;
-
-        if ( wpbdp_get_option( 'listing-renewal-auto' ) && ! wpbdp_get_option( 'listing-renewal-auto-dontask' ) )
-            $skip = false;
-
-        return $skip;
-    }
-
-    protected function step_fee_selection() {
-        global $wpbdp;
-
-        // FIXME: change this to the correct selection before next-release.
-        $plans = WPBDP_Fee_Plan::find( 'all' );
-
-        if ( isset( $_POST['listing_plan'] ) ) {
-            $fee = WPBDP_Fee_Plan::find( absint( $_POST['listing_plan'] ) );
-
-            if ( ! $fee ) {
-                $this->errors[] = _x( 'Please select a fee plan.', 'templates', 'WPBDM' );
-            } else {
-                $this->state->fee_id = $fee->id;
-                $this->state->advance( false );
-
-                if ( wpbdp_get_option( 'listing-renewal-auto' ) )
-                    $this->state->autorenew_fees = ( wpbdp_get_option( 'listing-renewal-auto-dontask' ) || ( ! empty( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] ) );
-
-                return $this->dispatch();
-            }
-        }
-
-        // FIXME(next-release): not sure what we're going to do with this since featured levels are to be removed...
-        // $upgrade_option = false;
-        // if ( ! $this->state->editing && wpbdp_get_option( 'featured-on' ) && wpbdp_get_option( 'featured-offer-in-submit' ) ) {
-        //     $upgrade_option = wpbdp_listing_upgrades_api()->get( 'sticky' );
-        // }
-
-        return $this->render( 'fee-selection',
-                              array( 'plans' => $plans,
-                                     'allow_recurring' => wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' ) ) );
+        return $this->render( 'plan-selection', compact( 'category_field', 'plans', 'allow_recurring' ) );
     }
 
     public function preview_listing_fields_form( $preview_config = array() ) {
@@ -473,8 +431,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
  */
 class WPBDP_Listing_Submit_State {
 
-    public static $STEPS = array( 'category_selection',
-                                  'fee_selection',
+    public static $STEPS = array( 'plan_selection',
                                   'listing_fields',
                                   'images',
                                   'before_save',
@@ -486,7 +443,7 @@ class WPBDP_Listing_Submit_State {
     public $listing_id = 0;
 
     public $step_number = 1;
-    public $step = 'category_selection';
+    public $step = 'plan_selection';
 
     public $fields = array();
     public $categories = array();
