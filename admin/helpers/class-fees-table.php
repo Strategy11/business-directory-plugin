@@ -202,7 +202,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                                            _x('Enable', 'fees admin', 'WPBDM'));
 
             $actions['delete'] = sprintf('<a href="%s">%s</a>',
-                                       esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
+                                       esc_url(add_query_arg(array('wpbdp-view' => 'delete-fee', 'id' => $fee->id))),
                                        _x('Delete', 'fees admin', 'WPBDM'));
         }
 

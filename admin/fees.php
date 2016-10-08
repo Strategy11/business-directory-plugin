@@ -82,4 +82,16 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         return array( 'fee' => $fee );
     }
 
+    function delete_fee() {
+        $fee = WPBDP_Fee_Plan::find( $_GET['id'] ) or die();
+        list( $do, $html ) = $this->_confirm_action();
+
+        if ( $do && $fee->destroy() ) {
+            wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'WPBDM' ), $fee->label ) );
+            return $this->_redirect( 'index' );
+        }
+
+        return $html;
+    }
+
 }
