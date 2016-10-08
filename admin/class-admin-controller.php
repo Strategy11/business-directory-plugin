@@ -47,4 +47,21 @@ class WPBDP__Admin__Controller {
         return $this->_dispatch();
     }
 
+    function _confirm_action( $args = array() ) {
+        $defaults = array(
+            'title' => _x( 'Are you sure you want to do this?', 'admin confirm', 'WPBDM' ),
+            'cancel_url' => '',
+            'cancel_text' => _x( 'No, go back', 'admin confirm', 'WPBDM' ),
+            'submit_text' => _x( 'Yes, I\'m sure', 'admin confirm', 'WPBDM' ),
+            'explanation' => ''
+        );
+        $args = wp_parse_args( $args, $defaults );
+        $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+
+        if ( $nonce && wp_verify_nonce( $nonce, 'confirm ' . md5( $args['title'] ) ) )
+            return array( true, '' );
+
+        return array( false, wpbdp_render_page( WPBDP_PATH . 'admin/templates/confirm-page.tpl.php', $args ) );
+    }
+
 }
