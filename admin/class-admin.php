@@ -264,17 +264,8 @@ class WPBDP_Admin {
             'callback' => array($this, 'uninstall_plugin')
         );
         // FIXME: before next-release
-        // global $submenu;
-        //
         // if (current_user_can('administrator')) {
         //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-        //     $submenu['wpbdp_admin'][5][2] = 
-        // } elseif (current_user_can('contributor')) {
-        //     $m = $submenu['edit.php?post_type=' . WPBDP_POST_TYPE];
-        //     $keys = array_keys($m);
-        //     $m[$keys[1]][2] = wpbdp_get_page_link('add-listing');
-        // }
-        // if ( isset( $submenu['wpbdp_admin'] ) )
         //     $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
 
         $this->prepare_menu( $menu );
@@ -289,7 +280,22 @@ class WPBDP_Admin {
                                                    $item_slug,
                                                    array( $this, 'menu_dispatch' ) );
         }
+        $item_data = null;
         do_action('wpbdp_admin_menu', 'wpbdp_admin');
+
+        if ( ! current_user_can( 'administrator' ) )
+            return;
+
+        // Handle some special menu items.
+        foreach ( $GLOBALS['submenu']['wpbdp_admin'] as &$menu_item ) {
+            if ( ! isset( $this->menu[ $menu_item[2] ] ) )
+                continue;
+
+            $menu_item_data = $this->menu[ $menu_item[2] ];
+
+            if ( ! empty( $menu_item_data['url'] ) )
+                $menu_item[2] = $menu_item_data['url'];
+        }
 
     }
 
@@ -314,6 +320,9 @@ class WPBDP_Admin {
 
             if ( ! isset( $item['callback'] ) )
                 $item['callback'] = '';
+
+            if ( ! isset( $item['url'] ) )
+                $item['url'] = '';
         }
 
         WPBDP_Utils::sort_by_property( $menu, 'priority' );
