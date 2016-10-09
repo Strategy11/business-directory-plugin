@@ -25,6 +25,9 @@ class WPBDP__Admin__Controller {
 
         $callback = ( false !== strpos( $this->current_view, '-' ) ? str_replace( '-', '_', $this->current_view ) : $this->current_view );
 
+        // Remove query args.
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdp-view', 'id' ), $_SERVER['REQUEST_URI'] );
+
         if ( method_exists( $this, $callback ) )
             $result = call_user_func( array( $this, $callback ) );
 

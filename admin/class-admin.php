@@ -30,9 +30,13 @@ class WPBDP_Admin {
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 
-        // Admin menu.
-        add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+        // Adds admin menus.
+        add_action( 'admin_menu', array( &$this, 'admin_menu' ) ); 
+
+        // Enables reordering of admin menus.
         add_filter( 'custom_menu_order', '__return_true' );
+
+        // Puts the "Directory" and "Directory Admin" next to each other.
         add_filter( 'menu_order', array( &$this, 'admin_menu_reorder' ) );
 
         add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
@@ -225,7 +229,7 @@ class WPBDP_Admin {
 
         $menu['wpbdp-admin-add-listing'] = array(
             'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
-            'callback' => '__return_false'
+            'url' => admin_url( sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ) )
         );
         $menu['wpbdp_admin_settings'] = array(
             'title' => _x('Manage Options', 'admin menu', 'WPBDM'),
@@ -236,7 +240,7 @@ class WPBDP_Admin {
         );
         $menu['wpbdp_all_listings'] = array(
             'title' => _x('Listings', 'admin menu', 'WPBDM'),
-            'callback' => '__return_false'
+            'url' => admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE )
         );
         $menu['wpbdp_admin_formfields'] = array(
             'title' => _x('Manage Form Fields', 'admin menu', 'WPBDM'),
@@ -254,7 +258,6 @@ class WPBDP_Admin {
             'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
             'callback' => array( &$this->debug_page, 'dispatch' )
         );
-        // do_action('wpbdp_admin_menu', 'wpbdp_admin');
         $menu['wpbdp_uninstall'] = array(
             'title' => _x('Uninstall Business Directory Plugin', 'admin menu', 'WPBDM'),
             'label' => _x('Uninstall', 'admin menu', 'WPBDM'),
@@ -264,9 +267,8 @@ class WPBDP_Admin {
         // global $submenu;
         //
         // if (current_user_can('administrator')) {
-        //     $submenu['wpbdp_admin'][1][2] = admin_url(sprintf('post-new.php?post_type=%s', WPBDP_POST_TYPE));
         //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-        //     $submenu['wpbdp_admin'][5][2] = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+        //     $submenu['wpbdp_admin'][5][2] = 
         // } elseif (current_user_can('contributor')) {
         //     $m = $submenu['edit.php?post_type=' . WPBDP_POST_TYPE];
         //     $keys = array_keys($m);
@@ -287,6 +289,8 @@ class WPBDP_Admin {
                                                    $item_slug,
                                                    array( $this, 'menu_dispatch' ) );
         }
+        do_action('wpbdp_admin_menu', 'wpbdp_admin');
+
     }
 
     /**
@@ -354,29 +358,23 @@ class WPBDP_Admin {
         return $admin->_dispatch();
     }
 
+    /**
+     * Makes sure that both the "Directory" and "Directory Admin" menus are next to each other.
+     */
     function admin_menu_reorder( $menu_order ) {
-        $admin_index = array_search( 'wpbdp_admin', $menu_order, true );
-        $dir_index = array_search( 'edit.php?post_type=' . WPBDP_POST_TYPE, $menu_order, true );
+        $index1 = array_search( 'wpbdp_admin', $menu_order, true );
+        $index2 = array_search( 'edit.php?post_type=' . WPBDP_POST_TYPE, $menu_order, true );
 
-        if ( false === $admin_index || false === $dir_index )
+        if ( false === $index1 || false === $index2 )
             return $menu_order;
 
-        $min_key = min( $admin_index, $dir_index );
+        $min = min( $index1, $index2 );
+        $max = max( $index1, $index2 );
 
-        $res = array();
-        foreach ( $menu_order as $i => $v ) {
-            if ( $i == $min_key ) {
-                $res[] = $menu_order[ $dir_index ];
-                $res[] = $menu_order[ $admin_index ];
-                continue;
-            } elseif ( $admin_index == $i || $dir_index == $i ) {
-                continue;
-            }
-
-            $res[] = $v;
-        }
-
-        return $res;
+        return array_merge( array_slice( $menu_order, 0, $min ),
+                            array( $menu_order[ $min ], $menu_order[ $max ] ),
+                            array_slice( $menu_order, $min + 1, $max - $min - 1 ),
+                            array_slice( $menu_order, $max + 1 ) );
     }
 
     public function _checklist_args($args) {

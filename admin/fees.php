@@ -57,10 +57,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function edit_fee() {
-        $fee = WPBDP_Fee_Plan::find( $_GET['id'] );
-
-        if ( ! $fee  )
-            wp_die();
+        $fee = WPBDP_Fee_Plan::find( $_GET['id'] ) or die();
 
         if ( ! empty( $_POST['fee'] ) ) {
             $posted_values = stripslashes_deep( $_POST['fee'] );
@@ -92,6 +89,15 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         }
 
         return $html;
+    }
+
+    function toggle_fee() {
+        $fee = WPBDP_Fee_Plan::find( $_GET['id'] ) or die();
+        $fee->enabled = ! $fee->enabled;
+        $fee->save();
+
+        wpbdp_admin_message( _x( 'Fee disabled.', 'fees admin', 'WPBDM' ) );
+        return $this->_redirect( 'index' );
     }
 
 }
