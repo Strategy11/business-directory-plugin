@@ -135,13 +135,19 @@ class WPBDP_Plugin {
         require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
         $bd = new WPBDP();
         $bd->init();
-        $this->dispatcher = $bd->dispatcher;
 
-        $this->install_or_update_plugin();
+        $this->dispatcher = $bd->dispatcher;
+        $this->installer = new WPBDP_Installer();
+
+        try {
+            $this->installer->install();
+        } catch ( Exception $e ) {
+            $this->installer->show_installation_error( $e );
+            return;
+        }
 
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
-            $installer = new WPBDP_Installer();
-            $installer->setup_manual_upgrade();
+            $this->installer->setup_manual_upgrade();
             return;
         }
 
@@ -655,11 +661,6 @@ class WPBDP_Plugin {
 
     public function get_post_type_tags() {
         return WPBDP_TAGS_TAX;
-    }
-
-    public function install_or_update_plugin() {
-        $installer = new WPBDP_Installer();
-        $installer->install();
     }
 
     public function plugin_action_links( $links ) {

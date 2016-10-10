@@ -14,6 +14,8 @@ class WPBDP_Installer {
     }
 
     public function install() {
+        global $wpdb;
+
         // schedule expiration hook if needed
         if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
             wpbdp_log('Expiration check was not in schedule. Scheduling.');
@@ -33,7 +35,7 @@ class WPBDP_Installer {
         if ( $this->installed_version ) {
             wpbdp_log('WPBDP is already installed.');
             $this->_update();
-        } else {
+        } else if ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
             wpbdp_log('New installation. Creating default form fields.');
             global $wpbdp;
 
@@ -53,6 +55,8 @@ class WPBDP_Installer {
                                               'categories' => array( 'all' => true, 'categories' => array() ),
                                               'enabled' => 1 ) );
             $fee->save();
+        } else if ( ! $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
+            throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
         }
 
         delete_option('wpbusdirman_db_version');
@@ -166,6 +170,14 @@ class WPBDP_Installer {
             dbDelta( $table_sql );
     }
 
+    private function _table_exists( $table_name ) {
+        global $wpdb;
+
+        $result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
+
+        return strcasecmp( $result, $table_name ) === 0;
+    }
+
     public function _update() {
         global $wpbdp;
 
@@ -200,6 +212,10 @@ class WPBDP_Installer {
             return;
 
         new WPBDP_Installer_Manual_Upgrade( $this, $manual_upgrade );
+    }
+
+    public function show_installation_error( $exception ) {
+        new WPBDP__Installer__Installation_Error( $exception );
     }
 
 
@@ -1010,4 +1026,32 @@ class WPBDP_Installer_Manual_Upgrade {
         exit();
     }
 
+}
+
+
+class WPBDP__Installer__Installation_Error {
+
+    private $exception;
+
+    public function __construct( $exception ) {
+        $this->exception = $exception;
+
+        add_action( 'admin_notices', array( $this, 'installation_error_notice' ) );
+    }
+
+    public function installation_error_notice() {
+        print '<div class="notice notice-error"><p>';
+        print '<strong>' . __( 'Business Directory - Installation Failed', 'WPBDM' ) . '</strong>';
+        print '<br />';
+        print  __( 'Business Directory installation failed. An exception with following message was generated:', 'WPBDM' );
+        print '<br/><br/>';
+        print '<i>' . $this->exception->getMessage() . '</i>';
+        print '<br /><br />';
+
+        $message = __( 'Please <contact-link>contact customer support</a>.', 'WPBDM' );
+        $message = str_replace( '<contact-link>', sprintf( '<a href="%s">', 'http://businessdirectoryplugin.com/contact/' ), $message );
+
+        print $message;
+        print '</p></div>';
+    }
 }
