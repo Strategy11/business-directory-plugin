@@ -176,8 +176,7 @@ class WPBDP_Admin_Listings {
     function add_columns( $columns_ ) {
         $custom_columns = array();
         $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
-        $custom_columns['status'] = __( 'Status', 'WPBDM' );
-        $custom_columns['fee_plan'] = __( 'Fee Plan', 'WPBDM' );
+        $custom_columns['status'] = __( 'Payment Status', 'WPBDM' );
         $custom_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
 
         $columns = array();
@@ -188,6 +187,8 @@ class WPBDP_Admin_Listings {
             if ( 'title' == $k )
                 $columns = array_merge( $columns, $custom_columns );
         }
+
+        $columns['attributes'] = __( 'Attributes', 'WPBDM' );
 
         return apply_filters( 'wpbdp_admin_directory_columns', $columns );
     }
@@ -237,53 +238,17 @@ class WPBDP_Admin_Listings {
             echo _x( 'Never', 'admin listings', 'WPBDM' );
     }
 
-
-    /**
-     * @since next-release
-     */
-    public function listing_column_fee_plan( $post_id ) {
+    public function listing_column_attributes( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
         $plan = $listing->get_fee_plan();
 
-        echo $plan->fee_label;
-
         if ( $plan->is_sticky )
-            echo '<span class="tag sticky">' . _x( 'Sticky', 'admin listings', 'WPBDM' ) . '</span>';
+            echo '<span class="tag">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
 
         if ( $plan->is_recurring )
-            echo '<span class="tag recurring">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
+            echo '<span class="tag">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
     }
 
-    function listing_column_sticky_status( $post_id ) {
-        $upgrades_api = wpbdp_listing_upgrades_api();
-        $sticky_info = $upgrades_api->get_info( $post_id );
-
-        echo sprintf('<span class="tag status %s">%s</span><br />',
-                    str_replace(' ', '', $sticky_info->status),
-                    $sticky_info->pending ? __('Pending Upgrade', 'WPBDM') : esc_attr($sticky_info->level->name) );
-
-        echo '<div class="row-actions">';
-
-        if ( current_user_can('administrator') ) {
-            if ( $sticky_info->upgradeable ) {
-                echo sprintf('<span><a href="%s">%s</a></span>',
-                             esc_url( add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->upgrade->id, 'post' => $post_id)) ),
-                             '<b>↑</b> ' . sprintf(__('Upgrade to %s', 'WPBDM'), esc_attr($sticky_info->upgrade->name)) );
-                echo '<br />';
-            }
-
-            if ( $sticky_info->downgradeable ) {
-                echo sprintf('<span><a href="%s">%s</a></span>',
-                             esc_url( add_query_arg(array('wpbdmaction' => 'changesticky', 'u' => $sticky_info->downgrade->id, 'post' => $post_id)) ),
-                             '<b>↓</b> ' . sprintf(__('Downgrade to %s', 'WPBDM'), esc_attr($sticky_info->downgrade->name)) );
-            }
-        } elseif ( current_user_can('contributor') && wpbdp_user_can( 'upgrade-to-sticky', $post_id ) ) {
-                echo sprintf('<span><a href="%s"><b>↑</b> %s</a></span>', wpbdp_get_page_link('upgradetostickylisting', $post_id), _x('Upgrade to Featured', 'admin actions', 'WPBDM'));
-        }
-
-        echo '</div>';
-
-    }
 
     // }}}
 
@@ -398,6 +363,11 @@ class WPBDP_Admin_Listings {
             if (wpbdp_user_can('delete', $listing_id))
                 $actions['delete'] = sprintf('<a href="%s">%s</a>', wpbdp_get_page_link('deletelisting', $listing_id), _x('Delete Listing', 'admin actions', 'WPBDM'));
         }
+
+        if ( ! current_user_can( 'administrator' ) )
+            return $actions;
+
+        $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&listing=' . $post->ID ) ) . '">' . _x( 'View Payments', 'admin actions', 'WPBDM' ) . '</a>';
 
         return $actions;
     }
