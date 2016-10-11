@@ -2,7 +2,6 @@
 require_once( WPBDP_PATH . 'admin/admin-pages.php' );
 require_once( WPBDP_PATH . 'admin/class-admin-listings.php' );
 require_once( WPBDP_PATH . 'admin/form-fields.php' );
-require_once( WPBDP_PATH . 'admin/payments.php' );
 require_once( WPBDP_PATH . 'admin/csv-import.php' );
 require_once( WPBDP_PATH . 'admin/csv-export.php' );
 require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
@@ -67,7 +66,6 @@ class WPBDP_Admin {
         $this->listings = new WPBDP_Admin_Listings();
         $this->csv_import = new WPBDP_CSVImportAdmin();
         $this->csv_export = new WPBDP_Admin_CSVExport();
-        $this->payments = new WPBDP_Admin_Payments();
         $this->debug_page = new WPBDP_Admin_Debug_Page();
     }
 
@@ -245,6 +243,9 @@ class WPBDP_Admin {
         $menu['wpbdp_admin_formfields'] = array(
             'title' => _x('Manage Form Fields', 'admin menu', 'WPBDM'),
             'callback' => array('WPBDP_FormFieldsAdmin', 'admin_menu_cb')
+        );
+        $menu['wpbdp_admin_payments'] = array(
+            'title' => _x( 'Payment History', 'admin menu', 'WPBDM' )
         );
         $menu['wpbdp-csv-import'] = array(
             'title' => _x( 'CSV Import', 'admin menu', 'WPBDM' ),
@@ -606,19 +607,6 @@ class WPBDP_Admin {
 
                     $this->messages[] = array( $msg, 'error' );
                 }
-
-                break;
-
-            case 'changesticky':
-                foreach ( $posts as $post_id ):
-                    $upgrades_api->set_sticky( $post_id, wpbdp_getv($_GET, 'u') );
-                endforeach;
-
-                $this->messages[] = _nx('The listing has been modified.',
-                                        'The listings have been modified.',
-                                        count($posts),
-                                        'admin',
-                                        'WPBDM');
 
                 break;
 

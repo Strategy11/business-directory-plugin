@@ -365,6 +365,11 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return $this->status;
     }
 
+    public function get_status_string() {
+        $statuses = self::get_statuses();
+        return $statuses[ $this->status ];
+    }
+
     public function set_status( $newstatus, $processed_by = 'system', $processed_on = null ) {
         $prev_status = $this->status;
         $this->status = $newstatus;
@@ -487,6 +492,16 @@ class WPBDP_Payment extends WPBDP_DB_Model {
 
     public function get_notes() {
         return $this->notes;
+    }
+
+    public static function get_statuses() {
+        $statuses = array();
+        $statuses['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
+        $statuses['pending'] = _x( 'Pending', 'payment', 'WPBDM' );
+        $statuses['canceled'] = _x( 'Canceled', 'payment', 'WPBDM' );
+        $statuses['rejected'] = _x( 'Rejected', 'payment', 'WPBDM' );
+
+        return $statuses;
     }
 
     /* @override */

@@ -2,31 +2,38 @@
 require_once( WPBDP_PATH . 'core/class-payment.php' );
 
 /**
- * Payments admin page and AJAX actions.
- * @since 3.4
+ * @since next-release
  */
-class WPBDP_Admin_Payments {
+class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
-    public function __construct() {
-        add_action( 'wp_ajax_wpbdp-payment-details', array( &$this, 'ajax_payment_details' ) );
+    function index() {
+        $_SERVER['REQUEST_URI'] = remove_query_arg( 'listing' );
+
+        require_once( WPBDP_PATH . 'admin/helpers/class-payments-table.php' );
+
+        $table = new WPBDP__Admin__Payments_Table();
+        $table->prepare_items();
+
+        if ( ! empty( $_GET['listing'] ) ) {
+            $listing = WPBDP_Listing::get( $_GET['listing'] );
+
+            if ( $listing )
+                wpbdp_admin_message(
+                    str_replace( '<a>',
+                                 '<a href="' . remove_query_arg( 'listing' ) . '">',
+                                 sprintf( _x( 'You\'re seeing payments related to listing: "%s" (ID #%d). <a>Click here</a> to see all payments.', 'payments admin', 'WPBDM' ),
+                                          esc_html( $listing->get_title() ),
+                                          $listing->get_id() ) )
+                    );
+        }
+
+        return compact( 'table' );
     }
 
-    public function ajax_payment_details() {
-        if ( ! current_user_can( 'administrator' ) )
-            exit();
-
-        global $wpbdp;
-
-        $response = new WPBDP_AJAX_Response();
-
-        $payment = WPBDP_Payment::get( intval( $_REQUEST['id'] ) );
-        if ( ! $payment )
-            $response->send_error();
-
-        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/payment-details.tpl.php',
-                                                   array( 'payment' => $payment,
-                                                          'invoice' => $wpbdp->payments->render_invoice( $payment ) ) ) );
-        $response->send();
+    function details() {
+        $payment = WPBDP_Payment::get( $_GET['payment-id'] ) or die();
+        return compact( 'payment' );
     }
 
 }
+
