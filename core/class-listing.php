@@ -711,7 +711,7 @@ class WPBDP_Listing {
 
         $res->fee = $fee;
         $res->fee_label = $fee ? $fee->label : _x( '(Unavailable Plan)', 'listing', 'WPBDM' );
-        $res->expired = ( strtotime( $res->expiration_date ) <= current_time( 'timestamp' ) );
+        $res->expired = $res->expiration_date ? strtotime( $res->expiration_date ) <= current_time( 'timestamp' ) : false;
 
         return $res;
     }
