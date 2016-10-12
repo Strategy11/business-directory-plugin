@@ -16,7 +16,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function no_items() {
-        return 'no items';
+        echo _x( 'No payments found.', 'payments admin', 'WPBDM' );
     }
 
     public function get_current_view() {
