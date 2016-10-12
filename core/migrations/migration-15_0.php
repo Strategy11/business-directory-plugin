@@ -52,9 +52,6 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
             if ( empty( $fee->pricing_model ) )
                 $update['pricing_model'] = 'flat';
 
-            if ( empty( $fee->category_limit ) )
-                $update['category_limit'] = '0';
-
             if ( false === $wpdb->update( $wpdb->prefix . 'wpbdp_fees', $update, array( 'id' => $fee->id ) ) ) {
                 $msg = sprintf( _x( '! Could not migrate fee "%s" (%d)', 'installer', 'WPBDM' ), $fee->label, $fee->id );
                 return false;
