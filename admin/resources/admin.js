@@ -198,51 +198,6 @@ jQuery(document).ready(function($){
     // }}
 
 
-    /* Listing Info Metabox */
-
-    $('#BusinessDirectory_listinginfo .listing-metabox-tabs a').click(function(e){
-        e.preventDefault();
-
-        var href = $(this).attr('href');
-
-        var $selected = $(this).parent('li').siblings('.selected');
-
-        if ($selected.length > 0) {
-            if ($selected.find('a:first').attr('href') == href) {
-                return;
-            } else {
-                // hide current tab (if any)
-                $selected.removeClass('selected');
-                $($selected.find('a:first').attr('href')).hide();
-            }
-        }
-
-        // show new tab
-        $(this).parent('li').addClass('selected');
-        $(href).show();
-        $('.listing-fee-expiration-datepicker').hide();
-    });
-
-    var url_tab = $(location).attr( 'hash' );
-    if ( url_tab && $( url_tab ).length > 0 ) {
-        $( '#BusinessDirectory_listinginfo a[href="' + url_tab  + '"]' ).click();
-    } else {
-        $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
-    }
-
-
-    /* Listing info metabox / fees */
-
-    $('#listing-metabox-fees a.assignfee-link').click(function(e){
-        e.preventDefault();
-        $(this).siblings('.assignfee').show();
-    });
-
-    $('#listing-metabox-fees .assignfee .close-handle').click(function(e){
-        e.preventDefault();
-        $(this).parent('.assignfee').hide();
-    });
-
     /* Ajax placeholders */
 
     $('.wpbdp-ajax-placeholder').each(function(i,v){
@@ -331,7 +286,6 @@ function wpbdp_load_placeholder($v) {
 
 var WPBDP_Admin = {};
 WPBDP_Admin.payments = {};
-WPBDP_Admin.listingMetabox = {};
 
 // TODO: integrate this into $.
 WPBDP_Admin.ProgressBar = function($item, settings) {
@@ -397,123 +351,6 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
     // Initialize payments.
     $(document).ready(function(){ payments._initialize(); });
-
-})(jQuery);
-
-(function($) {
-    var metabox = WPBDP_Admin.listingMetabox;
-
-    metabox._initialize = function() {
-        // Hack from
-        // http://stackoverflow.com/questions/3961963/beforeshow-event-not-firing-on-jqueryui-datepicker.
-        $.extend( $.datepicker, {
-            _inlineDatepicker2: $.datepicker._inlineDatepicker,
-            // Override the _inlineDatepicker method
-            _inlineDatepicker: function (target, inst) {
-                // Call the original
-                this._inlineDatepicker2(target, inst);
-                var beforeShow = $.datepicker._get(inst, 'beforeShow');
-
-                if (beforeShow) {
-                    beforeShow.apply(target, [target, inst]);
-                }
-            }
-        });
-
-        // Expiration date changing.
-        var _addNeverButton = function( instance ) {
-            setTimeout( function() {
-                var $buttonPane = $(instance).find( '.ui-datepicker-buttonpane' );
-
-                if ( $buttonPane.find( '.ui-datepicker-never' ).length > 0 )
-                return;
-
-            var $button = $( '<button>', {
-                text: 'Never Expires',
-                click: function() {
-                    _updateExpiration( $(instance), 'never' );
-                    return false;
-                },
-            }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
-
-            $buttonPane.append($button);
-            }, 1 );
-        };
-
-        var _updateExpiration = function( $instance, newDate ) {
-            if ( ! newDate )
-                return;
-
-            var $listing_plan = $instance.parents( '.listing-plan' );
-            var $link = $listing_plan.find('a.expiration-change-link');
-            var $spinner = $listing_plan.find('.spinner:first');
-
-            $instance.hide();
-            _addNeverButton($instance.get(0));
-            $spinner.css( 'visibility', 'visible' ).show();
-
-            $listing_plan.find( '.plan-details' ).css( 'opacity', '0.7' );
-
-            $.post(ajaxurl, {action: 'wpbdp-listing_set_expiration', listing_id: $link.data('listing_id'), expiration_date: newDate}, function(res) {
-                if (res && res.success) {
-                    $link.text( res.data.formattedExpirationDate );
-                    $spinner.hide();
-                    $listing_plan.find( '.plan-details' ).css( 'opacity', '1.0' );
-                }
-            }, 'json');
-        };
-
-        $('#listing-metabox-generalinfo, #listing-metabox-fees').each(function(i, v) {
-            var $tab = $(v);
-            $tab.find('.expiration-date-info .datepicker').each(function(i, v) {
-                var $dp = $(v);
-                var $changeLink = $dp.siblings( '.expiration-date' ).find('a.expiration-change-link');
-
-                $dp.hide().datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    defaultDate: $changeLink.attr('data-date'),
-                    showButtonPanel: true,
-                    beforeShow: function( input ) {
-                        _addNeverButton( input );
-                    },
-                    onChangeMonthYear: function( year, month, instance ) {
-                        _addNeverButton(instance.input);
-                    },
-                    onSelect: function(newDate) {
-                        _updateExpiration( $(this), newDate );
-                    }
-                });
-            });
-
-            $tab.find('a.expiration-change-link').click(function(e) {
-                e.preventDefault();
-                $('.expiration-date-info .datepicker').toggle();
-            });
-        });
-
-        // Listing category fee change.
-        $('.listing-plan a.change-fee').click(function(e) {
-            e.preventDefault();
-
-            if ($('#wpbdp-modal-dialog').length == 0) {
-                $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
-            }
-
-            $.post(ajaxurl, {'action': 'wpbdp-listing_change_fee', 'listing_id': $(this).data('listing-id')}, function(res) {
-                if (res && res.success) {
-                    $('#wpbdp-modal-dialog').html(res.data.html);
-                    tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
-                    $('#wpbdp-modal-dialog').remove();
-                }
-            }, 'json');
-        });
-    };
-
-    $(document).ready(function(){
-        if ( $('#listing-metabox-fees').length > 0 ) {
-            metabox._initialize();
-        }
-    });
 
 })(jQuery);
 
@@ -875,3 +712,95 @@ jQuery(function( $ ) {
 
 });
 
+//
+// {{ Admin tab selectors.
+//
+jQuery(function($) {
+    $('.wpbdp-admin-tab-nav a').click(function(e) {
+        e.preventDefault();
+
+        var $others = $( this ).parents( 'ul' ).find( 'li' );
+        var $selected = $others.filter( '.active' );
+
+        $others.removeClass( 'active' );
+        $( this ).parent( 'li' ).addClass( 'active' );
+
+        var href = $( this ).attr('href');
+        var $content = $( href );
+
+        if ( $selected.length > 0 )
+            $( $selected.find( 'a' ).attr( 'href' ) ).hide();
+
+        $content.show().focus();
+    });
+
+    $( '.wpbdp-admin-tab-nav' ).each(function(i, v) {
+        $(this).find('a:first').click();
+    });
+    // var url_tab = $(location).attr( 'hash' );
+    // if ( url_tab && $( url_tab ).length > 0 ) {
+    //     $( '#BusinessDirectory_listinginfo a[href="' + url_tab  + '"]' ).click();
+    // } else {
+    //     $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
+    //
+});
+//
+// }}
+//
+
+//
+// {{ Date picker in metabox.
+//
+jQuery(function($) {
+    var _addNeverButton = function( instance ) {
+        setTimeout( function() {
+            var $buttonPane = $(instance.dpDiv).find( '.ui-datepicker-buttonpane' );
+
+            if ( $buttonPane.find( '.ui-datepicker-never' ).length > 0 )
+                return;
+
+            var $button = $( '<button>', {
+                text: 'Never Expires',
+                click: function() {
+                    $(instance.input).val('');
+                    $(instance.input).datepicker( 'hide' );
+                },
+            }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
+
+            $buttonPane.append($button);
+        }, 1 );
+    };
+
+    $( '#wpbdp-listing-metabox-plan-info input[name="listing_plan[expiration_date]"]' ).datepicker({
+        dateFormat: 'yy-mm-dd',
+        showButtonPanel: true,
+        beforeShow: function( input, instance ) {
+            _addNeverButton( instance );
+        },
+        onChangeMonthYear: function( year, month, instance ) {
+            _addNeverButton( instance );
+        }
+    });
+});
+//
+// }}
+//
+
+/*(function($) {
+    metabox._initialize = function() {
+        // Hack from
+        // http://stackoverflow.com/questions/3961963/beforeshow-event-not-firing-on-jqueryui-datepicker.
+        $.extend( $.datepicker, {
+            _inlineDatepicker2: $.datepicker._inlineDatepicker,
+            // Override the _inlineDatepicker method
+            _inlineDatepicker: function (target, inst) {
+                // Call the original
+                this._inlineDatepicker2(target, inst);
+                var beforeShow = $.datepicker._get(inst, 'beforeShow');
+
+                if (beforeShow) {
+                    beforeShow.apply(target, [target, inst]);
+                }
+            }
+        });
+*/

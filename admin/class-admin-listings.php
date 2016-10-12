@@ -135,19 +135,11 @@ class WPBDP_Admin_Listings {
 
     function add_metaboxes() {
         add_meta_box( 'wpbdp-listing-plan',
-                      __( 'Fee Plan', 'WPBDM' ),
-                      array( $this, '_metabox_fee_plan' ),
-                      WPBDP_POST_TYPE,
-                      'side',
-                      'core' );
-
-        add_meta_box( 'BusinessDirectory_listinginfo',
                       __( 'Listing Information', 'WPBDM' ),
-                      array( 'WPBDP_Admin_Listing_Metabox', 'metabox_callback' ),
+                      array( $this, '_metabox_listing_info' ),
                       WPBDP_POST_TYPE,
                       'side',
                       'core' );
-
         add_meta_box( 'wpbdp-listing-fields',
                       _x( 'Listing Fields / Images', 'admin', 'WPBDM' ),
                       array( 'WPBDP_Admin_Listing_Fields_Metabox', 'metabox_callback' ),
@@ -156,19 +148,10 @@ class WPBDP_Admin_Listings {
                       'core' );
     }
 
-    public function _metabox_fee_plan( $post ) {
-        $listing = WPBDP_Listing::get( $post->ID );
-        $current_plan = $listing->get_fee_plan();
-
-        if ( ! $current_plan )
-            $current_plan = (object) array( 'fee_id' => 0 );
-
-        $plans = WPBDP_Fee_Plan::find( 'all' );
-
-        foreach ( $plans as $p ) {
-            echo '<label><input type="radio" name="listing_plan" value="' . $p->id . '" ' . checked( $p->id, $current_plan->fee_id, false ) . '>' . $p->label . ' (' . $p->amount . ')</label><br />';
-        }
-
+    public function _metabox_listing_info( $post ) {
+        require_once( WPBDP_PATH . 'admin/helpers/class-listing-information-metabox.php' );
+        $metabox = new WPBDP__Admin__Metaboxes__Listing_Information( $post->ID );
+        $metabox->render();
     }
 
     // {{{ Custom columns.
@@ -384,8 +367,28 @@ class WPBDP_Admin_Listings {
         if ( ! $listing )
             return;
 
-        if ( ! $listing->has_fee_plan() && ! empty( $_POST['listing_plan'] ) )
-            $listing->set_fee_plan( $_POST['listing_plan'] );
+        // Listing plan.
+        $listing_plan = $_POST['listing_plan'];
+
+        if ( ! $listing->has_fee_plan() ) {
+            $listing->set_fee_plan( $listing_plan['fee_id'] );
+        } else {
+            $current_plan = $listing->get_fee_plan();
+
+            if ( $current_plan->fee_id == $listing_plan['fee_id'] ) {
+                // Update attributes.
+                global $wpdb;
+
+                $row = array();
+                $row['expiration_date'] = '' == $listing_plan['expiration_date'] ? null : $listing_plan['expiration_date'];
+                $row['fee_images'] = absint( $listing_plan['fee_images'] );
+                $row['is_sticky'] = ! empty( $listing_plan['is_sticky'] ) ? 1 : 0;
+
+                $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $row, array( 'listing_id' => $listing->get_id() ) );
+            } else {
+                $listing->set_fee_plan( $listing_plan['fee_id'] );
+            }
+        }
 
         // Save custom fields.
         if ( ! isset( $_POST['wpbdp-listing-fields-nonce'] ) )

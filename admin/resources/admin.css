@@ -626,45 +626,56 @@ body.taxonomy-wpbdp_category .column-id {
     min-height: 150px;
 }
 
-/* Listing metabox - Transactions. */
-#listing-metabox-transactions table.payments-list {
-    width: 100%;
-    border-spacing: 0;
+/*
+ * {{ Listing information metabox.
+ */
+.wpbdp-listing-metabox-tab dl {
+    margin: 0;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment td {
+#wpbdp-listing-metabox-payments table {
+    width: 100%;
+    border-spacing: 0;
+    margin: 20px 0 0 0;
+}
+
+#wpbdp-listing-metabox-payments table tr td {
     border-bottom: solid 1px #efefef;
     padding: 2px 0;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment td.status {
+#wpbdp-listing-metabox-payments table tr td.wpbdp-payment-status {
     text-align: right;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment.completed td {
+#wpbdp-listing-metabox-payments table tr.wpbdp-payment-status-completed td {
     color: green;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment.pending td {
+#wpbdp-listing-metabox-payments table tr.wpbdp-payment-status-pending td {
     color: red;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment.rejected td {
+#wpbdp-listing-metabox-payments table tr.wpbdp-payment-status-rejected td {
     color: #bbb;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment.canceled td {
+#wpbdp-listing-metabox-payments table tr.wpbdp-payment-status-canceled td {
     text-decoration: line-through;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment a {
+#wpbdp-listing-metabox-payments table tr a {
     text-decoration: none;
     color: inherit;
 }
 
-#listing-metabox-transactions table.payments-list tr.payment a:hover {
+#wpbdp-listing-metabox-payments table tr a:hover {
     text-decoration: underline;
 }
+
+/*
+ * }}
+ */
 
 
 /* Payment Details. */
@@ -837,3 +848,49 @@ body.taxonomy-wpbdp_category .column-id {
     color: #666;
 }
 /* }} */
+
+.wpbdp-admin-tab-nav {
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.wpbdp-admin-tab-nav:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.wpbdp-admin-tab-nav li {
+    list-style-type: none;
+    float: left;
+    padding: 4px 8px;
+    margin: 0;
+    background: #fff;
+    color: #666;
+    margin: 0 4px;
+    font-size: 11px;
+}
+
+.wpbdp-admin-tab-nav li:hover {
+    background: #efefef;
+}
+
+.wpbdp-admin-tab-nav li:first-child {
+    margin-left: 0;
+}
+
+.wpbdp-admin-tab-nav li.active {
+    background: #e5e5e5;
+    color: #000;
+}
+
+.wpbdp-admin-tab-nav li a {
+    text-decoration: none;
+    color: #444;
+}
+
+.wpbdp-admin-tab-content {
+    padding: 10px 10px;
+    display: none;
+}
