@@ -239,8 +239,14 @@ class WPBDP__Shortcodes {
         return '0';
     }
 
-    public function sc_manage_listings() {
-        $v = wpbdp_load_view( 'manage_listings' );
+    public function sc_manage_listings( $atts, $content, $shortcode ) {
+        $atts = shortcode_atts( array( 'show_bar' => true ), $atts, $shortcode );
+
+        if ( in_array( $atts['show_bar'], array( 'no', 'false', '0' ), true ) ) {
+            $atts['show_bar'] = false;
+        }
+
+        $v = wpbdp_load_view( 'manage_listings', $atts );
         return $v->dispatch();
     }
 
