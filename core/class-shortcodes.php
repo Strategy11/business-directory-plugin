@@ -240,13 +240,15 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_manage_listings( $atts, $content, $shortcode ) {
-        $atts = shortcode_atts( array( 'show_bar' => true ), $atts, $shortcode );
+        $atts = shortcode_atts( array( 'showsearchbar' => true ), $atts, $shortcode );
 
-        if ( in_array( $atts['show_bar'], array( 'no', 'false', '0' ), true ) ) {
-            $atts['show_bar'] = false;
+        if ( in_array( $atts['showsearchbar'], array( 'no', 'false', '0' ), true ) ) {
+            $atts['showsearchbar'] = false;
+        } else {
+            $atts['showsearchbar'] = true;
         }
 
-        $v = wpbdp_load_view( 'manage_listings', $atts );
+        $v = wpbdp_load_view( 'manage_listings', array( 'show_search_bar' => $atts['showsearchbar'] ) );
         return $v->dispatch();
     }
 
