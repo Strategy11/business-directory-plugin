@@ -50,7 +50,6 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 #wpbdp-search-form input[type="submit"] {
-    width: 100px;
     float: none;
     margin: auto;
 }
