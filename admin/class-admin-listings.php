@@ -350,11 +350,11 @@ class WPBDP_Admin_Listings {
         if ($post->post_type == WPBDP_POST_TYPE && current_user_can('contributor') && ! current_user_can( 'administrator' ) ) {
             if (wpbdp_user_can('edit', $post->ID))
                 $actions['edit'] = sprintf('<a href="%s">%s</a>',
-                                            wpbdp_get_page_link('editlisting', $post->ID),
+                                            wpbdp_url( 'edit_listing', $post->ID ),
                                             _x('Edit Listing', 'admin actions', 'WPBDM'));
 
             if ( wpbdp_user_can( 'delete', $post->ID ) )
-                $actions['delete'] = sprintf( '<a href="%s">%s</a>', wpbdp_get_page_link( 'deletelisting', $post->ID ), _x( 'Delete Listing', 'admin actions', 'WPBDM' ) );
+                $actions['delete'] = sprintf( '<a href="%s">%s</a>', wpbdp_url( 'delete_listing', $post->ID ), _x( 'Delete Listing', 'admin actions', 'WPBDM' ) );
         }
 
         return $actions;
