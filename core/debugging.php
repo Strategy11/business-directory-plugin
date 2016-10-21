@@ -33,7 +33,7 @@ class WPBDP_Debugging {
 	                       array( 'jquery' ),
 	                       null,
 	                       true );
-		wp_enqueue_style( 'wpbdp-debugging-styles', WPBDP_URL . 'core/css/debug.min.css' );
+		wp_enqueue_style( 'wpbdp-debugging-styles', WPBDP_URL . 'core/css/debug.css' );
 	}
 
 	public static function _php_error_handler($errno, $errstr, $file, $line, $context) {

@@ -731,7 +731,7 @@ class WPBDP_Listing {
                        'fee_id' => $fee->id,
                        'fee_days' => $fee->days,
                        'fee_images' => $fee->images,
-                       'fee_price' => $fee->amount,
+                       'fee_price' => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
                        'is_recurring' => 0,
                        'is_sticky' => (int) $fee->sticky,
                        'status' => $status );

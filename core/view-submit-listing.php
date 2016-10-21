@@ -46,7 +46,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $callback = 'step_' . $this->state->step;
 
         if ( method_exists( $this, $callback ) )
-            return call_user_func( array( &$this, $callback) );
+            return call_user_func( array( &$this, $callback ) );
         else
             return 'STEP NOT IMPLEMENTED YET: ' . $this->state->get_step();
     }
@@ -96,6 +96,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
 
     protected function step_plan_selection() {
+        global $wpbdp;
+
         if ( $this->state->editing ) {
             $this->state->advance( false ); return $this->dispatch();
         }

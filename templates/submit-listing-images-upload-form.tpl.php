@@ -2,22 +2,15 @@
 $admin = isset( $admin ) ? $admin : false;
 $listing_id = isset( $listing_id ) ? $listing_id : 0;
 
-$action = '';
-if ( $admin && $listing_id ) {
-    $action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
-                                    'listing_id' => $listing_id ),
-                             admin_url( 'admin-ajax.php' ) );
-} else {
-    $action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
-                                    'state_id' => $state_id ),
-                             admin_url( 'admin-ajax.php' ) );
-}
+$action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
+                                'listing_id' => $listing_id ),
+                         admin_url( 'admin-ajax.php' ) );
 ?>
 <div class="image-upload-wrapper">
     <h4><?php _ex( 'Upload Images', 'templates', 'WPBDM' ); ?></h4>
 
     <div class="area-and-conditions cf">
-        <div id="image-upload-dnd-area" class="wpbdp-dnd-area" data-action="<?php echo $action; ?>">
+        <div id="image-upload-dnd-area" class="wpbdp-dnd-area" data-action="<?php echo esc_attr( $action ); ?>">
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
                 <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>

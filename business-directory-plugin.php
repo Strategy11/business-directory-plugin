@@ -512,24 +512,10 @@ class WPBDP_Plugin {
     public function ajax_listing_submit_image_upload() {
         $res = new WPBDP_Ajax_Response();
 
-        $listing_id = 0;
-        $state_id = 0;
-        $state = null;
+        $listing_id = intval( $_REQUEST['listing_id'] );
 
-        if ( isset( $_REQUEST['state_id'] ) ) {
-            require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-
-            $state_id = trim( $_REQUEST['state_id'] );
-            $state = WPBDP_Listing_Submit_State::get( $state_id );
-
-            if ( ! $state )
-                $res->send_error();
-        } else {
-            $listing_id = intval( $_REQUEST['listing_id'] );
-
-            if ( ! $listing_id )
-                $res->send_error();
-        }
+        if ( ! $listing_id )
+            $res->send_error();
 
         $content_range = null;
         $size = null;
@@ -564,21 +550,13 @@ class WPBDP_Plugin {
 
         $html = '';
         foreach ( $attachments as $attachment_id ) {
-            if ( $state )
-                $state->images[] = $attachment_id;
-
-            $html .= wpbdp_render( 'submit-listing/images-single',
-                                   array( 'image_id' => $attachment_id,
-                                          'state_id' => $state ? $state->id : '' ),
+            $html .= wpbdp_render( 'submit-listing-images-single',
+                                   array( 'image_id' => $attachment_id ),
                                    false );
         }
 
-        if ( $listing_id ) {
-            $listing = WPBDP_Listing::get( $listing_id );
-            $listing->set_images( $attachments, true );
-        } elseif ( $state ) {
-            $state->save();
-        }
+        $listing = WPBDP_Listing::get( $listing_id );
+        $listing->set_images( $attachments, true );
 
         if ( $errors ) {
             $error_msg = '';
@@ -600,23 +578,6 @@ class WPBDP_Plugin {
 
         if ( ! $image_id )
             $res->send_error();
-
-        $state_id = isset( $_REQUEST['state_id'] ) ? $_REQUEST['state_id'] : '';
-
-        if ( $state_id ) {
-            require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-
-            if ( ! $state_id )
-                $res->send_error();
-
-            $state = WPBDP_Listing_Submit_State::get( $state_id );
-
-            if ( ! $state || ! in_array( $image_id, $state->images ) )
-                $res->send_error();
-
-            wpbdp_array_remove_value( $state->images, $image_id );
-            $state->save();
-        }
 
         wp_delete_attachment( $image_id, true );
 
@@ -666,10 +627,9 @@ class WPBDP_Plugin {
 
         $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
 
-        // thumbnail size
-        add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop );
-//        add_image_size( 'wpbdp-thumb', $thumbnail_width, $thumbnail_height, true );
-        add_image_size( 'wpbdp-large', $max_width, $max_height, false );
+        add_image_size( 'wpbdp-mini', 60, 60, true ); // Used for the submit process.
+        add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
+        add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
     }
 
     public function is_debug_on() {
@@ -836,7 +796,7 @@ class WPBDP_Plugin {
                                    'jquery-file-upload-iframe-transport' ) );
 
         // Drag & Drop.
-        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.css' );
+        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.css' );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
                             array( 'jquery-file-upload' ) );
     }

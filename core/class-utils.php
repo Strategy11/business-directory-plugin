@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP_Utils {
+class WPBDP__Utils {
 
     /**
      * @since 3.6.10
@@ -22,3 +22,8 @@ class WPBDP_Utils {
                 create_function( '$x, $y', '$x_ = (array) $x; $y_ = (array) $y; return $x_["' . $prop . '"] - $y_["' . $prop . '"];' ) );
     }
 }
+
+/**
+ * @deprecated since next-release. Use {@link WPBDP__Utils} instead.
+ */
+class WPBDP_Utils extends WPBDP__Utils {}

@@ -16,6 +16,9 @@ class WPBDP__Dispatcher {
         add_action( 'wp', array( $this, '_lookup_current_view' ) );
         add_action( 'template_redirect', array( $this, '_execute_view' ), 11 );
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
+
+        add_action( 'wp_ajax_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
     }
 
     public function _lookup_current_view( $wp ) {
@@ -68,6 +71,35 @@ class WPBDP__Dispatcher {
             return;
 
         $this->current_view_obj->enqueue_resources();
+    }
+
+    /**
+     * @since next-release
+     */
+    public function _ajax_dispatch() {
+        if ( empty( $_REQUEST['handler'] ) )
+            return;
+
+        $handler = trim( $_REQUEST['handler'] );
+        $handler = WPBDP__Utils::normalize( $handler );
+
+        $parts = explode( '__', $handler );
+        $view_name = $parts[0];
+        $function = isset( $parts[1] ) ? $parts[1] : '';
+
+        $view = $this->load_view( $view_name );
+        if ( ! $view )
+            return;
+
+        if ( ! $function )
+            $function = 'ajax_dispatch';
+        else
+            $function = 'ajax_' . $function;
+
+        if ( ! method_exists( $view, $function ) )
+            return;
+
+        return call_user_func( array( $view, $function ) );
     }
 
     public function get_view_locations() {

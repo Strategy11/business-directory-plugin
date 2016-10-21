@@ -650,6 +650,19 @@ class WPBDP_Form_Field {
     /**
      * @since next-release
      */
+    public function value_from_POST( $key = 'listingfields' ) {
+        if ( ! $_POST || ! isset( $_POST[ $key ][ $this->id ] ) )
+            return null;
+
+        $value = stripslashes_deep( $_POST[ $key ][ $this->id ] );
+        $value = $this->convert_input( $value );
+
+        return $value;
+    }
+
+    /**
+     * @since next-release
+     */
     public function configure_search( $query, &$search ) {
         global $wpdb;
 
