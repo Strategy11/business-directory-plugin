@@ -752,6 +752,9 @@ jQuery(function($) {
 // {{ Date picker in metabox.
 //
 jQuery(function($) {
+    if ( 0 == $( '#wpbdp-listing-metabox-plan-info' ).length )
+        return;
+
     var _addNeverButton = function( instance ) {
         setTimeout( function() {
             var $buttonPane = $(instance.dpDiv).find( '.ui-datepicker-buttonpane' );
@@ -786,21 +789,3 @@ jQuery(function($) {
 // }}
 //
 
-/*(function($) {
-    metabox._initialize = function() {
-        // Hack from
-        // http://stackoverflow.com/questions/3961963/beforeshow-event-not-firing-on-jqueryui-datepicker.
-        $.extend( $.datepicker, {
-            _inlineDatepicker2: $.datepicker._inlineDatepicker,
-            // Override the _inlineDatepicker method
-            _inlineDatepicker: function (target, inst) {
-                // Call the original
-                this._inlineDatepicker2(target, inst);
-                var beforeShow = $.datepicker._get(inst, 'beforeShow');
-
-                if (beforeShow) {
-                    beforeShow.apply(target, [target, inst]);
-                }
-            }
-        });
-*/

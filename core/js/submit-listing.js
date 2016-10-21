@@ -113,9 +113,17 @@ jQuery(function($) {
     });
     // }}
 
+    $( '#wpbdp-submit-listing .wpbdp-submit-listing-section-header' ).click( function() {
+        var $section = $( this ).parent( '.wpbdp-submit-listing-section' );
+        $section.toggleClass( 'collapsed' );
+    } );
 
-    if ( $( 'form#wpbdp-listing-form-categories' ).length > 0 ) {
+    if ( $( '#wpbdp-submit-listing .wpbdp-plan-selection-list' ).length > 0 ) {
         var x = new submit_listing.Fee_Selection_Helper();
+
+        $( 'input[name="listing_plan"]' ).change(function() {
+            $( '#wpbdp-submit-listing form' ).submit();
+        });
     }
 
     $( '#wpbdp-submit-page.step-images #wpbdp-uploaded-images' ).sortable({

@@ -125,7 +125,7 @@ WPBDP.fileUpload = {
     resizeIFrame: function(field_id, height) {
         var iframe = jQuery( '#wpbdp-upload-iframe-' + field_id )[0];
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-        
+
         if ( iframeWin.document.body ) {
             iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
         }
@@ -161,7 +161,7 @@ WPBDP.fileUpload = {
         $preview.find('img').remove();
 
         $preview.find('.delete').hide();
-        
+
         return false;
     }
 
@@ -172,19 +172,7 @@ WPBDP.fileUpload = {
 ( function( $ ) {
     var sb = wpbdp.listingSubmit = {
         init: function() {
-            if ( $( '.wpbdp-submit-page.step-fee-selection' ).length > 0 ) {
-                $( '#wpbdp-listing-form-fees .fee-selection input' ).change(function( e ) {
-                    console.log(this);
-                    if ( 1 == $( this ).attr( 'data-canrecur' ) ) {
-                        if ( $( '.make-charges-recurring-option' ).not( ':visible' ) )
-                            $( '.make-charges-recurring-option' ).fadeIn( 'fast' );
-                    } else {
-                        $( '.make-charges-recurring-option' ).fadeOut( 'fast' );
-                    }
-                }).filter( ':checked' ).trigger( 'change' );
-            }
-
-            if ( $( '.wpbdp-submit-page.step-images' ).length > 0 )
+            if ( $( '.wpbdp-submit-listing-section-listing_images' ).length > 0 )
                 sb.images.init();
         }
     };
@@ -206,7 +194,7 @@ WPBDP.fileUpload = {
                 e.preventDefault();
                 var url = $( this ).attr('data-action');
 
-                $.post( url, { 'state': $( 'form#wpbdp-listing-form-images input[name="_state"]' ).val() }, function( res ) {
+                $.post( url, {}, function( res ) {
                     if ( ! res.success )
                         return;
 
