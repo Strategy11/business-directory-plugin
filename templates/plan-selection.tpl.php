@@ -20,6 +20,7 @@ $selected = 0;
          data-categories="<?php echo implode( ',', (array) $plan->supported_categories ); ?>"
          data-pricing-model="<?php echo $plan->pricing_model; ?>"
          data-amount="<?php echo $plan->amount; ?>"
+         data-amount-format="<?php echo esc_attr( wpbdp_currency_format( 'placeholder' ) ); ?>"
          data-pricing-details="<?php echo esc_attr( json_encode( $plan->pricing_details ) ); ?>" >
         <div class="wpbdp-plan-duration">
             <span class="wpbdp-plan-duration-amount"><?php echo $plan->days; ?></span>
