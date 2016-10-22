@@ -627,7 +627,7 @@ class WPBDP_Plugin {
 
         $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
 
-        add_image_size( 'wpbdp-mini', 60, 60, true ); // Used for the submit process.
+        add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
         add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
         add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
     }
@@ -785,12 +785,10 @@ class WPBDP_Plugin {
      */
     public function register_common_scripts() {
         // jQuery-FileUpload.
-//        wp_register_script( 'jquery-fileupload-ui-widget',
-//                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
         wp_register_script( 'jquery-file-upload-iframe-transport',
-                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js' );
+                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.min.js' );
         wp_register_script( 'jquery-file-upload',
-                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
+                            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.min.js',
                             array( 'jquery',
                                    'jquery-ui-widget',
                                    'jquery-file-upload-iframe-transport' ) );
@@ -831,16 +829,16 @@ class WPBDP_Plugin {
     public function _enqueue_scripts() {
         $only_in_plugin_pages = true;
 
-        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.min.css' );
+        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.css' );
 
         if ( $only_in_plugin_pages && ! $this->is_plugin_page() )
             return;
 
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
+
         if ( $this->is_debug_on() ) {
-            wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
             wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
         } else {
-            wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
             wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
         }
 
@@ -858,7 +856,7 @@ class WPBDP_Plugin {
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.min.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.css');
     }
 
     /**
