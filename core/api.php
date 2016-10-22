@@ -404,7 +404,7 @@ function wpbdp_currency_format( $amount, $args = array() ) {
     if ( ! $symbol )
         $symbol = strtoupper( $currency );
 
-    $number = number_format_i18n( $amount, $decimals );
+    $number = ( 'placeholder' != $amount ? number_format_i18n( $amount, $decimals ) : '[amount]' );
     $format = strtolower( $format );
 
     if ( false === strpos( $format, '[amount]' ) )
@@ -416,7 +416,6 @@ function wpbdp_currency_format( $amount, $args = array() ) {
 
     return str_replace( array_keys( $replacements ), array_values( $replacements ), $format );
 }
-
 
 /**
  * @since 2.3
