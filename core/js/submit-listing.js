@@ -107,7 +107,7 @@ jQuery(function($) {
                         break;
                 }
 
-                $plan.find( '.wpbdp-plan-price-amount' ).text( price );
+                $plan.find( '.wpbdp-plan-price-amount' ).text( $plan.data( 'amount-format' ).replace( '[amount]', price.toFixed(2) ) );
             } );
         }
     });
@@ -127,7 +127,6 @@ jQuery(function($) {
             data += '&action=wpbdp_ajax&handler=submit_listing__sections';
 
             // TODO: add status indicator (throbber?)
-
             $.post( $form.attr( 'data-ajax-url' ), data, function( res ) {
                 if ( ! res.success ) {
                     alert( 'Something went wrong!' );
@@ -153,15 +152,15 @@ jQuery(function($) {
         });
     }
 
-    $( '#wpbdp-submit-page.step-images #wpbdp-uploaded-images' ).sortable({
-        placeholder: 'wpbdp-image-draggable-highlight',
-        update: function( event, ui ) {
-            var sorted = $( '#wpbdp-uploaded-images' ).sortable( 'toArray', { attribute: "data-imageid" } );
-            var no_images = sorted.length;
-
-            $.each( sorted, function( i, v ) {
-                $( 'input[name="images_meta[' + v + '][order]"]' ).val( no_images - i );
-            } );
-        }
-    });
+    // $( '#wpbdp-submit-page.step-images #wpbdp-uploaded-images' ).sortable({
+    //     placeholder: 'wpbdp-image-draggable-highlight',
+    //     update: function( event, ui ) {
+    //         var sorted = $( '#wpbdp-uploaded-images' ).sortable( 'toArray', { attribute: "data-imageid" } );
+    //         var no_images = sorted.length;
+    //
+    //         $.each( sorted, function( i, v ) {
+    //             $( 'input[name="images_meta[' + v + '][order]"]' ).val( no_images - i );
+    //         } );
+    //     }
+    // });
 });

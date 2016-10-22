@@ -27,3 +27,7 @@ echo wpbdp_render( 'submit-listing-images-upload-form',
                           'listing_id' => $listing->get_id() ),
                    false );
 ?>
+
+<script type="text/javascript">
+wpbdp.listingSubmit.images.init();
+</script>
