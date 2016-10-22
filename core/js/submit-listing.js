@@ -122,7 +122,34 @@ jQuery(function($) {
         var x = new submit_listing.Fee_Selection_Helper();
 
         $( 'input[name="listing_plan"]' ).change(function() {
-            $( '#wpbdp-submit-listing form' ).submit();
+            var $form = $('#wpbdp-submit-listing form');
+            var data = $form.serialize();
+            data += '&action=wpbdp_ajax&handler=submit_listing__sections';
+
+            // TODO: add status indicator (throbber?)
+
+            $.post( $form.attr( 'data-ajax-url' ), data, function( res ) {
+                if ( ! res.success ) {
+                    alert( 'Something went wrong!' );
+                    return;
+                }
+
+                var current_sections = $form.find( '.wpbdp-submit-listing-section' );
+                var new_sections = res.data.sections;
+
+                // Update sections.
+                $.each( new_sections, function( section_id, section_details ) {
+                    var $section = current_sections.filter( '[data-section-id="' + section_id + '"]' );
+                    var $new_html = $( section_details.html );
+
+                    $section.attr( 'class', $new_html.attr( 'class' ) );
+                    $section.find( '.wpbdp-submit-listing-section-content' ).fadeOut( 'fast', function() {
+                        $( this ).replaceWith( $new_html.find( '.wpbdp-submit-listing-section-content' ) );
+                    } );
+                } );
+
+            }, 'json' );
+
         });
     }
 

@@ -43,19 +43,27 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         return $html;
     }
 
-    // public function ajax_sections() {
-    //     $res = new WPBDP_Ajax_Response();
-    //
-    //     if ( ! $this->can_submit( $msg ) || empty( $_REQUEST['listing_id'] ) )
-    //         $res->send_error( $msg );
-    //
-    //     $this->listing = $this->find_or_create_listing();
-    //     $this->sections = $this->submit_sections();
-    //     $this->prepare_sections();
-    //
-    //     echo 'HI THERE';
-    //     die();
-    // }
+    public function ajax_sections() {
+        $res = new WPBDP_Ajax_Response();
+
+        if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) )
+            $res->send_error( $msg );
+
+        $this->listing = $this->find_or_create_listing();
+        $this->sections = $this->submit_sections();
+        $this->prepare_sections();
+
+        $sections = array();
+        foreach ( $this->sections as $section ) {
+            $sections[ $section['id'] ] = $section;
+            $sections[ $section['id'] ]['html'] = wpbdp_render( 'submit-listing-section', array( 'section' => $section, 'messages' => $messages ) );
+        }
+
+        $res->add( 'listing_id', $this->listing->get_id() );
+        $res->add( 'messages', $this->messages );
+        $res->add( 'sections', $sections );
+        $res->send();
+    }
 
     private function messages( $msg, $type = 'notice', $context = 'general' ) {
         if ( ! isset( $this->messages[ $context ] ) )
@@ -214,7 +222,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
 
             $field_values[ $field->get_id() ] = $value;
 
-            if ( null !== $value ) {
+            if ( null !== $posted_value ) {
                 $field_errors = null;
                 $validate_res = apply_filters_ref_array( 'wpbdp_listing_submit_validate_field', array(
                                                             $field->validate( $value, $field_errors ),

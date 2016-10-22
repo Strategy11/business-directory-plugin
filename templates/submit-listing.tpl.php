@@ -1,23 +1,16 @@
 <div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
-    <form action="" method="post">
+    <form action="" method="post" data-ajax-url="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+        <?php wp_nonce_field( 'listing submit' ); ?>
         <input type="hidden" name="listing_id" value="<?php echo $listing->get_id(); ?>" />
 
             <h2><?php _ex( 'Submit A Listing', 'submit listing', 'WPBDM' ); ?></h2>
             <?php echo $messages['general']; ?>
 
             <?php foreach ( $sections as $section ): ?>
-            <div class="wpbdp-submit-listing-section wpbdp-submit-listing-section-<?php echo $section['id']; ?> <?php echo implode( ' ', $section['flags'] ); ?>" data-section-id="<?php echo $section['id']; ?>">
-                <div class="wpbdp-submit-listing-section-header">
-                    <span class="collapse-indicator collapsed">►</span><span class="collapse-indicator expanded">▼</span><span class="title"><?php echo $section['title']; ?></span>
-                </div>
-                <div class="wpbdp-submit-listing-section-content">
-                    <?php if ( ! empty( $messages[ $section['id'] ] ) ): ?>
-                        <div class="wpbdp-submit-listing-section-messages"><?php echo $messages[ $section['id'] ]; ?></div>
-                    <?php endif; ?>
-
-                    <?php echo $section['html']; ?>
-                </div>
-            </div>
+                <?php echo wpbdp_render( 'submit-listing-section',
+                                         array( 'section' => $section,
+                                                'messages' => ( ! empty( $messages[ $section['id'] ] ) ? $messages[ $section['id'] ] : '' ) ) );
+                ?>
             <?php endforeach; ?>
 
         <div class="wpbdp-submit-listing-form-actions">
