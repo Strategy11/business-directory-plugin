@@ -127,6 +127,8 @@ class WPBDP_Themes_Admin {
         $msg = _x( 'You need to <a>activate your theme\'s license key</a> before you can activate the theme. <a>Click here</a> to do that.',
                    'admin themes',
                    'WPBDM' );
+        $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) . '">', $msg );
+
         wpbdp_admin_message( $msg, 'error' );
     }
 
