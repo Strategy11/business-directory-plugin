@@ -741,17 +741,7 @@ body.taxonomy-wpbdp_category .column-id {
 /* @end */
 
 /* {{{ Drag and Drop. */
-.wpbdp-drag-handle {
-    background: red;
-    width: 6px;
-    height: 10px;
-    display: inline-block;
-    background: url('drag-handle.png') 0 0;
-    cursor: move;
-    float: left;
-    margin: 5px 5px 0 0;
-    vertical-align: middle;
-}
+
 
 .wpbdp-draggable-highlight {
     background: #bbb;
