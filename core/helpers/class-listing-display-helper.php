@@ -124,8 +124,9 @@ class WPBDP_Listing_Display_Helper {
             $image->url = $data[0];
             $image->width = $data[1];
             $image->height = $data[2];
-            $image->html = sprintf( '<a href="%s" class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal" target="_blank">%s</a>',
+            $image->html = sprintf( '<a href="%s" class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal" target="_blank" title="%s">%s</a>',
                                     $image->url,
+                                    get_post_meta( $img_id, '_wpbdp_image_caption', true ),
                                     wp_get_attachment_image( $image->id, 'wpbdp-thumb', false, array(
                                             'class' => 'wpbdp-thumbnail size-thumbnail',
                                             'alt' => the_title( null, null, false ),
