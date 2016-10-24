@@ -52,7 +52,7 @@ class WPBDP_NView {
     }
 
     public final function _redirect( $url ) {
-        wp_redirect( $redir );
+        wp_redirect( $url );
         exit;
     }
 

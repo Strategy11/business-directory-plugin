@@ -742,21 +742,50 @@ class WPBDP_Listing {
         return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings_plans', $row );
     }
 
-    /**
-     * @since next-release
-     */
-    public function set_fee_with_payment( $fee, $recurring = false ) {
+    // /**
+    //  * @since next-release
+    //  */
+    // public function set_fee_with_payment( $fee, $recurring = false ) {
+    //     $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
+    //     $payment->add_item( $recurring ? 'recurring_plan' : 'plan',
+    //                         $fee->amount,
+    //                         sprintf( _x( 'Listing plan "%s"%s', 'submit', 'WPBDM' ),
+    //                                  $fee->label, $recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
+    //                         array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
+    //                         $fee->id );
+    //     $this->set_fee_plan( $fee, $recurring, 'pending' );
+    //
+    //     return $payment;
+    // }
+    public function generate_or_retrieve_payment() {
+        $plan = $this->get_fee_plan();
+
+        if ( ! $plan || 'pending' != $plan->status )
+            return false;
+
+        $existing_payment = WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending', 'tag' => 'initial', '_single' => true ) );
+
+        if ( $existing_payment )
+            return $existing_payment;
+
         $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
-        $payment->add_item( $recurring ? 'recurring_plan' : 'plan',
-                            $fee->amount,
-                            sprintf( _x( 'Listing plan "%s"%s', 'submit', 'WPBDM' ),
-                                     $fee->label, $recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-                            array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
-                            $fee->id );
-        $this->set_fee_plan( $fee, $recurring, 'pending' );
+        $payment->add_item( $plan->is_recurring ? 'recurring_plan' : 'plan',
+                            $plan->fee_price,
+                            sprintf( _x( 'Listing plan "%s"%s', 'listing', 'WPBDM' ),
+                                     $plan->fee_label,
+                                     $plan->is_recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
+                            array( 'fee_id' => $plan->fee_id, 'fee_days' => $plan->fee_days, 'fee_images' => $plan->fee_images ),
+                            $plan->fee_id );
+        $payment->tag( 'initial' );
+
+        if ( current_user_can( 'administrator' ) )
+            $payment->set_status( WPBDP_Payment::STATUS_COMPLETED );
+
+        $payment->save();
 
         return $payment;
     }
+
 
     /**
      * @since next-release

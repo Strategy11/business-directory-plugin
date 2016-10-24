@@ -5,6 +5,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
     private $listing = null;
     private $sections = array();
 
+    private $prevent_save = false;
     private $editing = false;
     private $messages = array( 'general' => array() );
 
@@ -23,8 +24,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
             return wpbdp_render_msg( $msg );
 
         $this->listing = $this->find_or_create_listing();
+
+        if ( ! $this->editing && 'auto-draft' != get_post_status( $this->listing->get_id() ) ) {
+            $possible_payment = WPBDP_Payment::find( array( 'listing_id' => $this->listing->get_id(), 'tag' => 'initial', 'status' => 'pending', '_single' => true ) );
+
+            if ( $possible_payment )
+                return $this->_redirect( $possible_payment->get_checkout_url() );
+            else
+                return $this->done();
+        }
+
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
+
+        if ( ! empty( $_POST['save_listing'] ) && 1 == $_POST['save_listing'] && ! $this->prevent_save )
+            return $this->save_listing();
 
         // Prepare $messages for template.
         $messages = array();
@@ -97,10 +111,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
     private function find_or_create_listing() {
         $listing_id = 0;
 
-        if ( ! empty( $_REQUEST['listing_id'] ) && false != get_post_status( $_REQUEST['listing_id'] ) )
+        if ( ! empty( $_REQUEST['listing_id'] ) && false != get_post_status( $_REQUEST['listing_id'] ) ) {
             $listing_id = absint( $_POST['listing_id'] );
-        else
+        } else {
             $listing_id = wp_insert_post( array( 'post_type' => WPBDP_POST_TYPE, 'post_status' => 'auto-draft', 'post_title' => 'Incomplete Listing' ) );
+        }
 
         if ( ! $listing_id )
             die();
@@ -186,11 +201,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $errors = array();
         if ( $categories && ! $category_field->validate( $categories, $errors ) ) {
             $this->messages = array_merge( $this->messages, $errors );
+            $this->prevent_save = true;
         } elseif ( $categories && $plan_id ) {
             $plan = WPBDP_Fee_Plan::find( $plan_id );
 
             if ( ! $plan || ! $plan->supports_category_selection( $categories ) ) {
                 $this->messages[] = array( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'WPBDM' ), 'error' );
+                $this->prevent_save = true;
             } else {
                 // Set new fee plan.
                 $auto_renew = $allow_recurring && ( wpbdp_get_option( 'listing-renewal-auto-dontask' ) || ( ! empty( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] ) );
@@ -240,8 +257,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
             }
         }
 
-        if ( $validation_errors )
+        if ( $validation_errors ) {
             $this->messages( $validation_errors, 'error', 'listing_fields' );
+            $this->prevent_save = true;
+        }
 
         return $this->section_render( 'submit-listing-fields', compact( 'fields', 'field_values' ) );
     }
@@ -276,7 +295,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $plan = $listing->get_fee_plan();
         $image_slots = absint( $plan->fee_images );
 
+        if ( ! empty( $_POST['thumbnail_id'] ) )
+            $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+
         $images = $this->listing->get_images( 'ids' );
+
+        foreach ( $images as $img_id ) {
+            $updated_meta = ( ! empty( $_POST['images_meta'][ $img_id ] ) ) ? (array) $_POST['images_meta'][ $img_id ] : array();
+
+            update_post_meta( $img_id, '_wpbdp_image_weight', ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : 0 );
+            update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
+        }
+
         $images_meta = $this->listing->get_images_meta();
 
         $thumbnail_id = $this->listing->get_thumbnail_id();
@@ -296,14 +326,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
         $image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
-        // $listing->set_images( $this->state->images );
-        // $listing->set_thumbnail_id( $this->state->thumbnail_id );
-        //
-        // foreach ( $this->state->images_meta as $img_id => $img_meta ) {
-        //     update_post_meta( $img_id, '_wpbdp_image_weight', $img_meta[ 'order' ] );
-        //     update_post_meta( $img_id, '_wpbdp_image_caption', $img_meta[ 'caption' ] );
-        // }
-        // 
 
         return $this->section_render( 'submit-listing-images',
                                       compact( 'image_max_file_size',
@@ -329,8 +351,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
         $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
 
-        if ( ! empty( $_POST ) && ! $accepted )
+        if ( ! empty( $_POST ) && ! $accepted ) {
             $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
+            $this->prevent_save = true;
+        }
 
         $html = '';
 
@@ -355,31 +379,30 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $html .= '</label>';
 
         return array( true, $html );
-
-
-//             }
-//         }
-// */
-
     }
 
-/*
-    protected function step_images() {
-        // Set thumbnail.
-        $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : $this->state->thumbnail_id;
-        $this->state->thumbnail_id = $thumbnail_id;
+    private function save_listing() {
+        // XXX: what to do with this?
+        // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) ); 
+        // return $this->render( 'extra-sections', array( 'output' => $extra ) );
+        // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
+        $payment = $this->listing->generate_or_retrieve_payment();
 
-        if ( isset( $_POST['finish'] ) ) {
-            foreach ( $this->state->images as $img_id ) {
-                $img_meta = isset( $_POST['images_meta'][ $img_id ] ) ? (array) $_POST['images_meta'][ $img_id ] : array();
+        if ( ! $payment )
+            die();
 
-                $this->state->images_meta[ $img_id ]['order'] = ( ! empty( $img_meta['order'] ) ) ? intval( $img_meta['order'] ) : 0;
-                $this->state->images_meta[ $img_id ]['caption'] = ( ! empty( $img_meta['caption'] ) ) ? strval( $img_meta['caption'] ) : '';
-            }
-        }
+        $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
+        $this->listing->notify( $this->editing ? 'edit' : 'new' );
 
-        wp( 'images',
-                            );
-    }*/    
+        if ( $payment->is_completed() )
+            return $this->done();
+
+        $checkout_url = $payment->get_checkout_url();
+        return $this->_redirect( $checkout_url );
+    }
+
+    private function done() {
+        return wpbdp_render( 'submit-listing-done', array( 'listing' => $this->listing, 'editing' => $this->editing ) );
+    }
 
 }

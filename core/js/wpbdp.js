@@ -178,11 +178,16 @@ WPBDP.fileUpload = {
     };
 
     var sbImages = sb.images = wpbdp.listingSubmit.images = {
+        _initialized: false,
         _slots: 0,
         _slotsRemaining: 0,
         _working: false,
 
         init: function() {
+            if ( this._initialized )
+                return;
+
+            this._initialized = true;
             var t = this;
 
             // Initialize slot quantities.
@@ -190,9 +195,9 @@ WPBDP.fileUpload = {
             sb.images._slotsRemaining = parseInt( $( '#image-slots-remaining' ).text() );
 
             // Handle image deletes.
-            $( '#wpbdp-uploaded-images' ).delegate( '.delete-image', 'click', function( e ) {
+            $( '#wpbdp-uploaded-images' ).delegate( '.wpbdp-image-delete-link', 'click', function( e ) {
                 e.preventDefault();
-                var url = $( this ).attr('data-action');
+                var url = $( this ).attr('href');
 
                 $.post( url, {}, function( res ) {
                     if ( ! res.success )
@@ -263,6 +268,20 @@ WPBDP.fileUpload = {
                     }
                 }
             } );
+
+            $( '#wpbdp-uploaded-images' ).sortable({
+                axis: 'y',
+                cursor: 'move',
+                opacity: 0.9,
+                update: function( ev, ui ) {
+                    var sorted = $( this ).sortable( 'toArray', { attribute: 'data-imageid' } );
+                    var no_images = sorted.length;
+
+                    $.each( sorted, function( i, v ) {
+                        $( 'input[name="images_meta[' + v + '][order]"]' ).val( no_images - i );
+                    } );
+                }
+            });
         },
     };
 
