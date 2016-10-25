@@ -55,7 +55,7 @@ class WPBDP_Installer {
                                               'categories' => array( 'all' => true, 'categories' => array() ),
                                               'enabled' => 1 ) );
             $fee->save();
-        } else if ( ! $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
+        } else {
             throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
         }
 
