@@ -191,6 +191,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
     }
 
     private function plan_selection() {
+        global $wpbdp;
+
         $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
         $plans = WPBDP_Fee_Plan::find( 'all' ); unset($plans[1]);
