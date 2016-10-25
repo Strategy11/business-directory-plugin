@@ -79,7 +79,7 @@ class WPBDP_Admin {
         wp_enqueue_style( 'thickbox' );
 
         wp_enqueue_script( 'wpbdp-frontend-js',
-                           WPBDP_URL . 'core/js/wpbdp' . ( ! $debug_on ? '.min' : '' ) . '.js',
+                           WPBDP_URL . 'core/js/wpbdp.min.js',
                            array( 'jquery' ) );
         wp_enqueue_script( 'wpbdp-admin-js',
                            WPBDP_URL . 'admin/resources/admin' . ( ! $debug_on ? '.min' : '' ) . '.js',

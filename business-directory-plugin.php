@@ -795,8 +795,7 @@ class WPBDP_Plugin {
 
         // Drag & Drop.
         wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.css' );
-        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
-                            array( 'jquery-file-upload' ) );
+        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.min.js', array( 'jquery-file-upload' ) );
     }
 
     public function is_plugin_page() {
@@ -835,12 +834,7 @@ class WPBDP_Plugin {
             return;
 
         wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
-
-        if ( $this->is_debug_on() ) {
-            wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
-        } else {
-            wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
-        }
+        wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
 
         wp_enqueue_style( 'wpbdp-dnd-upload' );
         wp_enqueue_script( 'wpbdp-dnd-upload' );
