@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.1
 Tested up to: 4.6.1
-Last Updated: 2016-Sep 20
-Stable tag: tags/4.1.2
+Last Updated: 2016-Oct 25
+Stable tag: tags/4.1.3
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -21,7 +21,8 @@ Business Directory Plugin allows you to build a local directory, directory of bu
 = Features =
 * Fully customizable form fields
 * Accept payment for listings OR have free listings in your business directory
-* Full support for recurring payments (PayPal, Authorize.net, Stripe)
+* Accept payments using Authorize.net (requires Authorize.net account)
+* Full support for recurring payments (in most gateways: PayPal, Authorize.net, Stripe)
 * Allow for featured/sticky listings for an upgrade fee
 * Create multiple fee plans, which can be assigned to categories for posting
 * Built in CSV import and export
@@ -29,29 +30,33 @@ Business Directory Plugin allows you to build a local directory, directory of bu
 * Users who post can edit listings without access to WP dashboard
 * SEO Friendly using Yoast SEO
 * Configurable quick-search field and sorting bar for listings
-* Rate businesses in your directory (now with Schema.org microformat support) (using the Ratings Module)
-* Display the location of the business (categories, search, details--now with custom map sizes) (using the Google Maps Module)
-* Location based directory result filtering (using the Regions Module)
-* ZIP code radius searches (using the ZIP Search Module)
-* Assign features to paid or sticky listing plans to give users incentive to upgrade (using the Featured levels module)
-* Allow users to upload PDFs (using the File Upload Module)
-* Display Category Icons/Allow Parent-Child Category Navigation (using the Enhanced Category Module)
-* Manage attachments on directory listings (using the Attachments module, supports PDF, Text files, images)
-* Accept payments using Stripe (using the Stripe Gateway Module)
-* Accept payments using PayFast (using the PayFast Gateway Module)
-* Post claimable listings in your business directory that other users can pay (or not) to claim (using the Claim Listings Module) 
 * FULL responsive support when installed with a responsive theme 
-* Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
-* Ability to offer discount codes based on a % or fixed amount with expirations (using the Discount Codes Module) 
 * Multi-language support in your directory with WPML
 * Ability to re-skin the directory with a few clicks (directory themes)
+* Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
+* Images displayed with categories (using the FREE Enhanced Categories module)
+* Display Category Icons/Allow Parent-Child Category Navigation (using the FREE Enhanced Category Module)
+
+= Additional Features available from Premium Modules (paid) =
+* Rate businesses in your directory (now with Schema.org microformat support) (using the (paid) Ratings Module)
+* Display the location of the business (categories, search, details--now with custom map sizes) (using the (paid) Google Maps Module)
+* Location based directory result filtering (using the (paid) Regions Module)
+* ZIP code/postal code radius searches supporting a number of countries (using the (paid) ZIP Search Module)
+* Assign features to paid or sticky listing plans to give users incentive to upgrade (using the (paid) Featured levels module)
+* Allow users to upload PDFs (using the (paid) Attachments Module)
+* Manage attachments on directory listings (using the (paid) Attachments module, supports PDF, Text files, images)
+* Accept payments using PayPal (using the (paid) PayPal Gateway Module)
+* Accept payments using Stripe (using the (paid) Stripe Gateway Module)
+* Accept payments using PayFast (using the (paid) PayFast Gateway Module)
+* Post claimable listings in your business directory that other users can pay (or not) to claim (using the (paid) Claim Listings Module) 
+* Ability to offer discount codes based on a % or fixed amount with expirations (using the (paid) Discount Codes Module) 
 
 For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
  
 Please report any bugs you find via http://businessdirectoryplugin.com/support-forum/  
 
 = Premium Module Links: =
-These are optional modules that you can use to enhance Business Directory Plugin's functionality and
+These are optional, paid modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
 = NEW Themes =
@@ -66,7 +71,7 @@ support future development:
 * NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
 * NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
 
-= Feature Add On Modules =
+= Other Paid Feature Add On Modules =
 * [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
 * [Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
 * [ZIP Code Search Module](http://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
@@ -74,7 +79,7 @@ support future development:
 * [Ratings Module](http://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
 * [Google Maps Module](http://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
 
-= Payment Gateway Modules =
+= Payment Gateway Modules (Paid) =
 * [Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
 * [PayPal Gateway Module](http://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
 * [2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
@@ -130,6 +135,14 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 4.1.3 =
+* Improve appearance of search button on Advanced Search form.
+* Remove carriage-return characters from options in multivalued fields.
+* Load jQuery-UI stylesheet using a secure connection.
+* Fix Edit and Delete links on the backend for the Contributor role.
+* Improve error handling during installation.
+* Minor fix to searches involving URL fields.
+* Fix meta tag generation when CPT Advanced Integration is disabled.
 
 = Version 4.1.2 =
 * Fix meta tag generation when CPT integration is disabled.
