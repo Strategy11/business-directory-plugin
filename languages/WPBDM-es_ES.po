@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-09-20 02:40:34+00:00\n"
-"PO-Revision-Date: 2016-09-19 12:18-0500\n"
+"POT-Creation-Date: 2016-10-25 00:23:44+00:00\n"
+"PO-Revision-Date: 2016-10-24 19:25-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -2243,7 +2243,6 @@ msgstr ""
 "Por favor vea la <a>documentación de Campos de Formulario</a> para más "
 "detalles."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3012,32 +3011,32 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Permitir Seguimiento"
 
-#: business-directory-plugin.php:666
+#: business-directory-plugin.php:667
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: business-directory-plugin.php:774 business-directory-plugin.php:781
+#: business-directory-plugin.php:775 business-directory-plugin.php:782
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "Feed %s"
 
-#: business-directory-plugin.php:1119
+#: business-directory-plugin.php:1117
 msgctxt "title"
 msgid "Submit A Listing"
 msgstr "Enviar Un Listado"
 
-#: business-directory-plugin.php:1129
+#: business-directory-plugin.php:1122
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: business-directory-plugin.php:1139
+#: business-directory-plugin.php:1127
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: business-directory-plugin.php:1159
+#: business-directory-plugin.php:1156
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
@@ -5443,17 +5442,17 @@ msgctxt "themes"
 msgid "Theme was updated sucessfully."
 msgstr "El tema fue actualizado correctamente."
 
-#: core/installer.php:41
+#: core/installer.php:43
 msgctxt "default category name"
 msgid "General"
 msgstr "General"
 
-#: core/installer.php:49
+#: core/installer.php:51
 msgctxt "installer"
 msgid "Default Fee"
 msgstr "Comisión por Defecto"
 
-#: core/installer.php:486
+#: core/installer.php:502
 msgctxt "installer"
 msgid ""
 "<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
@@ -5464,41 +5463,41 @@ msgstr ""
 "es incompatible con la versión actual de Business Directory. Por favor "
 "actualice el módulode Regions."
 
-#: core/installer.php:552
+#: core/installer.php:568
 msgctxt "installer"
 msgid "Cleaning up listing fees information... %d/%d"
 msgstr "Actualizando información de comisiones de listados... %d/%d"
 
-#: core/installer.php:602
+#: core/installer.php:618
 msgctxt "installer"
 msgid "Migrating previous transactions to new Payments API... %d/%d"
 msgstr "Migrando transacciones anteriores a la nueva API de pagos... %d/%d"
 
-#: core/installer.php:631
+#: core/installer.php:647
 msgctxt "installer"
 msgid "Initial listing payment (BD < 3.4)"
 msgstr "Pago inicial de listado (BD < 3.4)"
 
-#: core/installer.php:642
+#: core/installer.php:658
 msgctxt "installer"
 msgid "Listing edit payment (BD < 3.4)"
 msgstr "Pago por edición de listado (BD < 3.4)"
 
-#: core/installer.php:663
+#: core/installer.php:679
 msgctxt "installer"
 msgid "Renewal fee \"%s\" for category \"%s\""
 msgstr "Comisión de renovación \"%s\" para categoría \"%s\""
 
-#: core/installer.php:682
+#: core/installer.php:698
 msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Mejora a Destacado"
 
-#: core/installer.php:941
+#: core/installer.php:957
 msgid "Business Directory - Manual Upgrade Required"
 msgstr "Business Directory - Actualización Manual Requerida"
 
-#: core/installer.php:943
+#: core/installer.php:959
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
@@ -5506,15 +5505,15 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabitadas pues es "
 "necesario realizar una actualización manual antes de continuar."
 
-#: core/installer.php:945
+#: core/installer.php:961
 msgid "Perform Manual Upgrade"
 msgstr "Realizar Actualización Manual"
 
-#: core/installer.php:961 core/installer.php:962 core/installer.php:973
+#: core/installer.php:977 core/installer.php:978 core/installer.php:989
 msgid "Business Directory - Manual Upgrade"
 msgstr "Business Directory - Actualización Manual"
 
-#: core/installer.php:977
+#: core/installer.php:993
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -5523,23 +5522,23 @@ msgstr ""
 "necesario realizar una actualización manual antes de que el plugin pueda ser "
 "utilizado."
 
-#: core/installer.php:979
+#: core/installer.php:995
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 "Haga clic en \"Iniciar Actualización\" y espere hasta que el proceso "
 "finalice."
 
-#: core/installer.php:982
+#: core/installer.php:998
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "Iniciar Actualización"
 
-#: core/installer.php:984
+#: core/installer.php:1000
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "Detener Actualización"
 
-#: core/installer.php:990
+#: core/installer.php:1006
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was sucessfully performed. Business Directory Plugin is now "
@@ -5548,10 +5547,26 @@ msgstr ""
 "La actualización fue ejecutada con éxito. Business Directory Plugin ahora se "
 "encienta disponible para su uso."
 
-#: core/installer.php:993
+#: core/installer.php:1009
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Ir a \"Administración del Directorio\""
+
+#: core/installer.php:1044
+msgid "Business Directory - Installation Failed"
+msgstr "Business Directory - La Instalación Falló"
+
+#: core/installer.php:1046
+msgid ""
+"Business Directory installation failed. An exception with following message "
+"was generated:"
+msgstr ""
+"La instalación de Business Directory falló. Se generó una excepción con el "
+"siguiente mensaje:"
+
+#: core/installer.php:1051
+msgid "Please <contact-link>contact customer support</a>."
+msgstr "Por favor <contact-link>contacte al soporte al cliente</a>."
 
 #: core/licensing.php:43 core/licensing.php:65 core/licensing.php:66
 msgctxt "settings"
@@ -6164,7 +6179,7 @@ msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Regresar al listado."
 
-#: core/views/main.php:7
+#: core/views/main.php:9
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -6179,12 +6194,12 @@ msgstr ""
 "no pueden enviar listados en este momento. No pueden agregarse nuevos "
 "listados hasta tanto haya categorías en el Directorio de Negocios."
 
-#: core/views/main.php:9
+#: core/views/main.php:11
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr "No hay listados en el Directorio."
 
-#: core/views/main.php:23
+#: core/views/main.php:25
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "
