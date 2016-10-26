@@ -184,9 +184,6 @@ WPBDP.fileUpload = {
         _working: false,
 
         init: function() {
-            if ( this._initialized )
-                return;
-
             this._initialized = true;
             var t = this;
 
