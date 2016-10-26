@@ -34,6 +34,8 @@ class WPBDP_Themes {
         $this->call_theme_function( '' );
         $this->call_theme_function( 'init' );
 
+        $this->load_theme_translation();
+
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 999 );
         add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 
@@ -65,6 +67,18 @@ class WPBDP_Themes {
                 return;
             }
         }
+    }
+
+    function load_theme_translation() {
+        $theme = $this->get_active_theme_data();
+        $locale = get_locale();
+
+        $mofile = untrailingslashit( $theme->path ) . "/languages/wpbdp-{$theme->id}-{$locale}.mo";
+
+        if ( ! file_exists( $mofile ) )
+            return;
+
+        return load_textdomain( 'wpbdp-' . $theme->id, $mofile );
     }
 
     function enqueue_theme_scripts() {
