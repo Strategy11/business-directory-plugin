@@ -21,7 +21,8 @@ class WPBDP__Views__Manage_Listings extends WPBDP_NView {
         wpbdp_push_query( $q );
 
         $html = $this->_render_page( 'manage_listings', array( 'current_user' => $current_user,
-                                                               'query' => $q ) );
+                                                               'query' => $q,
+                                                               '_bar' => $this->show_search_bar ) );
 
         wpbdp_pop_query();
 
