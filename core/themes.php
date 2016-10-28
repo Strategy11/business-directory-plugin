@@ -426,7 +426,7 @@ class WPBDP_Themes {
             );
         }
 
-        set_transient( 'wpbdp-official-themes', $official_themes, 1 * WEEK_IN_SECONDS );
+        set_transient( 'wpbdp-official-themes', $official_themes, WEEK_IN_SECONDS );
 
         return $official_themes;
     }
