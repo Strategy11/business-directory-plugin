@@ -77,7 +77,7 @@ class WPBDP_Form_Field_Type {
                 $value = wp_get_object_terms( $post_id, WPBDP_TAGS_TAX, array( 'fields' => 'names' ) );
 
                 foreach ( $value as $index => $v ) {
-                    $value[$index] = htmlspecialchars_decode( $v, ENT_QUOTES );
+                    $value[ $index ] = htmlspecialchars_decode( $v, ENT_QUOTES );
                 }
 
                 break;
