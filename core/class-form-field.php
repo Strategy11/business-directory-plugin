@@ -690,6 +690,8 @@ class WPBDP_Form_Field {
                 if ( ! $query )
                     break;
 
+                $charset = get_option( 'blog_charset' );
+
                 foreach ( $query as $term_ ) {
                     if ( is_numeric( $term_ ) ) {
                         $term = get_term( intval( $term_ ), $tax );
@@ -703,7 +705,7 @@ class WPBDP_Form_Field {
                     } elseif ( is_string( $term_ ) ) {
                         $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
                                                                   $tax,
-                                                                  $term_ ) );
+                                                                  htmlspecialchars( $term_, ENT_QUOTES, $charset ) ) );
                     }
                 }
 
