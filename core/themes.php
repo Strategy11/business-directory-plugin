@@ -366,10 +366,69 @@ class WPBDP_Themes {
                 $t->license_status = isset( $theme_license['status'] ) ? $theme_license['status'] : '';
             }
 
-            $t->is_core_theme = in_array( $t->id, array( 'no_theme', 'default' ), true );
+            $t->is_core_theme = $this->_is_core_theme( $t );
             $t->active = ( $t->id == $this->get_active_theme() );
             $t->can_be_activated = ( $t->is_core_theme || 'valid' == $t->license_status || $t->active );
         }
+    }
+
+    private function _is_core_theme( $theme ) {
+        if ( in_array( $theme->id, array( 'no_theme', 'default' ), true ) ) {
+            return true;
+        }
+
+        return $this->_is_premium_theme( $theme ) ? false : true;
+    }
+
+    private function _is_premium_theme( $theme ) {
+        foreach ( $this->_get_official_themes() as $official_theme ) {
+            if ( $theme->name == $official_theme->name ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function _get_official_themes() {
+        $official_themes = get_transient( 'wpbdp-official-themes' );
+
+        if ( is_array( $official_themes ) ) {
+            return $official_themes;
+        } else {
+            $official_themes = array();
+        }
+
+        $params = array(
+            'tag' => 'theme',
+            'number' => 10,
+        );
+
+        $url = add_query_arg( $params, 'http://businessdirectoryplugin.com/edd-api/v2/products/' );
+
+        $response = wp_remote_get( $url, array( 'timeout' => 15, 'sslverify' => false ) );
+
+        if ( is_wp_error( $response ) ) {
+            set_transient( 'wpbdp-official-themes', array(), HOUR_IN_SECONDS );
+            return array();
+        }
+
+        $response_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+        if ( ! isset( $response_data->products ) || ! is_array( $response_data->products ) ) {
+            set_transient( 'wpbdp-official-themes', array(), HOUR_IN_SECONDS );
+            return array();
+        }
+
+        foreach ( $response_data->products as $product ) {
+            $official_themes[] = (object) array(
+                'name' => $product->info->title,
+            );
+        }
+
+        set_transient( 'wpbdp-official-themes', $official_themes, WEEK_IN_SECONDS );
+
+        return $official_themes;
     }
 
     function _guess_theme_path_info( &$theme ) {
