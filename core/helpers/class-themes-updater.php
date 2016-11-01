@@ -9,7 +9,7 @@ class WPBDP_Themes_Updater {
         $this->themes_api = $themes_api;
         $this->data = get_transient( 'wpbdp-themes-updates' );
 
-        if ( ! $this->data )
+        if ( ! is_array( $this->data ) )
             $this->check_for_updates();
 
         add_action( 'wp_ajax_wpbdp-themes-update', array( &$this, '_update_theme' ) );
