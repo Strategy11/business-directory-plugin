@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-10-25 00:23:44+00:00\n"
+"POT-Creation-Date: 2016-11-01 23:27:24+00:00\n"
 "PO-Revision-Date: 2015-04-07 11:11-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -483,91 +483,91 @@ msgid ""
 "the theme. <a>Click here</a> to do that."
 msgstr ""
 
-#: admin/class-themes-admin.php:155
+#: admin/class-themes-admin.php:157
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr ""
 
-#: admin/class-themes-admin.php:202
+#: admin/class-themes-admin.php:204
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr ""
 
-#: admin/class-themes-admin.php:205
+#: admin/class-themes-admin.php:207
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
 "to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: admin/class-themes-admin.php:214
+#: admin/class-themes-admin.php:216
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr ""
 
-#: admin/class-themes-admin.php:221
+#: admin/class-themes-admin.php:223
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:224
+#: admin/class-themes-admin.php:226
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:227
+#: admin/class-themes-admin.php:229
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr ""
 
-#: admin/class-themes-admin.php:230
+#: admin/class-themes-admin.php:232
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr ""
 
-#: admin/class-themes-admin.php:256
+#: admin/class-themes-admin.php:258
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr ""
 
-#: admin/class-themes-admin.php:263
+#: admin/class-themes-admin.php:265
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr ""
 
-#: admin/class-themes-admin.php:364 admin/class-themes-admin.php:425
+#: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
 #: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr ""
 
-#: admin/class-themes-admin.php:370 core/licensing.php:132
+#: admin/class-themes-admin.php:372 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr ""
 
-#: admin/class-themes-admin.php:375 core/licensing.php:333
+#: admin/class-themes-admin.php:377 core/licensing.php:333
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr ""
 
-#: admin/class-themes-admin.php:388 core/licensing.php:335
+#: admin/class-themes-admin.php:390 core/licensing.php:335
 msgctxt "licensing"
 msgid "License activated"
 msgstr ""
 
-#: admin/class-themes-admin.php:431
+#: admin/class-themes-admin.php:433
 msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr ""
 
-#: admin/class-themes-admin.php:448 core/licensing.php:353
+#: admin/class-themes-admin.php:450 core/licensing.php:353
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr ""
 
-#: admin/class-themes-admin.php:464
+#: admin/class-themes-admin.php:466
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr ""
@@ -2092,7 +2092,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.3)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -5503,22 +5503,22 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr ""
 
-#: core/themes.php:635
+#: core/themes.php:708
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr ""
 
-#: core/themes.php:641
+#: core/themes.php:714
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: core/themes.php:649
+#: core/themes.php:722
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: core/themes.php:655
+#: core/themes.php:728
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-10-25 00:23:44+00:00\n"
+"POT-Creation-Date: 2016-11-01 23:27:24+00:00\n"
 "PO-Revision-Date: 2016-01-21 08:45-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -512,98 +512,99 @@ msgid ""
 "the theme. <a>Click here</a> to do that."
 msgstr ""
 
-#: admin/class-themes-admin.php:155
+#: admin/class-themes-admin.php:157
 #, fuzzy
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: admin/class-themes-admin.php:202
+#: admin/class-themes-admin.php:204
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr ""
 
-#: admin/class-themes-admin.php:205
+#: admin/class-themes-admin.php:207
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
 "to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: admin/class-themes-admin.php:214
+#: admin/class-themes-admin.php:216
 #, fuzzy
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Form Felder verwalten"
 
-#: admin/class-themes-admin.php:221
+#: admin/class-themes-admin.php:223
 #, fuzzy
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Benötigtes Feld wurde erfolgreich erstellt."
 
-#: admin/class-themes-admin.php:224
+#: admin/class-themes-admin.php:226
 #, fuzzy
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Benötigtes Feld wurde erfolgreich erstellt."
 
-#: admin/class-themes-admin.php:227
+#: admin/class-themes-admin.php:229
 #, fuzzy
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr "Der Import wurde erfolgreich abgeschlossen."
 
-#: admin/class-themes-admin.php:230
+#: admin/class-themes-admin.php:232
+#, fuzzy
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
-msgstr ""
+msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: admin/class-themes-admin.php:256
+#: admin/class-themes-admin.php:258
 #, fuzzy
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: admin/class-themes-admin.php:263
+#: admin/class-themes-admin.php:265
 #, fuzzy
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: admin/class-themes-admin.php:364 admin/class-themes-admin.php:425
+#: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
 #: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Eine Verbindung zum Lizenzserver konnte nicht hergestellt werden."
 
-#: admin/class-themes-admin.php:370 core/licensing.php:132
+#: admin/class-themes-admin.php:372 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Lizenzschlüssel ungültig "
 
-#: admin/class-themes-admin.php:375 core/licensing.php:333
+#: admin/class-themes-admin.php:377 core/licensing.php:333
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Konnte Lizenz nicht aktivieren: %s"
 
-#: admin/class-themes-admin.php:388 core/licensing.php:335
+#: admin/class-themes-admin.php:390 core/licensing.php:335
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Lizenz aktiviert"
 
-#: admin/class-themes-admin.php:431
+#: admin/class-themes-admin.php:433
 msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr ""
 
-#: admin/class-themes-admin.php:448 core/licensing.php:353
+#: admin/class-themes-admin.php:450 core/licensing.php:353
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Lizenz deaktiviert"
 
-#: admin/class-themes-admin.php:464
+#: admin/class-themes-admin.php:466
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr ""
@@ -621,9 +622,12 @@ msgid "Could not create wpbdp-csv-exports directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
 #: admin/csv-export.php:143
+#, fuzzy
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr ""
+"Es konnte kein temporäres Verzeichnis erstellt werden um den CSV Export "
+"durchzuführen."
 
 #: admin/csv-import.php:109
 msgctxt "admin csv-import"
@@ -796,9 +800,10 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: admin/fees.php:197
+#, fuzzy
 msgctxt "fees admin"
 msgid "Disable"
-msgstr ""
+msgstr "Preis löschen"
 
 #: admin/fees.php:201
 msgctxt "fees admin"
@@ -1053,9 +1058,10 @@ msgid "ZIP Code"
 msgstr ""
 
 #: admin/form-fields.php:294
+#, fuzzy
 msgctxt "form-fields admin"
 msgid "FAX Number"
-msgstr ""
+msgstr "Telefonnummer geschäftlich"
 
 #: admin/form-fields.php:295
 #, fuzzy
@@ -1106,9 +1112,10 @@ msgid "General Info"
 msgstr "Allgemeine Informationen"
 
 #: admin/listing-metabox.php:44
+#, fuzzy
 msgctxt "admin infometabox"
 msgid "Access Key"
-msgstr ""
+msgstr "Eintrag Felder / Bilder"
 
 #: admin/listing-metabox.php:46
 msgctxt "admin infometabox"
@@ -1440,9 +1447,10 @@ msgid "Rows in file"
 msgstr ""
 
 #: admin/templates/csv-import-progress.tpl.php:35
+#, fuzzy
 msgctxt "admin csv-import"
 msgid "Progress"
-msgstr ""
+msgstr "Export wird durchgeführt..."
 
 #: admin/templates/csv-import-progress.tpl.php:39
 msgctxt "admin csv-import"
@@ -1619,9 +1627,10 @@ msgid "Generate errors when a category is not found"
 msgstr "Generiere Fehler when eine Kategorie nicht gefunden wird"
 
 #: admin/templates/csv-import.tpl.php:171
+#, fuzzy
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
-msgstr ""
+msgstr "Eintrag Bilder"
 
 #: admin/templates/csv-import.tpl.php:176
 #, fuzzy
@@ -1674,9 +1683,10 @@ msgstr ""
 "Datei vorhanden ist."
 
 #: admin/templates/csv-import.tpl.php:215
+#, fuzzy
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications during import?"
-msgstr ""
+msgstr "Email Erinnerung"
 
 #: admin/templates/csv-import.tpl.php:220
 #, fuzzy
@@ -2174,9 +2184,10 @@ msgid "-- None --"
 msgstr "-- Auswählen --"
 
 #: admin/templates/form-fields-tags.tpl.php:14
+#, fuzzy
 msgctxt "form-fields admin"
 msgid "Theme Tags"
-msgstr ""
+msgstr "Preise Verwalten"
 
 #: admin/templates/form-fields-tags.tpl.php:19
 msgctxt "form-fields admin"
@@ -2232,7 +2243,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.3)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2743,9 +2754,10 @@ msgid "Theme Pack"
 msgstr ""
 
 #: admin/templates/sidebar.tpl.php:61
+#, fuzzy
 msgctxt "admin sidebar"
 msgid "(All Themes)"
-msgstr ""
+msgstr "verfügbare Bilder:"
 
 #: admin/templates/sidebar.tpl.php:74
 msgctxt "admin sidebar"
@@ -2815,9 +2827,10 @@ msgstr "Abbrechen"
 
 #: admin/templates/themes-install.tpl.php:2
 #: admin/templates/themes-licenses.tpl.php:3 admin/templates/themes.tpl.php:3
+#, fuzzy
 msgctxt "themes"
 msgid "Upload Directory Theme"
-msgstr ""
+msgstr "Verzeichnis Kategorien"
 
 #: admin/templates/themes-install.tpl.php:8
 msgctxt "themes"
@@ -3179,9 +3192,10 @@ msgid "Credit card number is required."
 msgstr "Feldbezeichnung ist Pflichtfeld."
 
 #: core/class-gateway.php:140
+#, fuzzy
 msgctxt "billing info"
 msgid "Credit card expiration date is invalid."
-msgstr ""
+msgstr "Feldbezeichnung ist Pflichtfeld."
 
 #: core/class-gateway.php:143
 #, fuzzy
@@ -4516,14 +4530,16 @@ msgid "Currency symbol display"
 msgstr "Währungssymbol"
 
 #: core/class-settings.php:590
+#, fuzzy
 msgctxt "admin settings"
 msgid "Show currency symbol on the left"
-msgstr ""
+msgstr "Währungssymbol"
 
 #: core/class-settings.php:591
+#, fuzzy
 msgctxt "admin settings"
 msgid "Show currency symbol on the right"
-msgstr ""
+msgstr "Währungssymbol"
 
 #: core/class-settings.php:592
 #, fuzzy
@@ -5898,25 +5914,25 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "Zurücksetzen"
 
-#: core/themes.php:635
+#: core/themes.php:708
 #, fuzzy
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: core/themes.php:641
+#: core/themes.php:714
 #, fuzzy
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: core/themes.php:649
+#: core/themes.php:722
 #, fuzzy
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: core/themes.php:655
+#: core/themes.php:728
 #, fuzzy
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
@@ -5957,14 +5973,16 @@ msgid "Uploaded file is not an image"
 msgstr "Hochgeladene Datei ist kein Bild."
 
 #: core/utils.php:223
+#, fuzzy
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
-msgstr ""
+msgstr "Dateigröße (%s) hat das Maximum von %s erreicht"
 
 #: core/utils.php:229
+#, fuzzy
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
-msgstr ""
+msgstr "Dateigröße (%s) hat das Maximum von %s erreicht"
 
 #: core/utils.php:235
 msgctxt "utils"
@@ -6337,9 +6355,10 @@ msgid "Listing Access Keys"
 msgstr "Eintrag Felder / Bilder"
 
 #: core/views/request_access_keys.php:30
+#, fuzzy
 msgctxt "request_access_keys"
 msgid "Access keys have been sent to your e-mail address."
-msgstr ""
+msgstr "Es sind keine Transaktionen mit diesem Eintrag verbunden."
 
 #: core/views/request_access_keys.php:32
 msgctxt "request_access_keys"
@@ -6509,9 +6528,10 @@ msgid "Apr"
 msgstr ""
 
 #: templates/billing-information-form.tpl.php:7
+#, fuzzy
 msgctxt "months"
 msgid "May"
-msgstr ""
+msgstr "Markieren als"
 
 #: templates/billing-information-form.tpl.php:8
 msgctxt "months"
@@ -6611,14 +6631,16 @@ msgid "City:"
 msgstr ""
 
 #: templates/billing-information-form.tpl.php:111
+#, fuzzy
 msgctxt "checkout form"
 msgid "Address Line 1:"
-msgstr ""
+msgstr "E-mail Adresse:"
 
 #: templates/billing-information-form.tpl.php:119
+#, fuzzy
 msgctxt "checkout form"
 msgid "Address Line 2:"
-msgstr ""
+msgstr "E-mail Adresse:"
 
 #: templates/billing-information-form.tpl.php:127
 msgctxt "checkout form"
@@ -6752,9 +6774,10 @@ msgid ""
 msgstr ""
 
 #: templates/email-access-keys.tpl.php:5
+#, fuzzy
 msgctxt "request_access_keys"
 msgid "Access Key:"
-msgstr ""
+msgstr "Eintrag Felder / Bilder"
 
 #: templates/email-access-keys.tpl.php:6
 #, fuzzy

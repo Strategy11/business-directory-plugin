@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-10-25 00:23:44+00:00\n"
-"PO-Revision-Date: 2016-10-24 19:25-0500\n"
+"POT-Creation-Date: 2016-11-01 23:27:24+00:00\n"
+"PO-Revision-Date: 2016-11-01 18:28-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,-1,543\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -534,17 +534,17 @@ msgstr ""
 "Debe <a>activar la clave de licencia del tema</a> antes de activar el tema. "
 "Haga <a>click aquí</a>."
 
-#: admin/class-themes-admin.php:155
+#: admin/class-themes-admin.php:157
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "No se pudo cambiar el tema activo a \"%s\"."
 
-#: admin/class-themes-admin.php:202
+#: admin/class-themes-admin.php:204
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Tema activo cambiado a \"%s\"."
 
-#: admin/class-themes-admin.php:205
+#: admin/class-themes-admin.php:207
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
@@ -554,74 +554,74 @@ msgstr ""
 "en el tema donde se pretende mostrar la información. Abajo están los campos "
 "que creemos hacen falta."
 
-#: admin/class-themes-admin.php:214
+#: admin/class-themes-admin.php:216
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Asociar Mis Campos"
 
-#: admin/class-themes-admin.php:221
+#: admin/class-themes-admin.php:223
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Campos sugeridos creados satisfactoriamente."
 
-#: admin/class-themes-admin.php:224
+#: admin/class-themes-admin.php:226
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Tema instalado correctamente."
 
-#: admin/class-themes-admin.php:227
+#: admin/class-themes-admin.php:229
 msgctxt "themes"
 msgid "Theme was deleted sucessfully."
 msgstr "Tema eliminado correctamente."
 
-#: admin/class-themes-admin.php:230
+#: admin/class-themes-admin.php:232
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "No se pudo eliminar el directorio del tema. Revise los permisos."
 
-#: admin/class-themes-admin.php:256
+#: admin/class-themes-admin.php:258
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Por favor suba un archivo de tema válido."
 
-#: admin/class-themes-admin.php:263
+#: admin/class-themes-admin.php:265
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "No se pudo mover \"%s\" a un directorio temporal."
 
-#: admin/class-themes-admin.php:364 admin/class-themes-admin.php:425
+#: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
 #: core/licensing.php:127 core/licensing.php:159
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: admin/class-themes-admin.php:370 core/licensing.php:132
+#: admin/class-themes-admin.php:372 core/licensing.php:132
 #: core/licensing.php:166
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: admin/class-themes-admin.php:375 core/licensing.php:333
+#: admin/class-themes-admin.php:377 core/licensing.php:333
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: admin/class-themes-admin.php:388 core/licensing.php:335
+#: admin/class-themes-admin.php:390 core/licensing.php:335
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
 
-#: admin/class-themes-admin.php:431
+#: admin/class-themes-admin.php:433
 msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr "Respuesta inválida de parte de servidor"
 
-#: admin/class-themes-admin.php:448 core/licensing.php:353
+#: admin/class-themes-admin.php:450 core/licensing.php:353
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
 
-#: admin/class-themes-admin.php:464
+#: admin/class-themes-admin.php:466
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "Active su <a>clave de licencia</a> para utilizar este tema."
@@ -5892,22 +5892,22 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reestablecer)"
 
-#: core/themes.php:635
+#: core/themes.php:708
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "El archivo ZIP no es un tema de BD válido."
 
-#: core/themes.php:641
+#: core/themes.php:714
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "No se pudo crear el directorio de los temas."
 
-#: core/themes.php:649
+#: core/themes.php:722
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "No se pudo remover el directorio anterior \"%s\"."
 
-#: core/themes.php:655
+#: core/themes.php:728
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "No se pudo mover el nuevo tema al directorio de temas."
