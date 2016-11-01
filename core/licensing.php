@@ -1,5 +1,5 @@
 <?php
-//set_site_transient( 'update_plugins', null );
+// set_site_transient( 'update_plugins', null );
 
 
 /**
@@ -8,12 +8,11 @@
 class WPBDP_Licensing {
 
     const STORE_URL = 'http://businessdirectoryplugin.com/';
-    //const STORE_URL = 'http://192.168.13.37/';
+    // const STORE_URL = 'http://business-directory.dev/';
 
     private $modules = array();
 
     public function __construct() {
-        add_action( 'admin_init', array( &$this, 'admin_init' ), 0 );
         add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
         add_action( 'wpbdp_register_settings', array( &$this, 'register_settings' ) );
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
@@ -30,9 +29,9 @@ class WPBDP_Licensing {
             wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
         }
 
-        if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-            require_once ( WPBDP_PATH . 'vendors/edd/EDD_SL_Plugin_Updater.php' );
-        }
+        // Update handling.
+        add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'updates_check' ) );
+        add_filter( 'plugins_api', array( $this, 'updates_plugin_information' ), 10, 3 );
     }
 
     function register_settings( &$settings ) {
@@ -199,18 +198,6 @@ class WPBDP_Licensing {
         return in_array( $this->modules[ $module_name ]['license_status'], array( 'valid', 'expired' ), true );
     }
 
-    public function admin_init() {
-        //delete_transient( 'wpbdp-license-check-data' ); do_action( 'wpbdp_license_check' );
-        foreach ( $this->modules as $module => $data ) {
-            new EDD_SL_Plugin_Updater( self::STORE_URL,
-                                       $data['file'],
-                                       array( 'version' => $data['version'],
-                                              'license' => $data['license'],
-                                              'item_name' => $data['name'],
-                                              'author' => 'D. Rodenbaugh' ) );
-        }
-    }
-
     public function admin_notices() {
         $invalid = array();
         $expired = array();
@@ -374,6 +361,150 @@ class WPBDP_Licensing {
         set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
 
         $res->send();
+    }
+
+    /**
+     * Inject BD modules update info into update array.
+     * Based on `EDD_SL_Plugin_Updater` from Easy Digital Downloads.
+     * @since next-release
+     */
+    function updates_check( $transient ) {
+        global $pagenow;
+
+        if ( ! is_object( $transient ) )
+            $transient = new stdClass();
+
+        if ( 'plugins.php' == $pagenow && is_multisite() )
+            return $transient;
+
+        $data = $this->version_info_request();
+        // We need to do this since local identifiers for modules don't (necessarily) match what we have on the remote
+        // server. In the future, local identifiers should match (i.e. use the slug from BDP.com or use the download ID)
+        $data = $this->_version_info_process( $data );
+
+        if ( ! $data )
+            return $transient;
+
+        foreach ( $data as $item_key => $item_info ) {
+            if ( ! isset( $this->modules[ $item_key ] ) )
+                continue;
+
+            $wp_name = plugin_basename( $this->modules[ $item_key ]['file'] );
+
+            if ( ! empty( $transient->response ) && ! empty( $transient->response[ $wp_name ] ) )
+                continue;
+
+            if ( ! isset( $item_info->new_version ) )
+                continue;
+
+            if ( version_compare( $this->modules[ $item_key ]['version'], $item_info->new_version, '<' ) ) {
+                $transient->response[ $wp_name ] = $item_info;
+            }
+
+            $transient->last_checked = current_time( 'timestamp' );
+            $transient->checked[ $wp_name ] = $this->modules[ $item_key ]['version'];
+        }
+
+        return $transient;
+    }
+
+    /**
+     * @since next-release
+     */
+    function updates_plugin_information( $data, $action = '', $args = null ) {
+        if ( 'plugin_information' != $action || ! isset( $args->slug ) || ! isset( $this->modules[ $args->slug ] ) )
+            return $data;
+
+        $http_args = array(
+            'timeout' => 15,
+            'sslverify' => false,
+            'body' => array(
+                'edd_action' => 'get_version',
+                'item_name' => $this->modules[ $args->slug ]['name'],
+                'license' => $this->modules[ $args->slug ]['license'],
+                'url' => home_url()
+            )
+        );
+        $request = wp_remote_post( self::STORE_URL, $http_args );
+
+        if ( is_wp_error( $request ) )
+            return $data;
+
+        $request = json_decode( wp_remote_retrieve_body( $request ) );
+
+        if ( ! $request || ! is_object( $request ) || ! isset( $request->sections ) )
+            return $data;
+
+        $request->sections = maybe_unserialize( $request->sections );
+        $data = $request;
+
+        return $data;
+    }
+
+    /**
+     * @since next-release
+     */
+    function version_info_request() {
+        if ( ! $this->modules )
+            return false;
+
+        // Don't allow a plugin to ping itself.
+        if ( self::STORE_URL == home_url() )
+            return false;
+
+        $args = array(
+            'edd_action' => 'batch_get_version',
+            'licenses'  => array(),
+            'items'     => array(),
+            'url'       => home_url()
+        );
+
+        foreach ( $this->modules as $module ) {
+            if ( ! empty( $module['license'] ) )
+                $args['licenses'][] = $module['license'];
+
+            $args['items'][] = $module['name'];
+        }
+
+        $request = wp_remote_post( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
+
+        if ( ! is_wp_error( $request ) )
+            $request = json_decode( wp_remote_retrieve_body( $request ) );
+
+        if ( ! is_array( $request ) )
+            $request = false;
+
+        foreach ( $request as &$x ) {
+            if ( isset( $x->sections ) )
+                $x->sections = maybe_unserialize( $x->sections );
+        }
+
+        return $request;
+    }
+
+    /**
+     * @since next-release
+     */
+    function _version_info_process( $data ) {
+        $result = array();
+
+        if ( ! $data )
+            return $result;
+
+        foreach ( $data as $d ) {
+            $item_name = $d->name;
+
+            foreach ( $this->modules as $module_key => $module_info ) {
+                if ( $item_name != $module_info['name'] )
+                    continue;
+
+                $d->slug= $module_key;
+                $result[ $module_key ] = $d;
+                break;
+            }
+        }
+
+        return $result;
     }
 
 }
