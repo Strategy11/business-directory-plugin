@@ -21,7 +21,8 @@ class WPBDP_Fees_API {
                                   'amount' => 0.0,
                                   'images' => absint( wpbdp_get_option( 'free-images' ) ),
                                   'days' => absint( wpbdp_get_option( 'listing-duration' ) ),
-                                  'categories' => maybe_serialize( array( 'all' => true, 'categories' => array() ) ),
+                                  'supported_categories' => maybe_serialize( array( 'all' => true, 'categories' => array() ) ),
+                                  'pricing_model' => 'flat',
                                   'sticky' => 0,
                                   'enabled' => 1 ) );
             $fee_id = $wpdb->insert_id;
