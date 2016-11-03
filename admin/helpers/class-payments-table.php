@@ -50,12 +50,12 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
     public function get_columns() {
         $cols = array(
-            'id' => _x( 'ID', 'fees admin', 'WPBDM' ),
+            'listing' => _x( 'Listing', 'fees admin', 'WPBDM' ),
+            'payment_id' => _x( 'ID', 'fees admin', 'WPBDM' ),
             'date' => _x( 'Date', 'fees admin', 'WPBDM' ),
             'details' => _x( 'Details', 'fees admin', 'WPBDM' ),
             'amount' => _x( 'Amount', 'fees admin', 'WPBDM' ),
-            'status' => _x( 'Status', 'fees admin', 'WPBDM' ),
-            'listing' => _x( 'Listing', 'fees admin', 'WPBDM' )
+            'status' => _x( 'Status', 'fees admin', 'WPBDM' )
         );
 
         return $cols;
@@ -76,7 +76,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         $this->items = WPBDP_Payment::find( $args );
     }
 
-    public function column_id( $payment ) {
+    public function column_payment_id( $payment ) {
         return sprintf( '<a href="%s">%d</a>', add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->get_id() ) ), $payment->get_id() );
     }
 
@@ -93,11 +93,12 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_details( $payment ) {
-        return $payment->get_short_description();
+        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->get_id() ) ) ) . '">' . _x( 'View details', 'payments admin', 'WPBDM' ) . '</a>';
     }
 
     public function column_listing( $payment ) {
-        return $payment->get_listing_id();
+        $listing = WPBDP_Listing::get( $payment->get_listing_id() );
+        return '<a href="' . esc_url( $listing->get_admin_edit_link() ) . '">' . esc_html( $listing->get_title() ) . '</a>';
     }
 
 //     public function column_label($fee) {

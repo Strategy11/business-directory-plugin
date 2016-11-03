@@ -445,6 +445,13 @@ class WPBDP_Listing {
         return get_permalink( $this->id );
     }
 
+    /**
+     * @since next-release
+     */
+    public function get_admin_edit_link() {
+        return admin_url( 'post.php?post=' . $this->id . '&action=edit' );
+    }
+
     public function get_payment_status() {
         $status = 'ok';
 
