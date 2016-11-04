@@ -41,8 +41,7 @@ class WPBDP_Listing_Display_Helper {
         // TODO: is this really used? can it be changed to something else?
         // 'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID), This is 
         // complete HTML
-        return wpbdp_x_render( 'single', array_merge( $vars,
-                                                              array( 'content' => wpbdp_x_render( 'single', $vars ) ) ) );
+        return wpbdp_x_render( 'single', $vars );
     }
 
     private static function basic_vars( $listing_id ) {
