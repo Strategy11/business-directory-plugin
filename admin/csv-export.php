@@ -176,6 +176,7 @@ class WPBDP_CSVExporter {
 
         // Setup columns.
         $shortnames = wpbdp_formfields_api()->get_short_names();
+
         foreach ( $state['columns'] as $fshortname ) {
             if ( in_array( $fshortname, array( 'images', 'username', 'featured_level', 'expires_on', 'sequence_id' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;

@@ -364,6 +364,7 @@ class WPBDP_Form_Field_Type {
      * @since 3.5.3
      */
     public static function normalize_name( $name ) {
+        $name = wpbdp_buckwalter_arabic_transliteration( $name );
         $name = strtolower( $name );
         $name = remove_accents( $name );
         $name = preg_replace( '/\s+/', '_', $name );
