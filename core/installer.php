@@ -97,7 +97,7 @@ class WPBDP_Installer {
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             listing_id bigint(20) NOT NULL DEFAULT 0,
             payment_key varchar(255) NULL DEFAULT '',
-            payment_notes longblog NULL,
+            payment_notes longblob NULL,
             payment_log longblob NULL,
             payment_type varchar(255) NULL DEFAULT '',
             payment_items blob NULL,
