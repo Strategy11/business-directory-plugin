@@ -219,7 +219,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
     public function column_amount($fee) {
-        return $fee->amount;
+        return wpbdp_currency_format( $fee->amount );
     }
 
     public function column_duration($fee) {
