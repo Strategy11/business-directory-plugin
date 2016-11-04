@@ -765,8 +765,8 @@ function wpbdp_buckwalter_arabic_transliteration( $content ) {
         '\'',
         '|',
         'O', // replaced '>' with 'O' as suggested in http://www.qamus.org/transliteration.htm
-        'W', // replaced '>' with 'W'
-        'I', // replaced '>' with 'I'
+        'W', // replaced '&' with 'W'
+        'I', // replaced '<' with 'I'
         '}',
         'A',
         'b',
