@@ -96,6 +96,7 @@ class WPBDP_Installer {
         $schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             listing_id bigint(20) NOT NULL DEFAULT 0,
+            parent_id bigint(20) NOT NULL DEFAULT 0,
             payment_key varchar(255) NULL DEFAULT '',
             payment_notes longblob NULL,
             payment_log longblob NULL,
@@ -114,10 +115,6 @@ class WPBDP_Installer {
             created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             processed_on timestamp NULL DEFAULT NULL,
             processed_by varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            payerinfo blob NULL,
-            extra_data longblob NULL,
-            notes longblob NULL,
-            tag varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             KEY listing_id (listing_id),
             KEY status (status)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
