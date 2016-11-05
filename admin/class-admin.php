@@ -633,28 +633,6 @@ class WPBDP_Admin {
                                         'WPBDM');
                 break;
 
-            case 'approvetransaction':
-                $transaction = WPBDP_Payment::get( $_GET['transaction_id'] );
-
-                if( $transaction->has_item_type( 'recurring_fee' ) ) {
-                    $this->messages[] = array( _x( 'The payment status was not changed. Recurring payments can\'t be manually approved. Please check your gateway\'s backend to see if the payment really went through.', 'admin payments', 'WPBDM' ), 'error' );
-                } else {
-                    $transaction->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
-                    $transaction->save();
-
-                    $this->messages[] = _x( 'The transaction has been approved.', 'admin', 'WPBDM' );
-                }
-
-                break;
-
-            case 'rejecttransaction':
-                $transaction = WPBDP_Payment::get( $_GET['transaction_id'] );
-                $transaction->set_status( WPBDP_Payment::STATUS_REJECTED, 'admin' );
-                $transaction->save();
-
-                $this->messages[] = _x( 'The transaction has been rejected.', 'admin', 'WPBDM' );
-                break;
-
             case 'assignfee':
                 $listing = WPBDP_Listing::get( $posts[0] );
                 $fee_id = (int) $_GET['fee_id'];
