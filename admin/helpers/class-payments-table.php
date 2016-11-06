@@ -31,7 +31,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         $count = 0;
         $views_['all'] = array( _x( 'All', 'payments admin', 'WPBDM' ), $count );
 
-        foreach ( WPBDP_Payment::get_statuses() as $status => $status_label ) {
+        foreach ( WPBDP_Payment::get_stati() as $status => $status_label ) {
             $count = 0;
             $views_[ $status ] = array( $status_label, $count );
         }
@@ -63,7 +63,6 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
     public function prepare_items() {
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
-        $this->items = array();
 
         $args = array();
 
@@ -73,31 +72,31 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         if ( ! empty( $_GET['listing'] ) )
             $args['listing_id'] = absint( $_GET['listing'] );
 
-        $this->items = WPBDP_Payment::find( $args );
+        $this->items = WPBDP_Payment::objects()->filter( $args );
     }
 
     public function column_payment_id( $payment ) {
-        return sprintf( '<a href="%s">%d</a>', add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->get_id() ) ), $payment->get_id() );
+        return sprintf( '<a href="%s">%d</a>', add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ), $payment->id );
     }
 
     public function column_date( $payment ) {
-        return date_i18n( get_option( 'date_format' ), strtotime( $payment->get_created_on() ));
+        return date_i18n( get_option( 'date_format' ), strtotime( $payment->created_on ));
     }
 
     public function column_amount( $payment ) {
-        return wpbdp_currency_format( $payment->get_total() );
+        return wpbdp_currency_format( $payment->amount );
     }
 
     public function column_status( $payment ) {
-        return $payment->get_status_string();
+        return WPBDP_Payment::get_status_label( $payment->status );
     }
 
     public function column_details( $payment ) {
-        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->get_id() ) ) ) . '">' . _x( 'View details', 'payments admin', 'WPBDM' ) . '</a>';
+        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ) ) . '">' . _x( 'View details', 'payments admin', 'WPBDM' ) . '</a>';
     }
 
     public function column_listing( $payment ) {
-        $listing = WPBDP_Listing::get( $payment->get_listing_id() );
+        $listing = $payment->get_listing();
         return '<a href="' . esc_url( $listing->get_admin_edit_link() ) . '">' . esc_html( $listing->get_title() ) . '</a>';
     }
 

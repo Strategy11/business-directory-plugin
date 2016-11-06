@@ -1,12 +1,8 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-db-model.php' );
 
-/**
- * This class represents a listing payment.
- *
- * @since 3.3
- */
-class WPBDP_Payment extends WPBDP_DB_Model {
+
+class WPBDP_Payment extends WPBDP__DB__Model {
 
     const STATUS_UNKNOWN = 'unknown';
     const STATUS_NEW = 'new';
@@ -19,6 +15,42 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     const HANDLER_ADMIN = 'admin';
     const HANDLER_SYSTEM = 'system';
 
+
+    public function get_listing() {
+        return WPBDP_Listing::get( $this->listing_id );
+    }
+
+    public static function get_stati() {
+        $stati = array();
+        $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
+        $stati['pending'] = _x( 'Pending', 'payment', 'WPBDM' );
+        $stati['canceled'] = _x( 'Canceled', 'payment', 'WPBDM' );
+        $stati['rejected'] = _x( 'Rejected', 'payment', 'WPBDM' );
+
+        return $stati;
+    }
+
+    public static function get_status_label( $status ) {
+        $stati = self::get_stati();
+        return $stati[ $status ];
+    }
+
+    /**
+     * @override
+     */
+    public static function objects() {
+        return parent::_objects( get_class() );
+    }
+
+}
+
+
+/**
+ * This class represents a listing payment.
+ *
+ * @since 3.3
+ */
+class WPBDP_Payment_Old extends WPBDP_NoopObject {
     private $items = array();
 
     public function __construct( $data = array() ) {
@@ -494,15 +526,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
         return $this->notes;
     }
 
-    public static function get_statuses() {
-        $statuses = array();
-        $statuses['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
-        $statuses['pending'] = _x( 'Pending', 'payment', 'WPBDM' );
-        $statuses['canceled'] = _x( 'Canceled', 'payment', 'WPBDM' );
-        $statuses['rejected'] = _x( 'Rejected', 'payment', 'WPBDM' );
 
-        return $statuses;
-    }
 
     /* @override */
     public static function find( $args = array(), $lightweight = false ) {
