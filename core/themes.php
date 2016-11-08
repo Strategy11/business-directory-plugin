@@ -476,6 +476,8 @@ class WPBDP_Themes {
         if ( ! $path )
             throw new Exception( 'Invalid template id or file: "' . $id_or_file . '"' );
 
+        $template_meta = $this->get_template_meta( $path );
+
         if ( ! $in_wrapper ) {
             // Setup default and hook-added variables.
             $this->_configure_template_vars( $id_or_file, $path, $vars );
@@ -484,7 +486,7 @@ class WPBDP_Themes {
             $this->_process_template_vars( $vars );
 
             // Configure blocks depending on theme overrides.
-            $this->_configure_template_blocks( $vars );
+            $this->_configure_template_blocks( $vars, $template_meta['variables'] );
         }
 
         array_push( $this->cache['template_vars_stack'], $vars );
@@ -495,15 +497,24 @@ class WPBDP_Themes {
         $html = ob_get_contents();
         ob_end_clean();
 
-        $template_meta = ( isset( $__template__ ) && is_array( $__template__ ) ) ? $__template__ : array();
-        $template_blocks = ! empty( $template_meta['blocks'] ) ? $template_meta['blocks'] : array();
+        if ( isset( $__template__['blocks'] ) && is_array( $__template__['blocks'] ) ) {
+            $template_meta['blocks'] = array_merge( $__template__['blocks'], $template_meta['blocks'] );
+        }
 
         $is_part = isset( $vars['_part'] ) && $vars['_part'];
 
         // Add before/after to the HTML directly.
-        $html = ( ( $is_part || in_array( 'before', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['before'] ) ? $vars['blocks']['before'] : '' ) ) .
-                $html .
-                ( ( $is_part || in_array( 'after', $template_blocks, true ) ) ? '' : ( ! empty( $vars['blocks']['after'] ) ? $vars['blocks']['after'] : '' ) );
+        if ( $is_part || in_array( 'before', $template_meta['blocks'], true ) ) {
+            // leave html unmodified
+        } else {
+            $html = $vars['blocks']['before'] . $html;
+        }
+
+        if ( $is_part || in_array( 'after', $template_meta['blocks'], true ) ) {
+            // leave html unmodified
+        } else {
+            $html = $html . $vars['blocks']['after'];
+        }
 
         if ( ! $in_wrapper && $vars['_wrapper_path'] ) {
             $in_wrapper = true;
@@ -523,6 +534,34 @@ class WPBDP_Themes {
 
         $html = apply_filters( 'wpbdp_x_render', $html, $id_or_file, $vars );
         return $html;
+    }
+
+    /**
+     * Searches for block and block variable customization metadata in the first 8kiB
+     * of a template file (core or custom).
+     *
+     * @link http://docs.businessdirectoryplugin.com/themes/customization.html#block-and-block-variable-customization
+     *
+     * @since next-release
+     *
+     * @param string $template_path Path to the template file.
+     *
+     * @return Array of meta information in `variable => array()` format.
+     */
+    private function get_template_meta( $template_path ) {
+        $default_headers = array( 'blocks' => 'Blocks', 'variables' => 'Variables' );
+        $template_meta = get_file_data( $template_path, $default_headers, 'business_directory_template' );
+
+        foreach ( array_keys( $default_headers ) as $variable ) {
+            if ( ! $template_meta[ $variable ] ) {
+                $template_meta[ $variable ] = array();
+                continue;
+            }
+
+            $template_meta[ $variable ] = array_map( 'trim', explode( ',', $template_meta[ $variable ] ) );
+        }
+
+        return $template_meta;
     }
 
     function render_part( $id_or_file, $additional_vars = array() ) {
@@ -608,7 +647,7 @@ class WPBDP_Themes {
         }
     }
 
-    function _configure_template_blocks( &$vars ) {
+    private function _configure_template_blocks( &$vars, $template_variables = array() ) {
         $template_id = $vars['_template'];
 
         $blocks = array( 'after' => array(), 'before' => array() );
@@ -624,7 +663,12 @@ class WPBDP_Themes {
 
         // Current theme info.
         $current_theme = $this->get_active_theme_data();
-        $theme_vars = ( isset ( $current_theme->template_variables->{$template_id} ) ) ? $current_theme->template_variables->{$template_id} : array();
+
+        if ( isset( $current_theme->template_variables->{$template_id} ) ) {
+            $theme_vars = array_merge( $current_theme->template_variables->{$template_id}, $template_variables );
+        } else {
+            $theme_vars = $template_variables;
+        }
 
         foreach ( $vars as $var => $content ) {
             if ( '#' != $var[0] )
