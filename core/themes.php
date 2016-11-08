@@ -506,13 +506,13 @@ class WPBDP_Themes {
         // Add before/after to the HTML directly.
         if ( $is_part || in_array( 'before', $template_meta['blocks'], true ) ) {
             // leave html unmodified
-        } else {
+        } else if ( ! empty( $vars['blocks']['before'] ) ) {
             $html = $vars['blocks']['before'] . $html;
         }
 
         if ( $is_part || in_array( 'after', $template_meta['blocks'], true ) ) {
             // leave html unmodified
-        } else {
+        } else if ( ! empty( $vars['blocks']['after'] ) ) {
             $html = $html . $vars['blocks']['after'];
         }
 
