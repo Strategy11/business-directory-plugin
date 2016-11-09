@@ -13,7 +13,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 class WPBDP_Admin {
 
     private $menu = array();
+    private $current_controller = null;
+    private $current_controller_output = '';
+
     public $messages = array();
+
 
     function __construct() {
         add_action('admin_init', array($this, 'handle_actions'));
@@ -62,6 +66,9 @@ class WPBDP_Admin {
         // Reset settings action.
         add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
+        add_action( 'admin_init', array( $this, 'admin_view_dispatch' ), 9999 );
+        add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
+
         $this->listings = new WPBDP_Admin_Listings();
         $this->csv_import = new WPBDP_CSVImportAdmin();
         $this->csv_export = new WPBDP_Admin_CSVExport();
@@ -75,7 +82,7 @@ class WPBDP_Admin {
         $debug_on = $wpbdp->is_debug_on();
 
         wp_enqueue_style( 'wpbdp-admin',
-                          WPBDP_URL . 'admin/resources/admin' . ( ! $debug_on ? '.min' : '' ) . '.css');
+                          WPBDP_URL . 'admin/css/admin.css');
         wp_enqueue_style( 'thickbox' );
 
         wp_enqueue_script( 'wpbdp-frontend-js',
@@ -107,6 +114,10 @@ class WPBDP_Admin {
             wp_enqueue_script( 'wp-pointer' );
             add_action( 'admin_print_footer_scripts', array( $this, 'drip_pointer' ) );
         }
+
+        // Enqueue things from admin controllers.
+        if ( $this->current_controller )
+            $this->current_controller->_enqueue_scripts();
     }
 
     /**
@@ -331,18 +342,24 @@ class WPBDP_Admin {
     /**
      * @since next-release
      */
-    function menu_dispatch() {
+    function admin_view_dispatch() {
         global $plugin_page;
 
-        if ( ! isset( $this->menu[ $plugin_page ] ) )
+        if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
             return;
 
         $item = $this->menu[ $plugin_page ];
         $slug = $plugin_page;
         $callback = $item['callback'];
 
-        if ( $callback && is_callable( $callback ) )
-            return call_user_func( $callback );
+        // Simple callback view.
+        if ( $callback && is_callable( $callback ) ) {
+            ob_start();
+            call_user_func( $callback );
+            $this->current_controller_output = ob_get_contents();
+            ob_end_clean();
+            return;
+        }
 
         $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
@@ -355,16 +372,65 @@ class WPBDP_Admin {
         }
 
         // Maybe loading one of the candidate files made the callback available.
-        if ( $callback && is_callable( $callback ) )
-            return call_user_func( $callback );
+        if ( $callback && is_callable( $callback ) ) {
+            ob_start();
+            call_user_func( $callback );
+            $this->current_controller_output = ob_get_contents();
+            ob_end_clean();
+            return;
+        }
 
         $classname = 'WPBDP__Admin__' . ucfirst( $id );
 
         if ( ! class_exists( $classname ) )
             return;
 
-        $admin = new $classname;
-        return $admin->_dispatch();
+        $this->current_controller = new $classname;
+
+        ob_start();
+        $this->current_controller->_dispatch();
+        $this->current_controller_output = ob_get_contents();
+        ob_end_clean();
+    }
+
+    /**
+     * @since next-release
+     */
+    function admin_ajax_dispatch() {
+        if ( empty( $_REQUEST['handler'] ) )
+            return;
+
+        $handler = trim( $_REQUEST['handler'] );
+        $handler = WPBDP__Utils::normalize( $handler );
+
+        $parts = explode( '__', $handler );
+        $controller_id = $parts[0];
+        $function = isset( $parts[1] ) ? $parts[1] : '';
+
+        $candidates = array( WPBDP_PATH . 'admin/class-admin-' . $controller_id . '.php',
+                             WPBDP_PATH . 'admin/' . $controller_id . '.php' );
+        foreach ( $candidates as $c ) {
+            if ( ! file_exists( $c ) )
+                continue;
+
+            require_once( $c );
+            $classname = 'WPBDP__Admin__' . ucfirst( $controller_id );
+
+            if ( ! class_exists( $classname ) )
+                continue;
+
+            $controller = new $classname;
+            return $controller->_ajax_dispatch();
+        }
+
+        exit;
+    }
+
+    /**
+     * @since next-release
+     */
+    function menu_dispatch() {
+        echo $this->current_controller_output;
     }
 
     /**

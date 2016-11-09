@@ -4,14 +4,29 @@
  */
 class WPBDP__Admin__Controller {
 
+    protected $controller_id = '';
     protected $wpbdp;
     protected $current_view = '';
-    protected $controller_id = '';
 
 
     function __construct() {
         $this->wpbdp = $GLOBALS['wpbdp'];
         $this->controller_id = str_replace( 'wpbdp__admin__', '', WPBDP_Utils::normalize( get_class( $this ) ) );
+    }
+
+    function _enqueue_scripts() {
+        if ( file_exists( WPBDP_PATH . 'admin/js/' . $this->controller_id . '.js' ) )
+            wp_enqueue_script( 'wpbdp-' . $this->controller_id . '-js', WPBDP_URL . 'admin/js/' . $this->controller_id . '.js', array( 'wpbdp-admin-js' ) );
+    }
+
+    function _ajax_dispatch() {
+        $handler = ! empty( $_GET['handler'] ) ? trim( $_GET['handler'] ) : '';
+        $parts = explode( '__', $handler );
+        $controller_id = $parts[0];
+        $function = isset( $parts[1] ) ? $parts[1] : '';
+
+        if ( method_exists( $this, 'ajax_' . $function ) )
+            return call_user_func( array( $this, 'ajax_' . $function ) );
     }
 
     function _dispatch() {
@@ -26,6 +41,7 @@ class WPBDP__Admin__Controller {
         $callback = ( false !== strpos( $this->current_view, '-' ) ? str_replace( '-', '_', $this->current_view ) : $this->current_view );
 
         // Remove query args.
+        $orig_uri = $_SERVER['REQUEST_URI'];
         $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdp-view', 'id' ), $_SERVER['REQUEST_URI'] );
 
         if ( method_exists( $this, $callback ) )
@@ -41,6 +57,8 @@ class WPBDP__Admin__Controller {
         } else {
             $output = $result;
         }
+
+        $_SERVER['REQUEST_URI'] = $orig_uri;
 
         echo $output;
     }
