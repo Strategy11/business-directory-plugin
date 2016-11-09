@@ -35,37 +35,32 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         $this->is_manager = $is_manager;
     }
 
+    public function get( $args ) {
+        if ( is_scalar( $args ) )
+            $args = array( 'pk' => $args );
+
+        $where = implode( ' AND ', $this->filter_args( $args ) );
+
+        $q = $this->query;
+        $q['where'] = ! empty( $q['where'] ) ? $q['where'] . " AND ($where)" : $where;
+        $q['limit'] = 'LIMIT 1';
+
+        $qs = new self( $this->model, $q );
+        $qs->maybe_execute_query();
+
+        $res = $qs->to_array();
+
+        if ( ! $res )
+            throw new Exception('No row found!');
+
+        return $res[0];
+    }
+
     public function filter( $args, $negate = false ) {
         if ( ! $args )
             return $this;
 
-        $args = wp_parse_args( $args );
-
-        // null is NULL
-        // _exact 
-        // _iexact ILIKE
-        // contains LIKE %x%
-        // icontains ILIKE %x%
-        // __in 
-        // >
-        // <
-        // <=
-        // >=
-        // startswith
-        // istartswith
-        // endswith
-        // iendswith
-        // range BETWEEN x AND y
-        // __isnull
-        $filters = array();
-
-        foreach ( $args as $f => $v ) {
-            if ( is_array( $v ) )
-                $filters[] = "$f IN ('" . implode( '\',\'', $v ) . "')";
-            else
-                $filters[] = $this->db->prepare( "$f = %s", $v );
-        }
-
+        $where = $this->filter_args( $args );
         $where = implode( ' AND ', $filters );
 
         if ( $negate )
@@ -124,6 +119,39 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 
         $sql = $this->build_sql_query();
         $this->rows = $this->db->get_results( $sql, ARRAY_A );
+    }
+
+    private function filter_args( $args ) {
+        $args = wp_parse_args( $args );
+        // null is NULL
+        // _exact 
+        // _iexact ILIKE
+        // contains LIKE %x%
+        // icontains ILIKE %x%
+        // __in 
+        // >
+        // <
+        // <=
+        // >=
+        // startswith
+        // istartswith
+        // endswith
+        // iendswith
+        // range BETWEEN x AND y
+        // __isnull
+        $filters = array();
+
+        foreach ( $args as $f => $v ) {
+            if ( 'pk' == $f )
+                $f = $this->model['primary_key'];
+
+            if ( is_array( $v ) )
+                $filters[] = "$f IN ('" . implode( '\',\'', $v ) . "')";
+            else
+                $filters[] = $this->db->prepare( "$f = %s", $v );
+        }
+
+        return $filters;
     }
 
     public function build_sql_query() {

@@ -67,10 +67,13 @@ class WPBDP_DB_Entity {
         if ( method_exists( $this, 'get_' . $key ) )
             return call_user_func( array( $this, 'get_' . $key ) );
 
-        if ( isset( $this->{$key} ) )
-            return $this->{$key};
+        if ( ! isset( $this->{$key} ) )
+            throw new Exception( sprintf( 'Invalid property name: %s', $key ) );
 
-        throw new Exception( sprintf( 'Invalid property name: %s', $key ) );
+        $info = self::get_entity_info( $this );
+        wpbdp_debug_e($info);
+        $value = $this->{$key};
+        
     }
 
     public function __set( $key, $value ) {
