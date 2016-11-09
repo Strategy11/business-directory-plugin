@@ -549,7 +549,7 @@ class WPBDP_Themes {
      * @return Array of meta information in `variable => array()` format.
      */
     private function get_template_meta( $template_path ) {
-        $default_headers = array( 'blocks' => 'Blocks', 'variables' => 'Variables' );
+        $default_headers = array( 'blocks' => 'Template Blocks', 'variables' => 'Template Variables' );
         $template_meta = get_file_data( $template_path, $default_headers, 'business_directory_template' );
 
         foreach ( array_keys( $default_headers ) as $variable ) {
