@@ -96,8 +96,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_listing( $payment ) {
-        $listing = $payment->get_listing();
-        return '<a href="' . esc_url( $listing->get_admin_edit_link() ) . '">' . esc_html( $listing->get_title() ) . '</a>';
+        return '<a href="' . esc_url( $payment->listing->get_admin_edit_link() ) . '">' . esc_html( $payment->listing->get_title() ) . '</a>';
     }
 
 //     public function column_label($fee) {

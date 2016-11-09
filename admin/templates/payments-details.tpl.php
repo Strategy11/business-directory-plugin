@@ -1,45 +1,52 @@
 <?php
 echo wpbdp_admin_header(
     str_replace( '<id>',
-                 $payment->get_id(),
-                 _x( 'Payment #<id>', 'admin payments', 'WPBDM' ) ) 
+                 $payment->id,
+                 _x( 'Payment #<id>', 'admin payments', 'WPBDM' ) ),
+    'payments-details'
 );
 ?>
 <?php wpbdp_admin_notices(); ?>
 
 <div id="poststuff">
-<div id="post-body" class="metabox-holder">
+<div id="post-body" class="metabox-holder columns-2">
 
-
+<div id="postbox-container-1" class="postbox-container">
 
 <!-- Basic details. {{ -->
 <div id="wpbdp-admin-payment-info-box" class="postbox">
-    <h3 class="hndle"><span>XXX</span></h3>
+    <h3 class="hndle"><span><?php _ex( 'Overview', 'admin payments', 'WPBDM' ); ?></span></h3>
     <div class="inside">
         <div class="wpbdp-admin-box">
             <div class="wpbdp-admin-box-row">
-                <label>Payment ID:</label>
-                <?php echo $payment->get_id(); ?>
+                <label><?php _ex( 'Payment ID:', 'admin payments', 'WPBDM' ); ?></label>
+                <?php echo $payment->id; ?>
             </div>
             <div class="wpbdp-admin-box-row">
-                <label>Listing:</label>
-                <?php echo $payment->get_listing_id(); ?>
+                <label><?php _ex( 'Listing:', 'admin payments', 'WPBDM' ); ?></label>
+                <a href="<?php echo $payment->get_listing()->get_admin_edit_link(); ?>"><?php echo esc_html( $payment->get_listing()->get_title() ); ?></a>
             </div>
             <div class="wpbdp-admin-box-row">
-                <label>Status:</label>
-                <?php echo $payment->get_status(); ?>
+                <label><?php _ex( 'Status:', 'admin payments', 'WPBDM' ); ?></label>
+
+                <select name="payment[status]">
+                <?php foreach ( WPBDP_Payment::get_stati() as $status_id => $status_label ): ?>
+                    <option value="<?php echo $status_id; ?>" <?php selected( $status_id, $payment->status ); ?>><?php echo $status_label; ?></option>
+                <?php endforeach; ?>
+                </select>
             </div>
             <div class="wpbdp-admin-box-row">
-                <label>Date:</label>
-                <?php echo $payment->created_on; ?>
+                <label><?php _ex( 'Date:', 'admin payments', 'WPBDM' ); ?></label>
+                <input type="text" name="payment[created_on_date]" value="<?php echo date( 'Y-m-d', strtotime( $payment->created_on ) ); ?>" />
             </div>
             <div class="wpbdp-admin-box-row">
-                <label>Time:</label>
-                <?php echo $payment->created_on; ?>
+                <label><?php _ex( 'Time:', 'admin payments', 'WPBDM' ); ?></label>
+                <input type="text" maxlength="2" name="payment[created_on_time_hour]" value="<?php echo $payment->created_on_time['hour']; ?>" class="small-text" /> : 
+                <input type="text" maxlength="2" name="payment[created_on_time_min]" value="<?php echo $payment->created_on_time['minute']; ?>" class="small-text" />
             </div>
             <div class="wpbdp-admin-box-row">
-                <label>Gateway:</label>
-                <?php echo $payment->get_gateway(); ?>
+                <label><?php _ex( 'Gateway:', 'admin payments', 'WPBDM' ); ?></label>
+                <?php echo $payment->gateway ? $payment->gateway : '--'; ?>
             </div>
         </div>
     </div>
@@ -53,31 +60,62 @@ echo wpbdp_admin_header(
 </div>
 <!-- }} -->
 
+</div>
+
+<div id="postbox-container-2" class="postbox-container">
+
 <div id="wpbdp-admin-payment-items-box" class="postbox">
-    <h3 class="hndle"><span><?php _ex( 'Items', 'payments admin', 'WPBDM' ); ?></span></h3>
+    <h3 class="hndle"><span><?php _ex( 'Details', 'payments admin', 'WPBDM' ); ?></span></h3>
     <div class="inside">
         <div class="wpbdp-admin-box">
-            <?php print_r( $payment->get_items() ); ?>
+            <?php foreach ( $payment->payment_items as $item ): ?>
+            <div class="wpbdp-admin-box-row payment-item cf">
+                <span class="payment-item-type"><?php echo $item['type']; ?></span>
+                <span class="payment-item-description"><?php echo $item['description']; ?></span>
+                <span class="payment-item-amount"><?php echo wpbdp_currency_format( $item['amount'] ); ?></span>
+            </div>
+            <?php endforeach; ?>
+            <div class="wpbdp-admin-box-row payment-totals payment-item cf">
+                <span class="payment-item-type">&nbsp;</span>
+                <span class="payment-item-description"><?php _ex( 'Total:', 'payments admin', 'WPBDM' ); ?></span>
+                <span class="payment-item-amount"><?php echo wpbdp_currency_format( $payment->amount ); ?></span>
+            </div>
         </div>
     </div>
 </div>
 
-<div id="wpbdp-admin-payment-items-box" class="postbox">
+<div id="wpbdp-admin-payment-details-box" class="postbox">
     <h3 class="hndle"><span><?php _ex( 'Customer Details', 'payments admin', 'WPBDM' ); ?></span></h3>
     <div class="inside">
         <div class="wpbdp-admin-box">
-            <?php print_r( $payment->payerinfo ); ?>
+            <?php print_r( $payment->payer_details ); ?>
         </div>
     </div>
 </div>
 
-<div id="wpbdp-admin-payment-items-box" class="postbox">
-    <h3 class="hndle"><span><?php _ex( 'Notes / Log', 'payments admin', 'WPBDM' ); ?></span></h3>
+<div id="wpbdp-admin-payment-notes-box" class="postbox">
+    <h3 class="hndle"><span><?php _ex( 'Notes & Log', 'payments admin', 'WPBDM' ); ?></span></h3>
     <div class="inside">
         <div class="wpbdp-admin-box">
-            <?php print_r( $payment->notes ); print_r( $payment->extra_data ); ?>
+            <div class="wpbdp-payment-notes-and-log">
+                <?php foreach ( $payment->payment_notes as $note_id => $note ): ?>
+                <div class="wpbdp-payment-note" data-id="<?php echo $note_id; ?>">
+                    <?php echo $note['text']; ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="wpbdp-payment-notes-and-log-form">
+                <textarea name="payment_note" class="large-text"></textarea>
+                <p>
+                    <button id="wpbdp-payment-notes-and-log-form-submit" class="button button-secondary right" data-payment-id="<?php echo $payment->id; ?>"><?php _ex( 'Add Note', 'payment admins', 'WPBDM' ); ?></button>
+                </p>
+            </div>
         </div>
+        <div class="clear"></div>
     </div>
+</div>
+
 </div>
 
 

@@ -31,8 +31,12 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function details() {
-        $payment = WPBDP_Payment::get( $_GET['payment-id'] ) or die();
+        $payment = WPBDP_Payment::objects()->get( $_GET['payment-id'] );
         return compact( 'payment' );
+    }
+
+    function ajax_add_note() {
+        wpbdp_debug_e('add note');
     }
 
 }

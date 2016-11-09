@@ -4,6 +4,8 @@ require_once( WPBDP_PATH . 'core/class-db-model.php' );
 
 class WPBDP_Payment extends WPBDP__DB__Model {
 
+    static $serialized = array( 'payment_items', 'payment_notes', 'payer_data', 'gateway_extra_data' );
+
     const STATUS_UNKNOWN = 'unknown';
     const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
@@ -15,9 +17,41 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     const HANDLER_ADMIN = 'admin';
     const HANDLER_SYSTEM = 'system';
 
+    protected function set_attr( $name, $value ) {
+        if ( in_array( $name, self::$serialized, true ) )
+            $value = is_array( $value ) ? $value : array();
+
+        return parent::set_attr( $name, $value );
+    }
 
     public function get_listing() {
         return WPBDP_Listing::get( $this->listing_id );
+    }
+
+    public function get_created_on_date() {
+        $date = date_parse( $this->created_on );
+        extract( $date );
+
+        return compact( 'year', 'month', 'day' );
+    }
+
+    public function get_created_on_time() {
+        $date = date_parse( $this->created_on );
+        extract( $date );
+
+        return compact( 'hour', 'minute' );
+    }
+
+    public function get_payer_details() {
+        $data = array();
+        $data['email'] = $this->payer_email;
+        $data['first_name'] = $this->payer_first_name;
+        $data['last_name'] = $this->payer_last_name;
+
+        foreach ( (array) $this->payer_data as $k => $v )
+            $data[ $k ] = $v;
+
+        return $data;
     }
 
     public static function get_stati() {
