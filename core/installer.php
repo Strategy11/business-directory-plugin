@@ -99,7 +99,6 @@ class WPBDP_Installer {
             parent_id bigint(20) NOT NULL DEFAULT 0,
             payment_key varchar(255) NULL DEFAULT '',
             payment_notes longblob NULL,
-            payment_log longblob NULL,
             payment_type varchar(255) NULL DEFAULT '',
             payment_items blob NULL,
             payer_email varchar(255) NULL DEFAULT '',
