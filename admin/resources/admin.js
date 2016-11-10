@@ -789,3 +789,16 @@ jQuery(function($) {
 // }}
 //
 
+jQuery( function( $ ) {
+        $( document ).on( 'click', '.wpbdp-admin-confirm', function( e ) {
+            e.preventDefault();
+
+            var confirm = window.confirm( $( this ).data( 'confirm' ) );
+            if ( ! confirm ) {
+                e.stopImmediatePropagation();
+                return false;
+            }
+
+            return true;
+        } );
+});
