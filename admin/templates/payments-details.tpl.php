@@ -20,7 +20,7 @@ echo wpbdp_admin_header(
 <div id="wpbdp-admin-payment-info-box" class="postbox">
     <h3 class="hndle"><span><?php _ex( 'Overview', 'admin payments', 'WPBDM' ); ?></span></h3>
     <div class="inside">
-        <div class="wpbdp-admin-box">
+        <div class="wpbdp-admin-box with-separators">
             <div class="wpbdp-admin-box-row">
                 <label><?php _ex( 'Payment ID:', 'admin payments', 'WPBDM' ); ?></label>
                 <?php echo $payment->id; ?>
@@ -49,7 +49,7 @@ echo wpbdp_admin_header(
             </div>
             <div class="wpbdp-admin-box-row">
                 <label><?php _ex( 'Gateway:', 'admin payments', 'WPBDM' ); ?></label>
-                <?php echo $payment->gateway ? $payment->gateway : '--'; ?>
+                <?php echo $payment->gateway ? $payment->gateway : _x( '(Not yet set)', 'payments admin', 'WPBDM' ); ?>
             </div>
         </div>
     </div>
@@ -87,11 +87,55 @@ echo wpbdp_admin_header(
     </div>
 </div>
 
+<?php
+$customer = $payment->payer_details;
+?>
 <div id="wpbdp-admin-payment-details-box" class="postbox">
     <h3 class="hndle"><span><?php _ex( 'Customer Details', 'payments admin', 'WPBDM' ); ?></span></h3>
     <div class="inside">
-        <div class="wpbdp-admin-box">
-            <?php print_r( $payment->payer_details ); ?>
+        <div class="wpbdp-admin-box with-separators">
+            <div class="wpbdp-admin-box-row customer-info-basic cf">
+                <div class="customer-email">
+                    <label><?php _ex( 'E-Mail:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[payer_email]" value="<?php echo $customer['email']; ?>" />
+                </div>
+
+                <div class="customer-first-name">
+                    <label><?php _ex( 'First Name:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[payer_first_name]" value="<?php echo $customer['first_name']; ?>" />
+                </div>
+
+                <div class="customer-last-name">
+                    <label><?php _ex( 'Last Name:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[payer_last_name]" value="<?php echo $customer['last_name']; ?>" />
+                </div>
+            </div>
+            <div class="wpbdp-admin-box-row customer-info-address cf">
+                <div class="customer-address-country">
+                    <label><?php _ex( 'Country:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[address][country]" value="<?php echo $customer['address_country']; ?>" />
+                </div>
+                <div class="customer-address-state">
+                    <label><?php _ex( 'State:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[address][state]" value="<?php echo $customer['address_state']; ?>" />
+                </div>
+                <div class="customer-address-city">
+                    <label><?php _ex( 'City:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[address][city]" value="<?php echo $customer['address_city']; ?>" />
+                </div>
+                <div class="customer-address-zipcode">
+                    <label><?php _ex( 'ZIP Code:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[address][zipcode]" value="<?php echo $customer['address_zipcode']; ?>" />
+                </div>
+                <div class="customer-address-line1">
+                    <label><?php _ex( 'Address Line 1:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[address][line1]" value="<?php echo $customer['address_line1']; ?>" />
+                </div>
+                <div class="customer-address-line2">
+                    <label><?php _ex( 'Address Line 2:', 'payments admin', 'WPBDM' ); ?></label>
+                    <input type="text" name="payment[address][line2]" value="<?php echo $customer['address_line2']; ?>" />
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -6,6 +6,11 @@ require_once( WPBDP_PATH . 'core/class-payment.php' );
  */
 class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
+    function _enqueue_scripts() {
+        wp_enqueue_script( 'jquery-ui-datepicker' );
+        parent::_enqueue_scripts();
+    }
+
     function index() {
         $_SERVER['REQUEST_URI'] = remove_query_arg( 'listing' );
 

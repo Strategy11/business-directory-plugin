@@ -1,4 +1,3 @@
-
 #wpbdp-admin-payment-info-box {
     .inside {
         margin: 0;
@@ -48,8 +47,60 @@
     }
 }
 
-#wpbdp-payment-notes {
+#wpbdp-admin-payment-details-box {
+    * {
+        box-sizing: border-box;
+    }
 
+    .wpbdp-admin-box-row > div {
+        padding: 6px 0;
+    }
+
+    label {
+        display: block;
+    }
+
+    .customer-email,
+    .customer-address-line1,
+    .customer-address-line2 {
+        clear: both;
+        width: 100%;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .customer-first-name,
+    .customer-address-country,
+    .customer-address-city {
+        padding-right: 3px !important;
+    }
+
+    .customer-last-name,
+    .customer-address-state,
+    .customer-address-zipcode {
+        padding-left: 3px !important;
+    }
+
+    .customer-first-name,
+    .customer-last-name,
+    .customer-address-country,
+    .customer-address-state,
+    .customer-address-city,
+    .customer-address-zipcode {
+        float: left;
+        width: 50%;
+
+        input {
+            width: 100%;
+        }
+    }
+
+
+}
+
+#wpbdp-payment-notes {
     .wpbdp-payment-note {
         margin-bottom: 12px;
         line-height: 1.5;
@@ -71,5 +122,4 @@
             display: block;
         }
     }
-
 }

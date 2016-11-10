@@ -48,6 +48,12 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $data['email'] = $this->payer_email;
         $data['first_name'] = $this->payer_first_name;
         $data['last_name'] = $this->payer_last_name;
+        $data['address_country'] = '';
+        $data['address_state'] = '';
+        $data['address_city'] = '';
+        $data['address_line1'] = '';
+        $data['address_line2'] = '';
+        $data['address_zipcode'] = '';
 
         foreach ( (array) $this->payer_data as $k => $v )
             $data[ $k ] = $v;
