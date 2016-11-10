@@ -20,7 +20,7 @@ class WPBDP__Admin__Controller {
     }
 
     function _ajax_dispatch() {
-        $handler = ! empty( $_GET['handler'] ) ? trim( $_GET['handler'] ) : '';
+        $handler = ! empty( $_REQUEST['handler'] ) ? trim( $_REQUEST['handler'] ) : '';
         $parts = explode( '__', $handler );
         $controller_id = $parts[0];
         $function = isset( $parts[1] ) ? $parts[1] : '';
