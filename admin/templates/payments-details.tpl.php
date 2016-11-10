@@ -97,18 +97,17 @@ echo wpbdp_admin_header(
     <h3 class="hndle"><span><?php _ex( 'Notes & Log', 'payments admin', 'WPBDM' ); ?></span></h3>
     <div class="inside">
         <div class="wpbdp-admin-box">
-            <div class="wpbdp-payment-notes-and-log">
-                <?php foreach ( $payment->payment_notes as $note_id => $note ): ?>
-                <div class="wpbdp-payment-note" data-id="<?php echo $note_id; ?>">
-                    <?php echo $note['text']; ?>
-                </div>
+            <div id="wpbdp-payment-notes">
+                <div class="no-notes" style="<?php if ( $payment->payment_notes ): ?>display: none;<?php endif; ?>"><?php _ex( 'No notes.', 'payments admin', 'WPBDM' ); ?></div>
+                <?php foreach ( $payment->payment_notes as $note ): ?>
+                    <?php echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/payments-note.tpl.php', array( 'note' => $note, 'payment_id' => $payment->id ) ); ?>
                 <?php endforeach; ?>
             </div>
 
             <div class="wpbdp-payment-notes-and-log-form">
                 <textarea name="payment_note" class="large-text"></textarea>
                 <p>
-                    <button id="wpbdp-payment-notes-and-log-form-submit" class="button button-secondary right" data-payment-id="<?php echo $payment->id; ?>"><?php _ex( 'Add Note', 'payment admins', 'WPBDM' ); ?></button>
+                    <button id="wpbdp-payment-notes-add" class="button button-secondary right" data-payment-id="<?php echo $payment->id; ?>"><?php _ex( 'Add Note', 'payment admins', 'WPBDM' ); ?></button>
                 </p>
             </div>
         </div>

@@ -36,7 +36,39 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_add_note() {
-        wpbdp_debug_e('add note');
+        $payment_id = absint( $_POST['payment_id'] );
+        $payment = WPBDP_Payment::objects()->get( $payment_id );
+        $text = trim( $_POST['note'] );
+
+        $res = new WPBDP_Ajax_Response();
+
+        if ( ! $payment || ! $text )
+            $res->send_error();
+
+        $note = $payment->add_note( $text, get_current_user_id() );
+        if ( ! $note )
+            $res->send_error();
+
+        $res->add( 'note', $note );
+        $res->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/payments-note.tpl.php', compact( 'note', 'payment_id' ) ) );
+        $res->send();
+    }
+
+    function ajax_delete_note() {
+        $payment_id = absint( $_GET['payment_id'] );
+        $note_key = trim( $_GET['note'] );
+        $payment = WPBDP_Payment::objects()->get( $payment_id );
+
+        $res = new WPBDP_Ajax_Response();
+
+        if ( ! $payment || ! isset( $payment->payment_notes[ $note_key ] ) )
+            $res->send_error();
+
+        $note = $payment->payment_notes[ $note_key ];
+        $payment->delete_note( $note );
+
+        $res->add( 'note', $note );
+        $res->send();
     }
 
 }

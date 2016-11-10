@@ -17,6 +17,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     const HANDLER_ADMIN = 'admin';
     const HANDLER_SYSTEM = 'system';
 
+
     protected function set_attr( $name, $value ) {
         if ( in_array( $name, self::$serialized, true ) )
             $value = is_array( $value ) ? $value : array();
@@ -52,6 +53,42 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             $data[ $k ] = $v;
 
         return $data;
+    }
+
+    public function add_note( $text, $who = 'system', $what = 'note' ) {
+        $time = current_time( 'timestamp' );
+        $key = sha1( $time . '-' . $what . '-' . $who );
+        $message = trim( $text );
+
+        if ( ! $message )
+            return false;
+
+        $note = array( 'what' => $what, 'who' => $who, 'text' => $message, 'key' => $key );
+        $this->payment_notes[ $key ] = $note;
+
+        $previous_dirty = $this->_dirty;
+        $this->_dirty = array( 'payment_notes' );
+        $this->save();
+        $this->_dirty = $previous_dirty;
+
+        return $note;
+    }
+
+    public function delete_note( $note ) {
+        if ( is_array( $note ) )
+            $note = $note['key'];
+
+        $previous_dirty = $this->_dirty;
+        $this->_dirty = array( 'payment_notes' );
+
+        $notes = $this->payment_notes;
+        unset( $notes[ $note ] );
+        $this->payment_notes = $notes;
+
+        $this->save();
+        $this->_dirty = $previous_dirty;
+
+        return true;
     }
 
     public static function get_stati() {

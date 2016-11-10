@@ -1,0 +1,54 @@
+jQuery(function($) {
+
+    $( '#wpbdp-payment-notes-add' ).click(function() {
+        var $note = $( 'textarea[name="payment_note"]' );
+
+        $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'wpbdp_admin_ajax',
+                handler: 'payments__add_note',
+                payment_id: $( this ).data( 'payment-id' ),
+                note: $note.val()
+            },
+            success: function( res ) {
+                if ( ! res.success )
+                    return;
+
+                $( '#wpbdp-payment-notes .no-notes' ).hide();
+                $( '#wpbdp-payment-notes' ).append( res.data.html );
+
+                $note.val('');
+            }
+        });
+
+        // var border_color = $('#edd-payment-note').css('border-color');
+		// 			$('#edd-payment-note').css('border-color', 'red');
+		// 			setTimeout( function() {
+		// 				$('#edd-payment-note').css('border-color', border_color );
+		// 			}, 500 );
+    });
+
+    $( document ).on( 'click', '.wpbdp-payment-note .wpbdp-admin-delete-link', function( e ) {
+        e.preventDefault();
+
+        var url = $( this ).attr( 'href' );
+        $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            success: function( res ) {
+                if ( ! res.success )
+                    return;
+
+                $( '.wpbdp-payment-note[data-id="' + res.data.note.key + '"]' ).remove();
+
+                if ( 0 == $( '.wpbdp-payment-note' ).length )
+                    $( '#wpbdp-payment-notes .no-notes' ).show();
+            }
+        });
+    } );
+
+});
