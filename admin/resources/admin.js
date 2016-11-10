@@ -791,9 +791,13 @@ jQuery(function($) {
 
 jQuery( function( $ ) {
         $( document ).on( 'click', '.wpbdp-admin-confirm', function( e ) {
-            e.preventDefault();
+            // e.preventDefault();
 
-            var confirm = window.confirm( $( this ).data( 'confirm' ) );
+            var message = $( this ).data( 'confirm' );
+            if ( ! message || 'undefined' == typeof message )
+                message = 'Are you sure you want to do this?';
+
+            var confirm = window.confirm( message );
             if ( ! confirm ) {
                 e.stopImmediatePropagation();
                 return false;

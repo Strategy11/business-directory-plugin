@@ -9,15 +9,18 @@ class WPBDP__DB__Model {
     protected $_dirty = array();
 
 
-    public function __construct( $fields ) {
+    public function __construct( $fields, $from_db = false ) {
         $model_info = self::get_model_info( $this );
 
         foreach ( $fields as $f => $v ) {
-            if ( in_array( $f, $model_info['serialized'], true ) )
+            if ( $from_db && in_array( $f, $model_info['serialized'], true ) )
                 $v = maybe_unserialize( $v );
 
             $this->set_attr( $f, $v );
         }
+
+        if ( $from_db )
+            $this->_adding = false;
     }
 
     protected function is_valid_attr( $name ) {
@@ -53,6 +56,9 @@ class WPBDP__DB__Model {
         $cols = $model['table']['columns'];
         $pk = $model['primary_key'];
         $dirty = $this->_dirty;
+
+        // Assume everything's dirty for now, since we can't track arrays or objects.
+        $dirty = array_keys( $cols );
 
         if ( ! $this->_adding )
             $row[ $pk ] = $this->_attrs[ $pk ];
@@ -112,6 +118,11 @@ class WPBDP__DB__Model {
         $this->_attrs[ $name ] = $value;
     }
 
+    public function update( $fields = array() ) {
+        foreach ( $fields as $f => $v ) {
+            $this->set_attr( $f, $v );
+        }
+    }
 
     public function save( $validate = true ) {
         global $wpdb;
@@ -141,6 +152,18 @@ class WPBDP__DB__Model {
         return false !== $res;
     }
 
+    public function delete() {
+        global $wpdb;
+
+        if ( $this->_adding )
+            return true;
+
+        $pk = self::get_model_info( $this, 'primary_key' );
+        $where = array( $pk => $this->_attrs[ $pk ] );
+
+        return false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where );
+    }
+
     public static function objects() {
         throw new Exception('Method not overridden in subclass!');
     }
@@ -155,13 +178,11 @@ class WPBDP__DB__Model {
     }
 
     public static function from_db( $fields, $classname ) {
-        $obj = new $classname( $fields );
-        $obj->_adding = false;
-
+        $obj = new $classname( $fields, true );
         return $obj;
     }
 
-    public static function get_model_info( $classname ) {
+    public static function get_model_info( $classname, $key = '' ) {
         global $wpdb;
         static $cache = array();
 
@@ -169,7 +190,7 @@ class WPBDP__DB__Model {
             $classname = get_class( $classname );
 
         if ( isset( $cache[ $classname ] ) )
-            return $cache[ $classname ];
+            return $key ? $cache[ $classname ][ $key ] : $cache[ $classname ];
 
         $cls_vars = get_class_vars( $classname );
 
@@ -177,6 +198,7 @@ class WPBDP__DB__Model {
         $info['class']       = $classname;
         $info['table']       = array( 'name' => isset( $cls_vars['table'] ) ? $wpdb->prefix . $cls_vars['table'] : $wpdb->prefix . strtolower( $classname ) . 's',
                                       'columns' => array() );
+        $info['table_name']  = $info['table']['name'];
         $info['primary_key'] = isset( $cls_vars['primary_key'] ) ? $cls_vars['primary_key'] : 'id';
         $info['serialized']  = isset( $cls_vars['serialized'] ) ? $cls_vars['serialized'] : array();
 
@@ -187,7 +209,8 @@ class WPBDP__DB__Model {
                                                                 'serialized' => in_array( $col['Field'], $info['serialized'], true ) );
         }
 
-        return $info;
+        $cache[ $classname ] = $info;
+        return $key ? $info[ $key ] : $info;
     }
 
 }

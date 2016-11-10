@@ -14,6 +14,10 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     function index() {
         $_SERVER['REQUEST_URI'] = remove_query_arg( 'listing' );
 
+        if ( ! empty( $_GET['message'] ) && 'payment_delete' == $_GET['message'] )
+            wpbdp_admin_message( _x( 'Payment deleted.', 'payments admin', 'WPBDM' ) );
+
+
         require_once( WPBDP_PATH . 'admin/helpers/class-payments-table.php' );
 
         $table = new WPBDP__Admin__Payments_Table();
@@ -36,8 +40,29 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function details() {
+        if ( ! empty( $_GET['message'] ) && 1 == $_GET['message'] )
+            wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'WPBDM' ) );
+
         $payment = WPBDP_Payment::objects()->get( $_GET['payment-id'] );
         return compact( 'payment' );
+    }
+
+    function payment_update() {
+        $data = $_POST['payment'];
+        $payment = WPBDP_Payment::objects()->get( $data['id'] );
+        $payment->update( $data );
+        $payment->save();
+
+        wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id . '&message=1' ) );
+        exit;
+    }
+
+    function payment_delete() {
+        $payment = WPBDP_Payment::objects()->get( (int) $_REQUEST['payment-id'] );
+        $payment->delete();
+
+        wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&message=payment_delete' ) );
+        exit;
     }
 
     function ajax_add_note() {

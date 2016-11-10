@@ -11,6 +11,9 @@ echo wpbdp_admin_header(
 ?>
 <?php wpbdp_admin_notices(); ?>
 
+<form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
+    <input type="hidden" name="payment[id]" value="<?php echo $payment->id; ?>" />
+
 <div id="poststuff">
 <div id="post-body" class="metabox-holder columns-2">
 
@@ -55,7 +58,7 @@ echo wpbdp_admin_header(
     </div>
     <div id="major-publishing-actions">
         <div id="delete-action">
-            <a href="#" class="wpbdp-admin-delete-link"><?php _ex( 'Delete Payment', 'payments admin', 'WPBDM' ); ?></a>
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php _ex( 'Delete Payment', 'payments admin', 'WPBDM' ); ?></a>
         </div>
         <input type="submit" class="button button-primary right" value="<?php _ex( 'Save Payment', 'payments admin', 'WPBDM' ); ?>" />
         <div class="clear"></div>
@@ -113,27 +116,27 @@ $customer = $payment->payer_details;
             <div class="wpbdp-admin-box-row customer-info-address cf">
                 <div class="customer-address-country">
                     <label><?php _ex( 'Country:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[address][country]" value="<?php echo $customer['address_country']; ?>" />
+                    <input type="text" name="payment[payer_data]address_country]" value="<?php echo $customer['address_country']; ?>" />
                 </div>
                 <div class="customer-address-state">
                     <label><?php _ex( 'State:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[address][state]" value="<?php echo $customer['address_state']; ?>" />
+                    <input type="text" name="payment[payer_data][address_state]" value="<?php echo $customer['address_state']; ?>" />
                 </div>
                 <div class="customer-address-city">
                     <label><?php _ex( 'City:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[address][city]" value="<?php echo $customer['address_city']; ?>" />
+                    <input type="text" name="payment[payer_data][address_city]" value="<?php echo $customer['address_city']; ?>" />
                 </div>
                 <div class="customer-address-zipcode">
                     <label><?php _ex( 'ZIP Code:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[address][zipcode]" value="<?php echo $customer['address_zipcode']; ?>" />
+                    <input type="text" name="payment[payer_data][address_zipcode]" value="<?php echo $customer['address_zipcode']; ?>" />
                 </div>
                 <div class="customer-address-line1">
                     <label><?php _ex( 'Address Line 1:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[address][line1]" value="<?php echo $customer['address_line1']; ?>" />
+                    <input type="text" name="payment[payer_data][address_line1]" value="<?php echo $customer['address_line1']; ?>" />
                 </div>
                 <div class="customer-address-line2">
                     <label><?php _ex( 'Address Line 2:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[address][line2]" value="<?php echo $customer['address_line2']; ?>" />
+                    <input type="text" name="payment[payer_data][address_line2]" value="<?php echo $customer['address_line2']; ?>" />
                 </div>
             </div>
         </div>
@@ -167,4 +170,6 @@ $customer = $payment->payer_details;
 
 </div>
 </div>
+
+</form>
 <?php echo wpbdp_admin_footer(); ?>

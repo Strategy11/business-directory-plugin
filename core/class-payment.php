@@ -224,9 +224,6 @@ class WPBDP_Payment_Old extends WPBDP_NoopObject {
         return true;
     }
 
-    public function delete() {
-    }
-
     public function is_payment_due() {
         return $this->amount > 0.0 && $this->status != self::STATUS_COMPLETED;
     }
