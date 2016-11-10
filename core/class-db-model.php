@@ -4,9 +4,9 @@ require_once ( WPBDP_PATH . 'core/class-db-entity.php' );
 
 class WPBDP__DB__Model {
 
-    protected $adding = true;
-    protected $attrs = array();
-    protected $dirty = array();
+    protected $_adding = true;
+    protected $_attrs = array();
+    protected $_dirty = array();
 
 
     public function __construct( $fields ) {
@@ -37,27 +37,108 @@ class WPBDP__DB__Model {
         if ( ! $this->is_valid_attr( $name ) )
             return false;
 
-        if ( isset( $this->attrs[ $name ] ) && $value == $this->attrs[ $name ] )
+        if ( isset( $this->_attrs[ $name ] ) && $value == $this->_attrs[ $name ] )
             return;
 
-        $this->attrs[ $name ] = $value;
+        $this->_attrs[ $name ] = $value;
 
-        if ( ! in_array( $name, $this->dirty, true ) )
-            $this->dirty[] = $name;
+        if ( ! in_array( $name, $this->_dirty, true ) )
+            $this->_dirty[] = $name;
     }
 
-    public function __get( $name ) {
+    protected function prepare_row() {
+        $row = array();
+
+        $model = self::get_model_info( $this );
+        $cols = $model['table']['columns'];
+        $pk = $model['primary_key'];
+        $dirty = $this->_dirty;
+
+        if ( ! $this->_adding )
+            $row[ $pk ] = $this->_attrs[ $pk ];
+
+        foreach ( $dirty as $col_name ) {
+            if ( ! isset( $cols[ $col_name ] ) )
+                continue;
+
+            $col_value = $this->_attrs[ $col_name ];
+
+            if ( $cols[ $col_name ]['serialized'] )
+                $col_value = maybe_serialize( $col_value );
+
+            $row[ $col_name ] = $col_value;
+        }
+
+        // Update timestamps.
+        $time = current_time( 'mysql' );
+
+        if ( isset( $cols['updated_at'] ) )
+            $row['updated_at'] = $time;
+
+        if ( $this->_adding && isset( $cols['created_at'] ) )
+            $row['created_at'] = $time;
+
+        return $row;
+    }
+
+    public function clean( &$errors ) {
+    }
+
+    public function &__get( $name ) {
         if ( ! $this->is_valid_attr( $name ) )
             throw new Exception( 'Invalid attribute: ' . $name );
 
-        if ( method_exists( $this, 'get_' . $name ) )
-            return call_user_func( array( $this, 'get_' . $name ) );
+        if ( method_exists( $this, 'get_' . $name ) ) {
+            $v = call_user_func( array( $this, 'get_' . $name ) );
+            return $v;
+        }
 
-        if ( ! array_key_exists( $name, $this->attrs ) )
+        if ( ! isset( $this->_attrs[ $name ] ) ) {
+            $v = null;
             return null;
+        }
 
-        $value = $this->attrs[ $name ];
+        $value = &$this->_attrs[ $name ];
         return $value;
+    }
+
+    public function __set( $name, $value ) {
+        if ( ! $this->is_valid_attr( $name ) )
+            throw new Exception( 'Invalid attribute: ' . $name );
+
+        if ( method_exists( $this, 'set_' . $name ) )
+            return call_user_func( array( $this, 'set_' . $name ) );
+
+        $this->_attrs[ $name ] = $value;
+    }
+
+
+    public function save( $validate = true ) {
+        global $wpdb;
+
+        $errors = array();
+
+        if ( $validate )
+            $this->clean( $errors );
+
+        if ( $errors )
+            throw new Exception('Invalid model instance!');
+
+        $model = self::get_model_info( $this );
+        $pk = $model['primary_key'];
+        $row = $this->prepare_row();
+
+        if ( $this->_adding )
+            $res = $wpdb->insert( $model['table']['name'], $row );
+        else
+            $res = $wpdb->update( $model['table']['name'], $row, array( $pk => $this->_attrs[ $pk ] ) );
+
+        if ( $this->_adding && $res ) {
+            $this->_attrs[ $pk ] = $wpdb->insert_id;
+            $this->_adding = false;
+        }
+
+        return false !== $res;
     }
 
     public static function objects() {
@@ -75,7 +156,7 @@ class WPBDP__DB__Model {
 
     public static function from_db( $fields, $classname ) {
         $obj = new $classname( $fields );
-        $obj->adding = false;
+        $obj->_adding = false;
 
         return $obj;
     }
