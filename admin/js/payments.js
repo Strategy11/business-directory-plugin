@@ -1,4 +1,7 @@
 jQuery(function($) {
+    $( '#wpbdp-admin-payment-info-box input[name="payment[created_on_date]"]' ).datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 
     $( '#wpbdp-payment-notes-add' ).click(function() {
         var $note = $( 'textarea[name="payment_note"]' );
