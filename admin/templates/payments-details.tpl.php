@@ -3,7 +3,10 @@ echo wpbdp_admin_header(
     str_replace( '<id>',
                  $payment->id,
                  _x( 'Payment #<id>', 'admin payments', 'WPBDM' ) ),
-    'payments-details'
+    'payments-details',
+    array(
+        array( _x( '← Return to "Payment History"', 'payments admin', 'WPBDM' ), esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ) )
+    )
 );
 ?>
 <?php wpbdp_admin_notices(); ?>

@@ -63,7 +63,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         if ( ! $message )
             return false;
 
-        $note = array( 'what' => $what, 'who' => $who, 'text' => $message, 'key' => $key );
+        $note = array( 'what' => $what, 'who' => $who, 'text' => $message, 'key' => $key, 'when' => $time );
         $this->payment_notes[ $key ] = $note;
 
         $previous_dirty = $this->_dirty;
