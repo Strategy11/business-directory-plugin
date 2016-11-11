@@ -9,7 +9,7 @@ class WPBDP__Listing_Search {
     public $aliases = array();
     private $query_template = '';
     private $query = '';
-    private $results = array();
+    private $results = null;
 
 
     public function __construct( $tree ) {
@@ -37,10 +37,9 @@ class WPBDP__Listing_Search {
     }
 
     public function get_results() {
-        if ( $this->results )
-            return $this->results;
-
-        $this->execute();
+        if ( ! is_array( $this->results ) ) {
+            $this->execute();
+        }
 
         return $this->results;
     }
