@@ -17,6 +17,7 @@ $selected = 0;
     ?>
     <div class="wpbdp-plan wpbdp-clearfix"
          data-id="<?php echo $plan->id; ?>"
+         data-free-text="<?php echo esc_attr( wpbdp_currency_format( 0.0 ) ); ?>"
          data-categories="<?php echo implode( ',', (array) $plan->supported_categories ); ?>"
          data-pricing-model="<?php echo $plan->pricing_model; ?>"
          data-amount="<?php echo $plan->amount; ?>"

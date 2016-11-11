@@ -107,7 +107,7 @@ jQuery(function($) {
                         break;
                 }
 
-                $plan.find( '.wpbdp-plan-price-amount' ).text( $plan.data( 'amount-format' ).replace( '[amount]', price.toFixed(2) ) );
+                $plan.find( '.wpbdp-plan-price-amount' ).text( price ? $plan.data( 'amount-format' ).replace( '[amount]', price.toFixed(2) ) : $plan.data( 'free-text' ) );
             } );
         }
     });
