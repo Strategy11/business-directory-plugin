@@ -15,6 +15,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
     }
 
     public function enqueue_resources() {
+        wp_enqueue_style( 'dashicons' );
         wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'core/js/submit-listing.js', array( 'jquery-ui-sortable' ) );
     }
 
@@ -55,6 +56,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
                                      'messages' => $messages ),
                               false );
         return $html;
+    }
+
+    public function ajax_reset_plan() {
+        $res = new WPBDP_Ajax_Response();
+
+        if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) )
+            wp_die();
+
+        $this->listing = $this->find_or_create_listing();
+
+        if ( ! $this->listing->has_fee_plan() )
+            wp_die();
+
+        $this->listing->clear_fee_plan();
+        $this->ajax_sections();
     }
 
     public function ajax_sections() {
@@ -195,7 +211,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
 
         $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
-        $plans = WPBDP_Fee_Plan::find( 'all' ); unset($plans[1]);
+        $plans = WPBDP_Fee_Plan::find( 'all' );
 
         $categories = $category_field->value_from_POST();
         $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;

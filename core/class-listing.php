@@ -749,6 +749,14 @@ class WPBDP_Listing {
         return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings_plans', $row );
     }
 
+    /**
+     * @since next-release
+     */
+    public function clear_fee_plan() {
+        global $wpdb;
+        $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
+    }
+
     // /**
     //  * @since next-release
     //  */
