@@ -133,7 +133,7 @@ class WPBDP_Themes {
                        'value' => $field->html_value( $listing_id ),
                        'raw' => $field->value( $listing_id ) );
 
-        return $this->render( $path, $vars );
+        return $this->render_template_file( $path, $path, $vars );
     }
 
     function _normalize_asset_name( $a ) {
@@ -464,23 +464,20 @@ class WPBDP_Themes {
         return true;
     }
 
-    function render( $id_or_file, $vars = array() ) {
-        $in_wrapper = isset( $vars['_child'] );
-        $path = '';
+    public function render( $template_id, $vars = array() ) {
+        return $this->render_template_file( $template_id, $this->locate_template( $template_id ), $vars )
+    }
 
-        if ( file_exists( $id_or_file ) )
-            $path = $id_or_file;
-        else
-            $path = $this->locate_template( $id_or_file );
-
+    private function render_template_file( $template_id, $path, $vars = array() ) {
         if ( ! $path )
-            throw new Exception( 'Invalid template id or file: "' . $id_or_file . '"' );
+            throw new Exception( 'Invalid template path for template: "' . $template_id . '"' );
 
+        $in_wrapper = isset( $vars['_child'] );
         $template_meta = $this->get_template_meta( $path );
 
         if ( ! $in_wrapper ) {
             // Setup default and hook-added variables.
-            $this->_configure_template_vars( $id_or_file, $path, $vars );
+            $this->_configure_template_vars( $template_id, $path, $vars );
 
             // Process variables using templates or callbacks.
             $this->_process_template_vars( $vars );
@@ -524,7 +521,7 @@ class WPBDP_Themes {
                             '_class' => $vars['_class'],
                             '_child' => (object) $vars,
                             'content' => $html );
-            $wrapper_html = $this->render( $vars['_wrapper_path'], $vars2 );
+            $wrapper_html = $this->render_template_file( $vars['_wrapper_path'],  $vars['_wrapper_path'], $vars2 );
 
             $in_wrapper = false;
             $html = $wrapper_html;
@@ -532,7 +529,7 @@ class WPBDP_Themes {
 
         array_pop( $this->cache['template_vars_stack'] );
 
-        $html = apply_filters( 'wpbdp_x_render', $html, $id_or_file, $vars );
+        $html = apply_filters( 'wpbdp_x_render', $html, $template_id, $vars );
         return $html;
     }
 
@@ -564,7 +561,7 @@ class WPBDP_Themes {
         return $template_meta;
     }
 
-    function render_part( $id_or_file, $additional_vars = array() ) {
+    function render_part( $template_id, $additional_vars = array() ) {
         $output = '';
 
         $last = count( $this->cache['template_vars_stack'] ) - 1;
@@ -578,16 +575,16 @@ class WPBDP_Themes {
         $vars['_wrapper'] = '';
         $vars['_wrapper_path'] = '';
 
-        $output = $this->render( $id_or_file, array_merge( $additional_vars, $vars ) );
+        $output = $this->render( $template_id, array_merge( $additional_vars, $vars ) );
         return $output;
     }
 
-    function _configure_template_vars ( $id_or_file, $path, &$vars ) {
+    function _configure_template_vars ( $template_id, $path, &$vars ) {
         $defaults = array(
             '_id' => str_replace( array( '.tpl.php', ' ' ),
                                   array( '', '-' ),
-                                  $id_or_file ),
-            '_template' => $id_or_file,
+                                  $template_id ),
+            '_template' => $template_id,
             '_path' => $path,
             '_wrapper' => '',
             '_wrapper_path' => '',
@@ -614,8 +611,8 @@ class WPBDP_Themes {
                 $vars['_parent'] = $last['_template'];
         }
 
-        $vars = apply_filters( 'wpbdp_template_variables', $vars, $id_or_file );
-        $vars = apply_filters( 'wpbdp_template_variables__' . $id_or_file, $vars, $path );
+        $vars = apply_filters( 'wpbdp_template_variables', $vars, $template_id );
+        $vars = apply_filters( 'wpbdp_template_variables__' . $template_id, $vars, $path );
 
         // Add info about current theme.
         $theme = $this->get_active_theme_data();
@@ -779,22 +776,22 @@ class WPBDP_Themes {
 
 }
 
-function wpbdp_x_render( $id_or_file, $vars = array(), $wrapper = '' ) {
+function wpbdp_x_render( $template_id, $vars = array(), $wrapper = '' ) {
     global $wpbdp;
 
     if ( $wrapper && ! isset( $vars['_wrapper'] ) )
         $vars['_wrapper'] = $wrapper;
 
-    return $wpbdp->themes->render( $id_or_file, $vars );
+    return $wpbdp->themes->render( $template_id, $vars );
 }
 
-function wpbdp_x_render_page( $id_or_file, $vars = array() ) {
-    return wpbdp_x_render( $id_or_file, $vars, 'page' );
+function wpbdp_x_render_page( $template_id, $vars = array() ) {
+    return wpbdp_x_render( $template_id, $vars, 'page' );
 }
 
-function wpbdp_x_part( $id_or_file, $vars = array() ) {
+function wpbdp_x_part( $template_id, $vars = array() ) {
     global $wpbdp;
-    echo $wpbdp->themes->render_part( $id_or_file, $vars );
+    echo $wpbdp->themes->render_part( $template_id, $vars );
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {
