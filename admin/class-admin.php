@@ -352,14 +352,9 @@ class WPBDP_Admin {
         $slug = $plugin_page;
         $callback = $item['callback'];
 
-        // Simple callback view.
-        if ( $callback && is_callable( $callback ) ) {
-            ob_start();
-            call_user_func( $callback );
-            $this->current_controller_output = ob_get_contents();
-            ob_end_clean();
+        // Simple callback view are not processed here.
+        if ( $callback && is_callable( $callback ) )
             return;
-        }
 
         $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
@@ -430,7 +425,20 @@ class WPBDP_Admin {
      * @since next-release
      */
     function menu_dispatch() {
-        echo $this->current_controller_output;
+        $output = $this->current_controller_output;
+
+        if ( $output )
+            return print( $output );
+
+        global $plugin_page;
+        if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
+            return;
+
+        $item = $this->menu[ $plugin_page ];
+        $slug = $plugin_page;
+        $callback = $item['callback'];
+
+        call_user_func( $callback );
     }
 
     /**
