@@ -201,18 +201,21 @@ class WPBDP_Form_Field_Type {
             case 'submit':
             case 'edit':
             default:
-            $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
+                $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
-                $html .= sprintf( '<div class="%s" %s>',
-                                  implode( ' ', $field->get_css_classes( $render_context ) ),
-                                  $html_attributes );
+                $html .= sprintf( '<div class="%s" %s>', implode( ' ', $field->get_css_classes( $render_context ) ), $html_attributes );
                 $html .= '<div class="wpbdp-form-field-label">';
                 $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) );
 
-                if ( $field->get_description() )
-                    $html .= sprintf( '<span class="field-description">(%s)</span>', apply_filters( 'wpbdp_render_field_description', $field->get_description(), $field ) );
+                if ( $field->has_validator( 'required' ) )
+                    $html .= '<span class="wpbdp-form-field-required-indicator">*</span>';
 
                 $html .= '</div>';
+
+                $field_description = trim( apply_filters( 'wpbdp_render_field_description', $field->get_description(), $field ) );
+                if ( $field_description )
+                    $html .= '<div class="wpbdp-form-field-description">' . esc_html( $field_description ) .'</div>';
+
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
 
                 $field_inner = $this->render_field_inner( $field, $value, $render_context, $extra, $field_settings );
