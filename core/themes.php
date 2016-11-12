@@ -465,7 +465,7 @@ class WPBDP_Themes {
     }
 
     public function render( $template_id, $vars = array() ) {
-        return $this->render_template_file( $template_id, $this->locate_template( $template_id ), $vars )
+        return $this->render_template_file( $template_id, $this->locate_template( $template_id ), $vars );
     }
 
     private function render_template_file( $template_id, $path, $vars = array() ) {
