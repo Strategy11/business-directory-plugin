@@ -39,13 +39,17 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         $i = 1;
         foreach ( $options as $option_key => $label ) {
             $css_classes = array();
+
+            $css_classes[] = 'wpbdp-inner-field-option';
+            $css_classes[] = 'wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $label );
+
+            // For backwards compat.
             $css_classes[] = 'wpbdp-inner-checkbox';
             $css_classes[] = 'wpbdp-inner-checkbox-' . $i;
             $css_classes[] = 'wpbdp-inner-checkbox-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-            $html .= sprintf( '<div class="wpbdmcheckboxclass %s"><input type="checkbox" class="%s" name="%s" value="%s" %s/> %s</div>',
+            $html .= sprintf( '<div class="%s"><input type="checkbox" name="%s" value="%s" %s/> %s</div>',
                               implode( ' ', $css_classes ),
-                              $field->is_required() ? 'required' : '',
                              'listingfields[' . $field->get_id() . '][]',
                               $option_key,
                               in_array( $option_key, is_array( $value ) ? $value : array( $value ) ) ? 'checked="checked"' : '',
@@ -53,8 +57,6 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
             $i++;
         }
-
-        $html .= '<div style="clear:both;"></div>';
 
         return $html;
     }

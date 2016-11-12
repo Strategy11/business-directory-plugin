@@ -30,7 +30,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $html .= '<div class="preview">';
         if ($value)
-            $html .= wp_get_attachment_image( $value, 'wpbdp-thumb', false );
+            $html .= wp_get_attachment_image( $value, 'wpbdp-mini', false );
 
         $html .= sprintf( '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d);" style="%s">%s</a>',
                           $field->get_id(),

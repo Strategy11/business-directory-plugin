@@ -201,7 +201,7 @@ class WPBDP_Form_Field_Type {
             case 'submit':
             case 'edit':
             default:
-                $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
+            $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
                 $html .= sprintf( '<div class="%s" %s>',
                                   implode( ' ', $field->get_css_classes( $render_context ) ),

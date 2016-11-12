@@ -30,10 +30,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $html .= ob_get_contents();
             ob_end_clean();
         } else {
-            $html .= sprintf('<textarea id="%s" name="%s" class="intextarea textarea %s">%s</textarea>',
+            $html .= sprintf('<textarea id="%s" name="%s">%s</textarea>',
                              'wpbdp-field-' . $field->get_id(),
                              'listingfields[' . $field->get_id() . ']',
-                             $field->is_required() ? 'required' : '',
                              $value ? esc_attr( $value ) : '' );
         }
 

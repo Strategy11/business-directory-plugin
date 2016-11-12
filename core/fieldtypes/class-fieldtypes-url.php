@@ -132,14 +132,13 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
         $html  = '';
         $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'URL:', 'form-fields api', 'WPBDM' ) );
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" />',
+        $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" />',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . '][0]',
-                          $field->is_required() ? 'inselect required' : 'inselect',
                           esc_attr( $value[0] ) );
 
         $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'Link Text (optional):', 'form-fields api', 'WPBDM' ) );
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox" value="%s" placeholder="" />',
+        $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" placeholder="" />',
                           'wpbdp-field-' . $field->get_id() . '-title',
                           'listingfields[' . $field->get_id() . '][1]',
                           esc_attr( $value[1] ) );

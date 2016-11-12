@@ -270,14 +270,14 @@ class WPBDP_Form_Field {
         $css_classes[] = 'wpbdp-form-field-label-' . WPBDP_Form_Field_Type::normalize_name( $this->get_label() );
         $css_classes[] = 'wpbdp-form-field-association-' . $this->get_association();
 
-        // For backwards compatibility.
-        $css_classes[] = $this->get_field_type()->get_id();
-
         if ( $this->get_description() )
-            $css_classes[] = 'with-description';
+            $css_classes[] = 'wpbdp-form-field-has-description';
 
-        if ( $this->get_validators() )
-            $css_classes = array_merge( $css_classes, $this->get_validators() );
+        foreach ( $this->get_validators() as $validator )
+            $css_classes[] = 'wpbdp-form-field-validate-' . $validator;
+
+        if ( $render_context )
+            $css_classes[] = 'wpbdp-form-field-in-' . $render_context;
 
         // Add own custom CSS classes.
         $css_classes = array_merge( $css_classes, $this->css_classes );

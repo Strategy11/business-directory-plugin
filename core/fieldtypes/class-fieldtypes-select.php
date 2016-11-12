@@ -74,7 +74,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                         'echo' => 0,
                         'id' => 'wpbdp-field-' . $field->get_id(),
                         'name' => 'listingfields[' . $field->get_id() . ']',
-                        'class' => $field->is_required() ? 'inselect required' : 'inselect'
+                        'class' => ''
                     ) );
 
                 if ( $this->is_multiple() ) {
@@ -91,12 +91,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     }
                 }
         } else {
-            $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
+            $html .= sprintf( '<select id="%s" name="%s" %s>',
                               'wpbdp-field-' . $field->get_id(),
                               'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
-                              $this->is_multiple() ? 'multiple="multiple"' : '',
-                              'inselect',
-                              $field->is_required() ? 'required' : '');
+                              $this->is_multiple() ? 'multiple="multiple"' : '' );
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
                 $html .= sprintf( '<option value="-1">%s</option>',
@@ -113,8 +111,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
                 $option_data = apply_filters( 'wpbdp_form_field_select_option', $option_data, $field );
 
-                $html .= sprintf( '<option value="%s" %s>%s</option>',
+                $html .= sprintf( '<option value="%s" class="%s" %s>%s</option>',
                                   esc_attr( $option_data['value'] ),
+                                  'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ),
                                   $this->html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
                                   esc_attr( $option_data['label'] ) );
             }

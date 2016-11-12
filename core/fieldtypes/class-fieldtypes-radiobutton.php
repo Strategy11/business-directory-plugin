@@ -39,14 +39,17 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         $i = 1;
         foreach ( $options as $option => $label ) {
             $css_classes = array();
+            $css_classes[] = 'wpbdp-inner-field-option';
+            $css_classes[] = 'wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $label );
+
+            // For backwards compat.
             $css_classes[] = 'wpbdp-inner-radio';
             $css_classes[] = 'wpbdp-inner-radio-' . $i;
             $css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-            $html .= sprintf( '<span class="%s" style="padding-right: 10px;"><input type="radio" name="%s" class="%s" value="%s" %s />%s</span>',
+            $html .= sprintf( '<div class="%s"><input type="radio" name="%s" value="%s" %s />%s</div>',
                               implode( ' ', $css_classes ),
                               'listingfields[' . $field->get_id() . ']',
-                              $field->is_required() ? 'inradio required' : 'inradio',
                               $option,
                               $value == $option ? 'checked="checked"' : '',
                               esc_attr( $label )

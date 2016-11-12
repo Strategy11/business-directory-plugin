@@ -43,10 +43,9 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         if ( isset( $field_settings['html_before'] ) )
             $html .= $field_settings['html_before'];
 
-        $html .= sprintf( '<input type="text" id="%s" name="%s" class="intextbox %s" value="%s" %s />',
+        $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" %s />',
                           'wpbdp-field-' . $field->get_id(),
                           'listingfields[' . $field->get_id() . ']',
-                          $field->is_required() ? 'inselect required' : 'inselect',
                           esc_attr( $value ),
                           ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' ) );
 
