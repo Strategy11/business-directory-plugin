@@ -268,7 +268,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
                                                         ) );
 
                 if ( ! $validate_res ) {
-                    $validation_errors = array_merge( $validation_errors, $field_errors );
+                    $validation_errors[ $field->get_id() ] = $field_errors;
                 } else {
                     $field->store_value( $this->listing->get_id(), $value );
                 }
@@ -276,11 +276,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         }
 
         if ( $validation_errors ) {
-            $this->messages( $validation_errors, 'error', 'listing_fields' );
+            $this->messages( _x( 'Something went wrong. Please check the form for errors, correct them and submit again.', 'listing submit', 'WPBDM' ), 'error', 'listing_fields' );
             $this->prevent_save = true;
         }
 
-        return $this->section_render( 'submit-listing-fields', compact( 'fields', 'field_values' ) );
+        return $this->section_render( 'submit-listing-fields', compact( 'fields', 'field_values', 'validation_errors' ) );
     }
 
     private function sort_images( $images_, $meta ) {
