@@ -16,7 +16,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
 
     public function enqueue_resources() {
         wp_enqueue_style( 'dashicons' );
-        wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'core/js/submit-listing.js', array( 'jquery-ui-sortable' ) );
+        wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'core/js/submit-listing.min.js', array( 'jquery-ui-sortable' ) );
     }
 
     public function dispatch() {

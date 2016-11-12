@@ -79,27 +79,25 @@ class WPBDP_Admin {
         global $wpbdp;
         global $pagenow;
 
-        $debug_on = $wpbdp->is_debug_on();
-
         wp_enqueue_style( 'wpbdp-admin',
-                          WPBDP_URL . 'admin/css/admin.css');
+                          WPBDP_URL . 'admin/css/admin.min.css');
         wp_enqueue_style( 'thickbox' );
 
         wp_enqueue_script( 'wpbdp-frontend-js',
                            WPBDP_URL . 'core/js/wpbdp.min.js',
                            array( 'jquery' ) );
         wp_enqueue_script( 'wpbdp-admin-js',
-                           WPBDP_URL . 'admin/resources/admin' . ( ! $debug_on ? '.min' : '' ) . '.js',
+                           WPBDP_URL . 'admin/js/admin.min.js',
                            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wp_enqueue_style( 'wpbdp-jquery-ui-css',
                               'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/redmond/jquery-ui.css' );
             wp_enqueue_script( 'jquery-ui-datepicker' );
-            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.css' );
+            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
-            wp_enqueue_script( 'wpbdp-admin-listing', WPBDP_URL . 'admin/js/listing.js', array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ) );
+            wp_enqueue_script( 'wpbdp-admin-listing', WPBDP_URL . 'admin/js/listing.min.js', array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ) );
         }
 
         // Ask for site tracking if needed.

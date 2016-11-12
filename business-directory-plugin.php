@@ -794,7 +794,7 @@ class WPBDP_Plugin {
                                    'jquery-file-upload-iframe-transport' ) );
 
         // Drag & Drop.
-        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.css' );
+        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.min.css' );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.min.js', array( 'jquery-file-upload' ) );
     }
 
@@ -828,12 +828,12 @@ class WPBDP_Plugin {
     public function _enqueue_scripts() {
         $only_in_plugin_pages = true;
 
-        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.css' );
+        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.min.css' );
 
         if ( $only_in_plugin_pages && ! $this->is_plugin_page() )
             return;
 
-        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
         wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
 
         wp_enqueue_style( 'wpbdp-dnd-upload' );
@@ -850,7 +850,7 @@ class WPBDP_Plugin {
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.min.css');
     }
 
     /**
