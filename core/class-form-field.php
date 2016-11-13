@@ -725,19 +725,17 @@ class WPBDP_Form_Field {
                 if ( ! $query )
                     break;
 
-                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta );
+                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
 
-                if ( ! $reused )
-                    $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
+                $search_res['join'] = $wpdb->prepare(
+                    " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON ( {$wpdb->posts}.ID = {$alias}.post_id AND {$alias}.meta_key = %s )",
+                    '_wpbdp[fields][' . $this->get_id() . ']'
+                );
 
                 if ( in_array( $this->get_field_type_id(), array( 'textfield', 'textarea', 'url' ), true ) ) {
-                    $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value LIKE '%%%s%%')",
-                                                           '_wpbdp[fields][' . $this->get_id() . ']',
-                                                           $query );
+                    $search_res['where'] = $wpdb->prepare( "{$alias}.meta_value LIKE '%%%s%%'", $query );
                 } else {
-                    $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value = %s)",
-                                                           '_wpbdp[fields][' . $this->get_id() . ']',
-                                                           $query );
+                    $search_res['where'] = $wpdb->prepare( "{$alias}.meta_value = %s", $query );
                 }
 
                 break;

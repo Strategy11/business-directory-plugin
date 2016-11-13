@@ -187,12 +187,12 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         $search_res = array();
         list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
 
-        if ( ! $reused )
-            $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
+        $search_res['join'] = $wpdb->prepare(
+            " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON ( {$wpdb->posts}.ID = {$alias}.post_id AND {$alias}.meta_key = %s )",
+            '_wpbdp[fields][' . $field->get_id() . ']'
+        );
 
-        $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value = %s)",
-                                               '_wpbdp[fields][' . $field->get_id() . ']',
-                                               $query );
+        $search_res['where'] = $wpdb->prepare( "{$alias}.meta_value = %s", $query );
 
         return $search_res;
     }
