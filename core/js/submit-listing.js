@@ -10,7 +10,8 @@ jQuery(function($) {
     $.extend( wpbdp.submit_listing.Fee_Selection_Helper.prototype, {
         reset: function() {
             this.field = $( '.wpbdp-form-field-association-category select' );
-            console.log(this.field.length);
+            this.field.select2();
+
             this.is_multiple = this.field.prop( 'multiple' );
             this.plans = $( '.wpbdp-plan-selection-list .wpbdp-plan' );
 
@@ -49,12 +50,14 @@ jQuery(function($) {
             });
 
             if ( all_cats ) {
-                this.field.find('option').prop( 'disabled', false ); return;
+                this.field.find('option').prop( 'disabled', false );
+                this.field.select2();
             } else {
                 this.field.find('option').each(function(i, v) {
                     if ( -1 == $.inArray( $(this).val(), cats ) )
                         $(this).prop( 'disabled', true );
                 });
+                this.field.select2();
             }
         },
 
