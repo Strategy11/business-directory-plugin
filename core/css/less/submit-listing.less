@@ -1,3 +1,7 @@
+.select2-results {
+    font-size: 11px;
+}
+
 #wpbdp-submit-listing {
 
     input[type="text"], textarea {
@@ -15,17 +19,23 @@
             .select2-selection {
                 margin: 0;
                 padding: 0;
-                height: 30px;
+                height: 28px;
+                min-height: 0;
             }
 
             ul {
                 margin: 2px 5px;
                 padding: 0;
 
+                li {
+                    margin: 0;
+                }
+
                 li.select2-selection__choice {
                     font-size: 10px;
                     margin: 0 5px 0 0;
-                    padding: 2px 5px;
+                    padding: 1px 6px;
+                    border-radius: 3px;
                     background: #5bc0de;
                     color: #fff;
                     font-weight: 700;
