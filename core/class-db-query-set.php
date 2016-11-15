@@ -61,7 +61,7 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
             return $this;
 
         $where = $this->filter_args( $args );
-        $where = implode( ' AND ', $filters );
+        $where = implode( ' AND ', $where );
 
         if ( $negate )
             $where = " NOT ($where) ";
