@@ -30,7 +30,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $this->listing = $this->find_or_create_listing();
 
         if ( ! $this->editing && 'auto-draft' != get_post_status( $this->listing->get_id() ) ) {
-            $possible_payment = WPBDP_Payment::find( array( 'listing_id' => $this->listing->get_id(), 'tag' => 'initial', 'status' => 'pending', '_single' => true ) );
+            $possible_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->listing->get_id(), 'tag' => 'initial', 'status' => 'pending' ) )->get();
 
             if ( $possible_payment )
                 return $this->_redirect( $possible_payment->get_checkout_url() );

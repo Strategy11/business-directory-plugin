@@ -455,14 +455,14 @@ class WPBDP_Listing {
     public function get_payment_status() {
         $status = 'ok';
 
-        if ( WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ), true ) )
+        if ( WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->count() > 0 )
             $status = 'pending';
 
         return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
     }
 
     public function mark_as_paid() {
-        $pending = WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending' ) );
+        $pending = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->all();
         $ok = true;
 
         foreach ( $pending as &$p ) {
@@ -479,7 +479,7 @@ class WPBDP_Listing {
     }
 
     public function get_latest_payments() {
-        return WPBDP_Payment::find( array( 'listing_id' => $this->id, '_order' => '-id', '_limit' => 10 ) );
+        return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' )->limit( 10 );
     }
 
     public function publish() {
@@ -778,7 +778,7 @@ class WPBDP_Listing {
         if ( ! $plan || 'pending' != $plan->status )
             return false;
 
-        $existing_payment = WPBDP_Payment::find( array( 'listing_id' => $this->id, 'status' => 'pending', 'tag' => 'initial', '_single' => true ) );
+        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending', 'tag' => 'initial' ) )->get();
 
         if ( $existing_payment )
             return $existing_payment;

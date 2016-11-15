@@ -483,7 +483,7 @@ class WPBDP_PaymentsAPI {
         if ( 'pending' != $status || ! $listing_id || ! wpbdp_get_option( 'payment-abandonment' ) )
             return $status;
 
-        $last_pending = WPBDP_Payment::find( array( 'listing_id' => $listing_id, 'status' => 'pending', '_single' => true, '_order' => '-created_on' ), true );
+        $last_pending = WPBDP_Payment::objects()->filter( array( 'listing_id' => $listing_id, 'status' => 'pending' ) )->order_by( '-created_on' )->get();
 
         if ( ! $last_pending || 'initial' != $last_pending['tag'] )
             return $status;
