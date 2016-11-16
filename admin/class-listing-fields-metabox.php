@@ -42,14 +42,14 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         echo '<div id="wpbdp-uploaded-images" class="cf">';
         
         foreach ( $images as $image ):
-            echo wpbdp_render( 'submit-listing/images-single',
+            echo wpbdp_render( 'submit-listing-images-single',
                            array( 'image' => $image,
                                   'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image->id ) ),
                            false );
         endforeach;
         echo '</div>';
 
-        echo wpbdp_render( 'submit-listing/images-upload-form',
+        echo wpbdp_render( 'submit-listing-images-upload-form',
                            array( 'admin' => true, 'listing_id' => $this->listing->get_id() ),
                            false );
     }

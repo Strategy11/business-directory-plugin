@@ -34,9 +34,12 @@
         </dd>
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <select name="listing_plan[fee_id]">
+            <select name="listing_plan[fee_id]" data-confirm-text="<?php echo esc_attr( _x( 'Do you want to override current listing fee details with those from "%s"?', 'listing metabox', 'WPBDM' ) ); ?>">
             <?php foreach ( $plans as $p ): ?>
-                <option value="<?php echo $p->id; ?>" <?php checked( $p->id, $current_plan->fee_id ); ?>><?php echo $p->label; ?></option>
+            <?php
+            $plan_info = array( 'id' => $p->id, 'label' => $p->label, 'days' => $p->days, 'images' => $p->images, 'sticky' => $p->sticky, 'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ) );
+            ?>
+                <option value="<?php echo $p->id; ?>" <?php checked( $p->id, $current_plan->fee_id ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>"><?php echo $p->label; ?></option>
             <?php endforeach; ?>
             </select>
 
@@ -82,13 +85,13 @@
         <table>
             <tbody>
             <?php foreach ( $payments as $payment ): ?>
-                <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->get_id() ) ); ?>
-                <tr class="wpbdp-payment-status-<?php echo $payment->get_status(); ?>">
+                <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
+                <tr class="wpbdp-payment-status-<?php echo $payment->status; ?>">
                     <td class="wpbdp-payment-date">
-                        <a href="<?php echo $payment_link; ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->get_created_on() ) ); ?></a>
+                        <a href="<?php echo $payment_link; ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->created_on ) ); ?></a>
                     </td>
-                    <td class="wpbdp-payment-total"><?php echo wpbdp_currency_format( $payment->get_total() ); ?></td>
-                    <td class="wpbdp-payment-status"><span class="tag paymentstatus <?php echo $payment->get_status(); ?>"><?php echo $payment->get_status(); ?></span></td>
+                    <td class="wpbdp-payment-total"><?php echo wpbdp_currency_format( $payment->amount ); ?></td>
+                    <td class="wpbdp-payment-status"><span class="tag paymentstatus <?php echo $payment->status; ?>"><?php echo $payment->status; ?></span></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
