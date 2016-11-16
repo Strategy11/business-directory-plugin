@@ -228,7 +228,7 @@ class WPBDP_Listing {
     }
 
 
-    private function calculate_expiration_date( $time, &$fee ) {
+    public function calculate_expiration_date( $time, &$fee ) {
         $fee = (array) $fee;
         $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
 
@@ -479,7 +479,7 @@ class WPBDP_Listing {
     }
 
     public function get_latest_payments() {
-        return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' )->limit( 10 );
+        return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' );
     }
 
     public function publish() {
@@ -810,6 +810,12 @@ class WPBDP_Listing {
         return $plan->expiration_date;
     }
 
+    /**
+     * @since next-release
+     */
+    public function get_expiration_time() {
+        return strtotime( $this->get_expiration_date() );
+    }
 
     public static function create( &$state ) {
         $title = 'Untitled Listing';

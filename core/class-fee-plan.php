@@ -165,6 +165,20 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         return true;
     }
 
+    /**
+     * @since next-release
+     */
+    public function calculate_expiration_time( $base_time ) {
+        if ( ! $base_time )
+            $base_time = current_time( 'timestamp' );
+
+        if ( $this->days == 0 )
+            return null;
+
+        $expire_time = strtotime( sprintf( '+%d days', $this->days ), $base_time );
+        return date( 'Y-m-d H:i:s', $expire_time );
+    }
+
     public static function for_category( $category_id ) {
         $res = array();
 
