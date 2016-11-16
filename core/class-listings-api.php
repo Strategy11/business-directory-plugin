@@ -150,19 +150,19 @@ class WPBDP_Listings_API {
      * @since 3.4
      */
     public function setup_listing_after_payment( &$payment ) {
-        $listing = WPBDP_Listing::get( $payment->get_listing_id() );
+        $listing = $payment->get_listing();
 
         if ( ! $listing || ! $payment->is_completed() )
             return;
 
         $is_renewal = false;
 
-        foreach ( $payment->get_items() as $item ) {
-            switch ( $item->item_type ) {
+        foreach ( $payment->payment_items as $item ) {
+            switch ( $item['type'] ) {
                 case 'recurring_plan':
                 case 'plan':
                 case 'plan_renewal':
-                    $listing->set_fee_plan( $item->rel_id_1, 'recurring_plan' == $item->item_type ? true : false );
+                    $listing->set_fee_plan( $item['fee_id'], 'recurring_plan' == $item['type'] ? true : false );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;

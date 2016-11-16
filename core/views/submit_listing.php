@@ -30,7 +30,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $this->listing = $this->find_or_create_listing();
 
         if ( ! $this->editing && 'auto-draft' != get_post_status( $this->listing->get_id() ) ) {
-            $possible_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->listing->get_id(), 'tag' => 'initial', 'status' => 'pending' ) )->get();
+            $possible_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->listing->get_id(), 'payment_type' => 'initial', 'status' => 'pending' ) )->get();
 
             if ( $possible_payment )
                 return $this->_redirect( $possible_payment->get_checkout_url() );
@@ -409,13 +409,23 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
         $payment = $this->listing->generate_or_retrieve_payment();
 
+        if ( current_user_can( 'administrator' ) ) {
+            $payment->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
+            $payment->payment_items[0]['amount'] = 0.0;
+            $payment->status = 'completed';
+
+            $payment->add_note( _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) );
+
+            $payment->save();
+        }
+
         if ( ! $payment )
             die();
 
         $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->notify( $this->editing ? 'edit' : 'new' );
 
-        if ( $payment->is_completed() )
+        if ( 'completed' == $payment->status )
             return $this->done();
 
         $checkout_url = $payment->get_checkout_url();

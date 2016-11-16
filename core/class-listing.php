@@ -778,24 +778,23 @@ class WPBDP_Listing {
         if ( ! $plan || 'pending' != $plan->status )
             return false;
 
-        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending', 'tag' => 'initial' ) )->get();
+        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending', 'payment_type' => 'initial' ) )->get();
 
         if ( $existing_payment )
             return $existing_payment;
 
-        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
-        $payment->add_item( $plan->is_recurring ? 'recurring_plan' : 'plan',
-                            $plan->fee_price,
-                            sprintf( _x( 'Listing plan "%s"%s', 'listing', 'WPBDM' ),
-                                     $plan->fee_label,
-                                     $plan->is_recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-                            array( 'fee_id' => $plan->fee_id, 'fee_days' => $plan->fee_days, 'fee_images' => $plan->fee_images ),
-                            $plan->fee_id );
-        $payment->tag( 'initial' );
+        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) );
 
-        if ( current_user_can( 'administrator' ) )
-            $payment->set_status( WPBDP_Payment::STATUS_COMPLETED );
+        $item = array(
+            'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
+            'description' => sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label ),
+            'amount' => $plan->fee_price,
+            'fee_id' => $plan->fee_id,
+            'fee_days' => $plan->fee_days,
+            'fee_images' => $plan->fee_images
+        );
 
+        $payment->payment_items[] = $item;
         $payment->save();
 
         return $payment;

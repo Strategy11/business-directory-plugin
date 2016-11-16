@@ -17,10 +17,50 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     const HANDLER_ADMIN = 'admin';
     const HANDLER_SYSTEM = 'system';
 
+    private $old_status = '';
+
+
+    protected function get_defaults() {
+        return array(
+            'payment_notes' => array(),
+            'payment_items' => array(),
+            'payer_data' => array(),
+            'gateway_extra_data' => array(),
+            'status' => 'pending',
+            'currency_code' => 'USD',
+            'amount' => 0.0
+        );
+    }
+
+    protected function pre_save() {
+        if ( ! $this->payment_key )
+            $this->payment_key = strtolower( md5( $this->listing_id . date( 'Y-m-d H:i:s' ) . ( defined( 'AUTH_KEY' ) ? AUTH_KEY : '' ) . uniqid( 'wpbdp', true ) ) );
+
+        $this->amount = 0.0;
+
+        foreach ( $this->payment_items as $item )
+            $this->amount += floatval( $item['amount'] );
+    }
+
+    protected function post_save() {
+        if ( ! $this->old_status || ! $this->status )
+            return;
+
+        if ( $this->old_status != $this->status ) {
+            $this->add_note( sprintf( _x( 'Payment status changed from "%s" to "%s".', 'payment', 'WPBDM' ), $this->old_status, $this->status ) );
+            do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $this->old_status, $this->status ) );
+        }
+
+        $this->old_status = $this->status;
+    }
 
     protected function set_attr( $name, $value ) {
         if ( in_array( $name, self::$serialized, true ) )
             $value = is_array( $value ) ? $value : array();
+
+        if ( 'status' == $name ) {
+            $this->old_status = $this->status;
+        }
 
         return parent::set_attr( $name, $value );
     }
@@ -63,7 +103,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     public function add_note( $text, $who = 'system', $what = 'note' ) {
         $time = current_time( 'timestamp' );
-        $key = sha1( $time . '-' . $what . '-' . $who );
+        $key = sha1( $time . $what . $who . uniqid( 'wpbdp', true ) );
         $message = trim( $text );
 
         if ( ! $message )
@@ -72,10 +112,13 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $note = array( 'what' => $what, 'who' => $who, 'text' => $message, 'key' => $key, 'when' => $time );
         $this->payment_notes[ $key ] = $note;
 
-        $previous_dirty = $this->_dirty;
-        $this->_dirty = array( 'payment_notes' );
-        $this->save();
-        $this->_dirty = $previous_dirty;
+        // Prevent recursion.
+        if ( ! $this->_saving ) {
+            $previous_dirty = $this->_dirty;
+            $this->_dirty = array( 'payment_notes' );
+            $this->save();
+            $this->_dirty = $previous_dirty;
+        }
 
         return $note;
     }
@@ -95,6 +138,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $this->_dirty = $previous_dirty;
 
         return true;
+    }
+
+    public function is_completed() {
+        return 'completed' == $this->status;
     }
 
     public static function get_stati() {
