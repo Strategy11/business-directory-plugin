@@ -66,10 +66,10 @@ var admin = wpbdp.admin = wpbdp.admin || {};
             var msg = $( this ).attr( 'data-confirm-text' );
             var plan = $.parseJSON( $( this ).find( 'option:selected' ).attr( 'data-plan-info' ) );
 
-            var confirm = window.confirm( msg.replace( '%s', plan.label ) );
-
-            if ( ! confirm )
-                return;
+            // var confirm = window.confirm( msg.replace( '%s', plan.label ) );
+            //
+            // if ( ! confirm )
+            //     return;
 
             var $expiration = $( 'input[name="listing_plan[expiration_date]"]' );
             var $images = $( 'input[name="listing_plan[fee_images]"]' );
@@ -79,6 +79,9 @@ var admin = wpbdp.admin = wpbdp.admin || {};
             $images.val( plan.images );
             $sticky.prop( 'checked', plan.sticky );
         });
+
+        $( '#wpbdp-listing-metabox-plan-info select[name="listing_plan[fee_id]"]').change();
+
     } );
 
 } )( jQuery );
