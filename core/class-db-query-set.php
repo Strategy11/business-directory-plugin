@@ -35,14 +35,14 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         $this->is_manager = $is_manager;
     }
 
-    public function get( $args ) {
+    public function get( $args = array() ) {
         if ( is_scalar( $args ) )
             $args = array( 'pk' => $args );
 
+        $q = $this->query;
+
         if ( $args ) {
             $where = implode( ' AND ', $this->filter_args( $args ) );
-
-            $q = $this->query;
             $q['where'] = ! empty( $q['where'] ) ? $q['where'] . " AND ($where)" : $where;
         }
 
@@ -54,12 +54,12 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         $res = $qs->to_array();
 
         if ( ! $res )
-            throw new Exception('No row found!');
+            return false;
 
         return $res[0];
     }
 
-    public function filter( $args, $negate = false ) {
+    public function filter( $args = array(), $negate = false ) {
         if ( ! $args )
             return $this;
 
@@ -75,7 +75,7 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         return new self( $this->model, $q );
     }
 
-    public function exclude( $args ) {
+    public function exclude( $args = array() ) {
         if ( ! $args )
             return $this;
 

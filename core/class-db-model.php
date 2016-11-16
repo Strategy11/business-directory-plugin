@@ -7,6 +7,7 @@ class WPBDP__DB__Model {
     protected $_adding = true;
     protected $_attrs = array();
     protected $_dirty = array();
+    protected $_saving = false;
 
 
     public function __construct( $fields, $from_db = false ) {
@@ -21,6 +22,32 @@ class WPBDP__DB__Model {
 
         if ( $from_db )
             $this->_adding = false;
+
+        $this->init();
+    }
+
+    protected function init() {
+        // Init all model cols.
+        $model_info = self::get_model_info( $this );
+        $defaults = (array) $this->get_defaults();
+
+        foreach ( array_keys( $model_info['table']['columns'] ) as $col ) {
+            if ( in_array( $col, array( 'created_at', 'updated_at' ), true ) )
+                continue;
+
+            if ( isset( $this->_attrs[ $col ] ) )
+                continue;
+
+            $value = null;
+            if ( array_key_exists( $col, $defaults ) )
+                $value = $defaults[ $col ];
+
+            $this->set_attr( $col, $value );
+        }
+    }
+
+    protected function get_defaults() {
+        return array();
     }
 
     protected function is_valid_attr( $name ) {
@@ -101,7 +128,7 @@ class WPBDP__DB__Model {
 
         if ( ! isset( $this->_attrs[ $name ] ) ) {
             $v = null;
-            return null;
+            return $v;
         }
 
         $value = &$this->_attrs[ $name ];
@@ -115,7 +142,8 @@ class WPBDP__DB__Model {
         if ( method_exists( $this, 'set_' . $name ) )
             return call_user_func( array( $this, 'set_' . $name ) );
 
-        $this->_attrs[ $name ] = $value;
+        $this->set_attr( $name, $value );
+        // $this->_attrs[ $name ] = $value;
     }
 
     public function update( $fields = array() ) {
@@ -123,6 +151,9 @@ class WPBDP__DB__Model {
             $this->set_attr( $f, $v );
         }
     }
+
+    protected function pre_save() {}
+    protected function post_save() {}
 
     public function save( $validate = true ) {
         global $wpdb;
@@ -135,8 +166,12 @@ class WPBDP__DB__Model {
         if ( $errors )
             throw new Exception('Invalid model instance!');
 
+        $this->_saving = true;
+
         $model = self::get_model_info( $this );
         $pk = $model['primary_key'];
+
+        $this->pre_save();
         $row = $this->prepare_row();
 
         if ( $this->_adding )
@@ -149,7 +184,14 @@ class WPBDP__DB__Model {
             $this->_adding = false;
         }
 
-        return false !== $res;
+        $res = false !== $res;
+
+        if ( $res )
+            $this->post_save();
+
+        $this->_saving = false;
+
+        return $res;
     }
 
     public function delete() {
