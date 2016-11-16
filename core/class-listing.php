@@ -806,7 +806,7 @@ class WPBDP_Listing {
      */
     public function get_expiration_date() {
         $plan = $this->get_fee_plan();
-        return $plan->expiration_date;
+        return $plan ? $plan->expiration_date : null;
     }
 
     /**

@@ -13,11 +13,12 @@
 <!-- {{  Fee plan info. -->
 <div id="wpbdp-listing-metabox-plan-info" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="1">
     <dl>
+        <?php if ( $current_plan ): ?>
         <dt><?php _ex( 'Status', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <span class="tag plan-status paymentstatus <?php echo $current_plan->status; ?>">
+            <span class="tag plan-status paymentstatus <?php echo $current_plan ? $current_plan->status : ''; ?>">
             <?php
-            // todo: before next-release
+                // todo: before next-release
                 switch ( $current_plan->status ):
                     case 'expired':
                         _ex( 'Expired', 'admin infometabox', 'WPBDM' );
@@ -32,6 +33,7 @@
                 ?>
             </span>
         </dd>
+        <?php endif; ?>
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <select name="listing_plan[fee_id]" data-confirm-text="<?php echo esc_attr( _x( 'Do you want to override current listing fee details with those from "%s"?', 'listing metabox', 'WPBDM' ) ); ?>">
@@ -39,25 +41,25 @@
             <?php
             $plan_info = array( 'id' => $p->id, 'label' => $p->label, 'days' => $p->days, 'images' => $p->images, 'sticky' => $p->sticky, 'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ) );
             ?>
-                <option value="<?php echo $p->id; ?>" <?php checked( $p->id, $current_plan->fee_id ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>"><?php echo $p->label; ?></option>
+                <option value="<?php echo $p->id; ?>" <?php checked( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>"><?php echo $p->label; ?></option>
             <?php endforeach; ?>
             </select>
 
-            <?php if ( $current_plan->is_recurring ): ?>
+            <?php if ( $current_plan && $current_plan->is_recurring ): ?>
             <br /><span class="tag"><?php _ex( 'Recurring', 'listing metabox', 'WPBDM' ); ?>
             <?php endif; ?>
         </dd>
         <dt><?php _ex( 'Amount', 'listing metabox', 'WPBDM' ); ?></dt>
-        <dd><?php echo $current_plan->fee_price; ?></dd>
+        <dd><?php echo $current_plan ? wpbdp_currency_format( $current_plan->fee_price ) : '-'; ?></dd>
         <dt><?php _ex( 'Expires On', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <input type="text" name="listing_plan[expiration_date]" value="<?php echo $current_plan->expiration_date; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'WPBDM' ); ?>" />
+            <input type="text" name="listing_plan[expiration_date]" value="<?php echo $current_plan ? $current_plan->expiration_date : ''; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'WPBDM' ); ?>" />
         </dd>
         <dt><?php _ex( '# of images', 'listing metabox', 'WPBDM' ); ?></dt>
-        <dd><input type="text" name="listing_plan[fee_images]" value="<?php echo $current_plan->fee_images; ?>" size="2" /></dd>
+        <dd><input type="text" name="listing_plan[fee_images]" value="<?php echo $current_plan ? $current_plan->fee_images : 0; ?>" size="2" /></dd>
         <dt><?php _ex( 'Is Featured?', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <input type="checkbox" name="listing_plan[is_sticky]" value="1" <?php checked( $current_plan->is_sticky ); ?>>
+            <input type="checkbox" name="listing_plan[is_sticky]" value="1" <?php checked( $current_plan && $current_plan->is_sticky ); ?>>
         </dd>
     </dl>
 
@@ -68,7 +70,7 @@
                 <?php _ex( 'Send renewal e-mail', 'admin infometabox', 'WPBDM' ); ?>
             </a>
         </li>
-        <?php if ( $current_plan->expired ): ?>
+        <?php if ( $current_plan && $current_plan->expired ): ?>
         <li>
             <a href="<?php echo esc_url( add_query_arg( 'wpbdmaction', 'renewlisting' ) ); ?>" class="button-primary button button-small"><?php _ex( 'Renew listing', 'admin infometabox', 'WPBDM'); ?></a>
         </li>
