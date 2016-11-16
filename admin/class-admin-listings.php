@@ -373,25 +373,17 @@ class WPBDP_Admin_Listings {
         // Listing plan.
         $listing_plan = $_POST['listing_plan'];
 
-        if ( ! $listing->has_fee_plan() ) {
-            $listing->set_fee_plan( $listing_plan['fee_id'] );
-        } else {
-            $current_plan = $listing->get_fee_plan();
+        $listing->set_fee_plan( $listing_plan['fee_id'] );
 
-            if ( $current_plan->fee_id == $listing_plan['fee_id'] ) {
-                // Update attributes.
-                global $wpdb;
+        // Update attributes.
+        global $wpdb;
 
-                $row = array();
-                $row['expiration_date'] = '' == $listing_plan['expiration_date'] ? null : $listing_plan['expiration_date'];
-                $row['fee_images'] = absint( $listing_plan['fee_images'] );
-                $row['is_sticky'] = ! empty( $listing_plan['is_sticky'] ) ? 1 : 0;
+        $row = array();
+        $row['expiration_date'] = '' == $listing_plan['expiration_date'] ? null : $listing_plan['expiration_date'];
+        $row['fee_images'] = absint( $listing_plan['fee_images'] );
+        $row['is_sticky'] = ! empty( $listing_plan['is_sticky'] ) ? 1 : 0;
 
-                $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $row, array( 'listing_id' => $listing->get_id() ) );
-            } else {
-                $listing->set_fee_plan( $listing_plan['fee_id'] );
-            }
-        }
+        $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $row, array( 'listing_id' => $listing->get_id() ) );
 
         // Save custom fields.
         if ( ! isset( $_POST['wpbdp-listing-fields-nonce'] ) )
