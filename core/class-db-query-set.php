@@ -39,10 +39,13 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         if ( is_scalar( $args ) )
             $args = array( 'pk' => $args );
 
-        $where = implode( ' AND ', $this->filter_args( $args ) );
+        if ( $args ) {
+            $where = implode( ' AND ', $this->filter_args( $args ) );
 
-        $q = $this->query;
-        $q['where'] = ! empty( $q['where'] ) ? $q['where'] . " AND ($where)" : $where;
+            $q = $this->query;
+            $q['where'] = ! empty( $q['where'] ) ? $q['where'] . " AND ($where)" : $where;
+        }
+
         $q['limit'] = 'LIMIT 1';
 
         $qs = new self( $this->model, $q );
@@ -81,6 +84,42 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 
     public function all() {
         return new self( $this->model, $this->query );
+    }
+
+    public function order_by( $args ) {
+        if ( is_string( $args ) )
+            $args = array( $args );
+
+        $order = array();
+
+        foreach ( $args as $o ) {
+            if ( '-' == $o[0] )
+                $order[] = substr( $o, 1 ) . ' DESC';
+            else
+                $order[] = $o . ' ASC';
+        }
+
+        $order = implode( ',', $order );
+
+        $q = $this->query;
+        $q['orderby'] = ! empty( $q['orderby'] ) ? $q['orderby'] . ', ' . $order : $order;
+
+        return new self( $this->model, $q );
+    }
+
+    public function limit( $limit ) {
+        $limit = absint( $limit );
+
+        if ( ! $limit )
+            return $this;
+
+        $q = $this->query;
+
+        if ( ! empty( $q['limits'] ) )
+            throw new Exception( 'Query already has a limit. ');
+
+        $q['limits'] = 'LIMIT ' . $limit;
+        return new self( $this->model, $q );
     }
 
     public function count() {
