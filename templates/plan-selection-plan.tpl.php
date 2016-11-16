@@ -15,7 +15,9 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
          data-amount-format="<?php echo esc_attr( wpbdp_currency_format( 'placeholder' ) ); ?>"
          data-pricing-details="<?php echo esc_attr( json_encode( $plan->pricing_details ) ); ?>" >
         <div class="wpbdp-plan-duration">
-            <span class="wpbdp-plan-duration-amount"><?php echo $plan->days; ?></span>
+            <span class="wpbdp-plan-duration-amount">
+                <?php echo $plan->days ? $plan->days : '∞'; ?>
+            </span>
             <span class="wpbdp-plan-duration-period"><?php _ex( 'days', 'plan selection', 'WPBDM' ); ?></span>
         </div>
         <div class="wpbdp-plan-details">
