@@ -372,8 +372,15 @@ class WPBDP_Admin_Listings {
 
         // Listing plan.
         $listing_plan = $_POST['listing_plan'];
+        $payment = $listing->set_fee_plan_with_payment( $listing_plan['fee_id'] );
 
-        $listing->set_fee_plan( $listing_plan['fee_id'] );
+        if ( $payment ) {
+            $payment->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
+            $payment->payment_items[0]['amount'] = 0.0;
+            $payment->status = 'completed';
+            $payment->add_note( _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) );
+            $payment->save();
+        }
 
         // Update attributes.
         global $wpdb;

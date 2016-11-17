@@ -752,6 +752,35 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
+    public function set_fee_plan_with_payment( $fee, $recurring = false, $status = 'ok' ) {
+        $plan1 = $this->get_fee_plan();
+        $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
+        $this->set_fee_plan( $fee, $recurring, $status );
+        $plan = $this->get_fee_plan();
+
+        if ( $fee->id == $plan1->fee_id )
+            return null;
+
+        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) );
+
+        $item = array(
+            'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
+            'description' => sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label ),
+            'amount' => $plan->fee_price,
+            'fee_id' => $plan->fee_id,
+            'fee_days' => $plan->fee_days,
+            'fee_images' => $plan->fee_images
+        );
+
+        $payment->payment_items[] = $item;
+        $payment->save();
+
+        return $payment;
+    }
+
+    /**
+     * @since next-release
+     */
     public function clear_fee_plan() {
         global $wpdb;
         $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
