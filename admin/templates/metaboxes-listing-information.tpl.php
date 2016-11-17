@@ -84,20 +84,21 @@
     <?php if ( $payments ): ?>
         <?php _ex( 'Click a transaction to see its details (and approve/reject).', 'listing metabox', 'WPBDM' ); ?>
 
-        <table>
-            <tbody>
             <?php foreach ( $payments as $payment ): ?>
-                <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
-                <tr class="wpbdp-payment-status-<?php echo $payment->status; ?>">
-                    <td class="wpbdp-payment-date">
+            <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
+            <div class="wpbdp-payment-item wpbdp-payment-status-<?php echo $payment->status; ?> cf">
+                <div class="wpbdp-payment-item-row">
+                    <div class="wpbdp-payment-date">
                         <a href="<?php echo $payment_link; ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->created_on ) ); ?></a>
-                    </td>
-                    <td class="wpbdp-payment-total"><?php echo wpbdp_currency_format( $payment->amount ); ?></td>
-                    <td class="wpbdp-payment-status"><span class="tag paymentstatus <?php echo $payment->status; ?>"><?php echo $payment->status; ?></span></td>
-                </tr>
+                    </div>
+                    <div class="wpbdp-payment-status"><span class="tag paymentstatus <?php echo $payment->status; ?>"><?php echo $payment->status; ?></span></div>
+                </div>
+                <div class="wpbdp-payment-item-row">
+                    <div class="wpbdp-payment-summary"><a href="<?php echo $payment_link; ?>" title="<?php echo esc_attr( $payment->summary ); ?>"><?php echo $payment->summary; ?></a></div>
+                    <div class="wpbdp-payment-total"><?php echo wpbdp_currency_format( $payment->amount ); ?></div>
+                </div>
+            </div>
             <?php endforeach; ?>
-            </tbody>
-        </table>
     <?php else: ?>
         <?php _ex( 'This listing has no payments associated.', 'listing metabox', 'WPBDM' ); ?>
     <?php endif; ?>

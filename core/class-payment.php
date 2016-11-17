@@ -69,6 +69,11 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return WPBDP_Listing::get( $this->listing_id );
     }
 
+    public function get_summary() {
+        $first_item = reset( $this->payment_items );
+        return $first_item['description'];
+    }
+
     public function get_created_on_date() {
         $date = date_parse( $this->created_on );
         extract( $date );

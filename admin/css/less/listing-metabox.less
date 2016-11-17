@@ -103,3 +103,71 @@ a dl {
     padding: 0;
 }
 /* @end */
+
+#wpbdp-listing-metabox-payments {
+
+    .wpbdp-payment-item {
+        padding: 2px;
+        border-bottom: solid 1px #efefef;
+        clear: both;
+        font-size: 95%;
+
+        &:first-child {
+            margin-top: 12px;
+        }
+
+        &.wpbdp-payment-status-completed {
+            color: green;
+        }
+
+        &.wpbdp-payment-status-pending {
+            color: red;
+        }
+
+        &.wpbdp-payment-status-rejected {
+            color: #bbb;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .wpbdp-payment-item-row {
+            clear: both;
+        }
+
+        .wpbdp-payment-date,
+        .wpbdp-payment-summary {
+            float: left;
+        }
+
+        .wpbdp-payment-summary {
+            width: 150px;
+            // text-overflow: ellipsis;
+            // white-space: nowrap;
+            // overflow: hidden;
+
+            a {
+                text-decoration: none;
+                font-size: 95%;
+            }
+        }
+
+        .wpbdp-payment-status,
+        .wpbdp-payment-total {
+            text-align: right;
+        }
+
+    }
+
+}
+ /*
+#wpbdp-listing-metabox-payments table tr a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#wpbdp-listing-metabox-payments table tr a:hover {
+    text-decoration: underline;
+}
+*/
