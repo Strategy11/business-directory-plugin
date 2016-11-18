@@ -22,6 +22,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     protected function get_defaults() {
         return array(
+            'parent_id' => 0,
             'payment_notes' => array(),
             'payment_items' => array(),
             'payer_data' => array(),
