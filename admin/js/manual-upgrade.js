@@ -39,4 +39,22 @@ jQuery(function($) {
         inProgress = false;
     });
 
+    // Migration specific.
+    $( '#wpbdp-manual-upgrade-15_0-config select.level-migration' ).change(function(e) {
+        var selection = $( this ).find( 'option:selected' );
+        var $desc = $( this ).siblings( '.option-description' );
+
+        if ( ! selection.val() ) {
+            $desc.hide();
+            $( this ).siblings( '.option-configuration' ).hide();
+            return;
+        }
+
+        $desc.html( selection.data( 'description' ) ).show();
+
+        var $config = $( this ).siblings( '.option-configuration' ).filter( '.option-' + selection.val() );
+        if ( $config.length > 0 )
+            $config.show();
+    });
+
 });
