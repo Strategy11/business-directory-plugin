@@ -29,4 +29,13 @@ class WPBDP__Migration {
         update_option( 'wpbdp-manual-upgrade-pending', $manual_upgrade );
     }
 
+    public function get_config() {
+        $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
+
+        if ( ! $manual_upgrade || ! is_array( $manual_upgrade ) || empty( $manual_upgrade['config'] ) )
+            return array();
+
+        return $manual_upgrade['config'];
+    }
+
 }

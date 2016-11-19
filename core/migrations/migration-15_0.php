@@ -2,17 +2,6 @@
 
 class WPBDP__Migrations__15_0 extends WPBDP__Migration {
 
-    public function migrate() {
-        global $wpdb;
-
-        // Remove orphan everything first to make things easier for us.
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
-        $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id NOT IN (SELECT id FROM {$wpdb->prefix}wpbdp_payments)" );
-
-        $this->request_manual_upgrade_with_configuration( '_upgrade_to_15_migrate_fees', '_upgrade_config' );
-    }
-
     private function _validate_config( $levels ) {
         if ( empty( $_POST ) || empty( $_POST['level'] ) )
             return false;
@@ -61,7 +50,21 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
 
         // Validate (in case data was POSTed).
         if ( $this->_validate_config( $levels ) ) {
-            $this->set_manual_upgrade_config( $_POST['level'] );
+            $newconfig = array();
+
+            foreach ( $levels as $level_id => $level_info ) {
+                $newconfig[ $level_id ] = array(
+                    'strategy' => $_POST['level'][ $level_id ]['strategy'],
+                    'move_to' => absint( $_POST['level'][ $level_id ]['move_to'] ),
+                    'fee_days' => absint( $_POST['level'][ $level_id ]['fee_days'] ),
+                    'fee_images' => absint( $_POST['level'][ $level_id ]['fee_images'] ),
+                    'label' => $level_info['name'],
+                    'description' => $level_info['description'],
+                    'cost' => $level_info['cost']
+                );
+            }
+
+            $this->set_manual_upgrade_config( $newconfig );
             $this->manual_upgrade_configured();
             return;
         }
@@ -114,6 +117,8 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
 
             echo '<div class="option-configuration option-create">';
             echo '<label> ' ._x( 'Listing run (in days) for new fee:', 'upgrade-15', 'WPBDM' ) . ' <input type="text" name="level[' . $level_id . '][fee_days]" size="6" /></label>';
+            echo '<br />';
+            echo '<label> ' ._x( '# of images for new fee:', 'upgrade-15', 'WPBDM' ) . ' <input type="text" name="level[' . $level_id . '][fee_images]" size="3" /></label>';
             echo '</div>';
             echo '</td>';
             echo '</tr>';
@@ -125,6 +130,17 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
             // $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE meta_key = %s AND meta_value = %s", $level->downgrade, '_wpbdp[sticky_level]', $level->id) );
         echo '</div>';
    }
+
+    public function migrate() {
+        global $wpdb;
+
+        // Remove orphan everything first to make things easier for us.
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
+        $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id NOT IN (SELECT id FROM {$wpdb->prefix}wpbdp_payments)" );
+
+        $this->request_manual_upgrade_with_configuration( '_upgrade_to_15_migrate_fees', '_upgrade_config' );
+    }
 
     public function _upgrade_to_15_migrate_fees() {
         $status_msg = '';
@@ -174,7 +190,7 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
             }
         }
 
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
+        // $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
         return true;
     }
 
@@ -352,48 +368,109 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
         return false;
     }
 
+    private function register_featured_to_fee( $sticky_level, $fee_id ) {
+        $data = get_option( 'wpbdp-featured-to-fee', array() );
+
+        if ( ! is_array( $data ) )
+            $data = array();
+
+        if ( isset( $data[ $sticky_level ] ) )
+            return;
+
+        $data[ $sticky_level ] = absint( $fee_id );
+
+        update_option( 'wpbdp-featured-to-fee', $data, false );
+    }
+
+    private function get_fee_for_featured( $sticky_level ) {
+        $data = get_option( 'wpbdp-featured-to-fee', array() );
+
+        if ( ! is_array( $data ) || ! array_key_exists( $sticky_level, $data ) )
+            return false;
+
+        return $data[ $sticky_level ];
+    }
+
     public function migrate_sticky_info( &$msg ) {
         global $wpdb;
         static $batch_size = 40;
 
-        $msg = '';
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings_plans WHERE featured_level IS NULL OR featured_level = %s", '' ) );
-        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans WHERE featured_level IS NULL OR featured_level = %s ORDER BY listing_id LIMIT %d", '', $batch_size ) );
+        $config = $this->get_config();
 
-        if ( ! $listings ) {
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET featured_level = NULL WHERE featured_level = %s", 'normal' ) );
+        if ( ! $config ) {
+            // Delete all sticky info.
+            $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' );
+            $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' );
+
             return true;
         }
 
-        $record = array( 'featured_price' => 0.0, 'featured_level' => 'normal', 'is_sticky' => 0 );
+        foreach ( $config as $level_id => $level_config ) {
+            $fee_id = 0;
 
-        foreach ( $listings as $listing_id ) {
-            $status = get_post_meta( $listing_id, '_wpbdp[sticky]', true );
-            $level = get_post_meta( $listing_id, '_wpbdp[sticky_level]', true );
+            switch ( $level_config['strategy'] ) {
+            case 'remove':
+                $this->register_featured_to_fee( $level_id, 0 );
+                break;
+            case 'move':
+                $this->register_featured_to_fee( $level_id, $level_config['move_to'] );
+                $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $level_config['move_to'] ) );
 
-            if ( ! $status || 'pending' == $status ) {
-                $record['featured_level'] = 'normal';
-            } elseif ( 'sticky' == $status ) {
-                $record['is_sticky'] = 1;
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
+                $fee->id,
+                $fee->amount,
+                $fee->days,
+                $fee->images,
+                1,
+                '_wpbdp[sticky_level]',
+                $level_id ) );
 
-                if ( $level != 'sticky' )
-                    $price = (float) $wpdb->get_var( $wpdb->prepare( "SELECT cost FROM {$wpdb->prefix}wpbdp_x_featured_levels WHERE id = %s", $level ) );
-                else
-                    $price = (float) wpbdp_get_option( 'featured-price' );
+                break;
+            case 'create':
+                $fee_id = $this->get_fee_for_featured( $level_id );
 
-                $record['featured_price'] = $price;
-                $record['featured_level'] = ( $level ? $level : 'sticky' );
+                if ( false === $fee_id ) {
+                    // Create fee.
+                    $wpdb->insert( $wpdb->prefix . 'wpbdp_fees',
+                        array(
+                        'label' => $level_config['label'],
+                        'description' => $level_config['description'],
+                        'amount' => $level_config['cost'],
+                        'days' => $level_config['fee_days'],
+                        'images' => $level_config['fee_images'],
+                        'sticky' => 1,
+                        'enabled' => 1,
+                        'pricing_model' => 'flat',
+                        'supported_categories' => 'all' ) );
+                    $fee_id = $wpdb->insert_id;
+                    $this->register_featured_to_fee( $level_id, $fee_id );
+                }
+
+                $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $fee_id ) );
+
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
+                $fee->id,
+                $fee->amount,
+                $fee->days,
+                $fee->images,
+                1,
+                '_wpbdp[sticky_level]',
+                $level_id ) );
+
+                break;
+            default:
+                break;
             }
 
-            if ( false !== $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $record, array( 'listing_id' => $listing_id ) ) ) {
-                delete_post_meta( $listing_id, '_wpbdp[sticky]' );
-                delete_post_meta( $listing_id, '_wpbdp[sticky_level]' );
-            }
+            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_wpbdp[sticky_level]', $level_id ) );
         }
 
-        $msg = sprintf( _x( 'Migrating featured level information: %d listings remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
+        $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans pl JOIN {$wpdb->postmeta} pm ON pm.post_id = pl.listing_id SET pl.is_sticky = %d WHERE pm.meta_key = %s AND pm.meta_value = %s", 1, '_wpbdp[sticky]', 'sticky' ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' ) );
+        $msg = _x( 'Migrating featured level information.', 'installer', 'WPBDM' );
 
-        return false;
+        return true;
     }
 
 }
