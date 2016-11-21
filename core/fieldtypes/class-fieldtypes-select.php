@@ -91,12 +91,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     }
                 }
         } else {
-            $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s">',
+            $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s" %s>',
                               'wpbdp-field-' . $field->get_id(),
                               'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
                               $this->is_multiple() ? 'multiple="multiple"' : '',
                               'inselect',
-                              $field->is_required() ? 'required' : '');
+                              $field->is_required() ? 'required' : '',
+                $this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
+            );
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
                 $html .= sprintf( '<option value="-1">%s</option>',
@@ -133,6 +135,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( $association != 'meta' && $association != 'tags' )
             return '';
 
+        return self::render_admin_settings( $this->get_field_settings( $field, $association ) );
+    }
+
+    protected function get_field_settings( $field=null, $association=null ) {
         $settings = array();
 
         $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
@@ -153,7 +159,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $settings['empty_on_search'][] = $content;
 
-        return self::render_admin_settings( $settings );
+        return $settings;
     }
 
     public function process_field_settings( &$field ) {
