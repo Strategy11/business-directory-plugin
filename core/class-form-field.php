@@ -307,11 +307,11 @@ class WPBDP_Form_Field {
      * @param string $key configuration key name
      * @return mixed|array if $key is ommitted an array of all key/values will be returned
      */
-    public function data( $key=null ) {
+    public function data( $key=null, $default=null ) {
         if ( !$key )
             return $this->field_data;
 
-        $res = isset( $this->field_data[$key] ) ? $this->field_data[$key] : null;
+        $res = isset( $this->field_data[$key] ) ? $this->field_data[ $key ] : $default;
         return apply_filters( 'wpbdp_form_field_data', $res, $key, $this );
     }
 
