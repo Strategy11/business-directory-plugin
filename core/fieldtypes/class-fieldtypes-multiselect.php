@@ -22,8 +22,11 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
     protected function get_field_settings( $field=null, $association=null ) {
         $settings = parent::get_field_settings( $field, $association );
 
-        $label = _x( 'Number of visible options without scrolling', 'form-fields-admin', 'WPBDM' );
-        $content = '<input name="field[x_size]" type="number" value="%d">';
+        $label = _x( 'Number of options visible without scrolling', 'form-fields-admin', 'WPBDM' );
+        $description = _x( 'The height of the list will be adjusted to accommodate the specified number of options.', 'form-fields-admin', 'WPBDM' );
+
+        $content = '<span class="description">' . $description . '</span><br />';
+        $content.= '<input name="field[x_size]" type="number" value="%d">';
 
         $settings['size'] = array( $label, sprintf( $content, $field->data( 'size', 4 ) ) );
 
