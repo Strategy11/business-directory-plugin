@@ -66,7 +66,7 @@ class WPBDP_Admin {
         // Reset settings action.
         add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
-        add_action( 'admin_init', array( $this, 'admin_view_dispatch' ), 9999 );
+        add_action( 'admin_enqueue_scripts', array( $this, 'admin_view_dispatch' ), 9999 );
         add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
         $this->listings = new WPBDP_Admin_Listings();
@@ -428,15 +428,15 @@ class WPBDP_Admin {
         if ( $output )
             return print( $output );
 
-        global $plugin_page;
-        if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
-            return;
-
-        $item = $this->menu[ $plugin_page ];
-        $slug = $plugin_page;
-        $callback = $item['callback'];
-
-        call_user_func( $callback );
+        // global $plugin_page;
+        // if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
+        //     return;
+        //
+        // $item = $this->menu[ $plugin_page ];
+        // $slug = $plugin_page;
+        // $callback = $item['callback'];
+        //
+        // call_user_func( $callback );
     }
 
     /**
