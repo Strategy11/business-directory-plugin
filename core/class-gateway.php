@@ -94,6 +94,7 @@ abstract class WPBDP_Payment_Gateway {
      */
     public function sanitize_billing_information( $data ) {
         $fields = array(
+            'email',
             'first_name',
             'last_name',
             'cc_number',
@@ -105,7 +106,8 @@ abstract class WPBDP_Payment_Gateway {
             'address_city',
             'address_line1',
             'address_line2',
-            'zipcode'
+            'zipcode',
+            'phone'
         );
 
         $sanitized_data = array();
@@ -127,13 +129,16 @@ abstract class WPBDP_Payment_Gateway {
 
         $data = $this->sanitize_billing_information( stripslashes_deep( $_POST ) );
 
+        if ( ! $data['email'] || ! is_email( $data['email'] ) )
+            $errors[] = _x( 'Please enter a valid e-mail address.', 'billing info', 'WPBDM' );
+
         if ( ! $data['first_name'] )
             $errors[] = _x( 'First name is required.', 'billing info', 'WPBDM' );
 
         if ( ! $data['last_name'] )
             $errors[] = _x( 'Last name is required.', 'billing info', 'WPBDM' );
 
-        if ( ! $data['cc_number'] )
+        if ( ! $data['cc_number'] || ! is_numeric( $data['cc_number'] ) )
             $errors[] = _x( 'Credit card number is required.', 'billing info', 'WPBDM' );
 
         if ( ! $data['cc_exp_month'] || ! $data['cc_exp_year'] )

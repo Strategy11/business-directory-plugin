@@ -639,11 +639,17 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* {{ Billing information form. */
 #wpbdp-billing-information .billing-info-section h4 {
-    margin-bottom: 5px;
+    margin: 10px 0 5px 0;
 }
 
 #wpbdp-billing-information .billing-info-section table {
-    margin: 10px 0 0 20px;
+    margin: 1.75em 0;
+}
+
+#wpbdp-billing-information #wpbdp-billing-field-exp,
+#wpbdp-billing-information #wpbdp-billing-field-exp-year {
+    width: 40%;
+    display: inline;
 }
 
 #wpbdp-billing-information .form-buttons {
