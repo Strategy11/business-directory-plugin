@@ -1,0 +1,296 @@
+<?php
+
+class WPBDP__Migrations__15_0__Featured_Levels {
+
+    function __construct() {
+        add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+        add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
+    }
+
+    function add_upgrade_page() {
+        add_submenu_page( 'options.php',
+                          __( 'Business Directory - Featured Levels migration', 'WPBDM' ),
+                          __( 'Business Directory - Featured Levels migration', 'WPBDM' ),
+                          'administrator',
+                          'wpbdp_migration_15_0_featured_levels',
+                          array( &$this, 'migration_page' ) );
+    }
+
+    function _fee_form() {
+        $form = wpbdp_render_page( WPBDP_PATH . 'admin/templates/fees-form.tpl.php', array( 'fee' => new WPBDP_Fee_Plan() ) );
+        return $form;
+    }
+
+    function _validate_config( $levels ) {
+        $posted = ! empty( $_POST['level'] ) ? $_POST['level'] : false;
+
+        if ( ! $posted )
+            return false;
+
+        $config = array();
+
+        foreach ( $levels as $level_id => $level_data ) {
+            if ( ! isset( $posted[ $level_id ] ) )
+                return false;
+
+            $strategy = wpbdp_getv( $posted[ $level_id ], 'strategy', false );
+            $move_to = absint( wpbdp_getv( $posted[ $level_id ], 'move_to', 0 ) );
+            $new_details = wpbdp_getv( $posted[ $level_id ], 'details', false );
+
+            switch ( $strategy ) {
+            case 'remove':
+                $config[ $level_id ] = array( 'strategy' => 'remove' );
+                break;
+            case 'move':
+                $plan = WPBDP_Fee_Plan::find( $move_to );
+
+                if ( ! $plan )
+                    return false;
+
+                $config[ $level_id ] = array( 'strategy' => 'move', 'fee_id' => $move_to );
+                break;
+            case 'create':
+                parse_str( $new_details, $fee_details );
+                $fee = stripslashes_deep( $fee_details['fee'] );
+
+                if ( ! isset( $fee_details['limit_categories'] ) )
+                    $fee['supported_categories'] = 'all';
+
+                if ( ! isset( $fee_details['sticky'] ) )
+                    $fee['sticky'] = 0;
+
+                $config[ $level_id ] = array( 'strategy' => 'create', 'fee' => $fee );
+                break;
+            default:
+                return false;
+                break;
+            }
+        }
+
+        return $config;
+    }
+
+    function _update_db( $config ) {
+        global $wpdb;
+
+        if ( ! $config ) {
+            // Delete all sticky info.
+            $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' );
+            $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' );
+            return;
+        }
+
+        $featured_fee_translation = array();
+
+        foreach ( $config as $level_id => $level_config ) {
+            switch ( $level_config['strategy'] ) {
+            case 'remove':
+                $featured_fee_translation[ $level_id ] = 0;
+                break;
+            case 'move':
+                $featured_fee_translation[ $level_id ] = $level_config['fee_id'];
+
+                $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $level_config['fee_id'] ) );
+
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
+                $fee->id,
+                $fee->amount,
+                $fee->days,
+                $fee->images,
+                $fee->sticky,
+                '_wpbdp[sticky_level]',
+                $level_id ) );
+
+                break;
+            case 'create':
+                $fee = new WPBDP_Fee_Plan( $level_config['fee'] );
+
+                if ( $fee->save() ) {
+                    $featured_fee_translation[ $level_id ] = $fee->id;
+
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
+                    $fee->id,
+                    $fee->amount,
+                    $fee->days,
+                    $fee->images,
+                    $fee->sticky,
+                    '_wpbdp[sticky_level]',
+                    $level_id ) );
+                } else {
+                    $featured_fee_translation[ $level_id ] = 0;
+                }
+
+                break;
+            }
+        }
+
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' ) );
+
+        delete_option( 'wpbdp-migrate-15_0-featured-pending' );
+    }
+
+    function migration_page() {
+        if ( ! get_option( 'wpbdp-migrate-15_0-featured-pending', false ) ) {
+            return;
+        }
+
+        global $wpdb;
+
+        $levels = array();
+
+        if ( $wpdb->get_row( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . 'wpbdp_x_featured_levels' ) ) ) {
+            $db_levels = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_x_featured_levels" );
+
+            foreach ( $db_levels as $db_level ) {
+                $levels[ $db_level->id ] = (array) $db_level;
+            }
+        }
+
+        unset( $levels['normal'] );
+        if ( ! isset( $levels['sticky'] ) ) {
+            $levels['sticky'] = array( 'name' => _x( 'Featured Listing', 'listings-api', 'WPBDM' ),
+                'description' => wpbdp_get_option( 'featured-description' ),
+                'cost' => floatval( wpbdp_get_option( 'featured-price' ) ) );
+        }
+
+        // Validate (in case data was POSTed).
+        if ( $config = $this->_validate_config( $levels ) ) {
+            $this->_update_db( $config );
+
+            echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'WPBDM' ), 'manual-upgrade', null, false );
+            echo _x( 'Featured Levels migration is complete.', 'migrate-15', 'WPBDM' );
+            echo '<br /><br />';
+            echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin' ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-15', 'WPBDM' ) . '</a>';
+            echo wpbdp_admin_footer();
+
+            return;
+        }
+
+        echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'WPBDM' ), 'manual-upgrade', null, false );
+        echo '<div class="wpbdp-manual-upgrade-wrapper">';
+
+        echo '<div id="wpbdp-manual-upgrade-15_0-config">';
+
+        echo '<div id="add-fee-form" data-title="' . _x( 'Configure Plan', 'upgrade-15', 'WPBDM' ) . '">';
+        echo $this->_fee_form();
+        echo '</div>';
+
+        _ex( 'Business Directory <b>version @next-release</b> is changing how Featured Levels plugin works. We are leaving restricted features for fee plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-15', 'WPBDM');
+        echo '<br />';
+        _ex( 'We need to migrate your existing "featured levels" to fee plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-15', 'WPBDM');
+        echo '<br /><br />';
+        _ex( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature fee plan" that is right for you.', 'migrate-15', 'WPBDM');
+
+
+        // Compute listing counts.
+        foreach ( array_keys( $levels ) as $level_id ) {
+            $levels[ $level_id ]['count'] = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID WHERE p.post_type = %s AND pm.meta_key = %s AND pm.meta_value = %s", WPBDP_POST_TYPE, '_wpbdp[sticky_level]', $level_id ) );
+        }
+
+        // Gather possible feet options for migration.
+        $fee_options = '';
+        foreach ( $wpdb->get_results( "SELECT id, label FROM {$wpdb->prefix}wpbdp_fees" ) as $r ) {
+            $fee_options .= '<option value="' . $r->id . '">' . $r->label . '</option>';
+        }
+
+        echo '<form action="" method="post">';
+        echo '<table id="fee-decisions">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th class="level-name">' . _x( 'Featured Level', 'upgrade-15', 'WPBDM' ) . '</th>';
+        echo '<th>' . _x( 'What to do with it?', 'upgrade-15', 'WPBDM' ) . '</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        foreach ( $levels as $level_id => $level ) {
+            echo '<tr>';
+            echo '<td class="level-name">';
+            echo '<strong>' . $level['name'] . '</strong><br />';
+            echo sprintf( _nx( '%d listing is on this level.', '%d listings are on this level.', $level['count'], 'upgrade-15', 'WPBDM' ), $level['count'] );
+            echo '</td>';
+            echo '<td>';
+            echo '<select data-level-id="' . $level_id . '" class="level-migration" name="level[' . $level_id . '][strategy]">';
+            echo '<option class="placeholder" value="">' . _x( 'Select an option', 'upgrade-15', 'WPBDM' ) . '</option>';
+            echo '<option data-description="' . esc_attr( _x( 'Remove "sticky" status for listings.', 'upgrade-15', 'WPBDM' ) ) . '" value="remove">' . _x( 'Remove this (old) level, and leave the listing on the old fee plan.', 'upgrade-15', 'WPBDM' ) . '</option>';
+
+            if ( $fee_options )
+                echo '<option data-description="' . esc_attr( _x( 'May change "sticky" status depending on fee plan.', 'upgrade-15', 'WPBDM' ) ) . '" value="move">' . _x( 'Move listings with this level to existing fee plan.', 'upgrade-15', 'WPBDM' ) . '</option>';
+
+                echo '<option data-description="' . esc_attr( _x( 'Keep "sticky" status of listings.', 'upgrade-15', 'WPBDM' ) ) . '" value="create">' . _x( 'Replace this level with a new fee plan.', 'upgrade-15', 'WPBDM' ) . '</option>';
+
+            echo '</select>';
+            echo '<div class="option-description"></div>';
+
+            if ( $fee_options ):
+                echo '<div class="option-configuration option-move" >';
+                echo _x( 'Move to: ', 'migrate-15', 'WPBDM' );
+                echo '<select name="level[' . $level_id . '][move_to]">';
+                echo $fee_options;
+                echo '</select>';
+                echo '</div>';
+            endif;
+
+            echo '<div class="option-configuration option-create">';
+            echo '<input type="hidden" name="level[' . $level_id . '][details]" />';
+
+            echo '<h4>' . _x( 'New plan summary', 'migrate-15', 'WPBDM') . '</h4>';
+            echo '<table class="new-fee-summary" data-level-id="' . $level_id . '">';
+            echo '<thead><tr>';
+            echo '<th>' . _x( 'Fee Label', 'migrate-15', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Amount', 'migrate-15', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Duration', 'migrate-15', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Images', 'migrate-15', 'WPBDM' ) . '</th>';
+            echo '</tr></thead>';
+            echo '<tbody>';
+            echo '<tr>';
+            echo '<td data-attr="fee_label"></td>';
+            echo '<td data-attr="fee_amount"></td>';
+            echo '<td data-attr="fee_duration"></td>';
+            echo '<td data-attr="fee_images"></td>';
+            echo '</tr>';
+            echo '</tbody>';
+            echo '</table>';
+
+            echo '</div>';
+            echo '</td>';
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+
+        echo '<p>';
+        echo '<input type="submit" value="' . _x( 'Perform migration', 'migrate-15', 'WPBDM' ) . '" class="button button-primary" />';
+        echo '</p>';
+
+        echo '</form>';
+
+        // $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE meta_key = %s AND meta_value = %s", $level->downgrade, '_wpbdp[sticky_level]', $level->id) );
+        echo '</div>';
+
+        echo '</div>';
+        echo wpbdp_admin_footer();
+    }
+
+    public function enqueue_scripts() {
+        add_thickbox();
+        wp_enqueue_style( 'wpbdp-admin', WPBDP_URL . 'admin/css/admin.min.css' );
+        wp_enqueue_style( 'wpbdp-manual-upgrade-css', WPBDP_URL . 'admin/css/manual-upgrade.min.css' );
+        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'admin/js/manual-upgrade.min.js', array( 'jquery' ) );
+    }
+    //
+
+    function admin_notices() {
+        if ( ! empty( $_GET['page'] ) && 'wpbdp_migration_15_0_featured_levels' == $_GET['page'] )
+            return;
+
+        echo '<div class="wpbdp-notice error"><p>';
+        // echo "You still need to perform your Featured Levels migration [here]"
+        echo '<a href="admin.php?page=wpbdp_migration_15_0_featured_levels">Migration</a>';
+        echo '</p></div>';
+    }
+
+}

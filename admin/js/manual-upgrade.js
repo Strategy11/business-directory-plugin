@@ -40,9 +40,33 @@ jQuery(function($) {
     });
 
     // Migration specific.
+    $( '#wpbdp-manual-upgrade-15_0-config #add-fee-form form#wpbdp-fee-form' ).submit(function(e) {
+        e.preventDefault();
+
+        var level_id = $( this ).data( 'levelId' );
+
+        if ( ! level_id ) {
+            $( '#TB_closeWindowButton' ).click();
+            return;
+        }
+
+        var data = $( this ).serialize();
+        $( 'input[name="level[' + level_id + '][details]"]' ).val( data );
+
+        // Extract some data for the summary.
+        $( 'table.new-fee-summary[data-level-id="' + level_id + '"] td[data-attr="fee_label"]' ).html( $( this ).find( 'input[name="fee[label]"]' ).val() );
+        $( 'table.new-fee-summary[data-level-id="' + level_id + '"] td[data-attr="fee_amount"]' ).html( $( this ).find( 'input[name="fee[amount]"]' ).val() );
+        $( 'table.new-fee-summary[data-level-id="' + level_id + '"] td[data-attr="fee_duration"]' ).html( $( this ).find( 'input[name="fee[days]"]' ).val() );
+        $( 'table.new-fee-summary[data-level-id="' + level_id + '"] td[data-attr="fee_images"]' ).html( $( this ).find( 'input[name="fee[images]"]' ).val() );
+
+        $( '#TB_closeWindowButton' ).click();
+    });
+
     $( '#wpbdp-manual-upgrade-15_0-config select.level-migration' ).change(function(e) {
         var selection = $( this ).find( 'option:selected' );
         var $desc = $( this ).siblings( '.option-description' );
+
+        $( this ).siblings( '.option-configuration' ).hide();
 
         if ( ! selection.val() ) {
             $desc.hide();
@@ -53,8 +77,24 @@ jQuery(function($) {
         $desc.html( selection.data( 'description' ) ).show();
 
         var $config = $( this ).siblings( '.option-configuration' ).filter( '.option-' + selection.val() );
-        if ( $config.length > 0 )
+        if ( $config.length > 0 ) {
             $config.show();
+        }
+
+        if ( 'create' == selection.val() ) {
+            $( 'form#wpbdp-fee-form' ).get(0).reset();
+            $( 'form#wpbdp-fee-form' ).data( 'levelId', $( this ).attr( 'data-level-id' ) );
+            $config.find( '.new-fee-summary tbody td' ).html( '-' );
+            tb_show( $( '#add-fee-form' ).attr( 'data-title' ), '#TB_inline?inlineId=add-fee-form' );
+            $( 'form#wpbdp-fee-form input:first' ).focus();
+        }
     });
 
 });
+
+        //     var width = Math.floor( $(window).width() * 0.8 ) - 5;
+        //     var height = Math.floor( $(window).height() * 0.8 ) - 5;
+        //     t._$display.find( '.route-map' ).width( ( width * 0.7 ) + 'px' );
+        //     t._$display.find( '.route-map' ).height( height + 'px' );
+        //     t._$display.find( '.directions-panel' ).css( 'max-height', height + 'px' );
+        //     tb_show( title, '#TB_inline?width=' + width + '&height=' + height + '&inlineId=wpbdp-map-directions-wrapper' );

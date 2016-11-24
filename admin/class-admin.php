@@ -73,6 +73,12 @@ class WPBDP_Admin {
         $this->csv_import = new WPBDP_CSVImportAdmin();
         $this->csv_export = new WPBDP_Admin_CSVExport();
         $this->debug_page = new WPBDP_Admin_Debug_Page();
+
+        // Post-install migrations.
+        if ( get_option( 'wpbdp-migrate-15_0-featured-pending', false ) ) {
+            require_once( WPBDP_PATH . 'core/migrations/migration-15_0-featured-levels.php' );
+            $this->post_install_migration = new WPBDP__Migrations__15_0__Featured_Levels();
+        }
     }
 
     function enqueue_scripts() {
@@ -428,15 +434,15 @@ class WPBDP_Admin {
         if ( $output )
             return print( $output );
 
-        // global $plugin_page;
-        // if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
-        //     return;
-        //
-        // $item = $this->menu[ $plugin_page ];
-        // $slug = $plugin_page;
-        // $callback = $item['callback'];
-        //
-        // call_user_func( $callback );
+        global $plugin_page;
+        if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
+            return;
+
+        $item = $this->menu[ $plugin_page ];
+        $slug = $plugin_page;
+        $callback = $item['callback'];
+
+        call_user_func( $callback );
     }
 
     /**
