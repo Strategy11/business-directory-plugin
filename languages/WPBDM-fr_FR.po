@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-11-01 23:27:24+00:00\n"
+"POT-Creation-Date: 2016-11-24 19:01:29+00:00\n"
 "PO-Revision-Date: 2016-08-29 18:17-0300\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -565,23 +565,23 @@ msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Impossible de déplacer \"%s\" vers un dossier temporaire"
 
 #: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
-#: core/licensing.php:127 core/licensing.php:159
+#: core/licensing.php:126 core/licensing.php:158
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Impossible de contacter le serveur de licences"
 
-#: admin/class-themes-admin.php:372 core/licensing.php:132
-#: core/licensing.php:166
+#: admin/class-themes-admin.php:372 core/licensing.php:131
+#: core/licensing.php:165
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La clé de licence est invalide"
 
-#: admin/class-themes-admin.php:377 core/licensing.php:333
+#: admin/class-themes-admin.php:377 core/licensing.php:320
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: admin/class-themes-admin.php:390 core/licensing.php:335
+#: admin/class-themes-admin.php:390 core/licensing.php:322
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
@@ -591,7 +591,7 @@ msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr "Invalid response from server"
 
-#: admin/class-themes-admin.php:450 core/licensing.php:353
+#: admin/class-themes-admin.php:450 core/licensing.php:340
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
@@ -2228,7 +2228,7 @@ msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.4)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.5dev6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3160,37 +3160,43 @@ msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Une erreur est survenue en essayant de supprimer ce champ."
 
-#: core/class-gateway.php:131
+#: core/class-gateway.php:133
+#, fuzzy
+msgctxt "billing info"
+msgid "Please enter a valid e-mail address."
+msgstr "Veuillez entrer un e-mail valide."
+
+#: core/class-gateway.php:136
 msgctxt "billing info"
 msgid "First name is required."
 msgstr "Le prénom est requis."
 
-#: core/class-gateway.php:134
+#: core/class-gateway.php:139
 msgctxt "billing info"
 msgid "Last name is required."
 msgstr "Le nom est requis."
 
-#: core/class-gateway.php:137
+#: core/class-gateway.php:142
 msgctxt "billing info"
 msgid "Credit card number is required."
 msgstr "Le numéro de carte de crédit est requis."
 
-#: core/class-gateway.php:140
+#: core/class-gateway.php:145
 msgctxt "billing info"
 msgid "Credit card expiration date is invalid."
 msgstr "La date d'expiration de la carte de crédit est requise."
 
-#: core/class-gateway.php:143
+#: core/class-gateway.php:148
 msgctxt "billing info"
 msgid "Credit card CVC number is required."
 msgstr "Le numéro CVC de la carte de crédit est requis"
 
-#: core/class-gateway.php:146
+#: core/class-gateway.php:151
 msgctxt "billing info"
 msgid "Country is required."
 msgstr "Le pays est requis"
 
-#: core/class-gateway.php:149
+#: core/class-gateway.php:154
 msgctxt "billing info"
 msgid "Address is required."
 msgstr "L'adresse est requise."
@@ -4967,7 +4973,7 @@ msgstr "Case à cocher"
 
 #: core/fieldtypes/class-fieldtypes-checkbox.php:72
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:138
+#: core/fieldtypes/class-fieldtypes-select.php:144
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
@@ -4976,7 +4982,7 @@ msgstr ""
 
 #: core/fieldtypes/class-fieldtypes-checkbox.php:93
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:87
-#: core/fieldtypes/class-fieldtypes-select.php:166
+#: core/fieldtypes/class-fieldtypes-select.php:172
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "La liste des options est obligatoire"
@@ -5040,6 +5046,18 @@ msgctxt "form-fields api"
 msgid "Multiselect List"
 msgstr "Multisélection d'annonce"
 
+#: core/fieldtypes/class-fieldtypes-multiselect.php:25
+msgctxt "form-fields-admin"
+msgid "Number of options visible without scrolling"
+msgstr ""
+
+#: core/fieldtypes/class-fieldtypes-multiselect.php:26
+msgctxt "form-fields-admin"
+msgid ""
+"The height of the list will be adjusted to accommodate the specified number "
+"of options."
+msgstr ""
+
 #: core/fieldtypes/class-fieldtypes-phone-number.php:13
 #, fuzzy
 msgctxt "form fields"
@@ -5062,12 +5080,12 @@ msgid "-- Choose Terms --"
 msgstr "-- Choisissez les conditions --"
 
 #: core/fieldtypes/class-fieldtypes-select.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:103
+#: core/fieldtypes/class-fieldtypes-select.php:105
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "-- Choisissez --"
 
-#: core/fieldtypes/class-fieldtypes-select.php:149
+#: core/fieldtypes/class-fieldtypes-select.php:155
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Permettre la sélection vide sur la recherche?"
@@ -5392,7 +5410,7 @@ msgctxt "authorize-net"
 msgid "Setup fee"
 msgstr "Installation/Paramétrage des frais"
 
-#: core/gateways-authorize-net.php:173
+#: core/gateways-authorize-net.php:175
 msgctxt "authorize-net"
 msgid "Could not process payment."
 msgstr "Impossible de procéder au paiement."
@@ -5596,37 +5614,37 @@ msgstr ""
 msgid "Please <contact-link>contact customer support</a>."
 msgstr ""
 
-#: core/licensing.php:43 core/licensing.php:65 core/licensing.php:66
+#: core/licensing.php:42 core/licensing.php:64 core/licensing.php:65
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licences"
 
-#: core/licensing.php:46
+#: core/licensing.php:45
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Modules Premium"
 
-#: core/licensing.php:107 core/licensing.php:141
+#: core/licensing.php:106 core/licensing.php:140
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Identifiant de module invalide"
 
-#: core/licensing.php:112
+#: core/licensing.php:111
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Aucune clé de licence fournie"
 
-#: core/licensing.php:169
+#: core/licensing.php:168
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "La désactivation a échoué"
 
-#: core/licensing.php:233
+#: core/licensing.php:220
 msgctxt "licensing"
 msgid "Business Directory - License Key Required"
 msgstr "Business Directory - Une clé de licence est requise"
 
-#: core/licensing.php:236
+#: core/licensing.php:223
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -5637,12 +5655,12 @@ msgstr ""
 "licence valide ne sera pas fournie. Aller à <a> Gérer les options - Licences "
 "</a> et entrez vos informations de licence."
 
-#: core/licensing.php:257
+#: core/licensing.php:244
 msgctxt "licensing"
 msgid "Business Directory - License Key Expired"
 msgstr "Business Directory - Clé de licence expirée"
 
-#: core/licensing.php:258
+#: core/licensing.php:245
 msgctxt "licensing"
 msgid ""
 "The license key for <span class=\"module-name\">%s %s</span> has expired. "
@@ -5653,17 +5671,17 @@ msgstr ""
 "Le module va continuer à travailler mais vous ne recevrez plus de mises à "
 "jour jusqu'à ce que la licence soit renouvelée."
 
-#: core/licensing.php:262
+#: core/licensing.php:249
 msgctxt "licensing"
 msgid "Remind me later"
 msgstr "Rappelez-le moi plus tard"
 
-#: core/licensing.php:264
+#: core/licensing.php:251
 msgctxt "licensing"
 msgid "Renew License Key"
 msgstr "Renouveller la clé de licence"
 
-#: core/licensing.php:351
+#: core/licensing.php:338
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
@@ -5880,66 +5898,66 @@ msgctxt "search"
 msgid "Search Results"
 msgstr "Résultats de la recherche"
 
-#: core/templates-ui.php:161
+#: core/templates-ui.php:169
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Aucune catégorie d'annonce trouvée"
 
-#: core/templates-ui.php:185
+#: core/templates-ui.php:193
 msgid "Directory"
 msgstr "Annuaire"
 
-#: core/templates-ui.php:191
+#: core/templates-ui.php:199
 #, fuzzy
 msgid "View All Listings"
 msgstr "Voir toutes les annonces"
 
-#: core/templates-ui.php:197
+#: core/templates-ui.php:205
 #, fuzzy
 msgid "Create A Listing"
 msgstr "Annonce gratuite"
 
-#: core/templates-ui.php:224
+#: core/templates-ui.php:232
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Recherche d'annonces"
 
-#: core/templates-ui.php:227
+#: core/templates-ui.php:235
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Recherche avancée"
 
-#: core/templates-ui.php:256 core/templates-ui.php:281
+#: core/templates-ui.php:264 core/templates-ui.php:289
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Trier par:"
 
-#: core/templates-ui.php:275
+#: core/templates-ui.php:283
 msgctxt "sort"
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: core/templates-ui.php:297
+#: core/templates-ui.php:305
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Réinitialiser)"
 
-#: core/themes.php:708
+#: core/themes.php:749
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Le fichier ZIP n'est pas un fichier de thème valide"
 
-#: core/themes.php:714
+#: core/themes.php:755
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossible de créer le répertoire de thèmes"
 
-#: core/themes.php:722
+#: core/themes.php:763
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossible de supprimer le dossier de thème précédent \"%s\"."
 
-#: core/themes.php:728
+#: core/themes.php:769
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Impossible de déplacer le nouveau thème dans le dossier à thèmes"
@@ -6209,6 +6227,12 @@ msgstr "Envoyer un message au propriétaire de l'annonce"
 #: core/views/listing_contact.php:163
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \\a\\t g:i a"
+
+#: core/views/listing_contact.php:173
+#, fuzzy
+msgctxt "contact-message"
+msgid "Your message has been sent."
+msgstr "Votre annonce a été effacée."
 
 #: core/views/listing_contact.php:178
 #, fuzzy
@@ -6525,142 +6549,154 @@ msgctxt "widgets"
 msgid "Search"
 msgstr "Rechercher"
 
-#: templates/billing-information-form.tpl.php:3
+#: templates/billing-information-form.tpl.php:4
 msgctxt "months"
 msgid "Jan"
 msgstr "Janvier"
 
-#: templates/billing-information-form.tpl.php:4
+#: templates/billing-information-form.tpl.php:5
 msgctxt "months"
 msgid "Feb"
 msgstr "Février"
 
-#: templates/billing-information-form.tpl.php:5
+#: templates/billing-information-form.tpl.php:6
 msgctxt "months"
 msgid "Mar"
 msgstr "Mars"
 
-#: templates/billing-information-form.tpl.php:6
+#: templates/billing-information-form.tpl.php:7
 msgctxt "months"
 msgid "Apr"
 msgstr "Avril"
 
-#: templates/billing-information-form.tpl.php:7
+#: templates/billing-information-form.tpl.php:8
 msgctxt "months"
 msgid "May"
 msgstr "Mai"
 
-#: templates/billing-information-form.tpl.php:8
+#: templates/billing-information-form.tpl.php:9
 msgctxt "months"
 msgid "Jun"
 msgstr "Juin"
 
-#: templates/billing-information-form.tpl.php:9
+#: templates/billing-information-form.tpl.php:10
 msgctxt "months"
 msgid "Jul"
 msgstr "Juillet"
 
-#: templates/billing-information-form.tpl.php:10
+#: templates/billing-information-form.tpl.php:11
 msgctxt "months"
 msgid "Aug"
 msgstr "Août"
 
-#: templates/billing-information-form.tpl.php:11
+#: templates/billing-information-form.tpl.php:12
 msgctxt "months"
 msgid "Sep"
 msgstr "Septembre"
 
-#: templates/billing-information-form.tpl.php:12
+#: templates/billing-information-form.tpl.php:13
 msgctxt "months"
 msgid "Oct"
 msgstr "Octobre"
 
-#: templates/billing-information-form.tpl.php:13
+#: templates/billing-information-form.tpl.php:14
 msgctxt "months"
 msgid "Nov"
 msgstr "Novembre"
 
-#: templates/billing-information-form.tpl.php:14
+#: templates/billing-information-form.tpl.php:15
 msgctxt "months"
 msgid "Dec"
 msgstr "Décembre"
 
-#: templates/billing-information-form.tpl.php:29
+#: templates/billing-information-form.tpl.php:30
 msgctxt "checkout form"
 msgid "Credit Card Details"
 msgstr "Détails de la carte de crédit"
 
-#: templates/billing-information-form.tpl.php:30
+#: templates/billing-information-form.tpl.php:31
 msgctxt "checkout form"
 msgid "Please enter your credit card details below."
 msgstr "Veuillez entrer vos détails de carte de crédit ci-dessous."
 
-#: templates/billing-information-form.tpl.php:35
+#: templates/billing-information-form.tpl.php:36
+#, fuzzy
+msgctxt "checkout form"
+msgid "E-mail:"
+msgstr "E-Mail: %s"
+
+#: templates/billing-information-form.tpl.php:44
 msgctxt "checkout form"
 msgid "First Name:"
 msgstr "Prénom:"
 
-#: templates/billing-information-form.tpl.php:43
+#: templates/billing-information-form.tpl.php:52
 msgctxt "checkout form"
 msgid "Last Name:"
 msgstr "Nom:"
 
-#: templates/billing-information-form.tpl.php:51
+#: templates/billing-information-form.tpl.php:60
 msgctxt "checkout form"
 msgid "Card Number:"
 msgstr "Numéro de carte"
 
-#: templates/billing-information-form.tpl.php:59
+#: templates/billing-information-form.tpl.php:68
 msgctxt "checkout form"
 msgid "Expiration Date (MM/YYYY):"
 msgstr "Date d'expiration (MM/YYYY):"
 
-#: templates/billing-information-form.tpl.php:72
+#: templates/billing-information-form.tpl.php:88
 msgctxt "checkout form"
 msgid "CVC:"
 msgstr "Code secret:"
 
-#: templates/billing-information-form.tpl.php:82
+#: templates/billing-information-form.tpl.php:98
 msgctxt "checkout form"
 msgid "Billing Address"
 msgstr "Adresse de facturation"
 
-#: templates/billing-information-form.tpl.php:87
+#: templates/billing-information-form.tpl.php:103
 msgctxt "checkout form"
 msgid "Country:"
 msgstr "Pays:"
 
-#: templates/billing-information-form.tpl.php:95
+#: templates/billing-information-form.tpl.php:111
 msgctxt "checkout form"
 msgid "State:"
 msgstr "Région: "
 
-#: templates/billing-information-form.tpl.php:103
+#: templates/billing-information-form.tpl.php:119
 msgctxt "checkout form"
 msgid "City:"
 msgstr "Ville: "
 
-#: templates/billing-information-form.tpl.php:111
+#: templates/billing-information-form.tpl.php:127
 msgctxt "checkout form"
 msgid "Address Line 1:"
 msgstr "Adresse ligne 1:"
 
-#: templates/billing-information-form.tpl.php:119
+#: templates/billing-information-form.tpl.php:135
 msgctxt "checkout form"
 msgid "Address Line 2:"
 msgstr "adresse ligne 2:"
 
-#: templates/billing-information-form.tpl.php:127
+#: templates/billing-information-form.tpl.php:143
 msgctxt "checkout form"
 msgid "ZIP Code:"
 msgstr "Code postal:"
 
-#: templates/billing-information-form.tpl.php:137
+#: templates/billing-information-form.tpl.php:151
+#, fuzzy
+msgctxt "checkout form"
+msgid "Phone Number:"
+msgstr "Numéro de téléphone"
+
+#: templates/billing-information-form.tpl.php:161
 msgctxt "WPBDM"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/billing-information-form.tpl.php:138
+#: templates/billing-information-form.tpl.php:162
 msgctxt "WPBDM"
 msgid "Submit Payment"
 msgstr "Soumettre paiement"
@@ -7279,32 +7315,6 @@ msgctxt "themes/default"
 msgid "Address"
 msgstr "Adresse"
 
-#: vendors/edd/EDD_SL_Plugin_Updater.php:178
-msgid ""
-"There is a new version of %1$s available. <a target=\"_blank\" class="
-"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
-msgstr ""
-"Une nouvelle version de %1$s est disponible. <a target=\"_blank\" class="
-"\"thickbox\" href=\"%2$s\">Voir les détails de la version %3$s</a>."
-
-#: vendors/edd/EDD_SL_Plugin_Updater.php:185
-msgid ""
-"There is a new version of %1$s available. <a target=\"_blank\" class="
-"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
-"\">update now</a>."
-msgstr ""
-"Une nouvelle version de %1$s est disponible. <a target=\"_blank\" class="
-"\"thickbox\" href=\"%2$s\">Voir les détails de la version %3$s</a> ou <a "
-"href=\"%4$s\">mettre à jour maintenant/a>."
-
-#: vendors/edd/EDD_SL_Plugin_Updater.php:325
-msgid "You do not have permission to install plugin updates"
-msgstr "Vous n'avez pas la permission d'installer des mises à jour du plugin"
-
-#: vendors/edd/EDD_SL_Plugin_Updater.php:325
-msgid "Error"
-msgstr "Erreur"
-
 #. Plugin URI of the plugin/theme
 msgid "http://www.businessdirectoryplugin.com"
 msgstr "http://www.businessdirectoryplugin.com"
@@ -7324,6 +7334,29 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgid ""
+#~ "There is a new version of %1$s available. <a target=\"_blank\" class="
+#~ "\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+#~ msgstr ""
+#~ "Une nouvelle version de %1$s est disponible. <a target=\"_blank\" class="
+#~ "\"thickbox\" href=\"%2$s\">Voir les détails de la version %3$s</a>."
+
+#~ msgid ""
+#~ "There is a new version of %1$s available. <a target=\"_blank\" class="
+#~ "\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+#~ "\">update now</a>."
+#~ msgstr ""
+#~ "Une nouvelle version de %1$s est disponible. <a target=\"_blank\" class="
+#~ "\"thickbox\" href=\"%2$s\">Voir les détails de la version %3$s</a> ou <a "
+#~ "href=\"%4$s\">mettre à jour maintenant/a>."
+
+#~ msgid "You do not have permission to install plugin updates"
+#~ msgstr ""
+#~ "Vous n'avez pas la permission d'installer des mises à jour du plugin"
+
+#~ msgid "Error"
+#~ msgstr "Erreur"
 
 #~ msgctxt "admin csv-import"
 #~ msgid "Last imported line from file:"
