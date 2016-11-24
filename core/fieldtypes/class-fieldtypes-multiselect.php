@@ -28,7 +28,7 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
         $content = '<span class="description">' . $description . '</span><br />';
         $content.= '<input name="field[x_size]" type="number" value="%d">';
 
-        $settings['size'] = array( $label, sprintf( $content, $field->data( 'size', 4 ) ) );
+        $settings['size'] = array( $label, sprintf( $content, $field ? $field->data( 'size', 4 ) : 4 ) );
 
         return $settings;
     }
