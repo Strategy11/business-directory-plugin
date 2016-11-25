@@ -71,7 +71,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
         if ( $field && $field->data( 'options' ) )
-            $content .= implode( ',', $field->data( 'options' ) );
+            $content .= implode( ",\n", $field->data( 'options' ) );
         $content .= '</textarea>';
 
         return self::render_admin_settings( array( array( $label, $content ) ) );
