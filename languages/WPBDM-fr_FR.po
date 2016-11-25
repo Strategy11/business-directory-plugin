@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-11-24 19:01:29+00:00\n"
+"POT-Creation-Date: 2016-11-25 09:40:43+00:00\n"
 "PO-Revision-Date: 2016-08-29 18:17-0300\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1152,7 +1152,7 @@ msgctxt "debug-info"
 msgid "Environment"
 msgstr "Environnement"
 
-#: admin/page-debug.php:75
+#: admin/page-debug.php:72
 msgctxt "debug info"
 msgid "Test SSL setup..."
 msgstr ""
@@ -3031,8 +3031,10 @@ msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "%s diffusion"
 
-#: business-directory-plugin.php:1117
-msgctxt "title"
+#: business-directory-plugin.php:1117 core/view-submit-listing.php:58
+#: core/views/submit_listing.php:10
+#, fuzzy
+msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Soumettre une annonce"
 
@@ -6063,14 +6065,10 @@ msgid "You are not authorized to edit this listing."
 msgstr "Vous n'êtes pas autorisé à éditer cette annonce."
 
 #: core/view-submit-listing.php:58
-msgctxt "templates"
+#, fuzzy
+msgctxt "views"
 msgid "Edit Your Listing"
 msgstr "Éditer votre annonce"
-
-#: core/view-submit-listing.php:58
-msgctxt "templates"
-msgid "Submit A Listing"
-msgstr "Soumettre une annonce"
 
 #: core/view-submit-listing.php:65
 msgctxt "templates"
@@ -6414,12 +6412,6 @@ msgstr ""
 msgctxt "views"
 msgid "Find A Listing"
 msgstr "Trouver une annonce"
-
-#: core/views/submit_listing.php:10
-#, fuzzy
-msgctxt "views"
-msgid "Submit A Listing"
-msgstr "Soumettre une annonce"
 
 #: core/views/submit_listing.php:16
 msgctxt "templates"
@@ -7334,6 +7326,14 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "title"
+#~ msgid "Submit A Listing"
+#~ msgstr "Soumettre une annonce"
+
+#~ msgctxt "templates"
+#~ msgid "Submit A Listing"
+#~ msgstr "Soumettre une annonce"
 
 #~ msgid ""
 #~ "There is a new version of %1$s available. <a target=\"_blank\" class="

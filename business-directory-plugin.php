@@ -1114,7 +1114,7 @@ class WPBDP_Plugin {
 
         switch ( $current_view ) {
             case 'submit_listing':
-                $view_title =  _x( 'Submit A Listing', 'title', 'WPBDM' );
+                $view_title =  _x( 'Submit A Listing', 'views', 'WPBDM' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 

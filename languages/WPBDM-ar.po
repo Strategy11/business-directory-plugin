@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-11-24 19:01:29+00:00\n"
+"POT-Creation-Date: 2016-11-25 09:40:43+00:00\n"
 "PO-Revision-Date: 2016-09-19 12:17-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1198,7 +1198,7 @@ msgctxt "debug-info"
 msgid "Environment"
 msgstr "البيئة"
 
-#: admin/page-debug.php:75
+#: admin/page-debug.php:72
 msgctxt "debug info"
 msgid "Test SSL setup..."
 msgstr "اختبار إعداد SSL..."
@@ -3019,8 +3019,9 @@ msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "تغذية %s"
 
-#: business-directory-plugin.php:1117
-msgctxt "title"
+#: business-directory-plugin.php:1117 core/view-submit-listing.php:58
+#: core/views/submit_listing.php:10
+msgctxt "views"
 msgid "Submit A Listing"
 msgstr "إضافة إعلان"
 
@@ -5957,14 +5958,10 @@ msgid "You are not authorized to edit this listing."
 msgstr "غير مسموح لك بتحرير هذا الإعلان."
 
 #: core/view-submit-listing.php:58
-msgctxt "templates"
+#, fuzzy
+msgctxt "views"
 msgid "Edit Your Listing"
 msgstr "تحرير إعلانك"
-
-#: core/view-submit-listing.php:58
-msgctxt "templates"
-msgid "Submit A Listing"
-msgstr "إضافة إعلان"
 
 #: core/view-submit-listing.php:65
 msgctxt "templates"
@@ -6286,11 +6283,6 @@ msgstr ""
 msgctxt "views"
 msgid "Find A Listing"
 msgstr "العثور على إعلان"
-
-#: core/views/submit_listing.php:10
-msgctxt "views"
-msgid "Submit A Listing"
-msgstr "إضافة إعلان"
 
 #: core/views/submit_listing.php:16
 msgctxt "templates"
@@ -7180,6 +7172,14 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "title"
+#~ msgid "Submit A Listing"
+#~ msgstr "إضافة إعلان"
+
+#~ msgctxt "templates"
+#~ msgid "Submit A Listing"
+#~ msgstr "إضافة إعلان"
 
 #~ msgid ""
 #~ "There is a new version of %1$s available. <a target=\"_blank\" class="

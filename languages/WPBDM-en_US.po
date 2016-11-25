@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-11-24 19:01:29+00:00\n"
+"POT-Creation-Date: 2016-11-25 09:40:43+00:00\n"
 "PO-Revision-Date: 2015-04-07 11:11-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1098,7 +1098,7 @@ msgctxt "debug-info"
 msgid "Environment"
 msgstr ""
 
-#: admin/page-debug.php:75
+#: admin/page-debug.php:72
 msgctxt "debug info"
 msgid "Test SSL setup..."
 msgstr ""
@@ -2838,8 +2838,9 @@ msgctxt "rss feed"
 msgid "%s Feed"
 msgstr ""
 
-#: business-directory-plugin.php:1117
-msgctxt "title"
+#: business-directory-plugin.php:1117 core/view-submit-listing.php:58
+#: core/views/submit_listing.php:10
+msgctxt "views"
 msgid "Submit A Listing"
 msgstr ""
 
@@ -5620,13 +5621,8 @@ msgid "You are not authorized to edit this listing."
 msgstr ""
 
 #: core/view-submit-listing.php:58
-msgctxt "templates"
+msgctxt "views"
 msgid "Edit Your Listing"
-msgstr ""
-
-#: core/view-submit-listing.php:58
-msgctxt "templates"
-msgid "Submit A Listing"
 msgstr ""
 
 #: core/view-submit-listing.php:65
@@ -5928,11 +5924,6 @@ msgstr ""
 #: core/views/search.php:8
 msgctxt "views"
 msgid "Find A Listing"
-msgstr ""
-
-#: core/views/submit_listing.php:10
-msgctxt "views"
-msgid "Submit A Listing"
 msgstr ""
 
 #: core/views/submit_listing.php:16

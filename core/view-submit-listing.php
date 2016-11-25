@@ -55,7 +55,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
         $html = '';
         $html .= sprintf( '<div id="wpbdp-submit-page" class="wpbdp-submit-page businessdirectory-submit businessdirectory wpbdp-page step-%s">',
                           str_replace( '_', '-', $this->state->step ) );
-        $html .= sprintf( '<h2>%s</h2>', $this->state->editing ? _x( 'Edit Your Listing', 'templates', 'WPBDM' ) : _x( 'Submit A Listing', 'templates', 'WPBDM' ) );
+        $html .= sprintf( '<h2>%s</h2>', $this->state->editing ? _x( 'Edit Your Listing', 'views', 'WPBDM' ) : _x( 'Submit A Listing', 'views', 'WPBDM' ) );
 
         if ( current_user_can( 'administrator' ) ) {
             if ( $errors = wpbdp_payments_api()->check_config() ) {
