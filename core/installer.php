@@ -980,7 +980,7 @@ class WPBDP_Installer {
         $meta_entries = $this->get_listing_meta_with_new_line_characters( array_keys( $form_fields ) );
 
         foreach ( $meta_entries as $meta_entry ) {
-            $meta_value = maybe_serialize( $meta_entry->meta_value );
+            $meta_value = maybe_unserialize( $meta_entry->meta_value );
 
             if ( is_string( $meta_value ) ) {
                 $meta_value = explode( "\t", $meta_entry->meta_value );
