@@ -43,7 +43,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-checkbox-' . $i;
             $css_classes[] = 'wpbdp-inner-checkbox-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-            $html .= sprintf( '<div class="wpbdmcheckboxclass %s"><input type="checkbox" class="%s" name="%s" value="%s" %s/> %s</div>',
+            $html .= sprintf( '<div class="wpbdmcheckboxclass %s"><label><input type="checkbox" class="%s" name="%s" value="%s" %s/> %s</label></div>',
                               implode( ' ', $css_classes ),
                               $field->is_required() ? 'required' : '',
                              'listingfields[' . $field->get_id() . '][]',
