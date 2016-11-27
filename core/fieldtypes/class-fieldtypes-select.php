@@ -143,11 +143,11 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
 
-        $content  = '<span class="description">Comma (,) separated list of options</span><br />';
+        $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
         if ( $field && $field->data( 'options' ) )
-            $content .= implode( ",\n", $field->data( 'options' ) );
+            $content .= implode( "\n", $field->data( 'options' ) );
         $content .= '</textarea>';
 
         $settings['options'][] = $content;
@@ -171,7 +171,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', $options ? array_map( 'trim', explode( ',', $options ) ) : array() );
+        $field->set_data( 'options', $options ? array_map( 'trim', explode( "\n", $options ) ) : array() );
 
         if ( array_key_exists( 'x_empty_on_search', $_POST['field'] ) ) {
             $empty_on_search = (bool) intval( $_POST['field']['x_empty_on_search'] );
