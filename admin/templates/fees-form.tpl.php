@@ -67,6 +67,26 @@
                     <span class="description"><?php _ex( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'fees admin', 'WPBDM' ); ?></span>
                 </td>
             </tr>
+            <tr class="form-field form-required">
+                <th scope="row">
+                    <label><?php _ex( 'Listing background color:', 'fees admin', 'WPBDM' ); ?></label>
+                </th>
+                <td>
+                    <div id="fee-bgcolor-picker">
+                        <input name="fee[extra_data][bgcolor]" id="fee-bgcolor-value" value="<?php echo isset( $fee->extra_data['bgcolor'] ) ? $fee->extra_data['bgcolor'] : ''; ?>" size="4" />
+
+                        <div class="color-selection">
+                            <div class="color-selection-btns">
+                                <a href="#" class="reset-btn"><span class="no-color-img"></span> <?php _ex( 'Reset Color', 'fees admin', 'WPBDM'); ?></a>
+                                <a href="#" class="close-btn">✖</a>
+                            </div>
+                            <div id="fee-bgcolor-picker-iris"></div>
+                        </div>
+                    </div>
+
+                    <span class="description"><?php _ex( 'Used to differentiate listings inside this plan from others.', 'fees admin', 'WPBDM' ); ?></span>
+                </td>
+            </tr>
             <tr class="form-field limit-categories">
                 <th scope="row">
                     <label><?php _ex( 'Limit plan to certain categories only?', 'fees admin', 'WPBDM' ); ?></label>
@@ -86,6 +106,12 @@
                     </div>
                 </td>
             </tr>
+        </tbody>
+    </table>
+
+    <h2><?php _ex( 'Pricing', 'fees admin', 'WPBDM'); ?></h2>
+    <table class="form-table">
+        <tbody>
             <tr class="form-field pricing-info">
                 <th scope="row">
                     <label><?php _ex( 'Pricing model', 'fees admin', 'WPBDM' ); ?>
