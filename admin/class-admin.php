@@ -118,10 +118,6 @@ class WPBDP_Admin {
             wp_enqueue_script( 'wp-pointer' );
             add_action( 'admin_print_footer_scripts', array( $this, 'drip_pointer' ) );
         }
-
-        // Enqueue things from admin controllers.
-        if ( $this->current_controller )
-            $this->current_controller->_enqueue_scripts();
     }
 
     /**
@@ -390,6 +386,8 @@ class WPBDP_Admin {
         $this->current_controller->_dispatch();
         $this->current_controller_output = ob_get_contents();
         ob_end_clean();
+
+        $this->current_controller->_enqueue_scripts();
     }
 
     /**
