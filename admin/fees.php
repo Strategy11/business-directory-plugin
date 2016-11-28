@@ -9,6 +9,24 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         $this->api = $this->wpbdp->fees;
     }
 
+    /**
+     * @override
+     */
+    function _enqueue_scripts() {
+        switch ( $this->current_view ) {
+        case 'add-fee':
+        case 'edit-fee':
+            wp_enqueue_style( 'wp-color-picker' );
+            wp_enqueue_script( 'wpbdp-admin-fees-js', WPBDP_URL . 'admin/js/fees.min.js', array( 'wp-color-picker' ) );
+            break;
+        default:
+            break;
+        }
+
+        if ( ! in_array( $this->current_view, array( 'add-fee', 'edit-fee' ), true ) )
+            return;
+    }
+
     function index() {
         require_once( WPBDP_PATH . 'admin/helpers/class-fees-table.php' );
 
