@@ -61,7 +61,7 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
             }
         }
 
-        // $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
+        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
         return true;
     }
 
