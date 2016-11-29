@@ -1,3 +1,12 @@
+.wpbdp-cf:before, .wpbdp-cf:after,
+.cf:before, .cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.wpbdp-cf:after, .cf:after { clear: both; }
+.wpbdp-cf, .cf { *zoom: 1; }
+
 /*
  * Search Form
  */
@@ -53,15 +62,6 @@ form#wpbdmsearchform a.advanced-search-link {
     float: none;
     margin: auto;
 }
-
-
-.cf:before, .cf:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.cf:after { clear: both; }
-.cf { *zoom: 1; }
 
 .wpbdp-pagination {
     margin: 25px 0 0 0;

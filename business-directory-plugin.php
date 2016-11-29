@@ -846,6 +846,14 @@ class WPBDP_Plugin {
                                    'jquery-ui-widget',
                                    'jquery-file-upload-iframe-transport' ) );
 
+        wp_register_script(
+            'jquery-breakpoints',
+            WPBDP_URL . 'vendors/jquery-breakpoints' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
+            array( 'jquery' ),
+            null,
+            true
+        );
+
         // Drag & Drop.
         wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.css' );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
@@ -889,11 +897,15 @@ class WPBDP_Plugin {
 
         if ( $this->is_debug_on() ) {
             wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
-            wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.js', array( 'jquery' ) );
         } else {
             wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
-            wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery' ) );
         }
+
+        wp_register_script(
+            'wpbdp-js',
+            WPBDP_URL . 'core/js/wpbdp' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
+            array( 'jquery', 'jquery-breakpoints' )
+        );
 
         wp_enqueue_style( 'wpbdp-dnd-upload' );
         wp_enqueue_script( 'wpbdp-dnd-upload' );
