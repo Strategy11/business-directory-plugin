@@ -174,7 +174,6 @@ if ( typeof jQuery !== 'undefined' ) {
             }
 
             $.each(breakpoints, function(name, range) {
-                console.log(prefix, name, range);
                 builder.define(range, { name: prefix + "-" + name });
             });
         });
