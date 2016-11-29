@@ -846,138 +846,126 @@ body.business-directory #TB_secondLine {
 /* }} */
 
 /* Main search box. {{ */
-#wpbdp-main-box {
+
+.wpbdp-main-box {
     background: #f7f7f7;
     margin: 10px 0 20px 0;
     border-radius: 4px;
     box-sizing: border-box;
+    padding: 10px;
     width: 100%;
 }
 
-#wpbdp-main-box .box-row {
-    margin: 0;
-    padding: 4px 10px;
+.wpbdp-main-box .box-row {
+    margin-bottom: 4px;
+}
+
+.wpbdp-main-box .box-col {
+    margin-bottom: 4px;
     width: 100%;
-    clear: both;
-    box-sizing: border-box;
-    *zoom: 1;
 }
-
-#wpbdp-main-box input {
-}
-
-#wpbdp-main-box .box-row.separator {
-    background: #999;
-    height: 2px;
-    margin: 2px 0;
-    padding: 0;
-    /* border-top: 2px solid #999; */
-}
-
-#wpbdp-main-box .box-row:before,
-#wpbdp-main-box .box-row:after {
-    content: " ";
-    display: table;
-}
-
-#wpbdp-main-box .box-row:after {
-    clear: both;
-}
-
-#wpbdp-main-box .box-col {
-    padding: 0 5px;
-    margin: 0;
-    float: left;
-    box-sizing: border-box;
-}
-
-#wpbdp-main-box .box-col input {
-    box-sizing: border-box;
-}
-
-
-#wpbdp-main-box .search-fields .main-input {
-    /* width: 100%; */
-    /* box-sizing: border-box; */
-}
-
-#wpbdp-main-box .box-col.submit-btn input {
+.wpbdp-main-box .box-col input {
     width: 100%;
 }
 
-#wpbdp-main-box .search-fields .main-input input {
-    width: 100%;
+.wpbdp-main-box .submit-btn input[type="submit"] {
+    margin-top: 0;
 }
 
-#wpbdp-main-box .box-row .box-row {
-    padding: 0;
-}
-
-#wpbdp-main-box .box-row .box-col:first-child {
-    padding-left: 0;
-}
-
-#wpbdp-main-box .box-row .box-col:last-child {
-    padding-right: 0;
-}
-
-#wpbdp-main-box .box-row.cols-1 > .box-col {
-    width: 100%;
-}
-
-#wpbdp-main-box .box-row.cols-2 > .box-col {
-    width: 50%;
-}
-
-#wpbdp-main-box .box-row.cols-3 > .box-col {
-    width: 33.33%;
-}
-
-#wpbdp-main-box .box-row .box-col.search-fields {
-    width: 82%;
-}
-
-#wpbdp-main-box .box-row .box-col.submit-btn {
-    width: 18%;
-}
-
-#wpbdp-main-box .box-row .box-col input[type="text"] {
-    width: 100%;
-}
-
-#wpbdp-main-box .advanced-search-link {
+.wpbdp-main-box .advanced-search-link {
+    border: none;
+    box-shadow: none;
     display: block;
     font-size: 11px;
     text-align: right;
+    text-decoration: none;
 }
 
-#wpbdp-main-box .wpbdp-main-links {
+.wpbdp-main-box .wpbdp-main-links {
     text-align: right;
 }
 
-#wpbdp-main-box .wpbdp-main-links .button {
+.wpbdp-main-box .wpbdp-main-links .button {
     margin: 0 5px;
 }
-
-#wpbdp-main-box .wpbdp-main-links .button:first-child {
+.wpbdp-main-box .wpbdp-main-links .button:first-child {
     margin-left: 0;
 }
 
-#wpbdp-main-box .wpbdp-main-links .button:last-child {
+.wpbdp-main-box .wpbdp-main-links .button:last-child {
     margin-right: 0;
 }
 
-@media screen and (max-width: 500px) {
-    #wpbdp-main-box .box-col.search-fields, #wpbdp-main-box .box-col.submit-btn {
-        margin-bottom: 5px;
-        float: none;
-        width: 100% !important;
-        display: block;
-        padding-left: 0;
-        padding-right: 0;
-    }
+.wpbdp-main-box-tiny .wpbdp-main-links .button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    margin: 0 0 4px;
 }
-/* 
+
+.wpbdp-main-box-small .wpbdp-main-links .button,
+.wpbdp-main-box-medium .wpbdp-main-links .button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.wpbdp-main-box-medium .box-col,
+.wpbdp-main-box-large .box-col {
+    float: left;
+}
+
+.wpbdp-main-box-medium .search-fields > .cols-1 .box-col,
+.wpbdp-main-box-large .search-fields > .cols-1 .box-col {
+    width: 100%;
+}
+
+.wpbdp-main-box-medium .search-fields > .cols-2 .box-col,
+.wpbdp-main-box-large .search-fields > .cols-2 .box-col {
+    width: 50%;
+}
+.wpbdp-main-box-medium .search-fields > .cols-2 .box-col:first-child,
+.wpbdp-main-box-large .search-fields > .cols-2 .box-col:first-child {
+    padding-right: 5px;
+    width: 50%;
+}
+.wpbdp-main-box-medium .search-fields > .cols-2 .box-col:last-child,
+.wpbdp-main-box-large .search-fields > .cols-2 .box-col:last-child {
+    padding-left: 5px;
+    width: 50%;
+}
+
+.wpbdp-main-box-medium .search-fields > .cols-3 .box-col,
+.wpbdp-main-box-large .search-fields > .cols-3 .box-col {
+    padding-left: 5px;
+    width: 50%;
+}
+.wpbdp-main-box-medium .search-fields > .cols-3 .box-col:first-child,
+.wpbdp-main-box-large .search-fields > .cols-3 .box-col:first-child {
+    padding-right: 5px;
+}
+.wpbdp-main-box-medium .search-fields > .cols-3 .box-col:first-child,
+.wpbdp-main-box-large .search-fields > .cols-3 .box-col:first-child {
+    padding: 0;
+    width: 100%;
+}
+
+.wpbdp-main-box-large .box-row {
+    margin-bottom: 0px;
+}
+
+.wpbdp-main-box-large .search-fields {
+    padding-right: 5px;
+    width: 78%;
+}
+.wpbdp-main-box-large .submit-btn {
+    padding-left: 5px;
+    width: 22%;
+}
+
+.wpbdp-main-box-large .wpbdp-main-links .button {
+    margin: 0 3px;
+}
+/*
  * }}
  *
  */
