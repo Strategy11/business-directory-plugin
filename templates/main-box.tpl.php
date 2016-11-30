@@ -1,4 +1,4 @@
-<div id="wpbdp-main-box" class="wpbdp-main-box" data-breakpoints='{"tiny": [0,360], "small": [360,530], "medium": [530,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-main-box">
+<div id="wpbdp-main-box" class="wpbdp-main-box" data-breakpoints='{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-main-box">
 
 <?php if ( wpbdp_get_option( 'show-search-listings' ) ): ?>
 <div class="main-fields box-row cols-2 cf">

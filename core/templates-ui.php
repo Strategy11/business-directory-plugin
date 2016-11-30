@@ -187,29 +187,38 @@ function wpbdp_list_categories( $args=array() ) {
 
 function wpbdp_main_links() {
     $html = '';
+    $buttons_count = 0;
 
     if ( wpbdp_get_option( 'show-directory-button' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Directory', 'WPBDM'),
                           wpbdp_url( '/' ) );
+        $buttons_count++;
     }
 
     if ( wpbdp_get_option( 'show-view-listings' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('View All Listings', 'WPBDM'),
                           wpbdp_url( 'all_listings' ) );
+        $buttons_count++;
     }
 
     if ( ! wpbdp_get_option( 'disable-submit-listing' ) && wpbdp_get_option( 'show-submit-listing' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __( 'Create A Listing', 'WPBDM' ),
                           wpbdp_url( 'submit_listing' ) );
+        $buttons_count++;
     }
 
-    if ( $html )
-        $html = '<div class="wpbdp-main-links">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+    if ( ! $html ) {
+        return '';
+    }
 
-    return $html;
+    $content = '<div class="wpbdp-main-links-container" data-breakpoints=\'{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}\' data-breakpoints-class-prefix="wpbdp-main-links">';
+    $content.= '<div class="wpbdp-main-links wpbdp-main-links-' . $buttons_count . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+    $content.= '</div>';
+
+    return $content;
 }
 
 function wpbdp_the_main_links() {
