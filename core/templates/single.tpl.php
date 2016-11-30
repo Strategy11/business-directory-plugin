@@ -1,7 +1,4 @@
-<div id="wpbdp-listing-<?php echo $listing->get_id(); ?>"
-     class="wpbdp-listing wpbdp-single wpbdp-listing-single wpbdp-listing-<?php echo $listing->get_id(); ?> single <?php echo $listing->get_sticky_status(); ?> <?php echo apply_filters( 'wpbdp_listing_view_css', '', $listing->get_id() ); ?> <?php if ( $images->main ): echo 'with-image'; endif; ?>"
-     itemscope
-     itemtype="http://schema.org/LocalBusiness">
+<div id="<?php echo $listing_css_id; ?>" class="<?php echo $listing_css_class; ?>" itemscope itemtype="http://schema.org/LocalBusiness">
 
     <div class="listing-title">
         <h2 itemprop="name"><?php echo $title; ?></h2>

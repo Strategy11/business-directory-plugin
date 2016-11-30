@@ -17,6 +17,8 @@ class WPBDP_Listing_Display_Helper {
         $vars = array_merge( $vars, self::basic_vars( $post->ID ) );
         $vars = array_merge( $vars, self::fields_vars( $post->ID, 'excerpt' ) );
         $vars = array_merge( $vars, self::images_vars( $post->ID, 'excerpt' ) );
+        $vars = array_merge( $vars, self::css_classes( $post->ID, 'excerpt' ) );
+        $vars['listing_css_class'] .= ' ' . $vars['even_or_odd'];
 
         $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
         $vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
@@ -34,6 +36,10 @@ class WPBDP_Listing_Display_Helper {
         $vars = array_merge( $vars, self::basic_vars( $post->ID ) );
         $vars = array_merge( $vars, self::fields_vars( $post->ID, 'listing' ) );
         $vars = array_merge( $vars, self::images_vars( $post->ID, 'listing' ) );
+        $vars = array_merge( $vars, self::css_classes( $post->ID, 'single' ) );
+
+        if ( ! empty( $vars['images'] ) && $vars['images']->main )
+            $vars['listing_css_class'] .= ' with-image';
 
         $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
         $vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post->ID );
@@ -57,6 +63,34 @@ class WPBDP_Listing_Display_Helper {
 
         if ( $vars['is_sticky'] )
             $vars['sticky_tag'] = wpbdp_x_render( 'listing sticky tag', array( 'listing' => $listing ) );
+
+        return $vars;
+    }
+
+    private function css_classes( $listing_id, $display ) {
+        $vars = array();
+        $vars['listing_css_id'] = 'wpbdp-listing-' . $listing_id;
+
+        $classes   = array();
+        $classes[] = 'wpbdp-listing-' . $listing_id;
+        $classes[] = 'wpbdp-listing';
+        $classes[] = $display;
+        $classes[] = 'wpbdp-' . $display;
+        $classes[] = 'wpbdp-listing-' . $display;
+
+        // Fee-related classes.
+        if ( $fee = WPBDP_Listing::get( $listing_id )->get_fee_plan() ) {
+            $classes[] = 'wpbdp-listing-plan-id-' . $fee->fee_id;
+            $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee->label );
+
+            if ( $fee->is_sticky ) {
+                $classes[] = 'sticky';
+                $classes[] = 'wpbdp-listing-is-sticky';
+            }
+        }
+
+        $vars['listing_css_class']  = implode( ' ', $classes );
+        $vars['listing_css_class'] .= apply_filters( 'wpbdp_' . $display . '_view_css', '', $listing_id );
 
         return $vars;
     }
