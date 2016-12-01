@@ -36,6 +36,7 @@ class WPBDP_Themes {
 
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 999 );
         add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
+        add_action( 'wp_footer', array( $this, 'fee_specific_coloring' ), 999 );
 
         if ( is_admin() ) {
             require_once( WPBDP_PATH . 'admin/class-themes-admin.php' );
@@ -120,6 +121,25 @@ class WPBDP_Themes {
                        'raw' => $field->value( $listing_id ) );
 
         return $this->render( $path, $vars );
+    }
+
+    function fee_specific_coloring() {
+        $plans = WPBDP_Fee_Plan::find( 'all' );
+
+        echo '<style type="text/css">';
+
+        foreach ( $plans as $plan ) {
+            if ( empty( $plan->extra_data['bgcolor'] ) )
+                continue;
+
+            $color = $plan->extra_data['bgcolor'];
+            echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $plan->id . '{';
+            echo 'background-color: ' . $plan->extra_data['bgcolor'] . ';';
+            echo '}';
+            echo "\n";
+        }
+
+        echo '</style>';
     }
 
     function _normalize_asset_name( $a ) {
