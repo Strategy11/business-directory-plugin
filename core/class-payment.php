@@ -150,6 +150,19 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return 'completed' == $this->status;
     }
 
+    public function get_checkout_url( $force_http = false ) {
+        $payment_id = $this->id;
+        $payment_q = base64_encode('payment_id=' . $payment_id . '&verify=0' ); // TODO: add a 'verify' parameter to avoid false links being generated.
+
+        $base_url = wpbdp_get_page_link( 'main' );
+
+        if ( ! $force_http && ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) ) {
+            $base_url = set_url_scheme( $base_url, 'https' );
+        }
+
+        return add_query_arg( array( 'wpbdp_view' => 'checkout', 'payment' => urlencode( $payment_q ) ), $base_url );
+    }
+
     public static function get_stati() {
         $stati = array();
         $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );

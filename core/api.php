@@ -121,11 +121,6 @@ function wpbdp_get_page_link($name='main', $arg0=null) {
             case 'delete':
             case 'deletelisting':
             case 'delete-listing':
-            case 'upgrade':
-            case 'upgradetostickylisting':
-            case 'upgradelisting':
-            case 'upgrade-listing':
-                $link = wpbdp_url( 'upgrade_listing', $arg0 );
                 break;
             case 'viewlistings':
             case 'view-listings':
@@ -214,10 +209,6 @@ function wpbdp_listings_api() {
     return wpbdp()->listings;
 }
 
-function wpbdp_listing_upgrades_api() {
-    return wpbdp()->listings->upgrades;
-}
-
 /* Misc. */
 function wpbdp_get_parent_categories($catid) {
     $category = get_term(intval($catid), WPBDP_CATEGORY_TAX);
@@ -275,10 +266,6 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
         case 'edit':
         case 'delete':
             $res = user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
-            break;
-        case 'upgrade-to-sticky':
-            $sticky_info = wpbdp_listing_upgrades_api()->get_info( $listing_id );
-            $res = wpbdp_get_option( 'featured-on' ) && wpbdp_payments_possible() && $sticky_info->upgradeable && ( user_can($user_id, 'administrator') || ( $post->post_author == $user_id ) );
             break;
     }
 
@@ -535,7 +522,6 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
             break;
         case 'delete_listing':
         case 'edit_listing':
-        case 'upgrade_listing':
         case 'listing_contact':
             $url = add_query_arg( array( 'wpbdp_view' => $pathorview, 'listing_id' => $args ), $base_url );
             break;

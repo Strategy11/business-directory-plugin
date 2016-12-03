@@ -636,7 +636,6 @@ class WPBDP_Admin {
         $posts = is_array($_REQUEST['post']) ? $_REQUEST['post'] : array($_REQUEST['post']);
 
         $listings_api = wpbdp_listings_api();
-        $upgrades_api = wpbdp_listing_upgrades_api();
 
         if (!current_user_can('administrator'))
             exit;
@@ -683,30 +682,6 @@ class WPBDP_Admin {
                     $this->messages[] = array( $msg, 'error' );
                 }
 
-                break;
-
-            case 'upgradefeatured':
-                foreach ( $posts as $post_id ):
-                    $upgrades_api->set_sticky( $post_id, 'sticky', true );
-                endforeach;
-
-                $this->messages[] = _nx('The listing has been upgraded.',
-                                        'The listings have been upgraded.',
-                                        count($posts),
-                                        'admin',
-                                        'WPBDM');
-                break;
-
-            case 'cancelfeatured':
-                foreach ($posts as $post_id ):
-                    $upgrades_api->set_sticky( $post_id, 'normal' );
-                endforeach;
-
-                $this->messages[] = _nx('The listing has been downgraded.',
-                                        'The listings have been downgraded.',
-                                        count($posts),
-                                        'admin',
-                                        'WPBDM');
                 break;
 
             case 'assignfee':

@@ -34,7 +34,6 @@ class WPBDP_Listings_API {
         add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
         add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
 
-        $this->upgrades = WPBDP_Listing_Upgrade_API::instance();
         $this->expiration = new WPBDP__Listing_Expiration();
     }
 
@@ -183,14 +182,6 @@ class WPBDP_Listings_API {
                 case 'featured_upgrade':
                     global $wpdb;
                     $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 1 ), array( 'listing_id' => $listing->get_id() ) );
-                    break;
-                case 'upgrade':
-                    $upgrades_api = wpbdp_listing_upgrades_api();
-                    $sticky_info = $upgrades_api->get_info( $listing->get_id() );
-
-                    if ( $sticky_info->upgradeable )
-                        $upgrades_api->set_sticky( $listing->get_id(), $sticky_info->upgrade->id, true );
-
                     break;
             }
         }

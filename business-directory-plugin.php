@@ -941,7 +941,7 @@ class WPBDP_Plugin {
      * Fix issues with Jetpack.
      */
     public function _jetpack_compat( &$wp ) {
-        static $incompatible_actions = array( 'submitlisting', 'editlisting', 'upgradetostickylisting' );
+        static $incompatible_actions = array( 'submitlisting', 'editlisting' );
 
         // TODO: fix before themes-release
         $action = '';
@@ -1224,7 +1224,7 @@ class WPBDP_Plugin {
         if ( !$action )
             return rel_canonical();
 
-        if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'upgradetostickylisting', 'renewlisting' ) ) )
+        if ( in_array( $action, array( 'editlisting', 'submitlisting', 'sendcontactmessage', 'deletelisting', 'renewlisting' ) ) )
             return;
 
         if ( $action == 'showlisting' ) {

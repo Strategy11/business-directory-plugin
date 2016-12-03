@@ -448,12 +448,6 @@ class WPBDP_CSV_Import {
         if ( $u = get_user_by( 'login', $meta['username'] ) )
             wp_update_post( array( 'ID' => $listing->get_id(), 'post_author' => $u->ID ) );
 
-        // Set featured level.
-        if ( $meta['featured_level'] ) {
-            if ( $l = $wpbdp->listings->upgrades->get( $meta['featured_level'] ) )
-                $wpbdp->listings->upgrades->set_sticky( $listing->get_id(), $l->id );
-        }
-
         // Create permalink.
         $post = get_post( $listing->get_id() );
         wp_update_post( array('ID' => $post->ID,
@@ -503,7 +497,6 @@ class WPBDP_CSV_Import {
         $meta = array();
         $meta['sequence_id'] = 0;
         $meta['username'] = '';
-        $meta['featured_level'] = '';
 
         if ( $this->settings['assign-listings-to-user'] && $this->settings['default-user'] ) {
             if ( $u = get_user_by( 'id', $this->settings['default-user'] ) )
@@ -537,11 +530,6 @@ class WPBDP_CSV_Import {
                             $meta['username'] = $value;
                         }
                     }
-
-                    break;
-
-                case 'featured_level':
-                    $meta['featured_level'] = $value;
 
                     break;
 

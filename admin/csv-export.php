@@ -115,9 +115,6 @@ class WPBDP_CSVExporter {
         if ( $this->settings['include-users'] )
             $this->columns['username'] = 'username';
 
-        if ( $this->settings['include-sticky-status'] )
-            $this->columns['featured_level'] = 'featured_level';
-
         if ( $this->settings['include-expiration-date'] )
             $this->columns['expires_on'] = 'expires_on';
 
@@ -177,7 +174,7 @@ class WPBDP_CSVExporter {
         // Setup columns.
         $shortnames = wpbdp_formfields_api()->get_short_names();
         foreach ( $state['columns'] as $fshortname ) {
-            if ( in_array( $fshortname, array( 'images', 'username', 'featured_level', 'expires_on', 'sequence_id' ) ) ) {
+            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;
                 continue;
             }
@@ -309,7 +306,6 @@ class WPBDP_CSVExporter {
             return false;
 
         $listings_api = wpbdp_listings_api();
-        $upgrades_api = wpbdp_listing_upgrades_api();
 
         $data = array();
 
@@ -352,11 +348,6 @@ class WPBDP_CSVExporter {
 
                 case 'username':
                     $value = get_the_author_meta( 'user_login', $post->post_author );
-                    break;
-
-                case 'featured_level':
-                    $listing_level = $upgrades_api->get_listing_level( $post->ID );
-                    $value = $listing_level->id;
                     break;
 
                 case 'expires_on':
