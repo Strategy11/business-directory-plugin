@@ -88,6 +88,11 @@ class WPBDP_Settings {
                             'text',
                             '',
                             _x( 'URL of your membership plugin\'s registration page.  Only enter this if using a membership plugin or custom registration page.', 'admin settings', 'WPBDM' ) );
+        $this->add_setting( $s,
+                            'allow-user-creation',
+                            _x( 'Allow users to create accounts during listing submit?', 'admin settings', 'WPBDM' ),
+                            'boolean',
+                            false );
         // }}
 
         $s = $this->add_section( $g,

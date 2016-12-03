@@ -134,6 +134,11 @@ jQuery(function($) {
 
         this.setup_section_headers();
         this.plan_handling();
+
+        // Create account form.
+        $( '#wpbdp-submit-listing' ).on( 'change', '#wpbdp-submit-listing-create_account', function( e ) {
+            $( '#wpbdp-submit-listing-account-details' ).toggle();
+        } );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
         ajax: function( data, callback ) {

@@ -7,6 +7,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
 
     private $prevent_save = false;
     private $editing = false;
+    private $data = array();
     private $messages = array( 'general' => array() );
 
 
@@ -41,8 +42,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
-        if ( ! empty( $_POST['save_listing'] ) && 1 == $_POST['save_listing'] && ! $this->prevent_save )
-            return $this->save_listing();
+        if ( ! empty( $_POST['save_listing'] ) && 1 == $_POST['save_listing'] && ! $this->prevent_save ) {
+            $res = $this->save_listing();
+
+            if ( is_wp_error( $res ) ) {
+                $errors = $res->get_error_messages();
+
+                foreach ( $errors as $e )
+                    $this->messages( $e, 'error', 'general' );
+            } else {
+            }
+        }
 
         // Prepare $messages for template.
         $messages = array();
@@ -133,7 +143,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
         if ( ! empty( $_REQUEST['listing_id'] ) && false != get_post_status( $_REQUEST['listing_id'] ) ) {
             $listing_id = absint( $_POST['listing_id'] );
         } else {
-            $listing_id = wp_insert_post( array( 'post_type' => WPBDP_POST_TYPE, 'post_status' => 'auto-draft', 'post_title' => 'Incomplete Listing' ) );
+            $listing_id = wp_insert_post( array( 'post_author' => 0, 'post_type' => WPBDP_POST_TYPE, 'post_status' => 'auto-draft', 'post_title' => 'Incomplete Listing' ) );
         }
 
         if ( ! $listing_id )
@@ -152,6 +162,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
             'title' => _x( 'Listing Information', 'submit listing', 'WPBDM' ) );
         $sections['listing_images'] = array(
             'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' ) );
+
+        if ( ! wpbdp_get_option( 'require-login' ) && wpbdp_get_option( 'allow-user-creation' ) && ! is_user_logged_in() ) {
+            $sections['account_creation'] = array(
+                'title' => _x( 'Account Creation', 'submit listing', 'WPBDM' )
+            );
+        }
 
         if ( wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
@@ -363,6 +379,74 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
                                                'listing' ) );
     }
 
+    private function account_creation() {
+        $form_create = empty( $_POST['create-account'] ) ? false : ( $_POST['create-account'] == 'create-account' );
+        $form_username = ! empty( $_POST['user_username'] ) ? trim( $_POST['user_username'] ) : '';
+        $form_email = ! empty( $_POST['user_email'] ) ? trim( $_POST['user_email'] ) : '';
+        $form_password = ! empty( $_POST['user_password'] ) ? $_POST['user_password'] : '';
+
+        if ( $form_create ) {
+            $error = false;
+
+            if ( ! $form_username ) {
+                $this->messages( _x( 'Please enter your desired username.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $error = true;
+            }
+
+            if ( ! $error && ! $form_email ) {
+                $this->messages( _x( 'Please enter the e-mail for your new account.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $error = true;
+            }
+
+            if ( ! $error && ! $form_password ) {
+                $this->messages( _x( 'Please enter the password for your new account.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $error = true;
+            }
+
+            if ( ! $error && $form_username && username_exists( $form_username ) ) {
+                $this->messages( _x( 'The username you chose is already in use. Please use a different one.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $error = true;
+            }
+
+            if ( ! $error && $form_email && email_exists( $form_email ) ) {
+                $this->messages( _x( 'The e-mail address you chose for your account is already in use.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $error = true;
+            }
+
+            if ( $error ) {
+                $this->prevent_save = true;
+            } else {
+                $this->data['account_details'] = array( 'username' => $form_username, 'email' => $form_email, 'password' => $form_password );
+            }
+        }
+
+        $html  = '';
+
+        $html .= '<input id="wpbdp-submit-listing-create_account" type="checkbox" name="create-account" value="create-account" ' . checked( true, $form_create, false ) . '/>';
+        $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'WPBDM' ) . '</label>';
+
+        $html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ! $form_create ? 'wpbdp-hidden' : '' ) . '">';
+        $html .= '<label for="user_username">' . _x( 'Username:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) .'" />';
+
+        $html .= '<label for="user_email">' . _x( 'Email:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<input id="wpbdp-submit-listing-user_email" type="text" name="user_email" value="' . esc_attr( $form_email ) . '" />';
+
+        $html .= '<label for="wpbdp-submit-listing-user_password">' . _x( 'Password:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<input id="wpbdp-submit-listing-user_password" type="password" name="user_password" value="" />';
+        $html .= '</div>';
+
+        // $user_id = username_exists( $user_name );
+        // if ( !$user_id and email_exists($user_email) == false ) {
+        // 	$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
+        // 	$user_id = wp_create_user( $user_name, $random_password, $user_email );
+        // } else {
+        // 	$random_password = __('User already exists.  Password inherited.');
+        // }        
+
+        return $html;
+    }
+
     private function terms_and_conditions() {
         $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
 
@@ -403,6 +487,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP_NView {
     }
 
     private function save_listing() {
+        if ( ! empty( $this->data['account_details'] ) ) {
+            $user_id = wp_create_user( $this->data['account_details']['username'], $this->data['account_details']['password'], $this->data['account_details']['email'] );
+
+            if ( is_wp_error( $user_id ) )
+                return $user_id;
+
+            wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
+        }
+
         // XXX: what to do with this?
         // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) ); 
         // return $this->render( 'extra-sections', array( 'output' => $extra ) );
