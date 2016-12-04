@@ -976,6 +976,17 @@ class WPBDP_Installer {
         return intval( $wpdb->get_var( $sql ) );
     }
 
+    /**
+     * Necessary for websites that got stuck at the Manual Upgrade routine from
+     * https://github.com/drodenbaugh/BusinessDirectoryPlugin/pull/2425 due to new
+     * line characters present in the middle of the form fields options.
+     *
+     * See: https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/2440
+     */
+    public function upgrade_to_15_fix_form_fields_data() {
+        return $this->upgrade_to_16_fix_form_fields_data();
+    }
+
     public function upgrade_to_16_fix_form_fields_data() {
         $form_fields = $this->get_list_form_fields();
         $meta_entries = $this->get_listing_meta_with_new_line_characters( array_keys( $form_fields ) );
