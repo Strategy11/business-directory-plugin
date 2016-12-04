@@ -503,7 +503,8 @@ class WPBDP_Plugin {
             if ( ! $login_url )
                 return;
 
-            $url = add_query_arg( 'redirect_to', urlencode( home_url( $_SERVER['REQUEST_URI'] ) ), $login_url );
+            $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $url = add_query_arg( 'redirect_to', urlencode( $current_url ), $login_url );
             wp_redirect( esc_url_raw( $url ) );
             exit();
         }
