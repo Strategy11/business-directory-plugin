@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '15';
+    const DB_VERSION = '16';
 
     private $installed_version = null;
 
@@ -184,7 +184,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12', '13', '15' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12', '13', '16' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -929,14 +929,15 @@ class WPBDP_Installer {
              $f->save();
     }
 
-    public function upgrade_to_15() {
+    public function upgrade_to_16() {
         $form_fields = $this->get_list_form_fields();
 
         foreach ( $form_fields as $form_field ) {
             $options = array();
 
             foreach ( $form_field->data( 'options' ) as $key => $value ) {
-                $options[ trim( $key ) ] = trim( $value );
+                $new_key = trim( preg_replace( '/[\r\n]/', '', $key ) );
+                $options[ $new_key ] = trim( preg_replace( '/[\r\n]/', '', $value ) );
             }
 
             $form_field->set_data( 'options', $options );
@@ -944,7 +945,7 @@ class WPBDP_Installer {
         }
 
         if ( $this->count_listing_meta_with_new_line_characters( array_keys( $form_fields ) ) ) {
-            $this->request_manual_upgrade( 'upgrade_to_15_fix_form_fields_data' );
+            $this->request_manual_upgrade( 'upgrade_to_16_fix_form_fields_data' );
         }
     }
 
@@ -969,13 +970,13 @@ class WPBDP_Installer {
             return 0;
         }
 
-        $sql = "SELECT COUNT(meta_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s) AND meta_value LIKE '%%\n%%'";
+        $sql = "SELECT COUNT(meta_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s) AND meta_value REGEXP '\n'";
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
 
         return intval( $wpdb->get_var( $sql ) );
     }
 
-    public function upgrade_to_15_fix_form_fields_data() {
+    public function upgrade_to_16_fix_form_fields_data() {
         $form_fields = $this->get_list_form_fields();
         $meta_entries = $this->get_listing_meta_with_new_line_characters( array_keys( $form_fields ) );
 
@@ -986,9 +987,13 @@ class WPBDP_Installer {
                 $meta_value = explode( "\t", $meta_entry->meta_value );
             }
 
-            $meta_value = array_map( 'trim', (array) $meta_value );
+            $sanitized_value = array();
 
-            $form_fields[ $meta_entry->meta_key ]->store_value( $meta_entry->post_id, $meta_value );
+            foreach ( (array) $meta_value as $key => $value ) {
+                $sanitized_value[ $key ] = trim( preg_replace( '/[\r\n]/', '', $value ) );
+            }
+
+            $form_fields[ $meta_entry->meta_key ]->store_value( $meta_entry->post_id, $sanitized_value );
         }
 
         $records_left = $this->count_listing_meta_with_new_line_characters( array_keys( $form_fields ) );
@@ -1010,7 +1015,7 @@ class WPBDP_Installer {
         }
 
         $sql = "SELECT post_id, meta_id, meta_key, meta_value FROM {$wpdb->postmeta} ";
-        $sql.= "WHERE meta_key IN (%s) AND meta_value LIKE '%%\n%%' ";
+        $sql.= "WHERE meta_key IN (%s) AND meta_value REGEXP '\n' ";
         $sql.= "LIMIT 50";
 
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
