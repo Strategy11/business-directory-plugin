@@ -221,7 +221,7 @@ class WPBDP_Settings {
             'allow-comments-in-listings',
             _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
             'choice',
-            $this->get( 'show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
+            get_option( self::PREFIX . 'show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
             _x( 'Control whether visitors are allowed to discuss listings using the standard WordPress comment form or not, and who should insert the form (the active theme or BD). Comments are public.', 'admin settings', 'WPBDM' ),
             array(
                 'choices' => array(
