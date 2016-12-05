@@ -222,15 +222,18 @@ class WPBDP_Settings {
             _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
             'choice',
             get_option( self::PREFIX . 'show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
-            _x( 'Control whether visitors are allowed to discuss listings using the standard WordPress comment form or not, and who should insert the form (the active theme or BD). Comments are public.', 'admin settings', 'WPBDM' ),
+            _x( "BD uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. BD is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn't work, try the 3rd option instead.", 'admin settings', 'WPBDM' ),
             array(
                 'choices' => array(
-                    array( 'do-not-allow-comments', _x( 'Do not allow comments on listings', 'admin settings', 'WPBDM' ) ),
-                    array( 'allow-comments', _x( 'Allow comments on listings (from theme)', 'admin settings', 'WPBDM' ) ),
-                    array( 'allow-comments-and-insert-template', _x( 'Allow comments on listings (from BD)', 'admin settings', 'WPBDM' ) )
+                    'do-not-allow-comments' => _x( 'Do not include comments in listings', 'admin settings', 'WPBDM' ),
+                    'allow-comments' => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'WPBDM' ),
+                    'allow-comments-and-insert-template' => _x( "Include comment form, BD invoked (use only if 2nd option doesn't work)", 'admin settings', 'WPBDM' ),
                 ),
+                'widget' => 'radio',
             )
         );
+
+
 
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
