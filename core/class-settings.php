@@ -148,7 +148,7 @@ class WPBDP_Settings {
                             'choice',
                             array(),
                             $desc,
-                            array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'use_checkboxes' => false, 'multiple' => true )
+                            array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'multiple' => true )
                          );
         $this->add_setting( $s,
                             'quick-search-enable-performance-tricks',
@@ -328,7 +328,7 @@ class WPBDP_Settings {
                             array(),
                             '',
                             array( 'choices' => array( &$this, 'sortbar_fields_cb' ),
-                                   'use_checkboxes' => true,
+                                   'widget' => 'checkbox',
                                    'multiple' =>true ) );
         $this->register_dep( 'listings-sortbar-fields', 'requires-true', 'listings-sortbar-enabled' );
 
@@ -373,7 +373,7 @@ class WPBDP_Settings {
                                                        'listing-edit' => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
                                                        'renewal' => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
                                                        'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ) ),
-                                   'use_checkboxes' => true,
+                                   'widget' => 'checkbox',
                                    'multiple' => true )
                           );
         $this->add_setting( $s,
@@ -392,7 +392,7 @@ class WPBDP_Settings {
                                                        'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' )/*,
                                                        'payment-status-change' => _x( 'A payment status changes (sends a receipt).', 'admin settings', 'WPBDM' ),*/
                                                         ),
-                                   'use_checkboxes' => true,
+                                   'widget' => 'checkbox',
                                    'multiple' => true )
                           );
 
@@ -640,7 +640,7 @@ EOF;
                             '',
                             array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
                                                        array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
-                            'use_checkboxes' => false ) );
+        ) );
         // }
 
 
@@ -1297,7 +1297,14 @@ EOF;
         $value = $this->get($setting->name);
 
         $multiple = isset( $args['multiple'] ) && $args['multiple'] ? true : false;
-        $widget = $multiple ? ( isset( $args['use_checkboxes'] ) && $args['use_checkboxes'] ? 'checkbox' : 'multiselect' ) : 'select'; // TODO: Add support for radios.
+
+        if ( isset( $args['widget'] ) ) {
+            $widget = $args['widget'];
+        } elseif ( $multiple ) {
+            $widget = 'multiselect';
+        } else {
+            $widget = 'select';
+        }
 
         if ( 'multiselect' == $widget )
             $multiple = true;
@@ -1319,9 +1326,12 @@ EOF;
             }
 
             $html .= '</select>';
-        } elseif ( $widget == 'checkbox' ) {
+        } elseif ( $widget == 'checkbox' || $widget == 'radio' ) {
+            $value = (array) $value;
+
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<label><input type="checkbox" name="%s[]" value="%s" %s />%s</label><br />',
+                $html .= sprintf( '<label><input type="%s" name="%s[]" value="%s" %s />%s</label><br />',
+                                  $widget,
                                   self::PREFIX . $setting->name,
                                   $k,
                                   ( $value && in_array( $k, $value ) ) ? 'checked="checked"' : '',
@@ -1329,7 +1339,9 @@ EOF;
             }
         }
 
-        $html .= '<span class="description">' . $setting->help_text . '</span>';
+        if ( $setting->help_text ) {
+            $html .= '<br /><span class="description">' . $setting->help_text . '</span>';
+        }
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
