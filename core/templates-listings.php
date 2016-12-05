@@ -107,7 +107,7 @@ function _wpbdp_render_single() {
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);
 
-    if (wpbdp_get_option('show-comment-form')) {
+    if ( wpbdp_get_option( 'allow-comments-in-listings' ) == 'allow-comments-and-insert-template' ) {
         $html .= '<div class="comments">';
 
         ob_start();

@@ -215,12 +215,23 @@ class WPBDP_Settings {
                                 'admin settings',
                                 'WPBDM') );
         $this->register_dep( 'contact-form-daily-limit', 'requires-true', 'show-contact-form' );
-        $this->add_setting( $s,
-                            'show-comment-form',
-                            _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false,
-                            _x( 'Allow visitors to discuss listings using the standard WordPress comment form. Comments are public.', 'admin settings', 'WPBDM' ) );
+
+        $this->add_setting(
+            $s,
+            'allow-comments-in-listings',
+            _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
+            'choice',
+            $this->get( 'show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
+            _x( 'Control whether visitors are allowed to discuss listings using the standard WordPress comment form or not, and who should insert the form (the active theme or BD). Comments are public.', 'admin settings', 'WPBDM' ),
+            array(
+                'choices' => array(
+                    array( 'do-not-allow-comments', _x( 'Do not allow comments on listings', 'admin settings', 'WPBDM' ) ),
+                    array( 'allow-comments', _x( 'Allow comments on listings (from theme)', 'admin settings', 'WPBDM' ) ),
+                    array( 'allow-comments-and-insert-template', _x( 'Allow comments on listings (from BD)', 'admin settings', 'WPBDM' ) )
+                ),
+            )
+        );
+
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
                            array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));

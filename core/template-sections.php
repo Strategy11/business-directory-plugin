@@ -38,8 +38,9 @@ class _WPBDP_Template_Sections {
     }
 
     function listing_comments( $listing_id ) {
-        if ( ! wpbdp_get_option( 'show-comment-form' ) )
+        if ( wpbdp_get_option( 'allow-comments-in-listings' ) != 'allow-comments-and-insert-template' ) {
             return;
+        }
 
         $html = '<div class="comments">';
 

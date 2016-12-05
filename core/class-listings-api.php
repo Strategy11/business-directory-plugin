@@ -135,8 +135,12 @@ class WPBDP_Listings_API {
             return false;
 
         // comments on listings
-        if (get_post_type($post_id) == WPBDP_POST_TYPE)
-            return wpbdp_get_option('show-comment-form');
+        if ( get_post_type( $post_id ) == WPBDP_POST_TYPE ) {
+            return in_array(
+                wpbdp_get_option( 'allow-comments-in-listings' ),
+                array( 'allow-comments', 'allow-comments-and-insert-template' )
+            );
+        }
 
         return $open;
     }
