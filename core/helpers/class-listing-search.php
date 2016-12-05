@@ -62,6 +62,11 @@ class WPBDP__Listing_Search {
 
         foreach ( $this->parts as $key => $data )  {
             $field = wpbdp_get_form_field( $data[0] );
+
+            if ( ! is_object( $field ) ) {
+                continue;
+            }
+
             $res = $field->configure_search( $data[1], $this );
 
             if ( ! empty( $res['where'] ) ) {
