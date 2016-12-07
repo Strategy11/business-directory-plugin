@@ -1,39 +1,39 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-view.php' );
 
-/**
- * @since next-release
- */
-class WPBDP_Request_Access_Keys_View extends WPBDP_NView {
+class WPBDP__Views__Request_Access_Keys extends WPBDP_NView {
 
-    public function dispatch( $params = array() ) {
+    public function dispatch() {
         $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
         $errors = array();
 
-        if ( $nonce && wp_verify_nonce( $nonce, 'request_access_keys' ) ) {
-            $email = ! empty( $_POST['email'] ) ? trim( $_POST['email'] ) : '';
+        if ( $nonce && wp_verify_nonce( $nonce, 'request_access_keys' ) )
+            return $this->listings_and_access_keys();
 
-            if ( ! $email || ! is_email( $email ) )
-                return wpbdp_render_msg( _x( 'Please enter a valid e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
+        return $this->_render( 'send-access-keys' );
+    }
 
-            $listings = $this->find_listings( $email );
+    public function listings_and_access_keys() {
+        $email = ! empty( $_POST['email'] ) ? trim( $_POST['email'] ) : '';
 
-            if ( ! $listings )
-                return wpbdp_render_msg( _x( 'There are no listings associated to your e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
+        if ( ! $email || ! is_email( $email ) )
+            return wpbdp_render_msg( _x( 'Please enter a valid e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
 
-            $message = wpbdp_email_from_template( WPBDP_PATH . 'templates/email-access-keys.tpl.php',
-                                                  array( 'listings' => $listings ) );
-            $message->subject = sprintf( '[%s] %s', get_bloginfo( 'name' ), _x( 'Listing Access Keys', 'request_access_keys', 'WPBDM' ) );
-            $message->to = $email;
+        $listings = $this->find_listings( $email );
 
-            if ( $message->send() ) {
-                return wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'WPBDM' ) );
-            } else {
-                return wpbdp_render_msg( _x( 'An error occurred while sending the access keys to your e-mail address. Please try again.', 'request_access_keys', 'WPBDM' ), 'error' );
-            }
+        if ( ! $listings )
+            return wpbdp_render_msg( _x( 'There are no listings associated to your e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
+
+        $message = wpbdp_email_from_template( WPBDP_PATH . 'templates/email-access-keys.tpl.php',
+                                              array( 'listings' => $listings ) );
+        $message->subject = sprintf( '[%s] %s', get_bloginfo( 'name' ), _x( 'Listing Access Keys', 'request_access_keys', 'WPBDM' ) );
+        $message->to = $email;
+
+        if ( $message->send() ) {
+            return wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'WPBDM' ) );
+        } else {
+            return wpbdp_render_msg( _x( 'An error occurred while sending the access keys to your e-mail address. Please try again.', 'request_access_keys', 'WPBDM' ), 'error' );
         }
-
-        return $this->render( 'send-access-keys' );
     }
 
     private function find_listings( $email ) {
@@ -43,6 +43,7 @@ class WPBDP_Request_Access_Keys_View extends WPBDP_NView {
             return array();
 
         $posts = get_posts( array( 'post_type' => WPBDP_POST_TYPE,
+                                   'post_status' => 'all',
                                    'author' => $user->ID,
                                    'posts_per_page' => -1,
                                    'fields' => 'ids' ) );
@@ -55,3 +56,4 @@ class WPBDP_Request_Access_Keys_View extends WPBDP_NView {
     }
 
 }
+
