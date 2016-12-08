@@ -72,6 +72,8 @@ class WPBDP_Settings {
                    'WPBDM' );
         $s = $this->add_section( $g, 'registration', _x( 'Registration Settings', 'admin settings', 'WPBDM' ), $msg );
         $this->add_setting($s, 'require-login', _x('Require login to post listings?', 'admin settings', 'WPBDM'), 'boolean', true);
+        $this->add_setting( $s, 'enable-key-access', _x( 'Allow anonymous users to edit/manage listings with an access key?', 'admin settings', 'WPBDM' ), 'boolean', false );
+        $this->register_dep( 'enable-key-access', 'requires-false', 'require-login' );
 
         // deprecated as of 2.1, added again for 3.6.10
         $this->add_setting( $s,
