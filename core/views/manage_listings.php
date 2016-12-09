@@ -2,7 +2,7 @@
 /**
  * @since 4.0
  */
-class WPBDP__Views__Manage_Listings extends WPBDP_NView {
+class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
     public function dispatch() {
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;

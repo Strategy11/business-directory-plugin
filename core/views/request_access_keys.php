@@ -1,7 +1,7 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-view.php' );
 
-class WPBDP__Views__Request_Access_Keys extends WPBDP_NView {
+class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
     public function dispatch() {
         if ( wpbdp_get_option( 'require-login' ) || ! wpbdp_get_option( 'enable-key-access' ) )

@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Views__Show_Category extends WPBDP_NView {
+class WPBDP__Views__Show_Category extends WPBDP__View {
 
     public function dispatch() {
         global $wp_query;

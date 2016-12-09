@@ -3,7 +3,7 @@
  * Listing contact page.
  * @since 3.4
  */
-class WPBDP__Views__Listing_Contact extends WPBDP_NView {
+class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
     private $errors = array();
 

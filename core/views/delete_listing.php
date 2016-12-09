@@ -2,7 +2,7 @@
 /**
  * @since 4.0
  */
-class WPBDP__Views__Delete_Listing extends WPBDP_NView {
+class WPBDP__Views__Delete_Listing extends WPBDP__View {
 
     function dispatch() {
         $listing_id = intval( $_REQUEST['listing_id'] );

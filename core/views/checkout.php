@@ -1,5 +1,5 @@
 <?php
-class WPBDP__Views__Checkout extends WPBDP_NView {
+class WPBDP__Views__Checkout extends WPBDP__View {
 
     private $api = null;
     private $payment = null;

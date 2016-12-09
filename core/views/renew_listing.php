@@ -2,7 +2,7 @@
 /**
  * Renew listing view.
  */
-class WPBDP__Views__Renew_Listing extends WPBDP_NView {
+class WPBDP__Views__Renew_Listing extends WPBDP__View {
 
     private $listing = null;
     private $plan = null;

@@ -1,5 +1,5 @@
 <?php
-class WPBDP__Views__Main extends WPBDP_NView {
+class WPBDP__Views__Main extends WPBDP__View {
 
     private function warnings() {
         if ( count(get_terms(WPBDP_CATEGORY_TAX, array('hide_empty' => 0))) == 0 ) {

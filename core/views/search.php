@@ -2,7 +2,7 @@
 require_once( WPBDP_PATH . 'core/helpers/class-listing-search.php' );
 
 
-class WPBDP__Views__Search extends WPBDP_NView {
+class WPBDP__Views__Search extends WPBDP__View {
 
     public function get_title() {
         return _x( 'Find A Listing', 'views', 'WPBDM' );

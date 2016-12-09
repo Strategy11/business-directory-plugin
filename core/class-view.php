@@ -1,37 +1,19 @@
 <?php
 /**
- * Views (pages) API.
+ * View API/class.
+ * @since next-release
  */
+class WPBDP__View {
 
-abstract class WPBDP_View {
-
-    public function get_page_name() {
-        $clsname = get_class( $this );
-        return ltrim( strtolower( str_replace( array( 'WPBDP', '_', '-Page' ), array( '', '-', '' ), $clsname ) ), '-' );
+    public function __construct( $args = null ) {
+        if ( is_array( $args ) ) {
+            foreach ( $args as $k => $v )
+                $this->{$k} = $v;
+        }
     }
 
     public function get_title() {
-        return '';
-    }
-
-    public function dispatch() {
-    	return '';
-    }
-
-}
-
-class WPBDP_NView {
-
-    private $router = null;
-
-
-    public function __construct( $args = array() ) {
-        foreach ( $args as $k => $v )
-            $this->{$k} = $v;
-    }
-
-    public function get_title() {
-        return '';
+        return 'Unnamed View';
     }
 
     public function enqueue_resources() {
@@ -41,7 +23,12 @@ class WPBDP_NView {
         return '';
     }
 
-    public final function _http_404() {
+
+    //
+    // API for views. {
+    //
+
+    protected final function _http_404() {
         status_header( 404 );
         nocache_headers();
 
@@ -51,19 +38,23 @@ class WPBDP_NView {
         exit;
     }
 
-    public final function _redirect( $url ) {
+    protected final function _redirect( $url ) {
         wp_redirect( $url );
         exit;
     }
 
-    public final function _render() {
+    protected final function _render() {
         $args = func_get_args();
         return call_user_func_array( 'wpbdp_x_render', $args );
     }
 
-    public final function _render_page() {
+    protected final function _render_page() {
         $args = func_get_args();
         return call_user_func_array( 'wpbdp_x_render_page', $args );
     }
 
+    //
+    // }
+    //
 }
+

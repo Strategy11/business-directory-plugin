@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Views__Show_Listing extends WPBDP_NView {
+class WPBDP__Views__Show_Listing extends WPBDP__View {
 
     public function dispatch() {
         if ( ! wpbdp_user_can( 'view', null ) )
