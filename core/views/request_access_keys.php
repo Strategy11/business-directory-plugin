@@ -4,6 +4,9 @@ require_once( WPBDP_PATH . 'core/class-view.php' );
 class WPBDP__Views__Request_Access_Keys extends WPBDP_NView {
 
     public function dispatch() {
+        if ( wpbdp_get_option( 'require-login' ) || ! wpbdp_get_option( 'enable-key-access' ) )
+            die();
+
         $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
         $errors = array();
 
