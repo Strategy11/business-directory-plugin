@@ -2,7 +2,7 @@
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '16';
+    const DB_VERSION = '17';
 
     private $installed_version = null;
 
@@ -184,7 +184,7 @@ class WPBDP_Installer {
         if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
             return;
 
-        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12', '13', '16' );
+        $upgrade_routines = array( '2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.4', '3.5', '3.6', '3.7', '3.9', '4.0', '5', '6', '7', '8', '11', '12', '13', '17' );
 
         foreach ( $upgrade_routines as $v ) {
             if ( version_compare( $this->installed_version, $v ) < 0 ) {
@@ -929,7 +929,7 @@ class WPBDP_Installer {
              $f->save();
     }
 
-    public function upgrade_to_16() {
+    public function upgrade_to_17() {
         $form_fields = $this->get_list_form_fields();
 
         foreach ( $form_fields as $form_field ) {
@@ -944,7 +944,7 @@ class WPBDP_Installer {
             $form_field->save();
         }
 
-        if ( $this->count_listing_meta_with_new_line_characters( array_keys( $form_fields ) ) ) {
+        if ( $this->count_listing_meta_with_invalid_characters( array_keys( $form_fields ) ) ) {
             $this->request_manual_upgrade( 'upgrade_to_16_fix_form_fields_data' );
         }
     }
@@ -963,14 +963,14 @@ class WPBDP_Installer {
         return $form_fields;
     }
 
-    private function count_listing_meta_with_new_line_characters( $meta_keys ) {
+    private function count_listing_meta_with_invalid_characters( $meta_keys ) {
         global $wpdb;
 
         if ( ! $meta_keys ) {
             return 0;
         }
 
-        $sql = "SELECT COUNT(meta_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s) AND meta_value REGEXP '[\r\n]'";
+        $sql = "SELECT COUNT(meta_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\t | \t| $|[\r\n]'";
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
 
         return intval( $wpdb->get_var( $sql ) );
@@ -989,7 +989,7 @@ class WPBDP_Installer {
 
     public function upgrade_to_16_fix_form_fields_data() {
         $form_fields = $this->get_list_form_fields();
-        $meta_entries = $this->get_listing_meta_with_new_line_characters( array_keys( $form_fields ) );
+        $meta_entries = $this->get_listing_meta_with_invalid_characters( array_keys( $form_fields ) );
 
         foreach ( $meta_entries as $meta_entry ) {
             $meta_value = maybe_unserialize( $meta_entry->meta_value );
@@ -1007,7 +1007,7 @@ class WPBDP_Installer {
             $form_fields[ $meta_entry->meta_key ]->store_value( $meta_entry->post_id, $sanitized_value );
         }
 
-        $records_left = $this->count_listing_meta_with_new_line_characters( array_keys( $form_fields ) );
+        $records_left = $this->count_listing_meta_with_invalid_characters( array_keys( $form_fields ) );
 
         $message = _x( 'Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d records left)', 'installer', 'WPBDM' );
 
@@ -1018,7 +1018,7 @@ class WPBDP_Installer {
         );
     }
 
-    private function get_listing_meta_with_new_line_characters( $meta_keys ) {
+    private function get_listing_meta_with_invalid_characters( $meta_keys ) {
         global $wpdb;
 
         if ( ! $meta_keys ) {
@@ -1026,7 +1026,7 @@ class WPBDP_Installer {
         }
 
         $sql = "SELECT post_id, meta_id, meta_key, meta_value FROM {$wpdb->postmeta} ";
-        $sql.= "WHERE meta_key IN (%s) AND meta_value REGEXP '[\r\n]' ";
+        $sql.= "WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\t | \t| $|[\r\n]' ";
         $sql.= "LIMIT 50";
 
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
