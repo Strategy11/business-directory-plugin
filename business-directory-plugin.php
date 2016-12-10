@@ -477,19 +477,20 @@ class WPBDP_Plugin {
         }
 
         // Handle login URL for some views.
-        if ( in_array( wpbdp_current_view(), array( 'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing' ), true )
-             && wpbdp_get_option( 'require-login' )
-             && ! is_user_logged_in() ) {
-
-            $login_url = trim( wpbdp_get_option( 'login-url' ) );
-
-            if ( ! $login_url )
-                return;
-
-            $url = add_query_arg( 'redirect_to', urlencode( home_url( $_SERVER['REQUEST_URI'] ) ), $login_url );
-            wp_redirect( esc_url_raw( $url ) );
-            exit();
-        }
+        // FIXME: review if this is now handled in each view correctly, before @next-release.
+        // if ( in_array( wpbdp_current_view(), array( 'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing' ), true )
+        //      && wpbdp_get_option( 'require-login' )
+        //      && ! is_user_logged_in() ) {
+        //
+        //     $login_url = trim( wpbdp_get_option( 'login-url' ) );
+        //
+        //     if ( ! $login_url )
+        //         return;
+        //
+        //     $url = add_query_arg( 'redirect_to', urlencode( home_url( $_SERVER['REQUEST_URI'] ) ), $login_url );
+        //     wp_redirect( esc_url_raw( $url ) );
+        //     exit();
+        // }
     }
 
     public function plugin_activation() {
