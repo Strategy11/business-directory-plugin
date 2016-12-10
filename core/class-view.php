@@ -13,7 +13,7 @@ class WPBDP__View {
     }
 
     public function get_title() {
-        return 'Unnamed View';
+        return '';
     }
 
     public function enqueue_resources() {
@@ -51,6 +51,41 @@ class WPBDP__View {
     protected final function _render_page() {
         $args = func_get_args();
         return call_user_func_array( 'wpbdp_x_render_page', $args );
+    }
+
+    protected final function _auth_required( $args = array() ) {
+        $defaults = array(
+            'test' => '',
+            'login_url' => wpbdp_url( 'login' ),
+            'redirect_on_failure' => true
+        );
+        $args = wp_parse_args( $args, $defaults );
+        extract( $args );
+
+        if ( ! $test && method_exists( $this, 'authenticate' ) )
+            $test = array( $this, 'authenticate' );
+
+        if ( is_callable( $test ) )
+            $passes = call_user_func( $test );
+        elseif ( 'administrator' == $test )
+            $passes = current_user_can( 'administrator' );
+        else
+            $passes = is_user_logged_in();
+
+        if ( $passes )
+            return;
+
+        if ( is_user_logged_in() )
+            $redirect_on_failure = false;
+
+        if ( $redirect_on_failure ) {
+            $current_url = urlencode( site_url( $_SERVER['REQUEST_URI'] ) );
+            $login_url = add_query_arg( 'redirect_to', $current_url, $login_url );
+
+            return $this->_redirect( $login_url );
+        } else {
+            return wpbdp_render_msg( _x( 'Invalid credentials.', 'views', 'WPBDM' ), 'error' );
+        }
     }
 
     //
