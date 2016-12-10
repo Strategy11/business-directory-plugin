@@ -1,10 +1,11 @@
 <?php
+require_once( WPBDP_PATH . 'core/helpers/class-authenticated-listing-view.php' );
+
 /**
  * Renew listing view.
  */
-class WPBDP__Views__Renew_Listing extends WPBDP__View {
+class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
-    private $listing = null;
     private $plan = null;
     private $payment_id = 0;
 
@@ -18,27 +19,26 @@ class WPBDP__Views__Renew_Listing extends WPBDP__View {
         if ( ! ( $this->listing = WPBDP_Listing::get( $_GET['renewal_id'] ) ) )
             return wpbdp_render_msg( _x( 'Your renewal ID is invalid. Please use the URL you were given on the renewal e-mail message.', 'renewal', 'WPBDM' ), 'error' );
 
+        $this->_auth_required();
+
         $this->plan = $this->listing->get_fee_plan();
 
-        if ( ! wpbdp_user_can( 'edit', $this->listing->get_id() ) || 'ok' != $this->plan->status ) {
+        if ( 'ok' != $this->plan->status ) {
             $html  = '';
-            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page. Please login.', 'renewal', 'WPBDM' ), 'error' );
-            $html .= wpbdp_render( 'parts/login-required', array(), false );
+            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page.', 'renewal', 'WPBDM' ), 'error' );
             return $html;
         }
 
         // Check if there's a pending payment for this renewal. If there is, move to checkout.
-        $this->payment_id = $wpdb->get_var( $wpdb->prepare(
+        $payment_id = $wpdb->get_var( $wpdb->prepare(
             "SELECT pi.payment_id FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type = %s AND p.status = %s AND p.listing_id = %d",
             'plan_renewal',
             'pending',
             $this->listing->get_id()
         ) );
         if ( $this->payment_id ) {
-            $html  = '';
-            $html .= wpbdp_render_msg( _x( 'There\'s a renewal already in process. Please continue with the checkout process.', 'renewal', 'WPBDM' ) );
-            $html .= $this->checkout();
-            return $html;
+            $payment = WPBDP_Payment::objects()->get( $this->payment_id );
+            return $this->_redirect( $payment->get_checkout_url() );
         }
 
         if ( $this->plan->is_recurring )
@@ -82,7 +82,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__View {
                 $payment->save();
 
                 $this->payment_id = $payment->get_id();
-                return $this->checkout();
+                return $this->_redirect( $payment->get_checkout_url() );
             }
         }
 
@@ -91,16 +91,6 @@ class WPBDP__Views__Renew_Listing extends WPBDP__View {
                                                      'featured_price' => $this->plan->featured_level ? wpbdp_currency_format( $this->plan->featured_price ) : 0.0,
                                                      'current_plan' => $this->plan->fee,
                                                      'plans' => $plans ) );
-    }
-
-    private function checkout() {
-        $payment = WPBDP_Payment::get( $this->payment_id );
-
-        if ( ! $payment )
-            return wpbdp_render_msg( _x( 'Invalid renewal state.', 'renewal', 'WPBDM' ), 'error' );
-
-        $checkout = wpbdp_load_view( 'checkout', $payment );
-        return $checkout->dispatch();
     }
 
     // FIXME: before next-release

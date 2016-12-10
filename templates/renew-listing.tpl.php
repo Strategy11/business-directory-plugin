@@ -26,7 +26,7 @@
             </label></p>
             <?php endif; ?>
 
-            <input type="submit" class="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" />
+            <p><input type="submit" class="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 
             <div class="do-not-renew-listing">
                 <div class="header"><?php _ex( 'Cancel Listing Renewal', 'renewal', 'WPBDM' ); ?></div>
