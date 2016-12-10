@@ -468,6 +468,13 @@ class WPBDP_Form_Field {
     }
 
     /**
+     * @since 4.1.6
+     */
+    public function get_schema_org( $post_id ) {
+        return $this->type->get_schema_org( $this, $post_id );
+    }
+
+    /**
      * Returns HTML apt for displaying this field in forms.
      * @param mixed $value the value to be displayed. defaults to null.
      * @param string $display_context the rendering context. defaults to 'submit'.
