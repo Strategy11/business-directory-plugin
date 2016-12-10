@@ -41,7 +41,13 @@ class WPBDP_Listing_Display_Helper {
         // TODO: is this really used? can it be changed to something else?
         // 'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID), This is 
         // complete HTML
-        return wpbdp_x_render( 'single', $vars );
+        $html  = '';
+        $html .= wpbdp_x_render( 'single', $vars );
+        $html .= '<script type="application/ld+json">';
+        $html .= json_encode( self::schema_org( $vars ) );
+        $html .= '</script>';
+
+        return $html;
     }
 
     private static function basic_vars( $listing_id ) {
@@ -135,6 +141,39 @@ class WPBDP_Listing_Display_Helper {
         }
 
         return $vars;
+    }
+
+    private static function schema_org( $vars ) {
+        $schema = array();
+        $schema['@context'] = 'http://schema.org';
+        $schema['@type'] = 'LocalBusiness';
+        $schema['name'] = $vars['title'];
+        $schema['url'] = get_permalink( $vars['listing_id'] );
+        $schema['image'] = ! empty( $vars['images']->main ) ? $vars['images']->main->url : '';
+        $schema['priceRange'] = '$$';
+
+        $fields = $vars['fields'];
+        $fsx = array();
+        foreach ( $fields as $f ) {
+            $field_schema = $f->field->get_schema_org( $vars['listing_id'] );
+
+            if ( ! $field_schema )
+                continue;
+
+            foreach ( $field_schema as $key => $value ) {
+                if ( ! $value )
+                    continue;
+
+                if ( is_array( $value ) )
+                    $schema[ $key ] = array_merge( isset( $schema[ $key ] ) ? $schema[ $key ] : array(), $value );
+                else
+                    $schema[ $key ] = $value;
+            }
+        }
+
+        $schema = apply_filters( 'wpbdp_listing_schema_org', $schema );
+
+        return $schema;
     }
 
 }

@@ -384,7 +384,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     if ( !$main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
         $image_img = get_the_post_thumbnail( $listing_id, 'wpbdp-thumb' );
     } elseif( !$main_image && wpbdp_get_option( 'use-default-picture' ) ) {
-        $image_img = sprintf( '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" itemprop="image" />',
+        $image_img = sprintf( '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
                               WPBDP_URL . 'core/images/default-image-big.gif',
                               get_the_title( $listing_id ),
                               get_the_title( $listing_id ),
@@ -400,7 +400,6 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
                                               array(
                                                 'alt' => get_the_title( $listing_id ),
                                                 'title' => get_the_title( $listing_id ),
-                                                'itemprop' => 'image',
                                                 'class' => $image_classes
                                                 )
                                              );
