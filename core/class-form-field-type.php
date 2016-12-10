@@ -310,8 +310,14 @@ class WPBDP_Form_Field_Type {
         if ( $label )
             $html .= '<label>' . esc_html( apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) ) . ':</label> ';
 
-        if ($content)
-            $html .= '<span class="value">' . $content . '</span>';
+        if ( $content ) {
+            $schema_org = '';
+            if ( is_object( $labelorfield ) && in_array( $labelorfield->get_tag(), array( 'address', 'phone' ), true ) ) {
+                $schema_org = 'itemprop="' . ( 'phone' == $labelorfield->get_tag() ? 'telephone' : $labelorfield->get_tag() ) . '"';
+            }
+
+            $html .= sprintf( '<span class="value" %s>' . $content . '</span>', $schema_org );
+        }
 
         $html .= '</div>';
 
