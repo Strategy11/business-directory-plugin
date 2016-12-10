@@ -635,6 +635,14 @@ class WPBDP_Listing {
             return $new_key;
     }
 
+    /**
+     * @since next-release
+     */
+    public function validate_access_key_hash( $hash ) {
+        $key = $this->get_access_key();
+        return sha1( AUTH_KEY . $key ) == $hash;
+    }
+
     public function get_author_meta( $meta ) {
         if ( ! $this->id )
             return '';
@@ -843,6 +851,22 @@ class WPBDP_Listing {
      */
     public function get_expiration_time() {
         return strtotime( $this->get_expiration_date() );
+    }
+
+    /**
+     * @since next-release
+     */
+    public static function validate_access_key( $key, $email = '' ) {
+        if ( ! $key )
+            return false;
+
+        global $wpdb;
+
+        return intval( $wpdb->get_var(
+            $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
+            '_wpbdp[access_key]',
+            $key  )
+        ) ) > 0;
     }
 
     public static function create( &$state ) {
