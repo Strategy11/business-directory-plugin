@@ -265,7 +265,11 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
             break;
         case 'edit':
         case 'delete':
-            $res = user_can($user_id, 'administrator') || ( $post->post_author && $post->post_author == $user_id );
+            $res = user_can( $user_id, 'administrator' );
+            $res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
+            $res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
+            break;
+        default:
             break;
     }
 
@@ -518,6 +522,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'all_listings':
         case 'view_listings':
         case 'search':
+        case 'login':
             $url = add_query_arg( 'wpbdp_view', $pathorview, $base_url );
             break;
         case 'delete_listing':
