@@ -288,7 +288,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     switch ($action) {
         case 'view':
             if ( isset( $_GET['preview'] ) ) {
-                $res = user_can( $user_id, 'editor' ) || ( $post->post_author && $post->post_author == $user_id );
+                $res = user_can( $user_id, 'edit_others_posts' ) || ( $post->post_author && $post->post_author == $user_id );
             } else {
                 $res = true;
             }
