@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2016-11-25 09:40:43+00:00\n"
+"POT-Creation-Date: 2016-12-13 23:11:33+00:00\n"
 "PO-Revision-Date: 2016-08-29 18:17-0300\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -990,84 +990,84 @@ msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Champ effacé."
 
-#: admin/form-fields.php:272
+#: admin/form-fields.php:277
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Champs requis créés avec succès."
 
-#: admin/form-fields.php:285
+#: admin/form-fields.php:290
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Titre"
 
-#: admin/form-fields.php:286
+#: admin/form-fields.php:291
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Catégorie"
 
-#: admin/form-fields.php:287
+#: admin/form-fields.php:292
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "Extrait"
 
-#: admin/form-fields.php:288
+#: admin/form-fields.php:293
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Contenu"
 
-#: admin/form-fields.php:289
+#: admin/form-fields.php:294
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Étiquettes (tags)"
 
-#: admin/form-fields.php:290
+#: admin/form-fields.php:295
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Adresse"
 
-#: admin/form-fields.php:291
+#: admin/form-fields.php:296
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Ville: "
 
-#: admin/form-fields.php:292
+#: admin/form-fields.php:297
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Région: "
 
-#: admin/form-fields.php:293
+#: admin/form-fields.php:298
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "Code Postal"
 
-#: admin/form-fields.php:294
+#: admin/form-fields.php:299
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Numéro de fax"
 
-#: admin/form-fields.php:295
+#: admin/form-fields.php:300
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: admin/form-fields.php:296
+#: admin/form-fields.php:301
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Champs d'évaluation"
 
-#: admin/form-fields.php:297
+#: admin/form-fields.php:302
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: admin/form-fields.php:298
+#: admin/form-fields.php:303
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "Site Internet"
 
-#: admin/form-fields.php:319
+#: admin/form-fields.php:324
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Étiquettes mises à jour."
@@ -2228,7 +2228,7 @@ msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.5dev6)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3021,34 +3021,34 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Autoriser l'analyse"
 
-#: business-directory-plugin.php:667
+#: business-directory-plugin.php:668
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: business-directory-plugin.php:775 business-directory-plugin.php:782
+#: business-directory-plugin.php:776 business-directory-plugin.php:783
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "%s diffusion"
 
-#: business-directory-plugin.php:1117 core/view-submit-listing.php:58
+#: business-directory-plugin.php:1137 core/view-submit-listing.php:58
 #: core/views/submit_listing.php:10
 #, fuzzy
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Soumettre une annonce"
 
-#: business-directory-plugin.php:1122
+#: business-directory-plugin.php:1142
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Trouver une annonce"
 
-#: business-directory-plugin.php:1127
+#: business-directory-plugin.php:1147
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Voir toutes les annonces"
 
-#: business-directory-plugin.php:1156
+#: business-directory-plugin.php:1176
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Annonces marquées: %s"
@@ -3117,19 +3117,19 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Type de champ de formulaire invalide"
 
-#: core/class-form-field.php:498
+#: core/class-form-field.php:505
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "L'étiquette de champ est requise"
 
-#: core/class-form-field.php:508
+#: core/class-form-field.php:515
 msgctxt "form-fields-api"
 msgid "Requested field type change is incompatible. Type will not be modified."
 msgstr ""
 "La modification du type de champ est incompatible. Le type de champ  ne sera "
 "pas modifié."
 
-#: core/class-form-field.php:528
+#: core/class-form-field.php:535
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -3138,17 +3138,17 @@ msgstr ""
 "Il ne peut y avoir qu'un champ avec l'association \"% s \". Veuillez "
 "sélectionner une autre association."
 
-#: core/class-form-field.php:538
+#: core/class-form-field.php:545
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\" est un type de champ invalide pour cette association."
 
-#: core/class-form-field.php:576
+#: core/class-form-field.php:583
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID de champ invalide"
 
-#: core/class-form-field.php:585
+#: core/class-form-field.php:592
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -3157,7 +3157,7 @@ msgstr ""
 "Ce champ de formulaire ne peut pas être supprimé car il est nécessaire pour "
 "que le plugin fonctionne."
 
-#: core/class-form-field.php:597
+#: core/class-form-field.php:604
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Une erreur est survenue en essayant de supprimer ce champ."
@@ -3218,12 +3218,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Coûts Non disponible)"
 
-#: core/class-listings-api.php:306
+#: core/class-listings-api.php:310
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Nouvelle notification d'annonce"
 
-#: core/class-listings-api.php:325
+#: core/class-listings-api.php:329
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notification d'édition d'annonce"
@@ -3615,13 +3615,13 @@ msgctxt "admin settings"
 msgid "Enable AJAX compatibility mode?"
 msgstr "Activer le mode de comptabilité AJAX ?"
 
-#: core/class-settings.php:181 core/class-settings.php:665
+#: core/class-settings.php:181 core/class-settings.php:679
 msgctxt "admin settings"
 msgid "Listings"
 msgstr "Annonces"
 
-#: core/class-settings.php:182 core/class-settings.php:335
-#: core/class-settings.php:622
+#: core/class-settings.php:182 core/class-settings.php:349
+#: core/class-settings.php:636
 msgctxt "admin settings"
 msgid "General Settings"
 msgstr "Paramètres généraux"
@@ -3693,52 +3693,70 @@ msgstr ""
 "Utilisez ceci pour prévenir les annonces contenant des spams. 0 signifie un "
 "nombre de soumission illimité par jour."
 
-#: core/class-settings.php:220
+#: core/class-settings.php:222
 msgctxt "admin settings"
 msgid "Include comment form on listing pages?"
 msgstr "Inclure les formulaire de commentaires dans pages annonces ?"
 
-#: core/class-settings.php:223
+#: core/class-settings.php:225
 msgctxt "admin settings"
 msgid ""
-"Allow visitors to discuss listings using the standard WordPress comment "
-"form. Comments are public."
+"BD uses the standard comment inclusion from WordPress, but most themes only "
+"allow for comments on posts, not pages. Some themes handle both. BD is "
+"displayed on a page, so we need a theme that can handle both to show "
+"comments. Use the 2nd option if you want to allow comments on listings "
+"first, and if that doesn't work, try the 3rd option instead."
 msgstr ""
-"Permettre aux visiteurs de discuter des annonces en utilisant le formulaire "
-"de commentaire standard WordPress. Les commentaires sont visibles par tous."
 
-#: core/class-settings.php:224
+#: core/class-settings.php:228
+#, fuzzy
+msgctxt "admin settings"
+msgid "Do not include comments in listings"
+msgstr "Inclure les formulaire de commentaires dans pages annonces ?"
+
+#: core/class-settings.php:229
+#, fuzzy
+msgctxt "admin settings"
+msgid "Include comment form, theme invoked (standard option)"
+msgstr "Inclure les formulaire de commentaires dans pages annonces ?"
+
+#: core/class-settings.php:230
+msgctxt "admin settings"
+msgid "Include comment form, BD invoked (use only if 2nd option doesn't work)"
+msgstr ""
+
+#: core/class-settings.php:238
 msgctxt "admin settings"
 msgid "Show listings under categories on main page?"
 msgstr "Voir les annonces catégorisées sur la page principale?"
 
-#: core/class-settings.php:225
+#: core/class-settings.php:239
 msgctxt "admin settings"
 msgid "Status of listings upon uninstalling plugin"
 msgstr "Statut des annonces dès la désinstallation du plugin"
 
-#: core/class-settings.php:226 core/class-settings.php:228
+#: core/class-settings.php:240 core/class-settings.php:242
 msgctxt "post status"
 msgid "Draft"
 msgstr ""
 
-#: core/class-settings.php:226 core/class-settings.php:228
+#: core/class-settings.php:240 core/class-settings.php:242
 msgctxt "post status"
 msgid "Trash"
 msgstr ""
 
-#: core/class-settings.php:227
+#: core/class-settings.php:241
 msgctxt "admin settings"
 msgid "Status of deleted listings"
 msgstr "Statut des annonces effacées"
 
-#: core/class-settings.php:229
+#: core/class-settings.php:243
 #, fuzzy
 msgctxt "admin settings"
 msgid "Submit Listing instructions message"
 msgstr "Lister des messages de contact"
 
-#: core/class-settings.php:229
+#: core/class-settings.php:243
 msgctxt "admin settings"
 msgid ""
 "This text is displayed at the first page of the Submit Listing process for "
@@ -3746,22 +3764,22 @@ msgid ""
 "form or anything you want to tell users before they get started."
 msgstr ""
 
-#: core/class-settings.php:231
+#: core/class-settings.php:245
 msgctxt "admin settings"
 msgid "Listing Renewal"
 msgstr "Renouvellement des annonces"
 
-#: core/class-settings.php:232
+#: core/class-settings.php:246
 msgctxt "admin settings"
 msgid "Turn on listing renewal option?"
 msgstr "Activer l'option renouvellement des annonces ?"
 
-#: core/class-settings.php:235
+#: core/class-settings.php:249
 msgctxt "admin settings"
 msgid "Allow recurring renewal payments?"
 msgstr "Autoriser les paiements récurrents de renouvellement ?"
 
-#: core/class-settings.php:238
+#: core/class-settings.php:252
 msgctxt "admin settings"
 msgid ""
 "Allow users to opt in for automatic renewal of their listings. The fee is "
@@ -3771,13 +3789,13 @@ msgstr ""
 "leurs annonces. La redevance est perçue au moment de l'inscription et expire "
 "sans intervention de l'utilisateur."
 
-#: core/class-settings.php:242
+#: core/class-settings.php:256
 msgctxt "admin settings"
 msgid "Use recurring payments as the default payment method?"
 msgstr ""
 "Utiliser les paiements récurrents comme méthode de paiement par défaut?"
 
-#: core/class-settings.php:245
+#: core/class-settings.php:259
 msgctxt "admin settings"
 msgid ""
 "Enable automatic renewal without having users opt in during the submit "
@@ -3786,13 +3804,13 @@ msgstr ""
 "Activer le renouvellement automatique sans avoir à avertir les utilisateurs "
 "lors du processus de soumission."
 
-#: core/class-settings.php:250
+#: core/class-settings.php:264
 msgctxt "admin settings"
 msgid "Listing renewal e-mail threshold (in days)"
 msgstr "Seuil de renouvellement des annonces par e-mail (en jours)"
 
 # Todo as soon as possible. I don't understand exactly what does this sentence...
-#: core/class-settings.php:253
+#: core/class-settings.php:267
 msgctxt "admin settings"
 msgid ""
 "Configure how many days before listing expiration is the renewal e-mail sent."
@@ -3800,7 +3818,7 @@ msgstr ""
 "Configurer le nombre de jours avant l'expiration des annonces doit se "
 "dérouler le renouvellement d'envoi d'e-mail."
 
-#: core/class-settings.php:257
+#: core/class-settings.php:271
 msgctxt "admin settings"
 msgid ""
 "Send expiration notices including a cancel links to auto-renewed listings?"
@@ -3808,19 +3826,19 @@ msgstr ""
 "Envoyer des avis d'expiration y compris un lien d'annulation vers le "
 "renouvellement automatique des annonces ?"
 
-#: core/class-settings.php:264
+#: core/class-settings.php:278
 msgctxt "admin settings"
 msgid "Remind listing owners of expired listings (past due)?"
 msgstr ""
 "Rappeler les propriétaires des annonces lorsque ces dernières arrives à "
 "expiration (en souffrance)?"
 
-#: core/class-settings.php:269
+#: core/class-settings.php:283
 msgctxt "admin settings"
 msgid "Listing renewal reminder e-mail threshold (in days)"
 msgstr "Seuil du renouvellement des rappels e-mail des annonces (en jours)"
 
-#: core/class-settings.php:272
+#: core/class-settings.php:286
 msgctxt "admin settings"
 msgid ""
 "Configure how many days after the expiration of a listing an e-mail reminder "
@@ -3829,175 +3847,175 @@ msgstr ""
 "Configurer le nombre de jours après l'expiration d'une annonces d'un rappel "
 "avant qu'un e-mail soit envoyé au propriétaire."
 
-#: core/class-settings.php:275
+#: core/class-settings.php:289
 msgctxt "admin settings"
 msgid "Post/Category Settings"
 msgstr "Paramètres de Messages/Catégories"
 
-#: core/class-settings.php:276
+#: core/class-settings.php:290
 msgctxt "admin settings"
 msgid "Default new post status"
 msgstr "Statut du nouveau message par défaut"
 
-#: core/class-settings.php:277 core/class-settings.php:280
+#: core/class-settings.php:291 core/class-settings.php:294
 msgctxt "post status"
 msgid "Published"
 msgstr ""
 
-#: core/class-settings.php:277 core/class-settings.php:280
+#: core/class-settings.php:291 core/class-settings.php:294
 #, fuzzy
 msgctxt "post status"
 msgid "Pending"
 msgstr "En attente"
 
-#: core/class-settings.php:279
+#: core/class-settings.php:293
 msgctxt "admin settings"
 msgid "Edit post status"
 msgstr "Editer le statut du message"
 
-#: core/class-settings.php:281
+#: core/class-settings.php:295
 msgctxt "admin settings"
 msgid "Order categories list by"
 msgstr "Ordonner les catégories des annonces par"
 
-#: core/class-settings.php:283
+#: core/class-settings.php:297
 msgctxt "admin settings"
 msgid "Name"
 msgstr "Nom"
 
-#: core/class-settings.php:284
+#: core/class-settings.php:298
 msgctxt "admin settings"
 msgid "Slug"
 msgstr "Identifiant"
 
-#: core/class-settings.php:285
+#: core/class-settings.php:299
 msgctxt "admin settings"
 msgid "Listing Count"
 msgstr "Compteur d'annonce"
 
-#: core/class-settings.php:287
+#: core/class-settings.php:301
 msgctxt "admin settings"
 msgid "Sort order for categories"
 msgstr "Ordre de tri pour les catégories"
 
-#: core/class-settings.php:288 core/class-settings.php:306
+#: core/class-settings.php:302 core/class-settings.php:320
 msgctxt "admin settings"
 msgid "Ascending"
 msgstr "Ascendant"
 
-#: core/class-settings.php:288 core/class-settings.php:306
+#: core/class-settings.php:302 core/class-settings.php:320
 msgctxt "admin settings"
 msgid "Descending"
 msgstr "Descendant"
 
-#: core/class-settings.php:289
+#: core/class-settings.php:303
 msgctxt "admin settings"
 msgid "Show category post count?"
 msgstr "Montrer les catégories par messages postés ?"
 
-#: core/class-settings.php:290
+#: core/class-settings.php:304
 msgctxt "admin settings"
 msgid "Hide empty categories?"
 msgstr "Cacher les catégories vides ?"
 
-#: core/class-settings.php:291
+#: core/class-settings.php:305
 msgctxt "admin settings"
 msgid "Show only parent categories in category list?"
 msgstr ""
 "Montrer seulement les catégories parentes dans la liste des catégories ?"
 
-#: core/class-settings.php:293
+#: core/class-settings.php:307
 msgctxt "admin settings"
 msgid "Listings Sorting"
 msgstr "Tri des annonces"
 
-#: core/class-settings.php:294
+#: core/class-settings.php:308
 msgctxt "admin settings"
 msgid "Order directory listings by"
 msgstr "Ordonner les annonces de l'annuaire par"
 
-#: core/class-settings.php:296
+#: core/class-settings.php:310
 msgctxt "admin settings"
 msgid "Title"
 msgstr "Titre"
 
-#: core/class-settings.php:297
+#: core/class-settings.php:311
 msgctxt "admin settings"
 msgid "Author"
 msgstr "Auteur"
 
-#: core/class-settings.php:298 core/class-settings.php:708
+#: core/class-settings.php:312 core/class-settings.php:722
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
-#: core/class-settings.php:299 core/class-settings.php:709
+#: core/class-settings.php:313 core/class-settings.php:723
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
 
-#: core/class-settings.php:300
+#: core/class-settings.php:314
 msgctxt "admin settings"
 msgid "Random"
 msgstr "Aléatoire"
 
-#: core/class-settings.php:301
+#: core/class-settings.php:315
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by date."
 msgstr ""
 
-#: core/class-settings.php:302
+#: core/class-settings.php:316
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by title."
 msgstr ""
 
-#: core/class-settings.php:304
+#: core/class-settings.php:318
 msgctxt "admin settings"
 msgid "Sort directory listings by"
 msgstr "Trier les annonces de l'annuaire par"
 
-#: core/class-settings.php:305
+#: core/class-settings.php:319
 msgctxt "admin settings"
 msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
 msgstr ""
 "Ascendant pour un classement de A à Z, Descendant pour un classement de Z à A"
 
-#: core/class-settings.php:310
+#: core/class-settings.php:324
 msgctxt "admin settings"
 msgid "Enable sort bar?"
 msgstr "Activer la barre de tri ?"
 
-#: core/class-settings.php:315
+#: core/class-settings.php:329
 msgctxt "admin settings"
 msgid "Sortbar Fields"
 msgstr "Champs de la barre de tri"
 
-#: core/class-settings.php:324
+#: core/class-settings.php:338
 msgctxt "admin settings"
 msgid "Featured (Sticky) listing settings"
 msgstr "Paramètres sélectionnés (Post-it) des annonces"
 
-#: core/class-settings.php:325
+#: core/class-settings.php:339
 msgctxt "admin settings"
 msgid "Offer sticky listings?"
 msgstr "Proposer des annonces par Post-it ?"
 
-#: core/class-settings.php:326
+#: core/class-settings.php:340
 msgctxt "admin settings"
 msgid "Offer upgrades during submit process?"
 msgstr "Proposer des améliorations durant le processus de soumission ?"
 
-#: core/class-settings.php:327
+#: core/class-settings.php:341
 msgctxt "admin settings"
 msgid "Sticky listing price"
 msgstr "Prix des annonces en Post-it"
 
-#: core/class-settings.php:328
+#: core/class-settings.php:342
 msgctxt "admin settings"
 msgid "Sticky listing page description text"
 msgstr "Texte de description de la  page annonce en Post-it"
 
-#: core/class-settings.php:329
+#: core/class-settings.php:343
 msgctxt "admin settings"
 msgid ""
 "You can upgrade your listing to featured status. Featured listings will "
@@ -4007,17 +4025,17 @@ msgstr ""
 "annonces ainsi traitées vont toujours apparaître avant les annonces "
 "courantes."
 
-#: core/class-settings.php:334
+#: core/class-settings.php:348
 msgctxt "admin settings"
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: core/class-settings.php:338
+#: core/class-settings.php:352
 msgctxt "admin settings"
 msgid "Display email address fields publicly?"
 msgstr "Affichage des champs d'adresses e-mail au public ?"
 
-#: core/class-settings.php:341
+#: core/class-settings.php:355
 msgctxt "admin settings"
 msgid ""
 "Shows the email address of the listing owner to all web users. NOT "
@@ -4028,12 +4046,12 @@ msgstr ""
 "utilisateurs du Web. PAS RECOMMANDE car cela augmente le spam à l'adresse en "
 "question et permet aux spam bots de la récolter pour une utilisation future."
 
-#: core/class-settings.php:344
+#: core/class-settings.php:358
 msgctxt "admin settings"
 msgid "How to determine the listing's email address?"
 msgstr "Comment définir l'adresse e-mail de l'annonce ?"
 
-#: core/class-settings.php:347
+#: core/class-settings.php:361
 msgctxt "admin settings"
 msgid ""
 "This affects emails sent to listing owners via contact forms or when their "
@@ -4042,125 +4060,125 @@ msgstr ""
 "Cela affecte l'envoie des e-mails aux propriétaires des annonces via le "
 "formulaire de contact ou quand leurs annonces expirent."
 
-#: core/class-settings.php:349
+#: core/class-settings.php:363
 msgctxt "admin settings"
 msgid "Try listing's email field first, then author's email."
 msgstr ""
 
-#: core/class-settings.php:350
+#: core/class-settings.php:364
 msgctxt "admin settings"
 msgid "Try author's email first and then listing's email field."
 msgstr ""
 
-#: core/class-settings.php:354
+#: core/class-settings.php:368
 msgctxt "admin settings"
 msgid "E-Mail Notifications"
 msgstr "Notification mail"
 
-#: core/class-settings.php:357
+#: core/class-settings.php:371
 msgctxt "admin settings"
 msgid "Notify admin via e-mail when..."
 msgstr "Prévenir l'administrateur via courriel quand..."
 
-#: core/class-settings.php:361
+#: core/class-settings.php:375
 msgctxt "admin settings"
 msgid "A new listing is submitted."
 msgstr "Une nouvelle annonce a été soumise."
 
-#: core/class-settings.php:362
+#: core/class-settings.php:376
 msgctxt "admin settings"
 msgid "A listing is edited."
 msgstr "Une annonce est éditée."
 
-#: core/class-settings.php:363
+#: core/class-settings.php:377
 msgctxt "admin settings"
 msgid "A listing expires."
 msgstr "Une annonce expire."
 
-#: core/class-settings.php:364
+#: core/class-settings.php:378
 msgctxt "admin settings"
 msgid "A contact message is sent to a listing's owner."
 msgstr "Un message de contact est envoyé a un propriétaire d'annonce."
 
-#: core/class-settings.php:370
+#: core/class-settings.php:384
 msgctxt "admin settings"
 msgid "CC this e-mail address too"
 msgstr "CC cette adresse mail aussi"
 
-#: core/class-settings.php:376
+#: core/class-settings.php:390
 msgctxt "admin settings"
 msgid "Notify users via e-mail when..."
 msgstr "Prévenir les utilisateurs via courriel quand..."
 
-#: core/class-settings.php:379
+#: core/class-settings.php:393
 msgctxt "admin settings"
 msgid "You can modify the text template used for most of these e-mails below."
 msgstr ""
 "Vous pouvez modifier le modèle de texte utilisé pour la plupart de ces e-"
 "mails ci-dessous."
 
-#: core/class-settings.php:380
+#: core/class-settings.php:394
 msgctxt "admin settings"
 msgid "Their listing is submitted."
 msgstr "Leur annonce est soumise."
 
-#: core/class-settings.php:381
+#: core/class-settings.php:395
 msgctxt "admin settings"
 msgid "Their listing is approved/published."
 msgstr "Leur annonce est approuvée/publiée"
 
-#: core/class-settings.php:390
+#: core/class-settings.php:404
 msgctxt "contact email"
 msgid "You have received a reply from your listing at %s."
 msgstr "Vous avez reçu une réponse à votre annonce de %s."
 
-#: core/class-settings.php:391
+#: core/class-settings.php:405
 msgctxt "contact email"
 msgid "Name: %s"
 msgstr "Nom: %s"
 
-#: core/class-settings.php:392
+#: core/class-settings.php:406
 msgctxt "contact email"
 msgid "E-Mail: %s"
 msgstr "E-Mail: %s"
 
-#: core/class-settings.php:393
+#: core/class-settings.php:407
 msgctxt "contact email"
 msgid "Message:"
 msgstr "Message:"
 
-#: core/class-settings.php:395
+#: core/class-settings.php:409
 msgctxt "contact email"
 msgid "Time: %s"
 msgstr "Date: %s"
 
-#: core/class-settings.php:397
+#: core/class-settings.php:411
 msgctxt "admin settings"
 msgid "E-Mail Templates"
 msgstr "Template d'E-Mail"
 
-#: core/class-settings.php:400
+#: core/class-settings.php:414
 msgctxt "admin settings"
 msgid "Email confirmation message"
 msgstr "Message de confirmation par E-Mail"
 
-#: core/class-settings.php:404
+#: core/class-settings.php:418
 msgctxt "admin settings"
 msgid "Sent after a listing has been submitted."
 msgstr "Envoyer après qu'une annonce ait été soumise"
 
-#: core/class-settings.php:405 core/class-settings.php:413
-#: core/class-settings.php:454
+#: core/class-settings.php:419 core/class-settings.php:427
+#: core/class-settings.php:468
 msgctxt "admin settings"
 msgid "Listing's title"
 msgstr "Titre de l'annonce"
 
-#: core/class-settings.php:408
+#: core/class-settings.php:422
 msgctxt "admin settings"
 msgid "Listing published message"
 msgstr "Message publié de l'annonce"
 
-#: core/class-settings.php:411
+#: core/class-settings.php:425
 msgctxt "admin settings"
 msgid ""
 "Your listing \"[listing]\" is now available at [listing-url] and can be "
@@ -4169,23 +4187,23 @@ msgstr ""
 "Votre annonce  \"[listing]\" est maintenant disponible à [listing-url] et "
 "elle peut être vu par tout le monde."
 
-#: core/class-settings.php:412
+#: core/class-settings.php:426
 msgctxt "admin settings"
 msgid "Sent when the listing has been published or approved by an admin."
 msgstr ""
 "Envoyé lorsque l'annonce a été publiée ou approuvée par un administrateur."
 
-#: core/class-settings.php:414
+#: core/class-settings.php:428
 msgctxt "admin settings"
 msgid "Listing's URL"
 msgstr "Url de l'annonce"
 
-#: core/class-settings.php:418
+#: core/class-settings.php:432
 msgctxt "admin settings"
 msgid "Listing Contact Message"
 msgstr "Lister des messages de contact"
 
-#: core/class-settings.php:422
+#: core/class-settings.php:436
 msgctxt "admin settings"
 msgid ""
 "Sent to listing owners when someone uses the contact form on their listing "
@@ -4194,34 +4212,34 @@ msgstr ""
 "Envoyer aux propriétaires des annonces quand quelqu'un utilise le formulaire "
 "de contact sur leurs pages d'annonces."
 
-#: core/class-settings.php:432
+#: core/class-settings.php:446
 msgctxt "admin settings"
 msgid "Payment related"
 msgstr "Paiement lié"
 
-#: core/class-settings.php:449
+#: core/class-settings.php:463
 msgctxt "admin settings"
 msgid "Payment abandoned reminder message"
 msgstr "Paiement abandonné, message de rappel"
 
-#: core/class-settings.php:453
+#: core/class-settings.php:467
 msgctxt "admin settings"
 msgid "Sent some time after a pending payment is abandoned by users."
 msgstr ""
 "Envoyer après un certain temps lorsqu'un paiement en attente est abandonné "
 "par les utilisateurs."
 
-#: core/class-settings.php:455
+#: core/class-settings.php:469
 msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Vérificateur de lien URL"
 
-#: core/class-settings.php:461
+#: core/class-settings.php:475
 msgctxt "admin settings"
 msgid "Renewal Reminders"
 msgstr "Renouveller les rappels"
 
-#: core/class-settings.php:464
+#: core/class-settings.php:478
 msgctxt "admin settings"
 msgid ""
 "This section refers only to the text of the renewal/expiration notices. You "
@@ -4231,12 +4249,12 @@ msgstr ""
 "d'expiration. Vous pouvez également configurer <a> quand les e-mails seront "
 "envoyés </a>."
 
-#: core/class-settings.php:468
+#: core/class-settings.php:482
 msgctxt "admin settings"
 msgid "Pending expiration e-mail message"
 msgstr "Expiration imminente du mail"
 
-#: core/class-settings.php:472
+#: core/class-settings.php:486
 msgctxt "settings"
 msgid ""
 "Sent some time before the listing expires. Applies to non-recurring renewals "
@@ -4245,50 +4263,50 @@ msgstr ""
 "Envoyé quelque temps avant l'expiration de l'annonce. Valable seulement pour "
 "les renouvellements non-récurrents."
 
-#: core/class-settings.php:473 core/class-settings.php:486
-#: core/class-settings.php:499 core/class-settings.php:512
-#: core/class-settings.php:525
+#: core/class-settings.php:487 core/class-settings.php:500
+#: core/class-settings.php:513 core/class-settings.php:526
+#: core/class-settings.php:539
 msgctxt "settings"
 msgid "Listing's name (with link)"
 msgstr "Nom de l'annonce (avec lien)"
 
-#: core/class-settings.php:474 core/class-settings.php:487
-#: core/class-settings.php:500 core/class-settings.php:513
-#: core/class-settings.php:526
+#: core/class-settings.php:488 core/class-settings.php:501
+#: core/class-settings.php:514 core/class-settings.php:527
+#: core/class-settings.php:540
 msgctxt "settings"
 msgid "Author's name"
 msgstr "Nom de l'auteur"
 
-#: core/class-settings.php:475 core/class-settings.php:488
-#: core/class-settings.php:527
+#: core/class-settings.php:489 core/class-settings.php:502
+#: core/class-settings.php:541
 msgctxt "settings"
 msgid "Expiration date"
 msgstr "Date d'expiration"
 
-#: core/class-settings.php:476
+#: core/class-settings.php:490
 msgctxt "settings"
 msgid "Category that is going to expire"
 msgstr "Catégorier qui va expirer"
 
-#: core/class-settings.php:477 core/class-settings.php:490
-#: core/class-settings.php:529
+#: core/class-settings.php:491 core/class-settings.php:504
+#: core/class-settings.php:543
 msgctxt "settings"
 msgid "Link to renewal page"
 msgstr "Lien pour renouveller la page"
 
-#: core/class-settings.php:478 core/class-settings.php:491
-#: core/class-settings.php:503 core/class-settings.php:516
-#: core/class-settings.php:530
+#: core/class-settings.php:492 core/class-settings.php:505
+#: core/class-settings.php:517 core/class-settings.php:530
+#: core/class-settings.php:544
 msgctxt "settings"
 msgid "Link to your site"
 msgstr "Lien vers votre site"
 
-#: core/class-settings.php:481
+#: core/class-settings.php:495
 msgctxt "admin settings"
 msgid "Listing Renewal e-mail message"
 msgstr "Message mail de renouvellement d'annonce"
 
-#: core/class-settings.php:485
+#: core/class-settings.php:499
 msgctxt "settings"
 msgid ""
 "Sent at the time of listing expiration. Applies to non-recurring renewals "
@@ -4297,17 +4315,17 @@ msgstr ""
 "Envoyé au moment de l'expiration de l'annonce. Seulement valable pour les "
 "renouvellements non-récurrents."
 
-#: core/class-settings.php:489 core/class-settings.php:528
+#: core/class-settings.php:503 core/class-settings.php:542
 msgctxt "settings"
 msgid "Category that expired"
 msgstr "Catégories qui ont expiré"
 
-#: core/class-settings.php:494
+#: core/class-settings.php:508
 msgctxt "admin settings"
 msgid "Listing auto-renewal reminder (recurring payments)"
 msgstr "Rappel d'auto-renouvellement des annonces (paiements récurrents)"
 
-#: core/class-settings.php:498
+#: core/class-settings.php:512
 msgctxt "settings"
 msgid ""
 "Sent some time before the listing is auto-renewed. Applies to recurring "
@@ -4316,27 +4334,27 @@ msgstr ""
 "Envoyé un certain temps avant que l'annonce est auto-renouvellement. Valable "
 "pour les renouvellements périodiques seulement."
 
-#: core/class-settings.php:501 core/class-settings.php:515
+#: core/class-settings.php:515 core/class-settings.php:529
 msgctxt "settings"
 msgid "Renewal date"
 msgstr "Date de renouvellement"
 
-#: core/class-settings.php:502
+#: core/class-settings.php:516
 msgctxt "settings"
 msgid "Category that is going to be renewed"
 msgstr "Catégories qui vont être renouvelées"
 
-#: core/class-settings.php:504
+#: core/class-settings.php:518
 msgctxt "settings"
 msgid "Link to manage subscriptions"
 msgstr "Lien pour gérer les abonnements"
 
-#: core/class-settings.php:507
+#: core/class-settings.php:521
 msgctxt "admin settings"
 msgid "Listing Renewal e-mail message (recurring payments)"
 msgstr "Renouvellement des annonces par mail (paiements récurrents)"
 
-#: core/class-settings.php:511
+#: core/class-settings.php:525
 msgctxt "settings"
 msgid ""
 "Sent after the listing is auto-renewed. Applies to recurring renewals only."
@@ -4344,17 +4362,17 @@ msgstr ""
 "Envoyé dès que les annonces se soient auto-renouvelées. Appliqué aux "
 "paiements récurrents seulement."
 
-#: core/class-settings.php:514
+#: core/class-settings.php:528
 msgctxt "settings"
 msgid "Renewed category"
 msgstr "Catégories renouvellées"
 
-#: core/class-settings.php:520
+#: core/class-settings.php:534
 msgctxt "admin settings"
 msgid "Renewal reminder e-mail message"
 msgstr "Renouveler le rappel par mail"
 
-#: core/class-settings.php:524
+#: core/class-settings.php:538
 msgctxt "settings"
 msgid ""
 "Sent some time after listing expiration and when no renewal has occurred. "
@@ -4364,33 +4382,33 @@ msgstr ""
 "renouvellement n'a pas eu lieu. Valable pour deux renouvellements récurrents "
 "et non récurrents."
 
-#: core/class-settings.php:534
+#: core/class-settings.php:548
 msgctxt "admin settings"
 msgid "Payment"
 msgstr "Paiement"
 
-#: core/class-settings.php:535
+#: core/class-settings.php:549
 msgctxt "admin settings"
 msgid "Payment Settings"
 msgstr "Paramètres de paiement"
 
-#: core/class-settings.php:538
+#: core/class-settings.php:552
 msgctxt "admin settings"
 msgid "Turn On payments?"
 msgstr "Activer les paiements ?"
 
-#: core/class-settings.php:540
+#: core/class-settings.php:554
 msgctxt "admin settings"
 msgid "Put payment gateways in test mode?"
 msgstr "Passer les passerelles de paiement en mode test ?"
 
-#: core/class-settings.php:545
+#: core/class-settings.php:559
 msgctxt "admin settings"
 msgid "Perform checkouts on the secure (HTTPS) version of your site?"
 msgstr ""
 "Effectuer la vérification sur la version sécurisée (HTTPS) de votre site?"
 
-#: core/class-settings.php:548
+#: core/class-settings.php:562
 msgctxt "admin settings"
 msgid ""
 "Recommended for added security. For this to work you need to enable HTTPS on "
@@ -4399,163 +4417,163 @@ msgstr ""
 "Recommandé pour une sécurité accrue. Pour que cela fonctionne, vous devez "
 "activer HTTPS sur votre serveur et <a> obtenir un certificat SSL </a>."
 
-#: core/class-settings.php:552
+#: core/class-settings.php:566
 msgctxt "admin settings"
 msgid "Currency Code"
 msgstr "Code de devise"
 
-#: core/class-settings.php:554
+#: core/class-settings.php:568
 msgctxt "admin settings"
 msgid "Australian Dollar (AUD)"
 msgstr "Dollar Australien (AUD)"
 
-#: core/class-settings.php:555
+#: core/class-settings.php:569
 msgctxt "admin settings"
 msgid "Brazilian Real (BRL)"
 msgstr "Real Brésilien (BRL)"
 
-#: core/class-settings.php:556
+#: core/class-settings.php:570
 msgctxt "admin settings"
 msgid "Canadian Dollar (CAD)"
 msgstr "Dollar Canadien (CAD)"
 
-#: core/class-settings.php:557
+#: core/class-settings.php:571
 msgctxt "admin settings"
 msgid "Czech Koruna (CZK)"
 msgstr "Couronne Tchèque (CZK)"
 
-#: core/class-settings.php:558
+#: core/class-settings.php:572
 msgctxt "admin settings"
 msgid "Danish Krone (DKK)"
 msgstr "Couronne Danoise (DKK)"
 
-#: core/class-settings.php:559
+#: core/class-settings.php:573
 msgctxt "admin settings"
 msgid "Euro (EUR)"
 msgstr "Euro (EUR)"
 
-#: core/class-settings.php:560
+#: core/class-settings.php:574
 msgctxt "admin settings"
 msgid "Hong Kong Dollar (HKD)"
 msgstr "Dollar de Hong Kong(HKD)"
 
-#: core/class-settings.php:561
+#: core/class-settings.php:575
 msgctxt "admin settings"
 msgid "Hungarian Forint (HUF)"
 msgstr "Forint Hongrois (HUF)"
 
-#: core/class-settings.php:562
+#: core/class-settings.php:576
 msgctxt "admin settings"
 msgid "Israeli New Shequel (ILS)"
 msgstr "Nouveau Shequel Israélien (ILS)"
 
-#: core/class-settings.php:563
+#: core/class-settings.php:577
 msgctxt "admin settings"
 msgid "Japanese Yen (JPY)"
 msgstr "Yen Japonais (JPY)"
 
-#: core/class-settings.php:564
+#: core/class-settings.php:578
 msgctxt "admin settings"
 msgid "Malasian Ringgit (MYR)"
 msgstr "Ringgit Malaisien (MYR)"
 
-#: core/class-settings.php:565
+#: core/class-settings.php:579
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr "Peso Mexicain (MXN)"
 
-#: core/class-settings.php:566
+#: core/class-settings.php:580
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr "Couronne Norvégienne (NOK)"
 
-#: core/class-settings.php:567
+#: core/class-settings.php:581
 msgctxt "admin settings"
 msgid "New Zealand Dollar (NZD)"
 msgstr "Dollar Néo-Zélandais (NZD)"
 
-#: core/class-settings.php:568
+#: core/class-settings.php:582
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr "Peso Phillipin (PHP)"
 
-#: core/class-settings.php:569
+#: core/class-settings.php:583
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr "Zloty Polonais  (PLN)"
 
-#: core/class-settings.php:570
+#: core/class-settings.php:584
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr "Livre Sterling (GBP)"
 
-#: core/class-settings.php:571
+#: core/class-settings.php:585
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr "Dollar Singaporien (SGD)"
 
-#: core/class-settings.php:572
+#: core/class-settings.php:586
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr "Couronne Suédoise (SEK)"
 
-#: core/class-settings.php:573
+#: core/class-settings.php:587
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr "Franc Suisse (CHF)"
 
-#: core/class-settings.php:574
+#: core/class-settings.php:588
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr "Dollar Taiwanais (TWD)"
 
-#: core/class-settings.php:575
+#: core/class-settings.php:589
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr "Baht Thaïlandais"
 
-#: core/class-settings.php:576
+#: core/class-settings.php:590
 msgctxt "admin settings"
 msgid "Turkish Lira (TRY)"
 msgstr "Livre Turque (TRY)"
 
-#: core/class-settings.php:577
+#: core/class-settings.php:591
 #, fuzzy
 msgctxt "admin settings"
 msgid "U.S. Dollar (USD)"
 msgstr "Dollar U.S. "
 
-#: core/class-settings.php:581
+#: core/class-settings.php:595
 msgctxt "admin settings"
 msgid "Currency Symbol"
 msgstr "Devise"
 
-#: core/class-settings.php:586
+#: core/class-settings.php:600
 msgctxt "admin settings"
 msgid "Currency symbol display"
 msgstr "Affichage de la devise"
 
-#: core/class-settings.php:590
+#: core/class-settings.php:604
 msgctxt "admin settings"
 msgid "Show currency symbol on the left"
 msgstr "Afficher le symbole de devise à gauche"
 
-#: core/class-settings.php:591
+#: core/class-settings.php:605
 msgctxt "admin settings"
 msgid "Show currency symbol on the right"
 msgstr "Afficher le symbole de devise à droite"
 
-#: core/class-settings.php:592
+#: core/class-settings.php:606
 msgctxt "admin settings"
 msgid "Do not show currency symbol"
 msgstr "Ne pas montrer la devise"
 
-#: core/class-settings.php:594
+#: core/class-settings.php:608
 msgctxt "admin settings"
 msgid "Thank you for payment message"
 msgstr "Merci pour le message de paiement"
 
-#: core/class-settings.php:595
+#: core/class-settings.php:609
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
@@ -4565,12 +4583,12 @@ msgstr ""
 "votre annonce en revue. Le processus de vérification et d'examen peut "
 "prendre jusqu'à 48 heures."
 
-#: core/class-settings.php:600
+#: core/class-settings.php:614
 msgctxt "admin settings"
 msgid "Ask users to come back for abandoned payments?"
 msgstr "Demandez aux utilisateurs de revenir pour les paiements abandonnés ?"
 
-#: core/class-settings.php:603
+#: core/class-settings.php:617
 msgctxt "admin settings"
 msgid ""
 "An abandoned payment is when a user attempts to place a listing and gets to "
@@ -4584,12 +4602,12 @@ msgstr ""
 "l'utilisateur n'a tout simplement pas compléter la transaction. Le plugin "
 "peut peut rappeler les auteurs pour continuer la publication de leur annonce."
 
-#: core/class-settings.php:609
+#: core/class-settings.php:623
 msgctxt "admin settings"
 msgid "Listing abandonment threshold (hours)"
 msgstr "Seuil d'abandon de l'annonce (heures)"
 
-#: core/class-settings.php:614
+#: core/class-settings.php:628
 msgctxt "admin settings"
 msgid ""
 "Listings with pending payments are marked as abandoned after this time. You "
@@ -4599,37 +4617,37 @@ msgstr ""
 "cette heure. Vous pouvez également personnaliser <a> l'e-mail </a> que les "
 "utilisateurs reçoivent."
 
-#: core/class-settings.php:619
+#: core/class-settings.php:633
 msgctxt "admin settings"
 msgid "Themes"
 msgstr "Thèmes"
 
-#: core/class-settings.php:621
+#: core/class-settings.php:635
 msgctxt "admin settings"
 msgid "You can manage your themes on <a>Directory Themes</a>."
 msgstr ""
 
-#: core/class-settings.php:626
+#: core/class-settings.php:640
 msgctxt "admin settings"
 msgid "Theme button style"
 msgstr "Boutons de thèmes"
 
-#: core/class-settings.php:630
+#: core/class-settings.php:644
 msgctxt "admin settings"
 msgid "Use the BD theme style for BD buttons"
 msgstr "Utiliser le thème BD pour les boutons BD"
 
-#: core/class-settings.php:631
+#: core/class-settings.php:645
 msgctxt "admin settings"
 msgid "Use the WP theme style for BD buttons"
 msgstr "Utiliser le thème WP pour les boutons BD"
 
-#: core/class-settings.php:638
+#: core/class-settings.php:652
 msgctxt "admin settings"
 msgid "Image"
 msgstr "Image"
 
-#: core/class-settings.php:639
+#: core/class-settings.php:653
 msgctxt "admin settings"
 msgid ""
 "Any changes to these settings will affect new listings only.  Existing "
@@ -4643,52 +4661,52 @@ msgstr ""
 "télécharger l'image (s) sur cette annonce, après avoir cfait les "
 "modifications voulue."
 
-#: core/class-settings.php:640
+#: core/class-settings.php:654
 msgctxt "admin settings"
 msgid "Image Settings"
 msgstr "Paraamètres des images"
 
-#: core/class-settings.php:641
+#: core/class-settings.php:655
 msgctxt "admin settings"
 msgid "Allow images?"
 msgstr "Autoriser les images ?"
 
-#: core/class-settings.php:643
+#: core/class-settings.php:657
 msgctxt "admin settings"
 msgid "Min Image File Size (KB)"
 msgstr "Taille minnimal des fichiers images (KB)"
 
-#: core/class-settings.php:644
+#: core/class-settings.php:658
 msgctxt "admin settings"
 msgid "Max Image File Size (KB)"
 msgstr "Taille maximal des fichiers images (KB)"
 
-#: core/class-settings.php:646
+#: core/class-settings.php:660
 msgctxt "admin settings"
 msgid "Min image width (px)"
 msgstr "Largeur minnimal des images (px)"
 
-#: core/class-settings.php:647
+#: core/class-settings.php:661
 msgctxt "admin settings"
 msgid "Min image height (px)"
 msgstr "Hauteur minnimal des images (px)"
 
-#: core/class-settings.php:649
+#: core/class-settings.php:663
 msgctxt "admin settings"
 msgid "Max image width (px)"
 msgstr "Largeur maximal des images (px)"
 
-#: core/class-settings.php:650
+#: core/class-settings.php:664
 msgctxt "admin settings"
 msgid "Max image height (px)"
 msgstr "Hauteur maximal des images (px)"
 
-#: core/class-settings.php:652
+#: core/class-settings.php:666
 msgctxt "admin settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "Activer thickbox/lightbox ?"
 
-#: core/class-settings.php:652
+#: core/class-settings.php:666
 msgctxt "admin settings"
 msgid ""
 "Uncheck if it conflicts with other elements or plugins installed on your site"
@@ -4696,27 +4714,27 @@ msgstr ""
 "Décochez si vela entre en conflit avec d'autres éléments ou plugins "
 "installés sur votre site"
 
-#: core/class-settings.php:654
+#: core/class-settings.php:668
 msgctxt "admin settings"
 msgid "Thumbnails"
 msgstr "Miniatures"
 
-#: core/class-settings.php:655
+#: core/class-settings.php:669
 msgctxt "admin settings"
 msgid "Thumbnail width (px)"
 msgstr "Largeur des miniatures (en pixel)"
 
-#: core/class-settings.php:656
+#: core/class-settings.php:670
 msgctxt "admin settings"
 msgid "Thumbnail height (px)"
 msgstr "Hauteur des miniatures (en pixel)"
 
-#: core/class-settings.php:659
+#: core/class-settings.php:673
 msgctxt "admin settings"
 msgid "Crop thumbnails to exact dimensions?"
 msgstr "Recadrer les miniatures aux dimensions exactes ?"
 
-#: core/class-settings.php:662
+#: core/class-settings.php:676
 msgctxt "admin settings"
 msgid ""
 "When enabled images will match exactly the dimensions above but part of the "
@@ -4731,12 +4749,12 @@ msgstr ""
 "proportionnellement. Selon les images téléchargées, les miniatures peuvent "
 "avoir différentes hauteurs."
 
-#: core/class-settings.php:668
+#: core/class-settings.php:682
 msgctxt "admin settings"
 msgid "Number of free images"
 msgstr "Nombre d'images gratuites"
 
-#: core/class-settings.php:673
+#: core/class-settings.php:687
 msgctxt "admin settings"
 msgid ""
 "For paid listing images, configure that by adding or editing a <a>Fee Plan</"
@@ -4746,28 +4764,28 @@ msgstr ""
 "ou modification d'un <a>plan de frais</a> au lieu de ce paramètre, qui est "
 "ignoré pour les annonces payées."
 
-#: core/class-settings.php:676
+#: core/class-settings.php:690
 msgctxt "admin settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "Utiliser l'image par défault pour les annonces sans images ?"
 
-#: core/class-settings.php:677
+#: core/class-settings.php:691
 msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Montrer les miniatures sur page principale des annonces ?"
 
-#: core/class-settings.php:706
+#: core/class-settings.php:720
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: core/class-settings.php:707
+#: core/class-settings.php:721
 #, fuzzy
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Date d'expiration de l'annonce"
 
-#: core/class-settings.php:733
+#: core/class-settings.php:747
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -4776,7 +4794,7 @@ msgstr ""
 "Impossible de copier le plugin de compatibilité AJAX \"% s\". Le mode de "
 "compatibilité n'a pas été activé."
 
-#: core/class-settings.php:741
+#: core/class-settings.php:755
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -4785,7 +4803,7 @@ msgstr ""
 "Impossible d'activer le mode de compatibilité AJAX: le répertoire \"% s \" "
 "ne peux pas être créé."
 
-#: core/class-settings.php:750
+#: core/class-settings.php:764
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -4794,97 +4812,97 @@ msgstr ""
 "Impossible de supprimer le \"Module de comptabilité AJAX du plugin \". "
 "Veuillez supprimer le fichier \"% s \" manuellement ou désactiver le plugin."
 
-#: core/class-settings.php:1070
+#: core/class-settings.php:1084
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Désactiver la licence"
 
-#: core/class-settings.php:1072
+#: core/class-settings.php:1086
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Désactivation de la licence..."
 
-#: core/class-settings.php:1075
+#: core/class-settings.php:1089
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Activer la licence"
 
-#: core/class-settings.php:1077
+#: core/class-settings.php:1091
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Activation de la licence"
 
-#: core/class-settings.php:1100
+#: core/class-settings.php:1114
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Espaces réservés valides:% s"
 
-#: core/class-settings.php:1134
+#: core/class-settings.php:1148
 msgctxt "settings email"
 msgid "Click to edit e-mail"
 msgstr "Cliquer pour éditer l'e-mail"
 
-#: core/class-settings.php:1135
+#: core/class-settings.php:1149
 msgctxt "settings email"
 msgid "Click to edit"
 msgstr "Cliquer pour éditer"
 
-#: core/class-settings.php:1148
+#: core/class-settings.php:1162
 msgctxt "settings email"
 msgid "E-Mail Subject"
 msgstr "Sujet de l'e-mail"
 
-#: core/class-settings.php:1159
+#: core/class-settings.php:1173
 msgctxt "settings email"
 msgid "E-Mail Body"
 msgstr "Corps de l'e-mail"
 
-#: core/class-settings.php:1170
+#: core/class-settings.php:1184
 msgctxt "settings email"
 msgid "You can use the following placeholders:"
 msgstr "Vous pouvez utiliser les paramètres suivantes:"
 
-#: core/class-settings.php:1193
+#: core/class-settings.php:1207
 msgctxt "settings email"
 msgid "Preview e-mail"
 msgstr "E-mail précédents"
 
-#: core/class-settings.php:1194
+#: core/class-settings.php:1208
 msgctxt "settings email"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: core/class-settings.php:1195
+#: core/class-settings.php:1209
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Sauvegarder les changements"
 
-#: core/class-settings.php:1214
+#: core/class-settings.php:1228
 msgctxt "settings email"
 msgid "Site title"
 msgstr "Titre du site"
 
-#: core/class-settings.php:1217
+#: core/class-settings.php:1231
 msgctxt "settings email"
 msgid "Site title (with link)"
 msgstr "Titre du site (avec lien)"
 
-#: core/class-settings.php:1220
+#: core/class-settings.php:1234
 msgctxt "settings email"
 msgid "Site address (with link)"
 msgstr "Adresse du site (avec lien)"
 
-#: core/class-settings.php:1223
+#: core/class-settings.php:1237
 msgctxt "settings email"
 msgid "Directory URL (with link)"
 msgstr "Annuaire des URL (avec lien)"
 
-#: core/class-settings.php:1226
+#: core/class-settings.php:1240
 msgctxt "settings email"
 msgid "Current date"
 msgstr "Date actuelle"
 
-#: core/class-settings.php:1229
+#: core/class-settings.php:1243
 msgctxt "settings email"
 msgid "Current time"
 msgstr "Heure actuelle"
@@ -5541,11 +5559,18 @@ msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Mise à jour des annonces vers prioritaire"
 
-#: core/installer.php:957
+#: core/installer.php:1012
+msgctxt "installer"
+msgid ""
+"Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d "
+"records left)"
+msgstr ""
+
+#: core/installer.php:1061
 msgid "Business Directory - Manual Upgrade Required"
 msgstr "Business Directory - Mise à jour manuelle requise"
 
-#: core/installer.php:959
+#: core/installer.php:1063
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
@@ -5554,15 +5579,15 @@ msgstr ""
 "désactivés car le plugin a besoin d'effectuer une mise à jour manuelle avant "
 "de poursuivre."
 
-#: core/installer.php:961
+#: core/installer.php:1065
 msgid "Perform Manual Upgrade"
 msgstr "Effectuer la mise à jour manuelle"
 
-#: core/installer.php:977 core/installer.php:978 core/installer.php:989
+#: core/installer.php:1081 core/installer.php:1082 core/installer.php:1093
 msgid "Business Directory - Manual Upgrade"
 msgstr "Business Directory - Mise à jour manuelle"
 
-#: core/installer.php:993
+#: core/installer.php:1097
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -5571,23 +5596,23 @@ msgstr ""
 "désactivées car le plugin a besoin d'effectuer une mise à jour manuelle afin "
 "d'être pleinement utilisable."
 
-#: core/installer.php:995
+#: core/installer.php:1099
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 "Cliquez sur \"Démarrer la mise à jour\" et patientez jusqu'à la fin du "
 "processus."
 
-#: core/installer.php:998
+#: core/installer.php:1102
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "Démarrer la mise à jour"
 
-#: core/installer.php:1000
+#: core/installer.php:1104
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "Mettre la mise à jour en pause"
 
-#: core/installer.php:1006
+#: core/installer.php:1110
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was sucessfully performed. Business Directory Plugin is now "
@@ -5596,23 +5621,23 @@ msgstr ""
 "La mise à jour s'est bien effectuée. Le plugin Business Directory est "
 "maintenant disponible et fonctionnel."
 
-#: core/installer.php:1009
+#: core/installer.php:1113
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Aller à \"Administrateur de l'annuaire\""
 
-#: core/installer.php:1044
+#: core/installer.php:1148
 #, fuzzy
 msgid "Business Directory - Installation Failed"
 msgstr "Business Directory - Mise à jour manuelle"
 
-#: core/installer.php:1046
+#: core/installer.php:1150
 msgid ""
 "Business Directory installation failed. An exception with following message "
 "was generated:"
 msgstr ""
 
-#: core/installer.php:1051
+#: core/installer.php:1155
 msgid "Please <contact-link>contact customer support</a>."
 msgstr ""
 
@@ -5905,41 +5930,41 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Aucune catégorie d'annonce trouvée"
 
-#: core/templates-ui.php:193
+#: core/templates-ui.php:194
 msgid "Directory"
 msgstr "Annuaire"
 
-#: core/templates-ui.php:199
+#: core/templates-ui.php:201
 #, fuzzy
 msgid "View All Listings"
 msgstr "Voir toutes les annonces"
 
-#: core/templates-ui.php:205
+#: core/templates-ui.php:208
 #, fuzzy
 msgid "Create A Listing"
 msgstr "Annonce gratuite"
 
-#: core/templates-ui.php:232
+#: core/templates-ui.php:241
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Recherche d'annonces"
 
-#: core/templates-ui.php:235
+#: core/templates-ui.php:244
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Recherche avancée"
 
-#: core/templates-ui.php:264 core/templates-ui.php:289
+#: core/templates-ui.php:273 core/templates-ui.php:298
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Trier par:"
 
-#: core/templates-ui.php:283
+#: core/templates-ui.php:292
 msgctxt "sort"
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: core/templates-ui.php:305
+#: core/templates-ui.php:314
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Réinitialiser)"
@@ -7326,6 +7351,15 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "admin settings"
+#~ msgid ""
+#~ "Allow visitors to discuss listings using the standard WordPress comment "
+#~ "form. Comments are public."
+#~ msgstr ""
+#~ "Permettre aux visiteurs de discuter des annonces en utilisant le "
+#~ "formulaire de commentaire standard WordPress. Les commentaires sont "
+#~ "visibles par tous."
 
 #~ msgctxt "title"
 #~ msgid "Submit A Listing"
