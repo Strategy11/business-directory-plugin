@@ -694,3 +694,122 @@ function wpbdp_render_user_field( $args = array() ) {
 
     return $output;
 }
+
+function wpbdp_enqueue_jquery_ui_style() {
+    global $wp_scripts;
+
+    if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered[ 'jquery-ui-core' ] ) ) {
+        $ui_version = $wp_scripts->registered['jquery-ui-core']->ver;
+    } else {
+        $ui_version = '1.8.21';
+    }
+
+    wp_enqueue_style(
+        'wpbdp-jquery-ui-css',
+        'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $ui_version . '/themes/redmond/jquery-ui.css'
+    );
+}
+
+function wpbdp_buckwalter_arabic_transliteration( $content ) {
+    $arabic_characters = array(
+        'ء',
+        'آ',
+        'أ',
+        'ؤ',
+        'إ',
+        'ئ',
+        'ا',
+        'ب',
+        'ة',
+        'ت',
+        'ث',
+        'ج',
+        'ح',
+        'خ',
+        'د',
+        'ذ',
+        'ر',
+        'ز',
+        'س',
+        'ش',
+        'ص',
+        'ض',
+        'ط',
+        'ظ',
+        'ع',
+        'غ',
+        'ـ',
+        'ف',
+        'ق',
+        'ك',
+        'ل',
+        'م',
+        'ن',
+        'ه',
+        'و',
+        'ى',
+        'ي',
+        'ً',
+        'ٌ',
+        'ٍ',
+        'َ',
+        'ُ',
+        'ِ',
+        'ّ',
+        'ْ',
+        'ٰ',
+        'ٱ',
+    );
+
+    $english_characters = array(
+        '\'',
+        '|',
+        'O', // replaced '>' with 'O' as suggested in http://www.qamus.org/transliteration.htm
+        'W', // replaced '&' with 'W'
+        'I', // replaced '<' with 'I'
+        '}',
+        'A',
+        'b',
+        'p',
+        't',
+        'v',
+        'j',
+        'H',
+        'x',
+        'd',
+        '*',
+        'r',
+        'z',
+        's',
+        '$',
+        'S',
+        'D',
+        'T',
+        'Z',
+        'E',
+        'g',
+        '_',
+        'f',
+        'q',
+        'k',
+        'l',
+        'm',
+        'n',
+        'h',
+        'w',
+        'Y',
+        'y',
+        'F',
+        'N',
+        'K',
+        'a',
+        'u',
+        'i',
+        '~',
+        'o',
+        '`',
+        '{',
+    );
+
+    return str_replace( $arabic_characters, $english_characters, $content );
+}

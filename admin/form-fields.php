@@ -254,6 +254,11 @@ class WPBDP_FormFieldsAdmin {
                 $this->admin->messages[] = array( $ret->get_error_message(), 'error' );
             } else {
                 $this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'WPBDM' );
+
+                $quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
+                $quick_search_fields = array_diff( $quick_search_fields, array( $_REQUEST['id'] ) );
+
+                wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
             }
 
             return $this->fieldsTable();

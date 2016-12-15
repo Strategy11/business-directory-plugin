@@ -9,7 +9,7 @@ class WPBDP__Listing_Search {
     public $aliases = array();
     private $query_template = '';
     private $query = '';
-    private $results = array();
+    private $results = null;
 
 
     public function __construct( $tree ) {
@@ -37,10 +37,9 @@ class WPBDP__Listing_Search {
     }
 
     public function get_results() {
-        if ( $this->results )
-            return $this->results;
-
-        $this->execute();
+        if ( ! is_array( $this->results ) ) {
+            $this->execute();
+        }
 
         return $this->results;
     }
@@ -158,16 +157,27 @@ class WPBDP__Listing_Search {
         // Quick search.
         if ( ! empty( $request['kw'] ) ) {
             $keywords = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( $request['kw'] ) : explode( ' ', $request['kw'] );
-            $fields = wpbdp_get_option( 'quick-search-fields' );
-            $fields = $fields ? $fields : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
+
+            $fields_ids = wpbdp_get_option( 'quick-search-fields' );
+            $fields_ids = $fields_ids ? $fields_ids : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
+
+            $fields = array();
+
+            foreach ( $fields_ids as $field_id ) {
+                $field = wpbdp_get_form_field( $field_id );
+
+                if ( $field ) {
+                    $fields[] = $field;
+                }
+            }
 
             $res[] = 'and';
 
             foreach ( $keywords as $k ) {
                 $subq = array( 'or' );
 
-                foreach ( $fields as $field_id ) {
-                    $subq[] = array( $field_id, $k );
+                foreach ( $fields as $field ) {
+                    $subq[] = array( $field->get_id(), $k );
                 }
 
                 $res[] = $subq;

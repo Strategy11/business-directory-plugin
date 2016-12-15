@@ -155,7 +155,7 @@ class WPBDP_Settings {
                             'choice',
                             array(),
                             $desc,
-                            array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'use_checkboxes' => false, 'multiple' => true )
+                            array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'multiple' => true )
                          );
         $this->add_setting( $s,
                             'quick-search-enable-performance-tricks',
@@ -222,12 +222,26 @@ class WPBDP_Settings {
                                 'admin settings',
                                 'WPBDM') );
         $this->register_dep( 'contact-form-daily-limit', 'requires-true', 'show-contact-form' );
-        $this->add_setting( $s,
-                            'show-comment-form',
-                            _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false,
-                            _x( 'Allow visitors to discuss listings using the standard WordPress comment form. Comments are public.', 'admin settings', 'WPBDM' ) );
+
+        $this->add_setting(
+            $s,
+            'allow-comments-in-listings',
+            _x( 'Include comment form on listing pages?', 'admin settings', 'WPBDM' ),
+            'choice',
+            get_option( self::PREFIX . 'show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
+            _x( "BD uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. BD is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn't work, try the 3rd option instead.", 'admin settings', 'WPBDM' ),
+            array(
+                'choices' => array(
+                    'do-not-allow-comments' => _x( 'Do not include comments in listings', 'admin settings', 'WPBDM' ),
+                    'allow-comments' => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'WPBDM' ),
+                    'allow-comments-and-insert-template' => _x( "Include comment form, BD invoked (use only if 2nd option doesn't work)", 'admin settings', 'WPBDM' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
+
+
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
                            array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
@@ -324,7 +338,7 @@ class WPBDP_Settings {
                             array(),
                             '',
                             array( 'choices' => array( &$this, 'sortbar_fields_cb' ),
-                                   'use_checkboxes' => true,
+                                   'widget' => 'checkbox',
                                    'multiple' =>true ) );
         $this->register_dep( 'listings-sortbar-fields', 'requires-true', 'listings-sortbar-enabled' );
 
@@ -369,7 +383,7 @@ class WPBDP_Settings {
                                                        'listing-edit' => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
                                                        'renewal' => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
                                                        'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ) ),
-                                   'use_checkboxes' => true,
+                                   'widget' => 'checkbox',
                                    'multiple' => true )
                           );
         $this->add_setting( $s,
@@ -388,7 +402,7 @@ class WPBDP_Settings {
                                                        'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' )/*,
                                                        'payment-status-change' => _x( 'A payment status changes (sends a receipt).', 'admin settings', 'WPBDM' ),*/
                                                         ),
-                                   'use_checkboxes' => true,
+                                   'widget' => 'checkbox',
                                    'multiple' => true )
                           );
 
@@ -636,7 +650,7 @@ EOF;
                             '',
                             array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
                                                        array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
-                            'use_checkboxes' => false ) );
+        ) );
         // }
 
 
@@ -1293,7 +1307,14 @@ EOF;
         $value = $this->get($setting->name);
 
         $multiple = isset( $args['multiple'] ) && $args['multiple'] ? true : false;
-        $widget = $multiple ? ( isset( $args['use_checkboxes'] ) && $args['use_checkboxes'] ? 'checkbox' : 'multiselect' ) : 'select'; // TODO: Add support for radios.
+
+        if ( isset( $args['widget'] ) ) {
+            $widget = $args['widget'];
+        } elseif ( $multiple ) {
+            $widget = 'multiselect';
+        } else {
+            $widget = 'select';
+        }
 
         if ( 'multiselect' == $widget )
             $multiple = true;
@@ -1315,9 +1336,12 @@ EOF;
             }
 
             $html .= '</select>';
-        } elseif ( $widget == 'checkbox' ) {
+        } elseif ( $widget == 'checkbox' || $widget == 'radio' ) {
+            $value = (array) $value;
+
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<label><input type="checkbox" name="%s[]" value="%s" %s />%s</label><br />',
+                $html .= sprintf( '<label><input type="%s" name="%s[]" value="%s" %s />%s</label><br />',
+                                  $widget,
                                   self::PREFIX . $setting->name,
                                   $k,
                                   ( $value && in_array( $k, $value ) ) ? 'checked="checked"' : '',
@@ -1325,7 +1349,9 @@ EOF;
             }
         }
 
-        $html .= '<span class="description">' . $setting->help_text . '</span>';
+        if ( $setting->help_text ) {
+            $html .= '<br /><span class="description">' . $setting->help_text . '</span>';
+        }
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
@@ -1348,6 +1374,8 @@ EOF;
                     if ( $setting->validator || ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) ) {
                         add_filter('pre_update_option_' . self::PREFIX . $setting->name, create_function('$n, $o=null', 'return WPBDP_Settings::_validate_setting("' . $setting->name . '", $n, $o);'), 10, 2);
                     }
+
+                    add_action( 'update_option_' . self::PREFIX . $setting->name, array( $this, '_option_updated' ), 10, 3 );
                 }
             }
         }
@@ -1385,6 +1413,10 @@ EOF;
         }
 
         return call_user_func($setting->validator, $setting, $newvalue, $api->get($setting->name));
+    }
+
+    public function _option_updated( $old_value, $new_value, $option_name ) {
+        do_action( 'wpbdp_option_updated_' . str_replace( self::PREFIX, '', $option_name ), $old_value, $new_value );
     }
 
     /* upgrade from old-style settings to new options */

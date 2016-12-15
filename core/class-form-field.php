@@ -307,11 +307,11 @@ class WPBDP_Form_Field {
      * @param string $key configuration key name
      * @return mixed|array if $key is ommitted an array of all key/values will be returned
      */
-    public function data( $key=null ) {
+    public function data( $key=null, $default=null ) {
         if ( !$key )
             return $this->field_data;
 
-        $res = isset( $this->field_data[$key] ) ? $this->field_data[$key] : null;
+        $res = isset( $this->field_data[$key] ) ? $this->field_data[ $key ] : $default;
         return apply_filters( 'wpbdp_form_field_data', $res, $key, $this );
     }
 
@@ -465,6 +465,13 @@ class WPBDP_Form_Field {
         $html = $this->type->display_field( $this, $post_id, $display_context );
         $html = apply_filters_ref_array( 'wpbdp_form_field_display', array( $html, &$this, $display_context, $post_id ) );
         return $html;
+    }
+
+    /**
+     * @since 4.1.6
+     */
+    public function get_schema_org( $post_id ) {
+        return $this->type->get_schema_org( $this, $post_id );
     }
 
     /**
@@ -693,15 +700,17 @@ class WPBDP_Form_Field {
                 break;
             case 'tags':
             case 'category':
-                $query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? array_map( 'trim', explode( ',', $query ) ) : $query;
+                $query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? explode( ',', $query ) : $query;
                 $query = is_array( $query ) ? $query : array( $query );
-                $query = array_diff( $query, array( -1, 0, '' ) );
+                $query = array_diff( array_map( 'trim', $query ), array( -1, 0, '' ) );
 
                 $tax = ( 'tags' == $this->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX );
                 $tt_ids = array();
 
                 if ( ! $query )
                     break;
+
+                $charset = get_option( 'blog_charset' );
 
                 foreach ( $query as $term_ ) {
                     if ( is_numeric( $term_ ) ) {
@@ -716,7 +725,7 @@ class WPBDP_Form_Field {
                     } elseif ( is_string( $term_ ) ) {
                         $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
                                                                   $tax,
-                                                                  $term_ ) );
+                                                                  htmlspecialchars( $term_, ENT_QUOTES, $charset ) ) );
                     }
                 }
 
@@ -736,19 +745,17 @@ class WPBDP_Form_Field {
                 if ( ! $query )
                     break;
 
-                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta );
+                list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
 
-                if ( ! $reused )
-                    $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
+                $search_res['join'] = $wpdb->prepare(
+                    " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON ( {$wpdb->posts}.ID = {$alias}.post_id AND {$alias}.meta_key = %s )",
+                    '_wpbdp[fields][' . $this->get_id() . ']'
+                );
 
-                if ( in_array( $this->get_field_type_id(), array( 'textfield', 'textarea' ), true ) ) {
-                    $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value LIKE '%%%s%%')",
-                                                           '_wpbdp[fields][' . $this->get_id() . ']',
-                                                           $query );
+                if ( in_array( $this->get_field_type_id(), array( 'textfield', 'textarea', 'url' ), true ) ) {
+                    $search_res['where'] = $wpdb->prepare( "{$alias}.meta_value LIKE '%%%s%%'", $query );
                 } else {
-                    $search_res['where'] = $wpdb->prepare( "({$alias}.meta_key = %s AND {$alias}.meta_value = %s)",
-                                                           '_wpbdp[fields][' . $this->get_id() . ']',
-                                                           $query );
+                    $search_res['where'] = $wpdb->prepare( "{$alias}.meta_value = %s", $query );
                 }
 
                 break;

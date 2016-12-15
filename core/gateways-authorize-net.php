@@ -163,9 +163,11 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         $s->billToCountry = $data['address_country'];
         $s->billToZip = $data['zipcode'];
 
+        $s->customerEmail = $data['email'];
+        $s->customerPhoneNumber = $data['phone'];
+
         $s->orderInvoiceNumber = $payment->get_id();
         $s->orderDescription = $payment->get_short_description();
-        // TODO: maybe add zip, phone, email, cust_id.
 
         $response = $arb->createSubscription( $s );
 
@@ -241,15 +243,16 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
 
         // Billing addres info.
         $aim->setFields(array(
+            'email' => $data['email'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'address' => $data['address_line1'],
             'city' => $data['address_city'],
             'state' => $data['address_state'],
             'country' => $data['address_country'],
-            'zip' => $data['zipcode']
+            'zip' => $data['zipcode'],
+            'phone' => $data['phone']
         ));
-        // TODO: maybe add zip, phone, email and cust_id
 
         $aim->setCustomField( 'payment_id', $invoice );
         $aim->setCustomField( 'listing_id', $listing_id );

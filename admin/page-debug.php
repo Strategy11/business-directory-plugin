@@ -63,9 +63,6 @@ class WPBDP_Admin_Debug_Page {
             $mysql_version .= ' ( ' . $sql_mode . ' )';
         $debug_info['environment']['MySQL version'] = $mysql_version ? $mysql_version : 'N/A';
 
-        $sqlite_version = class_exists('SQLite3') ? wpbdp_getv( SQLite3::version(), 'versionString', '' ): ( function_exists( 'sqlite_libversion' ) ? sqlite_libversion() : null );
-        $debug_info['environment']['SQLite version'] = $sqlite_version ? $sqlite_version : 'N/A';
-
         if ( function_exists( 'curl_init' ) ) {
             $data = curl_version();
 

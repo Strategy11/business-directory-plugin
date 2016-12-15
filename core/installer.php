@@ -4,7 +4,7 @@ require_once ( WPBDP_PATH . 'core/class-migration.php' );
 
 class WPBDP_Installer {
 
-    const DB_VERSION = '15';
+    const DB_VERSION = '18';
 
     private $installed_version = null;
 
@@ -16,6 +16,19 @@ class WPBDP_Installer {
     }
 
     public function install() {
+        global $wpdb;
+
+        // schedule expiration hook if needed
+        if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
+            wpbdp_log('Expiration check was not in schedule. Scheduling.');
+            wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
+        } else {
+            wpbdp_log('Expiration check was in schedule. Nothing to do.');
+        }
+
+        if ( false === get_option( 'wpbdp-db-migrations', false ) )
+            update_option( 'wpbdp-db-migrations', array(), false );
+
         if ( self::DB_VERSION == $this->installed_version )
             return;
 
@@ -24,7 +37,7 @@ class WPBDP_Installer {
         if ( $this->installed_version ) {
             wpbdp_log('WPBDP is already installed.');
             $this->_update();
-        } else {
+        } else if ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
             wpbdp_log('New installation. Creating default form fields.');
             global $wpbdp;
 
@@ -44,6 +57,8 @@ class WPBDP_Installer {
                                               'categories' => array( 'all' => true, 'categories' => array() ),
                                               'enabled' => 1 ) );
             $fee->save();
+        } else {
+            throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
         }
 
         delete_option('wpbusdirman_db_version');
@@ -179,6 +194,14 @@ class WPBDP_Installer {
             dbDelta( $table_sql );
     }
 
+    private function _table_exists( $table_name ) {
+        global $wpdb;
+
+        $result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
+
+        return strcasecmp( $result, $table_name ) === 0;
+    }
+
     public function _update() {
         global $wpbdp;
 
@@ -206,6 +229,11 @@ class WPBDP_Installer {
                 break;
         }
         // $wpbdp->formfields->maybe_correct_tags();
+    }
+
+    public function show_installation_error( $exception ) {
+        require_once ( WPBDP_PATH . 'core/helpers/class-installer-installation-error.php' );
+        new WPBDP__Installer__Installation_Error( $exception );
     }
 
     public function get_pending_migrations() {

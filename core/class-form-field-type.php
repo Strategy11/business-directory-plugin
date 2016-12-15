@@ -75,6 +75,11 @@ class WPBDP_Form_Field_Type {
                 break;
             case 'tags':
                 $value = wp_get_object_terms( $post_id, WPBDP_TAGS_TAX, array( 'fields' => 'names' ) );
+
+                foreach ( $value as $index => $v ) {
+                    $value[ $index ] = htmlspecialchars_decode( $v, ENT_QUOTES );
+                }
+
                 break;
             case 'meta':
                 $value = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
@@ -232,6 +237,46 @@ class WPBDP_Form_Field_Type {
     }
 
     /**
+     * @since 4.1.7
+     */
+    public function get_schema_org( $field, $post_id ) {
+        $schema = array();
+
+        switch ( $field->get_tag() ) {
+        case 'title':
+            $schema['name'] = $field->plain_value( $post_id );
+            break;
+        case 'category':
+            break;
+        case 'excerpt':
+            $schema['description'] = $field->plain_value( $post_id );
+            break;
+        case 'address':
+            $schema['address'] = array( 'streetAddress' => $field->plain_value( $post_id ) );
+            break;
+        case 'city':
+            $schema['address'] = array( 'addressLocality' => $field->plain_value( $post_id ) );
+            break;
+        case 'state':
+            $schema['address'] = array( 'addressRegion' => $field->plain_value( $post_id ) );
+            break;
+        case 'zip':
+            $schema['address'] = array( 'postalCode' => $field->plain_value( $post_id ) );
+            break;
+        case 'fax':
+            $schema['faxNumber'] = $field->plain_value( $post_id );
+            break;
+        case 'phone':
+            $schema['telephone'] = $field->plain_value( $post_id );
+            break;
+        case 'website':
+            break;
+        }
+
+        return $schema;
+    }
+
+    /**
      * Called after a field of this type is deleted.
      * @param object $field the deleted WPBDP_FormField object.
      */
@@ -308,7 +353,7 @@ class WPBDP_Form_Field_Type {
         if ( $label )
             $html .= '<label>' . esc_html( apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) ) . ':</label> ';
 
-        if ($content)
+        if ( $content )
             $html .= '<span class="value">' . $content . '</span>';
 
         $html .= '</div>';
@@ -362,6 +407,7 @@ class WPBDP_Form_Field_Type {
      * @since 3.5.3
      */
     public static function normalize_name( $name ) {
+        $name = wpbdp_buckwalter_arabic_transliteration( $name );
         $name = strtolower( $name );
         $name = remove_accents( $name );
         $name = preg_replace( '/\s+/', '_', $name );

@@ -17,6 +17,7 @@ class WPBDP__WordPress_Template_Integration {
         add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
         add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
         add_filter( 'body_class', array( &$this, 'body_class' ), 10 );
+        add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
     }
 
     public function template_include( $template ) {
@@ -191,6 +192,20 @@ class WPBDP__WordPress_Template_Integration {
         }
 
         $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
+
+        return $classes;
+    }
+
+    public function post_class( $classes, $more_classes, $post_id ) {
+        if ( ! wpbdp_current_view() ) {
+            return $classes;
+        }
+
+        $post = get_post();
+
+        if ( $post && 0 == $post->ID && $post_id == $post->ID ) {
+            $classes[] = 'wpbdp-view-content-wrapper';
+        }
 
         return $classes;
     }

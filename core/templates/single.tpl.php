@@ -1,7 +1,6 @@
-<div id="<?php echo $listing_css_id; ?>" class="<?php echo $listing_css_class; ?>" itemscope itemtype="http://schema.org/LocalBusiness">
-
+<div id="<?php echo $listing_css_id; ?>" class="<?php echo $listing_css_class; ?>">
     <div class="listing-title">
-        <h2 itemprop="name"><?php echo $title; ?></h2>
+        <h2><?php echo $title; ?></h2>
     </div>
     <?php echo $sticky_tag; ?>
 

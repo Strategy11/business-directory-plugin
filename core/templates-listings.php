@@ -41,7 +41,7 @@ function _wpbdp_render_single() {
     $listing = WPBDP_Listing::get( $post->ID );
 
     $html  = '';
-    $html .= sprintf( '<div id="wpbdp-listing-%d" class="%s" itemscope itemtype="http://schema.org/LocalBusiness">',
+    $html .= sprintf( '<div id="wpbdp-listing-%d" class="%s">',
                       $post->ID,
                       wpbdp_listing_css_class( array( 'single', 'wpbdp-listing-single' ) ) );
     $html .= apply_filters('wpbdp_listing_view_before', '', $post->ID, 'single');
@@ -107,7 +107,7 @@ function _wpbdp_render_single() {
     $html .= apply_filters('wpbdp_listing_view_after', '', $post->ID, 'single');
     $html .= wpbdp_capture_action('wpbdp_after_single_view', $post->ID);
 
-    if (wpbdp_get_option('show-comment-form')) {
+    if ( wpbdp_get_option( 'allow-comments-in-listings' ) == 'allow-comments-and-insert-template' ) {
         $html .= '<div class="comments">';
 
         ob_start();

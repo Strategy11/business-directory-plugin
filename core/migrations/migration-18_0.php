@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__15_0 extends WPBDP__Migration {
+class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
     public function migrate() {
         global $wpdb;
@@ -10,25 +10,25 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
         $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id NOT IN (SELECT id FROM {$wpdb->prefix}wpbdp_payments)" );
 
-        $this->request_manual_upgrade( '_upgrade_to_15_migrate_fees' );
+        $this->request_manual_upgrade( '_upgrade_to_18_migrate_fees' );
     }
 
-    public function _upgrade_to_15_migrate_fees() {
+    public function _upgrade_to_18_migrate_fees() {
         $status_msg = '';
         $done = false;
         $done = $this->_migrate_fee_plans( $status_msg );
 
         if ( $done )
-            $done = $this->_upgrade_to_15_migrate_fees_fees( $status_msg );
+            $done = $this->_upgrade_to_18_migrate_fees_fees( $status_msg );
 
         if ( $done )
-            $done = $this->_upgrade_to_15_migrate_fees_payments( $status_msg );
+            $done = $this->_upgrade_to_18_migrate_fees_payments( $status_msg );
 
         if ( $done )
             $done = $this->fix_orphans( $status_msg );
 
         if ( $done )
-            update_option( 'wpbdp-migrate-15_0-featured-pending', true, false );
+            update_option( 'wpbdp-migrate-18_0-featured-pending', true, false );
 
         return array( 'ok' => true, 'done' => $done, 'status' => $status_msg );
     }
@@ -61,11 +61,12 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
             }
         }
 
+        // wpbdp_debug_e( $wpdb->get_row( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->prefix . 'wpbdp_fees' ) ) );
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
         return true;
     }
 
-    public function _upgrade_to_15_migrate_fees_fees( &$msg ) {
+    public function _upgrade_to_18_migrate_fees_fees( &$msg ) {
         global $wpdb;
         static $batch_size = 20;
 
@@ -144,7 +145,7 @@ class WPBDP__Migrations__15_0 extends WPBDP__Migration {
         return false;
     }
 
-    public function _upgrade_to_15_migrate_fees_payments( &$msg ) {
+    public function _upgrade_to_18_migrate_fees_payments( &$msg ) {
         global $wpdb;
 
         static $batch_size = 10;

@@ -38,10 +38,18 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 
     if ( ! $count && ! $found ) {
         $tree_ids = array_merge( array( $term->term_id ), get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) );
-        $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN (" . implode( ',', $tree_ids ) . ") AND taxonomy = %s", WPBDP_CATEGORY_TAX ) );
 
-        $query = $wpdb->prepare( "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN (" . implode( ',', $tt_ids ) . ")", 'publish', WPBDP_POST_TYPE );
-        $count = apply_filters( '_wpbdp_padded_count', intval( $wpdb->get_var( $query ) ), $term );
+        if ( $tree_ids ) {
+            $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN (" . implode( ',', $tree_ids ) . ") AND taxonomy = %s", WPBDP_CATEGORY_TAX ) );
+
+            $query = $wpdb->prepare( "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN (" . implode( ',', $tt_ids ) . ")", 'publish', WPBDP_POST_TYPE );
+
+            $count = intval( $wpdb->get_var( $query ) );
+        } else {
+            $count = 0;
+        }
+
+        $count = apply_filters( '_wpbdp_padded_count', $count, $term );
     }
 
     if ( $return )
@@ -179,29 +187,38 @@ function wpbdp_list_categories( $args=array() ) {
 
 function wpbdp_main_links() {
     $html = '';
+    $buttons_count = 0;
 
     if ( wpbdp_get_option( 'show-directory-button' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('Directory', 'WPBDM'),
                           wpbdp_url( '/' ) );
+        $buttons_count++;
     }
 
     if ( wpbdp_get_option( 'show-view-listings' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __('View All Listings', 'WPBDM'),
                           wpbdp_url( 'all_listings' ) );
+        $buttons_count++;
     }
 
     if ( ! wpbdp_get_option( 'disable-submit-listing' ) && wpbdp_get_option( 'show-submit-listing' ) ) {
         $html .= sprintf( '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
                           __( 'Create A Listing', 'WPBDM' ),
                           wpbdp_url( 'submit_listing' ) );
+        $buttons_count++;
     }
 
-    if ( $html )
-        $html = '<div class="wpbdp-main-links">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+    if ( ! $html ) {
+        return '';
+    }
 
-    return $html;
+    $content = '<div class="wpbdp-main-links-container" data-breakpoints=\'{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}\' data-breakpoints-class-prefix="wpbdp-main-links">';
+    $content.= '<div class="wpbdp-main-links wpbdp-main-links-' . $buttons_count . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+    $content.= '</div>';
+
+    return $content;
 }
 
 function wpbdp_the_main_links() {
@@ -405,6 +422,13 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
         if ( !$image_link ) {
             return $image_img;
         } else {
+            $image_link = apply_filters( 'wpbdp_listing_thumbnail_link', $image_link, $listing_id, $args );
+
+            if ( ! $image_link ) {
+                return sprintf( '<div class="listing-thumbnail">%s</div>',
+                                $image_img );
+            }
+
             return sprintf( '<div class="listing-thumbnail"><a href="%s" target="%s" class="%s" title="%s" %s>%s</a></div>',
                             $image_link,
                             $listing_link_in_new_tab,

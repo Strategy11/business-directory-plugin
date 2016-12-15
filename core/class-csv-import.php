@@ -385,8 +385,17 @@ class WPBDP_CSV_Import {
             if ( $t = term_exists( str_replace( '&', '&amp;', $c['name'] ), WPBDP_CATEGORY_TAX ) ) {
                 $c['term_id'] = $t['term_id'];
             } else {
-                if ( $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ), WPBDP_CATEGORY_TAX ) ) {
+                $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ), WPBDP_CATEGORY_TAX );
+                $a = $t['term_id'];
+
+                if ( is_array( $t ) && isset( $t['term_id'] ) ) {
                     $c['term_id'] = $t['term_id'];
+                } else if ( is_wp_error( $t ) ) {
+                    $message = _x( 'Could not create listing category "<category-name>". The operation failed with the following error: <error-message>.', 'admin csv-import', 'WPBDM' );
+                    $message = str_replace( '<category-name>', $c['name'], $message );
+                    $message = str_replace( '<error-message>', $t->get_error_message(), $message );
+
+                    $errors[] = $message;
                 } else {
                     $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'WPBDM'), $c['name'] );
                 }

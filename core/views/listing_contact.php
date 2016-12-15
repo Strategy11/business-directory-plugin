@@ -170,7 +170,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         $html = '';
 
         if( $email->send() ) {
-            $html .= wpbdp_render_msg( 'Your message has been sent.', 'contact-message', 'WPBDM' );
+            $html .= wpbdp_render_msg( _x( 'Your message has been sent.', 'contact-message', 'WPBDM' ) );
             $this->update_contacts( $listing_id );
 
             // Notify admin.

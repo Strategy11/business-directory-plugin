@@ -47,7 +47,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-radio-' . $i;
             $css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-            $html .= sprintf( '<div class="%s"><input type="radio" name="%s" value="%s" %s />%s</div>',
+            $html .= sprintf( '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
                               implode( ' ', $css_classes ),
                               'listingfields[' . $field->get_id() . ']',
                               $option,
@@ -70,11 +70,11 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
         $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
 
-        $content  = '<span class="description">Comma (,) separated list of options</span><br />';
+        $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
         if ( $field && $field->data( 'options' ) )
-            $content .= implode( ',', $field->data( 'options' ) );
+            $content .= implode( "\n", $field->data( 'options' ) );
         $content .= '</textarea>';
 
         return self::render_admin_settings( array( array( $label, $content ) ) );
@@ -89,7 +89,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
+        $field->set_data( 'options', $options ? array_map( 'trim', explode( "\n", $options ) ) : array() );
     }
 
     public function get_field_value( &$field, $post_id ) {

@@ -40,7 +40,7 @@ jQuery(function($) {
     });
 
     // Migration specific.
-    $( '#wpbdp-manual-upgrade-15_0-config #add-fee-form form#wpbdp-fee-form' ).submit(function(e) {
+    $( '#wpbdp-manual-upgrade-18_0-config #add-fee-form form#wpbdp-fee-form' ).submit(function(e) {
         e.preventDefault();
 
         var level_id = $( this ).data( 'levelId' );
@@ -62,7 +62,7 @@ jQuery(function($) {
         $( '#TB_closeWindowButton' ).click();
     });
 
-    $( '#wpbdp-manual-upgrade-15_0-config select.level-migration' ).change(function(e) {
+    $( '#wpbdp-manual-upgrade-18_0-config select.level-migration' ).change(function(e) {
         var selection = $( this ).find( 'option:selected' );
         var $desc = $( this ).siblings( '.option-description' );
 

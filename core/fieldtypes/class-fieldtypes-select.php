@@ -91,10 +91,11 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     }
                 }
         } else {
-            $html .= sprintf( '<select id="%s" name="%s" %s>',
+            $html .= sprintf( '<select id="%s" name="%s" %s %s>',
                               'wpbdp-field-' . $field->get_id(),
                               'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
-                              $this->is_multiple() ? 'multiple="multiple"' : '' );
+                              $this->is_multiple() ? 'multiple="multiple"' : '',
+                              $this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : '' );
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
                 $html .= sprintf( '<option value="-1">%s</option>',
@@ -132,15 +133,19 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( $association != 'meta' && $association != 'tags' )
             return '';
 
+        return self::render_admin_settings( $this->get_field_settings( $field, $association ) );
+    }
+
+    protected function get_field_settings( $field=null, $association=null ) {
         $settings = array();
 
         $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
 
-        $content  = '<span class="description">Comma (,) separated list of options</span><br />';
+        $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
         if ( $field && $field->data( 'options' ) )
-            $content .= implode( ',', $field->data( 'options' ) );
+            $content .= implode( "\n", $field->data( 'options' ) );
         $content .= '</textarea>';
 
         $settings['options'][] = $content;
@@ -152,7 +157,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $settings['empty_on_search'][] = $content;
 
-        return self::render_admin_settings( $settings );
+        return $settings;
     }
 
     public function process_field_settings( &$field ) {
@@ -164,7 +169,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', !empty( $options ) ? explode( ',', $options ) : array() );
+        $field->set_data( 'options', $options ? array_map( 'trim', explode( "\n", $options ) ) : array() );
 
         if ( array_key_exists( 'x_empty_on_search', $_POST['field'] ) ) {
             $empty_on_search = (bool) intval( $_POST['field']['x_empty_on_search'] );
@@ -256,13 +261,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $search_res = array();
         list( $alias, $reused ) = $search->join_alias( $wpdb->postmeta, false );
 
-        if ( ! $reused )
-            $search_res['join'] = " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id";
+        $search_res['join'] = $wpdb->prepare(
+            " LEFT JOIN {$wpdb->postmeta} AS {$alias} ON ( {$wpdb->posts}.ID = {$alias}.post_id AND {$alias}.meta_key = %s )",
+            "_wpbdp[fields][" . $field->get_id() . "]"
+        );
 
         $pattern = '(' . implode('|', $query) . '){1}([tab]{0,1})';
-        $search_res['where'] = $wpdb->prepare( "{$alias}.meta_key = %s AND {$alias}.meta_value REGEXP %s",
-                                               "_wpbdp[fields][" . $field->get_id() . "]",
-                                               $pattern );
+        $search_res['where'] = $wpdb->prepare( "{$alias}.meta_value REGEXP %s", $pattern );
 
         return $search_res;
     }

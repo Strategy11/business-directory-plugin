@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__15_0__Featured_Levels {
+class WPBDP__Migrations__18_0__Featured_Levels {
 
     function __construct() {
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
@@ -13,7 +13,7 @@ class WPBDP__Migrations__15_0__Featured_Levels {
                           __( 'Business Directory - Featured Levels migration', 'WPBDM' ),
                           __( 'Business Directory - Featured Levels migration', 'WPBDM' ),
                           'administrator',
-                          'wpbdp_migration_15_0_featured_levels',
+                          'wpbdp_migration_18_0_featured_levels',
                           array( &$this, 'migration_page' ) );
     }
 
@@ -128,11 +128,11 @@ class WPBDP__Migrations__15_0__Featured_Levels {
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' ) );
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' ) );
 
-        delete_option( 'wpbdp-migrate-15_0-featured-pending' );
+        delete_option( 'wpbdp-migrate-18_0-featured-pending' );
     }
 
     function migration_page() {
-        if ( ! get_option( 'wpbdp-migrate-15_0-featured-pending', false ) ) {
+        if ( ! get_option( 'wpbdp-migrate-18_0-featured-pending', false ) ) {
             return;
         }
 
@@ -160,9 +160,9 @@ class WPBDP__Migrations__15_0__Featured_Levels {
             $this->_update_db( $config );
 
             echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'WPBDM' ), 'manual-upgrade', null, false );
-            echo _x( 'Featured Levels migration is complete.', 'migrate-15', 'WPBDM' );
+            echo _x( 'Featured Levels migration is complete.', 'migrate-18', 'WPBDM' );
             echo '<br /><br />';
-            echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin' ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-15', 'WPBDM' ) . '</a>';
+            echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin' ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-18', 'WPBDM' ) . '</a>';
             echo wpbdp_admin_footer();
 
             return;
@@ -171,17 +171,17 @@ class WPBDP__Migrations__15_0__Featured_Levels {
         echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'WPBDM' ), 'manual-upgrade', null, false );
         echo '<div class="wpbdp-manual-upgrade-wrapper">';
 
-        echo '<div id="wpbdp-manual-upgrade-15_0-config">';
+        echo '<div id="wpbdp-manual-upgrade-18_0-config">';
 
-        echo '<div id="add-fee-form" data-title="' . _x( 'Configure Plan', 'upgrade-15', 'WPBDM' ) . '">';
+        echo '<div id="add-fee-form" data-title="' . _x( 'Configure Plan', 'upgrade-18', 'WPBDM' ) . '">';
         echo $this->_fee_form();
         echo '</div>';
 
-        _ex( 'Business Directory <b>version @next-release</b> is changing how Featured Levels plugin works. We are leaving restricted features for fee plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-15', 'WPBDM');
+        _ex( 'Business Directory <b>version @next-release</b> is changing how Featured Levels plugin works. We are leaving restricted features for fee plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-18', 'WPBDM');
         echo '<br />';
-        _ex( 'We need to migrate your existing "featured levels" to fee plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-15', 'WPBDM');
+        _ex( 'We need to migrate your existing "featured levels" to fee plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-18', 'WPBDM');
         echo '<br /><br />';
-        _ex( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature fee plan" that is right for you.', 'migrate-15', 'WPBDM');
+        _ex( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature fee plan" that is right for you.', 'migrate-18', 'WPBDM');
 
 
         // Compute listing counts.
@@ -199,8 +199,8 @@ class WPBDP__Migrations__15_0__Featured_Levels {
         echo '<table id="fee-decisions">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th class="level-name">' . _x( 'Featured Level', 'upgrade-15', 'WPBDM' ) . '</th>';
-        echo '<th>' . _x( 'What to do with it?', 'upgrade-15', 'WPBDM' ) . '</th>';
+        echo '<th class="level-name">' . _x( 'Featured Level', 'upgrade-18', 'WPBDM' ) . '</th>';
+        echo '<th>' . _x( 'What to do with it?', 'upgrade-18', 'WPBDM' ) . '</th>';
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
@@ -209,24 +209,24 @@ class WPBDP__Migrations__15_0__Featured_Levels {
             echo '<tr>';
             echo '<td class="level-name">';
             echo '<strong>' . $level['name'] . '</strong><br />';
-            echo sprintf( _nx( '%d listing is on this level.', '%d listings are on this level.', $level['count'], 'upgrade-15', 'WPBDM' ), $level['count'] );
+            echo sprintf( _nx( '%d listing is on this level.', '%d listings are on this level.', $level['count'], 'upgrade-18', 'WPBDM' ), $level['count'] );
             echo '</td>';
             echo '<td>';
             echo '<select data-level-id="' . $level_id . '" class="level-migration" name="level[' . $level_id . '][strategy]">';
-            echo '<option class="placeholder" value="">' . _x( 'Select an option', 'upgrade-15', 'WPBDM' ) . '</option>';
-            echo '<option data-description="' . esc_attr( _x( 'Remove "sticky" status for listings.', 'upgrade-15', 'WPBDM' ) ) . '" value="remove">' . _x( 'Remove this (old) level, and leave the listing on the old fee plan.', 'upgrade-15', 'WPBDM' ) . '</option>';
+            echo '<option class="placeholder" value="">' . _x( 'Select an option', 'upgrade-18', 'WPBDM' ) . '</option>';
+            echo '<option data-description="' . esc_attr( _x( 'Remove "sticky" status for listings.', 'upgrade-18', 'WPBDM' ) ) . '" value="remove">' . _x( 'Remove this (old) level, and leave the listing on the old fee plan.', 'upgrade-18', 'WPBDM' ) . '</option>';
 
             if ( $fee_options )
-                echo '<option data-description="' . esc_attr( _x( 'May change "sticky" status depending on fee plan.', 'upgrade-15', 'WPBDM' ) ) . '" value="move">' . _x( 'Move listings with this level to existing fee plan.', 'upgrade-15', 'WPBDM' ) . '</option>';
+                echo '<option data-description="' . esc_attr( _x( 'May change "sticky" status depending on fee plan.', 'upgrade-18', 'WPBDM' ) ) . '" value="move">' . _x( 'Move listings with this level to existing fee plan.', 'upgrade-18', 'WPBDM' ) . '</option>';
 
-                echo '<option data-description="' . esc_attr( _x( 'Keep "sticky" status of listings.', 'upgrade-15', 'WPBDM' ) ) . '" value="create">' . _x( 'Replace this level with a new fee plan.', 'upgrade-15', 'WPBDM' ) . '</option>';
+                echo '<option data-description="' . esc_attr( _x( 'Keep "sticky" status of listings.', 'upgrade-18', 'WPBDM' ) ) . '" value="create">' . _x( 'Replace this level with a new fee plan.', 'upgrade-18', 'WPBDM' ) . '</option>';
 
             echo '</select>';
             echo '<div class="option-description"></div>';
 
             if ( $fee_options ):
                 echo '<div class="option-configuration option-move" >';
-                echo _x( 'Move to: ', 'migrate-15', 'WPBDM' );
+                echo _x( 'Move to: ', 'migrate-18', 'WPBDM' );
                 echo '<select name="level[' . $level_id . '][move_to]">';
                 echo $fee_options;
                 echo '</select>';
@@ -236,13 +236,13 @@ class WPBDP__Migrations__15_0__Featured_Levels {
             echo '<div class="option-configuration option-create">';
             echo '<input type="hidden" name="level[' . $level_id . '][details]" />';
 
-            echo '<h4>' . _x( 'New plan summary', 'migrate-15', 'WPBDM') . '</h4>';
+            echo '<h4>' . _x( 'New plan summary', 'migrate-18', 'WPBDM') . '</h4>';
             echo '<table class="new-fee-summary" data-level-id="' . $level_id . '">';
             echo '<thead><tr>';
-            echo '<th>' . _x( 'Fee Label', 'migrate-15', 'WPBDM' ) . '</th>';
-            echo '<th>' . _x( 'Amount', 'migrate-15', 'WPBDM' ) . '</th>';
-            echo '<th>' . _x( 'Duration', 'migrate-15', 'WPBDM' ) . '</th>';
-            echo '<th>' . _x( 'Images', 'migrate-15', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Fee Label', 'migrate-18', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Amount', 'migrate-18', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Duration', 'migrate-18', 'WPBDM' ) . '</th>';
+            echo '<th>' . _x( 'Images', 'migrate-18', 'WPBDM' ) . '</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             echo '<tr>';
@@ -263,7 +263,7 @@ class WPBDP__Migrations__15_0__Featured_Levels {
         echo '</table>';
 
         echo '<p>';
-        echo '<input type="submit" value="' . _x( 'Perform migration', 'migrate-15', 'WPBDM' ) . '" class="button button-primary" />';
+        echo '<input type="submit" value="' . _x( 'Perform migration', 'migrate-18', 'WPBDM' ) . '" class="button button-primary" />';
         echo '</p>';
 
         echo '</form>';
@@ -284,12 +284,12 @@ class WPBDP__Migrations__15_0__Featured_Levels {
     //
 
     function admin_notices() {
-        if ( ! empty( $_GET['page'] ) && 'wpbdp_migration_15_0_featured_levels' == $_GET['page'] )
+        if ( ! empty( $_GET['page'] ) && 'wpbdp_migration_18_0_featured_levels' == $_GET['page'] )
             return;
 
         echo '<div class="wpbdp-notice error"><p>';
         // echo "You still need to perform your Featured Levels migration [here]"
-        echo '<a href="admin.php?page=wpbdp_migration_15_0_featured_levels">Migration</a>';
+        echo '<a href="admin.php?page=wpbdp_migration_18_0_featured_levels">Migration</a>';
         echo '</p></div>';
     }
 

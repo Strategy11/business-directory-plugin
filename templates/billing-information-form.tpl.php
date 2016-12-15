@@ -1,4 +1,5 @@
 <?php
+$user_defaults = wp_get_current_user();
 $months = array(
     '01' => _x( 'Jan', 'months', 'WPBDM' ),
     '02' => _x( 'Feb', 'months', 'WPBDM' ),
@@ -30,12 +31,20 @@ $months = array(
         <p><?php _ex( 'Please enter your credit card details below.', 'checkout form', 'WPBDM' ); ?></p>
 
         <table>
+            <tr class="wpbdp-billing-field customer-email">
+                <td scope="row">
+                    <label for="wpbdp-billing-field-email"><?php _ex( 'E-mail:', 'checkout form', 'WPBDM' ); ?></label>
+                </td>
+                <td>
+                    <input type="text" id="wpbdp-billing-field-email" name="email" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'email', $user_defaults->user_email ) ); ?>" />
+                </td>
+            </tr>
             <tr class="wpbdp-billing-field customer-first-name">
                 <td scope="row">
                     <label for="wpbdp-billing-field-first-name"><?php _ex( 'First Name:', 'checkout form', 'WPBDM' ); ?></label>
                 </td>
                 <td>
-                    <input type="text" id="wpbdp-billing-field-first-name" name="first_name" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'first_name' ) ); ?>" />
+                    <input type="text" id="wpbdp-billing-field-first-name" name="first_name" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'first_name', $user_defaults->user_firstname ) ); ?>" />
                 </td>
             </tr>
             <tr class="wpbdp-billing-field customer-last-name">
@@ -43,7 +52,7 @@ $months = array(
                     <label for="wpbdp-billing-field-last-name"><?php _ex( 'Last Name:', 'checkout form', 'WPBDM' ); ?></label>
                 </td>
                 <td>
-                    <input type="text" id="wpbdp-billing-field-last-name" name="last_name" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'last_name' ) ); ?>" />
+                    <input type="text" id="wpbdp-billing-field-last-name" name="last_name" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'last_name', $user_defaults->user_lastname ) ); ?>" />
                 </td>
             </tr>
             <tr class="wpbdp-billing-field cc-number">
@@ -63,8 +72,15 @@ $months = array(
                         <?php foreach ( $months as $month => $name ): ?>
                             <option value="<?php echo $month; ?>"><?php echo $month; ?> - <?php echo $name; ?></option>
                         <?php endforeach; ?>
-                    </select> /
-                    <input type="text" size="8"name="cc_exp_year" />
+                    </select>
+                    <select id="wpbdp-billing-field-exp-year" name="cc_exp_year">
+                        <?php
+                        $current_year = intval( date( 'Y' ) );
+                        for ( $y = 0; $y < 51; $y++ ):
+                        ?>
+                        <option value="<?php echo $current_year + $y; ?>"><?php echo $current_year + $y; ?></option>
+                        <?php endfor; ?>
+                    </select>
                 </td>
             </tr>
             <tr class="wpbdp-billing-field cc-cvc">
@@ -128,6 +144,14 @@ $months = array(
                 </td>
                 <td>
                     <input type="text" id="wpbdp-billing-field-zip-code" name="zipcode" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'zipcode' ) ); ?>" />
+                </td>
+            </tr>
+            <tr class="wpbdp-billing-field customer-phone-number">
+                <td scope="row">
+                    <label for="wpbdp-billing-field-phone-number"><?php _ex( 'Phone Number:', 'checkout form', 'WPBDM' ); ?></label>
+                </td>
+                <td>
+                    <input type="text" id="wpbdp-billing-field-phone-number" name="phone" size="25" value="<?php echo esc_attr( wpbdp_getv( $posted, 'phone' ) ); ?>" />
                 </td>
             </tr>
         </table>

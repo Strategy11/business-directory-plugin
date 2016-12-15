@@ -52,7 +52,8 @@ class WPBDP__Themes_Compat {
     public function get_themes_with_fixes() {
         $themes_with_fixes = array(
             'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis',
-            'takeawaywp'
+            'takeawaywp',
+            'foodiepro-2.1.8',
         );
 
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
@@ -286,6 +287,17 @@ class WPBDP__Themes_Compat {
 
         // page-fullwidth.php has a bug. It doesn't call the_post(), so we do it for them :/.
         add_action( 'wp_head', 'the_post', 999 );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function theme_foodiepro_218() {
+        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) ) {
+            return;
+        }
+
+        remove_action( 'genesis_before_loop', 'foodie_pro_archive_maybe_add_grid' );
     }
 
     //

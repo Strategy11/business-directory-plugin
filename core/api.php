@@ -253,14 +253,18 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     if ($post->post_type != WPBDP_POST_TYPE)
         return false;
 
-    if ( isset($_GET['preview']) )
+    if ( isset( $_GET['preview'] ) && ( $action != 'view' ) )
         return false;
 
     $res = false;
 
     switch ($action) {
         case 'view':
-            $res = true;
+            if ( isset( $_GET['preview'] ) ) {
+                $res = user_can( $user_id, 'edit_others_posts' ) || ( $post->post_author && $post->post_author == $user_id );
+            } else {
+                $res = true;
+            }
             // return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
             break;
         case 'edit':
