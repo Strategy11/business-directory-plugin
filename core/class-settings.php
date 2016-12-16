@@ -1332,10 +1332,16 @@ EOF;
         } elseif ( $widget == 'checkbox' || $widget == 'radio' ) {
             $value = (array) $value;
 
+            if ( $widget == 'radio' ) {
+                $name = self::PREFIX . $setting->name;
+            } else {
+                $name = self::PREFIX . $setting->name . '[]';
+            }
+
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<label><input type="%s" name="%s[]" value="%s" %s />%s</label><br />',
+                $html .= sprintf( '<label><input type="%s" name="%s" value="%s" %s />%s</label><br />',
                                   $widget,
-                                  self::PREFIX . $setting->name,
+                                  $name,
                                   $k,
                                   ( $value && in_array( $k, $value ) ) ? 'checked="checked"' : '',
                                   $v );
