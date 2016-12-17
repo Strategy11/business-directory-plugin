@@ -40,28 +40,33 @@ class WPBDP_Email {
     private function get_headers() {
         $headers = array();
 
-        if ( ! isset( $this->headers['MIME-Version'] ) )
-            $headers['MIME-Version'] = '1.0';
+        if ( ! isset( $this->headers['MIME-Version'] ) ) {
+            $headers[] = 'MIME-Version: 1.0';
+        }
 
-        if ( ! isset( $this->headers['Content-Type'] ) )
-            $headers['Content-Type'] = 'text/html; charset=' . get_option( 'blog_charset' );
+        if ( ! isset( $this->headers['Content-Type'] ) ) {
+            $headers[] = 'Content-Type: text/html; charset=' . get_option( 'blog_charset' );
+        }
 
-        $headers['From'] = $this->from;
+        $headers[] = 'From: ' . $this->from;
 
-		if ( $this->cc )
-		    $headers['Cc'] = implode( ',', is_array( $this->cc ) ? $this->cc : array( $this->cc ) );
+        foreach ( (array) $this->cc as $address ) {
+            $headers[] = 'Cc: ' . $address;
+        }
 
-		if ( $this->bcc )
-            $headers['Bcc'] = implode( ',', is_array( $this->bcc ) ? $this->bcc : array( $this->bcc ) );
+        foreach ( (array) $this->bcc as $address ) {
+            $headers[] = 'Bcc: ' . $address;
+        }
 
-        if ( $this->reply_to )
-            $headers['Reply-To'] = $this->reply_to;
+        if ( $this->reply_to ) {
+            $headers[] = 'Reply-To: ' . $this->reply_to;
+        }
 
 		foreach ( $this->headers as $k => $v ) {
 		    if ( in_array( $k, array( 'MIME-Version', 'Content-Type', 'From', 'Cc', 'Bcc' ) ) )
 		        continue;
 
-		    $headers[ $k ] = $v;
+		    $headers[] = "$k: $v";
         }
 
         return $headers;
@@ -85,12 +90,6 @@ class WPBDP_Email {
 		if ( ! $this->to )
 		    return false;
 
-        // Workaround a known WP bug where some headers are ignored if passed inside an array.
-        $headers = '';
-        foreach ( $this->get_headers() as $h => $v ) {
-            $headers .= $h . ': ' . preg_replace( '/[\n\r]/', '', $v ) . "\r\n";
-        }
-
         $html = $this->html;
         if ( $this->template ) {
             if ( $html_ = wpbdp_render( $this->template, array( 'subject' => $this->subject,
@@ -99,7 +98,7 @@ class WPBDP_Email {
             }
         }
 
-		return wp_mail( $this->to, $this->subject, $html, $headers );
+		return wp_mail( $this->to, $this->subject, $html, $this->get_headers() );
 	}
 
 }
