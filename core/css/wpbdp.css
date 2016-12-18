@@ -651,7 +651,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* {{ Mobile CSS. */
 .wpbdp-show-on-mobile {
-    display: none;
+    display: none !important;
 }
 
 @media screen and (max-width: 500px) {
