@@ -1,11 +1,13 @@
 <?php
+require_once( WPBDP_PATH . 'core/class-utils.php' );
+
 
 class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
     public function migrate() {
         global $wpdb;
 
-        // Remove orphan everything first to make things easier for us.
+        // Remove orphans of everything first to make things easier for us.
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
         $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id NOT IN (SELECT id FROM {$wpdb->prefix}wpbdp_payments)" );
@@ -16,23 +18,37 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     public function _upgrade_to_18_migrate_fees() {
         $status_msg = '';
         $done = false;
-        $done = $this->_migrate_fee_plans( $status_msg );
 
-        if ( $done )
-            $done = $this->_upgrade_to_18_migrate_fees_fees( $status_msg );
+        $subroutines = array(
+            '_migrate_fee_plans',
+            '_migrate_payment_items',
+            '_migrate_listings',
+            '_set_featured_migration_flag'
+        );
 
-        if ( $done )
-            $done = $this->_upgrade_to_18_migrate_fees_payments( $status_msg );
+        foreach ( $subroutines as $sr ) {
+            $done = call_user_func_array( array( $this, $sr ), array( &$status_msg ) );
 
-        if ( $done )
-            $done = $this->fix_orphans( $status_msg );
-
-        if ( $done )
-            update_option( 'wpbdp-migrate-18_0-featured-pending', true, false );
+            if ( ! $done )
+                break;
+        }
 
         return array( 'ok' => true, 'done' => $done, 'status' => $status_msg );
     }
 
+    /**
+     * Sets an option that tells BD that a Featured levels migration is pending.
+     * This process can be performed manually by the admin at any time later after this manual upgrade.
+     */
+    public function _set_featured_migration_flag( &$msg ) {
+        update_option( 'wpbdp-migrate-18_0-featured-pending', true, false );
+        return true;
+    }
+
+    /**
+     * Updates (if needed) current fees to add information for the new columns:
+     * supported_categories, pricing_model.
+     */
     public function _migrate_fee_plans( &$msg ) {
         global $wpdb;
 
@@ -61,206 +77,269 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
         }
 
-        // wpbdp_debug_e( $wpdb->get_row( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->prefix . 'wpbdp_fees' ) ) );
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_fees DROP COLUMN categories" );
+        WPBDP__Utils::table_drop_col( $wpdb->prefix . 'wpbdp_fees', 'categories' );
         return true;
     }
 
-    public function _upgrade_to_18_migrate_fees_fees( &$msg ) {
+    /**
+     * Removes rows from payments_items and adds the items to the new payment_items column in the payments table.
+     */
+    public function _migrate_payment_items( &$msg ) {
         global $wpdb;
-        static $batch_size = 20;
 
-        $listings_count = $wpdb->get_var( "SELECT COUNT(DISTINCT listing_id) FROM {$wpdb->prefix}wpbdp_listing_fees" );
-        $listings = $wpdb->get_col( "SELECT DISTINCT listing_id FROM {$wpdb->prefix}wpbdp_listing_fees ORDER BY listing_id LIMIT {$batch_size}" );
+        $count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments_items" );
+        $batch_size = 20;
 
-        if ( ! $listings )
+        if ( ! $count )
             return true;
 
-        foreach ( $listings as $listing_id ) {
-            $fee_id = 0;
-            $fee_price = 0.0;
-            $fee_days = -1;
-            $fee_images = -1;
-            $expires_on = -1;
-            $is_sticky = 0;
-            $is_recurring = 0;
-            $recurring_id = '';
+        foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items ORDER BY id ASC LIMIT {$batch_size}" ) as $item ) {
+            $payment = WPBDP_Payment::objects()->get( $item->payment_id );
 
-            // Check if the listing has a recurring fee. Use it if available and remove the others.
-            if ( $recurring_fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND recurring = %d LIMIT 1", $listing_id, 1 ) ) ) {
-                $is_recurring = 1;
-                $fee_days = (int) $recurring_fee->fee_days;
-                $fee_images = (int) $recurring_fee->fee_images;
-                $expires_on = $recurring_fee->expires_on;
-                $is_sticky = (int) $recurring_fee->sticky;
-                $recurring_id = $recurring_fee->recurring_id;
+            $new_item = array();
 
-                if ( $_ = wpbdp_get_fee( $recurring_fee->fee_id ) ) {
-                    $fee_id = (int) $recurring_fee->fee_id;
-                    $fee_price = floatval( $_->amount );
-                }
-            } else {
-                // For non-recurring listings, obtain the "best" features of all fees (including expiration).
-                $fees = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
-                foreach ( $fees as $f ) {
-                    if ( ! $f->expires_on )
-                        $expires_on = null;
-                    else if ( ! is_null( $expires_on ) )
-                        $expires_on = max( strtotime( $f->expires_on ), $expires_on );
-
-                    if ( 0 == (int) $f->fee_days )
-                        $fee_days = 0;
-                    else if ( 0 !== $fee_days )
-                        $fee_days = max( (int) $f->fee_days, $fee_days );
-
-                    $fee_images = max( (int) $f->fee_images, $fee_images );
-                    $is_sticky = max( (int) $f->sticky, $is_sticky );
-
-                    if ( $_ = wpbdp_get_fee( $f->fee_id ) ) {
-                        $fee_price += floatval( $_->amount );
-                        $fee_id = (int) $f->fee_id;
-                    }
-                }
-                $expires_on = ! is_null( $expires_on ) ? date( 'Y-m-d H:i:s', $expires_on ) : null;
+            switch ( $item->item_type ) {
+            case 'fee':
+                $new_item['type'] = 'plan';
+                break;
+            case 'recurring_fee':
+                $new_item['type'] = 'recurring_plan';
+                break;
+            default:
+                $new_item['type'] = $item->item_type;
+                break;
             }
 
-            // Insert new plan record and delete everything from old fees table.
-            $record = array( 'listing_id' => $listing_id,
-                             'status' => 'ok',
-                             'fee_id' => $fee_id,
-                             'fee_price' => $fee_price,
-                             'fee_days' => $fee_days,
-                             'fee_images' => $fee_images,
-                             'is_sticky' => $is_sticky,
-                             'is_recurring' => $is_recurring,
-                             'subscription_id' => $recurring_id );
-            if ( $expires_on )
-                $record['expiration_date'] = $expires_on;
+            $new_item['description'] = $item->description;
+            $new_item['amount'] = $item->amount;
 
-            $wpdb->insert( $wpdb->prefix . 'wpbdp_listings_plans', $record );
-            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
+            if ( $data = unserialize( $item->data ) ) {
+                if ( ! is_array( $data ) )
+                    $new_item['deprecated_data'] = $data;
+
+                foreach ( $data as $key => $val ) {
+                    if ( ! isset( $new_item[ $key ] ) )
+                        $new_item[ $key ] = $val;
+                }
+            }
+
+            if ( ! empty( $new_item['is_renewal'] ) )
+                $new_item['type'] = 'plan_renewal';
+
+            $new_item['rel_id_1'] = $item->rel_id_1;
+            $new_item['rel_id_2'] = $item->rel_id_2;
+
+            $payment->payment_items[] = $new_item;
+
+            if ( $payment->save() )
+                $wpdb->delete( $wpdb->prefix . 'wpbdp_payments_items', array( 'id' => $item->id ) );
         }
 
-        $msg = sprintf( _x( 'Updating listing fees: %d listings remaining...', 'installer', 'WPBDM' ), max( $listings_count - $batch_size, 0 ) );
+        $msg = sprintf( _x( 'Updating payment items format: %d items remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
         return false;
     }
 
-    public function _upgrade_to_18_migrate_fees_payments( &$msg ) {
+    /**
+     * Makes sure that ALL listings have an entry in listings_plans. The fee is extracted from available information:
+     * - the (now deprecated) listing fees table
+     * - pending payments (recurring taking precedence over regular ones).
+     * If nothing useful is found, the default free fee is assigned.
+     */
+    public function _migrate_listings( &$msg ) {
         global $wpdb;
+        $batch_size = 20;
 
-        static $batch_size = 10;
+        $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings_plans lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) ) );
+        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings_plans lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) );
 
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT p.listing_id) FROM {$wpdb->prefix}wpbdp_payments p WHERE p.status = %s AND p.listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans) AND EXISTS(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = p.id AND (item_type = %s OR item_type = %s))", 'pending', 'fee', 'recurring_fee' ) );
-
-        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT p.listing_id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.status = %s AND p.listing_id NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans) AND EXISTS(SELECT 1 FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = p.id AND (item_type = %s OR item_type = %s)) ORDER BY listing_id LIMIT {$batch_size}", 'pending', 'fee', 'recurring_fee' ) );
-
-        if ( ! $listings )
+        if ( ! $count )
             return true;
 
         foreach ( $listings as $listing_id ) {
-            $pending_items = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id IN (SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND listing_id = %d) AND (item_type = %s OR item_type = %s)",
-                    'pending',
-                    $listing_id,
-                    'recurring_fee',
-                    'fee' )
-            );
+            $this->set_listing_categories( $listing_id ); // Set listing categories.
 
-            $record = array( 'listing_id' => $listing_id,
-                             'status' => 'pending',
-                             'fee_id' => 0,
-                             'fee_price' => 0,
-                             'fee_days' => 0,
-                             'fee_images' => 0,
-                             'is_sticky' => 0,
-                             'is_recurring' => 0,
-                             'subscription_id' => '',
-                             'expiration_date' => 0 );
+            // Obtain new fee plan.
+            $new_plan = $this->plan_from_fees( $listing_id );
 
-            foreach ( $pending_items as $i ) {
-                $data = unserialize( $i->data );
+            if ( ! $new_plan )
+                $new_plan = $this->plan_from_payments( $listing_id );
 
-                if ( 'recurring_fee' == $i->item_type ) {
-                    $record['fee_id'] = $data['fee_id'];
-                    $record['fee_days'] = $data['fee_days'];
-                    $record['fee_images'] = $data['fee_images'];
-                    $record['fee_price'] = $i->amount;
-                    $record['is_recurring'] = 1;
-
-                    if ( $_ = wpbdp_get_fee( $data['fee_id'] ) )
-                        $record['is_sticky'] = $_->sticky;
-
-                    break;
-                }
-
-                $record['fee_id'] = $data['fee_id'];
-                $record['fee_price'] = $i->amount;
-                $record['fee_days'] = $data['fee_days'];
-                $record['fee_images'] = $data['fee_images'];
-
-                if ( $_ = wpbdp_get_fee( $data['fee_id'] ) )
-                    $record['is_sticky'] = $_->sticky;
+            // This shouldn't happen but... just in case.
+            if ( ! $new_plan ) {
+                $free_plan = WPBDP_Fee_Plan::get_free_plan();
+                $new_plan = array(
+                    'fee_id' => 0,
+                    'fee_price' => 0.0,
+                    'fee_days' => $free_plan->days,
+                    'fee_images' => $free_plan->images,
+                    'is_sticky' => $free_plan->sticky,
+                    'expiration_date' => $free_plan->calculate_expiration_time()
+                );
             }
 
-            if ( 0 == $record['fee_days'] ) {
-                unset( $record['expiration_date'] );
-            } else {
-                $time = strtotime( $wpdb->get_var( $wpdb->prepare( "SELECT post_date FROM {$wpdb->posts} WHERE ID = %d", $listing_id ) ) );
-                $record['expiration_date'] = date( 'Y-m-d H:i:s', strtotime( sprintf( '+%d days', $record['fee_days'] ), $time ) );
-            }
+            $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $listing_id ) );
+            $wpdb->insert( $wpdb->prefix . 'wpbdp_listings_plans', $new_plan );
 
-            $wpdb->insert( $wpdb->prefix . 'wpbdp_listings_plans', $record );
-            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
-        }
-
-        $msg = sprintf( _x( 'Updating listing pending payments: %d listings remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
-        return false;
-    }
-
-    public function fix_orphans( &$msg ) {
-        global $wpdb;
-
-        $msg = '';
-        static $batch_size = 20;
-
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND ID NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans)", WPBDP_POST_TYPE ) );
-        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND ID NOT IN (SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans) ORDER BY ID LIMIT {$batch_size}", WPBDP_POST_TYPE ) );
-        $free_plan = WPBDP_Fee_Plan::get_free_plan();
-
-        if ( ! $listings )
-            return true;
-
-        foreach ( $listings as $listing_id ) {
             $l = WPBDP_Listing::get( $listing_id );
-            $l->set_fee_plan( $free_plan );
+            $l->get_status(); // Forces BD to calculate the listing status if needed.
         }
 
-        $msg = sprintf( _x( 'Assigning fees to orphan listings: %d listings remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
+        $msg = sprintf( _x( 'Migrating listing information: %d items remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
         return false;
     }
 
-    private function register_featured_to_fee( $sticky_level, $fee_id ) {
-        $data = get_option( 'wpbdp-featured-to-fee', array() );
+    private function set_listing_categories( $listing_id ) {
+        global $wpdb;
 
-        if ( ! is_array( $data ) )
-            $data = array();
+        $cat_ids = array();
 
-        if ( isset( $data[ $sticky_level ] ) )
-            return;
+        // From current fees.
+        $cat_ids = array_merge( $cat_ids, $wpdb->get_col( $wpdb->prepare( "SELECT category_id FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) ) );
 
-        $data[ $sticky_level ] = absint( $fee_id );
+        // From pending payments.
+        $pending = $wpdb->get_col( $wpdb->prepare( "SELECT payment_items FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d AND status = %s", $listing_id, 'pending' ) );
+        $pending = array_map( 'unserialize', $pending );
+        $pending = call_user_func_array( 'array_merge', $pending );
 
-        update_option( 'wpbdp-featured-to-fee', $data, false );
+        foreach ( $pending as $item ) {
+            if ( ! in_array( $item['type'], array( 'plan', 'plan_renewal', 'recurring_plan' ), true ) )
+                continue;
+
+            if ( ! empty( $item['rel_id_1'] ) )
+                $cat_ids[] = $item['rel_id_1'];
+        }
+
+        $cat_ids = array_map( 'intval', $cat_ids );
+
+        if ( $cat_ids )
+            wp_set_object_terms( $listing_id, $cat_ids, WPBDP_CATEGORY_TAX, true );
     }
 
-    private function get_fee_for_featured( $sticky_level ) {
-        $data = get_option( 'wpbdp-featured-to-fee', array() );
+    private function plan_from_fees( $listing_id ) {
+        global $wpdb;
 
-        if ( ! is_array( $data ) || ! array_key_exists( $sticky_level, $data ) )
+        $key_translations = array(
+            'expiration_date' => 'expires_on',
+            'is_recurring' => 'recurring',
+            'subscription_id' => 'recurring_id',
+            'is_sticky' => 'sticky'
+        );
+
+        $choices = array();
+        foreach ( array( 'fee_id', 'fee_days', 'fee_images', 'fee_price', 'is_sticky', 'expiration_date' ) as $key ) {
+            $choices[ $key ] = array();
+        }
+
+        $fees = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
+
+        if ( ! $fees )
             return false;
 
-        return $data[ $sticky_level ];
+        foreach ( $fees as $fee ) {
+            if ( $fee->recurring ) {
+                if ( $x = wpbdp_get_fee( $fee->fee_id ) )
+                    $price = $x->amount;
+                else
+                    $price = 0.0;
+
+                return array(
+                    'listing_id' => $listing_id,
+                    'fee_id' => $fee->fee_id,
+                    'fee_price' => $price,
+                    'fee_days' => $fee->fee_days,
+                    'fee_images' => $fee->fee_images,
+                    'expiration_date' => $fee->expires_on,
+                    'is_recurring' => 1,
+                    'is_sticky' => $fee->sticky,
+                    'subscription_id' => $fee->recurring_id
+                );
+            }
+
+            foreach ( array_keys( $choices ) as $key ) {
+                $oldkey = isset( $key_translations[ $key ] ) ? $key_translations[ $key ] : $key;
+
+                if ( 'fee_price' == $key ) {
+                    if ( $x = wpbdp_get_fee( $fee->fee_id ) )
+                        $fee->fee_price = $x->amount;
+                    else
+                        $fee->fee_price = 0.0;
+                }
+
+                if ( 'expiration_date' == $key && ! $fee->expires_on )
+                    $fee->expires_on = -1;
+
+                $choices[ $key ][] = $fee->{$oldkey};
+            }
+        }
+
+        // foreach ( array( 'fee_id', 'fee_days', 'fee_images', 'fee_price', 'is_sticky', 'expiration_date' ) as $key ) {
+        $res['listing_id'] = $listing_id;
+        $res['fee_id'] = $choices['fee_id'][0]; // Use the first fee id.
+        $res['fee_days'] = in_array( -1, $choices['fee_days'] ) ? 0 : max( $choices['fee_days'] );
+
+        foreach ( array( 'fee_images', 'fee_price', 'is_sticky' ) as $key )
+            $res[ $key ] = max( $choices[ $key ] );
+
+        if ( ! in_array( -1, $choices['expiration_date'] ) ) {
+            $res['expiration_date'] = date( 'Y-m-d H:i:s', max( array_map( 'strtotime', $choices['expiration_date'] ) ) );
+        }
+
+        $res['is_recurring'] = 0;
+        $res['subscription_id'] = '';
+
+        return $res;
+    }
+
+    private function plan_from_payments( $listing_id ) {
+        global $wpdb;
+
+        $fee = null;
+        $pending_payments = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d AND status = %s", $listing_id, 'pending' ) );
+
+        foreach ( $pending_payments as $payment ) {
+            $items = unserialize( $payment->payment_items );
+
+            foreach ( $items as $item_ ) {
+                $item = (object) $item_;
+
+                if ( $item->type == 'recurring_plan' ) {
+                    $fee = array(
+                        'fee_id' => isset( $item->fee_id ) ? $item->fee_id : ( isset( $item->rel_id_2 ) ? $item->rel_id_2 : 0 ),
+                        'fee_days' => ! empty( $item->fee_days ) ? $item->fee_days : 0,
+                        'fee_images' => ! empty( $item->fee_images ) ? $item->fee_images : 0,
+                        'fee_price' => $item->amount,
+                        'start_date' => $payment->created_on,
+                        'is_recurring' => 1
+                    );
+                }
+
+                if ( is_null( $fee ) && in_array( $item->type, array( 'plan', 'plan_renewal' ), true ) ) {
+                    $fee = array(
+                        'fee_id' => isset( $item->fee_id ) ? $item->fee_id : ( isset( $item->rel_id_2 ) ? $item->rel_id_2 : 0 ),
+                        'fee_days' => ! empty( $item->fee_days ) ? $item->fee_days : 0,
+                        'fee_images' => ! empty( $item->fee_images ) ? $item->fee_images : 0,
+                        'fee_price' => $item->amount,
+                        'start_date' => $payment->created_on,
+                        'is_recurring' => 0
+                    );
+                }
+            }
+        }
+
+        if ( $_ = wpbdp_get_fee( $fee['fee_id'] ) ) {
+            $fee['is_sticky'] = $_->sticky;
+
+            if ( 0 == $fee['fee_days'] )
+                $fee['fee_days'] = absint( $_->days );
+        }
+
+        if ( 0 != $fee['fee_days'] )
+            $fee['expiration_date'] = date( 'Y-m-d H:i:s', strtotime( sprintf( '+%d days', $fee['fee_days'] ), strtotime( $fee['start_date'] ) ) );
+
+        $fee['listing_id'] = $listing_id;
+        unset( $fee['start_date'] );
+
+        return $fee;
     }
 
 }
