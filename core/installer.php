@@ -170,8 +170,7 @@ class WPBDP_Installer {
             expiration_date timestamp NULL DEFAULT NULL,
             is_recurring tinyint(1) NOT NULL DEFAULT 0,
             is_sticky tinyint(1) NOT NULL DEFAULT 0,
-            subscription_id bigint(20) NULL,
-            status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ok'
+            subscription_id varchar(255) NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
