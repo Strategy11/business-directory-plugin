@@ -664,37 +664,6 @@ to how WordPress stores the data.", 'WPBDM' )
                                         'WPBDM');
                 break;
 
-            case 'setaspaid':
-                $ok = true;
-
-                foreach ($posts as $post_id) {
-                    $listing = WPBDP_Listing::get( $post_id );
-
-                    if ( ! $listing->mark_as_paid() )
-                        $ok = false;
-                }
-
-                if ( $ok ) {
-                    $this->messages[] = _nx('The listing status has been set as paid.',
-                                            'The listings status has been set as paid.',
-                                            count($posts),
-                                            'admin',
-                                            'WPBDM');
-                } else {
-                    $msg = _nx( 'Only invoices containing non-recurring items were marked as paid. Please review the <a>Transactions</a> tab for the listing to manage recurring items or check the gateway\'s backend.',
-                                'Only invoices containing non-recurring items were marked as paid. Recurring payments have to be managed through the gateway.',
-                                count( $posts ),
-                                'admin',
-                                'WPBDM' );
-
-                    if ( 1 == count( $posts ) )
-                        $msg = str_replace( '<a>', '<a href="' . admin_url( 'post.php?post=' . $posts[0] . '&action=edit#listing-metabox-transactions' ) . '">', $msg );
-
-                    $this->messages[] = array( $msg, 'error' );
-                }
-
-                break;
-
             case 'assignfee':
                 $listing = WPBDP_Listing::get( $posts[0] );
                 $fee_id = (int) $_GET['fee_id'];
