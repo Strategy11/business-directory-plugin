@@ -1,11 +1,11 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: address book, business directory, chamber of commerce business directory, church directory, company business directory, contact directory, custom business directory, directory, listings directory, local business directory, link directory, member directory, staff directory, directory plugin
-Requires at least: 4.1
-Tested up to: 4.6.1
-Last Updated: 2016-Oct 25
-Stable tag: tags/4.1.3
+Tags: business directory, address book, chamber of commerce business directory, church directory, local business directory, company business directory, contact directory, custom business directory, directory, listings directory, link directory, member directory, staff directory, directory plugin
+Requires at least: 4.2
+Tested up to: 4.7
+Last Updated: 2016-Dec 19
+Stable tag: tags/4.1.7
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -18,18 +18,23 @@ Business Directory Plugin is the most popular, versatile, widely-installed, easi
 
 Business Directory Plugin allows you to build a local directory, directory of business providers, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory using Business Directory plugin.
 
-= Features =
+= Core plugin Features =
 * Fully customizable form fields
+* Upload images per listing, allow restricted numbers of images based on fee plan
+* Lots of image options:  drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
 * Accept payment for listings OR have free listings in your business directory
 * Accept payments using Authorize.net (requires Authorize.net account)
 * Full support for recurring payments (in most gateways: PayPal, Authorize.net, Stripe)
 * Allow for featured/sticky listings for an upgrade fee
+* Widgets for Featured, Latest and Random listings.  Search widget as well
 * Create multiple fee plans, which can be assigned to categories for posting
 * Built in CSV import and export
 * Support for reCAPTCHA to avoid spam listings
+* Sorting options for categories, listings, and front-end for users to choose sort order
 * Users who post can edit listings without access to WP dashboard
 * SEO Friendly using Yoast SEO
 * Configurable quick-search field and sorting bar for listings
+* Advanced search screen with ability to show/hide fields available for search
 * FULL responsive support when installed with a responsive theme 
 * Multi-language support in your directory with WPML
 * Ability to re-skin the directory with a few clicks (directory themes)
@@ -37,7 +42,7 @@ Business Directory Plugin allows you to build a local directory, directory of bu
 * Images displayed with categories (using the FREE Enhanced Categories module)
 * Display Category Icons/Allow Parent-Child Category Navigation (using the FREE Enhanced Category Module)
 
-= Additional Features available from Premium Modules (paid) =
+= Additional Add-on Features available from Premium Modules (paid) =
 * Rate businesses in your directory (now with Schema.org microformat support) (using the (paid) Ratings Module)
 * Display the location of the business (categories, search, details--now with custom map sizes) (using the (paid) Google Maps Module)
 * Location based directory result filtering (using the (paid) Regions Module)
@@ -102,7 +107,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 And you can easily [translate it yourself](http://businessdirectoryplugin.com/quick-start-guide/#translate) if you need to.
 
 == Credits ==
-Copyright 2009-16, Dave Rodenbaugh 
+Copyright 2009-17, Dave Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -135,6 +140,47 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.7 =
+* Fix 'Include comment form on listing pages' setting to store the proper value.
+* Avoid PHP Warning when field value includes '%'.
+* Use an array to pass headers to wp_mail in Email class.
+* Increase importance of rules in .wpbdp-show-on-mobile CSS class.
+
+= Version 4.1.6 =
+* Fix error in migration routine affecting multivalued fields on some sites.
+* Introduce new setting for comment handling to prevent duplicate comment forms.
+* Review compatibility with WordPress 4.7.
+* Fix preview links for admins.
+* Fix a problem with URL redirection to custom login pages.
+* Accept one option per line (including commas) as part of a multivalued field options.
+* Improve Schema.org integration
+* Add Swedish translation.
+* Add CSS fix for quick search box.
+
+= Version 4.1.5 =
+* Add support for template block/variable metadata in PHP comments.
+* Fix support for template variables customization outside of themes.
+* Fix an error that resulted in the WP comment form appearing twice.
+* Fix a path resolving issue that resulted in an incorrect template being loaded under certain circumstances.
+* Support transliteration of arabic characters when normalizing field names for CSS, CSV export/import, etc.
+* Make some CSS selectors more specific to prevent conflicts. 
+* Allow users to control the size of the list in Multiselect form fields.
+* Add phone and email fields to billing information form.
+* Make Authorize.net gateway use e-mail and phone number properties from the billing form.
+* Allow Editor user to Preview listings.
+* Improve performance of search queries that involve listing metadata.
+* Fix an issue with Form Fields options that caused selected values to show up unselected for some fields.
+* Add contact form message that wasn't being marked as translatable.
+* Unify gettext contexts for "Submit A Listing" view title.
+
+= Version 4.1.4 =
+* Automatically load translation files from themes.
+* Improve performance for BD premium modules update checks on plugin page.
+* Custom themes (not developed by BD) can be used without a license.
+* Add showsearchbar parameter to business-directory-manage-listings shortcode.
+* Fix support for '&' in tag names.
+
 = Version 4.1.3 =
 * Improve appearance of search button on Advanced Search form.
 * Remove carriage-return characters from options in multivalued fields.
