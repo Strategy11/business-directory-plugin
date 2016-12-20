@@ -288,8 +288,14 @@ class WPBDP__Migrations__18_0__Featured_Levels {
             return;
 
         echo '<div class="wpbdp-notice error"><p>';
-        // echo "You still need to perform your Featured Levels migration [here]"
-        echo '<a href="admin.php?page=wpbdp_migration_18_0_featured_levels">Migration</a>';
+        echo '<strong>';
+        echo _x( 'Business Directory Plugin - Featured Levels migration required.', 'migrate-18', 'WPBDM' );
+        echo '</strong><br />';
+        echo str_replace(
+            '<a>',
+            '<a href="' . admin_url( 'admin.php?page=wpbdp_migration_18_0_featured_levels' ) . '">',
+            _x( 'Featured levels were removed in @next-release. You need to perform your <a>Featured Levels migration here</a>.', 'migrate-18', 'WPBDM' )
+        );
         echo '</p></div>';
     }
 
