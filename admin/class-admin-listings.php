@@ -159,8 +159,11 @@ class WPBDP_Admin_Listings {
     function add_columns( $columns_ ) {
         $custom_columns = array();
         $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
-        $custom_columns['status'] = __( 'Payment Status', 'WPBDM' );
+        $custom_columns['status'] = __( 'Listing Status', 'WPBDM' );
         $custom_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
+
+        // Do not show comments column.
+        unset( $columns_['comments'] );
 
         $columns = array();
 
@@ -196,19 +199,7 @@ class WPBDP_Admin_Listings {
 
     function listing_column_status( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
-        $paid_status = $listing->get_payment_status();
-
-        $status_links = '';
-
-        if ( $paid_status != 'ok' )
-            $status_links .= sprintf('<span><a href="%s">%s</a></span>',
-                                    esc_url( add_query_arg( array( 'wpbdmaction' => 'setaspaid', 'post' => $post_id ) ) ),
-                                    __('Paid', 'WPBDM'));
-
-        printf( '<span class="tag paymentstatus %s">%s</span>', $paid_status, strtoupper( $paid_status ) );
-
-        if ( $status_links && current_user_can( 'administrator' ) )
-            printf( '<div class="row-actions"><b>%s:</b> %s</div>', __( 'Mark as', 'WPBDM' ), $status_links );
+        echo $listing->get_status_label();
     }
 
     public function listing_column_expiration_date( $post_id ) {
@@ -435,8 +426,6 @@ class WPBDP_Admin_Listings {
                                           'upgradefeatured' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
                                           'cancelfeatured' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
                                           'sep2' => '--',
-                                          'setaspaid' => _x('Mark as Paid', 'admin actions', 'WPBDM'),
-                                          'sep3' => '--',
                                           'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
                                          );
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
