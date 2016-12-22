@@ -17,7 +17,6 @@ final class WPBDP {
     }
 
     public function init() {
-        $this->register_post_type();
         $this->cpt_integration = new WPBDP__CPT_Integration();
         $this->query_integration = new WPBDP__Query_Integration();
         $this->dispatcher = new WPBDP__Dispatcher();
