@@ -440,18 +440,11 @@ class WPBDP_CSV_Import {
         }
 
         // Insert or update listing.
-        if ( $listing_id ) {
-            $listing = WPBDP_Listing::get( $listing_id );
-            $listing->update( $state, array( 'append-images' => $this->settings['append-images'] ) );
-            $listing->set_post_status( wpbdp_get_option( 'edit-post-status' ) );
-        } else {
-            $listing = WPBDP_Listing::create( $state );
-            $listing->set_field_values( $state->fields );
-            $listing->set_images( $state->images );
-            $listing->set_categories( $state->categories );
-            $listing->set_post_status( $this->settings['post-status'] );
-            $listing->save();
-        }
+        $listing_data = (array) $state;
+        $listing_data['listing_id'] = $listing_id;
+        $listing_data['append_images'] = $this->settings['append-images'];
+        $listing_data['post_status'] = $listing_id ? wpbdp_get_option( 'edit-post-status' ) : $this->settings['post-status'];
+        $listing = wpbdp_save_listing( $listing_data );
 
         // Set username.
         if ( $u = get_user_by( 'login', $meta['username'] ) )

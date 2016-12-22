@@ -72,7 +72,7 @@ class WPBDP_Listing_Display_Helper {
         return $vars;
     }
 
-    private function css_classes( $listing_id, $display ) {
+    private static function css_classes( $listing_id, $display ) {
         $vars = array();
         $vars['listing_css_id'] = 'wpbdp-listing-' . $listing_id;
 

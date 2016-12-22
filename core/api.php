@@ -596,3 +596,4 @@ function wpbdp_load_view( $view, $arg0 = null ) {
     global $wpbdp;
     return $wpbdp->dispatcher->load_view( $view, $arg0 );
 }
+

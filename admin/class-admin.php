@@ -673,10 +673,10 @@ to how WordPress stores the data.", 'WPBDM' )
 
                 break;
 
-            // FIXME: before next-release
             case 'renewlisting':
                 foreach ( $posts as $post_id ):
-                    $listings_api->auto_renew( $post_id );
+                    $listing = WPBDP_Listing::get( $post_id );
+                    $listing->renew();
                 endforeach;
 
                 $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'WPBDM' );

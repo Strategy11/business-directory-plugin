@@ -27,33 +27,34 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
             return $this->subscription_list();
     }
 
+    // FIXME: before next-release.
     private function get_subscription_info() {
-        global $wpdb;
-        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s",
-                                                    get_current_user_id(),
-                                                    WPBDP_POST_TYPE ) );
-        $info = array();
-
-        foreach ( $listings as $listing_id ) {
-            $listing = WPBDP_Listing::get( $listing_id );
-
-            if ( ! $listing )
-                continue;
-
-            $categories = $listing->get_categories( 'all' );
-
-            foreach ( $categories as $cat ) {
-                if ( ! $cat->recurring )
-                    continue;
-
-                if ( ! isset( $info[ $listing_id ] ) )
-                    $info[ $listing_id ] = array( 'listing' => $listing, 'subscriptions' => array() );
-
-                $info[ $listing_id ]['subscriptions'][] = $cat;
-            }
-        }
-
-        return $info;
+        // global $wpdb;
+        // $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s",
+        //                                             get_current_user_id(),
+        //                                             WPBDP_POST_TYPE ) );
+        // $info = array();
+        //
+        // foreach ( $listings as $listing_id ) {
+        //     $listing = WPBDP_Listing::get( $listing_id );
+        //
+        //     if ( ! $listing )
+        //         continue;
+        //
+        //     $categories = $listing->get_categories( 'all' );
+        //
+        //     foreach ( $categories as $cat ) {
+        //         if ( ! $cat->recurring )
+        //             continue;
+        //
+        //         if ( ! isset( $info[ $listing_id ] ) )
+        //             $info[ $listing_id ] = array( 'listing' => $listing, 'subscriptions' => array() );
+        //
+        //         $info[ $listing_id ]['subscriptions'][] = $cat;
+        //     }
+        // }
+        //
+        // return $info;
     }
 
     private function subscription_list() {
@@ -98,7 +99,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
 
         if ( ! $payment && ! $data['category_info']->recurring_id ) {
             // This is a 'false' positive (probably an incomplete payment that was manually approved).
-            $data['listing']->make_category_non_recurring( $data['category_info']->term_id );
+            $data['listing']->cancel_recurring();
 
             $html .= wpbdp_render_msg( _x( 'Subscription canceled.', 'manage subscriptions', 'WPBDM' ) );
 

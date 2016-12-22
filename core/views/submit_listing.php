@@ -86,7 +86,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $this->listing->has_fee_plan() )
             wp_die();
 
-        $this->listing->clear_fee_plan();
+        $this->listing->set_fee_plan( null );
         $this->ajax_sections();
     }
 

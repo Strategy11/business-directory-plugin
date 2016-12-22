@@ -90,8 +90,9 @@ function wpbusdirman_display_extra_thumbnails() {
 function wpbusdirman_post_extra_thumbnails() {
     $html = '';
 
-    $thumbnail_id = wpbdp_listings_api()->get_thumbnail_id(get_the_ID());
-    $images = wpbdp_listings_api()->get_images(get_the_ID());
+    $listing = WPBDP_Listing::get( get_the_ID() );
+    $thumbnail_id = $listing->get_thumbnail_id();
+    $images = $listing->get_images();
 
     if ($images) {
         $html .= '<div class="extrathumbnails">';

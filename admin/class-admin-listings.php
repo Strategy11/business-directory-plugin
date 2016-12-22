@@ -14,10 +14,10 @@ class WPBDP_Admin_Listings {
 
         add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
 
-        add_action( 'save_post', array( &$this, 'save_post' ) );
-
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
+
+        add_action( 'wpbdp_save_listing', array( $this, 'save_fields_and_fee' ) );
 
         // Filter by category.
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
@@ -349,44 +349,39 @@ class WPBDP_Admin_Listings {
         return $actions;
     }
 
-    public function save_post($post_id) {
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-            return;
+    public function save_fields_and_fee( $post_id ) {
+        global $wpdb;
 
         if ( ! is_admin() || ! isset( $_POST['post_type'] ) || WPBDP_POST_TYPE != $_POST['post_type'] )
             return;
 
         $listing = WPBDP_Listing::get( $post_id );
 
-        if ( ! $listing )
-            return;
+        // Set listing plan (if needed).
+        $new_plan = $_POST['listing_plan'];
+        $current_plan = $listing->get_fee_plan();
 
-        // Listing plan.
-        $listing_plan = $_POST['listing_plan'];
-        $payment = $listing->set_fee_plan_with_payment( $listing_plan['fee_id'] );
+        if ( ! $current_plan || (int) $current_plan->fee_id != (int) $new_plan['fee_id'] ) {
+            $payment = $listing->set_fee_plan_with_payment( $new_plan['fee_id'] );
 
-        if ( $payment ) {
-            $payment->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
-            $payment->payment_items[0]['amount'] = 0.0;
-            $payment->status = 'completed';
-            $payment->add_note( _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) );
-            $payment->save();
+            if ( $payment ) {
+                $payment->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
+                $payment->payment_items[0]['amount'] = 0.0;
+                $payment->status = 'completed';
+                $payment->add_note( _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) );
+                $payment->save();
+            }
         }
 
-        // Update attributes.
-        global $wpdb;
-
+        // Update plan attributes.
         $row = array();
-        $row['expiration_date'] = '' == $listing_plan['expiration_date'] ? null : $listing_plan['expiration_date'];
-        $row['fee_images'] = absint( $listing_plan['fee_images'] );
-        $row['is_sticky'] = ! empty( $listing_plan['is_sticky'] ) ? 1 : 0;
+        $row['expiration_date'] = '' == $new_plan['expiration_date'] ? null : $new_plan['expiration_date'];
+        $row['fee_images'] = absint( $new_plan['fee_images'] );
+        $row['is_sticky'] = ! empty( $new_plan['is_sticky'] ) ? 1 : 0;
 
-        $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $row, array( 'listing_id' => $listing->get_id() ) );
+        $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $row, array( 'listing_id' => $post_id ) );
 
-        // Save custom fields.
-        if ( ! isset( $_POST['wpbdp-listing-fields-nonce'] ) )
-            return;
-
+        // Update fields.
         $formfields_api = wpbdp_formfields_api();
         $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
 
@@ -399,6 +394,7 @@ class WPBDP_Admin_Listings {
             }
         }
 
+        // Update image information.
         if ( isset( $_POST['thumbnail_id'] ) )
             $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
 

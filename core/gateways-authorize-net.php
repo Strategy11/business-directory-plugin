@@ -216,7 +216,7 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         } else {
             // If subscription is not active, make item non recurring so it expires normally next time.
             $recurring_item = $payment->get_recurring_item();
-            $listing->make_category_non_recurring( $recurring_item->rel_id_1 );
+            $listing->cancel_recurring();
         }
     }
 

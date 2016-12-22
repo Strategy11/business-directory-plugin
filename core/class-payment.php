@@ -358,8 +358,7 @@ class WPBDP_Payment_Old extends WPBDP_NoopObject {
         $recurring_item = $this->get_recurring_item();
 
         if ( $recurring_item ) {
-            $listing->make_category_non_recurring( $recurring_item->rel_id_1 );
-            // $listing->remove_category( $recurring_item->rel_id_1 );
+            $listing->cancel_recurring();
         }
     }
 

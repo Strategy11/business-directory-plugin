@@ -306,6 +306,7 @@ class WPBDP_CSVExporter {
         if ( !$post || $post->post_type != WPBDP_POST_TYPE )
             return false;
 
+        $listing = WPBDP_Listing::get( $post_id );
         $listings_api = wpbdp_listings_api();
 
         $data = array();
@@ -324,9 +325,9 @@ class WPBDP_CSVExporter {
                     $upload_dir = wp_upload_dir();
                     $listing_images = array();
 
-                    if ( $images = $listings_api->get_images( $post->ID ) ) {
-                        foreach ( $images as &$img ) {
-                            $img_metadata = wp_get_attachment_metadata( $img->ID );
+                    if ( $images = $listing->get_images( 'ids' ) ) {
+                        foreach ( $images as $img_id ) {
+                            $img_metadata = wp_get_attachment_metadata( $img_id );
 
                             if ( !isset( $img_metadata['file'] ) )
                                 continue;

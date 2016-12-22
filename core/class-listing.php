@@ -14,24 +14,6 @@ class WPBDP_Listing {
         $this->id = intval( $id );
     }
 
-    /**
-     * Sets the values for listing fields.
-     * @param array $values field_id => value associative array.
-     * @param boolean $append if TRUE the specified field values are set without clearing the values for the other fields.
-     */
-    public function set_field_values( $values = array(), $append = false ) {
-        $fields = wpbdp_get_form_fields( array( 'association' => array( '-category' ) ) );
-
-        foreach ( $fields as &$f ) {
-            if ( isset( $values[ $f->get_id() ] ) )
-                $f->store_value( $this->id, $values[ $f->get_id() ] );
-            elseif ( ! $append )
-                $f->store_value( $this->id, $f->convert_input( null ) );
-        }
-
-        do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this, $values ) );
-    }
-
     public function get_field_value( $id ) {
         $field = null;
 
@@ -138,96 +120,6 @@ class WPBDP_Listing {
         return $this->id;
     }
 
-
-    public function get_category_info( $category ) {
-        wpbdp_debug_e( 'get_category_info', 'who called me?', debug_backtrace() );
-        $category_id = intval( is_object( $category ) ? $category->term_id : $category );
-        $categories = $this->get_categories( 'all' );
-
-        if ( isset( $categories[ $category_id ] ) )
-            return $categories[ $category_id ];
-
-        return null;
-    }
-
-    public function remove_category( $category, $remove_fee = true, $cleanup = false ) {
-        wpbdp_debug_e( 'remove_category', 'who called me?', debug_backtrace() );
-        global $wpdb;
-
-        $category_id = intval( is_object( $category ) ? $category->term_id : $category );
-
-        if ( $remove_fee )
-            $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d",
-                                          $this->id,
-                                          $category_id ) );
-
-        $listing_terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
-        wpbdp_array_remove_value( $listing_terms, $category_id );
-        wp_set_post_terms( $this->id, $listing_terms, WPBDP_CATEGORY_TAX );
-
-        if ( $cleanup ) {
-            // Remove all payment items related to this category.
-            $payment_ids = $wpdb->get_col( $wpdb->prepare( "SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d AND
-                                                            p.status = %s AND
-                                                            EXISTS( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id = p.id
-                                                            AND pi.item_type IN (%s, %s) AND pi.rel_id_1 = %d)",
-                                                           $this->id,
-                                                           'pending',
-                                                           'fee',
-                                                           'recurring_fee',
-                                                           $category_id ) );
-            foreach ( $payment_ids as $pid ) {
-                $payment = WPBDP_Payment::get( $pid );
-                $items = $payment->get_items( array( 'item_type' => array( 'fee', 'recurring_fee' ),
-                                                     'rel_id_1' => $category_id ) );
-                foreach ( $items as &$item ) {
-                    $payment->delete_item( $item );
-                }
-
-                $payment->save();
-            }
-        }
-    }
-
-    // TODO: if there is 'current' information for the category respect the expiration time left.
-    public function add_category( $category, $fee, $recurring = false, $recurring_data = array(), $cleanup = false ) {
-        wpbdp_debug_e( 'add_category', 'who called me?', debug_backtrace() );
-
-        global $wpdb;
-
-        $this->remove_category( $category, true, $cleanup );
-
-        $category_id = intval( is_object( $category ) ? $category->term_id : $category );
-        $fee =  ( null === $fee ) ? $fee : ( is_object( $fee ) ? $fee : wpbdp_get_fee( $fee ) );
-
-        if ( is_null( $fee ) || ! $fee || ! term_exists( $category_id ) )
-            return;
-
-        $fee = (array) $fee;
-
-        $fee_info = array();
-        $fee_info['listing_id'] = $this->id;
-        $fee_info['category_id'] = $category_id;
-        $fee_info['fee_id'] = intval( isset( $fee['id'] ) ? $fee['id'] : ( isset( $fee['fee_id'] ) ? $fee['fee_id'] : 0 ) );
-        $fee_info['fee_days'] = intval( isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'] );
-        $fee_info['fee_images'] = intval( isset( $fee['images'] ) ? $fee['images'] : $fee['fee_images'] );
-        $fee_info['recurring'] = $recurring ? 1 : 0;
-        $fee_info['sticky'] = $fee['sticky'] ? 1 : 0;
-
-        if ( isset( $recurring_data ) )
-            $fee_info['recurring_data'] = serialize( $recurring_data );
-
-        if ( isset( $recurring_data['recurring_id'] ) )
-            $fee_info['recurring_id'] = $recurring_data['recurring_id'];
-
-        if ( $expiration_date = $this->calculate_expiration_date( time(), $fee ) )
-            $fee_info['expires_on'] = $expiration_date;
-
-        $wpdb->insert( $wpdb->prefix . 'wpbdp_listing_fees', $fee_info );
-        wp_set_post_terms( $this->id, array( $category_id ), WPBDP_CATEGORY_TAX, true );
-    }
-
-
     public function calculate_expiration_date( $time, &$fee ) {
         $fee = (array) $fee;
         $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
@@ -239,199 +131,24 @@ class WPBDP_Listing {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
-    // TODO: what happens when sections clash? i.e. there is a payment pending for a renewal and somehow the category is also in 'expired'
-    public function get_categories( $info = 'current' ) {
-        wpbdp_debug_e( 'get_categories', 'who called me?', debug_backtrace() );
-        global $wpdb;
-
-        $current_ids = array();
-        $expired_ids = array();
-        $pending_ids = array();
-        $known = array();
-
-        foreach ( $wpdb->get_results( $wpdb->prepare(
-                    "SELECT *, IF ( expires_on >= %s OR expires_on IS NULL, 0, 1 ) AS _expired FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d",
-                    current_time( 'mysql' ),
-                    $this->id ) ) as $r ) {
-            $known[ $r->category_id ] = $r;
-
-            if ( 1 == $r->_expired )
-                $expired_ids[] = $r->category_id;
-            else
-                $current_ids[] = $r->category_id;
-        }
-
-        $pending_payments = $wpdb->get_results( $wpdb->prepare( "SELECT pi.payment_id, pi.id, pi.rel_id_1 FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type IN (%s, %s) AND p.status = %s AND p.listing_id = %d",
-                                                                'fee', 'recurring_fee',
-                                                                'pending',
-                                                                $this->id ) );
-
-        $pending = array();
-        foreach ( $pending_payments as &$p ) {
-            $pending[ intval( $p->rel_id_1 ) ] = $p->id;
-        }
-
-        $pending_ids = array_keys( $pending );
-
-        $category_ids = array();
-        switch ( $info ) {
-            case 'all':
-                $category_ids = array_merge( $current_ids, $expired_ids, $pending_ids );
-                break;
-            case 'pending':
-                $category_ids = $pending_ids;
-                break;
-            case 'expired':
-                $category_ids = $expired_ids;
-                break;
-            case 'current':
-            default:
-                $category_ids = $current_ids;
-                break;
-        }
-
-        $results = array();
-
-        foreach ( $category_ids as $category_id ) {
-            if ( $category_info = get_term( intval( $category_id ), WPBDP_CATEGORY_TAX ) ) {
-                $category = new StdClass();
-                $category->id = intval( $category_info->term_id );
-                $category->name = $category_info->name;
-                $category->slug = $category_info->slug;
-                $category->term_id = intval( $category_info->term_id );
-                $category->term_taxonomy_id = intval( $category_info->term_taxonomy_id );
-                $category->status = in_array( $category_id, $pending_ids, true ) ? 'pending' : ( in_array( $category_id, $expired_ids, true ) ? 'expired' : 'ok' );
-
-                switch ( $category->status ) {
-                    case 'expired':
-                    case 'ok':
-                        $fee_info = $known[ $category_id ];
-                        //$fee_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND category_id = %d", $this->id, $category_id ) );
-                        $fee_info_recurring_data = unserialize( $fee_info->recurring_data );
-
-                        if ( ! $fee_info ) {
-                            // $this->remove_category( $category_id );
-                            continue;
-                        }
-
-                        $category->fee_id = intval( $fee_info->fee_id );
-                        $category->fee_days = intval( $fee_info->fee_days );
-                        $category->fee_images = intval( $fee_info->fee_images );
-
-                        $category->fee = wpbdp_get_fee( $category->fee_id );
-                        if ( ! $category->fee ) {
-                            $category->fee = new StdClass();
-                            $category->fee->id = $category->fee_id;
-                            $category->fee->label = _x( '(Fee Unavailable)', 'listing', 'WPBDM' );
-                            $category->fee->amount = 0.0;
-                            $category->fee->days = $category->fee_days;
-                            $category->fee->images = $category->fee_images;
-                            $category->fee->categories = array();
-                            $category->fee->extra_data = array();
-                        }
-
-                        $category->expires_on = $fee_info->expires_on;
-                        $category->expired = ( $category->expires_on && strtotime( $category->expires_on ) < time() ) ? true : false;
-                        $category->renewal_id = $fee_info->id;
-                        $category->recurring = $fee_info->recurring ? true : false;
-                        $category->recurring_id = trim( $fee_info->recurring_id );
-                        $category->payment_id = isset( $fee_info_recurring_data['payment_id'] ) ? $fee_info_recurring_data['payment_id'] : 0;
-
-                        break;
-
-                    case 'pending':
-                        $payment_info = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items WHERE id = %d", $pending[ $category_id ] ) );
-                        $payment_info->data = unserialize( $payment_info->data );
-
-                        $category->fee_id = intval( $payment_info->rel_id_2 );
-                        $category->fee = wpbdp_get_fee( $category->fee_id );
-                        if ( ! $category->fee ) {
-                            $category->fee = new StdClass();
-                            $category->fee->id = $category->fee_id;
-                            $category->fee->label = _x( '(Fee Unavailable)', 'listing', 'WPBDM' );
-                            $category->fee->amount = 0.0;
-                            $category->fee_days = intval( $payment_info->data['fee_days'] );
-                            $category->fee_images = intval( $payment_info->data['fee_images'] );
-//                            $category->fee->days = $category->fee_days;
-//                            $category->fee->images = $category->fee_images;
-                            $category->fee->categories = array();
-                            $category->fee->extra_data = array();
-                        }
-
-                        $category->fee_days = intval( $payment_info->data['fee_days'] );
-                        $category->fee_images = intval( $payment_info->data['fee_images'] );
-                        $category->expires_on = null; // TODO: calculate expiration date.
-                        $category->expired = false;
-                        $category->renewal_id = 0;
-                        $category->recurring = ( 'recurring_fee' == $payment_info->item_type ? true : false );
-                        $category->recurring_id = '';
-                        $category->payment_id = intval( $payment_info->payment_id );
-
-                        break;
-                }
-
-                $results[ $category_id ] = $category;
-            }
-        }
-
-        return $results;
+    public function get_categories() {
+        return wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX );
     }
 
     public function set_categories( $categories ) {
         $category_ids = array_map( 'intval', $categories );
-
         wp_set_post_terms( $this->id, $category_ids, WPBDP_CATEGORY_TAX, false );
-        $this->fix_categories();
     }
 
-    public function fix_categories( $charge = false ) {
+    /**
+     * @since next-release
+     */
+    public function cancel_recurring() {
         global $wpdb;
-
-        // Delete fee information for categories that no longer exist.
-        $wpdb->query( $wpdb->prepare( "DELETE lf FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = %d AND lf.category_id NOT IN (SELECT tt.term_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy=%s)",
-                                      $this->id, WPBDP_CATEGORY_TAX ) );
-
-        $terms = wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, 'fields=ids' );
-
-        // Remove listing information for categories that no longer apply to the listing.
-        $removed_cats = array_diff( array_keys( $this->get_categories( 'current' ) ), $terms );
-        if ( $removed_cats ) {
-            $cats = implode( ',', $removed_cats );
-            $wpdb->query( $wpdb->prepare( "DELETE lf FROM {$wpdb->prefix}wpbdp_listing_fees lf WHERE lf.listing_id = %d AND lf.category_id IN ({$cats})", $this->id ) );
-        }
-
-        // Assign a default fee for categories without a fee.
-        foreach ( $terms as $category_id ) {
-            $category_info = $this->get_category_info( $category_id );
-
-            if ( $category_info && 'pending' == $category_info->status ) {
-                $this->add_category( $category_id, $category_info->fee, false, null, true );
-            } elseif ( ! $category_info ) {
-                $fee_options = wpbdp_get_fees_for_category( $category_id );
-
-                // Allow backend listing categories editing to always succeed.
-                if ( ! $fee_options && is_admin() && current_user_can( 'administrator' ) )
-                    $fee_options[] = WPBDP_Fee_Plan::get_free_plan();
-
-                if ( $charge ) {
-                    $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
-                    $payment->add_category_fee_item( $category_id, reset( $fee_options ) );
-                    $payment->set_status( WPBDP_Payment::STATUS_COMPLETED );
-                    $payment->save();
-                } else {
-                    $this->add_category( $category_id, reset( $fee_options ) );
-                }
-            }
-        }
-    }
-
-    public function make_category_non_recurring( $category_id ) {
-        global $wpdb;
-        $wpdb->update( "{$wpdb->prefix}wpbdp_listing_fees",
-                       array( 'recurring' => 0,
-                              'recurring_id' => null,
-                              'recurring_data' => null ),
-                       array( 'listing_id' => $this->id, 'category_id' => $category_id ) );
+        $wpdb->update( "{$wpdb->prefix}wpbdp_listings_plans",
+                       array( 'is_recurring' => 0,
+                              'subscription_id' => '' ),
+                       array( 'listing_id' => $this->id ) );
     }
 
     public function is_published() {
@@ -459,23 +176,6 @@ class WPBDP_Listing {
             $status = 'pending';
 
         return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
-    }
-
-    public function mark_as_paid() {
-        $pending = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->all();
-        $ok = true;
-
-        foreach ( $pending as &$p ) {
-            if ( $p->has_item_type( 'recurring_fee' ) ) {
-                $ok = false;
-                continue;
-            }
-
-            $p->set_status( WPBDP_Payment::STATUS_COMPLETED, 'admin' );
-            $p->save();
-        }
-
-        return $ok;
     }
 
     public function get_latest_payments() {
@@ -570,19 +270,6 @@ class WPBDP_Listing {
         wp_update_post( array( 'post_status' => $status, 'ID' => $this->id ) );
     }
 
-    public function save() {
-        if ( $this->new )
-            do_action_ref_array( 'WPBDP_Listing::listing_created', array( &$this ) );
-        else
-            do_action_ref_array( 'WPBDP_Listing::listing_edited', array( &$this ) );
-
-        $this->new = false;
-        do_action_ref_array( 'WPBDP_Listing::listing_saved', array( &$this ) );
-
-        // do_action( 'wpbdp_save_listing', $listing_id, $data->fields, $data );
-        do_action_ref_array( 'wpbdp_save_listing', array( &$this ) );
-    }
-
     public function delete() {
         global $wpdb;
         $wpdb->update( $wpdb->posts, array( 'post_status' => wpbdp_get_option( 'deleted-status' ) ), array( 'ID' => $this->id ) );
@@ -614,6 +301,19 @@ class WPBDP_Listing {
     public function get_renewal_hash( $deprecated = 0 ) {
         $hash = base64_encode( 'listing_id=' . $this->id . '&category_id=' . $deprecated );
         return $hash;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function renew() {
+        $plan = $this->get_fee_plan();
+
+        if ( ! $plan )
+            return false;
+
+        $this->set_fee_plan( $plan );
+        $this->set_status( 'complete' );
     }
 
     public function get_renewal_url( $deprecated = 0 ) {
@@ -666,40 +366,6 @@ class WPBDP_Listing {
         return $is_sticky ? 'sticky' : 'normal';
     }
 
-
-    public function update( $state, $opts = array() ) {
-        // Set title.
-        $title = false;
-
-        if ( isset( $state->title ) ) {
-            $title = $state->title;
-        } else {
-            if ( $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) ) ) {
-                if ( isset( $state->fields[ $title_field->get_id() ] ) )
-                    $title = $state->fields[ $title_field->get_id() ];
-            }
-        }
-
-        if ( $title )
-            $this->set_title( $title );
-
-        // Set categories.
-        if ( isset( $state->categories ) ) {
-            $this->set_categories( $state->categories );
-        }
-
-        if ( isset( $state->fields ) ) {
-            $this->set_field_values( $state->fields );
-        }
-
-        if ( isset( $state->images ) ) {
-            $append = ( ! empty( $opts['append-images'] ) );
-            $this->set_images( $state->images, $append );
-        }
-
-        $this->save();
-    }
-
     /**
      * @since next-release
      */
@@ -714,7 +380,6 @@ class WPBDP_Listing {
     public function get_fee_plan() {
         global $wpdb;
 
-        // TODO: use a proper DB_Entity for this relation.
         $res = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d LIMIT 1", $this->id ) );
         if ( ! $res )
             return false;
@@ -737,6 +402,11 @@ class WPBDP_Listing {
     public function set_fee_plan( $fee, $recurring = false, $status = 'ok' ) {
         global $wpdb;
 
+        if ( is_null( $fee ) ) {
+            $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
+            return true;
+        }
+
         $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
 
         if ( ! $fee )
@@ -748,8 +418,7 @@ class WPBDP_Listing {
                        'fee_images' => $fee->images,
                        'fee_price' => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
                        'is_recurring' => 0,
-                       'is_sticky' => (int) $fee->sticky,
-                       'status' => $status );
+                       'is_sticky' => (int) $fee->sticky );
 
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;
@@ -786,29 +455,6 @@ class WPBDP_Listing {
         return $payment;
     }
 
-    /**
-     * @since next-release
-     */
-    public function clear_fee_plan() {
-        global $wpdb;
-        $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
-    }
-
-    // /**
-    //  * @since next-release
-    //  */
-    // public function set_fee_with_payment( $fee, $recurring = false ) {
-    //     $payment = new WPBDP_Payment( array( 'listing_id' => $this->id ) );
-    //     $payment->add_item( $recurring ? 'recurring_plan' : 'plan',
-    //                         $fee->amount,
-    //                         sprintf( _x( 'Listing plan "%s"%s', 'submit', 'WPBDM' ),
-    //                                  $fee->label, $recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-    //                         array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
-    //                         $fee->id );
-    //     $this->set_fee_plan( $fee, $recurring, 'pending' );
-    //
-    //     return $payment;
-    // }
     public function generate_or_retrieve_payment() {
         $plan = $this->get_fee_plan();
 
@@ -856,6 +502,81 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
+    public function get_status() {
+        $status_ = get_post_meta( $this->id, '_wpbdp[status]', true );
+
+        if ( ! $status_ )
+            $status = $this->calculate_status();
+        else
+            $status = $status_;
+
+        $status = apply_filters( 'wpbdp_listing_status', $status, $this->id );
+
+        if ( ! $status_ || $status_ != $status )
+            update_post_meta( $this->id, '_wpbdp[status]', $status );
+
+        return $status;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function get_status_label() {
+        $stati = self::get_stati();
+
+        return $stati[ $this->get_status() ];
+    }
+
+    /**
+     * @since next-release
+     */
+    private function calculate_status() {
+        global $wpdb;
+
+        $is_expired = (bool) $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d AND expiration_date IS NOT NULL AND expiration_date < %s",
+                $this->id,
+                current_time( 'mysql' )
+            )
+        );
+        $pending_payment = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d AND status = %s ORDER BY id DESC LIMIT 1",
+                $this->id,
+                'pending'
+            )
+        );
+
+        if ( ! $pending_payment || ! in_array( $pending_payment->payment_type, array( 'initial', 'renewal' ), true ) )
+            return $is_expired ? 'expired' : 'complete';
+
+        return ( 'initial' == $pending_payment->payment_type ? 'pending_payment' : 'pending_renewal' );
+    }
+
+    /**
+     * @since next-release
+     */
+    public static function get_stati() {
+        $stati = array(
+            'unknown' => _x( 'Unknown', 'listing status', 'WPBDM' ),
+            'legacy' => _x( 'Legacy', 'listing status', 'WPBDM' ),
+            'incomplete' => _x( 'Incomplete', 'listing status', 'WPBDM' ),
+            'pending_payment' => _x( 'Incomplete', 'listing status', 'WPBDM' ),
+            'complete' => _x( 'Complete', 'listing status', 'WPBDM' ),
+            'pending_upgrade' => _x( 'Pending Upgrade', 'listing status', 'WPBDM' ),
+            'expired' => _x( 'Expired', 'listing status', 'WPBDM' ),
+            'pending_renewal' => _x( 'Pending Renewal', 'listing status', 'WPBDM' ),
+            'abandoned' => _x( 'Abandoned', 'listing status', 'WPBDM' )
+        );
+        $stati = apply_filters( 'wpbdp_listing_stati', $stati );
+
+        return $stati;
+    }
+
+    /**
+     * @since next-release
+     */
     public static function validate_access_key( $key, $email = '' ) {
         if ( ! $key )
             return false;
@@ -869,55 +590,53 @@ class WPBDP_Listing {
         ) ) > 0;
     }
 
-    public static function create( &$state ) {
-        $title = 'Untitled Listing';
+    /**
+     * @since next-release
+     */
+    public static function save_listing( $args = array(), $error = false ) {
+        self::_save_listing_hooks( $post_id );
+    }
 
-        if ( isset( $state->title ) ) {
-            $title = $state->title;
+    /**
+     * @since next-release
+     */
+    public static function _save_listing_hooks( $post_id, $is_new = false ) {
+        $is_new = (bool) ! get_post_meta( $post_id, '_wpbdp[status]', true );
+
+        if ( $is_new ) {
+            do_action( 'WPBDP_Listing::listing_created', $post_id );
+            do_action( 'wpbdp_add_listing', $post_id );
         } else {
-            $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
-
-            if ( isset( $state->fields[ $title_field->get_id() ] ) )
-                $title = $state->fields[ $title_field->get_id() ];
+            do_action( 'wpbdp_edit_listing', $post_id );
+            do_action( 'WPBDP_Listing::listing_edited', $post_id );
         }
 
-        $title = trim( strip_tags( $title ) );
+        do_action( 'wpbdp_save_listing', $post_id, $is_new );
+    }
 
-        $post_data = array(
-            'post_title' => $title,
-            'post_status' => 'pending',
-            'post_type' => WPBDP_POST_TYPE
-        );
+    /**
+     * @since next-release
+     */
+    public function _after_save( $context = '' ) {
+    }
 
-        $post_id = wp_insert_post( $post_data );
+    /**
+     * @since next-release
+     */
+    public function _after_delete( $context = '' ) {
+        global $wpdb;
 
-        // Create author user if needed.
-        $current_user = wp_get_current_user();
+        // Remove attachments.
+        $attachments = get_posts( array( 'post_type' => 'attachment', 'post_parent' => $post_id, 'numberposts' => -1, 'fields' => 'ids' ) );
+        foreach ( $attachments as $attachment_id )
+            wp_delete_attachment( $attachment_id, true );
 
-        if ( $current_user->ID == 0 ) {
-            if ( wpbdp_get_option( 'require-login' ) )
-                throw new Exception('Login required.');
+        // Remove listing fees.
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d", $post_id ) );
 
-            // Create user.
-            if ( $email_field = wpbdp_get_form_fields( array( 'validators' => 'email', 'unique' => 1 ) ) ) {
-                $email = $state->fields[ $email_field->get_id() ];
-
-                if ( email_exists( $email ) ) {
-                    $post_author = get_user_by( 'email', $email );
-                    $post_author = $post_author->ID;
-                } else {
-                    $post_author = wp_insert_user( array(
-                        'user_login' => 'guest_' . wp_generate_password( 5, false, false ),
-                        'user_email' => $email,
-                        'user_pass' => wp_generate_password()
-                    ) );
-                }
-
-                wp_update_post( array( 'ID' => $post_id, 'post_author' => $post_author ) );
-            }
-        }
-
-        return new self( $post_id );
+        // Remove payment information.
+        $wpdb->query( $wpdb->prepare( "DELETE pi.* FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id IN (SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d)", $post_id ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id ) );
     }
 
     public static function get( $id ) {
