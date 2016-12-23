@@ -21,8 +21,6 @@ class WPBDP_Listings_API {
 
         // add_action( 'transition_post_status', array( &$this, 'listing_published_notification' ), 10, 3 );
 
-        add_action( 'wpbdp_add_listing', array( $this, 'set_initial_listing_status' ) );
-
         $this->expiration = new WPBDP__Listing_Expiration();
     }
 
@@ -62,7 +60,7 @@ class WPBDP_Listings_API {
                     break;
                 case 'featured_upgrade':
                     global $wpdb;
-                    $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 1 ), array( 'listing_id' => $listing->get_id() ) );
+                    $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'is_sticky' => 1 ), array( 'listing_id' => $listing->get_id() ) );
                     break;
             }
         }
@@ -126,14 +124,6 @@ class WPBDP_Listings_API {
         $email->to[] = wpbusdirman_get_the_business_email( $post->ID );
         $email->template = 'businessdirectory-email';
         $email->send();
-    }
-
-    /**
-     * @since next-release
-     */
-    public function set_initial_listing_status( $post_id ) {
-        $listing = WPBDP_Listing::get( $post_id );
-        $listing->get_status(); // This forces a status refresh if there's no status.
     }
 
     public function new_listing_confirmation_email( &$listing ) {
