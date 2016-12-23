@@ -177,6 +177,14 @@ class WPBDP_Settings {
                             null,
                             array( &$this, 'setup_ajax_compat_mode' ) );
 
+        $this->add_setting(
+            $s,
+            'include-button-styles',
+            _x( 'Include CSS rules to give their own style to View, Edit and Delete buttons?', 'admin settings', 'WPBDM' ),
+            'boolean',
+            true
+        );
+
         /* Listings settings */
         $g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
         $s = $this->add_section($g, 'general', _x('General Settings', 'admin settings', 'WPBDM'));

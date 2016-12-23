@@ -92,7 +92,7 @@ form#wpbdmsearchform a.advanced-search-link {
 /*    margin-left: 25px;*/
 }
 
-.listing-actions a.button {
+.wpbdp-with-button-styles .listing-actions .wpbdp-button {
     padding: 5px 10px;
     font-size: 11px;
     text-decoration: none;
@@ -110,7 +110,7 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-right: 3px;
 }
 
-.listing-actions a.button:hover {
+.wpbdp-with-button-styles .listing-actions .wpbdp-button:hover {
     color: #5e5e5e;
     background-color: #ebebeb;
     background-repeat: repeat-x;
@@ -121,7 +121,7 @@ form#wpbdmsearchform a.advanced-search-link {
     background-image: linear-gradient(top, #f9f9f9, #ebebeb);
 }
 
-.listing-actions a.delete-listing {
+.wpbdp-with-button-styles .listing-actions .wpbdp-button.delete-listing {
     margin-left: 20px;
     color: #ff0000;
 }
