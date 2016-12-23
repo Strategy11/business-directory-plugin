@@ -93,7 +93,7 @@ class WPBDP__Migrations__18_0__Featured_Levels {
 
                 $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $level_config['fee_id'] ) );
 
-                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
+                $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
                 $fee->id,
                 $fee->amount,
                 $fee->days,
@@ -109,7 +109,7 @@ class WPBDP__Migrations__18_0__Featured_Levels {
                 if ( $fee->save() ) {
                     $featured_fee_translation[ $level_id ] = $fee->id;
 
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
                     $fee->id,
                     $fee->amount,
                     $fee->days,

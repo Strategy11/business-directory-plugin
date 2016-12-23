@@ -262,7 +262,7 @@ class WPBDP_Admin_Listings {
                                                            WPBDP_POST_TYPE,
                                                            '_wpbdp[sticky]',
                                                            'pending') );
-        $expired = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings_plans WHERE expiration_date IS NOT NULL AND expiration_date < %s",
+        $expired = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE expiration_date IS NOT NULL AND expiration_date < %s",
                                                    current_time( 'mysql' ) ) );
 
         $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
@@ -300,7 +300,7 @@ class WPBDP_Admin_Listings {
 
         switch ( $_REQUEST['wpbdmfilter'] ) {
             case 'expired':
-                $pieces['join'] = " LEFT JOIN {$wpdb->prefix}wpbdp_listings_plans lp ON lp.listing_id = {$wpdb->posts}.ID ";
+                $pieces['join'] = " LEFT JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID ";
                 $pieces['where'] = $wpdb->prepare( " AND lp.expiration_date IS NOT NULL AND lp.expiration_date < %s ", current_time( 'mysql' ) );
                 $pieces['groupby'] = " {$wpdb->posts}.ID ";
                 break;
@@ -379,7 +379,7 @@ class WPBDP_Admin_Listings {
         $row['fee_images'] = absint( $new_plan['fee_images'] );
         $row['is_sticky'] = ! empty( $new_plan['is_sticky'] ) ? 1 : 0;
 
-        $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', $row, array( 'listing_id' => $post_id ) );
+        $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
 
         // Update fields.
         $formfields_api = wpbdp_formfields_api();

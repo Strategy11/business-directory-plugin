@@ -76,7 +76,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
                                         array( 'featured_level' => $this->plan->featured_level, 'featured_price' => $this->plan->featured_price ) );
                 } else {
                     global $wpdb;
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET featured_price = 0.0, featured_level = NULL WHERE listing_id = %d", $this->listing->get_id() ) );
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET featured_price = 0.0, featured_level = NULL WHERE listing_id = %d", $this->listing->get_id() ) );
                 }
 
                 $payment->save();

@@ -133,51 +133,55 @@ class WPBDP_Installer {
             KEY status (status)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
-            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
-            payment_id bigint(20) NOT NULL,
-            amount decimal(10,2) NOT NULL DEFAULT 0.00,
-            item_type varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'charge',
-            description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Charge',
-            rel_id_1 bigint(20) NULL,
-            rel_id_2 bigint(20) NULL,
-            data longblob NULL
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
+        // Deprecated since @next-release.
+        // $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
+        //     id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+        //     payment_id bigint(20) NOT NULL,
+        //     amount decimal(10,2) NOT NULL DEFAULT 0.00,
+        //     item_type varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'charge',
+        //     description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Charge',
+        //     rel_id_1 bigint(20) NULL,
+        //     rel_id_2 bigint(20) NULL,
+        //     data longblob NULL
+        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
-        $schema['listing_fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
-            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
-            listing_id bigint(20) NOT NULL,
-            category_id bigint(20) NOT NULL,
-            fee_id bigint(20) NULL,
-            fee_days smallint unsigned NOT NULL,
-            fee_images smallint unsigned NOT NULL DEFAULT 0,
-            expires_on timestamp NULL DEFAULT NULL,
-            email_sent tinyint(1) NOT NULL DEFAULT 0,
-            recurring tinyint(1) NOT NULL DEFAULT 0,
-            recurring_id varchar(255) NULL,
-            recurring_data blob NULL,
-            sticky tinyint(1) NOT NULL DEFAULT 0,
-            KEY listing_cat (listing_id,category_id),
-            KEY expires_and_email (expires_on,email_sent)
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        // Deprecated since @next-release.
+        // $schema['listing_fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
+        //     id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+        //     listing_id bigint(20) NOT NULL,
+        //     category_id bigint(20) NOT NULL,
+        //     fee_id bigint(20) NULL,
+        //     fee_days smallint unsigned NOT NULL,
+        //     fee_images smallint unsigned NOT NULL DEFAULT 0,
+        //     expires_on timestamp NULL DEFAULT NULL,
+        //     email_sent tinyint(1) NOT NULL DEFAULT 0,
+        //     recurring tinyint(1) NOT NULL DEFAULT 0,
+        //     recurring_id varchar(255) NULL,
+        //     recurring_data blob NULL,
+        //     sticky tinyint(1) NOT NULL DEFAULT 0,
+        //     KEY listing_cat (listing_id,category_id),
+        //     KEY expires_and_email (expires_on,email_sent)
+        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        $schema['listings_plans'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listings_plans (
+        $schema['listings'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listings (
             listing_id bigint(20) PRIMARY KEY,
-            fee_id bigint(20) NOT NULL,
-            fee_price decimal(10,2) NOT NULL DEFAULT 0.00,
-            fee_days smallint unsigned NOT NULL,
-            fee_images smallint unsigned NOT NULL DEFAULT 0,
+            fee_id bigint(20) NULL,
+            fee_price decimal(10,2) NULL DEFAULT 0.00,
+            fee_days smallint unsigned NULL DEFAULT 0,
+            fee_images smallint unsigned NULL DEFAULT 0,
             expiration_date timestamp NULL DEFAULT NULL,
             is_recurring tinyint(1) NOT NULL DEFAULT 0,
             is_sticky tinyint(1) NOT NULL DEFAULT 0,
-            subscription_id varchar(255) NULL DEFAULT ''
+            subscription_id varchar(255) NULL DEFAULT '',
+            listing_status varchar(255) NOT NULL DEFAULT 'incomplete'
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
-            id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
-            state longblob NOT NULL,
-            updated_on datetime NOT NULL
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        // Deprecated since @next-release.
+        // $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
+        //     id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
+        //     state longblob NOT NULL,
+        //     updated_on datetime NOT NULL
+        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         return apply_filters( 'wpbdp_database_schema', $schema );
     }

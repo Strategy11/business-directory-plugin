@@ -112,7 +112,7 @@ class WPBDP__CPT_Integration {
         if ( WPBDP_POST_TYPE != get_post_type( $post ) )
             return $link;
 
-        if ( $querystring = parse_url( $link, PHP_URL_QUERY ) ) 
+        if ( $querystring = parse_url( $link, PHP_URL_QUERY ) )
             $querystring = '?' . $querystring;
         else
             $querystring = '';

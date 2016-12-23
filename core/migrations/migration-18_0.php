@@ -140,7 +140,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     }
 
     /**
-     * Makes sure that ALL listings have an entry in listings_plans. The fee is extracted from available information:
+     * Makes sure that ALL listings have an entry in listings. The fee is extracted from available information:
      * - the (now deprecated) listing fees table
      * - pending payments (recurring taking precedence over regular ones).
      * If nothing useful is found, the default free fee is assigned.
@@ -149,8 +149,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         global $wpdb;
         $batch_size = 20;
 
-        $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings_plans lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) ) );
-        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings_plans lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) );
+        $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) ) );
+        $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) );
 
         if ( ! $count )
             return true;
@@ -177,8 +177,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 );
             }
 
-            $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $listing_id ) );
-            $wpdb->insert( $wpdb->prefix . 'wpbdp_listings_plans', $new_plan );
+            $wpdb->delete( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $listing_id ) );
+            $wpdb->insert( $wpdb->prefix . 'wpbdp_listings', $new_plan );
 
             $l = WPBDP_Listing::get( $listing_id );
             $l->get_status(); // Forces BD to calculate the listing status if needed.

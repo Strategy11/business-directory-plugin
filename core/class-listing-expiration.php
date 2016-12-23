@@ -12,14 +12,14 @@ class WPBDP__Listing_Expiration {
     function check_for_expired_listings() {
         global $wpdb;
 
-        $listings  = $wpdb->get_col( $wpdb->prepare(
-            "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans WHERE expiration_date IS NOT NULL AND expiration_date < %s",
-            current_time( 'mysql' ) ) );
+        $listings  = $wpdb->get_col( wpbdp_debug_e( $wpdb->prepare(
+            "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings WHERE expiration_date IS NOT NULL AND expiration_date < %s",
+            current_time( 'mysql' ) ) ) );
 
         foreach ( $listings as $listing_id ) {
-            $l = WPBDP_Listing::get( $listing_id );
+            $l = wpbdp_get_listing( $listing_id );
 
-            if ( ! $l )
+            if ( ! $l || in_array( $l->get_status(), array( 'expired', 'pending_renewal' ) ) )
                 continue;
 
             $l->set_status( 'expired' );
@@ -47,7 +47,7 @@ class WPBDP__Listing_Expiration {
                 if ( ! $listing )
                     continue;
 
-                $listing->send_renewal_notice( $notice_kind );
+                // $listing->send_renewal_notice( $notice_kind );
             }
         }
     }
@@ -59,7 +59,7 @@ class WPBDP__Listing_Expiration {
         $date_b = date( 'Y-m-d H:i:s', strtotime( $period . 'midnight' ) + DAY_IN_SECONDS );
 
         $listings  = $wpdb->get_col( $wpdb->prepare(
-            "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings_plans WHERE expiration_date IS NOT NULL AND expiration_date >= %s AND expiration_date < %s",
+            "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings WHERE expiration_date IS NOT NULL AND expiration_date >= %s AND expiration_date < %s",
             $date_a,
             $date_b ) );
 

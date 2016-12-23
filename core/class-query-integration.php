@@ -111,12 +111,12 @@ class WPBDP__Query_Integration {
         $pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
         // Sticky listings.
-        $is_sticky_query =  "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings_plans wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
+        $is_sticky_query =  "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
         $pieces['fields'] .= ', ' . $is_sticky_query . ' ';
 
         // Paid first query order.
         if ( in_array( $query->get( 'orderby' ), array( 'paid', 'paid-title' ), true ) ) {
-            $is_paid_query = "(SELECT fee_price FROM {$wpdb->prefix}wpbdp_listings_plans lp WHERE lp.listing_id = {$wpdb->posts}.ID LIMIT 1 ) AS wpbdp_paid_amount";
+            $is_paid_query = "(SELECT fee_price FROM {$wpdb->prefix}wpbdp_listings lp WHERE lp.listing_id = {$wpdb->posts}.ID LIMIT 1 ) AS wpbdp_paid_amount";
             $pieces['fields'] .= ', ' . $is_paid_query;
         } else {
             $pieces['fields'] .= ', (SELECT 0) AS wpbdp_paid_amount';
