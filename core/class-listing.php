@@ -145,7 +145,7 @@ class WPBDP_Listing {
      */
     public function cancel_recurring() {
         global $wpdb;
-        $wpdb->update( "{$wpdb->prefix}wpbdp_listings_plans",
+        $wpdb->update( "{$wpdb->prefix}wpbdp_listings",
                        array( 'is_recurring' => 0,
                               'subscription_id' => '' ),
                        array( 'listing_id' => $this->id ) );
@@ -245,22 +245,24 @@ class WPBDP_Listing {
      * @since next-release
      */
     public function set_status( $status ) {
-        global $wpdb;
-        // XXX: we don't really do much here, for now...
+        wpbdp_debug_e('set status!');
 
-        switch ( $status ) {
-        case 'expired':
-            wp_update_post( array( 'ID' => $this->id, 'post_status' => 'draft' ) ); // Change status to draft.
-
-            // TODO(next-release): Maybe drop sticky status?.
-            $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 0 ), array( 'listing_id' => $this->id ) );
-
-            if ( ! wpbdp_get_option( 'listing-renewal' ) )
-                break;
-
-            $this->send_renewal_notice( 'expired' );
-            break;
-        }
+        // global $wpdb;
+        // // XXX: we don't really do much here, for now...
+        //
+        // switch ( $status ) {
+        // case 'expired':
+        //     wp_update_post( array( 'ID' => $this->id, 'post_status' => 'draft' ) ); // Change status to draft.
+        //
+        //     // TODO(next-release): Maybe drop sticky status?.
+        //     $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 0 ), array( 'listing_id' => $this->id ) );
+        //
+        //     if ( ! wpbdp_get_option( 'listing-renewal' ) )
+        //         break;
+        //
+        //     $this->send_renewal_notice( 'expired' );
+        //     break;
+        // }
     }
 
     public function set_post_status( $status ) {
@@ -358,7 +360,7 @@ class WPBDP_Listing {
         global $wpdb;
         $is_sticky = (bool) $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d AND is_sticky = %d",
+                "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_sticky = %d",
                 $this->id,
                 1 )
         );
@@ -380,7 +382,7 @@ class WPBDP_Listing {
     public function get_fee_plan() {
         global $wpdb;
 
-        $res = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d LIMIT 1", $this->id ) );
+        $res = $wpdb->get_row( $wpdb->prepare( "SELECT listing_id, fee_id, fee_price, fee_days, fee_images, expiration_date, is_recurring, is_sticky FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d LIMIT 1", $this->id ) );
         if ( ! $res )
             return false;
 
@@ -403,7 +405,8 @@ class WPBDP_Listing {
         global $wpdb;
 
         if ( is_null( $fee ) ) {
-            $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'fee_id' => 0, 'fee_days' => 0, 'fee_images' => 0, 'is_sticky' => 0, 'expiration_date' => null ), array( 'listing_id' => $this->id ) );
+            // $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
             return true;
         }
 
@@ -423,7 +426,7 @@ class WPBDP_Listing {
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;
 
-        return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings_plans', $row );
+        return $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $this->id ) );
     }
 
     /**
@@ -503,7 +506,9 @@ class WPBDP_Listing {
      * @since next-release
      */
     public function get_status() {
-        $status_ = get_post_meta( $this->id, '_wpbdp[status]', true );
+        global $wpdb;
+
+        $status_ = $wpdb->get_var( $wpdb->prepare( "SELECT listing_status FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
         if ( ! $status_ )
             $status = $this->calculate_status();
@@ -513,7 +518,7 @@ class WPBDP_Listing {
         $status = apply_filters( 'wpbdp_listing_status', $status, $this->id );
 
         if ( ! $status_ || $status_ != $status )
-            update_post_meta( $this->id, '_wpbdp[status]', $status );
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $status ), array( 'listing_id' => $this->id ) );
 
         return $status;
     }
@@ -535,7 +540,7 @@ class WPBDP_Listing {
 
         $is_expired = (bool) $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d AND expiration_date IS NOT NULL AND expiration_date < %s",
+                "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND expiration_date IS NOT NULL AND expiration_date < %s",
                 $this->id,
                 current_time( 'mysql' )
             )
@@ -593,14 +598,7 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public static function save_listing( $args = array(), $error = false ) {
-        self::_save_listing_hooks( $post_id );
-    }
-
-    /**
-     * @since next-release
-     */
-    public static function _save_listing_hooks( $post_id, $is_new = false ) {
+    public function _after_save( $context = '' ) {
         $is_new = (bool) ! get_post_meta( $post_id, '_wpbdp[status]', true );
 
         if ( $is_new ) {
@@ -612,12 +610,8 @@ class WPBDP_Listing {
         }
 
         do_action( 'wpbdp_save_listing', $post_id, $is_new );
-    }
 
-    /**
-     * @since next-release
-     */
-    public function _after_save( $context = '' ) {
+        $this->get_status(); // This forces a status refresh if there's no status.
     }
 
     /**
@@ -627,16 +621,22 @@ class WPBDP_Listing {
         global $wpdb;
 
         // Remove attachments.
-        $attachments = get_posts( array( 'post_type' => 'attachment', 'post_parent' => $post_id, 'numberposts' => -1, 'fields' => 'ids' ) );
+        $attachments = get_posts( array( 'post_type' => 'attachment', 'post_parent' => $this->id, 'numberposts' => -1, 'fields' => 'ids' ) );
         foreach ( $attachments as $attachment_id )
             wp_delete_attachment( $attachment_id, true );
 
         // Remove listing fees.
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listings_plans WHERE listing_id = %d", $post_id ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
         // Remove payment information.
-        $wpdb->query( $wpdb->prepare( "DELETE pi.* FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id IN (SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d)", $post_id ) );
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $post_id ) );
+        $wpdb->query( $wpdb->prepare( "DELETE pi.* FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id IN (SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d)", $this->id ) );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) );
+    }
+
+    /**
+     * @since next-release
+     */
+    public static function insert_or_update( $args = array(), $error = false ) {
     }
 
     public static function get( $id ) {
@@ -645,7 +645,6 @@ class WPBDP_Listing {
 
         $l = new self( $id );
         $l->new = false;
-
         return $l;
     }
 
