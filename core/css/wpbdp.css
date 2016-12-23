@@ -660,7 +660,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     }
 
     .wpbdp-hide-on-mobile {
-        display: none;
+        display: none !important;
     }
 
     .wpbdp-bar form.wpbdp-search-form {
