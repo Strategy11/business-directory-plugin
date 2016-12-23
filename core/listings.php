@@ -7,7 +7,7 @@ require_once( WPBDP_PATH . 'core/class-listings-api.php' );
  * @since next-release
  */
 function wpbdp_save_listing( $data, $error = false ) {
-    return WPBDP_Listing::save_listing( $data, $error );
+    return WPBDP_Listing::insert_or_update( $data, $error );
 }
 
 /**
