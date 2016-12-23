@@ -54,9 +54,6 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-admin-fees-set-order', array( &$this, 'ajax_fees_set_order' ) );
         add_action( 'wp_ajax_wpbdp-admin-fees-reorder', array( &$this, 'ajax_fees_reorder' ) );
 
-        add_action( 'wp_ajax_wpbdp-listing_set_expiration', array( &$this, 'ajax_listing_set_expiration' ) );
-        add_action( 'wp_ajax_wpbdp-listing_change_fee', array( &$this, 'ajax_listing_change_fee' ) );
-
         add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
 
         add_action( 'wp_ajax_wpbdp-create-main-page', array( &$this, 'ajax_create_main_page' ) );
@@ -536,48 +533,6 @@ to how WordPress stores the data.", 'WPBDM' )
     /*
      * AJAX listing actions.
      */
-    public function ajax_listing_set_expiration() {
-        $response = new WPBDP_Ajax_Response();
-
-        $listing_id = intval( isset( $_POST['listing_id'] ) ? $_POST['listing_id'] : 0 );
-        $expiration_time = isset( $_POST['expiration_date'] ) ? ( 'never' == $_POST['expiration_date'] ? 'never' : date( 'Y-m-d 00:00:00', strtotime( trim( $_POST['expiration_date'] ) ) ) ) : '';
-
-        if ( ! $listing_id || ! $expiration_time || ! current_user_can( 'administrator' ) )
-            $response->send_error();
-
-        global $wpdb;
-
-        if ( 'never' == $expiration_time ) {
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET expiration_date = NULL WHERE listing_id = %d", $listing_id ) );
-        } else {
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings_plans SET expiration_date = %s WHERE listing_id = %d", $expiration_time, $listing_id ) );
-        }
-
-        $response->add( 'formattedExpirationDate', 'never' == $expiration_time ? _x( 'never', 'admin infometabox', 'WPBDM' ) : date_i18n( get_option( 'date_format' ), strtotime( $expiration_time ) ) );
-        $response->send();
-    }
-
-    public function ajax_listing_change_fee() {
-        global $wpdb;
-
-        $response = new WPBDP_Ajax_Response();
-
-        if ( ! current_user_can( 'administrator' ) )
-            $response->send_error();
-
-        $listing = WPBDP_Listing::get( $_REQUEST['listing_id'] );
-
-        if ( ! $listing )
-            $response->send_error();
-
-
-        $plans = WPBDP_Fee_Plan::find(); // FIXME: before next-release
-        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-change-fee.tpl.php',
-                                                   array( 'listing' => $listing,
-                                                          'plans' => $plans ) ) );
-        $response->send();
-    }
-
     function ajax_dismiss_notification() {
         $id = isset( $_POST['id'] ) ? $_POST['id'] : '';
         $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
