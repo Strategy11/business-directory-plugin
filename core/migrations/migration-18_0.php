@@ -173,8 +173,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'fee_days' => $free_plan->days,
                     'fee_images' => $free_plan->images,
                     'is_sticky' => $free_plan->sticky,
-                    'expiration_date' => $free_plan->calculate_expiration_time()
                 );
+
+                if ( $expiration = $free_plan->calculate_expiration_time() )
+                    $new_plan['expiration_date'] = $expiration;
             }
 
             $wpdb->delete( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $listing_id ) );
