@@ -168,7 +168,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             if ( ! $new_plan ) {
                 $free_plan = WPBDP_Fee_Plan::get_free_plan();
                 $new_plan = array(
-                    'fee_id' => 0,
+                    'listing_id' => $listing_id,
+                    'fee_id' => $free_plan->id,
                     'fee_price' => 0.0,
                     'fee_days' => $free_plan->days,
                     'fee_images' => $free_plan->images,
@@ -183,7 +184,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             $wpdb->insert( $wpdb->prefix . 'wpbdp_listings', $new_plan );
 
             $l = WPBDP_Listing::get( $listing_id );
-            $l->get_status(); // Forces BD to calculate the listing status if needed.
+            $l->get_status( true );
         }
 
         $msg = sprintf( _x( 'Migrating listing information: %d items remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
@@ -274,7 +275,6 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
         }
 
-        // foreach ( array( 'fee_id', 'fee_days', 'fee_images', 'fee_price', 'is_sticky', 'expiration_date' ) as $key ) {
         $res['listing_id'] = $listing_id;
         $res['fee_id'] = $choices['fee_id'][0]; // Use the first fee id.
         $res['fee_days'] = in_array( -1, $choices['fee_days'] ) ? 0 : max( $choices['fee_days'] );
@@ -297,6 +297,9 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         $fee = null;
         $pending_payments = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d AND status = %s", $listing_id, 'pending' ) );
+
+        if ( ! $pending_payments )
+            return false;
 
         foreach ( $pending_payments as $payment ) {
             $items = unserialize( $payment->payment_items );

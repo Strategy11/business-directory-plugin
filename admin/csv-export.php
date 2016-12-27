@@ -306,8 +306,7 @@ class WPBDP_CSVExporter {
         if ( !$post || $post->post_type != WPBDP_POST_TYPE )
             return false;
 
-        $listing = WPBDP_Listing::get( $post_id );
-        $listings_api = wpbdp_listings_api();
+        $listing = wpbdp_get_listing( $post_id );
 
         $data = array();
 
@@ -317,7 +316,7 @@ class WPBDP_CSVExporter {
 
             switch( $association ) {
                 case 'sequence_id':
-                    $value = $listings_api->calculate_sequence_id( $post->ID );
+                    $value = $listing->get_sequence_id();
                     break;
 
                 /* Special columns. */

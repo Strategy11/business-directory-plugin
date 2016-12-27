@@ -192,77 +192,26 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function send_renewal_notice( $notice = 'expired', $force_resend = false ) {
-        static $templates = array(
-            'expired' => 'listing-renewal-message',
-            'future' => 'renewal-pending-message',
-            'reminder' => 'renewal-reminder-message'
-        );
-
-        if ( 'auto' == $notice ) {
-            $now = (int) current_time( 'timestamp' );
-            $exp = (int) strtotime( $this->get_expiration_date() );
-
-            if ( $now >= $exp )
-                $notice = 'expired';
-            else
-                $notice = 'future';
-        }
-
-        $already_sent = (int) get_post_meta( $this->id, '_wpbdp_renewal_notice_sent_' . $notice, true );
-
-        if ( $already_sent && ! $force_resend )
-            return false;
-
-        $replacements = array(
-            'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-            'author' => $this->get_author_meta( 'display_name' ),
-            'listing' => sprintf( '<a href="%s">%s</a>', $this->get_permalink(), esc_attr( $this->get_title() ) ),
-            'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $this->get_expiration_date() ) ),
-            'link' => sprintf( '<a href="%1$s">%1$s</a>', $this->get_renewal_url() )
-        );
-
-        $email = wpbdp_email_from_template( $templates[ $notice ], $replacements );
-        $email->template = 'businessdirectory-email';
-        $email->to[] = wpbusdirman_get_the_business_email( $this->id );
-
-        if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-            $email->cc[] = get_option( 'admin_email' );
-
-            if ( wpbdp_get_option( 'admin-notifications-cc' ) )
-                $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
-        }
-
-        $res = $email->send();
-
-        if ( $res )
-            update_post_meta( $this->id, '_wpbdp_renewal_notice_sent_' . $notice, current_time( 'timestamp' ) );
-
-        return $res;
-    }
-
-    /**
-     * @since next-release
-     */
     public function set_status( $status ) {
-        wpbdp_debug_e('set status!');
+        global $wpdb;
 
-        // global $wpdb;
-        // // XXX: we don't really do much here, for now...
-        //
-        // switch ( $status ) {
-        // case 'expired':
-        //     wp_update_post( array( 'ID' => $this->id, 'post_status' => 'draft' ) ); // Change status to draft.
-        //
-        //     // TODO(next-release): Maybe drop sticky status?.
-        //     $wpdb->update( $wpdb->prefix . 'wpbdp_listings_plans', array( 'is_sticky' => 0 ), array( 'listing_id' => $this->id ) );
-        //
-        //     if ( ! wpbdp_get_option( 'listing-renewal' ) )
-        //         break;
-        //
-        //     $this->send_renewal_notice( 'expired' );
-        //     break;
-        // }
+        $old_status = $this->get_status();
+        $new_status = $status;
+
+        if ( $old_status == $new_status || ! in_array( $new_status, array_keys( self::get_stati() ), true ) )
+            return;
+
+        $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $new_status ), array( 'listing_id' => $this->id ) );
+
+        switch ( $new_status ) {
+        case 'expired':
+            $this->set_post_status( 'draft' );
+            break;
+        default:
+            break;
+        }
+
+        do_action( 'wpbdp_listing_status_change', $this, $old_status, $new_status );
     }
 
     public function set_post_status( $status ) {
@@ -505,19 +454,19 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function get_status() {
+    public function get_status( $force_refresh = false ) {
         global $wpdb;
 
         $status_ = $wpdb->get_var( $wpdb->prepare( "SELECT listing_status FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
-        if ( ! $status_ )
+        if ( ! $status_ || 'unknown' == $status_ || $force_refresh )
             $status = $this->calculate_status();
         else
             $status = $status_;
 
         $status = apply_filters( 'wpbdp_listing_status', $status, $this->id );
 
-        if ( ! $status_ || $status_ != $status )
+        if ( ! $status_ || $status_ != $status || $force_refresh )
             $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $status ), array( 'listing_id' => $this->id ) );
 
         return $status;
@@ -593,6 +542,28 @@ class WPBDP_Listing {
             '_wpbdp[access_key]',
             $key  )
         ) ) > 0;
+    }
+
+    /**
+     * @since next-release
+     */
+    public function get_sequence_id() {
+        $sequence_id = get_post_meta( $this->id, '_wpbdp[import_sequence_id]', true );
+
+        if ( ! $sequence_id ) {
+            global $wpdb;
+
+            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT MAX(CAST(meta_value AS UNSIGNED INTEGER )) FROM {$wpdb->postmeta} WHERE meta_key = %s",
+                                                                 '_wpbdp[import_sequence_id]' ) ) );
+            $candidate++;
+
+            if ( false == add_post_meta( $this->id, '_wpbdp[import_sequence_id]', $candidate, true ) )
+                $sequence_id = 0;
+            else
+                $sequence_id = $candidate;
+        }
+
+        return $sequence_id;
     }
 
     /**

@@ -4,6 +4,9 @@ require_once( WPBDP_PATH . 'core/class-dispatcher.php' );
 require_once( WPBDP_PATH . 'core/class-cpt-integration.php' );
 require_once( WPBDP_PATH . 'core/class-wordpress-template-integration.php' );
 
+require_once( WPBDP_PATH . 'core/class-listing-expiration.php' );
+require_once( WPBDP_PATH . 'core/class-listing-email-notification.php' );
+
 
 final class WPBDP {
 
@@ -21,6 +24,9 @@ final class WPBDP {
         $this->query_integration = new WPBDP__Query_Integration();
         $this->dispatcher = new WPBDP__Dispatcher();
         $this->template_integration = new WPBDP__WordPress_Template_Integration();
+
+        $this->listing_expiration = new WPBDP__Listing_Expiration();
+        $this->listing_email_notification = new WPBDP__Listing_Email_Notification();
     }
 
 }
