@@ -460,14 +460,10 @@ class WPBDP_CSV_Import {
                                                                   $post->post_parent ) ) );
 
         // Update expiration dates.
-        foreach ( $categories as $c ) {
-            if ( ! $c['expires_on'] )
-                continue;
-
-            $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
-                           array( 'expires_on' => $c['expires_on'] ),
-                           array( 'category_id' => $c['term_id'],
-                                  'listing_id' => $listing->get_id() ) );
+        if ( $listing_data['expires_on'] ) {
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listings',
+                           array( 'expires_on' => $listing_data['expires_on'] ),
+                           array( 'listing_id' => $listing->get_id() ) );
         }
 
         // Update sequence_id.
@@ -494,7 +490,7 @@ class WPBDP_CSV_Import {
         $categories = array();
         $fields = array();
         $images = array();
-        $expires_on = array();
+        $expires_on = '';
 
         $meta = array();
         $meta['sequence_id'] = 0;
@@ -537,10 +533,7 @@ class WPBDP_CSV_Import {
 
                 case 'expires_on':
                     $dates = explode( '/', $value );
-
-                    foreach ( $dates as $d )
-                        $expires_on[] = $d;
-
+                    $expires_on = $dates[0];
                     break;
 
                 case 'sequence_id':
@@ -571,7 +564,7 @@ class WPBDP_CSV_Import {
                                 continue;
 
                             if ( $term = term_exists( $csv_category, WPBDP_CATEGORY_TAX ) ) {
-                                $categories[] = array( 'name' => $csv_category, 'term_id' => $term['term_id'], 'expires_on' => '' );
+                                $categories[] = array( 'name' => $csv_category, 'term_id' => $term['term_id'] );
                             } else {
                                 if ( ! $this->settings['create-missing-categories'] ) {
                                     $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'WPBDM' ), $csv_category );
@@ -581,7 +574,7 @@ class WPBDP_CSV_Import {
                                 if ( $this->settings['test-import'] )
                                     continue;
 
-                                $categories[] = array( 'name' => $csv_category, 'term_id' => 0, 'expires_on' => '' );
+                                $categories[] = array( 'name' => $csv_category, 'term_id' => 0 );
                             }
                         }
                     }/* else if ( 'tags' == $field->get_association() ) {
@@ -595,14 +588,7 @@ class WPBDP_CSV_Import {
             }
         }
 
-        if ( $categories && $expires_on ) {
-            foreach ( $categories as $i => &$category_data ) {
-                if ( ! empty( $expires_on[ $i ] ) )
-                    $category_data['expires_on'] = $expires_on[ $i ];
-            }
-        }
-
-        return array( compact( 'categories', 'fields', 'images', 'meta' ), $errors );
+        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on' ), $errors );
     }
 
     private function upload_image( $filename ) {

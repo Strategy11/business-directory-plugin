@@ -219,8 +219,6 @@ class WPBDP__CPT_Integration {
 
         if ( WPBDP_CATEGORY_TAX != $taxonomy )
             return;
-
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id = %d", $term_id ) );
     }
 
 }

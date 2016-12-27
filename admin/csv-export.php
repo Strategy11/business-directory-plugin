@@ -352,22 +352,10 @@ class WPBDP_CSVExporter {
                     break;
 
                 case 'expires_on':
-                    $value = '';
-                    $terms = wp_get_post_terms( $post->ID,
-                                                WPBDP_CATEGORY_TAX,
-                                                'fields=ids' );
-                    $expiresdata = $wpdb->get_results( $wpdb->prepare( "SELECT category_id, expires_on FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post->ID ) );
-                    $expiresdata = wp_list_pluck( $expiresdata, 'expires_on', 'category_id' );
-                    $expiration_dates = array();
-
-                    foreach ( $terms as $term_id ) {
-                        if ( isset( $expiresdata[ $term_id ] ) )
-                            $expiration_dates[] = $expiresdata[ $term_id ];
-                        else
-                            $expiration_dates[] = '';
-                    }
-                    $value = implode( '/', $expiration_dates );
-
+                    $value = $wpdb->get_var( $wpdb->prepare(
+                        "SELECT expiration_date FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d",
+                        $post->ID
+                    ) );
                     break;
 
                 /* Standard associations. */

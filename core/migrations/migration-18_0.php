@@ -178,6 +178,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
                 if ( $expiration = $free_plan->calculate_expiration_time() )
                     $new_plan['expiration_date'] = $expiration;
+
+                $recurring_data = $wpdb->get_var( $wpdb->prepare( "SELECT recurring_data FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring_data IS NOT NULL AND listing_id = %d LIMIT 1", $listing_id ) );
+                if ( ! empty( $new_plan['is_recurring'] ) && $new_plan['is_recurring'] && $recurring_data )
+                    $new_plan['recurring_data'] = $recurring_data;
             }
 
             $wpdb->delete( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $listing_id ) );

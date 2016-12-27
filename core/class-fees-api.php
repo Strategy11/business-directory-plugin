@@ -28,8 +28,7 @@ class WPBDP_Fees_API {
             $fee_id = $wpdb->insert_id;
 
             // Update all "free fee" listings to use this.
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listing_fees SET fee_id = %d WHERE fee_id = %d", $fee_id, 0 ) );
-            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_payments_items SET rel_id_2 = %d WHERE rel_id_2 = %d AND item_type = %s", $fee_id, 0, 'fee' ) );
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET fee_id = %d WHERE fee_id = %d OR fee_id IS NULL", $fee_id, 0 ) );
         }
     }
 

@@ -18,7 +18,7 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['basic']['BD database revision (current)'] = WPBDP_Installer::DB_VERSION;
         $debug_info['basic']['BD database revision (installed)'] = get_option( 'wpbdp-db-version' );
 
-        $tables = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_fees', 'wpbdp_payments', 'wpbdp_listing_fees' ) );
+        $tables = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_fees', 'wpbdp_payments', 'wpbdp_listings' ) );
         $missing_tables = array();
         foreach ( $tables as &$t ) {
             if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . $t) ) == '' )

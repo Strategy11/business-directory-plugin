@@ -25,7 +25,7 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
         global $wpdb;
 
         return (bool) $wpdb->get_var( $wpdb->prepare(
-            "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d AND recurring = %d",
+            "SELECT 1 AS x FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d",
             $this->listing->get_id(),
             1 ) );
     }
