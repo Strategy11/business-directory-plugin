@@ -16,16 +16,6 @@
         <form id="wpbdp-renewlisting-form" method="post" action="">
             <?php echo wpbdp_render( 'plan-selection', array( 'plans' => $plans, 'selected' => $current_plan ) ); ?>
 
-            <?php if ( $offer_featured ): ?>
-            <p><label>
-                <input type="checkbox" name="featured" value="yes" checked="checked" />
-                <?php
-                    printf( _x( 'Make my listing featured for %s more.', 'renewal', 'WPBDM' ),
-                    $featured_price );
-                ?>
-            </label></p>
-            <?php endif; ?>
-
             <p><input type="submit" class="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 
             <div class="do-not-renew-listing">

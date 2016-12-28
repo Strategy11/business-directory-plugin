@@ -23,22 +23,17 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->plan = $this->listing->get_fee_plan();
 
-        if ( 'ok' != $this->plan->status ) {
+        if ( ! in_array( $this->listing->get_status(), array( 'expired', 'pending_renewal' ) ) ) {
             $html  = '';
             $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page.', 'renewal', 'WPBDM' ), 'error' );
             return $html;
         }
 
-        // Check if there's a pending payment for this renewal. If there is, move to checkout.
-        $payment_id = $wpdb->get_var( $wpdb->prepare(
-            "SELECT pi.payment_id FROM {$wpdb->prefix}wpbdp_payments_items pi INNER JOIN {$wpdb->prefix}wpbdp_payments p ON p.id = pi.payment_id WHERE pi.item_type = %s AND p.status = %s AND p.listing_id = %d",
-            'plan_renewal',
-            'pending',
-            $this->listing->get_id()
-        ) );
-        if ( $this->payment_id ) {
-            $payment = WPBDP_Payment::objects()->get( $this->payment_id );
-            return $this->_redirect( $payment->get_checkout_url() );
+        if ( 'pending_renewal' == $this->listing->get_status() ) {
+            // Check to see if there's a pending payment for this renewal. If there is, move to checkout.
+            if ( $payment = WPBDP_Payment::objects()->get( array( 'listing_id' => $this->listing->get_id(), 'payment_type' => 'renewal', 'status' => 'pending' ) ) ) {
+                return $this->_redirect( $payment->get_checkout_url() );
+            }
         }
 
         if ( $this->plan->is_recurring )
@@ -61,35 +56,28 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( isset( $_POST['listing_plan'] ) ) {
             if ( $fee = wpbdp_get_fee( absint( $_POST['listing_plan'] ) ) ) {
-                $payment = new WPBDP_Payment( array( 'listing_id' => $this->listing->get_id() ) );
-                $payment->add_item( 'plan_renewal',
-                                    $fee->amount,
-                                    sprintf( _x( 'Fee "%s" renewal.', 'listings', 'WPBDM' ),
-                                             $fee->label ),
-                                    array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images, 'is_renewal' => true ),
-                                    $fee->id );
-
-                if ( ! empty( $_POST['featured'] ) && 'yes' == $_POST['featured'] ) {
-                    $payment->add_item( 'featured_upgrade',
-                                        $this->plan->featured_price,
-                                        _x( 'Upgrade to featured.', 'renewal', 'WPBDM' ),
-                                        array( 'featured_level' => $this->plan->featured_level, 'featured_price' => $this->plan->featured_price ) );
-                } else {
-                    global $wpdb;
-                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET featured_price = 0.0, featured_level = NULL WHERE listing_id = %d", $this->listing->get_id() ) );
+                $payment = new WPBDP_Payment( array( 'listing_id' => $this->listing->get_id(), 'payment_type' => 'renewal' ) );
+                $payment->payment_items[] = array(
+                    'type' => 'plan',
+                    'description' => sprintf( _x( 'Fee "%s" renewal.', 'listings', 'WPBDM' ), $fee->label ),
+                    'amount' => $fee->amount,
+                    'fee_id' => $fee->id,
+                    'fee_days' => $fee->days,
+                    'fee_images' => $fee->images,
+                    'is_renewal' => true
+                );
+                if ( $payment->save() ) {
+                    $this->listing->set_status( 'pending_renewal' );
                 }
 
-                $payment->save();
 
-                $this->payment_id = $payment->get_id();
+                $this->payment_id = $payment->id;
                 return $this->_redirect( $payment->get_checkout_url() );
             }
         }
 
         return wpbdp_render( 'renew-listing', array( 'listing' => $this->listing,
-                                                     'offer_featured' => $this->plan->featured_level ? true : false,
-                                                     'featured_price' => $this->plan->featured_level ? wpbdp_currency_format( $this->plan->featured_price ) : 0.0,
-                                                     'current_plan' => $this->plan->fee,
+                                                     'current_plan' => $this->plan->fee_id,
                                                      'plans' => $plans ) );
     }
 
