@@ -383,7 +383,7 @@ class WPBDP_PaymentsAPI {
      * @since 3.4
      */
     public function render_payment_method_selection( &$payment ) {
-        $payment_methods = $this->get_available_methods( $payment->has_item_type( 'recurring_fee' ) ? array( 'recurring' ) : array() );
+        $payment_methods = $this->get_available_methods( $payment->has_item_type( 'recurring_plan' ) ? array( 'recurring' ) : array() );
 
         $html  = '';
         $html .= '<div class="wpbdp-payment-method-selection">';

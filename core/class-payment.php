@@ -110,6 +110,11 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return $data;
     }
 
+    public function has_item_type( $item_type ) {
+        $item_types = wp_list_pluck( $this->payment_items, 'type' );
+        return in_array( $item_type, $item_types, true );
+    }
+
     public function add_note( $text, $who = 'system', $what = 'note' ) {
         $time = current_time( 'timestamp' );
         $key = sha1( $time . $what . $who . uniqid( 'wpbdp', true ) );

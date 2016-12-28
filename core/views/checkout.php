@@ -79,6 +79,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             }
         }
 
+
         $html .= '<form action="' . esc_url( $this->payment->get_checkout_url() ) . '" method="POST">';
         $html .= $wpbdp->payments->render_invoice( $this->payment );
         $html .= wpbdp_capture_action_array( 'wpbdp_checkout_page_before_method_selection', array( &$this->payment ) );
@@ -98,6 +99,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
                     'error'
             );
         }
+
 
         $html  = '';
         $html .= $this->api->render_standard_checkout_page( $this->payment, array( 'retry_rejected' => true ) );
