@@ -571,14 +571,14 @@ class WPBDP_Listing {
      */
     public function _after_save( $context = '' ) {
         if ( 'submit-new' == $context ) {
-            do_action( 'WPBDP_Listing::listing_created', $post_id );
-            do_action( 'wpbdp_add_listing', $post_id );
+            do_action( 'WPBDP_Listing::listing_created', $this->id );
+            do_action( 'wpbdp_add_listing', $this->id );
         } elseif ( 'submit-edit' == $context ) {
-            do_action( 'wpbdp_edit_listing', $post_id );
-            do_action( 'WPBDP_Listing::listing_edited', $post_id );
+            do_action( 'wpbdp_edit_listing', $this->id );
+            do_action( 'WPBDP_Listing::listing_edited', $this->id );
         }
 
-        do_action( 'wpbdp_save_listing', $post_id, $is_new );
+        do_action( 'wpbdp_save_listing', $this->id, 'submit-new' == $context );
 
         $this->get_status(); // This forces a status refresh if there's no status.
     }
