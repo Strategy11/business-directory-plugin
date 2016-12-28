@@ -55,6 +55,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 foreach ( $errors as $e )
                     $this->messages( $e, 'error', 'general' );
             } else {
+                return $res;
             }
         }
 
@@ -157,14 +158,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( ! empty( $_REQUEST['listing_id'] ) && false != get_post_status( $_REQUEST['listing_id'] ) ) {
             $listing_id = absint( $_REQUEST['listing_id'] );
+            $listing = wpbdp_get_listing( $listing_id );
         } else {
             $listing_id = wp_insert_post( array( 'post_author' => 0, 'post_type' => WPBDP_POST_TYPE, 'post_status' => 'auto-draft', 'post_title' => 'Incomplete Listing' ) );
+
+            $listing = wpbdp_get_listing( $listing_id );
+            $listing->set_fee_plan( null ); 
+            $listing->set_status( 'incomplete' );
         }
 
         if ( ! $listing_id )
             die();
 
-        $listing = WPBDP_Listing::get( $listing_id );
         return $listing;
     }
 
@@ -249,7 +254,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
-        $plans = WPBDP_Fee_Plan::find( 'all' ); unset($plans[0]);
+        $plans = WPBDP_Fee_Plan::find( 'all' );
+        // unset($plans[0]);
 
         $categories = $category_field->value_from_POST();
         $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
@@ -266,10 +272,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->prevent_save = true;
             } else {
                 // Set new fee plan.
-                $auto_renew = $allow_recurring && ( wpbdp_get_option( 'listing-renewal-auto-dontask' ) || ( ! empty( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] ) );
- 
+                // $auto_renew = $allow_recurring && ( wpbdp_get_option( 'listing-renewal-auto-dontask' ) || ( ! empty( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] ) );
+
+                // Set categories.
                 wp_set_post_terms( $this->listing->get_id(), $categories, WPBDP_CATEGORY_TAX, false );
-                $this->listing->set_fee_plan( $plan, $auto_renew, 'pending' );
+
+                // Set fee plan.
+                $this->listing->set_fee_plan( $plan );
             }
         }
 
@@ -519,6 +528,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) ); 
         // return $this->render( 'extra-sections', array( 'output' => $extra ) );
         // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
+        $this->listing->set_status( 'pending_payment' );
         $payment = $this->listing->generate_or_retrieve_payment();
 
         if ( current_user_can( 'administrator' ) ) {
@@ -533,7 +543,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             die();
 
         $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
-        $this->listing->notify( $this->editing ? 'edit' : 'new' );
+        $this_>listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 
         if ( 'completed' == $payment->status )
             return $this->done();

@@ -230,20 +230,20 @@ class WPBDP_Listing {
     }
 
     public function notify( $kind = 'save', &$extra = null ) {
-        if ( in_array( $kind, array( 'save', 'edit', 'new' ), true ) )
-            $this->save();
-
-        switch ( $kind ) {
-            case 'save':
-                break;
-
-            case 'edit':
-                do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
-                break;
-
-            default:
-                break;
-        }
+        // if ( in_array( $kind, array( 'save', 'edit', 'new' ), true ) )
+        //     $this->save();
+        //
+        // switch ( $kind ) {
+        //     case 'save':
+        //         break;
+        //
+        //     case 'edit':
+        //         do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
+        //         break;
+        //
+        //     default:
+        //         break;
+        // }
     }
 
     /**
@@ -350,12 +350,12 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function set_fee_plan( $fee, $recurring = false, $status = 'ok' ) {
+    public function set_fee_plan( $fee ) {
         global $wpdb;
 
         if ( is_null( $fee ) ) {
-            $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'fee_id' => 0, 'fee_days' => 0, 'fee_images' => 0, 'is_sticky' => 0, 'expiration_date' => null ), array( 'listing_id' => $this->id ) );
-            // $wpdb->delete( $wpdb->prefix . 'wpbdp_listings_plans', array( 'listing_id' => $this->id ) );
+            $wpdb->delete( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $this->id ) );
+            // $wpdb->replace( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $this->id, 'fee_id' => null, 'fee_days' => 0, 'fee_images' => 0, 'is_sticky' => 0, 'expiration_date' => null ) );
             return true;
         }
 
@@ -375,7 +375,7 @@ class WPBDP_Listing {
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;
 
-        return $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $this->id ) );
+        return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings', $row );
     }
 
     /**
@@ -410,10 +410,10 @@ class WPBDP_Listing {
     public function generate_or_retrieve_payment() {
         $plan = $this->get_fee_plan();
 
-        if ( ! $plan || 'pending' != $plan->status )
+        if ( ! $plan )
             return false;
 
-        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending', 'payment_type' => 'initial' ) )->get();
+        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
 
         if ( $existing_payment )
             return $existing_payment;
@@ -570,12 +570,10 @@ class WPBDP_Listing {
      * @since next-release
      */
     public function _after_save( $context = '' ) {
-        $is_new = (bool) ! get_post_meta( $post_id, '_wpbdp[status]', true );
-
-        if ( $is_new ) {
+        if ( 'submit-new' == $context ) {
             do_action( 'WPBDP_Listing::listing_created', $post_id );
             do_action( 'wpbdp_add_listing', $post_id );
-        } else {
+        } elseif ( 'submit-edit' == $context ) {
             do_action( 'wpbdp_edit_listing', $post_id );
             do_action( 'WPBDP_Listing::listing_edited', $post_id );
         }
@@ -600,7 +598,6 @@ class WPBDP_Listing {
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
         // Remove payment information.
-        $wpdb->query( $wpdb->prepare( "DELETE pi.* FROM {$wpdb->prefix}wpbdp_payments_items pi WHERE pi.payment_id IN (SELECT p.id FROM {$wpdb->prefix}wpbdp_payments p WHERE p.listing_id = %d)", $this->id ) );
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) );
     }
 

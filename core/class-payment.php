@@ -41,6 +41,9 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
         foreach ( $this->payment_items as $item )
             $this->amount += floatval( $item['amount'] );
+
+        if ( 0.0 == $this->amount )
+            $this->status = 'completed';
     }
 
     protected function post_save() {
@@ -144,6 +147,13 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $this->_dirty = $previous_dirty;
 
         return true;
+    }
+
+    public function get_data( $key ) {
+        if ( ! is_array( $this->extra_data ) || ! isset( $this->extra_data[ $key ] ) )
+            return null;
+
+        return $this->extra_data[ $key ];
     }
 
     public function is_completed() {

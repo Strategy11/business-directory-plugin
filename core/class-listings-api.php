@@ -29,14 +29,14 @@ class WPBDP_Listings_API {
                 case 'recurring_plan':
                 case 'plan':
                 case 'plan_renewal':
-                    $listing->set_fee_plan( $item['fee_id'], 'recurring_plan' == $item['type'] ? true : false );
+                    $listing->set_fee_plan( $item['fee_id'] );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;
 
                     break;
                 case 'recurring_fee':
-                    $listing->set_fee_plan( $item->rel_id_2, true );
+                    $listing->set_fee_plan( $item->rel_id_2 );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;
@@ -53,6 +53,9 @@ class WPBDP_Listings_API {
                     break;
             }
         }
+
+        if ( 'initial' == $payment->payment_type )
+            $listing->set_status( 'complete' );
 
         if ( $is_renewal )
             $listing->set_post_status( 'publish' );

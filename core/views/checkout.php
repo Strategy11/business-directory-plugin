@@ -19,7 +19,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
                 parse_str( $q, $payment_data );
 
                 if ( isset( $payment_data['payment_id'] ) && isset( $payment_data['verify'] ) ) { // TODO: check 'verify'.
-                    $this->payment = WPBDP_Payment::get( $payment_data['payment_id'] );
+                    $this->payment = WPBDP_Payment::objects()->get( $payment_data['payment_id'] );
                 }
             }
         }
@@ -29,14 +29,14 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
         $step = 'gateway_selection';
 
-        if ( $this->payment->is_rejected() || $this->payment->is_canceled() )
+        if ( WPBDP_Payment::STATUS_REJECTED == $this->payment->status || WPBDP_Payment::STATUS_CANCELED == $this->payment->status )
             $step = 'rejected';
-        elseif ( ! $this->payment->is_pending() ) {
+        elseif ( WPBDP_Payment::STATUS_PENDING != $this->payment->status ) {
             $step = 'done';
         } else {
             if ( $this->payment->get_data( 'returned' ) )
                 $step = 'pending_verification';
-            elseif ( $this->payment->get_gateway() )
+            elseif ( $this->payment->gateway )
                 $step = 'checkout';
         }
 
@@ -64,7 +64,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         do_action_ref_array( 'wpbdp_checkout_page_process', array( &$this->payment ) );
 
         // Check if the payment changed in case we need to update something.
-        if ( 0.0 == $this->payment->get_total() )
+        if ( 0.0 == $this->payment->amount )
             return $this->dispatch();
 
         if ( isset( $_POST['payment_method'] ) ) {
