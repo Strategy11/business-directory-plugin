@@ -224,6 +224,11 @@ class WPBDP_Admin_Listings {
         if ( $plan->is_recurring )
             $attributes['recurring'] = '<span class="tag">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
 
+        if ( 0.0 == $plan->fee_price )
+            $attributes['free'] = '<span class="tag">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
+        else
+            $attributes['paid'] = '<span class="tag">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
+
         $attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
 
         foreach ( $attributes as $attr )
