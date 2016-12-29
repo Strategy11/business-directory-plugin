@@ -216,11 +216,18 @@ class WPBDP_Admin_Listings {
         $listing = WPBDP_Listing::get( $post_id );
         $plan = $listing->get_fee_plan();
 
+        $attributes = array();
+
         if ( $plan->is_sticky )
-            echo '<span class="tag">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
+            $attributes['featured'] = '<span class="tag">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
 
         if ( $plan->is_recurring )
-            echo '<span class="tag">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
+            $attributes['recurring'] = '<span class="tag">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
+
+        $attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
+
+        foreach ( $attributes as $attr )
+            echo $attr;
     }
 
 
@@ -345,6 +352,9 @@ class WPBDP_Admin_Listings {
             return $actions;
 
         $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&listing=' . $post->ID ) ) . '">' . _x( 'View Payments', 'admin actions', 'WPBDM' ) . '</a>';
+
+        $listing = wpbdp_get_listing( $post->ID );
+        $actions = apply_filters( 'wpbdp_admin_directory_row_actions', $actions, $listing );
 
         return $actions;
     }
