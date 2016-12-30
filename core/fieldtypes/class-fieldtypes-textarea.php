@@ -116,7 +116,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         // Only return auto-generated excerpt if there's no value at all.
         if ( 'excerpt' == $field->get_association() && $field->data( 'auto_excerpt') && ! $value )
-            $value = $this->get_field_html_value( $field, $post_id );
+            $value = $this->get_excerpt_value_from_post( $post_id );
 
         return $value;
     }
@@ -162,15 +162,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                     $value = wpautop( $value );
                 }
             }
-        } elseif ( 'excerpt' == $field->get_association() ) {
-            if ( $field->data( 'auto_excerpt' ) ) {
-                global $post;
-
-                $current_post = $post;
-                $post = get_post( $post_id );
-                $value = apply_filters( 'get_the_excerpt', '' );
-                $post = $current_post;
-            }
+        } elseif ( 'excerpt' == $field->get_association() && $field->data( 'auto_excerpt' ) ) {
+            $value = $this->get_excerpt_value_from_post( $post_id );
         } else {
             if ( $field->data( 'allow_html' ) ) {
                 $value = wpautop( $value );
@@ -180,6 +173,17 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
 
+
+        return $value;
+    }
+
+    private function get_excerpt_value_from_post( $post_id ) {
+        global $post;
+
+        $current_post = $post;
+        $post = get_post( $post_id );
+        $value = apply_filters( 'get_the_excerpt', '' );
+        $post = $current_post;
 
         return $value;
     }
