@@ -1025,3 +1025,26 @@ body.business-directory #TB_secondLine {
 /*
  * }}
  */
+
+/*
+ * Login form {{
+ */
+.wpbdp-login-form h2,
+.wpbdp-login-form .wpbdp-login-form-extra-links {
+    text-align: center;
+}
+.wpbdp-login-form form {
+    margin: 0 auto;
+    width: 320px;
+}
+.wpbdp-login-form p {
+    margin-bottom: 0;
+}
+.wpbdp-login-form .login-username input,
+.wpbdp-login-form .login-password input {
+    display: block;
+    width: 100%;
+}
+/*
+ * }}
+ */
