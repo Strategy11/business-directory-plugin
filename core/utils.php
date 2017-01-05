@@ -646,8 +646,8 @@ function wpbdp_detect_encoding( $content ) {
  */
 function wpbdp_mb_detect_encoding( $content, $encodings ) {
    foreach ( $encodings as $encoding ) {
-        $sample = iconv( $encoding, $encoding, $string );
-        if ( md5( $sample ) == md5( $string ) ) {
+        $sample = iconv( $encoding, $encoding, $content );
+        if ( md5( $sample ) == md5( $content ) ) {
             return $encoding;
         }
     }
