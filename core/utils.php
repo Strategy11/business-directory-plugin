@@ -623,7 +623,7 @@ if ( ! function_exists( 'str_getcsv' ) ) {
  */
 function wpbdp_detect_encoding( $content ) {
     static $encodings = array(
-        'UTF-8', 'ASCII',
+        'UTF-8', 'UTF-16LE', 'ASCII',
         'ISO-8859-1', 'ISO-8859-2', 'ISO-8859-3', 'ISO-8859-4', 'ISO-8859-5',
         'ISO-8859-6', 'ISO-8859-7', 'ISO-8859-8', 'ISO-8859-9', 'ISO-8859-10',
         'ISO-8859-13', 'ISO-8859-14', 'ISO-8859-15', 'ISO-8859-16',
@@ -631,6 +631,8 @@ function wpbdp_detect_encoding( $content ) {
     );
 
     if ( function_exists( 'mb_detect_encoding' ) ) {
+        // XXX: mb_detect_encoding() can't detect UTF-16* encodings
+        // See documentation for mb_detect_order()
         return mb_detect_encoding( $content, $encodings, true );
     } else {
         if ( ! function_exists( 'iconv' ) )
