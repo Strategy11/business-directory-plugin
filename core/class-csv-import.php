@@ -73,6 +73,10 @@ class WPBDP_CSV_Import {
             if ( ! array_key_exists( 'append-images', $settings ) )
                 $settings['append-images'] = false;
 
+            if ( $settings['csv-file-separator'] == 'tab' ) {
+                $settings['csv-file-separator'] = "\t";
+            }
+
             $this->settings = wp_parse_args( $settings, $defaults );
 
             $file = new SplFileObject( $this->csv_file );

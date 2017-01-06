@@ -106,13 +106,28 @@ echo str_replace(
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Column Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Column Separator', 'admin csv-import', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
-                    <input name="settings[csv-file-separator]"
-                           type="text"
+                    <?php $column_separator = _defaults_or( $defaults, 'csv-file-separator', ',' ); ?>
+                    <label><input name="settings[csv-file-separator]"
+                           type="radio"
                            aria-required="true"
-                           value="<?php echo _defaults_or( $defaults, 'csv-file-separator', ',' ); ?>" />
+                           value=","
+                           <?php echo $column_separator == ',' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Comma (,)', 'admin csv-import', 'WPBDM' ); ?></label>
+                    <br />
+                    <label><input name="settings[csv-file-separator]"
+                           type="radio"
+                           aria-required="true"
+                           value=";"
+                           <?php echo $column_separator == ';' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Semicolon (;)', 'admin csv-import', 'WPBDM' ); ?></label>
+                    <br />
+                    <label><input name="settings[csv-file-separator]"
+                           type="radio"
+                           aria-required="true"
+                           value="tab"
+                           <?php echo $column_separator == "tab" ? 'checked="checked"' : ''; ?>/><?php _ex( 'TAB', 'admin csv-import', 'WPBDM' ); ?></label>
+                    <br />
                 </td>
             </tr>
             <tr class="form-required">
