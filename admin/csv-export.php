@@ -235,14 +235,18 @@ class WPBDP_CSVExporter {
 
         // Write header as first line.
         if ( $this->exported == 0 ) {
-            fwrite( $csvfile, $this->header() . "\n" );
+            $header = iconv( 'UTF-8', 'UTF-16LE', $this->header() . "\n" );
+            fwrite( $csvfile, chr(255) . chr(254) /* BOM */ . $header );
         }
 
         $nextlistings = array_slice( $this->listings, $this->exported, self::BATCH_SIZE );
 
         foreach ( $nextlistings as $listing_id ) {
-            if ( $data = $this->extract_data( $listing_id ) )
-                fwrite( $csvfile, implode( $this->settings['csv-file-separator'], $data ) . "\n" );
+            if ( $data = $this->extract_data( $listing_id ) ) {
+                $content = implode( $this->settings['csv-file-separator'], $data );
+                $content = iconv( 'UTF-8', 'UTF-16LE', $content . "\n" );
+                fwrite( $csvfile, $content );
+            }
 
             $this->exported++;
         }
