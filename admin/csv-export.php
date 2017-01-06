@@ -100,6 +100,10 @@ class WPBDP_CSVExporter {
 
         $this->settings = array_merge( $this->settings, $settings );
 
+        if ( $this->settings['csv-file-separator'] == 'tab' ) {
+            $this->settings['csv-file-separator'] = "\t";
+        }
+
         // Setup columns.
         if ( $this->settings['generate-sequence-ids'] )
             $this->columns['sequence_id'] = 'sequence_id';

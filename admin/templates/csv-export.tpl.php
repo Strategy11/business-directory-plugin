@@ -94,10 +94,23 @@ echo $notice;
                     <label> <?php _ex('Column Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
-                    <input name="settings[csv-file-separator]"
-                           type="text"
+                    <label><input name="settings[csv-file-separator]"
+                           type="radio"
                            aria-required="true"
-                           value="," />
+                           value=","
+                           checked="checked" /><?php _ex( 'Comma (,)', 'admin csv-export', 'WPBDM' ); ?></label>
+                    <br />
+                    <label><input name="settings[csv-file-separator]"
+                           type="radio"
+                           aria-required="true"
+                           value=";" /><?php _ex( 'Semicolon (;)', 'admin csv-export', 'WPBDM' ); ?></label>
+                    <br />
+                    <label><input name="settings[csv-file-separator]"
+                           type="radio"
+                           aria-required="true"
+                           value="tab" /><?php _ex( 'TAB', 'admin csv-export', 'WPBDM' ); ?></label>
+                    <br />
+                    <p><?php _ex( 'On a MacOS system, MS Excel requires a CSV using the TAB character as separator.', 'admin csv-export', 'WPBDM' ); ?></p>
                 </td>
             </tr>
             <tr class="form-required">
