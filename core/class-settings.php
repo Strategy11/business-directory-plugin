@@ -49,7 +49,7 @@ class WPBDP_Settings {
                                  'recaptcha',
                                  _x( 'reCAPTCHA Settings', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
-                                              '<a href="http://www.recaptcha.com" target="_blank">',
+                                              '<a href="http://www.google.com/recaptcha" target="_blank">',
                                               _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'admin settings', 'WPBDM' ) )
                                 );
         $this->add_setting($s, 'recaptcha-on', _x('Use reCAPTCHA for contact forms', 'admin settings', 'WPBDM'), 'boolean', false);
