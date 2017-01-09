@@ -16,22 +16,7 @@
         <?php if ( $current_plan ): ?>
         <dt><?php _ex( 'Status', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <span class="tag plan-status paymentstatus <?php echo $current_plan ? $current_plan->status : ''; ?>">
-            <?php
-                // todo: before next-release
-                switch ( $current_plan->status ):
-                    case 'expired':
-                        _ex( 'Expired', 'admin infometabox', 'WPBDM' );
-                        break;
-                    case 'pending':
-                        _ex( 'Payment Pending', 'admin infometabox', 'WPBDM' );
-                        break;
-                    case 'ok':
-                    default:
-                        _ex( 'OK', 'admin infometabox', 'WPBDM');
-                endswitch;
-                ?>
-            </span>
+            <span class="tag plan-status paymentstatus <?php echo $listing->get_status(); ?>"><?php echo $listing->get_status_label(); ?></span>
         </dd>
         <?php endif; ?>
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'WPBDM' ); ?></dt>
