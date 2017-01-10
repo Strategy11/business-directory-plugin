@@ -13,12 +13,13 @@
 <!-- {{  Fee plan info. -->
 <div id="wpbdp-listing-metabox-plan-info" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="1">
     <dl>
-        <?php if ( $current_plan ): ?>
         <dt><?php _ex( 'Status', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <span class="tag plan-status paymentstatus <?php echo $listing->get_status(); ?>"><?php echo $listing->get_status_label(); ?></span>
+        <?php
+        $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
+        ?>
+        <span class="tag plan-status paymentstatus <?php echo $status[0]; ?>"><?php echo $status[1]; ?></span>
         </dd>
-        <?php endif; ?>
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <select name="listing_plan[fee_id]" data-confirm-text="<?php echo esc_attr( _x( 'Do you want to override current listing fee details with those from "%s"?', 'listing metabox', 'WPBDM' ) ); ?>">

@@ -199,7 +199,8 @@ class WPBDP_Admin_Listings {
 
     function listing_column_status( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
-        echo $listing->get_status_label();
+        $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
+        echo $status[1];
     }
 
     public function listing_column_expiration_date( $post_id ) {
