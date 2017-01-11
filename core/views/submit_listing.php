@@ -215,7 +215,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( ! $this->listing->has_fee_plan() && 'plan_selection' != $section['id'] ) {
                 $section['flags'][] = 'collapsed';
                 $section['flags'][] = 'disabled';
-                $section['html'] = '(Choose a plan)';
+                $section['html'] = _x( '(Please choose a fee plan above)', 'submit listing', 'WPBDM' );
                 $section['state'] = 'disabled';
                 continue;
             }
@@ -543,7 +543,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             die();
 
         $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
-        $this_>listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
+        $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 
         if ( 'completed' == $payment->status )
             return $this->done();
