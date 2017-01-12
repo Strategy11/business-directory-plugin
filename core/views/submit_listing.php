@@ -59,6 +59,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
+        if ( current_user_can( 'administrator' ) )
+            $this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'WPBDM' ), 'notice', 'general' );
+
+
         // Prepare $messages for template.
         $messages = array();
         foreach ( $this->messages as $context => $items ) {
