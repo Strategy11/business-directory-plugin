@@ -6,7 +6,7 @@
         <a href="#wpbdp-listing-metabox-payments"><?php _ex( 'Recent Payments', 'listing metabox', 'WPBDM' ); ?></a>
     </li>
     <li>
-        <a href="#wpbdp-listing-metabox-other"><?php _ex( 'Other', 'listing metabox', 'WPBDM' ); ?></a>
+        <a href="#wpbdp-listing-metabox-other"><?php _ex( 'Access Key', 'listing metabox', 'WPBDM' ); ?></a>
     </li>
 </ul>
 
