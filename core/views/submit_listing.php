@@ -32,7 +32,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->listing = $this->find_or_create_listing();
 
+        // Perform auth.
         $this->_auth_required();
+
+        // Handle "Clear Form" request.
+        if ( ! empty( $_POST ) && ! empty( $_POST['reset'] ) && 'reset' == $_POST['reset'] ) {
+            wp_delete_post( $this->listing->get_id(), true );
+            return $this->_redirect( wpbdp_url( 'submit_listing' ) );
+        }
 
         if ( ! $this->editing && 'auto-draft' != get_post_status( $this->listing->get_id() ) ) {
             $possible_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->listing->get_id(), 'payment_type' => 'initial', 'status' => 'pending' ) )->get();

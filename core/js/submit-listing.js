@@ -135,6 +135,14 @@ jQuery(function($) {
         this.setup_section_headers();
         this.plan_handling();
 
+        var self = this;
+        this.$form.on( 'click', ':reset', function( e ) {
+            e.preventDefault();
+            self.$form.find('input[name="save_listing"]').val( '' );
+            self.$form.find('input[name="reset"]').val( 'reset' );
+            self.$form.submit();
+        } );
+
         // Create account form.
         $( '#wpbdp-submit-listing' ).on( 'change', '#wpbdp-submit-listing-create_account', function( e ) {
             $( '#wpbdp-submit-listing-account-details' ).toggle();
