@@ -28,11 +28,11 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
         $views_ = array();
 
-        $count = 0;
+        $count = WPBDP_Payment::objects()->count();
         $views_['all'] = array( _x( 'All', 'payments admin', 'WPBDM' ), $count );
 
         foreach ( WPBDP_Payment::get_stati() as $status => $status_label ) {
-            $count = 0;
+            $count = WPBDP_Payment::objects()->filter( array( 'status' => $status ) )->count();
             $views_[ $status ] = array( $status_label, $count );
         }
 
