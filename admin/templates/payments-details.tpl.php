@@ -74,6 +74,11 @@ echo wpbdp_admin_header(
     <h3 class="hndle"><span><?php _ex( 'Details', 'payments admin', 'WPBDM' ); ?></span></h3>
     <div class="inside">
         <div class="wpbdp-admin-box">
+            <div class="wpbdp-admin-box-row payment-item-header cf">
+                <span class="payment-item-type"><?php _ex( 'Item Type', 'payments admin', 'WPBDM' ); ?></span>
+                <span class="payment-item-description"><?php _ex( 'Description', 'payments admin', 'WPBDM' ); ?></span>
+                <span class="payment-item-amount"><?php _ex( 'Amount', 'payments admin', 'WPBDM' ); ?></span>
+            </div>
             <?php foreach ( $payment->payment_items as $item ): ?>
             <div class="wpbdp-admin-box-row payment-item cf">
                 <span class="payment-item-type"><?php echo $item['type']; ?></span>
