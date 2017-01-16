@@ -202,6 +202,10 @@ class WPBDP__WordPress_Template_Integration {
             $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
         }
 
+        if ( wpbdp_is_taxonomy() ) {
+            $classes[] = 'wpbdp-view-taxonomy';
+        }
+
         $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();
 
         return $classes;
