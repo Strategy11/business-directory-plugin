@@ -12,7 +12,7 @@ class WPBDP_WPML_Compat {
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_category_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp__get_page_link', array( &$this, 'fix_get_page_link' ), 10, 2 );
-            add_filter( 'wpbdp_get_page_link', array( &$this, 'correct_page_link' ), 10, 3 );
+            add_filter( 'wpbdp_url', array( &$this, 'correct_page_link' ), 10, 3 );
 
             add_filter( 'wpbdp_render_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
             add_filter( 'wpbdp_render_field_description', array( &$this, 'translate_form_field_description' ), 10, 2 );
@@ -106,9 +106,14 @@ class WPBDP_WPML_Compat {
             return $link;
 
         switch ( $name ) {
-            case 'editlisting':
-            case 'upgradetostickylisting':
-            case 'deletelisting':
+            case 'main':
+            case '/':
+            case 'edit_listing':
+            case 'upgrade_listing':
+            case 'delete_listing':
+            case 'all_listings':
+            case 'view_listings':
+            case 'submit_listing':
                 $link = add_query_arg( 'lang', $lang, $link );
                 break;
 
