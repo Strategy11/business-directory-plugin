@@ -546,18 +546,10 @@ function wpbdp_current_view_output() {
  * @since 4.0
  */
 function wpbdp_url( $pathorview = '/', $args = array() ) {
-    $base_url = wpbdp_get_page_link( 'main' );
-    $base_url = apply_filters( 'wpbdp_base_url', $base_url, $pathorview, $args );
+    $base_id = wpbdp_get_page_id( 'main' );
+    $base_url = _get_page_link( $base_id );
+    $base_url = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
     $url = '';
-
-    // $page_id = wpbdp_get_page_id( $name );
-    //
-    // if ( $page_id ) {
-    //     $link = _get_page_link( $page_id );
-    //     $link = apply_filters( 'wpbdp__get_page_link', $link, $page_id, $name, $arg0 );
-    //
-    //
-    // return apply_filters( 'wpbdp_get_page_link', $link, $name, $arg0 );
 
     switch ( $pathorview ) {
         case 'submit_listing':
@@ -580,8 +572,11 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
             $url = $base_url;
             break;
         default:
-            if ( wpbdp_starts_with( $pathorview, '/' ) )
-                $url = rtrim( wpbdp_url( '/' ), '/' ) . '/' . substr( $pathorview, 1 );
+            if ( wpbdp_starts_with( $pathorview, '/' ) ) {
+                $root = rtrim( wpbdp_url( '/' ), '/' );
+                $prefix = wpbdp_rewrite_on() ? rtrim( preg_replace( '/\?.*/', '', $root ), '/' ) . '/' : '?wpbdp_path=';
+                $url = $prefix . substr( $pathorview, 1 );
+            }
             break;
     }
 
