@@ -6,7 +6,7 @@ $categories = ! isset( $categories ) ? array() : $categories;
 //     $plans_ids = wp_list_pluck( $plans, 'id' );
 //     $selected = reset( $plans_ids );
 // }
-$selected = 0;
+// $selected = 0;
 ?>
 <div class="wpbdp-plan-selection-list">
     <?php foreach ( $plans as $plan ): ?>

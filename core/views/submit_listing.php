@@ -98,7 +98,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $this->listing->has_fee_plan() )
             wp_die();
 
+        // Store previous values before clearing.
+        $plan = $this->listing->get_fee_plan();
+        $this->data['previous_plan'] = $plan ? $plan->fee_id : 0;
+        $this->data['previous_categories'] = wp_get_post_terms( $this->listing->get_id(), WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+
+        // Clear plan and categories.
         $this->listing->set_fee_plan( null );
+        wp_set_post_terms( $this->listing->get_id(), array(), WPBDP_CATEGORY_TAX, false );
+
         $this->ajax_sections();
     }
 
@@ -296,7 +304,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( $this->listing->get_fee_plan() )
             return $this->section_render( 'submit-listing-plan-selection-complete' );
 
-        return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'allow_recurring' ) );
+        $selected_plan = ! empty( $this->data['previous_plan'] ) ? $this->data['previous_plan'] : 0;
+        $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
+        return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'allow_recurring', 'selected_categories', 'selected_plan' ) );
     }
 
     private function listing_fields() {
