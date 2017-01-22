@@ -303,6 +303,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( $this->listing->get_fee_plan() )
             return $this->section_render( 'submit-listing-plan-selection-complete' );
+        else
+            $this->prevent_save = true;
 
         $selected_plan = ! empty( $this->data['previous_plan'] ) ? $this->data['previous_plan'] : 0;
         $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
