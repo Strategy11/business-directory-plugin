@@ -184,6 +184,24 @@ class WPBDP_Installer {
         //     updated_on datetime NOT NULL
         // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
+        // Deprecated since @next-release.
+        // $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
+        //     id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
+        //     state longblob NOT NULL,
+        //     updated_on datetime NOT NULL
+        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+        $schema['log'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
+            id bigint(20) PRIMARY KEY,
+            object_id bigint(20) NULL,
+            object_type varchar(20) NULL,
+            created_at datetime NOT NULL,
+            item_type varchar(255) NULL,
+            actor varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+            data blob NULL
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
         return apply_filters( 'wpbdp_database_schema', $schema );
     }
 
