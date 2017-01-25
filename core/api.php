@@ -317,7 +317,8 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
         'name' => $slug,
         'post_type' => $post_type,
         'post_status' => 'publish',
-        'numberposts' => 1
+        'numberposts' => 1,
+        'suppress_filters' => false,
     ));
 
     if ($posts)

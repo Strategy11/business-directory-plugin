@@ -176,7 +176,8 @@ function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_it
         'post_type' => WPBDP_POST_TYPE,
         'post_status' => 'publish',
         'numberposts' => $n,
-        'orderby' => 'date'
+        'orderby' => 'date',
+        'suppress_filters' => false,
     ));
 
     $html = '';
