@@ -75,7 +75,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
         if ( ! $payment || ! $text )
             $res->send_error();
 
-        $note = $payment->add_note( $text, get_current_user_id() );
+        $note = wpbdp_insert_log( array( 'log_type' => 'payment.note', 'message' => $text, 'actor' => 'user:' . get_current_user_id(), 'object_id' => $payment_id ) );
         if ( ! $note )
             $res->send_error();
 
@@ -87,15 +87,14 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     function ajax_delete_note() {
         $payment_id = absint( $_GET['payment_id'] );
         $note_key = trim( $_GET['note'] );
-        $payment = WPBDP_Payment::objects()->get( $payment_id );
 
         $res = new WPBDP_Ajax_Response();
 
-        if ( ! $payment || ! isset( $payment->payment_notes[ $note_key ] ) )
+        $note = wpbdp_get_log( $note_key );
+        if ( 'payment.note' != $note->log_type || $payment_id != $note->object_id )
             $res->send_error();
 
-        $note = $payment->payment_notes[ $note_key ];
-        $payment->delete_note( $note );
+        wpbdp_delete_log( $note_key );
 
         $res->add( 'note', $note );
         $res->send();
