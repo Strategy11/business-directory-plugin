@@ -204,10 +204,17 @@ class WPBDP__CPT_Integration {
      * @since next-release
      */
     public function save_post( $post_id, $post, $update ) {
-        if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || 'auto-draft' == $post->post_status )
+        if ( WPBDP_POST_TYPE != $post->post_type )
             return;
 
-        if ( WPBDP_POST_TYPE != $post->post_type )
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+            return;
+
+        if ( ! $update ) {
+            wpbdp_insert_log( array( 'log_type' => 'listing.created', 'object_id' => $post_id ) );
+        }
+
+        if ( 'auto-draft' == $post->post_status )
             return;
 
         $listing = wpbdp_get_listing( $post_id );
