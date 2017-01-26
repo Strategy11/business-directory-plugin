@@ -152,12 +152,13 @@ class WPBDP__DB__Model {
         }
     }
 
-    protected function pre_save() {}
-    protected function post_save() {}
+    protected function pre_save( $new = false ) {}
+    protected function post_save( $new = false ) {}
 
     public function save( $validate = true ) {
         global $wpdb;
 
+        $adding = $this->_adding;
         $errors = array();
 
         if ( $validate )
@@ -171,7 +172,7 @@ class WPBDP__DB__Model {
         $model = self::get_model_info( $this );
         $pk = $model['primary_key'];
 
-        $this->pre_save();
+        $this->pre_save( $adding );
         $row = $this->prepare_row();
 
         if ( $this->_adding )
@@ -187,7 +188,7 @@ class WPBDP__DB__Model {
         $res = false !== $res;
 
         if ( $res )
-            $this->post_save();
+            $this->post_save( $adding );
 
         $this->_saving = false;
 
