@@ -554,13 +554,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->listing->set_status( 'pending_payment' );
         $payment = $this->listing->generate_or_retrieve_payment();
 
-        if ( current_user_can( 'administrator' ) ) {
-            $payment->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
-            $payment->payment_items[0]['amount'] = 0.0;
-            $payment->status = 'completed';
-            $payment->add_note( _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) );
-            $payment->save();
-        }
+        if ( current_user_can( 'administrator' ) )
+            $payment->process_as_admin();
 
         if ( ! $payment )
             die();

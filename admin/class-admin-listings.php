@@ -380,13 +380,8 @@ class WPBDP_Admin_Listings {
         if ( ! $current_plan || (int) $current_plan->fee_id != (int) $new_plan['fee_id'] ) {
             $payment = $listing->set_fee_plan_with_payment( $new_plan['fee_id'] );
 
-            if ( $payment ) {
-                $payment->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
-                $payment->payment_items[0]['amount'] = 0.0;
-                $payment->status = 'completed';
-                $payment->add_note( _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) );
-                $payment->save();
-            }
+            if ( $payment )
+                $payment->process_as_admin();
         }
 
         // Update plan attributes.
