@@ -42,6 +42,7 @@ define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
 require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
+require_once( WPBDP_PATH . 'core/logging.php' );
 require_once( WPBDP_PATH . 'core/api.php' );
 require_once( WPBDP_PATH . 'core/compatibility/class-compat.php' );
 require_once( WPBDP_PATH . 'core/utils.php' );

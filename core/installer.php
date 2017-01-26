@@ -113,12 +113,12 @@ class WPBDP_Installer {
             listing_id bigint(20) NOT NULL DEFAULT 0,
             parent_id bigint(20) NOT NULL DEFAULT 0,
             payment_key varchar(255) NULL DEFAULT '',
-            payment_notes longblob NULL,
             payment_type varchar(255) NULL DEFAULT '',
             payment_items blob NULL,
-            payer_email varchar(255) NULL DEFAULT '',
-            payer_first_name varchar(255) NULL DEFAULT '',
-            payer_last_name varchar(255) NULL DEFAULT '',
+            flags text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            payer_email varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            payer_first_name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            payer_last_name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_data blob NULL,
             gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             gateway_tx_id varchar(255) NULL DEFAULT '',
@@ -184,22 +184,15 @@ class WPBDP_Installer {
         //     updated_on datetime NOT NULL
         // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        // Deprecated since @next-release.
-        // $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
-        //     id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
-        //     state longblob NOT NULL,
-        //     updated_on datetime NOT NULL
-        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
-        $schema['log'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
-            id bigint(20) PRIMARY KEY,
-            object_id bigint(20) NULL,
-            object_type varchar(20) NULL,
+        $schema['logs'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
+            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+            object_id bigint(20) NULL DEFAULT 0,
+            object_type varchar(20) NULL DEFAULT '',
             created_at datetime NOT NULL,
-            item_type varchar(255) NULL,
-            actor varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-            data blob NULL
+            log_type varchar(255) NULL DEFAULT '',
+            actor varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            data longblob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         return apply_filters( 'wpbdp_database_schema', $schema );
