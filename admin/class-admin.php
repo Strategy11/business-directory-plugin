@@ -98,6 +98,7 @@ class WPBDP_Admin {
 
             wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
+            wp_enqueue_style( 'wpbdp-listing-admin-timeline', WPBDP_URL . 'admin/css/listing-timeline.min.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
             wp_enqueue_script(

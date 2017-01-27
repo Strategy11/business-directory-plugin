@@ -140,6 +140,12 @@ class WPBDP_Admin_Listings {
                       WPBDP_POST_TYPE,
                       'side',
                       'core' );
+        add_meta_box( 'wpbdp-listing-timeline',
+                      __( 'Listing Timeline', 'WPBDM' ),
+                      array( $this, '_metabox_listing_timeline' ),
+                      WPBDP_POST_TYPE,
+                      'side',
+                      'core' );
         add_meta_box( 'wpbdp-listing-fields',
                       _x( 'Listing Fields / Images', 'admin', 'WPBDM' ),
                       array( 'WPBDP_Admin_Listing_Fields_Metabox', 'metabox_callback' ),
@@ -152,6 +158,13 @@ class WPBDP_Admin_Listings {
         require_once( WPBDP_PATH . 'admin/helpers/class-listing-information-metabox.php' );
         $metabox = new WPBDP__Admin__Metaboxes__Listing_Information( $post->ID );
         $metabox->render();
+    }
+
+    public function _metabox_listing_timeline( $post ) {
+        require_once( WPBDP_PATH . 'admin/helpers/class-listing-timeline.php' );
+        $timeline = new WPBDP__Listing_Timeline( $post->ID );
+
+        echo $timeline->render();
     }
 
     // {{{ Custom columns.
