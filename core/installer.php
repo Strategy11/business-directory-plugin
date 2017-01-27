@@ -187,6 +187,7 @@ class WPBDP_Installer {
         $schema['logs'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             object_id bigint(20) NULL DEFAULT 0,
+            rel_object_id bigint(20) NULL DEFAULT 0,
             object_type varchar(20) NULL DEFAULT '',
             created_at datetime NOT NULL,
             log_type varchar(255) NULL DEFAULT '',
