@@ -369,11 +369,6 @@ function wpbdp_format_currency($amount, $decimals = 2, $currency = null) {
  * @since 3.6.10
  */
 function wpbdp_currency_format( $amount, $args = array() ) {
-
-    if( $amount == '0'){
-        return __( 'Free', 'WPBDM' );
-    }
-
     // We don't actually allow modification of the "format" string for now, but it could be useful in the future.
     switch ( wpbdp_get_option( 'currency-symbol-position' ) ) {
         case 'none':
@@ -389,12 +384,16 @@ function wpbdp_currency_format( $amount, $args = array() ) {
     }
 
     $defaults = array( 'decimals' => 2,
+                       'force_numeric' => false,
                        'currency' => wpbdp_get_option( 'currency' ),
                        'symbol' => wpbdp_get_option( 'currency-symbol' ),
                        'format' => $def_format );
-
     $args = wp_parse_args( $args, $defaults );
     extract( $args );
+
+    if ( ! $force_numeric && $amount == '0' ) {
+        return __( 'Free', 'WPBDM' );
+    }
 
     if ( ! $symbol )
         $symbol = strtoupper( $currency );
