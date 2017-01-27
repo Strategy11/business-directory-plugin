@@ -63,6 +63,13 @@ class WPBDP__DB__Model {
         return false;
     }
 
+    protected function get_attr( $name ) {
+        if ( ! $this->is_valid_attr( $name ) )
+            return false;
+
+        return $this->_attrs[ $name ];
+    }
+
     protected function set_attr( $name, $value ) {
         if ( ! $this->is_valid_attr( $name ) )
             return false;
