@@ -54,6 +54,9 @@ class WPBDP_Listings_API {
             }
         }
 
+        if ( 'renewal' == $payment->payment_type )
+            wpbdp_insert_log( array( 'log_type' => 'listing.renewal', 'object_id' => $payment->listing_id, 'message' => _x( 'Listing renewed', 'listings api', 'WPBDM' ) ) );
+
         if ( 'initial' == $payment->payment_type )
             $listing->set_status( 'complete' );
 

@@ -206,6 +206,7 @@ class WPBDP_Listing {
         switch ( $new_status ) {
         case 'expired':
             $this->set_post_status( 'draft' );
+            wpbdp_insert_log( array( 'log_type' => 'listing.expired', 'object_id' => $this->id, 'message' => _x( 'Listing expired', 'listing', 'WPBDM' ) ) );
             break;
         default:
             break;
