@@ -69,7 +69,7 @@ function wpbdp_get_logs( $args = array() ) {
             $query .= $wpdb->prepare( " AND {$arg_k} = %s", $arg_v );
     }
 
-    $query .= " ORDER BY {$args['orderby']} {$args['order']}";
+    $query .= " ORDER BY {$args['orderby']} {$args['order']}, id {$args['order']}";
 
     return $wpdb->get_results( $query );
 }
