@@ -91,14 +91,32 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
     }
 
     public static function for_category( $category_id ) {
+        return self::filter_for_category( self::find(), $category_id );
+    }
+
+    private static function filter_for_category( $fees, $category_id ) {
         $res = array();
 
-        foreach ( self::find() as $f ) {
+        foreach ( $fees as $f ) {
             if ( $f->supports_category( $category_id ) )
                 $res[] = $f;
         }
 
         return $res;
+    }
+
+    public static function active_fees_for_category( $category_id ) {
+        return self::filter_for_category( self::active_fees(), $category_id );
+    }
+
+    public static function active_fees() {
+        if ( wpbdp_payments_possible() ) {
+            $fees = self::find( array( 'enabled' => 1, '-tag' => 'free' ) );
+        } else {
+            $fees = self::find( array( 'enabled' => 1, 'tag' => 'free' ) );
+        }
+
+        return $fees;
     }
 
     public static function get_free_plan() {
