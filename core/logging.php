@@ -5,6 +5,7 @@
 function wpbdp_insert_log( $args = array() ) {
     $defaults = array(
         'object_id' => 0,
+        'rel_object_id' => 0,
         'object_type' => '',
         'created_at' => current_time( 'mysql' ),
         'log_type' => '',
@@ -24,7 +25,7 @@ function wpbdp_insert_log( $args = array() ) {
     $message = trim( $message );
     $data = $data ? serialize( $data ) : null;
 
-    $row = compact( 'object_type', 'object_id', 'created_at', 'log_type', 'actor', 'message', 'data' );
+    $row = compact( 'object_type', 'object_id', 'rel_object_id', 'created_at', 'log_type', 'actor', 'message', 'data' );
 
     if ( ! $data )
         unset( $row['data'] );
