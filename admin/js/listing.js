@@ -61,28 +61,6 @@ var admin = wpbdp.admin = wpbdp.admin || {};
         images.init();
     } );
 
-    jQuery(function( $ ) {
-        $( '#wpbdp-listing-metabox-plan-info select[name="listing_plan[fee_id]"]' ).change(function(e) {
-            var msg = $( this ).attr( 'data-confirm-text' );
-            var plan = $.parseJSON( $( this ).find( 'option:selected' ).attr( 'data-plan-info' ) );
-
-            // var confirm = window.confirm( msg.replace( '%s', plan.label ) );
-            //
-            // if ( ! confirm )
-            //     return;
-
-            var $expiration = $( 'input[name="listing_plan[expiration_date]"]' );
-            var $images = $( 'input[name="listing_plan[fee_images]"]' );
-            var $sticky = $( 'input[name="listing_plan[is_sticky]"]' );
-
-            $expiration.val( plan.expiration_date );
-            $images.val( plan.images );
-            $sticky.prop( 'checked', plan.sticky );
-        });
-
-        $( '#wpbdp-listing-metabox-plan-info select[name="listing_plan[fee_id]"]').change();
-    });
-
     // Disable Preview button until the first draft is saved
     $( document ).ready( function() {
 

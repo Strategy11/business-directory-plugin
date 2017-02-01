@@ -737,53 +737,6 @@ jQuery(function($) {
     $( '.wpbdp-admin-tab-nav' ).each(function(i, v) {
         $(this).find('a:first').click();
     });
-    // var url_tab = $(location).attr( 'hash' );
-    // if ( url_tab && $( url_tab ).length > 0 ) {
-    //     $( '#BusinessDirectory_listinginfo a[href="' + url_tab  + '"]' ).click();
-    // } else {
-    //     $('#BusinessDirectory_listinginfo .listing-metabox-tabs li.selected a').click();
-    //
-});
-//
-// }}
-//
-
-//
-// {{ Date picker in metabox.
-//
-jQuery(function($) {
-    if ( 0 == $( '#wpbdp-listing-metabox-plan-info' ).length )
-        return;
-
-    var _addNeverButton = function( instance ) {
-        setTimeout( function() {
-            var $buttonPane = $(instance.dpDiv).find( '.ui-datepicker-buttonpane' );
-
-            if ( $buttonPane.find( '.ui-datepicker-never' ).length > 0 )
-                return;
-
-            var $button = $( '<button>', {
-                text: 'Never Expires',
-                click: function() {
-                    $(instance.input).val('');
-                    $(instance.input).datepicker( 'hide' );
-                },
-            }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
-
-            $buttonPane.append($button);
-        }, 1 );
-    };
-
-    $( '#wpbdp-listing-metabox-plan-info input[name="listing_plan[expiration_date]"]' ).datepicker({
-        dateFormat: 'yy-mm-dd',
-        showButtonPanel: true,
-        beforeShow: function( input, instance ) {
-            _addNeverButton( instance );
-        },
-        onChangeMonthYear: function( year, month, instance ) {
-            _addNeverButton( instance );
-        }
-    });
 });
 //
 // }}

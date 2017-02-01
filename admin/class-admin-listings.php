@@ -157,7 +157,7 @@ class WPBDP_Admin_Listings {
     public function _metabox_listing_info( $post ) {
         require_once( WPBDP_PATH . 'admin/helpers/class-listing-information-metabox.php' );
         $metabox = new WPBDP__Admin__Metaboxes__Listing_Information( $post->ID );
-        $metabox->render();
+        echo $metabox->render();
     }
 
     public function _metabox_listing_timeline( $post ) {

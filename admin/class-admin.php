@@ -96,7 +96,6 @@ class WPBDP_Admin {
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wpbdp_enqueue_jquery_ui_style();
 
-            wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
             wp_enqueue_style( 'wpbdp-listing-admin-timeline', WPBDP_URL . 'admin/css/listing-timeline.min.css' );
 
@@ -106,6 +105,18 @@ class WPBDP_Admin {
                 WPBDP_URL . 'admin/js/listing.min.js',
                 array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' )
             );
+            wp_enqueue_script(
+                'wpbdp-admin-listing-metabox',
+                WPBDP_URL . 'admin/js/listing-metabox.min.js',
+                array( 'wpbdp-admin-js', 'jquery-ui-datepicker' )
+            );
+
+            wp_localize_script( 'wpbdp-admin-listing-metabox', 'wpbdpListingMetaboxL10n', array(
+                'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
+                'noExpiration' => _x( 'Never', 'listing metabox', 'WPBDM' ),
+                'yes' => _x( 'Yes', 'listing metabox', 'WPBDM' ),
+                'no' => _x( 'No', 'listing metabox', 'WPBDM' )
+            ) );
 
             wp_localize_script( 'wpbdp-admin-listing', 'WPBDP_admin_listings_config', array(
                 'messages' => array(
