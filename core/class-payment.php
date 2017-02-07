@@ -68,6 +68,11 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $this->old_status = $this->status;
     }
 
+    protected function after_delete() {
+        global $wpdb;
+        $wpdb->delete( $wpdb->prefix . 'wpbdp_logs', array( 'object_type' => 'payment', 'object_id' => $this->id ) );
+    }
+
     protected function set_attr( $name, $value ) {
         if ( in_array( $name, self::$serialized, true ) )
             $value = is_array( $value ) ? $value : array();
