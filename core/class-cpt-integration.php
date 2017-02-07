@@ -197,7 +197,7 @@ class WPBDP__CPT_Integration {
             return;
 
         $listing = wpbdp_get_listing( $post_id );
-        $listing->_after_delete( 'delete_post' );
+        $listing->after_delete( 'delete_post' );
     }
 
     /**

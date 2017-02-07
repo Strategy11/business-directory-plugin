@@ -382,16 +382,16 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function set_fee_plan_with_payment( $fee, $recurring = false, $status = 'ok' ) {
+    public function set_fee_plan_with_payment( $fee, $recurring = false ) {
         $plan1 = $this->get_fee_plan();
         $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
-        $this->set_fee_plan( $fee, $recurring, $status );
+        $this->set_fee_plan( $fee );
         $plan = $this->get_fee_plan();
 
         if ( $fee->id == $plan1->fee_id )
             return null;
 
-        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) );
+        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => $plan1 ? 'plan_change' : 'initial' ) );
 
         $item = array(
             'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
@@ -587,7 +587,7 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function _after_delete( $context = '' ) {
+    public function after_delete( $context = '' ) {
         global $wpdb;
 
         // Remove attachments.
@@ -598,8 +598,14 @@ class WPBDP_Listing {
         // Remove listing fees.
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
+        // Delete logs.
+        $wpdb->delete( $wpdb->prefix . 'wpbdp_logs', array( 'object_type' => 'listing', 'object_id' => $this->id ) );
+
         // Remove payment information.
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) );
+        foreach ( $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) as $payment_id ) {
+            $payment = WPBDP_Payment::objects()->get( $payment_id );
+            $payment->delete();
+        }
     }
 
     /**
