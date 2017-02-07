@@ -47,17 +47,6 @@ jQuery( function( $ ) {
         $('#wpbdp-listing-plan-prop-is_sticky').html(is_sticky ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no);
     };
 
-    // Plan change.
-    $metabox_tab.find('select[name="listing_plan[fee_id]"]').change(function(e) {
-        var plan = $.parseJSON( $( this ).find( 'option:selected' ).attr( 'data-plan-info' ) );
-
-        $('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
-        $('input[name="listing_plan[fee_images]"]').val(plan.images);
-        $('input[name="listing_plan[is_sticky]"]').prop( 'checked', plan.sticky );
-
-        updateText();
-    });
-
     // Properties editing.
     $metabox_tab.find('a.edit-value-toggle').click(function(e) {
         e.preventDefault();
@@ -90,6 +79,15 @@ jQuery( function( $ ) {
             else
                 $input.val(prev_value);
         } else {
+            // Plan changes are handled in a special way.
+            if ($input.is('[name="listing_plan[fee_id]"]')) {
+                var plan = $.parseJSON( $input.find( 'option:selected' ).attr( 'data-plan-info' ) );
+
+                $metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
+                $metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+                $metabox_tab.find('input[name="listing_plan[is_sticky]"]').prop( 'checked', plan.sticky );
+            }
+
             updateText();
         }
 

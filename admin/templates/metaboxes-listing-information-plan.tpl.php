@@ -18,7 +18,11 @@
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-label">
-                <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id=' . $current_plan->fee_id ); ?>"><?php echo $current_plan->fee_label; ?></a>
+                <?php if ( $current_plan ): ?>
+                    <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id=' . $current_plan->fee_id ); ?>"><?php echo $current_plan->fee_label; ?></a>
+                <?php else: ?>
+                    -
+                <?php endif; ?>
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Change plan', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
@@ -44,7 +48,7 @@
         <dt><?php _ex( 'Expires On', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-expiration">
-                <?php echo $current_plan->expiration_date; ?>
+                <?php echo $current_plan ? $current_plan->expiration_date : '-'; ?>
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
@@ -59,7 +63,7 @@
         <dt><?php _ex( '# of images', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-images">
-                <?php echo $current_plan->fee_images; ?>
+                <?php echo $current_plan ? $current_plan->fee_images : '-'; ?>
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
@@ -72,7 +76,7 @@
         <dt><?php _ex( 'Is Featured?', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-is_sticky">
-                <?php echo $current_plan->is_sticky ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
+                <?php echo $current_plan && $current_plan->is_sticky ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
@@ -89,7 +93,7 @@
         </dd>
         <dt><?php _ex( 'Is Recurring?', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <?php echo $current_plan->is_recurring ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
+            <?php echo $current_plan && $current_plan->is_recurring ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
         </dd>
     </dl>
 
