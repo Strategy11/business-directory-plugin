@@ -140,6 +140,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $this->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
         $this->payment_items[0]['amount'] = 0.0;
         $this->status = 'completed';
+        $this->set_flags( array( 'admin-no-charge' ) );
         $this->save();
 
         wpbdp_insert_log( array(
