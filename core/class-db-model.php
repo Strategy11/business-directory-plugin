@@ -159,8 +159,10 @@ class WPBDP__DB__Model {
         }
     }
 
-    protected function pre_save( $new = false ) {}
-    protected function post_save( $new = false ) {}
+    protected function before_delete() {}
+    protected function after_delete() {}
+    protected function before_save( $new = false ) {}
+    protected function after_save( $new = false ) {}
 
     public function save( $validate = true ) {
         global $wpdb;
@@ -179,7 +181,7 @@ class WPBDP__DB__Model {
         $model = self::get_model_info( $this );
         $pk = $model['primary_key'];
 
-        $this->pre_save( $adding );
+        $this->before_save( $adding );
         $row = $this->prepare_row();
 
         if ( $this->_adding )
@@ -195,7 +197,7 @@ class WPBDP__DB__Model {
         $res = false !== $res;
 
         if ( $res )
-            $this->post_save( $adding );
+            $this->after_save( $adding );
 
         $this->_saving = false;
 
@@ -208,10 +210,17 @@ class WPBDP__DB__Model {
         if ( $this->_adding )
             return true;
 
+        $this->before_delete();
+
         $pk = self::get_model_info( $this, 'primary_key' );
         $where = array( $pk => $this->_attrs[ $pk ] );
 
-        return false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where );
+        $res = ( false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where ) );
+
+        if ( $res )
+            $this->after_delete();
+
+        return $res;
     }
 
     public static function objects() {

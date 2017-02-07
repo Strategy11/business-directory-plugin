@@ -32,7 +32,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         );
     }
 
-    protected function pre_save( $new = false ) {
+    protected function before_save( $new = false ) {
         if ( ! $this->payment_key )
             $this->payment_key = strtolower( md5( $this->listing_id . date( 'Y-m-d H:i:s' ) . ( defined( 'AUTH_KEY' ) ? AUTH_KEY : '' ) . uniqid( 'wpbdp', true ) ) );
 
@@ -45,7 +45,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             $this->status = 'completed';
     }
 
-    protected function post_save( $new = false ) {
+    protected function after_save( $new = false ) {
         if ( $new ) {
             wpbdp_insert_log( array(
                 'log_type' => 'listing.payment',
