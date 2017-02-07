@@ -51,6 +51,18 @@ function wpbdp_delete_log( $log_id ) {
 /**
  * @since next-release
  */
+function wpbdp_get_log( $id ) {
+    $results = wpbdp_get_logs( array( 'id' => $id ) );
+
+    if ( ! $results )
+        return false;
+
+    return $results[0];
+}
+
+/**
+ * @since next-release
+ */
 function wpbdp_get_logs( $args = array() ) {
     $defaults = array(
         'limit' => 0,

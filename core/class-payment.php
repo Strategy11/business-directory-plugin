@@ -190,6 +190,13 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return explode( ',', $this->get_attr( 'flags' ) );
     }
 
+    public function get_payment_notes() {
+        if ( ! $this->id )
+            return array();
+
+        return wpbdp_get_logs( array( 'object_id' => $this->id, 'object_type' => 'payment', 'log_type' => 'payment.note' ) );
+    }
+
     public static function get_stati() {
         $stati = array();
         $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );

@@ -3,7 +3,8 @@ jQuery(function($) {
         dateFormat: 'yy-mm-dd'
     });
 
-    $( '#wpbdp-payment-notes-add' ).click(function() {
+    $( '#wpbdp-payment-notes-add' ).click(function(e) {
+        e.preventDefault();
         var $note = $( 'textarea[name="payment_note"]' );
 
         $.ajax({
@@ -46,7 +47,7 @@ jQuery(function($) {
                 if ( ! res.success )
                     return;
 
-                $( '.wpbdp-payment-note[data-id="' + res.data.note.key + '"]' ).remove();
+                $( '.wpbdp-payment-note[data-id="' + res.data.note.id + '"]' ).remove();
 
                 if ( 0 == $( '.wpbdp-payment-note' ).length )
                     $( '#wpbdp-payment-notes .no-notes' ).show();
