@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__18_0__Featured_Levels {
+class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
     function __construct() {
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
