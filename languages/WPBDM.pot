@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Business Directory Plugin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 4.1.8dev5\n"
+"Project-Id-Version: Business Directory Plugin 4.1.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-01-16 22:45:35+00:00\n"
+"POT-Creation-Date: 2017-02-14 01:14:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -603,36 +603,36 @@ msgctxt "admin csv-import"
 msgid "← Return to \"CSV Import\""
 msgstr ""
 
-#: admin/csv-import.php:255
+#: admin/csv-import.php:256
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
 "not seem to be writable. Please consult with your host."
 msgstr ""
 
-#: admin/csv-import.php:289
+#: admin/csv-import.php:290
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr ""
 
-#: admin/csv-import.php:295
+#: admin/csv-import.php:296
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr ""
 
-#: admin/csv-import.php:308
+#: admin/csv-import.php:309
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr ""
 
-#: admin/csv-import.php:329
+#: admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
 "this before proceeding."
 msgstr ""
 
-#: admin/csv-import.php:338
+#: admin/csv-import.php:339
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -982,35 +982,40 @@ msgstr ""
 
 #: admin/form-fields.php:298
 msgctxt "form-fields admin"
-msgid "ZIP Code"
+msgid "Country"
 msgstr ""
 
 #: admin/form-fields.php:299
 msgctxt "form-fields admin"
-msgid "FAX Number"
+msgid "ZIP Code"
 msgstr ""
 
 #: admin/form-fields.php:300
 msgctxt "form-fields admin"
-msgid "Phone Number"
+msgid "FAX Number"
 msgstr ""
 
 #: admin/form-fields.php:301
 msgctxt "form-fields admin"
-msgid "Ratings Field"
+msgid "Phone Number"
 msgstr ""
 
 #: admin/form-fields.php:302
 msgctxt "form-fields admin"
-msgid "Twitter"
+msgid "Ratings Field"
 msgstr ""
 
 #: admin/form-fields.php:303
 msgctxt "form-fields admin"
+msgid "Twitter"
+msgstr ""
+
+#: admin/form-fields.php:304
+msgctxt "form-fields admin"
 msgid "Website"
 msgstr ""
 
-#: admin/form-fields.php:324
+#: admin/form-fields.php:325
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr ""
@@ -2088,7 +2093,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.8dev5)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.8)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -2855,7 +2860,7 @@ msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr ""
 
-#: core/api.php:401
+#: core/api.php:402
 msgid "Free"
 msgstr ""
 

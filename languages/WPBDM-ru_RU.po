@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-01-16 22:45:35+00:00\n"
+"POT-Creation-Date: 2017-02-14 01:14:13+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -644,7 +644,7 @@ msgctxt "admin csv-import"
 msgid "← Return to \"CSV Import\""
 msgstr "← Вернуться к \"Импорту из CSV\""
 
-#: admin/csv-import.php:255
+#: admin/csv-import.php:256
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
@@ -655,22 +655,22 @@ msgstr ""
 "Ваш сервер использует \"%s\", но эта директория, похоже, не доступна для "
 "записи. Проверьте этот вопрос со своим хостингом."
 
-#: admin/csv-import.php:289
+#: admin/csv-import.php:290
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr "Произошла ошибка при загрузке файла CSV."
 
-#: admin/csv-import.php:295
+#: admin/csv-import.php:296
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Пожалуйста загрузите или выберите файл CSV."
 
-#: admin/csv-import.php:308
+#: admin/csv-import.php:309
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr "Произошла ошибка при загрузке архива ZIP с изображениями."
 
-#: admin/csv-import.php:329
+#: admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -679,7 +679,7 @@ msgstr ""
 "Произошла ошибка при проверке импортного файла CSV. Пожалуйста исправьте "
 "ошибки перед тем, как попытаться импортировать файл ещё раз."
 
-#: admin/csv-import.php:338
+#: admin/csv-import.php:339
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -1037,36 +1037,42 @@ msgid "State"
 msgstr "Провинция/Штат:"
 
 #: admin/form-fields.php:298
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Country"
+msgstr "Страна:"
+
+#: admin/form-fields.php:299
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "Почтовый индекс"
 
-#: admin/form-fields.php:299
+#: admin/form-fields.php:300
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Номер факса"
 
-#: admin/form-fields.php:300
+#: admin/form-fields.php:301
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Номер телефона"
 
-#: admin/form-fields.php:301
+#: admin/form-fields.php:302
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Рейтинг"
 
-#: admin/form-fields.php:302
+#: admin/form-fields.php:303
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: admin/form-fields.php:303
+#: admin/form-fields.php:304
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "адрес сайта"
 
-#: admin/form-fields.php:324
+#: admin/form-fields.php:325
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Метки сохранены."
@@ -2207,6 +2213,7 @@ msgstr ""
 "<br />Для дополнительной информации обратитесь к <a>Документации по полям "
 "форм</a>."
 
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.8)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3008,7 +3015,7 @@ msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Записи помеченные меткой \"%s\""
 
-#: core/api.php:401
+#: core/api.php:402
 msgid "Free"
 msgstr "Бесплатно"
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-01-16 22:45:35+00:00\n"
+"POT-Creation-Date: 2017-02-14 01:14:13+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -732,7 +732,7 @@ msgid "← Return to \"CSV Import\""
 msgstr "← Powrót do \"CSV Import\""
 
 # @ csv import
-#: admin/csv-import.php:255
+#: admin/csv-import.php:256
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
@@ -743,25 +743,25 @@ msgstr ""
 "mieć prawa zapisu. Proszę skontaktować się z hostem."
 
 # @ WPBDM
-#: admin/csv-import.php:289
+#: admin/csv-import.php:290
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr "Błąd podczas przesyłania pliku CSV."
 
 # @ WPBDM
-#: admin/csv-import.php:295
+#: admin/csv-import.php:296
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Proszę załadować nowy lub wybrać istniejący plik CSV."
 
 # @ WPBDM
-#: admin/csv-import.php:308
+#: admin/csv-import.php:309
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr "Wystąpił problem podczas ładowania obrazów w pliku ZIP."
 
 # @ WPBDM
-#: admin/csv-import.php:329
+#: admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -771,7 +771,7 @@ msgstr ""
 "sprawdzić przed kontynuacją."
 
 # @ WPBDM
-#: admin/csv-import.php:338
+#: admin/csv-import.php:339
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -1180,41 +1180,48 @@ msgctxt "form-fields admin"
 msgid "State"
 msgstr "Województwo:"
 
+# @ WPBDM
 #: admin/form-fields.php:298
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Country"
+msgstr "Kraj:"
+
+#: admin/form-fields.php:299
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr ""
 
 # @ WPBDM
-#: admin/form-fields.php:299
+#: admin/form-fields.php:300
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Numer karty kredytowej:"
 
 # @ WPBDM
-#: admin/form-fields.php:300
+#: admin/form-fields.php:301
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Telefon"
 
 # @ WPBDM
-#: admin/form-fields.php:301
+#: admin/form-fields.php:302
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Pola ofert"
 
-#: admin/form-fields.php:302
+#: admin/form-fields.php:303
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr ""
 
-#: admin/form-fields.php:303
+#: admin/form-fields.php:304
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr ""
 
 # @ WPBDM
-#: admin/form-fields.php:324
+#: admin/form-fields.php:325
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Ustawienia zapisane"
@@ -2536,6 +2543,7 @@ msgstr ""
 "poznać wiecej możliwości."
 
 # @ WPBDM
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.8)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3458,7 +3466,7 @@ msgid "Listings tagged: %s"
 msgstr "Oferty otagowane: %s"
 
 # @ WPBDM
-#: core/api.php:401
+#: core/api.php:402
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
