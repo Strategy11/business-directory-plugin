@@ -64,8 +64,11 @@ class WPBDP__Themes_Compat {
     //
 
     public function theme_genesis() {
-        if ( ! in_array( wpbdp_current_view(), array( 'all_listings', 'show_listing', 'show_category', 'show_tag' ), true ) )
+        $is_listings_view = in_array( wpbdp_current_view(), array( 'all_listings', 'show_listing' ), true );
+
+        if ( ! $is_listings_view && ! wpbdp_is_taxonomy() ) {
             return;
+        }
 
         // Workaround taken from https://theeventscalendar.com/knowledgebase/genesis-theme-framework-integration/.
         remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
@@ -79,8 +82,9 @@ class WPBDP__Themes_Compat {
     }
 
     public function theme_hmtpro5() {
-        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
+        if ( ! wpbdp_is_taxonomy() ) {
             return;
+        }
 
         add_action( 'wp_head', array( $this, 'theme_hmtpro5_after_head' ), 999 );
     }
@@ -108,8 +112,9 @@ class WPBDP__Themes_Compat {
             $this->theme_customizr_disable_comments();
         }
 
-        if ( ! in_array( $current_view, array( 'show_category', 'show_tag' ), true ) )
+        if ( ! wpbdp_is_taxonomy() ) {
             return;
+        }
 
         add_filter( 'tc_is_grid_enabled', '__return_false', 999 );
         add_filter( 'tc_show_excerpt', '__return_false', 999 );
@@ -193,7 +198,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function theme_divi() {
-        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ) ) ) {
+        if ( ! wpbdp_is_taxonomy() ) {
             return;
         }
 
@@ -215,7 +220,7 @@ class WPBDP__Themes_Compat {
     }
 
     public function theme_longevity() {
-        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ) ) ) {
+        if ( ! wpbdp_is_taxonomy() ) {
             return;
         }
 
@@ -236,8 +241,9 @@ class WPBDP__Themes_Compat {
      * @since 4.0.6
      */
     public function theme_x() {
-        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) )
+        if ( ! wpbdp_is_taxonomy() ) {
             return;
+        }
 
         add_action( 'x_before_view_global__content', array( $this, 'theme_x__toggle_singular' ) );
         add_action( 'x_after_view_global__content', array( $this, 'theme_x__toggle_singular' ) );
@@ -293,7 +299,7 @@ class WPBDP__Themes_Compat {
      * @since next-release
      */
     public function theme_foodiepro_218() {
-        if ( ! in_array( wpbdp_current_view(), array( 'show_category', 'show_tag' ), true ) ) {
+        if ( ! wpbdp_is_taxonomy() ) {
             return;
         }
 

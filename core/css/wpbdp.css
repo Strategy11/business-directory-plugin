@@ -984,7 +984,8 @@ body.business-directory #TB_secondLine {
 .wpbdp-view-show_category .wpbdp-view-content-wrapper header.entry-header,
 .wpbdp-view-show_tag .wpbdp-view-content-wrapper header.entry-header,
 .wpbdp-view-search .wpbdp-view-content-wrapper header.entry-header,
-.wpbdp-view-submit_listing .wpbdp-view-content-wrapper header.entry-header {
+.wpbdp-view-submit_listing .wpbdp-view-content-wrapper header.entry-header,
+.wpbdp-view-taxonomy .wpbdp-view-content-wrapper header.entry-header {
     display: none;
 }
 

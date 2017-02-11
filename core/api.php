@@ -630,3 +630,13 @@ function wpbdp_load_view( $view, $arg0 = null ) {
     global $wpbdp;
     return $wpbdp->dispatcher->load_view( $view, $arg0 );
 }
+
+/**
+ * @since 4.1.8
+ */
+function wpbdp_is_taxonomy() {
+    $current_view = wpbdp_current_view();
+    $is_taxonomy = in_array( $current_view, array( 'show_category', 'show_tag' ), true );
+
+    return apply_filters( 'wpbdp_is_taxonomy', $is_taxonomy, $current_view );
+}
