@@ -312,8 +312,6 @@ class WPBDP_CSVExporter {
             return $urldir . 'export.zip';
         else
             return $urldir . 'export.csv';
-
-        return $urldir . file_exists( $this->workingdir . 'export.zip' ) ? 'export.zip' : 'export.csv';
     }
 
     private function header( $echo=false ) {
