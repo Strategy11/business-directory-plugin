@@ -91,26 +91,21 @@ echo $notice;
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Column Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
-                    <label><input name="settings[csv-file-separator]"
+                    <label><input name="settings[target-os]"
                            type="radio"
                            aria-required="true"
-                           value=","
-                           checked="checked" /><?php _ex( 'Comma (,)', 'admin csv-export', 'WPBDM' ); ?></label>
+                           value="windows"
+                           checked="checked" /><?php _ex( 'Windows', 'admin csv-export', 'WPBDM' ); ?></label>
                     <br />
-                    <label><input name="settings[csv-file-separator]"
+                    <label><input name="settings[target-os]"
                            type="radio"
                            aria-required="true"
-                           value=";" /><?php _ex( 'Semicolon (;)', 'admin csv-export', 'WPBDM' ); ?></label>
+                           value="macos" /><?php _ex( 'macOS', 'admin csv-export', 'WPBDM' ); ?></label>
                     <br />
-                    <label><input name="settings[csv-file-separator]"
-                           type="radio"
-                           aria-required="true"
-                           value="tab" /><?php _ex( 'TAB', 'admin csv-export', 'WPBDM' ); ?></label>
-                    <br />
-                    <p><?php _ex( 'On a MacOS system, MS Excel requires a CSV using the TAB character as separator.', 'admin csv-export', 'WPBDM' ); ?></p>
+                    <p><?php _ex( 'Windows and macOS versions of MS Excel handle CSV files differently. To make sure all your listings information is displayed properly when you view or edit the CSV file, we need to generate different versions of the file for each operating system.', 'admin csv-export', 'WPBDM' ); ?></p>
                 </td>
             </tr>
             <tr class="form-required">
