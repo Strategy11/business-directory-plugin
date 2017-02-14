@@ -811,7 +811,7 @@ class WPBDP_Plugin {
         );
 
         // disable comments in WPBDP pages or if comments are disabled for listings
-        if ( ( $is_single && ! $comments_allowed ) || $is_main_page ) {
+        if ( ( $is_single_listing && ! $comments_allowed ) || $is_main_page ) {
             return WPBDP_TEMPLATES_PATH . '/empty-template.php';
         }
 
