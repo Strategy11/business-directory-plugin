@@ -4,6 +4,20 @@
 
 #wpbdp-submit-listing {
 
+    .category_list_item() {
+        font-size: 10px;
+        margin: 0 5px 0 0;
+        padding: 1px 6px;
+        border-radius: 3px;
+        background: #5bc0de;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border: none;
+    }
+
     input[type="text"], textarea {
         box-sizing: border-box;
     }
@@ -32,17 +46,7 @@
                 }
 
                 li.select2-selection__choice {
-                    font-size: 10px;
-                    margin: 0 5px 0 0;
-                    padding: 1px 6px;
-                    border-radius: 3px;
-                    background: #5bc0de;
-                    color: #fff;
-                    font-weight: 700;
-                    text-align: center;
-                    white-space: nowrap;
-                    vertical-align: baseline;
-                    border: none;
+                    .category_list_item();
 
                     &:last-child {
                         margin-right: 0;
@@ -118,6 +122,19 @@
 
     .wpbdp-submit-listing-section-messages {
         margin: 0 0 12px 0;
+    }
+
+    .wpbdp-submit-listing-section-plan_selection {
+        ul.category-list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                .category_list_item();
+                display: inline;
+            }
+        }
     }
 
     .wpbdp-submit-listing-section-listing_images {
