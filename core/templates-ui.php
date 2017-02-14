@@ -172,7 +172,13 @@ function wpbdp_list_categories( $args=array() ) {
     $html  =  '';
 
     if ( $categories = _wpbdp_list_categories_walk( 0, 0, $args ) ) {
-        $html .= '<ul class="wpbdp-categories cf ' . apply_filters( 'wpbdp_categories_list_css', '' )  . '">';
+        $attributes = apply_filters( 'wpbdp_categories_list_attributes', array(
+            'class' => 'wpbdp-categories cf ' . apply_filters( 'wpbdp_categories_list_css', '' ),
+            'data-breakpoints' => esc_attr( '{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}' ),
+            'data-breakpoints-class-prefix' => 'wpbdp-categories',
+        ) );
+
+        $html .= '<ul ' . trim( wpbdp_html_attributes( $attributes ) ) . '>';
         $html .= $categories;
         $html .= '</ul>';
     }
