@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
 "POT-Creation-Date: 2017-01-16 22:45:35+00:00\n"
-"PO-Revision-Date: 2017-01-16 17:49-0500\n"
-"Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
+"PO-Revision-Date: 2017-02-07 15:34+0100\n"
+"Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -4888,15 +4888,15 @@ msgstr "Catégories de l'annuaire"
 
 #: core/class-wpbdp.php:56
 msgid "Directory Category"
-msgstr "Catégories de l'annuaire"
+msgstr "Catégorie de l'annuaire"
 
 #: core/class-wpbdp.php:67
 msgid "Directory Tags"
-msgstr "Catégories de l'annuaire"
+msgstr "Etiquettes de l'annuaire"
 
 #: core/class-wpbdp.php:68
 msgid "Directory Tag"
-msgstr "Annuaire"
+msgstr "Etiquette de l'annuaire"
 
 #: core/compatibility/class-navxt-integration.php:159
 msgctxt "navxt"
