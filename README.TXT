@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, address book, chamber of commerce business directory, church directory, local business directory, company business directory, contact directory, custom business directory, directory, listings directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.2
-Tested up to: 4.7
-Last Updated: 2016-Dec 19
-Stable tag: tags/4.1.7
+Tested up to: 4.7.2
+Last Updated: 2017-Feb-14
+Stable tag: tags/4.1.8
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -140,6 +140,26 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.8 =
+* Do not generate HTML for Facebook field if the value is empty.
+* Fix a bug that caused Authorize.Net Gateway to build the Credit Card expiration date using the first two digits of the expiration year, instead of the last two.
+* Fix Fatal Error trying to render excerpt for textarea fields.
+* Allow admins to disable the CSS rules for listing action buttons.
+* Fix search problem that occurs when form field used in the Quick Search feature is deleted.
+* Update link to reCAPTCHA's website.
+* Fix Author dropdown in Bulk Edit form for Listings to include the - No Change - option again.
+* Remove fuzzy tags from all translation files, making more translations available.
+* WPML integration: fix bug that caused different versions of the same listings to show up in widgets.
+* Generate better URLs to improve compatibility with WPML.
+* Fix routine to clean metadata for Checkbox, Radio and Select fields.
+* Add "country" as a new theme tag.
+* Fix PHP warning triggered when no update information could be retrieved during an update check.
+* Update JS code to latest jQuery standards.
+* Add `wpbdp_should_enqueue_scripts_and_styles` filter to allow third parties to force inclusion of BD scripts and styles.
+* Improve appearance of Region archives.
+* Fix French translation for Tag and Category.
+* Fix typo in WPBDP_Plugin.
 
 = Version 4.1.7 =
 * Fix 'Include comment form on listing pages' setting to store the proper value.
