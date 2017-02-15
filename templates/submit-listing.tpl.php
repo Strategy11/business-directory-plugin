@@ -17,7 +17,11 @@
 
         <div class="wpbdp-submit-listing-form-actions">
             <input type="reset" value="<?php _ex( 'Clear Form', 'submit listing', 'WPBDM' ); ?>" />
-            <input type="submit" value="<?php _ex( 'Continue to payment', 'submit listing', 'WPBDM' ); ?>" />
+            <?php if ( $is_admin ): ?>
+            <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+            <?php else: ?>
+            <input type="submit" value="<?php _ex( 'Continue to Payment', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+            <?php endif; ?>
         </div>
     </form>
 </div>

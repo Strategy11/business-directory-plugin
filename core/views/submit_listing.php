@@ -23,6 +23,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         wp_enqueue_style( 'select2-css', WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css' );
         wp_register_script( 'select2', WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js', array( 'jquery' ) );
         wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'core/js/submit-listing.min.js', array( 'jquery-ui-sortable', 'select2' ) );
+
+        wp_localize_script( 'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
+            'completeListingTxt' => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
+            'continueToPaymentTxt' => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
+            'isAdmin' => current_user_can( 'administrator' )
+        ) );
     }
 
     public function dispatch() {
@@ -82,7 +88,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html = wpbdp_render( 'submit-listing',
                               array( 'listing' => $this->listing,
                                      'sections' => $this->sections,
-                                     'messages' => $messages ),
+                                     'messages' => $messages,
+                                     'is_admin' => current_user_can( 'administrator' ) ),
                               false );
         return $html;
     }
@@ -274,7 +281,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
         $plans = WPBDP_Fee_Plan::find( 'all' );
-        // unset($plans[0]);
+        // unset($plans[2]);
 
         $categories = $category_field->value_from_POST();
         $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
