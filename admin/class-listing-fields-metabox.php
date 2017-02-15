@@ -15,7 +15,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         $formfields_api = wpbdp_formfields_api();
         $post_values = wpbdp_getv( $_POST, 'listingfields', array() );
 
-        echo wp_nonce_field( plugin_basename( __FILE__ ), 'wpbdp-listing-fields-nonce' );
+        wp_nonce_field( 'save listing fields', 'wpbdp-admin-listing-fields-nonce', false );
 
         echo '<div style="border-bottom: solid 1px #dedede; padding-bottom: 10px;">';
         echo sprintf( '<strong>%s</strong>', _x( 'Listing Fields', 'admin', 'WPBDM' ) );

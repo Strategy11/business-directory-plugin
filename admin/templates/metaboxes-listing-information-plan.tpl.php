@@ -1,4 +1,7 @@
 <!-- {{  Fee plan info. -->
+<?php
+echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', false, false );
+?>
 <div id="wpbdp-listing-metabox-plan-info" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="1">
     <h4><?php _ex( 'General Info', 'listing metabox', 'WPBDM' ); ?></h4>
     <dl>

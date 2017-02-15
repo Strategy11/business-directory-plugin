@@ -17,7 +17,8 @@ class WPBDP_Admin_Listings {
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
 
-        add_action( 'wpbdp_save_listing', array( $this, 'save_fields_and_fee' ) );
+        add_action( 'wpbdp_save_listing', array( $this, 'maybe_save_fields' ) );
+        add_action( 'wpbdp_save_listing', array( $this, 'maybe_update_plan' ) );
 
         // Filter by category.
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
@@ -378,15 +379,60 @@ class WPBDP_Admin_Listings {
         return $actions;
     }
 
-    public function save_fields_and_fee( $post_id ) {
-        global $wpdb;
-
-        if ( ! is_admin() || ! isset( $_POST['post_type'] ) || WPBDP_POST_TYPE != $_POST['post_type'] )
+    /**
+     * @since next-release
+     */
+    public function maybe_save_fields( $post_id ) {
+        if ( ! is_admin() )
             return;
 
-        $listing = WPBDP_Listing::get( $post_id );
+        $nonce = isset( $_POST['wpbdp-admin-listing-fields-nonce'] ) ? $_POST['wpbdp-admin-listing-fields-nonce'] : '';
 
-        // Set listing plan (if needed).
+        if ( ! $nonce || ! wp_verify_nonce( $nonce, 'save listing fields' ) || empty( $_POST['listingfields'] ) )
+            return;
+
+        $fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
+        foreach ( $fields as $field ) {
+            if ( isset( $_POST['listingfields'][ $field->get_id() ] ) ) {
+                $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
+                $field->store_value( $post_id, $value );
+            } else {
+                $field->store_value( $post_id, $field->convert_input( null ) );
+            }
+        }
+
+        $listing = wpbdp_get_listing( $post_id );
+
+        // Update image information.
+        if ( ! empty ( $_POST['thumbnail_id'] ) )
+            $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+
+        // Images info.
+        if ( ! empty( $_POST['images_meta'] ) ) {
+            $meta = $_POST['images_meta'];
+
+            foreach ( $meta as $img_id => $img_meta ) {
+                update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
+                update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
+            }
+        }
+    }
+
+    /**
+     * @since next-release
+     */
+    public function maybe_update_plan( $post_id ) {
+        if ( ! is_admin() )
+            return;
+
+        $nonce = isset( $_POST['wpbdp-admin-listing-plan-nonce'] ) ? $_POST['wpbdp-admin-listing-plan-nonce'] : '';
+
+        if ( ! $nonce || ! wp_verify_nonce( $nonce, 'update listing plan' ) || empty( $_POST['listing_plan'] ) )
+            return;
+
+        global $wpdb;
+
+        $listing = wpbdp_get_listing( $post_id );
         $new_plan = $_POST['listing_plan'];
         $current_plan = $listing->get_fee_plan();
 
@@ -404,33 +450,6 @@ class WPBDP_Admin_Listings {
         $row['is_sticky'] = ! empty( $new_plan['is_sticky'] ) ? 1 : 0;
 
         $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
-
-        // Update fields.
-        $formfields_api = wpbdp_formfields_api();
-        $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
-
-        foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-            if ( isset( $listingfields[ $field->get_id() ] ) ) {
-                $value = $field->convert_input( $listingfields[ $field->get_id() ] );
-                $field->store_value( $listing->get_id(), $value );
-            } else {
-                $field->store_value( $listing->get_id(), $field->convert_input( null ) );
-            }
-        }
-
-        // Update image information.
-        if ( isset( $_POST['thumbnail_id'] ) )
-            $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
-
-        // Images info.
-        if ( isset( $_POST['images_meta'] ) ) {
-            $meta = $_POST['images_meta'];
-
-            foreach ( $meta as $img_id => $img_meta ) {
-                update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta[ 'order' ] ) );
-                update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta[ 'caption' ] ) );
-            }
-        }
     }
 
     public function _add_bulk_actions() {
