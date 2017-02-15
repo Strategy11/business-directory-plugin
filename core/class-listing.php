@@ -517,7 +517,7 @@ class WPBDP_Listing {
             'unknown' => _x( 'Unknown', 'listing status', 'WPBDM' ),
             'legacy' => _x( 'Legacy', 'listing status', 'WPBDM' ),
             'incomplete' => _x( 'Incomplete', 'listing status', 'WPBDM' ),
-            'pending_payment' => _x( 'Incomplete', 'listing status', 'WPBDM' ),
+            'pending_payment' => _x( 'Pending Payment', 'listing status', 'WPBDM' ),
             'complete' => _x( 'Complete', 'listing status', 'WPBDM' ),
             'pending_upgrade' => _x( 'Pending Upgrade', 'listing status', 'WPBDM' ),
             'expired' => _x( 'Expired', 'listing status', 'WPBDM' ),
