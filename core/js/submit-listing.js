@@ -198,7 +198,7 @@ jQuery(function($) {
             this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit );
 
             var self = this;
-            this.$submit.on( 'change', 'input[name="listing_plan"]', function() {
+            this.$submit.on( 'change, click', 'input[name="listing_plan"]', function() {
                 var data = self.$form.serialize();
                 data += '&action=wpbdp_ajax&handler=submit_listing__sections';
 
