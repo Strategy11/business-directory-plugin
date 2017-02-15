@@ -545,36 +545,39 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function save_listing() {
-        if ( ! empty( $this->data['account_details'] ) ) {
-            $user_id = wp_create_user( $this->data['account_details']['username'], $this->data['account_details']['password'], $this->data['account_details']['email'] );
+        if ( ! $this->editing ) {
+            if ( ! empty( $this->data['account_details'] ) ) {
+                $user_id = wp_create_user( $this->data['account_details']['username'], $this->data['account_details']['password'], $this->data['account_details']['email'] );
 
-            if ( is_wp_error( $user_id ) )
-                return $user_id;
+                if ( is_wp_error( $user_id ) )
+                    return $user_id;
 
-            wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
+                wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
+            }
+
+            // XXX: what to do with this?
+            // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) ); 
+            // return $this->render( 'extra-sections', array( 'output' => $extra ) );
+            // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
+            $this->listing->set_status( 'pending_payment' );
+            $payment = $this->listing->generate_or_retrieve_payment();
+
+            if ( current_user_can( 'administrator' ) )
+                $payment->process_as_admin();
+
+            if ( ! $payment )
+                die();
         }
-
-        // XXX: what to do with this?
-        // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) ); 
-        // return $this->render( 'extra-sections', array( 'output' => $extra ) );
-        // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
-        $this->listing->set_status( 'pending_payment' );
-        $payment = $this->listing->generate_or_retrieve_payment();
-
-        if ( current_user_can( 'administrator' ) )
-            $payment->process_as_admin();
-
-        if ( ! $payment )
-            die();
 
         $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 
-        if ( 'completed' == $payment->status )
-            return $this->done();
+        if ( $payment && 'completed' != $payment->status ) {
+            $checkout_url = $payment->get_checkout_url();
+            return $this->_redirect( $checkout_url );
+        }
 
-        $checkout_url = $payment->get_checkout_url();
-        return $this->_redirect( $checkout_url );
+        return $this->done();
     }
 
     private function done() {
