@@ -22,13 +22,34 @@ jQuery(function($) {
 
             this.field.change( $.proxy( this.categories_changed, this ) );
             this.maybe_limit_category_options();
+            this.field.trigger('change');
         },
 
         categories_changed: function() {
             this.selected_categories = this.field.val();
+
+            if ( ! this.selected_categories ) {
+                this.selected_categories = [];
+            }
+
             this.update_plan_list();
             this.update_plan_prices();
             this.maybe_limit_category_options();
+
+            if ( 0 == this.selected_categories.length ) {
+                this.plans.find( 'input[name="listing_plan"]' ).prop( {
+                    'disabled': 0 == this.selected_categories.length,
+                    'checked': false 
+                } );
+            } else {
+                this.plans.find( 'input[name="listing_plan"]' ).prop( 'disabled', false );
+            }
+
+            // Workaround for https://github.com/select2/select2/issues/3992.
+            var self = this;
+            setTimeout(function() {
+                self.field.select2();
+            });
         },
 
         maybe_limit_category_options: function() {
@@ -51,13 +72,10 @@ jQuery(function($) {
 
             if ( all_cats ) {
                 this.field.find('option').prop( 'disabled', false );
-                this.field.select2();
             } else {
                 this.field.find('option').each(function(i, v) {
-                    if ( -1 == $.inArray( $(this).val(), cats ) )
-                        $(this).prop( 'disabled', true );
+                    $(this).prop( 'disabled', -1 == $.inArray( $(this).val(), cats ) );
                 });
-                this.field.select2();
             }
         },
 
