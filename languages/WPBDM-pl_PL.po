@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-02-14 01:14:13+00:00\n"
+"POT-Creation-Date: 2017-02-16 23:18:32+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -3715,13 +3715,13 @@ msgid "Leave blank for automatic height."
 msgstr "Zostaw puste, aby automatycznie ustawić wysokość."
 
 # @ WPBDM
-#: core/class-payment.php:223 core/view-submit-listing.php:488
+#: core/class-payment.php:223 core/view-submit-listing.php:505
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr "Abonament \"%s\" dla kategorii \"%s\""
 
 # @ WPBDM
-#: core/class-payment.php:226 core/view-submit-listing.php:491
+#: core/class-payment.php:226 core/view-submit-listing.php:508
 msgctxt "listings"
 msgid "(recurring)"
 msgstr "(powtarzające się)"
@@ -6932,49 +6932,79 @@ msgstr ""
 "pominięte."
 
 # @ WPBDM
-#: core/view-submit-listing.php:221
+#: core/view-submit-listing.php:108
+#, fuzzy
+msgctxt "submit-listing-view"
+msgid ""
+"<b>Business Directory Plugin</b> requires a field associated with the "
+"<b>post category</b> in order to work correctly."
+msgstr ""
+"<b>Katalog Firm</b>potrzebuje pola z  <b>%s</b> aby pracować poprawnie."
+
+#: core/view-submit-listing.php:110
+msgctxt "submit-listing-view"
+msgid ""
+"Please go to the <manage-form-fields-link>Manage Form Fields</manage-form-"
+"fields-link> admin page to create the field."
+msgstr ""
+
+# @ WPBDM
+#: core/view-submit-listing.php:119
+#, fuzzy
+msgctxt "submit-listing-view"
+msgid ""
+"Your listing cannot be added at this time. Please try again later. If this "
+"is not the first time you see this warning, please ask the site "
+"administrator to check the Directory for possible configuration problems."
+msgstr ""
+"Listą Nie można dodać w tym czasie. Proszę spróbuj ponownie później. Jeśli "
+"nie jest to pierwszy raz widzisz to ostrzeżenie, poproś administratora o "
+"utworzenie jednej lub więcej kategorii wewnątrz katalogu."
+
+# @ WPBDM
+#: core/view-submit-listing.php:238
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: core/view-submit-listing.php:299
+#: core/view-submit-listing.php:316
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Musisz zaakceptować nasze warunki i regulamin korzystania z serwisu."
 
 # @ WPBDM
-#: core/view-submit-listing.php:305
+#: core/view-submit-listing.php:322
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "ReCaptcha nie została poprawnie wprowadzona."
 
 # @ WPBDM
-#: core/view-submit-listing.php:322
+#: core/view-submit-listing.php:339
 msgctxt "templates"
 msgid "Read our Terms and Conditions"
 msgstr "Zapoznaj się z warunkami i regulaminem korzystania z serwisu."
 
 # @ WPBDM
-#: core/view-submit-listing.php:327
+#: core/view-submit-listing.php:344
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Warunki i regulamin:"
 
 # @ WPBDM
-#: core/view-submit-listing.php:338
+#: core/view-submit-listing.php:355
 msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "Akceptuję rwarunki i regulamin korzystania z witryny."
 
 # @ WPBDM
-#: core/view-submit-listing.php:501 core/views/upgrade_listing.php:49
+#: core/view-submit-listing.php:518 core/views/upgrade_listing.php:49
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr "Podniesiono status Oferty do \"Wyróżniona\""
 
 # @ WPBDM
-#: core/view-submit-listing.php:534
+#: core/view-submit-listing.php:551
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr "Niepoprawny Kraj."

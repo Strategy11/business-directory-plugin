@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-02-14 01:14:13+00:00\n"
+"POT-Creation-Date: 2017-02-16 23:18:32+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -3225,12 +3225,12 @@ msgctxt "widgets"
 msgid "Leave blank for automatic height."
 msgstr "Оставьте поле пустым для автоматической высоты."
 
-#: core/class-payment.php:223 core/view-submit-listing.php:488
+#: core/class-payment.php:223 core/view-submit-listing.php:505
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr "Тариф \"%s\" для рубрики \"%s\"%s"
 
-#: core/class-payment.php:226 core/view-submit-listing.php:491
+#: core/class-payment.php:226 core/view-submit-listing.php:508
 msgctxt "listings"
 msgid "(recurring)"
 msgstr "(повторяющееся)"
@@ -6021,42 +6021,71 @@ msgid ""
 "You are logged in as an administrator. Any payment steps will be skipped."
 msgstr "Вы вошли на сайт как Администратор. Все шаги оплаты будут пропущены."
 
-#: core/view-submit-listing.php:221
+#: core/view-submit-listing.php:108
+#, fuzzy
+msgctxt "submit-listing-view"
+msgid ""
+"<b>Business Directory Plugin</b> requires a field associated with the "
+"<b>post category</b> in order to work correctly."
+msgstr ""
+"<b>Плагин Справочник Услуг</b> для корректной работы требует наличия поля, "
+"имеющего ассоциацию с <b>%s</b>."
+
+#: core/view-submit-listing.php:110
+msgctxt "submit-listing-view"
+msgid ""
+"Please go to the <manage-form-fields-link>Manage Form Fields</manage-form-"
+"fields-link> admin page to create the field."
+msgstr ""
+
+#: core/view-submit-listing.php:119
+#, fuzzy
+msgctxt "submit-listing-view"
+msgid ""
+"Your listing cannot be added at this time. Please try again later. If this "
+"is not the first time you see this warning, please ask the site "
+"administrator to check the Directory for possible configuration problems."
+msgstr ""
+"Ваша запись не может сейчас быть добавлена, попробуйте ещё раз позже. Если "
+"Вы видите эту ошибку не впервые, то сообщите администрации сайта, что "
+"требуется создать рубрики справочника."
+
+#: core/view-submit-listing.php:238
 msgctxt "templates"
 msgid "Please select a fee option for the \"%s\" category."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: core/view-submit-listing.php:299
+#: core/view-submit-listing.php:316
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Пожалуйста примите наши Условия и Положения."
 
-#: core/view-submit-listing.php:305
+#: core/view-submit-listing.php:322
 msgctxt "templates"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "Код reCAPTCHA был введён неправильно."
 
-#: core/view-submit-listing.php:322
+#: core/view-submit-listing.php:339
 msgctxt "templates"
 msgid "Read our Terms and Conditions"
 msgstr "Прочитайте наши Условия и Положения"
 
-#: core/view-submit-listing.php:327
+#: core/view-submit-listing.php:344
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Условия и Положения:"
 
-#: core/view-submit-listing.php:338
+#: core/view-submit-listing.php:355
 msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "Я согласен с Условиями и Положениями"
 
-#: core/view-submit-listing.php:501 core/views/upgrade_listing.php:49
+#: core/view-submit-listing.php:518 core/views/upgrade_listing.php:49
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr "Сделать запись Особой"
 
-#: core/view-submit-listing.php:534
+#: core/view-submit-listing.php:551
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr "Некорректная дата создания."

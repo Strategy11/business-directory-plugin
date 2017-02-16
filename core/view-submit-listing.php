@@ -101,7 +101,24 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             return $this->dispatch();
         }
 
-        $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
+        $category_field = wpbdp_get_form_fields( 'association=category&unique=1' );
+
+        if ( ! $category_field ) {
+            if ( current_user_can( 'administrator' ) ) {
+                $message = _x( '<b>Business Directory Plugin</b> requires a field associated with the <b>post category</b> in order to work correctly.', 'submit-listing-view', 'WPBDM' );
+                $message.= '<br /><br />';
+                $message.= _x( 'Please go to the <manage-form-fields-link>Manage Form Fields</manage-form-fields-link> admin page to create the field.', 'submit-listing-view', 'WPBDM' );
+
+                $manage_form_fields_link = '<a href="' . admin_url('admin.php?page=wpbdp_admin_formfields') . '">';
+
+                $message = str_replace( '<manage-form-fields-link>', $manage_form_fields_link, $message );
+                $message = str_replace( '</manage-form-fields-link>', '</a>', $message );
+
+                return wpbdp_render_msg( $message, 'error' );
+            } else {
+                return wpbdp_render_msg( _x( 'Your listing cannot be added at this time. Please try again later. If this is not the first time you see this warning, please ask the site administrator to check the Directory for possible configuration problems.', 'submit-listing-view', 'WPBDM' ), 'error' );
+            }
+        }
 
         $post_value = isset( $_POST['listingfields'][ $category_field->get_id() ] ) ?
                       $category_field->convert_input( $_POST['listingfields'][ $category_field->get_id() ] ) :
