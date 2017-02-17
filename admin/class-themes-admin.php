@@ -226,7 +226,7 @@ class WPBDP_Themes_Admin {
                 wpbdp_admin_message( _x( 'Theme installed successfully.', 'themes', 'WPBDM' ) );
                 break;
             case 4:
-                wpbdp_admin_message( _x( 'Theme was deleted sucessfully.', 'themes', 'WPBDM' ) );
+                wpbdp_admin_message( _x( 'Theme was deleted successfully.', 'themes', 'WPBDM' ) );
                 break;
             case 5:
                 wpbdp_admin_message( _x( 'Could not delete theme directory. Check permissions.', 'themes', 'WPBDM' ), 'error' );

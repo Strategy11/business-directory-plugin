@@ -127,7 +127,7 @@ class WPBDP__Views__Checkout extends WPBDP_NView {
         $listing = WPBDP_Listing::get( $this->payment->get_listing_id() );
 
         $html  = '';
-        $html .= wpbdp_render_msg( _x( 'Your payment was received sucessfully.', 'checkout', 'WPBDM' ) );
+        $html .= wpbdp_render_msg( _x( 'Your payment was received successfully.', 'checkout', 'WPBDM' ) );
         $html .= $this->api->render_details( $this->payment );
 
         $html .= '<p>';

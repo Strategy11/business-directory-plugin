@@ -1107,7 +1107,7 @@ class WPBDP_Installer_Manual_Upgrade {
         echo '</div>';
 
         echo '<div class="step-done" style="display: none;">';
-        echo '<p>' . _x( 'The upgrade was sucessfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
+        echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
         printf ( '<a href="%s" class="button button-primary">%s</a>',
                  admin_url( 'admin.php?page=wpbdp_admin' ),
                  _x( 'Go to "Directory Admin"', 'manual-upgrade', 'WPBDM' ) );
