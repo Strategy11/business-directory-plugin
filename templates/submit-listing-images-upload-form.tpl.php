@@ -10,7 +10,7 @@ $action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
     <h4><?php _ex( 'Upload Images', 'templates', 'WPBDM' ); ?></h4>
 
     <div class="area-and-conditions cf">
-    <div id="image-upload-dnd-area" class="wpbdp-dnd-area <?php echo $admin ? 'no-conditions' : ''; ?>" data-action="<?php echo esc_url( wp_nonce_url( $action, 'listing-' . $listing_id . '-image-upload) ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>" >
+    <div id="image-upload-dnd-area" class="wpbdp-dnd-area <?php echo $admin ? 'no-conditions' : ''; ?>" data-action="<?php echo esc_url( wp_nonce_url( $action, 'listing-' . $listing_id . '-image-upload') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>" >
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
                 <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
