@@ -9,6 +9,8 @@
     <p>
         <?php if ( 'publish' == get_post_status( $listing->get_id() ) ): ?>
             <a href="<?php echo get_permalink( $listing->get_id() ); ?>"><?php _ex( 'Go to your listing', 'templates', 'WPBDM' ); ?></a> | 
+        <?php else: ?>
+            <?php _ex( 'Your listing requires admin approval. You\'ll be notified once your listing is approved.', 'templates', 'WPBDM' ); ?><br />
         <?php endif; ?>
         <a href="<?php echo wpbdp_get_page_link( 'main' ); ?>"><?php _ex( 'Return to directory.', 'templates', 'WPBDM' ); ?></a>
    </p>
