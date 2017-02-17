@@ -609,7 +609,7 @@ class WPBDP_Plugin {
         if ( $parent_id != $listing_id )
             $res->send_error();
 
-        // wp_delete_attachment( $image_id, true );
+        wp_delete_attachment( $image_id, true );
 
         $res->add( 'imageId', $image_id );
         $res->send();
