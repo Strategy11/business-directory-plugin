@@ -8,15 +8,24 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 
     public function render() {
         echo '<div id="wpbdp-submit-listing">';
+
+        echo '<ul class="wpbdp-admin-tab-nav">';
+        echo '<li class="active"><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' )  . '</a></li>';
+        echo '<li><a href="#wpbdp-listing-fields-images">' . _x( 'Images', 'admin', 'WPBDM' )  . '</a></li>';
+        echo '</ul>';
+
+        echo '<div id="wpbdp-listing-fields-fields" class="wpbdp-admin-tab-content" tabindex="1">';
         $this->listing_fields();
+        echo '</div>';
+
+        echo '<div id="wpbdp-listing-fields-images" class="wpbdp-admin-tab-content" tabindex="2">';
         $this->listing_images();
+        echo '</div>';
+
         echo '</div>';
     }
 
     private function listing_fields() {
-        // echo sprintf( '<strong>%s</strong>', _x( 'Listing Fields', 'admin', 'WPBDM' ) );
-        wp_nonce_field( 'save listing fields', 'wpbdp-admin-listing-fields-nonce', false );
-
         foreach ( wpbdp_get_form_fields( array( 'association' => 'meta' ) ) as $field ) {
             if ( ! empty( $_POST['listingfields'][ $field->get_id() ] ) ) {
                 $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
@@ -26,6 +35,8 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 
             echo $field->render( $value, 'admin-submit' );
         }
+
+        wp_nonce_field( 'save listing fields', 'wpbdp-admin-listing-fields-nonce', false );
     }
 
     private function listing_images() {

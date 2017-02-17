@@ -1,7 +1,10 @@
 <?php
 $admin = isset( $admin ) ? $admin : false;
 ?>
+<?php if ( ! $admin ): ?>
 <h4><?php _ex( 'Current Images', 'templates', 'WPBDM' ); ?></h4>
+<?php endif; ?>
+
 <div id="no-images-message" style="<?php echo ( $images ? 'display: none;' : '' ); ?>"><?php _ex( 'There are no images currently attached to your listing.', 'templates', 'WPBDM' ); ?></div>
 <div id="wpbdp-uploaded-images" class="cf">
 
