@@ -63,3 +63,52 @@
     margin: 0;
     padding: 0;
 }
+
+.wpbdp-csv-import-example {
+    width: 100%;
+    padding: 10px;
+    display: block;
+    background: #fff;
+    border: solid 1px #ddd;
+    font-size: 90%;
+    font-family: monospace;
+    height: 100%;
+    white-space: pre;
+}
+
+#wpbdp-csv-import-form input[type="file"] {
+    border: none;
+}
+
+table.wpbdp-csv-import-results, table.wpbdp-csv-import-warnings {
+    width: 100%;
+}
+
+table.wpbdp-csv-import-results .line-no, table.wpbdp-csv-import-warnings .line-no {
+    width: 50px;
+}
+
+table.wpbdp-csv-import-results td.line, table.wpbdp-csv-import-warnings td.line {
+    font-family: monospace;
+    font-size: 90%;
+}
+
+table.wpbdp-csv-import-results .error, table.wpbdp-csv-import-warnings .error {
+    width: 200px;
+}
+
+table.wpbdp-csv-import-headers {
+    width: 100%;
+}
+
+table.wpbdp-csv-import-headers td.field-is-required, table.wpbdp-csv-import-headers td.field-is-multivalued {
+    text-align: center;
+}
+
+table.wpbdp-csv-import-headers tbody tr {
+    background: #f9f9f9;
+}
+
+table.wpbdp-csv-import-headers tbody tr.alt {
+    background: inherit;
+}
