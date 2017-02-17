@@ -11,7 +11,7 @@ if ( isset( $image ) ) {
 <div class="wpbdp-image" data-imageid="<?php echo $image_id; ?>">
     <input type="hidden" name="images_meta[<?php echo $image_id; ?>][order]" value="<?php echo ( isset( $weight ) ? $weight : 0 ); ?>" />
 
-    <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-delete', 'image_id' => $image_id ), admin_url( 'admin-ajax.php' ) ) ); ?>" class="wpbdp-image-delete-link"><?php _ex( 'Delete image', 'submit listing', 'WPBDM' ); ?></a>
+    <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-delete', 'image_id' => $image_id, 'listing_id' => $listing_id ), admin_url( 'admin-ajax.php' ) ), 'delete-listing-' . $listing_id . '-image-' . $image_id ) ); ?>" class="wpbdp-image-delete-link"><?php _ex( 'Delete image', 'submit listing', 'WPBDM' ); ?></a>
 
     <div class="wpbdp-image-img">
         <?php echo wp_get_attachment_image( $image_id, 'wpbdp-mini' ); ?>

@@ -49,8 +49,8 @@ var wpbdp = window.wpbdp || {};
                 done: function( e, data ) {
                     var res = data.result;
 
-                    if ( ! res.success )
-                        return;
+                    // if ( ! res.success )
+                    //     return;
 
                     $area.data( 'dnd-working', false );
                     $area.find( '.dnd-area-inside-working' ).hide();

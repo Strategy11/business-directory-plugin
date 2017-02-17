@@ -7,26 +7,25 @@ class WPBDP_Admin_Listing_Fields_Metabox {
     }
 
     public function render() {
+        echo '<div id="wpbdp-submit-listing">';
         $this->listing_fields();
         $this->listing_images();
+        echo '</div>';
     }
 
     private function listing_fields() {
-        $formfields_api = wpbdp_formfields_api();
-        $post_values = wpbdp_getv( $_POST, 'listingfields', array() );
-
+        // echo sprintf( '<strong>%s</strong>', _x( 'Listing Fields', 'admin', 'WPBDM' ) );
         wp_nonce_field( 'save listing fields', 'wpbdp-admin-listing-fields-nonce', false );
 
-        echo '<div style="border-bottom: solid 1px #dedede; padding-bottom: 10px;">';
-        echo sprintf( '<strong>%s</strong>', _x( 'Listing Fields', 'admin', 'WPBDM' ) );
-        echo '<div style="padding-left: 10px;">';
-        foreach ($formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-            $value = isset( $post_values[ $field->get_id() ] ) ? $field->convert_input( $post_values[ $field->get_id() ] ) : $field->value( $this->listing->get_id() );
+        foreach ( wpbdp_get_form_fields( array( 'association' => 'meta' ) ) as $field ) {
+            if ( ! empty( $_POST['listingfields'][ $field->get_id() ] ) ) {
+                $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
+            } else {
+                $value = $field->value( $this->listing->get_id() );
+            }
+
             echo $field->render( $value, 'admin-submit' );
         }
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="clear"></div>';
     }
 
     private function listing_images() {
@@ -34,24 +33,14 @@ class WPBDP_Admin_Listing_Fields_Metabox {
             return;
 
         $images = $this->listing->get_images( 'all', true );
-        $thumbnail_id = $this->listing->get_thumbnail_id();
 
-        // Current images.
-        echo '<h4>' . _x( 'Current Images', 'templates', 'WPBDM' ) . '</h4>';
-        echo '<div id="no-images-message" style="' . ( $images ? 'display: none;' : '' ) . '">' . _x( 'There are no images currently attached to the listing.', 'templates', 'WPBDM' ) . '</div>';
-        echo '<div id="wpbdp-uploaded-images" class="cf">';
-        
-        foreach ( $images as $image ):
-            echo wpbdp_render( 'submit-listing-images-single',
-                           array( 'image' => $image,
-                                  'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image->id ) ),
-                           false );
-        endforeach;
+        echo '<div class="wpbdp-submit-listing-section-listing_images">';
+        echo wpbdp_render( 'submit-listing-images',
+                            array(
+                                'admin' => true,
+                                'listing' => $this->listing,
+                                'images' => $images ) );
         echo '</div>';
-
-        echo wpbdp_render( 'submit-listing-images-upload-form',
-                           array( 'admin' => true, 'listing_id' => $this->listing->get_id() ),
-                           false );
     }
 
     public static function metabox_callback( $post ) {
@@ -64,3 +53,4 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         return $instance->render();
     }
 }
+

@@ -530,7 +530,7 @@ class WPBDP_Plugin {
         $listing_id = intval( $_REQUEST['listing_id'] );
 
         if ( ! $listing_id )
-            $res->send_error();
+            return $res->send_error();
 
         $content_range = null;
         $size = null;
@@ -543,6 +543,16 @@ class WPBDP_Plugin {
         $attachments = array();
         $files = wpbdp_flatten_files_array( isset( $_FILES['images'] ) ? $_FILES['images'] : array() );
         $errors = array();
+
+        $listing = WPBDP_Listing::get( $listing_id );
+        $slots_available = 0;
+
+        if ( $plan = $listing->get_fee_plan() )
+            $slots_available = absint( $plan->fee_images ) - count( $listing->get_images() ) - count( $files );
+
+        if ( ! current_user_can( 'administrator' ) && $slots_available < 0 ) {
+            return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
+        }
 
         foreach ( $files as $i => $file ) {
             $image_error = '';
@@ -570,7 +580,6 @@ class WPBDP_Plugin {
                                    false );
         }
 
-        $listing = WPBDP_Listing::get( $listing_id );
         $listing->set_images( $attachments, true );
 
         if ( $errors ) {
@@ -590,11 +599,17 @@ class WPBDP_Plugin {
     public function ajax_listing_submit_image_delete() {
         $res = new WPBDP_Ajax_Response();
         $image_id = intval( $_REQUEST['image_id'] );
+        $listing_id = intval( $_REQUEST['listing_id'] );
+        $nonce = $_REQUEST['_wpnonce'];
 
-        if ( ! $image_id )
+        if ( ! $image_id || ! $listing_id || ! wp_verify_nonce( $nonce, 'delete-listing-' . $listing_id . '-image-' . $image_id ) )
             $res->send_error();
 
-        wp_delete_attachment( $image_id, true );
+        $parent_id = (int) wp_get_post_parent_id( $image_id );
+        if ( $parent_id != $listing_id )
+            $res->send_error();
+
+        // wp_delete_attachment( $image_id, true );
 
         $res->add( 'imageId', $image_id );
         $res->send();

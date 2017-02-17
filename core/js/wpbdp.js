@@ -179,17 +179,22 @@ WPBDP.fileUpload = {
 
     var sbImages = sb.images = wpbdp.listingSubmit.images = {
         _initialized: false,
+        _admin_nonce: '',
         _slots: 0,
         _slotsRemaining: 0,
         _working: false,
 
         init: function() {
             this._initialized = true;
+            this._admin_nonce = $( '#image-upload-dnd-area' ).attr( 'data-admin-nonce' );
+
             var t = this;
 
             // Initialize slot quantities.
-            sb.images._slots = parseInt( $( '#image-slots-total' ).text() );
-            sb.images._slotsRemaining = parseInt( $( '#image-slots-remaining' ).text() );
+            if ( ! this._admin_nonce ) {
+                sb.images._slots = parseInt( $( '#image-slots-total' ).text() );
+                sb.images._slotsRemaining = parseInt( $( '#image-slots-remaining' ).text() );
+            }
 
             // Handle image deletes.
             $( '#wpbdp-uploaded-images' ).delegate( '.wpbdp-image-delete-link', 'click', function( e ) {
@@ -206,13 +211,15 @@ WPBDP.fileUpload = {
                         if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length )
                             $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
 
-                        t._slotsRemaining++;
-                        $( '#image-slots-remaining' ).text( t._slotsRemaining );
+                        if ( ! t._admin_nonce ) {
+                            t._slotsRemaining++;
+                            $( '#image-slots-remaining' ).text( t._slotsRemaining );
+                        }
 
-                        if ( t._slotsRemaining == t._slots )
+                        if ( ( t._admin_nonce && 0 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) || ( ! t._admin_nonce && t._slotsRemaining == t._slots ) )
                             $( '#no-images-message' ).show();
 
-                        if (  t._slotsRemaining > 0 ) {
+                        if ( t._admin_nonce || t._slotsRemaining > 0 ) {
                             $( '#image-upload-dnd-area .dnd-area-inside' ).show();
                             $( '#noslots-message' ).hide();
                             $( '#image-upload-dnd-area' ).removeClass('error');
@@ -225,7 +232,7 @@ WPBDP.fileUpload = {
 
             wpbdp.dnd.setup( $( '#image-upload-dnd-area' ), {
                 init: function() {
-                    if ( t._slotsRemaining > 0 )
+                    if ( t._admin_nonce || t._slotsRemaining > 0 )
                         return;
 
                     $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
@@ -234,14 +241,23 @@ WPBDP.fileUpload = {
                     $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
                 },
                 validate: function( data ) {
+                    if ( t._admin_nonce )
+                        return true;
+
                     $( this ).siblings( '.wpbdp-msg' ).remove();
                     return ( t._slotsRemaining - data.files.length ) >= 0;
                 },
                 done: function( res ) {
-                    var uploadErrors = ( 'undefined' !== typeof res.data.uploadErrors ) ? res.data.uploadErrors : false;
+                    var uploadErrors = false;
+
+                    if ( ! res.success ) {
+                        uploadErrors = [ res.error ];
+                    } else {
+                        uploadErrors = ( 'undefined' !== typeof res.data.uploadErrors ) ? res.data.uploadErrors : false;
+                    }
 
                     if ( uploadErrors ) {
-                        var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( res.data.uploadErrors );
+                        var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( uploadErrors );
                         $( '.area-and-conditions' ).prepend( errorMsg );
                         return;
                     }
@@ -253,15 +269,17 @@ WPBDP.fileUpload = {
                         $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
                     }
 
-                    t._slotsRemaining -= res.data.attachmentIds.length;
-                    $( '#image-slots-remaining' ).text( t._slotsRemaining );
+                    if ( ! t._admin_nonce ) {
+                        t._slotsRemaining -= res.data.attachmentIds.length;
+                        $( '#image-slots-remaining' ).text( t._slotsRemaining );
 
-                    if ( 0 == t._slotsRemaining ) {
-                        $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
-                        $( '#noslots-message' ).show();
-                        $( '#image-upload-dnd-area' ).addClass('error');
-                        $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
-                        $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
+                        if ( 0 == t._slotsRemaining ) {
+                            $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
+                            $( '#noslots-message' ).show();
+                            $( '#image-upload-dnd-area' ).addClass('error');
+                            $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
+                            $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
+                        }
                     }
                 }
             } );
