@@ -237,7 +237,7 @@ class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
         // Card info.
         $aim->setFields(array(
             'card_num' => $data['cc_number'],
-            'exp_date' => $data['cc_exp_month'] . substr( $data['cc_exp_year'], 0, 2 ),
+            'exp_date' => $data['cc_exp_month'] . substr( trim( $data['cc_exp_year'] ), -2 ),
             'card_code' => $data['cc_cvc']
         ));
 

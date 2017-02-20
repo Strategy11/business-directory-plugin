@@ -20,7 +20,7 @@ var WPBDP_associations_fieldtypes = {};
                 if ( $( this ).hasClass( 'yes' ) ) {
                     $( this ).parents( '.iframe-confirm' ).hide();
                 } else {
-                    $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).removeAttr( 'checked' );
+                    $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).prop( 'checked', false );
                     $( this ).parents( '.iframe-confirm' ).hide();
                 }
             })
@@ -61,10 +61,10 @@ var WPBDP_associations_fieldtypes = {};
 
             // URL fields can only have the 'url' validator.
             if ( 'url' == field_type ) {
-                $( 'select#field-validator option' ).not( '[value="url"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'selected' );
-                $( 'select#field-validator option[value="url"]' ).attr( 'selected', 'selected' );
+                $( 'select#field-validator option' ).not( '[value="url"]' ).prop( { 'disabled': true, 'selected': false } );
+                $( 'select#field-validator option[value="url"]' ).prop( 'selected', true );
             } else {
-                $( 'select#field-validator option' ).removeAttr( 'disabled' );
+                $( 'select#field-validator option' ).prop( 'disabled', false );
             }
 
             var request_data = {
@@ -88,20 +88,19 @@ var WPBDP_associations_fieldtypes = {};
         onAssociationChange: function() {
             $f_fieldtype = WPBDPAdmin_FormFields.$f_fieldtype;
 
-            var association = $(this).find('option:selected').val();
+            var association = $(this).val();
             var valid_types = WPBDP_associations_fieldtypes[ association ];
 
-            $f_fieldtype.find('option').removeAttr('disabled');
+            $f_fieldtype.find('option').prop('disabled', false);
 
             $f_fieldtype.find('option').each(function(i,v){
                 if ( $.inArray( $(v).val(), valid_types ) < 0 ) {
-                    $(v).attr('disabled', 'disabled');
+                    $(v).prop('disabled', true);
                 }
             });
 
-            if ( $f_fieldtype.find('option:selected').attr('disabled') == 'disabled' ) {
-                $f_fieldtype.find('option').removeAttr('selected');
-                $f_fieldtype.find('option[value="' + valid_types[0] + '"]').attr('selected', 'selected');
+            if ( $f_fieldtype.find('option:selected').prop('disabled') ) {
+                $f_fieldtype.val( valid_types[0] ).change();
             }
         }
     };
@@ -123,10 +122,10 @@ jQuery(document).ready(function($){
         // alert(value);
 
         if (value == 0) {
-            $('form input#wpbdp-fee-form-days-n').attr('disabled', true);
+            $('form input#wpbdp-fee-form-days-n').prop('disabled', true);
             $('form input[name="fee[days]"]').val('0');
         } else {
-            $('form input#wpbdp-fee-form-days-n').removeAttr('disabled');
+            $('form input#wpbdp-fee-form-days-n').prop('disabled', false);
             $('form input[name="fee[days]"]').val($('form input#wpbdp-fee-form-days-n').val());
             $('form input#wpbdp-fee-form-days-n').focus();
         }
@@ -157,7 +156,7 @@ jQuery(document).ready(function($){
     $('form#wpbdp-fee-form').submit(function(){
         // alert($('form#wpbdp-fee-form input[name="fee[days]"]').val());
         // return false;
-        $('form input[name="fee[days]"]').removeAttr('disabled');
+        $('form input[name="fee[days]"]').prop('disabled', false);
         return true;
     });
 
@@ -489,7 +488,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             var $category = $('.listing-category-' + categoryID);
             $.post(ajaxurl, {action: 'wpbdp-listing_remove_category', 'listing': listingID, 'category': categoryID}, function(res) {
                 if (res && res.success) {
-                    $('input[name="tax_input[wpbdp_category][]"][value="' + categoryID + '"]').attr('checked', false);
+                    $('input[name="tax_input[wpbdp_category][]"][value="' + categoryID + '"]').prop( 'checked', false );
                     $category.fadeOut(function(){ $(this).remove(); });
                 }
             }, 'json');
@@ -628,22 +627,18 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                     // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
                     if ( 'true' === req ) {
                         if ( checked ) {
-                            // $s.removeAttr( 'disabled' );
-                            $s.removeAttr( 'contenteditable' );
+                            $s.prop( 'contenteditable', true );
                             $row.removeClass( 'disabled' );
                         } else {
-                            // $s.attr( 'disabled', 'disabled' );
-                            $s.attr( 'contenteditable', 'false' );
+                            $s.prop( 'contenteditable', false );
                             $row.addClass( 'disabled' );
                         }
                     } else if ( 'false' === req ) {
                         if ( checked ) {
-                            // $s.attr( 'disabled', 'disabled' );
-                            $s.attr( 'contenteditable', 'false' );
+                            $s.pop( 'contenteditable', false );
                             $row.addClass( 'disabled' );
                         } else {
-                            // $s.removeAttr( 'disabled' );
-                            $s.removeAttr( 'contenteditable' );
+                            $s.prop( 'contenteditable', true );
                             $row.removeClass( 'disabled' );
                         }
                     }
@@ -787,9 +782,9 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                     $('input[type="button"]', $container).not( '.license-' + action ).show();
 
                     if ( 'activate' == action )
-                        $( 'input[type="text"]#license-key-' + module ).attr('readonly', 'readonly');
+                        $( 'input[type="text"]#license-key-' + module ).prop('readonly', true);
                     else
-                        $( 'input[type="text"]#license-key-' + module ).removeAttr('readonly');
+                        $( 'input[type="text"]#license-key-' + module ).prop('readonly', false);
                 } else {
                     $msg.hide()
                         .html(res.error)
@@ -798,7 +793,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                         .show();
 
                     if ( 'deactivate' == action )
-                        $( 'input[type="text"]#license-key-' + module ).removeAttr('readonly');
+                        $( 'input[type="text"]#license-key-' + module ).prop('readonly', false);
                 }
             }, 'json' );
         }

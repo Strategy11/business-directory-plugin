@@ -214,7 +214,7 @@ WPBDP.fileUpload = {
                         $( this ).remove();
 
                         if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length )
-                            $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
+                            $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').prop( 'checked', true );
 
                         t._slotsRemaining++;
                         $( '#image-slots-remaining' ).text( t._slotsRemaining );
@@ -260,7 +260,7 @@ WPBDP.fileUpload = {
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );
 
                     if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) {
-                        $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
+                        $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').prop( 'checked', true );
                     }
 
                     t._slotsRemaining -= res.data.attachmentIds.length;

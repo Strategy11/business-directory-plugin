@@ -162,7 +162,7 @@ class WPBDP_Themes_Updater {
 
         $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-item.tpl.php',
                                                    array( 'theme' => $this->themes_api->get_theme( $theme_id ) ) ) );
-        $response->set_message( _x( 'Theme was updated sucessfully.', 'themes', 'WPBDM' ) );
+        $response->set_message( _x( 'Theme was updated successfully.', 'themes', 'WPBDM' ) );
         $response->send();
     }
 

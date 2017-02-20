@@ -317,7 +317,8 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
         'name' => $slug,
         'post_type' => $post_type,
         'post_status' => 'publish',
-        'numberposts' => 1
+        'numberposts' => 1,
+        'suppress_filters' => false,
     ));
 
     if ($posts)
@@ -546,7 +547,9 @@ function wpbdp_current_view_output() {
  * @since 4.0
  */
 function wpbdp_url( $pathorview = '/', $args = array() ) {
-    $base_url = wpbdp_get_page_link( 'main' );
+    $base_id = wpbdp_get_page_id( 'main' );
+    $base_url = _get_page_link( $base_id );
+    $base_url = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
     $url = '';
 
     switch ( $pathorview ) {
@@ -570,12 +573,15 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
             $url = $base_url;
             break;
         default:
-            if ( wpbdp_starts_with( $pathorview, '/' ) )
-                $url = rtrim( wpbdp_url( '/' ), '/' ) . '/' . substr( $pathorview, 1 );
-
+            if ( wpbdp_starts_with( $pathorview, '/' ) ) {
+                $root = rtrim( wpbdp_url( '/' ), '/' );
+                $prefix = wpbdp_rewrite_on() ? rtrim( preg_replace( '/\?.*/', '', $root ), '/' ) . '/' : '?wpbdp_path=';
+                $url = $prefix . substr( $pathorview, 1 );
+            }
             break;
     }
 
+    $url = apply_filters( 'wpbdp_url', $url, $pathorview, $args );
     return $url;
 }
 
@@ -623,4 +629,14 @@ function wpbdp_current_view() {
 function wpbdp_load_view( $view, $arg0 = null ) {
     global $wpbdp;
     return $wpbdp->dispatcher->load_view( $view, $arg0 );
+}
+
+/**
+ * @since 4.1.8
+ */
+function wpbdp_is_taxonomy() {
+    $current_view = wpbdp_current_view();
+    $is_taxonomy = in_array( $current_view, array( 'show_category', 'show_tag' ), true );
+
+    return apply_filters( 'wpbdp_is_taxonomy', $is_taxonomy, $current_view );
 }

@@ -14,6 +14,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 class WPBDP_Admin {
 
+    private $dropdown_users_args_stack = array();
+
     public $messages = array();
 
     function __construct() {
@@ -34,7 +36,7 @@ class WPBDP_Admin {
         add_filter( 'custom_menu_order', '__return_true' );
         add_filter( 'menu_order', array( &$this, 'admin_menu_reorder' ) );
 
-        add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
+        add_filter( 'wp_dropdown_users_args', array( $this, '_dropdown_users_args' ), 10, 2 );
 
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
         add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
@@ -671,24 +673,45 @@ to how WordPress stores the data.", 'WPBDM' )
         $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id'), $_SERVER['REQUEST_URI'] );
     }
 
-    public function _dropdown_users($output) {
+    public function _dropdown_users_args( $query_args, $r ) {
         global $post;
 
-        if (is_admin() && get_post_type($post) == WPBDP_POST_TYPE) {
-            remove_filter('wp_dropdown_users', array($this, '_dropdown_users'));
-            $select = wp_dropdown_users(array(
-                'echo' => false,
-                'name' => 'post_author',
-                'selected' => !empty($post->ID) ? $post->post_author : wp_get_current_user()->ID,
-                'include_selected' => true,
-                'who' => 'all'
-            ));
-            add_filter('wp_dropdown_users', array($this, '_dropdown_users'));
-            return $select;
-
+        if ( isset( $r['wpbdp_skip_dropdown_users_args'] ) ) {
+            return $query_args;
         }
 
-        return $output;
+        if ( is_admin() && get_post_type( $post ) == WPBDP_POST_TYPE ) {
+            add_filter( 'wp_dropdown_users', array( $this, '_dropdown_users' ) );
+            array_push( $this->dropdown_users_args_stack, $r );
+        }
+
+        return $query_args;
+    }
+
+    public function _dropdown_users( $output ) {
+        global $post;
+
+        remove_filter( 'wp_dropdown_users', array( $this, '_dropdown_users' ) );
+
+        if ( ! $this->dropdown_users_args_stack ) {
+            return $output;
+        }
+
+        $args = array_pop( $this->dropdown_users_args_stack );
+
+        if ( $args['show_option_none'] ) {
+            $selected = $args['option_none_value'];
+        } else {
+            $selected = ! empty( $post->ID ) ? $post->post_author : wp_get_current_user()->ID;
+        }
+
+        return wp_dropdown_users( array_merge( $args, array(
+            'echo' => false,
+            'selected' => $selected,
+            'include_selected' => true,
+            'who' => 'all',
+            'wpbdp_skip_dropdown_users_args' => true,
+        ) ) );
     }
 
     public function add_custom_taxonomy_columns( $cols ) {

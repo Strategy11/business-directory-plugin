@@ -15,7 +15,7 @@
         </div>
         <?php endif; ?>
 
-        <?php echo $fields->exclude('t_title,t_address,t_city,t_state,t_zip')->html; ?>
+        <?php echo $fields->exclude('t_title,t_address,t_city,t_state,t_country,t_zip')->html; ?>
     </div>
 
 </div>

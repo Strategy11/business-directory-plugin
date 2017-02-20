@@ -472,7 +472,7 @@ class WPBDP_Licensing {
             $request = json_decode( wp_remote_retrieve_body( $request ) );
 
         if ( ! is_array( $request ) )
-            $request = false;
+            return false;
 
         foreach ( $request as &$x ) {
             if ( isset( $x->sections ) )

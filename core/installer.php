@@ -970,7 +970,7 @@ class WPBDP_Installer {
             return 0;
         }
 
-        $sql = "SELECT COUNT(meta_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\t | \t| $|[\r\n]'";
+        $sql = "SELECT COUNT(meta_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\\t | \\t| $|[\\r\\n]'";
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
 
         return intval( $wpdb->get_var( $sql ) );
@@ -1026,7 +1026,7 @@ class WPBDP_Installer {
         }
 
         $sql = "SELECT post_id, meta_id, meta_key, meta_value FROM {$wpdb->postmeta} ";
-        $sql.= "WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\t | \t| $|[\r\n]' ";
+        $sql.= "WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\\t | \\t| $|[\\r\\n]' ";
         $sql.= "LIMIT 50";
 
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
@@ -1107,7 +1107,7 @@ class WPBDP_Installer_Manual_Upgrade {
         echo '</div>';
 
         echo '<div class="step-done" style="display: none;">';
-        echo '<p>' . _x( 'The upgrade was sucessfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
+        echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
         printf ( '<a href="%s" class="button button-primary">%s</a>',
                  admin_url( 'admin.php?page=wpbdp_admin' ),
                  _x( 'Go to "Directory Admin"', 'manual-upgrade', 'WPBDM' ) );

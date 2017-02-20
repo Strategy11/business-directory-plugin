@@ -49,7 +49,7 @@ class WPBDP_Settings {
                                  'recaptcha',
                                  _x( 'reCAPTCHA Settings', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
-                                              '<a href="http://www.recaptcha.com" target="_blank">',
+                                              '<a href="http://www.google.com/recaptcha" target="_blank">',
                                               _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'admin settings', 'WPBDM' ) )
                                 );
         $this->add_setting($s, 'recaptcha-on', _x('Use reCAPTCHA for contact forms', 'admin settings', 'WPBDM'), 'boolean', false);
@@ -103,7 +103,7 @@ class WPBDP_Settings {
                             'terms-and-conditions',
                             _x( 'Terms and Conditions', 'admin settings', 'WPBDM' ),
                             'text',
-                            _x( "Terms and Conditions text goes here...\n\n", 'admin settings', 'WPBDM' ),
+                            _x( "Terms and Conditions text goes here...", 'admin settings', 'WPBDM' ) . "\n\n",
                             _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'admin settings', 'WPBDM' ),
                             array( 'use_textarea' => true )
                             );

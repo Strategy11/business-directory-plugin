@@ -463,7 +463,7 @@ class WPBDP_Form_Field {
             return '';
 
         $html = $this->type->display_field( $this, $post_id, $display_context );
-        $html = apply_filters_ref_array( 'wpbdp_form_field_display', array( $html, &$this, $display_context, $post_id ) );
+        $html = apply_filters_ref_array( 'wpbdp_form_field_display', array( $html, $this, $display_context, $post_id ) );
         return $html;
     }
 

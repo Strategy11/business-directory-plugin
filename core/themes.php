@@ -104,7 +104,7 @@ class WPBDP_Themes {
         $this->call_theme_function( 'enqueue_scripts' );
     }
 
-    function field_theme_override( $html = '', &$field, $context, $listing_id ) {
+    function field_theme_override( $html = '', $field, $context, $listing_id ) {
         $options = array();
 
         foreach ( array( $context . '-', '' ) as $prefix ) {

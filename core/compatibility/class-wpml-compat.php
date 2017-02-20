@@ -11,8 +11,8 @@ class WPBDP_WPML_Compat {
 
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_category_link', array( &$this, 'add_lang_to_link' ) );
-            add_filter( 'wpbdp__get_page_link', array( &$this, 'fix_get_page_link' ), 10, 2 );
-            add_filter( 'wpbdp_get_page_link', array( &$this, 'correct_page_link' ), 10, 3 );
+            add_filter( 'wpbdp_url_base_url', array( &$this, 'fix_get_page_link' ), 10, 2 );
+            add_filter( 'wpbdp_url', array( &$this, 'correct_page_link' ), 10, 3 );
 
             add_filter( 'wpbdp_render_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
             add_filter( 'wpbdp_render_field_description', array( &$this, 'translate_form_field_description' ), 10, 2 );
@@ -24,6 +24,9 @@ class WPBDP_WPML_Compat {
 
             // Regions.
             add_filter( 'wpbdp_region_link', array( &$this, 'add_lang_to_link' ) );
+
+            // Work around non-unique slugs for pages.
+            add_action( 'wpbdp_query_flags', array( $this, 'maybe_change_query' ) );
         }
 
         add_action( 'admin_footer-directory-admin_page_wpbdp_admin_formfields', array( &$this, 'register_form_fields_strings' ) );
@@ -106,9 +109,14 @@ class WPBDP_WPML_Compat {
             return $link;
 
         switch ( $name ) {
-            case 'editlisting':
-            case 'upgradetostickylisting':
-            case 'deletelisting':
+            case 'main':
+            case '/':
+            case 'edit_listing':
+            case 'upgrade_listing':
+            case 'delete_listing':
+            case 'all_listings':
+            case 'view_listings':
+            case 'submit_listing':
                 $link = add_query_arg( 'lang', $lang, $link );
                 break;
 
@@ -180,13 +188,7 @@ class WPBDP_WPML_Compat {
                 break;
 
             case 'show_listing':
-                $id_or_slug = '';
-                if ( get_query_var( 'listing' ) || isset( $_GET['listing'] ) )
-                    $id_or_slug = get_query_var( 'listing' ) ? get_query_var( 'listing' ) : wpbdp_getv( $_GET, 'listing', 0 );
-                else
-                    $id_or_slug = get_query_var( 'id' ) ? get_query_var( 'id' ) : wpbdp_getv( $_GET, 'id', 0 );
-
-                $listing_id = wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+                $listing_id = wpbdp_get_post_by_id_or_slug( get_the_ID(), 'id', 'id' );
 
                 if ( ! $listing_id )
                     break;
@@ -232,6 +234,17 @@ class WPBDP_WPML_Compat {
             // Undo magic.
             $sitepress_settings['auto_adjust_ids'] = 1;
         }
+    }
+
+    function maybe_change_query( $query ) {
+        if ( ! $query->wpbdp_is_main_page || empty( $query->query['page_id'] ) )
+            return;
+
+        $lang = $this->get_current_language();
+        $page_id = $query->query['page_id'];
+        $trans_id = icl_object_id( $page_id, 'page', false, $lang );
+
+        $query->set( 'page_id', $trans_id );
     }
 
     // {{{ Form Fields integration.
