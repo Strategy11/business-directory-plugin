@@ -74,7 +74,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                         'echo' => 0,
                         'id' => 'wpbdp-field-' . $field->get_id(),
                         'name' => 'listingfields[' . $field->get_id() . ']',
-                        'class' => ''
+                        'class' => 'wpbdp-js-select2'
                     ) );
 
                 if ( $this->is_multiple() ) {

@@ -7,6 +7,9 @@ if (typeof(window.wpbdp) == 'undefined') {
 }
 
 jQuery(document).ready(function($){
+    $( '.wpbdp-js-select2' ).select2();
+
+
     /**
      * Handles flex behavior for main box columns.
      * @since next-release

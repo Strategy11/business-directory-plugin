@@ -1046,3 +1046,52 @@ body.business-directory #TB_secondLine {
 .wpbdp-hidden {
     display: none;
 }
+
+.wpbdp-form-field-association-category {
+        select, .select2 {
+            width: 100%;
+        }
+
+        .select2 {
+            line-height: 1;
+
+            .select2-selection {
+                margin: 0;
+                padding: 0;
+                height: 28px;
+                min-height: 0;
+            }
+
+            ul {
+                margin: 2px 5px;
+                padding: 0;
+
+                li {
+                    margin: 0;
+                }
+
+                li.select2-selection__choice {
+                    font-size: 10px;
+                    margin: 2px 5px 0 0;
+                    padding: 1px 6px;
+                    border-radius: 3px;
+                    background: #5bc0de;
+                    color: #fff;
+                    font-weight: 700;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: baseline;
+                    border: none;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    .select2-selection__choice__remove {
+                        color: #fff;
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+}

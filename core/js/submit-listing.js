@@ -10,7 +10,7 @@ jQuery(function($) {
     $.extend( wpbdp.submit_listing.Fee_Selection_Helper.prototype, {
         reset: function() {
             this.field = $( '.wpbdp-form-field-association-category select' );
-            this.field.select2();
+            // this.field.select2();
 
             this.is_multiple = this.field.prop( 'multiple' );
             this.plans = $( '.wpbdp-plan-selection-list .wpbdp-plan' );
