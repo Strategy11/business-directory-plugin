@@ -224,7 +224,7 @@ class WPBDP_Payment extends WPBDP_DB_Model {
                                   $fee->label,
                                   wpbdp_get_term_name( $category_id ),
                                   $recurring ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-                         array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
+                         array( 'fee_id' => $fee->id, 'fee_days' => $fee->days, 'fee_images' => $fee->images, 'fee_sticky' => $fee->sticky ),
                          $category_id,
                          $fee->id );
         return true;

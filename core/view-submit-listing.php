@@ -495,20 +495,8 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
                 $category_info = $listing->get_category_info( $cat_id );
 
                 if ( ! $category_info ) {
-                    $fee = wpbdp_get_fee( $fee_id );
-
-                    if ( ! $fee )
-                        continue;
-
-                    $payment->add_item( ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees ) ? 'recurring_fee' : 'fee',
-                                        $fee->amount,
-                                        sprintf( _x( 'Fee "%s" for category "%s"%s', 'listings', 'WPBDM' ),
-                                                 $fee->label,
-                                                 wpbdp_get_term_name( $cat_id ),
-                                                 $this->state->autorenew_fees ? ( ' ' . _x( '(recurring)', 'listings', 'WPBDM' ) ) : '' ),
-                                        array( 'fee_id' => $fee_id, 'fee_days' => $fee->days, 'fee_images' => $fee->images ),
-                                        $cat_id,
-                                        $fee_id );
+                    $recurring = ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees );
+                    $payment->add_category_fee_item( $cat_id, $fee_id, $recurring );
                 }
             }
 
