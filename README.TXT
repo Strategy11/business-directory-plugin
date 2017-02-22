@@ -4,8 +4,8 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, address book, chamber of commerce business directory, church directory, local business directory, company business directory, contact directory, custom business directory, directory, listings directory, link directory, member directory, staff directory, directory plugin
 Requires at least: 4.2
 Tested up to: 4.7.2
-Last Updated: 2017-Feb-14
-Stable tag: tags/4.1.8
+Last Updated: 2017-Feb-22
+Stable tag: tags/4.1.9
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -141,6 +141,15 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
+= Version 4.1.9 =
+* Add support to export listings that include Unicode characters.
+* Avoid passing $this by reference in apply_filter_ref_array() for PHP 7.1.
+* Fix French translation for Tag and Category.
+* Show error in Submit Listing view if required fields are missing.
+* Fix typo: 'sucessfully' -> 'successfully'.
+* Fix sticky behavior for listings posted with recurring payments.
+* Improve security of listing image uploading.
+    
 = Version 4.1.8 =
 * Do not generate HTML for Facebook field if the value is empty.
 * Fix a bug that caused Authorize.Net Gateway to build the Credit Card expiration date using the first two digits of the expiration year, instead of the last two.
