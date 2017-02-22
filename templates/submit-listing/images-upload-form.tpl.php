@@ -2,7 +2,6 @@
 $admin = isset( $admin ) ? $admin : false;
 $listing_id = isset( $listing_id ) ? $listing_id : 0;
 
-$action = '';
 if ( $admin && $listing_id ) {
     $action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
                                     'listing_id' => $listing_id ),
@@ -17,7 +16,7 @@ if ( $admin && $listing_id ) {
     <h4><?php _ex( 'Upload Images', 'templates', 'WPBDM' ); ?></h4>
 
     <div class="area-and-conditions cf">
-        <div id="image-upload-dnd-area" class="wpbdp-dnd-area" data-action="<?php echo $action; ?>">
+    <div id="image-upload-dnd-area" class="wpbdp-dnd-area <?php echo $admin ? 'no-conditions' : ''; ?>" data-action="<?php echo esc_url( wp_nonce_url( $action, 'listing-' . ( $listing_id ? $listing_id : $state_id ) . '-image-upload' ) ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>" >
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
                 <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
@@ -26,11 +25,9 @@ if ( $admin && $listing_id ) {
             <div class="dnd-area-inside-working" style="display: none;">
                 <p><?php echo sprintf( _x( 'Uploading %s file(s)... Please wait.', 'templates', 'WPBDM' ), '<span>0</span>' ); ?></p>
             </div>
-            <?php if ( ! $admin ): ?>
             <div class="dnd-area-inside-error" style="display: none;">
                 <p id="noslots-message" style="display: none;"><?php _ex( 'Your image slots are all full at this time.  You may click "Continue" if you are done, or "Delete Image" to upload a new image in place of a current one.', 'templates', 'WPBDM' ); ?></p>
             </div>
-            <?php endif; ?>
         </div>
 
         <?php if ( ! $admin ): ?>

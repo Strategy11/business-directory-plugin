@@ -374,17 +374,17 @@ class WPBDP_Admin_Listings {
             $listing->fix_categories( true  );
 
             // Save custom fields.
-            //if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) && wp_verify_nonce( $_POST['wpbdp-listing-fields-nonce'], plugin_basename( __FILE__ ) ) )
-            if ( isset( $_POST['wpbdp-listing-fields-nonce'] ) ) {
-                $formfields_api = wpbdp_formfields_api();
-                $listingfields = wpbdp_getv( $_POST, 'listingfields', array() );
+            $nonce = isset( $_POST['wpbdp-admin-listing-fields-nonce'] ) ? $_POST['wpbdp-admin-listing-fields-nonce'] : '';
 
-                foreach ( $formfields_api->find_fields( array( 'association' => 'meta' ) ) as $field ) {
-                    if ( isset( $listingfields[ $field->get_id() ] ) ) {
-                        $value = $field->convert_input( $listingfields[ $field->get_id() ] );
-                        $field->store_value( $listing->get_id(), $value );
+            if ( $nonce && wp_verify_nonce( $nonce, 'save listing fields' ) && ! empty( $_POST['listingfields'] ) ) {
+                $fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
+
+                foreach ( $fields as $field ) {
+                    if ( isset( $_POST['listingfields'][ $field->get_id() ] ) ) {
+                        $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
+                        $field->store_value( $post_id, $value );
                     } else {
-                        $field->store_value( $listing->get_id(), $field->convert_input( null ) );
+                        $field->store_value( $post_id, $field->convert_input( null ) );
                     }
                 }
 

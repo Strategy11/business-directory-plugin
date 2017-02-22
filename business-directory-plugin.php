@@ -525,28 +525,28 @@ class WPBDP_Plugin {
             flush_rewrite_rules(false);
     }
 
+
     // TODO: better validation.
     public function ajax_listing_submit_image_upload() {
         $res = new WPBDP_Ajax_Response();
 
-        $listing_id = 0;
-        $state_id = 0;
+        $listing_id = ! empty( $_REQUEST['listing_id'] ) ? intval( $_REQUEST['listing_id'] ) : 0;
+        $listing = null;
+        $state_id = ! empty( $_REQUEST['state_id'] ) ? trim( $_REQUEST['state_id'] ) : '';
         $state = null;
 
-        if ( isset( $_REQUEST['state_id'] ) ) {
+        if ( $state_id ) {
             require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-
-            $state_id = trim( $_REQUEST['state_id'] );
             $state = WPBDP_Listing_Submit_State::get( $state_id );
-
-            if ( ! $state )
-                $res->send_error();
-        } else {
-            $listing_id = intval( $_REQUEST['listing_id'] );
-
-            if ( ! $listing_id )
-                $res->send_error();
+        } elseif ( $listing_id ) {
+            $listing = WPBDP_Listing::get( $listing_id );
         }
+
+        if ( ! $listing && ! $state )
+            return $res->send_error();
+
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'listing-' . ( $state ? $state->id : $listing->get_id() ) . '-image-upload' ) )
+            return $res->send_error();
 
         $content_range = null;
         $size = null;
@@ -559,6 +559,32 @@ class WPBDP_Plugin {
         $attachments = array();
         $files = wpbdp_flatten_files_array( isset( $_FILES['images'] ) ? $_FILES['images'] : array() );
         $errors = array();
+
+        $image_slots = 0;
+        $slots_available = 0;
+        if ( wpbdp_get_option( 'allow-images' ) ) {
+            if ( $state ) {
+                foreach ( $this->state->categories as $cat_id => $fee_id ) {
+                    $image_slots += wpbdp_get_fee( $fee_id )->images;
+                }
+
+                $slots_available = $image_slots - count( $this->state->images ) - count( $files );
+                $images_meta = $this->state->images_meta;
+            } else {
+                $categories = $listing->get_categories( 'all' );
+
+                foreach ( $categories as $cat ) {
+                    $fee = wpbdp_get_fee( $cat->fee_id );
+                    $image_slots += $fee->images;
+                }
+
+                $slots_available = $image_slots - count( $listing->get_images() ) - count( $files );
+            }
+        }
+
+        if ( ! current_user_can( 'administrator' ) && $slots_available < 0 ) {
+            return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
+        }
 
         foreach ( $files as $i => $file ) {
             $image_error = '';
@@ -579,22 +605,21 @@ class WPBDP_Plugin {
                 $attachments[] = $attachment_id;
         }
 
+
         $html = '';
         foreach ( $attachments as $attachment_id ) {
             if ( $state )
                 $state->images[] = $attachment_id;
 
             $html .= wpbdp_render( 'submit-listing/images-single',
-                                   array( 'image_id' => $attachment_id,
-                                          'state_id' => $state ? $state->id : '' ),
+                                   array( 'image_id' => $attachment_id, 'state_id' => $state ? $state->id : '', 'listing_id' => $listing ? $listing->get_id() : 0 ),
                                    false );
         }
 
-        if ( $listing_id ) {
-            $listing = WPBDP_Listing::get( $listing_id );
-            $listing->set_images( $attachments, true );
-        } elseif ( $state ) {
+        if ( $state ) {
             $state->save();
+        } else {
+            $listing->set_images( $attachments, true );
         }
 
         if ( $errors ) {
@@ -613,18 +638,21 @@ class WPBDP_Plugin {
 
     public function ajax_listing_submit_image_delete() {
         $res = new WPBDP_Ajax_Response();
-        $image_id = intval( $_REQUEST['image_id'] );
 
-        if ( ! $image_id )
+        $image_id = intval( $_REQUEST['image_id'] );
+        $listing_id = isset( $_REQUEST['listing_id'] ) ? absint( $_REQUEST['listing_id'] ) : 0;
+        $state_id = isset( $_REQUEST['state_id'] ) ? trim( $_REQUEST['state_id'] ) : '';
+
+        $nonce = $_REQUEST['_wpnonce'];
+
+        if ( ! $image_id || ( ! $listing_id && ! $state_id ) )
             $res->send_error();
 
-        $state_id = isset( $_REQUEST['state_id'] ) ? $_REQUEST['state_id'] : '';
+        if ( ! wp_verify_nonce( $nonce, 'delete-listing-' . ( $listing_id ? $listing_id : $state_id ) . '-image-' . $image_id ) )
+            $res->send_error();
 
         if ( $state_id ) {
             require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-
-            if ( ! $state_id )
-                $res->send_error();
 
             $state = WPBDP_Listing_Submit_State::get( $state_id );
 
@@ -633,6 +661,10 @@ class WPBDP_Plugin {
 
             wpbdp_array_remove_value( $state->images, $image_id );
             $state->save();
+        } else {
+            $parent_id = (int) wp_get_post_parent_id( $image_id );
+            if ( $parent_id != $listing_id )
+                $res->send_error();
         }
 
         wp_delete_attachment( $image_id, true );
