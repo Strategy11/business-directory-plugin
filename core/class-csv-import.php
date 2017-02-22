@@ -534,6 +534,9 @@ class WPBDP_CSV_Import {
             if ( ! $c['expires_on'] )
                 continue;
 
+            if( strtotime( $c['expires_on'] ) <= 0 )
+                continue;
+
             $wpdb->update( $wpdb->prefix . 'wpbdp_listing_fees',
                            array( 'expires_on' => $c['expires_on'] ),
                            array( 'category_id' => $c['term_id'],
