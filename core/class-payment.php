@@ -211,8 +211,8 @@ class WPBDP_Payment extends WPBDP_DB_Model {
     }
 
     public function add_category_fee_item( $category_id, $fee, $recurring = false ) {
-        if ( is_int( $fee ) ) {
-            $fee = wpbdp_get_fee( $fee );
+        if ( ! is_object( $fee ) ) {
+            $fee = wpbdp_get_fee( intval( $fee ) );
 
             if ( ! $fee )
                 return false;

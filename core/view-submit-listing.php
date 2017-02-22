@@ -496,7 +496,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
                 if ( ! $category_info ) {
                     $recurring = ( ! current_user_can( 'administrator' ) && $this->state->autorenew_fees );
-                    $payment->add_category_fee_item( $cat_id, $fee_id, $recurring );
+                    $payment->add_category_fee_item( intval( $cat_id ), intval( $fee_id ), $recurring );
                 }
             }
 
