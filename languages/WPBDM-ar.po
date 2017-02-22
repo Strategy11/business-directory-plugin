@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-02-16 23:18:32+00:00\n"
+"POT-Creation-Date: 2017-02-22 16:33:06+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -595,8 +595,9 @@ msgid "Theme installed successfully."
 msgstr "تم تثبيت القالب بنجاح."
 
 #: admin/class-themes-admin.php:229
+#, fuzzy
 msgctxt "themes"
-msgid "Theme was deleted sucessfully."
+msgid "Theme was deleted successfully."
 msgstr "تم حذف القالب بنجاح."
 
 #: admin/class-themes-admin.php:232
@@ -651,17 +652,17 @@ msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "فعِّل <a>مفتاح الترخيص</a> الخاص بك لاستخدام هذا القالب."
 
-#: admin/csv-export.php:136
+#: admin/csv-export.php:145
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr "لا يمكن إنشاء مجلد مؤقت للتعامل مع تصدير CSV."
 
-#: admin/csv-export.php:138
+#: admin/csv-export.php:147
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "تعذر إنشاء مجلد wpbdp-csv-exports."
 
-#: admin/csv-export.php:143
+#: admin/csv-export.php:152
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "حدث خطأ أثناء إنشاء مجلد مؤقت لتصدير CSV: %s"
@@ -1322,40 +1323,59 @@ msgstr "إعدادات ملف CSV"
 
 #: admin/templates/csv-export.tpl.php:94
 msgctxt "admin csv-export"
-msgid "Column Separator"
-msgstr "فاصلة الأعمدة"
+msgid "What operating system will you use to edit the CSV file?"
+msgstr ""
 
-#: admin/templates/csv-export.tpl.php:94 admin/templates/csv-export.tpl.php:105
-#: admin/templates/csv-export.tpl.php:116 admin/templates/csv-import.tpl.php:43
+#: admin/templates/csv-export.tpl.php:94 admin/templates/csv-export.tpl.php:113
+#: admin/templates/csv-export.tpl.php:124 admin/templates/csv-import.tpl.php:43
 #: admin/templates/csv-import.tpl.php:109
-#: admin/templates/csv-import.tpl.php:120
-#: admin/templates/csv-import.tpl.php:131
-#: admin/templates/csv-import.tpl.php:158
+#: admin/templates/csv-import.tpl.php:135
+#: admin/templates/csv-import.tpl.php:146
+#: admin/templates/csv-import.tpl.php:173
 msgctxt "admin forms"
 msgid "required"
 msgstr "مطلوب"
 
-#: admin/templates/csv-export.tpl.php:105
+#: admin/templates/csv-export.tpl.php:101
+msgctxt "admin csv-export"
+msgid "Windows"
+msgstr ""
+
+#: admin/templates/csv-export.tpl.php:106
+msgctxt "admin csv-export"
+msgid "macOS"
+msgstr ""
+
+#: admin/templates/csv-export.tpl.php:108
+msgctxt "admin csv-export"
+msgid ""
+"Windows and macOS versions of MS Excel handle CSV files differently. To make "
+"sure all your listings information is displayed properly when you view or "
+"edit the CSV file, we need to generate different versions of the file for "
+"each operating system."
+msgstr ""
+
+#: admin/templates/csv-export.tpl.php:113
 msgctxt "admin csv-export"
 msgid "Image Separator"
 msgstr "فاصلة الصورة "
 
-#: admin/templates/csv-export.tpl.php:116
+#: admin/templates/csv-export.tpl.php:124
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "فاصلة التصنيف"
 
-#: admin/templates/csv-export.tpl.php:128
+#: admin/templates/csv-export.tpl.php:136
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "الإعلانات المصدرة"
 
-#: admin/templates/csv-export.tpl.php:134
+#: admin/templates/csv-export.tpl.php:142
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "جاري التصدير..."
 
-#: admin/templates/csv-export.tpl.php:135
+#: admin/templates/csv-export.tpl.php:143
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -1363,39 +1383,39 @@ msgid ""
 msgstr ""
 "جاري إعداد ملف التصدير. المرجو <u>عدم ترك</u> هذه الصفحة حتى انتهاء التصدير."
 
-#: admin/templates/csv-export.tpl.php:138
+#: admin/templates/csv-export.tpl.php:146
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "أرقام الإعلانات:"
 
-#: admin/templates/csv-export.tpl.php:140
+#: admin/templates/csv-export.tpl.php:148
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "الحجم التقريبي لملف التصدير:"
 
-#: admin/templates/csv-export.tpl.php:147
+#: admin/templates/csv-export.tpl.php:155
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "إلغاء التصدير"
 
-#: admin/templates/csv-export.tpl.php:152
+#: admin/templates/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "تم التصدير"
 
-#: admin/templates/csv-export.tpl.php:153
+#: admin/templates/csv-export.tpl.php:161
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
 "download."
 msgstr "تم بنجاح إنشاء ملف التصدير، والآن جاهز للتحميل."
 
-#: admin/templates/csv-export.tpl.php:156
+#: admin/templates/csv-export.tpl.php:164
 msgctxt "admin csv-export"
 msgid "Download %s (%s)"
 msgstr "تحميل %s (%s)"
 
-#: admin/templates/csv-export.tpl.php:162
+#: admin/templates/csv-export.tpl.php:170
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -1404,22 +1424,22 @@ msgstr ""
 "إضغط على \"تنظيف\" بعد تحميل الملف بغية إزالة جميع البيانات المؤقتة التي تم "
 "إنشاؤها بواسطة \"دليل الأعمال\" أثناء عملية التصدير."
 
-#: admin/templates/csv-export.tpl.php:163
+#: admin/templates/csv-export.tpl.php:171
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "نظف"
 
-#: admin/templates/csv-export.tpl.php:168
+#: admin/templates/csv-export.tpl.php:176
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "ألغي التصدير"
 
-#: admin/templates/csv-export.tpl.php:169
+#: admin/templates/csv-export.tpl.php:177
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "تم إلغاء التصدير"
 
-#: admin/templates/csv-export.tpl.php:170
+#: admin/templates/csv-export.tpl.php:178
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← العودة إلى تصدير CSV"
@@ -1551,7 +1571,7 @@ msgctxt "admin csv-import"
 msgid "Warning"
 msgstr "تحذير"
 
-#: admin/templates/csv-import.tpl.php:12 admin/templates/csv-import.tpl.php:233
+#: admin/templates/csv-import.tpl.php:12 admin/templates/csv-import.tpl.php:248
 msgctxt "admin csv-import"
 msgid "Help"
 msgstr "المساعدة"
@@ -1610,72 +1630,87 @@ msgctxt "admin csv-import"
 msgid "Column Separator"
 msgstr "فاصلة الأعمدة"
 
-#: admin/templates/csv-import.tpl.php:120
+#: admin/templates/csv-import.tpl.php:117
+msgctxt "admin csv-import"
+msgid "Comma (,)"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:123
+msgctxt "admin csv-import"
+msgid "Semicolon (;)"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:129
+msgctxt "admin csv-import"
+msgid "TAB"
+msgstr ""
+
+#: admin/templates/csv-import.tpl.php:135
 msgctxt "admin csv-import"
 msgid "Image Separator"
 msgstr "فاصلة الصورة "
 
-#: admin/templates/csv-import.tpl.php:131
+#: admin/templates/csv-import.tpl.php:146
 msgctxt "admin csv-import"
 msgid "Category Separator"
 msgstr "فاصلة التصنيف"
 
-#: admin/templates/csv-import.tpl.php:142
+#: admin/templates/csv-import.tpl.php:157
 msgctxt "admin csv-import"
 msgid "Import settings"
 msgstr "إعدادات الاستيراد"
 
-#: admin/templates/csv-import.tpl.php:146
+#: admin/templates/csv-import.tpl.php:161
 msgctxt "admin csv-import"
 msgid "Post status of imported listings"
 msgstr "حالة مقالة الإعلانات المستوردة"
 
-#: admin/templates/csv-import.tpl.php:158
+#: admin/templates/csv-import.tpl.php:173
 msgctxt "admin csv-import"
 msgid "Missing categories handling"
 msgstr "معالجة التصنيفات المفقودة"
 
-#: admin/templates/csv-import.tpl.php:163
+#: admin/templates/csv-import.tpl.php:178
 msgctxt "admin csv-import"
 msgid "Auto-create categories"
 msgstr "الإنشاء التلقائي للتصنيفات"
 
-#: admin/templates/csv-import.tpl.php:166
+#: admin/templates/csv-import.tpl.php:181
 msgctxt "admin csv-import"
 msgid "Generate errors when a category is not found"
 msgstr "إنشاء أخطاء عند عدم العثور على تصنيف"
 
-#: admin/templates/csv-import.tpl.php:171
+#: admin/templates/csv-import.tpl.php:186
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr "الاحتفاظ بصور الإعلانات الموجودة؟"
 
-#: admin/templates/csv-import.tpl.php:176
+#: admin/templates/csv-import.tpl.php:191
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr "الاحتفاظ بالصور الموجودة."
 
-#: admin/templates/csv-import.tpl.php:177
+#: admin/templates/csv-import.tpl.php:192
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr "إلحاق الصور الجديدة مع الاحتفاظ بالموجودة حاليا."
 
-#: admin/templates/csv-import.tpl.php:182
+#: admin/templates/csv-import.tpl.php:197
 msgctxt "admin csv-import"
 msgid "Assign listings to a user?"
 msgstr "تعيين إعلانات للعضو؟"
 
-#: admin/templates/csv-import.tpl.php:188
+#: admin/templates/csv-import.tpl.php:203
 msgctxt "admin csv-import"
 msgid "Assign listings to a user."
 msgstr "تعيين إعلانات للعضو."
 
-#: admin/templates/csv-import.tpl.php:193
+#: admin/templates/csv-import.tpl.php:208
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr "استخدام العضو الافتراضي للإعلانات؟"
 
-#: admin/templates/csv-import.tpl.php:199
+#: admin/templates/csv-import.tpl.php:214
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -1684,38 +1719,38 @@ msgstr ""
 "حدد العضو الافتراضي لاستخدامه إذا كان العمود إسم المستخدم غير موجود في ملف "
 "CSV."
 
-#: admin/templates/csv-import.tpl.php:204
+#: admin/templates/csv-import.tpl.php:219
 msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr "إعلان العضو الافتراضي"
 
-#: admin/templates/csv-import.tpl.php:210
+#: admin/templates/csv-import.tpl.php:225
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
 msgstr "سيتم استخدام هذا العضو إذا كان عمود إسم المستخدم غير موجود في ملف CSV."
 
-#: admin/templates/csv-import.tpl.php:215
+#: admin/templates/csv-import.tpl.php:230
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications during import?"
 msgstr "تعطيل تنبيهات البريد الإلكتروني أثناء عملية الاستيراد؟"
 
-#: admin/templates/csv-import.tpl.php:220
+#: admin/templates/csv-import.tpl.php:235
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications."
 msgstr "تعطيل التنبيهات."
 
-#: admin/templates/csv-import.tpl.php:226
+#: admin/templates/csv-import.tpl.php:241
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "اختبار الاستيراد"
 
-#: admin/templates/csv-import.tpl.php:227
+#: admin/templates/csv-import.tpl.php:242
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "استيراد الإعلانات"
 
-#: admin/templates/csv-import.tpl.php:235
+#: admin/templates/csv-import.tpl.php:250
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -1727,49 +1762,49 @@ msgstr ""
 "القيم (مثل تصنيف أو وسوم) عدة مرات في الملف. إضغط فوق <a href=\"%s\">\"انظر "
 "مثال لملف استيراد CSV\"</a> لمعرفة كيف يجب أن يبدو ملف الاستيراد."
 
-#: admin/templates/csv-import.tpl.php:242
+#: admin/templates/csv-import.tpl.php:257
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr "إسم رأس/التسمية"
 
-#: admin/templates/csv-import.tpl.php:243
+#: admin/templates/csv-import.tpl.php:258
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr "حقل"
 
-#: admin/templates/csv-import.tpl.php:244
+#: admin/templates/csv-import.tpl.php:259
 msgctxt "admin csv-import"
 msgid "Type"
 msgstr "نوع"
 
-#: admin/templates/csv-import.tpl.php:245
+#: admin/templates/csv-import.tpl.php:260
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr "مطلوب؟"
 
-#: admin/templates/csv-import.tpl.php:246
+#: admin/templates/csv-import.tpl.php:261
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr "متعدد القيم؟"
 
-#: admin/templates/csv-import.tpl.php:268
+#: admin/templates/csv-import.tpl.php:283
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "لائحة مفصولة بفاصلة منقوطة لصور الإعلانات (من ملف مضغوط)"
 
-#: admin/templates/csv-import.tpl.php:275
+#: admin/templates/csv-import.tpl.php:290
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "إسم مستخدم كاتب الإعلان"
 
-#: admin/templates/csv-import.tpl.php:282
+#: admin/templates/csv-import.tpl.php:297
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
 msgstr ""
 "معرف (ID) تسلسل داخلي يستخدم للسماح للإعلان بالتحديثات من مصادر خارجية."
 
-#: admin/templates/csv-import.tpl.php:289
+#: admin/templates/csv-import.tpl.php:304
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -2250,7 +2285,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr "المرجو مراجعة <a>وثائق حقول الاستمارة</a> للحصول على مزيد من التفاصيل."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.8)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.9)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3050,29 +3085,29 @@ msgstr "إعلانات ذات وسم: %s"
 msgid "Free"
 msgstr "مجاني"
 
-#: core/class-csv-import.php:394
+#: core/class-csv-import.php:451
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: core/class-csv-import.php:400
+#: core/class-csv-import.php:457
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "لا يمكن إنشاء تصنيف الإعلان \"%s\""
 
-#: core/class-csv-import.php:544
+#: core/class-csv-import.php:601
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "إسم المستخدم \"%s\" غير موجود"
 
-#: core/class-csv-import.php:576
+#: core/class-csv-import.php:633
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "حقل مطلوب مفقود: %s"
 
-#: core/class-csv-import.php:596
+#: core/class-csv-import.php:653
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "تصنيف الإعلان \"%s\" غير موجود"
@@ -3251,12 +3286,12 @@ msgctxt "widgets"
 msgid "Leave blank for automatic height."
 msgstr "أترك المساحة فارغة للارتفاع التلقائي."
 
-#: core/class-payment.php:223 core/view-submit-listing.php:505
+#: core/class-payment.php:223
 msgctxt "listings"
 msgid "Fee \"%s\" for category \"%s\"%s"
 msgstr "رسوم \"%s\" للتصنيف '%s' %s"
 
-#: core/class-payment.php:226 core/view-submit-listing.php:508
+#: core/class-payment.php:226
 msgctxt "listings"
 msgid "(recurring)"
 msgstr "(متكرر)"
@@ -5432,8 +5467,9 @@ msgid "Could not update theme: %s"
 msgstr "تعذر تحديث القالب : %s"
 
 #: core/helpers/class-themes-updater.php:165
+#, fuzzy
 msgctxt "themes"
-msgid "Theme was updated sucessfully."
+msgid "Theme was updated successfully."
 msgstr "تم تحديث القالب بنجاح."
 
 #: core/installer.php:43
@@ -5536,9 +5572,10 @@ msgid "Pause Upgrade"
 msgstr "توقيف الترقية"
 
 #: core/installer.php:1110
+#, fuzzy
 msgctxt "manual-upgrade"
 msgid ""
-"The upgrade was sucessfully performed. Business Directory Plugin is now "
+"The upgrade was successfully performed. Business Directory Plugin is now "
 "available."
 msgstr "تم إجراء الترقية بنجاح. إضافة دليل الأعمال متاحة الآن."
 
@@ -6056,12 +6093,12 @@ msgctxt "templates"
 msgid "I agree to the Terms and Conditions"
 msgstr "أوافق على الشروط والأحكام"
 
-#: core/view-submit-listing.php:518 core/views/upgrade_listing.php:49
+#: core/view-submit-listing.php:506 core/views/upgrade_listing.php:49
 msgctxt "submit"
 msgid "Listing upgrade to featured"
 msgstr "الترقية الى إعلان مميز"
 
-#: core/view-submit-listing.php:551
+#: core/view-submit-listing.php:539
 msgctxt "submit_state"
 msgid "Invalid submit state."
 msgstr "حالة إضافة غير صالحة"
@@ -6105,8 +6142,9 @@ msgid "← Return to Directory."
 msgstr "← الرجوع إلى الدليل."
 
 #: core/views/checkout.php:130
+#, fuzzy
 msgctxt "checkout"
-msgid "Your payment was received sucessfully."
+msgid "Your payment was received successfully."
 msgstr "تم تلقي الدفع الخاص بك بنجاح."
 
 #: core/views/checkout.php:137
@@ -6262,17 +6300,17 @@ msgctxt "listings"
 msgid "Fee \"%s\" renewal for category \"%s\""
 msgstr "رسوم \"%s\" تجديد التصنيف \"%s\""
 
-#: core/views/renew_listing.php:74
+#: core/views/renew_listing.php:79
 msgctxt "renewal"
 msgid "Invalid renewal state."
 msgstr "حالة التجديد غير صالحة."
 
-#: core/views/renew_listing.php:85
+#: core/views/renew_listing.php:90
 msgctxt "templates"
 msgid "Recurring Fee Management"
 msgstr "إدارة الرسوم المتكررة"
 
-#: core/views/renew_listing.php:86
+#: core/views/renew_listing.php:91
 msgctxt "renew"
 msgid ""
 "Because you are on a recurring fee plan you don't have to renew your listing "
@@ -6281,22 +6319,22 @@ msgstr ""
 "لأنك على خطة الرسوم المتكررة لا تحتاج لتجديد الإعلان الخاص بك الآن لأن ذلك "
 "سيتم معالجته تلقائياً عندما يحين وقت التجديد."
 
-#: core/views/renew_listing.php:88
+#: core/views/renew_listing.php:93
 msgctxt "renewal"
 msgid "Current Fee Details"
 msgstr "تفاصيل الرسوم الحالية"
 
-#: core/views/renew_listing.php:90
+#: core/views/renew_listing.php:95
 msgctxt "renewal"
 msgid "Number of images:"
 msgstr "عدد الصور:"
 
-#: core/views/renew_listing.php:92
+#: core/views/renew_listing.php:97
 msgctxt "renewal"
 msgid "Expiration date:"
 msgstr "تاريخ انتهاء التاريخ:"
 
-#: core/views/renew_listing.php:96
+#: core/views/renew_listing.php:101
 msgctxt "renew"
 msgid ""
 "However, if you want to cancel your subscription you can do that on this "
@@ -7226,6 +7264,10 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "admin csv-export"
+#~ msgid "Column Separator"
+#~ msgstr "فاصلة الأعمدة"
 
 #~ msgctxt "admin settings"
 #~ msgid ""
