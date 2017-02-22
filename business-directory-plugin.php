@@ -564,12 +564,12 @@ class WPBDP_Plugin {
         $slots_available = 0;
         if ( wpbdp_get_option( 'allow-images' ) ) {
             if ( $state ) {
-                foreach ( $this->state->categories as $cat_id => $fee_id ) {
+                foreach ( $state->categories as $cat_id => $fee_id ) {
                     $image_slots += wpbdp_get_fee( $fee_id )->images;
                 }
 
-                $slots_available = $image_slots - count( $this->state->images ) - count( $files );
-                $images_meta = $this->state->images_meta;
+                $slots_available = $image_slots - count( $state->images ) - count( $files );
+                $images_meta = $state->images_meta;
             } else {
                 $categories = $listing->get_categories( 'all' );
 
