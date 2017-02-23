@@ -277,6 +277,9 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     $user_id = $user_id ? $user_id : wp_get_current_user()->ID;
     $post = get_post($listing_id);
 
+    if ( ! $post )
+        return false;
+
     if ($post->post_type != WPBDP_POST_TYPE)
         return false;
 
