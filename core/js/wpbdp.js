@@ -89,7 +89,7 @@ jQuery(document).ready(function($){
     }
 
     $( '.wpbdp-listing-contact-form .send-message-button' ).click(function() {
-        $( '.wpbdp-listing-contact-form .contact-form-wrapper' ).toggle();
+        $( '.wpbdp-listing-contact-form .contact-form-wrapper' ).toggleClass( 'wpbdp-hide-on-mobile' );
     });
 
     $( '.wpbdp-listings-sort-options.wpbdp-show-on-mobile select' ).change(function(e) {
