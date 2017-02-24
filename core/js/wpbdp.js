@@ -7,7 +7,9 @@ if (typeof(window.wpbdp) == 'undefined') {
 }
 
 jQuery(document).ready(function($){
-    $( '.wpbdp-js-select2' ).select2();
+    if ( $( '.wpbdp-js-select2' ).length > 0 ) {
+        $( '.wpbdp-js-select2' ).select2();
+    }
 
 
     /**
