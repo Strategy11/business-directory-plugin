@@ -14,7 +14,7 @@ class WPBDP_Admin_Listings {
 
         add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
 
-        add_action( 'save_post', array( &$this, 'save_post' ) );
+        add_action( 'save_post', array( &$this, 'save_post' ), 10, 2 );
 
         add_action('admin_footer', array($this, '_add_bulk_actions'));
         add_action('admin_footer', array($this, '_fix_new_links'));
@@ -360,12 +360,12 @@ class WPBDP_Admin_Listings {
         return $actions;
     }
 
-    public function save_post($post_id) {
+    public function save_post( $post_id, $post) {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
             return;
 
         // Handle listings saved admin-side.
-        if ( is_admin() && isset( $_POST['post_type'] ) && $_POST['post_type'] == WPBDP_POST_TYPE ) {
+        if ( is_admin() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == WPBDP_POST_TYPE ) {
             $listing = WPBDP_Listing::get( $post_id );
 
             if ( ! $listing )
