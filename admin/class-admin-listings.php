@@ -233,6 +233,10 @@ class WPBDP_Admin_Listings {
 
         $attributes = array();
 
+        foreach ( $listing->get_flags() as $f ) {
+            $attributes[ $f ] = '<span class="tag">' . $f . '</span>';
+        }
+
         if ( $plan->is_sticky )
             $attributes['featured'] = '<span class="tag">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
 
@@ -441,6 +445,10 @@ class WPBDP_Admin_Listings {
 
             if ( $payment )
                 $payment->process_as_admin();
+        }
+
+        if ( ! $current_plan ) {
+            $listing->set_flag( 'admin-posted' );
         }
 
         // Update plan attributes.

@@ -187,7 +187,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $listing_id = wp_insert_post( array( 'post_author' => 0, 'post_type' => WPBDP_POST_TYPE, 'post_status' => 'auto-draft', 'post_title' => 'Incomplete Listing' ) );
 
             $listing = wpbdp_get_listing( $listing_id );
-            $listing->set_fee_plan( null ); 
+            $listing->set_fee_plan( null );
             $listing->set_status( 'incomplete' );
         }
 
@@ -246,7 +246,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             if ( method_exists( $this, $callback ) ) {
                 $res = call_user_func( array( $this, $callback ) );
-                $html = ''; 
+                $html = '';
                 $enabled = false;
 
                 if ( is_array( $res ) ) {
@@ -498,7 +498,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         // 	$user_id = wp_create_user( $user_name, $random_password, $user_email );
         // } else {
         // 	$random_password = __('User already exists.  Password inherited.');
-        // }        
+        // }
 
         return $html;
     }
@@ -554,14 +554,16 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
 
             // XXX: what to do with this?
-            // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) ); 
+            // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) );
             // return $this->render( 'extra-sections', array( 'output' => $extra ) );
             // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
             $this->listing->set_status( 'pending_payment' );
             $payment = $this->listing->generate_or_retrieve_payment();
 
-            if ( current_user_can( 'administrator' ) )
+            if ( current_user_can( 'administrator' ) ) {
                 $payment->process_as_admin();
+                $this->listing->set_flag( 'admin-posted' );
+            }
 
             if ( ! $payment )
                 die();
