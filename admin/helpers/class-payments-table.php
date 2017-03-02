@@ -53,7 +53,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
             'listing' => _x( 'Listing', 'fees admin', 'WPBDM' ),
             'payment_id' => _x( 'ID', 'fees admin', 'WPBDM' ),
             'date' => _x( 'Date', 'fees admin', 'WPBDM' ),
-            'details' => _x( 'Details', 'fees admin', 'WPBDM' ),
+            'details' => _x( 'Payment History', 'fees admin', 'WPBDM' ),
             'amount' => _x( 'Amount', 'fees admin', 'WPBDM' ),
             'status' => _x( 'Status', 'fees admin', 'WPBDM' )
         );
