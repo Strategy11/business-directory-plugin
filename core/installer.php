@@ -174,7 +174,8 @@ class WPBDP_Installer {
             is_sticky tinyint(1) NOT NULL DEFAULT 0,
             subscription_id varchar(255) NULL DEFAULT '',
             recurring_data blob NULL,
-            listing_status varchar(255) NOT NULL DEFAULT 'unknown'
+            listing_status varchar(255) NOT NULL DEFAULT 'unknown',
+            flags varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         // Deprecated since @next-release.

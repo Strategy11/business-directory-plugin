@@ -570,6 +570,34 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
+    public function get_flags() {
+        global $wpdb;
+
+        $flags = trim( $wpdb->get_var( $wpdb->prepare( "SELECT flags FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) ) );
+
+        if ( ! $flags )
+            return array();
+
+        return explode( ',', $flags );
+    }
+
+    /**
+     * @since next-release
+     */
+    public function set_flag( $flag ) {
+        global $wpdb;
+
+        $flags = $this->get_flags();
+
+        if ( ! in_array( $flag, $flags, true ) )
+            $flags[] = $flag;
+
+        $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'flags' => implode( ',', $flags ) ), array( 'listing_id' => $this->id ) );
+    }
+
+    /**
+     * @since next-release
+     */
     public function _after_save( $context = '' ) {
         if ( 'submit-new' == $context ) {
             do_action( 'WPBDP_Listing::listing_created', $this->id );

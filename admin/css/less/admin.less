@@ -20,6 +20,9 @@ span.tag {
     text-transform: uppercase;
     text-decoration: none !important;
     line-height: 1.5 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .button-primary.next-to-secondary {
@@ -133,6 +136,7 @@ table.wp-list-table td .tag {
     color: #fff;
     font-size: 90%;
     margin-right: 2px;
+    display: inline-block;
 }
 
 table.wp-list-table.formfields th.column-label {
