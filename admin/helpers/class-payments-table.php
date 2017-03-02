@@ -92,7 +92,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_details( $payment ) {
-        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ) ) . '">' . _x( 'View details', 'payments admin', 'WPBDM' ) . '</a>';
+        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ) ) . '">' . _x( 'View Payment History', 'payments admin', 'WPBDM' ) . '</a>';
     }
 
     public function column_listing( $payment ) {
