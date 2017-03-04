@@ -172,8 +172,8 @@ class WPBDP_Admin_Listings {
 
     function add_columns( $columns_ ) {
         $custom_columns = array();
+        $custom_columns['status'] = __( 'Status', 'WPBDM' );
         $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
-        $custom_columns['status'] = __( 'Listing Status', 'WPBDM' );
         $custom_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
 
         // Do not show comments column.
@@ -189,6 +189,8 @@ class WPBDP_Admin_Listings {
         }
 
         $columns['attributes'] = __( 'Attributes', 'WPBDM' );
+
+        unset( $columns['author'] );
 
         return apply_filters( 'wpbdp_admin_directory_columns', $columns );
     }
