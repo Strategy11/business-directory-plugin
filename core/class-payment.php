@@ -151,7 +151,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         wpbdp_insert_log( array(
             'log_type' => 'payment.note',
             'object_id' => $this->id,
-            'message' => _x( 'Admin submit. Payment skipped.', 'submit listing', 'WPBDM' ) ) );
+            'message' => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'WPBDM' ) ) );
     }
 
     public function get_data( $key ) {
