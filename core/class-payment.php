@@ -201,6 +201,11 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return wpbdp_get_logs( array( 'object_id' => $this->id, 'object_type' => 'payment', 'log_type' => 'payment.note' ) );
     }
 
+    public function set_payment_method( $method ) {
+        $this->gateway = $method;
+        $this->save();
+    }
+
     public static function get_stati() {
         $stati = array();
         $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
@@ -598,12 +603,6 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 //             $this->listing_id = $listing->ID;
 //         else
 //             $this->listing_id = $listing;
-//     }
-//
-//     public function set_payment_method( $method_id ) {
-//         $this->gateway = $method_id;
-//
-//         do_action_ref_array( 'WPBDP_Payment::set_payment_method', array( &$this, $method_id ) );
 //     }
 //
 //     public function get_currency_code() {

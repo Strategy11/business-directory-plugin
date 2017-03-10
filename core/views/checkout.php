@@ -56,7 +56,6 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $skip_gateway_selection = apply_filters( 'wpbdp_checkout_skip_gateway_selection', $skip_gateway_selection );
         if ( $skip_gateway_selection ) {
             $this->payment->set_payment_method( array_pop( $gateways ) );
-            $this->payment->save();
             return $this->checkout();
         }
 
@@ -74,7 +73,6 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 //                $html .= wpbdp_render_msg( _x( 'Please select a valid payment method.', 'checkout', 'WPBDM' ), 'error' );
             } else {
                 $this->payment->set_payment_method( $payment_method );
-                $this->payment->save();
                 return $this->checkout();
             }
         }
