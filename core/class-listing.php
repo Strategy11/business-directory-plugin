@@ -178,6 +178,14 @@ class WPBDP_Listing {
         return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
     }
 
+    /**
+     * @since next-release
+     */
+    public function get_payments() {
+        $payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) );
+        return $payments;
+    }
+
     public function get_latest_payments() {
         return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' );
     }
