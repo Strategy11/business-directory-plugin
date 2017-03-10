@@ -18,7 +18,6 @@ class WPBDP_PaymentsAPI {
 
         do_action_ref_array( 'wpbdp_register_gateways', array( &$this ) );
         add_action( 'wpbdp_register_settings', array( &$this, 'register_gateway_settings' ) );
-        add_action( 'WPBDP_Payment::set_payment_method', array( &$this, 'gateway_payment_setup' ), 10, 2 );
 
         // Listing abandonment.
         add_filter( 'WPBDP_Listing::get_payment_status', array( &$this, 'abandonment_status' ), 10, 2 );
@@ -449,17 +448,6 @@ class WPBDP_PaymentsAPI {
         $html .= '</div>';
 
         return $html;
-    }
-
-    /**
-     * @since 3.4.2
-     */
-    public function gateway_payment_setup( &$payment, $method_id = '' ) {
-        if ( ! $method_id || ! isset( $this->gateways[ $method_id ] ) )
-            return;
-
-        $gateway = $this->gateways[ $method_id ];
-        $gateway->setup_payment( $payment );
     }
 
 //    public function payment_notification( &$payment ) {
