@@ -165,6 +165,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return 'completed' == $this->status;
     }
 
+    public function get_admin_url() {
+        return admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $this->id );
+    }
+
     public function get_checkout_url( $force_http = false ) {
         $payment_id = $this->id;
         $payment_q = base64_encode('payment_id=' . $payment_id . '&verify=0' ); // TODO: add a 'verify' parameter to avoid false links being generated.
