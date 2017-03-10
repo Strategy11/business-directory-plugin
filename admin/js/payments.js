@@ -1,4 +1,10 @@
 jQuery(function($) {
+    $( 'body.directory-admin_page_wpbdp_admin_payments .postbox .handlediv.button-link' ).click( function(e) {
+        var $p = $( this ).parents( '.postbox' );
+        $p.toggleClass( 'closed' );
+        $( this ).attr( 'aria-expanded', ! $p.hasClass( 'closed' ) );
+    });
+
     $( '#wpbdp-admin-payment-info-box input[name="payment[created_on_date]"]' ).datepicker({
         dateFormat: 'yy-mm-dd'
     });
