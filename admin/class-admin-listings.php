@@ -377,7 +377,14 @@ class WPBDP_Admin_Listings {
         if ( ! current_user_can( 'administrator' ) )
             return $actions;
 
-        $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&listing=' . $post->ID ) ) . '">' . _x( 'View Payments', 'admin actions', 'WPBDM' ) . '</a>';
+        $listing = wpbdp_get_listing( $post->ID );
+        $payments = $listing->get_payments();
+        if ( $payments->count() > 1 ) {
+            $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&listing=' . $listing->get_id() ) ) . '">' . _x( 'View Payments', 'admin actions', 'WPBDM' ) . '</a>';
+        } else {
+            $payment = $payments->get();
+            $actions['view-payments'] = '<a href="' . esc_url( $payment->get_admin_url() ) . '">' . _x( 'View Payment', 'admin actions', 'WPBDM' ) . '</a>';
+        }
 
         $listing = wpbdp_get_listing( $post->ID );
         $actions = apply_filters( 'wpbdp_admin_directory_row_actions', $actions, $listing );
