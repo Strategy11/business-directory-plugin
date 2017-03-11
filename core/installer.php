@@ -197,6 +197,14 @@ class WPBDP_Installer {
             data longblob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
+        // We're going to use this for fees-revamp upgrades in case something goes wrong.
+        $schema['upgrade_backup'] = "CREATE TABLE {$wpdb->prefix}wpbdp_upgrade_backup (
+            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+            migration varchar(10) NOT NULL,
+            b_key varchar(255) NOT NULL,
+            b_value longblob NULL
+        )  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
         return apply_filters( 'wpbdp_database_schema', $schema );
     }
 

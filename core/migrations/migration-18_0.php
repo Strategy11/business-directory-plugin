@@ -45,6 +45,27 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         return true;
     }
 
+    private function has_backup( $key ) {
+        global $wpdb;
+
+        $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_upgrade_backup WHERE b_key = %s", $key ) ) );
+        return $count > 0;
+    }
+
+    private function backup_or_die( $key, $value ) {
+        global $wpdb;
+
+        $wpdb->delete( $wpdb->prefix . 'wpbdp_upgrade_backup', array( 'migration' => '18', 'b_key' => $key ) );
+
+        $row = array( 'migration' => '18', 'b_key' => $key, 'b_value' => serialize( $value ) );
+        $res = $wpdb->insert( $wpdb->prefix . 'wpbdp_upgrade_backup', $row );
+
+        if ( ! $res )
+            wp_die( 'Could not backup key: ' . $key );
+
+        return $res;
+    }
+
     /**
      * Updates (if needed) current fees to add information for the new columns:
      * supported_categories, pricing_model.
@@ -55,6 +76,9 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         $msg = _x( 'Migrating fee plans columns...', 'installer', 'WPBDM' );
 
         foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_fees" ) as $fee ) {
+            // Backup this fee.
+            $this->backup_or_die( 'fee:' . $fee->id, $fee );
+
             $old_categories = isset( $fee->categories ) ? unserialize( $fee->categories ) : array();
             $update = array();
 
@@ -94,7 +118,12 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             return true;
 
         foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items ORDER BY id ASC LIMIT {$batch_size}" ) as $item ) {
+            $this->backup_or_die( 'payment_item:' . $item->id, $item );
             $payment = WPBDP_Payment::objects()->get( $item->payment_id );
+
+            if ( ! $this->has_backup( 'payment:' . $item->payment_id ) ) {
+                $this->backup_or_die( 'payment:' . $item->payment_id, $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $item->payment_id ) ) );
+            }
 
             $new_item = array();
 
@@ -238,6 +267,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         }
 
         $fees = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $listing_id ) );
+
+        if ( ! $this->has_backup( 'listing_fees:' . $listing_id ) ) {
+            $this->backup_or_die( 'listing_fees:' . $listing_id, $fees );
+        }
 
         if ( ! $fees )
             return false;
