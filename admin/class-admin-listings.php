@@ -236,19 +236,19 @@ class WPBDP_Admin_Listings {
         $attributes = array();
 
         foreach ( $listing->get_flags() as $f ) {
-            $attributes[ $f ] = '<span class="tag">' . $f . '</span>';
+            $attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . $f . '">' . $f . '</span>';
         }
 
         if ( $plan->is_sticky )
-            $attributes['featured'] = '<span class="tag">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
+            $attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
 
         if ( $plan->is_recurring )
-            $attributes['recurring'] = '<span class="tag">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
+            $attributes['recurring'] = '<span class="wpbdp-tag wpbdp-listing-attr-recurring">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
 
         if ( 0.0 == $plan->fee_price )
-            $attributes['free'] = '<span class="tag">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
+            $attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
         else
-            $attributes['paid'] = '<span class="tag">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
+            $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
 
         $attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
 

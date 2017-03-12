@@ -10,7 +10,7 @@
     *zoom: 1;
 }
 
-span.tag {
+span.tag, .wpbdp-tag {
     background: #444;
     border-radius: 2px;
     padding: 2px 5px;
@@ -736,3 +736,12 @@ a.wpbdp-admin-delete-link {
 @import 'form-fields.less';
 @import 'submit-listing.less';
 
+.wpbdp-tag {
+    &.wpbdp-listing-attr-paid {
+        background: green;
+    }
+
+    &.wpbdp-listing-attr-admin-posted {
+        background: orange;
+    }
+}
