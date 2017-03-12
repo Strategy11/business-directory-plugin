@@ -4,7 +4,7 @@ require_once( WPBDP_PATH . 'core/class-db-entity.php' );
 
 class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
 
-    static $_table_name = 'wpbdp_fees';
+    static $_table_name = 'wpbdp_plans';
     static $_serialized = array( 'pricing_details', 'extra_data' );
 
 

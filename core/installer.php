@@ -91,21 +91,21 @@ class WPBDP_Installer {
             KEY field_type (field_type)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        $schema['fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_fees (
+        $schema['plans'] = "CREATE TABLE {$wpdb->prefix}wpbdp_plans (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             label varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-            description TEXT DEFAULT '',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
             days smallint unsigned NOT NULL DEFAULT 0,
             images smallint unsigned NOT NULL DEFAULT 0,
-            extra_data blob NULL,
-            weight int(5) NOT NULL DEFAULT 0,
             sticky tinyint(1) NOT NULL DEFAULT 0,
-            enabled tinyint(1) NOT NULL DEFAULT 1,
-            tag varchar(255) NOT NULL DEFAULT '',
             pricing_model varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'flat',
             pricing_details blob NULL,
-            supported_categories text NOT NULL DEFAULT ''
+            supported_categories text NOT NULL DEFAULT '',
+            weight int(5) NOT NULL DEFAULT 0,
+            enabled tinyint(1) NOT NULL DEFAULT 1,
+            description TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            extra_data blob NULL,
+            tag varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         $schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
@@ -133,36 +133,6 @@ class WPBDP_Installer {
             KEY status (status)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        // Deprecated since @next-release.
-        // $schema['payments_items'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments_items (
-        //     id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
-        //     payment_id bigint(20) NOT NULL,
-        //     amount decimal(10,2) NOT NULL DEFAULT 0.00,
-        //     item_type varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'charge',
-        //     description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Charge',
-        //     rel_id_1 bigint(20) NULL,
-        //     rel_id_2 bigint(20) NULL,
-        //     data longblob NULL
-        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
-
-        // Deprecated since @next-release.
-        // $schema['listing_fees'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listing_fees (
-        //     id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
-        //     listing_id bigint(20) NOT NULL,
-        //     category_id bigint(20) NOT NULL,
-        //     fee_id bigint(20) NULL,
-        //     fee_days smallint unsigned NOT NULL,
-        //     fee_images smallint unsigned NOT NULL DEFAULT 0,
-        //     expires_on timestamp NULL DEFAULT NULL,
-        //     email_sent tinyint(1) NOT NULL DEFAULT 0,
-        //     recurring tinyint(1) NOT NULL DEFAULT 0,
-        //     recurring_id varchar(255) NULL,
-        //     recurring_data blob NULL,
-        //     sticky tinyint(1) NOT NULL DEFAULT 0,
-        //     KEY listing_cat (listing_id,category_id),
-        //     KEY expires_and_email (expires_on,email_sent)
-        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
         $schema['listings'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listings (
             listing_id bigint(20) PRIMARY KEY,
             fee_id bigint(20) NULL,
@@ -178,13 +148,6 @@ class WPBDP_Installer {
             flags varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        // Deprecated since @next-release.
-        // $schema['submit_state'] = "CREATE TABLE {$wpdb->prefix}wpbdp_submit_state (
-        //     id varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci PRIMARY KEY,
-        //     state longblob NOT NULL,
-        //     updated_on datetime NOT NULL
-        // ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
         $schema['logs'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             object_id bigint(20) NULL DEFAULT 0,
@@ -197,21 +160,13 @@ class WPBDP_Installer {
             data longblob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-        // We're going to use this for fees-revamp upgrades in case something goes wrong.
-        $schema['upgrade_backup'] = "CREATE TABLE {$wpdb->prefix}wpbdp_upgrade_backup (
-            id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
-            migration varchar(10) NOT NULL,
-            b_key varchar(255) NOT NULL,
-            b_value longblob NULL
-        )  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
         return apply_filters( 'wpbdp_database_schema', $schema );
     }
 
     public function update_database_schema() {
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        wpbdp_log( 'Running dbDelta.' ); 
+        wpbdp_log( 'Running dbDelta.' );
 
         $schema = $this->get_database_schema();
 
