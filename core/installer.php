@@ -104,7 +104,7 @@ class WPBDP_Installer {
             weight int(5) NOT NULL DEFAULT 0,
             enabled tinyint(1) NOT NULL DEFAULT 1,
             description TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
-            extra_data blob NULL,
+            extra_data longblob NULL,
             tag varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
@@ -114,7 +114,8 @@ class WPBDP_Installer {
             parent_id bigint(20) NOT NULL DEFAULT 0,
             payment_key varchar(255) NULL DEFAULT '',
             payment_type varchar(255) NULL DEFAULT '',
-            payment_items blob NULL,
+            payment_items longblob NULL,
+            extra_data longblob NULL,
             flags text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_email varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_first_name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',

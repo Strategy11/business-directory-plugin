@@ -102,7 +102,9 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         if ( ! $count )
             return true;
 
-        foreach ( $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE payment_items IS NULL OR payment_items = %s ORDER BY id ASC LIMIT {$batch_size}", '' )  ) as $payment_id ) {
+        foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT id, tag FROM {$wpdb->prefix}wpbdp_payments WHERE payment_items IS NULL OR payment_items = %s ORDER BY id ASC LIMIT {$batch_size}", '' )  ) as $payment ) {
+            $payment_id = $payment->id;
+            $payment_type = $payment->tag;
             $items = array();
 
             foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = %d", $payment_id ) ) as $item ) {
@@ -142,7 +144,11 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 $items[] = $new_item;
             }
 
-            if ( false === $wpdb->update( $wpdb->prefix . 'wpbdp_payments', array( 'payment_items' => serialize( $items ) ), array( 'id' => $payment_id ) ) ) {
+            if ( ! $payment_type ) {
+                // TODO: Try to find out the payment type from the items.
+            }
+
+            if ( false === $wpdb->update( $wpdb->prefix . 'wpbdp_payments', array( 'payment_items' => serialize( $items ), 'payment_type' => $payment_type ), array( 'id' => $payment_id ) ) ) {
                 $msg = sprintf( _x( '! Could not migrate payment #%d', 'installer', 'WPBDM' ), $payment_id );
                 return false;
             }
