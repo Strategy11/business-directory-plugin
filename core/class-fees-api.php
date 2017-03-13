@@ -12,9 +12,9 @@ class WPBDP_Fees_API {
     private function setup_default_fees() {
         global $wpdb;
 
-        if ( 0 === intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE tag = %s", 'free' ) ) ) ) {
+        if ( 0 === intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE tag = %s", 'free' ) ) ) ) {
             // Add free fee to the DB.
-            $wpdb->insert( $wpdb->prefix . 'wpbdp_fees',
+            $wpdb->insert( $wpdb->prefix . 'wpbdp_plans',
                            array( 'id' => 0,
                                   'tag' => 'free',
                                   'label' => _x( 'Free Listing', 'fees-api', 'WPBDM' ),

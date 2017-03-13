@@ -25,7 +25,7 @@ abstract class WPBDP_Payment_Gateway {
         // TODO: support pretty URLs
         return add_query_arg( array( 'wpbdpx' => 'payments',
                                      'action' => $action,
-                                     'payment_id' => $payment->get_id() ),
+                                     'payment_id' => $payment->id ),
                               home_url( '/' ) );
     }
 
@@ -82,9 +82,9 @@ abstract class WPBDP_Payment_Gateway {
         $args['payment'] = $payment;
 
         // Clear errors.
-        $payment->set_data( 'billing-information', false );
-        $payment->set_data( 'validation-errors', false );
-        $payment->save();
+        // $payment->extra_data['billing-information'] = false;
+        // $payment->extra_data['validation-errors'] = false;
+        // $payment->save();
 
         return wpbdp_render( 'billing-information-form', $args );
     }

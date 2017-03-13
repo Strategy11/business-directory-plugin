@@ -206,6 +206,23 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $this->save();
     }
 
+    public function is_pending() {
+        return $this->status == self::STATUS_PENDING;
+    }
+
+    public function is_canceled() {
+        return $this->status == self::STATUS_CANCELED;
+    }
+
+    public function is_rejected() {
+        return $this->status == self::STATUS_REJECTED;
+    }
+
+    public function has_been_processed() {
+        return ! empty( $this->processed_by );
+    }
+
+
     public static function get_stati() {
         $stati = array();
         $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
@@ -337,25 +354,6 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 //         return $this->amount > 0.0 && $this->status != self::STATUS_COMPLETED;
 //     }
 //
-//     public function is_pending() {
-//         return $this->status == self::STATUS_PENDING;
-//     }
-//
-//     public function is_completed() {
-//         return $this->status == self::STATUS_COMPLETED;
-//     }
-//
-//     public function is_canceled() {
-//         return $this->status == self::STATUS_CANCELED;
-//     }
-//
-//     public function is_rejected() {
-//         return $this->status == self::STATUS_REJECTED;
-//     }
-//
-//     public function has_been_processed() {
-//         return ! empty( $this->processed_by );
-//     }
 //
 //     public function is_first_recurring_payment() {
 //         return $this->has_item_type( 'recurring_fee' ) && ( ! $this->get_data( 'recurring_id' ) );

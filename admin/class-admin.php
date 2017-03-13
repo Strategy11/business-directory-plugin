@@ -531,11 +531,11 @@ to how WordPress stores the data.", 'WPBDM' )
         if ( ! $order )
             $response->send_error();
 
-        $wpdb->update( $wpdb->prefix . 'wpbdp_fees', array( 'weight' => 0 ) );
+        $wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => 0 ) );
 
         $weight = count( $order ) - 1;
         foreach( $order as $fee_id ) {
-            $wpdb->update( $wpdb->prefix . 'wpbdp_fees', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
+            $wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
             $weight--;
         }
 

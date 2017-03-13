@@ -91,7 +91,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             case 'move':
                 $featured_fee_translation[ $level_id ] = $level_config['fee_id'];
 
-                $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_fees WHERE id = %d", $level_config['fee_id'] ) );
+                $fee = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $level_config['fee_id'] ) );
 
                 $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET fee_id = %d, fee_price = %s, fee_days = %d, fee_images = %d, is_sticky = %d WHERE listing_id IN ( SELECT pm.post_id FROM {$wpdb->postmeta} pm WHERE pm.meta_key = %s AND pm.meta_value = %s )",
                 $fee->id,
@@ -189,9 +189,9 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             $levels[ $level_id ]['count'] = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID WHERE p.post_type = %s AND pm.meta_key = %s AND pm.meta_value = %s", WPBDP_POST_TYPE, '_wpbdp[sticky_level]', $level_id ) );
         }
 
-        // Gather possible feet options for migration.
+        // Gather possible fee options for migration.
         $fee_options = '';
-        foreach ( $wpdb->get_results( "SELECT id, label FROM {$wpdb->prefix}wpbdp_fees" ) as $r ) {
+        foreach ( $wpdb->get_results( "SELECT id, label FROM {$wpdb->prefix}wpbdp_plans" ) as $r ) {
             $fee_options .= '<option value="' . $r->id . '">' . $r->label . '</option>';
         }
 

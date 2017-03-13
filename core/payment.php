@@ -126,7 +126,7 @@ class WPBDP_PaymentsAPI {
                 $errors[] = __( 'You have recurring renewal of listing fees enabled but the payment gateways installed don\'t support recurring payments. Until a gateway that supports recurring payments (such as PayPal) is enabled automatic renewals will be disabled.', 'WPBDM' );
             }
 
-            if ( 0 == absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_fees WHERE tag != %s AND enabled = %d", 'free', 1 ) ) ) ) {
+            if ( 0 == absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE tag != %s AND enabled = %d", 'free', 1 ) ) ) ) {
                 $errors[] = str_replace( array( '<a href="fees">',
                                                 '<a href="settings">' ),
                                          array( '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees' ) . '">',
@@ -290,7 +290,7 @@ class WPBDP_PaymentsAPI {
         if ( $gid )
             unset( $_GET['gid'] );
 
-        $gateway_id = $payment ? $payment->get_gateway() : $gid;
+        $gateway_id = $payment ? $payment->gateway : $gid;
 
         if ( ! $gateway_id || ! isset( $this->gateways[ $gateway_id ] )  )
             return;
@@ -310,7 +310,7 @@ class WPBDP_PaymentsAPI {
         if ( ! $payment || ! $payment->is_completed() )
             return;
 
-        $gateway = $payment->get_gateway();
+        $gateway = $payment->gateway;
         if ( ! $this->is_available( $gateway ) )
             return;
 
@@ -333,7 +333,7 @@ class WPBDP_PaymentsAPI {
         if ( ! $payment )
             return '';
 
-        $gateway = $payment->get_gateway();
+        $gateway = $payment->gateway;
 
         if ( ! isset( $this->gateways[ $gateway ] ) )
             return '';
@@ -365,7 +365,7 @@ class WPBDP_PaymentsAPI {
         // if ( ! $payment->is_pending() ) {
         //     $html .= '<dl class="details">';
         //     $html .= '<dt>' . _x( 'Gateway', 'payments', 'WPBDM' ) . '</dt>';
-        //     $html .= '<dd>' . $payment->get_gateway() && isset( $this->gateways[ $payment->get_gateway() ] ) ? $this->gateways[ $payment->get_gateway() ]->get_name() : '–'  . '</dd>';
+        //     $html .= '<dd>' . $payment->gateway && isset( $this->gateways[ $payment->gateway ] ) ? $this->gateways[ $payment->gateway ]->get_name() : '–'  . '</dd>';
         //     $html .= '</dl>';
         // }
 
@@ -401,7 +401,7 @@ class WPBDP_PaymentsAPI {
 
     // TODO: dodoc
     public function render_payment_method_integration( &$payment ) {
-        $gateway_id = $payment->get_gateway();
+        $gateway_id = $payment->gateway;
 
         if ( ! isset( $this->gateways[ $gateway_id ] ) )
             throw new Exception('Unknown gateway for payment.'); // TODO: maybe allow re-selection of the gateway?
@@ -437,7 +437,7 @@ class WPBDP_PaymentsAPI {
             }
         } elseif ( $payment->is_canceled() ) {
             $html .= '<p>' . _x( 'The payment has been canceled at your request.', 'payments', 'WPBDM' ) . '</p>';
-        } elseif ( $payment->is_pending() && $payment->get_gateway() ) {
+        } elseif ( $payment->is_pending() && $payment->gateway ) {
             $html .= $this->render_invoice( $payment );
             $html .= $this->render_payment_method_integration( $payment );
         }
