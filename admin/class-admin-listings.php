@@ -6,8 +6,9 @@ class WPBDP_Admin_Listings {
         add_action('admin_init', array($this, 'add_metaboxes'));
         add_action( 'wpbdp_admin_notices', array( $this, 'no_plan_edit_notice' ) );
 
-        add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'add_columns' ) );
+        add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'modify_columns' ) );
         add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
+        add_filter( 'manage_edit-' . WPBDP_POST_TYPE . '_sortable_columns', array( &$this, 'sortable_columns' ) );
 
         add_filter( 'views_edit-' . WPBDP_POST_TYPE, array( &$this, 'listing_views' ) );
         add_filter( 'posts_clauses', array( &$this, 'listings_admin_filters' ) );
@@ -170,31 +171,35 @@ class WPBDP_Admin_Listings {
 
     // {{{ Custom columns.
 
-    function add_columns( $columns_ ) {
-        $custom_columns = array();
-        $custom_columns['status'] = __( 'Status', 'WPBDM' );
-        $custom_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
-        $custom_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
+    function modify_columns( $columns ) {
+        // Hide comments and author column.
+        unset( $columns['author'], $columns['comments'] );
 
-        // Do not show comments column.
-        unset( $columns_['comments'] );
+        $new_columns = array();
 
-        $columns = array();
+        foreach ( $columns as $c_key => $c_label ) {
+            // Insert category and expiration date after title.
+            if ( 'title' == $c_key ) {
+                $new_columns['title_'] = $c_label;
+                $new_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
+                $new_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
+                continue;
+            }
 
-        foreach ( $columns_ as $k => $v ) {
-            $columns[ $k ] = $v;
-
-            if ( 'title' == $k )
-                $columns = array_merge( $columns, $custom_columns );
+            $new_columns[ $c_key ] = $c_label;
         }
 
-        $columns['attributes'] = __( 'Attributes', 'WPBDM' );
+        // Attributes goes last.
+        $new_columns['attributes'] = __( 'Attributes', 'WPBDM' );
 
-        unset( $columns['author'] );
-
-        return apply_filters( 'wpbdp_admin_directory_columns', $columns );
+        $new_columns = apply_filters( 'wpbdp_admin_directory_columns', $new_columns );
+        return $new_columns;
     }
 
+    function sortable_columns( $columns ) {
+        $columns['title_'] = 'title';
+        return $columns;
+    }
 
     function listing_column( $column, $post_id ) {
         if ( ! method_exists( $this, 'listing_column_' . $column ) )
@@ -213,10 +218,18 @@ class WPBDP_Admin_Listings {
         }
     }
 
-    function listing_column_status( $post_id ) {
-        $listing = WPBDP_Listing::get( $post_id );
+    function listing_column_title_( $post_id ) {
+        $table = _get_list_table( 'WP_Posts_List_Table' );
+        ob_start(); $table->column_title( get_post( $post_id ) ); $out = ob_get_clean();
+
+        $listing = wpbdp_get_listing( $post_id );
         $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
-        echo $status[1];
+        $status_label = $status[1];
+
+        $html = " &mdash; <span class='post-state wpbdp-listing-status-{$status[0]}'>{$status_label}</span>";
+        $out = preg_replace( '/\s+&mdash;\s+(<span class=[\'"]post-state[\'"]>)(.*)(<\/span>)/uiUm', '', $out );
+        $out = preg_replace('/(<a.*class=[\'"]row-title[\'"].*>.*<\/a>)/uiUm', "$1 {$html}", $out );
+        echo $out;
     }
 
     public function listing_column_expiration_date( $post_id ) {
@@ -236,7 +249,7 @@ class WPBDP_Admin_Listings {
         $attributes = array();
 
         foreach ( $listing->get_flags() as $f ) {
-            $attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . $f . '">' . $f . '</span>';
+            $attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . $f . '">' . ucwords( str_replace( '-', ' ', $f ) ) . '</span>';
         }
 
         if ( $plan->is_sticky )
@@ -247,8 +260,14 @@ class WPBDP_Admin_Listings {
 
         if ( 0.0 == $plan->fee_price )
             $attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
-        else
+        elseif ( 'pending_payment' != $listing->get_status() )
             $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
+
+        $post_status = get_post_status( $post_id );
+        if ( in_array( $post_status, array( 'draft', 'pending' ), true ) ) {
+            $post_status_trans = array( 'draft' => _x( 'Draft', 'admin listings', 'WPBDM' ), 'pending' => _x( 'Pending Review', 'admin listings', 'WPBDM' ) );
+            $attributes['post-status'] = '<span class="wpbdp-tag wpbdp-listing-attr-post-status-' . $post_status . '">' . $post_status_trans[ $post_status ] . '</span>';
+        }
 
         $attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
 
@@ -273,86 +292,61 @@ class WPBDP_Admin_Listings {
 
         $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
 
-//        $unpaid = $wpdb->get_var( $wpdb->prepare(
-//            "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON p.ID = ps.listing_id
-//             WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ps.status = %s",
-//             WPBDP_POST_TYPE,
-//             'pending'
-//        ) );
-        $unpaid = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(DISTINCT p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->prefix}wpbdp_payments ps
-             ON (ps.listing_id = p.ID AND ps.status = %s) WHERE p.post_type = %s
-             AND p.post_status IN ({$post_statuses}) AND ps.status IS NOT NULL",
-             'pending',
-             WPBDP_POST_TYPE ) );
+        $stati = WPBDP_Listing::get_stati();
+        unset( $stati['unknown'], $stati['legacy'], $stati['incomplete'] );
 
-        $paid = intval( $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})",
-            WPBDP_POST_TYPE ) ) ) - $unpaid;
+        // TODO: what are we going to do with regular post statuses?
+        $views = array();
 
-        $pending_upgrade = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
-                                                           WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ( (pm.meta_key = %s AND pm.meta_value = %s) )",
-                                                           WPBDP_POST_TYPE,
-                                                           '_wpbdp[sticky]',
-                                                           'pending') );
-        $expired = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE expiration_date IS NOT NULL AND expiration_date < %s",
-                                                   current_time( 'mysql' ) ) );
+        $count = absint( $wpdb->get_var( $wpdb->prepare(
+                "SELECT COUNT(p.ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})",
+                WPBDP_POST_TYPE
+        ) ) );
+        $views['all'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                                 esc_url( remove_query_arg( 'listing_status' ) ),
+                                 wpbdp_getv( $_REQUEST, 'listing_status', 'all' ) == 'all' ? 'current' : '',
+                                 _x( 'All', 'admin listings', 'WPBDM' ),
+                                 number_format_i18n( $count ) );
 
-        $views['paid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                 esc_url( add_query_arg('wpbdmfilter', 'paid', remove_query_arg('post')) ),
-                                 wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'paid' ? 'current' : '',
-                                 __('Paid', 'WPBDM'),
-                                 number_format_i18n($paid));
-        $views['unpaid'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                   esc_url( add_query_arg('wpbdmfilter', 'unpaid', remove_query_arg('post')) ),
-                                   wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'unpaid' ? 'current' : '',
-                                   __('Unpaid', 'WPBDM'),
-                                   number_format_i18n($unpaid));
-        $views['featured'] = sprintf('<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                   esc_url( add_query_arg('wpbdmfilter', 'pendingupgrade', remove_query_arg('post')) ),
-                                   wpbdp_getv($_REQUEST, 'wpbdmfilter') == 'pendingupgrade' ? 'current' : '',
-                                   __('Pending Upgrade', 'WPBDM'),
-                                   number_format_i18n($pending_upgrade));
-        $views['expired'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                     esc_url( add_query_arg( 'wpbdmfilter', 'expired', remove_query_arg( 'post' ) ) ),
-                                     wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) == 'expired' ? 'current' : '' ,
-                                     _x( 'Expired', 'admin', 'WPBDM' ),
-                                     number_format_i18n( $expired )
-                                    );
+        foreach ( $stati as $status_id => $status_label ) {
+            $count = absint( $wpdb->get_var( $wpdb->prepare(
+                "SELECT COUNT(p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listings ls ON p.ID = ls.listing_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ls.listing_status = %s",
+                WPBDP_POST_TYPE,
+                $status_id
+            ) ) );
+
+            if ( ! $count )
+                continue;
+
+            $views[ $status_id ] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                                            esc_url( add_query_arg( 'listing_status', $status_id ) ),
+                                            wpbdp_getv( $_REQUEST, 'listing_status' ) == $status_id ? 'current' : '',
+                                            $status_label,
+                                            number_format_i18n( $count ) );
+        }
 
         $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
 
         return $views;
     }
 
-    function listings_admin_filters( $pieces  ) {
+    function listings_admin_filters( $pieces ) {
         global $wpdb;
 
-        if ( ! is_admin() || ! isset( $_REQUEST['wpbdmfilter'] ) || ! function_exists( 'get_current_screen' ) || ! get_current_screen() || 'edit-' . WPBDP_POST_TYPE != get_current_screen()->id )
+        if ( ! is_admin() || ( ! isset( $_REQUEST['listing_status'] ) && ! isset( $_REQUEST['wpbdmfilter'] ) ) || ! function_exists( 'get_current_screen' ) || ! get_current_screen() || 'edit-' . WPBDP_POST_TYPE != get_current_screen()->id )
             return $pieces;
 
-        switch ( $_REQUEST['wpbdmfilter'] ) {
-            case 'expired':
-                $pieces['join'] = " LEFT JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID ";
-                $pieces['where'] = $wpdb->prepare( " AND lp.expiration_date IS NOT NULL AND lp.expiration_date < %s ", current_time( 'mysql' ) );
-                $pieces['groupby'] = " {$wpdb->posts}.ID ";
-                break;
-            case 'pendingupgrade':
-                $pieces['join'] = " LEFT JOIN {$wpdb->postmeta} pm ON pm.post_id = {$wpdb->posts}.ID ";
-                $pieces['where'] = $wpdb->prepare( " AND pm.meta_key = %s AND pm.meta_value = %s ", '_wpbdp[sticky]', 'pending' );
-                break;
-            case 'paid':
-                $pieces['where'] .= $wpdb->prepare( " AND NOT EXISTS ( SELECT 1 FROM {$wpdb->prefix}wpbdp_payments WHERE {$wpdb->posts}.ID = {$wpdb->prefix}wpbdp_payments.listing_id AND ( {$wpdb->prefix}wpbdp_payments.status IS NULL OR {$wpdb->prefix}wpbdp_payments.status != %s ) )", 'completed' );
-                break;
-            case 'unpaid':
-                $pieces['join'] .= " LEFT JOIN {$wpdb->prefix}wpbdp_payments ON {$wpdb->posts}.ID = {$wpdb->prefix}wpbdp_payments.listing_id ";
-                $pieces['where'] .= $wpdb->prepare( " AND {$wpdb->prefix}wpbdp_payments.status = %s ", 'pending' );
-                $pieces['groupby'] .= " {$wpdb->posts}.ID ";
-                break;
-            default:
-                $pieces = apply_filters( 'wpbdp_admin_directory_filter', $pieces, $_REQUEST['wpbdmfilter'] );
-                break;
+
+        $status_filter = wpbdp_getv( $_REQUEST, 'listing_status', 'all' );
+        $other_filter = wpbdp_getv( $_REQUEST, 'wpbdmfilter', '' );
+
+        if ( in_array( $status_filter, array_keys( WPBDP_Listing::get_stati() ), true ) ) {
+            $pieces['join']  .= " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
+            $pieces['where'] .= $wpdb->prepare( "AND ls.listing_status = %s", $status_filter );
         }
+
+        if ( $other_filter )
+            $pieces = apply_filters( 'wpbdp_admin_directory_filter', $pieces, $other_filter );
 
         return $pieces;
     }
