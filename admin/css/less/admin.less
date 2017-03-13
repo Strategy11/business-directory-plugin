@@ -10,21 +10,6 @@
     *zoom: 1;
 }
 
-span.tag, .wpbdp-tag {
-    background: #444;
-    border-radius: 2px;
-    padding: 2px 5px;
-    color: #fff;
-    font-size: 9px !important;
-    margin-right: 2px;
-    text-transform: uppercase;
-    text-decoration: none !important;
-    line-height: 1.5 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .button-primary.next-to-secondary {
     margin-left: 30px;
 }
@@ -736,7 +721,20 @@ a.wpbdp-admin-delete-link {
 @import 'form-fields.less';
 @import 'submit-listing.less';
 
-.wpbdp-tag {
+.wpbdp-tag, span.tag {
+    background: #444;
+    border-radius: 2px;
+    padding: 2px 5px;
+    color: #fff;
+    font-size: 9px !important;
+    margin-right: 2px;
+    text-decoration: none !important;
+    line-height: 1.5 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+
     &.wpbdp-listing-attr-paid {
         background: green;
     }
@@ -744,4 +742,21 @@ a.wpbdp-admin-delete-link {
     &.wpbdp-listing-attr-admin-posted {
         background: orange;
     }
+
+    &.wpbdp-listing-attr-post-status-pending {
+        background: inherit;
+        color: red;
+        border: 1px solid red;
+    }
+}
+
+body.post-type-wpbdp_listing {
+
+    .wp-list-table {
+        .wpbdp-tag {
+            font-size: 10px !important;
+            text-transform: none !important;
+        }
+    }
+
 }
