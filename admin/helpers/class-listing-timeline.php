@@ -12,8 +12,19 @@ class WPBDP__Listing_Timeline {
         $this->listing = wpbdp_get_listing( $listing_id );
     }
 
-    public function render() {
+    public function get_items() {
         $items = wpbdp_get_logs( array( 'object_type' => 'listing', 'object_id' => $this->listing->get_id(), 'order' => 'DESC' ) );
+
+        if ( ! $items ) {
+            $this->recreate_logs();
+            return $this->get_items();
+        }
+
+        return $items;
+    }
+
+    public function render() {
+        $items = $this->get_items();
         $timeline = array();
 
         foreach ( $items as $item ) {
@@ -34,6 +45,19 @@ class WPBDP__Listing_Timeline {
         }
 
         return wpbdp_render_page( WPBDP_PATH . 'admin/templates/metaboxes-listing-timeline.tpl.php', array( 'timeline' => $timeline ) );
+    }
+
+    private function recreate_logs() {
+        $post = get_post( $this->listing->get_id() );
+        $post_date = $post->post_date;
+
+        wpbdp_insert_log( array( 'log_type' => 'listing.created', 'object_id' => $post->ID, 'created_at' => $post_date ) );
+
+        // Insert logs for payments.
+        $payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $post->ID ) );
+        foreach ( $payments as $p ) {
+            wpbdp_insert_log( array( 'log_type' => 'listing.payment', 'object_id' => $post->ID, 'rel_object_id' => $p->id ) );
+        }
     }
 
     private function process_listing_created( $item ) {
