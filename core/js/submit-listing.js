@@ -27,6 +27,8 @@ jQuery(function($) {
 
         categories_changed: function() {
             this.selected_categories = this.field.val();
+            if ( ! $.isArray( this.selected_categories ) )
+                this.selected_categories = [this.selected_categories];
 
             if ( ! this.selected_categories ) {
                 this.selected_categories = [];
