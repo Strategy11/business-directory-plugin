@@ -280,12 +280,12 @@ class WPBDP_Admin_Listings {
 
     // {{{ List views.
 
-    function listing_views( $views ) {
+    function listing_views( $views_ ) {
         global $wpdb;
 
         if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
-            if ( current_user_can( 'contributor' ) && isset( $views['mine'] ) )
-                return array( $views['mine'] );
+            if ( current_user_can( 'contributor' ) && isset( $views_['mine'] ) )
+                return array( $views_['mine'] );
 
             return array();
         }
@@ -303,7 +303,7 @@ class WPBDP_Admin_Listings {
                 WPBDP_POST_TYPE
         ) ) );
         $views['all'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                 esc_url( remove_query_arg( 'listing_status' ) ),
+                                 esc_url( remove_query_arg( array( 'listing_status', 'post_status' ) ) ),
                                  wpbdp_getv( $_REQUEST, 'listing_status', 'all' ) == 'all' ? 'current' : '',
                                  _x( 'All', 'admin listings', 'WPBDM' ),
                                  number_format_i18n( $count ) );
@@ -326,6 +326,8 @@ class WPBDP_Admin_Listings {
         }
 
         $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
+        if ( isset( $views_['trash'] ) )
+            $views['trash'] = $views_['trash'];
 
         return $views;
     }
