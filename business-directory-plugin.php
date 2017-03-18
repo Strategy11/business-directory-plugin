@@ -1314,7 +1314,7 @@ class WPBDP_Plugin {
 
         $not_supported_views = array(
             'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing',
-            'listing_contact', 'upgradetostickylisting',
+            'listing_contact'
         );
 
         if ( in_array( $action, $not_supported_views ) )

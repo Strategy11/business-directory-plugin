@@ -31,11 +31,6 @@
         <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees' ); ?>" class="button"><?php echo _e( 'Setup/Manage Fees', 'WPBDM' ); ?></a>
     </li>
     <li class="clear"></li>
-
-    <?php if ( wpbdp_get_option( 'featured-on' ) ): ?>
-	<li>
-        <a href="<?php echo admin_url( sprintf( 'edit.php?post_type=%s&wpbdmfilter=pendingupgrade', WPBDP_POST_TYPE ) ); ?>" class="button"><?php _e( 'Featured Listings Pending Upgrade', 'WPBDM' ); ?></a>
-    </li>
     <?php endif; ?>
 
 
