@@ -150,6 +150,9 @@ class WPBDP_Plugin {
             return;
         }
 
+        require_once( WPBDP_PATH . 'includes/class-modules.php' );
+        $this->modules = new WPBDP__Modules();
+
         // Display "Settings" link on Plugins page.
         $plugin_filename = plugin_basename( __FILE__ );
         add_filter( 'plugin_action_links_' . $plugin_filename, array( &$this, 'plugin_action_links' ) );
@@ -223,9 +226,6 @@ class WPBDP_Plugin {
         add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
 
         $this->recaptcha = new WPBDP_reCAPTCHA();
-
-        // Register shortcodes.
-        $this->shortcodes->register();
     }
 
     // {{{ Premium modules.
@@ -616,10 +616,16 @@ class WPBDP_Plugin {
     }
 
     public function _init_modules() {
+        $this->modules->init();
+
         do_action('wpbdp_modules_loaded');
         do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
         do_action('wpbdp_register_fields', $this->formfields);
         do_action('wpbdp_modules_init');
+
+        // Register shortcodes.
+        $this->shortcodes->register();
+
 
         if ( wpbdp_get_option( 'tracking-on', false ) ) {
             $this->site_tracking = new WPBDP_SiteTracking();
