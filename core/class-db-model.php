@@ -223,6 +223,19 @@ class WPBDP__DB__Model {
         return $res;
     }
 
+    public function refresh() {
+        if ( $this->_adding )
+            return;
+
+        $model = self::get_model_info( $this );
+        $pk = $model['primary_key'];
+        $obj = self::_objects( get_class( $this ) )->get( $this->{$pk} );
+
+        foreach ( $obj->_attrs as $k => $v ) {
+            $this->_attrs[ $k ] = $v;
+        }
+    }
+
     public static function objects() {
         throw new Exception('Method not overridden in subclass!');
     }
