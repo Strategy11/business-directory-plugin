@@ -559,6 +559,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
             $this->listing->set_status( 'pending_payment' );
             $payment = $this->listing->generate_or_retrieve_payment();
+            $payment->context = is_admin() ? 'admin-submit' : 'submit';
+            $payment->save();
 
             if ( current_user_can( 'administrator' ) ) {
                 $payment->process_as_admin();
