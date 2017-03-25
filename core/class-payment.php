@@ -1,14 +1,15 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-db-model.php' );
 
-
+/**
+ *
+ */
 class WPBDP_Payment extends WPBDP__DB__Model {
 
-    static $serialized = array( 'payment_items', 'payer_data', 'gateway_extra_data' );
+    static $serialized = array( 'payment_items', 'payer_data', 'data' );
+
 
     const STATUS_UNKNOWN = 'unknown';
-    const STATUS_NEW = 'new';
-    const STATUS_PENDING = 'pending';
     const STATUS_COMPLETED = 'completed';
     const STATUS_CANCELED = 'canceled';
     const STATUS_REJECTED = 'rejected';
@@ -25,16 +26,17 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             'parent_id' => 0,
             'payment_items' => array(),
             'payer_data' => array(),
-            'gateway_extra_data' => array(),
+            'gateway_data' => array(),
             'status' => 'pending',
             'currency_code' => 'USD',
-            'amount' => 0.0
+            'amount' => 0.0,
+            'data' => array()
         );
     }
 
     protected function before_save( $new = false ) {
         if ( ! $this->payment_key )
-            $this->payment_key = strtolower( md5( $this->listing_id . date( 'Y-m-d H:i:s' ) . ( defined( 'AUTH_KEY' ) ? AUTH_KEY : '' ) . uniqid( 'wpbdp', true ) ) );
+            $this->payment_key = strtolower( sha1( $this->listing_id . date( 'Y-m-d H:i:s' ) . ( defined( 'AUTH_KEY' ) ? AUTH_KEY : '' ) . uniqid( 'wpbdp', true ) ) );
 
         $this->amount = 0.0;
 
@@ -91,10 +93,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public function get_summary() {
         switch ( $this->payment_type ) {
         case 'initial':
-            return _x( 'Initial payment', 'payment', 'WPBDM' );
+            return sprintf( _x( 'Initial payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
             break;
         case 'renewal':
-            return _x( 'Renewal payment', 'payment', 'WPBDM' );
+            return sprintf( _x( 'Renewal payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
             break;
         default:
             break;
@@ -123,12 +125,12 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $data['email'] = $this->payer_email;
         $data['first_name'] = $this->payer_first_name;
         $data['last_name'] = $this->payer_last_name;
-        $data['address_country'] = '';
-        $data['address_state'] = '';
-        $data['address_city'] = '';
-        $data['address_line1'] = '';
-        $data['address_line2'] = '';
-        $data['address_zipcode'] = '';
+        $data['country'] = '';
+        $data['state'] = '';
+        $data['city'] = '';
+        $data['address'] = '';
+        $data['address_2'] = '';
+        $data['zip'] = '';
 
         foreach ( (array) $this->payer_data as $k => $v )
             $data[ $k ] = $v;
@@ -145,20 +147,13 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         // $this->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
         // $this->payment_items[0]['amount'] = 0.0;
         $this->status = 'completed';
-        $this->set_flags( array( 'admin-no-charge' ) );
+        $this->context = 'admin-submit';
         $this->save();
 
         wpbdp_insert_log( array(
             'log_type' => 'payment.note',
             'object_id' => $this->id,
             'message' => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'WPBDM' ) ) );
-    }
-
-    public function get_data( $key ) {
-        if ( ! is_array( $this->extra_data ) || ! isset( $this->extra_data[ $key ] ) )
-            return null;
-
-        return $this->extra_data[ $key ];
     }
 
     public function is_completed() {
@@ -170,28 +165,24 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_checkout_url( $force_http = false ) {
-        $payment_id = $this->id;
-        $payment_q = base64_encode('payment_id=' . $payment_id . '&verify=0' ); // TODO: add a 'verify' parameter to avoid false links being generated.
+        $url = wpbdp_url( 'checkout', $this->payment_key );
 
-        $base_url = wpbdp_get_page_link( 'main' );
+        if ( ! $force_http && ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) )
+            $url = set_url_scheme( $url, 'https' );
 
-        if ( ! $force_http && ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) ) {
-            $base_url = set_url_scheme( $base_url, 'https' );
-        }
+        return $url;
+    }
 
-        return add_query_arg( array( 'wpbdp_view' => 'checkout', 'payment' => urlencode( $payment_q ) ), $base_url );
+    public function get_return_url() {
+        return $this->get_checkout_url();
+    }
+
+    public function get_cancel_url() {
+        return add_query_arg( 'cancel-payment', '1', $this->get_checkout_url() );
     }
 
     public function has_flag( $flag ) {
         return in_array( $flag, $this->get_flags(), true );
-    }
-
-    public function set_flags( $flags = array() ) {
-        $this->set_attr( 'flags', implode( ',', $flags ) );
-    }
-
-    public function get_flags() {
-        return explode( ',', $this->get_attr( 'flags' ) );
     }
 
     public function get_payment_notes() {
@@ -199,6 +190,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             return array();
 
         return wpbdp_get_logs( array( 'object_id' => $this->id, 'object_type' => 'payment', 'log_type' => 'payment.note' ) );
+    }
+
+    public function log( $msg ) {
+        return wpbdp_insert_log( array( 'object_id' => $this->id, 'object_type' => 'payment', 'log_type' => 'payment.note', 'message' => $msg ) );
     }
 
     public function set_payment_method( $method ) {
@@ -222,13 +217,24 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return ! empty( $this->processed_by );
     }
 
-
+    /**
+     * Returns the list of supported payment statuses. By default, this is the list of statuses and their meaning:
+     * - Pending: Payment generated, but not paid.
+     * - Failed: Payment failed/was declined.
+     * - Completed: Payment was received successfuly and order is complete.
+     * - Canceled: Payment was canceled either by the user or the admin.
+     * - Refunded: Payment was refunded by admin.
+     * - On-hold: Not really used, but might be useful for manual payment gateways in the future.
+     * @return array Array of status => label items.
+     */
     public static function get_stati() {
         $stati = array();
-        $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
         $stati['pending'] = _x( 'Pending', 'payment', 'WPBDM' );
+        $stati['failed'] = _x( 'Failed', 'payment', 'WPBDM' );
+        $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
         $stati['canceled'] = _x( 'Canceled', 'payment', 'WPBDM' );
-        $stati['rejected'] = _x( 'Rejected', 'payment', 'WPBDM' );
+        $stati['on-hold'] = _x( 'On Hold', 'payment', 'WPBDM' );
+        $stati['refunded'] = _x( 'Refunded', 'payment', 'WPBDM' );
 
         return $stati;
     }

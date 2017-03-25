@@ -283,3 +283,11 @@ function wpbdp_categories_list($parent=0, $hierarchical=true) {
 
     return $terms;
 }
+
+/**
+ * @since 2.3
+ * @deprecated since fees-revamp
+ */
+function wpbdp_has_module( $module ) {
+    return wpbdp()->modules->is_loaded( $module );
+}

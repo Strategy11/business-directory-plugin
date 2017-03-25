@@ -54,7 +54,8 @@ class WPBDP_Installer {
                                               'amount' => 1.0,
                                               'days' => 365,
                                               'images' => 1,
-                                              'categories' => array( 'all' => true, 'categories' => array() ),
+                                              'supported_categories' => 'all',
+                                              'pricing_model' => 'flat',
                                               'enabled' => 1 ) );
             $fee->save();
         } else {
@@ -115,15 +116,14 @@ class WPBDP_Installer {
             payment_key varchar(255) NULL DEFAULT '',
             payment_type varchar(255) NULL DEFAULT '',
             payment_items longblob NULL,
-            extra_data longblob NULL,
-            flags text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+            data longblob NULL,
+            context varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_email varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_first_name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_last_name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             payer_data blob NULL,
             gateway varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             gateway_tx_id varchar(255) NULL DEFAULT '',
-            gateway_extra_data longblob NULL,
             currency_code varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'USD',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
             status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,

@@ -412,14 +412,6 @@ function wpbdp_currency_format( $amount, $args = array() ) {
 }
 
 /**
- * @since 2.3
- */
-function wpbdp_has_module( $module ) {
-    global $wpbdp;
-    return $wpbdp->has_module( $module );
-}
-
-/**
  * @since 3.5.3
  */
 function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
@@ -540,6 +532,10 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case '/':
             $url = $base_url;
             break;
+        case 'checkout':
+            $url = $base_url;
+            $url = add_query_arg( array( 'wpbdp_view' => 'checkout', 'payment' => $args ), $base_url );
+            break;
         default:
             if ( wpbdp_starts_with( $pathorview, '/' ) )
                 $url = rtrim( wpbdp_url( '/' ), '/' ) . '/' . substr( $pathorview, 1 );
@@ -596,3 +592,6 @@ function wpbdp_load_view( $view, $arg0 = null ) {
     return $wpbdp->dispatcher->load_view( $view, $arg0 );
 }
 
+function wpbdp_get_payment( $id ) {
+    return WPBDP_Payment::objects()->get( $id );
+}

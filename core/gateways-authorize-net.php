@@ -8,54 +8,10 @@ require_once( WPBDP_PATH . 'core/class-gateway.php' );
 /**
  * @since 3.5.7
  */
-class WPBDP_Authorize_Net_Gateway extends WPBDP_Payment_Gateway {
-
-    public function register_config( &$settings ) {
-        $s = $settings->add_section( 'payment',
-                                     'authorize-net',
-                                     $this->get_name() );
-        $settings->add_setting( $s,
-                                'authorize-net',
-                                __( 'Activate Authorize.net?', 'authorize-net', 'WPBDM' ),
-                                'boolean',
-                                false );
-        $settings->register_dep( 'authorize-net', 'requires-true', 'payments-on' );
-        $settings->add_setting( $s,
-                                'authorize-net-login-id',
-                                __( 'Login ID', 'authorize-net', 'WPBDM' ) );
-        $settings->register_dep( 'authorize-net-login-id', 'requires-true', 'authorize-net' );
-        $settings->add_setting( $s,
-                                'authorize-net-transaction-key',
-                                __( 'Transaction Key', 'authorize-net', 'WPBDM' ) );
-        $settings->register_dep( 'authorize-net-transaction-key', 'requires-true', 'authorize-net' );
-    }
-
-    public function validate_config() {
-        $login_id = trim( wpbdp_get_option( 'authorize-net-login-id' ) );
-        $trans_key = trim( wpbdp_get_option( 'authorize-net-transaction-key' ) );
-
-        $errors = array();
-
-        if ( ! $login_id )
-            $errors[] = _x( 'Login ID is missing.', 'authorize-net', 'WPBDM' );
-
-        if ( ! $trans_key )
-            $errors[] = _x( 'Transaction Key is missing.', 'authorize-net', 'WPBDM' );
-
-        return $errors;
-    }
+class WPBDP_Authorize_Net_Gateway {
 
     public function get_capabilities() {
         return array( 'recurring', 'handles-expiration' );
-    }
-
-    public function get_integration_method() {
-        return WPBDP_Payment_Gateway::INTEGRATION_FORM;
-    }
-
-    public function render_integration( &$payment ) {
-        $args = array();
-        return $this->render_billing_information_form( $payment, $args );
     }
 
     public function process( &$payment, $action ) {

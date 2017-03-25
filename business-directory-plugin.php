@@ -51,6 +51,7 @@ require_once( WPBDP_PATH . 'admin/class-admin.php' );
 require_once( WPBDP_PATH . 'core/class-settings.php' );
 require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
+require_once( WPBDP_PATH . 'includes/class-payment-gateway.php' );
 require_once( WPBDP_PATH . 'core/listings.php' );
 require_once( WPBDP_PATH . 'core/templates-generic.php' );
 require_once( WPBDP_PATH . 'core/templates-listings.php' );
@@ -161,6 +162,10 @@ class WPBDP_Plugin {
         $this->admin = is_admin() ? new WPBDP_Admin() : null;
         $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
+
+        require_once( WPBDP_PATH . 'includes/class-payment-gateways.php' );
+        $this->payment_gateways = new WPBDP__Payment_Gateways();
+
         $this->listings = new WPBDP_Listings_API();
         $this->cron = new WPBDP__Cron();
         $this->shortcodes = new WPBDP__Shortcodes();
@@ -227,58 +232,6 @@ class WPBDP_Plugin {
 
         $this->recaptcha = new WPBDP_reCAPTCHA();
     }
-
-    // {{{ Premium modules.
-
-    /**
-     * Return information about known premium modules.
-     * @return array An array in the form $module_id => $module_information where $module_information contains the keys
-     *               'installed' (True or False),
-     *               'version' (if installed, NULL otherwise),
-     *               'required' (required module version as known to current core version).
-     * @since 3.4
-     */
-    public function get_premium_modules_data() {
-        static $modules = array(
-            '2checkout' => array( 'WPBDP_2Checkout_Module', '3.4' ),
-            'attachments' => array( 'WPBDP_ListingAttachmentsModule', '3.4' ),
-            'categories' => array( 'WPBDP_CategoriesModule', '3.4' ),
-            'featured-levels' => array( 'WPBDP_FeaturedLevelsModule', '3.4' ),
-            'googlemaps' => array( 'BusinessDirectory_GoogleMapsPlugin', '3.4' ),
-            'payfast' => array( 'WPBDP_Gateways_PayFast', '3.4' ),
-            'paypal' => array( 'WPBDP_PayPal_Module', '3.4' ),
-            'ratings' => array( 'BusinessDirectory_RatingsModule', '3.4' ),
-            'regions' => array( 'WPBDP_RegionsPlugin', '3.4' ),
-            'stripe' => array( 'WPBDP_Stripe_Module', '1.0' ),
-            'zipcodesearch' => array( 'WPBDP_ZIPCodeSearchModule', '3.4' )
-        );
-
-        static $data = null;
-
-        if ( null !== $data )
-            return $data;
-
-        $data = array();
-
-        foreach ( $modules as $module_id => $module_ ) {
-            $module_class = $module_[0];
-            $data[ $module_id ] = array( 'installed' => false,
-                                         'version' => null,
-                                         'required' => $module_[1] );
-
-            if ( class_exists( $module_class ) ) {
-                $data[ $module_id ]['installed'] = true;
-
-                if ( defined( $module_class . '::VERSION' ) ) {
-                    $data[ $module_id ]['version'] = constant( $module_class . '::VERSION' );
-                }
-            }
-        }
-
-        return $data;
-    }
-
-    // }}}
 
     public function _invalidate_pages_cache( $arg0 = false ) {
         delete_transient( 'wpbdp-page-ids' );
@@ -385,6 +338,7 @@ class WPBDP_Plugin {
         array_push($vars, 'category');
         array_push($vars, 'action'); // TODO: are we really using this var?
         array_push( $vars, 'wpbdpx' );
+        array_push( $vars, 'wpbdp-listener' );
         array_push( $vars, 'region' );
         array_push( $vars, 'wpbdp_view' );
 
@@ -680,68 +634,6 @@ class WPBDP_Plugin {
 
     public function debug_off() {
         WPBDP_Debugging::debug_off();
-    }
-
-    public function has_module($name) {
-        switch (strtolower($name)) {
-            case 'payfast':
-            case 'payfast-payment-module':
-                return class_exists( 'WPBDP_Gateways_PayFast' );
-                break;
-            case 'paypal':
-            case 'paypal-gateway-module':
-                return class_exists( 'WPBDP_Paypal_Module' );
-                break;
-            case '2checkout':
-            case 'twocheckout':
-            case '2checkout-gateway-module':
-                return class_exists( 'WPBDP_2Checkout_Module' );
-                break;
-            case 'googlecheckout':
-                return wpbdp_payments_api()->has_gateway('googlecheckout');
-                break;
-            case 'google-maps-module':
-            case 'googlemaps':
-                return class_exists('BusinessDirectory_GoogleMapsPlugin');
-                break;
-            case 'ratings-module':
-            case 'ratings':
-                return class_exists('BusinessDirectory_RatingsModule');
-                break;
-            case 'regions-module':
-            case 'regions':
-                return class_exists('WPBDP_RegionsPlugin');
-                break;
-            case 'file-attachments-module':
-            case 'attachments':
-                return class_exists( 'WPBDP_ListingAttachmentsModule' );
-                break;
-            case 'zip-search-module':
-            case 'zipcodesearch':
-                return class_exists( 'WPBDP_ZIPCodeSearchModule' );
-                break;
-            case 'featured-levels-module':
-            case 'featuredlevels':
-                return class_exists( 'WPBDP_FeaturedLevelsModule' );
-                break;
-            case 'stripe-payment-module':
-            case 'stripe':
-                return class_exists( 'WPBDP_Stripe_Module' );
-                break;
-            case 'categories':
-                return class_exists( 'WPBDP_CategoriesModule' );
-                break;
-            case 'claim-listings-module':
-                return class_exists( 'WPBDP_Claim_Listings_Module' );
-                break;
-            case 'discount-codes-module':
-                return class_exists( 'WPBDP_Coupons_Module' );
-                break;
-            default:
-                break;
-        }
-
-        return false;
     }
 
     public function _rss_feed() {

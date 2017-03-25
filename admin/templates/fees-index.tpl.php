@@ -86,10 +86,10 @@
         <hr />
         <?php
         $modules = array(
-            array( 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'WPBDM' ), 'PayPal' ),
-            array( '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'WPBDM' ), '2Checkout' ),
-            array( 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'WPBDM' ), 'PayFast' ),
-            array( 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'WPBDM' ), 'Stripe' )
+            array( 'paypal', 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'WPBDM' ), 'PayPal' ),
+            array( '2checkout', '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'WPBDM' ), '2Checkout' ),
+            array( 'payfast', 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'WPBDM' ), 'PayFast' ),
+            array( 'stripe', 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'WPBDM' ), 'Stripe' )
         );
 
         global $wpbdp;
@@ -108,21 +108,21 @@
         <?php
         foreach ( $modules as $mod_info ):
         ?>
-        <div class="gateway <?php echo $mod_info[0]; ?> <?php echo $wpbdp->has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
-            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank">
-                <img src="<?php echo WPBDP_URL; ?>admin/resources/<?php echo $mod_info[0]; ?>.png" class="gateway-logo"><br />
+        <div class="gateway <?php echo $mod_info[0]; ?> <?php echo wpbdp_has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
+            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank">
+                <img src="<?php echo WPBDP_URL; ?>admin/resources/<?php echo $mod_info[1]; ?>.png" class="gateway-logo"><br />
                 <a href="http://">
             </a>
-            <?php if ( $wpbdp->has_module( $mod_info[0] ) ): ?>
-                <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp"><?php echo $mod_info[1]; ?></a><br />
+            <?php if ( wpbdp_has_module( $mod_info[0] ) ): ?>
+                <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp"><?php echo $mod_info[2]; ?></a><br />
                 <span class="check-mark">✓</span> <?php _ex( 'Already installed.', 'admin templates', 'WPBDM' ); ?>
             <?php else: ?>
             <?php echo str_replace(
                 '<a>',
-                '<a href="http://businessdirectoryplugin.com/downloads/' . $mod_info[0] . '/?ref=wp" target="_blank">',
+                '<a href="http://businessdirectoryplugin.com/downloads/' . $mod_info[1] . '/?ref=wp" target="_blank">',
                 sprintf( _x( 'You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your users.',
                              'admin templates',
-                             'WPBDM' ), $mod_info[1], $mod_info[2] )
+                             'WPBDM' ), $mod_info[2], $mod_info[3] )
             ); ?>
             <?php endif; ?>
         </div>

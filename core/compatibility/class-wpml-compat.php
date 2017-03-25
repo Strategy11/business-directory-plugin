@@ -107,7 +107,6 @@ class WPBDP_WPML_Compat {
 
         switch ( $name ) {
             case 'editlisting':
-            case 'upgradetostickylisting':
             case 'deletelisting':
                 $link = add_query_arg( 'lang', $lang, $link );
                 break;

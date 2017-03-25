@@ -25,7 +25,6 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'check_for_required_fields'));
         add_action('admin_init', array($this, 'check_for_required_pages'));
-        add_action('admin_init', array($this, 'check_payments_possible'));
 
         add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
 
@@ -566,7 +565,6 @@ to how WordPress stores the data.", 'WPBDM' )
         if ( ! isset( $this->displayed_warnings ) )
             $this->displayed_warnings = array();
 
-        $this->check_compatibility();
         $this->check_setup();
         $this->check_ajax_compat_mode();
 
@@ -844,18 +842,6 @@ to how WordPress stores the data.", 'WPBDM' )
         }
     }
 
-    /* Check if payments are enabled but no gateway available. */
-    public function check_payments_possible() {
-        // show messages only in directory admin pages
-        if ( (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) ||
-             (isset($_GET['page']) && stripos($_GET['page'], 'wpbdp_') !== FALSE) ) {
-
-            if ($errors = wpbdp_payments_api()->check_config()) {
-                foreach ($errors as $error) $this->messages[] = array($error, 'error');
-            }
-        }
-    }
-
     /**
      * @since 3.6.10
      */
@@ -863,43 +849,6 @@ to how WordPress stores the data.", 'WPBDM' )
         if ( isset( $_REQUEST['wpbdp-action'] ) ) {
             do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
 //            do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
-        }
-    }
-
-    private function check_compatibility() {
-        global $wpbdp;
-
-        $modules_msg = '';
-        $modules = $wpbdp->get_premium_modules_data();
-
-        foreach ( $modules as $module_id => &$module_info ) {
-            if ( $module_info['installed'] && version_compare( $module_info['version'], $module_info['required'], '<' ) ) {
-                $modules_msg .= '<li class="module-info">';
-                $modules_msg .= 'business-directory-<b>' . $module_id . '</b><br />';
-                $modules_msg .= '<span class="module-version">';
-                $modules_msg .= sprintf( _x( 'Installed: %s', 'admin compat', 'WPBDM' ), '<b>' . ( null === $module_info['version'] ? _x( 'N/A', 'admin compat', 'WPBDM' ) : $module_info['version'] ) . '</b>' );
-                $modules_msg .= '</span> -- ';
-                $modules_msg .= '<span class="module-required">';
-                $modules_msg .= sprintf( _x( 'Required: %s', 'admin compat', 'WPBDM' ), '<b>' . $module_info['required'] . '</b>' );
-                $modules_msg .= '</span>';
-                $modules_msg .= '</li>';
-
-/*                $modules_msg .= sprintf( _x( '&#149; %s (installed: %s, required: %s).', 'admin compat', 'WPBDM' ),
-                                         '<span class="module-name">business-directory-<b>' . $module_id . '</b></span>',
-                                         '<span class="module-version">' . ( null === $module_info['version'] ? _x( 'N/A', 'admin compat', 'WPBDM' ) : $module_info['version'] ) .  $module_info['required'] . '</span>' );*/
-            }
-        }
-
-        if ( $modules_msg ) {
-            $message  = '';
-            $message .= _x( 'Business Directory has detected some incompatible premium module versions installed.', 'admin compat', 'WPBDM' );
-            $message .= '<br />';
-            $message .= _x( 'Please upgrade to the required versions indicated below to make sure everything functions properly.', 'admin compat', 'WPBDM' );
-            $message .= '<ul class="wpbdp-module-compat-check">';
-            $message .= $modules_msg;
-            $message .= '</ul>';
-
-            $this->messages[] = array( $message, 'error' );
         }
     }
 
