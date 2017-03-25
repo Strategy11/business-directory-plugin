@@ -36,4 +36,8 @@ class WPBDP__Modules {
         }
     }
 
+    public function is_loaded( $module_id ) {
+        return array_key_exists( $module_id, $this->modules );
+    }
+
 }

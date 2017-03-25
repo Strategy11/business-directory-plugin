@@ -435,7 +435,7 @@ class WPBDP_Listing {
             'amount' => $plan->fee_price,
             'fee_id' => $plan->fee_id,
             'fee_days' => $plan->fee_days,
-            'fee_images' => $plan->fee_images
+            'fee_images' => $plan->fee_images,
         );
 
         $payment->payment_items[] = $item;
