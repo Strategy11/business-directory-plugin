@@ -6,6 +6,10 @@ if (typeof(window.wpbdp) == 'undefined') {
     window.wpbdp = {};
 }
 
+jQuery(function( $ ) {
+    $( '.wpbdp-no-js' ).hide();
+});
+
 jQuery(document).ready(function($){
     if ( $( '.wpbdp-js-select2' ).length > 0 ) {
         $( '.wpbdp-js-select2' ).select2();
