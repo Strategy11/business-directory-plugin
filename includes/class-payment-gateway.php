@@ -5,13 +5,8 @@ abstract class WPBDP__Payment_Gateway {
     public function __construct() {
     }
 
-    public function get_id() {
-        return '';
-    }
-
-    public function get_title() {
-        return '';
-    }
+    public abstract function get_id();
+    public abstract function get_title();
 
     public function is_enabled( $no_errors = true ) {
         $setting_on = wpbdp_get_option( $this->get_id() );
@@ -29,9 +24,7 @@ abstract class WPBDP__Payment_Gateway {
         return wpbdp_get_option( $this->get_id() . '-' . $key );
     }
 
-    public function get_integration_method() {
-        throw new Exception( 'Undefined integration method' );
-    }
+    public abstract function get_integration_method();
 
     public function supports( $feature ) {
         return false;
@@ -54,6 +47,9 @@ abstract class WPBDP__Payment_Gateway {
     }
 
     public function process_postback() {
+    }
+
+    public function refund( $payment, $data = array() ) {
     }
 
     public function render_form( $payment, $errors = array() ) {
