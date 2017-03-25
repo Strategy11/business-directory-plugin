@@ -88,7 +88,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         } elseif ( $this->payment->gateway ) {
             $chosen_gateway = $this->payment->gateway;
         } else {
-            $gateway_ids = array_keys( wpbdp()->payment_gateways->get_available_gateways() );
+            $gateway_ids = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $payment->currency_code ) ) );
             $chosen_gateway = array_shift( $gateway_ids );
         }
 
@@ -97,6 +97,8 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         }
 
         $this->gateway = wpbdp()->payment_gateways->get( $chosen_gateway );
+        if ( ! $this->gateway->supports_currency( $this->payment->currency_code ) )
+            wp_die( _x( 'Selected gateway does not support payment\'s currency.', 'checkout', 'WPBDM' ) );
     }
 
     private function checkout_form() {

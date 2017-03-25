@@ -44,11 +44,16 @@ class WPBDP__Payment_Gateways {
         exit;
     }
 
-    public function get_available_gateways() {
+    public function get_available_gateways( $conditions = array() ) {
         $res = array();
 
         foreach ( $this->gateways as $gateway ) {
             if ( $gateway->is_enabled() ) {
+                if ( $conditions ) {
+                    if ( isset( $conditions['currency_code'] ) && ! $gateway->supports_currency( $conditions['currency_code'] ) )
+                        continue;
+                }
+
                 $res[ $gateway->get_id() ] = $gateway;
             }
         }
