@@ -31,7 +31,6 @@
         <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees' ); ?>" class="button"><?php echo _e( 'Setup/Manage Fees', 'WPBDM' ); ?></a>
     </li>
     <li class="clear"></li>
-    <?php endif; ?>
 
 
     <?php if ( wpbdp_get_option( 'payments-on' ) ): ?>
