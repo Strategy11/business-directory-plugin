@@ -24,11 +24,21 @@ $nonce = wp_create_nonce( 'wpbdp-checkout-' . $payment->id );
     <?php var_dump( $errors ); ?>
 <?php endif; ?>
 
+<?php
+do_action( 'wpbdp_before_checkout_form', $payment );
+?>
 <form id="wpbdp-checkout-form" action="" method="POST">
     <input type="hidden" name="action" value="do_checkout" />
     <input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>" />
     <input type="hidden" name="gateway" value="<?php echo $chosen_gateway->get_id(); ?>" />
-    <?php echo $checkout_form; ?>
+    <?php
+    do_action( 'wpbdp_checkout_form_top', $payment );
+    echo $checkout_form;
+    do_action( 'wpbdp_checkout_form_bottom', $payment );
+    ?>
 
     <div class="wpbdp-checkout-submit"><input type="submit" value="<?php _ex( 'Pay Now', 'checkout', 'WPBDM' ); ?>" /></div>
 </form>
+<?php
+do_action( 'wpbdp_after_checkout_form', $payment );
+?>

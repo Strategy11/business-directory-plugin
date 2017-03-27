@@ -24,11 +24,28 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $this->validate_nonce();
         $this->set_current_gateway();
 
-        if ( ! empty( $_POST['action'] ) && 'do_checkout' == $_POST['action'] ) {
-            $this->do_checkout();
+        $action = ! empty( $_POST['action'] ) ? $_POST['action'] : '';
 
-            // Let's see if the checkout process changed the payment status to something we can no longer handle.
-            $this->fetch_payment();
+        if ( has_action( 'wpbdp_checkout_before_action' ) ) {
+            // Lightweight object used to pass checkout state to modules.
+            // Eventually, we might want to pass $this directly with a better get/set interface.
+            $checkout = new StdClass;
+            $checkout->payment = $this->payment;
+            $checkout->gateway = $this->gateway;
+            $checkout->errors = array();
+
+            do_action( 'wpbdp_checkout_before_action', $checkout );
+
+            $this->errors = array_merge( $this->errors, $checkout->errors );
+        }
+
+        if ( ! $this->errors ) {
+            if ( 'do_checkout' == $action ) {
+                $this->do_checkout();
+
+                // Let's see if the checkout process changed the payment status to something we can no longer handle.
+                $this->fetch_payment();
+            }
         }
 
         return $this->checkout_form();
@@ -88,7 +105,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         } elseif ( $this->payment->gateway ) {
             $chosen_gateway = $this->payment->gateway;
         } else {
-            $gateway_ids = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $payment->currency_code ) ) );
+            $gateway_ids = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $this->payment->currency_code ) ) );
             $chosen_gateway = array_shift( $gateway_ids );
         }
 
@@ -119,6 +136,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $invoice = wpbdp()->payments->render_invoice( $this->payment );
         $checkout_form = $this->gateway->render_form( $this->payment, $this->errors );
 
+        $vars['_bar'] = false;
         $vars['errors'] = $this->errors;
         $vars['invoice'] = $invoice;
         $vars['chosen_gateway'] = $this->gateway;
@@ -132,7 +150,9 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         if ( ! $this->gateway )
             wp_die();
 
+        // Allows short-circuiting of validation.
         $validation_errors = $this->gateway->validate_form( $this->payment );
+        $validation_errors = apply_filters( 'wpbdp_checkout_validation_errors', $validation_errors, $this->payment );
         if ( $validation_errors ) {
             $this->errors = $validation_errors;
             return;
