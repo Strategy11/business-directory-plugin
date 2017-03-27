@@ -14,7 +14,7 @@
 
 <?php _ex( 'Admin URL', 'notify email', 'WPBDM' ); ?>: <?php echo get_edit_post_link( $listing->get_id() ); ?>
 
-<?php _ex('Categories', 'notify email', 'WPBDM'); ?>: <?php foreach ( $listing->get_categories( 'all' ) as $category ): ?><?php echo $category->name; ?> / <?php endforeach; ?>
+<?php _ex('Categories', 'notify email', 'WPBDM'); ?>: <?php foreach ( $listing->get_categories() as $category ): ?><?php echo $category->name; ?> / <?php endforeach; ?>
 
 
 <?php _ex('Posted By', 'notify email', 'WPBDM'); ?>: <?php echo $listing->get_author_meta( 'user_login' ); ?> (<?php echo $listing->get_author_meta( 'user_email' ); ?>)

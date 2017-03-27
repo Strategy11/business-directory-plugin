@@ -131,8 +131,11 @@ class WPBDP_Listing {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
-    public function get_categories() {
-        return wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX );
+    public function get_categories( $fields='all' ) {
+        $args = array();
+        $args['fields'] = $fields;
+
+        return wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, $args );
     }
 
     public function set_categories( $categories ) {
