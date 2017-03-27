@@ -181,10 +181,6 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return add_query_arg( 'cancel-payment', '1', $this->get_checkout_url() );
     }
 
-    public function has_flag( $flag ) {
-        return in_array( $flag, $this->get_flags(), true );
-    }
-
     public function get_payment_notes() {
         if ( ! $this->id )
             return array();
