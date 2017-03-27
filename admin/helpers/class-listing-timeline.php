@@ -90,7 +90,7 @@ class WPBDP__Listing_Timeline {
         $title = $payment->summary;
 
         if ( 'initial' == $payment->payment_type ) {
-            if ( $payment->has_flag( 'admin-no-charge' ) )
+            if ( 'admin-submit' == $payment->context )
                 $title = 'Paid as admin';
             else
                 $title = 'Initial Payment';
