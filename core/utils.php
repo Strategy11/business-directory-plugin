@@ -815,3 +815,27 @@ function wpbdp_buckwalter_arabic_transliteration( $content ) {
 
     return str_replace( $arabic_characters, $english_characters, $content );
 }
+
+/**
+ * The function was originally developed as an static method in
+ * WPBDP_Form_Field_Type. It has always rendered values as given, indirectly
+ * expecting them to be already escaped with `esc_attr`.
+ *
+ * If you decide to use `esc_attr` inside the function, make sure to check
+ * all places where the function is called, to avoid scaping values twice.
+ *
+ * @since 4.1.10
+ */
+function wpbdp_html_attributes( $attrs, $exceptions = array() ) {
+    $html = '';
+
+    foreach ( $attrs as $k => $v ) {
+        if ( in_array( $k, $exceptions, true ) ) {
+            continue;
+        }
+
+        $html .= sprintf( '%s="%s" ', $k, $v );
+    }
+
+    return $html;
+}

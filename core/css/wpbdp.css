@@ -328,38 +328,42 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 /* main page */
-.wpbdp-page-main_page #wpbdp-categories {
+
+#wpbdp-categories {
     clear: both;
-    margin-bottom: 20px;
 }
 
-ul.wpbdp-categories {
-    margin: 0 0 10px 15px;
-    padding: 0 10px;
+.wpbdp-categories {
+    margin: 0;
+    padding-left: 20px;
 }
-
-ul.wpbdp-categories > li {
-    width: 50%;
-    float: left;
+.wpbdp-categories .cat-item {
+    box-sizing: border-box;
+    margin: 0 0 20px;
+}
+.wpbdp-categories .cat-item .cat-item {
     margin: 0;
 }
 
-@media screen and (max-width: 704px) {
-    ul.wpbdp-categories > li {
-        float: none;
-        width: initial;
-    }
+.wpbdp-categories-small .cat-item,
+.wpbdp-categories-medium .cat-item,
+.wpbdp-categories-large .cat-item {
+    float: left;
+    width: 50%;
 }
-
-@media screen and (max-width: 500px) {
-    ul.wpbdp-categories {
-        font-size: 90%;
-    }
-
-    ul.wpbdp-categories ul.children li.cat-item {
-        margin-left: 10px;
-        padding: 0;
-    }
+.wpbdp-categories-small .cat-item:nth-child(2n+1),
+.wpbdp-categories-medium .cat-item:nth-child(2n+1),
+.wpbdp-categories-large .cat-item:nth-child(2n+1) {
+    clear: left;
+}
+.wpbdp-categories-small .cat-item:nth-child(2n),
+.wpbdp-categories-medium .cat-item:nth-child(2n),
+.wpbdp-categories-large .cat-item:nth-child(2n) {
+}
+.wpbdp-categories-small .cat-item .cat-item,
+.wpbdp-categories-medium .cat-item .cat-item,
+.wpbdp-categories-large .cat-item .cat-item {
+    width: 100%;
 }
 
 /* submit listing page */
