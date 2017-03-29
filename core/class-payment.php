@@ -143,6 +143,15 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return in_array( $item_type, $item_types, true );
     }
 
+    public function find_item( $item_type ) {
+        foreach ( $this->payment_items as $item ) {
+            if ( $item_type == $item['type'] )
+                return $item;
+        }
+
+        return null;
+    }
+
     public function process_as_admin() {
         // $this->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
         // $this->payment_items[0]['amount'] = 0.0;
