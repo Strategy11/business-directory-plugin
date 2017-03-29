@@ -1,5 +1,4 @@
 <?php
-require_once( WPBDP_PATH . 'core/gateways-authorize-net.php' );
 require_once( WPBDP_PATH . 'core/class-payment.php' );
 
 require_once( WPBDP_PATH . 'core/class-fees-api.php' );
