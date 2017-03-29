@@ -8,6 +8,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 ?>
     <div class="wpbdp-plan wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?>"
          data-id="<?php echo $plan->id; ?>"
+         data-recurring="<?php echo $plan->recurring ? 1 : 0; ?>"
          data-free-text="<?php echo esc_attr( wpbdp_currency_format( 0.0 ) ); ?>"
          data-categories="<?php echo implode( ',', (array) $plan->supported_categories ); ?>"
          data-pricing-model="<?php echo $plan->pricing_model; ?>"
@@ -19,9 +20,12 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
                 <?php echo $plan->days ? $plan->days : '∞'; ?>
             </span>
             <span class="wpbdp-plan-duration-period"><?php _ex( 'days', 'plan selection', 'WPBDM' ); ?></span>
+            <?php if ( $plan->days > 0 && $plan->recurring ): ?>
+            <span class="wpbdp-plan-is-recurring"><?php _ex( '(Recurring)', 'plan selection', 'WPBDM' ); ?></span>
+            <?php endif; ?>
         </div>
         <div class="wpbdp-plan-details">
-            <div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label ) ); ?></div>
+        <div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label ) ); ?></div>
 
             <?php if ( $description ): ?>
             <div class="wpbdp-plan-description"><?php echo $description; ?></div>
