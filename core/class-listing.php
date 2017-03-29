@@ -362,7 +362,7 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function set_fee_plan( $fee ) {
+    public function set_fee_plan( $fee, $recurring_data = array() ) {
         global $wpdb;
 
         if ( is_null( $fee ) ) {
@@ -381,11 +381,16 @@ class WPBDP_Listing {
                        'fee_days' => $fee->days,
                        'fee_images' => $fee->images,
                        'fee_price' => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
-                       'is_recurring' => 0,
+                       'is_recurring' => $fee->recurring || ! empty( $recurring_data ),
                        'is_sticky' => (int) $fee->sticky );
 
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;
+
+        if ( ! empty( $recurring_data ) ) {
+            $row['subscription_id']   = ! empty( $recurring_data['subscription_id'] ) ? $recurring_data['subscription_id'] : '';
+            $row['subscription_data'] = ! empty( $recurring_data['subscription_data'] ) ? serialize( $recurring_data['subscription_data'] ) : '';
+        }
 
         return $wpdb->replace( $wpdb->prefix . 'wpbdp_listings', $row );
     }
@@ -406,7 +411,7 @@ class WPBDP_Listing {
 
         $item = array(
             'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
-            'description' => sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label ),
+            'description' => sprintf( _x( 'Plan "%s"%s', 'listing', 'WPBDM' ), $plan->fee_label, $plan->recurring ? ' ' . _x( '(recurring)', 'listing', 'WPBDM' ) : '' ),
             'amount' => $plan->fee_price,
             'fee_id' => $plan->fee_id,
             'fee_days' => $plan->fee_days,

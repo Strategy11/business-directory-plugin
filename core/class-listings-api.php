@@ -23,20 +23,30 @@ class WPBDP_Listings_API {
             return;
 
         $is_renewal = false;
+        $recurring_data = array();
 
+        if ( ! empty( $payment->data['subscription_id'] ) ) {
+            $recurring_data['subscription_id'] = $payment->data['subscription_id'];
+        }
+
+        if ( ! empty( $payment->data['subscription_data'] ) ) {
+            $recurring_data['subscription_data'] = $payment->data['subscription_data'];
+        }
+
+        // Process items.
         foreach ( $payment->payment_items as $item ) {
             switch ( $item['type'] ) {
                 case 'recurring_plan':
                 case 'plan':
                 case 'plan_renewal':
-                    $listing->set_fee_plan( $item['fee_id'] );
+                    $listing->set_fee_plan( $item['fee_id'], $recurring_data );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;
 
                     break;
                 case 'recurring_fee':
-                    $listing->set_fee_plan( $item->rel_id_2 );
+                    $listing->set_fee_plan( $item->rel_id_2, $recurring_data );
 
                     if ( ! empty( $item->data['is_renewal'] ) )
                         $is_renewal = true;
@@ -45,7 +55,7 @@ class WPBDP_Listings_API {
                 case 'fee':
                     // This item type is no longer used as of next-release, but we have this for backwards-compat.
                     if ( ! $listing->is_recurring() )
-                        $listing->set_fee_plan( $item->rel_id_2 );
+                        $listing->set_fee_plan( $item->rel_id_2, $recurring_data );
                     break;
                 case 'featured_upgrade':
                     global $wpdb;
