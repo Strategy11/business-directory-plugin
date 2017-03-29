@@ -48,6 +48,12 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     public function process_payment( $payment ) {
+        // This is a recurring payment.
+        if ( $payment->has_item_type( 'recurring_plan' ) ) {
+            return $this->process_payment_recurring( $payment );
+        }
+
+        // This is a regular payment.
         $args = array(
             'payment_id' => $payment->id,
             'payment_key' => $payment->payment_key,
@@ -85,6 +91,91 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $payment->status = 'failed';
         $payment->log( $error_msg );
         return array( 'result' => 'failure', 'error' => $error_msg );
+    }
+
+    private function process_payment_recurring( $payment ) {
+        @date_default_timezone_set( 'America/Denver' );
+
+        $total = $payment->amount;
+        $recurring_item = $payment->find_item( 'recurring_plan' );
+
+        $subscription_args = array(
+            'name' => $this->generate_subscription_name( $payment ),
+            'intervalLength' => $recurring_item['fee_days'],
+            'intervalUnit' => 'days',
+            'totalOccurrences' => '9999',
+            'startDate' => date( 'Y-m-d' ),
+            'amount' => $recurring_item['amount'],
+            'creditCardCardNumber' => $_POST['card_number'],
+            'creditCardExpirationDate' => sprintf( '%02d', $_POST['exp_month'] ) . '-' . substr( $_POST['exp_year'], 2 ),
+            'creditCardCardCode' => $_POST['cvc'],
+            'billToFirstName' => $_POST['payer_first_name'],
+            'billToLastName' => $_POST['payer_last_name'],
+            'billToAddress' => $_POST['payer_address'],
+            'billToCity' => $_POST['payer_city'],
+            'billToState' => $_POST['payer_state'],
+            'billToCountry' => $_POST['payer_country'],
+            'billToZip' => $_POST['payer_zip'],
+            'customerEmail' => $_POST['payer_email'],
+            'orderInvoiceNumber' => $payment->id,
+            'orderDescription' => $payment->summary
+        );
+
+        if ( $recurring_item['amount'] != $total ) {
+            $subscription_args = array_merge( $subscription_args, array(
+                'trialAmount' => $total,
+                'trialOccurrences' => 1
+            ) );
+        }
+
+        if ( ! class_exists( 'AuthorizeNetARB' ) )
+            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );            
+
+        $arb = new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        $arb->setSandbox( $this->in_test_mode() );
+
+        $subscription = new AuthorizeNet_Subscription();
+        foreach ( $subscription_args as $arg_name => $arg_val ) {
+            $subscription->{$arg_name} = $arg_val;
+        }
+
+        $response = $arb->createSubscription( $subscription );
+
+        if ( ! $response->isOk() ) {
+            $error_msg = sprintf( _x( 'Payment failed. Reason: %s', 'authorize-net', 'WPBDM' ), $response->getMessageText() );
+            $payment->log( $error_msg );
+
+            return array( 'result' => 'failure', 'error' => $error_msg );
+        }
+
+        $subscription_id = $response->getSubscriptionId();
+        $subscription_data = array(
+            'customerProfileId'        => ! empty( $response->xml->profile->customerProfileId ) ? (string) $response->xml->profile->customerProfileId : '',
+            'customerPaymentProfileId' => ! empty( $response->xml->profile->customerPaymentProfileId ) ? (string) $response->xml->profile->customerPaymentProfileId : ''
+        );
+
+        // Payment is OK. Update status and store subscription info.
+        $payment->status = 'completed';
+        $payment->data['subscription_id'] = $subscription_id;
+        $payment->data['subscription_data'] = $subscription_data;
+
+        // // Update listing too.
+        // $listing = wpbdp_get_listing( $payment->listing_id );
+        // $listing->set_subscription_data( $subscription_id, $subscription_data );       
+
+        return array( 'result' => 'success' );
+    }
+
+    private function generate_subscription_name( $payment ) {
+        $listing = wpbdp_get_listing( $payment->listing_id );
+        $recurring_item = $payment->find_item( 'recurring_plan' );
+
+        $name  = '';
+        $name .= $listing->get_title() ? $listing->get_title() : sprintf( _x( 'Listing #%d', 'authorize-net', 'WPBDM' ), $listing->get_id() );
+        $name .= ' - ';
+        $name .= $recurring_item['description'];
+
+        return substr( $name, 0, 50 );
     }
 
     private function aim_request( $args = array() ) {
@@ -128,5 +219,40 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         return $response;
     }
+
+    // public function handle_expiration( $payment ) {
+    //     if ( ! class_exists( 'AuthorizeNetAIM' ) )
+    //         require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
+    //
+    //     $recurring = $payment->get_recurring_item();
+    //     $listing = WPBDP_Listing::get( $payment->get_listing_id() );
+    //
+    //     if ( ! $listing || ! $recurring )
+    //         return;
+    //
+    //     $recurring_id = $payment->get_data( 'recurring_id' );
+    //
+    //     $arb = new AuthorizeNetARB( wpbdp_get_option( 'authorize-net-login-id' ),
+    //                                 wpbdp_get_option( 'authorize-net-transaction-key' ) );
+    //
+    //     if ( wpbdp_get_option( 'payments-test-mode' ) )
+    //         $arb->setSandbox( true );
+    //     else
+    //         $arb->setSandbox( false );
+    //
+    //     $response = $arb->getSubscriptionStatus( $recurring_id );
+    //     $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
+    //
+    //     if ( 'active' == $status ) {
+    //         // If subscription is active, renew automatically for another period.
+    //         $term_payment = $payment->generate_recurring_payment();
+    //         $term_payment->set_status( WPBDP_Payment::STATUS_COMPLETED, WPBDP_Payment::HANDLER_GATEWAY );
+    //         $term_payment->save();
+    //     } else {
+    //         // If subscription is not active, make item non recurring so it expires normally next time.
+    //         $recurring_item = $payment->get_recurring_item();
+    //         $listing->cancel_recurring();
+    //     }
+    // }
 
 }
