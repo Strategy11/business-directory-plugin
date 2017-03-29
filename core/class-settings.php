@@ -251,20 +251,20 @@ class WPBDP_Settings {
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
-        $this->add_setting( $s,
-                            'listing-renewal-auto',
-                            _x( 'Allow recurring renewal payments?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false,
-                            _x( 'Allow users to opt in for automatic renewal of their listings. The fee is charged at the time the listing expires without user intervention.', 'admin settings', 'WPBDM' )
-                          );
-        $this->add_setting( $s,
-                            'listing-renewal-auto-dontask',
-                            _x( 'Use recurring payments as the default payment method?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false,
-                            _x( 'Enable automatic renewal without having users opt in during the submit process.', 'admin settings', 'WPBDM' ) );
-        $this->register_dep( 'listing-renewal-auto-dontask', 'requires-true', 'listing-renewal-auto' );
+        // $this->add_setting( $s,
+        //                     'listing-renewal-auto',
+        //                     _x( 'Allow recurring renewal payments?', 'admin settings', 'WPBDM' ),
+        //                     'boolean',
+        //                     false,
+        //                     _x( 'Allow users to opt in for automatic renewal of their listings. The fee is charged at the time the listing expires without user intervention.', 'admin settings', 'WPBDM' )
+        //                   );
+        // $this->add_setting( $s,
+        //                     'listing-renewal-auto-dontask',
+        //                     _x( 'Use recurring payments as the default payment method?', 'admin settings', 'WPBDM' ),
+        //                     'boolean',
+        //                     false,
+        //                     _x( 'Enable automatic renewal without having users opt in during the submit process.', 'admin settings', 'WPBDM' ) );
+        // $this->register_dep( 'listing-renewal-auto-dontask', 'requires-true', 'listing-renewal-auto' );
 
         $this->add_setting( $s,
                             'renewal-email-threshold',

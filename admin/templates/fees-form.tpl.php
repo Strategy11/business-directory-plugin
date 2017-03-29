@@ -56,6 +56,18 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
+                    <label> <?php _ex('Is recurring?', 'fees admin', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <input name="fee[recurring]"
+                           type="checkbox"
+                           value="1"
+                           <?php echo $fee->recurring ? 'checked="checked"' : ''; ?>
+                           <?php echo ( 'free' == $fee->tag ) ? 'disabled="disabled"' : ''; ?> />
+                </td>
+            </tr>
+            <tr class="form-field form-required">
+                <th scope="row">
                     <label> <?php _ex('Is featured listing/sticky?', 'fees admin', 'WPBDM'); ?></label>
                 </th>
                 <td>

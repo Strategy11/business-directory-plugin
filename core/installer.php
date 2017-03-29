@@ -99,6 +99,7 @@ class WPBDP_Installer {
             days smallint unsigned NOT NULL DEFAULT 0,
             images smallint unsigned NOT NULL DEFAULT 0,
             sticky tinyint(1) NOT NULL DEFAULT 0,
+            recurring tinyint(1) NOT NULL DEFAULT 0,
             pricing_model varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'flat',
             pricing_details blob NULL,
             supported_categories text NOT NULL DEFAULT '',

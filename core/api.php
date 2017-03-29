@@ -193,7 +193,7 @@ function wpbdp_get_formfield($id) {
 
 /* Fees/Payment API */
 function wpbdp_payments_possible() {
-    return wpbdp_payments_api()->payments_possible();
+    return wpbdp()->payment_gateways->can_pay();
 }
 
 function wpbdp_fees_api() {

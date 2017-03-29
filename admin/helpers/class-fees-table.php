@@ -96,12 +96,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             'amount' => _x('Amount', 'fees admin', 'WPBDM'),
             'duration' => _x('Duration', 'fees admin', 'WPBDM'),
             'images' => _x('Images', 'fees admin', 'WPBDM'),
-            'sticky' => _x( 'Featured/Sticky', 'fees admin', 'WPBDM' )
+            'attributes' => ''
         );
-
-        if ( 'all' == $this->get_current_view() ) {
-            $cols[ 'status' ] = _x( 'Status', 'fees admin', 'WPBDM' );
-        }
 
         return $cols;
     }
@@ -247,18 +243,30 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         return $names ? join($names, ', ') : '--';
     }
 
-    public function column_sticky( $fee ) {
-        return $fee->sticky ? _x( 'Yes', 'fees admin', 'WPBDM' ) : _x( 'No', 'fees admin', 'WPBDM' );
-    }
+    public function column_attributes( $fee ) {
+        $html = '';
 
-    public function column_status( $fee ) {
-        if ( ! $fee->enabled )
-            return _x( 'Disabled', 'fees admin', 'WPBDM' );
+        if ( 'all' == $this->get_current_view() ) {
+            $html .= '<span class="wpbdp-tag">';
 
-        if ( ( ! wpbdp_payments_possible() && 'free' != $fee->tag ) || ( wpbdp_payments_possible() && 'free' == $fee->tag ) )
-            return _x( 'Not Available', 'fees admin', 'WPBDM' );
+            if ( ! $fee->enabled ) {
+                $html .= _x( 'Disabled', 'fees admin', 'WPBDM' );
+            } elseif ( ( ! wpbdp_payments_possible() && 'free' != $fee->tag ) || ( wpbdp_payments_possible() && 'free' == $fee->tag ) ) {
+                $html .= _x( 'Unavailable', 'fees admin', 'WPBDM' );
+            } else {
+                $html .= _x( 'Active', 'fees admin', 'WPBDM' );
+            }
 
-        return _x( 'Active', 'fees admin', 'WPBDM' );
+            $html .= '</span>';
+        }
+
+        if ( $fee->sticky )
+            $html .= '<span class="wpbdp-tag">' . _x( 'Sticky', 'fees admin', 'WPBDM' ) . '</span>';
+
+        if ( $fee->recurring )
+            $html .= '<span class="wpbdp-tag">' . _x( 'Recurring', 'fees admin', 'WPBDM' ) . '</span>';
+
+        return $html;
     }
 
 }

@@ -29,9 +29,14 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
             $this->enabled = true;
         }
 
+        if ( null === $this->supported_categories ) {
+            $this->supported_categories = 'all';
+        }
+
         if ( 'all' !== $this->supported_categories ) {
-            if ( is_string( $this->supported_categories ) )
+            if ( is_string( $this->supported_categories ) ) {
                 $this->supported_categories = explode( ',', $this->supported_categories );
+            }
 
             $this->supported_categories = array_map( 'absint', (array) $this->supported_categories  );
         }
