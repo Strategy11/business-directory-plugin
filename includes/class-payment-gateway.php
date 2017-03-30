@@ -38,6 +38,10 @@ abstract class WPBDP__Payment_Gateway {
         return array();
     }
 
+    public function get_settings_text() {
+        return '';
+    }
+
     public function validate_settings() {
         return array();
     }

@@ -81,7 +81,8 @@ class WPBDP__Payment_Gateways {
         foreach ( $this->gateways as $gateway ) {
             $section = $api->add_section( 'payment',
                                           $gateway->get_id(),
-                                          $gateway->get_title() );
+                                          $gateway->get_title(),
+                                          $gateway->get_settings_text() );
             $api->add_setting( $section,
                                $gateway->get_id(),
                                sprintf( _x( 'Enable %s?', 'payment-gateways', 'WPBDM' ), $gateway->get_title() ),
