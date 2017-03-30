@@ -144,14 +144,83 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since fees-revamp
      */
-    public function cancel_recurring() {
+    public function get_subscription_data() {
+        global $wpdb;
+
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT subscription_id, subscription_data FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
+
+        $subscription_id = $row->subscription_id;
+        $subscription_data = unserialize( $row->subscription_data );
+
+        $result = array();
+        if ( ! empty( $subscription_data ) && is_array( $subscription_data ) ) {
+            foreach ( $subscription_data as $k => $v ) {
+                $result[ $k ] = $v;
+            }
+        }
+
+        $result['subscription_id'] = $subscription_id;
+
+        return $result;
+    }
+
+    /**
+     * @since fees-revamp
+     */
+    public function has_subscription() {
+        global $wpdb;
+        return absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d", $this->id, 1 ) ) ) > 0;
+    }
+
+    /**
+     * @since fees-revamp
+     */
+    public function add_subscription_payment( $data = array() ) {
+        global $wpdb;
+
+        if ( ! $this->has_subscription() )
+            return;
+
+        $subscription = $this->get_subscription_data();
+        if ( ! $subscription || empty( $subscription['payment_id'] ) )
+            return;
+
+        $payment = wpbdp_get_payment( $subscription['payment_id'] );
+        if ( ! $payment || $payment->listing_id != $this->id )
+            return;
+
+        $new_payment = new WPBDP_Payment( array(
+            'listing_id' => $payment->listing_id,
+            'gateway' => $payment->gateway,
+            'parent_id' => $payment->id,
+            'payment_type' => 'subscription_installment',
+            'payer_email' => $payment->payer_email,
+            'payer_first_name' => $payment->payer_first_name,
+            'payer_last_name' => $payment->payer_last_name,
+            'payer_data' => unserialize( $payment->payer_data ),
+            'status' => 'completed',
+            'gateway_tx_id' => ! empty( $data['gateway_tx_id'] ) ? $data['gateway_tx_id'] : '',
+        ) );
+        $new_payment->payment_items[] = $payment->find_item( 'recurring_plan' );
+        $new_payment->data['subscription_id'] = $payment->data['subscription_id'];
+        $new_payment->data['subscription_data'] = $payment->data['subscription_data'];
+        $new_payment->save(); // TODO: add 'nohooks' argument so we can save without firing anything.
+    }
+
+    /**
+     * @since fees-revamp
+     */
+    public function cancel_subscription() {
         global $wpdb;
         $wpdb->update( "{$wpdb->prefix}wpbdp_listings",
                        array( 'is_recurring' => 0,
-                              'subscription_id' => '' ),
+                              'subscription_id' => '',
+                              'subscription_data' => serialize( array() ) ),
                        array( 'listing_id' => $this->id ) );
+
+        do_action( 'wpbdp_listing_subscription_canceled', $this->id );
     }
 
     public function is_published() {
@@ -275,7 +344,15 @@ class WPBDP_Listing {
         if ( ! $plan )
             return false;
 
-        $this->set_fee_plan( $plan );
+        global $wpdb;
+
+        $row = array();
+        if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $plan ) )
+            $row['expiration_date'] = $expiration;
+
+        if ( ! empty( $row ) )
+            $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $this->id ) );
+
         $this->set_status( 'complete' );
     }
 
