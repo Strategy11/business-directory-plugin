@@ -170,7 +170,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
             if ( isset( $res['redirect'] ) )
                 return $this->_redirect( $res['redirect'] );
-            
+
             return $this->_redirect( $this->payment->checkout_url );
         }
 
