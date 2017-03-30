@@ -150,6 +150,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         $subscription_id = $response->getSubscriptionId();
         $subscription_data = array(
+            'payment_id' => $payment->id,
             'customerProfileId'        => ! empty( $response->xml->profile->customerProfileId ) ? (string) $response->xml->profile->customerProfileId : '',
             'customerPaymentProfileId' => ! empty( $response->xml->profile->customerPaymentProfileId ) ? (string) $response->xml->profile->customerPaymentProfileId : ''
         );
