@@ -16,6 +16,10 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         }
     }
 
+    public function enqueue_resources() {
+        wp_enqueue_script( 'wpbdp-checkout', WPBDP_URL . 'core/js/checkout.js', array( 'wpbdp-js' ) );
+    }    
+
     public function dispatch() {
         if ( ! wpbdp()->payment_gateways->can_pay() )
             wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
