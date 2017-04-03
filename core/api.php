@@ -595,3 +595,38 @@ function wpbdp_load_view( $view, $arg0 = null ) {
 function wpbdp_get_payment( $id ) {
     return WPBDP_Payment::objects()->get( $id );
 }
+
+/**
+ * @since fees-revamp
+ */
+function wpbdp_get_fee_plans() {
+    $args = array(
+        'enabled' => 1
+    );
+
+    if ( wpbdp_payments_possible() ) {
+        $args['-tag'] = 'free';
+    } else {
+        $args['tag'] = 'free';
+    }
+
+    if ( current_user_can( 'administrator' ) ) {
+        $args['recurring'] = '0';
+    }
+
+    if ( $order = wpbdp_get_option( 'fee-order' ) ) {
+        $args['_orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
+        $args['_order'] = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
+    }
+
+    $plans = WPBDP_Fee_Plan::find( $args );
+    return $plans;
+}
+
+/**
+ * @since fees-revamp
+ */
+function wpbdp_get_fee_plan( $id ) {
+    $id = absint( $id );
+    return WPBDP_Fee_Plan::find( $id );
+}

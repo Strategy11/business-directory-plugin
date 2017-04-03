@@ -278,8 +278,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
-        $plans = WPBDP_Fee_Plan::find( 'all' );
-        // unset($plans[2]);
+        $plans = wpbdp_get_fee_plans();
+
+        if ( ! $plans )
+            wp_die( _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' ) );
 
         $categories = $category_field->value_from_POST();
         $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
@@ -289,9 +291,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->messages = array_merge( $this->messages, $errors );
             $this->prevent_save = true;
         } elseif ( $categories && $plan_id ) {
-            $plan = WPBDP_Fee_Plan::find( $plan_id );
+            $plan = wpbdp_get_fee_plan( $plan_id );
 
-            if ( ! $plan || ! $plan->supports_category_selection( $categories ) ) {
+            if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {
                 $this->messages[] = array( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'WPBDM' ), 'error' );
                 $this->prevent_save = true;
             } else {

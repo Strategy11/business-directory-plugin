@@ -29,7 +29,7 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
 
     private function plan_info_tab() {
         $vars = array(
-            'plans' => WPBDP_Fee_Plan::find(),
+            'plans' => wpbdp_get_fee_plans(),
             'listing' => $this->listing,
             'current_plan' => $this->listing->get_fee_plan()
         );

@@ -199,21 +199,6 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         return self::find( array( 'tag' => 'free', '_limit' => 1 ) );
     }
 
-    static function before_find( $args ) {
-        if ( $args['limit'] > 0 || $args['order'] )
-            return $args;
-
-        $order = wpbdp_get_option( 'fee-order' );
-
-        if ( ! $order )
-            return $args;
-
-        $args['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
-        $args['order'] = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
-
-        return $args;
-    }
-
     public static function create( $args ) { return parent::_create( $args, __class__ ); }
     public static function find( $args = '' ) { return parent::_find( $args, __class__ ); }
 

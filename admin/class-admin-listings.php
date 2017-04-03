@@ -252,16 +252,18 @@ class WPBDP_Admin_Listings {
             $attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . $f . '">' . ucwords( str_replace( '-', ' ', $f ) ) . '</span>';
         }
 
-        if ( $plan->is_sticky )
-            $attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
+        if ( $plan ) {
+            if ( $plan->is_sticky )
+                $attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . _x( 'Featured', 'admin listings', 'WPBDM' ) . '</span>';
 
-        if ( $plan->is_recurring )
-            $attributes['recurring'] = '<span class="wpbdp-tag wpbdp-listing-attr-recurring">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
+            if ( $plan->is_recurring )
+                $attributes['recurring'] = '<span class="wpbdp-tag wpbdp-listing-attr-recurring">' . _x( 'Recurring', 'admin listings', 'WPBDM' ) . '</span>';
 
-        if ( 0.0 == $plan->fee_price )
-            $attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
-        elseif ( 'pending_payment' != $listing->get_status() )
-            $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
+            if ( 0.0 == $plan->fee_price )
+                $attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
+            elseif ( 'pending_payment' != $listing->get_status() )
+                $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
+        }
 
         $post_status = get_post_status( $post_id );
         if ( in_array( $post_status, array( 'draft', 'pending' ), true ) ) {
@@ -379,7 +381,9 @@ class WPBDP_Admin_Listings {
             $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&listing=' . $listing->get_id() ) ) . '">' . _x( 'View Payments', 'admin actions', 'WPBDM' ) . '</a>';
         } else {
             $payment = $payments->get();
-            $actions['view-payments'] = '<a href="' . esc_url( $payment->get_admin_url() ) . '">' . _x( 'View Payment', 'admin actions', 'WPBDM' ) . '</a>';
+
+            if ( $payment )
+                $actions['view-payments'] = '<a href="' . esc_url( $payment->get_admin_url() ) . '">' . _x( 'View Payment', 'admin actions', 'WPBDM' ) . '</a>';
         }
 
         $listing = wpbdp_get_listing( $post->ID );
@@ -436,14 +440,23 @@ class WPBDP_Admin_Listings {
 
         $nonce = isset( $_POST['wpbdp-admin-listing-plan-nonce'] ) ? $_POST['wpbdp-admin-listing-plan-nonce'] : '';
 
-        if ( ! $nonce || ! wp_verify_nonce( $nonce, 'update listing plan' ) || empty( $_POST['listing_plan'] ) )
+        if ( ! $nonce || ! wp_verify_nonce( $nonce, 'update listing plan' ) )
             return;
 
         global $wpdb;
 
         $listing = wpbdp_get_listing( $post_id );
-        $new_plan = $_POST['listing_plan'];
+        $new_plan = ! empty( $_POST['listing_plan' ] ) ? $_POST['listing_plan'] : array();
         $current_plan = $listing->get_fee_plan();
+
+        if ( ! $current_plan && empty( $new_plan['fee_id'] ) ) {
+            // Choose the free fee. (This shouldn't happen)
+            $free = WPBDP_Fee_Plan::get_free_plan();
+            $new_plan['fee_id'] = $new_plan->id;
+            $new_plan['expiration_date'] = $free->calculate_expiration_time();
+            $new_plan['fee_images'] = $free->images;
+            $new_plan['is_sticky'] = $free->sticky;
+        }
 
         if ( ! $current_plan || (int) $current_plan->fee_id != (int) $new_plan['fee_id'] ) {
             $payment = $listing->set_fee_plan_with_payment( $new_plan['fee_id'] );

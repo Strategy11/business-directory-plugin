@@ -55,7 +55,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
-                <input type="text" name="listing_plan[expiration_date]" value="<?php echo $current_plan->expiration_date; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'WPBDM' ); ?>" />
+                <input type="text" name="listing_plan[expiration_date]" value="<?php echo $current_plan ? $current_plan->expiration_date : ''; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'WPBDM' ); ?>" />
 
                 <p>
                     <a href="#" class="update-value button"><?php _ex( 'OK', 'listing metabox', 'WPBDM' ); ?></a>

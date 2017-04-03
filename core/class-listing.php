@@ -436,7 +436,7 @@ class WPBDP_Listing {
             return false;
 
         if ( $res->fee_id )
-            $fee = WPBDP_Fee_Plan::find( $res->fee_id );
+            $fee = wpbdp_get_fee_plan( $res->fee_id );
         else
             $fee = null;
 
@@ -459,7 +459,7 @@ class WPBDP_Listing {
             return true;
         }
 
-        $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
+        $fee = is_numeric( $fee ) ? wpbdp_get_fee_plan( $fee ) : $fee;
 
         if ( ! $fee )
             return false;
@@ -488,7 +488,7 @@ class WPBDP_Listing {
      */
     public function set_fee_plan_with_payment( $fee, $recurring = false ) {
         $plan1 = $this->get_fee_plan();
-        $fee = is_numeric( $fee ) ? WPBDP_Fee_Plan::find( $fee ) : $fee;
+        $fee = is_numeric( $fee ) ? wpbdp_get_fee_plan( $fee ) : $fee;
         $this->set_fee_plan( $fee );
         $plan = $this->get_fee_plan();
 

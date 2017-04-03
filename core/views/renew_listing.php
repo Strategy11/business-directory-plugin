@@ -51,8 +51,8 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function plan_selection() {
-        // FIXME: consider categories here before next-release.
-        $plans = WPBDP_Fee_Plan::find( 'all' );
+        // FIXME: consider categories here before fees-revamp.
+        $plans = wpbdp_get_fee_plans();
 
         if ( isset( $_POST['listing_plan'] ) ) {
             if ( $fee = wpbdp_get_fee( absint( $_POST['listing_plan'] ) ) ) {
