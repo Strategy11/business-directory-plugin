@@ -456,13 +456,17 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
 
     $setting = null;
     $file = null;
+    $object = null;
 
-    if ( is_file( $setting_or_file ) && is_readable( $setting_or_file ) )
+    if ( is_string( $setting_or_file ) && is_file( $setting_or_file ) && is_readable( $setting_or_file ) ) {
         $file = $setting_or_file;
-    else
+    } else if ( is_array( $setting_or_file ) || is_object( $setting_or_file ) ) {
+        $object = $setting_or_file;
+    } else {
         $setting = $wpbdp->settings->get_setting( $setting_or_file );
+    }
 
-    if ( ( ! $setting && ! $file ) || ( $setting && 'email_template' != $setting->type ) )
+    if ( ( ! $setting && ! $file && ! $object ) || ( $setting && 'email_template' != $setting->type ) )
         return false;
 
     if ( ! class_exists( 'WPBDP_Email' ) )
@@ -494,8 +498,8 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     $subject = '';
     $body = '';
 
-    if ( $setting ) {
-        $value = wpbdp_get_option( $setting->name );
+    if ( $setting || $object ) {
+        $value = $setting ? wpbdp_get_option( $setting->name ) : (array) $object;
 
         // Support old-style settings.
         if ( ! is_array( $value ) ) {
@@ -506,6 +510,7 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
             $body = $value['body'];
         }
 
+        $placeholders = $replacements; // XXX: does this work ok?
         foreach ( array_keys( $placeholders ) as $placeholder ) {
             if ( ! isset( $replacements[ $placeholder ] ) )
                 continue;
