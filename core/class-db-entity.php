@@ -239,6 +239,16 @@ class WPBDP_DB_Entity {
                 unset( $args['_limit'] );
             }
 
+            if ( isset( $args['_order'] ) ) {
+                $query['order'] = $args['_order'];
+                unset( $args['_order'] );
+            }
+
+            if ( isset( $args['_orderby'] ) ) {
+                $query['orderby'] = $args['_orderby'];
+                unset( $args['_orderby'] );
+            }
+
             $query['where'] = $args;
         }
 
