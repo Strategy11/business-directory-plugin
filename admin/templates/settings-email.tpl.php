@@ -7,10 +7,16 @@ $email_subject = ! empty( $email_subject ) ? $email_subject : _x( 'Untitled', 's
 $email_body = ! empty( $email_body ) ? $email_body : '';
 
 $placeholders = ! empty( $placeholders ) ? $placeholders : array();
+$before_container = ! empty( $before_container ) ? $before_container : '';
+$after_container = ! empty( $after_container ) ? $after_container : '';
+$before_preview = ! empty( $before_preview ) ? $before_preview : '';
+$after_preview = ! empty( $after_preview ) ? $after_preview : '';
 $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
 ?>
 
-    <div class="wpbdp-settings-email <?php echo $container_class; ?>">
+<?php echo $before_container; ?>
+<div class="wpbdp-settings-email <?php echo $container_class; ?>">
+    <?php echo $before_preview; ?>
     <div class="wpbdp-settings-email-preview" title="<?php _ex( 'Click to edit e-mail', 'settings email', 'WPBDM' ); ?>">
         <a href="#" class="wpbdp-settings-email-edit-btn wpbdp-tag"><?php _ex( 'Click to edit', 'settings email', 'WPBDM' ); ?></a>
         <h4><?php echo $email_subject; ?></h4>
@@ -20,6 +26,8 @@ $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
             <?php echo $email_body; ?>
         <?php endif; ?>
     </div>
+    <?php echo $after_preview; ?>
+
 
     <div class="wpbdp-settings-email-editor">
         <input type="hidden" value="<?php echo esc_attr( $email_subject ); ?>" class="stored-email-subject" />
@@ -75,3 +83,4 @@ $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
         </div>
     </div>
 </div>
+<?php echo $after_container; ?>

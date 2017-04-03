@@ -108,7 +108,8 @@ class WPBDP__Expiration_Notices_Setting {
                 'container_class' => 'wpbdp-expiration-notice-email',
                 'email_subject' => $notice['subject'],
                 'email_body' => $notice['body'],
-                'extra_fields' => $this->setting_email_fields( 'wpbdp-' . $setting->name . '[' . $i . ']', $uid, $notice )
+                'extra_fields' => $this->setting_email_fields( 'wpbdp-' . $setting->name . '[' . $i . ']', $uid, $notice ),
+                'after_container' => $this->setting_email_summary( $notice )
             );
 
             echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-email.tpl.php', $vars );
@@ -153,6 +154,60 @@ class WPBDP__Expiration_Notices_Setting {
 
         $expiration_notices_schedule = apply_filters( 'wpbdp_expiration_notices_schedule', $expiration_notices_schedule );
         return $expiration_notices_schedule;
+    }
+
+    private function setting_email_summary( $notice ) {
+        $event = $notice['event'];
+        $listings = $notice['listings'];
+        $relative_time = ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : '';
+
+        if ( 'both' == $listings ) {
+            $recurring_modifier = _x( 'recurring and non-recurring', 'expiration notices', 'WPBDM' );
+        } elseif ( 'recurring' == $listings ) {
+            $recurring_modifier = _x( 'recurring only', 'expiration notices', 'WPBDM' );
+        } else {
+            $recurring_modifier = _x( 'non-recurring only', 'expiration notices', 'WPBDM' );
+        }
+
+        if ( 'renewal' == $event ) {
+            $summary = sprintf( _x( 'Sent when a listing (%s) is renewed.', 'expiration notices', 'WPBDM' ), $recurring_modifier );
+        }
+
+        if ( 'expiration' == $event ) {
+            if ( '0 days' == $relative_time ) {
+                $summary = sprintf( _x( 'Sent when a listing (%s) expires.', 'expiration notices', 'WPBDM' ), $recurring_modifier );
+            } else {
+                $relative_time_parts = explode( ' ', $relative_time );
+                $relative_time_number = trim( str_replace( array( '+', '-' ), '', $relative_time_parts[0] ) );
+                $relative_time_units = $relative_time_parts[1];
+
+                switch ( $relative_time_units ) {
+                case 'days':
+                    $relative_time_h = sprintf( _nx( '%d day', '%d days', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+                    break;
+                case 'weeks':
+                    $relative_time_h = sprintf( _nx( '%d week', '%d weeks', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+                    break;
+                case 'months':
+                    $relative_time_h = sprintf( _nx( '%d month', '%d months', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+                    break;
+                }
+
+                if ( $relative_time[0] == '+' ) {
+                    $summary = sprintf( _x( 'Sent %1$s before a listing (%2$s) expires.', 'expiration notices', 'WPBDM' ), $relative_time_h, $recurring_modifier );
+                } else {
+                    $summary = sprintf( _x( 'Sent %1$s after a listing (%2$s) expires.', 'expiration notices', 'WPBDM' ), $relative_time_h, $recurring_modifier );
+                }
+            }
+        }
+
+        ob_start();
+?>
+<div class="wpbdp-expiration-notice-email-schedule-summary">
+    <?php echo $summary; ?>
+</div>
+<?php
+        return ob_get_clean();
     }
 
     private function setting_email_fields( $name, $uid, $notice ) {

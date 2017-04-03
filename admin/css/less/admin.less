@@ -373,11 +373,22 @@ body.taxonomy-wpbdp_category .column-id {
     margin-bottom: 2px;
 }
 
+#wpbdp-admin-settings .wpbdp-expiration-notice-email-schedule-summary {
+    background: #ccc;
+    font-size: 85%;
+    padding: 5px;
+    color: #000;
+}
+
 #wpbdp-admin-settings .wpbdp-settings-email {
-    margin: 5px 0 0 0;
+    margin: 10px 0 0 0;
     border: solid 1px #ccc;
     padding: 5px;
     background: #fff;
+
+    &.wpbdp-expiration-notice-email {
+        border-bottom: none;
+    }
 
     .short-preview, .wpbdp-settings-email-preview {
         color: #999;
