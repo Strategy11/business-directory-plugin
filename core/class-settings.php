@@ -1,12 +1,9 @@
 <?php
+
 class WPBDP_Settings {
 
     const PREFIX = 'wpbdp-';
 
-    const _EMAIL_RENEWAL_MESSAGE = "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]";
-    const _EMAIL_AUTORENEWAL_MESSAGE = "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [date] for another period.\n\nIf you have any questions, contact us at [site].";
-    const _EMAIL_AUTORENEWAL_PENDING_MESSAGE = "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [date] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site].";
-    const _EMAIL_PENDING_RENEWAL_MESSAGE = 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].';
 
     private $deps = array();
 
@@ -15,8 +12,16 @@ class WPBDP_Settings {
         $this->groups = array();
         $this->settings = array();
 
+        add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-admin-settings-email-preview', array( &$this, '_ajax_email_preview' ) );
         add_filter( 'wpbdp_settings_render', array( &$this, 'after_render' ), 0, 3 );
+    }
+
+    public function _enqueue_scripts( $hook ) {
+        if ( empty( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
+            return;
+
+        wp_enqueue_script( 'wpbdp-admin-settings-js', WPBDP_URL . 'admin/js/settings.min.js', array( 'jquery' ) );
     }
 
     public function register_settings() {
@@ -251,47 +256,6 @@ class WPBDP_Settings {
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'listing-renewal', _x('Turn on listing renewal option?', 'admin settings', 'WPBDM'), 'boolean', true);
-        // $this->add_setting( $s,
-        //                     'listing-renewal-auto',
-        //                     _x( 'Allow recurring renewal payments?', 'admin settings', 'WPBDM' ),
-        //                     'boolean',
-        //                     false,
-        //                     _x( 'Allow users to opt in for automatic renewal of their listings. The fee is charged at the time the listing expires without user intervention.', 'admin settings', 'WPBDM' )
-        //                   );
-        // $this->add_setting( $s,
-        //                     'listing-renewal-auto-dontask',
-        //                     _x( 'Use recurring payments as the default payment method?', 'admin settings', 'WPBDM' ),
-        //                     'boolean',
-        //                     false,
-        //                     _x( 'Enable automatic renewal without having users opt in during the submit process.', 'admin settings', 'WPBDM' ) );
-        // $this->register_dep( 'listing-renewal-auto-dontask', 'requires-true', 'listing-renewal-auto' );
-
-        $this->add_setting( $s,
-                            'renewal-email-threshold',
-                            _x( 'Listing renewal e-mail threshold (in days)', 'admin settings', 'WPBDM' ),
-                            'text',
-                            '5',
-                            _x( 'Configure how many days before listing expiration is the renewal e-mail sent.', 'admin settings', 'WPBDM' )
-                            );
-        $this->add_setting( $s,
-                            'send-autorenewal-expiration-notice',
-                            _x( 'Send expiration notices including a cancel links to auto-renewed listings?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false );
-
-        // Renewal Reminders
-        $this->add_setting( $s,
-                            'renewal-reminder',
-                            _x( 'Remind listing owners of expired listings (past due)?', 'admin settings', 'WPBDM' ),
-                            'boolean',
-                            false );
-        $this->add_setting( $s,
-                            'renewal-reminder-threshold',
-                            _x( 'Listing renewal reminder e-mail threshold (in days)', 'admin settings', 'WPBDM' ),
-                            'text',
-                            '10',
-                            _x( 'Configure how many days after the expiration of a listing an e-mail reminder should be sent to the owner.', 'admin settings', 'WPBDM' )
-                          );
 
         $s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
         $this->add_setting($s, 'new-post-status', _x('Default new post status', 'admin settings', 'WPBDM'), 'choice', 'pending', '',
@@ -477,77 +441,35 @@ EOF;
         $url = admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=listings' ) . '#listings/renewals';
         $s = $this->add_section( $g,
                                  'email-renewal-reminders',
-                                 _x( 'Renewal Reminders', 'admin settings', 'WPBDM' ),
+                                 _x( 'Expiration/Renewal Notices', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
                                               '<a href="' . esc_url( $url ) . '">',
                                               _x( 'This section refers only to the text of the renewal/expiration notices. You can also <a>configure when the e-mails are sent</a>.', 'admin settings', 'WPBDM' ) ) );
 
+        require_once( WPBDP_PATH . 'core/helpers/class-expiration-notices-setting.php' );
+        $expiration_notices_setting = new WPBDP__Expiration_Notices_Setting();
         $this->add_setting( $s,
-                'renewal-pending-message',
-                _x( 'Pending expiration e-mail message', 'admin settings', 'WPBDM' ),
-                'email_template',
-                array( 'subject' => '[[site-title]] [listing] - Expiration notice',
-                       'body' => self::_EMAIL_PENDING_RENEWAL_MESSAGE ),
-                _x( 'Sent some time before the listing expires. Applies to non-recurring renewals only.', 'settings', 'WPBDM' ),
-                array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-                                                'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-                                                'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-                                                'category' => _x( 'Category that is going to expire', 'settings', 'WPBDM' ),
-                                                'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-                                                'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
-                );
-        $this->add_setting( $s,
-                            'listing-renewal-message', _x('Listing Renewal e-mail message', 'admin settings', 'WPBDM'),
-                            'email_template',
-                            array( 'subject' => '[[site-title]] [listing] - Expiration notice',
-                                   'body' => self::_EMAIL_RENEWAL_MESSAGE ),
-                            _x( 'Sent at the time of listing expiration. Applies to non-recurring renewals only.', 'settings', 'WPBDM' ),
-                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-                                                            'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-                                                            'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
-                                                            'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
-                          );
-        $this->add_setting( $s,
-                            'listing-autorenewal-notice', _x( 'Listing auto-renewal reminder (recurring payments)', 'admin settings', 'WPBDM'),
-                            'email_template',
-                            array( 'subject' => '[[site-title]] [listing] - Renewal reminder',
-                                   'body' => self::_EMAIL_AUTORENEWAL_PENDING_MESSAGE ),
-                            _x( 'Sent some time before the listing is auto-renewed. Applies to recurring renewals only.', 'settings', 'WPBDM' ),
-                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-                                                            'date' => _x( 'Renewal date', 'settings', 'WPBDM' ),
-                                                            'category' => _x( 'Category that is going to be renewed', 'settings', 'WPBDM' ),
-                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' ),
-                                                            'link' => _x( 'Link to manage subscriptions', 'settings', 'WPBDM' ) ) )
-                          );
-        $this->add_setting( $s,
-                            'listing-autorenewal-message', _x('Listing Renewal e-mail message (recurring payments)', 'admin settings', 'WPBDM'),
-                            'email_template',
-                            array( 'subject' => '[[site-title]] [listing] renewed',
-                                   'body' => self::_EMAIL_AUTORENEWAL_MESSAGE ),
-                            _x( 'Sent after the listing is auto-renewed. Applies to recurring renewals only.', 'settings', 'WPBDM' ),
-                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-                                                            'category' => _x( 'Renewed category', 'settings', 'WPBDM' ),
-                                                            'date' => _x( 'Renewal date', 'settings', 'WPBDM' ),
-                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' ) ) )
-                          );
-        $this->add_setting( $s,
-                            'renewal-reminder-message',
-                            _x( 'Renewal reminder e-mail message', 'admin settings', 'WPBDM' ),
-                            'email_template',
-                            array( 'subject' => '[[site-title]] [listing] - Expiration reminder',
-                                   'body' => "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link]." ),
-                            _x( 'Sent some time after listing expiration and when no renewal has occurred. Applies to both recurring and non-recurring renewals.', 'settings', 'WPBDM' ),
-                            array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-                                                            'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-                                                            'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-                                                            'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
-                                                            'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-                                                            'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
-                          );
+                            'expiration-notices',
+                            _x( 'E-Mail Notices', 'admin settings', 'WPBDM' ),
+                            'custom',
+                            $expiration_notices_setting->get_default(),
+                            '',
+                            array(),
+                            null,
+                            array( $expiration_notices_setting, 'setting_callback' ) );
+
+        // $this->add_setting( $s,
+        //                     'listing-autorenewal-message', _x('Listing Renewal e-mail message (recurring payments)', 'admin settings', 'WPBDM'),
+        //                     'email_template',
+        //                     array( 'subject' => '',
+        //                            'body' => self::_EMAIL_AUTORENEWAL_MESSAGE ),
+        //                     _x( 'Sent after the listing is auto-renewed. Applies to recurring renewals only.', 'settings', 'WPBDM' ),
+        //                     array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+        //                                                     'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+        //                                                     'category' => _x( 'Renewed category', 'settings', 'WPBDM' ),
+        //                                                     'date' => _x( 'Renewal date', 'settings', 'WPBDM' ),
+        //                                                     'site' => _x( 'Link to your site', 'settings', 'WPBDM' ) ) )
+        //                   );
 
         /* Payment settings */
         $g = $this->add_group('payment', _x('Payment', 'admin settings', 'WPBDM'));
@@ -1145,81 +1067,16 @@ EOF;
             $value['body'] = $body;
         }
 
+        $vars = array(
+            'setting_name' => self::PREFIX . $setting->name,
+            'email_subject' => $value['subject'],
+            'email_body' => $value['body'],
+            'placeholders' => ! empty( $args['placeholders'] ) ? $args['placeholders'] : array()
+        );
+
         $html  = '';
         $html .= '<span class="description">' . $setting->help_text . '</span>';
-        $html .= sprintf( '<div class="wpbdp-settings-email" data-setting="%s">',
-                          $setting->name );
-
-        $html .= '<div class="short-preview" title="' . _x( 'Click to edit e-mail', 'settings email', 'WPBDM' ) . '">';
-        $html .= '<span class="edit-toggle tag">' . _x( 'Click to edit', 'settings email', 'WPBDM' ) . '</span>';
-        $html .= '<h4>';
-        $html .= $value['subject'];
-        $html .= '</h4>';
-        $html .= $value['body'];
-        $html .=  '...';
-        $html .= '</div>';
-
-        $html .= sprintf( '<div class="editor" style="display: none;" data-preview-nonce="%s">', wp_create_nonce( 'preview email ' . $setting->name ) );
-        $html .= '<table class="form-table"><tbody>';
-        $html .= '<tr>';
-        $html .= sprintf( '<th scope="row"><label for="%s-subject">%s</label</th>',
-                          $setting->name,
-                          _x( 'E-Mail Subject', 'settings email', 'WPBDM' ) );
-        $html .= '<td>';
-        $html .= sprintf( '<input type="text" name="%s" value="%s" id="%s" class="subject-text">',
-                          self::PREFIX . $setting->name . '[subject]',
-                          esc_attr( $value['subject'] ),
-                          $setting->name . '-subject' );
-        $html .= '</td>';
-        $html .= '</tr>';
-        $html .= '<tr>';
-        $html .= sprintf( '<th scope="row"><label for="%s-body">%s</label</th>',
-                          $setting->name,
-                          _x( 'E-Mail Body', 'settings email', 'WPBDM' ) );
-        $html .= '<td>';
-        $html .= sprintf( '<textarea id="%s" name="%s" class="body-text">%s</textarea>',
-                          $setting->name . '-body',
-                          self::PREFIX . $setting->name . '[body]',
-                          esc_textarea( $value['body'] ) );
-
-        $placeholders = isset( $args['placeholders'] ) ? $args['placeholders'] : array();
-
-        if ( $placeholders ) {
-            $html .= '<div class="placeholders">';
-            $html .= _x( 'You can use the following placeholders:', 'settings email', 'WPBDM' );
-            $html .= '<br /><br />';
-
-            $added_sep = false;
-
-            foreach ( $placeholders as $placeholder => $placeholder_data ) {
-                $description = is_array( $placeholder_data ) ? $placeholder_data[0] : $placeholder_data;
-                $is_core_placeholder = is_array( $placeholder_data ) && isset( $placeholder_data[2] ) && $placeholder_data[2];
-
-                if ( $is_core_placeholder && ! $added_sep ) {
-                    $html .= '<div class="placeholder-separator"></div>';
-                    $added_sep = true;
-                }
-
-                $html .= sprintf( '<div class="placeholder" data-placeholder="%s"><span class="placeholder-code">[%s]</span> - <span class="placeholder-description">%s</span></div>',
-                                  esc_attr( $placeholder ),
-                                  $placeholder,
-                                  $description );
-            }
-            $html .= '</div>';
-        }
-
-        $html .= '<div class="buttons">';
-        $html .= '<a href="#" class="button preview-email">' . _x( 'Preview e-mail', 'settings email', 'WPBDM' ) . '</a> ';
-        $html .= '<a href="#" class="button cancel">' . _x( 'Cancel', 'settings email', 'WPBDM' ) . '</a> ';
-        $html .= '<a href="#" class="button button-primary save">' . _x( 'Save Changes', 'settings email', 'WPBDM' ) . '</a> ';
-        $html .= '</div>';
-
-        $html .= '</td>';
-        $html .= '</tr>';
-        $html .= '</tbody></table>';
-        $html .= '</div>';
-
-        $html .= '</div>';
+        $html .= wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-email.tpl.php', $vars );
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }

@@ -21,6 +21,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         $done = false;
 
         $subroutines = array(
+            '_migrate_email_notices',
             '_migrate_fee_plans',
             '_migrate_payment_items',
             '_migrate_listings',
@@ -43,6 +44,74 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
      */
     public function _set_featured_migration_flag( &$msg ) {
         update_option( 'wpbdp-migrate-18_0-featured-pending', true, false );
+        return true;
+    }
+
+    public function _migrate_email_notices( &$msg ) {
+        $notices = array();
+
+        if ( true ) {
+            if ( $email = get_option( 'wpbdp-listing-renewal-message' ) ) {
+                $notices[] = array(
+                    'event' => 'expiration',
+                    'relative_time' => '0 days',
+                    'listings' => 'non-recurring',
+                    'subject' => $email['subject'],
+                    'body' => $email['body']
+                );
+            }
+        }  
+
+        if ( $t = get_option( 'wpbdp-renewal-email-threshold', false ) ) {
+            if ( $email = get_option( 'wpbdp-renewal-pending-message' ) ) {
+                $notices[] = array(
+                    'event'         => 'expiration',
+                    'relative_time' => '+' . $t . ' days',
+                    'listings'      => 'non-recurring',
+                    'subject'       => $email['subject'],
+                    'body'          => $email['body']
+                );
+            }
+
+            if ( get_option( 'wpbdp-send-autorenewal-expiration-notice', false ) ) {
+                if ( $email = get_option( 'wpbdp-listing-autorenewal-notice', false ) ) {
+                    $notices[] = array(
+                        'event'         => 'expiration',
+                        'relative_time' => '+' . $t . ' days',
+                        'listings'      => 'recurring',
+                        'subject'       => $email['subject'],
+                        'body'          => $email['body']
+                    );
+                }
+            }
+        }
+
+        if ( $t = get_option( 'wpbdp-renewal-reminder-threshold', false ) ) {
+            if ( $email = get_option( 'wpbdp-renewal-reminder-message' ) ) {
+                $notices[] = array(
+                    'event'         => 'expiration',
+                    'relative_time' => '+' . $t . ' days',
+                    'listings'      => 'both',
+                    'subject'       => $email['subject'],
+                    'body'          => $email['body']
+                );
+            }
+        }
+
+        if ( true ) {
+            if ( $email = get_option( 'wpbdp-listing-autorenewal-message' ) ) {
+                $notices[] = array(
+                    'event'         => 'renewal',
+                    'listings'      => 'recurring',
+                    'subject'       => $email['subject'],
+                    'body'          => $email['body']
+                );
+            }            
+        }
+
+        update_option( 'wpbdp-expiration-notices', $notices );
+
+        $msg = _x( 'Migrating email notices to new format...', 'installer', 'WPBDM' );
         return true;
     }
 
