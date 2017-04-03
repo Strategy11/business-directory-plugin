@@ -8,7 +8,8 @@ class WPBDP__Listing_Email_Notification {
         add_action( 'transition_post_status', array( $this, 'listing_published_notification' ), 10, 3 );
         add_action( 'wpbdp_listing_status_change', array( $this, 'status_change_notifications' ), 10, 3 );
         add_action( 'wpbdp_edit_listing', array( $this, 'edit_listing_admin_email' ) );
-        add_action( 'wpbdp_listing_expiration_remind', array( $this, 'expiration_reminder' ), 10, 2 );
+
+        add_action( 'wpbdp_listing_maybe_send_notices', array( $this, 'send_notices' ), 10, 3 );
     }
 
     /**
@@ -42,8 +43,8 @@ class WPBDP__Listing_Email_Notification {
      */
     public function status_change_notifications( $listing, $old_status, $new_status ) {
         // Expiration notice.
-        if ( wpbdp_get_option( 'listing-renewal' ) && 'expired' == $new_status ) {
-            $this->send_renewal_notice( 'expired', $listing );
+        if ( 'expired' == $new_status ) {
+            $this->send_notices( 'expiration', '0 days', $listing );
         }
 
         // When a listing is submitted.
@@ -52,57 +53,43 @@ class WPBDP__Listing_Email_Notification {
         }
     }
 
-    public function expiration_reminder( $notice_kind, $listing ) {
-        $this->send_renewal_notice( $notice_kind, $listing );
-    }
+    public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
+        $all_notices = wpbdp_get_option( 'expiration-notices' );
 
-    private function send_renewal_notice( $notice = 'expired', $listing, $force_resend = false ) {
-        static $templates = array(
-            'expired' => 'listing-renewal-message',
-            'future' => 'renewal-pending-message',
-            'reminder' => 'renewal-reminder-message'
-        );
+        foreach ( $all_notices as $notice_key => $notice ) {
+            if ( $notice['event'] != $event || $notice['relative_time'] != $relative_time )
+                continue;
 
-        if ( 'auto' == $notice ) {
-            $now = (int) current_time( 'timestamp' );
-            $exp = (int) strtotime( $listing->get_expiration_date() );
+            if ( ( 'non-recurring' == $notice['listings'] && $listing->is_recurring() ) || ( 'recurring' == $notice['listings'] && ! $listing->is_recurring() ) )
+                continue;
 
-            if ( $now >= $exp )
-                $notice = 'expired';
-            else
-                $notice = 'future';
+            $already_sent = (int) get_post_meta( $listing->get_id(), '_wpbdp_notice_sent_' . $notice_key, true );
+            if ( $already_sent && ! $force_resend )
+                continue;
+
+            $email = wpbdp_email_from_template(
+                $notice,
+                array(
+                    'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                    'author' => $listing->get_author_meta( 'display_name' ),
+                    'listing' => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
+                    'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $listing->get_expiration_date() ) ),
+                    'link' => sprintf( '<a href="%1$s">%1$s</a>', $listing->get_renewal_url() )
+                ) );
+            $email->template = 'businessdirectory-email';
+            $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+
+            if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+                $email->cc[] = get_option( 'admin_email' );
+
+                if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+                    $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+            }
+
+            if ( $email->send() ) {
+                // update_post_meta( $listing->get_id(), '_wpbdp_notice_sent_' . $notice_key, current_time( 'timestamp' ) );
+            }
         }
-
-        $already_sent = (int) get_post_meta( $listing->get_id(), '_wpbdp_renewal_notice_sent_' . $notice, true );
-
-        if ( $already_sent && ! $force_resend )
-            return false;
-
-        $replacements = array(
-            'site' => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-            'author' => $listing->get_author_meta( 'display_name' ),
-            'listing' => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
-            'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $listing->get_expiration_date() ) ),
-            'link' => sprintf( '<a href="%1$s">%1$s</a>', $listing->get_renewal_url() )
-        );
-
-        $email = wpbdp_email_from_template( $templates[ $notice ], $replacements );
-        $email->template = 'businessdirectory-email';
-        $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
-
-        if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-            $email->cc[] = get_option( 'admin_email' );
-
-            if ( wpbdp_get_option( 'admin-notifications-cc' ) )
-                $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
-        }
-
-        $res = $email->send();
-
-        if ( $res )
-            update_post_meta( $listing->get_id(), '_wpbdp_renewal_notice_sent_' . $notice, current_time( 'timestamp' ) );
-
-        return $res;
     }
 
     private function send_new_listing_email( $listing ) {

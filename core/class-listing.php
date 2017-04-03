@@ -144,6 +144,17 @@ class WPBDP_Listing {
     }
 
     /**
+     * @since next-release
+     */
+    public function is_recurring() {
+        if ( $plan = $this->get_fee_plan() ) {
+            return $plan->is_recurring;
+        }
+
+        return false;
+    }
+
+    /**
      * @since fees-revamp
      */
     public function get_subscription_data() {

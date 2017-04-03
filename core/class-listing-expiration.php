@@ -6,7 +6,7 @@ class WPBDP__Listing_Expiration {
 
     function __construct() {
         add_action( 'wpbdp_daily_events', array( $this, 'check_for_expired_listings' ) );
-        add_action( 'wpbdp_hourly_events', array( $this, 'send_expiration_reminders' ) );
+        add_action( 'wpbdp_daily_events', array( $this, 'send_expiration_reminders' ) );
     }
 
     function check_for_expired_listings() {
@@ -31,22 +31,20 @@ class WPBDP__Listing_Expiration {
         if ( ! wpbdp_get_option( 'listing-renewal' ) )
             return;
 
-        global $wpbdp;
+        $notices = wpbdp_get_option( 'expiration-notices', false );
+        if ( ! $notices )
+            return;
 
-        $notices = array();
+        $notices = wp_list_filter( $notices, array( 'event' => 'expiration' ) );
+        $notices = wp_list_filter( $notices, array( 'relative_time' => '0 days' ), 'NOT' );
+        $times = array_unique( wp_list_pluck( $notices, 'relative_time' ) );
 
-        if ( ( $th = absint( wpbdp_get_option( 'renewal-email-threshold', 5 ) ) ) > 0 )
-            $notices[ '+' . $th . ' days' ] = 'future';
-
-        if ( wpbdp_get_option( 'renewal-reminder' ) && ( $th = absint( wpbdp_get_option( 'renewal-reminder-threshold', 5 ) ) ) > 0 )
-            $notices[ '-' . $th . ' days' ] = 'reminder';
-
-        foreach ( $notices as $notice_period => $notice_kind ) {
-            $listings = $this->get_expiring_listings( $notice_period );
+        foreach ( $times as $t ) {
+            $listings = $this->get_expiring_listings( $t );
 
             foreach ( $listings as $listing_id ) {
                 $listing = wpbdp_get_listing( $listing_id );
-                do_action( 'wpbdp_listing_expiration_remind', $notice_kind, $listing );
+                do_action( 'wpbdp_listing_maybe_send_notices', 'expiration', $t, $listing );
             }
         }
     }
