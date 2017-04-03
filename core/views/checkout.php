@@ -20,13 +20,14 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         wp_enqueue_script( 'wpbdp-checkout', WPBDP_URL . 'core/js/checkout.js', array( 'wpbdp-js' ) );
     }    
 
-    public function dispatch() {
-        if ( ! wpbdp()->payment_gateways->can_pay() )
-            wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
+    public function ajax_load_gateway() {
+        $this->pre_dispatch();
+        echo $this->checkout_form();
+        exit;
+    }
 
-        $this->fetch_payment();
-        $this->validate_nonce();
-        $this->set_current_gateway();
+    public function dispatch() {
+        $this->pre_dispatch();
 
         $action = ! empty( $_POST['action'] ) ? $_POST['action'] : '';
 
@@ -52,7 +53,27 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             }
         }
 
-        return $this->checkout_form();
+        if ( ! empty( $_POST ) ) {
+            $_POST = stripslashes_deep( $_POST );
+        }
+
+        $vars['_bar'] = false;
+        $vars['errors'] = $this->errors;
+        $vars['invoice'] = wpbdp()->payments->render_invoice( $this->payment );
+        $vars['chosen_gateway'] = $this->gateway;
+        $vars['checkout_form'] = $this->checkout_form();
+        $vars['payment'] = $this->payment;
+
+        return $this->_render_page( 'checkout', $vars );
+    }
+
+    private function pre_dispatch() {
+        if ( ! wpbdp()->payment_gateways->can_pay() )
+            wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
+
+        $this->fetch_payment();
+        $this->validate_nonce();
+        $this->set_current_gateway();
     }
 
     private function fetch_payment() {
@@ -123,31 +144,13 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     private function checkout_form() {
-        if ( ! empty( $_POST ) ) {
-            $_POST = stripslashes_deep( $_POST );
-        }
+        $checkout_form  = '';
+        $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_top', $this->payment );
+        $checkout_form  = $this->gateway->render_form( $this->payment, $this->errors );
+        $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_bottom', $this->payment );
+        $checkout_form .= '<div class="wpbdp-checkout-submit"><input type="submit" value="' . _x( 'Pay Now', 'checkout', 'WPBDM' ) . '" /></div>';
 
-        // if ( ! empty( $this->payment->data['checkout_errors'] ) ) {
-        //     $vars['errors'] = $this->payment->data['checkout_errors'];
-        // } else {
-        //     $vars['errors'] = array();
-        // }
-        //
-        // // Clear errors.
-        // $this->payment->data['checkout_errors'] = array();
-        // $this->payment->save(); $this->payment->refresh();
-
-        $invoice = wpbdp()->payments->render_invoice( $this->payment );
-        $checkout_form = $this->gateway->render_form( $this->payment, $this->errors );
-
-        $vars['_bar'] = false;
-        $vars['errors'] = $this->errors;
-        $vars['invoice'] = $invoice;
-        $vars['chosen_gateway'] = $this->gateway;
-        $vars['checkout_form'] = $checkout_form;
-        $vars['payment'] = $this->payment;
-
-        return $this->_render_page( 'checkout', $vars );
+        return $checkout_form;
     }
 
     private function do_checkout() {

@@ -7,38 +7,30 @@ $nonce = wp_create_nonce( 'wpbdp-checkout-' . $payment->id );
     <?php echo $invoice; ?>
 </div>
 
-<div class="wpbdp-checkout-gateway-selection wpbdp-checkout-section">
-    <h3><?php _ex( 'Select a Payment Method', 'checkout', 'WPBDM' ); ?></h3>
-    <form action="<?php echo remove_query_arg( 'gateway' ); ?>" method="POST">
-        <input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>" />
-        <input type="hidden" name="action" value="select_gateway" />
+<form id="wpbdp-checkout-form" action="" method="POST">
+    <input type="hidden" name="payment" value="<?php echo $payment->payment_key; ?>" />
+    <input type="hidden" name="action" value="do_checkout" />
+    <input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>" />
+
+    <div class="wpbdp-checkout-gateway-selection wpbdp-checkout-section">
+        <h3><?php _ex( 'Select a Payment Method', 'checkout', 'WPBDM' ); ?></h3>
         <?php foreach ( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $payment->currency_code ) ) as $gateway ): ?>
         <label><input type="radio" name="gateway" value="<?php echo $gateway->get_id(); ?>" <?php checked( $chosen_gateway->get_id(), $gateway->get_id() ); ?>/> <?php echo $gateway->get_title(); ?></label>
         <?php endforeach; ?>
         <div class="wpbdp-checkout-submit wpbdp-no-js"><input type="submit" value="<?php _ex( 'Next', 'checkout', 'WPBDM' ); ?>" /></div>
-    </form>
-</div>
-<!-- end .wpbdp-checkout-gateway-selection -->
+    </div>
+    <!-- end .wpbdp-checkout-gateway-selection -->
 
-<?php if ( ! empty( $errors ) ): ?>
-    <?php var_dump( $errors ); ?>
-<?php endif; ?>
+    <?php if ( ! empty( $errors ) ): ?>
+    <div class="wpbdp-checkout-errors wpbdp-checkout-section">
+        <?php foreach ( $errors as $error ): ?>
+        <div class="wpbdp-msg error wpbdp-checkout-error"><?php echo $error; ?></div>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
 
-<?php
-do_action( 'wpbdp_before_checkout_form', $payment );
-?>
-<form id="wpbdp-checkout-form" action="" method="POST">
-    <input type="hidden" name="action" value="do_checkout" />
-    <input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>" />
-    <input type="hidden" name="gateway" value="<?php echo $chosen_gateway->get_id(); ?>" />
-    <?php
-    do_action( 'wpbdp_checkout_form_top', $payment );
-    echo $checkout_form;
-    do_action( 'wpbdp_checkout_form_bottom', $payment );
-    ?>
-
-    <div class="wpbdp-checkout-submit"><input type="submit" value="<?php _ex( 'Pay Now', 'checkout', 'WPBDM' ); ?>" /></div>
+    <div id="wpbdp-checkout-form-fields">
+        <?php echo $checkout_form; ?>
+    </div>
 </form>
-<?php
-do_action( 'wpbdp_after_checkout_form', $payment );
-?>
+

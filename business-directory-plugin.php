@@ -777,6 +777,10 @@ class WPBDP_Plugin {
         wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css', array( 'wpbdp-js-select2-css' ) );
         wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery', 'wpbdp-js-select2' ) );
 
+        wp_localize_script( 'wpbdp-js', 'wpbdp_global', array(
+            'ajaxurl' => wpbdp_ajaxurl()
+        ) );
+
         wp_register_script(
             'wpbdp-js',
             WPBDP_URL . 'core/js/wpbdp' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
