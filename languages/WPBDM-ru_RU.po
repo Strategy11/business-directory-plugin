@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-02-22 16:33:06+00:00\n"
+"POT-Creation-Date: 2017-04-04 17:28:39+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -127,13 +127,13 @@ msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Продлить запись"
 
-#: admin/class-admin.php:104
+#: admin/class-admin.php:105
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "to how WordPress stores the data."
 msgstr ""
 
-#: admin/class-admin.php:137
+#: admin/class-admin.php:138
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -145,124 +145,124 @@ msgstr ""
 "по электронной почте. Если Вы подпишитесь на этот урок, то Вы получите "
 "БЕСПЛАТНО один платный модуль."
 
-#: admin/class-admin.php:139
+#: admin/class-admin.php:140
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Электронный адрес:"
 
-#: admin/class-admin.php:145
+#: admin/class-admin.php:146
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Хотите узнать секрет создания классного справочника услуг?"
 
-#: admin/class-admin.php:147
+#: admin/class-admin.php:148
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Да, конечно!"
 
-#: admin/class-admin.php:149
+#: admin/class-admin.php:150
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Нет, спасибо"
 
-#: admin/class-admin.php:166
+#: admin/class-admin.php:167
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Справочник услуг"
 
-#: admin/class-admin.php:177
+#: admin/class-admin.php:178
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Всё настроено. Откройте страницу Вашего нового <a>Справочника услуг</a> "
 
-#: admin/class-admin.php:198
+#: admin/class-admin.php:199
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Некорректный электронный адрес."
 
-#: admin/class-admin.php:232
+#: admin/class-admin.php:233
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Управление справочником"
 
-#: admin/class-admin.php:233
+#: admin/class-admin.php:234
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Управление Справочником"
 
-#: admin/class-admin.php:233
+#: admin/class-admin.php:234
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Управление Справочником"
 
-#: admin/class-admin.php:239 admin/class-admin.php:240
+#: admin/class-admin.php:240 admin/class-admin.php:241
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Добавить Запись"
 
-#: admin/class-admin.php:245 admin/class-admin.php:246
+#: admin/class-admin.php:246 admin/class-admin.php:247
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Настройки"
 
-#: admin/class-admin.php:251 admin/class-admin.php:252
+#: admin/class-admin.php:252 admin/class-admin.php:253
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Тарифы"
 
-#: admin/class-admin.php:257 admin/class-admin.php:258
+#: admin/class-admin.php:258 admin/class-admin.php:259
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Форма"
 
-#: admin/class-admin.php:263 admin/class-admin.php:264
+#: admin/class-admin.php:264 admin/class-admin.php:265
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Записи"
 
-#: admin/class-admin.php:278 admin/class-admin.php:279
+#: admin/class-admin.php:279 admin/class-admin.php:280
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr "Импорт из CSV"
 
-#: admin/class-admin.php:284 admin/class-admin.php:285
+#: admin/class-admin.php:285 admin/class-admin.php:286
 msgctxt "admin menu"
 msgid "CSV Export"
 msgstr "Экспорт в CSV"
 
-#: admin/class-admin.php:290 admin/class-admin.php:291
+#: admin/class-admin.php:291 admin/class-admin.php:292
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Отладка"
 
-#: admin/class-admin.php:300
+#: admin/class-admin.php:301
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr "Панель управления"
 
-#: admin/class-admin.php:311
+#: admin/class-admin.php:312
 msgctxt "admin menu"
 msgid "Uninstall Business Directory Plugin"
 msgstr "Удалить плагин Справочника Услуг"
 
-#: admin/class-admin.php:312
+#: admin/class-admin.php:313
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Удалить"
 
-#: admin/class-admin.php:426
+#: admin/class-admin.php:427
 #: admin/templates/listing-metabox-categories.tpl.php:69
 msgctxt "admin infometabox"
 msgid "never"
 msgstr "никогда"
 
-#: admin/class-admin.php:520
+#: admin/class-admin.php:521
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Убрать это предупреждение"
 
-#: admin/class-admin.php:548
+#: admin/class-admin.php:549
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
@@ -270,7 +270,7 @@ msgstr[0] "Запись была опубликована."
 msgstr[1] "Записи были опубликованы."
 msgstr[2] ""
 
-#: admin/class-admin.php:566
+#: admin/class-admin.php:567
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
@@ -278,7 +278,7 @@ msgstr[0] "Статус записи помечен как оплачено."
 msgstr[1] "Статусы записей помечены как оплачены."
 msgstr[2] ""
 
-#: admin/class-admin.php:572
+#: admin/class-admin.php:573
 msgctxt "admin"
 msgid ""
 "Only invoices containing non-recurring items were marked as paid. Please "
@@ -291,7 +291,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: admin/class-admin.php:591
+#: admin/class-admin.php:592
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
@@ -299,7 +299,7 @@ msgstr[0] "Запись была изменена."
 msgstr[1] "Записи были изменены."
 msgstr[2] ""
 
-#: admin/class-admin.php:604
+#: admin/class-admin.php:605
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
@@ -307,7 +307,7 @@ msgstr[0] "Статус записи был поднят."
 msgstr[1] "Статус записей был поднят."
 msgstr[2] ""
 
-#: admin/class-admin.php:616
+#: admin/class-admin.php:617
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
@@ -315,7 +315,7 @@ msgstr[0] "Статус записи был опущен."
 msgstr[1] "Статусы записей были опущены."
 msgstr[2] ""
 
-#: admin/class-admin.php:627
+#: admin/class-admin.php:628
 msgctxt "admin payments"
 msgid ""
 "The payment status was not changed. Recurring payments can't be manually "
@@ -323,22 +323,22 @@ msgid ""
 "went through."
 msgstr ""
 
-#: admin/class-admin.php:632
+#: admin/class-admin.php:633
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "Транзакция была утверждена."
 
-#: admin/class-admin.php:642
+#: admin/class-admin.php:643
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "Транзакция была отвергнута."
 
-#: admin/class-admin.php:648
+#: admin/class-admin.php:649
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Тариф был успешно назначен."
 
-#: admin/class-admin.php:657
+#: admin/class-admin.php:658
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -346,22 +346,22 @@ msgstr[0] "Запись была продлена."
 msgstr[1] "Записи были продлены."
 msgstr[2] ""
 
-#: admin/class-admin.php:664
+#: admin/class-admin.php:665
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Оповещение о продлении было отправлено по электронной почте."
 
-#: admin/class-admin.php:719
+#: admin/class-admin.php:720
 msgctxt "admin category id"
 msgid "ID"
 msgstr "№"
 
-#: admin/class-admin.php:721 admin/class-admin.php:727
+#: admin/class-admin.php:722 admin/class-admin.php:728
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Количество записей"
 
-#: admin/class-admin.php:836
+#: admin/class-admin.php:837
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -370,7 +370,7 @@ msgstr ""
 "<b>Плагин Справочник Услуг</b> для нормальной работы требует наличие полей "
 "со следующими ассоциациям: <b>%s</b>."
 
-#: admin/class-admin.php:838
+#: admin/class-admin.php:839
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -379,7 +379,7 @@ msgstr ""
 "<b>Плагин Справочник Услуг</b> для корректной работы требует наличия поля, "
 "имеющего ассоциацию с <b>%s</b>."
 
-#: admin/class-admin.php:842
+#: admin/class-admin.php:843
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -388,17 +388,17 @@ msgstr ""
 "Вы можете сами создать эти поля в разделе \"Управление / Форма\", или "
 "позвольте плагину сделать это автоматически."
 
-#: admin/class-admin.php:846
+#: admin/class-admin.php:847
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Перейти в раздел \"Управление / Форма\""
 
-#: admin/class-admin.php:849
+#: admin/class-admin.php:850
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Создать эти поля автоматически"
 
-#: admin/class-admin.php:858
+#: admin/class-admin.php:859
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -407,7 +407,7 @@ msgstr ""
 "Плагин <b>Справочник Услуг</b> для нормальной работы требует наличия "
 "страницы, в которой есть шорткод <tt>[businessdirectory]</tt>."
 
-#: admin/class-admin.php:860
+#: admin/class-admin.php:861
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -416,34 +416,34 @@ msgstr ""
 "Вы можете создать такую страницу сами, или позвольте плагину создать её для "
 "Вас автоматически."
 
-#: admin/class-admin.php:864
+#: admin/class-admin.php:865
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Создать необходимые страницы автоматически"
 
-#: admin/class-admin.php:904
+#: admin/class-admin.php:905
 msgctxt "admin compat"
 msgid "Installed: %s"
 msgstr "Установлено: %s"
 
-#: admin/class-admin.php:904
+#: admin/class-admin.php:905
 msgctxt "admin compat"
 msgid "N/A"
 msgstr "Х/З"
 
-#: admin/class-admin.php:907
+#: admin/class-admin.php:908
 msgctxt "admin compat"
 msgid "Required: %s"
 msgstr "Требуется: %s"
 
-#: admin/class-admin.php:919
+#: admin/class-admin.php:920
 msgctxt "admin compat"
 msgid ""
 "Business Directory has detected some incompatible premium module versions "
 "installed."
 msgstr "Плагин обнаружил некоторые несовместимые платные модули."
 
-#: admin/class-admin.php:921
+#: admin/class-admin.php:922
 msgctxt "admin compat"
 msgid ""
 "Please upgrade to the required versions indicated below to make sure "
@@ -452,7 +452,7 @@ msgstr ""
 "Пожалуйста обновите до необходимой версии, указанной ниже, чтобы убедиться, "
 "что все функции будут работать правильно."
 
-#: admin/class-admin.php:941
+#: admin/class-admin.php:942
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -464,22 +464,6 @@ msgstr ""
 "регистрация на Вашем сайта запрещена. Перейдите в раздел [Общие Настройки "
 "WordPress] и включите режим \"Любой может зарегистрироваться\", чтобы "
 "позволить нашему плагину правильно работать."
-
-#: admin/class-listing-fields-metabox.php:21
-msgctxt "admin"
-msgid "Listing Fields"
-msgstr "Поля записи:"
-
-#: admin/class-listing-fields-metabox.php:40
-#: templates/submit-listing/images.tpl.php:12
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Существующие изображения:"
-
-#: admin/class-listing-fields-metabox.php:41
-msgctxt "templates"
-msgid "There are no images currently attached to the listing."
-msgstr "К записи не прикреплено ни одного изображения."
 
 #: admin/class-themes-admin.php:47
 msgctxt "themes"
@@ -2248,7 +2232,7 @@ msgstr ""
 "<br />Для дополнительной информации обратитесь к <a>Документации по полям "
 "форм</a>."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.9)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.10dev9)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3019,38 +3003,44 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Разрешаю"
 
-#: business-directory-plugin.php:668
+#: business-directory-plugin.php:586
+#, fuzzy
+msgctxt "listing image upload"
+msgid "Can not upload any more images for this listing."
+msgstr "Рубрики этой записи"
+
+#: business-directory-plugin.php:700
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Настройки"
 
-#: business-directory-plugin.php:776 business-directory-plugin.php:783
+#: business-directory-plugin.php:808 business-directory-plugin.php:815
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "Лента %ы"
 
-#: business-directory-plugin.php:1138 core/view-submit-listing.php:58
+#: business-directory-plugin.php:1170 core/view-submit-listing.php:58
 #: core/views/submit_listing.php:10
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Создать запись"
 
-#: business-directory-plugin.php:1143
+#: business-directory-plugin.php:1175
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Найти запись"
 
-#: business-directory-plugin.php:1148
+#: business-directory-plugin.php:1180
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Показать все записи"
 
-#: business-directory-plugin.php:1177
+#: business-directory-plugin.php:1209
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Записи помеченные меткой \"%s\""
 
-#: core/api.php:402
+#: core/api.php:405
 msgid "Free"
 msgstr "Бесплатно"
 
@@ -3066,17 +3056,17 @@ msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Не удалось создать рубрику \"%s\""
 
-#: core/class-csv-import.php:601
+#: core/class-csv-import.php:604
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Имя учётной записи \"%s\" не существует"
 
-#: core/class-csv-import.php:633
+#: core/class-csv-import.php:636
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Отсутствует обязательное поле: %s"
 
-#: core/class-csv-import.php:653
+#: core/class-csv-import.php:656
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Рубрика \"%s\" не существует"
@@ -3210,12 +3200,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Тариф недоступен)"
 
-#: core/class-listings-api.php:310
+#: core/class-listings-api.php:316
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Оповещение о новой записи"
 
-#: core/class-listings-api.php:329
+#: core/class-listings-api.php:335
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Оповещение об изменении записи"
@@ -4956,17 +4946,17 @@ msgstr "Темы справочника"
 msgid "Directory Tag"
 msgstr "Все рубрики"
 
-#: core/compatibility/class-navxt-integration.php:159
+#: core/compatibility/class-navxt-integration.php:189
 msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Добавить"
 
-#: core/compatibility/class-navxt-integration.php:163
+#: core/compatibility/class-navxt-integration.php:193
 msgctxt "navxt"
 msgid "Edit Listing"
 msgstr "Изменить"
 
-#: core/compatibility/class-navxt-integration.php:167
+#: core/compatibility/class-navxt-integration.php:197
 msgctxt "navxt"
 msgid "Search"
 msgstr "Поиск"
@@ -4978,14 +4968,14 @@ msgstr "Кнопка выбора"
 
 #: core/fieldtypes/class-fieldtypes-checkbox.php:72
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:144
+#: core/fieldtypes/class-fieldtypes-select.php:147
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Параметры поля (для выбранных списков и кнопок)."
 
 #: core/fieldtypes/class-fieldtypes-checkbox.php:93
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:87
-#: core/fieldtypes/class-fieldtypes-select.php:172
+#: core/fieldtypes/class-fieldtypes-select.php:175
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Список вариантов поля обязателен."
@@ -5076,18 +5066,18 @@ msgctxt "form-fields api"
 msgid "Select List"
 msgstr "Список выбора"
 
-#: core/fieldtypes/class-fieldtypes-select.php:68
+#: core/fieldtypes/class-fieldtypes-select.php:71
 msgctxt "form-fields-api category-select"
 msgid "-- Choose Terms --"
 msgstr "-- Выберите --"
 
-#: core/fieldtypes/class-fieldtypes-select.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:105
+#: core/fieldtypes/class-fieldtypes-select.php:71
+#: core/fieldtypes/class-fieldtypes-select.php:108
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "-- Выберите --"
 
-#: core/fieldtypes/class-fieldtypes-select.php:155
+#: core/fieldtypes/class-fieldtypes-select.php:158
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Разрешить поиск по пустой строке?"
@@ -5897,39 +5887,39 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Рубрики не обнаружены."
 
-#: core/templates-ui.php:194
+#: core/templates-ui.php:200
 msgid "Directory"
 msgstr "Все рубрики"
 
-#: core/templates-ui.php:201
+#: core/templates-ui.php:207
 msgid "View All Listings"
 msgstr "Показать все записи"
 
-#: core/templates-ui.php:208
+#: core/templates-ui.php:214
 msgid "Create A Listing"
 msgstr "Бесплатные записи"
 
-#: core/templates-ui.php:241
+#: core/templates-ui.php:247
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Найти"
 
-#: core/templates-ui.php:244
+#: core/templates-ui.php:250
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Расширенный поиск"
 
-#: core/templates-ui.php:273 core/templates-ui.php:298
+#: core/templates-ui.php:279 core/templates-ui.php:304
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Сортировка по:"
 
-#: core/templates-ui.php:292
+#: core/templates-ui.php:298
 msgctxt "sort"
 msgid "Reset"
 msgstr "Сбросить"
 
-#: core/templates-ui.php:314
+#: core/templates-ui.php:320
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Сбросить)"
@@ -6408,6 +6398,11 @@ msgstr ""
 msgctxt "views"
 msgid "Find A Listing"
 msgstr "Найти запись"
+
+#: core/views/show_listing.php:12
+msgctxt "preview"
+msgid "This is just a preview. The listing has not been published yet."
+msgstr "Это просто предварительный просмотр. Запись ещё не была опубликована."
 
 #: core/views/submit_listing.php:16
 msgctxt "templates"
@@ -7070,7 +7065,7 @@ msgstr ""
 #: templates/renew-listing.tpl.php:22
 #: templates/submit-listing/category-selection.tpl.php:8
 #: templates/submit-listing/fee-selection.tpl.php:37
-#: templates/submit-listing/images.tpl.php:42
+#: templates/submit-listing/images.tpl.php:51
 #: templates/submit-listing/listing-fields.tpl.php:34
 msgctxt "templates"
 msgid "Continue"
@@ -7175,37 +7170,37 @@ msgctxt "templates"
 msgid "Delete Image"
 msgstr "Удалить изображение"
 
-#: templates/submit-listing/images-single.tpl.php:24
+#: templates/submit-listing/images-single.tpl.php:25
 msgctxt "templates"
 msgid "Set this image as the listing thumbnail."
 msgstr "Миниатюра"
 
-#: templates/submit-listing/images-upload-form.tpl.php:17
+#: templates/submit-listing/images-upload-form.tpl.php:16
 msgctxt "templates"
 msgid "Upload Images"
 msgstr "Загрузить изображение"
 
-#: templates/submit-listing/images-upload-form.tpl.php:22
+#: templates/submit-listing/images-upload-form.tpl.php:21
 msgctxt "templates"
 msgid "Drop files here"
 msgstr "Перетащите файлы сюда"
 
-#: templates/submit-listing/images-upload-form.tpl.php:23
+#: templates/submit-listing/images-upload-form.tpl.php:22
 msgctxt "templates image upload"
 msgid "or"
 msgstr "или"
 
-#: templates/submit-listing/images-upload-form.tpl.php:24
+#: templates/submit-listing/images-upload-form.tpl.php:23
 msgctxt "templates"
 msgid "Select images from your hard drive"
 msgstr "Выберите файл на диске Вашего компьютера"
 
-#: templates/submit-listing/images-upload-form.tpl.php:27
+#: templates/submit-listing/images-upload-form.tpl.php:26
 msgctxt "templates"
 msgid "Uploading %s file(s)... Please wait."
 msgstr "Подождите пожалуйста, идёт загрузка %s файла(ов)..."
 
-#: templates/submit-listing/images-upload-form.tpl.php:31
+#: templates/submit-listing/images-upload-form.tpl.php:29
 msgctxt "templates"
 msgid ""
 "Your image slots are all full at this time.  You may click \"Continue\" if "
@@ -7216,39 +7211,39 @@ msgstr ""
 "кликнуть по кнопке \"Далее\", если с эта часть записи уже готова, либо "
 "\"Удалить изображение\" и загрузить новый файл вместо текущего."
 
-#: templates/submit-listing/images-upload-form.tpl.php:39
+#: templates/submit-listing/images-upload-form.tpl.php:36
 msgctxt "templates"
 msgid "Image slots available:"
 msgstr "Свободных мест для загрузки изображений:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:45
+#: templates/submit-listing/images-upload-form.tpl.php:42
 msgctxt "templates"
 msgid "File size:"
 msgstr "Минимальный размер файла:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:47
-#: templates/submit-listing/images-upload-form.tpl.php:54
-#: templates/submit-listing/images-upload-form.tpl.php:61
+#: templates/submit-listing/images-upload-form.tpl.php:44
+#: templates/submit-listing/images-upload-form.tpl.php:51
+#: templates/submit-listing/images-upload-form.tpl.php:58
 msgctxt "templates"
 msgid "No limit"
 msgstr ""
 
-#: templates/submit-listing/images-upload-form.tpl.php:52
+#: templates/submit-listing/images-upload-form.tpl.php:49
 msgctxt "templates"
 msgid "Image width:"
 msgstr "Ширина изображения (пикселы):"
 
-#: templates/submit-listing/images-upload-form.tpl.php:59
+#: templates/submit-listing/images-upload-form.tpl.php:56
 msgctxt "templates"
 msgid "Image height:"
 msgstr "Высота изображения (пикселы):"
 
-#: templates/submit-listing/images.tpl.php:4
+#: templates/submit-listing/images.tpl.php:6
 msgctxt "templates"
 msgid "Listing Images"
 msgstr "Изображение записи"
 
-#: templates/submit-listing/images.tpl.php:7
+#: templates/submit-listing/images.tpl.php:9
 msgctxt "templates"
 msgid ""
 "There is an image pending upload. Would you still like to continue without "
@@ -7257,7 +7252,12 @@ msgstr ""
 "Ожидается загрузка изображения. Хотите ли Вы продолжить не дожидаясь "
 "загрузки и отказавшись от этого изображения?"
 
-#: templates/submit-listing/images.tpl.php:13
+#: templates/submit-listing/images.tpl.php:14
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Существующие изображения:"
+
+#: templates/submit-listing/images.tpl.php:15
 msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "К Вашей записи не прикреплено ни одного изображения."
@@ -7296,6 +7296,14 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "admin"
+#~ msgid "Listing Fields"
+#~ msgstr "Поля записи:"
+
+#~ msgctxt "templates"
+#~ msgid "There are no images currently attached to the listing."
+#~ msgstr "К записи не прикреплено ни одного изображения."
 
 #~ msgctxt "admin csv-export"
 #~ msgid "Column Separator"
@@ -7395,11 +7403,6 @@ msgstr "http://businessdirectoryplugin.com"
 
 #~ msgid "The directory is temporarily disabled."
 #~ msgstr "Справочник временно отключен."
-
-#~ msgctxt "preview"
-#~ msgid "This is just a preview. The listing has not been published yet."
-#~ msgstr ""
-#~ "Это просто предварительный просмотр. Запись ещё не была опубликована."
 
 #~ msgctxt "templates"
 #~ msgid "Listings tagged: %s"

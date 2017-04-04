@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-02-22 16:33:06+00:00\n"
+"POT-Creation-Date: 2017-04-04 17:28:39+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -122,7 +122,7 @@ msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Förnya annons"
 
-#: admin/class-admin.php:104
+#: admin/class-admin.php:105
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "to how WordPress stores the data."
@@ -130,7 +130,7 @@ msgstr ""
 "Förhandsgranskning är endast tillgänglig när du har sparat det första "
 "utkastet. Detta beror på hur WordPress lagrar data."
 
-#: admin/class-admin.php:137
+#: admin/class-admin.php:138
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -141,137 +141,137 @@ msgstr ""
 "från början i denna sanslöst fullmatade (och GRATIS) e-postkurs i 5 delar. "
 "Du får en premium-modul helt kostnadsfritt genom att bara registrera dig."
 
-#: admin/class-admin.php:139
+#: admin/class-admin.php:140
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "E-postadress:"
 
-#: admin/class-admin.php:145
+#: admin/class-admin.php:146
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Vill du veta hemligheten bakom att bygga en grymt bra affärskatalog?"
 
-#: admin/class-admin.php:147
+#: admin/class-admin.php:148
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Ja tack!"
 
-#: admin/class-admin.php:149
+#: admin/class-admin.php:150
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Nej tack."
 
-#: admin/class-admin.php:166
+#: admin/class-admin.php:167
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: admin/class-admin.php:177
+#: admin/class-admin.php:178
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "Du är klar! Besök din nya <a>Business Directory</a> sida."
 
-#: admin/class-admin.php:198
+#: admin/class-admin.php:199
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Ogiltig e-postadress."
 
-#: admin/class-admin.php:232
+#: admin/class-admin.php:233
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Business Directory admin"
 
-#: admin/class-admin.php:233
+#: admin/class-admin.php:234
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Dir. admin"
 
-#: admin/class-admin.php:233
+#: admin/class-admin.php:234
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Katalog admin"
 
-#: admin/class-admin.php:239 admin/class-admin.php:240
+#: admin/class-admin.php:240 admin/class-admin.php:241
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Lägg till ny annons"
 
-#: admin/class-admin.php:245 admin/class-admin.php:246
+#: admin/class-admin.php:246 admin/class-admin.php:247
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Hantera alternativ"
 
-#: admin/class-admin.php:251 admin/class-admin.php:252
+#: admin/class-admin.php:252 admin/class-admin.php:253
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Hantera avgifter"
 
-#: admin/class-admin.php:257 admin/class-admin.php:258
+#: admin/class-admin.php:258 admin/class-admin.php:259
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Hantera formulärfält"
 
-#: admin/class-admin.php:263 admin/class-admin.php:264
+#: admin/class-admin.php:264 admin/class-admin.php:265
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Annonser"
 
-#: admin/class-admin.php:278 admin/class-admin.php:279
+#: admin/class-admin.php:279 admin/class-admin.php:280
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr "Importera CSV"
 
-#: admin/class-admin.php:284 admin/class-admin.php:285
+#: admin/class-admin.php:285 admin/class-admin.php:286
 msgctxt "admin menu"
 msgid "CSV Export"
 msgstr "Exportera CSV"
 
-#: admin/class-admin.php:290 admin/class-admin.php:291
+#: admin/class-admin.php:291 admin/class-admin.php:292
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
 
-#: admin/class-admin.php:300
+#: admin/class-admin.php:301
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr "Huvudmeny"
 
-#: admin/class-admin.php:311
+#: admin/class-admin.php:312
 msgctxt "admin menu"
 msgid "Uninstall Business Directory Plugin"
 msgstr "Avinstallera tillägget Business Directory"
 
-#: admin/class-admin.php:312
+#: admin/class-admin.php:313
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Avinstallera"
 
-#: admin/class-admin.php:426
+#: admin/class-admin.php:427
 #: admin/templates/listing-metabox-categories.tpl.php:69
 msgctxt "admin infometabox"
 msgid "never"
 msgstr "aldrig"
 
-#: admin/class-admin.php:520
+#: admin/class-admin.php:521
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Avvisa denna notering."
 
-#: admin/class-admin.php:548
+#: admin/class-admin.php:549
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
 msgstr[0] "Annonsen har publicerats."
 msgstr[1] "Annonserna har publicerats"
 
-#: admin/class-admin.php:566
+#: admin/class-admin.php:567
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
 msgstr[0] "Annonsen har fått status Betald."
 msgstr[1] "Annonserna har fått status Betald."
 
-#: admin/class-admin.php:572
+#: admin/class-admin.php:573
 msgctxt "admin"
 msgid ""
 "Only invoices containing non-recurring items were marked as paid. Please "
@@ -288,28 +288,28 @@ msgstr[1] ""
 "Endast fakturor som innehåller engångsposter markerases som betalda. "
 "Återkommande betalningar måste hanteras genom gatewayen."
 
-#: admin/class-admin.php:591
+#: admin/class-admin.php:592
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
 msgstr[0] "Annonsen har ändrats."
 msgstr[1] "Annonserna har ändrats."
 
-#: admin/class-admin.php:604
+#: admin/class-admin.php:605
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
 msgstr[0] "Annonsen har uppgraderats."
 msgstr[1] "Annonserna har uppgraderats."
 
-#: admin/class-admin.php:616
+#: admin/class-admin.php:617
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
 msgstr[0] "Annonsen har nedgraderats."
 msgstr[1] "Annonserna har nedgraderats."
 
-#: admin/class-admin.php:627
+#: admin/class-admin.php:628
 msgctxt "admin payments"
 msgid ""
 "The payment status was not changed. Recurring payments can't be manually "
@@ -320,44 +320,44 @@ msgstr ""
 "manuellt. Vänligen kontrollera din gateway backend för att se om betalningen "
 "verkligen gick igenom."
 
-#: admin/class-admin.php:632
+#: admin/class-admin.php:633
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "Din transaktion har godkänts."
 
-#: admin/class-admin.php:642
+#: admin/class-admin.php:643
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "Transaktionen har avvisats."
 
-#: admin/class-admin.php:648
+#: admin/class-admin.php:649
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Avgiften tilldelades med framgång."
 
-#: admin/class-admin.php:657
+#: admin/class-admin.php:658
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "Annonsen har förnyats."
 msgstr[1] "Annonserna har förnyats."
 
-#: admin/class-admin.php:664
+#: admin/class-admin.php:665
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-postmeddelande om förnyelse skickat."
 
-#: admin/class-admin.php:719
+#: admin/class-admin.php:720
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
-#: admin/class-admin.php:721 admin/class-admin.php:727
+#: admin/class-admin.php:722 admin/class-admin.php:728
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Annonsräknare"
 
-#: admin/class-admin.php:836
+#: admin/class-admin.php:837
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -366,7 +366,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver fält med följande associationer  "
 "för att fungera korrekt: <b>%s</b>."
 
-#: admin/class-admin.php:838
+#: admin/class-admin.php:839
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -375,7 +375,7 @@ msgstr ""
 "<b>Tillägget Business Direcotry </b> kräver ett fält med en<b>%s</b> "
 "association för att fungera korrekt."
 
-#: admin/class-admin.php:842
+#: admin/class-admin.php:843
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -384,17 +384,17 @@ msgstr ""
 "Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
 "låta Business Directory göra det åt dig automatiskt."
 
-#: admin/class-admin.php:846
+#: admin/class-admin.php:847
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
 
-#: admin/class-admin.php:849
+#: admin/class-admin.php:850
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Skapa dessa obligatoriska fält för mig"
 
-#: admin/class-admin.php:858
+#: admin/class-admin.php:859
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -403,7 +403,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
 "<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
 
-#: admin/class-admin.php:860
+#: admin/class-admin.php:861
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -412,27 +412,27 @@ msgstr ""
 "Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
 "åt dig automatiskt."
 
-#: admin/class-admin.php:864
+#: admin/class-admin.php:865
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Skapa nödvändiga sidor åt mig."
 
-#: admin/class-admin.php:904
+#: admin/class-admin.php:905
 msgctxt "admin compat"
 msgid "Installed: %s"
 msgstr "Installerat: %s"
 
-#: admin/class-admin.php:904
+#: admin/class-admin.php:905
 msgctxt "admin compat"
 msgid "N/A"
 msgstr "Ej tillämplig"
 
-#: admin/class-admin.php:907
+#: admin/class-admin.php:908
 msgctxt "admin compat"
 msgid "Required: %s"
 msgstr "Nödvändigt: %s"
 
-#: admin/class-admin.php:919
+#: admin/class-admin.php:920
 msgctxt "admin compat"
 msgid ""
 "Business Directory has detected some incompatible premium module versions "
@@ -441,7 +441,7 @@ msgstr ""
 "Business Directory har noterat konflikt mellan versioner av premium-moduler "
 "som är installerade."
 
-#: admin/class-admin.php:921
+#: admin/class-admin.php:922
 msgctxt "admin compat"
 msgid ""
 "Please upgrade to the required versions indicated below to make sure "
@@ -450,7 +450,7 @@ msgstr ""
 "Vänligen uppgradera till de nödvändiga versioner som anges nedan för att se "
 "till att allt fungerar."
 
-#: admin/class-admin.php:941
+#: admin/class-admin.php:942
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -461,22 +461,6 @@ msgstr ""
 "skapa annonser, men registreringen är avstängd på din webbplats. Gå [hit] "
 "och klicka i \"Vem som helst kan registrera sig\" för att säkerställa att BD "
 "fungerar som det ska."
-
-#: admin/class-listing-fields-metabox.php:21
-msgctxt "admin"
-msgid "Listing Fields"
-msgstr "Annonsfält"
-
-#: admin/class-listing-fields-metabox.php:40
-#: templates/submit-listing/images.tpl.php:12
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Aktuella bilder"
-
-#: admin/class-listing-fields-metabox.php:41
-msgctxt "templates"
-msgid "There are no images currently attached to the listing."
-msgstr "Det finns för närvarande inga bilder för denna annons."
 
 #: admin/class-themes-admin.php:47
 msgctxt "themes"
@@ -2258,7 +2242,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr "Se <a>formulärfältsdokumentationen</a> för mer information."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.9)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.10dev9)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3025,38 +3009,44 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Tillåt spårning"
 
-#: business-directory-plugin.php:668
+#: business-directory-plugin.php:586
+#, fuzzy
+msgctxt "listing image upload"
+msgid "Can not upload any more images for this listing."
+msgstr "Kategorier för denna annons"
+
+#: business-directory-plugin.php:700
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: business-directory-plugin.php:776 business-directory-plugin.php:783
+#: business-directory-plugin.php:808 business-directory-plugin.php:815
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "%s-flöde"
 
-#: business-directory-plugin.php:1138 core/view-submit-listing.php:58
+#: business-directory-plugin.php:1170 core/view-submit-listing.php:58
 #: core/views/submit_listing.php:10
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Sätt in en annons"
 
-#: business-directory-plugin.php:1143
+#: business-directory-plugin.php:1175
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Hitta en annons"
 
-#: business-directory-plugin.php:1148
+#: business-directory-plugin.php:1180
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Visa alla annonser"
 
-#: business-directory-plugin.php:1177
+#: business-directory-plugin.php:1209
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Annonser med tagg: %s"
 
-#: core/api.php:402
+#: core/api.php:405
 msgid "Free"
 msgstr "Gratis"
 
@@ -3074,17 +3064,17 @@ msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Det gick inte att skapa annonskategori \"%s\""
 
-#: core/class-csv-import.php:601
+#: core/class-csv-import.php:604
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Användarnamn \"%s\" existerar inte"
 
-#: core/class-csv-import.php:633
+#: core/class-csv-import.php:636
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Saknar det obligatoriska fältet %s"
 
-#: core/class-csv-import.php:653
+#: core/class-csv-import.php:656
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Annonskategorin \"%s\" existerar inte"
@@ -3217,12 +3207,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Avgift inte tillgänglig)"
 
-#: core/class-listings-api.php:310
+#: core/class-listings-api.php:316
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notifiering om ny annons"
 
-#: core/class-listings-api.php:329
+#: core/class-listings-api.php:335
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notifiering om annonsändring"
@@ -4938,17 +4928,17 @@ msgstr "Katalogtaggar"
 msgid "Directory Tag"
 msgstr "Katalogtag"
 
-#: core/compatibility/class-navxt-integration.php:159
+#: core/compatibility/class-navxt-integration.php:189
 msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Lägg till ny annons"
 
-#: core/compatibility/class-navxt-integration.php:163
+#: core/compatibility/class-navxt-integration.php:193
 msgctxt "navxt"
 msgid "Edit Listing"
 msgstr "Redigera annons"
 
-#: core/compatibility/class-navxt-integration.php:167
+#: core/compatibility/class-navxt-integration.php:197
 msgctxt "navxt"
 msgid "Search"
 msgstr "Sök"
@@ -4960,14 +4950,14 @@ msgstr "Kryssruta"
 
 #: core/fieldtypes/class-fieldtypes-checkbox.php:72
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:144
+#: core/fieldtypes/class-fieldtypes-select.php:147
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Fältalternativ (för utvalda annonser, radioknappar och kryssrutor)"
 
 #: core/fieldtypes/class-fieldtypes-checkbox.php:93
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:87
-#: core/fieldtypes/class-fieldtypes-select.php:172
+#: core/fieldtypes/class-fieldtypes-select.php:175
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Lista på alternativ krävs."
@@ -5058,18 +5048,18 @@ msgctxt "form-fields api"
 msgid "Select List"
 msgstr "Flervalslista"
 
-#: core/fieldtypes/class-fieldtypes-select.php:68
+#: core/fieldtypes/class-fieldtypes-select.php:71
 msgctxt "form-fields-api category-select"
 msgid "-- Choose Terms --"
 msgstr "- Välj Villkor -"
 
-#: core/fieldtypes/class-fieldtypes-select.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:105
+#: core/fieldtypes/class-fieldtypes-select.php:71
+#: core/fieldtypes/class-fieldtypes-select.php:108
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "— Välj ett  —"
 
-#: core/fieldtypes/class-fieldtypes-select.php:155
+#: core/fieldtypes/class-fieldtypes-select.php:158
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Tillåt tomt urval på sök?"
@@ -5889,39 +5879,39 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Inga kategorier hittades."
 
-#: core/templates-ui.php:194
+#: core/templates-ui.php:200
 msgid "Directory"
 msgstr "Katalog"
 
-#: core/templates-ui.php:201
+#: core/templates-ui.php:207
 msgid "View All Listings"
 msgstr "Visa alla annonser"
 
-#: core/templates-ui.php:208
+#: core/templates-ui.php:214
 msgid "Create A Listing"
 msgstr "Skapa annons"
 
-#: core/templates-ui.php:241
+#: core/templates-ui.php:247
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Sök annonser"
 
-#: core/templates-ui.php:244
+#: core/templates-ui.php:250
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Avancerad Sökning"
 
-#: core/templates-ui.php:273 core/templates-ui.php:298
+#: core/templates-ui.php:279 core/templates-ui.php:304
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortering:"
 
-#: core/templates-ui.php:292
+#: core/templates-ui.php:298
 msgctxt "sort"
 msgid "Reset"
 msgstr "Rensa"
 
-#: core/templates-ui.php:314
+#: core/templates-ui.php:320
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Rensa)"
@@ -6394,6 +6384,12 @@ msgstr ""
 msgctxt "views"
 msgid "Find A Listing"
 msgstr "Hitta en annons"
+
+#: core/views/show_listing.php:12
+#, fuzzy
+msgctxt "preview"
+msgid "This is just a preview. The listing has not been published yet."
+msgstr "Annonsen har publicerats."
 
 #: core/views/submit_listing.php:16
 msgctxt "templates"
@@ -7057,7 +7053,7 @@ msgstr ""
 #: templates/renew-listing.tpl.php:22
 #: templates/submit-listing/category-selection.tpl.php:8
 #: templates/submit-listing/fee-selection.tpl.php:37
-#: templates/submit-listing/images.tpl.php:42
+#: templates/submit-listing/images.tpl.php:51
 #: templates/submit-listing/listing-fields.tpl.php:34
 msgctxt "templates"
 msgid "Continue"
@@ -7159,37 +7155,37 @@ msgctxt "templates"
 msgid "Delete Image"
 msgstr "Ta bort bild"
 
-#: templates/submit-listing/images-single.tpl.php:24
+#: templates/submit-listing/images-single.tpl.php:25
 msgctxt "templates"
 msgid "Set this image as the listing thumbnail."
 msgstr "Använd denna bild som tumnagel."
 
-#: templates/submit-listing/images-upload-form.tpl.php:17
+#: templates/submit-listing/images-upload-form.tpl.php:16
 msgctxt "templates"
 msgid "Upload Images"
 msgstr "Ladda upp bilder"
 
-#: templates/submit-listing/images-upload-form.tpl.php:22
+#: templates/submit-listing/images-upload-form.tpl.php:21
 msgctxt "templates"
 msgid "Drop files here"
 msgstr "Släpp filer här"
 
-#: templates/submit-listing/images-upload-form.tpl.php:23
+#: templates/submit-listing/images-upload-form.tpl.php:22
 msgctxt "templates image upload"
 msgid "or"
 msgstr "eller"
 
-#: templates/submit-listing/images-upload-form.tpl.php:24
+#: templates/submit-listing/images-upload-form.tpl.php:23
 msgctxt "templates"
 msgid "Select images from your hard drive"
 msgstr "Välj bilder från din hårddisk"
 
-#: templates/submit-listing/images-upload-form.tpl.php:27
+#: templates/submit-listing/images-upload-form.tpl.php:26
 msgctxt "templates"
 msgid "Uploading %s file(s)... Please wait."
 msgstr "Ladda upp %s filer... Vänligen vänta."
 
-#: templates/submit-listing/images-upload-form.tpl.php:31
+#: templates/submit-listing/images-upload-form.tpl.php:29
 msgctxt "templates"
 msgid ""
 "Your image slots are all full at this time.  You may click \"Continue\" if "
@@ -7200,39 +7196,39 @@ msgstr ""
 "om du är klar, eller \"Ta bort bild\" för att ladda upp en ny bild i stället "
 "för en befintlig."
 
-#: templates/submit-listing/images-upload-form.tpl.php:39
+#: templates/submit-listing/images-upload-form.tpl.php:36
 msgctxt "templates"
 msgid "Image slots available:"
 msgstr "Tillgängliga bildplatser:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:45
+#: templates/submit-listing/images-upload-form.tpl.php:42
 msgctxt "templates"
 msgid "File size:"
 msgstr "Filstorlek:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:47
-#: templates/submit-listing/images-upload-form.tpl.php:54
-#: templates/submit-listing/images-upload-form.tpl.php:61
+#: templates/submit-listing/images-upload-form.tpl.php:44
+#: templates/submit-listing/images-upload-form.tpl.php:51
+#: templates/submit-listing/images-upload-form.tpl.php:58
 msgctxt "templates"
 msgid "No limit"
 msgstr "Ingen begränsning"
 
-#: templates/submit-listing/images-upload-form.tpl.php:52
+#: templates/submit-listing/images-upload-form.tpl.php:49
 msgctxt "templates"
 msgid "Image width:"
 msgstr "Bredd på bild:"
 
-#: templates/submit-listing/images-upload-form.tpl.php:59
+#: templates/submit-listing/images-upload-form.tpl.php:56
 msgctxt "templates"
 msgid "Image height:"
 msgstr "Höjd på bild:"
 
-#: templates/submit-listing/images.tpl.php:4
+#: templates/submit-listing/images.tpl.php:6
 msgctxt "templates"
 msgid "Listing Images"
 msgstr "Annonsbilder"
 
-#: templates/submit-listing/images.tpl.php:7
+#: templates/submit-listing/images.tpl.php:9
 msgctxt "templates"
 msgid ""
 "There is an image pending upload. Would you still like to continue without "
@@ -7240,7 +7236,12 @@ msgid ""
 msgstr ""
 "En bild är på väg att laddas upp, vill du fortsätta utan att spara bilden?"
 
-#: templates/submit-listing/images.tpl.php:13
+#: templates/submit-listing/images.tpl.php:14
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Aktuella bilder"
+
+#: templates/submit-listing/images.tpl.php:15
 msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "Det finns för närvarande inga bilder för denna annons."
@@ -7279,6 +7280,14 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "admin"
+#~ msgid "Listing Fields"
+#~ msgstr "Annonsfält"
+
+#~ msgctxt "templates"
+#~ msgid "There are no images currently attached to the listing."
+#~ msgstr "Det finns för närvarande inga bilder för denna annons."
 
 #~ msgctxt "admin csv-export"
 #~ msgid "Column Separator"

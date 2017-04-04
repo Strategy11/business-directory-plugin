@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-02-22 16:33:06+00:00\n"
+"POT-Creation-Date: 2017-04-04 17:28:39+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -144,14 +144,14 @@ msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Odnów Ofertę"
 
-#: admin/class-admin.php:104
+#: admin/class-admin.php:105
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "to how WordPress stores the data."
 msgstr ""
 
 # @ WPBDM
-#: admin/class-admin.php:137
+#: admin/class-admin.php:138
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -163,145 +163,145 @@ msgstr ""
 "darmowy moduł Premium tylko za zarejestrowanie się."
 
 # @ WPBDM
-#: admin/class-admin.php:139
+#: admin/class-admin.php:140
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Adres e-mail:"
 
 # @ WPBDM
-#: admin/class-admin.php:145
+#: admin/class-admin.php:146
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Chcesz poznać tajemnice budowy niesamowitego katalogu firm?"
 
 # @ WPBDM
-#: admin/class-admin.php:147
+#: admin/class-admin.php:148
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Tak, proszę!"
 
 # @ WPBDM
-#: admin/class-admin.php:149
+#: admin/class-admin.php:150
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Nie, dziękuję"
 
 # @ WPBDM
-#: admin/class-admin.php:166
+#: admin/class-admin.php:167
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Katalog Firm"
 
 # @ WPBDM
-#: admin/class-admin.php:177
+#: admin/class-admin.php:178
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "Wszystko ustawione. Odwiedź swój nowy <a>Katalog Firm</a>."
 
 # @ WPBDM
-#: admin/class-admin.php:198
+#: admin/class-admin.php:199
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Nieprawidłowy adres e-mail"
 
 # @ WPBDM
-#: admin/class-admin.php:232
+#: admin/class-admin.php:233
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Katalog Firm Admin"
 
 # @ WPBDM
-#: admin/class-admin.php:233
+#: admin/class-admin.php:234
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Katalog Admin"
 
 # @ WPBDM
-#: admin/class-admin.php:233
+#: admin/class-admin.php:234
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Katalog Admin"
 
 # @ WPBDM
-#: admin/class-admin.php:239 admin/class-admin.php:240
+#: admin/class-admin.php:240 admin/class-admin.php:241
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: admin/class-admin.php:245 admin/class-admin.php:246
+#: admin/class-admin.php:246 admin/class-admin.php:247
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Zarządzaj opcjami"
 
 # @ WPBDM
-#: admin/class-admin.php:251 admin/class-admin.php:252
+#: admin/class-admin.php:252 admin/class-admin.php:253
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Zarządzaj abonamentami"
 
 # @ WPBDM
-#: admin/class-admin.php:257 admin/class-admin.php:258
+#: admin/class-admin.php:258 admin/class-admin.php:259
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Zarządzaj polami formularzy"
 
 # @ WPBDM
-#: admin/class-admin.php:263 admin/class-admin.php:264
+#: admin/class-admin.php:264 admin/class-admin.php:265
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Oferty"
 
 # @ WPBDM
-#: admin/class-admin.php:278 admin/class-admin.php:279
+#: admin/class-admin.php:279 admin/class-admin.php:280
 msgctxt "admin menu"
 msgid "CSV Import"
 msgstr "CSV Import"
 
 # @ WPBDM
-#: admin/class-admin.php:284 admin/class-admin.php:285
+#: admin/class-admin.php:285 admin/class-admin.php:286
 msgctxt "admin menu"
 msgid "CSV Export"
 msgstr "CSV Export"
 
 # @ WPBDM
-#: admin/class-admin.php:290 admin/class-admin.php:291
+#: admin/class-admin.php:291 admin/class-admin.php:292
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
 
 # @ WPBDM
-#: admin/class-admin.php:300
+#: admin/class-admin.php:301
 msgctxt "admin menu"
 msgid "Main Menu"
 msgstr "Główne menu"
 
 # @ WPBDM
-#: admin/class-admin.php:311
+#: admin/class-admin.php:312
 msgctxt "admin menu"
 msgid "Uninstall Business Directory Plugin"
 msgstr "Odinstaluj Katalog Firm"
 
 # @ WPBDM
-#: admin/class-admin.php:312
+#: admin/class-admin.php:313
 msgctxt "admin menu"
 msgid "Uninstall"
 msgstr "Odinstaluj "
 
 # @ WPBDM
-#: admin/class-admin.php:426
+#: admin/class-admin.php:427
 #: admin/templates/listing-metabox-categories.tpl.php:69
 msgctxt "admin infometabox"
 msgid "never"
 msgstr "nigdy"
 
-#: admin/class-admin.php:520
+#: admin/class-admin.php:521
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
 # @ WPBDM
-#: admin/class-admin.php:548
+#: admin/class-admin.php:549
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
@@ -310,7 +310,7 @@ msgstr[1] "Oferty zostały opublikowane."
 msgstr[2] "Ofert zostało opublikowanych."
 
 # @ WPBDM
-#: admin/class-admin.php:566
+#: admin/class-admin.php:567
 msgctxt "admin"
 msgid "The listing status has been set as paid."
 msgid_plural "The listings status has been set as paid."
@@ -318,7 +318,7 @@ msgstr[0] "Zmieniono status oferty na zapłacono."
 msgstr[1] "Zmieniono status ofert na zapłacono."
 msgstr[2] "Zmieniono status ofert na zapłacono."
 
-#: admin/class-admin.php:572
+#: admin/class-admin.php:573
 msgctxt "admin"
 msgid ""
 "Only invoices containing non-recurring items were marked as paid. Please "
@@ -332,7 +332,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 # @ WPBDM
-#: admin/class-admin.php:591
+#: admin/class-admin.php:592
 msgctxt "admin"
 msgid "The listing has been modified."
 msgid_plural "The listings have been modified."
@@ -341,7 +341,7 @@ msgstr[1] "Oferty zostały zmodyfikowane."
 msgstr[2] "Ofert zostało zmodyfikowanych."
 
 # @ WPBDM
-#: admin/class-admin.php:604
+#: admin/class-admin.php:605
 msgctxt "admin"
 msgid "The listing has been upgraded."
 msgid_plural "The listings have been upgraded."
@@ -350,7 +350,7 @@ msgstr[1] "Podniesiono status ofert."
 msgstr[2] "Podniesiono status ofert."
 
 # @ WPBDM
-#: admin/class-admin.php:616
+#: admin/class-admin.php:617
 msgctxt "admin"
 msgid "The listing has been downgraded."
 msgid_plural "The listings have been downgraded."
@@ -358,7 +358,7 @@ msgstr[0] "Obniżono status oferty."
 msgstr[1] "Obniżono status ofert."
 msgstr[2] "Obniżono status ofert."
 
-#: admin/class-admin.php:627
+#: admin/class-admin.php:628
 msgctxt "admin payments"
 msgid ""
 "The payment status was not changed. Recurring payments can't be manually "
@@ -367,25 +367,25 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: admin/class-admin.php:632
+#: admin/class-admin.php:633
 msgctxt "admin"
 msgid "The transaction has been approved."
 msgstr "Transakcja została zatwierdzona."
 
 # @ WPBDM
-#: admin/class-admin.php:642
+#: admin/class-admin.php:643
 msgctxt "admin"
 msgid "The transaction has been rejected."
 msgstr "Transakcja została odrzucona."
 
 # @ WPBDM
-#: admin/class-admin.php:648
+#: admin/class-admin.php:649
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Abonament został przypisany do oferty."
 
 # @ WPBDM
-#: admin/class-admin.php:657
+#: admin/class-admin.php:658
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -394,25 +394,25 @@ msgstr[1] "Odnowiono oferty."
 msgstr[2] "Odnowiono ofert."
 
 # @ WPBDM
-#: admin/class-admin.php:664
+#: admin/class-admin.php:665
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Wysłano e-mail potwierdzający odnowienie."
 
 # @ WPBDM
-#: admin/class-admin.php:719
+#: admin/class-admin.php:720
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
 # @ WPBDM
-#: admin/class-admin.php:721 admin/class-admin.php:727
+#: admin/class-admin.php:722 admin/class-admin.php:728
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Licznik ofert"
 
 # @ WPBDM
-#: admin/class-admin.php:836
+#: admin/class-admin.php:837
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -422,7 +422,7 @@ msgstr ""
 "tym polu: <b>%s</b>."
 
 # @ WPBDM
-#: admin/class-admin.php:838
+#: admin/class-admin.php:839
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -431,7 +431,7 @@ msgstr ""
 "<b>Katalog Firm</b>potrzebuje pola z  <b>%s</b> aby pracować poprawnie."
 
 # @ WPBDM
-#: admin/class-admin.php:842
+#: admin/class-admin.php:843
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -441,19 +441,19 @@ msgstr ""
 "formularza\" albo niech katalog firm zrobi to dla ciebie automatycznie."
 
 # @ WPBDM
-#: admin/class-admin.php:846
+#: admin/class-admin.php:847
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Przejdź do \"Zarządzanie polami formularza\""
 
 # @ WPBDM
-#: admin/class-admin.php:849
+#: admin/class-admin.php:850
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Stwórz te wymagane pola dla mnie"
 
 # @ WPBDM
-#: admin/class-admin.php:858
+#: admin/class-admin.php:859
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -463,7 +463,7 @@ msgstr ""
 "<tt>[businessdirectory]</tt> aby działać prawidłowo."
 
 # @ WPBDM
-#: admin/class-admin.php:860
+#: admin/class-admin.php:861
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -473,31 +473,31 @@ msgstr ""
 "automatycznie."
 
 # @ WPBDM
-#: admin/class-admin.php:864
+#: admin/class-admin.php:865
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Stwórz wymagane pola dla mnie"
 
 # @ WPBDM
-#: admin/class-admin.php:904
+#: admin/class-admin.php:905
 msgctxt "admin compat"
 msgid "Installed: %s"
 msgstr "zainstalowane: %s"
 
 # @ WPBDM
-#: admin/class-admin.php:904
+#: admin/class-admin.php:905
 msgctxt "admin compat"
 msgid "N/A"
 msgstr "N/A"
 
 # @ WPBDM
-#: admin/class-admin.php:907
+#: admin/class-admin.php:908
 msgctxt "admin compat"
 msgid "Required: %s"
 msgstr "Wymagane: %s"
 
 # @ WPBDM
-#: admin/class-admin.php:919
+#: admin/class-admin.php:920
 msgctxt "admin compat"
 msgid ""
 "Business Directory has detected some incompatible premium module versions "
@@ -506,7 +506,7 @@ msgstr ""
 "Katalog Firm wykrył pewne niezgodne zainstalowane wersje modułów Premium."
 
 # @ WPBDM
-#: admin/class-admin.php:921
+#: admin/class-admin.php:922
 msgctxt "admin compat"
 msgid ""
 "Please upgrade to the required versions indicated below to make sure "
@@ -516,7 +516,7 @@ msgstr ""
 "się, że wszystko będzie funkcjonować prawidłowo."
 
 # @ WPBDM
-#: admin/class-admin.php:941
+#: admin/class-admin.php:942
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -527,25 +527,6 @@ msgstr ""
 "zanim złożą ofertę , ale Rejestracja witryny jest obecnie wyłączona. Przejdź "
 "[tutaj] i zaznacz \"Każdy może się zarejestrować\", aby upewnić się, że "
 "katalog firm będzie działał poprawnie."
-
-# @ WPBDM
-#: admin/class-listing-fields-metabox.php:21
-msgctxt "admin"
-msgid "Listing Fields"
-msgstr "Pola ofert"
-
-# @ WPBDM
-#: admin/class-listing-fields-metabox.php:40
-#: templates/submit-listing/images.tpl.php:12
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Aktualne obrazy"
-
-# @ WPBDM
-#: admin/class-listing-fields-metabox.php:41
-msgctxt "templates"
-msgid "There are no images currently attached to the listing."
-msgstr "Obecnie nie ma żadnych obrazków dołączonych do tej oferty."
 
 # @ WPBDM
 #: admin/class-themes-admin.php:47
@@ -2577,7 +2558,7 @@ msgstr ""
 "poznać wiecej możliwości."
 
 # @ WPBDM
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.9)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.10dev9)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/templates/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -3463,44 +3444,51 @@ msgid "Allow Tracking"
 msgstr "Zezwalam na śledzenie"
 
 # @ WPBDM
-#: business-directory-plugin.php:668
+#: business-directory-plugin.php:586
+#, fuzzy
+msgctxt "listing image upload"
+msgid "Can not upload any more images for this listing."
+msgstr "Kategorie dla tej oferty"
+
+# @ WPBDM
+#: business-directory-plugin.php:700
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Ustawienia"
 
 # @ WPBDM
-#: business-directory-plugin.php:776 business-directory-plugin.php:783
+#: business-directory-plugin.php:808 business-directory-plugin.php:815
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "%s RSS"
 
 # @ WPBDM
-#: business-directory-plugin.php:1138 core/view-submit-listing.php:58
+#: business-directory-plugin.php:1170 core/view-submit-listing.php:58
 #: core/views/submit_listing.php:10
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Dodaj Firmę"
 
 # @ WPBDM
-#: business-directory-plugin.php:1143
+#: business-directory-plugin.php:1175
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Znajdź Firmę"
 
 # @ WPBDM
-#: business-directory-plugin.php:1148
+#: business-directory-plugin.php:1180
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Zobacz wszystkie Firmy"
 
 # @ WPBDM
-#: business-directory-plugin.php:1177
+#: business-directory-plugin.php:1209
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Oferty otagowane: %s"
 
 # @ WPBDM
-#: core/api.php:402
+#: core/api.php:405
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
@@ -3518,19 +3506,19 @@ msgid "Could not create listing category \"%s\""
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: core/class-csv-import.php:601
+#: core/class-csv-import.php:604
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Użytkownik  \"%s\" nie istnieje"
 
 # @ WPBDM
-#: core/class-csv-import.php:633
+#: core/class-csv-import.php:636
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Brak wymaganego pola: %s"
 
 # @ WPBDM
-#: core/class-csv-import.php:653
+#: core/class-csv-import.php:656
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Kategoria \"%s\" nie istnieje"
@@ -3689,13 +3677,13 @@ msgid "(Fee Unavailable)"
 msgstr "(Abonament niedostępny)"
 
 # @ WPBDM
-#: core/class-listings-api.php:310
+#: core/class-listings-api.php:316
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
-#: core/class-listings-api.php:329
+#: core/class-listings-api.php:335
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Powiadomienie o Edycji oferty"
@@ -5692,19 +5680,19 @@ msgid "Directory Tag"
 msgstr "Katalog"
 
 # @ WPBDM
-#: core/compatibility/class-navxt-integration.php:159
+#: core/compatibility/class-navxt-integration.php:189
 msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Prześlij Ofertę"
 
 # @ WPBDM
-#: core/compatibility/class-navxt-integration.php:163
+#: core/compatibility/class-navxt-integration.php:193
 msgctxt "navxt"
 msgid "Edit Listing"
 msgstr "Edytuj Ofertę"
 
 # @ WPBDM
-#: core/compatibility/class-navxt-integration.php:167
+#: core/compatibility/class-navxt-integration.php:197
 msgctxt "navxt"
 msgid "Search"
 msgstr "Szukaj"
@@ -5718,7 +5706,7 @@ msgstr "Czeklista"
 # @ WPBDM
 #: core/fieldtypes/class-fieldtypes-checkbox.php:72
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:144
+#: core/fieldtypes/class-fieldtypes-select.php:147
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Opcje Pola (aby wybrać listy, przycisk radio i czeklisty)."
@@ -5726,7 +5714,7 @@ msgstr "Opcje Pola (aby wybrać listy, przycisk radio i czeklisty)."
 # @ WPBDM
 #: core/fieldtypes/class-fieldtypes-checkbox.php:93
 #: core/fieldtypes/class-fieldtypes-radiobutton.php:87
-#: core/fieldtypes/class-fieldtypes-select.php:172
+#: core/fieldtypes/class-fieldtypes-select.php:175
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Pole listy opcji wymagane."
@@ -5832,20 +5820,20 @@ msgid "Select List"
 msgstr "Lista Wyboru"
 
 # @ WPBDM
-#: core/fieldtypes/class-fieldtypes-select.php:68
+#: core/fieldtypes/class-fieldtypes-select.php:71
 msgctxt "form-fields-api category-select"
 msgid "-- Choose Terms --"
 msgstr "-- Wybierz Warunki --"
 
 # @ WPBDM
-#: core/fieldtypes/class-fieldtypes-select.php:68
-#: core/fieldtypes/class-fieldtypes-select.php:105
+#: core/fieldtypes/class-fieldtypes-select.php:71
+#: core/fieldtypes/class-fieldtypes-select.php:108
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "-- Wybierz Jeden --"
 
 # @ WPBDM
-#: core/fieldtypes/class-fieldtypes-select.php:155
+#: core/fieldtypes/class-fieldtypes-select.php:158
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Zezwolić na wyszukiwanie pustych pól wyborów?"
@@ -6781,46 +6769,46 @@ msgid "No listing categories found."
 msgstr "Nie znaleziono kategorii ofert."
 
 # @ WPBDM
-#: core/templates-ui.php:194
+#: core/templates-ui.php:200
 msgid "Directory"
 msgstr "Katalog"
 
 # @ WPBDM
-#: core/templates-ui.php:201
+#: core/templates-ui.php:207
 msgid "View All Listings"
 msgstr "Zobacz wszystkie Firmy"
 
 # @ WPBDM
-#: core/templates-ui.php:208
+#: core/templates-ui.php:214
 msgid "Create A Listing"
 msgstr "Oferta Bezpłatna"
 
 # @ WPBDM
-#: core/templates-ui.php:241
+#: core/templates-ui.php:247
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Szukaj Firmy"
 
 # @ WPBDM
-#: core/templates-ui.php:244
+#: core/templates-ui.php:250
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Zaawansowane szukanie"
 
 # @ WPBDM
-#: core/templates-ui.php:273 core/templates-ui.php:298
+#: core/templates-ui.php:279 core/templates-ui.php:304
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortuj według: "
 
 # @ WPBDM
-#: core/templates-ui.php:292
+#: core/templates-ui.php:298
 msgctxt "sort"
 msgid "Reset"
 msgstr "Resetuj"
 
 # @ WPBDM
-#: core/templates-ui.php:314
+#: core/templates-ui.php:320
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Resetuj)"
@@ -7369,6 +7357,12 @@ msgstr ""
 msgctxt "views"
 msgid "Find A Listing"
 msgstr "Znajdź Firmę"
+
+# @ WPBDM
+#: core/views/show_listing.php:12
+msgctxt "preview"
+msgid "This is just a preview. The listing has not been published yet."
+msgstr "To jest tylko podgląd. Oferta nie została jeszcze opublikowana."
 
 #: core/views/submit_listing.php:16
 msgctxt "templates"
@@ -8154,7 +8148,7 @@ msgstr ""
 #: templates/renew-listing.tpl.php:22
 #: templates/submit-listing/category-selection.tpl.php:8
 #: templates/submit-listing/fee-selection.tpl.php:37
-#: templates/submit-listing/images.tpl.php:42
+#: templates/submit-listing/images.tpl.php:51
 #: templates/submit-listing/listing-fields.tpl.php:34
 msgctxt "templates"
 msgid "Continue"
@@ -8279,42 +8273,42 @@ msgid "Delete Image"
 msgstr "Usuń Obraz"
 
 # @ WPBDM
-#: templates/submit-listing/images-single.tpl.php:24
+#: templates/submit-listing/images-single.tpl.php:25
 msgctxt "templates"
 msgid "Set this image as the listing thumbnail."
 msgstr "Ustaw jako Miniaturkę Firmy."
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:17
+#: templates/submit-listing/images-upload-form.tpl.php:16
 msgctxt "templates"
 msgid "Upload Images"
 msgstr "Załaduj obraz"
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:22
+#: templates/submit-listing/images-upload-form.tpl.php:21
 msgctxt "templates"
 msgid "Drop files here"
 msgstr "Przeciągnij i upuść obraz TUTAJ"
 
-#: templates/submit-listing/images-upload-form.tpl.php:23
+#: templates/submit-listing/images-upload-form.tpl.php:22
 msgctxt "templates image upload"
 msgid "or"
 msgstr ""
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:24
+#: templates/submit-listing/images-upload-form.tpl.php:23
 msgctxt "templates"
 msgid "Select images from your hard drive"
 msgstr "Wybierz obraz z Twojego dysku twardego"
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:27
+#: templates/submit-listing/images-upload-form.tpl.php:26
 msgctxt "templates"
 msgid "Uploading %s file(s)... Please wait."
 msgstr "Przesyłanie %s file(s)... Proszę czekać."
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:31
+#: templates/submit-listing/images-upload-form.tpl.php:29
 msgctxt "templates"
 msgid ""
 "Your image slots are all full at this time.  You may click \"Continue\" if "
@@ -8325,44 +8319,44 @@ msgstr ""
 "zakończyć, lub \"Usuń Obraz\" aby wstawić inny obraz w to miejsce."
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:39
+#: templates/submit-listing/images-upload-form.tpl.php:36
 msgctxt "templates"
 msgid "Image slots available:"
 msgstr "Dostępne miejsca na Obrazy:"
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:45
+#: templates/submit-listing/images-upload-form.tpl.php:42
 msgctxt "templates"
 msgid "File size:"
 msgstr "Maksymalny rozmiar pliku"
 
-#: templates/submit-listing/images-upload-form.tpl.php:47
-#: templates/submit-listing/images-upload-form.tpl.php:54
-#: templates/submit-listing/images-upload-form.tpl.php:61
+#: templates/submit-listing/images-upload-form.tpl.php:44
+#: templates/submit-listing/images-upload-form.tpl.php:51
+#: templates/submit-listing/images-upload-form.tpl.php:58
 msgctxt "templates"
 msgid "No limit"
 msgstr ""
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:52
+#: templates/submit-listing/images-upload-form.tpl.php:49
 msgctxt "templates"
 msgid "Image width:"
 msgstr "Szerokość Obrazu (w px):"
 
 # @ WPBDM
-#: templates/submit-listing/images-upload-form.tpl.php:59
+#: templates/submit-listing/images-upload-form.tpl.php:56
 msgctxt "templates"
 msgid "Image height:"
 msgstr "Wysokość Obrazu (w px)"
 
 # @ WPBDM
-#: templates/submit-listing/images.tpl.php:4
+#: templates/submit-listing/images.tpl.php:6
 msgctxt "templates"
 msgid "Listing Images"
 msgstr "Obrazy"
 
 # @ WPBDM
-#: templates/submit-listing/images.tpl.php:7
+#: templates/submit-listing/images.tpl.php:9
 msgctxt "templates"
 msgid ""
 "There is an image pending upload. Would you still like to continue without "
@@ -8372,7 +8366,13 @@ msgstr ""
 "bez zapisywania obrazu?"
 
 # @ WPBDM
-#: templates/submit-listing/images.tpl.php:13
+#: templates/submit-listing/images.tpl.php:14
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Aktualne obrazy"
+
+# @ WPBDM
+#: templates/submit-listing/images.tpl.php:15
 msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "Obecnie nie ma żadnych obrazków dołączonych do tej oferty."
@@ -8414,6 +8414,16 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "Plugin Katalog Firm"
+
+# @ WPBDM
+#~ msgctxt "admin"
+#~ msgid "Listing Fields"
+#~ msgstr "Pola ofert"
+
+# @ WPBDM
+#~ msgctxt "templates"
+#~ msgid "There are no images currently attached to the listing."
+#~ msgstr "Obecnie nie ma żadnych obrazków dołączonych do tej oferty."
 
 # @ WPBDM
 #~ msgctxt "admin csv-export"
@@ -8732,11 +8742,6 @@ msgstr "Plugin Katalog Firm"
 # @ WPBDM
 #~ msgid "The directory is temporarily disabled."
 #~ msgstr "Katalog jest tymczasowo wyłączony."
-
-# @ WPBDM
-#~ msgctxt "preview"
-#~ msgid "This is just a preview. The listing has not been published yet."
-#~ msgstr "To jest tylko podgląd. Oferta nie została jeszcze opublikowana."
 
 # @ WPBDM
 #~ msgctxt "templates"
