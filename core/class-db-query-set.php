@@ -59,12 +59,12 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         return $res[0];
     }
 
-    public function filter( $args = array(), $negate = false ) {
+    public function filter( $args = array(), $negate = false, $operator = 'AND' ) {
         if ( ! $args )
             return $this;
 
         $where = $this->filter_args( $args );
-        $where = implode( ' AND ', $where );
+        $where = implode( ' ' . $operator . ' ', $where );
 
         if ( $negate )
             $where = " NOT ($where) ";
@@ -165,8 +165,6 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         // null is NULL
         // _exact 
         // _iexact ILIKE
-        // contains LIKE %x%
-        // icontains ILIKE %x%
         // __in 
         // >
         // <
@@ -184,10 +182,26 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
             if ( 'pk' == $f )
                 $f = $this->model['primary_key'];
 
+            $op = '=';
+
+            if ( false !== strpos( $f, '__' ) ) {
+                $parts = explode( '__', $f );
+                $f = 'LOWER(' . $parts[0] . ')';
+                $qop = $parts[1];
+
+                switch ( $qop ) {
+                case 'contains':
+                case 'icontains':
+                    $op = 'LIKE';
+                    $v = '%' . strtolower( $v ) . '%';
+                    break;
+                }
+            }
+
             if ( is_array( $v ) )
                 $filters[] = "$f IN ('" . implode( '\',\'', $v ) . "')";
             else
-                $filters[] = $this->db->prepare( "$f = %s", $v );
+                $filters[] = $this->db->prepare( "$f $op %s", $v );
         }
 
         return $filters;
