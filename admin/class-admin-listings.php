@@ -331,7 +331,7 @@ class WPBDP_Admin_Listings {
         if ( isset( $views_['trash'] ) || ( ! empty( $_GET['post_status'] ) && 'trash' == $_GET['post_status'] ) ) {
             $stati = get_post_stati( array(), 'objects' );
             $label = $stati['trash']->label;
-            $views['trash'] = $label;
+            $views['trash'] = isset( $views_['trash'] ) ? $views_['trash'] : $label . ' <span class="count">(0)</span>';
         }
 
         return $views;
