@@ -73,6 +73,29 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
             $args['listing_id'] = absint( $_GET['listing'] );
 
         $this->items = WPBDP_Payment::objects()->filter( $args );
+
+        if ( ! empty( $_GET['s'] ) ) {
+            $s = trim( $_GET['s'] );
+
+            $this->items = $this->items->filter(
+                array(
+                    'payer_first_name__icontains' => $s,
+                    'payer_last_name__icontains'  => $s,
+                    'payer_email__icontains'      => $s,
+                    'gateway_tx_id'               => $s
+                ),
+                false,
+                'OR'
+            );
+                    
+            // wpbdp_debug_e( $s, $this->items );
+        }
+
+        $this->items = $this->items;
+    }
+
+    public function has_items() {
+        return $this->items->count() > 0;
     }
 
     public function column_payment_id( $payment ) {
