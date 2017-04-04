@@ -328,8 +328,11 @@ class WPBDP_Admin_Listings {
         }
 
         $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
-        if ( isset( $views_['trash'] ) )
-            $views['trash'] = $views_['trash'];
+        if ( isset( $views_['trash'] ) || ( ! empty( $_GET['post_status'] ) && 'trash' == $_GET['post_status'] ) ) {
+            $stati = get_post_stati( array(), 'objects' );
+            $label = $stati['trash']->label;
+            $views['trash'] = $label;
+        }
 
         return $views;
     }
