@@ -78,7 +78,7 @@ class WPBDP_Email {
 	 * @return boolean true on success, false otherwise
 	 */
 	public function send($format='both') {
-        $this->subject = preg_replace( '/[\n\r]/', '', strip_tags( $this->subject ) );
+        $this->subject = preg_replace( '/[\n\r]/', '', strip_tags( html_entity_decode( $this->subject ) ) );
 
 		// TODO: implement 'plain' and 'both'
 		$this->prepare_html();
