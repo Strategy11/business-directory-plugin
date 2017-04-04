@@ -377,7 +377,6 @@ body.taxonomy-wpbdp_category .column-id {
     background: #ccc;
     font-size: 85%;
     padding: 5px;
-    color: #000;
 }
 
 #wpbdp-admin-settings .wpbdp-settings-email {
@@ -487,8 +486,25 @@ body.taxonomy-wpbdp_category .column-id {
 
 #wpbdp-admin-settings .wpbdp-settings-expiration-notices {
 
-    #wpbdp-settings-expiration-notices-add {
+    #wpbdp-settings-expiration-notices-add-btn {
         margin: 0 0 5px 0;
+    }
+
+    #wpbdp-settings-expiration-notices-add {
+        .wpbdp-expiration-notice-email {
+            display: none;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+
+    .buttons .delete {
+        color: #a00;
+        float: left;
+        font-size: 13px;
+
+        &:hover {
+            color: red;
+        }
     }
 }
 

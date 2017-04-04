@@ -1,6 +1,8 @@
 <?php
 $uid = ! empty( $uid ) ? $uid : uniqid( 'wpbdp-settings-email-' );
 
+$editor_only = isset( $editor_only ) ? (bool) $editor_only : false;
+
 $container_class = ! empty( $container_class ) ? $container_class : '';
 $setting_name = ! empty( $setting_name ) ? $setting_name : '';
 $email_subject = ! empty( $email_subject ) ? $email_subject : _x( 'Untitled', 'settings email', 'WPBDM' );
@@ -12,10 +14,14 @@ $after_container = ! empty( $after_container ) ? $after_container : '';
 $before_preview = ! empty( $before_preview ) ? $before_preview : '';
 $after_preview = ! empty( $after_preview ) ? $after_preview : '';
 $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
+
+$before_buttons = isset( $before_buttons ) ? $before_buttons : '';
+$after_buttons = isset( $after_buttons ) ? $after_buttons : '';
 ?>
 
 <?php echo $before_container; ?>
 <div class="wpbdp-settings-email <?php echo $container_class; ?>">
+    <?php if ( ! $editor_only ): ?>
     <?php echo $before_preview; ?>
     <div class="wpbdp-settings-email-preview" title="<?php _ex( 'Click to edit e-mail', 'settings email', 'WPBDM' ); ?>">
         <a href="#" class="wpbdp-settings-email-edit-btn wpbdp-tag"><?php _ex( 'Click to edit', 'settings email', 'WPBDM' ); ?></a>
@@ -27,7 +33,7 @@ $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
         <?php endif; ?>
     </div>
     <?php echo $after_preview; ?>
-
+    <?php endif; ?>
 
     <div class="wpbdp-settings-email-editor">
         <input type="hidden" value="<?php echo esc_attr( $email_subject ); ?>" class="stored-email-subject" />
@@ -44,7 +50,7 @@ $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
             <tr>
                 <th scope="row"><label for="<?php echo $uid; ?>-body"><?php _ex( 'E-Mail Body', 'settings email', 'WPBDM' ); ?></label></th>
                 <td>
-                    <textarea name="<?php echo $setting_name; ?>[body]"  id="<?php echo $uid; ?>-body" class="email-body"><?php echo esc_textarea( $email_body ); ?></textarea>
+                    <textarea name="<?php echo $setting_name; ?>[body]"  id="<?php echo $uid; ?>-body" class="email-body" placeholder="<?php _ex( 'E-mail body text', 'expiration notices', 'WPBDM' ); ?>"><?php echo esc_textarea( $email_body ); ?></textarea>
 
                     <?php if ( $placeholders ): ?>
                     <div class="placeholders">
@@ -77,9 +83,11 @@ $extra_fields = ! empty( $extra_fields ) ? $extra_fields : '';
         </table>
 
         <div class="buttons">
+            <?php echo $before_buttons; ?>
             <!-- <a href="#" class="button preview-email"><?php _ex( 'Preview e-mail', 'settings email', 'WPBDM' ); ?></a> -->
             <a href="#" class="button cancel"><?php _ex( 'Cancel', 'settings email', 'WPBDM' ); ?></a> 
             <input type="submit" class="button button-primary" value="<?php _ex( 'Save Changes', 'settings email', 'WPBDM' ); ?>" />
+            <?php echo $after_buttons; ?>
         </div>
     </div>
 </div>

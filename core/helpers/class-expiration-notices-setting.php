@@ -94,8 +94,23 @@ class WPBDP__Expiration_Notices_Setting {
     }
 
     public function setting_callback( $setting, $value ) {
+        $blank_notice = array( 'event' => 'expiration', 'listings' => 'both', 'relative_time' => '0 days', 'subject' => '', 'body' => '' );
+
         echo '<div class="wpbdp-settings-expiration-notices">';
-        echo '<button id="wpbdp-settings-expiration-notices-add" class="button">' . _x( 'Add notice', 'expiration notices', 'WPBDM' ) . '</button>';
+        echo '<button id="wpbdp-settings-expiration-notices-add-btn" class="button">' . _x( 'Add notice', 'expiration notices', 'WPBDM' ) . '</button>';
+        echo '<div id="wpbdp-settings-expiration-notices-add">';
+        echo wpbdp_render_page(
+            WPBDP_PATH . 'admin/templates/settings-email.tpl.php',
+            array(
+                'setting_name' => 'new_notice[' . ( count( $value ) + 1 ) . ']',
+                'uid' => '',
+                'container_class' => 'wpbdp-expiration-notice-email',
+                'extra_fields' => $this->setting_email_fields( 'new_notice[' . ( count( $value ) + 1 ) . ']', '', $blank_notice ),
+                'editor_only' => true
+            )
+        );
+        echo '</div>';
+
 
         if ( ! $value )
             echo '<p class="wpbdp-no-items">' . _x( 'No notices configured.', 'expiration notices', 'WPBDM' ) . '</p>';
@@ -109,7 +124,8 @@ class WPBDP__Expiration_Notices_Setting {
                 'email_subject' => $notice['subject'],
                 'email_body' => $notice['body'],
                 'extra_fields' => $this->setting_email_fields( 'wpbdp-' . $setting->name . '[' . $i . ']', $uid, $notice ),
-                'after_container' => $this->setting_email_summary( $notice )
+                'after_container' => $this->setting_email_summary( $notice ),
+                'before_buttons' => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>'
             );
 
             echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-email.tpl.php', $vars );
@@ -212,6 +228,7 @@ class WPBDP__Expiration_Notices_Setting {
 
     private function setting_email_fields( $name, $uid, $notice ) {
         $expiration_notices_schedule = $this->get_notices_schedule();
+
         ob_start();
 ?>
     <tr>

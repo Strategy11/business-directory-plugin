@@ -41,7 +41,7 @@ echo wpbdp_admin_header( __( 'Business Directory Settings', 'WPBDM' ),
 	<?php endif; ?>
 	<?php settings_fields($group->wpslug); ?>
 	<?php do_settings_sections($group->wpslug); ?>
-	<?php echo submit_button(); ?>
+	<?php echo submit_button( null, 'primary', 'submit_button' ); ?>
 </form>
 
 <?php

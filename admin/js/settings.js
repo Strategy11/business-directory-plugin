@@ -19,6 +19,13 @@ jQuery(function($) {
                 var $email = $( this ).parents( '.wpbdp-settings-email' );
                 var $editor = $email.find( '.wpbdp-settings-email-editor' );
 
+                // Add-new editor.
+                if ( $email.parent().is( '#wpbdp-settings-expiration-notices-add' ) ) {
+                    $email.hide();
+                    $( '#wpbdp-settings-expiration-notices-add-btn' ).show();
+                    return;
+                }
+
                 // Sync editor with old values.
                 var subject = $editor.find( '.stored-email-subject' ).val();
                 var body = $editor.find( '.stored-email-body' ).val();
@@ -44,6 +51,15 @@ jQuery(function($) {
                 $email.find( '.wpbdp-settings-email-preview' ).show();
             });
 
+            $( '.wpbdp-settings-email-editor .delete' ).click(function(e) {
+                e.preventDefault();
+
+                var $email = $( this ).parents( '.wpbdp-settings-email' );
+                $email.next().remove();
+                $email.remove();
+                $( 'form#wpbdp-admin-settings' ).get(0).submit();
+            });
+
             // Expiration notices have some additional handling to do.
             $( '.wpbdp-expiration-notice-email select.relative-time-and-event' ).change(function(e) {
                 var parts = $( this ).val().split(',');
@@ -53,6 +69,30 @@ jQuery(function($) {
                 var $email = $( this ).parents( '.wpbdp-settings-email' );
                 $email.find( '.notice-event' ).val( event );
                 $email.find( '.notice-relative-time' ).val( relative_time );
+            });
+
+            $( '#wpbdp-settings-expiration-notices-add-btn' ).click(function(e) {
+                e.preventDefault();
+
+                var $container = $( '#wpbdp-settings-expiration-notices-add .wpbdp-expiration-notice-email' );
+                var $editor = $container.find( '.wpbdp-settings-email-editor' );
+
+                $( this ).hide();
+                $container.show();
+                $editor.show();
+            });
+
+            $( '#wpbdp-settings-expiration-notices-add input[type="submit"]' ).click(function(e) {
+                var $editor = $( this ).parents( '.wpbdp-settings-email-editor' );
+
+                $editor.find( 'input, textarea, select' ).each( function(i) {
+                    var name = $( this ).attr( 'name' );
+
+                    if ( ! name || -1 == name.indexOf( 'new_notice' ) )
+                        return;
+
+                    $( this ).prop( 'name', name.replace( 'new_notice', 'wpbdp-expiration-notices' ) );
+                } );
             });
         },
     };

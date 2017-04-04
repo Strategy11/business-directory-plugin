@@ -442,9 +442,7 @@ EOF;
         $s = $this->add_section( $g,
                                  'email-renewal-reminders',
                                  _x( 'Expiration/Renewal Notices', 'admin settings', 'WPBDM' ),
-                                 str_replace( '<a>',
-                                              '<a href="' . esc_url( $url ) . '">',
-                                              _x( 'This section refers only to the text of the renewal/expiration notices. You can also <a>configure when the e-mails are sent</a>.', 'admin settings', 'WPBDM' ) ) );
+                                 _x( 'You can configure here the text for the expiration/renewal emails and also how long before/after expiration/renewal they are sent.', 'admin settings', 'WPBDM' ) );
 
         require_once( WPBDP_PATH . 'core/helpers/class-expiration-notices-setting.php' );
         $expiration_notices_setting = new WPBDP__Expiration_Notices_Setting();
