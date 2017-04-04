@@ -163,6 +163,8 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         // // Update listing too.
         // $listing = wpbdp_get_listing( $payment->listing_id );
         // $listing->set_subscription_data( $subscription_id, $subscription_data );       
+        // TODO: maybe we should allow gateways to update this instead of doing it automatically with ListingsAPI? ->save() should be
+        // called by the gateway on the payment when changing status and THEN register subscription info.
 
         return array( 'result' => 'success' );
     }
@@ -220,40 +222,5 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         return $response;
     }
-
-    // public function handle_expiration( $payment ) {
-    //     if ( ! class_exists( 'AuthorizeNetAIM' ) )
-    //         require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
-    //
-    //     $recurring = $payment->get_recurring_item();
-    //     $listing = WPBDP_Listing::get( $payment->get_listing_id() );
-    //
-    //     if ( ! $listing || ! $recurring )
-    //         return;
-    //
-    //     $recurring_id = $payment->get_data( 'recurring_id' );
-    //
-    //     $arb = new AuthorizeNetARB( wpbdp_get_option( 'authorize-net-login-id' ),
-    //                                 wpbdp_get_option( 'authorize-net-transaction-key' ) );
-    //
-    //     if ( wpbdp_get_option( 'payments-test-mode' ) )
-    //         $arb->setSandbox( true );
-    //     else
-    //         $arb->setSandbox( false );
-    //
-    //     $response = $arb->getSubscriptionStatus( $recurring_id );
-    //     $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
-    //
-    //     if ( 'active' == $status ) {
-    //         // If subscription is active, renew automatically for another period.
-    //         $term_payment = $payment->generate_recurring_payment();
-    //         $term_payment->set_status( WPBDP_Payment::STATUS_COMPLETED, WPBDP_Payment::HANDLER_GATEWAY );
-    //         $term_payment->save();
-    //     } else {
-    //         // If subscription is not active, make item non recurring so it expires normally next time.
-    //         $recurring_item = $payment->get_recurring_item();
-    //         $listing->cancel_recurring();
-    //     }
-    // }
 
 }
