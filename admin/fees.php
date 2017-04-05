@@ -80,7 +80,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         if ( ! empty( $_POST['fee'] ) ) {
             $posted_values = stripslashes_deep( $_POST['fee'] );
 
-            if ( ! isset( $_POST['limit_categories'] ) )
+            if ( ! isset( $_POST['limit_categories'] ) || 0 == $_POST['limit_categories'] )
                 $posted_values['supported_categories'] = 'all';
 
             if ( ! isset( $posted_values['sticky'] ) )

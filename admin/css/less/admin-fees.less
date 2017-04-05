@@ -44,8 +44,55 @@
     color: green;
 }
 
-#wpbdp-fee-form .limit-categories-list {
-    display: none;
+#wpbdp-fee-form {
+    #limit-categories-list {
+        p {
+            margin: 10px 0;
+        }
+
+        div {
+            margin: 0 0 0 10px;
+        }
+
+        br {
+            display: none;
+        }
+    }
+
+    .pricing-details-variable {
+        &> td {
+            padding-top: 0;
+        }
+
+        table {
+            th {
+                font-weight: normal;
+            }
+
+            td:last-child {
+                width: 100%;
+            }
+
+            td {
+                &.category-name-col {
+                    padding-right: 20px;
+                    text-align: right;
+                }
+
+                &.category-price-col {
+                }
+
+                font-size: 90%;
+                padding: 0;
+            }
+        }
+
+        .wpbdp-variable-pricing-configurator-row {
+            input {
+                width: 100px;
+            }
+        }
+    }
 }
 
 #wpbdp-fee-form #fee-bgcolor-picker {

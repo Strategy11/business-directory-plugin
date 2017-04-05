@@ -21,7 +21,9 @@ class WPBDP__WP_Taxonomy_Term_List {
             'anidate' => false,
             'indent' => true,
             'indent_character' => '&mdash;&nbsp;',
-            'hide_empty' => false
+            'hide_empty' => false,
+            'before' => '',
+            'after' => ''
         );
 
         $this->args = wp_parse_args( $args, $defaults );
@@ -95,11 +97,11 @@ class WPBDP__WP_Taxonomy_Term_List {
     }
 
     protected function element_before( $term, $depth ) {
-        return '';
+        return $this->args['before'];
     }
 
     protected function element_after( $term, $depth ) {
-        return '';
+        return $this->args['after'];
     }
 
 }

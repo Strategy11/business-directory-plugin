@@ -6,6 +6,7 @@ require_once ( WPBDP_PATH . 'core/helpers/class-wp-taxonomy-term-list.php'  );
  */
 class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Term_List {
 
+    private $categories = array();
     private $prices = array();
 
 
@@ -17,14 +18,17 @@ class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Ter
 
         $fee = $args['fee'];
 
-        if ( 'variable' != $fee->pricing_model )
+        $this->pricing_model = $fee->pricing_model;
+        $this->categories = $fee->supported_categories;
+
+        if ( 'variable' != $this->pricing_model )
             return;
 
         $this->prices = $fee->pricing_details;
     }
 
     protected function element_before( $term, $depth ) {
-        return '<div class="wpbdp-variable-pricing-configurator-row ' . ( ! isset( $this->prices[ $term->term_id ] ) ? 'hidden' : '' ) . '" data-term-id="' . $term->term_id . '">';
+        return '<tr class="wpbdp-variable-pricing-configurator-row ' . ( 'all' != $this->categories && ! in_array( $term->term_id, $this->categories ) ? 'hidden' : '' ) . '" data-term-id="' . $term->term_id . '"><td class="category-name-col">';
     }
 
     protected function element( $term, $depth ) {
@@ -34,10 +38,10 @@ class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Ter
 
     protected function element_after( $term, $depth  ) {
         $res  = '';
-        $res .= sprintf( '<input type="text" name="fee[pricing_details][%d]" class="category-price" value="%s" />',
+        $res .= sprintf( '</td><td class="category-price-col"><input type="text" name="fee[pricing_details][%d]" class="category-price" value="%s" /></td>',
                          $term->term_id,
                          isset( $this->prices[ $term->term_id ] ) ? $this->prices[ $term->term_id ] : '0.0' );
-        $res .= '</div>';
+        $res .= '</tr>';
 
         return $res;
     }

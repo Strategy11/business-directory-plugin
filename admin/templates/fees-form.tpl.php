@@ -101,21 +101,28 @@
             </tr>
             <tr class="form-field limit-categories">
                 <th scope="row">
-                    <label><?php _ex( 'Limit plan to certain categories only?', 'fees admin', 'WPBDM' ); ?></label>
+                    <label><?php _ex( 'Plan Category Policy:', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                <input type="checkbox" name="limit_categories" class="wpbdp-js-toggle" value="limit" data-toggles="limit-categories-list" <?php checked( is_array( $fee->supported_categories ) ); ?> />
+                    <select name="limit_categories" class="wpbdp-js-toggle">
+                        <option value="0"><?php _ex( 'Plan applies to all categories', 'fees admin', 'WPBDM' ); ?></option>
+                        <option value="1" <?php selected( is_array( $fee->supported_categories ), true ); ?> data-toggles="limit-categories-list" class="wpbdp-js-toggle" data-toggles="limit-categories-list"><?php _ex( 'Plan applies to only certain categories', 'fees admin', 'WPBDM' ); ?></option>
+                    </select>
 
-                <div id="limit-categories-list" class="<?php echo is_array( $fee->supported_categories ) ? '' : 'hidden'; ?>">
-                    <?php
-                    require_once( WPBDP_PATH . 'core/helpers/class-wp-taxonomy-term-list.php' );
-                    $h = new WPBDP__WP_Taxonomy_Term_List( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
-                                                                  'input' => 'checkbox',
-                                                                  'input_name' => 'fee[supported_categories]',
-                                                                  'selected' => is_array( $fee->supported_categories ) ? $fee->supported_categories : array() ) );
-                    $h->display();
-                    ?>
-                    </div>
+                    <div id="limit-categories-list" class="<?php echo is_array( $fee->supported_categories ) ? '' : 'hidden'; ?>">
+                        <p><span class="description"><?php _ex( 'Limit plan to the following categories:', 'fees admin', 'WPBDM' ); ?></span></p>
+
+                        <?php
+                        require_once( WPBDP_PATH . 'core/helpers/class-wp-taxonomy-term-list.php' );
+                        $h = new WPBDP__WP_Taxonomy_Term_List( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
+                                                                      'input' => 'checkbox',
+                                                                      'input_name' => 'fee[supported_categories]',
+                                                                      'before' => '<div>',
+                                                                      'after' => '</div>',
+                                                                      'selected' => is_array( $fee->supported_categories ) ? $fee->supported_categories : array() ) );
+                        $h->display();
+                        ?>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -149,11 +156,19 @@
                     <label><?php _ex( 'Prices per category', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                <?php
-                require_once( WPBDP_PATH . 'admin/helpers/class-variable-pricing-configurator.php' );
-                $c = new WPBDP__Admin__Variable_Pricing_Configurator( array( 'fee' => $fee ) );
-                $c->display();
-                ?>
+                    <table>
+                        <thead>
+                        <th><?php _ex( 'Category', 'fees admin', 'WPBDM' ); ?></th>
+                        <th><?php _ex( 'Price', 'fees admin', 'WPBDM' ); ?></th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            require_once( WPBDP_PATH . 'admin/helpers/class-variable-pricing-configurator.php' );
+                            $c = new WPBDP__Admin__Variable_Pricing_Configurator( array( 'fee' => $fee ) );
+                            $c->display();
+                            ?>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
             <tr class="form-field fee-pricing-details pricing-details-extra <?php echo 'extra' == $fee->pricing_model ? '' : 'hidden'; ?>">

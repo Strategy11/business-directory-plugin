@@ -1,29 +1,43 @@
 jQuery(function($) {
-    $('form#wpbdp-fee-form').submit(function(){
+    var $form = $( 'form#wpbdp-fee-form' );
+
+    if ( 0 == $form.length )
+        return;
+
+
+    $form.submit(function(){
         $('form input[name="fee[days]"]').removeAttr('disabled');
         return true;
     });
 
     // Limit categories and variable pricing handling.
-    $('form#wpbdp-fee-form #limit-categories-list .term-cb').change(function(e) {
+    $form.find('#limit-categories-list .term-cb').change(function(e) {
         var $dest = $( '.wpbdp-variable-pricing-configurator-row[data-term-id="' + $(this).val() + '"]' );
 
-        if ( $(this).is(':checked') )
+        if ( $(this).is(':checked') ) {
+            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', false );
             $dest.removeClass('hidden');
-        else
+        } else {
+            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', $( '#limit-categories-list .term-cb' ).filter( ':checked' ).length == 0 );
             $dest.addClass('hidden');
+        }
     });
-    $('form#wpbdp-fee-form input[name="limit_categories"]').change(function(e) {
-        if ( ! $(this).is(':checked') ) {
+    $form.find('select[name="limit_categories"]').change(function(e) {
+        var val = $(this).val();
+
+        if ( '0' == val ) {
             $('#wpbdp-fee-form #limit-categories-list .term-cb').prop('checked', false);
+            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', false );
             $('.wpbdp-variable-pricing-configurator-row').removeClass('hidden');
         } else {
+            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', true );
             $('.wpbdp-variable-pricing-configurator-row').addClass('hidden');
         }
+
     });
 
     // Fee duration.
-    $('form#wpbdp-fee-form input[name="_days"]').change(function(){
+    $form.find('input[name="_days"]').change(function(){
         var value = $(this).val();
 
         // alert(value);
@@ -41,7 +55,7 @@ jQuery(function($) {
     });
 
     // Color picker.
-    var $color_picker = $( '#wpbdp-fee-form #fee-bgcolor-picker' );
+    var $color_picker = $form.find( '#fee-bgcolor-picker' );
     var $color_picker_field = $color_picker.find( '#fee-bgcolor-value' );
 
     // Initial color.

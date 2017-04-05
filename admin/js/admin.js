@@ -582,25 +582,48 @@ jQuery(function( $ ) {
         var value = $(this).val();
         var is_checkbox = $(this).is(':checkbox');
         var is_radio = $(this).is(':radio');
+        var is_select = $(this).is('select');
         var toggles = $(this).attr('data-toggles');
-        var $dest = ( toggles.startsWith('#') || toggles.startsWith('-') ) ? $(toggles) : $( '#' + toggles + ', .' + toggles );
 
-        if ( 0 == $dest.length || ( ! is_radio && ! is_checkbox ) )
-            return;
+        if ( is_select ) {
+            var $option = $( this ).find( ':selected' );
+            var toggles = $option.attr( 'data-toggles' );
 
-        if ( is_checkbox && $(this).is(':checked') ) {
-            $dest.toggleClass('hidden');
-            return;
+            if ( ! toggles || 'undefined' == typeof toggles )
+                toggles = '';
         }
 
-        // If item is a radio, hide destination from other toggles in the same group.
-        var other_opts = $('input[name="' + name + '"]').not('[value="' + value + '"]').each(function() {
+        if ( toggles ) {
+            var $dest = ( toggles.startsWith('#') || toggles.startsWith('-') ) ? $(toggles) : $( '#' + toggles + ', .' + toggles );
+
+            if ( 0 == $dest.length || ( ! is_radio && ! is_checkbox && ! is_select ) )
+                return;
+
+            if ( is_checkbox && $(this).is(':checked') ) {
+                $dest.toggleClass('hidden');
+                return;
+            }
+        }
+
+        if ( is_select ) {
+            var other_opts = $( this ).find( 'option' ).not( '[value="' + value + '"]' );
+        } else {
+            var other_opts = $('input[name="' + name + '"]').not('[value="' + value + '"]');
+        }
+
+        other_opts.each(function() {
             var toggles_i = $(this).attr('data-toggles');
+
+            if ( ! toggles_i )
+                return;
+
             var $dest_i = ( toggles_i.startsWith('#') || toggles_i.startsWith('-') ) ? $(toggles_i) : $( '#' + toggles_i + ', .' + toggles_i );
             $dest_i.addClass('hidden');
         });
 
-        $dest.toggleClass('hidden');
+        if ( toggles ) {
+            $dest.toggleClass('hidden');
+        }
     });
 
 });
