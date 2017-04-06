@@ -71,7 +71,6 @@ class WPBDP_DB_Entity {
             throw new Exception( sprintf( 'Invalid property name: %s', $key ) );
 
         $info = self::get_entity_info( $this );
-        wpbdp_debug_e($info);
         $value = $this->{$key};
         
     }
