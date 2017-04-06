@@ -12,6 +12,8 @@ jQuery(function($) {
             this.field = $( '.wpbdp-form-field-association-category select' );
             // this.field.select2();
 
+            this.$plans_container = $( '.wpbdp-plan-selection-with-tip' );
+
             this.is_multiple = this.field.prop( 'multiple' );
             this.plans = $( '.wpbdp-plan-selection-list .wpbdp-plan' );
 
@@ -44,16 +46,22 @@ jQuery(function($) {
             if ( 0 == this.selected_categories.length ) {
                 this.plans.find( 'input[name="listing_plan"]' ).prop( {
                     'disabled': 0 == this.selected_categories.length,
-                    'checked': false 
+                    'checked': false
                 } );
             } else {
                 this.plans.find( 'input[name="listing_plan"]' ).prop( 'disabled', false );
             }
 
+            if ( this.selected_categories.length > 0 ) {
+                this.$plans_container.fadeIn( 'fast' );
+            } else {
+                this.$plans_container.fadeOut( 'fast' );
+            }
+
             // Workaround for https://github.com/select2/select2/issues/3992.
             var self = this;
             setTimeout(function() {
-                self.field.select2();
+                self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
             });
         },
 

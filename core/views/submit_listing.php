@@ -23,6 +23,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'core/js/submit-listing.min.js', array( 'jquery-ui-sortable' ) );
 
         wp_localize_script( 'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
+            'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
             'completeListingTxt' => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
             'continueToPaymentTxt' => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
             'isAdmin' => current_user_can( 'administrator' )
