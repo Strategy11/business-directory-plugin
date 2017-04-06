@@ -157,6 +157,14 @@ class WPBDP_Listing {
     /**
      * @since fees-revamp
      */
+    public function get_subscription() {
+        $subscription = WPBDP__Listing_Subscription::from_listing( $this->id );
+        return $subscription;
+    }
+
+    /**
+     * @since fees-revamp
+     */
     public function get_subscription_data() {
         global $wpdb;
 
@@ -258,7 +266,7 @@ class WPBDP_Listing {
         if ( WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->count() > 0 )
             $status = 'pending';
 
-        return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
+        return apply_filters( 'WPBDP_Listing::get_payment_status', $staus, $this->id );
     }
 
     /**
@@ -270,7 +278,7 @@ class WPBDP_Listing {
     }
 
     public function get_latest_payments() {
-        return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' );
+        return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' )->to_array();
     }
 
     public function publish() {

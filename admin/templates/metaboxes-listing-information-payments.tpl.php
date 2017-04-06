@@ -19,7 +19,7 @@
             </div>
             <?php endforeach; ?>
     <?php else: ?>
-        <?php _ex( 'This listing has no payments associated.', 'listing metabox', 'WPBDM' ); ?>
+        <?php _ex( 'No payments available.', 'listing metabox', 'WPBDM' ); ?>
     <?php endif; ?>
 </div>
 <!-- }} -->
