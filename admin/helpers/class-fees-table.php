@@ -96,7 +96,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             'amount' => _x('Amount', 'fees admin', 'WPBDM'),
             'duration' => _x('Duration', 'fees admin', 'WPBDM'),
             'images' => _x('Images', 'fees admin', 'WPBDM'),
-            'attributes' => ''
+            'attributes' => _x( 'Attributes', 'fees admin', 'WPBDM' )
         );
 
         return $cols;
@@ -215,6 +215,15 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
     public function column_amount($fee) {
+        if ( 'variable' == $fee->pricing_model ) {
+            return _x( 'Variable', 'fees admin', 'WPBDM' );
+        } else if ( 'extra' == $fee->pricing_model ) {
+            $amount = wpbdp_currency_format( $fee->amount );
+            $extra = wpbdp_currency_format( $fee->pricing_details['extra'] );
+
+            return sprintf( _x( '%s + %s per category', 'fees admin', 'WPBDM' ), $amount, $extra );
+        }
+
         return wpbdp_currency_format( $fee->amount );
     }
 

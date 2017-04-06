@@ -45,12 +45,21 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         if ( 'extra' != $this->pricing_model )
             unset( $this->pricing_details['extra'] );
 
-        if ( 'extra' == $this->pricing_model )
+        if ( 'extra' == $this->pricing_model ) {
             $this->pricing_details = array( 'extra' => $this->pricing_details['extra'] );
+        }
 
         if ( 'variable' == $this->pricing_model && 'all' != $this->supported_categories ) {
             // Unset details for categories that are not supported.
             $this->pricing_details = wp_array_slice_assoc( $this->pricing_details, $this->supported_categories );
+        }
+
+        if ( 'variable' == $this->pricing_model ) {
+            $this->amount = '0.0';
+        }
+
+        if ( 'flat' == $this->pricing_model ) {
+            $this->pricing_details = array();
         }
 
         if ( ! is_array( $this->extra_data ) )
