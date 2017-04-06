@@ -839,3 +839,14 @@ function wpbdp_html_attributes( $attrs, $exceptions = array() ) {
 
     return $html;
 }
+
+/**
+ * @since 4.1.11
+ */
+function wpbdp_table_exists( $table_name ) {
+    global $wpdb;
+
+    $result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
+
+    return strcasecmp( $result, $table_name ) === 0;
+}
