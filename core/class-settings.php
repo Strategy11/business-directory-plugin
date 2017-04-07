@@ -1193,7 +1193,7 @@ EOF;
             $value = (array) $value;
 
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<label><input type="%s" name="%s[]" value="%s" %s />%s</label><br />',
+                $html .= sprintf( '<div class="wpbdp-settings-choice-radio"><label><input type="%s" name="%s[]" value="%s" %s />%s</label></div>',
                                   $widget,
                                   self::PREFIX . $setting->name,
                                   $k,
