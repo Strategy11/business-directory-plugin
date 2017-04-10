@@ -9,8 +9,8 @@ class WPBDP_Admin_Listing_Fields_Metabox {
     public function render() {
         echo '<div id="wpbdp-submit-listing">';
 
-        echo '<ul class="wpbdp-admin-tab-nav">';
-        echo '<li class="active"><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' )  . '</a></li>';
+        echo '<ul class="wpbdp-admin-tab-nav subsubsub">';
+        echo '<li><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' )  . '</a> | </li>';
         echo '<li><a href="#wpbdp-listing-fields-images">' . _x( 'Images', 'admin', 'WPBDM' )  . '</a></li>';
         echo '</ul>';
 

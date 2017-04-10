@@ -149,7 +149,7 @@ class WPBDP_Admin_Listings {
                       'side',
                       'core' );
         add_meta_box( 'wpbdp-listing-fields',
-                      _x( 'Listing Fields / Images', 'admin', 'WPBDM' ),
+                      _x( 'Directory Listing Fields / Images', 'admin', 'WPBDM' ),
                       array( 'WPBDP_Admin_Listing_Fields_Metabox', 'metabox_callback' ),
                       WPBDP_POST_TYPE,
                       'normal',

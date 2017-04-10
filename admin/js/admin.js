@@ -635,17 +635,17 @@ jQuery(function($) {
     $('.wpbdp-admin-tab-nav a').click(function(e) {
         e.preventDefault();
 
-        var $others = $( this ).parents( 'ul' ).find( 'li' );
-        var $selected = $others.filter( '.active' );
+        var $others = $( this ).parents( 'ul' ).find( 'li a' );
+        var $selected = $others.filter( '.current' );
 
-        $others.removeClass( 'active' );
-        $( this ).parent( 'li' ).addClass( 'active' );
+        $others.removeClass( 'current' );
+        $( this ).addClass( 'current' );
 
         var href = $( this ).attr('href');
         var $content = $( href );
 
         if ( $selected.length > 0 )
-            $( $selected.find( 'a' ).attr( 'href' ) ).hide();
+            $( $selected.attr( 'href' ) ).hide();
 
         $content.show().focus();
     });
