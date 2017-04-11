@@ -149,41 +149,10 @@ class WPBDP_PaymentsAPI {
                 $trans->extra_data = array();
             }
 
-            return $trans;            
+            return $trans;
         }
 
         return null;
-    }
-
-    /**
-     * Resolves ?wpbdpx=payments requests.
-     * @since 3.3
-     */
-    public function process_request() {
-        $action = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
-        $payment = isset( $_GET['payment_id'] ) ? WPBDP_Payment::get( intval( $_GET['payment_id'] ) ) : null;
-        $gid = isset( $_GET['gid'] ) ? trim( $_GET['gid'] ) : '';
-
-        if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel' ) ) || ( ! $payment && ! $gid ) )
-            return;
-
-        unset( $_GET['action'] );
-
-        if ( $payment )
-            unset( $_GET['payment_id'] );
-
-        if ( $gid )
-            unset( $_GET['gid'] );
-
-        $gateway_id = $payment ? $payment->gateway : $gid;
-
-        if ( ! $gateway_id || ! isset( $this->gateways[ $gateway_id ] )  )
-            return;
-
-        if ( ! $payment )
-            $this->gateways[ $gateway_id ]->process_generic( $action );
-        else
-            $this->gateways[ $gateway_id ]->process( $payment, $action );
     }
 
     /**

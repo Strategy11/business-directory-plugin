@@ -380,6 +380,13 @@ class WPBDP_Plugin {
                 $this->{$wpbdpx}->process_request();
                 exit();
             }
+
+            if ( 'payments' == $wpbdpx ) {
+                require_once( WPBDP_PATH . 'core/compatibility/class-wpbdpx-payments-compat.php' );
+                $payments_compat = new WPBDP__WPBDPX_Payments_Compat();
+                $payments_compat->dispatch();
+                exit;
+            }
         }
 
         if ( is_feed() )
