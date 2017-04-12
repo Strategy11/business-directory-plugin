@@ -4,6 +4,14 @@
  */
 class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
+    public function __construct() {
+        parent::__construct();
+
+        // Silent Post / webhooks are not very reliable so we handle expiration a different way:
+        // once the listing has actually expired, we verify the subscription status and act accordingly.
+        add_action( 'wpbdp_listing_expired', array( $this, 'maybe_handle_expiration' ) );
+    }
+
     public function get_id() {
         return 'authorize-net';
     }
@@ -76,11 +84,14 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
                 $payment->log( $error_msg );
             }
 
+            $payment->save();
+
             return array( 'result' => 'success' );
         } elseif ( $response->error ) {
             $error_msg = sprintf( _x( 'The payment gateway didn\'t accept the credit card or billing information. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
                          '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
             $payment->log( $error_msg );
+            $payment->save();
 
             return array( 'result' => 'failure', 'error' => $error_msg );
         }
@@ -90,10 +101,15 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
                                   '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
         $payment->status = 'failed';
         $payment->log( $error_msg );
+        $payment->save();
+
         return array( 'result' => 'failure', 'error' => $error_msg );
     }
 
     private function process_payment_recurring( $payment ) {
+        // First, make sure we have a webhook endpoint to handle notifications.
+        // $this->setup_webhooks();
+
         @date_default_timezone_set( 'America/Denver' );
 
         $total = $payment->amount;
@@ -129,7 +145,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
 
         if ( ! class_exists( 'AuthorizeNetARB' ) )
-            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );            
+            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
 
         $arb = new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
         $arb->setSandbox( $this->in_test_mode() );
@@ -149,22 +165,15 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
 
         $subscription_id = $response->getSubscriptionId();
-        $subscription_data = array(
-            'payment_id' => $payment->id,
-            'customerProfileId'        => ! empty( $response->xml->profile->customerProfileId ) ? (string) $response->xml->profile->customerProfileId : '',
-            'customerPaymentProfileId' => ! empty( $response->xml->profile->customerPaymentProfileId ) ? (string) $response->xml->profile->customerPaymentProfileId : ''
-        );
 
-        // Payment is OK. Update status and store subscription info.
+        // Payment is OK.
         $payment->status = 'completed';
-        $payment->data['subscription_id'] = $subscription_id;
-        $payment->data['subscription_data'] = $subscription_data;
+        $payment->save();
 
-        // // Update listing too.
-        // $listing = wpbdp_get_listing( $payment->listing_id );
-        // $listing->set_subscription_data( $subscription_id, $subscription_data );       
-        // TODO: maybe we should allow gateways to update this instead of doing it automatically with ListingsAPI? ->save() should be
-        // called by the gateway on the payment when changing status and THEN register subscription info.
+        // Register subscription.
+        $subscription = $payment->get_listing()->get_subscription();
+        $subscription->set_subscription_id( $subscription_id );
+        $subscription->record_payment( $payment );
 
         return array( 'result' => 'success' );
     }
@@ -221,6 +230,95 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $response = $aim->authorizeAndCapture();
 
         return $response;
+    }
+
+    public function maybe_handle_expiration( $listing ) {
+        if ( ! $listing || ! $listing->has_subscription() )
+            return;
+
+        $subscription = $listing->get_subscription();
+        $payment = $subscription->get_parent_payment();
+
+        if ( ! $payment || 'authorize-net' != $payment->gateway )
+            return;
+
+        $susc_id = $subscription->get_subscription_id();
+        if ( ! $susc_id )
+            return;
+
+        if ( ! class_exists( 'AuthorizeNetARB' ) )
+            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
+
+        $arb = new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        $arb->setSandbox( $this->in_test_mode() );
+
+        $response = $arb->getSubscriptionStatus( $susc_id );
+        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
+
+        if ( 'active' == $status ) {
+            $subscription->record_payment( array( 'amount' => $payment->amount ) );
+            $subscription->renew();
+        } else {
+            $subscription->cancel();
+        }
+    }
+
+    private function setup_webhooks() {
+        if ( $this->in_test_mode() ) {
+            $authorize_net_api = 'https://apitest.authorize.net';
+        } else {
+            $authorize_net_api = 'https://api.authorize.net';
+        }
+
+        $auth_header = 'Basic ' . base64_encode( $this->get_option( 'login-id' ) . ':' . $this->get_option( 'transaction-key' ) );
+
+        $listener_url = $this->get_listener_url();
+        $webhook_id = get_option( 'wpbdp-authorize-webhook-id', '' );
+
+        // Test the webhook.
+        // if ( $webhook_id ) {
+        //     $response = wp_remote_get(
+        //         $authorize_net_api . '/rest/v1/webhooks/' . $webhook_id,
+        //         array(
+        //             'timeout' => 10,
+        //             'sslverify' => false,
+        //             'headers' => array(
+        //                 'Authorization' => $auth_header,
+        //                 'Content-Type' => 'application/json'
+        //             )
+        //         )
+        //     );
+        //
+        //     wpbdp_debug_e( 'test', $response );
+        // }
+
+        // Create a webhook.
+        if ( ! $webhook_id ) {
+            $request = wp_remote_post(
+                $authorize_net_api . '/rest/v1/webhooks',
+                array(
+                    'timeout' => 10,
+                    'sslverify' => false,
+                    'headers' => array(
+                        'Authorization' => $auth_header,
+                        'Content-Type' => 'application/json'
+                    ),
+                    'body' => json_encode(
+                        array(
+                            'url' => $listener_url,
+                            'eventTypes' => array(
+                                'net.authorize.customer.subscription.created',
+                                'net.authorize.customer.subscription.terminated',
+                                'net.authorize.customer.subscription.cancelled',
+                                'net.authorize.payment.authcapture.created'
+                            )
+                        )
+                    )
+                )
+            );
+            $response = json_decode( wp_remote_retrieve_body( $request ) );
+            update_option( 'wpbdp-authorize-webhook-id', $response->webhookId );
+        }
     }
 
 }

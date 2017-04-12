@@ -1,5 +1,6 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-payment.php' );
+require_once( WPBDP_PATH . 'core/class-listing-subscription.php' );
 require_once( WPBDP_PATH . 'core/class-listing-image.php' );
 
 /**
@@ -158,8 +159,7 @@ class WPBDP_Listing {
      * @since fees-revamp
      */
     public function get_subscription() {
-        $subscription = WPBDP__Listing_Subscription::from_listing( $this->id );
-        return $subscription;
+        return new WPBDP__Listing_Subscription( $this->id );
     }
 
     /**
@@ -191,41 +191,6 @@ class WPBDP_Listing {
     public function has_subscription() {
         global $wpdb;
         return absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d", $this->id, 1 ) ) ) > 0;
-    }
-
-    /**
-     * @since fees-revamp
-     */
-    public function add_subscription_payment( $data = array() ) {
-        global $wpdb;
-
-        if ( ! $this->has_subscription() )
-            return;
-
-        $subscription = $this->get_subscription_data();
-        if ( ! $subscription || empty( $subscription['payment_id'] ) )
-            return;
-
-        $payment = wpbdp_get_payment( $subscription['payment_id'] );
-        if ( ! $payment || $payment->listing_id != $this->id )
-            return;
-
-        $new_payment = new WPBDP_Payment( array(
-            'listing_id' => $payment->listing_id,
-            'gateway' => $payment->gateway,
-            'parent_id' => $payment->id,
-            'payment_type' => 'subscription_installment',
-            'payer_email' => $payment->payer_email,
-            'payer_first_name' => $payment->payer_first_name,
-            'payer_last_name' => $payment->payer_last_name,
-            'payer_data' => unserialize( $payment->payer_data ),
-            'status' => 'completed',
-            'gateway_tx_id' => ! empty( $data['gateway_tx_id'] ) ? $data['gateway_tx_id'] : '',
-        ) );
-        $new_payment->payment_items[] = $payment->find_item( 'recurring_plan' );
-        $new_payment->data['subscription_id'] = $payment->data['subscription_id'];
-        $new_payment->data['subscription_data'] = $payment->data['subscription_data'];
-        $new_payment->save(); // TODO: add 'nohooks' argument so we can save without firing anything.
     }
 
     /**
@@ -300,12 +265,13 @@ class WPBDP_Listing {
         if ( $old_status == $new_status || ! in_array( $new_status, array_keys( self::get_stati() ), true ) )
             return;
 
-        $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $new_status ), array( 'listing_id' => $this->id ) );
+        // $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $new_status ), array( 'listing_id' => $this->id ) );
 
         switch ( $new_status ) {
         case 'expired':
             $this->set_post_status( 'draft' );
             wpbdp_insert_log( array( 'log_type' => 'listing.expired', 'object_id' => $this->id, 'message' => _x( 'Listing expired', 'listing', 'WPBDM' ) ) );
+            do_action( 'wpbdp_listing_expired', $this );
             break;
         default:
             break;
