@@ -90,7 +90,7 @@ abstract class WPBDP__Payment_Gateway {
             $field_value = isset( $_POST[ $req_field ] ) ? $_POST[ $req_field ] : '';
 
             if ( ! $field_value ) {
-                $errors[ $req_field ] = _x( 'This field is required.', 'payment-gateway', 'WPBDM' );
+                $errors[ $req_field ] = _x( 'This field is required (' . $req_field . ').', 'payment-gateway', 'WPBDM' );
             }
         }
 
