@@ -591,6 +591,8 @@ class WPBDP_Plugin {
         if ( wpbdp_get_option( 'tracking-on', false ) ) {
             $this->site_tracking = new WPBDP_SiteTracking();
         }
+
+        // do_action( 'wpbdp_daily_events' );
     }
 
     public function get_post_type() {
