@@ -91,13 +91,21 @@ echo $notice;
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Column Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
                 </th>
                 <td>
-                    <input name="settings[csv-file-separator]"
-                           type="text"
+                    <label><input name="settings[target-os]"
+                           type="radio"
                            aria-required="true"
-                           value="," />
+                           value="windows"
+                           checked="checked" /><?php _ex( 'Windows', 'admin csv-export', 'WPBDM' ); ?></label>
+                    <br />
+                    <label><input name="settings[target-os]"
+                           type="radio"
+                           aria-required="true"
+                           value="macos" /><?php _ex( 'macOS', 'admin csv-export', 'WPBDM' ); ?></label>
+                    <br />
+                    <p><?php _ex( 'Windows and macOS versions of MS Excel handle CSV files differently. To make sure all your listings information is displayed properly when you view or edit the CSV file, we need to generate different versions of the file for each operating system.', 'admin csv-export', 'WPBDM' ); ?></p>
                 </td>
             </tr>
             <tr class="form-required">

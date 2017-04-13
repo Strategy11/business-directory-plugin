@@ -250,6 +250,9 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
     $user_id = $user_id ? $user_id : wp_get_current_user()->ID;
     $post = get_post($listing_id);
 
+    if ( ! $post )
+        return false;
+
     if ($post->post_type != WPBDP_POST_TYPE)
         return false;
 
@@ -290,7 +293,8 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
         'name' => $slug,
         'post_type' => $post_type,
         'post_status' => 'publish',
-        'numberposts' => 1
+        'numberposts' => 1,
+        'suppress_filters' => false,
     ));
 
     if ($posts)
@@ -509,7 +513,9 @@ function wpbdp_current_view_output() {
  * @since 4.0
  */
 function wpbdp_url( $pathorview = '/', $args = array() ) {
-    $base_url = wpbdp_get_page_link( 'main' );
+    $base_id = wpbdp_get_page_id( 'main' );
+    $base_url = _get_page_link( $base_id );
+    $base_url = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
     $url = '';
 
     switch ( $pathorview ) {
@@ -543,6 +549,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
             break;
     }
 
+    $url = apply_filters( 'wpbdp_url', $url, $pathorview, $args );
     return $url;
 }
 
@@ -629,4 +636,14 @@ function wpbdp_get_fee_plans() {
 function wpbdp_get_fee_plan( $id ) {
     $id = absint( $id );
     return WPBDP_Fee_Plan::find( $id );
+}
+
+/**
+ * @since 4.1.8
+ */
+function wpbdp_is_taxonomy() {
+    $current_view = wpbdp_current_view();
+    $is_taxonomy = in_array( $current_view, array( 'show_category', 'show_tag' ), true );
+
+    return apply_filters( 'wpbdp_is_taxonomy', $is_taxonomy, $current_view );
 }

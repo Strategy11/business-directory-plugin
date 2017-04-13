@@ -317,4 +317,4 @@ WPBDP.fileUpload = {
     } );
 } )( jQuery );
 
-// }}
+// }}

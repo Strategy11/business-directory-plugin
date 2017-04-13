@@ -28,7 +28,7 @@ var WPBDP_associations_fieldtypes = {};
             $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).change(function() {
                 if ( $( this ).is(':checked') ) {
                     $( '.iframe-confirm' ).show();
-                } else {
+                } else {
                     $( '.iframe-confirm' ).hide();
                 }
             });
@@ -326,7 +326,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
                 if ( selected > 0 ) {
                     $('span.text-fields-warning').fadeIn('fast');
-                } else {
+                } else {
                     $('span.text-fields-warning').fadeOut('fast');
                 }
             });

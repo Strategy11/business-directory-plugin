@@ -484,6 +484,7 @@ class WPBDP_Plugin {
             flush_rewrite_rules(false);
     }
 
+
     // TODO: better validation.
     public function ajax_listing_submit_image_upload() {
         $res = new WPBDP_Ajax_Response();
@@ -534,6 +535,7 @@ class WPBDP_Plugin {
                 $attachments[] = $attachment_id;
         }
 
+
         $html = '';
         foreach ( $attachments as $attachment_id ) {
             $html .= wpbdp_render( 'submit-listing-images-single',
@@ -559,6 +561,7 @@ class WPBDP_Plugin {
 
     public function ajax_listing_submit_image_delete() {
         $res = new WPBDP_Ajax_Response();
+
         $image_id = intval( $_REQUEST['image_id'] );
         $listing_id = intval( $_REQUEST['listing_id'] );
         $nonce = $_REQUEST['_wpnonce'];
@@ -691,7 +694,7 @@ class WPBDP_Plugin {
         );
 
         // disable comments in WPBDP pages or if comments are disabled for listings
-        if ( ( $is_single && ! $comments_allowed ) || $is_main_page ) {
+        if ( ( $is_single_listing && ! $comments_allowed ) || $is_main_page ) {
             return WPBDP_TEMPLATES_PATH . '/empty-template.php';
         }
 
@@ -757,7 +760,7 @@ class WPBDP_Plugin {
 
         global $post;
 
-        if ( $post && 'page' == $post->post_type ) {
+        if ( $post && ( 'page' == $post->post_type || 'post' == $post->post_type ) ) {
             foreach ( array_keys( $this->shortcodes->get_shortcodes() ) as $shortcode ) {
                 if ( wpbdp_has_shortcode( $post->post_content, $shortcode ) ) {
                     return true;
@@ -774,10 +777,11 @@ class WPBDP_Plugin {
 
     public function _enqueue_scripts() {
         $only_in_plugin_pages = true;
+        $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', $this->is_plugin_page() );
 
         wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.min.css' );
 
-        if ( $only_in_plugin_pages && ! $this->is_plugin_page() )
+        if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
             return;
 
         wp_register_style( 'wpbdp-js-select2-css', WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css' );
@@ -792,7 +796,7 @@ class WPBDP_Plugin {
 
         wp_register_script(
             'wpbdp-js',
-            WPBDP_URL . 'core/js/wpbdp' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
+            WPBDP_URL . 'core/js/wpbdp.min.js',
             array( 'jquery', 'jquery-breakpoints' )
         );
 
@@ -1399,4 +1403,3 @@ class WPBDP_Plugin {
 }
 
 $wpbdp = new WPBDP_Plugin();
-

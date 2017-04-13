@@ -75,6 +75,7 @@ class WPBDP_CSVExporter {
     const BATCH_SIZE = 20;
 
     private $settings = array(
+        'target-os' => 'windows',
         'csv-file-separator' => ',',
         'images-separator' => ';',
         'category-separator' => ';',
@@ -99,6 +100,14 @@ class WPBDP_CSVExporter {
         global $wpdb;
 
         $this->settings = array_merge( $this->settings, $settings );
+
+        if ( ! in_array( $this->settings['target-os'], array( 'windows', 'macos' ), true ) ) {
+            $this->settings['target-os'] = 'windows';
+        }
+
+        if ( $this->settings['target-os'] == 'macos' ) {
+            $this->settings['csv-file-separator'] = "\t";
+        }
 
         // Setup columns.
         if ( $this->settings['generate-sequence-ids'] )
@@ -227,15 +236,17 @@ class WPBDP_CSVExporter {
         $csvfile = fopen( $this->workingdir . 'export.csv', 'a' );
 
         // Write header as first line.
-        if ( $this->exported == 0 ) {
-            fwrite( $csvfile, $this->header() . "\n" );
+        if ( $this->exported === 0 ) {
+            fwrite( $csvfile, $this->prepare_header( $this->header() ) );
         }
 
         $nextlistings = array_slice( $this->listings, $this->exported, self::BATCH_SIZE );
 
         foreach ( $nextlistings as $listing_id ) {
-            if ( $data = $this->extract_data( $listing_id ) )
-                fwrite( $csvfile, implode( $this->settings['csv-file-separator'], $data ) . "\n" );
+            if ( $data = $this->extract_data( $listing_id ) ) {
+                $content = implode( $this->settings['csv-file-separator'], $data );
+                fwrite( $csvfile, $this->prepare_content( $content ) );
+            }
 
             $this->exported++;
         }
@@ -263,6 +274,26 @@ class WPBDP_CSVExporter {
         return $this->exported == count( $this->listings );
     }
 
+    private function prepare_header( $header ) {
+        if ( $this->settings['target-os'] === 'windows' ) {
+            $bom = "\xEF\xBB\xBF"; /* UTF-8 BOM */
+        } else if ( $this->settings['target-os'] === 'macos' ) {
+            $bom = "\xFF\xFE"; /* UTF-16LE BOM */
+        }
+
+        return $bom . $this->prepare_content( $header );
+    }
+
+    private function prepare_content( $content ) {
+        if ( $this->settings['target-os'] === 'windows' ) {
+            $encoded_content = $content . "\n";
+        } else if ( $this->settings['target-os'] === 'macos' ) {
+            $encoded_content = iconv( 'UTF-8', 'UTF-16LE', $content . "\n" );
+        }
+
+        return $encoded_content;
+    }
+
     public function get_file_path() {
         if ( file_exists( $this->workingdir . 'export.zip' ) )
             return $this->workingdir . 'export.zip';
@@ -278,8 +309,6 @@ class WPBDP_CSVExporter {
             return $urldir . 'export.zip';
         else
             return $urldir . 'export.csv';
-
-        return $urldir . file_exists( $this->workingdir . 'export.zip' ) ? 'export.zip' : 'export.csv';
     }
 
     private function header( $echo=false ) {

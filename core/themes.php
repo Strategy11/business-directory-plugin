@@ -98,14 +98,23 @@ class WPBDP_Themes {
         }
 
         foreach ( $js as $j ) {
-            wp_enqueue_script( $theme->id . '-' . $this->_normalize_asset_name( $j ),
-                               $theme->url . 'assets/' . $j );
+            if ( is_object( $j ) ) {
+                $handle = $theme->id . '-' . $this->_normalize_asset_name( $j->handle );
+                $source = $theme->url . 'assets/' . $j->handle;
+                $deps = $j->deps;
+            } else {
+                $handle = $theme->id . '-' . $this->_normalize_asset_name( $j );
+                $source = $theme->url . 'assets/' . $j;
+                $deps = array();
+            }
+
+            wp_enqueue_script( $handle, $source, $deps );
         }
 
         $this->call_theme_function( 'enqueue_scripts' );
     }
 
-    function field_theme_override( $html = '', &$field, $context, $listing_id ) {
+    function field_theme_override( $html = '', $field, $context, $listing_id ) {
         $options = array();
 
         foreach ( array( $context . '-', '' ) as $prefix ) {

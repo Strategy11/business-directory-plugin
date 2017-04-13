@@ -21,7 +21,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     }
 
     public function convert_input( &$field, $input ) {
-        $input = is_null( $input ) ? array() : $input;
+        if ( is_null( $input ) || '' == $input ) {
+            $input = array();
+        }
+
         $res = is_array( $input ) ? $input : array( $input );
 
         if ( $field->get_association() == 'category' ) {

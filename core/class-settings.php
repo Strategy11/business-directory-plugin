@@ -54,7 +54,7 @@ class WPBDP_Settings {
                                  'recaptcha',
                                  _x( 'reCAPTCHA Settings', 'admin settings', 'WPBDM' ),
                                  str_replace( '<a>',
-                                              '<a href="http://www.recaptcha.com" target="_blank">',
+                                              '<a href="http://www.google.com/recaptcha" target="_blank">',
                                               _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'admin settings', 'WPBDM' ) )
                                 );
         $this->add_setting($s, 'recaptcha-on', _x('Use reCAPTCHA for contact forms', 'admin settings', 'WPBDM'), 'boolean', false);
@@ -115,7 +115,7 @@ class WPBDP_Settings {
                             'terms-and-conditions',
                             _x( 'Terms and Conditions', 'admin settings', 'WPBDM' ),
                             'text',
-                            _x( "Terms and Conditions text goes here...\n\n", 'admin settings', 'WPBDM' ),
+                            _x( "Terms and Conditions text goes here...", 'admin settings', 'WPBDM' ) . "\n\n",
                             _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'admin settings', 'WPBDM' ),
                             array( 'use_textarea' => true )
                             );
@@ -188,6 +188,14 @@ class WPBDP_Settings {
                             $desc,
                             null,
                             array( &$this, 'setup_ajax_compat_mode' ) );
+
+        $this->add_setting(
+            $s,
+            'include-button-styles',
+            _x( 'Include CSS rules to give their own style to View, Edit and Delete buttons?', 'admin settings', 'WPBDM' ),
+            'boolean',
+            true
+        );
 
         /* Listings settings */
         $g = $this->add_group('listings', _x('Listings', 'admin settings', 'WPBDM'));
@@ -1192,10 +1200,16 @@ EOF;
         } elseif ( $widget == 'checkbox' || $widget == 'radio' ) {
             $value = (array) $value;
 
+            if ( $widget == 'radio' ) {
+                $name = self::PREFIX . $setting->name;
+            } else {
+                $name = self::PREFIX . $setting->name . '[]';
+            }
+
             foreach ( $choices as $k => $v ) {
                 $html .= sprintf( '<div class="wpbdp-settings-choice-radio"><label><input type="%s" name="%s[]" value="%s" %s />%s</label></div>',
                                   $widget,
-                                  self::PREFIX . $setting->name,
+                                  $name,
                                   $k,
                                   ( $value && in_array( $k, $value ) ) ? 'checked="checked"' : '',
                                   $v );

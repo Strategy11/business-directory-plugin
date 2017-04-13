@@ -10,6 +10,9 @@ require_once( ABSPATH . 'wp-admin/includes/image.php' );
  */
 class WPBDP_CSV_Import {
 
+    const UTF8_BOM = "\xEF\xBB\xBF";
+    const UTF16_LE_BOM = "\xFF\xFE";
+
     private static $PERSISTENT = array( 'settings', 'header', 'total_lines', 'processed_lines', 'current_line', 'imported', 'rejected', 'errors', 'done' );
 
     private $state_id = '';
@@ -69,6 +72,10 @@ class WPBDP_CSV_Import {
 
             if ( ! array_key_exists( 'append-images', $settings ) )
                 $settings['append-images'] = false;
+
+            if ( $settings['csv-file-separator'] == 'tab' ) {
+                $settings['csv-file-separator'] = "\t";
+            }
 
             $this->settings = wp_parse_args( $settings, $defaults );
 
@@ -144,7 +151,27 @@ class WPBDP_CSV_Import {
             return '';
         }
 
-        $encoding = wpbdp_detect_encoding( $line );
+        $converted_line = $this->maybe_convert_encoding( $line );
+
+        // Some code to circumvent limitations in str_getcsv() while PHP #46569 is fixed.
+        return str_replace( '\n', "\n", $converted_line );
+    }
+
+    private function maybe_convert_encoding( $line ) {
+        // Some UTF16-LE string may end with a '\n' character, encoded
+        // as \xOA, instead of \x0A\x00 (the last byte is missing)
+        // making it impossible for iconv to convert the encoding of the
+        // string
+        $line = rtrim( $line, "\n" );
+        // The last byte (\x00) ends up at the beginning of the next line,
+        // so me remove that too.
+        $line = ltrim( $line, "\x00" );
+
+        if ( isset( $this->settings['encoding'] ) ) {
+            $encoding = $this->settings['encoding'];
+        } else {
+            $encoding = wpbdp_detect_encoding( $line );
+        }
 
         if ( 'UTF-8' != $encoding ) {
             $converted_line = iconv( $encoding, 'UTF-8', $line );
@@ -152,8 +179,7 @@ class WPBDP_CSV_Import {
             $converted_line = $line;
         }
 
-        // Some code to circumvent limitations in str_getcsv() while PHP #46569 is fixed.
-        return str_replace( '\n', "\n", $converted_line );
+        return $converted_line;
     }
 
     public function get_import_id() {
@@ -290,14 +316,45 @@ class WPBDP_CSV_Import {
     private function read_header() {
         $file = new SplFileObject( $this->csv_file );
 
-        $header_line = $this->remove_bom( $file->current() );
+        $this->detect_encoding_from_header( $file );
+        $this->parse_header( $file );
 
-        $this->set_header( str_getcsv( $header_line, $this->settings['csv-file-separator'] ) );
-        $file->next();
-        $this->current_line = $file->key();
         $file = null;
 
         $this->state_persist();
+    }
+
+    private function detect_encoding_from_header( $file ) {
+        $line = $file->current();
+
+        if ( substr( $line, 0, 3 ) == self::UTF8_BOM ) {
+            $this->settings['encoding'] = 'UTF-8';
+        }
+
+        if ( substr( $line, 0, 2 ) == self::UTF16_LE_BOM ) {
+            $this->settings['encoding'] = 'UTF-16LE';
+        }
+    }
+
+    private function parse_header( $file ) {
+        $header_line = $this->remove_bom( $file->current() );
+        $header_line = $this->maybe_convert_encoding( $header_line );
+
+        $this->set_header( str_getcsv( $header_line, $this->settings['csv-file-separator'] ) );
+
+        $file->next();
+        $this->current_line = $file->key();
+    }
+
+    private function remove_bom( $str ) {
+        if ( substr( $str, 0, 3 ) == self::UTF8_BOM )
+            $str = substr( $str, 3 );
+
+        if ( substr( $str, 0, 2 ) == self::UTF16_LE_BOM ) {
+            $str = substr( $str, 2 );
+        }
+
+        return $str;
     }
 
     private function set_header( $header ) {
@@ -603,12 +660,4 @@ class WPBDP_CSV_Import {
 
         return $media_id;
     }
-
-    private function remove_bom( $str ) {
-        if ( substr( $str, 0, 3 ) == pack( "CCC", 0xef, 0xbb, 0xbf ) )
-            $str = substr( $str, 3 );
-
-        return $str;
-    }
-
 }

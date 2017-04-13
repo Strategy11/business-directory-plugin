@@ -40,9 +40,12 @@ class WPBDP_Licensing {
 
         $g = $settings->add_group( 'licenses',
                                    _x( 'Licenses', 'settings', 'WPBDM' ) );
-        $s = $settings->add_section( $g,
-                                     'licenses/keys',
-                                     _x( 'Premium Modules', 'settings', 'WPBDM' ) );
+        $s = $settings->add_section(
+            $g,
+            'licenses/keys',
+            _x( 'Premium Modules', 'settings', 'WPBDM' ),
+            $this->get_settings_section_description()
+        );
 
         foreach ( $this->modules as $id => $data ) {
             $settings->add_setting( $s,
@@ -54,6 +57,51 @@ class WPBDP_Licensing {
                                     null,
                                     array( &$this, '_validate_license_setting' ) );
         }
+    }
+
+    private function get_settings_section_description() {
+        $ip_address = $this->get_server_ip_address();
+
+        if ( ! $ip_address ) {
+            return '';
+        }
+
+        $description = _x( 'The IP address of your server is <ip-address>. Please make sure to include that information if you need to contact support about problems trying to activate your licenses.', 'settings', 'WPBDM' );
+        $description = str_replace( '<ip-address>', '<strong>' . $ip_address . '</strong>', $description );
+
+        return $description;
+    }
+
+    private function get_server_ip_address() {
+        $ip_address = get_transient( 'wpbdp-server-ip-address' );
+
+        if ( $ip_address ) {
+            return $ip_address;
+        }
+
+        $ip_address = $this->figure_out_server_ip_address();
+
+        if ( $ip_address ) {
+            set_transient( 'wpbdp-server-ip-address', $ip_address, HOUR_IN_SECONDS );
+        }
+
+        return $ip_address;
+    }
+
+    private function figure_out_server_ip_address() {
+        $response = wp_remote_get( 'https://httpbin.org/ip' );
+
+        if ( is_wp_error( $response ) ) {
+            return null;
+        }
+
+        $body = json_decode( wp_remote_retrieve_body( $response ) );
+
+        if ( ! isset( $body->origin ) ) {
+            return null;
+        }
+
+        return $body->origin;
     }
 
     function admin_menu( $menu ) {
@@ -472,7 +520,7 @@ class WPBDP_Licensing {
             $request = json_decode( wp_remote_retrieve_body( $request ) );
 
         if ( ! is_array( $request ) )
-            $request = false;
+            return false;
 
         foreach ( $request as &$x ) {
             if ( isset( $x->sections ) )

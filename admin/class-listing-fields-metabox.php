@@ -32,7 +32,6 @@ class WPBDP_Admin_Listing_Fields_Metabox {
             } else {
                 $value = $field->value( $this->listing->get_id() );
             }
-
             echo $field->render( $value, 'admin-submit' );
         }
 

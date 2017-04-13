@@ -155,7 +155,8 @@ class WPBDP_CSVImportAdmin {
         $posts = get_posts(array(
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
-            'numberposts' => 10
+            'numberposts' => 10,
+            'suppress_filters' => false,
         ));
 
         //echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'WPBDM'));

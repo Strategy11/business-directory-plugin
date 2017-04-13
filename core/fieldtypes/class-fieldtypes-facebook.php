@@ -27,6 +27,10 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
+        if ( ! $value ) {
+            return '';
+        }
+
         $html  = '';
         $html .= '<div class="social-field facebook">';
         $html .= '<div id="fb-root"></div>';

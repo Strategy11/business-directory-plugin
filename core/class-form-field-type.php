@@ -391,16 +391,7 @@ class WPBDP_Form_Field_Type {
     }
 
     public static function html_attributes( $attrs, $exceptions = array( 'class' ) ) {
-        $html = '';
-
-        foreach ( $attrs as $k => $v ) {
-            if ( in_array( $k, $exceptions, true ) )
-                continue;
-
-            $html .= sprintf( '%s="%s" ', $k, $v );
-        }
-
-        return $html;
+        return wpbdp_html_attributes( $attrs, $exceptions );
     }
 
     /**

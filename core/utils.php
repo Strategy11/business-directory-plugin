@@ -628,7 +628,7 @@ if ( ! function_exists( 'str_getcsv' ) ) {
  */
 function wpbdp_detect_encoding( $content ) {
     static $encodings = array(
-        'UTF-8', 'ASCII',
+        'UTF-8', 'UTF-16LE', 'ASCII',
         'ISO-8859-1', 'ISO-8859-2', 'ISO-8859-3', 'ISO-8859-4', 'ISO-8859-5',
         'ISO-8859-6', 'ISO-8859-7', 'ISO-8859-8', 'ISO-8859-9', 'ISO-8859-10',
         'ISO-8859-13', 'ISO-8859-14', 'ISO-8859-15', 'ISO-8859-16',
@@ -636,6 +636,8 @@ function wpbdp_detect_encoding( $content ) {
     );
 
     if ( function_exists( 'mb_detect_encoding' ) ) {
+        // XXX: mb_detect_encoding() can't detect UTF-16* encodings
+        // See documentation for mb_detect_order()
         return mb_detect_encoding( $content, $encodings, true );
     } else {
         if ( ! function_exists( 'iconv' ) )
@@ -651,8 +653,8 @@ function wpbdp_detect_encoding( $content ) {
  */
 function wpbdp_mb_detect_encoding( $content, $encodings ) {
    foreach ( $encodings as $encoding ) {
-        $sample = iconv( $encoding, $encoding, $string );
-        if ( md5( $sample ) == md5( $string ) ) {
+        $sample = iconv( $encoding, $encoding, $content );
+        if ( md5( $sample ) == md5( $content ) ) {
             return $encoding;
         }
     }
@@ -817,4 +819,39 @@ function wpbdp_buckwalter_arabic_transliteration( $content ) {
     );
 
     return str_replace( $arabic_characters, $english_characters, $content );
+}
+
+/**
+ * The function was originally developed as an static method in
+ * WPBDP_Form_Field_Type. It has always rendered values as given, indirectly
+ * expecting them to be already escaped with `esc_attr`.
+ *
+ * If you decide to use `esc_attr` inside the function, make sure to check
+ * all places where the function is called, to avoid scaping values twice.
+ *
+ * @since 4.1.10
+ */
+function wpbdp_html_attributes( $attrs, $exceptions = array() ) {
+    $html = '';
+
+    foreach ( $attrs as $k => $v ) {
+        if ( in_array( $k, $exceptions, true ) ) {
+            continue;
+        }
+
+        $html .= sprintf( '%s="%s" ', $k, $v );
+    }
+
+    return $html;
+}
+
+/**
+ * @since 4.1.11
+ */
+function wpbdp_table_exists( $table_name ) {
+    global $wpdb;
+
+    $result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
+
+    return strcasecmp( $result, $table_name ) === 0;
 }

@@ -10,13 +10,16 @@ class WPBDP__WordPress_Template_Integration {
 
 
     public function __construct() {
-        if ( wpbdp_get_option( 'disable-cpt' ) )
+        add_action( 'body_class', array( $this, 'add_basic_body_classes' ) );
+
+        if ( wpbdp_get_option( 'disable-cpt' ) ) {
             return;
+        }
 
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
         add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
         add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
-        add_filter( 'body_class', array( &$this, 'body_class' ), 10 );
+        add_filter( 'body_class', array( &$this, 'add_advanced_body_classes' ), 10 );
         add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
     }
 
@@ -172,7 +175,15 @@ class WPBDP__WordPress_Template_Integration {
         $this->wp_head_done = true;
     }
 
-    public function body_class( $classes = array() ) {
+    public function add_basic_body_classes( $classes = array() ) {
+        if ( wpbdp_get_option( 'include-button-styles' ) ) {
+            $classes[] = 'wpbdp-with-button-styles';
+        }
+
+        return $classes;
+    }
+
+    public function add_advanced_body_classes( $classes = array() ) {
         global $wp_query;
         global $wpbdp;
 
@@ -189,6 +200,10 @@ class WPBDP__WordPress_Template_Integration {
         if ( $theme = wp_get_theme() ) {
             $classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
             $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
+        }
+
+        if ( wpbdp_is_taxonomy() ) {
+            $classes[] = 'wpbdp-view-taxonomy';
         }
 
         $classes[] = 'wpbdp-theme-' . $wpbdp->themes->get_active_theme();

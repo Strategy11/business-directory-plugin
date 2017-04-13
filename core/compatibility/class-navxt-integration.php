@@ -81,20 +81,50 @@ class WPBDP_NavXT_Integration {
     // {{ Handlers.
 
     function before_listing( $trail ) {
-        // XXX: Taken from core/views.php:show_listing(). Probably a good idea to move this to an utility function.
-        $id_or_slug = '';
-        if ( get_query_var( 'listing' ) || isset( $_GET['listing'] ) )
-            $id_or_slug = get_query_var( 'listing' ) ? get_query_var( 'listing' ) : wpbdp_getv( $_GET, 'listing', 0 );
-        else
-            $id_or_slug = get_query_var( 'id' ) ? get_query_var( 'id' ) : wpbdp_getv( $_GET, 'id', 0 );
-
-        $listing_id = wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+        $listing_id = $this->get_current_listing_id();
 
         if ( ! $listing_id )
             return;
 
         $this->state['post'] = $GLOBALS['post'];
         $GLOBALS['post'] = get_post( $listing_id );
+    }
+
+    /**
+     * This should probably be an utility function.
+     *
+     * TODO: Can we replace wpbdp_current_listing_id with this?
+     * TODO: Are 'listing' and 'id' still used to get the ID of the
+     *       listing being displayed?
+     *
+     * @since 4.1.10
+     */
+    private function get_current_listing_id() {
+        $id_or_slug = get_query_var( 'listing' );
+
+        if ( ! $id_or_slug && isset( $_GET['listing'] ) ) {
+            $id_or_slug = $_GET['listing'];
+        }
+
+        if ( ! $id_or_slug ) {
+            $id_or_slug = get_query_var( 'id' );
+        }
+
+        if ( ! $id_or_slug && isset( $_GET['id'] ) ) {
+            $id_or_slug = $_GET['id'];
+        }
+
+        if ( ! $id_or_slug ) {
+            $id_or_slug = get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
+        }
+
+        if ( $id_or_slug ) {
+            $listing_id = wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+        } else {
+            $listing_id = get_queried_object_id();
+        }
+
+        return $listing_id;
     }
 
     function after_listing( $trail ) {

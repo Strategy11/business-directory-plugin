@@ -1,10 +1,10 @@
 jQuery(function($) {
-    $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).attr( 'disabled', 'disabled' );
+    $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).prop( 'disabled', true );
     $( '#wpbdp-admin-page-themes-install input[name="themezip"]' ).change( function( e ) {
         var v = $( this ).val();
 
         if ( v )
-            $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).removeAttr( 'disabled' );
+            $( '#wpbdp-admin-page-themes-install #begin-theme-upload' ).prop( 'disabled', false );
     } );
 
 
@@ -46,26 +46,14 @@ jQuery(function($) {
             if ( activate ) {
                 $( 'input[name="activate"]', $form ).hide();
                 $( 'input[name="deactivate"]', $form ).show();
-                $license.attr( 'readonly', 'readonly' );
+                $license.prop( 'readonly', true );
             } else {
-                $license.removeAttr( 'readonly' ).val( '' );
+                $license.prop( 'readonly', false ).val( '' );
                 $( 'input[name="deactivate"]', $form ).hide();
                 $( 'input[name="activate"]', $form ).show();
             }
         }, 'json' );
     } );
-
-/*    $( '#wpbdp-admin-page-themes form.license-activation' ).submit( function( e ) {
-            $msg.hide()
-                .html( res.message )
-                .removeClass( 'error' )
-                .addClass( 'ok' )
-                .show();
-
-            $( 'input[name="activate"]', $form ).hide();
-            $( 'input[name="license"]', $form ).attr( 'readonly', 'readonly' );
-        }, 'json' );
-    } );*/
 
     $( '#wpbdp-admin-page-themes .wpbdp-theme .update-link' ).click( function( e ) {
         e.preventDefault();
