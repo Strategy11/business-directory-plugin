@@ -18,16 +18,23 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
     public function enqueue_resources() {
         wp_enqueue_script( 'wpbdp-checkout', WPBDP_URL . 'core/js/checkout.js', array( 'wpbdp-js' ) );
-    }    
+    }
 
     public function ajax_load_gateway() {
         $this->pre_dispatch();
-        echo $this->checkout_form();
+
+        if ( $this->can_checkout() ) {
+            echo $this->checkout_form();
+        }
         exit;
     }
 
     public function dispatch() {
         $this->pre_dispatch();
+
+        if ( ! $this->can_checkout() ) {
+            return $this->thank_you_message();
+        }
 
         $action = ! empty( $_POST['action'] ) ? $_POST['action'] : '';
 
@@ -50,6 +57,10 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
                 // Let's see if the checkout process changed the payment status to something we can no longer handle.
                 $this->fetch_payment();
+
+                if ( ! $this->can_checkout() ) {
+                    return $this->_redirect( $this->payment->checkout_url );
+                }
             }
         }
 
@@ -67,11 +78,21 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         return $this->_render_page( 'checkout', $vars );
     }
 
+    private function can_checkout() {
+        return ( 'pending' == $this->payment->status && ! $this->payment->gateway );
+    }
+
     private function pre_dispatch() {
         if ( ! wpbdp()->payment_gateways->can_pay() )
             wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
 
         $this->fetch_payment();
+
+        // We don't set gateway and validate nonce for non-pending payments or pending with already a gateway set.
+        if ( ! $this->can_checkout() ) {
+            return;
+        }
+
         $this->validate_nonce();
         $this->set_current_gateway();
     }
@@ -86,29 +107,6 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
         if ( ! $this->payment ) {
             wp_die( 'Invalid Payment ID/key' );
-        }
-
-        switch ( $this->payment->status ) {
-        case 'completed':
-            wp_die( 'Order completed!' );
-            break;
-        case 'on-hold':
-            wp_die('Order is on hold!');
-            break;
-        case 'failed':
-            wp_die('Order failed!');
-            break;
-        case 'refunded':
-            wp_die('Order refunded');
-            break;
-        case 'canceled':
-            wp_die('Order canceled by user');
-            break;
-        case 'pending':
-            if ( $this->payment->gateway )
-                wp_die('Maybe awaiting confirmation from gateway?');
-        default:
-            break;
         }
     }
 
@@ -199,5 +197,14 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         unset( $_POST['card_number'] );
         unset( $_POST['cvc'] );
         unset( $_POST['card_name'] );
+    }
+
+    private function thank_you_message() {
+        $vars = array(
+            'payment' => $this->payment,
+            'status'  => $this->payment->status,
+            '_bar'    => false
+        );
+        return $this->_render_page( 'checkout-confirmation', $vars );
     }
 }

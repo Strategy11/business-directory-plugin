@@ -277,7 +277,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function plan_selection() {
         global $wpbdp;
 
-        $allow_recurring = wpbdp_get_option( 'listing-renewal-auto' ) && $wpbdp->payments->check_capability( 'recurring' );
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
         $plans = wpbdp_get_fee_plans();
 
@@ -298,9 +297,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->messages[] = array( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'WPBDM' ), 'error' );
                 $this->prevent_save = true;
             } else {
-                // Set new fee plan.
-                // $auto_renew = $allow_recurring && ( wpbdp_get_option( 'listing-renewal-auto-dontask' ) || ( ! empty( $_POST['autorenew_fees'] ) && 'autorenew' == $_POST['autorenew_fees'] ) );
-
                 // Set categories.
                 wp_set_post_terms( $this->listing->get_id(), $categories, WPBDP_CATEGORY_TAX, false );
 
@@ -316,7 +312,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $selected_plan = ! empty( $this->data['previous_plan'] ) ? $this->data['previous_plan'] : 0;
         $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
-        return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'allow_recurring', 'selected_categories', 'selected_plan' ) );
+        return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'selected_categories', 'selected_plan' ) );
     }
 
     private function listing_fields() {
