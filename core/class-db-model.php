@@ -164,7 +164,7 @@ class WPBDP__DB__Model {
     protected function before_save( $new = false ) {}
     protected function after_save( $new = false ) {}
 
-    public function save( $validate = true ) {
+    public function save( $validate = true, $fire_hooks = true ) {
         global $wpdb;
 
         $adding = $this->_adding;
@@ -181,7 +181,9 @@ class WPBDP__DB__Model {
         $model = self::get_model_info( $this );
         $pk = $model['primary_key'];
 
-        $this->before_save( $adding );
+        if ( $fire_hooks )
+            $this->before_save( $adding );
+
         $row = $this->prepare_row();
 
         if ( $this->_adding )
@@ -196,7 +198,7 @@ class WPBDP__DB__Model {
 
         $res = false !== $res;
 
-        if ( $res )
+        if ( $res && $fire_hooks )
             $this->after_save( $adding );
 
         $this->_saving = false;
