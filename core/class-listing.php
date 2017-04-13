@@ -165,46 +165,9 @@ class WPBDP_Listing {
     /**
      * @since fees-revamp
      */
-    public function get_subscription_data() {
-        global $wpdb;
-
-        $row = $wpdb->get_row( $wpdb->prepare( "SELECT subscription_id, subscription_data FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
-
-        $subscription_id = $row->subscription_id;
-        $subscription_data = unserialize( $row->subscription_data );
-
-        $result = array();
-        if ( ! empty( $subscription_data ) && is_array( $subscription_data ) ) {
-            foreach ( $subscription_data as $k => $v ) {
-                $result[ $k ] = $v;
-            }
-        }
-
-        $result['subscription_id'] = $subscription_id;
-
-        return $result;
-    }
-
-    /**
-     * @since fees-revamp
-     */
     public function has_subscription() {
         global $wpdb;
         return absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d", $this->id, 1 ) ) ) > 0;
-    }
-
-    /**
-     * @since fees-revamp
-     */
-    public function cancel_subscription() {
-        global $wpdb;
-        $wpdb->update( "{$wpdb->prefix}wpbdp_listings",
-                       array( 'is_recurring' => 0,
-                              'subscription_id' => '',
-                              'subscription_data' => serialize( array() ) ),
-                       array( 'listing_id' => $this->id ) );
-
-        do_action( 'wpbdp_listing_subscription_canceled', $this->id );
     }
 
     public function is_published() {
@@ -265,7 +228,7 @@ class WPBDP_Listing {
         if ( $old_status == $new_status || ! in_array( $new_status, array_keys( self::get_stati() ), true ) )
             return;
 
-        // $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $new_status ), array( 'listing_id' => $this->id ) );
+        $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'listing_status' => $new_status ), array( 'listing_id' => $this->id ) );
 
         switch ( $new_status ) {
         case 'expired':
@@ -419,6 +382,78 @@ class WPBDP_Listing {
         $res->expired = $res->expiration_date ? strtotime( $res->expiration_date ) <= current_time( 'timestamp' ) : false;
 
         return $res;
+    }
+
+    /**
+     * @since fees-revamp
+     */
+    public function update_plan( $plan, $args = array() ) {
+        global $wpdb;
+
+        $args = wp_parse_args( $args, array(
+            'clear'       => 0, /* Whether to use old values (if available). */
+            'recalculate' => 1 /* Whether to recalculate the expiration or not */
+        ) );
+
+        $row = array();
+
+        if ( is_numeric( $plan ) || ( is_array( $plan ) && ! empty( $plan['fee_id'] ) ) ) {
+            $plan_id = is_numeric( $plan ) ? absint( $plan ) : absint( $plan['fee_id'] );
+
+            if ( $plan_ = wpbdp_get_fee_plan( $plan_id ) ) {
+                $row['fee_id'] = $plan_id;
+                $row['fee_images'] = $plan_->images;
+                $row['fee_days'] = $plan_->days;
+                $row['is_sticky'] = $plan_->sticky;
+                $row['fee_price'] = $plan_->amount;
+            }
+        }
+
+        if ( is_array( $plan ) ) {
+            foreach ( array( 'fee_days', 'fee_images', 'fee_price', 'is_sticky', 'expiration_date', 'is_recurring', 'subscription_id', 'subscription_data' ) as $key ) {
+                if ( array_key_exists( $key, $plan ) ) {
+                    $row[ $key ] = $plan[ $key ];
+                }
+            }
+
+            if ( ! empty( $plan['amount'] ) ) {
+                $row['fee_price'] = $plan['amount'];
+            }
+        }
+
+        if ( ! $args['clear'] ) {
+            $old_row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ), ARRAY_A );
+
+            if ( $old_row ) {
+                $row = array_merge( $old_row, $row );
+            }
+        }
+
+        if ( empty( $row ) )
+            return false;
+
+        $row['listing_id'] = $this->id;
+        $row['is_sticky'] = (int) $row['is_sticky'];
+
+        if ( $args['recalculate'] ) {
+            if ( ! array_key_exists( 'expiration_date', $plan ) ) {
+                $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $row );
+
+                if ( $expiration ) {
+                    $row['expiration_date'] = $expiration;
+                }
+            }
+        }
+
+        if ( is_null( $row['expiration_date'] ) || empty( $row['expiration_date'] ) ) {
+            unset( $row['expiration_date'] );
+        }
+
+        if ( ! empty( $row['recurring_data'] ) ) {
+            $row['recurring_data'] = maybe_serialize( $row['recurring_data'] );
+        }
+
+        return $wpdb->replace( "{$wpdb->prefix}wpbdp_listings", $row );
     }
 
     /**

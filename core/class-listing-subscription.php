@@ -103,7 +103,7 @@ class WPBDP__Listing_Subscription {
         if ( $parent_payment ) {
             $payment->parent_id = $parent_payment->id;
             $payment->listing_id = $parent_payment->listing_id;
-            $payment->payment_type = 'plan_renewal';
+            $payment->payment_type = 'renewal';
             $payment->payer_email = $parent_payment->payer_email;
             $payment->payer_first_name = $parent_payment->payer_first_name;
             $payment->payer_last_name = $parent_payment->payer_last_name;
@@ -118,7 +118,8 @@ class WPBDP__Listing_Subscription {
         }
 
         if ( ! $payment->id ) {
-            $payment->save();
+            // Save silently (no hooks fired).
+            $payment->save( false, false );
         }
 
         // This is the first payment.
@@ -132,9 +133,26 @@ class WPBDP__Listing_Subscription {
     }
 
     public function renew() {
+        $listing = wpbdp_get_listing( $this->listing_id );
+        $listing->update_plan();
+        $listing->set_status( 'complete' );
+        $listing->set_post_status( 'publish' );
     }
 
     public function cancel() {
+        global $wpdb;
+
+        $wpdb->update(
+            "{$wpdb->prefix}wpbdp_listings",
+            array(
+                'is_recurring' => '0',
+                'subscription_id' => '',
+                'subscription_data' => ''
+            ),
+            array( 'listing_id' => $this->listing_id )
+        );
+
+        do_action( 'wpbdp_listing_subscription_canceled', $this->listing_id );
     }
 
     private function save() {

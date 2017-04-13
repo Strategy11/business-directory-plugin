@@ -8,68 +8,37 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 class WPBDP_Listings_API {
 
     public function __construct() {
-        add_action( 'WPBDP_Payment::status_change', array( &$this, 'setup_listing_after_payment' ) );
+        add_action( 'wpbdp_payment_completed', array( $this, 'update_listing_after_payment' ) );
     }
 
-    /**
-     * @since 3.4
-     */
-    public function setup_listing_after_payment( &$payment ) {
+    public function update_listing_after_payment( $payment ) {
         $listing = $payment->get_listing();
 
-        if ( ! $listing || ! $payment->is_completed() )
+        if ( ! $listing )
             return;
 
-        $is_renewal = false;
-        $recurring_data = array();
+        $is_renewal = 'renewal' == $payment->payment_type;
 
-        if ( ! empty( $payment->data['subscription_id'] ) ) {
-            $recurring_data['subscription_id'] = $payment->data['subscription_id'];
-        }
-
-        if ( ! empty( $payment->data['subscription_data'] ) ) {
-            $recurring_data['subscription_data'] = $payment->data['subscription_data'];
-        }
-
-        // Process items.
         foreach ( $payment->payment_items as $item ) {
             switch ( $item['type'] ) {
-                case 'recurring_plan':
-                case 'plan':
-                case 'plan_renewal':
-                    $listing->set_fee_plan( $item['fee_id'], $recurring_data );
+            case 'recurring_plan':
+            case 'plan':
+            case 'plan_renewal': // Do we really use/need this?
+                $listing->update_plan( $item );
 
-                    if ( ! empty( $item->data['is_renewal'] ) )
-                        $is_renewal = true;
-
-                    break;
-                case 'recurring_fee':
-                    $listing->set_fee_plan( $item->rel_id_2, $recurring_data );
-
-                    if ( ! empty( $item->data['is_renewal'] ) )
-                        $is_renewal = true;
-
-                    break;
-                case 'fee':
-                    // This item type is no longer used as of next-release, but we have this for backwards-compat.
-                    if ( ! $listing->is_recurring() )
-                        $listing->set_fee_plan( $item->rel_id_2, $recurring_data );
-                    break;
-                case 'featured_upgrade':
-                    global $wpdb;
-                    $wpdb->update( $wpdb->prefix . 'wpbdp_listings', array( 'is_sticky' => 1 ), array( 'listing_id' => $listing->get_id() ) );
-                    break;
+                if ( 'plan_renewal' == $item['type'] ) {
+                    $is_renewal = true;
+                }
+                break;
             }
         }
 
-        if ( 'renewal' == $payment->payment_type )
+        $listing->set_status( 'complete' );
+
+        if ( $is_renewal) {
             wpbdp_insert_log( array( 'log_type' => 'listing.renewal', 'object_id' => $payment->listing_id, 'message' => _x( 'Listing renewed', 'listings api', 'WPBDM' ) ) );
-
-        if ( 'initial' == $payment->payment_type )
-            $listing->set_status( 'complete' );
-
-        if ( $is_renewal )
             $listing->set_post_status( 'publish' );
+        }
     }
 
 

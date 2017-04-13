@@ -53,6 +53,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
                 'object_id' => $this->id,
                 'message' => sprintf( _x( 'Payment status changed from "%s" to "%s".', 'payment', 'WPBDM' ), $this->old_status, $this->status ) ) );
             do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $this->old_status, $this->status ) );
+            do_action( "wpbdp_payment_{$this->status}", $this );
         }
 
         $this->old_status = $this->status;
@@ -124,6 +125,16 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             $data[ $k ] = $v;
 
         return $data;
+    }
+
+    public function get_payer_address() {
+        $address = array();
+
+        foreach ( array( 'line_1', 'line_2', 'city', 'state', 'zip', 'country' ) as $k ) {
+            $address[ $k ] = ! empty( $this->payer_data[ 'address_' . $k ] ) ? $this->payer_data[ 'address_' . $k ] : '';
+        }
+
+        return $address;
     }
 
     public function has_item_type( $item_type ) {
