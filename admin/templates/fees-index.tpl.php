@@ -94,7 +94,7 @@
 
         global $wpbdp;
         ?>
-        <?php if ( ! $wpbdp->payments->payments_possible() ): ?>
+        <?php if ( ! wpbdp_payments_possible() ): ?>
         <p>
         <?php
         echo str_replace( '<a>',
