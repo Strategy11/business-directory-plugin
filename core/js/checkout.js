@@ -47,4 +47,12 @@ jQuery(function($) {
     };
 
     wpbdp_checkout.init();
+
+
+    // Payment receipt print.
+    $( '.wpbdp-payment-receipt-print' ).click(function(e) {
+        e.preventDefault();
+        window.print();
+    });
 });
+

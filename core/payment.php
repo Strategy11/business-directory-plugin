@@ -38,6 +38,52 @@ class WPBDP_PaymentsAPI {
     }
 
     /**
+     * @since fees-revamp
+     */
+    public function render_receipt( $payment ) {
+        ob_start();
+?>
+
+<div class="wpbdp-payment-receipt">
+
+    <div class="wpbdp-payment-receipt-header">
+        <h4><?php printf( _x( 'Payment #%s', 'payments', 'WPBDM' ), $payment->id ); ?></h4>
+        <span class="wpbdp-payment-receipt-date"><?php echo date( 'Y-m-d H:i', strtotime( $payment->created_on ) ); ?></span>
+
+        <span class="wpbdp-tag wpbdp-payment-status wpbdp-payment-status-<?php echo $payment->status; ?>"><?php echo WPBDP_Payment::get_status_label( $payment->status ); ?></span>
+    </div>
+    <div class="wpbdp-payment-receipt-details">
+        <dl>
+            <?php if ( $payment->gateway ): ?>
+            <dt><?php _ex( 'Gateway:', 'payments', 'WPBDM' ); ?></dt>
+            <dd><?php echo $payment->gateway; ?></dd>
+            <dt><?php _ex( 'Gateway Transaction ID:', 'payments', 'WPBDM' ); ?></dt>
+            <dd><?php echo $payment->gateway_tx_id; ?></dd>
+            <?php endif; ?>
+            <dt><?php _ex( 'Bill To:', 'payments', 'WPBDM' ); ?></dt>
+            <dd>
+                <?php if ( $payment->payer_first_name || $payment->payer_last_name ) : ?>
+                    <?php echo $payment->payer_first_name; ?> <?php echo $payment->payer_last_name; ?><br />
+                <?php endif; ?>
+                <?php echo implode( '<br />', array_filter( $payment->payer_address ) ); ?>
+
+                <?php if ( $payment->payer_email ): ?>
+                    <br /><br /><?php echo $payment->payer_email; ?>
+                <?php endif; ?>
+            </dd>
+        </dl>
+    </div>
+
+    <?php echo $this->render_invoice( $payment ); ?>
+
+    <input type="button" class="wpbdp-payment-receipt-print" value="<?php _ex( 'Print Receipt', 'checkout', 'WPBDM' ); ?>" />
+</div>
+
+<?php
+        return ob_get_clean();
+    }
+
+    /**
      * Renders an invoice table for a given payment.
      * @param $payment WPBDP_Payment
      * @return string HTML output.
@@ -47,40 +93,6 @@ class WPBDP_PaymentsAPI {
         $html  = '';
         $html .= '<div class="wpbdp-checkout-invoice">';
         $html .= wpbdp_render( 'payment/payment_items', array( 'payment' => $payment ), false );
-        $html .= '</div>';
-
-        return $html;
-    }
-
-    public function render_details( &$payment ) {
-        $html  = '';
-        $html .= '<div class="wpbdp-payment-details">';
-        $html .= '<h4>' . _x( 'Payment Details', 'payments', 'WPBDM' ) . '</h4>';
-
-        // TODO: better payment information.
-        // if ( ! $payment->is_pending() ) {
-        //     $html .= '<dl class="details">';
-        //     $html .= '<dt>' . _x( 'Gateway', 'payments', 'WPBDM' ) . '</dt>';
-        //     $html .= '<dd>' . $payment->gateway && isset( $this->gateways[ $payment->gateway ] ) ? $this->gateways[ $payment->gateway ]->get_name() : '–'  . '</dd>';
-        //     $html .= '</dl>';
-        // }
-
-        $html .= $this->render_invoice( $payment );
-        $html .= '</div>';
-
-        return $html;
-    }
-
-    /**
-     * Renders payment method selection for a given payment. Takes into account gateways supporting recurring items.
-     * @param $payment WPBDP_Payment
-     * @return string HTML output.
-     * @since 3.4
-     */
-    public function render_invoice( &$payment ) {
-        $html  = '';
-        $html .= sprintf( '<div class="wpbdp-checkout-gateway-integration %s">', $gateway_id );
-        $html .= $this->gateways[ $gateway_id ]->render_integration( $payment );
         $html .= '</div>';
 
         return $html;

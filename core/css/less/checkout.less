@@ -6,7 +6,7 @@
     &.wpbdp-checkout-errors {
         padding: 0;
         border: none;
-    }    
+    }
 
     h3 {
         margin: 0 0 1.0em 0;
@@ -54,5 +54,58 @@
     &.wpbdp-required label:after {
         content: ' *';
         color: #900000;
+    }
+}
+
+.wpbdp-payment-receipt {
+    border: 1px solid #ccc;
+    padding: 1.0em 1.5em;
+    margin: 1.5em 0 0 0;
+    font-size: 90%;
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wpbdp-payment-receipt-date {
+        color: #666;
+    }
+
+    .wpbdp-payment-status {
+        float: right;
+    }
+
+    .wpbdp-payment-receipt-details {
+        margin: 1.5em 0.5em;
+
+        dl {
+            margin: 0;
+            padding: 0;
+
+            dt {
+                margin: 0;
+                padding: 0;
+                float: left;
+                width: 200px;
+            }
+
+            dd {
+                margin: 0 0 5px 200px;
+                padding: 0;
+            }
+        }
+    }
+
+    .wpbdp-payment-receipt-print {
+        margin: 1.5em 0 0 0;
+    }
+}
+
+.wpbdp-checkout-invoice {
+    table.wpbdp-payment-items-table {
+        th, td {
+            font-size: 95%;
+        }
     }
 }

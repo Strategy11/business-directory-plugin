@@ -1,3 +1,5 @@
+@import 'common.less';
+
 .cf:before, .cf:after {
     content: " ";
     display: table;
@@ -722,20 +724,11 @@ a.wpbdp-admin-delete-link {
 @import 'form-fields.less';
 @import 'submit-listing.less';
 
-.wpbdp-tag, span.tag {
-    background: #444;
-    border-radius: 2px;
-    padding: 2px 5px;
-    color: #fff;
-    font-size: 10px !important;
-    margin-right: 2px;
-    text-decoration: none !important;
-    line-height: 1.5 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    // text-transform: uppercase;
+span.tag {
+    .wpbdp-tag;
+}
 
+.wpbdp-tag, span.tag {
     &.wpbdp-listing-attr-paid {
         background: green;
     }
