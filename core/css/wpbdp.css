@@ -339,31 +339,24 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 .wpbdp-categories .cat-item {
     box-sizing: border-box;
+    float: left;
     margin: 0 0 20px;
+    width: 50%;
+}
+.wpbdp-categories .cat-item:nth-child(2n+1) {
+    clear: left;
 }
 .wpbdp-categories .cat-item .cat-item {
     margin: 0;
+    width: 100%;
 }
 
-.wpbdp-categories-small .cat-item,
-.wpbdp-categories-medium .cat-item,
-.wpbdp-categories-large .cat-item {
-    float: left;
-    width: 50%;
-}
-.wpbdp-categories-small .cat-item:nth-child(2n+1),
-.wpbdp-categories-medium .cat-item:nth-child(2n+1),
-.wpbdp-categories-large .cat-item:nth-child(2n+1) {
-    clear: left;
-}
-.wpbdp-categories-small .cat-item:nth-child(2n),
-.wpbdp-categories-medium .cat-item:nth-child(2n),
-.wpbdp-categories-large .cat-item:nth-child(2n) {
-}
-.wpbdp-categories-small .cat-item .cat-item,
-.wpbdp-categories-medium .cat-item .cat-item,
-.wpbdp-categories-large .cat-item .cat-item {
+.wpbdp-categories-tiny .cat-item {
+    float: none;
     width: 100%;
+}
+.wpbdp-categories-tiny .cat-item:nth-child(2n+1) {
+    clear: none;
 }
 
 /* submit listing page */
