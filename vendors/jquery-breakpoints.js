@@ -174,8 +174,10 @@ if ( typeof jQuery !== 'undefined' ) {
             }
 
             $.each(breakpoints, function(name, range) {
-                builder.define(range, { name: prefix + "-" + name });
+                builder.define(range, { name: prefix + '-' + name });
             });
+
+            $element.removeClass( prefix + '-no-bp' );
         });
     });
 }
