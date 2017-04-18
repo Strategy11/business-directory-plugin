@@ -4,7 +4,6 @@ require_once( WPBDP_PATH . 'core/class-view.php' );
 /**
  * @since 4.0
  */
-
 class WPBDP__Dispatcher {
 
     private $current_view = '';
@@ -35,9 +34,9 @@ class WPBDP__Dispatcher {
         if ( ! empty( $wp_query->wpbdp_view ) )
             $this->current_view = $wp_query->wpbdp_view;
 
-        if ( ! $wp_query->wpbdp_is_main_page ) {
-            return;
-        }
+        // if ( ! $wp_query->wpbdp_is_main_page ) {
+        //     return;
+        // }
 
         $this->current_view = apply_filters( 'wpbdp_current_view', $this->current_view );
         $this->current_view_obj = $this->load_view( $this->current_view );
@@ -64,7 +63,7 @@ class WPBDP__Dispatcher {
 
         if ( is_string( $res ) )
             $this->output = $res;
- 
+
         do_action( 'wpbdp_after_dispatch' );
 
         return $template;
