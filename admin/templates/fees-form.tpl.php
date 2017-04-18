@@ -182,6 +182,6 @@
         </tbody>
     </table>
 
-    <?php echo submit_button( _x('Add Fee', 'fees admin', 'WPBDM') ); ?>
+    <?php echo submit_button( $fee->id ? _x( 'Save Changes', 'fees admin', 'WPBDM' ) : _x( 'Add Listing Fee', 'fees admin', 'WPBDM' ) ); ?>
 </form>
 
