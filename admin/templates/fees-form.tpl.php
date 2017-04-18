@@ -1,5 +1,4 @@
 <form id="wpbdp-fee-form" action="" method="post">
-    <!--<input type="hidden" name="fee[id]" value="<?php echo $fee->id; ?>" />-->
 
     <table class="form-table">
         <tbody>
@@ -24,7 +23,7 @@
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Listing run in days', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label> <?php _ex('How long should the listing run?', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
                     <input type="radio" id="wpbdp-fee-form-days" name="_days" value="1" <?php echo absint($fee->days ) > 0 ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days"><?php _ex('run listing for', 'fees admin', 'WPBDM'); ?></label>
@@ -37,8 +36,7 @@
                            <?php echo ( absint( $fee->days ) == 0 ) ? 'disabled="disabled"' : ''; ?>
                            />
                     <?php _ex('days', 'fees admin', 'WPBDM'); ?>
-                    <span class="description">-- or --</span>
-
+                    <br />
                     <input type="radio" id="wpbdp-fee-form-days-0" name="_days" value="0" <?php echo ( absint( $fee->days ) == 0 ) ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days-0"><?php _ex('run listing forever', 'fees admin', 'WPBDM'); ?></label>                 
                 </td>
             </tr>
@@ -59,11 +57,14 @@
                     <label> <?php _ex('Is recurring?', 'fees admin', 'WPBDM'); ?></label>
                 </th>
                 <td>
-                    <input name="fee[recurring]"
-                           type="checkbox"
-                           value="1"
-                           <?php echo $fee->recurring ? 'checked="checked"' : ''; ?>
-                           <?php echo ( 'free' == $fee->tag ) ? 'disabled="disabled"' : ''; ?> />
+                    <label>
+                        <input name="fee[recurring]"
+                               type="checkbox"
+                               value="1"
+                               <?php echo $fee->recurring ? 'checked="checked"' : ''; ?>
+                               <?php echo ( 'free' == $fee->tag ) ? 'disabled="disabled"' : ''; ?> />
+                        <span class="description"><?php _ex( 'Should the listing auto-renew at the end of the listing term?', 'fees admin', 'WPBDM' ); ?></span>
+                    </label>
                 </td>
             </tr>
             <tr class="form-field form-required">
@@ -104,9 +105,9 @@
                     <label><?php _ex( 'Plan Category Policy:', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                    <select name="limit_categories" class="wpbdp-js-toggle">
+                    <select name="limit_categories">
                         <option value="0"><?php _ex( 'Plan applies to all categories', 'fees admin', 'WPBDM' ); ?></option>
-                        <option value="1" <?php selected( is_array( $fee->supported_categories ), true ); ?> data-toggles="limit-categories-list" class="wpbdp-js-toggle" data-toggles="limit-categories-list"><?php _ex( 'Plan applies to only certain categories', 'fees admin', 'WPBDM' ); ?></option>
+                        <option value="1" <?php selected( is_array( $fee->supported_categories ), true ); ?> ><?php _ex( 'Plan applies to only certain categories', 'fees admin', 'WPBDM' ); ?></option>
                     </select>
 
                     <div id="limit-categories-list" class="<?php echo is_array( $fee->supported_categories ) ? '' : 'hidden'; ?>">
@@ -137,9 +138,9 @@
                 </th>
                 <td>
                     <div class="pricing-options">
-                        <label><input type="radio" class="wpbdp-js-toggle" data-toggles="pricing-details-flat" name="fee[pricing_model]" value="flat" <?php checked( $fee->pricing_model, 'flat' ); ?> /> <?php _ex( 'Flat price', 'fees admin', 'WPBDM' ); ?></label><br />
-                        <label><input type="radio" class="wpbdp-js-toggle" data-toggles="pricing-details-variable" name="fee[pricing_model]" value="variable" <?php checked( $fee->pricing_model, 'variable' ); ?> /> <?php _ex( 'Different price for different categories', 'fees admin', 'WPBDM' ); ?></label><br />
-                        <label><input type="radio" class="wpbdp-js-toggle" data-toggles="pricing-details-extra" name="fee[pricing_model]" value="extra" <?php checked( $fee->pricing_model, 'extra' ); ?> /> <?php _ex( 'Base price plus an extra amount per category', 'fees admin', 'WPBDM' ); ?></label>
+                        <label><input type="radio" name="fee[pricing_model]" value="flat" <?php checked( $fee->pricing_model, 'flat' ); ?> /> <?php _ex( 'Flat price', 'fees admin', 'WPBDM' ); ?></label>
+                        <label><input type="radio" name="fee[pricing_model]" value="variable" <?php checked( $fee->pricing_model, 'variable' ); ?> /> <?php _ex( 'Different price for different categories', 'fees admin', 'WPBDM' ); ?></label>
+                        <label><input type="radio" name="fee[pricing_model]" value="extra" <?php checked( $fee->pricing_model, 'extra' ); ?> /> <?php _ex( 'Base price plus an extra amount per category', 'fees admin', 'WPBDM' ); ?></label>
                     </div>
                 </td>
             </tr>

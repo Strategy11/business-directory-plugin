@@ -4,53 +4,70 @@ jQuery(function($) {
     if ( 0 == $form.length )
         return;
 
+    var update_form_ui = function() {
+        // Listing run.
+        var fee__days = $( 'input[name="_days"]:checked', $form ).val();
 
-    $form.submit(function(){
-        $('form input[name="fee[days]"]').removeAttr('disabled');
-        return true;
-    });
-
-    // Limit categories and variable pricing handling.
-    $form.find('#limit-categories-list .term-cb').change(function(e) {
-        var $dest = $( '.wpbdp-variable-pricing-configurator-row[data-term-id="' + $(this).val() + '"]' );
-
-        if ( $(this).is(':checked') ) {
-            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', false );
-            $dest.removeClass('hidden');
+        if ( 0 == fee__days ) {
+            $( 'input[name="fee[days]"]', $form ).prop( 'disabled', true )
+                                                 .val( '0' );
         } else {
-            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', $( '#limit-categories-list .term-cb' ).filter( ':checked' ).length == 0 );
-            $dest.addClass('hidden');
-        }
-    });
-    $form.find('select[name="limit_categories"]').change(function(e) {
-        var val = $(this).val();
-
-        if ( '0' == val ) {
-            $('#wpbdp-fee-form #limit-categories-list .term-cb').prop('checked', false);
-            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', false );
-            $('.wpbdp-variable-pricing-configurator-row').removeClass('hidden');
-        } else {
-            $( 'input[name="fee[pricing_model]"][value="variable"]' ).prop( 'disabled', true );
-            $('.wpbdp-variable-pricing-configurator-row').addClass('hidden');
+            $( 'input[name="fee[days]"]', $form ).prop( 'disabled', false )
+                                                 .focus();
         }
 
-    });
+        // Category Policy.
+        var $pricing = $( 'input[name="fee[pricing_model]"]', $form );
+        var limit_categories = $( 'select[name="limit_categories"]', $form ).val() == '1',
+            pricing          = $pricing.filter( ':checked' ).val();
+        var $category_chooser = $( '#limit-categories-list', $form );
 
-    // Fee duration.
-    $form.find('input[name="_days"]').change(function(){
-        var value = $(this).val();
+        if ( limit_categories ) {
+            $category_chooser.removeClass( 'hidden' );
 
-        // alert(value);
-
-        if (value == 0) {
-            $('form input#wpbdp-fee-form-days-n').attr('disabled', true);
-            $('form input[name="fee[days]"]').val('0');
+            if ( $( '.term-cb:checked', $category_chooser ).length > 0 ) {
+                $pricing.filter( '[value="variable"]' ).parent().show();
+            } else {
+                $pricing.filter( '[value="variable"]' ).parent().hide();
+                pricing = $pricing.val(['flat']).val();
+            }
         } else {
-            $('form input#wpbdp-fee-form-days-n').removeAttr('disabled');
-            $('form input[name="fee[days]"]').val($('form input#wpbdp-fee-form-days-n').val());
-            $('form input#wpbdp-fee-form-days-n').focus();
+            $category_chooser.addClass( 'hidden' );
+            $pricing.filter( '[value="variable"]' ).parent().show();
         }
 
+        // Show pricing details.
+        $( '.fee-pricing-details' ).not( '.pricing-details-' + pricing ).addClass( 'hidden' );
+        $( '.fee-pricing-details.pricing-details-' + pricing, $form ).removeClass( 'hidden' );
+
+        // Show only the price-rows that match the category selection.
+        if ( 'variable' == pricing ) {
+            var $rows = $( '.wpbdp-variable-pricing-configurator-row', $form );
+
+            if ( ! limit_categories ) {
+                $rows.removeClass( 'hidden' );
+            } else {
+                $rows.addClass( 'hidden' );
+                $category_chooser.find( '.term-cb:checked' ).each(function() {
+                    $rows.filter( '[data-term-id="' + $( this ).val() + '"]' ).removeClass( 'hidden' );
+                });
+            }
+        }
+    };
+    update_form_ui();
+
+    $( 'input[name="fee[days]"]', $form ).blur( function() {
+        var val = parseInt( $.trim( $( this ).val() ), 10 );
+        $( this ).val( isNaN( val ) ? '0' : Math.max( 0, Math.round( val ) ) );
+    } );
+    $( 'input[name="_days"],' +
+       'select[name="limit_categories"],' +
+       'input[name="fee[pricing_model]"],' +
+       '#limit-categories-list .term-cb'
+    ).change( update_form_ui );
+
+    $form.submit(function() {
+        $( 'input[name="fee[days]"]', $form ).prop( 'disabled', false );
         return true;
     });
 
