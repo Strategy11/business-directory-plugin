@@ -11,13 +11,13 @@ $admin = isset( $admin ) ? $admin : false;
 <?php
 foreach ( $images as $image_id ):
     if ( $admin ):
-        $vars = array( 'image' => $image_id, 'listing_id' => $listing->get_id() );
+        $vars = array( 'image' => $image_id, 'listing_id' => $listing->get_id(), 'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ) );
     else:
         $vars = array( 'image_id' => $image_id,
-                      'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
-                      'weight' => $images_meta[ $image_id ]['order'],
-                      'caption' => $images_meta[ $image_id ]['caption'],
-                      'listing_id' => $listing->get_id() );
+                       'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
+                       'weight' => $images_meta[ $image_id ]['order'],
+                       'caption' => $images_meta[ $image_id ]['caption'],
+                       'listing_id' => $listing->get_id() );
     endif;
 
     echo wpbdp_render( 'submit-listing-images-single', $vars, false );
