@@ -235,6 +235,20 @@ WPBDP.fileUpload = {
                             $( '#image-upload-dnd-area .dnd-area-inside-error' ).hide();
                         }
 
+                    if ( $( '#wpbdp-listing-fields.postbox' ).length > 0 ) {
+                        var $with_count = $( '.wpbdp-admin-tab-nav li a .with-image-count' );
+                        var $no_count   = $( '.wpbdp-admin-tab-nav li a .no-image-count' );
+                        var n           = $( '#wpbdp-uploaded-images .wpbdp-image' ).length;
+
+                        if ( n ) {
+                            $no_count.addClass( 'hidden' );
+                            $with_count.removeClass( 'hidden' ).find( 'span' ).text( n );
+                        } else {
+                            $with_count.addClass( 'hidden' );
+                            $no_count.removeClass( 'hidden' );
+                        }
+                    }
+
                     } );
                 }, 'json' );
             } );
@@ -288,6 +302,21 @@ WPBDP.fileUpload = {
                             $( '#image-upload-dnd-area' ).addClass('error');
                             $( '#image-upload-dnd-area .dnd-area-inside' ).hide();
                             $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
+                        }
+                    }
+
+                    // On admin, update image count.
+                    if ( $( '#wpbdp-listing-fields.postbox' ).length > 0 ) {
+                        var $with_count = $( '.wpbdp-admin-tab-nav li a .with-image-count' );
+                        var $no_count   = $( '.wpbdp-admin-tab-nav li a .no-image-count' );
+                        var n           = $( '#wpbdp-uploaded-images .wpbdp-image' ).length;
+
+                        if ( n ) {
+                            $no_count.addClass( 'hidden' );
+                            $with_count.removeClass( 'hidden' ).find( 'span' ).text( n );
+                        } else {
+                            $with_count.addClass( 'hidden' );
+                            $no_count.removeClass( 'hidden' );
                         }
                     }
                 }

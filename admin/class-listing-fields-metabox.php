@@ -7,11 +7,16 @@ class WPBDP_Admin_Listing_Fields_Metabox {
     }
 
     public function render() {
+        $image_count = count( $this->listing->get_images( 'ids' ) );
+
         echo '<div id="wpbdp-submit-listing">';
 
         echo '<ul class="wpbdp-admin-tab-nav subsubsub">';
         echo '<li><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' )  . '</a> | </li>';
-        echo '<li><a href="#wpbdp-listing-fields-images">' . _x( 'Images', 'admin', 'WPBDM' )  . '</a></li>';
+        echo '<li><a href="#wpbdp-listing-fields-images">';
+        echo '<span class="with-image-count ' . ( $image_count > 0 ? '' : ' hidden' ) . '">' . sprintf( _x( 'Images (%s)', 'admin', 'WPBDM' ), '<span>' . $image_count . '</span>' ) . '</span>';
+        echo '<span class="no-image-count' . ( $image_count > 0 ? ' hidden' : '' ) . '">' . _x( 'Images', 'admin', 'WPBDM' ) . '</span>';
+        echo '</a></li>';
         echo '</ul>';
 
         echo '<div id="wpbdp-listing-fields-fields" class="wpbdp-admin-tab-content" tabindex="1">';
