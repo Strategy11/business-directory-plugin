@@ -51,16 +51,43 @@
 
 #wpbdp-fee-form {
     #limit-categories-list {
+        font-size: 90%;
+
         p {
             margin: 10px 0;
         }
 
-        div {
-            margin: 0 0 0 10px;
+        select {
+            width: 100%;
         }
 
-        br {
-            display: none;
+        .select2-selection {
+            padding: 0 0 2px 0;
+            margin: 0;
+            border-radius: 5px;
+            border-color: rgb(221, 221, 221);
+            min-height: 26px;
+        }
+
+        .select2-selection__choice {
+            border: none;
+            padding: 0;
+            margin: 2px 4px 0 0;
+            .wpbdp-tag;
+
+            .select2-selection__choice__remove {
+                color: #fff;
+            }
+        }
+
+        .select2-search {
+            margin-bottom: 0;
+        }
+
+        .wpbdp-category-item {
+            width: 33.33%;
+            float: left;
+            padding: 2px 0;
         }
     }
 

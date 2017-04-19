@@ -746,6 +746,10 @@ class WPBDP_Plugin {
         // Drag & Drop.
         wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.min.css' );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.min.js', array( 'jquery-file-upload' ) );
+
+        // Select2.
+        wp_register_style( 'wpbdp-js-select2-css', WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css' );
+        wp_register_script( 'wpbdp-js-select2', WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js', array( 'jquery' ) );
     }
 
     public function is_plugin_page() {
@@ -783,9 +787,6 @@ class WPBDP_Plugin {
 
         if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
             return;
-
-        wp_register_style( 'wpbdp-js-select2-css', WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css' );
-        wp_register_script( 'wpbdp-js-select2', WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js', array( 'jquery' ) );
 
         wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css', array( 'wpbdp-js-select2-css' ) );
         wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery', 'wpbdp-js-select2' ) );

@@ -56,15 +56,21 @@ jQuery(function($) {
     };
     update_form_ui();
 
+
     $( 'input[name="fee[days]"]', $form ).blur( function() {
         var val = parseInt( $.trim( $( this ).val() ), 10 );
         $( this ).val( isNaN( val ) ? '0' : Math.max( 0, Math.round( val ) ) );
     } );
+
     $( 'input[name="_days"],' +
        'select[name="limit_categories"],' +
        'input[name="fee[pricing_model]"],' +
        '#limit-categories-list .term-cb'
     ).change( update_form_ui );
+
+    $( '#limit-categories-list select' ).select2({
+        placeholder: $( '#limit-categories-list select' ).attr( 'placeholder' )
+    });
 
     $form.submit(function() {
         $( 'input[name="fee[days]"]', $form ).prop( 'disabled', false );

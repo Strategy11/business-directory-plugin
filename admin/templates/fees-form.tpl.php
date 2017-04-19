@@ -112,17 +112,31 @@
 
                     <div id="limit-categories-list" class="<?php echo is_array( $fee->supported_categories ) ? '' : 'hidden'; ?>">
                         <p><span class="description"><?php _ex( 'Limit plan to the following categories:', 'fees admin', 'WPBDM' ); ?></span></p>
+<?php
+$all_categories = get_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false, 'hierarchical' => true ) );
+$supported_categories = is_array( $fee->supported_categories ) ? array_map( 'absint', $fee->supported_categories ) : array();
 
-                        <?php
-                        require_once( WPBDP_PATH . 'core/helpers/class-wp-taxonomy-term-list.php' );
-                        $h = new WPBDP__WP_Taxonomy_Term_List( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
-                                                                      'input' => 'checkbox',
-                                                                      'input_name' => 'fee[supported_categories]',
-                                                                      'before' => '<div>',
-                                                                      'after' => '</div>',
-                                                                      'selected' => is_array( $fee->supported_categories ) ? $fee->supported_categories : array() ) );
-                        $h->display();
-                        ?>
+if ( count( $all_categories ) <= 30 ):
+    foreach ( $all_categories as $category ):
+?>
+    <div class="wpbdp-category-item">
+        <label>
+            <input type="checkbox" name="fee[supported_categories][]" value="<?php echo $category->term_id; ?>" <?php checked( in_array( (int) $category->term_id, $supported_categories ) ); ?>> 
+            <?php echo esc_html( $category->name ); ?>
+        </label>
+    </div>
+<?php
+    endforeach;
+else:
+?>
+    <select name="fee[supported_categories][]" multiple="multiple" placeholder="<?php _ex( 'Click to add categories to the selection.', 'fees admin', 'WPBDM' ); ?>">
+    <?php foreach ( $all_categories as $category ): ?>
+    <option value="<?php echo $category->term_id; ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories ) ); ?>><?php echo esc_html( $category->name ); ?></option>
+    <?php endforeach; ?>
+    </select>
+<?php
+endif;
+?>
                         </div>
                 </td>
             </tr>
