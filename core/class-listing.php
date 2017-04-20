@@ -573,10 +573,13 @@ class WPBDP_Listing {
 
         $status_ = $wpdb->get_var( $wpdb->prepare( "SELECT listing_status FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
-        if ( ! $status_ || 'unknown' == $status_ || $force_refresh )
+        if ( 'unknown' == $status_ || $force_refresh ) {
             $status = $this->calculate_status();
-        else
+        } else if ( ! $status_ ) {
+            $status = 'incomplete';
+        } else {
             $status = $status_;
+        }
 
         $status = apply_filters( 'wpbdp_listing_status', $status, $this->id );
 

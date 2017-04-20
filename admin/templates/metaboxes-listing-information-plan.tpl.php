@@ -10,10 +10,14 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <?php
         $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
         ?>
-        <span class="tag plan-status paymentstatus <?php echo $status[0]; ?>"><?php echo $status[1]; ?></span>
+        <?php if ( 'incomplete' == $status[0] ): ?>
+            <?php _ex( 'N/A', 'listing metabox', 'WPBDM' ); ?>
+        <?php else: ?>
+            <span class="tag plan-status paymentstatus <?php echo $status[0]; ?>"><?php echo $status[1]; ?></span>
+        <?php endif; ?>
         </dd>
-        <dt>Last renew date</dt>
-        <dd>None</dd>
+        <dt><?php _ex( 'Last renew date', 'listing metabox', 'WPBDM' ); ?></dt>
+        <dd><?php _ex( 'N/A', 'listing metabox', 'WPBDM' ); ?></dd>
     </dl>
 
     <h4><?php _ex( 'Plan Details', 'listing metabox', 'WPBDM' ); ?></h4>
