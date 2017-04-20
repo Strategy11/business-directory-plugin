@@ -17,15 +17,26 @@ jQuery(function($) {
         }
 
         // Category Policy.
-        var $pricing = $( 'input[name="fee[pricing_model]"]', $form );
-        var limit_categories = $( 'select[name="limit_categories"]', $form ).val() == '1',
-            pricing          = $pricing.filter( ':checked' ).val();
-        var $category_chooser = $( '#limit-categories-list', $form );
+        var $pricing            = $( 'input[name="fee[pricing_model]"]', $form );
+        var limit_categories    = $( 'select[name="limit_categories"]', $form ).val() == '1',
+            pricing             = $pricing.filter( ':checked' ).val();
+        var $category_chooser   = $( '#limit-categories-list', $form );
+        var selected_categories = [];
 
         if ( limit_categories ) {
             $category_chooser.removeClass( 'hidden' );
 
-            if ( $( '.term-cb:checked', $category_chooser ).length > 0 ) {
+            if ( $( 'select', $category_chooser ).length > 0 ) {
+                selected_categories = $( 'select', $category_chooser ).val();
+
+                if ( ! selected_categories ) {
+                    selected_categories = [];
+                }
+            } else {
+                selected_categories = $( 'input:checked', $category_chooser ).map( function( i, cb ){ return $( cb ).val() } ).get();
+            }
+
+            if ( selected_categories.length > 0 ) {
                 $pricing.filter( '[value="variable"]' ).parent().show();
             } else {
                 $pricing.filter( '[value="variable"]' ).parent().hide();
@@ -48,8 +59,8 @@ jQuery(function($) {
                 $rows.removeClass( 'hidden' );
             } else {
                 $rows.addClass( 'hidden' );
-                $category_chooser.find( '.term-cb:checked' ).each(function() {
-                    $rows.filter( '[data-term-id="' + $( this ).val() + '"]' ).removeClass( 'hidden' );
+                $.each( selected_categories, function( i, val ) {
+                    $rows.filter( '[data-term-id="' + val + '"]' ).removeClass( 'hidden' );
                 });
             }
         }
@@ -65,7 +76,8 @@ jQuery(function($) {
     $( 'input[name="_days"],' +
        'select[name="limit_categories"],' +
        'input[name="fee[pricing_model]"],' +
-       '#limit-categories-list .term-cb'
+       '#limit-categories-list input[type="checkbox"],' +
+       '#limit-categories-list select'
     ).change( update_form_ui );
 
     $( '#limit-categories-list select' ).select2({
