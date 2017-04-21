@@ -1,5 +1,5 @@
 <?php
-require_once ( WPBDP_PATH . 'core/helpers/class-wp-taxonomy-term-list.php'  );
+require_once ( WPBDP_PATH . 'includes/helpers/class-wp-taxonomy-term-list.php'  );
 
 /**
  * @since next-release

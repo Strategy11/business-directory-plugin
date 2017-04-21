@@ -215,7 +215,7 @@ class WPBDP_Installer {
     }
 
     public function show_installation_error( $exception ) {
-        require_once ( WPBDP_PATH . 'core/helpers/class-installer-installation-error.php' );
+        require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-installer-installation-error.php' );
         new WPBDP__Installer__Installation_Error( $exception );
     }
 

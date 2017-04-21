@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated since fees-revamp. Use `wp_send_json()` family of functions.
+ */
 class WPBDP_AJAX_Response {
     public $success = true;
     public $error = '';

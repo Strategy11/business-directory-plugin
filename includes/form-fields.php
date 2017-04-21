@@ -5,8 +5,9 @@
 
 if (!class_exists('WPBDP_FormFields')) {
 
-require_once( WPBDP_PATH . 'core/class-form-field.php' );
-require_once( WPBDP_PATH . 'core/form-fields-types.php' );
+require_once( WPBDP_PATH . 'includes/fields/class-form-field.php' );
+require_once( WPBDP_PATH . 'includes/fields/form-fields-types.php' );
+
 
 class WPBDP_FormFields {
 

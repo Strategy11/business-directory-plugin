@@ -1,5 +1,6 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
+require_once( WPBDP_PATH . 'includes/class-view.php' );
+
 
 class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 

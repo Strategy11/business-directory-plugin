@@ -452,7 +452,7 @@ EOF;
                                  _x( 'Expiration/Renewal Notices', 'admin settings', 'WPBDM' ),
                                  _x( 'You can configure here the text for the expiration/renewal emails and also how long before/after expiration/renewal they are sent.', 'admin settings', 'WPBDM' ) );
 
-        require_once( WPBDP_PATH . 'core/helpers/class-expiration-notices-setting.php' );
+        require_once( WPBDP_PATH . 'includes/admin/settings/class-expiration-notices-setting.php' );
         $expiration_notices_setting = new WPBDP__Expiration_Notices_Setting();
         $this->add_setting( $s,
                             'expiration-notices',
@@ -667,7 +667,7 @@ EOF;
             return;
 
         $mu_dir = ( defined( 'WPMU_PLUGIN_DIR' ) && defined( 'WPMU_PLUGIN_URL' ) ) ? WPMU_PLUGIN_DIR : trailingslashit( WP_CONTENT_DIR ) . 'mu-plugins';
-        $source = WPBDP_PATH . 'core/compatibility/wpbdp-ajax-compat-mu.php';
+        $source = WPBDP_PATH . 'includes/compatibility/wpbdp-ajax-compat-mu.php';
         $dest   = trailingslashit( $mu_dir ) . basename( $source );
 
         $message = false;

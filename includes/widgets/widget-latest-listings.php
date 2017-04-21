@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-listings-widget.php' );
+require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
 
 /**
  * Latest listings widget.

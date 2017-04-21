@@ -11,7 +11,7 @@ class WPBDP_Themes_Admin {
     function __construct( &$api ) {
         $this->api = $api;
 
-        require_once( WPBDP_PATH . 'core/helpers/class-themes-updater.php' );
+        require_once( WPBDP_PATH . 'includes/admin/upgrades/class-themes-updater.php' );
         $this->updater = new WPBDP_Themes_Updater( $this->api );
 
         add_action( 'wp_ajax_wpbdp-themes-activate-license', array( &$this, 'ajax_activate_license' ) );

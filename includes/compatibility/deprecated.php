@@ -9,7 +9,7 @@ $wpbdmposttype = "wpbdp_listing";
 $wpbdmposttypecategory = "wpbdp_category";
 $wpbdmposttypetags = "wpbdp_tag";
 
-define('WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/core/compatibility/deprecated/templates');
+define('WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/includes/compatibility/templates');
 
 
 /* template-related */

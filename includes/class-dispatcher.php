@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-view.php' );
+require_once( WPBDP_PATH . 'includes/class-view.php' );
 
 /**
  * @since 4.0

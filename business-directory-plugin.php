@@ -34,6 +34,7 @@ if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
 define( 'WPBDP_VERSION', '5.0beta1' );
 
 define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
+define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 
@@ -41,26 +42,24 @@ define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
-require_once( WPBDP_PATH . 'core/logging.php' );
 require_once( WPBDP_PATH . 'includes/functions.php' );
-require_once( WPBDP_PATH . 'core/compatibility/class-compat.php' );
-require_once( WPBDP_PATH . 'core/utils.php' );
+require_once( WPBDP_PATH . 'includes/compatibility/class-compat.php' );
+require_once( WPBDP_PATH . 'includes/utils.php' );
 require_once( WPBDP_PATH . 'admin/tracking.php' );
 require_once( WPBDP_PATH . 'admin/class-admin.php' );
-require_once( WPBDP_PATH . 'core/class-settings.php' );
-require_once( WPBDP_PATH . 'core/form-fields.php' );
-require_once( WPBDP_PATH . 'core/payment.php' );
+require_once( WPBDP_PATH . 'includes/admin/settings/class-settings.php' );
+require_once( WPBDP_PATH . 'includes/form-fields.php' );
+require_once( WPBDP_PATH . 'includes/payment.php' );
 require_once( WPBDP_PATH . 'includes/class-payment-gateway.php' );
-require_once( WPBDP_PATH . 'core/listings.php' );
-require_once( WPBDP_PATH . 'core/templates-ui.php' );
+require_once( WPBDP_PATH . 'includes/templates-ui.php' );
 require_once( WPBDP_PATH . 'includes/installer.php' );
 require_once( WPBDP_PATH . 'includes/licensing.php' );
-require_once( WPBDP_PATH . 'core/seo.php' );
-require_once( WPBDP_PATH . 'core/class-shortcodes.php' );
+require_once( WPBDP_PATH . 'includes/seo.php' );
+require_once( WPBDP_PATH . 'includes/class-shortcodes.php' );
 require_once( WPBDP_PATH . 'includes/class-cron.php' );
-require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
-require_once( WPBDP_PATH . 'core/themes.php' );
-require_once( WPBDP_PATH . 'core/template-sections.php' );
+require_once( WPBDP_PATH . 'includes/class-recaptcha.php' );
+require_once( WPBDP_INC . 'themes.php' );
+require_once( WPBDP_PATH . 'includes/template-sections.php' );
 
 
 global $wpbdp;
@@ -379,7 +378,7 @@ class WPBDP_Plugin {
             }
 
             if ( 'payments' == $wpbdpx ) {
-                require_once( WPBDP_PATH . 'core/compatibility/class-wpbdpx-payments-compat.php' );
+                require_once( WPBDP_PATH . 'includes/compatibility/class-wpbdpx-payments-compat.php' );
                 $payments_compat = new WPBDP__WPBDPX_Payments_Compat();
                 $payments_compat->dispatch();
                 exit;
@@ -870,7 +869,7 @@ class WPBDP_Plugin {
             return;
         }
 
-        require_once( WPBDP_PATH . 'core/class-page-meta.php' );
+        require_once( WPBDP_PATH . 'includes/class-page-meta.php' );
         $this->page_meta = new WPBDP_Page_Meta( $action );
 
         $this->_do_wpseo = defined( 'WPSEO_VERSION' ) ? true : false;
@@ -1262,7 +1261,7 @@ class WPBDP_Plugin {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
                 echo '<meta property="og:image" content="' . $img[0] . '" />';
         } else {
-            $image_url = WPBDP_URL . 'core/images/default-image-big.gif';
+            $image_url = WPBDP_URL . 'assets/images/default-image-big.gif';
             echo '<meta property="og:image" content="' . $image_url . '" />';
         }
     }

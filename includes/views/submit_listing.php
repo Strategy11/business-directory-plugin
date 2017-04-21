@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/helpers/class-authenticated-listing-view.php' );
+require_once( WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php' );
 
 
 class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {

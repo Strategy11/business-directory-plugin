@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-utils.php' );
+require_once( WPBDP_PATH . 'includes/utils.php' );
 
 
 class WPBDP__Migrations__18_0 extends WPBDP__Migration {

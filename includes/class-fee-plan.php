@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-db-entity.php' );
+require_once( WPBDP_PATH . 'includes/db/class-db-entity.php' );
 
 
 class WPBDP_Fee_Plan extends WPBDP_DB_Entity {

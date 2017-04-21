@@ -1,7 +1,6 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-payment.php' );
-
-require_once( WPBDP_PATH . 'core/class-fees-api.php' );
+require_once( WPBDP_PATH . 'includes/class-payment.php' );
+require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
 
 /*
  * Fees/Payment API

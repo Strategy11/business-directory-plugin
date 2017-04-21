@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-db-entity-error-list.php' );
+require_once( WPBDP_PATH . 'includes/db/class-db-entity-error-list.php' );
 
 /**
  * @since 3.7
