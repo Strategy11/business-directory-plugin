@@ -41,7 +41,6 @@ define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
-require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
 require_once( WPBDP_PATH . 'core/logging.php' );
 require_once( WPBDP_PATH . 'core/api.php' );
 require_once( WPBDP_PATH . 'core/compatibility/class-compat.php' );
@@ -53,14 +52,13 @@ require_once( WPBDP_PATH . 'core/form-fields.php' );
 require_once( WPBDP_PATH . 'core/payment.php' );
 require_once( WPBDP_PATH . 'includes/class-payment-gateway.php' );
 require_once( WPBDP_PATH . 'core/listings.php' );
-require_once( WPBDP_PATH . 'core/templates-generic.php' );
-require_once( WPBDP_PATH . 'core/templates-listings.php' );
+require_once( WPBDP_PATH . 'includes/functions.php' );
 require_once( WPBDP_PATH . 'core/templates-ui.php' );
 require_once( WPBDP_PATH . 'core/installer.php' );
 require_once( WPBDP_PATH . 'core/licensing.php' );
 require_once( WPBDP_PATH . 'core/seo.php' );
 require_once( WPBDP_PATH . 'core/class-shortcodes.php' );
-require_once( WPBDP_PATH . 'core/class-cron.php' );
+require_once( WPBDP_PATH . 'includes/class-cron.php' );
 require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
 require_once( WPBDP_PATH . 'core/themes.php' );
 require_once( WPBDP_PATH . 'core/template-sections.php' );
@@ -132,7 +130,7 @@ class WPBDP_Plugin {
         $this->settings->register_settings();
 
         // WPBDP is intended to replace this whole class in the near future.
-        require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
+        require_once( WPBDP_PATH . 'includes/class-wpbdp.php' );
         $bd = new WPBDP();
         $bd->init();
 
@@ -672,10 +670,10 @@ class WPBDP_Plugin {
     }
 
     public function _register_widgets() {
-        include_once ( WPBDP_PATH . 'core/widget-featured-listings.php' );
-        include_once ( WPBDP_PATH . 'core/widget-latest-listings.php' );
-        include_once ( WPBDP_PATH . 'core/widget-random-listings.php' );
-        include_once ( WPBDP_PATH . 'core/widget-search.php' );
+        include_once ( WPBDP_PATH . 'includes/widgets/widget-featured-listings.php' );
+        include_once ( WPBDP_PATH . 'includes/widgets/widget-latest-listings.php' );
+        include_once ( WPBDP_PATH . 'includes/widgets/widget-random-listings.php' );
+        include_once ( WPBDP_PATH . 'includes/widgets/widget-search.php' );
 
         register_widget('WPBDP_FeaturedListingsWidget');
         register_widget('WPBDP_LatestListingsWidget');

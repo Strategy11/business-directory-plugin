@@ -1,5 +1,5 @@
 <?php
-require_once ( WPBDP_PATH . 'core/class-field-display-list.php' );
+require_once ( WPBDP_PATH . 'includes/helpers/class-field-display-list.php' );
 
 /**
  * @since 4.0

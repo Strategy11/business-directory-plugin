@@ -1,7 +1,4 @@
 <?php
-/*
- * Plugin API
- */
 
 function wpbdp() {
     global $wpbdp;
@@ -646,4 +643,157 @@ function wpbdp_is_taxonomy() {
     $is_taxonomy = in_array( $current_view, array( 'show_category', 'show_tag' ), true );
 
     return apply_filters( 'wpbdp_is_taxonomy', $is_taxonomy, $current_view );
+}
+
+function wpbdp_render_page($template, $vars=array(), $echo_output=false) {
+    if ($vars) {
+        extract($vars);
+    }
+
+    ob_start();
+    include($template);
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    if ($echo_output)
+        echo $html;
+
+    return $html;
+}
+
+function wpbdp_locate_template($template, $allow_override=true, $try_defaults=true) {
+    $template_file = '';
+
+    if (!is_array($template))
+        $template = array($template);
+
+    if ( wpbdp_get_option( 'disable-cpt' ) ) {
+        if ($allow_override) {
+            $search_for = array();
+
+            foreach ($template as $t) {
+                $search_for[] = $t . '.tpl.php';
+                $search_for[] = $t . '.php';
+                $search_for[] = 'single/' . $t . '.tpl.php';
+                $search_for[] = 'single/' . $t . '.php';
+            }
+
+            $template_file = locate_template($search_for);
+        }
+    }
+
+    if (!$template_file && $try_defaults) {
+        foreach ($template as $t) {
+            $template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php'; 
+
+            if (file_exists($template_path)) {
+                $template_file = $template_path;
+                break;
+            }
+        }
+    }
+
+    return $template_file;
+}
+
+function wpbdp_render($template, $vars=array(), $allow_override=true) {
+    $vars = wp_parse_args($vars, array(
+        '__page__' => array(
+            'class' => array(),
+            'content_class' => array(),
+            'before_content' => '')));
+    $template_name = is_array( $template ) ? $template[0] : $template;
+    $vars = apply_filters('wpbdp_template_vars', $vars, $template_name);
+    return apply_filters( "wpbdp_render_{$template_name}", wpbdp_render_page(wpbdp_locate_template($template, $allow_override), $vars, false) );
+}
+
+function wpbdp_render_msg($msg, $type='status') {
+    $html = '';
+    $html .= sprintf('<div class="wpbdp-msg %s">%s</div>', $type, $msg);
+    return $html;
+}
+
+function _wpbdp_template_mode($template) {
+    if ( wpbdp_locate_template(array('businessdirectory-' . $template, 'wpbusdirman-' . $template), true, false) )
+        return 'template';
+    return 'page';
+}
+
+require_once ( WPBDP_PATH . 'includes/helpers/class-listing-display-helper.php' );
+
+
+/**
+ * Displays a single listing view taking into account all of the theme overrides.
+ * @param mixed $listing_id listing object or listing id to display.
+ * @param string $view 'single' for single view or 'excerpt' for summary view.
+ * @return string HTML output.
+ */
+function wpbdp_render_listing($listing_id=null, $view='single', $echo=false) {
+    $listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : absint( $listing_id ) ) : get_the_ID();
+
+    $args = array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id );
+    if ( ! current_user_can( 'edit_posts' ) )
+        $args['post_status'] = 'publish';
+
+    $q = new WP_Query( $args );
+    if ( ! $q->have_posts() )
+        return '';
+
+    $q->the_post();
+
+    // TODO: review filters/actions before next-release (previously _wpbdp_render_excerpt() and _wpbdp_render_single().
+    if ( 'excerpt' == $view )
+        $html = WPBDP_Listing_Display_Helper::excerpt();
+    else
+        $html = WPBDP_Listing_Display_Helper::single();
+
+    if ( $echo )
+        echo $html;
+
+    wp_reset_postdata();
+
+    return $html;
+}
+
+function wpbdp_latest_listings($n=10, $before='<ul>', $after='</ul>', $before_item='<li>', $after_item = '</li>') {
+    $n = max(intval($n), 0);
+
+    $posts = get_posts(array(
+        'post_type' => WPBDP_POST_TYPE,
+        'post_status' => 'publish',
+        'numberposts' => $n,
+        'orderby' => 'date',
+        'suppress_filters' => false,
+    ));
+
+    $html = '';
+
+    $html .= $before;
+
+    foreach ($posts as $post) {
+        $html .= $before_item;
+        $html .= sprintf('<a href="%s">%s</a>', get_permalink($post->ID), get_the_title($post->ID));
+        $html .= $after_item;
+    }
+
+    $html .= $after;
+
+    return $html;
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_the_listing_actions( $args = array() ) {
+    echo wpbdp_listing_actions();
+}
+
+/**
+ * @since 4.0
+ */
+function wpbdp_listing_actions( $args = array() ) {
+    return wpbdp_render( 'parts/listing-buttons',
+                         array( 'listing_id' => get_the_ID(),
+                         'view' => 'excerpt' ),
+                         false );
 }

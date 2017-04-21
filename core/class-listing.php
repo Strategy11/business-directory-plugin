@@ -1,6 +1,6 @@
 <?php
 require_once( WPBDP_PATH . 'core/class-payment.php' );
-require_once( WPBDP_PATH . 'core/class-listing-subscription.php' );
+require_once( WPBDP_PATH . 'includes/class-listing-subscription.php' );
 require_once( WPBDP_PATH . 'core/class-listing-image.php' );
 
 /**

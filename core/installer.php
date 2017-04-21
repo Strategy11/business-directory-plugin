@@ -23,6 +23,7 @@ class WPBDP_Installer {
             wpbdp_log('Expiration check was not in schedule. Scheduling.');
             wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
         } else {
+            // error_log( 'Expiration check was in schedule. Nothing to do.' );
             wpbdp_log('Expiration check was in schedule. Nothing to do.');
         }
 

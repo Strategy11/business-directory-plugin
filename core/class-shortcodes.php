@@ -78,7 +78,7 @@ class WPBDP__Shortcodes {
 
     public function sc_listings( $atts ) {
         global $wpbdp;
-        require_once ( WPBDP_PATH . 'core/views/all_listings.php' );
+        require_once ( WPBDP_PATH . 'includes/views/all_listings.php' );
 
         $atts = shortcode_atts( array( 'tag' => '',
                                        'tags' => '',
