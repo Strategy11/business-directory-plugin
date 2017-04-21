@@ -82,7 +82,7 @@ class WPBDP__Manual_Upgrade_Helper {
                 $classname = $this->config_callback[0];
                 $method = $this->config_callback[1];
 
-                $file = WPBDP_PATH . 'core/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
+                $file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
                 require_once( $file );
                 $m = new $classname;
 
@@ -141,7 +141,7 @@ class WPBDP__Manual_Upgrade_Helper {
             $classname = $this->callback[0];
             $method = $this->callback[1];
 
-            $file = WPBDP_PATH . 'core/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
+            $file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
             require_once( $file );
             $m = new $classname;
 

@@ -1,5 +1,5 @@
 <?php
-require_once ( WPBDP_PATH . 'core/class-migration.php' );
+require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-migration.php' );
 
 
 class WPBDP_Installer {
@@ -195,7 +195,7 @@ class WPBDP_Installer {
 
         foreach ( $migrations as $version ) {
             wpbdp_log( sprintf( 'Running upgrade routine for version %s', $version ) );
-            $migration_file = WPBDP_PATH . 'core/migrations/migration-' . str_replace( '.', '_', $version ) . '.php';
+            $migration_file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( '.', '_', $version ) . '.php';
 
             if ( ! file_exists( $migration_file ) )
                 continue;
@@ -228,7 +228,12 @@ class WPBDP_Installer {
 
         $migrations = array();
 
-        foreach ( WPBDP_FS::ls( WPBDP_PATH . 'core/migrations/' ) as $_ ) {
+        foreach ( WPBDP_FS::ls( WPBDP_PATH . 'includes/admin/upgrades/migrations/' ) as $_ ) {
+            $_ = strtolower( $_ );
+            if ( ! wpbdp_starts_with( $_, 'migration-' ) ) {
+                continue;
+            }
+
             $version = str_replace( array( 'migration-', '.php', '_' ),
                                     array( '', '', '.' ),
                                     basename( $_ ) );
@@ -252,7 +257,7 @@ class WPBDP_Installer {
         if ( ! $manual_upgrade )
             return;
 
-        require_once( WPBDP_PATH . 'core/helpers/class-manual-upgrade-helper.php' );
+        require_once( WPBDP_PATH . 'includes/admin/upgrades/class-manual-upgrade-helper.php' );
 
         $helper = new WPBDP__Manual_Upgrade_Helper( $this, $manual_upgrade );
     }
@@ -261,7 +266,7 @@ class WPBDP_Installer {
         if ( WPBDP_CATEGORY_TAX != $tax )
             return;
 
-        require_once ( WPBDP_PATH . 'migrations/migration-5_0.php' );
+        require_once ( WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-5_0.php' );
         $m = new WPBDP__Migrations__5_0();
         $m->process_term_split( $old_id );
     }

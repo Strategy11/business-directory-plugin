@@ -74,7 +74,7 @@ class WPBDP_Admin {
 
         // Post-install migrations.
         if ( get_option( 'wpbdp-migrate-18_0-featured-pending', false ) ) {
-            require_once( WPBDP_PATH . 'core/migrations/manual-upgrade-18_0-featured-levels.php' );
+            require_once( WPBDP_PATH . 'includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php' );
             $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
         }
     }
