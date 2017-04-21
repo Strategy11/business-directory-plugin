@@ -1,11 +1,11 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-query-integration.php' );
-require_once( WPBDP_PATH . 'core/class-dispatcher.php' );
-require_once( WPBDP_PATH . 'core/class-cpt-integration.php' );
-require_once( WPBDP_PATH . 'core/class-wordpress-template-integration.php' );
+require_once( WPBDP_PATH . 'includes/class-query-integration.php' );
+require_once( WPBDP_PATH . 'includes/class-dispatcher.php' );
+require_once( WPBDP_PATH . 'includes/class-cpt-integration.php' );
+require_once( WPBDP_PATH . 'includes/class-wordpress-template-integration.php' );
 
-require_once( WPBDP_PATH . 'core/class-listing-expiration.php' );
-require_once( WPBDP_PATH . 'core/class-listing-email-notification.php' );
+require_once( WPBDP_PATH . 'includes/class-listing-expiration.php' );
+require_once( WPBDP_PATH . 'includes/class-listing-email-notification.php' );
 
 
 final class WPBDP {
