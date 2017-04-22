@@ -266,7 +266,7 @@ class WPBDP_CSVImportAdmin {
         if ( ! $defaults || ! is_array( $defaults ) )
             $defaults = array();
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/csv-import.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/csv-import.tpl.php',
                                 array( 'files' => $files,
                                        'defaults' => $defaults ) );
     }
@@ -338,7 +338,7 @@ class WPBDP_CSVImportAdmin {
         if ( $import->in_test_mode() )
             wpbdp_admin_message( _x( 'Import is in "test mode". Nothing will be inserted into the database.', 'admin csv-import', 'WPBDM' ) );
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/csv-import-progress.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/csv-import-progress.tpl.php',
                                 array( 'import' => $import,
                                        'sources' => $sources ) );
     }

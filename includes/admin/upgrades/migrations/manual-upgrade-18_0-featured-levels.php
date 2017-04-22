@@ -18,7 +18,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
     }
 
     function _fee_form() {
-        $form = wpbdp_render_page( WPBDP_PATH . 'admin/templates/fees-form.tpl.php', array( 'fee' => new WPBDP_Fee_Plan() ) );
+        $form = wpbdp_render_page( WPBDP_PATH . 'templates/admin/fees-form.tpl.php', array( 'fee' => new WPBDP_Fee_Plan() ) );
         return $form;
     }
 

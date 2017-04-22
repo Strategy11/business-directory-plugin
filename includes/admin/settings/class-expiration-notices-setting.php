@@ -100,7 +100,7 @@ class WPBDP__Expiration_Notices_Setting {
         echo '<button id="wpbdp-settings-expiration-notices-add-btn" class="button">' . _x( 'Add notice', 'expiration notices', 'WPBDM' ) . '</button>';
         echo '<div id="wpbdp-settings-expiration-notices-add">';
         echo wpbdp_render_page(
-            WPBDP_PATH . 'admin/templates/settings-email.tpl.php',
+            WPBDP_PATH . 'templates/admin/settings-email.tpl.php',
             array(
                 'setting_name' => 'new_notice[' . ( count( $value ) + 1 ) . ']',
                 'uid' => '',
@@ -128,7 +128,7 @@ class WPBDP__Expiration_Notices_Setting {
                 'before_buttons' => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>'
             );
 
-            echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-email.tpl.php', $vars );
+            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $vars );
         }
 
         echo '</div>';

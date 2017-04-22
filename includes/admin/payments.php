@@ -80,7 +80,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
             $res->send_error();
 
         $res->add( 'note', $note );
-        $res->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/payments-note.tpl.php', compact( 'note', 'payment_id' ) ) );
+        $res->add( 'html', wpbdp_render_page( WPBDP_PATH . 'templates/admin/payments-note.tpl.php', compact( 'note', 'payment_id' ) ) );
         $res->send();
     }
 

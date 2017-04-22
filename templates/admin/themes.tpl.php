@@ -20,11 +20,11 @@ echo str_replace( '<a>',
 
 <div id="wpbdp-admin-page-themes-tabs">
 
-<?php echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-tabs.tpl.php' ); ?>
+<?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-tabs.tpl.php' ); ?>
 
 <div id="wpbdp-theme-selection" class="wpbdp-theme-selection cf">
 <?php foreach ( $themes as &$t ): ?>
-    <?php echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-item.tpl.php', array( 'theme' => $t ) ); ?>
+    <?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-item.tpl.php', array( 'theme' => $t ) ); ?>
 <?php endforeach; ?>
 </div>
 

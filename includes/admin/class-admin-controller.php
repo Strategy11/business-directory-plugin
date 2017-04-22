@@ -48,7 +48,7 @@ class WPBDP__Admin__Controller {
             $result = call_user_func( array( $this, $callback ) );
 
         if ( is_array( $result ) ) {
-            $template = WPBDP_PATH . 'admin/templates/' . $this->controller_id . '-' . $this->current_view . '.tpl.php';
+            $template = WPBDP_PATH . 'templates/admin/' . $this->controller_id . '-' . $this->current_view . '.tpl.php';
 
             if ( ! file_exists( $template ) )
                 $output = json_encode( $result );
@@ -82,7 +82,7 @@ class WPBDP__Admin__Controller {
         if ( $nonce && wp_verify_nonce( $nonce, 'confirm ' . md5( $args['title'] ) ) )
             return array( true, '' );
 
-        return array( false, wpbdp_render_page( WPBDP_PATH . 'admin/templates/confirm-page.tpl.php', $args ) );
+        return array( false, wpbdp_render_page( WPBDP_PATH . 'templates/admin/confirm-page.tpl.php', $args ) );
     }
 
 }

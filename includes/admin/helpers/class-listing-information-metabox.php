@@ -24,7 +24,7 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
             'content' => $this->other_tab() );
         $tabs = apply_filters( 'wpbdp_listing_metabox_tabs', $tabs, $this->listing );
 
-        return wpbdp_render_page( WPBDP_PATH . 'admin/templates/metaboxes-listing-information.tpl.php', array( 'tabs' => $tabs ) );
+        return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information.tpl.php', array( 'tabs' => $tabs ) );
     }
 
     private function plan_info_tab() {
@@ -34,7 +34,7 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
             'current_plan' => $this->listing->get_fee_plan()
         );
 
-        return wpbdp_render_page( WPBDP_PATH . 'admin/templates/metaboxes-listing-information-plan.tpl.php', $vars );
+        return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-plan.tpl.php', $vars );
     }
 
     private function payments_tab() {
@@ -42,14 +42,14 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
             'payments' => $this->listing->get_latest_payments(),
             'listing' => $this->listing
         );
-        return wpbdp_render_page( WPBDP_PATH . 'admin/templates/metaboxes-listing-information-payments.tpl.php', $vars );
+        return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-payments.tpl.php', $vars );
     }
 
     private function other_tab() {
         $vars = array(
             'access_key' => $this->listing->get_access_key()
         );
-        return wpbdp_render_page( WPBDP_PATH . 'admin/templates/metaboxes-listing-information-other.tpl.php', $vars );
+        return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-other.tpl.php', $vars );
     }
 
 }

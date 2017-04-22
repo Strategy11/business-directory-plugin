@@ -189,7 +189,7 @@ class WPBDP_FormFieldsAdmin {
         $table = new WPBDP_FormFieldsTable();
         $table->prepare_items();
 
-        wpbdp_render_page(WPBDP_PATH . 'admin/templates/form-fields.tpl.php',
+        wpbdp_render_page(WPBDP_PATH . 'templates/admin/form-fields.tpl.php',
                           array('table' => $table),
                           true);
     }
@@ -228,7 +228,7 @@ class WPBDP_FormFieldsAdmin {
             wpbdp_admin_message( $msg, 'error' );
         }
 
-        wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-addoredit.tpl.php',
+        wpbdp_render_page( WPBDP_PATH . 'templates/admin/form-fields-addoredit.tpl.php',
                            array(
                             'field' => $field,
                             'field_associations' => $api->get_associations_with_flags(),
@@ -264,7 +264,7 @@ class WPBDP_FormFieldsAdmin {
             return $this->fieldsTable();
         }
 
-        wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-confirm-delete.tpl.php',
+        wpbdp_render_page( WPBDP_PATH . 'templates/admin/form-fields-confirm-delete.tpl.php',
                            array( 'field' => $field ),
                            true );
     }
@@ -336,7 +336,7 @@ class WPBDP_FormFieldsAdmin {
                                    'fixed' => ( in_array( $t, $fixed_tags, true ) ? true : false ) );
         }
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/form-fields-tags.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/form-fields-tags.tpl.php',
                                 array( 'field_tags' => $field_tags, 'missing_fields' => $missing_fields ) );
     }
 

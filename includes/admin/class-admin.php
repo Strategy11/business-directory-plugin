@@ -750,13 +750,13 @@ to how WordPress stores the data.", 'WPBDM' )
 
         $reset_defaults = ( isset( $_GET['action'] ) && 'reset' == $_GET['action'] );
         if ( $reset_defaults ) {
-            echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-reset.tpl.php' );
+            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-reset.tpl.php' );
             return;
         }
 
         $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
 
-        wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
+        wpbdp_render_page(WPBDP_PATH . 'templates/admin/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
                           true);
     }
@@ -815,9 +815,9 @@ to how WordPress stores the data.", 'WPBDM' )
             $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename(dirname($real_path)) . '/' . basename($real_path);
             deactivate_plugins($fixed_path, true);
 
-            echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-complete.tpl.php');
+            echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php');
         } else {
-            echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-confirm.tpl.php');
+            echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php');
         }
     }
 
@@ -912,7 +912,7 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     public function main_menu() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/home.tpl.php' );
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );
     }
 
 }

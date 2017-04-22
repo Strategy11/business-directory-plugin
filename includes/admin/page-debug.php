@@ -105,7 +105,7 @@ class WPBDP_Admin_Debug_Page {
             return;
         }
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/debug-info.tpl.php', array( 'debug_info' => $debug_info ) );
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/debug-info.tpl.php', array( 'debug_info' => $debug_info ) );
     }
 
     function handle_download() {

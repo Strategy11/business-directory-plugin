@@ -44,7 +44,7 @@ class WPBDP__Listing_Timeline {
             $timeline[] = $obj;
         }
 
-        return wpbdp_render_page( WPBDP_PATH . 'admin/templates/metaboxes-listing-timeline.tpl.php', array( 'timeline' => $timeline ) );
+        return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-timeline.tpl.php', array( 'timeline' => $timeline ) );
     }
 
     private function recreate_logs() {

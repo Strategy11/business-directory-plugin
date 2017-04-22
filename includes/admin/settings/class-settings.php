@@ -1082,7 +1082,7 @@ EOF;
 
         $html  = '';
         $html .= '<span class="description">' . $setting->help_text . '</span>';
-        $html .= wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-email.tpl.php', $vars );
+        $html .= wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $vars );
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );
     }
