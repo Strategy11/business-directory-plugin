@@ -21,7 +21,7 @@ class WPBDP_Settings {
         if ( empty( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
             return;
 
-        wp_enqueue_script( 'wpbdp-admin-settings-js', WPBDP_URL . 'admin/js/settings.min.js', array( 'jquery' ) );
+        wp_enqueue_script( 'wpbdp-admin-settings-js', WPBDP_URL . 'assets/js/admin-settings.min.js', array( 'jquery' ) );
     }
 
     public function register_settings() {

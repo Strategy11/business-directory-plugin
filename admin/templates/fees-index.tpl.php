@@ -110,7 +110,7 @@
         ?>
         <div class="gateway <?php echo $mod_info[0]; ?> <?php echo wpbdp_has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
             <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank">
-                <img src="<?php echo WPBDP_URL; ?>admin/resources/<?php echo $mod_info[1]; ?>.png" class="gateway-logo"><br />
+                <img src="<?php echo WPBDP_URL; ?>assets/images/<?php echo $mod_info[1]; ?>.png" class="gateway-logo"><br />
                 <a href="http://">
             </a>
             <?php if ( wpbdp_has_module( $mod_info[0] ) ): ?>

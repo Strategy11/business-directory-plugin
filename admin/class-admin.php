@@ -84,32 +84,32 @@ class WPBDP_Admin {
         global $pagenow;
 
         wp_enqueue_style( 'wpbdp-admin',
-                          WPBDP_URL . 'admin/css/admin.min.css');
+                          WPBDP_URL . 'assets/css/admin.min.css');
         wp_enqueue_style( 'thickbox' );
 
         wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
         wp_enqueue_script( 'wpbdp-frontend-js',
-                           WPBDP_URL . 'core/js/wpbdp.min.js',
+                           WPBDP_URL . 'assets/js/wpbdp.min.js',
                            array( 'jquery' ) );
         wp_enqueue_script( 'wpbdp-admin-js',
-                           WPBDP_URL . 'admin/js/admin.min.js',
+                           WPBDP_URL . 'assets/js/admin.min.js',
                            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wpbdp_enqueue_jquery_ui_style();
 
-            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
-            wp_enqueue_style( 'wpbdp-listing-admin-timeline', WPBDP_URL . 'admin/css/listing-timeline.min.css' );
+            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'assets/css/admin-listing-metabox.min.css' );
+            wp_enqueue_style( 'wpbdp-listing-admin-timeline', WPBDP_URL . 'assets/css/admin-listing-timeline.min.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
             wp_enqueue_script(
                 'wpbdp-admin-listing',
-                WPBDP_URL . 'admin/js/listing.min.js',
+                WPBDP_URL . 'assets/js/admin-listing.min.js',
                 array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' )
             );
             wp_enqueue_script(
                 'wpbdp-admin-listing-metabox',
-                WPBDP_URL . 'admin/js/listing-metabox.min.js',
+                WPBDP_URL . 'assets/js/admin-listing-metabox.min.js',
                 array( 'wpbdp-admin-js', 'jquery-ui-datepicker' )
             );
 
@@ -255,7 +255,7 @@ to how WordPress stores the data.", 'WPBDM' )
                        'administrator',
                        'wpbdp_admin',
                        array( &$this, 'main_menu' ),
-                       WPBDP_URL . 'admin/resources/menuico.png' );
+                       WPBDP_URL . 'assets/images/menuico.png' );
 
         $menu['wpbdp-admin-add-listing'] = array(
             'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),

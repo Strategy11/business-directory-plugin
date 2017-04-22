@@ -58,9 +58,9 @@ class WPBDP__Manual_Upgrade_Helper {
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_style( 'wpbdp-admin', WPBDP_URL . 'admin/css/admin.min.css' );
-        wp_enqueue_style( 'wpbdp-manual-upgrade-css', WPBDP_URL . 'admin/css/manual-upgrade.min.css' );
-        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'admin/js/manual-upgrade.min.js' );
+        wp_enqueue_style( 'wpbdp-admin', WPBDP_URL . 'assets/css/admin.min.css' );
+        wp_enqueue_style( 'wpbdp-manual-upgrade-css', WPBDP_URL . 'assets/css/admin-manual-upgrade.min.css' );
+        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'assets/js/admin-manual-upgrade.min.js' );
     }
 
     private function is_configured() {

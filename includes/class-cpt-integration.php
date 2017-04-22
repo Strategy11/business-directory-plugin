@@ -39,7 +39,7 @@ class WPBDP__CPT_Integration {
                 'not_found_in_trash' => __( 'No listings found in trash', 'WPBDM' )
             ),
             'public' => true,
-            'menu_icon' => WPBDP_URL . 'admin/resources/menuico.png',
+            'menu_icon' => WPBDP_URL . 'assets/images/menuico.png',
             'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' ),
             'rewrite' => array(
                 'slug' => wpbdp_get_option( 'permalinks-directory-slug', WPBDP_POST_TYPE ),

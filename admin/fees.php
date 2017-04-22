@@ -18,7 +18,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         case 'edit-fee':
             wp_enqueue_style( 'wp-color-picker' );
             wp_enqueue_style( 'wpbdp-js-select2-css' );
-            wp_enqueue_script( 'wpbdp-admin-fees-js', WPBDP_URL . 'admin/js/fees.min.js', array( 'wp-color-picker', 'wpbdp-js-select2' ) );
+            wp_enqueue_script( 'wpbdp-admin-fees-js', WPBDP_URL . 'assets/js/admin-fees.min.js', array( 'wp-color-picker', 'wpbdp-js-select2' ) );
 
             break;
         default:
