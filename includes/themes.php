@@ -25,7 +25,7 @@ class WPBDP_Themes {
         $this->template_dirs[] = $theme->path . 'templates/';
 
         // Core templates are last priority.
-        $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'core/templates' );
+        $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'templates' );
 
         // Add some extra data to theme information.
         $this->add_theme_data();
