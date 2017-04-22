@@ -87,7 +87,7 @@ class WPBDP_Admin {
                           WPBDP_URL . 'admin/css/admin.min.css');
         wp_enqueue_style( 'thickbox' );
 
-        wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
+        wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
         wp_enqueue_script( 'wpbdp-frontend-js',
                            WPBDP_URL . 'core/js/wpbdp.min.js',
                            array( 'jquery' ) );

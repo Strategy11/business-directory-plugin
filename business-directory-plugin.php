@@ -740,8 +740,8 @@ class WPBDP_Plugin {
         );
 
         // Drag & Drop.
-        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload.min.css' );
-        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload.min.js', array( 'jquery-file-upload' ) );
+        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/css/dnd-upload.min.css' );
+        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/js/dnd-upload.min.js', array( 'jquery-file-upload' ) );
 
         // Select2.
         wp_register_style( 'wpbdp-js-select2-css', WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css' );
@@ -779,13 +779,13 @@ class WPBDP_Plugin {
         $only_in_plugin_pages = true;
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', $this->is_plugin_page() );
 
-        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.min.css' );
+        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'assets/css/widgets.min.css' );
 
         if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
             return;
 
-        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css', array( 'wpbdp-js-select2-css' ) );
-        wp_register_script( 'wpbdp-js', WPBDP_URL . 'core/js/wpbdp.min.js', array( 'jquery', 'wpbdp-js-select2' ) );
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css', array( 'wpbdp-js-select2-css' ) );
+        wp_register_script( 'wpbdp-js', WPBDP_URL . 'assets/js/wpbdp.min.js', array( 'jquery', 'wpbdp-js-select2' ) );
 
         wp_localize_script( 'wpbdp-js', 'wpbdp_global', array(
             'ajaxurl' => wpbdp_ajaxurl()
@@ -793,7 +793,7 @@ class WPBDP_Plugin {
 
         wp_register_script(
             'wpbdp-js',
-            WPBDP_URL . 'core/js/wpbdp.min.js',
+            WPBDP_URL . 'assets/js/wpbdp.min.js',
             array( 'jquery', 'jquery-breakpoints' )
         );
 
@@ -811,7 +811,7 @@ class WPBDP_Plugin {
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.min.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'assets/css/wpbdp-legacy.min.css');
     }
 
     /**

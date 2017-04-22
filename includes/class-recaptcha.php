@@ -36,7 +36,7 @@ class WPBDP_reCAPTCHA {
             return '';
 
         wp_enqueue_script( 'wpbdp-recaptcha',
-                            WPBDP_URL . 'core/js/recaptcha.min.js',
+                            WPBDP_URL . 'assets/js/recaptcha.min.js',
                             false,
                             true );
         wp_enqueue_script( 'google-recaptcha',

@@ -17,7 +17,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     public function enqueue_resources() {
-        wp_enqueue_script( 'wpbdp-checkout', WPBDP_URL . 'core/js/checkout.js', array( 'wpbdp-js' ) );
+        wp_enqueue_script( 'wpbdp-checkout', WPBDP_URL . 'assets/js/checkout.js', array( 'wpbdp-js' ) );
     }
 
     public function ajax_load_gateway() {
