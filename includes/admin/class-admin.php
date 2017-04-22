@@ -1,12 +1,12 @@
 <?php
-require_once( WPBDP_PATH . 'admin/admin-pages.php' );
-require_once( WPBDP_PATH . 'admin/class-admin-listings.php' );
-require_once( WPBDP_PATH . 'admin/form-fields.php' );
-require_once( WPBDP_PATH . 'admin/csv-import.php' );
-require_once( WPBDP_PATH . 'admin/csv-export.php' );
-require_once( WPBDP_PATH . 'admin/class-listing-fields-metabox.php' );
-require_once( WPBDP_PATH . 'admin/page-debug.php' );
-require_once( WPBDP_PATH . 'admin/class-admin-controller.php' );
+require_once( WPBDP_PATH . 'includes/admin/admin-pages.php' );
+require_once( WPBDP_PATH . 'includes/admin/class-admin-listings.php' );
+require_once( WPBDP_PATH . 'includes/admin/form-fields.php' );
+require_once( WPBDP_PATH . 'includes/admin/csv-import.php' );
+require_once( WPBDP_PATH . 'includes/admin/csv-export.php' );
+require_once( WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php' );
+require_once( WPBDP_PATH . 'includes/admin/page-debug.php' );
+require_once( WPBDP_PATH . 'includes/admin/class-admin-controller.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -34,7 +34,7 @@ class WPBDP_Admin {
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 
         // Adds admin menus.
-        add_action( 'admin_menu', array( &$this, 'admin_menu' ) ); 
+        add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
 
         // Enables reordering of admin menus.
         add_filter( 'custom_menu_order', '__return_true' );
@@ -381,8 +381,8 @@ to how WordPress stores the data.", 'WPBDM' )
         $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
         $candidates = array( $item['file'],
-                             WPBDP_PATH . 'admin/class-admin-' . $id . '.php',
-                             WPBDP_PATH . 'admin/' . $id . '.php' );
+                             WPBDP_INC . 'admin/class-admin-' . $id . '.php',
+                             WPBDP_INC . 'admin/' . $id . '.php' );
         foreach ( $candidates as $c ) {
             if ( $c && file_exists( $c ) )
                 require_once( $c );
@@ -426,8 +426,8 @@ to how WordPress stores the data.", 'WPBDM' )
         $controller_id = $parts[0];
         $function = isset( $parts[1] ) ? $parts[1] : '';
 
-        $candidates = array( WPBDP_PATH . 'admin/class-admin-' . $controller_id . '.php',
-                             WPBDP_PATH . 'admin/' . $controller_id . '.php' );
+        $candidates = array( WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
+                             WPBDP_INC . 'admin/' . $controller_id . '.php' );
         foreach ( $candidates as $c ) {
             if ( ! file_exists( $c ) )
                 continue;

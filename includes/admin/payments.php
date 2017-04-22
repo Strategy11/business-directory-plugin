@@ -18,7 +18,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
             wpbdp_admin_message( _x( 'Payment deleted.', 'payments admin', 'WPBDM' ) );
 
 
-        require_once( WPBDP_PATH . 'admin/helpers/class-payments-table.php' );
+        require_once( WPBDP_INC . 'admin/helpers/class-payments-table.php' );
 
         $table = new WPBDP__Admin__Payments_Table();
         $table->prepare_items();

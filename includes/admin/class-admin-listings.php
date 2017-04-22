@@ -157,13 +157,13 @@ class WPBDP_Admin_Listings {
     }
 
     public function _metabox_listing_info( $post ) {
-        require_once( WPBDP_PATH . 'admin/helpers/class-listing-information-metabox.php' );
+        require_once( WPBDP_PATH . 'includes/admin/helpers/class-listing-information-metabox.php' );
         $metabox = new WPBDP__Admin__Metaboxes__Listing_Information( $post->ID );
         echo $metabox->render();
     }
 
     public function _metabox_listing_timeline( $post ) {
-        require_once( WPBDP_PATH . 'admin/helpers/class-listing-timeline.php' );
+        require_once( WPBDP_PATH . 'includes/admin/helpers/class-listing-timeline.php' );
         $timeline = new WPBDP__Listing_Timeline( $post->ID );
 
         echo $timeline->render();

@@ -178,7 +178,7 @@ endif;
                         </thead>
                         <tbody>
                             <?php
-                            require_once( WPBDP_PATH . 'admin/helpers/class-variable-pricing-configurator.php' );
+                            require_once( WPBDP_INC . 'admin/helpers/class-variable-pricing-configurator.php' );
                             $c = new WPBDP__Admin__Variable_Pricing_Configurator( array( 'fee' => $fee ) );
                             $c->display();
                             ?>
