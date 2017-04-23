@@ -370,6 +370,9 @@ class WPBDP_Plugin {
         return $newrules + $rules;
     }
 
+    /**
+     * TODO: Why do we generate rewrite rules on every request?
+     */
     public function _wp_loaded() {
         if ($rules = get_option( 'rewrite_rules' )) {
             foreach ($this->get_rewrite_rules() as $k => $v) {
