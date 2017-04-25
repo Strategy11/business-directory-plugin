@@ -11,7 +11,7 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
     <div class="wpbdp-billing-detail-field wpbdp-required">
         <label><?php _ex( 'Email Address', 'checkout', 'WPBDM' ); ?></label>
         <span class="wpbdp-description"><?php _ex( 'We will send a receipt to this e-mail address.', 'checkout', 'WPBDM' ); ?></span>
-        <input type="text" name="payer_email" value="<?php echo esc_attr( ! empty( $data['payer_email'] ) ? $data['payer_email'] : '' ); ?>" />
+        <input type="email" name="payer_email" value="<?php echo esc_attr( ! empty( $data['payer_email'] ) ? $data['payer_email'] : '' ); ?>" />
     </div>
 
     <div class="wpbdp-billing-detail-field wpbdp-required">
