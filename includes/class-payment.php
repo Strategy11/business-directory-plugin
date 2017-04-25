@@ -50,6 +50,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         if ( $this->old_status != $this->status ) {
             wpbdp_insert_log( array(
                 'log_type' => 'payment.status_change',
+                'actor' => is_admin() ? 'user:' . get_current_user_id() : 'system',
                 'object_id' => $this->id,
                 'message' => sprintf( _x( 'Payment status changed from "%s" to "%s".', 'payment', 'WPBDM' ), $this->old_status, $this->status ) ) );
             do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $this->old_status, $this->status ) );
@@ -80,19 +81,29 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_summary() {
+        $summary = '';
+
         switch ( $this->payment_type ) {
         case 'initial':
-            return sprintf( _x( 'Initial payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
+            $summary = sprintf( _x( 'Initial payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
             break;
         case 'renewal':
-            return sprintf( _x( 'Renewal payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
+            $summary = sprintf( _x( 'Renewal payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
             break;
         default:
             break;
         }
 
-        $first_item = reset( $this->payment_items );
-        return $first_item['description'];
+        if ( ! $summary ) {
+            $first_item = reset( $this->payment_items );
+            $summary = $first_item['description'];
+        }
+
+        if ( 'admin-submit' == $this->context ) {
+            $summary = sprintf( _x( '%s. Admin Posted.', 'payment summary', 'WPBDM' ), $summary );
+        }
+
+        return $summary;
     }
 
     public function get_created_on_date() {
@@ -161,6 +172,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         wpbdp_insert_log( array(
             'log_type' => 'payment.note',
             'object_id' => $this->id,
+            'actor' => is_admin() ? 'user:' . get_current_user_id() : 'system',
             'message' => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'WPBDM' ) ) );
     }
 
@@ -193,7 +205,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         if ( ! $this->id )
             return array();
 
-        return wpbdp_get_logs( array( 'object_id' => $this->id, 'object_type' => 'payment', 'log_type' => 'payment.note' ) );
+        return wpbdp_get_logs( array( 'object_id' => $this->id, 'object_type' => 'payment' ) );
     }
 
     public function log( $msg ) {
