@@ -657,9 +657,7 @@ to how WordPress stores the data.", 'WPBDM' )
                 if ( ! $listing )
                     break;
 
-                // TODO: fix before fees-revamp.
-                wp_die( 'Not implemented yet.' );
-                $listing->send_renewal_notice( 'auto', true );
+                wpbdp()->listing_email_notification->send_notices( 'expiration', '0 days', $listing_id, true );
                 $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
 
                 break;
