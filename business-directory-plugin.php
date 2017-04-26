@@ -131,8 +131,8 @@ class WPBDP_Plugin {
         require_once( WPBDP_PATH . 'includes/class-wpbdp.php' );
         $bd = new WPBDP();
         $bd->init();
+        $bd->_inject_vars( $this );
 
-        $this->dispatcher = $bd->dispatcher;
         $this->installer = new WPBDP_Installer();
 
         try {

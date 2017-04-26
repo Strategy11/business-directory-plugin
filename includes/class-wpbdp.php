@@ -10,10 +10,11 @@ require_once( WPBDP_PATH . 'includes/class-listing-email-notification.php' );
 
 final class WPBDP {
 
-    // FIXME: only to allow the global object to access it (for now).
-    public $dispatcher = null;
-    public $query_integration = null;
-    public $template_integration = null;
+    // public $cpt_integration = null;
+    // public $query_integration = null;
+    // public $dispatcher = null;
+    // public $query_integration = null;
+    // public $template_integration = null;
 
 
     public function __construct() {
@@ -27,6 +28,14 @@ final class WPBDP {
 
         $this->listing_expiration = new WPBDP__Listing_Expiration();
         $this->listing_email_notification = new WPBDP__Listing_Email_Notification();
+    }
+
+    // Inject new vars to old plugin class while we complete the move.
+    // FIXME: this is not done.
+    public function _inject_vars( $old_object ) {
+        foreach ( get_object_vars( $this ) as $var_name => $var_content ) {
+            $old_object->{$var_name} = $var_content;
+        }
     }
 
 }
