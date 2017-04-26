@@ -583,6 +583,7 @@ EOF;
                                 array('HUF', _x('Hungarian Forint (HUF)', 'admin settings', 'WPBDM')),
                                 array('ILS', _x('Israeli New Shequel (ILS)', 'admin settings', 'WPBDM')),
                                 array('JPY', _x('Japanese Yen (JPY)', 'admin settings', 'WPBDM')),
+                                array( 'MAD', _x( 'Moroccan Dirham (MAD)', 'admin settings', 'WPBDM' ) ),
                                 array('MYR', _x('Malasian Ringgit (MYR)', 'admin settings', 'WPBDM')),
                                 array('MXN', _x('Mexican Peso (MXN)', 'admin settings', 'WPBDM')),
                                 array('NOK', _x('Norwegian Krone (NOK)', 'admin settings', 'WPBDM')),
