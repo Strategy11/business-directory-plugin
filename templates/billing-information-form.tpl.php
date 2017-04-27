@@ -158,8 +158,8 @@ $months = array(
     </div>
 
     <div class="form-buttons">
-        <!-- <input type="submit" name="cancel" value="<?php _ex( 'Cancel', 'WPBDM' ); ?>" /> -->
-        <input type="submit" name="pay" value="<?php _ex( 'Submit Payment', 'WPBDM' ); ?>" class="button submit" />
+        <!-- <input type="submit" name="cancel" value="<?php _ex( 'Cancel', 'checkout form', 'WPBDM' ); ?>" /> -->
+        <input type="submit" name="pay" value="<?php _ex( 'Submit Payment', 'checkout form', 'WPBDM' ); ?>" class="button submit" />
     </div>
 
 </form>

@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-04-04 17:28:39+00:00\n"
-"PO-Revision-Date: 2017-04-04 12:29-0500\n"
+"POT-Creation-Date: 2017-04-27 15:57:35+00:00\n"
+"PO-Revision-Date: 2017-04-27 10:58-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0\n"
+"X-Generator: Poedit 2.0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,-1,543\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -574,23 +574,23 @@ msgid "Could not move \"%s\" to a temporary directory."
 msgstr "No se pudo mover \"%s\" a un directorio temporal."
 
 #: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
-#: core/licensing.php:126 core/licensing.php:158
+#: core/licensing.php:174 core/licensing.php:206
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: admin/class-themes-admin.php:372 core/licensing.php:131
-#: core/licensing.php:165
+#: admin/class-themes-admin.php:372 core/licensing.php:179
+#: core/licensing.php:213
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: admin/class-themes-admin.php:377 core/licensing.php:320
+#: admin/class-themes-admin.php:377 core/licensing.php:368
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: admin/class-themes-admin.php:390 core/licensing.php:322
+#: admin/class-themes-admin.php:390 core/licensing.php:370
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
@@ -600,7 +600,7 @@ msgctxt "licensing"
 msgid "Invalid response from server"
 msgstr "Respuesta inválida de parte de servidor"
 
-#: admin/class-themes-admin.php:450 core/licensing.php:340
+#: admin/class-themes-admin.php:450 core/licensing.php:388
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
@@ -3039,38 +3039,38 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr "Permitir Seguimiento"
 
-#: business-directory-plugin.php:586
+#: business-directory-plugin.php:589
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "No puede subir más imágenes para este listado."
 
-#: business-directory-plugin.php:700
+#: business-directory-plugin.php:703
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: business-directory-plugin.php:808 business-directory-plugin.php:815
+#: business-directory-plugin.php:811 business-directory-plugin.php:818
 msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "Feed %s"
 
-#: business-directory-plugin.php:1170 core/view-submit-listing.php:58
+#: business-directory-plugin.php:1169 core/view-submit-listing.php:58
 #: core/views/submit_listing.php:10
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Enviar un Listado"
 
-#: business-directory-plugin.php:1175
+#: business-directory-plugin.php:1174
 msgctxt "title"
 msgid "Find a Listing"
 msgstr "Encontrar un listado"
 
-#: business-directory-plugin.php:1180
+#: business-directory-plugin.php:1179
 msgctxt "title"
 msgid "View All Listings"
 msgstr "Ver Listados"
 
-#: business-directory-plugin.php:1209
+#: business-directory-plugin.php:1208
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Listados etiquetados: %s"
@@ -3634,13 +3634,13 @@ msgstr ""
 "¿Incluir las reglas CSS que modifican la apariencia de los botones Ver, "
 "Editar y Eliminar?"
 
-#: core/class-settings.php:189 core/class-settings.php:687
+#: core/class-settings.php:189 core/class-settings.php:688
 msgctxt "admin settings"
 msgid "Listings"
 msgstr "Listados"
 
 #: core/class-settings.php:190 core/class-settings.php:357
-#: core/class-settings.php:644
+#: core/class-settings.php:645
 msgctxt "admin settings"
 msgid "General Settings"
 msgstr "Configuración General"
@@ -3967,12 +3967,12 @@ msgctxt "admin settings"
 msgid "Author"
 msgstr "Autor"
 
-#: core/class-settings.php:320 core/class-settings.php:730
+#: core/class-settings.php:320 core/class-settings.php:731
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Fecha de publicación"
 
-#: core/class-settings.php:321 core/class-settings.php:731
+#: core/class-settings.php:321 core/class-settings.php:732
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Fecha de última modificación"
@@ -4498,105 +4498,110 @@ msgstr "Yen Japonés (JPY)"
 
 #: core/class-settings.php:586
 msgctxt "admin settings"
+msgid "Moroccan Dirham (MAD)"
+msgstr ""
+
+#: core/class-settings.php:587
+msgctxt "admin settings"
 msgid "Malasian Ringgit (MYR)"
 msgstr "Ringgit de Malasia (MYR)"
 
-#: core/class-settings.php:587
+#: core/class-settings.php:588
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr "Peso Mexicano (MXN)"
 
-#: core/class-settings.php:588
+#: core/class-settings.php:589
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr "Corona Noruega (NOK)"
 
-#: core/class-settings.php:589
+#: core/class-settings.php:590
 msgctxt "admin settings"
 msgid "New Zealand Dollar (NZD)"
 msgstr "Dólar de Nueva Zelanda (NZD)"
 
-#: core/class-settings.php:590
+#: core/class-settings.php:591
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr "Peso Filipino (PHP)"
 
-#: core/class-settings.php:591
+#: core/class-settings.php:592
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr "Zloty Polaco (PLN)"
 
-#: core/class-settings.php:592
+#: core/class-settings.php:593
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr "Libra Esterlina (GBP)"
 
-#: core/class-settings.php:593
+#: core/class-settings.php:594
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr "Dólar de Singapur (SGD)"
 
-#: core/class-settings.php:594
+#: core/class-settings.php:595
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr "Corona Sueca (SEK)"
 
-#: core/class-settings.php:595
+#: core/class-settings.php:596
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr "Franco Suizo (CHF)"
 
-#: core/class-settings.php:596
+#: core/class-settings.php:597
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr "Dólar de Taiwán (TWD)"
 
-#: core/class-settings.php:597
+#: core/class-settings.php:598
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr "Baht de Tailandia (THB)"
 
-#: core/class-settings.php:598
+#: core/class-settings.php:599
 msgctxt "admin settings"
 msgid "Turkish Lira (TRY)"
 msgstr "Lira Turca (TRY)"
 
-#: core/class-settings.php:599
+#: core/class-settings.php:600
 msgctxt "admin settings"
 msgid "U.S. Dollar (USD)"
 msgstr "Dólar Americano (USD)"
 
-#: core/class-settings.php:603
+#: core/class-settings.php:604
 msgctxt "admin settings"
 msgid "Currency Symbol"
 msgstr "Símbolo de Moneda"
 
-#: core/class-settings.php:608
+#: core/class-settings.php:609
 msgctxt "admin settings"
 msgid "Currency symbol display"
 msgstr "Presentación de símbolo de moneda"
 
-#: core/class-settings.php:612
+#: core/class-settings.php:613
 msgctxt "admin settings"
 msgid "Show currency symbol on the left"
 msgstr "Mostrar el símbolo de moneda a la izquierda"
 
-#: core/class-settings.php:613
+#: core/class-settings.php:614
 msgctxt "admin settings"
 msgid "Show currency symbol on the right"
 msgstr "Mostrar el símbolo de moneda a la derecha"
 
-#: core/class-settings.php:614
+#: core/class-settings.php:615
 msgctxt "admin settings"
 msgid "Do not show currency symbol"
 msgstr "No mostrar el símbolo de moneda"
 
-#: core/class-settings.php:616
+#: core/class-settings.php:617
 msgctxt "admin settings"
 msgid "Thank you for payment message"
 msgstr "Mensaje de agradecimiento por el pago"
 
-#: core/class-settings.php:617
+#: core/class-settings.php:618
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
@@ -4605,13 +4610,13 @@ msgstr ""
 "Gracias por su pago. Su pago está siendo verificado y su listado revisado. "
 "Este proceso puede tardar hasta 48 horas."
 
-#: core/class-settings.php:622
+#: core/class-settings.php:623
 msgctxt "admin settings"
 msgid "Ask users to come back for abandoned payments?"
 msgstr ""
 "Contactar a los usuarios para pedirles que regresen a pagar pagos pendientes?"
 
-#: core/class-settings.php:625
+#: core/class-settings.php:626
 msgctxt "admin settings"
 msgid ""
 "An abandoned payment is when a user attempts to place a listing and gets to "
@@ -4624,12 +4629,12 @@ msgstr ""
 "en listados que parece que fallaron cuando el usuario simplemente no "
 "completó la transacción. BD puede recordarles para que efectúen el pago."
 
-#: core/class-settings.php:631
+#: core/class-settings.php:632
 msgctxt "admin settings"
 msgid "Listing abandonment threshold (hours)"
 msgstr "Tiempo tras el cual el listado es considerado abandonado (en horas)"
 
-#: core/class-settings.php:636
+#: core/class-settings.php:637
 msgctxt "admin settings"
 msgid ""
 "Listings with pending payments are marked as abandoned after this time. You "
@@ -4639,37 +4644,37 @@ msgstr ""
 "tiempo. También puede <a>personalizar el correo-e</a> que los usuarios "
 "reciben."
 
-#: core/class-settings.php:641
+#: core/class-settings.php:642
 msgctxt "admin settings"
 msgid "Themes"
 msgstr "Temas"
 
-#: core/class-settings.php:643
+#: core/class-settings.php:644
 msgctxt "admin settings"
 msgid "You can manage your themes on <a>Directory Themes</a>."
 msgstr "Puede manejar los temas en <a>Temas del Directorio</a>."
 
-#: core/class-settings.php:648
+#: core/class-settings.php:649
 msgctxt "admin settings"
 msgid "Theme button style"
 msgstr "Estilo de botones de temas"
 
-#: core/class-settings.php:652
+#: core/class-settings.php:653
 msgctxt "admin settings"
 msgid "Use the BD theme style for BD buttons"
 msgstr "Utilizar el estilo de BD para los botones de BD"
 
-#: core/class-settings.php:653
+#: core/class-settings.php:654
 msgctxt "admin settings"
 msgid "Use the WP theme style for BD buttons"
 msgstr "Utilizar el estilo del tema de WP para los botones de BD"
 
-#: core/class-settings.php:660
+#: core/class-settings.php:661
 msgctxt "admin settings"
 msgid "Image"
 msgstr "Imágenes"
 
-#: core/class-settings.php:661
+#: core/class-settings.php:662
 msgctxt "admin settings"
 msgid ""
 "Any changes to these settings will affect new listings only.  Existing "
@@ -4682,52 +4687,52 @@ msgstr ""
 "existentes, deberá subir de nuevo las imágenes necesarias luego de hacer los "
 "cambios aquí."
 
-#: core/class-settings.php:662
+#: core/class-settings.php:663
 msgctxt "admin settings"
 msgid "Image Settings"
 msgstr "Configuración de Imágenes"
 
-#: core/class-settings.php:663
+#: core/class-settings.php:664
 msgctxt "admin settings"
 msgid "Allow images?"
 msgstr "Permitir imágenes?"
 
-#: core/class-settings.php:665
+#: core/class-settings.php:666
 msgctxt "admin settings"
 msgid "Min Image File Size (KB)"
 msgstr "Tamaño mínimo de imagen (KB)"
 
-#: core/class-settings.php:666
+#: core/class-settings.php:667
 msgctxt "admin settings"
 msgid "Max Image File Size (KB)"
 msgstr "Tamaño máximo de imagen (KB)"
 
-#: core/class-settings.php:668
+#: core/class-settings.php:669
 msgctxt "admin settings"
 msgid "Min image width (px)"
 msgstr "Ancho mínimo de imagen (en px)"
 
-#: core/class-settings.php:669
+#: core/class-settings.php:670
 msgctxt "admin settings"
 msgid "Min image height (px)"
 msgstr "Alto mínimo de imagen (en px)"
 
-#: core/class-settings.php:671
+#: core/class-settings.php:672
 msgctxt "admin settings"
 msgid "Max image width (px)"
 msgstr "Ancho máximo de imagen (px)"
 
-#: core/class-settings.php:672
+#: core/class-settings.php:673
 msgctxt "admin settings"
 msgid "Max image height (px)"
 msgstr "Alto máximo de imagen (px)"
 
-#: core/class-settings.php:674
+#: core/class-settings.php:675
 msgctxt "admin settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "Activar Thickbox/Lightbox?"
 
-#: core/class-settings.php:674
+#: core/class-settings.php:675
 msgctxt "admin settings"
 msgid ""
 "Uncheck if it conflicts with other elements or plugins installed on your site"
@@ -4735,27 +4740,27 @@ msgstr ""
 "Desmarque si entra en conflicto con otros elementos o plugins instalados en "
 "su sitio"
 
-#: core/class-settings.php:676
+#: core/class-settings.php:677
 msgctxt "admin settings"
 msgid "Thumbnails"
 msgstr "Imágenes de previsualización"
 
-#: core/class-settings.php:677
+#: core/class-settings.php:678
 msgctxt "admin settings"
 msgid "Thumbnail width (px)"
 msgstr "Ancho de thumbnail (px)"
 
-#: core/class-settings.php:678
+#: core/class-settings.php:679
 msgctxt "admin settings"
 msgid "Thumbnail height (px)"
 msgstr "Alto de thumbnail (px)"
 
-#: core/class-settings.php:681
+#: core/class-settings.php:682
 msgctxt "admin settings"
 msgid "Crop thumbnails to exact dimensions?"
 msgstr "Cortar imágenes de previsualización a las dimensiones exactas?"
 
-#: core/class-settings.php:684
+#: core/class-settings.php:685
 msgctxt "admin settings"
 msgid ""
 "When enabled images will match exactly the dimensions above but part of the "
@@ -4769,12 +4774,12 @@ msgstr ""
 "alto será ajustado proporcionalmente. Dependiendo de las imágenes que se "
 "hayan utilizado, estas podrían tener diferentes alturas."
 
-#: core/class-settings.php:690
+#: core/class-settings.php:691
 msgctxt "admin settings"
 msgid "Number of free images"
 msgstr "Número de imágenes gratuitas"
 
-#: core/class-settings.php:695
+#: core/class-settings.php:696
 msgctxt "admin settings"
 msgid ""
 "For paid listing images, configure that by adding or editing a <a>Fee Plan</"
@@ -4783,27 +4788,27 @@ msgstr ""
 "Configure las imágenes de listados pagos agregando o editando una "
 "<a>comisión</a> pues este valor será ignorado para listados pagos."
 
-#: core/class-settings.php:698
+#: core/class-settings.php:699
 msgctxt "admin settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "Utilizar imagen por defecto en listados sin imagen?"
 
-#: core/class-settings.php:699
+#: core/class-settings.php:700
 msgctxt "admin settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Mostrar thumbnails en las páginas principales?"
 
-#: core/class-settings.php:728
+#: core/class-settings.php:729
 msgctxt "admin settings"
 msgid "User"
 msgstr "Usuario"
 
-#: core/class-settings.php:729
+#: core/class-settings.php:730
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Fecha de registro del usuario"
 
-#: core/class-settings.php:755
+#: core/class-settings.php:756
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -4812,7 +4817,7 @@ msgstr ""
 "No se pudo copiar el plugin de compatibilidad AJAX \"%s\". El modo de "
 "compatibilidad no fue activado."
 
-#: core/class-settings.php:763
+#: core/class-settings.php:764
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -4821,7 +4826,7 @@ msgstr ""
 "No se pudo activar el modo de compatibilidad AJAX: el directorio \"%s\" no "
 "pudo ser creado."
 
-#: core/class-settings.php:772
+#: core/class-settings.php:773
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -4830,97 +4835,97 @@ msgstr ""
 "No se pudo remover \"Business Directory Plugin - AJAX Compatibility Module"
 "\". Por favor elimine el archivo \"%s\" manualmente o desactive el plugin."
 
-#: core/class-settings.php:1092
+#: core/class-settings.php:1093
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Desactivar Licencia"
 
-#: core/class-settings.php:1094
+#: core/class-settings.php:1095
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Desactivando licencia..."
 
-#: core/class-settings.php:1097
+#: core/class-settings.php:1098
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Activar Licencia"
 
-#: core/class-settings.php:1099
+#: core/class-settings.php:1100
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Activando licencia..."
 
-#: core/class-settings.php:1122
+#: core/class-settings.php:1123
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Comodines válidos: %s"
 
-#: core/class-settings.php:1156
+#: core/class-settings.php:1157
 msgctxt "settings email"
 msgid "Click to edit e-mail"
 msgstr "Click para editar el correo"
 
-#: core/class-settings.php:1157
+#: core/class-settings.php:1158
 msgctxt "settings email"
 msgid "Click to edit"
 msgstr "Click para editar"
 
-#: core/class-settings.php:1170
+#: core/class-settings.php:1171
 msgctxt "settings email"
 msgid "E-Mail Subject"
 msgstr "Título del correo"
 
-#: core/class-settings.php:1181
+#: core/class-settings.php:1182
 msgctxt "settings email"
 msgid "E-Mail Body"
 msgstr "Cuerpo del correo"
 
-#: core/class-settings.php:1192
+#: core/class-settings.php:1193
 msgctxt "settings email"
 msgid "You can use the following placeholders:"
 msgstr "Puede utilizar los siguientes comodines:"
 
-#: core/class-settings.php:1215
+#: core/class-settings.php:1216
 msgctxt "settings email"
 msgid "Preview e-mail"
 msgstr "Previsualizar correo"
 
-#: core/class-settings.php:1216
+#: core/class-settings.php:1217
 msgctxt "settings email"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/class-settings.php:1217
+#: core/class-settings.php:1218
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: core/class-settings.php:1236
+#: core/class-settings.php:1237
 msgctxt "settings email"
 msgid "Site title"
 msgstr "Título del sitio"
 
-#: core/class-settings.php:1239
+#: core/class-settings.php:1240
 msgctxt "settings email"
 msgid "Site title (with link)"
 msgstr "Título del listado (con enlace)"
 
-#: core/class-settings.php:1242
+#: core/class-settings.php:1243
 msgctxt "settings email"
 msgid "Site address (with link)"
 msgstr "Dirección del listado (con enlace)"
 
-#: core/class-settings.php:1245
+#: core/class-settings.php:1246
 msgctxt "settings email"
 msgid "Directory URL (with link)"
 msgstr "URL del Directorio (con enlace)"
 
-#: core/class-settings.php:1248
+#: core/class-settings.php:1249
 msgctxt "settings email"
 msgid "Current date"
 msgstr "Fecha actual"
 
-#: core/class-settings.php:1251
+#: core/class-settings.php:1252
 msgctxt "settings email"
 msgid "Current time"
 msgstr "Hora actual"
@@ -5659,37 +5664,45 @@ msgstr ""
 msgid "Please <contact-link>contact customer support</a>."
 msgstr "Por favor <contact-link>contacte al soporte al cliente</a>."
 
-#: core/licensing.php:42 core/licensing.php:64 core/licensing.php:65
+#: core/licensing.php:42 core/licensing.php:112 core/licensing.php:113
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licencias"
 
-#: core/licensing.php:45
+#: core/licensing.php:46
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Módulos Premium"
 
-#: core/licensing.php:106 core/licensing.php:140
+#: core/licensing.php:69
+msgctxt "settings"
+msgid ""
+"The IP address of your server is <ip-address>. Please make sure to include "
+"that information if you need to contact support about problems trying to "
+"activate your licenses."
+msgstr ""
+
+#: core/licensing.php:154 core/licensing.php:188
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Módulo de ID inválido"
 
-#: core/licensing.php:111
+#: core/licensing.php:159
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "No se ingresó una licencia"
 
-#: core/licensing.php:168
+#: core/licensing.php:216
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "La desactivación de licencia falló"
 
-#: core/licensing.php:220
+#: core/licensing.php:268
 msgctxt "licensing"
 msgid "Business Directory - License Key Required"
 msgstr "Directorio de Negocios - Licencia Requerida"
 
-#: core/licensing.php:223
+#: core/licensing.php:271
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -5700,12 +5713,12 @@ msgstr ""
 "válida para cada uno. Vaya a <a>Configuraciones - Licencias</a> para "
 "ingresar su información de licencias."
 
-#: core/licensing.php:244
+#: core/licensing.php:292
 msgctxt "licensing"
 msgid "Business Directory - License Key Expired"
 msgstr "Directorio de Negocios - Licencias Expiradas"
 
-#: core/licensing.php:245
+#: core/licensing.php:293
 msgctxt "licensing"
 msgid ""
 "The license key for <span class=\"module-name\">%s %s</span> has expired. "
@@ -5716,17 +5729,17 @@ msgstr ""
 "expirado. El módulo continuará funcionando pero no recibirá ninguna "
 "actualización hasta que la licencia sea renovada."
 
-#: core/licensing.php:249
+#: core/licensing.php:297
 msgctxt "licensing"
 msgid "Remind me later"
 msgstr "Recordar luego"
 
-#: core/licensing.php:251
+#: core/licensing.php:299
 msgctxt "licensing"
 msgid "Renew License Key"
 msgstr "Renovar Clave de Licencia"
 
-#: core/licensing.php:338
+#: core/licensing.php:386
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
@@ -5983,22 +5996,22 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reestablecer)"
 
-#: core/themes.php:749
+#: core/themes.php:758
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "El archivo ZIP no es un tema de BD válido."
 
-#: core/themes.php:755
+#: core/themes.php:764
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "No se pudo crear el directorio de los temas."
 
-#: core/themes.php:763
+#: core/themes.php:772
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "No se pudo remover el directorio anterior \"%s\"."
 
-#: core/themes.php:769
+#: core/themes.php:778
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "No se pudo mover el nuevo tema al directorio de temas."
@@ -6731,12 +6744,12 @@ msgid "Phone Number:"
 msgstr "Número telefónico:"
 
 #: templates/billing-information-form.tpl.php:161
-msgctxt "WPBDM"
+msgctxt "checkout form"
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: templates/billing-information-form.tpl.php:162
-msgctxt "WPBDM"
+msgctxt "checkout form"
 msgid "Submit Payment"
 msgstr "Enviar Pago"
 
@@ -6988,42 +7001,24 @@ msgctxt "templates"
 msgid "\"%s\" fee options"
 msgstr "\"%s\" opciones de cobro"
 
-#: templates/parts/category-fee-selection.tpl.php:18
-msgctxt "templates"
-msgid "Fee"
-msgstr "Opción"
-
-#: templates/parts/category-fee-selection.tpl.php:19
-msgctxt "templates"
-msgid "Price"
-msgstr "Precio"
-
-#: templates/parts/category-fee-selection.tpl.php:20
-msgctxt "templates"
-msgid "Duration"
-msgstr "Duración de Listado"
-
-#: templates/parts/category-fee-selection.tpl.php:21
-msgctxt "templates"
-msgid "Images Allowed"
-msgstr "Imágenes Permitidas"
-
-#: templates/parts/category-fee-selection.tpl.php:28
+#: templates/parts/category-fee-selection.tpl.php:17
 msgctxt "templates"
 msgid "There are no fees available for this category."
 msgstr "No hay comisiones disponibles para esta categoría."
 
-#: templates/parts/category-fee-selection.tpl.php:50
+#: templates/parts/category-fee-selection.tpl.php:29
 msgctxt "templates"
-msgid "Unlimited"
-msgstr "Ilimitado"
+msgid "day"
+msgid_plural "days"
+msgstr[0] "días"
+msgstr[1] "días"
 
-#: templates/parts/category-fee-selection.tpl.php:52
+#: templates/parts/category-fee-selection.tpl.php:47
 msgctxt "templates"
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d día"
-msgstr[1] "%d días"
+msgid "%d image"
+msgid_plural "%d images"
+msgstr[0] "%d imagen"
+msgstr[1] "%d imágenes"
 
 #: templates/parts/listing-buttons.tpl.php:4
 #: templates/parts/listing-buttons.tpl.php:18
@@ -7364,6 +7359,36 @@ msgstr "D. Rodenbaugh"
 #. Author URI of the plugin/theme
 msgid "http://businessdirectoryplugin.com"
 msgstr "http://businessdirectoryplugin.com"
+
+#~ msgctxt "WPBDM"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgctxt "templates"
+#~ msgid "Fee"
+#~ msgstr "Opción"
+
+#~ msgctxt "templates"
+#~ msgid "Price"
+#~ msgstr "Precio"
+
+#~ msgctxt "templates"
+#~ msgid "Duration"
+#~ msgstr "Duración de Listado"
+
+#~ msgctxt "templates"
+#~ msgid "Images Allowed"
+#~ msgstr "Imágenes Permitidas"
+
+#~ msgctxt "templates"
+#~ msgid "Unlimited"
+#~ msgstr "Ilimitado"
+
+#~ msgctxt "templates"
+#~ msgid "%d day"
+#~ msgid_plural "%d days"
+#~ msgstr[0] "%d día"
+#~ msgstr[1] "%d días"
 
 #~ msgctxt "admin"
 #~ msgid "Listing Fields"
