@@ -51,7 +51,7 @@ function _wpbdp_render_single() {
     $sticky_tag = '';
     if ($sticky_status == 'sticky')
         $sticky_tag = sprintf('<div class="stickytag"><img src="%s" alt="%s" border="0" title="%s"></div>',
-                        WPBDP_URL . 'core/images/featuredlisting.png',
+                        WPBDP_URL . 'assets/images/featuredlisting.png',
                         _x('Featured Listing', 'templates', 'WPBDM'),
                         the_title(null, null, false));
 

@@ -731,7 +731,7 @@ body.taxonomy-wpbdp_category .column-id {
     width: 6px;
     height: 10px;
     display: inline-block;
-    background: url('drag-handle.png') 0 0;
+    background: url('../images/drag-handle.png') 0 0;
     cursor: move;
     float: left;
     margin: 5px 5px 0 0;

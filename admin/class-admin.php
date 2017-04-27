@@ -76,27 +76,27 @@ class WPBDP_Admin {
         $debug_on = $wpbdp->is_debug_on();
 
         wp_enqueue_style( 'wpbdp-admin',
-                          WPBDP_URL . 'admin/resources/admin' . ( ! $debug_on ? '.min' : '' ) . '.css');
+                          WPBDP_URL . 'assets/css/admin.min.css');
         wp_enqueue_style( 'thickbox' );
 
-        wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'core/css/wpbdp' . ( ! $debug_on ? '.min' : '' ) . '.css' );
+        wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
         wp_enqueue_script( 'wpbdp-frontend-js',
-                           WPBDP_URL . 'core/js/wpbdp' . ( ! $debug_on ? '.min' : '' ) . '.js',
+                           WPBDP_URL . 'assets/js/wpbdp.min.js',
                            array( 'jquery' ) );
         wp_enqueue_script( 'wpbdp-admin-js',
-                           WPBDP_URL . 'admin/resources/admin' . ( ! $debug_on ? '.min' : '' ) . '.js',
+                           WPBDP_URL . 'assets/js/admin.min.js',
                            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wpbdp_enqueue_jquery_ui_style();
 
             wp_enqueue_script( 'jquery-ui-datepicker' );
-            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'admin/css/listing-metabox.min.css' );
+            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'assets/css/admin-listing-metabox.min.css' );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
             wp_enqueue_script(
                 'wpbdp-admin-listing',
-                WPBDP_URL . 'admin/js/listing.js',
+                WPBDP_URL . 'assets/js/admin-listing.min.js',
                 array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' )
             );
 
@@ -235,7 +235,7 @@ to how WordPress stores the data.", 'WPBDM' )
                        'administrator',
                        'wpbdp_admin',
                        array( &$this, 'main_menu' ),
-                       WPBDP_URL . 'admin/resources/menuico.png' );
+                       WPBDP_URL . 'assets/images/menuico.png' );
         add_submenu_page('wpbdp_admin',
                          _x('Add New Listing', 'admin menu', 'WPBDM'),
                          _x('Add New Listing', 'admin menu', 'WPBDM'),

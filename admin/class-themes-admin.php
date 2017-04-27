@@ -142,9 +142,9 @@ class WPBDP_Themes_Admin {
         $debug_on = $wpbdp->is_debug_on();
 
         wp_enqueue_style( 'wpbdp-admin-themes',
-                          WPBDP_URL . 'admin/css/themes' . ( ! $debug_on ? '.min' : '' ) . '.css' );
+                          WPBDP_URL . 'assets/css/admin-themes.min.css' );
         wp_enqueue_script( 'wpbdp-admin-themes',
-                           WPBDP_URL . 'admin/js/themes' . ( ! $debug_on ? '.min' : '' ) . '.js' );
+                           WPBDP_URL . 'assets/js/admin-themes.min.js' );
     }
 
     function set_active_theme() {

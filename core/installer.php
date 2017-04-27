@@ -1086,7 +1086,7 @@ class WPBDP_Installer_Manual_Upgrade {
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'admin/resources/manual-upgrade.js' );
+        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'assets/js/admin-manual-upgrade.min.js' );
     }
 
     public function upgrade_page() {

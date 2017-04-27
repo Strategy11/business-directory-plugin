@@ -566,22 +566,6 @@ ul.validation-errors li {
 }
 
 /*
- * Google Wallet gateway.
- */
-
-#googlewallet-buy img {
-    border: none;
-    box-shadow: none
-}
-
-.wpbdp-checkout input[type="image"] {
-    padding: 0;
-    border: none;
-    box-shadow: none;
-    width: auto;
-}
-
-/*
  * Manage Recurring Payments.
  */
 table#wpbdp-manage-recurring th.listing-title,

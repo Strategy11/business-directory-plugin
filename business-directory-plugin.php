@@ -898,8 +898,8 @@ class WPBDP_Plugin {
         );
 
         // Drag & Drop.
-        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'core/css/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.css' );
-        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'core/js/dnd-upload' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
+        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/css/dnd-upload.min.css' );
+        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/js/dnd-upload.min.js',
                             array( 'jquery-file-upload' ) );
     }
 
@@ -934,20 +934,16 @@ class WPBDP_Plugin {
         $only_in_plugin_pages = true;
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', $this->is_plugin_page() );
 
-        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'core/css/widgets.min.css' );
+        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'assets/css/widgets.min.css' );
 
         if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
             return;
 
-        if ( $this->is_debug_on() ) {
-            wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.css' );
-        } else {
-            wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'core/css/wpbdp.min.css' );
-        }
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
 
         wp_register_script(
             'wpbdp-js',
-            WPBDP_URL . 'core/js/wpbdp' . ( ! $this->is_debug_on() ? '.min' : '' ) . '.js',
+            WPBDP_URL . 'assets/js/wpbdp.min.js',
             array( 'jquery', 'jquery-breakpoints' )
         );
 
@@ -965,7 +961,7 @@ class WPBDP_Plugin {
 
         // enable legacy css (should be removed in a future release) XXX
         if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'core/css/wpbdp-legacy.min.css');
+            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'assets/css/wpbdp-legacy.min.css');
     }
 
     /**
@@ -1415,7 +1411,7 @@ class WPBDP_Plugin {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
                 echo '<meta property="og:image" content="' . $img[0] . '" />';
         } else {
-            $image_url = WPBDP_URL . 'core/images/default-image-big.gif';
+            $image_url = WPBDP_URL . 'assets/images/default-image-big.gif';
             echo '<meta property="og:image" content="' . $image_url . '" />';
         }
     }

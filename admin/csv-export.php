@@ -16,8 +16,8 @@ class WPBDP_Admin_CSVExport {
         if ( 'wpbdp-csv-export' != $plugin_page )
             return;
 
-        wp_enqueue_script( 'wpbdp-admin-export-js', WPBDP_URL . 'admin/resources/export.js', array( 'wpbdp-admin-js', 'jquery-ui-dialog' ) );
-        wp_enqueue_style( 'wpbdp-admin-export-css', WPBDP_URL . 'admin/resources/export.css', array( 'wp-jquery-ui-dialog' ) );
+        wp_enqueue_script( 'wpbdp-admin-export-js', WPBDP_URL . 'assets/js/admin-export.js', array( 'wpbdp-admin-js', 'jquery-ui-dialog' ) );
+        wp_enqueue_style( 'wpbdp-admin-export-css', WPBDP_URL . 'assets/css/admin-export.min.css', array( 'wp-jquery-ui-dialog' ) );
     }
 
     public function dispatch() {
