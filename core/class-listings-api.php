@@ -129,8 +129,11 @@ class WPBDP_Listings_API {
         if ( WPBDP_POST_TYPE != get_post_type( $post ) )
             return $url ;
 
-        if ( wpbdp_rewrite_on() && ! empty( $post->post_name ) )
-            $url = remove_query_arg( array( 'post_type', 'p' ), $url );
+        if ( wpbdp_rewrite_on() ) {
+            if ( ! wpbdp_get_option( 'permalinks-no-id' ) || ! empty( $post->post_name ) ) {
+                $url = remove_query_arg( array( 'post_type', 'p' ), $url );
+            }
+        }
 
         return $url;
     }
