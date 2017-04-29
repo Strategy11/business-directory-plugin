@@ -481,14 +481,32 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'WPBDM' ) . '</label>';
 
         $html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ! $form_create ? 'wpbdp-hidden' : '' ) . '">';
+
+        $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
+        $html .= '<div class="wpbdp-form-field-label">';
         $html .= '<label for="user_username">' . _x( 'Username:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '</div>';
+        $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) .'" />';
+        $html .= '</div>';
+        $html .= '</div>';
 
+        $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
+        $html .= '<div class="wpbdp-form-field-label">';
         $html .= '<label for="user_email">' . _x( 'Email:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '</div>';
+        $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_email" type="text" name="user_email" value="' . esc_attr( $form_email ) . '" />';
+        $html .= '</div>';
+        $html .= '</div>';
 
+        $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-password">';
+        $html .= '<div class="wpbdp-form-field-label">';
         $html .= '<label for="wpbdp-submit-listing-user_password">' . _x( 'Password:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '</div>';
+        $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_password" type="password" name="user_password" value="" />';
+        $html .= '</div>';
         $html .= '</div>';
 
         // $user_id = username_exists( $user_name );
