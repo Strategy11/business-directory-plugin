@@ -602,10 +602,12 @@ class WPBDP_Listing {
             }
         }
 
-        if ( $title )
-            $this->set_title( $title );
-
         $post_data = array();
+
+        if ( $title ) {
+            $post_data['post_title'] = $title;
+            $post_data['post_name'] = sanitize_title( $title );
+        }
 
         if ( isset( $state->post_status ) ) {
             $post_data['post_status'] = $state->post_status;

@@ -523,15 +523,6 @@ class WPBDP_CSV_Import {
                 $wpbdp->listings->upgrades->set_sticky( $listing->get_id(), $l->id );
         }
 
-        // Create permalink.
-        $post = get_post( $listing->get_id() );
-        wp_update_post( array('ID' => $post->ID,
-                              'post_name' => wp_unique_post_slug( sanitize_title( $post->post_title ),
-                                                                  $post->ID,
-                                                                  $post->post_status,
-                                                                  $post->post_type,
-                                                                  $post->post_parent ) ) );
-
         // Update expiration dates.
         foreach ( $categories as $c ) {
             if ( ! $c['expires_on'] )
