@@ -605,6 +605,16 @@ class WPBDP_Listing {
         if ( $title )
             $this->set_title( $title );
 
+        $post_data = array();
+
+        if ( isset( $state->post_status ) ) {
+            $post_data['post_status'] = $state->post_status;
+        }
+
+        if ( $post_data ) {
+            wp_update_post( array_merge( array( 'ID' => $this->id ), $post_data ) );
+        }
+
         // Set categories.
         if ( isset( $state->categories ) ) {
             $this->set_categories( $state->categories );
