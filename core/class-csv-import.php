@@ -496,6 +496,11 @@ class WPBDP_CSV_Import {
                 $state->images[] = $img_id;
         }
 
+        // Set username.
+        if ( $u = get_user_by( 'login', $meta['username'] ) ) {
+            $state->post_author = $u->ID;
+        }
+
         // Insert or update listing.
         if ( $listing_id ) {
             $state->post_status = wpbdp_get_option( 'edit-post-status' );
@@ -511,10 +516,6 @@ class WPBDP_CSV_Import {
             $listing->set_categories( $state->categories );
             $listing->save();
         }
-
-        // Set username.
-        if ( $u = get_user_by( 'login', $meta['username'] ) )
-            wp_update_post( array( 'ID' => $listing->get_id(), 'post_author' => $u->ID ) );
 
         // Set featured level.
         if ( $meta['featured_level'] ) {

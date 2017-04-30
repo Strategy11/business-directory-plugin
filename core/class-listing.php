@@ -611,6 +611,10 @@ class WPBDP_Listing {
             $post_data['post_status'] = $state->post_status;
         }
 
+        if ( isset( $state->post_author ) ) {
+            $post_data['post_author'] = $state->post_author;
+        }
+
         if ( $post_data ) {
             wp_update_post( array_merge( array( 'ID' => $this->id ), $post_data ) );
         }
@@ -634,10 +638,14 @@ class WPBDP_Listing {
 
     public static function create( &$state ) {
         // Create author user if needed.
-        $current_user = wp_get_current_user();
-        $post_author = null;
+        if ( isset( $state->post_author ) && $state->post_author ) {
+            $post_author = $state->post_author;
+        } else {
+            $current_user = wp_get_current_user();
+            $post_author = $current_user->ID;
+        }
 
-        if ( $current_user->ID == 0 ) {
+        if ( 0 == $post_author ) {
             if ( wpbdp_get_option( 'require-login' ) )
                 throw new Exception('Login required.');
 
