@@ -623,29 +623,9 @@ class WPBDP_Listing {
     }
 
     public static function create( &$state ) {
-        $title = 'Untitled Listing';
-
-        if ( isset( $state->title ) ) {
-            $title = $state->title;
-        } else {
-            $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
-
-            if ( isset( $state->fields[ $title_field->get_id() ] ) )
-                $title = $state->fields[ $title_field->get_id() ];
-        }
-
-        $title = trim( strip_tags( $title ) );
-
-        $post_data = array(
-            'post_title' => $title,
-            'post_status' => 'pending',
-            'post_type' => WPBDP_POST_TYPE
-        );
-
-        $post_id = wp_insert_post( $post_data );
-
         // Create author user if needed.
         $current_user = wp_get_current_user();
+        $post_author = null;
 
         if ( $current_user->ID == 0 ) {
             if ( wpbdp_get_option( 'require-login' ) )
@@ -665,10 +645,34 @@ class WPBDP_Listing {
                         'user_pass' => wp_generate_password()
                     ) );
                 }
-
-                wp_update_post( array( 'ID' => $post_id, 'post_author' => $post_author ) );
             }
         }
+
+        $title = 'Untitled Listing';
+
+        if ( isset( $state->title ) ) {
+            $title = $state->title;
+        } else {
+            $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
+
+            if ( isset( $state->fields[ $title_field->get_id() ] ) ) {
+                $title = $state->fields[ $title_field->get_id() ];
+            }
+        }
+
+        $title = trim( strip_tags( $title ) );
+
+        $post_data = array(
+            'post_title' => $title,
+            'post_status' => 'pending',
+            'post_type' => WPBDP_POST_TYPE
+        );
+
+        if ( $post_author ) {
+            $post_data['post_author'] = $post_author;
+        }
+
+        $post_id = wp_insert_post( $post_data );
 
         return new self( $post_id );
     }
