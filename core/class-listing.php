@@ -672,6 +672,10 @@ class WPBDP_Listing {
             $post_data['post_author'] = $post_author;
         }
 
+        if ( isset( $state->post_status ) ) {
+            $post_data['post_status'] = $state->post_status;
+        }
+
         $post_id = wp_insert_post( $post_data );
 
         return new self( $post_id );
