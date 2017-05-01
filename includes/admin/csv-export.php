@@ -21,7 +21,7 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function dispatch() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/csv-export.tpl.php' );
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/csv-export.tpl.php' );
     }
 
     public function ajax_csv_export() {

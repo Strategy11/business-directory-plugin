@@ -40,7 +40,7 @@ class WPBDP_Themes {
         add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 
         if ( is_admin() ) {
-            require_once( WPBDP_PATH . 'admin/class-themes-admin.php' );
+            require_once( WPBDP_PATH . 'includes/admin/class-themes-admin.php' );
             $this->admin = new WPBDP_Themes_Admin( $this );
         }
     }

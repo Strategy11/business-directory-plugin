@@ -6,7 +6,7 @@ echo wpbdp_admin_header( null, 'themes', array(
 echo wpbdp_admin_notices();
 ?>
 
-<?php echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-tabs.tpl.php', array( 'active' => 'licenses' ) ); ?>
+<?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-tabs.tpl.php', array( 'active' => 'licenses' ) ); ?>
 
 <div id="wpbdp-theme-licenses">
     <table class="form-table">

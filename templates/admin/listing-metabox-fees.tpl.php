@@ -13,7 +13,7 @@
 <?php endif; ?>
 
 <?php
-echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-categories.tpl.php', array(
+echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/listing-metabox-categories.tpl.php', array(
                             'categories' => $categories,
                             'listing' => $listing ) );
 ?>

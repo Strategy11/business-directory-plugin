@@ -23,7 +23,7 @@ class WPBDP_Admin_Payments {
         if ( ! $payment )
             $response->send_error();
 
-        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/payment-details.tpl.php',
+        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'templates/admin/payment-details.tpl.php',
                                                    array( 'payment' => $payment,
                                                           'invoice' => $wpbdp->payments->render_invoice( $payment ) ) ) );
         $response->send();

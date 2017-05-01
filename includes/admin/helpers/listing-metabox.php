@@ -94,21 +94,21 @@ class WPBDP_Admin_Listing_Metabox {
                           _x( 'Mark listing as Paid', 'admin infometabox', 'WPBDM' ) );
         }
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-feesummary.tpl.php', array(
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/listing-metabox-feesummary.tpl.php', array(
             'categories' => $this->listing->get_categories( 'all' ),
             'listing' => $this->listing
         ) );
     }
 
     private function tab_fees() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-fees.tpl.php', array(
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/listing-metabox-fees.tpl.php', array(
                                 'categories' => $this->listing->get_categories( 'all' ),
                                 'listing' => $this->listing
                                 ) );
     }
 
     private function tab_transactions() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-transactions.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/listing-metabox-transactions.tpl.php',
                                 array( 'payments' => $this->listing->get_latest_payments() ) );
     }
 

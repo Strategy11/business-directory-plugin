@@ -1,7 +1,7 @@
 <p><strong><?php _ex('Categories for this listing', 'admin infometabox', 'WPBDM'); ?></strong></p>
 
 <?php
-echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-metabox-categories.tpl.php', array(
+echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/listing-metabox-categories.tpl.php', array(
                             'categories' => $categories,
                             'listing' => $listing,
                             'display' => array( 'expiration' ),

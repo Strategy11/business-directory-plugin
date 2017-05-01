@@ -243,7 +243,7 @@ class WPBDP_Themes_Admin {
         unset( $themes[ $active_theme ] );
         array_unshift( $themes, $current );
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes.tpl.php',
                                 array( 'themes' => $themes,
                                        'active_theme' => $active_theme ) );
     }
@@ -280,7 +280,7 @@ class WPBDP_Themes_Admin {
     }
 
     function theme_install() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-install.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-install.tpl.php',
                                 array() );
     }
 
@@ -288,7 +288,7 @@ class WPBDP_Themes_Admin {
         $theme_id = $_REQUEST['theme_id'];
         $theme = $this->api->get_theme( $theme_id );
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-delete-confirm.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-delete-confirm.tpl.php',
                                 array( 'theme' => $theme ) );
     }
 
@@ -454,7 +454,7 @@ class WPBDP_Themes_Admin {
     function theme_licenses() {
         $themes = $this->api->get_installed_themes();
 
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/themes-licenses.tpl.php',
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-licenses.tpl.php',
                                 array( 'themes' => $themes ) );
     }
 

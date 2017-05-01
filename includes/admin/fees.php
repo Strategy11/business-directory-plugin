@@ -323,7 +323,7 @@ class WPBDP_FeesAdmin {
             $order_options[ $k ] = $l;
         }
 
-        wpbdp_render_page(WPBDP_PATH . 'admin/templates/fees.tpl.php',
+        wpbdp_render_page(WPBDP_PATH . 'templates/admin/fees.tpl.php',
                           array( 'table' => $table,
                                  'order_options' => $order_options,
                                  'current_order' => wpbdp_get_option( 'fee-order' ) ),
@@ -346,7 +346,7 @@ class WPBDP_FeesAdmin {
             $this->admin->messages[] = array( $fee->errors->html() , 'error' );
         }
 
-        wpbdp_render_page( WPBDP_PATH . 'admin/templates/fees-addoredit.tpl.php',
+        wpbdp_render_page( WPBDP_PATH . 'templates/admin/fees-addoredit.tpl.php',
                            array(
                              'fee' => $fee,
                              'fee_extra_settings' => wpbdp_capture_action_array( 'wpbdp_admin_fee_form_extra_settings', array( &$fee ) )
@@ -368,7 +368,7 @@ class WPBDP_FeesAdmin {
 
             return $this->feesTable();
         } else {
-            wpbdp_render_page(WPBDP_PATH . 'admin/templates/fees-confirm-delete.tpl.php',
+            wpbdp_render_page(WPBDP_PATH . 'templates/admin/fees-confirm-delete.tpl.php',
                               array('fee' => $fee),
                               true);
         }

@@ -1,14 +1,14 @@
 <?php
-require_once( WPBDP_PATH . 'admin/admin-pages.php' );
-require_once( WPBDP_PATH . 'admin/class-admin-listings.php' );
-require_once( WPBDP_PATH . 'admin/fees.php' );
-require_once( WPBDP_PATH . 'admin/form-fields.php' );
-require_once( WPBDP_PATH . 'admin/payments.php' );
-require_once( WPBDP_PATH . 'admin/csv-import.php' );
-require_once( WPBDP_PATH . 'admin/csv-export.php' );
-require_once( WPBDP_PATH . 'admin/listing-metabox.php' );
-require_once( WPBDP_PATH . 'admin/class-listing-fields-metabox.php' );
-require_once( WPBDP_PATH . 'admin/page-debug.php' );
+require_once( WPBDP_PATH . 'includes/admin/admin-pages.php' );
+require_once( WPBDP_PATH . 'includes/admin/class-admin-listings.php' );
+require_once( WPBDP_PATH . 'includes/admin/fees.php' );
+require_once( WPBDP_PATH . 'includes/admin/form-fields.php' );
+require_once( WPBDP_PATH . 'includes/admin/payments.php' );
+require_once( WPBDP_PATH . 'includes/admin/csv-import.php' );
+require_once( WPBDP_PATH . 'includes/admin/csv-export.php' );
+require_once( WPBDP_PATH . 'includes/admin/helpers/listing-metabox.php' );
+require_once( WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php' );
+require_once( WPBDP_PATH . 'includes/admin/page-debug.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -459,7 +459,7 @@ to how WordPress stores the data.", 'WPBDM' )
         if ( ! $listing || ! $category || 'pending' == $category->status )
             $response->send_error();
 
-        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'admin/templates/listing-change-fee.tpl.php',
+        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'templates/admin/listing-change-fee.tpl.php',
                                                    array( 'category' => $category,
                                                           'listing' => $listing,
                                                           'fees' => wpbdp_get_fees_for_category( $fee_info->category_id ) ) ) );
@@ -752,13 +752,13 @@ to how WordPress stores the data.", 'WPBDM' )
 
         $reset_defaults = ( isset( $_GET['action'] ) && 'reset' == $_GET['action'] );
         if ( $reset_defaults ) {
-            echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/settings-reset.tpl.php' );
+            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-reset.tpl.php' );
             return;
         }
 
         $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
 
-        wpbdp_render_page(WPBDP_PATH . 'admin/templates/settings.tpl.php',
+        wpbdp_render_page(WPBDP_PATH . 'templates/admin/settings.tpl.php',
                           array('wpbdp_settings' => $wpbdp->settings),
                           true);
     }
@@ -816,9 +816,9 @@ to how WordPress stores the data.", 'WPBDM' )
             $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename(dirname($real_path)) . '/' . basename($real_path);
             deactivate_plugins($fixed_path, true);
 
-            echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-complete.tpl.php');
+            echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php');
         } else {
-            echo wpbdp_render_page(WPBDP_PATH . 'admin/templates/uninstall-confirm.tpl.php');
+            echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php');
         }
     }
 
@@ -962,7 +962,7 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     public function main_menu() {
-        echo wpbdp_render_page( WPBDP_PATH . 'admin/templates/home.tpl.php' );
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );
     }
 
 }
