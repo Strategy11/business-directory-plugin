@@ -513,7 +513,7 @@ class WPBDP_CSV_Import {
             $listing = WPBDP_Listing::create( $state );
             $listing->set_field_values( $state->fields );
             $listing->set_images( $state->images );
-            $listing->set_categories( $state->categories );
+            $listing->set_categories( $state->categories, 'nofix' );
             $listing->save();
         }
 

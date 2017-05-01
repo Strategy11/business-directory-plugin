@@ -189,9 +189,15 @@ class WPBDP_Listing {
 
     // TODO: if there is 'current' information for the category respect the expiration time left.
     public function add_category( $category, $fee, $recurring = false, $recurring_data = array(), $cleanup = false ) {
-        global $wpdb;
-
         $this->remove_category( $category, true, $cleanup );
+
+        $category_id = $this->add_category_info( $category, $fee, $recurring, $recurring_data, $cleanup );
+
+        wp_set_post_terms( $this->id, array( $category_id ), WPBDP_CATEGORY_TAX, true );
+    }
+
+    private function add_category_info( $category, $fee, $recurring = false, $recurring_data = array(), $cleanup = false ) {
+        global $wpdb;
 
         $category_id = intval( is_object( $category ) ? $category->term_id : $category );
         $fee =  ( null === $fee ) ? $fee : ( is_object( $fee ) ? $fee : wpbdp_get_fee( $fee ) );
@@ -220,9 +226,9 @@ class WPBDP_Listing {
             $fee_info['expires_on'] = $expiration_date;
 
         $wpdb->insert( $wpdb->prefix . 'wpbdp_listing_fees', $fee_info );
-        wp_set_post_terms( $this->id, array( $category_id ), WPBDP_CATEGORY_TAX, true );
-    }
 
+        return $category_id;
+    }
 
     private function calculate_expiration_date( $time, &$fee ) {
         $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
@@ -371,11 +377,16 @@ class WPBDP_Listing {
         return $results;
     }
 
-    public function set_categories( $categories ) {
+    public function set_categories( $categories, $fix = 'fix' ) {
         $category_ids = array_map( 'intval', $categories );
 
         wp_set_post_terms( $this->id, $category_ids, WPBDP_CATEGORY_TAX, false );
-        $this->fix_categories();
+
+        if ( 'fix' == $fix ) {
+            $this->fix_categories();
+        } else {
+            $this->set_default_fee_for_categories( $category_ids );
+        }
     }
 
     public function fix_categories( $charge = false ) {
@@ -416,6 +427,19 @@ class WPBDP_Listing {
                     $this->add_category( $category_id, reset( $fee_options ) );
                 }
             }
+        }
+    }
+
+    private function set_default_fee_for_categories( $terms, $charge = false ) {
+        foreach ( $terms as $category_id ) {
+            $fee_options = wpbdp_get_fees_for_category( $category_id );
+
+            // Allow backend listing categories editing to always succeed.
+            if ( ! $fee_options && is_admin() && current_user_can( 'administrator' ) ) {
+                $fee_options[] = WPBDP_Fee_Plan::get_free_plan();
+            }
+
+            $this->add_category_info( $category_id, reset( $fee_options ) );
         }
     }
 
