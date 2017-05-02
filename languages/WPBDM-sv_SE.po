@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-04-27 15:57:35+00:00\n"
+"POT-Creation-Date: 2017-05-02 20:53:52+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,3000 +14,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: admin/class-admin-listings.php:40
-msgctxt "admin category filter"
-msgid "All categories"
-msgstr "Alla kategorier"
-
-#: admin/class-admin-listings.php:133
-msgctxt "admin listings"
-msgid ""
-"This listing doesn't have any category assigned. At least one category (and "
-"its respective fee) is required in order to determine the features available "
-"to this listing, as well as handling renewals."
-msgstr ""
-"Denna förteckning har inte någon kategorisering. Minst en kategori (och dess "
-"respektive avgift) krävs för att fastställa funktionerna som denna "
-"förteckning som hanterar förnyelser."
-
-#: admin/class-admin-listings.php:138
-msgid "Listing Information"
-msgstr "Information om annons"
-
-#: admin/class-admin-listings.php:145
-msgctxt "admin"
-msgid "Listing Fields / Images"
-msgstr "Annonsfält / bilder"
-
-#: admin/class-admin-listings.php:156
-msgctxt "admin"
-msgid "Categories"
-msgstr "Kategorier"
-
-#: admin/class-admin-listings.php:157
-msgid "Payment Status"
-msgstr "Betalningsstatus"
-
-#: admin/class-admin-listings.php:158
-msgid "Featured (Sticky) Status"
-msgstr "Utvald (fäst) status"
-
-#: admin/class-admin-listings.php:189
-msgctxt "admin"
-msgid "(Listing expired in this category)"
-msgstr "(Annonsering har utgått i denna kategori)"
-
-#: admin/class-admin-listings.php:207 admin/class-admin-listings.php:290
-msgid "Paid"
-msgstr "Betald"
-
-#: admin/class-admin-listings.php:212
-msgid "Mark as"
-msgstr "Markera som"
-
-#: admin/class-admin-listings.php:221 admin/class-admin-listings.php:300
-msgid "Pending Upgrade"
-msgstr "Väntar på uppgradering"
-
-#: admin/class-admin-listings.php:229 admin/listing-metabox.php:70
-msgid "Upgrade to %s"
-msgstr "Uppgradera till %s"
-
-#: admin/class-admin-listings.php:236 admin/listing-metabox.php:77
-msgid "Downgrade to %s"
-msgstr "Nedgradera till %s"
-
-#: admin/class-admin-listings.php:239 admin/class-admin-listings.php:418
-msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "Uppgradera till Utvald"
-
-#: admin/class-admin-listings.php:295
-msgid "Unpaid"
-msgstr "Ej betald"
-
-#: admin/class-admin-listings.php:305
-msgctxt "admin"
-msgid "Expired"
-msgstr "Utgången"
-
-#: admin/class-admin-listings.php:354
-msgctxt "admin actions"
-msgid "Edit Listing"
-msgstr "Redigera annons"
-
-#: admin/class-admin-listings.php:357
-msgctxt "admin actions"
-msgid "Delete Listing"
-msgstr "Ta bort annons"
-
-#: admin/class-admin-listings.php:416
-msgctxt "admin actions"
-msgid "Publish Listing"
-msgstr "Publicera annons"
-
-#: admin/class-admin-listings.php:419
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr "Nedgradera till normal"
-
-#: admin/class-admin-listings.php:421
-msgctxt "admin actions"
-msgid "Mark as Paid"
-msgstr "Markera som betald"
-
-#: admin/class-admin-listings.php:423
-msgctxt "admin actions"
-msgid "Renew Listing"
-msgstr "Förnya annons"
-
-#: admin/class-admin.php:105
-msgid ""
-"Preview is only available after you've saved the first draft. This is due\n"
-"to how WordPress stores the data."
-msgstr ""
-"Förhandsgranskning är endast tillgänglig när du har sparat det första "
-"utkastet. Detta beror på hur WordPress lagrar data."
-
-#: admin/class-admin.php:138
-msgctxt "drip pointer"
-msgid ""
-"Find out how to create a compelling, thriving business directory from "
-"scratch in this ridiculously actionable (and FREE) 5-part email course. Get "
-"a FREE premium module just for signing up."
-msgstr ""
-"Få information om hur du skapar en övertygande, blomstrande registerkatalog "
-"från början i denna sanslöst fullmatade (och GRATIS) e-postkurs i 5 delar. "
-"Du får en premium-modul helt kostnadsfritt genom att bara registrera dig."
-
-#: admin/class-admin.php:140
-msgctxt "drip pointer"
-msgid "Email Address:"
-msgstr "E-postadress:"
-
-#: admin/class-admin.php:146
-msgctxt "drip pointer"
-msgid "Want to know the Secrets of Building an Awesome Business Directory?"
-msgstr "Vill du veta hemligheten bakom att bygga en grymt bra affärskatalog?"
-
-#: admin/class-admin.php:148
-msgctxt "drip pointer"
-msgid "Yes, please!"
-msgstr "Ja tack!"
-
-#: admin/class-admin.php:150
-msgctxt "drip pointer"
-msgid "No, thanks"
-msgstr "Nej tack."
-
-#: admin/class-admin.php:167
-msgctxt "admin"
-msgid "Business Directory"
-msgstr "Business Directory"
-
-#: admin/class-admin.php:178
-msgctxt "admin"
-msgid "You're all set. Visit your new <a>Business Directory</a> page."
-msgstr "Du är klar! Besök din nya <a>Business Directory</a> sida."
-
-#: admin/class-admin.php:199
-msgctxt "drip pointer"
-msgid "Invalid e-mail address."
-msgstr "Ogiltig e-postadress."
-
-#: admin/class-admin.php:233
-msgctxt "admin menu"
-msgid "Business Directory Admin"
-msgstr "Business Directory admin"
-
-#: admin/class-admin.php:234
-msgctxt "admin menu"
-msgid "Dir. Admin"
-msgstr "Dir. admin"
-
-#: admin/class-admin.php:234
-msgctxt "admin menu"
-msgid "Directory Admin"
-msgstr "Katalog admin"
-
-#: admin/class-admin.php:240 admin/class-admin.php:241
-msgctxt "admin menu"
-msgid "Add New Listing"
-msgstr "Lägg till ny annons"
-
-#: admin/class-admin.php:246 admin/class-admin.php:247
-msgctxt "admin menu"
-msgid "Manage Options"
-msgstr "Hantera alternativ"
-
-#: admin/class-admin.php:252 admin/class-admin.php:253
-msgctxt "admin menu"
-msgid "Manage Fees"
-msgstr "Hantera avgifter"
-
-#: admin/class-admin.php:258 admin/class-admin.php:259
-msgctxt "admin menu"
-msgid "Manage Form Fields"
-msgstr "Hantera formulärfält"
-
-#: admin/class-admin.php:264 admin/class-admin.php:265
-msgctxt "admin menu"
-msgid "Listings"
-msgstr "Annonser"
-
-#: admin/class-admin.php:279 admin/class-admin.php:280
-msgctxt "admin menu"
-msgid "CSV Import"
-msgstr "Importera CSV"
-
-#: admin/class-admin.php:285 admin/class-admin.php:286
-msgctxt "admin menu"
-msgid "CSV Export"
-msgstr "Exportera CSV"
-
-#: admin/class-admin.php:291 admin/class-admin.php:292
-msgctxt "admin menu"
-msgid "Debug"
-msgstr "Debug"
-
-#: admin/class-admin.php:301
-msgctxt "admin menu"
-msgid "Main Menu"
-msgstr "Huvudmeny"
-
-#: admin/class-admin.php:312
-msgctxt "admin menu"
-msgid "Uninstall Business Directory Plugin"
-msgstr "Avinstallera tillägget Business Directory"
-
-#: admin/class-admin.php:313
-msgctxt "admin menu"
-msgid "Uninstall"
-msgstr "Avinstallera"
-
-#: admin/class-admin.php:427
-#: admin/templates/listing-metabox-categories.tpl.php:69
-msgctxt "admin infometabox"
-msgid "never"
-msgstr "aldrig"
-
-#: admin/class-admin.php:521
-msgctxt "admin"
-msgid "Dismiss this notice."
-msgstr "Avvisa denna notering."
-
-#: admin/class-admin.php:549
-msgctxt "admin"
-msgid "The listing has been published."
-msgid_plural "The listings have been published."
-msgstr[0] "Annonsen har publicerats."
-msgstr[1] "Annonserna har publicerats"
-
-#: admin/class-admin.php:567
-msgctxt "admin"
-msgid "The listing status has been set as paid."
-msgid_plural "The listings status has been set as paid."
-msgstr[0] "Annonsen har fått status Betald."
-msgstr[1] "Annonserna har fått status Betald."
-
-#: admin/class-admin.php:573
-msgctxt "admin"
-msgid ""
-"Only invoices containing non-recurring items were marked as paid. Please "
-"review the <a>Transactions</a> tab for the listing to manage recurring items "
-"or check the gateway's backend."
-msgid_plural ""
-"Only invoices containing non-recurring items were marked as paid. Recurring "
-"payments have to be managed through the gateway."
-msgstr[0] ""
-"Endast fakturor som innehåller engångsposter var markerade som betalda. Läs "
-"igenom fliken <a>transaktioner</a> för annonsen för att hantera återkommande "
-"objekt eller kontrollera gatewayens backend."
-msgstr[1] ""
-"Endast fakturor som innehåller engångsposter markerases som betalda. "
-"Återkommande betalningar måste hanteras genom gatewayen."
-
-#: admin/class-admin.php:592
-msgctxt "admin"
-msgid "The listing has been modified."
-msgid_plural "The listings have been modified."
-msgstr[0] "Annonsen har ändrats."
-msgstr[1] "Annonserna har ändrats."
-
-#: admin/class-admin.php:605
-msgctxt "admin"
-msgid "The listing has been upgraded."
-msgid_plural "The listings have been upgraded."
-msgstr[0] "Annonsen har uppgraderats."
-msgstr[1] "Annonserna har uppgraderats."
-
-#: admin/class-admin.php:617
-msgctxt "admin"
-msgid "The listing has been downgraded."
-msgid_plural "The listings have been downgraded."
-msgstr[0] "Annonsen har nedgraderats."
-msgstr[1] "Annonserna har nedgraderats."
-
-#: admin/class-admin.php:628
-msgctxt "admin payments"
-msgid ""
-"The payment status was not changed. Recurring payments can't be manually "
-"approved. Please check your gateway's backend to see if the payment really "
-"went through."
-msgstr ""
-"Betalningsstatus ändrades inte. Återkommande betalningar inte kan godkännas "
-"manuellt. Vänligen kontrollera din gateway backend för att se om betalningen "
-"verkligen gick igenom."
-
-#: admin/class-admin.php:633
-msgctxt "admin"
-msgid "The transaction has been approved."
-msgstr "Din transaktion har godkänts."
-
-#: admin/class-admin.php:643
-msgctxt "admin"
-msgid "The transaction has been rejected."
-msgstr "Transaktionen har avvisats."
-
-#: admin/class-admin.php:649
-msgctxt "admin"
-msgid "The fee was successfully assigned."
-msgstr "Avgiften tilldelades med framgång."
-
-#: admin/class-admin.php:658
-msgctxt "admin"
-msgid "Listing was renewed."
-msgid_plural "Listings were renewed."
-msgstr[0] "Annonsen har förnyats."
-msgstr[1] "Annonserna har förnyats."
-
-#: admin/class-admin.php:665
-msgctxt "admin"
-msgid "Renewal email sent."
-msgstr "E-postmeddelande om förnyelse skickat."
-
-#: admin/class-admin.php:720
-msgctxt "admin category id"
-msgid "ID"
-msgstr "ID"
-
-#: admin/class-admin.php:722 admin/class-admin.php:728
-msgctxt "admin"
-msgid "Listing Count"
-msgstr "Annonsräknare"
-
-#: admin/class-admin.php:837
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires fields with the following "
-"associations in order to work correctly: <b>%s</b>."
-msgstr ""
-"<b>Tillägget Business Directory</b> kräver fält med följande associationer  "
-"för att fungera korrekt: <b>%s</b>."
-
-#: admin/class-admin.php:839
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
-"association in order to work correctly."
-msgstr ""
-"<b>Tillägget Business Direcotry </b> kräver ett fält med en<b>%s</b> "
-"association för att fungera korrekt."
-
-#: admin/class-admin.php:843
-msgctxt "admin"
-msgid ""
-"You can create these custom fields by yourself inside \"Manage Form Fields\" "
-"or let Business Directory do this for you automatically."
-msgstr ""
-"Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
-"låta Business Directory göra det åt dig automatiskt."
-
-#: admin/class-admin.php:847
-msgctxt "admin"
-msgid "Go to \"Manage Form Fields\""
-msgstr "Gå till \"Hantera formulärfält\""
-
-#: admin/class-admin.php:850
-msgctxt "admin"
-msgid "Create these required fields for me"
-msgstr "Skapa dessa obligatoriska fält för mig"
-
-#: admin/class-admin.php:859
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires a page with the "
-"<tt>[businessdirectory]</tt> shortcode to function properly."
-msgstr ""
-"<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
-"<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
-
-#: admin/class-admin.php:861
-msgctxt "admin"
-msgid ""
-"You can create this page by yourself or let Business Directory do this for "
-"you automatically."
-msgstr ""
-"Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
-"åt dig automatiskt."
-
-#: admin/class-admin.php:865
-msgctxt "admin"
-msgid "Create required pages for me"
-msgstr "Skapa nödvändiga sidor åt mig."
-
-#: admin/class-admin.php:905
-msgctxt "admin compat"
-msgid "Installed: %s"
-msgstr "Installerat: %s"
-
-#: admin/class-admin.php:905
-msgctxt "admin compat"
-msgid "N/A"
-msgstr "Ej tillämplig"
-
-#: admin/class-admin.php:908
-msgctxt "admin compat"
-msgid "Required: %s"
-msgstr "Nödvändigt: %s"
-
-#: admin/class-admin.php:920
-msgctxt "admin compat"
-msgid ""
-"Business Directory has detected some incompatible premium module versions "
-"installed."
-msgstr ""
-"Business Directory har noterat konflikt mellan versioner av premium-moduler "
-"som är installerade."
-
-#: admin/class-admin.php:922
-msgctxt "admin compat"
-msgid ""
-"Please upgrade to the required versions indicated below to make sure "
-"everything functions properly."
-msgstr ""
-"Vänligen uppgradera till de nödvändiga versioner som anges nedan för att se "
-"till att allt fungerar."
-
-#: admin/class-admin.php:942
-msgctxt "admin"
-msgid ""
-"We noticed you want your Business Directory users to register before posting "
-"listings, but Registration for your site is currently disabled. Go [here] "
-"and check \"Anyone can register\" to make sure BD works properly."
-msgstr ""
-"Vi har märkt att du vill att dina användare ska registrera sig innan de kan "
-"skapa annonser, men registreringen är avstängd på din webbplats. Gå [hit] "
-"och klicka i \"Vem som helst kan registrera sig\" för att säkerställa att BD "
-"fungerar som det ska."
-
-#: admin/class-themes-admin.php:47
-msgctxt "themes"
-msgid "Directory Themes"
-msgstr "Directory Teman"
-
-#: admin/class-themes-admin.php:48
-msgctxt "themes"
-msgid "Directory Themes %s"
-msgstr "Directory Teman %s"
-
-#: admin/class-themes-admin.php:94
-msgctxt "admin themes"
-msgid ""
-"Business Directory Plugin - Your template overrides need to be reviewed!"
-msgstr ""
-"Tillägget Business Directory - Du måste se över dina åsidosättningar av "
-"mallen!"
-
-#: admin/class-themes-admin.php:96
-msgctxt "admin themes"
-msgid ""
-"Starting with version 4.0, Business Directory is using a new theming system "
-"that is not compatible with the templates used in previous versions."
-msgstr ""
-"Från och med version 4.0 kommer Business Directory att använda ett nytt "
-"mallsystem som inte är kompatibelt med tidigare versioner."
-
-#: admin/class-themes-admin.php:98
-msgctxt "admin themes"
-msgid ""
-"Because of this, your template overrides below have been disabled. You "
-"should <a>review our documentation on customization</a> in order adjust your "
-"templates."
-msgstr ""
-"På grund av detta har dina åsidosättningar av mallen nedan deaktiverats. Du "
-"bör <a>läsa vår dokumentation på anpassningar</a> för att kunna justera dina "
-"mallar."
-
-#: admin/class-themes-admin.php:127
-msgctxt "admin themes"
-msgid ""
-"You need to <a>activate your theme's license key</a> before you can activate "
-"the theme. <a>Click here</a> to do that."
-msgstr ""
-"Du behöver <a>aktivera temats licensnyckel</a> innan du kan aktivera temat."
-"<a> Klicka här</a> för att göra det."
-
-#: admin/class-themes-admin.php:157
-msgctxt "themes"
-msgid "Could not change the active theme to \"%s\"."
-msgstr "Kunde inte ändra det aktiva temat till \"%s\"."
-
-#: admin/class-themes-admin.php:204
-msgctxt "themes"
-msgid "Active theme changed to \"%s\"."
-msgstr "Aktiverat tema ändrat till \"%s\"."
-
-#: admin/class-themes-admin.php:207
-msgctxt "themes"
-msgid ""
-"%s requires that you tag your existing fields to match some places we want "
-"to put your data on the theme. Below are fields we think are missing."
-msgstr ""
-"%s kräver att du taggar dina befintliga fält för att matcha några platser vi "
-"vill sätta dina data på temat. Nedan finns fält som vi tycker saknas."
-
-#: admin/class-themes-admin.php:216
-msgctxt "themes"
-msgid "Map My Fields"
-msgstr "Mappa min fält"
-
-#: admin/class-themes-admin.php:223
-msgctxt "themes"
-msgid "Suggested fields created successfully."
-msgstr "Föreslagna fält skapats."
-
-#: admin/class-themes-admin.php:226
-msgctxt "themes"
-msgid "Theme installed successfully."
-msgstr "Temat har installerats med framgång."
-
-#: admin/class-themes-admin.php:229
-#, fuzzy
-msgctxt "themes"
-msgid "Theme was deleted successfully."
-msgstr "Temat har tagits bort med framgång."
-
-#: admin/class-themes-admin.php:232
-msgctxt "themes"
-msgid "Could not delete theme directory. Check permissions."
-msgstr "Det gick inte att ta bort tema katalog. Kontrollera behörigheterna."
-
-#: admin/class-themes-admin.php:258
-msgctxt "themes"
-msgid "Please upload a valid theme file."
-msgstr "Vänligen ladda upp en giltig temafil."
-
-#: admin/class-themes-admin.php:265
-msgctxt "themes"
-msgid "Could not move \"%s\" to a temporary directory."
-msgstr "Det gick inte att flytta \"%s\" till en tillfällig katalog."
-
-#: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
-#: core/licensing.php:174 core/licensing.php:206
-msgctxt "licensing"
-msgid "Could not contact licensing server"
-msgstr "Det gick inte att kontakta licensservern"
-
-#: admin/class-themes-admin.php:372 core/licensing.php:179
-#: core/licensing.php:213
-msgctxt "licensing"
-msgid "License key is invalid"
-msgstr "Licensnyckel är ogiltig"
-
-#: admin/class-themes-admin.php:377 core/licensing.php:368
-msgctxt "licensing"
-msgid "Could not activate license: %s."
-msgstr "Det gick inte att aktivera licens:%s."
-
-#: admin/class-themes-admin.php:390 core/licensing.php:370
-msgctxt "licensing"
-msgid "License activated"
-msgstr "Licens aktiverad"
-
-#: admin/class-themes-admin.php:433
-msgctxt "licensing"
-msgid "Invalid response from server"
-msgstr "Ogiltigt svar från server"
-
-#: admin/class-themes-admin.php:450 core/licensing.php:388
-msgctxt "licensing"
-msgid "License deactivated"
-msgstr "﻿Licensnyckel avaktiverad"
-
-#: admin/class-themes-admin.php:466
-msgctxt "themes"
-msgid "Activate your <a>license key</a> to use this theme."
-msgstr "Aktivera din <a>licensnyckel</a> för att använda detta tema."
-
-#: admin/csv-export.php:145
-msgctxt "admin csv-export"
-msgid "Could not create a temporary directory for handling this CSV export."
-msgstr ""
-"Det gick inte att skapa en temporär katalog för hantering av denna CSV "
-"export."
-
-#: admin/csv-export.php:147
-msgctxt "admin csv-export"
-msgid "Could not create wpbdp-csv-exports directory."
-msgstr "Det gick inte att skapa wpbdp-csv-export katalog."
-
-#: admin/csv-export.php:152
-msgctxt "admin csv-export"
-msgid "Error while creating a temporary directory for CSV export: %s"
-msgstr "Fel när du skapar en temporär katalog för CSV-export:%s"
-
-#: admin/csv-import.php:109
-msgctxt "admin csv-import"
-msgid "Business %s"
-msgstr "Affärs%s"
-
-#: admin/csv-import.php:147
-msgctxt "admin csv-import"
-msgid "Whatever"
-msgstr "Oavsett"
-
-#: admin/csv-import.php:151
-msgctxt "admin csv-import"
-msgid "Example CSV Import File"
-msgstr "Exempel CSV-importfilen"
-
-#: admin/csv-import.php:152
-msgctxt "admin csv-import"
-msgid "← Return to \"CSV Import\""
-msgstr "← Återvänd till \"CSV Import\""
-
-#: admin/csv-import.php:256
-msgid ""
-"A valid temporary directory with write permissions is required for CSV "
-"imports to function properly. Your server is using \"%s\" but this path does "
-"not seem to be writable. Please consult with your host."
-msgstr ""
-"Ett giltigt temporär katalog med skrivbehörighet krävs för CSV import ska "
-"fungera. Servern använder \"%s\", men denna väg verkar inte vara skrivbar. "
-"Rådgör med din värd."
-
-#: admin/csv-import.php:290
-msgctxt "admin csv-import"
-msgid "There was an error uploading the CSV file."
-msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
-
-#: admin/csv-import.php:296
-msgctxt "admin csv-import"
-msgid "Please upload or select a CSV file."
-msgstr "Vänligen ladda upp eller välj en CSV-fil."
-
-#: admin/csv-import.php:309
-msgctxt "admin csv-import"
-msgid "There was an error uploading the images ZIP file."
-msgstr "Det uppstod ett fel vid uppladdningen av bildernas ZIP-fil."
-
-#: admin/csv-import.php:330
-msgctxt "admin csv-import"
-msgid ""
-"An error was detected while validating the CSV file for import. Please fix "
-"this before proceeding."
-msgstr ""
-"Ett fel upptäcktes vid valideringen av CSV-filen för import. Vänligen "
-"åtgärda detta innan du fortsätter."
-
-#: admin/csv-import.php:339
-msgctxt "admin csv-import"
-msgid "Import is in \"test mode\". Nothing will be inserted into the database."
-msgstr "Import är i \"testläge\". Ingenting kommer att införas i databasen."
-
-#: admin/fees.php:9
-msgctxt "fees admin"
-msgid "fee"
-msgstr "avgift"
-
-#: admin/fees.php:10
-msgctxt "fees admin"
-msgid "fees"
-msgstr "avgifter"
-
-#: admin/fees.php:19
-msgctxt "fees admin"
-msgid "There are no fees right now. You can <a>create one</a>, if you want."
-msgstr "Det finns inga avgifter just nu. Du kan <a>skapa ett</a> , om du vill."
-
-#: admin/fees.php:25 admin/fees.php:260
-msgctxt "fees admin"
-msgid "Active"
-msgstr "Aktiv"
-
-#: admin/fees.php:28 admin/fees.php:258
-msgctxt "fees admin"
-msgid "Not Available"
-msgstr "Ej tillgängligt"
-
-#: admin/fees.php:31 admin/fees.php:255
-msgctxt "fees admin"
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: admin/fees.php:39
-msgctxt "fees admin"
-msgid ""
-"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-"Det finns inga \"%s\" avgifter just nu. Du kan <a>skapa en</a> , om du vill."
-
-#: admin/fees.php:56
-msgctxt "admin fees table"
-msgid "All"
-msgstr "Alla "
-
-#: admin/fees.php:68
-msgctxt "admin fees table"
-msgid "Active"
-msgstr "Aktiv"
-
-#: admin/fees.php:78
-msgctxt "admin fees table"
-msgid "Not Available"
-msgstr "Ej tillgängligt"
-
-#: admin/fees.php:85
-msgctxt "admin fees table"
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: admin/fees.php:94
-msgctxt "fees admin"
-msgid "Label"
-msgstr "Etikett"
-
-#: admin/fees.php:95
-msgctxt "fees admin"
-msgid "Amount"
-msgstr "Belopp"
-
-#: admin/fees.php:96
-msgctxt "fees admin"
-msgid "Duration"
-msgstr "Varaktighet"
-
-#: admin/fees.php:97
-msgctxt "fees admin"
-msgid "Images"
-msgstr "Bilder"
-
-#: admin/fees.php:98
-msgctxt "fees admin"
-msgid "Featured/Sticky"
-msgstr "Utvald (fäst)"
-
-#: admin/fees.php:102
-msgctxt "fees admin"
-msgid "Status"
-msgstr "Status"
-
-#: admin/fees.php:155
-msgctxt "fees admin"
-msgid ""
-"This is the default free plan for your directory.  You can't delete it and "
-"it's always free, but you can edit the name and other settings. It's only "
-"available when the directory is in Free mode.  You can always create other "
-"fee plans, including ones for 0.00 (free) if you wish."
-msgstr ""
-"Detta är den kostnadsfria standard-planen för din katalog. Du kan inte ta "
-"bort den och den är alltid gratis, men du kan redigera namn och andra "
-"inställningar. Den är bara tillgänglig när katalogen är i \"Gratis\" läge. "
-"Du kan alltid skapa andra avgiftsplaner, inklusive sådana för 0,00 (gratis) "
-"om du vill."
-
-#: admin/fees.php:187
-msgctxt "fees admin"
-msgid "Edit"
-msgstr "Redigera"
-
-#: admin/fees.php:197
-msgctxt "fees admin"
-msgid "Disable"
-msgstr "Koppla ur"
-
-#: admin/fees.php:201
-msgctxt "fees admin"
-msgid "Enable"
-msgstr "Aktivera"
-
-#: admin/fees.php:205
-msgctxt "fees admin"
-msgid "Delete"
-msgstr "Ta bort"
-
-#: admin/fees.php:226
-msgctxt "fees admin"
-msgid "Forever"
-msgstr "För alltid"
-
-#: admin/fees.php:227
-msgctxt "fees admin"
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d dag"
-msgstr[1] "%d dagar"
-
-#: admin/fees.php:231
-msgctxt "fees admin"
-msgid "%d image"
-msgid_plural "%d images"
-msgstr[0] "%d bild"
-msgstr[1] "%d bilder"
-
-#: admin/fees.php:236
-msgctxt "fees admin"
-msgid "All categories"
-msgstr "Alla kategorier"
-
-#: admin/fees.php:250
-msgctxt "fees admin"
-msgid "Yes"
-msgstr "Ja"
-
-#: admin/fees.php:250
-msgctxt "fees admin"
-msgid "No"
-msgstr "Nej"
-
-#: admin/fees.php:285
-msgctxt "fees admin"
-msgid "Fee enabled."
-msgstr "Avgift aktiverad."
-
-#: admin/fees.php:293
-msgctxt "fees admin"
-msgid "Fee disabled."
-msgstr "Avgift inaktiverad."
-
-#: admin/fees.php:318
-msgctxt "fees order"
-msgid "Label"
-msgstr "Etikett"
-
-#: admin/fees.php:319
-msgctxt "fees order"
-msgid "Amount"
-msgstr "Belopp"
-
-#: admin/fees.php:320
-msgctxt "fees order"
-msgid "Duration"
-msgstr "Varaktighet"
-
-#: admin/fees.php:321
-msgctxt "fees order"
-msgid "Images"
-msgstr "Bilder"
-
-#: admin/fees.php:322
-msgctxt "fees order"
-msgid "Custom Order"
-msgstr "Egen sorteringsordning"
-
-#: admin/fees.php:342
-msgctxt "fees admin"
-msgid "Fee updated."
-msgstr "Avgift uppdaterad."
-
-#: admin/fees.php:367
-msgctxt "fees admin"
-msgid "Fee deleted."
-msgstr "Avgift borttagen."
-
-#: admin/form-fields.php:9
-msgctxt "form-fields admin"
-msgid "form field"
-msgstr "formulärfält"
-
-#: admin/form-fields.php:10
-msgctxt "form-fields admin"
-msgid "form fields"
-msgstr "Formulärfält"
-
-#: admin/form-fields.php:17
-msgctxt "form-fields admin"
-msgid "Order"
-msgstr "Ordning"
-
-#: admin/form-fields.php:18
-msgctxt "form-fields admin"
-msgid "Label / Association"
-msgstr "Etikett / Association"
-
-#: admin/form-fields.php:19
-msgctxt "form-fields admin"
-msgid "Type"
-msgstr "Typ"
-
-#: admin/form-fields.php:20
-msgctxt "form-fields admin"
-msgid "Validator"
-msgstr "Validator"
-
-#: admin/form-fields.php:21
-msgctxt "form-fields admin"
-msgid "Field Attributes"
-msgstr "Fältattribut"
-
-#: admin/form-fields.php:45
-msgctxt "form-fields admin"
-msgid "Edit"
-msgstr "Redigera"
-
-#: admin/form-fields.php:50
-msgctxt "form-fields admin"
-msgid "Delete"
-msgstr "Ta bort"
-
-#: admin/form-fields.php:76
-msgctxt "form-fields admin"
-msgid "Required"
-msgstr "Obligatorisk"
-
-#: admin/form-fields.php:76
-msgctxt "form-fields admin"
-msgid "Optional"
-msgstr "Valfri"
-
-#: admin/form-fields.php:80
-msgctxt "form-fields admin"
-msgid "This field value is shown in the excerpt view of a listing."
-msgstr "Värdet i detta fält visas i utdragsvyn av en annons."
-
-#: admin/form-fields.php:81
-msgctxt "form-fields admin"
-msgid "In Excerpt"
-msgstr "I utdrag"
-
-#: admin/form-fields.php:86
-msgctxt "form-fields admin"
-msgid "This field value is shown in the single view of a listing."
-msgstr "Detta fältvärdet visas i visningen av den enskilda annonsen."
-
-#: admin/form-fields.php:87
-msgctxt "form-fields admin"
-msgid "In Listing"
-msgstr "I annons"
-
-#: admin/form-fields.php:175
-msgctxt "form-fields admin"
-msgid "Form Preview"
-msgstr "Förhandsgranska formulär"
-
-#: admin/form-fields.php:176
-msgctxt "form-fields admin"
-msgid "← Return to \"Manage Form Fields\""
-msgstr "← Tillbaka till \"Hantera formulärfält\""
-
-#: admin/form-fields.php:206
-msgctxt "form-fields admin"
-msgid "Form fields updated."
-msgstr "Formulärfält uppdateras."
-
-#: admin/form-fields.php:222
-msgctxt "form-fields admin"
-msgid ""
-"<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
-"\" setting is disabled, display settings below will not be honored and this "
-"field will not be displayed on the frontend. If you want e-mail addresses to "
-"show on the frontend, you can <a>enable public display of e-mails</a>."
-msgstr ""
-"<b>Viktigt:</b> Eftersom \"<a>Visa e-postadressfält offentligt</a>\" är "
-"inaktiverat, kommer visningsinställningarna nedan inte att godtas och detta "
-"område kommer inte att visas på frontend. Om du vill att e-postadresser "
-"visas på frontend, kan du <a>aktivera offentlig visning av e-post</a> ."
-
-#: admin/form-fields.php:256
-msgctxt "form-fields admin"
-msgid "Field deleted."
-msgstr "Fält raderas."
-
-#: admin/form-fields.php:277
-msgctxt "form-fields admin"
-msgid "Required fields created successfully."
-msgstr "Obligatoriska fält skapats."
-
-#: admin/form-fields.php:290
-msgctxt "form-fields admin"
-msgid "Title"
-msgstr "Titel"
-
-#: admin/form-fields.php:291
-msgctxt "form-fields admin"
-msgid "Category"
-msgstr "Kategori"
-
-#: admin/form-fields.php:292
-msgctxt "form-fields admin"
-msgid "Excerpt"
-msgstr "Utdrag"
-
-#: admin/form-fields.php:293
-msgctxt "form-fields admin"
-msgid "Content"
-msgstr "Innehåll"
-
-#: admin/form-fields.php:294
-msgctxt "form-fields admin"
-msgid "Tags"
-msgstr "Tagg"
-
-#: admin/form-fields.php:295
-msgctxt "form-fields admin"
-msgid "Address"
-msgstr "Adress"
-
-#: admin/form-fields.php:296
-msgctxt "form-fields admin"
-msgid "City"
-msgstr "Stad/ort"
-
-#: admin/form-fields.php:297
-msgctxt "form-fields admin"
-msgid "State"
-msgstr "Län"
-
-#: admin/form-fields.php:298
-#, fuzzy
-msgctxt "form-fields admin"
-msgid "Country"
-msgstr "Land:"
-
-#: admin/form-fields.php:299
-msgctxt "form-fields admin"
-msgid "ZIP Code"
-msgstr "Postnummer"
-
-#: admin/form-fields.php:300
-msgctxt "form-fields admin"
-msgid "FAX Number"
-msgstr "faxnummer"
-
-#: admin/form-fields.php:301
-msgctxt "form-fields admin"
-msgid "Phone Number"
-msgstr "Telefonnummer"
-
-#: admin/form-fields.php:302
-msgctxt "form-fields admin"
-msgid "Ratings Field"
-msgstr "Fält för omdöme"
-
-#: admin/form-fields.php:303
-msgctxt "form-fields admin"
-msgid "Twitter"
-msgstr "Twitter"
-
-#: admin/form-fields.php:304
-msgctxt "form-fields admin"
-msgid "Website"
-msgstr "Webbplats"
-
-#: admin/form-fields.php:325
-msgctxt "form-fields admin"
-msgid "Tags updated."
-msgstr "Taggar uppdateras."
-
-#: admin/listing-metabox.php:11
-msgctxt "admin"
-msgid "General"
-msgstr "Allmänt"
-
-#: admin/listing-metabox.php:12
-msgctxt "admin"
-msgid "Fee Details"
-msgstr "Avgifter"
-
-#: admin/listing-metabox.php:13
-msgctxt "admin"
-msgid "Transactions"
-msgstr "Transaktioner"
-
-#: admin/listing-metabox.php:42
-msgctxt "admin infometabox"
-msgid "General Info"
-msgstr "Allmän information"
-
-#: admin/listing-metabox.php:44
-msgctxt "admin infometabox"
-msgid "Access Key"
-msgstr "Åtkomstnyckel"
-
-#: admin/listing-metabox.php:46
-msgctxt "admin infometabox"
-msgid "Total Listing Cost"
-msgstr "Total kostnad"
-
-#: admin/listing-metabox.php:48
-msgctxt "admin infometabox"
-msgid "Payment Status"
-msgstr "Betalningsstatus"
-
-#: admin/listing-metabox.php:52
-msgctxt "admin infometabox"
-msgid "Featured (Sticky) Status"
-msgstr "Utvald (fäst) status"
-
-#: admin/listing-metabox.php:60
-msgctxt "admin metabox"
-msgid "Pending Upgrade"
-msgstr "Väntar på uppgradering"
-
-#: admin/listing-metabox.php:83
-msgctxt "admin infometabox"
-msgid "CSV Import Sequence ID"
-msgstr "CSV Import Sekvens ID"
-
-#: admin/listing-metabox.php:94
-msgctxt "admin infometabox"
-msgid "Mark listing as Paid"
-msgstr "Markera annonsen som betald"
-
-#: admin/page-debug.php:16
-msgctxt "debug-info"
-msgid "BD Info"
-msgstr "BD info"
-
-#: admin/page-debug.php:28
-msgid "Missing tables: %s"
-msgstr "Saknade tabeller:%s"
-
-#: admin/page-debug.php:29
-msgctxt "debug-info"
-msgid "OK"
-msgstr "OK"
-
-#: admin/page-debug.php:37
-msgctxt "debug-info"
-msgid "BD Options"
-msgstr "BD Alternativ"
-
-#: admin/page-debug.php:50
-msgctxt "debug-info"
-msgid "Environment"
-msgstr "Miljö"
-
-#: admin/page-debug.php:72
-msgctxt "debug info"
-msgid "Test SSL setup..."
-msgstr "Testar SSL-inställning"
-
-#: admin/templates/csv-export.tpl.php:9
-msgctxt "admin csv-export"
-msgid ""
-"An unknown error occurred during the export. Please make sure you have "
-"enough free disk space and memory available to PHP. Check your error logs "
-"for details."
-msgstr ""
-"Ett okänt fel inträffade under exporten. Se till att du har tillräckligt med "
-"ledigt diskutrymme och minne tillgängligt för PHP. Kontrollera felloggen för "
-"mer information."
-
-#: admin/templates/csv-export.tpl.php:18
-msgctxt "admin csv-export"
-msgid ""
-"Please note that the export process is a resource intensive task. If your "
-"export does not succeed try disabling other plugins first and/or increasing "
-"the values of the 'memory_limit' and 'max_execution_time' directives in your "
-"server's php.ini configuration file."
-msgstr ""
-"Observera att exporten är en resurskrävande uppgift. Om exporten inte lyckas "
-"försök inaktivera andra plugins först och / eller öka värdet av "
-"\"memory_limit\" och \"max_execution_time\" i serverns php.ini "
-"konfigurationsfil."
-
-#: admin/templates/csv-export.tpl.php:30
-msgctxt "admin csv-export"
-msgid "Export Configuration"
-msgstr "Exportera konfiguration"
-
-#: admin/templates/csv-export.tpl.php:33
-msgctxt "admin csv-export"
-msgid "Export settings"
-msgstr "Exportera inställningar"
-
-#: admin/templates/csv-export.tpl.php:37
-msgctxt "admin csv-export"
-msgid "Which listings to export?"
-msgstr "Vilka annonser ska exporteras?"
-
-#: admin/templates/csv-export.tpl.php:41
-msgctxt "admin csv-export"
-msgid "All"
-msgstr "Allt"
-
-#: admin/templates/csv-export.tpl.php:42
-msgctxt "admin csv-export"
-msgid "Active Only"
-msgstr "Endast aktiva"
-
-#: admin/templates/csv-export.tpl.php:43
-msgctxt "admin csv-export"
-msgid "Active + Pending Renewal"
-msgstr "Aktiva + Inväntar förnyelse"
-
-#: admin/templates/csv-export.tpl.php:49
-msgctxt "admin csv-export"
-msgid "Export images?"
-msgstr "Exportera bilder?"
-
-#: admin/templates/csv-export.tpl.php:54
-msgctxt "admin csv-export"
-msgid "Export images"
-msgstr "exportera bilder"
-
-#: admin/templates/csv-export.tpl.php:56
-msgctxt "admin csv-export"
-msgid ""
-"When checked, instead of just a CSV file a ZIP file will be generated with "
-"both a CSV file and listing images."
-msgstr ""
-"Om markerad skapas en ZIP-fil med annonser och bilder i stället för bara en "
-"CSV-fil."
-
-#: admin/templates/csv-export.tpl.php:62
-msgctxt "admin csv-export"
-msgid "Additional metadata to export:"
-msgstr "Ytterligare metadata för export:"
-
-#: admin/templates/csv-export.tpl.php:67
-msgctxt "admin csv-export"
-msgid "Include unique IDs for each listing (sequence_id column)."
-msgstr "Inkludera unika ID: n för varje notering (sequence_id kolumnen)."
-
-#: admin/templates/csv-export.tpl.php:69
-msgctxt "admin csv-export"
-msgid ""
-"If you plan to re-import the listings into BD and don't want new ones "
-"created, select this option!"
-msgstr ""
-"Markera detta val om du planerar att återimportera annonser till BD och inte "
-"vill att nya skapas."
-
-#: admin/templates/csv-export.tpl.php:75
-msgctxt "admin csv-export"
-msgid "Author information (username)"
-msgstr "Information om författare (användarnamn)"
-
-#: admin/templates/csv-export.tpl.php:80
-msgctxt "admin csv-export"
-msgid "Sticky/featured status"
-msgstr "Utvald (fäst) status"
-
-#: admin/templates/csv-export.tpl.php:85
-msgctxt "admin csv-export"
-msgid "Listing expiration date"
-msgstr "Utgångsdatum för annons"
-
-#: admin/templates/csv-export.tpl.php:90
-msgctxt "admin csv-export"
-msgid "CSV File Settings"
-msgstr "Inställningar för CSV-fil"
-
-#: admin/templates/csv-export.tpl.php:94
-msgctxt "admin csv-export"
-msgid "What operating system will you use to edit the CSV file?"
-msgstr ""
-
-#: admin/templates/csv-export.tpl.php:94 admin/templates/csv-export.tpl.php:113
-#: admin/templates/csv-export.tpl.php:124 admin/templates/csv-import.tpl.php:43
-#: admin/templates/csv-import.tpl.php:109
-#: admin/templates/csv-import.tpl.php:135
-#: admin/templates/csv-import.tpl.php:146
-#: admin/templates/csv-import.tpl.php:173
-msgctxt "admin forms"
-msgid "required"
-msgstr "obligatoriskt"
-
-#: admin/templates/csv-export.tpl.php:101
-msgctxt "admin csv-export"
-msgid "Windows"
-msgstr ""
-
-#: admin/templates/csv-export.tpl.php:106
-msgctxt "admin csv-export"
-msgid "macOS"
-msgstr ""
-
-#: admin/templates/csv-export.tpl.php:108
-msgctxt "admin csv-export"
-msgid ""
-"Windows and macOS versions of MS Excel handle CSV files differently. To make "
-"sure all your listings information is displayed properly when you view or "
-"edit the CSV file, we need to generate different versions of the file for "
-"each operating system."
-msgstr ""
-
-#: admin/templates/csv-export.tpl.php:113
-msgctxt "admin csv-export"
-msgid "Image Separator"
-msgstr "Bildavgränsare"
-
-#: admin/templates/csv-export.tpl.php:124
-msgctxt "admin csv-export"
-msgid "Category Separator"
-msgstr "Kategoriavgränsare"
-
-#: admin/templates/csv-export.tpl.php:136
-msgctxt "admin csv-export"
-msgid "Export Listings"
-msgstr "Exportera annonser"
-
-#: admin/templates/csv-export.tpl.php:142
-msgctxt "admin csv-export"
-msgid "Export in Progress..."
-msgstr "Export pågår..."
-
-#: admin/templates/csv-export.tpl.php:143
-msgctxt "admin csv-export"
-msgid ""
-"Your export file is being prepared. Please <u>do not leave</u> this page "
-"until the export finishes."
-msgstr ""
-"Exportfilen förbereds. Vänligen <u>lämna inte denna sida</u> till dess att "
-"exporten är klar."
-
-#: admin/templates/csv-export.tpl.php:146
-msgctxt "admin csv-export"
-msgid "No. of listings:"
-msgstr "Antal annonser"
-
-#: admin/templates/csv-export.tpl.php:148
-msgctxt "admin csv-export"
-msgid "Approximate export file size:"
-msgstr "Ungefärlig filstorlek:"
-
-#: admin/templates/csv-export.tpl.php:155
-msgctxt "admin csv-export"
-msgid "Cancel Export"
-msgstr "Avbryt export"
-
-#: admin/templates/csv-export.tpl.php:160
-msgctxt "admin csv-export"
-msgid "Export Complete"
-msgstr "Export klar."
-
-#: admin/templates/csv-export.tpl.php:161
-msgctxt "admin csv-export"
-msgid ""
-"Your export file has been successfully created and it is now ready for "
-"download."
-msgstr "Exportfilen har skapats och det är nu klar för nedladdning."
-
-#: admin/templates/csv-export.tpl.php:164
-msgctxt "admin csv-export"
-msgid "Download %s (%s)"
-msgstr "Ladda ner%s (%s)"
-
-#: admin/templates/csv-export.tpl.php:170
-msgctxt "admin csv-export"
-msgid ""
-"Click \"Cleanup\" once the file has been downloaded in order to remove all "
-"temporary data created by Business Directory during the export process."
-msgstr ""
-"Klicka på \"Rensa\" när filen har laddats ner för att ta bort alla "
-"tillfälliga data som skapats av Busniess Directory under exportprocessen."
-
-#: admin/templates/csv-export.tpl.php:171
-msgctxt "admin csv-export"
-msgid "Cleanup"
-msgstr "Rensa"
-
-#: admin/templates/csv-export.tpl.php:176
-msgctxt "admin csv-export"
-msgid "Export Canceled"
-msgstr "Export avbruten"
-
-#: admin/templates/csv-export.tpl.php:177
-msgctxt "admin csv-export"
-msgid "The export has been canceled."
-msgstr "Export har avbrutits."
-
-#: admin/templates/csv-export.tpl.php:178
-msgctxt "admin csv-export"
-msgid "← Return to CSV Export"
-msgstr "← Tillbaka till CSV Export"
-
-#: admin/templates/csv-import-progress.tpl.php:6
-msgctxt "admin csv-import"
-msgid "A fatal error occurred during the import. The reason given was: \"%s\"."
-msgstr "Ett allvarligt fel inträffade under importen. Anledningen var: \"%s\"."
-
-#: admin/templates/csv-import-progress.tpl.php:10
-msgctxt "admin csv-import"
-msgid ""
-"A fatal error occurred during the import. If connection wasn't lost during "
-"the import, please make sure that you have enough free disk space and memory "
-"available to PHP. Check your error logs for details."
-msgstr ""
-"Ett allvarligt fel inträffade under importen. Om anslutningen inte "
-"förlorades under importen, vänligen se till att du har tillräckligt med "
-"ledigt diskutrymme och minne tillgängligt för PHP. Kontrollera felloggen för "
-"mer information."
-
-#: admin/templates/csv-import-progress.tpl.php:13
-#: admin/templates/csv-import-progress.tpl.php:20
-msgctxt "admin csv-import"
-msgid "← Return to CSV Import"
-msgstr "← Återvänd till \"CSV Import\""
-
-#: admin/templates/csv-import-progress.tpl.php:18
-msgctxt "admin csv-import"
-msgid "Import Canceled"
-msgstr "Import avbruten"
-
-#: admin/templates/csv-import-progress.tpl.php:19
-msgctxt "admin csv-import"
-msgid "The import has been canceled."
-msgstr "Importen har avbrutits."
-
-#: admin/templates/csv-import-progress.tpl.php:26
-msgid "Import Progress"
-msgstr "Import pågår"
-
-#: admin/templates/csv-import-progress.tpl.php:29
-msgctxt "admin csv-import"
-msgid "Files"
-msgstr "Filer"
-
-#: admin/templates/csv-import-progress.tpl.php:32
-msgctxt "admin csv-import"
-msgid "Rows in file"
-msgstr "Rader i fil"
-
-#: admin/templates/csv-import-progress.tpl.php:35
-msgctxt "admin csv-import"
-msgid "Progress"
-msgstr "Förlopp"
-
-#: admin/templates/csv-import-progress.tpl.php:39
-msgctxt "admin csv-import"
-msgid "Import has not started. Click \"Start Import\" to begin."
-msgstr "Import har inte startat. Klicka på \"Starta import\" för att börja."
-
-#: admin/templates/csv-import-progress.tpl.php:40
-msgctxt "admin csv-import"
-msgid "Importing CSV file..."
-msgstr "Importerar CSV-fil ..."
-
-#: admin/templates/csv-import-progress.tpl.php:46
-msgctxt "admin csv-import"
-msgid "Start Import"
-msgstr "Starta import"
-
-#: admin/templates/csv-import-progress.tpl.php:47
-msgctxt "admin csv-import"
-msgid "Cancel Import"
-msgstr "Avbryt import"
-
-#: admin/templates/csv-import-progress.tpl.php:54
-msgctxt "admin csv-import"
-msgid "Import finished"
-msgstr "Import klar"
-
-#: admin/templates/csv-import-progress.tpl.php:57
-msgctxt "admin csv-import"
-msgid "Import was completed successfully."
-msgstr "Importen slutfördes framgångsrikt."
-
-#: admin/templates/csv-import-progress.tpl.php:61
-msgctxt "admin csv-import"
-msgid "Import was completed but some rows were rejected."
-msgstr "Import avslutades men vissa rader förkastades."
-
-#: admin/templates/csv-import-progress.tpl.php:64
-msgctxt "admin csv-import"
-msgid "Import Summary"
-msgstr "import Sammanfattning"
-
-#: admin/templates/csv-import-progress.tpl.php:66
-msgctxt "admin csv-import"
-msgid "Rows in file:"
-msgstr "Rader i fil:"
-
-#: admin/templates/csv-import-progress.tpl.php:69
-msgctxt "admin csv-import"
-msgid "Imported rows:"
-msgstr "Importerade rader:"
-
-#: admin/templates/csv-import-progress.tpl.php:72
-msgctxt "admin csv-import"
-msgid "Rejected rows:"
-msgstr "Avvisade rader:"
-
-#: admin/templates/csv-import-progress.tpl.php:77
-msgctxt "admin csv-import"
-msgid "Import Warnings"
-msgstr "Importera varningar"
-
-#: admin/templates/csv-import-progress.tpl.php:80
-msgctxt "admin csv-import"
-msgid "Line #"
-msgstr "Rad #"
-
-#: admin/templates/csv-import-progress.tpl.php:81
-msgctxt "admin csv-import"
-msgid "Line"
-msgstr "Rad"
-
-#: admin/templates/csv-import-progress.tpl.php:82
-msgctxt "admin csv-import"
-msgid "Warning"
-msgstr "Varning"
-
-#: admin/templates/csv-import.tpl.php:12 admin/templates/csv-import.tpl.php:248
-msgctxt "admin csv-import"
-msgid "Help"
-msgstr "Hjälp"
-
-#: admin/templates/csv-import.tpl.php:13
-msgctxt "admin csv-import"
-msgid "See an example CSV import file"
-msgstr "Se ett exempel av en CSV importfil"
-
-#: admin/templates/csv-import.tpl.php:21
-msgctxt "admin csv-import"
-msgid "Here, you can import data into your directory using the CSV format."
-msgstr "Här kan du importera data till din katalog med hjälp av CSV-format."
-
-#: admin/templates/csv-import.tpl.php:29
-msgctxt "admin csv-import"
-msgid ""
-"We strongly recommend reading our <a>CSV import documentation</a> first to "
-"help you do things in the right order."
-msgstr ""
-"Vi rekommenderar starkt att du läser vår <a>CSV import dokumentation</a> "
-"först för att hjälpa dig att göra saker i rätt ordning."
-
-#: admin/templates/csv-import.tpl.php:38
-msgctxt "admin csv-import"
-msgid "Import Files"
-msgstr "Importera filer"
-
-#: admin/templates/csv-import.tpl.php:43
-msgctxt "admin csv-import"
-msgid "CSV File"
-msgstr "CSV Fil"
-
-#: admin/templates/csv-import.tpl.php:55 admin/templates/csv-import.tpl.php:86
-msgctxt "admin csv-import"
-msgid "... or <a>select a file uploaded to the imports folder</a>"
-msgstr "... eller <a>välj en fil som laddats upp till import-mappen</a>"
-
-#: admin/templates/csv-import.tpl.php:65 admin/templates/csv-import.tpl.php:96
-msgctxt "admin csv-import"
-msgid "(Upload new file)"
-msgstr "(Ladda upp ny fil)"
-
-#: admin/templates/csv-import.tpl.php:74
-msgctxt "admin csv-import"
-msgid "ZIP file containing images"
-msgstr "ZIP-fil som innehåller bilder"
-
-#: admin/templates/csv-import.tpl.php:105
-msgctxt "admin csv-import"
-msgid "CSV File Settings"
-msgstr "Inställningar för CSV-fil"
-
-#: admin/templates/csv-import.tpl.php:109
-msgctxt "admin csv-import"
-msgid "Column Separator"
-msgstr "Kolumnavgränsare"
-
-#: admin/templates/csv-import.tpl.php:117
-msgctxt "admin csv-import"
-msgid "Comma (,)"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:123
-msgctxt "admin csv-import"
-msgid "Semicolon (;)"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:129
-msgctxt "admin csv-import"
-msgid "TAB"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:135
-msgctxt "admin csv-import"
-msgid "Image Separator"
-msgstr "Bildavgränsare"
-
-#: admin/templates/csv-import.tpl.php:146
-msgctxt "admin csv-import"
-msgid "Category Separator"
-msgstr "Kategoriavgränsare"
-
-#: admin/templates/csv-import.tpl.php:157
-msgctxt "admin csv-import"
-msgid "Import settings"
-msgstr "Importera inställningar"
-
-#: admin/templates/csv-import.tpl.php:161
-msgctxt "admin csv-import"
-msgid "Post status of imported listings"
-msgstr "Status av importerade annonser"
-
-#: admin/templates/csv-import.tpl.php:173
-msgctxt "admin csv-import"
-msgid "Missing categories handling"
-msgstr "Hantera saknade kategorier"
-
-#: admin/templates/csv-import.tpl.php:178
-msgctxt "admin csv-import"
-msgid "Auto-create categories"
-msgstr "Autoskapa kategorier"
-
-#: admin/templates/csv-import.tpl.php:181
-msgctxt "admin csv-import"
-msgid "Generate errors when a category is not found"
-msgstr "Generera fel när en kategori inte hittas"
-
-#: admin/templates/csv-import.tpl.php:186
-msgctxt "admin csv-import"
-msgid "Keep existing listing images?"
-msgstr "Behålla befintliga annonsbilder?"
-
-#: admin/templates/csv-import.tpl.php:191
-msgctxt "admin csv-import"
-msgid "Keep existing images."
-msgstr "Behåll befintliga bilder."
-
-#: admin/templates/csv-import.tpl.php:192
-msgctxt "admin csv-import"
-msgid "Appends new images while keeping current ones."
-msgstr "Lägger till nya bilder och behåller de existerande."
-
-#: admin/templates/csv-import.tpl.php:197
-msgctxt "admin csv-import"
-msgid "Assign listings to a user?"
-msgstr "Tilldela annons till användare?"
-
-#: admin/templates/csv-import.tpl.php:203
-msgctxt "admin csv-import"
-msgid "Assign listings to a user."
-msgstr "Tilldela annons till användare."
-
-#: admin/templates/csv-import.tpl.php:208
-msgctxt "admin csv-import"
-msgid "Use a default user for listings?"
-msgstr "Använd en standardanvändare för annonser?"
-
-#: admin/templates/csv-import.tpl.php:214
-msgctxt "admin csv-import"
-msgid ""
-"Select a default user to be used if the username column is not present in "
-"the CSV file."
-msgstr ""
-"Välj en standardanvändare som används om användarkolumnen inte finns i CSV-"
-"filen."
-
-#: admin/templates/csv-import.tpl.php:219
-msgctxt "admin csv-import"
-msgid "Default listing user"
-msgstr "standardanvändare"
-
-#: admin/templates/csv-import.tpl.php:225
-msgctxt "admin csv-import"
-msgid ""
-"This user will be used if the username column is not present in the CSV file."
-msgstr ""
-"Denna användare kommer att användas om användarkolumnen inte finns i CSV-"
-"filen."
-
-#: admin/templates/csv-import.tpl.php:230
-msgctxt "admin csv-import"
-msgid "Disable e-mail notifications during import?"
-msgstr "Inaktivera e-postmeddelanden vid import?"
-
-#: admin/templates/csv-import.tpl.php:235
-msgctxt "admin csv-import"
-msgid "Disable e-mail notifications."
-msgstr "Inaktivera e-postmeddelanden."
-
-#: admin/templates/csv-import.tpl.php:241
-msgctxt "admin csv-import"
-msgid "Test Import"
-msgstr "Testimport"
-
-#: admin/templates/csv-import.tpl.php:242
-msgctxt "admin csv-import"
-msgid "Import Listings"
-msgstr "Importera annonser"
-
-#: admin/templates/csv-import.tpl.php:250
-msgctxt "admin csv-import"
-msgid ""
-"The following are the valid header names to be used in the CSV file. "
-"Multivalued fields (such as category or tags) can appear multiple times in "
-"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
-"how an import file should look like."
-msgstr ""
-"Följande är giltiga rubriknamn som ska användas i CSV-filen. Fält med flera "
-"värden (såsom kategori eller taggar) kan förekomma flera gånger i filen. "
-"Klicka <a href=\"%s\">\"Se ett exempel CSV-importfilen\"</a> för att se hur "
-"en importfil ska se ut."
-
-#: admin/templates/csv-import.tpl.php:257
-msgctxt "admin csv-import"
-msgid "Header name/label"
-msgstr "Rubriknamn / etikett"
-
-#: admin/templates/csv-import.tpl.php:258
-msgctxt "admin csv-import"
-msgid "Field"
-msgstr "Fält"
-
-#: admin/templates/csv-import.tpl.php:259
-msgctxt "admin csv-import"
-msgid "Type"
-msgstr "Typ"
-
-#: admin/templates/csv-import.tpl.php:260
-msgctxt "admin csv-import"
-msgid "Required?"
-msgstr "Obligatoriskt?"
-
-#: admin/templates/csv-import.tpl.php:261
-msgctxt "admin csv-import"
-msgid "Multivalued?"
-msgstr "Fler värden?"
-
-#: admin/templates/csv-import.tpl.php:283
-msgctxt "admin csv-import"
-msgid "Semicolon separated list of listing images (from the ZIP file)"
-msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
-
-#: admin/templates/csv-import.tpl.php:290
-msgctxt "admin csv-import"
-msgid "Listing author's username"
-msgstr "Annonsens författares användarnamn"
-
-#: admin/templates/csv-import.tpl.php:297
-msgctxt "admin csv-import"
-msgid ""
-"Internal Sequence ID used to allow listing updates from external sources."
-msgstr ""
-"Intern sekvens ID som används för att tillåta notering uppdateringar från "
-"externa källor."
-
-#: admin/templates/csv-import.tpl.php:304
-msgctxt "admin csv-import"
-msgid ""
-"Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
-"adding or updating listings from external sources."
-msgstr ""
-"Annonsens utgångsdatum formateras som ÅÅÅÅ-MM-DD. Använd den här kolumnen "
-"när du lägger till eller uppdaterar listor från externa källor."
-
-#: admin/templates/debug-info.tpl.php:5
-msgctxt "debug-info"
-msgid ""
-"The following information can help BD developers debug possible problems "
-"with your setup."
-msgstr ""
-"Följande information kan hjälpa BD utvecklare felsöka eventuella problem med "
-"din konfiguration."
-
-#: admin/templates/debug-info.tpl.php:6
-msgctxt "debug-info"
-msgid ""
-"The debug information does not contain personal or sensitive information "
-"such as passwords or private keys."
-msgstr ""
-"Debug-informationen innehåller inte personlig eller känslig information "
-"såsom lösenord eller privata nycklar."
-
-#: admin/templates/debug-info.tpl.php:9
-msgctxt "debug-info"
-msgid "Download Debug Information"
-msgstr "Ladda ner felsökningsinformation"
-
-#: admin/templates/fees-addoredit.tpl.php:23
-msgctxt "fees admin"
-msgid "Add Listing Fee"
-msgstr "Lägg till annonsavgift"
-
-#: admin/templates/fees-addoredit.tpl.php:23
-msgctxt "fees admin"
-msgid "Edit Listing Fee"
-msgstr "Redigera annonsavgift"
-
-#: admin/templates/fees-addoredit.tpl.php:35
-msgctxt "fees admin"
-msgid "Fee Label"
-msgstr "Avgiftetikett"
-
-#: admin/templates/fees-addoredit.tpl.php:46
-msgctxt "fees admin"
-msgid "Fee Amount"
-msgstr "Belopp"
-
-#: admin/templates/fees-addoredit.tpl.php:62
-msgctxt "fees admin"
-msgid "Listing run in days"
-msgstr "Dagar annonsen är aktiv"
-
-#: admin/templates/fees-addoredit.tpl.php:65
-msgctxt "fees admin"
-msgid "run listing for"
-msgstr "kör annonsen i "
-
-#: admin/templates/fees-addoredit.tpl.php:74
-msgctxt "fees admin"
-msgid "days"
-msgstr "dagar"
-
-#: admin/templates/fees-addoredit.tpl.php:77
-msgctxt "fees admin"
-msgid "run listing forever"
-msgstr "kör annonsen för alltid"
-
-#: admin/templates/fees-addoredit.tpl.php:82
-msgctxt "fees admin"
-msgid "Number of images allowed"
-msgstr "Antal tillåtna bilder"
-
-#: admin/templates/fees-addoredit.tpl.php:94
-msgctxt "fees admin"
-msgid "Is featured listing/sticky?"
-msgstr "Är utvald annons/fäst?"
-
-#: admin/templates/fees-addoredit.tpl.php:102
-msgctxt "fees admin"
-msgid ""
-"This floats the listing to the top of search results and browsing the "
-"directory when the user buys this plan."
-msgstr ""
-"Användare som köper denna plan får sin annons placerad i toppen av "
-"sökresultaten och i registret."
-
-#: admin/templates/fees-addoredit.tpl.php:107
-msgctxt "fees admin"
-msgid "Apply to category"
-msgstr "Tillämpas i kategori"
-
-#: admin/templates/fees-addoredit.tpl.php:111
-#: admin/templates/fees-addoredit.tpl.php:114
-msgctxt "fees admin"
-msgid "* All Categories *"
-msgstr "* Alla kategorier *"
-
-#: admin/templates/fees-addoredit.tpl.php:128
-msgctxt "fees admin"
-msgid "Fee Description"
-msgstr "Beskrivning avgift"
-
-#: admin/templates/fees-addoredit.tpl.php:143
-msgctxt "fees admin"
-msgid "Add Fee"
-msgstr "Lägg till avgift"
-
-#: admin/templates/fees-addoredit.tpl.php:143
-msgctxt "fees admin"
-msgid "Update Fee"
-msgstr "Uppdatera avgift"
-
-#: admin/templates/fees-confirm-delete.tpl.php:2
-msgctxt "fees admin"
-msgid "Delete Listing Fee"
-msgstr "Ta bort avgift"
-
-#: admin/templates/fees-confirm-delete.tpl.php:7
-msgctxt "fees admin"
-msgid "Are you sure you want to disable the \"%s\" fee?"
-msgstr "Är du säker på att du vill avaktivera \"%s\" avgift?"
-
-#: admin/templates/fees-confirm-delete.tpl.php:9
-msgctxt "fees admin"
-msgid "Are you sure you want to delete the \"%s\" fee?"
-msgstr "Är du säker på att du vill ta bort \"%s\" avgift?"
-
-#: admin/templates/fees-confirm-delete.tpl.php:16
-msgctxt "fee admin"
-msgid "Disable Fee"
-msgstr "Avaktivera avgift"
-
-#: admin/templates/fees-confirm-delete.tpl.php:16
-msgctxt "fee admin"
-msgid "Delete Fee"
-msgstr "Ta bort avgift"
-
-#: admin/templates/fees.tpl.php:3
-msgctxt "fees admin"
-msgid "Add New Listing Fee"
-msgstr "Lägg till ny avgift"
-
-#: admin/templates/fees.tpl.php:10
-msgctxt "fees admin"
-msgid "Payments are currently turned off."
-msgstr "Betalningar för närvarande avstängt."
-
-#: admin/templates/fees.tpl.php:13
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"För att hantera avgifter du behöver för att gå till <a>Hantera Alternativ - "
-"Betalning</a> sida och markera rutan bredvid \"Aktivera betalningar\" under "
-"\"Betalningsinställningar\"."
-
-#: admin/templates/fees.tpl.php:24
-msgctxt "fees admin"
-msgid "Order fees on the frontend by:"
-msgstr "Order avgifter på frontend efter:"
-
-#: admin/templates/fees.tpl.php:32
-msgctxt "fees admin"
-msgid "↑ Ascending"
-msgstr "↑ Stigande"
-
-#: admin/templates/fees.tpl.php:32
-msgctxt "fees admin"
-msgid "↓ Descending"
-msgstr "↓ Fallande"
-
-#: admin/templates/fees.tpl.php:38
-msgctxt "fees admin"
-msgid "Drag and drop to re-order fees."
-msgstr "Dra och släpp för att ändra ordning på avgifter"
-
-#: admin/templates/fees.tpl.php:54
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%s\" restricts what you see here. Those on "
-"the <a>Not Available</a> filter will become active when you change the "
-"payment mode."
-msgstr ""
-"Dessa är alla avgiftsplanerna som visas för användaren när de placerar en "
-"annons. Din nuvarande läge av \"%s\" begränsar vad du ser här. De på <a>Inte "
-"tillgänglig</a> filtret blir aktiv när du byter betalningsläget."
-
-#: admin/templates/fees.tpl.php:57 admin/templates/fees.tpl.php:63
-#: admin/templates/fees.tpl.php:77
-msgctxt "fees admin"
-msgid "Paid"
-msgstr "Betald"
-
-#: admin/templates/fees.tpl.php:57 admin/templates/fees.tpl.php:63
-#: admin/templates/fees.tpl.php:77
-msgctxt "fees admin"
-msgid "Free"
-msgstr "Gratis"
-
-#: admin/templates/fees.tpl.php:60
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"Detta är de avgiftsplaner som inte är tillgängliga för att du är i \"%s\" -"
-"läge. De på det aktiva filtret ändrar status till inte tillgänglig när du "
-"ändra betalningsläget."
-
-#: admin/templates/fees.tpl.php:66
-msgctxt "fees admin"
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"Dessa avgiftsplaner har inaktiverats av administratören och kommer inte att "
-"visas för slutanvändaren oavsett läge tills du aktiverar dem."
-
-#: admin/templates/fees.tpl.php:74
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%s\"). To see the fee "
-"plans for this mode click <a>Active</a>."
-msgstr ""
-"Detta är alla avgiftsplanern du har konfigurerat. Inte alla av dem är "
-"tillgängliga för det aktuella läget (för närvarande satt till \"%s\"). För "
-"att se avgiftsplanerna för detta läge klicka <a>Active</a> ."
-
-#: admin/templates/fees.tpl.php:89 admin/templates/sidebar.tpl.php:13
-msgctxt "admin sidebar"
-msgid "PayPal Gateway Module"
-msgstr "PayPal betalningsmodul"
-
-#: admin/templates/fees.tpl.php:90 admin/templates/sidebar.tpl.php:14
-msgctxt "admin sidebar"
-msgid "2Checkout Gateway Module"
-msgstr "2Checkout betalningsmodul"
-
-#: admin/templates/fees.tpl.php:91 admin/templates/sidebar.tpl.php:5
-msgctxt "admin sidebar"
-msgid "PayFast Payment Module"
-msgstr "PayFast betalningsmodul"
-
-#: admin/templates/fees.tpl.php:92 admin/templates/sidebar.tpl.php:6
-msgctxt "admin sidebar"
-msgid "Stripe Payment Module"
-msgstr "Stripe betalningsmodul"
-
-#: admin/templates/fees.tpl.php:102
-msgctxt "admin templates"
-msgid ""
-"It does not appear you have any of the payment gateway modules enabled. "
-"Either <a>enable the default Authorize.net gateway</a> with your account "
-"info, or purchase a different payment gateway module in order to charge a "
-"fee for listings. To purchase additional payment gateways use the buttons "
-"below or visit %s."
-msgstr ""
-"Det verkar som om du inte har någon av betalningsmodulerna aktiverade. "
-"<a>Aktivera standard Authorize.net-modulen</a> med din kontoinformation, "
-"eller köp en annan betalningsmodu för att ta ut en avgift för annonser. För "
-"att köpa ytterligare betalningsmoduler använd knapparna nedan eller besök %s."
-
-#: admin/templates/fees.tpl.php:118
-msgctxt "admin templates"
-msgid "Already installed."
-msgstr "Redan installerad."
-
-#: admin/templates/fees.tpl.php:123
-msgctxt "admin templates"
-msgid ""
-"You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your "
-"users."
-msgstr ""
-"Du kan köpa <a>%s</a> för att lägga till <a>%s</a> som ett "
-"betalningsalternativ för användarna."
-
-#: admin/templates/form-fields-addoredit.tpl.php:1
-msgctxt "form-fields admin"
-msgid "Add Form Field"
-msgstr "Lägg till formulärfält"
-
-#: admin/templates/form-fields-addoredit.tpl.php:14
-msgctxt "form-fields admin"
-msgid "Field Association"
-msgstr "Fält / Association"
-
-#: admin/templates/form-fields-addoredit.tpl.php:14
-#: admin/templates/form-fields-addoredit.tpl.php:36
-#: admin/templates/form-fields-addoredit.tpl.php:60
-msgctxt "form-fields admin"
-msgid "required"
-msgstr "obligatoriskt"
-
-#: admin/templates/form-fields-addoredit.tpl.php:36
-msgctxt "form-fields admin"
-msgid "Field Type"
-msgstr "Fälttyp"
-
-#: admin/templates/form-fields-addoredit.tpl.php:60
-msgctxt "form-fields admin"
-msgid "Field Label"
-msgstr "Fältetikett"
-
-#: admin/templates/form-fields-addoredit.tpl.php:70
-msgctxt "form-fields admin"
-msgid "Field description"
-msgstr "Fältbeskrivning"
-
-#: admin/templates/form-fields-addoredit.tpl.php:70
-msgctxt "form-fields admin"
-msgid "optional"
-msgstr "valfritt"
-
-#: admin/templates/form-fields-addoredit.tpl.php:87
-msgctxt "form-fields admin"
-msgid "Field-specific settings"
-msgstr "Fältspecifika inställningar"
-
-#: admin/templates/form-fields-addoredit.tpl.php:96
-msgctxt "form-fields admin"
-msgid "Field validation options"
-msgstr "Val för fältvalidering"
-
-#: admin/templates/form-fields-addoredit.tpl.php:100
-msgctxt "form-fields admin"
-msgid "Field Validator"
-msgstr "Fältvaliderare"
-
-#: admin/templates/form-fields-addoredit.tpl.php:104
-msgctxt "form-fields admin"
-msgid "No validation"
-msgstr "Ingen validering"
-
-#: admin/templates/form-fields-addoredit.tpl.php:116
-msgctxt "form-fields admin"
-msgid "Is field required?"
-msgstr "Är detta fält obligatoriskt?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:122
-msgctxt "form-fields admin"
-msgid "This field is required."
-msgstr "Detta fält är obligatoriskt."
-
-#: admin/templates/form-fields-addoredit.tpl.php:130
-msgctxt "form-fields admin"
-msgid "Field display options"
-msgstr "Fältvisningsalternativ"
-
-#: admin/templates/form-fields-addoredit.tpl.php:134
-msgctxt "form-fields admin"
-msgid "Show this value in excerpt view?"
-msgstr "Visa detta värdet i utdrag?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:140
-msgctxt "form-fields admin"
-msgid "Display this value in post excerpt view."
-msgstr "Visa detta värdet i inläggsutdrag."
-
-#: admin/templates/form-fields-addoredit.tpl.php:146
-msgctxt "form-fields admin"
-msgid "Show this value in listing view?"
-msgstr "Visa detta värdet i annonsläge?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:152
-msgctxt "form-fields admin"
-msgid "Display this value in the listing view."
-msgstr "Visa detta värdet i annonsläget."
-
-#: admin/templates/form-fields-addoredit.tpl.php:158
-msgctxt "form-fields admin"
-msgid "Include this field in the search form?"
-msgstr "Inkludera detta fält i sökfunktionen?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:164
-msgctxt "form-fields admin"
-msgid "Include this field in the search form."
-msgstr "Inkludera detta fält i sökfunktionen."
-
-#: admin/templates/form-fields-addoredit.tpl.php:170
-msgctxt "form-fields admin"
-msgid "Hide this field's label?"
-msgstr "Dölj detta fälts etikett?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:176
-msgctxt "form-fields admin"
-msgid "Hide this field's label when displaying it."
-msgstr "Dölj detta fälts etikett när det visas."
-
-#: admin/templates/form-fields-addoredit.tpl.php:183
-msgctxt "form-fields admin"
-msgid "Update Field"
-msgstr "Uppdatera fält"
-
-#: admin/templates/form-fields-addoredit.tpl.php:185
-msgctxt "form-fields admin"
-msgid "Add Field"
-msgstr "Lägg till fält"
-
-#: admin/templates/form-fields-confirm-delete.tpl.php:2
-msgctxt "form-fields admin"
-msgid "Delete Form Field"
-msgstr "Radera fält"
-
-#: admin/templates/form-fields-confirm-delete.tpl.php:6
-msgctxt "form-fields admin"
-msgid "Are you sure you want to delete the \"%s\" field?"
-msgstr "Är du säker på att du vill ta bort \"%s\" fält?"
-
-#: admin/templates/form-fields-confirm-delete.tpl.php:12
-msgctxt "form-fields admin"
-msgid "Delete Field"
-msgstr "Radera fält"
-
-#: admin/templates/form-fields-tags.tpl.php:5
-msgctxt "form-fields admin"
-msgid "-- None --"
-msgstr "-- Inget --"
-
-#: admin/templates/form-fields-tags.tpl.php:14
-msgctxt "form-fields admin"
-msgid "Theme Tags"
-msgstr "Temataggar"
-
-#: admin/templates/form-fields-tags.tpl.php:19
-msgctxt "form-fields admin"
-msgid ""
-"Before you create fields, make sure you've mapped all of your EXISTING ones "
-"first, otherwise you'll appear to be \"missing data\" on your listings."
-msgstr ""
-"Innan du skapar fält, se till att du har mappat alla dina befintliga först, "
-"annars kommer det att visas som \"missing data\" på dina listor."
-
-#: admin/templates/form-fields-tags.tpl.php:22
-msgctxt "form-fields admin"
-msgid "Create Missing Fields"
-msgstr "Skapa saknade fält"
-
-#: admin/templates/form-fields-tags.tpl.php:30
-msgctxt "form-fields admin"
-msgid "Field Tag"
-msgstr "Fälttagg"
-
-#: admin/templates/form-fields-tags.tpl.php:31
-msgctxt "form-fields admin"
-msgid "Field"
-msgstr "Fält"
-
-#: admin/templates/form-fields.tpl.php:3
-msgctxt "form-fields admin"
-msgid "Add New Form Field"
-msgstr "Lägg till formulärfält"
-
-#: admin/templates/form-fields.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Preview Form"
-msgstr "Förhandsgranska formulär"
-
-#: admin/templates/form-fields.tpl.php:6 admin/templates/themes.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Manage Theme Tags"
-msgstr "Hantera temataggar"
-
-#: admin/templates/form-fields.tpl.php:12
-msgctxt "form-fields admin"
-msgid ""
-"Here, you can create new fields for your listings, edit or delete existing "
-"ones, change the order and visibility of the fields as well as configure "
-"special options for them."
-msgstr ""
-"Här kan du skapa nya fält för annonser, redigera eller ta bort befintliga, "
-"ändra ordningen och synlighet på fälten samt konfigurera speciella "
-"alternativ för dem."
-
-#: admin/templates/form-fields.tpl.php:18
-msgctxt "form-fields admin"
-msgid "Please see the <a>Form Fields documentation</a> for more details."
-msgstr "Se <a>formulärfältsdokumentationen</a> för mer information."
-
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.11dev6)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: admin/templates/header.tpl.php:4
-msgid "Business Directory Plugin"
-msgstr "Business Directory Plugin"
-
-#: admin/templates/home.tpl.php:4
-msgctxt "admin home"
-msgid "Welcome to Business Directory Plugin. You are using %s."
-msgstr "Välkommen till Business Directory Plugin. Du använder %s."
-
-#: admin/templates/home.tpl.php:5
-msgctxt "admin home"
-msgid ""
-"Thanks for choosing us.  There's a lot you probably want to get done, so "
-"let's jump right in!"
-msgstr ""
-"Tack för att du valt oss. Det finns förmodligen massor du vill ha gjort, så "
-"låt oss sätta igång!"
-
-#: admin/templates/home.tpl.php:11
-msgctxt "admin home"
-msgid ""
-"Our complete documentation is <a>here</a> which we encourage you to use "
-"while setting things up."
-msgstr ""
-"Fullständig dokumentation hittar du <a>här</a> och vi rekommenderar att du "
-"använder den när du gör inställningarna."
-
-#: admin/templates/home.tpl.php:14
-msgctxt "admin home"
-msgid ""
-"We have some quick-start scenarios that you will find useful regarding setup "
-"and configuration <a>here</a>."
-msgstr ""
-"Vi har några snabbstartscenarier som du kommer att ha nytta av när det "
-"gäller installation och konfiguration <a>här</a> ."
-
-#: admin/templates/home.tpl.php:18
-msgctxt "admin home"
-msgid ""
-"If you have questions, please post a comment on <a>support forum</a> and "
-"we'll answer it within 24 hours most days."
-msgstr ""
-"Om du har frågor, vänligen skicka en kommentar på <a>supportforumet</a> och "
-"vi kommer att svara inom 24 timmar de flesta dagar."
-
-#: admin/templates/home.tpl.php:25
-msgid "Configure/Manage Options"
-msgstr "Konfigurera / Hantera Alternativ"
-
-#: admin/templates/home.tpl.php:28
-msgid "Setup/Manage Form Fields"
-msgstr "Ordna/hantera formulärfälten"
-
-#: admin/templates/home.tpl.php:31
-msgid "Setup/Manage Fees"
-msgstr "Ordna/hantera avgifter"
-
-#: admin/templates/home.tpl.php:37
-msgid "Featured Listings Pending Upgrade"
-msgstr "Utvalda annonser inväntar uppgradering"
-
-#: admin/templates/home.tpl.php:44
-msgid "Manage Paid Listings"
-msgstr "Hantera betalda annonser"
-
-#: admin/templates/listing-change-fee.tpl.php:3
-msgctxt "admin listing fee"
-msgid "Listing Fee Selection"
-msgstr "Urval av annonsavgifter"
-
-#: admin/templates/listing-change-fee.tpl.php:5
-msgctxt "admin listing fee"
-msgid "Select a fee plan to be used for this listing in the \"%s\" category."
-msgstr "Välj en avgiftsplan som ska användas för annonser i kategorin \"%s\"."
-
-#: admin/templates/listing-change-fee.tpl.php:11
-msgctxt "admin listing fee"
-msgid "Current"
-msgstr "Aktuell"
-
-#: admin/templates/listing-change-fee.tpl.php:14
-msgctxt "admin listing fee"
-msgid "Use this fee"
-msgstr "Använd denna avgift"
-
-#: admin/templates/listing-change-fee.tpl.php:21
-msgctxt "admin infometabox"
-msgid "%d image"
-msgid_plural "%d images"
-msgstr[0] "%d bild"
-msgstr[1] "%d bilder"
-
-#: admin/templates/listing-change-fee.tpl.php:23
-msgctxt "admin infometabox"
-msgid "Listing never expires"
-msgstr "Annons förfaller aldrig"
-
-#: admin/templates/listing-change-fee.tpl.php:25
-msgctxt "admin infometabox"
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d dag"
-msgstr[1] "%d dagar"
-
-#: admin/templates/listing-metabox-categories.tpl.php:22
-msgctxt "admin infometabox"
-msgid "No categories on this listing. Please add one to associate fees."
-msgstr ""
-"Denna annons har ingen kategori. Vänligen välj en för att koppla på avgifter."
-
-#: admin/templates/listing-metabox-categories.tpl.php:29
-msgctxt "admin infometabox"
-msgid "(recurring)"
-msgstr "(återkommande)"
-
-#: admin/templates/listing-metabox-categories.tpl.php:34
-msgctxt "admin infometabox"
-msgid "Expired"
-msgstr "Utgången"
-
-#: admin/templates/listing-metabox-categories.tpl.php:37
-msgctxt "admin infometabox"
-msgid "Payment Pending"
-msgstr "Inväntar betalning"
-
-#: admin/templates/listing-metabox-categories.tpl.php:41
-msgctxt "admin infometabox"
-msgid "OK"
-msgstr "OK"
-
-#: admin/templates/listing-metabox-categories.tpl.php:49
-msgctxt "admin infometabox"
-msgid "Fee"
-msgstr "Avgift"
-
-#: admin/templates/listing-metabox-categories.tpl.php:54
-msgctxt "admin infometabox"
-msgid "# Images"
-msgstr "# Bilder"
-
-#: admin/templates/listing-metabox-categories.tpl.php:62
-msgctxt "admin infometabox"
-msgid "Expired on"
-msgstr "Utgången den"
-
-#: admin/templates/listing-metabox-categories.tpl.php:64
-msgctxt "admin infometabox"
-msgid "Expires on"
-msgstr "Utgår den "
-
-#: admin/templates/listing-metabox-categories.tpl.php:72
-msgctxt "admin infometabox"
-msgid "Click to manually change expiration date."
-msgstr "Klicka för att ändra utgångsdatumet manuellt."
-
-#: admin/templates/listing-metabox-categories.tpl.php:75
-msgctxt "admin infometabox"
-msgid "Never expires"
-msgstr "Förfaller aldrig"
-
-#: admin/templates/listing-metabox-categories.tpl.php:75
-msgctxt "admin infometabox"
-msgid "Edit"
-msgstr "Redigera"
-
-#: admin/templates/listing-metabox-categories.tpl.php:87
-msgctxt "admin infometabox"
-msgid "See payment info"
-msgstr "Se betalning info"
-
-#: admin/templates/listing-metabox-categories.tpl.php:92
-msgctxt "admin infometabox"
-msgid "Renewal URL (copy & paste)"
-msgstr "Förnyelse URL (kopiera och klistra in)"
-
-#: admin/templates/listing-metabox-categories.tpl.php:92
-msgctxt "admin infometabox"
-msgid "Show renewal link"
-msgstr "Visa förnyelselänk"
-
-#: admin/templates/listing-metabox-categories.tpl.php:99
-msgctxt "admin infometabox"
-msgid "Send renewal e-mail to user"
-msgstr "Skicka e-post om förnyelse till användare"
-
-#: admin/templates/listing-metabox-categories.tpl.php:107
-msgctxt "admin infometabox"
-msgid "Renew manually..."
-msgstr "Förnya manuellt ..."
-
-#: admin/templates/listing-metabox-categories.tpl.php:107
-msgctxt "admin infometabox"
-msgid "Change fee..."
-msgstr "Ändra avgift ..."
-
-#: admin/templates/listing-metabox-categories.tpl.php:115
-msgctxt "admin infometabox"
-msgid "Remove category"
-msgstr "ta bort kategori"
-
-#: admin/templates/listing-metabox-fees.tpl.php:1
-msgctxt "admin infometabox"
-msgid "Fee Information"
-msgstr "Avgiftsinformation"
-
-#: admin/templates/listing-metabox-fees.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Payment Mode:"
-msgstr "Betalningsläge"
-
-#: admin/templates/listing-metabox-fees.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Paid"
-msgstr "Betald"
-
-#: admin/templates/listing-metabox-fees.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Free"
-msgstr "Gratis"
-
-#: admin/templates/listing-metabox-fees.tpl.php:6
-msgctxt "admin infometabox"
-msgid "To change your payment mode, go to <a href=\"%s\">Payment Settings</a>."
-msgstr ""
-"Om du vill ändra betalningsläge, gå till <a href=\"%s"
-"\">Betalningsinställningar</a> ."
-
-#: admin/templates/listing-metabox-fees.tpl.php:12
-msgctxt "admin infometabox"
-msgid ""
-"Note: In Free mode, the fee plans will always be set to \"Free Listing\" "
-"below."
-msgstr ""
-"OBS: I gratisläget kommer avgiftsplanen alltid att vara inställd på \"Gratis "
-"annons\" nedan."
-
-#: admin/templates/listing-metabox-fees.tpl.php:22
-#: admin/templates/listing-metabox-feesummary.tpl.php:12
-msgctxt "admin infometabox"
-msgid "Renew listing in all expired categories"
-msgstr "Förnya notering i alla utgångna kategorier"
-
-#: admin/templates/listing-metabox-feesummary.tpl.php:1
-msgctxt "admin infometabox"
-msgid "Categories for this listing"
-msgstr "Kategorier för denna annons"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Initial Payment"
-msgstr "Första betalning"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:4
-msgctxt "admin infometabox"
-msgid "Listing Edit"
-msgstr "Annonsredigering"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:5
-msgctxt "admin infometabox"
-msgid "Listing Renewal"
-msgstr "Annonsförnyelse"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:6
-msgctxt "admin infometabox"
-msgid "Upgrade to sticky"
-msgstr "Uppgradiera till fäst"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:10
-msgctxt "admin"
-msgid "Payments History"
-msgstr "Betalningshistorik"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:12
-msgctxt "admin listing metabox"
-msgid "Click a payment to see the details or approve/reject the transaction."
-msgstr ""
-"Klicka på en betalning för att se detaljer eller godkänna / avvisa "
-"transaktionen."
-
-#: admin/templates/listing-metabox-transactions.tpl.php:16
-msgctxt "listing metabox"
-msgid "There are no transactions associated to this listing."
-msgstr "Det finns inga transaktioner kopplade till denna annons."
-
-#: admin/templates/payment-details.tpl.php:7
-msgctxt "admin payments"
-msgid "Payment Details"
-msgstr "Betalningsdetaljer"
-
-#: admin/templates/payment-details.tpl.php:9
-msgctxt "admin payments"
-msgid "Payment #%d"
-msgstr "Betalning #%d"
-
-#: admin/templates/payment-details.tpl.php:16
-msgctxt "admin payments"
-msgid "Created on"
-msgstr "Skapad den"
-
-#: admin/templates/payment-details.tpl.php:19
-msgctxt "admin infometabox"
-msgid "Amount"
-msgstr "Belopp"
-
-#: admin/templates/payment-details.tpl.php:22
-msgctxt "admin infometabox"
-msgid "Gateway"
-msgstr "Betalmodul"
-
-#: admin/templates/payment-details.tpl.php:26
-msgctxt "admin infometabox"
-msgid "Processed on"
-msgstr "Bearbetad den"
-
-#: admin/templates/payment-details.tpl.php:28
-msgctxt "admin infometabox"
-msgid "Processed by"
-msgstr "Bearbetad av"
-
-#: admin/templates/payment-details.tpl.php:41
-msgctxt "admin payments"
-msgid "Approve payment"
-msgstr "Godkänn betalningn"
-
-#: admin/templates/payment-details.tpl.php:46
-msgctxt "admin payments"
-msgid "Reject payment"
-msgstr "Avvisa betalning"
-
-#: admin/templates/settings-reset.tpl.php:2
-msgid "Business Directory - Reset Defaults"
-msgstr "Business Directory - Återställ standardinställningar"
-
-#: admin/templates/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← Återvänd till \"Hantera alternativ\""
-
-#: admin/templates/settings-reset.tpl.php:10
-msgid ""
-"Use this option if you want to go back to the original factory settings for "
-"BD."
-msgstr ""
-"Använd detta alternativ om du vill gå tillbaka till de ursprungliga "
-"fabriksinställningarna för BD."
-
-#: admin/templates/settings-reset.tpl.php:11
-msgid "Please note that all of your existing settings will be lost."
-msgstr "Observera att alla dina befintliga inställningar försvinner."
-
-#: admin/templates/settings-reset.tpl.php:17
-msgid "Reset Defaults"
-msgstr "Återställ till standardinställningar"
-
-#: admin/templates/settings.tpl.php:2
-msgid "Business Directory Settings"
-msgstr "Business Directory Inställningar"
-
-#: admin/templates/settings.tpl.php:4
-msgctxt "settings"
-msgid "Reset Defaults"
-msgstr "Återställ standardvärden"
-
-#: admin/templates/settings.tpl.php:21
-msgid "Settings updated."
-msgstr "Inställningar uppdaterade."
-
-#: admin/templates/sidebar.tpl.php:3
-msgctxt "admin sidebar"
-msgid "Discount Codes Module"
-msgstr "Modul för rabattkoder"
-
-#: admin/templates/sidebar.tpl.php:4
-msgctxt "admin sidebar"
-msgid "Claim Listings Module"
-msgstr "Modul för annonsanspråk"
-
-#: admin/templates/sidebar.tpl.php:7
-msgctxt "admin sidebar"
-msgid "File Upload Module"
-msgstr "Modul för filuppladdning"
-
-#: admin/templates/sidebar.tpl.php:8
-msgctxt "admin sidebar"
-msgid "Featured Levels Module"
-msgstr "Modul för utvalda nivåer"
-
-#: admin/templates/sidebar.tpl.php:9
-msgctxt "admin sidebar"
-msgid "ZIP Code Search Module"
-msgstr "Modul för postnummersök"
-
-#: admin/templates/sidebar.tpl.php:10
-msgctxt "admin sidebar"
-msgid "Regions Module"
-msgstr "Modul för region"
-
-#: admin/templates/sidebar.tpl.php:11
-msgctxt "admin sidebar"
-msgid "Ratings Module"
-msgstr "Modul för betyg"
-
-#: admin/templates/sidebar.tpl.php:12
-msgctxt "admin sidebar"
-msgid "Google Maps Module"
-msgstr "Modul för Google Maps"
-
-#: admin/templates/sidebar.tpl.php:18
-msgctxt "admin sidebar"
-msgid "Business Card Theme"
-msgstr "Tema Business Card"
-
-#: admin/templates/sidebar.tpl.php:19
-msgctxt "admin sidebar"
-msgid "Mobile Compact Theme"
-msgstr "Tema Mobile Compact"
-
-#: admin/templates/sidebar.tpl.php:20
-msgctxt "admin sidebar"
-msgid "Restaurant Theme"
-msgstr "Tema Restaurant"
-
-#: admin/templates/sidebar.tpl.php:21
-msgctxt "admin sidebar"
-msgid "Tabbed Business Theme"
-msgstr "Tema Tabbed Business"
-
-#: admin/templates/sidebar.tpl.php:22
-msgctxt "admin sidebar"
-msgid "Elegant Business Theme"
-msgstr "Tema Elegant Busniess"
-
-#: admin/templates/sidebar.tpl.php:29
-msgctxt "admin sidebar"
-msgid "Like this plugin?"
-msgstr "Gillar du detta plugin?"
-
-#: admin/templates/sidebar.tpl.php:31
-msgctxt "admin sidebar"
-msgid "Why not do any or all of the following:"
-msgstr "Varför inte göra något eller allt av följande:"
-
-#: admin/templates/sidebar.tpl.php:33
-msgctxt "admin sidebar"
-msgid "Give it a good rating on WordPress.org."
-msgstr "Ge det ett bra betyg på WordPress.org."
-
-#: admin/templates/sidebar.tpl.php:34
-msgctxt "admin sidebar"
-msgid "Let other people know that it works with your WordPress setup."
-msgstr ""
-"Låt andra människor veta att det fungerar med din WordPress installation."
-
-#: admin/templates/sidebar.tpl.php:35
-msgctxt "admin sidebar"
-msgid "Buy a Premium Module"
-msgstr "Köp en premiummodul"
-
-#: admin/templates/sidebar.tpl.php:42
-msgctxt "admin sidebar"
-msgid "Get a Premium Module"
-msgstr "Skaffa en premiummodul"
-
-#: admin/templates/sidebar.tpl.php:45 admin/templates/sidebar.tpl.php:61
-msgctxt "admin sidebar"
-msgid "best deal"
-msgstr "Bästa erbjudande"
-
-#: admin/templates/sidebar.tpl.php:45
-msgctxt "admin sidebar"
-msgid "Combo Pack"
-msgstr "Combo Pack"
-
-#: admin/templates/sidebar.tpl.php:45
-msgctxt "admin sidebar"
-msgid "(All Modules)"
-msgstr "(Alla moduler)"
-
-#: admin/templates/sidebar.tpl.php:48 admin/templates/sidebar.tpl.php:64
-msgctxt "admin sidebar"
-msgid "new"
-msgstr "ny"
-
-#: admin/templates/sidebar.tpl.php:58
-msgctxt "admin sidebar"
-msgid "Get a Directory Theme"
-msgstr "Skaffa ett Directory Theme"
-
-#: admin/templates/sidebar.tpl.php:61
-msgctxt "admin sidebar"
-msgid "Theme Pack"
-msgstr "Theme Pack"
-
-#: admin/templates/sidebar.tpl.php:61
-msgctxt "admin sidebar"
-msgid "(All Themes)"
-msgstr "(Alla teman)"
-
-#: admin/templates/sidebar.tpl.php:74
-msgctxt "admin sidebar"
-msgid "Found a bug? Need support?"
-msgstr "Hittat ett programfel? Behöver du hjälp?"
-
-#: admin/templates/sidebar.tpl.php:79
-msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>visit the forums!</a>"
-msgstr "Om du har hittat en bugg eller behöver stöd <a>besök forumet!</a>"
-
-#: admin/templates/sidebar.tpl.php:82
-msgctxt "admin sidebar"
-msgid "Full plugin documentation"
-msgstr "Fullständig dokumentation för pluginet"
-
-#: admin/templates/sidebar.tpl.php:83
-msgctxt "admin sidebar"
-msgid "Quick Start Guide"
-msgstr "Snabbstartsguide"
-
-#: admin/templates/sidebar.tpl.php:84
-msgctxt "admin sidebar"
-msgid "Video Tutorials"
-msgstr "Handledningar (video)"
-
-#: admin/templates/sidebar.tpl.php:92
-msgctxt "admin sidebar"
-msgid "Installed Modules"
-msgstr "Installerade moduler"
-
-#: admin/templates/sidebar.tpl.php:103 admin/templates/sidebar.tpl.php:112
-msgctxt "admin sidebar"
-msgid "Installed"
-msgstr "Installerat"
-
-#: admin/templates/sidebar.tpl.php:105 admin/templates/sidebar.tpl.php:112
-msgctxt "admin sidebar"
-msgid "Not Installed"
-msgstr "Ej installerad"
-
-#: admin/templates/sidebar.tpl.php:111
-msgctxt "admin sidebar"
-msgid "Enhanced Categories Module"
-msgstr "Modul för förbättrade kategorier"
-
-#: admin/templates/themes-delete-confirm.tpl.php:1
-#: admin/templates/themes-delete-confirm.tpl.php:13
-msgctxt "themes admin"
-msgid "Delete Directory Theme"
-msgstr "Ta bort tema"
-
-#: admin/templates/themes-delete-confirm.tpl.php:3
-msgctxt "themes admin"
-msgid "Are you sure you want to delete the directory theme \"%s\"?"
-msgstr "Är du säker på att du vill ta bort temat \"%s\"?"
-
-#: admin/templates/themes-delete-confirm.tpl.php:12
-msgctxt "themes admin"
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: admin/templates/themes-install.tpl.php:2
-#: admin/templates/themes-licenses.tpl.php:3 admin/templates/themes.tpl.php:3
-msgctxt "themes"
-msgid "Upload Directory Theme"
-msgstr "Ladda upp tema"
-
-#: admin/templates/themes-install.tpl.php:8
-msgctxt "themes"
-msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
-msgstr ""
-"Detta är ett tema eller skal från%s och är inte ett vanligt Wordpress-tema."
-
-#: admin/templates/themes-install.tpl.php:21
-msgctxt "themes"
-msgid "BD Theme archive (ZIP file)"
-msgstr "BD Temaarkiv (ZIP-fil)"
-
-#: admin/templates/themes-install.tpl.php:30
-msgctxt "themes"
-msgid "Begin Upload"
-msgstr "Starta uppladdningen"
-
-#: admin/templates/themes-item.tpl.php:3
-msgctxt "themes"
-msgid "Active:"
-msgstr "Aktivt:"
-
-#: admin/templates/themes-item.tpl.php:17
-msgctxt "themes"
-msgid "Activate"
-msgstr "Aktivera:"
-
-#: admin/templates/themes-item.tpl.php:35
-msgctxt "themes"
-msgid "Version:"
-msgstr "Version:"
-
-#: admin/templates/themes-item.tpl.php:38
-msgctxt "themes"
-msgid "Author:"
-msgstr "Författare:"
-
-#: admin/templates/themes-licenses.tpl.php:24
-msgctxt "themes"
-msgid "Deactivate License"
-msgstr "Inaktivera licens"
-
-#: admin/templates/themes-licenses.tpl.php:27
-msgctxt "themes"
-msgid "Deactivating license..."
-msgstr "Inaktiverar licensen"
-
-#: admin/templates/themes-licenses.tpl.php:29
-msgctxt "themes"
-msgid "Activate License"
-msgstr "Aktivera licens"
-
-#: admin/templates/themes-licenses.tpl.php:30
-msgctxt "themes"
-msgid "Activating license..."
-msgstr "Aktiverar licensen"
-
-#: admin/templates/themes-tabs.tpl.php:6
-msgctxt "admin themes"
-msgid "Available Themes"
-msgstr "Tillgängliga teman"
-
-#: admin/templates/themes-tabs.tpl.php:7
-msgctxt "admin themes"
-msgid "Licenses"
-msgstr "Licenser"
-
-#: admin/templates/themes.tpl.php:5
-msgctxt "themes"
-msgid "Settings"
-msgstr "Inställningar"
-
-#: admin/templates/themes.tpl.php:15
-msgctxt "themes"
-msgid ""
-"<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business "
-"Directory Plugin</i> to change the look of the directory quickly and easily. "
-"We have a number of them available for purchase <a>here</a>."
-msgstr ""
-"<a><b>Katalogteman</b></a> är färdiga mallar för att ändra utseendet på "
-"<i>Business Directory Plugin</i> snabbt och enkelt. Det finns flera stycken, "
-"och de finns att köpa <a>här</a>."
-
-#: admin/templates/themes.tpl.php:16
-msgctxt "themes"
-msgid ""
-"They are <strong>different</strong> than your regular WordPress theme and "
-"they are <strong>not</strong> a replacement for WP themes either. They will "
-"change the look and feel of your business directory only."
-msgstr ""
-"Det är <strong>annorlunda</strong> än dina vanliga WordPressteman och de är "
-"<strong>inte</strong> en ersättning för WordPressteman. De kommer enbart att "
-"ändra utseendet på din Business Directory."
-
-#: admin/templates/transactions.tpl.php:2
-msgctxt "admin transactions"
-msgid "Transactions"
-msgstr "Transaktioner"
-
-#: admin/templates/uninstall-capture-form.tpl.php:5
-msgctxt "uninstall"
-msgid "It doesn't work with my theme/plugins/site"
-msgstr "Det fungerar inte med mitt tema / plugins / site"
-
-#: admin/templates/uninstall-capture-form.tpl.php:6
-msgctxt "uninstall"
-msgid "I can't set it up/Too complicated"
-msgstr "Jag kan inte hantera det/För komplicerat"
-
-#: admin/templates/uninstall-capture-form.tpl.php:7
-msgctxt "uninstall"
-msgid "Doesn't solve my problem"
-msgstr "Löste inte mitt problem"
-
-#: admin/templates/uninstall-capture-form.tpl.php:8
-msgctxt "uninstall"
-msgid "Don't need it anymore/Not using it"
-msgstr "Behöver det inte längre/använder det inte"
-
-#: admin/templates/uninstall-capture-form.tpl.php:9
-msgctxt "uninstall"
-msgid "Other"
-msgstr "Annat"
-
-#: admin/templates/uninstall-capture-form.tpl.php:16
-msgctxt "uninstall"
-msgid ""
-"We're sorry to see you leave. Could you take 10 seconds and answer one "
-"question for us to help us make the product better for everyone in the "
-"future?"
-msgstr ""
-"Det var tråkigt att se dig lämna. Kan du ta 10 sekunder och svara på en "
-"fråga för oss att hjälpa oss att göra produkten bättre för alla i framtiden?"
-
-#: admin/templates/uninstall-capture-form.tpl.php:19
-msgctxt "uninstall"
-msgid "Why are you deleting Business Directory Plugin?"
-msgstr "Varför avinstallerar du Business Directory Plugin?"
-
-#: admin/templates/uninstall-capture-form.tpl.php:29
-msgctxt "uninstall"
-msgid "Please tell us why are you deleting Business Directory Plugin."
-msgstr ""
-"Var snäll och berätta varför du avinstallerar Business Directory Plugin."
-
-#: admin/templates/uninstall-capture-form.tpl.php:36
-msgctxt "uninstall"
-msgid "Uninstall Plugin"
-msgstr "Avinstallera plugin"
-
-#: admin/templates/uninstall-complete.tpl.php:2
-msgctxt "admin uninstall"
-msgid "Uninstall Business Directory"
-msgstr "Avinstallera tillägget Business Directory"
-
-#: admin/templates/uninstall-complete.tpl.php:7
-msgctxt "admin uninstall"
-msgid "Uninstall completed."
-msgstr "Avinstallation slutförd."
-
-#: admin/templates/uninstall-complete.tpl.php:8
-msgctxt "admin uninstall"
-msgid "Return to Dashboard."
-msgstr "Återgå till panelen."
-
-#: admin/templates/uninstall-confirm.tpl.php:1
-msgctxt "uninstall"
-msgid "Uninstall Business Directory Plugin"
-msgstr "Avinstallera tillägget Business Directory"
-
-#: admin/tracking.php:188
-msgctxt "tracking"
-msgid "Help Improve Business Directory"
-msgstr "Hjälp oss förbättra Business Directory"
-
-#: admin/tracking.php:190
-msgctxt "tracking"
-msgid ""
-"Can Business Directory keep track of your theme, plugins, and other non-"
-"personal, non-identifying information to help us in testing the plugin for "
-"future releases?"
-msgstr ""
-"Får Business Directory hålla koll på ditt tema, plugins och annan icke-"
-"personlig, icke-identifierande information för att hjälpa oss att testa "
-"plugin för framtida versioner?"
-
-#: admin/tracking.php:192
-msgctxt "tracking"
-msgid "What do you track?"
-msgstr "Vad spårar ni?"
-
-#: admin/tracking.php:214
-msgctxt "tracking"
-msgid "No, Thanks."
-msgstr "Nej tack."
-
-#: admin/tracking.php:221
-msgctxt "tracking"
-msgid "Allow Tracking"
-msgstr "Tillåt spårning"
 
 #: business-directory-plugin.php:589
 #, fuzzy
@@ -3207,12 +213,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Avgift inte tillgänglig)"
 
-#: core/class-listings-api.php:316
+#: core/class-listings-api.php:319
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notifiering om ny annons"
 
-#: core/class-listings-api.php:335
+#: core/class-listings-api.php:338
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notifiering om annonsändring"
@@ -5628,6 +2634,19 @@ msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Ingen licensnyckel angiven"
 
+#: core/licensing.php:174 core/licensing.php:206
+#: includes/admin/class-themes-admin.php:366
+#: includes/admin/class-themes-admin.php:427
+msgctxt "licensing"
+msgid "Could not contact licensing server"
+msgstr "Det gick inte att kontakta licensservern"
+
+#: core/licensing.php:179 core/licensing.php:213
+#: includes/admin/class-themes-admin.php:372
+msgctxt "licensing"
+msgid "License key is invalid"
+msgstr "Licensnyckel är ogiltig"
+
 #: core/licensing.php:216
 msgctxt "licensing"
 msgid "Deactivation failed"
@@ -5675,10 +2694,25 @@ msgctxt "licensing"
 msgid "Renew License Key"
 msgstr "Förnya licensnyckel"
 
+#: core/licensing.php:368 includes/admin/class-themes-admin.php:377
+msgctxt "licensing"
+msgid "Could not activate license: %s."
+msgstr "Det gick inte att aktivera licens:%s."
+
+#: core/licensing.php:370 includes/admin/class-themes-admin.php:390
+msgctxt "licensing"
+msgid "License activated"
+msgstr "Licens aktiverad"
+
 #: core/licensing.php:386
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Det gick inte att inaktivera licens:%s."
+
+#: core/licensing.php:388 includes/admin/class-themes-admin.php:450
+msgctxt "licensing"
+msgid "License deactivated"
+msgstr "﻿Licensnyckel avaktiverad"
 
 #: core/payment.php:91
 msgctxt "payments-api"
@@ -6527,6 +3561,2978 @@ msgstr "Visa följande fält i formuläret."
 msgctxt "widgets"
 msgid "Search"
 msgstr "Sök"
+
+#: includes/admin/class-admin-listings.php:40
+msgctxt "admin category filter"
+msgid "All categories"
+msgstr "Alla kategorier"
+
+#: includes/admin/class-admin-listings.php:133
+msgctxt "admin listings"
+msgid ""
+"This listing doesn't have any category assigned. At least one category (and "
+"its respective fee) is required in order to determine the features available "
+"to this listing, as well as handling renewals."
+msgstr ""
+"Denna förteckning har inte någon kategorisering. Minst en kategori (och dess "
+"respektive avgift) krävs för att fastställa funktionerna som denna "
+"förteckning som hanterar förnyelser."
+
+#: includes/admin/class-admin-listings.php:138
+msgid "Listing Information"
+msgstr "Information om annons"
+
+#: includes/admin/class-admin-listings.php:145
+msgctxt "admin"
+msgid "Listing Fields / Images"
+msgstr "Annonsfält / bilder"
+
+#: includes/admin/class-admin-listings.php:156
+msgctxt "admin"
+msgid "Categories"
+msgstr "Kategorier"
+
+#: includes/admin/class-admin-listings.php:157
+msgid "Payment Status"
+msgstr "Betalningsstatus"
+
+#: includes/admin/class-admin-listings.php:158
+msgid "Featured (Sticky) Status"
+msgstr "Utvald (fäst) status"
+
+#: includes/admin/class-admin-listings.php:189
+msgctxt "admin"
+msgid "(Listing expired in this category)"
+msgstr "(Annonsering har utgått i denna kategori)"
+
+#: includes/admin/class-admin-listings.php:207
+#: includes/admin/class-admin-listings.php:290
+msgid "Paid"
+msgstr "Betald"
+
+#: includes/admin/class-admin-listings.php:212
+msgid "Mark as"
+msgstr "Markera som"
+
+#: includes/admin/class-admin-listings.php:221
+#: includes/admin/class-admin-listings.php:300
+msgid "Pending Upgrade"
+msgstr "Väntar på uppgradering"
+
+#: includes/admin/class-admin-listings.php:229
+#: includes/admin/helpers/listing-metabox.php:70
+msgid "Upgrade to %s"
+msgstr "Uppgradera till %s"
+
+#: includes/admin/class-admin-listings.php:236
+#: includes/admin/helpers/listing-metabox.php:77
+msgid "Downgrade to %s"
+msgstr "Nedgradera till %s"
+
+#: includes/admin/class-admin-listings.php:239
+#: includes/admin/class-admin-listings.php:418
+msgctxt "admin actions"
+msgid "Upgrade to Featured"
+msgstr "Uppgradera till Utvald"
+
+#: includes/admin/class-admin-listings.php:295
+msgid "Unpaid"
+msgstr "Ej betald"
+
+#: includes/admin/class-admin-listings.php:305
+msgctxt "admin"
+msgid "Expired"
+msgstr "Utgången"
+
+#: includes/admin/class-admin-listings.php:354
+msgctxt "admin actions"
+msgid "Edit Listing"
+msgstr "Redigera annons"
+
+#: includes/admin/class-admin-listings.php:357
+msgctxt "admin actions"
+msgid "Delete Listing"
+msgstr "Ta bort annons"
+
+#: includes/admin/class-admin-listings.php:416
+msgctxt "admin actions"
+msgid "Publish Listing"
+msgstr "Publicera annons"
+
+#: includes/admin/class-admin-listings.php:419
+msgctxt "admin actions"
+msgid "Downgrade to Normal"
+msgstr "Nedgradera till normal"
+
+#: includes/admin/class-admin-listings.php:421
+msgctxt "admin actions"
+msgid "Mark as Paid"
+msgstr "Markera som betald"
+
+#: includes/admin/class-admin-listings.php:423
+msgctxt "admin actions"
+msgid "Renew Listing"
+msgstr "Förnya annons"
+
+#: includes/admin/class-admin.php:105
+msgid ""
+"Preview is only available after you've saved the first draft. This is due\n"
+"to how WordPress stores the data."
+msgstr ""
+"Förhandsgranskning är endast tillgänglig när du har sparat det första "
+"utkastet. Detta beror på hur WordPress lagrar data."
+
+#: includes/admin/class-admin.php:138
+msgctxt "drip pointer"
+msgid ""
+"Find out how to create a compelling, thriving business directory from "
+"scratch in this ridiculously actionable (and FREE) 5-part email course. Get "
+"a FREE premium module just for signing up."
+msgstr ""
+"Få information om hur du skapar en övertygande, blomstrande registerkatalog "
+"från början i denna sanslöst fullmatade (och GRATIS) e-postkurs i 5 delar. "
+"Du får en premium-modul helt kostnadsfritt genom att bara registrera dig."
+
+#: includes/admin/class-admin.php:140
+msgctxt "drip pointer"
+msgid "Email Address:"
+msgstr "E-postadress:"
+
+#: includes/admin/class-admin.php:146
+msgctxt "drip pointer"
+msgid "Want to know the Secrets of Building an Awesome Business Directory?"
+msgstr "Vill du veta hemligheten bakom att bygga en grymt bra affärskatalog?"
+
+#: includes/admin/class-admin.php:148
+msgctxt "drip pointer"
+msgid "Yes, please!"
+msgstr "Ja tack!"
+
+#: includes/admin/class-admin.php:150
+msgctxt "drip pointer"
+msgid "No, thanks"
+msgstr "Nej tack."
+
+#: includes/admin/class-admin.php:167
+msgctxt "admin"
+msgid "Business Directory"
+msgstr "Business Directory"
+
+#: includes/admin/class-admin.php:178
+msgctxt "admin"
+msgid "You're all set. Visit your new <a>Business Directory</a> page."
+msgstr "Du är klar! Besök din nya <a>Business Directory</a> sida."
+
+#: includes/admin/class-admin.php:199
+msgctxt "drip pointer"
+msgid "Invalid e-mail address."
+msgstr "Ogiltig e-postadress."
+
+#: includes/admin/class-admin.php:233
+msgctxt "admin menu"
+msgid "Business Directory Admin"
+msgstr "Business Directory admin"
+
+#: includes/admin/class-admin.php:234
+msgctxt "admin menu"
+msgid "Dir. Admin"
+msgstr "Dir. admin"
+
+#: includes/admin/class-admin.php:234
+msgctxt "admin menu"
+msgid "Directory Admin"
+msgstr "Katalog admin"
+
+#: includes/admin/class-admin.php:240 includes/admin/class-admin.php:241
+msgctxt "admin menu"
+msgid "Add New Listing"
+msgstr "Lägg till ny annons"
+
+#: includes/admin/class-admin.php:246 includes/admin/class-admin.php:247
+msgctxt "admin menu"
+msgid "Manage Options"
+msgstr "Hantera alternativ"
+
+#: includes/admin/class-admin.php:252 includes/admin/class-admin.php:253
+msgctxt "admin menu"
+msgid "Manage Fees"
+msgstr "Hantera avgifter"
+
+#: includes/admin/class-admin.php:258 includes/admin/class-admin.php:259
+msgctxt "admin menu"
+msgid "Manage Form Fields"
+msgstr "Hantera formulärfält"
+
+#: includes/admin/class-admin.php:264 includes/admin/class-admin.php:265
+msgctxt "admin menu"
+msgid "Listings"
+msgstr "Annonser"
+
+#: includes/admin/class-admin.php:279 includes/admin/class-admin.php:280
+msgctxt "admin menu"
+msgid "CSV Import"
+msgstr "Importera CSV"
+
+#: includes/admin/class-admin.php:285 includes/admin/class-admin.php:286
+msgctxt "admin menu"
+msgid "CSV Export"
+msgstr "Exportera CSV"
+
+#: includes/admin/class-admin.php:291 includes/admin/class-admin.php:292
+msgctxt "admin menu"
+msgid "Debug"
+msgstr "Debug"
+
+#: includes/admin/class-admin.php:301
+msgctxt "admin menu"
+msgid "Main Menu"
+msgstr "Huvudmeny"
+
+#: includes/admin/class-admin.php:312
+msgctxt "admin menu"
+msgid "Uninstall Business Directory Plugin"
+msgstr "Avinstallera tillägget Business Directory"
+
+#: includes/admin/class-admin.php:313
+msgctxt "admin menu"
+msgid "Uninstall"
+msgstr "Avinstallera"
+
+#: includes/admin/class-admin.php:427
+#: templates/admin/listing-metabox-categories.tpl.php:69
+msgctxt "admin infometabox"
+msgid "never"
+msgstr "aldrig"
+
+#: includes/admin/class-admin.php:521
+msgctxt "admin"
+msgid "Dismiss this notice."
+msgstr "Avvisa denna notering."
+
+#: includes/admin/class-admin.php:549
+msgctxt "admin"
+msgid "The listing has been published."
+msgid_plural "The listings have been published."
+msgstr[0] "Annonsen har publicerats."
+msgstr[1] "Annonserna har publicerats"
+
+#: includes/admin/class-admin.php:567
+msgctxt "admin"
+msgid "The listing status has been set as paid."
+msgid_plural "The listings status has been set as paid."
+msgstr[0] "Annonsen har fått status Betald."
+msgstr[1] "Annonserna har fått status Betald."
+
+#: includes/admin/class-admin.php:573
+msgctxt "admin"
+msgid ""
+"Only invoices containing non-recurring items were marked as paid. Please "
+"review the <a>Transactions</a> tab for the listing to manage recurring items "
+"or check the gateway's backend."
+msgid_plural ""
+"Only invoices containing non-recurring items were marked as paid. Recurring "
+"payments have to be managed through the gateway."
+msgstr[0] ""
+"Endast fakturor som innehåller engångsposter var markerade som betalda. Läs "
+"igenom fliken <a>transaktioner</a> för annonsen för att hantera återkommande "
+"objekt eller kontrollera gatewayens backend."
+msgstr[1] ""
+"Endast fakturor som innehåller engångsposter markerases som betalda. "
+"Återkommande betalningar måste hanteras genom gatewayen."
+
+#: includes/admin/class-admin.php:592
+msgctxt "admin"
+msgid "The listing has been modified."
+msgid_plural "The listings have been modified."
+msgstr[0] "Annonsen har ändrats."
+msgstr[1] "Annonserna har ändrats."
+
+#: includes/admin/class-admin.php:605
+msgctxt "admin"
+msgid "The listing has been upgraded."
+msgid_plural "The listings have been upgraded."
+msgstr[0] "Annonsen har uppgraderats."
+msgstr[1] "Annonserna har uppgraderats."
+
+#: includes/admin/class-admin.php:617
+msgctxt "admin"
+msgid "The listing has been downgraded."
+msgid_plural "The listings have been downgraded."
+msgstr[0] "Annonsen har nedgraderats."
+msgstr[1] "Annonserna har nedgraderats."
+
+#: includes/admin/class-admin.php:628
+msgctxt "admin payments"
+msgid ""
+"The payment status was not changed. Recurring payments can't be manually "
+"approved. Please check your gateway's backend to see if the payment really "
+"went through."
+msgstr ""
+"Betalningsstatus ändrades inte. Återkommande betalningar inte kan godkännas "
+"manuellt. Vänligen kontrollera din gateway backend för att se om betalningen "
+"verkligen gick igenom."
+
+#: includes/admin/class-admin.php:633
+msgctxt "admin"
+msgid "The transaction has been approved."
+msgstr "Din transaktion har godkänts."
+
+#: includes/admin/class-admin.php:643
+msgctxt "admin"
+msgid "The transaction has been rejected."
+msgstr "Transaktionen har avvisats."
+
+#: includes/admin/class-admin.php:649
+msgctxt "admin"
+msgid "The fee was successfully assigned."
+msgstr "Avgiften tilldelades med framgång."
+
+#: includes/admin/class-admin.php:658
+msgctxt "admin"
+msgid "Listing was renewed."
+msgid_plural "Listings were renewed."
+msgstr[0] "Annonsen har förnyats."
+msgstr[1] "Annonserna har förnyats."
+
+#: includes/admin/class-admin.php:665
+msgctxt "admin"
+msgid "Renewal email sent."
+msgstr "E-postmeddelande om förnyelse skickat."
+
+#: includes/admin/class-admin.php:720
+msgctxt "admin category id"
+msgid "ID"
+msgstr "ID"
+
+#: includes/admin/class-admin.php:722 includes/admin/class-admin.php:728
+msgctxt "admin"
+msgid "Listing Count"
+msgstr "Annonsräknare"
+
+#: includes/admin/class-admin.php:837
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires fields with the following "
+"associations in order to work correctly: <b>%s</b>."
+msgstr ""
+"<b>Tillägget Business Directory</b> kräver fält med följande associationer  "
+"för att fungera korrekt: <b>%s</b>."
+
+#: includes/admin/class-admin.php:839
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
+"association in order to work correctly."
+msgstr ""
+"<b>Tillägget Business Direcotry </b> kräver ett fält med en<b>%s</b> "
+"association för att fungera korrekt."
+
+#: includes/admin/class-admin.php:843
+msgctxt "admin"
+msgid ""
+"You can create these custom fields by yourself inside \"Manage Form Fields\" "
+"or let Business Directory do this for you automatically."
+msgstr ""
+"Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
+"låta Business Directory göra det åt dig automatiskt."
+
+#: includes/admin/class-admin.php:847
+msgctxt "admin"
+msgid "Go to \"Manage Form Fields\""
+msgstr "Gå till \"Hantera formulärfält\""
+
+#: includes/admin/class-admin.php:850
+msgctxt "admin"
+msgid "Create these required fields for me"
+msgstr "Skapa dessa obligatoriska fält för mig"
+
+#: includes/admin/class-admin.php:859
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires a page with the "
+"<tt>[businessdirectory]</tt> shortcode to function properly."
+msgstr ""
+"<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
+"<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
+
+#: includes/admin/class-admin.php:861
+msgctxt "admin"
+msgid ""
+"You can create this page by yourself or let Business Directory do this for "
+"you automatically."
+msgstr ""
+"Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
+"åt dig automatiskt."
+
+#: includes/admin/class-admin.php:865
+msgctxt "admin"
+msgid "Create required pages for me"
+msgstr "Skapa nödvändiga sidor åt mig."
+
+#: includes/admin/class-admin.php:905
+msgctxt "admin compat"
+msgid "Installed: %s"
+msgstr "Installerat: %s"
+
+#: includes/admin/class-admin.php:905
+msgctxt "admin compat"
+msgid "N/A"
+msgstr "Ej tillämplig"
+
+#: includes/admin/class-admin.php:908
+msgctxt "admin compat"
+msgid "Required: %s"
+msgstr "Nödvändigt: %s"
+
+#: includes/admin/class-admin.php:920
+msgctxt "admin compat"
+msgid ""
+"Business Directory has detected some incompatible premium module versions "
+"installed."
+msgstr ""
+"Business Directory har noterat konflikt mellan versioner av premium-moduler "
+"som är installerade."
+
+#: includes/admin/class-admin.php:922
+msgctxt "admin compat"
+msgid ""
+"Please upgrade to the required versions indicated below to make sure "
+"everything functions properly."
+msgstr ""
+"Vänligen uppgradera till de nödvändiga versioner som anges nedan för att se "
+"till att allt fungerar."
+
+#: includes/admin/class-admin.php:942
+msgctxt "admin"
+msgid ""
+"We noticed you want your Business Directory users to register before posting "
+"listings, but Registration for your site is currently disabled. Go [here] "
+"and check \"Anyone can register\" to make sure BD works properly."
+msgstr ""
+"Vi har märkt att du vill att dina användare ska registrera sig innan de kan "
+"skapa annonser, men registreringen är avstängd på din webbplats. Gå [hit] "
+"och klicka i \"Vem som helst kan registrera sig\" för att säkerställa att BD "
+"fungerar som det ska."
+
+#: includes/admin/class-themes-admin.php:47
+msgctxt "themes"
+msgid "Directory Themes"
+msgstr "Directory Teman"
+
+#: includes/admin/class-themes-admin.php:48
+msgctxt "themes"
+msgid "Directory Themes %s"
+msgstr "Directory Teman %s"
+
+#: includes/admin/class-themes-admin.php:94
+msgctxt "admin themes"
+msgid ""
+"Business Directory Plugin - Your template overrides need to be reviewed!"
+msgstr ""
+"Tillägget Business Directory - Du måste se över dina åsidosättningar av "
+"mallen!"
+
+#: includes/admin/class-themes-admin.php:96
+msgctxt "admin themes"
+msgid ""
+"Starting with version 4.0, Business Directory is using a new theming system "
+"that is not compatible with the templates used in previous versions."
+msgstr ""
+"Från och med version 4.0 kommer Business Directory att använda ett nytt "
+"mallsystem som inte är kompatibelt med tidigare versioner."
+
+#: includes/admin/class-themes-admin.php:98
+msgctxt "admin themes"
+msgid ""
+"Because of this, your template overrides below have been disabled. You "
+"should <a>review our documentation on customization</a> in order adjust your "
+"templates."
+msgstr ""
+"På grund av detta har dina åsidosättningar av mallen nedan deaktiverats. Du "
+"bör <a>läsa vår dokumentation på anpassningar</a> för att kunna justera dina "
+"mallar."
+
+#: includes/admin/class-themes-admin.php:127
+msgctxt "admin themes"
+msgid ""
+"You need to <a>activate your theme's license key</a> before you can activate "
+"the theme. <a>Click here</a> to do that."
+msgstr ""
+"Du behöver <a>aktivera temats licensnyckel</a> innan du kan aktivera temat."
+"<a> Klicka här</a> för att göra det."
+
+#: includes/admin/class-themes-admin.php:157
+msgctxt "themes"
+msgid "Could not change the active theme to \"%s\"."
+msgstr "Kunde inte ändra det aktiva temat till \"%s\"."
+
+#: includes/admin/class-themes-admin.php:204
+msgctxt "themes"
+msgid "Active theme changed to \"%s\"."
+msgstr "Aktiverat tema ändrat till \"%s\"."
+
+#: includes/admin/class-themes-admin.php:207
+msgctxt "themes"
+msgid ""
+"%s requires that you tag your existing fields to match some places we want "
+"to put your data on the theme. Below are fields we think are missing."
+msgstr ""
+"%s kräver att du taggar dina befintliga fält för att matcha några platser vi "
+"vill sätta dina data på temat. Nedan finns fält som vi tycker saknas."
+
+#: includes/admin/class-themes-admin.php:216
+msgctxt "themes"
+msgid "Map My Fields"
+msgstr "Mappa min fält"
+
+#: includes/admin/class-themes-admin.php:223
+msgctxt "themes"
+msgid "Suggested fields created successfully."
+msgstr "Föreslagna fält skapats."
+
+#: includes/admin/class-themes-admin.php:226
+msgctxt "themes"
+msgid "Theme installed successfully."
+msgstr "Temat har installerats med framgång."
+
+#: includes/admin/class-themes-admin.php:229
+#, fuzzy
+msgctxt "themes"
+msgid "Theme was deleted successfully."
+msgstr "Temat har tagits bort med framgång."
+
+#: includes/admin/class-themes-admin.php:232
+msgctxt "themes"
+msgid "Could not delete theme directory. Check permissions."
+msgstr "Det gick inte att ta bort tema katalog. Kontrollera behörigheterna."
+
+#: includes/admin/class-themes-admin.php:258
+msgctxt "themes"
+msgid "Please upload a valid theme file."
+msgstr "Vänligen ladda upp en giltig temafil."
+
+#: includes/admin/class-themes-admin.php:265
+msgctxt "themes"
+msgid "Could not move \"%s\" to a temporary directory."
+msgstr "Det gick inte att flytta \"%s\" till en tillfällig katalog."
+
+#: includes/admin/class-themes-admin.php:433
+msgctxt "licensing"
+msgid "Invalid response from server"
+msgstr "Ogiltigt svar från server"
+
+#: includes/admin/class-themes-admin.php:466
+msgctxt "themes"
+msgid "Activate your <a>license key</a> to use this theme."
+msgstr "Aktivera din <a>licensnyckel</a> för att använda detta tema."
+
+#: includes/admin/csv-export.php:145
+msgctxt "admin csv-export"
+msgid "Could not create a temporary directory for handling this CSV export."
+msgstr ""
+"Det gick inte att skapa en temporär katalog för hantering av denna CSV "
+"export."
+
+#: includes/admin/csv-export.php:147
+msgctxt "admin csv-export"
+msgid "Could not create wpbdp-csv-exports directory."
+msgstr "Det gick inte att skapa wpbdp-csv-export katalog."
+
+#: includes/admin/csv-export.php:152
+msgctxt "admin csv-export"
+msgid "Error while creating a temporary directory for CSV export: %s"
+msgstr "Fel när du skapar en temporär katalog för CSV-export:%s"
+
+#: includes/admin/csv-import.php:109
+msgctxt "admin csv-import"
+msgid "Business %s"
+msgstr "Affärs%s"
+
+#: includes/admin/csv-import.php:147
+msgctxt "admin csv-import"
+msgid "Whatever"
+msgstr "Oavsett"
+
+#: includes/admin/csv-import.php:151
+msgctxt "admin csv-import"
+msgid "Example CSV Import File"
+msgstr "Exempel CSV-importfilen"
+
+#: includes/admin/csv-import.php:152
+msgctxt "admin csv-import"
+msgid "← Return to \"CSV Import\""
+msgstr "← Återvänd till \"CSV Import\""
+
+#: includes/admin/csv-import.php:256
+msgid ""
+"A valid temporary directory with write permissions is required for CSV "
+"imports to function properly. Your server is using \"%s\" but this path does "
+"not seem to be writable. Please consult with your host."
+msgstr ""
+"Ett giltigt temporär katalog med skrivbehörighet krävs för CSV import ska "
+"fungera. Servern använder \"%s\", men denna väg verkar inte vara skrivbar. "
+"Rådgör med din värd."
+
+#: includes/admin/csv-import.php:290
+msgctxt "admin csv-import"
+msgid "There was an error uploading the CSV file."
+msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
+
+#: includes/admin/csv-import.php:296
+msgctxt "admin csv-import"
+msgid "Please upload or select a CSV file."
+msgstr "Vänligen ladda upp eller välj en CSV-fil."
+
+#: includes/admin/csv-import.php:309
+msgctxt "admin csv-import"
+msgid "There was an error uploading the images ZIP file."
+msgstr "Det uppstod ett fel vid uppladdningen av bildernas ZIP-fil."
+
+#: includes/admin/csv-import.php:330
+msgctxt "admin csv-import"
+msgid ""
+"An error was detected while validating the CSV file for import. Please fix "
+"this before proceeding."
+msgstr ""
+"Ett fel upptäcktes vid valideringen av CSV-filen för import. Vänligen "
+"åtgärda detta innan du fortsätter."
+
+#: includes/admin/csv-import.php:339
+msgctxt "admin csv-import"
+msgid "Import is in \"test mode\". Nothing will be inserted into the database."
+msgstr "Import är i \"testläge\". Ingenting kommer att införas i databasen."
+
+#: includes/admin/fees.php:9
+msgctxt "fees admin"
+msgid "fee"
+msgstr "avgift"
+
+#: includes/admin/fees.php:10
+msgctxt "fees admin"
+msgid "fees"
+msgstr "avgifter"
+
+#: includes/admin/fees.php:19
+msgctxt "fees admin"
+msgid "There are no fees right now. You can <a>create one</a>, if you want."
+msgstr "Det finns inga avgifter just nu. Du kan <a>skapa ett</a> , om du vill."
+
+#: includes/admin/fees.php:25 includes/admin/fees.php:260
+msgctxt "fees admin"
+msgid "Active"
+msgstr "Aktiv"
+
+#: includes/admin/fees.php:28 includes/admin/fees.php:258
+msgctxt "fees admin"
+msgid "Not Available"
+msgstr "Ej tillgängligt"
+
+#: includes/admin/fees.php:31 includes/admin/fees.php:255
+msgctxt "fees admin"
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: includes/admin/fees.php:39
+msgctxt "fees admin"
+msgid ""
+"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
+msgstr ""
+"Det finns inga \"%s\" avgifter just nu. Du kan <a>skapa en</a> , om du vill."
+
+#: includes/admin/fees.php:56
+msgctxt "admin fees table"
+msgid "All"
+msgstr "Alla "
+
+#: includes/admin/fees.php:68
+msgctxt "admin fees table"
+msgid "Active"
+msgstr "Aktiv"
+
+#: includes/admin/fees.php:78
+msgctxt "admin fees table"
+msgid "Not Available"
+msgstr "Ej tillgängligt"
+
+#: includes/admin/fees.php:85
+msgctxt "admin fees table"
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: includes/admin/fees.php:94
+msgctxt "fees admin"
+msgid "Label"
+msgstr "Etikett"
+
+#: includes/admin/fees.php:95
+msgctxt "fees admin"
+msgid "Amount"
+msgstr "Belopp"
+
+#: includes/admin/fees.php:96
+msgctxt "fees admin"
+msgid "Duration"
+msgstr "Varaktighet"
+
+#: includes/admin/fees.php:97
+msgctxt "fees admin"
+msgid "Images"
+msgstr "Bilder"
+
+#: includes/admin/fees.php:98
+msgctxt "fees admin"
+msgid "Featured/Sticky"
+msgstr "Utvald (fäst)"
+
+#: includes/admin/fees.php:102
+msgctxt "fees admin"
+msgid "Status"
+msgstr "Status"
+
+#: includes/admin/fees.php:155
+msgctxt "fees admin"
+msgid ""
+"This is the default free plan for your directory.  You can't delete it and "
+"it's always free, but you can edit the name and other settings. It's only "
+"available when the directory is in Free mode.  You can always create other "
+"fee plans, including ones for 0.00 (free) if you wish."
+msgstr ""
+"Detta är den kostnadsfria standard-planen för din katalog. Du kan inte ta "
+"bort den och den är alltid gratis, men du kan redigera namn och andra "
+"inställningar. Den är bara tillgänglig när katalogen är i \"Gratis\" läge. "
+"Du kan alltid skapa andra avgiftsplaner, inklusive sådana för 0,00 (gratis) "
+"om du vill."
+
+#: includes/admin/fees.php:187
+msgctxt "fees admin"
+msgid "Edit"
+msgstr "Redigera"
+
+#: includes/admin/fees.php:197
+msgctxt "fees admin"
+msgid "Disable"
+msgstr "Koppla ur"
+
+#: includes/admin/fees.php:201
+msgctxt "fees admin"
+msgid "Enable"
+msgstr "Aktivera"
+
+#: includes/admin/fees.php:205
+msgctxt "fees admin"
+msgid "Delete"
+msgstr "Ta bort"
+
+#: includes/admin/fees.php:226
+msgctxt "fees admin"
+msgid "Forever"
+msgstr "För alltid"
+
+#: includes/admin/fees.php:227
+msgctxt "fees admin"
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dag"
+msgstr[1] "%d dagar"
+
+#: includes/admin/fees.php:231
+msgctxt "fees admin"
+msgid "%d image"
+msgid_plural "%d images"
+msgstr[0] "%d bild"
+msgstr[1] "%d bilder"
+
+#: includes/admin/fees.php:236
+msgctxt "fees admin"
+msgid "All categories"
+msgstr "Alla kategorier"
+
+#: includes/admin/fees.php:250
+msgctxt "fees admin"
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/admin/fees.php:250
+msgctxt "fees admin"
+msgid "No"
+msgstr "Nej"
+
+#: includes/admin/fees.php:285
+msgctxt "fees admin"
+msgid "Fee enabled."
+msgstr "Avgift aktiverad."
+
+#: includes/admin/fees.php:293
+msgctxt "fees admin"
+msgid "Fee disabled."
+msgstr "Avgift inaktiverad."
+
+#: includes/admin/fees.php:318
+msgctxt "fees order"
+msgid "Label"
+msgstr "Etikett"
+
+#: includes/admin/fees.php:319
+msgctxt "fees order"
+msgid "Amount"
+msgstr "Belopp"
+
+#: includes/admin/fees.php:320
+msgctxt "fees order"
+msgid "Duration"
+msgstr "Varaktighet"
+
+#: includes/admin/fees.php:321
+msgctxt "fees order"
+msgid "Images"
+msgstr "Bilder"
+
+#: includes/admin/fees.php:322
+msgctxt "fees order"
+msgid "Custom Order"
+msgstr "Egen sorteringsordning"
+
+#: includes/admin/fees.php:342
+msgctxt "fees admin"
+msgid "Fee updated."
+msgstr "Avgift uppdaterad."
+
+#: includes/admin/fees.php:367
+msgctxt "fees admin"
+msgid "Fee deleted."
+msgstr "Avgift borttagen."
+
+#: includes/admin/form-fields.php:9
+msgctxt "form-fields admin"
+msgid "form field"
+msgstr "formulärfält"
+
+#: includes/admin/form-fields.php:10
+msgctxt "form-fields admin"
+msgid "form fields"
+msgstr "Formulärfält"
+
+#: includes/admin/form-fields.php:17
+msgctxt "form-fields admin"
+msgid "Order"
+msgstr "Ordning"
+
+#: includes/admin/form-fields.php:18
+msgctxt "form-fields admin"
+msgid "Label / Association"
+msgstr "Etikett / Association"
+
+#: includes/admin/form-fields.php:19
+msgctxt "form-fields admin"
+msgid "Type"
+msgstr "Typ"
+
+#: includes/admin/form-fields.php:20
+msgctxt "form-fields admin"
+msgid "Validator"
+msgstr "Validator"
+
+#: includes/admin/form-fields.php:21
+msgctxt "form-fields admin"
+msgid "Field Attributes"
+msgstr "Fältattribut"
+
+#: includes/admin/form-fields.php:45
+msgctxt "form-fields admin"
+msgid "Edit"
+msgstr "Redigera"
+
+#: includes/admin/form-fields.php:50
+msgctxt "form-fields admin"
+msgid "Delete"
+msgstr "Ta bort"
+
+#: includes/admin/form-fields.php:76
+msgctxt "form-fields admin"
+msgid "Required"
+msgstr "Obligatorisk"
+
+#: includes/admin/form-fields.php:76
+msgctxt "form-fields admin"
+msgid "Optional"
+msgstr "Valfri"
+
+#: includes/admin/form-fields.php:80
+msgctxt "form-fields admin"
+msgid "This field value is shown in the excerpt view of a listing."
+msgstr "Värdet i detta fält visas i utdragsvyn av en annons."
+
+#: includes/admin/form-fields.php:81
+msgctxt "form-fields admin"
+msgid "In Excerpt"
+msgstr "I utdrag"
+
+#: includes/admin/form-fields.php:86
+msgctxt "form-fields admin"
+msgid "This field value is shown in the single view of a listing."
+msgstr "Detta fältvärdet visas i visningen av den enskilda annonsen."
+
+#: includes/admin/form-fields.php:87
+msgctxt "form-fields admin"
+msgid "In Listing"
+msgstr "I annons"
+
+#: includes/admin/form-fields.php:175
+msgctxt "form-fields admin"
+msgid "Form Preview"
+msgstr "Förhandsgranska formulär"
+
+#: includes/admin/form-fields.php:176
+msgctxt "form-fields admin"
+msgid "← Return to \"Manage Form Fields\""
+msgstr "← Tillbaka till \"Hantera formulärfält\""
+
+#: includes/admin/form-fields.php:206
+msgctxt "form-fields admin"
+msgid "Form fields updated."
+msgstr "Formulärfält uppdateras."
+
+#: includes/admin/form-fields.php:222
+msgctxt "form-fields admin"
+msgid ""
+"<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
+"\" setting is disabled, display settings below will not be honored and this "
+"field will not be displayed on the frontend. If you want e-mail addresses to "
+"show on the frontend, you can <a>enable public display of e-mails</a>."
+msgstr ""
+"<b>Viktigt:</b> Eftersom \"<a>Visa e-postadressfält offentligt</a>\" är "
+"inaktiverat, kommer visningsinställningarna nedan inte att godtas och detta "
+"område kommer inte att visas på frontend. Om du vill att e-postadresser "
+"visas på frontend, kan du <a>aktivera offentlig visning av e-post</a> ."
+
+#: includes/admin/form-fields.php:256
+msgctxt "form-fields admin"
+msgid "Field deleted."
+msgstr "Fält raderas."
+
+#: includes/admin/form-fields.php:277
+msgctxt "form-fields admin"
+msgid "Required fields created successfully."
+msgstr "Obligatoriska fält skapats."
+
+#: includes/admin/form-fields.php:290
+msgctxt "form-fields admin"
+msgid "Title"
+msgstr "Titel"
+
+#: includes/admin/form-fields.php:291
+msgctxt "form-fields admin"
+msgid "Category"
+msgstr "Kategori"
+
+#: includes/admin/form-fields.php:292
+msgctxt "form-fields admin"
+msgid "Excerpt"
+msgstr "Utdrag"
+
+#: includes/admin/form-fields.php:293
+msgctxt "form-fields admin"
+msgid "Content"
+msgstr "Innehåll"
+
+#: includes/admin/form-fields.php:294
+msgctxt "form-fields admin"
+msgid "Tags"
+msgstr "Tagg"
+
+#: includes/admin/form-fields.php:295
+msgctxt "form-fields admin"
+msgid "Address"
+msgstr "Adress"
+
+#: includes/admin/form-fields.php:296
+msgctxt "form-fields admin"
+msgid "City"
+msgstr "Stad/ort"
+
+#: includes/admin/form-fields.php:297
+msgctxt "form-fields admin"
+msgid "State"
+msgstr "Län"
+
+#: includes/admin/form-fields.php:298
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Country"
+msgstr "Land:"
+
+#: includes/admin/form-fields.php:299
+msgctxt "form-fields admin"
+msgid "ZIP Code"
+msgstr "Postnummer"
+
+#: includes/admin/form-fields.php:300
+msgctxt "form-fields admin"
+msgid "FAX Number"
+msgstr "faxnummer"
+
+#: includes/admin/form-fields.php:301
+msgctxt "form-fields admin"
+msgid "Phone Number"
+msgstr "Telefonnummer"
+
+#: includes/admin/form-fields.php:302
+msgctxt "form-fields admin"
+msgid "Ratings Field"
+msgstr "Fält för omdöme"
+
+#: includes/admin/form-fields.php:303
+msgctxt "form-fields admin"
+msgid "Twitter"
+msgstr "Twitter"
+
+#: includes/admin/form-fields.php:304
+msgctxt "form-fields admin"
+msgid "Website"
+msgstr "Webbplats"
+
+#: includes/admin/form-fields.php:325
+msgctxt "form-fields admin"
+msgid "Tags updated."
+msgstr "Taggar uppdateras."
+
+#: includes/admin/helpers/listing-metabox.php:11
+msgctxt "admin"
+msgid "General"
+msgstr "Allmänt"
+
+#: includes/admin/helpers/listing-metabox.php:12
+msgctxt "admin"
+msgid "Fee Details"
+msgstr "Avgifter"
+
+#: includes/admin/helpers/listing-metabox.php:13
+msgctxt "admin"
+msgid "Transactions"
+msgstr "Transaktioner"
+
+#: includes/admin/helpers/listing-metabox.php:42
+msgctxt "admin infometabox"
+msgid "General Info"
+msgstr "Allmän information"
+
+#: includes/admin/helpers/listing-metabox.php:44
+msgctxt "admin infometabox"
+msgid "Access Key"
+msgstr "Åtkomstnyckel"
+
+#: includes/admin/helpers/listing-metabox.php:46
+msgctxt "admin infometabox"
+msgid "Total Listing Cost"
+msgstr "Total kostnad"
+
+#: includes/admin/helpers/listing-metabox.php:48
+msgctxt "admin infometabox"
+msgid "Payment Status"
+msgstr "Betalningsstatus"
+
+#: includes/admin/helpers/listing-metabox.php:52
+msgctxt "admin infometabox"
+msgid "Featured (Sticky) Status"
+msgstr "Utvald (fäst) status"
+
+#: includes/admin/helpers/listing-metabox.php:60
+msgctxt "admin metabox"
+msgid "Pending Upgrade"
+msgstr "Väntar på uppgradering"
+
+#: includes/admin/helpers/listing-metabox.php:83
+msgctxt "admin infometabox"
+msgid "CSV Import Sequence ID"
+msgstr "CSV Import Sekvens ID"
+
+#: includes/admin/helpers/listing-metabox.php:94
+msgctxt "admin infometabox"
+msgid "Mark listing as Paid"
+msgstr "Markera annonsen som betald"
+
+#: includes/admin/page-debug.php:16
+msgctxt "debug-info"
+msgid "BD Info"
+msgstr "BD info"
+
+#: includes/admin/page-debug.php:28
+msgid "Missing tables: %s"
+msgstr "Saknade tabeller:%s"
+
+#: includes/admin/page-debug.php:29
+msgctxt "debug-info"
+msgid "OK"
+msgstr "OK"
+
+#: includes/admin/page-debug.php:37
+msgctxt "debug-info"
+msgid "BD Options"
+msgstr "BD Alternativ"
+
+#: includes/admin/page-debug.php:50
+msgctxt "debug-info"
+msgid "Environment"
+msgstr "Miljö"
+
+#: includes/admin/page-debug.php:72
+msgctxt "debug info"
+msgid "Test SSL setup..."
+msgstr "Testar SSL-inställning"
+
+#: includes/admin/tracking.php:188
+msgctxt "tracking"
+msgid "Help Improve Business Directory"
+msgstr "Hjälp oss förbättra Business Directory"
+
+#: includes/admin/tracking.php:190
+msgctxt "tracking"
+msgid ""
+"Can Business Directory keep track of your theme, plugins, and other non-"
+"personal, non-identifying information to help us in testing the plugin for "
+"future releases?"
+msgstr ""
+"Får Business Directory hålla koll på ditt tema, plugins och annan icke-"
+"personlig, icke-identifierande information för att hjälpa oss att testa "
+"plugin för framtida versioner?"
+
+#: includes/admin/tracking.php:192
+msgctxt "tracking"
+msgid "What do you track?"
+msgstr "Vad spårar ni?"
+
+#: includes/admin/tracking.php:214
+msgctxt "tracking"
+msgid "No, Thanks."
+msgstr "Nej tack."
+
+#: includes/admin/tracking.php:221
+msgctxt "tracking"
+msgid "Allow Tracking"
+msgstr "Tillåt spårning"
+
+#: templates/admin/csv-export.tpl.php:9
+msgctxt "admin csv-export"
+msgid ""
+"An unknown error occurred during the export. Please make sure you have "
+"enough free disk space and memory available to PHP. Check your error logs "
+"for details."
+msgstr ""
+"Ett okänt fel inträffade under exporten. Se till att du har tillräckligt med "
+"ledigt diskutrymme och minne tillgängligt för PHP. Kontrollera felloggen för "
+"mer information."
+
+#: templates/admin/csv-export.tpl.php:18
+msgctxt "admin csv-export"
+msgid ""
+"Please note that the export process is a resource intensive task. If your "
+"export does not succeed try disabling other plugins first and/or increasing "
+"the values of the 'memory_limit' and 'max_execution_time' directives in your "
+"server's php.ini configuration file."
+msgstr ""
+"Observera att exporten är en resurskrävande uppgift. Om exporten inte lyckas "
+"försök inaktivera andra plugins först och / eller öka värdet av "
+"\"memory_limit\" och \"max_execution_time\" i serverns php.ini "
+"konfigurationsfil."
+
+#: templates/admin/csv-export.tpl.php:30
+msgctxt "admin csv-export"
+msgid "Export Configuration"
+msgstr "Exportera konfiguration"
+
+#: templates/admin/csv-export.tpl.php:33
+msgctxt "admin csv-export"
+msgid "Export settings"
+msgstr "Exportera inställningar"
+
+#: templates/admin/csv-export.tpl.php:37
+msgctxt "admin csv-export"
+msgid "Which listings to export?"
+msgstr "Vilka annonser ska exporteras?"
+
+#: templates/admin/csv-export.tpl.php:41
+msgctxt "admin csv-export"
+msgid "All"
+msgstr "Allt"
+
+#: templates/admin/csv-export.tpl.php:42
+msgctxt "admin csv-export"
+msgid "Active Only"
+msgstr "Endast aktiva"
+
+#: templates/admin/csv-export.tpl.php:43
+msgctxt "admin csv-export"
+msgid "Active + Pending Renewal"
+msgstr "Aktiva + Inväntar förnyelse"
+
+#: templates/admin/csv-export.tpl.php:49
+msgctxt "admin csv-export"
+msgid "Export images?"
+msgstr "Exportera bilder?"
+
+#: templates/admin/csv-export.tpl.php:54
+msgctxt "admin csv-export"
+msgid "Export images"
+msgstr "exportera bilder"
+
+#: templates/admin/csv-export.tpl.php:56
+msgctxt "admin csv-export"
+msgid ""
+"When checked, instead of just a CSV file a ZIP file will be generated with "
+"both a CSV file and listing images."
+msgstr ""
+"Om markerad skapas en ZIP-fil med annonser och bilder i stället för bara en "
+"CSV-fil."
+
+#: templates/admin/csv-export.tpl.php:62
+msgctxt "admin csv-export"
+msgid "Additional metadata to export:"
+msgstr "Ytterligare metadata för export:"
+
+#: templates/admin/csv-export.tpl.php:67
+msgctxt "admin csv-export"
+msgid "Include unique IDs for each listing (sequence_id column)."
+msgstr "Inkludera unika ID: n för varje notering (sequence_id kolumnen)."
+
+#: templates/admin/csv-export.tpl.php:69
+msgctxt "admin csv-export"
+msgid ""
+"If you plan to re-import the listings into BD and don't want new ones "
+"created, select this option!"
+msgstr ""
+"Markera detta val om du planerar att återimportera annonser till BD och inte "
+"vill att nya skapas."
+
+#: templates/admin/csv-export.tpl.php:75
+msgctxt "admin csv-export"
+msgid "Author information (username)"
+msgstr "Information om författare (användarnamn)"
+
+#: templates/admin/csv-export.tpl.php:80
+msgctxt "admin csv-export"
+msgid "Sticky/featured status"
+msgstr "Utvald (fäst) status"
+
+#: templates/admin/csv-export.tpl.php:85
+msgctxt "admin csv-export"
+msgid "Listing expiration date"
+msgstr "Utgångsdatum för annons"
+
+#: templates/admin/csv-export.tpl.php:90
+msgctxt "admin csv-export"
+msgid "CSV File Settings"
+msgstr "Inställningar för CSV-fil"
+
+#: templates/admin/csv-export.tpl.php:94
+msgctxt "admin csv-export"
+msgid "What operating system will you use to edit the CSV file?"
+msgstr ""
+
+#: templates/admin/csv-export.tpl.php:94 templates/admin/csv-export.tpl.php:113
+#: templates/admin/csv-export.tpl.php:124 templates/admin/csv-import.tpl.php:43
+#: templates/admin/csv-import.tpl.php:109
+#: templates/admin/csv-import.tpl.php:135
+#: templates/admin/csv-import.tpl.php:146
+#: templates/admin/csv-import.tpl.php:173
+msgctxt "admin forms"
+msgid "required"
+msgstr "obligatoriskt"
+
+#: templates/admin/csv-export.tpl.php:101
+msgctxt "admin csv-export"
+msgid "Windows"
+msgstr ""
+
+#: templates/admin/csv-export.tpl.php:106
+msgctxt "admin csv-export"
+msgid "macOS"
+msgstr ""
+
+#: templates/admin/csv-export.tpl.php:108
+msgctxt "admin csv-export"
+msgid ""
+"Windows and macOS versions of MS Excel handle CSV files differently. To make "
+"sure all your listings information is displayed properly when you view or "
+"edit the CSV file, we need to generate different versions of the file for "
+"each operating system."
+msgstr ""
+
+#: templates/admin/csv-export.tpl.php:113
+msgctxt "admin csv-export"
+msgid "Image Separator"
+msgstr "Bildavgränsare"
+
+#: templates/admin/csv-export.tpl.php:124
+msgctxt "admin csv-export"
+msgid "Category Separator"
+msgstr "Kategoriavgränsare"
+
+#: templates/admin/csv-export.tpl.php:136
+msgctxt "admin csv-export"
+msgid "Export Listings"
+msgstr "Exportera annonser"
+
+#: templates/admin/csv-export.tpl.php:142
+msgctxt "admin csv-export"
+msgid "Export in Progress..."
+msgstr "Export pågår..."
+
+#: templates/admin/csv-export.tpl.php:143
+msgctxt "admin csv-export"
+msgid ""
+"Your export file is being prepared. Please <u>do not leave</u> this page "
+"until the export finishes."
+msgstr ""
+"Exportfilen förbereds. Vänligen <u>lämna inte denna sida</u> till dess att "
+"exporten är klar."
+
+#: templates/admin/csv-export.tpl.php:146
+msgctxt "admin csv-export"
+msgid "No. of listings:"
+msgstr "Antal annonser"
+
+#: templates/admin/csv-export.tpl.php:148
+msgctxt "admin csv-export"
+msgid "Approximate export file size:"
+msgstr "Ungefärlig filstorlek:"
+
+#: templates/admin/csv-export.tpl.php:155
+msgctxt "admin csv-export"
+msgid "Cancel Export"
+msgstr "Avbryt export"
+
+#: templates/admin/csv-export.tpl.php:160
+msgctxt "admin csv-export"
+msgid "Export Complete"
+msgstr "Export klar."
+
+#: templates/admin/csv-export.tpl.php:161
+msgctxt "admin csv-export"
+msgid ""
+"Your export file has been successfully created and it is now ready for "
+"download."
+msgstr "Exportfilen har skapats och det är nu klar för nedladdning."
+
+#: templates/admin/csv-export.tpl.php:164
+msgctxt "admin csv-export"
+msgid "Download %s (%s)"
+msgstr "Ladda ner%s (%s)"
+
+#: templates/admin/csv-export.tpl.php:170
+msgctxt "admin csv-export"
+msgid ""
+"Click \"Cleanup\" once the file has been downloaded in order to remove all "
+"temporary data created by Business Directory during the export process."
+msgstr ""
+"Klicka på \"Rensa\" när filen har laddats ner för att ta bort alla "
+"tillfälliga data som skapats av Busniess Directory under exportprocessen."
+
+#: templates/admin/csv-export.tpl.php:171
+msgctxt "admin csv-export"
+msgid "Cleanup"
+msgstr "Rensa"
+
+#: templates/admin/csv-export.tpl.php:176
+msgctxt "admin csv-export"
+msgid "Export Canceled"
+msgstr "Export avbruten"
+
+#: templates/admin/csv-export.tpl.php:177
+msgctxt "admin csv-export"
+msgid "The export has been canceled."
+msgstr "Export har avbrutits."
+
+#: templates/admin/csv-export.tpl.php:178
+msgctxt "admin csv-export"
+msgid "← Return to CSV Export"
+msgstr "← Tillbaka till CSV Export"
+
+#: templates/admin/csv-import-progress.tpl.php:6
+msgctxt "admin csv-import"
+msgid "A fatal error occurred during the import. The reason given was: \"%s\"."
+msgstr "Ett allvarligt fel inträffade under importen. Anledningen var: \"%s\"."
+
+#: templates/admin/csv-import-progress.tpl.php:10
+msgctxt "admin csv-import"
+msgid ""
+"A fatal error occurred during the import. If connection wasn't lost during "
+"the import, please make sure that you have enough free disk space and memory "
+"available to PHP. Check your error logs for details."
+msgstr ""
+"Ett allvarligt fel inträffade under importen. Om anslutningen inte "
+"förlorades under importen, vänligen se till att du har tillräckligt med "
+"ledigt diskutrymme och minne tillgängligt för PHP. Kontrollera felloggen för "
+"mer information."
+
+#: templates/admin/csv-import-progress.tpl.php:13
+#: templates/admin/csv-import-progress.tpl.php:20
+msgctxt "admin csv-import"
+msgid "← Return to CSV Import"
+msgstr "← Återvänd till \"CSV Import\""
+
+#: templates/admin/csv-import-progress.tpl.php:18
+msgctxt "admin csv-import"
+msgid "Import Canceled"
+msgstr "Import avbruten"
+
+#: templates/admin/csv-import-progress.tpl.php:19
+msgctxt "admin csv-import"
+msgid "The import has been canceled."
+msgstr "Importen har avbrutits."
+
+#: templates/admin/csv-import-progress.tpl.php:26
+msgid "Import Progress"
+msgstr "Import pågår"
+
+#: templates/admin/csv-import-progress.tpl.php:29
+msgctxt "admin csv-import"
+msgid "Files"
+msgstr "Filer"
+
+#: templates/admin/csv-import-progress.tpl.php:32
+msgctxt "admin csv-import"
+msgid "Rows in file"
+msgstr "Rader i fil"
+
+#: templates/admin/csv-import-progress.tpl.php:35
+msgctxt "admin csv-import"
+msgid "Progress"
+msgstr "Förlopp"
+
+#: templates/admin/csv-import-progress.tpl.php:39
+msgctxt "admin csv-import"
+msgid "Import has not started. Click \"Start Import\" to begin."
+msgstr "Import har inte startat. Klicka på \"Starta import\" för att börja."
+
+#: templates/admin/csv-import-progress.tpl.php:40
+msgctxt "admin csv-import"
+msgid "Importing CSV file..."
+msgstr "Importerar CSV-fil ..."
+
+#: templates/admin/csv-import-progress.tpl.php:46
+msgctxt "admin csv-import"
+msgid "Start Import"
+msgstr "Starta import"
+
+#: templates/admin/csv-import-progress.tpl.php:47
+msgctxt "admin csv-import"
+msgid "Cancel Import"
+msgstr "Avbryt import"
+
+#: templates/admin/csv-import-progress.tpl.php:54
+msgctxt "admin csv-import"
+msgid "Import finished"
+msgstr "Import klar"
+
+#: templates/admin/csv-import-progress.tpl.php:57
+msgctxt "admin csv-import"
+msgid "Import was completed successfully."
+msgstr "Importen slutfördes framgångsrikt."
+
+#: templates/admin/csv-import-progress.tpl.php:61
+msgctxt "admin csv-import"
+msgid "Import was completed but some rows were rejected."
+msgstr "Import avslutades men vissa rader förkastades."
+
+#: templates/admin/csv-import-progress.tpl.php:64
+msgctxt "admin csv-import"
+msgid "Import Summary"
+msgstr "import Sammanfattning"
+
+#: templates/admin/csv-import-progress.tpl.php:66
+msgctxt "admin csv-import"
+msgid "Rows in file:"
+msgstr "Rader i fil:"
+
+#: templates/admin/csv-import-progress.tpl.php:69
+msgctxt "admin csv-import"
+msgid "Imported rows:"
+msgstr "Importerade rader:"
+
+#: templates/admin/csv-import-progress.tpl.php:72
+msgctxt "admin csv-import"
+msgid "Rejected rows:"
+msgstr "Avvisade rader:"
+
+#: templates/admin/csv-import-progress.tpl.php:77
+msgctxt "admin csv-import"
+msgid "Import Warnings"
+msgstr "Importera varningar"
+
+#: templates/admin/csv-import-progress.tpl.php:80
+msgctxt "admin csv-import"
+msgid "Line #"
+msgstr "Rad #"
+
+#: templates/admin/csv-import-progress.tpl.php:81
+msgctxt "admin csv-import"
+msgid "Line"
+msgstr "Rad"
+
+#: templates/admin/csv-import-progress.tpl.php:82
+msgctxt "admin csv-import"
+msgid "Warning"
+msgstr "Varning"
+
+#: templates/admin/csv-import.tpl.php:12 templates/admin/csv-import.tpl.php:248
+msgctxt "admin csv-import"
+msgid "Help"
+msgstr "Hjälp"
+
+#: templates/admin/csv-import.tpl.php:13
+msgctxt "admin csv-import"
+msgid "See an example CSV import file"
+msgstr "Se ett exempel av en CSV importfil"
+
+#: templates/admin/csv-import.tpl.php:21
+msgctxt "admin csv-import"
+msgid "Here, you can import data into your directory using the CSV format."
+msgstr "Här kan du importera data till din katalog med hjälp av CSV-format."
+
+#: templates/admin/csv-import.tpl.php:29
+msgctxt "admin csv-import"
+msgid ""
+"We strongly recommend reading our <a>CSV import documentation</a> first to "
+"help you do things in the right order."
+msgstr ""
+"Vi rekommenderar starkt att du läser vår <a>CSV import dokumentation</a> "
+"först för att hjälpa dig att göra saker i rätt ordning."
+
+#: templates/admin/csv-import.tpl.php:38
+msgctxt "admin csv-import"
+msgid "Import Files"
+msgstr "Importera filer"
+
+#: templates/admin/csv-import.tpl.php:43
+msgctxt "admin csv-import"
+msgid "CSV File"
+msgstr "CSV Fil"
+
+#: templates/admin/csv-import.tpl.php:55 templates/admin/csv-import.tpl.php:86
+msgctxt "admin csv-import"
+msgid "... or <a>select a file uploaded to the imports folder</a>"
+msgstr "... eller <a>välj en fil som laddats upp till import-mappen</a>"
+
+#: templates/admin/csv-import.tpl.php:65 templates/admin/csv-import.tpl.php:96
+msgctxt "admin csv-import"
+msgid "(Upload new file)"
+msgstr "(Ladda upp ny fil)"
+
+#: templates/admin/csv-import.tpl.php:74
+msgctxt "admin csv-import"
+msgid "ZIP file containing images"
+msgstr "ZIP-fil som innehåller bilder"
+
+#: templates/admin/csv-import.tpl.php:105
+msgctxt "admin csv-import"
+msgid "CSV File Settings"
+msgstr "Inställningar för CSV-fil"
+
+#: templates/admin/csv-import.tpl.php:109
+msgctxt "admin csv-import"
+msgid "Column Separator"
+msgstr "Kolumnavgränsare"
+
+#: templates/admin/csv-import.tpl.php:117
+msgctxt "admin csv-import"
+msgid "Comma (,)"
+msgstr ""
+
+#: templates/admin/csv-import.tpl.php:123
+msgctxt "admin csv-import"
+msgid "Semicolon (;)"
+msgstr ""
+
+#: templates/admin/csv-import.tpl.php:129
+msgctxt "admin csv-import"
+msgid "TAB"
+msgstr ""
+
+#: templates/admin/csv-import.tpl.php:135
+msgctxt "admin csv-import"
+msgid "Image Separator"
+msgstr "Bildavgränsare"
+
+#: templates/admin/csv-import.tpl.php:146
+msgctxt "admin csv-import"
+msgid "Category Separator"
+msgstr "Kategoriavgränsare"
+
+#: templates/admin/csv-import.tpl.php:157
+msgctxt "admin csv-import"
+msgid "Import settings"
+msgstr "Importera inställningar"
+
+#: templates/admin/csv-import.tpl.php:161
+msgctxt "admin csv-import"
+msgid "Post status of imported listings"
+msgstr "Status av importerade annonser"
+
+#: templates/admin/csv-import.tpl.php:173
+msgctxt "admin csv-import"
+msgid "Missing categories handling"
+msgstr "Hantera saknade kategorier"
+
+#: templates/admin/csv-import.tpl.php:178
+msgctxt "admin csv-import"
+msgid "Auto-create categories"
+msgstr "Autoskapa kategorier"
+
+#: templates/admin/csv-import.tpl.php:181
+msgctxt "admin csv-import"
+msgid "Generate errors when a category is not found"
+msgstr "Generera fel när en kategori inte hittas"
+
+#: templates/admin/csv-import.tpl.php:186
+msgctxt "admin csv-import"
+msgid "Keep existing listing images?"
+msgstr "Behålla befintliga annonsbilder?"
+
+#: templates/admin/csv-import.tpl.php:191
+msgctxt "admin csv-import"
+msgid "Keep existing images."
+msgstr "Behåll befintliga bilder."
+
+#: templates/admin/csv-import.tpl.php:192
+msgctxt "admin csv-import"
+msgid "Appends new images while keeping current ones."
+msgstr "Lägger till nya bilder och behåller de existerande."
+
+#: templates/admin/csv-import.tpl.php:197
+msgctxt "admin csv-import"
+msgid "Assign listings to a user?"
+msgstr "Tilldela annons till användare?"
+
+#: templates/admin/csv-import.tpl.php:203
+msgctxt "admin csv-import"
+msgid "Assign listings to a user."
+msgstr "Tilldela annons till användare."
+
+#: templates/admin/csv-import.tpl.php:208
+msgctxt "admin csv-import"
+msgid "Use a default user for listings?"
+msgstr "Använd en standardanvändare för annonser?"
+
+#: templates/admin/csv-import.tpl.php:214
+msgctxt "admin csv-import"
+msgid ""
+"Select a default user to be used if the username column is not present in "
+"the CSV file."
+msgstr ""
+"Välj en standardanvändare som används om användarkolumnen inte finns i CSV-"
+"filen."
+
+#: templates/admin/csv-import.tpl.php:219
+msgctxt "admin csv-import"
+msgid "Default listing user"
+msgstr "standardanvändare"
+
+#: templates/admin/csv-import.tpl.php:225
+msgctxt "admin csv-import"
+msgid ""
+"This user will be used if the username column is not present in the CSV file."
+msgstr ""
+"Denna användare kommer att användas om användarkolumnen inte finns i CSV-"
+"filen."
+
+#: templates/admin/csv-import.tpl.php:230
+msgctxt "admin csv-import"
+msgid "Disable e-mail notifications during import?"
+msgstr "Inaktivera e-postmeddelanden vid import?"
+
+#: templates/admin/csv-import.tpl.php:235
+msgctxt "admin csv-import"
+msgid "Disable e-mail notifications."
+msgstr "Inaktivera e-postmeddelanden."
+
+#: templates/admin/csv-import.tpl.php:241
+msgctxt "admin csv-import"
+msgid "Test Import"
+msgstr "Testimport"
+
+#: templates/admin/csv-import.tpl.php:242
+msgctxt "admin csv-import"
+msgid "Import Listings"
+msgstr "Importera annonser"
+
+#: templates/admin/csv-import.tpl.php:250
+msgctxt "admin csv-import"
+msgid ""
+"The following are the valid header names to be used in the CSV file. "
+"Multivalued fields (such as category or tags) can appear multiple times in "
+"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
+"how an import file should look like."
+msgstr ""
+"Följande är giltiga rubriknamn som ska användas i CSV-filen. Fält med flera "
+"värden (såsom kategori eller taggar) kan förekomma flera gånger i filen. "
+"Klicka <a href=\"%s\">\"Se ett exempel CSV-importfilen\"</a> för att se hur "
+"en importfil ska se ut."
+
+#: templates/admin/csv-import.tpl.php:257
+msgctxt "admin csv-import"
+msgid "Header name/label"
+msgstr "Rubriknamn / etikett"
+
+#: templates/admin/csv-import.tpl.php:258
+msgctxt "admin csv-import"
+msgid "Field"
+msgstr "Fält"
+
+#: templates/admin/csv-import.tpl.php:259
+msgctxt "admin csv-import"
+msgid "Type"
+msgstr "Typ"
+
+#: templates/admin/csv-import.tpl.php:260
+msgctxt "admin csv-import"
+msgid "Required?"
+msgstr "Obligatoriskt?"
+
+#: templates/admin/csv-import.tpl.php:261
+msgctxt "admin csv-import"
+msgid "Multivalued?"
+msgstr "Fler värden?"
+
+#: templates/admin/csv-import.tpl.php:283
+msgctxt "admin csv-import"
+msgid "Semicolon separated list of listing images (from the ZIP file)"
+msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
+
+#: templates/admin/csv-import.tpl.php:290
+msgctxt "admin csv-import"
+msgid "Listing author's username"
+msgstr "Annonsens författares användarnamn"
+
+#: templates/admin/csv-import.tpl.php:297
+msgctxt "admin csv-import"
+msgid ""
+"Internal Sequence ID used to allow listing updates from external sources."
+msgstr ""
+"Intern sekvens ID som används för att tillåta notering uppdateringar från "
+"externa källor."
+
+#: templates/admin/csv-import.tpl.php:304
+msgctxt "admin csv-import"
+msgid ""
+"Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
+"adding or updating listings from external sources."
+msgstr ""
+"Annonsens utgångsdatum formateras som ÅÅÅÅ-MM-DD. Använd den här kolumnen "
+"när du lägger till eller uppdaterar listor från externa källor."
+
+#: templates/admin/debug-info.tpl.php:5
+msgctxt "debug-info"
+msgid ""
+"The following information can help BD developers debug possible problems "
+"with your setup."
+msgstr ""
+"Följande information kan hjälpa BD utvecklare felsöka eventuella problem med "
+"din konfiguration."
+
+#: templates/admin/debug-info.tpl.php:6
+msgctxt "debug-info"
+msgid ""
+"The debug information does not contain personal or sensitive information "
+"such as passwords or private keys."
+msgstr ""
+"Debug-informationen innehåller inte personlig eller känslig information "
+"såsom lösenord eller privata nycklar."
+
+#: templates/admin/debug-info.tpl.php:9
+msgctxt "debug-info"
+msgid "Download Debug Information"
+msgstr "Ladda ner felsökningsinformation"
+
+#: templates/admin/fees-addoredit.tpl.php:23
+msgctxt "fees admin"
+msgid "Add Listing Fee"
+msgstr "Lägg till annonsavgift"
+
+#: templates/admin/fees-addoredit.tpl.php:23
+msgctxt "fees admin"
+msgid "Edit Listing Fee"
+msgstr "Redigera annonsavgift"
+
+#: templates/admin/fees-addoredit.tpl.php:35
+msgctxt "fees admin"
+msgid "Fee Label"
+msgstr "Avgiftetikett"
+
+#: templates/admin/fees-addoredit.tpl.php:46
+msgctxt "fees admin"
+msgid "Fee Amount"
+msgstr "Belopp"
+
+#: templates/admin/fees-addoredit.tpl.php:62
+msgctxt "fees admin"
+msgid "Listing run in days"
+msgstr "Dagar annonsen är aktiv"
+
+#: templates/admin/fees-addoredit.tpl.php:65
+msgctxt "fees admin"
+msgid "run listing for"
+msgstr "kör annonsen i "
+
+#: templates/admin/fees-addoredit.tpl.php:74
+msgctxt "fees admin"
+msgid "days"
+msgstr "dagar"
+
+#: templates/admin/fees-addoredit.tpl.php:77
+msgctxt "fees admin"
+msgid "run listing forever"
+msgstr "kör annonsen för alltid"
+
+#: templates/admin/fees-addoredit.tpl.php:82
+msgctxt "fees admin"
+msgid "Number of images allowed"
+msgstr "Antal tillåtna bilder"
+
+#: templates/admin/fees-addoredit.tpl.php:94
+msgctxt "fees admin"
+msgid "Is featured listing/sticky?"
+msgstr "Är utvald annons/fäst?"
+
+#: templates/admin/fees-addoredit.tpl.php:102
+msgctxt "fees admin"
+msgid ""
+"This floats the listing to the top of search results and browsing the "
+"directory when the user buys this plan."
+msgstr ""
+"Användare som köper denna plan får sin annons placerad i toppen av "
+"sökresultaten och i registret."
+
+#: templates/admin/fees-addoredit.tpl.php:107
+msgctxt "fees admin"
+msgid "Apply to category"
+msgstr "Tillämpas i kategori"
+
+#: templates/admin/fees-addoredit.tpl.php:111
+#: templates/admin/fees-addoredit.tpl.php:114
+msgctxt "fees admin"
+msgid "* All Categories *"
+msgstr "* Alla kategorier *"
+
+#: templates/admin/fees-addoredit.tpl.php:128
+msgctxt "fees admin"
+msgid "Fee Description"
+msgstr "Beskrivning avgift"
+
+#: templates/admin/fees-addoredit.tpl.php:143
+msgctxt "fees admin"
+msgid "Add Fee"
+msgstr "Lägg till avgift"
+
+#: templates/admin/fees-addoredit.tpl.php:143
+msgctxt "fees admin"
+msgid "Update Fee"
+msgstr "Uppdatera avgift"
+
+#: templates/admin/fees-confirm-delete.tpl.php:2
+msgctxt "fees admin"
+msgid "Delete Listing Fee"
+msgstr "Ta bort avgift"
+
+#: templates/admin/fees-confirm-delete.tpl.php:7
+msgctxt "fees admin"
+msgid "Are you sure you want to disable the \"%s\" fee?"
+msgstr "Är du säker på att du vill avaktivera \"%s\" avgift?"
+
+#: templates/admin/fees-confirm-delete.tpl.php:9
+msgctxt "fees admin"
+msgid "Are you sure you want to delete the \"%s\" fee?"
+msgstr "Är du säker på att du vill ta bort \"%s\" avgift?"
+
+#: templates/admin/fees-confirm-delete.tpl.php:16
+msgctxt "fee admin"
+msgid "Disable Fee"
+msgstr "Avaktivera avgift"
+
+#: templates/admin/fees-confirm-delete.tpl.php:16
+msgctxt "fee admin"
+msgid "Delete Fee"
+msgstr "Ta bort avgift"
+
+#: templates/admin/fees.tpl.php:3
+msgctxt "fees admin"
+msgid "Add New Listing Fee"
+msgstr "Lägg till ny avgift"
+
+#: templates/admin/fees.tpl.php:10
+msgctxt "fees admin"
+msgid "Payments are currently turned off."
+msgstr "Betalningar för närvarande avstängt."
+
+#: templates/admin/fees.tpl.php:13
+msgctxt "fees admin"
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"För att hantera avgifter du behöver för att gå till <a>Hantera Alternativ - "
+"Betalning</a> sida och markera rutan bredvid \"Aktivera betalningar\" under "
+"\"Betalningsinställningar\"."
+
+#: templates/admin/fees.tpl.php:24
+msgctxt "fees admin"
+msgid "Order fees on the frontend by:"
+msgstr "Order avgifter på frontend efter:"
+
+#: templates/admin/fees.tpl.php:32
+msgctxt "fees admin"
+msgid "↑ Ascending"
+msgstr "↑ Stigande"
+
+#: templates/admin/fees.tpl.php:32
+msgctxt "fees admin"
+msgid "↓ Descending"
+msgstr "↓ Fallande"
+
+#: templates/admin/fees.tpl.php:38
+msgctxt "fees admin"
+msgid "Drag and drop to re-order fees."
+msgstr "Dra och släpp för att ändra ordning på avgifter"
+
+#: templates/admin/fees.tpl.php:54
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%s\" restricts what you see here. Those on "
+"the <a>Not Available</a> filter will become active when you change the "
+"payment mode."
+msgstr ""
+"Dessa är alla avgiftsplanerna som visas för användaren när de placerar en "
+"annons. Din nuvarande läge av \"%s\" begränsar vad du ser här. De på <a>Inte "
+"tillgänglig</a> filtret blir aktiv när du byter betalningsläget."
+
+#: templates/admin/fees.tpl.php:57 templates/admin/fees.tpl.php:63
+#: templates/admin/fees.tpl.php:77
+msgctxt "fees admin"
+msgid "Paid"
+msgstr "Betald"
+
+#: templates/admin/fees.tpl.php:57 templates/admin/fees.tpl.php:63
+#: templates/admin/fees.tpl.php:77
+msgctxt "fees admin"
+msgid "Free"
+msgstr "Gratis"
+
+#: templates/admin/fees.tpl.php:60
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+"Detta är de avgiftsplaner som inte är tillgängliga för att du är i \"%s\" -"
+"läge. De på det aktiva filtret ändrar status till inte tillgänglig när du "
+"ändra betalningsläget."
+
+#: templates/admin/fees.tpl.php:66
+msgctxt "fees admin"
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+"Dessa avgiftsplaner har inaktiverats av administratören och kommer inte att "
+"visas för slutanvändaren oavsett läge tills du aktiverar dem."
+
+#: templates/admin/fees.tpl.php:74
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%s\"). To see the fee "
+"plans for this mode click <a>Active</a>."
+msgstr ""
+"Detta är alla avgiftsplanern du har konfigurerat. Inte alla av dem är "
+"tillgängliga för det aktuella läget (för närvarande satt till \"%s\"). För "
+"att se avgiftsplanerna för detta läge klicka <a>Active</a> ."
+
+#: templates/admin/fees.tpl.php:89 templates/admin/sidebar.tpl.php:13
+msgctxt "admin sidebar"
+msgid "PayPal Gateway Module"
+msgstr "PayPal betalningsmodul"
+
+#: templates/admin/fees.tpl.php:90 templates/admin/sidebar.tpl.php:14
+msgctxt "admin sidebar"
+msgid "2Checkout Gateway Module"
+msgstr "2Checkout betalningsmodul"
+
+#: templates/admin/fees.tpl.php:91 templates/admin/sidebar.tpl.php:5
+msgctxt "admin sidebar"
+msgid "PayFast Payment Module"
+msgstr "PayFast betalningsmodul"
+
+#: templates/admin/fees.tpl.php:92 templates/admin/sidebar.tpl.php:6
+msgctxt "admin sidebar"
+msgid "Stripe Payment Module"
+msgstr "Stripe betalningsmodul"
+
+#: templates/admin/fees.tpl.php:102
+msgctxt "admin templates"
+msgid ""
+"It does not appear you have any of the payment gateway modules enabled. "
+"Either <a>enable the default Authorize.net gateway</a> with your account "
+"info, or purchase a different payment gateway module in order to charge a "
+"fee for listings. To purchase additional payment gateways use the buttons "
+"below or visit %s."
+msgstr ""
+"Det verkar som om du inte har någon av betalningsmodulerna aktiverade. "
+"<a>Aktivera standard Authorize.net-modulen</a> med din kontoinformation, "
+"eller köp en annan betalningsmodu för att ta ut en avgift för annonser. För "
+"att köpa ytterligare betalningsmoduler använd knapparna nedan eller besök %s."
+
+#: templates/admin/fees.tpl.php:118
+msgctxt "admin templates"
+msgid "Already installed."
+msgstr "Redan installerad."
+
+#: templates/admin/fees.tpl.php:123
+msgctxt "admin templates"
+msgid ""
+"You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your "
+"users."
+msgstr ""
+"Du kan köpa <a>%s</a> för att lägga till <a>%s</a> som ett "
+"betalningsalternativ för användarna."
+
+#: templates/admin/form-fields-addoredit.tpl.php:1
+msgctxt "form-fields admin"
+msgid "Add Form Field"
+msgstr "Lägg till formulärfält"
+
+#: templates/admin/form-fields-addoredit.tpl.php:14
+msgctxt "form-fields admin"
+msgid "Field Association"
+msgstr "Fält / Association"
+
+#: templates/admin/form-fields-addoredit.tpl.php:14
+#: templates/admin/form-fields-addoredit.tpl.php:36
+#: templates/admin/form-fields-addoredit.tpl.php:60
+msgctxt "form-fields admin"
+msgid "required"
+msgstr "obligatoriskt"
+
+#: templates/admin/form-fields-addoredit.tpl.php:36
+msgctxt "form-fields admin"
+msgid "Field Type"
+msgstr "Fälttyp"
+
+#: templates/admin/form-fields-addoredit.tpl.php:60
+msgctxt "form-fields admin"
+msgid "Field Label"
+msgstr "Fältetikett"
+
+#: templates/admin/form-fields-addoredit.tpl.php:70
+msgctxt "form-fields admin"
+msgid "Field description"
+msgstr "Fältbeskrivning"
+
+#: templates/admin/form-fields-addoredit.tpl.php:70
+msgctxt "form-fields admin"
+msgid "optional"
+msgstr "valfritt"
+
+#: templates/admin/form-fields-addoredit.tpl.php:87
+msgctxt "form-fields admin"
+msgid "Field-specific settings"
+msgstr "Fältspecifika inställningar"
+
+#: templates/admin/form-fields-addoredit.tpl.php:96
+msgctxt "form-fields admin"
+msgid "Field validation options"
+msgstr "Val för fältvalidering"
+
+#: templates/admin/form-fields-addoredit.tpl.php:100
+msgctxt "form-fields admin"
+msgid "Field Validator"
+msgstr "Fältvaliderare"
+
+#: templates/admin/form-fields-addoredit.tpl.php:104
+msgctxt "form-fields admin"
+msgid "No validation"
+msgstr "Ingen validering"
+
+#: templates/admin/form-fields-addoredit.tpl.php:116
+msgctxt "form-fields admin"
+msgid "Is field required?"
+msgstr "Är detta fält obligatoriskt?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:122
+msgctxt "form-fields admin"
+msgid "This field is required."
+msgstr "Detta fält är obligatoriskt."
+
+#: templates/admin/form-fields-addoredit.tpl.php:130
+msgctxt "form-fields admin"
+msgid "Field display options"
+msgstr "Fältvisningsalternativ"
+
+#: templates/admin/form-fields-addoredit.tpl.php:134
+msgctxt "form-fields admin"
+msgid "Show this value in excerpt view?"
+msgstr "Visa detta värdet i utdrag?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:140
+msgctxt "form-fields admin"
+msgid "Display this value in post excerpt view."
+msgstr "Visa detta värdet i inläggsutdrag."
+
+#: templates/admin/form-fields-addoredit.tpl.php:146
+msgctxt "form-fields admin"
+msgid "Show this value in listing view?"
+msgstr "Visa detta värdet i annonsläge?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:152
+msgctxt "form-fields admin"
+msgid "Display this value in the listing view."
+msgstr "Visa detta värdet i annonsläget."
+
+#: templates/admin/form-fields-addoredit.tpl.php:158
+msgctxt "form-fields admin"
+msgid "Include this field in the search form?"
+msgstr "Inkludera detta fält i sökfunktionen?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:164
+msgctxt "form-fields admin"
+msgid "Include this field in the search form."
+msgstr "Inkludera detta fält i sökfunktionen."
+
+#: templates/admin/form-fields-addoredit.tpl.php:170
+msgctxt "form-fields admin"
+msgid "Hide this field's label?"
+msgstr "Dölj detta fälts etikett?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:176
+msgctxt "form-fields admin"
+msgid "Hide this field's label when displaying it."
+msgstr "Dölj detta fälts etikett när det visas."
+
+#: templates/admin/form-fields-addoredit.tpl.php:183
+msgctxt "form-fields admin"
+msgid "Update Field"
+msgstr "Uppdatera fält"
+
+#: templates/admin/form-fields-addoredit.tpl.php:185
+msgctxt "form-fields admin"
+msgid "Add Field"
+msgstr "Lägg till fält"
+
+#: templates/admin/form-fields-confirm-delete.tpl.php:2
+msgctxt "form-fields admin"
+msgid "Delete Form Field"
+msgstr "Radera fält"
+
+#: templates/admin/form-fields-confirm-delete.tpl.php:6
+msgctxt "form-fields admin"
+msgid "Are you sure you want to delete the \"%s\" field?"
+msgstr "Är du säker på att du vill ta bort \"%s\" fält?"
+
+#: templates/admin/form-fields-confirm-delete.tpl.php:12
+msgctxt "form-fields admin"
+msgid "Delete Field"
+msgstr "Radera fält"
+
+#: templates/admin/form-fields-tags.tpl.php:5
+msgctxt "form-fields admin"
+msgid "-- None --"
+msgstr "-- Inget --"
+
+#: templates/admin/form-fields-tags.tpl.php:14
+msgctxt "form-fields admin"
+msgid "Theme Tags"
+msgstr "Temataggar"
+
+#: templates/admin/form-fields-tags.tpl.php:19
+msgctxt "form-fields admin"
+msgid ""
+"Before you create fields, make sure you've mapped all of your EXISTING ones "
+"first, otherwise you'll appear to be \"missing data\" on your listings."
+msgstr ""
+"Innan du skapar fält, se till att du har mappat alla dina befintliga först, "
+"annars kommer det att visas som \"missing data\" på dina listor."
+
+#: templates/admin/form-fields-tags.tpl.php:22
+msgctxt "form-fields admin"
+msgid "Create Missing Fields"
+msgstr "Skapa saknade fält"
+
+#: templates/admin/form-fields-tags.tpl.php:30
+msgctxt "form-fields admin"
+msgid "Field Tag"
+msgstr "Fälttagg"
+
+#: templates/admin/form-fields-tags.tpl.php:31
+msgctxt "form-fields admin"
+msgid "Field"
+msgstr "Fält"
+
+#: templates/admin/form-fields.tpl.php:3
+msgctxt "form-fields admin"
+msgid "Add New Form Field"
+msgstr "Lägg till formulärfält"
+
+#: templates/admin/form-fields.tpl.php:4
+msgctxt "form-fields admin"
+msgid "Preview Form"
+msgstr "Förhandsgranska formulär"
+
+#: templates/admin/form-fields.tpl.php:6 templates/admin/themes.tpl.php:4
+msgctxt "form-fields admin"
+msgid "Manage Theme Tags"
+msgstr "Hantera temataggar"
+
+#: templates/admin/form-fields.tpl.php:12
+msgctxt "form-fields admin"
+msgid ""
+"Here, you can create new fields for your listings, edit or delete existing "
+"ones, change the order and visibility of the fields as well as configure "
+"special options for them."
+msgstr ""
+"Här kan du skapa nya fält för annonser, redigera eller ta bort befintliga, "
+"ändra ordningen och synlighet på fälten samt konfigurera speciella "
+"alternativ för dem."
+
+#: templates/admin/form-fields.tpl.php:18
+msgctxt "form-fields admin"
+msgid "Please see the <a>Form Fields documentation</a> for more details."
+msgstr "Se <a>formulärfältsdokumentationen</a> för mer information."
+
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.11dev8)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: templates/admin/header.tpl.php:4
+msgid "Business Directory Plugin"
+msgstr "Business Directory Plugin"
+
+#: templates/admin/home.tpl.php:4
+msgctxt "admin home"
+msgid "Welcome to Business Directory Plugin. You are using %s."
+msgstr "Välkommen till Business Directory Plugin. Du använder %s."
+
+#: templates/admin/home.tpl.php:5
+msgctxt "admin home"
+msgid ""
+"Thanks for choosing us.  There's a lot you probably want to get done, so "
+"let's jump right in!"
+msgstr ""
+"Tack för att du valt oss. Det finns förmodligen massor du vill ha gjort, så "
+"låt oss sätta igång!"
+
+#: templates/admin/home.tpl.php:11
+msgctxt "admin home"
+msgid ""
+"Our complete documentation is <a>here</a> which we encourage you to use "
+"while setting things up."
+msgstr ""
+"Fullständig dokumentation hittar du <a>här</a> och vi rekommenderar att du "
+"använder den när du gör inställningarna."
+
+#: templates/admin/home.tpl.php:14
+msgctxt "admin home"
+msgid ""
+"We have some quick-start scenarios that you will find useful regarding setup "
+"and configuration <a>here</a>."
+msgstr ""
+"Vi har några snabbstartscenarier som du kommer att ha nytta av när det "
+"gäller installation och konfiguration <a>här</a> ."
+
+#: templates/admin/home.tpl.php:18
+msgctxt "admin home"
+msgid ""
+"If you have questions, please post a comment on <a>support forum</a> and "
+"we'll answer it within 24 hours most days."
+msgstr ""
+"Om du har frågor, vänligen skicka en kommentar på <a>supportforumet</a> och "
+"vi kommer att svara inom 24 timmar de flesta dagar."
+
+#: templates/admin/home.tpl.php:25
+msgid "Configure/Manage Options"
+msgstr "Konfigurera / Hantera Alternativ"
+
+#: templates/admin/home.tpl.php:28
+msgid "Setup/Manage Form Fields"
+msgstr "Ordna/hantera formulärfälten"
+
+#: templates/admin/home.tpl.php:31
+msgid "Setup/Manage Fees"
+msgstr "Ordna/hantera avgifter"
+
+#: templates/admin/home.tpl.php:37
+msgid "Featured Listings Pending Upgrade"
+msgstr "Utvalda annonser inväntar uppgradering"
+
+#: templates/admin/home.tpl.php:44
+msgid "Manage Paid Listings"
+msgstr "Hantera betalda annonser"
+
+#: templates/admin/listing-change-fee.tpl.php:3
+msgctxt "admin listing fee"
+msgid "Listing Fee Selection"
+msgstr "Urval av annonsavgifter"
+
+#: templates/admin/listing-change-fee.tpl.php:5
+msgctxt "admin listing fee"
+msgid "Select a fee plan to be used for this listing in the \"%s\" category."
+msgstr "Välj en avgiftsplan som ska användas för annonser i kategorin \"%s\"."
+
+#: templates/admin/listing-change-fee.tpl.php:11
+msgctxt "admin listing fee"
+msgid "Current"
+msgstr "Aktuell"
+
+#: templates/admin/listing-change-fee.tpl.php:14
+msgctxt "admin listing fee"
+msgid "Use this fee"
+msgstr "Använd denna avgift"
+
+#: templates/admin/listing-change-fee.tpl.php:21
+msgctxt "admin infometabox"
+msgid "%d image"
+msgid_plural "%d images"
+msgstr[0] "%d bild"
+msgstr[1] "%d bilder"
+
+#: templates/admin/listing-change-fee.tpl.php:23
+msgctxt "admin infometabox"
+msgid "Listing never expires"
+msgstr "Annons förfaller aldrig"
+
+#: templates/admin/listing-change-fee.tpl.php:25
+msgctxt "admin infometabox"
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dag"
+msgstr[1] "%d dagar"
+
+#: templates/admin/listing-metabox-categories.tpl.php:22
+msgctxt "admin infometabox"
+msgid "No categories on this listing. Please add one to associate fees."
+msgstr ""
+"Denna annons har ingen kategori. Vänligen välj en för att koppla på avgifter."
+
+#: templates/admin/listing-metabox-categories.tpl.php:29
+msgctxt "admin infometabox"
+msgid "(recurring)"
+msgstr "(återkommande)"
+
+#: templates/admin/listing-metabox-categories.tpl.php:34
+msgctxt "admin infometabox"
+msgid "Expired"
+msgstr "Utgången"
+
+#: templates/admin/listing-metabox-categories.tpl.php:37
+msgctxt "admin infometabox"
+msgid "Payment Pending"
+msgstr "Inväntar betalning"
+
+#: templates/admin/listing-metabox-categories.tpl.php:41
+msgctxt "admin infometabox"
+msgid "OK"
+msgstr "OK"
+
+#: templates/admin/listing-metabox-categories.tpl.php:49
+msgctxt "admin infometabox"
+msgid "Fee"
+msgstr "Avgift"
+
+#: templates/admin/listing-metabox-categories.tpl.php:54
+msgctxt "admin infometabox"
+msgid "# Images"
+msgstr "# Bilder"
+
+#: templates/admin/listing-metabox-categories.tpl.php:62
+msgctxt "admin infometabox"
+msgid "Expired on"
+msgstr "Utgången den"
+
+#: templates/admin/listing-metabox-categories.tpl.php:64
+msgctxt "admin infometabox"
+msgid "Expires on"
+msgstr "Utgår den "
+
+#: templates/admin/listing-metabox-categories.tpl.php:72
+msgctxt "admin infometabox"
+msgid "Click to manually change expiration date."
+msgstr "Klicka för att ändra utgångsdatumet manuellt."
+
+#: templates/admin/listing-metabox-categories.tpl.php:75
+msgctxt "admin infometabox"
+msgid "Never expires"
+msgstr "Förfaller aldrig"
+
+#: templates/admin/listing-metabox-categories.tpl.php:75
+msgctxt "admin infometabox"
+msgid "Edit"
+msgstr "Redigera"
+
+#: templates/admin/listing-metabox-categories.tpl.php:87
+msgctxt "admin infometabox"
+msgid "See payment info"
+msgstr "Se betalning info"
+
+#: templates/admin/listing-metabox-categories.tpl.php:92
+msgctxt "admin infometabox"
+msgid "Renewal URL (copy & paste)"
+msgstr "Förnyelse URL (kopiera och klistra in)"
+
+#: templates/admin/listing-metabox-categories.tpl.php:92
+msgctxt "admin infometabox"
+msgid "Show renewal link"
+msgstr "Visa förnyelselänk"
+
+#: templates/admin/listing-metabox-categories.tpl.php:99
+msgctxt "admin infometabox"
+msgid "Send renewal e-mail to user"
+msgstr "Skicka e-post om förnyelse till användare"
+
+#: templates/admin/listing-metabox-categories.tpl.php:107
+msgctxt "admin infometabox"
+msgid "Renew manually..."
+msgstr "Förnya manuellt ..."
+
+#: templates/admin/listing-metabox-categories.tpl.php:107
+msgctxt "admin infometabox"
+msgid "Change fee..."
+msgstr "Ändra avgift ..."
+
+#: templates/admin/listing-metabox-categories.tpl.php:115
+msgctxt "admin infometabox"
+msgid "Remove category"
+msgstr "ta bort kategori"
+
+#: templates/admin/listing-metabox-fees.tpl.php:1
+msgctxt "admin infometabox"
+msgid "Fee Information"
+msgstr "Avgiftsinformation"
+
+#: templates/admin/listing-metabox-fees.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Payment Mode:"
+msgstr "Betalningsläge"
+
+#: templates/admin/listing-metabox-fees.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Paid"
+msgstr "Betald"
+
+#: templates/admin/listing-metabox-fees.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Free"
+msgstr "Gratis"
+
+#: templates/admin/listing-metabox-fees.tpl.php:6
+msgctxt "admin infometabox"
+msgid "To change your payment mode, go to <a href=\"%s\">Payment Settings</a>."
+msgstr ""
+"Om du vill ändra betalningsläge, gå till <a href=\"%s"
+"\">Betalningsinställningar</a> ."
+
+#: templates/admin/listing-metabox-fees.tpl.php:12
+msgctxt "admin infometabox"
+msgid ""
+"Note: In Free mode, the fee plans will always be set to \"Free Listing\" "
+"below."
+msgstr ""
+"OBS: I gratisläget kommer avgiftsplanen alltid att vara inställd på \"Gratis "
+"annons\" nedan."
+
+#: templates/admin/listing-metabox-fees.tpl.php:22
+#: templates/admin/listing-metabox-feesummary.tpl.php:12
+msgctxt "admin infometabox"
+msgid "Renew listing in all expired categories"
+msgstr "Förnya notering i alla utgångna kategorier"
+
+#: templates/admin/listing-metabox-feesummary.tpl.php:1
+msgctxt "admin infometabox"
+msgid "Categories for this listing"
+msgstr "Kategorier för denna annons"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Initial Payment"
+msgstr "Första betalning"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:4
+msgctxt "admin infometabox"
+msgid "Listing Edit"
+msgstr "Annonsredigering"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:5
+msgctxt "admin infometabox"
+msgid "Listing Renewal"
+msgstr "Annonsförnyelse"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:6
+msgctxt "admin infometabox"
+msgid "Upgrade to sticky"
+msgstr "Uppgradiera till fäst"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:10
+msgctxt "admin"
+msgid "Payments History"
+msgstr "Betalningshistorik"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:12
+msgctxt "admin listing metabox"
+msgid "Click a payment to see the details or approve/reject the transaction."
+msgstr ""
+"Klicka på en betalning för att se detaljer eller godkänna / avvisa "
+"transaktionen."
+
+#: templates/admin/listing-metabox-transactions.tpl.php:16
+msgctxt "listing metabox"
+msgid "There are no transactions associated to this listing."
+msgstr "Det finns inga transaktioner kopplade till denna annons."
+
+#: templates/admin/payment-details.tpl.php:7
+msgctxt "admin payments"
+msgid "Payment Details"
+msgstr "Betalningsdetaljer"
+
+#: templates/admin/payment-details.tpl.php:9
+msgctxt "admin payments"
+msgid "Payment #%d"
+msgstr "Betalning #%d"
+
+#: templates/admin/payment-details.tpl.php:16
+msgctxt "admin payments"
+msgid "Created on"
+msgstr "Skapad den"
+
+#: templates/admin/payment-details.tpl.php:19
+msgctxt "admin infometabox"
+msgid "Amount"
+msgstr "Belopp"
+
+#: templates/admin/payment-details.tpl.php:22
+msgctxt "admin infometabox"
+msgid "Gateway"
+msgstr "Betalmodul"
+
+#: templates/admin/payment-details.tpl.php:26
+msgctxt "admin infometabox"
+msgid "Processed on"
+msgstr "Bearbetad den"
+
+#: templates/admin/payment-details.tpl.php:28
+msgctxt "admin infometabox"
+msgid "Processed by"
+msgstr "Bearbetad av"
+
+#: templates/admin/payment-details.tpl.php:41
+msgctxt "admin payments"
+msgid "Approve payment"
+msgstr "Godkänn betalningn"
+
+#: templates/admin/payment-details.tpl.php:46
+msgctxt "admin payments"
+msgid "Reject payment"
+msgstr "Avvisa betalning"
+
+#: templates/admin/settings-reset.tpl.php:2
+msgid "Business Directory - Reset Defaults"
+msgstr "Business Directory - Återställ standardinställningar"
+
+#: templates/admin/settings-reset.tpl.php:4
+msgctxt "settings"
+msgid "← Return to \"Manage Options\""
+msgstr "← Återvänd till \"Hantera alternativ\""
+
+#: templates/admin/settings-reset.tpl.php:10
+msgid ""
+"Use this option if you want to go back to the original factory settings for "
+"BD."
+msgstr ""
+"Använd detta alternativ om du vill gå tillbaka till de ursprungliga "
+"fabriksinställningarna för BD."
+
+#: templates/admin/settings-reset.tpl.php:11
+msgid "Please note that all of your existing settings will be lost."
+msgstr "Observera att alla dina befintliga inställningar försvinner."
+
+#: templates/admin/settings-reset.tpl.php:17
+msgid "Reset Defaults"
+msgstr "Återställ till standardinställningar"
+
+#: templates/admin/settings.tpl.php:2
+msgid "Business Directory Settings"
+msgstr "Business Directory Inställningar"
+
+#: templates/admin/settings.tpl.php:4
+msgctxt "settings"
+msgid "Reset Defaults"
+msgstr "Återställ standardvärden"
+
+#: templates/admin/settings.tpl.php:21
+msgid "Settings updated."
+msgstr "Inställningar uppdaterade."
+
+#: templates/admin/sidebar.tpl.php:3
+msgctxt "admin sidebar"
+msgid "Discount Codes Module"
+msgstr "Modul för rabattkoder"
+
+#: templates/admin/sidebar.tpl.php:4
+msgctxt "admin sidebar"
+msgid "Claim Listings Module"
+msgstr "Modul för annonsanspråk"
+
+#: templates/admin/sidebar.tpl.php:7
+msgctxt "admin sidebar"
+msgid "File Upload Module"
+msgstr "Modul för filuppladdning"
+
+#: templates/admin/sidebar.tpl.php:8
+msgctxt "admin sidebar"
+msgid "Featured Levels Module"
+msgstr "Modul för utvalda nivåer"
+
+#: templates/admin/sidebar.tpl.php:9
+msgctxt "admin sidebar"
+msgid "ZIP Code Search Module"
+msgstr "Modul för postnummersök"
+
+#: templates/admin/sidebar.tpl.php:10
+msgctxt "admin sidebar"
+msgid "Regions Module"
+msgstr "Modul för region"
+
+#: templates/admin/sidebar.tpl.php:11
+msgctxt "admin sidebar"
+msgid "Ratings Module"
+msgstr "Modul för betyg"
+
+#: templates/admin/sidebar.tpl.php:12
+msgctxt "admin sidebar"
+msgid "Google Maps Module"
+msgstr "Modul för Google Maps"
+
+#: templates/admin/sidebar.tpl.php:18
+msgctxt "admin sidebar"
+msgid "Business Card Theme"
+msgstr "Tema Business Card"
+
+#: templates/admin/sidebar.tpl.php:19
+msgctxt "admin sidebar"
+msgid "Mobile Compact Theme"
+msgstr "Tema Mobile Compact"
+
+#: templates/admin/sidebar.tpl.php:20
+msgctxt "admin sidebar"
+msgid "Restaurant Theme"
+msgstr "Tema Restaurant"
+
+#: templates/admin/sidebar.tpl.php:21
+msgctxt "admin sidebar"
+msgid "Tabbed Business Theme"
+msgstr "Tema Tabbed Business"
+
+#: templates/admin/sidebar.tpl.php:22
+msgctxt "admin sidebar"
+msgid "Elegant Business Theme"
+msgstr "Tema Elegant Busniess"
+
+#: templates/admin/sidebar.tpl.php:29
+msgctxt "admin sidebar"
+msgid "Like this plugin?"
+msgstr "Gillar du detta plugin?"
+
+#: templates/admin/sidebar.tpl.php:31
+msgctxt "admin sidebar"
+msgid "Why not do any or all of the following:"
+msgstr "Varför inte göra något eller allt av följande:"
+
+#: templates/admin/sidebar.tpl.php:33
+msgctxt "admin sidebar"
+msgid "Give it a good rating on WordPress.org."
+msgstr "Ge det ett bra betyg på WordPress.org."
+
+#: templates/admin/sidebar.tpl.php:34
+msgctxt "admin sidebar"
+msgid "Let other people know that it works with your WordPress setup."
+msgstr ""
+"Låt andra människor veta att det fungerar med din WordPress installation."
+
+#: templates/admin/sidebar.tpl.php:35
+msgctxt "admin sidebar"
+msgid "Buy a Premium Module"
+msgstr "Köp en premiummodul"
+
+#: templates/admin/sidebar.tpl.php:42
+msgctxt "admin sidebar"
+msgid "Get a Premium Module"
+msgstr "Skaffa en premiummodul"
+
+#: templates/admin/sidebar.tpl.php:45 templates/admin/sidebar.tpl.php:61
+msgctxt "admin sidebar"
+msgid "best deal"
+msgstr "Bästa erbjudande"
+
+#: templates/admin/sidebar.tpl.php:45
+msgctxt "admin sidebar"
+msgid "Combo Pack"
+msgstr "Combo Pack"
+
+#: templates/admin/sidebar.tpl.php:45
+msgctxt "admin sidebar"
+msgid "(All Modules)"
+msgstr "(Alla moduler)"
+
+#: templates/admin/sidebar.tpl.php:48 templates/admin/sidebar.tpl.php:64
+msgctxt "admin sidebar"
+msgid "new"
+msgstr "ny"
+
+#: templates/admin/sidebar.tpl.php:58
+msgctxt "admin sidebar"
+msgid "Get a Directory Theme"
+msgstr "Skaffa ett Directory Theme"
+
+#: templates/admin/sidebar.tpl.php:61
+msgctxt "admin sidebar"
+msgid "Theme Pack"
+msgstr "Theme Pack"
+
+#: templates/admin/sidebar.tpl.php:61
+msgctxt "admin sidebar"
+msgid "(All Themes)"
+msgstr "(Alla teman)"
+
+#: templates/admin/sidebar.tpl.php:74
+msgctxt "admin sidebar"
+msgid "Found a bug? Need support?"
+msgstr "Hittat ett programfel? Behöver du hjälp?"
+
+#: templates/admin/sidebar.tpl.php:79
+msgctxt "admin sidebar"
+msgid "If you've found a bug or need support <a>visit the forums!</a>"
+msgstr "Om du har hittat en bugg eller behöver stöd <a>besök forumet!</a>"
+
+#: templates/admin/sidebar.tpl.php:82
+msgctxt "admin sidebar"
+msgid "Full plugin documentation"
+msgstr "Fullständig dokumentation för pluginet"
+
+#: templates/admin/sidebar.tpl.php:83
+msgctxt "admin sidebar"
+msgid "Quick Start Guide"
+msgstr "Snabbstartsguide"
+
+#: templates/admin/sidebar.tpl.php:84
+msgctxt "admin sidebar"
+msgid "Video Tutorials"
+msgstr "Handledningar (video)"
+
+#: templates/admin/sidebar.tpl.php:92
+msgctxt "admin sidebar"
+msgid "Installed Modules"
+msgstr "Installerade moduler"
+
+#: templates/admin/sidebar.tpl.php:103 templates/admin/sidebar.tpl.php:112
+msgctxt "admin sidebar"
+msgid "Installed"
+msgstr "Installerat"
+
+#: templates/admin/sidebar.tpl.php:105 templates/admin/sidebar.tpl.php:112
+msgctxt "admin sidebar"
+msgid "Not Installed"
+msgstr "Ej installerad"
+
+#: templates/admin/sidebar.tpl.php:111
+msgctxt "admin sidebar"
+msgid "Enhanced Categories Module"
+msgstr "Modul för förbättrade kategorier"
+
+#: templates/admin/themes-delete-confirm.tpl.php:1
+#: templates/admin/themes-delete-confirm.tpl.php:13
+msgctxt "themes admin"
+msgid "Delete Directory Theme"
+msgstr "Ta bort tema"
+
+#: templates/admin/themes-delete-confirm.tpl.php:3
+msgctxt "themes admin"
+msgid "Are you sure you want to delete the directory theme \"%s\"?"
+msgstr "Är du säker på att du vill ta bort temat \"%s\"?"
+
+#: templates/admin/themes-delete-confirm.tpl.php:12
+msgctxt "themes admin"
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: templates/admin/themes-install.tpl.php:2
+#: templates/admin/themes-licenses.tpl.php:3 templates/admin/themes.tpl.php:3
+msgctxt "themes"
+msgid "Upload Directory Theme"
+msgstr "Ladda upp tema"
+
+#: templates/admin/themes-install.tpl.php:8
+msgctxt "themes"
+msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
+msgstr ""
+"Detta är ett tema eller skal från%s och är inte ett vanligt Wordpress-tema."
+
+#: templates/admin/themes-install.tpl.php:21
+msgctxt "themes"
+msgid "BD Theme archive (ZIP file)"
+msgstr "BD Temaarkiv (ZIP-fil)"
+
+#: templates/admin/themes-install.tpl.php:30
+msgctxt "themes"
+msgid "Begin Upload"
+msgstr "Starta uppladdningen"
+
+#: templates/admin/themes-item.tpl.php:3
+msgctxt "themes"
+msgid "Active:"
+msgstr "Aktivt:"
+
+#: templates/admin/themes-item.tpl.php:17
+msgctxt "themes"
+msgid "Activate"
+msgstr "Aktivera:"
+
+#: templates/admin/themes-item.tpl.php:35
+msgctxt "themes"
+msgid "Version:"
+msgstr "Version:"
+
+#: templates/admin/themes-item.tpl.php:38
+msgctxt "themes"
+msgid "Author:"
+msgstr "Författare:"
+
+#: templates/admin/themes-licenses.tpl.php:24
+msgctxt "themes"
+msgid "Deactivate License"
+msgstr "Inaktivera licens"
+
+#: templates/admin/themes-licenses.tpl.php:27
+msgctxt "themes"
+msgid "Deactivating license..."
+msgstr "Inaktiverar licensen"
+
+#: templates/admin/themes-licenses.tpl.php:29
+msgctxt "themes"
+msgid "Activate License"
+msgstr "Aktivera licens"
+
+#: templates/admin/themes-licenses.tpl.php:30
+msgctxt "themes"
+msgid "Activating license..."
+msgstr "Aktiverar licensen"
+
+#: templates/admin/themes-tabs.tpl.php:6
+msgctxt "admin themes"
+msgid "Available Themes"
+msgstr "Tillgängliga teman"
+
+#: templates/admin/themes-tabs.tpl.php:7
+msgctxt "admin themes"
+msgid "Licenses"
+msgstr "Licenser"
+
+#: templates/admin/themes.tpl.php:5
+msgctxt "themes"
+msgid "Settings"
+msgstr "Inställningar"
+
+#: templates/admin/themes.tpl.php:15
+msgctxt "themes"
+msgid ""
+"<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business "
+"Directory Plugin</i> to change the look of the directory quickly and easily. "
+"We have a number of them available for purchase <a>here</a>."
+msgstr ""
+"<a><b>Katalogteman</b></a> är färdiga mallar för att ändra utseendet på "
+"<i>Business Directory Plugin</i> snabbt och enkelt. Det finns flera stycken, "
+"och de finns att köpa <a>här</a>."
+
+#: templates/admin/themes.tpl.php:16
+msgctxt "themes"
+msgid ""
+"They are <strong>different</strong> than your regular WordPress theme and "
+"they are <strong>not</strong> a replacement for WP themes either. They will "
+"change the look and feel of your business directory only."
+msgstr ""
+"Det är <strong>annorlunda</strong> än dina vanliga WordPressteman och de är "
+"<strong>inte</strong> en ersättning för WordPressteman. De kommer enbart att "
+"ändra utseendet på din Business Directory."
+
+#: templates/admin/transactions.tpl.php:2
+msgctxt "admin transactions"
+msgid "Transactions"
+msgstr "Transaktioner"
+
+#: templates/admin/uninstall-capture-form.tpl.php:5
+msgctxt "uninstall"
+msgid "It doesn't work with my theme/plugins/site"
+msgstr "Det fungerar inte med mitt tema / plugins / site"
+
+#: templates/admin/uninstall-capture-form.tpl.php:6
+msgctxt "uninstall"
+msgid "I can't set it up/Too complicated"
+msgstr "Jag kan inte hantera det/För komplicerat"
+
+#: templates/admin/uninstall-capture-form.tpl.php:7
+msgctxt "uninstall"
+msgid "Doesn't solve my problem"
+msgstr "Löste inte mitt problem"
+
+#: templates/admin/uninstall-capture-form.tpl.php:8
+msgctxt "uninstall"
+msgid "Don't need it anymore/Not using it"
+msgstr "Behöver det inte längre/använder det inte"
+
+#: templates/admin/uninstall-capture-form.tpl.php:9
+msgctxt "uninstall"
+msgid "Other"
+msgstr "Annat"
+
+#: templates/admin/uninstall-capture-form.tpl.php:16
+msgctxt "uninstall"
+msgid ""
+"We're sorry to see you leave. Could you take 10 seconds and answer one "
+"question for us to help us make the product better for everyone in the "
+"future?"
+msgstr ""
+"Det var tråkigt att se dig lämna. Kan du ta 10 sekunder och svara på en "
+"fråga för oss att hjälpa oss att göra produkten bättre för alla i framtiden?"
+
+#: templates/admin/uninstall-capture-form.tpl.php:19
+msgctxt "uninstall"
+msgid "Why are you deleting Business Directory Plugin?"
+msgstr "Varför avinstallerar du Business Directory Plugin?"
+
+#: templates/admin/uninstall-capture-form.tpl.php:29
+msgctxt "uninstall"
+msgid "Please tell us why are you deleting Business Directory Plugin."
+msgstr ""
+"Var snäll och berätta varför du avinstallerar Business Directory Plugin."
+
+#: templates/admin/uninstall-capture-form.tpl.php:36
+msgctxt "uninstall"
+msgid "Uninstall Plugin"
+msgstr "Avinstallera plugin"
+
+#: templates/admin/uninstall-complete.tpl.php:2
+msgctxt "admin uninstall"
+msgid "Uninstall Business Directory"
+msgstr "Avinstallera tillägget Business Directory"
+
+#: templates/admin/uninstall-complete.tpl.php:7
+msgctxt "admin uninstall"
+msgid "Uninstall completed."
+msgstr "Avinstallation slutförd."
+
+#: templates/admin/uninstall-complete.tpl.php:8
+msgctxt "admin uninstall"
+msgid "Return to Dashboard."
+msgstr "Återgå till panelen."
+
+#: templates/admin/uninstall-confirm.tpl.php:1
+msgctxt "uninstall"
+msgid "Uninstall Business Directory Plugin"
+msgstr "Avinstallera tillägget Business Directory"
 
 #: templates/billing-information-form.tpl.php:4
 msgctxt "months"

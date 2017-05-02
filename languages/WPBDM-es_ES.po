@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-04-27 15:57:35+00:00\n"
-"PO-Revision-Date: 2017-04-27 10:58-0500\n"
+"POT-Creation-Date: 2017-05-02 20:53:52+00:00\n"
+"PO-Revision-Date: 2017-05-02 15:55-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -16,3028 +16,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,-1,543\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-
-#: admin/class-admin-listings.php:40
-msgctxt "admin category filter"
-msgid "All categories"
-msgstr "Todas las categorías"
-
-#: admin/class-admin-listings.php:133
-msgctxt "admin listings"
-msgid ""
-"This listing doesn't have any category assigned. At least one category (and "
-"its respective fee) is required in order to determine the features available "
-"to this listing, as well as handling renewals."
-msgstr ""
-"Este listado no tiene ninguna categoría asignada. Al menos una categoría (y "
-"su respectiva comisión) es requerida para determinar las características "
-"disponibles para el listado, así como gestionar las renovaciones."
-
-#: admin/class-admin-listings.php:138
-msgid "Listing Information"
-msgstr "Información del Listado"
-
-#: admin/class-admin-listings.php:145
-msgctxt "admin"
-msgid "Listing Fields / Images"
-msgstr "Campos del Listado / Imágenes"
-
-#: admin/class-admin-listings.php:156
-msgctxt "admin"
-msgid "Categories"
-msgstr "Categorías"
-
-#: admin/class-admin-listings.php:157
-msgid "Payment Status"
-msgstr "Estado de Pago"
-
-#: admin/class-admin-listings.php:158
-msgid "Featured (Sticky) Status"
-msgstr "Estado Destacado/Sticky"
-
-#: admin/class-admin-listings.php:189
-msgctxt "admin"
-msgid "(Listing expired in this category)"
-msgstr "(El listado ha expirado en esta categoría)"
-
-#: admin/class-admin-listings.php:207 admin/class-admin-listings.php:290
-msgid "Paid"
-msgstr "Pago"
-
-#: admin/class-admin-listings.php:212
-msgid "Mark as"
-msgstr "Marcar como"
-
-#: admin/class-admin-listings.php:221 admin/class-admin-listings.php:300
-msgid "Pending Upgrade"
-msgstr "Pendientes de Mejora"
-
-#: admin/class-admin-listings.php:229 admin/listing-metabox.php:70
-msgid "Upgrade to %s"
-msgstr "Mejorar a %s"
-
-#: admin/class-admin-listings.php:236 admin/listing-metabox.php:77
-msgid "Downgrade to %s"
-msgstr "Degradar a %s"
-
-#: admin/class-admin-listings.php:239 admin/class-admin-listings.php:418
-msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "Mejorar a Destacado"
-
-#: admin/class-admin-listings.php:295
-msgid "Unpaid"
-msgstr "No pagado"
-
-#: admin/class-admin-listings.php:305
-msgctxt "admin"
-msgid "Expired"
-msgstr "Expirados"
-
-#: admin/class-admin-listings.php:354
-msgctxt "admin actions"
-msgid "Edit Listing"
-msgstr "Editar Listado"
-
-#: admin/class-admin-listings.php:357
-msgctxt "admin actions"
-msgid "Delete Listing"
-msgstr "Eliminar Listado"
-
-#: admin/class-admin-listings.php:416
-msgctxt "admin actions"
-msgid "Publish Listing"
-msgstr "Publicar Listado"
-
-#: admin/class-admin-listings.php:419
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr "Degradar a Normal"
-
-#: admin/class-admin-listings.php:421
-msgctxt "admin actions"
-msgid "Mark as Paid"
-msgstr "Marcar listado como Pagado"
-
-#: admin/class-admin-listings.php:423
-msgctxt "admin actions"
-msgid "Renew Listing"
-msgstr "Renovar Listado"
-
-#: admin/class-admin.php:105
-msgid ""
-"Preview is only available after you've saved the first draft. This is due\n"
-"to how WordPress stores the data."
-msgstr ""
-"Debido a la forma en que WordPress almacena la información, la per-"
-"visualización está disponible solo después de que se guarde el primer "
-"borrador."
-
-#: admin/class-admin.php:138
-msgctxt "drip pointer"
-msgid ""
-"Find out how to create a compelling, thriving business directory from "
-"scratch in this ridiculously actionable (and FREE) 5-part email course. Get "
-"a FREE premium module just for signing up."
-msgstr ""
-"Descubra cómo crear un directorio de negocios próspero y llamativo desde "
-"cero en este curso GRATUITO por e-mail de 5 partes. Obtenga un módulo "
-"premium GRATIS solo por inscribirse."
-
-#: admin/class-admin.php:140
-msgctxt "drip pointer"
-msgid "Email Address:"
-msgstr "Correo electrónico:"
-
-#: admin/class-admin.php:146
-msgctxt "drip pointer"
-msgid "Want to know the Secrets of Building an Awesome Business Directory?"
-msgstr ""
-"Quiere conocer los secretos para crear un Directorio de Negocios "
-"impresionante?"
-
-#: admin/class-admin.php:148
-msgctxt "drip pointer"
-msgid "Yes, please!"
-msgstr "Sí, por favor!"
-
-#: admin/class-admin.php:150
-msgctxt "drip pointer"
-msgid "No, thanks"
-msgstr "No, gracias"
-
-#: admin/class-admin.php:167
-msgctxt "admin"
-msgid "Business Directory"
-msgstr "Directorio de Negocios"
-
-#: admin/class-admin.php:178
-msgctxt "admin"
-msgid "You're all set. Visit your new <a>Business Directory</a> page."
-msgstr ""
-"Está todo listo. Visite la página de su nuevo <a>Directorio de Negocios</a>."
-
-#: admin/class-admin.php:199
-msgctxt "drip pointer"
-msgid "Invalid e-mail address."
-msgstr "Dirección de correo-e inválida."
-
-#: admin/class-admin.php:233
-msgctxt "admin menu"
-msgid "Business Directory Admin"
-msgstr "Gestión de Directorio de Negocios"
-
-#: admin/class-admin.php:234
-msgctxt "admin menu"
-msgid "Dir. Admin"
-msgstr "Gestión de Dir."
-
-#: admin/class-admin.php:234
-msgctxt "admin menu"
-msgid "Directory Admin"
-msgstr "Gestión de Directorio"
-
-#: admin/class-admin.php:240 admin/class-admin.php:241
-msgctxt "admin menu"
-msgid "Add New Listing"
-msgstr "Agregar Nuevo Listado"
-
-#: admin/class-admin.php:246 admin/class-admin.php:247
-msgctxt "admin menu"
-msgid "Manage Options"
-msgstr "Configuraciones"
-
-#: admin/class-admin.php:252 admin/class-admin.php:253
-msgctxt "admin menu"
-msgid "Manage Fees"
-msgstr "Administrar Comisiones"
-
-#: admin/class-admin.php:258 admin/class-admin.php:259
-msgctxt "admin menu"
-msgid "Manage Form Fields"
-msgstr "Administrar Campos de Formulario"
-
-#: admin/class-admin.php:264 admin/class-admin.php:265
-msgctxt "admin menu"
-msgid "Listings"
-msgstr "Listados"
-
-#: admin/class-admin.php:279 admin/class-admin.php:280
-msgctxt "admin menu"
-msgid "CSV Import"
-msgstr "Importar CSV"
-
-#: admin/class-admin.php:285 admin/class-admin.php:286
-msgctxt "admin menu"
-msgid "CSV Export"
-msgstr "Exportar CSV"
-
-#: admin/class-admin.php:291 admin/class-admin.php:292
-msgctxt "admin menu"
-msgid "Debug"
-msgstr "Depuración"
-
-#: admin/class-admin.php:301
-msgctxt "admin menu"
-msgid "Main Menu"
-msgstr "Menú Principal"
-
-#: admin/class-admin.php:312
-msgctxt "admin menu"
-msgid "Uninstall Business Directory Plugin"
-msgstr "Desinstalar Business Directory Plugin"
-
-#: admin/class-admin.php:313
-msgctxt "admin menu"
-msgid "Uninstall"
-msgstr "Desinstalar"
-
-#: admin/class-admin.php:427
-#: admin/templates/listing-metabox-categories.tpl.php:69
-msgctxt "admin infometabox"
-msgid "never"
-msgstr "nunca"
-
-#: admin/class-admin.php:521
-msgctxt "admin"
-msgid "Dismiss this notice."
-msgstr "Ignorar."
-
-#: admin/class-admin.php:549
-msgctxt "admin"
-msgid "The listing has been published."
-msgid_plural "The listings have been published."
-msgstr[0] "El listado ha sido publicado."
-msgstr[1] "Los listados han sido publicados."
-
-#: admin/class-admin.php:567
-msgctxt "admin"
-msgid "The listing status has been set as paid."
-msgid_plural "The listings status has been set as paid."
-msgstr[0] "El listado se ha marcado como pagado."
-msgstr[1] "Los listados se han marcado como pagados."
-
-#: admin/class-admin.php:573
-msgctxt "admin"
-msgid ""
-"Only invoices containing non-recurring items were marked as paid. Please "
-"review the <a>Transactions</a> tab for the listing to manage recurring items "
-"or check the gateway's backend."
-msgid_plural ""
-"Only invoices containing non-recurring items were marked as paid. Recurring "
-"payments have to be managed through the gateway."
-msgstr[0] ""
-"Únicamente facturas conteniendo items no auto-renovados fueron marcadas como "
-"pagadas. Por favor revise el tab de <a>Transacciones</a> del listado para "
-"gestionar los items recurrentes, o revise el panel de administración de la "
-"pasarela de pago."
-msgstr[1] ""
-"Únicamente facturas conteniendo items no auto-renovados fueron marcadas como "
-"pagadas. Los items recurrentes deben ser manejados a través de la pasarela "
-"de pago."
-
-#: admin/class-admin.php:592
-msgctxt "admin"
-msgid "The listing has been modified."
-msgid_plural "The listings have been modified."
-msgstr[0] "El listado ha sido modificado."
-msgstr[1] "Los listados han sido modificados."
-
-#: admin/class-admin.php:605
-msgctxt "admin"
-msgid "The listing has been upgraded."
-msgid_plural "The listings have been upgraded."
-msgstr[0] "El listado ha sido mejorado."
-msgstr[1] "Los listados han sido mejorados."
-
-#: admin/class-admin.php:617
-msgctxt "admin"
-msgid "The listing has been downgraded."
-msgid_plural "The listings have been downgraded."
-msgstr[0] "El listado ha sido degradado."
-msgstr[1] "Los listados han sido degradados."
-
-#: admin/class-admin.php:628
-msgctxt "admin payments"
-msgid ""
-"The payment status was not changed. Recurring payments can't be manually "
-"approved. Please check your gateway's backend to see if the payment really "
-"went through."
-msgstr ""
-"El estado del pago no fue cambiado. Pagos recurrentes no pueden ser "
-"manualmente aprobados. Por favor revise el panel de administración de la "
-"pasarela de pago para revisar si el pago sí se hizo efectivo."
-
-#: admin/class-admin.php:633
-msgctxt "admin"
-msgid "The transaction has been approved."
-msgstr "La transacción ha sido aprobada."
-
-#: admin/class-admin.php:643
-msgctxt "admin"
-msgid "The transaction has been rejected."
-msgstr "La transacción ha sido rechazada."
-
-#: admin/class-admin.php:649
-msgctxt "admin"
-msgid "The fee was successfully assigned."
-msgstr "La comisión se asignó satisfactoriamente."
-
-#: admin/class-admin.php:658
-msgctxt "admin"
-msgid "Listing was renewed."
-msgid_plural "Listings were renewed."
-msgstr[0] "El listado ha sido renovado."
-msgstr[1] "Los listados fueron renovados."
-
-#: admin/class-admin.php:665
-msgctxt "admin"
-msgid "Renewal email sent."
-msgstr "Mensaje de correo electrónico de renovación enviado."
-
-#: admin/class-admin.php:720
-msgctxt "admin category id"
-msgid "ID"
-msgstr "ID"
-
-#: admin/class-admin.php:722 admin/class-admin.php:728
-msgctxt "admin"
-msgid "Listing Count"
-msgstr "Conteo de Listados"
-
-#: admin/class-admin.php:837
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires fields with the following "
-"associations in order to work correctly: <b>%s</b>."
-msgstr ""
-"<b>Business Directory Plugin</b> requiere campos con las siguientes "
-"asociaciones para funcionar correctamente: <b>%s</b>."
-
-#: admin/class-admin.php:839
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
-"association in order to work correctly."
-msgstr ""
-"<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
-"b> para funcionar correctamente."
-
-#: admin/class-admin.php:843
-msgctxt "admin"
-msgid ""
-"You can create these custom fields by yourself inside \"Manage Form Fields\" "
-"or let Business Directory do this for you automatically."
-msgstr ""
-"Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
-"o puede dejar que Business Directory haga esto por usted automáticamente."
-
-#: admin/class-admin.php:847
-msgctxt "admin"
-msgid "Go to \"Manage Form Fields\""
-msgstr "Ir a \"Administrar Campos de Formulario\""
-
-#: admin/class-admin.php:850
-msgctxt "admin"
-msgid "Create these required fields for me"
-msgstr "Crear estos campos requeridos por mi"
-
-#: admin/class-admin.php:859
-msgctxt "admin"
-msgid ""
-"<b>Business Directory Plugin</b> requires a page with the "
-"<tt>[businessdirectory]</tt> shortcode to function properly."
-msgstr ""
-"<b>Business Directory Plugin</b> requiere una página con el shortcode "
-"<tt>[businessdirectory]</tt> para funcionar adecuadamente."
-
-#: admin/class-admin.php:861
-msgctxt "admin"
-msgid ""
-"You can create this page by yourself or let Business Directory do this for "
-"you automatically."
-msgstr ""
-"Puede crear esta página usted mismo o dejar que Business Directory lo haga "
-"por usted automáticamente."
-
-#: admin/class-admin.php:865
-msgctxt "admin"
-msgid "Create required pages for me"
-msgstr "Crear las páginas requeridas por mi"
-
-#: admin/class-admin.php:905
-msgctxt "admin compat"
-msgid "Installed: %s"
-msgstr "Instalado: %s"
-
-#: admin/class-admin.php:905
-msgctxt "admin compat"
-msgid "N/A"
-msgstr "N/A"
-
-#: admin/class-admin.php:908
-msgctxt "admin compat"
-msgid "Required: %s"
-msgstr "Requerido: %s"
-
-#: admin/class-admin.php:920
-msgctxt "admin compat"
-msgid ""
-"Business Directory has detected some incompatible premium module versions "
-"installed."
-msgstr ""
-"Business Directory ha detectado algunas versiones incompatibles de módulos "
-"instaladas."
-
-#: admin/class-admin.php:922
-msgctxt "admin compat"
-msgid ""
-"Please upgrade to the required versions indicated below to make sure "
-"everything functions properly."
-msgstr ""
-"Por favor actualice a las versiones requeridas indicadas abajo para "
-"asegurarse de que todo funcione correctamente."
-
-#: admin/class-admin.php:942
-msgctxt "admin"
-msgid ""
-"We noticed you want your Business Directory users to register before posting "
-"listings, but Registration for your site is currently disabled. Go [here] "
-"and check \"Anyone can register\" to make sure BD works properly."
-msgstr ""
-"Hemos notado que quiere que sus usuarios del Directorio de Negocios se "
-"registren antes de publicar listados, pero el registro de usuarios para su "
-"sitio está actualmente deshabilitado. Vaya [aquí] y revise las "
-"configuraciones para asegurarse de que Business Directory funcione "
-"correctamente."
-
-#: admin/class-themes-admin.php:47
-msgctxt "themes"
-msgid "Directory Themes"
-msgstr "Temas del Directorio"
-
-#: admin/class-themes-admin.php:48
-msgctxt "themes"
-msgid "Directory Themes %s"
-msgstr "Temas del Directorio %s"
-
-#: admin/class-themes-admin.php:94
-msgctxt "admin themes"
-msgid ""
-"Business Directory Plugin - Your template overrides need to be reviewed!"
-msgstr ""
-"Business Directory Plugin - ¡Las plantillas que sobreescribió deben ser "
-"revisadas!"
-
-#: admin/class-themes-admin.php:96
-msgctxt "admin themes"
-msgid ""
-"Starting with version 4.0, Business Directory is using a new theming system "
-"that is not compatible with the templates used in previous versions."
-msgstr ""
-"A partir de la versión 4.0, Business Directory utiliza un nuevo sistema de "
-"plantillas y temas que no es compatible con las plantillas utilizadas en "
-"versiones previas."
-
-#: admin/class-themes-admin.php:98
-msgctxt "admin themes"
-msgid ""
-"Because of this, your template overrides below have been disabled. You "
-"should <a>review our documentation on customization</a> in order adjust your "
-"templates."
-msgstr ""
-"Debido a esto, las plantillas que sobreescribió han sido deshabilitadas. "
-"Debe <a>revisar nuestra documentación</a> para ajustar sus plantillas."
-
-#: admin/class-themes-admin.php:127
-msgctxt "admin themes"
-msgid ""
-"You need to <a>activate your theme's license key</a> before you can activate "
-"the theme. <a>Click here</a> to do that."
-msgstr ""
-"Debe <a>activar la clave de licencia del tema</a> antes de activar el tema. "
-"Haga <a>click aquí</a>."
-
-#: admin/class-themes-admin.php:157
-msgctxt "themes"
-msgid "Could not change the active theme to \"%s\"."
-msgstr "No se pudo cambiar el tema activo a \"%s\"."
-
-#: admin/class-themes-admin.php:204
-msgctxt "themes"
-msgid "Active theme changed to \"%s\"."
-msgstr "Tema activo cambiado a \"%s\"."
-
-#: admin/class-themes-admin.php:207
-msgctxt "themes"
-msgid ""
-"%s requires that you tag your existing fields to match some places we want "
-"to put your data on the theme. Below are fields we think are missing."
-msgstr ""
-"%s requiere que etiquete algunos campos que corresponden a ciertos lugares "
-"en el tema donde se pretende mostrar la información. Abajo están los campos "
-"que creemos hacen falta."
-
-#: admin/class-themes-admin.php:216
-msgctxt "themes"
-msgid "Map My Fields"
-msgstr "Asociar Mis Campos"
-
-#: admin/class-themes-admin.php:223
-msgctxt "themes"
-msgid "Suggested fields created successfully."
-msgstr "Campos sugeridos creados satisfactoriamente."
-
-#: admin/class-themes-admin.php:226
-msgctxt "themes"
-msgid "Theme installed successfully."
-msgstr "Tema instalado correctamente."
-
-#: admin/class-themes-admin.php:229
-msgctxt "themes"
-msgid "Theme was deleted successfully."
-msgstr "Tema eliminado correctamente."
-
-#: admin/class-themes-admin.php:232
-msgctxt "themes"
-msgid "Could not delete theme directory. Check permissions."
-msgstr "No se pudo eliminar el directorio del tema. Revise los permisos."
-
-#: admin/class-themes-admin.php:258
-msgctxt "themes"
-msgid "Please upload a valid theme file."
-msgstr "Por favor suba un archivo de tema válido."
-
-#: admin/class-themes-admin.php:265
-msgctxt "themes"
-msgid "Could not move \"%s\" to a temporary directory."
-msgstr "No se pudo mover \"%s\" a un directorio temporal."
-
-#: admin/class-themes-admin.php:366 admin/class-themes-admin.php:427
-#: core/licensing.php:174 core/licensing.php:206
-msgctxt "licensing"
-msgid "Could not contact licensing server"
-msgstr "No se pudo contactar el servidor de licencias"
-
-#: admin/class-themes-admin.php:372 core/licensing.php:179
-#: core/licensing.php:213
-msgctxt "licensing"
-msgid "License key is invalid"
-msgstr "La licencia es inválida"
-
-#: admin/class-themes-admin.php:377 core/licensing.php:368
-msgctxt "licensing"
-msgid "Could not activate license: %s."
-msgstr "No se pudo activar la licencia: %s."
-
-#: admin/class-themes-admin.php:390 core/licensing.php:370
-msgctxt "licensing"
-msgid "License activated"
-msgstr "Licencia activada"
-
-#: admin/class-themes-admin.php:433
-msgctxt "licensing"
-msgid "Invalid response from server"
-msgstr "Respuesta inválida de parte de servidor"
-
-#: admin/class-themes-admin.php:450 core/licensing.php:388
-msgctxt "licensing"
-msgid "License deactivated"
-msgstr "Licencia desactivada"
-
-#: admin/class-themes-admin.php:466
-msgctxt "themes"
-msgid "Activate your <a>license key</a> to use this theme."
-msgstr "Active su <a>clave de licencia</a> para utilizar este tema."
-
-#: admin/csv-export.php:145
-msgctxt "admin csv-export"
-msgid "Could not create a temporary directory for handling this CSV export."
-msgstr ""
-"No se pudo crear un directorio temporal para exportar este archivo CSV."
-
-#: admin/csv-export.php:147
-msgctxt "admin csv-export"
-msgid "Could not create wpbdp-csv-exports directory."
-msgstr "No se pudo crear el directorio \"wpbdp-csv-exports\"."
-
-#: admin/csv-export.php:152
-msgctxt "admin csv-export"
-msgid "Error while creating a temporary directory for CSV export: %s"
-msgstr ""
-"Se presentó un error mientras se creaba el directorio temporal para exportar "
-"el archivo CSV: %s"
-
-#: admin/csv-import.php:109
-msgctxt "admin csv-import"
-msgid "Business %s"
-msgstr "Negocio %s"
-
-#: admin/csv-import.php:147
-msgctxt "admin csv-import"
-msgid "Whatever"
-msgstr "Lo que sea"
-
-#: admin/csv-import.php:151
-msgctxt "admin csv-import"
-msgid "Example CSV Import File"
-msgstr "Archivo CSV de ejemplo"
-
-#: admin/csv-import.php:152
-msgctxt "admin csv-import"
-msgid "← Return to \"CSV Import\""
-msgstr "← Regresar a \"Importar CSV\""
-
-#: admin/csv-import.php:256
-msgid ""
-"A valid temporary directory with write permissions is required for CSV "
-"imports to function properly. Your server is using \"%s\" but this path does "
-"not seem to be writable. Please consult with your host."
-msgstr ""
-"Se requiere un directorio temporal válido con permisos de escritura para que "
-"la importación CSV funcione correctamente. Su servidor está utilizando \"%s"
-"\" pero no es posible escribir en esa ruta. Consulte con su proveedor."
-
-#: admin/csv-import.php:290
-msgctxt "admin csv-import"
-msgid "There was an error uploading the CSV file."
-msgstr "Ocurrió un error subiendo el archivo CSV."
-
-#: admin/csv-import.php:296
-msgctxt "admin csv-import"
-msgid "Please upload or select a CSV file."
-msgstr "Por favor suba o elija un archivo CSV."
-
-#: admin/csv-import.php:309
-msgctxt "admin csv-import"
-msgid "There was an error uploading the images ZIP file."
-msgstr "Ocurrió un error subiendo el archivo ZIP de imágenes."
-
-#: admin/csv-import.php:330
-msgctxt "admin csv-import"
-msgid ""
-"An error was detected while validating the CSV file for import. Please fix "
-"this before proceeding."
-msgstr ""
-"Un error se detectó mientras se validaba el archivo CSV para importarlo. Por "
-"favor repárelo antes de proceder."
-
-#: admin/csv-import.php:339
-msgctxt "admin csv-import"
-msgid "Import is in \"test mode\". Nothing will be inserted into the database."
-msgstr ""
-"La importación es en modo de prueba. Nada será insertado en la base de datos."
-
-#: admin/fees.php:9
-msgctxt "fees admin"
-msgid "fee"
-msgstr "comisión"
-
-#: admin/fees.php:10
-msgctxt "fees admin"
-msgid "fees"
-msgstr "comisiones"
-
-#: admin/fees.php:19
-msgctxt "fees admin"
-msgid "There are no fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-"No hay comisiones configuradas ahora. Puede <a>crear una</a> si lo desea."
-
-#: admin/fees.php:25 admin/fees.php:260
-msgctxt "fees admin"
-msgid "Active"
-msgstr "Activas"
-
-#: admin/fees.php:28 admin/fees.php:258
-msgctxt "fees admin"
-msgid "Not Available"
-msgstr "No Disponibles"
-
-#: admin/fees.php:31 admin/fees.php:255
-msgctxt "fees admin"
-msgid "Disabled"
-msgstr "Deshabilitadas"
-
-#: admin/fees.php:39
-msgctxt "fees admin"
-msgid ""
-"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
-msgstr "No hay comisiones \"%s\" ahora. Puede <a>crear una</a> si lo desea."
-
-#: admin/fees.php:56
-msgctxt "admin fees table"
-msgid "All"
-msgstr "Todas"
-
-#: admin/fees.php:68
-msgctxt "admin fees table"
-msgid "Active"
-msgstr "Activas"
-
-#: admin/fees.php:78
-msgctxt "admin fees table"
-msgid "Not Available"
-msgstr "No Disponibles"
-
-#: admin/fees.php:85
-msgctxt "admin fees table"
-msgid "Disabled"
-msgstr "Deshabilitadas"
-
-#: admin/fees.php:94
-msgctxt "fees admin"
-msgid "Label"
-msgstr "Nombre"
-
-#: admin/fees.php:95
-msgctxt "fees admin"
-msgid "Amount"
-msgstr "Precio"
-
-#: admin/fees.php:96
-msgctxt "fees admin"
-msgid "Duration"
-msgstr "Duración"
-
-#: admin/fees.php:97
-msgctxt "fees admin"
-msgid "Images"
-msgstr "No. de Imágenes"
-
-#: admin/fees.php:98
-msgctxt "fees admin"
-msgid "Featured/Sticky"
-msgstr "Destacado"
-
-#: admin/fees.php:102
-msgctxt "fees admin"
-msgid "Status"
-msgstr "Estado"
-
-#: admin/fees.php:155
-msgctxt "fees admin"
-msgid ""
-"This is the default free plan for your directory.  You can't delete it and "
-"it's always free, but you can edit the name and other settings. It's only "
-"available when the directory is in Free mode.  You can always create other "
-"fee plans, including ones for 0.00 (free) if you wish."
-msgstr ""
-"Este es el plan de comisión gratuito por defecto. No se puede eliminar y es "
-"siempre gratis, pero puede editar su nombre y demás configuraciones. Está "
-"disponible únicamente cuando el directorio opera en modo gratuito. Siempre "
-"puede crear otras comisiones, incluyendo gratuitas (0.00) si lo desea."
-
-#: admin/fees.php:187
-msgctxt "fees admin"
-msgid "Edit"
-msgstr "Editar"
-
-#: admin/fees.php:197
-msgctxt "fees admin"
-msgid "Disable"
-msgstr "Deshabilitar"
-
-#: admin/fees.php:201
-msgctxt "fees admin"
-msgid "Enable"
-msgstr "Habilitar"
-
-#: admin/fees.php:205
-msgctxt "fees admin"
-msgid "Delete"
-msgstr "Eliminar"
-
-#: admin/fees.php:226
-msgctxt "fees admin"
-msgid "Forever"
-msgstr "Para siempre"
-
-#: admin/fees.php:227
-msgctxt "fees admin"
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d día"
-msgstr[1] "%d días"
-
-#: admin/fees.php:231
-msgctxt "fees admin"
-msgid "%d image"
-msgid_plural "%d images"
-msgstr[0] "%d imagen"
-msgstr[1] "%d imágenes"
-
-#: admin/fees.php:236
-msgctxt "fees admin"
-msgid "All categories"
-msgstr "Todas las categorías"
-
-#: admin/fees.php:250
-msgctxt "fees admin"
-msgid "Yes"
-msgstr "Sí"
-
-#: admin/fees.php:250
-msgctxt "fees admin"
-msgid "No"
-msgstr "No"
-
-#: admin/fees.php:285
-msgctxt "fees admin"
-msgid "Fee enabled."
-msgstr "Comisión habilitada."
-
-#: admin/fees.php:293
-msgctxt "fees admin"
-msgid "Fee disabled."
-msgstr "Comisión deshabilitada."
-
-#: admin/fees.php:318
-msgctxt "fees order"
-msgid "Label"
-msgstr "Nombre"
-
-#: admin/fees.php:319
-msgctxt "fees order"
-msgid "Amount"
-msgstr "Precio"
-
-#: admin/fees.php:320
-msgctxt "fees order"
-msgid "Duration"
-msgstr "Duración"
-
-#: admin/fees.php:321
-msgctxt "fees order"
-msgid "Images"
-msgstr "No. de Imágenes"
-
-#: admin/fees.php:322
-msgctxt "fees order"
-msgid "Custom Order"
-msgstr "Orden Especial"
-
-#: admin/fees.php:342
-msgctxt "fees admin"
-msgid "Fee updated."
-msgstr "Comisión actualizada."
-
-#: admin/fees.php:367
-msgctxt "fees admin"
-msgid "Fee deleted."
-msgstr "Comisión eliminada."
-
-#: admin/form-fields.php:9
-msgctxt "form-fields admin"
-msgid "form field"
-msgstr "campo de formulario"
-
-#: admin/form-fields.php:10
-msgctxt "form-fields admin"
-msgid "form fields"
-msgstr "campos de formulario"
-
-#: admin/form-fields.php:17
-msgctxt "form-fields admin"
-msgid "Order"
-msgstr "Orden"
-
-#: admin/form-fields.php:18
-msgctxt "form-fields admin"
-msgid "Label / Association"
-msgstr "Nombre / Asociación"
-
-#: admin/form-fields.php:19
-msgctxt "form-fields admin"
-msgid "Type"
-msgstr "Tipo"
-
-#: admin/form-fields.php:20
-msgctxt "form-fields admin"
-msgid "Validator"
-msgstr "Validador"
-
-#: admin/form-fields.php:21
-msgctxt "form-fields admin"
-msgid "Field Attributes"
-msgstr "Atributos de Campo"
-
-#: admin/form-fields.php:45
-msgctxt "form-fields admin"
-msgid "Edit"
-msgstr "Editar"
-
-#: admin/form-fields.php:50
-msgctxt "form-fields admin"
-msgid "Delete"
-msgstr "Eliminar"
-
-#: admin/form-fields.php:76
-msgctxt "form-fields admin"
-msgid "Required"
-msgstr "Requerido"
-
-#: admin/form-fields.php:76
-msgctxt "form-fields admin"
-msgid "Optional"
-msgstr "Opcional"
-
-#: admin/form-fields.php:80
-msgctxt "form-fields admin"
-msgid "This field value is shown in the excerpt view of a listing."
-msgstr ""
-"El valor de este campo se muestra en la vista de resumen de un listado."
-
-#: admin/form-fields.php:81
-msgctxt "form-fields admin"
-msgid "In Excerpt"
-msgstr "En Resumen"
-
-#: admin/form-fields.php:86
-msgctxt "form-fields admin"
-msgid "This field value is shown in the single view of a listing."
-msgstr ""
-"El valor de este campo es mostrado en la vista individual de un listado."
-
-#: admin/form-fields.php:87
-msgctxt "form-fields admin"
-msgid "In Listing"
-msgstr "En vista completa"
-
-#: admin/form-fields.php:175
-msgctxt "form-fields admin"
-msgid "Form Preview"
-msgstr "Previsualización del Formulario"
-
-#: admin/form-fields.php:176
-msgctxt "form-fields admin"
-msgid "← Return to \"Manage Form Fields\""
-msgstr "← Regresar a \"Administrar Campos de Formulario\""
-
-#: admin/form-fields.php:206
-msgctxt "form-fields admin"
-msgid "Form fields updated."
-msgstr "Campo de formulario actualizado."
-
-#: admin/form-fields.php:222
-msgctxt "form-fields admin"
-msgid ""
-"<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
-"\" setting is disabled, display settings below will not be honored and this "
-"field will not be displayed on the frontend. If you want e-mail addresses to "
-"show on the frontend, you can <a>enable public display of e-mails</a>."
-msgstr ""
-"<b>Importante</b>: Como \"<a>Mostrar direcciones de correo electrónico "
-"públicamente?</a>\" está deshabilitado, la configuración de presentación "
-"abajo no será preservada y este campo no se mostrará en el sitio. Si quiere "
-"que las direcciones de correo electrónico se muestren, puede <a>habilitar la "
-"opción</a>."
-
-#: admin/form-fields.php:256
-msgctxt "form-fields admin"
-msgid "Field deleted."
-msgstr "Campo eliminado."
-
-#: admin/form-fields.php:277
-msgctxt "form-fields admin"
-msgid "Required fields created successfully."
-msgstr "Campos requeridos creados satisfactoriamente."
-
-#: admin/form-fields.php:290
-msgctxt "form-fields admin"
-msgid "Title"
-msgstr "Título"
-
-#: admin/form-fields.php:291
-msgctxt "form-fields admin"
-msgid "Category"
-msgstr "Categoría"
-
-#: admin/form-fields.php:292
-msgctxt "form-fields admin"
-msgid "Excerpt"
-msgstr "Resumen"
-
-#: admin/form-fields.php:293
-msgctxt "form-fields admin"
-msgid "Content"
-msgstr "Contenido"
-
-#: admin/form-fields.php:294
-msgctxt "form-fields admin"
-msgid "Tags"
-msgstr "Etiquetas"
-
-#: admin/form-fields.php:295
-msgctxt "form-fields admin"
-msgid "Address"
-msgstr "Dirección"
-
-#: admin/form-fields.php:296
-msgctxt "form-fields admin"
-msgid "City"
-msgstr "Ciudad"
-
-#: admin/form-fields.php:297
-msgctxt "form-fields admin"
-msgid "State"
-msgstr "Estado"
-
-#: admin/form-fields.php:298
-msgctxt "form-fields admin"
-msgid "Country"
-msgstr "País"
-
-#: admin/form-fields.php:299
-msgctxt "form-fields admin"
-msgid "ZIP Code"
-msgstr "Código Postal"
-
-#: admin/form-fields.php:300
-msgctxt "form-fields admin"
-msgid "FAX Number"
-msgstr "Número de Fax"
-
-#: admin/form-fields.php:301
-msgctxt "form-fields admin"
-msgid "Phone Number"
-msgstr "Número telefónico"
-
-#: admin/form-fields.php:302
-msgctxt "form-fields admin"
-msgid "Ratings Field"
-msgstr "Campo de ratings"
-
-#: admin/form-fields.php:303
-msgctxt "form-fields admin"
-msgid "Twitter"
-msgstr "Twitter"
-
-#: admin/form-fields.php:304
-msgctxt "form-fields admin"
-msgid "Website"
-msgstr "Sitio web"
-
-#: admin/form-fields.php:325
-msgctxt "form-fields admin"
-msgid "Tags updated."
-msgstr "Etiquetas actualizadas."
-
-#: admin/listing-metabox.php:11
-msgctxt "admin"
-msgid "General"
-msgstr "General"
-
-#: admin/listing-metabox.php:12
-msgctxt "admin"
-msgid "Fee Details"
-msgstr "Detalles de Comisión"
-
-#: admin/listing-metabox.php:13
-msgctxt "admin"
-msgid "Transactions"
-msgstr "Transacciones"
-
-#: admin/listing-metabox.php:42
-msgctxt "admin infometabox"
-msgid "General Info"
-msgstr "Información General"
-
-#: admin/listing-metabox.php:44
-msgctxt "admin infometabox"
-msgid "Access Key"
-msgstr "Clave de acceso"
-
-#: admin/listing-metabox.php:46
-msgctxt "admin infometabox"
-msgid "Total Listing Cost"
-msgstr "Costo Total del Listado"
-
-#: admin/listing-metabox.php:48
-msgctxt "admin infometabox"
-msgid "Payment Status"
-msgstr "Estado de Pago"
-
-#: admin/listing-metabox.php:52
-msgctxt "admin infometabox"
-msgid "Featured (Sticky) Status"
-msgstr "Estado de Destacado"
-
-#: admin/listing-metabox.php:60
-msgctxt "admin metabox"
-msgid "Pending Upgrade"
-msgstr "Pendiente de Mejora"
-
-#: admin/listing-metabox.php:83
-msgctxt "admin infometabox"
-msgid "CSV Import Sequence ID"
-msgstr "ID de Secuencia CSV"
-
-#: admin/listing-metabox.php:94
-msgctxt "admin infometabox"
-msgid "Mark listing as Paid"
-msgstr "Marcar listado como Pagado"
-
-#: admin/page-debug.php:16
-msgctxt "debug-info"
-msgid "BD Info"
-msgstr "Información de BD"
-
-#: admin/page-debug.php:28
-msgid "Missing tables: %s"
-msgstr "Tablas faltantes: %s"
-
-#: admin/page-debug.php:29
-msgctxt "debug-info"
-msgid "OK"
-msgstr "OK"
-
-#: admin/page-debug.php:37
-msgctxt "debug-info"
-msgid "BD Options"
-msgstr "BD Options"
-
-#: admin/page-debug.php:50
-msgctxt "debug-info"
-msgid "Environment"
-msgstr "Environment"
-
-#: admin/page-debug.php:72
-msgctxt "debug info"
-msgid "Test SSL setup..."
-msgstr "Probar configuración SSL..."
-
-#: admin/templates/csv-export.tpl.php:9
-msgctxt "admin csv-export"
-msgid ""
-"An unknown error occurred during the export. Please make sure you have "
-"enough free disk space and memory available to PHP. Check your error logs "
-"for details."
-msgstr ""
-"Un error desconocido ocurrió durante la exportación. Por favor revise que "
-"tiene suficiente espacio en disco y memoria disponibles para PHP. Revise los "
-"registros de error de su servidor para más detalles."
-
-#: admin/templates/csv-export.tpl.php:18
-msgctxt "admin csv-export"
-msgid ""
-"Please note that the export process is a resource intensive task. If your "
-"export does not succeed try disabling other plugins first and/or increasing "
-"the values of the 'memory_limit' and 'max_execution_time' directives in your "
-"server's php.ini configuration file."
-msgstr ""
-"Tenga en cuenta que la exportación es un procedimiento costoso para el "
-"servidor. Si su exportación no funciona trate deshabitando primero otros "
-"plugins y/o aumentando los valores de 'memory_limit' y 'max_execution_time' "
-"en el archivo de configuración php.ini de su servidor."
-
-#: admin/templates/csv-export.tpl.php:30
-msgctxt "admin csv-export"
-msgid "Export Configuration"
-msgstr "Configuración de Exportación"
-
-#: admin/templates/csv-export.tpl.php:33
-msgctxt "admin csv-export"
-msgid "Export settings"
-msgstr "Configuraciones de Exportación"
-
-#: admin/templates/csv-export.tpl.php:37
-msgctxt "admin csv-export"
-msgid "Which listings to export?"
-msgstr "Cuáles listados exportar?"
-
-#: admin/templates/csv-export.tpl.php:41
-msgctxt "admin csv-export"
-msgid "All"
-msgstr "Todos"
-
-#: admin/templates/csv-export.tpl.php:42
-msgctxt "admin csv-export"
-msgid "Active Only"
-msgstr "Activos únicamente"
-
-#: admin/templates/csv-export.tpl.php:43
-msgctxt "admin csv-export"
-msgid "Active + Pending Renewal"
-msgstr "Activos y Pendientes de Renovación"
-
-#: admin/templates/csv-export.tpl.php:49
-msgctxt "admin csv-export"
-msgid "Export images?"
-msgstr "Exportar imágenes?"
-
-#: admin/templates/csv-export.tpl.php:54
-msgctxt "admin csv-export"
-msgid "Export images"
-msgstr "Exportar imágenes"
-
-#: admin/templates/csv-export.tpl.php:56
-msgctxt "admin csv-export"
-msgid ""
-"When checked, instead of just a CSV file a ZIP file will be generated with "
-"both a CSV file and listing images."
-msgstr ""
-"Cuando está activa, en lugar de crear un archivo CSV únicamente, se creará "
-"un archivo ZIP con el CSV y las imágenes."
-
-#: admin/templates/csv-export.tpl.php:62
-msgctxt "admin csv-export"
-msgid "Additional metadata to export:"
-msgstr "Información adicional para exportar:"
-
-#: admin/templates/csv-export.tpl.php:67
-msgctxt "admin csv-export"
-msgid "Include unique IDs for each listing (sequence_id column)."
-msgstr "Incluír IDs únicos para cada listado (columna \"sequence_id\")"
-
-#: admin/templates/csv-export.tpl.php:69
-msgctxt "admin csv-export"
-msgid ""
-"If you plan to re-import the listings into BD and don't want new ones "
-"created, select this option!"
-msgstr ""
-"Seleccione esta opción si planea re-importar los listados después para "
-"actualizarlos y no desea que se creen nuevos"
-
-#: admin/templates/csv-export.tpl.php:75
-msgctxt "admin csv-export"
-msgid "Author information (username)"
-msgstr "Información de autor (nombre de usuario)"
-
-#: admin/templates/csv-export.tpl.php:80
-msgctxt "admin csv-export"
-msgid "Sticky/featured status"
-msgstr "Estado destacado/sticky"
-
-#: admin/templates/csv-export.tpl.php:85
-msgctxt "admin csv-export"
-msgid "Listing expiration date"
-msgstr "Fecha de expiración del listado"
-
-#: admin/templates/csv-export.tpl.php:90
-msgctxt "admin csv-export"
-msgid "CSV File Settings"
-msgstr "Configuraciones de archivo CSV"
-
-#: admin/templates/csv-export.tpl.php:94
-msgctxt "admin csv-export"
-msgid "What operating system will you use to edit the CSV file?"
-msgstr "¿Qué sistema operativo utilizará para editar el archivo CSV?"
-
-#: admin/templates/csv-export.tpl.php:94 admin/templates/csv-export.tpl.php:113
-#: admin/templates/csv-export.tpl.php:124 admin/templates/csv-import.tpl.php:43
-#: admin/templates/csv-import.tpl.php:109
-#: admin/templates/csv-import.tpl.php:135
-#: admin/templates/csv-import.tpl.php:146
-#: admin/templates/csv-import.tpl.php:173
-msgctxt "admin forms"
-msgid "required"
-msgstr "requerido"
-
-#: admin/templates/csv-export.tpl.php:101
-msgctxt "admin csv-export"
-msgid "Windows"
-msgstr ""
-
-#: admin/templates/csv-export.tpl.php:106
-msgctxt "admin csv-export"
-msgid "macOS"
-msgstr ""
-
-#: admin/templates/csv-export.tpl.php:108
-msgctxt "admin csv-export"
-msgid ""
-"Windows and macOS versions of MS Excel handle CSV files differently. To make "
-"sure all your listings information is displayed properly when you view or "
-"edit the CSV file, we need to generate different versions of the file for "
-"each operating system."
-msgstr ""
-"Las versiones de MS Excel en Windows y MacOS tratan los archivos CSV de "
-"forma diferente. Business Directory Plugin debe generar diferentes versiones "
-"de los archivos CSV para cada sistema operativo, para garantizar que la "
-"información de los listados es mostrada correctamente cuando esté revisando "
-"o editando el archivo."
-
-#: admin/templates/csv-export.tpl.php:113
-msgctxt "admin csv-export"
-msgid "Image Separator"
-msgstr "Separador de Imágenes"
-
-#: admin/templates/csv-export.tpl.php:124
-msgctxt "admin csv-export"
-msgid "Category Separator"
-msgstr "Separador de categorías"
-
-#: admin/templates/csv-export.tpl.php:136
-msgctxt "admin csv-export"
-msgid "Export Listings"
-msgstr "Exportar Listados"
-
-#: admin/templates/csv-export.tpl.php:142
-msgctxt "admin csv-export"
-msgid "Export in Progress..."
-msgstr "Proceso de exportación en progreso..."
-
-#: admin/templates/csv-export.tpl.php:143
-msgctxt "admin csv-export"
-msgid ""
-"Your export file is being prepared. Please <u>do not leave</u> this page "
-"until the export finishes."
-msgstr ""
-"Su archivo está siendo preparado. Por favor <u>no abandone</u> esta página "
-"hasta que el proceso termine."
-
-#: admin/templates/csv-export.tpl.php:146
-msgctxt "admin csv-export"
-msgid "No. of listings:"
-msgstr "Número de listados:"
-
-#: admin/templates/csv-export.tpl.php:148
-msgctxt "admin csv-export"
-msgid "Approximate export file size:"
-msgstr "Tamaño aproximado del archivo exportado:"
-
-#: admin/templates/csv-export.tpl.php:155
-msgctxt "admin csv-export"
-msgid "Cancel Export"
-msgstr "Cancelar Proceso"
-
-#: admin/templates/csv-export.tpl.php:160
-msgctxt "admin csv-export"
-msgid "Export Complete"
-msgstr "Exportación Completada"
-
-#: admin/templates/csv-export.tpl.php:161
-msgctxt "admin csv-export"
-msgid ""
-"Your export file has been successfully created and it is now ready for "
-"download."
-msgstr ""
-"Su archivo ha sido creado satisfactoriamente y se encuentra listo para ser "
-"descargado."
-
-#: admin/templates/csv-export.tpl.php:164
-msgctxt "admin csv-export"
-msgid "Download %s (%s)"
-msgstr "Descargar %s (%s)"
-
-#: admin/templates/csv-export.tpl.php:170
-msgctxt "admin csv-export"
-msgid ""
-"Click \"Cleanup\" once the file has been downloaded in order to remove all "
-"temporary data created by Business Directory during the export process."
-msgstr ""
-"Haga clic en \"Limpiar\" una vez el archivo haya sido descargado para "
-"eliminar todos los datos temporales creados durante el proceso de "
-"exportación."
-
-#: admin/templates/csv-export.tpl.php:171
-msgctxt "admin csv-export"
-msgid "Cleanup"
-msgstr "Limpiar"
-
-#: admin/templates/csv-export.tpl.php:176
-msgctxt "admin csv-export"
-msgid "Export Canceled"
-msgstr "Exportación Cancelada"
-
-#: admin/templates/csv-export.tpl.php:177
-msgctxt "admin csv-export"
-msgid "The export has been canceled."
-msgstr "La exportación ha sido cancelada."
-
-#: admin/templates/csv-export.tpl.php:178
-msgctxt "admin csv-export"
-msgid "← Return to CSV Export"
-msgstr "← Regresar a \"Exportar CSV\""
-
-#: admin/templates/csv-import-progress.tpl.php:6
-msgctxt "admin csv-import"
-msgid "A fatal error occurred during the import. The reason given was: \"%s\"."
-msgstr ""
-"Un error grave ocurrió durante la importación. La razón dada fue: \"%s\"."
-
-#: admin/templates/csv-import-progress.tpl.php:10
-msgctxt "admin csv-import"
-msgid ""
-"A fatal error occurred during the import. If connection wasn't lost during "
-"the import, please make sure that you have enough free disk space and memory "
-"available to PHP. Check your error logs for details."
-msgstr ""
-"Un error grave ocurrió durante la importación. Si la conexión no se perdió, "
-"por favor revise que tenga suficiente espacio en disco y memoria disponible "
-"para PHP. Revise los registros de su servidor para detalles."
-
-#: admin/templates/csv-import-progress.tpl.php:13
-#: admin/templates/csv-import-progress.tpl.php:20
-msgctxt "admin csv-import"
-msgid "← Return to CSV Import"
-msgstr "← Regresar a \"Importar CSV\""
-
-#: admin/templates/csv-import-progress.tpl.php:18
-msgctxt "admin csv-import"
-msgid "Import Canceled"
-msgstr "Importación Cancelada"
-
-#: admin/templates/csv-import-progress.tpl.php:19
-msgctxt "admin csv-import"
-msgid "The import has been canceled."
-msgstr "La importación ha sido cancelada."
-
-#: admin/templates/csv-import-progress.tpl.php:26
-msgid "Import Progress"
-msgstr "Progreso de Importación"
-
-#: admin/templates/csv-import-progress.tpl.php:29
-msgctxt "admin csv-import"
-msgid "Files"
-msgstr "Archivos"
-
-#: admin/templates/csv-import-progress.tpl.php:32
-msgctxt "admin csv-import"
-msgid "Rows in file"
-msgstr "Filas en el archivo"
-
-#: admin/templates/csv-import-progress.tpl.php:35
-msgctxt "admin csv-import"
-msgid "Progress"
-msgstr "Progreso"
-
-#: admin/templates/csv-import-progress.tpl.php:39
-msgctxt "admin csv-import"
-msgid "Import has not started. Click \"Start Import\" to begin."
-msgstr ""
-"La importación no ha comenzado. Haga clic en \"Iniciar Importación\" para "
-"comenzar."
-
-#: admin/templates/csv-import-progress.tpl.php:40
-msgctxt "admin csv-import"
-msgid "Importing CSV file..."
-msgstr "Importando archivo CSV..."
-
-#: admin/templates/csv-import-progress.tpl.php:46
-msgctxt "admin csv-import"
-msgid "Start Import"
-msgstr "Iniciar Importación"
-
-#: admin/templates/csv-import-progress.tpl.php:47
-msgctxt "admin csv-import"
-msgid "Cancel Import"
-msgstr "Cancelar Importación"
-
-#: admin/templates/csv-import-progress.tpl.php:54
-msgctxt "admin csv-import"
-msgid "Import finished"
-msgstr "Importación terminada"
-
-#: admin/templates/csv-import-progress.tpl.php:57
-msgctxt "admin csv-import"
-msgid "Import was completed successfully."
-msgstr "La importación se completó satisfactoriamente."
-
-#: admin/templates/csv-import-progress.tpl.php:61
-msgctxt "admin csv-import"
-msgid "Import was completed but some rows were rejected."
-msgstr "La importación se completó con algunas filas rechazadas."
-
-#: admin/templates/csv-import-progress.tpl.php:64
-msgctxt "admin csv-import"
-msgid "Import Summary"
-msgstr "Resumen de la Importación"
-
-#: admin/templates/csv-import-progress.tpl.php:66
-msgctxt "admin csv-import"
-msgid "Rows in file:"
-msgstr "Filas en el archivo:"
-
-#: admin/templates/csv-import-progress.tpl.php:69
-msgctxt "admin csv-import"
-msgid "Imported rows:"
-msgstr "Filas importadas:"
-
-#: admin/templates/csv-import-progress.tpl.php:72
-msgctxt "admin csv-import"
-msgid "Rejected rows:"
-msgstr "Filas rechazadas:"
-
-#: admin/templates/csv-import-progress.tpl.php:77
-msgctxt "admin csv-import"
-msgid "Import Warnings"
-msgstr "Errores de Importación"
-
-#: admin/templates/csv-import-progress.tpl.php:80
-msgctxt "admin csv-import"
-msgid "Line #"
-msgstr "Línea #"
-
-#: admin/templates/csv-import-progress.tpl.php:81
-msgctxt "admin csv-import"
-msgid "Line"
-msgstr "Línea"
-
-#: admin/templates/csv-import-progress.tpl.php:82
-msgctxt "admin csv-import"
-msgid "Warning"
-msgstr "Advertencia"
-
-#: admin/templates/csv-import.tpl.php:12 admin/templates/csv-import.tpl.php:248
-msgctxt "admin csv-import"
-msgid "Help"
-msgstr "Ayuda"
-
-#: admin/templates/csv-import.tpl.php:13
-msgctxt "admin csv-import"
-msgid "See an example CSV import file"
-msgstr "Vea un ejemplo de un archivo CSV de importación"
-
-#: admin/templates/csv-import.tpl.php:21
-msgctxt "admin csv-import"
-msgid "Here, you can import data into your directory using the CSV format."
-msgstr ""
-"Aquí puede importar información al directorio utilizando el formato CSV."
-
-#: admin/templates/csv-import.tpl.php:29
-msgctxt "admin csv-import"
-msgid ""
-"We strongly recommend reading our <a>CSV import documentation</a> first to "
-"help you do things in the right order."
-msgstr ""
-"Recomendamos leer nuestra <a>documentación sobre importación CSV</a> primero "
-"para ayudarle a efectuar todo de la manera correcta."
-
-#: admin/templates/csv-import.tpl.php:38
-msgctxt "admin csv-import"
-msgid "Import Files"
-msgstr "Archivos de Importación"
-
-#: admin/templates/csv-import.tpl.php:43
-msgctxt "admin csv-import"
-msgid "CSV File"
-msgstr "Archivo CSV"
-
-#: admin/templates/csv-import.tpl.php:55 admin/templates/csv-import.tpl.php:86
-msgctxt "admin csv-import"
-msgid "... or <a>select a file uploaded to the imports folder</a>"
-msgstr "... o <a>elija un archivo dentro del directorio \"imports\"</a>"
-
-#: admin/templates/csv-import.tpl.php:65 admin/templates/csv-import.tpl.php:96
-msgctxt "admin csv-import"
-msgid "(Upload new file)"
-msgstr "(Subir un nuevo archivo)"
-
-#: admin/templates/csv-import.tpl.php:74
-msgctxt "admin csv-import"
-msgid "ZIP file containing images"
-msgstr "Archivo ZIP con imágenes"
-
-#: admin/templates/csv-import.tpl.php:105
-msgctxt "admin csv-import"
-msgid "CSV File Settings"
-msgstr "Configuraciones de archivo CSV"
-
-#: admin/templates/csv-import.tpl.php:109
-msgctxt "admin csv-import"
-msgid "Column Separator"
-msgstr "Separador de columna"
-
-#: admin/templates/csv-import.tpl.php:117
-msgctxt "admin csv-import"
-msgid "Comma (,)"
-msgstr "Coma (,)"
-
-#: admin/templates/csv-import.tpl.php:123
-msgctxt "admin csv-import"
-msgid "Semicolon (;)"
-msgstr "Punto y coma (;)"
-
-#: admin/templates/csv-import.tpl.php:129
-msgctxt "admin csv-import"
-msgid "TAB"
-msgstr ""
-
-#: admin/templates/csv-import.tpl.php:135
-msgctxt "admin csv-import"
-msgid "Image Separator"
-msgstr "Separador de imágenes"
-
-#: admin/templates/csv-import.tpl.php:146
-msgctxt "admin csv-import"
-msgid "Category Separator"
-msgstr "Separador de categorías"
-
-#: admin/templates/csv-import.tpl.php:157
-msgctxt "admin csv-import"
-msgid "Import settings"
-msgstr "Configuraciones de Importación"
-
-#: admin/templates/csv-import.tpl.php:161
-msgctxt "admin csv-import"
-msgid "Post status of imported listings"
-msgstr "Estado de los listados importados"
-
-#: admin/templates/csv-import.tpl.php:173
-msgctxt "admin csv-import"
-msgid "Missing categories handling"
-msgstr "Manejo de categorías inexistentes"
-
-#: admin/templates/csv-import.tpl.php:178
-msgctxt "admin csv-import"
-msgid "Auto-create categories"
-msgstr "Crear categorías automáticamente"
-
-#: admin/templates/csv-import.tpl.php:181
-msgctxt "admin csv-import"
-msgid "Generate errors when a category is not found"
-msgstr "Generar errores cuando una categoría no exista"
-
-#: admin/templates/csv-import.tpl.php:186
-msgctxt "admin csv-import"
-msgid "Keep existing listing images?"
-msgstr "Mantener imágenes existentes?"
-
-#: admin/templates/csv-import.tpl.php:191
-msgctxt "admin csv-import"
-msgid "Keep existing images."
-msgstr "Preservar imágenes existentes."
-
-#: admin/templates/csv-import.tpl.php:192
-msgctxt "admin csv-import"
-msgid "Appends new images while keeping current ones."
-msgstr "Adiciona nuevas imágenes mientras mantiene las existentes."
-
-#: admin/templates/csv-import.tpl.php:197
-msgctxt "admin csv-import"
-msgid "Assign listings to a user?"
-msgstr "Asignar listados a un usuario?"
-
-#: admin/templates/csv-import.tpl.php:203
-msgctxt "admin csv-import"
-msgid "Assign listings to a user."
-msgstr "Asignar listados a un usuario."
-
-#: admin/templates/csv-import.tpl.php:208
-msgctxt "admin csv-import"
-msgid "Use a default user for listings?"
-msgstr "¿Utilizar un usuario por defecto para los listados?"
-
-#: admin/templates/csv-import.tpl.php:214
-msgctxt "admin csv-import"
-msgid ""
-"Select a default user to be used if the username column is not present in "
-"the CSV file."
-msgstr ""
-"Elija un usuario por defecto para utilizar si la columna \"username\" no "
-"está presente en el archivo CSV."
-
-#: admin/templates/csv-import.tpl.php:219
-msgctxt "admin csv-import"
-msgid "Default listing user"
-msgstr "Usuario a usar por defecto"
-
-#: admin/templates/csv-import.tpl.php:225
-msgctxt "admin csv-import"
-msgid ""
-"This user will be used if the username column is not present in the CSV file."
-msgstr ""
-"Este usuario será utilizado si la columna \"username\" no está presente en "
-"el archivo CSV."
-
-#: admin/templates/csv-import.tpl.php:230
-msgctxt "admin csv-import"
-msgid "Disable e-mail notifications during import?"
-msgstr "Deshabilitar notificaciones de correo durante la importación?"
-
-#: admin/templates/csv-import.tpl.php:235
-msgctxt "admin csv-import"
-msgid "Disable e-mail notifications."
-msgstr "Deshabilitar notificaciones de correo-e."
-
-#: admin/templates/csv-import.tpl.php:241
-msgctxt "admin csv-import"
-msgid "Test Import"
-msgstr "Importación de Verificación"
-
-#: admin/templates/csv-import.tpl.php:242
-msgctxt "admin csv-import"
-msgid "Import Listings"
-msgstr "Importar Listados"
-
-#: admin/templates/csv-import.tpl.php:250
-msgctxt "admin csv-import"
-msgid ""
-"The following are the valid header names to be used in the CSV file. "
-"Multivalued fields (such as category or tags) can appear multiple times in "
-"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
-"how an import file should look like."
-msgstr ""
-"Los siguientes son los nombres de columna a utilizar en la cabecera del "
-"archivo CSV. Campos multivaluados (como cateogrías y etiquetas) pueden "
-"aparecer varias veces en el archivo. Haga click en <a href=\"%s\">\"Ver un "
-"archivo CSV de ejemplo\"</a> para ver cómo debe lucir un archivo de "
-"importación válido."
-
-#: admin/templates/csv-import.tpl.php:257
-msgctxt "admin csv-import"
-msgid "Header name/label"
-msgstr "Nombre de cabecera"
-
-#: admin/templates/csv-import.tpl.php:258
-msgctxt "admin csv-import"
-msgid "Field"
-msgstr "Campo"
-
-#: admin/templates/csv-import.tpl.php:259
-msgctxt "admin csv-import"
-msgid "Type"
-msgstr "Tipo"
-
-#: admin/templates/csv-import.tpl.php:260
-msgctxt "admin csv-import"
-msgid "Required?"
-msgstr "Requerido?"
-
-#: admin/templates/csv-import.tpl.php:261
-msgctxt "admin csv-import"
-msgid "Multivalued?"
-msgstr "Multivaluado?"
-
-#: admin/templates/csv-import.tpl.php:283
-msgctxt "admin csv-import"
-msgid "Semicolon separated list of listing images (from the ZIP file)"
-msgstr ""
-"Lista de imágenes del listado separadas con punto y coma (deben encontrarse "
-"en el archivo ZIP)"
-
-#: admin/templates/csv-import.tpl.php:290
-msgctxt "admin csv-import"
-msgid "Listing author's username"
-msgstr "Autor del listado (nombre de usuario)"
-
-#: admin/templates/csv-import.tpl.php:297
-msgctxt "admin csv-import"
-msgid ""
-"Internal Sequence ID used to allow listing updates from external sources."
-msgstr ""
-"ID de secuencia interno utilizado para permitir actualizaciones a los "
-"listados desde fuentes externas."
-
-#: admin/templates/csv-import.tpl.php:304
-msgctxt "admin csv-import"
-msgid ""
-"Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
-"adding or updating listings from external sources."
-msgstr ""
-"Fecha de expiración del listado en formato AAAA-MM-DD. Utilice esta columna "
-"cuando esté agregando o actualizando listados desde fuentes externas."
-
-#: admin/templates/debug-info.tpl.php:5
-msgctxt "debug-info"
-msgid ""
-"The following information can help BD developers debug possible problems "
-"with your setup."
-msgstr ""
-"La siguiente información puede ayudar a los desarrolladores de BD depurar "
-"posibles problemas con su instalación."
-
-#: admin/templates/debug-info.tpl.php:6
-msgctxt "debug-info"
-msgid ""
-"The debug information does not contain personal or sensitive information "
-"such as passwords or private keys."
-msgstr ""
-"La información de depuración no contiene datos personales o información "
-"delicada como contraseñas o claves privadas."
-
-#: admin/templates/debug-info.tpl.php:9
-msgctxt "debug-info"
-msgid "Download Debug Information"
-msgstr "Descargar Información de Depuración"
-
-#: admin/templates/fees-addoredit.tpl.php:23
-msgctxt "fees admin"
-msgid "Add Listing Fee"
-msgstr "Agregar Comisión de Listado"
-
-#: admin/templates/fees-addoredit.tpl.php:23
-msgctxt "fees admin"
-msgid "Edit Listing Fee"
-msgstr "Editar Comisión"
-
-#: admin/templates/fees-addoredit.tpl.php:35
-msgctxt "fees admin"
-msgid "Fee Label"
-msgstr "Nombre Comisión"
-
-#: admin/templates/fees-addoredit.tpl.php:46
-msgctxt "fees admin"
-msgid "Fee Amount"
-msgstr "Precio"
-
-#: admin/templates/fees-addoredit.tpl.php:62
-msgctxt "fees admin"
-msgid "Listing run in days"
-msgstr "Duración del listado en días"
-
-#: admin/templates/fees-addoredit.tpl.php:65
-msgctxt "fees admin"
-msgid "run listing for"
-msgstr "listar por"
-
-#: admin/templates/fees-addoredit.tpl.php:74
-msgctxt "fees admin"
-msgid "days"
-msgstr "días"
-
-#: admin/templates/fees-addoredit.tpl.php:77
-msgctxt "fees admin"
-msgid "run listing forever"
-msgstr "listar por siempre"
-
-#: admin/templates/fees-addoredit.tpl.php:82
-msgctxt "fees admin"
-msgid "Number of images allowed"
-msgstr "Número de imágenes permitidas"
-
-#: admin/templates/fees-addoredit.tpl.php:94
-msgctxt "fees admin"
-msgid "Is featured listing/sticky?"
-msgstr "¿Es destacado?"
-
-#: admin/templates/fees-addoredit.tpl.php:102
-msgctxt "fees admin"
-msgid ""
-"This floats the listing to the top of search results and browsing the "
-"directory when the user buys this plan."
-msgstr ""
-"Hace que el listado aparezca arriba en los resultados de búsqueda y mientras "
-"se explore el directorio."
-
-#: admin/templates/fees-addoredit.tpl.php:107
-msgctxt "fees admin"
-msgid "Apply to category"
-msgstr "Aplicar a categoría"
-
-#: admin/templates/fees-addoredit.tpl.php:111
-#: admin/templates/fees-addoredit.tpl.php:114
-msgctxt "fees admin"
-msgid "* All Categories *"
-msgstr "* Todas las Categorías *"
-
-#: admin/templates/fees-addoredit.tpl.php:128
-msgctxt "fees admin"
-msgid "Fee Description"
-msgstr "Descripción de la comisión"
-
-#: admin/templates/fees-addoredit.tpl.php:143
-msgctxt "fees admin"
-msgid "Add Fee"
-msgstr "Agregar Comisión"
-
-#: admin/templates/fees-addoredit.tpl.php:143
-msgctxt "fees admin"
-msgid "Update Fee"
-msgstr "Actualizar Comisión"
-
-#: admin/templates/fees-confirm-delete.tpl.php:2
-msgctxt "fees admin"
-msgid "Delete Listing Fee"
-msgstr "Eliminar Comisión de Listado"
-
-#: admin/templates/fees-confirm-delete.tpl.php:7
-msgctxt "fees admin"
-msgid "Are you sure you want to disable the \"%s\" fee?"
-msgstr "Está seguro de que desea desactivar la comisión \"%s\"?"
-
-#: admin/templates/fees-confirm-delete.tpl.php:9
-msgctxt "fees admin"
-msgid "Are you sure you want to delete the \"%s\" fee?"
-msgstr "Está seguro de que desea eliminar la comisión \"%s\"?"
-
-#: admin/templates/fees-confirm-delete.tpl.php:16
-msgctxt "fee admin"
-msgid "Disable Fee"
-msgstr "Desactivar Comisión"
-
-#: admin/templates/fees-confirm-delete.tpl.php:16
-msgctxt "fee admin"
-msgid "Delete Fee"
-msgstr "Eliminar Comisión"
-
-#: admin/templates/fees.tpl.php:3
-msgctxt "fees admin"
-msgid "Add New Listing Fee"
-msgstr "Agregar Nueva Comisión de Listado"
-
-#: admin/templates/fees.tpl.php:10
-msgctxt "fees admin"
-msgid "Payments are currently turned off."
-msgstr "Los pagos se encuentran actualmente deshabitados."
-
-#: admin/templates/fees.tpl.php:13
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
-"Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
-
-#: admin/templates/fees.tpl.php:24
-msgctxt "fees admin"
-msgid "Order fees on the frontend by:"
-msgstr "Ordenar comisiones del lado del usuario por:"
-
-#: admin/templates/fees.tpl.php:32
-msgctxt "fees admin"
-msgid "↑ Ascending"
-msgstr "Ascendente"
-
-#: admin/templates/fees.tpl.php:32
-msgctxt "fees admin"
-msgid "↓ Descending"
-msgstr "Descendente"
-
-#: admin/templates/fees.tpl.php:38
-msgctxt "fees admin"
-msgid "Drag and drop to re-order fees."
-msgstr "Arrastre y suelte para reordenar las comisiones."
-
-#: admin/templates/fees.tpl.php:54
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%s\" restricts what you see here. Those on "
-"the <a>Not Available</a> filter will become active when you change the "
-"payment mode."
-msgstr ""
-"Estos son todos los planes de comisión disponibles para un usuario cuando "
-"envíe su listado. El modo actual de \"%s\" restringe lo que se ve aquí. "
-"Aquellos planes en el filtro <a>No Disponible</a> se volverán activos cuando "
-"cambie el modo de pago del directorio."
-
-#: admin/templates/fees.tpl.php:57 admin/templates/fees.tpl.php:63
-#: admin/templates/fees.tpl.php:77
-msgctxt "fees admin"
-msgid "Paid"
-msgstr "Pagado"
-
-#: admin/templates/fees.tpl.php:57 admin/templates/fees.tpl.php:63
-#: admin/templates/fees.tpl.php:77
-msgctxt "fees admin"
-msgid "Free"
-msgstr "Gratuito"
-
-#: admin/templates/fees.tpl.php:60
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"Estos son todas las comisiones que no están disponibles porque el directorio "
-"opera en modo \"%s\". Aquellas en el filtro Activas se convertirán en No "
-"Disponibles cuando cambie el modo."
-
-#: admin/templates/fees.tpl.php:66
-msgctxt "fees admin"
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"Estas comisiones fueron deshabilitadas por el administrador y no se "
-"mostrarán al usuario sin importar el modo de operación del directorio."
-
-#: admin/templates/fees.tpl.php:74
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%s\"). To see the fee "
-"plans for this mode click <a>Active</a>."
-msgstr ""
-"Estos son todas las comisiones que tiene configuradas. No todas están "
-"disponibles para el modo actual (ahora \"%s\"). Para ver todos los planes "
-"para este modo haga click en <a>Activas</a>."
-
-#: admin/templates/fees.tpl.php:89 admin/templates/sidebar.tpl.php:13
-msgctxt "admin sidebar"
-msgid "PayPal Gateway Module"
-msgstr "Módulo pasarela de pago PayPal"
-
-#: admin/templates/fees.tpl.php:90 admin/templates/sidebar.tpl.php:14
-msgctxt "admin sidebar"
-msgid "2Checkout Gateway Module"
-msgstr "Módulo pasarela de pago 2Checkout"
-
-#: admin/templates/fees.tpl.php:91 admin/templates/sidebar.tpl.php:5
-msgctxt "admin sidebar"
-msgid "PayFast Payment Module"
-msgstr "Módulo pasarela de pago PayFast"
-
-#: admin/templates/fees.tpl.php:92 admin/templates/sidebar.tpl.php:6
-msgctxt "admin sidebar"
-msgid "Stripe Payment Module"
-msgstr "Módulo pasarela de pago Stripe"
-
-#: admin/templates/fees.tpl.php:102
-msgctxt "admin templates"
-msgid ""
-"It does not appear you have any of the payment gateway modules enabled. "
-"Either <a>enable the default Authorize.net gateway</a> with your account "
-"info, or purchase a different payment gateway module in order to charge a "
-"fee for listings. To purchase additional payment gateways use the buttons "
-"below or visit %s."
-msgstr ""
-"No pareciera que tiene módulos de pago instalados. <a>Habilite la pasarela "
-"Authorize.net incluída</a> o adquiera otra pasarela de pago para poder "
-"cobrar por los listados. Para comprar pasarelas adicionales utilice los "
-"botones abajo o visite %s."
-
-#: admin/templates/fees.tpl.php:118
-msgctxt "admin templates"
-msgid "Already installed."
-msgstr "Ya instalado."
-
-#: admin/templates/fees.tpl.php:123
-msgctxt "admin templates"
-msgid ""
-"You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your "
-"users."
-msgstr ""
-"Puede comprar la pasarela de pago de <a>%s</a> para agregar <a>%s</a> como "
-"opción de pago para sus usuarios."
-
-#: admin/templates/form-fields-addoredit.tpl.php:1
-msgctxt "form-fields admin"
-msgid "Add Form Field"
-msgstr "Agregar Campo de Formulario"
-
-#: admin/templates/form-fields-addoredit.tpl.php:14
-msgctxt "form-fields admin"
-msgid "Field Association"
-msgstr "Asociación del Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:14
-#: admin/templates/form-fields-addoredit.tpl.php:36
-#: admin/templates/form-fields-addoredit.tpl.php:60
-msgctxt "form-fields admin"
-msgid "required"
-msgstr "requerido"
-
-#: admin/templates/form-fields-addoredit.tpl.php:36
-msgctxt "form-fields admin"
-msgid "Field Type"
-msgstr "Tipo del Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:60
-msgctxt "form-fields admin"
-msgid "Field Label"
-msgstr "Nombre del Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:70
-msgctxt "form-fields admin"
-msgid "Field description"
-msgstr "Descripción del Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:70
-msgctxt "form-fields admin"
-msgid "optional"
-msgstr "opcional"
-
-#: admin/templates/form-fields-addoredit.tpl.php:87
-msgctxt "form-fields admin"
-msgid "Field-specific settings"
-msgstr "Configuración específica del campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:96
-msgctxt "form-fields admin"
-msgid "Field validation options"
-msgstr "Opciones de validación del campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:100
-msgctxt "form-fields admin"
-msgid "Field Validator"
-msgstr "Validador del Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:104
-msgctxt "form-fields admin"
-msgid "No validation"
-msgstr "Ninguna validación"
-
-#: admin/templates/form-fields-addoredit.tpl.php:116
-msgctxt "form-fields admin"
-msgid "Is field required?"
-msgstr "Es este campo requerido?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:122
-msgctxt "form-fields admin"
-msgid "This field is required."
-msgstr "Este campo es requerido."
-
-#: admin/templates/form-fields-addoredit.tpl.php:130
-msgctxt "form-fields admin"
-msgid "Field display options"
-msgstr "Opciones de presentación del Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:134
-msgctxt "form-fields admin"
-msgid "Show this value in excerpt view?"
-msgstr "Mostrar este valor en la vista de resumen?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:140
-msgctxt "form-fields admin"
-msgid "Display this value in post excerpt view."
-msgstr "Mostrar este valor en la vista de resumen de un listado."
-
-#: admin/templates/form-fields-addoredit.tpl.php:146
-msgctxt "form-fields admin"
-msgid "Show this value in listing view?"
-msgstr "Mostrar este valor en la vista individual?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:152
-msgctxt "form-fields admin"
-msgid "Display this value in the listing view."
-msgstr "Mostrar este valor en la vista individual de un listado."
-
-#: admin/templates/form-fields-addoredit.tpl.php:158
-msgctxt "form-fields admin"
-msgid "Include this field in the search form?"
-msgstr "Incluir este campo en el formulario de búsqueda?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:164
-msgctxt "form-fields admin"
-msgid "Include this field in the search form."
-msgstr "Incluir este campo en el formulario de búsqueda."
-
-#: admin/templates/form-fields-addoredit.tpl.php:170
-msgctxt "form-fields admin"
-msgid "Hide this field's label?"
-msgstr "Ocultar el nombre de este campo?"
-
-#: admin/templates/form-fields-addoredit.tpl.php:176
-msgctxt "form-fields admin"
-msgid "Hide this field's label when displaying it."
-msgstr "Ocultar el nombre de este campo cuando se esté mostrando."
-
-#: admin/templates/form-fields-addoredit.tpl.php:183
-msgctxt "form-fields admin"
-msgid "Update Field"
-msgstr "Actualizar Campo"
-
-#: admin/templates/form-fields-addoredit.tpl.php:185
-msgctxt "form-fields admin"
-msgid "Add Field"
-msgstr "Agregar Campo"
-
-#: admin/templates/form-fields-confirm-delete.tpl.php:2
-msgctxt "form-fields admin"
-msgid "Delete Form Field"
-msgstr "Eliminar Campo de Formulario"
-
-#: admin/templates/form-fields-confirm-delete.tpl.php:6
-msgctxt "form-fields admin"
-msgid "Are you sure you want to delete the \"%s\" field?"
-msgstr "Está seguro de que desea eliminar el campo \"%s\"?"
-
-#: admin/templates/form-fields-confirm-delete.tpl.php:12
-msgctxt "form-fields admin"
-msgid "Delete Field"
-msgstr "Eliminar Campo"
-
-#: admin/templates/form-fields-tags.tpl.php:5
-msgctxt "form-fields admin"
-msgid "-- None --"
-msgstr "— Ninguno --"
-
-#: admin/templates/form-fields-tags.tpl.php:14
-msgctxt "form-fields admin"
-msgid "Theme Tags"
-msgstr "Etiquetas de Tema"
-
-#: admin/templates/form-fields-tags.tpl.php:19
-msgctxt "form-fields admin"
-msgid ""
-"Before you create fields, make sure you've mapped all of your EXISTING ones "
-"first, otherwise you'll appear to be \"missing data\" on your listings."
-msgstr ""
-"Antes de crear los campos, revise si no ha asociado ya todos sus campos "
-"existentes primero. De lo contrario, parecerá que a sus listados les hace "
-"falta información."
-
-#: admin/templates/form-fields-tags.tpl.php:22
-msgctxt "form-fields admin"
-msgid "Create Missing Fields"
-msgstr "Crear campos faltantes"
-
-#: admin/templates/form-fields-tags.tpl.php:30
-msgctxt "form-fields admin"
-msgid "Field Tag"
-msgstr "Etiqueta de Campo"
-
-#: admin/templates/form-fields-tags.tpl.php:31
-msgctxt "form-fields admin"
-msgid "Field"
-msgstr "Campo"
-
-#: admin/templates/form-fields.tpl.php:3
-msgctxt "form-fields admin"
-msgid "Add New Form Field"
-msgstr "Agregar Nuevo Campo de Formulario"
-
-#: admin/templates/form-fields.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Preview Form"
-msgstr "Previsualizar Formulario"
-
-#: admin/templates/form-fields.tpl.php:6 admin/templates/themes.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Manage Theme Tags"
-msgstr "Administrar Etiquetas del Tema"
-
-#: admin/templates/form-fields.tpl.php:12
-msgctxt "form-fields admin"
-msgid ""
-"Here, you can create new fields for your listings, edit or delete existing "
-"ones, change the order and visibility of the fields as well as configure "
-"special options for them."
-msgstr ""
-"Aquí puede crear nuevos campos para sus listados, editar o eliminar los "
-"existentes, cambiar el orden y visibilidad de los campos y hacer otras "
-"configuraciones especiales para ellos."
-
-#: admin/templates/form-fields.tpl.php:18
-msgctxt "form-fields admin"
-msgid "Please see the <a>Form Fields documentation</a> for more details."
-msgstr ""
-"Por favor vea la <a>documentación de Campos de Formulario</a> para más "
-"detalles."
-
-#. Plugin Name of the plugin/theme
-#: admin/templates/header.tpl.php:4
-msgid "Business Directory Plugin"
-msgstr "Directorio de Negocios"
-
-#: admin/templates/home.tpl.php:4
-msgctxt "admin home"
-msgid "Welcome to Business Directory Plugin. You are using %s."
-msgstr "Bienvenido a Business Directory Plugin"
-
-#: admin/templates/home.tpl.php:5
-msgctxt "admin home"
-msgid ""
-"Thanks for choosing us.  There's a lot you probably want to get done, so "
-"let's jump right in!"
-msgstr ""
-"Gracias por elegirnos. Probablemente hay mucho que desea hacer, así que "
-"¡entremos en materia!"
-
-#: admin/templates/home.tpl.php:11
-msgctxt "admin home"
-msgid ""
-"Our complete documentation is <a>here</a> which we encourage you to use "
-"while setting things up."
-msgstr ""
-"Le sugerimos leer nuestra documentación completa que se encuentra <a>aquí</"
-"a> mientras configura su sitio."
-
-#: admin/templates/home.tpl.php:14
-msgctxt "admin home"
-msgid ""
-"We have some quick-start scenarios that you will find useful regarding setup "
-"and configuration <a>here</a>."
-msgstr ""
-"Tenemos <a>aquí</a> algunos escenarios de \"inicio rápido\" que podría "
-"encontrar útiles."
-
-#: admin/templates/home.tpl.php:18
-msgctxt "admin home"
-msgid ""
-"If you have questions, please post a comment on <a>support forum</a> and "
-"we'll answer it within 24 hours most days."
-msgstr ""
-"Si tiene preguntas, por favor escríbanos un comentario en el <a>foro de "
-"soporte</a> y le estaremos respondiendo en un plazo de 24 horas "
-"aproximadamente."
-
-#: admin/templates/home.tpl.php:25
-msgid "Configure/Manage Options"
-msgstr "Configuraciones"
-
-#: admin/templates/home.tpl.php:28
-msgid "Setup/Manage Form Fields"
-msgstr "Configurar/Administrar Campos de Formulario"
-
-#: admin/templates/home.tpl.php:31
-msgid "Setup/Manage Fees"
-msgstr "Configurar/Administrar Comisiones"
-
-#: admin/templates/home.tpl.php:37
-msgid "Featured Listings Pending Upgrade"
-msgstr "Listados destacados pendientes de actualización"
-
-#: admin/templates/home.tpl.php:44
-msgid "Manage Paid Listings"
-msgstr "Administrar Listados Pagos"
-
-#: admin/templates/listing-change-fee.tpl.php:3
-msgctxt "admin listing fee"
-msgid "Listing Fee Selection"
-msgstr "Selección de Comisiones"
-
-#: admin/templates/listing-change-fee.tpl.php:5
-msgctxt "admin listing fee"
-msgid "Select a fee plan to be used for this listing in the \"%s\" category."
-msgstr "Por favor elija una opción de pago para la categoría \"%s\"."
-
-#: admin/templates/listing-change-fee.tpl.php:11
-msgctxt "admin listing fee"
-msgid "Current"
-msgstr "Actual"
-
-#: admin/templates/listing-change-fee.tpl.php:14
-msgctxt "admin listing fee"
-msgid "Use this fee"
-msgstr "Utilizar ésta"
-
-#: admin/templates/listing-change-fee.tpl.php:21
-msgctxt "admin infometabox"
-msgid "%d image"
-msgid_plural "%d images"
-msgstr[0] "%d imagen"
-msgstr[1] "%d imágenes"
-
-#: admin/templates/listing-change-fee.tpl.php:23
-msgctxt "admin infometabox"
-msgid "Listing never expires"
-msgstr "El listado nunca expira"
-
-#: admin/templates/listing-change-fee.tpl.php:25
-msgctxt "admin infometabox"
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] "%d día"
-msgstr[1] "%d días"
-
-#: admin/templates/listing-metabox-categories.tpl.php:22
-msgctxt "admin infometabox"
-msgid "No categories on this listing. Please add one to associate fees."
-msgstr ""
-"No hay categorías en este listado. Agregue alguna para asociarle comisiones."
-
-#: admin/templates/listing-metabox-categories.tpl.php:29
-msgctxt "admin infometabox"
-msgid "(recurring)"
-msgstr "(recurrente)"
-
-#: admin/templates/listing-metabox-categories.tpl.php:34
-msgctxt "admin infometabox"
-msgid "Expired"
-msgstr "Expirado"
-
-#: admin/templates/listing-metabox-categories.tpl.php:37
-msgctxt "admin infometabox"
-msgid "Payment Pending"
-msgstr "Pago Pendiente"
-
-#: admin/templates/listing-metabox-categories.tpl.php:41
-msgctxt "admin infometabox"
-msgid "OK"
-msgstr "OK"
-
-#: admin/templates/listing-metabox-categories.tpl.php:49
-msgctxt "admin infometabox"
-msgid "Fee"
-msgstr "Comisión"
-
-#: admin/templates/listing-metabox-categories.tpl.php:54
-msgctxt "admin infometabox"
-msgid "# Images"
-msgstr "# de Imágenes"
-
-#: admin/templates/listing-metabox-categories.tpl.php:62
-msgctxt "admin infometabox"
-msgid "Expired on"
-msgstr "Expiró en"
-
-#: admin/templates/listing-metabox-categories.tpl.php:64
-msgctxt "admin infometabox"
-msgid "Expires on"
-msgstr "Expira en"
-
-#: admin/templates/listing-metabox-categories.tpl.php:72
-msgctxt "admin infometabox"
-msgid "Click to manually change expiration date."
-msgstr "Clic para cambiar manualmente la fecha de expiración."
-
-#: admin/templates/listing-metabox-categories.tpl.php:75
-msgctxt "admin infometabox"
-msgid "Never expires"
-msgstr "Nunca expira"
-
-#: admin/templates/listing-metabox-categories.tpl.php:75
-msgctxt "admin infometabox"
-msgid "Edit"
-msgstr "Editar"
-
-#: admin/templates/listing-metabox-categories.tpl.php:87
-msgctxt "admin infometabox"
-msgid "See payment info"
-msgstr "Ver información de pago"
-
-#: admin/templates/listing-metabox-categories.tpl.php:92
-msgctxt "admin infometabox"
-msgid "Renewal URL (copy & paste)"
-msgstr "URL de Renovación (copiar y pegar)"
-
-#: admin/templates/listing-metabox-categories.tpl.php:92
-msgctxt "admin infometabox"
-msgid "Show renewal link"
-msgstr "Mostrar enlace de renovación"
-
-#: admin/templates/listing-metabox-categories.tpl.php:99
-msgctxt "admin infometabox"
-msgid "Send renewal e-mail to user"
-msgstr "Enviar correo electrónico de renovación al usuario"
-
-#: admin/templates/listing-metabox-categories.tpl.php:107
-msgctxt "admin infometabox"
-msgid "Renew manually..."
-msgstr "Renovar manualmente..."
-
-#: admin/templates/listing-metabox-categories.tpl.php:107
-msgctxt "admin infometabox"
-msgid "Change fee..."
-msgstr "Cambiar comisión..."
-
-#: admin/templates/listing-metabox-categories.tpl.php:115
-msgctxt "admin infometabox"
-msgid "Remove category"
-msgstr "Quitar Categoría"
-
-#: admin/templates/listing-metabox-fees.tpl.php:1
-msgctxt "admin infometabox"
-msgid "Fee Information"
-msgstr "Información de Comisiones"
-
-#: admin/templates/listing-metabox-fees.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Payment Mode:"
-msgstr "Modo del Directorio:"
-
-#: admin/templates/listing-metabox-fees.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Paid"
-msgstr "Pago"
-
-#: admin/templates/listing-metabox-fees.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Free"
-msgstr "Gratuito"
-
-#: admin/templates/listing-metabox-fees.tpl.php:6
-msgctxt "admin infometabox"
-msgid "To change your payment mode, go to <a href=\"%s\">Payment Settings</a>."
-msgstr ""
-"Para cambiar el modo del directorio, vaya a <a href=\"%s\">Configuraciones "
-"de Pago</a>."
-
-#: admin/templates/listing-metabox-fees.tpl.php:12
-msgctxt "admin infometabox"
-msgid ""
-"Note: In Free mode, the fee plans will always be set to \"Free Listing\" "
-"below."
-msgstr ""
-"Nota: En el modo Gratuito, los planes de comisiones siempre serán mostrados "
-"como \"Listado Gratuito\" abajo."
-
-#: admin/templates/listing-metabox-fees.tpl.php:22
-#: admin/templates/listing-metabox-feesummary.tpl.php:12
-msgctxt "admin infometabox"
-msgid "Renew listing in all expired categories"
-msgstr "Renovar el listado en todas las categorías expiradas"
-
-#: admin/templates/listing-metabox-feesummary.tpl.php:1
-msgctxt "admin infometabox"
-msgid "Categories for this listing"
-msgstr "Categorías para este listado"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:3
-msgctxt "admin infometabox"
-msgid "Initial Payment"
-msgstr "Pago Inicial"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:4
-msgctxt "admin infometabox"
-msgid "Listing Edit"
-msgstr "Edición del Listado"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:5
-msgctxt "admin infometabox"
-msgid "Listing Renewal"
-msgstr "Renovación del Listado"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:6
-msgctxt "admin infometabox"
-msgid "Upgrade to sticky"
-msgstr "Mejora a destacado"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:10
-msgctxt "admin"
-msgid "Payments History"
-msgstr "Historia Transaccional"
-
-#: admin/templates/listing-metabox-transactions.tpl.php:12
-msgctxt "admin listing metabox"
-msgid "Click a payment to see the details or approve/reject the transaction."
-msgstr ""
-"Haga clic en un pago para ver los detalles o aprobar/rechazar la transacción."
-
-#: admin/templates/listing-metabox-transactions.tpl.php:16
-msgctxt "listing metabox"
-msgid "There are no transactions associated to this listing."
-msgstr "No hay transacciones asociadas a este listado."
-
-#: admin/templates/payment-details.tpl.php:7
-msgctxt "admin payments"
-msgid "Payment Details"
-msgstr "Detalles del Pago"
-
-#: admin/templates/payment-details.tpl.php:9
-msgctxt "admin payments"
-msgid "Payment #%d"
-msgstr "Pago #%d"
-
-#: admin/templates/payment-details.tpl.php:16
-msgctxt "admin payments"
-msgid "Created on"
-msgstr "Creado en"
-
-#: admin/templates/payment-details.tpl.php:19
-msgctxt "admin infometabox"
-msgid "Amount"
-msgstr "Valor"
-
-#: admin/templates/payment-details.tpl.php:22
-msgctxt "admin infometabox"
-msgid "Gateway"
-msgstr "Pasarela"
-
-#: admin/templates/payment-details.tpl.php:26
-msgctxt "admin infometabox"
-msgid "Processed on"
-msgstr "Procesado en"
-
-#: admin/templates/payment-details.tpl.php:28
-msgctxt "admin infometabox"
-msgid "Processed by"
-msgstr "Procesado por"
-
-#: admin/templates/payment-details.tpl.php:41
-msgctxt "admin payments"
-msgid "Approve payment"
-msgstr "Aprobar pago"
-
-#: admin/templates/payment-details.tpl.php:46
-msgctxt "admin payments"
-msgid "Reject payment"
-msgstr "Rechazar pago"
-
-#: admin/templates/settings-reset.tpl.php:2
-msgid "Business Directory - Reset Defaults"
-msgstr "Business Directory - Restaurar configuración por defecto"
-
-#: admin/templates/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← Regresar a \"Configuraciones\""
-
-#: admin/templates/settings-reset.tpl.php:10
-msgid ""
-"Use this option if you want to go back to the original factory settings for "
-"BD."
-msgstr ""
-"Utilice esta opción si quiere llevar el directorio a su configuración de "
-"fábrica. Tenga en cuenta que todas sus modificaciones se perderán."
-
-#: admin/templates/settings-reset.tpl.php:11
-msgid "Please note that all of your existing settings will be lost."
-msgstr ""
-"Por favor considere que todas sus configuraciones actuales se perderán."
-
-#: admin/templates/settings-reset.tpl.php:17
-msgid "Reset Defaults"
-msgstr "Restaurar valores por defecto"
-
-#: admin/templates/settings.tpl.php:2
-msgid "Business Directory Settings"
-msgstr "Configuraciones del Directorio de Negocios"
-
-#: admin/templates/settings.tpl.php:4
-msgctxt "settings"
-msgid "Reset Defaults"
-msgstr "Restaurar valores por defecto"
-
-#: admin/templates/settings.tpl.php:21
-msgid "Settings updated."
-msgstr "Configuración actualizada."
-
-#: admin/templates/sidebar.tpl.php:3
-msgctxt "admin sidebar"
-msgid "Discount Codes Module"
-msgstr "Discount Codes Module"
-
-#: admin/templates/sidebar.tpl.php:4
-msgctxt "admin sidebar"
-msgid "Claim Listings Module"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:7
-msgctxt "admin sidebar"
-msgid "File Upload Module"
-msgstr "File Upload Module"
-
-#: admin/templates/sidebar.tpl.php:8
-msgctxt "admin sidebar"
-msgid "Featured Levels Module"
-msgstr "Featured Levels Module"
-
-#: admin/templates/sidebar.tpl.php:9
-msgctxt "admin sidebar"
-msgid "ZIP Code Search Module"
-msgstr "ZIP Code Search Module"
-
-#: admin/templates/sidebar.tpl.php:10
-msgctxt "admin sidebar"
-msgid "Regions Module"
-msgstr "Regions Module"
-
-#: admin/templates/sidebar.tpl.php:11
-msgctxt "admin sidebar"
-msgid "Ratings Module"
-msgstr "Ratings Module"
-
-#: admin/templates/sidebar.tpl.php:12
-msgctxt "admin sidebar"
-msgid "Google Maps Module"
-msgstr "Google Maps Module"
-
-#: admin/templates/sidebar.tpl.php:18
-msgctxt "admin sidebar"
-msgid "Business Card Theme"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:19
-msgctxt "admin sidebar"
-msgid "Mobile Compact Theme"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:20
-msgctxt "admin sidebar"
-msgid "Restaurant Theme"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:21
-msgctxt "admin sidebar"
-msgid "Tabbed Business Theme"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:22
-msgctxt "admin sidebar"
-msgid "Elegant Business Theme"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:29
-msgctxt "admin sidebar"
-msgid "Like this plugin?"
-msgstr "Le gusta este plugin?"
-
-#: admin/templates/sidebar.tpl.php:31
-msgctxt "admin sidebar"
-msgid "Why not do any or all of the following:"
-msgstr "Por qué no hace alguna o todas de las siguientes cosas:"
-
-#: admin/templates/sidebar.tpl.php:33
-msgctxt "admin sidebar"
-msgid "Give it a good rating on WordPress.org."
-msgstr "Darle una buena calificación en WordPress.org."
-
-#: admin/templates/sidebar.tpl.php:34
-msgctxt "admin sidebar"
-msgid "Let other people know that it works with your WordPress setup."
-msgstr ""
-"Contarle a otras personas que funciona con su instalación de WordPress."
-
-#: admin/templates/sidebar.tpl.php:35
-msgctxt "admin sidebar"
-msgid "Buy a Premium Module"
-msgstr "Comprar un Módulo Premium"
-
-#: admin/templates/sidebar.tpl.php:42
-msgctxt "admin sidebar"
-msgid "Get a Premium Module"
-msgstr "Obtener un Módulo Premium"
-
-#: admin/templates/sidebar.tpl.php:45 admin/templates/sidebar.tpl.php:61
-msgctxt "admin sidebar"
-msgid "best deal"
-msgstr "mejor precio"
-
-#: admin/templates/sidebar.tpl.php:45
-msgctxt "admin sidebar"
-msgid "Combo Pack"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:45
-msgctxt "admin sidebar"
-msgid "(All Modules)"
-msgstr "(Todos los módulos)"
-
-#: admin/templates/sidebar.tpl.php:48 admin/templates/sidebar.tpl.php:64
-msgctxt "admin sidebar"
-msgid "new"
-msgstr "nuevo"
-
-#: admin/templates/sidebar.tpl.php:58
-msgctxt "admin sidebar"
-msgid "Get a Directory Theme"
-msgstr "Obtener un tema del Directorio"
-
-#: admin/templates/sidebar.tpl.php:61
-msgctxt "admin sidebar"
-msgid "Theme Pack"
-msgstr ""
-
-#: admin/templates/sidebar.tpl.php:61
-msgctxt "admin sidebar"
-msgid "(All Themes)"
-msgstr "(Todos los temas)"
-
-#: admin/templates/sidebar.tpl.php:74
-msgctxt "admin sidebar"
-msgid "Found a bug? Need support?"
-msgstr "Encontró un error? Necesita soporte?"
-
-#: admin/templates/sidebar.tpl.php:79
-msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>visit the forums!</a>"
-msgstr "Si ha encontrado un error o necesita soporte <a>¡visite los foros!</a>"
-
-#: admin/templates/sidebar.tpl.php:82
-msgctxt "admin sidebar"
-msgid "Full plugin documentation"
-msgstr "Documentación completa del plugin"
-
-#: admin/templates/sidebar.tpl.php:83
-msgctxt "admin sidebar"
-msgid "Quick Start Guide"
-msgstr "Guía de Inicio Rápido"
-
-#: admin/templates/sidebar.tpl.php:84
-msgctxt "admin sidebar"
-msgid "Video Tutorials"
-msgstr "Videotutoriales"
-
-#: admin/templates/sidebar.tpl.php:92
-msgctxt "admin sidebar"
-msgid "Installed Modules"
-msgstr "Módulos Instalados"
-
-#: admin/templates/sidebar.tpl.php:103 admin/templates/sidebar.tpl.php:112
-msgctxt "admin sidebar"
-msgid "Installed"
-msgstr "Instalado"
-
-#: admin/templates/sidebar.tpl.php:105 admin/templates/sidebar.tpl.php:112
-msgctxt "admin sidebar"
-msgid "Not Installed"
-msgstr "No Instalado"
-
-#: admin/templates/sidebar.tpl.php:111
-msgctxt "admin sidebar"
-msgid "Enhanced Categories Module"
-msgstr "Enhanced Categories Module"
-
-#: admin/templates/themes-delete-confirm.tpl.php:1
-#: admin/templates/themes-delete-confirm.tpl.php:13
-msgctxt "themes admin"
-msgid "Delete Directory Theme"
-msgstr "Eliminar Tema del Directorio"
-
-#: admin/templates/themes-delete-confirm.tpl.php:3
-msgctxt "themes admin"
-msgid "Are you sure you want to delete the directory theme \"%s\"?"
-msgstr "¿Está seguro de que desea eliminar el tema \"%s\"?"
-
-#: admin/templates/themes-delete-confirm.tpl.php:12
-msgctxt "themes admin"
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: admin/templates/themes-install.tpl.php:2
-#: admin/templates/themes-licenses.tpl.php:3 admin/templates/themes.tpl.php:3
-msgctxt "themes"
-msgid "Upload Directory Theme"
-msgstr "Subir Tema de Directorio"
-
-#: admin/templates/themes-install.tpl.php:8
-msgctxt "themes"
-msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
-msgstr "Este es un tema de %s y NO es un tema regular de WordPress."
-
-#: admin/templates/themes-install.tpl.php:21
-msgctxt "themes"
-msgid "BD Theme archive (ZIP file)"
-msgstr "BD archivo de tema (ZIP)"
-
-#: admin/templates/themes-install.tpl.php:30
-msgctxt "themes"
-msgid "Begin Upload"
-msgstr "Iniciar subida"
-
-#: admin/templates/themes-item.tpl.php:3
-msgctxt "themes"
-msgid "Active:"
-msgstr "Activos:"
-
-#: admin/templates/themes-item.tpl.php:17
-msgctxt "themes"
-msgid "Activate"
-msgstr "Activar"
-
-#: admin/templates/themes-item.tpl.php:35
-msgctxt "themes"
-msgid "Version:"
-msgstr "Versión:"
-
-#: admin/templates/themes-item.tpl.php:38
-msgctxt "themes"
-msgid "Author:"
-msgstr "Autor:"
-
-#: admin/templates/themes-licenses.tpl.php:24
-msgctxt "themes"
-msgid "Deactivate License"
-msgstr "Desactivar Licencia"
-
-#: admin/templates/themes-licenses.tpl.php:27
-msgctxt "themes"
-msgid "Deactivating license..."
-msgstr "Desactivando licencia…"
-
-#: admin/templates/themes-licenses.tpl.php:29
-msgctxt "themes"
-msgid "Activate License"
-msgstr "Activar Licencia"
-
-#: admin/templates/themes-licenses.tpl.php:30
-msgctxt "themes"
-msgid "Activating license..."
-msgstr "Activando licencia..."
-
-#: admin/templates/themes-tabs.tpl.php:6
-msgctxt "admin themes"
-msgid "Available Themes"
-msgstr "Temas Disponibles"
-
-#: admin/templates/themes-tabs.tpl.php:7
-msgctxt "admin themes"
-msgid "Licenses"
-msgstr "Licencias"
-
-#: admin/templates/themes.tpl.php:5
-msgctxt "themes"
-msgid "Settings"
-msgstr "Configuración"
-
-#: admin/templates/themes.tpl.php:15
-msgctxt "themes"
-msgid ""
-"<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business "
-"Directory Plugin</i> to change the look of the directory quickly and easily. "
-"We have a number of them available for purchase <a>here</a>."
-msgstr ""
-"Los <a><b>Temas del Directorio</b></a> son plantillas prefabricadas para "
-"<i>Business Directory Plugin</i> que permiten cambiar la apariencia y "
-"comportamiento del directorio rápida y fácilmente. Tenemos varios temas "
-"disponibles para compra <a>aquí</a>."
-
-#: admin/templates/themes.tpl.php:16
-msgctxt "themes"
-msgid ""
-"They are <strong>different</strong> than your regular WordPress theme and "
-"they are <strong>not</strong> a replacement for WP themes either. They will "
-"change the look and feel of your business directory only."
-msgstr ""
-"Son <strong>diferentes</strong> de los temas regulares de WordPress y "
-"<strong>no son</strong>un reemplazo de estos tampoco. Nuestros temas "
-"únicamente cambiarán la apariencia del directorio."
-
-#: admin/templates/transactions.tpl.php:2
-msgctxt "admin transactions"
-msgid "Transactions"
-msgstr "Transacciones"
-
-#: admin/templates/uninstall-capture-form.tpl.php:5
-msgctxt "uninstall"
-msgid "It doesn't work with my theme/plugins/site"
-msgstr "No funciona con mi sitio, temas o plugins"
-
-#: admin/templates/uninstall-capture-form.tpl.php:6
-msgctxt "uninstall"
-msgid "I can't set it up/Too complicated"
-msgstr "No puedo configurarlo / Muy complicado"
-
-#: admin/templates/uninstall-capture-form.tpl.php:7
-msgctxt "uninstall"
-msgid "Doesn't solve my problem"
-msgstr "No resuelve mis necesidades"
-
-#: admin/templates/uninstall-capture-form.tpl.php:8
-msgctxt "uninstall"
-msgid "Don't need it anymore/Not using it"
-msgstr "No lo necesito más / No lo estoy usando"
-
-#: admin/templates/uninstall-capture-form.tpl.php:9
-msgctxt "uninstall"
-msgid "Other"
-msgstr "Otra razón"
-
-#: admin/templates/uninstall-capture-form.tpl.php:16
-msgctxt "uninstall"
-msgid ""
-"We're sorry to see you leave. Could you take 10 seconds and answer one "
-"question for us to help us make the product better for everyone in the "
-"future?"
-msgstr ""
-"Lamentamos que desee desinstalar nuestro producto. ¿Podría tomarse 10 "
-"segundos y responder una pregunta para ayudarnos a hacer un mejor producto "
-"para todos en el futuro?"
-
-#: admin/templates/uninstall-capture-form.tpl.php:19
-msgctxt "uninstall"
-msgid "Why are you deleting Business Directory Plugin?"
-msgstr "¿Por qué está desinstalando Business Directory Plugin?"
-
-#: admin/templates/uninstall-capture-form.tpl.php:29
-msgctxt "uninstall"
-msgid "Please tell us why are you deleting Business Directory Plugin."
-msgstr ""
-"Por favor díganos por qué está desinstalando Business Directory Plugin."
-
-#: admin/templates/uninstall-capture-form.tpl.php:36
-msgctxt "uninstall"
-msgid "Uninstall Plugin"
-msgstr "Desinstalar"
-
-#: admin/templates/uninstall-complete.tpl.php:2
-msgctxt "admin uninstall"
-msgid "Uninstall Business Directory"
-msgstr "Desinstalar el Directorio de Negocios"
-
-#: admin/templates/uninstall-complete.tpl.php:7
-msgctxt "admin uninstall"
-msgid "Uninstall completed."
-msgstr "Desinstalación completa."
-
-#: admin/templates/uninstall-complete.tpl.php:8
-msgctxt "admin uninstall"
-msgid "Return to Dashboard."
-msgstr "Regresar al administrador de WordPress."
-
-#: admin/templates/uninstall-confirm.tpl.php:1
-msgctxt "uninstall"
-msgid "Uninstall Business Directory Plugin"
-msgstr "Desinstalar Business Directory Plugin"
-
-#: admin/tracking.php:188
-msgctxt "tracking"
-msgid "Help Improve Business Directory"
-msgstr "Ayúdenos a Mejorar el Directorio de Negocios"
-
-#: admin/tracking.php:190
-msgctxt "tracking"
-msgid ""
-"Can Business Directory keep track of your theme, plugins, and other non-"
-"personal, non-identifying information to help us in testing the plugin for "
-"future releases?"
-msgstr ""
-"Quiere permitir a Business Directory enviar información anónima sobre su "
-"tema, plugins instalados y otros datos técnicos (no personales) para "
-"ayudarnos a mejorar nuestro producto en futuras versiones?"
-
-#: admin/tracking.php:192
-msgctxt "tracking"
-msgid "What do you track?"
-msgstr "Qué información se incluye? (en inglés)"
-
-#: admin/tracking.php:214
-msgctxt "tracking"
-msgid "No, Thanks."
-msgstr "No, gracias."
-
-#: admin/tracking.php:221
-msgctxt "tracking"
-msgid "Allow Tracking"
-msgstr "Permitir Seguimiento"
 
 #: business-directory-plugin.php:589
 msgctxt "listing image upload"
@@ -3238,12 +216,12 @@ msgctxt "listing"
 msgid "(Fee Unavailable)"
 msgstr "(Comisión no disponible)"
 
-#: core/class-listings-api.php:316
+#: core/class-listings-api.php:319
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
 
-#: core/class-listings-api.php:335
+#: core/class-listings-api.php:338
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notificación de listado editado"
@@ -5681,6 +2659,9 @@ msgid ""
 "that information if you need to contact support about problems trying to "
 "activate your licenses."
 msgstr ""
+"La dirección IP de su servidor es <ip-address>. Por favor incluya esta "
+"información si alguna vez tiene que contactar al equipo de soporte por "
+"problemas relacionados con la activación de licencias."
 
 #: core/licensing.php:154 core/licensing.php:188
 msgctxt "licensing"
@@ -5691,6 +2672,19 @@ msgstr "Módulo de ID inválido"
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "No se ingresó una licencia"
+
+#: core/licensing.php:174 core/licensing.php:206
+#: includes/admin/class-themes-admin.php:366
+#: includes/admin/class-themes-admin.php:427
+msgctxt "licensing"
+msgid "Could not contact licensing server"
+msgstr "No se pudo contactar el servidor de licencias"
+
+#: core/licensing.php:179 core/licensing.php:213
+#: includes/admin/class-themes-admin.php:372
+msgctxt "licensing"
+msgid "License key is invalid"
+msgstr "La licencia es inválida"
 
 #: core/licensing.php:216
 msgctxt "licensing"
@@ -5739,10 +2733,25 @@ msgctxt "licensing"
 msgid "Renew License Key"
 msgstr "Renovar Clave de Licencia"
 
+#: core/licensing.php:368 includes/admin/class-themes-admin.php:377
+msgctxt "licensing"
+msgid "Could not activate license: %s."
+msgstr "No se pudo activar la licencia: %s."
+
+#: core/licensing.php:370 includes/admin/class-themes-admin.php:390
+msgctxt "licensing"
+msgid "License activated"
+msgstr "Licencia activada"
+
 #: core/licensing.php:386
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
+
+#: core/licensing.php:388 includes/admin/class-themes-admin.php:450
+msgctxt "licensing"
+msgid "License deactivated"
+msgstr "Licencia desactivada"
 
 #: core/payment.php:91
 msgctxt "payments-api"
@@ -6602,6 +3611,3006 @@ msgstr "Mostrar los siguientes campos en el formulario."
 msgctxt "widgets"
 msgid "Search"
 msgstr "Buscar"
+
+#: includes/admin/class-admin-listings.php:40
+msgctxt "admin category filter"
+msgid "All categories"
+msgstr "Todas las categorías"
+
+#: includes/admin/class-admin-listings.php:133
+msgctxt "admin listings"
+msgid ""
+"This listing doesn't have any category assigned. At least one category (and "
+"its respective fee) is required in order to determine the features available "
+"to this listing, as well as handling renewals."
+msgstr ""
+"Este listado no tiene ninguna categoría asignada. Al menos una categoría (y "
+"su respectiva comisión) es requerida para determinar las características "
+"disponibles para el listado, así como gestionar las renovaciones."
+
+#: includes/admin/class-admin-listings.php:138
+msgid "Listing Information"
+msgstr "Información del Listado"
+
+#: includes/admin/class-admin-listings.php:145
+msgctxt "admin"
+msgid "Listing Fields / Images"
+msgstr "Campos del Listado / Imágenes"
+
+#: includes/admin/class-admin-listings.php:156
+msgctxt "admin"
+msgid "Categories"
+msgstr "Categorías"
+
+#: includes/admin/class-admin-listings.php:157
+msgid "Payment Status"
+msgstr "Estado de Pago"
+
+#: includes/admin/class-admin-listings.php:158
+msgid "Featured (Sticky) Status"
+msgstr "Estado Destacado/Sticky"
+
+#: includes/admin/class-admin-listings.php:189
+msgctxt "admin"
+msgid "(Listing expired in this category)"
+msgstr "(El listado ha expirado en esta categoría)"
+
+#: includes/admin/class-admin-listings.php:207
+#: includes/admin/class-admin-listings.php:290
+msgid "Paid"
+msgstr "Pago"
+
+#: includes/admin/class-admin-listings.php:212
+msgid "Mark as"
+msgstr "Marcar como"
+
+#: includes/admin/class-admin-listings.php:221
+#: includes/admin/class-admin-listings.php:300
+msgid "Pending Upgrade"
+msgstr "Pendientes de Mejora"
+
+#: includes/admin/class-admin-listings.php:229
+#: includes/admin/helpers/listing-metabox.php:70
+msgid "Upgrade to %s"
+msgstr "Mejorar a %s"
+
+#: includes/admin/class-admin-listings.php:236
+#: includes/admin/helpers/listing-metabox.php:77
+msgid "Downgrade to %s"
+msgstr "Degradar a %s"
+
+#: includes/admin/class-admin-listings.php:239
+#: includes/admin/class-admin-listings.php:418
+msgctxt "admin actions"
+msgid "Upgrade to Featured"
+msgstr "Mejorar a Destacado"
+
+#: includes/admin/class-admin-listings.php:295
+msgid "Unpaid"
+msgstr "No pagado"
+
+#: includes/admin/class-admin-listings.php:305
+msgctxt "admin"
+msgid "Expired"
+msgstr "Expirados"
+
+#: includes/admin/class-admin-listings.php:354
+msgctxt "admin actions"
+msgid "Edit Listing"
+msgstr "Editar Listado"
+
+#: includes/admin/class-admin-listings.php:357
+msgctxt "admin actions"
+msgid "Delete Listing"
+msgstr "Eliminar Listado"
+
+#: includes/admin/class-admin-listings.php:416
+msgctxt "admin actions"
+msgid "Publish Listing"
+msgstr "Publicar Listado"
+
+#: includes/admin/class-admin-listings.php:419
+msgctxt "admin actions"
+msgid "Downgrade to Normal"
+msgstr "Degradar a Normal"
+
+#: includes/admin/class-admin-listings.php:421
+msgctxt "admin actions"
+msgid "Mark as Paid"
+msgstr "Marcar listado como Pagado"
+
+#: includes/admin/class-admin-listings.php:423
+msgctxt "admin actions"
+msgid "Renew Listing"
+msgstr "Renovar Listado"
+
+#: includes/admin/class-admin.php:105
+msgid ""
+"Preview is only available after you've saved the first draft. This is due\n"
+"to how WordPress stores the data."
+msgstr ""
+"Debido a la forma en que WordPress almacena la información, la per-"
+"visualización está disponible solo después de que se guarde el primer "
+"borrador."
+
+#: includes/admin/class-admin.php:138
+msgctxt "drip pointer"
+msgid ""
+"Find out how to create a compelling, thriving business directory from "
+"scratch in this ridiculously actionable (and FREE) 5-part email course. Get "
+"a FREE premium module just for signing up."
+msgstr ""
+"Descubra cómo crear un directorio de negocios próspero y llamativo desde "
+"cero en este curso GRATUITO por e-mail de 5 partes. Obtenga un módulo "
+"premium GRATIS solo por inscribirse."
+
+#: includes/admin/class-admin.php:140
+msgctxt "drip pointer"
+msgid "Email Address:"
+msgstr "Correo electrónico:"
+
+#: includes/admin/class-admin.php:146
+msgctxt "drip pointer"
+msgid "Want to know the Secrets of Building an Awesome Business Directory?"
+msgstr ""
+"Quiere conocer los secretos para crear un Directorio de Negocios "
+"impresionante?"
+
+#: includes/admin/class-admin.php:148
+msgctxt "drip pointer"
+msgid "Yes, please!"
+msgstr "Sí, por favor!"
+
+#: includes/admin/class-admin.php:150
+msgctxt "drip pointer"
+msgid "No, thanks"
+msgstr "No, gracias"
+
+#: includes/admin/class-admin.php:167
+msgctxt "admin"
+msgid "Business Directory"
+msgstr "Directorio de Negocios"
+
+#: includes/admin/class-admin.php:178
+msgctxt "admin"
+msgid "You're all set. Visit your new <a>Business Directory</a> page."
+msgstr ""
+"Está todo listo. Visite la página de su nuevo <a>Directorio de Negocios</a>."
+
+#: includes/admin/class-admin.php:199
+msgctxt "drip pointer"
+msgid "Invalid e-mail address."
+msgstr "Dirección de correo-e inválida."
+
+#: includes/admin/class-admin.php:233
+msgctxt "admin menu"
+msgid "Business Directory Admin"
+msgstr "Gestión de Directorio de Negocios"
+
+#: includes/admin/class-admin.php:234
+msgctxt "admin menu"
+msgid "Dir. Admin"
+msgstr "Gestión de Dir."
+
+#: includes/admin/class-admin.php:234
+msgctxt "admin menu"
+msgid "Directory Admin"
+msgstr "Gestión de Directorio"
+
+#: includes/admin/class-admin.php:240 includes/admin/class-admin.php:241
+msgctxt "admin menu"
+msgid "Add New Listing"
+msgstr "Agregar Nuevo Listado"
+
+#: includes/admin/class-admin.php:246 includes/admin/class-admin.php:247
+msgctxt "admin menu"
+msgid "Manage Options"
+msgstr "Configuraciones"
+
+#: includes/admin/class-admin.php:252 includes/admin/class-admin.php:253
+msgctxt "admin menu"
+msgid "Manage Fees"
+msgstr "Administrar Comisiones"
+
+#: includes/admin/class-admin.php:258 includes/admin/class-admin.php:259
+msgctxt "admin menu"
+msgid "Manage Form Fields"
+msgstr "Administrar Campos de Formulario"
+
+#: includes/admin/class-admin.php:264 includes/admin/class-admin.php:265
+msgctxt "admin menu"
+msgid "Listings"
+msgstr "Listados"
+
+#: includes/admin/class-admin.php:279 includes/admin/class-admin.php:280
+msgctxt "admin menu"
+msgid "CSV Import"
+msgstr "Importar CSV"
+
+#: includes/admin/class-admin.php:285 includes/admin/class-admin.php:286
+msgctxt "admin menu"
+msgid "CSV Export"
+msgstr "Exportar CSV"
+
+#: includes/admin/class-admin.php:291 includes/admin/class-admin.php:292
+msgctxt "admin menu"
+msgid "Debug"
+msgstr "Depuración"
+
+#: includes/admin/class-admin.php:301
+msgctxt "admin menu"
+msgid "Main Menu"
+msgstr "Menú Principal"
+
+#: includes/admin/class-admin.php:312
+msgctxt "admin menu"
+msgid "Uninstall Business Directory Plugin"
+msgstr "Desinstalar Business Directory Plugin"
+
+#: includes/admin/class-admin.php:313
+msgctxt "admin menu"
+msgid "Uninstall"
+msgstr "Desinstalar"
+
+#: includes/admin/class-admin.php:427
+#: templates/admin/listing-metabox-categories.tpl.php:69
+msgctxt "admin infometabox"
+msgid "never"
+msgstr "nunca"
+
+#: includes/admin/class-admin.php:521
+msgctxt "admin"
+msgid "Dismiss this notice."
+msgstr "Ignorar."
+
+#: includes/admin/class-admin.php:549
+msgctxt "admin"
+msgid "The listing has been published."
+msgid_plural "The listings have been published."
+msgstr[0] "El listado ha sido publicado."
+msgstr[1] "Los listados han sido publicados."
+
+#: includes/admin/class-admin.php:567
+msgctxt "admin"
+msgid "The listing status has been set as paid."
+msgid_plural "The listings status has been set as paid."
+msgstr[0] "El listado se ha marcado como pagado."
+msgstr[1] "Los listados se han marcado como pagados."
+
+#: includes/admin/class-admin.php:573
+msgctxt "admin"
+msgid ""
+"Only invoices containing non-recurring items were marked as paid. Please "
+"review the <a>Transactions</a> tab for the listing to manage recurring items "
+"or check the gateway's backend."
+msgid_plural ""
+"Only invoices containing non-recurring items were marked as paid. Recurring "
+"payments have to be managed through the gateway."
+msgstr[0] ""
+"Únicamente facturas conteniendo items no auto-renovados fueron marcadas como "
+"pagadas. Por favor revise el tab de <a>Transacciones</a> del listado para "
+"gestionar los items recurrentes, o revise el panel de administración de la "
+"pasarela de pago."
+msgstr[1] ""
+"Únicamente facturas conteniendo items no auto-renovados fueron marcadas como "
+"pagadas. Los items recurrentes deben ser manejados a través de la pasarela "
+"de pago."
+
+#: includes/admin/class-admin.php:592
+msgctxt "admin"
+msgid "The listing has been modified."
+msgid_plural "The listings have been modified."
+msgstr[0] "El listado ha sido modificado."
+msgstr[1] "Los listados han sido modificados."
+
+#: includes/admin/class-admin.php:605
+msgctxt "admin"
+msgid "The listing has been upgraded."
+msgid_plural "The listings have been upgraded."
+msgstr[0] "El listado ha sido mejorado."
+msgstr[1] "Los listados han sido mejorados."
+
+#: includes/admin/class-admin.php:617
+msgctxt "admin"
+msgid "The listing has been downgraded."
+msgid_plural "The listings have been downgraded."
+msgstr[0] "El listado ha sido degradado."
+msgstr[1] "Los listados han sido degradados."
+
+#: includes/admin/class-admin.php:628
+msgctxt "admin payments"
+msgid ""
+"The payment status was not changed. Recurring payments can't be manually "
+"approved. Please check your gateway's backend to see if the payment really "
+"went through."
+msgstr ""
+"El estado del pago no fue cambiado. Pagos recurrentes no pueden ser "
+"manualmente aprobados. Por favor revise el panel de administración de la "
+"pasarela de pago para revisar si el pago sí se hizo efectivo."
+
+#: includes/admin/class-admin.php:633
+msgctxt "admin"
+msgid "The transaction has been approved."
+msgstr "La transacción ha sido aprobada."
+
+#: includes/admin/class-admin.php:643
+msgctxt "admin"
+msgid "The transaction has been rejected."
+msgstr "La transacción ha sido rechazada."
+
+#: includes/admin/class-admin.php:649
+msgctxt "admin"
+msgid "The fee was successfully assigned."
+msgstr "La comisión se asignó satisfactoriamente."
+
+#: includes/admin/class-admin.php:658
+msgctxt "admin"
+msgid "Listing was renewed."
+msgid_plural "Listings were renewed."
+msgstr[0] "El listado ha sido renovado."
+msgstr[1] "Los listados fueron renovados."
+
+#: includes/admin/class-admin.php:665
+msgctxt "admin"
+msgid "Renewal email sent."
+msgstr "Mensaje de correo electrónico de renovación enviado."
+
+#: includes/admin/class-admin.php:720
+msgctxt "admin category id"
+msgid "ID"
+msgstr "ID"
+
+#: includes/admin/class-admin.php:722 includes/admin/class-admin.php:728
+msgctxt "admin"
+msgid "Listing Count"
+msgstr "Conteo de Listados"
+
+#: includes/admin/class-admin.php:837
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires fields with the following "
+"associations in order to work correctly: <b>%s</b>."
+msgstr ""
+"<b>Business Directory Plugin</b> requiere campos con las siguientes "
+"asociaciones para funcionar correctamente: <b>%s</b>."
+
+#: includes/admin/class-admin.php:839
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
+"association in order to work correctly."
+msgstr ""
+"<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
+"b> para funcionar correctamente."
+
+#: includes/admin/class-admin.php:843
+msgctxt "admin"
+msgid ""
+"You can create these custom fields by yourself inside \"Manage Form Fields\" "
+"or let Business Directory do this for you automatically."
+msgstr ""
+"Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
+"o puede dejar que Business Directory haga esto por usted automáticamente."
+
+#: includes/admin/class-admin.php:847
+msgctxt "admin"
+msgid "Go to \"Manage Form Fields\""
+msgstr "Ir a \"Administrar Campos de Formulario\""
+
+#: includes/admin/class-admin.php:850
+msgctxt "admin"
+msgid "Create these required fields for me"
+msgstr "Crear estos campos requeridos por mi"
+
+#: includes/admin/class-admin.php:859
+msgctxt "admin"
+msgid ""
+"<b>Business Directory Plugin</b> requires a page with the "
+"<tt>[businessdirectory]</tt> shortcode to function properly."
+msgstr ""
+"<b>Business Directory Plugin</b> requiere una página con el shortcode "
+"<tt>[businessdirectory]</tt> para funcionar adecuadamente."
+
+#: includes/admin/class-admin.php:861
+msgctxt "admin"
+msgid ""
+"You can create this page by yourself or let Business Directory do this for "
+"you automatically."
+msgstr ""
+"Puede crear esta página usted mismo o dejar que Business Directory lo haga "
+"por usted automáticamente."
+
+#: includes/admin/class-admin.php:865
+msgctxt "admin"
+msgid "Create required pages for me"
+msgstr "Crear las páginas requeridas por mi"
+
+#: includes/admin/class-admin.php:905
+msgctxt "admin compat"
+msgid "Installed: %s"
+msgstr "Instalado: %s"
+
+#: includes/admin/class-admin.php:905
+msgctxt "admin compat"
+msgid "N/A"
+msgstr "N/A"
+
+#: includes/admin/class-admin.php:908
+msgctxt "admin compat"
+msgid "Required: %s"
+msgstr "Requerido: %s"
+
+#: includes/admin/class-admin.php:920
+msgctxt "admin compat"
+msgid ""
+"Business Directory has detected some incompatible premium module versions "
+"installed."
+msgstr ""
+"Business Directory ha detectado algunas versiones incompatibles de módulos "
+"instaladas."
+
+#: includes/admin/class-admin.php:922
+msgctxt "admin compat"
+msgid ""
+"Please upgrade to the required versions indicated below to make sure "
+"everything functions properly."
+msgstr ""
+"Por favor actualice a las versiones requeridas indicadas abajo para "
+"asegurarse de que todo funcione correctamente."
+
+#: includes/admin/class-admin.php:942
+msgctxt "admin"
+msgid ""
+"We noticed you want your Business Directory users to register before posting "
+"listings, but Registration for your site is currently disabled. Go [here] "
+"and check \"Anyone can register\" to make sure BD works properly."
+msgstr ""
+"Hemos notado que quiere que sus usuarios del Directorio de Negocios se "
+"registren antes de publicar listados, pero el registro de usuarios para su "
+"sitio está actualmente deshabilitado. Vaya [aquí] y revise las "
+"configuraciones para asegurarse de que Business Directory funcione "
+"correctamente."
+
+#: includes/admin/class-themes-admin.php:47
+msgctxt "themes"
+msgid "Directory Themes"
+msgstr "Temas del Directorio"
+
+#: includes/admin/class-themes-admin.php:48
+msgctxt "themes"
+msgid "Directory Themes %s"
+msgstr "Temas del Directorio %s"
+
+#: includes/admin/class-themes-admin.php:94
+msgctxt "admin themes"
+msgid ""
+"Business Directory Plugin - Your template overrides need to be reviewed!"
+msgstr ""
+"Business Directory Plugin - ¡Las plantillas que sobreescribió deben ser "
+"revisadas!"
+
+#: includes/admin/class-themes-admin.php:96
+msgctxt "admin themes"
+msgid ""
+"Starting with version 4.0, Business Directory is using a new theming system "
+"that is not compatible with the templates used in previous versions."
+msgstr ""
+"A partir de la versión 4.0, Business Directory utiliza un nuevo sistema de "
+"plantillas y temas que no es compatible con las plantillas utilizadas en "
+"versiones previas."
+
+#: includes/admin/class-themes-admin.php:98
+msgctxt "admin themes"
+msgid ""
+"Because of this, your template overrides below have been disabled. You "
+"should <a>review our documentation on customization</a> in order adjust your "
+"templates."
+msgstr ""
+"Debido a esto, las plantillas que sobreescribió han sido deshabilitadas. "
+"Debe <a>revisar nuestra documentación</a> para ajustar sus plantillas."
+
+#: includes/admin/class-themes-admin.php:127
+msgctxt "admin themes"
+msgid ""
+"You need to <a>activate your theme's license key</a> before you can activate "
+"the theme. <a>Click here</a> to do that."
+msgstr ""
+"Debe <a>activar la clave de licencia del tema</a> antes de activar el tema. "
+"Haga <a>click aquí</a>."
+
+#: includes/admin/class-themes-admin.php:157
+msgctxt "themes"
+msgid "Could not change the active theme to \"%s\"."
+msgstr "No se pudo cambiar el tema activo a \"%s\"."
+
+#: includes/admin/class-themes-admin.php:204
+msgctxt "themes"
+msgid "Active theme changed to \"%s\"."
+msgstr "Tema activo cambiado a \"%s\"."
+
+#: includes/admin/class-themes-admin.php:207
+msgctxt "themes"
+msgid ""
+"%s requires that you tag your existing fields to match some places we want "
+"to put your data on the theme. Below are fields we think are missing."
+msgstr ""
+"%s requiere que etiquete algunos campos que corresponden a ciertos lugares "
+"en el tema donde se pretende mostrar la información. Abajo están los campos "
+"que creemos hacen falta."
+
+#: includes/admin/class-themes-admin.php:216
+msgctxt "themes"
+msgid "Map My Fields"
+msgstr "Asociar Mis Campos"
+
+#: includes/admin/class-themes-admin.php:223
+msgctxt "themes"
+msgid "Suggested fields created successfully."
+msgstr "Campos sugeridos creados satisfactoriamente."
+
+#: includes/admin/class-themes-admin.php:226
+msgctxt "themes"
+msgid "Theme installed successfully."
+msgstr "Tema instalado correctamente."
+
+#: includes/admin/class-themes-admin.php:229
+msgctxt "themes"
+msgid "Theme was deleted successfully."
+msgstr "Tema eliminado correctamente."
+
+#: includes/admin/class-themes-admin.php:232
+msgctxt "themes"
+msgid "Could not delete theme directory. Check permissions."
+msgstr "No se pudo eliminar el directorio del tema. Revise los permisos."
+
+#: includes/admin/class-themes-admin.php:258
+msgctxt "themes"
+msgid "Please upload a valid theme file."
+msgstr "Por favor suba un archivo de tema válido."
+
+#: includes/admin/class-themes-admin.php:265
+msgctxt "themes"
+msgid "Could not move \"%s\" to a temporary directory."
+msgstr "No se pudo mover \"%s\" a un directorio temporal."
+
+#: includes/admin/class-themes-admin.php:433
+msgctxt "licensing"
+msgid "Invalid response from server"
+msgstr "Respuesta inválida de parte de servidor"
+
+#: includes/admin/class-themes-admin.php:466
+msgctxt "themes"
+msgid "Activate your <a>license key</a> to use this theme."
+msgstr "Active su <a>clave de licencia</a> para utilizar este tema."
+
+#: includes/admin/csv-export.php:145
+msgctxt "admin csv-export"
+msgid "Could not create a temporary directory for handling this CSV export."
+msgstr ""
+"No se pudo crear un directorio temporal para exportar este archivo CSV."
+
+#: includes/admin/csv-export.php:147
+msgctxt "admin csv-export"
+msgid "Could not create wpbdp-csv-exports directory."
+msgstr "No se pudo crear el directorio \"wpbdp-csv-exports\"."
+
+#: includes/admin/csv-export.php:152
+msgctxt "admin csv-export"
+msgid "Error while creating a temporary directory for CSV export: %s"
+msgstr ""
+"Se presentó un error mientras se creaba el directorio temporal para exportar "
+"el archivo CSV: %s"
+
+#: includes/admin/csv-import.php:109
+msgctxt "admin csv-import"
+msgid "Business %s"
+msgstr "Negocio %s"
+
+#: includes/admin/csv-import.php:147
+msgctxt "admin csv-import"
+msgid "Whatever"
+msgstr "Lo que sea"
+
+#: includes/admin/csv-import.php:151
+msgctxt "admin csv-import"
+msgid "Example CSV Import File"
+msgstr "Archivo CSV de ejemplo"
+
+#: includes/admin/csv-import.php:152
+msgctxt "admin csv-import"
+msgid "← Return to \"CSV Import\""
+msgstr "← Regresar a \"Importar CSV\""
+
+#: includes/admin/csv-import.php:256
+msgid ""
+"A valid temporary directory with write permissions is required for CSV "
+"imports to function properly. Your server is using \"%s\" but this path does "
+"not seem to be writable. Please consult with your host."
+msgstr ""
+"Se requiere un directorio temporal válido con permisos de escritura para que "
+"la importación CSV funcione correctamente. Su servidor está utilizando \"%s"
+"\" pero no es posible escribir en esa ruta. Consulte con su proveedor."
+
+#: includes/admin/csv-import.php:290
+msgctxt "admin csv-import"
+msgid "There was an error uploading the CSV file."
+msgstr "Ocurrió un error subiendo el archivo CSV."
+
+#: includes/admin/csv-import.php:296
+msgctxt "admin csv-import"
+msgid "Please upload or select a CSV file."
+msgstr "Por favor suba o elija un archivo CSV."
+
+#: includes/admin/csv-import.php:309
+msgctxt "admin csv-import"
+msgid "There was an error uploading the images ZIP file."
+msgstr "Ocurrió un error subiendo el archivo ZIP de imágenes."
+
+#: includes/admin/csv-import.php:330
+msgctxt "admin csv-import"
+msgid ""
+"An error was detected while validating the CSV file for import. Please fix "
+"this before proceeding."
+msgstr ""
+"Un error se detectó mientras se validaba el archivo CSV para importarlo. Por "
+"favor repárelo antes de proceder."
+
+#: includes/admin/csv-import.php:339
+msgctxt "admin csv-import"
+msgid "Import is in \"test mode\". Nothing will be inserted into the database."
+msgstr ""
+"La importación es en modo de prueba. Nada será insertado en la base de datos."
+
+#: includes/admin/fees.php:9
+msgctxt "fees admin"
+msgid "fee"
+msgstr "comisión"
+
+#: includes/admin/fees.php:10
+msgctxt "fees admin"
+msgid "fees"
+msgstr "comisiones"
+
+#: includes/admin/fees.php:19
+msgctxt "fees admin"
+msgid "There are no fees right now. You can <a>create one</a>, if you want."
+msgstr ""
+"No hay comisiones configuradas ahora. Puede <a>crear una</a> si lo desea."
+
+#: includes/admin/fees.php:25 includes/admin/fees.php:260
+msgctxt "fees admin"
+msgid "Active"
+msgstr "Activas"
+
+#: includes/admin/fees.php:28 includes/admin/fees.php:258
+msgctxt "fees admin"
+msgid "Not Available"
+msgstr "No Disponibles"
+
+#: includes/admin/fees.php:31 includes/admin/fees.php:255
+msgctxt "fees admin"
+msgid "Disabled"
+msgstr "Deshabilitadas"
+
+#: includes/admin/fees.php:39
+msgctxt "fees admin"
+msgid ""
+"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
+msgstr "No hay comisiones \"%s\" ahora. Puede <a>crear una</a> si lo desea."
+
+#: includes/admin/fees.php:56
+msgctxt "admin fees table"
+msgid "All"
+msgstr "Todas"
+
+#: includes/admin/fees.php:68
+msgctxt "admin fees table"
+msgid "Active"
+msgstr "Activas"
+
+#: includes/admin/fees.php:78
+msgctxt "admin fees table"
+msgid "Not Available"
+msgstr "No Disponibles"
+
+#: includes/admin/fees.php:85
+msgctxt "admin fees table"
+msgid "Disabled"
+msgstr "Deshabilitadas"
+
+#: includes/admin/fees.php:94
+msgctxt "fees admin"
+msgid "Label"
+msgstr "Nombre"
+
+#: includes/admin/fees.php:95
+msgctxt "fees admin"
+msgid "Amount"
+msgstr "Precio"
+
+#: includes/admin/fees.php:96
+msgctxt "fees admin"
+msgid "Duration"
+msgstr "Duración"
+
+#: includes/admin/fees.php:97
+msgctxt "fees admin"
+msgid "Images"
+msgstr "No. de Imágenes"
+
+#: includes/admin/fees.php:98
+msgctxt "fees admin"
+msgid "Featured/Sticky"
+msgstr "Destacado"
+
+#: includes/admin/fees.php:102
+msgctxt "fees admin"
+msgid "Status"
+msgstr "Estado"
+
+#: includes/admin/fees.php:155
+msgctxt "fees admin"
+msgid ""
+"This is the default free plan for your directory.  You can't delete it and "
+"it's always free, but you can edit the name and other settings. It's only "
+"available when the directory is in Free mode.  You can always create other "
+"fee plans, including ones for 0.00 (free) if you wish."
+msgstr ""
+"Este es el plan de comisión gratuito por defecto. No se puede eliminar y es "
+"siempre gratis, pero puede editar su nombre y demás configuraciones. Está "
+"disponible únicamente cuando el directorio opera en modo gratuito. Siempre "
+"puede crear otras comisiones, incluyendo gratuitas (0.00) si lo desea."
+
+#: includes/admin/fees.php:187
+msgctxt "fees admin"
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/admin/fees.php:197
+msgctxt "fees admin"
+msgid "Disable"
+msgstr "Deshabilitar"
+
+#: includes/admin/fees.php:201
+msgctxt "fees admin"
+msgid "Enable"
+msgstr "Habilitar"
+
+#: includes/admin/fees.php:205
+msgctxt "fees admin"
+msgid "Delete"
+msgstr "Eliminar"
+
+#: includes/admin/fees.php:226
+msgctxt "fees admin"
+msgid "Forever"
+msgstr "Para siempre"
+
+#: includes/admin/fees.php:227
+msgctxt "fees admin"
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d día"
+msgstr[1] "%d días"
+
+#: includes/admin/fees.php:231
+msgctxt "fees admin"
+msgid "%d image"
+msgid_plural "%d images"
+msgstr[0] "%d imagen"
+msgstr[1] "%d imágenes"
+
+#: includes/admin/fees.php:236
+msgctxt "fees admin"
+msgid "All categories"
+msgstr "Todas las categorías"
+
+#: includes/admin/fees.php:250
+msgctxt "fees admin"
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/admin/fees.php:250
+msgctxt "fees admin"
+msgid "No"
+msgstr "No"
+
+#: includes/admin/fees.php:285
+msgctxt "fees admin"
+msgid "Fee enabled."
+msgstr "Comisión habilitada."
+
+#: includes/admin/fees.php:293
+msgctxt "fees admin"
+msgid "Fee disabled."
+msgstr "Comisión deshabilitada."
+
+#: includes/admin/fees.php:318
+msgctxt "fees order"
+msgid "Label"
+msgstr "Nombre"
+
+#: includes/admin/fees.php:319
+msgctxt "fees order"
+msgid "Amount"
+msgstr "Precio"
+
+#: includes/admin/fees.php:320
+msgctxt "fees order"
+msgid "Duration"
+msgstr "Duración"
+
+#: includes/admin/fees.php:321
+msgctxt "fees order"
+msgid "Images"
+msgstr "No. de Imágenes"
+
+#: includes/admin/fees.php:322
+msgctxt "fees order"
+msgid "Custom Order"
+msgstr "Orden Especial"
+
+#: includes/admin/fees.php:342
+msgctxt "fees admin"
+msgid "Fee updated."
+msgstr "Comisión actualizada."
+
+#: includes/admin/fees.php:367
+msgctxt "fees admin"
+msgid "Fee deleted."
+msgstr "Comisión eliminada."
+
+#: includes/admin/form-fields.php:9
+msgctxt "form-fields admin"
+msgid "form field"
+msgstr "campo de formulario"
+
+#: includes/admin/form-fields.php:10
+msgctxt "form-fields admin"
+msgid "form fields"
+msgstr "campos de formulario"
+
+#: includes/admin/form-fields.php:17
+msgctxt "form-fields admin"
+msgid "Order"
+msgstr "Orden"
+
+#: includes/admin/form-fields.php:18
+msgctxt "form-fields admin"
+msgid "Label / Association"
+msgstr "Nombre / Asociación"
+
+#: includes/admin/form-fields.php:19
+msgctxt "form-fields admin"
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/admin/form-fields.php:20
+msgctxt "form-fields admin"
+msgid "Validator"
+msgstr "Validador"
+
+#: includes/admin/form-fields.php:21
+msgctxt "form-fields admin"
+msgid "Field Attributes"
+msgstr "Atributos de Campo"
+
+#: includes/admin/form-fields.php:45
+msgctxt "form-fields admin"
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/admin/form-fields.php:50
+msgctxt "form-fields admin"
+msgid "Delete"
+msgstr "Eliminar"
+
+#: includes/admin/form-fields.php:76
+msgctxt "form-fields admin"
+msgid "Required"
+msgstr "Requerido"
+
+#: includes/admin/form-fields.php:76
+msgctxt "form-fields admin"
+msgid "Optional"
+msgstr "Opcional"
+
+#: includes/admin/form-fields.php:80
+msgctxt "form-fields admin"
+msgid "This field value is shown in the excerpt view of a listing."
+msgstr ""
+"El valor de este campo se muestra en la vista de resumen de un listado."
+
+#: includes/admin/form-fields.php:81
+msgctxt "form-fields admin"
+msgid "In Excerpt"
+msgstr "En Resumen"
+
+#: includes/admin/form-fields.php:86
+msgctxt "form-fields admin"
+msgid "This field value is shown in the single view of a listing."
+msgstr ""
+"El valor de este campo es mostrado en la vista individual de un listado."
+
+#: includes/admin/form-fields.php:87
+msgctxt "form-fields admin"
+msgid "In Listing"
+msgstr "En vista completa"
+
+#: includes/admin/form-fields.php:175
+msgctxt "form-fields admin"
+msgid "Form Preview"
+msgstr "Previsualización del Formulario"
+
+#: includes/admin/form-fields.php:176
+msgctxt "form-fields admin"
+msgid "← Return to \"Manage Form Fields\""
+msgstr "← Regresar a \"Administrar Campos de Formulario\""
+
+#: includes/admin/form-fields.php:206
+msgctxt "form-fields admin"
+msgid "Form fields updated."
+msgstr "Campo de formulario actualizado."
+
+#: includes/admin/form-fields.php:222
+msgctxt "form-fields admin"
+msgid ""
+"<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
+"\" setting is disabled, display settings below will not be honored and this "
+"field will not be displayed on the frontend. If you want e-mail addresses to "
+"show on the frontend, you can <a>enable public display of e-mails</a>."
+msgstr ""
+"<b>Importante</b>: Como \"<a>Mostrar direcciones de correo electrónico "
+"públicamente?</a>\" está deshabilitado, la configuración de presentación "
+"abajo no será preservada y este campo no se mostrará en el sitio. Si quiere "
+"que las direcciones de correo electrónico se muestren, puede <a>habilitar la "
+"opción</a>."
+
+#: includes/admin/form-fields.php:256
+msgctxt "form-fields admin"
+msgid "Field deleted."
+msgstr "Campo eliminado."
+
+#: includes/admin/form-fields.php:277
+msgctxt "form-fields admin"
+msgid "Required fields created successfully."
+msgstr "Campos requeridos creados satisfactoriamente."
+
+#: includes/admin/form-fields.php:290
+msgctxt "form-fields admin"
+msgid "Title"
+msgstr "Título"
+
+#: includes/admin/form-fields.php:291
+msgctxt "form-fields admin"
+msgid "Category"
+msgstr "Categoría"
+
+#: includes/admin/form-fields.php:292
+msgctxt "form-fields admin"
+msgid "Excerpt"
+msgstr "Resumen"
+
+#: includes/admin/form-fields.php:293
+msgctxt "form-fields admin"
+msgid "Content"
+msgstr "Contenido"
+
+#: includes/admin/form-fields.php:294
+msgctxt "form-fields admin"
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: includes/admin/form-fields.php:295
+msgctxt "form-fields admin"
+msgid "Address"
+msgstr "Dirección"
+
+#: includes/admin/form-fields.php:296
+msgctxt "form-fields admin"
+msgid "City"
+msgstr "Ciudad"
+
+#: includes/admin/form-fields.php:297
+msgctxt "form-fields admin"
+msgid "State"
+msgstr "Estado"
+
+#: includes/admin/form-fields.php:298
+msgctxt "form-fields admin"
+msgid "Country"
+msgstr "País"
+
+#: includes/admin/form-fields.php:299
+msgctxt "form-fields admin"
+msgid "ZIP Code"
+msgstr "Código Postal"
+
+#: includes/admin/form-fields.php:300
+msgctxt "form-fields admin"
+msgid "FAX Number"
+msgstr "Número de Fax"
+
+#: includes/admin/form-fields.php:301
+msgctxt "form-fields admin"
+msgid "Phone Number"
+msgstr "Número telefónico"
+
+#: includes/admin/form-fields.php:302
+msgctxt "form-fields admin"
+msgid "Ratings Field"
+msgstr "Campo de ratings"
+
+#: includes/admin/form-fields.php:303
+msgctxt "form-fields admin"
+msgid "Twitter"
+msgstr "Twitter"
+
+#: includes/admin/form-fields.php:304
+msgctxt "form-fields admin"
+msgid "Website"
+msgstr "Sitio web"
+
+#: includes/admin/form-fields.php:325
+msgctxt "form-fields admin"
+msgid "Tags updated."
+msgstr "Etiquetas actualizadas."
+
+#: includes/admin/helpers/listing-metabox.php:11
+msgctxt "admin"
+msgid "General"
+msgstr "General"
+
+#: includes/admin/helpers/listing-metabox.php:12
+msgctxt "admin"
+msgid "Fee Details"
+msgstr "Detalles de Comisión"
+
+#: includes/admin/helpers/listing-metabox.php:13
+msgctxt "admin"
+msgid "Transactions"
+msgstr "Transacciones"
+
+#: includes/admin/helpers/listing-metabox.php:42
+msgctxt "admin infometabox"
+msgid "General Info"
+msgstr "Información General"
+
+#: includes/admin/helpers/listing-metabox.php:44
+msgctxt "admin infometabox"
+msgid "Access Key"
+msgstr "Clave de acceso"
+
+#: includes/admin/helpers/listing-metabox.php:46
+msgctxt "admin infometabox"
+msgid "Total Listing Cost"
+msgstr "Costo Total del Listado"
+
+#: includes/admin/helpers/listing-metabox.php:48
+msgctxt "admin infometabox"
+msgid "Payment Status"
+msgstr "Estado de Pago"
+
+#: includes/admin/helpers/listing-metabox.php:52
+msgctxt "admin infometabox"
+msgid "Featured (Sticky) Status"
+msgstr "Estado de Destacado"
+
+#: includes/admin/helpers/listing-metabox.php:60
+msgctxt "admin metabox"
+msgid "Pending Upgrade"
+msgstr "Pendiente de Mejora"
+
+#: includes/admin/helpers/listing-metabox.php:83
+msgctxt "admin infometabox"
+msgid "CSV Import Sequence ID"
+msgstr "ID de Secuencia CSV"
+
+#: includes/admin/helpers/listing-metabox.php:94
+msgctxt "admin infometabox"
+msgid "Mark listing as Paid"
+msgstr "Marcar listado como Pagado"
+
+#: includes/admin/page-debug.php:16
+msgctxt "debug-info"
+msgid "BD Info"
+msgstr "Información de BD"
+
+#: includes/admin/page-debug.php:28
+msgid "Missing tables: %s"
+msgstr "Tablas faltantes: %s"
+
+#: includes/admin/page-debug.php:29
+msgctxt "debug-info"
+msgid "OK"
+msgstr "OK"
+
+#: includes/admin/page-debug.php:37
+msgctxt "debug-info"
+msgid "BD Options"
+msgstr "BD Options"
+
+#: includes/admin/page-debug.php:50
+msgctxt "debug-info"
+msgid "Environment"
+msgstr "Environment"
+
+#: includes/admin/page-debug.php:72
+msgctxt "debug info"
+msgid "Test SSL setup..."
+msgstr "Probar configuración SSL..."
+
+#: includes/admin/tracking.php:188
+msgctxt "tracking"
+msgid "Help Improve Business Directory"
+msgstr "Ayúdenos a Mejorar el Directorio de Negocios"
+
+#: includes/admin/tracking.php:190
+msgctxt "tracking"
+msgid ""
+"Can Business Directory keep track of your theme, plugins, and other non-"
+"personal, non-identifying information to help us in testing the plugin for "
+"future releases?"
+msgstr ""
+"Quiere permitir a Business Directory enviar información anónima sobre su "
+"tema, plugins instalados y otros datos técnicos (no personales) para "
+"ayudarnos a mejorar nuestro producto en futuras versiones?"
+
+#: includes/admin/tracking.php:192
+msgctxt "tracking"
+msgid "What do you track?"
+msgstr "Qué información se incluye? (en inglés)"
+
+#: includes/admin/tracking.php:214
+msgctxt "tracking"
+msgid "No, Thanks."
+msgstr "No, gracias."
+
+#: includes/admin/tracking.php:221
+msgctxt "tracking"
+msgid "Allow Tracking"
+msgstr "Permitir Seguimiento"
+
+#: templates/admin/csv-export.tpl.php:9
+msgctxt "admin csv-export"
+msgid ""
+"An unknown error occurred during the export. Please make sure you have "
+"enough free disk space and memory available to PHP. Check your error logs "
+"for details."
+msgstr ""
+"Un error desconocido ocurrió durante la exportación. Por favor revise que "
+"tiene suficiente espacio en disco y memoria disponibles para PHP. Revise los "
+"registros de error de su servidor para más detalles."
+
+#: templates/admin/csv-export.tpl.php:18
+msgctxt "admin csv-export"
+msgid ""
+"Please note that the export process is a resource intensive task. If your "
+"export does not succeed try disabling other plugins first and/or increasing "
+"the values of the 'memory_limit' and 'max_execution_time' directives in your "
+"server's php.ini configuration file."
+msgstr ""
+"Tenga en cuenta que la exportación es un procedimiento costoso para el "
+"servidor. Si su exportación no funciona trate deshabitando primero otros "
+"plugins y/o aumentando los valores de 'memory_limit' y 'max_execution_time' "
+"en el archivo de configuración php.ini de su servidor."
+
+#: templates/admin/csv-export.tpl.php:30
+msgctxt "admin csv-export"
+msgid "Export Configuration"
+msgstr "Configuración de Exportación"
+
+#: templates/admin/csv-export.tpl.php:33
+msgctxt "admin csv-export"
+msgid "Export settings"
+msgstr "Configuraciones de Exportación"
+
+#: templates/admin/csv-export.tpl.php:37
+msgctxt "admin csv-export"
+msgid "Which listings to export?"
+msgstr "Cuáles listados exportar?"
+
+#: templates/admin/csv-export.tpl.php:41
+msgctxt "admin csv-export"
+msgid "All"
+msgstr "Todos"
+
+#: templates/admin/csv-export.tpl.php:42
+msgctxt "admin csv-export"
+msgid "Active Only"
+msgstr "Activos únicamente"
+
+#: templates/admin/csv-export.tpl.php:43
+msgctxt "admin csv-export"
+msgid "Active + Pending Renewal"
+msgstr "Activos y Pendientes de Renovación"
+
+#: templates/admin/csv-export.tpl.php:49
+msgctxt "admin csv-export"
+msgid "Export images?"
+msgstr "Exportar imágenes?"
+
+#: templates/admin/csv-export.tpl.php:54
+msgctxt "admin csv-export"
+msgid "Export images"
+msgstr "Exportar imágenes"
+
+#: templates/admin/csv-export.tpl.php:56
+msgctxt "admin csv-export"
+msgid ""
+"When checked, instead of just a CSV file a ZIP file will be generated with "
+"both a CSV file and listing images."
+msgstr ""
+"Cuando está activa, en lugar de crear un archivo CSV únicamente, se creará "
+"un archivo ZIP con el CSV y las imágenes."
+
+#: templates/admin/csv-export.tpl.php:62
+msgctxt "admin csv-export"
+msgid "Additional metadata to export:"
+msgstr "Información adicional para exportar:"
+
+#: templates/admin/csv-export.tpl.php:67
+msgctxt "admin csv-export"
+msgid "Include unique IDs for each listing (sequence_id column)."
+msgstr "Incluír IDs únicos para cada listado (columna \"sequence_id\")"
+
+#: templates/admin/csv-export.tpl.php:69
+msgctxt "admin csv-export"
+msgid ""
+"If you plan to re-import the listings into BD and don't want new ones "
+"created, select this option!"
+msgstr ""
+"Seleccione esta opción si planea re-importar los listados después para "
+"actualizarlos y no desea que se creen nuevos"
+
+#: templates/admin/csv-export.tpl.php:75
+msgctxt "admin csv-export"
+msgid "Author information (username)"
+msgstr "Información de autor (nombre de usuario)"
+
+#: templates/admin/csv-export.tpl.php:80
+msgctxt "admin csv-export"
+msgid "Sticky/featured status"
+msgstr "Estado destacado/sticky"
+
+#: templates/admin/csv-export.tpl.php:85
+msgctxt "admin csv-export"
+msgid "Listing expiration date"
+msgstr "Fecha de expiración del listado"
+
+#: templates/admin/csv-export.tpl.php:90
+msgctxt "admin csv-export"
+msgid "CSV File Settings"
+msgstr "Configuraciones de archivo CSV"
+
+#: templates/admin/csv-export.tpl.php:94
+msgctxt "admin csv-export"
+msgid "What operating system will you use to edit the CSV file?"
+msgstr "¿Qué sistema operativo utilizará para editar el archivo CSV?"
+
+#: templates/admin/csv-export.tpl.php:94 templates/admin/csv-export.tpl.php:113
+#: templates/admin/csv-export.tpl.php:124 templates/admin/csv-import.tpl.php:43
+#: templates/admin/csv-import.tpl.php:109
+#: templates/admin/csv-import.tpl.php:135
+#: templates/admin/csv-import.tpl.php:146
+#: templates/admin/csv-import.tpl.php:173
+msgctxt "admin forms"
+msgid "required"
+msgstr "requerido"
+
+#: templates/admin/csv-export.tpl.php:101
+msgctxt "admin csv-export"
+msgid "Windows"
+msgstr ""
+
+#: templates/admin/csv-export.tpl.php:106
+msgctxt "admin csv-export"
+msgid "macOS"
+msgstr ""
+
+#: templates/admin/csv-export.tpl.php:108
+msgctxt "admin csv-export"
+msgid ""
+"Windows and macOS versions of MS Excel handle CSV files differently. To make "
+"sure all your listings information is displayed properly when you view or "
+"edit the CSV file, we need to generate different versions of the file for "
+"each operating system."
+msgstr ""
+"Las versiones de MS Excel en Windows y MacOS tratan los archivos CSV de "
+"forma diferente. Business Directory Plugin debe generar diferentes versiones "
+"de los archivos CSV para cada sistema operativo, para garantizar que la "
+"información de los listados es mostrada correctamente cuando esté revisando "
+"o editando el archivo."
+
+#: templates/admin/csv-export.tpl.php:113
+msgctxt "admin csv-export"
+msgid "Image Separator"
+msgstr "Separador de Imágenes"
+
+#: templates/admin/csv-export.tpl.php:124
+msgctxt "admin csv-export"
+msgid "Category Separator"
+msgstr "Separador de categorías"
+
+#: templates/admin/csv-export.tpl.php:136
+msgctxt "admin csv-export"
+msgid "Export Listings"
+msgstr "Exportar Listados"
+
+#: templates/admin/csv-export.tpl.php:142
+msgctxt "admin csv-export"
+msgid "Export in Progress..."
+msgstr "Proceso de exportación en progreso..."
+
+#: templates/admin/csv-export.tpl.php:143
+msgctxt "admin csv-export"
+msgid ""
+"Your export file is being prepared. Please <u>do not leave</u> this page "
+"until the export finishes."
+msgstr ""
+"Su archivo está siendo preparado. Por favor <u>no abandone</u> esta página "
+"hasta que el proceso termine."
+
+#: templates/admin/csv-export.tpl.php:146
+msgctxt "admin csv-export"
+msgid "No. of listings:"
+msgstr "Número de listados:"
+
+#: templates/admin/csv-export.tpl.php:148
+msgctxt "admin csv-export"
+msgid "Approximate export file size:"
+msgstr "Tamaño aproximado del archivo exportado:"
+
+#: templates/admin/csv-export.tpl.php:155
+msgctxt "admin csv-export"
+msgid "Cancel Export"
+msgstr "Cancelar Proceso"
+
+#: templates/admin/csv-export.tpl.php:160
+msgctxt "admin csv-export"
+msgid "Export Complete"
+msgstr "Exportación Completada"
+
+#: templates/admin/csv-export.tpl.php:161
+msgctxt "admin csv-export"
+msgid ""
+"Your export file has been successfully created and it is now ready for "
+"download."
+msgstr ""
+"Su archivo ha sido creado satisfactoriamente y se encuentra listo para ser "
+"descargado."
+
+#: templates/admin/csv-export.tpl.php:164
+msgctxt "admin csv-export"
+msgid "Download %s (%s)"
+msgstr "Descargar %s (%s)"
+
+#: templates/admin/csv-export.tpl.php:170
+msgctxt "admin csv-export"
+msgid ""
+"Click \"Cleanup\" once the file has been downloaded in order to remove all "
+"temporary data created by Business Directory during the export process."
+msgstr ""
+"Haga clic en \"Limpiar\" una vez el archivo haya sido descargado para "
+"eliminar todos los datos temporales creados durante el proceso de "
+"exportación."
+
+#: templates/admin/csv-export.tpl.php:171
+msgctxt "admin csv-export"
+msgid "Cleanup"
+msgstr "Limpiar"
+
+#: templates/admin/csv-export.tpl.php:176
+msgctxt "admin csv-export"
+msgid "Export Canceled"
+msgstr "Exportación Cancelada"
+
+#: templates/admin/csv-export.tpl.php:177
+msgctxt "admin csv-export"
+msgid "The export has been canceled."
+msgstr "La exportación ha sido cancelada."
+
+#: templates/admin/csv-export.tpl.php:178
+msgctxt "admin csv-export"
+msgid "← Return to CSV Export"
+msgstr "← Regresar a \"Exportar CSV\""
+
+#: templates/admin/csv-import-progress.tpl.php:6
+msgctxt "admin csv-import"
+msgid "A fatal error occurred during the import. The reason given was: \"%s\"."
+msgstr ""
+"Un error grave ocurrió durante la importación. La razón dada fue: \"%s\"."
+
+#: templates/admin/csv-import-progress.tpl.php:10
+msgctxt "admin csv-import"
+msgid ""
+"A fatal error occurred during the import. If connection wasn't lost during "
+"the import, please make sure that you have enough free disk space and memory "
+"available to PHP. Check your error logs for details."
+msgstr ""
+"Un error grave ocurrió durante la importación. Si la conexión no se perdió, "
+"por favor revise que tenga suficiente espacio en disco y memoria disponible "
+"para PHP. Revise los registros de su servidor para detalles."
+
+#: templates/admin/csv-import-progress.tpl.php:13
+#: templates/admin/csv-import-progress.tpl.php:20
+msgctxt "admin csv-import"
+msgid "← Return to CSV Import"
+msgstr "← Regresar a \"Importar CSV\""
+
+#: templates/admin/csv-import-progress.tpl.php:18
+msgctxt "admin csv-import"
+msgid "Import Canceled"
+msgstr "Importación Cancelada"
+
+#: templates/admin/csv-import-progress.tpl.php:19
+msgctxt "admin csv-import"
+msgid "The import has been canceled."
+msgstr "La importación ha sido cancelada."
+
+#: templates/admin/csv-import-progress.tpl.php:26
+msgid "Import Progress"
+msgstr "Progreso de Importación"
+
+#: templates/admin/csv-import-progress.tpl.php:29
+msgctxt "admin csv-import"
+msgid "Files"
+msgstr "Archivos"
+
+#: templates/admin/csv-import-progress.tpl.php:32
+msgctxt "admin csv-import"
+msgid "Rows in file"
+msgstr "Filas en el archivo"
+
+#: templates/admin/csv-import-progress.tpl.php:35
+msgctxt "admin csv-import"
+msgid "Progress"
+msgstr "Progreso"
+
+#: templates/admin/csv-import-progress.tpl.php:39
+msgctxt "admin csv-import"
+msgid "Import has not started. Click \"Start Import\" to begin."
+msgstr ""
+"La importación no ha comenzado. Haga clic en \"Iniciar Importación\" para "
+"comenzar."
+
+#: templates/admin/csv-import-progress.tpl.php:40
+msgctxt "admin csv-import"
+msgid "Importing CSV file..."
+msgstr "Importando archivo CSV..."
+
+#: templates/admin/csv-import-progress.tpl.php:46
+msgctxt "admin csv-import"
+msgid "Start Import"
+msgstr "Iniciar Importación"
+
+#: templates/admin/csv-import-progress.tpl.php:47
+msgctxt "admin csv-import"
+msgid "Cancel Import"
+msgstr "Cancelar Importación"
+
+#: templates/admin/csv-import-progress.tpl.php:54
+msgctxt "admin csv-import"
+msgid "Import finished"
+msgstr "Importación terminada"
+
+#: templates/admin/csv-import-progress.tpl.php:57
+msgctxt "admin csv-import"
+msgid "Import was completed successfully."
+msgstr "La importación se completó satisfactoriamente."
+
+#: templates/admin/csv-import-progress.tpl.php:61
+msgctxt "admin csv-import"
+msgid "Import was completed but some rows were rejected."
+msgstr "La importación se completó con algunas filas rechazadas."
+
+#: templates/admin/csv-import-progress.tpl.php:64
+msgctxt "admin csv-import"
+msgid "Import Summary"
+msgstr "Resumen de la Importación"
+
+#: templates/admin/csv-import-progress.tpl.php:66
+msgctxt "admin csv-import"
+msgid "Rows in file:"
+msgstr "Filas en el archivo:"
+
+#: templates/admin/csv-import-progress.tpl.php:69
+msgctxt "admin csv-import"
+msgid "Imported rows:"
+msgstr "Filas importadas:"
+
+#: templates/admin/csv-import-progress.tpl.php:72
+msgctxt "admin csv-import"
+msgid "Rejected rows:"
+msgstr "Filas rechazadas:"
+
+#: templates/admin/csv-import-progress.tpl.php:77
+msgctxt "admin csv-import"
+msgid "Import Warnings"
+msgstr "Errores de Importación"
+
+#: templates/admin/csv-import-progress.tpl.php:80
+msgctxt "admin csv-import"
+msgid "Line #"
+msgstr "Línea #"
+
+#: templates/admin/csv-import-progress.tpl.php:81
+msgctxt "admin csv-import"
+msgid "Line"
+msgstr "Línea"
+
+#: templates/admin/csv-import-progress.tpl.php:82
+msgctxt "admin csv-import"
+msgid "Warning"
+msgstr "Advertencia"
+
+#: templates/admin/csv-import.tpl.php:12 templates/admin/csv-import.tpl.php:248
+msgctxt "admin csv-import"
+msgid "Help"
+msgstr "Ayuda"
+
+#: templates/admin/csv-import.tpl.php:13
+msgctxt "admin csv-import"
+msgid "See an example CSV import file"
+msgstr "Vea un ejemplo de un archivo CSV de importación"
+
+#: templates/admin/csv-import.tpl.php:21
+msgctxt "admin csv-import"
+msgid "Here, you can import data into your directory using the CSV format."
+msgstr ""
+"Aquí puede importar información al directorio utilizando el formato CSV."
+
+#: templates/admin/csv-import.tpl.php:29
+msgctxt "admin csv-import"
+msgid ""
+"We strongly recommend reading our <a>CSV import documentation</a> first to "
+"help you do things in the right order."
+msgstr ""
+"Recomendamos leer nuestra <a>documentación sobre importación CSV</a> primero "
+"para ayudarle a efectuar todo de la manera correcta."
+
+#: templates/admin/csv-import.tpl.php:38
+msgctxt "admin csv-import"
+msgid "Import Files"
+msgstr "Archivos de Importación"
+
+#: templates/admin/csv-import.tpl.php:43
+msgctxt "admin csv-import"
+msgid "CSV File"
+msgstr "Archivo CSV"
+
+#: templates/admin/csv-import.tpl.php:55 templates/admin/csv-import.tpl.php:86
+msgctxt "admin csv-import"
+msgid "... or <a>select a file uploaded to the imports folder</a>"
+msgstr "... o <a>elija un archivo dentro del directorio \"imports\"</a>"
+
+#: templates/admin/csv-import.tpl.php:65 templates/admin/csv-import.tpl.php:96
+msgctxt "admin csv-import"
+msgid "(Upload new file)"
+msgstr "(Subir un nuevo archivo)"
+
+#: templates/admin/csv-import.tpl.php:74
+msgctxt "admin csv-import"
+msgid "ZIP file containing images"
+msgstr "Archivo ZIP con imágenes"
+
+#: templates/admin/csv-import.tpl.php:105
+msgctxt "admin csv-import"
+msgid "CSV File Settings"
+msgstr "Configuraciones de archivo CSV"
+
+#: templates/admin/csv-import.tpl.php:109
+msgctxt "admin csv-import"
+msgid "Column Separator"
+msgstr "Separador de columna"
+
+#: templates/admin/csv-import.tpl.php:117
+msgctxt "admin csv-import"
+msgid "Comma (,)"
+msgstr "Coma (,)"
+
+#: templates/admin/csv-import.tpl.php:123
+msgctxt "admin csv-import"
+msgid "Semicolon (;)"
+msgstr "Punto y coma (;)"
+
+#: templates/admin/csv-import.tpl.php:129
+msgctxt "admin csv-import"
+msgid "TAB"
+msgstr ""
+
+#: templates/admin/csv-import.tpl.php:135
+msgctxt "admin csv-import"
+msgid "Image Separator"
+msgstr "Separador de imágenes"
+
+#: templates/admin/csv-import.tpl.php:146
+msgctxt "admin csv-import"
+msgid "Category Separator"
+msgstr "Separador de categorías"
+
+#: templates/admin/csv-import.tpl.php:157
+msgctxt "admin csv-import"
+msgid "Import settings"
+msgstr "Configuraciones de Importación"
+
+#: templates/admin/csv-import.tpl.php:161
+msgctxt "admin csv-import"
+msgid "Post status of imported listings"
+msgstr "Estado de los listados importados"
+
+#: templates/admin/csv-import.tpl.php:173
+msgctxt "admin csv-import"
+msgid "Missing categories handling"
+msgstr "Manejo de categorías inexistentes"
+
+#: templates/admin/csv-import.tpl.php:178
+msgctxt "admin csv-import"
+msgid "Auto-create categories"
+msgstr "Crear categorías automáticamente"
+
+#: templates/admin/csv-import.tpl.php:181
+msgctxt "admin csv-import"
+msgid "Generate errors when a category is not found"
+msgstr "Generar errores cuando una categoría no exista"
+
+#: templates/admin/csv-import.tpl.php:186
+msgctxt "admin csv-import"
+msgid "Keep existing listing images?"
+msgstr "Mantener imágenes existentes?"
+
+#: templates/admin/csv-import.tpl.php:191
+msgctxt "admin csv-import"
+msgid "Keep existing images."
+msgstr "Preservar imágenes existentes."
+
+#: templates/admin/csv-import.tpl.php:192
+msgctxt "admin csv-import"
+msgid "Appends new images while keeping current ones."
+msgstr "Adiciona nuevas imágenes mientras mantiene las existentes."
+
+#: templates/admin/csv-import.tpl.php:197
+msgctxt "admin csv-import"
+msgid "Assign listings to a user?"
+msgstr "Asignar listados a un usuario?"
+
+#: templates/admin/csv-import.tpl.php:203
+msgctxt "admin csv-import"
+msgid "Assign listings to a user."
+msgstr "Asignar listados a un usuario."
+
+#: templates/admin/csv-import.tpl.php:208
+msgctxt "admin csv-import"
+msgid "Use a default user for listings?"
+msgstr "¿Utilizar un usuario por defecto para los listados?"
+
+#: templates/admin/csv-import.tpl.php:214
+msgctxt "admin csv-import"
+msgid ""
+"Select a default user to be used if the username column is not present in "
+"the CSV file."
+msgstr ""
+"Elija un usuario por defecto para utilizar si la columna \"username\" no "
+"está presente en el archivo CSV."
+
+#: templates/admin/csv-import.tpl.php:219
+msgctxt "admin csv-import"
+msgid "Default listing user"
+msgstr "Usuario a usar por defecto"
+
+#: templates/admin/csv-import.tpl.php:225
+msgctxt "admin csv-import"
+msgid ""
+"This user will be used if the username column is not present in the CSV file."
+msgstr ""
+"Este usuario será utilizado si la columna \"username\" no está presente en "
+"el archivo CSV."
+
+#: templates/admin/csv-import.tpl.php:230
+msgctxt "admin csv-import"
+msgid "Disable e-mail notifications during import?"
+msgstr "Deshabilitar notificaciones de correo durante la importación?"
+
+#: templates/admin/csv-import.tpl.php:235
+msgctxt "admin csv-import"
+msgid "Disable e-mail notifications."
+msgstr "Deshabilitar notificaciones de correo-e."
+
+#: templates/admin/csv-import.tpl.php:241
+msgctxt "admin csv-import"
+msgid "Test Import"
+msgstr "Importación de Verificación"
+
+#: templates/admin/csv-import.tpl.php:242
+msgctxt "admin csv-import"
+msgid "Import Listings"
+msgstr "Importar Listados"
+
+#: templates/admin/csv-import.tpl.php:250
+msgctxt "admin csv-import"
+msgid ""
+"The following are the valid header names to be used in the CSV file. "
+"Multivalued fields (such as category or tags) can appear multiple times in "
+"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
+"how an import file should look like."
+msgstr ""
+"Los siguientes son los nombres de columna a utilizar en la cabecera del "
+"archivo CSV. Campos multivaluados (como cateogrías y etiquetas) pueden "
+"aparecer varias veces en el archivo. Haga click en <a href=\"%s\">\"Ver un "
+"archivo CSV de ejemplo\"</a> para ver cómo debe lucir un archivo de "
+"importación válido."
+
+#: templates/admin/csv-import.tpl.php:257
+msgctxt "admin csv-import"
+msgid "Header name/label"
+msgstr "Nombre de cabecera"
+
+#: templates/admin/csv-import.tpl.php:258
+msgctxt "admin csv-import"
+msgid "Field"
+msgstr "Campo"
+
+#: templates/admin/csv-import.tpl.php:259
+msgctxt "admin csv-import"
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/admin/csv-import.tpl.php:260
+msgctxt "admin csv-import"
+msgid "Required?"
+msgstr "Requerido?"
+
+#: templates/admin/csv-import.tpl.php:261
+msgctxt "admin csv-import"
+msgid "Multivalued?"
+msgstr "Multivaluado?"
+
+#: templates/admin/csv-import.tpl.php:283
+msgctxt "admin csv-import"
+msgid "Semicolon separated list of listing images (from the ZIP file)"
+msgstr ""
+"Lista de imágenes del listado separadas con punto y coma (deben encontrarse "
+"en el archivo ZIP)"
+
+#: templates/admin/csv-import.tpl.php:290
+msgctxt "admin csv-import"
+msgid "Listing author's username"
+msgstr "Autor del listado (nombre de usuario)"
+
+#: templates/admin/csv-import.tpl.php:297
+msgctxt "admin csv-import"
+msgid ""
+"Internal Sequence ID used to allow listing updates from external sources."
+msgstr ""
+"ID de secuencia interno utilizado para permitir actualizaciones a los "
+"listados desde fuentes externas."
+
+#: templates/admin/csv-import.tpl.php:304
+msgctxt "admin csv-import"
+msgid ""
+"Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
+"adding or updating listings from external sources."
+msgstr ""
+"Fecha de expiración del listado en formato AAAA-MM-DD. Utilice esta columna "
+"cuando esté agregando o actualizando listados desde fuentes externas."
+
+#: templates/admin/debug-info.tpl.php:5
+msgctxt "debug-info"
+msgid ""
+"The following information can help BD developers debug possible problems "
+"with your setup."
+msgstr ""
+"La siguiente información puede ayudar a los desarrolladores de BD depurar "
+"posibles problemas con su instalación."
+
+#: templates/admin/debug-info.tpl.php:6
+msgctxt "debug-info"
+msgid ""
+"The debug information does not contain personal or sensitive information "
+"such as passwords or private keys."
+msgstr ""
+"La información de depuración no contiene datos personales o información "
+"delicada como contraseñas o claves privadas."
+
+#: templates/admin/debug-info.tpl.php:9
+msgctxt "debug-info"
+msgid "Download Debug Information"
+msgstr "Descargar Información de Depuración"
+
+#: templates/admin/fees-addoredit.tpl.php:23
+msgctxt "fees admin"
+msgid "Add Listing Fee"
+msgstr "Agregar Comisión de Listado"
+
+#: templates/admin/fees-addoredit.tpl.php:23
+msgctxt "fees admin"
+msgid "Edit Listing Fee"
+msgstr "Editar Comisión"
+
+#: templates/admin/fees-addoredit.tpl.php:35
+msgctxt "fees admin"
+msgid "Fee Label"
+msgstr "Nombre Comisión"
+
+#: templates/admin/fees-addoredit.tpl.php:46
+msgctxt "fees admin"
+msgid "Fee Amount"
+msgstr "Precio"
+
+#: templates/admin/fees-addoredit.tpl.php:62
+msgctxt "fees admin"
+msgid "Listing run in days"
+msgstr "Duración del listado en días"
+
+#: templates/admin/fees-addoredit.tpl.php:65
+msgctxt "fees admin"
+msgid "run listing for"
+msgstr "listar por"
+
+#: templates/admin/fees-addoredit.tpl.php:74
+msgctxt "fees admin"
+msgid "days"
+msgstr "días"
+
+#: templates/admin/fees-addoredit.tpl.php:77
+msgctxt "fees admin"
+msgid "run listing forever"
+msgstr "listar por siempre"
+
+#: templates/admin/fees-addoredit.tpl.php:82
+msgctxt "fees admin"
+msgid "Number of images allowed"
+msgstr "Número de imágenes permitidas"
+
+#: templates/admin/fees-addoredit.tpl.php:94
+msgctxt "fees admin"
+msgid "Is featured listing/sticky?"
+msgstr "¿Es destacado?"
+
+#: templates/admin/fees-addoredit.tpl.php:102
+msgctxt "fees admin"
+msgid ""
+"This floats the listing to the top of search results and browsing the "
+"directory when the user buys this plan."
+msgstr ""
+"Hace que el listado aparezca arriba en los resultados de búsqueda y mientras "
+"se explore el directorio."
+
+#: templates/admin/fees-addoredit.tpl.php:107
+msgctxt "fees admin"
+msgid "Apply to category"
+msgstr "Aplicar a categoría"
+
+#: templates/admin/fees-addoredit.tpl.php:111
+#: templates/admin/fees-addoredit.tpl.php:114
+msgctxt "fees admin"
+msgid "* All Categories *"
+msgstr "* Todas las Categorías *"
+
+#: templates/admin/fees-addoredit.tpl.php:128
+msgctxt "fees admin"
+msgid "Fee Description"
+msgstr "Descripción de la comisión"
+
+#: templates/admin/fees-addoredit.tpl.php:143
+msgctxt "fees admin"
+msgid "Add Fee"
+msgstr "Agregar Comisión"
+
+#: templates/admin/fees-addoredit.tpl.php:143
+msgctxt "fees admin"
+msgid "Update Fee"
+msgstr "Actualizar Comisión"
+
+#: templates/admin/fees-confirm-delete.tpl.php:2
+msgctxt "fees admin"
+msgid "Delete Listing Fee"
+msgstr "Eliminar Comisión de Listado"
+
+#: templates/admin/fees-confirm-delete.tpl.php:7
+msgctxt "fees admin"
+msgid "Are you sure you want to disable the \"%s\" fee?"
+msgstr "Está seguro de que desea desactivar la comisión \"%s\"?"
+
+#: templates/admin/fees-confirm-delete.tpl.php:9
+msgctxt "fees admin"
+msgid "Are you sure you want to delete the \"%s\" fee?"
+msgstr "Está seguro de que desea eliminar la comisión \"%s\"?"
+
+#: templates/admin/fees-confirm-delete.tpl.php:16
+msgctxt "fee admin"
+msgid "Disable Fee"
+msgstr "Desactivar Comisión"
+
+#: templates/admin/fees-confirm-delete.tpl.php:16
+msgctxt "fee admin"
+msgid "Delete Fee"
+msgstr "Eliminar Comisión"
+
+#: templates/admin/fees.tpl.php:3
+msgctxt "fees admin"
+msgid "Add New Listing Fee"
+msgstr "Agregar Nueva Comisión de Listado"
+
+#: templates/admin/fees.tpl.php:10
+msgctxt "fees admin"
+msgid "Payments are currently turned off."
+msgstr "Los pagos se encuentran actualmente deshabitados."
+
+#: templates/admin/fees.tpl.php:13
+msgctxt "fees admin"
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
+"Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
+
+#: templates/admin/fees.tpl.php:24
+msgctxt "fees admin"
+msgid "Order fees on the frontend by:"
+msgstr "Ordenar comisiones del lado del usuario por:"
+
+#: templates/admin/fees.tpl.php:32
+msgctxt "fees admin"
+msgid "↑ Ascending"
+msgstr "Ascendente"
+
+#: templates/admin/fees.tpl.php:32
+msgctxt "fees admin"
+msgid "↓ Descending"
+msgstr "Descendente"
+
+#: templates/admin/fees.tpl.php:38
+msgctxt "fees admin"
+msgid "Drag and drop to re-order fees."
+msgstr "Arrastre y suelte para reordenar las comisiones."
+
+#: templates/admin/fees.tpl.php:54
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%s\" restricts what you see here. Those on "
+"the <a>Not Available</a> filter will become active when you change the "
+"payment mode."
+msgstr ""
+"Estos son todos los planes de comisión disponibles para un usuario cuando "
+"envíe su listado. El modo actual de \"%s\" restringe lo que se ve aquí. "
+"Aquellos planes en el filtro <a>No Disponible</a> se volverán activos cuando "
+"cambie el modo de pago del directorio."
+
+#: templates/admin/fees.tpl.php:57 templates/admin/fees.tpl.php:63
+#: templates/admin/fees.tpl.php:77
+msgctxt "fees admin"
+msgid "Paid"
+msgstr "Pagado"
+
+#: templates/admin/fees.tpl.php:57 templates/admin/fees.tpl.php:63
+#: templates/admin/fees.tpl.php:77
+msgctxt "fees admin"
+msgid "Free"
+msgstr "Gratuito"
+
+#: templates/admin/fees.tpl.php:60
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+"Estos son todas las comisiones que no están disponibles porque el directorio "
+"opera en modo \"%s\". Aquellas en el filtro Activas se convertirán en No "
+"Disponibles cuando cambie el modo."
+
+#: templates/admin/fees.tpl.php:66
+msgctxt "fees admin"
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+"Estas comisiones fueron deshabilitadas por el administrador y no se "
+"mostrarán al usuario sin importar el modo de operación del directorio."
+
+#: templates/admin/fees.tpl.php:74
+msgctxt "fees admin"
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%s\"). To see the fee "
+"plans for this mode click <a>Active</a>."
+msgstr ""
+"Estos son todas las comisiones que tiene configuradas. No todas están "
+"disponibles para el modo actual (ahora \"%s\"). Para ver todos los planes "
+"para este modo haga click en <a>Activas</a>."
+
+#: templates/admin/fees.tpl.php:89 templates/admin/sidebar.tpl.php:13
+msgctxt "admin sidebar"
+msgid "PayPal Gateway Module"
+msgstr "Módulo pasarela de pago PayPal"
+
+#: templates/admin/fees.tpl.php:90 templates/admin/sidebar.tpl.php:14
+msgctxt "admin sidebar"
+msgid "2Checkout Gateway Module"
+msgstr "Módulo pasarela de pago 2Checkout"
+
+#: templates/admin/fees.tpl.php:91 templates/admin/sidebar.tpl.php:5
+msgctxt "admin sidebar"
+msgid "PayFast Payment Module"
+msgstr "Módulo pasarela de pago PayFast"
+
+#: templates/admin/fees.tpl.php:92 templates/admin/sidebar.tpl.php:6
+msgctxt "admin sidebar"
+msgid "Stripe Payment Module"
+msgstr "Módulo pasarela de pago Stripe"
+
+#: templates/admin/fees.tpl.php:102
+msgctxt "admin templates"
+msgid ""
+"It does not appear you have any of the payment gateway modules enabled. "
+"Either <a>enable the default Authorize.net gateway</a> with your account "
+"info, or purchase a different payment gateway module in order to charge a "
+"fee for listings. To purchase additional payment gateways use the buttons "
+"below or visit %s."
+msgstr ""
+"No pareciera que tiene módulos de pago instalados. <a>Habilite la pasarela "
+"Authorize.net incluída</a> o adquiera otra pasarela de pago para poder "
+"cobrar por los listados. Para comprar pasarelas adicionales utilice los "
+"botones abajo o visite %s."
+
+#: templates/admin/fees.tpl.php:118
+msgctxt "admin templates"
+msgid "Already installed."
+msgstr "Ya instalado."
+
+#: templates/admin/fees.tpl.php:123
+msgctxt "admin templates"
+msgid ""
+"You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your "
+"users."
+msgstr ""
+"Puede comprar la pasarela de pago de <a>%s</a> para agregar <a>%s</a> como "
+"opción de pago para sus usuarios."
+
+#: templates/admin/form-fields-addoredit.tpl.php:1
+msgctxt "form-fields admin"
+msgid "Add Form Field"
+msgstr "Agregar Campo de Formulario"
+
+#: templates/admin/form-fields-addoredit.tpl.php:14
+msgctxt "form-fields admin"
+msgid "Field Association"
+msgstr "Asociación del Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:14
+#: templates/admin/form-fields-addoredit.tpl.php:36
+#: templates/admin/form-fields-addoredit.tpl.php:60
+msgctxt "form-fields admin"
+msgid "required"
+msgstr "requerido"
+
+#: templates/admin/form-fields-addoredit.tpl.php:36
+msgctxt "form-fields admin"
+msgid "Field Type"
+msgstr "Tipo del Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:60
+msgctxt "form-fields admin"
+msgid "Field Label"
+msgstr "Nombre del Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:70
+msgctxt "form-fields admin"
+msgid "Field description"
+msgstr "Descripción del Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:70
+msgctxt "form-fields admin"
+msgid "optional"
+msgstr "opcional"
+
+#: templates/admin/form-fields-addoredit.tpl.php:87
+msgctxt "form-fields admin"
+msgid "Field-specific settings"
+msgstr "Configuración específica del campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:96
+msgctxt "form-fields admin"
+msgid "Field validation options"
+msgstr "Opciones de validación del campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:100
+msgctxt "form-fields admin"
+msgid "Field Validator"
+msgstr "Validador del Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:104
+msgctxt "form-fields admin"
+msgid "No validation"
+msgstr "Ninguna validación"
+
+#: templates/admin/form-fields-addoredit.tpl.php:116
+msgctxt "form-fields admin"
+msgid "Is field required?"
+msgstr "Es este campo requerido?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:122
+msgctxt "form-fields admin"
+msgid "This field is required."
+msgstr "Este campo es requerido."
+
+#: templates/admin/form-fields-addoredit.tpl.php:130
+msgctxt "form-fields admin"
+msgid "Field display options"
+msgstr "Opciones de presentación del Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:134
+msgctxt "form-fields admin"
+msgid "Show this value in excerpt view?"
+msgstr "Mostrar este valor en la vista de resumen?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:140
+msgctxt "form-fields admin"
+msgid "Display this value in post excerpt view."
+msgstr "Mostrar este valor en la vista de resumen de un listado."
+
+#: templates/admin/form-fields-addoredit.tpl.php:146
+msgctxt "form-fields admin"
+msgid "Show this value in listing view?"
+msgstr "Mostrar este valor en la vista individual?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:152
+msgctxt "form-fields admin"
+msgid "Display this value in the listing view."
+msgstr "Mostrar este valor en la vista individual de un listado."
+
+#: templates/admin/form-fields-addoredit.tpl.php:158
+msgctxt "form-fields admin"
+msgid "Include this field in the search form?"
+msgstr "Incluir este campo en el formulario de búsqueda?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:164
+msgctxt "form-fields admin"
+msgid "Include this field in the search form."
+msgstr "Incluir este campo en el formulario de búsqueda."
+
+#: templates/admin/form-fields-addoredit.tpl.php:170
+msgctxt "form-fields admin"
+msgid "Hide this field's label?"
+msgstr "Ocultar el nombre de este campo?"
+
+#: templates/admin/form-fields-addoredit.tpl.php:176
+msgctxt "form-fields admin"
+msgid "Hide this field's label when displaying it."
+msgstr "Ocultar el nombre de este campo cuando se esté mostrando."
+
+#: templates/admin/form-fields-addoredit.tpl.php:183
+msgctxt "form-fields admin"
+msgid "Update Field"
+msgstr "Actualizar Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:185
+msgctxt "form-fields admin"
+msgid "Add Field"
+msgstr "Agregar Campo"
+
+#: templates/admin/form-fields-confirm-delete.tpl.php:2
+msgctxt "form-fields admin"
+msgid "Delete Form Field"
+msgstr "Eliminar Campo de Formulario"
+
+#: templates/admin/form-fields-confirm-delete.tpl.php:6
+msgctxt "form-fields admin"
+msgid "Are you sure you want to delete the \"%s\" field?"
+msgstr "Está seguro de que desea eliminar el campo \"%s\"?"
+
+#: templates/admin/form-fields-confirm-delete.tpl.php:12
+msgctxt "form-fields admin"
+msgid "Delete Field"
+msgstr "Eliminar Campo"
+
+#: templates/admin/form-fields-tags.tpl.php:5
+msgctxt "form-fields admin"
+msgid "-- None --"
+msgstr "— Ninguno --"
+
+#: templates/admin/form-fields-tags.tpl.php:14
+msgctxt "form-fields admin"
+msgid "Theme Tags"
+msgstr "Etiquetas de Tema"
+
+#: templates/admin/form-fields-tags.tpl.php:19
+msgctxt "form-fields admin"
+msgid ""
+"Before you create fields, make sure you've mapped all of your EXISTING ones "
+"first, otherwise you'll appear to be \"missing data\" on your listings."
+msgstr ""
+"Antes de crear los campos, revise si no ha asociado ya todos sus campos "
+"existentes primero. De lo contrario, parecerá que a sus listados les hace "
+"falta información."
+
+#: templates/admin/form-fields-tags.tpl.php:22
+msgctxt "form-fields admin"
+msgid "Create Missing Fields"
+msgstr "Crear campos faltantes"
+
+#: templates/admin/form-fields-tags.tpl.php:30
+msgctxt "form-fields admin"
+msgid "Field Tag"
+msgstr "Etiqueta de Campo"
+
+#: templates/admin/form-fields-tags.tpl.php:31
+msgctxt "form-fields admin"
+msgid "Field"
+msgstr "Campo"
+
+#: templates/admin/form-fields.tpl.php:3
+msgctxt "form-fields admin"
+msgid "Add New Form Field"
+msgstr "Agregar Nuevo Campo de Formulario"
+
+#: templates/admin/form-fields.tpl.php:4
+msgctxt "form-fields admin"
+msgid "Preview Form"
+msgstr "Previsualizar Formulario"
+
+#: templates/admin/form-fields.tpl.php:6 templates/admin/themes.tpl.php:4
+msgctxt "form-fields admin"
+msgid "Manage Theme Tags"
+msgstr "Administrar Etiquetas del Tema"
+
+#: templates/admin/form-fields.tpl.php:12
+msgctxt "form-fields admin"
+msgid ""
+"Here, you can create new fields for your listings, edit or delete existing "
+"ones, change the order and visibility of the fields as well as configure "
+"special options for them."
+msgstr ""
+"Aquí puede crear nuevos campos para sus listados, editar o eliminar los "
+"existentes, cambiar el orden y visibilidad de los campos y hacer otras "
+"configuraciones especiales para ellos."
+
+#: templates/admin/form-fields.tpl.php:18
+msgctxt "form-fields admin"
+msgid "Please see the <a>Form Fields documentation</a> for more details."
+msgstr ""
+"Por favor vea la <a>documentación de Campos de Formulario</a> para más "
+"detalles."
+
+#. Plugin Name of the plugin/theme
+#: templates/admin/header.tpl.php:4
+msgid "Business Directory Plugin"
+msgstr "Directorio de Negocios"
+
+#: templates/admin/home.tpl.php:4
+msgctxt "admin home"
+msgid "Welcome to Business Directory Plugin. You are using %s."
+msgstr "Bienvenido a Business Directory Plugin"
+
+#: templates/admin/home.tpl.php:5
+msgctxt "admin home"
+msgid ""
+"Thanks for choosing us.  There's a lot you probably want to get done, so "
+"let's jump right in!"
+msgstr ""
+"Gracias por elegirnos. Probablemente hay mucho que desea hacer, así que "
+"¡entremos en materia!"
+
+#: templates/admin/home.tpl.php:11
+msgctxt "admin home"
+msgid ""
+"Our complete documentation is <a>here</a> which we encourage you to use "
+"while setting things up."
+msgstr ""
+"Le sugerimos leer nuestra documentación completa que se encuentra <a>aquí</"
+"a> mientras configura su sitio."
+
+#: templates/admin/home.tpl.php:14
+msgctxt "admin home"
+msgid ""
+"We have some quick-start scenarios that you will find useful regarding setup "
+"and configuration <a>here</a>."
+msgstr ""
+"Tenemos <a>aquí</a> algunos escenarios de \"inicio rápido\" que podría "
+"encontrar útiles."
+
+#: templates/admin/home.tpl.php:18
+msgctxt "admin home"
+msgid ""
+"If you have questions, please post a comment on <a>support forum</a> and "
+"we'll answer it within 24 hours most days."
+msgstr ""
+"Si tiene preguntas, por favor escríbanos un comentario en el <a>foro de "
+"soporte</a> y le estaremos respondiendo en un plazo de 24 horas "
+"aproximadamente."
+
+#: templates/admin/home.tpl.php:25
+msgid "Configure/Manage Options"
+msgstr "Configuraciones"
+
+#: templates/admin/home.tpl.php:28
+msgid "Setup/Manage Form Fields"
+msgstr "Configurar/Administrar Campos de Formulario"
+
+#: templates/admin/home.tpl.php:31
+msgid "Setup/Manage Fees"
+msgstr "Configurar/Administrar Comisiones"
+
+#: templates/admin/home.tpl.php:37
+msgid "Featured Listings Pending Upgrade"
+msgstr "Listados destacados pendientes de actualización"
+
+#: templates/admin/home.tpl.php:44
+msgid "Manage Paid Listings"
+msgstr "Administrar Listados Pagos"
+
+#: templates/admin/listing-change-fee.tpl.php:3
+msgctxt "admin listing fee"
+msgid "Listing Fee Selection"
+msgstr "Selección de Comisiones"
+
+#: templates/admin/listing-change-fee.tpl.php:5
+msgctxt "admin listing fee"
+msgid "Select a fee plan to be used for this listing in the \"%s\" category."
+msgstr "Por favor elija una opción de pago para la categoría \"%s\"."
+
+#: templates/admin/listing-change-fee.tpl.php:11
+msgctxt "admin listing fee"
+msgid "Current"
+msgstr "Actual"
+
+#: templates/admin/listing-change-fee.tpl.php:14
+msgctxt "admin listing fee"
+msgid "Use this fee"
+msgstr "Utilizar ésta"
+
+#: templates/admin/listing-change-fee.tpl.php:21
+msgctxt "admin infometabox"
+msgid "%d image"
+msgid_plural "%d images"
+msgstr[0] "%d imagen"
+msgstr[1] "%d imágenes"
+
+#: templates/admin/listing-change-fee.tpl.php:23
+msgctxt "admin infometabox"
+msgid "Listing never expires"
+msgstr "El listado nunca expira"
+
+#: templates/admin/listing-change-fee.tpl.php:25
+msgctxt "admin infometabox"
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d día"
+msgstr[1] "%d días"
+
+#: templates/admin/listing-metabox-categories.tpl.php:22
+msgctxt "admin infometabox"
+msgid "No categories on this listing. Please add one to associate fees."
+msgstr ""
+"No hay categorías en este listado. Agregue alguna para asociarle comisiones."
+
+#: templates/admin/listing-metabox-categories.tpl.php:29
+msgctxt "admin infometabox"
+msgid "(recurring)"
+msgstr "(recurrente)"
+
+#: templates/admin/listing-metabox-categories.tpl.php:34
+msgctxt "admin infometabox"
+msgid "Expired"
+msgstr "Expirado"
+
+#: templates/admin/listing-metabox-categories.tpl.php:37
+msgctxt "admin infometabox"
+msgid "Payment Pending"
+msgstr "Pago Pendiente"
+
+#: templates/admin/listing-metabox-categories.tpl.php:41
+msgctxt "admin infometabox"
+msgid "OK"
+msgstr "OK"
+
+#: templates/admin/listing-metabox-categories.tpl.php:49
+msgctxt "admin infometabox"
+msgid "Fee"
+msgstr "Comisión"
+
+#: templates/admin/listing-metabox-categories.tpl.php:54
+msgctxt "admin infometabox"
+msgid "# Images"
+msgstr "# de Imágenes"
+
+#: templates/admin/listing-metabox-categories.tpl.php:62
+msgctxt "admin infometabox"
+msgid "Expired on"
+msgstr "Expiró en"
+
+#: templates/admin/listing-metabox-categories.tpl.php:64
+msgctxt "admin infometabox"
+msgid "Expires on"
+msgstr "Expira en"
+
+#: templates/admin/listing-metabox-categories.tpl.php:72
+msgctxt "admin infometabox"
+msgid "Click to manually change expiration date."
+msgstr "Clic para cambiar manualmente la fecha de expiración."
+
+#: templates/admin/listing-metabox-categories.tpl.php:75
+msgctxt "admin infometabox"
+msgid "Never expires"
+msgstr "Nunca expira"
+
+#: templates/admin/listing-metabox-categories.tpl.php:75
+msgctxt "admin infometabox"
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/admin/listing-metabox-categories.tpl.php:87
+msgctxt "admin infometabox"
+msgid "See payment info"
+msgstr "Ver información de pago"
+
+#: templates/admin/listing-metabox-categories.tpl.php:92
+msgctxt "admin infometabox"
+msgid "Renewal URL (copy & paste)"
+msgstr "URL de Renovación (copiar y pegar)"
+
+#: templates/admin/listing-metabox-categories.tpl.php:92
+msgctxt "admin infometabox"
+msgid "Show renewal link"
+msgstr "Mostrar enlace de renovación"
+
+#: templates/admin/listing-metabox-categories.tpl.php:99
+msgctxt "admin infometabox"
+msgid "Send renewal e-mail to user"
+msgstr "Enviar correo electrónico de renovación al usuario"
+
+#: templates/admin/listing-metabox-categories.tpl.php:107
+msgctxt "admin infometabox"
+msgid "Renew manually..."
+msgstr "Renovar manualmente..."
+
+#: templates/admin/listing-metabox-categories.tpl.php:107
+msgctxt "admin infometabox"
+msgid "Change fee..."
+msgstr "Cambiar comisión..."
+
+#: templates/admin/listing-metabox-categories.tpl.php:115
+msgctxt "admin infometabox"
+msgid "Remove category"
+msgstr "Quitar Categoría"
+
+#: templates/admin/listing-metabox-fees.tpl.php:1
+msgctxt "admin infometabox"
+msgid "Fee Information"
+msgstr "Información de Comisiones"
+
+#: templates/admin/listing-metabox-fees.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Payment Mode:"
+msgstr "Modo del Directorio:"
+
+#: templates/admin/listing-metabox-fees.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Paid"
+msgstr "Pago"
+
+#: templates/admin/listing-metabox-fees.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Free"
+msgstr "Gratuito"
+
+#: templates/admin/listing-metabox-fees.tpl.php:6
+msgctxt "admin infometabox"
+msgid "To change your payment mode, go to <a href=\"%s\">Payment Settings</a>."
+msgstr ""
+"Para cambiar el modo del directorio, vaya a <a href=\"%s\">Configuraciones "
+"de Pago</a>."
+
+#: templates/admin/listing-metabox-fees.tpl.php:12
+msgctxt "admin infometabox"
+msgid ""
+"Note: In Free mode, the fee plans will always be set to \"Free Listing\" "
+"below."
+msgstr ""
+"Nota: En el modo Gratuito, los planes de comisiones siempre serán mostrados "
+"como \"Listado Gratuito\" abajo."
+
+#: templates/admin/listing-metabox-fees.tpl.php:22
+#: templates/admin/listing-metabox-feesummary.tpl.php:12
+msgctxt "admin infometabox"
+msgid "Renew listing in all expired categories"
+msgstr "Renovar el listado en todas las categorías expiradas"
+
+#: templates/admin/listing-metabox-feesummary.tpl.php:1
+msgctxt "admin infometabox"
+msgid "Categories for this listing"
+msgstr "Categorías para este listado"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:3
+msgctxt "admin infometabox"
+msgid "Initial Payment"
+msgstr "Pago Inicial"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:4
+msgctxt "admin infometabox"
+msgid "Listing Edit"
+msgstr "Edición del Listado"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:5
+msgctxt "admin infometabox"
+msgid "Listing Renewal"
+msgstr "Renovación del Listado"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:6
+msgctxt "admin infometabox"
+msgid "Upgrade to sticky"
+msgstr "Mejora a destacado"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:10
+msgctxt "admin"
+msgid "Payments History"
+msgstr "Historia Transaccional"
+
+#: templates/admin/listing-metabox-transactions.tpl.php:12
+msgctxt "admin listing metabox"
+msgid "Click a payment to see the details or approve/reject the transaction."
+msgstr ""
+"Haga clic en un pago para ver los detalles o aprobar/rechazar la transacción."
+
+#: templates/admin/listing-metabox-transactions.tpl.php:16
+msgctxt "listing metabox"
+msgid "There are no transactions associated to this listing."
+msgstr "No hay transacciones asociadas a este listado."
+
+#: templates/admin/payment-details.tpl.php:7
+msgctxt "admin payments"
+msgid "Payment Details"
+msgstr "Detalles del Pago"
+
+#: templates/admin/payment-details.tpl.php:9
+msgctxt "admin payments"
+msgid "Payment #%d"
+msgstr "Pago #%d"
+
+#: templates/admin/payment-details.tpl.php:16
+msgctxt "admin payments"
+msgid "Created on"
+msgstr "Creado en"
+
+#: templates/admin/payment-details.tpl.php:19
+msgctxt "admin infometabox"
+msgid "Amount"
+msgstr "Valor"
+
+#: templates/admin/payment-details.tpl.php:22
+msgctxt "admin infometabox"
+msgid "Gateway"
+msgstr "Pasarela"
+
+#: templates/admin/payment-details.tpl.php:26
+msgctxt "admin infometabox"
+msgid "Processed on"
+msgstr "Procesado en"
+
+#: templates/admin/payment-details.tpl.php:28
+msgctxt "admin infometabox"
+msgid "Processed by"
+msgstr "Procesado por"
+
+#: templates/admin/payment-details.tpl.php:41
+msgctxt "admin payments"
+msgid "Approve payment"
+msgstr "Aprobar pago"
+
+#: templates/admin/payment-details.tpl.php:46
+msgctxt "admin payments"
+msgid "Reject payment"
+msgstr "Rechazar pago"
+
+#: templates/admin/settings-reset.tpl.php:2
+msgid "Business Directory - Reset Defaults"
+msgstr "Business Directory - Restaurar configuración por defecto"
+
+#: templates/admin/settings-reset.tpl.php:4
+msgctxt "settings"
+msgid "← Return to \"Manage Options\""
+msgstr "← Regresar a \"Configuraciones\""
+
+#: templates/admin/settings-reset.tpl.php:10
+msgid ""
+"Use this option if you want to go back to the original factory settings for "
+"BD."
+msgstr ""
+"Utilice esta opción si quiere llevar el directorio a su configuración de "
+"fábrica. Tenga en cuenta que todas sus modificaciones se perderán."
+
+#: templates/admin/settings-reset.tpl.php:11
+msgid "Please note that all of your existing settings will be lost."
+msgstr ""
+"Por favor considere que todas sus configuraciones actuales se perderán."
+
+#: templates/admin/settings-reset.tpl.php:17
+msgid "Reset Defaults"
+msgstr "Restaurar valores por defecto"
+
+#: templates/admin/settings.tpl.php:2
+msgid "Business Directory Settings"
+msgstr "Configuraciones del Directorio de Negocios"
+
+#: templates/admin/settings.tpl.php:4
+msgctxt "settings"
+msgid "Reset Defaults"
+msgstr "Restaurar valores por defecto"
+
+#: templates/admin/settings.tpl.php:21
+msgid "Settings updated."
+msgstr "Configuración actualizada."
+
+#: templates/admin/sidebar.tpl.php:3
+msgctxt "admin sidebar"
+msgid "Discount Codes Module"
+msgstr "Discount Codes Module"
+
+#: templates/admin/sidebar.tpl.php:4
+msgctxt "admin sidebar"
+msgid "Claim Listings Module"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:7
+msgctxt "admin sidebar"
+msgid "File Upload Module"
+msgstr "File Upload Module"
+
+#: templates/admin/sidebar.tpl.php:8
+msgctxt "admin sidebar"
+msgid "Featured Levels Module"
+msgstr "Featured Levels Module"
+
+#: templates/admin/sidebar.tpl.php:9
+msgctxt "admin sidebar"
+msgid "ZIP Code Search Module"
+msgstr "ZIP Code Search Module"
+
+#: templates/admin/sidebar.tpl.php:10
+msgctxt "admin sidebar"
+msgid "Regions Module"
+msgstr "Regions Module"
+
+#: templates/admin/sidebar.tpl.php:11
+msgctxt "admin sidebar"
+msgid "Ratings Module"
+msgstr "Ratings Module"
+
+#: templates/admin/sidebar.tpl.php:12
+msgctxt "admin sidebar"
+msgid "Google Maps Module"
+msgstr "Google Maps Module"
+
+#: templates/admin/sidebar.tpl.php:18
+msgctxt "admin sidebar"
+msgid "Business Card Theme"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:19
+msgctxt "admin sidebar"
+msgid "Mobile Compact Theme"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:20
+msgctxt "admin sidebar"
+msgid "Restaurant Theme"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:21
+msgctxt "admin sidebar"
+msgid "Tabbed Business Theme"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:22
+msgctxt "admin sidebar"
+msgid "Elegant Business Theme"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:29
+msgctxt "admin sidebar"
+msgid "Like this plugin?"
+msgstr "Le gusta este plugin?"
+
+#: templates/admin/sidebar.tpl.php:31
+msgctxt "admin sidebar"
+msgid "Why not do any or all of the following:"
+msgstr "Por qué no hace alguna o todas de las siguientes cosas:"
+
+#: templates/admin/sidebar.tpl.php:33
+msgctxt "admin sidebar"
+msgid "Give it a good rating on WordPress.org."
+msgstr "Darle una buena calificación en WordPress.org."
+
+#: templates/admin/sidebar.tpl.php:34
+msgctxt "admin sidebar"
+msgid "Let other people know that it works with your WordPress setup."
+msgstr ""
+"Contarle a otras personas que funciona con su instalación de WordPress."
+
+#: templates/admin/sidebar.tpl.php:35
+msgctxt "admin sidebar"
+msgid "Buy a Premium Module"
+msgstr "Comprar un Módulo Premium"
+
+#: templates/admin/sidebar.tpl.php:42
+msgctxt "admin sidebar"
+msgid "Get a Premium Module"
+msgstr "Obtener un Módulo Premium"
+
+#: templates/admin/sidebar.tpl.php:45 templates/admin/sidebar.tpl.php:61
+msgctxt "admin sidebar"
+msgid "best deal"
+msgstr "mejor precio"
+
+#: templates/admin/sidebar.tpl.php:45
+msgctxt "admin sidebar"
+msgid "Combo Pack"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:45
+msgctxt "admin sidebar"
+msgid "(All Modules)"
+msgstr "(Todos los módulos)"
+
+#: templates/admin/sidebar.tpl.php:48 templates/admin/sidebar.tpl.php:64
+msgctxt "admin sidebar"
+msgid "new"
+msgstr "nuevo"
+
+#: templates/admin/sidebar.tpl.php:58
+msgctxt "admin sidebar"
+msgid "Get a Directory Theme"
+msgstr "Obtener un tema del Directorio"
+
+#: templates/admin/sidebar.tpl.php:61
+msgctxt "admin sidebar"
+msgid "Theme Pack"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:61
+msgctxt "admin sidebar"
+msgid "(All Themes)"
+msgstr "(Todos los temas)"
+
+#: templates/admin/sidebar.tpl.php:74
+msgctxt "admin sidebar"
+msgid "Found a bug? Need support?"
+msgstr "Encontró un error? Necesita soporte?"
+
+#: templates/admin/sidebar.tpl.php:79
+msgctxt "admin sidebar"
+msgid "If you've found a bug or need support <a>visit the forums!</a>"
+msgstr "Si ha encontrado un error o necesita soporte <a>¡visite los foros!</a>"
+
+#: templates/admin/sidebar.tpl.php:82
+msgctxt "admin sidebar"
+msgid "Full plugin documentation"
+msgstr "Documentación completa del plugin"
+
+#: templates/admin/sidebar.tpl.php:83
+msgctxt "admin sidebar"
+msgid "Quick Start Guide"
+msgstr "Guía de Inicio Rápido"
+
+#: templates/admin/sidebar.tpl.php:84
+msgctxt "admin sidebar"
+msgid "Video Tutorials"
+msgstr "Videotutoriales"
+
+#: templates/admin/sidebar.tpl.php:92
+msgctxt "admin sidebar"
+msgid "Installed Modules"
+msgstr "Módulos Instalados"
+
+#: templates/admin/sidebar.tpl.php:103 templates/admin/sidebar.tpl.php:112
+msgctxt "admin sidebar"
+msgid "Installed"
+msgstr "Instalado"
+
+#: templates/admin/sidebar.tpl.php:105 templates/admin/sidebar.tpl.php:112
+msgctxt "admin sidebar"
+msgid "Not Installed"
+msgstr "No Instalado"
+
+#: templates/admin/sidebar.tpl.php:111
+msgctxt "admin sidebar"
+msgid "Enhanced Categories Module"
+msgstr "Enhanced Categories Module"
+
+#: templates/admin/themes-delete-confirm.tpl.php:1
+#: templates/admin/themes-delete-confirm.tpl.php:13
+msgctxt "themes admin"
+msgid "Delete Directory Theme"
+msgstr "Eliminar Tema del Directorio"
+
+#: templates/admin/themes-delete-confirm.tpl.php:3
+msgctxt "themes admin"
+msgid "Are you sure you want to delete the directory theme \"%s\"?"
+msgstr "¿Está seguro de que desea eliminar el tema \"%s\"?"
+
+#: templates/admin/themes-delete-confirm.tpl.php:12
+msgctxt "themes admin"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/admin/themes-install.tpl.php:2
+#: templates/admin/themes-licenses.tpl.php:3 templates/admin/themes.tpl.php:3
+msgctxt "themes"
+msgid "Upload Directory Theme"
+msgstr "Subir Tema de Directorio"
+
+#: templates/admin/themes-install.tpl.php:8
+msgctxt "themes"
+msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
+msgstr "Este es un tema de %s y NO es un tema regular de WordPress."
+
+#: templates/admin/themes-install.tpl.php:21
+msgctxt "themes"
+msgid "BD Theme archive (ZIP file)"
+msgstr "BD archivo de tema (ZIP)"
+
+#: templates/admin/themes-install.tpl.php:30
+msgctxt "themes"
+msgid "Begin Upload"
+msgstr "Iniciar subida"
+
+#: templates/admin/themes-item.tpl.php:3
+msgctxt "themes"
+msgid "Active:"
+msgstr "Activos:"
+
+#: templates/admin/themes-item.tpl.php:17
+msgctxt "themes"
+msgid "Activate"
+msgstr "Activar"
+
+#: templates/admin/themes-item.tpl.php:35
+msgctxt "themes"
+msgid "Version:"
+msgstr "Versión:"
+
+#: templates/admin/themes-item.tpl.php:38
+msgctxt "themes"
+msgid "Author:"
+msgstr "Autor:"
+
+#: templates/admin/themes-licenses.tpl.php:24
+msgctxt "themes"
+msgid "Deactivate License"
+msgstr "Desactivar Licencia"
+
+#: templates/admin/themes-licenses.tpl.php:27
+msgctxt "themes"
+msgid "Deactivating license..."
+msgstr "Desactivando licencia…"
+
+#: templates/admin/themes-licenses.tpl.php:29
+msgctxt "themes"
+msgid "Activate License"
+msgstr "Activar Licencia"
+
+#: templates/admin/themes-licenses.tpl.php:30
+msgctxt "themes"
+msgid "Activating license..."
+msgstr "Activando licencia..."
+
+#: templates/admin/themes-tabs.tpl.php:6
+msgctxt "admin themes"
+msgid "Available Themes"
+msgstr "Temas Disponibles"
+
+#: templates/admin/themes-tabs.tpl.php:7
+msgctxt "admin themes"
+msgid "Licenses"
+msgstr "Licencias"
+
+#: templates/admin/themes.tpl.php:5
+msgctxt "themes"
+msgid "Settings"
+msgstr "Configuración"
+
+#: templates/admin/themes.tpl.php:15
+msgctxt "themes"
+msgid ""
+"<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business "
+"Directory Plugin</i> to change the look of the directory quickly and easily. "
+"We have a number of them available for purchase <a>here</a>."
+msgstr ""
+"Los <a><b>Temas del Directorio</b></a> son plantillas prefabricadas para "
+"<i>Business Directory Plugin</i> que permiten cambiar la apariencia y "
+"comportamiento del directorio rápida y fácilmente. Tenemos varios temas "
+"disponibles para compra <a>aquí</a>."
+
+#: templates/admin/themes.tpl.php:16
+msgctxt "themes"
+msgid ""
+"They are <strong>different</strong> than your regular WordPress theme and "
+"they are <strong>not</strong> a replacement for WP themes either. They will "
+"change the look and feel of your business directory only."
+msgstr ""
+"Son <strong>diferentes</strong> de los temas regulares de WordPress y "
+"<strong>no son</strong>un reemplazo de estos tampoco. Nuestros temas "
+"únicamente cambiarán la apariencia del directorio."
+
+#: templates/admin/transactions.tpl.php:2
+msgctxt "admin transactions"
+msgid "Transactions"
+msgstr "Transacciones"
+
+#: templates/admin/uninstall-capture-form.tpl.php:5
+msgctxt "uninstall"
+msgid "It doesn't work with my theme/plugins/site"
+msgstr "No funciona con mi sitio, temas o plugins"
+
+#: templates/admin/uninstall-capture-form.tpl.php:6
+msgctxt "uninstall"
+msgid "I can't set it up/Too complicated"
+msgstr "No puedo configurarlo / Muy complicado"
+
+#: templates/admin/uninstall-capture-form.tpl.php:7
+msgctxt "uninstall"
+msgid "Doesn't solve my problem"
+msgstr "No resuelve mis necesidades"
+
+#: templates/admin/uninstall-capture-form.tpl.php:8
+msgctxt "uninstall"
+msgid "Don't need it anymore/Not using it"
+msgstr "No lo necesito más / No lo estoy usando"
+
+#: templates/admin/uninstall-capture-form.tpl.php:9
+msgctxt "uninstall"
+msgid "Other"
+msgstr "Otra razón"
+
+#: templates/admin/uninstall-capture-form.tpl.php:16
+msgctxt "uninstall"
+msgid ""
+"We're sorry to see you leave. Could you take 10 seconds and answer one "
+"question for us to help us make the product better for everyone in the "
+"future?"
+msgstr ""
+"Lamentamos que desee desinstalar nuestro producto. ¿Podría tomarse 10 "
+"segundos y responder una pregunta para ayudarnos a hacer un mejor producto "
+"para todos en el futuro?"
+
+#: templates/admin/uninstall-capture-form.tpl.php:19
+msgctxt "uninstall"
+msgid "Why are you deleting Business Directory Plugin?"
+msgstr "¿Por qué está desinstalando Business Directory Plugin?"
+
+#: templates/admin/uninstall-capture-form.tpl.php:29
+msgctxt "uninstall"
+msgid "Please tell us why are you deleting Business Directory Plugin."
+msgstr ""
+"Por favor díganos por qué está desinstalando Business Directory Plugin."
+
+#: templates/admin/uninstall-capture-form.tpl.php:36
+msgctxt "uninstall"
+msgid "Uninstall Plugin"
+msgstr "Desinstalar"
+
+#: templates/admin/uninstall-complete.tpl.php:2
+msgctxt "admin uninstall"
+msgid "Uninstall Business Directory"
+msgstr "Desinstalar el Directorio de Negocios"
+
+#: templates/admin/uninstall-complete.tpl.php:7
+msgctxt "admin uninstall"
+msgid "Uninstall completed."
+msgstr "Desinstalación completa."
+
+#: templates/admin/uninstall-complete.tpl.php:8
+msgctxt "admin uninstall"
+msgid "Return to Dashboard."
+msgstr "Regresar al administrador de WordPress."
+
+#: templates/admin/uninstall-confirm.tpl.php:1
+msgctxt "uninstall"
+msgid "Uninstall Business Directory Plugin"
+msgstr "Desinstalar Business Directory Plugin"
 
 #: templates/billing-information-form.tpl.php:4
 msgctxt "months"
