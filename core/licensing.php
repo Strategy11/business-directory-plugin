@@ -10,7 +10,7 @@ class WPBDP_Licensing {
     const STORE_URL = 'http://businessdirectoryplugin.com/';
     // const STORE_URL = 'http://business-directory.dev/';
 
-    private $modules = array();
+    public $modules = array();
 
     public function __construct() {
         add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
