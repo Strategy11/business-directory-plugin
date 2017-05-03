@@ -62,6 +62,10 @@ class WPBDP_Licensing {
         return $this->items[ $args['id'] ];
     }
 
+    public function get_items() {
+        return $this->items;
+    }
+
     public function register_settings() {
         $modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
         $themes  = wp_list_filter( $this->items, array( 'item_type' => 'theme' ) );
