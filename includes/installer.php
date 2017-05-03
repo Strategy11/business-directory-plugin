@@ -230,7 +230,7 @@ class WPBDP_Installer {
 
         foreach ( WPBDP_FS::ls( WPBDP_PATH . 'includes/admin/upgrades/migrations/' ) as $_ ) {
             $_ = strtolower( $_ );
-            if ( ! wpbdp_starts_with( $_, 'migration-' ) ) {
+            if ( ! wpbdp_starts_with( basename( $_ ), 'migration-' ) ) {
                 continue;
             }
 
@@ -238,7 +238,7 @@ class WPBDP_Installer {
                                     array( '', '', '.' ),
                                     basename( $_ ) );
 
-            if ( version_compare( $version, $current_version, '<' ) )
+            if ( version_compare( $version, $current_version, '<=' ) )
                 continue;
 
             if ( version_compare( $version, $latest_version, '>' ) )
