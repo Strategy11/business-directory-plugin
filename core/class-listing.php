@@ -614,32 +614,7 @@ class WPBDP_Listing {
 
 
     public function update( $state, $opts = array() ) {
-        // Set title.
-        $title = false;
-
-        if ( isset( $state->title ) ) {
-            $title = $state->title;
-        } else {
-            if ( $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) ) ) {
-                if ( isset( $state->fields[ $title_field->get_id() ] ) )
-                    $title = $state->fields[ $title_field->get_id() ];
-            }
-        }
-
-        $post_data = array();
-
-        if ( $title ) {
-            $post_data['post_title'] = $title;
-            $post_data['post_name'] = sanitize_title( $title );
-        }
-
-        if ( isset( $state->post_status ) ) {
-            $post_data['post_status'] = $state->post_status;
-        }
-
-        if ( isset( $state->post_author ) ) {
-            $post_data['post_author'] = $state->post_author;
-        }
+        $post_data = self::get_post_data_from_state( $state );
 
         if ( $post_data ) {
             wp_update_post( array_merge( array( 'ID' => $this->id ), $post_data ) );
@@ -663,9 +638,15 @@ class WPBDP_Listing {
     }
 
     public static function create( &$state ) {
+        $post_data = self::get_post_data_from_state( $state, array(
+            'post_title' => 'Untitled Listing',
+            'post_status' => 'pending',
+            'post_type' => WPBDP_POST_TYPE
+        ) );
+
         // Create author user if needed.
-        if ( isset( $state->post_author ) && $state->post_author ) {
-            $post_author = $state->post_author;
+        if ( isset( $post_data['post_author'] ) && $post_data['post_author'] ) {
+            $post_author = $post_data['post_author'];
         } else {
             $current_user = wp_get_current_user();
             $post_author = $current_user->ID;
@@ -692,37 +673,52 @@ class WPBDP_Listing {
             }
         }
 
-        $title = 'Untitled Listing';
+        if ( $post_author != $post_data['post_author']  ) {
+            $post_data['post_author'] = $post_author;
+        }
+
+        $post_id = wp_insert_post( $post_data );
+
+        return new self( $post_id );
+    }
+
+    private static function get_post_data_from_state( $state, $defaults = array() ) {
+        $title = wpbdp_getv( $defaults, 'post_title', false );
 
         if ( isset( $state->title ) ) {
             $title = $state->title;
         } else {
             $title_field = wpbdp_get_form_fields( array( 'association' => 'title', 'unique' => true ) );
 
-            if ( isset( $state->fields[ $title_field->get_id() ] ) ) {
+            if ( $title_field && isset( $state->fields[ $title_field->get_id() ] ) ) {
                 $title = $state->fields[ $title_field->get_id() ];
             }
         }
 
-        $title = trim( strip_tags( $title ) );
+        $post_data = $defaults;
 
-        $post_data = array(
-            'post_title' => $title,
-            'post_status' => 'pending',
-            'post_type' => WPBDP_POST_TYPE
-        );
-
-        if ( $post_author ) {
-            $post_data['post_author'] = $post_author;
+        if ( $title ) {
+            $post_data['post_title'] = trim( strip_tags( $title ) );
+            $post_data['post_name'] = sanitize_title( $title );
         }
 
         if ( isset( $state->post_status ) ) {
             $post_data['post_status'] = $state->post_status;
         }
 
-        $post_id = wp_insert_post( $post_data );
+        if ( isset( $state->excerpt ) ) {
+            $post_data['post_status'] = $state->post_status;
+        }
 
-        return new self( $post_id );
+        if ( isset( $state->content ) ) {
+            $post_data['post_status'] = $state->post_status;
+        }
+
+        if ( isset( $state->post_author ) ) {
+            $post_data['post_author'] = $state->post_author;
+        }
+
+        return $post_data;
     }
 
     public static function get( $id ) {

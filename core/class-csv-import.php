@@ -473,19 +473,26 @@ class WPBDP_CSV_Import {
         }
 
         // Handle fields.
-        foreach ( $fields as $field_id => $field_data ) {
+        $post_data_associations = array( 'title', 'excerpt', 'content' );
+        foreach ( array_keys( $fields ) as $field_id ) {
             $f = wpbdp_get_form_field( $field_id );
 
-            if ( 'image' != $f->get_field_type_id() )
-                continue;
+            $field_data = $fields[ $field_id ];
+            $association = $f->get_association();
 
-            $img = trim( $field_data );
+            if ( 'image' == $f->get_field_type_id() ) {
+                $img = trim( $field_data );
 
-            if ( ! $img )
-                continue;
+                if ( ! $img ) {
+                    continue;
+                }
 
-            $media_id = $this->upload_image( $img );
-            $fields[ $field_id ] = $media_id ? $media_id : '';
+                $media_id = $this->upload_image( $img );
+                $fields[ $field_id ] = $media_id ? $media_id : '';
+            } elseif ( in_array( $association, $post_data_associations, true ) ) {
+                $state->{$association} = $field_data;
+                unset( $fields[ $field_id ] );
+            }
         }
 
         $state->fields = $fields;
@@ -511,7 +518,7 @@ class WPBDP_CSV_Import {
             $state->post_status = $this->settings['post-status'];
 
             $listing = WPBDP_Listing::create( $state );
-            $listing->set_field_values( $state->fields );
+            $listing->set_field_values( $state->fields, true );
             $listing->set_images( $state->images );
             $listing->set_categories( $state->categories, 'nofix' );
             $listing->save();
