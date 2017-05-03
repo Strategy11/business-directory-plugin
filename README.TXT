@@ -1,24 +1,25 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
-Tags: business directory, address book, chamber of commerce business directory, church directory, local business directory, company business directory, contact directory, custom business directory, directory, listings directory, link directory, member directory, staff directory, directory plugin
-Requires at least: 4.2
-Tested up to: 4.7.2
-Last Updated: 2017-Feb-22
-Stable tag: tags/4.1.9
+Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
+Requires at least: 4.3
+Tested up to: 4.7.4
+Last Updated: 2017-May-3
+Stable tag: tags/4.1.11
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
 
 == Description ==
 
-[Main Site](http://businessdirectoryplugin.com/) | [Support Forum](http://businessdirectoryplugin.com/support-forum/) | [Documentation](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-modules/)
+[Main Site](http://businessdirectoryplugin.com/) | [Support](http://businessdirectoryplugin.com/support-forum/) | [Docs](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-modules/)
 
 Business Directory Plugin is the most popular, versatile, widely-installed, easiest to use, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
 Business Directory Plugin allows you to build a local directory, directory of business providers, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory using Business Directory plugin.
 
 = Core plugin Features =
+All [features](http://businessdirectoryplugin.com/features/) documented on the main website.
 * Fully customizable form fields
 * Upload images per listing, allow restricted numbers of images based on fee plan
 * Lots of image options:  drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
@@ -103,6 +104,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 * Russian
 * Polish
 * Arabic
+* Swedish
 
 And you can easily [translate it yourself](http://businessdirectoryplugin.com/quick-start-guide/#translate) if you need to.
 
@@ -140,6 +142,30 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.11 =
+* Show server's IP address in Licenses settings tab.
+* Show two columns of categories by default.
+* Replace fees table with responsive list of fees.
+* Add Moroccan Dirham (MAD) currency to Payment settings.
+* Fix translation support in Billing Form.
+* Fix preview links when the no-id-in-link setting is disabled.
+
+= Version 4.1.10 =
+* Improve responsive behaviour of categories list.
+* Update PayPal module to comply with PayPal's security upgrade.
+* Fix sticky behavior for listings posted with recurring payments.
+* Update behavior of listings that are sticky in a particular fee/category.
+* Fix previews (when listing has no slug set).
+* Toggle "wpbdp-hide-on-mobile" class when clicking contact form button..
+* Fix bug that prevented bulk edit actions from working.
+* Fix PHP notices in Current Images section in Edit Listing page.
+* Restore support for shortcodes in posts.
+* A listings is now considered paid only if currently associated with a paid fee.
+* ABC filter URLs will now point to the first page.
+* Update compatibility code for Breadcrumb NavXT.
+* Fix bug that caused HTML entities to appear in e-mail subjects.
+* Update German translation.
 
 = Version 4.1.9 =
 * Add support to export listings that include Unicode characters.
@@ -1256,19 +1282,9 @@ Plugin now allows for better integration with your theme. See the "Usage Doc" se
 
 Bug related to "Manage Fees" has been fixed. This bug resulted in admin being told payments were not turned on even though payments were in fact turned on.
 
-
-
-== Upgrade Notice ==
-
-1. If you are upgrading please export your current data first. There is always the possibility of something going wrong during the upgrading process. Failing to save your data before you upgrade can prove costly if something goes wrong and your data gets lost. Backup your database. Backup your files. 
-
-2. If you are not using WP 3.0 or above you should not install Business Directory Plugin. 
-
-3. If you are upgrading it is recommended that you do a manual upgrade rather than using the automatic upgrade option available via your dashboard. If you use the automatic upgrade option please, again, backup your data first.
-
 == Usage Doc ==
 
-For complete documentation on the plugin, please visit the [BD Documentation Site](http://businessdirectoryplugin.com/docs)
+For complete documentation on the plugin, please visit the [BD Documentation Site](http://businessdirectoryplugin.com/docs).  We also have a complete [FAQ Section of the Forum](http://businessdirectoryplugin.com/support-forum/faq) and our [Quick Start](http://businessdirectoryplugin.com/quick-start-guide/) guide.
 
 1. Setting up your categories
 
@@ -1293,18 +1309,27 @@ widget-ready theme.
 
 == Frequently Asked Questions ==
 
-For the definitive FAQ section, please vist the [FAQ Section of the Forum](http://businessdirectoryplugin.com/support-forum/faq)
+For the definitive FAQ section, please visit the [FAQ Section of the Forum](http://businessdirectoryplugin.com/support-forum/faq), or our [Quick Start](http://businessdirectoryplugin.com/quick-start-guide/) guide.
 
-1. How do I setup my categories?
-You setup your categories under the "Directory" menu tab that will appear in the dashboard menu when you install the plugin. Under the Directory menu tab there is a link "Categories". You click this and add your categories the same way you do with your normal WordPress blog.
+= Can Business Directory Plugin support paid and free listings? =
+Yes it can.  You can do this by creating fee plans for 0.00 and some other paid amount at the same time.  For more details, read [this article](http://businessdirectoryplugin.com/quick-start-guide/#payments).
 
-2. Why isn't the email address showing up in the listings?
-The email address is not showing up because it is being programmatically blocked. The reason for this is to protect the privacy of your users so that their email address does not appear for public viewing where email harvesting bots can grab them and add them to spam email lists. 
+= Do you have video tutorials for Business Directory Plugin? =
+Yes we do.  They can be found [here](http://businessdirectoryplugin.com/video-tutorials/).
 
-3. Okay, I understand that the plugin is blocking the email address to protect the user's privacy, but I still prefer to display the email address in the listing pages. How can I do that?
-To override the email block, go to the WPBusDirMan menu tab that appears in the dashboard menu. Click the "Manage Options" link. Look under "Miscellaneous settings". You will see an option "Override email Blocking?". Check that option and it should make the email address visible.
+= Will Business Directory Plugin work with my theme? =
+Business Directory Plugin will work with any well-written, WP 4.x compliant theme.  Generally speaking, paid themes tend to be higher quality than free ones, so we don't recommend those.
 
+Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate how WordPress-compliant that theme actually is.  The more errors and warnings you see on the theme when you run that check, the worse the theme is.  You can read more about it here:  https://wordpress.org/plugins/theme-check/
 
+(This plugin was developed by WP Core developers to validate their own default themes and is highly respected in the theme community)
 
+In general, we like WooThemes as a solid company with great products and support.  You can check them out [here](http://woothemes.com)  Or [StudioPress](http://studiopress.com​​)
+
+= Can Business Directory be translated into my language? =
+Yes it can. Business Directory Plugin comes with many user-provided translations under the /languages folder. For details on how to do it, our [translation guide](http://businessdirectoryplugin.com/quick-start-guide/#translate) will help get you started.
+
+= Is Business Directory Plugin compatible with WordPress Multisite (WPMU)? =
+Yes it is. However, you cannot "network-activate" the plugin (as this will share the database). Activate it on only the subsites on which you need a directory.  This can be done under Plugins->Add New as the Administrator user.  Do not "network activate" BD as the "super admin".
 
 
