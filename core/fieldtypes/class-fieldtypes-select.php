@@ -108,6 +108,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                                   _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) );
             }
 
+            if ( ! $field->has_validator( 'required' ) ) {
+                $html .= '<option value="">' . _x( '— None —', 'form-fields-api select', 'WPBDM' ) . '</option>';
+            }
+
             foreach ( $options as $option => $label ) {
                 $option_data = array( 'label' => $label,
                                       'value' => esc_attr( $option ),
@@ -187,7 +191,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             if ( $value )
                 $value =  implode( "\t", is_array( $value ) ? $value : array( $value ) );
         } elseif ( 'meta' == $field->get_association() ) {
-            $value = is_array( $value ) ? $value[0] : $value;
+            $value = is_array( $value ) ? ( ! empty( $value ) ? $value[0] : '' ) : $value;
         }
 
         parent::store_field_value( $field, $post_id, $value );
