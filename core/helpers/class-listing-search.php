@@ -156,7 +156,11 @@ class WPBDP__Listing_Search {
 
         // Quick search.
         if ( ! empty( $request['kw'] ) ) {
-            $keywords = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( $request['kw'] ) : explode( ' ', $request['kw'] );
+            if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
+                $request['kw'] = array( $request['kw'] );
+            } else {
+                $request['kw'] = explode( ' ', $request['kw'] );
+            }
 
             $fields_ids = wpbdp_get_option( 'quick-search-fields' );
             $fields_ids = $fields_ids ? $fields_ids : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
@@ -173,7 +177,7 @@ class WPBDP__Listing_Search {
 
             $res[] = 'and';
 
-            foreach ( $keywords as $k ) {
+            foreach ( $request['kw'] as $k ) {
                 $subq = array( 'or' );
 
                 foreach ( $fields as $field ) {
@@ -199,15 +203,16 @@ class WPBDP__Listing_Search {
         return $res;
     }
 
-    public static function tree_remove_field( $tree, $field ) {
+    public static function tree_remove_field( $tree, $field, $term = null ) {
         $field = is_object( $field ) ? $field->get_id() : absint( $field );
         $result = array();
 
         foreach ( $tree as $t ) {
-            if ( is_array( $t ) && 2 == count( $t ) && isset( $t[0] ) && $field == $t[0] )
+            if ( self::is_field_node( $t, $field, $term ) ) {
                 continue;
-            elseif ( is_array( $t ) )
-                $t = self::tree_remove_field( $t, $field );
+            } elseif ( is_array( $t ) ) {
+                $t = self::tree_remove_field( $t, $field, $term );
+            }
 
             $result[] = $t;
         }
@@ -215,9 +220,39 @@ class WPBDP__Listing_Search {
         return $result;
     }
 
+    /**
+     * Checks whether the given node is a field node for the given Form Field ID
+     * and search term.
+     *
+     * A field node is an indexed array with two elements:
+     *
+     * - The Form Field ID.
+     * - A search term for that field.
+     *
+     * @since 4.0.12
+     * @param $node     The node that will be checked.
+     * @param $field_id The ID of the Form Field.
+     * @param $term     If provided and is not null, this function will return true
+     *                  when both the Field ID and the search term match only.
+     * @return boolean
+     */
+    private static function is_field_node( $node, $field_id, $term = null ) {
+        if ( ! is_array( $node ) || 2 != count( $node ) || ! isset( $node[0] ) || ! isset( $node[1] ) ) {
+            return false;
+        }
+
+        if ( $field_id != $node[0] ) {
+            return false;
+        }
+
+        if ( ! is_null( $term ) && $term != $node[1] ) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static function tree_simplify( $tree ) {
         return $tree;
     }
-
 }
-
