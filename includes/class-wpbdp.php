@@ -123,6 +123,10 @@ final class WPBDP {
 
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
             $this->installer->setup_manual_upgrade();
+
+            add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
+            add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
+            
             return;
         }
 
@@ -353,6 +357,26 @@ final class WPBDP {
         $res->add( 'imageId', $image_id );
         $res->send();
     }
+
+    public function frontend_manual_upgrade_msg() {
+        wp_enqueue_style( 'wpbdp-base-css' );
+
+        if ( current_user_can( 'administrator' ) ) {
+            return wpbdp_render_msg(
+                str_replace(
+                    '<a>',
+                    '<a href="' . admin_url( 'admin.php?page=wpbdp-upgrade-page' ) . '">',
+                    __( 'The directory features are disabled at this time because a <a>manual upgrade</a> is pending.', 'WPBDM' )
+                ),
+                'error'
+            );
+        }
+
+        return wpbdp_render_msg(
+            __( 'The directory is not available at this time. Please try again in a few minutes or contact the administrator if the problem persists.', 'WPBDM' ),
+            'error'
+        );
+    }    
 
 }
 
