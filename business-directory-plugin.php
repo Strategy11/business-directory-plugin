@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 4.1.12dev2
+ * Version: 4.1.12dev3
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,9 +31,10 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '4.1.12dev2' );
+define( 'WPBDP_VERSION', '4.1.12dev3' );
 
 define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
+define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
 define( 'WPBDP_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 
@@ -41,26 +42,26 @@ define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
 define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
 
-require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
-require_once( WPBDP_PATH . 'core/api.php' );
-require_once( WPBDP_PATH . 'core/compatibility/class-compat.php' );
-require_once( WPBDP_PATH . 'core/utils.php' );
-require_once( WPBDP_PATH . 'includes/admin/tracking.php' );
-require_once( WPBDP_PATH . 'includes/admin/class-admin.php' );
-require_once( WPBDP_PATH . 'core/class-settings.php' );
-require_once( WPBDP_PATH . 'core/form-fields.php' );
-require_once( WPBDP_PATH . 'core/payment.php' );
-require_once( WPBDP_PATH . 'core/listings.php' );
-require_once( WPBDP_PATH . 'core/templates-generic.php' );
-require_once( WPBDP_PATH . 'core/templates-listings.php' );
-require_once( WPBDP_PATH . 'core/templates-ui.php' );
-require_once( WPBDP_PATH . 'core/installer.php' );
-require_once( WPBDP_PATH . 'core/licensing.php' );
-require_once( WPBDP_PATH . 'core/seo.php' );
-require_once( WPBDP_PATH . 'core/class-shortcodes.php' );
-require_once( WPBDP_PATH . 'core/class-recaptcha.php' );
-require_once( WPBDP_PATH . 'core/themes.php' );
-require_once( WPBDP_PATH . 'core/template-sections.php' );
+require_once( WPBDP_INC . 'class-wpbdp.php' );
+require_once( WPBDP_INC . 'api.php' );
+require_once( WPBDP_INC . 'compatibility/class-compat.php' );
+require_once( WPBDP_INC . 'utils.php' );
+require_once( WPBDP_INC . 'admin/tracking.php' );
+require_once( WPBDP_INC . 'admin/class-admin.php' );
+require_once( WPBDP_INC . 'admin/settings/class-settings.php' );
+require_once( WPBDP_INC . 'form-fields.php' );
+require_once( WPBDP_INC . 'payment.php' );
+require_once( WPBDP_INC . 'listings.php' );
+require_once( WPBDP_INC . 'templates-generic.php' );
+require_once( WPBDP_INC . 'templates-listings.php' );
+require_once( WPBDP_INC . 'templates-ui.php' );
+require_once( WPBDP_INC . 'installer.php' );
+require_once( WPBDP_INC . 'licensing.php' );
+require_once( WPBDP_INC . 'seo.php' );
+require_once( WPBDP_INC . 'class-shortcodes.php' );
+require_once( WPBDP_INC . 'class-recaptcha.php' );
+require_once( WPBDP_INC . 'themes.php' );
+require_once( WPBDP_INC . 'template-sections.php' );
 
 
 global $wpbdp;
@@ -132,7 +133,7 @@ class WPBDP_Plugin {
         $this->settings->register_settings();
 
         // WPBDP is intended to replace this whole class in the near future.
-        require_once( WPBDP_PATH . 'core/class-wpbdp.php' );
+        require_once( WPBDP_INC . 'class-wpbdp.php' );
         $bd = new WPBDP();
         $bd->init();
 
@@ -543,7 +544,7 @@ class WPBDP_Plugin {
         $state = null;
 
         if ( $state_id ) {
-            require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+            require_once( WPBDP_INC . 'views/view-submit-listing.php' );
             $state = WPBDP_Listing_Submit_State::get( $state_id );
         } elseif ( $listing_id ) {
             $listing = WPBDP_Listing::get( $listing_id );
@@ -659,7 +660,7 @@ class WPBDP_Plugin {
             $res->send_error();
 
         if ( $state_id ) {
-            require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
+            require_once( WPBDP_INC . 'views/view-submit-listing.php' );
 
             $state = WPBDP_Listing_Submit_State::get( $state_id );
 
@@ -828,10 +829,10 @@ class WPBDP_Plugin {
     }
 
     public function _register_widgets() {
-        include_once ( WPBDP_PATH . 'core/widget-featured-listings.php' );
-        include_once ( WPBDP_PATH . 'core/widget-latest-listings.php' );
-        include_once ( WPBDP_PATH . 'core/widget-random-listings.php' );
-        include_once ( WPBDP_PATH . 'core/widget-search.php' );
+        include_once ( WPBDP_INC . 'widgets/widget-featured-listings.php' );
+        include_once ( WPBDP_INC . 'widgets/widget-latest-listings.php' );
+        include_once ( WPBDP_INC . 'widgets/widget-random-listings.php' );
+        include_once ( WPBDP_INC . 'widgets/widget-search.php' );
 
         register_widget('WPBDP_FeaturedListingsWidget');
         register_widget('WPBDP_LatestListingsWidget');
@@ -1023,7 +1024,7 @@ class WPBDP_Plugin {
             return;
         }
 
-        require_once( WPBDP_PATH . 'core/class-page-meta.php' );
+        require_once( WPBDP_INC . 'class-page-meta.php' );
         $this->page_meta = new WPBDP_Page_Meta( $action );
 
         $this->_do_wpseo = defined( 'WPSEO_VERSION' ) ? true : false;
