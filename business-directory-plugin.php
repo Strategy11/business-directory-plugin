@@ -148,6 +148,10 @@ class WPBDP_Plugin {
 
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
             $this->installer->setup_manual_upgrade();
+
+            add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
+            add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
+
             return;
         }
 
@@ -901,6 +905,14 @@ class WPBDP_Plugin {
         wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/css/dnd-upload.min.css' );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/js/dnd-upload.min.js',
                             array( 'jquery-file-upload' ) );
+
+        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
+
+        wp_register_script(
+            'wpbdp-js',
+            WPBDP_URL . 'assets/js/wpbdp.min.js',
+            array( 'jquery', 'jquery-breakpoints' )
+        );
     }
 
     public function is_plugin_page() {
@@ -938,14 +950,6 @@ class WPBDP_Plugin {
 
         if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
             return;
-
-        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
-
-        wp_register_script(
-            'wpbdp-js',
-            WPBDP_URL . 'assets/js/wpbdp.min.js',
-            array( 'jquery', 'jquery-breakpoints' )
-        );
 
         wp_enqueue_style( 'wpbdp-dnd-upload' );
         wp_enqueue_script( 'wpbdp-dnd-upload' );
@@ -1570,6 +1574,27 @@ class WPBDP_Plugin {
             return $orderby;
     }
     // }}
+
+    public function frontend_manual_upgrade_msg() {
+        wp_enqueue_style( 'wpbdp-base-css' );
+
+        if ( current_user_can( 'administrator' ) ) {
+            return wpbdp_render_msg(
+                str_replace(
+                    '<a>',
+                    '<a href="' . admin_url( 'admin.php?page=wpbdp-upgrade-page' ) . '">',
+                    __( 'The directory features are disabled at this time because a <a>manual upgrade</a> is pending.', 'WPBDM' )
+                ),
+                'error'
+            );
+        }
+
+        return wpbdp_render_msg(
+            __( 'The directory is not available at this time. Please try again in a few minutes or contact the administrator if the problem persists.', 'WPBDM' ),
+            'error'
+        );
+    }
+
 }
 
 $wpbdp = new WPBDP_Plugin();
