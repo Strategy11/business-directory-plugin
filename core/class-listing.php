@@ -702,6 +702,10 @@ class WPBDP_Listing {
             $post_data['post_name'] = sanitize_title( $title );
         }
 
+        if ( isset( $state->post_name ) ) {
+            $post_data['post_name'] = $state->post_name;
+        }
+
         if ( isset( $state->post_status ) ) {
             $post_data['post_status'] = $state->post_status;
         }
