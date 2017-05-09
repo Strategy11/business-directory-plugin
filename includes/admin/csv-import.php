@@ -49,7 +49,9 @@ class WPBDP_CSVImportAdmin {
         $wpbdp->_importing_csv = true;
         $wpbdp->_importing_csv_no_email = (bool) $import->get_setting( 'disable-email-notifications' );
 
+        wp_defer_term_counting( true );
         $import->do_work();
+        wp_defer_term_counting( false );
 
         unset( $wpbdp->_importing_csv ); unset( $wpbdp->_importing_csv_no_email );
 
