@@ -54,9 +54,11 @@ class WPBDP_CSVImportAdmin {
         $wpbdp->_importing_csv = true;
         $wpbdp->_importing_csv_no_email = (bool) $import->get_setting( 'disable-email-notifications' );
 
+        wp_defer_term_counting( true );
         add_filter( 'wp_unique_post_slug', array( $this, 'cache_unique_slug_prefix' ), 10, 6 );
         $import->do_work();
         remove_filter( 'wp_unique_post_slug', array( $this, 'cache_unique_slug_prefix' ), 10, 6 );
+        wp_defer_term_counting( false );
 
         unset( $wpbdp->_importing_csv ); unset( $wpbdp->_importing_csv_no_email );
 
