@@ -54,7 +54,9 @@ class WPBDP_CSVImportAdmin {
         $wpbdp->_importing_csv = true;
         $wpbdp->_importing_csv_no_email = (bool) $import->get_setting( 'disable-email-notifications' );
 
+        add_filter( 'wp_unique_post_slug', array( $this, 'cache_unique_slug_prefix' ), 10, 6 );
         $import->do_work();
+        remove_filter( 'wp_unique_post_slug', array( $this, 'cache_unique_slug_prefix' ), 10, 6 );
 
         unset( $wpbdp->_importing_csv ); unset( $wpbdp->_importing_csv_no_email );
 
@@ -70,6 +72,26 @@ class WPBDP_CSVImportAdmin {
         }
 
         $res->send();
+    }
+
+    public function cache_unique_slug_prefix( $slug, $post_id, $post_status, $post_type, $post_parent, $original_slug ) {
+        global $wpdb;
+
+        if ( $slug == $original_slug ) {
+            return $slug;
+        }
+
+        if ( ! preg_match( '/-(\d+)$/', $slug, $matches ) ) {
+            return $slug;
+        }
+
+        $wpdb->insert( $wpdb->options, array(
+            'option_name' => 'wpbdp-slug-' . sha1( $original_slug ),
+            'option_value' => intval( $matches[1] ),
+            'autoload' => 'no',
+        ) );
+
+        return $slug;
     }
 
     public function ajax_autocomplete_user() {
@@ -344,6 +366,3 @@ class WPBDP_CSVImportAdmin {
     }
 
 }
-
-
-

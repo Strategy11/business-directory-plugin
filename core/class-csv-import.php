@@ -242,6 +242,10 @@ class WPBDP_CSV_Import {
     }
 
     public function cleanup() {
+        global $wpdb;
+
+        $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'wpbdp-slug-%'" );
+
         wpbdp_rrmdir( $this->working_dir );
     }
 
@@ -503,6 +507,10 @@ class WPBDP_CSV_Import {
                 $state->images[] = $img_id;
         }
 
+        if ( isset( $state->title ) ) {
+            $state->post_name = $this->get_unique_post_name( sanitize_title( $state->title ) );
+        }
+
         // Set username.
         if ( $u = get_user_by( 'login', $meta['username'] ) ) {
             $state->post_author = $u->ID;
@@ -696,5 +704,23 @@ class WPBDP_CSV_Import {
         rename( $filepath . '.backup', $filepath );
 
         return $media_id;
+    }
+
+    private function get_unique_post_name( $post_name ) {
+        global $wpdb;
+
+        $post_name_hash = 'wpbdp-slug-' . sha1( $post_name );
+
+        $sql = "SELECT option_value FROM $wpdb->options WHERE option_name = '%s'";
+        $slug_prefix = $wpdb->get_var( $wpdb->prepare( $sql, $post_name_hash ) );
+
+        if ( ! is_null( $slug_prefix ) && function_exists( '_truncate_post_slug' ) ) {
+            $slug_prefix = intval( $slug_prefix ) + 1;
+            $post_name = _truncate_post_slug( $post_name, 200 - strlen( $slug_prefix ) - 1 ) . '-' . $slug_prefix;
+            $sql = "UPDATE $wpdb->options SET option_value = '%s' WHERE option_name = '%s'";
+            $wpdb->query( $wpdb->prepare( $sql, $slug_prefix, $post_name_hash ) );
+        }
+
+        return $post_name;
     }
 }
