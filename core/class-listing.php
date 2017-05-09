@@ -707,11 +707,11 @@ class WPBDP_Listing {
         }
 
         if ( isset( $state->excerpt ) ) {
-            $post_data['post_status'] = $state->post_status;
+            $post_data['post_excerpt'] = $state->excerpt;
         }
 
         if ( isset( $state->content ) ) {
-            $post_data['post_status'] = $state->post_status;
+            $post_data['post_content'] = $state->content;
         }
 
         if ( isset( $state->post_author ) ) {
