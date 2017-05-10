@@ -599,6 +599,50 @@ function wpbdp_current_category_id() {
     return $term->term_id;
 }
 
+/**
+ * @since 4.1.12
+ */
+function _wpbdp_current_category_id() {
+    $term = _wpbpd_current_category();
+
+    if ( ! $term ) {
+        return null;
+    }
+
+    return $term->term_id;
+}
+
+/**
+ * @since 4.1.12
+ */
+function _wpbpd_current_category() {
+    global $wp_query;
+
+    if ( $wp_query->wpbdp_is_category ) {
+        $term = $wp_query->get_queried_object();
+    } else {
+        $term = null;
+    }
+
+    if ( ! $term ) {
+        $category_id = get_query_var( '_' . wpbdp_get_option( 'permalinks-category-slug' ) );
+
+        if ( $category_id ) {
+            $term = get_term_by( 'slug', $category_id, WPBDP_CATEGORY_TAX );
+        }
+    }
+
+    if ( ! $term ) {
+        $category_id = get_query_var( 'category_id' );
+
+        if ( $category_id ) {
+            $term = get_term_by( 'id', $category_id, WPBDP_CATEGORY_TAX );
+        }
+    }
+
+    return $term;
+}
+
 function wpbdp_current_tag_id() {
     global $wp_query;
 
