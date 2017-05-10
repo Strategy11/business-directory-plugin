@@ -68,8 +68,19 @@ class WPBDP_NavXT_Integration {
 
     function main_page_breadcrumb( $trail ) {
         $last = $trail->trail[ count( $trail->trail ) - 1 ];
-        if ( in_array( 'home', $last->type, true ) )
+
+        if ( method_exists( $last, 'get_types' ) ) {
+            $types = $last->get_types();
+        } else if ( $last ) {
+            $vars = get_object_vars( $last );
+            $types = (array) ( isset( $vars['type'] ) ? $vars['type'] : array() );
+        } else {
+            $types = array();
+        }
+
+        if ( in_array( 'home', $types, true ) ) {
             array_pop( $trail->trail );
+        }
 
         $trail->add( new bcn_breadcrumb( get_the_title( wpbdp_get_page_id() ),
                                          '',
@@ -135,22 +146,14 @@ class WPBDP_NavXT_Integration {
     }
 
     function before_category( $trail ) {
-        // XXX: Taken from core/views.php:browse_category(). Probably a good idea to move this to an utility function.
-        if (get_query_var('category')) {
-            if ($term = get_term_by('slug', get_query_var('category'), WPBDP_CATEGORY_TAX)) {
-                $category_id = $term->term_id;
-            } else {
-                $category_id = intval(get_query_var('category'));
-            }
+        $term = _wpbpd_current_category();
+
+        if ( ! $term ) {
+            return;
         }
 
-        $category_id = $category_id ? $category_id : intval(get_query_var('category_id'));
-
-        if ( ! $category_id )
-            return;
-
         global $wp_query;
-        $term = get_term( $category_id, WPBDP_CATEGORY_TAX );
+
         $this->state['queried'] = $wp_query->get_queried_object();
 
         $wp_query->is_singular = false;
@@ -158,6 +161,10 @@ class WPBDP_NavXT_Integration {
     }
 
     function after_category( $trail ) {
+        if ( ! $this->state['queried'] ) {
+            return;
+        }
+
         global $wp_query;
 
         $wp_query->queried_object = $this->state['queried'];
