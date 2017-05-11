@@ -62,6 +62,10 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
             $this->pricing_details = array();
         }
 
+        if ( 0 == $this->days || ( 0 == $this->amount && 'flat' == $this->pricing_model  ) ) {
+            $this->recurring = 0;
+        }
+
         if ( ! is_array( $this->extra_data ) )
             $this->extra_data = array();
     }

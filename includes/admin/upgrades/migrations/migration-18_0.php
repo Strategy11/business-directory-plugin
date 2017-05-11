@@ -149,7 +149,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 'enabled' => $fee->enabled,
                 'description' => $fee->description,
                 'tag' => $fee->tag,
-                'recurring' => ( get_option( 'wpbdp-listing-renewal-auto' ) && get_option( 'wpbdp-listing-renewal-auto-dontask' ) ) ? 1 : 0
+                'recurring' => ( 0 != $fee->days && $fee->amount > 0.0 && get_option( 'wpbdp-listing-renewal-auto' ) && get_option( 'wpbdp-listing-renewal-auto-dontask' ) ) ? 1 : 0
             );
 
             if ( false === $wpdb->insert( $wpdb->prefix . 'wpbdp_plans', $row ) ) {
