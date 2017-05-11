@@ -250,6 +250,16 @@ class WPBDP_Listings_API {
         if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
             return;
 
+        if ( isset( $_POST['original_post_status'] ) && 'auto-draft' == $_POST['original_post_status'] ) {
+            add_action( 'save_post', array( $this, 'send_listing_published_notification' ), 99, 2 );
+            add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), 99 );
+            return;
+        }
+
+        $this->send_listing_published_notification( $post->ID, $post );
+    }
+
+    public function send_listing_published_notification( $post_id, $post ) {
         $email = wpbdp_email_from_template( 'email-templates-listing-published', array(
             'listing' => get_the_title( $post->ID ),
             'listing-url' => get_permalink( $post->ID )
@@ -257,6 +267,11 @@ class WPBDP_Listings_API {
         $email->to[] = wpbusdirman_get_the_business_email( $post->ID );
         $email->template = 'businessdirectory-email';
         $email->send();
+    }
+
+    public function try_to_remove_listing_published_notification_action() {
+        remove_action( 'save_post', array( $this, 'send_listing_published_notification' ), 99, 2 );
+        remove_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), 99 );
     }
 
     /**

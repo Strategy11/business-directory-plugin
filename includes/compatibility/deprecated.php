@@ -190,6 +190,8 @@ function wpbdp_get_formfields() {
 
 
 /**
+ * TODO: What should we use instead?
+ *
  * @deprecated
  * @since 2.3
  */
