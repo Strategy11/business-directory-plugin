@@ -54,6 +54,7 @@ class WPBDP__Themes_Compat {
             'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis',
             'takeawaywp',
             'foodiepro-2.1.8',
+            'ultimatum',
         );
 
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
@@ -296,7 +297,7 @@ class WPBDP__Themes_Compat {
     }
 
     /**
-     * @since next-release
+     * @since 4.1.5
      */
     public function theme_foodiepro_218() {
         if ( ! wpbdp_is_taxonomy() ) {
@@ -305,6 +306,56 @@ class WPBDP__Themes_Compat {
 
         remove_action( 'genesis_before_loop', 'foodie_pro_archive_maybe_add_grid' );
     }
+
+    /**
+     * @since 4.1.12
+     */
+    function theme_ultimatum() {
+        add_action(
+            'ultimatum_before_bodywrapper_open',
+            array( $this, 'theme_ultimatum_add_widget_display_callback_filter' )
+        );
+
+        add_action(
+            'ultimatum_after_bodywrapper_close',
+            array( $this, 'theme_ultimatum_remove_widget_display_callback_filter' )
+        );
+    }
+
+    /**
+     * @since 4.1.12
+     */
+    function theme_ultimatum_add_widget_display_callback_filter() {
+        add_filter(
+            'widget_display_callback',
+            array( $this, 'theme_ultimatum_maybe_overwrite_ultimatum_widget_instance_settings' ),
+            10, 3
+        );
+    }
+
+    /**
+     * @since 4.1.12
+     */
+    function theme_ultimatum_remove_widget_display_callback_filter() {
+        remove_filter(
+            'widget_display_callback',
+            array( $this, 'theme_ultimatum_maybe_overwrite_ultimatum_widget_instance_settings' ),
+            10, 3
+        );
+    }
+
+    /**
+     * @since 4.1.12
+     */
+    function theme_ultimatum_maybe_overwrite_ultimatum_widget_instance_settings( $instance, $widget, $args ) {
+        if ( 'WordPress Default Loop' == $args['widget_name'] ) {
+            $instance['excerpt'] = 'content';
+            $instance['multiple'] = '1-col-n';
+        }
+
+        return $instance;
+    }
+
 
     //
     // }}
