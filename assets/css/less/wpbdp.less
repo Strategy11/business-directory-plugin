@@ -339,38 +339,35 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 /* main page */
-.wpbdp-page-main_page #wpbdp-categories {
+
+#wpbdp-categories {
     clear: both;
-    margin-bottom: 20px;
 }
 
-ul.wpbdp-categories {
-    margin: 0 0 10px 15px;
-    padding: 0 10px;
-}
-
-ul.wpbdp-categories > li {
-    width: 50%;
-    float: left;
+.wpbdp-categories {
     margin: 0;
+    padding-left: 20px;
+}
+.wpbdp-categories .cat-item {
+    box-sizing: border-box;
+    float: left;
+    margin: 0 0 20px;
+    width: 50%;
+}
+.wpbdp-categories .cat-item:nth-child(2n+1) {
+    clear: left;
+}
+.wpbdp-categories .cat-item .cat-item {
+    margin: 0;
+    width: 100%;
 }
 
-@media screen and (max-width: 704px) {
-    ul.wpbdp-categories > li {
-        float: none;
-        width: initial;
-    }
+.wpbdp-categories-tiny .cat-item {
+    float: none;
+    width: 100%;
 }
-
-@media screen and (max-width: 500px) {
-    ul.wpbdp-categories {
-        font-size: 90%;
-    }
-
-    ul.wpbdp-categories ul.children li.cat-item {
-        margin-left: 10px;
-        padding: 0;
-    }
+.wpbdp-categories-tiny .cat-item:nth-child(2n+1) {
+    clear: none;
 }
 
 @import 'form-fields.less';
