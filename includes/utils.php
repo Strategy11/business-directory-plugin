@@ -1,8 +1,9 @@
 <?php
-require_once( WPBDP_PATH . 'includes/debugging.php' );
-require_once( WPBDP_PATH . 'includes/helpers/class-email.php' );
-require_once( WPBDP_PATH . 'includes/compatibility/class-ajax-response.php' );
-require_once( WPBDP_PATH . 'includes/helpers/class-fs.php' );
+require_once( WPBDP_INC . 'debugging.php' );
+require_once( WPBDP_INC . 'helpers/class-database-helper.php' );
+require_once( WPBDP_INC . 'helpers/class-email.php' );
+require_once( WPBDP_INC . 'compatibility/class-ajax-response.php' );
+require_once( WPBDP_INC . 'helpers/class-fs.php' );
 
 
 class WPBDP__Utils {
