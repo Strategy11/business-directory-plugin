@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
-Tested up to: 4.7.4
-Last Updated: 2017-May-3
-Stable tag: tags/4.1.11
+Tested up to: 4.7.5
+Last Updated: 2017-May-16
+Stable tag: tags/4.1.12
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,17 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.12 =
+* Report versions of installed premium modules on debug info page.
+* Make non-required SELECT fields actually optional (no option selected by default).
+* Show a message on the frontend when the directory is not available due to a pending manual upgrade.
+* Fix conflict between BD and latest Breadcrumbs NavXT.
+* Send NEW listing's published notification to the right address.
+* Add compatibility patch for Ultimatum theme.
+
+= Version 4.1.11.1 =
+* Repaired badly botched release in SVN due to file sync issues
 
 = Version 4.1.11 =
 * Show server's IP address in Licenses settings tab.
