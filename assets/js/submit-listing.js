@@ -212,6 +212,10 @@ jQuery(function($) {
 
             var self = this;
             this.$submit.on( 'change, click', 'input[name="listing_plan"]', function() {
+                if ( $( this ).parents( '.wpbdp-plan' ).attr( 'data-disabled' ) == 1 ) {
+                    return false;
+                }
+
                 var data = self.$form.serialize();
                 data += '&action=wpbdp_ajax&handler=submit_listing__sections';
 

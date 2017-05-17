@@ -10,6 +10,13 @@ $categories = ! isset( $categories ) ? array() : $categories;
 ?>
 <div class="wpbdp-plan-selection-list">
     <?php foreach ( $plans as $plan ): ?>
-        <?php echo wpbdp_render( 'plan-selection-plan', compact( 'plan', 'field_name', 'categories', 'selected' ) ); ?>
+        <?php
+        $args = compact( 'plan', 'field_name', 'categories', 'selected' );
+
+        if ( $plan->recurring && current_user_can( 'administrator' ) ):
+            $args['disabled'] = true;
+        endif;
+        ?>
+        <?php echo wpbdp_render( 'plan-selection-plan', $args ); ?>
     <?php endforeach; ?>
 </div>

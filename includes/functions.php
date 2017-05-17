@@ -614,7 +614,7 @@ function wpbdp_get_fee_plans() {
         $args['tag'] = 'free';
     }
 
-    if ( current_user_can( 'administrator' ) ) {
+    if ( is_admin() && current_user_can( 'administrator' ) ) {
         $args['recurring'] = '0';
     }
 

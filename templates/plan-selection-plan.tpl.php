@@ -1,13 +1,15 @@
 <?php
-$field_name = isset( $field_name ) ? $field_name : '';
+$field_name   = isset( $field_name ) ? $field_name : '';
 $display_only = isset( $display_only ) ? $display_only : false;
-$selected = isset( $selected ) ? $selected : 0;
+$disabled     = isset( $disabled ) ? $disabled : false;
+$selected     = isset( $selected ) ? $selected : 0;
 
-$description = $plan->description ? wpautop( wp_kses_post( $plan->description ) ) : '';
-$description = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
+$description  = $plan->description ? wpautop( wp_kses_post( $plan->description ) ) : '';
+$description  = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
 ?>
-    <div class="wpbdp-plan wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?>"
+    <div class="wpbdp-plan wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?> <?php if ( $disabled ): ?>wpbdp-plan-disabled<?php endif; ?>"
          data-id="<?php echo $plan->id; ?>"
+         data-disabled="<?php echo $disabled ? 1 : 0; ?>"
          data-recurring="<?php echo $plan->recurring ? 1 : 0; ?>"
          data-free-text="<?php echo esc_attr( wpbdp_currency_format( 0.0 ) ); ?>"
          data-categories="<?php echo implode( ',', (array) $plan->supported_categories ); ?>"
@@ -44,10 +46,17 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
                        id="wpbdp-plan-select-radio-<?php echo $plan->id; ?>"
                        name="<?php echo $field_name; ?>"
                        value="<?php echo $plan->id; ?>"
-                       <?php checked( absint( $plan->id ), absint( $selected ) ); ?> />
+                        <?php disabled( $disabled, true ); ?>
+                       <?php echo $disabled ? '': checked( absint( $plan->id ), absint( $selected ), false ); ?> />
                 <?php endif; ?>
                 <span class="wpbdp-plan-price-amount"><?php echo wpbdp_currency_format( $plan->calculate_amount( $categories ) ); ?></span>
             </label>
         </div>
+
+        <?php if ( $disabled ): ?>
+        <div class="wpbdp-msg wpbdp-plan-disabled-msg">
+            This plan can't be used for admin submits. For the a recurring plan to work, end users need to pay for it using a supported gateway.
+        </div>
+        <?php endif; ?>
     </div>
 
