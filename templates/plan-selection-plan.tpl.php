@@ -18,12 +18,18 @@ $description  = apply_filters( 'wpbdp_fee_selection_fee_description', $descripti
          data-amount-format="<?php echo esc_attr( wpbdp_currency_format( 'placeholder' ) ); ?>"
          data-pricing-details="<?php echo esc_attr( json_encode( $plan->pricing_details ) ); ?>" >
         <div class="wpbdp-plan-duration">
+            <?php if ( $plan->days > 0 ): ?>
             <span class="wpbdp-plan-duration-amount">
-                <?php echo $plan->days ? $plan->days : '∞'; ?>
+                <?php echo $plan->days; ?>
             </span>
             <span class="wpbdp-plan-duration-period"><?php _ex( 'days', 'plan selection', 'WPBDM' ); ?></span>
-            <?php if ( $plan->days > 0 && $plan->recurring ): ?>
-            <span class="wpbdp-plan-is-recurring"><?php _ex( '(Recurring)', 'plan selection', 'WPBDM' ); ?></span>
+                <?php if ( $plan->recurring ): ?>
+                <span class="wpbdp-plan-is-recurring"><?php _ex( '(Recurring)', 'plan selection', 'WPBDM' ); ?></span>
+                <?php endif; ?>
+            <?php else: ?>
+            <span class="wpbdp-plan-duration-never-expires">
+                <?php _ex( 'Never Expires', 'plan selection', 'WPBDM' ); ?>
+            </span>
             <?php endif; ?>
         </div>
         <div class="wpbdp-plan-details">
