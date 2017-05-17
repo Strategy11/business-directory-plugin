@@ -1,5 +1,6 @@
 <?php
 require_once( WPBDP_INC . 'debugging.php' );
+require_once( WPBDP_INC . 'helpers/class-database-helper.php' );
 require_once( WPBDP_INC . 'helpers/class-email.php' );
 require_once( WPBDP_INC . 'class-ajax-response.php' );
 require_once( WPBDP_INC . 'helpers/class-fs.php' );
