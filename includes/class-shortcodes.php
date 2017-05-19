@@ -44,6 +44,7 @@ class WPBDP__Shortcodes {
         $this->add( 'businessdirectory-listing', array( $this, 'sc_single_listing' ) );
         $this->add( 'businessdirectory-categories', array( $this, 'sc_categories' ) );
         $this->add( 'businessdirectory-listing-count', array( $this, 'sc_count' ), array( 'bd-listing-count', 'business-directory-listing-count' ) );
+        $this->add( 'businessdirectory-quick-search', array( $this, 'sc_quick_search' ), array( 'business-directory-quick-search' ) );
 
         do_action_ref_array( 'wpbdp_shortcodes_register', array( &$this ) );
 
@@ -255,6 +256,31 @@ class WPBDP__Shortcodes {
     public function sc_search() {
         $v = wpbdp_load_view( 'search' );
         return $v->dispatch();
+    }
+
+    public function sc_quick_search( $atts ) {
+        $defaults = array(
+            'buttons' => 'none'
+        );
+        $atts = shortcode_atts( $defaults, $atts, 'businessdirectory-quick-search' );
+
+        switch ( $atts['buttons'] ) {
+        case 'all':
+            $buttons = array( 'directory', 'listings', 'create' );
+            break;
+        case 'none':
+            $buttons = array();
+            break;
+        default:
+            $buttons = array_filter( explode( ',', trim( $atts['buttons'] ) ) );
+            break;
+        }
+
+        $box_args = array(
+            'buttons' => $buttons
+        );
+
+        return wpbdp_main_box( $box_args );
     }
 
     //
