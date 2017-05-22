@@ -8,7 +8,7 @@ class WPBDP_Admin_Debug_Page {
     }
 
     function dispatch( $plain = false ) {
-        global $wpdb;
+        global $wpdb, $wpbdp;
 
         $debug_info = array();
 
@@ -17,6 +17,21 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['basic']['BD version'] = WPBDP_VERSION;
         $debug_info['basic']['BD database revision (current)'] = WPBDP_Installer::DB_VERSION;
         $debug_info['basic']['BD database revision (installed)'] = get_option( 'wpbdp-db-version' );
+
+        // Premium modules.
+        $mod_versions = array();
+        foreach ( $wpbdp->licensing->modules as $m ) {
+            $mod_versions[] = str_replace( ' Module', '', $m['name'] ) . ' - ' . $m['version'];
+        }
+        if ( class_exists( 'WPBDP_CategoriesModule' ) ) {
+            $mod_versions[] = 'Enhanced Categories - ' . WPBDP_CategoriesModule::VERSION;
+        }
+
+        $debug_info['basic']['Premium Modules'] = array(
+            'value' => implode( "\n" . str_repeat( " ", 36 ), $mod_versions ),
+            'html' => implode( '<br />', $mod_versions )
+        );
+
 
         $tables = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_fees', 'wpbdp_payments', 'wpbdp_listing_fees' ) );
         $missing_tables = array();
@@ -33,7 +48,7 @@ class WPBDP_Admin_Debug_Page {
 
 
         // BD options
-        $blacklisted = array( 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
+        $blacklisted = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
         $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'WPBDM' );
 
         $settings_api = wpbdp_settings_api();
@@ -92,11 +107,11 @@ class WPBDP_Admin_Debug_Page {
                         if ( isset( $v['exclude'] ) && $v['exclude'] )
                             continue;
 
-                        if ( ! empty( $v['html'] ) )
+                        if ( ! empty( $v['html'] ) && empty( $v['value'] ) )
                             continue;
                     }
 
-                    printf( "%-33s = %s", $k, $v );
+                    printf( "%-33s = %s", $k, is_array( $v  ) ? $v['value'] : $v );
                     print PHP_EOL;
                 }
 

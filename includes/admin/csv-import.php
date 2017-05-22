@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'core/class-csv-import.php' );
+require_once( WPBDP_INC . 'admin/class-csv-import.php' );
 
 /**
  * CSV Import admin pages.

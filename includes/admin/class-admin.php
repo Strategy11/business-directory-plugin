@@ -1,14 +1,14 @@
 <?php
-require_once( WPBDP_PATH . 'includes/admin/admin-pages.php' );
-require_once( WPBDP_PATH . 'includes/admin/class-admin-listings.php' );
-require_once( WPBDP_PATH . 'includes/admin/fees.php' );
-require_once( WPBDP_PATH . 'includes/admin/form-fields.php' );
-require_once( WPBDP_PATH . 'includes/admin/payments.php' );
-require_once( WPBDP_PATH . 'includes/admin/csv-import.php' );
-require_once( WPBDP_PATH . 'includes/admin/csv-export.php' );
-require_once( WPBDP_PATH . 'includes/admin/helpers/listing-metabox.php' );
-require_once( WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php' );
-require_once( WPBDP_PATH . 'includes/admin/page-debug.php' );
+require_once( WPBDP_INC . 'admin/admin-pages.php' );
+require_once( WPBDP_INC . 'admin/class-admin-listings.php' );
+require_once( WPBDP_INC . 'admin/fees.php' );
+require_once( WPBDP_INC . 'admin/form-fields.php' );
+require_once( WPBDP_INC . 'admin/payments.php' );
+require_once( WPBDP_INC . 'admin/csv-import.php' );
+require_once( WPBDP_INC . 'admin/csv-export.php' );
+require_once( WPBDP_INC . 'admin/helpers/listing-metabox.php' );
+require_once( WPBDP_INC . 'admin/class-listing-fields-metabox.php' );
+require_once( WPBDP_INC . 'admin/page-debug.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
