@@ -4,22 +4,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-05-16 22:07:41+00:00\n"
-"PO-Revision-Date: 2017-01-16 17:49-0500\n"
+"POT-Creation-Date: 2017-05-22 23:05:34+00:00\n"
+"PO-Revision-Date: 2017-05-20 19:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: business-directory-plugin.php:594
-#, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
-msgstr "Kategorier för denna annons"
+msgstr "Fler bilder kan inte laddas upp för denna annons."
 
 #: business-directory-plugin.php:708
 msgctxt "admin plugins"
@@ -53,19 +52,20 @@ msgid "Listings tagged: %s"
 msgstr "Annonser med tagg: %s"
 
 #: business-directory-plugin.php:1587
-#, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
 "Business Directorys funktioner är för närvarande avaktiverade på grund av "
-"att pluginet behöver en manuell uppgradering innan du fortsätter."
+"att pluginet behöver <a> en manuell uppgradering</a>."
 
 #: business-directory-plugin.php:1594
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
 msgstr ""
+"Katalogen är inte tillgänglig just nu. Vänligen försök igen om en lite stund "
+"eller kontakta administratören om problemet kvarstår."
 
 #: includes/admin/class-admin-listings.php:40
 msgctxt "admin category filter"
@@ -630,10 +630,9 @@ msgid "Theme installed successfully."
 msgstr "Temat har installerats med framgång."
 
 #: includes/admin/class-themes-admin.php:229
-#, fuzzy
 msgctxt "themes"
 msgid "Theme was deleted successfully."
-msgstr "Temat har tagits bort med framgång."
+msgstr "Temat är borttaget."
 
 #: includes/admin/class-themes-admin.php:232
 msgctxt "themes"
@@ -963,10 +962,9 @@ msgid "State"
 msgstr "Län"
 
 #: includes/admin/form-fields.php:298
-#, fuzzy
 msgctxt "form-fields admin"
 msgid "Country"
-msgstr "Land:"
+msgstr "Land"
 
 #: includes/admin/form-fields.php:299
 msgctxt "form-fields admin"
@@ -1572,6 +1570,8 @@ msgctxt "admin settings"
 msgid ""
 "Include CSS rules to give their own style to View, Edit and Delete buttons?"
 msgstr ""
+"Vill du inkludera CSS-regler för att ge Visa-, Redigera- och Ta bort-"
+"knapparna eget utseende?"
 
 #: includes/admin/settings/class-settings.php:189
 #: includes/admin/settings/class-settings.php:688
@@ -1665,6 +1665,11 @@ msgid ""
 "comments. Use the 2nd option if you want to allow comments on listings "
 "first, and if that doesn't work, try the 3rd option instead."
 msgstr ""
+"BD använder WordPress standardkommentarer, men många teman tillåter endast "
+"kommentarer på inlägg, inte sidor. Vissa teman tillåter båda. BD visas på en "
+"sida, därför behövs ett tema som kan hantera kommentarer på både sidor och "
+"inlägg. Använd det andra valet om du vill tillåta kommentarer på annonser "
+"först, och om det inte fungerar, använd det tredje valet."
 
 #: includes/admin/settings/class-settings.php:236
 msgctxt "admin settings"
@@ -1680,6 +1685,8 @@ msgstr "Inkludera kommentarsfält på annonssidan?"
 msgctxt "admin settings"
 msgid "Include comment form, BD invoked (use only if 2nd option doesn't work)"
 msgstr ""
+"Inkludera kommentarsfält anropat från BD (använd endast om andra valet inte "
+"fungerar)"
 
 #: includes/admin/settings/class-settings.php:246
 msgctxt "admin settings"
@@ -2437,7 +2444,7 @@ msgstr "Japanska yen (JPY)"
 #: includes/admin/settings/class-settings.php:586
 msgctxt "admin settings"
 msgid "Moroccan Dirham (MAD)"
-msgstr ""
+msgstr "Marockanska Dirham (MAD)"
 
 #: includes/admin/settings/class-settings.php:587
 msgctxt "admin settings"
@@ -2920,10 +2927,9 @@ msgid "Could not update theme: %s"
 msgstr "Det gick inte att uppdatera tema:%s"
 
 #: includes/admin/upgrades/class-themes-updater.php:165
-#, fuzzy
 msgctxt "themes"
 msgid "Theme was updated successfully."
-msgstr "Tema uppdaterades framgångsrikt."
+msgstr "Temat har uppdaterats."
 
 #: includes/api.php:405
 msgid "Free"
@@ -3228,7 +3234,7 @@ msgstr "— Välj ett  —"
 #: includes/fields/class-fieldtypes-select.php:112
 msgctxt "form-fields-api select"
 msgid "— None —"
-msgstr ""
+msgstr "— Inget —"
 
 #: includes/fields/class-fieldtypes-select.php:162
 msgctxt "form-fields admin"
@@ -3715,6 +3721,7 @@ msgid ""
 "Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d "
 "records left)"
 msgstr ""
+"Rensar lagrad metadata för Checkbox, Radio och Välj-fält... (%d data kvar)"
 
 #: includes/installer.php:1061
 msgid "Business Directory - Manual Upgrade Required"
@@ -3760,14 +3767,11 @@ msgid "Pause Upgrade"
 msgstr "Pausa uppgraderingen"
 
 #: includes/installer.php:1110
-#, fuzzy
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was successfully performed. Business Directory Plugin is now "
 "available."
-msgstr ""
-"Uppgraderingen utfördes framgångsrikt. Business Directory Plugin är nu "
-"tillgängligt."
+msgstr "Uppdateringen lyckades. Business Directory Plugin är nu tillgängligt."
 
 #: includes/installer.php:1113
 msgctxt "manual-upgrade"
@@ -3808,6 +3812,9 @@ msgid ""
 "that information if you need to contact support about problems trying to "
 "activate your licenses."
 msgstr ""
+"Din servers IP-adress är <ip-address>. Var vänlig och säkerställ att den "
+"information som behövs är inkluderad om du behöver kontakta supporten vid "
+"problem vid aktivering av licens."
 
 #: includes/licensing.php:154 includes/licensing.php:188
 msgctxt "licensing"
@@ -4090,7 +4097,7 @@ msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
 
-#: includes/utils.php:106
+#: includes/utils.php:107
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -4098,52 +4105,52 @@ msgstr ""
 "Postat data överskrider PHP config. max. Se \\\"post_max_size \\\" "
 "direktivet."
 
-#: includes/utils.php:164
+#: includes/utils.php:165
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "Filstorlek (%s) överskrider maximal filstorlek på %s"
 
-#: includes/utils.php:172
+#: includes/utils.php:173
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "Filstorlek (%s) är sämre än den minifilstiorleken på%s"
 
-#: includes/utils.php:181 includes/utils.php:188
+#: includes/utils.php:182 includes/utils.php:189
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Filtyp \"%s\" är inte tillåten"
 
-#: includes/utils.php:195
+#: includes/utils.php:196
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Okänt fel uppstod när filen laddades upp."
 
-#: includes/utils.php:214
+#: includes/utils.php:215
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Den uppladdade filen är inte en bild"
 
-#: includes/utils.php:223
+#: includes/utils.php:224
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr "Bildbredd (%s px) är mindre än minimikravet på bredden %s px."
 
-#: includes/utils.php:229
+#: includes/utils.php:230
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr "Bildhöjden (%s px) är mindre än minimikravet på höjden %s px."
 
-#: includes/utils.php:235
+#: includes/utils.php:236
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr "Bildbredden (%s px) är större än högsta tillåtna bredd%s px."
 
-#: includes/utils.php:241
+#: includes/utils.php:242
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr "Bildhöjden (%s px) är större än maximalt tillåtna höjd%s px."
 
-#: includes/utils.php:255
+#: includes/utils.php:256
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Okänt fel uppstod när filen laddades upp."
@@ -4188,10 +4195,9 @@ msgid "← Return to Directory."
 msgstr "← Tillbaka till katalogen."
 
 #: includes/views/checkout.php:130
-#, fuzzy
 msgctxt "checkout"
 msgid "Your payment was received successfully."
-msgstr "Din betalning mottogs framgångsrikt."
+msgstr "Vi har mottagit din betalning."
 
 #: includes/views/checkout.php:137
 msgctxt "checkout"
@@ -4429,10 +4435,10 @@ msgid "Find A Listing"
 msgstr "Hitta en annons"
 
 #: includes/views/show_listing.php:12
-#, fuzzy
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
-msgstr "Annonsen har publicerats."
+msgstr ""
+"Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
 #: includes/views/submit_listing.php:16
 msgctxt "templates"
@@ -4512,14 +4518,13 @@ msgid ""
 msgstr "Du är inloggad som administratör. Alla betalningssteg hoppas över."
 
 #: includes/views/view-submit-listing.php:108
-#, fuzzy
 msgctxt "submit-listing-view"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field associated with the "
 "<b>post category</b> in order to work correctly."
 msgstr ""
-"<b>Tillägget Business Direcotry </b> kräver ett fält med en<b>%s</b> "
-"association för att fungera korrekt."
+"<b>Tillägget Business Direcotry </b> kräver ett fält associerat "
+"med<b>inläggskategorier</b> för att fungera korrekt."
 
 #: includes/views/view-submit-listing.php:110
 msgctxt "submit-listing-view"
@@ -4527,18 +4532,19 @@ msgid ""
 "Please go to the <manage-form-fields-link>Manage Form Fields</manage-form-"
 "fields-link> admin page to create the field."
 msgstr ""
+"Vänligen besök  <manage-form-fields-link>Hantera formulärfält</manage-form-"
+"fields-link> för att skapa fältet."
 
 #: includes/views/view-submit-listing.php:119
-#, fuzzy
 msgctxt "submit-listing-view"
 msgid ""
 "Your listing cannot be added at this time. Please try again later. If this "
 "is not the first time you see this warning, please ask the site "
 "administrator to check the Directory for possible configuration problems."
 msgstr ""
-"Din annons kan inte läggas in vid denna tidpunkt. Vänligen försök igen "
-"senare. Om det inte är första gången du ser detta meddelande, be "
-"administratören att lägga upp en eller flera kategorier i Business Directory."
+"Din annons kan inte läggas in just nu. Vänligen försök igen senare. Om det "
+"inte är första gången du ser detta meddelande ber vi dig kontakta "
+"administratören för felsökning."
 
 #: includes/views/view-submit-listing.php:238
 msgctxt "templates"
@@ -4826,7 +4832,7 @@ msgstr "Inställningar för CSV-fil"
 #: templates/admin/csv-export.tpl.php:94
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
-msgstr ""
+msgstr "Vilket operativsystem använder du för att redigera CSV-filen?"
 
 #: templates/admin/csv-export.tpl.php:94 templates/admin/csv-export.tpl.php:113
 #: templates/admin/csv-export.tpl.php:124 templates/admin/csv-import.tpl.php:43
@@ -4841,12 +4847,12 @@ msgstr "obligatoriskt"
 #: templates/admin/csv-export.tpl.php:101
 msgctxt "admin csv-export"
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 #: templates/admin/csv-export.tpl.php:106
 msgctxt "admin csv-export"
 msgid "macOS"
-msgstr ""
+msgstr "MacOS"
 
 #: templates/admin/csv-export.tpl.php:108
 msgctxt "admin csv-export"
@@ -4856,6 +4862,10 @@ msgid ""
 "edit the CSV file, we need to generate different versions of the file for "
 "each operating system."
 msgstr ""
+"Excel för Windows och MacOS hanterar CSV-filer olika. För att vara säker på "
+"att all din annonsinformation visas korrekt när du ska visa eller redigera "
+"CSV-filen behöver vi generera olika versioner av filen för varje "
+"operativsystem."
 
 #: templates/admin/csv-export.tpl.php:113
 msgctxt "admin csv-export"
@@ -5136,17 +5146,17 @@ msgstr "Kolumnavgränsare"
 #: templates/admin/csv-import.tpl.php:117
 msgctxt "admin csv-import"
 msgid "Comma (,)"
-msgstr ""
+msgstr "Komma (,)"
 
 #: templates/admin/csv-import.tpl.php:123
 msgctxt "admin csv-import"
 msgid "Semicolon (;)"
-msgstr ""
+msgstr "Semikolon (;)"
 
 #: templates/admin/csv-import.tpl.php:129
 msgctxt "admin csv-import"
 msgid "TAB"
-msgstr ""
+msgstr "Tab"
 
 #: templates/admin/csv-import.tpl.php:135
 msgctxt "admin csv-import"
@@ -5798,7 +5808,7 @@ msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr "Se <a>formulärfältsdokumentationen</a> för mer information."
 
-#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.12)  #-#-#-#-#
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.12.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: templates/admin/header.tpl.php:4
 msgid "Business Directory Plugin"
@@ -6675,13 +6685,11 @@ msgid "Phone Number:"
 msgstr "Telefonnummer:"
 
 #: templates/billing-information-form.tpl.php:161
-#, fuzzy
 msgctxt "checkout form"
 msgid "Cancel"
 msgstr "Avbryt"
 
 #: templates/billing-information-form.tpl.php:162
-#, fuzzy
 msgctxt "checkout form"
 msgid "Submit Payment"
 msgstr "Skicka betalning"
@@ -6987,7 +6995,6 @@ msgid "There are no fees available for this category."
 msgstr "Det finns inga avgifter för denna kategori."
 
 #: templates/parts/category-fee-selection.tpl.php:29
-#, fuzzy
 msgctxt "templates"
 msgid "day"
 msgid_plural "days"
@@ -6995,7 +7002,6 @@ msgstr[0] "dagar"
 msgstr[1] "dagar"
 
 #: templates/parts/category-fee-selection.tpl.php:47
-#, fuzzy
 msgctxt "templates"
 msgid "%d image"
 msgid_plural "%d images"

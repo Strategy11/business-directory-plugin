@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/business-directory-plugin\n"
-"POT-Creation-Date: 2017-05-16 22:07:41+00:00\n"
+"POT-Creation-Date: 2017-05-22 23:05:34+00:00\n"
 "PO-Revision-Date: 2017-05-16 17:09-0500\n"
 "Last-Translator: Willington Vega <wvega@wvega.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -4143,7 +4143,7 @@ msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "No se pudo mover el nuevo tema al directorio de temas."
 
-#: includes/utils.php:106
+#: includes/utils.php:107
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -4151,54 +4151,54 @@ msgstr ""
 "Los datos enviados via POST superan el valor máximo configurado en PHP. "
 "Revise la directiva \"post_max_size\" de su configuración."
 
-#: includes/utils.php:164
+#: includes/utils.php:165
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "El tamaño de archivo (%s) excede el tamaño máximo permitido de %s"
 
-#: includes/utils.php:172
+#: includes/utils.php:173
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "El tamaño de archivo (%s) es inferior al tamaño mínimo requerido de %s"
 
-#: includes/utils.php:181 includes/utils.php:188
+#: includes/utils.php:182 includes/utils.php:189
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "El tipo de archivo \"%s\" no está permitido"
 
-#: includes/utils.php:195
+#: includes/utils.php:196
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Error desconocido mientras se subía el archivo."
 
-#: includes/utils.php:214
+#: includes/utils.php:215
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "El archivo subido no es una imagen"
 
-#: includes/utils.php:223
+#: includes/utils.php:224
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr ""
 "El ancho de la imagen (%s px) es inferior al mínimo requerido de %s px."
 
-#: includes/utils.php:229
+#: includes/utils.php:230
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr "El alto de la imagen (%s px) es inferior al mínimo requerido de %s px."
 
-#: includes/utils.php:235
+#: includes/utils.php:236
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "El ancho de la imagen (%s px) es superior al máximo permitido de %s px."
 
-#: includes/utils.php:241
+#: includes/utils.php:242
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr "El alto de la imagen (%s px) es superior al máximo permitido de %s px."
 
-#: includes/utils.php:255
+#: includes/utils.php:256
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
@@ -5876,6 +5876,7 @@ msgstr ""
 "Por favor vea la <a>documentación de Campos de Formulario</a> para más "
 "detalles."
 
+#. #-#-#-#-#  WPBDM.pot (Business Directory Plugin 4.1.12.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: templates/admin/header.tpl.php:4
 msgid "Business Directory Plugin"
