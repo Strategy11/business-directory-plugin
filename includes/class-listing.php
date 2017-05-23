@@ -673,7 +673,7 @@ class WPBDP_Listing {
             }
         }
 
-        if ( $post_author != $post_data['post_author']  ) {
+        if ( $post_author ) {
             $post_data['post_author'] = $post_author;
         }
 
