@@ -139,7 +139,7 @@ class WPBDP__Listing_Search {
             $alias = $this->aliases[ $table ][ $i - 1 ];
             $reused = true;
         } else {
-            $alias = $i > 0 ? 't_' . $i : $table;
+            $alias = $i > 0 ? $table . '_t_' . $i : $table;
         }
 
         $this->aliases[ $table ][] = $alias;
