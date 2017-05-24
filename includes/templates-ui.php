@@ -192,8 +192,14 @@ function wpbdp_list_categories( $args=array() ) {
 }
 
 function wpbdp_main_links( $buttons = null ) {
-    if ( is_string( $buttons ) && 'none' == $buttons ) {
-        $buttons = array();
+    if ( is_string( $buttons ) ) {
+        if ( 'none' == $buttons ) {
+            $buttons = array();
+        } else if ( 'all' == $buttons ) {
+            $buttons = array( 'directory', 'listings', 'create' );
+        } else {
+            $buttons = explode( ',', $buttons );
+        }
     } else if ( ! is_array( $buttons ) ) {
         // Use defaults.
         $buttons = array();
