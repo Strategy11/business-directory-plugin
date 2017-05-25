@@ -168,15 +168,13 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         $country = trim( $this->t_country->value );
         $zip = trim( $this->t_zip->value );
 
-        $html  = '';
-        $html .= $address;
-        $html .= ( $city || $state || $zip ) ? '<br />' : '';
-        $html .= $city;
-        $html .= ( $city && $state ) ? ', ' . $state : $state;
-        $html .= $zip ? ' ' . $zip : '';
-        $html .= $country ? '<br />' . $country : '';
+        $first_line = $address;
 
-        return $html;
+        $second_line = $city;
+        $second_line.= ( $city && $state ) ? ', ' . $state : $state;
+        $second_line.= $zip ? ' ' . $zip : '';
+
+        return implode( '<br />', array_filter( array( $first_line, $second_line ) ) );
     }
 
     public function helper__address_nobr() {
