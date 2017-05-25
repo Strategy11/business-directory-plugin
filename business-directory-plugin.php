@@ -133,7 +133,6 @@ class WPBDP_Plugin {
         $this->settings->register_settings();
 
         // WPBDP is intended to replace this whole class in the near future.
-        require_once( WPBDP_INC . 'class-wpbdp.php' );
         $bd = new WPBDP();
         $bd->init();
 
