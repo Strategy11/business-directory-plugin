@@ -60,7 +60,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'body' => $email['body']
                 );
             }
-        }  
+        }
 
         if ( $t = get_option( 'wpbdp-renewal-email-threshold', false ) ) {
             if ( $email = get_option( 'wpbdp-renewal-pending-message' ) ) {
@@ -90,7 +90,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             if ( $email = get_option( 'wpbdp-renewal-reminder-message' ) ) {
                 $notices[] = array(
                     'event'         => 'expiration',
-                    'relative_time' => '+' . $t . ' days',
+                    'relative_time' => '-' . $t . ' days',
                     'listings'      => 'both',
                     'subject'       => $email['subject'],
                     'body'          => $email['body']
@@ -106,7 +106,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'subject'       => $email['subject'],
                     'body'          => $email['body']
                 );
-            }            
+            }
         }
 
         update_option( 'wpbdp-expiration-notices', $notices );
