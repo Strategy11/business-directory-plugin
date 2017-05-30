@@ -911,7 +911,7 @@ class WPBDP_Plugin {
         wp_register_script(
             'wpbdp-js',
             WPBDP_URL . 'assets/js/wpbdp.min.js',
-            array( 'jquery', 'jquery-breakpoints' )
+            array( 'jquery', 'jquery-breakpoints', 'jquery-ui-sortable' )
         );
     }
 

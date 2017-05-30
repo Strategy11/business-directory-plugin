@@ -29,7 +29,7 @@ class WPBDP_Admin {
         add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
 
         add_action('admin_notices', array($this, 'admin_notices'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
 
         // Admin menu.
         add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -80,9 +80,7 @@ class WPBDP_Admin {
         wp_enqueue_style( 'thickbox' );
 
         wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
-        wp_enqueue_script( 'wpbdp-frontend-js',
-                           WPBDP_URL . 'assets/js/wpbdp.min.js',
-                           array( 'jquery' ) );
+        wp_enqueue_script( 'wpbdp-js' );
         wp_enqueue_script( 'wpbdp-admin-js',
                            WPBDP_URL . 'assets/js/admin.min.js',
                            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
