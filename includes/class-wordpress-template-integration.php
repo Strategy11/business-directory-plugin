@@ -75,33 +75,49 @@ class WPBDP__WordPress_Template_Integration {
         remove_filter( 'the_content', 'wpautop' );
         // TODO: we should probably be more clever here to avoid conflicts. Run last so other hooks don't break our
         // output.
+        add_filter( 'the_content', array( $this, 'remove_spoofed_data' ), 4 );
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+        add_filter( 'the_content', array( $this, 'maybe_end_query' ), 6 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
 
-    public function spoof_post() {
-        $GLOBALS['post'] = $this->spoofed_post();
+    public function spoof_post( $post ) {
+        $GLOBALS['post'] = apply_filters( 'wpbdp_spoofed_post', $this->spoofed_post(), $this, $post );
         remove_action( 'the_post', array( $this, 'spoof_post' ) );
     }
 
+    public function remove_spoofed_data( $content ) {
+        remove_filter( 'the_content', array( $this, 'remove_spoofed_data' ), 4 );
+
+        $this->restore_things();
+
+        return $content;
+    }
+
     public function display_view_in_content( $content = '' ) {
+        remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+
         if ( $this->displayed ) {
-            remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
             return '';
         }
 
-        remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         // add_filter( 'the_content', 'wpautop' );
-        $this->restore_things();
 
         $html = wpbdp_current_view_output();
-
-        if ( ! is_404() )
-            $this->end_query();
 
         $this->displayed = true;
 
         return $html;
+    }
+
+    public function maybe_end_query( $content ) {
+        remove_filter( 'the_content', array( $this, 'maybe_end_query' ), 6 );
+
+        if ( ! is_404() ) {
+            $this->end_query();
+        }
+
+        return $content;
     }
 
     public function modify_global_post_title( $title = '' ) {
