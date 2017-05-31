@@ -55,6 +55,7 @@ class WPBDP__Themes_Compat {
             'takeawaywp',
             'foodiepro-2.1.8',
             'ultimatum',
+            'xpro',
         );
 
         return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
@@ -354,6 +355,36 @@ class WPBDP__Themes_Compat {
         }
 
         return $instance;
+    }
+
+    /**
+     * @since 4.1.13
+     */
+    public function theme_xpro() {
+        add_filter( 'wpbdp_spoofed_post', array( $this, 'theme_xpro_filter_spoofed_post' ), 10, 3 );
+    }
+
+    /**
+     * @since 4.1.13
+     */
+    public function theme_xpro_filter_spoofed_post( $spoofed_post, $template_integration, $post ) {
+        remove_filter( 'the_content', array( $template_integration, 'display_view_in_content' ), 5 );
+        add_filter( 'the_content', array( $this, 'theme_xpro_filter_spoofed_post_content' ), 5 );
+
+        return $spoofed_post;
+    }
+
+    /**
+     * @since 4.1.13
+     */
+    public function theme_xpro_filter_spoofed_post_content( $content ) {
+        $page = get_page( wpbdp_get_page_id( 'main' ) );
+
+        if ( ! $page ) {
+            return $content;
+        }
+
+        return do_shortcode( $page->post_content );
     }
 
 
