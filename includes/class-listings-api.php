@@ -251,8 +251,8 @@ class WPBDP_Listings_API {
             return;
 
         if ( isset( $_POST['original_post_status'] ) && 'auto-draft' == $_POST['original_post_status'] ) {
-            add_action( 'save_post', array( $this, 'send_listing_published_notification' ), 99, 2 );
-            add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), 99 );
+            add_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
+            add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
             return;
         }
 
@@ -270,8 +270,8 @@ class WPBDP_Listings_API {
     }
 
     public function try_to_remove_listing_published_notification_action() {
-        remove_action( 'save_post', array( $this, 'send_listing_published_notification' ), 99, 2 );
-        remove_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), 99 );
+        remove_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
+        remove_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
     }
 
     /**
