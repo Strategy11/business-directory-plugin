@@ -127,8 +127,6 @@ class WPBDP__Shortcodes {
          *  `[businessdirectory-listing slug="my-listing"]`
          */
         $this->add( 'businessdirectory-listing', array( $this, 'sc_single_listing' ) );
-        $atts = shortcode_atts( array( 'id' => null, 'slug' => null ), $atts );
-
 
         /*
          * WordPress Shortcode:
