@@ -192,7 +192,6 @@ class WPBDP__Shortcodes {
          *    `[businessdirectory-latest-listings limit=5]`
          */
         $this->add( 'businessdirectory-latest-listings', array( $this, 'sc_listings_latest' ) );
-         *  - buttons  Which menu buttons to show inside the box. Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
 
         /*
          * WordPress Shortcode:
