@@ -605,6 +605,28 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             });
 
             $.each( this._whenTrueActivateChilds, function( p, chs ) {
+                $.each( chs, function( i, ch ) {
+                    var $ch = $( '[name="wpbdp-' + ch + '"], [name="wpbdp-' + ch + '[]"]' );
+
+                    $ch.change(function(e) {
+                        if ( ! $(this).data( 'wpbdp-disabled' ) ) {
+                            return true;
+                        }
+
+                        if ( $ch.is( '[type="checkbox"]' ) ) {
+                            if ( $ch[0].defaultChecked ) {
+                                $ch.prop( 'checked', true );
+                            } else {
+                                $ch.prop( 'checked', false );
+                            }
+                        } else if ( $ch.is( 'select' ) ) {
+                            // Nothing to do for now.
+                        } else {
+                            $ch.val( $ch[0].defaultValue );
+                        }
+                    });
+                } );
+
                 $('input[name="wpbdp-' + p + '"]').change(function(e) {
                     t.handleToggle( p );
                 });
@@ -627,18 +649,22 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                     // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
                     if ( 'true' === req ) {
                         if ( checked ) {
-                            $s.prop( 'contenteditable', true );
+                            $s.data( 'wpbdp-disabled', false );
+                            // $s.prop( 'contenteditable', true );
                             $row.removeClass( 'disabled' );
                         } else {
-                            $s.prop( 'contenteditable', false );
+                            $s.data( 'wpbdp-disabled', true );
+                            // $s.prop( 'contenteditable', false );
                             $row.addClass( 'disabled' );
                         }
                     } else if ( 'false' === req ) {
                         if ( checked ) {
-                            $s.pop( 'contenteditable', false );
+                            $s.data( 'wpbdp-disabled', true );
+                            // $s.pop( 'contenteditable', false );
                             $row.addClass( 'disabled' );
                         } else {
-                            $s.prop( 'contenteditable', true );
+                            $s.data( 'wpbdp-disabled', false );
+                            // $s.prop( 'contenteditable', true );
                             $row.removeClass( 'disabled' );
                         }
                     }

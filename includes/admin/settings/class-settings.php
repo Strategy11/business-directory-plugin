@@ -613,6 +613,7 @@ EOF;
                             array( 'choices' => array( array( 'left', _x( 'Show currency symbol on the left', 'admin settings', 'WPBDM' ) ),
                                                        array( 'right', _x( 'Show currency symbol on the right', 'admin settings', 'WPBDM' ) ),
                                                        array( 'none', _x( 'Do not show currency symbol', 'admin settings', 'WPBDM' ) ) ) ) );
+        $this->register_dep( 'currency-symbol-position', 'requires-true', 'payments-on' );
 
         $this->add_setting($s, 'payment-message', _x('Thank you for payment message', 'admin settings', 'WPBDM'), 'text',
                         _x('Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM'));
