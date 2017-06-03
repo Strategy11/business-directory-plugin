@@ -25,30 +25,205 @@ class WPBDP__Shortcodes {
         // the output.
         global $wpbdp;
 
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory], [business-directory], [WPBUSDIRMANUI]
+         * Used for:
+         *  Displaying the main directory page and all directory content.
+         * Notes:
+         *  Required. Installed by BD automatically. Cannot be removed from site unless you plan to uninstall BD.
+         * Example:
+         *  `[businessdirectory]`
+         */
         $this->add( 'businessdirectory',
                     array( $this, 'sc_main' ),
                     array( 'business-directory', 'WPBUSDIRMANUI' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-submit-listing], [WPBUSDIRMANADDLISTING]
+         * Used for:
+         *  Creating a separate "Submit Listing" page for BD.
+         * Notes:
+         *  Optional. Not needed if you are just using the standard directory links and buttons. This allows you to have a separate page if you want to have some special content around the page.
+         * Example:
+         *  `[businessdirectory-submitlisting]`
+         */
         $this->add( 'businessdirectory-submit-listing',
                     array( $this, 'sc_submit_listing' ),
                     array( 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-manage-listings], [business-directory-managelistings], [WPBUSDIRMANMANAGELISTING]
+         * Used for:
+         *  Bulk listing editor page for users to see and manage their listings when logged in.
+         * Parameters:
+         *  - showsearchbar  Allows you to control the visibility of the search bar at the top of the page. Default is 1 if not specified. (Allowed Values: 0 or 1.)
+         * Example:
+         *  `[businessdirectory-manage-listings]`
+         */
         $this->add( 'businessdirectory-manage-listings',
                     array( $this, 'sc_manage_listings' ),
                     array( 'businessdirectory-managelistings', 'business-directory-manage-listings', 'businessdirectory-manage_listings', 'WPBUSDIRMANMANAGELISTING' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-listings], [businessdirectory-viewlistings], [WPBUSDIRMANVIEWLISTINGS], [WPBUSDIRMANMVIEWLISTINGS]
+         * Used for:
+         *  Showing listings with a certain type, tag or filter.
+         * Notes:
+         *  Good for displaying listings in a single category or from a single tag.
+         * Parameters:
+         *  - tag       Shows the listings with a certain tag name. (Allowed Values: Any valid tag name within the directory. Can be a comma separated list too (eg. "New, Hot").)
+         *  - category  Shows the listings with a certain category. (Allowed Values: Any valid category name or ID you have configured under Directory -> Directory Categories. Can be a comma separated list too (e.g. "Dentists, Doctors" or 1,2,56).)
+         *  - title     Adds a title to the page of listings to indicate what they are for. (Allowed Values: Any non-blank string.)
+         * Example:
+         *  - Display listings from category "Dentists" with tag "New" and include a title.
+         *
+         *    `[businessdirectory-listings tag="New" category="Dentists" title="Recent Listings for Dentists"]`
+         *
+         */
         $this->add( 'businessdirectory-listings',
                     array( $this, 'sc_listings' ),
                     array( 'WPBUSDIRMANVIEWLISTINGS', 'WPBUSDIRMANMVIEWLISTINGS', 'businessdirectory-view_listings', 'businessdirectory-viewlistings' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-search], [business-directory-search]
+         * Used for:
+         *  Shows the Advanced Search Screen on any single page.
+         * Example:
+         *  `[businessdirectory-search]`
+         */
         $this->add( 'businessdirectory-search',
                     array( $this, 'sc_search' ),
                     array( 'business-directory-search', 'businessdirectory_search', 'business-directory_search' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-featuredlistings]
+         * Used for:
+         *  To show all of the featured listings within your directory on a single page.
+         * Parameters:
+         *  - number_of_listings  Maximum number of listings to display. (Allowed Values: Any positive integer or 0 for no limit)
+         * Example:
+         *  `[businessdirectory-featuredlistings]`
+         */
         $this->add( 'businessdirectory-featuredlistings', array( $this, 'sc_featured_listings' ) );
+
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-listings]
+         * Used for:
+         *  Displaying a single listing from the directory (by slug or ID).
+         * Parameters:
+         *  - id   Post ID of the listing. (Allowed Values: Any valid listing ID.)
+         *  - slug Slug for the listing. (Allowed Values: Any valid listing slug.)
+         * Notes:
+         *  At least one of the parameters `id` or `slug` must be provided.
+         * Example:
+         *  `[businessdirectory-listing slug="my-listing"]`
+         */
         $this->add( 'businessdirectory-listing', array( $this, 'sc_single_listing' ) );
+        $atts = shortcode_atts( array( 'id' => null, 'slug' => null ), $atts );
+
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-categories]
+         * Used for:
+         *  Displaying the list of categories in a similar fashion as the main page.
+         * Parameters:
+         *  - parent    Parent directory category ID. (Allowed Values: A directory category term ID)
+         *  - orderby What value to use for odering the categories. Default is taken from current BD settings. (Allowed Values: "name", "slug", "id", "description", "count" (listing count).)
+         *  - order   Whether to order in ascending or descending order. Default is taken from current BD settings. (Allowed Values: "ASC" or "DESC")
+         *  - show_count Whether to display the listing count next to each category or not. Default is taken from current BD settings. (Allowed Values: 0 or 1)
+         *  - hide_empty Whether to hide empty categories or not. Default is 0. (Allowed Values: 0 or 1)
+         *  - parent_only Whether to only display direct childs of parent category or make a recursive list. Default is 0. (Allowed Values: 0 or 1)
+         *  - no_items_msg Message to display when there are no categories found. (Allowed Values: Any non-blank string)
+         * Example:
+         *  - Display the list of categories starting at the one with ID 20 and ordering by slug.
+         *    `[businessdirectory-categories parent=20 order="slug"]`
+         */
         $this->add( 'businessdirectory-categories', array( $this, 'sc_categories' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-listing-count]
+         * Used for:
+         *  Outputs the listing count for a given category or region.
+         * Parameters:
+         *  - category  What category to use. (Allowed Values: A valid category ID, name or slug.)
+         *  - region    What region to use. (Allowed Values: A valid region ID, name or slug.)
+         * Notes:
+         *  If both parameters are provided the result is the number of listings inside the given category located in the given region.
+         * Example:
+         *  - To count how many listings you have in the "Restaurants" category that are located in "New York"
+         *
+         *    `[businessdirectory-listing-count category="Restaurants" region="New York"]`
+         */
         $this->add( 'businessdirectory-listing-count', array( $this, 'sc_count' ), array( 'bd-listing-count', 'business-directory-listing-count' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-quick-search], [business-directory-quick-search]
+         * Used for:
+         *  Displaying the quick search box on any page.
+         * Parameters:
+         *  - buttons  Which menu buttons to show inside the box. Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
+         * Example:
+         *  `[businessdirectory-quick-search buttons="create,listings"]`
+         */
         $this->add( 'businessdirectory-quick-search', array( $this, 'sc_quick_search' ), array( 'business-directory-quick-search' ) );
 
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-latest-listings]
+         * Used for:
+         *  Displaying the latest listings.
+         * Parameters:
+         *  - limit The number of listings to show. Defaults to 10. (Allowed Values: A positive integer)
+         *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
+         *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
+         * Example:
+         *  - Display the latest 5 listings submitted to the directory:
+         *    `[businessdirectory-latest-listings limit=5]`
+         */
         $this->add( 'businessdirectory-latest-listings', array( $this, 'sc_listings_latest' ) );
+         *  - buttons  Which menu buttons to show inside the box. Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-random-listings]
+         * Used for:
+         *  Displaying a set of random listings from the directory.
+         * Parameters:
+         *  - limit The number of listings to show. Defaults to 10. (Allowed Values: A positive integer)
+         *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
+         *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
+         * Example:
+         *  - Display a set of 10 random listings, including the directory menu with only the "Create A Listing" button:
+         *
+         *    `[businessdirectory-random-listings menu=1 buttons="create"]`
+         */
         $this->add( 'businessdirectory-random-listings', array( $this, 'sc_listings_random' ) );
+
+        /*
+         * WordPress Shortcode:
+         *  [businessdirectory-featured-listings]
+         * Used for:
+         *  Displaying a set of featured listings from the directory.
+         * Parameters:
+         *  - limit The number of listings to show. Defaults to 10. (Allowed Values: A positive integer)
+         *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
+         *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
+         * Example:
+         *  `[businessdirectory-featured-listings limit=5]`
+         */
         $this->add( 'businessdirectory-featured-listings', array( $this, 'sc_listings_featured' ) );
+
 
         do_action_ref_array( 'wpbdp_shortcodes_register', array( &$this ) );
 
@@ -394,4 +569,3 @@ class WPBDP__Shortcodes {
     //
 
 }
-
