@@ -1421,6 +1421,25 @@ class WPBDP_Plugin {
     }
 
     public function ajax_file_field_upload() {
+        $field_id   = ! empty( $_REQUEST['field_id'] ) ? absint( $_REQUEST['field_id'] ) : 0;
+        $nonce      = ! empty( $_REQUEST['nonce'] ) ? $_REQUEST['nonce'] : '';
+        $listing_id = ! empty( $_REQUEST['listing_id'] ) ? absint( $_REQUEST['listing_id'] ) : 0;
+        $state_id   = ! empty( $_REQUEST['state_id'] ) ? $_REQUEST['state_id'] : '';
+
+        if ( ! $field_id || ! $nonce || ( ! $listing_id && ! $state_id ) ) {
+            die;
+        }
+
+        $state_challenge = $listing_id ? ( 'listing_id-' . $listing_id ) : ( 'state_id-' . $state_id );
+        if ( ! wp_verify_nonce( $nonce, 'wpbdp-file-field-upload-' . $field_id . '-' . $state_challenge ) ) {
+            die;
+        }
+
+        $field = wpbdp_get_form_field( $field_id );
+        if ( ! $field || 'image' != $field->get_field_type_id() ) {
+            die;
+        }
+
         echo '<form action="" method="POST" enctype="multipart/form-data">';
         echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
         echo '</form>';
@@ -1442,14 +1461,14 @@ class WPBDP_Plugin {
                 echo '</div>';
 
                 echo '<script type="text/javascript">';
-                echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d);', $_REQUEST['field_id'], $media_id );
+                echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d);', $field_id, $media_id );
                 echo '</script>';
             } else {
                 print $errors;
             }
         }
 
-        echo sprintf( '<script type="text/javascript">window.parent.WPBDP.fileUpload.resizeIFrame(%d);</script>', $_REQUEST['field_id'] );
+        echo sprintf( '<script type="text/javascript">window.parent.WPBDP.fileUpload.resizeIFrame(%d);</script>', $field_id );
 
         exit;
     }

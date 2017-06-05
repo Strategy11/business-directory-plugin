@@ -40,17 +40,49 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $html .= '</div>';
 
-        $ajax_url = add_query_arg( array( 'action' => 'wpbdp-file-field-upload',
-                                                      'field_id' => $field->get_id(),
-                                                      'element' => 'listingfields[' . $field->get_id() . ']' ),
-                                   admin_url( 'admin-ajax.php' ) );
+        // We use $state to prevent CSFR. Related to #2848.
+        $state_key = '';
+        $state_id  = '';
+        if ( 'submit' == $context ) {
+            if ( ! empty( $extra->id ) ) {
+                $state_key = 'state_id';
+                $state_id = $extra->id;
+            } elseif ( ! empty( $extra->listing_id ) ) {
+                $state_key = 'listing_id';
+                $state_id = absint( $extra->listing_id );
+            }
+        } else if ( is_admin() ) {
+            global $post;
+
+            if ( ! empty( $post ) && WPBDP_POST_TYPE == $post->post_type ) {
+                $state_key = 'listing_id';
+                $state_id  = $post->ID;
+            }
+        }
+
+        if ( ! $state_key || ! $state_id ) {
+            return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'WPBDM' ), 'error' );
+        }
+
+        $nonce = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-' . $state_key . '-' . $state_id );
+        $ajax_url = add_query_arg(
+            array(
+                'action'   => 'wpbdp-file-field-upload',
+                'field_id' => $field->get_id(),
+                'element'  => 'listingfields[' . $field->get_id() . ']',
+                'nonce'    => $nonce,
+                $state_key => $state_id
+            ),
+            admin_url( 'admin-ajax.php' )
+        );
 
         $html .= '<div class="wpbdp-upload-widget">';
-        $html .= sprintf( '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-                          $field->get_id(),
-                          $field->get_id(),
-                          $ajax_url
-                        );
+        $html .= sprintf(
+            '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
+            $field->get_id(),
+            $field->get_id(),
+            esc_url( $ajax_url )
+        );
         $html .= '</div>';
 
         return $html;
@@ -75,4 +107,3 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
     }
 
 }
-

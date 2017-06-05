@@ -125,7 +125,7 @@ WPBDP.fileUpload = {
     resizeIFrame: function(field_id, height) {
         var iframe = jQuery( '#wpbdp-upload-iframe-' + field_id )[0];
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-        
+
         if ( iframeWin.document.body ) {
             iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
         }
@@ -161,7 +161,7 @@ WPBDP.fileUpload = {
         $preview.find('img').remove();
 
         $preview.find('.delete').hide();
-        
+
         return false;
     }
 
