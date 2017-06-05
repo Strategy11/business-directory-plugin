@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
-Tested up to: 4.7.5
-Last Updated: 2017-May-16
-Stable tag: tags/4.1.12
+Tested up to: 4.7.6
+Last Updated: 2017-Jun-5
+Stable tag: 4.1.13
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,22 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.13 =
+* Add shortcode to output Quick Search.
+* Added shortcode for displaying the latest listings.
+* Added shortcode for displaying a random set of featured listings.
+* Added shortcode for displaying a random set listings.
+* Prevent PHP Warning in show_tag.php.
+* Prevent CSFR exploit that could allow attackers to upload images to the Media Library.
+* Do not set contenteditable to false on Firefox when handling setting dependencies.
+* Fix JavaScript error due to necessary script not loaded.
+* Improve performance of CSV Importer.
+* Update Swedish translation for BD.
+* Fix bug in code that generates search queries SQL.
+
+= Version 4.1.12.1 =
+* Backward compatibility fix for ZIP search--module update order problem
 
 = Version 4.1.12 =
 * Report versions of installed premium modules on debug info page.
