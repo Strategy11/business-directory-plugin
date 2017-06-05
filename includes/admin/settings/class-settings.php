@@ -1207,7 +1207,7 @@ EOF;
             }
 
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<div class="wpbdp-settings-choice-radio"><label><input type="%s" name="%s[]" value="%s" %s />%s</label></div>',
+                $html .= sprintf( '<div class="wpbdp-settings-choice-radio"><label><input type="%s" name="%s" value="%s" %s />%s</label></div>',
                                   $widget,
                                   $name,
                                   $k,
