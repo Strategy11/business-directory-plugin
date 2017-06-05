@@ -155,6 +155,8 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Improve performance of CSV Importer.
 * Update Swedish translation for BD.
 * Fix bug in code that generates search queries SQL.
+* Fix format for address field in themes.
+* Fix conflict with WPML caused by WP bug 40906.
 
 = Version 4.1.12.1 =
 * Backward compatibility fix for ZIP search--module update order problem
