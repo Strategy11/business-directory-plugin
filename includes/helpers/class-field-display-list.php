@@ -174,7 +174,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         $second_line.= ( $city && $state ) ? ', ' . $state : $state;
         $second_line.= $zip ? ' ' . $zip : '';
 
-        return implode( '<br />', array_filter( array( $first_line, $second_line ) ) );
+        return implode( '<br />', array_filter( array( $first_line, $second_line, $country ) ) );
     }
 
     public function helper__address_nobr() {
