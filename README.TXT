@@ -5,7 +5,7 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Tested up to: 4.7.6
 Last Updated: 2017-Jun-5
-Stable tag: 4.1.13
+Stable tag: 4.1.13.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,9 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.13.1 =
+- Fix theme compatibility problems introduced in 4.1.13.
 
 = Version 4.1.13 =
 * Add shortcode to output Quick Search.
