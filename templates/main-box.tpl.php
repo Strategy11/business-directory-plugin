@@ -25,10 +25,8 @@
 <div class="box-row separator"></div>
 <?php endif; ?>
 
-<?php if ( 'none' != $buttons && ! empty( $buttons ) ): ?>
-<div class="box-row">
-    <?php wpbdp_the_main_links( $buttons ); ?>
-</div>
+<?php if ( $main_links = wpbdp_the_main_links( $buttons ) ): ?>
+<div class="box-row"><?php echo $main_links; ?></div>
 <?php endif; ?>
 
 </div>

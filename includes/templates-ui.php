@@ -219,6 +219,10 @@ function wpbdp_main_links( $buttons = null ) {
 
     $buttons = array_filter( array_unique( $buttons ) );
 
+    if ( ! $buttons ) {
+        return '';
+    }
+
     if ( wpbdp_get_option( 'disable-submit-listing' ) ) {
         $buttons = array_diff( $buttons, array( 'create' ) );
     }
@@ -572,7 +576,7 @@ function wpbdp_the_main_box( $args = array() ) {
  */
 function wpbdp_main_box( $args = null ) {
     $defaults = array(
-        'buttons' => 'all'
+        'buttons' => null,
     );
     $args = wp_parse_args( $args, $defaults );
 
