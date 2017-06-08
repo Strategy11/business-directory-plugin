@@ -3,7 +3,6 @@ $show_personal_info_section = ! isset( $show_personal_info_section ) ? true : fa
 $show_cc_section = ! isset( $show_cc_section ) ? true : false;
 $show_details_section = ! isset( $show_details_section ) ? true : false;
 ?>
-
 <?php if ( $show_personal_info_section ): ?>
 <div class="wpbdp-checkout-personal-info-fields wpbdp-checkout-section">
     <h3><?php _ex( 'Personal Info', 'checkout', 'WPBDM' ); ?></h3>

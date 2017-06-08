@@ -8,6 +8,9 @@ abstract class WPBDP__Payment_Gateway {
     public abstract function get_id();
     public abstract function get_title();
 
+    public function enqueue_scripts() {
+    }
+
     public function is_enabled( $no_errors = true ) {
         $setting_on = wpbdp_get_option( $this->get_id() );
         if ( ! $no_errors )
@@ -67,7 +70,9 @@ abstract class WPBDP__Payment_Gateway {
             }
         }
 
+        $vars['gateway'] = $this;
         $vars['errors'] = $errors;
+        $vars['settings'] = $settings;
         $vars['payment'] = $payment;
 
         if ( 'form' == $this->get_integration_method() ) {

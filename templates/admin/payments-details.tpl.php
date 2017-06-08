@@ -127,27 +127,27 @@ $customer = $payment->payer_details;
             <div class="wpbdp-admin-box-row customer-info-address cf">
                 <div class="customer-address-country">
                     <label><?php _ex( 'Country:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[payer_data]address_country]" value="<?php echo $customer['address_country']; ?>" />
+                    <input type="text" name="payment[payer_data][country]" value="<?php echo $customer['country']; ?>" />
                 </div>
                 <div class="customer-address-state">
                     <label><?php _ex( 'State:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[payer_data][address_state]" value="<?php echo $customer['address_state']; ?>" />
+                    <input type="text" name="payment[payer_data][state]" value="<?php echo $customer['state']; ?>" />
                 </div>
                 <div class="customer-address-city">
                     <label><?php _ex( 'City:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[payer_data][address_city]" value="<?php echo $customer['address_city']; ?>" />
+                    <input type="text" name="payment[payer_data][city]" value="<?php echo $customer['city']; ?>" />
                 </div>
                 <div class="customer-address-zipcode">
                     <label><?php _ex( 'ZIP Code:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[payer_data][address_zipcode]" value="<?php echo $customer['address_zipcode']; ?>" />
+                    <input type="text" name="payment[payer_data][zip]" value="<?php echo $customer['zip']; ?>" />
                 </div>
                 <div class="customer-address-line1">
                     <label><?php _ex( 'Address Line 1:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[payer_data][address_line1]" value="<?php echo $customer['address_line1']; ?>" />
+                    <input type="text" name="payment[payer_data][address]" value="<?php echo $customer['address']; ?>" />
                 </div>
                 <div class="customer-address-line2">
                     <label><?php _ex( 'Address Line 2:', 'payments admin', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[payer_data][address_line2]" value="<?php echo $customer['address_line2']; ?>" />
+                    <input type="text" name="payment[payer_data][address_2]" value="<?php echo $customer['address_2']; ?>" />
                 </div>
             </div>
         </div>

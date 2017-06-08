@@ -17,6 +17,10 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     public function enqueue_resources() {
+        foreach ( wpbdp()->payment_gateways->get_available_gateways() as $gateway ) {
+            $gateway->enqueue_scripts();
+        }
+
         wp_enqueue_script( 'wpbdp-checkout', WPBDP_URL . 'assets/js/checkout.js', array( 'wpbdp-js' ) );
     }
 

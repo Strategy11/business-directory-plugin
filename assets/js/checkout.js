@@ -40,6 +40,7 @@ jQuery(function($) {
             url    += 'gateway=' + gateway_id;
 
             $.post( url, { action: 'wpbdp_ajax', handler: 'checkout__load_gateway', _wpnonce: self.nonce }, function( res ) {
+                self.$container.removeClass().addClass( 'wpbdp-payment-gateway-' + gateway_id + '-form-fields' );
                 self.$container.html( res );
                 self.working = false;
             } );

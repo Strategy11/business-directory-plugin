@@ -21,15 +21,15 @@ $nonce = wp_create_nonce( 'wpbdp-checkout-' . $payment->id );
     </div>
     <!-- end .wpbdp-checkout-gateway-selection -->
 
-    <?php if ( ! empty( $errors ) ): ?>
     <div class="wpbdp-checkout-errors wpbdp-checkout-section">
-        <?php foreach ( $errors as $error ): ?>
-        <div class="wpbdp-msg error wpbdp-checkout-error"><?php echo $error; ?></div>
-        <?php endforeach; ?>
+        <?php if ( ! empty( $errors ) ): ?>
+            <?php foreach ( $errors as $error ): ?>
+            <div class="wpbdp-msg error wpbdp-checkout-error"><?php echo $error; ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
-    <?php endif; ?>
 
-    <div id="wpbdp-checkout-form-fields">
+    <div id="wpbdp-checkout-form-fields" class="wpbdp-payment-gateway-<?php echo $chosen_gateway->get_id(); ?>-form-fields">
         <?php echo $checkout_form; ?>
     </div>
 </form>
