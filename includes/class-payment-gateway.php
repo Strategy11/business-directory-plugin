@@ -72,7 +72,6 @@ abstract class WPBDP__Payment_Gateway {
 
         $vars['gateway'] = $this;
         $vars['errors'] = $errors;
-        $vars['settings'] = $settings;
         $vars['payment'] = $payment;
 
         if ( 'form' == $this->get_integration_method() ) {
