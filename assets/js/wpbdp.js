@@ -268,7 +268,15 @@ WPBDP.fileUpload = {
                         return true;
 
                     $( this ).siblings( '.wpbdp-msg' ).remove();
-                    return ( t._slotsRemaining - data.files.length ) >= 0;
+
+                    // if ( t._slotsRemaining < data.files.length ) {
+                    //     var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( 'Hi there' );
+                    //     $( '.area-and-conditions' ).prepend( errorMsg );
+                    //     
+                    //     return false;
+                    // }
+
+                    return true;
                 },
                 done: function( res ) {
                     var uploadErrors = false;

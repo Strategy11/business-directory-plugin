@@ -506,10 +506,24 @@ class WPBDP_Plugin {
         $slots_available = 0;
 
         if ( $plan = $listing->get_fee_plan() )
-            $slots_available = absint( $plan->fee_images ) - count( $listing->get_images() ) - count( $files );
+            $slots_available = absint( $plan->fee_images ) - count( $listing->get_images() );
 
-        if ( ! current_user_can( 'administrator' ) && $slots_available < 0 ) {
+        if ( ! $slots_available ) {
             return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
+        } elseif ( $slots_available < count( $files ) ) {
+            return $res->send_error(
+                sprintf(
+                    _nx(
+                        'You\'re trying to upload %d images, but only have %d slot available. Please adjust your selection.',
+                        'You\'re trying to upload %d images, but only have %d slots available. Please adjust your selection.',
+                        $slots_available,
+                        'listing image upload',
+                        'WPBDM'
+                    ),
+                    count( $files ),
+                    $slots_available
+                )
+            );
         }
 
         foreach ( $files as $i => $file ) {
