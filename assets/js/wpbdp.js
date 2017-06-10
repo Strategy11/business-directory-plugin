@@ -206,7 +206,7 @@ WPBDP.fileUpload = {
             }
 
             // Handle image deletes.
-            $( '#wpbdp-uploaded-images' ).delegate( '.wpbdp-image-delete-link', 'click', function( e ) {
+            $( '#wpbdp-uploaded-images' ).on( 'click', '.wpbdp-image-delete-link', 'click', function( e ) {
                 e.preventDefault();
                 var url = $( this ).attr('href');
 

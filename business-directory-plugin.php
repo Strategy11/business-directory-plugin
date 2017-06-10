@@ -535,7 +535,7 @@ class WPBDP_Plugin {
         $html = '';
         foreach ( $attachments as $attachment_id ) {
             $html .= wpbdp_render( 'submit-listing-images-single',
-                                   array( 'image_id' => $attachment_id ),
+                                   array( 'image_id' => $attachment_id, 'listing_id' => $listing_id ),
                                    false );
         }
 
