@@ -194,7 +194,7 @@ class WPBDP_Listing {
         if ( WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->count() > 0 )
             $status = 'pending';
 
-        return apply_filters( 'WPBDP_Listing::get_payment_status', $staus, $this->id );
+        return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
     }
 
     /**
