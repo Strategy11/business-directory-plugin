@@ -127,6 +127,8 @@ class WPBDP__Shortcodes {
          *  At least one of the parameters `id` or `slug` must be provided.
          * Example:
          *  `[businessdirectory-listing slug="my-listing"]`
+         * Since:
+         *  3.6.10
          */
         $this->add( 'businessdirectory-listing', array( $this, 'sc_single_listing' ) );
 
@@ -175,6 +177,8 @@ class WPBDP__Shortcodes {
          *  - buttons  Which menu buttons to show inside the box. Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          * Example:
          *  `[businessdirectory-quick-search buttons="create,listings"]`
+         * Since:
+         *  4.1.13
          */
         $this->add( 'businessdirectory-quick-search', array( $this, 'sc_quick_search' ), array( 'business-directory-quick-search' ) );
 
@@ -190,6 +194,8 @@ class WPBDP__Shortcodes {
          * Example:
          *  - Display the latest 5 listings submitted to the directory:
          *    `[businessdirectory-latest-listings limit=5]`
+         * Since:
+         *  4.1.13
          */
         $this->add( 'businessdirectory-latest-listings', array( $this, 'sc_listings_latest' ) );
 
@@ -206,6 +212,8 @@ class WPBDP__Shortcodes {
          *  - Display a set of 10 random listings, including the directory menu with only the "Create A Listing" button:
          *
          *    `[businessdirectory-random-listings menu=1 buttons="create"]`
+         * Since:
+         *  4.1.13
          */
         $this->add( 'businessdirectory-random-listings', array( $this, 'sc_listings_random' ) );
 
@@ -220,6 +228,8 @@ class WPBDP__Shortcodes {
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          * Example:
          *  `[businessdirectory-featured-listings limit=5]`
+         * Since:
+         *  4.1.13
          */
         $this->add( 'businessdirectory-featured-listings', array( $this, 'sc_listings_featured' ) );
 
