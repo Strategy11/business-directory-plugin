@@ -141,6 +141,7 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
                 $items['images'] = sprintf( _nx( '%d image allowed.', '%d images allowed.', $this->images, 'fee plan', 'WPBDM' ), $this->images );
         }
 
+        $items = apply_filters( 'wpbdp_plan_feature_list', $items, $this );
         return $items;
     }
 
