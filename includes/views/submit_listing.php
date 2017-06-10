@@ -85,10 +85,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $html = wpbdp_render( 'submit-listing',
-                              array( 'listing' => $this->listing,
+                              array( 'listing'  => $this->listing,
                                      'sections' => $this->sections,
                                      'messages' => $messages,
-                                     'is_admin' => current_user_can( 'administrator' ) ),
+                                     'is_admin' => current_user_can( 'administrator' ),
+                                     'editing'  => $this->editing ),
                               false );
         return $html;
     }

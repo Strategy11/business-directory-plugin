@@ -20,7 +20,11 @@
             <?php if ( $is_admin ): ?>
             <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
             <?php else: ?>
-            <input type="submit" value="<?php _ex( 'Continue to Payment', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                <?php if ( $editing ): ?>
+                <input type="submit" value="<?php _ex( 'Save Changes', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                <?php else: ?>
+                <input type="submit" value="<?php _ex( 'Continue to Payment', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </form>
