@@ -3,7 +3,7 @@
 ?>
 
 <?php foreach ( $fields as $field ): ?>
-    <?php $field_output = $field->render( $field_values[ $field->get_id() ], 'submit' ); ?>
+    <?php $field_output = $field->render( $field_values[ $field->get_id() ], 'submit', $listing ); ?>
     <?php $field_errors = ! empty( $validation_errors[ $field->get_id() ] ) ? $validation_errors[ $field->get_id() ] : false; ?>
 
     <?php if ( $field_errors ): ?>

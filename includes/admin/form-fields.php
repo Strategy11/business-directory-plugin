@@ -168,16 +168,21 @@ class WPBDP_FormFieldsAdmin {
 
     /* preview form */
     private function previewForm() {
-        require_once( WPBDP_PATH . 'core/view-submit-listing.php' );
-        $controller = new WPBDP_Submit_Listing_Page( 0, true );
+        require_once( WPBDP_INC . 'views/submit_listing.php' );
 
-        $html = '';
+        $html  = '';
         $html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), 'formfields-preview', array(
             array(_x('← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM'), esc_url(remove_query_arg('action')))
         ));
         $html .= wpbdp_admin_notices();
         $html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
-        $html .= $controller->preview_listing_fields_form();
+
+        require_once( WPBDP_INC . 'helpers/class-dummy-listing.php' );
+        $listing = new WPBDP__Dummy_Listing();
+        do_action( 'wpbdp_preview_form_setup_listing', $listing );
+
+        $html .= WPBDP__Views__Submit_Listing::preview_form( $listing );
+
         $html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
         $html .= wpbdp_admin_footer();
 

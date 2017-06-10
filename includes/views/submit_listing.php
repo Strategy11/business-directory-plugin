@@ -138,17 +138,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $res->send();
     }
 
-    public function preview_listing_fields_form( $preview_config = array() ) {
-        $preview_config = wp_parse_args( $preview_config,
-                                         array( 'fee' => 0,
-                                                'level' => 'normal' ) );
-        $preview_config = apply_filters( 'wpbdp_view_submit_listing_preview_config', $preview_config );
-
-        $this->state->categories = array( $preview_config['fee'] );
-
-        return $this->listing_fields();
-    }
-
     private function messages( $msg, $type = 'notice', $context = 'general' ) {
         if ( ! isset( $this->messages[ $context ] ) )
             $this->messages[ $context ] = array();
@@ -601,6 +590,16 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     private function done() {
         return wpbdp_render( 'submit-listing-done', array( 'listing' => $this->listing, 'editing' => $this->editing ) );
+    }
+
+    public static function preview_form( $listing ) {
+        $view = new self;
+        $view->listing = $listing;
+
+        // $view->enqueue_resources();
+        list( $success, $html ) = $view->listing_fields();
+
+        return $html;
     }
 
 }
