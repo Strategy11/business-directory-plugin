@@ -207,7 +207,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
         }
 
-        if ( wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+        if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
                 'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' )
             );
