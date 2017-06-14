@@ -40,10 +40,32 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $html .= '</div>';
 
-        $ajax_url = add_query_arg( array( 'action' => 'wpbdp-file-field-upload',
-                                                      'field_id' => $field->get_id(),
-                                                      'element' => 'listingfields[' . $field->get_id() . ']' ),
-                                   admin_url( 'admin-ajax.php' ) );
+        // We use $listing_id to prevent CSFR. Related to #2848.
+        $listing_id  = 0;
+        if ( 'submit' == $context ) {
+            $listing_id = $extra->get_id();
+        } else if ( is_admin() ) {
+            global $post;
+            if ( ! empty( $post ) && WPBDP_POST_TYPE == $post->post_type ) {
+                $listing_id = $post->ID;
+            }
+        }
+
+        if ( ! $listing_id ) {
+            return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'WPBDM' ), 'error' );
+        }
+
+        $nonce = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+        $ajax_url = add_query_arg(
+            array(
+                'action'     => 'wpbdp-file-field-upload',
+                'field_id'   => $field->get_id(),
+                'element'    => 'listingfields[' . $field->get_id() . ']',
+                'nonce'      => $nonce,
+                'listing_id' => $listing_id
+            ),
+            admin_url( 'admin-ajax.php' )
+        );
 
         $html .= '<div class="wpbdp-upload-widget">';
         $html .= sprintf( '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
