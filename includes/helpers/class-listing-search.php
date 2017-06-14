@@ -5,6 +5,7 @@
 class WPBDP__Listing_Search {
 
     private $tree = array();
+    private $original_request = array();
     private $parts = array();
     public $aliases = array();
     private $query_template = '';
@@ -12,8 +13,9 @@ class WPBDP__Listing_Search {
     private $results = null;
 
 
-    public function __construct( $tree ) {
+    public function __construct( $tree, $original_request = array() ) {
         $this->tree = $tree;
+        $this->original_request = $original_request;
 
         // If the tree has no head, assume 'and'.
         if ( ! isset( $this->tree[0] ) || ! is_string( $this->tree[0] ) )
@@ -22,6 +24,13 @@ class WPBDP__Listing_Search {
 
     public function terms_for_field( $field ) {
         $field = is_object( $field ) ? $field->get_id() : absint( $field );
+
+        $quicksearch_fields_ids = self::get_quickesearch_fields_ids();
+
+        if ( in_array( $field, $quicksearch_fields_ids, true ) && isset( $this->original_request['kw'] ) ) {
+            return array( $this->original_request['kw'] );
+        }
+
         $result = array();
 
         foreach ( $this->parts as $p ) {
@@ -148,7 +157,7 @@ class WPBDP__Listing_Search {
     }
 
     public static function from_request( $request = array() ) {
-        return new self( self::parse_request( $request ) );
+        return new self( self::parse_request( $request ), $request );
     }
 
     public static function parse_request( $request = array() ) {
@@ -162,12 +171,9 @@ class WPBDP__Listing_Search {
                 $request['kw'] = explode( ' ', $request['kw'] );
             }
 
-            $fields_ids = wpbdp_get_option( 'quick-search-fields' );
-            $fields_ids = $fields_ids ? $fields_ids : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
-
             $fields = array();
 
-            foreach ( $fields_ids as $field_id ) {
+            foreach ( self::get_quickesearch_fields_ids() as $field_id ) {
                 $field = wpbdp_get_form_field( $field_id );
 
                 if ( $field ) {
@@ -201,6 +207,18 @@ class WPBDP__Listing_Search {
         $res = apply_filters( 'wpbdp_listing_search_parse_request', $res, $request );
         // wpbdp_debug_e($res);
         return $res;
+    }
+
+    /**
+     * TODO: This method is similar to WPBDP_Listings_API::get_quick_search_fields().
+     * TODO: Do we need to cache this?
+     *
+     * @since 4.1.13
+     */
+    private static function get_quickesearch_fields_ids() {
+        $fields_ids = wpbdp_get_option( 'quick-search-fields' );
+        $fields_ids = $fields_ids ? $fields_ids : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
+        return array_map( 'intval', $fields_ids );
     }
 
     public static function tree_remove_field( $tree, $field, $term = null ) {
