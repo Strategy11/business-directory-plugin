@@ -36,9 +36,9 @@ class WPBDP__Listing_Search {
     }
 
     public function get_original_search_terms_for_field( $field ) {
-        $quicksearch_fields_ids = self::get_quickesearch_fields_ids();
+        $quick_search_fields_ids = self::get_quick_search_fields_ids();
 
-        if ( in_array( $field->get_id(), $quicksearch_fields_ids, true ) && isset( $this->original_request['kw'] ) ) {
+        if ( in_array( $field->get_id(), $quick_search_fields_ids, true ) && isset( $this->original_request['kw'] ) ) {
             return array( $this->original_request['kw'] );
         }
 
@@ -177,7 +177,7 @@ class WPBDP__Listing_Search {
 
             $fields = array();
 
-            foreach ( self::get_quickesearch_fields_ids() as $field_id ) {
+            foreach ( self::get_quick_search_fields_ids() as $field_id ) {
                 $field = wpbdp_get_form_field( $field_id );
 
                 if ( $field ) {
@@ -219,7 +219,7 @@ class WPBDP__Listing_Search {
      *
      * @since 4.1.13
      */
-    private static function get_quickesearch_fields_ids() {
+    private static function get_quick_search_fields_ids() {
         $fields_ids = wpbdp_get_option( 'quick-search-fields' );
         $fields_ids = $fields_ids ? $fields_ids : wpbdp_get_form_fields( 'association=title,excerpt,content&output=ids' );
         return array_map( 'intval', $fields_ids );
