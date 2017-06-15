@@ -25,12 +25,6 @@ class WPBDP__Listing_Search {
     public function terms_for_field( $field ) {
         $field = is_object( $field ) ? $field->get_id() : absint( $field );
 
-        $quicksearch_fields_ids = self::get_quickesearch_fields_ids();
-
-        if ( in_array( $field, $quicksearch_fields_ids, true ) && isset( $this->original_request['kw'] ) ) {
-            return array( $this->original_request['kw'] );
-        }
-
         $result = array();
 
         foreach ( $this->parts as $p ) {
@@ -39,6 +33,16 @@ class WPBDP__Listing_Search {
         }
 
         return $result;
+    }
+
+    public function get_original_search_terms_for_field( $field ) {
+        $quicksearch_fields_ids = self::get_quickesearch_fields_ids();
+
+        if ( in_array( $field->get_id(), $quicksearch_fields_ids, true ) && isset( $this->original_request['kw'] ) ) {
+            return array( $this->original_request['kw'] );
+        }
+
+        return $this->terms_for_field( $field );
     }
 
     public function get_tree() {

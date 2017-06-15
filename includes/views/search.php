@@ -26,7 +26,7 @@ class WPBDP__Views__Search extends WPBDP__View {
             $field_value = null;
 
             if ( $search ) {
-                $terms = $search->terms_for_field( $field );
+                $terms = $search->get_original_search_terms_for_field( $field );
 
                 if ( $terms )
                     $field_value = array_pop( $terms );
