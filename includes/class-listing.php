@@ -626,7 +626,7 @@ class WPBDP_Listing {
         }
 
         if ( isset( $state->fields ) ) {
-            $this->set_field_values( $state->fields );
+            $this->set_field_values( $state->fields, true );
         }
 
         if ( isset( $state->images ) ) {
