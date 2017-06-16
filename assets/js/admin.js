@@ -88,21 +88,18 @@ var WPBDP_associations_fieldtypes = {};
         onAssociationChange: function() {
             $f_fieldtype = WPBDPAdmin_FormFields.$f_fieldtype;
 
-            var association = $(this).find('option:selected').val();
+            var association = $(this).val();
             var valid_types = WPBDP_associations_fieldtypes[ association ];
 
-            $f_fieldtype.find('option').removeAttr('disabled');
+            $f_fieldtype.find('option').prop('disabled', false);
 
             $f_fieldtype.find('option').each(function(i,v){
                 if ( $.inArray( $(v).val(), valid_types ) < 0 ) {
-                    $(v).attr('disabled', 'disabled');
+                    $(v).prop('disabled', true);
                 }
             });
 
-            if ( $f_fieldtype.find('option:selected').attr('disabled') == 'disabled' ) {
-                $f_fieldtype.find('option').removeAttr('selected');
-                $f_fieldtype.find('option[value="' + valid_types[0] + '"]').attr('selected', 'selected');
-            }
+            $f_fieldtype.change();
         }
     };
 
