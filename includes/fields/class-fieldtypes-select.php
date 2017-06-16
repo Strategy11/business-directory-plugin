@@ -65,6 +65,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             $options = array_combine( $tags, $tags );
         }
 
+        $size = $field->data( 'size', 4 );
+
         if ( $field->get_association() == 'category' ) {
                 $html .= wp_dropdown_categories( array(
                         'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
@@ -81,9 +83,11 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     ) );
 
                 if ( $this->is_multiple() ) {
-                    $html = preg_replace( "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
-                                          "<select name=\"$3[]\" multiple=\"multiple\" $1 $5>",
-                                          $html );
+                    $html = preg_replace(
+                        "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
+                        sprintf( "<select name=\"$3[]\" multiple=\"multiple\" $1 $5 size=\"%d\">", $size ),
+                        $html
+                    );
 
                     if ($value) {
                         foreach ( $value as $catid ) {
@@ -100,7 +104,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                               $this->is_multiple() ? 'multiple="multiple"' : '',
                               'inselect',
                               $field->is_required() ? 'required' : '',
-                $this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
+                $this->is_multiple() ? sprintf( 'size="%d"', $size ) : ''
             );
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
@@ -139,13 +143,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     }
 
     public function render_field_settings( &$field=null, $association=null ) {
-        if ( $association != 'meta' && $association != 'tags' )
-            return '';
-
         return self::render_admin_settings( $this->get_field_settings( $field, $association ) );
     }
 
     protected function get_field_settings( $field=null, $association=null ) {
+        if ( $association != 'meta' && $association != 'tags' ) {
+            return array();
+        }
+
         $settings = array();
 
         $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
