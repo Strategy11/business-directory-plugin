@@ -99,9 +99,7 @@ var WPBDP_associations_fieldtypes = {};
                 }
             });
 
-            if ( $f_fieldtype.find('option:selected').prop('disabled') ) {
-                $f_fieldtype.val( valid_types[0] ).change();
-            }
+            $f_fieldtype.change();
         }
     };
 
