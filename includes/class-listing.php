@@ -11,7 +11,7 @@ class WPBDP_Listing {
     private $id = 0;
     private $new = true;
 
-    private function __construct( $id ) {
+    public function __construct( $id ) {
         $this->id = intval( $id );
     }
 
