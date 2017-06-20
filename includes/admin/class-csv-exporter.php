@@ -1,8 +1,5 @@
 <?php
 
-require_once( ABSPATH . 'wp-admin/includes/file.php' );
-require_once( ABSPATH . 'wp-admin/includes/image.php' );
-
 /**
  * CSV export.
  * @since 3.2
