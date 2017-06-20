@@ -105,13 +105,16 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $this->listing->has_fee_plan() )
             wp_die();
 
-        // Store previous values before clearing.
-        $plan = $this->listing->get_fee_plan();
-        $this->data['previous_plan'] = $plan ? $plan->fee_id : 0;
-        $this->data['previous_categories'] = wp_get_post_terms( $this->listing->get_id(), WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
+        if ( ! $this->editing ) {
+            // Store previous values before clearing.
+            $plan = $this->listing->get_fee_plan();
+            $this->data['previous_plan'] = $plan ? $plan->fee_id : 0;
+            $this->data['previous_categories'] = wp_get_post_terms( $this->listing->get_id(), WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
 
-        // Clear plan and categories.
-        $this->listing->set_fee_plan( null );
+            // Clear plan and categories.
+            $this->listing->set_fee_plan( null );
+        }
+
         wp_set_post_terms( $this->listing->get_id(), array(), WPBDP_CATEGORY_TAX, false );
 
         $this->ajax_sections();
@@ -185,13 +188,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $listing_id )
             die();
 
+        $this->editing = $this->editing || ( (bool) absint( ! empty( $_POST['editing'] ) ? $_POST['editing'] : 0 ) );
+
         return $listing;
     }
 
     private function submit_sections() {
         $sections = array();
 
-        if ( ! $this->editing ) {
+        if ( $this->can_edit_plan_or_categories() ) {
             $sections['plan_selection'] = array(
                 'title' => _x( 'Category & plan selection', 'submit listing', 'WPBDM' )
             );
@@ -221,6 +226,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         return $sections;
+    }
+
+    private function can_edit_plan_or_categories() {
+        if ( ! $this->editing || ! $this->listing->has_fee_plan() ) {
+            return true;
+        }
+
+        $plan = $this->listing->get_fee_plan();
+
+        if ( 'flat' == $plan->fee->pricing_model ) {
+            return true;
+        }
+
+        return false;
     }
 
     private function prepare_sections() {
@@ -259,6 +278,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     private function section_render( $template, $vars = array(), $result = true ) {
         $vars['listing'] = $this->listing;
+        $vars['editing'] = $this->editing;
         $output = wpbdp_render( $template, $vars, false );
 
         return array( $result, $output );
@@ -273,34 +293,68 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $plans )
             wp_die( _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' ) );
 
-        $categories = $category_field->value_from_POST();
-        $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
+        if ( $this->editing ) {
+            $this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
+
+            $plan_id = $this->listing->get_fee_plan()->fee_id;
+
+            $categories = $category_field->value_from_POST();
+            if ( ! $categories && ! empty( $_POST ) ) {
+                $this->data['previous_categories'] = array();
+                $this->messages( _x( 'Please select a category.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+            }
+        } else {
+            $categories = $category_field->value_from_POST();
+            $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
+        }
 
         $errors = array();
         if ( $categories && ! $category_field->validate( $categories, $errors ) ) {
-            $this->messages = array_merge( $this->messages, $errors );
+            foreach ( $errors as $e ) {
+                $this->messages( $e, 'error', 'plan_selection' );
+            }
+
             $this->prevent_save = true;
         } elseif ( $categories && $plan_id ) {
             $plan = wpbdp_get_fee_plan( $plan_id );
 
             if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {
-                $this->messages[] = array( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'WPBDM' ), 'error' );
+                if ( $this->editing ) {
+                    $this->messages( _x( 'Please choose a valid category for your plan.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+                } else {
+                    $this->messages( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+                }
+
                 $this->prevent_save = true;
             } else {
                 // Set categories.
                 wp_set_post_terms( $this->listing->get_id(), $categories, WPBDP_CATEGORY_TAX, false );
 
-                // Set fee plan.
-                $this->listing->set_fee_plan( $plan );
+                if ( ! $this->editing ) {
+                    // Set fee plan.
+                    $this->listing->set_fee_plan( $plan );
+                }
             }
         }
 
-        if ( $this->listing->get_fee_plan() )
-            return $this->section_render( 'submit-listing-plan-selection-complete' );
-        else
-            $this->prevent_save = true;
+        if ( $this->editing ) {
+            if ( ! $categories ) {
+                $this->prevent_save = true;
+            }
+        } else {
+            if ( $this->listing->get_fee_plan() ) {
+                return $this->section_render( 'submit-listing-plan-selection-complete' );
+            } else {
+                $this->prevent_save = true;
+            }
+        }
 
-        $selected_plan = ! empty( $this->data['previous_plan'] ) ? $this->data['previous_plan'] : 0;
+        if ( ! $this->editing ) {
+            $selected_plan = ! empty( $this->data['previous_plan'] ) ? $this->data['previous_plan'] : 0;
+        } else {
+            $selected_plan = $plan_id;
+        }
+
         $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
         return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'selected_categories', 'selected_plan' ) );
     }
@@ -581,15 +635,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             if ( ! $payment )
                 die();
+
+            if ( 'completed' != $payment->status ) {
+                $checkout_url = $payment->get_checkout_url();
+                return $this->_redirect( $checkout_url );
+            }
         }
 
         $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
-
-        if ( $payment && 'completed' != $payment->status ) {
-            $checkout_url = $payment->get_checkout_url();
-            return $this->_redirect( $checkout_url );
-        }
 
         return $this->done();
     }

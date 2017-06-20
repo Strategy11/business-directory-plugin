@@ -2,6 +2,7 @@
     <form action="" method="post" data-ajax-url="<?php echo admin_url( 'admin-ajax.php' ); ?>">
         <?php wp_nonce_field( 'listing submit' ); ?>
         <input type="hidden" name="listing_id" value="<?php echo $listing->get_id(); ?>" />
+        <input type="hidden" name="editing" value="<?php echo $editing ? '1' : '0'; ?>" />
         <input type="hidden" name="save_listing" value="1" />
         <input type="hidden" name="reset" value="" />
 

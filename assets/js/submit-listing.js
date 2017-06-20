@@ -157,6 +157,7 @@ jQuery(function($) {
     wpbdp.submit_listing.Handler = function( $submit ) {
         this.$submit = $submit;
         this.$form = this.$submit.find( 'form' );
+        this.editing = ( this.$form.find( 'input[name="editing"]' ).val() == '1' );
         this.$sections = this.$submit.find( '.wpbdp-submit-listing-section' );
 
         this.listing_id = this.$form.find( 'input[name="listing_id"]' ).val();
@@ -208,6 +209,21 @@ jQuery(function($) {
         },
 
         plan_handling: function() {
+            if ( this.editing ) {
+                var $plan = this.$form.find( '.wpbdp-current-plan .wpbdp-plan' );
+                var plan_cats = $plan.data( 'categories' ).toString();
+ 
+                if ( 'all' != plan_cats ) {
+                    var supported_categories = $.unique( plan_cats.split( ',' ) );
+
+                    this.$form.find( '.wpbdp-form-field-association-category select' ).find( 'option' ).each(function( i, v ) {
+                        $( this ).prop( 'disabled', -1 == $.inArray( $( this ).val(), supported_categories ) );
+                    });
+                }
+
+                return;
+            }
+
             this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit );
 
             var self = this;
