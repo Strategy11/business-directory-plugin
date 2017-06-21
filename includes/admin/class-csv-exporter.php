@@ -167,10 +167,7 @@ class WPBDP_CSVExporter {
         if ( $this->is_done() )
             return;
 
-        define( 'PCLZIP_TEMPORARY_DIR', $this->workingdir );
-        require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-
-        $csvfile = fopen( $this->workingdir . 'export.csv', 'a' );
+        $csvfile = $this->get_csvfile( $this->workingdir . 'export.csv' );
 
         // Write header as first line.
         if ( $this->exported === 0 ) {
@@ -193,7 +190,7 @@ class WPBDP_CSVExporter {
         if ( $this->is_done() ) {
             if ( file_exists( $this->workingdir . 'images.zip' ) ) {
                 @unlink( $this->workingdir . 'export.zip' );
-                $zip = new PclZip( $this->workingdir . 'export.zip' );
+                $zip = $this->get_pclzip_instance( $this->workingdir . 'export.zip' );
 
                 $files = array();
                 $files[] = $this->workingdir . 'export.csv';
@@ -207,6 +204,18 @@ class WPBDP_CSVExporter {
         }
     }
 
+    protected function get_csvfile( $path ) {
+        return fopen( $path, 'a' );
+    }
+
+    protected function get_pclzip_instance( $path ) {
+        if ( ! class_exists( 'PclZip' ) ) {
+            define( 'PCLZIP_TEMPORARY_DIR', $this->workingdir );
+            require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+        }
+
+        return new PclZip( $path );
+    }
     public function is_done() {
         return $this->exported == count( $this->listings );
     }
@@ -348,6 +357,8 @@ class WPBDP_CSVExporter {
                     $terms = wp_get_post_terms( $post->ID,
                                                 $col->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                                                 'fields=names' );
+                    $terms = array_map( 'html_entity_decode', $terms );
+
                     if ( $terms )
                         $value = implode( $this->settings['category-separator'],  $terms );
                     break;
