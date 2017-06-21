@@ -77,7 +77,7 @@ class WPBDP_CSV_Import {
 
             $this->settings = wp_parse_args( $settings, $defaults );
 
-            $file = new SplFileObject( $this->csv_file );
+            $file = $this->get_csv_file();
             $file->seek( PHP_INT_MAX );
             $this->total_lines = absint( $file->key() );
             $file = null;
@@ -91,7 +91,7 @@ class WPBDP_CSV_Import {
         if ( $this->done )
             return;
 
-        $file = new SplFileObject( $this->csv_file );
+        $file = $this->get_csv_file();
         $file->seek( $this->current_line );
 
         $n = 0;
@@ -125,7 +125,7 @@ class WPBDP_CSV_Import {
             }
 
             $result = $this->import_row( $listing_data );
-            @set_time_limit( 2 );
+            @set_time_limit( 0 );
 
             if ( is_wp_error( $result ) ) {
                 foreach ( $result->get_error_messages() as $e )
@@ -142,6 +142,11 @@ class WPBDP_CSV_Import {
         $this->state_persist();
     }
 
+    private function get_csv_file() {
+        $file = new SplFileObject( $this->csv_file );
+
+        return $file;
+    }
     private function get_current_line( $file ) {
         $line = $file->current();
 
@@ -556,7 +561,7 @@ class WPBDP_CSV_Import {
                 $meta['username'] = $u->user_login;
         }
 
-        foreach ( $this->header as $i => $col_info ) {
+        foreach ( $this->get_header() as $i => $col_info ) {
             $column = $col_info['short_name'];
             $field = $col_info['field_id'] ? wpbdp_get_form_field( $col_info['field_id'] ) : null;
             $value = stripslashes( trim( isset( $data[ $i ] ) ? $data[ $i ] : '' ) );
@@ -607,7 +612,8 @@ class WPBDP_CSV_Import {
                     }
 
                     if ( 'category' == $field->get_association() ) {
-                        $csv_categories = array_map( 'trim', explode( $this->settings['category-separator'], $value ) );
+                        $decoded_value = html_entity_decode( $value );
+                        $csv_categories = array_map( 'trim', explode( $this->settings['category-separator'], $decoded_value ) );
 
                         foreach ( $csv_categories as $csv_category_ ) {
                             $csv_category = $csv_category_;
@@ -644,6 +650,10 @@ class WPBDP_CSV_Import {
         }
 
         return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on' ), $errors );
+    }
+
+    private function get_header() {
+        return $this->header;
     }
 
     private function upload_image( $filename ) {
