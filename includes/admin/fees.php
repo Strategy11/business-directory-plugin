@@ -61,6 +61,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             if ( ! isset( $posted_values['sticky'] ) )
                 $posted_values['sticky'] = 0;
 
+            if ( ! isset( $posted_values['recurring'] ) )
+                $posted_values['recurring'] = 0;
+
             $fee = new WPBDP_Fee_Plan( $posted_values );
 
             if ( $fee->save() ) {
@@ -87,6 +90,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
             if ( ! isset( $posted_values['sticky'] ) )
                 $posted_values['sticky'] = 0;
+
+            if ( ! isset( $posted_values['recurring'] ) )
+                $posted_values['recurring'] = 0;
 
             if ( $fee->update( $posted_values ) ) {
                 wpbdp_admin_message( _x( 'Fee updated.', 'fees admin', 'WPBDM' ) );
