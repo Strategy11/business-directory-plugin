@@ -548,16 +548,16 @@ jQuery(function( $ ) {
                           'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
             'buttons': function( e, t ) {
                 <?php if ( ! $secondary_button ): ?>
-                var b = $( '<a id="wpbdp-pointer-b1" class="button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
+                var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
                 <?php else: ?>
-                var b = $( '<a id="wpbdp-pointer-b2" class="button-secondary" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
+                var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
                 <?php endif; ?>
                 return b;
             }
         }).pointer('open');
 
         <?php if ( $secondary_button ): ?>
-        $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
+        $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
         $( '#wpbdp-pointer-b2' ).click(function(e) {
             e.preventDefault();
             <?php if ( $secondary_action ): ?>

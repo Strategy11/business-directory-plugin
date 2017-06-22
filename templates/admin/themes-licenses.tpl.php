@@ -21,7 +21,7 @@ echo wpbdp_admin_notices();
                     <div class="license-activation">
                     <input type="textfield" size="25" name="license" value="<?php echo $t->license_key; ?>" <?php echo $t->license_key ? 'readonly="readonly"' : ''; ?> />
 
-                        <input type="button" name="deactivate" class="button button-secondary" value="<?php _ex( 'Deactivate License', 'themes', 'WPBDM' ); ?>"
+                        <input type="button" name="deactivate" class="button" value="<?php _ex( 'Deactivate License', 'themes', 'WPBDM' ); ?>"
                                data-nonce="<?php echo wp_create_nonce( 'deactivate ' . $t->id ); ?>"
                                data-theme="<?php echo $t->id; ?>"
                                data-l10n="<?php _ex( 'Deactivating license...', 'themes', 'WPBDM' ); ?>"
