@@ -296,7 +296,7 @@ class WPBDP_Licensing {
                 echo '<br /><br />';
                 echo '<a href="#" class="dismiss button" data-module="' . esc_attr( $d['id'] ) . '" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
                 $url = add_query_arg( array( 'item_name' => urlencode( $d['name'] ), 'edd_license_key' => urlencode( $d['license'] ) ), 'http://businessdirectoryplugin.com/checkout/' );
-                echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
+                echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
                 echo '</p></div>';
             }
         }

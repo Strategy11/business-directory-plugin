@@ -89,7 +89,7 @@ class WPBDP_Admin_Listing_Metabox {
         echo '</dl>';
 
         if ( current_user_can( 'administrator' ) && 'ok' != $this->listing->get_payment_status() ) {
-            echo sprintf( '<a href="%s" class="button-primary">%s</a> ',
+            echo sprintf( '<a href="%s" class="button button-primary">%s</a> ',
                           esc_url( add_query_arg('wpbdmaction', 'setaspaid' ) ),
                           _x( 'Mark listing as Paid', 'admin infometabox', 'WPBDM' ) );
         }
