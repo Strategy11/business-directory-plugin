@@ -7,7 +7,7 @@ $selected     = isset( $selected ) ? $selected : 0;
 $description  = $plan->description ? wpautop( wp_kses_post( $plan->description ) ) : '';
 $description  = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
 ?>
-    <div class="wpbdp-plan wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?> <?php if ( $disabled ): ?>wpbdp-plan-disabled<?php endif; ?>"
+    <div class="wpbdp-plan wpbdp-plan-<?php echo $plan->id; ?> wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?> <?php if ( $disabled ): ?>wpbdp-plan-disabled<?php endif; ?>"
          data-id="<?php echo $plan->id; ?>"
          data-disabled="<?php echo $disabled ? 1 : 0; ?>"
          data-recurring="<?php echo $plan->recurring ? 1 : 0; ?>"
