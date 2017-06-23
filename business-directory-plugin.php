@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 4.1.13.3dev5
+ * Version: 4.1.13.3dev6
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,7 +31,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '4.1.13.3dev5' );
+define( 'WPBDP_VERSION', '4.1.13.3dev6' );
 
 define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
 define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -99,6 +99,9 @@ class WPBDP_Plugin {
 
         add_action( 'plugins_loaded', array( &$this, 'load_i18n' ) );
 
+        add_action( 'plugins_loaded', array( $this, 'register_cache_groups' ) );
+        add_action( 'switch_blog', array( $this, 'register_cache_groups' ) );
+
         if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON ) {
             add_action( 'init', array( &$this, 'init' ), 9 );
         } else {
@@ -118,9 +121,6 @@ class WPBDP_Plugin {
     }
 
     function init() {
-        // Register cache groups.
-        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
-
         // Register some basic JS resources.
         add_action( 'wp_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( &$this, 'register_common_scripts' ) );
@@ -235,6 +235,15 @@ class WPBDP_Plugin {
         // Register shortcodes.
         $this->shortcodes->register();
     }
+
+    public function register_cache_groups() {
+        if ( ! function_exists( 'wp_cache_add_non_persistent_groups' ) ) {
+            return;
+        }
+
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
+    }
+
 
     // {{{ Premium modules.
 
