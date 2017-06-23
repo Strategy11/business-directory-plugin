@@ -94,13 +94,13 @@ final class WPBDP {
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
         add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
+
+        add_action( 'plugins_loaded', array( $this, 'register_cache_groups' ) );
+        add_action( 'switch_blog', array( $this, 'register_cache_groups' ) );
     }
 
     public function init() {
         $this->load_textdomain();
-
-        // Register cache groups.
-        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
 
         $this->form_fields = WPBDP_FormFields::instance();
         $this->formfields = $this->form_fields; // Backwards compat.
@@ -126,7 +126,7 @@ final class WPBDP {
 
             add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
             add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
-            
+
             return;
         }
 
@@ -175,6 +175,14 @@ final class WPBDP {
         do_action( 'wpbdp_loaded' );
 
         // do_action( 'wpbdp_daily_events' );
+    }
+
+    public function register_cache_groups() {
+        if ( ! function_exists( 'wp_cache_add_non_persistent_groups' ) ) {
+            return;
+        }
+
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
     }
 
     private function load_textdomain() {
