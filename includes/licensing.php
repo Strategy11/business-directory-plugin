@@ -144,7 +144,7 @@ class WPBDP_Licensing {
         $html .= '<input type="text" id="' . $setting['id'] . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . ' placeholder="' . _x( 'Enter License Key here', 'admin settings', 'WPBDM' ) . '"/>';
         $html .= '<input type="button" value="' . _x( 'Activate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
         $html .= '<input type="button" value="' . _x( 'Deactivate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
-        $html .= '<div class="wpbdp-license-key-activation-status-msg"></div>';
+        $html .= '<div class="wpbdp-license-key-activation-status-msg wpbdp-hidden"></div>';
         $html .= '</div>';
 
         //         echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
@@ -155,7 +155,7 @@ class WPBDP_Licensing {
         //         echo '<a href="#" class="dismiss button" data-module="' . esc_attr( $d['id'] ) . '" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
         //         $url = add_query_arg( array( 'item_name' => urlencode( $d['name'] ), 'edd_license_key' => urlencode( $d['license'] ) ), 'http://businessdirectoryplugin.com/checkout/' );
         //         echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
-        
+
 
         return $html;
     }
@@ -265,7 +265,7 @@ class WPBDP_Licensing {
         return 'invalid';
     }
 
-    function activate_license( $item_type, $item_id ) {
+    private function activate_license( $item_type, $item_id ) {
         if ( ! in_array( $item_id, array_keys( $this->items ), true ) )
             return new WP_Error( 'invalid-module', _x( 'Invalid item ID', 'licensing', 'WPBDM' ), $module );
 
@@ -282,10 +282,11 @@ class WPBDP_Licensing {
         );
 
         // Call the licensing server.
-        $response = wp_remote_get( add_query_arg( $request, self::STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+        $response = $this->license_request( add_query_arg( $request, self::STORE_URL ) );
 
-        if ( is_wp_error( $response ) )
-            return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'WPBDM' ) );
+        if ( is_wp_error( $response ) ) {
+            return $response;
+        }
 
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
@@ -323,7 +324,7 @@ class WPBDP_Licensing {
         );
 
         // Call the licensing server.
-        $response = wp_remote_get( add_query_arg( $request, self::STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+        $response = $this->license_request( add_query_arg( $request, self::STORE_URL ) );
 
         if ( is_wp_error( $response ) )
             return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'WPBDM' ) );
@@ -337,6 +338,83 @@ class WPBDP_Licensing {
             return new WP_Error( 'deactivation-failed', _x( 'Deactivation failed', 'licensing', 'WPBDM' ) );
 
         return true;
+    }
+
+    private function handle_failed_license_request( $response ) {
+        $ch = curl_init();
+
+        curl_setopt( $ch, CURLOPT_URL, 'https://businessdirectoryplugin.com' );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+
+        $r = curl_exec( $ch );
+
+        $error_number = curl_errno( $ch );
+        $error_message = curl_error( $ch );
+
+        curl_close( $ch );
+
+        if ( in_array( $error_number, array( 7 ), true ) ) {
+            $message = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. The connection failed with the following error:", 'licensing', 'WPBDM' ) . '</strong>';
+            $message.= '<br/><br/>';
+            $message.= '<code>curl: (' . $error_number . ') ' . $error_message . '</code>';
+            $message.= '<br/><br/>';
+            $message.= _x( "It look's like your server is not authorized to make requests to Business Directory servers. Please contact support and ask them to add your IP address <ip-address> to the whitelist.", 'licensing', 'WPBDM' );
+            $message.= '<br/><br/>';
+            $message.= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
+
+            $message = str_replace( '<ip-address>', $this->get_server_ip_address(), $message );
+            // The javascript handler already adds a dot at the end.
+            $message = rtrim( $message, '.' );
+
+            return new WP_Error( 'connection-refused', $message );
+        } elseif ( in_array( $error_number, array( 35 ), true ) ) {
+            $message = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. A problem occurred in the SSL/TSL handshake:", 'licensing', 'WPBDM' ) . '</strong>';
+
+            $message.= '<br/><br/>';
+            $message.= '<code>curl: (' . $error_number . ') ' . $error_message . '</code>';
+            $message.= '<br/><br/>';
+            $message.= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'WPBDM' );
+            $message.= '<br/><br/>';
+            $message.= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'WPBDM' );
+            $message.= '<br/><br/>';
+            $message.= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necesary.', 'licensing', 'WPBDM' );
+
+            // The javascript handler already adds a dot at the end.
+            $message = rtrim( $message, '.' );
+
+            return new WP_Error( 'request-failed', $message );
+        } else {
+            return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'WPBDM' ) );
+        }
+    }
+
+    private function license_request( $url ) {
+        // Call the licensing server.
+        $response = wp_remote_get( $url, array( 'timeout' => 15, 'sslverify' => false ) );
+
+        if ( is_wp_error( $response ) ) {
+            return $this->handle_failed_license_request( $response );
+        }
+
+        $response_code = wp_remote_retrieve_response_code( $response );
+        $response_message = wp_remote_retrieve_response_message( $response );
+
+        if ( 403 == $response_code ) {
+            $message = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'WPBDM' ) . '</strong>';
+            $message.= '<br/><br/>';
+            $message.= _x( "It looks like your server is not authorized to make requests to Business Directory servers. Please contact support and ask them to add your IP address <ip-address> to the whitelist.", 'licensing', 'WPBDM' );
+            $message.= '<br/><br/>';
+            $message.= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
+
+            $message = str_replace( '<ip-address>', $this->get_server_ip_address(), $message );
+
+            // The javascript handler already adds a dot at the end.
+            $message = rtrim( $message, '.' );
+
+            return new WP_Error( 'request-not-authorized', $message );
+        }
+
+        return $response;
     }
 
     function sort_modules_by_name( $x, $y ) {

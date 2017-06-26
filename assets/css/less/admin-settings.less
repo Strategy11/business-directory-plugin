@@ -90,16 +90,55 @@
         }
 
         .wpbdp-license-key-activation-status-msg {
-            font-style: italic;
             font-size: 90%;
-            margin: 5pt 0;
+            position: relative;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 10px 12px 3px 30px;
+            background: #fff;
+            color: #000;
+            box-sizing: border-box;
+            width: ~"calc(100% - 30px)";
+
+            &:after, &:before {
+                bottom: 100%;
+                left: 20px;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-width: 8px;
+                margin-left: -8px;
+            }
+
+            &:after {
+                border-color: rgba(255, 255, 255, 0);
+                border-bottom-color: #fff;
+            }
+
+            &:before {
+                border-color: rgba(214, 66, 38, 0);
+                border-bottom-color: #fff;
+            }
 
             &.status-success {
-                color: green;
+                background-color: #27a533;
+                color: #fff;
+
+                &:after {
+                    border-bottom-color: #27a533;
+                }
             }
 
             &.status-error {
-                color: #ff0000;
+                background-color: #d84747;
+                color: #fff;
+
+                &:after {
+                    border-bottom-color: #d84747;
+                }
             }
         }
     }
