@@ -1101,7 +1101,7 @@ EOF;
                          data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
                          style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
         $html .= '<br />';
-        $html .= '<span class="status-message"></span>';
+        $html .= '<div class="status-message"></div>';
         $html .= '</span>';
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );

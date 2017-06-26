@@ -788,9 +788,17 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         activation_change: function(module, license, action) {
             var $container = $( '.license-activation[data-module-id="' + module + '"]' );
             var $msg = $( '.status-message', $container );
+            var $error = $( '.license-activation-error[data-module-id="' + module + '"]', $container.closest( 'table' ) );
             var nonce = $( 'input[name="nonce"]', $container ).val();
 
             $msg.removeClass('ok error');
+
+            if ( 0 === $error.length ) {
+                $error = $( '<tr class="license-activation-error" data-module-id="' + module + '"><td colspan="2"></td></tr>' );
+                $error.insertAfter( $container.closest( 'tr' ) );
+            }
+
+            $error.hide();
 
             $msg.html( $( 'input.license-' + action, $container ).attr('data-L10n') );
 
@@ -810,11 +818,10 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                     else
                         $( 'input[type="text"]#license-key-' + module ).prop('readonly', false);
                 } else {
-                    $msg.hide()
-                        .html(res.error)
-                        .removeClass('ok')
-                        .addClass('error')
-                        .show();
+                    $msg.hide();
+                    $error.show();
+
+                    $( 'td', $error ).html( res.error );
 
                     if ( 'deactivate' == action )
                         $( 'input[type="text"]#license-key-' + module ).prop('readonly', false);

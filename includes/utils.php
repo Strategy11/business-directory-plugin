@@ -851,3 +851,10 @@ function wpbdp_table_exists( $table_name ) {
 
     return strcasecmp( $result, $table_name ) === 0;
 }
+
+/**
+ * @since 4.1.13.3
+ */
+function wpbpd_admin_notice( $content, $type='info' ) {
+    return '<div class="notice notice-' . $type . ' is-dismissible"><p>' . $content . '</p></div>';
+}
