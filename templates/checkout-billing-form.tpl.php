@@ -89,6 +89,12 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
         <input type="text" name="payer_city" value="<?php echo esc_attr( ! empty( $data['payer_city'] ) ? $data['payer_city'] : '' ); ?>" />
     </div>
 
+    <div class="wpbdp-billing-detail-field">
+        <label><?php _ex( 'State / Province', 'checkout', 'WPBDM' ); ?></label>
+        <span class="wpbdp-description"><?php _ex( 'The state or province for your billing address.', 'checkout', 'WPBDM' ); ?></span>
+        <input type="text" name="payer_state" value="<?php echo esc_attr( ! empty( $data['payer_state'] ) ? $data['payer_state'] : '' ); ?>" />
+    </div>
+
     <div class="wpbdp-billing-detail-field wpbdp-required">
         <label><?php _ex( 'Postal Code', 'checkout', 'WPBDM' ); ?></label>
         <span class="wpbdp-description"><?php _ex( 'The ZIP or postal code for your billing address.', 'checkout', 'WPBDM' ); ?></span>
@@ -101,10 +107,5 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
         <input type="text" name="payer_country" value="<?php echo esc_attr( ! empty( $data['payer_country'] ) ? $data['payer_country'] : '' ); ?>" />
     </div>
 
-    <div class="wpbdp-billing-detail-field">
-        <label><?php _ex( 'State / Province', 'checkout', 'WPBDM' ); ?></label>
-        <span class="wpbdp-description"><?php _ex( 'The state or province for your billing address.', 'checkout', 'WPBDM' ); ?></span>
-        <input type="text" name="payer_state" value="<?php echo esc_attr( ! empty( $data['payer_state'] ) ? $data['payer_state'] : '' ); ?>" />
-    </div>
 </div>
 <?php endif; ?>
