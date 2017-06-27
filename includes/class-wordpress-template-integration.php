@@ -176,7 +176,7 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function add_basic_body_classes( $classes = array() ) {
-        if ( wpbdp_get_option( 'include-button-styles' ) ) {
+        if ( 'theme' == wpbdp_get_option( 'themes-button-style' ) ) {
             $classes[] = 'wpbdp-with-button-styles';
         }
 

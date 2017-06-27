@@ -30,6 +30,9 @@ final class WPBDP__Module {
 
             $this->title = empty( $obj->title ) ? $plugin_data[0] : $obj->title;
             $this->version = empty( $obj->version ) ? $plugin_data[1] : $obj->version;
+        } else {
+            $this->title = $obj->title;
+            $this->version = $obj->version;
         }
 
         $this->required_bd_version = isset( $obj->required_bd_version ) ? $obj->required_bd_version : '';
