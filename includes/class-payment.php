@@ -31,7 +31,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         foreach ( $this->payment_items as $item )
             $this->amount += floatval( $item['amount'] );
 
-        if ( 0.0 == $this->amount )
+        if ( 0.0 == $this->amount && ! $this->has_item_type( 'recurring_plan' ) )
             $this->status = 'completed';
     }
 
