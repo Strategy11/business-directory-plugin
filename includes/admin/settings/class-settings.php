@@ -25,6 +25,8 @@ class WPBDP_Settings {
     }
 
     public function register_settings() {
+        // return;
+
         /* General settings */
         $g = $this->add_group('general', _x('General', 'admin settings', 'WPBDM'));
 
@@ -1392,4 +1394,3 @@ EOF;
     }
 
 }
-

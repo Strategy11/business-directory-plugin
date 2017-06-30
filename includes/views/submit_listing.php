@@ -625,6 +625,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
             $this->listing->set_status( 'pending_payment' );
             $payment = $this->listing->generate_or_retrieve_payment();
+
+            if ( ! $payment )
+                die();
+
             $payment->context = is_admin() ? 'admin-submit' : 'submit';
             $payment->save();
 
@@ -632,18 +636,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $payment->process_as_admin();
                 $this->listing->set_flag( 'admin-posted' );
             }
-
-            if ( ! $payment )
-                die();
-
-            if ( 'completed' != $payment->status ) {
-                $checkout_url = $payment->get_checkout_url();
-                return $this->_redirect( $checkout_url );
-            }
         }
 
         $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
+
+        if ( ! $this->editing && 'completed' != $payment->status ) {
+            $checkout_url = $payment->get_checkout_url();
+            return $this->_redirect( $checkout_url );
+        }
 
         return $this->done();
     }
