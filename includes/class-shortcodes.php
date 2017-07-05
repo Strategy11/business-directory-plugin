@@ -115,7 +115,7 @@ class WPBDP__Shortcodes {
 
         /*
          * WordPress Shortcode:
-         *  [businessdirectory-listings]
+         *  [businessdirectory-listing]
          * Used for:
          *  Displaying a single listing from the directory (by slug or ID).
          * Parameters:
