@@ -6,14 +6,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
 "POT-Creation-Date: 2017-07-05 21:35:51+00:00\n"
-"PO-Revision-Date: 2017-05-16 17:09-0500\n"
+"PO-Revision-Date: 2017-07-05 17:16-0500\n"
 "Last-Translator: Willington Vega <wvega@wvega.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,-1,543\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -1249,7 +1249,7 @@ msgstr "Información adicional para exportar:"
 #: templates/admin/csv-export.tpl.php:67
 msgctxt "admin csv-export"
 msgid "Include unique IDs for each listing (sequence_id column)."
-msgstr "Incluír IDs únicos para cada listado (columna \"sequence_id\")"
+msgstr "Incluír IDs únicos para cada listado (columna \"sequence_id”)."
 
 #: templates/admin/csv-export.tpl.php:69
 msgctxt "admin csv-export"
@@ -1258,7 +1258,7 @@ msgid ""
 "created, select this option!"
 msgstr ""
 "Seleccione esta opción si planea re-importar los listados después para "
-"actualizarlos y no desea que se creen nuevos"
+"actualizarlos y no desea que se creen nuevos."
 
 #: templates/admin/csv-export.tpl.php:75
 msgctxt "admin csv-export"
@@ -1400,7 +1400,7 @@ msgstr "La exportación ha sido cancelada."
 #: templates/admin/csv-export.tpl.php:178
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
-msgstr "← Regresar a \"Exportar CSV\""
+msgstr "← Regresar a Exportar CSV"
 
 #: includes/admin/class-csv-import.php:458
 msgctxt "admin csv-import"
@@ -1502,7 +1502,7 @@ msgstr ""
 #: templates/admin/csv-import-progress.tpl.php:20
 msgctxt "admin csv-import"
 msgid "← Return to CSV Import"
-msgstr "← Regresar a \"Importar CSV\""
+msgstr "← Regresar a Importar CSV"
 
 #: templates/admin/csv-import-progress.tpl.php:18
 msgctxt "admin csv-import"
@@ -1837,7 +1837,7 @@ msgstr ""
 #: templates/admin/csv-import.tpl.php:290
 msgctxt "admin csv-import"
 msgid "Listing author's username"
-msgstr "Autor del listado (nombre de usuario)"
+msgstr "Nombre de usuario del autor del listado"
 
 #: templates/admin/csv-import.tpl.php:297
 msgctxt "admin csv-import"
@@ -2152,7 +2152,7 @@ msgstr "No se ingresó una licencia"
 #: includes/licensing.php:199
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
-msgstr ""
+msgstr "El servidor retornó un error 403 Forbidden."
 
 #: includes/licensing.php:201 includes/licensing.php:234
 msgctxt "licensing"
@@ -2161,11 +2161,15 @@ msgid ""
 "Directory servers. Please contact support and ask them to add your IP "
 "address <ip-address> to the whitelist."
 msgstr ""
+"Parece que su servidor no está autorizado para conectarse con los servidores "
+"de Business Directory. Por favor contacte al equipo de soporte y "
+"indicándoles que deben agregar su dirección IP <ip-address> a la lista "
+"autorizada."
 
 #: includes/licensing.php:203 includes/licensing.php:236
 msgctxt "licensing"
 msgid "Include this error message with your report."
-msgstr ""
+msgstr "Incluya este mensaje de error en su reporte."
 
 #: includes/licensing.php:230
 msgctxt "licensing"
@@ -2173,6 +2177,8 @@ msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. The connection failed with the following error:"
 msgstr ""
+"No fue posible establecer una conexión con los servidores de Business "
+"Directory. La conexión falló con el siguiente error:"
 
 #: includes/licensing.php:244
 msgctxt "licensing"
@@ -2180,6 +2186,8 @@ msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
+"No fue posible establecer una conexión con los servidores de Business "
+"Directory. Ocurrió un problema en el protocolo de intercambio SSL/TSL:"
 
 #: includes/licensing.php:249
 msgctxt "licensing"
@@ -2189,6 +2197,10 @@ msgid ""
 "OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL "
 "1.0.1c)."
 msgstr ""
+"Para garantizar las seguridad de nuestros sistemas y adherir las prácticas "
+"recomendadas de la industria, requerimos que su servidor use una versión "
+"reciente de cURL and una versión de OpenSSL que soporte TLSv1.2 (la versión "
+"mínimo con este soporte es OpenSSL 1.0.1c)."
 
 #: includes/licensing.php:251
 msgctxt "licensing"
@@ -2197,6 +2209,9 @@ msgid ""
 "Directory servers but also help you prepare your website to interact with "
 "services using the latest security standards."
 msgstr ""
+"Actualizar su sistema no solo le permitirá comunicarse con los servidores de "
+"Business Directory, también lo ayudará a prepararse para interactuar con "
+"otros servicios que usen los últimos estándares de seguridad."
 
 #: includes/licensing.php:253
 msgctxt "licensing"
@@ -2204,6 +2219,8 @@ msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necesary."
 msgstr ""
+"Por favor contacte a su proveedor de hospedaje y solicite que actualicen su "
+"sistema. Incluya este mensaje si es necesario."
 
 #: includes/licensing.php:295
 msgctxt "licensing"
@@ -5321,7 +5338,7 @@ msgstr "Validador de fechas"
 #: includes/fields/class-fieldtypes-image.php:64
 msgctxt "form fields"
 msgid "Field unavailable at the moment."
-msgstr ""
+msgstr "Este campo no está disponible en el momento."
 
 #: includes/fields/class-fieldtypes-phone-number.php:13
 msgctxt "form fields"
@@ -5356,7 +5373,7 @@ msgstr "-- Elija Uno --"
 #: includes/fields/class-fieldtypes-select.php:116
 msgctxt "form-fields-api select"
 msgid "— None —"
-msgstr ""
+msgstr "— Ninguno —"
 
 #: includes/fields/class-fieldtypes-textarea.php:56
 msgctxt "admin form-fields"
@@ -5919,7 +5936,7 @@ msgstr "Regresar al Directorio"
 #: templates/listing-contactform.tpl.php:9
 msgctxt "templates"
 msgid "Listing Title: "
-msgstr "Título del Listado"
+msgstr "Título del Listado: "
 
 #: templates/listing-contactform.tpl.php:16
 msgctxt "templates"
@@ -7015,7 +7032,7 @@ msgstr ""
 #: templates/admin/home.tpl.php:4
 msgctxt "admin home"
 msgid "Welcome to Business Directory Plugin. You are using %s."
-msgstr "Bienvenido a Business Directory Plugin"
+msgstr "Bienvenido a Business Directory Plugin. Usted está usando %s."
 
 #: templates/admin/home.tpl.php:5
 msgctxt "admin home"
