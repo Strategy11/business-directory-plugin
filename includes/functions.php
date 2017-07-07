@@ -614,9 +614,9 @@ function wpbdp_get_fee_plans() {
         $args['tag'] = 'free';
     }
 
-    if ( is_admin() && current_user_can( 'administrator' ) ) {
-        $args['recurring'] = '0';
-    }
+    // if ( is_admin() && current_user_can( 'administrator' ) ) {
+    //     $args['recurring'] = '0';
+    // }
 
     if ( $order = wpbdp_get_option( 'fee-order' ) ) {
         $args['_orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
@@ -684,7 +684,7 @@ function wpbdp_locate_template($template, $allow_override=true, $try_defaults=tr
 
     if (!$template_file && $try_defaults) {
         foreach ($template as $t) {
-            $template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php'; 
+            $template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php';
 
             if (file_exists($template_path)) {
                 $template_file = $template_path;
@@ -904,4 +904,3 @@ function wpbdp_get_logs( $args = array() ) {
 
     return $wpdb->get_results( $query );
 }
-

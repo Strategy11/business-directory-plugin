@@ -34,14 +34,20 @@ jQuery( function( $ ) {
 
     // Makes sure texts displayed inside the metabox are in sync with the settings.
     var updateText = function() {
-        var plan = $.parseJSON($('select[name="listing_plan[fee_id]"]').find('option:selected').attr('data-plan-info'));
+        var plan_id = $( 'input[name="listing_plan[fee_id]"]').val();
         var expiration = $('input[name="listing_plan[expiration_date]"]').val();
         var images = $('input[name="listing_plan[fee_images]"]').val();
         var is_sticky = $('input[name="listing_plan[is_sticky]"]').is(':checked');
 
-        $('#wpbdp-listing-plan-prop-label').html(
-            wpbdpListingMetaboxL10n.planDisplayFormat.replace('{{plan_id}}', plan.id)
-                                                     .replace('{{plan_label}}', plan.label));
+        var $plan = $('select#wpbdp-listing-plan-select').find('option[value="' + plan_id + '"]');
+        if ( $plan.length > 0) {
+            var plan_data = $.parseJSON($plan.attr('data-plan-info'));
+
+            $('#wpbdp-listing-plan-prop-label').html(
+                wpbdpListingMetaboxL10n.planDisplayFormat.replace('{{plan_id}}', plan_data.id)
+                                                         .replace('{{plan_label}}', plan_data.label));
+        }
+
         $('#wpbdp-listing-plan-prop-expiration').html(expiration ? expiration : wpbdpListingMetaboxL10n.noExpiration);
         $('#wpbdp-listing-plan-prop-images').html(images);
         $('#wpbdp-listing-plan-prop-is_sticky').html(is_sticky ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no);
@@ -80,9 +86,10 @@ jQuery( function( $ ) {
                 $input.val(prev_value);
         } else {
             // Plan changes are handled in a special way.
-            if ($input.is('[name="listing_plan[fee_id]"]')) {
+            if ($input.is('#wpbdp-listing-plan-select')) {
                 var plan = $.parseJSON( $input.find( 'option:selected' ).attr( 'data-plan-info' ) );
 
+                $metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
                 $metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
                 $metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
                 $metabox_tab.find('input[name="listing_plan[is_sticky]"]').prop( 'checked', plan.sticky );

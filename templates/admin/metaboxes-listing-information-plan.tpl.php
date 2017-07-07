@@ -33,7 +33,8 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Change plan', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
-                <select name="listing_plan[fee_id]" data-confirm-text="<?php echo esc_attr( _x( 'Do you want to override current listing fee details with those from "%s"?', 'listing metabox', 'WPBDM' ) ); ?>">
+                <input type="hidden" name="listing_plan[fee_id]" value="<?php echo $current_plan ? $current_plan->fee_id : ''; ?>" />
+                <select name="" id="wpbdp-listing-plan-select">
                 <?php foreach ( $plans as $p ): ?>
                 <?php
                 $plan_info = array( 'id' => $p->id, 'label' => $p->label, 'days' => $p->days, 'images' => $p->images, 'sticky' => $p->sticky, 'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ) );
