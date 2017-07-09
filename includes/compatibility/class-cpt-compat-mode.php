@@ -19,17 +19,33 @@ class WPBDP__CPT_Compat_Mode {
         $slug_cat = wpbdp_get_option( 'permalinks-category-slug' );
         $slug_tag = wpbdp_get_option( 'permalinks-tags-slug' );
 
-        if ( get_query_var( '_' . $slug_dir ) )
-            $this->current_view = 'show_listing';
-        elseif ( get_query_var( '_' . $slug_cat ) )
+        if ( get_query_var( '_' . $slug_dir ) ) {
+            $listing_id = $this->get_listing_id_from_query_var();
+
+            if ( $listing_id ) {
+                $this->data['listing_id'] = $listing_id;
+                $this->current_view = 'show_listing';
+            } else {
+                $wp_query->set_404();
+                $wp_query->set( 'page_id', null );
+                $wp_query->set( 'p', null );
+                return null;
+            }
+        } elseif ( get_query_var( '_' . $slug_cat ) ) {
             $this->current_view = 'show_category';
-        elseif ( get_query_var( '_' . $slug_tag ) )
+        } elseif ( get_query_var( '_' . $slug_tag ) ) {
             $this->current_view = 'show_tag';
+        }
 
         if ( $this->current_view )
             return $this->current_view;
 
         return $viewname;
+    }
+
+    private function get_listing_id_from_query_var() {
+        $id_or_slug = get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
+        return wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
     }
 
     public function before_dispatch() {
@@ -44,9 +60,11 @@ class WPBDP__CPT_Compat_Mode {
             case 'show_listing':
                 $this->data['wp_query'] = $wp_query;
 
-                $listing_id = wpbdp_get_post_by_id_or_slug( get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
-                                                            'id',
-                                                            'id' );
+                if ( isset( $this->data['listing_id'] ) ) {
+                    $listing_id = $this->data['listing_id'];
+                } else {
+                    $listing_id = $this->get_listing_id_from_query_var();
+                }
 
                 $args = array( 'post_type' => WPBDP_POST_TYPE,
                                'p' => $listing_id );
