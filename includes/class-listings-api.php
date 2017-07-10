@@ -198,8 +198,11 @@ class WPBDP_Listings_API {
 
         $listing->save();
 
-        if ( $is_renewal )
+        if ( $is_renewal ) {
             $listing->set_post_status( 'publish' );
+        } elseif ( 'initial' == $payment->tag ) {
+            $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
+        }
     }
 
     /**

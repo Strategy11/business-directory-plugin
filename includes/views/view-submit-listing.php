@@ -474,7 +474,13 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
     }
 
     protected function step_save() {
-        $listing = $this->state->editing ? WPBDP_Listing::get( $this->state->listing_id ) : WPBDP_Listing::create( $this->state );
+        if ( $this->state->editing ) {
+            $listing = WPBDP_Listing::get( $this->state->listing_id );
+        } else {
+            $this->state->post_status = 'draft';
+            $listing = WPBDP_Listing::create( $this->state );
+        }
+
         $listing->set_field_values( $this->state->fields );
         $listing->set_images( $this->state->images );
         $listing->set_thumbnail_id( $this->state->thumbnail_id );
@@ -488,8 +494,7 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
             // Generate payment for the listing.
             $payment = new WPBDP_Payment( array( 'listing_id' => $listing->get_id() ) );
 
-            if ( ! $this->state->editing )
-                $payment->tag( 'initial' );
+            $payment->tag( 'initial' );
 
             foreach ( $this->state->categories as $cat_id => $fee_id ) {
                 $category_info = $listing->get_category_info( $cat_id );
@@ -514,12 +519,29 @@ class WPBDP_Submit_Listing_Page extends WPBDP_View {
 
             $this->state->listing_id = $listing->get_id();
             $this->state->payment_id = $payment->get_id();
+
+            $initial_payment_is_completed = $payment->is_completed();
+        } else {
+            $initial_payment = WPBDP_Payment::find( array( 'tag' => 'initial', 'listing_id' => $listing->get_id() ) );
+
+            if ( $initial_payment ) {
+                $initial_payment_is_completed = $initial_payment[0]->is_completed();
+            } else {
+                // In case we are dealing with a listing created before the initial
+                // tag was introduced
+                $initial_payment_is_completed = true;
+            }
         }
 
         do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
 
         $listing->save();
-        $listing->set_post_status( $this->state->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
+
+        if ( $this->state->editing && $initial_payment_is_completed ) {
+            $listing->set_post_status( wpbdp_get_option( 'edit-post-status' ) );
+        } elseif ( $initial_payment_is_completed ) {
+            $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
+        }
 
         $this->state->advance( false ); // This step is 'invisible'.
         return $this->dispatch();
