@@ -16,7 +16,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             'payer_data' => array(),
             'gateway_data' => array(),
             'status' => 'pending',
-            'currency_code' => 'USD',
+            'currency_code' => wpbdp_get_option( 'currency', 'USD' ),
             'amount' => 0.0,
             'data' => array()
         );
