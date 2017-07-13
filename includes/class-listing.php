@@ -387,7 +387,7 @@ class WPBDP_Listing {
     /**
      * @since fees-revamp
      */
-    public function update_plan( $plan, $args = array() ) {
+    public function update_plan( $plan = null, $args = array() ) {
         global $wpdb;
 
         $args = wp_parse_args( $args, array(
