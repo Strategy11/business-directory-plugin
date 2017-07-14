@@ -87,13 +87,21 @@ class WPBDP_Themes {
         $js = array_filter( (array) $theme->assets->js );
 
         foreach ( $css as $c ) {
-            wp_enqueue_style( $theme->id . '-' . $this->_normalize_asset_name( $c ),
-                              $theme->url . 'assets/' . $c );
+            wp_enqueue_style(
+                $theme->id . '-' . $this->_normalize_asset_name( $c ),
+                $theme->url . 'assets/' . $c,
+                array(),
+                $theme->version
+            );
         }
 
         if ( 'theme' == wpbdp_get_option( 'themes-button-style' ) && file_exists( $theme->path . 'assets/buttons.css' ) ) {
-            wp_enqueue_style( $theme->id . '-buttons',
-                              $theme->url . 'assets/buttons.css' );
+            wp_enqueue_style(
+                $theme->id . '-buttons',
+                $theme->url . 'assets/buttons.css',
+                array(),
+                $theme->version
+            );
         }
 
         foreach ( $js as $j ) {
