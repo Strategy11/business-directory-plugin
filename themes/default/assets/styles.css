@@ -1,6 +1,7 @@
 .wpbdp-listing .listing-title {
     border: none;
     border-bottom: 1px solid #044F8D;
+    font-size: 115%;
     margin-bottom: 8px;
     background: inherit;
 }
@@ -19,11 +20,15 @@
     margin-left: 160px;
 }
 
-.wpbdp-listing .listing-title a, .wpbdp-listing .listing-title h2 {
-    color: #044f8d;
+.wpbdp-listing .listing-title,
+.wpbdp-listing .listing-title a,
+.wpbdp-listing .listing-title h2 {
     text-decoration: none;
     font-weight: bold;
-    font-size: 115%;
+}
+.wpbdp-listing .listing-title a,
+.wpbdp-listing .listing-title h2 {
+    color: #044f8d;
 }
 
 .wpbdp-listing .address-info label {
