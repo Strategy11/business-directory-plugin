@@ -142,14 +142,20 @@ class WPBDP_Settings {
         $desc .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'WPBDM' );
         $desc .= '</span>';
         $desc .= _x( 'Use Ctrl-Click to include multiple fields in the search. Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'admin settings', 'WPBDM' );
+
         $this->add_setting( $s,
                             'quick-search-fields',
                             _x( 'Quick search fields', 'admin settings', 'WPBDM' ),
                             'choice',
                             array(),
                             $desc,
-                            array( 'choices' => array( &$this, 'quicksearch_fields_cb' ), 'multiple' => true )
-                         );
+            array(
+                'choices' => array( &$this, 'quicksearch_fields_cb' ),
+                'multiple' => true,
+                'widget' => 'checkbox',
+            )
+        );
+
         $this->add_setting( $s,
                             'quick-search-enable-performance-tricks',
                             _x( 'Enable high performance searches?', 'admin settings', 'WPBDM' ),
@@ -710,7 +716,7 @@ EOF;
             if ( in_array( $field->get_association(), array( 'excerpt', 'content' ) ) || 'textarea' == $field->get_field_type_id() )
                 $is_text_field = true;
 
-            $fields[] = array( $field->get_id(), $field->get_label(), $is_text_field ? 'textfield' : '' );
+            $fields[ $field->get_id() ] = array( $field->get_label(), $is_text_field ? 'textfield' : '' );
         }
 
         return $fields;
@@ -1348,18 +1354,32 @@ EOF;
                 $name = self::PREFIX . $setting->name . '[]';
             }
 
+            $html .= '<ul id="' . $setting->name . '" class="wpbdp-choices-list">';
+
             foreach ( $choices as $k => $v ) {
-                $html .= sprintf( '<label><input type="%s" name="%s" value="%s" %s />%s</label><br />',
+                if ( is_array( $v ) ) {
+                    $choice_label = $v[0];
+                    $choice_class = $v[1];
+                } else {
+                    $choice_label = $v;
+                    $choice_class = null;
+                }
+
+                $html .= sprintf( '<li class="%s"><label><input type="%s" name="%s" value="%s" %s />%s</label></li>',
+                    $choice_class ? $choice_class : '',
                                   $widget,
                                   $name,
                                   $k,
                                   ( $value && in_array( $k, $value ) ) ? 'checked="checked"' : '',
-                                  $v );
+                    $choice_label
+                );
             }
+
+            $html .= '</ul>';
         }
 
         if ( $setting->help_text ) {
-            $html .= '<br /><span class="description">' . $setting->help_text . '</span>';
+            $html .= '<span class="description">' . $setting->help_text . '</span>';
         }
 
         echo apply_filters( 'wpbdp_settings_render', $html, $setting, $args );

@@ -592,8 +592,8 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
             });
 
-            $('select#quick-search-fields').change(function() {
-                var selected = $(this).find( 'option.textfield:selected' ).length;
+            $( 'ul#quick-search-fields' ).on( 'change', ':checkbox', function() {
+                var selected = $(this).closest( 'ul' ).find( '.textfield :checkbox:checked' ).length;
 
                 if ( selected > 0 ) {
                     $('span.text-fields-warning').fadeIn('fast');
