@@ -112,8 +112,16 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                                   _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) );
             }
 
-            if ( ! $field->has_validator( 'required' ) ) {
-                $html .= '<option value="">' . _x( '— None —', 'form-fields-api select', 'WPBDM' ) . '</option>';
+            $show_empty_option = $field->data( 'show_empty_option', null );
+
+            if ( is_null( $show_empty_option ) ) {
+                $show_empty_option = ! $field->has_validator( 'required' );
+            }
+
+            if ( $show_empty_option ) {
+                $default_label = _x( '— None —', 'form-fields-api select', 'WPBDM' );
+                $empty_option_label = $field->data( 'empty_option_label', $default_label );
+                $html .= '<option value="">' . $empty_option_label . '</option>';
             }
 
             foreach ( $options as $option => $label ) {
