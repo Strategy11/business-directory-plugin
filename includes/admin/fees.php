@@ -71,7 +71,12 @@ class WPBDP_FeesAdmin {
 
     private function processFieldForm() {
         $fee_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
-        $fee = $fee_id ? WPBDP_Fee_Plan::find( $fee_id ) : new WPBDP_Fee_Plan();
+
+        if ( $fee_id ) {
+            $fee = WPBDP_Fee_Plan::find( $fee_id );
+        } else {
+            $fee = new WPBDP_Fee_Plan( array( 'categories' => array( 'categories' => array( 0 ) ) ) );
+        }
 
         if ( isset( $_POST['fee'] ) ) {
             if ( ! isset( $_POST['fee']['sticky'] ) )
