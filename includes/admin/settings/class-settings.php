@@ -132,9 +132,15 @@ class WPBDP_Settings {
                             'choice',
                             'above',
                             '',
-                            array( 'choices' => array( array( 'above', _x( 'Above results', 'admin settings', 'WPBDM' ) ),
-                                                       array( 'below', _x( 'Below results', 'admin settings', 'WPBDM' ) ),
-                                                       array( 'none', _x( 'Don\'t show with results', 'admin settings', 'WPBDM' ) ) ) ) );
+            array(
+                'choices' => array(
+                    'above' => _x( 'Above results', 'admin settings', 'WPBDM' ),
+                    'below' => _x( 'Below results', 'admin settings', 'WPBDM' ),
+                    'none' => _x( 'Don\'t show with results', 'admin settings', 'WPBDM' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
 
         // Quick search fields.
         $desc  = '';
@@ -250,10 +256,39 @@ class WPBDP_Settings {
 
 
         $this->add_setting($s, 'show-listings-under-categories', _x('Show listings under categories on main page?', 'admin settings', 'WPBDM'), 'boolean', false);
-        $this->add_setting($s, 'status-on-uninstall', _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
-                           array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
-        $this->add_setting($s, 'deleted-status', _x('Status of deleted listings', 'admin settings', 'WPBDM'), 'choice', 'trash', '',
-                           array('choices' => array( array( 'draft', _x( 'Draft', 'post status' ) ), array( 'trash', _x( 'Trash', 'post status' ) ) )));
+
+        $this->add_setting(
+            $s,
+            'status-on-uninstall',
+            _x('Status of listings upon uninstalling plugin', 'admin settings', 'WPBDM'),
+            'choice',
+            'trash',
+            '',
+            array(
+                'choices' => array(
+                    'draft' => _x( 'Draft', 'post status' ),
+                    'trash' => _x( 'Trash', 'post status' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
+        $this->add_setting(
+            $s,
+            'deleted-status',
+            _x( 'Status of deleted listings', 'admin settings', 'WPBDM' ),
+            'choice',
+            'trash',
+            '',
+            array(
+                'choices' => array(
+                    'draft'=> _x( 'Draft', 'post status' ),
+                    'trash' => _x( 'Trash', 'post status' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
         $this->add_setting( $s, 'submit-instructions', _x( 'Submit Listing instructions message', 'admin settings', 'WPBDM' ), 'text','', _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'admin settings', 'WPBDM' ), array( 'use_textarea' => true ) );
 
         $s = $this->add_section($g, 'listings/renewals', _x('Listing Renewal', 'admin settings', 'WPBDM'));
@@ -301,19 +336,59 @@ class WPBDP_Settings {
                           );
 
         $s = $this->add_section($g, 'post/category', _x('Post/Category Settings', 'admin settings', 'WPBDM'));
-        $this->add_setting($s, 'new-post-status', _x('Default new post status', 'admin settings', 'WPBDM'), 'choice', 'pending', '',
-                           array('choices' => array( array( 'publish', _x( 'Published', 'post status' ) ), array( 'pending', _x( 'Pending', 'post status' ) ) ))
-                           );
-        $this->add_setting($s, 'edit-post-status', _x('Edit post status', 'admin settings', 'WPBDM'), 'choice', 'publish', '',
-                           array('choices' => array( array( 'publish', _x( 'Published', 'post status' ) ), array( 'pending', _x( 'Pending', 'post status' ) ) ) ) );
+
+        $this->add_setting(
+            $s,
+            'new-post-status',
+            _x( 'Default new post status', 'admin settings', 'WPBDM' ),
+            'choice',
+            'pending',
+            '',
+            array(
+                'choices' => array(
+                    'publish' => _x( 'Published', 'post status' ),
+                    'pending' => _x( 'Pending', 'post status' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
+        $this->add_setting(
+            $s,
+            'edit-post-status',
+            _x('Edit post status', 'admin settings', 'WPBDM'),
+            'choice',
+            'publish',
+            '',
+            array(
+                'choices' => array(
+                    'publish' => _x( 'Published', 'post status' ),
+                    'pending' => _x( 'Pending', 'post status' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
         $this->add_setting( $s, 'categories-order-by', _x('Order categories list by', 'admin settings', 'WPBDM'), 'choice', 'name', '',
                            array('choices' => array(
-                            array( 'name', _x( 'Name', 'admin settings', 'WPBDM' ) ),
-                            array( 'slug', _x( 'Slug', 'admin settings', 'WPBDM' ) ),
-                            array( 'count', _x( 'Listing Count', 'admin settings', 'WPBDM' ) )
-                           )) );
+                    'name' => _x( 'Name', 'admin settings', 'WPBDM' ),
+                    'slug' => _x( 'Slug', 'admin settings', 'WPBDM' ),
+                    'count' => _x( 'Listing Count', 'admin settings', 'WPBDM' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
         $this->add_setting( $s, 'categories-sort', _x('Sort order for categories', 'admin settings', 'WPBDM'), 'choice', 'ASC', '',
-                           array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
+            array(
+                'choices' => array(
+                    'ASC' => _x('Ascending', 'admin settings', 'WPBDM'),
+                    'DESC' => _x('Descending', 'admin settings', 'WPBDM'),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
         $this->add_setting($s, 'show-category-post-count', _x('Show category post count?', 'admin settings', 'WPBDM'), 'boolean', true);
         $this->add_setting($s, 'hide-empty-categories', _x('Hide empty categories?', 'admin settings', 'WPBDM'), 'boolean', false);
         $this->add_setting($s, 'show-only-parent-categories', _x('Show only parent categories in category list?', 'admin settings', 'WPBDM'), 'boolean', false);
@@ -329,9 +404,21 @@ class WPBDP_Settings {
                             array( 'paid', _x( 'Paid first then free. Inside each group by date.', 'admin settings', 'WPBDM' ) ),
                             array( 'paid-title', _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'WPBDM' ) )
                           )));
-        $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
-                           _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
-                           array('choices' => array(array('ASC', _x('Ascending', 'admin settings', 'WPBDM')), array('DESC', _x('Descending', 'admin settings', 'WPBDM')))));
+        $this->add_setting(
+            $s,
+            'listings-sort',
+            _x( 'Sort order for directory listings', 'admin settings', 'WPBDM' ),
+            'choice',
+            'ASC',
+            _x( 'Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM' ),
+            array(
+                'choices' => array(
+                    'ASC' => _x('Ascending', 'admin settings', 'WPBDM'),
+                    'DESC' => _x('Descending', 'admin settings', 'WPBDM'),
+                ),
+                'widget' => 'radio',
+            )
+        );
 
         $this->add_setting( $s,
                             'listings-sortbar-enabled',
@@ -374,10 +461,12 @@ class WPBDP_Settings {
                             'field',
                             _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'admin settings', 'WPBDM' ),
                             array( 'choices' => array(
-                                array( 'field', _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'WPBDM' ) ),
-                                array( 'user',  _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'WPBDM' ) )
-
-                            ) ) );
+                    'field' => _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'WPBDM' ),
+                    'user' => _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'WPBDM' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
 
         $s = $this->add_section( $g, 'email-notifications', _x( 'E-Mail Notifications', 'admin settings', 'WPBDM' ) );
         $this->add_setting( $s,
@@ -616,9 +705,16 @@ EOF;
                             'choice',
                             'left',
                             '',
-                            array( 'choices' => array( array( 'left', _x( 'Show currency symbol on the left', 'admin settings', 'WPBDM' ) ),
-                                                       array( 'right', _x( 'Show currency symbol on the right', 'admin settings', 'WPBDM' ) ),
-                                                       array( 'none', _x( 'Do not show currency symbol', 'admin settings', 'WPBDM' ) ) ) ) );
+            array(
+                'choices' => array(
+                    'left' => _x( 'Show currency symbol on the left', 'admin settings', 'WPBDM' ),
+                    'right' => _x( 'Show currency symbol on the right', 'admin settings', 'WPBDM' ),
+                    'none' => _x( 'Do not show currency symbol', 'admin settings', 'WPBDM' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
+
         $this->register_dep( 'currency-symbol-position', 'requires-true', 'payments-on' );
 
         $this->add_setting($s, 'payment-message', _x('Thank you for payment message', 'admin settings', 'WPBDM'), 'text',
@@ -657,9 +753,14 @@ EOF;
                             'choice',
                             'theme',
                             '',
-                            array( 'choices' => array( array( 'theme', _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ) ),
-                                                       array( 'none', _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ) )  ),
-        ) );
+            array(
+                'choices' => array(
+                    'theme' => _x( 'Use the BD theme style for BD buttons', 'admin settings', 'WPBDM' ),
+                    'none' => _x( 'Use the WP theme style for BD buttons', 'admin settings', 'WPBDM' ),
+                ),
+                'widget' => 'radio',
+            )
+        );
         // }
 
 
