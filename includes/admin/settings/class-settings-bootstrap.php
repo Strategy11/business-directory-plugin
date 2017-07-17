@@ -190,7 +190,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'search_settings', _x( 'Directory Search', 'settings', 'WPBDM' ), 'general/main' );
         wpbdp_register_setting( array(
             'id'      => 'search-form-in-results',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Search form display', 'settings', 'WPBDM' ),
             'default' => 'above',
             'options' => array(
@@ -336,7 +336,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'status-on-uninstall',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Status of listings upon uninstalling plugin', 'settings', 'WPBDM' ),
             'default' => 'trash',
             'options' => array(
@@ -347,7 +347,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'deleted-status',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Status of deleted listings', 'settings', 'WPBDM' ),
             'default' => 'trash',
             'options' => array(
@@ -377,7 +377,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'listings/post_category', _x( 'Post/Category Settings', 'settings', 'WPBDM' ), 'listings/main' );
         wpbdp_register_setting( array(
             'id'      => 'new-post-status',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Default new post status', 'settings', 'WPBDM' ),
             'default' => 'pending',
             'options' => array(
@@ -388,7 +388,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'edit-post-status',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Edit post status', 'settings', 'WPBDM' ),
             'default' => 'publish',
             'options' => array(
@@ -399,7 +399,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'categories-order-by',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Order categories list by', 'settings', 'WPBDM' ),
             'default' => 'name',
             'options' => array(
@@ -411,7 +411,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'categories-sort',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Sort order for categories', 'settings', 'WPBDM' ),
             'default' => 'ASC',
             'options' => array(
@@ -461,7 +461,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'listings-sort',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Sort directory listings by', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Ascending for ascending order A-Z, Descending for descending order Z-A', 'settings', 'WPBDM' ),
             'default' => 'ASC',
@@ -525,7 +525,7 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting( array(
             'id'      => 'themes-button-style',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Theme button style', 'settings', 'WPBDM' ),
             'default' => 'theme',
             'options' => array(
@@ -730,7 +730,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency-symbol-position',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'Currency symbol display', 'settings', 'WPBDM' ),
             'default' => 'left',
             'options' => array(
@@ -777,7 +777,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'listing-email-mode',
-            'type'    => 'select',
+            'type'    => 'radio',
             'name'    => _x( 'How to determine the listing\'s email address?', 'settings', 'WPBDM' ),
             'desc'    => _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'settings', 'WPBDM' ),
             'default' => 'field',
