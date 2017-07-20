@@ -502,6 +502,7 @@ EOF;
         $this->add_setting($s, 'currency', _x('Currency Code', 'admin settings', 'WPBDM'), 'choice', 'USD', '',
                             array('choices' => array(
                                 array('AUD', _x('Australian Dollar (AUD)', 'admin settings', 'WPBDM')),
+                                array('ARS', _x('Argentine Peso (ARS)', 'admin settings', 'WPBDM')),
                                 array('BRL', _x('Brazilian Real (BRL)', 'admin settings', 'WPBDM')),
                                 array('CAD', _x('Canadian Dollar (CAD)', 'admin settings', 'WPBDM')),
                                 array('CZK', _x('Czech Koruna (CZK)', 'admin settings', 'WPBDM')),
