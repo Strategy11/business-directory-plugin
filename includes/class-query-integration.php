@@ -122,8 +122,17 @@ class WPBDP__Query_Integration {
             $pieces['fields'] .= ', (SELECT 0) AS wpbdp_paid_amount';
         }
 
-        if ( 'paid-title' == $query->get( 'orderby' ) )
+        if ( 'paid-title' == $query->get( 'orderby' ) ) {
             $pieces['orderby'] = "{$wpdb->posts}.post_title ASC, " . $pieces['orderby'];
+        } else if ( 'plan-order' == $query->get( 'orderby' ) ) {
+            $plan_order = wpbdp_get_option( 'fee-order' );
+
+            if ( 'custom' == $plan_order['method'] ) {
+                $pieces['fields']  .= ", (SELECT po.weight FROM {$wpdb->prefix}wpbdp_plans po JOIN {$wpdb->prefix}wpbdp_listings pol ON po.id = pol.fee_id WHERE pol.listing_id = {$wpdb->posts}.ID ) AS wpbdp_plan_order";
+                $pieces['orderby'] = "wpbdp_plan_order DESC";
+            }
+        }
+
 
         $pieces['orderby'] = 'wpbdp_is_sticky DESC, wpbdp_paid_amount DESC ' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
         $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );

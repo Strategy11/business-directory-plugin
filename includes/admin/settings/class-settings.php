@@ -294,7 +294,8 @@ class WPBDP_Settings {
                             array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),
                             array( 'rand', _x( 'Random', 'admin settings', 'WPBDM' ) ),
                             array( 'paid', _x( 'Paid first then free. Inside each group by date.', 'admin settings', 'WPBDM' ) ),
-                            array( 'paid-title', _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'WPBDM' ) )
+                            array( 'paid-title', _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'WPBDM' ) ),
+                            array( 'plan-order', _x( 'Their fee plans', 'admin settings', 'WPBDM' ) )
                           )));
         $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
                            _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
