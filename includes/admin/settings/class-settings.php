@@ -286,16 +286,21 @@ class WPBDP_Settings {
         $this->add_setting($s, 'show-only-parent-categories', _x('Show only parent categories in category list?', 'admin settings', 'WPBDM'), 'boolean', false);
 
         $s = $this->add_section( $g, 'post/sorting', _x( 'Listings Sorting', 'admin settings', 'WPBDM' ) );
-        $this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', '',
+
+        $msg = _x( 'Fee Plan Custom Order can be changed under <a>Manage Fees</a>', 'admin settings', 'WPBDM' );
+        $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
+
+        $this->add_setting($s, 'listings-order-by', _x('Order directory listings by', 'admin settings', 'WPBDM'), 'choice', 'title', $msg,
                           array('choices' => array(
                             array( 'title', _x( 'Title', 'admin settings', 'WPBDM' ) ),
                             array( 'author', _x( 'Author', 'admin settings', 'WPBDM' ) ),
                             array( 'date', _x( 'Date posted', 'admin settings', 'WPBDM' ) ),
                             array( 'modified', _x( 'Date last modified', 'admin settings', 'WPBDM' ) ),
                             array( 'rand', _x( 'Random', 'admin settings', 'WPBDM' ) ),
-                            array( 'paid', _x( 'Paid first then free. Inside each group by date.', 'admin settings', 'WPBDM' ) ),
-                            array( 'paid-title', _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'WPBDM' ) ),
-                            array( 'plan-order', _x( 'Their fee plans', 'admin settings', 'WPBDM' ) )
+                            array( 'paid', _x( 'Fee Plan Amount, then Date', 'admin settings', 'WPBDM' ) ),
+                            array( 'paid-title', _x( 'Fee Plan Amount, then Title', 'admin settings', 'WPBDM' ) ),
+                            array( 'plan-order-date', _x( 'Fee Plan Custom Order, then Date', 'admin settings', 'WPBDM' ) ),
+                            array( 'plan-order-title', _x( 'Fee Plan Custom Order, then Title', 'admin settings', 'WPBDM' ) )
                           )));
         $this->add_setting( $s, 'listings-sort', _x('Sort directory listings by', 'admin settings', 'WPBDM'), 'choice', 'ASC',
                            _x('Ascending for ascending order A-Z, Descending for descending order Z-A', 'admin settings', 'WPBDM'),
