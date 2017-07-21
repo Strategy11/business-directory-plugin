@@ -41,6 +41,7 @@ class WPBDP_PaymentsAPI {
      */
     public function render_receipt( $payment ) {
         ob_start();
+        do_action( 'wpbdp_before_render_receipt', $payment );
 ?>
 
 <div class="wpbdp-payment-receipt">
@@ -79,6 +80,7 @@ class WPBDP_PaymentsAPI {
 </div>
 
 <?php
+        do_action( 'wpbdp_after_render_receipt', $payment );
         return ob_get_clean();
     }
 
@@ -172,7 +174,7 @@ class WPBDP_PaymentsAPI {
      * @since 3.5.8
      */
     public function abandonment_admin_filter( $pieces, $filter = '' ) {
-        if ( ! wpbdp_get_option( 'payment-abandonment' ) || 
+        if ( ! wpbdp_get_option( 'payment-abandonment' ) ||
              ! in_array( $filter, array( 'abandoned', 'pending-abandonment' ), true ) )
             return $pieces;
 
