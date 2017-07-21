@@ -3,9 +3,9 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
-Tested up to: 4.7.6
-Last Updated: 2017-Jun-7
-Stable tag: 4.1.13.2
+Tested up to: 4.8
+Last Updated: 2017-Jul-25
+Stable tag: 4.1.14
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,20 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 4.1.14 =
+* Correct CSS classes for secondary buttons.
+* Prevent listing title from being cleared during import.
+* Always show 'number of options visible without scrolling' setting in Add/Edit form field screen.
+* Fix import error caused by ampersands in category names.
+* Fix behavior for not found URLs.
+* Fix search form behavior and region filter issues.
+* Correct CSS classes for some primary buttons.
+* Use checkboxes for Quick Search Fields setting.
+* Replace dropdowns with four or less options with a list of radio buttons.
+* Register non-persistent groups after switchgin blogs.
+* Prevent listings from being published before payment is completed.
+* We now have more descriptive error messages for license issues.
 
 = Version 4.1.13.2 =
 * Fix buttons in main box ignoring settings.
