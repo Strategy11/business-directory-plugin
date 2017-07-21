@@ -55,6 +55,15 @@ class WPBDP__Listing_Email_Notification {
 
     public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
         $listing = is_object( $listing ) ? $listing : wpbdp_get_listing( absint( $listing ) );
+        if ( ! $listing ) {
+            return;
+        }
+
+        $post_status = get_post_status( $listing->get_id() );
+        if ( ! $post_status || in_array( $post_status, array( 'trash', 'auto-draft' ) ) ) {
+            return;
+        }
+
         $all_notices = wpbdp_get_option( 'expiration-notices' );
 
         foreach ( $all_notices as $notice_key => $notice ) {
