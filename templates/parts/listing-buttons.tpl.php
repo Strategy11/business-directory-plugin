@@ -10,7 +10,7 @@
     <form action="<?php echo wpbdp_url( 'delete_listing', $listing_id ); ?>" method="post"><input type="submit" name="" value="<?php _ex('Delete', 'templates', 'WPBDM'); ?>" class="button wpbdp-button delete-listing" data-confirmation-message="<?php _ex('Are you sure you wish to delete this listing?', 'templates', 'WPBDM'); ?>" /></form>
     <?php endif; ?>
     <?php if (wpbdp_get_option('show-directory-button')) :?>
-     <input type="button" value="<?php echo __('← Back to Directory', 'WPBDM'); ?>" onclick="window.location.href = '<?php echo wpbdp_url( '/' ); ?>'" class="wpbdp-hide-on-mobile button back-to-dir wpbdp-button" />
+     <input type="button" value="<?php echo __( '← Return to Directory', 'WPBDM' ); ?>" onclick="window.location.href = '<?php echo wpbdp_url( '/' ); ?>'" class="wpbdp-hide-on-mobile button back-to-dir wpbdp-button" />
      <input type="button" value="←" onclick="window.location.href = '<?php echo wpbdp_url( '/'); ?>'" class="wpbdp-show-on-mobile button back-to-dir wpbdp-button" />
     <?php endif; ?>
 <?php elseif ($view == 'excerpt'): ?>

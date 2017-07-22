@@ -16,21 +16,20 @@
         <li>
             <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/" target="_blank">',
                                     _x( 'If you have questions, please post a comment on <a>support forum</a> and we\'ll answer it within 24 hours most days.', 'admin home', 'WPBDM' ) ); ?>
-
+        </li>
     </ul>
 </div>
 
 <ul class="shortcuts">
     <li>
-        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_settings' ); ?>" class="button"><?php _e( 'Configure/Manage Options', 'WPBDM' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_settings' ); ?>" class="button"><?php _e( 'Manage Options', 'WPBDM' ); ?></a>
     </li>
     <li>
-        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_formfields' ); ?>" class="button"><?php _e( 'Setup/Manage Form Fields', 'WPBDM' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_formfields' ); ?>" class="button"><?php _e( 'Manage Form Fields', 'WPBDM' ); ?></a>
     </li>
     <li>
-        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_fees' ); ?>" class="button"><?php echo _e( 'Setup/Manage Fees', 'WPBDM' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_fees' ); ?>" class="button"><?php _e( 'Manage Fees', 'WPBDM' ); ?></a>
     </li>
-    <li class="clear"></li>
 
     <?php if ( wpbdp_get_option( 'featured-on' ) ): ?>
 	<li>
