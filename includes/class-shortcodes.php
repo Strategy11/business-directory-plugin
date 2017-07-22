@@ -5,6 +5,7 @@
 class WPBDP__Shortcodes {
 
     private $shortcodes = array();
+    private $output = array();
 
 
     public function __construct() {}
@@ -259,8 +260,12 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_submit_listing() {
-        $v = wpbdp_load_view( 'submit_listing' );
-        return $v->dispatch();
+        if ( ! isset( $this->output['submit-listing'] ) ) {
+            $v = wpbdp_load_view( 'submit_listing' );
+            $this->output['submit-listing'] = $v->dispatch();
+        }
+
+        return $this->output['submit-listing'];
     }
 
     public function sc_listings( $atts ) {
