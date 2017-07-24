@@ -154,7 +154,7 @@ Reusables.Breakpoints = (function ($) {
   })();
 
   /* bind events */
-  $(document).on('ready.reusables.breakpoints', Breakpoints.evaluate);
+  // $(document).on('ready.reusables.breakpoints', Breakpoints.evaluate);
   $(window).on('resize.reusables.breakpoints', Breakpoints.evaluate);
 
   return Breakpoints;
@@ -179,5 +179,7 @@ if ( typeof jQuery !== 'undefined' ) {
 
             $element.removeClass( prefix + '-no-bp' );
         });
+
+        Reusables.Breakpoints.evaluate();
     });
 }
