@@ -61,7 +61,7 @@ $description  = apply_filters( 'wpbdp_fee_selection_fee_description', $descripti
 
         <?php if ( $disabled ): ?>
         <div class="wpbdp-msg wpbdp-plan-disabled-msg">
-            This plan can't be used for admin submits. For the a recurring plan to work, end users need to pay for it using a supported gateway.
+            <?php _ex( 'This plan can\'t be used for admin submits. For a recurring plan to work, end users need to pay for it using a supported gateway.', 'plan selection', 'WPBDM' ); ?>
         </div>
         <?php endif; ?>
     </div>
