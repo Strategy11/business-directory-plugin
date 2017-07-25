@@ -36,14 +36,17 @@ class WPBDP_Database_Helper {
     }
 
     public function get_collate() {
+        $collate = '';
+
         if ( $this->db->charset === 'utf8mb4' && $this->db->has_cap( 'utf8mb4' ) ) {
-            return $this->db->collate;
+            $collate = $this->db->collate;
         }
 
         if ( $this->db->charset === 'utf8' ) {
-            return $this->db->collate;
+            $collate = $this->db->collate;
         }
 
-        return 'utf8_generdal_ci';
+        return $collate ? $collate : 'utf8_general_ci';
     }
 }
+
