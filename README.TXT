@@ -4,7 +4,7 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
 Tested up to: 4.8
-Last Updated: 2017-Jul-25
+Last Updated: 2017-Jul-26
 Stable tag: 4.1.14
 License: GPLv2 or later
 
@@ -156,6 +156,10 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Register non-persistent groups after switchgin blogs.
 * Prevent listings from being published before payment is completed.
 * We now have more descriptive error messages for license issues.
+* Fix inconsistent strings and button labels.
+* Prevent creation of multiple listings in submit-listing shortcode.
+* Fix inconsistent strings and button labels.
+* Fix compatibility issue with jQuery 3.2.1.
 
 = Version 4.1.13.2 =
 * Fix buttons in main box ignoring settings.
