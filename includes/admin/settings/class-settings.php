@@ -831,7 +831,7 @@ EOF;
                  in_array( $f->get_association(), array( 'category', 'tags' ), true ) )
                 continue;
 
-            $fields[ $f->get_id() ] = $f->get_label();
+            $fields[ $f->get_id() ] = apply_filters( 'wpbdp_render_field_label', $f->get_label(), $f );
         }
 
         $fields['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
