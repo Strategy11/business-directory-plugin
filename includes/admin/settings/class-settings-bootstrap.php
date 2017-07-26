@@ -494,7 +494,7 @@ final class WPBDP__Settings__Bootstrap {
                 continue;
             }
 
-            $options[ $field->get_id() ] = $field->get_label();
+            $options[ $field->get_id() ] = apply_filters( 'wpbdp_render_field_label', $f->get_label(), $f );
         }
 
         $options['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
