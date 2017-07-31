@@ -26,7 +26,7 @@ class WPBDP__Rewrite {
                 $home_url = home_url();
                 $home_url = preg_replace( '/\?.*/', '', $home_url ); // Remove querystring from home URL.
 
-                $rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( $home_url . '/', '', $page_link ), '/' ) );
+                $rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( trailingslashit( $home_url ), '', $page_link ), '/' ) );
 
                 $dir_slug = urlencode( wpbdp_get_option( 'permalinks-directory-slug' ) );
                 $category_slug = urlencode( wpbdp_get_option( 'permalinks-category-slug' ) );
