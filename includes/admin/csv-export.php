@@ -28,6 +28,10 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function ajax_csv_export() {
+        if ( ! current_user_can( 'administrator' ) ) {
+            exit();
+        }
+
         $error = '';
 
         try {
