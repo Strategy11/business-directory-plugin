@@ -35,10 +35,15 @@ class WPBDP_Admin_CSVExport {
         $error = '';
 
         try {
-            if ( !isset( $_REQUEST['state'] ) ) {
+            if ( ! isset( $_REQUEST['state'] ) ) {
                 $export = new WPBDP_CSVExporter( array_merge( $_REQUEST['settings'], array() ) );
             } else {
-                $export = WPBDP_CSVExporter::from_state( unserialize( base64_decode( $_REQUEST['state'] ) ) );
+                $state  = json_decode( base64_decode( $_REQUEST['state'] ), true );
+                if ( ! $state || ! is_array( $state ) || empty( $state['workingdir'] ) ) {
+                    $error = _x( 'Could not decode export state information.', 'admin csv-export', 'WPBDM' );
+                }
+
+                $export = WPBDP_CSVExporter::from_state( $state );
 
                 if ( isset( $_REQUEST['cleanup'] ) && $_REQUEST['cleanup'] == 1 ) {
                     $export->cleanup();
@@ -54,7 +59,7 @@ class WPBDP_Admin_CSVExport {
 
         $response = array();
         $response['error'] = $error;
-        $response['state'] = $state ? base64_encode( serialize( $state ) ) : null;
+        $response['state'] = $state ? base64_encode( json_encode( $state ) ) : null;
         $response['count'] = $state ? count( $state['listings'] ) : 0;
         $response['exported'] = $state ? $state['exported'] : 0;
         $response['filesize'] = $state ? size_format( $state['filesize'] ) : 0;
