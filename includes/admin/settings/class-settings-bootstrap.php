@@ -65,7 +65,7 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'WPBDM' ),
-            'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'WPBDM' ),
+            'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'WPBDM' ) . _x(  '<strong>IMPORTANT:</strong> subpages of the main directory page cannot be accesed while this settings is checked.', 'admin settings', 'WPBDM' ),
             'group' => 'permalink_settings'
         ) );
 
