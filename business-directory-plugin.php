@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 4.1.15dev1
+ * Version: 4.1.14.2dev4
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,7 +31,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '4.1.15dev1' );
+define( 'WPBDP_VERSION', '4.1.14.2dev4' );
 
 define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
 define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -316,7 +316,7 @@ class WPBDP_Plugin {
                 $home_url = home_url();
                 $home_url = preg_replace( '/\?.*/', '', $home_url ); // Remove querystring from home URL.
 
-                $rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( $home_url . '/', '', $page_link ), '/' ) );
+                $rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( trailingslashit( $home_url ), '', $page_link ), '/' ) );
 
                 $dir_slug = urlencode( wpbdp_get_option( 'permalinks-directory-slug' ) );
                 $category_slug = urlencode( wpbdp_get_option( 'permalinks-category-slug' ) );

@@ -38,12 +38,17 @@ class WPBDP_Settings {
         $this->add_setting($s, 'permalinks-directory-slug', _x('Directory Listings Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_POST_TYPE, null, null, array($this, '_validate_listings_permalink'));
         $this->add_setting($s, 'permalinks-category-slug', _x('Categories Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_CATEGORY_TAX, _x('The slug can\'t be in use by another term. Avoid "category", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
         $this->add_setting($s, 'permalinks-tags-slug', _x('Tags Slug', 'admin settings', 'WPBDM'), 'text', WPBDP_TAGS_TAX, _x('The slug can\'t be in use by another term. Avoid "tag", for instance.', 'admin settings', 'WPBDM'), null, array($this, '_validate_term_permalink'));
+
+        $description_tex = _x(  'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title". Check this setting to remove the ID for better SEO.', 'admin settings', 'WPBDM' );
+        $warning_text = _x(  '<strong>IMPORTANT:</strong> subpages of the main directory page cannot be accesed while this settings is checked.', 'admin settings', 'WPBDM' );
+
         $this->add_setting( $s,
                             'permalinks-no-id',
                             _x( 'Remove listing ID from directory URLs?', 'admin settings', 'WPBDM' ),
                             'boolean',
                             false,
-                            _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title". Check this setting to remove the ID for better SEO.', 'admin settings', 'WPBDM' ) );
+            $description_tex . '<br/><br/>' . $warning_text
+        );
 
         $s = $this->add_section( $g,
                                  'recaptcha',
@@ -831,7 +836,7 @@ EOF;
                  in_array( $f->get_association(), array( 'category', 'tags' ), true ) )
                 continue;
 
-            $fields[ $f->get_id() ] = $f->get_label();
+            $fields[ $f->get_id() ] = apply_filters( 'wpbdp_render_field_label', $f->get_label(), $f );
         }
 
         $fields['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );

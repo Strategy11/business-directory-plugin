@@ -46,9 +46,16 @@ Reusables.Breakpoints = (function ($) {
     this.elements = (function () {
       var isFunction = typeof $elements === 'function';
       var isString = typeof $elements === 'string';
-      var isJQuery = $elements instanceof jQuery;
-      var hasSelector = isJQuery && !!$elements.selector;
+      var isJQuery = false;
       var elements;
+
+      if ( $elements && $elements instanceof jQuery ) {
+          isJQuery = true;
+      } else if ( $elements && $elements.constructor.prototype.jquery ) {
+          isJQuery = true;
+      }
+
+      var hasSelector = isJQuery && !!$elements.selector;
 
       if (isFunction) {
         elements = $elements;

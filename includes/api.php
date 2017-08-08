@@ -589,6 +589,18 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
 }
 
 // TODO: update before themes-release
+// TODO: Sometimes this functions is called from
+//       WPBDP_WPML_Compat->language_switcher even though no category
+//       is available thorugh get_queried_object(), triggering a
+//       "Trying to get property of non-object" notice.
+//
+//       The is_object() if-statement that is commented out below can prevent
+//       the notice, but the real issue is the fact that the plugin thinks
+//       we are showing a category while the main query has no queried object.
+//
+//       If the rewrite rule for a cateagry matches, but we can't retrieve
+//       a term from the database, we should mark the query as not-found
+//       from the beginning.
 function wpbdp_current_category_id() {
     global $wp_query;
 
@@ -596,6 +608,11 @@ function wpbdp_current_category_id() {
         return false;
 
     $term = $wp_query->get_queried_object();
+
+    // if ( ! is_object( $term ) ) {
+    //     return false;
+    // }
+
     return $term->term_id;
 }
 
