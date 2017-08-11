@@ -1,3 +1,4 @@
+<?php do_action( 'wpbdp_before_submit_listing_page', $listing ); ?>
 <div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
     <form action="" method="post" data-ajax-url="<?php echo admin_url( 'admin-ajax.php' ); ?>">
         <?php wp_nonce_field( 'listing submit' ); ?>
@@ -30,3 +31,4 @@
         </div>
     </form>
 </div>
+<?php do_action( 'wpbdp_after_submit_listing_page', $listing ); ?>
