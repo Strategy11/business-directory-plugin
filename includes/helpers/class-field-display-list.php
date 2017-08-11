@@ -125,6 +125,32 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         return $fields;
     }
 
+    public function __isset( $key ) {
+        if ( 'html' == $key ) {
+            return true;
+        }
+
+        if ( '_h_' == substr( $key, 0, 3 ) ) {
+            return method_exists( $this, 'helper__' . substr( $key, 3 ) );
+        }
+
+        if ( 'id' == substr( $key, 0, 2 ) ) {
+            $field_id = absint( substr( $key, 2 ) );
+        } else {
+            $field_id = 0;
+        }
+
+        if ( ! $field_id ) {
+            $field_id = isset( $this->names_to_ids[ $key ] ) ? $this->names_to_ids[ $key ] : 0;
+        }
+
+        if ( $field_id && isset( $this->items[ $field_id ] ) ) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function __get( $key ) {
         $field_id = 0;
 
@@ -203,6 +229,14 @@ class _WPBDP_Lightweight_Field_Display_Item {
         $this->field = $field;
         $this->listing_id = $listing_id;
         $this->display = $display;
+    }
+
+    public function __isset( $key ) {
+        $supported_keys = array(
+            'html', 'value', 'raw', 'id', 'label', 'tag', 'field'
+        );
+
+        return in_array( $key, $supported_keys, true );
     }
 
     public function __get( $key ) {
