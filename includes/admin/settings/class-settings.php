@@ -901,7 +901,12 @@ EOF;
     }
 
     public function _validate_term_permalink($setting, $newvalue, $oldvalue=null) {
+        if ( empty( $newvalue ) ) {
+            return $oldvalue;
+        }
+
         $bd_taxonomy = $setting->name == 'permalinks-category-slug' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX;
+
         foreach (get_taxonomies(null, 'objects') as $taxonomy) {
             if ($taxonomy->rewrite && $taxonomy->rewrite['slug'] == $newvalue && $taxonomy->name != $bd_taxonomy) {
                 return $oldvalue;
