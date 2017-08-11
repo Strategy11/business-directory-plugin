@@ -501,7 +501,7 @@ class WPBDP__Settings {
                         }
                     }
                 }
-                
+
                 break;
             default:
                 // TODO: How to handle errors to set $has_error = true?
