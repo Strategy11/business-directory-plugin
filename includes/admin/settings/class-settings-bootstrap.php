@@ -43,13 +43,14 @@ final class WPBDP__Settings__Bootstrap {
             'validator' => 'no-spaces,trim,required'
         ) );
         wpbdp_register_setting( array(
-            'id'      => 'permalinks-category-slug',
-            'type'    => 'text',
-            'name'    => _x( 'Categories Slug', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'WPBDM' ),
-            'default' => 'wpbdp_category',
-            'group'   => 'permalink_settings',
-            'validator' => 'no-spaces,trim,required'
+            'id'        => 'permalinks-category-slug',
+            'type'      => 'text',
+            'name'      => _x( 'Categories Slug', 'settings', 'WPBDM' ),
+            'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'WPBDM' ),
+            'default'   => 'wpbdp_category',
+            'group'     => 'permalink_settings',
+            'taxonomy'  => WPBDP_CATEGORY_TAX,
+            'validator' => 'taxonomy_slug'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'permalinks-tags-slug',
@@ -58,7 +59,8 @@ final class WPBDP__Settings__Bootstrap {
             'desc'    => _x( 'The slug can\'t be in use by another term. Avoid "tag", for instance.', 'settings', 'WPBDM' ),
             'default' => 'wpbdp_tag',
             'group' => 'permalink_settings',
-            'validator' => 'no-spaces,trim,required'
+            'taxonomy'  => WPBDP_TAGS_TAX,
+            'validator' => 'taxonomy_slug'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'permalinks-no-id',

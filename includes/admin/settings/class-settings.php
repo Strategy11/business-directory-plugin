@@ -463,6 +463,7 @@ class WPBDP__Settings {
                 $validators = $setting['validator'];
             }
         } else {
+            $setting    = null;
             $validators = array();
         }
 
@@ -484,10 +485,32 @@ class WPBDP__Settings {
                 }
 
                 break;
+            case 'taxonomy_slug':
+                $value = trim( sanitize_title( $value ) );
+
+                if ( empty( $value ) ) {
+                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
+                    $has_error = true;
+                }
+
+                if ( ! empty( $setting ) && ! empty( $setting['taxonomy'] ) ) {
+                    foreach ( get_taxonomies( null, 'objects' ) as $taxonomy ) {
+                        if ( $taxonomy->rewrite && $taxonomy->rewrite['slug'] == $value && $taxonomy->name != $setting['taxonomy'] ) {
+                            add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( 'The slug "%s" is already in use for another taxonomy.', 'settings', 'WPBDM' ), $value ), 'error' );
+                            $has_error = true;
+                        }
+                    }
+                }
+                
+                break;
             default:
+                // TODO: How to handle errors to set $has_error = true?
                 if ( is_callable( $validator ) ) {
-                    // TODO: How to handle errors to set $has_error = true?
-                    $value = call_user_func( $validator, $value, $old_value );
+                    if ( is_string( $validator ) ) {
+                        $value = call_user_func( $validator, $value );
+                    } else {
+                        $value = call_user_func( $validator, $value, $old_value, $setting );
+                    }
                 }
 
                 break;
