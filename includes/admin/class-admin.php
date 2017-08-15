@@ -21,11 +21,9 @@ class WPBDP_Admin {
     public $messages = array();
 
 
-    function __construct() {
+    public function __construct() {
         add_action('admin_init', array($this, 'handle_actions'));
 
-        add_action('admin_init', array($this, 'register_settings'));
-        add_action('admin_init', array($this, 'check_for_required_fields'));
         add_action('admin_init', array($this, 'check_for_required_pages'));
 
         add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
@@ -76,6 +74,13 @@ class WPBDP_Admin {
         if ( get_option( 'wpbdp-migrate-18_0-featured-pending', false ) ) {
             require_once( WPBDP_PATH . 'includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php' );
             $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
+        }
+
+        require_once( WPBDP_INC . 'admin/settings/class-settings-admin.php' );
+        $this->settings_admin = new WPBDP__Settings_Admin();
+
+        if ( wpbdp_get_option( 'tracking-on' ) ) {
+            $this->site_tracking = new WPBDP_SiteTracking();
         }
     }
 
@@ -261,10 +266,10 @@ to how WordPress stores the data.", 'WPBDM' )
             'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
             'url' => admin_url( sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ) )
         );
-        $menu['wpbdp_admin_settings'] = array(
-            'title' => _x('Manage Options', 'admin menu', 'WPBDM'),
-            'callback' => array( $this, 'admin_settings' )
-        );
+        // $menu['wpbdp_admin_settings'] = array(
+        //     'title' => _x('Manage Options', 'admin menu', 'WPBDM'),
+        //     'callback' => array( $this, 'admin_settings' )
+        // );
         $menu['wpbdp-admin-fees'] = array(
             'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
         );
@@ -301,8 +306,8 @@ to how WordPress stores the data.", 'WPBDM' )
         //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
         //     $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
 
-        $this->prepare_menu( $menu );
         $this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
+        $this->prepare_menu( $this->menu );
 
         // Register menu items.
         foreach ( $this->menu as $item_slug => &$item_data ) {
@@ -732,45 +737,6 @@ to how WordPress stores the data.", 'WPBDM' )
         return $value;
     }
 
-
-    /* Settings page */
-    public function register_settings() {
-        global $wpbdp;
-        $wpbdp->settings->register_in_admin();
-    }
-
-    public function admin_settings() {
-        global $wpbdp;
-
-        flush_rewrite_rules(false);
-
-        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
-
-        $reset_defaults = ( isset( $_GET['action'] ) && 'reset' == $_GET['action'] );
-        if ( $reset_defaults ) {
-            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-reset.tpl.php' );
-            return;
-        }
-
-        $_SERVER['REQUEST_URI'] = remove_query_arg( 'deletedb', $_SERVER['REQUEST_URI'] );
-
-        wpbdp_render_page(WPBDP_PATH . 'templates/admin/settings.tpl.php',
-                          array('wpbdp_settings' => $wpbdp->settings),
-                          true);
-    }
-
-    public function settings_reset_defaults() {
-        $do_reset = ( ! empty ( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) );
-
-        if ( $do_reset ) {
-            global $wpbdp;
-            $wpbdp->settings->reset_defaults();
-        }
-
-        wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_settings&settings-updated=1&groupid=general' ) );
-        exit();
-    }
-
     /* Uninstall. */
     public function uninstall_plugin() {
         global $wpdb;
@@ -816,37 +782,6 @@ to how WordPress stores the data.", 'WPBDM' )
             echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php');
         } else {
             echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php');
-        }
-    }
-
-    /* Required fields check. */
-    public function check_for_required_fields() {
-        global $wpbdp;
-
-        if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'wpbdp_admin_formfields' &&
-             isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'createrequired' ) {
-            // do not display the warning inside the page creating the required fields
-            return;
-        }
-
-        if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
-            if (count($missing) > 1) {
-                $message = sprintf(_x('<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'WPBDM'), join(', ', $missing));
-            } else {
-                $message = sprintf(_x('<b>Business Directory Plugin</b> requires a field with a <b>%s</b> association in order to work correctly.', 'admin', 'WPBDM'), array_pop( $missing ) );
-            }
-
-            $message .= '<br />';
-            $message .= _x('You can create these custom fields by yourself inside "Manage Form Fields" or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
-            $message .= '<br /><br />';
-            $message .= sprintf('<a href="%s">%s</a> | ',
-                                admin_url('admin.php?page=wpbdp_admin_formfields'),
-                                _x('Go to "Manage Form Fields"', 'admin', 'WPBDM'));
-            $message .= sprintf('<a href="%s">%s</a>',
-                                admin_url('admin.php?page=wpbdp_admin_formfields&action=createrequired'),
-                                _x('Create these required fields for me', 'admin', 'WPBDM'));
-
-            $this->messages[] = array($message, 'error');
         }
     }
 

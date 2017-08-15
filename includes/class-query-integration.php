@@ -5,11 +5,38 @@
 class WPBDP__Query_Integration {
 
     public function __construct() {
+        add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+
         add_action( 'parse_query', array( $this, 'set_query_flags' ), 50 );
         add_action( 'template_redirect', array( $this, 'set_404_flag' ), 0 );
 
         add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10, 1 );
         add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
+
+        // Core sorting options.
+        add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
+        add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
+        add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
+    }
+
+    public function add_query_vars( $vars ) {
+        array_push( $vars, 'id' );
+        array_push( $vars, 'listing' );
+        array_push( $vars, 'category_id' ); // TODO: are we really using this var?
+        array_push( $vars, 'category' );
+        array_push( $vars, 'action' ); // TODO: are we really using this var?
+        array_push( $vars, 'wpbdpx' );
+        array_push( $vars, 'wpbdp-listener' );
+        array_push( $vars, 'region' );
+        array_push( $vars, 'wpbdp_view' );
+
+        if ( wpbdp_get_option( 'disable-cpt' ) ) {
+            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
+            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-category-slug' ) );
+            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-tags-slug' ) );
+        }
+
+        return $vars;
     }
 
     public function set_query_flags( $query ) {
@@ -152,6 +179,105 @@ class WPBDP__Query_Integration {
 
         return $pieces;
     }
+
+    // {{ Sort bar.
+    public function sortbar_sort_options( $options ) {
+        $sortbar_fields = $this->settings->sortbar_fields_cb();
+        $sortbar = wpbdp_get_option( 'listings-sortbar-fields' );
+
+        foreach ( $sortbar as $field_id ) {
+            if ( ! array_key_exists( $field_id, $sortbar_fields ) )
+                continue;
+            $options[ 'field-' . $field_id ] = array( $sortbar_fields[ $field_id ], '', 'ASC' );
+        }
+
+        return $options;
+    }
+
+    public function sortbar_query_fields( $fields ) {
+        global $wpdb;
+
+        $sort = wpbdp_get_current_sort_option();
+
+        if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) )
+            return $fields;
+
+        $sname = str_replace( 'field-', '', $sort->option );
+        $q = '';
+
+        switch ( $sname ) {
+        case 'user_login':
+            $q = "(SELECT user_login FROM {$wpdb->users} WHERE {$wpdb->users}.ID = {$wpdb->posts}.post_author) AS user_login";
+            break;
+        case 'user_registered':
+            $q = "(SELECT user_registered FROM {$wpdb->users} WHERE {$wpdb->users}.ID = {$wpdb->posts}.post_author) AS user_registered";
+            break;
+        case 'date':
+        case 'modified':
+            break;
+        default:
+            $field = wpbdp_get_form_field( $sname );
+
+            if ( ! $field || 'meta' != $field->get_association() )
+                break;
+
+            $q = $wpdb->prepare( "(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}", '_wpbdp[fields][' . $field->get_id() . ']' );
+            break;
+        }
+
+        if ( $q )
+            return $fields . ', ' . $q;
+        else
+            return $fields;
+    }
+
+    public function sortbar_orderby( $orderby ) {
+        global $wpdb;
+
+        $sort = wpbdp_get_current_sort_option();
+
+        if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) )
+            return $orderby;
+
+        $sname = str_replace( 'field-', '', $sort->option );
+        $qn = '';
+
+        switch ( $sname ) {
+        case 'user_login':
+        case 'user_registered':
+            $qn = $sname;
+            break;
+        case 'date':
+        case 'modified':
+            $qn = "{$wpdb->posts}.post_{$sname}";
+            break;
+        default:
+            $field = wpbdp_get_form_field( $sname );
+
+            if ( ! $field )
+                break;
+
+            switch ( $field->get_association() ) {
+            case 'title':
+            case 'excerpt':
+            case 'content':
+                $qn = "{$wpdb->posts}.post_" . $field->get_association();
+                break;
+            case 'meta':
+                $qn = "field_{$sname}";
+                break;
+            }
+
+            break;
+        }
+
+        if ( $qn )
+            return $orderby . ', ' . $qn . ' ' . $sort->order;
+        else
+            return $orderby;
+    }
+    // }}
+
 
 }
 

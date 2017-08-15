@@ -13,6 +13,10 @@ class WPBDP__WordPress_Template_Integration {
         add_action( 'body_class', array( $this, 'add_basic_body_classes' ) );
 
         if ( wpbdp_get_option( 'disable-cpt' ) ) {
+            add_filter('comments_template', array( &$this, '_comments_template'));
+            add_filter('taxonomy_template', array( &$this, '_category_template'));
+            add_filter('single_template', array( &$this, '_single_template'));
+
             return;
         }
 
@@ -258,6 +262,39 @@ class WPBDP__WordPress_Template_Integration {
 
         $wp_query->current_post = -1;
         $wp_query->post_count   = 0;
+    }
+
+    public function _comments_template($template) {
+        $is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;
+        $is_main_page = get_post_type() == 'page' && get_the_ID() == wpbdp_get_page_id( 'main' );
+
+        $comments_allowed = in_array(
+            $this->settings->get( 'allow-comments-in-listings' ),
+            array( 'allow-comments', 'allow-comments-and-insert-template' )
+        );
+
+        // disable comments in WPBDP pages or if comments are disabled for listings
+        if ( ( $is_single_listing && ! $comments_allowed ) || $is_main_page ) {
+            return WPBDP_TEMPLATES_PATH . '/empty-template.php';
+        }
+
+        return $template;
+    }
+
+    public function _category_template($template) {
+        if (get_query_var(WPBDP_CATEGORY_TAX) && taxonomy_exists(WPBDP_CATEGORY_TAX)) {
+            return wpbdp_locate_template(array('businessdirectory-category', 'wpbusdirman-category'));
+        }
+
+        return $template;
+    }
+
+    public function _single_template($template) {
+        if (is_single() && get_post_type() == WPBDP_POST_TYPE) {
+            return wpbdp_locate_template(array('businessdirectory-single', 'wpbusdirman-single'));
+        }
+
+        return $template;
     }
 
 }

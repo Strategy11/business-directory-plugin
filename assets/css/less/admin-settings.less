@@ -1,0 +1,236 @@
+#wpbdp-admin-wpbdp_settings {
+    .nav-tab {
+        &.tab-error {
+            border-top: solid 1px red;
+        }
+
+        &.tab-warning {
+            border-top: solid 1px yellow;
+        }
+    }
+}
+
+#wpbdp-admin-settings {
+    .form-table tr > th {
+        min-width: 250px;
+    }
+
+    .form-table tr > th > h3 {
+        font-size: 1.2em;
+        margin: 0 auto;
+    }
+
+    .wpbdp-setting-description {
+        color: #666;
+        font-style: italic;
+        display: block;
+    }
+
+    .wpbdp-setting-tooltip {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+        line-height: 18px;
+        vertical-align: middle;
+        margin-right: 5px;
+        color: #666;
+        cursor: help;
+    }
+
+    input[type="text"], textarea {
+        padding: 6px;
+        width: 85%;
+    }
+
+    textarea {
+        min-height: 150px;
+    }
+
+}
+
+.wpbdp-tooltip-msg {
+	background: #333 !important;
+	border-width: 1px !important;
+	border-radius: 3px !important;
+	box-shadow: 1px 1px 2px 1px rgba(214,214,214,0.5) !important;
+	color: #dedede !important;
+	max-width: 300px !important;
+	padding: 7px !important;
+	text-rendering: optimizeLegibility;
+	text-shadow: none !important;
+	z-index: 9999 !important;
+}
+
+.directory-admin_page_wpbdp_settings select {
+    display: block;
+}
+
+.directory-admin_page_wpbdp_settings .license-activation .status-message {
+    font-size: 85%;
+    color: #595959;
+    font-style: italic;
+}
+
+.directory-admin_page_wpbdp_settings .license-activation .status-message.ok {
+    color: green;
+}
+
+.directory-admin_page_wpbdp_settings .license-activation .status-message.error {
+    color: red;
+}
+
+#wpbdp-admin-settings {
+    .wpbdp-settings-choice-radio {
+        margin: 0 0 5px 0;
+    }
+}
+
+#wpbdp-admin-settings tr.disabled {
+    opacity: 0.7;
+}
+
+#wpbdp-admin-settings .text-fields-warning {
+    font-size: 90%;
+    display: block;
+    margin-bottom: 2px;
+}
+
+#wpbdp-admin-settings .wpbdp-expiration-notice-email-schedule-summary {
+    background: #ccc;
+    font-size: 85%;
+    padding: 5px;
+}
+
+#wpbdp-admin-settings .wpbdp-settings-email {
+    margin: 10px 0 0 0;
+    border: solid 1px #ccc;
+    padding: 5px;
+    background: #fff;
+
+    &.wpbdp-expiration-notice-email {
+        border-bottom: none;
+    }
+
+    .short-preview, .wpbdp-settings-email-preview {
+        color: #999;
+        font-size: 90%;
+        height: 45px;
+        cursor: pointer;
+        overflow: hidden;
+
+        h4 {
+            margin: 0 0 10px 0;
+        }
+
+        a.wpbdp-settings-email-edit-btn, .edit-toggle {
+            float: right;
+            color: #fff;
+        }
+
+        dl {
+            margin: 0;
+            padding: 0;
+
+            dt {
+                font-weight: bold;
+                margin: 0;
+                padding: 0;
+            }
+
+            dd {
+                margin: 0;
+                padding: 0 0 0 10px;
+            }
+        }
+    }
+
+    .editor, .wpbdp-settings-email-editor {
+        display: none;
+        margin-left: 10px;
+        font-size: 90%;
+
+        table.form-table {
+            margin: 0;
+            padding: 0;
+
+            th {
+                padding-left: 4px;
+                padding-right: 0;
+                min-width: 0;
+                width: 20%;
+            }
+        }
+
+        input[type="text"] {
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+        }
+
+        .placeholders {
+            margin: 10px 0 0 0;
+        }
+
+        .placeholder {
+            font-size: 90%;
+
+            .placeholder-code {
+                font-family: monospace;
+                font-weight: bold;
+            }
+
+            .placeholder-description {
+                font-style: italic;
+            }
+        }
+
+        .placeholder-separator {
+            margin-top: 10px;
+        }
+
+        .buttons {
+            margin: 30px 0 0 0;
+            text-align: right;
+
+            .preview-email {
+                float: left;
+            }
+
+            .cancel {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+#wpbdp-admin-settings .wpbdp-settings-expiration-notices {
+
+    #wpbdp-settings-expiration-notices-add-btn {
+        margin: 0 0 5px 0;
+    }
+
+    #wpbdp-settings-expiration-notices-add {
+        .wpbdp-expiration-notice-email {
+            display: none;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+
+    .buttons .delete {
+        color: #a00;
+        float: left;
+        font-size: 13px;
+
+        &:hover {
+            color: red;
+        }
+    }
+}
+
+#wpbdp-admin-settings select#quick-search-fields {
+    min-height: 150px;
+}
+

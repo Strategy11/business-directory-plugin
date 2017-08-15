@@ -3,29 +3,50 @@ function wpbdp_admin_sidebar() {
     return wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php' );
 }
 
-function wpbdp_admin_header( $title_ = null, $id = null, $h2items = array(), $sidebar = true ) {
-    global $title;
+function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = null ) {
+    // For backwards compatibility.
+    if ( is_string( $args_or_title ) ) {
+        $buttons = array();
 
-    $title_ = ! $title_ ? $title : $title_;
+        if ( $h2items ) {
+            foreach ( $h2items as $item ) {
+                $buttons[ $item[0] ] = $item[1];
+            }
+        }
 
-    $css_id = ! empty( $id ) ? 'wpbdp-admin-page-' . $id : '';
-    $css_class  = '';
-    $css_class .= ! empty( $id ) ? 'wpbdp-page-' . $id : 'wpbdp-page';
+        $args_or_title = array(
+            'title'   => $args_or_title,
+            'id'      => $id,
+            'buttons' => $buttons,
+            'sidebar' => $sidebar
+        );
+    }
+
+    $defaults = array(
+        'title'   => ! empty( $GLOBALS['title'] ) ? $GLOBALS['title'] : '',
+        'id'      => ! empty( $_GET['page'] ) ? $_GET['page'] : '',
+        'buttons' => array(),
+        'sidebar' => true
+    );
+
+    $args = wp_parse_args( $args_or_title, $defaults);
+    extract( $args );
+
+    $id = str_replace( 'wpbdp_', '', $id );
+    $id = str_replace( 'wpbdp-', '', $id );
 
     ob_start();
 ?>
-<div class="wrap wpbdp-admin <?php echo $css_class; ?>" id="<?php echo $css_id; ?>">
+<div class="wrap wpbdp-admin wpbdp-page-<?php echo $id; ?>" id="wpbdp-admin-<?php echo $id; ?>">
 	<div id="icon-edit-pages" class="icon32"></div>
 		<h1>
-			<?php echo ! empty( $title_ ) ? $title_ : __( 'Business Directory Plugin', 'WPBDM' ); ?>
+            <?php echo $title; ?>
 
-            <?php if ( ! empty( $h2items ) ): ?>
-				<?php foreach ( $h2items as $item ): ?>
-					<a href="<?php echo $item[1]; ?>" class="add-new-h2"><?php echo $item[0]; ?></a>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</h1>
-		
+            <?php foreach ( $buttons as $label => $url ): ?>
+                <a href="<?php echo $url; ?>" class="add-new-h2"><?php echo $label; ?></a>
+            <?php endforeach; ?>
+        </h1>
+
 		<?php echo $sidebar = $sidebar ? wpbdp_admin_sidebar() : ''; ?>
 
 		<div class="wpbdp-admin-content <?php echo ! empty( $sidebar ) ? 'with-sidebar' : 'without-sidebar'; ?>">

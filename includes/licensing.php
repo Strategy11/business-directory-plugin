@@ -23,7 +23,8 @@ class WPBDP_Licensing {
 
         add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
 
-        add_filter( 'wpbdp_settings_group_tab_css', array( &$this, 'licenses_tab_css' ), 10, 2 );
+        add_filter( 'wpbdp_setting_type_license_key', array( $this, 'license_key_setting' ), 10, 2 );
+        add_filter( 'wpbdp_settings_tab_css', array( $this, 'licenses_tab_css' ), 10, 2 );
 
         if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
             wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
@@ -70,6 +71,37 @@ class WPBDP_Licensing {
         $description = str_replace( '<ip-address>', '<strong>' . $ip_address . '</strong>', $description );
 
         return $description;
+    }
+
+    public function license_key_setting( $setting, $value ) {
+        $module_id = str_replace( 'license-key-', '', $setting['id'] );
+        $license_status = get_option( 'wpbdp-license-status-' . $module_id, false );
+
+        $html  = '';
+        $html .= '<input type="text"
+            id="' . $setting['id'] . '"
+            name="wpbdp_settings[' . $setting['id'] . ']"
+            value="' . esc_attr( $value ) . '"
+            size="25"
+            ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . '/>';
+
+        $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
+        $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
+        $html .= '<input type="button"
+            value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
+            class="button-secondary license-deactivate"
+                data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
+                style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
+        $html .= '<input type="button"
+            value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
+            class="button-secondary license-activate"
+                data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
+                style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
+        $html .= '<br />';
+        $html .= '<span class="status-message"></span>';
+        $html .= '</span>';
+
+        return $html;
     }
 
     private function get_server_ip_address() {

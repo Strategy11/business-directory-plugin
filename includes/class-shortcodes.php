@@ -7,7 +7,9 @@ class WPBDP__Shortcodes {
     private $shortcodes = array();
 
 
-    public function __construct() {}
+    public function __construct() {
+        add_action( 'wpbdp_loaded', array( $this, 'register' ) );
+    }
 
     /**
      * Returns shortcodes being handled by Business Directory.

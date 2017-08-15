@@ -917,3 +917,19 @@ function wpbdp_table_exists( $table_name ) {
 
     return strcasecmp( $result, $table_name ) === 0;
 }
+
+/**
+ * @since 5.0
+ */
+function wpbdp_is_request( $type ) {
+    switch ( $type ) {
+    case 'admin':
+        return is_admin();
+    case 'ajax':
+        return defined( 'DOING_AJAX' ) && DOING_AJAX;
+    case 'cron':
+        return defined( 'DOING_CRON' ) && DOING_CRON;
+    case 'frontend':
+        return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
+    }
+}
