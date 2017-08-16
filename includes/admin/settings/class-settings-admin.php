@@ -59,7 +59,7 @@ class WPBDP__Settings_Admin {
             $args = array_merge(
                 array(
                     'label_for' => $setting['id'],
-                    'class'     => 'wpbdp-settings-' . $setting['type'],
+                    'class'     => '',
                     'desc'      => '',
                     'tooltip'   => ''
                 ),
@@ -127,9 +127,17 @@ class WPBDP__Settings_Admin {
             $callback_html = ob_get_clean();
         }
 
+        if ( ! empty( $setting['attrs'] ) ) {
+            $attrs = wpbdp_html_attributes( $setting['attrs'], array( 'id', 'class' ) );
+        } else {
+            $attrs = '';
+        }
+
         $html  = '';
+        $html .= '<div id="wpbdp-settings-' . $setting['id'] . '" class="wpbdp-settings-setting wpbdp-settings-type-' . $setting['type'] . '" ' . $attrs . '>';
         $html .= $callback_html;
         $html .= '<a name="' . $setting['id'] . '"></a>';
+        $html .= '</div>';
 
         echo $html;
     }
@@ -246,7 +254,13 @@ class WPBDP__Settings_Admin {
 
         echo '<select id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
         foreach ( $setting['options'] as $option_value => $option_label ) {
-            echo '<option value="' . $option_value . '" ' . selected( $option_value, $value, false ) . '>' . $option_label . '</option>';
+            if ( $multiple ) {
+                $selected = in_array( $option_value, $value );
+            } else {
+                $selected = ( $option_value == $value );
+            }
+
+            echo '<option value="' . $option_value . '" ' . selected( $selected, true, false ) . '>' . $option_label . '</option>';
         }
         echo '</select>';
 

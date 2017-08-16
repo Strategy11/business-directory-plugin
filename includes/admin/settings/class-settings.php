@@ -20,8 +20,6 @@ class WPBDP__Settings {
 
         // Cache current values.
         $this->options = is_array( $settings_opt ) ? $settings_opt : array();
-
-        // add_filter( 'wpbdp_settings_render', array( &$this, 'after_render' ), 0, 3 );
     }
 
     public function bootstrap() {
@@ -32,13 +30,23 @@ class WPBDP__Settings {
     }
 
     public function sanitize_settings( $input ) {
-        // add_settings_error( 'wpbdp_settings', '', '"Directory Listings Slug" can not be empty.', 'error' );
+        // Validate each setting.
+        foreach ( $input as $setting_id => $value ) {
+            $input[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize', $value, $setting_id );
+            $input[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize_' . $setting_id, $input[ $setting_id ], $setting_id );
 
-        $previous = get_option( 'wpbdp_settings', array() );
-        $input = array_merge( $previous, $input );
+            if ( ! empty( $this->settings[ $setting_id ] ) ) {
+                $setting = $this->settings[ $setting_id ];
 
-        // wpbdp_debug_e( 'sanitize', $input );
-        return $input;
+                if ( ! empty( $setting['on_update'] ) && is_callable( $setting['on_update'] ) ) {
+                    call_user_func( $setting['on_update'], $setting, $input[ $setting_id ], ! empty( $this->options[ $setting_id ] ) ? $this->options[ $setting_id ] : null );
+                }
+            }
+        }
+
+        $this->options = array_merge( $this->options, $input );
+
+        return $this->options;
 
         // function edd_settings_sanitize( $input = array() ) {
         // 	global $edd_options;
@@ -174,15 +182,16 @@ class WPBDP__Settings {
             );
         }
 
-        // TODO: support validators and 'on_update' callback.
         $args = wp_parse_args( $args, array(
-            'id' => '',
-            'name' => '',
-            'type' => 'text',
-            'group' => 'general/main',
-            'desc' => '',
-            'validator' => false,
-            'default'  => false
+            'id'           => '',
+            'name'         => '',
+            'type'         => 'text',
+            'group'        => 'general/main',
+            'desc'         => '',
+            'validator'    => false,
+            'default'      => false,
+            'on_update'    => false,
+            'dependencies' => array()
         ) );
 
         if ( isset( $this->settings[ $args['id' ] ] ) ) {
@@ -195,6 +204,10 @@ class WPBDP__Settings {
 
         $this->settings[ $args['id' ] ] = $args;
         $this->groups[ $args['group'] ]['count'] += 1;
+
+        if ( ! empty( $args['validator'] ) ) {
+            add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_setting' ), 10, 2 );
+        }
     }
 
     public function get_registered_groups() {
@@ -401,32 +414,40 @@ class WPBDP__Settings {
         delete_option( 'wpbdp_settings' );
     }
 
-    public function after_render( $html, $setting, $args = array() ) {
-        $html = '<a name="' . $setting->name . '"></a>' . $html;
-        return $html;
-    }
+    public function validate_setting( $value, $setting_id ) {
+        if ( ! empty( $this->settings[ $setting_id ] ) ) {
+            $setting = $this->settings[ $setting_id ];
+            $validators = is_string( $setting['validator'] ) ? explode( ',', $setting['validator'] ) : array( $setting['validator'] );
+        } else {
+            $validators = false;
+        }
 
-    // public static function _validate_setting($name, $newvalue=null, $oldvalue=null) {
-    //     $api = wpbdp_settings_api();
-    //     $setting = $api->settings[$name];
-    //
-    //     if ( $setting->type == 'choice' && isset( $setting->args['multiple'] ) && $setting->args['multiple'] ) {
-    //         if ( isset( $_POST[ self::PREFIX . $name ] ) ) {
-    //             $newvalue = $_POST[ self::PREFIX . $name ];
-    //             $newvalue = is_array( $newvalue ) ? $newvalue : array( $newvalue );
-    //
-    //             if ( $setting->validator )
-    //                 $newvalue = call_user_func( $setting->validator, $setting, $newvalue, $api->get( $setting->name ) );
-    //         }
-    //
-    //         return $newvalue;
-    //     }
-    //
-    //     return call_user_func($setting->validator, $setting, $newvalue, $api->get($setting->name));
-    // }
+        $old_value = $this->options[ $setting_id ];
+        $has_error = false;
 
-    public function _option_updated( $old_value, $new_value, $option_name ) {
-        do_action( 'wpbdp_option_updated_' . str_replace( self::PREFIX, '', $option_name ), $old_value, $new_value );
+        foreach ( $validators as $validator ) {
+            if ( is_string( $validator ) ) {
+                switch ( $validator ) {
+                case 'trim':
+                    $value = trim( $value );
+                    break;
+                case 'no-spaces':
+                    $value = preg_replace( '/\s+/', '', $value );
+                    break;
+                case 'required':
+                    if ( empty( $value ) ) {
+                        add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
+                        $has_error = true;
+                    }
+
+                    break;
+                }
+            } else if ( is_callable( $validator ) ) {
+                $value = call_user_func( $validator, $value, $old_value );
+            }
+        }
+
+        return ( $has_error ? $old_value : $value );
     }
 
     /* upgrade from old-style settings to new options */

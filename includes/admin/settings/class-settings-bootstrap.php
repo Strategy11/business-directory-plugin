@@ -27,9 +27,6 @@ final class WPBDP__Settings__Bootstrap {
         self::settings_email();
         self::settings_payment();
         self::settings_appearance();
-
-        // FIXME
-        // return apply_filters( 'wpbdp_settings', $settings );
     }
 
     private static function settings_general() {
@@ -37,31 +34,31 @@ final class WPBDP__Settings__Bootstrap {
 
         // Permalinks.
         wpbdp_register_settings_group( 'permalink_settings', _x( 'Permalink Settings', 'settings', 'WPBDM' ), 'general/main' );
-        /* TODO: array($this, '_validate_listings_permalink') */
         wpbdp_register_setting( array(
             'id'      => 'permalinks-directory-slug',
             'type'    => 'text',
             'name'    => _x( 'Directory Listings Slug', 'settings', 'WPBDM' ),
             'default' => 'wpbdp_listing',
-            'group'   => 'permalink_settings'
+            'group'   => 'permalink_settings',
+            'validator' => 'no-spaces,trim,required'
         ) );
-        /* TODO: array($this, '_validate_term_permalink') */
         wpbdp_register_setting( array(
             'id'      => 'permalinks-category-slug',
             'type'    => 'text',
             'name'    => _x( 'Categories Slug', 'settings', 'WPBDM' ),
             'desc'    => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'WPBDM' ),
             'default' => 'wpbdp_category',
-            'group' => 'permalink_settings'
+            'group'   => 'permalink_settings',
+            'validator' => 'no-spaces,trim,required'
         ) );
-        /* TODO: array($this, '_validate_term_permalink') */
         wpbdp_register_setting( array(
             'id'      => 'permalinks-tags-slug',
             'type'    => 'text',
             'name'    => _x( 'Tags Slug', 'settings', 'WPBDM' ),
             'desc'    => _x( 'The slug can\'t be in use by another term. Avoid "tag", for instance.', 'settings', 'WPBDM' ),
             'default' => 'wpbdp_tag',
-            'group' => 'permalink_settings'
+            'group' => 'permalink_settings',
+            'validator' => 'no-spaces,trim,required'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'permalinks-no-id',
@@ -202,19 +199,23 @@ final class WPBDP__Settings__Bootstrap {
             'group' => 'search_settings'
         ) );
 
-        /* TODO:         $desc .= '<span class="text-fields-warning wpbdp-note" style="display: none;">';
-            $desc .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'WPBDM' );
-            $desc .= '</span>';
-         */
+        $too_many_fields  = '<span class="text-fields-warning wpbdp-note" style="display: none;">';
+        $too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'WPBDM' );
+        $too_many_fields .= '</span>';
+
+        list( $fields, $text_fields ) = self::get_quicksearch_fields();
         wpbdp_register_setting( array(
             'id'       => 'quick-search-fields',
             'type'     => 'select',
             'name'     => _x( 'Quick search fields', 'settings', 'WPBDM' ),
-            'desc'     => _x( 'Use Ctrl-Click to include multiple fields in the search. Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ),
+            'desc'     => _x( 'Use Ctrl-Click to include multiple fields in the search. Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ) . $too_many_fields,
             'default'  => array(),
             'multiple' => true,
-            'options'  => self::get_quicksearch_fields(),
-            'group' => 'search_settings'
+            'options'  => $fields,
+            'group'    => 'search_settings',
+            'attrs'    => array(
+                'data-text-fields' => json_encode( $text_fields )
+            )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'quick-search-enable-performance-tricks',
@@ -250,18 +251,17 @@ final class WPBDP__Settings__Bootstrap {
 
     private static function get_quicksearch_fields() {
         $fields = array();
+        $text_fields = array();
 
         foreach ( wpbdp_get_form_fields( 'association=-custom' ) as $field ) {
-            $is_text_field = false;
-
-            if ( in_array( $field->get_association(), array( 'excerpt', 'content' ) ) || 'textarea' == $field->get_field_type_id() )
-                $is_text_field = true;
+            if ( in_array( $field->get_association(), array( 'excerpt', 'content' ) ) || 'textarea' == $field->get_field_type_id() ) {
+                $text_fields[] = $field->get_id();
+            }
 
             $fields[ $field->get_id() ] = $field->get_label();
-            // $fields[] = array( $field->get_id(), $field->get_label(), $is_text_field ? 'textfield' : '' );
         }
 
-        return $fields;
+        return array( $fields, $text_fields );
     }
 
     private static function settings_listings() {
@@ -1074,23 +1074,6 @@ final class WPBDP__Settings__Bootstrap {
     //     return $newvalue;
     // }
 
-    // FIXME
-    // public function _validate_listings_permalink($setting, $newvalue, $oldvalue=null) {
-    //     return trim(str_replace(' ', '', $newvalue));
-    // }
-    //
-    //
-    // public function _validate_term_permalink($setting, $newvalue, $oldvalue=null) {
-    //     $bd_taxonomy = $setting->name == 'permalinks-category-slug' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX;
-    //     foreach (get_taxonomies(null, 'objects') as $taxonomy) {
-    //         if ($taxonomy->rewrite && $taxonomy->rewrite['slug'] == $newvalue && $taxonomy->name != $bd_taxonomy) {
-    //             return $oldvalue;
-    //         }
-    //     }
-    //
-    //     return trim(str_replace(' ', '', $newvalue));
-    // }
-    //
     // public function _validate_free_images( $setting, $newvalue, $oldvalue = null ) {
     //     $v = absint( $newvalue );
     //

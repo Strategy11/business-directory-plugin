@@ -321,13 +321,30 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         init: function() {
             var t = this;
 
-            $('select#quick-search-fields').change(function() {
-                var selected = $(this).find( 'option.textfield:selected' ).length;
+            $( '#wpbdp-settings-quick-search-fields select' ).change(function() {
+                var text_fields = $( '#wpbdp-settings-quick-search-fields' ).data( 'text-fields' );
+                var selected = $( this ).val();
+                var show_warning = false;
 
-                if ( selected > 0 ) {
-                    $('span.text-fields-warning').fadeIn('fast');
+                if ( selected && text_fields ) {
+                    for ( var i = 0; i < selected.length; i++ ) {
+                        if ( show_warning ) {
+                            break;
+                        }
+
+                        for ( var j = 0; j < text_fields.length; j++ ) {
+                            if ( selected[i] == text_fields[j] ) {
+                                show_warning = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if ( show_warning ) {
+                    $( '#wpbdp-settings-quick-search-fields .text-fields-warning' ).fadeIn( 'fast' );
                 } else {
-                    $('span.text-fields-warning').fadeOut('fast');
+                    $( '#wpbdp-settings-quick-search-fields .text-fields-warning' ).fadeOut( 'fast' );
                 }
             });
 
@@ -392,10 +409,9 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     };
 
     $(document).ready(function(){
-        if ( 0 == $('.wpbdp-page-admin-settings').length )
-            return;
-
-        s.init();
+        if ( $( '#wpbdp-admin-settings' ).length > 0 ) {
+            s.init();
+        }
     });
 })(jQuery);
 /* }} */
