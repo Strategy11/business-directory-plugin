@@ -295,12 +295,16 @@ to how WordPress stores the data.", 'WPBDM' )
         $menu['wpbdp-debug-info'] = array(
             'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
             'callback' => array( &$this->debug_page, 'dispatch' )
-        );
-        $menu['wpbdp_uninstall'] = array(
-            'title' => _x('Uninstall Business Directory Plugin', 'admin menu', 'WPBDM'),
-            'label' => _x('Uninstall', 'admin menu', 'WPBDM'),
-            'callback' => array($this, 'uninstall_plugin')
-        );
+        );        
+
+        add_submenu_page( null,
+                          __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
+                          __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
+                          'administrator',
+                          'wpbdp_uninstall',
+                          array( $this, 'uninstall_plugin' ) );
+
+
         // FIXME: before next-release
         // if (current_user_can('administrator')) {
         //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
