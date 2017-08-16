@@ -35,8 +35,8 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
     public function get_settings() {
         return array(
-            array( 'login-id', __( 'Login ID', 'authorize-net', 'WPBDM' ), 'text' ),
-            array( 'transaction-key', __( 'Transaction Key', 'authorize-net', 'WPBDM' ), 'text' )
+            array( 'id' => 'login-id', 'name' => __( 'Login ID', 'authorize-net', 'WPBDM' ), 'type' => 'text' ),
+            array( 'id' => 'transaction-key', 'name' => __( 'Transaction Key', 'authorize-net', 'WPBDM' ), 'type' => 'text' )
         );
     }
 
