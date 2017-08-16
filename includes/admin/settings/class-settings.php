@@ -139,13 +139,18 @@ class WPBDP__Settings {
             break;
         }
 
+        if ( $parent ) {
+            $this->groups[ $parent ]['count'] += 1;
+        }
+
         $this->groups[ $slug ] = array_merge(
             $args,
             array(
                 'title'  => $title,
                 'desc'   => '',
                 'type'   => $group_type,
-                'parent' => $parent
+                'parent' => $parent,
+                'count'  => 0
             )
         );
     }
@@ -189,6 +194,7 @@ class WPBDP__Settings {
         }
 
         $this->settings[ $args['id' ] ] = $args;
+        $this->groups[ $args['group'] ]['count'] += 1;
     }
 
     public function get_registered_groups() {

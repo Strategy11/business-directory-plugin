@@ -453,6 +453,9 @@ class WPBDP__Settings_Admin {
     public function settings_page() {
         $all_groups = wpbdp()->settings->get_registered_groups();
 
+        // Filter out empty groups.
+        $all_groups = wp_list_filter( $all_groups, array( 'count' => 0 ), 'NOT' );
+
         $tabs = wp_list_filter( $all_groups, array( 'type' => 'tab' ) );
         if ( ! empty( $_GET['tab'] ) && array_key_exists( $_GET['tab'], $tabs ) ) {
             $active_tab = $_GET['tab'];

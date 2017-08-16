@@ -16,7 +16,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'WPBDM' ) );
         wpbdp_register_settings_group( 'appearance/main', _x( 'General Settings', 'settings', 'WPBDM' ), 'appearance' );
 
-        wpbdp_register_settings_group( 'licenses', _x( 'Licenses', 'settings', 'WPBDM' ) );
+        // wpbdp_register_settings_group( 'licenses', _x( 'Licenses', 'settings', 'WPBDM' ) );
 
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'WPBDM' ) );
     }

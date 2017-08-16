@@ -36,27 +36,21 @@ class WPBDP_Licensing {
     }
 
     function register_settings( &$settings ) {
-        if ( ! $this->modules )
+        if ( ! $this->modules ) {
             return;
+        }
 
-        $g = $settings->add_group( 'licenses',
-                                   _x( 'Licenses', 'settings', 'WPBDM' ) );
-        $s = $settings->add_section(
-            $g,
-            'licenses/keys',
-            _x( 'Premium Modules', 'settings', 'WPBDM' ),
-            $this->get_settings_section_description()
-        );
+        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'WPBDM' ), '', array( 'desc' => $this->get_settings_section_description() ) );
+        wpbdp_register_settings_group( 'licenses/modules', _x( 'Premium Modules', 'settings', 'WPBDM' ), 'licenses' );
 
         foreach ( $this->modules as $id => $data ) {
-            $settings->add_setting( $s,
-                                    'license-key-' . $id,
-                                    $data['name'],
-                                    'license_key',
-                                    '',
-                                    '',
-                                    null,
-                                    array( &$this, '_validate_license_setting' ) );
+            wpbdp_register_setting( array(
+                'id' => 'license-key-' . $id,
+                'name' => $data['name'],
+                'type' => 'license_key',
+                'on_update' => array( $this, '_validate_license_setting' ),
+                'group' => 'licenses/modules'
+            ) );
         }
     }
 
