@@ -165,14 +165,17 @@ class WPBDP_Licensing {
         return $new_value;
     }
 
-    function licenses_tab_css( $css = '', $group ) {
-        if ( 'licenses' !== $group->slug )
-            return $css;
-
-        foreach ( $this->modules as $module => $data ) {
-            if ( 'valid' != $data['license_status'] )
-                return $css . ' group-error';
+    function licenses_tab_css( $css = '', $tab_id ) {
+        if ( 'licenses' == $tab_id ) {
+           foreach ( $this->modules as $module => $data ) {
+                if ( 'valid' != $data['license_status'] ) {
+                    $css .= ' tab-error';
+                    break;
+                }
+            }
         }
+
+        return $css;
     }
 
     function activate_license( $module ) {
