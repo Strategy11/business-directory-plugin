@@ -271,7 +271,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Listings per page', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Number of listings to show per page. Use a value of "0" to show all listings.', 'settings', 'WPBDM' ),
             'default' => '10',
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         /* TODO: validate array($this, '_validate_listing_duration') */
         wpbdp_register_setting( array(
@@ -280,7 +280,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Listing duration for no-fee sites (in days)', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'settings', 'WPBDM' ),
             'default' => '365',
-            'group' => 'listings'                
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'show-contact-form',
@@ -288,21 +288,21 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Include listing contact form on listing pages?', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'WPBDM' ),
             'default' => true,
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'listing-link-in-new-tab',
             'type'    => 'checkbox',
             'name'    => _x( 'Open detailed view of listing in new tab?', 'settings', 'WPBDM' ),
             'default' => false,
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'contact-form-require-login',
             'type'    => 'checkbox',
             'name'    => _x( 'Require login for using the contact form?', 'settings', 'WPBDM' ),
             'default' => false,
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'contact-form-daily-limit',
@@ -310,7 +310,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Maximum number of contact form submits per day', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Use this to prevent spamming of listing owners. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
             'default' => '0',
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'allow-comments-in-listings',
@@ -323,14 +323,14 @@ final class WPBDP__Settings__Bootstrap {
                 'allow-comments'                     => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'WPBDM' ),
                 'allow-comments-and-insert-template' => _x( "Include comment form, BD invoked (use only if 2nd option doesn't work)", 'admin settings', 'WPBDM' )
             ),
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'show-listings-under-categories',
             'type'    => 'checkbox',
             'name'    => _x( 'Show listings under categories on main page?', 'settings', 'WPBDM' ),
             'default' => false,
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'status-on-uninstall',
@@ -341,7 +341,7 @@ final class WPBDP__Settings__Bootstrap {
                 'draft' => _x( 'Draft', 'post status' ),
                 'trash' => _x( 'Trash', 'post status' )
             ),
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'deleted-status',
@@ -352,7 +352,7 @@ final class WPBDP__Settings__Bootstrap {
                 'draft' => _x( 'Draft', 'post status' ),
                 'trash' => _x( 'Trash', 'post status' )
             ),
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'submit-instructions',
@@ -360,7 +360,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Submit Listing instructions message', 'settings', 'WPBDM' ),
             'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'WPBDM' ),
             'default' => '',
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
 
         // wpbdp_register_settings_group( 'listings/renewal', _x( 'Listings', 'settings', 'WPBDM' ), 'listings/main' );
@@ -369,7 +369,7 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Turn on listing renewal option?', 'settings', 'WPBDM' ),
             'default' => true,
-            'group' => 'listings'
+            'group' => 'listings/main'
         ) );
 
         wpbdp_register_settings_group( 'listings/post_category', _x( 'Post/Category Settings', 'settings', 'WPBDM' ), 'listings/main' );
@@ -437,7 +437,7 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Show only parent categories in category list?', 'settings', 'WPBDM' ),
             'default' => false,
-            'tab' => 'listings/post_category'
+            'group' => 'listings/post_category'
         ) );
 
         wpbdp_register_settings_group( 'listings/sorting', _x( 'Listings Sorting', 'settings', 'WPBDM' ), 'listings/main' );

@@ -77,21 +77,21 @@ class WPBDP__Payment_Gateways {
     }
 
     public function _add_gateway_settings( $api ) {
-        // wpbdp_debug_e($this->gateways);
         foreach ( $this->gateways as $gateway ) {
-            $section = $api->add_section( 'payment',
-                                          $gateway->get_id(),
-                                          $gateway->get_title(),
-                                          $gateway->get_settings_text() );
-            $api->add_setting( $section,
-                               $gateway->get_id(),
-                               sprintf( _x( 'Enable %s?', 'payment-gateways', 'WPBDM' ), $gateway->get_title() ),
-                               'boolean',
-                               false );
+            wpbdp_register_settings_group( 'gateway_' . $gateway->get_id(), $gateway->get_title(), 'payment', array( 'desc' => $gateway->get_settings_text() ) );
+            wpbdp_register_setting( array(
+                'id' => $gateway->get_id(),
+                'name' => sprintf( _x( 'Enable %s?', 'payment-gateways', 'WPBDM' ), $gateway->get_title() ),
+                'type' => 'checkbox',
+                'default' => false,
+                'group'   => 'gateway_' . $gateway->get_id()
+            ) );
             foreach ( $gateway->get_settings() as $setting ) {
-                $setting[0] = $gateway->get_id() . '-' . $setting[0];
-                call_user_func_array( array( $api, 'add_setting' ), array_merge( array( $section ), $setting ) );
-                $api->register_dep( $setting[0], 'requires-true', $gateway->get_id() );
+                $setting = array_merge( $setting, array( 'group' => 'gateway_' . $gateway->get_id() ) );
+                $setting['id'] = $gateway->get_id() . '-' . $setting['id'];
+
+                wpbdp_register_setting( $setting );
+                // FIXME: $api->register_dep( $setting[0], 'requires-true', $gateway->get_id() );
             }
         }
     }

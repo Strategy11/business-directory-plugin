@@ -169,6 +169,7 @@ class WPBDP__Settings {
             );
         }
 
+        // TODO: support validators and 'on_update' callback.
         $args = wp_parse_args( $args, array(
             'id' => '',
             'name' => '',

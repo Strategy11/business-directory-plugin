@@ -709,18 +709,6 @@ $GLOBALS['wpbdp'] = wpbdp();
 //         echo "\n";
 //     }
 //
-//     public function _register_widgets() {
-//         include_once ( WPBDP_PATH . 'includes/widgets/widget-featured-listings.php' );
-//         include_once ( WPBDP_PATH . 'includes/widgets/widget-latest-listings.php' );
-//         include_once ( WPBDP_PATH . 'includes/widgets/widget-random-listings.php' );
-//         include_once ( WPBDP_PATH . 'includes/widgets/widget-search.php' );
-//
-//         register_widget('WPBDP_FeaturedListingsWidget');
-//         register_widget('WPBDP_LatestListingsWidget');
-//         register_widget('WPBDP_RandomListingsWidget');
-//         register_widget('WPBDP_SearchWidget');
-//     }
-//
 //     /* theme filters */
 //     public function _comments_template($template) {
 //         $is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;

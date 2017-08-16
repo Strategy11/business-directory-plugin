@@ -14,7 +14,7 @@ echo wpbdp_admin_header( array(
     <?php endforeach; ?>
 </h2>
 
-<?php if ( count( $subtabs ) > 1 ): ?>
+<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ): ?>
 <div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
     <ul class="subsubsub">
     <?php

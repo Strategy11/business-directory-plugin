@@ -269,7 +269,7 @@ class WPBDP__WordPress_Template_Integration {
         $is_main_page = get_post_type() == 'page' && get_the_ID() == wpbdp_get_page_id( 'main' );
 
         $comments_allowed = in_array(
-            $this->settings->get( 'allow-comments-in-listings' ),
+            wpbdp_get_option( 'allow-comments-in-listings' ),
             array( 'allow-comments', 'allow-comments-and-insert-template' )
         );
 

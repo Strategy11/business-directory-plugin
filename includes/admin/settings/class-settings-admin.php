@@ -107,21 +107,25 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_callback( $setting ) {
-        if ( 'section' == $setting['type'] ) {
-            return;
-        }
-
-        $value = wpbdp()->settings->get_option( $setting['id'] );
-
-        ob_start();
-
-        if ( method_exists( $this, 'setting_' . $setting['type'] . '_callback' ) ) {
-            call_user_func( array( $this, 'setting_' . $setting['type'] . '_callback' ), $setting, $value );
+        if ( 'callback' == $setting['type'] ) {
+            if ( ! empty( $setting['callback'] ) && is_callable( $setting['callback'] ) ) {
+                $callback_html = call_user_func( $setting['callback'], $setting );
+            } else {
+                $callback_html = 'Missing callback';
+            }
         } else {
-            $this->setting_missing_callback( $setting, $value );
-        }
+            $value = wpbdp()->settings->get_option( $setting['id'] );
 
-        $callback_html = ob_get_clean();
+            ob_start();
+
+            if ( method_exists( $this, 'setting_' . $setting['type'] . '_callback' ) ) {
+                call_user_func( array( $this, 'setting_' . $setting['type'] . '_callback' ), $setting, $value );
+            } else {
+                $this->setting_missing_callback( $setting, $value );
+            }
+
+            $callback_html = ob_get_clean();
+        }
 
         $html  = '';
         $html .= $callback_html;

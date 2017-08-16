@@ -11,12 +11,6 @@ final class WPBDP {
 
     public $_query_stack = array();
 
-    // public $cpt_integration = null;
-    // public $query_integration = null;
-    // public $dispatcher = null;
-    // public $query_integration = null;
-    // public $template_integration = null;
-
 
     public function __construct() {
         $this->setup_constants();
