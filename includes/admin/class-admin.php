@@ -284,14 +284,17 @@ to how WordPress stores the data.", 'WPBDM' )
         $menu['wpbdp_admin_payments'] = array(
             'title' => _x( 'Payment History', 'admin menu', 'WPBDM' )
         );
-        $menu['wpbdp-csv-import'] = array(
-            'title' => _x( 'CSV Import', 'admin menu', 'WPBDM' ),
-            'callback' => array( &$this->csv_import, 'dispatch' )
+        $menu['wpbdp_admin_csv'] = array(
+            'title' => _x( 'CSV Import & Export', 'admin menu', 'WPBDM' )
         );
-        $menu['wpbdp-csv-export'] = array(
-            'title' => _x( 'CSV Export', 'admin menu', 'WPBDM' ),
-            'callback' => array( &$this->csv_export, 'dispatch' )
-        );
+        // $menu['wpbdp-csv-import'] = array(
+        //     'title' => _x( 'CSV Import', 'admin menu', 'WPBDM' ),
+        //     'callback' => array( &$this->csv_import, 'dispatch' )
+        // );
+        // $menu['wpbdp-csv-export'] = array(
+        //     'title' => _x( 'CSV Export', 'admin menu', 'WPBDM' ),
+        //     'callback' => array( &$this->csv_export, 'dispatch' )
+        // );
         $menu['wpbdp-debug-info'] = array(
             'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
             'callback' => array( &$this->debug_page, 'dispatch' )

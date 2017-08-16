@@ -1,8 +1,4 @@
-<?php
-    echo wpbdp_admin_header( null, 'csv-export' );
-?>
-
-<?php echo wpbdp_admin_notices(); ?>
+<div class="wpbdp-page-csv-export">
 
 <a name="exporterror"></a>
 <div class="error" style="display: none;"><p>
@@ -178,4 +174,4 @@ echo $notice;
     <p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'WPBDM' ); ?></a></p>
 </div>
 
-<?php echo wpbdp_admin_footer(); ?>
+</div>

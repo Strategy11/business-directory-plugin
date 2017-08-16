@@ -6,15 +6,7 @@ function _defaults_or( $defs, $k, $v ) {
     return $v;
 }
 ?>
-
-<?php
-echo wpbdp_admin_header(null, 'csv-import', array(
-    array(_x('Help', 'admin csv-import', 'WPBDM'), '#help'),
-    array(_x('See an example CSV import file', 'admin csv-import', 'WPBDM'), esc_url(add_query_arg('action', 'example-csv')))
-    ) );
-?>
-
-<?php wpbdp_admin_notices(); ?>
+<div class="wpbdp-page-csv-import wpbdp-clearfix">
 
 <div class="wpbdp-note">
 <p><?php
@@ -309,4 +301,4 @@ echo str_replace(
     </tbody>
 </table>
 
-<?php echo wpbdp_admin_footer(); ?>
+</div>

@@ -11,11 +11,6 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function enqueue_scripts() {
-        global $plugin_page;
-
-        if ( 'wpbdp-csv-export' != $plugin_page )
-            return;
-
         wp_enqueue_script( 'wpbdp-admin-export-js', WPBDP_URL . 'assets/js/admin-export.min.js', array( 'wpbdp-admin-js', 'jquery-ui-dialog' ) );
         wp_enqueue_style( 'wpbdp-admin-export-css', WPBDP_URL . 'assets/css/admin-export.min.css', array( 'wp-jquery-ui-dialog' ) );
     }

@@ -16,11 +16,6 @@ class WPBDP_CSVImportAdmin {
     }
 
     function enqueue_scripts() {
-        global $plugin_page;
-
-        if ( 'wpbdp-csv-import' != $plugin_page )
-            return;
-
         wp_enqueue_script( 'wpbdp-admin-import-js', WPBDP_URL . 'assets/js/admin-csv-import.min.js', array( 'wpbdp-admin-js', 'jquery-ui-autocomplete' ) );
         wp_enqueue_style( 'wpbdp-admin-import-css', WPBDP_URL . 'assets/css/admin-csv-import.min.css' );
     }
