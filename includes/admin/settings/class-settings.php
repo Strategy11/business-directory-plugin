@@ -1145,6 +1145,10 @@ EOF;
 
     public function reset_defaults() {
         foreach ($this->settings as $setting) {
+            if ( preg_match( '/^license-key-/', $setting->name ) ) {
+                continue;
+            }
+
             delete_option(self::PREFIX . $setting->name);
         }
     }
