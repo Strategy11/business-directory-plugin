@@ -485,7 +485,9 @@ class WPBDP__Settings_Admin {
             $active_subtab = reset( $subtabs_ids );
         }
 
-        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab' ) );
+        $active_subtab_description = ! empty( $all_groups[ $active_subtab ]['desc'] ) ? $all_groups[ $active_subtab ]['desc'] : '';
+
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description' ) );
     }
 
     // FIXME: before fees-revamp.

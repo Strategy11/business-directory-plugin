@@ -37,6 +37,10 @@ echo wpbdp_admin_header( array(
 
 <?php settings_errors(); ?>
 
+<?php if ( $active_subtab_description ): ?>
+<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo $active_subtab_description; ?></p>
+<?php endif; ?>
+
 <form action="options.php" method="post" id="wpbdp-admin-settings">
 <?php
     $_SERVER['REQUEST_URI'] = $original_uri;
