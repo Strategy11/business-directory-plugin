@@ -263,6 +263,10 @@ class WPBDP_Listings_API {
     }
 
     public function send_listing_published_notification( $post_id, $post ) {
+        if ( ! isset( $post->post_type ) || WPBDP_POST_TYPE !== $post->post_type ) {
+            return;
+        }
+
         $email = wpbdp_email_from_template( 'email-templates-listing-published', array(
             'listing' => get_the_title( $post->ID ),
             'listing-url' => get_permalink( $post->ID )
