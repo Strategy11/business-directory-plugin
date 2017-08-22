@@ -4,10 +4,11 @@
         <tbody>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Fee Label', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label for="wpbdp-fee-form-fee-label"> <?php _ex('Fee Label', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
-                    <input name="fee[label]"
+                    <input id="wpbdp-fee-form-fee-label"
+                           name="fee[label]"
                            type="text"
                            aria-required="true"
                            value="<?php echo esc_attr( $fee->label ); ?>" />
@@ -15,15 +16,15 @@
             </tr>
             <tr class="form-field">
                 <th scope="row">
-                    <label> <?php _ex( 'Fee Description', 'fees admin', 'WPBDM' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-description"> <?php _ex( 'Fee Description', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                    <textarea name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ); ?></textarea>
+                    <textarea id="wpbdp-fee-form-fee-description" name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ); ?></textarea>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('How long should the listing run?', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label for="wpbdp-fee-form-days"> <?php _ex('How long should the listing run?', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
                     <input type="radio" id="wpbdp-fee-form-days" name="_days" value="1" <?php echo absint($fee->days ) > 0 ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days"><?php _ex('run listing for', 'fees admin', 'WPBDM'); ?></label>
@@ -42,10 +43,11 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Number of images allowed', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
+                    <label for="wpbdp-fee-form-fee-images"> <?php _ex('Number of images allowed', 'fees admin', 'WPBDM'); ?> <span class="description">(required)</span></label>
                 </th>
                 <td>
-                    <input name="fee[images]"
+                    <input id="wpbdp-fee-form-fee-images"
+                           name="fee[images]"
                            type="text"
                            aria-required="true"
                            value="<?php echo absint( $fee->images ); ?>"
@@ -54,11 +56,12 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Is recurring?', 'fees admin', 'WPBDM'); ?></label>
+                    <label for="wpbdp-fee-form-fee-recurring"> <?php _ex('Is recurring?', 'fees admin', 'WPBDM'); ?></label>
                 </th>
                 <td>
                     <label>
-                        <input name="fee[recurring]"
+                        <input id="wpbdp-fee-form-fee-recurring"
+                               name="fee[recurring]"
                                type="checkbox"
                                value="1"
                                <?php echo $fee->recurring ? 'checked="checked"' : ''; ?>
@@ -69,10 +72,11 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Is featured listing/sticky?', 'fees admin', 'WPBDM'); ?></label>
+                    <label for="wpbdp-fee-form-fee-sticky"> <?php _ex('Is featured listing/sticky?', 'fees admin', 'WPBDM'); ?></label>
                 </th>
                 <td>
-                    <input name="fee[sticky]"
+                    <input id="wpbdp-fee-form-fee-sticky"
+                           name="fee[sticky]"
                            type="checkbox"
                            value="1"
                            <?php echo $fee->sticky ? 'checked="checked"' : ''; ?>
@@ -82,7 +86,7 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label><?php _ex( 'Listing background color:', 'fees admin', 'WPBDM' ); ?></label>
+                    <label for="fee-bgcolor-value"><?php _ex( 'Listing background color:', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <div id="fee-bgcolor-picker">
@@ -102,10 +106,11 @@
             </tr>
             <tr class="form-field limit-categories">
                 <th scope="row">
-                    <label><?php _ex( 'Plan Category Policy:', 'fees admin', 'WPBDM' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-category-policy"><?php _ex( 'Plan Category Policy:', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                    <select name="limit_categories">
+                    <select id="wpbdp-fee-form-fee-category-policy"
+                            name="limit_categories">
                         <option value="0"><?php _ex( 'Plan applies to all categories', 'fees admin', 'WPBDM' ); ?></option>
                         <option value="1" <?php selected( is_array( $fee->supported_categories ), true ); ?> ><?php _ex( 'Plan applies to only certain categories', 'fees admin', 'WPBDM' ); ?></option>
                     </select>
@@ -148,22 +153,22 @@ endif;
         <tbody>
             <tr class="form-field pricing-info">
                 <th scope="row">
-                    <label><?php _ex( 'Pricing model', 'fees admin', 'WPBDM' ); ?>
+                    <label for="wpbdp-fee-form-pricing-model-flat"><?php _ex( 'Pricing model', 'fees admin', 'WPBDM' ); ?>
                 </th>
                 <td>
                     <div class="pricing-options">
-                        <label><input type="radio" name="fee[pricing_model]" value="flat" <?php checked( $fee->pricing_model, 'flat' ); ?> /> <?php _ex( 'Flat price', 'fees admin', 'WPBDM' ); ?></label>
-                        <label><input type="radio" name="fee[pricing_model]" value="variable" <?php checked( $fee->pricing_model, 'variable' ); ?> /> <?php _ex( 'Different price for different categories', 'fees admin', 'WPBDM' ); ?></label>
-                        <label><input type="radio" name="fee[pricing_model]" value="extra" <?php checked( $fee->pricing_model, 'extra' ); ?> /> <?php _ex( 'Base price plus an extra amount per category', 'fees admin', 'WPBDM' ); ?></label>
+                        <label><input id="wpbdp-fee-form-pricing-model-flat" type="radio" name="fee[pricing_model]" value="flat" <?php checked( $fee->pricing_model, 'flat' ); ?> /> <?php _ex( 'Flat price', 'fees admin', 'WPBDM' ); ?></label>
+                        <label><input id="wpbdp-fee-form-pricing-model-variable" type="radio" name="fee[pricing_model]" value="variable" <?php checked( $fee->pricing_model, 'variable' ); ?> /> <?php _ex( 'Different price for different categories', 'fees admin', 'WPBDM' ); ?></label>
+                        <label><input id="wpbdp-fee-form-pricing-model-extra" type="radio" name="fee[pricing_model]" value="extra" <?php checked( $fee->pricing_model, 'extra' ); ?> /> <?php _ex( 'Base price plus an extra amount per category', 'fees admin', 'WPBDM' ); ?></label>
                     </div>
                 </td>
             </tr>
             <tr class="form-field fee-pricing-details pricing-details-flat pricing-details-extra <?php echo ( 'flat' == $fee->pricing_model || 'extra' == $fee->pricing_model ) ? '' : 'hidden'; ?>">
                 <th scope="row">
-                    <label><?php _ex( 'Fee Price', 'fees admin', 'WPBDM' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-price"><?php _ex( 'Fee Price', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                    <input type="text" name="fee[amount]" value="<?php echo $fee->amount; ?>" />
+                    <input id="wpbdp-fee-form-fee-price" type="text" name="fee[amount]" value="<?php echo $fee->amount; ?>" />
                 </td>
             </tr>
             <tr class="form-field fee-pricing-details pricing-details-variable <?php echo 'variable' == $fee->pricing_model ? '' : 'hidden'; ?>">
@@ -188,10 +193,10 @@ endif;
             </tr>
             <tr class="form-field fee-pricing-details pricing-details-extra <?php echo 'extra' == $fee->pricing_model ? '' : 'hidden'; ?>">
                 <th scope="row">
-                    <label><?php _ex( 'Extra amount (per category)', 'fees admin', 'WPBDM' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-extra"><?php _ex( 'Extra amount (per category)', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                    <input type="text" name="fee[pricing_details][extra]" value="<?php echo ( ! empty( $fee->pricing_details['extra'] ) ? $fee->pricing_details['extra'] : '' ); ?>" />
+                    <input id="wpbdp-fee-form-fee-extra" type="text" name="fee[pricing_details][extra]" value="<?php echo ( ! empty( $fee->pricing_details['extra'] ) ? $fee->pricing_details['extra'] : '' ); ?>" />
                 </td>
             </tr>
         </tbody>
