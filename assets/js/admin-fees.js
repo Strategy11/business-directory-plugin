@@ -4,16 +4,20 @@ jQuery(function($) {
     if ( 0 == $form.length )
         return;
 
-    var update_form_ui = function() {
+    var update_form_ui = function( event ) {
         // Listing run.
-        var fee__days = $( 'input[name="_days"]:checked', $form ).val();
+        var fee__days = $( 'input[name="_days"]:checked', $form ).val(),
+            $textfield = $( 'input[name="fee[days]"]', $form );
 
         if ( 0 == fee__days ) {
-            $( 'input[name="fee[days]"]', $form ).prop( 'disabled', true )
-                                                 .val( '0' );
+            $textfield.prop( 'disabled', true ).val( '0' );
         } else {
-            $( 'input[name="fee[days]"]', $form ).prop( 'disabled', false )
-                                                 .focus();
+            // A field cannot gain focus if it is disabled
+            $textfield.prop( 'disabled', false );
+
+            if ( event && $( '#wpbdp-fee-form-days', $form ).is( event.target ) ) {
+                $textfield.focus();
+            }
         }
 
         // Category Policy.
