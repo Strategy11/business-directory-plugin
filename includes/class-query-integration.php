@@ -72,6 +72,8 @@ class WPBDP__Query_Integration {
             $query->wpbdp_view = 'show_category';
         }
 
+        // wpbdp_debug_e( $query );
+
         $tags_slug = wpbdp_get_option( 'permalinks-tags-slug' );
         if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) ) {
             $query->wpbdp_is_tag = true;

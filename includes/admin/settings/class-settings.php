@@ -155,7 +155,7 @@ class WPBDP__Settings {
             $args,
             array(
                 'title'  => $title,
-                'desc'   => '',
+                'desc'   => ! empty( $args['desc'] ) ? $args['desc'] : '',
                 'type'   => $group_type,
                 'parent' => $parent,
                 'count'  => 0
@@ -250,6 +250,12 @@ class WPBDP__Settings {
         $value = apply_filters( 'wpbdp_get_option_' . $setting_id, $value );
 
         return $value;
+    }
+
+    public function set_option( $setting_id, $value = null ) {
+        $old = get_option( 'wpbdp_settings' );
+        $old[ $setting_id ] = $value;
+        update_option( 'wpbdp_settings', $old );
     }
 
 

@@ -5,7 +5,7 @@ function wpbdp_admin_sidebar() {
 
 function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = null ) {
     // For backwards compatibility.
-    if ( is_string( $args_or_title ) ) {
+    if ( empty( $args_or_title ) || is_string( $args_or_title ) ) {
         $buttons = array();
 
         if ( $h2items ) {
@@ -20,6 +20,14 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
             'buttons' => $buttons,
             'sidebar' => $sidebar
         );
+
+        if ( empty( $args_or_title['title'] ) ) {
+            unset( $args_or_title['title'] );
+        }
+
+        if ( empty( $args_or_title['id'] ) ) {
+            unset( $args_or_title['id'] );
+        }
     }
 
     $defaults = array(
@@ -32,12 +40,12 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
     $args = wp_parse_args( $args_or_title, $defaults);
     extract( $args );
 
-    $id = str_replace( 'wpbdp_', '', $id );
-    $id = str_replace( 'wpbdp-', '', $id );
+    $id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $id );
+    $id = str_replace( array( 'admin-', 'admin_' ), '', $id );
 
     ob_start();
 ?>
-<div class="wrap wpbdp-admin wpbdp-page-<?php echo $id; ?>" id="wpbdp-admin-<?php echo $id; ?>">
+<div class="wrap wpbdp-admin wpbdp-admin-page wpbdp-admin-page-<?php echo $id; ?>" id="wpbdp-admin-page-<?php echo $id; ?>">
 	<div id="icon-edit-pages" class="icon32"></div>
 		<h1>
             <?php echo $title; ?>

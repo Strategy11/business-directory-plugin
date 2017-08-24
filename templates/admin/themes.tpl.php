@@ -2,8 +2,8 @@
 echo wpbdp_admin_header( null, 'themes', array(
     array( _x( 'Upload Directory Theme', 'themes', 'WPBDM' ), esc_url( add_query_arg( 'action', 'theme-install' ) ) ),
     array( _x( 'Manage Theme Tags', 'form-fields admin', 'WPBDM' ), esc_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags') ),
-    array( _x( 'Settings', 'themes', 'WPBDM' ), esc_url( admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=themes' ) ) )
-) );
+    array( _x( 'Settings', 'themes', 'WPBDM' ), esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=appearance&subtab=themes' ) ) ),
+), true );
 
 echo wpbdp_admin_notices();
 ?>
@@ -16,18 +16,10 @@ echo str_replace( '<a>',
 <?php echo _x( 'They are <strong>different</strong> than your regular WordPress theme and they are <strong>not</strong> a replacement for WP themes either. They will change the look and feel of your business directory only.', 'themes', 'WPBDM' ); ?>
 </div>
 
-<!--[Directory Themes] and [here] should link to -->
-
-<div id="wpbdp-admin-page-themes-tabs">
-
-<?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-tabs.tpl.php' ); ?>
-
 <div id="wpbdp-theme-selection" class="wpbdp-theme-selection cf">
 <?php foreach ( $themes as &$t ): ?>
     <?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-item.tpl.php', array( 'theme' => $t ) ); ?>
 <?php endforeach; ?>
-</div>
-
 </div>
 
 <?php

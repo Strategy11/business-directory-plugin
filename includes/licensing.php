@@ -1,4 +1,5 @@
 <?php
+// set_site_transient( 'wpbdp_updates', null );
 // set_site_transient( 'update_plugins', null );
 
 
@@ -8,49 +9,99 @@
 class WPBDP_Licensing {
 
     const STORE_URL = 'http://businessdirectoryplugin.com/';
-    // const STORE_URL = 'http://business-directory.dev/';
 
-    private $modules = array();
+    private $items = array(); // Items (modules and/or themes) registered with the Licensing API.
+    private $licenses = array(); // License information: status, last check, etc.
+    private $updates = array(); // Update information: versions, download URL, etc.
+
 
     public function __construct() {
-        add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+        $this->licenses = get_option( 'wpbdp_licenses', array() );
+
         add_action( 'wpbdp_register_settings', array( &$this, 'register_settings' ) );
+        add_filter( 'wpbdp_setting_type_license_key', array( $this, 'license_key_setting' ), 10, 2 );
+
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
 
-        add_action( 'wp_ajax_wpbdp-activate-license', array( &$this, 'ajax_activate_license' ) );
-        add_action( 'wp_ajax_wpbdp-deactivate-license', array( &$this, 'ajax_deactivate_license' ) );
-        add_action( 'wp_ajax_wpbdp-license-expired-warning-dismiss', array( &$this, 'ajax_dismiss_license_warning' ) );
+        add_action( 'wp_ajax_wpbdp_activate_license', array( &$this, 'ajax_activate_license' ) );
+        add_action( 'wp_ajax_wpbdp_deactivate_license', array( &$this, 'ajax_deactivate_license' ) );
+
+        add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+        add_filter( 'wpbdp_settings_tab_css', array( $this, 'licenses_tab_css' ), 10, 2 );
 
         add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
 
-        add_filter( 'wpbdp_setting_type_license_key', array( $this, 'license_key_setting' ), 10, 2 );
-        add_filter( 'wpbdp_settings_tab_css', array( $this, 'licenses_tab_css' ), 10, 2 );
+        add_action( 'wpbdp_loaded', array( $this, 'maybe_check_for_updates' ) );
+        add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'inject_update_info' ) );
+        add_filter( 'plugins_api', array( $this, 'module_update_information' ), 10, 3 );
 
         if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
             wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
         }
 
-        // Update handling.
-        add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'updates_check' ) );
-        add_filter( 'plugins_api', array( $this, 'updates_plugin_information' ), 10, 3 );
+        // add_action( 'init', function() { do_action( 'wpbdp_license_check' );  }, 999 );
+        // add_action( 'init', function() { wpbdp()->licensing->updates_check(); }, 999 );
     }
 
-    function register_settings( &$settings ) {
-        if ( ! $this->modules ) {
+    public function add_item( $args = array() ) {
+        $defaults = array(
+            'item_type' => 'module',
+            'file'      => '',
+            'id'        => ! empty( $args['file'] ) ? trim( str_replace( '.php', '', basename( $args['file'] ) ) ) : '',
+            'name'      => '',
+            'version'   => ''
+        );
+        $args = wp_parse_args( $args, $defaults );
+
+        $this->items[ $args['id'] ] = $args;
+
+        // Keep items sorted by name.
+        uasort( $this->items, array( $this, 'sort_modules_by_name' ) );
+
+        return true;
+    }
+
+    public function register_settings() {
+        $modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
+        $themes  = wp_list_filter( $this->items, array( 'item_type' => 'theme' ) );
+
+        if ( ! $modules && ! $themes ) {
             return;
         }
 
-        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'WPBDM' ), '', array( 'desc' => $this->get_settings_section_description() ) );
-        wpbdp_register_settings_group( 'licenses/modules', _x( 'Premium Modules', 'settings', 'WPBDM' ), 'licenses' );
+        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'WPBDM' ) );
+        wpbdp_register_settings_group( 'licenses/main', __( 'Licenses', 'WPBDM' ), 'licenses', array( 'desc' => $this->get_settings_section_description(), 'custom_form' => true ) );
 
-        foreach ( $this->modules as $id => $data ) {
-            wpbdp_register_setting( array(
-                'id' => 'license-key-' . $id,
-                'name' => $data['name'],
-                'type' => 'license_key',
-                'on_update' => array( $this, '_validate_license_setting' ),
-                'group' => 'licenses/modules'
-            ) );
+        if ( $modules ) {
+            wpbdp_register_settings_group( 'licenses/modules', _x( 'Premium Modules', 'settings', 'WPBDM' ), 'licenses/main' );
+
+            foreach ( $modules as $module ) {
+                wpbdp_register_setting( array(
+                    'id'        => 'license-key-module-' . $module['id'],
+                    'name'      => $module['name'],
+                    'licensing_item'      => $module['id'],
+                    'licensing_item_type' => 'module',
+                    'type'      => 'license_key',
+                    'on_update' => array( $this, 'license_key_changed_callback' ),
+                    'group'     => 'licenses/modules'
+                ) );
+            }
+        }
+
+        if ( $themes ) {
+            wpbdp_register_settings_group( 'licenses/themes', _x( 'Themes', 'settings', 'WPBDM' ), 'licenses/main' );
+
+            foreach ( $themes as $theme ) {
+                wpbdp_register_setting( array(
+                    'id'        => 'license-key-theme-' . $theme['id'],
+                    'name'      => $theme['name'],
+                    'type'      => 'license_key',
+                    'licensing_item'      => $theme['id'],
+                    'licensing_item_type' => 'theme',
+                    'on_update' => array( $this, 'license_key_changed_callback' ),
+                    'group'     => 'licenses/themes'
+                ) );
+            }
         }
     }
 
@@ -68,32 +119,38 @@ class WPBDP_Licensing {
     }
 
     public function license_key_setting( $setting, $value ) {
-        $module_id = str_replace( 'license-key-', '', $setting['id'] );
-        $license_status = get_option( 'wpbdp-license-status-' . $module_id, false );
+        $item_type = $setting['licensing_item_type'];
+        $item_id   = $setting['licensing_item'];
+
+        $license_status = $this->get_license_status( $value, $item_id, $item_type );
+
+        $licensing_info_attr = json_encode( array(
+            'setting'   => $setting['id'],
+            'item_type' => $item_type,
+            'item_id'   => $item_id,
+            'status'    => $license_status,
+            'nonce'     => wp_create_nonce( 'license activation' )
+        ) );
 
         $html  = '';
-        $html .= '<input type="text"
-            id="' . $setting['id'] . '"
-            name="wpbdp_settings[' . $setting['id'] . ']"
-            value="' . esc_attr( $value ) . '"
-            size="25"
-            ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . '/>';
+        $html .= '<div class="wpbdp-license-key-activation-ui wpbdp-license-status-' . $license_status . '" data-licensing="' . esc_attr( $licensing_info_attr ) . '">';
+        $html .= '<span class="wpbdp-license-warning-icon dashicons dashicons-warning"></span>';
+        $html .= '<span class="wpbdp-license-ok-icon dashicons dashicons-yes"></span>';
+        $html .= '<input type="text" id="' . $setting['id'] . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . ' placeholder="' . _x( 'Enter License Key here', 'admin settings', 'WPBDM' ) . '"/>';
+        $html .= '<input type="button" value="' . _x( 'Activate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
+        $html .= '<input type="button" value="' . _x( 'Deactivate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
+        $html .= '<div class="wpbdp-license-key-activation-status-msg"></div>';
+        $html .= '</div>';
 
-        $html .= '<span class="license-activation" data-module-id="' . esc_attr( $module_id ) . '">';
-        $html .= wp_nonce_field( 'license activation', 'nonce', false, false );
-        $html .= '<input type="button"
-            value="' . _x( 'Deactivate License', 'settings', 'WPBDM' ) . '"
-            class="button-secondary license-deactivate"
-                data-L10n="' . esc_attr( _x( 'Deactivating license...', 'settings', 'WPBDM' ) ) . '"
-                style="' . ( 'valid' == $license_status ? '' : 'display: none;' ) . '" />';
-        $html .= '<input type="button"
-            value="' . _x( 'Activate License', 'settings', 'WPBDM' ) . '"
-            class="button-secondary license-activate"
-                data-L10n="' . esc_attr( _x( 'Activating license...', 'settings', 'WPBDM' ) ) . '"
-                style="' . ( 'valid' == $license_status ? 'display: none;' : '' ) . '" />';
-        $html .= '<br />';
-        $html .= '<span class="status-message"></span>';
-        $html .= '</span>';
+        //         echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
+        //         printf( _x( 'The license key for <span class="module-name">%s %s</span> has expired. The module will continue to work but you will not receive any more updates until the license is renewed.',
+        //                     'licensing',
+        //                     'WPBDM' ), $d['name'], $d['version'] );
+        //         echo '<br /><br />';
+        //         echo '<a href="#" class="dismiss button" data-module="' . esc_attr( $d['id'] ) . '" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
+        //         $url = add_query_arg( array( 'item_name' => urlencode( $d['name'] ), 'edd_license_key' => urlencode( $d['license'] ) ), 'http://businessdirectoryplugin.com/checkout/' );
+        //         echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
+        
 
         return $html;
     }
@@ -131,7 +188,7 @@ class WPBDP_Licensing {
     }
 
     function admin_menu( $menu ) {
-        if ( ! current_user_can( 'administrator' ) || ! $this->modules  )
+        if ( ! current_user_can( 'administrator' ) || ! $this->items  )
             return;
 
         add_submenu_page( 'wpbdp_admin',
@@ -146,7 +203,7 @@ class WPBDP_Licensing {
             if ( $menu == $menu_id  ) {
                 foreach ( $m as &$i ) {
                     if ( 'wpbdp-licenses' == $i[2] ) {
-                        $i[2] = admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=licenses' );
+                        $i[2] = admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' );
                         break;
                     }
                 }
@@ -156,19 +213,21 @@ class WPBDP_Licensing {
         }
     }
 
-    function _validate_license_setting( $setting, $new_value = '', $old_value = '' ) {
-        $module = str_replace( 'license-key-', '', $setting->name );
+    public function license_key_changed_callback( $setting, $new_value = '', $old_value = '' ) {
+        if ( $new_value == $old_value ) {
+            return;
+        }
 
-        if ( $new_value !== $old_value )
-            delete_option( 'wpbdp-license-status-' . $module );
+        $this->licenses[ $setting['licensing_item_type'] . '-' . $setting['licensing_item'] ] = array( 'license_key' => $new_value, 'status' => 'unknown' );
+        update_option( 'wpbdp_licenses', $this->licenses );
 
         return $new_value;
     }
 
     function licenses_tab_css( $css = '', $tab_id ) {
         if ( 'licenses' == $tab_id ) {
-           foreach ( $this->modules as $module => $data ) {
-                if ( 'valid' != $data['license_status'] ) {
+            foreach ( $this->items as $item ) {
+                if ( 'valid' != $this->get_license_status( '', $item['item_type'], $item['id'] ) ) {
                     $css .= ' tab-error';
                     break;
                 }
@@ -178,21 +237,42 @@ class WPBDP_Licensing {
         return $css;
     }
 
-    function activate_license( $module ) {
-        if ( ! in_array( $module, array_keys( $this->modules ), true ) )
-            return new WP_Error( 'invalid-module', _x( 'Invalid module ID', 'licensing', 'WPBDM' ), $module );
+    /**
+     * Returns the license status from license information.
+     */
+    public function get_license_status( $license_key = '', $item_id = '', $item_type = 'module' ) {
+        if ( ! $license_key ) {
+            $license_key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
+        }
 
-        $key = trim( get_option( 'wpbdp-license-key-' . $module, '' ) );
+        if ( $license_key ) {
+            // TODO: maybe refresh license info here?
+            $data_key = $item_type . '-' . $item_id;
+            if ( ! empty( $this->licenses[ $data_key ] ) ) {
+                $data = $this->licenses[ $data_key ];
+
+                if ( ! empty( $data['license_key'] ) && $license_key == $data['license_key'] ) {
+                    return $data['status'];
+                }
+            }
+        }
+
+        return 'invalid';
+    }
+
+    function activate_license( $item_type, $item_id ) {
+        if ( ! in_array( $item_id, array_keys( $this->items ), true ) )
+            return new WP_Error( 'invalid-module', _x( 'Invalid item ID', 'licensing', 'WPBDM' ), $module );
+
+        $key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
 
         if ( ! $key )
             return new WP_Error( 'no-license-provided', _x( 'No license key provided', 'licensing', 'WPBDM' ) );
 
-        $module_data = $this->modules[ $module ];
-
         $request = array(
             'edd_action' => 'activate_license',
             'license' => $key,
-            'item_name' => urlencode( $module_data['name'] ),
+            'item_name' => urlencode( $this->items[ $item_id ]['name'] ),
             'url' => home_url()
         );
 
@@ -204,27 +284,36 @@ class WPBDP_Licensing {
 
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-        if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) || 'valid' !== $license_data->license )
+        if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) || 'valid' !== $license_data->license ) {
+            $this->licenses[ $item_type . '-' . $item_id ]['status'] = 'invalid';
+            update_option( 'wpbdp_licenses', $this->licenses );
+
             return new WP_Error( 'invalid-license', _x( 'License key is invalid', 'licensing', 'WPBDM' ) );
+        }
 
-        update_option( 'wpbdp-license-status-' . $module, $license_data->license );
+        $this->licenses[ $item_type . '-' . $item_id ]['license_key'] = $key;
+        $this->licenses[ $item_type . '-' . $item_id ]['status'] = 'valid';
+        $this->licenses[ $item_type . '-' . $item_id ]['expires'] = $license_data->expires;
+        $this->licenses[ $item_type . '-' . $item_id ]['last_checked'] = time();
+        update_option( 'wpbdp_licenses', $this->licenses );
 
-        return array( 'activations_left' => $license_data->activations_left, 'expires' => $license_data->expires );
+        return $this->licenses[ $item_type . '-' . $item_id ];
     }
 
-    function deactivate_license( $module ) {
-        if ( ! in_array( $module, array_keys( $this->modules ), true ) )
+    private function deactivate_license( $item_type, $item_id ) {
+        if ( ! in_array( $item_id, array_keys( $this->items ), true ) )
             return new WP_Error( 'invalid-module', _x( 'Invalid module ID', 'licensing', 'WPBDM' ), $module );
 
-        delete_option( 'wpbdp-license-status-' . $module );
+        // Remove licensing information.
+        unset( $this->licenses[ $item_type . '-' . $item_id ] );
+        update_option( 'wpbdp_licenses', $this->licenses );
 
-        $key = trim( get_option( 'wpbdp-license-key-' . $module, '' ) );
-        $module_data = $this->modules[ $module ];
+        $key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
 
         $request = array(
             'edd_action' => 'deactivate_license',
             'license' => $key,
-            'item_name' => urlencode( $module_data['name'] ),
+            'item_name' => urlencode( $this->items[ $item_id ]['name'] ),
             'url' => home_url()
         );
 
@@ -235,8 +324,6 @@ class WPBDP_Licensing {
             return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'WPBDM' ) );
 
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-        delete_option( 'wpbdp-license-status-' . $module );
 
         if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) )
             return new WP_Error( 'invalid-license', _x( 'License key is invalid', 'licensing', 'WPBDM' ) );
@@ -251,338 +338,320 @@ class WPBDP_Licensing {
         return strncasecmp( $x['name'], $y['name'], 4 );
     }
 
-    function register_module( $name = '', $module = '', $version = '' ) {
-        $module = trim( $module );
-        $name = trim( $name );
-        $module_name = trim( str_replace( '.php', '', basename( $module ) ) );
-        $version = trim( $version );
-
-        if ( ! $module || !$module_name || ! $version )
-            return false;
-
-        $this->modules[ $module_name ] = array( 'license' => get_option( 'wpbdp-license-key-' . $module_name, '' ),
-                                                'license_status' => get_option( 'wpbdp-license-status-' . $module_name, 'invalid' ),
-                                                'id' => $module_name,
-                                                'file' => $module,
-                                                'name' => $name ? $name : $module_name,
-                                                'version' => $version );
-
-        if ( ! $this->modules[ $module_name ]['license'] )
-            $this->modules[ $module_name ]['license_status'] = 'invalid';
-
-        // Keep modules sorted by name.
-        uasort( $this->modules, array( &$this, 'sort_modules_by_name' ) );
-        return in_array( $this->modules[ $module_name ]['license_status'], array( 'valid', 'expired' ), true );
-    }
-
     public function admin_notices() {
+        global $pagenow;
+
+        if ( 'admin.php' == $pagenow && ! empty( $_GET['page'] ) && 'wpbdp_settings' == $_GET['page'] && ! empty( $_GET['tab'] ) && 'licenses' == $_GET['tab'] ) {
+            return;
+        }
+
         $invalid = array();
-        $expired = array();
 
-        foreach ( $this->modules as $module => $data ) {
-            switch ( $data['license_status'] ) {
-                case 'valid':
-                    break;
-                case 'expired':
-                    $expired[] = $data;
-                    break;
-                default:
-                    $invalid[] = $data;
-                    break;
+        foreach ( $this->items as $item ) {
+            $status = $this->get_license_status( '', $item['item_type'], $item['id'] );
+
+            if ( 'valid' != $status ) {
+                $invalid[] = array(
+                    'item_type'   => $item['item_type'],
+                    'status'      => $status,
+                    'name'        => $item['name'],
+                    'license_key' => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] )
+                );
             }
         }
 
-        if ( $invalid ) {
-            echo '<div class="error"><p>';
-            echo '<b>' . _x( 'Business Directory - License Key Required', 'licensing', 'WPBDM' ) . '</b><br />';
-            echo str_replace( '<a>',
-                              '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=licenses' ) ) . '">',
-                              _x( 'The following premium modules will not work until a valid license key is provided. Go to <a>Manage Options - Licenses</a> to enter your license information.',
-                                  'licensing',
-                                  'WPBDM' ) );
-            echo '<br /><br />';
+        $modules = wp_list_filter( $invalid, array( 'item_type' => 'module' ) );
+        $themes  = wp_list_filter( $invalid, array( 'item_type' => 'theme' ) );
 
-            foreach ( $invalid as $d )
-                echo '&#149; ' . $d['name'] . ' ' . $d['version'] . '<br />';
-
-            echo '</p></div>';
+        if ( ! $modules && ! $themes ) {
+            return;
         }
 
-        // Expired licenses.
-        if ( $expired ) {
-            $check_data = get_transient( 'wpbdp-license-check-data' );
+        echo '<div id="wpbdp-licensing-issues-warning" class="error"><p>';
+        echo '<b>' . _x( 'Business Directory - Please verify your license keys', 'licensing', 'WPBDM' ) . '</b><br />';
 
-            foreach ( $expired as $d ) {
-                if ( $check_data && is_array( $check_data['warning-dismissed'] ) && in_array( $d['id'], $check_data['warning-dismissed'], true ) )
-                    continue;
-
-                echo '<div class="error wpbdp-license-expired-warning">';
-                echo '<p>';
-                echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
-                printf( _x( 'The license key for <span class="module-name">%s %s</span> has expired. The module will continue to work but you will not receive any more updates until the license is renewed.',
-                            'licensing',
-                            'WPBDM' ), $d['name'], $d['version'] );
-                echo '<br /><br />';
-                echo '<a href="#" class="dismiss button" data-module="' . esc_attr( $d['id'] ) . '" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
-                $url = add_query_arg( array( 'item_name' => urlencode( $d['name'] ), 'edd_license_key' => urlencode( $d['license'] ) ), 'http://businessdirectoryplugin.com/checkout/' );
-                echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
-                echo '</p></div>';
+        echo '<ul>';
+        if ( $modules ) {
+            $modules_str  = '';
+            foreach ( $modules as $m ) {
+                $modules_str .= '<span class="item-name">' . $m['name'] . '</span>';
             }
+
+            echo '<li>';
+            printf( _x( 'The following premium modules will not work until a valid license key is provided: %s.', 'licensing', 'WPBDM' ), $modules_str );
+            echo '</li>';
         }
+
+        if ( $themes ) {
+            $themes_str  = '';
+            foreach ( $themes as $t ) {
+                $themes_str .= '<span class="item-name">' . $t['name'] . '</span>';
+            }
+
+            echo '<li>';
+            printf( _x( 'You need to activate the license keys for the following themes before they can be used: %s.', 'licensing', 'WPBDM' ), $themes_str );
+            echo '</li>';
+        }
+
+        echo '</ul>';
+
+        echo '<p>';
+        echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
+        echo _x( 'Review my license keys', 'licensing', 'WPBDM' );
+        echo '</a>';
+        echo '</p>';
+
+        echo '</div>';
     }
 
-    function license_check() {
-        if ( ! $this->modules )
+    public function license_check() {
+        if ( ! $this->items )
             return;
 
-        wpbdp_log( 'Performing (scheduled) license check.' );
-        $data = get_transient( 'wpbdp-license-check-data' );
+        foreach ( $this->items as $item ) {
+            $item_key = $item['item_type'] . '-' . $item['id'];
+            $key = wpbdp_get_option( 'license-key-' . $item_key );
 
-        if ( ! $data ) {
-            $data = array( 'date' => current_time('mysql'), 'warning-dismissed' => false );
-
-            foreach ( $this->modules as $module ) {
-                if ( null == ( $status = $this->check_module_license( $module['id'] ) ) )
-                    continue;
-
-                    if ( ! isset( $data[ $status ] ) )
-                        $data[ $status ] = array();
-
-                    $data[ $status ][ $module['id'] ] = $module['license'];
-                    update_option( 'wpbdp-license-status-' . $module['id'], $status );
+            if ( ! $key ) {
+                $this->licenses[ $item_key ] = array(
+                    'status'       => 'invalid',
+                    'last_checked' => time()
+                );
+                continue;
             }
 
-            set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
+            $request_args = array(
+                'edd_action' => 'check_license',
+                'license'    => $key,
+                'item_name'  => $item['name'],
+                'url'        => home_url()
+            );
+            $response = wp_remote_get( add_query_arg( $request_args, self::STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+
+            if ( is_wp_error( $response ) ) {
+                continue;
+            }
+
+            $response_obj = json_decode( wp_remote_retrieve_body( $response ) );
+
+            if ( ! is_object( $response_obj ) || ! $response_obj || ! isset( $response_obj->license ) ) {
+                continue;
+            }
+
+            $this->licenses[ $item_key ] = array(
+                'status'       => $response_obj->license,
+                'license_key'  => $key,
+                'expires'      => isset( $response_obj->expires ) ? $response_obj->expires : '',
+                'last_checked' => time()
+            );
+        }
+
+        update_option( 'wpbdp_licenses', $this->licenses );
+    }
+
+    public function ajax_activate_license() {
+        $setting_id = $_POST['setting'];
+        $key        = $_POST['license_key'];
+        $item_type  = $_POST['item_type'];
+        $item_id    = $_POST['item_id'];
+        $nonce      = $_POST['nonce'];
+
+        if ( ! $setting_id || ! $key || ! $item_type || ! $item_id || ! wp_verify_nonce( $nonce, 'license activation' ) ) {
+            die();
+        }
+
+        // Store the new license key. This clears stored information about the license.
+        wpbdp_set_option( 'license-key-' . $item_type . '-' . $item_id, $key );
+
+        $result = $this->activate_license( $item_type, $item_id );
+        $response = new WPBDP_Ajax_Response();
+
+        if ( is_wp_error( $result ) ) {
+             $response->send_error( sprintf( _x( 'Could not activate license: %s.', 'licensing', 'WPBDM' ), $result->get_error_message() ) );
+        } else {
+            $response->set_message( _x( 'License activated', 'licensing', 'WPBDM' ) );
+            $response->send();
         }
     }
 
-    function check_module_license( $module ) {
-        $data = isset( $this->modules[ $module ] ) ? $this->modules[ $module ] : null;
+    public function ajax_deactivate_license() {
+        $setting_id = $_POST['setting'];
+        $key        = $_POST['license_key'];
+        $item_type  = $_POST['item_type'];
+        $item_id    = $_POST['item_id'];
+        $nonce      = $_POST['nonce'];
 
-        if ( ! $data || ! isset( $data['license'] ) || ! $data['license'] )
-            return null;
-
-        $request = array( 'edd_action' => 'check_license',
-                          'license' => $data['license'],
-                          'item_name' => urlencode( $data['name'] ),
-                          'url' => home_url() );
-        $response = wp_remote_get( add_query_arg( $request, self::STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
-
-        if ( is_wp_error( $response ) )
-            return null;
-
-        $license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-        if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) )
-            return null;
-
-        return $license_data->license;
-        //return ( 'valid' == $license_data->license ? true : false );
-    }
-
-    function ajax_activate_license() {
-        $module = isset( $_POST['module'] ) ? trim( $_POST['module'] ) : '';
-        $nonce = isset( $_POST['nonce'] ) ? trim( $_POST['nonce'] ) : '';
-        $key = isset( $_POST['key'] ) ? trim( $_POST['key'] ) : '';
-
-        if ( ! $module || ! $nonce || ! wp_verify_nonce( $nonce, 'license activation' ) )
+        if ( ! $setting_id || ! $key || ! $item_type || ! $item_id || ! wp_verify_nonce( $nonce, 'license activation' ) ) {
             die();
+        }
 
-        update_option( 'wpbdp-license-key-' . $module, $key );
-        $result = $this->activate_license( $module, $key );
-
+        $result = $this->deactivate_license( $item_type, $item_id );
         $response = new WPBDP_Ajax_Response();
 
-        if ( is_wp_error( $result ) )
-            $response->send_error( sprintf( _x( 'Could not activate license: %s.', 'licensing', 'WPBDM' ), $result->get_error_message() ) );
-
-        $response->set_message( _x( 'License activated', 'licensing', 'WPBDM' ) );
-        $response->send();
-    }
-
-    function ajax_deactivate_license() {
-        $module = isset( $_POST['module'] ) ? trim( $_POST['module'] ) : '';
-        $nonce = isset( $_POST['nonce'] ) ? trim( $_POST['nonce'] ) : '';
-
-        if ( ! $module || ! $nonce || ! wp_verify_nonce( $nonce, 'license activation' ) )
-            die();
-
-        $result = $this->deactivate_license( $module );
-
-        $response = new WPBDP_Ajax_Response();
-
-        if ( is_wp_error( $result ) )
+        if ( is_wp_error( $result ) ) {
             $response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'WPBDM' ), $result->get_error_message() ) );
-
-        $response->set_message( _x( 'License deactivated', 'licensing', 'WPBDM' ) );
-        $response->send();
+        } else {
+            $response->set_message( _x( 'License deactivated', 'licensing', 'WPBDM' ) );
+            $response->send();
+        }
     }
 
-    function ajax_dismiss_license_warning() {
-        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
-        $module = isset( $_POST['module'] ) ? $_POST['module'] : '';
+    public function maybe_check_for_updates() {
+        if ( ! $this->items ) {
+            return;
+        }
 
-        $res = new WPBDP_Ajax_Response();
+        // Don't allow a plugin to ping itself.
+        if ( self::STORE_URL == home_url() ) {
+            return;
+        }
 
-        if ( ! wp_verify_nonce( $nonce, 'dismiss warning' ) )
-            $res->send_error();
+        $this->updates = get_transient( 'wpbdp_updates' );
+        $needs_refresh = false;        
 
-        $data = get_transient( 'wpbdp-license-check-data' );
+        if ( ! is_array( $this->updates ) ) {
+            $needs_refresh = true;
+        } else {
+            foreach ( $this->items as $item ) {
+                if ( ! isset( $this->updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
+                    // wpbdp_debug_e( $item, $this->updates );
+                    $needs_refresh = true;
+                    break;
+                }
+            }
+        }
 
-        if ( ! is_array( $data['warning-dismissed'] ) )
-            $data['warning-dismissed'] = array();
+        if ( ! $needs_refresh ) {
+            return;
+        }
 
-        if ( ! in_array( $module, $data['warning-dismissed'], true ) )
-            $data['warning-dismissed'][] = $module;
+        $args = array(
+            'edd_action' => 'batch_get_version',
+            'licenses'   => array(),
+            'items'      => array(),
+            'url'        => home_url()
+        );
+        foreach ( $this->items as $item ) {
+            $args['licenses'][] = wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] );
+            $args['items'][] = $item['name'];
+        }
 
-        set_transient( 'wpbdp-license-check-data', $data, 1 * WEEK_IN_SECONDS );
+        $request = wp_remote_post( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
+        if ( is_wp_error( $request ) ) {
+            return;
+        }
 
-        $res->send();
+        $body = wp_remote_retrieve_body( $request );
+        $body = json_decode( $body );
+
+        if ( ! is_array( $body ) ) {
+            return;
+        }
+
+        foreach ( $body as $i => $b ) {
+            if ( isset( $b->sections ) ) {
+                $body[ $i ]->sections = maybe_unserialize( $b->sections );
+            }
+        }
+
+        // Some processing.
+        $this->updates = array();
+
+        foreach ( $this->items as $item ) {
+            $item_key = $item['item_type'] . '-' . $item['id'];
+
+            foreach ( $body as $b ) {
+                if ( $b->name == $item['name'] ) {
+                    $this->updates[ $item_key ]       = $b;
+                    $this->updates[ $item_key ]->slug = $item['id'];
+                }
+            }
+        }
+
+        set_transient( 'wpbdp_updates', $this->updates, 1 * WEEK_IN_SECONDS );
     }
 
     /**
-     * Inject BD modules update info into update array.
-     * Based on `EDD_SL_Plugin_Updater` from Easy Digital Downloads.
-     * @since next-release
+     * Inject BD modules update info into update array (`update_plugins` transient).
      */
-    function updates_check( $transient ) {
-        global $pagenow;
-
-        if ( ! is_object( $transient ) )
+    public function inject_update_info( $transient ) {
+        if ( ! is_object( $transient ) ) {
             $transient = new stdClass();
+        }
 
-        if ( 'plugins.php' == $pagenow && is_multisite() )
+        global $pagenow;
+        if ( 'plugins.php' == $pagenow && is_multisite() ) {
             return $transient;
+        }
 
-        $data = $this->version_info_request();
-        // We need to do this since local identifiers for modules don't (necessarily) match what we have on the remote
-        // server. In the future, local identifiers should match (i.e. use the slug from BDP.com or use the download ID)
-        $data = $this->_version_info_process( $data );
+        $this->maybe_check_for_updates();
 
-        if ( ! $data )
+        if ( ! $this->updates ) {
             return $transient;
+        }
 
-        foreach ( $data as $item_key => $item_info ) {
-            if ( ! isset( $this->modules[ $item_key ] ) )
+        $modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
+
+        foreach ( $modules as $module ) {
+            $item_key = $module['item_type'] . '-' . $module['id'];
+
+            if ( ! isset( $this->updates[ $item_key ] ) ) {
                 continue;
+            }
 
-            $wp_name = plugin_basename( $this->modules[ $item_key ]['file'] );
+            $wp_name = plugin_basename( $module['file'] );
 
-            if ( ! empty( $transient->response ) && ! empty( $transient->response[ $wp_name ] ) )
+            if ( ! empty( $transient->response ) && ! empty( $transient->response[ $wp_name ] ) ) {
                 continue;
+            }
 
-            if ( ! isset( $item_info->new_version ) )
+            if ( ! isset( $this->updates[ $item_key ]->new_version ) ) {
                 continue;
+            }
 
-            if ( version_compare( $this->modules[ $item_key ]['version'], $item_info->new_version, '<' ) ) {
-                $transient->response[ $wp_name ] = $item_info;
+            if ( version_compare( $module['version'], $this->updates[ $item_key ]->new_version, '<' ) ) {
+                $transient->response[ $wp_name ] = $this->updates[ $item_key ];
             }
 
             $transient->last_checked = current_time( 'timestamp' );
-            $transient->checked[ $wp_name ] = $this->modules[ $item_key ]['version'];
+            $transient->checked[ $wp_name ] = $module['version'];
         }
 
         return $transient;
     }
 
-    /**
-     * @since next-release
-     */
-    function updates_plugin_information( $data, $action = '', $args = null ) {
-        if ( 'plugin_information' != $action || ! isset( $args->slug ) || ! isset( $this->modules[ $args->slug ] ) )
-            return $data;
-
-        $http_args = array(
-            'timeout' => 15,
-            'sslverify' => false,
-            'body' => array(
-                'edd_action' => 'get_version',
-                'item_name' => $this->modules[ $args->slug ]['name'],
-                'license' => $this->modules[ $args->slug ]['license'],
-                'url' => home_url()
-            )
-        );
-        $request = wp_remote_post( self::STORE_URL, $http_args );
-
-        if ( is_wp_error( $request ) )
-            return $data;
-
-        $request = json_decode( wp_remote_retrieve_body( $request ) );
-
-        if ( ! $request || ! is_object( $request ) || ! isset( $request->sections ) )
-            return $data;
-
-        $request->sections = maybe_unserialize( $request->sections );
-        $data = $request;
-
-        return $data;
+    public function module_update_information( $data, $action = '', $args = null ) {
     }
 
-    /**
-     * @since next-release
-     */
-    function version_info_request() {
-        if ( ! $this->modules )
-            return false;
-
-        // Don't allow a plugin to ping itself.
-        if ( self::STORE_URL == home_url() )
-            return false;
-
-        $args = array(
-            'edd_action' => 'batch_get_version',
-            'licenses'  => array(),
-            'items'     => array(),
-            'url'       => home_url()
-        );
-
-        foreach ( $this->modules as $module ) {
-            if ( ! empty( $module['license'] ) )
-                $args['licenses'][] = $module['license'];
-
-            $args['items'][] = $module['name'];
-        }
-
-        $request = wp_remote_post( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
-
-        if ( ! is_wp_error( $request ) )
-            $request = json_decode( wp_remote_retrieve_body( $request ) );
-
-        if ( ! is_array( $request ) )
-            return false;
-
-        foreach ( $request as &$x ) {
-            if ( isset( $x->sections ) )
-                $x->sections = maybe_unserialize( $x->sections );
-        }
-
-        return $request;
-    }
-
-    /**
-     * @since next-release
-     */
-    function _version_info_process( $data ) {
-        $result = array();
-
-        if ( ! $data )
-            return $result;
-
-        foreach ( $data as $d ) {
-            $item_name = $d->name;
-
-            foreach ( $this->modules as $module_key => $module_info ) {
-                if ( $item_name != $module_info['name'] )
-                    continue;
-
-                $d->slug= $module_key;
-                $result[ $module_key ] = $d;
-                break;
-            }
-        }
-
-        return $result;
-    }
+    // function updates_plugin_information( $data, $action = '', $args = null ) {
+    //     if ( 'plugin_information' != $action || ! isset( $args->slug ) || ! isset( $this->modules[ $args->slug ] ) )
+    //         return $data;
+    //
+    //     $http_args = array(
+    //         'timeout' => 15,
+    //         'sslverify' => false,
+    //         'body' => array(
+    //             'edd_action' => 'get_version',
+    //             'item_name' => $this->modules[ $args->slug ]['name'],
+    //             'license' => $this->modules[ $args->slug ]['license'],
+    //             'url' => home_url()
+    //         )
+    //     );
+    //     $request = wp_remote_post( self::STORE_URL, $http_args );
+    //
+    //     if ( is_wp_error( $request ) )
+    //         return $data;
+    //
+    //     $request = json_decode( wp_remote_retrieve_body( $request ) );
+    //
+    //     if ( ! $request || ! is_object( $request ) || ! isset( $request->sections ) )
+    //         return $data;
+    //
+    //     $request->sections = maybe_unserialize( $request->sections );
+    //     $data = $request;
+    //
+    //     return $data;
+    // }
 
 }
 
@@ -590,6 +659,5 @@ class WPBDP_Licensing {
  * @since 3.4.2
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
-    global $wpbdp;
-    return $wpbdp->licensing->register_module( $name, $file_, $version );
+    return wpbdp()->licensing->add_item( array( 'type' => 'module', 'file' => $file_, 'version' => $version, 'name' => $name ) );
 }

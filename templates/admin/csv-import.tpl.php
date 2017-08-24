@@ -9,7 +9,8 @@ function _defaults_or( $defs, $k, $v ) {
 <div class="wpbdp-page-csv-import wpbdp-clearfix">
 
 <div class="wpbdp-note">
-<p><?php
+<p>
+<?php
 _ex( 'Here, you can import data into your directory using the CSV format.',
      'admin csv-import',
      'WPBDM' );

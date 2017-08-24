@@ -9,7 +9,7 @@
             <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'delete-theme', 'theme_id' => $theme->id ) ) ); ?>" class="button delete-theme-link">Delete</a>
             <?php endif; ?>
 
-            <?php if ( $theme->can_be_activated ): ?>
+            <?php if ( false ): ?>
             <form action="" method="post">
                 <input type="hidden" name="wpbdp-action" value="set-active-theme" />
                 <input type="hidden" name="theme_id" value="<?php echo $theme->id; ?>" />

@@ -1,6 +1,73 @@
 jQuery(function($) {
 
-    // E-Mail template editors.
+    /**
+     * License activation/deactivation.
+     */
+    var wpbdp_settings_licensing = {
+        init: function() {
+            var self = this;
+
+            if ( 0 == $( '.wpbdp-settings-type-license_key' ).length ) {
+                return;
+            }
+
+            $( '.wpbdp-license-key-activate-btn, .wpbdp-license-key-deactivate-btn' ).click(function(e) {
+                e.preventDefault();
+
+                var $button  = $(this);
+                var $setting = $(this).parents( '.wpbdp-license-key-activation-ui' );
+                var $msg     = $setting.find( '.wpbdp-license-key-activation-status-msg' );
+                var $spinner = $setting.find( '.spinner' );
+                var activate = $(this).is( '.wpbdp-license-key-activate-btn' );
+                var $field   = $setting.find( 'input.wpbdp-license-key-input' );
+                var data     = $setting.data( 'licensing' );
+
+                $msg.hide();
+                $button.data( 'original_label', $(this).val() );
+                $button.val( $(this).data( 'working-msg' ) );
+                $button.prop( 'disabled', true );
+
+                if ( activate ) {
+                    data['action'] = 'wpbdp_activate_license';
+                } else {
+                    data['action'] = 'wpbdp_deactivate_license';
+                }
+
+                data['license_key'] = $field.val();
+
+                $.post(
+                    ajaxurl,
+                    data,
+                    function( res ) {
+                        if ( res.success ) {
+                            $msg.removeClass( 'status-error' ).addClass( 'status-success' ).html( res.message ).show();
+
+                            if ( activate ) {
+                                $setting.removeClass( 'wpbdp-license-status-invalid' ).addClass( 'wpbdp-license-status-valid' );
+                            } else {
+                                $setting.removeClass( 'wpbdp-license-status-valid' ).addClass( 'wpbdp-license-status-invalid' );
+                            }
+
+                            $field.prop( 'readonly', activate ? true : false );
+                        } else {
+                            $msg.removeClass( 'status-success' ).addClass( 'status-error' ).html( res.error ).show();
+                            $setting.removeClass( 'wpbdp-license-status-valid' ).addClass( 'wpbdp-license-status-invalid' );
+                            $field.prop( 'readonly', false );
+                        }
+
+                        $button.val( $button.data( 'original_label' ) );
+                        $button.prop( 'disabled', false );
+                    },
+                    'json'
+                );
+            });
+        }
+    };
+    wpbdp_settings_licensing.init();
+
+    /**
+     * E-Mail template editors.
+     */
     var wpbdp_settings_email = {
         init: function() {
             var self = this;
@@ -57,7 +124,7 @@ jQuery(function($) {
                 var $email = $( this ).parents( '.wpbdp-settings-email' );
                 $email.next().remove();
                 $email.remove();
-                $( 'form#wpbdp-admin-settings' ).get(0).submit();
+                $( '#wpbdp-admin-page-settings form' ).get(0).submit();
             });
 
             // Expiration notices have some additional handling to do.
@@ -99,3 +166,27 @@ jQuery(function($) {
     wpbdp_settings_email.init();
 
 });
+
+//     $(document).ready(function() {
+//         if ( $( 'input.license-activate, input.license-deactivate' ).length > 0 )
+//             l.init();
+//
+//         if ( $( '.wpbdp-license-expired-warning' ).length > 0 ) {
+//             $( '.wpbdp-license-expired-warning .dismiss' ).click(function (e) {
+//                 e.preventDefault();
+//
+//                 var module_id = $(this).attr('data-module');
+//                 var nonce = $(this).attr('data-nonce');
+//                 var $warning = $(this).parents('.wpbdp-license-expired-warning');
+//
+//                 $.post( ajaxurl, {'action': 'wpbdp-license-expired-warning-dismiss', 'nonce': nonce, 'module': module_id}, function(res) {
+//                     if ( res.success ) {
+//                         $warning.fadeOut( 'fast' );
+//                     }
+//                 }, 'json' );
+//             });
+//         }
+//     });
+// })(jQuery);
+// // }}
+//

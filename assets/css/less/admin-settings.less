@@ -1,4 +1,4 @@
-#wpbdp-admin-settings {
+#wpbdp-admin-page-settings {
     .nav-tab {
         &.tab-error {
             border-top: solid 1px red;
@@ -8,9 +8,7 @@
             border-top: solid 1px yellow;
         }
     }
-}
 
-#wpbdp-admin-settings {
     .form-table tr > th {
         min-width: 250px;
     }
@@ -46,6 +44,66 @@
         min-height: 150px;
     }
 
+    .wpbdp-license-key-activation-ui {
+        .wpbdp-license-key-activate-btn, .wpbdp-license-key-deactivate-btn {
+            margin-left: 10px;
+            margin-top: 2px;
+            display: none;
+        }
+
+        .wpbdp-license-warning-icon, .wpbdp-license-ok-icon {
+            display: none;
+            vertical-align: middle;
+            margin: 0 8px 2px 0;
+        }
+
+        &.wpbdp-license-status-valid {
+            .wpbdp-license-warning-icon {
+                display: none;
+            }
+
+            .wpbdp-license-ok-icon {
+                display: inline-block;
+            }
+
+            .wpbdp-license-key-deactivate-btn {
+                display: inline-block;
+            }
+        }
+
+        &.wpbdp-license-status-invalid {
+            .wpbdp-license-warning-icon {
+                display: inline-block;
+            }
+
+            .wpbdp-license-ok-icon {
+                display: none;
+            }
+
+            .wpbdp-license-key-activate-btn {
+                display: inline-block;
+            }
+        }
+
+        .wpbdp-license-key-input {
+            width: 70%;
+        }
+
+        .wpbdp-license-key-activation-status-msg {
+            font-style: italic;
+            font-size: 90%;
+            margin: 5pt 0;
+
+            &.status-success {
+                color: green;
+            }
+
+            &.status-error {
+                color: #ff0000;
+            }
+        }
+    }
+
 }
 
 .wpbdp-tooltip-msg {
@@ -65,43 +123,29 @@
     display: block;
 }
 
-.directory-admin_page_wpbdp_settings .license-activation .status-message {
-    font-size: 85%;
-    color: #595959;
-    font-style: italic;
-}
-
-.directory-admin_page_wpbdp_settings .license-activation .status-message.ok {
-    color: green;
-}
-
-.directory-admin_page_wpbdp_settings .license-activation .status-message.error {
-    color: red;
-}
-
-#wpbdp-admin-settings {
+#wpbdp-admin-page-settings {
     .wpbdp-settings-choice-radio {
         margin: 0 0 5px 0;
     }
 }
 
-#wpbdp-admin-settings tr.disabled {
+#wpbdp-admin-page-settings tr.disabled {
     opacity: 0.7;
 }
 
-#wpbdp-admin-settings .text-fields-warning {
+#wpbdp-admin-page-settings .text-fields-warning {
     font-size: 90%;
     display: block;
     margin-bottom: 2px;
 }
 
-#wpbdp-admin-settings .wpbdp-expiration-notice-email-schedule-summary {
+#wpbdp-admin-page-settings .wpbdp-expiration-notice-email-schedule-summary {
     background: #ccc;
     font-size: 85%;
     padding: 5px;
 }
 
-#wpbdp-admin-settings .wpbdp-settings-email {
+#wpbdp-admin-page-settings .wpbdp-settings-email {
     margin: 10px 0 0 0;
     border: solid 1px #ccc;
     padding: 5px;
@@ -206,7 +250,7 @@
     }
 }
 
-#wpbdp-admin-settings .wpbdp-settings-expiration-notices {
+#wpbdp-admin-page-settings .wpbdp-settings-expiration-notices {
 
     #wpbdp-settings-expiration-notices-add-btn {
         margin: 0 0 5px 0;
@@ -230,7 +274,7 @@
     }
 }
 
-#wpbdp-admin-settings select#quick-search-fields {
+#wpbdp-admin-page-settings select#quick-search-fields {
     min-height: 150px;
 }
 

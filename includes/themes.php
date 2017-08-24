@@ -27,6 +27,11 @@ class WPBDP_Themes {
         // Core templates are last priority.
         $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'templates' );
 
+        // Keep settings controlling themes licenses in sync (Settings API <-> Themes API).
+        // FIXME: this should be removed once everything is handled by the Settings API + Licensing API, but we're not
+        // there yet.
+        $this->sync_settings();
+
         // Add some extra data to theme information.
         $this->add_theme_data();
 
@@ -383,21 +388,45 @@ class WPBDP_Themes {
         return $info;
     }
 
-    function add_theme_data() {
-        foreach ( $this->themes as &$t ) {
-            $t->license_key = '';
-            $t->license_status = '';
+    public function sync_settings() {
+        return;
+        $themes_data = get_option( 'wpbdp-themes-licenses', array() );
+        $wpbdp_settings = get_option( 'wpbdp_settings', array() );
 
-            if ( $license_data = get_option( 'wpbdp-themes-licenses', array() ) ) {
-                $theme_license = isset( $license_data[ $t->id ] ) ? $license_data[ $t->id ] : array();
-
-                $t->license_key = isset( $theme_license['license'] ) ? $theme_license['license'] : '';
-                $t->license_status = isset( $theme_license['status'] ) ? $theme_license['status'] : '';
+        if ( $themes_data ) {
+            $changed = false;
+            foreach ( $themes_data as $theme_id => $theme_data ) {
+                if ( ! array_key_exists( 'license-key-theme-' . $theme_id, $wpbdp_settings ) ) {
+                    $changed = true;
+                    $wpbdp_settings[ 'license-key-theme-' . $theme_id ] = $theme_data['license'];
+                    update_option( 'wpbdp-license-status-theme-' . $theme_id, $theme_data['status'] );
+                }
             }
 
+            if ( $changed ) {
+                update_option( 'wpbdp_settings', $wpbdp_settings );
+            }
+        }
+
+    }
+
+    function add_theme_data() {
+        foreach ( $this->themes as &$t ) {
             $t->is_core_theme = $this->_is_core_theme( $t );
+
+            if ( ! $t->is_core_theme ) {
+                wpbdp()->licensing->add_item( array(
+                    'item_type' => 'theme',
+                    'id'        => $t->id,
+                    'name'      => $t->name,
+                    'version'   => $t->version,
+                ) );
+                // $t->license_key = wpbdp_get_option( 'license-key-theme-' . $t->id );
+                // $t->license_status = get_option( 'wpbdp-license-status-theme-' . $t->id );
+            }
+
             $t->active = ( $t->id == $this->get_active_theme() );
-            $t->can_be_activated = ( $t->is_core_theme || 'valid' == $t->license_status || $t->active );
+            // $t->can_be_activated = ( $t->is_core_theme || 'valid' == $t->license_status || $t->active );
         }
     }
 
@@ -410,9 +439,16 @@ class WPBDP_Themes {
     }
 
     private function _is_premium_theme( $theme ) {
-        foreach ( $this->_get_official_themes() as $official_theme ) {
-            if ( $theme->name == $official_theme->name ) {
-                return true;
+        $official_themes = $this->_get_official_themes();
+
+        if ( ! $official_themes ) {
+            // Assume it's a premium theme until information can be verified.
+            return true;
+        } else {
+            foreach ( $this->_get_official_themes() as $official_theme ) {
+                if ( $theme->name == $official_theme->name ) {
+                    return true;
+                }
             }
         }
 

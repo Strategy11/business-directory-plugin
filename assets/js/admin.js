@@ -409,7 +409,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     };
 
     $(document).ready(function(){
-        if ( $( '#wpbdp-admin-settings' ).length > 0 ) {
+        if ( $( '#wpbdp-admin-page-settings' ).length > 0 ) {
             s.init();
         }
     });
@@ -487,85 +487,6 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 }
             });
         });
-    });
-})(jQuery);
-// }}
-
-// {{ Settings - License Activation.
-(function($) {
-    var l = WPBDP_Admin.licensing = {
-        init: function() {
-            $( 'input.license-activate' ).click(function(){
-                var module = $(this).parent( '.license-activation' ).attr( 'data-module-id' );
-                var license = $( 'input[type="text"]#license-key-' + module ).val();
-                l.activation_change( module, license, 'activate' );
-            });
-
-            $( 'input.license-deactivate' ).click(function(){
-                var module = $(this).parent( '.license-activation' ).attr( 'data-module-id' );
-                var license = $( 'input[type="text"]#license-key-' + module );
-                l.activation_change( module, '', 'deactivate' );
-            });
-        },
-
-        activation_change: function(module, license, action) {
-            var $container = $( '.license-activation[data-module-id="' + module + '"]' );
-            var $msg = $( '.status-message', $container );
-            var nonce = $( 'input[name="nonce"]', $container ).val();
-
-            $msg.removeClass('ok error');
-
-            $msg.html( $( 'input.license-' + action, $container ).attr('data-L10n') );
-
-            $.post( ajaxurl, { 'action': 'wpbdp-' + action + '-license', 'module': module, 'key': license, 'nonce': nonce }, function(res) {
-                if ( res.success ) {
-                    $msg.hide()
-                        .html(res.message)
-                        .removeClass('error')
-                        .addClass('ok')
-                        .show();
-
-                    $('input.license-' + action, $container).hide();
-                    $('input[type="button"]', $container).not( '.license-' + action ).show();
-
-                    if ( 'activate' == action )
-                        $( 'input[type="text"]#license-key-' + module ).attr('readonly', 'readonly');
-                    else
-                        $( 'input[type="text"]#license-key-' + module ).removeAttr('readonly');
-                } else {
-                    $msg.hide()
-                        .html(res.error)
-                        .removeClass('ok')
-                        .addClass('error')
-                        .show();
-
-                    if ( 'deactivate' == action )
-                        $( 'input[type="text"]#license-key-' + module ).removeAttr('readonly');
-                }
-            }, 'json' );
-        }
-
-    };
-
-    $(document).ready(function() {
-        if ( $( 'input.license-activate, input.license-deactivate' ).length > 0 )
-            l.init();
-
-        if ( $( '.wpbdp-license-expired-warning' ).length > 0 ) {
-            $( '.wpbdp-license-expired-warning .dismiss' ).click(function (e) {
-                e.preventDefault();
-
-                var module_id = $(this).attr('data-module');
-                var nonce = $(this).attr('data-nonce');
-                var $warning = $(this).parents('.wpbdp-license-expired-warning');
-
-                $.post( ajaxurl, {'action': 'wpbdp-license-expired-warning-dismiss', 'nonce': nonce, 'module': module_id}, function(res) {
-                    if ( res.success ) {
-                        $warning.fadeOut( 'fast' );
-                    }
-                }, 'json' );
-            });
-        }
     });
 })(jQuery);
 // }}

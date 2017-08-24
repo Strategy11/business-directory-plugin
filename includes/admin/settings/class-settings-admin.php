@@ -93,11 +93,7 @@ class WPBDP__Settings_Admin {
     }
 
     public function section_header_callback( $wp_section ) {
-        if ( ! isset( $this->sections_by_id[ $wp_section['id'] ] ) ) {
-            return;
-        }
-
-        $section = $this->sections_by_id[ $wp_section['id'] ];
+        return;
 
         if ( ! empty( $section['desc'] ) ) {
             echo '<p class="wpbdp-setting-description wpbdp-settings-section-description">';
@@ -486,8 +482,9 @@ class WPBDP__Settings_Admin {
         }
 
         $active_subtab_description = ! empty( $all_groups[ $active_subtab ]['desc'] ) ? $all_groups[ $active_subtab ]['desc'] : '';
+        $custom_form = ( ! empty( $all_groups[ $active_subtab ]['custom_form'] ) ) && $all_groups[ $active_subtab ]['custom_form'];
 
-        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description' ) );
+        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description', 'custom_form' ) );
     }
 
     // FIXME: before fees-revamp.

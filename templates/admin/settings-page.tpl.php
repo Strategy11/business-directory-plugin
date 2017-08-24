@@ -41,16 +41,27 @@ echo wpbdp_admin_header( array(
 <p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo $active_subtab_description; ?></p>
 <?php endif; ?>
 
-<form action="options.php" method="post" id="wpbdp-admin-settings">
+<?php if ( ! $custom_form ): ?>
+<form action="options.php" method="post">
+<?php endif; ?>
+
 <?php
     $_SERVER['REQUEST_URI'] = $original_uri;
 
-    settings_fields( 'wpbdp_settings' );
-    do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
-    submit_button();
-?>
-</form>
+    if ( ! $custom_form ):
+        settings_fields( 'wpbdp_settings' );
+    endif;
 
+    do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+
+    if ( ! $custom_form ):
+        submit_button();
+    endif;
+?>
+
+<?php if ( ! $custom_form ): ?>
+</form>
+<?php endif; ?>
 
 <?php
     echo wpbdp_admin_footer();

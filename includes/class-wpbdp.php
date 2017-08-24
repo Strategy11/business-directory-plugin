@@ -75,7 +75,7 @@ final class WPBDP {
         if ( wpbdp_is_request( 'admin' ) ) {
             require_once( WPBDP_INC . 'admin/tracking.php' );
             require_once( WPBDP_INC . 'admin/class-admin.php' );
-        }        
+        }
     }
 
     private function hooks() {
@@ -94,7 +94,7 @@ final class WPBDP {
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
         add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
-    }    
+    }
 
     public function init() {
     //     $this->installer = new WPBDP_Installer();
@@ -122,8 +122,10 @@ final class WPBDP {
         $this->settings = new WPBDP__Settings();
         $this->settings->bootstrap();
 
-        $this->modules = new WPBDP__Modules();
         $this->licensing = new WPBDP_Licensing();
+        $this->modules = new WPBDP__Modules();
+        $this->themes = new WPBDP_Themes();
+
         $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
@@ -158,7 +160,6 @@ final class WPBDP {
             $this->meta = new WPBDP__Meta();
         }
 
-        $this->themes = new WPBDP_Themes();
         $this->compat = new WPBDP_Compat();
         $this->rewrite = new WPBDP__Rewrite();
 
