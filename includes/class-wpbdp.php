@@ -52,6 +52,7 @@ final class WPBDP {
         require_once( WPBDP_PATH . 'includes/class-listing-email-notification.php' );
 
         require_once( WPBDP_INC . 'compatibility/class-compat.php' );
+        require_once( WPBDP_INC . 'class-rewrite.php' );
 
 
         require_once( WPBDP_INC . 'class-assets.php' );
@@ -159,6 +160,7 @@ final class WPBDP {
 
         $this->themes = new WPBDP_Themes();
         $this->compat = new WPBDP_Compat();
+        $this->rewrite = new WPBDP__Rewrite();
 
         do_action( 'wpbdp_loaded' );
 
