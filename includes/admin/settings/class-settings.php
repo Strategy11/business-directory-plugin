@@ -30,6 +30,10 @@ class WPBDP__Settings {
     }
 
     public function sanitize_settings( $input ) {
+        $on_admin = ! empty( $_POST['_wp_http_referer'] );
+
+        $this->options = array_merge( $this->options, $input );
+
         // Validate each setting.
         foreach ( $input as $setting_id => $value ) {
             $input[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize', $value, $setting_id );
@@ -38,13 +42,28 @@ class WPBDP__Settings {
             if ( ! empty( $this->settings[ $setting_id ] ) ) {
                 $setting = $this->settings[ $setting_id ];
 
+                // XXX: maybe this should always be executed, not only admin side?
+                if ( $on_admin ) {
+                    switch ( $setting['type'] ) {
+                    case 'checkbox':
+                    case 'multicheck':
+                        if ( '-1' === $value ) {
+                            $input[ $setting_id ] = 0;
+                            $this->options[ $setting_id ] = 0;
+                            // unset( $this->options[ $setting_id ] );
+                        }
+
+                        break;
+                    default:
+                        break;
+                    }
+                }
+
                 if ( ! empty( $setting['on_update'] ) && is_callable( $setting['on_update'] ) ) {
                     call_user_func( $setting['on_update'], $setting, $input[ $setting_id ], ! empty( $this->options[ $setting_id ] ) ? $this->options[ $setting_id ] : null );
                 }
             }
         }
-
-        $this->options = array_merge( $this->options, $input );
 
         return $this->options;
 
