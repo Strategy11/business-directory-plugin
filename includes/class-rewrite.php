@@ -58,6 +58,9 @@ class WPBDP__Rewrite {
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
+                        $rules['(' . $rewrite_base . ')/(.*)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]&feed=$matches[3]';
+                        $rules['(' . $rewrite_base . ')/(.*)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]&feed=$matches[3]';
+                        
                         $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]';
                     } else {
                         $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
