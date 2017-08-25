@@ -149,15 +149,18 @@ final class WPBDP {
         $this->assets = new WPBDP__Assets();
         $this->widgets = new WPBDP__Widgets();
 
-        if ( wpbdp_is_request( 'admin' ) ) {
-            $this->admin = new WPBDP_Admin();
-        } else if ( wpbdp_is_request( 'frontend' ) ) {
+        // We need to ask for frontend requests first, because
+        // wpbdp_is_request( 'admin' ) or is_admin() return true for ajax
+        // requests made from the frontend.
+        if ( wpbdp_is_request( 'frontend' ) ) {
             $this->query_integration = new WPBDP__Query_Integration();
             $this->dispatcher = new WPBDP__Dispatcher();
             $this->shortcodes = new WPBDP__Shortcodes();
             $this->template_integration = new WPBDP__WordPress_Template_Integration();
 
             $this->meta = new WPBDP__Meta();
+        } else if ( wpbdp_is_request( 'admin' ) ) {
+            $this->admin = new WPBDP_Admin();
         }
 
         $this->compat = new WPBDP_Compat();

@@ -93,7 +93,7 @@ class WPBDP__Meta {
         if ( empty( $wp_query->wpbdp_view ) || ! is_array( $title ) )
             return $title;
 
-        $current_view = $this->dispatcher->current_view_object();
+        $current_view = wpbdp()->dispatcher->current_view_object();
 
         if ( ! $current_view )
             return $title;

@@ -33,7 +33,7 @@ $description  = apply_filters( 'wpbdp_fee_selection_fee_description', $descripti
             <?php endif; ?>
         </div>
         <div class="wpbdp-plan-details">
-        <div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label ) ); ?></div>
+        <div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label, $plan ) ); ?></div>
 
             <?php if ( $description ): ?>
             <div class="wpbdp-plan-description"><?php echo $description; ?></div>

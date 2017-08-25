@@ -599,6 +599,11 @@ function wpbdp_current_listing_id() {
  */
 function wpbdp_current_view() {
     global $wpbdp;
+
+    if ( ! isset( $wpbdp->dispatcher ) || ! is_object( $wpbdp->dispatcher ) ) {
+        return '';
+    }
+
     return $wpbdp->dispatcher->current_view();
 }
 
