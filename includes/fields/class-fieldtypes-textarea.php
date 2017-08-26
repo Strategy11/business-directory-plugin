@@ -51,17 +51,19 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         $settings['allow_iframes'][] = _x( 'Allow IFRAME tags in content?', 'form-fields admin', 'WPBDM' );
         $settings['allow_iframes'][] =
-            '<div class="iframe-confirm wpbdp-note warning">' . 
+            '<div class="iframe-confirm wpbdp-note warning">' .
             '<p>' . _x( 'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?', 'admin form-fields', 'WPBDM' ) . '</p>' .
             '<a href="#" class="button no">' . _x( 'No', 'form-fields admin', 'WPBDM' ) . '</a> ' .
             '<a href="#" class="button button-primary yes">' . _x( 'Yes', 'form-fields admin', 'WPBDM' ) . '</a>' .
             '</div>' .
             '<input type="checkbox" value="1" name="field[allow_iframes]" ' . ( $field && $field->data( 'allow_iframes' ) ? ' checked="checked"' : '' ) . ' />';
 
-        if ( ( $field && $field->get_association() == 'content' ) || ( $association == 'content' ) ) {
+        if ( ( $field && in_array( $field->get_association(), array( 'content', 'excerpt' ) ) ) || ( in_array( $association, array( 'content', 'excerpt' ) ) ) ) {
             $settings['allow_shortcodes'][] = _x( 'Allow WordPress shortcodes in this field?', 'form-fields admin', 'WPBDM' );
             $settings['allow_shortcodes'][] = '<input type="checkbox" value="1" name="field[allow_shortcodes]" ' . ( $field && $field->data( 'allow_shortcodes' ) ? ' checked="checked"' : '' ) . ' />';
+        }
 
+        if ( ( $field && $field->get_association() == 'content' ) || ( $association == 'content' ) ) {
             $settings['wysiwyg_editor'][] = _x( 'Display a WYSIWYG editor on the frontend?', 'form-fields admin', 'WPBDM' );
             $settings['wysiwyg_editor'][] = '<input type="checkbox" value="1" name="field[wysiwyg_editor]" ' . ( $field && $field->data( 'wysiwyg_editor' ) ? ' checked="checked"' : '' ) . ' />';
 
@@ -161,8 +163,29 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                     $value = wpautop( $value );
                 }
             }
-        } elseif ( 'excerpt' == $field->get_association() && $field->data( 'auto_excerpt' ) ) {
-            $value = $this->get_excerpt_value_from_post( $post_id );
+        } elseif ( 'excerpt' == $field->get_association() ) {
+            if ( $field->data( 'auto_excerpt' ) ) {
+                $value = $this->get_excerpt_value_from_post( $post_id );
+            }
+
+            if ( $field->data( 'allow_shortcodes' ) ) {
+                global $post;
+                // Try to protect us from sortcodes messing things for us.
+                $current_post = $post;
+
+                $value = wpautop( $value );
+                $value = do_shortcode( shortcode_unautop( $value ) );
+
+                $post = $current_post;
+            } else {
+                if ( $field->data( 'allow_html' ) ) {
+                    $value = wpautop( $value );
+                }
+            }
+
+            if ( ! $field->data( 'allow_html' ) ) {
+                $value = nl2br( $value );
+            }
         } else {
             if ( $field->data( 'allow_html' ) ) {
                 $value = wpautop( $value );
