@@ -337,7 +337,7 @@ class WPBDP__Shortcodes {
                 $query_args['author'] = $u->ID;
         }
 
-        $v = new WPBDP__Views__All_Listings( array(  'menu' => $atts['menu'], 'query_args' => $query_args ) );
+        $v = new WPBDP__Views__All_Listings( array(  'menu' => $atts['menu'], 'query_args' => $query_args, 'in_shortcode' => true ) );
         return $v->dispatch();
     }
 
@@ -420,6 +420,10 @@ class WPBDP__Shortcodes {
         );
 
         $query = new WP_Query( $query_args );
+
+        // Try to trick pagination to remove it when processing a shortcode.
+        $q->max_num_pages = 1;
+
         wpbdp_push_query( $q );
 
         $html  = '';
