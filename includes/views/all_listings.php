@@ -32,6 +32,11 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
         $args = array_merge( $args, $args_ );
 
         $q = new WP_Query( $args );
+
+        // Try to trick pagination to remove it when processing a shortcode.
+        if ( ! empty( $this->in_shortcode ) ) {
+            $q->max_num_pages = 1;
+        }
         wpbdp_push_query( $q );
 
         $show_menu = isset( $this->menu ) ? $this->menu : ( ! empty ( $args['tax_query'] ) ? false : true );
