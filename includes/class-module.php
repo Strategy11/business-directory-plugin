@@ -10,6 +10,10 @@ final class WPBDP__Module {
     public $id;
     public $version;
     public $required_bd_version;
+
+    public $text_domain;
+    public $text_domain_path;
+
     public $is_premium_module = true;
 
     private $module;
@@ -25,15 +29,12 @@ final class WPBDP__Module {
             $this->{$required_prop} = $obj->{$required_prop};
         }
 
-        if ( ! isset( $obj->title ) || ! isset( $obj->version ) ) {
-            $plugin_data = get_file_data( $obj->file, array( 'Plugin Name', 'Version', 'TextDomain' ) );
+        $plugin_data = get_file_data( $obj->file, array( 'Plugin Name', 'Version', 'Text Domain', 'Domain Path' ) );
 
-            $this->title = empty( $obj->title ) ? $plugin_data[0] : $obj->title;
-            $this->version = empty( $obj->version ) ? $plugin_data[1] : $obj->version;
-        } else {
-            $this->title = $obj->title;
-            $this->version = $obj->version;
-        }
+        $this->title = empty( $obj->title ) ? $plugin_data[0] : $obj->title;
+        $this->version = empty( $obj->version ) ? $plugin_data[1] : $obj->version;
+        $this->text_domain = empty( $obj->text_domain ) ? $plugin_data[2] : $obj->text_domain;
+        $this->text_domain_path = empty( $obj->domain_path ) ? $plugin_data[3] : $obj->domain_path;
 
         $this->required_bd_version = isset( $obj->required_bd_version ) ? $obj->required_bd_version : '';
         $this->is_premium_module = ! in_array( $this->id, array( 'categories' ), true );
