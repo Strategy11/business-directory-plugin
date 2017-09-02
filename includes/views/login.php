@@ -30,7 +30,12 @@ class WPBDP__Views__Login extends WPBDP__View {
             }
         }
 
-        return $this->_render( 'login', array( 'access_key_enabled' => $key_access_enabled ) );
+        $params = array(
+            'access_key_enabled' => $key_access_enabled,
+            'request_access_key_url' => wpbdp_url( 'request_access_keys' ),
+        );
+
+        return $this->_render( 'login', $params );
     }
 
 }

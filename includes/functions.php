@@ -557,6 +557,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'view_listings':
         case 'search':
         case 'login':
+        case 'request_access_keys':
             $url = add_query_arg( 'wpbdp_view', $pathorview, $base_url );
             break;
         case 'delete_listing':
