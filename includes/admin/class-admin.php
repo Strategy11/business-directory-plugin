@@ -298,7 +298,7 @@ to how WordPress stores the data.", 'WPBDM' )
         $menu['wpbdp-debug-info'] = array(
             'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
             'callback' => array( &$this->debug_page, 'dispatch' )
-        );        
+        );
 
         add_submenu_page( null,
                           __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
@@ -325,7 +325,7 @@ to how WordPress stores the data.", 'WPBDM' )
                                                    $item_slug,
                                                    array( $this, 'menu_dispatch' ) );
         }
-        $item_data = null;
+        // $item_data = null;
         do_action('wpbdp_admin_menu', 'wpbdp_admin');
 
         if ( ! current_user_can( 'administrator' ) )
@@ -385,6 +385,7 @@ to how WordPress stores the data.", 'WPBDM' )
         $item = $this->menu[ $plugin_page ];
         $slug = $plugin_page;
         $callback = $item['callback'];
+
 
         // Simple callback view are not processed here.
         if ( $callback && is_callable( $callback ) )

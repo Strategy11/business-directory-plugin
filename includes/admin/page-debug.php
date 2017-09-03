@@ -37,12 +37,21 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'WPBDM' );
 
         $settings_api = wpbdp_settings_api();
-        foreach ( $settings_api->settings as &$s  ) {
-            if ( $s->type == 'core' || in_array( $s->name, $blacklisted ) )
+        foreach ( $settings_api->get_registered_settings() as &$s  ) {
+            if ( in_array( $s['id'], $blacklisted ) )
                 continue;
 
-            $value = wpbdp_get_option( $s->name );
-            $debug_info['options'][ $s->name ] = is_array( $value ) ? implode( ',', $value ) : $value;
+            $value = wpbdp_get_option( $s['id'] );
+
+            if ( is_array( $value ) ) {
+                if ( empty( $value ) ) {
+                    $value = '';
+                } else {
+                    $value = print_r( $value, 1 );
+                }
+            }
+
+            $debug_info['options'][ $s['id'] ] = $value;
         }
         $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
 
