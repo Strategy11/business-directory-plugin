@@ -20,7 +20,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public function enqueue_resources() {
         wp_enqueue_style( 'dashicons' );
 
-        wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'assets/js/submit-listing.min.js', array( 'jquery-ui-sortable' ) );
+        wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'assets/js/submit-listing.min.js' );
 
         wp_localize_script( 'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
             'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
@@ -356,6 +356,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
+        $selected_categories = array( 7,8,9,10,6 );
         return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'selected_categories', 'selected_plan' ) );
     }
 

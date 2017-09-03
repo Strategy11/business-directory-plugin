@@ -62,7 +62,7 @@ class WPBDP__Assets {
         wp_register_script(
             'wpbdp-js',
             WPBDP_URL . 'assets/js/wpbdp.min.js',
-            array( 'jquery', 'jquery-breakpoints', 'wpbdp-js-select2' ),
+            array( 'jquery', 'jquery-breakpoints', 'wpbdp-js-select2', 'jquery-ui-sortable' ),
             WPBDP_VERSION
         );
 
