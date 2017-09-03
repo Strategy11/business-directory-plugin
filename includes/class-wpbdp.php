@@ -32,13 +32,13 @@ final class WPBDP {
     }
 
     private function includes() {
-        require_once( WPBDP_PATH . 'includes/class-modules.php' );
+        require_once( WPBDP_INC . 'class-modules.php' );
         require_once( WPBDP_INC . 'licensing.php' );
 
         require_once( WPBDP_INC . 'form-fields.php' );
         require_once( WPBDP_INC . 'payment.php' );
         require_once( WPBDP_PATH . 'includes/class-payment-gateways.php' );
-        // require_once( WPBDP_INC . 'installer.php' );
+        require_once( WPBDP_INC . 'installer.php' );
 
         require_once( WPBDP_INC . 'class-cron.php' );
 
@@ -47,9 +47,9 @@ final class WPBDP {
         require_once( WPBDP_INC . 'functions.php' );
         require_once( WPBDP_INC . 'utils.php' );
 
-        require_once( WPBDP_PATH . 'includes/class-cpt-integration.php' );
-        require_once( WPBDP_PATH . 'includes/class-listing-expiration.php' );
-        require_once( WPBDP_PATH . 'includes/class-listing-email-notification.php' );
+        require_once( WPBDP_INC . 'class-cpt-integration.php' );
+        require_once( WPBDP_INC . 'class-listing-expiration.php' );
+        require_once( WPBDP_INC . 'class-listing-email-notification.php' );
 
         require_once( WPBDP_INC . 'compatibility/class-compat.php' );
         require_once( WPBDP_INC . 'class-rewrite.php' );
@@ -97,20 +97,6 @@ final class WPBDP {
     }
 
     public function init() {
-    //     $this->installer = new WPBDP_Installer();
-    //
-    //     try {
-    //         $this->installer->install();
-    //     } catch ( Exception $e ) {
-    //         $this->installer->show_installation_error( $e );
-    //         return;
-    //     }
-    //
-    //     if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
-    //         $this->installer->setup_manual_upgrade();
-    //         return;
-    //     }
-
         $this->load_textdomain();
 
         // Register cache groups.
@@ -124,9 +110,24 @@ final class WPBDP {
 
         $this->licensing = new WPBDP_Licensing();
         $this->modules = new WPBDP__Modules();
+
         $this->themes = new WPBDP_Themes();
 
         $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
+
+        $this->installer = new WPBDP_Installer();
+        try {
+            $this->installer->install();
+        } catch ( Exception $e ) {
+            $this->installer->show_installation_error( $e );
+            return;
+        }
+
+        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
+            $this->installer->setup_manual_upgrade();
+            return;
+        }
+        
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
 
