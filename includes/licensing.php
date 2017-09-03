@@ -348,7 +348,7 @@ class WPBDP_Licensing {
         $invalid = array();
 
         foreach ( $this->items as $item ) {
-            $status = $this->get_license_status( '', $item['item_type'], $item['id'] );
+            $status = $this->get_license_status( '', $item['id'], $item['item_type'] );
 
             if ( 'valid' != $status ) {
                 $invalid[] = array(
@@ -507,7 +507,7 @@ class WPBDP_Licensing {
         }
 
         $this->updates = get_transient( 'wpbdp_updates' );
-        $needs_refresh = false;        
+        $needs_refresh = false;
 
         if ( ! is_array( $this->updates ) ) {
             $needs_refresh = true;
@@ -621,36 +621,41 @@ class WPBDP_Licensing {
     }
 
     public function module_update_information( $data, $action = '', $args = null ) {
+        if ( 'plugin_information' != $action || ! isset( $args->slug ) ) {
+            return $data;
+        }
+
+        $matches = wp_list_filter( $this->items, array( 'file' => $args->slug ) );
+        if ( ! $matches ) {
+            return $data;
+        }
+
+        $item = array_pop( $matches );
+
+        $http_args = array(
+            'timeout' => 15,
+            'sslverify' => false,
+            'body' => array(
+                'edd_action' => 'get_version',
+                'item_name' => $item['name'],
+                'license' => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
+                'url' => home_url()
+            )
+        );
+        $request = wp_remote_post( self::STORE_URL, $http_args );
+
+        if ( ! is_wp_error( $request ) ) {
+            $request = json_decode( wp_remote_retrieve_body( $request ) );
+
+            if ( $request && is_object( $request ) && isset( $request->sections ) ) {
+                $request->sections = maybe_unserialize( $request->sections );
+                $data = $request;
+            }
+        }
+
+        return $data;
     }
 
-    // function updates_plugin_information( $data, $action = '', $args = null ) {
-    //     if ( 'plugin_information' != $action || ! isset( $args->slug ) || ! isset( $this->modules[ $args->slug ] ) )
-    //         return $data;
-    //
-    //     $http_args = array(
-    //         'timeout' => 15,
-    //         'sslverify' => false,
-    //         'body' => array(
-    //             'edd_action' => 'get_version',
-    //             'item_name' => $this->modules[ $args->slug ]['name'],
-    //             'license' => $this->modules[ $args->slug ]['license'],
-    //             'url' => home_url()
-    //         )
-    //     );
-    //     $request = wp_remote_post( self::STORE_URL, $http_args );
-    //
-    //     if ( is_wp_error( $request ) )
-    //         return $data;
-    //
-    //     $request = json_decode( wp_remote_retrieve_body( $request ) );
-    //
-    //     if ( ! $request || ! is_object( $request ) || ! isset( $request->sections ) )
-    //         return $data;
-    //
-    //     $request->sections = maybe_unserialize( $request->sections );
-    //     $data = $request;
-    //
-    //     return $data;
     // }
 
 }
