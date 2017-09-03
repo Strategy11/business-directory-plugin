@@ -75,6 +75,7 @@ class WPBDP__Shortcodes {
 
     public function sc_submit_listing() {
         $v = wpbdp_load_view( 'submit_listing' );
+        $v->enqueue_resources();
         return $v->dispatch();
     }
 
