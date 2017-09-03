@@ -127,7 +127,6 @@ final class WPBDP {
             $this->installer->setup_manual_upgrade();
             return;
         }
-        
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
 
@@ -160,7 +159,9 @@ final class WPBDP {
             $this->template_integration = new WPBDP__WordPress_Template_Integration();
 
             $this->meta = new WPBDP__Meta();
-        } else if ( wpbdp_is_request( 'admin' ) ) {
+        }
+        
+        if ( wpbdp_is_request( 'admin' ) ) {
             $this->admin = new WPBDP_Admin();
         }
 
