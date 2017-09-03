@@ -28,6 +28,10 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
         if ( empty( $args_or_title['id'] ) ) {
             unset( $args_or_title['id'] );
         }
+
+        if ( is_null( $args_or_title['sidebar'] ) ) {
+            unset( $args_or_title['sidebar'] );
+        }
     }
 
     $defaults = array(
