@@ -145,7 +145,7 @@ class WPBDP_CSVImportAdmin {
     private function example_csv() {
         echo wpbdp_admin_header(_x('Example CSV Import File', 'admin csv-import', 'WPBDM'), null, array(
             array(_x('← Return to "CSV Import"', 'admin csv-import', 'WPBDM'), esc_url(remove_query_arg('action')))
-        ));
+        ), false);
 
         $posts = get_posts(array(
             'post_type' => WPBDP_POST_TYPE,
