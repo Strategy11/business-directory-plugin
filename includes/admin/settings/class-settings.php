@@ -32,12 +32,12 @@ class WPBDP__Settings {
     public function sanitize_settings( $input ) {
         $on_admin = ! empty( $_POST['_wp_http_referer'] );
 
-        $this->options = array_merge( $this->options, $input );
+        $output = array_merge( $this->options, $input );
 
         // Validate each setting.
         foreach ( $input as $setting_id => $value ) {
-            $input[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize', $value, $setting_id );
-            $input[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize_' . $setting_id, $input[ $setting_id ], $setting_id );
+            $output[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize', $value, $setting_id );
+            $output[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize_' . $setting_id, $input[ $setting_id ], $setting_id );
 
             if ( ! empty( $this->settings[ $setting_id ] ) ) {
                 $setting = $this->settings[ $setting_id ];
@@ -49,7 +49,7 @@ class WPBDP__Settings {
                     case 'multicheck':
                         if ( '-1' === $value ) {
                             $input[ $setting_id ] = 0;
-                            $this->options[ $setting_id ] = 0;
+                            $output[ $setting_id ] = 0;
                             // unset( $this->options[ $setting_id ] );
                         }
 
@@ -64,6 +64,8 @@ class WPBDP__Settings {
                 }
             }
         }
+
+        $this->options = $output;
 
         return $this->options;
 
