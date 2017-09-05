@@ -32,61 +32,81 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
 }
 
 function wpbdp_get_page_ids( $page_id = 'main' ) {
-    global $wpdb;
-
     static $request_cached = array();
 
     if ( isset( $request_cached[ $page_id ] ) ) {
-        return $request_cached[ $page_id ];
+        $page_ids = $request_cached[ $page_id ];
+    } else {
+        $page_ids = null;
     }
 
     $cached_ids = get_transient( 'wpbdp-page-ids' );
 
-    if ( is_array( $cached_ids ) && isset( $cached_ids[ $page_id ] ) ) {
-        // Validate the cached IDs.
-
-        if ( $page_ids = $cached_ids[ $page_id ] ) {
-            $query  = _wpbdp_page_lookup_query( $page_id, true );
-            $query .= ' AND ID IN ( ' . implode( ',', array_map( 'intval', $page_ids ) ) . ' ) ';
-
-            $count = intval( $wpdb->get_var( $query ) );
-
-            if ( $count == count( $page_ids ) ) {
-                // Cache is valid.
-                $request_cached[ $page_id ] = $page_ids;
-                return $page_ids;
-            }
-
-            wpbdp_debug( 'Page cache is invalid.' );
-        }
+    if ( is_null( $page_ids ) ) {
+        $page_ids = wpbdp_get_page_ids_from_cache( $cached_ids, $page_id );
     }
+
+    if ( is_null( $page_ids ) ) {
+        $page_ids = wpbdp_get_page_ids_with_query( $page_id );
+    }
+
+    if ( is_array( $cached_ids ) ) {
+        $cached_ids[ $page_id ] = $page_ids;
+    } else {
+        $cached_ids = array( $page_id => $page_ids );
+    }
+
+    set_transient( 'wpbdp-page-ids', $cached_ids, 60 * 60 * 24 * 30 );
+
+    $request_cached[ $page_id ] = $page_ids;
+
+    return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
+}
+
+function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
+    if ( ! is_array( $cached_ids ) || empty( $cached_ids[ $page_id ] ) ) {
+        return null;
+    }
+
+    // Validate the cached IDs.
+    $query  = _wpbdp_page_lookup_query( $page_id, true );
+    $query .= ' AND ID IN ( ' . implode( ',', array_map( 'intval', $page_ids ) ) . ' ) ';
+
+    $count = intval( $wpdb->get_var( $query ) );
+
+    if ( $count != count( $cached_ids[ $page_id ] ) ) {
+        wpbdp_debug( 'Page cache is invalid.' );
+        return null;
+    }
+
+    return $cached_ids[ $page_id ];
+}
+
+function wpbdp_get_page_ids_with_query( $page_id ) {
+    global $wpdb;
 
     // Look up for pages.
     $q = _wpbdp_page_lookup_query( $page_id );
-    if ( ! $q )
-        return array();
+
+    if ( ! $q ) {
+        return null;
+    }
 
     $q .= ' ORDER BY ID ASC ';
 
     $page_ids = $wpdb->get_col( $q );
-    $request_cached[ $page_id ] = $page_ids;
-
-    if ( ! is_array( $cached_ids ) )
-        $cached_ids = array();
-
-    $cached_ids[ $page_id ] = $page_ids;
-    set_transient( 'wpbdp-page-ids', $cached_ids, 60 * 60 * 24 * 30 );
-
-    return (array) $page_ids;
 }
 
 function wpbdp_get_page_id( $name = 'main' ) {
     $page_ids = wpbdp_get_page_ids( $name );
 
-    if ( ! $page_ids )
-        return false;
+    if ( ! $page_ids ) {
+        $page_id = false;
+    } else {
+        $page_id = $page_ids[0];
+    }
 
-    return apply_filters( 'wpbdp_get_page_id', $page_ids[0], $name );
+    return apply_filters( 'wpbdp_get_page_id', $page_id, $name );
 }
 
 /**
