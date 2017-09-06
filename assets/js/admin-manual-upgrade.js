@@ -1,6 +1,6 @@
 jQuery(function($) {
-    var $startButton = $('.wpbdp-page-manual-upgrade a.start-upgrade');
-    var $pauseButton = $('.wpbdp-page-manual-upgrade a.pause-upgrade');
+    var $startButton = $('.wpbdp-admin-page-manual-upgrade a.start-upgrade');
+    var $pauseButton = $('.wpbdp-admin-page-manual-upgrade a.pause-upgrade');
     var $progressArea = $('textarea#manual-upgrade-progress');
     var inProgress = false;
 
@@ -92,9 +92,3 @@ jQuery(function($) {
 
 });
 
-        //     var width = Math.floor( $(window).width() * 0.8 ) - 5;
-        //     var height = Math.floor( $(window).height() * 0.8 ) - 5;
-        //     t._$display.find( '.route-map' ).width( ( width * 0.7 ) + 'px' );
-        //     t._$display.find( '.route-map' ).height( height + 'px' );
-        //     t._$display.find( '.directions-panel' ).css( 'max-height', height + 'px' );
-        //     tb_show( title, '#TB_inline?width=' + width + '&height=' + height + '&inlineId=wpbdp-map-directions-wrapper' );

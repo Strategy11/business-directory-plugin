@@ -52,13 +52,14 @@ class WPBDP_Licensing {
             'version'   => ''
         );
         $args = wp_parse_args( $args, $defaults );
+        $args['slug'] = plugin_basename( $args['file'] );
 
         $this->items[ $args['id'] ] = $args;
 
         // Keep items sorted by name.
         uasort( $this->items, array( $this, 'sort_modules_by_name' ) );
 
-        return true;
+        return $this->items[ $args['id'] ];
     }
 
     public function register_settings() {
@@ -664,5 +665,15 @@ class WPBDP_Licensing {
  * @since 3.4.2
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
-    return wpbdp()->licensing->add_item( array( 'type' => 'module', 'file' => $file_, 'version' => $version, 'name' => $name ) );
+    $item = wpbdp()->licensing->add_item( array( 'item_type' => 'module', 'file' => $file_, 'version' => $version, 'name' => $name ) );
+
+    if ( $item ) {
+        $license_status = wpbdp()->licensing->get_license_status( '', $item['id'], 'module' );
+
+        if ( 'valid' == $license_status ) {
+            return true;
+        }
+    }
+
+    return false;
 }

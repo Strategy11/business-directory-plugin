@@ -113,8 +113,6 @@ final class WPBDP {
 
         $this->themes = new WPBDP_Themes();
 
-        $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
-
         $this->installer = new WPBDP_Installer();
         try {
             $this->installer->install();
@@ -127,6 +125,8 @@ final class WPBDP {
             $this->installer->setup_manual_upgrade();
             return;
         }
+
+        $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
 

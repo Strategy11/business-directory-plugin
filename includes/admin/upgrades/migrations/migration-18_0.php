@@ -21,6 +21,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         $done = false;
 
         $subroutines = array(
+            '_migrate_licenses',
             '_migrate_email_notices',
             '_migrate_fee_plans',
             '_migrate_payment_items',
@@ -44,6 +45,46 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
      */
     public function _set_featured_migration_flag( &$msg ) {
         update_option( 'wpbdp-migrate-18_0-featured-pending', true, false );
+        return true;
+    }
+
+    public function _migrate_licenses( &$msg ) {
+        global $wpdb;
+
+        $settings = get_option( 'wpbdp_settings', array() );
+        $licenses = get_option( 'wpbdp_licenses', array() );
+
+        $module_keys = $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'wpbdp-license-key-%'", ARRAY_A );
+        $theme_keys  = get_option( 'wpbdp-themes-licenses', array() );
+
+        foreach ( $module_keys as $item ) {
+            $module_id = str_replace( 'wpbdp-license-key-', '', $item['option_name'] );
+            $key       = $item['option_value'];
+            $status    = get_option( 'wpbdp-license-status-' . $module_id, 'invalid' );
+
+            $settings[ 'license-key-module-' . $module_id ] = $key;
+            $licenses[ 'module-' . $module_id ] = array(
+                'license_key'  => $key,
+                'status'       => $status,
+                'expires'      => '',
+                'last_checked' => 0
+            );
+        }
+
+        foreach ( $theme_keys as $theme_id => $license_data ) {
+            $settings[ 'license-key-theme-' . $theme_id ] = $license_data['license'];
+            $licenses[ 'theme-' . $theme_id ] = array(
+                'license_key'  => $license_data['license'],
+                'status'       => $license_data['status'],
+                'expires'      => '',
+                'last_checked' => $license_data['updated']
+            );
+        }
+
+        update_option( 'wpbdp_settings', $settings );
+        update_option( 'wpbdp_licenses', $licenses );
+
+        $msg = _x( 'Migrating license information to new format...', 'installer', 'WPBDM' );
         return true;
     }
 
@@ -123,6 +164,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         global $wpdb;
 
         $msg = _x( 'Migrating fee plans...', 'installer', 'WPBDM' );
+
+        if ( ! wpbdp_table_exists( $wpdb->prefix . 'wpbdp_fees' ) ) {
+            return true;
+        }
 
         // This is all or nothing.
         $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_plans" );
@@ -237,6 +282,12 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
      */
     public function _migrate_listings( &$msg ) {
         global $wpdb;
+
+        if ( ! wpbdp_table_exists( $wpdb->prefix . 'wpbdp_listing_fees' ) ) {
+            return true;
+        }
+
+ 
         $batch_size = 20;
 
         $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) ) );
