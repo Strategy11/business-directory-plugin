@@ -720,6 +720,7 @@ final class WPBDP__Settings__Bootstrap {
                 'HUF' => _x('Hungarian Forint (HUF)', 'admin settings', 'WPBDM'),
                 'ILS' => _x('Israeli New Shequel (ILS)', 'admin settings', 'WPBDM'),
                 'JPY' => _x('Japanese Yen (JPY)', 'admin settings', 'WPBDM'),
+                'MAD' => _x('Moroccan Dirham (MAD)', 'admin settings', 'WPBDM'),
                 'MYR' => _x('Malasian Ringgit (MYR)', 'admin settings', 'WPBDM'),
                 'MXN' => _x('Mexican Peso (MXN)', 'admin settings', 'WPBDM'),
                 'NOK' => _x('Norwegian Krone (NOK)', 'admin settings', 'WPBDM'),
