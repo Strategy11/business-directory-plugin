@@ -438,7 +438,17 @@ class WPBDP__Settings {
      * Resets settings to their default values. This includes ALL premium modules too, so use with care.
      */
     public function reset_defaults() {
-        delete_option( 'wpbdp_settings' );
+        $options = $this->options;
+
+        foreach ( $options as $option_id => $option_value ) {
+            if ( preg_match( '/^license-key-/', $option_id ) ) {
+                continue;
+            }
+
+            unset( $this->options[ $option_id ] );
+        }
+
+        update_option( 'wpbdp_settings', $this->options );
     }
 
     public function validate_setting( $value, $setting_id ) {
