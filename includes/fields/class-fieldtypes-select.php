@@ -98,18 +98,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     }
                 }
         } else {
-            $html .= sprintf( '<select id="%s" name="%s" %s %s>',
+            $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s" %s>',
                               'wpbdp-field-' . $field->get_id(),
                               'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
                               $this->is_multiple() ? 'multiple="multiple"' : '',
-<<<<<<< HEAD
-                              $this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : '' );
-=======
                               'inselect',
                               $field->is_required() ? 'required' : '',
-                $this->is_multiple() ? sprintf( 'size="%d"', $size ) : ''
+                              $this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
             );
->>>>>>> 96f0e016... Show 'Number of options visible' setting for Category Multiselect.
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
                 $html .= sprintf( '<option value="-1">%s</option>',
