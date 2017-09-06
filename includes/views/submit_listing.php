@@ -650,7 +650,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function done() {
-        return wpbdp_render( 'submit-listing-done', array( 'listing' => $this->listing, 'editing' => $this->editing ) );
+        $params = array(
+            'listing' => $this->listing,
+            'editing' => $this->editing,
+            'payment' => $this->listing->generate_or_retrieve_payment(),
+        );
+
+        return wpbdp_render( 'submit-listing-done', $params );
     }
 
     public static function preview_form( $listing ) {

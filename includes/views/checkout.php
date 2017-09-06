@@ -36,6 +36,14 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     public function dispatch() {
         $this->pre_dispatch();
 
+        if ( $this->is_successful_initial_payment() ) {
+            $args = array(
+                'listing_id' => $this->payment->listing_id,
+            );
+
+            $this->_redirect( add_query_arg( $args, wpbdp_url( 'submit_listing' ) ) );
+        }
+
         if ( ! $this->can_checkout() ) {
             return $this->thank_you_message();
         }
@@ -82,6 +90,18 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $vars['payment'] = $this->payment;
 
         return $this->_render_page( 'checkout', $vars );
+    }
+
+    private function is_successful_initial_payment() {
+        if ( 'initial' !== $this->payment->payment_type ) {
+            return false;
+        }
+
+        if ( 'completed' !== $this->payment->status ) {
+            return false;
+        }
+
+        return $this->payment->gateway ? true : false;
     }
 
     private function can_checkout() {
