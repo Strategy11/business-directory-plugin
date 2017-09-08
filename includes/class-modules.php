@@ -5,11 +5,33 @@ require_once( WPBDP_PATH . 'includes/class-module.php' );
 class WPBDP__Modules {
 
     private $modules = array();
+    private $valid   = array();
 
 
     public function __construct() {
-        do_action( 'wpbdp_load_modules', $this );
+        $this->register_modules();
+
         add_action( 'init', array( $this, 'load_i18n' ), 999 );
+    }
+
+    private function register_modules() {
+        // Allow modules to register themselves with this class.
+        do_action( 'wpbdp_load_modules', $this );
+
+        // Register modules with the Licensing API.
+        foreach ( $this->modules as $mod ) {
+            $valid = false;
+
+            if ( ! $mod->is_premium_module ) {
+                $valid = true;
+            } else {
+                $valid = wpbdp_licensing_register_module( $mod->title, $mod->file, $mod->version );
+            }
+
+            if ( $valid ) {
+                $this->valid[] = $mod->id;
+            }
+        }
     }
 
     public function load( $module ) {
@@ -24,15 +46,8 @@ class WPBDP__Modules {
     }
 
     public function init() {
-        foreach ( $this->modules as $mod ) {
-            if ( ! $mod->is_premium_module ) {
-                $mod->init();
-                continue;
-            }
-
-            if ( ! wpbdp_licensing_register_module( $mod->title, $mod->file, $mod->version ) )
-                continue;
-
+        foreach ( $this->valid as $module_id ) {
+            $mod = $this->modules[ $module_id ];
             $mod->init();
         }
     }
