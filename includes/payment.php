@@ -49,7 +49,7 @@ class WPBDP_PaymentsAPI {
 
     <div class="wpbdp-payment-receipt-header">
         <h4><?php printf( _x( 'Payment #%s', 'payments', 'WPBDM' ), $payment->id ); ?></h4>
-        <span class="wpbdp-payment-receipt-date"><?php echo date( 'Y-m-d H:i', strtotime( $payment->created_on ) ); ?></span>
+        <span class="wpbdp-payment-receipt-date"><?php echo date( 'Y-m-d H:i', strtotime( $payment->created_at ) ); ?></span>
 
         <span class="wpbdp-tag wpbdp-payment-status wpbdp-payment-status-<?php echo $payment->status; ?>"><?php echo WPBDP_Payment::get_status_label( $payment->status ); ?></span>
     </div>
@@ -108,13 +108,13 @@ class WPBDP_PaymentsAPI {
         if ( 'pending' != $status || ! $listing_id || ! wpbdp_get_option( 'payment-abandonment' ) )
             return $status;
 
-        $last_pending = WPBDP_Payment::objects()->filter( array( 'listing_id' => $listing_id, 'status' => 'pending' ) )->order_by( '-created_on' )->get();
+        $last_pending = WPBDP_Payment::objects()->filter( array( 'listing_id' => $listing_id, 'status' => 'pending' ) )->order_by( '-created_at' )->get();
 
         if ( ! $last_pending || 'initial' != $last_pending['tag'] )
             return $status;
 
         $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
-        $hours_elapsed = ( current_time( 'timestamp' ) - strtotime( $last_pending['created_on'] ) ) / ( 60 * 60 );
+        $hours_elapsed = ( current_time( 'timestamp' ) - strtotime( $last_pending['created_at'] ) ) / ( 60 * 60 );
 
         if ( $hours_elapsed <= 0 )
             return $status;
@@ -144,14 +144,14 @@ class WPBDP_PaymentsAPI {
         $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
 
         $count_pending = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_on > %s AND ps.created_on <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
+            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at > %s AND ps.created_at <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
             $within_abandonment,
             $within_pending,
             'pending',
             'initial'
         ) );
         $count_abandoned = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_on <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
+            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
             $within_abandonment,
             'pending',
             'initial'
@@ -193,11 +193,11 @@ class WPBDP_PaymentsAPI {
 
         switch ( $filter ) {
             case 'abandoned':
-                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_on <= %s ', $within_abandonment );
+                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_at <= %s ', $within_abandonment );
                 break;
 
             case 'pending-abandonment':
-                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_on > %s AND ps.created_on <= %s ', $within_abandonment, $within_pending );
+                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_at > %s AND ps.created_at <= %s ', $within_abandonment, $within_pending );
                 break;
         }
 
@@ -219,7 +219,7 @@ class WPBDP_PaymentsAPI {
 
         // For now, we only notify listings with pending INITIAL payments.
         $to_notify = $wpdb->get_results(
-            $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND processed_on IS NULL AND created_on < %s ORDER BY created_on",
+            $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND processed_on IS NULL AND created_at < %s ORDER BY created_at",
                             'pending',
                             'initial',
                             $time_for_pending )

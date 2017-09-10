@@ -7,6 +7,9 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     public function migrate() {
         global $wpdb;
 
+        // wpbdp_payments: move from 'created_on' column to 'created_at'.
+        $wpdb->query( "UPDATE {$wpdb->prefix}wpbdp_payments SET created_at = FROM_UNIXTIME(UNIX_TIMESTAMP(created_on))" );
+
         // Remove orphans of everything first to make things easier for us.
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );

@@ -106,15 +106,15 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return $summary;
     }
 
-    public function get_created_on_date() {
-        $date = date_parse( $this->created_on );
+    public function get_created_at_date() {
+        $date = date_parse( $this->created_at );
         extract( $date );
 
         return compact( 'year', 'month', 'day' );
     }
 
-    public function get_created_on_time() {
-        $date = date_parse( $this->created_on );
+    public function get_created_at_time() {
+        $date = date_parse( $this->created_at );
         extract( $date );
 
         return compact( 'hour', 'minute' );

@@ -45,12 +45,12 @@ echo wpbdp_admin_header(
                 </div>
                 <div class="wpbdp-admin-box-row">
                     <label><?php _ex( 'Date:', 'admin payments', 'WPBDM' ); ?></label>
-                    <input type="text" name="payment[created_on_date]" value="<?php echo date( 'Y-m-d', strtotime( $payment->created_on ) ); ?>" />
+                    <input type="text" name="payment[created_at_date]" value="<?php echo date( 'Y-m-d', strtotime( $payment->created_at ) ); ?>" />
                 </div>
                 <div class="wpbdp-admin-box-row">
                     <label><?php _ex( 'Time:', 'admin payments', 'WPBDM' ); ?></label>
-                    <input type="text" maxlength="2" name="payment[created_on_time_hour]" value="<?php echo str_pad( $payment->created_on_time['hour'], 2, '0', STR_PAD_LEFT ); ?>" class="small-text" /> : 
-                    <input type="text" maxlength="2" name="payment[created_on_time_min]" value="<?php echo str_pad( $payment->created_on_time['minute'], 2, '0', STR_PAD_LEFT ); ?>" class="small-text" />
+                    <input type="text" maxlength="2" name="payment[created_at_time_hour]" value="<?php echo str_pad( $payment->created_at_time['hour'], 2, '0', STR_PAD_LEFT ); ?>" class="small-text" /> : 
+                    <input type="text" maxlength="2" name="payment[created_at_time_min]" value="<?php echo str_pad( $payment->created_at_time['minute'], 2, '0', STR_PAD_LEFT ); ?>" class="small-text" />
                 </div>
                 <div class="wpbdp-admin-box-row">
                     <label><?php _ex( 'Gateway:', 'admin payments', 'WPBDM' ); ?></label>

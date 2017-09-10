@@ -103,7 +103,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_date( $payment ) {
-        return date_i18n( get_option( 'date_format' ), strtotime( $payment->created_on ));
+        return date_i18n( get_option( 'date_format' ), strtotime( $payment->created_at ));
     }
 
     public function column_amount( $payment ) {
