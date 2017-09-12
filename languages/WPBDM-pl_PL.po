@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-08-04 23:51:24+00:00\n"
+"POT-Creation-Date: 2017-09-12 22:27:01+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -108,7 +108,7 @@ msgid "Missing tables: %s"
 msgstr "Oferty otagowane: %s"
 
 # @ WPBDM
-#: includes/api.php:405
+#: includes/api.php:427
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
@@ -3240,25 +3240,25 @@ msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Zezwolić na krótkie kody WordPress'a w tm polu?"
 
-#: includes/fields/class-fieldtypes-textarea.php:66
+#: includes/fields/class-fieldtypes-textarea.php:68
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:69
+#: includes/fields/class-fieldtypes-textarea.php:71
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
 "in fee plans."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:70
+#: includes/fields/class-fieldtypes-textarea.php:72
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:73
+#: includes/fields/class-fieldtypes-textarea.php:75
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -3268,12 +3268,12 @@ msgstr ""
 "nie zaznaczaj tej opcji, no chyba że wiesz co robisz."
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:74
+#: includes/fields/class-fieldtypes-textarea.php:76
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "Zastosować filtr \"the_content\" przed wyświetlaniem tego pola?"
 
-#: includes/fields/class-fieldtypes-textarea.php:79
+#: includes/fields/class-fieldtypes-textarea.php:81
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr ""
@@ -5199,7 +5199,7 @@ msgstr ""
 "ręcznie usunąć plik \"%s\" lub de-aktywować plugin."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1236
+#: includes/admin/settings/class-settings.php:1245
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Dopuszczalne wypełnienie pola: %s"
@@ -5392,25 +5392,25 @@ msgstr ""
 "wszystkich form płatności."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1206
+#: includes/admin/settings/class-settings.php:1215
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Dezaktywacja Licencji"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1208
+#: includes/admin/settings/class-settings.php:1217
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Dezaktywowanie Licencji"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1211
+#: includes/admin/settings/class-settings.php:1220
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Aktywacja Licencji"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1213
+#: includes/admin/settings/class-settings.php:1222
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Aktywowanie Licencji"
@@ -5449,85 +5449,85 @@ msgid "Reset Defaults"
 msgstr "Przywróć ustawienia fabryczne"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1270
+#: includes/admin/settings/class-settings.php:1279
 msgctxt "settings email"
 msgid "Click to edit e-mail"
 msgstr "Kliknij, aby edytować e-mail"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1271
+#: includes/admin/settings/class-settings.php:1280
 msgctxt "settings email"
 msgid "Click to edit"
 msgstr "Kliknij, aby edytować"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1284
+#: includes/admin/settings/class-settings.php:1293
 msgctxt "settings email"
 msgid "E-Mail Subject"
 msgstr "Tytuł E-Maila"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1295
+#: includes/admin/settings/class-settings.php:1304
 msgctxt "settings email"
 msgid "E-Mail Body"
 msgstr "Forma E-Maila"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1306
+#: includes/admin/settings/class-settings.php:1315
 msgctxt "settings email"
 msgid "You can use the following placeholders:"
 msgstr "Możesz użyc następujących wypełnień pól:"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1329
+#: includes/admin/settings/class-settings.php:1338
 msgctxt "settings email"
 msgid "Preview e-mail"
 msgstr "Podgląd e-maila"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1330
+#: includes/admin/settings/class-settings.php:1339
 msgctxt "settings email"
 msgid "Cancel"
 msgstr "Anuluj"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1331
+#: includes/admin/settings/class-settings.php:1340
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Zapisz zmiany"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1350
+#: includes/admin/settings/class-settings.php:1359
 msgctxt "settings email"
 msgid "Site title"
 msgstr "Tytuł strony"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1353
+#: includes/admin/settings/class-settings.php:1362
 msgctxt "settings email"
 msgid "Site title (with link)"
 msgstr "Tytuł strony (z linkiem)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1356
+#: includes/admin/settings/class-settings.php:1365
 msgctxt "settings email"
 msgid "Site address (with link)"
 msgstr "Adres strony (z linkiem)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1359
+#: includes/admin/settings/class-settings.php:1368
 msgctxt "settings email"
 msgid "Directory URL (with link)"
 msgstr "URL Katalogu (z linkiem)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1362
+#: includes/admin/settings/class-settings.php:1371
 msgctxt "settings email"
 msgid "Current date"
 msgstr "Aktualna data"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings.php:1365
+#: includes/admin/settings/class-settings.php:1374
 msgctxt "settings email"
 msgid "Current time"
 msgstr "Aktualny czas"
@@ -5673,13 +5673,13 @@ msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/class-listings-api.php:337
+#: includes/class-listings-api.php:341
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
-#: includes/class-listings-api.php:356
+#: includes/class-listings-api.php:360
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Powiadomienie o Edycji oferty"

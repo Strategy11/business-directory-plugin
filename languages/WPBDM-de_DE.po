@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-08-04 23:51:24+00:00\n"
+"POT-Creation-Date: 2017-09-12 22:27:01+00:00\n"
 "PO-Revision-Date: 2017-03-29 10:08+0200\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Missing tables: %s"
 msgstr "Nicht vorhandene Tabellen: %s"
 
-#: includes/api.php:405
+#: includes/api.php:427
 msgid "Free"
 msgstr "Kostenlos"
 
@@ -2893,24 +2893,24 @@ msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Erlaube Wordpress Shortcodes in diesem Feld?"
 
-#: includes/fields/class-fieldtypes-textarea.php:66
+#: includes/fields/class-fieldtypes-textarea.php:68
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr "Zeige einen WYSIWYG-Editor im Frontend an?"
 
-#: includes/fields/class-fieldtypes-textarea.php:69
+#: includes/fields/class-fieldtypes-textarea.php:71
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
 "in fee plans."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:70
+#: includes/fields/class-fieldtypes-textarea.php:72
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr "Bilder im WYSIWYG-Editor erlauben?"
 
-#: includes/fields/class-fieldtypes-textarea.php:73
+#: includes/fields/class-fieldtypes-textarea.php:75
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -2919,12 +2919,12 @@ msgstr ""
 "<b>Nur für Administratoren!</b> Wenn es dir nicht ausdrücklich gesagt wurde, "
 "ändere diese Einstellung nicht bevor du nicht weist was du genau tust."
 
-#: includes/fields/class-fieldtypes-textarea.php:74
+#: includes/fields/class-fieldtypes-textarea.php:76
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "\"the_content\" Filter zuweisen bevor das Feld angezeigt wird?"
 
-#: includes/fields/class-fieldtypes-textarea.php:79
+#: includes/fields/class-fieldtypes-textarea.php:81
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Automatisches Generierung eines Auszugs aus dem Inhaltsfeld?"
@@ -4577,7 +4577,7 @@ msgid ""
 "\". Please remove the file \"%s\" manually or deactivate the plugin."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:1236
+#: includes/admin/settings/class-settings.php:1245
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Gültige Platzhalter: %s"
@@ -4748,22 +4748,22 @@ msgstr ""
 "Einige Zeit nachdem der Eintrag abgelaufen und keine Erneuerung beauftragt "
 "wurde senden. Wird bei bezahlten und kostenlosen Erneuerungen verwendet."
 
-#: includes/admin/settings/class-settings.php:1206
+#: includes/admin/settings/class-settings.php:1215
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Lizenz Deaktivieren"
 
-#: includes/admin/settings/class-settings.php:1208
+#: includes/admin/settings/class-settings.php:1217
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Deaktiviere Lizenz..."
 
-#: includes/admin/settings/class-settings.php:1211
+#: includes/admin/settings/class-settings.php:1220
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Aktiviere Lizenz"
 
-#: includes/admin/settings/class-settings.php:1213
+#: includes/admin/settings/class-settings.php:1222
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Aktiviere Lizenz..."
@@ -4797,72 +4797,72 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "Standards zurücksetzen"
 
-#: includes/admin/settings/class-settings.php:1270
+#: includes/admin/settings/class-settings.php:1279
 msgctxt "settings email"
 msgid "Click to edit e-mail"
 msgstr "Klicken um E-mail zu bearbeiten"
 
-#: includes/admin/settings/class-settings.php:1271
+#: includes/admin/settings/class-settings.php:1280
 msgctxt "settings email"
 msgid "Click to edit"
 msgstr "zum Bearbeiten klicken"
 
-#: includes/admin/settings/class-settings.php:1284
+#: includes/admin/settings/class-settings.php:1293
 msgctxt "settings email"
 msgid "E-Mail Subject"
 msgstr "E-mail Betreff"
 
-#: includes/admin/settings/class-settings.php:1295
+#: includes/admin/settings/class-settings.php:1304
 msgctxt "settings email"
 msgid "E-Mail Body"
 msgstr "E-mail Text"
 
-#: includes/admin/settings/class-settings.php:1306
+#: includes/admin/settings/class-settings.php:1315
 msgctxt "settings email"
 msgid "You can use the following placeholders:"
 msgstr "Du kannst folgende Platzhalter verwenden:"
 
-#: includes/admin/settings/class-settings.php:1329
+#: includes/admin/settings/class-settings.php:1338
 msgctxt "settings email"
 msgid "Preview e-mail"
 msgstr "Vorschau E-mail"
 
-#: includes/admin/settings/class-settings.php:1330
+#: includes/admin/settings/class-settings.php:1339
 msgctxt "settings email"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: includes/admin/settings/class-settings.php:1331
+#: includes/admin/settings/class-settings.php:1340
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Änderungen sichern"
 
-#: includes/admin/settings/class-settings.php:1350
+#: includes/admin/settings/class-settings.php:1359
 msgctxt "settings email"
 msgid "Site title"
 msgstr "Seitentitel"
 
-#: includes/admin/settings/class-settings.php:1353
+#: includes/admin/settings/class-settings.php:1362
 msgctxt "settings email"
 msgid "Site title (with link)"
 msgstr "Seitentitel (mit Link)"
 
-#: includes/admin/settings/class-settings.php:1356
+#: includes/admin/settings/class-settings.php:1365
 msgctxt "settings email"
 msgid "Site address (with link)"
 msgstr "Seitenadresse (mit Link)"
 
-#: includes/admin/settings/class-settings.php:1359
+#: includes/admin/settings/class-settings.php:1368
 msgctxt "settings email"
 msgid "Directory URL (with link)"
 msgstr "Verzeichnis URL (mit Link)"
 
-#: includes/admin/settings/class-settings.php:1362
+#: includes/admin/settings/class-settings.php:1371
 msgctxt "settings email"
 msgid "Current date"
 msgstr "Aktuelles Datum"
 
-#: includes/admin/settings/class-settings.php:1365
+#: includes/admin/settings/class-settings.php:1374
 msgctxt "settings email"
 msgid "Current time"
 msgstr "Aktuelle Zeit"
@@ -4985,12 +4985,12 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Neuer Eintrag"
 
-#: includes/class-listings-api.php:337
+#: includes/class-listings-api.php:341
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] neue Eintragsbenachrichtigung"
 
-#: includes/class-listings-api.php:356
+#: includes/class-listings-api.php:360
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Eintrag bearbeiten Benachrichtigung"

@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-08-04 23:51:24+00:00\n"
-"PO-Revision-Date: 2017-08-04 19:00-0500\n"
+"POT-Creation-Date: 2017-09-12 22:27:01+00:00\n"
+"PO-Revision-Date: 2017-09-12 17:27-0500\n"
 "Last-Translator: Willington Vega <wvega@wvega.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Missing tables: %s"
 msgstr "Tablas faltantes: %s"
 
-#: includes/api.php:405
+#: includes/api.php:427
 msgid "Free"
 msgstr "Gratuito"
 
@@ -2898,12 +2898,12 @@ msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Permitir shortcodes de WordPress en este campo?"
 
-#: includes/fields/class-fieldtypes-textarea.php:66
+#: includes/fields/class-fieldtypes-textarea.php:68
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr "Mostrar un editor WYSIWYG en la cara del sitio?"
 
-#: includes/fields/class-fieldtypes-textarea.php:69
+#: includes/fields/class-fieldtypes-textarea.php:71
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
@@ -2912,12 +2912,12 @@ msgstr ""
 "<b>Advertencia:</b> Los usuarios podrían usar esta característica para "
 "saltar los límites de imágenes."
 
-#: includes/fields/class-fieldtypes-textarea.php:70
+#: includes/fields/class-fieldtypes-textarea.php:72
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr "Permitir imágenes en el editor WYSIWYG?"
 
-#: includes/fields/class-fieldtypes-textarea.php:73
+#: includes/fields/class-fieldtypes-textarea.php:75
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -2926,14 +2926,14 @@ msgstr ""
 "<b>¡Usuarios avanzados únicamente!</b> No cambie esta configuración salvo si "
 "está seguro de lo que está haciendo."
 
-#: includes/fields/class-fieldtypes-textarea.php:74
+#: includes/fields/class-fieldtypes-textarea.php:76
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr ""
 "Aplicar el filtro \"the_content\" antes de mostrar el contenido de este "
 "campo?"
 
-#: includes/fields/class-fieldtypes-textarea.php:79
+#: includes/fields/class-fieldtypes-textarea.php:81
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "¿Generar resumen automáticamente del campo de contenido?"
@@ -4623,7 +4623,7 @@ msgstr ""
 "No se pudo remover \"Business Directory Plugin - AJAX Compatibility Module"
 "\". Por favor elimine el archivo \"%s\" manualmente o desactive el plugin."
 
-#: includes/admin/settings/class-settings.php:1236
+#: includes/admin/settings/class-settings.php:1245
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Comodines válidos: %s"
@@ -4794,22 +4794,22 @@ msgstr ""
 "Enviado un tiempo después de que el listado expire y no haya sido renovado. "
 "Aplica tanto a renovaciones recurrentes como no recurrentes."
 
-#: includes/admin/settings/class-settings.php:1206
+#: includes/admin/settings/class-settings.php:1215
 msgctxt "settings"
 msgid "Deactivate License"
 msgstr "Desactivar Licencia"
 
-#: includes/admin/settings/class-settings.php:1208
+#: includes/admin/settings/class-settings.php:1217
 msgctxt "settings"
 msgid "Deactivating license..."
 msgstr "Desactivando licencia..."
 
-#: includes/admin/settings/class-settings.php:1211
+#: includes/admin/settings/class-settings.php:1220
 msgctxt "settings"
 msgid "Activate License"
 msgstr "Activar Licencia"
 
-#: includes/admin/settings/class-settings.php:1213
+#: includes/admin/settings/class-settings.php:1222
 msgctxt "settings"
 msgid "Activating license..."
 msgstr "Activando licencia..."
@@ -4846,72 +4846,72 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "Restaurar valores por defecto"
 
-#: includes/admin/settings/class-settings.php:1270
+#: includes/admin/settings/class-settings.php:1279
 msgctxt "settings email"
 msgid "Click to edit e-mail"
 msgstr "Click para editar el correo"
 
-#: includes/admin/settings/class-settings.php:1271
+#: includes/admin/settings/class-settings.php:1280
 msgctxt "settings email"
 msgid "Click to edit"
 msgstr "Click para editar"
 
-#: includes/admin/settings/class-settings.php:1284
+#: includes/admin/settings/class-settings.php:1293
 msgctxt "settings email"
 msgid "E-Mail Subject"
 msgstr "Título del correo"
 
-#: includes/admin/settings/class-settings.php:1295
+#: includes/admin/settings/class-settings.php:1304
 msgctxt "settings email"
 msgid "E-Mail Body"
 msgstr "Cuerpo del correo"
 
-#: includes/admin/settings/class-settings.php:1306
+#: includes/admin/settings/class-settings.php:1315
 msgctxt "settings email"
 msgid "You can use the following placeholders:"
 msgstr "Puede utilizar los siguientes comodines:"
 
-#: includes/admin/settings/class-settings.php:1329
+#: includes/admin/settings/class-settings.php:1338
 msgctxt "settings email"
 msgid "Preview e-mail"
 msgstr "Previsualizar correo"
 
-#: includes/admin/settings/class-settings.php:1330
+#: includes/admin/settings/class-settings.php:1339
 msgctxt "settings email"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: includes/admin/settings/class-settings.php:1331
+#: includes/admin/settings/class-settings.php:1340
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: includes/admin/settings/class-settings.php:1350
+#: includes/admin/settings/class-settings.php:1359
 msgctxt "settings email"
 msgid "Site title"
 msgstr "Título del sitio"
 
-#: includes/admin/settings/class-settings.php:1353
+#: includes/admin/settings/class-settings.php:1362
 msgctxt "settings email"
 msgid "Site title (with link)"
 msgstr "Título del listado (con enlace)"
 
-#: includes/admin/settings/class-settings.php:1356
+#: includes/admin/settings/class-settings.php:1365
 msgctxt "settings email"
 msgid "Site address (with link)"
 msgstr "Dirección del listado (con enlace)"
 
-#: includes/admin/settings/class-settings.php:1359
+#: includes/admin/settings/class-settings.php:1368
 msgctxt "settings email"
 msgid "Directory URL (with link)"
 msgstr "URL del Directorio (con enlace)"
 
-#: includes/admin/settings/class-settings.php:1362
+#: includes/admin/settings/class-settings.php:1371
 msgctxt "settings email"
 msgid "Current date"
 msgstr "Fecha actual"
 
-#: includes/admin/settings/class-settings.php:1365
+#: includes/admin/settings/class-settings.php:1374
 msgctxt "settings email"
 msgid "Current time"
 msgstr "Hora actual"
@@ -5033,12 +5033,12 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: includes/class-listings-api.php:337
+#: includes/class-listings-api.php:341
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
 
-#: includes/class-listings-api.php:356
+#: includes/class-listings-api.php:360
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notificación de listado editado"
