@@ -406,7 +406,7 @@ class WPBDP__Settings {
         return $res;
     }
 
-    function get_setting( $name ) {
+    public function get_setting( $name ) {
         if ( isset( $this->settings[ $name ] ) )
             return $this->settings[ $name ];
 
