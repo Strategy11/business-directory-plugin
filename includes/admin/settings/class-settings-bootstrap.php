@@ -481,28 +481,12 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'multicheck',
             'name'    => _x( 'Sortbar Fields', 'settings', 'WPBDM' ),
             'default' => array(),
-            'options' => self::sortbar_fields_options(),
+            'options' => wpbdp_sortbar_get_field_options(),
             'group'  => 'listings/sorting'
         ) );
     }
 
     private static function sortbar_fields_options() {
-        $options = array();
-
-        foreach( wpbdp_get_form_fields() as $field ) {
-            if ( in_array( $field->get_field_type_id(), array( 'textarea', 'select', 'checkbox', 'url' ) ) || in_array( $field->get_association(), array( 'category', 'tags' ) ) ) {
-                continue;
-            }
-
-            $options[ $field->get_id() ] = apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field );
-        }
-
-        $options['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
-        $options['user_registered'] = _x( 'User registration date', 'admin settings', 'WPBDM' );
-        $options['date'] = _x( 'Date posted', 'admin settings', 'WPBDM' );
-        $options['modified'] = _x( 'Date last modified', 'admin settings', 'WPBDM' );
-
-        return $options;
     }
 
     private static function settings_appearance() {

@@ -184,10 +184,10 @@ class WPBDP__Query_Integration {
 
     // {{ Sort bar.
     public function sortbar_sort_options( $options ) {
-        $sortbar_fields = $this->settings->sortbar_fields_cb();
+        $sortbar_fields = wpbdp_sortbar_get_field_options();
         $sortbar = wpbdp_get_option( 'listings-sortbar-fields' );
 
-        foreach ( $sortbar as $field_id ) {
+        foreach ( $sortbar as $field_id) {
             if ( ! array_key_exists( $field_id, $sortbar_fields ) )
                 continue;
             $options[ 'field-' . $field_id ] = array( $sortbar_fields[ $field_id ], '', 'ASC' );
