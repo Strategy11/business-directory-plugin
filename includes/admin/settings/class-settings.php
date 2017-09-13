@@ -48,8 +48,8 @@ class WPBDP__Settings {
                     case 'checkbox':
                     case 'multicheck':
                         if ( '-1' === $value ) {
-                            $input[ $setting_id ] = 0;
-                            $output[ $setting_id ] = 0;
+                            $input[ $setting_id ] = ( 'multicheck' == $setting['type'] ? array() : 0 );
+                            $output[ $setting_id ] = ( 'multicheck' == $setting['type'] ? array() : 0 );
                             // unset( $this->options[ $setting_id ] );
                         }
 

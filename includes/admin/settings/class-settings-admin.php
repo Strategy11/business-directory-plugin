@@ -228,10 +228,12 @@ class WPBDP__Settings_Admin {
 
         $value = (array) $value;
 
+        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . ']" value="-1" />';
+
         echo '<div class="wpbdp-settings-multicheck-options">';
         foreach ( $setting['options'] as $option_value => $option_label ) {
             echo '<div class="wpbdp-settings-multicheck-option">';
-            echo '<input type="checkbox" name="" />';
+            echo '<input type="checkbox" name="wpbdp_settings[' . $setting['id'] . '][]" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
             echo '<label>';
             echo $option_label;
             echo '</label>';
