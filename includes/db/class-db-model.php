@@ -91,8 +91,13 @@ class WPBDP__DB__Model {
         $pk = $model['primary_key'];
         $dirty = $this->_dirty;
 
-        // Assume everything's dirty for now, since we can't track arrays or objects.
-        $dirty = array_keys( $cols );
+        // Assume everything's dirty for now, since we can't track arrays or objects..
+        $dirty = $cols;
+        // ... but handle these two columns with care.
+        unset( $dirty['created_at'] );
+        unset( $dirty['updated_at'] );
+
+        $dirty = array_keys( $dirty );
 
         if ( ! $this->_adding )
             $row[ $pk ] = $this->_attrs[ $pk ];
@@ -186,10 +191,11 @@ class WPBDP__DB__Model {
 
         $row = $this->prepare_row();
 
-        if ( $this->_adding )
+        if ( $this->_adding ) {
             $res = $wpdb->insert( $model['table']['name'], $row );
-        else
+        } else {
             $res = $wpdb->update( $model['table']['name'], $row, array( $pk => $this->_attrs[ $pk ] ) );
+        }
 
         if ( $this->_adding && $res ) {
             $this->_attrs[ $pk ] = $wpdb->insert_id;
