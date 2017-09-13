@@ -487,9 +487,7 @@ function wpbdp_has_shortcode( &$content, $shortcode ) {
  * @since 3.4.2
  */
 function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
-    global $wpbdp;
-
-    $setting = $wpbdp->settings->get_setting( $setting_name );
+    $setting = wpbdp()->settings->get_setting( $setting_name );
 
     if ( ! $setting )
         return false;
@@ -499,7 +497,7 @@ function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
     if ( ! $text )
         return false;
 
-    $placeholders = isset( $setting->args['placeholders'] ) ? array_keys( $setting->args['placeholders'] ) : array();
+    $placeholders = isset( $setting['placeholders'] ) ? array_keys( $setting['placeholders'] ) : array();
 
     foreach ( $replacements as $pholder => $repl ) {
         if ( ! in_array( $pholder, $placeholders, true ) )
@@ -515,8 +513,6 @@ function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
  * @since 3.5.4
  */
 function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $args = array() ) {
-    global $wpbdp;
-
     $setting = null;
     $file = null;
     $object = null;
@@ -526,16 +522,16 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     } else if ( is_array( $setting_or_file ) || is_object( $setting_or_file ) ) {
         $object = $setting_or_file;
     } else {
-        $setting = $wpbdp->settings->get_setting( $setting_or_file );
+        $setting = wpbdp()->settings->get_setting( $setting_or_file );
     }
 
-    if ( ( ! $setting && ! $file && ! $object ) || ( $setting && 'email_template' != $setting->type ) )
+    if ( ( ! $setting && ! $file && ! $object ) || ( $setting && 'email_template' != $setting['type'] ) )
         return false;
 
     if ( ! class_exists( 'WPBDP_Email' ) )
         require_once( WPBDP_PATH . 'includes/helpers/class-email.php' );
 
-    $placeholders = $setting ? ( isset( $setting->args['placeholders'] ) && is_array( $setting->args['placeholders'] ) ? $setting->args['placeholders'] : array() ) : array();
+    $placeholders = $setting ? ( isset( $setting['placeholders'] ) && is_array( $setting['placeholders'] ) ? $setting['placeholders'] : array() ) : array();
 
     // Add core replacements.
     $replacements = array_merge( $replacements, array(
@@ -566,8 +562,8 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
 
         // Support old-style settings.
         if ( ! is_array( $value ) ) {
-            $subject = $setting->default['subject'];
-            $body = $setting->default['body'];
+            $subject = $setting['default']['subject'];
+            $body = $setting['default']['body'];
         } else {
             $subject = $value['subject'];
             $body = $value['body'];
