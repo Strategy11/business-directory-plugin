@@ -486,9 +486,6 @@ final class WPBDP__Settings__Bootstrap {
         ) );
     }
 
-    private static function sortbar_fields_options() {
-    }
-
     private static function settings_appearance() {
         // Display Options.
         wpbdp_register_settings_group( 'display_options', _x( 'Directory Display Options', 'settings', 'WPBDM' ), 'appearance/main' );
