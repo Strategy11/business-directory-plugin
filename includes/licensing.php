@@ -232,7 +232,7 @@ class WPBDP_Licensing {
     function licenses_tab_css( $css = '', $tab_id ) {
         if ( 'licenses' == $tab_id ) {
             foreach ( $this->items as $item ) {
-                if ( 'valid' != $this->get_license_status( '', $item['item_type'], $item['id'] ) ) {
+                if ( 'valid' != $this->get_license_status( '', $item['id'], $item['item_type'] ) ) {
                     $css .= ' tab-error';
                     break;
                 }
