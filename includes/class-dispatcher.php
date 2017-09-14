@@ -38,6 +38,19 @@ class WPBDP__Dispatcher {
         //     return;
         // }
 
+        // If the page contains the submit listing shortcode, dispatch it as if it were the current view.
+        // TODO: this is a very special case that we should probably generalize somehow for other shortcodes.
+        if ( ! empty( $GLOBALS['post'] ) && 'page' == $GLOBALS['post']->post_type && ! empty( $GLOBALS['post']->post_content ) ) {
+            $submit_shortcodes = array( 'businessdirectory-submit-listing', 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' );
+
+            foreach ( $submit_shortcodes as $test_shortcode ) {
+                if ( has_shortcode( $GLOBALS['post']->post_content, $test_shortcode ) ) {
+                    $this->current_view = 'submit_listing';
+                    break;
+                }
+            }
+        }
+
         $this->current_view = apply_filters( 'wpbdp_current_view', $this->current_view );
         $this->current_view_obj = $this->load_view( $this->current_view );
 

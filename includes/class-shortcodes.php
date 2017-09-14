@@ -262,14 +262,14 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_submit_listing() {
-        $v = wpbdp_load_view( 'submit_listing' );
-        $v->enqueue_resources();
-
-        if ( ! isset( $this->output['submit-listing'] ) ) {
-            $this->output['submit-listing'] = $v->dispatch();
+        if ( $content = wpbdp_current_view_output() ) {
+            return $content;
+        } else {
+            // This shouldn't happen... but just in case.
+            $v = wpbdp_load_view( 'submit_listing' );
+            $v->enqueue_resources();
+            return $v->dispatch();
         }
-
-        return $this->output['submit-listing'];
     }
 
     public function sc_listings( $atts ) {
