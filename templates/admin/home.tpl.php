@@ -22,7 +22,7 @@
 
 <ul class="shortcuts">
     <li>
-        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_settings' ); ?>" class="button"><?php _e( 'Manage Options', 'WPBDM' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_settings' ); ?>" class="button"><?php _e( 'Manage Options', 'WPBDM' ); ?></a>
     </li>
     <li>
         <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_formfields' ); ?>" class="button"><?php _e( 'Manage Form Fields', 'WPBDM' ); ?></a>
