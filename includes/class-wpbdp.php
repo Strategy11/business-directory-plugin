@@ -163,14 +163,16 @@ final class WPBDP {
             $this->template_integration = new WPBDP__WordPress_Template_Integration();
 
             $this->meta = new WPBDP__Meta();
+            $this->recaptcha = new WPBDP_reCAPTCHA();            
         }
-        
+
         if ( wpbdp_is_request( 'admin' ) ) {
             $this->admin = new WPBDP_Admin();
         }
 
         $this->compat = new WPBDP_Compat();
         $this->rewrite = new WPBDP__Rewrite();
+
 
         do_action( 'wpbdp_loaded' );
 
@@ -384,7 +386,6 @@ final class WPBDP {
             __( 'The directory is not available at this time. Please try again in a few minutes or contact the administrator if the problem persists.', 'WPBDM' ),
             'error'
         );
-    }    
+    }
 
 }
-

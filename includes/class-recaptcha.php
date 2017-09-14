@@ -174,8 +174,7 @@ JS;
  * @since 3.4.2
  */
 function wpbdp_recaptcha( $name = '' ) {
-    global $wpbdp;
-    return $wpbdp->recaptcha->render( $name );
+    return wpbdp()->recaptcha->render( $name );
 }
 
 /**
@@ -184,7 +183,6 @@ function wpbdp_recaptcha( $name = '' ) {
  * @since 3.4.2
  */
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
-    global $wpbdp;
-    return $wpbdp->recaptcha->verify( $error_msg );
+    return wpbdp()->recaptcha->verify( $error_msg );
 }
 
