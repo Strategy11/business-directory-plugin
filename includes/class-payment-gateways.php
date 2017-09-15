@@ -9,7 +9,7 @@ class WPBDP__Payment_Gateways {
 
     public function __construct() {
         add_action( 'wpbdp_modules_loaded', array( $this, 'load_gateways' ) );
-        add_action( 'wpbdp_modules_init', array( $this, '_execute_listener' ) );
+        add_action( 'wpbdp_loaded', array( $this, '_execute_listener' ) );
         add_action( 'wpbdp_register_settings', array( $this, '_add_gateway_settings' ) );
         add_action( 'wpbdp_admin_notices', array( $this, '_admin_warnings' ) );
     }
@@ -126,7 +126,7 @@ class WPBDP__Payment_Gateways {
         if ( ! $at_least_one_gateway ) {
             $msg = _x( 'You have payments turned on but no gateway is active and properly configured. Go to <link>Manage Options - Payment</link> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'WPBDM' );
             $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">', '</a>' ), $msg );
-            wpbdp_admin_message( $msg, 'error' );            
+            wpbdp_admin_message( $msg, 'error' );
         }
     }
 
