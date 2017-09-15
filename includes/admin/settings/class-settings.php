@@ -453,34 +453,44 @@ class WPBDP__Settings {
 
     public function validate_setting( $value, $setting_id ) {
         if ( ! empty( $this->settings[ $setting_id ] ) ) {
-            $setting = $this->settings[ $setting_id ];
-            $validators = is_string( $setting['validator'] ) ? explode( ',', $setting['validator'] ) : array( $setting['validator'] );
+            $setting = $this->get_setting( $setting_id );
+
+            if ( is_string( $setting['validator'] ) ) {
+                $validators = explode( ',', $setting['validator'] );
+            } else if ( is_callable( $setting['validator'] ) ) {
+                $validators = array( $setting['validator'] );
+            } else if ( is_array( $setting['validator'] ) ) {
+                $validators = $setting['validator'];
+            }
         } else {
-            $validators = false;
+            $validators = array();
         }
 
         $old_value = $this->options[ $setting_id ];
         $has_error = false;
 
         foreach ( $validators as $validator ) {
-            if ( is_string( $validator ) ) {
-                switch ( $validator ) {
-                case 'trim':
-                    $value = trim( $value );
-                    break;
-                case 'no-spaces':
-                    $value = preg_replace( '/\s+/', '', $value );
-                    break;
-                case 'required':
-                    if ( empty( $value ) ) {
-                        add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
-                        $has_error = true;
-                    }
-
-                    break;
+            switch ( $validator ) {
+            case 'trim':
+                $value = trim( $value );
+                break;
+            case 'no-spaces':
+                $value = trim( preg_replace( '/\s+/', '', $value ) );
+                break;
+            case 'required':
+                if ( empty( $value ) ) {
+                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
+                    $has_error = true;
                 }
-            } else if ( is_callable( $validator ) ) {
-                $value = call_user_func( $validator, $value, $old_value );
+
+                break;
+            default:
+                if ( is_callable( $validator ) ) {
+                    // TODO: How to handle errors to set $has_error = true?
+                    $value = call_user_func( $validator, $value, $old_value );
+                }
+
+                break;
             }
         }
 
