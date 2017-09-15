@@ -822,7 +822,7 @@ to how WordPress stores the data.", 'WPBDM' )
     public function check_setup() {
         global $pagenow;
 
-        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
+        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] )
             return;
 
         // Registration disabled message.
@@ -840,7 +840,7 @@ to how WordPress stores the data.", 'WPBDM' )
     public function check_ajax_compat_mode() {
         global $pagenow;
 
-        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
+        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] )
             return;
 
         $notice = get_option( 'wpbdp-ajax-compat-mode-notice' );

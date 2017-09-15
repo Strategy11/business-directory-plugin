@@ -18,7 +18,7 @@ class WPBDP__Views__Main extends WPBDP__View {
                        'templates',
                        'WPBDM' );
             $msg = str_replace( '<a>',
-                                '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=listings#hide-empty-categories' ) . '">',
+                                '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=listings#hide-empty-categories' ) . '">',
                                 $msg );
             $html .= wpbdp_render_msg( $msg );
         }

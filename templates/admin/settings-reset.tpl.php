@@ -2,7 +2,7 @@
 echo wpbdp_admin_header( __( 'Business Directory - Reset Defaults', 'WPBDM' ),
                          'admin-settings',
                          array( array( _x( '← Return to "Manage Options"', 'settings', 'WPBDM' ),
-                                       admin_url( 'admin.php?page=wpbdp_admin_settings' ) )
+                                       admin_url( 'admin.php?page=wpbdp_settings' ) )
                               ) );
 ?>
 

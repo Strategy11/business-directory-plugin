@@ -98,7 +98,7 @@ class WPBDP__Payment_Gateways {
 
     // TODO: Maybe integrate all of these warnings into just one message?
     public function _admin_warnings() {
-        if ( empty( $_GET['page'] ) || 'wpbdp_admin_settings' != $_GET['page'] )
+        if ( empty( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] )
             return;
 
         if ( ! wpbdp_get_option( 'payments-on' ) )
@@ -117,7 +117,7 @@ class WPBDP__Payment_Gateways {
 
                 $msg = str_replace( '<gateway>', '<b>' . $gateway->get_title() .'</b>', $msg );
                 $msg = str_replace( '<problems>', '<b>' . $errors . '</b>', $msg );
-                $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">', '</a>' ), $msg );
+                $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">', '</a>' ), $msg );
 
                 wpbdp_admin_message( $msg, 'error' );
             }
@@ -125,7 +125,7 @@ class WPBDP__Payment_Gateways {
 
         if ( ! $at_least_one_gateway ) {
             $msg = _x( 'You have payments turned on but no gateway is active and properly configured. Go to <link>Manage Options - Payment</link> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'WPBDM' );
-            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=payment' ) . '">', '</a>' ), $msg );
+            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">', '</a>' ), $msg );
             wpbdp_admin_message( $msg, 'error' );
         }
     }

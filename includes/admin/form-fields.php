@@ -261,7 +261,7 @@ class WPBDP_FormFieldsAdmin {
                        'form-fields admin',
                        'WPBDM' );
             $msg = str_replace( '<a>',
-                                '<a href="' . admin_url( 'admin.php?page=wpbdp_admin_settings&groupid=email' ) . '">',
+                                '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '">',
                                 $msg );
             wpbdp_admin_message( $msg, 'error' );
         }
