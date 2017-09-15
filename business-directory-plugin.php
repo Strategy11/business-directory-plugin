@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: http://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 4.1.14.2dev7
+ * Version: 4.1.14.2dev8
  * Author: D. Rodenbaugh
  * Author URI: http://businessdirectoryplugin.com
  * Text Domain: WPBDM
@@ -31,7 +31,7 @@
 if( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) )
     exit();
 
-define( 'WPBDP_VERSION', '4.1.14.2dev7' );
+define( 'WPBDP_VERSION', '4.1.14.2dev8' );
 
 define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
 define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -185,7 +185,9 @@ class WPBDP_Plugin {
         add_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
         add_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
         add_filter( 'pre_get_document_title', array( &$this, '_meta_title' ), 10, 3 );
-        add_action( 'wp_head', array( &$this, '_rss_feed' ) );
+        add_action( 'wp_head', array( &$this, '_rss_feed' ), 2 );
+        add_filter( 'feed_links_show_posts_feed', array( $this, 'should_show_posts_feed_links' ) );
+        add_filter( 'feed_links_show_comments_feed', array( $this, 'should_show_posts_feed_links' ) );
 
         if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
             remove_filter('comments_template', array( &$this, '_comments_template'));
@@ -197,7 +199,6 @@ class WPBDP_Plugin {
 
             remove_filter( 'wp_title', array( &$this, '_meta_title' ), 10, 3 );
             remove_filter( 'pre_get_document_title', array( &$this, '_meta_title' ), 10, 3 );
-            remove_action( 'wp_head', array( &$this, '_rss_feed' ) );
 
             add_filter( 'document_title_parts', array( &$this, 'set_view_title' ), 10 );
         }
@@ -814,26 +815,64 @@ class WPBDP_Plugin {
     }
 
     public function _rss_feed() {
-        if ( ! wpbdp_current_view() )
+        $current_view = wpbdp_current_view();
+
+        if ( ! $current_view ) {
             return;
-
-        $main_page_id = wpbdp_get_page_id();
-
-        echo "\n<!-- Business Directory RSS feed -->\n";
-        echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
-                      sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
-                      esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) ) )
-                    );
-
-        if ( 'show_category' == wpbdp_current_view() ) {
-            echo "\n";
-            echo sprintf( '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" /> ',
-                          sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), get_the_title( $main_page_id ) ),
-                          esc_url( add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, WPBDP_CATEGORY_TAX => get_query_var( 'category' ) ),  get_bloginfo( 'rss2_url' ) ) )
-                        );
         }
 
-        echo "\n";
+        if ( ! in_array( $current_view, array( 'main', 'show_category', 'all_listings' ), true ) ) {
+            return;
+        }
+
+        $main_page_title = get_the_title( wpbdp_get_page_id() );
+        $link_template = '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />' . PHP_EOL;
+        $feed_links = array();
+
+        if ( 'main' === $current_view || 'all_listings' === $current_view ) {
+            $feed_title = sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), $main_page_title );
+            $feed_url = esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) ) );
+
+            $feed_links[] = sprintf( $link_template, $feed_title, $feed_url );
+        }
+
+        if ( 'show_category' === $current_view ) {
+            $term = _wpbpd_current_category();
+
+            if ( $term ) {
+                $taxonomy = get_taxonomy( $term->taxonomy );
+                $feed_title = sprintf( '%s &raquo; %s %s Feed', $main_page_title, $term->name, $taxonomy->labels->singular_name );
+                $query_args = array( 'post_type' => WPBDP_POST_TYPE, WPBDP_CATEGORY_TAX => $term->slug );
+                $feed_url = esc_url( add_query_arg( $query_args, get_bloginfo( 'rss2_url' ) ) );
+
+                $feed_links[] = sprintf( $link_template, $feed_title, $feed_url );
+
+                // Add dummy action to prevent https://core.trac.wordpress.org/ticket/40906
+                add_action( 'wp_head', '__return_null', 3 );
+                // Avoid two RSS URLs in Category pages.
+                remove_action( 'wp_head', 'feed_links_extra', 3 );
+            }
+        }
+
+        if ( $feed_links ) {
+            echo '<!-- Business Directory RSS feed -->' . PHP_EOL;
+            echo implode( '', $feed_links );
+            echo '<!-- /Business Directory RSS feed -->' . PHP_EOL;
+        }
+    }
+
+    public function should_show_posts_feed_links( $should ) {
+        $current_view = wpbdp_current_view();
+
+        if ( ! $current_view ) {
+            return $should;
+        }
+
+        if ( ! in_array( $current_view, array( 'main', 'show_category', 'all_listings' ), true ) ) {
+            return $should;
+        }
+
+        return false;
     }
 
     public function _register_widgets() {
