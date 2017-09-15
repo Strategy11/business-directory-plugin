@@ -326,6 +326,10 @@ class WPBDP_Licensing {
     }
 
     public function admin_notices() {
+        if ( ! current_user_can( 'administrator' ) ) {
+            return;
+        }
+
         $invalid = array();
         $expired = array();
 
