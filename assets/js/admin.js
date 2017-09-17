@@ -114,7 +114,7 @@ var WPBDP_associations_fieldtypes = {};
 jQuery(document).ready(function($){
 
     // {{ Manage Fees.
-    $('.wpbdp-page-admin-fees .wp-list-table.fees tbody').sortable({
+    $('.wpbdp-admin-page-fees .wp-list-table.fees tbody').sortable({
         placeholder: 'wpbdp-draggable-highlight',
         handle: '.wpbdp-drag-handle',
         axis: 'y',
@@ -148,7 +148,7 @@ jQuery(document).ready(function($){
     });
 
     if ( 'custom' == $('select[name="fee_order[method]"]').val() ) {
-        $( '.wpbdp-page-admin-fees .wp-list-table .wpbdp-drag-handle' ).show();
+        $( '.wpbdp-admin-page-fees .wp-list-table .wpbdp-drag-handle' ).show();
     }
     // }}
 

@@ -546,7 +546,7 @@ to how WordPress stores the data.", 'WPBDM' )
         if ( ! $order )
             $response->send_error();
 
-        $wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => 0 ) );
+        $wpdb->query( "UPDATE {$wpdb->prefix}wpbdp_plans SET weight = 0" );
 
         $weight = count( $order ) - 1;
         foreach( $order as $fee_id ) {
