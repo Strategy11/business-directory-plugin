@@ -539,15 +539,20 @@ class WPBDP_Licensing {
         $item_id    = $_POST['item_id'];
         $nonce      = $_POST['nonce'];
 
-        if ( ! $setting_id || ! $key || ! $item_type || ! $item_id || ! wp_verify_nonce( $nonce, 'license activation' ) ) {
-            die();
+        $response = new WPBDP_Ajax_Response();
+
+        if ( ! $setting_id || ! $item_type || ! $item_id || ! wp_verify_nonce( $nonce, 'license activation' ) ) {
+            $response->send_error();
+        }
+
+        if ( ! $key ) {
+            $response->send_error( _x( 'Please enter a license key.', 'licensing', 'WPBDM' ) );
         }
 
         // Store the new license key. This clears stored information about the license.
         wpbdp_set_option( 'license-key-' . $item_type . '-' . $item_id, $key );
 
         $result = $this->activate_license( $item_type, $item_id );
-        $response = new WPBDP_Ajax_Response();
 
         if ( is_wp_error( $result ) ) {
              $response->send_error( sprintf( _x( 'Could not activate license: %s.', 'licensing', 'WPBDM' ), $result->get_error_message() ) );
