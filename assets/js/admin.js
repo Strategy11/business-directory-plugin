@@ -318,22 +318,17 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         init: function() {
             var t = this;
 
-            $( '#wpbdp-settings-quick-search-fields select' ).change(function() {
-                var text_fields = $( '#wpbdp-settings-quick-search-fields' ).data( 'text-fields' );
-                var selected = $( this ).val();
+            $( '#wpbdp-settings-quick-search-fields' ).on( 'change', ':checkbox', function() {
+                var $container = $( '#wpbdp-settings-quick-search-fields' );
+                var text_fields = $container.data( 'text-fields' );
+                var selected = $container.find( ':checkbox:checked' ).map(function(){ return parseInt($(this).val()); }).get();
                 var show_warning = false;
 
-                if ( selected && text_fields ) {
-                    for ( var i = 0; i < selected.length; i++ ) {
-                        if ( show_warning ) {
+                if ( selected.length > 0 && text_fields.length > 0 ) {
+                    for ( var i = 0; i < text_fields.length; i++ ) {
+                        if ( $.inArray( text_fields[i], selected ) > -1 ) {
+                            show_warning = true;
                             break;
-                        }
-
-                        for ( var j = 0; j < text_fields.length; j++ ) {
-                            if ( selected[i] == text_fields[j] ) {
-                                show_warning = true;
-                                break;
-                            }
                         }
                     }
                 }

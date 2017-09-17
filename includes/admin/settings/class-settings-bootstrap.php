@@ -208,7 +208,7 @@ final class WPBDP__Settings__Bootstrap {
         list( $fields, $text_fields ) = self::get_quicksearch_fields();
         wpbdp_register_setting( array(
             'id'       => 'quick-search-fields',
-            'type'     => 'select',
+            'type'     => 'multicheck',
             'name'     => _x( 'Quick search fields', 'settings', 'WPBDM' ),
             'desc'     => _x( 'Use Ctrl-Click to include multiple fields in the search. Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ) . $too_many_fields,
             'default'  => array(),
