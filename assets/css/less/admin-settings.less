@@ -313,7 +313,24 @@
     }
 }
 
-#wpbdp-admin-page-settings select#quick-search-fields {
-    min-height: 150px;
+#wpbdp-admin-page-settings .wpbdp-settings-type-checkbox input[type="checkbox"] {
+    vertical-align: bottom;
+}
+
+#wpbdp-admin-page-settings .wpbdp-settings-radio-options,
+#wpbdp-admin-page-settings .wpbdp-settings-multicheck-options {
+    .wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
+        margin: 0 0 5px 0;
+
+        input[type="radio"], input[type="checkbox"] {
+            vertical-align: bottom;
+        }
+    }
+
+    & + .wpbdp-setting-description {
+        margin: 10px 0 0 0;
+    }
+}
+
 }
 

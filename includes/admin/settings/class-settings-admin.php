@@ -177,7 +177,7 @@ class WPBDP__Settings_Admin {
         if ( ! empty( $setting['desc'] ) ) {
             echo '<span class="wpbdp-setting-description">'  . wp_kses_post( $setting['desc'] ) . '</span>';
         }
-    }    
+    }
 
     public function setting_textarea_callback( $setting, $value ) {
         echo '<textarea id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
@@ -219,6 +219,10 @@ class WPBDP__Settings_Admin {
             echo '</div>';
         }
         echo '</div>';
+
+        if ( ! empty( $setting['desc'] ) ) {
+            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
+        }
     }
 
     public function setting_multicheck_callback( $setting, $value ) {
@@ -231,16 +235,23 @@ class WPBDP__Settings_Admin {
         echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . ']" value="-1" />';
 
         echo '<div class="wpbdp-settings-multicheck-options">';
+        $n = 0;
         foreach ( $setting['options'] as $option_value => $option_label ) {
-            echo '<div class="wpbdp-settings-multicheck-option">';
-            echo '<input type="checkbox" name="wpbdp_settings[' . $setting['id'] . '][]" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
-            echo '<label>';
+            echo '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . $n . '">';
+            echo '<input type="checkbox" name="wpbdp_settings[' . $setting['id'] . '][]" id="wpbdp-' . $setting['id'] . '-checkbox-no-' . $n . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
+            echo '<label for="wpbdp-' . $setting['id'] . '-checkbox-no-' . $n . '">';
             echo $option_label;
             echo '</label>';
             echo '</div>';
+
+            $n++;
         }
 
         echo '</div>';
+
+        if ( ! empty( $setting['desc'] ) ) {
+            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
+        }
     }
 
     public function setting_select_callback( $setting, $value ) {
