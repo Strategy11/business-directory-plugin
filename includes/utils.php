@@ -930,3 +930,17 @@ function wpbdp_is_request( $type ) {
         return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
     }
 }
+
+/**
+ * @since 5.0
+ */
+function wpbdp_deprecation_warning( $msg = '' ) {
+    global $wpbdp_deprecation_warnings;
+
+
+    if ( ! isset( $wpbdp_deprecation_warnings ) ) {
+        $wpbdp_deprecation_warnings = array();
+    }
+
+    $wpbdp_deprecation_warnings[] = $msg;
+}

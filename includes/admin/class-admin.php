@@ -583,6 +583,7 @@ to how WordPress stores the data.", 'WPBDM' )
 
         $this->check_setup();
         $this->check_ajax_compat_mode();
+        $this->check_deprecation_warnings();
 
         do_action( 'wpbdp_admin_notices' );
 
@@ -850,6 +851,16 @@ to how WordPress stores the data.", 'WPBDM' )
 
         $this->messages[] = $notice;
         delete_option( 'wpbdp-ajax-compat-mode-notice' );
+    }
+
+    private function check_deprecation_warnings() {
+        global $wpbdp_deprecation_warnings;
+
+        if ( ! empty( $wpbdp_deprecation_warnings ) ) {
+            foreach ( $wpbdp_deprecation_warnings as $warning ) {
+                $this->messages[] = $warning;
+            }
+        }
     }
 
     public function main_menu() {
