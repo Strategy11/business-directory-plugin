@@ -142,7 +142,8 @@ class WPBDP__Settings {
      */
     public function register_group( $slug, $title = '', $parent = '', $args = array() ) {
         if ( $parent && ! isset( $this->groups[ $parent ] ) ) {
-            throw new Exception( sprintf( 'Parent settings group does not exist: %s', $parent ) );
+            // throw new Exception( sprintf( 'Parent settings group does not exist: %s', $parent ) );
+            return false;
         }
 
         $parents = array();
@@ -164,7 +165,8 @@ class WPBDP__Settings {
             $group_type = 'section';
             break;
         default:
-            throw new Exception( sprintf( 'Invalid # of parents in the tree for settings group "%s"', $slug ) );
+            // throw new Exception( sprintf( 'Invalid # of parents in the tree for settings group "%s"', $slug ) );
+            return false;
             break;
         }
 
@@ -220,7 +222,8 @@ class WPBDP__Settings {
         }
 
         if ( ! isset( $this->groups[ $args['group'] ] ) ) {
-            throw new Exception( sprintf( 'Invalid settings group "%s" for setting "%s".', $args['group'], $args['id'] ) );
+            // throw new Exception( sprintf( 'Invalid settings group "%s" for setting "%s".', $args['group'], $args['id'] ) );
+            return false;
         }
 
         $this->settings[ $args['id' ] ] = $args;
