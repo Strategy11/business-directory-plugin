@@ -25,7 +25,7 @@ class WPBDP__Modules {
             if ( ! $mod->is_premium_module ) {
                 $valid = true;
             } else {
-                $valid = wpbdp_licensing_register_module( $mod->title, $mod->file, $mod->version );
+                $valid = wpbdp()->licensing->add_item_and_check_license( array( 'item_type' => 'module', 'name' => $mod->title, 'file' => $mod->file, 'version' => $mod->version ) );
             }
 
             if ( $valid ) {

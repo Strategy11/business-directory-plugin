@@ -62,6 +62,20 @@ class WPBDP_Licensing {
         return $this->items[ $args['id'] ];
     }
 
+    public function add_item_and_check_license( $args = array() ) {
+        $item = $this->add_item( $args );
+
+        if ( $item ) {
+            $license_status = wpbdp()->licensing->get_license_status( '', $item['id'], 'module' );
+
+            if ( 'valid' == $license_status ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function get_items() {
         return $this->items;
     }
@@ -750,17 +764,9 @@ class WPBDP_Licensing {
 
 /**
  * @since 3.4.2
+ * @deprecated since 5.0.
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
-    $item = wpbdp()->licensing->add_item( array( 'item_type' => 'module', 'file' => $file_, 'version' => $version, 'name' => $name ) );
-
-    if ( $item ) {
-        $license_status = wpbdp()->licensing->get_license_status( '', $item['id'], 'module' );
-
-        if ( 'valid' == $license_status ) {
-            return true;
-        }
-    }
-
+    wpbdp_deprecation_warning( sprintf( _x( '"%s" version %s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'WPBDM' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . $version . '</strong>' ) );
     return false;
 }
