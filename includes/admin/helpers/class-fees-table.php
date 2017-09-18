@@ -105,29 +105,42 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function prepare_items() {
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
 
+        $args = array();
+        if ( $order = wpbdp_get_option( 'fee-order' ) ) {
+            $args['_orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
+            $args['_order'] = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
+        }        
+
         switch ( $this->get_current_view() ) {
-            case 'active':
-                if ( wpbdp_payments_possible() )
-                    $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 1, '-tag' => 'free' ) );
-                else
-                    $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 1, 'tag' => 'free' ) );
+        case 'active':
+            $args['enabled'] = 1;
 
-                break;
-            case 'disabled':
-                $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 0 ) );
-                break;
-            case 'unavailable':
-                if ( wpbdp_payments_possible() )
-                    $this->items = WPBDP_Fee_Plan::find( array( 'tag' => 'free' ) );
-                else
-                    $this->items = WPBDP_Fee_Plan::find( array( 'enabled' => 1, '-tag' => 'free' ) );
+            if ( wpbdp_payments_possible() ) {
+                $args['-tag'] = 'free';
+            } else {
+                $args['tag'] = 'free';
+            }
 
-                break;
-            case 'all':
-            default:
-                $this->items = WPBDP_Fee_Plan::find();
-                break;
+            break;
+        case 'disabled':
+            $args['enabled'] = 0;
+
+            break;
+        case 'unavailable':
+            if ( wpbdp_payments_possible() ) {
+                $args['tag'] = 'free';
+            } else {
+                $args['enabled'] = 1;
+                $args['-tag'] = 'free';
+            }
+
+            break;
+        case 'all':
+        default:
+            break;
         }
+
+        $this->items = WPBDP_Fee_Plan::find( $args );
     }
 
     /* Rows */
