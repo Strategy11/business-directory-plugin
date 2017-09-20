@@ -638,6 +638,8 @@ class WPBDP_Listing {
     }
 
     public static function create( &$state ) {
+        global $wpdb;
+
         $post_data = self::get_post_data_from_state( $state, array(
             'post_title' => 'Untitled Listing',
             'post_status' => 'pending',
@@ -678,6 +680,11 @@ class WPBDP_Listing {
         }
 
         $post_id = wp_insert_post( $post_data );
+
+        // Force GUIDs to always be <home-url>?post_type=wpbdp_listing&p=<post_id>
+        $post_link = add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, 'p' => $post_id ), '' );
+		$wpdb->update( $wpdb->posts, array( 'guid' => home_url( $post_link ) ), array( 'ID' => $post_id ) );
+        clean_post_cache( $post_id );
 
         return new self( $post_id );
     }
