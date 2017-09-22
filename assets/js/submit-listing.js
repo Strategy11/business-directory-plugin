@@ -4,17 +4,34 @@ jQuery(function($) {
     wpbdp.submit_listing = wpbdp.submit_listing || {};
 
     // Fee_Selection_Helper {{
-    wpbdp.submit_listing.Fee_Selection_Helper = function( $submit ) {
-        this.reset();
+    wpbdp.submit_listing.Fee_Selection_Helper = function( $submit, editing ) {
+        this.editing = ( 'undefined' === typeof(editing) || ! editing ) ? false : true;
+
+        if ( ! this.editing ) {
+            this.reset();
+        }
     };
     $.extend( wpbdp.submit_listing.Fee_Selection_Helper.prototype, {
         reset: function() {
-            this.field = $( '.wpbdp-form-field-association-category select' );
-            // this.field.select2();
+            this.field_wrapper = $( '.wpbdp-form-field-association-category' );
+            this.field_type = '';
+
+            if ( $( '.wpbdp-js-select2', this.field_wrapper ).length > 0 ) {
+                this.field_type = 'select2';
+            } else if ( this.field_wrapper.hasClass( 'wpbdp-form-field-type-checkbox' ) ) {
+                this.field_type = 'checkbox';
+            } else if ( this.field_wrapper.hasClass( 'wpbdp-form-field-type-radio' ) ) {
+                this.field_type = 'radio';
+            }
+
+            this.field = this.field_wrapper.find( 'select, input[type="checkbox"], input[type="radio"]' );
+
+            if ( ! this.field_type ) {
+                // This shouldn't happen.
+                return;
+            }
 
             this.$plans_container = $( '.wpbdp-plan-selection-with-tip' );
-
-            this.is_multiple = this.field.prop( 'multiple' );
             this.plans = $( '.wpbdp-plan-selection-list .wpbdp-plan' );
 
             this.selected_categories = [];
@@ -24,13 +41,27 @@ jQuery(function($) {
 
             this.field.change( $.proxy( this.categories_changed, this ) );
             this.maybe_limit_category_options();
-            this.field.trigger('change');
+            this.field.first().trigger('change');
+
+            // this.field.select2();
         },
 
         categories_changed: function() {
-            this.selected_categories = this.field.val();
-            if ( ! this.selected_categories )
+            this.selected_categories = [];
+
+            if ( 'select2' == this.field_type ) {
+                this.selected_categories = this.field.val();
+            } else if ( 'checkbox' == this.field_type ) {
+                this.selected_categories = this.field.filter( ':checked' ).map(function() {
+                    return $( this ).val();
+                }).get();
+            } else if ( 'radio' == this.field_type ) {
+                this.selected_categories = this.field.val();
+            }
+
+            if ( ! this.selected_categories ) {
                 this.selected_categories = [];
+            }
 
             if ( ! $.isArray( this.selected_categories ) )
                 this.selected_categories = [this.selected_categories];
@@ -38,6 +69,8 @@ jQuery(function($) {
             if ( ! this.selected_categories ) {
                 this.selected_categories = [];
             }
+
+            this.selected_categories = $.map( this.selected_categories, function(x) { return parseInt( x ); } );
 
             this.update_plan_list();
             this.update_plan_prices();
@@ -59,10 +92,47 @@ jQuery(function($) {
             }
 
             // Workaround for https://github.com/select2/select2/issues/3992.
-            var self = this;
-            setTimeout(function() {
-                self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
-            });
+            if ( 'select2' == this.field_type ) {
+                var self = this;
+                setTimeout(function() {
+                    self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                });
+            }
+        },
+
+        _enable_categories: function( categories ) {
+            if ( 'none' != categories && 'all' != categories ) {
+                this._enable_categories( 'none' );
+            }
+
+            if ( 'none' == categories || 'all' == categories ) {
+                if ( 'select2' == this.field_type ) {
+                    this.field.find( 'option' ).prop( 'disabled', ( 'all' == categories ) ? false : true );
+                } else {
+                    this.field.prop( 'disabled', ( 'all' == categories ) ? false : true );
+
+                    if ( 'all' == categories ) {
+                        this.field_wrapper.find( '.wpbdp-form-field-checkbox-item, .wpbdp-form-field-radio-item' ).removeClass( 'disabled' );
+                    } else {
+                        this.field_wrapper.find( '.wpbdp-form-field-checkbox-item, .wpbdp-form-field-radio-item' ).addClass( 'disabled' );
+                    }
+                }
+
+                return;
+            }
+
+            if ( 'select2' == this.field_type ) {
+                this.field.find( 'option' ).each(function(i, v) {
+                    $( this ).prop( 'disabled', -1 == $.inArray( parseInt( $( this ).val() ), categories ) );
+                });
+            } else {
+                this.field.each(function(i, v) {
+                    if ( -1 != $.inArray( parseInt( $( this ).val() ), categories ) ) {
+                        $( this ).prop( 'disabled', false );
+                        $( this ).parents().filter( '.wpbdp-form-field-checkbox-item, .wpbdp-form-field-radio-item' ).removeClass( 'disabled' );
+                    }
+                });
+            }
         },
 
         maybe_limit_category_options: function() {
@@ -80,15 +150,14 @@ jQuery(function($) {
                     all_cats = true;
                 } else {
                     cats = $.unique( cats.concat( plan_cats.toString().split( ',' ) ) );
+                    cats = $.map( cats, function(x) { return parseInt( x ); } );
                 }
             });
 
             if ( all_cats ) {
-                this.field.find('option').prop( 'disabled', false );
+                this._enable_categories( 'all' );
             } else {
-                this.field.find('option').each(function(i, v) {
-                    $(this).prop( 'disabled', -1 == $.inArray( $(this).val(), cats ) );
-                });
+                this._enable_categories( cats );
             }
         },
 
@@ -99,16 +168,19 @@ jQuery(function($) {
             // Recompute available plans depending on category selection.
             $.each( this.plans, function( i, v ) {
                 var $plan = $( v );
-                var plan_cats = $plan.data('categories').toString().split(',');
+                var plan_cats = $plan.data('categories').toString();
                 var plan_supports_selection = true;
 
                 if ( 'all' != plan_cats && self.selected_categories ) {
+                    plan_cats = $.map( plan_cats.split(','), function( x ) { return parseInt(x); } );
+
                     $.each( self.selected_categories, function( j, c ) {
                         if ( ! plan_supports_selection )
                             return;
 
-                        if ( -1 == $.inArray( c, plan_cats ) )
+                        if ( -1 == $.inArray( c, plan_cats ) ) {
                             plan_supports_selection = false;
+                        }
                     } );
                 }
 
@@ -209,22 +281,19 @@ jQuery(function($) {
         },
 
         plan_handling: function() {
+            this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit, this.editing );
+
             if ( this.editing ) {
                 var $plan = this.$form.find( '.wpbdp-current-plan .wpbdp-plan' );
                 var plan_cats = $plan.data( 'categories' ).toString();
- 
-                if ( 'all' != plan_cats ) {
-                    var supported_categories = $.unique( plan_cats.split( ',' ) );
 
-                    this.$form.find( '.wpbdp-form-field-association-category select' ).find( 'option' ).each(function( i, v ) {
-                        $( this ).prop( 'disabled', -1 == $.inArray( $( this ).val(), supported_categories ) );
-                    });
+                if ( 'all' != plan_cats ) {
+                    var supported_categories = $.map( $.unique( plan_cats.split( ',' ) ), function(x) { return parseInt(x); } );
+                    this.fee_helper._enable_categories( supported_categories );
                 }
 
                 return;
             }
-
-            this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit );
 
             var self = this;
             this.$submit.on( 'change, click', 'input[name="listing_plan"]', function() {

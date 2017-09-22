@@ -18,7 +18,7 @@ class WPBDP_CategoryFormInputWalker extends Walker {
     public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
         switch ( $this->input_type ) {
             case 'checkbox':
-                $output .= '<div class="wpbdmcheckboxclass">';
+                $output .= '<div class="wpbdp-form-field-checkbox-item wpbdmcheckboxclass">';
                 $output .= sprintf( '<input type="checkbox" class="%s" name="%s" value="%s" %s style="margin-left: %dpx;" />%s',
                                     $this->field->is_required() ? 'required' : '',
                                     'listingfields[' . $this->field->get_id() . '][]',
@@ -31,7 +31,7 @@ class WPBDP_CategoryFormInputWalker extends Walker {
                 break;
             case 'radio':
             default:
-                $output .= sprintf( '<input type="radio" name="%s" class="%s" value="%s" %s style="margin-left: %dpx;"> %s<br />',
+                $output .= sprintf( '<div class="wpbdm-form-field-radio-item"><input type="radio" name="%s" class="%s" value="%s" %s style="margin-left: %dpx;"> %s</div>',
                                     'listingfields[' . $this->field->get_id() . ']',
                                     $this->field->is_required() ? 'inradio required' : 'inradio',
                                     $category->term_id,
