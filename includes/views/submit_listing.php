@@ -231,7 +231,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         foreach ( $sections as $section_id => &$s ) {
             $s['id'] = $section_id;
             $s['html'] = '';
-            $s['flags'] = array( 'enabled' );
+            $s['flags'] = array();
         }
 
         return $sections;
@@ -274,6 +274,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 } elseif ( is_string( $res ) && ! empty( $res ) ) {
                     $enabled = true;
                     $html = $res;
+                } elseif ( false === $res ) {
+                    $section['flags'][] = 'hidden';
                 }
 
                 $section['state'] = $enabled ? 'enabled' : 'disabled';
@@ -282,6 +284,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $section['state'] = 'disabled';
                 $section['html'] = '';
             }
+
+            $section['flags'][] = $section['state'];
         }
     }
 
@@ -444,6 +448,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $listing = $this->listing;
         $plan = $listing->get_fee_plan();
         $image_slots = absint( $plan->fee_images );
+
+        if ( ! $image_slots ) {
+            return false;
+        }
 
         if ( ! empty( $_POST['thumbnail_id'] ) )
             $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
