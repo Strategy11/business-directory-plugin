@@ -353,9 +353,6 @@ jQuery(function($) {
                     Reusables.Breakpoints.scan( $new_content );
                 } );
             } );
-
-            // TODO: Re-register breakpoints here?
-            // Reusables.Breakpoints.evaluate();
         }
     });
 
