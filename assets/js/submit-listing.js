@@ -346,8 +346,11 @@ jQuery(function($) {
 
                 $section.attr( 'class', $new_html.attr( 'class' ) );
                 $section.find( '.wpbdp-submit-listing-section-content' ).fadeOut( 'fast', function() {
-                    $( this ).replaceWith( $new_html.find( '.wpbdp-submit-listing-section-content' ) );
+                    var $new_content = $new_html.find( '.wpbdp-submit-listing-section-content' );
+
+                    $( this ).replaceWith( $new_content );
                     self.fee_helper.reset();
+                    Reusables.Breakpoints.scan( $new_content );
                 } );
             } );
 
