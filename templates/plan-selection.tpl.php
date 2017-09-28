@@ -8,7 +8,7 @@ $categories = ! isset( $categories ) ? array() : $categories;
 // }
 // $selected = 0;
 ?>
-<div class="wpbdp-plan-selection-list" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-fee-options-for-category">
+<div class="wpbdp-plan-selection-list">
     <?php foreach ( $plans as $plan ): ?>
         <?php
         $args = compact( 'plan', 'field_name', 'categories', 'selected' );

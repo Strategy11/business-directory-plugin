@@ -31,8 +31,11 @@ jQuery(function($) {
                 return;
             }
 
-            this.$plans_container = $( '.wpbdp-plan-selection-with-tip' );
-            this.plans = $( '.wpbdp-plan-selection-list .wpbdp-plan' );
+            this.$plans_container = $( '.wpbdp-plan-selection-wrapper' );
+            this.$plan_selection = this.$plans_container.find( '.wpbdp-plan-selection' );
+            this.plans = this.$plan_selection.find( '.wpbdp-plan' );
+
+            this.$plan_selection.hide();
 
             this.selected_categories = [];
             this.available_plans = this.plans.map(function() {
@@ -85,10 +88,16 @@ jQuery(function($) {
                 this.plans.find( 'input[name="listing_plan"]' ).prop( 'disabled', false );
             }
 
+            var self = this;
             if ( this.selected_categories.length > 0 ) {
-                this.$plans_container.fadeIn( 'fast' );
+                this.$plans_container.show();
+                Reusables.Breakpoints.evaluate();
+
+                this.$plan_selection.fadeIn( 'fast' );
             } else {
-                this.$plans_container.fadeOut( 'fast' );
+                this.$plans_container.fadeOut( 'fast', function() {
+                    self.$plan_selection.hide();
+                } );
             }
 
             // Workaround for https://github.com/select2/select2/issues/3992.
@@ -341,8 +350,10 @@ jQuery(function($) {
                     self.fee_helper.reset();
                 } );
             } );
-        }
 
+            // TODO: Re-register breakpoints here?
+            // Reusables.Breakpoints.evaluate();
+        }
     });
 
     var $submit = $( '#wpbdp-submit-listing' );

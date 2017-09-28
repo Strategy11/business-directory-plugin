@@ -12,7 +12,13 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
     </ul>
 <?php endif; ?>
 
-<?php echo wpbdp_render( 'plan-selection-plan', array( 'plan' => $plan, 'categories' => $categories, 'display_only' => true, 'extra' ) ); ?>
+<div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
+    <div class="wpbdp-plan-selection">
+        <div class="wpbdp-plan-selection-list">
+            <?php echo wpbdp_render( 'plan-selection-plan', array( 'plan' => $plan, 'categories' => $categories, 'display_only' => true, 'extra' ) ); ?>
+        </div>
+    </div>
+</div>
 
 <div id="change-plan-link" class="wpbdp-clearfix">
     <span class="dashicons dashicons-update"></span>
