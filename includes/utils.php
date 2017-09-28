@@ -558,7 +558,7 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     $body = '';
 
     if ( $setting || $object ) {
-        $value = $setting ? wpbdp_get_option( $setting->name ) : (array) $object;
+        $value = $setting ? wpbdp_get_option( $setting['id'] ) : (array) $object;
 
         // Support old-style settings.
         if ( ! is_array( $value ) ) {
