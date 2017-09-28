@@ -28,7 +28,7 @@ jQuery(function($) {
             return;
 
         lastState = state;
-            
+
         if (cancelExport) {
             exportInProgress = false
             cancelExport = false;

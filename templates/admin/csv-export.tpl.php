@@ -70,11 +70,6 @@ echo $notice;
                        value="1"
                        checked="checked" /> <?php _ex('Author information (username)', 'admin csv-export', 'WPBDM'); ?></label> <br />
 
-                <label><input name="settings[include-sticky-status]"
-                       type="checkbox"
-                       value="1"
-                       checked="checked" /> <?php _ex('Sticky/featured status', 'admin csv-export', 'WPBDM'); ?></label> <br />
-
                 <label><input name="settings[include-expiration-date]"
                        type="checkbox"
                        value="1"

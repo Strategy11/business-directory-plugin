@@ -58,9 +58,6 @@ class WPBDP_CSVExporter {
         if ( $this->settings['include-users'] )
             $this->columns['username'] = 'username';
 
-        if ( $this->settings['include-sticky-status'] )
-            $this->columns['featured_level'] = 'featured_level';
-
         if ( $this->settings['include-expiration-date'] )
             $this->columns['expires_on'] = 'expires_on';
 
@@ -121,7 +118,7 @@ class WPBDP_CSVExporter {
         $shortnames = wpbdp_formfields_api()->get_short_names();
 
         foreach ( $state['columns'] as $fshortname ) {
-            if ( in_array( $fshortname, array( 'images', 'username', 'featured_level', 'expires_on', 'sequence_id' ) ) ) {
+            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;
                 continue;
             }
@@ -274,110 +271,84 @@ class WPBDP_CSVExporter {
     }
 
     private function extract_data( $post_id ) {
-        global $wpdb;
+        $listing = wpbdp_get_listing( $post_id );
 
-        $post = get_post( $post_id );
-
-        if ( !$post || $post->post_type != WPBDP_POST_TYPE )
+        if ( ! $listing ) {
             return false;
-
-        $listings_api = wpbdp_listings_api();
-        $upgrades_api = wpbdp_listing_upgrades_api();
+        }
 
         $data = array();
 
-        foreach ( $this->columns as $colname => &$col ) {
-            $association = is_object( $col ) ? $col->get_association() : $col;
+        foreach ( $this->columns as $column_name => $column_obj ) {
             $value = '';
 
-            switch( $association ) {
-                case 'sequence_id':
-                    $value = $listings_api->calculate_sequence_id( $post->ID );
-                    break;
+            switch ( $column_name ) {
+            case 'sequence_id':
+                $value = $listing->get_sequence_id();
+                break;
+            case 'username':
+                $value = $listing->get_author_meta( 'login' );
+                break;
+            case 'images':
+                $images = array();
 
-                /* Special columns. */
-                case 'images':
+                if ( $image_ids = $listing->get_images( 'ids' ) ) {
                     $upload_dir = wp_upload_dir();
-                    $listing_images = array();
 
-                    if ( $images = $listings_api->get_images( $post->ID ) ) {
-                        foreach ( $images as &$img ) {
-                            $img_metadata = wp_get_attachment_metadata( $img->ID );
+                    foreach ( $image_ids as $image_id ) {
+                        $img_meta = wp_get_attachment_metadata( $image_id );
 
-                            if ( !isset( $img_metadata['file'] ) )
-                                continue;
+                        if ( empty( $img_meta['file'] ) ) {
+                            continue;
+                        }
 
-                            $img_path = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_metadata['file'] );
+                        $img_path = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
 
-                            if ( !is_readable( $img_path ) )
-                                continue;
+                        if ( ! is_readable( $img_path ) ) {
+                            continue;
+                        }
 
-                            $this->images_archive = !isset( $this->images_archive ) ? new PclZip( $this->workingdir . 'images.zip' ) : $this->images_archive;
-                            if ( $res = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) )
-                                $listing_images[] = basename( $img_path );
+                        $this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+                        if ( $success = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
+                            $images[] = basename( $img_path );
                         }
                     }
-
-                    if ( $listing_images )
-                        $value = implode( $this->settings['images-separator'], $listing_images );
-
-                    break;
-
-                case 'username':
-                    $value = get_the_author_meta( 'user_login', $post->post_author );
-                    break;
-
-                case 'featured_level':
-                    $listing_level = $upgrades_api->get_listing_level( $post->ID );
-                    $value = $listing_level->id;
-                    break;
-
-                case 'expires_on':
-                    $value = '';
-                    $terms = wp_get_post_terms( $post->ID,
-                                                WPBDP_CATEGORY_TAX,
-                                                'fields=ids' );
-                    $expiresdata = $wpdb->get_results( $wpdb->prepare( "SELECT category_id, expires_on FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id = %d", $post->ID ) );
-                    $expiresdata = wp_list_pluck( $expiresdata, 'expires_on', 'category_id' );
-                    $expiration_dates = array();
-
-                    foreach ( $terms as $term_id ) {
-                        if ( isset( $expiresdata[ $term_id ] ) )
-                            $expiration_dates[] = $expiresdata[ $term_id ];
-                        else
-                            $expiration_dates[] = '';
-                    }
-                    $value = implode( '/', $expiration_dates );
-
-                    break;
-
-                /* Standard associations. */
-                case 'category':
-                case 'tags':
-                    $terms = wp_get_post_terms( $post->ID,
-                                                $col->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
-                                                'fields=names' );
-                    $terms = array_map( 'html_entity_decode', $terms );
-
-                    if ( $terms )
-                        $value = implode( $this->settings['category-separator'],  $terms );
-                    break;
-                case 'meta':
-                default:
-                    $value = $col->csv_value( $post->ID );
-
-                    break;
-            }
-
-            if ( ! is_string( $value ) ) {
-                if ( is_array( $value ) ) {
-                    $value = '';
-                } else {
-                    $value = strval( $value );
                 }
+
+                $value = implode( $this->settings['images-separator'], $images );
+                break;
+            case 'expires_on':
+            case 'expiration_date':
+                if ( $plan = $listing->get_fee_plan() ) {
+                    $value = $plan->expiration_date;
+                }
+                break;
+            default:
+                if ( is_object( $column_obj ) ) {
+                    $field = $column_obj;
+
+                    switch ( $field->get_association() ) {
+                    case 'category':
+                    case 'tags':
+                        $value = wp_get_post_terms( $listing->get_id(), ( 'tags' == $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ), 'fields=names' );
+                        $value = array_map( 'html_entity_decode', $value );
+                        $value = implode( $this->settings['category-separator'], $value );
+                        break;
+                    case 'meta':
+                    default:
+                        $value = $field->csv_value( $listing->get_id() );
+                        break;
+                    }
+                }
+
+                break;
             }
 
-            $data[ $colname ] = '"' . str_replace( '"', '""', $value ) . '"';
+            if ( ! is_string( $value ) && ! is_array( $value ) ) {
+                $value = strval( $value );
+            }
+
+            $data[ $column_name ] = '"' . str_replace( '"', '""', $value ) . '"';
         }
 
         return $data;
