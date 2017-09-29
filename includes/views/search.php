@@ -51,8 +51,9 @@ class WPBDP__Views__Search extends WPBDP__View {
             wpbdp_push_query( $GLOBALS['wp_query'] );
         }
 
-        if ( ( $searching && 'none' != wpbdp_get_option( 'search-form-in-results' ) ) || ! $searching )
-            $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields ) );
+        if ( ( $searching && 'none' != wpbdp_get_option( 'search-form-in-results' ) ) || ! $searching ) {
+            $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields, 'return_url' => ( ! empty( $this->return_url ) ? $this->return_url : '' ) ) );
+        }
 
         if ( $searching && have_posts() ) {
             $results  = '';
@@ -81,4 +82,3 @@ class WPBDP__Views__Search extends WPBDP__View {
     }
 
 }
-

@@ -14,10 +14,17 @@
             <?php echo $results; ?>
             </div>
         <?php else: ?>
-            <?php _ex("No listings found.", 'templates', "WPBDM"); ?>
-            <br />
-            <?php echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
-                               _x('Return to directory', 'templates', 'WPBDM')); ?>    
+            <p><?php _ex( "No listings found.", 'templates', "WPBDM" ); ?></p>
+            <?php if ( 'none' == $search_form_position ): ?>
+                <?php
+                if ( ! empty( $_REQUEST['return_url'] ) ):
+                    $return_url = $_REQUEST['return_url'];
+                else:
+                    $return_url = wpbdp_get_page_link( 'search');
+                endif;
+                ?>
+                <p><?php echo sprintf( '<a href="%s">%s</a>.', $return_url, _x('Return to Search', 'templates', 'WPBDM' ) ); ?></p>
+            <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
 

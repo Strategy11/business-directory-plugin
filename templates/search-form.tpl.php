@@ -10,6 +10,10 @@
     <?php endif; ?>
     <input type="hidden" name="wpbdp_view" value="search" />
 
+    <?php if ( ! empty( $return_url ) ): ?>
+    <input type="hidden" name="return_url" value="<?php echo esc_attr( esc_url( $return_url ) ); ?>" />
+    <?php endif; ?>
+
     <?php echo $fields; ?>
     <?php do_action('wpbdp_after_search_fields'); ?>
 

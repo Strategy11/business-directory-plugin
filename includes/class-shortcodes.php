@@ -96,6 +96,8 @@ class WPBDP__Shortcodes {
          *  [businessdirectory-search], [business-directory-search]
          * Used for:
          *  Shows the Advanced Search Screen on any single page.
+         * Parameters:
+         *  - return_url  After the search is performed, when no results are found, a "Return to Search" link is shown with this parameter as target. Default value is the URL of the Advanced Search screen. (Allowed Values: Any valid URL or 'auto' to mean the URL of the page where the shortcode is being used.)
          * Example:
          *  `[businessdirectory-search]`
          */
@@ -554,8 +556,14 @@ class WPBDP__Shortcodes {
         return $v->dispatch();
     }
 
-    public function sc_search() {
-        $v = wpbdp_load_view( 'search' );
+    public function sc_search( $atts ) {
+        $atts = shortcode_atts( array( 'return_url' => '' ), $atts, 'businessdirectory-search' );
+
+        if ( 'auto' == $atts['return_url'] ) {
+            $atts['return_url'] = home_url( $_SERVER['REQUEST_URI'] );
+        }
+
+        $v = wpbdp_load_view( 'search', $atts );
         return $v->dispatch();
     }
 
