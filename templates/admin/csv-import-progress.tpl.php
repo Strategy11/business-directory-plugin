@@ -1,5 +1,4 @@
-<?php echo wpbdp_admin_header( null, 'csv-import' ); ?>
-<?php echo wpbdp_admin_notices(); ?>
+<div class="wpbdp-page-csv-import wpbdp-clearfix">
 
 <div id="wpbdp-csv-import-fatal-error" class="error">
     <p class="with-reason" style="display: none;">
@@ -93,4 +92,4 @@
 </div>
 <!-- </screen: import summary> ! -->
 
-<?php echo wpbdp_admin_footer(); ?>
+</div>

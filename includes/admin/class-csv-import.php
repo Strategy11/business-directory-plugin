@@ -256,7 +256,7 @@ class WPBDP_CSV_Import {
 
         $csv_imports_dir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports' . DIRECTORY_SEPARATOR . $state_id;
 
-        // TODO: validate $state_id is really an uniqid() string and does not contain other chars (maybe someone is 
+        // TODO: validate $state_id is really an uniqid() string and does not contain other chars (maybe someone is
         // trying to access parts that it shouldn't in the FS).
         if ( ! is_dir( $csv_imports_dir ) )
             throw new Exception( 'Invalid state ID' );
@@ -425,8 +425,9 @@ class WPBDP_CSV_Import {
         global $wpdb;
         global $wpbdp;
 
-        if ( $this->settings['test-import'] )
+        if ( $this->settings['test-import'] ) {
             return;
+        }
 
         extract( $data );
 
@@ -504,31 +505,18 @@ class WPBDP_CSV_Import {
         $listing_data['listing_id'] = $listing_id;
         $listing_data['append_images'] = $this->settings['append-images'];
         $listing_data['post_status'] = $listing_id ? wpbdp_get_option( 'edit-post-status' ) : $this->settings['post-status'];
-        $listing = wpbdp_save_listing( $listing_data );
-
-        // Set username.
-        if ( $u = get_user_by( 'login', $meta['username'] ) )
-            wp_update_post( array( 'ID' => $listing->get_id(), 'post_author' => $u->ID ) );
-
-        // Create permalink.
-        $post = get_post( $listing->get_id() );
-        wp_update_post( array('ID' => $post->ID,
-                              'post_name' => wp_unique_post_slug( sanitize_title( $post->post_title ),
-                                                                  $post->ID,
-                                                                  $post->post_status,
-                                                                  $post->post_type,
-                                                                  $post->post_parent ) ) );
-
-        // Update expiration dates.
-        if ( $listing_data['expires_on'] ) {
-            $wpdb->update( $wpdb->prefix . 'wpbdp_listings',
-                           array( 'expires_on' => $listing_data['expires_on'] ),
-                           array( 'listing_id' => $listing->get_id() ) );
+        if ( $meta['sequence_id'] ) {
+            $listing_data['sequence_id'] = $meta['sequence_id'];
         }
 
-        // Update sequence_id.
-        if ( $meta['sequence_id'] )
-            update_post_meta( $listing->get_id(), '_wpbdp[import_sequence_id]', $meta['sequence_id'] );
+        if ( $u = get_user_by( 'login', $meta['username'] ) ) {
+            $listing_data['user_id'] = $u->ID;
+        }
+
+        $listing = wpbdp_save_listing( $listing_data, true, 'csv-import' );
+        if ( is_wp_error( $listing ) ) {
+            $errors = array_merge( $errors, $listing->get_error_messages() );
+        }
 
         if ( $errors ) {
             $error = new WP_Error();
