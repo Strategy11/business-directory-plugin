@@ -55,6 +55,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 return $this->done();
         }
 
+        if ( $this->editing && ! $this->listing->has_fee_plan() ) {
+            if ( current_user_can( 'administrator' ) ) {
+                return wpbdp_render_msg(
+                    str_replace(
+                        '<a>',
+                        '<a href="' . esc_url( $this->listing->get_admin_edit_link() ) . '">',
+                        _x( 'This listing can\'t be edited at this time because it has no fee plan associated. Please <a>edit the listing</a> on the backend and associate it to a fee plan.', 'submit listing', 'WPBDM' )
+                    ),
+                    'error'
+                );
+            } else {
+                return wpbdp_render_msg( _x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'WPBDM' ), 'error' );
+            }
+        }
+
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
