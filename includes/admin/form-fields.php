@@ -245,11 +245,11 @@ class WPBDP_FormFieldsAdmin {
                 return $this->fieldsTable();
             } else {
                 $errmsg = '';
-                
+
                 foreach ( $res->get_error_messages() as $err ) {
                     $errmsg .= sprintf( '&#149; %s<br />', $err );
                 }
-                
+
                 $this->admin->messages[] = array( $errmsg, 'error' );
             }
         } else {

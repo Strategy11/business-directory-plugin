@@ -14,6 +14,12 @@
     <input type="hidden" name="return_url" value="<?php echo esc_attr( esc_url( $return_url ) ); ?>" />
     <?php endif; ?>
 
+    <?php if ( $validation_errors ): ?>
+        <?php foreach ( $validation_errors as $err ): ?>
+            <?php echo wpbdp_render_msg( $err, 'error' ); ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php echo $fields; ?>
     <?php do_action('wpbdp_after_search_fields'); ?>
 

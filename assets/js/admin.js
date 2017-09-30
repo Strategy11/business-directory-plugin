@@ -33,6 +33,10 @@ var WPBDP_associations_fieldtypes = {};
                 }
             });
 
+            $( '#wpbdp-formfield-form input[name="field[display_flags][]"][value="search"]' ).change(function(){
+                $( '.if-display-in-search' ).toggle( $( this ).is( ':checked' ) );
+            });
+
             $('table.formfields tbody').sortable({
                 placeholder: 'wpbdp-draggable-highlight',
                 handle: '.wpbdp-drag-handle',

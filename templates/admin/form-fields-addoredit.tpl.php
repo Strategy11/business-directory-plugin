@@ -44,7 +44,7 @@
                     <select name="field[field_type]" id="field-type">
                         <?php foreach ( $field_types as $key => &$field_type ) : ?>
                             <?php if ( !in_array( $field->get_association(), $field_type->get_supported_associations() ) ): ?>
-                            <option value="<?php echo $key; ?>" disabled="disabled"><?php echo $field_type->get_name(); ?></option>                            
+                            <option value="<?php echo $key; ?>" disabled="disabled"><?php echo $field_type->get_name(); ?></option>
                             <?php else: ?>
                             <option value="<?php echo $key; ?>" <?php echo $field->get_field_type() == $field_type ? 'selected="true"' : ''; ?>><?php echo $field_type->get_name(); ?></option>
                             <?php endif; ?>
@@ -72,7 +72,7 @@
                 <td>
                     <input name="field[description]" type="text" value="<?php echo esc_attr( $field->get_description() ); ?> " />
                 </td>
-            </tr>           
+            </tr>
     </table>
 
     <!-- field-specific settings -->
@@ -165,6 +165,18 @@
                     </label>
                 </td>
             </tr>
+            <tr class="if-display-in-search <?php echo ( ! $field->display_in( 'search' ) ) ? 'wpbdp-hidden' : '' ?>">
+                <th scope="row">
+                    <label> <?php _ex('Is this field required for searching?', 'form-fields admin', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <label>
+                        <input name="field[validators][]"
+                               value="required-in-search"
+                               type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Make this fields required during searches on the Advanced Search screen.', 'form-fields admin', 'WPBDM'); ?>
+                    </label>
+                </td>
+            </tr>
             <tr>
                 <th scope="row">
                     <label> <?php _ex('Hide this field\'s label?', 'form-fields admin', 'WPBDM'); ?></label>
@@ -176,7 +188,7 @@
                                type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Hide this field\'s label when displaying it.', 'form-fields admin', 'WPBDM'); ?>
                     </label>
                 </td>
-            </tr>            
+            </tr>
     </table>
 
     <?php if ( $field->get_id() ): ?>

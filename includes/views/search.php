@@ -12,15 +12,34 @@ class WPBDP__Views__Search extends WPBDP__View {
         $searching = ( ! empty( $_GET ) && ( isset( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
         $search = null;
 
+        $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );
+
         if ( $searching ) {
             $_GET = stripslashes_deep( $_GET );
 
-            $search = WPBDP__Listing_Search::from_request( $_GET );
-            $search->execute();
+            $validation_errors = array();
+            if ( ! empty( $_GET['dosrch'] ) ) {
+                // Validate fields that are required.
+                foreach ( $form_fields as $field ) {
+                    if ( $field->has_validator( 'required-in-search' ) ) {
+                        $value = $field->value_from_GET();
+
+                        if ( ! $value || $field->is_empty_value( $value ) ) {
+                            $validation_errors[] = sprintf( _x( '"%s" is required.', 'search', 'WPBDM' ), $field->get_label() );
+                        }
+                    }
+                }
+            }
+
+            if ( ! $validation_errors ) {
+                $search = WPBDP__Listing_Search::from_request( $_GET );
+                $search->execute();
+            } else {
+                $searching = false;
+            }
         }
 
         $search_form = '';
-        $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );
         $fields = '';
         foreach ( $form_fields as &$field ) {
             $field_value = null;
@@ -52,7 +71,14 @@ class WPBDP__Views__Search extends WPBDP__View {
         }
 
         if ( ( $searching && 'none' != wpbdp_get_option( 'search-form-in-results' ) ) || ! $searching ) {
-            $search_form = wpbdp_render_page( WPBDP_PATH . 'templates/search-form.tpl.php', array( 'fields' => $fields, 'return_url' => ( ! empty( $this->return_url ) ? $this->return_url : '' ) ) );
+            $search_form = wpbdp_render_page(
+                WPBDP_PATH . 'templates/search-form.tpl.php',
+                array(
+                    'fields' => $fields,
+                    'validation_errors' => $validation_errors,
+                    'return_url' => ( ! empty( $this->return_url ) ? $this->return_url : '' )
+                )
+            );
         }
 
         if ( $searching && have_posts() ) {

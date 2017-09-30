@@ -668,6 +668,20 @@ class WPBDP_Form_Field {
     }
 
     /**
+     * @since 5.0
+     */
+    public function value_from_GET( $key = 'listingfields' ) {
+        if ( ! $_GET || ! isset( $_GET[ $key ][ $this->id ] ) ) {
+            return null;
+        }
+
+        $value = stripslashes_deep( $_GET[ $key ][ $this->id ] );
+        $value = $this->convert_input( $value );
+
+        return $value;
+    }
+
+    /**
      * @since next-release
      */
     public function configure_search( $query, &$search ) {
