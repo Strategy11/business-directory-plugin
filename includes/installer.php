@@ -208,10 +208,16 @@ class WPBDP_Installer {
     public function setup_manual_upgrade() {
         $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
 
-        if ( ! $manual_upgrade )
+        if ( ! $manual_upgrade ) {
             return;
+        }
 
-        new WPBDP_Installer_Manual_Upgrade( $this, $manual_upgrade );
+        try {
+            return new WPBDP_Installer_Manual_Upgrade( $this, $manual_upgrade );
+        } catch ( Exception $e ) {
+            delete_option( 'wpbdp-manual-upgrade-pending' );
+            return false;
+        }
     }
 
     public function show_installation_error( $exception ) {
@@ -1042,6 +1048,10 @@ class WPBDP_Installer_Manual_Upgrade {
     private $callback;
 
     public function __construct( &$installer, $callback ) {
+        if ( ! is_string( $callback ) || ! method_exists( $installer, $callback ) ) {
+            throw new Exception( 'Invalid upgrade callback provided.' );
+        }
+
         add_action( 'admin_notices', array( &$this, 'upgrade_required_notice' ) );
         add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
