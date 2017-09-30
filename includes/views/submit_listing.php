@@ -22,6 +22,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'assets/js/submit-listing.min.js' );
 
+        // Required for the date picker.
+        wpbdp_enqueue_jquery_ui_style();
+        wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+
         wp_localize_script( 'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
             'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
             'completeListingTxt' => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),

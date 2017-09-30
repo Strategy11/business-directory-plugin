@@ -256,6 +256,10 @@ jQuery(function($) {
             self.$form.submit();
         } );
 
+        $( window ).on( 'wpbdp_submit_refresh', function( event, submit, section_id ) {
+            self.fee_helper.reset();
+        } );
+
         // Create account form.
         $( '#wpbdp-submit-listing' ).on( 'change', '#wpbdp-submit-listing-create_account', function( e ) {
             $( '#wpbdp-submit-listing-account-details' ).toggle();
@@ -349,8 +353,11 @@ jQuery(function($) {
                     var $new_content = $new_html.find( '.wpbdp-submit-listing-section-content' );
 
                     $( this ).replaceWith( $new_content );
-                    self.fee_helper.reset();
+
+                    // Refresh things.
                     Reusables.Breakpoints.scan( $new_content );
+
+                    $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
                 } );
             } );
         }

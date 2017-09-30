@@ -70,8 +70,10 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         static $enqueued = false;
 
         if ( ! $enqueued ) {
-            wpbdp_enqueue_jquery_ui_style();
-            wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+            if ( is_admin() ) {
+                wpbdp_enqueue_jquery_ui_style();
+                wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+            }
             $enqueued = true;
         }
 
@@ -82,8 +84,6 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
                           'listingfields[' . $field->get_id() . ']',
                           $value ? date( $format['date_format'], strtotime( $value ) ) : '',
                           $format['datepicker_format'] );
-
-        wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
 
         return $html;
     }

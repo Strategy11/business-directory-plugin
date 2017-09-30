@@ -116,6 +116,14 @@ jQuery(function( $ ) {
             $( '.wpbdp-form-field-type-date' ).each(function(i, v) {
                 t.configure_date_picker( $(v).find( 'input' ) );
             });
+
+            $( window ).on( 'wpbdp_submit_refresh', function( event, submit, section_id ) {
+                if ( 'listing_fields' != section_id ) {
+                    return;
+                }
+
+                t.init();
+            } );
         },
 
         configure_date_picker: function( $e ) {
@@ -272,7 +280,7 @@ WPBDP.fileUpload = {
                     // if ( t._slotsRemaining < data.files.length ) {
                     //     var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( 'Hi there' );
                     //     $( '.area-and-conditions' ).prepend( errorMsg );
-                    //     
+                    //
                     //     return false;
                     // }
 
