@@ -151,6 +151,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $sections = array();
         foreach ( $this->sections as $section ) {
+            $messages = ( ! empty( $this->messages[ $section['id'] ] ) ) ? $this->messages[ $section['id'] ] : array();
+
             $sections[ $section['id'] ] = $section;
             $sections[ $section['id'] ]['html'] = wpbdp_render( 'submit-listing-section', array( 'section' => $section, 'messages' => $messages ) );
         }

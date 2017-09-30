@@ -5,8 +5,16 @@ require_once( WPBDP_PATH . 'includes/class-view.php' );
 class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
     public function dispatch() {
-        if ( wpbdp_get_option( 'require-login' ) || ! wpbdp_get_option( 'enable-key-access' ) )
-            die();
+        if ( wpbdp_get_option( 'require-login' ) || ! wpbdp_get_option( 'enable-key-access' ) ) {
+            return wpbdp_render_msg(
+                str_replace(
+                    '<a>',
+                    '<a href="' . esc_url( wpbdp_get_page_link( 'main' ) ) . '">',
+                    _x( 'Did you mean to <a>access the Directory</a>?', 'request_access_keys', 'WPBDM' )
+                ),
+                'error'
+            );
+        }
 
         $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
         $errors = array();
@@ -60,4 +68,3 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
     }
 
 }
-
