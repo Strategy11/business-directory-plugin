@@ -287,7 +287,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             return true;
         }
 
- 
+
         $batch_size = 20;
 
         $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) ) );
@@ -346,15 +346,17 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         // From pending payments.
         $pending = $wpdb->get_col( $wpdb->prepare( "SELECT payment_items FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d AND status = %s", $listing_id, 'pending' ) );
-        $pending = array_map( 'unserialize', $pending );
-        $pending = call_user_func_array( 'array_merge', $pending );
+        if ( $pending ) {
+            $pending = array_map( 'unserialize', $pending );
+            $pending = call_user_func_array( 'array_merge', $pending );
 
-        foreach ( $pending as $item ) {
-            if ( ! in_array( $item['type'], array( 'plan', 'plan_renewal', 'recurring_plan' ), true ) )
-                continue;
+            foreach ( $pending as $item ) {
+                if ( ! in_array( $item['type'], array( 'plan', 'plan_renewal', 'recurring_plan' ), true ) )
+                    continue;
 
-            if ( ! empty( $item['rel_id_1'] ) )
-                $cat_ids[] = $item['rel_id_1'];
+                if ( ! empty( $item['rel_id_1'] ) )
+                    $cat_ids[] = $item['rel_id_1'];
+            }
         }
 
         $cat_ids = array_map( 'intval', $cat_ids );
