@@ -26,12 +26,24 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         wpbdp_enqueue_jquery_ui_style();
         wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
 
+        // Required for textareas with HTML support via the WP Editor.
+        wp_enqueue_editor();
+
+        // Required for account creation (if enabled).
+        if ( 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) ) {
+            wp_enqueue_script( 'password-strength-meter' );
+        }
+
         wp_localize_script( 'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
             'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
             'completeListingTxt' => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
             'continueToPaymentTxt' => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
             'isAdmin' => current_user_can( 'administrator' )
         ) );
+    }
+
+    private function saving() {
+        return ( ! empty( $_POST['save_listing'] ) && '1' == $_POST['save_listing'] );
     }
 
     public function dispatch() {
@@ -99,8 +111,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         foreach ( $this->messages as $context => $items ) {
             $messages[ $context ] = '';
 
-            foreach ( $items as $i )
+            foreach ( $items as $i ) {
                 $messages[ $context ] .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
+            }
         }
 
         $html = wpbdp_render( 'submit-listing',
@@ -146,12 +159,22 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $res->send_error( $msg );
 
         $this->listing = $this->find_or_create_listing();
+
+        // Ignore 'save_listing' for AJAX requests in order to leave it as the final POST with all the data.
+        if ( $this->saving() ) {
+            unset( $_POST['save_listing'] );
+        }
+
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
         $sections = array();
         foreach ( $this->sections as $section ) {
             $messages = ( ! empty( $this->messages[ $section['id'] ] ) ) ? $this->messages[ $section['id'] ] : array();
+
+            foreach ( $messages as $i ) {
+                $messages .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
+            }
 
             $sections[ $section['id'] ] = $section;
             $sections[ $section['id'] ]['html'] = wpbdp_render( 'submit-listing-section', array( 'section' => $section, 'messages' => $messages ) );
@@ -237,7 +260,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $sections['listing_images'] = array(
             'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' ) );
 
-        if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && wpbdp_get_option( 'allow-user-creation' ) && ! is_user_logged_in() ) {
+        if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) && ! is_user_logged_in() ) {
             $sections['account_creation'] = array(
                 'title' => _x( 'Account Creation', 'submit listing', 'WPBDM' )
             );
@@ -522,12 +545,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function account_creation() {
+        $mode = wpbdp_get_option( 'create-account-during-submit-mode' );
         $form_create = empty( $_POST['create-account'] ) ? false : ( $_POST['create-account'] == 'create-account' );
         $form_username = ! empty( $_POST['user_username'] ) ? trim( $_POST['user_username'] ) : '';
         $form_email = ! empty( $_POST['user_email'] ) ? trim( $_POST['user_email'] ) : '';
         $form_password = ! empty( $_POST['user_password'] ) ? $_POST['user_password'] : '';
+        // $form_password_retype = ! empty( $_POST['user_password_retype'] ) ? $_POST['user_password_retype'] : '';
 
-        if ( $form_create ) {
+        if ( ( $this->saving() && 'required' == $mode ) || $form_create ) {
             $error = false;
 
             if ( ! $form_username ) {
@@ -544,6 +569,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->messages( _x( 'Please enter the password for your new account.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
                 $error = true;
             }
+
+            // if ( ! $error && ( ! $form_password_retype  || ( $form_password != $form_password_retype ) ) ) {
+            //     $this->messages( _x( 'Passwords entered do not match.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+            //     $error = true;
+            // }
 
             if ( ! $error && $form_username && username_exists( $form_username ) ) {
                 $this->messages( _x( 'The username you chose is already in use. Please use a different one.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
@@ -564,10 +594,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $html  = '';
 
-        $html .= '<input id="wpbdp-submit-listing-create_account" type="checkbox" name="create-account" value="create-account" ' . checked( true, $form_create, false ) . '/>';
-        $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'WPBDM' ) . '</label>';
+        if ( 'optional' == $mode ) {
+            $html .= '<input id="wpbdp-submit-listing-create_account" type="checkbox" name="create-account" value="create-account" ' . checked( true, $form_create, false ) . '/>';
+            $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'WPBDM' ) . '</label>';
+        }
 
-        $html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ! $form_create ? 'wpbdp-hidden' : '' ) . '">';
+        $html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ( 'optional' == $mode && ! $form_create ) ? 'wpbdp-hidden' : '' ) . '">';
+
+        if ( 'required' == $mode ) {
+            $html .= '<p>';
+            $html .= _x( 'You need to create an account on the site. Please fill out the form below.', 'submit listing', 'WPBDM' );
+            $html .= '</p>';
+        }
 
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
@@ -593,8 +631,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_password" type="password" name="user_password" value="" />';
+        $html .= '<span class="wpbdp-password-strength-meter"></span>';
         $html .= '</div>';
         $html .= '</div>';
+
+        // $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-password">';
+        // $html .= '<div class="wpbdp-form-field-label">';
+        // $html .= '<label for="wpbdp-submit-listing-user_password_retype">' . _x( 'Password (type again):', 'submit listing', 'WPBDM' ) . '</label>';
+        // $html .= '</div>';
+        // $html .= '<div class="wpbdp-form-field-inner">';
+        // $html .= '<input id="wpbdp-submit-listing-user_password_retype" type="password" name="user_password_retype" value="" />';
+        // $html .= '</div>';
+        // $html .= '</div>';
 
         // $user_id = username_exists( $user_name );
         // if ( !$user_id and email_exists($user_email) == false ) {

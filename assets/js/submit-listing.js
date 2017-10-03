@@ -264,6 +264,10 @@ jQuery(function($) {
         $( '#wpbdp-submit-listing' ).on( 'change', '#wpbdp-submit-listing-create_account', function( e ) {
             $( '#wpbdp-submit-listing-account-details' ).toggle();
         } );
+
+        $( '#wpbdp-submit-listing' ).on( 'keyup', '#wpbdp-submit-listing-account-details input[type="password"]', function( e ) {
+            self.check_password_strength( $( this) );
+        } );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
         ajax: function( data, callback ) {
@@ -360,7 +364,67 @@ jQuery(function($) {
                     $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
                 } );
             } );
+        },
+
+        check_password_strength: function( $input ) {
+            var pass = $input.val();
+            var $result = $input.siblings( '.wpbdp-password-strength-meter' );
+
+            $result.removeClass( 'strength-0 strength-2 strength-3 strength-4' )
+                   .html('');
+
+            if ( ! pass ) {
+                return;
+            }
+
+            var strength = wp.passwordStrength.meter( pass, wp.passwordStrength.userInputBlacklist(), '' );
+            var strength_msg = '';
+
+            switch ( strength ) {
+                case 2:
+                    strength_msg = pwsL10n.bad;
+                    break;
+                case 3:
+                    strength_msg = pwsL10n.good;
+                    break
+                case 4:
+                    strength_msg = pwsL10n.strong;
+                    break;
+                case 5:
+                    strength_msg = pwsL10n.mismatch;
+                    break;
+                default:
+                    strength_msg = pwsL10n.short;
+                    break;
+            }
+
+            $result.addClass( 'strength-' + ( ( strength < 5 && strength >= 2 ) ? strength : '0' ) );
+            $result.html( strength_msg );
+
         }
+
+        // function checkPasswordStrength( $pass1,
+        //                                 $pass2,
+        //                                 $strengthResult,
+        //                                 $submitButton,
+        //                                 blacklistArray ) {
+        //         var pass1 = $pass1.val();
+        //     var pass2 = $pass2.val();
+        //
+        //     // Reset the form & meter
+        //     $submitButton.attr( 'disabled', 'disabled' );
+        //         $strengthResult.removeClass( 'short bad good strong' );
+        //
+        //     // Extend our blacklist array with those from the inputs & site data
+        //     blacklistArray = blacklistArray.concat( wp.passwordStrength.userInputBlacklist() )
+        //
+        //     // Get the password strength
+        //     var strength = wp.passwordStrength.meter( pass1, blacklistArray, pass2 );
+        //
+        //     // Add the strength meter results
+        //     return strength;
+        // }
+
     });
 
     var $submit = $( '#wpbdp-submit-listing' );

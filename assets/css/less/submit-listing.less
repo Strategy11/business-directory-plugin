@@ -234,6 +234,39 @@
 
         input[type="password"] {
             width: 70%;
+            display: inline-block;
+        }
+
+        .wpbdp-password-strength-meter {
+            float: right;
+            width: 20%;
+            padding: 4px;
+            text-align: center;
+            border: 1px solid;
+
+            &.strength-0 {
+                // Very weak.
+                background-color: #f1adad;
+                border-color: #e35b5b;                
+            }
+
+            &.strength-2 {
+                // Weak.
+                background-color: #fbc5a9;
+                border-color: #f78b53;
+            }
+
+            &.strength-3 {
+                // Medium.
+                background-color: #ffe399;
+                border-color: #ffc733;
+            }
+
+            &.strength-4 {
+                // Strong.
+                background-color: #c1e1b9;
+                border-color: #83c373;                
+            }
         }
     }
 

@@ -152,11 +152,18 @@ final class WPBDP__Settings__Bootstrap {
             'group'       => 'registration'
         ) );
         wpbdp_register_setting( array(
-            'id'      => 'allow-user-creation',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'WPBDM' ),
-            'group'   => 'registration'
+            'id' => 'create-account-during-submit-mode',
+            'type' => 'radio',
+            'name'  => _x( 'Allow users to create accounts during listing submit?', 'settings', 'WPBDM' ),
+            'default' => 'disabled',
+            'options' => array(
+                'disabled' => _x( 'No', 'settings', 'WPBDM' ),
+                'optional' => _x( 'Yes, and make it optional', 'settings', 'WPBDM' ),
+                'required' => _x( 'Yes, and make it required', 'settings', 'WPBDM' ),
+            ),
+            'group' => 'registration'
         ) );
+
 
         // Terms & Conditions.
         wpbdp_register_settings_group( 'tos_settings', _x( 'Terms and Conditions', 'settings', 'WPBDM' ), 'general/main' );
@@ -1086,4 +1093,3 @@ final class WPBDP__Settings__Bootstrap {
 
 
 }
-

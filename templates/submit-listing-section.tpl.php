@@ -10,4 +10,3 @@
         <?php echo $section['html']; ?>
     </div>
 </div>
-

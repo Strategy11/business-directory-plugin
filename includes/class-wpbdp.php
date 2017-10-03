@@ -19,7 +19,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.0beta15' );
+        define( 'WPBDP_VERSION', '5.0beta16' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -163,7 +163,7 @@ final class WPBDP {
             $this->template_integration = new WPBDP__WordPress_Template_Integration();
 
             $this->meta = new WPBDP__Meta();
-            $this->recaptcha = new WPBDP_reCAPTCHA();            
+            $this->recaptcha = new WPBDP_reCAPTCHA();
         }
 
         if ( wpbdp_is_request( 'admin' ) ) {
