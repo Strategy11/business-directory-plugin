@@ -222,7 +222,7 @@ class WPBDP_Listing {
     public function set_status( $status ) {
         global $wpdb;
 
-        $old_status = $this->get_status();
+        $old_status = $this->get_status( false, false );
         $new_status = $status;
 
         if ( $old_status == $new_status || ! in_array( $new_status, array_keys( self::get_stati() ), true ) )
@@ -571,13 +571,17 @@ class WPBDP_Listing {
     /**
      * @since next-release
      */
-    public function get_status( $force_refresh = false ) {
+    public function get_status( $force_refresh = false, $calculate = true ) {
         global $wpdb;
 
         $status_ = $wpdb->get_var( $wpdb->prepare( "SELECT listing_status FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
         if ( 'unknown' == $status_ || $force_refresh ) {
-            $status = $this->calculate_status();
+            if ( $calculate ) {
+                $status = $this->calculate_status();
+            } else {
+                $status = 'unknown';
+            }
         } else if ( ! $status_ ) {
             $status = 'incomplete';
         } else {

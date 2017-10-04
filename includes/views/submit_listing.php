@@ -235,7 +235,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $listing = wpbdp_get_listing( $listing_id );
             $listing->set_fee_plan( null );
-            $listing->set_status( 'incomplete' );
         }
 
         if ( ! $listing_id )
@@ -696,6 +695,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     private function save_listing() {
         if ( ! $this->editing ) {
+            $this->listing->set_status( 'incomplete' );
+
             if ( ! empty( $this->data['account_details'] ) ) {
                 $user_id = wp_create_user( $this->data['account_details']['username'], $this->data['account_details']['password'], $this->data['account_details']['email'] );
 
