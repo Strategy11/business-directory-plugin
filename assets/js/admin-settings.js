@@ -16,7 +16,11 @@ jQuery(function($) {
                     $.each( affected_settings, function(i, v) {
                         self.check_requirements( v );
                     } );
-                }).trigger( 'change' );
+                });
+            } );
+
+            $.each( this.data, function( setting_id, reqs ) {
+                self.check_requirements( setting_id );
             } );
         },
 

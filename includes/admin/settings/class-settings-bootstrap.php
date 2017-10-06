@@ -503,7 +503,8 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Show the "Submit listing" button.', 'settings', 'WPBDM' ),
             'default' => true,
-            'group' => 'display_options'
+            'group' => 'display_options',
+            'requirements' => array( array( 'disable-submit-listing', '!=', 1 )  )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'show-search-listings',

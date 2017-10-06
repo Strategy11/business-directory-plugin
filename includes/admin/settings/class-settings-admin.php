@@ -1,5 +1,4 @@
 <?php
-        // $this->register_dep( 'show-submit-listing', 'requires-false', 'disable-submit-listing' );
         // $this->register_dep( 'contact-form-require-login', 'requires-true', 'show-contact-form' );
         // $this->register_dep( 'contact-form-daily-limit', 'requires-true', 'show-contact-form' );
         // $this->register_dep( 'listing-renewal-auto-dontask', 'requires-true', 'listing-renewal-auto' );
