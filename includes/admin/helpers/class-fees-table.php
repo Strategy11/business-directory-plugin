@@ -106,21 +106,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
 
         $args = array();
-        if ( $order = wpbdp_get_option( 'fee-order' ) ) {
-            $args['_orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
-            $args['_order'] = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
-        }        
 
         switch ( $this->get_current_view() ) {
         case 'active':
             $args['enabled'] = 1;
-
-            if ( wpbdp_payments_possible() ) {
-                $args['-tag'] = 'free';
-            } else {
-                $args['tag'] = 'free';
-            }
-
+            $args['include_free'] = ! wpbdp_payments_possible();
             break;
         case 'disabled':
             $args['enabled'] = 0;
@@ -128,19 +118,21 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             break;
         case 'unavailable':
             if ( wpbdp_payments_possible() ) {
+                $args['enabled'] = 'all';
                 $args['tag'] = 'free';
             } else {
                 $args['enabled'] = 1;
-                $args['-tag'] = 'free';
+                $args['include_free'] = false;
             }
 
             break;
         case 'all':
         default:
+            $args['include_free'] = true;
             break;
         }
 
-        $this->items = WPBDP_Fee_Plan::find( $args );
+        $this->items = wpbdp_get_fee_plans( $args );
     }
 
     /* Rows */

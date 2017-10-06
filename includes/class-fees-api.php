@@ -39,17 +39,17 @@ class WPBDP_Fees_API {
     public static function get_free_fee() { return false; }
 
     /**
-     * @deprecated since 3.7. See {@link WPBDP_Fee_Plan}.
+     * @deprecated since 3.7. See {@link wpbdp_get_fee_plans()}.
      */
     public function get_fees( $categories = null ) {
         global $wpdb;
 
         if ( ! $categories )
-            return WPBDP_Fee_Plan::find();
+            return wpbdp_get_fee_plans();
 
         $fees = array();
         foreach ( $categories as $cat_id ) {
-            $category_fees = WPBDP_Fee_Plan::for_category( $cat_id );
+            $category_fees = wpbdp_get_fee_plans( array( 'categories' => $cat_id ) );
 
             // XXX: For now, we keep the free plan a 'secret' when payments are enabled. This is for backwards compat.
             if ( wpbdp_payments_possible() ) {

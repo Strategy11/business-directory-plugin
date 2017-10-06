@@ -160,7 +160,7 @@ class WPBDP_Themes {
     }
 
     function fee_specific_coloring() {
-        $plans = WPBDP_Fee_Plan::find( 'all' );
+        $plans = wpbdp_get_fee_plans( array( 'include_free' => true, 'tag' => '' ) );
 
         echo '<style type="text/css">';
 

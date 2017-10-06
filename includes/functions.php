@@ -704,38 +704,85 @@ function wpbdp_get_payment( $id ) {
 }
 
 /**
- * @since fees-revamp
+ * @since 5.0
  */
-function wpbdp_get_fee_plans() {
-    $args = array(
-        'enabled' => 1
+function wpbdp_get_fee_plans( $args = array() ) {
+    global $wpdb;
+
+    $defaults = array(
+        'enabled'         => 1,
+        'include_free'    => wpbdp_payments_possible() ? false : true,
+        'tag'             => wpbdp_payments_possible() ? '' : 'free',
+        'orderby'         => '',
+        'order'           => '',
+        'categories'      => array()
     );
-
-    if ( wpbdp_payments_possible() ) {
-        $args['-tag'] = 'free';
-    } else {
-        $args['tag'] = 'free';
-    }
-
-    // if ( is_admin() && current_user_can( 'administrator' ) ) {
-    //     $args['recurring'] = '0';
-    // }
-
     if ( $order = wpbdp_get_option( 'fee-order' ) ) {
-        $args['_orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
-        $args['_order'] = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
+        $defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
+        $defaults['order']   = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
     }
 
-    $plans = WPBDP_Fee_Plan::find( $args );
+    $args = wp_parse_args( $args, $defaults );
+    $args = apply_filters( 'wpbdp_get_fee_plans_args', $args );
+
+    $where = '1=1';
+    if ( 'all' !== $args['enabled'] ) {
+        $where .= $wpdb->prepare( ' AND p.enabled = %d ', (bool) $args['enabled'] );
+    }
+
+    if ( $args['tag'] ) {
+        $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
+    }
+
+    if ( ! $args['include_free'] && 'free' != $args['tag'] ) {
+        $where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
+    }
+
+    $categories = $args['categories'];
+    if ( ! empty( $categories ) ) {
+        if ( ! is_array( $categories ) ) {
+            $categories = array( $categories );
+        }
+
+        $categories = array_map( 'absint', $categories );
+    }
+
+    $order = $args['order'];
+    $orderby = $args['orderby'];
+    $query = "SELECT p.id FROM {$wpdb->prefix}wpbdp_plans p WHERE {$where} ORDER BY {$orderby} {$order}";
+
+    $plan_ids = $wpdb->get_col( $query );
+    $plan_ids = apply_filters( 'wpbdp_pre_get_fee_plans', $plan_ids );
+
+    $plans = array();
+    foreach ( $plan_ids as $plan_id ) {
+        if ( $plan = wpbdp_get_fee_plan( $plan_id ) ) {
+            if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
+                continue;
+            }
+
+            $plans[] = $plan;
+        }
+    }
+
+    $plans = apply_filters( 'wpbdp_get_fee_plans', $plans );
+
     return $plans;
 }
 
 /**
  * @since fees-revamp
  */
-function wpbdp_get_fee_plan( $id ) {
-    $id = absint( $id );
-    return WPBDP_Fee_Plan::find( $id );
+function wpbdp_get_fee_plan( $plan_id ) {
+    global $wpdb;
+
+    if ( 0 === $plan_id || 'free' === $plan_id ) {
+        $plan_id = absint( $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}wpbdp_plans WHERE tag = %s", 'free' ) ) );
+    }
+
+    $plan_id = absint( $plan_id );
+
+    return WPBDP__Fee_Plan::get_instance( $plan_id );
 }
 
 /**

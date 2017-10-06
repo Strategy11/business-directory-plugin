@@ -18,7 +18,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
     }
 
     function _fee_form() {
-        $form = wpbdp_render_page( WPBDP_PATH . 'templates/admin/fees-form.tpl.php', array( 'fee' => new WPBDP_Fee_Plan() ) );
+        $form = wpbdp_render_page( WPBDP_PATH . 'templates/admin/fees-form.tpl.php', array( 'fee' => new WPBDP__Fee_Plan() ) );
         return $form;
     }
 
@@ -43,7 +43,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
                 $config[ $level_id ] = array( 'strategy' => 'remove' );
                 break;
             case 'move':
-                $plan = WPBDP_Fee_Plan::find( $move_to );
+                $plan = wpbdp_get_fee_plan( $move_to );
 
                 if ( ! $plan )
                     return false;
@@ -104,7 +104,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
                 break;
             case 'create':
-                $fee = new WPBDP_Fee_Plan( $level_config['fee'] );
+                $fee = new WPBDP__Fee_Plan( $level_config['fee'] );
 
                 if ( $fee->save() ) {
                     $featured_fee_translation[ $level_id ] = $fee->id;

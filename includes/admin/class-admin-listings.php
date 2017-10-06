@@ -454,7 +454,7 @@ class WPBDP_Admin_Listings {
 
         if ( ! $current_plan && empty( $new_plan['fee_id'] ) ) {
             // Choose the free fee. (This shouldn't happen)
-            $free = WPBDP_Fee_Plan::get_free_plan();
+            $free = wpbdp_get_fee_plan( 'free' );
             $new_plan['fee_id'] = $new_plan->id;
             $new_plan['expiration_date'] = $free->calculate_expiration_time();
             $new_plan['fee_images'] = $free->images;

@@ -1,6 +1,4 @@
 <?php
-require_once( WPBDP_PATH . 'includes/db/class-db-model.php' );
-
 
 class WPBDP_Payment extends WPBDP__DB__Model {
 

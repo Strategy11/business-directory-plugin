@@ -9,7 +9,7 @@ class WPBDP__Dummy_Listing {
 
 
     public function __construct() {
-        $this->plan = WPBDP_Fee_Plan::get_free_plan();
+        $this->plan = wpbdp_get_fee_plan( 'free' );
     }
 
     public function get_id() {

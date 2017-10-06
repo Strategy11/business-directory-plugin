@@ -1070,7 +1070,7 @@ final class WPBDP__Settings__Bootstrap {
     //
     //     global $_wpbdp_fee_plan_recursion_guard;
     //     if ( ! isset( $_wpbdp_fee_plan_recursion_guard ) || ! $_wpbdp_fee_plan_recursion_guard ) {
-    //         $freeplan = WPBDP_Fee_Plan::get_free_plan();
+    //         $freeplan = wpbdp_get_plan( 'free);
     //         $freeplan->update( array( 'images' => $v ) );
     //     }
     //
@@ -1084,7 +1084,7 @@ final class WPBDP__Settings__Bootstrap {
     //
     //     global $_wpbdp_fee_plan_recursion_guard;
     //     if ( ! isset( $_wpbdp_fee_plan_recursion_guard ) || ! $_wpbdp_fee_plan_recursion_guard ) {
-    //         $freeplan = WPBDP_Fee_Plan::get_free_plan();
+    //         $freeplan = wpbdp_get_plan( 'free' );
     //         $freeplan->update( array( 'days' => $v ) );
     //     }
     //

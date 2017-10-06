@@ -52,36 +52,14 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function add_fee() {
-        if ( ! empty( $_POST['fee'] ) ) {
-            $posted_values = stripslashes_deep( $_POST['fee'] );
-
-            if ( ! isset( $_POST['limit_categories'] ) )
-                $posted_values['supported_categories'] = 'all';
-
-            if ( ! isset( $posted_values['sticky'] ) )
-                $posted_values['sticky'] = 0;
-
-            if ( ! isset( $posted_values['recurring'] ) )
-                $posted_values['recurring'] = 0;
-
-            $fee = new WPBDP_Fee_Plan( $posted_values );
-
-            if ( $fee->save() ) {
-                wpbdp_admin_message( _x( 'Fee updated.', 'fees admin', 'WPBDM' ) );
-                return $this->_redirect( 'index' );
-            }
-
-            wpbdp_admin_message( $fee->errors->html(), 'error' );
-        } else {
-            $fee = new WPBDP_Fee_Plan();
-        }
-
-        return array( 'fee' => $fee );
+        return $this->insert_or_update_fee( 'insert' );
     }
 
     function edit_fee() {
-        $fee = WPBDP_Fee_Plan::find( $_GET['id'] ) or die();
+        return $this->insert_or_update_fee( 'update' );
+    }
 
+    private function insert_or_update_fee( $mode ) {
         if ( ! empty( $_POST['fee'] ) ) {
             $posted_values = stripslashes_deep( $_POST['fee'] );
 
@@ -93,12 +71,35 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
             if ( ! isset( $posted_values['recurring'] ) )
                 $posted_values['recurring'] = 0;
+        } else {
+            $posted_values = array();
+        }
 
-            if ( $fee->update( $posted_values ) ) {
-                wpbdp_admin_message( _x( 'Fee updated.', 'fees admin', 'WPBDM' ) );
+        if ( 'insert' == $mode ) {
+            $fee = new WPBDP__Fee_Plan( $posted_values );
+        } else {
+            $fee = wpbdp_get_fee_plan( $_GET['id'] ) or die();
+        }
+
+        if ( $posted_values ) {
+            if ( $fee->exists() ) {
+                $result = $fee->update( $posted_values );
+            } else {
+                $result = $fee->save();
+            }
+
+            if ( ! is_wp_error( $result ) ) {
+                if ( 'insert' == $mode ) {
+                    wpbdp_admin_message( _x( 'Fee plan added.', 'fees admin', 'WPBDM' ) );
+                } else {
+                    wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'WPBDM' ) );
+                }
+
                 return $this->_redirect( 'index' );
             } else {
-                wpbdp_admin_message( $fee->errors->html(), 'error' );
+                foreach ( $result->get_error_messages() as $msg ) {
+                    wpbdp_admin_message( $msg, 'error' );
+                }
             }
         }
 
@@ -106,13 +107,13 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function delete_fee() {
-        $fee = WPBDP_Fee_Plan::find( $_GET['id'] ) or die();
+        $fee = wpbdp_get_fee_plan( $_GET['id'] ) or die();
 
         list( $do, $html ) = $this->_confirm_action( array(
             'cancel_url' => remove_query_arg( array( 'wpbdp-view', 'id' ) ),
         ) );
 
-        if ( $do && $fee->destroy() ) {
+        if ( $do && $fee->delete() ) {
             wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'WPBDM' ), $fee->label ) );
             return $this->_redirect( 'index' );
         }
@@ -121,7 +122,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function toggle_fee() {
-        $fee = WPBDP_Fee_Plan::find( $_GET['id'] ) or die();
+        $fee = wpbdp_get_fee_plan( $_GET['id'] ) or die();
         $fee->enabled = ! $fee->enabled;
         $fee->save();
 

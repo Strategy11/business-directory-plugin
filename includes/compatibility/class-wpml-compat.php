@@ -293,7 +293,7 @@ class WPBDP_WPML_Compat {
         if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) )
             return;
 
-        $fees = WPBDP_Fee_Plan::find();
+        $fees = wpbdp_get_fee_plans( array( 'enabled' => 'all', 'include_free' => true, 'tag' => '' ) );
 
         foreach ( $fees as &$f ) {
             icl_register_string( 'Business Directory Plugin',

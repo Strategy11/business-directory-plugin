@@ -1,131 +1,143 @@
 <?php
-require_once( WPBDP_PATH . 'includes/db/class-db-entity.php' );
+/**
+ * @since 5.0
+ */
+final class WPBDP__Fee_Plan {
+
+    private $id = 0;
+
+    private $label = '';
+    private $description = '';
+    private $amount = 0.0;
+    private $days = 0;
+    private $images = 0;
+    private $enabled = true;
+
+    private $sticky = false;
+    private $recurring = false;
+
+    private $pricing_model = 'flat';
+    private $pricing_details = array();
+
+    private $supported_categories = 'all';
+
+    private $weight = 0;
+    private $tag = '';
+    private $extra_data = array();
 
 
-class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
-
-    static $_table_name = 'wpbdp_plans';
-    static $_serialized = array( 'pricing_details', 'extra_data' );
-
-
-    public function __construct( $args = array() ) {
-        parent::__construct( $args );
-        $this->sanitize(); // XXX: Maybe this can be done for ALL entities at construct time?
+    public function __construct( $data = array() ) {
+        if ( $data ) {
+            $this->setup_plan( $data );
+        }
     }
 
-    protected function sanitize() {
-        $this->label = trim( $this->label );
-        $this->amount = floatval( trim( $this->amount ) );
-        $this->images = absint( $this->images );
-        $this->days = absint( $this->days );
-        $this->sticky = (bool) $this->sticky;
-        $this->pricing_model = empty( $this->pricing_model  ) ? 'flat' : $this->pricing_model;
-        $this->category_limit = 0;
+    public function __get( $key ) {
+        if ( method_exists( $this, 'get_' . $key ) ) {
+            $value = call_user_func( array( $this, 'get_' . $key ) );
+        } else {
+            $value = $this->{$key};
+        } 
 
-        if ( 'free' == $this->tag ) {
-            $this->amount = 0.0;
-            $this->sticky = false;
-            $this->supported_categories = 'all';
-            $this->enabled = true;
+        return $value;
+    }
+
+    public function __set( $key, $value ) {
+        $this->{$key} = $value;
+    }
+
+    public function __isset( $key ) {
+        if ( property_exists( $this, $key ) ) {
+            return false === empty( $this->{$key} );
+        } else {
+            return null;
         }
+    }
 
-        if ( null === $this->supported_categories ) {
-            $this->supported_categories = 'all';
-        }
+    public function exists() {
+        return ! empty( $this->id );
+    }
 
-        if ( 'all' !== $this->supported_categories ) {
-            if ( is_string( $this->supported_categories ) ) {
-                $this->supported_categories = explode( ',', $this->supported_categories );
+    public function save() {
+        global $wpdb;
+
+        // Validate.
+        $validation_errors = $this->validate();
+
+        if ( ! empty( $validation_errors ) ) {
+            $error = new WP_Error();
+
+            foreach ( $validation_errors as $col => $msg ) {
+                $error->add( 'validation_error', $msg, array( 'field' => $col ) );
             }
 
-            $this->supported_categories = array_map( 'absint', (array) $this->supported_categories  );
+            return $error;
         }
 
-        // Remove unnecessary pricing details.
-        if ( 'extra' != $this->pricing_model )
-            unset( $this->pricing_details['extra'] );
+        do_action_ref_array( 'wpbdp_fee_before_save', array( $this ) );
 
-        if ( 'extra' == $this->pricing_model ) {
-            $this->pricing_details = array( 'extra' => $this->pricing_details['extra'] );
+        $row = array();
+        foreach ( get_object_vars( $this ) as $key => $value ) {
+            $row[ $key ] = $value;
         }
 
-        if ( 'variable' == $this->pricing_model && 'all' != $this->supported_categories ) {
-            // Unset details for categories that are not supported.
-            $this->pricing_details = wp_array_slice_assoc( $this->pricing_details, $this->supported_categories );
+        if ( ! $this->id ) {
+            unset( $row[ 'id' ] );
         }
 
-        if ( 'variable' == $this->pricing_model ) {
-            $this->amount = '0.0';
-        }
+        $row['pricing_details'] = serialize( $row['pricing_details'] );
 
-        if ( 'flat' == $this->pricing_model ) {
-            $this->pricing_details = array();
-        }
-
-        if ( 0 == $this->days || ( 0 == $this->amount && 'flat' == $this->pricing_model  ) ) {
-            $this->recurring = 0;
-        }
-
-        if ( ! is_array( $this->extra_data ) )
-            $this->extra_data = array();
-    }
-
-    protected function validate() {
-        if ( ! $this->label )
-            $this->errors->add( 'label', _x('Fee label is required.', 'fees-api', 'WPBDM') );
-
-        if ( $this->amount < 0.0 )
-            $this->errors->add( 'amount', _x('Fee amount must be a non-negative decimal number.', 'fees-api', 'WPBDM') );
-
-        if ( ! $this->supported_categories )
-            $this->errors->add( 'supported_categories', _x('Fee must apply to at least one category.', 'fees-api', 'WPBDM') );
-
-        // limit 'duration' because of TIMESTAMP limited range (issue #157).
-        // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
-        if ( $this->days > 3650 )
-            $this->errors->add( 'days', _x('Fee listing duration must be a number less than 10 years (3650 days).', 'fees-api', 'WPBDM') );
-    }
-
-    public function save( $validate = true ) {
-        // For backwards compat.
-        $fee = (array) $this;
-        do_action_ref_array( 'wpbdp_fee_before_save', array( &$fee ) );
-
-        if ( 'free' == $this->tag ) {
-            global $_wpbdp_fee_plan_recursion_guard;
-            $_wpbdp_fee_plan_recursion_guard = true;
-
-            // Update associated settings.
-            wpbdp_set_option( 'free-images', $this->images );
-            wpbdp_set_option( 'listing-duration', $this->days );
-
-            $_wpbdp_fee_plan_recursion_guard = false;
-        }
-
-        return parent::save( $validate );
-    }
-
-    protected function prepare_row() {
-        $row = parent::prepare_row();
-
-        if ( 'all' != $row['supported_categories'] )
+        if ( 'all' !== $row['supported_categories'] ) {
             $row['supported_categories'] = implode( ',', $row['supported_categories'] );
+        }
 
-        return $row;
+        if ( empty( $row['extra_data'] ) ) {
+            unset( $row['extra_data'] );
+        } else {
+            $row['extra_data'] = serialize( $row['extra_data'] );
+        }
+
+        $saved = false;
+        if ( $this->exists() ) {
+            $saved = $wpdb->update( $wpdb->prefix . 'wpbdp_plans', $row, array( 'id' => $this->id ) );
+        } else {
+            $saved = $wpdb->insert( $wpdb->prefix . 'wpbdp_plans', $row );
+
+            if ( $saved ) {
+                $this->id = $wpdb->insert_id;
+            }
+        }
+
+        return $saved;
+
+        // if ( 'free' == $this->tag ) {
+        //     global $_wpbdp_fee_plan_recursion_guard;
+        //     $_wpbdp_fee_plan_recursion_guard = true;
+        //
+        //     // Update associated settings.
+        //     wpbdp_set_option( 'free-images', $this->images );
+        //     wpbdp_set_option( 'listing-duration', $this->days );
+        //
+        //     $_wpbdp_fee_plan_recursion_guard = false;
+        // }
+        //
+        // return parent::save( $validate );
+        //
+    }
+
+    public function update( $data ) {
+        unset( $data['id'] );
+        $this->setup_plan( $data );
+        return $this->save();
+    }
+
+    public function delete() {
+        global $wpdb;
+        return $wpdb->delete( $wpdb->prefix . 'wpbdp_plans', array( 'id' => $this->id ) );
     }
 
     public function supports_category( $category_id ) {
-        if ( $this->categories['all'] )
-            return true;
-
-        $requested_cats = wpbdp_get_parent_catids( $category_id );
-
-        foreach ( $this->categories['categories'] as $s_cat_id ) {
-            if ( in_array( $s_cat_id, $requested_cats ) )
-                return true;
-        }
-
-        return false;
+        return $this->supports_category_selection( array( $category_id ) );
     }
 
     /**
@@ -184,6 +196,26 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         return true;
     }
 
+    public static function get_instance( $fee_id ) {
+        global $wpdb;
+
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee_id ), ARRAY_A );
+
+        if ( ! $row ) {
+            return false;
+        }
+
+        if ( 'all' !== $row['supported_categories'] ) {
+            $row['supported_categories'] = array_map( 'absint', explode( ',', $row['supported_categories'] ) );
+        }
+
+        $row['pricing_details'] = maybe_unserialize( $row['pricing_details'] );
+        $row['extra_data'] = maybe_unserialize( $row['extra_data'] );
+
+        $instance = new self( $row );
+        return $instance;
+    }
+
     /**
      * @since next-release
      */
@@ -198,41 +230,84 @@ class WPBDP_Fee_Plan extends WPBDP_DB_Entity {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
-    public static function for_category( $category_id ) {
-        return self::filter_for_category( self::find(), $category_id );
-    }
-
-    private static function filter_for_category( $fees, $category_id ) {
-        $res = array();
-
-        foreach ( $fees as $f ) {
-            if ( $f->supports_category( $category_id ) )
-                $res[] = $f;
+    private function setup_plan( $data ) {
+        if ( is_object( $data ) ) {
+            $data = get_object_vars( $data );
         }
 
-        return $res;
+        foreach ( $data as $key => $value ) {
+            $this->{$key} = $value;
+        }
     }
 
-    public static function active_fees_for_category( $category_id ) {
-        return self::filter_for_category( self::active_fees(), $category_id );
-    }
+    private function sanitize() {
+        $this->label = trim( $this->label );
+        $this->amount = floatval( trim( $this->amount ) );
+        $this->days = absint( $this->days );
+        $this->images = absint( $this->images );
+        $this->sticky = (bool) $this->sticky;
+        $this->recurring = (bool) $this->recurring;
+        $this->pricing_model = empty( $this->pricing_model  ) ? 'flat' : $this->pricing_model;
+        $this->tag = strtolower( trim( $this->tag ) );
 
-    public static function active_fees() {
-        if ( wpbdp_payments_possible() ) {
-            $fees = self::find( array( 'enabled' => 1, '-tag' => 'free' ) );
+        if ( empty( $this->supported_categories ) ) {
+            $this->supported_categories = 'all';
+        }
+
+        if ( 'all' !== $this->supported_categories ) {
+            $this->supported_categories = array_map( 'absint', (array) $this->supported_categories );
+        }
+
+        if ( 'extra' == $this->pricing_model ) {
+            $this->pricing_details = array( 'extra' => $this->pricing_details['extra'] );
         } else {
-            $fees = self::find( array( 'enabled' => 1, 'tag' => 'free' ) );
+            unset( $this->pricing_details['extra'] );
         }
 
-        return $fees;
+        // Unset details for categories that are not supported.
+        if ( 'variable' == $this->pricing_model ) {
+            $this->amount = 0.0;
+
+            if ( 'all' !== $this->supported_categories ) {
+                $this->pricing_details = wp_array_slice_assoc( $this->pricing_details, $this->supported_categories );
+            }
+        }
+
+        if ( 'flat' == $this->pricing_model ) {
+            $this->pricing_details = array();
+        }
+
+        if ( 0 == $this->days || ( 0 == $this->amount && 'flat' == $this->pricing_model  ) ) {
+            $this->recurring = 0;
+        }
+
+        // Free plan is special.
+        if ( 'free' == $this->tag ) {
+            $this->amount = 0.0;
+            $this->sticky = false;
+            $this->recurring = false;
+            $this->supported_categories = 'all';
+            $this->enabled = true;
+        }
     }
 
-    public static function get_free_plan() {
-        return self::find( array( 'tag' => 'free', '_limit' => 1 ) );
+    private function validate() {
+        $this->sanitize();
+
+        $errors = array();
+
+        if ( ! $this->label ) {
+            $errors['label'] = _x( 'Fee label is required.', 'fees-api', 'WPBDM' );
+        }
+
+        // limit 'duration' because of TIMESTAMP limited range (issue #157).
+        // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
+        if ( $this->days > 3650 ) {
+            $errors['days'] = _x( 'Fee listing duration must be a number less than 10 years (3650 days).', 'fees-api', 'WPBDM' );
+        }
+
+        return $errors;
     }
-
-    public static function create( $args ) { return parent::_create( $args, __class__ ); }
-    public static function find( $args = '' ) { return parent::_find( $args, __class__ ); }
-
 }
 
+require_once( WPBDP_INC . 'compatibility/deprecated/class-fee-plan.php' );

@@ -307,7 +307,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
             // This shouldn't happen but... just in case.
             if ( ! $new_plan ) {
-                $free_plan = WPBDP_Fee_Plan::get_free_plan();
+                $free_plan = wpbdp_get_fee_plan( 'free' );
                 $new_plan = array(
                     'listing_id' => $listing_id,
                     'fee_id' => $free_plan->id,
