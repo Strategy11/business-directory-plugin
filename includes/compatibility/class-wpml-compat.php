@@ -87,14 +87,24 @@ class WPBDP_WPML_Compat {
 
         $nego_type = absint( $sitepress->get_setting( 'language_negotiation_type' ) );
         if ( 1 == $nego_type ) {
-            if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
+            // The following IF statement is commented out because we can't remember
+            // its purpose and is causing problems:
+            //
+            // https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3078
+            //
+            // In #3078, the customer is using the main directory page as the front
+            // page of the website. The IF below cause listing links to use / as the
+            // base URL, while the rewrite rules use the page's URI as the base URL.
+            // As a result, every listing link returns a 404 Not Found.
+            /*if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
                 $real_link = get_permalink( $trans_id );
                 $used_link = _get_page_link( $trans_id );
 
                 $link = str_replace( $used_link, $real_link, $link );
 
                 return $link;
-            }
+            }*/
+            return $link;
         }
 
         $link = add_query_arg( 'lang', $lang, $link );
