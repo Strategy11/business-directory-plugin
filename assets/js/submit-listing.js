@@ -221,11 +221,11 @@ jQuery(function($) {
                         } );
                         break;
                     case 'extra':
-                        price = $plan.data( 'amount' ) + ( pricing.extra * self.selected_categories.length );
+                        price = parseFloat( $plan.data( 'amount' ) ) + ( parseFloat( pricing.extra ) * self.selected_categories.length );
                         break;
                     case 'flat':
                     default:
-                        price = $plan.data( 'amount' );
+                        price = parseFloat( $plan.data( 'amount' ) );
                         break;
                 }
 
