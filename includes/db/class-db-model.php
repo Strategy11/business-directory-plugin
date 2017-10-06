@@ -1,6 +1,5 @@
 <?php
 require_once ( WPBDP_PATH . 'includes/db/class-db-query-set.php' );
-require_once ( WPBDP_PATH . 'includes/db/class-db-entity.php' );
 
 class WPBDP__DB__Model {
 
@@ -296,6 +295,7 @@ class WPBDP__DB__Model {
 }
 
 // For backwards-compat.
-require_once( WPBDP_PATH . 'includes/db/class-db-model2.php' );
+require_once( WPBDP_PATH . 'includes/compatibility/deprecated/class-db-entity.php' );
+require_once( WPBDP_PATH . 'includes/compatibility/deprecated/class-db-model2.php' );
 
 
