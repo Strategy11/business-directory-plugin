@@ -1,4 +1,79 @@
 jQuery(function($) {
+    var wpbdp_settings_dep_handling = {
+        init: function() {
+            var self = this;
+
+            if ( 'undefined' == typeof wpbdp_settings_data || 'undefined' == typeof wpbdp_settings_data.requirements || ! wpbdp_settings_data.requirements ) {
+                return;
+            }
+
+            this.data  = wpbdp_settings_data.requirements;
+            this.watch = wpbdp_settings_data.watch;
+            this.selector = 'input[name="wpbdp_settings[SID]"], input[name="wpbdp_settings[SID][]"], select[name="wpbdp_settings[SID]"], select[name="wpbdp_settings[SID][]"]';
+
+            $.each( this.watch, function( setting_id, affected_settings ) {
+                $( self.selector.replace( 'SID', setting_id ) ).change(function() {
+                    $.each( affected_settings, function(i, v) {
+                        self.check_requirements( v );
+                    } );
+                }).trigger( 'change' );
+            } );
+        },
+
+        check_requirements: function( setting_id ) {
+            var reqs     = this.data[ setting_id ];
+            var $setting = $( '#wpbdp-settings-' + setting_id );
+            var $row     = $setting.parents( 'tr' );
+
+            var passes = true;
+
+            for ( var i = 0; i < reqs.length; i++ ) {
+                var rel_setting  = reqs[ i ].setting_id;
+                var operator     = reqs[ i ].operator;
+                var req_value    = reqs[ i ].req_value;
+                var value        = reqs[ i ].current_value;
+                var $rel_setting = $( '#wpbdp-settings-' + rel_setting );
+
+                if ( $rel_setting.length > 0 ) {
+                    // Use current value of related setting.
+                    var $field = $rel_setting.find( this.selector.replace( 'SID', rel_setting ) );
+
+                    if ( $field.length > 0 ) {
+                        if ( $field.is( 'input[type="checkbox"]' ) ) {
+                            var $checked = $field.filter( ':checked' );
+
+                            if ( $checked.length > 0 ) {
+                                value = $checked.val();
+                            } else {
+                                value = false;
+                            }
+                        } else if ( $field.is( 'input[type="radio"]' ) ) {
+                            console.log( rel_setting, 'radio' );
+                        } else if ( $field.is( 'select' ) ) {
+                            console.log( rel_setting, 'select' );
+                        }
+                    }
+                }
+
+                if ( '=' == operator ) {
+                    passes = ( value == req_value );
+                } else if ( '!=' == operator ) {
+                    passes = ( value != req_value );
+                }
+
+                if ( ! passes ) {
+                    break;
+                }
+            }
+
+            if ( passes ) {
+                $row.removeClass( 'wpbdp-setting-disabled' );
+            } else {
+                $row.addClass( 'wpbdp-setting-disabled' );
+            }
+        }
+    };
+    wpbdp_settings_dep_handling.init();
 
     /**
      * License activation/deactivation.

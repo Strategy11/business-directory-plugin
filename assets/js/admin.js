@@ -316,9 +316,6 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 /* {{ Settings. */
 (function($) {
     var s = WPBDP_Admin.settings = {
-        _whenTrueActivateChilds: {},
-        _whenFalseActivateChilds: {},
-
         init: function() {
             var t = this;
 
@@ -343,64 +340,6 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                     $( '#wpbdp-settings-quick-search-fields .text-fields-warning' ).fadeOut( 'fast' );
                 }
             });
-
-            $.each( this._whenTrueActivateChilds, function( p, chs ) {
-                $('input[name="wpbdp-' + p + '"]').change(function(e) {
-                    t.handleToggle( p );
-                });
-
-                t.handleToggle( p );
-            } );
-        },
-
-        handleToggle: function( setting ) {
-            var childs_true = this._whenTrueActivateChilds[ setting ];
-            var childs_false = this._whenFalseActivateChilds[ setting ];
-            var childs = { 'true': childs_true, 'false': childs_false };
-            var checked = $( 'input[name="wpbdp-' + setting + '"]' ).is( ':checked' );
-
-            $.each( childs, function( req, settings ) {
-                $.each( settings, function( i, s ) {
-                    var $s = $( '[name="wpbdp-' + s + '"], [name="wpbdp-' + s + '[]"]' );
-                    var $row = $s.parents( 'tr' );
-
-                    // FIXME: 'disabled' fields result in the setting being "cleared" in the backend. Why?
-                    if ( 'true' === req ) {
-                        if ( checked ) {
-                            // $s.removeAttr( 'disabled' );
-                            $s.removeAttr( 'contenteditable' );
-                            $row.removeClass( 'disabled' );
-                        } else {
-                            // $s.attr( 'disabled', 'disabled' );
-                            $s.attr( 'contenteditable', 'false' );
-                            $row.addClass( 'disabled' );
-                        }
-                    } else if ( 'false' === req ) {
-                        if ( checked ) {
-                            // $s.attr( 'disabled', 'disabled' );
-                            $s.attr( 'contenteditable', 'false' );
-                            $row.addClass( 'disabled' );
-                        } else {
-                            // $s.removeAttr( 'disabled' );
-                            $s.removeAttr( 'contenteditable' );
-                            $row.removeClass( 'disabled' );
-                        }
-                    }
-                } );
-            } );
-        },
-
-        add_requirement: function( setting, parent_, req ) {
-            if ( 'undefined' === typeof this._whenTrueActivateChilds[ parent_ ] )
-                this._whenTrueActivateChilds[ parent_ ] = [];
-
-            if ( 'undefined' === typeof this._whenFalseActivateChilds[ parent_ ] )
-                this._whenFalseActivateChilds[ parent_ ] = [];
-
-            if ( 'boolean-true' == req )
-                this._whenTrueActivateChilds[ parent_ ].push( setting );
-            else if ( 'boolean-false' == req )
-                this._whenFalseActivateChilds[ parent_ ].push( setting );
         }
     };
 

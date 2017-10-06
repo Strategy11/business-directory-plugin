@@ -684,7 +684,8 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Put payment gateways in test mode?', 'settings', 'WPBDM' ),
             'default' => true,
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payments-use-https',
@@ -692,7 +693,8 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Perform checkouts on the secure (HTTPS) version of your site?', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Recommended for added security. For this to work you need to enable HTTPS on your server and obtain an SSL certificate.', 'settings', 'WPBDM' ),
             'default' => false,
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency',
@@ -726,14 +728,16 @@ final class WPBDP__Settings__Bootstrap {
                 'TRY' => _x('Turkish Lira (TRY)', 'admin settings', 'WPBDM'),
                 'USD' => _x('U.S. Dollar (USD)', 'admin settings', 'WPBDM')
             ),
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency-symbol',
             'type'    => 'text',
             'name'    => _x( 'Currency Symbol', 'settings', 'WPBDM' ),
             'default' => '$',
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency-symbol-position',
@@ -745,14 +749,16 @@ final class WPBDP__Settings__Bootstrap {
                 'right' =>_x( 'Show currency symbol on the right', 'admin settings', 'WPBDM'),
                 'none'  => _x( 'Do not show currency symbol', 'admin settings', 'WPBDM' )
             ),
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-message',
             'type'    => 'textarea',
             'name'    => _x( 'Thank you for payment message', 'settings', 'WPBDM' ),
             'default' => _x( 'Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM' ),
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-abandonment',
@@ -760,7 +766,8 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Ask users to come back for abandoned payments?', 'settings', 'WPBDM' ),
             'desc'    => _x( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  BD can remind them to come back and continue.', 'settings', 'WPBDM' ),
             'default' => false,
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payments-on', '=', 1 ) )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-abandonment-threshold',
@@ -768,7 +775,8 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Listing abandonment threshold (hours)', 'settings', 'WPBDM' ),
             'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'WPBDM' ) ),
             'default' => '24',
-            'group'   => 'payment/main'
+            'group'   => 'payment/main',
+            'requirements' => array( array( 'payment-abandonment', '=', 1 ) )
         ) );
     }
 

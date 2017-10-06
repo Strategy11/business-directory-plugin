@@ -31,6 +31,11 @@ jQuery(function($) {
                 return;
             }
 
+            // First mark categories that were disabled since the beginning via HTML.
+            if ( 'select2' == this.field_type ) {
+                this.field.find( 'option[disabled="disabled"]' ).data( 'keep_disabled', true );
+            }
+
             this.$plans_container = $( '.wpbdp-plan-selection-wrapper' );
             this.$plan_selection = this.$plans_container.find( '.wpbdp-plan-selection' );
             this.plans = this.$plan_selection.find( '.wpbdp-plan' );
@@ -116,7 +121,13 @@ jQuery(function($) {
 
             if ( 'none' == categories || 'all' == categories ) {
                 if ( 'select2' == this.field_type ) {
-                    this.field.find( 'option' ).prop( 'disabled', ( 'all' == categories ) ? false : true );
+                    this.field.find( 'option' ).each(function(i, v) {
+                        if ( true === $( this ).data( 'keep_disabled' ) ) {
+                            // $( this ).prop( 'disabled', true );
+                        } else {
+                            $( this ).prop( 'disabled', ( 'all' == categories ) ? false : true );
+                        }
+                    });
                 } else {
                     this.field.prop( 'disabled', ( 'all' == categories ) ? false : true );
 
@@ -132,7 +143,10 @@ jQuery(function($) {
 
             if ( 'select2' == this.field_type ) {
                 this.field.find( 'option' ).each(function(i, v) {
-                    $( this ).prop( 'disabled', -1 == $.inArray( parseInt( $( this ).val() ), categories ) );
+                    if ( true === $( this ).data( 'keep_disabled' ) ) {
+                    } else {
+                        $( this ).prop( 'disabled', -1 == $.inArray( parseInt( $( this ).val() ), categories ) );
+                    }
                 });
             } else {
                 this.field.each(function(i, v) {
@@ -142,6 +156,7 @@ jQuery(function($) {
                     }
                 });
             }
+
         },
 
         maybe_limit_category_options: function() {
