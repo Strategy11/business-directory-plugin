@@ -47,7 +47,7 @@ class WPBDP_Themes {
 
         if ( is_admin() ) {
             require_once( WPBDP_PATH . 'includes/admin/class-themes-admin.php' );
-            $this->admin = new WPBDP_Themes_Admin( $this );
+            $this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
         }
     }
 

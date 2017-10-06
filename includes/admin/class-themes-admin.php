@@ -5,10 +5,12 @@
 class WPBDP_Themes_Admin {
 
     private $api;
+    private $licensing;
 
 
-    function __construct( &$api ) {
+    function __construct( &$api, $licensing ) {
         $this->api = $api;
+        $this->licensing = $licensing;
 
         // return;
         // require_once( WPBDP_PATH . 'includes/admin/upgrades/class-themes-updater.php' );
@@ -199,7 +201,7 @@ class WPBDP_Themes_Admin {
                 break;
         }
 
-        $themes = $this->api->get_installed_themes();
+        $themes = $this->get_installed_themes();
         $active_theme = $this->api->get_active_theme();
 
         // Make sure the current theme is always first.
@@ -210,6 +212,22 @@ class WPBDP_Themes_Admin {
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes.tpl.php',
                                 array( 'themes' => $themes,
                                        'active_theme' => $active_theme ) );
+    }
+
+    private function get_installed_themes() {
+        $themes = $this->api->get_installed_themes();
+
+        foreach( $themes as &$theme ) {
+            $license_status = $this->licensing->get_license_status( null, $theme->id, 'theme' );
+
+            if ( 'valid' === $license_status ) {
+                $theme->can_be_activated = true;
+            } else {
+                $theme->can_be_activated = false;
+            }
+        }
+
+        return $themes;
     }
 
     function upload_theme() {
