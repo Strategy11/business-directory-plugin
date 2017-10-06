@@ -68,7 +68,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $size = $field->data( 'size', 4 );
 
         if ( $field->get_association() == 'category' ) {
-                $html .= wp_dropdown_categories( array(
+                $html .= wp_dropdown_categories( apply_filters( 'wpbdp_field_type_select_categories_args', array(
                         'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                         'show_option_none' => $context == 'search' ? ( $this->is_multiple() ? _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' ) : _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) ) : null,
                         'orderby' => wpbdp_get_option( 'categories-order-by' ),
@@ -80,7 +80,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                         'id' => 'wpbdp-field-' . $field->get_id(),
                         'name' => 'listingfields[' . $field->get_id() . ']',
                         'class' => 'wpbdp-js-select2'
-                    ) );
+                    ), $field, $value, $context, $extra, $field_settings )
+                );
 
                 if ( $this->is_multiple() ) {
                     $html = preg_replace(

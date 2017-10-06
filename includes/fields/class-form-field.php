@@ -43,6 +43,7 @@ class WPBDP_Form_Field {
         );
 
         $attrs = wp_parse_args( $attrs, $defaults );
+        $attrs = apply_filters( 'wpbdp_form_field_args', $attrs );
 
         $formfields = WPBDP_FormFields::instance();
 
