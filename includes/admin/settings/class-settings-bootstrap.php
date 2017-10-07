@@ -311,7 +311,8 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Require login for using the contact form?', 'settings', 'WPBDM' ),
             'default' => false,
-            'group' => 'listings/main'
+            'group' => 'listings/main',
+            'requirements' => array( 'show-contact-form' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'contact-form-daily-limit',
@@ -319,7 +320,8 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Maximum number of contact form submits per day', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Use this to prevent spamming of listing owners. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
             'default' => '0',
-            'group' => 'listings/main'
+            'group' => 'listings/main',
+            'requirements' => array( 'show-contact-form' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'allow-comments-in-listings',
@@ -491,7 +493,8 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Sortbar Fields', 'settings', 'WPBDM' ),
             'default' => array(),
             'options' => wpbdp_sortbar_get_field_options(),
-            'group'  => 'listings/sorting'
+            'group'  => 'listings/sorting',
+            'requirements' => array( 'listings-sortbar-enabled' )
         ) );
     }
 
@@ -504,7 +507,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Show the "Submit listing" button.', 'settings', 'WPBDM' ),
             'default' => true,
             'group' => 'display_options',
-            'requirements' => array( array( 'disable-submit-listing', '!=', 1 )  )
+            'requirements' => array( '!disable-submit-listing' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'show-search-listings',
@@ -686,7 +689,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Put payment gateways in test mode?', 'settings', 'WPBDM' ),
             'default' => true,
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payments-use-https',
@@ -695,7 +698,7 @@ final class WPBDP__Settings__Bootstrap {
             'desc'    => _x( 'Recommended for added security. For this to work you need to enable HTTPS on your server and obtain an SSL certificate.', 'settings', 'WPBDM' ),
             'default' => false,
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency',
@@ -730,7 +733,7 @@ final class WPBDP__Settings__Bootstrap {
                 'USD' => _x('U.S. Dollar (USD)', 'admin settings', 'WPBDM')
             ),
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency-symbol',
@@ -738,7 +741,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Currency Symbol', 'settings', 'WPBDM' ),
             'default' => '$',
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'currency-symbol-position',
@@ -751,7 +754,7 @@ final class WPBDP__Settings__Bootstrap {
                 'none'  => _x( 'Do not show currency symbol', 'admin settings', 'WPBDM' )
             ),
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-message',
@@ -759,7 +762,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Thank you for payment message', 'settings', 'WPBDM' ),
             'default' => _x( 'Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'WPBDM' ),
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-abandonment',
@@ -768,7 +771,7 @@ final class WPBDP__Settings__Bootstrap {
             'desc'    => _x( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  BD can remind them to come back and continue.', 'settings', 'WPBDM' ),
             'default' => false,
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payments-on', '=', 1 ) )
+            'requirements' => array( 'payments-on' )
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-abandonment-threshold',
@@ -777,7 +780,7 @@ final class WPBDP__Settings__Bootstrap {
             'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'WPBDM' ) ),
             'default' => '24',
             'group'   => 'payment/main',
-            'requirements' => array( array( 'payment-abandonment', '=', 1 ) )
+            'requirements' => array( 'payment-abandonment' )
         ) );
     }
 

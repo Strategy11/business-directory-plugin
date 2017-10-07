@@ -3,67 +3,63 @@ jQuery(function($) {
         init: function() {
             var self = this;
 
-            if ( 'undefined' == typeof wpbdp_settings_data || 'undefined' == typeof wpbdp_settings_data.requirements || ! wpbdp_settings_data.requirements ) {
-                return;
-            }
+            self.watch = {};
+            self.requirements = {};
 
-            this.data  = wpbdp_settings_data.requirements;
-            this.watch = wpbdp_settings_data.watch;
-            this.selector = 'input[name="wpbdp_settings[SID]"], input[name="wpbdp_settings[SID][]"], select[name="wpbdp_settings[SID]"], select[name="wpbdp_settings[SID][]"]';
+            $( '.wpbdp-settings-setting[data-requirements][data-requirements!=""]' ).each(function() {
+                var setting_id = $(this).data('setting-id');
+                var reqs = $( this ).data( 'requirements' );
 
-            $.each( this.watch, function( setting_id, affected_settings ) {
-                $( self.selector.replace( 'SID', setting_id ) ).change(function() {
+                self.requirements[ setting_id ] = reqs;
+
+                $.each( reqs, function(i, req) {
+                    var rel_setting_id = req[0];
+
+                    if ( 'undefined' === typeof self.watch[rel_setting_id] ) {
+                        self.watch[ rel_setting_id ] = [];
+                    }
+
+                    self.watch[ rel_setting_id ].push(setting_id);
+                } );
+            });
+
+            $.each( self.watch, function( setting_id, affected_settings ) {
+                $( '[name="wpbdp_settings[' + setting_id + ']"], [name="wpbdp_settings[' + setting_id + '][]"]' ).change(function(){
                     $.each( affected_settings, function(i, v) {
                         self.check_requirements( v );
                     } );
                 });
             } );
 
-            $.each( this.data, function( setting_id, reqs ) {
+            $.each( self.requirements, function( setting_id, reqs ) {
                 self.check_requirements( setting_id );
             } );
         },
 
         check_requirements: function( setting_id ) {
-            var reqs     = this.data[ setting_id ];
+            var reqs     = this.requirements[ setting_id ];
             var $setting = $( '#wpbdp-settings-' + setting_id );
             var $row     = $setting.parents( 'tr' );
-
-            var passes = true;
+            var passes   = true;
 
             for ( var i = 0; i < reqs.length; i++ ) {
-                var rel_setting  = reqs[ i ].setting_id;
-                var operator     = reqs[ i ].operator;
-                var req_value    = reqs[ i ].req_value;
-                var value        = reqs[ i ].current_value;
-                var $rel_setting = $( '#wpbdp-settings-' + rel_setting );
+                var req_name = reqs[ i ][0].replace( '!', '' );
+                var not      = ( -1 !== reqs[ i ][0].indexOf( '!' ) );
+                var value    = reqs[ i ][1];
 
+                // Obtain updated value (if possible).
+                var $rel_setting = $( '#wpbdp-settings-' + req_name );
                 if ( $rel_setting.length > 0 ) {
-                    // Use current value of related setting.
-                    var $field = $rel_setting.find( this.selector.replace( 'SID', rel_setting ) );
-
-                    if ( $field.length > 0 ) {
-                        if ( $field.is( 'input[type="checkbox"]' ) ) {
-                            var $checked = $field.filter( ':checked' );
-
-                            if ( $checked.length > 0 ) {
-                                value = $checked.val();
-                            } else {
-                                value = false;
-                            }
-                        } else if ( $field.is( 'input[type="radio"]' ) ) {
-                            console.log( rel_setting, 'radio' );
-                        } else if ( $field.is( 'select' ) ) {
-                            console.log( rel_setting, 'select' );
-                        }
+                    if ( $rel_setting.parents( 'tr' ).hasClass( 'wpbdp-setting-disabled' ) ) {
+                        console.log( req_name );
+                        value = false;
+                    } else {
+                        var $field = $rel_setting.find( '[name="wpbdp_settings[' + req_name + ']"]:checked, [name="wpbdp_settings[' + req_name + '][]"]:checked' );
+                        value = $field.length > 0;
                     }
                 }
 
-                if ( '=' == operator ) {
-                    passes = ( value == req_value );
-                } else if ( '!=' == operator ) {
-                    passes = ( value != req_value );
-                }
+                passes = ( ( not && ! value ) || value );
 
                 if ( ! passes ) {
                     break;
@@ -74,6 +70,11 @@ jQuery(function($) {
                 $row.removeClass( 'wpbdp-setting-disabled' );
             } else {
                 $row.addClass( 'wpbdp-setting-disabled' );
+            }
+
+            // Propagate.
+            if ( 'undefined' !== typeof this.watch[ setting_id ] ) {
+                $setting.find( '[name="wpbdp_settings[' + setting_id + ']"], [name="wpbdp_settings[' + setting_id + '][]"]' ).trigger( 'change' );
             }
         }
     };

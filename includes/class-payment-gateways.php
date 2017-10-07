@@ -84,14 +84,15 @@ class WPBDP__Payment_Gateways {
                 'name' => sprintf( _x( 'Enable %s?', 'payment-gateways', 'WPBDM' ), $gateway->get_title() ),
                 'type' => 'checkbox',
                 'default' => false,
-                'group'   => 'gateway_' . $gateway->get_id()
+                'group'   => 'gateway_' . $gateway->get_id(),
+                'requirements' => array( 'payments-on' )
             ) );
             foreach ( $gateway->get_settings() as $setting ) {
                 $setting = array_merge( $setting, array( 'group' => 'gateway_' . $gateway->get_id() ) );
                 $setting['id'] = $gateway->get_id() . '-' . $setting['id'];
+                $setting['requirements'] = array( $gateway->get_id() );
 
                 wpbdp_register_setting( $setting );
-                // FIXME: $api->register_dep( $setting[0], 'requires-true', $gateway->get_id() );
             }
         }
     }

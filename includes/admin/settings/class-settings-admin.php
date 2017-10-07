@@ -1,28 +1,4 @@
 <?php
-        // $this->register_dep( 'contact-form-require-login', 'requires-true', 'show-contact-form' );
-        // $this->register_dep( 'contact-form-daily-limit', 'requires-true', 'show-contact-form' );
-        // $this->register_dep( 'listing-renewal-auto-dontask', 'requires-true', 'listing-renewal-auto' );
-        // $this->register_dep( 'listings-sortbar-fields', 'requires-true', 'listings-sortbar-enabled' );
-        //
-        // $settings->register_dep( 'authorize-net', 'requires-true', 'payments-on' );
-        // $settings->register_dep( 'authorize-net-login-id', 'requires-true', 'authorize-net' );
-        // $settings->register_dep( 'authorize-net-transaction-key', 'requires-true', 'authorize-net' );
-        //
-        // $settings->register_dep( 'stripe-test-secret-key', 'requires-true', 'stripe' );
-        // $settings->register_dep( 'stripe-test-publishable-key', 'requires-true', 'stripe' );
-        // $settings->register_dep( 'stripe-live-secret-key', 'requires-true', 'stripe' );
-        // $settings->register_dep( 'stripe-live-publishable-key', 'requires-true', 'stripe' );
-        //
-        // $settings->register_dep( '2checkout-seller', 'requires-true', '2checkout' );
-        //
-        //
-        // $settings->register_dep( 'paypal-business-email', 'requires-true', 'paypal' );
-        // $settings->register_dep( 'paypal-merchant-id', 'requires-true', 'paypal' );
-        //
-        // $settingsapi->register_dep( 'zipcode-radius-options', 'requires-true', 'zipcode-fixed-radius' );
-        //
-        //
-
 class WPBDP__Settings_Admin {
 
     /**
@@ -40,29 +16,6 @@ class WPBDP__Settings_Admin {
     public function enqueue_scripts( $hook ) {
         if ( 'directory-admin_page_wpbdp_settings' == $hook ) {
             wp_enqueue_script( 'wpbdp-admin-settings', WPBDP_URL . 'assets/js/admin-settings.js' );
-
-            $data = array( 'requirements' => array(), 'watch' => array() );
-            foreach ( wpbdp()->settings->get_registered_settings() as $setting ) {
-                if ( ! empty( $setting['requirements'] ) ) {
-                    $data['requirements'][ $setting['id'] ] = array();
-                    
-                    foreach ( $setting['requirements'] as $requirement ) {
-                        if ( ! isset( $data['watch'][ $requirement[0] ] ) ) {
-                            $data['watch'][ $requirement[0] ] = array();
-                        }
-
-                        $data['watch'][ $requirement[0] ][] = $setting['id'];
-                        $data['requirements'][ $setting['id'] ][] = array(
-                            'setting_id'    => $requirement[0],
-                            'operator'      => $requirement[1],
-                            'req_value'     => $requirement[2],
-                            'current_value' => (bool) wpbdp_get_option( $requirement[0] )
-                        );
-                    }
-                }
-            }
-
-            wp_localize_script( 'wpbdp-admin-settings', 'wpbdp_settings_data', $data );
         }
     }
 
@@ -174,6 +127,18 @@ class WPBDP__Settings_Admin {
             $attrs = wpbdp_html_attributes( $setting['attrs'], array( 'id', 'class' ) );
         } else {
             $attrs = '';
+        }
+
+        $attrs .= ' data-setting-id="' . esc_attr( $setting['id'] ) . '" ';
+
+        if ( ! empty( $setting['requirements'] ) ) {
+            $reqs_info = array();
+
+            foreach ( $setting['requirements'] as $r ) {
+                $reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
+            }
+
+            $attrs .= ' data-requirements="' . esc_attr( json_encode( $reqs_info ) ) . '"';
         }
 
         $html  = '';
