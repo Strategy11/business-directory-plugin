@@ -937,7 +937,8 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'expiration_notices',
             'name'    => _x( 'E-Mail Notices', 'settings', 'WPBDM' ),
             'default' => self::get_default_expiration_notices(),
-            'group' => 'email_templates'
+            'group' => 'email_templates',
+            'validator' => array( __class__, 'validate_expiration_notices' )
         ) );
     }
 
@@ -1025,6 +1026,33 @@ final class WPBDP__Settings__Bootstrap {
 
 
         return $notices;
+    }
+
+    public static function validate_expiration_notices( $value ) {
+        // We remove notices with no subject and no content.
+        foreach ( array_keys( $value ) as $notice_id ) {
+            $value[ $notice_id ] = array_map( 'trim', $value[ $notice_id ] );
+
+            if ( empty( $value[ $notice_id ]['subject'] ) && empty( $value[ $notice_id ]['content'] ) ) {
+                unset( $value[ $notice_id ] );
+            }
+        }
+
+        // We make sure that there's always one notice applying to the expiration time of non-recurring listings.
+        $found = false;
+        foreach ( $value as $notice_id => $notice ) {
+            if ( 'expiration' == $notice['event'] && ( 'non-recurring' == $notice['listings'] || 'both' == $notice['listings'] ) && '0 days' == $notice['relative_time'] ) {
+                $found = true;
+                break;
+            }
+        }
+
+        if ( ! $found ) {
+            $default_notices = self::get_default_expiration_notices();
+            $value[] = $default_notices[1];
+        }
+
+        return $value;
     }
 
     // FIXME
