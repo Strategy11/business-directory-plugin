@@ -238,8 +238,11 @@ jQuery(function($) {
                     if ( ! name || -1 == name.indexOf( 'new_notice' ) )
                         return;
 
-                    $( this ).prop( 'name', name.replace( 'new_notice', 'wpbdp-expiration-notices' ) );
+                    name = name.replace( 'new_notice', 'wpbdp_settings[expiration-notices]' );
+                    $( this ).prop( 'name', name );
                 } );
+
+                return true;
             });
         },
     };
@@ -247,26 +250,3 @@ jQuery(function($) {
 
 });
 
-//     $(document).ready(function() {
-//         if ( $( 'input.license-activate, input.license-deactivate' ).length > 0 )
-//             l.init();
-//
-//         if ( $( '.wpbdp-license-expired-warning' ).length > 0 ) {
-//             $( '.wpbdp-license-expired-warning .dismiss' ).click(function (e) {
-//                 e.preventDefault();
-//
-//                 var module_id = $(this).attr('data-module');
-//                 var nonce = $(this).attr('data-nonce');
-//                 var $warning = $(this).parents('.wpbdp-license-expired-warning');
-//
-//                 $.post( ajaxurl, {'action': 'wpbdp-license-expired-warning-dismiss', 'nonce': nonce, 'module': module_id}, function(res) {
-//                     if ( res.success ) {
-//                         $warning.fadeOut( 'fast' );
-//                     }
-//                 }, 'json' );
-//             });
-//         }
-//     });
-// })(jQuery);
-// // }}
-//

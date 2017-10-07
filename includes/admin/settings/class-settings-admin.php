@@ -346,7 +346,7 @@ class WPBDP__Settings_Admin {
                 'container_class' => 'wpbdp-expiration-notice-email',
                 'email_subject' => $notice['subject'],
                 'email_body' => $notice['body'],
-                'extra_fields' => $this->setting_expiration_notices_email_extra_fields( 'wpbdp-' . $setting['id'] . '[' . $i . ']', $uid, $notice ),
+                'extra_fields' => $this->setting_expiration_notices_email_extra_fields( 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']', $uid, $notice ),
                 'after_container' => $this->setting_expiration_notices_email_summary( $notice ),
                 'before_buttons' => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>'
             );
