@@ -195,15 +195,13 @@ class WPBDP_Installer {
 
         foreach ( $migrations as $version ) {
             wpbdp_log( sprintf( 'Running upgrade routine for version %s', $version ) );
-            $migration_file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( '.', '_', $version ) . '.php';
 
-            if ( ! file_exists( $migration_file ) )
+            try {
+                $m = $this->load_migration_class( 'WPBDP__Migrations__' . str_replace( '.', '_', $version ) );
+            } catch ( Exception $e ) {
                 continue;
+            }
 
-            $classname = 'WPBDP__Migrations__' . str_replace( '.', '_', $version );
-
-            require_once( $migration_file );
-            $m = new $classname;
             $m->migrate();
 
             update_option('wpbdp-db-version', $version );
@@ -212,6 +210,18 @@ class WPBDP_Installer {
                 break;
         }
         // $wpbdp->formfields->maybe_correct_tags();
+    }
+
+    public function load_migration_class( $classname ) {
+        $file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
+
+        if ( ! file_exists( $file ) ) {
+            throw new Exception( "Can't load migration class: $file." );
+        }
+
+        require_once( $file );
+
+        return new $classname;
     }
 
     public function show_installation_error( $exception ) {
@@ -254,12 +264,18 @@ class WPBDP_Installer {
     public function setup_manual_upgrade() {
         $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
 
-        if ( ! $manual_upgrade )
-            return;
+        if ( ! $manual_upgrade ) {
+            return false;
+        }
 
         require_once( WPBDP_PATH . 'includes/admin/upgrades/class-manual-upgrade-helper.php' );
 
-        $helper = new WPBDP__Manual_Upgrade_Helper( $this, $manual_upgrade );
+        try {
+            return new WPBDP__Manual_Upgrade_Helper( $this, $manual_upgrade );
+        } catch ( Exception $e ) {
+            delete_option( 'wpbdp-manual-upgrade-pending' );
+            return false;
+        }
     }
 
     public function handle_term_split( $old_id, $new_id, $tt_id, $tax ) {

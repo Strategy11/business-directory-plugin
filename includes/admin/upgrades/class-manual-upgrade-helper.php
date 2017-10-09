@@ -8,16 +8,60 @@ class WPBDP__Manual_Upgrade_Helper {
 
 
     public function __construct( &$installer, $upgrade_config ) {
+        // Try to load class.
+        $this->installer = $installer;
+        $this->data = $upgrade_config;
+
+        $callback_definition = isset( $this->data['callback'] ) ? $this->data['callback'] : $this->data;
+        $config_callback_definition = isset( $this->data['config_callback'] ) ? $this->data['config_callback'] : null;
+
+        $this->callback = $this->get_callback( $callback_definition );
+
+        if ( $config_callback_definition ) {
+            $this->config_callback = $this->get_configuration_callback( $config_callback_definition );
+        } else {
+            $this->config_callback = null;
+        }
+
         add_action( 'admin_notices', array( &$this, 'upgrade_required_notice' ) );
         add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-manual-upgrade', array( &$this, 'handle_ajax' ) );
+    }
 
-        // Try to load class.
-        $this->installer = $installer;
-        $this->data = $upgrade_config;
-        $this->callback = isset( $upgrade_config['callback'] ) ? $upgrade_config['callback'] : $upgrade_config;
-        $this->config_callback = isset( $upgrade_config['config_callback'] ) ? $upgrade_config['config_callback'] : null;
+    private function get_callback( $params ) {
+        $callback = $this->get_migration_callback( $params );
+
+        if ( ! is_callable( $callback ) ) {
+            throw new Exception( 'Invalid upgrade callback provided.' );
+        }
+
+        return $callback;
+    }
+
+    private function get_migration_callback( $params ) {
+        if ( is_array( $params ) ) {
+            $classname = $params[0];
+            $method = $params[1];
+
+            $migration = $this->installer->load_migration_class( $classname );
+
+            $callback = array( $migration, $method );
+        } else {
+            $callback = $params;
+        }
+
+        return $callback;
+    }
+
+    private function get_configuration_callback( $params ) {
+        $callback = $this->get_migration_callback( $params );
+
+        if ( ! is_callable( $callback ) ) {
+            throw new Exception( 'Invalid upgrade config callback provided.' );
+        }
+
+        return $callback;
     }
 
     public function upgrade_required_notice() {
@@ -76,23 +120,8 @@ class WPBDP__Manual_Upgrade_Helper {
         echo '<div class="wpbdp-manual-upgrade-wrapper">';
 
         if ( ! $this->is_configured() ) {
-            $callback = null;
-
-            if ( is_array( $this->config_callback ) ) {
-                $classname = $this->config_callback[0];
-                $method = $this->config_callback[1];
-
-                $file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
-                require_once( $file );
-                $m = new $classname;
-
-                $callback = array( $m, $method );
-            } else {
-                $callback = $this->config_callback;
-            }
-
             ob_start();
-            call_user_func( $callback );
+            call_user_func( $this->config_callback );
             $output = ob_get_contents();
             ob_end_clean();
 
@@ -137,18 +166,7 @@ class WPBDP__Manual_Upgrade_Helper {
         if ( ! current_user_can( 'administrator' ) )
             return;
 
-        if ( is_array( $this->callback ) ) {
-            $classname = $this->callback[0];
-            $method = $this->callback[1];
-
-            $file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
-            require_once( $file );
-            $m = new $classname;
-
-            $response = call_user_func( array( $m, $method ) );
-        } else {
-            $response = call_user_func( $this->callback );
-        }
+        $response = call_user_func( $this->callback );
 
         print json_encode( $response );
 

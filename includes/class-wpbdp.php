@@ -125,12 +125,12 @@ final class WPBDP {
         }
 
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
-            $this->installer->setup_manual_upgrade();
+            if ( $this->installer->setup_manual_upgrade() ) {
+                add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
+                add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
 
-            add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
-            add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
-
-            return;
+                return;
+            }
         }
 
         $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
