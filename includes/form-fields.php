@@ -603,8 +603,20 @@ class WPBDP_FieldValidation {
  * @see WPBDP_FormFields::find_fields()
  */
 function &wpbdp_get_form_fields( $args=array() ) {
+    global $wpdb;
     global $wpbdp;
-    $fields = $wpbdp->formfields->find_fields( $args );
+
+    // TODO: This verification was added to prevent an SQL error triggered during
+    // the first activation, when Settings_Bootstrap calls get_quicksearch_fields()
+    // before the installer is executed for the first time. At that point, the
+    // form_fields table does not exists.
+    //
+    // Please fix. This function shouldn't be called before the installer is executed.
+    if ( wpbdp_table_exists( $wpdb->prefix . 'wpbdp_form_fields' ) ) {
+        $fields = $wpbdp->formfields->find_fields( $args );
+    } else {
+        $fields = array();
+    }
 
     if ( ! $fields )
         $fields = array();
