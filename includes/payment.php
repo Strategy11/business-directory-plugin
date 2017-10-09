@@ -144,14 +144,14 @@ class WPBDP_PaymentsAPI {
         $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
 
         $count_pending = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at > %s AND ps.created_at <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
+            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at > %s AND ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
             $within_abandonment,
             $within_pending,
             'pending',
             'initial'
         ) );
         $count_abandoned = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at <= %s AND ps.status = %s AND ps.tag = %s AND p.post_status IN ({$post_statuses})",
+            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
             $within_abandonment,
             'pending',
             'initial'
@@ -189,7 +189,7 @@ class WPBDP_PaymentsAPI {
         $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
 
         $pieces['join'] .= " LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON {$wpdb->posts}.ID = ps.listing_id";
-        $pieces['where'] .= $wpdb->prepare( ' AND ps.tag = %s AND ps.status = %s ', 'initial', 'pending' );
+        $pieces['where'] .= $wpdb->prepare( ' AND ps.payment_type = %s AND ps.status = %s ', 'initial', 'pending' );
 
         switch ( $filter ) {
             case 'abandoned':
