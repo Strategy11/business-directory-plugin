@@ -675,7 +675,14 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     private static function settings_payment() {
-        // TODO: $this->add_setting( $s, 'fee-order', 'Fee Order', 'core', array( 'method' => 'label', 'order' => 'asc' ) );
+        wpbdp_register_setting( array(
+            'id'      => 'fee-order',
+            'type'    => 'silent',
+            'name'    => _x( 'Fee Order', 'settings', 'WPBDM' ),
+            'default' => array( 'method' => 'label', 'order' => 'asc' ),
+            'group'   => 'payment/main'
+        ) );
+
         wpbdp_register_setting( array(
             'id'      => 'payments-on',
             'type'    => 'checkbox',

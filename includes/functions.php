@@ -713,8 +713,8 @@ function wpbdp_get_fee_plans( $args = array() ) {
         'enabled'         => 1,
         'include_free'    => wpbdp_payments_possible() ? false : true,
         'tag'             => wpbdp_payments_possible() ? '' : 'free',
-        'orderby'         => '',
-        'order'           => '',
+        'orderby'         => 'label',
+        'order'           => 'ASC',
         'categories'      => array()
     );
     if ( $order = wpbdp_get_option( 'fee-order' ) ) {
@@ -747,7 +747,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
         $categories = array_map( 'absint', $categories );
     }
 
-    $order = $args['order'];
+    $order = strtoupper( $args['order'] );
     $orderby = $args['orderby'];
     $query = "SELECT p.id FROM {$wpdb->prefix}wpbdp_plans p WHERE {$where} ORDER BY {$orderby} {$order}";
 
