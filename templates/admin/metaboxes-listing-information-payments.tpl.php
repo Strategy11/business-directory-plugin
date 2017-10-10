@@ -8,7 +8,7 @@
             <div class="wpbdp-payment-item wpbdp-payment-status-<?php echo $payment->status; ?> cf">
                 <div class="wpbdp-payment-item-row">
                     <div class="wpbdp-payment-date">
-                        <a href="<?php echo $payment_link; ?>">#<?php echo $payment->id; ?> - <?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->created_on ) ); ?></a>
+                        <a href="<?php echo $payment_link; ?>">#<?php echo $payment->id; ?> - <?php echo date_i18n( get_option( 'date_format' ), strtotime( $payment->created_at ) ); ?></a>
                     </div>
                     <div class="wpbdp-payment-status"><span class="tag paymentstatus <?php echo $payment->status; ?>"><?php echo $payment->status; ?></span></div>
                 </div>
