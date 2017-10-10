@@ -221,13 +221,16 @@ class WPBDP__Settings {
             return false;
         }
 
-        if ( ! isset( $this->groups[ $args['group'] ] ) ) {
+        if ( 'silent' != $args['type'] && ! isset( $this->groups[ $args['group'] ] ) ) {
             // throw new Exception( sprintf( 'Invalid settings group "%s" for setting "%s".', $args['group'], $args['id'] ) );
             return false;
         }
 
         $this->settings[ $args['id' ] ] = $args;
-        $this->groups[ $args['group'] ]['count'] += 1;
+
+        if ( 'silent' != $args['type'] ) {
+            $this->groups[ $args['group'] ]['count'] += 1;
+        }
 
         if ( ! empty( $args['validator'] ) ) {
             add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_setting' ), 10, 2 );

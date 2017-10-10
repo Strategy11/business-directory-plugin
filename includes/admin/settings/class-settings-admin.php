@@ -66,6 +66,10 @@ class WPBDP__Settings_Admin {
                 $setting
             );
 
+            if ( 'silent' == $setting['type'] ) {
+                continue;
+            }
+
             if ( isset( $all_groups[ $args['group'] ] ) ) {
                 switch ( $all_groups[ $args['group'] ]['type'] ) {
                 case 'subtab':
