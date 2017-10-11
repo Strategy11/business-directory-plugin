@@ -454,6 +454,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
+        // FIXME: fake this (for compatibility with modules) until we move everything to wpbdp_save_listing() and
+        // friends. See #2945.
+        do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this->listing, $field_values ) );
+
         if ( $validation_errors ) {
             $this->messages( _x( 'Something went wrong. Please check the form for errors, correct them and submit again.', 'listing submit', 'WPBDM' ), 'error', 'listing_fields' );
             $this->prevent_save = true;
