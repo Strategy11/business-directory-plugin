@@ -63,6 +63,9 @@ class WPBDP__Settings {
                     call_user_func( $setting['on_update'], $setting, $input[ $setting_id ], ! empty( $this->options[ $setting_id ] ) ? $this->options[ $setting_id ] : null );
                 }
             }
+
+            do_action( 'wpbdp_setting_updated', $setting_id, $output[ $setting_id ], $value );
+            do_action( "wpbdp_setting_updated_{$setting_id}", $output[ $setting_id ], $value, $setting_id );
         }
 
         $this->options = $output;
