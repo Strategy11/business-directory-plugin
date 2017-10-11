@@ -6,10 +6,7 @@ jQuery(function($) {
     // Fee_Selection_Helper {{
     wpbdp.submit_listing.Fee_Selection_Helper = function( $submit, editing ) {
         this.editing = ( 'undefined' === typeof(editing) || ! editing ) ? false : true;
-
-        if ( ! this.editing ) {
-            this.reset();
-        }
+        this.reset();
     };
     $.extend( wpbdp.submit_listing.Fee_Selection_Helper.prototype, {
         reset: function() {
@@ -34,6 +31,10 @@ jQuery(function($) {
             // First mark categories that were disabled since the beginning via HTML.
             if ( 'select2' == this.field_type ) {
                 this.field.find( 'option[disabled="disabled"]' ).data( 'keep_disabled', true );
+            }
+
+            if ( this.editing ) {
+                return;
             }
 
             this.$plans_container = $( '.wpbdp-plan-selection-wrapper' );
