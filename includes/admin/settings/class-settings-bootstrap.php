@@ -289,7 +289,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Listing duration for no-fee sites (in days)', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'settings', 'WPBDM' ),
             'default' => '365',
-            'group' => 'listings/main'
+            'group'   => 'listings/main'
         ) );
         wpbdp_register_setting( array(
             'id'      => 'show-contact-form',
@@ -1114,13 +1114,6 @@ final class WPBDP__Settings__Bootstrap {
 
     // public function _validate_free_images( $setting, $newvalue, $oldvalue = null ) {
     //     $v = absint( $newvalue );
-    //
-    //     global $_wpbdp_fee_plan_recursion_guard;
-    //     if ( ! isset( $_wpbdp_fee_plan_recursion_guard ) || ! $_wpbdp_fee_plan_recursion_guard ) {
-    //         $freeplan = wpbdp_get_plan( 'free);
-    //         $freeplan->update( array( 'images' => $v ) );
-    //     }
-    //
     //     return $v;
     // }
     //
@@ -1128,13 +1121,6 @@ final class WPBDP__Settings__Bootstrap {
     //     // limit 'duration' because of TIMESTAMP limited range (issue #157).
     //     // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
     //     $v = min(max(intval($newvalue), 0), 3650);
-    //
-    //     global $_wpbdp_fee_plan_recursion_guard;
-    //     if ( ! isset( $_wpbdp_fee_plan_recursion_guard ) || ! $_wpbdp_fee_plan_recursion_guard ) {
-    //         $freeplan = wpbdp_get_plan( 'free' );
-    //         $freeplan->update( array( 'days' => $v ) );
-    //     }
-    //
     //     return $v;
     // }
 

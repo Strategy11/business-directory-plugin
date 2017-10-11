@@ -58,7 +58,7 @@ final class WPBDP__Fee_Plan {
         return ! empty( $this->id );
     }
 
-    public function save() {
+    public function save( $fire_hooks = true ) {
         global $wpdb;
 
         // Validate.
@@ -74,14 +74,16 @@ final class WPBDP__Fee_Plan {
             return $error;
         }
 
-        do_action_ref_array( 'wpbdp_fee_before_save', array( $this ) );
+        if ( $fire_hooks ) {
+            do_action_ref_array( 'wpbdp_fee_before_save', array( $this ) );
+        }
 
         $row = array();
         foreach ( get_object_vars( $this ) as $key => $value ) {
             $row[ $key ] = $value;
         }
 
-        if ( ! $this->id ) {
+        if ( ! $this->exists() ) {
             unset( $row[ 'id' ] );
         }
 
@@ -98,7 +100,8 @@ final class WPBDP__Fee_Plan {
         }
 
         $saved = false;
-        if ( $this->exists() ) {
+        $update = $this->exists();
+        if ( $update ) {
             $saved = $wpdb->update( $wpdb->prefix . 'wpbdp_plans', $row, array( 'id' => $this->id ) );
         } else {
             $saved = $wpdb->insert( $wpdb->prefix . 'wpbdp_plans', $row );
@@ -108,21 +111,11 @@ final class WPBDP__Fee_Plan {
             }
         }
 
-        return $saved;
+        if ( $saved && $fire_hooks ) {
+            do_action( 'wpbdp_fee_save', $this, $update );
+        }
 
-        // if ( 'free' == $this->tag ) {
-        //     global $_wpbdp_fee_plan_recursion_guard;
-        //     $_wpbdp_fee_plan_recursion_guard = true;
-        //
-        //     // Update associated settings.
-        //     wpbdp_set_option( 'free-images', $this->images );
-        //     wpbdp_set_option( 'listing-duration', $this->days );
-        //
-        //     $_wpbdp_fee_plan_recursion_guard = false;
-        // }
-        //
-        // return parent::save( $validate );
-        //
+        return $saved;
     }
 
     public function update( $data ) {
