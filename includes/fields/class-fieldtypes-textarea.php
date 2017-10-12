@@ -20,15 +20,54 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $html  = '';
 
         if ( 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' ) ) {
+            $tinymce_settings = array();
+            $quicktags_settings = array();
+
+            $tinymce_listener = function( $settings, $editor_id ) use ( &$tinymce_settings ) {
+                $tinymce_settings = $settings;
+                return $settings;
+            };
+
+            $quicktags_listener = function( $settings, $editor ) use ( &$quicktags_settings ) {
+                $quicktags_settings = $settings;
+                return $settings;
+            };
+
             ob_start();
+            add_filter( 'tiny_mce_before_init', $tinymce_listener, 100, 2 );
+            add_filter( 'quicktags_settings', $quicktags_listener, 100, 2 );
+
             wp_editor( $value ? $value: '',
                        'wpbdp-field-' . $field->get_id(),
                        array( 'textarea_name' => 'listingfields[' . $field->get_id() . ']',
                               'drag_drop_upload' => false,
                               'media_buttons' => false,
                               'quicktags' => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false  ) );
-            $html .= ob_get_contents();
+
+            remove_filter( 'tiny_mce_before_init', $tinymce_listener, 100, 2 );
+            remove_filter( 'quicktags_settings', $quicktags_listener, 100, 2 );
             ob_end_clean();
+
+            $html .= sprintf(
+                '<textarea id="%s" class="wpbdp-editor-area" name="%s">%s</textarea>',
+                'wpbdp-field-' . $field->get_id(),
+                'listingfields[' . $field->get_id() . ']',
+                $value ? esc_attr( $value ) : ''
+            );
+
+            $html .= sprintf(
+                '<script type="text/javascript">
+                    var WPBDPTinyMCESettings = WPBDPTinyMCESettings || {};
+
+                    WPBDPTinyMCESettings[ \'%s\' ] = {
+                        \'tinymce\': %s,
+                        \'quicktags\': %s
+                    };
+                </script>',
+                'wpbdp-field-' . $field->get_id(),
+                $this->parse_tinymce_settings( $tinymce_settings ),
+                $this->parse_tinymce_settings( $quicktags_settings )
+            );
         } else {
             $html .= sprintf('<textarea id="%s" name="%s">%s</textarea>',
                              'wpbdp-field-' . $field->get_id(),
@@ -37,6 +76,28 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         return $html;
+    }
+
+    private function parse_tinymce_settings( $init ) {
+        $options = '';
+
+        foreach ( $init as $key => $value ) {
+            if ( is_bool( $value ) ) {
+                $val = $value ? 'true' : 'false';
+                $options .= $key . ':' . $val . ',';
+                continue;
+            } elseif ( ! empty( $value ) && is_string( $value ) && (
+                ( '{' == $value{0} && '}' == $value{strlen( $value ) - 1} ) ||
+                ( '[' == $value{0} && ']' == $value{strlen( $value ) - 1} ) ||
+                preg_match( '/^\(?function ?\(/', $value ) ) ) {
+
+                $options .= $key . ':' . $value . ',';
+                continue;
+            }
+            $options .= $key . ':"' . $value . '",';
+        }
+
+        return '{' . trim( $options, ' ,' ) . '}';
     }
 
     public function get_supported_associations() {
