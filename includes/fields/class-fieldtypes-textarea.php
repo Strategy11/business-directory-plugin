@@ -78,6 +78,11 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         return $settings;
     }
 
+    /**
+     * A copy of _WP_Editors::_parse_init().
+     *
+     * @since 5.0
+     */
     private function parse_tinymce_settings( $init ) {
         $options = '';
 
