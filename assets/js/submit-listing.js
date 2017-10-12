@@ -368,6 +368,10 @@ jQuery(function($) {
                 var $section = current_sections.filter( '[data-section-id="' + section_id + '"]' );
                 var $new_html = $( section_details.html );
 
+                $section.find( '.wpbdp-editor-area' ).each( function() {
+                    wp.editor.remove( $( this ).attr( 'id' ) );
+                } );
+
                 $section.attr( 'class', $new_html.attr( 'class' ) );
                 $section.find( '.wpbdp-submit-listing-section-content' ).fadeOut( 'fast', function() {
                     var $new_content = $new_html.find( '.wpbdp-submit-listing-section-content' );
@@ -376,6 +380,11 @@ jQuery(function($) {
 
                     // Refresh things.
                     Reusables.Breakpoints.scan( $new_content );
+
+                    $section.find( '.wpbdp-editor-area' ).each( function() {
+                        var id = $( this ).attr( 'id' );
+                        wp.editor.initialize( id, WPBDPTinyMCESettings[ id ] );
+                    } );
 
                     $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
                 } );

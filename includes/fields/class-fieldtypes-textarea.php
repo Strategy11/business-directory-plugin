@@ -2,6 +2,9 @@
 
 class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
+    private $tinymce_settings = array();
+    private $quicktags_settings = array();
+
     public function __construct() {
         parent::__construct( _x('Textarea', 'form-fields api', 'WPBDM') );
     }
@@ -21,14 +24,40 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         if ( 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' ) ) {
             ob_start();
+            add_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
+            add_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
+
             wp_editor( $value ? $value: '',
                        'wpbdp-field-' . $field->get_id(),
                        array( 'textarea_name' => 'listingfields[' . $field->get_id() . ']',
                               'drag_drop_upload' => false,
                               'media_buttons' => false,
                               'quicktags' => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false  ) );
-            $html .= ob_get_contents();
+
+            remove_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
+            remove_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
             ob_end_clean();
+
+            $html .= sprintf(
+                '<textarea id="%s" class="wpbdp-editor-area" name="%s">%s</textarea>',
+                'wpbdp-field-' . $field->get_id(),
+                'listingfields[' . $field->get_id() . ']',
+                $value ? esc_attr( $value ) : ''
+            );
+
+            $html .= sprintf(
+                '<script type="text/javascript">
+                    var WPBDPTinyMCESettings = WPBDPTinyMCESettings || {};
+
+                    WPBDPTinyMCESettings[ \'%s\' ] = {
+                        \'tinymce\': %s,
+                        \'quicktags\': %s
+                    };
+                </script>',
+                'wpbdp-field-' . $field->get_id(),
+                $this->parse_tinymce_settings( $this->tinymce_settings ),
+                $this->parse_tinymce_settings( $this->quicktags_settings )
+            );
         } else {
             $html .= sprintf('<textarea id="%s" name="%s">%s</textarea>',
                              'wpbdp-field-' . $field->get_id(),
@@ -37,6 +66,43 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         return $html;
+    }
+
+    public function capture_tinymce_settings( $settings, $editor_id ) {
+        $this->tinymce_settings = $settings;
+        return $settings;
+    }
+
+    public function capture_quicktag_settings( $settings, $editor_id ) {
+        $this->quicktags_settings = $settings;
+        return $settings;
+    }
+
+    /**
+     * A copy of _WP_Editors::_parse_init().
+     *
+     * @since 5.0
+     */
+    private function parse_tinymce_settings( $init ) {
+        $options = '';
+
+        foreach ( $init as $key => $value ) {
+            if ( is_bool( $value ) ) {
+                $val = $value ? 'true' : 'false';
+                $options .= $key . ':' . $val . ',';
+                continue;
+            } elseif ( ! empty( $value ) && is_string( $value ) && (
+                ( '{' == $value{0} && '}' == $value{strlen( $value ) - 1} ) ||
+                ( '[' == $value{0} && ']' == $value{strlen( $value ) - 1} ) ||
+                preg_match( '/^\(?function ?\(/', $value ) ) ) {
+
+                $options .= $key . ':' . $value . ',';
+                continue;
+            }
+            $options .= $key . ':"' . $value . '",';
+        }
+
+        return '{' . trim( $options, ' ,' ) . '}';
     }
 
     public function get_supported_associations() {
