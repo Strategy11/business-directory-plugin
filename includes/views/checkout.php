@@ -205,8 +205,9 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             return $this->_redirect( $this->payment->checkout_url );
         }
 
-        if ( 'pending' != $this->payment->status )
-            $payment->gateway = $this->gateway->get_id();
+        if ( 'pending' != $this->payment->status ) {
+            $this->payment->gateway = $this->gateway->get_id();
+        }
 
         // Update payment with changes from the gateway.
         $this->payment->save();
