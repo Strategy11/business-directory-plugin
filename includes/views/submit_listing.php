@@ -172,12 +172,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         foreach ( $this->sections as $section ) {
             $messages = ( ! empty( $this->messages[ $section['id'] ] ) ) ? $this->messages[ $section['id'] ] : array();
 
+            $messages_html = '';
             foreach ( $messages as $i ) {
-                $messages .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
+                $messages_html .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
             }
 
             $sections[ $section['id'] ] = $section;
-            $sections[ $section['id'] ]['html'] = wpbdp_render( 'submit-listing-section', array( 'section' => $section, 'messages' => $messages ) );
+            $sections[ $section['id'] ]['html'] = wpbdp_render( 'submit-listing-section', array( 'section' => $section, 'messages' => $messages_html ) );
         }
 
         $res->add( 'listing_id', $this->listing->get_id() );
@@ -245,6 +246,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $listing;
     }
 
+    public function get_listing() {
+        return $this->listing;
+    }
+
+    public function prevent_save() {
+        $this->prevent_save = true;
+    }
+
     private function submit_sections() {
         $sections = array();
 
@@ -271,11 +280,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
         }
 
+        $sections = apply_filters( 'wpbdp_submit_sections', $sections, $this );
+
         foreach ( $sections as $section_id => &$s ) {
             $s['id'] = $section_id;
             $s['html'] = '';
             $s['flags'] = array();
         }
+
 
         return $sections;
     }
@@ -327,6 +339,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $section['state'] = 'disabled';
                 $section['html'] = '';
             }
+
+            $section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
 
             $section['flags'][] = $section['state'];
         }
@@ -667,7 +681,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
         $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
 
-        if ( ! empty( $_POST ) && ! $accepted ) {
+        if ( $this->saving() && ! $accepted ) {
             $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
             $this->prevent_save = true;
         }
