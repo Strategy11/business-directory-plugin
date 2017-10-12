@@ -170,7 +170,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         }
 
         // This is all or nothing.
-        $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_plans" );
+        // $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_plans" );
 
         foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_fees" ) as $fee ) {
             $old_categories = isset( $fee->categories ) ? unserialize( $fee->categories ) : array();
