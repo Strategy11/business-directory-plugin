@@ -2,6 +2,9 @@
 
 class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
+    private $tinymce_settings = array();
+    private $quicktags_settings = array();
+
     public function __construct() {
         parent::__construct( _x('Textarea', 'form-fields api', 'WPBDM') );
     }
@@ -20,22 +23,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $html  = '';
 
         if ( 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' ) ) {
-            $tinymce_settings = array();
-            $quicktags_settings = array();
-
-            $tinymce_listener = function( $settings, $editor_id ) use ( &$tinymce_settings ) {
-                $tinymce_settings = $settings;
-                return $settings;
-            };
-
-            $quicktags_listener = function( $settings, $editor ) use ( &$quicktags_settings ) {
-                $quicktags_settings = $settings;
-                return $settings;
-            };
-
             ob_start();
-            add_filter( 'tiny_mce_before_init', $tinymce_listener, 100, 2 );
-            add_filter( 'quicktags_settings', $quicktags_listener, 100, 2 );
+            add_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
+            add_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
 
             wp_editor( $value ? $value: '',
                        'wpbdp-field-' . $field->get_id(),
@@ -44,8 +34,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                               'media_buttons' => false,
                               'quicktags' => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false  ) );
 
-            remove_filter( 'tiny_mce_before_init', $tinymce_listener, 100, 2 );
-            remove_filter( 'quicktags_settings', $quicktags_listener, 100, 2 );
+            remove_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
+            remove_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
             ob_end_clean();
 
             $html .= sprintf(
@@ -65,8 +55,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                     };
                 </script>',
                 'wpbdp-field-' . $field->get_id(),
-                $this->parse_tinymce_settings( $tinymce_settings ),
-                $this->parse_tinymce_settings( $quicktags_settings )
+                $this->parse_tinymce_settings( $this->tinymce_settings ),
+                $this->parse_tinymce_settings( $this->quicktags_settings )
             );
         } else {
             $html .= sprintf('<textarea id="%s" name="%s">%s</textarea>',
@@ -76,6 +66,16 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         return $html;
+    }
+
+    public function capture_tinymce_settings( $settings, $editor_id ) {
+        $this->tinymce_settings = $settings;
+        return $settings;
+    }
+
+    public function capture_quicktag_settings( $settings, $editor_id ) {
+        $this->quicktags_settings = $settings;
+        return $settings;
     }
 
     private function parse_tinymce_settings( $init ) {
