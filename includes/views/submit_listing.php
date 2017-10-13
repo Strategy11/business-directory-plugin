@@ -40,6 +40,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             'continueToPaymentTxt' => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
             'isAdmin' => current_user_can( 'administrator' )
         ) );
+
+        do_action( 'wpbdp_submit_listing_enqueue_resources' );
     }
 
     private function saving() {
@@ -187,7 +189,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $res->send();
     }
 
-    private function messages( $msg, $type = 'notice', $context = 'general' ) {
+    public function messages( $msg, $type = 'notice', $context = 'general' ) {
         if ( ! isset( $this->messages[ $context ] ) )
             $this->messages[ $context ] = array();
 
