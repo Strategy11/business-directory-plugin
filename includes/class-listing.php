@@ -733,6 +733,11 @@ class WPBDP_Listing {
         do_action( 'wpbdp_save_listing', $this->id, 'submit-new' == $context );
 
         $this->get_status(); // This forces a status refresh if there's no status.
+
+        // Do not let expired listings be public.
+        if ( $this->get_status() && in_array( $this->get_status(), array( 'expired', 'pending_renewal' ) ) && 'publish' == get_post_status( $this->id ) ) {
+            $this->set_post_status( 'draft' );
+        }
     }
 
     /**
