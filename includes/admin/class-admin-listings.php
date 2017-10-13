@@ -479,6 +479,13 @@ class WPBDP_Admin_Listings {
         $row['is_sticky'] = ! empty( $new_plan['is_sticky'] ) ? 1 : 0;
 
         $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
+
+        // Check if the status needs to be changed.
+        if ( 'expired' == $listing->get_status() ) {
+            if ( null === $row['expiration_date'] || strtotime( $new_plan['expiration_date'] ) > current_time( 'timestamp' ) ) {
+                $listing->get_status( true, true );
+            }
+        }
     }
 
     public function _add_bulk_actions() {
