@@ -55,7 +55,7 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
             return array();
 
         $posts = get_posts( array( 'post_type' => WPBDP_POST_TYPE,
-                                   'post_status' => 'all',
+                                   'post_status' => array( 'publish', 'draft', 'pending' ),
                                    'author' => $user->ID,
                                    'posts_per_page' => -1,
                                    'fields' => 'ids' ) );
