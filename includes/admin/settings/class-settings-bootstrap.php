@@ -278,19 +278,20 @@ final class WPBDP__Settings__Bootstrap {
     private static function settings_listings() {
         wpbdp_register_setting( array(
             'id'      => 'listings-per-page',
-            'type'    => 'text',
+            'type'    => 'number',
             'name'    => _x( 'Listings per page', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Number of listings to show per page. Use a value of "0" to show all listings.', 'settings', 'WPBDM' ),
             'default' => '10',
+            'min'     => 0, 'step' => 1,
             'group' => 'listings/main'
         ) );
-        /* TODO: validate array($this, '_validate_listing_duration') */
         wpbdp_register_setting( array(
             'id'      => 'listing-duration',
             'type'    => 'number',
             'name'    => _x( 'Listing duration for no-fee sites (in days)', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'settings', 'WPBDM' ),
             'default' => '365',
+            'min'     => 0, 'step' => 1, 'max' => 3650,
             'group'   => 'listings/main'
         ) );
         wpbdp_register_setting( array(
@@ -650,7 +651,6 @@ final class WPBDP__Settings__Bootstrap {
         ) );
 
         wpbdp_register_settings_group( 'image/listings', _x( 'Listings', 'settings', 'WPBDM' ), 'appearance/image' );
-        /*  TODO: array( &$this, '_validate_free_images' ) ); */
         wpbdp_register_setting( array(
             'id'      => 'free-images',
             'type'    => 'number',
@@ -1100,18 +1100,5 @@ final class WPBDP__Settings__Bootstrap {
             }
         }
     }
-
-    // public function _validate_free_images( $setting, $newvalue, $oldvalue = null ) {
-    //     $v = absint( $newvalue );
-    //     return $v;
-    // }
-    //
-    // public function _validate_listing_duration($setting, $newvalue, $oldvalue=null) {
-    //     // limit 'duration' because of TIMESTAMP limited range (issue #157).
-    //     // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
-    //     $v = min(max(intval($newvalue), 0), 3650);
-    //     return $v;
-    // }
-
 
 }
