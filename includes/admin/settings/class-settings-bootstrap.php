@@ -784,10 +784,11 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'payment-abandonment-threshold',
-            'type'    => 'text',
+            'type'    => 'number',
             'name'    => _x( 'Listing abandonment threshold (hours)', 'settings', 'WPBDM' ),
             'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'WPBDM' ) ),
             'default' => '24',
+            'min'     => 0, 'step' => 1,
             'group'   => 'payment/main',
             'requirements' => array( 'payment-abandonment' )
         ) );
