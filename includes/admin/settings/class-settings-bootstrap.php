@@ -217,7 +217,7 @@ final class WPBDP__Settings__Bootstrap {
             'id'       => 'quick-search-fields',
             'type'     => 'multicheck',
             'name'     => _x( 'Quick search fields', 'settings', 'WPBDM' ),
-            'desc'     => _x( 'Use Ctrl-Click to include multiple fields in the search. Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ) . $too_many_fields,
+            'desc'     => _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ) . $too_many_fields,
             'default'  => array(),
             'multiple' => true,
             'options'  => $fields,
@@ -295,10 +295,9 @@ final class WPBDP__Settings__Bootstrap {
             'group'   => 'listings/main'
         ) );
         wpbdp_register_setting( array(
-            'id'      => 'show-contact-form',
+            'id'      => 'listing-renewal',
             'type'    => 'checkbox',
-            'name'    => _x( 'Include listing contact form on listing pages?', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'WPBDM' ),
+            'name'    => _x( 'Turn on listing renewal option?', 'settings', 'WPBDM' ),
             'default' => true,
             'group' => 'listings/main'
         ) );
@@ -309,12 +308,23 @@ final class WPBDP__Settings__Bootstrap {
             'default' => false,
             'group' => 'listings/main'
         ) );
+
+
+        wpbdp_register_settings_group( 'listings/contact', _x( 'Contact Form', 'settings', 'WPBDM' ), 'listings/main' );
+        wpbdp_register_setting( array(
+            'id'      => 'show-contact-form',
+            'type'    => 'checkbox',
+            'name'    => _x( 'Include listing contact form on listing pages?', 'settings', 'WPBDM' ),
+            'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'WPBDM' ),
+            'default' => true,
+            'group' => 'listings/contact'
+        ) );
         wpbdp_register_setting( array(
             'id'      => 'contact-form-require-login',
             'type'    => 'checkbox',
             'name'    => _x( 'Require login for using the contact form?', 'settings', 'WPBDM' ),
             'default' => false,
-            'group' => 'listings/main',
+            'group' => 'listings/contact',
             'requirements' => array( 'show-contact-form' )
         ) );
         wpbdp_register_setting( array(
@@ -323,7 +333,7 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Maximum number of contact form submits per day', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Use this to prevent spamming of listing owners. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
             'default' => '0',
-            'group' => 'listings/main',
+            'group' => 'listings/contact',
             'requirements' => array( 'show-contact-form' )
         ) );
         wpbdp_register_setting( array(
@@ -374,15 +384,6 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'Submit Listing instructions message', 'settings', 'WPBDM' ),
             'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'WPBDM' ),
             'default' => '',
-            'group' => 'listings/main'
-        ) );
-
-        // wpbdp_register_settings_group( 'listings/renewal', _x( 'Listings', 'settings', 'WPBDM' ), 'listings/main' );
-        wpbdp_register_setting( array(
-            'id'      => 'listing-renewal',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Turn on listing renewal option?', 'settings', 'WPBDM' ),
-            'default' => true,
             'group' => 'listings/main'
         ) );
 
