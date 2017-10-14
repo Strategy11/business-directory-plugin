@@ -229,6 +229,10 @@ class WPBDP__Settings {
             return false;
         }
 
+        if ( 'number' == $args['type'] ) {
+            add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_number_setting' ), 10, 2 );
+        }
+
         $this->settings[ $args['id' ] ] = $args;
 
         if ( 'silent' != $args['type'] ) {
@@ -527,6 +531,26 @@ class WPBDP__Settings {
         }
 
         return ( $has_error ? $old_value : $value );
+    }
+
+    public function validate_number_setting( $value, $setting_id ) {
+        $setting = $this->get_setting( $setting_id );
+
+        if ( ! $setting ) {
+            return $value;
+        }
+
+        if ( ! empty( $setting['step'] ) && is_int( $setting['step'] ) ) {
+            $value = intval( $value );
+        } else {
+            $value = floatval( $value );
+        }
+
+        // Min and max.
+        $value = ( array_key_exists( 'min', $setting ) && $value < $setting['min'] ) ? $setting['min'] : $value;
+        $value = ( array_key_exists( 'max', $setting ) && $value > $setting['max'] ) ? $setting['max'] : $value;
+
+        return $value;
     }
 
     /* upgrade from old-style settings to new options */
