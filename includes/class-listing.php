@@ -124,7 +124,7 @@ class WPBDP_Listing {
     public function calculate_expiration_date( $time, &$fee ) {
         if ( is_array( $fee ) ) {
             $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
-        } else if ( is_a( $fee, 'WPBDP__Fee_plan' ) ) {
+        } else if ( is_a( $fee, 'WPBDP__Fee_Plan' ) ) {
             $days = $fee->days;
         } else {
             $days = 0;
