@@ -206,12 +206,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function can_submit( &$msg = null ) {
-        // Submit shortcode is exempt from restrictions.
-        $submit_shortcodes = array( 'businessdirectory-submit-listing', 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' );
+        // TODO: Can we use get_post()?
+        $post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
 
-        foreach ( $submit_shortcodes as $test_shortcode ) {
-            if ( has_shortcode( $GLOBALS['post']->post_content, $test_shortcode ) ) {
-                return true;
+        if ( is_object( $post ) ) {
+            // Submit shortcode is exempt from restrictions.
+            $submit_shortcodes = array( 'businessdirectory-submit-listing', 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' );
+
+            foreach ( $submit_shortcodes as $test_shortcode ) {
+                if ( has_shortcode( $post->post_content, $test_shortcode ) ) {
+                    return true;
+                }
             }
         }
 
