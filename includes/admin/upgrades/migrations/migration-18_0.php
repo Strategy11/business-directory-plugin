@@ -169,9 +169,6 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             return true;
         }
 
-        // This is all or nothing.
-        // $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_plans" );
-
         foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_fees" ) as $fee ) {
             $old_categories = isset( $fee->categories ) ? unserialize( $fee->categories ) : array();
 
@@ -197,7 +194,17 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 'recurring' => ( 0 != $fee->days && $fee->amount > 0.0 && get_option( 'wpbdp-listing-renewal-auto' ) && get_option( 'wpbdp-listing-renewal-auto-dontask' ) ) ? 1 : 0
             );
 
-            if ( false === $wpdb->insert( $wpdb->prefix . 'wpbdp_plans', $row ) ) {
+            // Check if fee plan already exists.
+            $exists  = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee->id ) );
+            $success = true;
+
+            if ( $exists ) {
+                $success = ( false !== $wpdb->update( $wpdb->prefix . 'wpbdp_plans', $row, array( 'id' => $fee->id ) ) );
+            } else {
+                $success = ( false !== $wpdb->insert( $wpdb->prefix . 'wpbdp_plans', $row ) );
+            }
+
+            if ( ! $success ) {
                 $msg = sprintf( _x( '! Could not migrate fee "%s" (%d)', 'installer', 'WPBDM' ), $fee->label, $fee->id );
                 return false;
             }

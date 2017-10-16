@@ -83,8 +83,8 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
         if ( ! $config ) {
             // Delete all sticky info.
-            $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' );
-            $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' );
+            // $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' );
+            // $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' );
             return;
         }
 
@@ -132,8 +132,8 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             }
         }
 
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' ) );
-        $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' ) );
+        // $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky]' ) );
+        // $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[sticky_level]' ) );
 
         delete_option( 'wpbdp-migrate-18_0-featured-pending' );
     }
