@@ -3,6 +3,13 @@
 class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
     function __construct() {
+        // Check if we actually need to perform the migration.
+        global $wpdb;
+        if ( 0 === absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value != %s", '_wpbdp[sticky]', 'normal' ) ) ) ) {
+            delete_option( 'wpbdp-migrate-18_0-featured-pending' );
+            return;
+        }
+
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
         add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
