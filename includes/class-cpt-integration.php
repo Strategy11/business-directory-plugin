@@ -6,21 +6,6 @@ class WPBDP__CPT_Integration {
 
     public function __construct() {
         $this->register_post_type();
-
-        add_filter( 'post_type_link', array( &$this, '_post_link' ), 10, 3 );
-        add_filter( 'get_shortlink', array( &$this, '_short_link' ), 10, 4 );
-        // add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
-        add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 2);
-
-        add_filter('term_link', array($this, '_category_link'), 10, 3);
-        add_filter('term_link', array($this, '_tag_link'), 10, 3);
-
-        add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
-
-        add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
-        add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
-
-        add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
     }
 
     private function register_post_type() {
@@ -74,6 +59,23 @@ class WPBDP__CPT_Integration {
 
         $tags_slug = wpbdp_get_option( 'permalinks-tags-slug', WPBDP_TAGS_TAX );
         register_taxonomy( WPBDP_TAGS_TAX, WPBDP_POST_TYPE, $tags_args );
+    }
+
+    public function register_hooks() {
+        add_filter( 'post_type_link', array( &$this, '_post_link' ), 10, 3 );
+        add_filter( 'get_shortlink', array( &$this, '_short_link' ), 10, 4 );
+        // add_filter('post_type_link', array($this, '_post_link_qtranslate'), 11, 2); // basic support for qTranslate
+        add_filter('preview_post_link', array($this, '_preview_post_link'), 10, 2);
+
+        add_filter('term_link', array($this, '_category_link'), 10, 3);
+        add_filter('term_link', array($this, '_tag_link'), 10, 3);
+
+        add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
+
+        add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
+        add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
+
+        add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
     }
 
     public function _category_link($link, $category, $taxonomy) {

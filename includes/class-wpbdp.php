@@ -111,6 +111,8 @@ final class WPBDP {
         $this->settings = new WPBDP__Settings();
         $this->settings->bootstrap();
 
+        $this->cpt_integration = new WPBDP__CPT_Integration();
+
         $this->licensing = new WPBDP_Licensing();
         $this->modules = new WPBDP__Modules();
 
@@ -155,7 +157,7 @@ final class WPBDP {
         $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
 
-        $this->cpt_integration = new WPBDP__CPT_Integration();
+        $this->cpt_integration->register_hooks();
 
         $this->cron = new WPBDP__Cron();
         $this->listing_expiration = new WPBDP__Listing_Expiration();
