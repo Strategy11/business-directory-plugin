@@ -129,6 +129,13 @@ final class WPBDP {
                 add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
                 add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
 
+                // XXX: Temporary fix to disable features until a pending Manual
+                // Upgrades have been performed.
+                //
+                // Ideally, these hooks would be registered later, making the following
+                // lines unnecessary.
+                remove_action( 'wp_footer', array( $this->themes, 'fee_specific_coloring' ), 999 );
+
                 return;
             }
         }
