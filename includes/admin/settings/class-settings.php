@@ -16,6 +16,12 @@ class WPBDP__Settings {
         if ( false === ( $settings_opt = get_option( 'wpbdp_settings' ) ) ) {
             add_option( 'wpbdp_settings', array() );
         }
+
+        // register_setting is not available on init in WordPress 4.3
+        if ( ! function_exists( 'register_setting' ) && file_exists( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
+		    require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        }
+
         register_setting( 'wpbdp_settings', 'wpbdp_settings', array( $this, 'sanitize_settings' ) );
 
         // Cache current values.
