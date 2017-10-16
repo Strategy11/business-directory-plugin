@@ -135,6 +135,7 @@ final class WPBDP {
                 // Ideally, these hooks would be registered later, making the following
                 // lines unnecessary.
                 remove_action( 'wp_footer', array( $this->themes, 'fee_specific_coloring' ), 999 );
+                remove_action( 'admin_notices', array( &$this->licensing, 'admin_notices' ) );
 
                 return;
             }
