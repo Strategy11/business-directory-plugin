@@ -22,7 +22,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         $html  = '';
 
-        if ( 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' ) ) {
+        if ( $this->should_show_wysiwyg_editor( $field ) ) {
             ob_start();
             add_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
             add_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
@@ -66,6 +66,14 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         return $html;
+    }
+
+    private function should_show_wysiwyg_editor( $field ) {
+        if ( ! function_exists( 'wp_enqueue_editor' ) ) {
+            return false;
+        }
+
+        return 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' );
     }
 
     public function capture_tinymce_settings( $settings, $editor_id ) {

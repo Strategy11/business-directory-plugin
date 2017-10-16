@@ -27,7 +27,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
 
         // Required for textareas with HTML support via the WP Editor.
-        wp_enqueue_editor();
+        // XXX: wp_enqueue_editor was added in WordPress 4.8.0.
+        if ( function_exists( 'wp_enqueue_editor' ) ) {
+            wp_enqueue_editor();
+        }
 
         // Required for account creation (if enabled).
         if ( 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) ) {
