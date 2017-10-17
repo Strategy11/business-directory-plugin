@@ -75,7 +75,7 @@ class WPBDP__Views__Search extends WPBDP__View {
                 WPBDP_PATH . 'templates/search-form.tpl.php',
                 array(
                     'fields' => $fields,
-                    'validation_errors' => $validation_errors,
+                    'validation_errors' => ! empty( $validation_errors ) ? $validation_errors : array(),
                     'return_url' => ( ! empty( $this->return_url ) ? $this->return_url : '' )
                 )
             );
