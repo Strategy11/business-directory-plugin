@@ -37,7 +37,7 @@ class WPBDP_Installer {
 
         if ( $this->installed_version ) {
             wpbdp_log('WPBDP is already installed.');
-            $this->_update();
+            return $this->_update();
         } else if ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
             wpbdp_log('New installation. Creating default form fields.');
             global $wpbdp;
@@ -199,16 +199,22 @@ class WPBDP_Installer {
             try {
                 $m = $this->load_migration_class( 'WPBDP__Migrations__' . str_replace( '.', '_', $version ) );
             } catch ( Exception $e ) {
-                continue;
+                $m = false;
             }
 
-            $m->migrate();
+            if ( ! empty( $m ) ) {
+                $m->migrate();
+            }
 
             update_option('wpbdp-db-version', $version );
 
-            if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
-                break;
+            if ( get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
+                return;
+            }
         }
+
+        delete_option('wpbusdirman_db_version');
+        update_option('wpbdp-db-version', self::DB_VERSION);
         // $wpbdp->formfields->maybe_correct_tags();
     }
 
