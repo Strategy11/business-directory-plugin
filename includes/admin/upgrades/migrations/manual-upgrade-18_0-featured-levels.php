@@ -184,7 +184,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         echo $this->_fee_form();
         echo '</div>';
 
-        _ex( 'Business Directory <b>version @next-release</b> is changing how Featured Levels plugin works. We are leaving restricted features for fee plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-18', 'WPBDM');
+        _ex( 'Business Directory <b>version 5.0</b> is changing how Featured Levels plugin works. We are leaving restricted features for fee plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-18', 'WPBDM');
         echo '<br />';
         _ex( 'We need to migrate your existing "featured levels" to fee plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-18', 'WPBDM');
         echo '<br /><br />';
@@ -301,7 +301,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         echo str_replace(
             '<a>',
             '<a href="' . admin_url( 'admin.php?page=wpbdp_migration_18_0_featured_levels' ) . '">',
-            _x( 'Featured levels were removed in @next-release. You need to perform your <a>Featured Levels migration here</a>.', 'migrate-18', 'WPBDM' )
+            _x( 'Featured levels were removed in 5.0. You need to perform your <a>Featured Levels migration here</a>.', 'migrate-18', 'WPBDM' )
         );
         echo '</p></div>';
     }
