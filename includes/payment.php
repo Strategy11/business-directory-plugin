@@ -219,7 +219,7 @@ class WPBDP_PaymentsAPI {
 
         // For now, we only notify listings with pending INITIAL payments.
         $to_notify = $wpdb->get_results(
-            $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND processed_on IS NULL AND created_at < %s ORDER BY created_at",
+            $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND created_at < %s ORDER BY created_at",
                             'pending',
                             'initial',
                             $time_for_pending )
