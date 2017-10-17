@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since fees-revamp
+ * @since 5.0
  */
 class WPBDP__Dummy_Listing {
 

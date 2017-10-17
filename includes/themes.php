@@ -612,7 +612,7 @@ class WPBDP_Themes {
      *
      * @link http://docs.businessdirectoryplugin.com/themes/customization.html#block-and-block-variable-customization
      *
-     * @since next-release
+     * @since 5.0
      *
      * @param string $template_path Path to the template file.
      *

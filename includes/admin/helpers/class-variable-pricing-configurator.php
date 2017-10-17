@@ -2,7 +2,7 @@
 require_once ( WPBDP_PATH . 'includes/helpers/class-wp-taxonomy-term-list.php'  );
 
 /**
- * @since next-release
+ * @since 5.0
  */
 class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Term_List {
 

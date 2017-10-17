@@ -1,7 +1,7 @@
 <?php
 /**
  * Lightweight wrapper for extension modules, ensuring all basic info is always available.
- * @since fees-revamp
+ * @since 5.0
  */
 final class WPBDP__Module {
 

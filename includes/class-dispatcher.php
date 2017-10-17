@@ -90,7 +90,7 @@ class WPBDP__Dispatcher {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function _ajax_dispatch() {
         if ( empty( $_REQUEST['handler'] ) )

@@ -771,7 +771,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 }
 
 /**
- * @since fees-revamp
+ * @since 5.0
  */
 function wpbdp_get_fee_plan( $plan_id ) {
     global $wpdb;

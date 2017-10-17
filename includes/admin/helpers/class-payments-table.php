@@ -3,7 +3,7 @@ if ( ! class_exists( 'WP_List_Table' ) )
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 
 /**
- * @since next-release
+ * @since 5.0
  */
 class WPBDP__Admin__Payments_Table extends WP_List_Table {
 

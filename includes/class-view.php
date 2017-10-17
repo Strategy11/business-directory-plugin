@@ -1,7 +1,7 @@
 <?php
 /**
  * View API/class.
- * @since next-release
+ * @since 5.0
  */
 class WPBDP__View {
 

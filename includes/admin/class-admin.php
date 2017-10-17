@@ -345,7 +345,7 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     private function prepare_menu( &$menu ) {
         $n = 1;
@@ -374,7 +374,7 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     function admin_view_dispatch() {
         global $plugin_page;
@@ -426,7 +426,7 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     function admin_ajax_dispatch() {
         if ( empty( $_REQUEST['handler'] ) )
@@ -459,7 +459,7 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     function menu_dispatch() {
         $output = $this->current_controller_output;

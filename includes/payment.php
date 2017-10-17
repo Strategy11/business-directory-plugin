@@ -38,7 +38,7 @@ class WPBDP_PaymentsAPI {
     }
 
     /**
-     * @since fees-revamp
+     * @since 5.0
      */
     public function render_receipt( $payment ) {
         ob_start();

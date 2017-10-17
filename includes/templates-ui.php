@@ -565,14 +565,14 @@ class WPBDP_ListingFieldDisplayItem {
 }
 
 /**
- * @since next-release
+ * @since 5.0
  */
 function wpbdp_the_main_box( $args = array() ) {
     echo wpbdp_main_box( $args = array() );
 }
 
 /**
- * @since next-release
+ * @since 5.0
  */
 function wpbdp_main_box( $args = null ) {
     $defaults = array(

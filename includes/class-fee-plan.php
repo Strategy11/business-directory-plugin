@@ -134,7 +134,7 @@ final class WPBDP__Fee_Plan {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_feature_list() {
         $items = array();
@@ -151,7 +151,7 @@ final class WPBDP__Fee_Plan {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function calculate_amount( $categories = array() ) {
         $amount = 0.0;
@@ -174,7 +174,7 @@ final class WPBDP__Fee_Plan {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function supports_category_selection( $categories = array() ) {
         if ( ! $categories )
@@ -210,7 +210,7 @@ final class WPBDP__Fee_Plan {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function calculate_expiration_time( $base_time ) {
         if ( ! $base_time )

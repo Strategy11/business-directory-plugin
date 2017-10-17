@@ -2,7 +2,7 @@
 require_once( WPBDP_PATH . 'includes/class-payment.php' );
 
 /**
- * @since next-release
+ * @since 5.0
  */
 class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since 5.0
  */
 class WPBDP__CPT_Integration {
 
@@ -212,7 +212,7 @@ class WPBDP__CPT_Integration {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function save_post( $post_id, $post, $update ) {
         if ( WPBDP_POST_TYPE != $post->post_type )

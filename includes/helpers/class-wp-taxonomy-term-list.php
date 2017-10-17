@@ -1,6 +1,6 @@
 <?php
 /**
- * @since next-release
+ * @since 5.0
  */
 class WPBDP__WP_Taxonomy_Term_List {
 

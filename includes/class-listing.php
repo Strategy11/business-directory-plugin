@@ -150,7 +150,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function is_recurring() {
         if ( $plan = $this->get_fee_plan() ) {
@@ -161,14 +161,14 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since fees-revamp
+     * @since 5.0
      */
     public function get_subscription() {
         return new WPBDP__Listing_Subscription( $this->id );
     }
 
     /**
-     * @since fees-revamp
+     * @since 5.0
      */
     public function has_subscription() {
         global $wpdb;
@@ -187,7 +187,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_admin_edit_link() {
         return admin_url( 'post.php?post=' . $this->id . '&action=edit' );
@@ -203,7 +203,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_payments() {
         $payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) );
@@ -222,7 +222,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function set_status( $status ) {
         global $wpdb;
@@ -292,7 +292,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function renew() {
         $plan = $this->get_fee_plan();
@@ -332,7 +332,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function validate_access_key_hash( $hash ) {
         $key = $this->get_access_key();
@@ -363,7 +363,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function has_fee_plan( $fee = false ) {
         $current = $this->get_fee_plan();
@@ -371,7 +371,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_fee_plan() {
         global $wpdb;
@@ -393,7 +393,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since fees-revamp
+     * @since 5.0
      */
     public function update_plan( $plan = null, $args = array() ) {
         global $wpdb;
@@ -465,7 +465,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function set_fee_plan( $fee, $recurring_data = array() ) {
         global $wpdb;
@@ -501,7 +501,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function set_fee_plan_with_payment( $fee, $recurring = false ) {
         $plan1 = $this->get_fee_plan();
@@ -559,7 +559,7 @@ class WPBDP_Listing {
 
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_expiration_date() {
         $plan = $this->get_fee_plan();
@@ -567,14 +567,14 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_expiration_time() {
         return strtotime( $this->get_expiration_date() );
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_status( $force_refresh = false, $calculate = true ) {
         global $wpdb;
@@ -602,7 +602,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_status_label() {
         $stati = self::get_stati();
@@ -611,7 +611,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     private function calculate_status() {
         global $wpdb;
@@ -638,7 +638,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function get_stati() {
         $stati = array(
@@ -658,7 +658,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function validate_access_key( $key, $email = '' ) {
         if ( ! $key )
@@ -674,7 +674,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_sequence_id() {
         $sequence_id = get_post_meta( $this->id, '_wpbdp[import_sequence_id]', true );
@@ -696,7 +696,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function get_flags() {
         global $wpdb;
@@ -710,7 +710,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function set_flag( $flag ) {
         global $wpdb;
@@ -724,7 +724,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function _after_save( $context = '' ) {
         if ( 'submit-new' == $context ) {
@@ -746,7 +746,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function after_delete( $context = '' ) {
         global $wpdb;
@@ -770,7 +770,7 @@ class WPBDP_Listing {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function insert_or_update( $args = array(), $error = false ) {
     }

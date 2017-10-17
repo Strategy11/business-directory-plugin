@@ -21,7 +21,7 @@ class WPBDP__Utils {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function sort_by_property( &$array, $prop ) {
         uasort( $array,
@@ -29,7 +29,7 @@ class WPBDP__Utils {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function table_exists( $table ) {
         global $wpdb;
@@ -39,7 +39,7 @@ class WPBDP__Utils {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function table_has_col( $table, $col ) {
         if ( ! self::table_exists( $table ) )
@@ -51,7 +51,7 @@ class WPBDP__Utils {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public static function table_drop_col( $table, $col ) {
         if ( ! self::table_has_col( $table, $col ) )

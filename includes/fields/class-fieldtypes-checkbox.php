@@ -163,7 +163,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function configure_search( &$field, $query, &$search ) {
         global $wpdb;

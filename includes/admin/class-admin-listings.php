@@ -396,7 +396,7 @@ class WPBDP_Admin_Listings {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function maybe_save_fields( $post_id ) {
         if ( ! is_admin() )
@@ -435,7 +435,7 @@ class WPBDP_Admin_Listings {
     }
 
     /**
-     * @since next-release
+     * @since 5.0
      */
     public function maybe_update_plan( $post_id ) {
         if ( ! is_admin() )

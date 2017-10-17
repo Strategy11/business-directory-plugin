@@ -18,7 +18,7 @@ jQuery(document).ready(function($){
 
     /**
      * Handles flex behavior for main box columns.
-     * @since next-release
+     * @since 5.0
      */
     wpbdp.main_box = {
         init: function() {
