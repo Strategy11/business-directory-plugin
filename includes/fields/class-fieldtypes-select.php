@@ -98,6 +98,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                         }
                     }
                 }
+
+                if ( 'search' == $context ) {
+                    // Disable "Choose Terms".
+                    $html = preg_replace( "/\\<option(.*)value=('|\")-1('|\")(.*)\\>/uiU",
+                                          "<option value=\"-1\" disabled=\"disabled\" $1 $4>",
+                                          $html );
+                }
         } else {
             $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s" %s>',
                               'wpbdp-field-' . $field->get_id(),
