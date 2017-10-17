@@ -20,6 +20,19 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         );
     }
 
+    protected function prepare_row() {
+        $row = parent::prepare_row();
+
+        // Remove unnecessary columns.
+        // FIXME: In the future we should not use WPBDP__DB__Model at all. See #2945.
+        // FIXME: We also need to remove at least `created_on`, `processed_on` and `processed_by` which are not used anywhere.
+        unset( $row['created_on'] );
+        unset( $row['processed_on'] );
+        unset( $row['processed_by'] );
+
+        return $row;
+    }
+
     protected function before_save( $new = false ) {
         if ( ! $this->payment_key )
             $this->payment_key = strtolower( sha1( $this->listing_id . date( 'Y-m-d H:i:s' ) . ( defined( 'AUTH_KEY' ) ? AUTH_KEY : '' ) . uniqid( 'wpbdp', true ) ) );
