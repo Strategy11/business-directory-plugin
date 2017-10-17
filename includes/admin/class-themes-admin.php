@@ -218,7 +218,11 @@ class WPBDP_Themes_Admin {
         $themes = $this->api->get_installed_themes();
 
         foreach( $themes as &$theme ) {
-            $license_status = $this->licensing->get_license_status( null, $theme->id, 'theme' );
+            if ( $theme->is_core_theme ) {
+                $license_status = 'valid';
+            } else {
+                $license_status = $this->licensing->get_license_status( null, $theme->id, 'theme' );
+            }
 
             if ( 'valid' === $license_status ) {
                 $theme->can_be_activated = true;
