@@ -89,10 +89,13 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     }
 
     public function _migrate_email_notices( &$msg ) {
+        require_once( WPBDP_INC . 'admin/settings/class-settings-bootstrap.php' );
+        $defaults = WPBDP__Settings__Bootstrap::get_default_expiration_notices();
+
         $notices = array();
 
         if ( true ) {
-            if ( $email = get_option( 'wpbdp-listing-renewal-message' ) ) {
+            if ( $email = get_option( 'wpbdp-listing-renewal-message', false ) ) {
                 $notices[] = array(
                     'event' => 'expiration',
                     'relative_time' => '0 days',
@@ -100,6 +103,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'subject' => $email['subject'],
                     'body' => $email['body']
                 );
+            } else {
+                $notices[] = $defaults[1];
             }
         }
 
@@ -112,6 +117,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'subject'       => $email['subject'],
                     'body'          => $email['body']
                 );
+            } else {
+                $email = $defaults[0];
+                $email['relative_time'] = '+' . $t . ' days';
+                $notices[] = $email;
             }
 
             if ( get_option( 'wpbdp-send-autorenewal-expiration-notice', false ) ) {
@@ -123,6 +132,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                         'subject'       => $email['subject'],
                         'body'          => $email['body']
                     );
+                } else {
+                    $email = $defaults[3];
+                    $email['relative_time'] = '+' . $t . ' days';
+                    $notices[] = $email;
                 }
             }
         }
@@ -136,6 +149,10 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'subject'       => $email['subject'],
                     'body'          => $email['body']
                 );
+            } else {
+                $email = $defaults[2];
+                $email['relative_time'] = '-' . $t . ' days';
+                $notices[] = $email;
             }
         }
 
@@ -147,6 +164,30 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'subject'       => $email['subject'],
                     'body'          => $email['body']
                 );
+            } else {
+                $notices[] = $defaults[4];
+            }
+        }
+
+        // Clamp relative times to what we can handle.
+        foreach ( $notices as &$notice ) {
+            if ( empty( $notice['relative_time'] ) || '0 days' == $notice['relative_time'] ) {
+                continue;
+            }
+
+            $mod = substr( $notice['relative_time'], 0, 1 );
+            $days = absint( trim( str_replace( array( '+', '-', 'days' ), '', $notice['relative_time'] ) ) );
+
+            if ( $days > 45 ) {
+                $notice['relative_time'] = $mod . '2 months';
+            } elseif ( $days > 23 ) {
+                $notice['relative_time'] = $mod . '1 months';
+            } else if ( $days > 11 ) {
+                $notice['relative_time'] = $mod . '2 weeks';
+            } else if ( $days > 5) {
+                $notice['relative_time'] = $mod . '1 weeks';
+            } else {
+                $notice['relative_time'] = $mod . $days . ' days';
             }
         }
 

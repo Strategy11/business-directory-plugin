@@ -953,7 +953,7 @@ final class WPBDP__Settings__Bootstrap {
         ) );
     }
 
-    private static function get_default_expiration_notices() {
+    public static function get_default_expiration_notices() {
         $notices = array();
 
         /* renewal-pending-message, non-recurring only */
