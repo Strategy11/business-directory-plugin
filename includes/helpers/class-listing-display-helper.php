@@ -86,7 +86,7 @@ class WPBDP_Listing_Display_Helper {
         // Fee-related classes.
         if ( $fee = WPBDP_Listing::get( $listing_id )->get_fee_plan() ) {
             $classes[] = 'wpbdp-listing-plan-id-' . $fee->fee_id;
-            $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee->label );
+            $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee_label );
 
             if ( $fee->is_sticky ) {
                 $classes[] = 'sticky';
