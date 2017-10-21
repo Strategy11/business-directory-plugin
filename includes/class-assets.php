@@ -39,6 +39,14 @@ class WPBDP__Assets {
             true
         );
 
+        // Views
+        wp_register_script(
+            'wpbdp-checkout',
+            WPBDP_URL . 'assets/js/checkout.js',
+            array( 'wpbdp-js' ),
+            WPBDP_VERSION
+        );
+
         // Drag & Drop.
         wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/css/dnd-upload.min.css', array(), WPBDP_VERSION );
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/js/dnd-upload.min.js', array( 'jquery-file-upload' ), WPBDP_VERSION );
