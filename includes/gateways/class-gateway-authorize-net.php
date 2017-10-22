@@ -213,14 +213,14 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         // Billing info.
         $aim->setFields( array(
-            'email' => ! empty( $args['payer_email'] ) ? $args['payer_email'] : '',
-            'first_name' => ! empty( $args['payer_first_name'] ) ? $args['payer_first_name'] : '',
-            'last_name' => ! empty( $args['payer_last_name'] ) ? $args['payer_last_name'] : '',
-            'address' => ! empty( $args['payer_address'] ) ? $args['payer_address'] : '',
-            'city' => ! empty( $args['payer_city'] ) ? $args['payer_city'] : '',
-            'state' => ! empty( $args['payer_state'] ) ? $args['payer_state'] : '',
-            'country' => ! empty( $args['payer_country'] ) ? $args['payer_country'] : '',
-            'zip' => ! empty( $args['payer_zip'] ) ? $args['payer_zip'] : ''
+            'email' => ! empty( $args['email'] ) ? $args['email'] : '',
+            'first_name' => ! empty( $args['first_name'] ) ? $args['first_name'] : '',
+            'last_name' => ! empty( $args['last_name'] ) ? $args['last_name'] : '',
+            'address' => ! empty( $args['address'] ) ? $args['address'] : '',
+            'city' => ! empty( $args['city'] ) ? $args['city'] : '',
+            'state' => ! empty( $args['state'] ) ? $args['state'] : '',
+            'country' => ! empty( $args['country'] ) ? $args['country'] : '',
+            'zip' => ! empty( $args['zip'] ) ? $args['zip'] : ''
         ) );
 
         $aim->setCustomField( 'payment_id', $args['payment_id'] );
