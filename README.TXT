@@ -3,9 +3,10 @@ Contributors: businessdirectoryplugin
 Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
-Tested up to: 4.8
-Last Updated: 2017-Jul-26
-Stable tag: 4.1.14
+Requires PHP: 5.6
+Tested up to: 4.8.2
+Last Updated: 2017-Oct-24
+Stable tag: 5.0
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +143,52 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.0 =
+* Added support for new fee plan pricing models: flat price, category-based, base + extra amount per category
+* Added a new Payments screen to manage all payments.
+* When sorting listings using the paid/free option, the paid amount is now taken into consideration.
+* Completely redesigned category and fee plan selection.
+* Listing statuses and attributes have been redesigned for improved UX on the backend.
+* Listing expiration date is now shown as a column on the backend.
+* Listings submitted by anonymous users can now be edited/renewed using Access Keys.
+* Added support for creating an account during listing submit.
+* Listing now have just one fee plan associated to them instead of one per category
+* Listing renewal now keeps the featured flag. (#634)
+* Listings can now have different background colors depending on their fee plan.
+* Added normalized CSS classes and IDs for listing views.
+* Redesigned listing information metabox.
+* Completely redesigned listing submit workflow using AJAX.
+* Added a "Timeline" metabox on the backend to clearly see a listing's history.
+* Admins can now create any number of listing expiration/reminder notices.
+* Simplify how premium modules integrate into BD.
+* Added businessdirectory-quick-search shortcode to display the Quick Search form.
+* Added warning when reaching the image limit during listing submit/edit.
+* Allow users to edit categories for their listing if the plan allows it.
+* Added option to sort listings using the configured sort for their fee plans.
+* Added several hooks to allow adding content during the submit process and in other templates.
+* Allow admins to mark some fields as required for searching.
+* Added a more reliable cron implementation for scheduled events.
+* Refreshed the Settings API implementation to increase speed, reduce queries and add validation support.
+* Redesigned the settings screen for better UX.
+* Increased reliability of upgrades.
+* Added a new log mechanism for better debugging.
+* Updated the premium module initialization API.
+* License and update checking has been merged to cover both themes and premium modules, reducing external requests.
+
+= Version 4.1.15 =
+* Fix 404 Not Found error for categories URLs that occurred when WPML was installed and configured to use a query parameter to define the language of the website.
+* Empty strings are not allowed as categories and tags slugs.
+* Doing a Factory Settings Reset no longer removes license keys for premium modules.
+* Prevent infinite recursion conflict with Postman.
+* Allow execution of shortcodes in excerpt fields.
+* Remove pagination links from listings shortcode.
+* Add wpbdp_get_page_ids filter.
+* Fix feed links for all listings and categories.
+* Show license-related warnings to administrators only.
+
+= Version 4.1.14.1 =
+* Update to fix uploader class
 
 = Version 4.1.14 =
 * Correct CSS classes for secondary buttons.
