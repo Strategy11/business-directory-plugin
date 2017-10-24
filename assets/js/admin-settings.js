@@ -123,10 +123,23 @@ jQuery(function($) {
                             $msg.removeClass( 'status-error' ).addClass( 'status-success' ).html( res.message ).show();
 
                             if ( activate ) {
-                                $setting
-                                    .removeClass( 'wpbdp-license-status-invalid' )
-                                    .removeClass( 'wpbdp-license-status-unknown' )
-                                    .addClass( 'wpbdp-license-status-valid' );
+                                var classes = $setting.attr( 'class' ).split( ' ' ).filter( function( item ) {
+                                    var className = item.trim();
+
+                                    if ( 0 === className.length ) {
+                                        return false;
+                                    }
+
+                                    if ( className.match( /^wpbdp-license-status/ ) ) {
+                                        return false;
+                                    }
+
+                                    return true;
+                                } );
+
+                                classes.push( 'wpbdp-license-status-valid' );
+
+                                $setting.attr( 'class', classes.join( ' ' ) );
                             } else {
                                 $setting.removeClass( 'wpbdp-license-status-valid' ).addClass( 'wpbdp-license-status-invalid' );
                             }
