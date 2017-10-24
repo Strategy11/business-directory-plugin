@@ -14,7 +14,7 @@ class WPBDP__WPBDPX_Payments_Compat {
         $payment = isset( $_GET['payment_id'] ) ? WPBDP_Payment::get( intval( $_GET['payment_id'] ) ) : null;
         $gid = isset( $_GET['gid'] ) ? trim( $_GET['gid'] ) : '';
 
-        if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel' ) ) || ( ! $payment && ! $gid ) )
+        if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel', 'ins' ) ) || ( ! $payment && ! $gid ) )
             return;
 
         unset( $_GET['action'] );
