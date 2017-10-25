@@ -599,6 +599,8 @@ class WPBDP_Licensing {
     }
 
     public function maybe_check_for_updates( $force_refresh = false ) {
+        do_action( 'wpbdp_licensing_before_updates_check' );
+
         if ( ! $this->items ) {
             return;
         }
@@ -771,6 +773,48 @@ class WPBDP_Licensing {
  * @deprecated since 5.0.
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
+    global $wpbdp_compat_modules_registry;
+
+    if ( ! isset( $wpbdp_compat_modules_registry ) ) {
+        $wpbdp_compat_modules_registry = array();
+    }
+
     wpbdp_deprecation_warning( sprintf( _x( '"%s" version %s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'WPBDM' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . $version . '</strong>' ) );
+    $wpbdp_compat_modules_registry[] = array( $name, $file_, $version );
+
     return false;
 }
+
+/**
+ * Added for compatibility with < 5.x modules.
+ * @since 5.0.1
+ */
+function wpbdp_compat_register_old_modules() {
+    global $wpbdp_compat_modules_registry;
+
+    if ( ! isset( $wpbdp_compat_modules_registry ) || empty( $wpbdp_compat_modules_registry ) ) {
+        $wpbdp_compat_modules_registry = array();
+    }    
+
+    // Gateways are a special case since they are registered in 'wpbdp_register_gateways'.
+    if ( has_filter( 'wpbdp_register_gateways' ) ) {
+        if ( function_exists( 'wp_get_active_and_valid_plugins' ) ) {
+            $plugins = wp_get_active_and_valid_plugins();
+
+            foreach ( $plugins as $plugin_file ) {
+                $plugin_file_basename = basename( $plugin_file );
+
+                if ( 'business-directory-paypal.php' == $plugin_file_basename ) {
+                    $wpbdp_compat_modules_registry[] = array( 'PayPal Gateway Module', $plugin_file, '3.5.6' );
+                } else if ( 'business-directory-twocheckout.php' == $plugin_file_basename ) {
+                    $wpbdp_compat_modules_registry[] = array( '2Checkout Gateway Module', $plugin_file, '3.6.2' );
+                }
+            }
+        }
+    }
+
+    foreach ( $wpbdp_compat_modules_registry as $m ) {
+        wpbdp()->licensing->add_item( array( 'item_type' => 'module', 'name' => $m[0], 'file' => $m[1], 'version' => $m[2] ) );
+    }
+}
+add_action( 'wpbdp_licensing_before_updates_check', 'wpbdp_compat_register_old_modules' );
