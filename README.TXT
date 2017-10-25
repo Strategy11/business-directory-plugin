@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.8.2
-Last Updated: 2017-Oct-24
-Stable tag: 5.0
+Last Updated: 2017-Oct-25
+Stable tag: 5.0.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,6 +143,14 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.0.1 =
+* Fix link generation bug in WPML integration.
+* Do not disable "Choose One" option on search for single-valued selects.
+* Fix Fatal error in PHP 7.1 when too few arguments are passed to one of the plugin functions.
+* Prevent PHP Warning "Invalid argument supplied for foreach()" in Query Integration class.
+* Fix "Fatal error: Cannot create references to elements of a temporary array expression" from PHP 5.4 to allow users to see they're on an old PHP.
+* Prevent a Fatal error caused by Featured Levels 4.x during manual upgrade
 
 = Version 5.0 =
 * Added support for new fee plan pricing models: flat price, category-based, base + extra amount per category
