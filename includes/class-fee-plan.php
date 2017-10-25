@@ -212,7 +212,7 @@ final class WPBDP__Fee_Plan {
     /**
      * @since 5.0
      */
-    public function calculate_expiration_time( $base_time ) {
+    public function calculate_expiration_time( $base_time = null ) {
         if ( ! $base_time )
             $base_time = current_time( 'timestamp' );
 
