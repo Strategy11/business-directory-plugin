@@ -187,6 +187,12 @@ class WPBDP__Query_Integration {
         $sortbar_fields = wpbdp_sortbar_get_field_options();
         $sortbar = wpbdp_get_option( 'listings-sortbar-fields' );
 
+        // Using the default argument for wpbdp_get_option does not work,
+        // because a non-array value may already be stored in the settings array.
+        if ( ! is_array( $sortbar ) ) {
+            $sortbar = array();
+        }
+
         foreach ( $sortbar as $field_id) {
             if ( ! array_key_exists( $field_id, $sortbar_fields ) )
                 continue;
