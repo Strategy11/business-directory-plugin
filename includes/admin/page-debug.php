@@ -51,7 +51,8 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'WPBDM' );
 
         $settings_api = wpbdp_settings_api();
-        foreach ( $settings_api->get_registered_settings() as &$s  ) {
+        $all_settings = $settings_api->get_registered_settings();
+        foreach ( $all_settings as $s  ) {
             if ( in_array( $s['id'], $blacklisted ) )
                 continue;
 
