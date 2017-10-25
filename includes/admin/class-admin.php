@@ -151,8 +151,7 @@ to how WordPress stores the data.", 'WPBDM' )
      * @since 3.4.1
      */
     public function drip_pointer() {
-        global $current_user;
-        get_currentuserinfo();
+        $current_user = wp_get_current_user();
 
         $js = '$.post( ajaxurl, { action: "wpbdp-drip_subscribe",
                                   email: $( "#wpbdp-drip-pointer-email" ).val(),
@@ -208,8 +207,7 @@ to how WordPress stores the data.", 'WPBDM' )
      * @since 3.4.1
      */
     public function ajax_drip_subscribe() {
-        global $current_user;
-        get_currentuserinfo();
+        $current_user = wp_get_current_user();
 
         $res = new WPBDP_Ajax_Response();
         $subscribe = ( '1' == $_POST['subscribe'] ) ? true : false;
