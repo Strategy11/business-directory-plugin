@@ -598,7 +598,7 @@ class WPBDP_Licensing {
         }
     }
 
-    public function maybe_check_for_updates() {
+    public function maybe_check_for_updates( $force_refresh = false ) {
         if ( ! $this->items ) {
             return;
         }
@@ -611,14 +611,18 @@ class WPBDP_Licensing {
         $this->updates = get_transient( 'wpbdp_updates' );
         $needs_refresh = false;
 
-        if ( ! is_array( $this->updates ) ) {
+        if ( $force_refresh ) {
             $needs_refresh = true;
         } else {
-            foreach ( $this->items as $item ) {
-                if ( ! isset( $this->updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
-                    // wpbdp_debug_e( $item, $this->updates );
-                    $needs_refresh = true;
-                    break;
+            if ( ! is_array( $this->updates ) ) {
+                $needs_refresh = true;
+            } else {
+                foreach ( $this->items as $item ) {
+                    if ( ! isset( $this->updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
+                        // wpbdp_debug_e( $item, $this->updates );
+                        $needs_refresh = true;
+                        break;
+                    }
                 }
             }
         }
@@ -686,7 +690,7 @@ class WPBDP_Licensing {
             return $transient;
         }
 
-        $this->maybe_check_for_updates();
+        $this->maybe_check_for_updates( true );
 
         if ( ! $this->updates ) {
             return $transient;
