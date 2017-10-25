@@ -99,7 +99,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     }
                 }
 
-                if ( 'search' == $context ) {
+                if ( 'search' == $context && $this->is_multiple() ) {
                     // Disable "Choose Terms".
                     $html = preg_replace( "/\\<option(.*)value=('|\")-1('|\")(.*)\\>/uiU",
                                           "<option value=\"-1\" disabled=\"disabled\" $1 $4>",
