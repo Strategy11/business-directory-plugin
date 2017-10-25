@@ -279,3 +279,7 @@ function wpbdp_categories_list($parent=0, $hierarchical=true) {
 function wpbdp_has_module( $module ) {
     return wpbdp()->modules->is_loaded( $module );
 }
+
+function wpbdp_listing_upgrades_api() {
+    return new WPBDP_NoopObject();
+}
