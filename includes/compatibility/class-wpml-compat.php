@@ -96,6 +96,9 @@ class WPBDP_WPML_Compat {
             // page of the website. The IF below cause listing links to use / as the
             // base URL, while the rewrite rules use the page's URI as the base URL.
             // As a result, every listing link returns a 404 Not Found.
+            //
+            // UPDATE: Maybe this is related to:
+            // https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3122
             /*if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
                 $real_link = get_permalink( $trans_id );
                 $used_link = _get_page_link( $trans_id );
@@ -112,7 +115,6 @@ class WPBDP_WPML_Compat {
     }
 
     function correct_page_link( $link, $name = '', $arg0 = '' ) {
-        global $sitepress;
         $lang = $this->get_current_language();
 
         if ( ! $lang )
@@ -127,7 +129,7 @@ class WPBDP_WPML_Compat {
             case 'all_listings':
             case 'view_listings':
             case 'submit_listing':
-                $link = add_query_arg( 'lang', $lang, $link );
+                $link = $this->maybe_add_lang_query_arg( $link, $lang );
                 break;
 
             default:
@@ -137,6 +139,15 @@ class WPBDP_WPML_Compat {
         return $link;
     }
 
+    private function maybe_add_lang_query_arg( $link, $lang ) {
+        $negotionation_type = intval( $this->wpml->get_setting( 'language_negotiation_type' ) );
+
+        if ( 3 !== $negotionation_type ) {
+            return $link;
+        }
+
+        return add_query_arg( 'lang', $lang, $link );
+    }
 
     function translate_link( $link, $lang = null ) {
         global $sitepress;
@@ -158,11 +169,7 @@ class WPBDP_WPML_Compat {
 
             $link = str_replace( $main_link, $main_trans_link, $link );
 
-            $nego_type = absint( $sitepress->get_setting( 'language_negotiation_type' ) );
-
-            if ( 3 == $nego_type ) {
-                $link = add_query_arg( 'lang', $lang, $link );
-            }
+            $link = $this->maybe_add_lang_query_arg( $link, $lang );
         } else {
             $link = add_query_arg( 'lang', $lang, $link );
         }
