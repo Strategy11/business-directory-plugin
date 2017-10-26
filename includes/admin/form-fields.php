@@ -207,6 +207,7 @@ class WPBDP_FormFieldsAdmin {
         $html .= wpbdp_admin_header(_x('Form Preview', 'form-fields admin', 'WPBDM'), 'formfields-preview', array(
             array(_x('← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM'), esc_url(remove_query_arg('action')))
         ));
+        $html .= '<div id="wpbdp-listing-form-preview">';
         $html .= wpbdp_admin_notices();
         $html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
 
@@ -217,6 +218,7 @@ class WPBDP_FormFieldsAdmin {
         $html .= WPBDP__Views__Submit_Listing::preview_form( $listing );
 
         $html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
+        $html .= '</div>';
         $html .= wpbdp_admin_footer();
 
         echo $html;

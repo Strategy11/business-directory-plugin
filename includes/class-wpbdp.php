@@ -35,6 +35,8 @@ final class WPBDP {
         // Make DBO framework available to everyone.
         require_once( WPBDP_INC . 'db/class-db-model.php' );
 
+        require_once( WPBDP_INC . 'class-view.php' );
+
         require_once( WPBDP_INC . 'class-modules.php' );
         require_once( WPBDP_INC . 'licensing.php' );
 
