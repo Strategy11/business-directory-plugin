@@ -62,6 +62,8 @@ class WPBDP_Admin {
         // Reset settings action.
         add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
+        add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
+
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_view_dispatch' ), 9999 );
         add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
@@ -565,8 +567,14 @@ to how WordPress stores the data.", 'WPBDM' )
 
         $res = new WPBDP_Ajax_Response();
 
-        if ( ! $id || ! $nonce || ! $user_id || ! wp_verify_nonce( $nonce, 'dismiss notice ' . $id ) )
+        if ( ! $id || ! $nonce || ! $user_id || ! wp_verify_nonce( $nonce, 'dismiss notice ' . $id ) ) {
             $res->send_error();
+        }
+
+        if ( has_action( 'wpbdp_admin_ajax_dismiss_notification_' . $id ) ) {
+            do_action( 'wpbdp_admin_ajax_dismiss_notification_' . $id, $user_id );
+            return;
+        }
 
         update_user_meta( $user_id, 'wpbdp_notice_dismissed[' . $id . ']', true );
         $res->send();
@@ -579,6 +587,7 @@ to how WordPress stores the data.", 'WPBDM' )
         if ( ! isset( $this->displayed_warnings ) )
             $this->displayed_warnings = array();
 
+        $this->check_server_requirements();
         $this->check_setup();
         $this->check_ajax_compat_mode();
         $this->check_deprecation_warnings();
@@ -816,6 +825,34 @@ to how WordPress stores the data.", 'WPBDM' )
             do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
 //            do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
         }
+    }
+
+    private function check_server_requirements() {
+        $php_version = explode( '.', phpversion() );
+        $installed_version = $php_version[0] . '.' . $php_version[1];
+
+        // PHP 5.6 is required.
+        if ( version_compare( $installed_version, '5.6', '>=' ) ) {
+            return;
+        }
+
+        $dismissed = get_transient( 'wpbdp_server_requirements_warning_dismissed' );
+        if ( $dismissed ) {
+            return;
+        }
+
+        $this->messages[] = array(
+            sprintf(
+                _x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'WPBDM' ),
+                $installed_version
+            ),
+            'error dismissible',
+            array( 'dismissible-id' => 'server_requirements' )
+        );
+    }
+
+    public function ajax_dismiss_notification_server_requirements() {
+        set_transient( 'wpbdp_server_requirements_warning_dismissed', true, WEEK_IN_SECONDS );
     }
 
     public function check_setup() {
