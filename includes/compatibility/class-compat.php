@@ -31,6 +31,11 @@ class WPBDP_Compat {
             require_once( WPBDP_PATH . 'includes/compatibility/class-navxt-integration.php' );
             $navxt_integration = new WPBDP_NavXT_Integration();
         }
+
+        if ( class_exists( 'Advanced_Excerpt' ) ) {
+            require_once( WPBDP_PATH . 'includes/compatibility/class-advanced-excerpt-integration.php' );
+            $advanced_excerpt_integration = new WPBDP_Advanced_Excerpt_Integration();
+        }
     }
 
     function cpt_compat_mode() {
