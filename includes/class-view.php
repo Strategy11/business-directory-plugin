@@ -93,3 +93,7 @@ class WPBDP__View {
     //
 }
 
+/**
+ * @deprecated since 5.0. Use {@link WPBDP__View}.
+ */
+class WPBDP_NView extends WPBDP__View {}
