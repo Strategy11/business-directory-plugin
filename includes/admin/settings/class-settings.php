@@ -486,7 +486,12 @@ class WPBDP__Settings {
             $validators = array();
         }
 
-        $old_value = $this->options[ $setting_id ];
+        if ( isset( $this->options[ $setting_id ] ) ) {
+            $old_value = $this->options[ $setting_id ];
+        } else {
+            $old_value = null;
+        }
+
         $has_error = false;
 
         foreach ( $validators as $validator ) {
