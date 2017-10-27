@@ -133,7 +133,9 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             break;
         case 'all':
         default:
+            $args['enabled'] = 'all';
             $args['include_free'] = true;
+            $args['tag'] = ''; // FIXME: Without tag = '', you get only free fees
             break;
         }
 
