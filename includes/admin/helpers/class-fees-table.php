@@ -51,6 +51,9 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $views = array();
 
         $all = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans" ) );
+        $non_free = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = %d AND tag != %s", 1, 'free' ) ) );
+        $disabled = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = %d", 0 ) ) );
+
         $views['all'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                  esc_url( add_query_arg( 'fee_status', 'all' ) ),
                                  'all' == $this->get_current_view() ? 'current' : '',
@@ -58,10 +61,12 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                                  number_format_i18n( $all ) );
 
 
-        if ( ! wpbdp_payments_possible() )
-            $active = 1;
-        else
-            $active = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = %d AND tag != %s", 1, 'free' ) ) );
+        if ( ! wpbdp_payments_possible() ) {
+            // For some reason my local website has two fee plans marked as 'free'
+            $active = $all - $non_free - $disabled;
+        } else {
+            $active = $non_free;
+        }
 
         $views['active'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                     esc_url( add_query_arg( 'fee_status', 'active' ) ),
@@ -70,7 +75,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                                     number_format_i18n( $active ) );
 
 
-        $disabled = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = %d", 0 ) ) );
         $unavailable = $all - $active - $disabled;
 
         $views['unavailable'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
