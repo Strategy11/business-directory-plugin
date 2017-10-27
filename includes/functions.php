@@ -226,6 +226,10 @@ function wpbdp_get_formfield($id) {
 
 /* Fees/Payment API */
 function wpbdp_payments_possible() {
+    if ( ! wpbdp_get_option( 'payments-on' ) ) {
+        return false;
+    }
+
     return wpbdp()->payment_gateways->can_pay();
 }
 
