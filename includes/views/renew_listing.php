@@ -25,11 +25,12 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->plan = $this->listing->get_fee_plan();
 
-        if ( ! in_array( $this->listing->get_status(), array( 'expired', 'pending_renewal' ) ) ) {
-            $html  = '';
-            $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page.', 'renewal', 'WPBDM' ), 'error' );
-            return $html;
-        }
+        // wpbdp_debug_e( $this->listing->get_status() );
+        // if ( ! in_array( $this->listing->get_status(), array( 'expired', 'pending_renewal' ) ) ) {
+        //     $html  = '';
+        //     $html .= wpbdp_render_msg( _x( 'You don\'t have permission to access this page.', 'renewal', 'WPBDM' ), 'error' );
+        //     return $html;
+        // }
 
         if ( 'pending_renewal' == $this->listing->get_status() ) {
             // Check to see if there's a pending payment for this renewal. If there is, move to checkout.
