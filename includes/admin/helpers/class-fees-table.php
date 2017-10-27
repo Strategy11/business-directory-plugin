@@ -127,6 +127,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             } else {
                 $args['enabled'] = 1;
                 $args['include_free'] = false;
+                $args['tag'] = ''; // FIXME: Without tag = '', include_free is ignored
             }
 
             break;
