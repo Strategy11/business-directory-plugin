@@ -118,6 +118,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             break;
         case 'disabled':
             $args['enabled'] = 0;
+            $args['tag'] = ''; // FIXME: Without tag = '', you only get disabled free fees
 
             break;
         case 'unavailable':
