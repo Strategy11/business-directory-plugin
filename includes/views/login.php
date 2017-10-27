@@ -7,6 +7,7 @@ class WPBDP__Views__Login extends WPBDP__View {
     public function dispatch() {
         $redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : wp_get_referer();
         $redirect_to = remove_query_arg( 'access_key_hash', $redirect_to );
+        $redirect_to = urlencode( $redirect_to );
         $key_access_enabled = wpbdp_get_option( 'enable-key-access' );
 
         if ( is_user_logged_in() )
