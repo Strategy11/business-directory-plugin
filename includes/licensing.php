@@ -341,7 +341,7 @@ class WPBDP_Licensing {
         $response = $this->license_request( add_query_arg( $request, self::STORE_URL ) );
 
         if ( is_wp_error( $response ) )
-            return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'WPBDM' ) );
+            return $response;
 
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
@@ -372,10 +372,12 @@ class WPBDP_Licensing {
             $message.= '<br/><br/>';
             $message.= '<code>curl: (' . $error_number . ') ' . $error_message . '</code>';
             $message.= '<br/><br/>';
-            $message.= _x( "It look's like your server is not authorized to make requests to Business Directory servers. Please contact support and ask them to add your IP address <ip-address> to the whitelist.", 'licensing', 'WPBDM' );
+            $message.= _x( "It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the whitelist.", 'licensing', 'WPBDM' );
             $message.= '<br/><br/>';
             $message.= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
 
+            $message = str_replace( '<support-link>', '<a href="https://businessdirectoryplugin.com/contact">', $message );
+            $message = str_replace( '</support-link>', '</a>', $message );
             $message = str_replace( '<ip-address>', $this->get_server_ip_address(), $message );
             // The javascript handler already adds a dot at the end.
             $message = rtrim( $message, '.' );
@@ -416,10 +418,12 @@ class WPBDP_Licensing {
         if ( 403 == $response_code ) {
             $message = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'WPBDM' ) . '</strong>';
             $message.= '<br/><br/>';
-            $message.= _x( "It looks like your server is not authorized to make requests to Business Directory servers. Please contact support and ask them to add your IP address <ip-address> to the whitelist.", 'licensing', 'WPBDM' );
+            $message.= _x( "It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the whitelist.", 'licensing', 'WPBDM' );
             $message.= '<br/><br/>';
             $message.= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
 
+            $message = str_replace( '<support-link>', '<a href="https://businessdirectoryplugin.com/contact">', $message );
+            $message = str_replace( '</support-link>', '</a>', $message );
             $message = str_replace( '<ip-address>', $this->get_server_ip_address(), $message );
 
             // The javascript handler already adds a dot at the end.
