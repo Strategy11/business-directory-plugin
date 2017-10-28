@@ -1,5 +1,19 @@
 <?php
 $show_message = isset( $show_message ) ? $show_message : true;
+
+$registration_url = trim( wpbdp_get_option( 'registration-url', '' ) );
+
+if ( ! $registration_url && get_option( 'users_can_register' ) ) {
+    if ( function_exists( 'wp_registration_url' ) ) {
+        $registration_url = wp_registration_url();
+    } else {
+        $registration_url = site_url( 'wp-login.php?action=register', 'login' );
+    }
+}
+
+$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$registration_url = $registration_url ? add_query_arg( array( 'redirect_to' => urlencode( $current_url ) ), $registration_url ) : '';
+$lost_password_url = add_query_arg( 'redirect_to', urlencode( $current_url ), wp_lostpassword_url() );
 ?>
 
 <div id="wpbdp-login-view">
@@ -13,6 +27,13 @@ $show_message = isset( $show_message ) ? $show_message : true;
     <div id="wpbdp-login-form" class="wpbdp-login-option">
         <h4><?php _ex( 'Login', 'views:login', 'WPBDM' ); ?></h4>
         <?php wp_login_form(); ?>
+
+        <p class="wpbdp-login-form-extra-links">
+            <?php if ( $registration_url ): ?>
+            <a href="<?php echo esc_url( $registration_url ); ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> | 
+            <?php endif; ?>
+            <a href="<?php echo esc_url( $lost_password_url ); ?>"><?php _ex( 'Lost your password?', 'templates', 'WPBDM' ); ?></a>
+        </p>
     </div>
 
     <?php if ( $access_key_enabled ): ?>
@@ -29,29 +50,4 @@ $show_message = isset( $show_message ) ? $show_message : true;
         </form>
     </div>
     <?php endif; ?>
-
-<?php
-/*$registration_url = trim( wpbdp_get_option( 'registration-url', '' ) );
-
-if ( ! $registration_url && get_option( 'users_can_register' ) ) {
-    if ( function_exists( 'wp_registration_url' ) ) {
-        $registration_url = wp_registration_url();
-    } else {
-        $registration_url = site_url( 'wp-login.php?action=register', 'login' );
-    }
-}
-
-$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$registration_url = $registration_url ? add_query_arg( array( 'redirect_to' => urlencode( $current_url ) ), $registration_url ) : '';
-$lost_password_url = add_query_arg( 'redirect_to', urlencode( $current_url ), wp_lostpassword_url() );
-
-<p>
-    <?php if ( $registration_url ): ?>
-    <a href="<?php echo esc_url( $registration_url ); ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> | 
-    <?php endif; ?>
-    <a href="<?php echo esc_url( $lost_password_url ); ?>"><?php _ex( 'Lost your password?', 'templates', 'WPBDM' ); ?></a>
-        </p>
- */
-?>
-
 </div>
