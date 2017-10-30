@@ -11,9 +11,8 @@ if ( ! $registration_url && get_option( 'users_can_register' ) ) {
     }
 }
 
-$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$registration_url = $registration_url ? add_query_arg( array( 'redirect_to' => urlencode( $current_url ) ), $registration_url ) : '';
-$lost_password_url = add_query_arg( 'redirect_to', urlencode( $current_url ), wp_lostpassword_url() );
+$registration_url = $registration_url ? add_query_arg( array( 'redirect_to' => urlencode( $redirect_to ) ), $registration_url ) : '';
+$lost_password_url = add_query_arg( 'redirect_to', urlencode( $redirect_to ), wp_lostpassword_url() );
 ?>
 
 <div id="wpbdp-login-view">
@@ -26,7 +25,7 @@ $lost_password_url = add_query_arg( 'redirect_to', urlencode( $current_url ), wp
 
     <div id="wpbdp-login-form" class="wpbdp-login-option">
         <h4><?php _ex( 'Login', 'views:login', 'WPBDM' ); ?></h4>
-        <?php wp_login_form(); ?>
+        <?php wp_login_form( array( 'redirect' => $redirect_to ) ); ?>
 
         <p class="wpbdp-login-form-extra-links">
             <?php if ( $registration_url ): ?>
