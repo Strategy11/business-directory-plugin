@@ -57,3 +57,4 @@ function wpbdp() {
 
 // For backwards compatibility.
 $GLOBALS['wpbdp'] = wpbdp();
+
