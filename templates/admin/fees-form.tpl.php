@@ -202,6 +202,8 @@ endif;
         </tbody>
     </table>
 
+    <?php do_action( 'wpbdp_after_admin_fee_form', $fee ); ?>
+
     <?php echo submit_button( $fee->id ? _x( 'Save Changes', 'fees admin', 'WPBDM' ) : _x( 'Add Listing Fee', 'fees admin', 'WPBDM' ) ); ?>
 </form>
 
