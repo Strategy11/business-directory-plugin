@@ -591,6 +591,15 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
     return $url;
 }
 
+/**
+ * Generates Ajax URL and allows plugins to alter it through a filter.
+ *
+ * @since 5.0.3
+ */
+function wpbdp_ajax_url() {
+    return apply_filters( 'wpbdp_ajax_url', admin_url( 'admin-ajax.php' ) );
+}
+
 // TODO: update before themes-release
 // TODO: Sometimes this functions is called from
 //       WPBDP_WPML_Compat->language_switcher even though no category

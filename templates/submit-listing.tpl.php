@@ -1,6 +1,6 @@
 <?php do_action( 'wpbdp_before_submit_listing_page', $listing ); ?>
 <div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
-    <form action="" method="post" data-ajax-url="<?php echo admin_url( 'admin-ajax.php' ); ?>" enctype="multipart/form-data">
+    <form action="" method="post" data-ajax-url="<?php echo wpbdp_ajax_url(); ?>" enctype="multipart/form-data">
         <?php wp_nonce_field( 'listing submit' ); ?>
         <input type="hidden" name="listing_id" value="<?php echo $listing->get_id(); ?>" />
         <input type="hidden" name="editing" value="<?php echo $editing ? '1' : '0'; ?>" />

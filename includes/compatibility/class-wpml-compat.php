@@ -6,13 +6,14 @@ class WPBDP_WPML_Compat {
     function __construct() {
         $this->wpml = $GLOBALS['sitepress'];
 
-        if ( ! is_admin() ) {
+        if ( ! is_admin() || $this->is_doing_ajax() ) {
             add_filter( 'wpbdp_get_page_id', array( &$this, 'page_id'), 10, 2 );
 
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_category_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_url_base_url', array( &$this, 'fix_get_page_link' ), 10, 2 );
             add_filter( 'wpbdp_url', array( &$this, 'correct_page_link' ), 10, 3 );
+            add_filter( 'wpbdp_ajax_url', array( $this, 'filter_ajax_url' ) );
 
             add_filter( 'wpbdp_render_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
             add_filter( 'wpbdp_render_field_description', array( &$this, 'translate_form_field_description' ), 10, 2 );
@@ -27,6 +28,8 @@ class WPBDP_WPML_Compat {
 
             // Work around non-unique slugs for pages.
             add_action( 'wpbdp_query_flags', array( $this, 'maybe_change_query' ) );
+
+            add_action( 'wpbdp_before_ajax_dispatch', array( $this, 'before_ajax_dispatch' ) );
         }
 
         add_action( 'admin_footer-directory-admin_page_wpbdp_admin_formfields', array( &$this, 'register_form_fields_strings' ) );
@@ -35,6 +38,10 @@ class WPBDP_WPML_Compat {
         // Regions.
         add_filter( 'wpbdp_regions__get_hierarchy_option', array( &$this, 'use_cache_per_lang' ) );
         add_action( 'wpbdp_regions_clean_cache', array( &$this, 'clean_cache_per_lang' ) );
+    }
+
+    protected function is_doing_ajax() {
+        return defined( 'DOING_AJAX' ) && DOING_AJAX;
     }
 
     function get_current_language() {
@@ -112,6 +119,23 @@ class WPBDP_WPML_Compat {
 
         $link = add_query_arg( 'lang', $lang, $link );
         return $link;
+    }
+
+    /**
+     * Add current language to the URL used in BD's ajax requests.
+     *
+     * @param $ajax_url string  Default value for Ajax URL.
+     *
+     * @since 5.0.3
+     */
+    public function filter_ajax_url( $ajax_url ) {
+        $lang = $this->get_current_language();
+
+        if ( ! $lang ) {
+            return $ajax_url;
+        }
+
+        return add_query_arg( 'lang', $lang, $ajax_url );
     }
 
     function correct_page_link( $link, $name = '', $arg0 = '' ) {
@@ -262,6 +286,14 @@ class WPBDP_WPML_Compat {
         $trans_id = icl_object_id( $page_id, 'page', false, $lang );
 
         $query->set( 'page_id', $trans_id );
+    }
+
+    public function before_ajax_dispatch( $handler ) {
+        if ( empty( $_GET['lang'] ) ) {
+            return;
+        }
+
+        do_action( 'wpml_switch_language', $_GET['lang'] );
     }
 
     // {{{ Form Fields integration.

@@ -115,6 +115,8 @@ class WPBDP__Dispatcher {
         if ( ! method_exists( $view, $function ) )
             return;
 
+        do_action( 'wpbdp_before_ajax_dispatch', $handler );
+
         return call_user_func( array( $view, $function ) );
     }
 
