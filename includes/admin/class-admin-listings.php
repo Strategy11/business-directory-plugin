@@ -498,9 +498,6 @@ class WPBDP_Admin_Listings {
                     $bulk_actions = array('sep0' => '--',
                                           'publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
                                           'sep1' => '--',
-                                          'upgradefeatured' => _x('Upgrade to Featured', 'admin actions', 'WPBDM'),
-                                          'cancelfeatured' => _x('Downgrade to Normal', 'admin actions', 'WPBDM'),
-                                          'sep2' => '--',
                                           'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
                                          );
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
