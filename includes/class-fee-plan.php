@@ -32,11 +32,11 @@ final class WPBDP__Fee_Plan {
         }
     }
 
-    public function __get( $key ) {
+    public function &__get( $key ) {
         if ( method_exists( $this, 'get_' . $key ) ) {
             $value = call_user_func( array( $this, 'get_' . $key ) );
         } else {
-            $value = $this->{$key};
+            $value = &$this->{$key};
         } 
 
         return $value;
