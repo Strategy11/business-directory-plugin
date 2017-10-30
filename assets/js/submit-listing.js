@@ -83,7 +83,10 @@ jQuery(function($) {
 
             this.update_plan_list();
             this.update_plan_prices();
-            this.maybe_limit_category_options();
+
+            if ( 'checkbox' == this.field_type || this.field.is( '[multiple]' ) ) {
+                this.maybe_limit_category_options();
+            }
 
             if ( 0 == this.selected_categories.length ) {
                 this.plans.find( 'input[name="listing_plan"]' ).prop( {
@@ -178,6 +181,8 @@ jQuery(function($) {
                     cats = $.map( cats, function(x) { return parseInt( x ); } );
                 }
             });
+
+            console.log( this.available_plans, cats );
 
             if ( all_cats ) {
                 this._enable_categories( 'all' );
