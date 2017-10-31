@@ -147,7 +147,7 @@ class WPBDP__Settings_Admin {
 
         $html  = '';
         $html .= '<div id="wpbdp-settings-' . $setting['id'] . '" class="wpbdp-settings-setting wpbdp-settings-type-' . $setting['type'] . '" ' . $attrs . '>';
-        $html .= $callback_html;
+        $html .= apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
         $html .= '<a name="' . $setting['id'] . '"></a>';
         $html .= '</div>';
 
