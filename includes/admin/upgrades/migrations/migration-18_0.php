@@ -223,15 +223,15 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 'id' => $fee->id,
                 'label' => $fee->label,
                 'amount' => $fee->amount,
-                'days' => $fee->days,
-                'images' => $fee->images,
-                'sticky' => $fee->sticky,
+                'days' => absint( $fee->days ),
+                'images' => ! empty( $fee->images ) ? absint( $fee->images ) : 0,
+                'sticky' => ! empty( $fee->sticky ),
                 'pricing_model' => 'flat',
                 'supported_categories' => $categories ? $categories : 'all',
-                'weight' => $fee->weight,
-                'enabled' => $fee->enabled,
-                'description' => $fee->description,
-                'tag' => $fee->tag,
+                'weight' => ! empty( $fee->weight ) ? $fee->weight : 0,
+                'enabled' => ! empty( $fee->enabled ),
+                'description' => ! empty( $fee->description ) ? $fee->description : '',
+                'tag' => ! empty( $fee->tag ) ? $fee->tag : '',
                 'recurring' => ( 0 != $fee->days && $fee->amount > 0.0 && get_option( 'wpbdp-listing-renewal-auto' ) && get_option( 'wpbdp-listing-renewal-auto-dontask' ) ) ? 1 : 0
             );
 
@@ -239,6 +239,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             $exists  = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee->id ) );
             $success = true;
 
+            global $wpdb;
+            $wpdb->show_errors();
             if ( $exists ) {
                 $success = ( false !== $wpdb->update( $wpdb->prefix . 'wpbdp_plans', $row, array( 'id' => $fee->id ) ) );
             } else {
@@ -360,9 +362,9 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'listing_id' => $listing_id,
                     'fee_id' => $free_plan->id,
                     'fee_price' => 0.0,
-                    'fee_days' => $free_plan->days,
-                    'fee_images' => $free_plan->images,
-                    'is_sticky' => $free_plan->sticky,
+                    'fee_days' => ! empty( $free_plan->days ) ? $free_plan->days : get_option( 'wpbdp-listing-duration', 0 ),
+                    'fee_images' => ! empty( $free_plan->images ) ? absint( $free_plan->images ) : get_option( 'wpbdp-free-images', 0 ),
+                    'is_sticky' => ! empty( $free_plan->sticky ),
                 );
 
                 if ( $expiration = $free_plan->calculate_expiration_time() )
@@ -483,6 +485,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         $res['is_recurring'] = 0;
         $res['subscription_id'] = '';
+        $res['is_sticky'] = ! empty( $res['is_sticky'] );
 
         return $res;
     }
