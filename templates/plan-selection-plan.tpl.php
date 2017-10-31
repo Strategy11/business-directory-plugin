@@ -4,7 +4,7 @@ $display_only = isset( $display_only ) ? $display_only : false;
 $disabled     = isset( $disabled ) ? $disabled : false;
 $selected     = isset( $selected ) ? $selected : 0;
 
-$description  = $plan->description ? wpautop( wp_kses_post( $plan->description ) ) : '';
+$description  = $plan->description ? wpautop( wp_kses_post( apply_filters( 'wpbdp_plan_description_for_display', $plan->description, $plan ) ) ) : '';
 $description  = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
 ?>
     <div class="wpbdp-plan wpbdp-plan-<?php echo $plan->id; ?> wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?> <?php if ( $disabled ): ?>wpbdp-plan-disabled<?php endif; ?>"

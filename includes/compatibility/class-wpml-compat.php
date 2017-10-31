@@ -20,6 +20,7 @@ class WPBDP_WPML_Compat {
             add_filter( 'wpbdp_display_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
 
             add_filter( 'wpbdp_category_fee_selection_label', array( &$this, 'translate_fee_label' ), 10, 2 );
+            add_filter( 'wpbdp_plan_description_for_display', array( $this, 'translate_fee_description' ), 10, 2 );
 
             add_filter( 'icl_ls_languages', array( &$this, 'language_switcher' ) );
 
@@ -347,7 +348,10 @@ class WPBDP_WPML_Compat {
         foreach ( $fees as &$f ) {
             icl_register_string( 'Business Directory Plugin',
                                  sprintf( 'Fee label (#%d)', $f->id ),
-                                 $f->label );
+                                     $f->label );
+            icl_register_string( 'Business Directory Plugin',
+                                 sprintf( 'Fee description (#%d)', $f->id ),
+                                 $f->description );
         }
     }
 
@@ -358,6 +362,15 @@ class WPBDP_WPML_Compat {
         return icl_t( 'Business Directory Plugin',
                       sprintf( 'Fee label (#%d)', $fee->id ),
                       $fee->label );
+    }
+
+    function translate_fee_description( $desc, $fee ) {
+        if ( ! function_exists( 'icl_t' ) )
+            return $desc;
+
+        return icl_t( 'Business Directory Plugin',
+                      sprintf( 'Fee description (#%d)', $fee->id ),
+                      $fee->description );
     }
 
     // }}}
