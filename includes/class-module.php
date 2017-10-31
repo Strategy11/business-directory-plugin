@@ -36,6 +36,19 @@ final class WPBDP__Module {
         $this->text_domain = empty( $obj->text_domain ) ? $plugin_data[2] : $obj->text_domain;
         $this->text_domain_path = empty( $obj->domain_path ) ? $plugin_data[3] : $obj->domain_path;
 
+        if ( empty( $this->text_domain ) ) {
+            $this->text_domain = 'wpbdp-' . $this->id;
+        }
+
+        if ( empty( $this->text_domain_path ) ) {
+            foreach ( array( 'translations', 'languages' ) as $d ) {
+                if ( is_dir( plugin_dir_path( $this->file ) . $d ) ) {
+                    $this->text_domain_path = '/' . $d;
+                    break;
+                }
+            }
+        }
+
         $this->required_bd_version = isset( $obj->required_bd_version ) ? $obj->required_bd_version : '';
         $this->is_premium_module = ! in_array( $this->id, array( 'categories' ), true );
     }
