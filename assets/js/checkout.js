@@ -43,6 +43,8 @@ jQuery(function($) {
                 self.$container.removeClass().addClass( 'wpbdp-payment-gateway-' + gateway_id + '-form-fields' );
                 self.$container.html( res );
                 self.working = false;
+
+                $( window ).trigger( 'wpbdp-payment-gateway-loaded', gateway_id );
             } );
         }
     };
