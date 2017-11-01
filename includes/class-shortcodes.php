@@ -397,12 +397,19 @@ class WPBDP__Shortcodes {
             'businessdirectory-featured-listings'
         );
 
+        global $wpdb;
+        $q = $wpdb->prepare(
+            "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts}
+             JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID
+             WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1
+             ORDER BY RAND() " . ( $atts['limit'] > 0 ? sprintf( "LIMIT %d", $atts['limit'] ) : '' ),
+            'publish',
+            WPBDP_POST_TYPE
+        );
+        $featured = $wpdb->get_col( $q );
+
         return $this->display_listings(
-            array(
-                'meta_query' => array( array( 'key' => '_wpbdp[sticky]', 'value' => 'sticky' ) ),
-                'orderby' => 'rand',
-                'posts_per_page' => $atts['limit'] ),
-            $atts
+            array( 'post__in' => $featured, 'orderby' => 'post__in' )
         );
     }
 
@@ -428,9 +435,9 @@ class WPBDP__Shortcodes {
         $query = new WP_Query( $query_args );
 
         // Try to trick pagination to remove it when processing a shortcode.
-        $q->max_num_pages = 1;
+        $query->max_num_pages = 1;
 
-        wpbdp_push_query( $q );
+        wpbdp_push_query( $query );
 
         $html  = '';
 
@@ -455,16 +462,25 @@ class WPBDP__Shortcodes {
 
     public function sc_featured_listings( $atts ) {
         global $wpbdp;
+        global $wpdb;
 
         $atts = shortcode_atts( array( 'number_of_listings' => wpbdp_get_option( 'listings-per-page' ) ), $atts );
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
 
+        $q = $wpdb->prepare(
+            "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts}
+             JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID
+             WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1
+             ORDER BY RAND() " . ( $atts['number_of_listings'] > 0 ? sprintf( "LIMIT %d", $atts['number_of_listings'] ) : '' ),
+            'publish',
+            WPBDP_POST_TYPE
+        );
+        $featured = $wpdb->get_col( $q );
+
         $args = array(
             'post_type' => WPBDP_POST_TYPE,
             'post_status' => 'publish',
-            'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
-            'posts_per_page' => $atts['number_of_listings'],
-            'meta_query' => array( array( 'key' => '_wpbdp[sticky]', 'value' => 'sticky' ) )
+            'post__in' => $featured
         );
         $q = new WP_Query( $args );
         wpbdp_push_query( $q );
