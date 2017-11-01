@@ -4,9 +4,9 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
 Requires PHP: 5.6
-Tested up to: 4.8.2
-Last Updated: 2017-Oct-27
-Stable tag: 5.0.2
+Tested up to: 4.8.3
+Last Updated: 2017-Nov-1
+Stable tag: 5.0.3
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,6 +143,18 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.0.3 =
+* Support WPML integration during Ajax requests.
+* Fix a problem in single-select category selector.
+* Fix encoding problem with redirect_to argument in Login view.
+* Listings can now be renewed before they expire.
+* Show registration and password reminder links in login form again.
+* Support migration from very old versions of BD.
+* Remove upgrade/downgrade to featured from bulk actions.
+* Fix bug that caused translation files for modules not to be loaded.
+* Allow WPML to translate fee descriptions.
+* Allow plugins to modify the settings callback on the admin.
 
 = Version 5.0.2 =
 * Fix load_textdomain() in WPBDP class.
