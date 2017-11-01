@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.1.12.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-10-27 21:39:36+00:00\n"
+"POT-Creation-Date: 2017-11-01 21:27:46+00:00\n"
 "PO-Revision-Date: 2017-07-04 12:37+0000\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -1009,16 +1009,6 @@ msgstr "Registratie publiceren"
 
 #: includes/admin/class-admin-listings.php:501
 msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "Upgrade naar Aanbieding"
-
-#: includes/admin/class-admin-listings.php:502
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr ""
-
-#: includes/admin/class-admin-listings.php:504
-msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Vernieuw registratie"
 
@@ -1906,7 +1896,7 @@ msgctxt "fees admin"
 msgid "Status"
 msgstr "Status"
 
-#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:207
 msgctxt "fees admin"
 msgid "Add Listing Fee"
 msgstr ""
@@ -2066,7 +2056,7 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-form.tpl.php:207
 #, fuzzy
 msgctxt "fees admin"
 msgid "Save Changes"
@@ -4176,13 +4166,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:467
-#: includes/functions.php:972
+#: includes/functions.php:981
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum ingediend"
 
 #: includes/admin/settings/class-settings-bootstrap.php:468
-#: includes/functions.php:973
+#: includes/functions.php:982
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr ""
@@ -4469,12 +4459,12 @@ msgid ""
 "not activated."
 msgstr ""
 
-#: includes/functions.php:970
+#: includes/functions.php:979
 msgctxt "admin settings"
 msgid "User"
 msgstr "Gebruiker"
 
-#: includes/functions.php:971
+#: includes/functions.php:980
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Gebruikers registratie datum"
@@ -4764,22 +4754,22 @@ msgctxt "installer"
 msgid "Migrating fee plans..."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:249
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
 msgctxt "installer"
 msgid "! Could not migrate fee \"%s\" (%d)"
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:316
+#: includes/admin/upgrades/migrations/migration-18_0.php:318
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:321
+#: includes/admin/upgrades/migrations/migration-18_0.php:323
 msgctxt "installer"
 msgid "Updating payment items format: %d items remaining..."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:383
+#: includes/admin/upgrades/migrations/migration-18_0.php:385
 msgctxt "installer"
 msgid "Migrating listing information: %d items remaining..."
 msgstr ""
@@ -6282,12 +6272,22 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Aanbieding Registratie/Vermelding"
 
-#: templates/login.tpl.php:8 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
 "registering, you will receive an activation email. Be sure to check your "
 "spam if you don't see it in your email within 60 minutes."
+msgstr ""
+
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr ""
+
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+msgctxt "templates"
+msgid "Lost your password?"
 msgstr ""
 
 #: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
@@ -6328,16 +6328,6 @@ msgstr "Bekijk "
 msgctxt "templates"
 msgid "Login"
 msgstr "Inloggen"
-
-#: templates/parts/login-required.tpl.php:31
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr ""
-
-#: templates/parts/login-required.tpl.php:33
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr ""
 
 #: templates/renew-listing.tpl.php:3
 msgctxt "templates"
@@ -6641,44 +6631,44 @@ msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
 
-#: includes/views/login.php:30
+#: includes/views/login.php:32
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr ""
 
-#: templates/login.tpl.php:14
+#: templates/login.tpl.php:27
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "Inloggen"
 
-#: templates/login.tpl.php:20
+#: templates/login.tpl.php:40
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr ""
 
-#: templates/login.tpl.php:21
+#: templates/login.tpl.php:41
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr ""
 
-#: templates/login.tpl.php:25
+#: templates/login.tpl.php:45
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "Email Adres:"
 
-#: templates/login.tpl.php:26
+#: templates/login.tpl.php:46
 msgctxt "views:login"
 msgid "Access Key"
 msgstr ""
 
-#: templates/login.tpl.php:27
+#: templates/login.tpl.php:47
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr ""
 
-#: templates/login.tpl.php:28
+#: templates/login.tpl.php:48
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -7656,6 +7646,10 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr ""
+
+#~ msgctxt "admin actions"
+#~ msgid "Upgrade to Featured"
+#~ msgstr "Upgrade naar Aanbieding"
 
 #~ msgid "Payment Status"
 #~ msgstr "Betaling status"

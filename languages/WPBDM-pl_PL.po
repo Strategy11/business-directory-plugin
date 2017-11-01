@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-10-27 21:39:36+00:00\n"
+"POT-Creation-Date: 2017-11-01 21:27:46+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -1245,18 +1245,6 @@ msgstr "Publikuj Ofertę"
 # @ WPBDM
 #: includes/admin/class-admin-listings.php:501
 msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "Podnieś status do \"Wyróżnione\""
-
-# @ WPBDM
-#: includes/admin/class-admin-listings.php:502
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr "Obniż status do \"normalna\""
-
-# @ WPBDM
-#: includes/admin/class-admin-listings.php:504
-msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Odnów Ofertę"
 
@@ -2306,7 +2294,7 @@ msgid "Status"
 msgstr "Status"
 
 # @ WPBDM
-#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:207
 msgctxt "fees admin"
 msgid "Add Listing Fee"
 msgstr "Dodaj Abonament oferty"
@@ -2492,7 +2480,7 @@ msgid "Extra amount (per category)"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-form.tpl.php:207
 #, fuzzy
 msgctxt "fees admin"
 msgid "Save Changes"
@@ -4947,14 +4935,14 @@ msgstr "Autor"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:467
-#: includes/functions.php:972
+#: includes/functions.php:981
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data publikacji"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:468
-#: includes/functions.php:973
+#: includes/functions.php:982
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ostatnij modyfikacji"
@@ -5292,13 +5280,13 @@ msgstr ""
 "Nie można skopiować pluginu kompatybilności AJAX  \"%s\". Tryb "
 "Kompatybilności nie został aktywowany."
 
-#: includes/functions.php:970
+#: includes/functions.php:979
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
 # @ WPBDM
-#: includes/functions.php:971
+#: includes/functions.php:980
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
@@ -5637,25 +5625,25 @@ msgid "Migrating fee plans..."
 msgstr "Aktywowanie Licencji"
 
 # @ WPBDM
-#: includes/admin/upgrades/migrations/migration-18_0.php:249
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate fee \"%s\" (%d)"
 msgstr "Nie możemy deaktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/admin/upgrades/migrations/migration-18_0.php:316
+#: includes/admin/upgrades/migrations/migration-18_0.php:318
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
 msgstr "Nie można kontynuować płatności."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:321
+#: includes/admin/upgrades/migrations/migration-18_0.php:323
 msgctxt "installer"
 msgid "Updating payment items format: %d items remaining..."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:383
+#: includes/admin/upgrades/migrations/migration-18_0.php:385
 msgctxt "installer"
 msgid "Migrating listing information: %d items remaining..."
 msgstr ""
@@ -7442,7 +7430,7 @@ msgid "Featured Listing"
 msgstr "Wyróżniona oferta"
 
 # @ WPBDM
-#: templates/login.tpl.php:8 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -7453,6 +7441,18 @@ msgstr ""
 "otrzymasz link aktywacyjny na podany adres e-mail. Jeśli po upływie 60minut "
 "nadal nie widzisz wiadomości, którą do ciebie wysłaliśmy - sprawdź opcje "
 "spamu w Twojej poczcie."
+
+# @ WPBDM
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "Nie jesteś jeszcze zarejestrowany?"
+
+# @ WPBDM
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Zapomniałeś lub zgubiłeś hasło?"
 
 # @ WPBDM
 #: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
@@ -7501,18 +7501,6 @@ msgstr "Widok"
 msgctxt "templates"
 msgid "Login"
 msgstr "Logowanie"
-
-# @ WPBDM
-#: templates/parts/login-required.tpl.php:31
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "Nie jesteś jeszcze zarejestrowany?"
-
-# @ WPBDM
-#: templates/parts/login-required.tpl.php:33
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Zapomniałeś lub zgubiłeś hasło?"
 
 # @ WPBDM
 #: templates/renew-listing.tpl.php:3
@@ -7884,55 +7872,55 @@ msgstr ""
 "Ten formularz kontaktu jest chwilowo wyłączony. Możesz spróbować pózniej."
 
 # @ WPBDM
-#: includes/views/login.php:30
+#: includes/views/login.php:32
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: templates/login.tpl.php:14
+#: templates/login.tpl.php:27
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "Logowanie"
 
 # @ WPBDM
-#: templates/login.tpl.php:20
+#: templates/login.tpl.php:40
 #, fuzzy
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: templates/login.tpl.php:21
+#: templates/login.tpl.php:41
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: templates/login.tpl.php:25
+#: templates/login.tpl.php:45
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "Adres e-mail:"
 
 # @ WPBDM
-#: templates/login.tpl.php:26
+#: templates/login.tpl.php:46
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: templates/login.tpl.php:27
+#: templates/login.tpl.php:47
 #, fuzzy
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "Pola/Obrazy"
 
-#: templates/login.tpl.php:28
+#: templates/login.tpl.php:48
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -9109,6 +9097,16 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Adres e-mail:"
+
+# @ WPBDM
+#~ msgctxt "admin actions"
+#~ msgid "Upgrade to Featured"
+#~ msgstr "Podnieś status do \"Wyróżnione\""
+
+# @ WPBDM
+#~ msgctxt "admin actions"
+#~ msgid "Downgrade to Normal"
+#~ msgstr "Obniż status do \"normalna\""
 
 # @ WPBDM
 #~ msgctxt "admin csv-export"

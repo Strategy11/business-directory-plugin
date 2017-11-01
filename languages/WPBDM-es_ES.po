@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-10-27 21:39:36+00:00\n"
+"POT-Creation-Date: 2017-11-01 21:27:46+00:00\n"
 "PO-Revision-Date: 2017-10-27 16:42-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1088,16 +1088,6 @@ msgstr "Publicar Listado"
 
 #: includes/admin/class-admin-listings.php:501
 msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "Mejorar a Destacado"
-
-#: includes/admin/class-admin-listings.php:502
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr "Degradar a Normal"
-
-#: includes/admin/class-admin-listings.php:504
-msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Renovar Listado"
 
@@ -2051,7 +2041,7 @@ msgctxt "fees admin"
 msgid "Status"
 msgstr "Estado"
 
-#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:207
 msgctxt "fees admin"
 msgid "Add Listing Fee"
 msgstr "Agregar Comisión de Listado"
@@ -2220,7 +2210,7 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-form.tpl.php:207
 #, fuzzy
 msgctxt "fees admin"
 msgid "Save Changes"
@@ -4430,13 +4420,13 @@ msgid "Author"
 msgstr "Autor"
 
 #: includes/admin/settings/class-settings-bootstrap.php:467
-#: includes/functions.php:972
+#: includes/functions.php:981
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Fecha de publicación"
 
 #: includes/admin/settings/class-settings-bootstrap.php:468
-#: includes/functions.php:973
+#: includes/functions.php:982
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Fecha de última modificación"
@@ -4734,12 +4724,12 @@ msgstr ""
 "No se pudo copiar el plugin de compatibilidad AJAX \"%s\". El modo de "
 "compatibilidad no fue activado."
 
-#: includes/functions.php:970
+#: includes/functions.php:979
 msgctxt "admin settings"
 msgid "User"
 msgstr "Usuario"
 
-#: includes/functions.php:971
+#: includes/functions.php:980
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Fecha de registro del usuario"
@@ -5044,24 +5034,24 @@ msgctxt "installer"
 msgid "Migrating fee plans..."
 msgstr "Activando licencia..."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:249
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate fee \"%s\" (%d)"
 msgstr "No se pudo actualizar el tema: %s"
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:316
+#: includes/admin/upgrades/migrations/migration-18_0.php:318
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
 msgstr "No se pudo procesar el pago."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:321
+#: includes/admin/upgrades/migrations/migration-18_0.php:323
 msgctxt "installer"
 msgid "Updating payment items format: %d items remaining..."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:383
+#: includes/admin/upgrades/migrations/migration-18_0.php:385
 msgctxt "installer"
 msgid "Migrating listing information: %d items remaining..."
 msgstr ""
@@ -6664,7 +6654,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Listado Destacado"
 
-#: templates/login.tpl.php:8 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6674,6 +6664,16 @@ msgstr ""
 "No ha ingresado aún. Por favor ingrese o regístrese primero. Cuando se "
 "registre, recibirá un correo electrónico de activación. Asegúrese de revisar "
 "en SPAM si no ve el correo en su buzón dentro de los siguientes 60 minutos."
+
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "No se ha registrado?"
+
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Perdió su contraseña?"
 
 #: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
 msgctxt "templates"
@@ -6716,16 +6716,6 @@ msgstr "Ver"
 msgctxt "templates"
 msgid "Login"
 msgstr "Ingresar"
-
-#: templates/parts/login-required.tpl.php:31
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "No se ha registrado?"
-
-#: templates/parts/login-required.tpl.php:33
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Perdió su contraseña?"
 
 #: templates/renew-listing.tpl.php:3
 msgctxt "templates"
@@ -7044,49 +7034,49 @@ msgstr ""
 "El formulario de contacto está temporalmente deshabilitado. Por favor "
 "intente más tarde."
 
-#: includes/views/login.php:30
+#: includes/views/login.php:32
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "Por favor ingrese un correo electrónico válido."
 
-#: templates/login.tpl.php:14
+#: templates/login.tpl.php:27
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "Ingresar"
 
-#: templates/login.tpl.php:20
+#: templates/login.tpl.php:40
 #, fuzzy
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "Claves de Acceso de Listado"
 
-#: templates/login.tpl.php:21
+#: templates/login.tpl.php:41
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "Por favor ingrese un correo electrónico válido."
 
-#: templates/login.tpl.php:25
+#: templates/login.tpl.php:45
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "Correo electrónico:"
 
-#: templates/login.tpl.php:26
+#: templates/login.tpl.php:46
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "Clave de acceso"
 
-#: templates/login.tpl.php:27
+#: templates/login.tpl.php:47
 #, fuzzy
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "Clave de acceso"
 
-#: templates/login.tpl.php:28
+#: templates/login.tpl.php:48
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -8113,6 +8103,14 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Dirección"
+
+#~ msgctxt "admin actions"
+#~ msgid "Upgrade to Featured"
+#~ msgstr "Mejorar a Destacado"
+
+#~ msgctxt "admin actions"
+#~ msgid "Downgrade to Normal"
+#~ msgstr "Degradar a Normal"
 
 #~ msgctxt "admin csv-export"
 #~ msgid "Sticky/featured status"

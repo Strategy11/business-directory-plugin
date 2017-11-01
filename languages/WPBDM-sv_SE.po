@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-10-27 21:39:36+00:00\n"
+"POT-Creation-Date: 2017-11-01 21:27:46+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1075,16 +1075,6 @@ msgstr "Publicera annons"
 
 #: includes/admin/class-admin-listings.php:501
 msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "Uppgradera till Utvald"
-
-#: includes/admin/class-admin-listings.php:502
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr "Nedgradera till normal"
-
-#: includes/admin/class-admin-listings.php:504
-msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "Förnya annons"
 
@@ -2029,7 +2019,7 @@ msgctxt "fees admin"
 msgid "Status"
 msgstr "Status"
 
-#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:207
 msgctxt "fees admin"
 msgid "Add Listing Fee"
 msgstr "Lägg till annonsavgift"
@@ -2198,7 +2188,7 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-form.tpl.php:207
 #, fuzzy
 msgctxt "fees admin"
 msgid "Save Changes"
@@ -4382,13 +4372,13 @@ msgid "Author"
 msgstr "Författare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:467
-#: includes/functions.php:972
+#: includes/functions.php:981
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum inlagd"
 
 #: includes/admin/settings/class-settings-bootstrap.php:468
-#: includes/functions.php:973
+#: includes/functions.php:982
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Senast ändrad"
@@ -4686,12 +4676,12 @@ msgstr ""
 "Det gick inte att kopiera AJAX kompatibilitetsplugin \"%s\". "
 "Kompatibilitetsläge aktiverades inte."
 
-#: includes/functions.php:970
+#: includes/functions.php:979
 msgctxt "admin settings"
 msgid "User"
 msgstr "Användare"
 
-#: includes/functions.php:971
+#: includes/functions.php:980
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
@@ -4995,24 +4985,24 @@ msgctxt "installer"
 msgid "Migrating fee plans..."
 msgstr "Aktiverar licensen"
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:249
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate fee \"%s\" (%d)"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:316
+#: includes/admin/upgrades/migrations/migration-18_0.php:318
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
 msgstr "Det gick inte att bearbeta betalningen."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:321
+#: includes/admin/upgrades/migrations/migration-18_0.php:323
 msgctxt "installer"
 msgid "Updating payment items format: %d items remaining..."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:383
+#: includes/admin/upgrades/migrations/migration-18_0.php:385
 msgctxt "installer"
 msgid "Migrating listing information: %d items remaining..."
 msgstr ""
@@ -6591,7 +6581,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Utvald annons"
 
-#: templates/login.tpl.php:8 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6601,6 +6591,16 @@ msgstr ""
 "Du är inte inloggad. Vänligen logga in eller registrera dig först. När du "
 "registrerar dig får du ett aktiveringsmejl. Vänligen kontrollera din "
 "skräppost om du inte ser mejlet inom 60 minuter."
+
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "Ännu inte registrerad?"
+
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Glömt ditt lösenord?"
 
 #: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
 msgctxt "templates"
@@ -6642,16 +6642,6 @@ msgstr "Visa"
 msgctxt "templates"
 msgid "Login"
 msgstr "Inloggning"
-
-#: templates/parts/login-required.tpl.php:31
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "Ännu inte registrerad?"
-
-#: templates/parts/login-required.tpl.php:33
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Glömt ditt lösenord?"
 
 #: templates/renew-listing.tpl.php:3
 msgctxt "templates"
@@ -6965,49 +6955,49 @@ msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr "Detta kontaktformulär är tillfälligt inaktiverat. Försök igen senare."
 
-#: includes/views/login.php:30
+#: includes/views/login.php:32
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "Vänligen ange en giltig e-postadress."
 
-#: templates/login.tpl.php:14
+#: templates/login.tpl.php:27
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "Inloggning"
 
-#: templates/login.tpl.php:20
+#: templates/login.tpl.php:40
 #, fuzzy
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "Åtkomstnycklar till annons"
 
-#: templates/login.tpl.php:21
+#: templates/login.tpl.php:41
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "Vänligen ange en giltig e-postadress."
 
-#: templates/login.tpl.php:25
+#: templates/login.tpl.php:45
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "E-postadress:"
 
-#: templates/login.tpl.php:26
+#: templates/login.tpl.php:46
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "Åtkomstnyckel"
 
-#: templates/login.tpl.php:27
+#: templates/login.tpl.php:47
 #, fuzzy
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "Åtkomstnyckel"
 
-#: templates/login.tpl.php:28
+#: templates/login.tpl.php:48
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -8024,6 +8014,14 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Adress"
+
+#~ msgctxt "admin actions"
+#~ msgid "Upgrade to Featured"
+#~ msgstr "Uppgradera till Utvald"
+
+#~ msgctxt "admin actions"
+#~ msgid "Downgrade to Normal"
+#~ msgstr "Nedgradera till normal"
 
 #~ msgctxt "admin csv-export"
 #~ msgid "Sticky/featured status"

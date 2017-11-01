@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-10-27 21:39:36+00:00\n"
+"POT-Creation-Date: 2017-11-01 21:27:46+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1075,16 +1075,6 @@ msgstr "نشر إعلان"
 
 #: includes/admin/class-admin-listings.php:501
 msgctxt "admin actions"
-msgid "Upgrade to Featured"
-msgstr "ترقية إلى الخطة المميزة"
-
-#: includes/admin/class-admin-listings.php:502
-msgctxt "admin actions"
-msgid "Downgrade to Normal"
-msgstr "الرجوع إلى النظام العادي"
-
-#: includes/admin/class-admin-listings.php:504
-msgctxt "admin actions"
 msgid "Renew Listing"
 msgstr "تجديد الإعلان"
 
@@ -2024,7 +2014,7 @@ msgctxt "fees admin"
 msgid "Status"
 msgstr "الحالة"
 
-#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-add-fee.tpl.php:1 templates/admin/fees-form.tpl.php:207
 msgctxt "fees admin"
 msgid "Add Listing Fee"
 msgstr "إضافة رسوم الإعلان"
@@ -2193,7 +2183,7 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:205
+#: templates/admin/fees-form.tpl.php:207
 #, fuzzy
 msgctxt "fees admin"
 msgid "Save Changes"
@@ -4403,13 +4393,13 @@ msgid "Author"
 msgstr "الكاتب"
 
 #: includes/admin/settings/class-settings-bootstrap.php:467
-#: includes/functions.php:972
+#: includes/functions.php:981
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "تاريخ النشر"
 
 #: includes/admin/settings/class-settings-bootstrap.php:468
-#: includes/functions.php:973
+#: includes/functions.php:982
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "تاريخ آخر تعديل"
@@ -4700,12 +4690,12 @@ msgid ""
 "not activated."
 msgstr "تعذر نسخ إضافة التوافق أجاكس \"%s\". لم يتم تفعيل وضع التوافق."
 
-#: includes/functions.php:970
+#: includes/functions.php:979
 msgctxt "admin settings"
 msgid "User"
 msgstr "عضو"
 
-#: includes/functions.php:971
+#: includes/functions.php:980
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "تاريخ تسجيل العضو"
@@ -5011,24 +5001,24 @@ msgctxt "installer"
 msgid "Migrating fee plans..."
 msgstr "ترخيص مفعل"
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:249
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate fee \"%s\" (%d)"
 msgstr "تعذر تحديث القالب : %s"
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:316
+#: includes/admin/upgrades/migrations/migration-18_0.php:318
 #, fuzzy
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
 msgstr "تعذر معالجة الدفع."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:321
+#: includes/admin/upgrades/migrations/migration-18_0.php:323
 msgctxt "installer"
 msgid "Updating payment items format: %d items remaining..."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:383
+#: includes/admin/upgrades/migrations/migration-18_0.php:385
 msgctxt "installer"
 msgid "Migrating listing information: %d items remaining..."
 msgstr ""
@@ -6606,7 +6596,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "إعلان مميز"
 
-#: templates/login.tpl.php:8 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6616,6 +6606,16 @@ msgstr ""
 "لم تسجل الدخول حاليا. المرجو تسجيل الدخول أو التسجيل أولاً. عند التسجيل، سوف "
 "تتلقى رسالة بريد إلكتروني للتفعيل. يجب التأكد من مراجعة البريد المزعج الخاص "
 "بك إذا لم تراه في بريدك الإلكتروني خلال 60 دقيقة."
+
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "لم تتسجل بعد؟"
+
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "فقدت كلمة المرور؟"
 
 #: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
 msgctxt "templates"
@@ -6657,16 +6657,6 @@ msgstr "مشاهدة"
 msgctxt "templates"
 msgid "Login"
 msgstr "تسجيل الدخول"
-
-#: templates/parts/login-required.tpl.php:31
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "لم تتسجل بعد؟"
-
-#: templates/parts/login-required.tpl.php:33
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "فقدت كلمة المرور؟"
 
 #: templates/renew-listing.tpl.php:3
 msgctxt "templates"
@@ -6979,49 +6969,49 @@ msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr "نموذج الاتصال هذا معطل مؤقتا. المرجو المحاولة مرة أخرى لاحقا."
 
-#: includes/views/login.php:30
+#: includes/views/login.php:32
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "المرجو إدخال بريد إلكتروني صحيح."
 
-#: templates/login.tpl.php:14
+#: templates/login.tpl.php:27
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: templates/login.tpl.php:20
+#: templates/login.tpl.php:40
 #, fuzzy
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "مفاتيح وصول الإعلان"
 
-#: templates/login.tpl.php:21
+#: templates/login.tpl.php:41
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "المرجو إدخال بريد إلكتروني صحيح."
 
-#: templates/login.tpl.php:25
+#: templates/login.tpl.php:45
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "عنوان البريد الإلكتروني:"
 
-#: templates/login.tpl.php:26
+#: templates/login.tpl.php:46
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "مفتاح الوصول"
 
-#: templates/login.tpl.php:27
+#: templates/login.tpl.php:47
 #, fuzzy
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "مفتاح الوصول"
 
-#: templates/login.tpl.php:28
+#: templates/login.tpl.php:48
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -8031,6 +8021,14 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "العنوان"
+
+#~ msgctxt "admin actions"
+#~ msgid "Upgrade to Featured"
+#~ msgstr "ترقية إلى الخطة المميزة"
+
+#~ msgctxt "admin actions"
+#~ msgid "Downgrade to Normal"
+#~ msgstr "الرجوع إلى النظام العادي"
 
 #~ msgctxt "admin csv-export"
 #~ msgid "Sticky/featured status"
