@@ -203,7 +203,9 @@ final class WPBDP {
     }
 
     private function load_textdomain() {
-        $languages_dir = str_replace( trailingslashit( WP_PLUGIN_DIR ), '', WPBDP_PATH . 'languages' );
+        //        $languages_dir = str_replace( trailingslashit( WP_PLUGIN_DIR ), '', WPBDP_PATH . 'languages' );
+
+        $languages_dir = trailingslashit( basename( WPBDP_PATH ) ) . 'languages';
         load_plugin_textdomain( 'WPBDM', false, $languages_dir );
     }
 
