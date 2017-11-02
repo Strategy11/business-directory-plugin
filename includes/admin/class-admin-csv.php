@@ -42,8 +42,8 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 
 
         <h2 class="nav-tab-wrapper">
-            <a class="nav-tab <?php echo 'csv_import' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'tab', 'csv_import' ) ); ?>"><span class="dashicons dashicons-upload"></span> <?php _ex( 'Import', 'admin csv', 'WPBDM' ); ?></a>
-            <a class="nav-tab <?php echo 'csv_export' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'tab', 'csv_export' ) ); ?>"><span class="dashicons dashicons-download"></span> <?php _ex( 'Export', 'admin csv', 'WPBDM' ); ?></a>
+            <a class="nav-tab <?php echo 'csv_import' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'tab', 'csv_import' ) ); ?>"><span class="dashicons dashicons-download"></span> <?php _ex( 'Import', 'admin csv', 'WPBDM' ); ?></a>
+            <a class="nav-tab <?php echo 'csv_export' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'tab', 'csv_export' ) ); ?>"><span class="dashicons dashicons-upload"></span> <?php _ex( 'Export', 'admin csv', 'WPBDM' ); ?></a>
         </h2>
 <?php
         echo $output;
