@@ -145,6 +145,7 @@ final class WPBDP {
             }
         }
 
+        $this->modules->load_i18n();
         $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();

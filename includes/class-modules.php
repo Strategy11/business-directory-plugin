@@ -10,8 +10,6 @@ class WPBDP__Modules {
 
     public function __construct() {
         $this->register_modules();
-
-        add_action( 'init', array( $this, 'load_i18n' ), 999 );
     }
 
     private function register_modules() {
