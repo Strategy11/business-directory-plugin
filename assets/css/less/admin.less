@@ -466,6 +466,24 @@ body.taxonomy-wpbdp_category .column-id {
 /* }}} */
 
 /* {{ Uninstall. */
+#wpbdp-admin-page-uninstall {
+
+    .wpbdp-admin-content {
+        box-sizing: border-box;
+        margin: 20px 0 0 0;
+        padding: 16px;
+        background: #fff;
+        border-radius: 4px;
+    }
+
+    .wpbdp-validation-error {
+        font-size: 80%;
+        color: #d64226;
+        margin: 0 0 10px 0;
+    }
+
+}
+
 #wpbdp-uninstall-capture-form .reasons {
     margin-left: 15px;
 }
@@ -474,11 +492,18 @@ body.taxonomy-wpbdp_category .column-id {
     margin-bottom: 5px;
 }
 
+#wpbdp-uninstall-capture-form .custom-reason {
+    display: none;
+}
+
 #wpbdp-uninstall-capture-form textarea {
     margin: 10px 0 0 0;
     width: 50%;
     min-height: 100px;
-    display: none;
+
+    &.invalid {
+        border-color: #d64226;
+    }
 }
 /* }} */
 

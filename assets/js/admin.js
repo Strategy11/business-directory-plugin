@@ -359,12 +359,39 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 var val = $(this).val();
 
                 if ( '0' == val ) {
-                    $( 'form#wpbdp-uninstall-capture-form textarea[name="uninstall[reason_text]"]' ).fadeIn();
+                    $( 'form#wpbdp-uninstall-capture-form .custom-reason' ).fadeIn();
                 } else {
-                    $( 'form#wpbdp-uninstall-capture-form textarea[name="uninstall[reason_text]"]' ).fadeOut( 'fast', function() {
+                    $( 'form#wpbdp-uninstall-capture-form .custom-reason' ).fadeOut( 'fast', function() {
                         $(this).val('');
                     } );
                 }
+            });
+
+            $( '#wpbdp-uninstall-capture-form' ).submit(function() {
+                var $no_reason_error = $( '.wpbdp-validation-error.no-reason' ).hide();
+                var $no_text_error   = $( '.wpbdp-validation-error.no-reason-text' ).hide();
+                var $reason_checked = $( 'input[name="uninstall[reason_id]"]:checked' );
+
+                if ( 0 == $reason_checked.length ) {
+                    $no_reason_error.show();
+                    return false;
+                }
+
+                if ( '0' == $reason_checked.val() ) {
+                    var $reason_text = $( 'textarea[name="uninstall[reason_text]"]' );
+                    var reason_text = $.trim( $reason_text.val() );
+
+                    $reason_text.removeClass( 'invalid' );
+
+                    if ( ! reason_text ) {
+                        $no_text_error.show();
+                        $reason_text.addClass( 'invalid' );
+
+                        return false;
+                    }
+                }
+
+                return true;
             });
         }
     };

@@ -18,6 +18,10 @@ $reasons = array(
                   'WPBDM' ); ?></p>
     <p><b><?php _ex( 'Why are you deleting Business Directory Plugin?', 'uninstall', 'WPBDM' ); ?></b></p>
 
+    <div class="wpbdp-validation-error no-reason wpbdp-hidden">
+        <?php _ex( 'Please choose an option.', 'uninstall', 'WPBDM' ); ?>
+    </div>
+
     <div class="reasons">
         <?php foreach ( $reasons as $r => $l ): ?>
         <div class="reason">
@@ -26,7 +30,13 @@ $reasons = array(
             </label>
 
             <?php if ( 0 == $r ): ?>
-            <br /><textarea name="uninstall[reason_text]" placeholder="<?php _ex( 'Please tell us why are you deleting Business Directory Plugin.', 'uninstall', 'WPBDM' ); ?>"></textarea>
+            <div class="custom-reason">
+                <textarea name="uninstall[reason_text]" placeholder="<?php _ex( 'Please tell us why are you deleting Business Directory Plugin.', 'uninstall', 'WPBDM' ); ?>"></textarea>
+
+                <div class="wpbdp-validation-error no-reason-text wpbdp-hidden">
+                    <?php _ex( 'Please enter your reasons.', 'uninstall', 'WPBDM' ); ?>
+                </div>
+            </div>
             <?php endif; ?>
         </div>
         <?php endforeach; ?>

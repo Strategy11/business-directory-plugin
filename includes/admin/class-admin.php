@@ -300,14 +300,6 @@ to how WordPress stores the data.", 'WPBDM' )
             'callback' => array( &$this->debug_page, 'dispatch' )
         );
 
-        add_submenu_page( null,
-                          __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
-                          __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
-                          'administrator',
-                          'wpbdp_uninstall',
-                          array( $this, 'uninstall_plugin' ) );
-
-
         // FIXME: before next-release
         // if (current_user_can('administrator')) {
         //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
@@ -330,6 +322,14 @@ to how WordPress stores the data.", 'WPBDM' )
 
         if ( ! current_user_can( 'administrator' ) )
             return;
+
+        add_submenu_page( 'wpbdp_admin',
+                          __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
+                          __( 'Uninstall', 'WPBDM' ),
+                          'administrator',
+                          'wpbdp_uninstall',
+                          array( $this, 'uninstall_plugin' ) );
+        
 
         // Handle some special menu items.
         foreach ( $GLOBALS['submenu']['wpbdp_admin'] as &$menu_item ) {
@@ -760,6 +760,7 @@ to how WordPress stores the data.", 'WPBDM' )
         $nonce = isset( $_POST['_wpnonce'] ) ? trim( $_POST['_wpnonce'] ) : '';
 
         if ( $nonce && wp_verify_nonce( $nonce, 'uninstall bd' ) ) {
+            return;
             $installer = new WPBDP_Installer();
 
             // Delete listings.

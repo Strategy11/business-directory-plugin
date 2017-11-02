@@ -225,7 +225,6 @@ final class WPBDP {
     public function plugin_action_links( $links ) {
         $links = array_merge(
             array( 'settings' => '<a href="' . admin_url( 'admin.php?page=wpbdp_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'WPBDM' ) . '</a>' ),
-            array( 'uninstall' => '<a href="' . admin_url( 'admin.php?page=wpbdp_uninstall' ) . '">' . _x( 'Uninstall', 'admin plugins', 'WPBDM' ) . '</a>' ),
             $links
         );
 
