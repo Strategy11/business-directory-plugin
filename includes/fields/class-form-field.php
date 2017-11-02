@@ -420,7 +420,7 @@ class WPBDP_Form_Field {
     }
 
     public function is_empty_value( $value ) {
-        return $this->type->is_empty_value( $value );
+        return apply_filters( 'wpbdp_form_field_is_empty_value', $this->type->is_empty_value( $value ), $value, $this );
     }
 
     public function validate( $value, &$errors=null ) {
