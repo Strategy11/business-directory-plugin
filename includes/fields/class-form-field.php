@@ -399,7 +399,7 @@ class WPBDP_Form_Field {
      * @return mixed
      */
     public function convert_input( $input=null ) {
-        $val = apply_filters( 'wpbdp_form_field_pre_convert_input', null, $this );
+        $val = apply_filters( 'wpbdp_form_field_pre_convert_input', $input, $this );
 
         if ( ! is_null( $val ) )
             return $val;
