@@ -182,7 +182,7 @@ jQuery(function($) {
                 }
             });
 
-            console.log( this.available_plans, cats );
+            // console.log( this.available_plans, cats );
 
             if ( all_cats ) {
                 this._enable_categories( 'all' );
