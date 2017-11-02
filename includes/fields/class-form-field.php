@@ -432,6 +432,10 @@ class WPBDP_Form_Field {
             return true;
 
         foreach ( $this->validators as $validator ) {
+            if ( 'required-in-search' == $validator ) {
+                continue;
+            }
+
             $args = $this->type->setup_validation( $this, $validator, $value );
             $args = is_array( $args ) ? $args : array();
 
