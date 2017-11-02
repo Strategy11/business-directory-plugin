@@ -967,7 +967,7 @@ final class WPBDP__Settings__Bootstrap {
             'event' => 'expiration',
             'relative_time' => '+5 days', /* renewal-email-threshold, def: 5 days */
             'listings' => 'non-recurring',
-            'subject' => '[[site-title]] [listing] - Expiration notice',
+            'subject' => '[[site-title]] [listing] - Your listing is about to expire',
             'body' => 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].'
         );
         //         array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
@@ -982,7 +982,7 @@ final class WPBDP__Settings__Bootstrap {
             'event' => 'expiration',
             'relative_time' => '0 days', /* at time of expiration */
             'listings' => 'non-recurring',
-            'subject' => '[[site-title]] [listing] - Expiration notice',
+            'subject' => 'Your listing on [site-title] expired',
             'body' => "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]"
         );
         //                     array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
