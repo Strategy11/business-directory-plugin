@@ -33,8 +33,7 @@ class WPBDP_WPML_Compat {
             add_action( 'wpbdp_before_ajax_dispatch', array( $this, 'before_ajax_dispatch' ) );
         }
 
-        add_action( 'admin_footer-directory-admin_page_wpbdp_admin_formfields', array( &$this, 'register_form_fields_strings' ) );
-        add_action( 'admin_footer-directory-admin_page_wpbdp-admin-fees', array( &$this, 'register_fees_strings' ) );
+        add_action( 'admin_footer', array( $this, 'maybe_register_some_strings' ) );
 
         // Regions.
         add_filter( 'wpbdp_regions__get_hierarchy_option', array( &$this, 'use_cache_per_lang' ) );
@@ -336,6 +335,21 @@ class WPBDP_WPML_Compat {
     }
 
     // }}}
+
+    function maybe_register_some_strings() {
+        $admin_page = ! empty( $_GET['page'] ) ? $_GET['page'] : '';
+
+        switch ( $admin_page ) {
+        case 'wpbdp-admin-fees':
+            $this->register_fees_strings();
+            break;
+        case 'wpbdp_admin_formfields':
+            $this->register_form_fields_strings();
+            break;
+        default:
+            break;
+        }
+    }
 
     // {{{ Fees API integration.
 
