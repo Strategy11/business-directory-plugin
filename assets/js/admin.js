@@ -370,7 +370,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     };
 
     $(document).ready(function(){
-        if ( $( '.wpbdp-page-admin-uninstall' ).length > 0 )
+        if ( $( '.wpbdp-admin-page-uninstall' ).length > 0 )
             u.init();
     });
 })(jQuery);
