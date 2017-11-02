@@ -838,11 +838,17 @@ final class WPBDP__Settings__Bootstrap {
             'name'    => _x( 'CC this e-mail address too', 'settings', 'WPBDM' ),
             'group' => 'email_notifications'
         ) );
+
+        $settings_url = admin_url( 'admin.php?page=wpbdp_settings&tab=email&subtab=email_templates' );
+        $description = _x( 'You can modify the text template used for most of these e-mails in the <templates-link>Templates</templates-link> tab.', 'settings', 'WPBDM' );
+        $description = str_replace( '<templates-link>', '<a href="' . $settings_url . '">', $description );
+        $description = str_replace( '</templates-link>', '</a>', $description );
+
         wpbdp_register_setting( array(
             'id'      => 'user-notifications',
             'type'    => 'multicheck',
             'name'    => _x( 'Notify users via e-mail when...', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'You can modify the text template used for most of these e-mails below.', 'settings', 'WPBDM' ),
+            'desc'    => $description,
             'default' => array( 'new-listing', 'listing-published' ),
             'options' => array(
                 'new-listing'       => _x( 'Their listing is submitted.', 'admin settings', 'WPBDM' ),
