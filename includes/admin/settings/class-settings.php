@@ -471,6 +471,11 @@ class WPBDP__Settings {
     }
 
     public function validate_setting( $value, $setting_id ) {
+        $on_admin = ! empty( $_POST['_wp_http_referer'] );
+        if ( ! $on_admin ) {
+            return $value;
+        }
+        
         if ( ! empty( $this->settings[ $setting_id ] ) ) {
             $setting = $this->get_setting( $setting_id );
 
