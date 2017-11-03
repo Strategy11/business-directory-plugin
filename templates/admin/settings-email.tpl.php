@@ -7,6 +7,7 @@ $container_class = ! empty( $container_class ) ? $container_class : '';
 $setting_name = ! empty( $setting_name ) ? $setting_name : '';
 $email_subject = ! empty( $email_subject ) ? $email_subject : _x( 'Untitled', 'settings email', 'WPBDM' );
 $email_body = ! empty( $email_body ) ? $email_body : '';
+$email_body_display = strip_tags( $email_body );
 
 $placeholders = ! empty( $placeholders ) ? $placeholders : array();
 $before_container = ! empty( $before_container ) ? $before_container : '';
@@ -26,10 +27,10 @@ $after_buttons = isset( $after_buttons ) ? $after_buttons : '';
     <div class="wpbdp-settings-email-preview" title="<?php _ex( 'Click to edit e-mail', 'settings email', 'WPBDM' ); ?>">
         <a href="#" class="wpbdp-settings-email-edit-btn wpbdp-tag"><?php _ex( 'Click to edit', 'settings email', 'WPBDM' ); ?></a>
         <h4><?php echo $email_subject; ?></h4>
-        <?php if ( strlen( $email_body ) > 200 ): ?>
-            <?php echo substr( $email_body, 0, 200 ); ?>...
+        <?php if ( strlen( $email_body_display ) > 200 ): ?>
+            <?php echo substr( $email_body_display, 0, 200 ); ?>...
         <?php else: ?>
-            <?php echo $email_body; ?>
+            <?php echo $email_body_display; ?>
         <?php endif; ?>
     </div>
     <?php echo $after_preview; ?>
