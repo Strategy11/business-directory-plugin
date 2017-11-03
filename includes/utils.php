@@ -184,18 +184,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
     $sideload = ( is_string( $file_ ) && file_exists( $file_ ) ) ? true : false;
 
     if ( $sideload ) {
-        $mime_type = '';
-
-        if ( function_exists( 'finfo_open' ) ) {
-            if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
-                $mime_type = explode( ';', finfo_file( $finfo, $file_ ) );
-                $mime_type = trim( $mime_type[0] );
-                finfo_close( $finfo );
-            }
-        } else {
-            $type_info = wp_check_filetype( $file_, wp_get_mime_types() );
-            $mime_type = $type_info['type'];
-        }
+        $mime_type = wpbdp_get_mimetype( $file_ );
 
         $file = array(
             'name' => basename( $file_ ),
@@ -319,6 +308,32 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
     }
 
     return false;
+}
+
+/**
+ * Attempts to get the mimetype of a file.
+ *
+ * @param $file string  The path to a file.
+ *
+ * @since 5.0.5
+ */
+function wpbdp_get_mimetype( $file ) {
+    $mime_type = null;
+
+    if ( function_exists( 'finfo_open' ) ) {
+        if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
+            $mime_type = explode( ';', finfo_file( $finfo, $file ) );
+            $mime_type = trim( $mime_type[0] );
+            finfo_close( $finfo );
+        }
+    }
+
+    if ( null === $mime_type ) {
+        $type_info = wp_check_filetype( $file, wp_get_mime_types() );
+        $mime_type = $type_info['type'];
+    }
+
+    return $mime_type;
 }
 
 /**
