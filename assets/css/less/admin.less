@@ -481,30 +481,84 @@ body.taxonomy-wpbdp_category .column-id {
         color: #d64226;
         margin: 0 0 10px 0;
     }
+    
+    #wpbdp-uninstall-messages {
+        #wpbdp-uninstall-warning,
+        #wpbdp-uninstall-reinstall-suggestion {
+            float: left;
+            box-sizing: border-box;
 
-}
+            ul {
+                margin-left: 10px;
 
-#wpbdp-uninstall-capture-form .reasons {
-    margin-left: 15px;
-}
+                li {
+                    list-style-type: disc;
+                    list-style-position: inside;
+                }
+            }
+        }
 
-#wpbdp-uninstall-capture-form .reasons .reason {
-    margin-bottom: 5px;
-}
+        #wpbdp-uninstall-warning {
+            width: 60%;
+            padding-right: 20px;
+            color: #d64226;
 
-#wpbdp-uninstall-capture-form .custom-reason {
-    display: none;
-}
+            .wpbdp-warning-margin {
+                float: left;
 
-#wpbdp-uninstall-capture-form textarea {
-    margin: 10px 0 0 0;
-    width: 50%;
-    min-height: 100px;
+                .dashicons {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 30px;
+                }
+            }
 
-    &.invalid {
-        border-color: #d64226;
+            .wpbdp-warning-content {
+                margin-left: 50px;
+            }
+        }
+        
+        #wpbdp-uninstall-reinstall-suggestion {
+            width: 40%;
+            padding-left: 20px;
+            border-left: 1px solid #efefef;
+        }
     }
+
+    #wpbdp-uninstall-capture-form {
+        display: none;
+    }
+
+    #wpbdp-uninstall-capture-form .reasons {
+        margin-left: 15px;
+    }
+
+    #wpbdp-uninstall-capture-form .reasons .reason {
+        margin-bottom: 5px;
+    }
+
+    #wpbdp-uninstall-capture-form .custom-reason {
+        display: none;
+    }
+
+    #wpbdp-uninstall-capture-form textarea {
+        margin: 10px 0 0 0;
+        width: 50%;
+        min-height: 100px;
+
+        &.invalid {
+            border-color: #d64226;
+        }
+    }
+
+    #wpbdp-uninstall-proceed-btn {
+        margin-top: 20px;
+        color: #d64226;
+    }
+        
+
 }
+
 /* }} */
 
 #wpbdp-licensing-issues-warning {

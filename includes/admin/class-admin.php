@@ -760,7 +760,6 @@ to how WordPress stores the data.", 'WPBDM' )
         $nonce = isset( $_POST['_wpnonce'] ) ? trim( $_POST['_wpnonce'] ) : '';
 
         if ( $nonce && wp_verify_nonce( $nonce, 'uninstall bd' ) ) {
-            return;
             $installer = new WPBDP_Installer();
 
             // Delete listings.
