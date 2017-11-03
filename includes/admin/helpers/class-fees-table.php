@@ -62,7 +62,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
 
         if ( ! wpbdp_payments_possible() ) {
-            // For some reason my local website has two fee plans marked as 'free'
             $active = $all - $non_free - $disabled;
         } else {
             $active = $non_free;
