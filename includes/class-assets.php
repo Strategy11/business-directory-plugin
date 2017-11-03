@@ -31,11 +31,12 @@ class WPBDP__Assets {
             WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.min.js',
             array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' )
         );
-        wp_register_script(
-            'jquery-breakpoints',
+
+        $this->maybe_register_script(
+            'breakpoints.js',
             WPBDP_URL . 'vendors/jquery-breakpoints.min.js',
             array( 'jquery' ),
-            null,
+            '0.0.11',
             true
         );
 
@@ -56,6 +57,26 @@ class WPBDP__Assets {
         wp_register_script( 'wpbdp-js-select2', WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js', array( 'jquery' ) );
     }
 
+    private function maybe_register_script( $handle, $src, $deps, $ver, $in_footer = false ) {
+        $scripts = wp_scripts();
+
+        if ( isset( $scripts->registered[ $handle ] ) ) {
+            $registered_script = $scripts->registered[ $handle ];
+        } else {
+            $registered_script = null;
+        }
+
+        if ( $registered_script && version_compare( $registered_script->ver, $ver, '>=' ) ) {
+            return;
+        }
+
+        if ( $registered_script ) {
+            wp_deregister_script( $handle );
+        }
+
+        wp_register_script( $handle, $src, $deps, $ver, $in_footer );
+    }
+
     public function enqueue_scripts() {
         $only_in_plugin_pages = true;
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
@@ -70,7 +91,7 @@ class WPBDP__Assets {
         wp_register_script(
             'wpbdp-js',
             WPBDP_URL . 'assets/js/wpbdp.min.js',
-            array( 'jquery', 'jquery-breakpoints', 'wpbdp-js-select2', 'jquery-ui-sortable' ),
+            array( 'jquery', 'breakpoints.js', 'wpbdp-js-select2', 'jquery-ui-sortable' ),
             WPBDP_VERSION
         );
 
