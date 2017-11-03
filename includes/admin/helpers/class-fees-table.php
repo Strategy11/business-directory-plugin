@@ -218,9 +218,15 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $html .= sprintf( '<span class="wpbdp-drag-handle" data-fee-id="%s"></span></a>',
                         $fee->id );
 
-        $html .= sprintf('<strong><a href="%s">%s</a></strong>',
-                         esc_url(add_query_arg(array('wpbdp-view' => 'edit-fee', 'id' => $fee->id))),
-                         esc_attr($fee->label));
+        $fee_id_string = _x( '<strong>Fee ID:</strong> <fee-id>', 'fees admin', 'WPBDM' );
+        $fee_id_string = str_replace( '<fee-id>', $fee->id, $fee_id_string );
+
+        $html .= sprintf(
+            '<strong><a href="%s">%s</a></strong><br/>%s',
+             esc_url( add_query_arg( array( 'wpbdp-view' => 'edit-fee', 'id' => $fee->id ) ) ),
+             esc_attr( $fee->label ),
+             $fee_id_string
+        );
         $html .= $this->row_actions($actions);
 
         return $html;
