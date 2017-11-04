@@ -58,6 +58,8 @@ class WPBDP_CSVExporter {
         if ( $this->settings['include-users'] )
             $this->columns['username'] = 'username';
 
+        $this->columns['fee_id'] = 'fee_id';
+
         if ( $this->settings['include-expiration-date'] )
             $this->columns['expires_on'] = 'expires_on';
 
@@ -118,7 +120,7 @@ class WPBDP_CSVExporter {
         $shortnames = wpbdp_formfields_api()->get_short_names();
 
         foreach ( $state['columns'] as $fshortname ) {
-            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id' ) ) ) {
+            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;
                 continue;
             }
@@ -317,11 +319,22 @@ class WPBDP_CSVExporter {
 
                 $value = implode( $this->settings['images-separator'], $images );
                 break;
+            case 'fee_id':
+                $plan = $listing->get_fee_plan();
+
+                if ( isset( $plan->fee_id ) ) {
+                    $value = $plan->fee_id;
+                }
+
+                break;
             case 'expires_on':
             case 'expiration_date':
-                if ( $plan = $listing->get_fee_plan() ) {
+                $plan = $listing->get_fee_plan();
+
+                if ( isset( $plan->expiration_date ) ) {
                     $value = $plan->expiration_date;
                 }
+
                 break;
             default:
                 if ( is_object( $column_obj ) ) {
