@@ -146,7 +146,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$listing_obj, $fields ) );    
 
     // Set plan for new listings.
-    if ( $adding ) {
+    if ( $adding || 'csv-import' === $context ) {
         $plan = wpbdp_get_fee_plan( $plan_id );
         if ( ! $plan ) {
             $plan = wpbdp_get_fee_plan( 'free' );

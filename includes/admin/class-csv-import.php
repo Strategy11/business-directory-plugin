@@ -505,6 +505,15 @@ class WPBDP_CSV_Import {
         $listing_data['listing_id'] = $listing_id;
         $listing_data['append_images'] = $this->settings['append-images'];
         $listing_data['post_status'] = $listing_id ? wpbdp_get_option( 'edit-post-status' ) : $this->settings['post-status'];
+
+        if ( $data['plan_id'] ) {
+            $listing_data['plan_id'] = $data['plan_id'];
+        }
+
+        if ( $data['expires_on'] ) {
+            $listing_data['expires_on'] = $data['expires_on'];
+        }
+
         if ( $meta['sequence_id'] ) {
             $listing_data['sequence_id'] = $meta['sequence_id'];
         }
@@ -514,6 +523,7 @@ class WPBDP_CSV_Import {
         }
 
         $listing = wpbdp_save_listing( $listing_data, true, 'csv-import' );
+
         if ( is_wp_error( $listing ) ) {
             $errors = array_merge( $errors, $listing->get_error_messages() );
         }
@@ -584,6 +594,29 @@ class WPBDP_CSV_Import {
                     $expires_on = $dates[0];
                     break;
 
+                case 'fee_id':
+                    $submitted_fee_id = absint( $value );
+                    $plan_id = 0;
+
+                    if ( ! $submitted_fee_id ) {
+                        break;
+                    }
+
+                    $plan = wpbdp_get_fee_plan( $submitted_fee_id );
+
+                    if ( ! $plan ) {
+                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'WPBDM' );
+                        $message = str_replace( '<fee-id>', $submitted_fee_id, $message );
+
+                        $errors[] = $message;
+
+                        break;
+                    }
+
+                    $plan_id = $plan->id;
+
+                    break;
+
                 case 'sequence_id':
                     $meta['sequence_id'] = absint( $value );
 
@@ -637,7 +670,7 @@ class WPBDP_CSV_Import {
             }
         }
 
-        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on' ), $errors );
+        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on', 'plan_id' ), $errors );
     }
 
     private function get_header() {
