@@ -590,8 +590,32 @@ class WPBDP_CSV_Import {
                     break;
 
                 case 'expires_on':
-                    $dates = explode( '/', $value );
-                    $expires_on = $dates[0];
+                    $trimmed_value = trim( $value, "/ \t\n\r\0\x0B" );
+
+                    if ( empty( $trimmed_value ) ) {
+                        break;
+                    }
+
+                    if ( preg_match( '#^\d{1,4}/\d{1,2}/\d{1,4}$#', $trimmed_value ) ) {
+                        $date = strtotime( $trimmed_value );
+                    } else {
+                        $dates = explode( '/', $trimmed_value );
+                        $dates = array_map( 'strtotime', $dates );
+                        $dates = array_filter( $dates );
+
+                        $date = array_shift( $dates );
+                    }
+
+                    if ( ! $date ) {
+                        $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
+                        $message = str_replace( '<string>', '"' . $value . '"', $message );
+
+                        $errors[] = $message;
+
+                        break;
+                    }
+
+                    $expires_on = date( 'Y-m-d H:i:s', $date );
                     break;
 
                 case 'fee_id':
