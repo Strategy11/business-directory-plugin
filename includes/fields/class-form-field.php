@@ -223,6 +223,13 @@ class WPBDP_Form_Field {
             $this->validators[] = $validator;
     }
 
+    /**
+     * @since 5.0.5
+     */
+    public function set_validators( $validators = array() ) {
+        $this->validators = $validators;
+    }
+
     public function is_required() {
         return in_array( 'required', $this->validators, true );
     }
