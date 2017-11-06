@@ -100,7 +100,7 @@
                     <label> <?php _ex('Field Validator', 'form-fields admin', 'WPBDM'); ?></label>
                 </th>
                 <td>
-                    <select name="field[validators][]" id="field-validator">
+                    <select name="field[validators][]" id="field-validator" <?php echo ( 'social-twitter' == $field->get_field_type_id() ? 'disabled="disabled"' : '' ); ?> ?>>
                         <option value=""><?php _ex('No validation', 'form-fields admin', 'WPBDM'); ?></label>
                         <?php foreach ( $validators as $key => $name): ?>
                         <?php

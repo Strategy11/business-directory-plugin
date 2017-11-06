@@ -63,12 +63,19 @@ var WPBDP_associations_fieldtypes = {};
 
             var field_type = $field_type.val();
 
+            $( 'select#field-validator' ).prop( 'disabled', false );
+
             // URL fields can only have the 'url' validator.
             if ( 'url' == field_type ) {
                 $( 'select#field-validator option' ).not( '[value="url"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'selected' );
                 $( 'select#field-validator option[value="url"]' ).attr( 'selected', 'selected' );
             } else {
                 $( 'select#field-validator option' ).removeAttr( 'disabled' );
+            }
+
+            // Twitter fields can not have a validator.
+            if ( 'social-twitter' == field_type ) {
+                $( 'select#field-validator' ).prop( 'disabled', true );
             }
 
             var request_data = {

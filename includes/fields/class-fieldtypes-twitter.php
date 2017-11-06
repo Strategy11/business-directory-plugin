@@ -14,6 +14,25 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
         $field->add_display_flag( 'social' );
     }
 
+    /**
+     * @since 5.0.5
+     */
+    public function before_field_update( $field ) {
+        // Twitter field does not support validators (except 'required').
+        $validators = array();
+
+        if ( $field->has_validator( 'required' ) ) {
+            $validators[] = 'required';
+        }
+
+        if ( $field->has_validator( 'required-in-search' ) ) {
+            $validators[] = 'required-in-search';
+        }
+
+        $field->set_validators( $validators );
+    }
+
+
     public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
         // twitter fields are rendered as normal textfields
         global $wpbdp;
