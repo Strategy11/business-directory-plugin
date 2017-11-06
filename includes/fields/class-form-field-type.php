@@ -47,6 +47,13 @@ class WPBDP_Form_Field_Type {
     }
 
     /**
+     * Called before the listing is to be saved.
+     * @since 5.0.5
+     */
+    public function before_field_update( $field ) {
+    }    
+
+    /**
      * TODO: dodoc.
      * @since 3.4
      */

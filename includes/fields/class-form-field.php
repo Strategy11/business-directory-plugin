@@ -548,6 +548,11 @@ class WPBDP_Form_Field {
 
       if ( !in_array( $this->type->get_id(), (array) $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
             return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
+      }
+
+        $res = $this->type->before_field_update( $this );
+        if ( is_wp_error( $res ) ) {
+            return $res;
         }
 
         $data = array();
