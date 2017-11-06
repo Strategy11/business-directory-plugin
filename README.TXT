@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.8.3
-Last Updated: 2017-Nov-1
-Stable tag: 5.0.3
+Last Updated: 2017-Nov-6
+Stable tag: 5.0.5
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,6 +143,25 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.0.5 =
+* Add support to assign listing's fee plan during import.
+* Twitter field accepts Twitter handles only; no URLs are allowed. Now is not possible to add a URL validator to this field.
+* Fix JavaScript conflict with AWPCP.
+* Improved Uninstall workflow.
+* Fix a bug that caused region data to be ignored during import.
+* Update appearance of fee plans in Submit Listing view.
+* Fix a bug that made it impossible to edit email templates that included HTML tags.
+* Make sure 'flat' is always the pricing model for the free plan.
+* Do not show "Continue to Payment" if the Directory is in free mode.
+
+= Version 5.0.4 =
+* Correct priority of translation loading for premium modules.
+* Workaround a WP bug affecting hook names for sites using translations (https://core.trac.wordpress.org/ticket/18857)
+* Fix Featured Listings shortcodes.
+* Update CSV import & export icons.
+* Change e-mail subject for default expiration notices.
+* Move "Uninstall" link back to a menu item.
 
 = Version 5.0.3 =
 * Support WPML integration during Ajax requests.
