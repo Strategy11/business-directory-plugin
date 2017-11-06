@@ -276,6 +276,7 @@ final class WPBDP__Fee_Plan {
 
         // Free plan is special.
         if ( 'free' == $this->tag ) {
+            $this->pricing_model = 'flat';
             $this->amount = 0.0;
             $this->sticky = false;
             $this->recurring = false;
