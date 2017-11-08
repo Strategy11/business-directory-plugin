@@ -160,21 +160,18 @@ class WPBDP_CSVImportAdmin {
         //echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'WPBDM'));
         echo '<textarea class="wpbdp-csv-import-example" rows="30">';
 
-        $fields_api = wpbdp_formfields_api();
+        $fields = wpbdp_get_form_fields( array( 'field_type' => '-ratings' ) );
 
-        $short_names = $fields_api->get_short_names();
-
-        foreach ($short_names as $name) {
-            echo $name . ',';
+        foreach ( $fields as $f ) {
+            echo $f->get_short_name() . ',';
         }
         echo 'username';
         echo "\n";
 
         if (count($posts) >= 5) {
             foreach ($posts as $post) {
-                foreach (array_keys($short_names) as $field_id) {
-                    $field = $fields_api->get_field( $field_id );
-                    $value = $field->plain_value( $post->ID );
+                foreach ( $fields as $f ) {
+                    $value = $f->plain_value( $post->ID );
 
                     echo str_replace( ',', ';', $value );
                     echo ',';
@@ -185,16 +182,15 @@ class WPBDP_CSVImportAdmin {
             }
         } else {
             for ($i = 0; $i < 5; $i++) {
-                foreach ($short_names as $field_id => $shortname) {
-                    $field = $fields_api->get_field( $field_id );
-                    echo sprintf( '"%s"', $this->example_data_for_field( $field, $shortname ) );
+                foreach ( $fields as $f ) {
+                    echo sprintf( '"%s"', $this->example_data_for_field( $f, $f->get_short_name() ) );
                     echo ',';
                 }
 
                 echo sprintf( '"%s"', $this->example_data_for_field( null, 'user' ) );
                 echo "\n";
             }
-            
+
         }
 
         echo '</textarea>';

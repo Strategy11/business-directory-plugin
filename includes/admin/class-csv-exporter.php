@@ -47,7 +47,7 @@ class WPBDP_CSVExporter {
         if ( $this->settings['generate-sequence-ids'] )
             $this->columns['sequence_id'] = 'sequence_id';
 
-        $fields = wpbdp_get_form_fields();
+        $fields = wpbdp_get_form_fields( array( 'field_type' => '-ratings' ) );
         foreach ( $fields as &$f ) {
             $this->columns[ $f->get_short_name() ] = $f;
         }
