@@ -15,8 +15,14 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
         // Remove invalid listing fees (quick).
         $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE listing_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)", WPBDP_POST_TYPE ) );
         $wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_listing_fees WHERE category_id NOT IN (SELECT term_id FROM {$wpdb->terms})" );
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP charged" );
-        $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP updated_on" );
+
+        if ( wpbdp_column_exists( "{$wpdb->prefix}wpbdp_listing_fees", 'charged' ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP charged" );
+        }
+
+        if ( wpbdp_column_exists( "{$wpdb->prefix}wpbdp_listing_fees", 'updated_on' ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP updated_on" );
+        }
 
         // Update notify-admin email option.
         if ( get_option( WPBDP_Settings::PREFIX . 'notify-admin', false ) )
@@ -28,7 +34,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
     public function upgrade_to_3_7_migrate_payments() {
         global $wpdb;
 
-        $status_msg = '';
+        $status_msg = _x( 'Migrating payments information.', 'installer', 'WPBDM' );
 
         // Remove/update listing fees.
         if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_listing_fees LIKE %s", 'migrated' ) ) )
@@ -83,16 +89,24 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
             $transactions_done = ( $n_transactions_migrated == $n_transactions ) ? true : false;
 
             if ( $transactions_done ) {
-                $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP payment_type" );
-                $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP migrated" );
-                $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP fee" );                
-                $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP migrated" );
+                if ( wpbdp_column_exists( "{$wpdb->prefix}wpbdp_payments", 'payment_type' ) ) {
+                    $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP payment_type" );
+                }
+                if ( wpbdp_column_exists( "{$wpdb->prefix}wpbdp_payments", 'migrated' ) ) {
+                    $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments DROP migrated" );
+                }
+                if ( wpbdp_column_exists( "{$wpdb->prefix}wpbdp_listing_fees", 'fee' ) ) {
+                    $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP fee" );
+                }
+                if ( wpbdp_column_exists( "{$wpdb->prefix}wpbdp_listing_fees", 'migrated' ) ) {
+                    $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees DROP migrated" );
+                }
                 $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[payment_status]' ) );
             } else {
                 $status_msg = sprintf( _x( 'Migrating previous transactions to new Payments API... %d/%d', 'installer', 'WPBDM' ), $n_transactions_migrated, $n_transactions );
 
                 $transactions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE migrated = %d ORDER BY id ASC LIMIT 50", 0 ), ARRAY_A );
-                
+
                 foreach ( $transactions as &$t ) {
                     $t['status'] = 'approved' == $t['status'] ? 'completed' : ( 'pending' == $t['status'] ? 'pending' : 'rejected' );
                     $t['currency_code'] = get_option( 'wpbdp-currency' );
