@@ -43,7 +43,7 @@ class WPBDP__Listing_Email_Notification {
      */
     public function status_change_notifications( $listing, $old_status, $new_status ) {
         // Expiration notice.
-        if ( 'expired' == $new_status ) {
+        if ( 'expired' == $new_status && wpbdp_get_option( 'listing-renewal' ) ) {
             $this->send_notices( 'expiration', '0 days', $listing );
         }
 
