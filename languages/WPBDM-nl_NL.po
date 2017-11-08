@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.1.12.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-11-06 20:23:57+00:00\n"
+"POT-Creation-Date: 2017-11-08 16:29:44+00:00\n"
 "PO-Revision-Date: 2017-07-04 12:37+0000\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -73,33 +73,33 @@ msgstr ""
 msgid "Please <contact-link>contact customer support</a>."
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:77
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:87
 msgid "Business Directory - Manual Upgrade Required"
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:79
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:89
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before continuing."
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:81
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:91
 msgid "Perform Manual Upgrade"
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:97
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:98
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:119
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:107
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:108
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:129
 msgid "Business Directory - Manual Upgrade"
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:141
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:151
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:143
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:153
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 
@@ -4572,33 +4572,142 @@ msgctxt "tracking"
 msgid "Allow Tracking"
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:132
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:142
 #, fuzzy
 msgctxt "manual-upgrade"
 msgid "Continue"
 msgstr "Doorgaan"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:146
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:156
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:148
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:158
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:154
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:164
+msgctxt "manual-upgrade"
+msgid ""
+"The upgrade was successfully performed, but we are not done yet. Additional "
+"upgrade routines need to be executed before Business Directory Plugin is "
+"available again."
+msgstr ""
+
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:173
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was successfully performed. Business Directory Plugin is now "
 "available."
 msgstr ""
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:157
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:176
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr ""
+
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:168
+msgctxt "manage-upgrade"
+msgid "Continue Manual Upgrade"
+msgstr ""
+
+#: includes/admin/upgrades/class-migration.php:29
+msgctxt "installer"
+msgid "Migrating Business Directory database to version <version>."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-17_0.php:77
+msgctxt "installer"
+msgid ""
+"Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d "
+"records left)"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:87
+msgctxt "installer"
+msgid "Migrating license information to new format..."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:196
+msgctxt "installer"
+msgid "Migrating email notices to new format..."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:207
+msgctxt "installer"
+msgid "Migrating fee plans..."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
+msgctxt "installer"
+msgid "! Could not migrate fee \"%s\" (%d)"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:318
+msgctxt "installer"
+msgid "! Could not migrate payment #%d"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:323
+msgctxt "installer"
+msgid "Updating payment items format: %d items remaining..."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:385
+msgctxt "installer"
+msgid "Migrating listing information: %d items remaining..."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_2.php:77
+msgctxt "installer"
+msgid ""
+"<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
+"incompatible with the current version of Business Directory. Please update "
+"the Regions module."
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:37
+#, fuzzy
+msgctxt "installer"
+msgid "Migrating payments information."
+msgstr "Registratie informatie"
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:48
+msgctxt "installer"
+msgid "Cleaning up listing fees information... %d/%d"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:106
+msgctxt "installer"
+msgid "Migrating previous transactions to new Payments API... %d/%d"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:135
+msgctxt "installer"
+msgid "Initial listing payment (BD < 3.4)"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:146
+msgctxt "installer"
+msgid "Listing edit payment (BD < 3.4)"
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:167
+msgctxt "installer"
+msgid "Renewal fee \"%s\" for category \"%s\""
+msgstr ""
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:186
+msgctxt "installer"
+msgid "Listing upgrade to featured"
+msgstr ""
+
+#: includes/installer.php:54
+msgctxt "installer"
+msgid "Default Fee"
+msgstr "Standaard kosten"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:160
 msgctxt "listings-api"
@@ -4753,91 +4862,6 @@ msgctxt "upgrade-18"
 msgid "Replace this level with a new fee plan."
 msgstr ""
 
-#: includes/admin/upgrades/migrations/migration-17_0.php:77
-msgctxt "installer"
-msgid ""
-"Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d "
-"records left)"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:87
-msgctxt "installer"
-msgid "Migrating license information to new format..."
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:196
-msgctxt "installer"
-msgid "Migrating email notices to new format..."
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:207
-msgctxt "installer"
-msgid "Migrating fee plans..."
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:251
-msgctxt "installer"
-msgid "! Could not migrate fee \"%s\" (%d)"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:318
-msgctxt "installer"
-msgid "! Could not migrate payment #%d"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:323
-msgctxt "installer"
-msgid "Updating payment items format: %d items remaining..."
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-18_0.php:385
-msgctxt "installer"
-msgid "Migrating listing information: %d items remaining..."
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_2.php:76
-msgctxt "installer"
-msgid ""
-"<b>Business Directory Plugin - Regions Module</b> was disabled because it is "
-"incompatible with the current version of Business Directory. Please update "
-"the Regions module."
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:42
-msgctxt "installer"
-msgid "Cleaning up listing fees information... %d/%d"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:92
-msgctxt "installer"
-msgid "Migrating previous transactions to new Payments API... %d/%d"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:121
-msgctxt "installer"
-msgid "Initial listing payment (BD < 3.4)"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:132
-msgctxt "installer"
-msgid "Listing edit payment (BD < 3.4)"
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:153
-msgctxt "installer"
-msgid "Renewal fee \"%s\" for category \"%s\""
-msgstr ""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:172
-msgctxt "installer"
-msgid "Listing upgrade to featured"
-msgstr ""
-
-#: includes/installer.php:54
-msgctxt "installer"
-msgid "Default Fee"
-msgstr "Standaard kosten"
-
 #: includes/class-cpt-integration.php:15
 msgctxt "post type general name"
 msgid "Directory"
@@ -4897,12 +4921,12 @@ msgid_plural "%d images allowed."
 msgstr[0] "%d beeld"
 msgstr[1] "%d beelden"
 
-#: includes/class-fee-plan.php:293
+#: includes/class-fee-plan.php:294
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr ""
 
-#: includes/class-fee-plan.php:299
+#: includes/class-fee-plan.php:300
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
@@ -5455,7 +5479,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Link tekst (optioneel)"
 
-#: includes/fields/class-form-field.php:597
+#: includes/fields/class-form-field.php:609
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -5517,34 +5541,34 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr ""
 
-#: includes/fields/class-form-field.php:510
+#: includes/fields/class-form-field.php:517
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr ""
 
-#: includes/fields/class-form-field.php:520
+#: includes/fields/class-form-field.php:527
 msgctxt "form-fields-api"
 msgid "Requested field type change is incompatible. Type will not be modified."
 msgstr ""
 
-#: includes/fields/class-form-field.php:540
+#: includes/fields/class-form-field.php:547
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
 "association."
 msgstr ""
 
-#: includes/fields/class-form-field.php:550
+#: includes/fields/class-form-field.php:557
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr ""
 
-#: includes/fields/class-form-field.php:588
+#: includes/fields/class-form-field.php:600
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr ""
 
-#: includes/fields/class-form-field.php:609
+#: includes/fields/class-form-field.php:621
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr ""

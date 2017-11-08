@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__17_0 {
+class WPBDP__Migrations__17_0 extends WPBDP__Migration {
 
     public function migrate() {
         $form_fields = $this->get_list_form_fields();

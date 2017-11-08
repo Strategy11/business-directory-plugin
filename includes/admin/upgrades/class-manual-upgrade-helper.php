@@ -1,32 +1,42 @@
 <?php
+
 class WPBDP__Manual_Upgrade_Helper {
 
     private $installer;
-    private $data = array();
+    private $manual_upgrades = array();
     private $callback;
     private $config_callback = null;
 
-
-    public function __construct( &$installer, $upgrade_config ) {
-        // Try to load class.
+    public function __construct( $installer ) {
         $this->installer = $installer;
-        $this->data = $upgrade_config;
 
-        $callback_definition = isset( $this->data['callback'] ) ? $this->data['callback'] : $this->data;
-        $config_callback_definition = isset( $this->data['config_callback'] ) ? $this->data['config_callback'] : null;
-
-        $this->callback = $this->get_callback( $callback_definition );
-
-        if ( $config_callback_definition ) {
-            $this->config_callback = $this->get_configuration_callback( $config_callback_definition );
-        } else {
-            $this->config_callback = null;
-        }
+        $this->load_manual_upgrades();
+        $this->prepare_manual_upgrade_callbacks( $this->manual_upgrades );
 
         add_action( 'admin_notices', array( &$this, 'upgrade_required_notice' ) );
         add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-manual-upgrade', array( &$this, 'handle_ajax' ) );
+        add_action( 'wp_ajax_wpbdp-manual-upgrade-status', array( $this, 'check_manual_upgrade_status' ) );
+    }
+
+    private function prepare_manual_upgrade_callbacks() {
+        $versions = array_keys( $this->manual_upgrades );
+
+        $this->current_version = reset( $versions );
+        $this->current_upgrade = reset( $this->manual_upgrades[ $this->current_version ] );
+
+        if ( isset( $this->current_upgrade['callback'] ) ) {
+            $this->callback = $this->get_callback( $this->current_upgrade['callback'] );
+        } else {
+            $this->callback = $this->get_callback( $this->current_upgrade );
+        }
+
+        if ( isset( $this->current_upgrade['config_callback'] ) ) {
+            $this->config_callback = $this->get_configuration_callback( $this->current_upgrade['config_callback'] );
+        } else {
+            $this->config_callback = null;
+        }
     }
 
     private function get_callback( $params ) {
@@ -162,19 +172,68 @@ class WPBDP__Manual_Upgrade_Helper {
         echo wpbdp_admin_footer();
     }
 
+    /* Ajax Handlers */
+
     public function handle_ajax() {
         if ( ! current_user_can( 'administrator' ) )
             return;
 
         $response = call_user_func( $this->callback );
 
-        print json_encode( $response );
+        // Migration routines can request additional manual upgrades
+        $this->load_manual_upgrades();
 
-        if ( $response['done'] )
-            delete_option( 'wpbdp-manual-upgrade-pending' );
+        if ( $response['done'] ) {
+            $this->remove_upgrade_for_version( $this->current_version, $this->current_upgrade );
+        }
+
+        if ( $this->is_upgrade_complete_for_version( $this->current_version ) ) {
+            $this->installer->update_installed_version( $this->current_version );
+        }
+
+        if ( ! $this->is_upgrade_complete() ) {
+            $response['done'] = false;
+        }
+
+        print wp_json_encode( $response );
 
         exit();
     }
 
+    /* Manual Upgrades */
+
+    private function load_manual_upgrades() {
+        $this->manual_upgrades = $this->installer->get_manual_upgrades();
+    }
+
+    private function update_pending_manual_upgrades() {
+        if ( empty( $this->manual_upgrades ) ) {
+            delete_option( 'wpbdp-manual-upgrade-pending' );
+        } else {
+            update_option( 'wpbdp-manual-upgrade-pending', $this->manual_upgrades );
+        }
+    }
+
+    private function remove_upgrade_for_version( $version, $upgrade ) {
+        $index = array_search( $upgrade, $this->manual_upgrades[ $version ] );
+
+        if ( false !== $index ) {
+            unset( $this->manual_upgrades[ $version ][ $index ] );
+        }
+
+        if ( empty( $this->manual_upgrades[ $version ] ) ) {
+            unset( $this->manual_upgrades[ $version ] );
+        }
+
+        $this->update_pending_manual_upgrades();
+    }
+
+    private function is_upgrade_complete_for_version( $version ) {
+        return empty( $this->manual_upgrades[ $version ] );
+    }
+
+    private function is_upgrade_complete() {
+        return empty( $this->manual_upgrades );
+    }
 }
 

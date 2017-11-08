@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__5_0 {
+class WPBDP__Migrations__5_0 extends WPBDP__Migration {
 
     /**
      * This upgrade routine takes care of the term splitting feature that is going to be introduced in WP 4.2.

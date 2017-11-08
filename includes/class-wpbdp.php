@@ -128,7 +128,7 @@ final class WPBDP {
             return;
         }
 
-        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
+        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', array() ) ) {
             if ( $this->installer->setup_manual_upgrade() ) {
                 add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
                 add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );

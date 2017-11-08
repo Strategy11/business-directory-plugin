@@ -63,7 +63,6 @@ class WPBDP_Installer {
             throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
         }
 
-        delete_option('wpbusdirman_db_version');
         update_option('wpbdp-db-version', self::DB_VERSION);
     }
 
@@ -188,8 +187,13 @@ class WPBDP_Installer {
     public function _update() {
         global $wpbdp;
 
-        if ( get_option( 'wpbdp-manual-upgrade-pending', false ) )
+        // remove deprecated option, but make sure its value is preserved
+        delete_option( 'wpbusdirman_db_version' );
+        update_option( 'wpbdp-db-version', $this->installed_version );
+
+        if ( get_option( 'wpbdp-manual-upgrade-pending', array() ) ) {
             return;
+        }
 
         $migrations = $this->get_pending_migrations();
 
@@ -202,20 +206,26 @@ class WPBDP_Installer {
                 $m = false;
             }
 
-            if ( ! empty( $m ) ) {
+            // Load manual upgrades from database before running each migration
+            $manual_upgrades = $this->get_manual_upgrades();
+
+            if ( ! empty( $m ) && ! $manual_upgrades ) {
                 $m->migrate();
+            } elseif ( ! empty( $m ) ) {
+                $m->request_manual_upgrade();
             }
 
-            update_option('wpbdp-db-version', $version );
-
-            if ( get_option( 'wpbdp-manual-upgrade-pending', false ) ) {
-                return;
+            // Load manual upgrades from database again, to get any manual upgrade
+            // added by the current migration
+            if ( ! $this->get_manual_upgrades() ) {
+                $this->update_installed_version( $version );
             }
         }
+    }
 
-        delete_option('wpbusdirman_db_version');
-        update_option('wpbdp-db-version', self::DB_VERSION);
-        // $wpbdp->formfields->maybe_correct_tags();
+    public function update_installed_version( $new_version ) {
+        $this->installed_version = $new_version;
+        update_option( 'wpbdp-db-version', $new_version );
     }
 
     public function load_migration_class( $classname ) {
@@ -227,7 +237,34 @@ class WPBDP_Installer {
 
         require_once( $file );
 
-        return new $classname;
+        return new $classname( $this );
+    }
+
+    public function get_manual_upgrades() {
+        $manual_upgrades = get_option( 'wpbdp-manual-upgrade-pending', array() );
+
+        // We should be able to handle pending upgrades from 4.x and 5.0-5.0.4
+        if ( ! is_array( $manual_upgrades ) ) {
+            $manual_upgrades = array( $this->installed_version => array( $manual_upgrades ) );
+        } elseif ( isset( $manual_upgrades['callback'] ) && is_array( $manual_upgrades['callback'] ) ) {
+            $version = $this->get_migration_version_from_class_name( $manual_upgrades['callback'][0] );
+            $manual_upgrades = array( $version => array( $manual_upgrades ) );
+        } elseif ( isset( $manual_upgrades[0] ) && wpbdp_starts_with( 'WPBDP__Migrations__', $manual_upgrades[0] ) ) {
+            $version = $this->get_migration_version_from_class_name( $manual_upgrades[0] );
+            $manual_upgrades = array( $version => array( $manual_upgrades ) );
+        }
+
+        return $manual_upgrades;
+    }
+
+    public function get_migration_version_from_class_name( $classname ) {
+        if ( ! preg_match( '/\d[0-9_]*$/', $classname, $matches ) ) {
+            // This should cause the upgrade routine to run, without preventing more
+            // recent routines to be scheduled later.
+            return $this->installed_version;
+        }
+
+        return str_replace( '_', '.', $matches[0] );
     }
 
     public function show_installation_error( $exception ) {
@@ -268,16 +305,16 @@ class WPBDP_Installer {
     }
 
     public function setup_manual_upgrade() {
-        $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
+        $manual_upgrades = $this->get_manual_upgrades();
 
-        if ( ! $manual_upgrade ) {
+        if ( ! $manual_upgrades ) {
             return false;
         }
 
         require_once( WPBDP_PATH . 'includes/admin/upgrades/class-manual-upgrade-helper.php' );
 
         try {
-            return new WPBDP__Manual_Upgrade_Helper( $this, $manual_upgrade );
+            return new WPBDP__Manual_Upgrade_Helper( $this );
         } catch ( Exception $e ) {
             delete_option( 'wpbdp-manual-upgrade-pending' );
             return false;
@@ -289,9 +326,8 @@ class WPBDP_Installer {
             return;
 
         require_once ( WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-5_0.php' );
-        $m = new WPBDP__Migrations__5_0();
+        $m = new WPBDP__Migrations__5_0( $this );
         $m->process_term_split( $old_id );
     }
-
 }
 
