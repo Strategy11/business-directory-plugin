@@ -180,32 +180,37 @@ function wpbdp_settings_api() {
 }
 
 function wpbdp_get_option( $key, $default = false ) {
-    return call_user_func_array( array( wpbdp()->settings, 'get_option' ), func_get_args() );
+    $args_ = func_get_args();
+    return call_user_func_array( array( wpbdp()->settings, 'get_option' ), $args_ );
 }
 
 function wpbdp_set_option( $key, $value ) {
-    return call_user_func_array( array( wpbdp()->settings, 'set_option' ), func_get_args() );
+    $args_ = func_get_args();
+    return call_user_func_array( array( wpbdp()->settings, 'set_option' ), $args_ );
 }
 
 /**
  * @since 5.0
  */
 function wpbdp_delete_option( $key ) {
-    return call_user_func_array( array( wpbdp()->settings, 'delete_option' ), func_get_args() );
+    $args_ = func_get_args();
+    return call_user_func_array( array( wpbdp()->settings, 'delete_option' ), $args_ );
 }
 
 /**
  * @since 5.0
  */
 function wpbdp_register_settings_group( $args ) {
-    return call_user_func_array( array( wpbdp()->settings, 'register_group' ), func_get_args() );
+    $args_ = func_get_args();
+    return call_user_func_array( array( wpbdp()->settings, 'register_group' ), $args_ );
 }
 
 /**
  * @since 5.0
  */
 function wpbdp_register_setting( $args ) {
-    return call_user_func_array( array( wpbdp()->settings, 'register_setting' ), func_get_args() );
+    $args_ = func_get_args();
+    return call_user_func_array( array( wpbdp()->settings, 'register_setting' ), $args_ );
 }
 
 /* Form Fields API */

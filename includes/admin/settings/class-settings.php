@@ -338,7 +338,8 @@ class WPBDP__Settings {
      */
     public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(), $validator = null, $callback = null ) {
         return;
-        wpbdp_debug_e( 'add setting called', func_get_args() );
+        $args_ = func_get_args();
+        wpbdp_debug_e( 'add setting called', $args_ );
 
         // list($group, $section) = explode(':', $section_key);
         // $args = !$args ? array() : $args;
