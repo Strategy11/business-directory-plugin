@@ -422,7 +422,7 @@ to how WordPress stores the data.", 'WPBDM' )
         $this->current_controller_output = ob_get_contents();
         ob_end_clean();
 
-        $this->current_controller->_enqueue_scripts();
+        add_action( 'admin_enqueue_scripts', array( $this->current_controller, '_enqueue_scripts' ) );
     }
 
     /**
