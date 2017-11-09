@@ -28,7 +28,7 @@ jQuery(function($) {
                     return;
 
                 $( '#wpbdp-payment-notes .no-notes' ).hide();
-                $( '#wpbdp-payment-notes' ).append( res.data.html );
+                $( '#wpbdp-payment-notes' ).prepend( res.data.html );
 
                 $note.val('');
             }
