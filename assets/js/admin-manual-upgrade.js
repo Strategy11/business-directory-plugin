@@ -17,27 +17,13 @@ jQuery(function($) {
             $progressArea.scrollTop($progressArea[0].scrollHeight - $progressArea.height());
 
             if (response.done) {
-                manualUpgradeComplete();
+                $( 'div.step-upgrade' ).fadeOut(function() { $('div.step-done').fadeIn() });
             } else {
                 makeProgress();
             }
         }, 'json');
     };
-
-    var manualUpgradeComplete = function() {
-        $.get( ajaxurl, { action: 'wpbdp-manual-upgrade-status' }, function( response ) {
-            if ( response && 'pending' === response.status ) {
-                $( 'div.step-upgrade' ).fadeOut( function() {
-                    $( 'div.step-continue' ).fadeIn();
-                } );
-            } else {
-                $( 'div.step-upgrade' ).fadeOut( function() {
-                    $('div.step-done').fadeIn()
-                } );
-            }
-        }, 'json' );
-    };
-
+    
     $startButton.click(function(e) {
         e.preventDefault();
 
@@ -52,10 +38,6 @@ jQuery(function($) {
         e.preventDefault();
         inProgress = false;
     });
-
-    if ( document.location && /start=1/.test( document.location.search ) ) {
-        $startButton.click();
-    }
 
     // Migration specific.
     $( '#wpbdp-manual-upgrade-18_0-config #add-fee-form form#wpbdp-fee-form' ).submit(function(e) {

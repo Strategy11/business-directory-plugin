@@ -17,7 +17,6 @@ class WPBDP__Manual_Upgrade_Helper {
         add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-manual-upgrade', array( &$this, 'handle_ajax' ) );
-        add_action( 'wp_ajax_wpbdp-manual-upgrade-status', array( $this, 'check_manual_upgrade_status' ) );
     }
 
     private function prepare_manual_upgrade_callbacks() {
@@ -160,15 +159,6 @@ class WPBDP__Manual_Upgrade_Helper {
             echo '<textarea id="manual-upgrade-progress" rows="20" style="width: 90%; font-family: courier, monospaced; font-size: 12px;" readonly="readonly"></textarea>';
             echo '</div>';
 
-            echo '<div class="step-continue" style="display: none;">';
-            echo '<p>' . _x( 'The upgrade was successfully performed, but we are not done yet. Additional upgrade routines need to be executed before Business Directory Plugin is available again.', 'manual-upgrade', 'WPBDM' ) . '</p>';
-            echo sprintf(
-                '<a href="%s" class="button button-primary">%s</a>',
-                admin_url( 'admin.php?page=wpbdp-upgrade-page&start=1' ),
-                _x( 'Continue Manual Upgrade', 'manage-upgrade', 'WPBDM' )
-            );
-            echo '</div>';
-
             echo '<div class="step-done" style="display: none;">';
             echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'WPBDM' ) . '</p>';
             printf ( '<a href="%s" class="button button-primary">%s</a>',
@@ -205,18 +195,6 @@ class WPBDP__Manual_Upgrade_Helper {
         }
 
         print wp_json_encode( $response );
-
-        exit();
-    }
-
-    public function check_manual_upgrade_status() {
-        if ( ! current_user_can( 'administrator' ) ) {
-            return;
-        }
-
-        print wp_json_encode( array(
-            'status' => get_option( 'wpbdp-manual-upgrade-pending' ) ? 'pending' : 'done',
-        ) );
 
         exit();
     }
