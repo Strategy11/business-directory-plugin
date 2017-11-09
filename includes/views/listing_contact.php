@@ -47,6 +47,8 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         if ( wpbdp_get_option( 'recaptcha-on' ) && ! wpbdp_recaptcha_check_answer() )
             $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM' );
 
+        $this->errors = apply_filters( 'wpbdp_contact_form_validation_errors', $this->errors );
+
         return empty( $this->errors );
     }
 
@@ -161,8 +163,8 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
                                'email'       => $this->email,
                                'message'     => $this->message,
                                'date'        => date_i18n( __('l F j, Y \a\t g:i a'), current_time( 'timestamp' ) ) );
-        $email = wpbdp_email_from_template( 'email-templates-contact',
-                                            $replacements );
+        $email = wpbdp_email_from_template( 'email-templates-contact', $replacements );
+        $email->body = apply_filters( 'wpbdp_contact_form_email_body', $email->body );
         $email->to = wpbusdirman_get_the_business_email( $listing_id );
         $email->reply_to = "{$this->name} <{$this->email}>";
         $email->template = 'businessdirectory-email';
