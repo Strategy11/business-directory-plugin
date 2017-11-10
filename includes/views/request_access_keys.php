@@ -5,7 +5,7 @@ require_once( WPBDP_PATH . 'includes/class-view.php' );
 class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
     public function dispatch() {
-        if ( wpbdp_get_option( 'require-login' ) || ! wpbdp_get_option( 'enable-key-access' ) ) {
+        if ( ! wpbdp_get_option( 'enable-key-access' ) ) {
             return wpbdp_render_msg(
                 str_replace(
                     '<a>',
@@ -22,7 +22,7 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
         if ( $nonce && wp_verify_nonce( $nonce, 'request_access_keys' ) )
             return $this->listings_and_access_keys();
 
-        return $this->_render( 'send-access-keys' );
+        return $this->_render( 'send-access-keys', array( 'redirect_to' => ! empty( $_GET['redirect_to'] ) ? $_GET['redirect_to'] : '' ) );
     }
 
     public function listings_and_access_keys() {
@@ -33,8 +33,9 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
         $listings = $this->find_listings( $email );
 
-        if ( ! $listings )
+        if ( ! $listings ) {
             return wpbdp_render_msg( _x( 'There are no listings associated to your e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
+        }
 
         $message = wpbdp_email_from_template( WPBDP_PATH . 'templates/email-access-keys.tpl.php',
                                               array( 'listings' => $listings ) );
@@ -42,27 +43,29 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
         $message->to = $email;
 
         if ( $message->send() ) {
-            return wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'WPBDM' ) );
+            $html  = '';
+            $html .= wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'WPBDM' ) );
+
+            if ( ! empty( $_POST['redirect_to'] ) ) {
+                $html .= '<p>';
+                $html .= '<a href="' . esc_url( $_POST['redirect_to'] ) .'">';
+                $html .= _x( '← Return to previous page', 'request_access_keys', 'WPBDM' );
+                $html .= '</a>';
+                $html .= '<p>';
+            }
+
+            return $html;
         } else {
             return wpbdp_render_msg( _x( 'An error occurred while sending the access keys to your e-mail address. Please try again.', 'request_access_keys', 'WPBDM' ), 'error' );
         }
     }
 
     private function find_listings( $email ) {
-        $user = get_user_by( 'email', $email );
+        $listings = wpbdp_get_listings_by_email( $email );
 
-        if ( ! $user )
-            return array();
-
-        $posts = get_posts( array( 'post_type' => WPBDP_POST_TYPE,
-                                   'post_status' => array( 'publish', 'draft', 'pending' ),
-                                   'author' => $user->ID,
-                                   'posts_per_page' => -1,
-                                   'fields' => 'ids' ) );
-        $res = array();
-
-        foreach ( $posts as $p_id )
+        foreach ( $listings as $p_id ) {
             $res[] = WPBDP_Listing::get( $p_id );
+        }
 
         return $res;
     }
