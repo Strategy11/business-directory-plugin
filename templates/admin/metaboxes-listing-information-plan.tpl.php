@@ -112,7 +112,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
                 <?php _ex( 'Send renewal e-mail', 'admin infometabox', 'WPBDM' ); ?>
             </a>
         </li>
-        <?php if ( $current_plan && $current_plan->expired ): ?>
+        <?php if ( 'pending_renewal' == $listing->get_status() || ( $current_plan && $current_plan->expired ) ): ?>
         <li>
             <a href="<?php echo esc_url( add_query_arg( 'wpbdmaction', 'renewlisting' ) ); ?>" class="button-primary button button-small"><?php _ex( 'Renew listing', 'admin infometabox', 'WPBDM'); ?></a>
         </li>
