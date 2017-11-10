@@ -176,3 +176,36 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 function wpbdp_get_listing( $listing_id ) {
     return WPBDP_Listing::get( $listing_id );
 }
+
+/**
+ * @since 5.0.6
+ */
+function wpbdp_get_listings_by_email( $email ) {
+    global $wpdb;
+
+    $post_ids = array();
+
+    // Lookup by user.
+    if ( $user = get_user_by( 'email', $email ) ) {
+        $user_id = $user->ID;
+        $post_ids = array_merge(
+            $post_ids, 
+            $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status != %s AND post_author = %d", WPBDP_POST_TYPE, 'auto-draft', $user_id ) )
+        );
+    }
+
+    // Lookup by e-mail field.
+    if ( $email_field = wpbdp_get_form_fields( 'validators=email&unique=1' ) ) {
+        $field_id = $email_field->get_id();
+        $post_ids = array_merge(
+            $post_ids,
+            $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND LOWER(meta_value) = %s", '_wpbdp[fields][' . $field_id . ']', strtolower( $email ) ) )
+        );
+    }
+
+    // Filter everything through get_posts().
+    $post_ids = get_posts( array( 'post_type' => WPBDP_POST_TYPE, 'post_status' => array( 'publish', 'draft', 'pending' ), 'posts_per_page' => -1, 'post__in' => $post_ids ? $post_ids : array( -1 ), 'fields' => 'ids' ) );
+
+    return $post_ids;
+}
+
