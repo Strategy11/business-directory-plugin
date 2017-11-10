@@ -126,6 +126,8 @@ class WPBDP_Listing {
             $days = isset( $fee['days'] ) ? $fee['days'] : $fee['fee_days'];
         } else if ( is_a( $fee, 'WPBDP__Fee_Plan' ) ) {
             $days = $fee->days;
+        } elseif ( is_object( $fee ) && isset( $fee->fee_days ) ) {
+            $days = $fee->fee_days;
         } else {
             $days = 0;
         }
@@ -300,16 +302,21 @@ class WPBDP_Listing {
         if ( ! $plan )
             return false;
 
+
         global $wpdb;
 
         $row = array();
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $plan ) )
             $row['expiration_date'] = $expiration;
 
-        if ( ! empty( $row ) )
+        if ( ! empty( $row ) ) {
             $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $this->id ) );
+        } else {
+            $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET expiration_date = NULL WHERE listing_id = %d", $this->id ) );
+        }
 
         $this->set_status( 'complete' );
+        $this->set_post_status( 'publish' );
     }
 
     public function get_renewal_url( $deprecated = 0 ) {
