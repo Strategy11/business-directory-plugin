@@ -288,6 +288,22 @@ class WPBDP__Settings {
 
         $value = apply_filters( 'wpbdp_get_option', $value, $setting_id );
         $value = apply_filters( 'wpbdp_get_option_' . $setting_id, $value );
+        
+        // Sanitize the value (if empty) based on setting type.
+        if ( empty( $value ) ) {
+            if ( $setting = $this->get_setting( $setting_id ) ) {
+                switch ( $setting['type'] ) {
+                    case 'checkbox':
+                        $value = (int) $value;
+                        break;
+                    case 'multicheck':
+                        $value = array();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
         return $value;
     }
