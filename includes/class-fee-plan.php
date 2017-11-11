@@ -231,6 +231,8 @@ final class WPBDP__Fee_Plan {
         foreach ( $data as $key => $value ) {
             $this->{$key} = $value;
         }
+
+        $this->sanitize();
     }
 
     private function sanitize() {
