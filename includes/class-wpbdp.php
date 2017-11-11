@@ -304,22 +304,24 @@ final class WPBDP {
         if ( $plan = $listing->get_fee_plan() )
             $slots_available = absint( $plan->fee_images ) - count( $listing->get_images() );
 
-        if ( ! $slots_available ) {
-            return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
-        } elseif ( $slots_available < count( $files ) ) {
-            return $res->send_error(
-                sprintf(
-                    _nx(
-                        'You\'re trying to upload %d images, but only have %d slot available. Please adjust your selection.',
-                        'You\'re trying to upload %d images, but only have %d slots available. Please adjust your selection.',
-                        $slots_available,
-                        'listing image upload',
-                        'WPBDM'
-                    ),
-                    count( $files ),
-                    $slots_available
-                )
-            );
+        if ( ! current_user_can( 'administrator' ) ) {
+            if ( ! $slots_available ) {
+                return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
+            } elseif ( $slots_available < count( $files ) ) {
+                return $res->send_error(
+                    sprintf(
+                        _nx(
+                            'You\'re trying to upload %d images, but only have %d slot available. Please adjust your selection.',
+                            'You\'re trying to upload %d images, but only have %d slots available. Please adjust your selection.',
+                            $slots_available,
+                            'listing image upload',
+                            'WPBDM'
+                        ),
+                        count( $files ),
+                        $slots_available
+                    )
+                );
+            }
         }
 
         foreach ( $files as $i => $file ) {
