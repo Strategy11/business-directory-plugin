@@ -456,10 +456,14 @@ final class WPBDP__Settings__Bootstrap {
         ) );
 
         wpbdp_register_settings_group( 'listings/sorting', _x( 'Listings Sorting', 'settings', 'WPBDM' ), 'listings/main' );
+
+        $msg = _x( 'Fee Plan Custom Order can be changed under <a>Manage Fees</a>', 'admin settings', 'WPBDM' );
+        $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting( array(
             'id'      => 'listings-order-by',
             'type'    => 'select',
             'name'    => _x( 'Order directory listings by', 'settings', 'WPBDM' ),
+            'desc'    => $msg,
             'default' => 'title',
             'options' => array(
                 'title'      => _x( 'Title', 'admin settings', 'WPBDM' ),
@@ -468,7 +472,9 @@ final class WPBDP__Settings__Bootstrap {
                 'modified'   => _x( 'Date last modified', 'admin settings', 'WPBDM' ),
                 'rand'       => _x( 'Random', 'admin settings', 'WPBDM' ),
                 'paid'       => _x( 'Paid first then free. Inside each group by date.', 'admin settings', 'WPBDM' ),
-                'paid-title' => _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'WPBDM' )
+                'paid-title' => _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'WPBDM' ),
+                'plan-order-date' => _x( 'Fee Plan Custom Order, then Date', 'admin settings', 'WPBDM' ),
+                'plan-order-title' => _x( 'Fee Plan Custom Order, then Title', 'admin settings', 'WPBDM' )
             ),
             'group'  => 'listings/sorting'
         ) );
