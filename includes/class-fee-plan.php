@@ -254,7 +254,9 @@ final class WPBDP__Fee_Plan {
         }
 
         if ( 'extra' == $this->pricing_model ) {
-            $this->pricing_details = array( 'extra' => $this->pricing_details['extra'] );
+            $this->pricing_details = array(
+                'extra' => floatval( $this->pricing_details['extra'] ),
+            );
         } else {
             unset( $this->pricing_details['extra'] );
         }

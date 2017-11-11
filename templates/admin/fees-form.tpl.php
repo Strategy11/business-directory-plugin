@@ -196,7 +196,7 @@ endif;
                     <label for="wpbdp-fee-form-fee-extra"><?php _ex( 'Extra amount (per category)', 'fees admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
-                    <input id="wpbdp-fee-form-fee-extra" type="text" name="fee[pricing_details][extra]" value="<?php echo ( ! empty( $fee->pricing_details['extra'] ) ? $fee->pricing_details['extra'] : '' ); ?>" />
+                    <input id="wpbdp-fee-form-fee-extra" type="text" name="fee[pricing_details][extra]" value="<?php echo esc_attr( floatval( $fee->pricing_details['extra'] ) ); ?>" />
                 </td>
             </tr>
         </tbody>
