@@ -139,6 +139,10 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return $value;
     }
 
+    /**
+     * This method assumes that convert_input() was called before, to make sure
+     * $value is using the proper format.
+     */
     public function store_field_value( &$field, $post_id, $value ) {
         if ( 'meta' != $field->get_association() )
             return false;
