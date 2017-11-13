@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__3_9 {
+class WPBDP__Migrations__3_9 extends WPBDP__Migration {
 
     public function migrate() {
         // TODO: make sure this works when passing through manual 3.7 upgrade.
@@ -14,5 +14,4 @@ class WPBDP__Migrations__3_9 {
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_submit_state DROP COLUMN updated" );
         }
     }
-
 }

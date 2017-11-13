@@ -1,5 +1,6 @@
 <?php
-class WPBDP__Migrations__3_2 {
+
+class WPBDP__Migrations__3_2 extends WPBDP__Migration {
 
     /*
      * This update converts all form fields to a new, more flexible format that uses a new API introduced in BD 2.3.

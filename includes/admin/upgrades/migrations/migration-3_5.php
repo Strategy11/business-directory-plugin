@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__3_5 {
+class WPBDP__Migrations__3_5 extends WPBDP__Migration {
 
     public function migrate() {
         global $wpdb;

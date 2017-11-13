@@ -931,6 +931,19 @@ function wpbdp_table_exists( $table_name ) {
 }
 
 /**
+ * @since 5.0.5
+ */
+function wpbdp_column_exists( $table_name, $column_name ) {
+    global $wpdb;
+
+    $display_errors = $wpdb->hide_errors();
+    $result = $wpdb->get_col( sprintf( 'SELECT %s FROM %s LIMIT 1', $column_name, $table_name ) );
+    $wpdb->show_errors( $display_errors );
+
+    return empty( $wpdb->last_error );
+}
+
+/**
  * @since 5.0
  */
 function wpbdp_is_request( $type ) {

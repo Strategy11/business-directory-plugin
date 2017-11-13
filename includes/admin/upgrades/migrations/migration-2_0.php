@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__2_0 {
+class WPBDP__Migrations__2_0 extends WPBDP__Migration {
 
     public function migrate() {
         global $wpdb;
@@ -23,5 +23,4 @@ class WPBDP__Migrations__2_0 {
 
         wpbdp_log('Made WPBDP directory metadata hidden attributes');
     }
-
 }

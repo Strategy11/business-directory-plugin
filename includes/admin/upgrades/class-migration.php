@@ -2,40 +2,50 @@
 
 class WPBDP__Migration {
 
-    public function request_manual_upgrade( $callback ) {
+    private $installer;
+    private $version;
+
+    public function __construct( $installer ) {
+        $this->installer = $installer;
+        $this->version = $this->installer->get_migration_version_from_class_name( get_class( $this ) );
+    }
+
+    public function request_manual_upgrade( $callback = 'run_manual_upgrade' ) {
         return $this->request_manual_upgrade_with_configuration( $callback, null );
     }
 
     public function request_manual_upgrade_with_configuration( $callback, $config_callback ) {
-        update_option( 'wpbdp-manual-upgrade-pending', array( 'callback' => array( get_class( $this ), $callback ),
-                                                              'config_callback' => $config_callback ? array( get_class( $this ), $config_callback ) : null ) );
+        $manual_upgrades = $this->installer->get_manual_upgrades();
+
+        $manual_upgrades[ $this->version ][] = array(
+            'callback' => array( get_class( $this ), $callback ),
+            'config_callback' => $config_callback ? array( get_class( $this ), $config_callback ) : null,
+        );
+
+        update_option( 'wpbdp-manual-upgrade-pending', $manual_upgrades );
     }
 
-    public function manual_upgrade_configured() {
-        $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
+    public function run_manual_upgrade() {
+        $default_status = _x( 'Migrating Business Directory database to version <version>.', 'installer', 'WPBDM' );
+        $default_status = str_replace( '<version>', $this->version, $default_status );
 
-        if ( ! $manual_upgrade || ! is_array( $manual_upgrade ) )
-            return;
+        $default_response = array(
+            'ok' => true,
+            'status' => $default_status,
+            'done' => true,
+        );
 
-        $manual_upgrade['configured'] = true;
-        update_option( 'wpbdp-manual-upgrade-pending', $manual_upgrade );
+        $response = $this->migrate();
+
+        if ( ! is_array( $response ) ) {
+            $response = array();
+        }
+
+        return array_merge( $default_response, $response );
     }
 
-    public function set_manual_upgrade_config( $conf ) {
-        $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
-        $manual_upgrade = is_array( $manual_upgrade ) ? $manual_upgrade : array();
-
-        $manual_upgrade['config'] = $conf;
-        update_option( 'wpbdp-manual-upgrade-pending', $manual_upgrade );
+    public function migrate() {
+        // *crickets*
     }
-
-    public function get_config() {
-        $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', false );
-
-        if ( ! $manual_upgrade || ! is_array( $manual_upgrade ) || empty( $manual_upgrade['config'] ) )
-            return array();
-
-        return $manual_upgrade['config'];
-    }
-
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP__Migrations__13_0 {
+class WPBDP__Migrations__13_0 extends WPBDP__Migration {
 
     public function migrate() {
         // Make sure no field shortnames conflict.
