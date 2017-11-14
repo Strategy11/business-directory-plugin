@@ -281,8 +281,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $sections['listing_fields'] = array(
             'title' => _x( 'Listing Information', 'submit listing', 'WPBDM' ) );
-        $sections['listing_images'] = array(
-            'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' ) );
+
+        if ( wpbdp_get_option( 'allow-images' ) ) {
+            $sections['listing_images'] = array(
+                'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' )
+            );
+        }
 
         if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) && ! is_user_logged_in() ) {
             $sections['account_creation'] = array(
