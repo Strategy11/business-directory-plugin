@@ -38,6 +38,8 @@ class WPBDP_Listings_API {
         if ( $is_renewal) {
             wpbdp_insert_log( array( 'log_type' => 'listing.renewal', 'object_id' => $payment->listing_id, 'message' => _x( 'Listing renewed', 'listings api', 'WPBDM' ) ) );
             $listing->set_post_status( 'publish' );
+
+            do_action( 'wpbdp_listing_renewed', $listing, $payment );
         }
     }
 

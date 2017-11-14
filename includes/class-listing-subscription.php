@@ -137,6 +137,8 @@ class WPBDP__Listing_Subscription {
         $listing->update_plan();
         $listing->set_status( 'complete' );
         $listing->set_post_status( 'publish' );
+
+        do_action( 'wpbdp_listing_renewed', $listing );
     }
 
     public function cancel() {

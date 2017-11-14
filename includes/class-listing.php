@@ -317,6 +317,8 @@ class WPBDP_Listing {
 
         $this->set_status( 'complete' );
         $this->set_post_status( 'publish' );
+
+        do_action( 'wpbdp_listing_renewed', $this, false, 'admin' );
     }
 
     public function get_renewal_url( $deprecated = 0 ) {
