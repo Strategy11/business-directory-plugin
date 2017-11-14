@@ -9,6 +9,8 @@ class WPBDP__Listing_Email_Notification {
         add_action( 'wpbdp_listing_status_change', array( $this, 'status_change_notifications' ), 10, 3 );
         add_action( 'wpbdp_edit_listing', array( $this, 'edit_listing_admin_email' ) );
 
+        add_action( 'wpbdp_listing_renewed', array( $this, 'listing_renewal_email' ), 10, 3 );
+
         add_action( 'wpbdp_listing_maybe_send_notices', array( $this, 'send_notices' ), 10, 3 );
     }
 
@@ -73,7 +75,9 @@ class WPBDP__Listing_Email_Notification {
             if ( ( 'non-recurring' == $notice['listings'] && $listing->is_recurring() ) || ( 'recurring' == $notice['listings'] && ! $listing->is_recurring() ) )
                 continue;
 
+
             $already_sent = (int) get_post_meta( $listing->get_id(), '_wpbdp_notice_sent_' . $notice_key, true );
+
             if ( $already_sent && ! $force_resend )
                 continue;
 
@@ -91,7 +95,7 @@ class WPBDP__Listing_Email_Notification {
             $email->template = 'businessdirectory-email';
             $email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
 
-            if ( in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+            if ( 'expiration' == $event && in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
                 $email->cc[] = get_option( 'admin_email' );
 
                 if ( wpbdp_get_option( 'admin-notifications-cc' ) )
@@ -156,6 +160,45 @@ class WPBDP__Listing_Email_Notification {
         $email->body = wpbdp_render( 'email/listing-edited', array( 'listing' => $listing ), false );
 
         $email->send();
+    }
+
+    /**
+     * Sent when a listing is renewed.
+     * @since 5.0.6
+     */
+    public function listing_renewal_email( $listing, $payment = false, $context = '' ) {
+        // Notify admin.
+        if ( in_array( 'after_renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+            $email = new WPBDP_Email();
+            $email->to[] = get_bloginfo( 'admin_email' );
+            $email->subject = sprintf( '[%s] Listing "%s" has renewed', get_bloginfo( 'name' ), $listing->get_title() );
+
+            if ( $cc = wpbdp_get_option( 'admin-notifications-cc' ) ) {
+                $email->cc[] = $cc;
+            }
+
+            $owner = wpbusdirman_get_the_business_email( $listing->get_id() );
+            if ( ! empty( $payment ) ) {
+                $amount = $payment->amount;
+            } else {
+                $plan = $listing->get_fee_plan();
+                $amount = $plan->fee_price;
+            }
+
+            $amount = wpbdp_currency_format( $amount );
+
+            $email->body = sprintf(
+                'The listing "%s" has just renewed for %s from %s.',
+                '<a href="' . $listing->get_admin_edit_link() . '">' . $listing->get_title() . '</a>',
+                $amount,
+                $owner
+            );
+
+            $email->send();
+        }
+
+        // Notify users.
+        do_action( 'wpbdp_listing_maybe_send_notices', 'renewal', '0 days', $listing );
     }
 
 }
