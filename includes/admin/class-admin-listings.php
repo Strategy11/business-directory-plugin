@@ -25,6 +25,11 @@ class WPBDP_Admin_Listings {
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
         add_action( 'parse_query', array( &$this, '_apply_category_filter' ) );
 
+        add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
+
+        // Interim fix for post status filtering. Until #3179 is handled.
+        add_action( 'restrict_manage_posts', array( $this, '_add_post_status_filter' ) );
+
         // Augment search with username search.
         add_filter( 'posts_clauses', array( &$this, '_username_search_support' ) );
     }
@@ -48,6 +53,32 @@ class WPBDP_Admin_Listings {
             'hide_empty' => false,
             'depth' => 4
         ) );
+    }
+
+    function _add_post_status_filter() {
+        global $typenow;
+        global $wp_query;
+
+        if ( WPBDP_POST_TYPE != $typenow )
+            return;
+
+        $current_status = ! empty( $_GET['post_status'] ) ? $_GET['post_status'] : '';
+
+        echo '<select name="post_status">';
+        echo '<option value="">' . _x( 'All post statuses', 'admin listings', 'WPBDM' ) . '</option>';
+
+        $stati_to_display = array( 'publish', 'pending', 'draft', 'future', 'private' );
+
+        foreach ( $stati_to_display as $status ) {
+            $status_obj = get_post_status_object( $status );
+            if ( ! $status_obj ) {
+                continue;
+            }
+
+            echo '<option value="' . $status . '" ' . selected( $status, $current_status, false ) . '>' . esc_attr( $status_obj->label ) . '</option>';
+        }
+
+        echo '</select>';
     }
 
     function _apply_category_filter( $query ) {
