@@ -453,7 +453,7 @@ class WPBDP_Listing {
         $row['is_sticky'] = (int) $row['is_sticky'];
 
         if ( $args['recalculate'] ) {
-            if ( ! array_key_exists( 'expiration_date', $plan ) ) {
+            if ( ! $plan || ! array_key_exists( 'expiration_date', $plan ) ) {
                 $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $row );
 
                 if ( $expiration ) {
