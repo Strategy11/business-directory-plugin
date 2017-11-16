@@ -64,7 +64,7 @@ class WPBDP_Admin {
 
         add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
 
-        add_action( 'admin_init', array( $this, 'admin_view_dispatch' ), 9999 );
+        add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
         add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
         $this->listings = new WPBDP_Admin_Listings();
@@ -475,7 +475,9 @@ to how WordPress stores the data.", 'WPBDM' )
         $slug = $plugin_page;
         $callback = $item['callback'];
 
-        call_user_func( $callback );
+        if ( $callback ) {
+            call_user_func( $callback );
+        }
     }
 
     /**

@@ -34,14 +34,25 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
         }
     }
 
+    $default_title = '';
+    if ( empty( $GLOBALS['title'] ) ) {
+        if ( function_exists( 'get_admin_page_title' ) ) {
+            $default_title = get_admin_page_title();
+        }
+    } else {
+        $default_title = $GLOBALS['title'];
+    }
+
     $defaults = array(
-        'title'   => ! empty( $GLOBALS['title'] ) ? $GLOBALS['title'] : '',
+        'title'   => $default_title,
         'id'      => ! empty( $_GET['page'] ) ? $_GET['page'] : '',
         'buttons' => array(),
         'sidebar' => true
     );
 
+
     $args = wp_parse_args( $args_or_title, $defaults);
+
     extract( $args );
 
     $id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $id );
