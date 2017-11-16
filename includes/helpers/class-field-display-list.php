@@ -225,7 +225,7 @@ class _WPBDP_Lightweight_Field_Display_Item {
     private $value_ = null;
     private $raw_ = null;
 
-    public function __construct( &$field, $listing_id, $display ) {
+    public function __construct( $field, $listing_id, $display ) {
         $this->field = $field;
         $this->listing_id = $listing_id;
         $this->display = $display;
