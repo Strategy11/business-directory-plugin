@@ -6,7 +6,6 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     private $old_status = '';
 
-
     protected function get_defaults() {
         return array(
             'parent_id' => 0,
@@ -191,6 +190,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return 'completed' == $this->status;
     }
 
+    public function is_pending() {
+        return 'pending' == $this->status;
+    }
+
     public function get_admin_url() {
         return admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $this->id );
     }
@@ -226,10 +229,6 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public function set_payment_method( $method ) {
         $this->gateway = $method;
         $this->save();
-    }
-
-    public function is_pending() {
-        return $this->status == self::STATUS_PENDING;
     }
 
     public function is_canceled() {
@@ -277,6 +276,5 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public static function objects() {
         return parent::_objects( get_class() );
     }
-
 }
 
