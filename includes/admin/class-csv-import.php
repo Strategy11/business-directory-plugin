@@ -596,7 +596,7 @@ class WPBDP_CSV_Import {
                         break;
                     }
 
-                    if ( preg_match( '#^\d{1,4}/\d{1,2}/\d{1,4}$#', $trimmed_value ) ) {
+                    if ( preg_match( '#^(\d{1,4}/\d{1,2}/\d{1,4})(\s([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?)?$#', $trimmed_value ) ) {
                         $date = strtotime( $trimmed_value );
                     } else {
                         $dates = explode( '/', $trimmed_value );
