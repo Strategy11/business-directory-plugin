@@ -159,7 +159,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     $listing_obj->update_plan( array( 'expiration_date' => $expiration_date ), array( 'clear' => false, 'recalculate' => false ) );
 
     // Force GUIDs to always be <home-url>?post_type=wpbdp_listing&p=<post_id>
-    if ( $adding && ! $guid ) {
+    if ( $adding && ( ! isset( $guid ) || ! $guid ) ) {
         $post_link = add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id ), '' );
         $wpdb->update( $wpdb->posts, array( 'guid' => home_url( $post_link ) ), array( 'ID' => $listing_id ) );
         clean_post_cache( $listing_id );
