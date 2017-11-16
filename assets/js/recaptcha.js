@@ -33,9 +33,6 @@ jQuery( function( $ ) {
         }
     });
 
-    if ( 0 == $( '.wpbdp-recaptcha' ).length )
-            return;
-
     var wpbdp_rh = new reCAPTCHA_Handler();
     wpbdp_rh.render_widgets_when_ready();
 
@@ -44,4 +41,9 @@ jQuery( function( $ ) {
             wpbdp_rh = new reCAPTCHA_Handler();
         wpbdp_rh.render_widgets();
     }
+
+    // Handle submit reCAPTCHA.
+    $( window ).on( 'wpbdp_submit_refresh', function( event, submit, section_id ) {
+        wpbdp_rh.render_widgets();
+    } );
 } );

@@ -27,13 +27,17 @@ class WPBDP_reCAPTCHA {
             add_action( 'comment_post_redirect', array( &$this, '_comment_relative_redirect' ), 0, 2 );
         }
 
+        if ( wpbdp_get_option( 'recaptcha-for-submits' ) ) {
+            add_filter( 'wpbdp_submit_sections', array( $this, 'add_recaptcha_to_submit' ), 20, 2 );
+            add_filter( 'wpbdp_submit_section_recaptcha', array( $this, 'submit_recaptcha_html' ), 10, 2 );
+        }
     }
 
     function _enqueue_js_api() {
         global $wpbdp;
 
         if ( ! $wpbdp->is_plugin_page() )
-            return '';
+            return;
 
         wp_enqueue_script( 'wpbdp-recaptcha',
                             WPBDP_URL . 'assets/js/recaptcha.min.js',
@@ -80,8 +84,11 @@ class WPBDP_reCAPTCHA {
             return true;
         }
 
-        if ( ! $_REQUEST['g-recaptcha-response'] )
+        $error_msg = _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' );
+
+        if ( empty( $_REQUEST['g-recaptcha-response'] ) ) {
             return false;
+        }
 
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $res = wp_remote_post( $url,
@@ -97,7 +104,6 @@ class WPBDP_reCAPTCHA {
                 return true;
         }
 
-        $error_msg = _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' );
         return false;
     }
 
@@ -163,6 +169,34 @@ class WPBDP_reCAPTCHA {
         //}}>
         </script>
 JS;
+    }
+
+    /**
+     * @since 5.1.1
+     */
+    public function add_recaptcha_to_submit( $submit_sections, $submit ) {
+        $submit_sections['recaptcha'] = array( 'title' => _x( 'reCAPTCHA', 'recaptcha', 'WPBDM' ) );
+        return $submit_sections;
+    }
+
+    /**
+     * @since 5.1.1
+     */
+    public function submit_recaptcha_html( $section, $submit ) {
+        if ( $submit->saving() ) {
+            if ( ! $this->verify( $error_msg ) ) {
+                $submit->messages( $error_msg, 'error', 'recaptcha' );
+                $submit->prevent_save();
+            }
+        }
+        
+        if ( $recaptcha = $this->render() ) {
+            $section['html'] = $recaptcha;
+        } else {
+            $section['flags'][] = 'hidden';
+        }
+
+        return $section;
     }
 
 }
