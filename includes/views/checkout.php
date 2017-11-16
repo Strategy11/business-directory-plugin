@@ -126,7 +126,6 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     private function fetch_payment() {
         if ( ! $this->payment_id && ! empty( $_REQUEST['payment'] ) ) {
             $this->payment = WPBDP_Payment::objects()->get( array( 'payment_key' => $_REQUEST['payment'] ) );
-            $this->payment_id = $this->payment->id;
         } elseif ( $this->payment_id ) {
             $this->payment = WPBDP_Payment::objects()->get( $this->payment_id );
         }
@@ -134,6 +133,8 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         if ( ! $this->payment ) {
             wp_die( 'Invalid Payment ID/key' );
         }
+
+        $this->payment_id = $this->payment->id;
     }
 
     private function validate_nonce() {
