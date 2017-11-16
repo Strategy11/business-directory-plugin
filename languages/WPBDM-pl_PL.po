@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-11-14 22:09:08+00:00\n"
+"POT-Creation-Date: 2017-11-16 23:46:36+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -1071,13 +1071,13 @@ msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:622
+#: includes/admin/class-admin.php:624
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:649
+#: includes/admin/class-admin.php:651
 msgctxt "admin"
 msgid "The listing has been published."
 msgid_plural "The listings have been published."
@@ -1086,13 +1086,13 @@ msgstr[1] "Oferty zostały opublikowane."
 msgstr[2] "Ofert zostało opublikowanych."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:661
+#: includes/admin/class-admin.php:663
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Abonament został przypisany do oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:671
+#: includes/admin/class-admin.php:673
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -1101,19 +1101,19 @@ msgstr[1] "Odnowiono oferty."
 msgstr[2] "Odnowiono ofert."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:682
+#: includes/admin/class-admin.php:684
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Wysłano e-mail potwierdzający odnowienie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:739 includes/admin/class-admin.php:745
+#: includes/admin/class-admin.php:741 includes/admin/class-admin.php:747
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Licznik ofert"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:807
+#: includes/admin/class-admin.php:809
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1123,7 +1123,7 @@ msgstr ""
 "<tt>[businessdirectory]</tt> aby działać prawidłowo."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:809
+#: includes/admin/class-admin.php:811
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1133,12 +1133,12 @@ msgstr ""
 "automatycznie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:813
+#: includes/admin/class-admin.php:815
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Stwórz wymagane pola dla mnie"
 
-#: includes/admin/class-admin.php:846
+#: includes/admin/class-admin.php:848
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1147,7 +1147,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:869
+#: includes/admin/class-admin.php:871
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1560,7 +1560,7 @@ msgid "Manage Options"
 msgstr "Zarządzaj opcjami"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:737
+#: includes/admin/class-admin.php:739
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -6074,68 +6074,68 @@ msgstr ""
 "zmienić ustawienia. Do czasu wprowadzenia zmian, plugin będzie działał w "
 "<i>Trybie Bezpłatnym</i>."
 
-#: includes/class-payment.php:66
+#: includes/class-payment.php:65
 msgctxt "payment"
 msgid "Payment status changed from \"%s\" to \"%s\"."
 msgstr ""
 
 # @ WPBDM
-#: includes/class-payment.php:99
+#: includes/class-payment.php:98
 #, fuzzy
 msgctxt "payment"
 msgid "Initial payment (\"%s\")"
 msgstr "Inicjacja Płatności"
 
 # @ WPBDM
-#: includes/class-payment.php:102
+#: includes/class-payment.php:101
 #, fuzzy
 msgctxt "payment"
 msgid "Renewal payment (\"%s\")"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: includes/class-payment.php:259
+#: includes/class-payment.php:258
 #, fuzzy
 msgctxt "payment"
 msgid "Pending"
 msgstr "Oczekujące"
 
-#: includes/class-payment.php:260
+#: includes/class-payment.php:259
 msgctxt "payment"
 msgid "Failed"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-payment.php:261
+#: includes/class-payment.php:260
 #, fuzzy
 msgctxt "payment"
 msgid "Completed"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-payment.php:262
+#: includes/class-payment.php:261
 #, fuzzy
 msgctxt "payment"
 msgid "Canceled"
 msgstr "Anulowana"
 
-#: includes/class-payment.php:263
+#: includes/class-payment.php:262
 msgctxt "payment"
 msgid "On Hold"
 msgstr ""
 
-#: includes/class-payment.php:264
+#: includes/class-payment.php:263
 msgctxt "payment"
 msgid "Refunded"
 msgstr ""
 
-#: includes/class-payment.php:114
+#: includes/class-payment.php:113
 msgctxt "payment summary"
 msgid "%s. Admin Posted."
 msgstr ""
 
 # @ WPBDM
-#: includes/class-payment.php:187
+#: includes/class-payment.php:186
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
@@ -6341,10 +6341,17 @@ msgid "Save Changes"
 msgstr "Zapisz zmiany"
 
 # @ WPBDM
-#: includes/class-recaptcha.php:100 includes/class-recaptcha.php:115
+#: includes/class-recaptcha.php:87 includes/class-recaptcha.php:121
 msgctxt "recaptcha"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "ReCaptcha nie została poprawnie wprowadzona."
+
+# @ WPBDM
+#: includes/class-recaptcha.php:178
+#, fuzzy
+msgctxt "recaptcha"
+msgid "reCAPTCHA"
+msgstr "Ustawienia reCAPTCHA"
 
 # @ WPBDM
 #: includes/class-wpbdp.php:227
@@ -7025,30 +7032,30 @@ msgstr ""
 "później."
 
 # @ WPBDM
-#: includes/views/checkout.php:146
+#: includes/views/checkout.php:147
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr "Niewłaściwe ID płatności"
 
 # @ WPBDM
-#: includes/views/checkout.php:162
+#: includes/views/checkout.php:163
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr "Niepoprawny Kraj."
 
-#: includes/views/checkout.php:167
+#: includes/views/checkout.php:168
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr ""
 
-#: includes/views/checkout.php:175
+#: includes/views/checkout.php:176
 msgctxt "checkout"
 msgid "Pay Now"
 msgstr ""
 
-#: includes/views/checkout.php:220
+#: includes/views/checkout.php:221
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr ""
