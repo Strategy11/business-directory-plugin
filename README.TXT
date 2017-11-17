@@ -4,9 +4,9 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
 Requires PHP: 5.6
-Tested up to: 4.8.3
-Last Updated: 2017-Nov-6
-Stable tag: 5.0.5
+Tested up to: 4.9
+Last Updated: 2017-Nov-16
+Stable tag: 5.1.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,6 +143,34 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.1.1 =
+- Improve format detection for expiration dates on CSV imports.
+- Updated French translation.
+- Fix support for reCAPTCHA for listing submits.
+- Fix PHP notice in checkout view.
+- Execute admin views in a more adequate hook.
+
+= Version 5.1 =
+* Update CSV import & export to include/support fee plan information.
+* Allow multiple manual upgrades to be executed together.
+* Add hooks for customization of the contact form.
+* Add support for admin/customer renewal notification.
+* Add a post status filter to the backend.
+* Show "Listing Instructions" during submit. 
+* Allow admins to upload images on the backend even for listings with no associated plan.
+* Allow admins to sort listings according to fee plan ordering.
+* Prevent number_format() expects parameter 1 to be float warning.
+* Hide submit's "Listing Images" section when images are globally disabled.
+* Fix PHP warnings when running on PHP 5.2. 
+* Do not export rating values during CSV exports.
+* Fix PHP warning when choosing an image as the listing's thumbnail on the backend.
+* Fix a problem detecting listings associated to a given e-mail when using access keys.
+* Make sure database options are returned with the correct PHP type.
+* Dispatch admin views earlier to fix "headers already sent" PHP errors.
+* Prevent listings from being marked as "Featured" on the backend even when their plan doesn't have this flag.
+* Fix false validation errors on Date fields.
+* Save image meta (caption, position) correctly during submit.
 
 = Version 5.0.5 =
 * Add support to assign listing's fee plan during import.
