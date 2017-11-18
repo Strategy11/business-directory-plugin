@@ -2,7 +2,7 @@
 
 <?php if ( ! $editing ): ?>
     <p><?php _ex( 'Your listing has been submitted.', 'templates', 'WPBDM' ); ?></p>
-    <?php if ( $payment ): ?>
+    <?php if ( $payment && $payment->amount > 0.0 ): ?>
     <div id="wpbdp-checkout-confirmation-receipt">
         <?php echo wpbdp()->payments->render_receipt( $payment ); ?>
     </div>
