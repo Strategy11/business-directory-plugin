@@ -177,14 +177,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      */
     private function configure() {
         $this->available_plans = wpbdp_get_fee_plans();
-        
-        // Maybe skip plan selection?
-        $this->skip_plan_selection = ( 1 == count( $this->available_plans ) );
-
-        if ( $this->skip_plan_selection ) {
-            $plan = $this->available_plans[0];
-            $this->fixed_plan_id = $plan->id;
-        }
 
         // Show "Complete Listing" instead of "Continue to Payment" if all fees are free.
         $this->skip_plan_payment = true;
@@ -192,6 +184,16 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( 'flat' != $plan->pricing_model || 0.0 != $plan->amount ) {
                 $this->skip_plan_payment = false;
                 break;
+            }
+        }
+
+        // Maybe skip plan selection?
+        if ( $this->skip_plan_payment ) {
+            $this->skip_plan_selection = ( 1 == count( $this->available_plans ) );
+
+            if ( $this->skip_plan_selection ) {
+                $plan = $this->available_plans[0];
+                $this->fixed_plan_id = $plan->id;
             }
         }
     }
