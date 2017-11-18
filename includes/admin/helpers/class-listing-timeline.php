@@ -78,6 +78,10 @@ class WPBDP__Listing_Timeline {
     private function process_listing_payment( $item ) {
         $payment = WPBDP_Payment::objects()->get( $item->rel_object_id );
 
+        if ( ! $payment ) {
+            return $item;
+        }
+
         // switch ( $payment->payment_type ) {
         // case 'initial':
         //     $item->html .= 'Initial Payment';
