@@ -12,6 +12,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     protected $data = array();
     protected $messages = array( 'general' => array() );
 
+    private $available_plans = array();
+    public $skip_plan_selection = false;
+    public $fixed_plan_id = 0;
+
 
     public function get_title() {
         return _x( 'Submit A Listing', 'views', 'WPBDM' );
@@ -92,6 +96,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
+        $this->configure();
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
@@ -163,6 +168,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->ajax_sections();
     }
 
+    /**
+     * Additional configuration for the submit process, prior to the sections being called.
+     * @since 5.1.2
+     */
+    private function configure() {
+        $this->available_plans = wpbdp_get_fee_plans();
+        
+        // Maybe skip plan selection?
+        $this->skip_plan_selection = ( 1 == count( $this->available_plans ) );
+
+        if ( $this->skip_plan_selection ) {
+            $this->fixed_plan_id = $this->available_plans[0]->id;
+        }
+    }
+
     public function ajax_sections() {
         $res = new WPBDP_Ajax_Response();
 
@@ -176,6 +196,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             unset( $_POST['save_listing'] );
         }
 
+        $this->configure();
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
@@ -275,7 +296,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( $this->can_edit_plan_or_categories() ) {
             $sections['plan_selection'] = array(
-                'title' => _x( 'Category & plan selection', 'submit listing', 'WPBDM' )
+                'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'WPBDM' ) : _x( 'Category & plan selection', 'submit listing', 'WPBDM' )
             );
         }
 
@@ -364,11 +385,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $section['flags'][] = $section['state'];
         }
+
+        $this->sections = apply_filters( 'wpbdp_submit_prepare_sections', $this->sections, $this );
     }
 
     private function section_render( $template, $vars = array(), $result = true ) {
         $vars['listing'] = $this->listing;
         $vars['editing'] = $this->editing;
+        $vars['_submit'] = $this;
         $output = wpbdp_render( $template, $vars, false );
 
         return array( $result, $output );
@@ -377,8 +401,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function plan_selection() {
         global $wpbdp;
 
+        $plans = $this->available_plans;
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
-        $plans = wpbdp_get_fee_plans();
 
         if ( ! $plans )
             wp_die( _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' ) );
@@ -395,7 +419,16 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         } else {
             $categories = $category_field->value_from_POST();
-            $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
+
+            if ( $this->skip_plan_selection ) {
+                $plan_id = $this->fixed_plan_id;
+
+                if ( ! $this->listing->get_fee_plan() ) {
+                    $this->listing->set_fee_plan( $plan_id );
+                }
+            } else {
+                $plan_id = ! empty( $_POST['listing_plan'] ) ? absint( $_POST['listing_plan'] ) : 0;
+            }
         }
 
         $errors = array();
@@ -432,10 +465,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->prevent_save = true;
             }
         } else {
-            if ( $this->listing->get_fee_plan() ) {
-                return $this->section_render( 'submit-listing-plan-selection-complete' );
+
+            if ( $this->skip_plan_selection ) {
             } else {
-                $this->prevent_save = true;
+                if ( $this->$this->listing->get_fee_plan() ) {
+                    return $this->section_render( 'submit-listing-plan-selection-complete' );
+                } else {
+                    $this->prevent_save = true;
+                }
             }
         }
 

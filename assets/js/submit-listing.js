@@ -37,6 +37,15 @@ jQuery(function($) {
                 return;
             }
 
+            this.skip_plan_selection = ( 1 == $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
+            if ( this.skip_plan_selection ) {
+                return;
+                // alert('skip plan');
+                // this.field.change( function() {
+                // } );
+                // return;
+            }
+
             this.$plans_container = $( '.wpbdp-plan-selection-wrapper' );
             this.$plan_selection = this.$plans_container.find( '.wpbdp-plan-selection' );
             this.plans = this.$plan_selection.find( '.wpbdp-plan' );
