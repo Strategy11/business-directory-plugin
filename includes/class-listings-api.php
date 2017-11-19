@@ -92,7 +92,16 @@ class WPBDP_Listings_API {
 
     // }}}
 
+    /**
+     * @deprecated since 5.0. Added back in 5.1.2 for compatibility with other plugins (#3178)
+     */
+    public function get_thumbnail_id( $listing_id ) {
+        if ( $listing = wpbdp_get_listing( $listing_id ) ) {
+            return $listing->get_thumbnail_id();
+        }
 
+        return 0;
+    }
 
 }
 
