@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-11-16 23:46:36+00:00\n"
+"POT-Creation-Date: 2017-11-21 22:20:29+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2510,19 +2510,19 @@ msgstr "Taggar uppdateras."
 
 #: includes/fields/class-fieldtypes-checkbox.php:74
 #: includes/fields/class-fieldtypes-radiobutton.php:71
-#: includes/fields/class-fieldtypes-select.php:173
+#: includes/fields/class-fieldtypes-select.php:186
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Fältalternativ (för utvalda annonser, radioknappar och kryssrutor)"
 
 #: includes/fields/class-fieldtypes-checkbox.php:95
 #: includes/fields/class-fieldtypes-radiobutton.php:90
-#: includes/fields/class-fieldtypes-select.php:201
+#: includes/fields/class-fieldtypes-select.php:214
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Lista på alternativ krävs."
 
-#: includes/fields/class-fieldtypes-select.php:184
+#: includes/fields/class-fieldtypes-select.php:197
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Tillåt tomt urval på sök?"
@@ -5307,7 +5307,7 @@ msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "%s-flöde"
 
-#: includes/class-meta.php:155 includes/views/submit_listing.php:17
+#: includes/class-meta.php:155 includes/views/submit_listing.php:22
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Sätt in en annons"
@@ -5439,24 +5439,24 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/views/submit_listing.php:42
+#: includes/views/submit_listing.php:47
 msgctxt "submit listing"
 msgid "Click this field to add categories"
 msgstr ""
 
-#: includes/views/submit_listing.php:43 templates/submit-listing.tpl.php:23
+#: includes/views/submit_listing.php:48 templates/submit-listing.tpl.php:23
 #, fuzzy
 msgctxt "submit listing"
 msgid "Complete Listing"
 msgstr "Ta bort annons"
 
-#: includes/views/submit_listing.php:44 templates/submit-listing.tpl.php:28
+#: includes/views/submit_listing.php:49 templates/submit-listing.tpl.php:28
 #, fuzzy
 msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr "Första betalning"
 
-#: includes/views/submit_listing.php:86
+#: includes/views/submit_listing.php:91
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -5464,7 +5464,7 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:91
+#: includes/views/submit_listing.php:96
 #, fuzzy
 msgctxt "submit listing"
 msgid ""
@@ -5474,120 +5474,132 @@ msgstr ""
 "Katalogen är inte tillgänglig just nu. Vänligen försök igen om en lite stund "
 "eller kontakta administratören om problemet kvarstår."
 
-#: includes/views/submit_listing.php:112
+#: includes/views/submit_listing.php:118
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Du är inloggad som administratör. Alla betalningssteg hoppas över."
 
-#: includes/views/submit_listing.php:278
+#: includes/views/submit_listing.php:314
+#, fuzzy
+msgctxt "submit listing"
+msgid "Category selection"
+msgstr "Val av kategori"
+
+#: includes/views/submit_listing.php:314
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Val av kategori"
 
-#: includes/views/submit_listing.php:283
+#: includes/views/submit_listing.php:319
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Information om annons"
 
-#: includes/views/submit_listing.php:287
+#: includes/views/submit_listing.php:323
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Annonsbilder"
 
-#: includes/views/submit_listing.php:293
+#: includes/views/submit_listing.php:329
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:299
+#: includes/views/submit_listing.php:335
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:336
+#: includes/views/submit_listing.php:375
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:384
+#: includes/views/submit_listing.php:426
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Vi kan inte behandla din betalning just nu. Försök igen senare."
 
-#: includes/views/submit_listing.php:394
+#: includes/views/submit_listing.php:436
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en avgift alternativ för \"%s\" kategorin ."
 
-#: includes/views/submit_listing.php:413
+#: includes/views/submit_listing.php:449
+#, fuzzy
+msgctxt "submit listing"
+msgid "Please select a category for your listing."
+msgstr "Välj en avgift alternativ för \"%s\" kategorin ."
+
+#: includes/views/submit_listing.php:469
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:415
+#: includes/views/submit_listing.php:471
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgift alternativ för \"%s\" kategorin ."
 
-#: includes/views/submit_listing.php:608
+#: includes/views/submit_listing.php:675
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt namn"
 
-#: includes/views/submit_listing.php:613
+#: includes/views/submit_listing.php:680
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i ditt namn"
 
-#: includes/views/submit_listing.php:618
+#: includes/views/submit_listing.php:685
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:628
+#: includes/views/submit_listing.php:695
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:633
+#: includes/views/submit_listing.php:700
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:648
+#: includes/views/submit_listing.php:715
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:655
+#: includes/views/submit_listing.php:722
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:661
+#: includes/views/submit_listing.php:728
 #, fuzzy
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Användare"
 
-#: includes/views/submit_listing.php:670
+#: includes/views/submit_listing.php:737
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-postadress:"
 
-#: includes/views/submit_listing.php:679
+#: includes/views/submit_listing.php:746
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -5903,18 +5915,18 @@ msgid ""
 "of options."
 msgstr "Höjden på listan justeras för att passa angivet antal."
 
-#: includes/fields/class-fieldtypes-select.php:73
-msgctxt "form-fields-api category-select"
-msgid "-- Choose Terms --"
-msgstr "- Välj Villkor -"
-
-#: includes/fields/class-fieldtypes-select.php:73
-#: includes/fields/class-fieldtypes-select.php:120
+#: includes/fields/class-fieldtypes-select.php:86
+#: includes/fields/class-fieldtypes-select.php:133
 msgctxt "form-fields-api category-select"
 msgid "-- Choose One --"
 msgstr "— Välj ett  —"
 
-#: includes/fields/class-fieldtypes-select.php:130
+#: includes/fields/class-fieldtypes-select.php:92
+msgctxt "form-fields-api category-select"
+msgid "-- Choose Terms --"
+msgstr "- Välj Villkor -"
+
+#: includes/fields/class-fieldtypes-select.php:143
 msgctxt "form-fields-api select"
 msgid "— None —"
 msgstr "— Inget —"
@@ -6547,7 +6559,7 @@ msgctxt "templates"
 msgid "Recurring Fee Management"
 msgstr "Hantera återkommande avgifter"
 
-#: includes/views/submit_listing.php:234
+#: includes/views/submit_listing.php:270
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -6556,22 +6568,22 @@ msgstr ""
 "<b>Vyn inte tillgänglig.</b> Har du \"Inaktivera inlämning av annons på "
 "framsidan?\"-inställningen markerad?"
 
-#: includes/views/submit_listing.php:236
+#: includes/views/submit_listing.php:272
 msgctxt "templates"
 msgid "View not available."
 msgstr "Vy ej tillgänglig."
 
-#: includes/views/submit_listing.php:717
+#: includes/views/submit_listing.php:784
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:725
+#: includes/views/submit_listing.php:792
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:734
+#: includes/views/submit_listing.php:801
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7252,7 +7264,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:496
+#: includes/views/submit_listing.php:563
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -8177,7 +8189,13 @@ msgid ""
 "fee plans for your listing."
 msgstr ""
 
-#: templates/submit-listing-plan-selection.tpl.php:24
+#: templates/submit-listing-plan-selection.tpl.php:25
+#, fuzzy
+msgctxt "submit"
+msgid "Your plan's details:"
+msgstr "Detaljer för plan"
+
+#: templates/submit-listing-plan-selection.tpl.php:37
 msgctxt "submit"
 msgid "Please choose a fee plan for your listing:"
 msgstr ""
@@ -9216,10 +9234,6 @@ msgstr "Adress"
 #~ "You are about to renew your listing \"%s\" publication inside category "
 #~ "\"%s\"."
 #~ msgstr "Du är på väg att förnya din annons \"%s\" i kategorin \"%s\"."
-
-#~ msgctxt "templates"
-#~ msgid "Category Selection"
-#~ msgstr "Val av kategori"
 
 #~ msgctxt "templates"
 #~ msgid "Delete Image"
