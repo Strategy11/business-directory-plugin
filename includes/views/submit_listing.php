@@ -501,6 +501,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( ! $this->editing ) {
             $selected_plan = ! empty( $this->data['previous_plan'] ) ? $this->data['previous_plan'] : 0;
+
+            if ( $this->skip_plan_selection ) {
+                $selected_plan = $plan_id;
+            }
         } else {
             $selected_plan = $plan_id;
         }
