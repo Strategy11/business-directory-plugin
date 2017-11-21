@@ -68,43 +68,56 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $size = $field->data( 'size', 4 );
 
         if ( $field->get_association() == 'category' ) {
-                $html .= wp_dropdown_categories( apply_filters( 'wpbdp_field_type_select_categories_args', array(
-                        'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
-                        'show_option_none' => $context == 'search' ? ( $this->is_multiple() ? _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' ) : _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' ) ) : null,
-                        'orderby' => wpbdp_get_option( 'categories-order-by' ),
-                        'selected' => ( $this->is_multiple() ? null : ( $value ? $value[0] : null ) ),
-                        'order' => wpbdp_get_option('categories-sort' ),
-                        'hide_empty' => $context == 'search' && wpbdp_get_option( 'hide-empty-categories' ) ? 1 : 0,
-                        'hierarchical' => 1,
-                        'echo' => 0,
-                        'id' => 'wpbdp-field-' . $field->get_id(),
-                        'name' => 'listingfields[' . $field->get_id() . ']',
-                        'class' => 'wpbdp-js-select2'
-                    ), $field, $value, $context, $extra, $field_settings )
+            $args = array(
+                'taxonomy' => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
+                'show_option_none' => null,
+                'orderby' => wpbdp_get_option( 'categories-order-by' ),
+                'selected' => ( $this->is_multiple() ? null : ( $value ? $value[0] : null ) ),
+                'order' => wpbdp_get_option('categories-sort' ),
+                'hide_empty' => $context == 'search' && wpbdp_get_option( 'hide-empty-categories' ) ? 1 : 0,
+                'hierarchical' => 1,
+                'echo' => 0,
+                'id' => 'wpbdp-field-' . $field->get_id(),
+                'name' => 'listingfields[' . $field->get_id() . ']',
+                'class' => 'wpbdp-js-select2'
+            );
+
+            if ( ( 'submit' == $context || 'search' == $context ) && ! $this->is_multiple() ) {
+                $args['show_option_none'] = _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' );
+
+                if ( 'submit' == $context ) {
+                    $args['option_none_value'] = '';
+                }
+            } else if ( 'search' == $context && $this->is_multiple() ) {
+                $args['show_option_none'] = _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' );
+            }
+
+            $args = apply_filters( 'wpbdp_field_type_select_categories_args', $args, $field, $value, $context, $extra, $field_settings );
+
+            $html .= wp_dropdown_categories( $args );
+
+            if ( $this->is_multiple() ) {
+                $html = preg_replace(
+                    "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
+                    sprintf( "<select name=\"$3[]\" multiple=\"multiple\" $1 $5 size=\"%d\">", $size ),
+                    $html
                 );
 
-                if ( $this->is_multiple() ) {
-                    $html = preg_replace(
-                        "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
-                        sprintf( "<select name=\"$3[]\" multiple=\"multiple\" $1 $5 size=\"%d\">", $size ),
-                        $html
-                    );
-
-                    if ($value) {
-                        foreach ( $value as $catid ) {
-                            $html = preg_replace( "/\\<option(.*)value=('|\"){$catid}('|\")(.*)\\>/uiU",
-                                                  "<option value=\"{$catid}\" selected=\"selected\" $1 $4>",
-                                                  $html );
-                        }
+                if ($value) {
+                    foreach ( $value as $catid ) {
+                        $html = preg_replace( "/\\<option(.*)value=('|\"){$catid}('|\")(.*)\\>/uiU",
+                            "<option value=\"{$catid}\" selected=\"selected\" $1 $4>",
+                            $html );
                     }
                 }
+            }
 
-                if ( 'search' == $context && $this->is_multiple() ) {
-                    // Disable "Choose Terms".
-                    $html = preg_replace( "/\\<option(.*)value=('|\")-1('|\")(.*)\\>/uiU",
-                                          "<option value=\"-1\" disabled=\"disabled\" $1 $4>",
-                                          $html );
-                }
+            if ( 'search' == $context && $this->is_multiple() ) {
+                // Disable "Choose Terms".
+                $html = preg_replace( "/\\<option(.*)value=('|\")-1('|\")(.*)\\>/uiU",
+                    "<option value=\"-1\" disabled=\"disabled\" $1 $4>",
+                    $html );
+            }
         } else {
             $html .= sprintf( '<select id="%s" name="%s" %s class="%s %s" %s>',
                               'wpbdp-field-' . $field->get_id(),
