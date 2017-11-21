@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.9
-Last Updated: 2017-Nov-16
-Stable tag: 5.1.1
+Last Updated: 2017-Nov-21
+Stable tag: 5.1.2
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,13 +143,19 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 5.1.2 =
+* Do not automatically select the first available category during listing submit.
+* Do not show payment receipt at the end of the submit process when listing is free.
+* Skip plan selection when there's only one plan available.
+* Do not show "Continue to Payment" label when directory is in free mode.
+* Add some compatibility code to prevent fatal errors when using the Facebook Open Tags plugin.
 
 = Version 5.1.1 =
-- Improve format detection for expiration dates on CSV imports.
-- Updated French translation.
-- Fix support for reCAPTCHA for listing submits.
-- Fix PHP notice in checkout view.
-- Execute admin views in a more adequate hook.
+* Improve format detection for expiration dates on CSV imports.
+* Updated French translation.
+* Fix support for reCAPTCHA for listing submits.
+* Fix PHP notice in checkout view.
+* Execute admin views in a more adequate hook.
 
 = Version 5.1 =
 * Update CSV import & export to include/support fee plan information.
