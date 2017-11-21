@@ -354,6 +354,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $plan = $this->listing->get_fee_plan();
+        if ( ! $plan->fee ) {
+            return false;
+        }
 
         if ( 'flat' == $plan->fee->pricing_model ) {
             return true;
