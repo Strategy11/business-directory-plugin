@@ -88,6 +88,16 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                 if ( 'submit' == $context ) {
                     $args['option_none_value'] = '';
                 }
+
+                if ( 1 == wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) ) ) {
+                    $terms = get_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false ) );
+                    $term  = reset( $terms );
+
+                    $args['selected'] = $term->term_id;
+                    $args['show_option_none'] = false;
+                    $this->set_multiple( false );
+                }
+
             } else if ( 'search' == $context && $this->is_multiple() ) {
                 $args['show_option_none'] = _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' );
             }
