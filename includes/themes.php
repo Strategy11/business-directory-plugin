@@ -507,11 +507,11 @@ class WPBDP_Themes {
         $valid_parents = $this->get_themes_directories();
         $url = '';
 
-        foreach ( $valid_parents as $p => $u ) {
-            if ( false === stripos( $theme->path, $p ) )
+        foreach ( $valid_parents as $path => $url ) {
+            if ( false === stripos( $theme->path, $path ) )
                 continue;
 
-            $url = str_replace( $p, $u, $theme->path );
+            $url = str_replace( $path, $url, $theme->path );
         }
 
         $theme->url = $url;
