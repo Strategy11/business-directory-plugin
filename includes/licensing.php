@@ -308,7 +308,26 @@ class WPBDP_Licensing {
             $this->licenses[ $item_type . '-' . $item_id ]['status'] = 'invalid';
             update_option( 'wpbdp_licenses', $this->licenses );
 
-            return new WP_Error( 'invalid-license', _x( 'License key is invalid', 'licensing', 'WPBDM' ) );
+            if ( 'revoked' === $license_data->error ) {
+                $message = '<strong>' . _x( 'The license key was revoked.', 'licensing', 'WPBDM' ) . '</strong>';
+                $message.= '<br/><br/>';
+                $message.= _x( "If you think this is a mistake, please contact <support-link>Business Directory support</support-link> and let them know your license is being reported as revoked by the licensing software.", 'licensing', 'WPBDM' );
+                $message.= '<br/><br/>';
+                $message.= _x( 'Please include the email address you used to purchase <module-name> with your report.', 'licensing', 'WPBDM' );
+
+                $message = str_replace( '<support-link>', '<a href="https://businessdirectoryplugin.com/contact">', $message );
+                $message = str_replace( '</support-link>', '</a>', $message );
+                $message = str_replace( '<module-name>', '<strong>' . $this->items[ $item_id ]['name'] . '</strong>', $message );
+
+                // The javascript handler already adds a dot at the end.
+                $message = rtrim( $message, '.' );
+
+                return new WP_Error( 'revoked-license', $message );
+            } else {
+                $message = _x( 'License key is invalid', 'licensing', 'WPBDM' );
+
+                return new WP_Error( 'invalid-license', $message );
+            }
         }
 
         $this->licenses[ $item_type . '-' . $item_id ]['license_key'] = $key;
