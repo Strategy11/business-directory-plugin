@@ -532,7 +532,9 @@ class WPBDP__Settings {
 
                 break;
             case 'taxonomy_slug':
-                $value = trim( sanitize_title( $value ) );
+                // Don't use sanitize_title because it replaes unicode characters
+                // with octets and breaks the Rewrite Rules.
+                $value = trim( $value );
 
                 if ( empty( $value ) ) {
                     add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
