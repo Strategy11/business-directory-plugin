@@ -27,9 +27,6 @@ class WPBDP_Admin_Listings {
 
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
 
-        // Interim fix for post status filtering. Until #3179 is handled.
-        add_action( 'restrict_manage_posts', array( $this, '_add_post_status_filter' ) );
-
         // Augment search with username search.
         add_filter( 'posts_clauses', array( &$this, '_username_search_support' ) );
     }
@@ -53,32 +50,6 @@ class WPBDP_Admin_Listings {
             'hide_empty' => false,
             'depth' => 4
         ) );
-    }
-
-    function _add_post_status_filter() {
-        global $typenow;
-        global $wp_query;
-
-        if ( WPBDP_POST_TYPE != $typenow )
-            return;
-
-        $current_status = ! empty( $_GET['post_status'] ) ? $_GET['post_status'] : '';
-
-        echo '<select name="post_status">';
-        echo '<option value="">' . _x( 'All post statuses', 'admin listings', 'WPBDM' ) . '</option>';
-
-        $stati_to_display = array( 'publish', 'pending', 'draft', 'future', 'private' );
-
-        foreach ( $stati_to_display as $status ) {
-            $status_obj = get_post_status_object( $status );
-            if ( ! $status_obj ) {
-                continue;
-            }
-
-            echo '<option value="' . $status . '" ' . selected( $status, $current_status, false ) . '>' . esc_attr( $status_obj->label ) . '</option>';
-        }
-
-        echo '</select>';
     }
 
     function _apply_category_filter( $query ) {
@@ -211,7 +182,7 @@ class WPBDP_Admin_Listings {
         foreach ( $columns as $c_key => $c_label ) {
             // Insert category and expiration date after title.
             if ( 'title' == $c_key ) {
-                $new_columns['title_'] = $c_label;
+                $new_columns['title'] = $c_label;
                 $new_columns['category'] = _x( 'Categories', 'admin', 'WPBDM' );
                 $new_columns['expiration_date'] = __( 'Expires on', 'WPBDM' );
                 continue;
@@ -249,19 +220,19 @@ class WPBDP_Admin_Listings {
         }
     }
 
-    function listing_column_title_( $post_id ) {
-        $table = _get_list_table( 'WP_Posts_List_Table' );
-        ob_start(); $table->column_title( get_post( $post_id ) ); $out = ob_get_clean();
+    // function listing_column_title_( $post_id ) {
+    //     $table = _get_list_table( 'WP_Posts_List_Table' );
+    //     ob_start(); $table->column_title( get_post( $post_id ) ); $out = ob_get_clean();
 
-        $listing = wpbdp_get_listing( $post_id );
-        $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
-        $status_label = $status[1];
+    //     $listing = wpbdp_get_listing( $post_id );
+    //     $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
+    //     $status_label = $status[1];
 
-        $html = " &mdash; <span class='post-state wpbdp-listing-status-{$status[0]}'>{$status_label}</span>";
-        $out = preg_replace( '/\s+&mdash;\s+(<span class=[\'"]post-state[\'"]>)(.*)(<\/span>)/uiUm', '', $out );
-        $out = preg_replace('/(<a.*class=[\'"]row-title[\'"].*>.*<\/a>)/uiUm', "$1 {$html}", $out );
-        echo $out;
-    }
+    //     $html = " &mdash; <span class='post-state wpbdp-listing-status-{$status[0]}'>{$status_label}</span>";
+    //     $out = preg_replace( '/\s+&mdash;\s+(<span class=[\'"]post-state[\'"]>)(.*)(<\/span>)/uiUm', '', $out );
+    //     $out = preg_replace('/(<a.*class=[\'"]row-title[\'"].*>.*<\/a>)/uiUm', "$1 {$html}", $out );
+    //     echo $out;
+    // }
 
     public function listing_column_expiration_date( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
@@ -314,58 +285,61 @@ class WPBDP_Admin_Listings {
     // {{{ List views.
 
     function listing_views( $views_ ) {
+
+        return $views_;
+
         global $wpdb;
 
-        if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
-            if ( current_user_can( 'contributor' ) && isset( $views_['mine'] ) )
-                return array( $views_['mine'] );
+        // if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
+        //     if ( current_user_can( 'contributor' ) && isset( $views_['mine'] ) )
+        //         return array( $views_['mine'] );
 
-            return array();
-        }
+        //     return array();
+        // }
 
-        $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
+        // $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
 
-        $stati = WPBDP_Listing::get_stati();
-        unset( $stati['unknown'], $stati['legacy'], $stati['incomplete'] );
+        // $stati = WPBDP_Listing::get_stati();
+        // unset( $stati['unknown'], $stati['legacy'], $stati['incomplete'] );
 
-        // TODO: what are we going to do with regular post statuses?
-        $views = array();
+        // // TODO: what are we going to do with regular post statuses?
+        // $views = array();
 
-        $count = absint( $wpdb->get_var( $wpdb->prepare(
-                "SELECT COUNT(p.ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})",
-                WPBDP_POST_TYPE
-        ) ) );
-        $views['all'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                 esc_url( remove_query_arg( array( 'listing_status', 'post_status' ) ) ),
-                                 wpbdp_getv( $_REQUEST, 'listing_status', 'all' ) == 'all' ? 'current' : '',
-                                 _x( 'All', 'admin listings', 'WPBDM' ),
-                                 number_format_i18n( $count ) );
+        // $count = absint( $wpdb->get_var( $wpdb->prepare(
+        //         "SELECT COUNT(p.ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})",
+        //         WPBDP_POST_TYPE
+        // ) ) );
+        // $views['all'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+        //                          esc_url( remove_query_arg( array( 'listing_status', 'post_status' ) ) ),
+        //                          wpbdp_getv( $_REQUEST, 'listing_status', 'all' ) == 'all' ? 'current' : '',
+        //                          _x( 'All', 'admin listings', 'WPBDM' ),
+        //                          number_format_i18n( $count ) );
 
-        foreach ( $stati as $status_id => $status_label ) {
-            $count = absint( $wpdb->get_var( $wpdb->prepare(
-                "SELECT COUNT(p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listings ls ON p.ID = ls.listing_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ls.listing_status = %s",
-                WPBDP_POST_TYPE,
-                $status_id
-            ) ) );
+        // foreach ( $stati as $status_id => $status_label ) {
+        //     $count = absint( $wpdb->get_var( $wpdb->prepare(
+        //         "SELECT COUNT(p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listings ls ON p.ID = ls.listing_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ls.listing_status = %s",
+        //         WPBDP_POST_TYPE,
+        //         $status_id
+        //     ) ) );
 
-            if ( ! $count )
-                continue;
+        //     if ( ! $count )
+        //         continue;
 
-            $views[ $status_id ] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                                            esc_url( add_query_arg( 'listing_status', $status_id ) ),
-                                            wpbdp_getv( $_REQUEST, 'listing_status' ) == $status_id ? 'current' : '',
-                                            $status_label,
-                                            number_format_i18n( $count ) );
-        }
+        //     $views[ $status_id ] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+        //                                     esc_url( add_query_arg( 'listing_status', $status_id ) ),
+        //                                     wpbdp_getv( $_REQUEST, 'listing_status' ) == $status_id ? 'current' : '',
+        //                                     $status_label,
+        //                                     number_format_i18n( $count ) );
+        // }
 
-        $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
-        if ( isset( $views_['trash'] ) || ( ! empty( $_GET['post_status'] ) && 'trash' == $_GET['post_status'] ) ) {
-            $stati = get_post_stati( array(), 'objects' );
-            $label = $stati['trash']->label;
-            $views['trash'] = isset( $views_['trash'] ) ? $views_['trash'] : $label . ' <span class="count">(0)</span>';
-        }
+        // $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
+        // if ( isset( $views_['trash'] ) || ( ! empty( $_GET['post_status'] ) && 'trash' == $_GET['post_status'] ) ) {
+        //     $stati = get_post_stati( array(), 'objects' );
+        //     $label = $stati['trash']->label;
+        //     $views['trash'] = isset( $views_['trash'] ) ? $views_['trash'] : $label . ' <span class="count">(0)</span>';
+        // }
 
-        return $views;
+        // return $views;
     }
 
     function listings_admin_filters( $pieces ) {
