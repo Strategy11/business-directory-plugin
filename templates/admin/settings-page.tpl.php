@@ -55,7 +55,11 @@ echo wpbdp_admin_header( array(
     do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
 
     if ( ! $custom_form ):
-        submit_button();
+        // Submit button shouldn't use 'submit' as name to avoid conflicts with
+        // actual properties of the parent form.
+        //
+        // See http://kangax.github.io/domlint/
+        submit_button( null, 'primary', 'save-changes' );
     endif;
 ?>
 

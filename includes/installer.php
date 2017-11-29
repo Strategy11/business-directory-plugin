@@ -18,6 +18,7 @@ class WPBDP_Installer {
     public function install() {
         global $wpdb;
 
+        // TODO: Is this event now unnecessary? Check wpbdp_daily_events event.
         // schedule expiration hook if needed
         if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
             wpbdp_log('Expiration check was not in schedule. Scheduling.');

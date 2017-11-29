@@ -191,8 +191,6 @@ final class WPBDP {
 
 
         do_action( 'wpbdp_loaded' );
-
-        // do_action( 'wpbdp_daily_events' );
     }
 
     public function register_cache_groups() {

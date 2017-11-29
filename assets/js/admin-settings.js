@@ -51,7 +51,6 @@ jQuery(function($) {
                 var $rel_setting = $( '#wpbdp-settings-' + req_name );
                 if ( $rel_setting.length > 0 ) {
                     if ( $rel_setting.parents( 'tr' ).hasClass( 'wpbdp-setting-disabled' ) ) {
-                        console.log( req_name );
                         value = false;
                     } else {
                         var $field = $rel_setting.find( '[name="wpbdp_settings[' + req_name + ']"]:checked, [name="wpbdp_settings[' + req_name + '][]"]:checked' );
@@ -220,7 +219,7 @@ jQuery(function($) {
                 var $email = $( this ).parents( '.wpbdp-settings-email' );
                 $email.next().remove();
                 $email.remove();
-                $( '#wpbdp-admin-page-settings form' ).get(0).submit();
+                $( '#wpbdp-admin-page-settings form:first' ).submit();
             });
 
             // Expiration notices have some additional handling to do.
