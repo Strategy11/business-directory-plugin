@@ -250,6 +250,11 @@ class WPBDP_Admin_Listings {
 
         $attributes = array();
 
+        $listing_status = $listing->get_status();
+        if ( ! in_array( $listing_status, array( 'unknown', 'legacy', 'complete' ) ) ) {
+            $attributes[ 'listing-status' ] = '<span class="wpbdp-tag wpbdp-listing-status-' . $listing_status . '">' . $listing->get_status_label() . '</span>';
+        }
+
         foreach ( $listing->get_flags() as $f ) {
             $attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . $f . '">' . ucwords( str_replace( '-', ' ', $f ) ) . '</span>';
         }
