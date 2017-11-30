@@ -667,6 +667,39 @@ class WPBDP_Listing {
     }
 
     /**
+     * @since next-release
+     */
+    public static function count_listings( $args = array() ) {
+        $args = wp_parse_args( $args, array( 'post_status' => 'all', 'status' => 'all' ) );
+        extract( $args );
+
+        global $wpdb;
+
+        if ( ! is_array( $post_status ) ) {
+            if ( 'all' == $post_status ) {
+                $post_status = array_keys( get_post_statuses() );
+            } else {
+                $post_status = explode( ',', $post_status );
+            }
+        }
+
+        if ( ! is_array( $status ) ) {
+            if ( 'all' == $status ) {
+                $status = array_keys( WPBDP_Listing::get_stati() );
+            } else {
+                $status = explode( ',', $status );
+            }
+        }
+
+        $query_post_statuses = "'" . implode( "','", $post_status ) . "'";
+        $query_listing_statuses = "'" . implode( "','", $status ) . "'";
+        $query = "SELECT COUNT(*) FROM {$wpdb->posts} p JOIN {$wpdb->prefix}wpbdp_listings l ON p.ID = l.listing_id WHERE p.post_type = %s AND p.post_status IN ({$query_post_statuses}) AND l.listing_status IN ({$query_listing_statuses})";
+        $query = $wpdb->prepare( $query, WPBDP_POST_TYPE );
+
+        return absint( $wpdb->get_var( $query ) );
+    }
+
+    /**
      * @since 5.0
      */
     public static function validate_access_key( $key, $email = '' ) {
