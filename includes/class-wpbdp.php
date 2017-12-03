@@ -1,8 +1,4 @@
 <?php
-// Do not allow direct access to this file.
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
 
 /**
  * Main Business Directory class.
@@ -19,7 +15,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.1.3dev' );
+        define( 'WPBDP_VERSION', '5.1.3dev2' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -55,6 +51,7 @@ final class WPBDP {
         require_once( WPBDP_INC . 'class-cpt-integration.php' );
         require_once( WPBDP_INC . 'class-listing-expiration.php' );
         require_once( WPBDP_INC . 'class-listing-email-notification.php' );
+        require_once( WPBDP_INC . 'class-abandoned-payment-notification.php' );
 
         require_once( WPBDP_INC . 'compatibility/class-compat.php' );
         require_once( WPBDP_INC . 'class-rewrite.php' );
@@ -163,8 +160,8 @@ final class WPBDP {
         $this->cpt_integration->register_hooks();
 
         $this->cron = new WPBDP__Cron();
-        $this->listing_expiration = new WPBDP__Listing_Expiration();
-        $this->listing_email_notification = new WPBDP__Listing_Email_Notification();
+
+        $this->setup_email_notifications();
 
         $this->assets = new WPBDP__Assets();
         $this->widgets = new WPBDP__Widgets();
@@ -191,6 +188,16 @@ final class WPBDP {
 
 
         do_action( 'wpbdp_loaded' );
+    }
+
+    public function setup_email_notifications() {
+        global $wpdb;
+
+        $this->listing_expiration = new WPBDP__Listing_Expiration();
+        $this->listing_email_notification = new WPBDP__Listing_Email_Notification();
+
+        $abandoned_payment_notification = new WPBDP__Abandoned_Payment_Notification( $this->settings, $wpdb );
+        add_action( 'wpbdp_hourly_events', array( $abandoned_payment_notification, 'send_abandoned_payment_notifications' ) );
     }
 
     public function register_cache_groups() {
