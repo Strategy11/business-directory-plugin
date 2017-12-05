@@ -272,79 +272,46 @@ class WPBDP_Admin_Listings {
                 $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
         }
 
-        $post_status = get_post_status( $post_id );
-        if ( in_array( $post_status, array( 'draft', 'pending' ), true ) ) {
-            $post_status_trans = array( 'draft' => _x( 'Draft', 'admin listings', 'WPBDM' ), 'pending' => _x( 'Pending Review', 'admin listings', 'WPBDM' ) );
-            $attributes['post-status'] = '<span class="wpbdp-tag wpbdp-listing-attr-post-status-' . $post_status . '">' . $post_status_trans[ $post_status ] . '</span>';
-        }
-
         $attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
 
-        foreach ( $attributes as $attr )
+        foreach ( $attributes as $attr ) {
             echo $attr;
+        }
     }
 
 
     // }}}
 
+
     // {{{ List views.
 
-    function listing_views( $views_ ) {
+    function listing_views( $views ) {
+        if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
+            if ( current_user_can( 'contributor' ) && isset( $views_['mine'] ) )
+                return array( $views_['mine'] );
 
-        return $views_;
+            return array();
+        }
 
-        global $wpdb;
 
-        // if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
-        //     if ( current_user_can( 'contributor' ) && isset( $views_['mine'] ) )
-        //         return array( $views_['mine'] );
+        foreach ( WPBDP_Listing::get_stati() as $status_id => $status_label ) {
+            if ( in_array( $status_id, array( 'unknown', 'legacy', 'complete' ) ) ) {
+                continue;
+            }
 
-        //     return array();
-        // }
+            $count = absint( WPBDP_Listing::count_listings( array( 'status' => $status_id, 'post_status' => 'all' ) ) );
+            if ( 0 == $count ) {
+                continue;
+            }
 
-        // $post_statuses = '\'' . join('\',\'', isset($_GET['post_status']) ? array($_GET['post_status']) : array('publish', 'draft', 'pending')) . '\'';
+            $count = number_format_i18n( $count );
 
-        // $stati = WPBDP_Listing::get_stati();
-        // unset( $stati['unknown'], $stati['legacy'], $stati['incomplete'] );
+            $current_class = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
+            $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts' ), add_query_arg( 'listing_status', $status_id ) ) . "' class='{$current_class}'>${status_label} ({$count})</a>";
+        }
 
-        // // TODO: what are we going to do with regular post statuses?
-        // $views = array();
-
-        // $count = absint( $wpdb->get_var( $wpdb->prepare(
-        //         "SELECT COUNT(p.ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.post_status IN ({$post_statuses})",
-        //         WPBDP_POST_TYPE
-        // ) ) );
-        // $views['all'] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-        //                          esc_url( remove_query_arg( array( 'listing_status', 'post_status' ) ) ),
-        //                          wpbdp_getv( $_REQUEST, 'listing_status', 'all' ) == 'all' ? 'current' : '',
-        //                          _x( 'All', 'admin listings', 'WPBDM' ),
-        //                          number_format_i18n( $count ) );
-
-        // foreach ( $stati as $status_id => $status_label ) {
-        //     $count = absint( $wpdb->get_var( $wpdb->prepare(
-        //         "SELECT COUNT(p.ID) FROM {$wpdb->posts} p INNER JOIN {$wpdb->prefix}wpbdp_listings ls ON p.ID = ls.listing_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND ls.listing_status = %s",
-        //         WPBDP_POST_TYPE,
-        //         $status_id
-        //     ) ) );
-
-        //     if ( ! $count )
-        //         continue;
-
-        //     $views[ $status_id ] = sprintf( '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-        //                                     esc_url( add_query_arg( 'listing_status', $status_id ) ),
-        //                                     wpbdp_getv( $_REQUEST, 'listing_status' ) == $status_id ? 'current' : '',
-        //                                     $status_label,
-        //                                     number_format_i18n( $count ) );
-        // }
-
-        // $views = apply_filters( 'wpbdp_admin_directory_views', $views, $post_statuses );
-        // if ( isset( $views_['trash'] ) || ( ! empty( $_GET['post_status'] ) && 'trash' == $_GET['post_status'] ) ) {
-        //     $stati = get_post_stati( array(), 'objects' );
-        //     $label = $stati['trash']->label;
-        //     $views['trash'] = isset( $views_['trash'] ) ? $views_['trash'] : $label . ' <span class="count">(0)</span>';
-        // }
-
-        // return $views;
+        $views = apply_filters( 'wpbdp_admin_directory_views', $views, array() );
+        return $views;
     }
 
     function listings_admin_filters( $pieces ) {
