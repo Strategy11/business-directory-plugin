@@ -643,16 +643,39 @@ to how WordPress stores the data.", 'WPBDM' )
             exit;
 
         switch ($action) {
-            case 'publish':
+            case 'change-to-publish':
+            case 'change-to-pending':
+            case 'change-to-draft':
+                $new_status = str_replace( 'change-to-', '', $action );
+
                 foreach ($posts as $post_id) {
-                    wp_update_post( array( 'ID' => $post_id, 'post_status' => 'publish' ) );
+                    wp_update_post( array( 'ID' => $post_id, 'post_status' => $new_status ) );
                 }
 
-                $this->messages[] = _nx('The listing has been published.',
-                                        'The listings have been published.',
-                                        count($posts),
-                                        'admin',
-                                        'WPBDM');
+                $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'WPBDM');
+                break;
+
+            case 'change-to-expired':
+                foreach ( $posts as $post_id ) {
+                    $listing = wpbdp_get_listing( $post_id );
+                    $listing->update_plan( array( 'expiration_date' => current_time( 'mysql' ) ) );
+                    $listing->set_status( 'expired' );
+                }
+
+                $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'WPBDM');
+                break;
+
+            case 'change-to-complete':
+            case 'approve-payments':
+                foreach ( $posts as $post_id ) {
+                    $pending_payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $post_id, 'status' => 'pending' ) );
+
+                    foreach ( $pending_payments as $p ) {
+                        $p->status = 'completed';
+                        $p->save();
+                    }
+                }
+
                 break;
 
             case 'assignfee':

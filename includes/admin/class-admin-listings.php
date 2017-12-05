@@ -473,10 +473,15 @@ class WPBDP_Admin_Listings {
             if ($screen->id == 'edit-' . WPBDP_POST_TYPE) {
                 if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
                     $bulk_actions = array('sep0' => '--',
-                                          'publish' => _x('Publish Listing', 'admin actions', 'WPBDM'),
+                                          'change-to-publish' => _x('Publish listings', 'admin actions', 'WPBDM'),
+                                          'change-to-pending' => _x( 'Mark as "Pending Review"', 'admin actions', 'WPBDM' ),
+                                          'change-to-draft' => _x( 'Hide from directory (mark as "Draft")', 'admin actions', 'WPBDM' ),
                                           'sep1' => '--',
-                                          'renewlisting' => _x( 'Renew Listing', 'admin actions', 'WPBDM' )
-                                         );
+                                          'renewlisting' => _x( 'Renew listings', 'admin actions', 'WPBDM' ),
+                                          'change-to-expired' => _x( 'Make listings expire now', 'admin actions', 'WPBDM' ),
+                                          'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'WPBDM' ),
+                                      );
+
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
 
                     // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
