@@ -472,14 +472,15 @@ class WPBDP_Admin_Listings {
         if ($screen = get_current_screen()) {
             if ($screen->id == 'edit-' . WPBDP_POST_TYPE) {
                 if (isset($_GET['post_type']) && $_GET['post_type'] == WPBDP_POST_TYPE) {
-                    $bulk_actions = array('sep0' => '--',
+                    $bulk_actions = array('sep0' => '–',
                                           'change-to-publish' => _x('Publish listings', 'admin actions', 'WPBDM'),
                                           'change-to-pending' => _x( 'Mark as "Pending Review"', 'admin actions', 'WPBDM' ),
                                           'change-to-draft' => _x( 'Hide from directory (mark as "Draft")', 'admin actions', 'WPBDM' ),
-                                          'sep1' => '--',
+                                          'sep1' => '–',
                                           'renewlisting' => _x( 'Renew listings', 'admin actions', 'WPBDM' ),
-                                          'change-to-expired' => _x( 'Make listings expire now', 'admin actions', 'WPBDM' ),
-                                          'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'WPBDM' ),
+                                          'change-to-expired' => _x( 'Set Listings as Expired', 'admin actions', 'WPBDM' ),
+                                          /* Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
+                                          /*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'WPBDM' ),*/
                                       );
 
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
