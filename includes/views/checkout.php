@@ -48,7 +48,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             return $this->thank_you_message();
         }
 
-        $action = ! empty( $_POST['action'] ) ? $_POST['action'] : '';
+        $action = ! empty( $_REQUEST['action'] ) ? $_REQUEST['action'] : '';
 
         if ( has_action( 'wpbdp_checkout_before_action' ) ) {
             // Lightweight object used to pass checkout state to modules.
@@ -73,6 +73,8 @@ class WPBDP__Views__Checkout extends WPBDP__View {
                 if ( ! $this->can_checkout() ) {
                     return $this->_redirect( $this->payment->checkout_url );
                 }
+            } elseif ( 'return' == $action ) {
+                return $this->handle_return_request();
             }
         }
 
@@ -88,6 +90,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $vars['checkout_form'] = $this->checkout_form();
         $vars['checkout_form_bottom'] = wpbdp_capture_action( 'wpbdp_checkout_form_bottom', $this->payment );
         $vars['payment'] = $this->payment;
+        $vars['nonce'] = wp_create_nonce( 'wpbdp-checkout-' . $this->payment->id );
 
         return $this->_render_page( 'checkout', $vars );
     }
@@ -141,7 +144,10 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         if ( ! $_POST )
             return;
 
-        $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+        // Return URL for PayPal and other gateways include the nonce in the query
+        // string while form submissions include it as a POST parameter. We use
+        // $_REQUEST to handle both cases.
+        $nonce = ! empty( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 
         if ( ! wp_verify_nonce( $nonce, 'wpbdp-checkout-' . $this->payment_id ) )
             wp_die( _x( 'Invalid nonce received.', 'checkout', 'WPBDM' ) );
@@ -196,12 +202,13 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
         $res = (array) $this->gateway->process_payment( $this->payment );
 
+        if ( 'success' == $res['result'] && ! empty( $res['redirect'] ) ) {
+            return $this->_redirect( $res['redirect'] );
+        }
+
         if ( 'success' == $res['result'] ) {
             $this->payment->gateway = $this->gateway->get_id();
             $this->payment->save();
-
-            if ( isset( $res['redirect'] ) )
-                return $this->_redirect( $res['redirect'] );
 
             return $this->_redirect( $this->payment->checkout_url );
         }
@@ -234,5 +241,16 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             '_bar'    => false
         );
         return $this->_render_page( 'checkout-confirmation', $vars );
+    }
+
+    private function handle_return_request() {
+        if ( ! $this->gateway ) {
+            wp_die( __( 'There was an error trying to process your request. No gateway is selected.', 'checkout', 'WPBDM' ) );
+        }
+
+        $this->payment->gateway = $this->gateway->get_id();
+        $this->payment->save();
+
+        return $this->_redirect( $this->payment->get_checkout_url() );
     }
 }

@@ -208,10 +208,16 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_return_url() {
-        return $this->get_checkout_url();
+        $params = array(
+            'action' => 'return',
+            '_wpnonce' => wp_create_nonce( 'wpbdp-checkout-' . $this->id ),
+        );
+
+        return add_query_arg( $params, $this->get_checkout_url() );
     }
 
     public function get_cancel_url() {
+        // XXX: Is 'cancel-payment' really used?
         return add_query_arg( 'cancel-payment', '1', $this->get_checkout_url() );
     }
 

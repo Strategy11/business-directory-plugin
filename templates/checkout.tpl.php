@@ -1,6 +1,3 @@
-<?php
-$nonce = wp_create_nonce( 'wpbdp-checkout-' . $payment->id );
-?>
 <h2><?php _ex( 'Checkout', 'checkout', 'WPBDM') ;?></h2>
 
 <div class="wpbdp-payment-invoice">
