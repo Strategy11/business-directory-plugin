@@ -268,9 +268,15 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         if ( ! $count )
             return true;
 
-        foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT id, tag FROM {$wpdb->prefix}wpbdp_payments WHERE payment_items IS NULL OR payment_items = %s ORDER BY id ASC LIMIT {$batch_size}", '' )  ) as $payment ) {
+        foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE payment_items IS NULL OR payment_items = %s ORDER BY id ASC LIMIT {$batch_size}", '' )  ) as $payment ) {
             $payment_id = $payment->id;
-            $payment_type = $payment->tag;
+
+            if ( isset( $payment->tag ) ) {
+                $payment_type = $payment->tag;
+            } else {
+                $payment_type = null;
+            }
+
             $items = array();
 
             foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments_items WHERE payment_id = %d", $payment_id ) ) as $item ) {
