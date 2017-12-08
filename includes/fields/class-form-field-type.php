@@ -233,7 +233,7 @@ class WPBDP_Form_Field_Type {
 
                 $field_description = trim( apply_filters( 'wpbdp_render_field_description', $field->get_description(), $field ) );
                 if ( $field_description )
-                    $html .= '<div class="wpbdp-form-field-description">' . esc_html( $field_description ) .'</div>';
+                    $html .= '<div class="wpbdp-form-field-description">' . $field_description .'</div>';
 
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
 
