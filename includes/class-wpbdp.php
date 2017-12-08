@@ -78,6 +78,8 @@ final class WPBDP {
             require_once( WPBDP_INC . 'admin/tracking.php' );
             require_once( WPBDP_INC . 'admin/class-admin.php' );
         }
+
+        require_once( WPBDP_INC . 'helpers/class-access-keys-sender.php' );
     }
 
     private function hooks() {

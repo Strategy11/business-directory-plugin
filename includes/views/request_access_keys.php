@@ -28,21 +28,13 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
     public function listings_and_access_keys() {
         $email = ! empty( $_POST['email'] ) ? trim( $_POST['email'] ) : '';
 
-        if ( ! $email || ! is_email( $email ) )
-            return wpbdp_render_msg( _x( 'Please enter a valid e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
-
-        $listings = $this->find_listings( $email );
-
-        if ( ! $listings ) {
-            return wpbdp_render_msg( _x( 'There are no listings associated to your e-mail address.', 'request_access_keys', 'WPBDM' ), 'error' );
+        try {
+            $message_sent = $this->get_access_keys_sender()->send_access_keys( $email );
+        } catch ( Exception $e ) {
+            return wpbdp_render_msg( $e->getMessage(), 'error' );
         }
 
-        $message = wpbdp_email_from_template( WPBDP_PATH . 'templates/email-access-keys.tpl.php',
-                                              array( 'listings' => $listings ) );
-        $message->subject = sprintf( '[%s] %s', get_bloginfo( 'name' ), _x( 'Listing Access Keys', 'request_access_keys', 'WPBDM' ) );
-        $message->to = $email;
-
-        if ( $message->send() ) {
+        if ( $message_sent ) {
             $html  = '';
             $html .= wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'WPBDM' ) );
 
@@ -55,19 +47,10 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
             }
 
             return $html;
-        } else {
-            return wpbdp_render_msg( _x( 'An error occurred while sending the access keys to your e-mail address. Please try again.', 'request_access_keys', 'WPBDM' ), 'error' );
         }
     }
 
-    private function find_listings( $email ) {
-        $listings = wpbdp_get_listings_by_email( $email );
-
-        foreach ( $listings as $p_id ) {
-            $res[] = WPBDP_Listing::get( $p_id );
-        }
-
-        return $res;
+    public function get_access_keys_sender() {
+        return new WPBDP__Access_Keys_Sender();
     }
-
 }

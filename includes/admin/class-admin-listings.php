@@ -478,9 +478,10 @@ class WPBDP_Admin_Listings {
                                           'change-to-draft' => _x( 'Hide from directory (mark as "Draft")', 'admin actions', 'WPBDM' ),
                                           'sep1' => '–',
                                           'renewlisting' => _x( 'Renew listings', 'admin actions', 'WPBDM' ),
-                                          'change-to-expired' => _x( 'Set Listings as Expired', 'admin actions', 'WPBDM' ),
+                                          'change-to-expired' => _x( 'Set listings as "Expired"', 'admin actions', 'WPBDM' ),
                                           /* Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
                                           /*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'WPBDM' ),*/
+                        'send-access-keys' => _x( 'Send access keys', 'admin actions', 'WPBDM' ),
                                       );
 
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );

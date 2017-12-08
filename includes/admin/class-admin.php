@@ -708,12 +708,63 @@ to how WordPress stores the data.", 'WPBDM' )
 
                 break;
 
+            case 'send-access-keys':
+                $this->send_access_keys( $posts );
+                break;
             default:
                 do_action( 'wpbdp_admin_directory_handle_action', $action );
                 break;
         }
 
         $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id'), $_SERVER['REQUEST_URI'] );
+    }
+
+    private function send_access_keys( $posts ) {
+        $listings_by_email_address = array();
+
+        foreach ( $posts as $post_id ) {
+            $listing = wpbdp_get_listing( $post_id );
+
+            if ( ! $listing ) {
+                continue;
+            }
+
+            $email_address = wpbusdirman_get_the_business_email( $post_id );
+
+            if ( ! $email_address ) {
+                continue;
+            }
+
+            $listings_by_email_address[ $email_address ][] = $listing;
+        }
+
+        $sender = $this->get_access_keys_sender();
+        $message_sent = false;
+
+        foreach ( $listings_by_email_address as $email_address => $listings ) {
+            try {
+                $message_sent = $message_sent || $sender->send_access_keys_for_listings( $listings, $email_address );
+            } catch ( Exception $e ) {
+                // pass
+            }
+        }
+
+        // TODO: Add more descriptive messages to indicate how many listings were
+        // processed successfully, how many failed and why.
+        if ( $message_sent ) {
+            $this->messages[] = _x( 'Access keys sent.', 'admin', 'WPBDM' );
+        } else {
+            $this->messages[] = _x( "The access keys couldn't be sent.", 'admin', 'WPBDM' );
+        }
+
+        // TODO: Redirect and show messages on page load.
+        // if ( wp_redirect( remove_query_arg( array( 'action', 'post', 'wpbdmaction' ) ) ) ) {
+        //     exit();
+        // }
+    }
+
+    public function get_access_keys_sender() {
+        return new WPBDP__Access_Keys_Sender();
     }
 
     public function _dropdown_users_args( $query_args, $r ) {
