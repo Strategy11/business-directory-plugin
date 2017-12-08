@@ -481,8 +481,11 @@ class WPBDP_Admin_Listings {
                                           'change-to-expired' => _x( 'Set listings as "Expired"', 'admin actions', 'WPBDM' ),
                                           /* Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
                                           /*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'WPBDM' ),*/
-                        'send-access-keys' => _x( 'Send access keys', 'admin actions', 'WPBDM' ),
                                       );
+
+                    if ( wpbdp_get_option( 'enable-key-access' ) ) {
+                        $bulk_actions['send-access-keys'] = _x( 'Send access keys', 'admin actions', 'WPBDM' );
+                    }
 
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
 
