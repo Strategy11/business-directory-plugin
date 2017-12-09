@@ -295,6 +295,37 @@ class WPBDP__Settings_Admin {
         }
     }
 
+    public function setting_text_template_callback( $setting, $value ) {
+        $original_description = $setting['desc'];
+        $placeholders = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
+
+        if ( $placeholders ) {
+            foreach ( $placeholders as $pholder => $desc ) {
+                $placeholders[ $pholder ] = sprintf( '%s - %s', '[' . $pholder . ']', $desc );
+            }
+
+            $placeholders_text = implode( ', ', $placeholders ) . '.';
+        } else {
+            $placeholders_text = '';
+        }
+
+        if ( $setting['desc'] && $placeholders_text ) {
+            $setting['desc'] = $setting['desc'] . '<br/><br/>' . sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'WPBDM' ), $placeholders_text );
+        } elseif ( $placeholders_text ) {
+            $settings['desc'] = $placeholders_text;
+        }
+
+        // TODO: this is a proxy for _setting_text (for now).
+        ob_start();
+        $this->setting_text_callback( $setting, $value );
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        $setting['desc'] = $original_description;
+
+        echo $html;
+    }
+
     public function setting_email_template_callback( $setting, $value ) {
         if ( ! is_array( $value ) ) {
             $value = array(
