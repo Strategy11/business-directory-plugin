@@ -177,10 +177,13 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
             // Notify admin.
             if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-                $replacements[ 'listing-url' ] = sprintf( _x( '%s (admin: %s)', 'contact-message', 'WPBDM' ),
-                                                          $replacements['listing-url'],
-                                                          get_edit_post_link( $listing_id ) );
-                $admin_email = wpbdp_email_from_template( 'email-templates-contact', $replacements );
+                // $replacements[ 'listing-url' ] = sprintf( _x( '%s (admin: %s)', 'contact-message', 'WPBDM' ),
+                //                                           $replacements['listing-url'],
+                //                                           get_edit_post_link( $listing_id ) );
+                // $admin_email = wpbdp_email_from_template( 'email-templates-contact', $replacements );
+                $admin_email = new WPBDP_Email();
+                $admin_email->subject = $email->subject;
+                $admin_email->body = $email->body;
                 $admin_email->to = get_bloginfo( 'admin_email' );
 
                 if ( wpbdp_get_option( 'admin-notifications-cc' ) )
