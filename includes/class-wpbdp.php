@@ -127,6 +127,8 @@ final class WPBDP {
             return;
         }
 
+        $this->fees = new WPBDP_Fees_API();
+
         if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', array() ) ) {
             if ( $this->installer->setup_manual_upgrade() ) {
                 add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
@@ -156,7 +158,6 @@ final class WPBDP {
         do_action('wpbdp_modules_init');
 
         $this->listings = new WPBDP_Listings_API();
-        $this->fees = new WPBDP_Fees_API();
         $this->payments = new WPBDP_PaymentsAPI();
 
         $this->cpt_integration->register_hooks();
