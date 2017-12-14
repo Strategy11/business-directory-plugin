@@ -516,6 +516,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'selected_categories', 'selected_plan' ) );
     }
 
+    /**
+     * Called dynamically from prepare_sections when the section id is set to
+     * 'listing_fields'.
+     */
     private function listing_fields() {
         $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
         $fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$fields, &$this->listing ) );
