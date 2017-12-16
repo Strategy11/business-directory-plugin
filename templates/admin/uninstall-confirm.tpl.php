@@ -33,7 +33,7 @@
             <li><?php _ex( 'Click on "Delete" for Business Directory Plugin. <i>THIS OPERATION IS SAFE--your data will NOT BE LOST doing this</i>', 'uninstall', 'WPBDM' ); ?></li>
             <li><?php _ex( 'Wait for the delete to finish', 'uninstall', 'WPBDM' ); ?></li>
             <li><?php _ex( 'The plugin is now removed, but your data is still present inside of your database.', 'uninstall', 'WPBDM' ); ?></li>
-            <li><?php echo str_replace( '<a>', '<a href="' . admin_url( 'plugin-install.php' ) . '">', _x( 'You can reinstall the plugin again under <a>Plugins->Add New</a></li', 'uninstall', 'WPBDM' ) ); ?></li>
+            <li><?php echo str_replace( '<a>', '<a href="' . admin_url( 'plugin-install.php' ) . '">', _x( 'You can reinstall the plugin again under <a>Plugins->Add New</a>', 'uninstall', 'WPBDM' ) ); ?></li>
         </ul>
 
         <a href="<?php echo admin_url( 'plugins.php' ); ?>" class="button"><?php _ex( 'Take me to the <b>Plugins</b> screen', 'uninstall', 'WPBDM' ); ?></a>

@@ -525,6 +525,7 @@ class WPBDP_Listing {
 
         $item = array(
             'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
+            /* translators: Plan "<label>"<recurring mode> (e.g. Plan "Platinum" (recurrente) */
             'description' => sprintf( _x( 'Plan "%s"%s', 'listing', 'WPBDM' ), $plan->fee_label, $plan->recurring ? ' ' . _x( '(recurring)', 'listing', 'WPBDM' ) : '' ),
             'amount' => $plan->fee_price,
             'fee_id' => $plan->fee_id,

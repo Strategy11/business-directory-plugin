@@ -17,8 +17,8 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
     function add_upgrade_page() {
         add_submenu_page( 'options.php',
-                          __( 'Business Directory - Featured Levels migration', 'WPBDM' ),
-                          __( 'Business Directory - Featured Levels migration', 'WPBDM' ),
+                          __( 'Business Directory - Featured Levels Migration', 'WPBDM' ),
+                          __( 'Business Directory - Featured Levels Migration', 'WPBDM' ),
                           'administrator',
                           'wpbdp_migration_18_0_featured_levels',
                           array( &$this, 'migration_page' ) );

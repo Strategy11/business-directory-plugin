@@ -432,8 +432,10 @@ class WPBDP__Settings_Admin {
                 }
 
                 if ( $relative_time[0] == '+' ) {
+                    /* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
                     $summary = sprintf( _x( 'Sent %1$s before a listing (%2$s) expires.', 'expiration notices', 'WPBDM' ), $relative_time_h, $recurring_modifier );
                 } else {
+                    /* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
                     $summary = sprintf( _x( 'Sent %1$s after a listing (%2$s) expires.', 'expiration notices', 'WPBDM' ), $relative_time_h, $recurring_modifier );
                 }
             }

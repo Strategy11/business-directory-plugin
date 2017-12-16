@@ -802,6 +802,8 @@ function wpbdp_licensing_register_module( $name, $file_, $version ) {
         $wpbdp_compat_modules_registry = array();
     }
 
+    // TODO: Use numbered placeholders with sprintf or named placeholders with str_replace.
+    /* translators: "<module-name>" version <version-number> is not... */
     wpbdp_deprecation_warning( sprintf( _x( '"%s" version %s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'WPBDM' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . $version . '</strong>' ) );
     $wpbdp_compat_modules_registry[] = array( $name, $file_, $version );
 

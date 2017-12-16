@@ -54,6 +54,7 @@ echo wpbdp_admin_header(
                 </div>
                 <div class="wpbdp-admin-box-row">
                     <label><?php _ex( 'Gateway:', 'admin payments', 'WPBDM' ); ?></label>
+                    <?php /* translators: Gateway: (Not yet set) */
                     <?php echo $payment->gateway ? $payment->gateway : _x( '(Not yet set)', 'payments admin', 'WPBDM' ); ?>
                 </div>
             </div>
