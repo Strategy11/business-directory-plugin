@@ -94,6 +94,10 @@ class WPBDP_Listing_Display_Helper {
             }
         }
 
+        foreach ( WPBDP_Listing::get( $listing_id )->get_categories( 'ids' ) as $category_id ) {
+                $classes[] = 'wpbdp-listing-category-id-' . $category_id;
+        }
+
         $vars['listing_css_class']  = implode( ' ', $classes );
         $vars['listing_css_class'] .= apply_filters( 'wpbdp_' . $display . '_view_css', '', $listing_id );
 
