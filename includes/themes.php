@@ -503,18 +503,22 @@ class WPBDP_Themes {
         return $official_themes;
     }
 
+    /**
+     * Attempts to find the theme's URL based on the location on disk:
+     *
+     * - Inside Business Directory Plugin directory.
+     * - On Business Directory Themes directory.
+     */
     function _guess_theme_path_info( &$theme ) {
         $valid_parents = $this->get_themes_directories();
-        $url = '';
 
         foreach ( $valid_parents as $path => $url ) {
-            if ( false === stripos( $theme->path, $path ) )
-                continue;
-
-            $url = str_replace( $path, $url, $theme->path );
+            if ( false !== stripos( $theme->path, $path ) ) {
+                $theme->url = str_replace( $path, $url, $theme->path );
+                break;
+            }
         }
 
-        $theme->url = $url;
         $theme->thumbnail = is_readable( $theme->path . 'thumbnail.png' ) ? $theme->url . 'thumbnail.png' : '';
 
         return ! empty( $url );
