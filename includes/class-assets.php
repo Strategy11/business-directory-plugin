@@ -88,10 +88,18 @@ class WPBDP__Assets {
 
         wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css', array( 'wpbdp-js-select2-css' ), WPBDP_VERSION );
 
+        // TODO: Is it possible (and worth it) to figure out if we need the
+        // jquery-ui-datepicker script based on which fields are available?
         wp_register_script(
             'wpbdp-js',
             WPBDP_URL . 'assets/js/wpbdp.min.js',
-            array( 'jquery', 'breakpoints.js', 'wpbdp-js-select2', 'jquery-ui-sortable' ),
+            array(
+                'jquery',
+                'breakpoints.js',
+                'wpbdp-js-select2',
+                'jquery-ui-sortable',
+                'jquery-ui-datepicker',
+            ),
             WPBDP_VERSION
         );
 
