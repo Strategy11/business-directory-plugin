@@ -582,6 +582,10 @@ to how WordPress stores the data.", 'WPBDM' )
         $res->send();
     }
 
+    /**
+     * TODO: Use notice, notice-{type} and is-dismissible CSS classes. Those are
+     * the current standard
+     */
     function admin_notices() {
         if ( ! current_user_can( 'administrator' ) )
             return;
