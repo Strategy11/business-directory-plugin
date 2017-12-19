@@ -51,12 +51,10 @@ class WPBDP__Settings {
                 // XXX: maybe this should always be executed, not only admin side?
                 if ( $on_admin ) {
                     switch ( $setting['type'] ) {
-                    case 'checkbox':
                     case 'multicheck':
-                        if ( '-1' === $value ) {
-                            $input[ $setting_id ] = ( 'multicheck' == $setting['type'] ? array() : 0 );
-                            $output[ $setting_id ] = ( 'multicheck' == $setting['type'] ? array() : 0 );
-                            // unset( $this->options[ $setting_id ] );
+                        if ( is_array( $value ) ) {
+                            $input[ $setting_id ] = array_filter( $value, 'strlen' );
+                            $output[ $setting_id ] = array_filter( $value, 'strlen' );
                         }
 
                         break;
@@ -525,6 +523,10 @@ class WPBDP__Settings {
                 $value = trim( preg_replace( '/\s+/', '', $value ) );
                 break;
             case 'required':
+                if ( is_array( $value ) ) {
+                    $value = array_filter( $value, 'strlen' );
+                }
+
                 if ( empty( $value ) ) {
                     add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
                     $has_error = true;

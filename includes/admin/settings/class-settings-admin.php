@@ -209,7 +209,7 @@ class WPBDP__Settings_Admin {
     public function setting_checkbox_callback( $setting, $value ) {
         $value = (boolean) $value;
 
-        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . ']" value="-1" />';
+        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . ']" value="0" />';
         echo '<input type="checkbox" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="1" ' . checked( $value, 1, false ) . ' />';
 
         if ( ! empty( $setting['desc'] ) ) {
@@ -249,7 +249,7 @@ class WPBDP__Settings_Admin {
 
         $value = (array) $value;
 
-        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . ']" value="-1" />';
+        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . '][]" value="" />';
 
         echo '<div class="wpbdp-settings-multicheck-options">';
         $n = 0;
