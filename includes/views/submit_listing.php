@@ -541,7 +541,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $field_values[ $field->get_id() ] = $value;
 
-            if ( ! empty( $_POST ) ) {
+            if ( ! empty( $_POST['save_listing'] ) ) {
                 $field_errors = null;
                 $validate_res = apply_filters_ref_array( 'wpbdp_listing_submit_validate_field', array(
                                                             $field->validate( $value, $field_errors ),
