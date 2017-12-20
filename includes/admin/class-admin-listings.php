@@ -220,20 +220,6 @@ class WPBDP_Admin_Listings {
         }
     }
 
-    // function listing_column_title_( $post_id ) {
-    //     $table = _get_list_table( 'WP_Posts_List_Table' );
-    //     ob_start(); $table->column_title( get_post( $post_id ) ); $out = ob_get_clean();
-
-    //     $listing = wpbdp_get_listing( $post_id );
-    //     $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
-    //     $status_label = $status[1];
-
-    //     $html = " &mdash; <span class='post-state wpbdp-listing-status-{$status[0]}'>{$status_label}</span>";
-    //     $out = preg_replace( '/\s+&mdash;\s+(<span class=[\'"]post-state[\'"]>)(.*)(<\/span>)/uiUm', '', $out );
-    //     $out = preg_replace('/(<a.*class=[\'"]row-title[\'"].*>.*<\/a>)/uiUm', "$1 {$html}", $out );
-    //     echo $out;
-    // }
-
     public function listing_column_expiration_date( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
         $exp_date = $listing->get_expiration_date();
