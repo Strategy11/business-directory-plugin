@@ -7,6 +7,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x('Textarea', 'form-fields api', 'WPBDM') );
+
+        add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_shorten_output_in_excerpt' ), 10, 4 );
     }
 
     public function get_id() {
@@ -148,11 +150,15 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $desc = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'WPBDM' );
             $settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'WPBDM' );
             $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
+
+            $desc = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'WPBDM' );
+            $settings['max_length'][] = _x( 'Max length of Description field to use in List (excerpt) view', 'form-fields admin', 'WPBDM' );
+            $settings['max_length'][] = '<input type="number" value="' . ( $field && $field->data( 'max_length' ) ? $field->data( 'max_length' ) : 0 ) . '" name="field[max_length]" /> <span class="wpbdp-setting-description">' . $desc . '</span>';
         }
 
         if ( ( $field && $field->get_association() == 'excerpt' ) || ( $association == 'excerpt' ) ) {
             $settings['auto_excerpt'][] = _x( 'Automatically generate excerpt from content field?', 'form-fields admin', 'WPBDM' );
-            $settings['auto_excerpt'][] = '<input type="checkbox" value="1" name="field[auto_excerpt]" ' . ( $field && $field->data( 'auto_excerpt' ) ? ' checked="checked"' : '' ) . ' />';
+            $settings['auto_excerpt'][] = '<input type="checkbox" value="1" name="field[auto_excerpt]" ' . ( $field && $field->data( 'auto_excerpt' ) ? ' checked="checked"' : '' ) . ' /> ';
         }
 
         return self::render_admin_settings( $settings );
@@ -163,6 +169,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $field->set_data( 'allow_iframes', isset( $_POST['field']['allow_iframes'] ) ? (bool) intval( $_POST['field']['allow_iframes'] ) : false );
         $field->set_data( 'allow_filters', isset( $_POST['field']['allow_filters'] ) ? (bool) intval( $_POST['field']['allow_filters'] ) : false );
         $field->set_data( 'allow_shortcodes', isset( $_POST['field']['allow_shortcodes'] ) ? (bool) intval( $_POST['field']['allow_shortcodes'] ) : false );
+        $field->set_data( 'max_length', isset( $_POST['field']['max_length'] ) ? intval( $_POST['field']['max_length'] ) : 0 );
         $field->set_data( 'wysiwyg_editor', isset( $_POST['field']['wysiwyg_editor'] ) ? (bool) intval( $_POST['field']['wysiwyg_editor'] ) : false );
         $field->set_data( 'wysiwyg_images', isset( $_POST['field']['wysiwyg_images'] ) ? (bool) intval( $_POST['field']['wysiwyg_images'] ) : false );
         $field->set_data( 'auto_excerpt', isset( $_POST['field']['auto_excerpt'] ) ? (bool) intval( $_POST['field']['auto_excerpt'] ) : false );
@@ -288,6 +295,17 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $value = parent::get_field_csv_value( $field, $post_id );
         $value = str_replace( "\r\n", "\n", $value );
         $value = str_replace( "\n", "\\n", $value );
+
+        return $value;
+    }
+
+    /**
+     * Truncate content fields in excerpt (if needed).
+     */
+    public function maybe_shorten_output_in_excerpt( $value, $post_id, $field, $display_context = 'listing' ) {
+        if ( 'excerpt' == $display_context && 'content' == $field->get_association() && $field->data( 'max_length' ) > 0 ) {
+            $value = wpautop( wp_html_excerpt( $field->value( $post_id ), $field->data( 'max_length' ), '...' ) );
+        }
 
         return $value;
     }

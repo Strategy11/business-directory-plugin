@@ -364,9 +364,10 @@ class WPBDP_Form_Field {
     /**
      * Returns this field's HTML value for the given post. Useful for display.
      * @param int|object $post_id post ID or object.
+     * @param string $display_context The display context. Defaults to 'listing'.
      * @return string valid HTML.
      */
-    public function html_value( $post_id ) {
+    public function html_value( $post_id, $display_context = 'listing' ) {
         $value = $this->type->get_field_html_value( $this, $post_id );
 
         if ( $value && in_array( 'email', $this->validators, true ) && wpbdp_get_option('override-email-blocking') ) {
@@ -383,7 +384,7 @@ class WPBDP_Form_Field {
             $value = sprintf( '<a href="mailto:%s">%s</a>', $out, $out );
         }
 
-        return apply_filters( 'wpbdp_form_field_html_value', $value , $post_id, $this );
+        return apply_filters( 'wpbdp_form_field_html_value', $value , $post_id, $this, $display_context );
     }
 
     /**

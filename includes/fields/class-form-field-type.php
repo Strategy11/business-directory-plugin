@@ -182,7 +182,7 @@ class WPBDP_Form_Field_Type {
 
     // this function should not try to hide values depending on field, context or value itself.
     public function display_field( &$field, $post_id, $display_context ) {
-        return self::standard_display_wrapper( $field, $field->html_value( $post_id ) );
+        return self::standard_display_wrapper( $field, $field->html_value( $post_id, $display_context ) );
     }
 
     public function render_field_inner( &$field, $value, $render_context, &$extra=null, $field_settings = array() ) {
