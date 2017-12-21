@@ -71,21 +71,27 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     public function column_tags( $field ) {
         $html = '';
 
-        $html .= sprintf( '<span class="tag %s">%s</span>',
-                          $field->is_required() ? 'required' : 'optional',
-                          $field->is_required() ? _x( 'Required', 'form-fields admin', 'WPBDM' ) : _x( 'Optional', 'form-fields admin', 'WPBDM' ) );
+        if( $field->has_display_flag( 'private' ) ) {
+            $html .= sprintf( '<span class="tag %s">%s</span>',
+                'private',
+                _x( 'Private', 'form-fields admin', 'WPBDM' ) );
+        } else {
+            $html .= sprintf( '<span class="tag %s">%s</span>',
+                $field->is_required() ? 'required' : 'optional',
+                $field->is_required() ? _x( 'Required', 'form-fields admin', 'WPBDM' ) : _x( 'Optional', 'form-fields admin', 'WPBDM' ) );
 
-        if ( $field->display_in( 'excerpt' ) ) {
-            $html .= sprintf( '<span class="tag in-excerpt" title="%s">%s</span>',
-                              _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM' ),
-                              _x( 'In Excerpt', 'form-fields admin', 'WPBDM' ) );
+            if ( $field->display_in( 'excerpt' ) ) {
+                $html .= sprintf( '<span class="tag in-excerpt" title="%s">%s</span>',
+                    _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM' ),
+                    _x( 'In Excerpt', 'form-fields admin', 'WPBDM' ) );
+            }
+
+            if ( $field->display_in( 'listing' ) ) {
+                $html .= sprintf( '<span class="tag in-listing" title="%s">%s</span>',
+                    _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
+                    _x( 'In Listing', 'form-fields admin', 'WPBDM' ) );
+            }
         }
-
-        if ( $field->display_in( 'listing' ) ) {
-            $html .= sprintf( '<span class="tag in-listing" title="%s">%s</span>',
-                              _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
-                              _x( 'In Listing', 'form-fields admin', 'WPBDM' ) );
-        }        
 
         return $html;
     }

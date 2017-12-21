@@ -101,7 +101,7 @@
                 </th>
                 <td>
                     <select name="field[validators][]" id="field-validator" <?php echo ( 'social-twitter' == $field->get_field_type_id() ? 'disabled="disabled"' : '' ); ?> ?>>
-                        <option value=""><?php _ex('No validation', 'form-fields admin', 'WPBDM'); ?></label>
+                        <option value=""><?php _ex( 'No validation', 'form-fields admin', 'WPBDM' ); ?></option>
                         <?php foreach ( $validators as $key => $name): ?>
                         <?php
                         $disable_validator = ( 'url' == $field->get_field_type_id() && 'url' != $key ) ? true : false;
@@ -129,6 +129,18 @@
     <!-- display options -->
     <h2><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h2>
     <table class="form-table">
+            <tr>
+                <th scope="row">
+                    <label> <?php _ex( 'Show this field to admin users only?', 'form-fields admin', 'WPBDM' ); ?></label>
+                </th>
+                <td>
+                    <label>
+                        <input name="field[display_flags][]"
+                               value="private"
+                               type="checkbox" <?php echo $field->display_in( 'private' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this field to admin users only in the edit listing view.', 'form-fields admin', 'WPBDM' ); ?>
+                    </label>
+                </td>
+            </tr>
             <tr>
                 <th scope="row">
                     <label> <?php _ex('Show this value in excerpt view?', 'form-fields admin', 'WPBDM'); ?></label>
