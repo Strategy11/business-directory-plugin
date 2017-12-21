@@ -12,7 +12,7 @@
 
 <?php _ex('URL', 'notify email', 'WPBDM'); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : _x( '(not published yet)', 'notify email', 'WPBDM' ); ?>
 
-<?php _ex( 'Admin URL', 'notify email', 'WPBDM' ); ?>: <?php echo get_edit_post_link( $listing->get_id() ); ?>
+<?php _ex( 'Admin URL', 'notify email', 'WPBDM' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
 
 <?php _ex('Categories', 'notify email', 'WPBDM'); ?>: <?php foreach ( $listing->get_categories() as $category ): ?><?php echo $category->name; ?> / <?php endforeach; ?>
 

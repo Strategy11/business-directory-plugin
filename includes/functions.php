@@ -988,3 +988,26 @@ function wpbdp_sortbar_get_field_options() {
 
     return $options;
 }
+
+/**
+ * Returns the admin edit link for the listing.
+ * @param int $listing_id the listing ID
+ * @return string The admin edit link for the listing (if available).
+ * @since 5.1.3
+ */
+function wpbdp_get_edit_post_link( $listing_id ){
+    if ( ! $post = get_post( $listing_id ) )
+        return '';
+
+    $post_type_object = get_post_type_object( $post->post_type );
+    if ( !$post_type_object )
+        return '';
+
+    if ( $post_type_object->_edit_link ) {
+        $link = admin_url( sprintf( $post_type_object->_edit_link . '&action=edit', $post->ID ) );
+    } else {
+        $link = '';
+    }
+
+    return $link;
+}
