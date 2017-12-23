@@ -28,7 +28,7 @@ class WPBDP_Admin_Listings {
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
 
         // Augment search with username search.
-        add_filter( 'posts_clauses', array( &$this, '_username_search_support' ) );
+        add_filter( 'posts_search', array( $this, 'username_and_user_email_search_support' ), 10, 2 );
     }
 
     // Category filter. {{
@@ -80,38 +80,50 @@ class WPBDP_Admin_Listings {
 
     // }}
 
-    function _username_search_support( $pieces ) {
-        global $wp_query, $wpdb;
+    function username_and_user_email_search_support( $search, $query ) {
+        global $wpdb;
 
-        if ( ! function_exists( 'get_current_screen' ) || ! is_admin() )
-            return $pieces;
+        if ( ! function_exists( 'get_current_screen' ) || ! is_admin() ) {
+            return $search;
+        }
 
         $screen = get_current_screen();
 
-        if ( ! $screen
-            || 'edit' != $screen->base || WPBDP_POST_TYPE != $screen->post_type
-            || ! isset( $_GET['s'] ) || ! $wp_query->is_search )
-            return $pieces;
-
-        $orig_s = urldecode( $_GET['s'] );
-        $orig_s = '%' . $wpdb->esc_like( $orig_s ) . '%';
-
-        $s = str_replace( '*', '%', $wpdb->esc_like( urldecode( $_GET['s'] ) ) );
-
-        if ( false !== strstr( $s, '%' ) ) {
-            $where = "$wpdb->users.user_login LIKE '$s' OR $wpdb->users.display_name LIKE '$s'";
-        } else {
-            $where = $wpdb->prepare( "$wpdb->users.user_login = %s OR $wpdb->users.display_name = %s",
-                                     $s,
-                                     $s );
+        if ( ! $screen || 'edit' != $screen->base || WPBDP_POST_TYPE != $screen->post_type ) {
+            return $search;
         }
 
-        $regex = "/($wpdb->posts.post_title LIKE '" . preg_quote( $orig_s ) . "')/i";
+        if ( ! isset( $_GET['s'] ) || ! $query->is_search ) {
+            return $search;
+        }
 
-        $pieces['join'] .= " LEFT JOIN $wpdb->users ON $wpdb->posts.post_author = $wpdb->users.ID ";
-        $pieces['where'] = preg_replace( $regex, " $0 OR " . $where, $pieces['where'] );
+        $search_term = wp_unslash( $_GET['s'] );
+        $search_term = '%' . $wpdb->esc_like( $search_term ) . '%';
 
-        return $pieces;
+        $sql = 'SELECT ID FROM ' . $wpdb->users . ' ';
+        $sql.= 'LEFT JOIN ' . $wpdb->usermeta . " AS first_name ON ( first_name.user_id = ID AND first_name.meta_key = 'first_name' ) ";
+        $sql.= 'LEFT JOIN ' . $wpdb->usermeta . " AS last_name ON ( last_name.user_id = ID AND last_name.meta_key = 'last_name' ) ";
+        $sql.= 'WHERE user_nicename LIKE %s OR user_email LIKE %s OR display_name LIKE %s OR first_name.meta_value LIKE %s OR last_name.meta_value LIKE %s';
+
+        $sql = $wpdb->prepare(
+            $sql,
+            $search_term,
+            $search_term,
+            $search_term,
+            $search_term,
+            $search_term
+        );
+
+        $user_ids = $wpdb->get_col( $sql );
+
+        if ( ! $user_ids ) {
+            return $search;
+        }
+
+        $author_condition = sprintf( 'post_author IN (%s)', esc_sql( implode( ', ', $user_ids ) ) );
+        $search = preg_replace( '/\(\(\((.*)\)\)\)/', '((' . $author_condition . ' OR (\1)))', $search );
+
+        return $search;
     }
 
     function no_plan_edit_notice() {
