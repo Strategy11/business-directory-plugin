@@ -7,8 +7,10 @@ echo wpbdp_admin_header( __( 'Business Directory - Reset Defaults', 'WPBDM' ),
 ?>
 
 <div class="wpbdp-note warning">
-    <p><?php _e( 'Use this option if you want to go back to the original factory settings for BD.', 'WPBDM' ); ?></p>
-    <p><b><?php _e( 'Please note that all of your existing settings will be lost.', 'WPBDM' ); ?></b></p>
+    <?php _e( 'Use this option if you want to go back to the original factory settings for BD.', 'WPBDM' ); ?>
+    <b><?php _e( 'Please note that all of your existing settings will be lost.', 'WPBDM' ); ?></b>
+    <br/>
+    <?php _e( 'Your existing listings will NOT be deleted doing this.', 'WPBDM' ); ?>
 </div>
 
 <form action="" method="POST">

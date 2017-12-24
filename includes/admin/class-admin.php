@@ -59,8 +59,6 @@ class WPBDP_Admin {
         add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );
         add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
         add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
-        // Reset settings action.
-        add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
         add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
 

@@ -11,6 +11,9 @@ class WPBDP__Settings_Admin {
         add_action( 'admin_init', array( $this, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
         add_filter( 'wpbdp_admin_menu_items', array( $this, 'menu_item' ) );
+
+        // Reset settings action.
+        add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
     }
 
     public function enqueue_scripts( $hook ) {
@@ -524,6 +527,17 @@ class WPBDP__Settings_Admin {
 
 
     public function settings_page() {
+        if ( isset( $_REQUEST['reset_defaults'] ) && $_REQUEST['reset_defaults'] == 1 ) {
+            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-reset.tpl.php' );
+            return;
+        }
+
+        if ( isset( $_REQUEST['message'] ) && $_REQUEST['message'] == 'reset' ) {
+            $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'message', 'settings-updated' ) );
+            wpbdp_admin_message( _x( 'Settings reset to default.', 'settings', 'WPBDM' ) );
+            wpbdp()->admin->admin_notices();
+        }
+
         $all_groups = wpbdp()->settings->get_registered_groups();
 
         // Filter out empty groups.
@@ -550,17 +564,16 @@ class WPBDP__Settings_Admin {
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description', 'custom_form' ) );
     }
 
-    // FIXME: before fees-revamp.
-    // public function settings_reset_defaults() {
-    //     $do_reset = ( ! empty ( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) );
-    //
-    //     if ( $do_reset ) {
-    //         global $wpbdp;
-    //         $wpbdp->settings->reset_defaults();
-    //     }
-    //
-    //     wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_settings&settings-updated=1&groupid=general' ) );
-    //     exit();
-    // }    
 
+    public function settings_reset_defaults() {
+        if ( ! empty ( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) ) {
+            global $wpbdp;
+            $wpbdp->settings->reset_defaults();
+
+            $url = remove_query_arg( 'reset_defaults' );
+            $url = add_query_arg( array( 'settings-updated' => 1, 'message'=> 'reset' ), $url );
+            wp_redirect( $url );
+            exit();
+        }
+    }
 }
