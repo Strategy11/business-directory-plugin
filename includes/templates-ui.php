@@ -37,16 +37,19 @@ function _wpbdp_padded_count( &$term, $return = false ) {
     $count = intval( wp_cache_get( 'term-padded-count-' . $term->term_id ,'wpbdp', false, $found ) );
 
     if ( ! $count && ! $found ) {
+
+        $count = 0;
+
         $tree_ids = array_merge( array( $term->term_id ), get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) );
 
         if ( $tree_ids ) {
             $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN (" . implode( ',', $tree_ids ) . ") AND taxonomy = %s", WPBDP_CATEGORY_TAX ) );
 
-            $query = $wpdb->prepare( "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN (" . implode( ',', $tt_ids ) . ")", 'publish', WPBDP_POST_TYPE );
+            if ( $tt_ids ) {
+                $query = $wpdb->prepare( "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN (" . implode( ',', $tt_ids ) . ")", 'publish', WPBDP_POST_TYPE );
 
-            $count = intval( $wpdb->get_var( $query ) );
-        } else {
-            $count = 0;
+                $count = intval( $wpdb->get_var( $query ) );
+            }
         }
 
         $count = apply_filters( '_wpbdp_padded_count', $count, $term );
