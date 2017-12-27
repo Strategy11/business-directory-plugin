@@ -4,9 +4,9 @@ Donate link: http://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
 Requires PHP: 5.6
-Tested up to: 4.9
-Last Updated: 2017-Nov-21
-Stable tag: 5.1.2
+Tested up to: 4.9.2
+Last Updated: 2017-Dec-26
+Stable tag: 5.1.3
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -110,7 +110,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 And you can easily [translate it yourself](http://businessdirectoryplugin.com/quick-start-guide/#translate) if you need to.
 
 == Credits ==
-Copyright 2009-17, Dave Rodenbaugh 
+Copyright 2009-18, Dave Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -143,6 +143,46 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 5.1.3 =
+* Add error message for revoked licenses.
+* Fix support for cyrillic characters in taxonomies slugs.
+* Do not change button padding if BD buttons style is disabled.
+* Fix JavaScript problem in E-mail Templates settings page.
+* Show indicator for required fields in Search form.
+* Restore abandoned payment email notification.
+* Allow users to restart abandoned payments.
+* Workaround missing `tag` column in `wpbdp_payments` table.
+* Add 'Send access keys' bulk action.
+* Update Spanish translation to include 100% of strings.
+* Add a CSS class for category id on list view.
+* Fix Date fields not working properly on Search.
+* Add Publish listings, Mark as pending review, Hide from directory bulk actions.
+* Restore post views on Manage Listing admin screen.
+* Display listing status as attribute in the attribute column.
+* Update Swedish translations.
+* Restore support for HTML in field descriptions.
+* Make sure admin receives the exact same contact e-mail as owners.
+* Fix required validator for multiselct, radio and checkbox fields.
+* Add wpbdp-listing-category-id-[ID] CSS class to listings on Listings view.
+* Add support for private fields for listings.
+* Allow content fields to be truncated on excerpt view.
+* Fix listing's admin URL in some notification e-mails.
+* Fix search by username on Manage Listings.
+* Add back the confirmation message for settings reset.
+* Update code to fix attachment's path.
+* Update appearance of Add Attachment form.
+* Update French translation.
+* Update Claim Listings module to support Login URL setting.
+* Automatically strip leading and trailing spaces when the value for the Google Maps API key setting is saved.
+* Fix Migrate plugin to work without Regions.
+* Update code used to verify PayPal IPNs.
+* Make 'Post Your Review' form visible on all devices.
+* Fix error that caused recurring listings not to be renewed even though payment was received.
+* Allow users to restart abandoned payments.
+* Now admins can choose ZIP code search modes.
+* Show full path to 'db' directory on ZIP Code Search.
+* Added support for Brazil's postal codes.
+
 = Version 5.1.2 =
 * Do not automatically select the first available category during listing submit.
 * Do not show payment receipt at the end of the submit process when listing is free.
