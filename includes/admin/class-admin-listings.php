@@ -291,13 +291,16 @@ class WPBDP_Admin_Listings {
             return array();
         }
 
+        $post_statuses = get_post_statuses();
+        $post_statuses = array_keys( get_post_statuses() );
+        $post_statuses_string = implode( ',', $post_statuses );
 
         foreach ( WPBDP_Listing::get_stati() as $status_id => $status_label ) {
             if ( in_array( $status_id, array( 'unknown', 'legacy', 'complete' ) ) ) {
                 continue;
             }
 
-            $count = absint( WPBDP_Listing::count_listings( array( 'status' => $status_id, 'post_status' => 'all' ) ) );
+            $count = absint( WPBDP_Listing::count_listings( array( 'status' => $status_id, 'post_status' => $post_statuses_string ) ) );
             if ( 0 == $count ) {
                 continue;
             }
@@ -308,7 +311,8 @@ class WPBDP_Admin_Listings {
             $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts' ), add_query_arg( 'listing_status', $status_id ) ) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
         }
 
-        $views = apply_filters( 'wpbdp_admin_directory_views', $views, array() );
+        $views = apply_filters( 'wpbdp_admin_directory_views', $views, "'" . implode( "','", $post_statuses ) . "'" );
+
         return $views;
     }
 
