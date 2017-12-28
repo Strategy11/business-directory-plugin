@@ -513,27 +513,32 @@ class WPBDP_Listing {
      * @since 5.0
      */
     public function set_fee_plan_with_payment( $fee, $recurring = false ) {
-        $plan1 = $this->get_fee_plan();
+        $previous_plan = $this->get_fee_plan();
         $fee = is_numeric( $fee ) ? wpbdp_get_fee_plan( $fee ) : $fee;
         $this->set_fee_plan( $fee );
         $plan = $this->get_fee_plan();
 
-        if ( $fee->id == $plan1->fee_id )
+        if ( $previous_plan && $fee->id == $previous_plan->fee_id ) {
             return null;
+        }
 
-        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => $plan1 ? 'plan_change' : 'initial' ) );
+        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => $previous_plan ? 'plan_change' : 'initial' ) );
 
-        $item = array(
+        if ( $plan->is_recurring ) {
+            $item_description = sprintf( _x( 'Plan "%s" (recurring)', 'listing', 'WPBDM' ), $plan->fee_label );
+        } else {
+            $item_description = sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label );
+        }
+
+        $payment->payment_items[] = array(
             'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
-            /* translators: Plan "<label>"<recurring mode> (e.g. Plan "Platinum" (recurrente) */
-            'description' => sprintf( _x( 'Plan "%s"%s', 'listing', 'WPBDM' ), $plan->fee_label, $plan->recurring ? ' ' . _x( '(recurring)', 'listing', 'WPBDM' ) : '' ),
+            'description' => $item_description,
             'amount' => $plan->fee_price,
             'fee_id' => $plan->fee_id,
             'fee_days' => $plan->fee_days,
             'fee_images' => $plan->fee_images
         );
 
-        $payment->payment_items[] = $item;
         $payment->save();
 
         return $payment;
