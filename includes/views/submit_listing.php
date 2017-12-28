@@ -482,7 +482,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 }
             }
         } else if ( ! $categories && $this->skip_plan_selection ) {
-            wp_set_post_terms( $this->listing->get_id(), array(), WPBDP_CATEGORY_TAX, false );
+            $current_categories = $this->listing->get_categories( 'ids' );
+
+            wp_set_post_terms( $this->listing->get_id(), $current_categories, WPBDP_CATEGORY_TAX, false );
         }
 
         if ( $this->editing ) {
