@@ -566,9 +566,13 @@ class WPBDP_Form_Field {
             return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
       }
 
-        if( in_array( 'private', $this->display_flags ) ){
-            $this->set_display_flags( array( 'private' ) );
-            $this->set_validators();
+        if( in_array( 'private', $this->display_flags ) ) {
+            if ( ! in_array( $this->association, array( 'title', 'content', 'category' ), true ) ) {
+                $this->set_display_flags( array( 'private' ) );
+                $this->set_validators();
+            } else {
+                $this->remove_display_flag( array( 'private' ) );
+            }
         }
 
         $res = $this->type->before_field_update( $this );

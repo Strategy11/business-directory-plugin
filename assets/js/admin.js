@@ -101,6 +101,7 @@ var WPBDP_associations_fieldtypes = {};
 
             var association = $(this).val();
             var valid_types = WPBDP_associations_fieldtypes[ association ];
+            var private_option = $( '#wpbdp_private_field' );
 
             $f_fieldtype.find('option').prop('disabled', false);
 
@@ -111,6 +112,14 @@ var WPBDP_associations_fieldtypes = {};
             });
 
             $f_fieldtype.change();
+
+            if ( 0 <= [ 'title', 'content', 'category'].indexOf( association ) ) {
+                private_option.find( 'input' ).prop( 'disabled', true );
+                private_option.hide();
+            } else {
+                private_option.find( 'input' ).prop( 'disabled', false );
+                private_option.show();
+            }
         }
     };
 

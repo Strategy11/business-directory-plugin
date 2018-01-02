@@ -129,7 +129,7 @@
     <!-- display options -->
     <h2><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h2>
     <table class="form-table">
-            <tr>
+            <tr id="wpbdp_private_field" class="<?php echo in_array( $field->get_association(), array( 'title', 'content', 'category' ), true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Show this field to admin users only?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
