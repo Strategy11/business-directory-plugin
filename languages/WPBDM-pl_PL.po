@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-12-16 00:21:01+00:00\n"
+"POT-Creation-Date: 2018-01-02 23:02:00+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -21,42 +21,42 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:142
+#: includes/admin/class-admin-listings.php:154
 msgid "Listing Information"
 msgstr "Informacje o firmie"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:148
+#: includes/admin/class-admin-listings.php:160
 #, fuzzy
 msgid "Listing Timeline"
 msgstr "Nazwa Firmy:"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:187
+#: includes/admin/class-admin-listings.php:199
 #, fuzzy
 msgid "Expires on"
 msgstr "Upłynął okres ważności "
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:195
+#: includes/admin/class-admin-listings.php:207
 #, fuzzy
 msgid "Attributes"
 msgstr "Atrybuty pola"
 
-#: includes/admin/class-admin.php:132
+#: includes/admin/class-admin.php:130
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "to how WordPress stores the data."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:325
 #, fuzzy
 msgid "Uninstall Business Directory Plugin"
 msgstr "Odinstaluj Katalog Firm"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:328
+#: includes/admin/class-admin.php:326
 #, fuzzy
 msgid "Uninstall"
 msgstr "Odinstaluj "
@@ -290,17 +290,17 @@ msgid "Licenses"
 msgstr "Licencje"
 
 # @ WPBDM
-#: includes/templates-ui.php:235
+#: includes/templates-ui.php:238
 msgid "Directory"
 msgstr "Katalog"
 
 # @ WPBDM
-#: includes/templates-ui.php:242
+#: includes/templates-ui.php:245
 msgid "View All Listings"
 msgstr "Zobacz wszystkie Firmy"
 
 # @ WPBDM
-#: includes/templates-ui.php:249
+#: includes/templates-ui.php:252
 msgid "Create A Listing"
 msgstr "Oferta Bezpłatna"
 
@@ -365,8 +365,12 @@ msgstr ""
 msgid "Please note that all of your existing settings will be lost."
 msgstr ""
 
+#: templates/admin/settings-reset.tpl.php:13
+msgid "Your existing listings will NOT be deleted doing this."
+msgstr ""
+
 # @ WPBDM
-#: templates/admin/settings-reset.tpl.php:17
+#: templates/admin/settings-reset.tpl.php:19
 msgid "Reset Defaults"
 msgstr "Przywróć ustawienia fabryczne"
 
@@ -972,7 +976,7 @@ msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Wszystkie Kategorie"
 
-#: includes/admin/class-admin-listings.php:137
+#: includes/admin/class-admin-listings.php:149
 msgctxt "admin listings"
 msgid ""
 "This listing doesn't have a fee plan assigned. This is required in order to "
@@ -981,77 +985,77 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:244
+#: includes/admin/class-admin-listings.php:242
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "nigdy"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:264
+#: includes/admin/class-admin-listings.php:262
 #, fuzzy
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "Status wyróżnienia (naklejka)"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:267
+#: includes/admin/class-admin-listings.php:265
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(powtarzające się)"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:270
+#: includes/admin/class-admin-listings.php:268
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:272
+#: includes/admin/class-admin-listings.php:270
 #, fuzzy
 msgctxt "admin listings"
 msgid "Paid"
 msgstr "Zapłacone"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:154
+#: includes/admin/class-admin-listings.php:166
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:186
+#: includes/admin/class-admin-listings.php:198
 msgctxt "admin"
 msgid "Categories"
 msgstr "Kategorie"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:193
+#: includes/admin/class-admin.php:191
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Katalog Firm"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:204
+#: includes/admin/class-admin.php:202
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "Wszystko ustawione. Odwiedź swój nowy <a>Katalog Firm</a>."
 
-#: includes/admin/class-admin.php:358
+#: includes/admin/class-admin.php:356
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:624
+#: includes/admin/class-admin.php:626
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:655 includes/admin/class-admin.php:665
+#: includes/admin/class-admin.php:657 includes/admin/class-admin.php:667
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -1061,13 +1065,13 @@ msgstr[1] "Podniesiono status ofert."
 msgstr[2] "Podniesiono status ofert."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:686
+#: includes/admin/class-admin.php:688
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Abonament został przypisany do oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:696
+#: includes/admin/class-admin.php:698
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -1076,31 +1080,31 @@ msgstr[1] "Odnowiono oferty."
 msgstr[2] "Odnowiono ofert."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:707
+#: includes/admin/class-admin.php:709
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Wysłano e-mail potwierdzający odnowienie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:755
+#: includes/admin/class-admin.php:757
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Pola/Obrazy"
 
-#: includes/admin/class-admin.php:757
+#: includes/admin/class-admin.php:759
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:815 includes/admin/class-admin.php:821
+#: includes/admin/class-admin.php:817 includes/admin/class-admin.php:823
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Licznik ofert"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:883
+#: includes/admin/class-admin.php:885
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1110,7 +1114,7 @@ msgstr ""
 "<tt>[businessdirectory]</tt> aby działać prawidłowo."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:885
+#: includes/admin/class-admin.php:887
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1120,12 +1124,12 @@ msgstr ""
 "automatycznie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:889
+#: includes/admin/class-admin.php:891
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Stwórz wymagane pola dla mnie"
 
-#: includes/admin/class-admin.php:922
+#: includes/admin/class-admin.php:924
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1134,7 +1138,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:945
+#: includes/admin/class-admin.php:947
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1168,7 +1172,7 @@ msgid "Images"
 msgstr "Obrazy"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:116
+#: includes/admin/form-fields.php:122
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -1178,7 +1182,7 @@ msgstr ""
 "tym polu: <b>%s</b>."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:118
+#: includes/admin/form-fields.php:124
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1187,7 +1191,7 @@ msgstr ""
 "<b>Katalog Firm</b>potrzebuje pola z  <b>%s</b> aby pracować poprawnie."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:122
+#: includes/admin/form-fields.php:128
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -1197,13 +1201,13 @@ msgstr ""
 "formularza\" albo niech katalog firm zrobi to dla ciebie automatycznie."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:126
+#: includes/admin/form-fields.php:132
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Przejdź do \"Zarządzanie polami formularza\""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:129
+#: includes/admin/form-fields.php:135
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Stwórz te wymagane pola dla mnie"
@@ -1221,80 +1225,80 @@ msgid "Abandoned"
 msgstr "Porzucone"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:349
+#: includes/admin/class-admin-listings.php:351
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Edytuj Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:352
+#: includes/admin/class-admin-listings.php:354
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Usuń Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:361
+#: includes/admin/class-admin-listings.php:363
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:366
+#: includes/admin/class-admin-listings.php:368
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:476
+#: includes/admin/class-admin-listings.php:478
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publikuj Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:477
+#: includes/admin/class-admin-listings.php:479
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Oczekujące"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Odnów Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:481
+#: includes/admin/class-admin-listings.php:483
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:487
+#: includes/admin/class-admin-listings.php:489
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:125
+#: includes/admin/class-admin.php:123
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:63
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "nigdy"
 
-#: includes/admin/class-admin.php:126
+#: includes/admin/class-admin.php:124
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:87
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:104
 msgctxt "listing metabox"
@@ -1302,7 +1306,7 @@ msgid "Yes"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:127
+#: includes/admin/class-admin.php:125
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:87
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:104
 #, fuzzy
@@ -1465,7 +1469,7 @@ msgid "Is Recurring?"
 msgstr "(powtarzające się)"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:164
+#: includes/admin/class-admin.php:162
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -1477,105 +1481,105 @@ msgstr ""
 "darmowy moduł Premium tylko za zarejestrowanie się."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:166
+#: includes/admin/class-admin.php:164
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Adres e-mail:"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:172
+#: includes/admin/class-admin.php:170
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Chcesz poznać tajemnice budowy niesamowitego katalogu firm?"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:174
+#: includes/admin/class-admin.php:172
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Tak, proszę!"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:176
+#: includes/admin/class-admin.php:174
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Nie, dziękuję"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:224
+#: includes/admin/class-admin.php:222
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Nieprawidłowy adres e-mail"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:258
+#: includes/admin/class-admin.php:256
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Katalog Firm Admin"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:259
+#: includes/admin/class-admin.php:257
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Katalog Admin"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:259
+#: includes/admin/class-admin.php:257
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Katalog Admin"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:266
+#: includes/admin/class-admin.php:264
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:274
+#: includes/admin/class-admin.php:272
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Zarządzaj abonamentami"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:277
+#: includes/admin/class-admin.php:275
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Oferty"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:281
+#: includes/admin/class-admin.php:279
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Zarządzaj polami formularzy"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:285
+#: includes/admin/class-admin.php:283
 #, fuzzy
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Historia płatności"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:288
+#: includes/admin/class-admin.php:286
 #, fuzzy
 msgctxt "admin menu"
 msgid "CSV Import & Export"
 msgstr "CSV Import"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:299
+#: includes/admin/class-admin.php:297
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:25
+#: includes/admin/settings/class-settings-admin.php:28
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Zarządzaj opcjami"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:813
+#: includes/admin/class-admin.php:815
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -1965,25 +1969,25 @@ msgid "Theme was updated successfully."
 msgstr "Import zakończony pełnym sukcesem."
 
 # @ WPBDM
-#: includes/themes.php:821
+#: includes/themes.php:825
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/themes.php:827
+#: includes/themes.php:831
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/themes.php:835
+#: includes/themes.php:839
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/themes.php:841
+#: includes/themes.php:845
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
@@ -2676,60 +2680,67 @@ msgid "Delete"
 msgstr "Usuń"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:76
+#: includes/admin/form-fields.php:77
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Private"
+msgstr "Aktywacja Licencji"
+
+# @ WPBDM
+#: includes/admin/form-fields.php:81
 msgctxt "form-fields admin"
 msgid "Required"
 msgstr "Wymagane"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:76
+#: includes/admin/form-fields.php:81
 msgctxt "form-fields admin"
 msgid "Optional"
 msgstr "Opcjonalnie"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:80
+#: includes/admin/form-fields.php:85
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr "Wartość pola jest pokazana w widoku wyciągu z oferty."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:81
+#: includes/admin/form-fields.php:86
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "W wyciągu z oferty"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:86
+#: includes/admin/form-fields.php:91
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr "Wartość pola jest pokazana w widoku pojedynczej oferty."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:87
+#: includes/admin/form-fields.php:92
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "W ofertach"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:207
+#: includes/admin/form-fields.php:213
 msgctxt "form-fields admin"
 msgid "Form Preview"
 msgstr "Podgląd formularza"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:208
+#: includes/admin/form-fields.php:214
 msgctxt "form-fields admin"
 msgid "← Return to \"Manage Form Fields\""
 msgstr "← wróć do \"Zarządzanie polami formularza\""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:246
+#: includes/admin/form-fields.php:252
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Pola formularza zaktualizowane."
 
-#: includes/admin/form-fields.php:262
+#: includes/admin/form-fields.php:268
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2739,107 +2750,107 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:296
+#: includes/admin/form-fields.php:302
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Pole usunięte."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:317
+#: includes/admin/form-fields.php:323
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Pola wymagane zostały pomyślnie utworzone."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:330
+#: includes/admin/form-fields.php:336
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Tytuł"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:331
+#: includes/admin/form-fields.php:337
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Kategorie"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:332
+#: includes/admin/form-fields.php:338
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "W wyciągu z oferty"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:333
+#: includes/admin/form-fields.php:339
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Zawartość Posta"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:334
+#: includes/admin/form-fields.php:340
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Slug Tagów"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:335
+#: includes/admin/form-fields.php:341
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Adres e-mail:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:336
+#: includes/admin/form-fields.php:342
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Miasto:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:337
+#: includes/admin/form-fields.php:343
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Województwo:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:338
+#: includes/admin/form-fields.php:344
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "Kraj:"
 
-#: includes/admin/form-fields.php:339
+#: includes/admin/form-fields.php:345
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:340
+#: includes/admin/form-fields.php:346
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Numer karty kredytowej:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:341
+#: includes/admin/form-fields.php:347
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Telefon"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:342
+#: includes/admin/form-fields.php:348
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Pola ofert"
 
-#: includes/admin/form-fields.php:343
+#: includes/admin/form-fields.php:349
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr ""
 
-#: includes/admin/form-fields.php:344
+#: includes/admin/form-fields.php:350
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:365
+#: includes/admin/form-fields.php:371
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Ustawienia zapisane"
@@ -2867,52 +2878,52 @@ msgid "Allow empty selection on search?"
 msgstr "Zezwolić na wyszukiwanie pustych pól wyborów?"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:123
+#: includes/fields/class-fieldtypes-textarea.php:125
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr "Zezwolić na wprowadzanie HTML w tym polu?"
 
-#: includes/fields/class-fieldtypes-textarea.php:126
+#: includes/fields/class-fieldtypes-textarea.php:128
 msgctxt "form-fields admin"
 msgid "Allow IFRAME tags in content?"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:130
+#: includes/fields/class-fieldtypes-textarea.php:132
 msgctxt "form-fields admin"
 msgid "No"
 msgstr "LIS"
 
-#: includes/fields/class-fieldtypes-textarea.php:131
+#: includes/fields/class-fieldtypes-textarea.php:133
 msgctxt "form-fields admin"
 msgid "Yes"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:136
+#: includes/fields/class-fieldtypes-textarea.php:138
 msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Zezwolić na krótkie kody WordPress'a w tm polu?"
 
-#: includes/fields/class-fieldtypes-textarea.php:141
+#: includes/fields/class-fieldtypes-textarea.php:143
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:144
+#: includes/fields/class-fieldtypes-textarea.php:146
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
 "in fee plans."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:145
+#: includes/fields/class-fieldtypes-textarea.php:147
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:148
+#: includes/fields/class-fieldtypes-textarea.php:150
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -2922,12 +2933,24 @@ msgstr ""
 "nie zaznaczaj tej opcji, no chyba że wiesz co robisz."
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textarea.php:149
+#: includes/fields/class-fieldtypes-textarea.php:151
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "Zastosować filtr \"the_content\" przed wyświetlaniem tego pola?"
 
 #: includes/fields/class-fieldtypes-textarea.php:154
+msgctxt "form-fields admin"
+msgid ""
+"Truncates the description field to the value set here. To display all of the "
+"description, set to 0."
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:155
+msgctxt "form-fields admin"
+msgid "Max length of Description field to use in List (excerpt) view"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:160
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr ""
@@ -3031,75 +3054,87 @@ msgctxt "form-fields admin"
 msgid "Field display options"
 msgstr "Opcje wyświetlania pola"
 
-# @ WPBDM
 #: templates/admin/form-fields-addoredit.tpl.php:134
+msgctxt "form-fields admin"
+msgid "Show this field to admin users only?"
+msgstr ""
+
+# @ WPBDM
+#: templates/admin/form-fields-addoredit.tpl.php:140
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Display this field to admin users only in the edit listing view."
+msgstr "Wyświetlanie tej wartości w widoku oferty."
+
+# @ WPBDM
+#: templates/admin/form-fields-addoredit.tpl.php:146
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Pokazać wartość pola w wyciągu z wpisu?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:140
+#: templates/admin/form-fields-addoredit.tpl.php:152
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Wyświetlanie wartości pola w wyciągu z wpisu."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:146
+#: templates/admin/form-fields-addoredit.tpl.php:158
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Pokazywać tą wartość w widoku oferty?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:152
+#: templates/admin/form-fields-addoredit.tpl.php:164
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr "Wyświetlanie tej wartości w widoku oferty."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:158
+#: templates/admin/form-fields-addoredit.tpl.php:170
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Dołączyć to pole do formularza wyszukiwania?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:164
+#: templates/admin/form-fields-addoredit.tpl.php:176
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Dołącz to pole do formularza wyszukiwania"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:170
+#: templates/admin/form-fields-addoredit.tpl.php:182
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Czy pole jest wymagane?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:176
+#: templates/admin/form-fields-addoredit.tpl.php:188
 msgctxt "form-fields admin"
 msgid ""
 "Make this fields required during searches on the Advanced Search screen."
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:182
+#: templates/admin/form-fields-addoredit.tpl.php:194
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Ukryć etykiety pól?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:188
+#: templates/admin/form-fields-addoredit.tpl.php:200
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Ukryj etykiety pól, kiedy pola są wyświetlane."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:195
+#: templates/admin/form-fields-addoredit.tpl.php:207
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Aktualizacja pola"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:197
+#: templates/admin/form-fields-addoredit.tpl.php:209
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Dodaj Pole "
@@ -3508,7 +3543,7 @@ msgid "Test SSL setup..."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:313
+#: includes/admin/settings/class-settings-admin.php:316
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Dopuszczalne wypełnienie pola: %s"
@@ -4012,59 +4047,59 @@ msgid "Enter License Key here"
 msgstr "Odśwież Klucz Licencji"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:354
+#: includes/admin/settings/class-settings-admin.php:357
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Add notice"
 msgstr "Dodaj Pole "
 
-#: includes/admin/settings/class-settings-admin.php:373
+#: includes/admin/settings/class-settings-admin.php:376
 msgctxt "expiration notices"
 msgid "No notices configured."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:387
+#: includes/admin/settings/class-settings-admin.php:390
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Usuń"
 
-#: includes/admin/settings/class-settings-admin.php:403
+#: includes/admin/settings/class-settings-admin.php:406
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:405
+#: includes/admin/settings/class-settings-admin.php:408
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(powtarzające się)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:407
+#: includes/admin/settings/class-settings-admin.php:410
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(powtarzające się)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:411
+#: includes/admin/settings/class-settings-admin.php:414
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Wysłane po zapisaniu oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:416
+#: includes/admin/settings/class-settings-admin.php:419
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:424
+#: includes/admin/settings/class-settings-admin.php:427
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -4073,7 +4108,7 @@ msgstr[0] "%d dzień"
 msgstr[1] "%d dni"
 msgstr[2] "%d dni"
 
-#: includes/admin/settings/class-settings-admin.php:427
+#: includes/admin/settings/class-settings-admin.php:430
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -4081,7 +4116,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:430
+#: includes/admin/settings/class-settings-admin.php:433
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -4091,7 +4126,7 @@ msgstr[2] ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:436
+#: includes/admin/settings/class-settings-admin.php:439
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr ""
@@ -4099,25 +4134,25 @@ msgstr ""
 # @ WPBDM
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:439
+#: includes/admin/settings/class-settings-admin.php:442
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Wysłane po zapisaniu oferty."
 
-#: includes/admin/settings/class-settings-admin.php:456
+#: includes/admin/settings/class-settings-admin.php:459
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:457
+#: includes/admin/settings/class-settings-admin.php:460
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Abonament został przypisany do oferty."
 
-#: includes/admin/settings/class-settings-admin.php:466
+#: includes/admin/settings/class-settings-admin.php:469
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
@@ -4125,7 +4160,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:466
+#: includes/admin/settings/class-settings-admin.php:469
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
@@ -4133,7 +4168,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:469
+#: includes/admin/settings/class-settings-admin.php:472
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
@@ -4141,7 +4176,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:469
+#: includes/admin/settings/class-settings-admin.php:472
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
@@ -4149,7 +4184,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:472
+#: includes/admin/settings/class-settings-admin.php:475
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
@@ -4157,7 +4192,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:472
+#: includes/admin/settings/class-settings-admin.php:475
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
@@ -4166,30 +4201,30 @@ msgstr[1] ""
 msgstr[2] ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:492
+#: includes/admin/settings/class-settings-admin.php:495
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Stosowane do"
 
-#: includes/admin/settings/class-settings-admin.php:495
+#: includes/admin/settings/class-settings-admin.php:498
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-admin.php:496
+#: includes/admin/settings/class-settings-admin.php:499
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Powrót do oferty."
 
-#: includes/admin/settings/class-settings-admin.php:497
+#: includes/admin/settings/class-settings-admin.php:500
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:502
+#: includes/admin/settings/class-settings-admin.php:505
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr ""
@@ -4200,6 +4235,13 @@ msgstr ""
 msgctxt "expiration notices"
 msgid "E-mail body text"
 msgstr "Forma E-Maila"
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-admin.php:537
+#, fuzzy
+msgctxt "settings"
+msgid "Settings reset to default."
+msgstr "Ustawienia zapisane"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:5
@@ -4223,7 +4265,7 @@ msgstr "Oferty"
 #: includes/admin/settings/class-settings-bootstrap.php:17
 #: includes/admin/settings/class-settings-bootstrap.php:33
 #: includes/admin/settings/class-settings-bootstrap.php:805
-#: includes/admin/settings/class-settings.php:337
+#: includes/admin/settings/class-settings.php:335
 #, fuzzy
 msgctxt "settings"
 msgid "General Settings"
@@ -5315,13 +5357,13 @@ msgctxt "settings"
 msgid "E-Mail Notices"
 msgstr "Powiadomienia E-mail"
 
-#: includes/admin/settings/class-settings.php:529
-#: includes/admin/settings/class-settings.php:540
+#: includes/admin/settings/class-settings.php:531
+#: includes/admin/settings/class-settings.php:542
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:547
+#: includes/admin/settings/class-settings.php:549
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
@@ -5826,21 +5868,14 @@ msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Abonament niedostępny)"
 
-#. translators: Plan "<label>"<recurring mode> (e.g. Plan "Platinum"
-#. (recurrente)
-#: includes/class-listing.php:529
-msgctxt "listing"
-msgid "Plan \"%s\"%s"
-msgstr ""
-
 # @ WPBDM
-#: includes/class-listing.php:529
+#: includes/class-listing.php:528
 #, fuzzy
 msgctxt "listing"
-msgid "(recurring)"
+msgid "Plan \"%s\" (recurring)"
 msgstr "(powtarzające się)"
 
-#: includes/class-listing.php:557
+#: includes/class-listing.php:530 includes/class-listing.php:562
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -5948,60 +5983,60 @@ msgctxt "notify email"
 msgid "Posted By"
 msgstr "Napisany przez"
 
-#: includes/class-listing.php:655
+#: includes/class-listing.php:660
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:656
+#: includes/class-listing.php:661
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-listing.php:657
+#: includes/class-listing.php:662
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:658
+#: includes/class-listing.php:663
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/class-listing.php:659
+#: includes/class-listing.php:664
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:660
+#: includes/class-listing.php:665
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Oferty oczekujące na zatwierdzenie"
 
 # @ WPBDM
-#: includes/class-listing.php:661
+#: includes/class-listing.php:666
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Wygasłe"
 
 # @ WPBDM
-#: includes/class-listing.php:662
+#: includes/class-listing.php:667
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Tylko aktywne i oczekujące na odświeżenie "
 
 # @ WPBDM
-#: includes/class-listing.php:663
+#: includes/class-listing.php:668
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -6293,58 +6328,58 @@ msgid "Please choose a valid fee plan for your category selection."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:679
+#: includes/views/submit_listing.php:681
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:684
+#: includes/views/submit_listing.php:686
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Proszę wprowadzić Imię"
 
-#: includes/views/submit_listing.php:689
+#: includes/views/submit_listing.php:691
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:699
+#: includes/views/submit_listing.php:701
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:704
+#: includes/views/submit_listing.php:706
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:719
+#: includes/views/submit_listing.php:721
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:726
+#: includes/views/submit_listing.php:728
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:732
+#: includes/views/submit_listing.php:734
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:741
+#: includes/views/submit_listing.php:743
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-Mail: %s"
 
-#: includes/views/submit_listing.php:750
+#: includes/views/submit_listing.php:752
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6546,7 +6581,7 @@ msgid "Link Text (optional):"
 msgstr "Tekst alternatywny(opcjonalnie):"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:609
+#: includes/fields/class-form-field.php:627
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6622,18 +6657,18 @@ msgid "Invalid form field type"
 msgstr "Niewłaściwy typ Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:517
+#: includes/fields/class-form-field.php:526
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Etykieta pola jest wymagana."
 
-#: includes/fields/class-form-field.php:527
+#: includes/fields/class-form-field.php:536
 msgctxt "form-fields-api"
 msgid "Requested field type change is incompatible. Type will not be modified."
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:547
+#: includes/fields/class-form-field.php:556
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6643,19 +6678,19 @@ msgstr ""
 "przypisanie."
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:557
+#: includes/fields/class-form-field.php:566
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" jest niewłaściwym typem pola do tego przypisania"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:600
+#: includes/fields/class-form-field.php:618
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:621
+#: includes/fields/class-form-field.php:639
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Wykryto błąd w trakcie próby usunięcia tego pola."
@@ -6731,7 +6766,7 @@ msgctxt "form-fields-api select"
 msgid "— None —"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:129
+#: includes/fields/class-fieldtypes-textarea.php:131
 msgctxt "admin form-fields"
 msgid ""
 "Enabling iframe support in your listings can allow users to execute "
@@ -7410,19 +7445,19 @@ msgid "Next"
 msgstr ""
 
 # @ WPBDM
-#: includes/templates-ui.php:169
+#: includes/templates-ui.php:172
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Nie znaleziono kategorii ofert."
 
 # @ WPBDM
-#: includes/templates-ui.php:282
+#: includes/templates-ui.php:285
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Szukaj Firmy"
 
 # @ WPBDM
-#: includes/templates-ui.php:285
+#: includes/templates-ui.php:288
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Zaawansowane szukanie"
@@ -7493,19 +7528,19 @@ msgid "View not available."
 msgstr "Dostępne miejsca na Obrazy:"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:788
+#: includes/views/submit_listing.php:790
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Musisz zaakceptować nasze warunki i regulamin korzystania z serwisu."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:798
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Warunki i regulamin:"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:805
+#: includes/views/submit_listing.php:807
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7827,19 +7862,19 @@ msgid "There are no images currently attached to your listing."
 msgstr "Obecnie nie ma żadnych obrazków dołączonych do tej oferty."
 
 # @ WPBDM
-#: includes/templates-ui.php:314 includes/templates-ui.php:339
+#: includes/templates-ui.php:317 includes/templates-ui.php:342
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortuj według: "
 
 # @ WPBDM
-#: includes/templates-ui.php:333
+#: includes/templates-ui.php:336
 msgctxt "sort"
 msgid "Reset"
 msgstr "Resetuj"
 
 # @ WPBDM
-#: includes/templates-ui.php:355
+#: includes/templates-ui.php:358
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Resetuj)"
@@ -8265,7 +8300,7 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "To jest tylko podgląd. Oferta nie została jeszcze opublikowana."
 
-#: includes/views/submit_listing.php:567
+#: includes/views/submit_listing.php:569
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -10626,10 +10661,6 @@ msgstr "Adres e-mail:"
 # @ WPBDM
 #~ msgid "Setup/Manage Fees"
 #~ msgstr "Zarządzaj abonamentami"
-
-# @ WPBDM
-#~ msgid "Settings updated."
-#~ msgstr "Ustawienia zapisane"
 
 # @ WPBDM
 #~ msgid "← Back to Directory"

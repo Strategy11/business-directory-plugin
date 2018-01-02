@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2017-12-16 00:21:01+00:00\n"
+"POT-Creation-Date: 2018-01-02 23:02:00+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,23 +16,23 @@ msgstr ""
 "X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/admin/class-admin-listings.php:142
+#: includes/admin/class-admin-listings.php:154
 msgid "Listing Information"
 msgstr "Information om annons"
 
-#: includes/admin/class-admin-listings.php:148
+#: includes/admin/class-admin-listings.php:160
 msgid "Listing Timeline"
 msgstr "Annonsens tidslinje:"
 
-#: includes/admin/class-admin-listings.php:187
+#: includes/admin/class-admin-listings.php:199
 msgid "Expires on"
 msgstr "Utgår den"
 
-#: includes/admin/class-admin-listings.php:195
+#: includes/admin/class-admin-listings.php:207
 msgid "Attributes"
 msgstr "Attribut"
 
-#: includes/admin/class-admin.php:132
+#: includes/admin/class-admin.php:130
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "to how WordPress stores the data."
@@ -40,11 +40,11 @@ msgstr ""
 "Förhandsgranskning är endast tillgänglig när du har sparat det första "
 "utkastet. Detta beror på hur WordPress lagrar data."
 
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:325
 msgid "Uninstall Business Directory Plugin"
 msgstr "Avinstallera tillägget Business Directory"
 
-#: includes/admin/class-admin.php:328
+#: includes/admin/class-admin.php:326
 msgid "Uninstall"
 msgstr "Avinstallera"
 
@@ -239,15 +239,15 @@ msgstr "Transaktionsnyckel"
 msgid "Licenses"
 msgstr "Licenser"
 
-#: includes/templates-ui.php:235
+#: includes/templates-ui.php:238
 msgid "Directory"
 msgstr "Katalog"
 
-#: includes/templates-ui.php:242
+#: includes/templates-ui.php:245
 msgid "View All Listings"
 msgstr "Visa alla annonser"
 
-#: includes/templates-ui.php:249
+#: includes/templates-ui.php:252
 msgid "Create A Listing"
 msgstr "Skapa annons"
 
@@ -300,7 +300,11 @@ msgstr ""
 msgid "Please note that all of your existing settings will be lost."
 msgstr "Observera att alla dina befintliga inställningar försvinner."
 
-#: templates/admin/settings-reset.tpl.php:17
+#: templates/admin/settings-reset.tpl.php:13
+msgid "Your existing listings will NOT be deleted doing this."
+msgstr ""
+
+#: templates/admin/settings-reset.tpl.php:19
 msgid "Reset Defaults"
 msgstr "Återställ till standardinställningar"
 
@@ -819,7 +823,7 @@ msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Alla kategorier"
 
-#: includes/admin/class-admin-listings.php:137
+#: includes/admin/class-admin-listings.php:149
 msgctxt "admin listings"
 msgid ""
 "This listing doesn't have a fee plan assigned. This is required in order to "
@@ -830,62 +834,62 @@ msgstr ""
 "respektive avgift) krävs för att fastställa funktionerna för denna annons, "
 "likväl som för att hantera förnyelser."
 
-#: includes/admin/class-admin-listings.php:244
+#: includes/admin/class-admin-listings.php:242
 msgctxt "admin listings"
 msgid "Never"
 msgstr "Aldrig"
 
-#: includes/admin/class-admin-listings.php:264
+#: includes/admin/class-admin-listings.php:262
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "Utvald (fäst)"
 
-#: includes/admin/class-admin-listings.php:267
+#: includes/admin/class-admin-listings.php:265
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "Återkommande"
 
-#: includes/admin/class-admin-listings.php:270
+#: includes/admin/class-admin-listings.php:268
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Gratis"
 
-#: includes/admin/class-admin-listings.php:272
+#: includes/admin/class-admin-listings.php:270
 msgctxt "admin listings"
 msgid "Paid"
 msgstr "Betald"
 
-#: includes/admin/class-admin-listings.php:154
+#: includes/admin/class-admin-listings.php:166
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Annonsfält / bilder"
 
-#: includes/admin/class-admin-listings.php:186
+#: includes/admin/class-admin-listings.php:198
 msgctxt "admin"
 msgid "Categories"
 msgstr "Kategorier"
 
-#: includes/admin/class-admin.php:193
+#: includes/admin/class-admin.php:191
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:204
+#: includes/admin/class-admin.php:202
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "Du är klar! Besök din nya <a>Business Directory</a> sida."
 
-#: includes/admin/class-admin.php:358
+#: includes/admin/class-admin.php:356
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Meny utan titel"
 
-#: includes/admin/class-admin.php:624
+#: includes/admin/class-admin.php:626
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Avvisa denna notering."
 
-#: includes/admin/class-admin.php:655 includes/admin/class-admin.php:665
+#: includes/admin/class-admin.php:657 includes/admin/class-admin.php:667
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -893,40 +897,40 @@ msgid_plural "The listings have been updated."
 msgstr[0] "Annonsen har uppgraderats."
 msgstr[1] "Annonserna har uppgraderats."
 
-#: includes/admin/class-admin.php:686
+#: includes/admin/class-admin.php:688
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Avgiften tilldelades med framgång."
 
-#: includes/admin/class-admin.php:696
+#: includes/admin/class-admin.php:698
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "Annonsen har förnyats."
 msgstr[1] "Annonserna har förnyats."
 
-#: includes/admin/class-admin.php:707
+#: includes/admin/class-admin.php:709
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-postmeddelande om förnyelse skickat."
 
-#: includes/admin/class-admin.php:755
+#: includes/admin/class-admin.php:757
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Åtkomstnyckel"
 
-#: includes/admin/class-admin.php:757
+#: includes/admin/class-admin.php:759
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:815 includes/admin/class-admin.php:821
+#: includes/admin/class-admin.php:817 includes/admin/class-admin.php:823
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Annonsräknare"
 
-#: includes/admin/class-admin.php:883
+#: includes/admin/class-admin.php:885
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -935,7 +939,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
 "<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
 
-#: includes/admin/class-admin.php:885
+#: includes/admin/class-admin.php:887
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -944,12 +948,12 @@ msgstr ""
 "Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
 "åt dig automatiskt."
 
-#: includes/admin/class-admin.php:889
+#: includes/admin/class-admin.php:891
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Skapa nödvändiga sidor åt mig."
 
-#: includes/admin/class-admin.php:922
+#: includes/admin/class-admin.php:924
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -960,7 +964,7 @@ msgstr ""
 "eller senare, men servern kör version <strong>%s</strong>. Be din leverantör "
 "att uppgradera för att förhindra eventuella problem med pluginet."
 
-#: includes/admin/class-admin.php:945
+#: includes/admin/class-admin.php:947
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -987,7 +991,7 @@ msgctxt "admin"
 msgid "Images"
 msgstr "Bilder"
 
-#: includes/admin/form-fields.php:116
+#: includes/admin/form-fields.php:122
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -996,7 +1000,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver fält med följande associationer  "
 "för att fungera korrekt: <b>%s</b>."
 
-#: includes/admin/form-fields.php:118
+#: includes/admin/form-fields.php:124
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1005,7 +1009,7 @@ msgstr ""
 "<b>Tillägget Business Direcotry </b> kräver ett fält med en<b>%s</b> "
 "association för att fungera korrekt."
 
-#: includes/admin/form-fields.php:122
+#: includes/admin/form-fields.php:128
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -1014,12 +1018,12 @@ msgstr ""
 "Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
 "låta Business Directory göra det åt dig automatiskt."
 
-#: includes/admin/form-fields.php:126
+#: includes/admin/form-fields.php:132
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
 
-#: includes/admin/form-fields.php:129
+#: includes/admin/form-fields.php:135
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Skapa dessa obligatoriska fält för mig"
@@ -1034,75 +1038,75 @@ msgctxt "admin"
 msgid "Abandoned"
 msgstr "Övergiven"
 
-#: includes/admin/class-admin-listings.php:349
+#: includes/admin/class-admin-listings.php:351
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Redigera annons"
 
-#: includes/admin/class-admin-listings.php:352
+#: includes/admin/class-admin-listings.php:354
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Ta bort annons"
 
-#: includes/admin/class-admin-listings.php:361
+#: includes/admin/class-admin-listings.php:363
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Visa betalningar"
 
-#: includes/admin/class-admin-listings.php:366
+#: includes/admin/class-admin-listings.php:368
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Visa betalning"
 
-#: includes/admin/class-admin-listings.php:476
+#: includes/admin/class-admin-listings.php:478
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publicera annons"
 
-#: includes/admin/class-admin-listings.php:477
+#: includes/admin/class-admin-listings.php:479
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Inväntar granskning"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Förnya annons"
 
-#: includes/admin/class-admin-listings.php:481
+#: includes/admin/class-admin-listings.php:483
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Skickas efter en annons (%s) har förfallit."
 
-#: includes/admin/class-admin-listings.php:487
+#: includes/admin/class-admin-listings.php:489
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Begär åtkomstnyckel?"
 
-#: includes/admin/class-admin.php:125
+#: includes/admin/class-admin.php:123
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:63
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "Aldrig"
 
-#: includes/admin/class-admin.php:126
+#: includes/admin/class-admin.php:124
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:87
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:104
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/admin/class-admin.php:127
+#: includes/admin/class-admin.php:125
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:87
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:104
 msgctxt "listing metabox"
@@ -1225,7 +1229,7 @@ msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr "Är återkommande?"
 
-#: includes/admin/class-admin.php:164
+#: includes/admin/class-admin.php:162
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -1236,87 +1240,87 @@ msgstr ""
 "från början i denna sanslöst fullmatade (och GRATIS) e-postkurs i 5 delar. "
 "Du får en premium-modul helt kostnadsfritt genom att bara registrera dig."
 
-#: includes/admin/class-admin.php:166
+#: includes/admin/class-admin.php:164
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "E-postadress:"
 
-#: includes/admin/class-admin.php:172
+#: includes/admin/class-admin.php:170
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Vill du veta hemligheten bakom att bygga en grymt bra affärskatalog?"
 
-#: includes/admin/class-admin.php:174
+#: includes/admin/class-admin.php:172
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Ja tack!"
 
-#: includes/admin/class-admin.php:176
+#: includes/admin/class-admin.php:174
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Nej tack."
 
-#: includes/admin/class-admin.php:224
+#: includes/admin/class-admin.php:222
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Ogiltig e-postadress."
 
-#: includes/admin/class-admin.php:258
+#: includes/admin/class-admin.php:256
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Business Directory admin"
 
-#: includes/admin/class-admin.php:259
+#: includes/admin/class-admin.php:257
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Dir. admin"
 
-#: includes/admin/class-admin.php:259
+#: includes/admin/class-admin.php:257
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Katalog admin"
 
-#: includes/admin/class-admin.php:266
+#: includes/admin/class-admin.php:264
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Lägg till ny annons"
 
-#: includes/admin/class-admin.php:274
+#: includes/admin/class-admin.php:272
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Hantera avgifter"
 
-#: includes/admin/class-admin.php:277
+#: includes/admin/class-admin.php:275
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Annonser"
 
-#: includes/admin/class-admin.php:281
+#: includes/admin/class-admin.php:279
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Hantera formulärfält"
 
-#: includes/admin/class-admin.php:285
+#: includes/admin/class-admin.php:283
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Betalningshistorik"
 
-#: includes/admin/class-admin.php:288
+#: includes/admin/class-admin.php:286
 msgctxt "admin menu"
 msgid "CSV Import & Export"
 msgstr "Importera och exportera CSV"
 
-#: includes/admin/class-admin.php:299
+#: includes/admin/class-admin.php:297
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
 
-#: includes/admin/settings/class-settings-admin.php:25
+#: includes/admin/settings/class-settings-admin.php:28
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Hantera alternativ"
 
-#: includes/admin/class-admin.php:813
+#: includes/admin/class-admin.php:815
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -1662,22 +1666,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:821
+#: includes/themes.php:825
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
 
-#: includes/themes.php:827
+#: includes/themes.php:831
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:835
+#: includes/themes.php:839
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:841
+#: includes/themes.php:845
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
@@ -2305,52 +2309,58 @@ msgctxt "form-fields admin"
 msgid "Delete"
 msgstr "Ta bort"
 
-#: includes/admin/form-fields.php:76
+#: includes/admin/form-fields.php:77
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Private"
+msgstr "Aktivera:"
+
+#: includes/admin/form-fields.php:81
 msgctxt "form-fields admin"
 msgid "Required"
 msgstr "Obligatorisk"
 
-#: includes/admin/form-fields.php:76
+#: includes/admin/form-fields.php:81
 msgctxt "form-fields admin"
 msgid "Optional"
 msgstr "Valfri"
 
-#: includes/admin/form-fields.php:80
+#: includes/admin/form-fields.php:85
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr "Värdet i detta fält visas i utdragsvyn av en annons."
 
-#: includes/admin/form-fields.php:81
+#: includes/admin/form-fields.php:86
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "I utdrag"
 
-#: includes/admin/form-fields.php:86
+#: includes/admin/form-fields.php:91
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr "Detta fältvärdet visas i visningen av den enskilda annonsen."
 
-#: includes/admin/form-fields.php:87
+#: includes/admin/form-fields.php:92
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "I annons"
 
-#: includes/admin/form-fields.php:207
+#: includes/admin/form-fields.php:213
 msgctxt "form-fields admin"
 msgid "Form Preview"
 msgstr "Förhandsgranska formulär"
 
-#: includes/admin/form-fields.php:208
+#: includes/admin/form-fields.php:214
 msgctxt "form-fields admin"
 msgid "← Return to \"Manage Form Fields\""
 msgstr "← Tillbaka till \"Hantera formulärfält\""
 
-#: includes/admin/form-fields.php:246
+#: includes/admin/form-fields.php:252
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Formulärfält uppdateras."
 
-#: includes/admin/form-fields.php:262
+#: includes/admin/form-fields.php:268
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2363,92 +2373,92 @@ msgstr ""
 "område kommer inte att visas på frontend. Om du vill att e-postadresser "
 "visas på frontend, kan du <a>aktivera offentlig visning av e-post</a> ."
 
-#: includes/admin/form-fields.php:296
+#: includes/admin/form-fields.php:302
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Fält raderas."
 
-#: includes/admin/form-fields.php:317
+#: includes/admin/form-fields.php:323
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Obligatoriska fält skapats."
 
-#: includes/admin/form-fields.php:330
+#: includes/admin/form-fields.php:336
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/form-fields.php:331
+#: includes/admin/form-fields.php:337
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Kategori"
 
-#: includes/admin/form-fields.php:332
+#: includes/admin/form-fields.php:338
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "Utdrag"
 
-#: includes/admin/form-fields.php:333
+#: includes/admin/form-fields.php:339
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Innehåll"
 
-#: includes/admin/form-fields.php:334
+#: includes/admin/form-fields.php:340
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Tagg"
 
-#: includes/admin/form-fields.php:335
+#: includes/admin/form-fields.php:341
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Adress"
 
-#: includes/admin/form-fields.php:336
+#: includes/admin/form-fields.php:342
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Stad/ort"
 
-#: includes/admin/form-fields.php:337
+#: includes/admin/form-fields.php:343
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Län"
 
-#: includes/admin/form-fields.php:338
+#: includes/admin/form-fields.php:344
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "Land"
 
-#: includes/admin/form-fields.php:339
+#: includes/admin/form-fields.php:345
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "Postnummer"
 
-#: includes/admin/form-fields.php:340
+#: includes/admin/form-fields.php:346
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "faxnummer"
 
-#: includes/admin/form-fields.php:341
+#: includes/admin/form-fields.php:347
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: includes/admin/form-fields.php:342
+#: includes/admin/form-fields.php:348
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Fält för omdöme"
 
-#: includes/admin/form-fields.php:343
+#: includes/admin/form-fields.php:349
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:344
+#: includes/admin/form-fields.php:350
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "Webbplats"
 
-#: includes/admin/form-fields.php:365
+#: includes/admin/form-fields.php:371
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Taggar uppdateras."
@@ -2472,37 +2482,37 @@ msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Tillåt tomt urval på sök?"
 
-#: includes/fields/class-fieldtypes-textarea.php:123
+#: includes/fields/class-fieldtypes-textarea.php:125
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr "Tillåta HTML för detta fält?"
 
-#: includes/fields/class-fieldtypes-textarea.php:126
+#: includes/fields/class-fieldtypes-textarea.php:128
 msgctxt "form-fields admin"
 msgid "Allow IFRAME tags in content?"
 msgstr "Tillåta IFRAME-taggar i innehåll?"
 
-#: includes/fields/class-fieldtypes-textarea.php:130
+#: includes/fields/class-fieldtypes-textarea.php:132
 msgctxt "form-fields admin"
 msgid "No"
 msgstr "Nej"
 
-#: includes/fields/class-fieldtypes-textarea.php:131
+#: includes/fields/class-fieldtypes-textarea.php:133
 msgctxt "form-fields admin"
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/fields/class-fieldtypes-textarea.php:136
+#: includes/fields/class-fieldtypes-textarea.php:138
 msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Tillåt WordPress-shortcodes på detta område?"
 
-#: includes/fields/class-fieldtypes-textarea.php:141
+#: includes/fields/class-fieldtypes-textarea.php:143
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr "Visa en WYSIWYG editor på frontend?"
 
-#: includes/fields/class-fieldtypes-textarea.php:144
+#: includes/fields/class-fieldtypes-textarea.php:146
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
@@ -2511,12 +2521,12 @@ msgstr ""
 "<b>Varning:</b> Användare kan använda den här funktionen för att komma runt "
 "bildgränser i avgiftsplanerna."
 
-#: includes/fields/class-fieldtypes-textarea.php:145
+#: includes/fields/class-fieldtypes-textarea.php:147
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr "Tillåt bilder i WYSIWYG editor?"
 
-#: includes/fields/class-fieldtypes-textarea.php:148
+#: includes/fields/class-fieldtypes-textarea.php:150
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -2525,12 +2535,24 @@ msgstr ""
 "<b>Avancerade användare endast!</b> Om du inte har blivit tillsagd att ändra "
 "detta, ändra inte om du inte vet vad du gör."
 
-#: includes/fields/class-fieldtypes-textarea.php:149
+#: includes/fields/class-fieldtypes-textarea.php:151
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "Tillämpa \"the_content\"-filtret innan detta fält visas?"
 
 #: includes/fields/class-fieldtypes-textarea.php:154
+msgctxt "form-fields admin"
+msgid ""
+"Truncates the description field to the value set here. To display all of the "
+"description, set to 0."
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:155
+msgctxt "form-fields admin"
+msgid "Max length of Description field to use in List (excerpt) view"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:160
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Generera utdrag automatiskt från innehållsfältet?"
@@ -2619,61 +2641,72 @@ msgstr "Fältvisningsalternativ"
 
 #: templates/admin/form-fields-addoredit.tpl.php:134
 msgctxt "form-fields admin"
+msgid "Show this field to admin users only?"
+msgstr ""
+
+#: templates/admin/form-fields-addoredit.tpl.php:140
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Display this field to admin users only in the edit listing view."
+msgstr "Visa detta värdet i annonsläget."
+
+#: templates/admin/form-fields-addoredit.tpl.php:146
+msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Visa detta värdet i utdrag?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:140
+#: templates/admin/form-fields-addoredit.tpl.php:152
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Visa detta värdet i inläggsutdrag."
 
-#: templates/admin/form-fields-addoredit.tpl.php:146
+#: templates/admin/form-fields-addoredit.tpl.php:158
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Visa detta värdet i annonsläge?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:152
+#: templates/admin/form-fields-addoredit.tpl.php:164
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr "Visa detta värdet i annonsläget."
 
-#: templates/admin/form-fields-addoredit.tpl.php:158
+#: templates/admin/form-fields-addoredit.tpl.php:170
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Inkludera detta fält i sökfunktionen?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:164
+#: templates/admin/form-fields-addoredit.tpl.php:176
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Inkludera detta fält i sökfunktionen."
 
-#: templates/admin/form-fields-addoredit.tpl.php:170
+#: templates/admin/form-fields-addoredit.tpl.php:182
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Är detta fält obligatoriskt vid sökning?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:176
+#: templates/admin/form-fields-addoredit.tpl.php:188
 msgctxt "form-fields admin"
 msgid ""
 "Make this fields required during searches on the Advanced Search screen."
 msgstr "Gör detta fält obligatoriskt vid sökningar i avancerat sök."
 
-#: templates/admin/form-fields-addoredit.tpl.php:182
+#: templates/admin/form-fields-addoredit.tpl.php:194
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Dölj detta fälts etikett?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:188
+#: templates/admin/form-fields-addoredit.tpl.php:200
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Dölj detta fälts etikett när det visas."
 
-#: templates/admin/form-fields-addoredit.tpl.php:195
+#: templates/admin/form-fields-addoredit.tpl.php:207
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Uppdatera fält"
 
-#: templates/admin/form-fields-addoredit.tpl.php:197
+#: templates/admin/form-fields-addoredit.tpl.php:209
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Lägg till fält"
@@ -3001,7 +3034,7 @@ msgctxt "debug info"
 msgid "Test SSL setup..."
 msgstr "Testar SSL-inställning"
 
-#: includes/admin/settings/class-settings-admin.php:313
+#: includes/admin/settings/class-settings-admin.php:316
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Giltiga platshållare:%s"
@@ -3451,61 +3484,61 @@ msgctxt "admin settings"
 msgid "Enter License Key here"
 msgstr "Ange licensnyckel här"
 
-#: includes/admin/settings/class-settings-admin.php:354
+#: includes/admin/settings/class-settings-admin.php:357
 msgctxt "expiration notices"
 msgid "Add notice"
 msgstr "Lägg till notering"
 
-#: includes/admin/settings/class-settings-admin.php:373
+#: includes/admin/settings/class-settings-admin.php:376
 msgctxt "expiration notices"
 msgid "No notices configured."
 msgstr "Inga meddelanden har konfigurerats."
 
-#: includes/admin/settings/class-settings-admin.php:387
+#: includes/admin/settings/class-settings-admin.php:390
 msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Ta bort"
 
-#: includes/admin/settings/class-settings-admin.php:403
+#: includes/admin/settings/class-settings-admin.php:406
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr "återkommande och icke återkommande"
 
-#: includes/admin/settings/class-settings-admin.php:405
+#: includes/admin/settings/class-settings-admin.php:408
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "endast återkommande"
 
-#: includes/admin/settings/class-settings-admin.php:407
+#: includes/admin/settings/class-settings-admin.php:410
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "endast icke-återkommande"
 
-#: includes/admin/settings/class-settings-admin.php:411
+#: includes/admin/settings/class-settings-admin.php:414
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Skickas efter en annons (%s) har förnyats."
 
-#: includes/admin/settings/class-settings-admin.php:416
+#: includes/admin/settings/class-settings-admin.php:419
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Skickas efter en annons (%s) har förfallit."
 
-#: includes/admin/settings/class-settings-admin.php:424
+#: includes/admin/settings/class-settings-admin.php:427
 msgctxt "expiration notices"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d dag"
 msgstr[1] "%d dagar"
 
-#: includes/admin/settings/class-settings-admin.php:427
+#: includes/admin/settings/class-settings-admin.php:430
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] "%d vecka"
 msgstr[1] "%d veckor"
 
-#: includes/admin/settings/class-settings-admin.php:430
+#: includes/admin/settings/class-settings-admin.php:433
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -3514,91 +3547,91 @@ msgstr[1] "%d månader"
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:436
+#: includes/admin/settings/class-settings-admin.php:439
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr "Skickat %1$s före en annons (%2$s) förfaller."
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:439
+#: includes/admin/settings/class-settings-admin.php:442
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Skickas %1$s efter en annons (%2$s) upphör."
 
-#: includes/admin/settings/class-settings-admin.php:456
+#: includes/admin/settings/class-settings-admin.php:459
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr "Vid förfallotidpunkten."
 
-#: includes/admin/settings/class-settings-admin.php:457
+#: includes/admin/settings/class-settings-admin.php:460
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Direkt efter en förnyelse."
 
-#: includes/admin/settings/class-settings-admin.php:466
+#: includes/admin/settings/class-settings-admin.php:469
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
 msgstr[0] "%d dag före förfallodagen"
 msgstr[1] "%d dagar före förfallodagen"
 
-#: includes/admin/settings/class-settings-admin.php:466
+#: includes/admin/settings/class-settings-admin.php:469
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
 msgstr[0] "%d dag efter förfallodatum"
 msgstr[1] "%d dagar efter förfallodatum"
 
-#: includes/admin/settings/class-settings-admin.php:469
+#: includes/admin/settings/class-settings-admin.php:472
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
 msgstr[0] "%d vecka före utgången"
 msgstr[1] "%d veckor före utgången"
 
-#: includes/admin/settings/class-settings-admin.php:469
+#: includes/admin/settings/class-settings-admin.php:472
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
 msgstr[0] "%d vecka efter förfallodatum"
 msgstr[1] "%d veckor efter förfallodatum"
 
-#: includes/admin/settings/class-settings-admin.php:472
+#: includes/admin/settings/class-settings-admin.php:475
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
 msgstr[0] "%d månad före förfallodatum"
 msgstr[1] "%d månader före förfallodatum"
 
-#: includes/admin/settings/class-settings-admin.php:472
+#: includes/admin/settings/class-settings-admin.php:475
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
 msgstr[0] "%d månad efter förfallodatum"
 msgstr[1] "%d månader efter förfallodatum"
 
-#: includes/admin/settings/class-settings-admin.php:492
+#: includes/admin/settings/class-settings-admin.php:495
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Avser"
 
-#: includes/admin/settings/class-settings-admin.php:495
+#: includes/admin/settings/class-settings-admin.php:498
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr "Icke återkommande annonser"
 
-#: includes/admin/settings/class-settings-admin.php:496
+#: includes/admin/settings/class-settings-admin.php:499
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Återkommande annons"
 
-#: includes/admin/settings/class-settings-admin.php:497
+#: includes/admin/settings/class-settings-admin.php:500
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr "Återkommande och icke återkommande annonser"
 
-#: includes/admin/settings/class-settings-admin.php:502
+#: includes/admin/settings/class-settings-admin.php:505
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr "När ska den skickas?"
@@ -3607,6 +3640,12 @@ msgstr "När ska den skickas?"
 msgctxt "expiration notices"
 msgid "E-mail body text"
 msgstr "E-post brödtext"
+
+#: includes/admin/settings/class-settings-admin.php:537
+#, fuzzy
+msgctxt "settings"
+msgid "Settings reset to default."
+msgstr "Inställningar uppdaterade."
 
 #: includes/admin/settings/class-settings-bootstrap.php:5
 msgctxt "settings"
@@ -3625,7 +3664,7 @@ msgstr "Annonser"
 #: includes/admin/settings/class-settings-bootstrap.php:17
 #: includes/admin/settings/class-settings-bootstrap.php:33
 #: includes/admin/settings/class-settings-bootstrap.php:805
-#: includes/admin/settings/class-settings.php:337
+#: includes/admin/settings/class-settings.php:335
 msgctxt "settings"
 msgid "General Settings"
 msgstr "Allmänna inställningar"
@@ -4470,13 +4509,13 @@ msgctxt "settings"
 msgid "E-Mail Notices"
 msgstr "E-postnotifikationer"
 
-#: includes/admin/settings/class-settings.php:529
-#: includes/admin/settings/class-settings.php:540
+#: includes/admin/settings/class-settings.php:531
+#: includes/admin/settings/class-settings.php:542
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr "\"%s\" får inte vara tomt."
 
-#: includes/admin/settings/class-settings.php:547
+#: includes/admin/settings/class-settings.php:549
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Sluggen “%s” används redan för en annan taxonomi."
@@ -4920,19 +4959,13 @@ msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Avgiftsplan inte tillgänglig)"
 
-#. translators: Plan "<label>"<recurring mode> (e.g. Plan "Platinum"
-#. (recurrente)
-#: includes/class-listing.php:529
+#: includes/class-listing.php:528
+#, fuzzy
 msgctxt "listing"
-msgid "Plan \"%s\"%s"
-msgstr "Plan ”%s” %s"
-
-#: includes/class-listing.php:529
-msgctxt "listing"
-msgid "(recurring)"
+msgid "Plan \"%s\" (recurring)"
 msgstr "(återkommande)"
 
-#: includes/class-listing.php:557
+#: includes/class-listing.php:530 includes/class-listing.php:562
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Plan ”%s”"
@@ -5021,47 +5054,47 @@ msgctxt "notify email"
 msgid "Posted By"
 msgstr "Skapat av"
 
-#: includes/class-listing.php:655
+#: includes/class-listing.php:660
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Okänd"
 
-#: includes/class-listing.php:656
+#: includes/class-listing.php:661
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Legat"
 
-#: includes/class-listing.php:657
+#: includes/class-listing.php:662
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Ofullständig"
 
-#: includes/class-listing.php:658
+#: includes/class-listing.php:663
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Väntar på betalning."
 
-#: includes/class-listing.php:659
+#: includes/class-listing.php:664
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Genomförd"
 
-#: includes/class-listing.php:660
+#: includes/class-listing.php:665
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Väntar på uppgradering"
 
-#: includes/class-listing.php:661
+#: includes/class-listing.php:666
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Utgången"
 
-#: includes/class-listing.php:662
+#: includes/class-listing.php:667
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Inväntar förnyelse"
 
-#: includes/class-listing.php:663
+#: includes/class-listing.php:668
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Övergiven"
@@ -5298,37 +5331,37 @@ msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:679
+#: includes/views/submit_listing.php:681
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:684
+#: includes/views/submit_listing.php:686
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:689
+#: includes/views/submit_listing.php:691
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Ange lösenordet för ditt nya konto."
 
-#: includes/views/submit_listing.php:699
+#: includes/views/submit_listing.php:701
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:704
+#: includes/views/submit_listing.php:706
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
 
-#: includes/views/submit_listing.php:719
+#: includes/views/submit_listing.php:721
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:726
+#: includes/views/submit_listing.php:728
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -5336,17 +5369,17 @@ msgstr ""
 "Du måste skapa ett konto för denna webbplatsen. Vänligen fyll i formuläret "
 "nedan."
 
-#: includes/views/submit_listing.php:732
+#: includes/views/submit_listing.php:734
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:741
+#: includes/views/submit_listing.php:743
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-postadress:"
 
-#: includes/views/submit_listing.php:750
+#: includes/views/submit_listing.php:752
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Lösenord:"
@@ -5516,7 +5549,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Länktext (valfritt):"
 
-#: includes/fields/class-form-field.php:609
+#: includes/fields/class-form-field.php:627
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -5580,17 +5613,17 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Ogiltig formulärfält typ"
 
-#: includes/fields/class-form-field.php:517
+#: includes/fields/class-form-field.php:526
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Fältetikett krävs"
 
-#: includes/fields/class-form-field.php:527
+#: includes/fields/class-form-field.php:536
 msgctxt "form-fields-api"
 msgid "Requested field type change is incompatible. Type will not be modified."
 msgstr "Den begärda ändringen av fälttyp är inkompatibel. Typen ändras inte."
 
-#: includes/fields/class-form-field.php:547
+#: includes/fields/class-form-field.php:556
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -5599,17 +5632,17 @@ msgstr ""
 "Det kan bara finnas ett fält med associationen \"%s\". Välj en annan "
 "association."
 
-#: includes/fields/class-form-field.php:557
+#: includes/fields/class-form-field.php:566
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" är en ogiltig fälttyp för denna association."
 
-#: includes/fields/class-form-field.php:600
+#: includes/fields/class-form-field.php:618
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Ogiltigt fält-ID"
 
-#: includes/fields/class-form-field.php:621
+#: includes/fields/class-form-field.php:639
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Ett fel uppstod när försök gjordes att radera detta fält."
@@ -5677,7 +5710,7 @@ msgctxt "form-fields-api select"
 msgid "— None —"
 msgstr "— Inget —"
 
-#: includes/fields/class-fieldtypes-textarea.php:129
+#: includes/fields/class-fieldtypes-textarea.php:131
 msgctxt "admin form-fields"
 msgid ""
 "Enabling iframe support in your listings can allow users to execute "
@@ -6282,17 +6315,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr "Nästa"
 
-#: includes/templates-ui.php:169
+#: includes/templates-ui.php:172
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Inga kategorier hittades."
 
-#: includes/templates-ui.php:282
+#: includes/templates-ui.php:285
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Sök annonser"
 
-#: includes/templates-ui.php:285
+#: includes/templates-ui.php:288
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Avancerad Sökning"
@@ -6358,17 +6391,17 @@ msgctxt "templates"
 msgid "View not available."
 msgstr "Vy ej tillgänglig."
 
-#: includes/views/submit_listing.php:788
+#: includes/views/submit_listing.php:790
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:798
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:805
+#: includes/views/submit_listing.php:807
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -6643,17 +6676,17 @@ msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "Det finns för närvarande inga bilder för denna annons."
 
-#: includes/templates-ui.php:314 includes/templates-ui.php:339
+#: includes/templates-ui.php:317 includes/templates-ui.php:342
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortering:"
 
-#: includes/templates-ui.php:333
+#: includes/templates-ui.php:336
 msgctxt "sort"
 msgid "Reset"
 msgstr "Rensa"
 
-#: includes/templates-ui.php:355
+#: includes/templates-ui.php:358
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Rensa)"
@@ -7007,7 +7040,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:567
+#: includes/views/submit_listing.php:569
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -7938,6 +7971,10 @@ msgstr "Välj en avgiftsplan för din annons:"
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Adress"
+
+#~ msgctxt "listing"
+#~ msgid "Plan \"%s\"%s"
+#~ msgstr "Plan ”%s” %s"
 
 #~ msgid "Business Directory - Featured Levels migration"
 #~ msgstr "Business Directory - Migration av utvalda annonser"
@@ -9097,9 +9134,6 @@ msgstr "Adress"
 
 #~ msgid "Setup/Manage Fees"
 #~ msgstr "Ordna/hantera avgifter"
-
-#~ msgid "Settings updated."
-#~ msgstr "Inställningar uppdaterade."
 
 #~ msgid "← Back to Directory"
 #~ msgstr "← Tillbaka till katalog"
