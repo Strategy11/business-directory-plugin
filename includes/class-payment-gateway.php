@@ -8,6 +8,10 @@ abstract class WPBDP__Payment_Gateway {
     public abstract function get_id();
     public abstract function get_title();
 
+    public function get_logo() {
+        return $this->get_title();
+    }
+
     public function enqueue_scripts() {
     }
 
