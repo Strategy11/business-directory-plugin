@@ -1,4 +1,11 @@
 <?php
+/**
+ * @deprecated 5.0  Try not to use this template. Redirect users to the login
+ *                  view (?wpbdp_view=login) instead which is more convenient: it
+ *                  automatically redirects user to the configured "Login URL" (if any),
+ *                  or displays the login form and even handles access key access.
+ */
+
 $show_message = isset( $show_message ) ? $show_message : true;
 ?>
 
