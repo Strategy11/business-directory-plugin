@@ -236,8 +236,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
                     $value = wpautop( $value );
 
-                    if ( wpbdp_get_option( 'disable-cpt' ) )
+                    if ( wpbdp_get_option( 'disable-cpt' ) || in_array( wpbdp_current_view(), array( 'search', 'all_listings' ), true ) ) {
                         $value = do_shortcode( shortcode_unautop( $value ) );
+                    }
 
                     $post = $current_post;
                 } else {
