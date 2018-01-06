@@ -7,8 +7,11 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
     public function dispatch() {
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
-        if ( ! $current_user )
-            return wpbdp_render( 'parts/login-required' );
+        if ( ! $current_user ) {
+            $login_msg = _x( 'Please <a>login</a> to manage your listings.', 'view:manage-listings', 'WPBDM' );
+            $login_msg = str_replace( '<a>', '<a href="' . esc_url( wpbdp_url( 'login' ) ) . '">', $login_msg );
+            return $login_msg;
+        }
 
         $args = array(
             'post_type' => WPBDP_POST_TYPE,
