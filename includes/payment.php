@@ -110,8 +110,9 @@ class WPBDP_PaymentsAPI {
 
         $last_pending = WPBDP_Payment::objects()->filter( array( 'listing_id' => $listing_id, 'status' => 'pending' ) )->order_by( '-created_at' )->get();
 
-        if ( ! $last_pending || 'initial' != $last_pending['tag'] )
+        if ( ! $last_pending || 'initial' != $last_pending->payment_type ) {
             return $status;
+        }
 
         $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
         $hours_elapsed = ( current_time( 'timestamp' ) - strtotime( $last_pending['created_at'] ) ) / ( 60 * 60 );
