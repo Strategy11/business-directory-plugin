@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-02 23:02:00+00:00\n"
+"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
 "PO-Revision-Date: 2017-03-29 10:08+0200\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -7197,6 +7197,12 @@ msgstr "Eintrag Felder / Bilder"
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
+
+#: includes/views/manage_listings.php:11
+#, fuzzy
+msgctxt "view:manage-listings"
+msgid "Please <a>login</a> to manage your listings."
+msgstr "Bitte <a>einloggen</a> um eine Nachricht an den Inhaber zu senden."
 
 #: includes/views/manage_recurring.php:20
 msgctxt "manage subscriptions"

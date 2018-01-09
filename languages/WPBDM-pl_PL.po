@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-02 23:02:00+00:00\n"
+"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -8111,6 +8111,15 @@ msgstr "Pola/Obrazy"
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
+
+# @ WPBDM
+#: includes/views/manage_listings.php:11
+#, fuzzy
+msgctxt "view:manage-listings"
+msgid "Please <a>login</a> to manage your listings."
+msgstr ""
+"Proszę się <a>zalogować</a>, aby wysłąć wiadomość do osoby odpowiedzialnej "
+"za kontakt z klientem."
 
 # @ WPBDM
 #: includes/views/manage_recurring.php:20
