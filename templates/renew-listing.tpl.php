@@ -14,12 +14,13 @@
         <p><?php _ex( 'Please select a fee option or click "Do not renew my listing" to remove your listing from the directory.', 'WPBDM' ); ?></p>
 
         <form id="wpbdp-renewlisting-form" method="post" action="">
-            <?php echo wpbdp_render( 'plan-selection', array( 'plans' => $plans, 'selected' => $current_plan ) ); ?>
+            <?php echo wpbdp_render( 'plan-selection', array( 'plans' => $plans, 'selected' => $current_plan->fee_id ) ); ?>
 
             <p><input type="submit" class="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 
             <div class="do-not-renew-listing">
-                <div class="header"><?php _ex( 'Cancel Listing Renewal', 'renewal', 'WPBDM' ); ?></div>
+                <h3><?php _ex( 'Cancel Listing Renewal', 'renewal', 'WPBDM' ); ?></h3>
+
                 <input type="submit" class="submit" name="cancel-renewal" value="<?php _ex('Do not renew my listing', 'templates', 'WPBDM'); ?>" />
             </div>
         </form>
