@@ -106,5 +106,4 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         return wpbdp_render( 'renew-listing', $params );
     }
-
 }

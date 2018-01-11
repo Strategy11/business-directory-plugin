@@ -18,23 +18,23 @@ class WPBDP_PaymentsAPI {
         add_filter( 'wpbdp_admin_directory_filter', array( &$this, 'abandonment_admin_filter' ), 10, 2 );
     }
 
-    public function render_unsubscribe_integration( &$category, &$listing ) {
-        global $wpdb;
+    public function cancel_subscription( $listing, $subscription ) {
+        $payment = $subscription->get_parent_payment();
 
-        if ( ! $category || ! $listing )
-            return;
+        if ( ! $payment ) {
+            $message = __( "We couldn't find a payment associated with the given subscription.", 'WPBDM' );
+            throw new Exception( $message );
+        }
 
-        $payment = WPBDP_Payment::get( $category->payment_id );
+        $gateway = $GLOBALS['wpbdp']->payment_gateways->get( $payment->gateway );
 
-        if ( ! $payment )
-            return '';
+        if ( ! $gateway ) {
+            $message = __( 'The payment gateway "<payment-gateway>" is not available.', 'WPBDM' );
+            $message = str_replace( '<payment-gateway>', $gateway, $message );
+            throw new Exception( $message );
+        }
 
-        $gateway = $payment->gateway;
-
-        if ( ! isset( $this->gateways[ $gateway ] ) )
-            return '';
-
-        return $this->gateways[ $gateway ]->render_unsubscribe_integration( $category, $listing );
+        $gateway->cancel_subscription( $listing, $subscription );
     }
 
     /**

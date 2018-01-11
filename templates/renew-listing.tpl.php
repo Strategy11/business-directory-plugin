@@ -19,7 +19,7 @@
             <p><input type="submit" class="submit" name="submit" value="<?php _ex('Continue', 'templates', 'WPBDM'); ?>" /></p>
 
             <div class="do-not-renew-listing">
-                <h3><?php _ex( 'Cancel Listing Renewal', 'renewal', 'WPBDM' ); ?></h3>
+                <p><?php _ex( 'Clicking the button below will cause your listing to be permanently removed from the directory.', 'renewal', 'WPBDM' ); ?></p>
 
                 <input type="submit" class="submit" name="cancel-renewal" value="<?php _ex('Do not renew my listing', 'templates', 'WPBDM'); ?>" />
             </div>

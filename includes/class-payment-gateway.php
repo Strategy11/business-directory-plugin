@@ -138,4 +138,8 @@ abstract class WPBDP__Payment_Gateway {
         return add_query_arg( 'wpbdp-listener', $this->get_id(), home_url( 'index.php' ) );
     }
 
+    public function cancel_subscription( $listing, $subscription ) {
+        $message = __( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'WPBDM' );
+        throw new Exception( $message );
+    }
 }
