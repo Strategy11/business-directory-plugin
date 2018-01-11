@@ -76,9 +76,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
             return wpbdp_render_msg( $e->getMessage(), 'error' );
         }
 
-        $subscription->cancel();
-
-        return wpbdp_render_msg( _x( 'Subscription canceled.', 'manage subscriptions', 'WPBDM' ) );
+        return wpbdp_render_msg( _x( 'Your subscription was canceled.', 'manage subscriptions', 'WPBDM' ) );
     }
 
     public function render_cancel_subscription_page( $listing, $subscription ) {

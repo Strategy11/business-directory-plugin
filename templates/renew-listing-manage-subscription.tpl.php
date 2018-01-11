@@ -6,6 +6,8 @@
     <h4><?php _ex( 'Current Fee Details', 'renewal', 'WPBDM' ); ?></h4>
 
     <dl class="recurring-fee-details">
+        <dt><?php _ex( 'Name:', 'renewal', 'WPBDM' ); ?></dt>
+        <dd><?php echo $plan->fee_label; ?></dd>
         <dt><?php _ex( 'Number of images:', 'renewal', 'WPBDM' ); ?></dt>
         <dd><?php echo $plan->fee_images; ?></dd>
         <dt><?php _ex( 'Expiration date:', 'renewal', 'WPBDM' ); ?></dt>
