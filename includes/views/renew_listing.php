@@ -74,6 +74,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
     private function render_manage_subscription_page( $listing, $current_plan ) {
         $params = array(
+            'listing' => $listing,
             'plan' => $current_plan,
             'show_cancel_subscription_button' => $this->should_show_cancel_subscription_buton( $listing ),
         );
