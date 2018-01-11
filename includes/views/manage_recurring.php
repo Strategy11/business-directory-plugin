@@ -25,13 +25,17 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
 
     private function do_cancel_subscription() {
         if ( ! empty( $_GET['listing'] ) ) {
-            $listing = wpbdp_get_listing( $_GET['listing'] );
+            $listing_id = absint( $_GET['listing_id'] );
+            $listing = wpbdp_get_listing( $listing_id );
         } else {
+            $listing_id = 0;
             $listing = null;
         }
 
         if ( ! $listing ) {
-            $message = _x( "The listing with id = {listing-id} doesn't exists.", 'manage subscription', 'WPBDM' );
+            $message = _x( "The listing with id = <listing-id> doesn't exists.", 'manage subscription', 'WPBDM' );
+            $message = str_replace( '<listing-id>', $listing_id, $message );
+
             return wpbdp_render_msg( $message, 'error' );
         }
 
