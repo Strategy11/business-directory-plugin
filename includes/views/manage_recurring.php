@@ -25,7 +25,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
 
     private function do_cancel_subscription() {
         if ( ! empty( $_GET['listing'] ) ) {
-            $listing_id = absint( $_GET['listing_id'] );
+            $listing_id = absint( $_GET['listing'] );
             $listing = wpbdp_get_listing( $listing_id );
         } else {
             $listing_id = 0;
