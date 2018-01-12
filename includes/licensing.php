@@ -8,7 +8,7 @@
  */
 class WPBDP_Licensing {
 
-    const STORE_URL = 'http://businessdirectoryplugin.com/';
+    const STORE_URL = 'https://businessdirectoryplugin.com/';
 
     private $items = array(); // Items (modules and/or themes) registered with the Licensing API.
     private $licenses = array(); // License information: status, last check, etc.
