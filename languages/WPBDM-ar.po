@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
+"POT-Creation-Date: 2018-01-12 02:57:16+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -327,7 +327,8 @@ msgid "Business Directory Plugin"
 msgstr "Business Directory Plugin"
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.businessdirectoryplugin.com"
+#, fuzzy
+msgid "https://www.businessdirectoryplugin.com"
 msgstr "http://www.businessdirectoryplugin.com"
 
 #. Description of the plugin/theme
@@ -1050,12 +1051,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "إنشاء هذه الحقول المطلوبة نيابة عني"
 
-#: includes/payment.php:163
+#: includes/payment.php:164
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "في انتظار التخلي"
 
-#: includes/payment.php:168
+#: includes/payment.php:169
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "متخلى عنه"
@@ -1082,36 +1083,36 @@ msgctxt "admin actions"
 msgid "View Payment"
 msgstr "الدفع"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "نشر إعلان"
 
-#: includes/admin/class-admin-listings.php:479
+#: includes/admin/class-admin-listings.php:481
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr " في الانتظار"
 
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:482
+#: includes/admin/class-admin-listings.php:484
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "تجديد الإعلان"
 
-#: includes/admin/class-admin-listings.php:483
+#: includes/admin/class-admin-listings.php:485
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/class-admin-listings.php:489
+#: includes/admin/class-admin-listings.php:491
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -6776,7 +6777,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "إعلان مميز"
 
-#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6787,12 +6788,12 @@ msgstr ""
 "تتلقى رسالة بريد إلكتروني للتفعيل. يجب التأكد من مراجعة البريد المزعج الخاص "
 "بك إذا لم تراه في بريدك الإلكتروني خلال 60 دقيقة."
 
-#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr "لم تتسجل بعد؟"
 
-#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr "فقدت كلمة المرور؟"
@@ -6833,7 +6834,7 @@ msgctxt "templates"
 msgid "View"
 msgstr "مشاهدة"
 
-#: templates/parts/login-required.tpl.php:10
+#: templates/parts/login-required.tpl.php:17
 msgctxt "templates"
 msgid "Login"
 msgstr "تسجيل الدخول"

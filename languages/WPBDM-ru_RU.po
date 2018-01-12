@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
+"POT-Creation-Date: 2018-01-12 02:57:16+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -333,7 +333,8 @@ msgid "Business Directory Plugin"
 msgstr "Справочник Услуг"
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.businessdirectoryplugin.com"
+#, fuzzy
+msgid "https://www.businessdirectoryplugin.com"
 msgstr "http://www.businessdirectoryplugin.com"
 
 #. Description of the plugin/theme
@@ -1060,12 +1061,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Создать эти поля автоматически"
 
-#: includes/payment.php:163
+#: includes/payment.php:164
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Платёж был заброшен."
 
-#: includes/payment.php:168
+#: includes/payment.php:169
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Заброшено"
@@ -1092,36 +1093,36 @@ msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Оплата"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Опубликовать запись"
 
-#: includes/admin/class-admin-listings.php:479
+#: includes/admin/class-admin-listings.php:481
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Ожидается"
 
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:482
+#: includes/admin/class-admin-listings.php:484
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Продлить запись"
 
-#: includes/admin/class-admin-listings.php:483
+#: includes/admin/class-admin-listings.php:485
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/class-admin-listings.php:489
+#: includes/admin/class-admin-listings.php:491
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -6768,7 +6769,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Особая запись"
 
-#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6779,12 +6780,12 @@ msgstr ""
 "регистрации Вы получите электронной письмо с кодом активации. Убедитесь, что "
 "это письмо не попадёт в папку Спама в вашей почтовой системе."
 
-#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr "Ещё не зарегистрированы?"
 
-#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr "Забыли пароль?"
@@ -6825,7 +6826,7 @@ msgctxt "templates"
 msgid "View"
 msgstr "Показать"
 
-#: templates/parts/login-required.tpl.php:10
+#: templates/parts/login-required.tpl.php:17
 msgctxt "templates"
 msgid "Login"
 msgstr "Войти в сайт"

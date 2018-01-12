@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
+"POT-Creation-Date: 2018-01-12 02:57:16+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -301,7 +301,7 @@ msgid "Business Directory Plugin"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.businessdirectoryplugin.com"
+msgid "https://www.businessdirectoryplugin.com"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -966,12 +966,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
 
-#: includes/payment.php:163
+#: includes/payment.php:164
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr ""
 
-#: includes/payment.php:168
+#: includes/payment.php:169
 msgctxt "admin"
 msgid "Abandoned"
 msgstr ""
@@ -996,32 +996,32 @@ msgctxt "admin actions"
 msgid "View Payment"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:479
+#: includes/admin/class-admin-listings.php:481
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:482
+#: includes/admin/class-admin-listings.php:484
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:483
+#: includes/admin/class-admin-listings.php:485
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:489
+#: includes/admin/class-admin-listings.php:491
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr ""
@@ -6111,7 +6111,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr ""
 
-#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6119,12 +6119,12 @@ msgid ""
 "spam if you don't see it in your email within 60 minutes."
 msgstr ""
 
-#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr ""
 
-#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr ""
@@ -6163,7 +6163,7 @@ msgctxt "templates"
 msgid "View"
 msgstr ""
 
-#: templates/parts/login-required.tpl.php:10
+#: templates/parts/login-required.tpl.php:17
 msgctxt "templates"
 msgid "Login"
 msgstr ""

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.1.12.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
+"POT-Creation-Date: 2018-01-12 02:57:16+00:00\n"
 "PO-Revision-Date: 2017-07-04 12:37+0000\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -307,7 +307,7 @@ msgid "Business Directory Plugin"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.businessdirectoryplugin.com"
+msgid "https://www.businessdirectoryplugin.com"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -982,12 +982,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Creëer deze vereiste velden voor me"
 
-#: includes/payment.php:163
+#: includes/payment.php:164
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr ""
 
-#: includes/payment.php:168
+#: includes/payment.php:169
 msgctxt "admin"
 msgid "Abandoned"
 msgstr ""
@@ -1014,36 +1014,36 @@ msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Betaling"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Registratie publiceren"
 
-#: includes/admin/class-admin-listings.php:479
+#: includes/admin/class-admin-listings.php:481
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "In Afwachting"
 
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:482
+#: includes/admin/class-admin-listings.php:484
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Vernieuw registratie"
 
-#: includes/admin/class-admin-listings.php:483
+#: includes/admin/class-admin-listings.php:485
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Een registratie verloopt."
 
-#: includes/admin/class-admin-listings.php:489
+#: includes/admin/class-admin-listings.php:491
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr ""
@@ -6442,7 +6442,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Aanbieding Registratie/Vermelding"
 
-#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6450,12 +6450,12 @@ msgid ""
 "spam if you don't see it in your email within 60 minutes."
 msgstr ""
 
-#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr ""
 
-#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr ""
@@ -6494,7 +6494,7 @@ msgctxt "templates"
 msgid "View"
 msgstr "Bekijk "
 
-#: templates/parts/login-required.tpl.php:10
+#: templates/parts/login-required.tpl.php:17
 msgctxt "templates"
 msgid "Login"
 msgstr "Inloggen"

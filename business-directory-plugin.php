@@ -1,9 +1,9 @@
 <?php
 /*
  * Plugin Name: Business Directory Plugin
- * Plugin URI: http://www.businessdirectoryplugin.com
+ * Plugin URI: https://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 5.1.5dev1
+ * Version: 5.1.5
  * Author: D. Rodenbaugh
  * Author URI: https://businessdirectoryplugin.com
  * Text Domain: WPBDM

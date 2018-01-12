@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-06 15:43:16+00:00\n"
-"PO-Revision-Date: 2018-01-02 18:09-0500\n"
+"POT-Creation-Date: 2018-01-12 02:57:16+00:00\n"
+"PO-Revision-Date: 2018-01-11 21:58-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -327,8 +327,8 @@ msgid "Business Directory Plugin"
 msgstr "Directorio de Negocios"
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.businessdirectoryplugin.com"
-msgstr "http://www.businessdirectoryplugin.com"
+msgid "https://www.businessdirectoryplugin.com"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
@@ -344,7 +344,7 @@ msgstr "D. Rodenbaugh"
 
 #. Author URI of the plugin/theme
 msgid "https://businessdirectoryplugin.com"
-msgstr "http://businessdirectoryplugin.com"
+msgstr ""
 
 #: includes/admin/class-admin-controller.php:73
 msgctxt "admin confirm"
@@ -1046,12 +1046,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
 
-#: includes/payment.php:163
+#: includes/payment.php:164
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Casi abandonado"
 
-#: includes/payment.php:168
+#: includes/payment.php:169
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Abandonados"
@@ -1076,32 +1076,32 @@ msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Ver Pago"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:480
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publicar Listado"
 
-#: includes/admin/class-admin-listings.php:479
+#: includes/admin/class-admin-listings.php:481
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Marcar como “Pendiente de Revisión”"
 
-#: includes/admin/class-admin-listings.php:480
+#: includes/admin/class-admin-listings.php:482
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr "No mostrar en el directorio (marcar como “Borrador”)"
 
-#: includes/admin/class-admin-listings.php:482
+#: includes/admin/class-admin-listings.php:484
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Renovar listados"
 
-#: includes/admin/class-admin-listings.php:483
+#: includes/admin/class-admin-listings.php:485
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Marcar listados como “Expirados”"
 
-#: includes/admin/class-admin-listings.php:489
+#: includes/admin/class-admin-listings.php:491
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Enviar claves de acceso"
@@ -6547,7 +6547,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Listado Destacado"
 
-#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:7
+#: templates/login.tpl.php:21 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6558,12 +6558,12 @@ msgstr ""
 "registre, recibirá un correo electrónico de activación. Asegúrese de revisar "
 "en SPAM si no ve el correo en su buzón dentro de los siguientes 60 minutos."
 
-#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:31
+#: templates/login.tpl.php:32 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr "No se ha registrado?"
 
-#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:33
+#: templates/login.tpl.php:34 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr "Perdió su contraseña?"
@@ -6605,7 +6605,7 @@ msgctxt "templates"
 msgid "View"
 msgstr "Ver"
 
-#: templates/parts/login-required.tpl.php:10
+#: templates/parts/login-required.tpl.php:17
 msgctxt "templates"
 msgid "Login"
 msgstr "Ingresar"
@@ -6964,10 +6964,9 @@ msgid "Request access key?"
 msgstr "¿Necesita una clave de acceso?"
 
 #: includes/views/manage_listings.php:11
-#, fuzzy
 msgctxt "view:manage-listings"
 msgid "Please <a>login</a> to manage your listings."
-msgstr "Por favor <a>ingrese</a> para enviar mensajes al dueño del listado."
+msgstr "Por favor <a>ingrese</a> para administrar sus listados."
 
 #: includes/views/manage_recurring.php:20
 msgctxt "manage subscriptions"
