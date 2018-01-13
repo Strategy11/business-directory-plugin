@@ -1020,7 +1020,7 @@ final class WPBDP__Settings__Bootstrap {
             'relative_time' => '+5 days' /*  renewal-email-threshold, def: 5 days */,
             'listings' => 'recurring',
             'subject' => '[[site-title]] [listing] - Renewal reminder',
-            'body' => "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [date] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site]."
+            'body' => "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [expiration] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site]."
         );
         //                     array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
         //                                                     'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
@@ -1034,7 +1034,7 @@ final class WPBDP__Settings__Bootstrap {
             'event' => 'renewal',
             'listings' => 'recurring',
             'subject' => '[[site-title]] [listing] renewed',
-            'body' => "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [date] for another period.\n\nIf you have any questions, contact us at [site]."
+            'body' => "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [payment_date] for another period.\n\nIf you have any questions, contact us at [site]."
         );
         // $replacements['listing'] = sprintf( '<a href="%s">%s</a>',
         //                                     get_permalink( $payment->get_listing_id() ),

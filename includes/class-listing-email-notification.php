@@ -81,15 +81,23 @@ class WPBDP__Listing_Email_Notification {
             if ( $already_sent && ! $force_resend )
                 continue;
 
+            $payments = $listing->get_latest_payments();
+            $payment = $payments ? array_shift( $payments ) : array();
+
+            $expiration_date = date_i18n( get_option( 'date_format' ), strtotime( $listing->get_expiration_date() ) );
+            $payment_date = date_i18n( get_option( 'date_format' ), $payment ? strtotime( implode( '/', $payment->get_created_at_date() ) ) : time() );
+
             $email = wpbdp_email_from_template(
                 $notice,
                 array(
-                    'site'       => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-                    'author'     => $listing->get_author_meta( 'display_name' ),
-                    'listing'    => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
-                    'expiration' => date_i18n( get_option( 'date_format' ), strtotime( $listing->get_expiration_date() ) ),
-                    'link'       => sprintf( '<a href="%1$s">%1$s</a>', $listing->get_renewal_url() ),
-                    'category'   => get_the_term_list( $listing->get_id(), WPBDP_CATEGORY_TAX, '', ', ' )
+                    'site'          => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+                    'author'        => $listing->get_author_meta( 'display_name' ),
+                    'listing'       => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
+                    'expiration'    => $expiration_date,
+                    'link'          => sprintf( '<a href="%1$s">%1$s</a>', $listing->get_renewal_url() ),
+                    'category'      => get_the_term_list( $listing->get_id(), WPBDP_CATEGORY_TAX, '', ', ' ),
+                    'date'          => $expiration_date,
+                    'payment_date'  => $payment_date
             ) );
 
             $email->template = 'businessdirectory-email';
