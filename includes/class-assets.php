@@ -24,12 +24,16 @@ class WPBDP__Assets {
     public function register_common_scripts() {
         wp_register_script(
             'jquery-file-upload-iframe-transport',
-            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.min.js'
+            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.min.js',
+            array(),
+            '9.5.7'
         );
+
         wp_register_script(
             'jquery-file-upload',
             WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.min.js',
-            array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' )
+            array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
+            '9.5.7'
         );
 
         $this->maybe_register_script(
@@ -53,8 +57,19 @@ class WPBDP__Assets {
         wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/js/dnd-upload.min.js', array( 'jquery-file-upload' ), WPBDP_VERSION );
 
         // Select2.
-        wp_register_style( 'wpbdp-js-select2-css', WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css' );
-        wp_register_script( 'wpbdp-js-select2', WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js', array( 'jquery' ) );
+        wp_register_style(
+            'wpbdp-js-select2-css',
+            WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css',
+            array(),
+            '4.0.3'
+        );
+
+        wp_register_script(
+            'wpbdp-js-select2',
+            WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js',
+            array( 'jquery' ),
+            '4.0.3'
+        );
     }
 
     private function maybe_register_script( $handle, $src, $deps, $ver, $in_footer = false ) {
@@ -81,7 +96,12 @@ class WPBDP__Assets {
         $only_in_plugin_pages = true;
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
 
-        wp_enqueue_style( 'wpbdp-widgets', WPBDP_URL . 'assets/css/widgets.min.css' );
+        wp_enqueue_style(
+            'wpbdp-widgets',
+            WPBDP_URL . 'assets/css/widgets.min.css',
+            array(),
+            WPBDP_VERSION
+        );
 
         if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
             return;
@@ -120,8 +140,14 @@ class WPBDP__Assets {
         do_action( 'wpbdp_enqueue_scripts' );
 
         // enable legacy css (should be removed in a future release) XXX
-        if (_wpbdp_template_mode('single') == 'template' || _wpbdp_template_mode('category') == 'template' )
-            wp_enqueue_style('wpbdp-legacy-css', WPBDP_URL . 'assets/css/wpbdp-legacy.min.css');
+        if ( _wpbdp_template_mode( 'single' ) == 'template' || _wpbdp_template_mode( 'category' ) == 'template' ) {
+            wp_enqueue_style(
+                'wpbdp-legacy-css',
+                WPBDP_URL . 'assets/css/wpbdp-legacy.min.css',
+                array(),
+                WPBDP_VERSION
+            );
+        }
     }
 
     /**
@@ -157,12 +183,17 @@ class WPBDP__Assets {
 
             foreach ( $filenames as $f ) {
                 if ( file_exists( $dir . $f ) ) {
-                    wp_enqueue_style( 'wpbdp-custom-' . $n, $uri . $f );
+                    wp_enqueue_style(
+                        'wpbdp-custom-' . $n,
+                        $uri . $f,
+                        array(),
+                        WPBDP_VERSION
+                    );
                     $n++;
                 }
             }
         }
-    }    
+    }
 
     public function register_image_sizes() {
         $thumbnail_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
@@ -176,7 +207,5 @@ class WPBDP__Assets {
         add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
         add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
         add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
-    }    
-
+    }
 }
-

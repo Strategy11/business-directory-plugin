@@ -25,7 +25,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public function enqueue_resources() {
         wp_enqueue_style( 'dashicons' );
 
-        wp_enqueue_script( 'wpbdp-submit-listing', WPBDP_URL . 'assets/js/submit-listing.min.js' );
+        wp_enqueue_script(
+            'wpbdp-submit-listing',
+            WPBDP_URL . 'assets/js/submit-listing.min.js',
+            array(),
+            WPBDP_VERSION
+        );
+
         wp_enqueue_script( 'wpbdp-checkout' );
 
         // Required for the date picker.

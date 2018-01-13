@@ -15,8 +15,14 @@ class WPBDP__Admin__Controller {
     }
 
     function _enqueue_scripts() {
-        if ( file_exists( WPBDP_PATH . 'assets/js/admin-' . $this->controller_id . '.js' ) )
-            wp_enqueue_script( 'wpbdp-' . $this->controller_id . '-js', WPBDP_URL . 'assets/js/admin-' . $this->controller_id . '.js', array( 'wpbdp-admin-js' ) );
+        if ( file_exists( WPBDP_PATH . 'assets/js/admin-' . $this->controller_id . '.js' ) ) {
+            wp_enqueue_script(
+                'wpbdp-' . $this->controller_id . '-js',
+                WPBDP_URL . 'assets/js/admin-' . $this->controller_id . '.js',
+                array( 'wpbdp-admin-js' ),
+                WPBDP_VERSION
+            );
+        }
     }
 
     function _ajax_dispatch() {

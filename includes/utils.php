@@ -787,7 +787,9 @@ function wpbdp_enqueue_jquery_ui_style() {
 
     wp_enqueue_style(
         'wpbdp-jquery-ui-css',
-        'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $ui_version . '/themes/redmond/jquery-ui.css'
+        'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $ui_version . '/themes/redmond/jquery-ui.css',
+        array(),
+        $ui_version
     );
 }
 

@@ -88,34 +88,67 @@ class WPBDP_Admin {
         global $wpbdp;
         global $pagenow;
 
-        wp_enqueue_style( 'wpbdp-admin',
-                          WPBDP_URL . 'assets/css/admin.min.css');
+        wp_enqueue_style(
+            'wpbdp-admin',
+            WPBDP_URL . 'assets/css/admin.min.css',
+            array(),
+            WPBDP_VERSION
+        );
+
         wp_enqueue_style( 'thickbox' );
 
-        wp_enqueue_style( 'wpbdp-frontend-css', WPBDP_URL . 'assets/css/wpbdp.min.css' );
-        wp_enqueue_script( 'wpbdp-frontend-js',
-                           WPBDP_URL . 'assets/js/wpbdp.min.js',
-                           array( 'jquery' ) );
-        wp_enqueue_script( 'wpbdp-admin-js',
-                           WPBDP_URL . 'assets/js/admin.min.js',
-                           array( 'jquery', 'thickbox', 'jquery-ui-sortable' ) );
+        wp_enqueue_style(
+            'wpbdp-frontend-css',
+            WPBDP_URL . 'assets/css/wpbdp.min.css',
+            array(),
+            WPBDP_VERSION
+        );
+
+        wp_enqueue_script(
+            'wpbdp-frontend-js',
+            WPBDP_URL . 'assets/js/wpbdp.min.js',
+            array( 'jquery' ),
+            WPBDP_VERSION
+        );
+
+        wp_enqueue_script(
+            'wpbdp-admin-js',
+            WPBDP_URL . 'assets/js/admin.min.js',
+            array( 'jquery', 'thickbox', 'jquery-ui-sortable' ),
+            WPBDP_VERSION
+        );
 
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wpbdp_enqueue_jquery_ui_style();
 
-            wp_enqueue_style( 'wpbdp-listing-admin-metabox', WPBDP_URL . 'assets/css/admin-listing-metabox.min.css' );
-            wp_enqueue_style( 'wpbdp-listing-admin-timeline', WPBDP_URL . 'assets/css/admin-listing-timeline.min.css' );
+            wp_enqueue_style(
+                'wpbdp-listing-admin-metabox',
+                WPBDP_URL . 'assets/css/admin-listing-metabox.min.css',
+                array(),
+                WPBDP_VERSION
+            );
+
+            wp_enqueue_style(
+                'wpbdp-listing-admin-timeline',
+                WPBDP_URL . 'assets/css/admin-listing-timeline.min.css',
+                array(),
+                WPBDP_VERSION
+            );
 
             wp_enqueue_style( 'wpbdp-dnd-upload' );
+
             wp_enqueue_script(
                 'wpbdp-admin-listing',
                 WPBDP_URL . 'assets/js/admin-listing.min.js',
-                array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' )
+                array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
+                WPBDP_VERSION
             );
+
             wp_enqueue_script(
                 'wpbdp-admin-listing-metabox',
                 WPBDP_URL . 'assets/js/admin-listing-metabox.min.js',
-                array( 'wpbdp-admin-js', 'jquery-ui-datepicker' )
+                array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
+                WPBDP_VERSION
             );
 
             wp_localize_script( 'wpbdp-admin-listing-metabox', 'wpbdpListingMetaboxL10n', array(

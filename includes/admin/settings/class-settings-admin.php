@@ -19,7 +19,12 @@ class WPBDP__Settings_Admin {
     public function enqueue_scripts( $hook ) {
         // strstr() until https://core.trac.wordpress.org/ticket/18857 is fixed.
         if ( false !== strstr( $hook, 'wpbdp_settings' ) ) {
-            wp_enqueue_script( 'wpbdp-admin-settings', WPBDP_URL . 'assets/js/admin-settings.js' );
+            wp_enqueue_script(
+                'wpbdp-admin-settings',
+                WPBDP_URL . 'assets/js/admin-settings.js',
+                array(),
+                WPBDP_VERSION
+            );
         }
     }
 

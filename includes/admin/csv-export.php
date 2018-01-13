@@ -14,8 +14,19 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_script( 'wpbdp-admin-export-js', WPBDP_URL . 'assets/js/admin-export.min.js', array( 'wpbdp-admin-js' ) );
-        wp_enqueue_style( 'wpbdp-admin-export-css', WPBDP_URL . 'assets/css/admin-export.min.css' );
+        wp_enqueue_script(
+            'wpbdp-admin-export-js',
+            WPBDP_URL . 'assets/js/admin-export.min.js',
+            array( 'wpbdp-admin-js' ),
+            WPBDP_VERSION
+        );
+
+        wp_enqueue_style(
+            'wpbdp-admin-export-css',
+            WPBDP_URL . 'assets/css/admin-export.min.css',
+            array(),
+            WPBDP_VERSION
+        );
     }
 
     public function dispatch() {

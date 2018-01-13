@@ -110,10 +110,19 @@ class WPBDP_Themes_Admin {
         if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] )
             return;
 
-        wp_enqueue_style( 'wpbdp-admin-themes',
-                          WPBDP_URL . 'assets/css/admin-themes.min.css' );
-        wp_enqueue_script( 'wpbdp-admin-themes',
-                           WPBDP_URL . 'assets/js/admin-themes.min.js' );
+        wp_enqueue_style(
+            'wpbdp-admin-themes',
+            WPBDP_URL . 'assets/css/admin-themes.min.css',
+            array(),
+            WPBDP_VERSION
+        );
+
+        wp_enqueue_script(
+            'wpbdp-admin-themes',
+            WPBDP_URL . 'assets/js/admin-themes.min.js',
+            array(),
+            WPBDP_VERSION
+        );
     }
 
     function set_active_theme() {

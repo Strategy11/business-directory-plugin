@@ -39,10 +39,14 @@ class WPBDP_reCAPTCHA {
         if ( ! $wpbdp->is_plugin_page() )
             return;
 
-        wp_enqueue_script( 'wpbdp-recaptcha',
-                            WPBDP_URL . 'assets/js/recaptcha.min.js',
-                            false,
-                            true );
+        wp_enqueue_script(
+            'wpbdp-recaptcha',
+            WPBDP_URL . 'assets/js/recaptcha.min.js',
+            array(),
+            WPBDP_VERSION,
+            true
+        );
+
         wp_enqueue_script( 'google-recaptcha',
                            'https://www.google.com/recaptcha/api.js?onload=wpbdp_recaptcha_callback&render=explicit' );
     }

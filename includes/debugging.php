@@ -28,12 +28,20 @@ class WPBDP_Debugging {
 	}
 
 	public static function _enqueue_scripts() {
-	    wp_enqueue_script( 'wpbdp-debugging-js',
-	                       WPBDP_URL . 'assets/js/debug.min.js',
-	                       array( 'jquery' ),
-	                       null,
-	                       true );
-		wp_enqueue_style( 'wpbdp-debugging-styles', WPBDP_URL . 'assets/css/debug.min.css' );
+        wp_enqueue_script(
+            'wpbdp-debugging-js',
+            WPBDP_URL . 'assets/js/debug.min.js',
+            array( 'jquery' ),
+            WPBDP_VERSION,
+            true
+        );
+
+        wp_enqueue_style(
+            'wpbdp-debugging-styles',
+            WPBDP_URL . 'assets/css/debug.min.css',
+            array(),
+            WPBDP_VERSION
+        );
 	}
 
 	public static function _php_error_handler($errno, $errstr, $file, $line, $context) {

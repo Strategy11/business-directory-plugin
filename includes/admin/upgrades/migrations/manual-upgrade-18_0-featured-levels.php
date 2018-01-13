@@ -284,9 +284,27 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
     public function enqueue_scripts() {
         add_thickbox();
-        wp_enqueue_style( 'wpbdp-admin', WPBDP_URL . 'assets/css/admin.min.css' );
-        wp_enqueue_style( 'wpbdp-manual-upgrade-css', WPBDP_URL . 'assets/css/admin-manual-upgrade.min.css' );
-        wp_enqueue_script( 'wpbdp-manual-upgrade' , WPBDP_URL . 'assets/js/admin-manual-upgrade.min.js', array( 'jquery' ) );
+
+        wp_enqueue_style(
+            'wpbdp-admin',
+            WPBDP_URL . 'assets/css/admin.min.css',
+            array(),
+            WPBDP_VERSION
+        );
+
+        wp_enqueue_style(
+            'wpbdp-manual-upgrade-css',
+            WPBDP_URL . 'assets/css/admin-manual-upgrade.min.css',
+            array(),
+            WPBDP_VERSION
+        );
+
+        wp_enqueue_script(
+            'wpbdp-manual-upgrade' ,
+            WPBDP_URL . 'assets/js/admin-manual-upgrade.min.js',
+            array( 'jquery' ),
+            WPBDP_VERSION
+        );
     }
     //
 
