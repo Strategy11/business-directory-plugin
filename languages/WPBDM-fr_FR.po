@@ -4015,7 +4015,7 @@ msgstr "Avancé"
 #: includes/admin/settings/class-settings-bootstrap.php:243
 msgctxt "settings"
 msgid "Disable advanced CPT integration?"
-msgstr "Désactiver les notifications par e-mail?"
+msgstr "Désactiver l'intégration avancée avec CPT?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:249
 msgctxt "settings"
@@ -8531,7 +8531,7 @@ msgstr "Adresse"
 
 #~ msgctxt "admin settings"
 #~ msgid "Disable advanced CPT integration?"
-#~ msgstr "Désactiver les notifications par e-mail."
+#~ msgstr "Désactiver l'intégration avancée avec CPT?"
 
 #~ msgctxt "admin settings"
 #~ msgid "Directory Search"
