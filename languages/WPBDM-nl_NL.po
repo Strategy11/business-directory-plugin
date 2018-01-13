@@ -3346,7 +3346,6 @@ msgid ""
 "Your listing \"[listing]\" is now available at [listing-url] and can be "
 "viewed by the public."
 msgstr ""
-"\n"
 "Je registratie \"[listing]\" is nu beschikbaar op [listing-url] en is "
 "zichtbaar voor publiek."
 
