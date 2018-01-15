@@ -159,12 +159,12 @@ class WPBDP_PaymentsAPI {
         ) );
 
         $views['pending-abandonment'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                                 esc_url( add_query_arg( 'wpbdmfilter', 'pending-abandonment' ) ),
+                                                 esc_url( add_query_arg( 'wpbdmfilter', 'pending-abandonment', remove_query_arg( 'listing_status' ) ) ),
                                                  'pending-abandonment' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
                                                  _x( 'Pending Abandonment', 'admin', 'WPBDM' ),
                                                  number_format_i18n( $count_pending ) );
         $views['abandoned'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                        esc_url( add_query_arg( 'wpbdmfilter', 'abandoned' ) ),
+                                        esc_url( add_query_arg( 'wpbdmfilter', 'abandoned', remove_query_arg( 'listing_status' ) ) ),
                                         'abandoned' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
                                         _x( 'Abandoned', 'admin', 'WPBDM' ),
                                         number_format_i18n( $count_abandoned ) );

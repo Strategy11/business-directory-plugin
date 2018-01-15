@@ -308,7 +308,7 @@ class WPBDP_Admin_Listings {
             $count = number_format_i18n( $count );
 
             $current_class = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
-            $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts' ), add_query_arg( 'listing_status', $status_id ) ) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
+            $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ), add_query_arg( 'listing_status', $status_id ) ) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
         }
 
         $views = apply_filters( 'wpbdp_admin_directory_views', $views, "'" . implode( "','", $post_statuses ) . "'" );
