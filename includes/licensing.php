@@ -628,8 +628,11 @@ class WPBDP_Licensing {
             return;
         }
 
+        $store_url = set_url_scheme( trim( self::STORE_URL, '/' ), 'https' );
+        $home_url = set_url_scheme( trim( home_url(), '/' ), 'https' );
+
         // Don't allow a plugin to ping itself.
-        if ( self::STORE_URL == home_url() ) {
+        if ( $store_url == $home_url ) {
             return;
         }
 
