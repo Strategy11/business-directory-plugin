@@ -31,7 +31,6 @@ class WPBDP_Licensing {
 
         add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
 
-        add_action( 'wpbdp_loaded', array( $this, 'maybe_check_for_updates' ) );
         add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'inject_update_info' ) );
         add_filter( 'plugins_api', array( $this, 'module_update_information' ), 10, 3 );
 
