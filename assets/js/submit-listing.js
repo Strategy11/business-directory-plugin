@@ -298,6 +298,8 @@ jQuery(function($) {
         $( '#wpbdp-submit-listing' ).on( 'keyup', '#wpbdp-submit-listing-account-details input[type="password"]', function( e ) {
             self.check_password_strength( $( this) );
         } );
+
+        $( window ).trigger( 'wpbdp_submit_init' );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
         ajax: function( data, callback ) {
@@ -332,7 +334,7 @@ jQuery(function($) {
 
             if ( this.editing ) {
                 var $plan = this.$form.find( '.wpbdp-current-plan .wpbdp-plan' );
-                var plan_cats = $plan.data( 'categories' ).toString();
+                var plan_cats = $plan.length ? $plan.data( 'categories' ).toString() : '';
 
                 if ( 'all' != plan_cats ) {
                     var supported_categories = $.map( $.unique( plan_cats.split( ',' ) ), function(x) { return parseInt(x); } );
@@ -467,6 +469,14 @@ jQuery(function($) {
     });
 
     var $submit = $( '#wpbdp-submit-listing' );
+
+    $( window ).on( 'wpbdp_submit_init', function() {
+        $submit.find( '.wpbdp-editor-area' ).each( function() {
+            var id = $( this ).attr( 'id' );
+            wp.editor.initialize( id, WPBDPTinyMCESettings[ id ] );
+        } );
+    } );
+
     if ( $submit.length > 0 )
         var x = new wpbdp.submit_listing.Handler( $submit );
 

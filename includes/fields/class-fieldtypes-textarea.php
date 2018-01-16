@@ -22,60 +22,121 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
         }
 
-        $html  = '';
-
-        if ( $this->should_show_wysiwyg_editor( $field ) ) {
-            ob_start();
-            add_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
-            add_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
-
-            wp_editor( $value ? $value: '',
-                       'wpbdp-field-' . $field->get_id(),
-                       array( 'textarea_name' => 'listingfields[' . $field->get_id() . ']',
-                              'drag_drop_upload' => false,
-                              'media_buttons' => false,
-                              'quicktags' => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false  ) );
-
-            remove_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
-            remove_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
-            ob_end_clean();
-
-            $html .= sprintf(
-                '<textarea id="%s" class="wpbdp-editor-area" name="%s">%s</textarea>',
+        if ( $this->should_show_wysiwyg_editor( $field ) && $this->can_show_wysiwyg_editor() ) {
+            $html = $this->render_wysiwyg_editor( $field, $value );
+        } else {
+            $html = sprintf(
+                '<textarea id="%s" name="%s">%s</textarea>',
                 'wpbdp-field-' . $field->get_id(),
                 'listingfields[' . $field->get_id() . ']',
                 $value ? esc_attr( $value ) : ''
             );
-
-            $html .= sprintf(
-                '<script type="text/javascript">
-                    var WPBDPTinyMCESettings = WPBDPTinyMCESettings || {};
-
-                    WPBDPTinyMCESettings[ \'%s\' ] = {
-                        \'tinymce\': %s,
-                        \'quicktags\': %s
-                    };
-                </script>',
-                'wpbdp-field-' . $field->get_id(),
-                $this->parse_tinymce_settings( $this->tinymce_settings ),
-                $this->parse_tinymce_settings( $this->quicktags_settings )
-            );
-        } else {
-            $html .= sprintf('<textarea id="%s" name="%s">%s</textarea>',
-                             'wpbdp-field-' . $field->get_id(),
-                             'listingfields[' . $field->get_id() . ']',
-                             $value ? esc_attr( $value ) : '' );
         }
 
         return $html;
     }
 
     private function should_show_wysiwyg_editor( $field ) {
+        return 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' );
+    }
+
+    private function can_show_wysiwyg_editor() {
         if ( ! function_exists( 'wp_enqueue_editor' ) ) {
             return false;
         }
 
-        return 'content' == $field->get_association() && $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' );
+        $wp_editor_path = ABSPATH . WPINC . '/class-wp-editor.php' ;
+
+        if ( ! file_exists( $wp_editor_path ) ) {
+            return false;
+        }
+
+        require_once( $wp_editor_path );
+
+        if ( ! class_exists( '_WP_Editors' ) ) {
+            return false;
+        }
+
+        if ( ! method_exists( '_WP_Editors', 'parse_settings' ) || ! method_exists( '_WP_Editors', 'editor_settings' ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function render_wysiwyg_editor( $field, $value ) {
+        wp_enqueue_editor();
+
+        // _WP_Editors::editor_settings() schedules editor_js() and enqueue_scripts()
+        // static class methods to print initialization for the core editor.
+        //
+        // We call editor_settings() to get the same settings used in the core editor,
+        // but we don't want the initialization code. If editor_js() and
+        // enqueue_scripts() are not already scheduled, we will remove them as
+        // action handlers a few lines below.
+        if ( is_admin() ) {
+            $action_name = 'admin_print_footer_scripts';
+        } else {
+            $action_name = 'wp_print_footer_scripts';
+        }
+
+        $is_editor_js_scheduled = has_action( $action_name, array( '_WP_Editors', 'editor_js' ) );
+        $is_enqueue_scripts_scheduled = has_action( $action_name, array( '_WP_Editors', 'enqueue_scripts' ) );
+
+        // _WP_Editors does not offers direct access to the TinyMCE and QuickTags
+        // arrays of settings.
+        add_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
+        add_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
+
+        $settings = array(
+            'drag_drop_upload' => false,
+            'media_buttons' => false,
+            'quicktags' => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false,
+        );
+
+        // Trick _WP_Editors into generating the array of TinyMCE and QuickTags
+        // settings for us, as it would be generated for the core editor.
+        $settings = _WP_Editors::parse_settings( 'wpbdp-field-' . $field->get_id(), $settings );
+        _WP_Editors::editor_settings( 'wpbdp-field-' . $field->get_id(), $settings );
+
+        // We are interested in this editor's settings only.
+        remove_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
+        remove_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
+
+        // Removing _WP_Editors::editor_js if it was not previously configured
+        // as a handler.
+        if ( ! $is_editor_js_scheduled ) {
+            remove_action( $action_name, array( '_WP_Editors', 'editor_js' ), 50 );
+        }
+
+        // Removing _WP_Editors::enqueue_scripts() if it was not previously
+        // configured as a handler.
+        if ( ! $is_enqueue_scripts_scheduled ) {
+            remove_action( $action_name, array( '_WP_Editors', 'enqueue_scripts' ), 1 );
+        }
+
+        $html = sprintf(
+            '<textarea id="%s" class="wpbdp-editor-area" name="%s">%s</textarea>',
+            'wpbdp-field-' . $field->get_id(),
+            'listingfields[' . $field->get_id() . ']',
+            $value ? esc_attr( $value ) : ''
+        );
+
+        $html.= sprintf(
+            '<script type="text/javascript">
+                var WPBDPTinyMCESettings = WPBDPTinyMCESettings || {};
+
+                WPBDPTinyMCESettings[ \'%s\' ] = {
+                    \'tinymce\': %s,
+                    \'quicktags\': %s
+                };
+            </script>',
+            'wpbdp-field-' . $field->get_id(),
+            $this->parse_tinymce_settings( $this->tinymce_settings ),
+            $this->parse_tinymce_settings( $this->quicktags_settings )
+        );
+
+        return $html;
     }
 
     public function capture_tinymce_settings( $settings, $editor_id ) {
