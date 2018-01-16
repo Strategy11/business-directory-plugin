@@ -1,5 +1,6 @@
 <?php
-// set_site_transient( 'wpbdp_updates', null );
+
+// set_transient( 'wpbdp_updates', null );
 // set_site_transient( 'update_plugins', null );
 
 
@@ -12,8 +13,6 @@ class WPBDP_Licensing {
 
     private $items = array(); // Items (modules and/or themes) registered with the Licensing API.
     private $licenses = array(); // License information: status, last check, etc.
-    private $updates = array(); // Update information: versions, download URL, etc.
-
 
     public function __construct() {
         $this->licenses = get_option( 'wpbdp_licenses', array() );
@@ -620,11 +619,9 @@ class WPBDP_Licensing {
         }
     }
 
-    public function maybe_check_for_updates( $force_refresh = false ) {
-        do_action( 'wpbdp_licensing_before_updates_check' );
-
+    public function get_version_information() {
         if ( ! $this->items ) {
-            return;
+            return array();
         }
 
         $store_url = set_url_scheme( trim( self::STORE_URL, '/' ), 'https' );
@@ -632,30 +629,21 @@ class WPBDP_Licensing {
 
         // Don't allow a plugin to ping itself.
         if ( $store_url == $home_url ) {
-            return;
+            return array();
         }
 
-        $this->updates = get_transient( 'wpbdp_updates' );
+        $updates = get_transient( 'wpbdp_updates' );
         $needs_refresh = false;
 
-        if ( $force_refresh ) {
-            $needs_refresh = true;
-        } else {
-            if ( ! is_array( $this->updates ) ) {
+        foreach ( $this->items as $item ) {
+            if ( ! isset( $updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
                 $needs_refresh = true;
-            } else {
-                foreach ( $this->items as $item ) {
-                    if ( ! isset( $this->updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
-                        // wpbdp_debug_e( $item, $this->updates );
-                        $needs_refresh = true;
-                        break;
-                    }
-                }
+                break;
             }
         }
 
         if ( ! $needs_refresh ) {
-            return;
+            return $updates;
         }
 
         $args = array(
@@ -664,44 +652,48 @@ class WPBDP_Licensing {
             'items'      => array(),
             'url'        => home_url()
         );
+
         foreach ( $this->items as $item ) {
             $args['licenses'][] = wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] );
             $args['items'][] = $item['name'];
         }
 
         $request = wp_remote_post( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
+
         if ( is_wp_error( $request ) ) {
-            return;
+            return array();
         }
 
         $body = wp_remote_retrieve_body( $request );
         $body = json_decode( $body );
 
         if ( ! is_array( $body ) ) {
-            return;
+            return array();
         }
 
-        foreach ( $body as $i => $b ) {
-            if ( isset( $b->sections ) ) {
-                $body[ $i ]->sections = maybe_unserialize( $b->sections );
+        foreach ( $body as $i => $item_information ) {
+            if ( isset( $item_information->sections ) ) {
+                $body[ $i ]->sections = maybe_unserialize( $item_information->sections );
             }
         }
 
         // Some processing.
-        $this->updates = array();
+        $updates = array();
 
         foreach ( $this->items as $item ) {
             $item_key = $item['item_type'] . '-' . $item['id'];
 
-            foreach ( $body as $b ) {
-                if ( $b->name == $item['name'] ) {
-                    $this->updates[ $item_key ]       = $b;
-                    $this->updates[ $item_key ]->slug = $item['id'];
+            foreach ( $body as $item_information ) {
+                if ( $item_information->name == $item['name'] ) {
+                    $updates[ $item_key ]       = $item_information;
+                    $updates[ $item_key ]->slug = $item['id'];
                 }
             }
         }
 
-        set_transient( 'wpbdp_updates', $this->updates, 1 * WEEK_IN_SECONDS );
+        set_transient( 'wpbdp_updates', $updates, 1 * DAY_IN_SECONDS );
+
+        return $updates;
     }
 
     /**
@@ -713,13 +705,14 @@ class WPBDP_Licensing {
         }
 
         global $pagenow;
+
         if ( 'plugins.php' == $pagenow && is_multisite() ) {
             return $transient;
         }
 
-        $this->maybe_check_for_updates( true );
+        $updates = $this->get_version_information();
 
-        if ( ! $this->updates ) {
+        if ( ! $updates ) {
             return $transient;
         }
 
@@ -728,7 +721,7 @@ class WPBDP_Licensing {
         foreach ( $modules as $module ) {
             $item_key = $module['item_type'] . '-' . $module['id'];
 
-            if ( ! isset( $this->updates[ $item_key ] ) ) {
+            if ( ! isset( $updates[ $item_key ] ) ) {
                 continue;
             }
 
@@ -738,12 +731,12 @@ class WPBDP_Licensing {
                 continue;
             }
 
-            if ( ! isset( $this->updates[ $item_key ]->new_version ) ) {
+            if ( ! isset( $updates[ $item_key ]->new_version ) ) {
                 continue;
             }
 
-            if ( version_compare( $module['version'], $this->updates[ $item_key ]->new_version, '<' ) ) {
-                $transient->response[ $wp_name ] = $this->updates[ $item_key ];
+            if ( version_compare( $module['version'], $updates[ $item_key ]->new_version, '<' ) ) {
+                $transient->response[ $wp_name ] = $updates[ $item_key ];
             }
 
             $transient->last_checked = current_time( 'timestamp' );
