@@ -674,7 +674,7 @@ class WPBDP_Licensing {
             $args['items'][] = $item['name'];
         }
 
-        $request = wp_remote_post( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
+        $request = wp_remote_get( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
 
         if ( is_wp_error( $request ) ) {
             return array();
