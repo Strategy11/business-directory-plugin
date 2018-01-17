@@ -523,15 +523,31 @@ class WPBDP_Licensing {
     }
 
     public function license_check() {
-        if ( ! $this->items )
+        $last_license_check = get_site_transient( 'wpbdp-license-check-time' );
+
+        if ( ! empty( $last_license_check ) ) {
             return;
+        }
+
+        $this->licenses = $this->get_licenses_status();
+        update_option( 'wpbdp_licenses', $this->licenses );
+
+        set_site_transient( 'wpbdp-license-check-time', current_time( 'timestamp' ), 1 * WEEK_IN_SECONDS );
+    }
+
+    public function get_licenses_status() {
+        if ( ! $this->items ) {
+            return array();
+        }
+
+        $licenses = array();
 
         foreach ( $this->items as $item ) {
             $item_key = $item['item_type'] . '-' . $item['id'];
             $key = wpbdp_get_option( 'license-key-' . $item_key );
 
             if ( ! $key ) {
-                $this->licenses[ $item_key ] = array(
+                $licenses[ $item_key ] = array(
                     'status'       => 'invalid',
                     'last_checked' => time()
                 );
@@ -556,7 +572,7 @@ class WPBDP_Licensing {
                 continue;
             }
 
-            $this->licenses[ $item_key ] = array(
+            $licenses[ $item_key ] = array(
                 'status'       => $response_obj->license,
                 'license_key'  => $key,
                 'expires'      => isset( $response_obj->expires ) ? $response_obj->expires : '',
@@ -564,7 +580,7 @@ class WPBDP_Licensing {
             );
         }
 
-        update_option( 'wpbdp_licenses', $this->licenses );
+        return $licenses;
     }
 
     public function ajax_activate_license() {
