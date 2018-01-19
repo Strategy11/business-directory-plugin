@@ -86,18 +86,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             <span class="display-value" id="wpbdp-listing-plan-prop-is_sticky">
                 <?php echo $current_plan && $current_plan->is_sticky ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
             </span>
-            <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
-            <div class="value-editor">
-                <label>
-                    <input type="checkbox" name="listing_plan[is_sticky]" value="1" <?php checked( $current_plan && $current_plan->is_sticky ); ?>>
-                    <?php _ex( 'Make featured', 'listing metabox', 'WPBDM' ); ?>
-                </label>
-
-                <p>
-                    <a href="#" class="update-value button"><?php _ex( 'OK', 'listing metabox', 'WPBDM' ); ?></a>
-                    <a href="#" class="cancel-edit button-cancel"><?php _ex( 'Cancel', 'listing metabox', 'WPBDM' ); ?></a>
-                </p>
-            </div>
+<!-- Removed the ability to set a listing as "Featured" in "info" metabox for 5.1.6 according to instructions on issue #3413 -->
         </dd>
         <dt><?php _ex( 'Is Recurring?', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
