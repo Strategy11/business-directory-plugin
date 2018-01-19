@@ -613,6 +613,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return false;
         }
 
+        $validation_error = '';
+
         if ( ! empty( $_POST['thumbnail_id'] ) )
             $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
 
@@ -637,6 +639,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
                 $images_meta[ $img_id ] = $updated_meta;
             }
+        }
+
+        if ( ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
+            $this->prevent_save = true;
+            $this->messages( _x( 'Image upload is required, please provide at least one image and submit again.', 'listing submit', 'WPBDM' ), 'error', 'listing_images' );
         }
 
         $thumbnail_id = $this->listing->get_thumbnail_id();

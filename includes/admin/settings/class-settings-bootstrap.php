@@ -659,6 +659,13 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_settings_group( 'image/listings', _x( 'Listings', 'settings', 'WPBDM' ), 'appearance/image' );
         wpbdp_register_setting( array(
+            'id'      => 'enforce-image-upload',
+            'type'    => 'checkbox',
+            'name'    => _x( 'Enforce image upload on submit/edit?', 'settings', 'WPBDM' ),
+            'default' => false,
+            'group'   => 'image/listings'
+        ) );
+        wpbdp_register_setting( array(
             'id'      => 'free-images',
             'type'    => 'number',
             'name'    => _x( 'Number of free images', 'settings', 'WPBDM' ),
