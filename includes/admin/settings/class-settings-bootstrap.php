@@ -99,6 +99,12 @@ final class WPBDP__Settings__Bootstrap {
             'group'   => 'recaptcha'
         ) );
         wpbdp_register_setting( array(
+            'id'      => 'recaptcha-for-flagging',
+            'type'    => 'checkbox',
+            'name'    => _x( 'Use reCAPTCHA for report listings?', 'settings', 'WPBDM' ),
+            'group' => 'recaptcha'
+        ) );
+        wpbdp_register_setting( array(
             'id'      => 'recaptcha-for-comments',
             'type'    => 'checkbox',
             'name'    => _x( 'Use reCAPTCHA for listing comments?', 'settings', 'WPBDM' ),
@@ -309,6 +315,31 @@ final class WPBDP__Settings__Bootstrap {
             'group' => 'listings/main'
         ) );
 
+        wpbdp_register_settings_group( 'listings/report', _x( 'Report Listings', 'settings', 'WPBDM' ), 'listings/main' );
+        wpbdp_register_setting( array(
+            'id'      => 'enable-listing-flagging',
+            'type'    => 'checkbox',
+            'name'    => _x( 'Include button to report listings?', 'settings', 'WPBDM' ),
+            'default' => false,
+            'group' => 'listings/report'
+        ) );
+        wpbdp_register_setting( array(
+            'id'      => 'listing-flagging-register-users',
+            'type'    => 'checkbox',
+            'name'    => _x( 'Enable report listing for registered users only', 'settings', 'WPBDM' ),
+            'default' => true,
+            'group'   => 'listings/report',
+            'requirements' => array( 'enable-listing-flagging' )
+        ) );
+        wpbdp_register_setting( array(
+            'id'      => 'listing-flagging-options',
+            'type'    => 'textarea',
+            'name'    => _x( 'Report listing option list', 'settings', 'WPBDM' ),
+            'desc'    => _x( 'Form option list to report a listing as inappropriate. One option per line.', 'settings', 'WPBDM' ),
+            'default' => false,
+            'group'   => 'listings/report',
+            'requirements' => array( 'enable-listing-flagging' )
+        ) );
 
         wpbdp_register_settings_group( 'listings/contact', _x( 'Contact Form', 'settings', 'WPBDM' ), 'listings/main' );
         wpbdp_register_setting( array(
@@ -842,6 +873,7 @@ final class WPBDP__Settings__Bootstrap {
                 'listing-edit'    => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
                 'renewal'         => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
                 'after_renewal'   => _x( 'A listing is renewed.', 'admin settings', 'WPBDM' ),
+                'flagging_listing'=> _x( 'A listing has been reported as inappropriate.', 'admin settings', 'WPBDM' ),
                 'listing-contact' => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' )
             ),
             'group' => 'email_notifications'
@@ -866,7 +898,7 @@ final class WPBDP__Settings__Bootstrap {
             'default' => array( 'new-listing', 'listing-published' ),
             'options' => array(
                 'new-listing'       => _x( 'Their listing is submitted.', 'admin settings', 'WPBDM' ),
-                'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' )
+                'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' ),
             ),
             'group' => 'email_notifications'
         ) );

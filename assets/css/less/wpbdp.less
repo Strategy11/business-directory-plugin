@@ -93,6 +93,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .listing-actions input {
     margin: 0;
+    font-size: 80%;
 }
 
 .listing-actions input.delete-listing {
@@ -102,7 +103,7 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .listing-actions .back-to-dir {
-/*    margin-left: 25px;*/
+    float: right;
 }
 
 .listing-actions a.button {
@@ -551,9 +552,21 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     display: none;
 }
 
+input[type="button"].wpbdp-show-on-mobile {
+    display: none;
+}
+
 @media screen and (max-width: 500px) {
     .wpbdp-show-on-mobile {
         display: inline !important;
+    }
+
+    input[type="button"].wpbdp-hide-on-mobile {
+        display: none;
+    }
+
+    input[type="button"].wpbdp-show-on-mobile {
+        padding: 1em 2em;
     }
 
     .wpbdp-hide-on-mobile {
@@ -603,7 +616,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     }
 
     .wpbdp-listing .listing-actions input {
-        font-size: 85%;
+        font-size: 70%;
     }
 
     .wpbdp-listing .listing-actions input.back-to-dir {
@@ -1015,5 +1028,13 @@ body.business-directory #TB_secondLine {
         .select2-search__field {
             font-size: 11px;
         }
+    }
+}
+
+#wpbdp-listing-flagging-page {
+    textarea {
+        width: 90%;
+        min-height: 150px;
+        margin-bottom: 10px;
     }
 }

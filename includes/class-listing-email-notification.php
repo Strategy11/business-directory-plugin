@@ -12,6 +12,8 @@ class WPBDP__Listing_Email_Notification {
         add_action( 'wpbdp_listing_renewed', array( $this, 'listing_renewal_email' ), 10, 3 );
 
         add_action( 'wpbdp_listing_maybe_send_notices', array( $this, 'send_notices' ), 10, 3 );
+
+        add_action( 'wpbdp_listing_maybe_flagging_notice', array( $this, 'reported_listing_email' ), 10, 2 );
     }
 
     /**
@@ -207,6 +209,21 @@ class WPBDP__Listing_Email_Notification {
 
         // Notify users.
         do_action( 'wpbdp_listing_maybe_send_notices', 'renewal', '0 days', $listing );
+    }
+
+    public function reported_listing_email( $listing, $report ) {
+        // Notify the admin.
+        if ( in_array( 'flagging_listing', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+            $admin_email = new WPBDP_Email();
+            $admin_email->subject = sprintf( _x( '[%s] Reported listing notification', 'notify email', 'WPBDM' ), get_bloginfo( 'name' ) );
+            $admin_email->to[] = get_bloginfo( 'admin_email' );
+
+            if ( wpbdp_get_option( 'admin-notifications-cc' ) )
+                $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+
+            $admin_email->body = wpbdp_render( 'email/listing-reported', array( 'listing' => $listing, 'report' => $report ), false );
+            $admin_email->send();
+        }
     }
 
 }

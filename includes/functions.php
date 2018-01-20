@@ -312,6 +312,14 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
             }
             // return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
             break;
+        case 'flagging':
+            if ( wpbdp_get_option( 'listing-flagging-register-users' ) ) {
+                $res = is_user_logged_in() && false === WPBDP__Listing_Flagging::user_has_flagged( $listing_id, get_current_user_id() );
+            } else {
+                $res = true;
+            }
+
+            break;
         case 'edit':
         case 'delete':
             $res = user_can( $user_id, 'administrator' );
@@ -569,6 +577,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'request_access_keys':
             $url = add_query_arg( 'wpbdp_view', $pathorview, $base_url );
             break;
+        case 'flag_listing':
         case 'delete_listing':
         case 'edit_listing':
         case 'listing_contact':
@@ -1011,3 +1020,19 @@ function wpbdp_get_edit_post_link( $listing_id ){
 
     return $link;
 }
+
+/**
+ * @since 5.1.6
+ */
+function wpbdp_get_client_ip_address() {
+    $ip = '0.0.0.0';
+
+    $check_vars = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+
+    foreach ($check_vars as $varname) {
+        if (isset($_SERVER[$varname]) && !empty($_SERVER[$varname]))
+            return $_SERVER[$varname];
+    }
+
+    return $ip;
+ }

@@ -665,7 +665,7 @@ class WPBDP_Listing {
             'pending_upgrade' => _x( 'Pending Upgrade', 'listing status', 'WPBDM' ),
             'expired' => _x( 'Expired', 'listing status', 'WPBDM' ),
             'pending_renewal' => _x( 'Pending Renewal', 'listing status', 'WPBDM' ),
-            'abandoned' => _x( 'Abandoned', 'listing status', 'WPBDM' )
+            'abandoned' => _x( 'Abandoned', 'listing status', 'WPBDM' ),
         );
         $stati = apply_filters( 'wpbdp_listing_stati', $stati );
 
@@ -831,5 +831,4 @@ class WPBDP_Listing {
         $l->new = false;
         return $l;
     }
-
 }

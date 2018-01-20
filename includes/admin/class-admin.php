@@ -743,15 +743,22 @@ to how WordPress stores the data.", 'WPBDM' )
 
                 break;
 
+            case 'delete-flagging':
+                WPBDP__Listing_Flagging::remove_flagging( $_GET['listing_id'], $_GET['meta_pos'] );
+
+                $this->messages[] = _nx( 'Listing report deleted.', 'Listing reports deleted.', $_GET['meta_pos'] == 'all' ? 2 : 1, 'admin', 'WPBDM' );
+                break;
+
             case 'send-access-keys':
                 $this->send_access_keys( $posts );
                 break;
+
             default:
                 do_action( 'wpbdp_admin_directory_handle_action', $action );
                 break;
         }
 
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id'), $_SERVER['REQUEST_URI'] );
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), $_SERVER['REQUEST_URI'] );
     }
 
     private function send_access_keys( $posts ) {

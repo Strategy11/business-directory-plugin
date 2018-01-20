@@ -168,6 +168,17 @@ class WPBDP_Admin_Listings {
                       WPBDP_POST_TYPE,
                       'normal',
                       'core' );
+
+        if ( wpbdp_get_option( 'enable-listing-flagging' ) ) {
+            add_meta_box(
+                'wpbdp-listing-flagging',
+                __( 'Listing Reports', 'WPBDM' ),
+                array( $this, '_metabox_listing_flagging' ),
+                WPBDP_POST_TYPE,
+                'normal',
+                'core'
+            );
+        }
     }
 
     public function _metabox_listing_info( $post ) {
@@ -181,6 +192,13 @@ class WPBDP_Admin_Listings {
         $timeline = new WPBDP__Listing_Timeline( $post->ID );
 
         echo $timeline->render();
+    }
+
+    public function _metabox_listing_flagging( $post ) {
+        require_once( WPBDP_PATH . 'includes/admin/helpers/class-listing-flagging-metabox.php' );
+        $flagging_metabox = new WPBDP__Admin__Metaboxes__Listing_Flagging( $post->ID );
+
+        echo $flagging_metabox->render();
     }
 
     // {{{ Custom columns.
@@ -270,6 +288,10 @@ class WPBDP_Admin_Listings {
                 $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
         }
 
+        if ( count( WPBDP__Listing_flagging::get_flagging_meta( $listing->get_id() ) ) ) {
+            $attributes['reported'] = '<span class="wpbdp-tag wpbdp-listing-attr-reported">' . _x( 'Reported', 'admin listings', 'WPBDM' ) . '</span>';
+        }
+
         $attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
 
         foreach ( $attributes as $attr ) {
@@ -310,6 +332,20 @@ class WPBDP_Admin_Listings {
             $current_class = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
             $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ), add_query_arg( 'listing_status', $status_id ) ) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
         }
+      
+        if ( wpbdp_get_option( 'enable-listing-flagging' ) ) {
+            $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND pm.meta_key = '_wpbdp_flagged' AND pm.meta_value = 1", WPBDP_POST_TYPE ) ) );
+
+            if ( $count > 0 ) {
+                $views['reported'] = sprintf(
+                    '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
+                    esc_url( add_query_arg( 'listing_status', 'reported' ) ),
+                    wpbdp_getv( $_REQUEST, 'listing_status' ) == 'reported' ? 'current' : '',
+                    _x( 'Reported', 'listing status', 'WPBDM' ),
+                    number_format_i18n( $count )
+                );
+            }
+        }      
 
         $views = apply_filters( 'wpbdp_admin_directory_views', $views, "'" . implode( "','", $post_statuses ) . "'" );
 
@@ -329,6 +365,11 @@ class WPBDP_Admin_Listings {
         if ( in_array( $status_filter, array_keys( WPBDP_Listing::get_stati() ), true ) ) {
             $pieces['join']  .= " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
             $pieces['where'] .= $wpdb->prepare( "AND ls.listing_status = %s", $status_filter );
+        }
+
+        if ( 'reported' == $status_filter ) {
+            $pieces['join']  .= " LEFT JOIN {$wpdb->postmeta} pm ON pm.post_id = {$wpdb->posts}.ID ";
+            $pieces['where'] .= $wpdb->prepare( " AND pm.meta_key = %s AND pm.meta_value = %d", '_wpbdp_flagged', 1 );
         }
 
         if ( $other_filter )
