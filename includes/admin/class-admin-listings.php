@@ -334,7 +334,10 @@ class WPBDP_Admin_Listings {
         }
       
         if ( wpbdp_get_option( 'enable-listing-flagging' ) ) {
-            $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses}) AND pm.meta_key = '_wpbdp_flagged' AND pm.meta_value = 1", WPBDP_POST_TYPE ) ) );
+            global $wpdb;
+
+            $post_statuses_string = "'publish', 'draft', 'pending'";
+            $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses_string}) AND pm.meta_key = %s AND pm.meta_value = %d", WPBDP_POST_TYPE, '_wpbdp_flagged', 1 ) ) );
 
             if ( $count > 0 ) {
                 $views['reported'] = sprintf(
