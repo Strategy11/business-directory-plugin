@@ -398,7 +398,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-msg.error, .wpbdp-msg.wpbdp-error {
     color: #fff;
-    background: #d64226;
+    background: @red;
 }
 
 .wpbdp-msg.tip {
@@ -435,22 +435,12 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 #wpbdp-renewal-page .do-not-renew-listing {
-    margin: 40px 0;
-    border: solid 1px #eee;
-    font-size: 95%;
-}
+    .wpbdp-rounded-box;
 
-#wpbdp-renewal-page .do-not-renew-listing .header {
-    background: #bc0b0b;
-    color: #fff;
-    text-align: center;
-    font-weight: bold;
-    padding: 2px 0;
+    background-color: @gray;
 }
-
 #wpbdp-renewal-page .do-not-renew-listing input[type="submit"] {
-    /*border: solid 1px #bc0b0b;*/
-    color: #900000;
+    background: @red;
 }
 
 .wpbdp-recaptcha-error {
@@ -499,6 +489,15 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 }
 
 #wpbdp-manage-recurring-cancel .cancel-instructions {
+}
+
+.wpbdp-cancel-subscription-form {
+    .wpbdp-rounded-box;
+
+    background-color: @gray;
+}
+.wpbdp-cancel-subscription-form input.button-primary[type="submit"] {
+    background-color: @red;
 }
 
 /* {{ Credit Card details form. */

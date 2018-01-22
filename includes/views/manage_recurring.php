@@ -14,110 +14,104 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
             return wpbdp_render( 'parts/login-required', array(), false );
         }
 
-        $this->subscriptions = $this->get_subscription_info();
+        $action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : 'index';
 
-        if ( ! $this->subscriptions )
-            return wpbdp_render_msg( _x( 'You are not on recurring payments for any of your listings.', 'manage subscriptions', 'WPBDM' ) );
-
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'subscription' ) );
-
-        if ( isset( $_GET['cancel'] ) && $_GET['cancel'] )
-            return $this->cancel_subscription();
-        else
-            return $this->subscription_list();
-    }
-
-    // FIXME: before next-release.
-    private function get_subscription_info() {
-        // global $wpdb;
-        // $listings = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s",
-        //                                             get_current_user_id(),
-        //                                             WPBDP_POST_TYPE ) );
-        // $info = array();
-        //
-        // foreach ( $listings as $listing_id ) {
-        //     $listing = WPBDP_Listing::get( $listing_id );
-        //
-        //     if ( ! $listing )
-        //         continue;
-        //
-        //     $categories = $listing->get_categories( 'all' );
-        //
-        //     foreach ( $categories as $cat ) {
-        //         if ( ! $cat->recurring )
-        //             continue;
-        //
-        //         if ( ! isset( $info[ $listing_id ] ) )
-        //             $info[ $listing_id ] = array( 'listing' => $listing, 'subscriptions' => array() );
-        //
-        //         $info[ $listing_id ]['subscriptions'][] = $cat;
-        //     }
-        // }
-        //
-        // return $info;
-    }
-
-    private function subscription_list() {
-        return wpbdp_render( 'manage-recurring', array( 'subscriptions' => $this->subscriptions ), false );
-    }
-
-    private function decode_subscription_hash( $hash = '' ) {
-        $hash = urldecode( trim( $hash ) );
-
-        if ( ! $hash )
-            return false;
-
-        parse_str( base64_decode( $hash ), $hash_data );
-
-        if ( ! $hash_data || ! isset( $hash_data['listing_id'] ) || ! isset( $hash_data['category_id'] ) )
-            return false;
-
-        $listing = WPBDP_Listing::get( intval( $hash_data['listing_id'] ) );
-        $category_id = intval( $hash_data['category_id'] );
-
-        if ( ! $listing || ! $category_id || $listing->get_author_meta( 'ID' ) != get_current_user_id() )
-            return false;
-
-        $category_info = $listing->get_category_info( $category_id );
-
-        if ( ! $category_info || ! $category_info->recurring )
-            return false;
-
-        return compact( 'listing', 'category_info' );
-    }
-
-    private function cancel_subscription() {
-        $data = $this->decode_subscription_hash( isset( $_GET['cancel'] ) ? $_GET['cancel'] : '' );
-
-        if ( ! $data )
-            return wpbdp_render_msg( _x( 'Invalid subscription.', 'manage subscriptions', 'WPBDM' ), 'error' );
-
-        $payment = (! empty( $data['category_info']->payment_id ) ) ? WPBDP_Payment::get( $data['category_info']->payment_id ) : false;
-
-        $html = '';
-        $html .= '<p><a href="' . esc_url( wpbdp_get_page_link( 'deletelisting', $data['listing']->get_id() ) ) . '">' . _x( '← Return to "Delete Listing".', 'manage subscriptions', 'WPBDM' ) . '</a></p>';
-
-        if ( ! $payment && ! $data['category_info']->recurring_id ) {
-            // This is a 'false' positive (probably an incomplete payment that was manually approved).
-            $data['listing']->cancel_recurring();
-
-            $html .= wpbdp_render_msg( _x( 'Subscription canceled.', 'manage subscriptions', 'WPBDM' ) );
-
-            $this->subscriptions = $this->get_subscription_info(); // Refresh subscription info.
-
-            $html .= $this->subscription_list();
-
-            return $html;
+        if ( 'cancel-subscription' == $action ) {
+            return $this->do_cancel_subscription();
         }
 
-        global $wpbdp;
-        $unsubscribe_form = $wpbdp->payments->render_unsubscribe_integration( $data['category_info'],
-                                                                              $data['listing'] );
-
-        $html .= wpbdp_render( 'manage-recurring-cancel', array( 'listing' => $data['listing'],
-                                                                 'subscription' => $data['category_info'],
-                                                                 'unsubscribe_form' => $unsubscribe_form ) );
-        return $html;
+        return $this->render_subscription_list();
     }
 
+    private function do_cancel_subscription() {
+        if ( ! empty( $_GET['listing'] ) ) {
+            $listing_id = absint( $_GET['listing'] );
+            $listing = wpbdp_get_listing( $listing_id );
+        } else {
+            $listing_id = 0;
+            $listing = null;
+        }
+
+        if ( ! $listing ) {
+            $message = _x( "The listing with id = <listing-id> doesn't exists.", 'manage subscription', 'WPBDM' );
+            $message = str_replace( '<listing-id>', $listing_id, $message );
+
+            return wpbdp_render_msg( $message, 'error' );
+        }
+
+        if ( ! empty( $_GET['nonce'] ) ) {
+            $cancel_subscription_nonce = $_GET['nonce'];
+        } else {
+            $cancel_subscription_nonce = '';
+        }
+
+        if ( ! $cancel_subscription_nonce || wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ) != $cancel_subscription_nonce ) {
+            $message = _x( 'You are not authorized to cancel this subscription. The link you followed is invalid.', 'manage subscriptions', 'WPBDM' );
+            return wpbdp_render_msg( $message, 'error' );
+        }
+
+        try {
+            $subscription = new WPBDP__Listing_Subscription( $listing->get_id() );
+        } catch ( Exception $e ) {
+            $subscription = null;
+        }
+
+        if ( ! $subscription ) {
+            return wpbdp_render_msg( _x( 'Invalid subscription.', 'manage subscriptions', 'WPBDM' ), 'error' );
+        }
+
+        if ( ! empty( $_POST['return-to-subscriptions'] ) ) {
+            $this->_redirect( remove_query_arg( array( 'action', 'listing', 'nonce' ) ) );
+        }
+
+        if ( ! empty( $_POST['cancel-subscription'] ) ) {
+            return $this->cancel_subscription( $listing, $subscription );
+        }
+
+        return $this->render_cancel_subscription_page( $listing, $subscription );
+    }
+
+    public function cancel_subscription( $listing, $subscription ) {
+        global $wpbdp;
+
+        try {
+            $wpbdp->payments->cancel_subscription( $listing, $subscription );
+        } catch ( Exception $e ) {
+            return wpbdp_render_msg( $e->getMessage(), 'error' );
+        }
+
+        return wpbdp_render_msg( _x( 'Your subscription was canceled.', 'manage subscriptions', 'WPBDM' ) );
+    }
+
+    public function render_cancel_subscription_page( $listing, $subscription ) {
+        $params = array(
+            'listing' => $listing,
+            'plan' => $listing->get_fee_plan(),
+            'subscription' => $subscription,
+        );
+
+        return wpbdp_render( 'manage-recurring-cancel', $params );
+    }
+
+    private function render_subscription_list() {
+        $listings = $this->get_recurring_listings();
+
+        if ( ! $listings ) {
+            return wpbdp_render_msg( _x( 'You are not on recurring payments for any of your listings.', 'manage listings', 'WPBDM' ) );
+        }
+
+        return wpbdp_render( 'manage-recurring', array( 'listings' => $listings ), false );
+    }
+
+    private function get_recurring_listings() {
+        global $wpdb;
+
+        $sql = "SELECT * FROM {$wpdb->posts} p ";
+        $sql.= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
+        $sql.= 'WHERE post_type = %s AND post_author = %d AND is_recurring = %d ';
+
+        $listings = $wpdb->get_col( $wpdb->prepare( $sql, WPBDP_POST_TYPE, get_current_user_id(), true ) );
+
+        return array_map( 'wpbdp_get_listing', $listings );
+    }
 }
