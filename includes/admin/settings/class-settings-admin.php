@@ -238,7 +238,7 @@ class WPBDP__Settings_Admin {
         foreach ( $setting['options'] as $option_value => $option_label ) {
             echo '<div class="wpbdp-settings-radio-option">';
             echo '<input type="radio" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $option_value ) . '" ' . checked( $option_value, $value, false ) . ' id="wpbdp-settings-' . $setting['id'] . '-radio-' . $option_value . '" />';
-            echo '<label>';
+            echo '<label for="wpbdp-settings-' . $setting['id'] . '-radio-' . $option_value . '">';
             echo $option_label;
             echo '</label>';
             echo '</div>';
