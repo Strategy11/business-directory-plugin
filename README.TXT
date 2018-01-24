@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.9.2
-Last Updated: 2018-Jan-2
-Stable tag: 5.1.4
+Last Updated: 2018-Jan-24
+Stable tag: 5.1.6
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,6 +143,28 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 5.1.6 =
+* Add support to require that one image is uploaded with a listing.
+* Add Flag Listing feature.
+* Use plugin/module version to register scripts and styles.
+* Fix error in renewal email.
+* Fix incorrect translation to French for "Disable advanced CPT integration" setting.
+* Prevent more than one filter set as "current" in Directory list.
+* Improve behavior of TinyMCE editor on Submit and Edit Listing views.
+* Remove the ability to edit the “Featured” status from “Listing Information” metabox.
+* Restore Renew Listing and Manage Recurring Payments views.
+* Add “for” attribute to radio buttons “label” tags in settings page.
+* Reduce number of requests to get version information and check for license status.
+* If you configured the plugin to send copy (CC) of admin notifications to a different email address, the Claim Listing notification messages will now be send to that other address as well.
+
+= Version 5.1.5 =
+* Add deprecation comment for login-required template.
+* Fix PHP warnings and notices on Add New Listing admin screen.
+* Fix PHP Fatal error on Payments API.
+* Render 3rd party shortcodes on All Listings & Search views.
+* Update Manage Listings View to support Login URL setting.
+* Update store URL to use HTTPS.
+
 = Version 5.1.4 =
 * Fix SQL errors on functions that configured views for Directory admin screen.
 * Prevent SQL trying to count number of listings on categories and regions.
