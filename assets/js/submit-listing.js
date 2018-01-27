@@ -331,9 +331,10 @@ jQuery(function($) {
 
         plan_handling: function() {
             this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit, this.editing );
+            this.skip_plan_selection = ( 1 == $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
 
             if ( this.editing ) {
-                var $plan = this.$form.find( '.wpbdp-current-plan .wpbdp-plan' );
+                var $plan = this.$form.find( this.skip_plan_selection ? '.wpbdp-plan-selection .wpbdp-plan' : '.wpbdp-current-plan .wpbdp-plan' );
                 var plan_cats = $plan.length ? $plan.data( 'categories' ).toString() : '';
 
                 if ( 'all' != plan_cats ) {

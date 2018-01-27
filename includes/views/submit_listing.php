@@ -75,8 +75,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         // Handle "Clear Form" request.
         if ( ! empty( $_POST ) && ! empty( $_POST['reset'] ) && 'reset' == $_POST['reset'] ) {
-            wp_delete_post( $this->listing->get_id(), true );
-            return $this->_redirect( wpbdp_url( 'submit_listing' ) );
+            if ( ! $this->editing ) {
+                wp_delete_post( $this->listing->get_id(), true );
+                return $this->_redirect( wpbdp_url( 'submit_listing' ) );
+            }
+
+            return $this->_redirect( wpbdp_url( 'edit_listing', $this->listing->get_id() ) );
         }
 
         if ( ! $this->editing && 'auto-draft' != get_post_status( $this->listing->get_id() ) ) {
