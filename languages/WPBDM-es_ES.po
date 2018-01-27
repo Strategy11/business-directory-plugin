@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-24 21:43:07+00:00\n"
-"PO-Revision-Date: 2018-01-24 17:22-0500\n"
+"POT-Creation-Date: 2018-01-26 13:32:09+00:00\n"
+"PO-Revision-Date: 2018-01-26 08:39-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -3006,7 +3006,7 @@ msgstr "Detalles del pago actualizados."
 #: templates/admin/payments-details.tpl.php:8
 msgctxt "payments admin"
 msgid "← Return to \"Payment History\""
-msgstr "← Regresar a “Historia Transaccional”."
+msgstr "← Regresar a “Historia Transaccional”"
 
 #. translators: Gateway: (Not yet set)
 #: templates/admin/payments-details.tpl.php:58
@@ -5743,7 +5743,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Texto del enlace (opcional):"
 
-#: includes/fields/class-form-field.php:627
+#: includes/fields/class-form-field.php:635
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -5814,11 +5814,26 @@ msgstr "El nombre del campo es requerido."
 
 #: includes/fields/class-form-field.php:536
 msgctxt "form-fields-api"
-msgid "Requested field type change is incompatible. Type will not be modified."
+msgid ""
+"You can't change from %2$s field type to the one you wanted--the types are "
+"incompatible internally. If you want to switch to a field of type %1$s, "
+"delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
-"El cambio de tipo de campo es incompatible. El tipo no será modificado."
+"No se puede cambiar de tipo de campo de %2$s a la que querías, los tipos son "
+"incompatibles internamente. Si usted desea cambiar a un campo de tipo %1$s, "
+"debe eliminar el campo actual y crear un nuevo campo de tipo %1$s en su "
+"lugar."
 
-#: includes/fields/class-form-field.php:556
+#: includes/fields/class-form-field.php:539
+msgctxt "form-fields-api"
+msgid ""
+"<strong>WARNING</strong>: If you delete this field, the data from it in "
+"existing listings will be deleted as well."
+msgstr ""
+"<strong>ADVERTENCIA</strong>: si se elimina este campo, también se "
+"eliminarán los datos de éste en los listados existentes."
+
+#: includes/fields/class-form-field.php:564
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -5827,17 +5842,17 @@ msgstr ""
 "Solo puede haber un campo con asociación \"%s\". Por favor elija otra "
 "asociación."
 
-#: includes/fields/class-form-field.php:566
+#: includes/fields/class-form-field.php:574
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" es un tipo de campo inválido para esta asociación."
 
-#: includes/fields/class-form-field.php:618
+#: includes/fields/class-form-field.php:626
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID de campo inválido"
 
-#: includes/fields/class-form-field.php:639
+#: includes/fields/class-form-field.php:647
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Un error ocurrió mientras se trataba de eliminar este campo."
@@ -8349,6 +8364,12 @@ msgstr "Por favor seleccione una comisión para su listado:"
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Dirección"
+
+#~ msgctxt "form-fields-api"
+#~ msgid ""
+#~ "Requested field type change is incompatible. Type will not be modified."
+#~ msgstr ""
+#~ "El cambio de tipo de campo es incompatible. El tipo no será modificado."
 
 #~ msgctxt "listing metabox"
 #~ msgid "Make featured"

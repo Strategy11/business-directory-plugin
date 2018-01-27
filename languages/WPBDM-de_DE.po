@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-24 21:43:07+00:00\n"
+"POT-Creation-Date: 2018-01-26 13:32:09+00:00\n"
 "PO-Revision-Date: 2017-03-29 10:08+0200\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -5968,7 +5968,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Link Text (optional):"
 
-#: includes/fields/class-form-field.php:627
+#: includes/fields/class-form-field.php:635
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6039,12 +6039,20 @@ msgstr "Feldbezeichnung ist Pflichtfeld."
 
 #: includes/fields/class-form-field.php:536
 msgctxt "form-fields-api"
-msgid "Requested field type change is incompatible. Type will not be modified."
+msgid ""
+"You can't change from %2$s field type to the one you wanted--the types are "
+"incompatible internally. If you want to switch to a field of type %1$s, "
+"delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
-"Die angeforderte Feldtypänderung ist nicht kompatibel. Typ wurde nicht "
-"geändert."
 
-#: includes/fields/class-form-field.php:556
+#: includes/fields/class-form-field.php:539
+msgctxt "form-fields-api"
+msgid ""
+"<strong>WARNING</strong>: If you delete this field, the data from it in "
+"existing listings will be deleted as well."
+msgstr ""
+
+#: includes/fields/class-form-field.php:564
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6053,17 +6061,17 @@ msgstr ""
 "Es kann nur ein Feld mit \"%s\" verbunden werden. Bitte wähle eine andere "
 "Verbindung."
 
-#: includes/fields/class-form-field.php:566
+#: includes/fields/class-form-field.php:574
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" ist ein ungültiger Feldtyp für diese Verbindung."
 
-#: includes/fields/class-form-field.php:618
+#: includes/fields/class-form-field.php:626
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Ungültige Feld ID"
 
-#: includes/fields/class-form-field.php:639
+#: includes/fields/class-form-field.php:647
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Während der Löschung des Feldes ist ein Fehler aufgetreten."
@@ -8615,6 +8623,13 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Adresse"
+
+#~ msgctxt "form-fields-api"
+#~ msgid ""
+#~ "Requested field type change is incompatible. Type will not be modified."
+#~ msgstr ""
+#~ "Die angeforderte Feldtypänderung ist nicht kompatibel. Typ wurde nicht "
+#~ "geändert."
 
 #, fuzzy
 #~ msgctxt "listing metabox"

@@ -533,7 +533,15 @@ class WPBDP_Form_Field {
             if ( $orig_type != $new_type ) {
                 if ( 'url' == $new_type || 'image' == $new_type || 'url' == $orig_type || 'image' == $orig_type ) {
                     $this->type = WPBDP_FormFields::instance()->get_field_type( $orig_type );
-                    return new WP_Error( 'wpbdp-field-error', _x( 'Requested field type change is incompatible. Type will not be modified.', 'form-fields-api', 'WPBDM' ) );
+                    $error_msg = _x( 'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.', 'form-fields-api', 'WPBDM' );
+
+                    if( WPBDP_Listing::count_listings() ) {
+                        $error_msg .= '<br/><br/>' . _x( '<strong>WARNING</strong>: If you delete this field, the data from it in existing listings will be deleted as well.', 'form-fields-api', 'WPBDM' );
+                    }
+
+                    $error_msg = sprintf( $error_msg, '<strong>' . strtoupper( $new_type ) . '</strong>', '<strong>' . strtoupper( $orig_type ) . '</strong>' );
+
+                    return new WP_Error( 'wpbdp-field-error', $error_msg );
                 }
             }
         }
