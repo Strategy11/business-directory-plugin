@@ -645,7 +645,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        if ( ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
+        if ( ! empty( $_POST['save_listing'] ) && ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
             $this->prevent_save = true;
             $this->messages( _x( 'Image upload is required, please provide at least one image and submit again.', 'listing submit', 'WPBDM' ), 'error', 'listing_images' );
         }
