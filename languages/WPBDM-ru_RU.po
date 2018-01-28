@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-26 13:32:09+00:00\n"
+"POT-Creation-Date: 2018-01-28 22:22:45+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -258,7 +258,7 @@ msgstr "Имя пользователя"
 msgid "Transaction Key"
 msgstr "Ключ транзакции"
 
-#: includes/licensing.php:89 includes/licensing.php:90
+#: includes/licensing.php:91 includes/licensing.php:92
 #, fuzzy
 msgid "Licenses"
 msgstr "Лицензии"
@@ -3673,7 +3673,7 @@ msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Дата окончания срока действия"
 
-#: includes/licensing.php:156
+#: includes/licensing.php:158
 #, fuzzy
 msgctxt "admin settings"
 msgid "Enter License Key here"
@@ -3906,7 +3906,7 @@ msgid "Appearance"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:21
-#: includes/licensing.php:93
+#: includes/licensing.php:95
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Платные модули"
@@ -4919,13 +4919,13 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
 
-#: includes/licensing.php:109
+#: includes/licensing.php:111
 #, fuzzy
 msgctxt "settings"
 msgid "Themes"
 msgstr "Темы"
 
-#: includes/licensing.php:132
+#: includes/licensing.php:134
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -4933,24 +4933,24 @@ msgid ""
 "activate your licenses."
 msgstr ""
 
-#: includes/licensing.php:157
+#: includes/licensing.php:159
 #, fuzzy
 msgctxt "settings"
 msgid "Activate"
 msgstr "Активировать"
 
-#: includes/licensing.php:157 includes/licensing.php:158
+#: includes/licensing.php:159 includes/licensing.php:160
 msgctxt "settings"
 msgid "Please wait..."
 msgstr ""
 
-#: includes/licensing.php:158
+#: includes/licensing.php:160
 #, fuzzy
 msgctxt "settings"
 msgid "Deactivate"
 msgstr "Активировать"
 
-#: includes/licensing.php:212 includes/licensing.php:213
+#: includes/licensing.php:204 includes/licensing.php:205
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Лицензии"
@@ -5657,7 +5657,7 @@ msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr "Начальный платёж"
 
-#: includes/views/submit_listing.php:97
+#: includes/views/submit_listing.php:101
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -5665,60 +5665,60 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:102
+#: includes/views/submit_listing.php:106
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:124
+#: includes/views/submit_listing.php:128
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Вы вошли на сайт как Администратор. Все шаги оплаты будут пропущены."
 
-#: includes/views/submit_listing.php:320
+#: includes/views/submit_listing.php:324
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Выбор рубрики"
 
-#: includes/views/submit_listing.php:320
+#: includes/views/submit_listing.php:324
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Выбор рубрики"
 
-#: includes/views/submit_listing.php:325
+#: includes/views/submit_listing.php:329
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Информация о бизнесе"
 
-#: includes/views/submit_listing.php:329
+#: includes/views/submit_listing.php:333
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Изображение записи"
 
-#: includes/views/submit_listing.php:335
+#: includes/views/submit_listing.php:339
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:341
+#: includes/views/submit_listing.php:345
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Условия и положения"
 
-#: includes/views/submit_listing.php:381
+#: includes/views/submit_listing.php:385
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:432
+#: includes/views/submit_listing.php:436
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -5726,79 +5726,79 @@ msgstr ""
 "В настоящее время вы не можем провести Вашу оплату. Попробуйте позже "
 "пожалуйста."
 
-#: includes/views/submit_listing.php:442
+#: includes/views/submit_listing.php:446
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:455
+#: includes/views/submit_listing.php:459
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:475
+#: includes/views/submit_listing.php:479
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:477
+#: includes/views/submit_listing.php:481
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:694
+#: includes/views/submit_listing.php:698
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:699
+#: includes/views/submit_listing.php:703
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:704
+#: includes/views/submit_listing.php:708
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:714
+#: includes/views/submit_listing.php:718
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:719
+#: includes/views/submit_listing.php:723
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:734
+#: includes/views/submit_listing.php:738
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:741
+#: includes/views/submit_listing.php:745
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:747
+#: includes/views/submit_listing.php:751
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
-#: includes/views/submit_listing.php:756
+#: includes/views/submit_listing.php:760
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Адрес: %s"
 
-#: includes/views/submit_listing.php:765
+#: includes/views/submit_listing.php:769
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6371,24 +6371,24 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Основное"
 
-#: includes/licensing.php:282
+#: includes/licensing.php:274
 #, fuzzy
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "Некорректный номер поля"
 
-#: includes/licensing.php:287
+#: includes/licensing.php:279
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Не указан лицензионный ключ"
 
-#: includes/licensing.php:310
+#: includes/licensing.php:302
 #, fuzzy
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "Не указан лицензионный ключ"
 
-#: includes/licensing.php:312
+#: includes/licensing.php:304
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -6396,36 +6396,36 @@ msgid ""
 "reported as revoked by the licensing software."
 msgstr ""
 
-#: includes/licensing.php:314
+#: includes/licensing.php:306
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
 "your report."
 msgstr ""
 
-#: includes/licensing.php:325 includes/licensing.php:366
+#: includes/licensing.php:317 includes/licensing.php:358
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Лицензионный ключ не правильный"
 
-#: includes/licensing.php:342
+#: includes/licensing.php:334
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Неправильный номер модуля"
 
-#: includes/licensing.php:369
+#: includes/licensing.php:361
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "Деактивация не удалась"
 
-#: includes/licensing.php:388
+#: includes/licensing.php:380
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:392 includes/licensing.php:438
+#: includes/licensing.php:384 includes/licensing.php:430
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -6434,19 +6434,19 @@ msgid ""
 "whitelist."
 msgstr ""
 
-#: includes/licensing.php:394 includes/licensing.php:440
+#: includes/licensing.php:386 includes/licensing.php:432
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr ""
 
-#: includes/licensing.php:404
+#: includes/licensing.php:396
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:409
+#: includes/licensing.php:401
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -6455,7 +6455,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:411
+#: includes/licensing.php:403
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -6463,30 +6463,30 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:413
+#: includes/licensing.php:405
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necesary."
 msgstr ""
 
-#: includes/licensing.php:420
+#: includes/licensing.php:412
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Не удалось связаться с сервером лицензий"
 
-#: includes/licensing.php:436
+#: includes/licensing.php:428
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:489
+#: includes/licensing.php:495
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Справочник Услуг - Новые Записи"
 
-#: includes/licensing.php:499
+#: includes/licensing.php:505
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6497,47 +6497,77 @@ msgstr ""
 "корректный лицензионный ключ. Перейдите в раздел  <a>Управление / Лицензии</"
 "a> и введите Вашу лицензионную информацию."
 
-#: includes/licensing.php:510
+#: includes/licensing.php:516
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
 "can be used: %s."
 msgstr ""
 
-#: includes/licensing.php:518
+#: includes/licensing.php:524 includes/licensing.php:580
 #, fuzzy
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Обновить лицензионный ключ"
 
-#: includes/licensing.php:600
+#: includes/licensing.php:551
+#, fuzzy
+msgctxt "licensing"
+msgid "Business Directory - License key expired"
+msgstr "Справочник Услуг - Лицензионный Ключ Истёк"
+
+#: includes/licensing.php:561
+#, fuzzy
+msgctxt "licensing"
+msgid ""
+"The license key for the following modules has expired: %s. The modules will "
+"continue to work but you will not receive any more updates until the license "
+"is renewed."
+msgstr ""
+"Лицензионный ключ для модуля <span class=\"module-name\">%s %s</span> истёк. "
+"Модуль продолжить работать, но обновлений для него Вы больше не получите, "
+"пока лицензия не будет продлена."
+
+#: includes/licensing.php:572
+#, fuzzy
+msgctxt "licensing"
+msgid ""
+"The license key for the following themes has expired: %s. The themes will "
+"continue to work but you will not receive any more updates until the license "
+"is renewed."
+msgstr ""
+"Лицензионный ключ для модуля <span class=\"module-name\">%s %s</span> истёк. "
+"Модуль продолжить работать, но обновлений для него Вы больше не получите, "
+"пока лицензия не будет продлена."
+
+#: includes/licensing.php:666
 #, fuzzy
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Пожалуйста введите правильный электронный адрес."
 
-#: includes/licensing.php:609
+#: includes/licensing.php:675
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Не удалось активировать лицензию: %s."
 
-#: includes/licensing.php:611
+#: includes/licensing.php:677
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Лицензия активирована"
 
-#: includes/licensing.php:631
+#: includes/licensing.php:697
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Не удалось деактивировать лицензию: %s."
 
-#: includes/licensing.php:633
+#: includes/licensing.php:699
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Лицензия была деактивирована."
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:818
+#: includes/licensing.php:890
 msgctxt "deprecation"
 msgid ""
 "\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "
@@ -6895,29 +6925,29 @@ msgstr ""
 "показаны посетителям сайта. Если Вы хотите изменить такое поведение, "
 "перейдите в <a>Настройки</a> и отключите этот параметр."
 
-#: includes/views/submit_listing.php:276
+#: includes/views/submit_listing.php:280
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:278
+#: includes/views/submit_listing.php:282
 msgctxt "templates"
 msgid "View not available."
 msgstr "Свободных мест для загрузки изображений:"
 
-#: includes/views/submit_listing.php:803
+#: includes/views/submit_listing.php:807
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Пожалуйста примите наши Условия и Положения."
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:815
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Условия и Положения:"
 
-#: includes/views/submit_listing.php:820
+#: includes/views/submit_listing.php:824
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7605,14 +7635,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Это просто предварительный просмотр. Запись ещё не была опубликована."
 
-#: includes/views/submit_listing.php:575
+#: includes/views/submit_listing.php:579
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:646
+#: includes/views/submit_listing.php:650
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -9765,20 +9795,6 @@ msgstr "Адрес"
 #~ msgctxt "licensing"
 #~ msgid "Business Directory - License Key Required"
 #~ msgstr "Справочник Услуг - Требуется Лицензионный Ключ"
-
-#~ msgctxt "licensing"
-#~ msgid "Business Directory - License Key Expired"
-#~ msgstr "Справочник Услуг - Лицензионный Ключ Истёк"
-
-#~ msgctxt "licensing"
-#~ msgid ""
-#~ "The license key for <span class=\"module-name\">%s %s</span> has expired. "
-#~ "The module will continue to work but you will not receive any more "
-#~ "updates until the license is renewed."
-#~ msgstr ""
-#~ "Лицензионный ключ для модуля <span class=\"module-name\">%s %s</span> "
-#~ "истёк. Модуль продолжить работать, но обновлений для него Вы больше не "
-#~ "получите, пока лицензия не будет продлена."
 
 #~ msgctxt "licensing"
 #~ msgid "Remind me later"

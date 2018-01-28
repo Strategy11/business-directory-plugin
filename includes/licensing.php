@@ -33,6 +33,8 @@ class WPBDP_Licensing {
         add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'inject_update_info' ) );
         add_filter( 'plugins_api', array( $this, 'module_update_information' ), 10, 3 );
 
+        add_action( 'wpbdp_admin_ajax_dismiss_notification_expired_licenses', array( $this, 'dismiss_expired_licenses_notification' ) );
+
         if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
             wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
         }
@@ -66,7 +68,7 @@ class WPBDP_Licensing {
         if ( $item ) {
             $license_status = wpbdp()->licensing->get_license_status( '', $item['id'], 'module' );
 
-            if ( 'valid' == $license_status ) {
+            if ( in_array( $license_status, array( 'valid', 'expired' ), true ) ) {
                 return true;
             }
         }
@@ -158,16 +160,6 @@ class WPBDP_Licensing {
         $html .= '<input type="button" value="' . _x( 'Deactivate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
         $html .= '<div class="wpbdp-license-key-activation-status-msg wpbdp-hidden"></div>';
         $html .= '</div>';
-
-        //         echo '<b>'. _x( 'Business Directory - License Key Expired', 'licensing', 'WPBDM' ) . '</b><br />';
-        //         printf( _x( 'The license key for <span class="module-name">%s %s</span> has expired. The module will continue to work but you will not receive any more updates until the license is renewed.',
-        //                     'licensing',
-        //                     'WPBDM' ), $d['name'], $d['version'] );
-        //         echo '<br /><br />';
-        //         echo '<a href="#" class="dismiss button" data-module="' . esc_attr( $d['id'] ) . '" data-nonce="' . wp_create_nonce( 'dismiss warning' ) . '">' . _x( 'Remind me later', 'licensing', 'WPBDM' ) . '</a> ';
-        //         $url = add_query_arg( array( 'item_name' => urlencode( $d['name'] ), 'edd_license_key' => urlencode( $d['license'] ) ), 'http://businessdirectoryplugin.com/checkout/' );
-        //         echo '<a href="' . esc_url( $url ) . '" target="_blank" class="button button-primary">' . _x( 'Renew License Key', 'licensing', 'WPBDM' ) . '</a>';
-
 
         return $html;
     }
@@ -468,16 +460,30 @@ class WPBDP_Licensing {
         foreach ( $this->items as $item ) {
             $status = $this->get_license_status( '', $item['id'], $item['item_type'] );
 
-            if ( 'valid' != $status ) {
+            if ( 'valid' == $status ) {
+                // All good!
+            } elseif ( 'expired' == $status ) {
+                $expired[] = array(
+                    'item_type'   => $item['item_type'],
+                    'status'      => $status,
+                    'name'        => $item['name'],
+                    'license_key' => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
+                );
+            } else {
                 $invalid[] = array(
                     'item_type'   => $item['item_type'],
                     'status'      => $status,
                     'name'        => $item['name'],
-                    'license_key' => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] )
+                    'license_key' => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
                 );
             }
         }
 
+        $this->render_invalid_license_admin_notice( $invalid );
+        $this->render_expired_license_admin_notice( $expired );
+    }
+
+    private function render_invalid_license_admin_notice( $invalid ) {
         $modules = wp_list_filter( $invalid, array( 'item_type' => 'module' ) );
         $themes  = wp_list_filter( $invalid, array( 'item_type' => 'theme' ) );
 
@@ -520,6 +526,66 @@ class WPBDP_Licensing {
         echo '</p>';
 
         echo '</div>';
+    }
+
+    private function render_expired_license_admin_notice( $expired ) {
+        $notice_id = 'expired_licenses';
+
+        $transient_key = 'wpbdp-expired-licenses-notice-dismissed-' . get_current_user_id();
+
+        if ( get_transient( $transient_key ) ) {
+            return;
+        }
+
+        $modules = wp_list_filter( $expired, array( 'item_type' => 'module' ) );
+        $themes  = wp_list_filter( $expired, array( 'item_type' => 'theme' ) );
+
+        if ( ! $modules && ! $themes ) {
+            return;
+        }
+
+        $nonce = wp_create_nonce( 'dismiss notice ' . $notice_id );
+
+        echo '<div id="wpbdp-licensing-issues-warning" class="wpbdp-notice notice notice-error is-dismissible" data-dismissible-id="' . esc_attr( $notice_id ) . '" data-nonce="' . esc_attr( $nonce ) . '">';
+        echo '<p>';
+        echo '<b>' . _x( 'Business Directory - License key expired', 'licensing', 'WPBDM' ) . '</b><br />';
+
+        echo '<ul>';
+        if ( $modules ) {
+            $modules_str  = '';
+            foreach ( $modules as $m ) {
+                $modules_str .= '<span class="item-name">' . $m['name'] . '</span>';
+            }
+
+            echo '<li>';
+            printf( _x( 'The license key for the following modules has expired: %s. The modules will continue to work but you will not receive any more updates until the license is renewed.', 'licensing', 'WPBDM' ), $modules_str );
+            echo '</li>';
+        }
+
+        if ( $themes ) {
+            $themes_str  = '';
+            foreach ( $themes as $t ) {
+                $themes_str .= '<span class="item-name">' . $t['name'] . '</span>';
+            }
+
+            echo '<li>';
+            printf( _x( 'The license key for the following themes has expired: %s. The themes will continue to work but you will not receive any more updates until the license is renewed.', 'licensing', 'WPBDM' ), $themes_str );
+            echo '</li>';
+        }
+
+        echo '</ul>';
+
+        echo '<p>';
+        echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
+        echo _x( 'Review my license keys', 'licensing', 'WPBDM' );
+        echo '</a>';
+        echo '</p>';
+
+        echo '</div>';
+    }
+
+    public function dismiss_expired_licenses_notification() {
+        set_transient( 'wpbdp-expired-licenses-notice-dismissed-' . get_current_user_id(), true, 2 * WEEK_IN_SECONDS );
     }
 
     public function license_check() {
@@ -735,6 +801,12 @@ class WPBDP_Licensing {
         $modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
 
         foreach ( $modules as $module ) {
+            $license_status = $this->get_license_status( '', $module['id'], $module['item_type'] );
+
+            if ( 'valid' != $license_status ) {
+                continue;
+            }
+
             $item_key = $module['item_type'] . '-' . $module['id'];
 
             if ( ! isset( $updates[ $item_key ] ) ) {

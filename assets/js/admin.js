@@ -479,20 +479,35 @@ jQuery(function($) {
 // Dismissible Messages
 (function($) {
     $(function(){
-        $( '.wpbdp-notice.dismissible > .notice-dismiss' ).click( function( e ) {
-            e.preventDefault();
+        var dismissNotice = function( $notice, notice_id, nonce ) {
+            $.post( ajaxurl, {
+                action: 'wpbdp_dismiss_notification',
+                id: notice_id,
+                nonce: nonce
+            }, function() {
+                $notice.fadeOut( 'fast', function(){ $notice.remove(); } );
+            } );
+        };
 
-            var $notice = $( this ).parent( '.wpbdp-notice' );
-            var dismissible_id = $( this ).data( 'dismissible-id' );
-            var nonce = $( this ).data( 'nonce' );
+        $( '#wpbody-content' )
+            .on( 'click', '.wpbdp-notice.dismissible > .notice-dismiss', function( e ) {
+                e.preventDefault();
 
-            $.post( ajaxurl,
-                    { action: 'wpbdp_dismiss_notification', id: dismissible_id, nonce: nonce },
-                    function() {
-                        $notice.fadeOut( 'fast', function(){ $notice.remove(); } );
-                    }
-            );
-        } );
+                var $notice = $( this ).parent( '.wpbdp-notice' );
+                var dismissible_id = $( this ).data( 'dismissible-id' );
+                var nonce = $( this ).data( 'nonce' );
+
+                dismissNotice( $notice, dismissible_id, nonce );
+            } )
+            .on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss', function( e ) {
+                e.preventDefault();
+
+                var $notice = $( this ).parent( '.wpbdp-notice' );
+                var dismissible_id = $notice.data( 'dismissible-id' );
+                var nonce = $notice.data( 'nonce' );
+
+                dismissNotice( $notice, dismissible_id, nonce );
+            } );
     });
 })(jQuery);
 
