@@ -676,26 +676,10 @@ class WPBDP_Listing {
      * @since next-release
      */
     public static function count_listings( $args = array() ) {
-        $args = wp_parse_args( $args, array( 'post_status' => 'all', 'status' => 'all' ) );
-        extract( $args );
-
         global $wpdb;
 
-        if ( ! is_array( $post_status ) ) {
-            if ( 'all' == $post_status ) {
-                $post_status = array_keys( get_post_statuses() );
-            } else {
-                $post_status = explode( ',', $post_status );
-            }
-        }
-
-        if ( ! is_array( $status ) ) {
-            if ( 'all' == $status ) {
-                $status = array_keys( WPBDP_Listing::get_stati() );
-            } else {
-                $status = explode( ',', $status );
-            }
-        }
+        $args = self::parse_count_args( $args );
+        extract( $args );
 
         $query_post_statuses = "'" . implode( "','", $post_status ) . "'";
         $query_listing_statuses = "'" . implode( "','", $status ) . "'";
@@ -703,6 +687,47 @@ class WPBDP_Listing {
         $query = $wpdb->prepare( $query, WPBDP_POST_TYPE );
 
         return absint( $wpdb->get_var( $query ) );
+    }
+
+    private static function parse_count_args( $args = array() ) {
+        $args = wp_parse_args( $args, array(
+            'post_status' => 'all',
+            'status' => 'all',
+        ) );
+
+        if ( ! is_array( $args['post_status'] ) ) {
+            if ( 'all' == $args['post_status'] ) {
+                $args['post_status'] = array_keys( get_post_statuses() );
+            } else {
+                $args['post_status']= explode( ',', $args['post_status'] );
+            }
+        }
+
+        if ( ! is_array( $args['status'] ) ) {
+            if ( 'all' == $args['status'] ) {
+                $args['status'] = array_keys( WPBDP_Listing::get_stati() );
+            } else {
+                $args['status'] = explode( ',', $args['status'] );
+            }
+        }
+
+        return $args;
+    }
+
+    public static function count_listings_with_no_fee_plan( $args = array() ) {
+        global $wpdb;
+
+        $args = self::parse_count_args( $args );
+
+        $query_post_statuses = "'" . implode( "','", $args['post_status'] ) . "'";
+
+        $query = "SELECT COUNT(*) FROM {$wpdb->posts} p ";
+        $query.= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
+        $query.= "WHERE p.post_type = %s ";
+        $query.= "AND post_status IN ({$query_post_statuses}) ";
+        $query.= "AND l.listing_id IS NULL ";
+
+        return absint( $wpdb->get_var( $wpdb->prepare( $query, WPBDP_POST_TYPE ) ) );
     }
 
     /**

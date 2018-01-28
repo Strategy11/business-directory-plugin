@@ -15,7 +15,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.1.7dev5' );
+        define( 'WPBDP_VERSION', '5.1.7dev6' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -79,6 +79,8 @@ final class WPBDP {
         if ( wpbdp_is_request( 'admin' ) ) {
             require_once( WPBDP_INC . 'admin/tracking.php' );
             require_once( WPBDP_INC . 'admin/class-admin.php' );
+
+            require_once( WPBDP_INC . 'admin/class-listings-with-no-fee-plan-view.php' );
         }
 
         require_once( WPBDP_INC . 'helpers/class-access-keys-sender.php' );

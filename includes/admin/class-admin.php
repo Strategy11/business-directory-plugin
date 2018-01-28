@@ -27,6 +27,7 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'check_for_required_pages'));
 
         add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
+        add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
         add_action('admin_notices', array($this, 'admin_notices'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
@@ -1020,6 +1021,12 @@ to how WordPress stores the data.", 'WPBDM' )
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );
     }
 
+    public function register_listings_views() {
+        $view = new WPBDP__ListingsWithNoFeePlanView();
+
+        add_filter( 'wpbdp_admin_directory_views', array( $view, 'filter_views' ), 10, 2 );
+        add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
+    }
 }
 
 function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {

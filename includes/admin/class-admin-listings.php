@@ -266,7 +266,12 @@ class WPBDP_Admin_Listings {
 
         $attributes = array();
 
+        if ( ! $plan ) {
+            $attributes['no-fee-plan'] = '<span class="wpbdp-tag wpbdp-listing-attr-no-fee-plan">' . _x( 'No Fee Plan', 'listing attribute', 'WPBDM' ) . '</span>';
+        }
+
         $listing_status = $listing->get_status();
+
         if ( ! in_array( $listing_status, array( 'unknown', 'legacy', 'complete' ) ) ) {
             $attributes[ 'listing-status' ] = '<span class="wpbdp-tag wpbdp-listing-status-' . $listing_status . '">' . $listing->get_status_label() . '</span>';
         }
@@ -476,14 +481,7 @@ class WPBDP_Admin_Listings {
         $current_plan = $listing->get_fee_plan();
 
         if ( ! $current_plan && empty( $new_plan['fee_id'] ) ) {
-            // XXX: Choose the free fee. (This shouldn't happen, but it happens every time a new listing is created on the admin and a fee is not selected)
-            // TODO: assign one of the available fee plans.
-            $free = wpbdp_get_fee_plan( 'free' );
-
-            $new_plan['fee_id'] = $free->id;
-            $new_plan['expiration_date'] = $free->calculate_expiration_time();
-            $new_plan['fee_images'] = $free->images;
-            $new_plan['is_sticky'] = $free->sticky;
+            return;
         }
 
         if ( ! $current_plan || (int) $current_plan->fee_id != (int) $new_plan['fee_id'] ) {
