@@ -32,8 +32,10 @@ class WPBDP__Listing_Subscription {
         global $wpdb;
 
         $row = $wpdb->get_row( $wpdb->prepare( "SELECT listing_id, subscription_id, subscription_data FROM {$wpdb->prefix}wpbdp_listings WHERE {$key} = %s", $val ) );
-        if ( ! $row )
+
+        if ( ! $row ) {
             return false;
+        }
 
         $susc_id = $row->subscription_id;
         $susc_data = $row->subscription_data ? unserialize( $row->subscription_data ) : array();
@@ -43,6 +45,8 @@ class WPBDP__Listing_Subscription {
         $this->parent_payment_id = ! empty( $susc_data['parent_payment_id'] ) ? absint( $susc_data['parent_payment_id'] ) : 0;
 
         $this->data = $susc_data;
+
+        return true;
     }
 
     public function get_parent_payment() {
