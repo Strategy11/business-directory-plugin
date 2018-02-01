@@ -393,7 +393,17 @@ final class WPBDP {
         if ( $parent_id != $listing_id )
             $res->send_error();
 
-        wp_delete_attachment( $image_id, true );
+        $listing = wpbdp_get_listing( $listing_id );
+
+        if ( ! $listing ) {
+            $res->send_error();
+        }
+
+        $thumbnail_id = $listing->get_thumbnail_id();
+
+        if ( false !== wp_delete_attachment( $image_id, true ) && $image_id == $thumbnail_id ) {
+            $listing->set_thumbnail_id( 0 );
+        }
 
         $res->add( 'imageId', $image_id );
         $res->send();

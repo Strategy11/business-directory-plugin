@@ -404,29 +404,27 @@ function wpbdp_the_bar($parts=array()) {
 function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     if ( !$listing_id ) $listing_id = get_the_ID();
 
+    $listing = WPBDP_Listing::get( $listing_id );
+
+    $main_image = $listing->get_thumbnail();
+
+    if ( $main_image ) {
+        $thumbnail_id = $main_image->ID;
+    } else {
+        $thumbnail_id = 0;
+    }
+
     $args = wp_parse_args( $args, array(
         'link' => 'picture',
         'class' => '',
         'echo' => false,
     ) );
 
-    $main_image = false;
     $image_img = '';
     $image_link = '';
     $image_title = '';
     $listing_link_in_new_tab = '';
     $image_classes = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
-
-    $listing = WPBDP_Listing::get( $listing_id );
-
-    if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
-        $main_image = get_post( $thumbnail_id );
-    } else {
-        $images = $listing->get_images( 'ids' );
-
-        if ( $images )
-            $main_image = get_post( $images[0] );
-    }
 
     if ( !$main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
         $image_img = get_the_post_thumbnail( $listing_id, 'wpbdp-thumb' );

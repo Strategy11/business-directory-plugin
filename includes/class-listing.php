@@ -96,17 +96,55 @@ class WPBDP_Listing {
         return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
     }
 
-    public function get_thumbnail_id() {
-        if ( $thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true ) ) {
-            return intval( $thumbnail_id );
+    /**
+     * Gets the attachment object that representes this listing's thumbnail.
+     *
+     * @since 5.1.7
+     *
+     * @return Post     An attachment of this listing.
+     */
+    public function get_thumbnail() {
+        $thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true );
+
+        if ( $thumbnail_id ) {
+            $thumbnail = get_post( $thumbnail_id );
         } else {
-            if ( $images = $this->get_images( 'ids' ) ) {
-                update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $images[0] );
-                return $images[0];
-            }
+            $thumbnail = null;
         }
 
-        return 0;
+        if ( $thumbnail ) {
+            return $thumbnail;
+        }
+
+        $images = $this->get_images( 'ids' );
+
+        if ( ! $images && $thumbnail_id ) {
+            $this->set_thumbnail_id( 0 );
+            return null;
+        }
+
+        if ( ! $images ) {
+            return null;
+        }
+
+        $this->set_thumbnail_id( $images[0] );
+
+        return get_post( $images[0] );
+    }
+
+    /**
+     * Get the ID of the attachment that represents this listing's thumbnail.
+     *
+     * @return int  An ID or 0.
+     */
+    public function get_thumbnail_id() {
+        $thumbnail = $this->get_thumbnail();
+
+        if ( ! $thumbnail ) {
+            return 0;
+        }
+
+        return $thumbnail->ID;
     }
 
     public function set_title( $title ) {
