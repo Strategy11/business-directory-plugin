@@ -455,6 +455,7 @@ class WPBDP_Licensing {
             return;
         }
 
+        $expired = array();
         $invalid = array();
 
         foreach ( $this->items as $item ) {
