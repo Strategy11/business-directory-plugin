@@ -1,26 +1,26 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
-Donate link: http://businessdirectoryplugin.com/premium-modules/
+Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.9.2
-Last Updated: 2018-Jan-24
-Stable tag: 5.1.6
+Last Updated: 2018-Jan-26
+Stable tag: 5.1.6.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
 
 == Description ==
 
-[Main Site](http://businessdirectoryplugin.com/) | [Support](http://businessdirectoryplugin.com/support-forum/) | [Docs](http://businessdirectoryplugin.com/docs/) | [Showcase](http://businessdirectoryplugin.com/showcase/) | [Premium Modules](http://businessdirectoryplugin.com/premium-modules/)
+[Main Site](https://businessdirectoryplugin.com/) | [Support](https://businessdirectoryplugin.com/support-forum/) | [Docs](https://businessdirectoryplugin.com/knowledge-base/) | [Showcase](https://businessdirectoryplugin.com/showcase/) | [Premium Modules](https://businessdirectoryplugin.com/premium-modules/)
 
 Business Directory Plugin is the most popular, versatile, widely-installed, easiest to use, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
 Business Directory Plugin allows you to build a local directory, directory of business providers, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory using Business Directory plugin.
 
 = Core plugin Features =
-All [features](http://businessdirectoryplugin.com/features/) documented on the main website.
+All [features](https://businessdirectoryplugin.com/features/) documented on the main website.
 * Fully customizable form fields
 * Upload images per listing, allow restricted numbers of images based on fee plan
 * Lots of image options:  drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
@@ -58,44 +58,44 @@ All [features](http://businessdirectoryplugin.com/features/) documented on the m
 * Post claimable listings in your business directory that other users can pay (or not) to claim (using the (paid) Claim Listings Module) 
 * Ability to offer discount codes based on a % or fixed amount with expirations (using the (paid) Discount Codes Module) 
 
-For a complete and detailed list of features, please visit:  http://businessdirectoryplugin.com/features/
+For a complete and detailed list of features, please visit:  https://businessdirectoryplugin.com/features/
  
-Please report any bugs you find via http://businessdirectoryplugin.com/support-forum/  
+Please report any bugs you find via https://businessdirectoryplugin.com/support-forum/  
 
 = Premium Module Links: =
 These are optional, paid modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
 = NEW Themes =
-* NEW! [Theme Pack](http://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
-* NEW! [Business Card Theme](http://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
-* NEW! [Tabbed Business Theme](http://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
-* NEW! [Elegant Business Theme](http://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
-* NEW! [Mobile Compact Theme](http://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
-* NEW! [Restaurant Theme](http://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
+* NEW! [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
+* NEW! [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
+* NEW! [Tabbed Business Theme](https://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
+* NEW! [Elegant Business Theme](https://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
+* NEW! [Mobile Compact Theme](https://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
+* NEW! [Restaurant Theme](https://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
 
 = NEW Modules =
-* NEW! [Discount Codes Module](http://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
-* NEW! [Claim Listings Module](http://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
+* NEW! [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
+* NEW! [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
 
 = Other Paid Feature Add On Modules =
-* [File Upload Module](http://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
-* [Featured Levels Module](http://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
-* [ZIP Code Search Module](http://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
-* [Regions Module](http://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
-* [Ratings Module](http://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
-* [Google Maps Module](http://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
+* [File Upload Module](https://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
+* [Featured Levels Module](https://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
+* [ZIP Code Search Module](https://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
+* [Regions Module](https://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
+* [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
+* [Google Maps Module](https://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
 
 = Payment Gateway Modules (Paid) =
-* [Stripe Gateway Module](http://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
-* [PayPal Gateway Module](http://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
-* [2Checkout Gateway Module](http://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
-* [PayFast Gateway Module](http://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
+* [Stripe Gateway Module](https://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
+* [PayPal Gateway Module](https://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
+* [2Checkout Gateway Module](https://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
+* [PayFast Gateway Module](https://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
 
-For more information and support please visit [http://businessdirectoryplugin.com](http://businessdirectoryplugin.com?ref=wp)
-For Business Directory plugin support please visit [http://businessdirectoryplugin.com/forums](http://businessdirectoryplugin.com/forums)
+For more information and support please visit [https://businessdirectoryplugin.com](https://businessdirectoryplugin.com?ref=wp)
+For Business Directory plugin support please visit [https://businessdirectoryplugin.com/forums](https://businessdirectoryplugin.com/forums)
 
-If you love Business Directory plugin, [please consider purchasing a Premium Module](http://businessdirectoryplugin.com/premium-modules/?ref=wp)!
+If you love Business Directory plugin, [please consider purchasing a Premium Module](https://businessdirectoryplugin.com/premium-modules/?ref=wp)!
 
 Business Directory fully supports [WPML](http://wpml.org) for dynamic language switching.  But if you need just one single language, we include and support these out of the box!
 = Languages Supported =
@@ -107,7 +107,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 * Arabic
 * Swedish
 
-And you can easily [translate it yourself](http://businessdirectoryplugin.com/quick-start-guide/#translate) if you need to.
+And you can easily [translate it yourself](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/) if you need to.
 
 == Credits ==
 Copyright 2009-18, Dave Rodenbaugh 
@@ -130,19 +130,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
 == Installation ==
-Please see our detailed [Installation Guide](http://businessdirectoryplugin.com/docs/#install), the [Quick Start Guide](http://businessdirectoryplugin.com/quick-start-guide/) for common how-to scenarios, and our [Initial Setup](http://businessdirectoryplugin.com/docs/#setup) page for instructions on how to get going quickly with Business Directory Plugin.
+Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/) page for instructions on how to get going quickly with Business Directory Plugin.
 
-[Full documentation](http://businessdirectoryplugin.com/docs/) for the plugin is also available.
+[Full documentation](https://businessdirectoryplugin.com/knowledge-base/) for the plugin is also available.
 
-If you are having problems please visit [support forum](http://www.businessdirectoryplugin.com/support-forum/) for help.
+If you are having problems please visit [support forum](http://www.businessdirectoryplugin.com/support-forum/) for help or you may [contact us](http://www.businessdirectoryplugin.com/contact/).
 
 
 == Screenshots ==
 
-[Visit the main site for feature lists and screenshots](http://businessdirectoryplugin.com/features/)
+[Visit the main site for feature lists and screenshots](https://businessdirectoryplugin.com/features/)
 
 
 == Changelog ==
+= Version 5.1.6.1 =
+* Fixed issue where PHP versions earlier than 5.6 had fatal error in flagging
+
 = Version 5.1.6 =
 * Add support to require that one image is uploaded with a listing.
 * Add Flag Listing feature.
@@ -675,38 +678,17 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Usage Doc ==
 
-For complete documentation on the plugin, please visit the [BD Documentation Site](http://businessdirectoryplugin.com/docs).  We also have a complete [FAQ Section of the Forum](http://businessdirectoryplugin.com/support-forum/faq) and our [Quick Start](http://businessdirectoryplugin.com/quick-start-guide/) guide.
-
-1. Setting up your categories
-
-Go to your Dashboard and look for the "Directory" menu box. Listed under the Directory menu box are the links "Add New", "Categories" and "Tags". Click the "Categories" link and add your categories just the same way you would normally add categories under Posts->Categories.
-
-2. Matching the design to your theme
-
-Please visit this page for complete and up-to-date instructions on matching BD to your theme. 
-
-[How to match BD to your theme](http://businessdirectoryplugin.com/docs/matching-the-design-to-your-theme/)
-
-3. Adding a menu of the directory categories
-
-To add a menu of the directory categories to your theme use the code below:
-<?php global $wpbdmposttypecategory; wp_list_categories('title_li=&taxonomy='.$wpbdmposttypecategory); ?>
-You can filter the function the way you would normally filter wp_list_categories. Just make sure it includes 'taxonomy='.$wpbdmposttypecategory so that it knows you only want the plugin directory categories.
-
-4. Adding a latest posts widget
-
-NEW:  BD now comes with 3 standard widgets--Latest Listings, Random Listings and Featured Listings.  Place in any
-widget-ready theme.
+For complete documentation on the plugin, please visit the [BD Documentation Site](https://businessdirectoryplugin.com/knowledge-base).  We also have a complete [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/) guide.
 
 == Frequently Asked Questions ==
 
-For the definitive FAQ section, please visit the [FAQ Section of the Forum](http://businessdirectoryplugin.com/support-forum/faq), or our [Quick Start](http://businessdirectoryplugin.com/quick-start-guide/) guide.
+For the definitive FAQ section, please visit the [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/), or our [Getting Started](https://businessdirectoryplugin.com/article-categories/getting-started/) guide.
 
 = Can Business Directory Plugin support paid and free listings? =
-Yes it can.  You can do this by creating fee plans for 0.00 and some other paid amount at the same time.  For more details, read [this article](http://businessdirectoryplugin.com/quick-start-guide/#payments).
+Yes it can.  You can do this by creating fee plans for 0.00 and some other paid amount at the same time.  For more details, read [this article](https://businessdirectoryplugin.com/knowledge-base/how-to-run-bd-in-free-mode/).
 
 = Do you have video tutorials for Business Directory Plugin? =
-Yes we do.  They can be found [here](http://businessdirectoryplugin.com/video-tutorials/).
+Yes we do.  They can be found [here](https://businessdirectoryplugin.com/video-tutorials/).
 
 = Will Business Directory Plugin work with my theme? =
 Business Directory Plugin will work with any well-written, WP 4.x compliant theme.  Generally speaking, paid themes tend to be higher quality than free ones, so we don't recommend those.
@@ -718,7 +700,7 @@ Whatever theme you pick, we recommend using the Theme Check plugin (available fo
 In general, we like WooThemes as a solid company with great products and support.  You can check them out [here](http://woothemes.com)  Or [StudioPress](http://studiopress.com​​)
 
 = Can Business Directory be translated into my language? =
-Yes it can. Business Directory Plugin comes with many user-provided translations under the /languages folder. For details on how to do it, our [translation guide](http://businessdirectoryplugin.com/quick-start-guide/#translate) will help get you started.
+Yes it can. Business Directory Plugin comes with many user-provided translations under the /languages folder. For details on how to do it, our [translation guide](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/) will help get you started.
 
 = Is Business Directory Plugin compatible with WordPress Multisite (WPMU)? =
 Yes it is. However, you cannot "network-activate" the plugin (as this will share the database). Activate it on only the subsites on which you need a directory.  This can be done under Plugins->Add New as the Administrator user.  Do not "network activate" BD as the "super admin".
