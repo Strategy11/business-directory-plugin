@@ -24,7 +24,7 @@ var wpbdp = window.wpbdp || {};
                 singleFileUploads: false,
                 dropZone: $area,
                 formData: function( form ) {
-                    return [ { name: 'dummy', value: 1 } ];
+                    return [ { name: 'images_count', value: $( '#wpbdp-uploaded-images .wpbdp-image input[type="hidden"]' ).length } ];
                 },
                 send: function( e, data ) {
                     if ( $area.data('dnd-working' ) )
@@ -49,12 +49,17 @@ var wpbdp = window.wpbdp || {};
                 done: function( e, data ) {
                     var res = data.result;
 
-                    // if ( ! res.success )
-                    //     return;
-
                     $area.data( 'dnd-working', false );
                     $area.find( '.dnd-area-inside-working' ).hide();
-                    $area.find( '.dnd-area-inside' ).fadeIn( 'fast' );
+
+                    if ( res.success ) {
+                        $area.find( '.dnd-area-inside' ).fadeIn( 'fast' );
+
+                        if ( res.data.is_admin ) {
+                            $area.removeClass( 'error' );
+                            $area.find( '.dnd-area-inside-error' ).hide();
+                        }
+                    }
 
                     if ( 'undefined' !== typeof options.done )
                         options.done.call( $area, res );

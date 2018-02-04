@@ -313,11 +313,12 @@ final class WPBDP {
         $listing = WPBDP_Listing::get( $listing_id );
         $slots_available = 0;
 
-        if ( $plan = $listing->get_fee_plan() )
-            $slots_available = absint( $plan->fee_images ) - count( $listing->get_images() );
+        if ( $plan = $listing->get_fee_plan() ) {
+            $slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
+        }
 
         if ( ! current_user_can( 'administrator' ) ) {
-            if ( ! $slots_available ) {
+            if ( 0 >= $slots_available ) {
                 return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
             } elseif ( $slots_available < count( $files ) ) {
                 return $res->send_error(
@@ -374,6 +375,8 @@ final class WPBDP {
             $res->add( 'uploadErrors', $error_msg );
         }
 
+        $res->add( 'is_admin', current_user_can( 'administrator' ) );
+        $res->add( 'slots_available', $slots_available );
         $res->add( 'attachmentIds', $attachments );
         $res->add( 'html', $html );
         $res->send();
