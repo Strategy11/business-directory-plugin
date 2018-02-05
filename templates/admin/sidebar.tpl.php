@@ -79,7 +79,7 @@ $themes = array(
                                             _x( 'If you\'ve found a bug or need support <a>visit the forums!</a>', 'admin sidebar', 'WPBDM' ) ); ?>
                 </p>
                 <p>
-                    &#149; <a href="http://businessdirectoryplugin.com/docs/" target="_blank"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
+                    &#149; <a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
                     &#149; <a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank"><?php _ex( 'Quick Start Guide', 'admin sidebar', 'WPBDM' ); ?></a><br />
                     &#149; <a href="http://businessdirectoryplugin.com/video-tutorials/" target="_blank"><?php _ex( 'Video Tutorials', 'admin sidebar', 'WPBDM' ); ?></a>
                 </p>

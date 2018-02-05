@@ -14,7 +14,7 @@
                'WPBDM' ); ?><br />
     <?php
     echo str_replace( '<a>',
-                      '<a href="http://businessdirectoryplugin.com/docs/#admin-form-fields" target="_blank">',
+                      '<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank">',
                       _x( 'Please see the <a>Form Fields documentation</a> for more details.',
                           'form-fields admin',
                           'WPBDM' ) ); ?>

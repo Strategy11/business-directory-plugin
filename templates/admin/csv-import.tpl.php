@@ -18,7 +18,7 @@ _ex( 'Here, you can import data into your directory using the CSV format.',
 <?php
 echo str_replace(
     '<a>',
-    '<a href="http://businessdirectoryplugin.com/docs/#admin-import" target="_blank">',
+    '<a href="https://businessdirectoryplugin.com/knowledge-base/csv-import-export/" target="_blank">',
     _x( 'We strongly recommend reading our <a>CSV import documentation</a> first to help you do things in the right order.',
         'admin csv-import',
         'WPBDM' ) );

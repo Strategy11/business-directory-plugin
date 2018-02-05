@@ -7,7 +7,7 @@
                   'WPBDM' ); ?></p>
     <ul>
         <li>
-            <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/docs" target="_blank">',
+            <?php echo str_replace( '<a>', '<a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank">',
                                     _x( 'Our complete documentation is <a>here</a> which we encourage you to use while setting things up.', 'admin home', 'WPBDM' ) ); ?>
         <li>
             <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank">',
