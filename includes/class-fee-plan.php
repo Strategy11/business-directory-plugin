@@ -111,8 +111,17 @@ final class WPBDP__Fee_Plan {
             }
         }
 
-        if ( $saved && $fire_hooks ) {
-            do_action( 'wpbdp_fee_save', $this, $update );
+        if ( $saved ) {
+            if ( $fire_hooks ) {
+                do_action( 'wpbdp_fee_save', $this, $update );
+            }
+
+            $wpdb->update(
+                $wpdb->prefix . "wpbdp_listings",
+                array( 'is_sticky' => $this->sticky ? 1 : 0 ),
+                array(
+                    'fee_id' => $this->id,
+                ) );
         }
 
         return $saved;
