@@ -35,7 +35,10 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             return $html;
         }
 
-        $html = '';
+        $field_name = 'listingfields[' . $field->get_id() . '][]';
+
+        $html = sprintf( '<input type="hidden" name="%s" value="" />', $field_name );
+
         $i = 1;
         foreach ( $options as $option_key => $label ) {
             $css_classes = array();
@@ -50,7 +53,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
             $html .= sprintf( '<div class="%s"><label><input type="checkbox" name="%s" value="%s" %s/> %s</label></div>',
                               implode( ' ', $css_classes ),
-                             'listingfields[' . $field->get_id() . '][]',
+                              $field_name,
                               $option_key,
                               in_array( $option_key, is_array( $value ) ? $value : array( $value ) ) ? 'checked="checked"' : '',
                               esc_attr( $label ) );
