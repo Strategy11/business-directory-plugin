@@ -3,6 +3,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
     public function __construct() {
         parent::__construct( _x( 'URL Field', 'form-fields api', 'WPBDM' ) );
+        add_filter( 'wpbdp_form_field_css_classes', array( $this, 'css_classes' ), 10, 3 );
     }
 
     public function get_id() {
@@ -148,6 +149,14 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= '</div>';
 
         return $html;
+    }
+
+    public function css_classes( $css_classes = array(), $field, $render_context ) {
+        if ( $field->get_field_type()->get_id() == 'url' ) {
+            $css_classes[] = 'wpbdp-clearfix';
+        }
+
+        return $css_classes;
     }
 
 }
