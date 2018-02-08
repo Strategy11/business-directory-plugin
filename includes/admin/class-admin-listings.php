@@ -499,7 +499,6 @@ class WPBDP_Admin_Listings {
         $row = array();
         $row['expiration_date'] = '' == $new_plan['expiration_date'] ? null : $new_plan['expiration_date'];
         $row['fee_images'] = absint( $new_plan['fee_images'] );
-        $row['is_sticky'] = ! empty( $new_plan['is_sticky'] ) ? 1 : 0;
 
         $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
 
