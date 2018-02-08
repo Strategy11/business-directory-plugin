@@ -37,7 +37,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
                 <select name="" id="wpbdp-listing-plan-select">
                 <?php foreach ( $plans as $p ): ?>
                 <?php
-                $plan_info = array( 'id' => $p->id, 'label' => $p->label, 'days' => $p->days, 'images' => $p->images, 'sticky' => $p->sticky, 'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ) );
+                $plan_info = array( 'id' => $p->id, 'label' => $p->label, 'amount' => $p->amount ? wpbdp_currency_format( $p->amount ) : '', 'days' => $p->days, 'images' => $p->images, 'sticky' => $p->sticky, 'recurring' => $p->recurring,  'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ) );
                 ?>
                     <option value="<?php echo $p->id; ?>" <?php selected( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>"><?php echo $p->label; ?></option>
                 <?php endforeach; ?>
@@ -90,7 +90,9 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         </dd>
         <dt><?php _ex( 'Is Recurring?', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
-            <?php echo $current_plan && $current_plan->is_recurring ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
+            <span class="display-value" id="wpbdp-listing-plan-prop-is_recurring">
+                <?php echo $current_plan && $current_plan->is_recurring ? _x( 'Yes', 'listing metabox', 'WPBDM' ) : _x( 'No', 'listing metabox', 'WPBDM' ); ?>
+            </span>
         </dd>
     </dl>
 

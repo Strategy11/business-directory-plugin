@@ -37,7 +37,6 @@ jQuery( function( $ ) {
         var plan_id = $( 'input[name="listing_plan[fee_id]"]').val();
         var expiration = $('input[name="listing_plan[expiration_date]"]').val();
         var images = $('input[name="listing_plan[fee_images]"]').val();
-        var is_sticky = $('input[name="listing_plan[is_sticky]"]').is(':checked');
 
         var $plan = $('select#wpbdp-listing-plan-select').find('option[value="' + plan_id + '"]');
         if ( $plan.length > 0) {
@@ -46,11 +45,13 @@ jQuery( function( $ ) {
             $('#wpbdp-listing-plan-prop-label').html(
                 wpbdpListingMetaboxL10n.planDisplayFormat.replace('{{plan_id}}', plan_data.id)
                                                          .replace('{{plan_label}}', plan_data.label));
+            $( '#wpbdp-listing-plan-prop-amount' ).html( plan_data.amount ? plan_data.amount : '-' );
+            $( '#wpbdp-listing-plan-prop-is_sticky' ).html( plan_data.sticky ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no );
+            $( '#wpbdp-listing-plan-prop-is_recurring' ).html( plan_data.recurring ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no );
         }
 
         $('#wpbdp-listing-plan-prop-expiration').html(expiration ? expiration : wpbdpListingMetaboxL10n.noExpiration);
         $('#wpbdp-listing-plan-prop-images').html(images);
-        $('#wpbdp-listing-plan-prop-is_sticky').html(is_sticky ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no);
     };
 
     // Properties editing.
@@ -92,7 +93,6 @@ jQuery( function( $ ) {
                 $metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
                 $metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
                 $metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
-                $metabox_tab.find('input[name="listing_plan[is_sticky]"]').prop( 'checked', plan.sticky );
             }
 
             updateText();
