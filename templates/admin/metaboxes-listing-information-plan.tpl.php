@@ -26,7 +26,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-label">
                 <?php if ( $current_plan ): ?>
-                    <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id=' . $current_plan->fee_id ); ?>"><?php echo $current_plan->fee_label; ?></a>
+                    <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=edit-fee&id=' . $current_plan->fee_id ); ?>"><?php echo $current_plan->fee_label; ?></a>
                 <?php else: ?>
                     -
                 <?php endif; ?>
