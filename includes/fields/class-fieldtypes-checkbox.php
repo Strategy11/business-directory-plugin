@@ -29,6 +29,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
                 'depth' => 0,
                 'walker' => new WPBDP_CategoryFormInputWalker( 'checkbox', $value, $field ),
                 'show_option_none' => '',
+                'show_option_all' => '1' == $field->data( 'allow_select_all' ) ? _x( 'Select all', 'checkbox form field', 'WPBDM' ) : '',
                 'title_li' => '',
             ) );
 
@@ -61,6 +62,13 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             $i++;
         }
 
+        if ( '1' == $field->data( 'allow_select_all' ) ) {
+            $html .= sprintf( '<div class="wpbdp-inner-field-option wpbdp-inner-field-option-select_all"><label><input type="checkbox" name="%s" value="%s"/> %s</label></div>',
+                'checkbox_select_all['. $field->get_id() .']',
+                'select_all-' . $field->get_id(),
+                _x( 'Select All', 'form-fields admin', 'WPBDM' ) );
+        }
+
         return $html;
     }
 
@@ -85,6 +93,15 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
         $settings['options'][] = $content;
 
+        $settings['select_all'][] = _x( 'Include "Select all"?', 'form-fields admin', 'WPBDM' );
+
+        $content = '<label>';
+        $content .= '<input name="field[allow_select_all]" value="1" type="checkbox" ' .  ( ( $field && '1' == $field->data( 'allow_select_all' ) ) ? 'checked="checked"': '' ) . '/>';
+        $content .= _x( 'Display "Select all" option among options above.', 'form-fields admin', 'WPBDM' );
+        $content .= '</label>';
+
+        $settings['select_all'][] = $content;
+
         return self::render_admin_settings( $settings );
     }
 
@@ -98,6 +115,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
         $field->set_data( 'options', $options ? array_map( 'trim', explode( "\n", $options ) ) : array() );
+        $field->set_data( 'allow_select_all', array_key_exists( 'allow_select_all', $_POST['field'] ) ? $_POST['field']['allow_select_all'] : '' );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {

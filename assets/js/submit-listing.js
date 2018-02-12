@@ -314,6 +314,11 @@ jQuery(function($) {
             self.check_password_strength( $( this) );
         } );
 
+        $( '#wpbdp-submit-listing' ).on( 'click', '.wpbdp-inner-field-option-select_all', function( e ) {
+            var $options = $( this ).parent().find( 'input[type="checkbox"]' );
+            $options.prop( 'checked', $( this ).find( 'input' ).is(':checked') );
+        } );
+
         $( window ).trigger( 'wpbdp_submit_init' );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {

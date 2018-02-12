@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-01-28 22:22:45+00:00\n"
+"POT-Creation-Date: 2018-02-11 20:26:35+00:00\n"
 "PO-Revision-Date: 2017-11-13 00:48+0100\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -38,7 +38,7 @@ msgstr "Expire le"
 msgid "Attributes"
 msgstr "Attributs"
 
-#: includes/admin/class-admin.php:163
+#: includes/admin/class-admin.php:164
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "to how WordPress stores the data."
@@ -47,11 +47,11 @@ msgstr ""
 "brouillon. Ceci est dû \n"
 "à la manière dont WordPress stocke les données."
 
-#: includes/admin/class-admin.php:358
+#: includes/admin/class-admin.php:359
 msgid "Uninstall Business Directory Plugin"
 msgstr "Désinstaller le Plugin Annuaire Professionnel"
 
-#: includes/admin/class-admin.php:359
+#: includes/admin/class-admin.php:360
 msgid "Uninstall"
 msgstr "Désinstaller"
 
@@ -179,7 +179,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:408
+#: includes/class-wpbdp.php:420
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -188,7 +188,7 @@ msgstr ""
 "désactivés car le plugin a besoin d'effectuer une mise à jour manuelle avant "
 "de poursuivre."
 
-#: includes/class-wpbdp.php:415
+#: includes/class-wpbdp.php:427
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -881,27 +881,27 @@ msgctxt "admin listings"
 msgid "Never"
 msgstr "Jamais"
 
-#: includes/admin/class-admin-listings.php:280
+#: includes/admin/class-admin-listings.php:285
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "Statut sélectionné (Post-it)"
 
-#: includes/admin/class-admin-listings.php:283
+#: includes/admin/class-admin-listings.php:288
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(récurrent)"
 
-#: includes/admin/class-admin-listings.php:286
+#: includes/admin/class-admin-listings.php:291
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Gratuit"
 
-#: includes/admin/class-admin-listings.php:288
+#: includes/admin/class-admin-listings.php:293
 msgctxt "admin listings"
 msgid "Paid"
 msgstr "Payé"
 
-#: includes/admin/class-admin-listings.php:292
+#: includes/admin/class-admin-listings.php:297
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
@@ -940,28 +940,28 @@ msgctxt "admin"
 msgid "Categories"
 msgstr "Catégories"
 
-#: includes/admin/class-admin.php:224
+#: includes/admin/class-admin.php:225
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Annuaire Professionnel"
 
-#: includes/admin/class-admin.php:235
+#: includes/admin/class-admin.php:236
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Vous êtes prêt à visitez votre nouvelle page <a>Annuaire Professionnel</a>."
 
-#: includes/admin/class-admin.php:389
+#: includes/admin/class-admin.php:390
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Menu sans titre"
 
-#: includes/admin/class-admin.php:659
+#: includes/admin/class-admin.php:660
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Ne tenez pas compte de cet avertissement."
 
-#: includes/admin/class-admin.php:690 includes/admin/class-admin.php:700
+#: includes/admin/class-admin.php:691 includes/admin/class-admin.php:701
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -969,24 +969,24 @@ msgid_plural "The listings have been updated."
 msgstr[0] "L'annonce a été mise à jour."
 msgstr[1] "Les annonces ont été mise à jour."
 
-#: includes/admin/class-admin.php:721
+#: includes/admin/class-admin.php:722
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Les frais ont bien été assignés."
 
-#: includes/admin/class-admin.php:731
+#: includes/admin/class-admin.php:732
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "L'annonce a été renouvelée."
 msgstr[1] "Les annonces ont été renouvelées."
 
-#: includes/admin/class-admin.php:742
+#: includes/admin/class-admin.php:743
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Email de renouvellement envoyé."
 
-#: includes/admin/class-admin.php:749
+#: includes/admin/class-admin.php:750
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -994,23 +994,23 @@ msgid_plural "Listing reports deleted."
 msgstr[0] "Date d'expiration de l'annonce"
 msgstr[1] "Date d'expiration de l'annonce"
 
-#: includes/admin/class-admin.php:797
+#: includes/admin/class-admin.php:798
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Clés d'accès"
 
-#: includes/admin/class-admin.php:799
+#: includes/admin/class-admin.php:800
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:857 includes/admin/class-admin.php:863
+#: includes/admin/class-admin.php:858 includes/admin/class-admin.php:864
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Compteur d'annonces"
 
-#: includes/admin/class-admin.php:925
+#: includes/admin/class-admin.php:926
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1019,7 +1019,7 @@ msgstr ""
 "<b>Business Directory  Plugin</b> requiert une page avec le code "
 "d'activation <tt>[businessdirectory]</tt> pour marcher correctement."
 
-#: includes/admin/class-admin.php:927
+#: includes/admin/class-admin.php:928
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1028,12 +1028,12 @@ msgstr ""
 "Vous pouvez créer cette page par vous-mêmes ou laisser le plugin la faire "
 "pour vous automatiquement."
 
-#: includes/admin/class-admin.php:931
+#: includes/admin/class-admin.php:932
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Créer les pages requises pour moi"
 
-#: includes/admin/class-admin.php:964
+#: includes/admin/class-admin.php:965
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1045,7 +1045,7 @@ msgstr ""
 "strong>.S'il vous plaît demander à votre fournisseur de mettre à jour afin "
 "d'éviter tout problème avec le plug-in."
 
-#: includes/admin/class-admin.php:987
+#: includes/admin/class-admin.php:988
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1120,127 +1120,133 @@ msgctxt "admin"
 msgid "Abandoned"
 msgstr "Abandonné"
 
-#: includes/admin/class-admin-listings.php:347
+#: includes/admin/class-admin-listings.php:270
+#, fuzzy
+msgctxt "listing attribute"
+msgid "No Fee Plan"
+msgstr "Plan tarifaire"
+
+#: includes/admin/class-admin-listings.php:352
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:660
+#: includes/class-listing.php:698
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: includes/class-listing.php:661
+#: includes/class-listing.php:699
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Don"
 
-#: includes/class-listing.php:662
+#: includes/class-listing.php:700
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: includes/class-listing.php:663
+#: includes/class-listing.php:701
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Paiement en attente"
 
-#: includes/class-listing.php:664
+#: includes/class-listing.php:702
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Complet"
 
-#: includes/class-listing.php:665
+#: includes/class-listing.php:703
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "En attente de mise à niveau"
 
-#: includes/class-listing.php:666
+#: includes/class-listing.php:704
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expiré"
 
-#: includes/class-listing.php:667
+#: includes/class-listing.php:705
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Actives + En attente de renouvellement"
 
-#: includes/class-listing.php:668
+#: includes/class-listing.php:706
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonné"
 
-#: includes/admin/class-admin-listings.php:395
+#: includes/admin/class-admin-listings.php:400
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Editer l'annonce"
 
-#: includes/admin/class-admin-listings.php:398
+#: includes/admin/class-admin-listings.php:403
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Annuler l'annonce"
 
-#: includes/admin/class-admin-listings.php:407
+#: includes/admin/class-admin-listings.php:412
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Voir les Paiements"
 
-#: includes/admin/class-admin-listings.php:412
+#: includes/admin/class-admin-listings.php:417
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Voir le Paiement"
 
-#: includes/admin/class-admin-listings.php:524
+#: includes/admin/class-admin-listings.php:521
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publier l'annonce"
 
-#: includes/admin/class-admin-listings.php:525
+#: includes/admin/class-admin-listings.php:522
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "En attente"
 
-#: includes/admin/class-admin-listings.php:526
+#: includes/admin/class-admin-listings.php:523
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:528
+#: includes/admin/class-admin-listings.php:525
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Renouveler l'annonce"
 
-#: includes/admin/class-admin-listings.php:529
+#: includes/admin/class-admin-listings.php:526
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Envoyé lorsqu'une annonce (% s) est expirée."
 
-#: includes/admin/class-admin-listings.php:535
+#: includes/admin/class-admin-listings.php:532
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Demander une clé d'accès ?"
 
-#: includes/admin/class-admin.php:156
+#: includes/admin/class-admin.php:157
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:63
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "Jamais"
 
-#: includes/admin/class-admin.php:157
+#: includes/admin/class-admin.php:158
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:87
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr "Oui"
 
-#: includes/admin/class-admin.php:158
+#: includes/admin/class-admin.php:159
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:87
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
 msgctxt "listing metabox"
 msgid "No"
 msgstr "Non"
@@ -1353,7 +1359,7 @@ msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr "Est récurrent?"
 
-#: includes/admin/class-admin.php:195
+#: includes/admin/class-admin.php:196
 msgctxt "drip pointer"
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -1364,79 +1370,79 @@ msgstr ""
 "zéro dans ce cours (GRATUIT) en 5 parties (envoyé via e-mail). Obtenez un "
 "module premium GRATUIT juste après votre inscription."
 
-#: includes/admin/class-admin.php:197
+#: includes/admin/class-admin.php:198
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Adresse e-mail:"
 
-#: includes/admin/class-admin.php:203
+#: includes/admin/class-admin.php:204
 msgctxt "drip pointer"
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr ""
 "Voulez-vous connaître les secrets de la création d'un superbe annuaire "
 "professionnel ?"
 
-#: includes/admin/class-admin.php:205
+#: includes/admin/class-admin.php:206
 msgctxt "drip pointer"
 msgid "Yes, please!"
 msgstr "Oui, s'il vous plait !"
 
-#: includes/admin/class-admin.php:207
+#: includes/admin/class-admin.php:208
 msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Non, merci"
 
-#: includes/admin/class-admin.php:255
+#: includes/admin/class-admin.php:256
 msgctxt "drip pointer"
 msgid "Invalid e-mail address."
 msgstr "Adresse e-mail non valide."
 
-#: includes/admin/class-admin.php:289
+#: includes/admin/class-admin.php:290
 msgctxt "admin menu"
 msgid "Business Directory Admin"
 msgstr "Administrateur de l'Annuaire Professionnel"
 
-#: includes/admin/class-admin.php:290
+#: includes/admin/class-admin.php:291
 msgctxt "admin menu"
 msgid "Dir. Admin"
 msgstr "Administrateur de l'Annuaire"
 
-#: includes/admin/class-admin.php:290
+#: includes/admin/class-admin.php:291
 msgctxt "admin menu"
 msgid "Directory Admin"
 msgstr "Administrateur de l'Annuaire"
 
-#: includes/admin/class-admin.php:297
+#: includes/admin/class-admin.php:298
 msgctxt "admin menu"
 msgid "Add New Listing"
 msgstr "Ajoutez une nouvelle annonce"
 
-#: includes/admin/class-admin.php:305
+#: includes/admin/class-admin.php:306
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Gestion des frais"
 
-#: includes/admin/class-admin.php:308
+#: includes/admin/class-admin.php:309
 msgctxt "admin menu"
 msgid "Listings"
 msgstr "Listes"
 
-#: includes/admin/class-admin.php:312
+#: includes/admin/class-admin.php:313
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Gestion des champs"
 
-#: includes/admin/class-admin.php:316
+#: includes/admin/class-admin.php:317
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Historique de paiement"
 
-#: includes/admin/class-admin.php:319
+#: includes/admin/class-admin.php:320
 msgctxt "admin menu"
 msgid "CSV Import & Export"
 msgstr "CSV Importation/Exportation"
 
-#: includes/admin/class-admin.php:330
+#: includes/admin/class-admin.php:331
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Déboguer"
@@ -1446,7 +1452,7 @@ msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Gestion des options"
 
-#: includes/admin/class-admin.php:855
+#: includes/admin/class-admin.php:856
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -1702,6 +1708,12 @@ msgstr "L'exportation a été annulée."
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "←Retourner vers l'export CSV"
+
+#: includes/admin/class-listings-with-no-fee-plan-view.php:58
+#, fuzzy
+msgctxt "listings view"
+msgid "No Fee Plan"
+msgstr "Plan tarifaire"
 
 #: includes/admin/class-themes-admin.php:45
 msgctxt "themes"
@@ -2606,7 +2618,13 @@ msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Étiquettes mises à jour."
 
-#: includes/fields/class-fieldtypes-checkbox.php:74
+#: includes/fields/class-fieldtypes-checkbox.php:69
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Select All"
+msgstr "Sélectionnez une annonce"
+
+#: includes/fields/class-fieldtypes-checkbox.php:85
 #: includes/fields/class-fieldtypes-radiobutton.php:71
 #: includes/fields/class-fieldtypes-select.php:196
 msgctxt "form-fields admin"
@@ -2615,7 +2633,17 @@ msgstr ""
 "Champ d'options (pour sélectionner des annonces, des boutons radio et cases "
 "à cocher)."
 
-#: includes/fields/class-fieldtypes-checkbox.php:95
+#: includes/fields/class-fieldtypes-checkbox.php:96
+msgctxt "form-fields admin"
+msgid "Include \"Select all\"?"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-checkbox.php:100
+msgctxt "form-fields admin"
+msgid "Display \"Select all\" option among with options above"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-checkbox.php:115
 #: includes/fields/class-fieldtypes-radiobutton.php:90
 #: includes/fields/class-fieldtypes-select.php:224
 msgctxt "form-fields admin"
@@ -2702,12 +2730,12 @@ msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Générer automatiquement un extrait d'un champ du contenu ?"
 
-#: includes/fields/class-fieldtypes-url.php:22
+#: includes/fields/class-fieldtypes-url.php:23
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
 msgstr "Ouvrir le lien dans une nouvelle fenêtre?"
 
-#: includes/fields/class-fieldtypes-url.php:25
+#: includes/fields/class-fieldtypes-url.php:26
 msgctxt "form-fields admin"
 msgid "Use rel=\"nofollow\" when displaying the link?"
 msgstr "Utiliser rel=\"nofollow\" lors de l'affichage du lien?"
@@ -5174,23 +5202,23 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Ajouter une nouvelle annonce"
 
-#: includes/class-listing.php:246
+#: includes/class-listing.php:284
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Une annonce expire"
 
-#: includes/class-listing.php:398
+#: includes/class-listing.php:436
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Plan indisponible disponible)"
 
-#: includes/class-listing.php:528
+#: includes/class-listing.php:566
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(récurrent)"
 
-#: includes/class-listing.php:530 includes/class-listing.php:562
+#: includes/class-listing.php:568 includes/class-listing.php:600
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Statut \"%s\""
@@ -5200,24 +5228,24 @@ msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Ajouter une nouvelle annonce"
 
-#: includes/class-fee-plan.php:144
+#: includes/class-fee-plan.php:153
 msgctxt "fee plan"
 msgid "No images allowed."
 msgstr "Nombre d'images autorisées."
 
-#: includes/class-fee-plan.php:146
+#: includes/class-fee-plan.php:155
 msgctxt "fee plan"
 msgid "%d image allowed."
 msgid_plural "%d images allowed."
 msgstr[0] "Image %d autorisée."
 msgstr[1] "Images autorisées"
 
-#: includes/class-fee-plan.php:298
+#: includes/class-fee-plan.php:307
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "Une étiquette de frais est requise."
 
-#: includes/class-fee-plan.php:304
+#: includes/class-fee-plan.php:313
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
@@ -5642,17 +5670,17 @@ msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA"
 
-#: includes/class-wpbdp.php:237
+#: includes/class-wpbdp.php:239
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: includes/class-wpbdp.php:319
+#: includes/class-wpbdp.php:321
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Impossible de télécharger d'images  pour cette annonce."
 
-#: includes/class-wpbdp.php:323
+#: includes/class-wpbdp.php:325
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -5764,12 +5792,12 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Champ URL"
 
-#: includes/fields/class-fieldtypes-url.php:135
+#: includes/fields/class-fieldtypes-url.php:136
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "URL:"
 
-#: includes/fields/class-fieldtypes-url.php:143
+#: includes/fields/class-fieldtypes-url.php:144
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Lien texte (facultatif):"
@@ -6317,13 +6345,13 @@ msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Le serveur a renvoyé une erreur 403 Forbidden."
 
-#: includes/licensing.php:495
+#: includes/licensing.php:496
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr ""
 "Répertoire des entreprises - S'il vous plaît vérifier vos clés de licence"
 
-#: includes/licensing.php:505
+#: includes/licensing.php:506
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -6332,7 +6360,7 @@ msgstr ""
 "Les modules Premium suivants ne fonctionnera pas jusqu'à ce qu'une clé de "
 "licence valide est fournie:% s."
 
-#: includes/licensing.php:516
+#: includes/licensing.php:517
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -6341,18 +6369,18 @@ msgstr ""
 "Vous devez activer les clés de licence pour les thèmes suivants avant de "
 "pouvoir les utiliser : %s."
 
-#: includes/licensing.php:524 includes/licensing.php:580
+#: includes/licensing.php:525 includes/licensing.php:581
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Renouveller la clé de licence"
 
-#: includes/licensing.php:551
+#: includes/licensing.php:552
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Business Directory - Clé de licence expirée"
 
-#: includes/licensing.php:561
+#: includes/licensing.php:562
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6364,7 +6392,7 @@ msgstr ""
 "Le module va continuer à travailler mais vous ne recevrez plus de mises à "
 "jour jusqu'à ce que la licence soit renouvelée."
 
-#: includes/licensing.php:572
+#: includes/licensing.php:573
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6376,33 +6404,33 @@ msgstr ""
 "Le module va continuer à travailler mais vous ne recevrez plus de mises à "
 "jour jusqu'à ce que la licence soit renouvelée."
 
-#: includes/licensing.php:666
+#: includes/licensing.php:667
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "S'il vous plaît entrer une clé de licence."
 
-#: includes/licensing.php:675
+#: includes/licensing.php:676
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: includes/licensing.php:677
+#: includes/licensing.php:678
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: includes/licensing.php:697
+#: includes/licensing.php:698
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
 
-#: includes/licensing.php:699
+#: includes/licensing.php:700
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:890
+#: includes/licensing.php:891
 msgctxt "deprecation"
 msgid ""
 "\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "
@@ -7899,22 +7927,22 @@ msgctxt "admin infometabox"
 msgid "Access Key"
 msgstr "Clé d'accès"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "URL de renouvellement (copier-coller)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr "Obtenir l'URL de renouvellement de l'annonce"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Envoyer un e-mail à l'utilisateur"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:108
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr "Renouveler l'annonce"
