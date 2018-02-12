@@ -12,6 +12,7 @@ jQuery(function($) {
         reset: function() {
             this.field_wrapper = $( '.wpbdp-form-field-association-category' );
             this.field_type = '';
+            this.plan_autoselect = false;
 
             if ( $( '.wpbdp-js-select2', this.field_wrapper ).length > 0 ) {
                 this.field_type = 'select2';
@@ -125,6 +126,15 @@ jQuery(function($) {
                     self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
                 });
             }
+
+            if ( self.available_plans.length === 1 && this.plan_autoselect ) {
+                $( '#wpbdp-plan-select-radio-' + self.available_plans[0] ).trigger( "click" );
+            }
+
+            if ( ! this.plan_autoselect ) {
+                this.plan_autoselect = true;
+            }
+
         },
 
         _enable_categories: function( categories ) {
@@ -260,6 +270,11 @@ jQuery(function($) {
                 }
 
                 $plan.find( '.wpbdp-plan-price-amount' ).text( price ? $plan.data( 'amount-format' ).replace( '[amount]', price.toFixed(2) ) : $plan.data( 'free-text' ) );
+
+                if ( self.available_plans.length === 1 ) {
+                    $plan.find( '#wpbdp-plan-select-radio-' + plan_id ).prop( "checked", true );
+                }
+
             } );
         }
     });

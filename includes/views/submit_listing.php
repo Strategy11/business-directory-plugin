@@ -176,6 +176,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->listing->set_fee_plan( null );
         }
 
+        if( ! empty( $_POST['listingfields'] ) ) {
+            update_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', $_POST['listingfields'] );
+        }
+
         wp_set_post_terms( $this->listing->get_id(), array(), WPBDP_CATEGORY_TAX, false );
 
         $this->ajax_sections();
@@ -535,12 +539,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function listing_fields() {
         $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
         $fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$fields, &$this->listing ) );
-        $field_values = array();
+        $saved_listingfields = get_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', true );
+        $field_values = ! empty( $saved_listingfields ) ? $saved_listingfields : array();
 
         $validation_errors = array();
 
         foreach ( $fields as $field ) {
-            $value = $field->value( $this->listing->get_id() );
+            $value = ! empty( $field_values[ $field->get_id() ] ) ? $field_values[ $field->get_id() ] : $field->value( $this->listing->get_id() );
 
             if ( 'title' == $field->get_association() && '(no title)' == $value ) {
                 $value = '';
@@ -872,6 +877,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $checkout_url = $payment->get_checkout_url();
             return $this->_redirect( $checkout_url );
         }
+
+        delete_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields' );
 
         return $this->done();
     }
