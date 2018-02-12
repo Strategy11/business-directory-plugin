@@ -17,25 +17,59 @@ class WPBDP_Email {
     public $plain = '';
     public $html = '';
     public $template = '';
+    public $boundary = '';
 
+    public function __construct() {
+    }
 
-	public function __construct() {
-	}
+	private function set_boundary() {
+        $this->boundary = uniqid('wpbdp');
+    }
 
-	private function prepare_html() {
-		if (!$this->html) {
-			$text = $this->body ? $this->body : $this->plain;
-			$text = str_ireplace(array("<br>", "<br/>", "<br />"), "\n", $text);
-			$this->html = nl2br($text);
-		}
-	}
+    private function prepare_html() {
+        $text = "\r\n\r\n--" . $this->boundary . "\r\n";
+        $text .= "Content-type: text/html; charset=" . get_option( 'blog_charset' ) ."\r\n\r\n";
+        $text .= '<html>';
 
-	private function prepare_plain() {
-		if (!$this->plain) {
-			$text = $this->body ? $this->body : $this->html;
-			$this->plain = strip_tags($text); // FIXME: this removes 'valid' plain text like <whatever>
-		}
-	}
+        if ( ! $this->html ) {
+            $_text = $this->body ? $this->body : $this->plain;
+            $_text = str_ireplace(array("<br>", "<br/>", "<br />"), "\n", $_text);
+            $text .= nl2br( $_text );
+        } else {
+            $text .= $this->html;
+        }
+        $text .= '</html>';
+        $this->html = $text;
+    }
+
+    private function prepare_plain() {
+        $text = "\r\n\r\n--" . $this->boundary . "\r\n";
+        $text .= "Content-type: text/plain; charset=" . get_option( 'blog_charset' ) . "\r\n\r\n";
+
+        if ( !$this->plain ) {
+            $text .= $this->body ? $this->body : $this->html;
+            $this->plain = strip_tags( $text ); // FIXME: this removes 'valid' plain text like <whatever>
+        } else {
+            $this->plain = $text . $this->plain;
+        }
+    }
+
+    private function get_message() {
+        $this->prepare_plain();
+
+        if ( $this->template ) {
+            if ( $html_ = wpbdp_render( $this->template, array( 'subject' => $this->subject,
+                'body' => $this->html ) ) ) {
+                $this->html = $html_;
+            }
+        }
+        $this->prepare_html();
+
+        $message = $this->plain . $this->html;
+        $message .= "\r\n\r\n--" . $this->boundary . "--";
+
+        return $message;
+    }
 
     private function get_headers() {
         $headers = array();
@@ -45,7 +79,7 @@ class WPBDP_Email {
         }
 
         if ( ! isset( $this->headers['Content-Type'] ) ) {
-            $headers[] = 'Content-Type: text/html; charset=' . get_option( 'blog_charset' );
+            $headers[] = 'Content-Type: multipart/alternative; boundary=' . $this->boundary . '; charset=' . get_option( 'blog_charset' );
         }
 
         $headers[] = 'From: ' . $this->from;
@@ -62,11 +96,12 @@ class WPBDP_Email {
             $headers[] = 'Reply-To: ' . $this->reply_to;
         }
 
-		foreach ( $this->headers as $k => $v ) {
-		    if ( in_array( $k, array( 'MIME-Version', 'Content-Type', 'From', 'Cc', 'Bcc' ) ) )
-		        continue;
+        foreach ( $this->headers as $k => $v ) {
+            if ( in_array( $k, array( 'MIME-Version', 'Content-Type', 'From', 'Cc', 'Bcc' ) ) ) {
+                continue;
+            }
 
-		    $headers[] = "$k: $v";
+            $headers[] = "$k: $v";
         }
 
         return $headers;
@@ -77,29 +112,18 @@ class WPBDP_Email {
 	 * @param string $format allowed values are 'html', 'plain' or 'both'
 	 * @return boolean true on success, false otherwise
 	 */
-	public function send($format='both') {
+    public function send($format='both') {
+        $this->set_boundary();
         $this->subject = preg_replace( '/[\n\r]/', '', strip_tags( html_entity_decode( $this->subject ) ) );
 
-		// TODO: implement 'plain' and 'both'
-		$this->prepare_html();
-		$this->prepare_plain();
+        $this->from = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) ) );
+        $this->to = preg_replace( '/[\n\r]/', '', $this->to );
 
-		$this->from = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) ) );
-		$to = preg_replace( '/[\n\r]/', '', $this->to );
-
-		if ( ! $this->to )
-		    return false;
-
-        $html = $this->html;
-        if ( $this->template ) {
-            if ( $html_ = wpbdp_render( $this->template, array( 'subject' => $this->subject,
-                                                                'body' => $this->html ) ) ) {
-                $html = $html_;
-            }
+        if ( ! $this->to ) {
+            return false;
         }
 
-		return wp_mail( $this->to, $this->subject, $html, $this->get_headers() );
-	}
-
+        return wp_mail( $this->to, $this->subject, $this->get_message(), $this->get_headers() );
+    }
 }
 
