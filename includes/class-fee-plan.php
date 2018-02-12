@@ -283,10 +283,6 @@ final class WPBDP__Fee_Plan {
             $this->pricing_details = array();
         }
 
-        if ( 0 == $this->days || ( 0 == $this->amount && 'flat' == $this->pricing_model  ) ) {
-            $this->recurring = 0;
-        }
-
         // Free plan is special.
         if ( 'free' == $this->tag ) {
             $this->pricing_model = 'flat';
@@ -311,6 +307,26 @@ final class WPBDP__Fee_Plan {
         // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
         if ( $this->days > 3650 ) {
             $errors['days'] = _x( 'Fee listing duration must be a number less than 10 years (3650 days).', 'fees-api', 'WPBDM' );
+        }
+
+        if ( 1 == $this->recurring ) {
+            if ( 0 == $this->days ) {
+                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-days">', _x( 'To set this fee as "Recurring" you must have a time for the listing to renew (e.g. 30 days). To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' ) );
+            }
+
+            $error_message = _x( 'To set this fee as "Recurring" you must set a price for your fee plan. To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' );
+
+            if ( 'flat' == $this->pricing_model && 0 == $this->amount ) {
+                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-price">', $error_message );
+            }
+
+            if ( 'variable' == $this->pricing_model && 0 == array_sum( $this->pricing_details ) ) {
+                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-category">', $error_message );
+            }
+
+            if ( 'extra' == $this->pricing_model && 0 == $this->amount + $this->pricing_details['extra'] ) {
+                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-price">', $error_message );
+            }
         }
 
         return $errors;
