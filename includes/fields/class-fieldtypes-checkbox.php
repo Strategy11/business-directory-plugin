@@ -120,7 +120,11 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
     public function store_field_value( &$field, $post_id, $value ) {
         if ( $field->get_association() == 'meta' ) {
-            $value =  implode( "\t", is_array( $value ) ? $value : array( $value ) );
+            if ( ! is_array( $value ) ) {
+                $value = array( $value );
+            }
+
+            $value =  implode( "\t", array_filter( $value, 'strlen' ) );
         }
 
         parent::store_field_value( $field, $post_id, $value );
