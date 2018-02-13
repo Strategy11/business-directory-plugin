@@ -4,9 +4,9 @@ Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.3
 Requires PHP: 5.6
-Tested up to: 4.9.2
-Last Updated: 2018-Jan-26
-Stable tag: 5.1.6.1
+Tested up to: 4.9
+Last Updated: 2018-Feb-13
+Stable tag: 5.1.7
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -66,25 +66,24 @@ Please report any bugs you find via https://businessdirectoryplugin.com/support-
 These are optional, paid modules that you can use to enhance Business Directory Plugin's functionality and
 support future development:
 
-= NEW Themes =
-* NEW! [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
-* NEW! [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
-* NEW! [Tabbed Business Theme](https://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
-* NEW! [Elegant Business Theme](https://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
-* NEW! [Mobile Compact Theme](https://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
-* NEW! [Restaurant Theme](https://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
+= Premium Directory Skins (Paid) =
+* [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
+* [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
+* [Tabbed Business Theme](https://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
+* [Elegant Business Theme](https://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
+* [Mobile Compact Theme](https://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
+* [Restaurant Theme](https://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
 
-= NEW Modules =
-* NEW! [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
-* NEW! [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
-
-= Other Paid Feature Add On Modules =
+= Feature Add On Modules (Paid) =
+* [Combo Pack](http://businessdirectoryplugin.com/downloads/business-directory-combo-pack-module/?ref=wp) (best deal!)
 * [File Upload Module](https://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
 * [Featured Levels Module](https://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
 * [ZIP Code Search Module](https://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
 * [Regions Module](https://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
 * [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
 * [Google Maps Module](https://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
+* [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
+* [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
 
 = Payment Gateway Modules (Paid) =
 * [Stripe Gateway Module](https://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
@@ -143,6 +142,25 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 5.1.7 =
+* Update German translation.
+* Show an indicator when listings are created without a fee plan.
+* Update error message when trying to change from/to URL or Image field types.
+* Form Fields on Submit listing and Preview Form now use all available width.
+* Submit listing now supports requiring at least one image is uploaded.
+* Remove 'Please select a category' error that appears incorrectly.
+* Prevent extra images from appearing when main image is deleted.
+* Fix uncaught Exception error on Listing Subscription.
+* Set a Listing as 'Featured' when it's fee plan 'Is featured listing/sticky?' setting is updated.
+* Update documentation links in plugin admin interface.
+* Prevent URL form field inputs from been hidden or out of container in submit/edit view.
+* Prevent form from been cleared when changing plan during Submit.
+* Add support for 'multipart/alternative' Content-Type in emails.
+* Include “Select All” option in Checkbox fields.
+* Add admin notices when a fee plan doesn’t meet requirements to be set as recurring.
+* Update listing information metabox according to plan change.
+* Make Listing's Access Key available to email templates through the new [access_key] placeholder.
+
 = Version 5.1.6.1 =
 * Fixed issue where PHP versions earlier than 5.6 had fatal error in flagging
 
