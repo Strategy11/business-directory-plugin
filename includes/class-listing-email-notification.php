@@ -99,7 +99,8 @@ class WPBDP__Listing_Email_Notification {
                     'link'          => sprintf( '<a href="%1$s">%1$s</a>', $listing->get_renewal_url() ),
                     'category'      => get_the_term_list( $listing->get_id(), WPBDP_CATEGORY_TAX, '', ', ' ),
                     'date'          => $expiration_date,
-                    'payment_date'  => $payment_date
+                    'payment_date'  => $payment_date,
+                    'access_key'    => $listing->get_access_key(),
             ) );
 
             $email->template = 'businessdirectory-email';
