@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-02-11 20:26:35+00:00\n"
+"POT-Creation-Date: 2018-02-13 18:31:44+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2596,7 +2596,7 @@ msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:100
 msgctxt "form-fields admin"
-msgid "Display \"Select all\" option among with options above"
+msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:115
@@ -5161,32 +5161,47 @@ msgid_plural "%d images allowed."
 msgstr[0] "%d bild tillåten."
 msgstr[1] "%d bilder tillåtna."
 
-#: includes/class-fee-plan.php:307
+#: includes/class-fee-plan.php:303
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "Avgiftsetikett är obligatoriskt."
 
-#: includes/class-fee-plan.php:313
+#: includes/class-fee-plan.php:309
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr "Avgiftens varaktighet måste vara ett tal mindre än 10 år (3650 dagar)."
+
+#: includes/class-fee-plan.php:314
+msgctxt "fees-api"
+msgid ""
+"To set this fee as \"Recurring\" you must have a time for the listing to "
+"renew (e.g. 30 days). To avoid issues with the listing, please edit the "
+"<a>fee plan</a> appropriately."
+msgstr ""
+
+#: includes/class-fee-plan.php:317
+msgctxt "fees-api"
+msgid ""
+"To set this fee as \"Recurring\" you must set a price for your fee plan. To "
+"avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
+msgstr ""
 
 #: includes/class-fees-api.php:61
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Gratis annons"
 
-#: includes/class-listing-email-notification.php:129
+#: includes/class-listing-email-notification.php:130
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notifiering om ny annons"
 
-#: includes/class-listing-email-notification.php:164
+#: includes/class-listing-email-notification.php:165
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notifiering om annonsändring"
 
-#: includes/class-listing-email-notification.php:218
+#: includes/class-listing-email-notification.php:219
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -5429,97 +5444,97 @@ msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Du är inloggad som administratör, alla betalningssteg hoppas över."
 
-#: includes/views/submit_listing.php:324
+#: includes/views/submit_listing.php:328
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Val av kategori"
 
-#: includes/views/submit_listing.php:324
+#: includes/views/submit_listing.php:328
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Val av kategori och avgiftsplan"
 
-#: includes/views/submit_listing.php:329
+#: includes/views/submit_listing.php:333
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Information om annons"
 
-#: includes/views/submit_listing.php:333
+#: includes/views/submit_listing.php:337
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Annonsbilder"
 
-#: includes/views/submit_listing.php:339
+#: includes/views/submit_listing.php:343
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr "Konto skapas"
 
-#: includes/views/submit_listing.php:345
+#: includes/views/submit_listing.php:349
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:385
+#: includes/views/submit_listing.php:389
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/views/submit_listing.php:436
+#: includes/views/submit_listing.php:440
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
-#: includes/views/submit_listing.php:446
+#: includes/views/submit_listing.php:450
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
 
-#: includes/views/submit_listing.php:459
+#: includes/views/submit_listing.php:463
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Välj en kategori för din annons."
 
-#: includes/views/submit_listing.php:479
+#: includes/views/submit_listing.php:483
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Välj en giltig kategori för din plan."
 
-#: includes/views/submit_listing.php:481
+#: includes/views/submit_listing.php:485
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:698
+#: includes/views/submit_listing.php:703
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:703
+#: includes/views/submit_listing.php:708
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:708
+#: includes/views/submit_listing.php:713
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Ange lösenordet för ditt nya konto."
 
-#: includes/views/submit_listing.php:718
+#: includes/views/submit_listing.php:723
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:723
+#: includes/views/submit_listing.php:728
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
 
-#: includes/views/submit_listing.php:738
+#: includes/views/submit_listing.php:743
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:745
+#: includes/views/submit_listing.php:750
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -5527,17 +5542,17 @@ msgstr ""
 "Du måste skapa ett konto för denna webbplatsen. Vänligen fyll i formuläret "
 "nedan."
 
-#: includes/views/submit_listing.php:751
+#: includes/views/submit_listing.php:756
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:760
+#: includes/views/submit_listing.php:765
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-postadress:"
 
-#: includes/views/submit_listing.php:769
+#: includes/views/submit_listing.php:774
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Lösenord:"
@@ -5750,6 +5765,12 @@ msgstr "Metainformation"
 msgctxt "form-fields api"
 msgid "Custom"
 msgstr "Anpassad"
+
+#: includes/fields/class-fieldtypes-checkbox.php:32
+#, fuzzy
+msgctxt "checkbox form field"
+msgid "Select all"
+msgstr "Flervalslista"
 
 #: includes/fields/class-fieldtypes-date.php:61
 msgctxt "date field"
@@ -6661,7 +6682,7 @@ msgstr ""
 "av din webbplats. Om du inte vill det, klicka <a>här för</a> att ändra "
 "inställningen."
 
-#: includes/views/submit_listing.php:280
+#: includes/views/submit_listing.php:284
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -6670,22 +6691,22 @@ msgstr ""
 "<b>Vyn inte tillgänglig.</b> Har du \"Inaktivera inlämning av annons på "
 "framsidan?\"-inställningen markerad?"
 
-#: includes/views/submit_listing.php:282
+#: includes/views/submit_listing.php:286
 msgctxt "templates"
 msgid "View not available."
 msgstr "Vy ej tillgänglig."
 
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:812
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:815
+#: includes/views/submit_listing.php:820
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:824
+#: includes/views/submit_listing.php:829
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -7354,7 +7375,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:579
+#: includes/views/submit_listing.php:584
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -7363,7 +7384,7 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/views/submit_listing.php:650
+#: includes/views/submit_listing.php:655
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

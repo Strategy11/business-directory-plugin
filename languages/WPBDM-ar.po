@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-02-11 20:26:35+00:00\n"
+"POT-Creation-Date: 2018-02-13 18:31:44+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -2665,7 +2665,7 @@ msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:100
 msgctxt "form-fields admin"
-msgid "Display \"Select all\" option among with options above"
+msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:115
@@ -5433,32 +5433,47 @@ msgstr[3] "الصور المسموح بها"
 msgstr[4] "الصور المسموح بها"
 msgstr[5] "الصور المسموح بها"
 
-#: includes/class-fee-plan.php:307
+#: includes/class-fee-plan.php:303
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "رسوم التسمية مطلوبة."
 
-#: includes/class-fee-plan.php:313
+#: includes/class-fee-plan.php:309
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr "يجب أن تكون رسوم مدة الإعلان بعدد أقل من 10 سنوات (3650 يوما)."
+
+#: includes/class-fee-plan.php:314
+msgctxt "fees-api"
+msgid ""
+"To set this fee as \"Recurring\" you must have a time for the listing to "
+"renew (e.g. 30 days). To avoid issues with the listing, please edit the "
+"<a>fee plan</a> appropriately."
+msgstr ""
+
+#: includes/class-fee-plan.php:317
+msgctxt "fees-api"
+msgid ""
+"To set this fee as \"Recurring\" you must set a price for your fee plan. To "
+"avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
+msgstr ""
 
 #: includes/class-fees-api.php:61
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "إعلان مجاني"
 
-#: includes/class-listing-email-notification.php:129
+#: includes/class-listing-email-notification.php:130
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] تنبيه الإعلان الجديد"
 
-#: includes/class-listing-email-notification.php:164
+#: includes/class-listing-email-notification.php:165
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] تنبيه تحرير الإعلان"
 
-#: includes/class-listing-email-notification.php:218
+#: includes/class-listing-email-notification.php:219
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -5710,47 +5725,47 @@ msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "لقد تم تسجيل دخولك كمدير. سيتم تخطي أي خطوات للدفع."
 
-#: includes/views/submit_listing.php:324
+#: includes/views/submit_listing.php:328
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:324
+#: includes/views/submit_listing.php:328
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:329
+#: includes/views/submit_listing.php:333
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "معلومات حول الإعلان"
 
-#: includes/views/submit_listing.php:333
+#: includes/views/submit_listing.php:337
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "صور الإعلانات"
 
-#: includes/views/submit_listing.php:339
+#: includes/views/submit_listing.php:343
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:345
+#: includes/views/submit_listing.php:349
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "شروط وأحكام"
 
-#: includes/views/submit_listing.php:385
+#: includes/views/submit_listing.php:389
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:436
+#: includes/views/submit_listing.php:440
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -5758,80 +5773,80 @@ msgstr ""
 "لا يمكن أن نقوم بمعالجة الدفع الخاص بك في هذه اللحظة. المرجو المحاولة مرة "
 "أخرى لاحقاً."
 
-#: includes/views/submit_listing.php:446
+#: includes/views/submit_listing.php:450
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:459
+#: includes/views/submit_listing.php:463
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:479
+#: includes/views/submit_listing.php:483
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:481
+#: includes/views/submit_listing.php:485
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:698
+#: includes/views/submit_listing.php:703
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:703
+#: includes/views/submit_listing.php:708
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:708
+#: includes/views/submit_listing.php:713
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:718
+#: includes/views/submit_listing.php:723
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:723
+#: includes/views/submit_listing.php:728
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:738
+#: includes/views/submit_listing.php:743
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:745
+#: includes/views/submit_listing.php:750
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:751
+#: includes/views/submit_listing.php:756
 #, fuzzy
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "عضو"
 
-#: includes/views/submit_listing.php:760
+#: includes/views/submit_listing.php:765
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "البريد الإلكتروني:  %s"
 
-#: includes/views/submit_listing.php:769
+#: includes/views/submit_listing.php:774
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6048,6 +6063,12 @@ msgstr "البيانات الوصفية للمقالة"
 msgctxt "form-fields api"
 msgid "Custom"
 msgstr "تخصيص"
+
+#: includes/fields/class-fieldtypes-checkbox.php:32
+#, fuzzy
+msgctxt "checkbox form field"
+msgid "Select all"
+msgstr "قائمة منسدلة"
 
 #: includes/fields/class-fieldtypes-date.php:61
 msgctxt "date field"
@@ -6960,7 +6981,7 @@ msgstr ""
 "إعلانات بداخلها. هذا يعني أنها لن تظهر على الواجهة الأمامية للموقع الخاص بك. "
 "إذا كنت لا تريد ذلك، إضغط <a>هنا</a> لتغيير الإعداد."
 
-#: includes/views/submit_listing.php:280
+#: includes/views/submit_listing.php:284
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -6969,22 +6990,22 @@ msgstr ""
 "<b>المشاهدة غير متوفرة</b>. هل لديك \"تعطيل إضافة إعلان من واجهة الموقع؟\" "
 "محددة في الإعدادات؟"
 
-#: includes/views/submit_listing.php:282
+#: includes/views/submit_listing.php:286
 msgctxt "templates"
 msgid "View not available."
 msgstr "المشاهدة غير متوفرة."
 
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:812
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "يرجى الموافقة على الشروط والأحكام."
 
-#: includes/views/submit_listing.php:815
+#: includes/views/submit_listing.php:820
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "شروط وأحكام:"
 
-#: includes/views/submit_listing.php:824
+#: includes/views/submit_listing.php:829
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7665,14 +7686,14 @@ msgstr ""
 "Il s'agit seulement d'une pré-visualisation. L'annonce n'a pas encore été "
 "publiée."
 
-#: includes/views/submit_listing.php:579
+#: includes/views/submit_listing.php:584
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:650
+#: includes/views/submit_listing.php:655
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

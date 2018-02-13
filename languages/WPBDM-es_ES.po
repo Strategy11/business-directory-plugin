@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-02-11 20:26:35+00:00\n"
-"PO-Revision-Date: 2018-02-11 15:26-0500\n"
+"POT-Creation-Date: 2018-02-13 18:31:44+00:00\n"
+"PO-Revision-Date: 2018-02-13 13:42-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -1113,10 +1113,9 @@ msgid "Abandoned"
 msgstr "Abandonados"
 
 #: includes/admin/class-admin-listings.php:270
-#, fuzzy
 msgctxt "listing attribute"
 msgid "No Fee Plan"
-msgstr "Plan de Pago"
+msgstr "Sin Plan de Pago"
 
 #: includes/admin/class-admin-listings.php:352
 msgctxt "listing status"
@@ -1695,10 +1694,9 @@ msgid "← Return to CSV Export"
 msgstr "← Regresar a \"Exportar CSV\""
 
 #: includes/admin/class-listings-with-no-fee-plan-view.php:58
-#, fuzzy
 msgctxt "listings view"
 msgid "No Fee Plan"
-msgstr "Plan de Pago"
+msgstr "Sin Plan de Pago"
 
 #: includes/admin/class-themes-admin.php:45
 msgctxt "themes"
@@ -2616,8 +2614,8 @@ msgstr "Incluir “Seleccionar todos”?"
 
 #: includes/fields/class-fieldtypes-checkbox.php:100
 msgctxt "form-fields admin"
-msgid "Display \"Select all\" option among with options above"
-msgstr "Agregar la opción “Seleccionar todos” con las demás opciones"
+msgid "Display \"Select all\" option among options above."
+msgstr "Agregar la opción “Seleccionar todos” con las demás opciones."
 
 #: includes/fields/class-fieldtypes-checkbox.php:115
 #: includes/fields/class-fieldtypes-radiobutton.php:90
@@ -5217,33 +5215,54 @@ msgid_plural "%d images allowed."
 msgstr[0] "%d imagen permitida."
 msgstr[1] "%d imágenes permitidas."
 
-#: includes/class-fee-plan.php:307
+#: includes/class-fee-plan.php:303
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "El nombre de la Comisión es requerido."
 
-#: includes/class-fee-plan.php:313
+#: includes/class-fee-plan.php:309
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 "La duración del listado debe ser un número menor a 10 años (3650 días)."
+
+#: includes/class-fee-plan.php:314
+msgctxt "fees-api"
+msgid ""
+"To set this fee as \"Recurring\" you must have a time for the listing to "
+"renew (e.g. 30 days). To avoid issues with the listing, please edit the "
+"<a>fee plan</a> appropriately."
+msgstr ""
+"Para configurar este plan como “Recurrente” debe establecer un tiempo para "
+"renovar los listados (ej. 30 días). Para prevenir inconvenientes con los "
+"listados, por favor edite el <a>plan de pago</a> apropiadamente."
+
+#: includes/class-fee-plan.php:317
+msgctxt "fees-api"
+msgid ""
+"To set this fee as \"Recurring\" you must set a price for your fee plan. To "
+"avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
+msgstr ""
+"Para configurar este plan como “Recurrente” debe establecer un precio para "
+"el plan de pago. Para prevenir inconvenientes con los listados, por favor "
+"edite el <a>plan de pago</a> apropiadamente."
 
 #: includes/class-fees-api.php:61
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Listado Gratuito"
 
-#: includes/class-listing-email-notification.php:129
+#: includes/class-listing-email-notification.php:130
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
 
-#: includes/class-listing-email-notification.php:164
+#: includes/class-listing-email-notification.php:165
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notificación de listado editado"
 
-#: includes/class-listing-email-notification.php:218
+#: includes/class-listing-email-notification.php:219
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
 msgstr "[%s] Notificación de listado reportado"
@@ -5486,103 +5505,103 @@ msgid "You're logged in as admin, payment will be skipped."
 msgstr ""
 "Ha ingresado como administrador. Todos los pasos de pago serán saltados."
 
-#: includes/views/submit_listing.php:324
+#: includes/views/submit_listing.php:328
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Selección de categoría"
 
-#: includes/views/submit_listing.php:324
+#: includes/views/submit_listing.php:328
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Selección de categoría y comisión"
 
-#: includes/views/submit_listing.php:329
+#: includes/views/submit_listing.php:333
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Información del listado"
 
-#: includes/views/submit_listing.php:333
+#: includes/views/submit_listing.php:337
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Imágenes del listado"
 
-#: includes/views/submit_listing.php:339
+#: includes/views/submit_listing.php:343
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr "Creación de cuenta de usuario"
 
-#: includes/views/submit_listing.php:345
+#: includes/views/submit_listing.php:349
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
 
-#: includes/views/submit_listing.php:385
+#: includes/views/submit_listing.php:389
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr "(Por favor elija una comisión arriba)"
 
-#: includes/views/submit_listing.php:436
+#: includes/views/submit_listing.php:440
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "No puede publicar un listado en este momento. Por favor intente más tarde."
 
-#: includes/views/submit_listing.php:446
+#: includes/views/submit_listing.php:450
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Por favor seleccione una categoría."
 
-#: includes/views/submit_listing.php:459
+#: includes/views/submit_listing.php:463
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Por favor seleccione una categoría para su listado."
 
-#: includes/views/submit_listing.php:479
+#: includes/views/submit_listing.php:483
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Por favor seleccione una categoría válida para su comisión."
 
-#: includes/views/submit_listing.php:481
+#: includes/views/submit_listing.php:485
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Por favor elija una comisión válida para la categoría seleccionada."
 
-#: includes/views/submit_listing.php:698
+#: includes/views/submit_listing.php:703
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Por favor ingrese su nombre de usuario."
 
-#: includes/views/submit_listing.php:703
+#: includes/views/submit_listing.php:708
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 "Por favor ingrese la dirección de correo electrónico para su nueva cuenta."
 
-#: includes/views/submit_listing.php:708
+#: includes/views/submit_listing.php:713
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Por favor ingrese la contraseña para su nueva cuenta."
 
-#: includes/views/submit_listing.php:718
+#: includes/views/submit_listing.php:723
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "El nombre de usuario que eligió ya está en uso. Por favor elija un nombre de "
 "usuario diferente."
 
-#: includes/views/submit_listing.php:723
+#: includes/views/submit_listing.php:728
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 "La dirección de correo electrónico que eligió para su cuenta ya está siendo "
 "utilizada."
 
-#: includes/views/submit_listing.php:738
+#: includes/views/submit_listing.php:743
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Crear una cuenta de usuario en este sitio"
 
-#: includes/views/submit_listing.php:745
+#: includes/views/submit_listing.php:750
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -5590,17 +5609,17 @@ msgstr ""
 "Debe crear una cuenta de usuario en este sitio. Por favor ingrese los datos "
 "requeridos en el formulario que está debajo."
 
-#: includes/views/submit_listing.php:751
+#: includes/views/submit_listing.php:756
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Nombre de usuario"
 
-#: includes/views/submit_listing.php:760
+#: includes/views/submit_listing.php:765
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Correo electrónico:"
 
-#: includes/views/submit_listing.php:769
+#: includes/views/submit_listing.php:774
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Contraseña:"
@@ -5813,6 +5832,11 @@ msgstr "Metadata"
 msgctxt "form-fields api"
 msgid "Custom"
 msgstr "Especial"
+
+#: includes/fields/class-fieldtypes-checkbox.php:32
+msgctxt "checkbox form field"
+msgid "Select all"
+msgstr "Seleccionar todos"
 
 #: includes/fields/class-fieldtypes-date.php:61
 msgctxt "date field"
@@ -6724,7 +6748,7 @@ msgstr ""
 "Esto significa que no aparecerán acá. Si desea mostrar las categorías "
 "vacías, haga <a>clic aquí</a> para cambiar la configuración."
 
-#: includes/views/submit_listing.php:280
+#: includes/views/submit_listing.php:284
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -6733,22 +6757,22 @@ msgstr ""
 "<b>Vista no disponible</b>. ¿Tiene \"Deshabilitar envío de listados desde el "
 "frontend\" habilitado?"
 
-#: includes/views/submit_listing.php:282
+#: includes/views/submit_listing.php:286
 msgctxt "templates"
 msgid "View not available."
 msgstr "Vista no disponible."
 
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:812
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: includes/views/submit_listing.php:815
+#: includes/views/submit_listing.php:820
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Términos y Condiciones:"
 
-#: includes/views/submit_listing.php:824
+#: includes/views/submit_listing.php:829
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Acepto los <a>Términos y Condiciones</a>"
@@ -7420,7 +7444,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Esta es tan solo una previsualización. El listado no ha sido publicado aún."
 
-#: includes/views/submit_listing.php:579
+#: includes/views/submit_listing.php:584
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -7429,7 +7453,7 @@ msgstr ""
 "Algo salió mal. Por favor verifique que el formulario no contiene errores y "
 "envíelo de nuevo."
 
-#: includes/views/submit_listing.php:650
+#: includes/views/submit_listing.php:655
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
