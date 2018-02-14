@@ -600,12 +600,13 @@ class WPBDP_Form_Field {
         $data['display_flags'] = implode( ',', $this->display_flags );
         $data['field_data'] = serialize( $this->field_data );
 
-        if ( in_array( $this->association, array( 'title', 'excerpt', 'content', 'category', 'tags' ), true ) )
+        if ( in_array( $this->association, array( 'title', 'excerpt', 'content', 'category', 'tags' ), true ) ) {
             $data['tag'] = $this->association;
-        else if ( 'ratings' == $this->type->get_id() )
+        } else if ( 'ratings' == $this->type->get_id() ) {
             $data['tag'] = 'ratings';
-        else
-            $data['tag'] = $this->tag;
+        } else {
+            $data['tag'] = in_array( $this->tag, array( 'title', 'excerpt', 'content', 'category', 'tags' ) ) ? '' : $this->tag;
+        }
 
         if ( $this->id ) {
             $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", $data, array( 'id' => $this->id ) );
