@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 5.1.7\n"
+"Project-Id-Version: Business Directory Plugin 5.1.8dev1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2018-02-13 18:31:44+00:00\n"
+"POT-Creation-Date: 2018-02-16 18:28:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5116,7 +5116,12 @@ msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr ""
 
-#: includes/views/submit_listing.php:101
+#: includes/views/submit_listing.php:72
+msgctxt "submit listing"
+msgid "No listing ID was specified."
+msgstr ""
+
+#: includes/views/submit_listing.php:106
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -5124,124 +5129,124 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:106
+#: includes/views/submit_listing.php:111
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or "
 "contact the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:128
+#: includes/views/submit_listing.php:133
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr ""
 
-#: includes/views/submit_listing.php:328
+#: includes/views/submit_listing.php:333
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr ""
 
-#: includes/views/submit_listing.php:328
+#: includes/views/submit_listing.php:333
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr ""
 
-#: includes/views/submit_listing.php:333
+#: includes/views/submit_listing.php:338
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr ""
 
-#: includes/views/submit_listing.php:337
+#: includes/views/submit_listing.php:342
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr ""
 
-#: includes/views/submit_listing.php:343
+#: includes/views/submit_listing.php:348
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:349
+#: includes/views/submit_listing.php:354
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr ""
 
-#: includes/views/submit_listing.php:389
+#: includes/views/submit_listing.php:394
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:440
+#: includes/views/submit_listing.php:445
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/views/submit_listing.php:450
+#: includes/views/submit_listing.php:455
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/views/submit_listing.php:463
+#: includes/views/submit_listing.php:468
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr ""
 
-#: includes/views/submit_listing.php:483
+#: includes/views/submit_listing.php:488
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:485
+#: includes/views/submit_listing.php:490
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 
-#: includes/views/submit_listing.php:703
+#: includes/views/submit_listing.php:708
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/views/submit_listing.php:708
+#: includes/views/submit_listing.php:713
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:713
+#: includes/views/submit_listing.php:718
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:723
+#: includes/views/submit_listing.php:728
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:728
+#: includes/views/submit_listing.php:733
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:743
+#: includes/views/submit_listing.php:748
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:750
+#: includes/views/submit_listing.php:755
 msgctxt "submit listing"
 msgid "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:756
+#: includes/views/submit_listing.php:761
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
-#: includes/views/submit_listing.php:765
+#: includes/views/submit_listing.php:770
 msgctxt "submit listing"
 msgid "Email:"
 msgstr ""
 
-#: includes/views/submit_listing.php:774
+#: includes/views/submit_listing.php:779
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -5407,7 +5412,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr ""
 
-#: includes/fields/class-form-field.php:635
+#: includes/fields/class-form-field.php:636
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -5506,12 +5511,12 @@ msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr ""
 
-#: includes/fields/class-form-field.php:626
+#: includes/fields/class-form-field.php:627
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr ""
 
-#: includes/fields/class-form-field.php:647
+#: includes/fields/class-form-field.php:648
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr ""
@@ -6278,29 +6283,29 @@ msgid ""
 "site. If you didn't want that, click <a>here</a> to change the setting."
 msgstr ""
 
-#: includes/views/submit_listing.php:284
+#: includes/views/submit_listing.php:289
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:286
+#: includes/views/submit_listing.php:291
 msgctxt "templates"
 msgid "View not available."
 msgstr ""
 
-#: includes/views/submit_listing.php:812
+#: includes/views/submit_listing.php:817
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr ""
 
-#: includes/views/submit_listing.php:820
+#: includes/views/submit_listing.php:825
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr ""
 
-#: includes/views/submit_listing.php:829
+#: includes/views/submit_listing.php:834
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr ""
@@ -6933,14 +6938,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 
-#: includes/views/submit_listing.php:584
+#: includes/views/submit_listing.php:589
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:655
+#: includes/views/submit_listing.php:660
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit "
