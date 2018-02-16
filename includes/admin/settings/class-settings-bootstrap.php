@@ -388,6 +388,14 @@ final class WPBDP__Settings__Bootstrap {
             'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(
+            'id'      => 'prevent-sticky-on-directory-view',
+            'type'    => 'checkbox',
+            'name'    => _x( 'Prevent featured (sticky) status on main page?', 'settings', 'WPBDM' ),
+            'desc'    => _x( 'Prevents featured listings from floating to the top of the directory main page.', 'settings', 'WPBDM' ),
+            'default' => false,
+            'group' => 'listings/main'
+        ) );
+        wpbdp_register_setting( array(
             'id'      => 'status-on-uninstall',
             'type'    => 'radio',
             'name'    => _x( 'Status of listings upon uninstalling plugin', 'settings', 'WPBDM' ),

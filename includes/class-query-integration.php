@@ -80,11 +80,7 @@ class WPBDP__Query_Integration {
             $query->wpbdp_view = 'show_tag';
         }
 
-        // Is this the main page?
-        // FIXME: make this more robust.
-        if ( $query->is_page
-             && ( in_array( (int) $query->get_queried_object_id(), array_map( 'absint', wpbdp_get_page_ids() ), true )
-                  || in_array( (int) $query->get( 'page_id' ), array_map( 'absint', wpbdp_get_page_ids() ), true ) ) ) {
+        if ( $this->is_main_page( $query ) ) {
             $query->wpbdp_is_main_page = true;
         }
 
@@ -105,6 +101,38 @@ class WPBDP__Query_Integration {
             $query->wpbdp_view = WPBDP_Utils::normalize( $query->wpbdp_view );
 
         do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
+    }
+
+    /**
+     * Uses the current query and the main query objects to determine if the current
+     * request is for plugin's main page.
+     *
+     * FIXME: Can we make this more robust?
+     *
+     * @since 5.1.8
+     */
+    private function is_main_page( $query ) {
+        global $wp_query;
+
+        if ( ! $wp_query->is_page ) {
+            return false;
+        }
+
+        $plugin_page_ids = array_map( 'absint', wpbdp_get_page_ids() );
+
+        if ( in_array( (int) $wp_query->get_queried_object_id(), $plugin_page_ids, true ) ) {
+            return true;
+        }
+
+        if ( in_array( (int) $query->get_queried_object_id(), $plugin_page_ids, true ) ) {
+            return true;
+        }
+
+        if ( in_array( (int) $query->get( 'page_id' ), $plugin_page_ids, true ) ) {
+            return true;
+        }
+
+        return false;
     }
 
     public function set_404_flag() {
@@ -141,7 +169,12 @@ class WPBDP__Query_Integration {
 
         // Sticky listings.
         $is_sticky_query =  "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
-        $pieces['fields'] .= ', ' . $is_sticky_query;
+
+        if ( wpbdp_get_option( 'prevent-sticky-on-directory-view' ) && $query->wpbdp_is_main_page ) {
+            $is_sticky_query = '';
+        }
+
+        $pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
 
         switch ( $query->get( 'orderby' ) ) {
         case 'paid':
@@ -177,7 +210,8 @@ class WPBDP__Query_Integration {
         }
 
         $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );
-        $pieces['orderby'] = 'wpbdp_is_sticky DESC' . apply_filters( 'wpbdp_query_orderby', '' ) . ', ' . $pieces['orderby'];
+        $pieces['custom_orderby'] = ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) . apply_filters( 'wpbdp_query_orderby', '' );
+        $pieces['orderby'] = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
 
         return $pieces;
     }
