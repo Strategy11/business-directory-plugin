@@ -170,7 +170,7 @@ class WPBDP__Query_Integration {
         // Sticky listings.
         $is_sticky_query =  "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
 
-        if ( wpbdp_get_option( 'prevent-sticky-on-directory-view' ) && $query->wpbdp_is_main_page ) {
+        if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
             $is_sticky_query = '';
         }
 

@@ -389,10 +389,15 @@ final class WPBDP__Settings__Bootstrap {
         ) );
         wpbdp_register_setting( array(
             'id'      => 'prevent-sticky-on-directory-view',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Prevent featured (sticky) status on main page?', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'Prevents featured listings from floating to the top of the directory main page.', 'settings', 'WPBDM' ),
-            'default' => false,
+            'type'    => 'multicheck',
+            'name'    => _x( 'Prevent featured (sticky) status on BD pages?', 'settings', 'WPBDM' ),
+            'desc'    => _x( 'Prevents featured listings from floating to the top of the selected page.', 'settings', 'WPBDM' ),
+            'default' => array(),
+            'options' => array(
+                'main'          => _x( 'Directory view.', 'admin settings', 'WPBDM' ),
+                'show_category' => _x( 'Category view.', 'admin settings', 'WPBDM' ),
+                'search'        => _x( 'Search view.', 'admin settings', 'WPBDM' ),
+            ),
             'group' => 'listings/main'
         ) );
         wpbdp_register_setting( array(

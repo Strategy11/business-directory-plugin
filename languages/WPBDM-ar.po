@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-02-16 18:43:45+00:00\n"
+"POT-Creation-Date: 2018-02-16 23:44:17+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -3328,101 +3328,119 @@ msgctxt "admin settings"
 msgid "Include comment form, BD invoked (use only if 2nd option doesn't work)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:458
+#: includes/admin/settings/class-settings-bootstrap.php:397
+#, fuzzy
+msgctxt "admin settings"
+msgid "Directory view."
+msgstr "الدليل"
+
+#: includes/admin/settings/class-settings-bootstrap.php:398
+#, fuzzy
+msgctxt "admin settings"
+msgid "Category view."
+msgstr "التصنيفات"
+
+#: includes/admin/settings/class-settings-bootstrap.php:399
+#, fuzzy
+msgctxt "admin settings"
+msgid "Search view."
+msgstr "بحث"
+
+#: includes/admin/settings/class-settings-bootstrap.php:463
 msgctxt "admin settings"
 msgid "Name"
 msgstr "الإسم"
 
-#: includes/admin/settings/class-settings-bootstrap.php:459
+#: includes/admin/settings/class-settings-bootstrap.php:464
 msgctxt "admin settings"
 msgid "Slug"
 msgstr "رابط لطيف"
 
-#: includes/admin/settings/class-settings-bootstrap.php:460
+#: includes/admin/settings/class-settings-bootstrap.php:465
 msgctxt "admin settings"
 msgid "Listing Count"
 msgstr "عداد الإعلانات"
 
-#: includes/admin/settings/class-settings-bootstrap.php:470
-#: includes/admin/settings/class-settings-bootstrap.php:527
+#: includes/admin/settings/class-settings-bootstrap.php:475
+#: includes/admin/settings/class-settings-bootstrap.php:532
 msgctxt "admin settings"
 msgid "Ascending"
 msgstr "تصاعدي"
 
-#: includes/admin/settings/class-settings-bootstrap.php:471
-#: includes/admin/settings/class-settings-bootstrap.php:528
+#: includes/admin/settings/class-settings-bootstrap.php:476
+#: includes/admin/settings/class-settings-bootstrap.php:533
 msgctxt "admin settings"
 msgid "Descending"
 msgstr "تنازلي"
 
-#: includes/admin/settings/class-settings-bootstrap.php:499
+#: includes/admin/settings/class-settings-bootstrap.php:504
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order can be changed under <a>Manage Fees</a>"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:508
+#: includes/admin/settings/class-settings-bootstrap.php:513
 msgctxt "admin settings"
 msgid "Title"
 msgstr "العنوان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:509
+#: includes/admin/settings/class-settings-bootstrap.php:514
 msgctxt "admin settings"
 msgid "Author"
 msgstr "الكاتب"
 
-#: includes/admin/settings/class-settings-bootstrap.php:510
+#: includes/admin/settings/class-settings-bootstrap.php:515
 #: includes/functions.php:995
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "تاريخ النشر"
 
-#: includes/admin/settings/class-settings-bootstrap.php:511
+#: includes/admin/settings/class-settings-bootstrap.php:516
 #: includes/functions.php:996
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "تاريخ آخر تعديل"
 
-#: includes/admin/settings/class-settings-bootstrap.php:512
+#: includes/admin/settings/class-settings-bootstrap.php:517
 msgctxt "admin settings"
 msgid "Random"
 msgstr "عشوائية"
 
-#: includes/admin/settings/class-settings-bootstrap.php:513
+#: includes/admin/settings/class-settings-bootstrap.php:518
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by date."
 msgstr "تدفع أولاً ثم مجاناً. داخل كل مجموعة حسب التاريخ."
 
-#: includes/admin/settings/class-settings-bootstrap.php:514
+#: includes/admin/settings/class-settings-bootstrap.php:519
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by title."
 msgstr "تدفع أولاً ثم مجاناً. داخل كل مجموعة بعنوان."
 
-#: includes/admin/settings/class-settings-bootstrap.php:515
+#: includes/admin/settings/class-settings-bootstrap.php:520
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order, then Date"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:516
+#: includes/admin/settings/class-settings-bootstrap.php:521
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order, then Title"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:584
+#: includes/admin/settings/class-settings-bootstrap.php:589
 msgctxt "admin settings"
 msgid "You can manage your themes on <a>Directory Themes</a>."
 msgstr "يمكنك إدارة قوالبك في <a>قوالب الدليل</a>."
 
-#: includes/admin/settings/class-settings-bootstrap.php:592
+#: includes/admin/settings/class-settings-bootstrap.php:597
 msgctxt "admin settings"
 msgid "Use the BD theme style for BD buttons"
 msgstr "إستخدم نمط قالب دليل الأعمال لأزرار دليل الأعمال"
 
-#: includes/admin/settings/class-settings-bootstrap.php:593
+#: includes/admin/settings/class-settings-bootstrap.php:598
 msgctxt "admin settings"
 msgid "Use the WP theme style for BD buttons"
 msgstr "إستخدم نمط قالب ووردبريس لأزرار دليل الأعمال"
 
-#: includes/admin/settings/class-settings-bootstrap.php:713
+#: includes/admin/settings/class-settings-bootstrap.php:718
 msgctxt "admin settings"
 msgid ""
 "For paid listing images, configure that by adding or editing a <a>Fee Plan</"
@@ -3431,147 +3449,147 @@ msgstr ""
 "بالنسبة لصور الإعلانات المدفوعة، قم بإعدادها بإضافة أو تحرير <a>رسوم الخطة</"
 "a> بدلاً من هذا الإعداد، الذي هو تجاهل الإعلانات المدفوعة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:771
+#: includes/admin/settings/class-settings-bootstrap.php:776
 msgctxt "admin settings"
 msgid "Australian Dollar (AUD)"
 msgstr "الدولار الأسترالي (AUD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:772
+#: includes/admin/settings/class-settings-bootstrap.php:777
 msgctxt "admin settings"
 msgid "Brazilian Real (BRL)"
 msgstr "الريال البرازيلي (BRL)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:773
+#: includes/admin/settings/class-settings-bootstrap.php:778
 msgctxt "admin settings"
 msgid "Canadian Dollar (CAD)"
 msgstr "الدولار الكندي (CAD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:774
+#: includes/admin/settings/class-settings-bootstrap.php:779
 msgctxt "admin settings"
 msgid "Czech Koruna (CZK)"
 msgstr "الكورونا التشيكية (CZK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:775
+#: includes/admin/settings/class-settings-bootstrap.php:780
 msgctxt "admin settings"
 msgid "Danish Krone (DKK)"
 msgstr "الكرونة الدانماركية (DKK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:776
+#: includes/admin/settings/class-settings-bootstrap.php:781
 msgctxt "admin settings"
 msgid "Euro (EUR)"
 msgstr "اليورو (EUR)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:777
+#: includes/admin/settings/class-settings-bootstrap.php:782
 msgctxt "admin settings"
 msgid "Hong Kong Dollar (HKD)"
 msgstr "دولار هونج كونج (HKD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:778
+#: includes/admin/settings/class-settings-bootstrap.php:783
 msgctxt "admin settings"
 msgid "Hungarian Forint (HUF)"
 msgstr "الفورنت الهنغاري (HUF)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:779
+#: includes/admin/settings/class-settings-bootstrap.php:784
 msgctxt "admin settings"
 msgid "Israeli New Shequel (ILS)"
 msgstr "الشكيل الإسرائيلي الجديد (ILS)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:780
+#: includes/admin/settings/class-settings-bootstrap.php:785
 msgctxt "admin settings"
 msgid "Japanese Yen (JPY)"
 msgstr "الين الياباني (JPY)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:781
+#: includes/admin/settings/class-settings-bootstrap.php:786
 msgctxt "admin settings"
 msgid "Moroccan Dirham (MAD)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:782
+#: includes/admin/settings/class-settings-bootstrap.php:787
 msgctxt "admin settings"
 msgid "Malasian Ringgit (MYR)"
 msgstr "الرينغيت الماليزي (MYR)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:783
+#: includes/admin/settings/class-settings-bootstrap.php:788
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr "بيزو مكسيكي (MXN)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:784
+#: includes/admin/settings/class-settings-bootstrap.php:789
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr "الكرون النرويجي (NOK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:785
+#: includes/admin/settings/class-settings-bootstrap.php:790
 msgctxt "admin settings"
 msgid "New Zealand Dollar (NZD)"
 msgstr "الدولار النيوزيلندي (NZD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:786
+#: includes/admin/settings/class-settings-bootstrap.php:791
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr "بيزو فلبيني (PHP)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:787
+#: includes/admin/settings/class-settings-bootstrap.php:792
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr "الزلوتي البولندي (PLN)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:788
+#: includes/admin/settings/class-settings-bootstrap.php:793
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr "الجنيه الإسترليني (GBP)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:789
+#: includes/admin/settings/class-settings-bootstrap.php:794
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr "دولار سنغافوري (SGD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:790
+#: includes/admin/settings/class-settings-bootstrap.php:795
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr "الكرونا السويدية (SEK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:791
+#: includes/admin/settings/class-settings-bootstrap.php:796
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr "الفرنك السويسري (CHF)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:792
+#: includes/admin/settings/class-settings-bootstrap.php:797
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr "الدولار التايواني (TWD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:793
+#: includes/admin/settings/class-settings-bootstrap.php:798
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr "البات التايلندي (THB)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:794
+#: includes/admin/settings/class-settings-bootstrap.php:799
 msgctxt "admin settings"
 msgid "Turkish Lira (TRY)"
 msgstr "الليرة التركية (TRY)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:795
+#: includes/admin/settings/class-settings-bootstrap.php:800
 msgctxt "admin settings"
 msgid "U.S. Dollar (USD)"
 msgstr "الدولار الأمريكي (USD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:814
+#: includes/admin/settings/class-settings-bootstrap.php:819
 msgctxt "admin settings"
 msgid "Show currency symbol on the left"
 msgstr "إظهار رمز العملة على اليسار"
 
-#: includes/admin/settings/class-settings-bootstrap.php:815
+#: includes/admin/settings/class-settings-bootstrap.php:820
 msgctxt "admin settings"
 msgid "Show currency symbol on the right"
 msgstr "إظهار رمز العملة على اليمين"
 
-#: includes/admin/settings/class-settings-bootstrap.php:816
+#: includes/admin/settings/class-settings-bootstrap.php:821
 msgctxt "admin settings"
 msgid "Do not show currency symbol"
 msgstr "عدم إظهار رمز العملة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:825
+#: includes/admin/settings/class-settings-bootstrap.php:830
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
@@ -3580,7 +3598,7 @@ msgstr ""
 "شكرا لك على الدفع. يتم الآن التحقق من الدفع وفحص إعلانك. يمكن أن تأخذ عملية "
 "التحقق والمراجعة مدة 48 ساعة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:842
+#: includes/admin/settings/class-settings-bootstrap.php:847
 msgctxt "admin settings"
 msgid ""
 "Listings with pending payments are marked as abandoned after this time. You "
@@ -3589,66 +3607,66 @@ msgstr ""
 "الإعلانات مع الدفعات المعلقة تعد متخلى عنها بعد هذا الوقت. يمكنك أيضا "
 "<a>تخصيص البريد الإلكتروني</a> الذي يتلقاه الأعضاء."
 
-#: includes/admin/settings/class-settings-bootstrap.php:867
+#: includes/admin/settings/class-settings-bootstrap.php:872
 msgctxt "admin settings"
 msgid "Try listing's email field first, then author's email."
 msgstr "جرب البريد الإلكتروني للإعلانات أولاً، ثم البريد الإلكتروني للكاتب."
 
-#: includes/admin/settings/class-settings-bootstrap.php:868
+#: includes/admin/settings/class-settings-bootstrap.php:873
 msgctxt "admin settings"
 msgid "Try author's email first and then listing's email field."
 msgstr "جرب البريد الإلكتروني للكاتب أولاً، ثم البريد الإلكتروني للإعلانات."
 
-#: includes/admin/settings/class-settings-bootstrap.php:880
+#: includes/admin/settings/class-settings-bootstrap.php:885
 msgctxt "admin settings"
 msgid "A new listing is submitted."
 msgstr "يتم إضافة إعلان جديد"
 
-#: includes/admin/settings/class-settings-bootstrap.php:881
+#: includes/admin/settings/class-settings-bootstrap.php:886
 msgctxt "admin settings"
 msgid "A listing is edited."
 msgstr "تم تحرير الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:882
+#: includes/admin/settings/class-settings-bootstrap.php:887
 msgctxt "admin settings"
 msgid "A listing expires."
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/settings/class-settings-bootstrap.php:883
+#: includes/admin/settings/class-settings-bootstrap.php:888
 #, fuzzy
 msgctxt "admin settings"
 msgid "A listing is renewed."
 msgstr "تم تحرير الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:884
+#: includes/admin/settings/class-settings-bootstrap.php:889
 #, fuzzy
 msgctxt "admin settings"
 msgid "A listing has been reported as inappropriate."
 msgstr "تمت ترقية الإعلان."
 
-#: includes/admin/settings/class-settings-bootstrap.php:885
+#: includes/admin/settings/class-settings-bootstrap.php:890
 msgctxt "admin settings"
 msgid "A contact message is sent to a listing's owner."
 msgstr "يتم إرسال رسالة اتصال لمالك الإعلان."
 
-#: includes/admin/settings/class-settings-bootstrap.php:908
+#: includes/admin/settings/class-settings-bootstrap.php:913
 msgctxt "admin settings"
 msgid "Their listing is submitted."
 msgstr "يتم إضافة الإعلان الخاص بهم"
 
-#: includes/admin/settings/class-settings-bootstrap.php:909
+#: includes/admin/settings/class-settings-bootstrap.php:914
 msgctxt "admin settings"
 msgid "Their listing is approved/published."
 msgstr "تمت الموافقة ونشر الإعلان الخاص بهم"
 
-#: includes/admin/settings/class-settings-bootstrap.php:925
-#: includes/admin/settings/class-settings-bootstrap.php:939
-#: includes/admin/settings/class-settings-bootstrap.php:993
+#: includes/admin/settings/class-settings-bootstrap.php:930
+#: includes/admin/settings/class-settings-bootstrap.php:944
+#: includes/admin/settings/class-settings-bootstrap.php:998
 msgctxt "admin settings"
 msgid "Listing's title"
 msgstr "عنوان الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:936
+#: includes/admin/settings/class-settings-bootstrap.php:941
 msgctxt "admin settings"
 msgid ""
 "Your listing \"[listing]\" is now available at [listing-url] and can be "
@@ -3657,17 +3675,17 @@ msgstr ""
 "القائمة الخاصة بك \"[listing]\" متوفر الآن في [listing-url] ويمكن مشاهدتها "
 "من قبل العموم."
 
-#: includes/admin/settings/class-settings-bootstrap.php:940
+#: includes/admin/settings/class-settings-bootstrap.php:945
 msgctxt "admin settings"
 msgid "Listing's URL"
 msgstr "عنوان URL الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:994
+#: includes/admin/settings/class-settings-bootstrap.php:999
 msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "رابط URL إتمام الشراء"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1137
+#: includes/admin/settings/class-settings-bootstrap.php:1142
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -3676,14 +3694,14 @@ msgstr ""
 "تعذر إزالة \"إضافة دليل الأعمال – وحدة التوافق أجاكس\". المرجو إزالة الملف "
 "\"%s\" يدوياً أو قم بإلغاء تفعيل الإضافة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1150
+#: includes/admin/settings/class-settings-bootstrap.php:1155
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
 "be created."
 msgstr "لا يمكن تفعيل وضع التوافق أجاكس: تعذر إنشاء المجلد \"%s\"."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1155
+#: includes/admin/settings/class-settings-bootstrap.php:1160
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -3924,7 +3942,7 @@ msgid "General"
 msgstr "عام"
 
 #: includes/admin/settings/class-settings-bootstrap.php:7
-#: includes/admin/settings/class-settings-bootstrap.php:699
+#: includes/admin/settings/class-settings-bootstrap.php:704
 #, fuzzy
 msgctxt "settings"
 msgid "Listings"
@@ -3935,7 +3953,7 @@ msgstr "الإعلانات"
 #: includes/admin/settings/class-settings-bootstrap.php:14
 #: includes/admin/settings/class-settings-bootstrap.php:17
 #: includes/admin/settings/class-settings-bootstrap.php:33
-#: includes/admin/settings/class-settings-bootstrap.php:851
+#: includes/admin/settings/class-settings-bootstrap.php:856
 #: includes/admin/settings/class-settings.php:335
 #, fuzzy
 msgctxt "settings"
@@ -4439,35 +4457,34 @@ msgstr "إظهار الإعلانات تحت التصنيفات على الصف�
 #: includes/admin/settings/class-settings-bootstrap.php:393
 #, fuzzy
 msgctxt "settings"
-msgid "Prevent featured (sticky) status on main page?"
+msgid "Prevent featured (sticky) status on BD pages?"
 msgstr "حالة مميز (مثبت)"
 
 #: includes/admin/settings/class-settings-bootstrap.php:394
 msgctxt "settings"
 msgid ""
-"Prevents featured listings from floating to the top of the directory main "
-"page."
+"Prevents featured listings from floating to the top of the selected page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:401
+#: includes/admin/settings/class-settings-bootstrap.php:406
 #, fuzzy
 msgctxt "settings"
 msgid "Status of listings upon uninstalling plugin"
 msgstr "حالة الإعلانات عند إلغاء تثبيت الإضافة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:412
+#: includes/admin/settings/class-settings-bootstrap.php:417
 #, fuzzy
 msgctxt "settings"
 msgid "Status of deleted listings"
 msgstr "حالة الإعلانات المحذوفة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:423
+#: includes/admin/settings/class-settings-bootstrap.php:428
 #, fuzzy
 msgctxt "settings"
 msgid "Submit Listing instructions message"
 msgstr "إرسال رسالة تعليمات الإعلانات"
 
-#: includes/admin/settings/class-settings-bootstrap.php:424
+#: includes/admin/settings/class-settings-bootstrap.php:429
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4479,199 +4496,199 @@ msgstr ""
 "استخدامه لإعطاء إرشادات حول تعبئة النموذج أو أي شيء تريد إعلام الأعضاء به "
 "قبل أن يبدأوا."
 
-#: includes/admin/settings/class-settings-bootstrap.php:429
+#: includes/admin/settings/class-settings-bootstrap.php:434
 #, fuzzy
 msgctxt "settings"
 msgid "Post/Category Settings"
 msgstr "إعدادات الإعلان/التصنيف"
 
-#: includes/admin/settings/class-settings-bootstrap.php:433
+#: includes/admin/settings/class-settings-bootstrap.php:438
 #, fuzzy
 msgctxt "settings"
 msgid "Default new post status"
 msgstr "حالة الإعلان الجديد الافتراضية"
 
-#: includes/admin/settings/class-settings-bootstrap.php:444
+#: includes/admin/settings/class-settings-bootstrap.php:449
 #, fuzzy
 msgctxt "settings"
 msgid "Edit post status"
 msgstr "تعديل حالة الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:455
+#: includes/admin/settings/class-settings-bootstrap.php:460
 #, fuzzy
 msgctxt "settings"
 msgid "Order categories list by"
 msgstr "ترتيب قائمة التصنيفات حسب"
 
-#: includes/admin/settings/class-settings-bootstrap.php:467
+#: includes/admin/settings/class-settings-bootstrap.php:472
 #, fuzzy
 msgctxt "settings"
 msgid "Sort order for categories"
 msgstr "ترتيب فرز التصنيفات"
 
-#: includes/admin/settings/class-settings-bootstrap.php:478
+#: includes/admin/settings/class-settings-bootstrap.php:483
 #, fuzzy
 msgctxt "settings"
 msgid "Show category post count?"
 msgstr "إظهار عدد إعلانات التصنيف؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:485
+#: includes/admin/settings/class-settings-bootstrap.php:490
 #, fuzzy
 msgctxt "settings"
 msgid "Hide empty categories?"
 msgstr "إخفاء التصنيفات الفارغة؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:492
+#: includes/admin/settings/class-settings-bootstrap.php:497
 #, fuzzy
 msgctxt "settings"
 msgid "Show only parent categories in category list?"
 msgstr "إظهار التصنيفات الأبوية فقط في قائمة التصنيف؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:497
+#: includes/admin/settings/class-settings-bootstrap.php:502
 #, fuzzy
 msgctxt "settings"
 msgid "Listings Sorting"
 msgstr "فرز الإعلانات"
 
-#: includes/admin/settings/class-settings-bootstrap.php:504
+#: includes/admin/settings/class-settings-bootstrap.php:509
 #, fuzzy
 msgctxt "settings"
 msgid "Order directory listings by"
 msgstr "ترتيب إعلانات الدليل حسب"
 
-#: includes/admin/settings/class-settings-bootstrap.php:523
+#: includes/admin/settings/class-settings-bootstrap.php:528
 #, fuzzy
 msgctxt "settings"
 msgid "Sort directory listings by"
 msgstr "فرز إعلانات الدليل حسب"
 
-#: includes/admin/settings/class-settings-bootstrap.php:524
+#: includes/admin/settings/class-settings-bootstrap.php:529
 #, fuzzy
 msgctxt "settings"
 msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
 msgstr "ترتيب تصاعدي من أ إلى ي، ترتيب تنازلي من ي إلى أ"
 
-#: includes/admin/settings/class-settings-bootstrap.php:535
+#: includes/admin/settings/class-settings-bootstrap.php:540
 #, fuzzy
 msgctxt "settings"
 msgid "Enable sort bar?"
 msgstr "تمكين شريط الفرز؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:542
+#: includes/admin/settings/class-settings-bootstrap.php:547
 #, fuzzy
 msgctxt "settings"
 msgid "Sortbar Fields"
 msgstr "حقول شريط الفرز"
 
-#: includes/admin/settings/class-settings-bootstrap.php:552
+#: includes/admin/settings/class-settings-bootstrap.php:557
 #, fuzzy
 msgctxt "settings"
 msgid "Directory Display Options"
 msgstr "خيارات عرض الدليل"
 
-#: includes/admin/settings/class-settings-bootstrap.php:556
+#: includes/admin/settings/class-settings-bootstrap.php:561
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"Submit listing\" button."
 msgstr "إظهار زر \"إضافة إعلان\"."
 
-#: includes/admin/settings/class-settings-bootstrap.php:564
+#: includes/admin/settings/class-settings-bootstrap.php:569
 #, fuzzy
 msgctxt "settings"
 msgid "Show \"Search listings\"."
 msgstr "إظهار \"البحث في الإعلانات\"."
 
-#: includes/admin/settings/class-settings-bootstrap.php:571
+#: includes/admin/settings/class-settings-bootstrap.php:576
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"View Listings\" button."
 msgstr "إظهار زر \"مشاهدة الإعلانات\"."
 
-#: includes/admin/settings/class-settings-bootstrap.php:578
+#: includes/admin/settings/class-settings-bootstrap.php:583
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"Directory\" button."
 msgstr "إظهار زر \"الدليل\"."
 
-#: includes/admin/settings/class-settings-bootstrap.php:584
+#: includes/admin/settings/class-settings-bootstrap.php:589
 #, fuzzy
 msgctxt "settings"
 msgid "Theme Settings"
 msgstr "إعدادات الصورة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:589
+#: includes/admin/settings/class-settings-bootstrap.php:594
 #, fuzzy
 msgctxt "settings"
 msgid "Theme button style"
 msgstr "نمط زر القالب"
 
-#: includes/admin/settings/class-settings-bootstrap.php:600
+#: includes/admin/settings/class-settings-bootstrap.php:605
 msgctxt "settings"
 msgid ""
 "Include CSS rules to give their own style to View, Edit and Delete buttons?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:606
+#: includes/admin/settings/class-settings-bootstrap.php:611
 #, fuzzy
 msgctxt "settings"
 msgid "Image"
 msgstr "الصورة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:607
+#: includes/admin/settings/class-settings-bootstrap.php:612
 #, fuzzy
 msgctxt "settings"
 msgid "Image Settings"
 msgstr "إعدادات الصورة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:611
+#: includes/admin/settings/class-settings-bootstrap.php:616
 #, fuzzy
 msgctxt "settings"
 msgid "Allow images?"
 msgstr "السماح بالصور؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:619
+#: includes/admin/settings/class-settings-bootstrap.php:624
 #, fuzzy
 msgctxt "settings"
 msgid "Min Image File Size (KB)"
 msgstr "أقل حجم لملف الصورة (KB)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:627
+#: includes/admin/settings/class-settings-bootstrap.php:632
 #, fuzzy
 msgctxt "settings"
 msgid "Max Image File Size (KB)"
 msgstr "أقصى حجم لملف الصورة (KB)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:635
+#: includes/admin/settings/class-settings-bootstrap.php:640
 #, fuzzy
 msgctxt "settings"
 msgid "Min image width (px)"
 msgstr "أقل عرض للصورة (px)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:642
+#: includes/admin/settings/class-settings-bootstrap.php:647
 #, fuzzy
 msgctxt "settings"
 msgid "Min image height (px)"
 msgstr "أقل ارتفاع للصورة (px)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:651
+#: includes/admin/settings/class-settings-bootstrap.php:656
 #, fuzzy
 msgctxt "settings"
 msgid "Max image width (px)"
 msgstr "أقصى عرض للصورة (px)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:659
+#: includes/admin/settings/class-settings-bootstrap.php:664
 #, fuzzy
 msgctxt "settings"
 msgid "Max image height (px)"
 msgstr "أقصى ارتفاع للصورة (px)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:667
+#: includes/admin/settings/class-settings-bootstrap.php:672
 #, fuzzy
 msgctxt "settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "تشغيل thickbox/lightbox؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:668
+#: includes/admin/settings/class-settings-bootstrap.php:673
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4680,31 +4697,31 @@ msgstr ""
 "قم بإلغاء التحديد إذا كان يتعارض مع العناصر الأخرى أو الإضافات المثبتة على "
 "موقعك"
 
-#: includes/admin/settings/class-settings-bootstrap.php:673
+#: includes/admin/settings/class-settings-bootstrap.php:678
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnails"
 msgstr "الصور المصغرة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:678
+#: includes/admin/settings/class-settings-bootstrap.php:683
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnail width (px)"
 msgstr "عرض الصور المصغرة (px)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:686
+#: includes/admin/settings/class-settings-bootstrap.php:691
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnail height (px)"
 msgstr "ارتفاع الصورة المصغرة (px)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:693
+#: includes/admin/settings/class-settings-bootstrap.php:698
 #, fuzzy
 msgctxt "settings"
 msgid "Crop thumbnails to exact dimensions?"
 msgstr "قطع الصور المصغرة للأبعاد المناسبة؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:694
+#: includes/admin/settings/class-settings-bootstrap.php:699
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4718,54 +4735,54 @@ msgstr ""
 "تعديل الارتفاع بشكل متناسب. اعتماداً على الصور المرفوعة, قد تكون ارتفاعات "
 "الصور المصغرة مختلفة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:703
+#: includes/admin/settings/class-settings-bootstrap.php:708
 msgctxt "settings"
 msgid "Enforce image upload on submit/edit?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:710
+#: includes/admin/settings/class-settings-bootstrap.php:715
 #, fuzzy
 msgctxt "settings"
 msgid "Number of free images"
 msgstr "عدد الصور المجانية"
 
-#: includes/admin/settings/class-settings-bootstrap.php:719
+#: includes/admin/settings/class-settings-bootstrap.php:724
 #, fuzzy
 msgctxt "settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "إستخدام الصورة الافتراضية للإعلانات التي بلا صورة؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:726
+#: includes/admin/settings/class-settings-bootstrap.php:731
 #, fuzzy
 msgctxt "settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "إظهار صورة مصغرة في صفحة الإعلانات الرئيسية؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:736
+#: includes/admin/settings/class-settings-bootstrap.php:741
 #, fuzzy
 msgctxt "settings"
 msgid "Fee Order"
 msgstr "ترتيب"
 
-#: includes/admin/settings/class-settings-bootstrap.php:744
+#: includes/admin/settings/class-settings-bootstrap.php:749
 #, fuzzy
 msgctxt "settings"
 msgid "Turn On payments?"
 msgstr "تشغيل الدفعات؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:751
+#: includes/admin/settings/class-settings-bootstrap.php:756
 #, fuzzy
 msgctxt "settings"
 msgid "Put payment gateways in test mode?"
 msgstr "وضع بوابات الدفع في وضع الاختبار؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:759
+#: includes/admin/settings/class-settings-bootstrap.php:764
 #, fuzzy
 msgctxt "settings"
 msgid "Perform checkouts on the secure (HTTPS) version of your site?"
 msgstr "تنفيذ إنهاء الشراء على الإصدار الآمن (HTTPS) لموقع الويب الخاص بك؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:760
+#: includes/admin/settings/class-settings-bootstrap.php:765
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4775,37 +4792,37 @@ msgstr ""
 "موصى به لأمن أكثر. لكي يعمل هذا أنت بحاجة إلى تمكين HTTPS على الخادم الخاص "
 "بك و <a>الحصول على شهادة SSL</a>."
 
-#: includes/admin/settings/class-settings-bootstrap.php:768
+#: includes/admin/settings/class-settings-bootstrap.php:773
 #, fuzzy
 msgctxt "settings"
 msgid "Currency Code"
 msgstr "رمز العملة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:803
+#: includes/admin/settings/class-settings-bootstrap.php:808
 #, fuzzy
 msgctxt "settings"
 msgid "Currency Symbol"
 msgstr "رمز العملة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:811
+#: includes/admin/settings/class-settings-bootstrap.php:816
 #, fuzzy
 msgctxt "settings"
 msgid "Currency symbol display"
 msgstr "عرض رمز العملة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:824
+#: includes/admin/settings/class-settings-bootstrap.php:829
 #, fuzzy
 msgctxt "settings"
 msgid "Thank you for payment message"
 msgstr "رسالة الشكر على الدفع"
 
-#: includes/admin/settings/class-settings-bootstrap.php:832
+#: includes/admin/settings/class-settings-bootstrap.php:837
 #, fuzzy
 msgctxt "settings"
 msgid "Ask users to come back for abandoned payments?"
 msgstr "أطلب من الأعضاء العودة للمدفوعات المتخلى عنها؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:833
+#: includes/admin/settings/class-settings-bootstrap.php:838
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4818,19 +4835,19 @@ msgstr ""
 "إتمام الدفع للإعلان. هذا ينتج عنه أن الإعلانات تبدو وكأنها فشلت، وذلك عندما "
 "لا يكمل العضو المعاملة ببساطة. دليل الأعمال يستطيع تذكيرهم للعودة والاستمرار."
 
-#: includes/admin/settings/class-settings-bootstrap.php:841
+#: includes/admin/settings/class-settings-bootstrap.php:846
 #, fuzzy
 msgctxt "settings"
 msgid "Listing abandonment threshold (hours)"
 msgstr "عتبة التخلي على الإعلان (ساعات)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:855
+#: includes/admin/settings/class-settings-bootstrap.php:860
 #, fuzzy
 msgctxt "settings"
 msgid "Display email address fields publicly?"
 msgstr "عرض حقول عنوان البريد الإلكتروني علنا؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:856
+#: includes/admin/settings/class-settings-bootstrap.php:861
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4842,13 +4859,13 @@ msgstr ""
 "لأن هذا يزيد من الرسائل المزعجة إلى العنوان ويسمح للمتطفلين بجمع عنوانين "
 "البريد للاستخدام في المستقبل."
 
-#: includes/admin/settings/class-settings-bootstrap.php:863
+#: includes/admin/settings/class-settings-bootstrap.php:868
 #, fuzzy
 msgctxt "settings"
 msgid "How to determine the listing's email address?"
 msgstr "كيفية تحديد عنوان البريد الإلكتروني في الإعلان؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:864
+#: includes/admin/settings/class-settings-bootstrap.php:869
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4858,25 +4875,25 @@ msgstr ""
 "هذا يؤثر على رسائل البريد الإلكتروني المرسلة إلى مالكي الإعلانات عبر نموذج "
 "الاتصال أو عندما ينتهي تاريخ الإعلانات."
 
-#: includes/admin/settings/class-settings-bootstrap.php:873
+#: includes/admin/settings/class-settings-bootstrap.php:878
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail Notifications"
 msgstr "تنبيهات البريد الإلكتروني"
 
-#: includes/admin/settings/class-settings-bootstrap.php:877
+#: includes/admin/settings/class-settings-bootstrap.php:882
 #, fuzzy
 msgctxt "settings"
 msgid "Notify admin via e-mail when..."
 msgstr "إبلاغ المدير عن طريق البريد الإلكتروني عندما..."
 
-#: includes/admin/settings/class-settings-bootstrap.php:892
+#: includes/admin/settings/class-settings-bootstrap.php:897
 #, fuzzy
 msgctxt "settings"
 msgid "CC this e-mail address too"
 msgstr "إرسال نسخة من الرسالة الى عنوان البريد الإلكتروني هذا أيضا"
 
-#: includes/admin/settings/class-settings-bootstrap.php:897
+#: includes/admin/settings/class-settings-bootstrap.php:902
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4885,49 +4902,49 @@ msgid ""
 msgstr ""
 "يمكنك تعديل قالب النص المستخدم لمعظم رسائل البريد الإلكتروني هذه أدناه."
 
-#: includes/admin/settings/class-settings-bootstrap.php:904
+#: includes/admin/settings/class-settings-bootstrap.php:909
 #, fuzzy
 msgctxt "settings"
 msgid "Notify users via e-mail when..."
 msgstr "إعلام الأعضاء عن طريق البريد الإلكتروني عندما..."
 
-#: includes/admin/settings/class-settings-bootstrap.php:914
+#: includes/admin/settings/class-settings-bootstrap.php:919
 #, fuzzy
 msgctxt "settings"
 msgid "Templates"
 msgstr "قوالب البريد الإلكتروني"
 
-#: includes/admin/settings/class-settings-bootstrap.php:918
+#: includes/admin/settings/class-settings-bootstrap.php:923
 #, fuzzy
 msgctxt "settings"
 msgid "Email confirmation message"
 msgstr "رسالة تأكيد البريد الإلكتروني"
 
-#: includes/admin/settings/class-settings-bootstrap.php:919
+#: includes/admin/settings/class-settings-bootstrap.php:924
 #, fuzzy
 msgctxt "settings"
 msgid "Sent after a listing has been submitted."
 msgstr "ترسل بعد أن يضاف الإعلان."
 
-#: includes/admin/settings/class-settings-bootstrap.php:932
+#: includes/admin/settings/class-settings-bootstrap.php:937
 #, fuzzy
 msgctxt "settings"
 msgid "Listing published message"
 msgstr "رسالة نشر الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:933
+#: includes/admin/settings/class-settings-bootstrap.php:938
 #, fuzzy
 msgctxt "settings"
 msgid "Sent when the listing has been published or approved by an admin."
 msgstr "ترسل عندما يتم نشر الإعلان أو الموافقة عليه من طرف المدير."
 
-#: includes/admin/settings/class-settings-bootstrap.php:947
+#: includes/admin/settings/class-settings-bootstrap.php:952
 #, fuzzy
 msgctxt "settings"
 msgid "Listing Contact Message"
 msgstr "رسالة اتصال الإعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:948
+#: includes/admin/settings/class-settings-bootstrap.php:953
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4937,19 +4954,19 @@ msgstr ""
 "ترسل إلى مالكي الإعلانات عندما يستخدم شخص ما نموذج جهة الاتصال في صفحات "
 "الإعلانات الخاصة بهم."
 
-#: includes/admin/settings/class-settings-bootstrap.php:973
+#: includes/admin/settings/class-settings-bootstrap.php:978
 #, fuzzy
 msgctxt "settings"
 msgid "Payment abandoned reminder message"
 msgstr "رسالة تذكير بالتخلي عن الدفع"
 
-#: includes/admin/settings/class-settings-bootstrap.php:974
+#: includes/admin/settings/class-settings-bootstrap.php:979
 #, fuzzy
 msgctxt "settings"
 msgid "Sent some time after a pending payment is abandoned by users."
 msgstr "ترسل أحيانا بعد أن يتخلي الأعضاء عن الدفعة المنتظرة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1009
+#: includes/admin/settings/class-settings-bootstrap.php:1014
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail Notices"
@@ -5012,51 +5029,51 @@ msgctxt "settings"
 msgid "← Return to \"Manage Options\""
 msgstr "← العودة إلى \"إدارة الخيارات\""
 
-#: includes/admin/settings/class-settings-bootstrap.php:404
-#: includes/admin/settings/class-settings-bootstrap.php:415
+#: includes/admin/settings/class-settings-bootstrap.php:409
+#: includes/admin/settings/class-settings-bootstrap.php:420
 msgctxt "post status"
 msgid "Draft"
 msgstr "مسودة"
 
-#: includes/admin/settings/class-settings-bootstrap.php:405
-#: includes/admin/settings/class-settings-bootstrap.php:416
+#: includes/admin/settings/class-settings-bootstrap.php:410
+#: includes/admin/settings/class-settings-bootstrap.php:421
 msgctxt "post status"
 msgid "Trash"
 msgstr "سلة المهملات"
 
-#: includes/admin/settings/class-settings-bootstrap.php:436
-#: includes/admin/settings/class-settings-bootstrap.php:447
+#: includes/admin/settings/class-settings-bootstrap.php:441
+#: includes/admin/settings/class-settings-bootstrap.php:452
 msgctxt "post status"
 msgid "Published"
 msgstr "نشرت"
 
-#: includes/admin/settings/class-settings-bootstrap.php:437
-#: includes/admin/settings/class-settings-bootstrap.php:448
+#: includes/admin/settings/class-settings-bootstrap.php:442
+#: includes/admin/settings/class-settings-bootstrap.php:453
 msgctxt "post status"
 msgid "Pending"
 msgstr " في الانتظار"
 
-#: includes/admin/settings/class-settings-bootstrap.php:952
+#: includes/admin/settings/class-settings-bootstrap.php:957
 msgctxt "contact email"
 msgid "You have received a reply from your listing at %s."
 msgstr "تلقيت ردا من الإعلان الخاص بك في %s."
 
-#: includes/admin/settings/class-settings-bootstrap.php:953
+#: includes/admin/settings/class-settings-bootstrap.php:958
 msgctxt "contact email"
 msgid "Name: %s"
 msgstr "الإسم:  %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:954
+#: includes/admin/settings/class-settings-bootstrap.php:959
 msgctxt "contact email"
 msgid "E-Mail: %s"
 msgstr "البريد الإلكتروني:  %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:955
+#: includes/admin/settings/class-settings-bootstrap.php:960
 msgctxt "contact email"
 msgid "Message:"
 msgstr "الرسالة:"
 
-#: includes/admin/settings/class-settings-bootstrap.php:957
+#: includes/admin/settings/class-settings-bootstrap.php:962
 msgctxt "contact email"
 msgid "Time: %s"
 msgstr "الوقت:  %s"
