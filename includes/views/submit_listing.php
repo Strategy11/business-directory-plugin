@@ -68,9 +68,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $this->can_submit( $msg ) )
             return wpbdp_render_msg( $msg );
 
-        if ( $this->editing && empty( $_REQUEST['listing_id'] ) ) {
-            $message = _x( "No listing ID was specified.", 'submit listing', 'WPBDM' );
-            return wpbdp_render_msg( $message );
+        if ( $this->editing ) {
+            $message = '';
+
+            if ( empty( $_REQUEST['listing_id'] ) ) {
+                $message = _x( "No listing ID was specified.", 'submit listing', 'WPBDM' );
+            } elseif ( ! wpbdp_user_can( 'edit', $_GET['listing_id'] ) ) {
+                $message = _x( "You can't edit this listing.", 'submit listing', 'WPBDM' );
+            }
+
+            if ( $message ) {
+                return wpbdp_render_msg( $message );
+            }
         }
 
         $this->listing = $this->find_or_create_listing();

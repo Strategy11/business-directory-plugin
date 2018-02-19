@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.1.12.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-02-16 23:44:17+00:00\n"
+"POT-Creation-Date: 2018-02-19 16:21:48+00:00\n"
 "PO-Revision-Date: 2017-07-04 12:37+0000\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -5454,13 +5454,19 @@ msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr ""
 
-#: includes/views/submit_listing.php:72
+#: includes/views/submit_listing.php:75
 #, fuzzy
 msgctxt "submit listing"
 msgid "No listing ID was specified."
 msgstr "Een registratie is gewijzigd."
 
-#: includes/views/submit_listing.php:106
+#: includes/views/submit_listing.php:77
+#, fuzzy
+msgctxt "submit listing"
+msgid "You can't edit this listing."
+msgstr "Categorieën voor deze registratie"
+
+#: includes/views/submit_listing.php:115
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -5468,14 +5474,14 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:111
+#: includes/views/submit_listing.php:120
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:133
+#: includes/views/submit_listing.php:142
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
@@ -5483,120 +5489,120 @@ msgstr ""
 "Je bent ingelogd als een beheerder (admin). De betaalstappen worden "
 "overgeslagen."
 
-#: includes/views/submit_listing.php:333
+#: includes/views/submit_listing.php:342
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "categorie selectie"
 
-#: includes/views/submit_listing.php:333
+#: includes/views/submit_listing.php:342
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "categorie selectie"
 
-#: includes/views/submit_listing.php:338
+#: includes/views/submit_listing.php:347
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Registratie informatie"
 
-#: includes/views/submit_listing.php:342
+#: includes/views/submit_listing.php:351
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Beelden bij de registratie"
 
-#: includes/views/submit_listing.php:348
+#: includes/views/submit_listing.php:357
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:354
+#: includes/views/submit_listing.php:363
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Voorwaarden en condities"
 
-#: includes/views/submit_listing.php:394
+#: includes/views/submit_listing.php:403
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:445
+#: includes/views/submit_listing.php:454
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/views/submit_listing.php:455
+#: includes/views/submit_listing.php:464
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/views/submit_listing.php:468
+#: includes/views/submit_listing.php:477
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr ""
 
-#: includes/views/submit_listing.php:488
+#: includes/views/submit_listing.php:497
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:490
+#: includes/views/submit_listing.php:499
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 
-#: includes/views/submit_listing.php:708
+#: includes/views/submit_listing.php:717
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/views/submit_listing.php:713
+#: includes/views/submit_listing.php:722
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:718
+#: includes/views/submit_listing.php:727
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:728
+#: includes/views/submit_listing.php:737
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:733
+#: includes/views/submit_listing.php:742
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:748
+#: includes/views/submit_listing.php:757
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:755
+#: includes/views/submit_listing.php:764
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:761
+#: includes/views/submit_listing.php:770
 #, fuzzy
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Gebruiker"
 
-#: includes/views/submit_listing.php:770
+#: includes/views/submit_listing.php:779
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Jouw email"
 
-#: includes/views/submit_listing.php:779
+#: includes/views/submit_listing.php:788
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6667,29 +6673,29 @@ msgid ""
 "site. If you didn't want that, click <a>here</a> to change the setting."
 msgstr ""
 
-#: includes/views/submit_listing.php:289
+#: includes/views/submit_listing.php:298
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:291
+#: includes/views/submit_listing.php:300
 msgctxt "templates"
 msgid "View not available."
 msgstr ""
 
-#: includes/views/submit_listing.php:817
+#: includes/views/submit_listing.php:826
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Ga s.v.p. akkoord met de voorwaarden"
 
-#: includes/views/submit_listing.php:825
+#: includes/views/submit_listing.php:834
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Voorwaarden"
 
-#: includes/views/submit_listing.php:834
+#: includes/views/submit_listing.php:843
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7343,14 +7349,14 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Dit is alleen een voorvertoning. De registratie is nog niet gepubliceerd."
 
-#: includes/views/submit_listing.php:589
+#: includes/views/submit_listing.php:598
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:660
+#: includes/views/submit_listing.php:669
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8395,10 +8401,6 @@ msgstr ""
 #~ msgctxt "admin infometabox"
 #~ msgid "Mark listing as Paid"
 #~ msgstr "Markeer registratie/vermelding als betaald"
-
-#~ msgctxt "admin infometabox"
-#~ msgid "Categories for this listing"
-#~ msgstr "Categorieën voor deze registratie"
 
 #~ msgctxt "admin compat"
 #~ msgid "Installed: %s"
