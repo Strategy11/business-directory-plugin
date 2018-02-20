@@ -81,7 +81,7 @@
                            value="1"
                            <?php echo $fee->sticky ? 'checked="checked"' : ''; ?>
                            <?php echo ( 'free' == $fee->tag ) ? 'disabled="disabled"' : ''; ?> />
-                    <span class="description"><?php _ex( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'fees admin', 'WPBDM' ); ?></span>
+                    <label for="wpbdp-fee-form-fee-sticky"><span class="description"><?php _ex( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'fees admin', 'WPBDM' ); ?></span></label>
                 </td>
             </tr>
             <tr class="form-field form-required">
