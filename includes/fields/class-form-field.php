@@ -605,7 +605,7 @@ class WPBDP_Form_Field {
         } else if ( 'ratings' == $this->type->get_id() ) {
             $data['tag'] = 'ratings';
         } else {
-            $data['tag'] = in_array( $this->tag, array( 'title', 'excerpt', 'content', 'category', 'tags' ) ) ? '' : $this->tag;
+            $data['tag'] = in_array( $this->tag, array( 'title', 'excerpt', 'content', 'category', 'tags' ), true ) ? '' : $this->tag;
         }
 
         if ( $this->id ) {
