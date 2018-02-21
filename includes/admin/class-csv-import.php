@@ -537,6 +537,23 @@ class WPBDP_CSV_Import {
             return $error;
         }
 
+        $payment = $listing->get_latest_payment();
+
+        // A payment record created in the last minute means the plan of an existing
+        // listing changed or was just assigned for a new listing.
+        if ( $payment && current_time( 'timestamp' ) - strtotime( $payment->created_at ) < 60 ) {
+            $payment->status = 'completed';
+            $payment->context = 'csv-import';
+            $payment->save();
+
+            wpbdp_insert_log( array(
+                'log_type' => 'payment.note',
+                'object_id' => $payment->id,
+                'actor' => is_admin() ? 'user:' . get_current_user_id() : 'system',
+                'message' => __( 'Listing imported by admin. Payment skipped.', 'WPBDM' )
+            ) );
+        }
+
         return $listing->get_id();
     }
 

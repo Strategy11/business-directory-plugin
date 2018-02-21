@@ -94,10 +94,13 @@ class WPBDP__Listing_Timeline {
         $title = $payment->summary;
 
         if ( 'initial' == $payment->payment_type ) {
-            if ( 'admin-submit' == $payment->context )
-                $title = 'Paid as admin';
-            else
-                $title = 'Initial Payment';
+            if ( 'admin-submit' == $payment->context ) {
+                $title = _x( 'Paid as admin', 'listing timeline', 'WPBDM' );
+            } elseif ( 'csv-import' == $payment->context ) {
+                $title = _x( 'Listing imported', 'listing timeline', 'WPBDM' );
+            } else {
+                $title = _x( 'Initial Payment', 'listing timeline', 'WPBDM' );
+            }
         }
 
         $item->html  = '';

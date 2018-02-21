@@ -148,11 +148,16 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     // Set plan for new listings.
     if ( $adding || 'csv-import' === $context ) {
         $plan = wpbdp_get_fee_plan( $plan_id );
+
         if ( ! $plan ) {
             $plan = wpbdp_get_fee_plan( 'free' );
         }
 
-        $listing_obj->set_fee_plan( $plan );
+        if ( 'csv-import' === $context ) {
+            $payment = $listing_obj->set_fee_plan_with_payment( $plan );
+        } elseif ( $adding ) {
+            $listing_obj->set_fee_plan( $plan );
+        }
     }
 
     // Update expiration date if necessary.

@@ -254,6 +254,16 @@ class WPBDP_Listing {
         return WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' )->to_array();
     }
 
+    /**
+     * @since 5.1.9
+     */
+    public function get_latest_payment() {
+        $payments = $this->get_latest_payments();
+
+        return count( $payments ) ? $payments[0] : null;
+    }
+
+
     public function publish() {
         if ( ! $this->id )
             return;
@@ -560,26 +570,9 @@ class WPBDP_Listing {
             return null;
         }
 
-        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => $previous_plan ? 'plan_change' : 'initial' ) );
+        $payment_type = $previous_plan ? 'plan_change' : 'initial';
 
-        if ( $plan->is_recurring ) {
-            $item_description = sprintf( _x( 'Plan "%s" (recurring)', 'listing', 'WPBDM' ), $plan->fee_label );
-        } else {
-            $item_description = sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label );
-        }
-
-        $payment->payment_items[] = array(
-            'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
-            'description' => $item_description,
-            'amount' => $plan->fee_price,
-            'fee_id' => $plan->fee_id,
-            'fee_days' => $plan->fee_days,
-            'fee_images' => $plan->fee_images
-        );
-
-        $payment->save();
-
-        return $payment;
+        return $this->create_payment_from_plan( $payment_type, $plan );
     }
 
     public function generate_or_retrieve_payment() {
@@ -593,23 +586,37 @@ class WPBDP_Listing {
         if ( $existing_payment )
             return $existing_payment;
 
-        $payment = new WPBDP_Payment( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) );
+        return $this->create_payment_from_plan( 'initial', $plan );
+    }
 
-        $item = array(
+    /**
+     * @since 5.1.9
+     */
+    private function create_payment_from_plan( $payment_type, $plan ) {
+        $payment = new WPBDP_Payment( array(
+            'listing_id' => $this->id,
+            'payment_type' => $payment_type,
+        ) );
+
+        if ( $plan->is_recurring ) {
+            $item_description = sprintf( _x( 'Plan "%s" (recurring)', 'listing', 'WPBDM' ), $plan->fee_label );
+        } else {
+            $item_description = sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label );
+        }
+
+        $payment->payment_items[] = array(
             'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
-            'description' => sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label ),
+            'description' => $item_description,
             'amount' => $plan->fee_price,
             'fee_id' => $plan->fee_id,
             'fee_days' => $plan->fee_days,
             'fee_images' => $plan->fee_images,
         );
 
-        $payment->payment_items[] = $item;
         $payment->save();
 
         return $payment;
     }
-
 
     /**
      * @since 5.0
