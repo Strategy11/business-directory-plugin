@@ -26,6 +26,12 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->plan = $this->listing->get_fee_plan();
 
+        $payment = $this->listing->get_latest_payment();
+
+        if ( $payment && 'initial' == $payment->payment_type && 'pending' == $payment->status ) {
+            return $this->_redirect( $payment->get_checkout_url() );
+        }
+
         if ( 'pending_renewal' == $this->listing->get_status() ) {
             // Check to see if there's a pending payment for this renewal. If there is, move to checkout.
             if ( $payment = WPBDP_Payment::objects()->get( array( 'listing_id' => $this->listing->get_id(), 'payment_type' => 'renewal', 'status' => 'pending' ) ) ) {
