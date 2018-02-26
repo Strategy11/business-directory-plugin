@@ -96,8 +96,10 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
         if ( $today != $data['last_date'] )
             $data['count'] = 0;
-        
+
         $data['count'] = $data['count'] + 1;
+        $data['last_date'] = $today;
+
         update_post_meta( $listing_id, '_wpbdp_contact_limit', $data );
     }
 
