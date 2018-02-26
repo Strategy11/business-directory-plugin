@@ -395,6 +395,7 @@ final class WPBDP__Settings__Bootstrap {
             'default' => array(),
             'options' => array(
                 'main'          => _x( 'Directory view.', 'admin settings', 'WPBDM' ),
+                'all_listings'  => _x( 'All Listings view.', 'admin settings', 'WPBDM' ),
                 'show_category' => _x( 'Category view.', 'admin settings', 'WPBDM' ),
                 'search'        => _x( 'Search view.', 'admin settings', 'WPBDM' ),
             ),
