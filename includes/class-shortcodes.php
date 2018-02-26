@@ -318,10 +318,12 @@ class WPBDP__Shortcodes {
                     $categories[] = $term->term_id;
             }
 
-            $query_args['tax_query'] = array( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
+            $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
                                                      'field' => 'id',
                                                      'terms' => $categories ) );
-        } elseif ( $atts['tag'] || $atts['tags'] ) {
+        }
+
+        if ( $atts['tag'] || $atts['tags'] ) {
             $requested_tags = array();
 
             if ( $atts['tag'] )
@@ -330,7 +332,7 @@ class WPBDP__Shortcodes {
             if ( $atts['tags'] )
                 $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
 
-            $query_args['tax_query'] = array( array( 'taxonomy' => WPBDP_TAGS_TAX,
+            $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_TAGS_TAX,
                                                      'field' => 'slug',
                                                      'terms' => $requested_tags ) );
         }
