@@ -37,8 +37,21 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
         $status_msg = _x( 'Migrating payments information.', 'installer', 'WPBDM' );
 
         // Remove/update listing fees.
-        if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_listing_fees LIKE %s", 'migrated' ) ) )
+        if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_listing_fees LIKE %s", 'migrated' ) ) ) {
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees ADD migrated tinyint(1) DEFAULT 0" );
+        }
+
+        if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_listing_fees LIKE %s", 'fee_days' ) ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees ADD fee_days smallint unsigned NOT NULL" );
+        }
+
+        if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_listing_fees LIKE %s", 'fee_images' ) ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees ADD fee_images smallint unsigned NOT NULL DEFAULT 0" );
+        }
+
+        if ( ! $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$wpdb->prefix}wpbdp_listing_fees LIKE %s", 'fee_id' ) ) ) {
+            $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees ADD fee_id bigint(20) NULL" );
+        }
 
         $n_fees = intval( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listing_fees" ) );
         $n_fees_migrated = intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listing_fees WHERE migrated = %d", 1 ) ) );
