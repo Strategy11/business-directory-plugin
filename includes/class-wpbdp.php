@@ -203,8 +203,10 @@ final class WPBDP {
         $this->listing_expiration = new WPBDP__Listing_Expiration();
         $this->listing_email_notification = new WPBDP__Listing_Email_Notification();
 
-        $abandoned_payment_notification = new WPBDP__Abandoned_Payment_Notification( $this->settings, $wpdb );
-        add_action( 'wpbdp_hourly_events', array( $abandoned_payment_notification, 'send_abandoned_payment_notifications' ) );
+        if ( $this->settings->get_option( 'payment-abandonment' ) ) {
+            $abandoned_payment_notification = new WPBDP__Abandoned_Payment_Notification( $this->settings, $wpdb );
+            add_action( 'wpbdp_hourly_events', array( $abandoned_payment_notification, 'send_abandoned_payment_notifications' ) );
+        }
     }
 
     public function register_cache_groups() {
