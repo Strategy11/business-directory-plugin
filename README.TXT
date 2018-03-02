@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.9
-Last Updated: 2018-Feb-13
-Stable tag: 5.1.7
+Last Updated: 2018-Mar-2
+Stable tag: 5.1.9
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,22 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 5.1.9 =
+* Fix CSV Importer to create initial payment for imported listings.
+* Do not renew listings with pending initial payments.
+* Allow [businessdirectory-listings] to use 'category' and 'tag' params together.
+* Fix code that prevents spamming listing owners.
+* Create necessary columns to prevent an old migration routine from failing.
+* Fix a bug that caused abandoned payment notifications to be sent, even if the feature was disabled.
+* Fix recent email problems.
+
+= Version 5.1.8 =
+* Update Form Field ‘tag’ attribute when the field's association changes.
+* Show 'No listing found' error message on Edit Listing when no listing ID is provided.
+* Add option to prevent sticky listings from floating to the top of directory view.
+* Prevent users from editing any listing by using the listing ID.
+* Update German translation for Terms and Conditions link.
+
 = Version 5.1.7 =
 * Update German translation.
 * Show an indicator when listings are created without a fee plan.
