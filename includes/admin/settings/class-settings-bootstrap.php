@@ -879,7 +879,7 @@ final class WPBDP__Settings__Bootstrap {
             'id'      => 'listing-email-content-type',
             'type'    => 'radio',
             'name'    => _x( 'Email Content-Type header', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'Use this setting to control the format of the emails explicitly. Some plugins for email do not correctly support Content Type unless explicitly set, you can do that here. If you\'re unsure, try "Both" and then "Plain" if that doesn\'t work well.', 'settings', 'WPBDM' ),
+            'desc'    => _x( 'Use this setting to control the format of the emails explicitly. Some plugins for email do not correctly support Content Type unless explicitly set, you can do that here. If you\'re unsure, try "HTML", "Plain" and then "Both".', 'settings', 'WPBDM' ),
             'default' => 'html',
             'options' => array(
                 'plain' => _x( 'Plain (text/plain)', 'admin settings', 'WPBDM' ),
