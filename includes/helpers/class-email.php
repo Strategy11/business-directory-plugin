@@ -111,7 +111,7 @@ class WPBDP_Email {
         $message = $this->html;
         $headers = $this->get_headers();
 
-        add_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10, 1 );
+        add_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
         $result = wp_mail( $this->to, $this->subject, $message, $headers );
         remove_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
 
