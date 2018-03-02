@@ -94,7 +94,7 @@ class WPBDP_Email {
      */
     public function send($format='both') {
         $this->subject = preg_replace( '/[\n\r]/', '', strip_tags( html_entity_decode( $this->subject ) ) );
-        $this->from = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ) , get_option( 'admin_email' ) ) );
+        $this->from = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) ) );
         $this->to = preg_replace( '/[\n\r]/', '', $this->to );
 
         if ( ! $this->to ) {
