@@ -31,7 +31,7 @@ class WPBDP_Listing {
         if ( ! $this->id )
             return '';
 
-        return date_i18n( get_option( 'date_format' ), get_post_modified_time( 'U', false, $this->id ) );
+        return wpbdp_date( get_post_modified_time( 'U', false, $this->id ) );
     }
 
     public function get_images( $fields = 'all', $sorted = false ) {
@@ -240,6 +240,25 @@ class WPBDP_Listing {
             $status = 'pending';
 
         return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
+    }
+
+    /**
+     * @since 5.1.9
+     */
+    public function get_renewal_date() {
+        $filters = array(
+            'listing_id' => $this->id,
+            'status' => 'completed',
+            'payment_type' => 'renewal',
+        );
+
+        $payments = WPBDP_Payment::objects()->filter( $filters )->order_by( '-id' )->to_array();
+
+        if ( ! isset( $payments[0] ) ) {
+            return null;
+        }
+
+        return wpbdp_date_full_format( strtotime( $payments[0]->created_at ) );
     }
 
     /**

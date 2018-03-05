@@ -466,6 +466,21 @@ function wpbdp_currency_format( $amount, $args = array() ) {
 }
 
 /**
+ * @since 5.1.9
+ */
+function wpbdp_date_full_format( $timestamp ) {
+    return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $timestamp );
+}
+
+/**
+ * @since 5.1.9
+ */
+function wpbdp_date( $timestamp ) {
+    return date_i18n( get_option( 'date_format' ), $timestamp );
+}
+
+
+/**
  * @since 3.5.3
  */
 function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {

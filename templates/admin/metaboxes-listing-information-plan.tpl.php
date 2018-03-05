@@ -17,7 +17,11 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <?php endif; ?>
         </dd>
         <dt><?php _ex( 'Last renew date', 'listing metabox', 'WPBDM' ); ?></dt>
+        <?php if ( $renewal_date = $listing->get_renewal_date() ): ?>
+        <dd><?php echo esc_html( $renewal_date ); ?></dd>
+        <?php else: ?>
         <dd><?php _ex( 'N/A', 'listing metabox', 'WPBDM' ); ?></dd>
+        <?php endif; ?>
     </dl>
 
     <h4><?php _ex( 'Plan Details', 'listing metabox', 'WPBDM' ); ?></h4>
@@ -56,7 +60,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <dt><?php _ex( 'Expires On', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-expiration">
-                <?php echo $current_plan ? $current_plan->expiration_date : '-'; ?>
+                <?php echo $current_plan ? wpbdp_date_full_format( strtotime( $current_plan->expiration_date ) ) : '-'; ?>
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
