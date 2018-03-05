@@ -94,7 +94,15 @@ final class WPBDP {
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
         // Clear cache of page IDs when a page is saved.
-        add_action( 'save_post_page', create_function( '$x = false', 'delete_transient("wpbdp-page-ids");' ) );
+        if ( version_compare( phpversion(), '5.3.0', '>=' ) ) {
+            $handler = function() {
+                delete_transient( 'wpbdp-page-ids' );
+            };
+        } else {
+            $handler = create_function( '$x = false', 'delete_transient("wpbdp-page-ids");' );
+        }
+
+        add_action( 'save_post_page', $handler );
 
         // AJAX actions.
         // TODO: Use Dispatcher AJAX support instead of hardcoding these actions here.

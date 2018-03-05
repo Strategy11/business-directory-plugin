@@ -604,7 +604,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     private function sort_images( $images_, $meta ) {
         // Sort inside $meta first.
-        uasort( $meta, create_function( '$x, $y', "return \$y['order'] - \$x['order'];" ) );
+        if ( version_compare( phpversion(), '5.3.0', '>=' ) ) {
+            $callback = function ( $x, $y ) {
+                return $y['order'] - $x['order'];
+            };
+        } else {
+            $callback = create_function( '$x, $y', "return \$y['order'] - \$x['order'];" );
+        }
+
+        uasort( $meta, $callback );
 
         // Sort $images_ considering $meta.
         $images = array();

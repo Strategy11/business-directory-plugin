@@ -79,9 +79,13 @@ class WPBDP__Rewrite {
 
         // Create uppercase versions of rules involving octets (support for cyrillic characters).
         foreach ( $rules as $def => $redirect ) {
-            $upper_r = preg_replace_callback( '/%[0-9a-zA-Z]{2}/',
-                                              create_function( '$x', 'return strtoupper( $x[0] );' ),
-                                              $def );
+            $upper_r = $def;
+
+            preg_match_all( '/%[0-9a-zA-Z]{2}/', $def, $matches );
+
+            foreach ( $matches[0] as $match ) {
+                $upper_r = str_replace( $match, strtoupper( $match ), $upper_r );
+            }
 
             if ( 0 !== strcmp( $def, $upper_r ) ) {
                 $rules[ $upper_r ] = $redirect;

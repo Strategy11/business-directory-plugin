@@ -24,8 +24,18 @@ class WPBDP__Utils {
      * @since 5.0
      */
     public static function sort_by_property( &$array, $prop ) {
-        uasort( $array,
-                create_function( '$x, $y', '$x_ = (array) $x; $y_ = (array) $y; return $x_["' . $prop . '"] - $y_["' . $prop . '"];' ) );
+        if ( version_compare( phpversion(), '5.3.0', '>=' ) ) {
+            $callback = function( $x, $y ) use ( $prop ) {
+                $x = (array) $x;
+                $y = (array) $y;
+
+                return $x[ $prop ] - $y[ $prop ];
+            };
+        } else {
+            $callback = create_function( '$x, $y', '$x_ = (array) $x; $y_ = (array) $y; return $x_["' . $prop . '"] - $y_["' . $prop . '"];' );
+        }
+
+        uasort( $array, $callback );
     }
 
     /**
