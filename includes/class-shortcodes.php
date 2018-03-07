@@ -429,15 +429,35 @@ class WPBDP__Shortcodes {
         $args = array_merge(
             array(
                 'menu'    => 0,
-                'buttons' => 'none'
+                'buttons' => 'none',
+                'limit'   => 10,
+                'pagination' => false
             ),
             $args
         );
 
+        if ( wpbdp_get_option( 'listings-per-page' ) >= $args['limit'] || ! wpbdp_get_option( 'listings-per-page' ) ) {
+            $args['pagination'] = false;
+            $query_args['posts_per_page'] = intval( $args['limit'] );
+
+        } elseif ( $args['pagination'] ) {
+            $paged = get_query_var( 'page' ) ? get_query_var( 'page' ) : ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
+            $remaining_posts = intval( $args['limit'] ) - wpbdp_get_option( 'listings-per-page' ) * ( $paged - 1 );
+
+            $query_args['posts_per_page'] = $remaining_posts > wpbdp_get_option( 'listings-per-page' ) ? wpbdp_get_option( 'listings-per-page' ) : $remaining_posts;
+            $query_args['paged'] = intval( $paged );
+        }
+
         $query = new WP_Query( $query_args );
 
         // Try to trick pagination to remove it when processing a shortcode.
-        $query->max_num_pages = 1;
+        if ( ! $args['pagination'] ) {
+            $query->max_num_pages = 1;
+        } else {
+            $query->max_num_pages = ceil( intval( $args['limit'] ) / wpbdp_get_option( 'listings-per-page' ) );
+        }
+
+        var_dump( intval( $args['limit'] ), wpbdp_get_option( 'listings-per-page' ) );
 
         wpbdp_push_query( $query );
 
