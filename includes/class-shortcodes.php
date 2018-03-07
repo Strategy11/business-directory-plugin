@@ -354,7 +354,8 @@ class WPBDP__Shortcodes {
             array(
                 'menu'    => 0,
                 'buttons' => 'none',
-                'limit'   => 10
+                'limit'   => 10,
+                'pagination' => false
             ),
             $atts,
             'businessdirectory-latest-listings'
@@ -374,7 +375,8 @@ class WPBDP__Shortcodes {
             array(
                 'menu'    => 0,
                 'buttons' => 'none',
-                'limit'   => 10
+                'limit'   => 10,
+                'pagination' => false
             ),
             $atts,
             'businessdirectory-random-listings'
@@ -393,7 +395,8 @@ class WPBDP__Shortcodes {
             array(
                 'menu'    => 0,
                 'buttons' => 'none',
-                'limit'   => 10
+                'limit'   => 10,
+                'pagination' => false
             ),
             $atts,
             'businessdirectory-featured-listings'
