@@ -392,7 +392,18 @@ class WPBDP__Settings_Admin {
                 'email_body' => $notice['body'],
                 'extra_fields' => $this->setting_expiration_notices_email_extra_fields( 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']', $uid, $notice ),
                 'after_container' => $this->setting_expiration_notices_email_summary( $notice ),
-                'before_buttons' => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>'
+                'before_buttons' => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>',
+                'placeholders' =>
+                    array(
+                        'site'          => _x( 'Site title (with link)', 'settings', 'WPBDM' ),
+                        'author'        => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+                        'listing'       => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+                        'expiration'    => _x( 'Listing\'s expiration date', 'settings', 'WPBDM' ),
+                        'link'          => _x( 'Listing\'s renewal link', 'settings', 'WPBDM' ),
+                        'category'      => _x( 'Listing\'s categories', 'settings', 'WPBDM' ),
+                        'payment_date'  => _x( 'Listing\'s last payment date', 'settings', 'WPBDM' ),
+                        'access_key'    => _x( 'Listing\'s access key', 'settings', 'WPBDM' ),
+                    ),
             );
 
             echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $vars );
@@ -491,7 +502,14 @@ class WPBDP__Settings_Admin {
 
     private function setting_expiration_notices_email_extra_fields( $name, $uid, $notice ) {
         if ( is_null( $notice ) ) {
-            $notice = array( 'event' => 'expiration', 'listings' => 'both', 'relative_time' => '0 days', 'subject' => '', 'body' => '' );
+            $notice = array(
+                    'event' => 'expiration',
+                    'listings' => 'both',
+                    'relative_time' => '0 days',
+                    'subject' => '',
+                    'body' => '',
+                    'placeholders' => array(),
+                );
         }
 
         ob_start();
@@ -525,7 +543,7 @@ class WPBDP__Settings_Admin {
                 <?php endforeach; ?>
             </select>
         </td>
-        </tr>
+    </tr>
 <?php
         return ob_get_clean();
     }
