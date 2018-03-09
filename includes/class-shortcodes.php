@@ -447,7 +447,7 @@ class WPBDP__Shortcodes {
             $paged = get_query_var( 'page' ) ? get_query_var( 'page' ) : ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
             $remaining_posts = intval( $args['limit'] ) - wpbdp_get_option( 'listings-per-page' ) * ( $paged - 1 );
 
-            $query_args['posts_per_page'] = $remaining_posts > wpbdp_get_option( 'listings-per-page' ) ? wpbdp_get_option( 'listings-per-page' ) : $remaining_posts;
+            $query_args['posts_per_page'] = wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1;
             $query_args['paged'] = intval( $paged );
         }
 
@@ -459,8 +459,6 @@ class WPBDP__Shortcodes {
         } else {
             $query->max_num_pages = ceil( intval( $args['limit'] ) / wpbdp_get_option( 'listings-per-page' ) );
         }
-
-        var_dump( intval( $args['limit'] ), wpbdp_get_option( 'listings-per-page' ) );
 
         wpbdp_push_query( $query );
 
@@ -475,6 +473,8 @@ class WPBDP__Shortcodes {
                 $vars['_bar']      =   true;
                 $vars['_bar_args'] =  array( 'buttons' => $args['buttons'] );
             }
+
+            $vars['remaining_posts'] = ! empty( $remaining_posts ) ? $remaining_posts : '';
 
             $html .= wpbdp_x_render( 'listings', $vars );
         }
