@@ -29,12 +29,16 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
         if ( ! empty( $args_['author'] ) )
             $args['author'] = $args_['author'];
 
+        if ( ! empty( $this->in_shortcode ) && empty( $this->pagination ) ) {
+            $args['posts_per_page'] = -1;
+        }
+
         $args = array_merge( $args, $args_ );
 
         $q = new WP_Query( $args );
 
         // Try to trick pagination to remove it when processing a shortcode.
-        if ( ! empty( $this->in_shortcode ) ) {
+        if ( ! empty( $this->in_shortcode ) && empty( $this->pagination ) ) {
             $q->max_num_pages = 1;
         }
         wpbdp_push_query( $q );

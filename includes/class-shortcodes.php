@@ -286,6 +286,7 @@ class WPBDP__Shortcodes {
                                        'operator' => 'OR',
                                        'author' => '',
                                        'menu' => null,
+                                       'pagination' => 1,
                                        'items_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ),
                                 $atts );
 
@@ -345,7 +346,13 @@ class WPBDP__Shortcodes {
                 $query_args['author'] = $u->ID;
         }
 
-        $v = new WPBDP__Views__All_Listings( array(  'menu' => $atts['menu'], 'query_args' => $query_args, 'in_shortcode' => true ) );
+        $v = new WPBDP__Views__All_Listings(
+            array(
+                'menu' => $atts['menu'],
+                'query_args' => $query_args,
+                'in_shortcode' => true,
+                'pagination' => $atts['items_per_page'] > 0 && intval( $atts['pagination'] ),
+            ) );
         return $v->dispatch();
     }
 
@@ -434,16 +441,16 @@ class WPBDP__Shortcodes {
                 'menu'    => 0,
                 'buttons' => 'none',
                 'limit'   => 10,
-                'pagination' => false
+                'pagination' => 0
             ),
             $args
         );
 
         if ( wpbdp_get_option( 'listings-per-page' ) >= $args['limit'] || ! wpbdp_get_option( 'listings-per-page' ) ) {
-            $args['pagination'] = false;
+            $args['pagination'] = 0;
             $query_args['posts_per_page'] = intval( $args['limit'] );
 
-        } elseif ( $args['pagination'] ) {
+        } elseif ( intval( $args['pagination'] ) ) {
             $paged = get_query_var( 'page' ) ? get_query_var( 'page' ) : ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
             $remaining_posts = intval( $args['limit'] ) - wpbdp_get_option( 'listings-per-page' ) * ( $paged - 1 );
 
@@ -454,7 +461,7 @@ class WPBDP__Shortcodes {
         $query = new WP_Query( $query_args );
 
         // Try to trick pagination to remove it when processing a shortcode.
-        if ( ! $args['pagination'] ) {
+        if ( ! intval( $args['pagination'] ) ) {
             $query->max_num_pages = 1;
         } else {
             $query->max_num_pages = ceil( intval( $args['limit'] ) / wpbdp_get_option( 'listings-per-page' ) );
