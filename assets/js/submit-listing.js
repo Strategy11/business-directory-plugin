@@ -376,6 +376,9 @@ jQuery(function($) {
 
                 self.ajax( data, function( res ) {
                     self.refresh( res );
+                    $( 'html, body' ).delay(100).animate({
+                        scrollTop: self.$form.find('.wpbdp-submit-listing-section-plan_selection').offset().top
+                    }, 500);
                 } );
             } );
 

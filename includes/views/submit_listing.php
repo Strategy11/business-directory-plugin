@@ -358,13 +358,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
         }
 
+        $sections = apply_filters( 'wpbdp_submit_sections', $sections, $this );
+
         if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
                 'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' )
             );
         }
-
-        $sections = apply_filters( 'wpbdp_submit_sections', $sections, $this );
 
         foreach ( $sections as $section_id => &$s ) {
             $s['id'] = $section_id;
@@ -846,7 +846,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $html .= '<label>';
-        $html .= '<input type="checkbox" name="terms-and-conditions-agreement" value="1" />';
+        $html .= '<input type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
 
         $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
         if ( $is_url )
