@@ -29,10 +29,6 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
         if ( ! empty( $args_['author'] ) )
             $args['author'] = $args_['author'];
 
-        if ( ! empty( $this->in_shortcode ) && empty( $this->pagination ) ) {
-            $args['posts_per_page'] = -1;
-        }
-
         $args = array_merge( $args, $args_ );
 
         $q = new WP_Query( $args );
@@ -49,6 +45,11 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
                                 '_wrapper' => $show_menu ? 'page' : '',
                                 '_bar' =>  $show_menu,
                                 'query' => $q );
+
+        if ( ! function_exists('wp_pagenavi' ) && is_front_page() ) {
+            global $paged;
+            $paged = $q->query['paged'];
+        }
 
         $html = wpbdp_x_render( 'listings', $template_args );
         wp_reset_postdata();
