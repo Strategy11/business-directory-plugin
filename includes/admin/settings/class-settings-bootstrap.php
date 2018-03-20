@@ -1098,6 +1098,7 @@ final class WPBDP__Settings__Bootstrap {
         /* listing-autorenewal-message, after IPN notification of renewal of recurring */
         $notices[] = array(
             'event' => 'renewal',
+            'relative_time' => '0 days',
             'listings' => 'recurring',
             'subject' => '[[site-title]] [listing] renewed',
             'body' => "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [payment_date] for another period.\n\nIf you have any questions, contact us at [site]."
