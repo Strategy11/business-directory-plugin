@@ -222,7 +222,9 @@ class WPBDP__Listing_Email_Notification {
             if ( wpbdp_get_option( 'admin-notifications-cc' ) )
                 $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
 
-            $admin_email->body = wpbdp_render( 'email/listing-reported', array( 'listing' => $listing, 'report' => $report ), false );
+            $user = get_userdata( $report['user_id'] );
+
+            $admin_email->body = wpbdp_render( 'email/listing-reported', array( 'listing' => $listing, 'report' => $report, 'user' => $user ), false );
             $admin_email->send();
         }
     }
