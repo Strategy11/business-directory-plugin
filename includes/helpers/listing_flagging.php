@@ -67,13 +67,13 @@ class WPBDP__Listing_Flagging {
 
         $defaults = array( 'user_id' => 0, 'ip' => 0, 'reason' => '', 'comments' => '' );
 
-        $data = wp_parse_args( $data, $defaults );
+        $data = array_merge( $defaults, $data );
 
         if ( ! $data[ 'user_id' ] && ! $data[ 'ip' ] ) {
             return new WP_Error( 'missing_data', _x( 'User ID or IP address is required to save a report', 'flag listing', 'WPBDM' ) );
         }
 
-        if ( empty( $data[ 'reason' ] ) || empty( $data[ 'comments' ] ) ) {
+        if ( empty( $data[ 'reason' ] ) && empty( $data[ 'comments' ] ) ) {
             return new WP_Error( 'missing_data', _x( 'Report reason or comment is required to save a report', 'flag listing', 'WPBDM' ) );
         }
 

@@ -36,15 +36,14 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
                 $result = WPBDP__Listing_Flagging::add_flagging( $this->listing_id, $report );
 
                 if ( is_wp_error( $result ) ) {
-                    $flagging_msg = _x( 'Something went wrong, please try again. If error persists contact site admin', 'flag listing', 'WPBDM' );
-                    return wpbdp_render_msg( $flagging_msg, 'error' );
+                    $this->errors[] = $result->get_error_message();
+                } else {
+                    $flagging_msg = _x( 'The listing <i>%s</i> has been reported. <a>Return to directory</a>', 'flag listing', 'WPBDM' );
+                    $flagging_msg = sprintf( $flagging_msg, $this->listing->get_title() );
+                    $flagging_msg = str_replace( '<a>', '<a href="' . esc_url( wpbdp_url( 'main' ) ) . '">', $flagging_msg );
+
+                    return wpbdp_render_msg( $flagging_msg );
                 }
-
-                $flagging_msg = _x( 'The listing <i>%s</i> has been reported. <a>Return to directory</a>', 'flag listing', 'WPBDM' );
-                $flagging_msg = sprintf( $flagging_msg, $this->listing->get_title() );
-                $flagging_msg = str_replace( '<a>', '<a href="'. esc_url( wpbdp_url( 'main' ) ) .'">', $flagging_msg );
-
-                return wpbdp_render_msg( $flagging_msg );
             }
         } else if ( wp_verify_nonce( $nonce, 'flag listing unreport ' . $this->listing_id ) ) {
             // Remove report.
@@ -70,10 +69,6 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
                 'recaptcha' => wpbdp_get_option( 'recaptcha-for-flagging' ) ? wpbdp_recaptcha( 'wpbdp-listing-flagging-recaptcha' ) : ''
             )
         );
-        
-
-        $current_user = get_current_user_id();
-        $error = array();
 
         return $html;
     }
