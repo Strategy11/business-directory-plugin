@@ -222,9 +222,13 @@ class WPBDP__Listing_Email_Notification {
             if ( wpbdp_get_option( 'admin-notifications-cc' ) )
                 $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
 
-            $user = get_userdata( $report['user_id'] );
+            if( empty( $report['email'] ) && 0 != $report['user_id'] ) {
+                $user = get_userdata( $report['user_id'] );
+                $report['email'] = $user->user_email;
+                $report['name'] = $user->user_login;
+            }
 
-            $admin_email->body = wpbdp_render( 'email/listing-reported', array( 'listing' => $listing, 'report' => $report, 'user' => $user ), false );
+            $admin_email->body = wpbdp_render( 'email/listing-reported', array( 'listing' => $listing, 'report' => $report ), false );
             $admin_email->send();
         }
     }

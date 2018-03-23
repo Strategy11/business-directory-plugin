@@ -20,12 +20,16 @@
 
 <?php _ex( 'Report Information', 'notify email', 'WPBDM' ); ?>:
 
-<?php if( $user ): ?>
-    <?php _ex( 'User Email', 'notify email', 'WPBDM' ); ?>: <?php echo $user->user_email; ?>
+<?php if( ! empty( $report['name'] ) ): ?>
+    <?php _ex( 'User name', 'notify email', 'WPBDM' ); ?>: <?php echo $report['name'] ?>
+
+<?php endif; ?>
+<?php if( ! empty( $report['email'] ) ): ?>
+    <?php _ex( 'User Email', 'notify email', 'WPBDM' ); ?>: <?php echo $report['email'] ?>
 
 <?php endif; ?>
 <?php _ex( 'Report IP', 'notify email', 'WPBDM' ); ?>: <?php echo $report[ 'ip' ]; ?>
 
-<?php _ex( 'Report selected option', 'notify email', 'WPBDM' ); ?>: <?php echo $report[ 'reason' ]; ?>.
+<?php _ex( 'Report selected option', 'notify email', 'WPBDM' ); ?>: <?php echo $report[ 'reason' ]; ?>
 
 <?php echo isset( $report[ 'comments' ] ) && '' != $report[ 'comments' ] ? _x( 'Report additional info', 'notify email', 'WPBDM' ) . ': ' . $report[ 'comments' ] : ''; ?>

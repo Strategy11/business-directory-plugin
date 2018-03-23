@@ -8,6 +8,9 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
     private $listing = null;
     private $errors  = array();
 
+    private $name = '';
+    private $email = '';
+
 
     public function dispatch() {
         if ( ! wpbdp_get_option( 'enable-listing-flagging' ) ) {
@@ -62,11 +65,15 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
             $html .= wpbdp_render_msg( $err_msg, 'error' );
         }
 
+        $current_user = get_current_user_id();
+
+
         $html .= wpbdp_render(
             'listing-flagging-form',
             array(
-                'listing' => $this->listing,
-                'recaptcha' => wpbdp_get_option( 'recaptcha-for-flagging' ) ? wpbdp_recaptcha( 'wpbdp-listing-flagging-recaptcha' ) : ''
+                'listing'      => $this->listing,
+                'recaptcha'    => wpbdp_get_option( 'recaptcha-for-flagging' ) ? wpbdp_recaptcha( 'wpbdp-listing-flagging-recaptcha' ) : '',
+                'current_user' => $current_user ? get_userdata( $current_user ) : ''
             )
         );
 
@@ -74,6 +81,9 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
     }
 
     public function sanitize_report() {
+        $this->errors = array();
+        $current_user = is_user_logged_in() ? wp_get_current_user() : null;
+
         $posted_values = stripslashes_deep( $_POST );
 
         $report = array();
@@ -82,19 +92,30 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
         $report['date'] = time();
         $report['reason'] = ! empty( $posted_values['flagging_option'] ) ? trim( $posted_values['flagging_option'] ) : '';
         $report['comments'] = ! empty( $posted_values['flagging_more_info'] ) ? trim( $posted_values['flagging_more_info'] ) : '';
+        $report['name'] = wp_strip_all_tags( $current_user ? $current_user->data->user_login : ( isset( $_POST['reportauthorname'] ) ? trim( $_POST['reportauthorname'] ) : '' ) );
+        $report['email'] = sanitize_email( $current_user ? $current_user->data->user_email : ( isset( $_POST['reportauthoremail'] ) ? trim( $_POST['reportauthoremail'] ) : '' ) );
 
         if ( false !== WPBDP__Listing_Flagging::ip_has_flagged( $this->listing_id, $report[ 'ip' ] ) ) {
             $this->errors[] = _x( 'Your current IP address already reported this listing.', 'flag listing', 'WPBDM' );
-            return false;
         }
 
         if ( wpbdp_get_option( 'recaptcha-for-flagging' ) && ! wpbdp_recaptcha_check_answer() ) {
             $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'flag listing', 'WPBDM' );
-            return false;
         }
 
         if ( ! $report['reason'] && ! $report['comments'] ) {
             $this->errors[] = _x( 'You must select or enter the reasons to report this listing as inappropriate.', 'flag listing', 'WPBDM' );
+        }
+
+        if( ! $report['name'] ) {
+            $this->errors[] = _x( 'Please enter your name.', 'flag listing', 'WPBDM' );
+        }
+
+        if ( ! $report['email'] ) {
+            $this->errors[] = _x('Please enter your email.', 'flag listing', 'WPBDM');
+        }
+
+        if ( $this->errors ){
             return false;
         }
 
