@@ -8,9 +8,6 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
     private $listing = null;
     private $errors  = array();
 
-    private $name = '';
-    private $email = '';
-
 
     public function dispatch() {
         if ( ! wpbdp_get_option( 'enable-listing-flagging' ) ) {
@@ -103,8 +100,16 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
             $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'flag listing', 'WPBDM' );
         }
 
-        if ( ! $report['reason'] && ! $report['comments'] ) {
-            $this->errors[] = _x( 'You must select or enter the reasons to report this listing as inappropriate.', 'flag listing', 'WPBDM' );
+        $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
+
+        if ( ! empty( $flagging_options ) ) {
+            if ( ! $report['reason'] ) {
+                $this->errors[] = _x('You must select the reason to report this listing as inappropriate.', 'flag listing', 'WPBDM');
+            }
+        } else {
+            if ( ! $report['comments'] ) {
+                $this->errors[] = _x('You must enter the reason to report this listing as inappropriate.', 'flag listing', 'WPBDM');
+            }
         }
 
         if( ! $report['name'] ) {

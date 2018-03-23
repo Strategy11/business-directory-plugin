@@ -33,7 +33,7 @@ $flagging_text = _x( 'Report Listing', 'templates', 'WPBDM');
 
                 <div class="wpbdp-listing-flagging-options">
                     <?php foreach ( $flagging_options as $option ) : ?>
-                        <p><label><input type="radio" name="flagging_option" value="<?php echo esc_attr( $option ); ?>"> <span><?php echo esc_html( $option ); ?></span></label></p>
+                        <p><label><input type="radio" name="flagging_option" value="<?php echo esc_attr( $option ); ?>" required> <span><?php echo esc_html( $option ); ?></span></label></p>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
