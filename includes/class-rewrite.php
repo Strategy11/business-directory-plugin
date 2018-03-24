@@ -23,6 +23,8 @@ class WPBDP__Rewrite {
                 $page_link = _get_page_link( $page_id );
                 $page_link = preg_replace( '/\?.*/', '', $page_link ); // Remove querystring from page link.
 
+                $page_link = apply_filters( 'wpbdp_url_base_url', $page_link, $page_id );
+
                 $home_url = home_url();
                 $home_url = preg_replace( '/\?.*/', '', $home_url ); // Remove querystring from home URL.
 

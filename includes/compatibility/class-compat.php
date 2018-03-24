@@ -36,6 +36,11 @@ class WPBDP_Compat {
             require_once( WPBDP_PATH . 'includes/compatibility/class-advanced-excerpt-integration.php' );
             $advanced_excerpt_integration = new WPBDP_Advanced_Excerpt_Integration();
         }
+
+        if ( defined( 'CUSTOM_PERMALINKS_PLUGIN_VERSION') ) {
+            require_once( WPBDP_PATH . 'includes/compatibility/class-custom-permalinks-integration.php' );
+            $custom_permalinks_integration = new WPBDP_Custom_Permalink_Integration();
+        }
     }
 
     function cpt_compat_mode() {
@@ -148,6 +153,6 @@ class WPBDP_Compat {
             add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
             remove_action( 'wp_head', 'jetpack_og_tags' );
         }
-    }    
+    }
 
 }
