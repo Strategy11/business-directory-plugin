@@ -20,26 +20,47 @@ class WPBDP__Listing_Email_Notification {
      * Sent when a listing is published either by the admin or automatically.
      */
     public function listing_published_notification( $new_status, $old_status, $post ) {
+        if ( ! in_array( 'listing-published', wpbdp_get_option( 'user-notifications' ), true ) )
+            return;
+
         if ( WPBDP_POST_TYPE != get_post_type( $post ) )
             return;
 
         if ( $new_status == $old_status || 'publish' != $new_status || ( 'pending' != $old_status && 'draft' != $old_status ) )
             return;
 
-        if ( ! in_array( 'listing-published', wpbdp_get_option( 'user-notifications' ), true ) )
-            return;
-
         global $wpbdp;
+
         if ( isset( $wpbdp->_importing_csv_no_email ) && $wpbdp->_importing_csv_no_email )
             return;
 
+        if ( isset( $_POST['original_post_status'] ) && 'auto-draft' == $_POST['original_post_status'] ) {
+            add_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
+            add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
+            return;
+        }
+
+        $this->send_listing_published_notification( $post->ID, $post );
+    }
+
+    public function send_listing_published_notification( $post_id, $post ) {
+        if ( ! isset( $post->post_type ) || WPBDP_POST_TYPE !== $post->post_type ) {
+            return;
+        }
         $email = wpbdp_email_from_template( 'email-templates-listing-published', array(
             'listing' => get_the_title( $post->ID ),
             'listing-url' => get_permalink( $post->ID )
         ) );
-        $email->to[] = wpbusdirman_get_the_business_email( $post->ID );
+
+        $email->to[]     = wpbusdirman_get_the_business_email( $post->ID );
         $email->template = 'businessdirectory-email';
+
         $email->send();
+    }
+
+    public function try_to_remove_listing_published_notification_action() {
+        remove_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
+        remove_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
     }
 
     /**
