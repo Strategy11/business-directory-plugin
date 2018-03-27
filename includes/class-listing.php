@@ -204,7 +204,12 @@ class WPBDP_Listing {
      * @since 5.0
      */
     public function get_subscription() {
-        return new WPBDP__Listing_Subscription( $this->id );
+        try {
+            $subscription = new WPBDP__Listing_Subscription( $this->id );
+        } catch ( Exception $e ) {
+            $subscription = null;
+        }
+        return $subscription;
     }
 
     /**
