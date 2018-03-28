@@ -27,9 +27,15 @@ class WPBDP__Listing_Expiration {
         }
     }
 
-    function send_expiration_reminders() {
+    public function send_expiration_reminders() {
         if ( ! wpbdp_get_option( 'listing-renewal' ) )
             return;
+
+        $user_notifications = wpbdp_get_option( 'user-notifications' );
+
+        if ( ! in_array( 'listing-expires', $user_notifications ) ) {
+            return;
+        }
 
         $notices = wpbdp_get_option( 'expiration-notices', false );
         if ( ! $notices )

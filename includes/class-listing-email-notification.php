@@ -68,7 +68,7 @@ class WPBDP__Listing_Email_Notification {
      */
     public function status_change_notifications( $listing, $old_status, $new_status ) {
         // Expiration notice.
-        if ( 'expired' == $new_status && wpbdp_get_option( 'listing-renewal' ) ) {
+        if ( 'expired' == $new_status && $this->should_send_expiration_notifications() ) {
             $this->send_notices( 'expiration', '0 days', $listing );
         }
 
@@ -76,6 +76,23 @@ class WPBDP__Listing_Email_Notification {
         if ( 'incomplete' == $old_status && ( 'complete' == $new_status || 'pending_payment' == $new_status ) ) {
             $this->send_new_listing_email( $listing );
         }
+    }
+
+    /**
+     * @since 5.1.10
+     */
+    private function should_send_expiration_notifications() {
+        if ( ! wpbdp_get_option( 'listing-renewal' ) ) {
+            return false;
+        }
+
+        $user_notifications = wpbdp_get_option( 'user-notifications' );
+
+        if ( ! in_array( 'listing-expires', $user_notifications, true ) ) {
+            return false;
+        }
+
+        return true;
     }
 
     public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
@@ -196,6 +213,7 @@ class WPBDP__Listing_Email_Notification {
 
     /**
      * Sent when a listing is renewed.
+     *
      * @since 5.0.6
      */
     public function listing_renewal_email( $listing, $payment = false, $context = '' ) {
@@ -230,7 +248,9 @@ class WPBDP__Listing_Email_Notification {
         }
 
         // Notify users.
-        do_action( 'wpbdp_listing_maybe_send_notices', 'renewal', '0 days', $listing );
+        if ( in_array( 'listing-expires', wpbdp_get_option( 'user-notifications' ), true ) ) {
+            do_action( 'wpbdp_listing_maybe_send_notices', 'renewal', '0 days', $listing );
+        }
     }
 
     public function reported_listing_email( $listing, $report ) {

@@ -922,10 +922,11 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'multicheck',
             'name'    => _x( 'Notify users via e-mail when...', 'settings', 'WPBDM' ),
             'desc'    => $description,
-            'default' => array( 'new-listing', 'listing-published' ),
+            'default' => array( 'new-listing', 'listing-published', 'listing-expires' ),
             'options' => array(
                 'new-listing'       => _x( 'Their listing is submitted.', 'admin settings', 'WPBDM' ),
                 'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' ),
+                'listing-expires'   => _x( 'Their listing expired or is about to expire.', 'admin settings', 'WPBDM' ),
             ),
             'group' => 'email_notifications'
         ) );
