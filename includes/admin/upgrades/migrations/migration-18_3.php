@@ -3,6 +3,8 @@
  * @package WPBDP\Admin\Upgrades\Migrations
  */
 
+// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
+
 /**
  * Migration for DB version 18.3
  */
@@ -17,6 +19,9 @@ class WPBDP__Migrations__18_3 extends WPBDP__Migration {
         wpbdp_set_option( 'user-notifications', $enabled_notifications );
     }
 
+    /**
+     * @since 5.1.10
+     */
     private function get_enabled_notifications() {
         $enabled_notifications = wpbdp_get_option( 'user-notifications' );
 
@@ -33,3 +38,5 @@ class WPBDP__Migrations__18_3 extends WPBDP__Migration {
         return array_unique( $enabled_notifications );
     }
 }
+
+// phpcs:enable

@@ -1,4 +1,24 @@
 <?php
+/**
+ * @package WPBDP\Admin\Settings
+ */
+
+// phpcs:disable Generic.Formatting
+// phpcs:disable PEAR.NamingConventions
+// phpcs:disable PEAR.Functions
+// phpcs:disable Squiz.Commenting
+// phpcs:disable Squiz.PHP
+// phpcs:disable Squiz.WhiteSpace
+// phpcs:disable WordPress.Arrays
+// phpcs:disable WordPress.PHP
+// phpcs:disable WordPress.VIP
+// phpcs:disable WordPress.WhiteSpace
+// phpcs:disable WordPress.WP
+
+/**
+ * @SuppressWarnings(PHPMD.ExcessiveClassLength)
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+ */
 final class WPBDP__Settings__Bootstrap {
 
     public static function register_initial_groups() {
@@ -1120,6 +1140,9 @@ final class WPBDP__Settings__Bootstrap {
         return $notices;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public static function validate_expiration_notices( $value ) {
         // We remove notices with no subject and no content.
         foreach ( array_keys( $value ) as $notice_id ) {
@@ -1147,6 +1170,9 @@ final class WPBDP__Settings__Bootstrap {
         return $value;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public static function setup_ajax_compat_mode( $setting, $value ) {
         $mu_dir = ( defined( 'WPMU_PLUGIN_DIR' ) && defined( 'WPMU_PLUGIN_URL' ) ) ? WPMU_PLUGIN_DIR : trailingslashit( WP_CONTENT_DIR ) . 'mu-plugins';
         $source = WPBDP_INC . '/compatibility/wpbdp-ajax-compat-mu.php';
@@ -1183,5 +1209,6 @@ final class WPBDP__Settings__Bootstrap {
             }
         }
     }
-
 }
+
+// phpcs:enable
