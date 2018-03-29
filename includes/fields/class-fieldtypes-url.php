@@ -67,10 +67,10 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
             return '';
 
 
-        return sprintf( '<a href="%s" rel="%s" target="%s" title="%s">%s</a>',
+        return sprintf( '<a href="%s" rel="%s" target=%s title="%s">%s</a>',
                         esc_url( $value[0] ),
                         $field->data( 'use_nofollow' ) == true ? 'nofollow': '',
-                        $field->data( 'open_in_new_window' ) == true ? '_blank' : '_self',
+                        $field->data( 'open_in_new_window' ) == true ? '"_blank" rel="noopener"' : '"_self"',
                         esc_attr( $value[1] ),
                         esc_attr( $value[1] ) );
     }

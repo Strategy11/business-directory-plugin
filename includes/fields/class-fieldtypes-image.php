@@ -93,7 +93,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $html  = '';
         $html .= '<br />';
-        $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' )  . '>';
+        $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' )  . '>';
         $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false );
         $html .= '</a>';
 

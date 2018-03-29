@@ -77,7 +77,7 @@ final class WPBDP__Settings__Bootstrap {
             _x( 'reCAPTCHA', 'settings', 'WPBDM' ),
             'general',
             array(
-                'desc' => str_replace( '<a>', '<a href="http://www.google.com/recaptcha" target="_blank">', _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'settings', 'WPBDM' ) )
+                'desc' => str_replace( '<a>', '<a href="http://www.google.com/recaptcha" target="_blank" rel="noopener">', _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'settings', 'WPBDM' ) )
             )
         );
         wpbdp_register_setting( array(
@@ -195,7 +195,7 @@ final class WPBDP__Settings__Bootstrap {
             'id'      => 'tracking-on',
             'type'    => 'checkbox',
             'name'    => _x( 'Allow BD to anonymously collect information about your installed plugins, themes and WP version?', 'settings', 'WPBDM' ),
-            'desc'    => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank">', _x( '<a>Learn more</a> about what BD does and does NOT track.', 'admin settings', 'WPBDM' ) ),
+            'desc'    => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">', _x( '<a>Learn more</a> about what BD does and does NOT track.', 'admin settings', 'WPBDM' ) ),
             'group' => 'tracking_settings'
         ) );
 
@@ -254,7 +254,7 @@ final class WPBDP__Settings__Bootstrap {
             'type'    => 'checkbox',
             'name'    => _x( 'Enable AJAX compatibility mode?', 'settings', 'WPBDM' ),
             'desc'    => _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'WPBDM' )
-                         . ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'WPBDM' ) ),
+                         . ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank" rel="noopener">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'WPBDM' ) ),
             'group' => 'general/advanced',
             'on_update' => array( __CLASS__, 'setup_ajax_compat_mode' )
         ) );

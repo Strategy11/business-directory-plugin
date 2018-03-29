@@ -15,8 +15,8 @@ $notice = _x( "Please note that the export process is a resource intensive task.
               'admin csv-export',
               'WPBDM' );
 $notice = str_replace( array( 'memory_limit', 'max_execution_time' ),
-                       array( '<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank">memory_limit</a>',
-                              '<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank">max_execution_time</a>' ),
+                       array( '<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank" rel="noopener">memory_limit</a>',
+                              '<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank" rel="noopener">max_execution_time</a>' ),
                        $notice );
 echo $notice;
 ?>

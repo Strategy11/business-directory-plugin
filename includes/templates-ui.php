@@ -459,7 +459,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
 
     if ( !$image_link && $args['link'] == 'listing' ){
         $image_link = get_permalink( $listing_id );
-        $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self';
+        $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '"_blank" rel="noopener"' : '"_self"';
     }
 
     if ( $image_img ) {
@@ -473,7 +473,7 @@ function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
                                 $image_img );
             }
 
-            return sprintf( '<div class="listing-thumbnail"><a href="%s" target="%s" class="%s" title="%s" %s>%s</a></div>',
+            return sprintf( '<div class="listing-thumbnail"><a href="%s" target=%s class="%s" title="%s" %s>%s</a></div>',
                             $image_link,
                             $listing_link_in_new_tab,
                             $args['link'] == 'picture' ? 'thickbox' : '',

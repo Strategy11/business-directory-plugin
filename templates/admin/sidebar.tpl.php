@@ -46,7 +46,7 @@ $themes = array(
                 <?php foreach ( $modules as $mod_info ): ?>
                     <li class="li_link">
                         <?php if ( isset( $mod_info[3] ) && 'new' == $mod_info[3] ): ?><span class="tag new"><?php _ex( 'new', 'admin sidebar', 'WPBDM' ); ?></span> <?php endif; ?>
-                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank"><?php echo $mod_info[2]; ?></a>
+                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank" rel="noopener"><?php echo $mod_info[2]; ?></a>
                     </li>
                 <?php endforeach; ?>
                 </ul>
@@ -62,7 +62,7 @@ $themes = array(
                 <?php foreach ( $themes as $mod_info ): ?>
                     <li class="li_link">
                         <?php if ( isset( $mod_info[2] ) && 'new' == $mod_info[2] ): ?><span class="tag new"><?php _ex( 'new', 'admin sidebar', 'WPBDM' ); ?></span> <?php endif; ?>
-                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank"><?php echo $mod_info[1]; ?></a>
+                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[0]; ?>/?ref=wp" target="_blank" rel="noopener"><?php echo $mod_info[1]; ?></a>
                     </li>
                 <?php endforeach; ?>
                 </ul>
@@ -75,13 +75,13 @@ $themes = array(
             <div class="inside">
                 <p>
                     <?php echo str_replace( '<a>',
-                                            '<a href="http://businessdirectoryplugin.com/forums/" target="_blank">',
+                                            '<a href="http://businessdirectoryplugin.com/forums/" target="_blank" rel="noopener">',
                                             _x( 'If you\'ve found a bug or need support <a>visit the forums!</a>', 'admin sidebar', 'WPBDM' ) ); ?>
                 </p>
                 <p>
-                    &#149; <a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
-                    &#149; <a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank"><?php _ex( 'Quick Start Guide', 'admin sidebar', 'WPBDM' ); ?></a><br />
-                    &#149; <a href="http://businessdirectoryplugin.com/video-tutorials/" target="_blank"><?php _ex( 'Video Tutorials', 'admin sidebar', 'WPBDM' ); ?></a>
+                    &#149; <a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank" rel="noopener"><?php _ex( 'Full plugin documentation', 'admin sidebar', 'WPBDM' ); ?></a><br />
+                    &#149; <a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank" rel="noopener"><?php _ex( 'Quick Start Guide', 'admin sidebar', 'WPBDM' ); ?></a><br />
+                    &#149; <a href="http://businessdirectoryplugin.com/video-tutorials/" target="_blank" rel="noopener"><?php _ex( 'Video Tutorials', 'admin sidebar', 'WPBDM' ); ?></a>
                 </p>
             </div>
         </div>
@@ -97,7 +97,7 @@ $themes = array(
                 foreach ( $modules as $mod_info ):
                 ?>
                     <li class="li_link">
-                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank"><?php echo $mod_info[2]; ?></a>:<br />
+                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank" rel="noopener"><?php echo $mod_info[2]; ?></a>:<br />
                         <?php
                         if ( wpbdp_has_module( $mod_info[0] ) ):
                             echo _x( 'Installed', 'admin sidebar', 'WPBDM' );

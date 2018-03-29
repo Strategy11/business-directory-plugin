@@ -850,7 +850,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
         if ( $is_url )
-            $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank">', $label );
+            $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
         else
             $label = str_replace( array( '<a>', '</a>' ), '', $label );
 
