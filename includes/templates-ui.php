@@ -402,7 +402,9 @@ function wpbdp_the_bar($parts=array()) {
  * @since 2.3
  */
 function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
-    if ( !$listing_id ) $listing_id = get_the_ID();
+    if ( ! $listing_id ) {
+        $listing_id = apply_filters( 'wpbdp_listing_images_listing_id', get_the_ID() );
+    }
 
     $listing = WPBDP_Listing::get( $listing_id );
 

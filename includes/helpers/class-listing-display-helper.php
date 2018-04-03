@@ -123,6 +123,7 @@ class WPBDP_Listing_Display_Helper {
         if ( ! wpbdp_get_option( 'allow-images' ) )
             return $vars;
 
+        $listing_id = apply_filters( 'wpbdp_listing_images_listing_id', $listing_id );
         $listing = WPBDP_Listing::get( $listing_id );
 
         // Thumbnail.

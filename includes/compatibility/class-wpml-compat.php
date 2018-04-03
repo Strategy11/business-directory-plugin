@@ -14,6 +14,7 @@ class WPBDP_WPML_Compat {
             add_filter( 'wpbdp_url_base_url', array( &$this, 'fix_get_page_link' ), 10, 2 );
             add_filter( 'wpbdp_url', array( &$this, 'correct_page_link' ), 10, 3 );
             add_filter( 'wpbdp_ajax_url', array( $this, 'filter_ajax_url' ) );
+            add_filter( 'wpbdp_listing_images_listing_id', array( $this, 'get_images_listing_id' ), 10, 1 );
 
             add_filter( 'wpbdp_render_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
             add_filter( 'wpbdp_render_field_description', array( &$this, 'translate_form_field_description' ), 10, 2 );
@@ -410,6 +411,27 @@ class WPBDP_WPML_Compat {
 
             delete_option( $opt . '-' . $code );
         }
+    }
+
+    // }}}
+
+    // Listing thumbnail and images. {{{
+    function get_images_listing_id( $listing_id ) {
+        if ( 1 != apply_filters( 'wpml_element_translation_type', NULL, $listing_id, 'post_' . WPBDP_POST_TYPE ) ) {
+            return $listing_id;
+        }
+
+        $trid = apply_filters( 'wpml_element_trid', NULL, $listing_id, 'post_' . WPBDP_POST_TYPE );
+        $translations = apply_filters( 'wpml_get_element_translations', NULL, $trid, 'post_' . WPBDP_POST_TYPE );
+
+        foreach ( $translations as $lang => $translate ) {
+
+            if ( $translate->original ) {
+                return $translate->element_id;
+            }
+        }
+
+        return $listing_id;
     }
 
     // }}}
