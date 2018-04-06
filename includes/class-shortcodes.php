@@ -1,6 +1,12 @@
 <?php
 /**
+ * @package WPBDP\FieldTypes\TextArea
  * @since 4.0
+ */
+
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Shortcodes {
 
@@ -282,17 +288,19 @@ class WPBDP__Shortcodes {
         global $wpbdp;
         require_once ( WPBDP_PATH . 'includes/views/all_listings.php' );
 
-        $atts = shortcode_atts( array( 'tag' => '',
-                                       'tags' => '',
-                                       'category' => '',
-                                       'categories' => '',
-                                       'title' => '',
-                                       'operator' => 'OR',
-                                       'author' => '',
-                                       'menu' => null,
-                                       'pagination' => 1,
-                                       'items_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ),
-                                $atts );
+        $atts = shortcode_atts(
+            array(
+                'tag'            => '',
+                'tags'           => '',
+                'category'       => '',
+                'categories'     => '',
+                'title'          => '',
+                'operator'       => 'OR',
+                'author'         => '',
+                'menu'           => null,
+                'pagination'     => 0,
+                'items_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ),
+            $atts );
 
         if ( ! is_null( $atts['menu'] ) )
             $atts['menu'] = ( 1 === $atts['menu'] || 'true' === $atts['menu'] ) ? true : false;
@@ -365,11 +373,11 @@ class WPBDP__Shortcodes {
     public function sc_listings_latest( $atts ) {
         $atts = shortcode_atts(
             array(
-                'menu'      => 0,
-                'buttons'   => 'none',
-                'limit'     => 0,
+                'menu'            => 0,
+                'buttons'         => 'none',
+                'limit'           => 0,
                 'items_per_page'  => -1,
-                'pagination'=> '1'
+                'pagination'      => '0'
             ),
             $atts,
             'businessdirectory-latest-listings'
@@ -413,11 +421,11 @@ class WPBDP__Shortcodes {
     public function sc_listings_featured( $atts ) {
         $atts = shortcode_atts(
             array(
-                'menu'      => 0,
-                'buttons'   => 'none',
-                'limit'     => 0,
+                'menu'            => 0,
+                'buttons'         => 'none',
+                'limit'           => 0,
                 'items_per_page'  => -1,
-                'pagination'=> '1'
+                'pagination'      => '0'
             ),
             $atts,
             'businessdirectory-featured-listings'
@@ -455,10 +463,10 @@ class WPBDP__Shortcodes {
         );
         $args = array_merge(
             array(
-                'menu'    => 0,
-                'buttons' => 'none',
+                'menu'           => 0,
+                'buttons'        => 'none',
                 'items_per_page' => -1,
-                'pagination' => true,
+                'pagination'     => false,
             ),
             $args
         );
