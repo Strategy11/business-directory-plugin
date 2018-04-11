@@ -679,7 +679,7 @@ class WPBDP__Shortcodes {
         }
 
         if ( 0 >= intval( $atts['items_per_page'] ) ) {
-            $atts['items_per_page'] = ! $atts['pagination'] ? ( wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : 10 ) : 10;
+            $atts['items_per_page'] = ! $atts['pagination'] ? ( wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ) : -1;
         }
     }
 
