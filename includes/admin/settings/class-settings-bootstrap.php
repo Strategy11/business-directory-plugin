@@ -1,4 +1,13 @@
 <?php
+/**
+ * @package WPBDP\admin\settings
+ */
+
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
+ */
+
 final class WPBDP__Settings__Bootstrap {
 
     public static function register_initial_groups() {
@@ -218,67 +227,77 @@ final class WPBDP__Settings__Bootstrap {
         $too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'WPBDM' );
         $too_many_fields .= '</span>';
 
-        list( $fields, $text_fields ) = self::get_quicksearch_fields();
+        list( $fields, $text_fields, $default_fields ) = self::get_quicksearch_fields();
+        $no_fields = '<p><strong>' . _x( 'If no fields are selected, the following fields will be used in Quick Searches:', 'admin settings', 'WPBDM' ) . ' ' . implode( ', ', $default_fields ) . '.</strong></p>';
+
         wpbdp_register_setting( array(
             'id'       => 'quick-search-fields',
             'type'     => 'multicheck',
             'name'     => _x( 'Quick search fields', 'settings', 'WPBDM' ),
-            'desc'     => _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ) . $too_many_fields,
+            'desc'     => _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'WPBDM' ) . $no_fields . $too_many_fields,
             'default'  => array(),
             'multiple' => true,
             'options'  => $fields,
             'group'    => 'search_settings',
             'attrs'    => array(
-                'data-text-fields' => json_encode( $text_fields )
-            )
+                'data-text-fields' => wp_json_encode( $text_fields ),
+            ),
         ) );
         wpbdp_register_setting( array(
-            'id'      => 'quick-search-enable-performance-tricks',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Enable high performance searches?', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'Enabling this makes BD sacrifice result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'settings', 'WPBDM' ),
-            'group' => 'search_settings'
+            'id'    => 'quick-search-enable-performance-tricks',
+            'type'  => 'checkbox',
+            'name'  => _x( 'Enable high performance searches?', 'settings', 'WPBDM' ),
+            'desc'  => _x( 'Enabling this makes BD sacrifice result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'settings', 'WPBDM' ),
+            'group' => 'search_settings',
         ) );
 
         // Advanced settings.
         wpbdp_register_settings_group( 'general/advanced', _x( 'Advanced', 'settings', 'WPBDM' ), 'general' );
 
         wpbdp_register_setting( array(
-            'id'      => 'disable-cpt',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Disable advanced CPT integration?', 'settings', 'WPBDM' ),
-            'group' => 'general/advanced'
-        ) );
-        wpbdp_register_setting( array(
-            'id'      => 'ajax-compat-mode',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Enable AJAX compatibility mode?', 'settings', 'WPBDM' ),
-            'desc'    => _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'WPBDM' )
-                         . ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank" rel="noopener">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'WPBDM' ) ),
+            'id'    => 'disable-cpt',
+            'type'  => 'checkbox',
+            'name'  => _x( 'Disable advanced CPT integration?', 'settings', 'WPBDM' ),
             'group' => 'general/advanced',
-            'on_update' => array( __CLASS__, 'setup_ajax_compat_mode' )
         ) );
         wpbdp_register_setting( array(
-            'id'      => 'disable-submit-listing',
-            'type'    => 'checkbox',
-            'name'    => _x( 'Disable Frontend Listing Submission?', 'settings', 'WPBDM' ),
-            'group' => 'general/advanced'
+            'id'        => 'ajax-compat-mode',
+            'type'      => 'checkbox',
+            'name'      => _x( 'Enable AJAX compatibility mode?', 'settings', 'WPBDM' ),
+            'desc'      => _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'WPBDM' )
+                . ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank" rel="noopener">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'WPBDM' ) ),
+            'group'     => 'general/advanced',
+            'on_update' => array( __CLASS__, 'setup_ajax_compat_mode' ),
+        ) );
+        wpbdp_register_setting( array(
+            'id'    => 'disable-submit-listing',
+            'type'  => 'checkbox',
+            'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'WPBDM' ),
+            'group' => 'general/advanced',
         ) );
     }
 
+    /**
+     * Find fields that can be used in Quick Search.
+     */
     private static function get_quicksearch_fields() {
-        $fields = array();
-        $text_fields = array();
+        $fields         = array();
+        $text_fields    = array();
+        $default_fields = array();
 
         foreach ( wpbdp_get_form_fields( 'association=-custom' ) as $field ) {
-            if ( in_array( $field->get_association(), array( 'excerpt', 'content' ) ) || 'textarea' == $field->get_field_type_id() ) {
+            if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ), true ) ) {
+                $default_fields[] = $field->get_label();
+            }
+
+            if ( in_array( $field->get_association(), array( 'excerpt', 'content' ), true ) || 'textarea' === $field->get_field_type_id() ) {
                 $text_fields[] = $field->get_id();
             }
 
             $fields[ $field->get_id() ] = $field->get_label();
         }
 
-        return array( $fields, $text_fields );
+        return array( $fields, $text_fields, $default_fields );
     }
 
     private static function settings_listings() {
