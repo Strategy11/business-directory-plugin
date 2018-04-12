@@ -1,11 +1,16 @@
 <?php
-require_once( WPBDP_PATH . 'includes/class-payment.php' );
-require_once( WPBDP_PATH . 'includes/class-listing-subscription.php' );
-require_once( WPBDP_PATH . 'includes/helpers/class-listing-image.php' );
-
 /**
+ * @package WPBDP\Listing
  * @since 3.4
  */
+
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
+ */
+require_once WPBDP_PATH . 'includes/class-payment.php';
+require_once WPBDP_PATH . 'includes/class-listing-subscription.php';
+require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';
 class WPBDP_Listing {
 
     private $id = 0;
@@ -378,8 +383,15 @@ class WPBDP_Listing {
         global $wpdb;
 
         $row = array();
-        if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $plan ) )
+
+        $listing_expiration_time = $this->get_expiration_time();
+        $current_time            = current_time( 'timestamp' );
+        $expiration_base_time    = $current_time > $listing_expiration_time ? $current_time : $listing_expiration_time;
+        $expiration              = $this->calculate_expiration_date( $expiration_base_time, $plan );
+
+        if ( $expiration ) {
             $row['expiration_date'] = $expiration;
+        }
 
         if ( ! empty( $row ) ) {
             $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $this->id ) );
