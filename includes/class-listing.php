@@ -507,6 +507,7 @@ class WPBDP_Listing {
                 $row['fee_days'] = $plan_->days;
                 $row['is_sticky'] = $plan_->sticky;
                 $row['fee_price'] = $plan_->amount;
+                $row['is_recurring'] = $plan_->recurring;
             }
         }
 
