@@ -1,12 +1,25 @@
 <?php
+/**
+ * @package WPBDP
+ */
+
+// phpcs:disable
+
 require_once( WPBDP_INC . 'debugging.php' );
 require_once( WPBDP_INC . 'helpers/class-database-helper.php' );
 require_once( WPBDP_INC . 'helpers/class-email.php' );
 require_once( WPBDP_INC . 'compatibility/class-ajax-response.php' );
 require_once( WPBDP_INC . 'helpers/class-fs.php' );
 
-
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Utils {
+
+    /**
+     * @since 5.2.1
+     */
+    public static $property = null;
 
     /**
      * @since 3.6.10
@@ -24,19 +37,28 @@ class WPBDP__Utils {
      * @since 5.0
      */
     public static function sort_by_property( &$array, $prop ) {
-        if ( version_compare( phpversion(), '5.3.0', '>=' ) ) {
-            $callback = function( $x, $y ) use ( $prop ) {
-                $x = (array) $x;
-                $y = (array) $y;
+        self::$property = $prop;
 
-                return $x[ $prop ] - $y[ $prop ];
-            };
-        } else {
-            $callback = create_function( '$x, $y', '$x_ = (array) $x; $y_ = (array) $y; return $x_["' . $prop . '"] - $y_["' . $prop . '"];' );
-        }
+        uasort( $array, array( 'WPBDP_Utils', 'sort_by_property_callback' ) );
 
-        uasort( $array, $callback );
+        self::$property = null;
     }
+
+    // phpcs:enable
+
+    /**
+     * @param array $left   Entry to compare.
+     * @param array $right  Entry to compare.
+     * @since 5.2.1
+     */
+    public static function sort_by_property_callback( $left, $right ) {
+        $left  = (array) $left;
+        $right = (array) $right;
+
+        return $left[ self::$property ] - $right[ self::$property ];
+    }
+
+    // phpcs:disable
 
     /**
      * @since 5.0
@@ -112,7 +134,7 @@ function wpbdp_flatten_files_array( $files = array() ) {
  * @param array|object $dict
  * @param string $key Property name or array key.
  * @param mixed $default Optional. Defaults to `false`.
- *
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_getv($dict, $key, $default=false) {
     $_dict = is_object($dict) ? (array) $dict : $dict;
@@ -123,6 +145,9 @@ function wpbdp_getv($dict, $key, $default=false) {
     return $default;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_capture_action($hook) {
     $output = '';
 
@@ -141,6 +166,9 @@ function wpbdp_capture_action($hook) {
     return $output;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_capture_action_array($hook, $args=array()) {
     $output = '';
 
@@ -152,6 +180,9 @@ function wpbdp_capture_action_array($hook, $args=array()) {
     return $output;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_php_ini_size_to_bytes( $val ) {
     $val = trim( $val );
     $size = intval( $val );
@@ -169,6 +200,9 @@ function wpbdp_php_ini_size_to_bytes( $val ) {
     return $size;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_media_upload_check_env( &$error ) {
     if ( empty( $_FILES ) && empty( $_POST ) && isset( $_SERVER['REQUEST_METHOD'] ) &&
          strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post' ) {
@@ -186,6 +220,7 @@ function wpbdp_media_upload_check_env( &$error ) {
 
 /**
  * @since 2.1.6
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null, $sideload=false) {
     require_once(ABSPATH . 'wp-admin/includes/file.php');
@@ -326,6 +361,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
  * @param $file string  The path to a file.
  *
  * @since 5.0.5
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_mimetype( $file ) {
     $mime_type = null;
@@ -353,6 +389,7 @@ function wpbdp_get_mimetype( $file ) {
  * @since 2.1.5
  * @param $www  boolean     true to include the 'www' part,
  *                          false to attempt to strip it.
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_current_domain($www=true, $prefix='') {
     $domain = wpbdp_getv($_SERVER, 'HTTP_HOST', '');
@@ -371,6 +408,7 @@ function wpbdp_get_current_domain($www=true, $prefix='') {
  * Bulds WordPress ajax URL using the same domain used in the current request.
  *
  * @since 2.1.5
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_ajaxurl($overwrite=false) {
     static $ajaxurl = false;
@@ -394,6 +432,7 @@ function wpbdp_ajaxurl($overwrite=false) {
 /**
  * Removes a value from an array.
  * @since 2.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_array_remove_value( &$array_, &$value_ ) {
     $key = array_search( $value_, $array_ );
@@ -411,6 +450,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
  * @param string $prefix the prefix to search for
  * @return TRUE if $str starts with $prefix or FALSE otherwise
  * @since 3.0.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
     if ( !$case_sensitive )
@@ -421,6 +461,7 @@ function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
 
 /**
  * @since 3.1
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
     // TODO: add more formats
@@ -440,6 +481,7 @@ function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
  * @param string $path a directory.
  * @return array list of files within the directory.
  * @since 3.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_scandir( $path, $args = array() ) {
     if ( !is_dir( $path ) )
@@ -470,6 +512,7 @@ function wpbdp_scandir( $path, $args = array() ) {
  * @param string $path a directory.
  * @since 3.3
  * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_rrmdir( $path ) {
     return WPBDP_FS::rmdir( $path );
@@ -483,6 +526,7 @@ function wpbdp_rrmdir( $path ) {
  * @param boolean $escape Whether to escape the name before returning or not. Defaults to `True`.
  * @return string The term name (if found) or an empty string otherwise.
  * @since 3.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $field = 'id', $escape = true ) {
     $term = get_term_by( $field,
@@ -495,6 +539,9 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
     return $term->name;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_has_shortcode( &$content, $shortcode ) {
     $check = has_shortcode( $content, $shortcode );
 
@@ -509,7 +556,9 @@ function wpbdp_has_shortcode( &$content, $shortcode ) {
 
 /**
  * TODO: dodoc.
+ *
  * @since 3.4.2
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
     $setting = wpbdp()->settings->get_setting( $setting_name );
@@ -536,6 +585,7 @@ function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
 
 /**
  * @since 3.5.4
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $args = array() ) {
     $setting = null;
@@ -616,6 +666,9 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     return $email;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_admin_pointer( $selector, $title, $content_ = '',
                               $primary_button = false, $primary_action = '',
                               $secondary_button = false, $secondary_action = '',
@@ -675,6 +728,7 @@ jQuery(function( $ ) {
  * Instances of this class allow accessing any property or calling any function without side effects (errors).
  *
  * @since 3.4dev
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_NoopObject {
 
@@ -694,14 +748,19 @@ class WPBDP_NoopObject {
 
 // For compat with PHP < 5.3
 if ( ! function_exists( 'str_getcsv' ) ) {
-    function str_getcsv( $input, $delimiter = ',', $enclosure = '"', $escape = "\\" ) {
-        $f = tmpfile();
-        fwrite( $f, $input );
-        fseek( $f, 0 );
 
-        $res = fgetcsv( $f, 0, $delimiter, $enclosure );
+    /**
+     * @SuppressWarnings(PHPMD)
+     */
+    function str_getcsv( $input, $delimiter = ',', $enclosure = '"' ) {
+        $file = tmpfile();
 
-        fclose( $f );
+        fwrite( $file, $input );
+        fseek( $file, 0 );
+
+        $res = fgetcsv( $file, 0, $delimiter, $enclosure );
+
+        fclose( $file );
 
         return $res;
     }
@@ -709,6 +768,7 @@ if ( ! function_exists( 'str_getcsv' ) ) {
 
 /**
  * @since 4.0.5dev
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_detect_encoding( $content ) {
     static $encodings = array(
@@ -734,6 +794,7 @@ function wpbdp_detect_encoding( $content ) {
 /**
  * Taken from http://php.net/manual/en/function.mb-detect-encoding.php#113983
  * @since 4.0.5dev
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_mb_detect_encoding( $content, $encodings ) {
    foreach ( $encodings as $encoding ) {
@@ -746,6 +807,9 @@ function wpbdp_mb_detect_encoding( $content, $encodings ) {
     return false;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_render_user_field( $args = array() ) {
     $args = wp_parse_args( $args, array(
         'class' => '',
@@ -786,6 +850,9 @@ function wpbdp_render_user_field( $args = array() ) {
     return $output;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_enqueue_jquery_ui_style() {
     global $wp_scripts;
 
@@ -803,6 +870,9 @@ function wpbdp_enqueue_jquery_ui_style() {
     );
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_buckwalter_arabic_transliteration( $content ) {
     $arabic_characters = array(
         'ء',
@@ -916,6 +986,7 @@ function wpbdp_buckwalter_arabic_transliteration( $content ) {
  * all places where the function is called, to avoid scaping values twice.
  *
  * @since 4.1.10
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_html_attributes( $attrs, $exceptions = array() ) {
     $html = '';
@@ -933,6 +1004,7 @@ function wpbdp_html_attributes( $attrs, $exceptions = array() ) {
 
 /**
  * @since 4.1.11
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_table_exists( $table_name ) {
     global $wpdb;
@@ -944,6 +1016,7 @@ function wpbdp_table_exists( $table_name ) {
 
 /**
  * @since 5.0.5
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_column_exists( $table_name, $column_name ) {
     global $wpdb;
@@ -957,6 +1030,7 @@ function wpbdp_column_exists( $table_name, $column_name ) {
 
 /**
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_is_request( $type ) {
     switch ( $type ) {
@@ -973,6 +1047,7 @@ function wpbdp_is_request( $type ) {
 
 /**
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_deprecation_warning( $msg = '' ) {
     global $wpbdp_deprecation_warnings;
@@ -984,3 +1059,5 @@ function wpbdp_deprecation_warning( $msg = '' ) {
 
     $wpbdp_deprecation_warnings[] = $msg;
 }
+
+// phpcs:enable
