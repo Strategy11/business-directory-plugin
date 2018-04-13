@@ -1,7 +1,15 @@
 <?php
+/**
+ * @package WPBDP\Views
+ */
+
+// phpcs:disable
+
 require_once( WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php' );
 
-
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     protected $listing = null;
@@ -602,35 +610,38 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $this->section_render( 'submit-listing-fields', compact( 'fields', 'field_values', 'validation_errors' ) );
     }
 
+    // phpcs:enable
+
+    /**
+     * @param array $images_  An array of images.
+     * @param array $meta     An of metadata for images.
+     */
     private function sort_images( $images_, $meta ) {
         // Sort inside $meta first.
-        if ( version_compare( phpversion(), '5.3.0', '>=' ) ) {
-            $callback = function ( $x, $y ) {
-                return $y['order'] - $x['order'];
-            };
-        } else {
-            $callback = create_function( '$x, $y', "return \$y['order'] - \$x['order'];" );
-        }
-
-        uasort( $meta, $callback );
+        WPBDP_Utils::sort_by_property( $meta, 'order' );
+        $meta = array_reverse( $meta );
 
         // Sort $images_ considering $meta.
         $images = array();
 
         foreach ( array_keys( $meta ) as $img_id ) {
-            if ( in_array( $img_id, $images_, true ) )
+            if ( in_array( $img_id, $images_, true ) ) {
                 $images[] = $img_id;
+            }
         }
 
         foreach ( $images_ as $img_id ) {
-            if ( in_array( $img_id, $images, true ) )
+            if ( in_array( $img_id, $images, true ) ) {
                 continue;
+            }
 
             $images[] = $img_id;
         }
 
         return $images;
     }
+
+    // phpcs:disable
 
     private function listing_images() {
         if ( ! wpbdp_get_option( 'allow-images' ) )
@@ -926,3 +937,5 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
 }
+
+// phpcs:enable
