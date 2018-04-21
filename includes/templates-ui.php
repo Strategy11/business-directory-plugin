@@ -16,15 +16,17 @@
  */
 function wpbdp_directory_categories() {
     $args = apply_filters(
-        'wpbdp_main_categories',
+        'wpbdp_main_categories_args',
         array(
             'hide_empty'  => wpbdp_get_option( 'hide-empty-categories' ),
             'parent_only' => wpbdp_get_option( 'show-only-parent-categories' ),
         )
     );
 
-    return wpbdp_list_categories( $args );
+    $html = wpbdp_list_categories( $args );
 
+
+    return apply_filters( 'wpbdp_main_categories', $html );
 }
 
 /**
