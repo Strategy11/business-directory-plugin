@@ -1,7 +1,15 @@
 <?php
+/**
+ *
+ * @package WPBDP/Views/Search
+ */
+
+// phpcs:disable
 require_once( WPBDP_PATH . 'includes/helpers/class-listing-search.php' );
 
-
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Views__Search extends WPBDP__View {
 
     public function get_title() {
@@ -81,14 +89,13 @@ class WPBDP__Views__Search extends WPBDP__View {
             );
         }
 
+        $results = '';
+
         if ( $searching && have_posts() ) {
-            $results  = '';
             $results .= wpbdp_capture_action( 'wpbdp_before_search_results' );
             $results .= wpbdp_x_render( 'listings', array( '_parent' => 'search',
                                                            'query' => wpbdp_current_query() ) );
             $results .= wpbdp_capture_action( 'wpbdp_after_search_results' );
-        } else {
-            $results = '';
         }
 
         $html = wpbdp_x_render( 'search',

@@ -1,8 +1,11 @@
 <?php
-/*
+/**
  * UI Functions to be called from templates.
+ *
+ * @package WPBDP/Templates User Interface
  */
 
+// phpcs:disable
 /**
  * Returns a list of directory categories using the configured directory settings.
  * The list is actually produced by {@link wpbdp_list_categories()}.
@@ -29,7 +32,10 @@ function wpbdp_the_directory_categories() {
 /**
  * @since 2.3
  * @access private
+ *
+ * @SuppressWarnings(PHPMD)
  */
+
 function _wpbdp_padded_count( &$term, $return = false ) {
     global $wpdb;
 
@@ -64,6 +70,8 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 /**
  * @since 2.3
  * @access private
+ *
+ * @SuppressWarnings(PHPMD)
  */
 function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
     $term_ids = get_terms( WPBDP_CATEGORY_TAX,
@@ -102,15 +110,15 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
         $html .= str_repeat( "\t", $depth );
 
         if ( apply_filters( 'wpbdp_categories_list_anidate_children', true ) && $terms ) {
-            $html .= '<ul class="children">';
+            $html .= '<ul id="cat-item-' . $args['parent'] . '-children" class="children">';
         }
     }
     foreach ( $terms as &$term ) {
         $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' ) . '">';
 
         $item_html = '';
-        $item_html .= '<a href="' . esc_url( get_term_link( $term ) ) . '" ';
-        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label" >';
+        $item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
+        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label" rel="nofollow">';
         $item_html .= esc_attr( $term->name );
         $item_html .= '</a>';
 
@@ -194,6 +202,9 @@ function wpbdp_list_categories( $args=array() ) {
     return $html;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_main_links( $buttons = null ) {
     if ( is_string( $buttons ) ) {
         if ( 'none' == $buttons ) {
@@ -300,6 +311,9 @@ function wpbdp_the_listing_excerpt() {
     echo wpbdp_render_listing(null, 'excerpt');
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_listing_sort_options() {
     if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
         $sort_options = apply_filters( 'wpbdp_listing_sort_options', array() );
@@ -400,6 +414,7 @@ function wpbdp_the_bar($parts=array()) {
 /**
  * Displays the listing main image.
  * @since 2.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_listing_thumbnail( $listing_id=null, $args=array() ) {
     if ( ! $listing_id ) {
