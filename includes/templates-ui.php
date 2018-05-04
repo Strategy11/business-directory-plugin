@@ -102,7 +102,9 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
 
     // filter empty terms
     if ( $args['hide_empty'] ) {
-        $terms = array_filter( $terms, create_function( '$x', 'return $x->count > 0;' ) );
+        $terms = array_filter( $terms, function( $x ) {
+            return $x->count > 0;
+        } );
     }
 
     $html = '';
