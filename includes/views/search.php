@@ -3,6 +3,7 @@
  * @package WPBDP/Views/Search
  */
 
+// phpcs:disable
 require_once WPBDP_PATH . 'includes/helpers/class-listing-search.php';
 
 /**

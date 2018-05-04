@@ -1,5 +1,9 @@
 <?php
+/**
+ * @package WPBDP/Views/Show Category
+ */
 
+// phpcs:disable
 class WPBDP__Views__Show_Category extends WPBDP__View {
 
     public function dispatch() {
@@ -9,18 +13,23 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 
         $term = get_queried_object();
 
+        $searching = ( ! empty( $_GET ) && ! empty( $_GET['kw'] ) );
+
+        $html  = '';
+
         if ( is_object( $term ) ) {
             $term->is_tag = false;
 
-            $html = $this->_render( 'category',
-                                     array( 'title' => $term->name,
-                                            'category' => $term,
-                                            'query' => $wp_query,
-                                            'in_shortcode' => false,
-                                            'is_tag' => false ),
-                                     'page' );
-        } else {
-            $html  = '';
+            $html = $this->_render(
+                'category',
+                array( 'title' => $term->name,
+                    'category' => $term,
+                    'query' => $wp_query,
+                    'in_shortcode' => false,
+                    'is_tag' => false,
+                    'searching' => $searching
+                ),
+                $searching ? '' : 'page' );
         }
 
         wpbdp_pop_query();
