@@ -612,6 +612,8 @@ if (!class_exists('WPBDP_FieldValidation')) {
 
 /**
  * Validation.
+ * 
+ * @SuppressWarnings(PHPMD)
  */
 function WPBDP_ValidationError( $msg, $stop_validation=false ) {
     if ( $stop_validation )
