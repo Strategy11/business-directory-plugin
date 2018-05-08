@@ -16,7 +16,7 @@ class WPBDP__Views__Search extends WPBDP__View {
     }
 
     public function dispatch() {
-        $searching = ( ! empty( $_GET ) && ( isset( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
+        $searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
         $search    = null;
 
         $form_fields = wpbdp_get_form_fields(

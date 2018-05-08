@@ -83,6 +83,8 @@ function _wpbdp_list_categories_walk( $parent=0, $depth=0, $args ) {
                                'fields' => 'ids' )
                         );
 
+    $term_ids = apply_filters( 'wpbdp_category_terms_order', $term_ids );
+
     $terms = array();
     foreach ( $term_ids as $term_id ) {
         $t = get_term( $term_id, WPBDP_CATEGORY_TAX );
