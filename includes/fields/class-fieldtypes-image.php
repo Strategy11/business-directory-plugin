@@ -1,5 +1,12 @@
 <?php
+/**
+ * Image Field-type
+ *
+ * @package BDP/Form Fields/Image Field-type
+ * @SuppressWarnings(PHPMD)
+ */
 
+// phpcs:disable
 class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function __construct() {
@@ -20,35 +27,91 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function setup_field( &$field ) {
         $field->remove_display_flag( 'search' ); // image fields are not searchable
+        $field->add_validator( 'caption_' );
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
-        if ( $context == 'search' )
-            return '';
+    public function setup_validation( $field, $validator, $value ) {
+        if ( 'caption_' != $validator ) {
+            return;
+        }
 
-        $html = '';
-        $html .= sprintf( '<input type="hidden" name="listingfields[%d]" value="%s" />',
-                          $field->get_id(),
-                          $value
-                        );
+        $args                     = array();
+        $args['caption_required'] = $field->data( 'caption_required' );
+        $args['messages']         = array(
+            'caption_required' => sprintf(
+                _x( 'Caption for %s is required.', 'date field', 'WPBDM' ),
+                esc_attr( $field->get_label() )
+            ),
+        );
+        return $args;
+    }
+
+    public function render_field_settings( &$field = null, $association = null ) {
+        if ( $association != 'meta' ) {
+            return '';
+        }
+
+        $settings = array();
+
+        $settings['display-caption'][] = _x( 'Display caption?', 'form-fields admin', 'WPBDM' );
+        $settings['display-caption'][] = '<input type="checkbox" value="1" name="field[x_display_caption]" ' . ( $field && $field->data( 'display_caption' ) ? ' checked="checked"' : '' ) . ' />';
+
+        $settings['caption-required'][] = _x( 'Field Caption required?', 'form-fields admin', 'WPBDM' );
+        $settings['caption-required'][] = '<input type="checkbox" value="1" name="field[x_caption_required]" ' . ( $field && $field->data( 'caption_required' ) ? ' checked="checked"' : '' ) . ' />';
+
+        return self::render_admin_settings( $settings );
+    }
+
+    public function process_field_settings( &$field ) {
+        if ( array_key_exists( 'x_display_caption', $_POST['field'] ) ) {
+            $display_caption = (bool) intval( $_POST['field']['x_display_caption'] );
+            $field->set_data( 'display_caption', $display_caption );
+        }
+
+        if ( array_key_exists( 'x_caption_required', $_POST['field'] ) ) {
+            $caption_required = (bool) intval( $_POST['field']['x_caption_required'] );
+            $field->set_data( 'caption_required', $caption_required );
+        }
+    }
+
+    public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+        if ( $context == 'search' ) {
+            return '';
+        }
+
+        $html  = '';
+        $html .= sprintf(
+            '<input type="hidden" name="listingfields[%d][0]" value="%s" />',
+            $field->get_id(),
+            is_array( $value ) ? $value[0] : $value
+        );
 
         $html .= '<div class="preview">';
-        if ($value)
-            $html .= wp_get_attachment_image( $value, 'wpbdp-mini', false );
+        if ( $value[0] ) {
+            $html .= wp_get_attachment_image( $value[0], 'wpbdp-thumb', false );
+        }
 
-        $html .= sprintf( '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d);" style="%s">%s</a>',
-                          $field->get_id(),
-                          !$value ? 'display: none;' : '',
-                          _x( 'Remove', 'form-fields-api', 'WPBDM' )
-                        );
+        $html .= sprintf(
+            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d);" style="%s">%s</a>',
+            $field->get_id(),
+            empty( $value[0] ) ? 'display: none;' : '',
+            _x( 'Remove', 'form-fields-api', 'WPBDM' )
+        );
 
         $html .= '</div>';
 
+        $html .= sprintf(
+            '<input type="text" name="listingfields[%s][1]" value="%s" placeholder="Image caption or description" style="%s">',
+            $field->get_id(),
+            is_array( $value ) && ! empty( $value[1] ) ? $value[1] : '',
+            is_array( $value ) && ! empty( $value[0] ) ? '' : 'display: none;'
+        );
+
         // We use $listing_id to prevent CSFR. Related to #2848.
-        $listing_id  = 0;
+        $listing_id = 0;
         if ( 'submit' == $context ) {
             $listing_id = $extra->get_id();
-        } else if ( is_admin() ) {
+        } elseif ( is_admin() ) {
             global $post;
             if ( ! empty( $post ) && WPBDP_POST_TYPE == $post->post_type ) {
                 $listing_id = $post->ID;
@@ -59,43 +122,58 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'WPBDM' ), 'error' );
         }
 
-        $nonce = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+        $nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
         $ajax_url = add_query_arg(
             array(
                 'action'     => 'wpbdp-file-field-upload',
                 'field_id'   => $field->get_id(),
-                'element'    => 'listingfields[' . $field->get_id() . ']',
+                'element'    => 'listingfields[' . $field->get_id() . '][0]',
                 'nonce'      => $nonce,
-                'listing_id' => $listing_id
+                'listing_id' => $listing_id,
             ),
             admin_url( 'admin-ajax.php' )
         );
 
         $html .= '<div class="wpbdp-upload-widget">';
-        $html .= sprintf( '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-                          $field->get_id(),
-                          $field->get_id(),
-                          $ajax_url
-                        );
+        $html .= sprintf(
+            '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
+            $field->get_id(),
+            $field->get_id(),
+            $ajax_url
+        );
         $html .= '</div>';
 
         return $html;
     }
 
     public function get_field_html_value( &$field, $post_id ) {
-        $img_id = $field->value( $post_id );
+        $field_value = $field->value( $post_id );
 
-        if ( ! $img_id )
+        $img_id  = $field_value;
+        $caption = '';
+
+        if ( is_array( $field_value ) ) {
+            $img_id   = $field_value[0];
+            $caption .= $field_value[1];
+        }
+
+        if ( ! $img_id ) {
             return '';
+        }
+
+        $thumbnail_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
 
         _wpbdp_resize_image_if_needed( $img_id );
         $img = wp_get_attachment_image_src( $img_id, 'large' );
 
         $html  = '';
         $html .= '<br />';
-        $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' )  . '>';
+        $html .= '<div class="listing-image" style="width: ' . $thumbnail_width . 'px;">';
+        $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' ) . '>';
         $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false );
         $html .= '</a>';
+        $html .= $field->data( 'display_caption' ) ? '<br />' . $caption : '';
+        $html .= '</div>';
 
         return $html;
     }
@@ -122,25 +200,28 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
         echo '</form>';
 
-        if ( isset($_FILES['file']) && $_FILES['file']['error'] == 0 ) {
+        if ( isset( $_FILES['file'] ) && $_FILES['file']['error'] == 0 ) {
             // TODO: we support only images for now but we could use this for anything later
-            if ( $media_id = wpbdp_media_upload( $_FILES['file'],
+            if ( $media_id = wpbdp_media_upload(
+                $_FILES['file'],
                 true,
                 true,
-                array( 'image' => true,
-                'min-size' => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
-                'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
-                'min-width' => wpbdp_get_option( 'image-min-width' ),
-                'min-height' => wpbdp_get_option( 'image-min-height' )
-            ),
-            $errors ) ) {
-            echo '<div class="preview" style="display: none;">';
-            echo wp_get_attachment_image( $media_id, 'thumb', false );
-            echo '</div>';
+                array(
+					'image'      => true,
+					'min-size'   => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
+					'max-size'   => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
+					'min-width'  => wpbdp_get_option( 'image-min-width' ),
+					'min-height' => wpbdp_get_option( 'image-min-height' ),
+                ),
+                $errors
+            ) ) {
+				echo '<div class="preview" style="display: none;">';
+				echo wp_get_attachment_image( $media_id, 'thumb', false );
+				echo '</div>';
 
-            echo '<script type="text/javascript">';
-            echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d);', $field_id, $media_id );
-            echo '</script>';
+				echo '<script type="text/javascript">';
+				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d);', $field_id, $media_id );
+				echo '</script>';
             } else {
                 print $errors;
             }
@@ -151,5 +232,33 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         exit;
     }
 
+    public function is_empty_value( $value ) {
+        return empty( $value[0] );
+    }
+
+    public function store_field_value( &$field, $post_id, $value ) {
+        if ( ( ! is_array( $value ) && '' == $value ) || '' == $value[0] ) {
+            $value = null;
+        }
+
+        if ( is_array( $value ) && ! empty( $value[1] ) ) {
+            $img               = get_post( $value[0] );
+            $img->post_excerpt = $value[1];
+            wp_update_post( $img );
+        }
+
+        parent::store_field_value( $field, $post_id, $value );
+    }
+
+    public function convert_input( &$field, $input ) {
+        if ( $input === null ) {
+            return array( '', '' );
+        }
+
+        $image   = trim( is_array( $input ) ? $input[0] : $input );
+        $caption = trim( is_array( $input ) ? $input[1] : '' );
+
+        return array( $image, $caption );
+    }
 }
 

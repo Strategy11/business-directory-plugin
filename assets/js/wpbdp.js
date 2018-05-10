@@ -159,8 +159,11 @@ WPBDP.fileUpload = {
         var $iframe = jQuery('#wpbdp-upload-iframe-' + field_id);
         // $iframe.contents().find('form').hide();
 
-        var $input = jQuery('input[name="listingfields[' + field_id + ']"]');
+        var $input = jQuery('input[name="listingfields[' + field_id + '][0]"]');
         $input.val(upload_id);
+
+        var $caption = jQuery('input[name="listingfields[' + field_id + '][1]"]');
+        $caption.show();
 
         var $preview = $input.siblings('.preview');
         $preview.find('img').remove();
@@ -171,10 +174,13 @@ WPBDP.fileUpload = {
     },
 
     deleteUpload: function(field_id) {
-        var $input = jQuery('input[name="listingfields[' + field_id + ']"]');
+        var $input = jQuery('input[name="listingfields[' + field_id + '][0]"]');
+        var $caption = jQuery('input[name="listingfields[' + field_id + '][1]"]');
         var $preview = $input.siblings('.preview');
 
         $input.val('');
+        $caption.val( '' );
+        $caption.hide();
         $preview.find('img').remove();
 
         $preview.find('.delete').hide();

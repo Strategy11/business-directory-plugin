@@ -1,7 +1,14 @@
 <?php
-require_once( WPBDP_PATH . 'includes/helpers/class-listing-search.php' );
+/**
+ * @package WPBDP/Views/Search
+ */
 
+// phpcs:disable
+require_once WPBDP_PATH . 'includes/helpers/class-listing-search.php';
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Views__Search extends WPBDP__View {
 
     public function get_title() {
@@ -9,10 +16,15 @@ class WPBDP__Views__Search extends WPBDP__View {
     }
 
     public function dispatch() {
-        $searching = ( ! empty( $_GET ) && ( isset( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
-        $search = null;
+        $searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
+        $search    = null;
 
-        $form_fields = wpbdp_get_form_fields( array( 'display_flags' => 'search', 'validators' => '-email' ) );
+        $form_fields = wpbdp_get_form_fields(
+            array(
+				'display_flags' => 'search',
+				'validators'    => '-email',
+            )
+        );
 
         if ( $searching ) {
             $_GET = stripslashes_deep( $_GET );
@@ -40,15 +52,16 @@ class WPBDP__Views__Search extends WPBDP__View {
         }
 
         $search_form = '';
-        $fields = '';
+        $fields      = '';
         foreach ( $form_fields as &$field ) {
             $field_value = null;
 
             if ( $search ) {
                 $terms = $search->get_original_search_terms_for_field( $field );
 
-                if ( $terms )
+                if ( $terms ) {
                     $field_value = array_pop( $terms );
+                }
             }
 
             $fields .= $field->render( $field->convert_input( $field_value ), 'search' );
@@ -56,13 +69,13 @@ class WPBDP__Views__Search extends WPBDP__View {
 
         if ( $searching ) {
             $args = array(
-                'post_type' => WPBDP_POST_TYPE,
-                'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
-                'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
-                'post__in' => $search->get_results() ? $search->get_results() : array( 0 ),
-                'orderby' => wpbdp_get_option( 'listings-order-by', 'date' ),
-                'order' => wpbdp_get_option( 'listings-sort', 'ASC' ),
-                'wpbdp_main_query' => true
+                'post_type'        => WPBDP_POST_TYPE,
+                'posts_per_page'   => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
+                'paged'            => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+                'post__in'         => $search->get_results() ? $search->get_results() : array( 0 ),
+                'orderby'          => wpbdp_get_option( 'listings-order-by', 'date' ),
+                'order'            => wpbdp_get_option( 'listings-sort', 'ASC' ),
+                'wpbdp_main_query' => true,
             );
             $args = apply_filters( 'wpbdp_search_query_posts_args', $args, $search );
 
@@ -74,30 +87,36 @@ class WPBDP__Views__Search extends WPBDP__View {
             $search_form = wpbdp_render_page(
                 WPBDP_PATH . 'templates/search-form.tpl.php',
                 array(
-                    'fields' => $fields,
+                    'fields'            => $fields,
                     'validation_errors' => ! empty( $validation_errors ) ? $validation_errors : array(),
-                    'return_url' => ( ! empty( $this->return_url ) ? $this->return_url : '' )
+                    'return_url'        => ( ! empty( $this->return_url ) ? $this->return_url : '' ),
                 )
             );
         }
 
+        $results = '';
+
         if ( $searching && have_posts() ) {
-            $results  = '';
             $results .= wpbdp_capture_action( 'wpbdp_before_search_results' );
-            $results .= wpbdp_x_render( 'listings', array( '_parent' => 'search',
-                                                           'query' => wpbdp_current_query() ) );
+            $results .= wpbdp_x_render(
+                'listings', array(
+					'_parent' => 'search',
+					'query'   => wpbdp_current_query(),
+                )
+            );
             $results .= wpbdp_capture_action( 'wpbdp_after_search_results' );
-        } else {
-            $results = '';
         }
 
-        $html = wpbdp_x_render( 'search',
-                                array( 'search_form' => $search_form,
-                                       'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
-                                       'fields' => $fields,
-                                       'searching' => $searching,
-                                       'results' => $results
-                                   ) );
+        $html = wpbdp_x_render(
+            'search',
+            array(
+				'search_form'          => $search_form,
+				'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
+				'fields'               => $fields,
+				'searching'            => $searching,
+				'results'              => $results,
+            )
+        );
 
         if ( $searching ) {
             wp_reset_query();
