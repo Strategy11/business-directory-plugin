@@ -106,7 +106,7 @@ class WPBDP_Listing_Display_Helper {
 
     private static function fields_vars( $listing_id, $display ) {
         $all_fields = wpbdp_get_form_fields();
-        $fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id ) );
+        $fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
 
         $list = new WPBDP_Field_Display_List( $listing_id, $display, $fields );
         $list->freeze();
