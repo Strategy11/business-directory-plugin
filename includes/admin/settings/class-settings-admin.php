@@ -45,7 +45,7 @@ class WPBDP__Settings_Admin {
         $menu['wpbdp_settings'] = array(
             'title'    => _x( 'Manage Options', 'admin menu', 'WPBDM' ),
             'callback' => array( $this, 'settings_page' ),
-            'priority' => 2
+            'priority' => 2,
         );
         return $menu;
     }
@@ -56,24 +56,24 @@ class WPBDP__Settings_Admin {
 
         foreach ( $non_tabs as $group_id => $group ) {
             switch ( $group['type'] ) {
-            case 'subtab':
-                add_settings_section(
-                    'wpbdp_settings_subtab_' . $group_id,
-                    '',
-                    '__return_false',
-                    'wpbdp_settings_subtab_' . $group_id
-                );
-                break;
-            case 'section':
-                add_settings_section(
-                    'wpbdp_settings_subtab_' . $group['parent'] . '_' . $group_id,
-                    $group['title'],
-                    array( $this, 'section_header_callback' ),
-                    'wpbdp_settings_subtab_' . $group['parent']
-                );
-                break;
-            default:
-                break;
+				case 'subtab':
+					add_settings_section(
+                        'wpbdp_settings_subtab_' . $group_id,
+                        '',
+                        '__return_false',
+                        'wpbdp_settings_subtab_' . $group_id
+					);
+                    break;
+				case 'section':
+					add_settings_section(
+                        'wpbdp_settings_subtab_' . $group['parent'] . '_' . $group_id,
+                        $group['title'],
+                        array( $this, 'section_header_callback' ),
+                        'wpbdp_settings_subtab_' . $group['parent']
+					);
+                    break;
+				default:
+                    break;
             }
         }
 
@@ -83,7 +83,7 @@ class WPBDP__Settings_Admin {
                     'label_for' => $setting['id'],
                     'class'     => '',
                     'desc'      => '',
-                    'tooltip'   => ''
+                    'tooltip'   => '',
                 ),
                 $setting
             );
@@ -94,14 +94,14 @@ class WPBDP__Settings_Admin {
 
             if ( isset( $all_groups[ $args['group'] ] ) ) {
                 switch ( $all_groups[ $args['group'] ]['type'] ) {
-                case 'subtab':
-                    $subtab_group = 'wpbdp_settings_subtab_' . $args['group'];
-                    $section_group = $subtab_group;
-                    break;
-                case 'section':
-                    $subtab_group = 'wpbdp_settings_subtab_' . $all_groups[ $args['group'] ]['parent'];
-                    $section_group = $subtab_group . '_' . $args['group'];
-                    break;
+					case 'subtab':
+						$subtab_group  = 'wpbdp_settings_subtab_' . $args['group'];
+						$section_group = $subtab_group;
+                        break;
+					case 'section':
+						$subtab_group  = 'wpbdp_settings_subtab_' . $all_groups[ $args['group'] ]['parent'];
+						$section_group = $subtab_group . '_' . $args['group'];
+                        break;
                 }
             } else {
                 wpbdp_debug_e( 'group not found: ', $args );
@@ -196,7 +196,7 @@ class WPBDP__Settings_Admin {
         echo '<input type="text" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
 
         if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">'  . wp_kses_post( $setting['desc'] ) . '</span>';
+            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
         }
     }
 
@@ -213,7 +213,7 @@ class WPBDP__Settings_Admin {
         echo '/>';
 
         if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">'  . wp_kses_post( $setting['desc'] ) . '</span>';
+            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
         }
     }
 
@@ -323,7 +323,6 @@ class WPBDP__Settings_Admin {
             $setting['id'],
             $setting['id'],
             $value
-
         );
 
         $html .= '<div class="preview">';
@@ -344,10 +343,10 @@ class WPBDP__Settings_Admin {
         $nonce    = wp_create_nonce( 'wpbdp-file-upload-' . $setting['id'] );
         $ajax_url = add_query_arg(
             array(
-                'action'       => 'wpbdp-file-upload',
-                'setting_id'   => $setting['id'],
-                'element'      => 'wpbdp_settings[' . $setting['id'] . ']',
-                'nonce'        => $nonce,
+                'action'     => 'wpbdp-file-upload',
+                'setting_id' => $setting['id'],
+                'element'    => 'wpbdp_settings[' . $setting['id'] . ']',
+                'nonce'      => $nonce,
             ),
             admin_url( 'admin-ajax.php' )
         );
@@ -366,7 +365,7 @@ class WPBDP__Settings_Admin {
 
     public function setting_text_template_callback( $setting, $value ) {
         $original_description = $setting['desc'];
-        $placeholders = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
+        $placeholders         = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
 
         if ( $placeholders ) {
             foreach ( $placeholders as $pholder => $desc ) {
@@ -399,7 +398,7 @@ class WPBDP__Settings_Admin {
         if ( ! is_array( $value ) ) {
             $value = array(
                 'subject' => $setting['default']['subject'],
-                'body'    => $value
+                'body'    => $value,
             );
         }
 
@@ -407,7 +406,7 @@ class WPBDP__Settings_Admin {
             'setting_name'  => 'wpbdp_settings[' . $setting['id'] . ']',
             'email_subject' => $value['subject'],
             'email_body'    => $value['body'],
-            'placeholders'  => ! empty( $setting['placeholders'] ) ? $setting['placeholders'] : array()
+            'placeholders'  => ! empty( $setting['placeholders'] ) ? $setting['placeholders'] : array(),
         );
 
         if ( ! empty( $setting['desc'] ) ) {
@@ -428,55 +427,55 @@ class WPBDP__Settings_Admin {
     echo wpbdp_render_page(
         WPBDP_PATH . 'templates/admin/settings-email.tpl.php',
         array(
-            'setting_name' => 'new_notice[' . $n . ']',
-            'uid' => '',
+            'setting_name'    => 'new_notice[' . $n . ']',
+            'uid'             => '',
             'container_class' => 'wpbdp-expiration-notice-email',
-            'extra_fields' => $this->setting_expiration_notices_email_extra_fields( 'new_notice[' . $n . ']', '', null ),
-            'editor_only' => true
+            'extra_fields'    => $this->setting_expiration_notices_email_extra_fields( 'new_notice[' . $n . ']', '', null ),
+            'editor_only'     => true,
         )
     );
     ?>
     </div>
 
-    <?php if ( ! $value ): ?>
+    <?php if ( ! $value ) : ?>
     <p class="wpbdp-no-items"><?php _ex( 'No notices configured.', 'expiration notices', 'WPBDM' ); ?></p>
     <?php endif; ?>
 
 <?php
-        foreach ( $value as $i => $notice ) {
-            $uid = uniqid( 'wpbdp-settings-email-' );
-            $vars = array(
-                'setting_name' => 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']',
-                'uid' => $uid,
-                'container_class' => 'wpbdp-expiration-notice-email',
-                'email_subject' => $notice['subject'],
-                'email_body' => $notice['body'],
-                'extra_fields' => $this->setting_expiration_notices_email_extra_fields( 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']', $uid, $notice ),
-                'after_container' => $this->setting_expiration_notices_email_summary( $notice ),
-                'before_buttons' => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>',
-                'placeholders' =>
-                    array(
-                        'site'          => _x( 'Site title (with link)', 'settings', 'WPBDM' ),
-                        'author'        => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-                        'listing'       => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-                        'expiration'    => _x( 'Listing\'s expiration date', 'settings', 'WPBDM' ),
-                        'link'          => _x( 'Listing\'s renewal link', 'settings', 'WPBDM' ),
-                        'category'      => _x( 'Listing\'s categories', 'settings', 'WPBDM' ),
-                        'payment_date'  => _x( 'Listing\'s last payment date', 'settings', 'WPBDM' ),
-                        'access_key'    => _x( 'Listing\'s access key', 'settings', 'WPBDM' ),
-                    ),
-            );
+foreach ( $value as $i => $notice ) {
+	$uid  = uniqid( 'wpbdp-settings-email-' );
+	$vars = array(
+		'setting_name'    => 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']',
+		'uid'             => $uid,
+		'container_class' => 'wpbdp-expiration-notice-email',
+		'email_subject'   => $notice['subject'],
+		'email_body'      => $notice['body'],
+		'extra_fields'    => $this->setting_expiration_notices_email_extra_fields( 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']', $uid, $notice ),
+		'after_container' => $this->setting_expiration_notices_email_summary( $notice ),
+		'before_buttons'  => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>',
+		'placeholders'    =>
+			array(
+				'site'         => _x( 'Site title (with link)', 'settings', 'WPBDM' ),
+				'author'       => _x( 'Author\'s name', 'settings', 'WPBDM' ),
+				'listing'      => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
+				'expiration'   => _x( 'Listing\'s expiration date', 'settings', 'WPBDM' ),
+				'link'         => _x( 'Listing\'s renewal link', 'settings', 'WPBDM' ),
+				'category'     => _x( 'Listing\'s categories', 'settings', 'WPBDM' ),
+				'payment_date' => _x( 'Listing\'s last payment date', 'settings', 'WPBDM' ),
+				'access_key'   => _x( 'Listing\'s access key', 'settings', 'WPBDM' ),
+			),
+	);
 
-            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $vars );
-        }
+	echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $vars );
+}
 ?>
 </div>
 <?php
     }
 
     private function setting_expiration_notices_email_summary( $notice ) {
-        $event = $notice['event'];
-        $listings = $notice['listings'];
+        $event         = $notice['event'];
+        $listings      = $notice['listings'];
         $relative_time = ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : '';
 
         if ( 'both' == $listings ) {
@@ -495,20 +494,20 @@ class WPBDP__Settings_Admin {
             if ( '0 days' == $relative_time ) {
                 $summary = sprintf( _x( 'Sent when a listing (%s) expires.', 'expiration notices', 'WPBDM' ), $recurring_modifier );
             } else {
-                $relative_time_parts = explode( ' ', $relative_time );
+                $relative_time_parts  = explode( ' ', $relative_time );
                 $relative_time_number = trim( str_replace( array( '+', '-' ), '', $relative_time_parts[0] ) );
-                $relative_time_units = $relative_time_parts[1];
+                $relative_time_units  = $relative_time_parts[1];
 
                 switch ( $relative_time_units ) {
-                case 'days':
-                    $relative_time_h = sprintf( _nx( '%d day', '%d days', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
-                    break;
-                case 'weeks':
-                    $relative_time_h = sprintf( _nx( '%d week', '%d weeks', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
-                    break;
-                case 'months':
-                    $relative_time_h = sprintf( _nx( '%d month', '%d months', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
-                    break;
+					case 'days':
+						$relative_time_h = sprintf( _nx( '%d day', '%d days', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+                        break;
+					case 'weeks':
+						$relative_time_h = sprintf( _nx( '%d week', '%d weeks', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+                        break;
+					case 'months':
+						$relative_time_h = sprintf( _nx( '%d month', '%d months', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+                        break;
                 }
 
                 if ( $relative_time[0] == '+' ) {
@@ -534,23 +533,25 @@ class WPBDP__Settings_Admin {
         // Notices schedule.
         $notices_schedule = array(
             array( 'expiration', '0 days', _x( 'At the time of expiration', 'expiration notices', 'WPBDM' ) ),
-            array( 'renewal', '0 days', _x( 'Right after a successful renewal', 'expiration notices', 'WPBDM' ) )
+            array( 'renewal', '0 days', _x( 'Right after a successful renewal', 'expiration notices', 'WPBDM' ) ),
         );
-        foreach ( array( 'days'   => array( 1, 2, 3, 4, 5 ),
-                         'weeks'  => array( 1, 2 ),
-                         'months' => array( 1, 2 ) ) as $unit => $periods ) {
+        foreach ( array(
+			'days'   => array( 1, 2, 3, 4, 5 ),
+			'weeks'  => array( 1, 2 ),
+			'months' => array( 1, 2 ),
+		) as $unit => $periods ) {
             foreach ( $periods as $i ) {
                 foreach ( array( '+', '-' ) as $sign ) {
                     switch ( $unit ) {
-                    case 'days':
-                        $label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
-                        break;
-                    case 'weeks':
-                        $label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
-                        break;
-                    case 'months':
-                        $label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
-                        break;
+						case 'days':
+							$label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
+                            break;
+						case 'weeks':
+							$label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
+                            break;
+						case 'months':
+							$label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
+                            break;
                     }
 
                     $notices_schedule[] = array( 'expiration', $sign . $i . ' ' . $unit, $label );
@@ -564,13 +565,13 @@ class WPBDP__Settings_Admin {
     private function setting_expiration_notices_email_extra_fields( $name, $uid, $notice ) {
         if ( is_null( $notice ) ) {
             $notice = array(
-                    'event' => 'expiration',
-                    'listings' => 'both',
-                    'relative_time' => '0 days',
-                    'subject' => '',
-                    'body' => '',
-                    'placeholders' => array(),
-                );
+				'event'         => 'expiration',
+				'listings'      => 'both',
+				'relative_time' => '0 days',
+				'subject'       => '',
+				'body'          => '',
+				'placeholders'  => array(),
+			);
         }
 
         ob_start();
@@ -595,10 +596,10 @@ class WPBDP__Settings_Admin {
             <input type="hidden" name="<?php echo $name; ?>[relative_time]" value="<?php echo ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : ''; ?>" class="notice-relative-time" />
 
             <select id="<?php echo $uid; ?>-relative-time-and-event" class="relative-time-and-event">
-                <?php foreach ( $this->setting_expiration_notices_schedule() as $item ): ?>
-                    <?php if ( 'renewal' == $item[0] ): ?>
+                <?php foreach ( $this->setting_expiration_notices_schedule() as $item ) : ?>
+                    <?php if ( 'renewal' == $item[0] ) : ?>
                     <option value="<?php echo $item[0]; ?>,<?php echo $item[1]; ?>" <?php selected( $item[0], $notice['event'] ); ?>><?php echo $item[2]; ?></option>
-                    <?php else: ?>
+                    <?php else : ?>
                     <option value="<?php echo $item[0]; ?>,<?php echo $item[1]; ?>" <?php selected( $item[0] == $notice['event'] && ! empty( $notice['relative_time'] ) && $item[1] == $notice['relative_time'], true ); ?>><?php echo $item[2]; ?></option>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -638,24 +639,29 @@ class WPBDP__Settings_Admin {
         if ( ! empty( $_GET['subtab'] ) && array_key_exists( $_GET['subtab'], $subtabs ) ) {
             $active_subtab = $_GET['subtab'];
         } else {
-            $subtabs_ids = array_keys( $subtabs );
+            $subtabs_ids   = array_keys( $subtabs );
             $active_subtab = reset( $subtabs_ids );
         }
 
         $active_subtab_description = ! empty( $all_groups[ $active_subtab ]['desc'] ) ? $all_groups[ $active_subtab ]['desc'] : '';
-        $custom_form = ( ! empty( $all_groups[ $active_subtab ]['custom_form'] ) ) && $all_groups[ $active_subtab ]['custom_form'];
+        $custom_form               = ( ! empty( $all_groups[ $active_subtab ]['custom_form'] ) ) && $all_groups[ $active_subtab ]['custom_form'];
 
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description', 'custom_form' ) );
     }
 
 
     public function settings_reset_defaults() {
-        if ( ! empty ( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) ) {
+        if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) ) {
             global $wpbdp;
             $wpbdp->settings->reset_defaults();
 
             $url = remove_query_arg( 'reset_defaults' );
-            $url = add_query_arg( array( 'settings-updated' => 1, 'message'=> 'reset' ), $url );
+            $url = add_query_arg(
+                array(
+					'settings-updated' => 1,
+					'message'          => 'reset',
+                ), $url
+            );
             wp_redirect( $url );
             exit();
         }

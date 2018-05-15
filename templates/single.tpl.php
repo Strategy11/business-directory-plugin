@@ -15,7 +15,14 @@
         <?php echo $sticky_tag; ?>
     <?php endif; ?>
 
-    <?php echo wpbdp_render('parts/listing-buttons', array( 'listing_id' => $listing_id, 'view' => 'single' ), false ); ?>
+    <?php
+    echo wpbdp_render(
+        'parts/listing-buttons', array(
+			'listing_id' => $listing_id,
+			'view'       => 'single',
+        ), false
+    );
+?>
     <?php wpbdp_x_part( 'single_content' ); ?>
 
 </div>
