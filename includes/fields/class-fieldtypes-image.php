@@ -87,25 +87,25 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         );
 
         $html .= '<div class="preview">';
-        if ( $value[0] ) {
+        if ( ! empty( $value[0] ) ) {
             $html .= wp_get_attachment_image( $value[0], 'wpbdp-thumb', false );
         }
 
         $html .= sprintf(
-            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d);" style="%s">%s</a>',
+            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');" style="%s">%s</a>',
             $field->get_id(),
+            'listingfields[' . $field->get_id() . '][0]',
             empty( $value[0] ) ? 'display: none;' : '',
             _x( 'Remove', 'form-fields-api', 'WPBDM' )
         );
 
-        $html .= '</div>';
-
         $html .= sprintf(
-            '<input type="text" name="listingfields[%s][1]" value="%s" placeholder="Image caption or description" style="%s">',
+            '<input type="text" name="listingfields[%s][1]" value="%s" placeholder="Image caption or description">',
             $field->get_id(),
-            is_array( $value ) && ! empty( $value[1] ) ? $value[1] : '',
-            is_array( $value ) && ! empty( $value[0] ) ? '' : 'display: none;'
+            is_array( $value ) && ! empty( $value[1] ) ? $value[1] : ''
         );
+
+        $html .= '</div>';
 
         // We use $listing_id to prevent CSFR. Related to #2848.
         $listing_id = 0;
@@ -187,6 +187,8 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             die;
         }
 
+        $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'listingfields[' . $field_id . '][0]';
+
         if ( ! wp_verify_nonce( $nonce, 'wpbdp-file-field-upload-' . $field_id . '-' . 'listing_id-' . $listing_id ) ) {
             die;
         }
@@ -220,7 +222,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 				echo '</div>';
 
 				echo '<script type="text/javascript">';
-				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d);', $field_id, $media_id );
+				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', $field_id, $media_id, $element );
 				echo '</script>';
             } else {
                 print $errors;

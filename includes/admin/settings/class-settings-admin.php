@@ -1,4 +1,14 @@
 <?php
+/**
+ * Class WPBDP__Settings_Admin
+ *
+ * @package BDP/Settings Admin
+ */
+
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Settings_Admin {
 
     /**
@@ -14,6 +24,9 @@ class WPBDP__Settings_Admin {
 
         // Reset settings action.
         add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
+
+        add_action( 'wp_ajax_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
+        add_action( 'wp_ajax_nopriv_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
     }
 
     public function enqueue_scripts( $hook ) {
@@ -301,6 +314,54 @@ class WPBDP__Settings_Admin {
         if ( ! empty( $setting['desc'] ) ) {
             echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
         }
+    }
+
+    public function setting_file_callback( $setting, $value ) {
+        $html  = '';
+        $html .= sprintf(
+            '<input id="%s" type="hidden" name="wpbdp_settings[%s]" value="%s" />',
+            $setting['id'],
+            $setting['id'],
+            $value
+
+        );
+
+        $html .= '<div class="preview">';
+        if ( $value ) {
+            $html .= wp_get_attachment_image( $value, 'wpbdp-thumb', false );
+        }
+
+        $html .= sprintf(
+            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(\'%s\', \'%s\');" style="%s">%s</a>',
+            $setting['id'],
+            'wpbdp_settings[' . $setting['id'] . ']',
+            empty( $value ) ? 'display: none;' : '',
+            _x( 'Remove', 'admin settings', 'WPBDM' )
+        );
+
+        $html .= '</div>';
+
+        $nonce    = wp_create_nonce( 'wpbdp-file-upload-' . $setting['id'] );
+        $ajax_url = add_query_arg(
+            array(
+                'action'       => 'wpbdp-file-upload',
+                'setting_id'   => $setting['id'],
+                'element'      => 'wpbdp_settings[' . $setting['id'] . ']',
+                'nonce'        => $nonce,
+            ),
+            admin_url( 'admin-ajax.php' )
+        );
+
+        $html .= '<div class="wpbdp-upload-widget">';
+        $html .= sprintf(
+            '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%s" id="wpbdp-upload-iframe-%s" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
+            $setting['id'],
+            $setting['id'],
+            $ajax_url
+        );
+        $html .= '</div>';
+
+        echo $html;
     }
 
     public function setting_text_template_callback( $setting, $value ) {
@@ -598,5 +659,55 @@ class WPBDP__Settings_Admin {
             wp_redirect( $url );
             exit();
         }
+    }
+
+    public function _ajax_file_upload() {
+        $setting_id = ! empty( $_REQUEST['setting_id'] ) ? $_REQUEST['setting_id'] : '';
+        $nonce      = ! empty( $_REQUEST['nonce'] ) ? $_REQUEST['nonce'] : '';
+
+        if ( ! $setting_id || ! $nonce ) {
+            die;
+        }
+
+        $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'wpbdp_settings[' . $setting_id . ']';
+
+        if ( ! wp_verify_nonce( $nonce, 'wpbdp-file-upload-' . $setting_id ) ) {
+            die;
+        }
+
+        echo '<form action="" method="POST" enctype="multipart/form-data">';
+        echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
+        echo '</form>';
+
+        if ( isset( $_FILES['file'] ) && $_FILES['file']['error'] == 0 ) {
+            // TODO: we support only images for now but we could use this for anything later
+            if ( $media_id = wpbdp_media_upload(
+                $_FILES['file'],
+                true,
+                true,
+                array(
+                    'image'      => true,
+                    'min-size'   => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
+                    'max-size'   => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
+                    'min-width'  => wpbdp_get_option( 'image-min-width' ),
+                    'min-height' => wpbdp_get_option( 'image-min-height' ),
+                ),
+                $errors
+            ) ) {
+                echo '<div class="preview" style="display: none;">';
+                echo wp_get_attachment_image( $media_id, 'thumb', false );
+                echo '</div>';
+
+                echo '<script type="text/javascript">';
+                echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload("%s", %d, "%s");', $setting_id, $media_id, $element );
+                echo '</script>';
+            } else {
+                print $errors;
+            }
+        }
+
+        echo sprintf( '<script type="text/javascript">window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
+
+        exit;
     }
 }

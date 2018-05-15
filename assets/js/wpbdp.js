@@ -139,12 +139,12 @@ jQuery(function( $ ) {
 
 WPBDP.fileUpload = {
 
-    resizeIFrame: function(field_id, height) {
-        var iframe = jQuery( '#wpbdp-upload-iframe-' + field_id )[0];
+    resizeIFrame: function(element_id, height) {
+        var iframe = jQuery( '#wpbdp-upload-iframe-' + element_id )[0];
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
 
         if ( iframeWin.document.body ) {
-            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+            iframe.height =  height ? height : iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
         }
     },
 
@@ -155,15 +155,12 @@ WPBDP.fileUpload = {
         $form.submit();
     },
 
-    finishUpload: function(field_id, upload_id) {
-        var $iframe = jQuery('#wpbdp-upload-iframe-' + field_id);
+    finishUpload: function(element_id, upload_id, element) {
+        var $iframe = jQuery('#wpbdp-upload-iframe-' + element_id);
         // $iframe.contents().find('form').hide();
 
-        var $input = jQuery('input[name="listingfields[' + field_id + '][0]"]');
+        var $input = jQuery('input[name="' + element + '"]');
         $input.val(upload_id);
-
-        var $caption = jQuery('input[name="listingfields[' + field_id + '][1]"]');
-        $caption.show();
 
         var $preview = $input.siblings('.preview');
         $preview.find('img').remove();
@@ -173,15 +170,13 @@ WPBDP.fileUpload = {
         $preview.find('.delete').show();
     },
 
-    deleteUpload: function(field_id) {
-        var $input = jQuery('input[name="listingfields[' + field_id + '][0]"]');
-        var $caption = jQuery('input[name="listingfields[' + field_id + '][1]"]');
+    deleteUpload: function(element_id, element) {
+        var $input = jQuery('input[name="' + element + '"]');
         var $preview = $input.siblings('.preview');
 
         $input.val('');
-        $caption.val( '' );
-        $caption.hide();
         $preview.find('img').remove();
+        $preview.find('input').val('');
 
         $preview.find('.delete').hide();
 

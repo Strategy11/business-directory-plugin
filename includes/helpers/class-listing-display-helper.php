@@ -1,8 +1,17 @@
 <?php
+/**
+ * Class WPBDP_Listing_Display_Helper
+ *
+ * @package BDP/Helpers/Display
+ */
+
+// phpcs:disable
 require_once ( WPBDP_PATH . 'includes/helpers/class-field-display-list.php' );
 
 /**
  * @since 4.0
+ * 
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Listing_Display_Helper {
 
@@ -66,8 +75,15 @@ class WPBDP_Listing_Display_Helper {
         $vars['sticky_tag'] = '';
         $vars['title'] = the_title( null, null, false );
 
-        if ( $vars['is_sticky'] )
-            $vars['sticky_tag'] = wpbdp_x_render( 'listing sticky tag', array( 'listing' => $listing ) );
+        if ( $vars['is_sticky'] && ! empty( wpbdp_get_option( 'display-sticky-badge' ) ) ) {
+            $img_src = wp_get_attachment_url( wpbdp_get_option('listings-sticky-image' ) );
+
+            if ( empty( $img_src ) ) {
+                $img_src = WPBDP_URL . 'assets/images/featuredlisting.png';
+            }
+
+            $vars['sticky_tag'] = wpbdp_x_render( 'listing sticky tag', array( 'listing' => $listing, 'img_src' => $img_src ) );
+        }
 
         return $vars;
     }
