@@ -86,16 +86,15 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             is_array( $value ) ? $value[0] : $value
         );
 
-        $html .= '<div class="preview">';
+        $html .= '<div class="preview"' . ( empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
         if ( ! empty( $value[0] ) ) {
             $html .= wp_get_attachment_image( $value[0], 'wpbdp-thumb', false );
         }
 
         $html .= sprintf(
-            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');" style="%s">%s</a>',
+            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
             $field->get_id(),
             'listingfields[' . $field->get_id() . '][0]',
-            empty( $value[0] ) ? 'display: none;' : '',
             _x( 'Remove', 'form-fields-api', 'WPBDM' )
         );
 

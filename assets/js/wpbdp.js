@@ -167,7 +167,7 @@ WPBDP.fileUpload = {
         $preview.prepend($iframe.contents().find('.preview').html());
         $iframe.contents().find('.preview').remove();
 
-        $preview.find('.delete').show();
+        $preview.show();
     },
 
     deleteUpload: function(element_id, element) {
@@ -178,7 +178,7 @@ WPBDP.fileUpload = {
         $preview.find('img').remove();
         $preview.find('input').val('');
 
-        $preview.find('.delete').hide();
+        $preview.hide();
 
         return false;
     }
