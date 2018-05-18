@@ -896,14 +896,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $payment->context = is_admin() ? 'admin-submit' : 'submit';
             $payment->save();
-
             if ( current_user_can( 'administrator' ) ) {
                 $payment->process_as_admin();
                 $this->listing->set_flag( 'admin-posted' );
             }
         }
 
-        $this->listing->set_post_status( $this->editing ? wpbdp_get_option( 'edit-post-status' ) : wpbdp_get_option( 'new-post-status' ) );
+        $listing_status = get_post_status( $this->listing->get_id() );
+        $this->listing->set_post_status( $this->editing ? ( 'published' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' ) ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 
         if ( ! $this->editing && 'completed' != $payment->status ) {
