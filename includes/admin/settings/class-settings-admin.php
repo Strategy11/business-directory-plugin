@@ -363,6 +363,14 @@ class WPBDP__Settings_Admin {
         echo $html;
     }
 
+    public function setting_url_callback( $setting, $value ) {
+        echo '<input type="url" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
+
+        if ( ! empty( $setting['desc'] ) ) {
+            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
+        }
+    }
+
     public function setting_text_template_callback( $setting, $value ) {
         $original_description = $setting['desc'];
         $placeholders         = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();

@@ -88,6 +88,16 @@ class WPBDP_Listing_Display_Helper {
 					'img_src' => $img_src,
                 )
             );
+
+            $sticky_url = wpbdp_get_option( 'sticky-image-link-to' );
+
+            if ( ! empty( $sticky_url ) ) {
+                $vars['sticky_tag'] = sprintf(
+                    '<a href="%s" rel="noopener" target="_blank">%s</a>',
+                    $sticky_url,
+                    $vars['sticky_tag']
+                );
+            }
         }
 
         return $vars;

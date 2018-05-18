@@ -919,6 +919,17 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
+                'id'          => 'sticky-image-link-to',
+                'type'        => 'url',
+                'name'        => _x( 'Featured Badge URL', 'settings', 'WPBDM' ),
+                'desc'        => _x( 'Use this to set Featured Badge image as a link to a defined URL.', 'settings', 'WPBDM' ),
+                'placeholder' => _x( 'URL', 'settings', 'WPBDM' ),
+                'default'     => '',
+                'group'       => 'image/listings',
+            )
+        );
+        wpbdp_register_setting(
+            array(
                 'id'      => 'display-sticky-badge',
                 'type'    => 'multicheck',
                 'name'    => _x( 'Display featured (sticky) badge on listing:', 'settings', 'WPBDM' ),
