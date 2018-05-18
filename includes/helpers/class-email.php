@@ -1,7 +1,16 @@
 <?php
 /**
  * E-mail handling class.
+ *
+ * @package BDP/Includes/Helpers/Class Email.
+ */
+
+// phpcs:disable
+/**
+ * E-mail handling class.
+ *
  * @since 2.1
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Email {
 
@@ -24,6 +33,9 @@ class WPBDP_Email {
     }
 
     public function wpbdp_email_config ( &$phpmailer ) {
+
+        $this->prepare_html();
+
         if ( 'plain' == $this->content_type ) {
             $phpmailer->Body = $phpmailer->normalizeBreaks( $phpmailer->html2text( $this->html ) );
             $phpmailer->isHTML( false );
@@ -42,17 +54,17 @@ class WPBDP_Email {
     }
 
     private function prepare_html() {
+        $text = '';
+
         if ( ! $this->html ) {
             $text = '<html>';
             $_text = $this->body ? $this->body : '';
             $_text = str_ireplace(array("<br>", "<br/>", "<br />"), "\n", $_text);
             $text .= nl2br( $_text );
             $text .= '</html>';
-        } else {
-            $text = $this->html;
         }
 
-        $this->html = $text;
+        $this->html = $text ? $text : $this->html;
     }
 
     private function get_headers() {
@@ -107,12 +119,8 @@ class WPBDP_Email {
             }
         }
 
-        $this->prepare_html();
-        $message = $this->html;
-        $headers = $this->get_headers();
-
         add_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
-        $result = wp_mail( $this->to, $this->subject, $message, $headers );
+        $result = wp_mail( $this->to, $this->subject, $this->body, $this->get_headers() );
         remove_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
 
         return $result;
