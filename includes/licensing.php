@@ -173,9 +173,11 @@ class WPBDP_Licensing {
 
         $ip_address = $this->figure_out_server_ip_address();
 
-        if ( $ip_address ) {
-            set_transient( 'wpbdp-server-ip-address', $ip_address, HOUR_IN_SECONDS );
+        if ( ! $ip_address ) {
+            $ip_address = '(unknown)';
         }
+
+        set_transient( 'wpbdp-server-ip-address', $ip_address, HOUR_IN_SECONDS );
 
         return $ip_address;
     }
