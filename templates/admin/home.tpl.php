@@ -7,14 +7,14 @@
                   'WPBDM' ); ?></p>
     <ul>
         <li>
-            <?php echo str_replace( '<a>', '<a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank">',
+            <?php echo str_replace( '<a>', '<a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank" rel="noopener">',
                                     _x( 'Our complete documentation is <a>here</a> which we encourage you to use while setting things up.', 'admin home', 'WPBDM' ) ); ?>
         <li>
-            <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank">',
+            <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank" rel="noopener">',
                                     _x( 'We have some quick-start scenarios that you will find useful regarding setup and configuration <a>here</a>.', 'admin home', 'WPBDM' ) ); ?>
         </li>
         <li>
-            <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/" target="_blank">',
+            <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/" target="_blank" rel="noopener">',
                                     _x( 'If you have questions, please post a comment on <a>support forum</a> and we\'ll answer it within 24 hours most days.', 'admin home', 'WPBDM' ) ); ?>
 
     </ul>

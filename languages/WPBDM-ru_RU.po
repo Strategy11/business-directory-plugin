@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-03-02 04:44:48+00:00\n"
+"POT-Creation-Date: 2018-04-03 15:53:32+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -187,7 +187,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:422
+#: includes/class-wpbdp.php:430
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -196,7 +196,7 @@ msgstr ""
 "Функции Справочника Услуг на настоящий момент отключены, потому что "
 "необходимо произвести ручное обновление плагина."
 
-#: includes/class-wpbdp.php:429
+#: includes/class-wpbdp.php:437
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1143,53 +1143,53 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:705
+#: includes/class-listing.php:729
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:706
+#: includes/class-listing.php:730
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:707
+#: includes/class-listing.php:731
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Завершено"
 
-#: includes/class-listing.php:708
+#: includes/class-listing.php:732
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Платёж был заброшен."
 
-#: includes/class-listing.php:709
+#: includes/class-listing.php:733
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Завершено"
 
-#: includes/class-listing.php:710
+#: includes/class-listing.php:734
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Ожидается подтверждение"
 
-#: includes/class-listing.php:711
+#: includes/class-listing.php:735
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Истекло"
 
-#: includes/class-listing.php:712
+#: includes/class-listing.php:736
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Активные + ожидающие продление"
 
-#: includes/class-listing.php:713
+#: includes/class-listing.php:737
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -1253,22 +1253,22 @@ msgid "Send access keys"
 msgstr "Поля и Изображения записи"
 
 #: includes/admin/class-admin.php:157
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:63
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "никогда"
 
 #: includes/admin/class-admin.php:158
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:87
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr ""
 
 #: includes/admin/class-admin.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:87
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
 #, fuzzy
 msgctxt "listing metabox"
 msgid "No"
@@ -1319,7 +1319,7 @@ msgid "Listing Status"
 msgstr "Записи"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:14
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:20
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
 #, fuzzy
 msgctxt "listing metabox"
 msgid "N/A"
@@ -1331,70 +1331,70 @@ msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr "Дата продления"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Детали плана"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:25
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:34
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:38
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:66
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
 #, fuzzy
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OK"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:47
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:81
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:54
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Amount"
 msgstr "Стоимость"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:56
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:60
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Истекает"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:61
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:76
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Edit"
 msgstr "Изменить"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
 #, fuzzy
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "Картинок"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "Лента %ы"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Recurring?"
@@ -3408,13 +3408,13 @@ msgid "Author"
 msgstr "По автору"
 
 #: includes/admin/settings/class-settings-bootstrap.php:516
-#: includes/functions.php:995
+#: includes/functions.php:1010
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "По дате публикации"
 
 #: includes/admin/settings/class-settings-bootstrap.php:517
-#: includes/functions.php:996
+#: includes/functions.php:1011
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "По дате изменения"
@@ -3722,7 +3722,7 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Адрес URL страницы оплаты"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1156
+#: includes/admin/settings/class-settings-bootstrap.php:1157
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -3731,7 +3731,7 @@ msgstr ""
 "Не удалось удалить плагин \"Справочник Услуг - Модуль Совместимости с AJAX"
 "\". Пожалуйста удалите файл \"%s\" вручную или деактивируйте плагин."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1169
+#: includes/admin/settings/class-settings-bootstrap.php:1170
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -3740,7 +3740,7 @@ msgstr ""
 "Не удалось активировать режим совместимости с AJAX: директория \"%s\" не "
 "была создана."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1174
+#: includes/admin/settings/class-settings-bootstrap.php:1175
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -3749,12 +3749,12 @@ msgstr ""
 "Не удалось скопировать плагин совместимости с AJAX \"%s\". Режим "
 "совместимости не был активирован."
 
-#: includes/functions.php:993
+#: includes/functions.php:1008
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:994
+#: includes/functions.php:1009
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Дата окончания срока действия"
@@ -3782,36 +3782,36 @@ msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Удалить"
 
-#: includes/admin/settings/class-settings-admin.php:411
+#: includes/admin/settings/class-settings-admin.php:422
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:413
+#: includes/admin/settings/class-settings-admin.php:424
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(периодически)"
 
-#: includes/admin/settings/class-settings-admin.php:415
+#: includes/admin/settings/class-settings-admin.php:426
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(периодически)"
 
-#: includes/admin/settings/class-settings-admin.php:419
+#: includes/admin/settings/class-settings-admin.php:430
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Посылается как только новая запись была помещена в базу данных."
 
-#: includes/admin/settings/class-settings-admin.php:424
+#: includes/admin/settings/class-settings-admin.php:435
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/settings/class-settings-admin.php:432
+#: includes/admin/settings/class-settings-admin.php:443
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -3820,7 +3820,7 @@ msgstr[0] "%d день"
 msgstr[1] "%d дней"
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:435
+#: includes/admin/settings/class-settings-admin.php:446
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -3828,7 +3828,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:438
+#: includes/admin/settings/class-settings-admin.php:449
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -3838,31 +3838,31 @@ msgstr[2] ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:444
+#: includes/admin/settings/class-settings-admin.php:455
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:447
+#: includes/admin/settings/class-settings-admin.php:458
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Посылается как только новая запись была помещена в базу данных."
 
-#: includes/admin/settings/class-settings-admin.php:464
+#: includes/admin/settings/class-settings-admin.php:475
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:465
+#: includes/admin/settings/class-settings-admin.php:476
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Тариф был успешно назначен."
 
-#: includes/admin/settings/class-settings-admin.php:474
+#: includes/admin/settings/class-settings-admin.php:485
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
@@ -3870,7 +3870,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:474
+#: includes/admin/settings/class-settings-admin.php:485
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
@@ -3878,7 +3878,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:477
+#: includes/admin/settings/class-settings-admin.php:488
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
@@ -3886,7 +3886,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:477
+#: includes/admin/settings/class-settings-admin.php:488
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
@@ -3894,7 +3894,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:480
+#: includes/admin/settings/class-settings-admin.php:491
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
@@ -3902,7 +3902,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:480
+#: includes/admin/settings/class-settings-admin.php:491
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
@@ -3910,29 +3910,29 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:500
+#: includes/admin/settings/class-settings-admin.php:518
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Применимо к..."
 
-#: includes/admin/settings/class-settings-admin.php:503
+#: includes/admin/settings/class-settings-admin.php:521
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:504
+#: includes/admin/settings/class-settings-admin.php:522
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Вернуться к записям."
 
-#: includes/admin/settings/class-settings-admin.php:505
+#: includes/admin/settings/class-settings-admin.php:523
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:510
+#: includes/admin/settings/class-settings-admin.php:528
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr ""
@@ -3943,7 +3943,53 @@ msgctxt "expiration notices"
 msgid "E-mail body text"
 msgstr "Тело письма"
 
-#: includes/admin/settings/class-settings-admin.php:542
+#: includes/admin/settings/class-settings-admin.php:398
+#, fuzzy
+msgctxt "settings"
+msgid "Site title (with link)"
+msgstr "Название сайта (со ссылкой)"
+
+#: includes/admin/settings/class-settings-admin.php:399
+msgctxt "settings"
+msgid "Author's name"
+msgstr "Имя автора"
+
+#: includes/admin/settings/class-settings-admin.php:400
+msgctxt "settings"
+msgid "Listing's name (with link)"
+msgstr "Имя записи (вместе со ссылкой)"
+
+#: includes/admin/settings/class-settings-admin.php:401
+#, fuzzy
+msgctxt "settings"
+msgid "Listing's expiration date"
+msgstr "Дата окончания срока действия"
+
+#: includes/admin/settings/class-settings-admin.php:402
+#, fuzzy
+msgctxt "settings"
+msgid "Listing's renewal link"
+msgstr "Продление срока действия"
+
+#: includes/admin/settings/class-settings-admin.php:403
+#, fuzzy
+msgctxt "settings"
+msgid "Listing's categories"
+msgstr "Название записи"
+
+#: includes/admin/settings/class-settings-admin.php:404
+#, fuzzy
+msgctxt "settings"
+msgid "Listing's last payment date"
+msgstr "Дата окончания срока действия"
+
+#: includes/admin/settings/class-settings-admin.php:405
+#, fuzzy
+msgctxt "settings"
+msgid "Listing's access key"
+msgstr "Поля и Изображения записи"
+
+#: includes/admin/settings/class-settings-admin.php:560
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -5469,25 +5515,25 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Добавить запись"
 
-#: includes/class-listing.php:294
+#: includes/class-listing.php:318
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Срок действия записи истёк"
 
-#: includes/class-listing.php:446
+#: includes/class-listing.php:470
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Тариф недоступен)"
 
-#: includes/class-listing.php:602
+#: includes/class-listing.php:626
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(периодически)"
 
-#: includes/class-listing.php:604
+#: includes/class-listing.php:628
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -5542,17 +5588,17 @@ msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Бесплатные записи"
 
-#: includes/class-listing-email-notification.php:130
+#: includes/class-listing-email-notification.php:151
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Оповещение о новой записи"
 
-#: includes/class-listing-email-notification.php:165
+#: includes/class-listing-email-notification.php:186
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Оповещение об изменении записи"
 
-#: includes/class-listing-email-notification.php:219
+#: includes/class-listing-email-notification.php:240
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -5593,19 +5639,32 @@ msgctxt "notify email"
 msgid "Admin URL"
 msgstr "Cтраница входа в сайт"
 
-#: templates/email/listing-added.tpl.php:17
-#: templates/email/listing-edited.tpl.php:17
-#: templates/email/listing-reported.tpl.php:17
+#: templates/email/listing-added.tpl.php:21
+#, fuzzy
 msgctxt "notify email"
-msgid "Categories"
-msgstr "Рубрики"
+msgid "Category"
+msgid_plural "Categories"
+msgstr[0] "Рубрика"
+msgstr[1] "Рубрика"
+msgstr[2] "Рубрика"
 
-#: templates/email/listing-added.tpl.php:20
+#: templates/email/listing-added.tpl.php:27
 #: templates/email/listing-edited.tpl.php:20
 #: templates/email/listing-reported.tpl.php:19
 msgctxt "notify email"
 msgid "Posted By"
 msgstr "Создано"
+
+#: templates/email/listing-added.tpl.php:36
+msgctxt "notify email"
+msgid "Annonymous User"
+msgstr ""
+
+#: templates/email/listing-edited.tpl.php:17
+#: templates/email/listing-reported.tpl.php:17
+msgctxt "notify email"
+msgid "Categories"
+msgstr "Рубрики"
 
 #: templates/email/listing-reported.tpl.php:21
 msgctxt "notify email"
@@ -5852,7 +5911,7 @@ msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:363
+#: includes/views/submit_listing.php:365
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
@@ -5894,56 +5953,56 @@ msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:717
+#: includes/views/submit_listing.php:725
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:722
+#: includes/views/submit_listing.php:730
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:727
+#: includes/views/submit_listing.php:735
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:737
+#: includes/views/submit_listing.php:745
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:742
+#: includes/views/submit_listing.php:750
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:757
+#: includes/views/submit_listing.php:765
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:764
+#: includes/views/submit_listing.php:772
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:770
+#: includes/views/submit_listing.php:778
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
-#: includes/views/submit_listing.php:779
+#: includes/views/submit_listing.php:787
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Адрес: %s"
 
-#: includes/views/submit_listing.php:788
+#: includes/views/submit_listing.php:796
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -5988,18 +6047,18 @@ msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "Настройки reCAPTCHA"
 
-#: includes/class-wpbdp.php:241
+#: includes/class-wpbdp.php:249
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/class-wpbdp.php:323
+#: includes/class-wpbdp.php:331
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Рубрики этой записи"
 
-#: includes/class-wpbdp.php:327
+#: includes/class-wpbdp.php:335
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -7088,37 +7147,37 @@ msgctxt "templates"
 msgid "View not available."
 msgstr "Свободных мест для загрузки изображений:"
 
-#: includes/views/submit_listing.php:826
+#: includes/views/submit_listing.php:834
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Пожалуйста примите наши Условия и Положения."
 
-#: includes/views/submit_listing.php:834
+#: includes/views/submit_listing.php:842
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Условия и Положения:"
 
-#: includes/views/submit_listing.php:843
+#: includes/views/submit_listing.php:851
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Я согласен с Условиями и Положениями"
 
 #: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:6
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:8
 #: templates/search.tpl.php:17
 msgctxt "templates"
 msgid "No listings found."
 msgstr "Записи не найдены."
 
 #: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:17
+#: templates/listings.tpl.php:24
 msgctxt "templates"
 msgid "&laquo; Previous "
 msgstr "&laquo; Предыдущая "
 
 #: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:18
+#: templates/listings.tpl.php:25
 msgctxt "templates"
 msgid "Next &raquo;"
 msgstr "Следующая &raquo;"
@@ -7413,7 +7472,7 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Сбросить)"
 
-#: includes/utils.php:169
+#: includes/utils.php:179
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -7421,56 +7480,56 @@ msgstr ""
 "Данные, переданные на сервер методом POST превышают максимальный размер для "
 "PHP. Обратите внимание на параметр \"post_max_size\" в вашем файле php.ini."
 
-#: includes/utils.php:216
+#: includes/utils.php:226
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "Размер файла (%s) превышает максимальный размер файла - %s"
 
-#: includes/utils.php:224
+#: includes/utils.php:234
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "Размер файла (%s) меньше, чем минимальный разрешённый размер - %s"
 
-#: includes/utils.php:233 includes/utils.php:240
+#: includes/utils.php:243 includes/utils.php:250
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Файл типа \"%s\" не допускается к загрузке"
 
-#: includes/utils.php:247
+#: includes/utils.php:257
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Неизвестная ошибка при загрузке файла."
 
-#: includes/utils.php:266
+#: includes/utils.php:276
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Загруженный файл не является изображением."
 
-#: includes/utils.php:275
+#: includes/utils.php:285
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr "Ширина изображения меньше минимально разрешённой ширины - %s пиксел."
 
-#: includes/utils.php:281
+#: includes/utils.php:291
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr "Высота изображения меньше минимально разрешённой высоты - %s пиксел."
 
-#: includes/utils.php:287
+#: includes/utils.php:297
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "Ширина изображения (%s пиксел) больше чем разрешённая максимальная ширина - "
 "%s пиксел."
 
-#: includes/utils.php:293
+#: includes/utils.php:303
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr ""
 "Высота изображения (%s пиксел) больше чем разрешённая максимальная высота - "
 "%s пиксел."
 
-#: includes/utils.php:307
+#: includes/utils.php:317
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ошибка при загрузке файла"
@@ -7793,7 +7852,7 @@ msgid ""
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:669
+#: includes/views/submit_listing.php:677
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8225,24 +8284,24 @@ msgctxt "admin infometabox"
 msgid "Access Key"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "Ссылка для продления (для копирования)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Послать уведомление о продлении автору по электронной почте"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:108
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renew listing"
@@ -9960,10 +10019,6 @@ msgstr "Адрес"
 #~ msgstr "Записи"
 
 #~ msgctxt "admin settings"
-#~ msgid "Listing Renewal"
-#~ msgstr "Продление срока действия"
-
-#~ msgctxt "admin settings"
 #~ msgid "Featured (Sticky) listing settings"
 #~ msgstr "Настройки специальных (прикрепленных) записей"
 
@@ -10028,10 +10083,6 @@ msgstr "Адрес"
 #~ msgctxt "settings email"
 #~ msgid "Site title"
 #~ msgstr "Название сайта"
-
-#~ msgctxt "settings email"
-#~ msgid "Site title (with link)"
-#~ msgstr "Название сайта (со ссылкой)"
 
 #~ msgctxt "settings email"
 #~ msgid "Site address (with link)"
@@ -10483,14 +10534,6 @@ msgstr "Адрес"
 #~ msgstr ""
 #~ "Посылается за несколько дней до истечения срока действия записи. "
 #~ "Применяется только к записям, не имеющим автоматического продления."
-
-#~ msgctxt "settings"
-#~ msgid "Listing's name (with link)"
-#~ msgstr "Имя записи (вместе со ссылкой)"
-
-#~ msgctxt "settings"
-#~ msgid "Author's name"
-#~ msgstr "Имя автора"
 
 #~ msgctxt "settings"
 #~ msgid "Category that is going to expire"

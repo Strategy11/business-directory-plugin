@@ -100,7 +100,7 @@
         echo str_replace( '<a>',
                           '<a href="' . admin_url( 'admin.php' ) . '?page=wpbdp_settings&tab=payment">',
                           sprintf ( _x( 'It does not appear you have any of the payment gateway modules enabled. Either <a>enable the default Authorize.net gateway</a> with your account info, or purchase a different payment gateway module in order to charge a fee for listings. To purchase additional payment gateways use the buttons below or visit %s.','admin templates', 'WPBDM' ),
-                                    '<a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank">http://businessdirectoryplugin.com/premium-modules/</a>' ) );
+                                    '<a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank" rel="noopener">http://businessdirectoryplugin.com/premium-modules/</a>' ) );
         ?></p>
         <?php endif; ?>
 
@@ -109,7 +109,7 @@
         foreach ( $modules as $mod_info ):
         ?>
         <div class="gateway <?php echo $mod_info[0]; ?> <?php echo wpbdp_has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
-            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank">
+            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank" rel="noopener">
                 <img src="<?php echo WPBDP_URL; ?>assets/images/<?php echo $mod_info[1]; ?>.png" class="gateway-logo"><br />
                 <a href="http://">
             </a>
@@ -119,7 +119,7 @@
             <?php else: ?>
             <?php echo str_replace(
                 '<a>',
-                '<a href="http://businessdirectoryplugin.com/downloads/' . $mod_info[1] . '/?ref=wp" target="_blank">',
+                '<a href="http://businessdirectoryplugin.com/downloads/' . $mod_info[1] . '/?ref=wp" target="_blank" rel="noopener">',
                 sprintf( _x( 'You can buy the <a>%s</a> to add <a>%s</a> as a payment option for your users.',
                              'admin templates',
                              'WPBDM' ), $mod_info[2], $mod_info[3] )

@@ -232,7 +232,7 @@ to how WordPress stores the data.", 'WPBDM' )
 
         $res = new WPBDP_Ajax_Response();
         $res->set_message( str_replace( '<a>',
-                                        '<a href="' . get_permalink( $page_id ) . '" target="_blank">',
+                                        '<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
                                         _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'WPBDM' ) ) );
         $res->send();
     }

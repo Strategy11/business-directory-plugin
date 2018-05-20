@@ -34,7 +34,7 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
         $q = new WP_Query( $args );
 
         // Try to trick pagination to remove it when processing a shortcode.
-        if ( ! empty( $this->in_shortcode ) ) {
+        if ( ! empty( $this->in_shortcode ) && empty( $this->pagination ) ) {
             $q->max_num_pages = 1;
         }
         wpbdp_push_query( $q );
@@ -45,6 +45,11 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
                                 '_wrapper' => $show_menu ? 'page' : '',
                                 '_bar' =>  $show_menu,
                                 'query' => $q );
+
+        if ( ! function_exists('wp_pagenavi' ) && is_front_page() ) {
+            global $paged;
+            $paged = $q->query['paged'];
+        }
 
         $html = wpbdp_x_render( 'listings', $template_args );
         wp_reset_postdata();

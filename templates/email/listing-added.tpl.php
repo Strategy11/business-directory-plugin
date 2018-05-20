@@ -14,7 +14,24 @@
 
 <?php _ex( 'Admin URL', 'notify email', 'WPBDM' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
 
-<?php _ex('Categories', 'notify email', 'WPBDM'); ?>: <?php foreach ( $listing->get_categories() as $category ): ?><?php echo $category->name; ?> / <?php endforeach; ?>
+<?php $categories = array();
+foreach ( $listing->get_categories() as $category ):
+    $categories[] = $category->name;
+endforeach; ?>
+<?php echo _nx('Category', 'Categories', count( $listing->get_categories() ), 'notify email', 'WPBDM'); ?>: <?php echo implode( ' / ', $categories ); ?>
 
 
-<?php _ex('Posted By', 'notify email', 'WPBDM'); ?>: <?php echo $listing->get_author_meta( 'user_login' ); ?> (<?php echo $listing->get_author_meta( 'user_email' ); ?>)
+<?php
+$name = $listing->get_author_meta( 'user_login' );
+$email = $listing->get_author_meta( 'user_email' );
+$author_text = _x( 'Posted By', 'notify email', 'WPBDM' ) . ': ';
+
+if ( $name && $email ):
+    echo $author_text . $name . ' ' . '&lt;' . $email . '&gt;';
+elseif ( $name ):
+    echo $author_text . $name;
+elseif ( $email ):
+    echo $author_text . '&lt;' . $email . '&gt;';
+else:
+    echo $author_text . _x( 'Annonymous User', 'notify email', 'WPBDM' );
+endif; ?>

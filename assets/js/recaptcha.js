@@ -4,7 +4,7 @@ jQuery( function( $ ) {
         this.attempts = 0;
         this.max_delay = 1500;
         this.timeout = false;
-    }
+    };
 
     $.extend( reCAPTCHA_Handler.prototype, {
         render_widgets: function() {
@@ -24,8 +24,9 @@ jQuery( function( $ ) {
         },
 
         render_widgets_when_ready: function() {
-            if ( typeof grecaptcha !== 'undefined' )
+            if ( 'undefined' !== typeof grecaptcha && 'undefined' !== typeof grecaptcha.render ) {
                 return this.render_widgets();
+            }
 
             var self = this;
             this.timeout = setTimeout( function() { self.render_widgets_when_ready() }, this.max_delay * Math.pow( this.attempts / this.max_attempts, 2 ) );
@@ -37,10 +38,10 @@ jQuery( function( $ ) {
     wpbdp_rh.render_widgets_when_ready();
 
     window.wpbdp_recaptcha_callback = function() {
-        if ( typeof wpbdp_rh == 'undefined' )
+        if ( typeof wpbdp_rh === 'undefined' )
             wpbdp_rh = new reCAPTCHA_Handler();
         wpbdp_rh.render_widgets();
-    }
+    };
 
     // Handle submit reCAPTCHA.
     $( window ).on( 'wpbdp_submit_refresh', function( event, submit, section_id ) {

@@ -1,8 +1,12 @@
 <?php
-
 /**
  * Main Business Directory class.
+ *
+ * @package WPBDP
+ * @SuppressWarnings(PHPMD)
  */
+
+// phpcs:disable
 final class WPBDP {
 
     public $_query_stack = array();
@@ -15,7 +19,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.1.10dev3' );
+        define( 'WPBDP_VERSION', '5.2.1dev3' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -86,6 +90,11 @@ final class WPBDP {
         require_once( WPBDP_INC . 'helpers/class-access-keys-sender.php' );
     }
 
+    // phpcs:enable
+
+    /**
+     * @since 5.2.1 Removed usage of create_function().
+     */
     private function hooks() {
         register_activation_hook( WPBDP_PLUGIN_FILE, array( $this, 'plugin_activation' ) );
         register_deactivation_hook( WPBDP_PLUGIN_FILE, array( $this, 'plugin_deactivation' ) );
@@ -94,15 +103,7 @@ final class WPBDP {
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
         // Clear cache of page IDs when a page is saved.
-        if ( version_compare( phpversion(), '5.3.0', '>=' ) ) {
-            $handler = function() {
-                delete_transient( 'wpbdp-page-ids' );
-            };
-        } else {
-            $handler = create_function( '$x = false', 'delete_transient("wpbdp-page-ids");' );
-        }
-
-        add_action( 'save_post_page', $handler );
+        add_action( 'save_post_page', 'wpbdp_delete_page_ids_cache' );
 
         // AJAX actions.
         // TODO: Use Dispatcher AJAX support instead of hardcoding these actions here.
@@ -114,6 +115,8 @@ final class WPBDP {
         add_action( 'plugins_loaded', array( $this, 'register_cache_groups' ) );
         add_action( 'switch_blog', array( $this, 'register_cache_groups' ) );
     }
+
+    // phpcs:disable
 
     public function init() {
         $this->load_textdomain();
@@ -440,3 +443,5 @@ final class WPBDP {
     }
 
 }
+
+// phpcs:enable

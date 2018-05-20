@@ -73,11 +73,16 @@ class WPBDP__Listing_Email_Notification {
         if ( ! isset( $post->post_type ) || WPBDP_POST_TYPE !== $post->post_type ) {
             return;
         }
+      
+        $email = wpbdp_email_from_template(
+            'email-templates-listing-published',
+            array(
+                'listing'     => get_the_title( $post_id ),
+                'listing-url' => get_permalink( $post_id ),
+                'access_key'  => wpbdp_get_listing( $post_id )->get_access_key(),
+			      )
+        );
 
-        $email = wpbdp_email_from_template( 'email-templates-listing-published', array(
-            'listing'     => get_the_title( $post_id ),
-            'listing-url' => get_permalink( $post_id ),
-        ) );
 
         $email->to[]     = wpbusdirman_get_the_business_email( $post_id );
         $email->template = 'businessdirectory-email';
@@ -240,10 +245,12 @@ class WPBDP__Listing_Email_Notification {
 
         // Notify the submitter.
         if ( in_array( 'new-listing', wpbdp_get_option( 'user-notifications' ), true ) ) {
-            $email = wpbdp_email_from_template( 'email-confirmation-message', array(
-                'listing' => $listing->get_title(),
-            ) );
-
+            $email           = wpbdp_email_from_template(
+                'email-confirmation-message', 
+                array(
+					          'listing' => $listing->get_title(),
+                )
+            );
             $email->to[]     = wpbusdirman_get_the_business_email( $listing->get_id() );
             $email->template = 'businessdirectory-email';
 
@@ -351,12 +358,19 @@ class WPBDP__Listing_Email_Notification {
                 $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
             }
 
-            $params = array(
-                'listing' => $listing,
-                'report'  => $report,
-            );
+            if ( empty( $report['email'] ) && 0 != $report['user_id'] ) {
+                $user            = get_userdata( $report['user_id'] );
+                $report['email'] = $user->user_email;
+                $report['name']  = $user->user_login;
+            }
 
-            $admin_email->body = wpbdp_render( 'email/listing-reported', $params, false );
+            $admin_email->body = wpbdp_render(
+                'email/listing-reported', 
+                array(
+					            'listing' => $listing,
+            					'report'  => $report,
+                ), false
+            );
             $admin_email->send();
         }
     }

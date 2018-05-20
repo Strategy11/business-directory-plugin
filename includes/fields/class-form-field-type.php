@@ -110,9 +110,9 @@ class WPBDP_Form_Field_Type {
                     break;
                 }
 
-                $value = sprintf( '<a href="%s" target="%s" >%s</a>',
+                $value = sprintf( '<a href="%s" target=%s >%s</a>',
                                   get_permalink( $post_id ),
-                                  wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self',
+                                  wpbdp_get_option( 'listing-link-in-new-tab' ) ? '"_blank" rel="noopener"' : '"_self"',
                                   $value );
                 break;
             case 'excerpt':

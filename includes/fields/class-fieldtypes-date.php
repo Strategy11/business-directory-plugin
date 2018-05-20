@@ -1,7 +1,12 @@
 <?php
-
 /**
+ * @package WPBDP\FieldTypes\Date
  * @since 3.6.5
+ */
+
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
@@ -93,11 +98,16 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
     }
 
     public function date_to_storage_format( &$field, $value ) {
+        if ( '' === $value ) {
+            return '';
+        }
+
         $value = preg_replace('/[^0-9]/','', $value); // Normalize value.
         $format = str_replace( array( '/', '.', '-' ), '', $this->date_format( $field ) );
 
-        if ( ! $value || strlen( $format ) != strlen( $value ) )
+        if ( strlen( $format ) != strlen( $value ) ) {
             return null;
+        }
 
         $d = 0; $m = 0; $y = 0;
 

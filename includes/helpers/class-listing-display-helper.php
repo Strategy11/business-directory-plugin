@@ -106,7 +106,7 @@ class WPBDP_Listing_Display_Helper {
 
     private static function fields_vars( $listing_id, $display ) {
         $all_fields = wpbdp_get_form_fields();
-        $fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id ) );
+        $fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
 
         $list = new WPBDP_Field_Display_List( $listing_id, $display, $fields );
         $list->freeze();
@@ -123,6 +123,7 @@ class WPBDP_Listing_Display_Helper {
         if ( ! wpbdp_get_option( 'allow-images' ) )
             return $vars;
 
+        $listing_id = apply_filters( 'wpbdp_listing_images_listing_id', $listing_id );
         $listing = WPBDP_Listing::get( $listing_id );
 
         // Thumbnail.
@@ -167,7 +168,7 @@ class WPBDP_Listing_Display_Helper {
             $image->url = $data[0];
             $image->width = $data[1];
             $image->height = $data[2];
-            $image->html = sprintf( '<a href="%s" class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal" target="_blank" title="%s">%s</a>',
+            $image->html = sprintf( '<a href="%s" class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal" target="_blank" rel="noopener" title="%s">%s</a>',
                                     $image->url,
                                     get_post_meta( $img_id, '_wpbdp_image_caption', true ),
                                     wp_get_attachment_image( $image->id, 'wpbdp-thumb', false, array(

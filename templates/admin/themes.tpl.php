@@ -11,7 +11,7 @@ echo wpbdp_admin_notices();
 <div class="wpbdp-note">
 <?php
 echo str_replace( '<a>',
-                  '<a href="http://businessdirectoryplugin.com/premium-themes/" target="_blank">',
+                  '<a href="http://businessdirectoryplugin.com/premium-themes/" target="_blank" rel="noopener">',
                   _x( '<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business Directory Plugin</i> to change the look of the directory quickly and easily. We have a number of them available for purchase <a>here</a>.', 'themes', 'WPBDM' ) ); ?><br />
 <?php echo _x( 'They are <strong>different</strong> than your regular WordPress theme and they are <strong>not</strong> a replacement for WP themes either. They will change the look and feel of your business directory only.', 'themes', 'WPBDM' ); ?>
 </div>

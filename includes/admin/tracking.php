@@ -189,7 +189,7 @@ class WPBDP_SiteTracking {
         $content .= '<p>';
         $content .= _x( 'Can Business Directory keep track of your theme, plugins, and other non-personal, non-identifying information to help us in testing the plugin for future releases?', 'tracking', 'WPBDM' );
         $content .= '<br />';
-        $content .= '&#149; ' . sprintf( '<a href="%s" target="_blank">%s</a>', 'http://businessdirectoryplugin.com/what-we-track', _x( 'What do you track?', 'tracking', 'WPBDM' ) );
+        $content .= '&#149; ' . sprintf( '<a href="%s" target="_blank" rel="noopener">%s</a>', 'http://businessdirectoryplugin.com/what-we-track', _x( 'What do you track?', 'tracking', 'WPBDM' ) );
         $content .= '</p>';
 ?>
     <script type="text/javascript">

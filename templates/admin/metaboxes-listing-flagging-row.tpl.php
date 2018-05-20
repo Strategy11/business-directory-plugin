@@ -1,12 +1,18 @@
 <?php
-$user = '';
+$name  = empty( $value['name'] ) ? '' : $value['name'];
+$email = empty( $value['email'] ) ? '' : $value['email'];
 
-if ( 0 !== $value[ 'user_id' ] ) :
+if ( ! $name && ! $email && 0 !== $value[ 'user_id' ] ) :
     $user = get_user_by( 'ID', $value[ 'user_id' ] );
+    $name = $user->data->user_login;
+    $email = $user->data->user_email;
 endif;
 ?>
 <tr data-id="<?php echo $key; ?>">
-    <td class="authoring-info"><?php echo $user ? $user->data->user_email : 'Visitor'; ?>
+    <td class="authoring-info">
+        <?php echo $name ? $name : 'Visitor'; ?>
+        <br/>
+        <?php echo $email ? $email : ''; ?>
         <div class="row-actions">
             <span class="trash">
                 <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'delete-flagging', 'listing_id' => $listing->get_id(), 'meta_pos' => $key ) ) ); ?>" class="delete">

@@ -67,14 +67,22 @@ class WPBDP__Listing_Flagging {
 
         $defaults = array( 'user_id' => 0, 'ip' => 0, 'reason' => '', 'comments' => '' );
 
-        $data = wp_parse_args( $data, $defaults );
+        $data = array_merge( $defaults, $data );
 
         if ( ! $data[ 'user_id' ] && ! $data[ 'ip' ] ) {
             return new WP_Error( 'missing_data', _x( 'User ID or IP address is required to save a report', 'flag listing', 'WPBDM' ) );
         }
 
-        if ( empty( $data[ 'reason' ] ) || empty( $data[ 'comments' ] ) ) {
-            return new WP_Error( 'missing_data', _x( 'Report reason or comment is required to save a report', 'flag listing', 'WPBDM' ) );
+        $flagging_options = self::get_flagging_options();
+
+        if ( ! empty( $flagging_options ) ) {
+            if ( empty( $data['reason'] ) ) {
+                return new WP_Error( 'missing_data', _x( 'Report reason is required to save a report', 'flag listing', 'WPBDM' ) );
+            }
+        } else {
+            if ( empty( $data['comments'] ) ) {
+                return new WP_Error( 'missing_data', _x( 'Report comment is required to save a report', 'flag listing', 'WPBDM' ) );
+            }
         }
 
         if( ! isset( $data[ 'date' ] ) ) {

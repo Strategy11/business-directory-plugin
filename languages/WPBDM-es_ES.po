@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-03-02 04:44:48+00:00\n"
-"PO-Revision-Date: 2018-03-01 23:44-0500\n"
+"POT-Creation-Date: 2018-04-03 15:53:32+00:00\n"
+"PO-Revision-Date: 2018-04-03 10:56-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -185,7 +185,7 @@ msgstr ""
 "administrador puede cancelar su subscripción contactando el procesador de "
 "pagos directamente."
 
-#: includes/class-wpbdp.php:422
+#: includes/class-wpbdp.php:430
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -193,7 +193,7 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabilitadas en "
 "este momento por una <a>actualización manual</a> está pendiente."
 
-#: includes/class-wpbdp.php:429
+#: includes/class-wpbdp.php:437
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1126,47 +1126,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr "Reportado"
 
-#: includes/class-listing.php:705
+#: includes/class-listing.php:729
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: includes/class-listing.php:706
+#: includes/class-listing.php:730
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Antiguo"
 
-#: includes/class-listing.php:707
+#: includes/class-listing.php:731
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incompleto"
 
-#: includes/class-listing.php:708
+#: includes/class-listing.php:732
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Pendiente de pago"
 
-#: includes/class-listing.php:709
+#: includes/class-listing.php:733
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Completado"
 
-#: includes/class-listing.php:710
+#: includes/class-listing.php:734
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Pendiente de mejora"
 
-#: includes/class-listing.php:711
+#: includes/class-listing.php:735
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expirado"
 
-#: includes/class-listing.php:712
+#: includes/class-listing.php:736
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Pendientes de renovación"
 
-#: includes/class-listing.php:713
+#: includes/class-listing.php:737
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonado"
@@ -1222,21 +1222,21 @@ msgid "Send access keys"
 msgstr "Enviar claves de acceso"
 
 #: includes/admin/class-admin.php:157
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:63
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "Nunca"
 
 #: includes/admin/class-admin.php:158
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:87
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr "Sí"
 
 #: includes/admin/class-admin.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:87
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
 msgctxt "listing metabox"
 msgid "No"
 msgstr "No"
@@ -1277,7 +1277,7 @@ msgid "Listing Status"
 msgstr "Estado del Listado"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:14
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:20
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
 msgctxt "listing metabox"
 msgid "N/A"
 msgstr "N/A"
@@ -1287,62 +1287,62 @@ msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr "Fecha de renovación"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Detalles del Plan"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:25
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr "Plan de Pago"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:34
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:38
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr "Cambiar plan de pago"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:66
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OK"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:47
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:81
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:54
 msgctxt "listing metabox"
 msgid "Amount"
 msgstr "Precio"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:56
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:60
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Expira en"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:61
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:76
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
 msgctxt "listing metabox"
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "# de imágenes"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "¿Es destacado?"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
 msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr "¿Es recurrente?"
@@ -3347,13 +3347,13 @@ msgid "Author"
 msgstr "Autor"
 
 #: includes/admin/settings/class-settings-bootstrap.php:516
-#: includes/functions.php:995
+#: includes/functions.php:1010
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Fecha de publicación"
 
 #: includes/admin/settings/class-settings-bootstrap.php:517
-#: includes/functions.php:996
+#: includes/functions.php:1011
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Fecha de última modificación"
@@ -3659,7 +3659,7 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Link a la URL de pago"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1156
+#: includes/admin/settings/class-settings-bootstrap.php:1157
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -3668,7 +3668,7 @@ msgstr ""
 "No se pudo remover \"Business Directory Plugin - AJAX Compatibility Module"
 "\". Por favor elimine el archivo \"%s\" manualmente o desactive el plugin."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1169
+#: includes/admin/settings/class-settings-bootstrap.php:1170
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -3677,7 +3677,7 @@ msgstr ""
 "No se pudo activar el modo de compatibilidad AJAX: el directorio \"%s\" no "
 "pudo ser creado."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1174
+#: includes/admin/settings/class-settings-bootstrap.php:1175
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -3686,12 +3686,12 @@ msgstr ""
 "No se pudo copiar el plugin de compatibilidad AJAX \"%s\". El modo de "
 "compatibilidad no fue activado."
 
-#: includes/functions.php:993
+#: includes/functions.php:1008
 msgctxt "admin settings"
 msgid "User"
 msgstr "Usuario"
 
-#: includes/functions.php:994
+#: includes/functions.php:1009
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Fecha de registro del usuario"
@@ -3716,46 +3716,46 @@ msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: includes/admin/settings/class-settings-admin.php:411
+#: includes/admin/settings/class-settings-admin.php:422
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr "Recurrente y no recurrente"
 
-#: includes/admin/settings/class-settings-admin.php:413
+#: includes/admin/settings/class-settings-admin.php:424
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "Solo recurrente"
 
-#: includes/admin/settings/class-settings-admin.php:415
+#: includes/admin/settings/class-settings-admin.php:426
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "Solo no recurrente"
 
-#: includes/admin/settings/class-settings-admin.php:419
+#: includes/admin/settings/class-settings-admin.php:430
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Enviada cuando un listado (%s) es renovado."
 
-#: includes/admin/settings/class-settings-admin.php:424
+#: includes/admin/settings/class-settings-admin.php:435
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Enviado cuando un listado (%s) expira."
 
-#: includes/admin/settings/class-settings-admin.php:432
+#: includes/admin/settings/class-settings-admin.php:443
 msgctxt "expiration notices"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d día"
 msgstr[1] "%d días"
 
-#: includes/admin/settings/class-settings-admin.php:435
+#: includes/admin/settings/class-settings-admin.php:446
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] "%d semana"
 msgstr[1] "%d semanas"
 
-#: includes/admin/settings/class-settings-admin.php:438
+#: includes/admin/settings/class-settings-admin.php:449
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -3764,91 +3764,91 @@ msgstr[1] "meses"
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:444
+#: includes/admin/settings/class-settings-admin.php:455
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr "Enviar %1$s antes de que un listado (%2$s) expire."
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:447
+#: includes/admin/settings/class-settings-admin.php:458
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Enviar %1$s después de que un listado (%2$s) expire."
 
-#: includes/admin/settings/class-settings-admin.php:464
+#: includes/admin/settings/class-settings-admin.php:475
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr "Cuando el listado expire"
 
-#: includes/admin/settings/class-settings-admin.php:465
+#: includes/admin/settings/class-settings-admin.php:476
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Justo después de renovar un listado"
 
-#: includes/admin/settings/class-settings-admin.php:474
+#: includes/admin/settings/class-settings-admin.php:485
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
 msgstr[0] "%d día antes de expirar"
 msgstr[1] "%d días antes de expirar"
 
-#: includes/admin/settings/class-settings-admin.php:474
+#: includes/admin/settings/class-settings-admin.php:485
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
 msgstr[0] "%d día después de expirar"
 msgstr[1] "%d días después de expirar"
 
-#: includes/admin/settings/class-settings-admin.php:477
+#: includes/admin/settings/class-settings-admin.php:488
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
 msgstr[0] "%d semana antes de expirar"
 msgstr[1] "%d semanas antes de expirar"
 
-#: includes/admin/settings/class-settings-admin.php:477
+#: includes/admin/settings/class-settings-admin.php:488
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
 msgstr[0] "%d semana después de expirar"
 msgstr[1] "%d semanas después de expirar"
 
-#: includes/admin/settings/class-settings-admin.php:480
+#: includes/admin/settings/class-settings-admin.php:491
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
 msgstr[0] "%d mes antes de expirar"
 msgstr[1] "%d meses antes de expirar"
 
-#: includes/admin/settings/class-settings-admin.php:480
+#: includes/admin/settings/class-settings-admin.php:491
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
 msgstr[0] "%d mes después de expirar"
 msgstr[1] "%d meses después de expirar"
 
-#: includes/admin/settings/class-settings-admin.php:500
+#: includes/admin/settings/class-settings-admin.php:518
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Aplica a"
 
-#: includes/admin/settings/class-settings-admin.php:503
+#: includes/admin/settings/class-settings-admin.php:521
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr "Listados no recurrentes"
 
-#: includes/admin/settings/class-settings-admin.php:504
+#: includes/admin/settings/class-settings-admin.php:522
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Listados recurrentes"
 
-#: includes/admin/settings/class-settings-admin.php:505
+#: includes/admin/settings/class-settings-admin.php:523
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr "Listados recurrentes y no recurrentes"
 
-#: includes/admin/settings/class-settings-admin.php:510
+#: includes/admin/settings/class-settings-admin.php:528
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr "¿Cuando desea enviar esta notificación?"
@@ -3858,7 +3858,47 @@ msgctxt "expiration notices"
 msgid "E-mail body text"
 msgstr "Contenido del correo"
 
-#: includes/admin/settings/class-settings-admin.php:542
+#: includes/admin/settings/class-settings-admin.php:398
+msgctxt "settings"
+msgid "Site title (with link)"
+msgstr "Título del sitio (con enlace)"
+
+#: includes/admin/settings/class-settings-admin.php:399
+msgctxt "settings"
+msgid "Author's name"
+msgstr "Autor del listado"
+
+#: includes/admin/settings/class-settings-admin.php:400
+msgctxt "settings"
+msgid "Listing's name (with link)"
+msgstr "Título del listado (con enlace)"
+
+#: includes/admin/settings/class-settings-admin.php:401
+msgctxt "settings"
+msgid "Listing's expiration date"
+msgstr "Fecha de expiración del listado"
+
+#: includes/admin/settings/class-settings-admin.php:402
+msgctxt "settings"
+msgid "Listing's renewal link"
+msgstr "Enlace de renovación del listado"
+
+#: includes/admin/settings/class-settings-admin.php:403
+msgctxt "settings"
+msgid "Listing's categories"
+msgstr "Categorías del Listado"
+
+#: includes/admin/settings/class-settings-admin.php:404
+msgctxt "settings"
+msgid "Listing's last payment date"
+msgstr "Fecha de pago del listado"
+
+#: includes/admin/settings/class-settings-admin.php:405
+msgctxt "settings"
+msgid "Listing's access key"
+msgstr "Clave de acceso para su listado"
+
+#: includes/admin/settings/class-settings-admin.php:560
 msgctxt "settings"
 msgid "Settings reset to default."
 msgstr "Restablecer ajustes por defecto."
@@ -5264,22 +5304,22 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: includes/class-listing.php:294
+#: includes/class-listing.php:318
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "El listado expiró"
 
-#: includes/class-listing.php:446
+#: includes/class-listing.php:470
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Comisión no disponible)"
 
-#: includes/class-listing.php:602
+#: includes/class-listing.php:626
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "Comisión “%s” (recurrente)"
 
-#: includes/class-listing.php:604
+#: includes/class-listing.php:628
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Comisión “%s”"
@@ -5338,17 +5378,17 @@ msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Listado Gratuito"
 
-#: includes/class-listing-email-notification.php:130
+#: includes/class-listing-email-notification.php:151
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
 
-#: includes/class-listing-email-notification.php:165
+#: includes/class-listing-email-notification.php:186
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notificación de listado editado"
 
-#: includes/class-listing-email-notification.php:219
+#: includes/class-listing-email-notification.php:240
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
 msgstr "[%s] Notificación de listado reportado"
@@ -5388,19 +5428,30 @@ msgctxt "notify email"
 msgid "Admin URL"
 msgstr "URL de administración"
 
-#: templates/email/listing-added.tpl.php:17
-#: templates/email/listing-edited.tpl.php:17
-#: templates/email/listing-reported.tpl.php:17
+#: templates/email/listing-added.tpl.php:21
 msgctxt "notify email"
-msgid "Categories"
-msgstr "Categorías"
+msgid "Category"
+msgid_plural "Categories"
+msgstr[0] "Categoría"
+msgstr[1] "Categorías"
 
-#: templates/email/listing-added.tpl.php:20
+#: templates/email/listing-added.tpl.php:27
 #: templates/email/listing-edited.tpl.php:20
 #: templates/email/listing-reported.tpl.php:19
 msgctxt "notify email"
 msgid "Posted By"
 msgstr "Publicado Por"
+
+#: templates/email/listing-added.tpl.php:36
+msgctxt "notify email"
+msgid "Annonymous User"
+msgstr "Usuario Anónimo"
+
+#: templates/email/listing-edited.tpl.php:17
+#: templates/email/listing-reported.tpl.php:17
+msgctxt "notify email"
+msgid "Categories"
+msgstr "Categorías"
 
 #: templates/email/listing-reported.tpl.php:21
 msgctxt "notify email"
@@ -5631,7 +5682,7 @@ msgctxt "submit listing"
 msgid "Account Creation"
 msgstr "Creación de cuenta de usuario"
 
-#: includes/views/submit_listing.php:363
+#: includes/views/submit_listing.php:365
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
@@ -5667,42 +5718,42 @@ msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Por favor elija una comisión válida para la categoría seleccionada."
 
-#: includes/views/submit_listing.php:717
+#: includes/views/submit_listing.php:725
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Por favor ingrese su nombre de usuario."
 
-#: includes/views/submit_listing.php:722
+#: includes/views/submit_listing.php:730
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 "Por favor ingrese la dirección de correo electrónico para su nueva cuenta."
 
-#: includes/views/submit_listing.php:727
+#: includes/views/submit_listing.php:735
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Por favor ingrese la contraseña para su nueva cuenta."
 
-#: includes/views/submit_listing.php:737
+#: includes/views/submit_listing.php:745
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "El nombre de usuario que eligió ya está en uso. Por favor elija un nombre de "
 "usuario diferente."
 
-#: includes/views/submit_listing.php:742
+#: includes/views/submit_listing.php:750
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 "La dirección de correo electrónico que eligió para su cuenta ya está siendo "
 "utilizada."
 
-#: includes/views/submit_listing.php:757
+#: includes/views/submit_listing.php:765
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Crear una cuenta de usuario en este sitio"
 
-#: includes/views/submit_listing.php:764
+#: includes/views/submit_listing.php:772
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -5710,17 +5761,17 @@ msgstr ""
 "Debe crear una cuenta de usuario en este sitio. Por favor ingrese los datos "
 "requeridos en el formulario que está debajo."
 
-#: includes/views/submit_listing.php:770
+#: includes/views/submit_listing.php:778
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Nombre de usuario"
 
-#: includes/views/submit_listing.php:779
+#: includes/views/submit_listing.php:787
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Correo electrónico:"
 
-#: includes/views/submit_listing.php:788
+#: includes/views/submit_listing.php:796
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Contraseña:"
@@ -5760,17 +5811,17 @@ msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA"
 
-#: includes/class-wpbdp.php:241
+#: includes/class-wpbdp.php:249
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: includes/class-wpbdp.php:323
+#: includes/class-wpbdp.php:331
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "No puede subir más imágenes para este listado."
 
-#: includes/class-wpbdp.php:327
+#: includes/class-wpbdp.php:335
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6863,36 +6914,36 @@ msgctxt "templates"
 msgid "View not available."
 msgstr "Vista no disponible."
 
-#: includes/views/submit_listing.php:826
+#: includes/views/submit_listing.php:834
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: includes/views/submit_listing.php:834
+#: includes/views/submit_listing.php:842
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Términos y Condiciones:"
 
-#: includes/views/submit_listing.php:843
+#: includes/views/submit_listing.php:851
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Acepto los <a>Términos y Condiciones</a>"
 
 #: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:6
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:8
 #: templates/search.tpl.php:17
 msgctxt "templates"
 msgid "No listings found."
 msgstr "No se encontraron listados."
 
 #: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:17
+#: templates/listings.tpl.php:24
 msgctxt "templates"
 msgid "&laquo; Previous "
 msgstr "&laquo; Anterior "
 
 #: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:18
+#: templates/listings.tpl.php:25
 msgctxt "templates"
 msgid "Next &raquo;"
 msgstr "Siguiente &raquo;"
@@ -7185,7 +7236,7 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reestablecer)"
 
-#: includes/utils.php:169
+#: includes/utils.php:179
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -7193,54 +7244,54 @@ msgstr ""
 "Los datos enviados via POST superan el valor máximo configurado en PHP. "
 "Revise la directiva \"post_max_size\" de su configuración."
 
-#: includes/utils.php:216
+#: includes/utils.php:226
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "El tamaño de archivo (%s) excede el tamaño máximo permitido de %s"
 
-#: includes/utils.php:224
+#: includes/utils.php:234
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "El tamaño de archivo (%s) es inferior al tamaño mínimo requerido de %s"
 
-#: includes/utils.php:233 includes/utils.php:240
+#: includes/utils.php:243 includes/utils.php:250
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "El tipo de archivo \"%s\" no está permitido"
 
-#: includes/utils.php:247
+#: includes/utils.php:257
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Error desconocido mientras se subía el archivo."
 
-#: includes/utils.php:266
+#: includes/utils.php:276
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "El archivo subido no es una imagen"
 
-#: includes/utils.php:275
+#: includes/utils.php:285
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr ""
 "El ancho de la imagen (%s px) es inferior al mínimo requerido de %s px."
 
-#: includes/utils.php:281
+#: includes/utils.php:291
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr "El alto de la imagen (%s px) es inferior al mínimo requerido de %s px."
 
-#: includes/utils.php:287
+#: includes/utils.php:297
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "El ancho de la imagen (%s px) es superior al máximo permitido de %s px."
 
-#: includes/utils.php:293
+#: includes/utils.php:303
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr "El alto de la imagen (%s px) es superior al máximo permitido de %s px."
 
-#: includes/utils.php:307
+#: includes/utils.php:317
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
@@ -7554,7 +7605,7 @@ msgstr ""
 "Algo salió mal. Por favor verifique que el formulario no contiene errores y "
 "envíelo de nuevo."
 
-#: includes/views/submit_listing.php:669
+#: includes/views/submit_listing.php:677
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -7984,22 +8035,22 @@ msgctxt "admin infometabox"
 msgid "Access Key"
 msgstr "Clave de acceso"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "URL de renovación (copiar y pegar)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:101
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr "Obtener nueva URL"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Enviar correo electrónico de renovación"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:108
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr "Renovar listado"
@@ -9765,10 +9816,6 @@ msgstr "Dirección"
 #~ msgstr "Listados"
 
 #~ msgctxt "admin settings"
-#~ msgid "Listing Renewal"
-#~ msgstr "Renovación de Listados"
-
-#~ msgctxt "admin settings"
 #~ msgid "Featured (Sticky) listing settings"
 #~ msgstr "Configuración de Listados Destacados"
 
@@ -9832,10 +9879,6 @@ msgstr "Dirección"
 #~ msgctxt "settings email"
 #~ msgid "Site title"
 #~ msgstr "Título del sitio"
-
-#~ msgctxt "settings email"
-#~ msgid "Site title (with link)"
-#~ msgstr "Título del listado (con enlace)"
 
 #~ msgctxt "settings email"
 #~ msgid "Site address (with link)"
@@ -10316,14 +10359,6 @@ msgstr "Dirección"
 #~ msgstr ""
 #~ "Enviado un tiempo antes de que el listado expire. Aplica para "
 #~ "renovaciones no recurrentes únicamente."
-
-#~ msgctxt "settings"
-#~ msgid "Listing's name (with link)"
-#~ msgstr "Título del listado (con enlace)"
-
-#~ msgctxt "settings"
-#~ msgid "Author's name"
-#~ msgstr "Autor del listado"
 
 #~ msgctxt "settings"
 #~ msgid "Category that is going to expire"
