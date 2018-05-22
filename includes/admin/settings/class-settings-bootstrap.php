@@ -920,6 +920,40 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'image/listings',
             )
         );
+        wpbdp_register_setting(
+            array(
+                'id'           => 'listings-sticky-image',
+                'type'         => 'file',
+                'name'         => _x( 'Featured Badge image', 'settings', 'WPBDM' ),
+                'default'      => '',
+                'group'        => 'image/listings',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'          => 'sticky-image-link-to',
+                'type'        => 'url',
+                'name'        => _x( 'Featured Badge URL', 'settings', 'WPBDM' ),
+                'desc'        => _x( 'Use this to set Featured Badge image as a link to a defined URL.', 'settings', 'WPBDM' ),
+                'placeholder' => _x( 'URL', 'settings', 'WPBDM' ),
+                'default'     => '',
+                'group'       => 'image/listings',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'      => 'display-sticky-badge',
+                'type'    => 'multicheck',
+                'name'    => _x( 'Display featured (sticky) badge on listing:', 'settings', 'WPBDM' ),
+                'desc'    => _x( '', 'settings', 'WPBDM' ),
+                'default' => array( 'single' ),
+                'options' => array(
+                    'excerpt' => _x( 'Excerpt view.', 'admin settings', 'WPBDM' ),
+                    'single'  => _x( 'Detail view.', 'admin settings', 'WPBDM' ),
+                ),
+                'group'   => 'image/listings',
+            )
+        );
     }
 
     private static function settings_payment() {
