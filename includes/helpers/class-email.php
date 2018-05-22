@@ -32,8 +32,6 @@ class WPBDP_Email {
 
     public function wpbdp_email_config( &$phpmailer ) {
 
-        $this->prepare_html();
-
         if ( 'plain' === $this->content_type ) {
             $phpmailer->Body = $phpmailer->normalizeBreaks( $phpmailer->html2text( $this->html ) );
             $phpmailer->isHTML( false );
@@ -86,6 +84,10 @@ class WPBDP_Email {
             $headers[] = 'Reply-To: ' . $this->reply_to;
         }
 
+        if ( 'both' !== $this->content_type ) {
+            $headers[] = "Content-Type: text/" . $this->content_type;
+        }
+
         foreach ( $this->headers as $k => $v ) {
             if ( in_array( $k, array( 'MIME-Version', 'From', 'Cc', 'Bcc' ) ) ) {
                 continue;
@@ -97,13 +99,23 @@ class WPBDP_Email {
         return $headers;
     }
 
+    private function get_message() {
+        $this->prepare_html();
+
+        if ( 'html' !== $this->content_type ) {
+            return wp_strip_all_tags( $this->body );
+        }
+
+        return $this->html;
+    }
+
     /**
      * Sends the email.
      *
      * @param string $format allowed values are 'html', 'plain' or 'both'
      * @return boolean true on success, false otherwise
      */
-    public function send( $format = 'both' ) {
+    public function send() {
         $this->subject = preg_replace( '/[\n\r]/', '', strip_tags( html_entity_decode( $this->subject ) ) );
         $this->from    = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) ) );
         $this->to      = preg_replace( '/[\n\r]/', '', $this->to );
@@ -123,8 +135,10 @@ class WPBDP_Email {
         }
 
         add_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
-        $result = wp_mail( $this->to, $this->subject, $this->body, $this->get_headers() );
+        $result = wp_mail( $this->to, $this->subject, $this->get_message(), $this->get_headers() );
         remove_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
+
+        var_dump( $result );
 
         return $result;
     }
