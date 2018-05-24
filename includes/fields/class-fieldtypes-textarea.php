@@ -223,7 +223,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $settings['excerpt_override'][] = _x( 'Use shortened version of Description field as excerpt', 'form-fields admin', 'WPBDM' );
             $settings['excerpt_override'][] = '<input type="radio" value="1" name="field[excerpt_override]" ' . ( $field && 1 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable always (override the Short Description given with a shortened Long Description)', 'form-fields admin', 'WPBDM' ) . '<br/>
                                                <input type="radio" value="2" name="field[excerpt_override]" ' . ( $field && 2 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable conditionally (override ONLY when Short Description is empty with a shortened Long Description)', 'form-fields admin', 'WPBDM' ) . '<br/>
-                                               <input type="radio" value="0" name="field[excerpt_override]" ' . ( $field && 0 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'WPBDM' );
+                                               <input type="radio" value="0" name="field[excerpt_override]" ' . ( $field && ! in_array( $field->data( 'excerpt_override' ), array( 1, 2 ) ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'WPBDM' );
 
             $desc                     = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'WPBDM' );
             $settings['max_length'][] = _x( 'Number of Characters from Short Description/Excerpt to Display in List View (only)', 'form-fields admin', 'WPBDM' );
@@ -412,7 +412,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         $content_field    = wpbdp_get_form_fields( array( 'association' => 'content') )[0];
         $excerpt_override = $content_field->data( 'excerpt_override' );
-        if ( 0 == $excerpt_override ) {
+        
+        if ( ! in_array( $excerpt_override , array( 1, 2 ) ) ) {
             return $fields;
         }
 
