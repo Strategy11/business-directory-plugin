@@ -18,18 +18,21 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             <!-- association -->
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Field Association', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Field Association', 'form-fields admin', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <?php $field_association_info = $field_associations[ $field->get_association() ]; ?>
-                    <?php if ( in_array( 'private', $field_association_info->flags, true ) ): ?>
+                    <?php if ( in_array( 'private', $field_association_info->flags, true ) ) : ?>
                     <select name="field[association]" id="field-association">
                         <option value="<?php echo $field_association_info->id; ?>"><?php echo $field_association_info->label; ?></option>
                     </select>
-                    <?php else: ?>
+                    <?php else : ?>
                     <select name="field[association]" id="field-association">
-                    <?php foreach ( $field_associations as &$association ): ?>
-                        <?php if ( in_array( 'private', $association->flags, true ) ) continue; ?>
+                    <?php foreach ( $field_associations as &$association ) : ?>
+                        <?php
+                        if ( in_array( 'private', $association->flags, true ) ) {
+							continue;}
+?>
                         <option value="<?php echo $association->id; ?>" <?php echo $field->get_association() == $association->id ? ' selected="selected"' : ''; ?> ><?php echo $association->label; ?></option>
                     <?php endforeach; ?>
                     </select>
@@ -40,19 +43,19 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             <!-- field type -->
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Field Type', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Field Type', 'form-fields admin', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
-                    <?php if ( 'custom' === $field->get_association() ): ?>
+                    <?php if ( 'custom' === $field->get_association() ) : ?>
                     <select name="field[field_type]" id="field-type">
                         <option value="<?php echo $field->get_field_type_id(); ?>"><?php echo $field->get_field_type()->get_name(); ?></option>
                     </select>
-                    <?php else: ?>
+                    <?php else : ?>
                     <select name="field[field_type]" id="field-type">
                         <?php foreach ( $field_types as $key => &$field_type ) : ?>
-                            <?php if ( !in_array( $field->get_association(), $field_type->get_supported_associations() ) ): ?>
+                            <?php if ( ! in_array( $field->get_association(), $field_type->get_supported_associations() ) ) : ?>
                             <option value="<?php echo $key; ?>" disabled="disabled"><?php echo $field_type->get_name(); ?></option>
-                            <?php else: ?>
+                            <?php else : ?>
                             <option value="<?php echo $key; ?>" <?php echo $field->get_field_type() == $field_type ? 'selected="true"' : ''; ?>><?php echo $field_type->get_name(); ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -64,7 +67,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             <!-- label -->
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('Field Label', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Field Label', 'form-fields admin', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="field[label]" type="text" aria-required="true" value="<?php echo esc_attr( $field->get_label() ); ?>" />
@@ -74,7 +77,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             <!-- description -->
             <tr class="form-field">
                 <th scope="row">
-                    <label> <?php _ex('Field description', 'form-fields admin', 'WPBDM'); ?> <span class="description">(<?php _ex( 'optional', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Field description', 'form-fields admin', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'optional', 'form-fields admin', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="field[description]" type="text" value="<?php echo esc_attr( $field->get_description() ); ?> " />
@@ -91,7 +94,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
     ob_end_clean();
     ?>
     <div id="wpbdp-fieldsettings" style="<?php echo $field_settings ? '' : 'display: none;'; ?>">
-    <h2><?php _ex('Field-specific settings', 'form-fields admin', 'WPBDM'); ?></h2>
+    <h2><?php _ex( 'Field-specific settings', 'form-fields admin', 'WPBDM' ); ?></h2>
     <div id="wpbdp-fieldsettings-html">
         <?php echo $field_settings; ?>
     </div>
@@ -99,17 +102,17 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
     <!-- /field-specific settings -->
 
     <!-- validation -->
-    <?php if ( ! $field->has_behavior_flag( 'no-validation' ) ): ?>
-    <h2><?php _ex('Field validation options', 'form-fields admin', 'WPBDM'); ?></h2>
+    <?php if ( ! $field->has_behavior_flag( 'no-validation' ) ) : ?>
+    <h2><?php _ex( 'Field validation options', 'form-fields admin', 'WPBDM' ); ?></h2>
     <table class="form-table">
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Field Validator', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Field Validator', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <select name="field[validators][]" id="field-validator" <?php echo ( 'social-twitter' == $field->get_field_type_id() ? 'disabled="disabled"' : '' ); ?> ?>>
                         <option value=""><?php _ex( 'No validation', 'form-fields admin', 'WPBDM' ); ?></option>
-                        <?php foreach ( $validators as $key => $name): ?>
+                        <?php foreach ( $validators as $key => $name ) : ?>
                         <?php
                         $disable_validator = ( 'url' == $field->get_field_type_id() && 'url' != $key ) ? true : false;
                         ?>
@@ -120,13 +123,13 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             </tr>
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Is field required?', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Is field required?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input name="field[validators][]"
                                value="required"
-                               type="checkbox" <?php echo $field->is_required() ? 'checked="checked"' : ''; ?>/> <?php _ex('This field is required.', 'form-fields admin', 'WPBDM'); ?>
+                               type="checkbox" <?php echo $field->is_required() ? 'checked="checked"' : ''; ?>/> <?php _ex( 'This field is required.', 'form-fields admin', 'WPBDM' ); ?>
                     </label>
                 </td>
             </tr>
@@ -134,7 +137,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
     <?php endif; ?>
 
     <!-- display options -->
-    <h2><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h2>
+    <h2><?php _ex( 'Field display options', 'form-fields admin', 'WPBDM' ); ?></h2>
     <table class="form-table">
         <?php if ( 'title' !== $field->get_association() ) : ?>
             <tr class="form-field limit-categories">
@@ -151,11 +154,17 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
                     <div id="limit-categories-list" class="<?php echo is_array( $field->data( 'supported_categories' ) ) ? '' : 'hidden'; ?>">
                         <p><span class="description"><?php _ex( 'Limit field to the following categories:', 'form-fields admin', 'WPBDM' ); ?></span></p>
                         <?php
-                        $all_categories = get_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false, 'hierarchical' => true ) );
+                        $all_categories       = get_terms(
+                            array(
+								'taxonomy'     => WPBDP_CATEGORY_TAX,
+								'hide_empty'   => false,
+								'hierarchical' => true,
+                            )
+                        );
                         $supported_categories = is_array( $field->data( 'supported_categories' ) ) ? array_map( 'absint', $field->data( 'supported_categories' ) ) : array();
 
-                        if ( count( $all_categories ) <= 30 ):
-                            foreach ( $all_categories as $category ):
+                        if ( count( $all_categories ) <= 30 ) :
+                            foreach ( $all_categories as $category ) :
                                 ?>
                                 <div class="wpbdp-category-item">
                                     <label>
@@ -165,10 +174,10 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
                                 </div>
                             <?php
                             endforeach;
-                        else:
+                        else :
                             ?>
                             <select name="field[supported_categories][]" multiple="multiple" placeholder="<?php _ex( 'Click to add categories to the selection.', 'form-fields admin', 'WPBDM' ); ?>">
-                                <?php foreach ( $all_categories as $category ): ?>
+                                <?php foreach ( $all_categories as $category ) : ?>
                                     <option value="<?php echo $category->term_id; ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories ) ); ?>><?php echo esc_html( $category->name ); ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -193,70 +202,70 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             </tr>
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Show this value in excerpt view?', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Show this value in excerpt view?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input name="field[display_flags][]"
                                value="excerpt"
-                               type="checkbox" <?php echo $field->display_in( 'excerpt') ? 'checked="checked"' : ''; ?>/> <?php _ex('Display this value in post excerpt view.', 'form-fields admin', 'WPBDM'); ?>
+                               type="checkbox" <?php echo $field->display_in( 'excerpt' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this value in post excerpt view.', 'form-fields admin', 'WPBDM' ); ?>
                     </label>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Show this value in listing view?', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Show this value in listing view?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input name="field[display_flags][]"
                                value="listing"
-                               type="checkbox" <?php echo $field->display_in( 'listing' ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Display this value in the listing view.', 'form-fields admin', 'WPBDM'); ?>
+                               type="checkbox" <?php echo $field->display_in( 'listing' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this value in the listing view.', 'form-fields admin', 'WPBDM' ); ?>
                     </label>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Include this field in the search form?', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Include this field in the search form?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input name="field[display_flags][]"
                                value="search"
-                               type="checkbox" <?php echo $field->display_in( 'search' ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Include this field in the search form.', 'form-fields admin', 'WPBDM'); ?>
+                               type="checkbox" <?php echo $field->display_in( 'search' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Include this field in the search form.', 'form-fields admin', 'WPBDM' ); ?>
                     </label>
                 </td>
             </tr>
-            <tr class="if-display-in-search <?php echo ( ! $field->display_in( 'search' ) ) ? 'wpbdp-hidden' : '' ?>">
+            <tr class="if-display-in-search <?php echo ( ! $field->display_in( 'search' ) ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
-                    <label> <?php _ex('Is this field required for searching?', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Is this field required for searching?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input name="field[validators][]"
                                value="required-in-search"
-                               type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Make this fields required during searches on the Advanced Search screen.', 'form-fields admin', 'WPBDM'); ?>
+                               type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Make this fields required during searches on the Advanced Search screen.', 'form-fields admin', 'WPBDM' ); ?>
                     </label>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label> <?php _ex('Hide this field\'s label?', 'form-fields admin', 'WPBDM'); ?></label>
+                    <label> <?php _ex( 'Hide this field\'s label?', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input name="field[display_flags][]"
                                value="nolabel"
-                               type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex('Hide this field\'s label when displaying it.', 'form-fields admin', 'WPBDM'); ?>
+                               type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Hide this field\'s label when displaying it.', 'form-fields admin', 'WPBDM' ); ?>
                     </label>
                 </td>
             </tr>
     </table>
 
-    <?php if ( $field->get_id() ): ?>
-        <?php echo submit_button(_x('Update Field', 'form-fields admin', 'WPBDM')); ?>
-    <?php else: ?>
-        <?php echo submit_button(_x('Add Field', 'form-fields admin', 'WPBDM')); ?>
+    <?php if ( $field->get_id() ) : ?>
+        <?php echo submit_button( _x( 'Update Field', 'form-fields admin', 'WPBDM' ) ); ?>
+    <?php else : ?>
+        <?php echo submit_button( _x( 'Add Field', 'form-fields admin', 'WPBDM' ) ); ?>
     <?php endif; ?>
 </form>
 
