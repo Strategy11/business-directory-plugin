@@ -1,4 +1,11 @@
-<?php echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), 'field-form' ); ?>
+<?php
+/**
+ * @package WPBDP/Templates/Admin/Form Fields Add or Edit.
+ */
+
+// phpcs:disable
+
+echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), 'field-form' ); ?>
 <?php wpbdp_admin_notices(); ?>
 
 <form id="wpbdp-formfield-form" action="" method="post">
@@ -129,6 +136,49 @@
     <!-- display options -->
     <h2><?php _ex('Field display options', 'form-fields admin', 'WPBDM'); ?></h2>
     <table class="form-table">
+        <?php if ( 'title' !== $field->get_association() ) : ?>
+            <tr class="form-field limit-categories">
+                <th scope="row">
+                    <label for="wpbdp-field-category-policy"><?php _ex( 'Field Category Policy:', 'form-fields admin', 'WPBDM' ); ?></label>
+                </th>
+                <td>
+                    <select id="wpbdp-field-category-policy"
+                            name="limit_categories">
+                        <option value="0"><?php _ex( 'Field applies to all categories', 'form-fields admin', 'WPBDM' ); ?></option>
+                        <option value="1" <?php selected( is_array( $field->data( 'supported_categories' ) ), true ); ?> ><?php _ex( 'Field applies to only certain categories', 'form-fields admin', 'WPBDM' ); ?></option>
+                    </select>
+
+                    <div id="limit-categories-list" class="<?php echo is_array( $field->data( 'supported_categories' ) ) ? '' : 'hidden'; ?>">
+                        <p><span class="description"><?php _ex( 'Limit field to the following categories:', 'form-fields admin', 'WPBDM' ); ?></span></p>
+                        <?php
+                        $all_categories = get_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false, 'hierarchical' => true ) );
+                        $supported_categories = is_array( $field->data( 'supported_categories' ) ) ? array_map( 'absint', $field->data( 'supported_categories' ) ) : array();
+
+                        if ( count( $all_categories ) <= 30 ):
+                            foreach ( $all_categories as $category ):
+                                ?>
+                                <div class="wpbdp-category-item">
+                                    <label>
+                                        <input type="checkbox" name="field[supported_categories][]" value="<?php echo $category->term_id; ?>" <?php checked( in_array( (int) $category->term_id, $supported_categories ) ); ?>>
+                                        <?php echo esc_html( $category->name ); ?>
+                                    </label>
+                                </div>
+                            <?php
+                            endforeach;
+                        else:
+                            ?>
+                            <select name="field[supported_categories][]" multiple="multiple" placeholder="<?php _ex( 'Click to add categories to the selection.', 'form-fields admin', 'WPBDM' ); ?>">
+                                <?php foreach ( $all_categories as $category ): ?>
+                                    <option value="<?php echo $category->term_id; ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories ) ); ?>><?php echo esc_html( $category->name ); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        <?php
+                        endif;
+                        ?>
+                    </div>
+                </td>
+            </tr>
+        <?php endif; ?>
             <tr id="wpbdp_private_field" class="<?php echo in_array( $field->get_association(), array( 'title', 'content', 'category' ), true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Show this field to admin users only?', 'form-fields admin', 'WPBDM' ); ?></label>

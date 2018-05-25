@@ -559,14 +559,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * 'listing_fields'.
      */
     private function listing_fields() {
-        $fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
-        $fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$fields, &$this->listing ) );
+        $form_fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
+        $form_fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$form_fields, &$this->listing ) );
         $saved_listingfields = get_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', true );
         $field_values = ! empty( $saved_listingfields ) ? $saved_listingfields : array();
 
         $validation_errors = array();
+        $fields = array();
 
-        foreach ( $fields as $field ) {
+        foreach ( $form_fields as $field ) {
+            if ( ! $field->validate_categories( $this->listing->get_categories( 'ids' ) ) ) {
+                continue;
+            }
+
             $value = ! empty( $field_values[ $field->get_id() ] ) ? $field_values[ $field->get_id() ] : $field->value( $this->listing->get_id() );
 
             if ( 'title' == $field->get_association() && '(no title)' == $value ) {
@@ -596,6 +601,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     $field->store_value( $this->listing->get_id(), $value );
                 }
             }
+
+            $fields[] = $field;
         }
 
         // FIXME: fake this (for compatibility with modules) until we move everything to wpbdp_save_listing() and

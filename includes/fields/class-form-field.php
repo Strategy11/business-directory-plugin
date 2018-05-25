@@ -3,6 +3,15 @@
  * Represents a single field from the database. This class can not be instantiated directly.
  *
  * @since 2.3
+ * @package WPBDP/Views/Includes/Fields/Form Field
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP_Form_Field
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Form_Field {
 
@@ -464,6 +473,23 @@ class WPBDP_Form_Field {
         return false;
     }
 
+    public function validate_categories( $categories = array() ) {
+        $supported_cats = $this->data( 'supported_categories', 'all' );
+        if ( 'all' === $supported_cats ) {
+            return true;
+        }
+
+        $categories = is_array( $categories ) ? $categories : array( $categories );
+
+        foreach ( $categories as $c ) {
+            if ( in_array( $c, $supported_cats ) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Returns HTML apt for display of this field's value.
      * @param int|object $post_id post ID or object
@@ -549,6 +575,8 @@ class WPBDP_Form_Field {
         if ( isset( $_POST['field'] ) ) {
             $res = $this->type->process_field_settings( $this );
             do_action_ref_array( 'wpbdp_form_field_settings_process', array( &$this ) );
+
+            $this->set_data( 'supported_categories', ! empty( $_POST['limit_categories'] ) && ! empty( $_POST['field']['supported_categories'] ) ? $_POST['field']['supported_categories'] : 'all' );
 
             if ( is_wp_error( $res ) )
                 return $res;
