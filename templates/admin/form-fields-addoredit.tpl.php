@@ -139,8 +139,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
     <!-- display options -->
     <h2><?php _ex( 'Field display options', 'form-fields admin', 'WPBDM' ); ?></h2>
     <table class="form-table">
-        <?php if ( 'title' !== $field->get_association() ) : ?>
-            <tr class="form-field limit-categories">
+            <tr class="form-field limit-categories <?php echo in_array( $field->get_association(), array( 'title', 'category' ) ) ? "hidden" : '' ?>">
                 <th scope="row">
                     <label for="wpbdp-field-category-policy"><?php _ex( 'Field Category Policy:', 'form-fields admin', 'WPBDM' ); ?></label>
                 </th>
@@ -187,7 +186,6 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
                     </div>
                 </td>
             </tr>
-        <?php endif; ?>
             <tr id="wpbdp_private_field" class="<?php echo in_array( $field->get_association(), array( 'title', 'content', 'category' ), true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Show this field to admin users only?', 'form-fields admin', 'WPBDM' ); ?></label>

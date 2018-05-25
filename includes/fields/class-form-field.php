@@ -610,7 +610,13 @@ class WPBDP_Form_Field {
             $res = $this->type->process_field_settings( $this );
             do_action_ref_array( 'wpbdp_form_field_settings_process', array( &$this ) );
 
-            $this->set_data( 'supported_categories', ! empty( $_POST['limit_categories'] ) && ! empty( $_POST['field']['supported_categories'] ) ? $_POST['field']['supported_categories'] : 'all' );
+            $supported_cats = ! empty( $_POST['limit_categories'] ) && ! empty( $_POST['field']['supported_categories'] ) ? $_POST['field']['supported_categories'] : 'all';
+
+            if ( in_array( $this->get_association(), array( 'title', 'category') ) ) {
+                $supported_cats = 'all';
+            }
+
+            $this->set_data( 'supported_categories', $supported_cats );
 
             if ( is_wp_error( $res ) ) {
                 return $res;
