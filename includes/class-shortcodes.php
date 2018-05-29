@@ -16,6 +16,8 @@ class WPBDP__Shortcodes {
 
     public function __construct() {
         add_action( 'wpbdp_loaded', array( $this, 'register' ) );
+
+        add_filter( 'get_pagenum_link', array( $this, 'sc_get_pagenum_link') );
     }
 
     /**
@@ -87,6 +89,8 @@ class WPBDP__Shortcodes {
          *  - tag       Shows the listings with a certain tag name. (Allowed Values: Any valid tag name within the directory. Can be a comma separated list too (eg. "New, Hot").)
          *  - category  Shows the listings with a certain category. (Allowed Values: Any valid category name or ID you have configured under Directory -> Directory Categories. Can be a comma separated list too (e.g. "Dentists, Doctors" or 1,2,56).)
          *  - title     Adds a title to the page of listings to indicate what they are for. (Allowed Values: Any non-blank string.)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
+         *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
          * Example:
          *  - Display listings from category "Dentists" with tag "New" and include a title.
          *
@@ -200,7 +204,7 @@ class WPBDP__Shortcodes {
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
-         *  - pagination Enable pagination for shortcode. Default to 1. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
          * Examples:
          *  - Display the latest 5 listings submitted to the directory:
          *    `[businessdirectory-latest-listings items_per_page=5 pagination=0]`
@@ -238,7 +242,7 @@ class WPBDP__Shortcodes {
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
-         *  - pagination Use pagination, if disabled a set of listings, determined by items_per_page, will be display. Default to 1. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
          * Example:
          *  `[businessdirectory-featured-listings items_per_page=5]`
          * Since:
@@ -285,10 +289,9 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_listings( $atts ) {
-        global $wpbdp;
-        require_once ( WPBDP_PATH . 'includes/views/all_listings.php' );
+        require_once WPBDP_PATH . 'includes/views/all_listings.php';
 
-        $atts = shortcode_atts(
+        $sc_atts = shortcode_atts(
             array(
                 'tag'            => '',
                 'tags'           => '',
@@ -298,26 +301,27 @@ class WPBDP__Shortcodes {
                 'operator'       => 'OR',
                 'author'         => '',
                 'menu'           => null,
-                'pagination'     => 0,
-                'items_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ),
-            $atts );
+                'items_per_page' => -1,
+            ),
+            $atts
+        );
 
-        if ( ! is_null( $atts['menu'] ) )
-            $atts['menu'] = ( 1 === $atts['menu'] || 'true' === $atts['menu'] ) ? true : false;
+        if ( ! is_null( $sc_atts['menu'] ) )
+            $sc_atts['menu'] = ( 1 === $sc_atts['menu'] || 'true' === $sc_atts['menu'] ) ? true : false;
 
-        $this->validate_attributes( $atts );
+        $this->validate_attributes( $sc_atts, $atts );
 
         $query_args = array();
-        $query_args['items_per_page'] = intval( $atts['items_per_page'] );
+        $query_args['items_per_page'] = intval( $sc_atts['items_per_page'] );
 
-        if ( $atts['category'] || $atts['categories'] ) {
+        if ( $sc_atts['category'] || $sc_atts['categories'] ) {
             $requested_categories = array();
 
-            if ( $atts['category'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
+            if ( $sc_atts['category'] )
+                $requested_categories = array_merge( $requested_categories, explode( ',', $sc_atts['category'] ) );
 
-            if ( $atts['categories'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
+            if ( $sc_atts['categories'] )
+                $requested_categories = array_merge( $requested_categories, explode( ',', $sc_atts['categories'] ) );
 
             $categories = array();
 
@@ -338,23 +342,23 @@ class WPBDP__Shortcodes {
                                                      'terms' => $categories ) );
         }
 
-        if ( $atts['tag'] || $atts['tags'] ) {
+        if ( $sc_atts['tag'] || $sc_atts['tags'] ) {
             $requested_tags = array();
 
-            if ( $atts['tag'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tag'] ) );
+            if ( $sc_atts['tag'] )
+                $requested_tags = array_merge( $requested_tags, explode( ',', $sc_atts['tag'] ) );
 
-            if ( $atts['tags'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
+            if ( $sc_atts['tags'] )
+                $requested_tags = array_merge( $requested_tags, explode( ',', $sc_atts['tags'] ) );
 
             $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_TAGS_TAX,
                                                      'field' => 'slug',
                                                      'terms' => $requested_tags ) );
         }
 
-        if ( ! empty( $atts['author'] ) ) {
+        if ( ! empty( $sc_atts['author'] ) ) {
             $u = false;
-            $u = is_numeric( $atts['author'] ) ? get_user_by( 'id', absint( $atts['author'] ) ) : get_user_by( 'login', $atts['author'] );
+            $u = is_numeric( $sc_atts['author'] ) ? get_user_by( 'id', absint( $sc_atts['author'] ) ) : get_user_by( 'login', $sc_atts['author'] );
 
             if ( $u )
                 $query_args['author'] = $u->ID;
@@ -362,35 +366,34 @@ class WPBDP__Shortcodes {
 
         $v = new WPBDP__Views__All_Listings(
             array(
-                'menu' => $atts['menu'],
+                'menu' => $sc_atts['menu'],
                 'query_args' => $query_args,
                 'in_shortcode' => true,
-                'pagination' => $atts['items_per_page'] > 0 && intval( $atts['pagination'] ),
+                'pagination' => $sc_atts['items_per_page'] > 0 && isset( $sc_atts['pagination'] ) && $sc_atts['pagination'],
             ) );
         return $v->dispatch();
     }
 
     public function sc_listings_latest( $atts ) {
-        $atts = shortcode_atts(
+        $sc_atts = shortcode_atts(
             array(
                 'menu'            => 0,
                 'buttons'         => 'none',
                 'limit'           => 0,
                 'items_per_page'  => -1,
-                'pagination'      => '0'
             ),
             $atts,
             'businessdirectory-latest-listings'
         );
 
-        $this->validate_attributes( $atts );
+        $this->validate_attributes( $sc_atts, $atts );
 
         return $this->display_listings(
             array(
                 'orderby' => 'date',
                 'order' => 'DESC'
             ),
-            $atts
+            $sc_atts
         );
     }
 
@@ -419,19 +422,18 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_listings_featured( $atts ) {
-        $atts = shortcode_atts(
+        $sc_atts = shortcode_atts(
             array(
                 'menu'            => 0,
                 'buttons'         => 'none',
                 'limit'           => 0,
                 'items_per_page'  => -1,
-                'pagination'      => '0'
             ),
             $atts,
             'businessdirectory-featured-listings'
         );
 
-        $this->validate_attributes( $atts );
+        $this->validate_attributes( $sc_atts, $atts );
 
         global $wpdb;
         $q = $wpdb->prepare(
@@ -466,12 +468,11 @@ class WPBDP__Shortcodes {
                 'menu'           => 0,
                 'buttons'        => 'none',
                 'items_per_page' => -1,
-                'pagination'     => false,
             ),
             $args
         );
 
-        if ( $args['pagination'] ) {
+        if ( ! empty( $args['pagination'] ) ) {
             $paged = get_query_var( 'page' ) ? get_query_var( 'page' ) : ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
             $query_args['paged'] = intval( $paged );
         }
@@ -481,7 +482,7 @@ class WPBDP__Shortcodes {
         $query = new WP_Query( $query_args );
 
         // Try to trick pagination to remove it when processing a shortcode.
-        if ( ! $args['pagination'] ) {
+        if ( empty( $args['pagination'] ) ) {
             $query->max_num_pages = 1;
         }
 
@@ -640,15 +641,15 @@ class WPBDP__Shortcodes {
         $atts = shortcode_atts( $defaults, $atts, 'businessdirectory-quick-search' );
 
         switch ( $atts['buttons'] ) {
-        case 'all':
-            $buttons = array( 'directory', 'listings', 'create' );
-            break;
-        case 'none':
-            $buttons = array();
-            break;
-        default:
-            $buttons = array_filter( explode( ',', trim( $atts['buttons'] ) ) );
-            break;
+            case 'all':
+                $buttons = array( 'directory', 'listings', 'create' );
+                break;
+            case 'none':
+                $buttons = array();
+                break;
+            default:
+                $buttons = array_filter( explode( ',', trim( $atts['buttons'] ) ) );
+                break;
         }
 
         $box_args = array(
@@ -658,28 +659,34 @@ class WPBDP__Shortcodes {
         return wpbdp_main_box( $box_args );
     }
 
-    public function validate_attributes( &$atts ) {
+    public function validate_attributes( &$sc_atts, $atts = array() ) {
 
-        switch ( strtolower( $atts['pagination'] ) ) {
-            case '0':
-            case 'false':
-            case 'no':
-                $atts['pagination'] = false;
-                break;
-            case '1':
-            case 'true':
-            case 'yes':
-            default:
-                $atts['pagination'] = true;
+        if ( ! empty( $atts['pagination'] ) ) {
+            switch ( strtolower( $atts['pagination'] ) ) {
+                case '1':
+                case 'true':
+                case 'yes':
+                    $sc_atts['pagination'] = true;
+                    break;
+                case '0':
+                case 'false':
+                case 'no':
+                default:
+                    $sc_atts['pagination'] = false;
+            }
         }
 
         // Backward compatibility for `limit` parameter
-        if ( ! empty( $atts['limit'] ) ) {
-            $atts['items_per_page'] = intval( $atts['items_per_page'] ) > 0 ? intval( $atts['items_per_page'] ) : intval( $atts['limit'] );
+        if ( ! empty( $sc_atts['limit'] ) ) {
+            $sc_atts['items_per_page'] = intval( $sc_atts['items_per_page'] ) > 0 ? intval( $sc_atts['items_per_page'] ) : intval( $sc_atts['limit'] );
         }
 
-        if ( 0 >= intval( $atts['items_per_page'] ) ) {
-            $atts['items_per_page'] = ! $atts['pagination'] ? ( wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ) : -1;
+        if ( 0 >= intval( $sc_atts['items_per_page'] ) ) {
+            $sc_atts['items_per_page'] = ! isset( $sc_atts['pagination'] ) ? ( wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ) : -1;
+        }
+
+        if ( isset( $sc_atts['pagination'] ) && ! $sc_atts['pagination'] ) {
+            $sc_atts['items_per_page'] = -1;
         }
     }
 
@@ -688,5 +695,12 @@ class WPBDP__Shortcodes {
             global $paged;
             $paged = $query->query['paged'];
         }
+    }
+
+    public function sc_get_pagenum_link( $url ) {
+        if ( wpbdp_current_query()->wpbdp_our_query ) {
+            $url = esc_url( $url . "#wpbdp-listings-list" );
+        }
+        return $url;
     }
 }
