@@ -138,8 +138,6 @@ class WPBDP_Email {
         $result = wp_mail( $this->to, $this->subject, $this->get_message(), $this->get_headers() );
         remove_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
 
-        var_dump( $result );
-
         return $result;
     }
 }
