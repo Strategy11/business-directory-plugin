@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.3
 Requires PHP: 5.6
 Tested up to: 4.9
-Last Updated: 2018-Mar-2
-Stable tag: 5.1.9
+Last Updated: 2018-May-29
+Stable tag: 5.2.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,30 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+= Version 5.2.1 =
+* Add compatibility with Advanced Custom Fields Plugin.
+* Allow empty value to clear Date fieldtype.
+* Extend expiration date for listings renewed before expiring.
+* Add description for quick search in general options when no fields are selected.
+* Update listing properties according to fee plan after payments.
+* Add email address when reporting a listing.
+* Fix quotes to prevent thickbox not been used in listing detail view. 
+* Verify recaptcha.render exists before execution.
+* Refactor pagination in shortcodes.
+* Add compatibility to WPBDP_Email class with external email plugins.
+* Enhance Long Description field as excerpt in list view.
+* Add option to disable expiration emails.
+    
+= Version 5.2 =
+* Add pagination to Latest, Random, Featured listings shortcodes.
+* Add [placeholders] to email notice templates.
+* Fix links where target="_blank" to include additional parameter to avoid XRF.
+* Prevent Link opens same page in listing view.
+* Update Scroll after plan selection and display T&C as last section in submit listing.
+* Add compatibility with Custom Permalinks plugin.
+* Add thumbnail and listing images compatibility for WPML translations.
+* Minor fixes for New Listing Notification email template.
+
 = Version 5.1.9 =
 * Fix CSV Importer to create initial payment for imported listings.
 * Do not renew listings with pending initial payments.
