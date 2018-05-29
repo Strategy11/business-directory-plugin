@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.5.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-04-03 15:53:32+00:00\n"
+"POT-Creation-Date: 2018-05-29 16:08:18+00:00\n"
 "PO-Revision-Date: 2018-03-02 08:40-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -187,7 +187,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:430
+#: includes/class-wpbdp.php:433
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -196,61 +196,61 @@ msgstr ""
 "Branchenverzeichnis Hervorhebungen sind aktuell deaktiviert, weil das Modul "
 "manuell aktualisiert werden muss, bevor weiter hervorgehoben werden kann."
 
-#: includes/class-wpbdp.php:437
+#: includes/class-wpbdp.php:440
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-date.php:32
+#: includes/fields/class-fieldtypes-date.php:37
 msgid "%s (ex. %s)"
 msgstr ""
 
-#: includes/form-fields.php:319
+#: includes/form-fields.php:354
 msgid "Business Name"
 msgstr "Firmenname"
 
-#: includes/form-fields.php:321
+#: includes/form-fields.php:363
 msgid "Business Genre"
 msgstr "Firmenbranche"
 
-#: includes/form-fields.php:323
+#: includes/form-fields.php:372
 msgid "Short Business Description"
 msgstr "Kurze Geschäftsbeschreibung"
 
-#: includes/form-fields.php:325
+#: includes/form-fields.php:380
 msgid "Long Business Description"
 msgstr "Lange Geschäftsbeschreibung"
 
-#: includes/form-fields.php:327
+#: includes/form-fields.php:389
 msgid "Business Website Address"
 msgstr "Firmenwebseite"
 
-#: includes/form-fields.php:329
+#: includes/form-fields.php:398
 msgid "Business Phone Number"
 msgstr "Telefonnummer geschäftlich"
 
-#: includes/form-fields.php:331
+#: includes/form-fields.php:406
 msgid "Business Fax"
 msgstr "Fax geschäftlich"
 
-#: includes/form-fields.php:333
+#: includes/form-fields.php:414
 msgid "Business Contact Email"
 msgstr "Kontakt E-mail geschäftlich"
 
-#: includes/form-fields.php:335
+#: includes/form-fields.php:423
 msgid "Business Tags"
 msgstr "Geschäftliche Tags "
 
-#: includes/form-fields.php:337
+#: includes/form-fields.php:431
 msgid "Business Address"
 msgstr "Adresse"
 
-#: includes/form-fields.php:339
+#: includes/form-fields.php:439
 msgid "ZIP Code"
 msgstr "Postleitzahl"
 
-#: includes/functions.php:449
+#: includes/functions.php:531
 msgid "Free"
 msgstr "Kostenlos"
 
@@ -275,15 +275,15 @@ msgstr ""
 msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr ""
 
-#: includes/templates-ui.php:238
+#: includes/templates-ui.php:277
 msgid "Directory"
 msgstr "Verzeichnis"
 
-#: includes/templates-ui.php:245
+#: includes/templates-ui.php:286
 msgid "View All Listings"
 msgstr "Alle Einträge anschauen"
 
-#: includes/templates-ui.php:252
+#: includes/templates-ui.php:295
 msgid "Create A Listing"
 msgstr "Eintrag erstellen"
 
@@ -292,7 +292,7 @@ msgid ""
 "There was an error trying to process your request. No gateway is selected."
 msgstr ""
 
-#: includes/views/listing_contact.php:167
+#: includes/views/listing_contact.php:205
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \\a\\t g:i a"
 
@@ -925,12 +925,12 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:23
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:29
 msgctxt "admin listings"
 msgid "Selected Option: "
 msgstr ""
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:27
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:33
 #, fuzzy
 msgctxt "admin listings"
 msgid "Aditional Info: "
@@ -1149,53 +1149,53 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:729
+#: includes/class-listing.php:742
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:730
+#: includes/class-listing.php:743
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:731
+#: includes/class-listing.php:744
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Abgeschlossen"
 
-#: includes/class-listing.php:732
+#: includes/class-listing.php:745
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Ausstehende Zahlungen"
 
-#: includes/class-listing.php:733
+#: includes/class-listing.php:746
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Abgeschlossen"
 
-#: includes/class-listing.php:734
+#: includes/class-listing.php:747
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Ausstehende Aktualisierung"
 
-#: includes/class-listing.php:735
+#: includes/class-listing.php:748
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Abgelaufen"
 
-#: includes/class-listing.php:736
+#: includes/class-listing.php:749
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Aktiv + Ausstehende Erneuerungen"
 
-#: includes/class-listing.php:737
+#: includes/class-listing.php:750
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -1497,7 +1497,7 @@ msgctxt "admin menu"
 msgid "Debug"
 msgstr "Fehlerkorrektur"
 
-#: includes/admin/settings/class-settings-admin.php:33
+#: includes/admin/settings/class-settings-admin.php:46
 msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Optionen Verwalten"
@@ -2720,54 +2720,66 @@ msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Feldliste von Optionen wird benötigt."
 
+#: includes/fields/class-fieldtypes-image.php:56
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Display caption?"
+msgstr "Feld Anzeigeoptionen"
+
+#: includes/fields/class-fieldtypes-image.php:59
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Field Caption required?"
+msgstr "Feldbezeichnung ist Pflichtfeld."
+
 #: includes/fields/class-fieldtypes-select.php:207
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Erlaube leere Auswahl bei Suche?"
 
-#: includes/fields/class-fieldtypes-textarea.php:186
+#: includes/fields/class-fieldtypes-textarea.php:194
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr "Erlaube HTML Eingaben für dieses Feld?"
 
-#: includes/fields/class-fieldtypes-textarea.php:189
+#: includes/fields/class-fieldtypes-textarea.php:197
 msgctxt "form-fields admin"
 msgid "Allow IFRAME tags in content?"
 msgstr "Erlaube IFRAME-Tags im Inhalt?"
 
-#: includes/fields/class-fieldtypes-textarea.php:193
+#: includes/fields/class-fieldtypes-textarea.php:201
 msgctxt "form-fields admin"
 msgid "No"
 msgstr "Nein"
 
-#: includes/fields/class-fieldtypes-textarea.php:194
+#: includes/fields/class-fieldtypes-textarea.php:202
 msgctxt "form-fields admin"
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/fields/class-fieldtypes-textarea.php:199
+#: includes/fields/class-fieldtypes-textarea.php:207
 msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Erlaube Wordpress Shortcodes in diesem Feld?"
 
-#: includes/fields/class-fieldtypes-textarea.php:204
+#: includes/fields/class-fieldtypes-textarea.php:212
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr "Zeige einen WYSIWYG-Editor im Frontend an?"
 
-#: includes/fields/class-fieldtypes-textarea.php:207
+#: includes/fields/class-fieldtypes-textarea.php:215
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
 "in fee plans."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:208
+#: includes/fields/class-fieldtypes-textarea.php:216
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr "Bilder im WYSIWYG-Editor erlauben?"
 
-#: includes/fields/class-fieldtypes-textarea.php:211
+#: includes/fields/class-fieldtypes-textarea.php:219
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -2776,24 +2788,50 @@ msgstr ""
 "<b>Nur für Administratoren!</b> Wenn es dir nicht ausdrücklich gesagt wurde, "
 "ändere diese Einstellung nicht bevor du nicht weist was du genau tust."
 
-#: includes/fields/class-fieldtypes-textarea.php:212
+#: includes/fields/class-fieldtypes-textarea.php:220
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr "\"the_content\" Filter zuweisen bevor das Feld angezeigt wird?"
 
-#: includes/fields/class-fieldtypes-textarea.php:215
+#: includes/fields/class-fieldtypes-textarea.php:223
+msgctxt "form-fields admin"
+msgid "Use shortened version of Description field as excerpt"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:224
+msgctxt "form-fields admin"
+msgid ""
+"Enable always (override the Short Description given with a shortened Long "
+"Description)"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:225
+msgctxt "form-fields admin"
+msgid ""
+"Enable conditionally (override ONLY when Short Description is empty with a "
+"shortened Long Description)"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:226
+msgctxt "form-fields admin"
+msgid "Disable (use the Short Description all the time, empty or not)"
+msgstr ""
+
+#: includes/fields/class-fieldtypes-textarea.php:228
 msgctxt "form-fields admin"
 msgid ""
 "Truncates the description field to the value set here. To display all of the "
 "description, set to 0."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:216
+#: includes/fields/class-fieldtypes-textarea.php:229
 msgctxt "form-fields admin"
-msgid "Max length of Description field to use in List (excerpt) view"
+msgid ""
+"Number of Characters from Short Description/Excerpt to Display in List View "
+"(only)"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:221
+#: includes/fields/class-fieldtypes-textarea.php:234
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Automatisches Generierung eines Auszugs aus dem Inhaltsfeld?"
@@ -3326,39 +3364,45 @@ msgctxt "debug info"
 msgid "Test SSL setup..."
 msgstr "Test SSL Einstellungen..."
 
-#: includes/admin/settings/class-settings-admin.php:321
+#: includes/admin/settings/class-settings-admin.php:338
+#, fuzzy
+msgctxt "admin settings"
+msgid "Remove"
+msgstr "Entfernen"
+
+#: includes/admin/settings/class-settings-admin.php:389
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Gültige Platzhalter: %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:70
+#: includes/admin/settings/class-settings-bootstrap.php:96
 msgctxt "admin settings"
 msgid ""
 "<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
 "accesed while this settings is checked."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:198
+#: includes/admin/settings/class-settings-bootstrap.php:253
 msgctxt "admin settings"
 msgid "<a>Learn more</a> about what BD does and does NOT track."
 msgstr "<a>Mehr lernen</a> über das was BD aufzeichnet und was nicht."
 
-#: includes/admin/settings/class-settings-bootstrap.php:210
+#: includes/admin/settings/class-settings-bootstrap.php:267
 msgctxt "admin settings"
 msgid "Above results"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:211
+#: includes/admin/settings/class-settings-bootstrap.php:268
 msgctxt "admin settings"
 msgid "Below results"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:212
+#: includes/admin/settings/class-settings-bootstrap.php:269
 msgctxt "admin settings"
 msgid "Don't show with results"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:218
+#: includes/admin/settings/class-settings-bootstrap.php:276
 msgctxt "admin settings"
 msgid ""
 "You have selected a textarea field to be included in quick searches. "
@@ -3369,7 +3413,14 @@ msgstr ""
 "Felder hinzugefügt werden, kann sehr langsam sein und lange Zeit in Anspruch "
 "nehmen. "
 
-#: includes/admin/settings/class-settings-bootstrap.php:256
+#: includes/admin/settings/class-settings-bootstrap.php:280
+msgctxt "admin settings"
+msgid ""
+"If no fields are selected, the following fields will be used in Quick "
+"Searches:"
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:323
 msgctxt "admin settings"
 msgid ""
 "Check this if you are having trouble with BD, particularly when importing or "
@@ -3378,140 +3429,140 @@ msgstr ""
 "Klicken sie dieses Feld, wenn Sie Probleme mit BD haben, besonders beim "
 "Importieren oder Exportieren von CSV-Dateien."
 
-#: includes/admin/settings/class-settings-bootstrap.php:377
+#: includes/admin/settings/class-settings-bootstrap.php:479
 msgctxt "admin settings"
 msgid "Do not include comments in listings"
 msgstr "Keine Kommentare bei den Einträgen anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:378
+#: includes/admin/settings/class-settings-bootstrap.php:480
 msgctxt "admin settings"
 msgid "Include comment form, theme invoked (standard option)"
 msgstr "Kommentarform einfügen in Eintragsseiten?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:379
+#: includes/admin/settings/class-settings-bootstrap.php:481
 msgctxt "admin settings"
 msgid "Include comment form, BD invoked (use only if 2nd option doesn't work)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:397
+#: includes/admin/settings/class-settings-bootstrap.php:503
 #, fuzzy
 msgctxt "admin settings"
 msgid "Directory view."
 msgstr "Verzeichnis"
 
-#: includes/admin/settings/class-settings-bootstrap.php:398
+#: includes/admin/settings/class-settings-bootstrap.php:504
 #, fuzzy
 msgctxt "admin settings"
 msgid "All Listings view."
 msgstr "Alle Einträge"
 
-#: includes/admin/settings/class-settings-bootstrap.php:399
+#: includes/admin/settings/class-settings-bootstrap.php:505
 #, fuzzy
 msgctxt "admin settings"
 msgid "Category view."
 msgstr "Kategorien"
 
-#: includes/admin/settings/class-settings-bootstrap.php:400
+#: includes/admin/settings/class-settings-bootstrap.php:506
 #, fuzzy
 msgctxt "admin settings"
 msgid "Search view."
 msgstr "Suche"
 
-#: includes/admin/settings/class-settings-bootstrap.php:464
+#: includes/admin/settings/class-settings-bootstrap.php:582
 msgctxt "admin settings"
 msgid "Name"
 msgstr "Name"
 
-#: includes/admin/settings/class-settings-bootstrap.php:465
+#: includes/admin/settings/class-settings-bootstrap.php:583
 msgctxt "admin settings"
 msgid "Slug"
 msgstr "Entwurf"
 
-#: includes/admin/settings/class-settings-bootstrap.php:466
+#: includes/admin/settings/class-settings-bootstrap.php:584
 msgctxt "admin settings"
 msgid "Listing Count"
 msgstr "Anzahl Einträge"
 
-#: includes/admin/settings/class-settings-bootstrap.php:476
-#: includes/admin/settings/class-settings-bootstrap.php:533
+#: includes/admin/settings/class-settings-bootstrap.php:596
+#: includes/admin/settings/class-settings-bootstrap.php:663
 msgctxt "admin settings"
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: includes/admin/settings/class-settings-bootstrap.php:477
-#: includes/admin/settings/class-settings-bootstrap.php:534
+#: includes/admin/settings/class-settings-bootstrap.php:597
+#: includes/admin/settings/class-settings-bootstrap.php:664
 msgctxt "admin settings"
 msgid "Descending"
 msgstr "Absteigend"
 
-#: includes/admin/settings/class-settings-bootstrap.php:505
+#: includes/admin/settings/class-settings-bootstrap.php:632
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order can be changed under <a>Manage Fees</a>"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:514
+#: includes/admin/settings/class-settings-bootstrap.php:642
 msgctxt "admin settings"
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:515
+#: includes/admin/settings/class-settings-bootstrap.php:643
 msgctxt "admin settings"
 msgid "Author"
 msgstr "Author"
 
-#: includes/admin/settings/class-settings-bootstrap.php:516
-#: includes/functions.php:1010
+#: includes/admin/settings/class-settings-bootstrap.php:644
+#: includes/functions.php:1148
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum gepostet"
 
-#: includes/admin/settings/class-settings-bootstrap.php:517
-#: includes/functions.php:1011
+#: includes/admin/settings/class-settings-bootstrap.php:645
+#: includes/functions.php:1149
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Datum zuletzt verändert"
 
-#: includes/admin/settings/class-settings-bootstrap.php:518
+#: includes/admin/settings/class-settings-bootstrap.php:646
 msgctxt "admin settings"
 msgid "Random"
 msgstr "Zufall"
 
-#: includes/admin/settings/class-settings-bootstrap.php:519
+#: includes/admin/settings/class-settings-bootstrap.php:647
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by date."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:520
+#: includes/admin/settings/class-settings-bootstrap.php:648
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by title."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:521
+#: includes/admin/settings/class-settings-bootstrap.php:649
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order, then Date"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:522
+#: includes/admin/settings/class-settings-bootstrap.php:650
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order, then Title"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:590
+#: includes/admin/settings/class-settings-bootstrap.php:733
 msgctxt "admin settings"
 msgid "You can manage your themes on <a>Directory Themes</a>."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:598
+#: includes/admin/settings/class-settings-bootstrap.php:742
 msgctxt "admin settings"
 msgid "Use the BD theme style for BD buttons"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:599
+#: includes/admin/settings/class-settings-bootstrap.php:743
 msgctxt "admin settings"
 msgid "Use the WP theme style for BD buttons"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:719
+#: includes/admin/settings/class-settings-bootstrap.php:901
 msgctxt "admin settings"
 msgid ""
 "For paid listing images, configure that by adding or editing a <a>Fee Plan</"
@@ -3521,147 +3572,159 @@ msgstr ""
 "erstellen eines <a>Preisplan</a> an Stelle dieser Einstellungen, die von "
 "bezahlten Einträgen ignoriert wird."
 
-#: includes/admin/settings/class-settings-bootstrap.php:777
+#: includes/admin/settings/class-settings-bootstrap.php:951
+#, fuzzy
+msgctxt "admin settings"
+msgid "Excerpt view."
+msgstr "Im Textauszug"
+
+#: includes/admin/settings/class-settings-bootstrap.php:952
+#, fuzzy
+msgctxt "admin settings"
+msgid "Detail view."
+msgstr "Verzeichnis"
+
+#: includes/admin/settings/class-settings-bootstrap.php:1010
 msgctxt "admin settings"
 msgid "Australian Dollar (AUD)"
 msgstr "Australischer Dollar (AUD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:778
+#: includes/admin/settings/class-settings-bootstrap.php:1011
 msgctxt "admin settings"
 msgid "Brazilian Real (BRL)"
 msgstr "Brasilianischer Real (BRL)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:779
+#: includes/admin/settings/class-settings-bootstrap.php:1012
 msgctxt "admin settings"
 msgid "Canadian Dollar (CAD)"
 msgstr "Kanadischer Dollar (CAD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:780
+#: includes/admin/settings/class-settings-bootstrap.php:1013
 msgctxt "admin settings"
 msgid "Czech Koruna (CZK)"
 msgstr "Tschechische Koruna (CZK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:781
+#: includes/admin/settings/class-settings-bootstrap.php:1014
 msgctxt "admin settings"
 msgid "Danish Krone (DKK)"
 msgstr "Dänische Krone (DKK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:782
+#: includes/admin/settings/class-settings-bootstrap.php:1015
 msgctxt "admin settings"
 msgid "Euro (EUR)"
 msgstr "Euro (EUR)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:783
+#: includes/admin/settings/class-settings-bootstrap.php:1016
 msgctxt "admin settings"
 msgid "Hong Kong Dollar (HKD)"
 msgstr "Hong Kong Dollar (HKD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:784
+#: includes/admin/settings/class-settings-bootstrap.php:1017
 msgctxt "admin settings"
 msgid "Hungarian Forint (HUF)"
 msgstr "Ungarischer  Forint (HUF)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:785
+#: includes/admin/settings/class-settings-bootstrap.php:1018
 msgctxt "admin settings"
 msgid "Israeli New Shequel (ILS)"
 msgstr "Israelischer Neuer Schequel (ILS)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:786
+#: includes/admin/settings/class-settings-bootstrap.php:1019
 msgctxt "admin settings"
 msgid "Japanese Yen (JPY)"
 msgstr "Japanischer Jen (JPY)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:787
+#: includes/admin/settings/class-settings-bootstrap.php:1020
 msgctxt "admin settings"
 msgid "Moroccan Dirham (MAD)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:788
+#: includes/admin/settings/class-settings-bootstrap.php:1021
 msgctxt "admin settings"
 msgid "Malasian Ringgit (MYR)"
 msgstr "Malaysischer Ringgit (MYR)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:789
+#: includes/admin/settings/class-settings-bootstrap.php:1022
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr "Mexikanischer Peso (MXN)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:790
+#: includes/admin/settings/class-settings-bootstrap.php:1023
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr "Norwegische Krone (NOK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:791
+#: includes/admin/settings/class-settings-bootstrap.php:1024
 msgctxt "admin settings"
 msgid "New Zealand Dollar (NZD)"
 msgstr "Neuseeland Dollar (NZD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:792
+#: includes/admin/settings/class-settings-bootstrap.php:1025
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr "Philippinischer Peso (PHP)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:793
+#: includes/admin/settings/class-settings-bootstrap.php:1026
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr "Polnischer Zloty (PLN)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:794
+#: includes/admin/settings/class-settings-bootstrap.php:1027
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr "Pfund Sterling (GBP)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:795
+#: includes/admin/settings/class-settings-bootstrap.php:1028
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr "Singapore Dollar (SGD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:796
+#: includes/admin/settings/class-settings-bootstrap.php:1029
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr "Schwedische Krone (SEK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:797
+#: includes/admin/settings/class-settings-bootstrap.php:1030
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr "Schweizer Franken (CHF)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:798
+#: includes/admin/settings/class-settings-bootstrap.php:1031
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr "Taiwanischer Dollar (TWD)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:799
+#: includes/admin/settings/class-settings-bootstrap.php:1032
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr "Thailändischer Baht (THB)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:800
+#: includes/admin/settings/class-settings-bootstrap.php:1033
 msgctxt "admin settings"
 msgid "Turkish Lira (TRY)"
 msgstr "Türkische Lira (TRY)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:801
+#: includes/admin/settings/class-settings-bootstrap.php:1034
 msgctxt "admin settings"
 msgid "U.S. Dollar (USD)"
 msgstr "U.S. Dollar"
 
-#: includes/admin/settings/class-settings-bootstrap.php:820
+#: includes/admin/settings/class-settings-bootstrap.php:1057
 msgctxt "admin settings"
 msgid "Show currency symbol on the left"
 msgstr "Währungssymbol links anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:821
+#: includes/admin/settings/class-settings-bootstrap.php:1058
 msgctxt "admin settings"
 msgid "Show currency symbol on the right"
 msgstr "Währungssymbol rechts anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:822
+#: includes/admin/settings/class-settings-bootstrap.php:1059
 msgctxt "admin settings"
 msgid "Do not show currency symbol"
 msgstr "Währungssymbol nicht anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:831
+#: includes/admin/settings/class-settings-bootstrap.php:1070
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
@@ -3671,89 +3734,96 @@ msgstr ""
 "geprüft. Die Verifizierung und die Prüfung können 48 Stunden in Anspruch "
 "nehmen."
 
-#: includes/admin/settings/class-settings-bootstrap.php:848
+#: includes/admin/settings/class-settings-bootstrap.php:1091
 msgctxt "admin settings"
 msgid ""
 "Listings with pending payments are marked as abandoned after this time. You "
 "can also <a>customize the e-mail</a> users receive."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:873
+#: includes/admin/settings/class-settings-bootstrap.php:1121
 msgctxt "admin settings"
 msgid "Try listing's email field first, then author's email."
 msgstr "Versuchen Sie das E-Mail-Feld zuerst, dann die E-Mail des Autors."
 
-#: includes/admin/settings/class-settings-bootstrap.php:874
+#: includes/admin/settings/class-settings-bootstrap.php:1122
 msgctxt "admin settings"
 msgid "Try author's email first and then listing's email field."
 msgstr ""
 "Probieren sie erst die E-Mail des Authors und dann die E-Mail des Felds."
 
-#: includes/admin/settings/class-settings-bootstrap.php:885
+#: includes/admin/settings/class-settings-bootstrap.php:1135
 msgctxt "admin settings"
 msgid "Plain (text/plain)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:886
+#: includes/admin/settings/class-settings-bootstrap.php:1136
 msgctxt "admin settings"
 msgid "HTML (text/html)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:887
+#: includes/admin/settings/class-settings-bootstrap.php:1137
 msgctxt "admin settings"
 msgid "Both (multipart/alternative)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:899
+#: includes/admin/settings/class-settings-bootstrap.php:1151
 msgctxt "admin settings"
 msgid "A new listing is submitted."
 msgstr "Ein neuer Eintrag wurde übermittelt."
 
-#: includes/admin/settings/class-settings-bootstrap.php:900
+#: includes/admin/settings/class-settings-bootstrap.php:1152
 msgctxt "admin settings"
 msgid "A listing is edited."
 msgstr "Ein Eintrag wurde bearbeitet."
 
-#: includes/admin/settings/class-settings-bootstrap.php:901
+#: includes/admin/settings/class-settings-bootstrap.php:1153
 msgctxt "admin settings"
 msgid "A listing expires."
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/admin/settings/class-settings-bootstrap.php:902
+#: includes/admin/settings/class-settings-bootstrap.php:1154
 #, fuzzy
 msgctxt "admin settings"
 msgid "A listing is renewed."
 msgstr "Ein Eintrag wurde bearbeitet."
 
-#: includes/admin/settings/class-settings-bootstrap.php:903
+#: includes/admin/settings/class-settings-bootstrap.php:1155
 #, fuzzy
 msgctxt "admin settings"
 msgid "A listing has been reported as inappropriate."
 msgstr "Der Eintrag wurde aktualisiert"
 
-#: includes/admin/settings/class-settings-bootstrap.php:904
+#: includes/admin/settings/class-settings-bootstrap.php:1156
 msgctxt "admin settings"
 msgid "A contact message is sent to a listing's owner."
 msgstr "Eine Nachricht wurde an einen Eintrags-Eigentümer versendet."
 
-#: includes/admin/settings/class-settings-bootstrap.php:927
+#: includes/admin/settings/class-settings-bootstrap.php:1182
 msgctxt "admin settings"
 msgid "Their listing is submitted."
 msgstr "Ihr Eintrag ist eingereicht."
 
-#: includes/admin/settings/class-settings-bootstrap.php:928
+#: includes/admin/settings/class-settings-bootstrap.php:1183
 msgctxt "admin settings"
 msgid "Their listing is approved/published."
 msgstr "Ihr Eintrag ist genehmigt/veröffentlicht."
 
-#: includes/admin/settings/class-settings-bootstrap.php:944
-#: includes/admin/settings/class-settings-bootstrap.php:958
-#: includes/admin/settings/class-settings-bootstrap.php:1012
+#: includes/admin/settings/class-settings-bootstrap.php:1184
+#, fuzzy
+msgctxt "admin settings"
+msgid "Their listing expired or is about to expire."
+msgstr "Ihr Eintrag ist eingereicht."
+
+#: includes/admin/settings/class-settings-bootstrap.php:1201
+#: includes/admin/settings/class-settings-bootstrap.php:1217
+#: includes/admin/settings/class-settings-bootstrap.php:1242
+#: includes/admin/settings/class-settings-bootstrap.php:1277
 msgctxt "admin settings"
 msgid "Listing's title"
 msgstr "Eintrag Titel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:955
+#: includes/admin/settings/class-settings-bootstrap.php:1214
 msgctxt "admin settings"
 msgid ""
 "Your listing \"[listing]\" is now available at [listing-url] and can be "
@@ -3762,43 +3832,74 @@ msgstr ""
 "Dein Eintrag  \"[listing]\"  ist jetzt verfügbar unter [listing-url] und "
 "kann öffentlich eingesehen werden."
 
-#: includes/admin/settings/class-settings-bootstrap.php:959
+#: includes/admin/settings/class-settings-bootstrap.php:1218
+#: includes/admin/settings/class-settings-bootstrap.php:1241
 msgctxt "admin settings"
 msgid "Listing's URL"
 msgstr "Eintrags URL"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1013
+#: includes/admin/settings/class-settings-bootstrap.php:1219
+#: includes/admin/settings/class-settings-bootstrap.php:1247
+#, fuzzy
+msgctxt "admin settings"
+msgid "Listing's Access Key"
+msgstr "Eintrag Felder / Bilder"
+
+#: includes/admin/settings/class-settings-bootstrap.php:1243
+#, fuzzy
+msgctxt "admin settings"
+msgid "Sender's name"
+msgstr "Authorname"
+
+#: includes/admin/settings/class-settings-bootstrap.php:1244
+#, fuzzy
+msgctxt "admin settings"
+msgid "Sender's e-mail address"
+msgstr "Ungültiger Erneuerungszustand."
+
+#: includes/admin/settings/class-settings-bootstrap.php:1245
+#, fuzzy
+msgctxt "admin settings"
+msgid "Contact message"
+msgstr "Neue Eintrag Anweisungen"
+
+#: includes/admin/settings/class-settings-bootstrap.php:1246
+msgctxt "admin settings"
+msgid "Date and time the message was sent"
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1278
 msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Kasse"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1157
+#: includes/admin/settings/class-settings-bootstrap.php:1426
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
 "\". Please remove the file \"%s\" manually or deactivate the plugin."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1170
+#: includes/admin/settings/class-settings-bootstrap.php:1442
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
 "be created."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1175
+#: includes/admin/settings/class-settings-bootstrap.php:1447
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
 "not activated."
 msgstr ""
 
-#: includes/functions.php:1008
+#: includes/functions.php:1146
 msgctxt "admin settings"
 msgid "User"
 msgstr "Benutzer"
 
-#: includes/functions.php:1009
+#: includes/functions.php:1147
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Eintrag Enddatum"
@@ -3809,53 +3910,53 @@ msgctxt "admin settings"
 msgid "Enter License Key here"
 msgstr "Erneuere Lizenzschlüssel"
 
-#: includes/admin/settings/class-settings-admin.php:362
+#: includes/admin/settings/class-settings-admin.php:430
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Add notice"
 msgstr "Feld erstellen"
 
-#: includes/admin/settings/class-settings-admin.php:381
+#: includes/admin/settings/class-settings-admin.php:449
 msgctxt "expiration notices"
 msgid "No notices configured."
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:395
+#: includes/admin/settings/class-settings-admin.php:463
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Löschen"
 
-#: includes/admin/settings/class-settings-admin.php:422
+#: includes/admin/settings/class-settings-admin.php:490
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:424
+#: includes/admin/settings/class-settings-admin.php:492
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(wiederkehrend)"
 
-#: includes/admin/settings/class-settings-admin.php:426
+#: includes/admin/settings/class-settings-admin.php:494
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(wiederkehrend)"
 
-#: includes/admin/settings/class-settings-admin.php:430
+#: includes/admin/settings/class-settings-admin.php:498
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Senden nachdem der Eintrag eingestellt wurde."
 
-#: includes/admin/settings/class-settings-admin.php:435
+#: includes/admin/settings/class-settings-admin.php:503
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/admin/settings/class-settings-admin.php:443
+#: includes/admin/settings/class-settings-admin.php:511
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -3863,14 +3964,14 @@ msgid_plural "%d days"
 msgstr[0] "%d Tag"
 msgstr[1] "%d Tage"
 
-#: includes/admin/settings/class-settings-admin.php:446
+#: includes/admin/settings/class-settings-admin.php:514
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:449
+#: includes/admin/settings/class-settings-admin.php:517
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -3879,95 +3980,95 @@ msgstr[1] ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:455
+#: includes/admin/settings/class-settings-admin.php:523
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:458
+#: includes/admin/settings/class-settings-admin.php:526
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Senden nachdem der Eintrag eingestellt wurde."
 
-#: includes/admin/settings/class-settings-admin.php:475
+#: includes/admin/settings/class-settings-admin.php:543
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:476
+#: includes/admin/settings/class-settings-admin.php:544
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Der Preis wurde erfolgreich zugewiesen."
 
-#: includes/admin/settings/class-settings-admin.php:485
+#: includes/admin/settings/class-settings-admin.php:555
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:485
+#: includes/admin/settings/class-settings-admin.php:555
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:488
+#: includes/admin/settings/class-settings-admin.php:558
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:488
+#: includes/admin/settings/class-settings-admin.php:558
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:491
+#: includes/admin/settings/class-settings-admin.php:561
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:491
+#: includes/admin/settings/class-settings-admin.php:561
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/settings/class-settings-admin.php:518
+#: includes/admin/settings/class-settings-admin.php:588
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "zugewiesen zu"
 
-#: includes/admin/settings/class-settings-admin.php:521
+#: includes/admin/settings/class-settings-admin.php:591
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:522
+#: includes/admin/settings/class-settings-admin.php:592
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Zurück zum Eintrag."
 
-#: includes/admin/settings/class-settings-admin.php:523
+#: includes/admin/settings/class-settings-admin.php:593
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:528
+#: includes/admin/settings/class-settings-admin.php:598
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr ""
@@ -3978,125 +4079,125 @@ msgctxt "expiration notices"
 msgid "E-mail body text"
 msgstr "E-mail Text"
 
-#: includes/admin/settings/class-settings-admin.php:398
+#: includes/admin/settings/class-settings-admin.php:466
 #, fuzzy
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "Seitentitel (mit Link)"
 
-#: includes/admin/settings/class-settings-admin.php:399
+#: includes/admin/settings/class-settings-admin.php:467
 msgctxt "settings"
 msgid "Author's name"
 msgstr "Authorname"
 
-#: includes/admin/settings/class-settings-admin.php:400
+#: includes/admin/settings/class-settings-admin.php:468
 msgctxt "settings"
 msgid "Listing's name (with link)"
 msgstr "Eintragsname (mit Link)"
 
-#: includes/admin/settings/class-settings-admin.php:401
+#: includes/admin/settings/class-settings-admin.php:469
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's expiration date"
 msgstr "Eintrag Enddatum"
 
-#: includes/admin/settings/class-settings-admin.php:402
+#: includes/admin/settings/class-settings-admin.php:470
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's renewal link"
 msgstr "Einträge erneuern"
 
-#: includes/admin/settings/class-settings-admin.php:403
+#: includes/admin/settings/class-settings-admin.php:471
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "Eintrag Titel"
 
-#: includes/admin/settings/class-settings-admin.php:404
+#: includes/admin/settings/class-settings-admin.php:472
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "Eintrag Enddatum"
 
-#: includes/admin/settings/class-settings-admin.php:405
+#: includes/admin/settings/class-settings-admin.php:473
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "Eintrag Felder / Bilder"
 
-#: includes/admin/settings/class-settings-admin.php:560
+#: includes/admin/settings/class-settings-admin.php:630
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
 msgstr "Einstellungen aktualisiert."
 
-#: includes/admin/settings/class-settings-bootstrap.php:5
+#: includes/admin/settings/class-settings-bootstrap.php:25
 #, fuzzy
 msgctxt "settings"
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/admin/settings/class-settings-bootstrap.php:7
-#: includes/admin/settings/class-settings-bootstrap.php:705
+#: includes/admin/settings/class-settings-bootstrap.php:27
+#: includes/admin/settings/class-settings-bootstrap.php:883
 #, fuzzy
 msgctxt "settings"
 msgid "Listings"
 msgstr "Einträge"
 
-#: includes/admin/settings/class-settings-bootstrap.php:8
-#: includes/admin/settings/class-settings-bootstrap.php:11
-#: includes/admin/settings/class-settings-bootstrap.php:14
-#: includes/admin/settings/class-settings-bootstrap.php:17
-#: includes/admin/settings/class-settings-bootstrap.php:33
-#: includes/admin/settings/class-settings-bootstrap.php:857
-#: includes/admin/settings/class-settings.php:335
+#: includes/admin/settings/class-settings-bootstrap.php:28
+#: includes/admin/settings/class-settings-bootstrap.php:31
+#: includes/admin/settings/class-settings-bootstrap.php:34
+#: includes/admin/settings/class-settings-bootstrap.php:37
+#: includes/admin/settings/class-settings-bootstrap.php:52
+#: includes/admin/settings/class-settings-bootstrap.php:1102
+#: includes/admin/settings/class-settings.php:354
 #, fuzzy
 msgctxt "settings"
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:10
+#: includes/admin/settings/class-settings-bootstrap.php:30
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail"
 msgstr "E-mail"
 
-#: includes/admin/settings/class-settings-bootstrap.php:13
+#: includes/admin/settings/class-settings-bootstrap.php:33
 #, fuzzy
 msgctxt "settings"
 msgid "Payment"
 msgstr "Bezahlung"
 
-#: includes/admin/settings/class-settings-bootstrap.php:16
+#: includes/admin/settings/class-settings-bootstrap.php:36
 msgctxt "settings"
 msgid "Appearance"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:21
+#: includes/admin/settings/class-settings-bootstrap.php:40
 #: includes/licensing.php:95
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Premium Module"
 
-#: includes/admin/settings/class-settings-bootstrap.php:36
+#: includes/admin/settings/class-settings-bootstrap.php:55
 #, fuzzy
 msgctxt "settings"
 msgid "Permalink Settings"
 msgstr "Permalink Einstellungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:40
+#: includes/admin/settings/class-settings-bootstrap.php:60
 #, fuzzy
 msgctxt "settings"
 msgid "Directory Listings Slug"
 msgstr "Verzeichniseintrag Entwurf"
 
-#: includes/admin/settings/class-settings-bootstrap.php:48
+#: includes/admin/settings/class-settings-bootstrap.php:70
 #, fuzzy
 msgctxt "settings"
 msgid "Categories Slug"
 msgstr "Kategorie Entwurf"
 
-#: includes/admin/settings/class-settings-bootstrap.php:49
+#: includes/admin/settings/class-settings-bootstrap.php:71
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4105,13 +4206,13 @@ msgstr ""
 "Der Entwurf kann nicht von anderen Ausdrücken verwendet werden. Meide "
 "\"Kategorie\" für diese Instanz."
 
-#: includes/admin/settings/class-settings-bootstrap.php:58
+#: includes/admin/settings/class-settings-bootstrap.php:82
 #, fuzzy
 msgctxt "settings"
 msgid "Tags Slug"
 msgstr "Tags Entwurf"
 
-#: includes/admin/settings/class-settings-bootstrap.php:59
+#: includes/admin/settings/class-settings-bootstrap.php:83
 #, fuzzy
 msgctxt "settings"
 msgid "The slug can't be in use by another term. Avoid \"tag\", for instance."
@@ -4119,18 +4220,18 @@ msgstr ""
 "Der Entwurf kann nicht von anderen Ausdrücken verwendet werden. Meide \"tag"
 "\" für diese Instanz."
 
-#: includes/admin/settings/class-settings-bootstrap.php:68
+#: includes/admin/settings/class-settings-bootstrap.php:94
 #, fuzzy
 msgctxt "settings"
 msgid "Remove listing ID from directory URLs?"
 msgstr "Entferne Eintrag ID von diesen Verzeichnis URLs?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:69
+#: includes/admin/settings/class-settings-bootstrap.php:95
 msgctxt "settings"
 msgid "Check this setting to remove the ID for better SEO."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:70
+#: includes/admin/settings/class-settings-bootstrap.php:96
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4142,67 +4243,67 @@ msgstr ""
 "die ID aus der URL zu entfernen um einen SEO und Benutzerfreundlichkeits-"
 "Mehrwert zu erhalten."
 
-#: includes/admin/settings/class-settings-bootstrap.php:77
+#: includes/admin/settings/class-settings-bootstrap.php:104
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA Einstellungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:80
+#: includes/admin/settings/class-settings-bootstrap.php:107
 #, fuzzy
 msgctxt "settings"
 msgid "Need API keys for reCAPTCHA? Get them <a>here</a>."
 msgstr "Brauchst du API Schlüssel für reCAPTCHA? <a>Hier</a> bekommst du sie."
 
-#: includes/admin/settings/class-settings-bootstrap.php:86
+#: includes/admin/settings/class-settings-bootstrap.php:114
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for contact forms"
 msgstr "Benutze reCAPTCHA für Kontaktformen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:92
+#: includes/admin/settings/class-settings-bootstrap.php:122
 #, fuzzy
 msgctxt "settings"
 msgid "Turn off reCAPTCHA for logged in users?"
 msgstr "reCAPTCHA für angemeldete Benutzern ausschalten?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:98
+#: includes/admin/settings/class-settings-bootstrap.php:130
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for listing submits"
 msgstr "Benutze reCAPTCHA für Eintragzusendungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:104
+#: includes/admin/settings/class-settings-bootstrap.php:138
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for report listings?"
 msgstr "Benutze reCAPTCHA für Eintragkommentare?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:110
+#: includes/admin/settings/class-settings-bootstrap.php:146
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for listing comments?"
 msgstr "Benutze reCAPTCHA für Eintragkommentare?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:116
+#: includes/admin/settings/class-settings-bootstrap.php:154
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA Public Key"
 msgstr "reCAPTCHA öffentlicher Schlüssel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:123
+#: includes/admin/settings/class-settings-bootstrap.php:163
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA Private Key"
 msgstr "reCAPTCHA privater Schlüssel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:128
+#: includes/admin/settings/class-settings-bootstrap.php:169
 #, fuzzy
 msgctxt "settings"
 msgid "Registration"
 msgstr "Registrierung"
 
-#: includes/admin/settings/class-settings-bootstrap.php:128
+#: includes/admin/settings/class-settings-bootstrap.php:169
 msgctxt "settings"
 msgid ""
 "We expect that a membership plugin supports the 'redirect_to' parameter for "
@@ -4211,24 +4312,24 @@ msgid ""
 "them to support the WP standard 'redirect_to' query parameter."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:132
+#: includes/admin/settings/class-settings-bootstrap.php:174
 #, fuzzy
 msgctxt "settings"
 msgid "Require login to post listings?"
 msgstr "Zurück zum Eintrag."
 
-#: includes/admin/settings/class-settings-bootstrap.php:139
+#: includes/admin/settings/class-settings-bootstrap.php:183
 msgctxt "settings"
 msgid "Allow anonymous users to edit/manage listings with an access key?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:145
+#: includes/admin/settings/class-settings-bootstrap.php:191
 #, fuzzy
 msgctxt "settings"
 msgid "Login URL"
 msgstr "Login"
 
-#: includes/admin/settings/class-settings-bootstrap.php:146
+#: includes/admin/settings/class-settings-bootstrap.php:192
 #, fuzzy
 msgctxt "settings"
 msgid "Only enter this if using a membership plugin or custom login page."
@@ -4237,18 +4338,18 @@ msgstr ""
 "ein Membership Plugin oder eine benutzerdefinierte Registrierungseite "
 "benutzt. "
 
-#: includes/admin/settings/class-settings-bootstrap.php:147
+#: includes/admin/settings/class-settings-bootstrap.php:193
 msgctxt "settings"
 msgid "URL of your membership plugin's login page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:154
+#: includes/admin/settings/class-settings-bootstrap.php:202
 #, fuzzy
 msgctxt "settings"
 msgid "Registration URL"
 msgstr "Registrierungs URL"
 
-#: includes/admin/settings/class-settings-bootstrap.php:155
+#: includes/admin/settings/class-settings-bootstrap.php:203
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4258,41 +4359,41 @@ msgstr ""
 "ein Membership Plugin oder eine benutzerdefinierte Registrierungseite "
 "benutzt. "
 
-#: includes/admin/settings/class-settings-bootstrap.php:156
+#: includes/admin/settings/class-settings-bootstrap.php:204
 msgctxt "settings"
 msgid "URL of your membership plugin's registration page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:163
+#: includes/admin/settings/class-settings-bootstrap.php:213
 msgctxt "settings"
 msgid "Allow users to create accounts during listing submit?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:166
+#: includes/admin/settings/class-settings-bootstrap.php:216
 #, fuzzy
 msgctxt "settings"
 msgid "No"
 msgstr "Nein"
 
-#: includes/admin/settings/class-settings-bootstrap.php:167
+#: includes/admin/settings/class-settings-bootstrap.php:217
 msgctxt "settings"
 msgid "Yes, and make it optional"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:168
+#: includes/admin/settings/class-settings-bootstrap.php:218
 #, fuzzy
 msgctxt "settings"
 msgid "Yes, and make it required"
 msgstr "%s ist ein Pflichtfeld."
 
-#: includes/admin/settings/class-settings-bootstrap.php:175
-#: includes/admin/settings/class-settings-bootstrap.php:185
+#: includes/admin/settings/class-settings-bootstrap.php:225
+#: includes/admin/settings/class-settings-bootstrap.php:238
 #, fuzzy
 msgctxt "settings"
 msgid "Terms and Conditions"
 msgstr "Bedingungen und Konditionen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:179
+#: includes/admin/settings/class-settings-bootstrap.php:230
 #, fuzzy
 msgctxt "settings"
 msgid "Display and require user agreement to Terms and Conditions"
@@ -4300,7 +4401,7 @@ msgstr ""
 "Zeige und setze Benutzervereinbarung als Pflichtfeld in Bedingungen und "
 "Konditionen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:186
+#: includes/admin/settings/class-settings-bootstrap.php:239
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4311,19 +4412,19 @@ msgstr ""
 "werden Bedingungen und Konditionen ersetzt durch einen Link der "
 "dazugehörigen Seite."
 
-#: includes/admin/settings/class-settings-bootstrap.php:188
+#: includes/admin/settings/class-settings-bootstrap.php:241
 #, fuzzy
 msgctxt "settings"
 msgid "Terms and Conditions text goes here."
 msgstr "Bedingungen und Konditionen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:193
+#: includes/admin/settings/class-settings-bootstrap.php:247
 #, fuzzy
 msgctxt "settings"
 msgid "Data Collection"
 msgstr "Datenkollektion"
 
-#: includes/admin/settings/class-settings-bootstrap.php:197
+#: includes/admin/settings/class-settings-bootstrap.php:252
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4333,24 +4434,24 @@ msgstr ""
 "BD erlauben anonym Informationen zu sammeln über deine Erweiterungen, Themen "
 "und WP-version?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:203
+#: includes/admin/settings/class-settings-bootstrap.php:259
 #, fuzzy
 msgctxt "settings"
 msgid "Directory Search"
 msgstr "Verzeichnis Suche"
 
-#: includes/admin/settings/class-settings-bootstrap.php:207
+#: includes/admin/settings/class-settings-bootstrap.php:264
 msgctxt "settings"
 msgid "Search form display"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:225
+#: includes/admin/settings/class-settings-bootstrap.php:286
 #, fuzzy
 msgctxt "settings"
 msgid "Quick search fields"
 msgstr "Schnellsuche Felder"
 
-#: includes/admin/settings/class-settings-bootstrap.php:226
+#: includes/admin/settings/class-settings-bootstrap.php:287
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4359,12 +4460,12 @@ msgid ""
 msgstr ""
 "Zu viele Felder können die Suchleistung stark beeinflussen und lange dauern."
 
-#: includes/admin/settings/class-settings-bootstrap.php:238
+#: includes/admin/settings/class-settings-bootstrap.php:301
 msgctxt "settings"
 msgid "Enable high performance searches?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:239
+#: includes/admin/settings/class-settings-bootstrap.php:302
 msgctxt "settings"
 msgid ""
 "Enabling this makes BD sacrifice result quality to improve speed. This is "
@@ -4372,24 +4473,24 @@ msgid ""
 "issue."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:244
+#: includes/admin/settings/class-settings-bootstrap.php:308
 #, fuzzy
 msgctxt "settings"
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: includes/admin/settings/class-settings-bootstrap.php:249
+#: includes/admin/settings/class-settings-bootstrap.php:314
 #, fuzzy
 msgctxt "settings"
 msgid "Disable advanced CPT integration?"
 msgstr "Email Erinnerung"
 
-#: includes/admin/settings/class-settings-bootstrap.php:255
+#: includes/admin/settings/class-settings-bootstrap.php:322
 msgctxt "settings"
 msgid "Enable AJAX compatibility mode?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:257
+#: includes/admin/settings/class-settings-bootstrap.php:324
 msgctxt "settings"
 msgid ""
 "If this compatibility mode doesn't solve your issue, you may be experiencing "
@@ -4397,18 +4498,18 @@ msgid ""
 "theme and plugin conflicts with Business Directory."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:264
+#: includes/admin/settings/class-settings-bootstrap.php:333
 msgctxt "settings"
 msgid "Disable Frontend Listing Submission?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:288
+#: includes/admin/settings/class-settings-bootstrap.php:367
 #, fuzzy
 msgctxt "settings"
 msgid "Listings per page"
 msgstr "Einträge pro Seite"
 
-#: includes/admin/settings/class-settings-bootstrap.php:289
+#: includes/admin/settings/class-settings-bootstrap.php:368
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4418,13 +4519,13 @@ msgstr ""
 "Nummer der Einträge die pro Seite angezeigt werden. Benutze einen Wert von "
 "\"0\" um alle Einträge anzuzeigen."
 
-#: includes/admin/settings/class-settings-bootstrap.php:297
+#: includes/admin/settings/class-settings-bootstrap.php:379
 #, fuzzy
 msgctxt "settings"
 msgid "Listing duration for no-fee sites (in days)"
 msgstr "Eintrag Zeitraum für kostenlose Seiten (in Tagen)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:298
+#: includes/admin/settings/class-settings-bootstrap.php:380
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4434,58 +4535,58 @@ msgstr ""
 "Benutze einen Wert von \"0\" um ein Eintrag undefiniert zu lassen oder "
 "benutze eine Nummer unter 10 Jahren (3650 Tage)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:306
+#: includes/admin/settings/class-settings-bootstrap.php:392
 #, fuzzy
 msgctxt "settings"
 msgid "Turn on listing renewal option?"
 msgstr "Option zur Erneuerung von Einträgen aktivieren?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:313
+#: includes/admin/settings/class-settings-bootstrap.php:401
 msgctxt "settings"
 msgid "Open detailed view of listing in new tab?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:318
+#: includes/admin/settings/class-settings-bootstrap.php:407
 #, fuzzy
 msgctxt "settings"
 msgid "Report Listings"
 msgstr "Einträge importieren"
 
-#: includes/admin/settings/class-settings-bootstrap.php:322
+#: includes/admin/settings/class-settings-bootstrap.php:412
 #, fuzzy
 msgctxt "settings"
 msgid "Include button to report listings?"
 msgstr "Zurück zum Eintrag."
 
-#: includes/admin/settings/class-settings-bootstrap.php:329
+#: includes/admin/settings/class-settings-bootstrap.php:421
 msgctxt "settings"
 msgid "Enable report listing for registered users only"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:337
+#: includes/admin/settings/class-settings-bootstrap.php:431
 msgctxt "settings"
 msgid "Report listing option list"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:338
+#: includes/admin/settings/class-settings-bootstrap.php:432
 msgctxt "settings"
 msgid ""
 "Form option list to report a listing as inappropriate. One option per line."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:344
+#: includes/admin/settings/class-settings-bootstrap.php:439
 #, fuzzy
 msgctxt "settings"
 msgid "Contact Form"
 msgstr "Zurücksetzen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:348
+#: includes/admin/settings/class-settings-bootstrap.php:444
 #, fuzzy
 msgctxt "settings"
 msgid "Include listing contact form on listing pages?"
 msgstr "Kontaktform in Eintragsseiten einfügen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:349
+#: includes/admin/settings/class-settings-bootstrap.php:445
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4495,19 +4596,19 @@ msgstr ""
 "Benutzer erlauben den Eintragsauthor privat zu kontaktieren. Der Author "
 "bekommt eine Nachricht per E-mail zugeschickt."
 
-#: includes/admin/settings/class-settings-bootstrap.php:356
+#: includes/admin/settings/class-settings-bootstrap.php:454
 #, fuzzy
 msgctxt "settings"
 msgid "Require login for using the contact form?"
 msgstr "Einloggen um das Kontaktformular nutzen zu können?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:364
+#: includes/admin/settings/class-settings-bootstrap.php:464
 #, fuzzy
 msgctxt "settings"
 msgid "Maximum number of contact form submits per day"
 msgstr "Maximale Nummer der Kontaktformmails die pro Tag zugesendet werden"
 
-#: includes/admin/settings/class-settings-bootstrap.php:365
+#: includes/admin/settings/class-settings-bootstrap.php:465
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4517,13 +4618,13 @@ msgstr ""
 "Benutze dieses Feld um spamming von Einträgen zu vermeiden. 0 heisst "
 "unbegrenzt pro Tag."
 
-#: includes/admin/settings/class-settings-bootstrap.php:373
+#: includes/admin/settings/class-settings-bootstrap.php:475
 #, fuzzy
 msgctxt "settings"
 msgid "Include comment form on listing pages?"
 msgstr "Kommentarform einfügen in Eintragsseiten?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:374
+#: includes/admin/settings/class-settings-bootstrap.php:476
 msgctxt "settings"
 msgid ""
 "BD uses the standard comment inclusion from WordPress, but most themes only "
@@ -4533,43 +4634,43 @@ msgid ""
 "first, and if that doesn't work, try the 3rd option instead."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:386
+#: includes/admin/settings/class-settings-bootstrap.php:490
 #, fuzzy
 msgctxt "settings"
 msgid "Show listings under categories on main page?"
 msgstr "Einträge unter Kategorien anzeigen auf der Hauptseite?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:393
+#: includes/admin/settings/class-settings-bootstrap.php:499
 #, fuzzy
 msgctxt "settings"
 msgid "Prevent featured (sticky) status on BD pages?"
 msgstr "unterstützter (unbeweglicher) Status"
 
-#: includes/admin/settings/class-settings-bootstrap.php:394
+#: includes/admin/settings/class-settings-bootstrap.php:500
 msgctxt "settings"
 msgid ""
 "Prevents featured listings from floating to the top of the selected page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:407
+#: includes/admin/settings/class-settings-bootstrap.php:515
 #, fuzzy
 msgctxt "settings"
 msgid "Status of listings upon uninstalling plugin"
 msgstr "Status der Einträge bei Deinstallation der Erweiterung"
 
-#: includes/admin/settings/class-settings-bootstrap.php:418
+#: includes/admin/settings/class-settings-bootstrap.php:528
 #, fuzzy
 msgctxt "settings"
 msgid "Status of deleted listings"
 msgstr "Status der gelöschten Einträge"
 
-#: includes/admin/settings/class-settings-bootstrap.php:429
+#: includes/admin/settings/class-settings-bootstrap.php:541
 #, fuzzy
 msgctxt "settings"
 msgid "Submit Listing instructions message"
 msgstr "Nachricht mit Anweisungen für einen neuen Eintrag"
 
-#: includes/admin/settings/class-settings-bootstrap.php:430
+#: includes/admin/settings/class-settings-bootstrap.php:542
 msgctxt "settings"
 msgid ""
 "This text is displayed at the first page of the Submit Listing process for "
@@ -4577,73 +4678,73 @@ msgid ""
 "form or anything you want to tell users before they get started."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:435
+#: includes/admin/settings/class-settings-bootstrap.php:548
 #, fuzzy
 msgctxt "settings"
 msgid "Post/Category Settings"
 msgstr "Post/Kategorie Einstellungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:439
+#: includes/admin/settings/class-settings-bootstrap.php:553
 #, fuzzy
 msgctxt "settings"
 msgid "Default new post status"
 msgstr "Standard neuer Post Status"
 
-#: includes/admin/settings/class-settings-bootstrap.php:450
+#: includes/admin/settings/class-settings-bootstrap.php:566
 #, fuzzy
 msgctxt "settings"
 msgid "Edit post status"
 msgstr "Post Status Bearbeiten"
 
-#: includes/admin/settings/class-settings-bootstrap.php:461
+#: includes/admin/settings/class-settings-bootstrap.php:579
 #, fuzzy
 msgctxt "settings"
 msgid "Order categories list by"
 msgstr "Kategorieliste sortieren nach"
 
-#: includes/admin/settings/class-settings-bootstrap.php:473
+#: includes/admin/settings/class-settings-bootstrap.php:593
 #, fuzzy
 msgctxt "settings"
 msgid "Sort order for categories"
 msgstr "Sortierung für Kategorien"
 
-#: includes/admin/settings/class-settings-bootstrap.php:484
+#: includes/admin/settings/class-settings-bootstrap.php:606
 #, fuzzy
 msgctxt "settings"
 msgid "Show category post count?"
 msgstr "Kategoriepost Anzahl anzeigen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:491
+#: includes/admin/settings/class-settings-bootstrap.php:615
 #, fuzzy
 msgctxt "settings"
 msgid "Hide empty categories?"
 msgstr "Leere Kategorien verbergen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:498
+#: includes/admin/settings/class-settings-bootstrap.php:624
 #, fuzzy
 msgctxt "settings"
 msgid "Show only parent categories in category list?"
 msgstr "Nur Elternkategorien in Kategorieliste anzeigen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:503
+#: includes/admin/settings/class-settings-bootstrap.php:630
 #, fuzzy
 msgctxt "settings"
 msgid "Listings Sorting"
 msgstr "Sortierung Einträge"
 
-#: includes/admin/settings/class-settings-bootstrap.php:510
+#: includes/admin/settings/class-settings-bootstrap.php:638
 #, fuzzy
 msgctxt "settings"
 msgid "Order directory listings by"
 msgstr "Anordnung Verzeichniseinträge durch"
 
-#: includes/admin/settings/class-settings-bootstrap.php:529
+#: includes/admin/settings/class-settings-bootstrap.php:659
 #, fuzzy
 msgctxt "settings"
 msgid "Sort directory listings by"
 msgstr "Verzeichnissortierung der Einträge durch"
 
-#: includes/admin/settings/class-settings-bootstrap.php:530
+#: includes/admin/settings/class-settings-bootstrap.php:660
 #, fuzzy
 msgctxt "settings"
 msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
@@ -4651,126 +4752,126 @@ msgstr ""
 "Aufsteigend für aufsteigende Reihenfolge A-Z, Absteigend für absteigende "
 "Reihenfolge Z-A"
 
-#: includes/admin/settings/class-settings-bootstrap.php:541
+#: includes/admin/settings/class-settings-bootstrap.php:673
 #, fuzzy
 msgctxt "settings"
 msgid "Enable sort bar?"
 msgstr "Sortierung aktivieren?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:548
+#: includes/admin/settings/class-settings-bootstrap.php:682
 #, fuzzy
 msgctxt "settings"
 msgid "Sortbar Fields"
 msgstr "Sortierbare Felder"
 
-#: includes/admin/settings/class-settings-bootstrap.php:558
+#: includes/admin/settings/class-settings-bootstrap.php:693
 #, fuzzy
 msgctxt "settings"
 msgid "Directory Display Options"
 msgstr "Verzeichnisoptionen anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:562
+#: includes/admin/settings/class-settings-bootstrap.php:698
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"Submit listing\" button."
 msgstr "\"Eintrag erstellen” Schaltfläche anzeigen."
 
-#: includes/admin/settings/class-settings-bootstrap.php:570
+#: includes/admin/settings/class-settings-bootstrap.php:708
 #, fuzzy
 msgctxt "settings"
 msgid "Show \"Search listings\"."
 msgstr "\"Einträge durchsuchen\" anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:577
+#: includes/admin/settings/class-settings-bootstrap.php:717
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"View Listings\" button."
 msgstr "\"Einträge anschauen\" Schaltfläche anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:584
+#: includes/admin/settings/class-settings-bootstrap.php:726
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"Directory\" button."
 msgstr "\"Verzeichnis\" Schaltfläche anzeigen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:590
+#: includes/admin/settings/class-settings-bootstrap.php:733
 #, fuzzy
 msgctxt "settings"
 msgid "Theme Settings"
 msgstr "Bildeinstellungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:595
+#: includes/admin/settings/class-settings-bootstrap.php:739
 msgctxt "settings"
 msgid "Theme button style"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:606
+#: includes/admin/settings/class-settings-bootstrap.php:752
 msgctxt "settings"
 msgid ""
 "Include CSS rules to give their own style to View, Edit and Delete buttons?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:612
+#: includes/admin/settings/class-settings-bootstrap.php:759
 #, fuzzy
 msgctxt "settings"
 msgid "Image"
 msgstr "Bild"
 
-#: includes/admin/settings/class-settings-bootstrap.php:613
+#: includes/admin/settings/class-settings-bootstrap.php:760
 #, fuzzy
 msgctxt "settings"
 msgid "Image Settings"
 msgstr "Bildeinstellungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:617
+#: includes/admin/settings/class-settings-bootstrap.php:765
 #, fuzzy
 msgctxt "settings"
 msgid "Allow images?"
 msgstr "Bilder erlauben?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:625
+#: includes/admin/settings/class-settings-bootstrap.php:776
 #, fuzzy
 msgctxt "settings"
 msgid "Min Image File Size (KB)"
 msgstr "Maximale Bildgröße (KB)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:633
+#: includes/admin/settings/class-settings-bootstrap.php:787
 #, fuzzy
 msgctxt "settings"
 msgid "Max Image File Size (KB)"
 msgstr "Maximale Bildgröße (KB)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:641
+#: includes/admin/settings/class-settings-bootstrap.php:798
 #, fuzzy
 msgctxt "settings"
 msgid "Min image width (px)"
 msgstr "Bildergröße (in px):"
 
-#: includes/admin/settings/class-settings-bootstrap.php:648
+#: includes/admin/settings/class-settings-bootstrap.php:807
 #, fuzzy
 msgctxt "settings"
 msgid "Min image height (px)"
 msgstr "Bilderhöhe (in px):"
 
-#: includes/admin/settings/class-settings-bootstrap.php:657
+#: includes/admin/settings/class-settings-bootstrap.php:820
 #, fuzzy
 msgctxt "settings"
 msgid "Max image width (px)"
 msgstr "Maximale Bildbreite"
 
-#: includes/admin/settings/class-settings-bootstrap.php:665
+#: includes/admin/settings/class-settings-bootstrap.php:831
 #, fuzzy
 msgctxt "settings"
 msgid "Max image height (px)"
 msgstr "Maximale Bildhöhe"
 
-#: includes/admin/settings/class-settings-bootstrap.php:673
+#: includes/admin/settings/class-settings-bootstrap.php:842
 #, fuzzy
 msgctxt "settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "Kontrollkästchen/Leuchtkasten aktivieren?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:674
+#: includes/admin/settings/class-settings-bootstrap.php:843
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4779,31 +4880,31 @@ msgstr ""
 "Deaktivieren wenn Konflikte mit anderen Elementen oder installierten "
 "Erweiterungen entstehen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:679
+#: includes/admin/settings/class-settings-bootstrap.php:849
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnails"
 msgstr "Thumbnails"
 
-#: includes/admin/settings/class-settings-bootstrap.php:684
+#: includes/admin/settings/class-settings-bootstrap.php:856
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnail width (px)"
 msgstr "Thumbnailbreite"
 
-#: includes/admin/settings/class-settings-bootstrap.php:692
+#: includes/admin/settings/class-settings-bootstrap.php:867
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnail height (px)"
 msgstr "Thumbnailbreite"
 
-#: includes/admin/settings/class-settings-bootstrap.php:699
+#: includes/admin/settings/class-settings-bootstrap.php:876
 #, fuzzy
 msgctxt "settings"
 msgid "Crop thumbnails to exact dimensions?"
 msgstr "Vorschaubild auf die exakte Maße abschneiden?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:700
+#: includes/admin/settings/class-settings-bootstrap.php:877
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4819,55 +4920,83 @@ msgstr ""
 "Abhängig von den hochgeladenen Bildern können Thumbnails unterschiedliche "
 "Höhen haben."
 
-#: includes/admin/settings/class-settings-bootstrap.php:709
+#: includes/admin/settings/class-settings-bootstrap.php:888
 msgctxt "settings"
 msgid "Enforce image upload on submit/edit?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:716
+#: includes/admin/settings/class-settings-bootstrap.php:897
 #, fuzzy
 msgctxt "settings"
 msgid "Number of free images"
 msgstr "Nummer der freien Bilder"
 
-#: includes/admin/settings/class-settings-bootstrap.php:725
+#: includes/admin/settings/class-settings-bootstrap.php:909
 #, fuzzy
 msgctxt "settings"
 msgid "Use default picture for listings with no picture?"
 msgstr "Benutze Standardbilder für Einträge mit keinem Bild?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:732
+#: includes/admin/settings/class-settings-bootstrap.php:918
 #, fuzzy
 msgctxt "settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Thumbnail auf der Eintragshauptseite anzeigen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:742
+#: includes/admin/settings/class-settings-bootstrap.php:927
+#, fuzzy
+msgctxt "settings"
+msgid "Featured Badge image"
+msgstr "Featured Levels Module"
+
+#: includes/admin/settings/class-settings-bootstrap.php:936
+#, fuzzy
+msgctxt "settings"
+msgid "Featured Badge URL"
+msgstr "Featured Levels Module"
+
+#: includes/admin/settings/class-settings-bootstrap.php:937
+msgctxt "settings"
+msgid "Use this to set Featured Badge image as a link to a defined URL."
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:938
+#, fuzzy
+msgctxt "settings"
+msgid "URL"
+msgstr "URL"
+
+#: includes/admin/settings/class-settings-bootstrap.php:947
+msgctxt "settings"
+msgid "Display featured (sticky) badge on listing:"
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:964
 #, fuzzy
 msgctxt "settings"
 msgid "Fee Order"
 msgstr "Auftrag"
 
-#: includes/admin/settings/class-settings-bootstrap.php:750
+#: includes/admin/settings/class-settings-bootstrap.php:977
 #, fuzzy
 msgctxt "settings"
 msgid "Turn On payments?"
 msgstr "Bezahlungen aktivieren?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:757
+#: includes/admin/settings/class-settings-bootstrap.php:986
 #, fuzzy
 msgctxt "settings"
 msgid "Put payment gateways in test mode?"
 msgstr "Bezahlungsgateway im Testmodus ausführen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:765
+#: includes/admin/settings/class-settings-bootstrap.php:996
 #, fuzzy
 msgctxt "settings"
 msgid "Perform checkouts on the secure (HTTPS) version of your site?"
 msgstr ""
 "Aktiviere (HTTPS) sichere Verbindung für den Bestellprozess deiner Seite?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:766
+#: includes/admin/settings/class-settings-bootstrap.php:997
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4877,36 +5006,36 @@ msgstr ""
 "Empfohlen zur Erweiterung der Sicherheit. Aktiviere HTTPS auf deinem Server "
 "und <a>erhalte ein SSL Zertifikat</a>"
 
-#: includes/admin/settings/class-settings-bootstrap.php:774
+#: includes/admin/settings/class-settings-bootstrap.php:1007
 #, fuzzy
 msgctxt "settings"
 msgid "Currency Code"
 msgstr "Währungsschlüssel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:809
+#: includes/admin/settings/class-settings-bootstrap.php:1044
 #, fuzzy
 msgctxt "settings"
 msgid "Currency Symbol"
 msgstr "Währungssymbol"
 
-#: includes/admin/settings/class-settings-bootstrap.php:817
+#: includes/admin/settings/class-settings-bootstrap.php:1054
 #, fuzzy
 msgctxt "settings"
 msgid "Currency symbol display"
 msgstr "Währungssymbol Anzeige"
 
-#: includes/admin/settings/class-settings-bootstrap.php:830
+#: includes/admin/settings/class-settings-bootstrap.php:1069
 #, fuzzy
 msgctxt "settings"
 msgid "Thank you for payment message"
 msgstr "Danke für die Bezahlung Nachricht"
 
-#: includes/admin/settings/class-settings-bootstrap.php:838
+#: includes/admin/settings/class-settings-bootstrap.php:1079
 msgctxt "settings"
 msgid "Ask users to come back for abandoned payments?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:839
+#: includes/admin/settings/class-settings-bootstrap.php:1080
 msgctxt "settings"
 msgid ""
 "An abandoned payment is when a user attempts to place a listing and gets to "
@@ -4915,19 +5044,19 @@ msgid ""
 "the transaction.  BD can remind them to come back and continue."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:847
+#: includes/admin/settings/class-settings-bootstrap.php:1090
 #, fuzzy
 msgctxt "settings"
 msgid "Listing abandonment threshold (hours)"
 msgstr "Eintragsabbuchungsemail Grenze (in tagen)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:861
+#: includes/admin/settings/class-settings-bootstrap.php:1107
 #, fuzzy
 msgctxt "settings"
 msgid "Display email address fields publicly?"
 msgstr "E-mail Adressfeld öffentlich anzeigen?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:862
+#: includes/admin/settings/class-settings-bootstrap.php:1108
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4937,13 +5066,13 @@ msgid ""
 msgstr ""
 "E-mailadresse allen Benutzern anzeigen. NICHT ZU EMPFEHLEN. Achtung Spam!"
 
-#: includes/admin/settings/class-settings-bootstrap.php:869
+#: includes/admin/settings/class-settings-bootstrap.php:1117
 #, fuzzy
 msgctxt "settings"
 msgid "How to determine the listing's email address?"
 msgstr "Wie legt man die E-mailadresse für einen Eintrag fest?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:870
+#: includes/admin/settings/class-settings-bootstrap.php:1118
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4953,12 +5082,12 @@ msgstr ""
 "Dies bewirkt, dass eine E-mail an den Eigentümer geschickt wird, wenn der "
 "Eintrag abläuft."
 
-#: includes/admin/settings/class-settings-bootstrap.php:881
+#: includes/admin/settings/class-settings-bootstrap.php:1131
 msgctxt "settings"
 msgid "Email Content-Type header"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:882
+#: includes/admin/settings/class-settings-bootstrap.php:1132
 msgctxt "settings"
 msgid ""
 "Use this setting to control the format of the emails explicitly. Some "
@@ -4967,25 +5096,25 @@ msgid ""
 "then \"Both\"."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:892
+#: includes/admin/settings/class-settings-bootstrap.php:1143
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail Notifications"
 msgstr "Email Erinnerung"
 
-#: includes/admin/settings/class-settings-bootstrap.php:896
+#: includes/admin/settings/class-settings-bootstrap.php:1148
 #, fuzzy
 msgctxt "settings"
 msgid "Notify admin via e-mail when..."
 msgstr "Administrator per E-mail informieren wenn... "
 
-#: includes/admin/settings/class-settings-bootstrap.php:911
+#: includes/admin/settings/class-settings-bootstrap.php:1165
 #, fuzzy
 msgctxt "settings"
 msgid "CC this e-mail address too"
 msgstr "CC diese E-mail an"
 
-#: includes/admin/settings/class-settings-bootstrap.php:916
+#: includes/admin/settings/class-settings-bootstrap.php:1171
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -4995,37 +5124,37 @@ msgstr ""
 "Du kannst dieses Texttemplate verändern, das für die meisten der E-"
 "mailadressen unten verwendet wird."
 
-#: includes/admin/settings/class-settings-bootstrap.php:923
+#: includes/admin/settings/class-settings-bootstrap.php:1178
 #, fuzzy
 msgctxt "settings"
 msgid "Notify users via e-mail when..."
 msgstr "Benachrichtige Benutzer per E-mail wenn..."
 
-#: includes/admin/settings/class-settings-bootstrap.php:933
+#: includes/admin/settings/class-settings-bootstrap.php:1189
 #, fuzzy
 msgctxt "settings"
 msgid "Templates"
 msgstr "E-mail Templates"
 
-#: includes/admin/settings/class-settings-bootstrap.php:937
+#: includes/admin/settings/class-settings-bootstrap.php:1194
 #, fuzzy
 msgctxt "settings"
 msgid "Email confirmation message"
 msgstr "Email Bestätigungsnachricht"
 
-#: includes/admin/settings/class-settings-bootstrap.php:938
+#: includes/admin/settings/class-settings-bootstrap.php:1195
 #, fuzzy
 msgctxt "settings"
 msgid "Sent after a listing has been submitted."
 msgstr "Senden nachdem der Eintrag eingestellt wurde."
 
-#: includes/admin/settings/class-settings-bootstrap.php:951
+#: includes/admin/settings/class-settings-bootstrap.php:1210
 #, fuzzy
 msgctxt "settings"
 msgid "Listing published message"
 msgstr "Eintrag veröffentlicht Nachricht"
 
-#: includes/admin/settings/class-settings-bootstrap.php:952
+#: includes/admin/settings/class-settings-bootstrap.php:1211
 #, fuzzy
 msgctxt "settings"
 msgid "Sent when the listing has been published or approved by an admin."
@@ -5033,13 +5162,13 @@ msgstr ""
 "Senden wenn der Eintrag vom Administrator genehmigt oder veröffentlicht "
 "wurde."
 
-#: includes/admin/settings/class-settings-bootstrap.php:966
+#: includes/admin/settings/class-settings-bootstrap.php:1228
 #, fuzzy
 msgctxt "settings"
 msgid "Listing Contact Message"
 msgstr "Neue Eintrag Anweisungen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:967
+#: includes/admin/settings/class-settings-bootstrap.php:1229
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -5049,30 +5178,30 @@ msgstr ""
 "An den Eigentümer senden wenn jemand die Kontaktform auf Ihrer Eintragsseite "
 "verwendet."
 
-#: includes/admin/settings/class-settings-bootstrap.php:992
+#: includes/admin/settings/class-settings-bootstrap.php:1257
 #, fuzzy
 msgctxt "settings"
 msgid "Payment abandoned reminder message"
 msgstr "Erneuerungserinnerung E-mail Nachricht"
 
-#: includes/admin/settings/class-settings-bootstrap.php:993
+#: includes/admin/settings/class-settings-bootstrap.php:1258
 msgctxt "settings"
 msgid "Sent some time after a pending payment is abandoned by users."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1028
+#: includes/admin/settings/class-settings-bootstrap.php:1295
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail Notices"
 msgstr "Email Erinnerung"
 
-#: includes/admin/settings/class-settings.php:531
-#: includes/admin/settings/class-settings.php:542
+#: includes/admin/settings/class-settings.php:556
+#: includes/admin/settings/class-settings.php:567
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:549
+#: includes/admin/settings/class-settings.php:574
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
@@ -5108,7 +5237,7 @@ msgctxt "settings"
 msgid "Deactivate"
 msgstr "Aktiviere Lizenz"
 
-#: includes/licensing.php:204 includes/licensing.php:205
+#: includes/licensing.php:206 includes/licensing.php:207
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Lizenz"
@@ -5123,51 +5252,51 @@ msgctxt "settings"
 msgid "← Return to \"Manage Options\""
 msgstr "← zurück zu \"Formularfelder verwalten\""
 
-#: includes/admin/settings/class-settings-bootstrap.php:410
-#: includes/admin/settings/class-settings-bootstrap.php:421
+#: includes/admin/settings/class-settings-bootstrap.php:518
+#: includes/admin/settings/class-settings-bootstrap.php:531
 msgctxt "post status"
 msgid "Draft"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:411
-#: includes/admin/settings/class-settings-bootstrap.php:422
+#: includes/admin/settings/class-settings-bootstrap.php:519
+#: includes/admin/settings/class-settings-bootstrap.php:532
 msgctxt "post status"
 msgid "Trash"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:442
-#: includes/admin/settings/class-settings-bootstrap.php:453
+#: includes/admin/settings/class-settings-bootstrap.php:556
+#: includes/admin/settings/class-settings-bootstrap.php:569
 msgctxt "post status"
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: includes/admin/settings/class-settings-bootstrap.php:443
-#: includes/admin/settings/class-settings-bootstrap.php:454
+#: includes/admin/settings/class-settings-bootstrap.php:557
+#: includes/admin/settings/class-settings-bootstrap.php:570
 msgctxt "post status"
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: includes/admin/settings/class-settings-bootstrap.php:971
+#: includes/admin/settings/class-settings-bootstrap.php:1233
 msgctxt "contact email"
 msgid "You have received a reply from your listing at %s."
 msgstr "Sie haben eine Antwort auf Ihren Eintrag erhalten am %s."
 
-#: includes/admin/settings/class-settings-bootstrap.php:972
+#: includes/admin/settings/class-settings-bootstrap.php:1234
 msgctxt "contact email"
 msgid "Name: %s"
 msgstr "Name: %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:973
+#: includes/admin/settings/class-settings-bootstrap.php:1235
 msgctxt "contact email"
 msgid "E-Mail: %s"
 msgstr "E-mail: %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:974
+#: includes/admin/settings/class-settings-bootstrap.php:1236
 msgctxt "contact email"
 msgid "Message:"
 msgstr "Nachricht:"
 
-#: includes/admin/settings/class-settings-bootstrap.php:976
+#: includes/admin/settings/class-settings-bootstrap.php:1238
 msgctxt "contact email"
 msgid "Time: %s"
 msgstr "Zeit: %s"
@@ -5333,7 +5462,7 @@ msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Eintrag aktualisieren auf Hervorhebung"
 
-#: includes/installer.php:55
+#: includes/installer.php:79
 msgctxt "installer"
 msgid "Default Fee"
 msgstr "Standard Preis"
@@ -5510,25 +5639,25 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Neuer Eintrag"
 
-#: includes/class-listing.php:318
+#: includes/class-listing.php:323
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/class-listing.php:470
+#: includes/class-listing.php:482
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Preis nicht verfügbar)"
 
-#: includes/class-listing.php:626
+#: includes/class-listing.php:639
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(wiederkehrend)"
 
-#: includes/class-listing.php:628
+#: includes/class-listing.php:641
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -5582,17 +5711,20 @@ msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Kostenloser Eintrag"
 
-#: includes/class-listing-email-notification.php:151
+#. translators: [%s] is the name of the blog.
+#: includes/class-listing-email-notification.php:235
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] neue Eintragsbenachrichtigung"
 
-#: includes/class-listing-email-notification.php:186
+#. translators: [%s] is the name of the blog.
+#: includes/class-listing-email-notification.php:282
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Eintrag bearbeiten Benachrichtigung"
 
-#: includes/class-listing-email-notification.php:240
+#. translators: %s is the name of the blog.
+#: includes/class-listing-email-notification.php:354
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -5600,14 +5732,14 @@ msgstr "[%s] neue Eintragsbenachrichtigung"
 
 #: templates/email/listing-added.tpl.php:7
 #: templates/email/listing-edited.tpl.php:7
-#: templates/email/listing-reported.tpl.php:7
+#: templates/email/listing-reported.tpl.php:9
 msgctxt "notify email"
 msgid "ID"
 msgstr "ID"
 
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:10
-#: templates/email/listing-reported.tpl.php:10
+#: templates/email/listing-reported.tpl.php:11
 msgctxt "notify email"
 msgid "Title"
 msgstr "Titel"
@@ -5659,18 +5791,42 @@ msgctxt "notify email"
 msgid "Categories"
 msgstr "Kategorien"
 
+#: templates/email/listing-reported.tpl.php:7
+#, fuzzy
+msgctxt "notify email"
+msgid "Listing information"
+msgstr "Eintrag Informationen"
+
 #: templates/email/listing-reported.tpl.php:21
+#, fuzzy
+msgctxt "notify email"
+msgid "Report Information"
+msgstr "Preisinformation"
+
+#: templates/email/listing-reported.tpl.php:24
+#, fuzzy
+msgctxt "notify email"
+msgid "User name"
+msgstr "Benutzer"
+
+#: templates/email/listing-reported.tpl.php:28
+#, fuzzy
+msgctxt "notify email"
+msgid "User Email"
+msgstr "Deine E-mail"
+
+#: templates/email/listing-reported.tpl.php:31
 msgctxt "notify email"
 msgid "Report IP"
 msgstr ""
 
-#: templates/email/listing-reported.tpl.php:23
+#: templates/email/listing-reported.tpl.php:33
 #, fuzzy
 msgctxt "notify email"
 msgid "Report selected option"
 msgstr "Kategorien auswählen"
 
-#: templates/email/listing-reported.tpl.php:25
+#: templates/email/listing-reported.tpl.php:35
 msgctxt "notify email"
 msgid "Report additional info"
 msgstr ""
@@ -5686,7 +5842,7 @@ msgctxt "rss feed"
 msgid "%s Feed"
 msgstr "% Feed"
 
-#: includes/class-meta.php:155 includes/views/submit_listing.php:22
+#: includes/class-meta.php:155 includes/views/submit_listing.php:30
 msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Eintrag erstellen"
@@ -5702,7 +5858,7 @@ msgctxt "views"
 msgid "View All Listings"
 msgstr "Alle Einträge anschauen"
 
-#: includes/views/search.php:8
+#: includes/views/search.php:15
 msgctxt "views"
 msgid "Find A Listing"
 msgstr "Eintrag finden"
@@ -5825,36 +5981,36 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Eintrag zusenden (Initialbezahlung)"
 
-#: includes/views/submit_listing.php:53
+#: includes/views/submit_listing.php:61
 msgctxt "submit listing"
 msgid "Click this field to add categories"
 msgstr ""
 
-#: includes/views/submit_listing.php:54 templates/submit-listing.tpl.php:23
+#: includes/views/submit_listing.php:62 templates/submit-listing.tpl.php:23
 #, fuzzy
 msgctxt "submit listing"
 msgid "Complete Listing"
 msgstr "Eintrag Löschen"
 
-#: includes/views/submit_listing.php:55 templates/submit-listing.tpl.php:28
+#: includes/views/submit_listing.php:63 templates/submit-listing.tpl.php:28
 #, fuzzy
 msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr "Initialbezahlung"
 
-#: includes/views/submit_listing.php:75
+#: includes/views/submit_listing.php:83
 #, fuzzy
 msgctxt "submit listing"
 msgid "No listing ID was specified."
 msgstr "Ein Eintrag wurde bearbeitet."
 
-#: includes/views/submit_listing.php:77
+#: includes/views/submit_listing.php:85
 #, fuzzy
 msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Kategorie für diesen Eintrag"
 
-#: includes/views/submit_listing.php:115
+#: includes/views/submit_listing.php:123
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -5862,14 +6018,14 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:120
+#: includes/views/submit_listing.php:128
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:142
+#: includes/views/submit_listing.php:150
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
@@ -5877,47 +6033,47 @@ msgstr ""
 "Du bist als Administrator eingeloggt. Alle Bezahlungsschritte werden "
 "übersprungen."
 
-#: includes/views/submit_listing.php:342
+#: includes/views/submit_listing.php:350
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Kategorien auswählen"
 
-#: includes/views/submit_listing.php:342
+#: includes/views/submit_listing.php:350
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Kategorien auswählen"
 
-#: includes/views/submit_listing.php:347
+#: includes/views/submit_listing.php:355
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Eintrag Informationen"
 
-#: includes/views/submit_listing.php:351
+#: includes/views/submit_listing.php:359
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Eintrag Bilder"
 
-#: includes/views/submit_listing.php:357
+#: includes/views/submit_listing.php:365
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:365
+#: includes/views/submit_listing.php:373
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Bedingungen und Konditionen"
 
-#: includes/views/submit_listing.php:403
+#: includes/views/submit_listing.php:411
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:454
+#: includes/views/submit_listing.php:462
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -5925,80 +6081,80 @@ msgstr ""
 "Ihre Zahlung kann momentan nicht ausgeführt werden. Bitte versuchen Sie es "
 "später noch einmal."
 
-#: includes/views/submit_listing.php:464
+#: includes/views/submit_listing.php:472
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/views/submit_listing.php:477
+#: includes/views/submit_listing.php:485
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/views/submit_listing.php:497
+#: includes/views/submit_listing.php:505
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:499
+#: includes/views/submit_listing.php:507
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/views/submit_listing.php:725
+#: includes/views/submit_listing.php:736
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/views/submit_listing.php:730
+#: includes/views/submit_listing.php:741
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/views/submit_listing.php:735
+#: includes/views/submit_listing.php:746
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:745
+#: includes/views/submit_listing.php:756
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:750
+#: includes/views/submit_listing.php:761
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:765
+#: includes/views/submit_listing.php:776
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:772
+#: includes/views/submit_listing.php:783
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:778
+#: includes/views/submit_listing.php:789
 #, fuzzy
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Benutzer"
 
-#: includes/views/submit_listing.php:787
+#: includes/views/submit_listing.php:798
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-mail: %s"
 
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:807
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6043,18 +6199,18 @@ msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA Einstellungen"
 
-#: includes/class-wpbdp.php:249
+#: includes/class-wpbdp.php:252
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: includes/class-wpbdp.php:331
+#: includes/class-wpbdp.php:334
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie für diesen Eintrag"
 
-#: includes/class-wpbdp.php:335
+#: includes/class-wpbdp.php:338
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6085,12 +6241,12 @@ msgctxt "form-fields api"
 msgid "Checkbox"
 msgstr "Kontrollkästchen"
 
-#: includes/fields/class-fieldtypes-date.php:9
+#: includes/fields/class-fieldtypes-date.php:14
 msgctxt "form-fields api"
 msgid "Date Field"
 msgstr "Feld aktualisieren"
 
-#: includes/fields/class-fieldtypes-date.php:36
+#: includes/fields/class-fieldtypes-date.php:41
 msgctxt "form-fields api"
 msgid "Date Format"
 msgstr "Datum gepostet"
@@ -6100,7 +6256,7 @@ msgctxt "form-fields api"
 msgid "Social Site (Facebook page)"
 msgstr "Soziale Seite (Facebook)"
 
-#: includes/fields/class-fieldtypes-image.php:6
+#: includes/fields/class-fieldtypes-image.php:13
 msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Bild (Datei hochladen)"
@@ -6135,7 +6291,7 @@ msgctxt "form-fields api"
 msgid "Select List"
 msgstr "Liste auswählen"
 
-#: includes/fields/class-fieldtypes-textarea.php:9
+#: includes/fields/class-fieldtypes-textarea.php:16
 msgctxt "form-fields api"
 msgid "Textarea"
 msgstr "Textbereich"
@@ -6179,37 +6335,37 @@ msgstr ""
 "Dieses Formularfeld kann nicht gelöscht werden, weil es ein Pflichtfeld ist, "
 "damit das Modul richtig funktioniert."
 
-#: includes/form-fields.php:32
+#: includes/form-fields.php:41
 msgctxt "form-fields api"
 msgid "Post Title"
 msgstr "Post Titel"
 
-#: includes/form-fields.php:33
+#: includes/form-fields.php:42
 msgctxt "form-fields api"
 msgid "Post Content"
 msgstr "Post Inhalt"
 
-#: includes/form-fields.php:34
+#: includes/form-fields.php:43
 msgctxt "form-fields api"
 msgid "Post Excerpt"
 msgstr "Post Auszug"
 
-#: includes/form-fields.php:35
+#: includes/form-fields.php:44
 msgctxt "form-fields api"
 msgid "Post Category"
 msgstr "Post Kategorie"
 
-#: includes/form-fields.php:36
+#: includes/form-fields.php:45
 msgctxt "form-fields api"
 msgid "Post Tags"
 msgstr "Post Tags"
 
-#: includes/form-fields.php:37
+#: includes/form-fields.php:46
 msgctxt "form-fields api"
 msgid "Post Metadata"
 msgstr "Post Metadata"
 
-#: includes/form-fields.php:39
+#: includes/form-fields.php:48
 msgctxt "form-fields api"
 msgid "Custom"
 msgstr "Benutzerdefiniert"
@@ -6220,17 +6376,23 @@ msgctxt "checkbox form field"
 msgid "Select all"
 msgstr "Liste auswählen"
 
-#: includes/fields/class-fieldtypes-date.php:61
+#: includes/fields/class-fieldtypes-date.php:66
 msgctxt "date field"
 msgid "%s must be in the format %s."
 msgstr "%s muss im Format MM/DD/YYYY eingetragen werden."
 
-#: includes/fields/class-fieldtypes-date.php:64
+#: includes/fields/class-fieldtypes-date.php:69
 msgctxt "date field"
 msgid "%s must be a valid date."
 msgstr "%s muss eine Nummer sein."
 
-#: includes/fields/class-fieldtypes-image.php:42
+#: includes/fields/class-fieldtypes-image.php:42 includes/form-fields.php:718
+#, fuzzy
+msgctxt "date field"
+msgid "Caption for %s is required."
+msgstr "%s ist ein Pflichtfeld."
+
+#: includes/fields/class-fieldtypes-image.php:98
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Entfernen"
@@ -6284,32 +6446,32 @@ msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Während der Löschung des Feldes ist ein Fehler aufgetreten."
 
-#: includes/form-fields.php:459
+#: includes/form-fields.php:569
 msgctxt "form-fields-api"
 msgid "Email Validator"
 msgstr "E-mail Validierung"
 
-#: includes/form-fields.php:460
+#: includes/form-fields.php:570
 msgctxt "form-fields-api"
 msgid "URL Validator"
 msgstr "URL Validierung"
 
-#: includes/form-fields.php:461
+#: includes/form-fields.php:571
 msgctxt "form-fields-api"
 msgid "Whole Number Validator"
 msgstr "Ganze Nummern Validierung"
 
-#: includes/form-fields.php:462
+#: includes/form-fields.php:572
 msgctxt "form-fields-api"
 msgid "Decimal Number Validator"
 msgstr "Dezimalzahl Validierung"
 
-#: includes/form-fields.php:463
+#: includes/form-fields.php:573
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr "Datum Validierung"
 
-#: includes/fields/class-fieldtypes-image.php:59
+#: includes/fields/class-fieldtypes-image.php:121
 msgctxt "form fields"
 msgid "Field unavailable at the moment."
 msgstr ""
@@ -6347,7 +6509,7 @@ msgctxt "form-fields-api select"
 msgid "— None —"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-textarea.php:192
+#: includes/fields/class-fieldtypes-textarea.php:200
 msgctxt "admin form-fields"
 msgid ""
 "Enabling iframe support in your listings can allow users to execute "
@@ -6357,51 +6519,53 @@ msgid ""
 "you sure you want to enable this?"
 msgstr ""
 
-#: includes/form-fields.php:470
+#: includes/form-fields.php:580
 msgctxt "form-fields-api validation"
 msgid "Field"
 msgstr "Feld"
 
-#: includes/form-fields.php:486 includes/form-fields.php:490
+#: includes/form-fields.php:601 includes/form-fields.php:606
 msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s ist ein Pflichtfeld."
 
-#: includes/form-fields.php:499 includes/form-fields.php:506
+#: includes/form-fields.php:618 includes/form-fields.php:625
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
 "%s ist falsch formatiert. Gültiges URL Format eingeben. Benutze http://"
 
-#: includes/form-fields.php:520
+#: includes/form-fields.php:640
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr ""
 "%s ist falsch formatiert. Bitte geben Sie Ihre E-mailadresse richtig ein."
 
-#: includes/form-fields.php:526
+#: includes/form-fields.php:647
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s muss eine Nummer sein. Dezimalwerte sind nicht erlaubt."
 
-#: includes/form-fields.php:532
+#: includes/form-fields.php:654
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s muss eine Nummer sein."
 
-#: includes/form-fields.php:545
+#: includes/form-fields.php:673
+#, fuzzy
 msgctxt "form-fields-api validation"
-msgid "%s must be in the format %s."
+msgid "%1$s must be in the format %2$s."
 msgstr "%s muss im Format MM/DD/YYYY eingetragen werden."
 
-#: includes/form-fields.php:580
+#: includes/form-fields.php:711
 msgctxt "form-fields-api validation"
 msgid "%s must be a valid date."
 msgstr "%s muss eine Nummer sein."
 
-#: includes/form-fields.php:591
+#: includes/form-fields.php:736
+#, fuzzy
 msgctxt "form-fields-api validation"
-msgid "%s is invalid. Value most be one of %s."
+msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s ist ungültig. Wert meistens einer von %s"
 
 #: includes/gateways/class-gateway-authorize-net.php:20
@@ -6500,108 +6664,136 @@ msgctxt "flag listing"
 msgid "User ID or IP address is required to save a report"
 msgstr ""
 
-#: includes/helpers/listing_flagging.php:77
+#: includes/helpers/listing_flagging.php:80
 msgctxt "flag listing"
-msgid "Report reason or comment is required to save a report"
+msgid "Report reason is required to save a report"
 msgstr ""
 
-#: includes/views/flag_listing.php:39
+#: includes/helpers/listing_flagging.php:84
 msgctxt "flag listing"
-msgid ""
-"Something went wrong, please try again. If error persists contact site admin"
+msgid "Report comment is required to save a report"
 msgstr ""
 
-#: includes/views/flag_listing.php:43
+#: includes/views/flag_listing.php:41
 #, fuzzy
 msgctxt "flag listing"
 msgid "The listing <i>%s</i> has been reported. <a>Return to directory</a>"
 msgstr "Dein Eintrag wurde gelöscht."
 
-#: includes/views/flag_listing.php:92
+#: includes/views/flag_listing.php:96
 #, fuzzy
 msgctxt "flag listing"
 msgid "Your current IP address already reported this listing."
 msgstr "Sie sind nicht autorisiert um diesen Eintrag zu bearbeiten."
 
-#: includes/views/flag_listing.php:97
+#: includes/views/flag_listing.php:100
 #, fuzzy
 msgctxt "flag listing"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "Das reCAPTCHA wurde nicht korrekt eingegeben."
 
-#: includes/views/flag_listing.php:102
+#: includes/views/flag_listing.php:107
+#, fuzzy
 msgctxt "flag listing"
-msgid ""
-"You must select or enter the reasons to report this listing as inappropriate."
-msgstr ""
+msgid "You must select the reason to report this listing as inappropriate."
+msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:13
+#: includes/views/flag_listing.php:111
+#, fuzzy
+msgctxt "flag listing"
+msgid "You must enter the reason to report this listing as inappropriate."
+msgstr ""
+"Sie sind dabei Ihren Eintrag \"%s\" in der Kategorie \"%s\" zu erneuern."
+
+#: includes/views/flag_listing.php:116
+#, fuzzy
+msgctxt "flag listing"
+msgid "Please enter your name."
+msgstr "Bitte geben Sie einen Namen ein."
+
+#: includes/views/flag_listing.php:120
+#, fuzzy
+msgctxt "flag listing"
+msgid "Please enter your email."
+msgstr "Bitte geben Sie einen Namen ein."
+
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #, fuzzy
 msgctxt "flag listing"
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/listing-flagging-form.tpl.php:14
+#: templates/listing-flagging-form.tpl.php:15
 #, fuzzy
 msgctxt "flag listing"
-msgid "You are about to report the listing \"<b>%s</b>\" as inappropriate."
+msgid "You are about to report the listing \"<b>%s</b>\" as inappropriate. "
 msgstr ""
 "Sie sind dabei Ihren Eintrag \"%s\" in der Kategorie \"%s\" zu erneuern."
 
-#: templates/listing-flagging-form.tpl.php:16
+#: templates/listing-flagging-form.tpl.php:18
 #, fuzzy
 msgctxt "flag listing"
-msgid "You are about to unreport the listing \"<b>%s</b>\" as inappropriate."
+msgid ""
+"You are currently logged in as %s. Listing report will be sent using your "
+"logged in contact email."
 msgstr ""
-"Sie sind dabei Ihren Eintrag \"%s\" in der Kategorie \"%s\" zu erneuern."
+"Sie sind momentan eingeloggt als %s. Ihre Nachricht wird mit diesem Namen "
+"gesendet."
 
-#: templates/listing-flagging-form.tpl.php:22
+#: templates/listing-flagging-form.tpl.php:32
 #, fuzzy
 msgctxt "flag listing"
-msgid "Please select the reasons to report this listing:"
+msgid "Please select the reason to report this listing:"
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: templates/listing-flagging-form.tpl.php:30
+#: templates/listing-flagging-form.tpl.php:40
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter the reasons to report this listing:"
 msgstr "Sie sind nicht autorisiert um diesen Eintrag zu bearbeiten."
 
-#: templates/listing-flagging-form.tpl.php:33
+#: templates/listing-flagging-form.tpl.php:43
 #, fuzzy
 msgctxt "flag listing"
 msgid "Additional info."
 msgstr "Zusätzliche Informationen"
 
-#: templates/listing-flagging-form.tpl.php:39
+#: templates/listing-flagging-form.tpl.php:48
 #, fuzzy
 msgctxt "flag listing"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: includes/installer.php:47
+#: templates/listing-flagging-form.tpl.php:52
+#, fuzzy
+msgctxt "flag listing"
+msgid "You already reported the listing \"<b>%s</b>\" as inappropriate."
+msgstr ""
+"Sie sind dabei Ihren Eintrag \"%s\" in der Kategorie \"%s\" zu erneuern."
+
+#: includes/installer.php:71
 msgctxt "default category name"
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/licensing.php:274
+#: includes/licensing.php:276
 #, fuzzy
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "Ungültige Feld ID"
 
-#: includes/licensing.php:279
+#: includes/licensing.php:281
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Kein Lizenzschlüssel"
 
-#: includes/licensing.php:302
+#: includes/licensing.php:304
 #, fuzzy
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "Kein Lizenzschlüssel"
 
-#: includes/licensing.php:304
+#: includes/licensing.php:306
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -6609,36 +6801,36 @@ msgid ""
 "reported as revoked by the licensing software."
 msgstr ""
 
-#: includes/licensing.php:306
+#: includes/licensing.php:308
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
 "your report."
 msgstr ""
 
-#: includes/licensing.php:317 includes/licensing.php:358
+#: includes/licensing.php:319 includes/licensing.php:360
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Lizenzschlüssel ungültig "
 
-#: includes/licensing.php:334
+#: includes/licensing.php:336
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Ungültige Modul ID"
 
-#: includes/licensing.php:361
+#: includes/licensing.php:363
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "Deaktivierung fehlgeschlagen"
 
-#: includes/licensing.php:380
+#: includes/licensing.php:382
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:384 includes/licensing.php:430
+#: includes/licensing.php:386 includes/licensing.php:432
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -6647,19 +6839,19 @@ msgid ""
 "whitelist."
 msgstr ""
 
-#: includes/licensing.php:386 includes/licensing.php:432
+#: includes/licensing.php:388 includes/licensing.php:434
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr ""
 
-#: includes/licensing.php:396
+#: includes/licensing.php:398
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:401
+#: includes/licensing.php:403
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -6668,7 +6860,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:403
+#: includes/licensing.php:405
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -6676,30 +6868,30 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:405
+#: includes/licensing.php:407
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necesary."
 msgstr ""
 
-#: includes/licensing.php:412
+#: includes/licensing.php:414
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Eine Verbindung zum Lizenzserver konnte nicht hergestellt werden."
 
-#: includes/licensing.php:428
+#: includes/licensing.php:430
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:496
+#: includes/licensing.php:498
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Branchenverzeichnis - letzte Einträge"
 
-#: includes/licensing.php:506
+#: includes/licensing.php:508
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6710,26 +6902,26 @@ msgstr ""
 "Lizenzschlüssel angegeben wurde. Gehen Sie zu <a>Optionen verwalten - "
 "Lizenzen</a>, um Ihre Lizenzinformation einzugeben."
 
-#: includes/licensing.php:517
+#: includes/licensing.php:519
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
 "can be used: %s."
 msgstr ""
 
-#: includes/licensing.php:525 includes/licensing.php:581
+#: includes/licensing.php:527 includes/licensing.php:583
 #, fuzzy
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Erneuere Lizenzschlüssel"
 
-#: includes/licensing.php:552
+#: includes/licensing.php:554
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Branchenverzeichnis - Lizenzschlüssel abgelaufen"
 
-#: includes/licensing.php:562
+#: includes/licensing.php:564
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6741,7 +6933,7 @@ msgstr ""
 "abgelaufen. Das Modul wird weiter ausgeführt, jedoch nicht weiter "
 "aktualisiert, bis ein neuer Lizenzschlüssel eingegeben wurde."
 
-#: includes/licensing.php:573
+#: includes/licensing.php:575
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6753,34 +6945,34 @@ msgstr ""
 "abgelaufen. Das Modul wird weiter ausgeführt, jedoch nicht weiter "
 "aktualisiert, bis ein neuer Lizenzschlüssel eingegeben wurde."
 
-#: includes/licensing.php:667
+#: includes/licensing.php:669
 #, fuzzy
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: includes/licensing.php:676
+#: includes/licensing.php:678
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Konnte Lizenz nicht aktivieren: %s"
 
-#: includes/licensing.php:678
+#: includes/licensing.php:680
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Lizenz aktiviert"
 
-#: includes/licensing.php:698
+#: includes/licensing.php:700
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Konnte Lizenz nicht deaktivieren: %s"
 
-#: includes/licensing.php:700
+#: includes/licensing.php:702
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Lizenz deaktiviert"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:891
+#: includes/licensing.php:893
 msgctxt "deprecation"
 msgid ""
 "\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "
@@ -7079,27 +7271,27 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/templates-ui.php:172
+#: includes/templates-ui.php:199
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Keine Eintragskategorie gefunden."
 
-#: includes/templates-ui.php:285
+#: includes/templates-ui.php:333
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Eintrag suchen"
 
-#: includes/templates-ui.php:288
+#: includes/templates-ui.php:338
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Erweiterte Suche"
 
-#: includes/views/listing_contact.php:117
+#: includes/views/listing_contact.php:147
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Nachicht an den Händler"
 
-#: includes/views/listing_contact.php:121
+#: includes/views/listing_contact.php:151
 msgctxt "templates"
 msgid "Send Message to listing owner"
 msgstr "Nachricht an den Kfz-Händler"
@@ -7136,7 +7328,7 @@ msgstr ""
 "angezeigt. Wenn du das nicht möchtest, klicke <a>hier</a> um die "
 "Einstellungen zu ändern."
 
-#: includes/views/submit_listing.php:298
+#: includes/views/submit_listing.php:306
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7145,41 +7337,41 @@ msgstr ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 
-#: includes/views/submit_listing.php:300
+#: includes/views/submit_listing.php:308
 msgctxt "templates"
 msgid "View not available."
 msgstr "verfügbare Bilder:"
 
-#: includes/views/submit_listing.php:834
+#: includes/views/submit_listing.php:845
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen."
 
-#: includes/views/submit_listing.php:842
+#: includes/views/submit_listing.php:853
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "AGBs:"
 
-#: includes/views/submit_listing.php:851
+#: includes/views/submit_listing.php:862
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ich akzeptiere die <a>AGB</a>s"
 
 #: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:8
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
 #: templates/search.tpl.php:17
 msgctxt "templates"
 msgid "No listings found."
 msgstr "Kein Listig gefunden."
 
 #: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:24
+#: templates/listings.tpl.php:31
 msgctxt "templates"
 msgid "&laquo; Previous "
 msgstr "&laquo; Vorher"
 
 #: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:25
+#: templates/listings.tpl.php:32
 msgctxt "templates"
 msgid "Next &raquo;"
 msgstr "Nächste &raquo;"
@@ -7205,11 +7397,13 @@ msgstr ""
 "gesendet."
 
 #: templates/listing-contactform.tpl.php:23
+#: templates/listing-flagging-form.tpl.php:22
 msgctxt "templates"
 msgid "Your Name"
 msgstr "Dein Name"
 
 #: templates/listing-contactform.tpl.php:27
+#: templates/listing-flagging-form.tpl.php:26
 msgctxt "templates"
 msgid "Your Email"
 msgstr "Deine E-mail"
@@ -7227,17 +7421,11 @@ msgstr "Senden"
 #: templates/listing-flagging-form.tpl.php:3
 #, fuzzy
 msgctxt "templates"
-msgid "Unreport Listing"
-msgstr "Einträge importieren"
-
-#: templates/listing-flagging-form.tpl.php:3
-#, fuzzy
-msgctxt "templates"
 msgid "Report Listing"
 msgstr "Einträge importieren"
 
-#: templates/listing-sticky-tag.tpl.php:3
-#: templates/listing-sticky-tag.tpl.php:4
+#: templates/listing-sticky-tag.tpl.php:12
+#: templates/listing-sticky-tag.tpl.php:13
 msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Hervorgehobene Einträge"
@@ -7460,22 +7648,22 @@ msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "Im Moment sind keine Bilder dem Eintrag angehängt."
 
-#: includes/templates-ui.php:317 includes/templates-ui.php:342
+#: includes/templates-ui.php:373 includes/templates-ui.php:400
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortieren nach"
 
-#: includes/templates-ui.php:336
+#: includes/templates-ui.php:393
 msgctxt "sort"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: includes/templates-ui.php:358
+#: includes/templates-ui.php:419
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "Zurücksetzen"
 
-#: includes/utils.php:179
+#: includes/utils.php:213
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -7483,56 +7671,56 @@ msgstr ""
 "Gepustete Daten haben Maximum erreicht. Schau dir den Eintrag \"post_ma_size"
 "\"in deiner php.ini an."
 
-#: includes/utils.php:226
+#: includes/utils.php:261
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "Dateigröße (%s) hat das Maximum von %s erreicht"
 
-#: includes/utils.php:234
+#: includes/utils.php:269
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "Dateigröße (%s) hat das Maximum von %s erreicht"
 
-#: includes/utils.php:243 includes/utils.php:250
+#: includes/utils.php:278 includes/utils.php:285
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Dateityp \"%s\" ist nicht erlaubt"
 
-#: includes/utils.php:257
+#: includes/utils.php:292
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Unbekannter Fehler beim Hochladen der Datei."
 
-#: includes/utils.php:276
+#: includes/utils.php:311
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Hochgeladene Datei ist kein Bild."
 
-#: includes/utils.php:285
+#: includes/utils.php:320
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr "Die Bildbreite (%s px) ist kleiner als die benötigte Breite von %s px."
 
-#: includes/utils.php:291
+#: includes/utils.php:326
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr ""
 "Die Bildhöhe (%s px) ist kleiner als die benötigte Mindesthöhe von %s px."
 
-#: includes/utils.php:297
+#: includes/utils.php:332
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "Die Bildbreite (%s Pixel) ist größer als die maximal zulässige Breite von %s "
 "Pixel."
 
-#: includes/utils.php:303
+#: includes/utils.php:338
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr ""
 "Die Bildhöhe (%s px) ist größer als die maximal zulässige Höhe von %s px."
 
-#: includes/utils.php:317
+#: includes/utils.php:352
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Fehler während des Hochladens der Datei"
@@ -7585,48 +7773,48 @@ msgctxt "delete listing"
 msgid "Yes. Delete my listing."
 msgstr "Ja, meinen Eintrag löschen."
 
-#: includes/views/listing_contact.php:39
+#: includes/views/listing_contact.php:50
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/views/listing_contact.php:42
+#: includes/views/listing_contact.php:54
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: includes/views/listing_contact.php:45
+#: includes/views/listing_contact.php:58
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr "Sie haben keine Nachricht erstellt"
 
-#: includes/views/listing_contact.php:48
+#: includes/views/listing_contact.php:62
 msgctxt "contact-message"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "Das reCAPTCHA wurdenicht richtig eingegeben."
 
-#: includes/views/listing_contact.php:177
+#: includes/views/listing_contact.php:217
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Dein Eintrag wurde gelöscht."
 
-#: includes/views/listing_contact.php:198
+#: includes/views/listing_contact.php:239
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr ""
 "Es ist ein Fehler aufgetreten. Ihre Nachricht konnte nicht versendet werden."
 
-#: includes/views/listing_contact.php:201
+#: includes/views/listing_contact.php:242
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Zurück zum Eintrag."
 
-#: includes/views/listing_contact.php:59
+#: includes/views/listing_contact.php:75
 msgctxt "contact form"
 msgid "Please <a>log in</a> to be able to send messages to the listing owner."
 msgstr "Bitte <a>einloggen</a> um eine Nachricht an den Inhaber zu senden."
 
-#: includes/views/listing_contact.php:78
+#: includes/views/listing_contact.php:101
 msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
@@ -7824,7 +8012,7 @@ msgctxt "request_access_keys"
 msgid "URL:"
 msgstr "URL:"
 
-#: includes/views/search.php:28
+#: includes/views/search.php:40
 #, fuzzy
 msgctxt "search"
 msgid "\"%s\" is required."
@@ -7851,14 +8039,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Dies ist nur eine Vorschau. Der Eintrag wurde bisher nicht publiziert."
 
-#: includes/views/submit_listing.php:598
+#: includes/views/submit_listing.php:606
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:677
+#: includes/views/submit_listing.php:688
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8861,6 +9049,18 @@ msgctxt "themes/default"
 msgid "Address"
 msgstr "Adresse"
 
+#, fuzzy
+#~ msgctxt "flag listing"
+#~ msgid ""
+#~ "You are about to unreport the listing \"<b>%s</b>\" as inappropriate."
+#~ msgstr ""
+#~ "Sie sind dabei Ihren Eintrag \"%s\" in der Kategorie \"%s\" zu erneuern."
+
+#, fuzzy
+#~ msgctxt "templates"
+#~ msgid "Unreport Listing"
+#~ msgstr "Einträge importieren"
+
 #~ msgctxt "form-fields-api"
 #~ msgid ""
 #~ "Requested field type change is incompatible. Type will not be modified."
@@ -9042,10 +9242,6 @@ msgstr "Adresse"
 #~ msgctxt "admin infometabox"
 #~ msgid "Remove category"
 #~ msgstr "Kategorie entfernen"
-
-#~ msgctxt "admin infometabox"
-#~ msgid "Fee Information"
-#~ msgstr "Preisinformation"
 
 #~ msgctxt "admin infometabox"
 #~ msgid "Renew listing in all expired categories"
@@ -9518,10 +9714,6 @@ msgstr "Adresse"
 #~ msgstr ""
 #~ "Senden wenn der Eintrag vom Administrator genehmigt oder veröffentlicht "
 #~ "wurde."
-
-#~ msgctxt "admin settings"
-#~ msgid "Listing Contact Message"
-#~ msgstr "Neue Eintrag Anweisungen"
 
 #~ msgctxt "admin settings"
 #~ msgid ""
@@ -10388,10 +10580,6 @@ msgstr "Adresse"
 #~ msgctxt "billing info"
 #~ msgid "Credit card CVC number is required."
 #~ msgstr "Feldbezeichnung ist Pflichtfeld."
-
-#~ msgctxt "billing info"
-#~ msgid "Country is required."
-#~ msgstr "%s ist ein Pflichtfeld."
 
 #~ msgctxt "billing info"
 #~ msgid "Address is required."
