@@ -1,7 +1,14 @@
 <?php
-require_once ( WPBDP_PATH . 'includes/compatibility/deprecated.php' );
+/**
+ * @package WPBDP/Compatibility
+ */
 
+// phpcs:disable Squiz,PEAR,Generic,WordPress,PSR2
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
+require_once WPBDP_PATH . 'includes/compatibility/deprecated.php';
 class WPBDP_Compat {
 
     function __construct() {
@@ -11,10 +18,10 @@ class WPBDP_Compat {
         if ( wpbdp_get_option( 'disable-cpt' ) ) {
             add_action( 'wp', array( &$this, '_jetpack_compat' ), 11, 1 );
 
-            require_once( WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php' );
+            require_once WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php';
             $nocpt = new WPBDP__CPT_Compat_Mode();
         } else {
-            require_once( WPBDP_PATH . 'includes/compatibility/class-themes-compat.php' );
+            require_once WPBDP_PATH . 'includes/compatibility/class-themes-compat.php';
             new WPBDP__Themes_Compat();
         }
 
@@ -23,33 +30,37 @@ class WPBDP_Compat {
 
     function load_integrations() {
         if ( isset( $GLOBALS['sitepress'] ) ) {
-            require_once( WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php' );
+            require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
             $wpml_integration = new WPBDP_WPML_Compat();
         }
 
         if ( function_exists( 'bcn_display' ) ) {
-            require_once( WPBDP_PATH . 'includes/compatibility/class-navxt-integration.php' );
+            require_once WPBDP_PATH . 'includes/compatibility/class-navxt-integration.php';
             $navxt_integration = new WPBDP_NavXT_Integration();
         }
 
         if ( class_exists( 'Advanced_Excerpt' ) ) {
-            require_once( WPBDP_PATH . 'includes/compatibility/class-advanced-excerpt-integration.php' );
+            require_once WPBDP_PATH . 'includes/compatibility/class-advanced-excerpt-integration.php';
             $advanced_excerpt_integration = new WPBDP_Advanced_Excerpt_Integration();
         }
 
-        if ( defined( 'CUSTOM_PERMALINKS_PLUGIN_VERSION') ) {
-            require_once( WPBDP_PATH . 'includes/compatibility/class-custom-permalinks-integration.php' );
+        if ( defined( 'CUSTOM_PERMALINKS_PLUGIN_VERSION' ) ) {
+            require_once WPBDP_PATH . 'includes/compatibility/class-custom-permalinks-integration.php';
             $custom_permalinks_integration = new WPBDP_Custom_Permalink_Integration();
+        }
+
+        if ( class_exists( 'acf' ) ) {
+            require_once WPBDP_PATH . 'includes/compatibility/class-acf-compat.php';
+            $advanced_custom_fields = new WPBDP_ACF_Compat();
         }
     }
 
     function cpt_compat_mode() {
-        require_once( WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php' );
+        require_once WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php';
         $nocpt = new WPBDP__CPT_Compat_Mode();
     }
 
     // Work around WP bugs. {{{
-
     function workarounds_for_wp_bugs() {
         // #1466 (related to https://core.trac.wordpress.org/ticket/28081).
         add_filter( 'wpbdp_query_clauses', array( &$this, '_fix_pagination_issue' ), 10, 2 );
@@ -57,10 +68,11 @@ class WPBDP_Compat {
 
     function _fix_pagination_issue( $clauses, $query ) {
         $posts_per_page = intval( $query->get( 'posts_per_page' ) );
-        $paged = intval( $query->get( 'paged' ) );
+        $paged          = intval( $query->get( 'paged' ) );
 
-        if ( -1 != $posts_per_page || $paged <= 1 )
+        if ( -1 != $posts_per_page || $paged <= 1 ) {
             return $clauses;
+        }
 
         // Force no results for pages outside of the scope of the query.
         $clauses['where'] .= ' AND 1=0 ';
@@ -69,13 +81,13 @@ class WPBDP_Compat {
     }
 
     // }}}
-
     public function _handle_broken_plugin_filters() {
         // TODO: fix before themes-release
         $action = '';
 
-        if ( !$action )
+        if ( ! $action ) {
             return;
+        }
 
         // Relevanssi
         if ( in_array( $action, array( 'submitlisting', 'editlisting' ), true ) && function_exists( 'relevanssi_insert_edit' ) ) {
@@ -85,13 +97,17 @@ class WPBDP_Compat {
             remove_action( 'edit_attachment', 'relevanssi_edit' );
         }
 
-        $bad_filters = array( 'get_the_excerpt' => array(), 'the_excerpt' => array(), 'the_content' => array() );
+        $bad_filters = array(
+			'get_the_excerpt' => array(),
+			'the_excerpt'     => array(),
+			'the_content'     => array(),
+		);
 
         // AddThis Social Bookmarking Widget - http://www.addthis.com/
         if ( defined( 'ADDTHIS_PLUGIN_VERSION' ) ) {
-            $bad_filters['get_the_excerpt'][] = array( 'addthis_display_social_widget_excerpt', 11);
+            $bad_filters['get_the_excerpt'][] = array( 'addthis_display_social_widget_excerpt', 11 );
             $bad_filters['get_the_excerpt'][] = array( 'addthis_display_social_widget', 15 );
-            $bad_filters['the_content'][] = array( 'addthis_display_social_widget', 15 );
+            $bad_filters['the_content'][]     = array( 'addthis_display_social_widget', 15 );
         }
 
         // Jamie Social Icons - http://wordpress.org/extend/plugins/jamie-social-icons/
@@ -146,8 +162,9 @@ class WPBDP_Compat {
         // TODO: fix before themes-release
         $action = '';
 
-        if ( !$action )
+        if ( ! $action ) {
             return;
+        }
 
         if ( defined( 'JETPACK__VERSION' ) && in_array( $action, $incompatible_actions ) ) {
             add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );

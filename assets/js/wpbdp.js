@@ -139,12 +139,12 @@ jQuery(function( $ ) {
 
 WPBDP.fileUpload = {
 
-    resizeIFrame: function(field_id, height) {
-        var iframe = jQuery( '#wpbdp-upload-iframe-' + field_id )[0];
+    resizeIFrame: function(element_id, height) {
+        var iframe = jQuery( '#wpbdp-upload-iframe-' + element_id )[0];
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
 
         if ( iframeWin.document.body ) {
-            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+            iframe.height =  height ? height : iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
         }
     },
 
@@ -155,11 +155,11 @@ WPBDP.fileUpload = {
         $form.submit();
     },
 
-    finishUpload: function(field_id, upload_id) {
-        var $iframe = jQuery('#wpbdp-upload-iframe-' + field_id);
+    finishUpload: function(element_id, upload_id, element) {
+        var $iframe = jQuery('#wpbdp-upload-iframe-' + element_id);
         // $iframe.contents().find('form').hide();
 
-        var $input = jQuery('input[name="listingfields[' + field_id + ']"]');
+        var $input = jQuery('input[name="' + element + '"]');
         $input.val(upload_id);
 
         var $preview = $input.siblings('.preview');
@@ -167,17 +167,18 @@ WPBDP.fileUpload = {
         $preview.prepend($iframe.contents().find('.preview').html());
         $iframe.contents().find('.preview').remove();
 
-        $preview.find('.delete').show();
+        $preview.show();
     },
 
-    deleteUpload: function(field_id) {
-        var $input = jQuery('input[name="listingfields[' + field_id + ']"]');
+    deleteUpload: function(element_id, element) {
+        var $input = jQuery('input[name="' + element + '"]');
         var $preview = $input.siblings('.preview');
 
         $input.val('');
         $preview.find('img').remove();
+        $preview.find('input').val('');
 
-        $preview.find('.delete').hide();
+        $preview.hide();
 
         return false;
     }

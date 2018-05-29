@@ -1,15 +1,12 @@
 <?php
 /**
+ * Main Business Directory class.
+ *
  * @package WPBDP
+ * @SuppressWarnings(PHPMD)
  */
 
 // phpcs:disable
-
-/**
- * Main Business Directory class.
- *
- * @SuppressWarnings(PHPMD)
- */
 final class WPBDP {
 
     public $_query_stack = array();
@@ -22,7 +19,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.2' );
+        define( 'WPBDP_VERSION', '5.2.1dev5' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );

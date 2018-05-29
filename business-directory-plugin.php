@@ -1,15 +1,14 @@
 <?php
-/*
+/**
  * Plugin Name: Business Directory Plugin
  * Plugin URI: https://www.businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 5.2
+ * Version: 5.2.1dev5
  * Author: D. Rodenbaugh
  * Author URI: https://businessdirectoryplugin.com
  * Text Domain: WPBDM
  * Domain Path: /languages/
  * License: GPLv2 or any later version
- *
  *
  * Copyright 2009-2016, Skyline Consulting and D. Rodenbaugh
  *
@@ -25,6 +24,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @package WPBDP
  */
 
 // Do not allow direct access to this file.
@@ -37,11 +38,12 @@ if ( ! defined( 'WPBDP_PLUGIN_FILE' ) ) {
 }
 
 if ( ! class_exists( 'WPBDP' ) ) {
-    require_once( dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-wpbdp.php' );
+    require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-wpbdp.php';
 }
 
 /**
  * Returns the main instance of Business Directory.
+ *
  * @return WPBDP
  */
 function wpbdp() {

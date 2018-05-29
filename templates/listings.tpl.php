@@ -1,8 +1,15 @@
 <?php
+/**
+ * Listings display template
+ *
+ * @package BDP/Templates/Listings
+ */
+
+// phpcs:disable
 wpbdp_the_listing_sort_options();
 ?>
 
-<div class="listings wpbdp-listings-list list">
+<div id="wpbdp-listings-list" class="listings wpbdp-listings-list list">
     <?php if ( ! $query->have_posts() ): ?>
         <span class="no-listings">
             <?php _ex("No listings found.", 'templates', "WPBDM"); ?>

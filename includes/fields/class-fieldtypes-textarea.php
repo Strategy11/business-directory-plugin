@@ -1,5 +1,12 @@
 <?php
+/**
+ * @package WPBDP\FieldTypes\TextArea
+ */
 
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     private $tinymce_settings = array();
@@ -9,6 +16,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         parent::__construct( _x('Textarea', 'form-fields api', 'WPBDM') );
 
         add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_shorten_output_in_excerpt' ), 10, 4 );
+        add_filter( 'wpbdp_render_listing_fields', array( $this, 'maybe_hide_excerpt_field' ), 10, 3 );
     }
 
     public function get_id() {
@@ -204,16 +212,21 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $settings['wysiwyg_editor'][] = _x( 'Display a WYSIWYG editor on the frontend?', 'form-fields admin', 'WPBDM' );
             $settings['wysiwyg_editor'][] = '<input type="checkbox" value="1" name="field[wysiwyg_editor]" ' . ( $field && $field->data( 'wysiwyg_editor' ) ? ' checked="checked"' : '' ) . ' />';
 
-            $desc = _x( '<b>Warning:</b> Users can use this feature to get around your image limits in fee plans.', 'form-fields admin', 'WPBDM' );
+            $desc                         = _x( '<b>Warning:</b> Users can use this feature to get around your image limits in fee plans.', 'form-fields admin', 'WPBDM' );
             $settings['wysiwyg_images'][] = _x( 'Allow images in WYSIWYG editor?', 'form-fields admin', 'WPBDM' );
             $settings['wysiwyg_images'][] = '<input type="checkbox" value="1" name="field[wysiwyg_images]" ' . ( $field && $field->data( 'wysiwyg_images' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
 
-            $desc = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'WPBDM' );
+            $desc                        = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'WPBDM' );
             $settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'WPBDM' );
             $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
 
-            $desc = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'WPBDM' );
-            $settings['max_length'][] = _x( 'Max length of Description field to use in List (excerpt) view', 'form-fields admin', 'WPBDM' );
+            $settings['excerpt_override'][] = _x( 'Use shortened version of Description field as excerpt', 'form-fields admin', 'WPBDM' );
+            $settings['excerpt_override'][] = '<input type="radio" value="1" name="field[excerpt_override]" ' . ( $field && 1 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable always (override the Short Description given with a shortened Long Description)', 'form-fields admin', 'WPBDM' ) . '<br/>
+                                               <input type="radio" value="2" name="field[excerpt_override]" ' . ( $field && 2 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable conditionally (override ONLY when Short Description is empty with a shortened Long Description)', 'form-fields admin', 'WPBDM' ) . '<br/>
+                                               <input type="radio" value="0" name="field[excerpt_override]" ' . ( $field && ! in_array( $field->data( 'excerpt_override' ), array( 1, 2 ) ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'WPBDM' );
+
+            $desc                     = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'WPBDM' );
+            $settings['max_length'][] = _x( 'Number of Characters from Short Description/Excerpt to Display in List View (only)', 'form-fields admin', 'WPBDM' );
             $settings['max_length'][] = '<input type="number" value="' . ( $field && $field->data( 'max_length' ) ? $field->data( 'max_length' ) : 0 ) . '" name="field[max_length]" /> <span class="wpbdp-setting-description">' . $desc . '</span>';
         }
 
@@ -233,6 +246,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $field->set_data( 'max_length', isset( $_POST['field']['max_length'] ) ? intval( $_POST['field']['max_length'] ) : 0 );
         $field->set_data( 'wysiwyg_editor', isset( $_POST['field']['wysiwyg_editor'] ) ? (bool) intval( $_POST['field']['wysiwyg_editor'] ) : false );
         $field->set_data( 'wysiwyg_images', isset( $_POST['field']['wysiwyg_images'] ) ? (bool) intval( $_POST['field']['wysiwyg_images'] ) : false );
+        $field->set_data( 'excerpt_override', isset( $_POST['field']['excerpt_override'] ) ? intval( $_POST['field']['excerpt_override'] ) : 0 ); // Input var okay.
         $field->set_data( 'auto_excerpt', isset( $_POST['field']['auto_excerpt'] ) ? (bool) intval( $_POST['field']['auto_excerpt'] ) : false );
     }
 
@@ -365,11 +379,53 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
      * Truncate content fields in excerpt (if needed).
      */
     public function maybe_shorten_output_in_excerpt( $value, $post_id, $field, $display_context = 'listing' ) {
-        if ( 'excerpt' == $display_context && 'content' == $field->get_association() && $field->data( 'max_length' ) > 0 ) {
-            $value = wpautop( wp_html_excerpt( $field->value( $post_id ), $field->data( 'max_length' ), '...' ) );
+        if ( 'excerpt' != $display_context ) {
+            return $value;
+        }
+
+        if ( 'content' != $field->get_association() ) {
+            return $value;
+        }
+
+        if ( $field->data( 'max_length' ) < 1  ) {
+            return $value;
+        }
+
+        $excerpt_field    = wpbdp_get_form_fields( array( 'association' => 'excerpt') );
+        $excerpt_val      = $excerpt_field ? $excerpt_field[0]->value() : NULL;
+        $excerpt_override = $field->data( 'excerpt_override' );
+
+        if ( 1 == $excerpt_override || ( 2 == $excerpt_override && empty( $excerpt_val ) ) ) {
+            return wpautop( wp_html_excerpt( $field->value( $post_id ), $field->data( 'max_length' ), '...' ) );
         }
 
         return $value;
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameters)
+     */
+    public function maybe_hide_excerpt_field( &$fields, $listing, $display ) {
+        if ( 'excerpt' != $display ) {
+            return $fields;
+        }
+
+        $content_field    = wpbdp_get_form_fields( array( 'association' => 'content') )[0];
+        $excerpt_override = $content_field->data( 'excerpt_override' );
+        
+        if ( ! in_array( $excerpt_override , array( 1, 2 ) ) ) {
+            return $fields;
+        }
+
+        foreach ( $fields as $k => $f ) {
+            if ( 'excerpt' == $f->get_association() ) {
+                if ( 1 == $excerpt_override || ( 2 == $excerpt_override && empty( $f->value() ) ) ) {
+                    unset( $fields[$k] );
+                }
+            }
+        }
+
+        return $fields;
     }
 
 }
