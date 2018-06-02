@@ -698,7 +698,7 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_get_pagenum_link( $url ) {
-        if ( wpbdp_current_query()->wpbdp_our_query ) {
+        if ( ! empty( wpbdp_current_query()->wpbdp_our_query ) && wpbdp_current_query()->wpbdp_our_query ) {
             $url = esc_url( $url . "#wpbdp-listings-list" );
         }
         return $url;
