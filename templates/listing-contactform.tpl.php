@@ -1,4 +1,13 @@
-<?php if ($validation_errors): ?>
+<?php
+/**
+ * Listing Contact Form template
+ *
+ * @package BDP/Templates/Listing Contact Form
+ */
+
+// phpcs:disable
+if ($validation_errors):
+?>
 <div class="wpbdp-msg wpbdp-error">
     <ul>
         <?php foreach($validation_errors as $error_msg): ?>
@@ -29,7 +38,7 @@
             </p>
     <?php endif; ?>
 
-    <p><label><?php _ex("Message", 'templates', "WPBDM"); ?></label><br/>
+    <p><label><?php _ex("Message", 'templates', "WPBDM"); ?></label>
        <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea(wpbdp_getv($_POST, 'commentauthormessage', '')); ?></textarea>
     </p>
 
