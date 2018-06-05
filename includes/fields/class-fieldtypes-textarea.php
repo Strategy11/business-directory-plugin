@@ -392,7 +392,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         $excerpt_field    = wpbdp_get_form_fields( array( 'association' => 'excerpt') );
-        $excerpt_val      = $excerpt_field ? $excerpt_field[0]->value() : NULL;
+        $excerpt_val      = $excerpt_field ? $excerpt_field[0]->value( $post_id ) : NULL;
         $excerpt_override = $field->data( 'excerpt_override' );
 
         if ( 1 == $excerpt_override || ( 2 == $excerpt_override && empty( $excerpt_val ) ) ) {
