@@ -1,8 +1,16 @@
 <?php
+/**
+ * @package WPBDP\FieldTypes\Textfield
+ */
+
+// phpcs:disable
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x('Textfield', 'form-fields api', 'WPBDM') );
+        parent::__construct( _x( 'Textfield', 'form-fields api', 'WPBDM' ) );
     }
 
     public function get_id() {
@@ -31,29 +39,38 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         return $value;
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
-        if ( is_array( $value ) )
+    public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+        if ( is_array( $value ) ) {
             $value = implode( ',', $value );
+        }
 
         $html = '';
 
-        if ( $field->has_validator( 'date' ) )
+        if ( $field->has_validator( 'date' ) ) {
             $html .= _x( 'Format 01/31/1969', 'form-fields api', 'WPBDM' );
+        }
 
-        if ( isset( $field_settings['html_before'] ) )
+        if ( isset( $field_settings['html_before'] ) ) {
             $html .= $field_settings['html_before'];
+        }
 
-        $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" %s />',
-                          'wpbdp-field-' . $field->get_id(),
-                          'listingfields[' . $field->get_id() . ']',
-                          esc_attr( $value ),
-                          ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' ) );
+        $html .= sprintf(
+            '<input type="text" id="%s" name="%s" value="%s" %s />',
+            'wpbdp-field-' . $field->get_id(),
+            'listingfields[' . $field->get_id() . ']',
+            esc_attr( $value ),
+            ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' )
+        );
 
         return $html;
     }
 
     public function get_supported_associations() {
         return array( 'title', 'excerpt', 'tags', 'meta' );
+    }
+
+    public function process_field_settings( &$field ) {
+        $field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators() ) && isset( $_POST['field']['word_count'] ) ) ? intval( $_POST['field']['word_count'] ) : 0 );
     }
 
 }
