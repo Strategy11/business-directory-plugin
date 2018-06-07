@@ -411,7 +411,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         }
 
         $content_field    = wpbdp_get_form_fields( array( 'association' => 'content') )[0];
-        $excerpt_override = $content_field->data( 'excerpt_override' );
+        $excerpt_override = empty( $content_field ) ? 0 : $content_field->data( 'excerpt_override' );
         
         if ( ! in_array( $excerpt_override , array( 1, 2 ) ) ) {
             return $fields;
