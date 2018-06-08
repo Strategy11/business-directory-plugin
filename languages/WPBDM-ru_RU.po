@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-05-29 16:08:18+00:00\n"
+"POT-Creation-Date: 2018-06-08 09:25:30+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -7378,12 +7378,12 @@ msgctxt "templates"
 msgid "Return to directory"
 msgstr "Вернуться к справочнику"
 
-#: templates/listing-contactform.tpl.php:11
+#: templates/listing-contactform.tpl.php:20
 msgctxt "templates"
 msgid "Listing Title: "
 msgstr "Название записи:"
 
-#: templates/listing-contactform.tpl.php:18
+#: templates/listing-contactform.tpl.php:29
 msgctxt "templates"
 msgid ""
 "You are currently logged in as %s. Your message will be sent using your "
@@ -7392,24 +7392,24 @@ msgstr ""
 "Вы вошли в сайт под учётной записью \"%s\". Ваше сообщение будет отправлено "
 "используя Ваш контактный электронный адрес в качестве адреса отправителя."
 
-#: templates/listing-contactform.tpl.php:23
+#: templates/listing-contactform.tpl.php:36
 #: templates/listing-flagging-form.tpl.php:22
 msgctxt "templates"
 msgid "Your Name"
 msgstr "Ваше имя"
 
-#: templates/listing-contactform.tpl.php:27
+#: templates/listing-contactform.tpl.php:40
 #: templates/listing-flagging-form.tpl.php:26
 msgctxt "templates"
 msgid "Your Email"
 msgstr "Электронный адрес"
 
-#: templates/listing-contactform.tpl.php:32
+#: templates/listing-contactform.tpl.php:45
 msgctxt "templates"
 msgid "Message"
 msgstr "Сообщение"
 
-#: templates/listing-contactform.tpl.php:42
+#: templates/listing-contactform.tpl.php:55
 msgctxt "templates"
 msgid "Send"
 msgstr "Отправить"
@@ -8004,7 +8004,7 @@ msgctxt "request_access_keys"
 msgid "URL:"
 msgstr "Ссылка:"
 
-#: includes/views/search.php:40
+#: includes/views/search.php:41
 #, fuzzy
 msgctxt "search"
 msgid "\"%s\" is required."

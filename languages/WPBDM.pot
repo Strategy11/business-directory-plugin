@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 5.2.1dev5\n"
+"Project-Id-Version: Business Directory Plugin 5.2.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2018-05-29 16:08:18+00:00\n"
+"POT-Creation-Date: 2018-06-08 09:25:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6638,36 +6638,36 @@ msgctxt "templates"
 msgid "Return to directory"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:11
+#: templates/listing-contactform.tpl.php:20
 msgctxt "templates"
 msgid "Listing Title: "
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:18
+#: templates/listing-contactform.tpl.php:29
 msgctxt "templates"
 msgid ""
 "You are currently logged in as %s. Your message will be sent using your "
 "logged in contact email."
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:23
+#: templates/listing-contactform.tpl.php:36
 #: templates/listing-flagging-form.tpl.php:22
 msgctxt "templates"
 msgid "Your Name"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:27
+#: templates/listing-contactform.tpl.php:40
 #: templates/listing-flagging-form.tpl.php:26
 msgctxt "templates"
 msgid "Your Email"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:32
+#: templates/listing-contactform.tpl.php:45
 msgctxt "templates"
 msgid "Message"
 msgstr ""
 
-#: templates/listing-contactform.tpl.php:42
+#: templates/listing-contactform.tpl.php:55
 msgctxt "templates"
 msgid "Send"
 msgstr ""
@@ -7212,7 +7212,7 @@ msgctxt "request_access_keys"
 msgid "URL:"
 msgstr ""
 
-#: includes/views/search.php:40
+#: includes/views/search.php:41
 msgctxt "search"
 msgid "\"%s\" is required."
 msgstr ""
