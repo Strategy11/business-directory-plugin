@@ -89,8 +89,8 @@ class WPBDP__Shortcodes {
          *  - tag       Shows the listings with a certain tag name. (Allowed Values: Any valid tag name within the directory. Can be a comma separated list too (eg. "New, Hot").)
          *  - category  Shows the listings with a certain category. (Allowed Values: Any valid category name or ID you have configured under Directory -> Directory Categories. Can be a comma separated list too (e.g. "Dentists, Doctors" or 1,2,56).)
          *  - title     Adds a title to the page of listings to indicate what they are for. (Allowed Values: Any non-blank string.)
-         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Example:
          *  - Display listings from category "Dentists" with tag "New" and include a title.
          *
@@ -204,7 +204,7 @@ class WPBDP__Shortcodes {
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
-         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Examples:
          *  - Display the latest 5 listings submitted to the directory:
          *    `[businessdirectory-latest-listings items_per_page=5 pagination=0]`
@@ -224,6 +224,7 @@ class WPBDP__Shortcodes {
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Example:
          *  - Display a set of 10 random listings, including the directory menu with only the "Create A Listing" button:
          *
@@ -242,7 +243,7 @@ class WPBDP__Shortcodes {
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
-         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values to disable: 0, false, no. Allowed values to enable: 1, true, yes)
+         *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Example:
          *  `[businessdirectory-featured-listings items_per_page=5]`
          * Since:
@@ -398,7 +399,7 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_listings_random( $atts ) {
-        $atts = shortcode_atts(
+        $sc_atts = shortcode_atts(
             array(
                 'menu'      => 0,
                 'buttons'   => 'none',
@@ -409,9 +410,7 @@ class WPBDP__Shortcodes {
             'businessdirectory-random-listings'
         );
 
-        $atts['pagination'] = '0';
-
-        $this->validate_attributes( $atts );
+        $this->validate_attributes( $sc_atts, $atts );
 
         return $this->display_listings(
             array(
