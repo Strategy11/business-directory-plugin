@@ -403,23 +403,24 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameters)
+     *
      */
-    public function maybe_hide_excerpt_field( &$fields, $listing, $display ) {
+    public function maybe_hide_excerpt_field( &$fields, $listing_id, $display ) {
         if ( 'excerpt' != $display ) {
             return $fields;
         }
 
-        $content_field    = wpbdp_get_form_fields( array( 'association' => 'content') )[0];
+        $content_field    = wpbdp_get_form_fields( array( 'association' => 'content') );
+        $content_field    = empty( $content_field ) ? array() : $content_field[0];
         $excerpt_override = empty( $content_field ) ? 0 : $content_field->data( 'excerpt_override' );
-        
+
         if ( ! in_array( $excerpt_override , array( 1, 2 ) ) ) {
             return $fields;
         }
 
         foreach ( $fields as $k => $f ) {
             if ( 'excerpt' == $f->get_association() ) {
-                if ( 1 == $excerpt_override || ( 2 == $excerpt_override && empty( $f->value() ) ) ) {
+                if ( 1 == $excerpt_override || ( 2 == $excerpt_override && empty( $f->value( $listing_id ) ) ) ) {
                     unset( $fields[$k] );
                 }
             }
