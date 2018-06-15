@@ -684,6 +684,10 @@ class WPBDP__Shortcodes {
             $sc_atts['items_per_page'] = ! isset( $sc_atts['pagination'] ) ? ( wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ) : -1;
         }
 
+        if ( ! empty(  $sc_atts['pagination'] ) && 0 > intval( $sc_atts['items_per_page'] ) ) {
+            $sc_atts['items_per_page'] =  wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1;
+        }
+
         if ( isset( $sc_atts['pagination'] ) && ! $sc_atts['pagination'] ) {
             $sc_atts['items_per_page'] = -1;
         }
