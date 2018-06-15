@@ -14,6 +14,9 @@ var WPBDP_associations_fieldtypes = {};
             WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
             WPBDPAdmin_FormFields.$f_fieldtype.change( WPBDPAdmin_FormFields.onFieldTypeChange );
 
+            WPBDPAdmin_FormFields.$f_validator = $( 'form#wpbdp-formfield-form select#field-validator' );
+            WPBDPAdmin_FormFields.$f_validator.change( WPBDPAdmin_FormFields.onFieldValidatorChange );
+
             $( '#wpbdp-fieldsettings .iframe-confirm a' ).click(function(e) {
                 e.preventDefault();
 
@@ -94,6 +97,8 @@ var WPBDP_associations_fieldtypes = {};
                     $('#wpbdp-fieldsettings').hide();
                 }
             }, 'json' );
+
+            WPBDPAdmin_FormFields.onFieldValidatorChange();
         },
 
         onAssociationChange: function() {
@@ -120,6 +125,24 @@ var WPBDP_associations_fieldtypes = {};
                 private_option.find( 'input' ).prop( 'disabled', false );
                 private_option.show();
             }
+        },
+
+        onFieldValidatorChange: function() {
+            var $field_validator = $(this).find('option:selected');
+            var field_type = WPBDPAdmin_FormFields.$f_fieldtype.find( 'option:selected' ).val();
+
+            if ('textfield' === field_type || 'textarea' === field_type) {
+                if ( 'word_number' ===  $field_validator.val() ) {
+                    $('#wpbdp_word_count').show();
+                    $('select#field-validator option[value="word_number"]').removeAttr('disabled');
+                } else {
+                    $('#wpbdp_word_count').hide();
+                }
+            } else {
+                $('#wpbdp_word_count').hide();
+                $('select#field-validator option[value="word_number"]').attr('disabled', 'disabled').removeAttr('selected');
+            }
+
         }
     };
 

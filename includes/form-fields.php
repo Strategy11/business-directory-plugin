@@ -571,6 +571,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                 'integer_number' => _x( 'Whole Number Validator', 'form-fields-api', 'WPBDM' ),
                 'decimal_number' => _x( 'Decimal Number Validator', 'form-fields-api', 'WPBDM' ),
                 'date_'          => _x( 'Date Validator', 'form-fields-api', 'WPBDM' ),
+                'word_number'    => _x( 'Word Count Validator', 'form-fields-api', 'WPBDM' ),
             );
 
             return $validators;
@@ -715,8 +716,20 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
         /* Image Caption Validator */
         private function caption_( $value, $args = array() ) {
             if ( $args['caption_required'] && empty( $value[1] ) ) {
-                return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( _x( 'Caption for %s is required.', 'date field', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( _x( 'Caption for %s is required.', 'image field', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
             }
+        }
+
+        /* Word Number Validator */
+        private function word_number( $value, $args = array() ) {
+            $word_count = $args['field']->data( 'word_count' );
+
+            if( ! empty( $word_count ) ) {
+                if ( $value !== wp_trim_words( $value, $word_count, '' ) ) {
+                    return WPBDP_ValidationError( sprintf( _x( '%s must have less than %d words.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), $word_count ) );
+                }
+            }
+
         }
 
         private function any_of( $value, $args = array() ) {

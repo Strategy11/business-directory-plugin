@@ -27,7 +27,6 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function setup_field( &$field ) {
         $field->remove_display_flag( 'search' ); // image fields are not searchable
-        $field->add_validator( 'caption_' );
     }
 
     public function setup_validation( $field, $validator, $value ) {
@@ -71,6 +70,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         if ( array_key_exists( 'x_caption_required', $_POST['field'] ) ) {
             $caption_required = (bool) intval( $_POST['field']['x_caption_required'] );
             $field->set_data( 'caption_required', $caption_required );
+            $field->add_validator( 'caption_' );
         }
     }
 

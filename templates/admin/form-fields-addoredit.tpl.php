@@ -1,4 +1,5 @@
-<?php echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), 'field-form' ); ?>
+<?php // phpcs:disable
+echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), 'field-form' ); ?>
 <?php wpbdp_admin_notices(); ?>
 
 <form id="wpbdp-formfield-form" action="" method="post">
@@ -109,6 +110,16 @@
                         <option value="<?php echo $key; ?>" <?php echo in_array( $key, $field->get_validators(), true ) ? 'selected="selected"' : ''; ?> <?php echo $disable_validator ? 'disabled="disabled"' : ''; ?> ><?php echo $name; ?></option>
                         <?php endforeach; ?>
                     </select>
+                </td>
+            </tr>
+            <tr id="wpbdp_word_count" style="<?php echo ( in_array( 'word_number', $field->get_validators() ) &&  in_array( $field->get_field_type()->get_id(), array( 'textfield', 'textarea' ) ) ) ? '': 'display: none'; ?>">
+                <th scope="row">
+                    <label> <?php _ex('Number of words', 'form-fields admin', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <label>
+                        <input name="field[word_count]" value="<?php echo $field->data( 'word_count' ) ? $field->data( 'word_count' ) : 0; ?>" type="number">
+                    </label>
                 </td>
             </tr>
             <tr>
