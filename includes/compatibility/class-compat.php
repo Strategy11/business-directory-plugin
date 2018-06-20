@@ -48,11 +48,6 @@ class WPBDP_Compat {
             require_once WPBDP_PATH . 'includes/compatibility/class-custom-permalinks-integration.php';
             $custom_permalinks_integration = new WPBDP_Custom_Permalink_Integration();
         }
-
-        if ( class_exists( 'acf' ) ) {
-            require_once WPBDP_PATH . 'includes/compatibility/class-acf-compat.php';
-            $advanced_custom_fields = new WPBDP_ACF_Compat();
-        }
     }
 
     function cpt_compat_mode() {
