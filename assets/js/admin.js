@@ -56,6 +56,15 @@ var WPBDP_associations_fieldtypes = {};
                         $.post( ajaxurl, { 'action': 'wpbdp-formfields-reorder', 'order': sorted_items } );
                 }
             });
+
+            $( '#wpbdp-formfield-form select[name="limit_categories"]' ).change( function(){
+                var form = $( this ).parents( 'form' ).find( '#limit-categories-list' );
+                if ( $( this ).val() === "1" ) {
+                    form.removeClass( 'hidden' );
+                } else {
+                    form.addClass( 'hidden' );
+                }
+            });
         },
 
         onFieldTypeChange: function() {
@@ -125,6 +134,14 @@ var WPBDP_associations_fieldtypes = {};
                 private_option.find( 'input' ).prop( 'disabled', false );
                 private_option.show();
             }
+
+            var form = $(this).parents('form').find( '.limit-categories' );
+
+            if ( 0 <= ['title', 'category'].indexOf( association ) ) {
+                form.addClass( 'hidden' );
+            } else {
+                form.removeClass( 'hidden' );
+            }
         },
 
         onFieldValidatorChange: function() {
@@ -142,7 +159,6 @@ var WPBDP_associations_fieldtypes = {};
                 $('#wpbdp_word_count').hide();
                 $('select#field-validator option[value="word_number"]').attr('disabled', 'disabled').removeAttr('selected');
             }
-
         }
     };
 

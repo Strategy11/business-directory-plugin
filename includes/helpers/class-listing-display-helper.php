@@ -136,8 +136,19 @@ class WPBDP_Listing_Display_Helper {
     }
 
     private static function fields_vars( $listing_id, $display ) {
-        $all_fields = wpbdp_get_form_fields();
-        $fields     = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
+        $all_fields     = wpbdp_get_form_fields();
+        $display_fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
+        $fields         = array();
+
+        $listing_cats = WPBDP_Listing::get( $listing_id )->get_categories( 'ids' );
+
+        foreach ( $display_fields as $field ) {
+            if ( ! $field->validate_categories( $listing_cats ) ) {
+                continue;
+            }
+
+            $fields[] = $field;
+        }
 
         $list = new WPBDP_Field_Display_List( $listing_id, $display, $fields );
         $list->freeze();
