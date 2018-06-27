@@ -724,10 +724,15 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
         private function word_number( $value, $args = array() ) {
             $word_count = $args['field']->data( 'word_count' );
 
-            if( ! empty( $word_count ) ) {
-                if ( $value !== wp_trim_words( $value, $word_count, '' ) ) {
-                    return WPBDP_ValidationError( sprintf( _x( '%s must have less than %d words.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), $word_count ) );
-                }
+            if( empty( $word_count ) ) {
+                return;
+            }
+
+            $no_html_text = preg_replace( '/(<[^>]+>)/i', '', $value );
+            $input_array  = preg_split("/[\s,]+/", $no_html_text );
+
+            if( $word_count < count( $input_array ) ) {
+                return WPBDP_ValidationError( sprintf( _x( '%s must have less than %d words.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), $word_count ) );
             }
 
         }
