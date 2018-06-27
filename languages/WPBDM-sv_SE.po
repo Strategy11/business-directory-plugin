@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-06-08 09:25:30+00:00\n"
+"POT-Creation-Date: 2018-06-27 21:14:25+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2611,13 +2611,13 @@ msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "Lista på alternativ krävs."
 
-#: includes/fields/class-fieldtypes-image.php:56
+#: includes/fields/class-fieldtypes-image.php:55
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Display caption?"
 msgstr "Fältvisningsalternativ"
 
-#: includes/fields/class-fieldtypes-image.php:59
+#: includes/fields/class-fieldtypes-image.php:58
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field Caption required?"
@@ -2739,146 +2739,182 @@ msgctxt "form-fields admin"
 msgid "Use rel=\"nofollow\" when displaying the link?"
 msgstr "Använd rel = \"nofollow\" vid visning av länken?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:1
+#: templates/admin/form-fields-addoredit.tpl.php:8
 msgctxt "form-fields admin"
 msgid "Add Form Field"
 msgstr "Lägg till formulärfält"
 
-#: templates/admin/form-fields-addoredit.tpl.php:14
+#: templates/admin/form-fields-addoredit.tpl.php:21
 msgctxt "form-fields admin"
 msgid "Field Association"
 msgstr "Fält / Association"
 
-#: templates/admin/form-fields-addoredit.tpl.php:14
-#: templates/admin/form-fields-addoredit.tpl.php:36
-#: templates/admin/form-fields-addoredit.tpl.php:60
+#: templates/admin/form-fields-addoredit.tpl.php:21
+#: templates/admin/form-fields-addoredit.tpl.php:46
+#: templates/admin/form-fields-addoredit.tpl.php:70
 msgctxt "form-fields admin"
 msgid "required"
 msgstr "obligatoriskt"
 
-#: templates/admin/form-fields-addoredit.tpl.php:36
+#: templates/admin/form-fields-addoredit.tpl.php:46
 msgctxt "form-fields admin"
 msgid "Field Type"
 msgstr "Fälttyp"
 
-#: templates/admin/form-fields-addoredit.tpl.php:60
+#: templates/admin/form-fields-addoredit.tpl.php:70
 msgctxt "form-fields admin"
 msgid "Field Label"
 msgstr "Fältetikett"
 
-#: templates/admin/form-fields-addoredit.tpl.php:70
+#: templates/admin/form-fields-addoredit.tpl.php:80
 msgctxt "form-fields admin"
 msgid "Field description"
 msgstr "Fältbeskrivning"
 
-#: templates/admin/form-fields-addoredit.tpl.php:70
+#: templates/admin/form-fields-addoredit.tpl.php:80
 msgctxt "form-fields admin"
 msgid "optional"
 msgstr "valfritt"
 
-#: templates/admin/form-fields-addoredit.tpl.php:87
+#: templates/admin/form-fields-addoredit.tpl.php:97
 msgctxt "form-fields admin"
 msgid "Field-specific settings"
 msgstr "Fältspecifika inställningar"
 
-#: templates/admin/form-fields-addoredit.tpl.php:96
+#: templates/admin/form-fields-addoredit.tpl.php:106
 msgctxt "form-fields admin"
 msgid "Field validation options"
 msgstr "Val för fältvalidering"
 
-#: templates/admin/form-fields-addoredit.tpl.php:100
+#: templates/admin/form-fields-addoredit.tpl.php:110
 msgctxt "form-fields admin"
 msgid "Field Validator"
 msgstr "Fältvaliderare"
 
-#: templates/admin/form-fields-addoredit.tpl.php:104
+#: templates/admin/form-fields-addoredit.tpl.php:114
 msgctxt "form-fields admin"
 msgid "No validation"
 msgstr "Ingen validering"
 
-#: templates/admin/form-fields-addoredit.tpl.php:116
+#: templates/admin/form-fields-addoredit.tpl.php:126
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Number of words"
+msgstr "Antal bilder:"
+
+#: templates/admin/form-fields-addoredit.tpl.php:136
 msgctxt "form-fields admin"
 msgid "Is field required?"
 msgstr "Är detta fält obligatoriskt?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:122
+#: templates/admin/form-fields-addoredit.tpl.php:142
 msgctxt "form-fields admin"
 msgid "This field is required."
 msgstr "Detta fält är obligatoriskt."
 
-#: templates/admin/form-fields-addoredit.tpl.php:130
+#: templates/admin/form-fields-addoredit.tpl.php:150
 msgctxt "form-fields admin"
 msgid "Field display options"
 msgstr "Fältvisningsalternativ"
 
-#: templates/admin/form-fields-addoredit.tpl.php:134
+#: templates/admin/form-fields-addoredit.tpl.php:154
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Field Category Policy:"
+msgstr "Avgiftsplanen är aktiv: "
+
+#: templates/admin/form-fields-addoredit.tpl.php:159
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Field applies to all categories"
+msgstr "Planen gäller för alla kategorier"
+
+#: templates/admin/form-fields-addoredit.tpl.php:160
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Field applies to only certain categories"
+msgstr "Avgiftsplanen gäller endast vissa kategorier"
+
+#: templates/admin/form-fields-addoredit.tpl.php:164
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Limit field to the following categories:"
+msgstr "Begränsa planen för följande kategorier:"
+
+#: templates/admin/form-fields-addoredit.tpl.php:188
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Click to add categories to the selection."
+msgstr "Klicka för att lägga till kategorier."
+
+#: templates/admin/form-fields-addoredit.tpl.php:201
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:140
+#: templates/admin/form-fields-addoredit.tpl.php:207
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
 msgstr "Visa detta värdet i annonsläget."
 
-#: templates/admin/form-fields-addoredit.tpl.php:146
+#: templates/admin/form-fields-addoredit.tpl.php:213
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Visa detta värdet i utdrag?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:152
+#: templates/admin/form-fields-addoredit.tpl.php:219
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Visa detta värdet i inläggsutdrag."
 
-#: templates/admin/form-fields-addoredit.tpl.php:158
+#: templates/admin/form-fields-addoredit.tpl.php:225
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Visa detta värdet i annonsläge?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:164
+#: templates/admin/form-fields-addoredit.tpl.php:231
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr "Visa detta värdet i annonsläget."
 
-#: templates/admin/form-fields-addoredit.tpl.php:170
+#: templates/admin/form-fields-addoredit.tpl.php:237
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Inkludera detta fält i sökfunktionen?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:176
+#: templates/admin/form-fields-addoredit.tpl.php:243
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Inkludera detta fält i sökfunktionen."
 
-#: templates/admin/form-fields-addoredit.tpl.php:182
+#: templates/admin/form-fields-addoredit.tpl.php:249
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Är detta fält obligatoriskt vid sökning?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:188
+#: templates/admin/form-fields-addoredit.tpl.php:255
 msgctxt "form-fields admin"
 msgid ""
 "Make this fields required during searches on the Advanced Search screen."
 msgstr "Gör detta fält obligatoriskt vid sökningar i avancerat sök."
 
-#: templates/admin/form-fields-addoredit.tpl.php:194
+#: templates/admin/form-fields-addoredit.tpl.php:261
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Dölj detta fälts etikett?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:200
+#: templates/admin/form-fields-addoredit.tpl.php:267
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Dölj detta fälts etikett när det visas."
 
-#: templates/admin/form-fields-addoredit.tpl.php:207
+#: templates/admin/form-fields-addoredit.tpl.php:274
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Uppdatera fält"
 
-#: templates/admin/form-fields-addoredit.tpl.php:209
+#: templates/admin/form-fields-addoredit.tpl.php:276
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Lägg till fält"
@@ -5823,37 +5859,37 @@ msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:736
+#: includes/views/submit_listing.php:743
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:741
+#: includes/views/submit_listing.php:748
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:746
+#: includes/views/submit_listing.php:753
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Ange lösenordet för ditt nya konto."
 
-#: includes/views/submit_listing.php:756
+#: includes/views/submit_listing.php:763
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:761
+#: includes/views/submit_listing.php:768
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
 
-#: includes/views/submit_listing.php:776
+#: includes/views/submit_listing.php:783
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:783
+#: includes/views/submit_listing.php:790
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -5861,17 +5897,17 @@ msgstr ""
 "Du måste skapa ett konto för denna webbplatsen. Vänligen fyll i formuläret "
 "nedan."
 
-#: includes/views/submit_listing.php:789
+#: includes/views/submit_listing.php:796
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:798
+#: includes/views/submit_listing.php:805
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-postadress:"
 
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:814
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Lösenord:"
@@ -5901,12 +5937,12 @@ msgctxt "submit listing"
 msgid "Save Changes"
 msgstr "Spara ändringar"
 
-#: includes/class-recaptcha.php:91 includes/class-recaptcha.php:125
+#: includes/class-recaptcha.php:109 includes/class-recaptcha.php:150
 msgctxt "recaptcha"
 msgid "The reCAPTCHA wasn't entered correctly."
 msgstr "reCAPTCHA angavs inte korrekt"
 
-#: includes/class-recaptcha.php:182
+#: includes/class-recaptcha.php:211
 msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA"
@@ -6011,12 +6047,12 @@ msgctxt "form-fields api"
 msgid "Textarea"
 msgstr "Textruta"
 
-#: includes/fields/class-fieldtypes-textfield.php:5
+#: includes/fields/class-fieldtypes-textfield.php:13
 msgctxt "form-fields api"
 msgid "Textfield"
 msgstr "Textfält"
 
-#: includes/fields/class-fieldtypes-textfield.php:41
+#: includes/fields/class-fieldtypes-textfield.php:50
 msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr "Format 01/31/1969"
@@ -6041,7 +6077,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Länktext (valfritt):"
 
-#: includes/fields/class-form-field.php:636
+#: includes/fields/class-form-field.php:707
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6101,7 +6137,7 @@ msgctxt "date field"
 msgid "%s must be a valid date."
 msgstr "%s måste vara ett giltigt datum."
 
-#: includes/fields/class-fieldtypes-image.php:42 includes/form-fields.php:718
+#: includes/fields/class-fieldtypes-image.php:41
 #, fuzzy
 msgctxt "date field"
 msgid "Caption for %s is required."
@@ -6112,17 +6148,17 @@ msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Ta bort"
 
-#: includes/fields/class-form-field.php:57
+#: includes/fields/class-form-field.php:66
 msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Ogiltig formulärfält typ"
 
-#: includes/fields/class-form-field.php:526
+#: includes/fields/class-form-field.php:585
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Fältetikett krävs"
 
-#: includes/fields/class-form-field.php:536
+#: includes/fields/class-form-field.php:596
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -6130,14 +6166,14 @@ msgid ""
 "delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
 
-#: includes/fields/class-form-field.php:539
+#: includes/fields/class-form-field.php:599
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
 "existing listings will be deleted as well."
 msgstr ""
 
-#: includes/fields/class-form-field.php:564
+#: includes/fields/class-form-field.php:633
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6146,17 +6182,17 @@ msgstr ""
 "Det kan bara finnas ett fält med associationen \"%s\". Välj en annan "
 "association."
 
-#: includes/fields/class-form-field.php:574
+#: includes/fields/class-form-field.php:643
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" är en ogiltig fälttyp för denna association."
 
-#: includes/fields/class-form-field.php:627
+#: includes/fields/class-form-field.php:697
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Ogiltigt fält-ID"
 
-#: includes/fields/class-form-field.php:648
+#: includes/fields/class-form-field.php:720
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Ett fel uppstod när försök gjordes att radera detta fält."
@@ -6185,6 +6221,12 @@ msgstr "Decimal Number Validator"
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr "Datumvalidator"
+
+#: includes/form-fields.php:574
+#, fuzzy
+msgctxt "form-fields-api"
+msgid "Word Count Validator"
+msgstr "Heltal Validator"
 
 #: includes/fields/class-fieldtypes-image.php:121
 msgctxt "form fields"
@@ -6239,53 +6281,64 @@ msgstr ""
 "inställningen om du inte bokför listor själv och har ensam kontroll över "
 "innehållet. Är du säker på att du vill möjliggöra detta?"
 
-#: includes/form-fields.php:580
+#: includes/form-fields.php:581
 msgctxt "form-fields-api validation"
 msgid "Field"
 msgstr "Fält"
 
-#: includes/form-fields.php:601 includes/form-fields.php:606
+#: includes/form-fields.php:602 includes/form-fields.php:607
 msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s är obligatorisk."
 
-#: includes/form-fields.php:618 includes/form-fields.php:625
+#: includes/form-fields.php:619 includes/form-fields.php:626
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
 "%s är felaktigt formaterat. Giltigt URL-format som krävs. Inkludera http://"
 
-#: includes/form-fields.php:640
+#: includes/form-fields.php:641
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s är dåligt formaterat. Giltig e-postformat krävs."
 
-#: includes/form-fields.php:647
+#: includes/form-fields.php:648
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s måste vara ett nummer. Decimaler är ej tillåtna."
 
-#: includes/form-fields.php:654
+#: includes/form-fields.php:655
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s måste vara ett tal."
 
-#: includes/form-fields.php:673
+#: includes/form-fields.php:674
 #, fuzzy
 msgctxt "form-fields-api validation"
 msgid "%1$s must be in the format %2$s."
 msgstr "%s måste vara i formatet %s."
 
-#: includes/form-fields.php:711
+#: includes/form-fields.php:712
 msgctxt "form-fields-api validation"
 msgid "%s must be a valid date."
 msgstr "%s måste vara ett giltigt datum."
 
-#: includes/form-fields.php:736
+#: includes/form-fields.php:735
+msgctxt "form-fields-api validation"
+msgid "%s must have less than %d words."
+msgstr ""
+
+#: includes/form-fields.php:754
 #, fuzzy
 msgctxt "form-fields-api validation"
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s är ogiltig. Värdet måste vara en av %s."
+
+#: includes/form-fields.php:719
+#, fuzzy
+msgctxt "image field"
+msgid "Caption for %s is required."
+msgstr "Land krävs."
 
 #: includes/gateways/class-gateway-authorize-net.php:20
 msgctxt "authorize-net"
@@ -7047,17 +7100,17 @@ msgctxt "templates"
 msgid "View not available."
 msgstr "Vy ej tillgänglig."
 
-#: includes/views/submit_listing.php:845
+#: includes/views/submit_listing.php:852
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:853
+#: includes/views/submit_listing.php:860
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:862
+#: includes/views/submit_listing.php:869
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -7722,7 +7775,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:606
+#: includes/views/submit_listing.php:613
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -7731,7 +7784,7 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/views/submit_listing.php:688
+#: includes/views/submit_listing.php:695
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -7973,113 +8026,124 @@ msgctxt "admin sidebar"
 msgid "Elegant Business Theme"
 msgstr "Tema Elegant Busniess"
 
-#: templates/admin/sidebar.tpl.php:29
+#: templates/admin/sidebar.tpl.php:23
+#, fuzzy
+msgctxt "admin sidebar"
+msgid "Modern Business Theme"
+msgstr "Tema Elegant Busniess"
+
+#: templates/admin/sidebar.tpl.php:24
+msgctxt "admin sidebar"
+msgid "Modern Filtered Theme"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:31
 msgctxt "admin sidebar"
 msgid "Like this plugin?"
 msgstr "Gillar du detta plugin?"
 
-#: templates/admin/sidebar.tpl.php:31
+#: templates/admin/sidebar.tpl.php:33
 msgctxt "admin sidebar"
 msgid "Why not do any or all of the following:"
 msgstr "Varför inte göra något eller allt av följande:"
 
-#: templates/admin/sidebar.tpl.php:33
+#: templates/admin/sidebar.tpl.php:35
 msgctxt "admin sidebar"
 msgid "Give it a good rating on WordPress.org."
 msgstr "Ge det ett bra betyg på WordPress.org."
 
-#: templates/admin/sidebar.tpl.php:34
+#: templates/admin/sidebar.tpl.php:36
 msgctxt "admin sidebar"
 msgid "Let other people know that it works with your WordPress setup."
 msgstr ""
 "Låt andra människor veta att det fungerar med din WordPress installation."
 
-#: templates/admin/sidebar.tpl.php:35
+#: templates/admin/sidebar.tpl.php:37
 msgctxt "admin sidebar"
 msgid "Buy a Premium Module"
 msgstr "Köp en premiummodul"
 
-#: templates/admin/sidebar.tpl.php:42
+#: templates/admin/sidebar.tpl.php:44
 msgctxt "admin sidebar"
 msgid "Get a Premium Module"
 msgstr "Skaffa en premiummodul"
 
-#: templates/admin/sidebar.tpl.php:45 templates/admin/sidebar.tpl.php:61
+#: templates/admin/sidebar.tpl.php:47 templates/admin/sidebar.tpl.php:63
 msgctxt "admin sidebar"
 msgid "best deal"
 msgstr "Bästa erbjudande"
 
-#: templates/admin/sidebar.tpl.php:45
+#: templates/admin/sidebar.tpl.php:47
 msgctxt "admin sidebar"
 msgid "Combo Pack"
 msgstr "Combo Pack"
 
-#: templates/admin/sidebar.tpl.php:45
+#: templates/admin/sidebar.tpl.php:47
 msgctxt "admin sidebar"
 msgid "(All Modules)"
 msgstr "(Alla moduler)"
 
-#: templates/admin/sidebar.tpl.php:48 templates/admin/sidebar.tpl.php:64
+#: templates/admin/sidebar.tpl.php:50 templates/admin/sidebar.tpl.php:66
 msgctxt "admin sidebar"
 msgid "new"
 msgstr "ny"
 
-#: templates/admin/sidebar.tpl.php:58
+#: templates/admin/sidebar.tpl.php:60
 msgctxt "admin sidebar"
 msgid "Get a Directory Theme"
 msgstr "Skaffa ett Directory Theme"
 
-#: templates/admin/sidebar.tpl.php:61
+#: templates/admin/sidebar.tpl.php:63
 msgctxt "admin sidebar"
 msgid "Theme Pack"
 msgstr "Theme Pack"
 
-#: templates/admin/sidebar.tpl.php:61
+#: templates/admin/sidebar.tpl.php:63
 msgctxt "admin sidebar"
 msgid "(All Themes)"
 msgstr "(Alla teman)"
 
-#: templates/admin/sidebar.tpl.php:74
+#: templates/admin/sidebar.tpl.php:76
 msgctxt "admin sidebar"
 msgid "Found a bug? Need support?"
 msgstr "Hittat ett programfel? Behöver du hjälp?"
 
-#: templates/admin/sidebar.tpl.php:79
+#: templates/admin/sidebar.tpl.php:81
 msgctxt "admin sidebar"
 msgid "If you've found a bug or need support <a>visit the forums!</a>"
 msgstr "Om du har hittat en bugg eller behöver stöd <a>besök forumet!</a>"
 
-#: templates/admin/sidebar.tpl.php:82
+#: templates/admin/sidebar.tpl.php:84
 msgctxt "admin sidebar"
 msgid "Full plugin documentation"
 msgstr "Fullständig dokumentation för pluginet"
 
-#: templates/admin/sidebar.tpl.php:83
+#: templates/admin/sidebar.tpl.php:85
 msgctxt "admin sidebar"
 msgid "Quick Start Guide"
 msgstr "Snabbstartsguide"
 
-#: templates/admin/sidebar.tpl.php:84
+#: templates/admin/sidebar.tpl.php:86
 msgctxt "admin sidebar"
 msgid "Video Tutorials"
 msgstr "Handledningar (video)"
 
-#: templates/admin/sidebar.tpl.php:92
+#: templates/admin/sidebar.tpl.php:94
 msgctxt "admin sidebar"
 msgid "Installed Modules"
 msgstr "Installerade moduler"
 
-#: templates/admin/sidebar.tpl.php:103 templates/admin/sidebar.tpl.php:112
+#: templates/admin/sidebar.tpl.php:105 templates/admin/sidebar.tpl.php:114
 msgctxt "admin sidebar"
 msgid "Installed"
 msgstr "Installerat"
 
-#: templates/admin/sidebar.tpl.php:105 templates/admin/sidebar.tpl.php:112
+#: templates/admin/sidebar.tpl.php:107 templates/admin/sidebar.tpl.php:114
 msgctxt "admin sidebar"
 msgid "Not Installed"
 msgstr "Ej installerad"
 
-#: templates/admin/sidebar.tpl.php:111
+#: templates/admin/sidebar.tpl.php:113
 msgctxt "admin sidebar"
 msgid "Enhanced Categories Module"
 msgstr "Modul för förbättrade kategorier"
