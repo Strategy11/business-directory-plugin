@@ -187,10 +187,11 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $input = str_replace( ';', ',', $input ); // Support ; as a separator here.
         $parts = explode( ',', $input );
 
-        if ( 1 == count( $parts ) )
-            return array( $parts[0], $parts[0] );
+        if ( 1 == count( $parts ) ) {
+            return array( $parts[0], '' );
+        }
 
-        return array( $parts[0], $parts[1] );
+        return $parts;
     }
 
     public function get_field_csv_value( &$field, $post_id ) {

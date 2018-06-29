@@ -1,10 +1,19 @@
 <?php
+/**
+ * CSV import class
+ *
+ * @package Includes/Admin/CSV Import
+ */
+
+// phpcs:disable
 
 @ini_set( 'auto_detect_line_endings', true );
 
 /**
  * Replaces `WPBDP_CSVImporter` (from 2.1) and adds support for sequential imports.
  * @since 3.5.8
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_CSV_Import {
 
@@ -483,13 +492,21 @@ class WPBDP_CSV_Import {
             if ( 'image' != $f->get_field_type_id() )
                 continue;
 
-            $img = trim( $field_data );
+//            $img = trim( $field_data );
+            $img = array_pop( $field_data );
 
-            if ( ! $img )
+            if ( ! $img ) {
+                $field_data[] = $img;
                 continue;
+            }
 
             $media_id = $this->upload_image( $img );
-            $fields[ $field_id ] = $media_id ? $media_id : '';
+
+            if ( $media_id ) {
+                $field_data[0] = $media_id;
+            }
+
+            $fields[ $field_id ] = $media_id ? $field_data : array();
         }
 
         $state->fields = $fields;

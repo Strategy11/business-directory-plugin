@@ -1,8 +1,17 @@
 <?php
+/**
+ * CSV import class
+ *
+ * @package Includes/Admin/CSV Exporter
+ */
+
+// phpcs:disable
 
 /**
  * CSV export.
  * @since 3.2
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_CSVExporter {
 
@@ -350,11 +359,35 @@ class WPBDP_CSVExporter {
                     case 'meta':
                     default:
                         $value = $field->csv_value( $listing->get_id() );
+
+                        if ( 'image' === $field->get_field_type_id() && $this->settings['export-images'] ) {
+                            $image_id = $field->plain_value( $listing->get_id() );
+
+                            if ( empty( $image_id ) ) {
+                                break;
+                            }
+
+                            $img_meta = wp_get_attachment_metadata( $image_id );
+
+                            if ( empty( $img_meta['file'] ) ) {
+                                break;
+                            }
+
+                            $upload_dir = wp_upload_dir();
+                            $img_path = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
+
+                            if ( ! is_readable( $img_path ) ) {
+                                continue;
+                            }
+
+                            $this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+                            if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
+                                $value = sprintf( '%s,%s', $value, basename( $img_path ) );
+                            }
+                        }
                         break;
                     }
                 }
-
-                break;
             }
 
             if ( ! is_string( $value ) && ! is_array( $value ) ) {
