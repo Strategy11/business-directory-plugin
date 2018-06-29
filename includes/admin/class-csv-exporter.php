@@ -9,6 +9,7 @@
 
 /**
  * CSV export.
+ *
  * @since 3.2
  *
  * @SuppressWarnings(PHPMD)
@@ -18,28 +19,28 @@ class WPBDP_CSVExporter {
     const BATCH_SIZE = 20;
 
     private $settings = array(
-        'target-os' => 'windows',
-        'csv-file-separator' => ',',
-        'images-separator' => ';',
-        'category-separator' => ';',
+        'target-os'             => 'windows',
+        'csv-file-separator'    => ',',
+        'images-separator'      => ';',
+        'category-separator'    => ';',
 
-        'test-import' => false,
-        'export-images' => false,
-        'include-users' => false,
+        'test-import'           => false,
+        'export-images'         => false,
+        'include-users'         => false,
 
         'generate-sequence-ids' => false,
 
-        'listing_status' => 'all'
+        'listing_status'        => 'all',
     );
 
     private $workingdir = '';
 
-    private $columns = array();
+    private $columns  = array();
     private $listings = array(); // Listing IDs to be exported.
     private $exported = 0; // # of already exported listings.
-    private $images = array();
+    private $images   = array();
 
-    public function __construct( $settings, $workingdir=null, $listings=array() ) {
+    public function __construct( $settings, $workingdir = null, $listings = array() ) {
         global $wpdb;
 
         $this->settings = array_merge( $this->settings, $settings );
@@ -53,45 +54,51 @@ class WPBDP_CSVExporter {
         }
 
         // Setup columns.
-        if ( $this->settings['generate-sequence-ids'] )
+        if ( $this->settings['generate-sequence-ids'] ) {
             $this->columns['sequence_id'] = 'sequence_id';
+        }
 
         $fields = wpbdp_get_form_fields( array( 'field_type' => '-ratings' ) );
         foreach ( $fields as &$f ) {
             $this->columns[ $f->get_short_name() ] = $f;
         }
 
-        if ( $this->settings['export-images'] )
+        if ( $this->settings['export-images'] ) {
             $this->columns['images'] = 'images';
+        }
 
-        if ( $this->settings['include-users'] )
+        if ( $this->settings['include-users'] ) {
             $this->columns['username'] = 'username';
+        }
 
         $this->columns['fee_id'] = 'fee_id';
 
-        if ( $this->settings['include-expiration-date'] )
+        if ( $this->settings['include-expiration-date'] ) {
             $this->columns['expires_on'] = 'expires_on';
+        }
 
         // Setup working directory.
-        if ( !$workingdir ) {
+        if ( ! $workingdir ) {
             $direrror = '';
 
             $upload_dir = wp_upload_dir();
 
-            if ( !$upload_dir['error'] ) {
+            if ( ! $upload_dir['error'] ) {
                 $csvexportsdir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-exports';
                 if ( is_dir( $csvexportsdir ) || mkdir( $csvexportsdir ) ) {
                     $this->workingdir = rtrim( $csvexportsdir . DIRECTORY_SEPARATOR . uniqid(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR;
 
-                    if ( !mkdir( $this->workingdir, 0777 ) )
+                    if ( ! mkdir( $this->workingdir, 0777 ) ) {
                         $direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'WPBDM' );
+                    }
                 } else {
                     $direrror = _x( 'Could not create wpbdp-csv-exports directory.', 'admin csv-export', 'WPBDM' );
                 }
             }
 
-            if ( $direrror )
+            if ( $direrror ) {
                 throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'WPBDM' ), $direrror ) );
+            }
         } else {
             $this->workingdir = $workingdir;
         }
@@ -112,17 +119,19 @@ class WPBDP_CSVExporter {
                     break;
             }
 
-            $this->listings = get_posts( array(
-                'post_status' => $post_status,
-                'posts_per_page' => -1,
-                'post_type' => WPBDP_POST_TYPE,
-                'fields' => 'ids'
-            ) );
+            $this->listings = get_posts(
+                array(
+					'post_status'    => $post_status,
+					'posts_per_page' => -1,
+					'post_type'      => WPBDP_POST_TYPE,
+					'fields'         => 'ids',
+                )
+            );
         }
     }
 
     public static function &from_state( $state ) {
-        $export = new self( $state['settings'], trailingslashit( $state['workingdir'] ), (array) $state['listings'] );
+        $export           = new self( $state['settings'], trailingslashit( $state['workingdir'] ), (array) $state['listings'] );
         $export->exported = abs( intval( $state['exported'] ) );
 
         // Setup columns.
@@ -136,8 +145,9 @@ class WPBDP_CSVExporter {
 
             $field_id = array_search( $fshortname, $shortnames );
 
-            if ( $field_id === FALSE )
+            if ( $field_id === false ) {
                 throw new Exception( 'Invalid field shortname.' );
+            }
 
             $export->columns[ $fshortname ] = wpbdp_get_form_field( $field_id );
         }
@@ -147,13 +157,13 @@ class WPBDP_CSVExporter {
 
     public function get_state() {
         return array(
-            'settings' => $this->settings,
-            'columns' => array_keys( $this->columns ),
+            'settings'   => $this->settings,
+            'columns'    => array_keys( $this->columns ),
             'workingdir' => $this->workingdir,
-            'listings' => $this->listings,
-            'exported' => $this->exported,
-            'filesize' => file_exists( $this->get_file_path() ) ?  filesize( $this->get_file_path() ) : 0,
-            'done' => $this->is_done()
+            'listings'   => $this->listings,
+            'exported'   => $this->exported,
+            'filesize'   => file_exists( $this->get_file_path() ) ? filesize( $this->get_file_path() ) : 0,
+            'done'       => $this->is_done(),
         );
     }
 
@@ -162,18 +172,20 @@ class WPBDP_CSVExporter {
 
         wpbdp_rrmdir( $this->workingdir );
 
-        if ( !$upload_dir['error'] ) {
+        if ( ! $upload_dir['error'] ) {
             $csvexportsdir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-exports';
-            $contents = wpbdp_scandir( $csvexportsdir );
+            $contents      = wpbdp_scandir( $csvexportsdir );
 
-            if ( !$contents )
+            if ( ! $contents ) {
                 wpbdp_rrmdir( $csvexportsdir );
+            }
         }
     }
 
     public function advance() {
-        if ( $this->is_done() )
+        if ( $this->is_done() ) {
             return;
+        }
 
         $csvfile = $this->get_csvfile( $this->workingdir . 'export.csv' );
 
@@ -200,11 +212,11 @@ class WPBDP_CSVExporter {
                 @unlink( $this->workingdir . 'export.zip' );
                 $zip = $this->get_pclzip_instance( $this->workingdir . 'export.zip' );
 
-                $files = array();
+                $files   = array();
                 $files[] = $this->workingdir . 'export.csv';
                 $files[] = $this->workingdir . 'images.zip';
 
-                $zip->create( implode( ',', $files ) , PCLZIP_OPT_REMOVE_ALL_PATH );
+                $zip->create( implode( ',', $files ), PCLZIP_OPT_REMOVE_ALL_PATH );
 
                 @unlink( $this->workingdir . 'export.csv' );
                 @unlink( $this->workingdir . 'images.zip' );
@@ -219,7 +231,7 @@ class WPBDP_CSVExporter {
     protected function get_pclzip_instance( $path ) {
         if ( ! class_exists( 'PclZip' ) ) {
             define( 'PCLZIP_TEMPORARY_DIR', $this->workingdir );
-            require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+            require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
         }
 
         return new PclZip( $path );
@@ -231,7 +243,7 @@ class WPBDP_CSVExporter {
     private function prepare_header( $header ) {
         if ( $this->settings['target-os'] === 'windows' ) {
             $bom = "\xEF\xBB\xBF"; /* UTF-8 BOM */
-        } else if ( $this->settings['target-os'] === 'macos' ) {
+        } elseif ( $this->settings['target-os'] === 'macos' ) {
             $bom = "\xFF\xFE"; /* UTF-16LE BOM */
         }
 
@@ -241,7 +253,7 @@ class WPBDP_CSVExporter {
     private function prepare_content( $content ) {
         if ( $this->settings['target-os'] === 'windows' ) {
             $encoded_content = $content . "\n";
-        } else if ( $this->settings['target-os'] === 'macos' ) {
+        } elseif ( $this->settings['target-os'] === 'macos' ) {
             $encoded_content = iconv( 'UTF-8', 'UTF-16LE', $content . "\n" );
         }
 
@@ -249,23 +261,25 @@ class WPBDP_CSVExporter {
     }
 
     public function get_file_path() {
-        if ( file_exists( $this->workingdir . 'export.zip' ) )
+        if ( file_exists( $this->workingdir . 'export.zip' ) ) {
             return $this->workingdir . 'export.zip';
-        else
-            return $this->workingdir . 'export.csv';
+        } else {
+			return $this->workingdir . 'export.csv';
+        }
     }
 
     public function get_file_url() {
         $uploaddir = wp_upload_dir();
-        $urldir = trailingslashit( untrailingslashit( $uploaddir['baseurl'] ) . '/' . ltrim( str_replace( DIRECTORY_SEPARATOR, '/', str_replace( $uploaddir['basedir'], '', $this->workingdir ) ), '/' ) );
+        $urldir    = trailingslashit( untrailingslashit( $uploaddir['baseurl'] ) . '/' . ltrim( str_replace( DIRECTORY_SEPARATOR, '/', str_replace( $uploaddir['basedir'], '', $this->workingdir ) ), '/' ) );
 
-        if ( file_exists( $this->workingdir . 'export.zip' ) )
+        if ( file_exists( $this->workingdir . 'export.zip' ) ) {
             return $urldir . 'export.zip';
-        else
-            return $urldir . 'export.csv';
+        } else {
+			return $urldir . 'export.csv';
+        }
     }
 
-    private function header( $echo=false ) {
+    private function header( $echo = false ) {
         $out = '';
 
         foreach ( $this->columns as $colname => &$col ) {
@@ -275,8 +289,9 @@ class WPBDP_CSVExporter {
 
         $out = substr( $out, 0, -1 );
 
-        if ( $echo )
+        if ( $echo ) {
             echo $out;
+        }
 
         return $out;
     }
@@ -294,100 +309,100 @@ class WPBDP_CSVExporter {
             $value = '';
 
             switch ( $column_name ) {
-            case 'sequence_id':
-                $value = $listing->get_sequence_id();
-                break;
-            case 'username':
-                $value = $listing->get_author_meta( 'login' );
-                break;
-            case 'images':
-                $images = array();
+				case 'sequence_id':
+					$value = $listing->get_sequence_id();
+                    break;
+				case 'username':
+					$value = $listing->get_author_meta( 'login' );
+                    break;
+				case 'images':
+					$images = array();
 
-                if ( $image_ids = $listing->get_images( 'ids' ) ) {
-                    $upload_dir = wp_upload_dir();
+					if ( $image_ids = $listing->get_images( 'ids' ) ) {
+						$upload_dir = wp_upload_dir();
 
-                    foreach ( $image_ids as $image_id ) {
-                        $img_meta = wp_get_attachment_metadata( $image_id );
+						foreach ( $image_ids as $image_id ) {
+							$img_meta = wp_get_attachment_metadata( $image_id );
 
-                        if ( empty( $img_meta['file'] ) ) {
-                            continue;
-                        }
+							if ( empty( $img_meta['file'] ) ) {
+								continue;
+							}
 
-                        $img_path = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
+							$img_path = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
 
-                        if ( ! is_readable( $img_path ) ) {
-                            continue;
-                        }
+							if ( ! is_readable( $img_path ) ) {
+								continue;
+							}
 
-                        $this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
-                        if ( $success = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
-                            $images[] = basename( $img_path );
-                        }
-                    }
-                }
+							$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+							if ( $success = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
+								$images[] = basename( $img_path );
+							}
+						}
+					}
 
-                $value = implode( $this->settings['images-separator'], $images );
-                break;
-            case 'fee_id':
-                $plan = $listing->get_fee_plan();
+					$value = implode( $this->settings['images-separator'], $images );
+                    break;
+				case 'fee_id':
+					$plan = $listing->get_fee_plan();
 
-                if ( isset( $plan->fee_id ) ) {
-                    $value = $plan->fee_id;
-                }
+					if ( isset( $plan->fee_id ) ) {
+						$value = $plan->fee_id;
+					}
 
-                break;
-            case 'expires_on':
-            case 'expiration_date':
-                $plan = $listing->get_fee_plan();
+                    break;
+				case 'expires_on':
+				case 'expiration_date':
+					$plan = $listing->get_fee_plan();
 
-                if ( isset( $plan->expiration_date ) ) {
-                    $value = $plan->expiration_date;
-                }
+					if ( isset( $plan->expiration_date ) ) {
+						$value = $plan->expiration_date;
+					}
 
-                break;
-            default:
-                if ( is_object( $column_obj ) ) {
-                    $field = $column_obj;
+                    break;
+				default:
+					if ( is_object( $column_obj ) ) {
+						$field = $column_obj;
 
-                    switch ( $field->get_association() ) {
-                    case 'category':
-                    case 'tags':
-                        $value = wp_get_post_terms( $listing->get_id(), ( 'tags' == $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ), 'fields=names' );
-                        $value = array_map( 'html_entity_decode', $value );
-                        $value = implode( $this->settings['category-separator'], $value );
-                        break;
-                    case 'meta':
-                    default:
-                        $value = $field->csv_value( $listing->get_id() );
+						switch ( $field->get_association() ) {
+							case 'category':
+							case 'tags':
+								$value = wp_get_post_terms( $listing->get_id(), ( 'tags' == $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ), 'fields=names' );
+								$value = array_map( 'html_entity_decode', $value );
+								$value = implode( $this->settings['category-separator'], $value );
+							    break;
+							case 'meta':
+							default:
+								$value = $field->csv_value( $listing->get_id() );
 
-                        if ( 'image' === $field->get_field_type_id() && $this->settings['export-images'] ) {
-                            $image_id = $field->plain_value( $listing->get_id() );
+								if ( 'image' === $field->get_field_type_id() && $this->settings['export-images'] ) {
+									$image_id = $field->plain_value( $listing->get_id() );
 
-                            if ( empty( $image_id ) ) {
-                                break;
-                            }
+									if ( empty( $image_id ) ) {
+										break;
+									}
 
-                            $img_meta = wp_get_attachment_metadata( $image_id );
+									$img_meta = wp_get_attachment_metadata( $image_id );
 
-                            if ( empty( $img_meta['file'] ) ) {
-                                break;
-                            }
+									if ( empty( $img_meta['file'] ) ) {
+										break;
+									}
 
-                            $upload_dir = wp_upload_dir();
-                            $img_path = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
+									$upload_dir = wp_upload_dir();
+									$img_path   = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
 
-                            if ( ! is_readable( $img_path ) ) {
-                                continue;
-                            }
+									if ( ! is_readable( $img_path ) ) {
+										continue;
+									}
 
-                            $this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
-                            if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
-                                $value = sprintf( '%s,%s', $value, basename( $img_path ) );
-                            }
-                        }
-                        break;
-                    }
-                }
+									$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+									if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
+										$value = sprintf( '%s,%s', $value, basename( $img_path ) );
+									}
+								}
+							    break;
+						}
+					}
             }
 
             if ( ! is_string( $value ) && ! is_array( $value ) ) {
