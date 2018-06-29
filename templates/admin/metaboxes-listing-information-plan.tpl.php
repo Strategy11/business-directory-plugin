@@ -1,5 +1,13 @@
 <!-- {{  Fee plan info. -->
 <?php
+/**
+ * Listing information plan metabox
+ *
+ * @package Admin Templates/listing information plan
+ */
+
+// phpcs:disable
+
 echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', false, false );
 ?>
 <div id="wpbdp-listing-metabox-plan-info" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="1">
@@ -60,11 +68,11 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <dt><?php _ex( 'Expires On', 'listing metabox', 'WPBDM' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-expiration">
-                <?php echo $current_plan ? wpbdp_date_full_format( strtotime( $current_plan->expiration_date ) ) : '-'; ?>
+                <?php echo ( $current_plan && $current_plan->expiration_date ) ? wpbdp_date_full_format( strtotime( $current_plan->expiration_date ) ) : ( $listing->get_fee_plan() ? 'Never' : '-' ); ?>
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'WPBDM' ); ?></a>
             <div class="value-editor">
-                <input type="text" name="listing_plan[expiration_date]" value="<?php echo $current_plan ? $current_plan->expiration_date : ''; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'WPBDM' ); ?>" />
+                <input type="text" name="listing_plan[expiration_date]" value="<?php echo ( $current_plan && $current_plan->expiration_date ) ? $current_plan->expiration_date : ''; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'WPBDM' ); ?>" />
 
                 <p>
                     <a href="#" class="update-value button"><?php _ex( 'OK', 'listing metabox', 'WPBDM' ); ?></a>
