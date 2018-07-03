@@ -1394,19 +1394,7 @@ final class WPBDP__Settings__Bootstrap {
             }
         }
 
-        // We make sure that there's always one notice applying to the expiration time of non-recurring listings.
-        $found = false;
-        foreach ( $value as $notice_id => $notice ) {
-            if ( 'expiration' == $notice['event'] && ( 'non-recurring' == $notice['listings'] || 'both' == $notice['listings'] ) && '0 days' == $notice['relative_time'] ) {
-                $found = true;
-                break;
-            }
-        }
-
-        if ( ! $found ) {
-            $default_notices = self::get_default_expiration_notices();
-            $value[]         = $default_notices[1];
-        }
+        // Remove enforce that there's always one notice applying to the expiration time of non-recurring listings. (#3795)
 
         return $value;
     }

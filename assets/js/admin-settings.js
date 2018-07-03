@@ -217,8 +217,8 @@ jQuery(function($) {
                 e.preventDefault();
 
                 var $email = $( this ).parents( '.wpbdp-settings-email' );
-                $email.next().remove();
-                $email.remove();
+                $email.find( 'input.email-subject' ).val( '' );
+                $email.find( 'input.email-body' ).val( '' );
                 $( '#wpbdp-admin-page-settings form:first' ).submit();
             });
 

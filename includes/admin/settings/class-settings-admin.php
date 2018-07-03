@@ -431,7 +431,7 @@ class WPBDP__Settings_Admin {
 
     <div id="wpbdp-settings-expiration-notices-add">
     <?php
-    $n = max( array_keys( $value ) ) + 1;
+    $n = ! empty( $value ) ? max( array_keys( $value ) ) + 1 : 0;
     echo wpbdp_render_page(
         WPBDP_PATH . 'templates/admin/settings-email.tpl.php',
         array(
