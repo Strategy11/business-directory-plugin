@@ -1,11 +1,26 @@
 <?php
 /**
+ * WPBDP Login page.
+ *
+ * @package WPBDP/Views/Login
+ */
+
+// phpcs:disable
+
+/**
  * @since 5.0
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Login extends WPBDP__View {
 
     public function dispatch() {
         $redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : wp_get_referer();
+
+        if ( ! $redirect_to ) {
+            $this->_redirect( wpbdp_url( 'main' ) );
+        }
+
         $redirect_to = remove_query_arg( 'access_key_hash', $redirect_to );
 
         $key_access_enabled = wpbdp_get_option( 'enable-key-access' );
