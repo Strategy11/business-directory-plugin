@@ -1,4 +1,17 @@
 <?php
+/**
+ * WPML compatibility
+ *
+ * @package WPBDP/Includes/Compatibility/WPML
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP_WPML_Compat
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_WPML_Compat {
 
     private $wpml;
@@ -7,7 +20,7 @@ class WPBDP_WPML_Compat {
         $this->wpml = $GLOBALS['sitepress'];
 
         if ( ! is_admin() || $this->is_doing_ajax() ) {
-            add_filter( 'wpbdp_get_page_id', array( &$this, 'page_id'), 10, 2 );
+            add_filter( 'wpbdp_get_page_id', array( &$this, 'page_id' ), 10, 2 );
 
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_category_link', array( &$this, 'add_lang_to_link' ) );
@@ -50,12 +63,14 @@ class WPBDP_WPML_Compat {
     }
 
     function fix_get_page_link( $link, $post_id ) {
-        if ( ! wpbdp_rewrite_on() )
+        if ( ! wpbdp_rewrite_on() ) {
             return $link;
+        }
 
         $page_ids = wpbdp_get_page_ids( 'main' );
-        if ( ! in_array( $post_id, $page_ids ) )
+        if ( ! in_array( $post_id, $page_ids ) ) {
             return $link;
+        }
 
         $link = preg_replace( '/\?.*/', '', $link );
         return $link;
@@ -64,12 +79,14 @@ class WPBDP_WPML_Compat {
     function page_id( $id, $page_name = '' ) {
         $lang = $this->get_current_language();
 
-        if ( ! $lang )
+        if ( ! $lang ) {
             return $id;
+        }
 
         $trans_id = icl_object_id( $id, 'page', false, $lang );
-        if ( ! $trans_id )
+        if ( ! $trans_id ) {
             return $id;
+        }
 
         return $trans_id;
     }
@@ -79,19 +96,21 @@ class WPBDP_WPML_Compat {
 
         $lang = '';
 
-        if ( false !== ($index = strpos( $link, '?' ) ) ) {
+        if ( false !== ( $index = strpos( $link, '?' ) ) ) {
             // We honor the ?lang argument from the link itself (if present).
             $data = array();
             wp_parse_str( substr( $link, $index + 1 ), $data );
 
-            if ( !empty( $data['lang'] ) )
+            if ( ! empty( $data['lang'] ) ) {
                 $lang = $data['lang'];
+            }
         } else {
-           $lang = $this->get_current_language();
+			$lang = $this->get_current_language();
         }
 
-        if ( ! $lang )
+        if ( ! $lang ) {
             return $link;
+        }
 
         $nego_type = absint( $sitepress->get_setting( 'language_negotiation_type' ) );
         if ( 1 == $nego_type ) {
@@ -107,7 +126,8 @@ class WPBDP_WPML_Compat {
             //
             // UPDATE: Maybe this is related to:
             // https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3122
-            /*if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
+            /*
+            if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
                 $real_link = get_permalink( $trans_id );
                 $used_link = _get_page_link( $trans_id );
 
@@ -142,8 +162,9 @@ class WPBDP_WPML_Compat {
     function correct_page_link( $link, $name = '', $arg0 = '' ) {
         $lang = $this->get_current_language();
 
-        if ( ! $lang )
+        if ( ! $lang ) {
             return $link;
+        }
 
         switch ( $name ) {
             case 'main':
@@ -179,18 +200,14 @@ class WPBDP_WPML_Compat {
 
         $lang = $lang ? $lang : $this->get_current_language();
 
-        if ( ! $lang )
+        if ( ! $lang ) {
             return $link;
+        }
 
         if ( wpbdp_rewrite_on() ) {
-            $main_id = wpbdp_get_page_id( 'main' );
-            $trans_id = icl_object_id( $main_id, 'page', false, $lang );
-
-            if ( ! $trans_id )
-                return $link;
-
-            $main_link = $this->fix_get_page_link( get_page_link( $main_id ), $main_id );
-            $main_trans_link = $this->fix_get_page_link( get_page_link( $trans_id ), $trans_id );
+            $main_id         = wpbdp_get_page_id( 'main' );
+            $main_link       = $this->fix_get_page_link( get_page_link( $main_id ), $main_id );
+            $main_trans_link = apply_filters( 'wpml_permalink', $main_link, $lang );
 
             $link = str_replace( $main_link, $main_trans_link, $link );
 
@@ -212,12 +229,13 @@ class WPBDP_WPML_Compat {
             case 'show_category':
                 $category_id = wpbdp_current_category_id();
 
-                if ( ! $category_id )
+                if ( ! $category_id ) {
                     return $languages;
+                }
 
                 foreach ( $languages as $l_code => $l ) {
                     $trans_id = (int) icl_object_id( $category_id, WPBDP_CATEGORY_TAX, false, $languages[ $l_code ]['language_code'] );
-                    $link = get_term_link( $trans_id, WPBDP_CATEGORY_TAX );
+                    $link     = get_term_link( $trans_id, WPBDP_CATEGORY_TAX );
 
                     if ( ! $trans_id || is_wp_error( $link ) ) {
                         unset( $languages[ $l_code ] );
@@ -230,10 +248,18 @@ class WPBDP_WPML_Compat {
                 break;
 
             case 'show_listing':
-                $listing_id = wpbdp_get_post_by_id_or_slug( get_the_ID(), 'id', 'id' );
+                $listing_id = get_the_ID();
 
-                if ( ! $listing_id )
+                if ( ! $listing_id ) {
+                    global $wp_query;
+
+                    $listing_id = $wp_query->get_queried_object()->ID;
+                }
+
+				// $listing_id = wpbdp_get_post_by_id_or_slug( $post_id, 'id', 'id' );
+                if ( ! $listing_id ) {
                     break;
+                }
 
                 foreach ( $languages as $l_code => $l ) {
                     $trans_id = icl_object_id( $listing_id, WPBDP_POST_TYPE, true, $languages[ $l_code ]['language_code'] );
@@ -260,8 +286,9 @@ class WPBDP_WPML_Compat {
     function workaround_autoids() {
         global $sitepress_settings;
 
-        if ( ! $this->wpml->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) )
+        if ( ! $this->wpml->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) ) {
             return;
+        }
 
         if ( ! isset( $this->workaround ) ) {
             $this->workaround = true;
@@ -279,11 +306,12 @@ class WPBDP_WPML_Compat {
     }
 
     function maybe_change_query( $query ) {
-        if ( ! $query->wpbdp_is_main_page || empty( $query->query['page_id'] ) )
+        if ( ! $query->wpbdp_is_main_page || empty( $query->query['page_id'] ) ) {
             return;
+        }
 
-        $lang = $this->get_current_language();
-        $page_id = $query->query['page_id'];
+        $lang     = $this->get_current_language();
+        $page_id  = $query->query['page_id'];
         $trans_id = icl_object_id( $page_id, 'page', false, $lang );
 
         $query->set( 'page_id', $trans_id );
@@ -298,104 +326,130 @@ class WPBDP_WPML_Compat {
     }
 
     // {{{ Form Fields integration.
-
     function register_form_fields_strings() {
-        if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) )
+        if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) ) {
             return;
+        }
 
         $fields = wpbdp_get_form_fields();
 
         foreach ( $fields as &$f ) {
-            icl_register_string( 'Business Directory Plugin',
-                                 sprintf( 'Field #%d - label', $f->get_id() ),
-                                 $f->get_label() );
+            icl_register_string(
+                'Business Directory Plugin',
+                sprintf( 'Field #%d - label', $f->get_id() ),
+                $f->get_label()
+            );
 
-            if ( $f->get_description() )
-                icl_register_string( 'Business Directory Plugin',
-                                     sprintf( 'Field #%d - description', $f->get_id() ),
-                                     $f->get_description() );
+            if ( $f->get_description() ) {
+                icl_register_string(
+                    'Business Directory Plugin',
+                    sprintf( 'Field #%d - description', $f->get_id() ),
+                    $f->get_description()
+                );
+            }
         }
     }
 
     function translate_form_field_label( $label, $field ) {
-        if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) )
+        if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) ) {
             return $label;
+        }
 
-        return icl_t( 'Business Directory Plugin',
-                      sprintf( 'Field #%d - label', $field->get_id() ),
-                      $field->get_label() );
+        return icl_t(
+            'Business Directory Plugin',
+            sprintf( 'Field #%d - label', $field->get_id() ),
+            $field->get_label()
+        );
     }
 
     function translate_form_field_description( $description, $field ) {
-        if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) )
+        if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) ) {
             return $description;
+        }
 
-        return icl_t( 'Business Directory Plugin',
-                      sprintf( 'Field #%d - description', $field->get_id() ),
-                      $field->get_description() );
+        return icl_t(
+            'Business Directory Plugin',
+            sprintf( 'Field #%d - description', $field->get_id() ),
+            $field->get_description()
+        );
     }
 
     // }}}
-
     function maybe_register_some_strings() {
         $admin_page = ! empty( $_GET['page'] ) ? $_GET['page'] : '';
 
         switch ( $admin_page ) {
-        case 'wpbdp-admin-fees':
-            $this->register_fees_strings();
-            break;
-        case 'wpbdp_admin_formfields':
-            $this->register_form_fields_strings();
-            break;
-        default:
-            break;
+			case 'wpbdp-admin-fees':
+				$this->register_fees_strings();
+                break;
+			case 'wpbdp_admin_formfields':
+				$this->register_form_fields_strings();
+                break;
+			default:
+                break;
         }
     }
 
     // {{{ Fees API integration.
-
     function register_fees_strings() {
-        if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) )
+        if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) ) {
             return;
+        }
 
-        $fees = wpbdp_get_fee_plans( array( 'enabled' => 'all', 'include_free' => true, 'tag' => '' ) );
+        $fees = wpbdp_get_fee_plans(
+            array(
+				'enabled'      => 'all',
+				'include_free' => true,
+				'tag'          => '',
+            )
+        );
 
         foreach ( $fees as &$f ) {
-            icl_register_string( 'Business Directory Plugin',
-                                 sprintf( 'Fee label (#%d)', $f->id ),
-                                     $f->label );
-            icl_register_string( 'Business Directory Plugin',
-                                 sprintf( 'Fee description (#%d)', $f->id ),
-                                 $f->description );
+            icl_register_string(
+                'Business Directory Plugin',
+                sprintf( 'Fee label (#%d)', $f->id ),
+                $f->label
+            );
+            icl_register_string(
+                'Business Directory Plugin',
+                sprintf( 'Fee description (#%d)', $f->id ),
+                $f->description
+            );
         }
     }
 
     function translate_fee_label( $label, $fee ) {
-        if ( ! function_exists( 'icl_t' ) )
+        if ( ! function_exists( 'icl_t' ) ) {
             return $label;
+        }
 
-        return icl_t( 'Business Directory Plugin',
-                      sprintf( 'Fee label (#%d)', $fee->id ),
-                      $fee->label );
+        return icl_t(
+            'Business Directory Plugin',
+            sprintf( 'Fee label (#%d)', $fee->id ),
+            $fee->label
+        );
     }
 
     function translate_fee_description( $desc, $fee ) {
-        if ( ! function_exists( 'icl_t' ) )
+        if ( ! function_exists( 'icl_t' ) ) {
             return $desc;
+        }
 
-        return icl_t( 'Business Directory Plugin',
-                      sprintf( 'Fee description (#%d)', $fee->id ),
-                      $fee->description );
+        return icl_t(
+            'Business Directory Plugin',
+            sprintf( 'Fee description (#%d)', $fee->id ),
+            $fee->description
+        );
     }
 
     // }}}
-
     // Regions. {{{
     function use_cache_per_lang( $option ) {
         $lang = $this->get_current_language();
 
-        if ( ! $lang )
+        if ( ! $lang ) {
             return $option;
+        }
 
         return $option . '-' . $lang;
     }
@@ -403,8 +457,9 @@ class WPBDP_WPML_Compat {
     function clean_cache_per_lang( $opt ) {
         $langs = icl_get_languages( 'skip_missing=0' );
 
-        if ( ! $langs )
+        if ( ! $langs ) {
             return;
+        }
 
         foreach ( $langs as $l ) {
             $code = $l['language_code'];
@@ -414,15 +469,14 @@ class WPBDP_WPML_Compat {
     }
 
     // }}}
-
     // Listing thumbnail and images. {{{
     function get_images_listing_id( $listing_id ) {
-        if ( 1 != apply_filters( 'wpml_element_translation_type', NULL, $listing_id, 'post_' . WPBDP_POST_TYPE ) ) {
+        if ( 1 != apply_filters( 'wpml_element_translation_type', null, $listing_id, 'post_' . WPBDP_POST_TYPE ) ) {
             return $listing_id;
         }
 
-        $trid = apply_filters( 'wpml_element_trid', NULL, $listing_id, 'post_' . WPBDP_POST_TYPE );
-        $translations = apply_filters( 'wpml_get_element_translations', NULL, $trid, 'post_' . WPBDP_POST_TYPE );
+        $trid         = apply_filters( 'wpml_element_trid', null, $listing_id, 'post_' . WPBDP_POST_TYPE );
+        $translations = apply_filters( 'wpml_get_element_translations', null, $trid, 'post_' . WPBDP_POST_TYPE );
 
         foreach ( $translations as $lang => $translate ) {
 
