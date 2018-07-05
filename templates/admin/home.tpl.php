@@ -10,7 +10,7 @@
             <?php echo str_replace( '<a>', '<a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank" rel="noopener">',
                                     _x( 'Our complete documentation is <a>here</a> which we encourage you to use while setting things up.', 'admin home', 'WPBDM' ) ); ?>
         <li>
-            <?php echo str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/quick-start-guide/" target="_blank" rel="noopener">',
+            <?php echo str_replace( '<a>', '<a href="https://businessdirectoryplugin.com/article-categories/getting-started/" target="_blank" rel="noopener">',
                                     _x( 'We have some quick-start scenarios that you will find useful regarding setup and configuration <a>here</a>.', 'admin home', 'WPBDM' ) ); ?>
         </li>
         <li>
