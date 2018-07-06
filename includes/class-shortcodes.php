@@ -16,8 +16,6 @@ class WPBDP__Shortcodes {
 
     public function __construct() {
         add_action( 'wpbdp_loaded', array( $this, 'register' ) );
-
-        add_filter( 'get_pagenum_link', array( $this, 'sc_get_pagenum_link') );
     }
 
     /**
@@ -698,12 +696,5 @@ class WPBDP__Shortcodes {
             global $paged;
             $paged = $query->query['paged'];
         }
-    }
-
-    public function sc_get_pagenum_link( $url ) {
-        if ( ! empty( wpbdp_current_query()->wpbdp_our_query ) && wpbdp_current_query()->wpbdp_our_query ) {
-            $url = esc_url( $url . "#wpbdp-listings-list" );
-        }
-        return $url;
     }
 }
