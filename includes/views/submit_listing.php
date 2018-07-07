@@ -558,7 +558,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * Called dynamically from prepare_sections when the section id is set to
      * 'listing_fields'.
      */
-    private function listing_fields() {
+    private function listing_fields( $preview = false ) {
         $form_fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
         $form_fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$form_fields, &$this->listing ) );
         $saved_listingfields = get_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', true );
@@ -568,7 +568,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $fields = array();
 
         foreach ( $form_fields as $field ) {
-            if ( ! $field->validate_categories( $this->listing->get_categories( 'ids' ) ) ) {
+            if ( ! $preview && ! $field->validate_categories( $this->listing->get_categories( 'ids' ) ) ) {
                 continue;
             }
 
@@ -938,7 +938,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $view->listing = $listing;
 
         // $view->enqueue_resources();
-        list( $success, $html ) = $view->listing_fields();
+        list( $success, $html ) = $view->listing_fields( true );
 
         return $html;
     }
