@@ -79,11 +79,13 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             return '';
         }
 
+        $value = is_array( $value ) ? $value : array( $value );
+
         $html  = '';
         $html .= sprintf(
             '<input type="hidden" name="listingfields[%d][0]" value="%s" />',
             $field->get_id(),
-            is_array( $value ) ? $value[0] : $value
+            $value[0]
         );
 
         $html .= '<div class="preview"' . ( empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
@@ -101,7 +103,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<input type="text" name="listingfields[%s][1]" value="%s" placeholder="Image caption or description">',
             $field->get_id(),
-            is_array( $value ) && ! empty( $value[1] ) ? $value[1] : ''
+            ! empty( $value[1] ) ? $value[1] : ''
         );
 
         $html .= '</div>';
@@ -179,7 +181,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function get_field_plain_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
-        return $value[0];
+        return is_array( $value ) ? $value[0] : $value;
     }
 
     public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
@@ -265,7 +267,11 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
-        if ( ( ! is_array( $value ) && '' == $value ) || '' == $value[0] ) {
+        if ( ! is_array( $value ) && empty( $value ) ) {
+            $value = null;
+        }
+
+        if ( is_array( $value ) && empty( $value[0] ) ){
             $value = null;
         }
 
