@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-06-27 21:14:25+00:00\n"
+"POT-Creation-Date: 2018-07-17 20:22:34+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -68,7 +68,7 @@ msgid "Uninstall"
 msgstr "Odinstaluj "
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:553
+#: includes/admin/class-csv-import.php:621
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Prześlij ofertę"
@@ -348,25 +348,25 @@ msgid "Import Progress"
 msgstr "Proces Importu"
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:25
+#: templates/admin/home.tpl.php:53
 #, fuzzy
 msgid "Manage Options"
 msgstr "Zarządzaj opcjami"
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:28
+#: templates/admin/home.tpl.php:56
 #, fuzzy
 msgid "Manage Form Fields"
 msgstr "Zarządzaj polami formularzy"
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:31
+#: templates/admin/home.tpl.php:59
 #, fuzzy
 msgid "Manage Fees"
 msgstr "Zarządzaj abonamentami"
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:38
+#: templates/admin/home.tpl.php:66
 msgid "Manage Paid Listings"
 msgstr "Zarządzaj ofertami płatnymi"
 
@@ -403,7 +403,7 @@ msgid "Reset Defaults"
 msgstr "Przywróć ustawienia fabryczne"
 
 # @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:13
+#: templates/parts/listing-buttons.tpl.php:23
 #, fuzzy
 msgid "← Return to Directory"
 msgstr "Powrót do Katalogu."
@@ -464,7 +464,7 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Pomoc"
 
-#: includes/admin/class-csv-import.php:455
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -472,35 +472,35 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:461
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:601
+#: includes/admin/class-csv-import.php:672
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Użytkownik  \"%s\" nie istnieje"
 
-#: includes/admin/class-csv-import.php:627
+#: includes/admin/class-csv-import.php:698
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:649
+#: includes/admin/class-csv-import.php:720
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:672
+#: includes/admin/class-csv-import.php:743
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Brak wymaganego pola: %s"
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:693
+#: includes/admin/class-csv-import.php:768
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Kategoria \"%s\" nie istnieje"
@@ -1431,23 +1431,23 @@ msgstr "Pola/Obrazy"
 
 # @ WPBDM
 #: includes/admin/class-admin.php:157
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "nigdy"
 
 #: includes/admin/class-admin.php:158
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr ""
 
 # @ WPBDM
 #: includes/admin/class-admin.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 #, fuzzy
 msgctxt "listing metabox"
 msgid "No"
@@ -1491,107 +1491,107 @@ msgid "No payments available."
 msgstr "Dostępne miejsca na Obrazy:"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:6
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
 #, fuzzy
 msgctxt "listing metabox"
 msgid "General Info"
 msgstr "Główne informacje"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:8
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:16
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Listing Status"
 msgstr "Oferty"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:22
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:31
 #, fuzzy
 msgctxt "listing metabox"
 msgid "N/A"
 msgstr "N/A"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:19
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr "Data odświeżenia"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:35
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Szczegóły Planu"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:38
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:58
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:78
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
 #, fuzzy
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "Wszystko w porządku"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:59
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:79
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Anuluj"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:54
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:62
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Amount"
 msgstr "Kwota"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:60
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:68
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Upłynął okres ważności "
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:73
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Edit"
 msgstr "Edytuj"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:83
 #, fuzzy
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "Liczba Obrazów"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "%s RSS"
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Recurring?"
@@ -1714,20 +1714,20 @@ msgid "ID"
 msgstr "ID"
 
 # @ WPBDM
-#: includes/admin/class-csv-exporter.php:78
+#: includes/admin/class-csv-exporter.php:92
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 "Nie można utworzyć katalogu tymczasowego dla obsługi tego eksportu CSV."
 
 # @ WPBDM
-#: includes/admin/class-csv-exporter.php:80
+#: includes/admin/class-csv-exporter.php:95
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/admin/class-csv-exporter.php:85
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "Błąd podczas tworzenia katalogu tymczasowego dla eksportu CSV: %s"
@@ -4368,7 +4368,7 @@ msgid "Checkout URL link"
 msgstr "Sprawdzanie link URL"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1426
+#: includes/admin/settings/class-settings-bootstrap.php:1414
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -4378,7 +4378,7 @@ msgstr ""
 "ręcznie usunąć plik \"%s\" lub de-aktywować plugin."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1442
+#: includes/admin/settings/class-settings-bootstrap.php:1430
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -4388,7 +4388,7 @@ msgstr ""
 "\"%s\"."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1447
+#: includes/admin/settings/class-settings-bootstrap.php:1435
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -7233,7 +7233,7 @@ msgid "Caption for %s is required."
 msgstr "Kraj jest wymagany."
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-image.php:98
+#: includes/fields/class-fieldtypes-image.php:100
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Usuń"
@@ -7330,7 +7330,7 @@ msgctxt "form-fields-api"
 msgid "Word Count Validator"
 msgstr "Weryfikator liczb całkowitych"
 
-#: includes/fields/class-fieldtypes-image.php:121
+#: includes/fields/class-fieldtypes-image.php:123
 msgctxt "form fields"
 msgid "Field unavailable at the moment."
 msgstr ""
@@ -8449,35 +8449,35 @@ msgid "You do not currently have any listings in the directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
 
 # @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:4
-#: templates/parts/listing-buttons.tpl.php:18
+#: templates/parts/listing-buttons.tpl.php:14
+#: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
 msgid "Edit"
 msgstr "Edytuj"
 
 # @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:7
-#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Znajdź Firmę"
 
 # @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:10
 #: templates/parts/listing-buttons.tpl.php:20
+#: templates/parts/listing-buttons.tpl.php:44
 msgctxt "templates"
 msgid "Delete"
 msgstr "Usuń"
 
 # @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:10
+#: templates/parts/listing-buttons.tpl.php:20
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr "Jesteś pewien, że chcesz usunąć tą firmę?"
 
 # @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:29
 msgctxt "templates"
 msgid "View"
 msgstr "Widok"
@@ -8858,7 +8858,7 @@ msgstr ""
 "Ten formularz kontaktu jest chwilowo wyłączony. Możesz spróbować pózniej."
 
 # @ WPBDM
-#: includes/views/login.php:32
+#: includes/views/login.php:47
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
@@ -8978,14 +8978,14 @@ msgstr ""
 "w wiadomości e-mail dotyczącej odnowienia."
 
 # @ WPBDM
-#: includes/views/renew_listing.php:48
+#: includes/views/renew_listing.php:51
 #, fuzzy
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/views/renew_listing.php:50
+#: includes/views/renew_listing.php:53
 #, fuzzy
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
@@ -9032,7 +9032,7 @@ msgid ""
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/views/renew_listing.php:60
+#: includes/views/renew_listing.php:63
 #, fuzzy
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
@@ -9572,13 +9572,13 @@ msgstr ""
 "użytkowników."
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:4
+#: templates/admin/home.tpl.php:14
 msgctxt "admin home"
 msgid "Welcome to Business Directory Plugin. You are using %s."
 msgstr "Witamy w Katalogu Firm. Używasz %s."
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:5
+#: templates/admin/home.tpl.php:17
 msgctxt "admin home"
 msgid ""
 "Thanks for choosing us.  There's a lot you probably want to get done, so "
@@ -9588,7 +9588,7 @@ msgstr ""
 "chciałbyś zrobić. Poprostu zacznij zabawę."
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:11
+#: templates/admin/home.tpl.php:29
 msgctxt "admin home"
 msgid ""
 "Our complete documentation is <a>here</a> which we encourage you to use "
@@ -9598,7 +9598,7 @@ msgstr ""
 "skonfirgurować nasz plugin."
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:14
+#: templates/admin/home.tpl.php:36
 msgctxt "admin home"
 msgid ""
 "We have some quick-start scenarios that you will find useful regarding setup "
@@ -9608,7 +9608,7 @@ msgstr ""
 "informacje na temat konfiguracji znajdziesz<a>tutaj</a>."
 
 # @ WPBDM
-#: templates/admin/home.tpl.php:18
+#: templates/admin/home.tpl.php:44
 msgctxt "admin home"
 msgid ""
 "If you have questions, please post a comment on <a>support forum</a> and "
@@ -9623,26 +9623,26 @@ msgid "Access Key"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "Adres URL odnowienia (kopiuj i wklej)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:115
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Wysyłaj do użytkownika e-mail o odnowieniu "
 
 # @ WPBDM
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renew listing"

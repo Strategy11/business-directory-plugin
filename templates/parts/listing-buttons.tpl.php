@@ -25,7 +25,7 @@
     <?php endif; ?>
 <?php elseif ( 'excerpt' === $view ) : ?>
     <?php if ( wpbdp_user_can( 'view', $listing_id ) ) : ?>
-        <a class="wpbdp-button button view-listing" href="<?php the_permalink(); ?>" <?php wpbdp_get_option( 'listing-link-in-new-tab' ) ? esc_html_e( 'target="_blank" rel="noopener"' ) : null; ?>>
+        <a class="wpbdp-button button view-listing" href="<?php the_permalink(); ?>" <?php wpbdp_get_option( 'listing-link-in-new-tab' ) ? esc_html( 'target="_blank" rel="noopener"' ) : null; ?>>
             <?php _ex( 'View', 'templates', 'WPBDM' ); ?>
         </a>
     <?php endif; ?>

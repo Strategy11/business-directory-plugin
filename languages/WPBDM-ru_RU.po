@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 3.6.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-06-27 21:14:25+00:00\n"
+"POT-Creation-Date: 2018-07-17 20:22:34+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -64,7 +64,7 @@ msgstr "Удалить плагин Справочника Услуг"
 msgid "Uninstall"
 msgstr "Удалить"
 
-#: includes/admin/class-csv-import.php:553
+#: includes/admin/class-csv-import.php:621
 msgid "Listing imported by admin. Payment skipped."
 msgstr ""
 
@@ -300,22 +300,22 @@ msgstr "l j F Y, \\a\\t H:i"
 msgid "Import Progress"
 msgstr "Прогресс загрузки"
 
-#: templates/admin/home.tpl.php:25
+#: templates/admin/home.tpl.php:53
 #, fuzzy
 msgid "Manage Options"
 msgstr "Настройки"
 
-#: templates/admin/home.tpl.php:28
+#: templates/admin/home.tpl.php:56
 #, fuzzy
 msgid "Manage Form Fields"
 msgstr "Форма"
 
-#: templates/admin/home.tpl.php:31
+#: templates/admin/home.tpl.php:59
 #, fuzzy
 msgid "Manage Fees"
 msgstr "Тарифы"
 
-#: templates/admin/home.tpl.php:38
+#: templates/admin/home.tpl.php:66
 msgid "Manage Paid Listings"
 msgstr "Платные записи"
 
@@ -348,7 +348,7 @@ msgstr ""
 msgid "Reset Defaults"
 msgstr "Сбросить настройки"
 
-#: templates/parts/listing-buttons.tpl.php:13
+#: templates/parts/listing-buttons.tpl.php:23
 #, fuzzy
 msgid "← Return to Directory"
 msgstr "Вернуться в Справочник."
@@ -405,39 +405,39 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Подсказка"
 
-#: includes/admin/class-csv-import.php:455
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:461
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Не удалось создать рубрику \"%s\""
 
-#: includes/admin/class-csv-import.php:601
+#: includes/admin/class-csv-import.php:672
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Имя учётной записи \"%s\" не существует"
 
-#: includes/admin/class-csv-import.php:627
+#: includes/admin/class-csv-import.php:698
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:649
+#: includes/admin/class-csv-import.php:720
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:672
+#: includes/admin/class-csv-import.php:743
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Отсутствует обязательное поле: %s"
 
-#: includes/admin/class-csv-import.php:693
+#: includes/admin/class-csv-import.php:768
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Рубрика \"%s\" не существует"
@@ -1253,22 +1253,22 @@ msgid "Send access keys"
 msgstr "Поля и Изображения записи"
 
 #: includes/admin/class-admin.php:157
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "никогда"
 
 #: includes/admin/class-admin.php:158
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr ""
 
 #: includes/admin/class-admin.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 #, fuzzy
 msgctxt "listing metabox"
 msgid "No"
@@ -1306,95 +1306,95 @@ msgctxt "listing metabox"
 msgid "No payments available."
 msgstr "Свободных мест для загрузки изображений:"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:6
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
 #, fuzzy
 msgctxt "listing metabox"
 msgid "General Info"
 msgstr "Основная информация"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:8
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:16
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Listing Status"
 msgstr "Записи"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:22
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:31
 #, fuzzy
 msgctxt "listing metabox"
 msgid "N/A"
 msgstr "Х/З"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:19
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr "Дата продления"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:35
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Детали плана"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:38
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:58
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:78
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
 #, fuzzy
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OK"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:59
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:79
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:54
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:62
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Amount"
 msgstr "Стоимость"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:60
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:68
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Истекает"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:73
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Edit"
 msgstr "Изменить"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:83
 #, fuzzy
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "Картинок"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "Лента %ы"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Recurring?"
@@ -1499,18 +1499,18 @@ msgctxt "admin category id"
 msgid "ID"
 msgstr "№"
 
-#: includes/admin/class-csv-exporter.php:78
+#: includes/admin/class-csv-exporter.php:92
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 "Не удалось создать временную директорию для создания экспортных файлов."
 
-#: includes/admin/class-csv-exporter.php:80
+#: includes/admin/class-csv-exporter.php:95
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "Не удалось создать директорию \"wpbdp-csv-exports\"."
 
-#: includes/admin/class-csv-exporter.php:85
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "Ошибка при создании временной директории для экспорта в CSV файл: %s"
@@ -3857,7 +3857,7 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Адрес URL страницы оплаты"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1426
+#: includes/admin/settings/class-settings-bootstrap.php:1414
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -3866,7 +3866,7 @@ msgstr ""
 "Не удалось удалить плагин \"Справочник Услуг - Модуль Совместимости с AJAX"
 "\". Пожалуйста удалите файл \"%s\" вручную или деактивируйте плагин."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1442
+#: includes/admin/settings/class-settings-bootstrap.php:1430
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -3875,7 +3875,7 @@ msgstr ""
 "Не удалось активировать режим совместимости с AJAX: директория \"%s\" не "
 "была создана."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1447
+#: includes/admin/settings/class-settings-bootstrap.php:1435
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -6429,7 +6429,7 @@ msgctxt "date field"
 msgid "Caption for %s is required."
 msgstr "Страна обязательна."
 
-#: includes/fields/class-fieldtypes-image.php:98
+#: includes/fields/class-fieldtypes-image.php:100
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Удалить"
@@ -6514,7 +6514,7 @@ msgctxt "form-fields-api"
 msgid "Word Count Validator"
 msgstr "Проверка целого числа"
 
-#: includes/fields/class-fieldtypes-image.php:121
+#: includes/fields/class-fieldtypes-image.php:123
 msgctxt "form fields"
 msgid "Field unavailable at the moment."
 msgstr ""
@@ -7512,31 +7512,31 @@ msgctxt "templates"
 msgid "You do not currently have any listings in the directory."
 msgstr "У Вас нет ни одной записи в справочнике."
 
-#: templates/parts/listing-buttons.tpl.php:4
-#: templates/parts/listing-buttons.tpl.php:18
+#: templates/parts/listing-buttons.tpl.php:14
+#: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
 msgid "Edit"
 msgstr "Изменить"
 
-#: templates/parts/listing-buttons.tpl.php:7
-#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Найти запись"
 
-#: templates/parts/listing-buttons.tpl.php:10
 #: templates/parts/listing-buttons.tpl.php:20
+#: templates/parts/listing-buttons.tpl.php:44
 msgctxt "templates"
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/parts/listing-buttons.tpl.php:10
+#: templates/parts/listing-buttons.tpl.php:20
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr "Вы уверены, что Вы хотите удалить эту запись?"
 
-#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:29
 msgctxt "templates"
 msgid "View"
 msgstr "Показать"
@@ -7865,7 +7865,7 @@ msgstr ""
 "Эта контактная форма временно отключена. Попробуйте открыть её ещё раз "
 "позднее."
 
-#: includes/views/login.php:32
+#: includes/views/login.php:47
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
@@ -7970,13 +7970,13 @@ msgstr ""
 "Номер Вашего продления неправилен. Пожалуйста воспользуйтесь ссылкой, "
 "которая была отправлена Вам по электронной почте."
 
-#: includes/views/renew_listing.php:48
+#: includes/views/renew_listing.php:51
 #, fuzzy
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Запись была удалена."
 
-#: includes/views/renew_listing.php:50
+#: includes/views/renew_listing.php:53
 #, fuzzy
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
@@ -8016,7 +8016,7 @@ msgid ""
 "from the directory."
 msgstr "Запись была удалена."
 
-#: includes/views/renew_listing.php:60
+#: includes/views/renew_listing.php:63
 #, fuzzy
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
@@ -8484,13 +8484,13 @@ msgstr ""
 "Вы можете купить модуль \"<a>%s</a>\" чтобы добавить систему <a>%s</a> в "
 "качестве одного из возможных способов оплаты для пользователей Вашего сайта."
 
-#: templates/admin/home.tpl.php:4
+#: templates/admin/home.tpl.php:14
 msgctxt "admin home"
 msgid "Welcome to Business Directory Plugin. You are using %s."
 msgstr ""
 "Добро пожаловать в Справочник Услуг. На Вашем сайте установлена версия %s."
 
-#: templates/admin/home.tpl.php:5
+#: templates/admin/home.tpl.php:17
 msgctxt "admin home"
 msgid ""
 "Thanks for choosing us.  There's a lot you probably want to get done, so "
@@ -8500,7 +8500,7 @@ msgstr ""
 "которые Вы хотите сделать с этим плагином, и потому - давайте приступим к "
 "делам прямо сейчас!"
 
-#: templates/admin/home.tpl.php:11
+#: templates/admin/home.tpl.php:29
 msgctxt "admin home"
 msgid ""
 "Our complete documentation is <a>here</a> which we encourage you to use "
@@ -8509,7 +8509,7 @@ msgstr ""
 "Полна документация по плагину доступна на <a>этой странице</a>, и мы "
 "рекомендуем Вам держать её открытой пока Вы всё настраиваете."
 
-#: templates/admin/home.tpl.php:14
+#: templates/admin/home.tpl.php:36
 msgctxt "admin home"
 msgid ""
 "We have some quick-start scenarios that you will find useful regarding setup "
@@ -8518,7 +8518,7 @@ msgstr ""
 "Также у нас есть <a>несколько примеров сценариев</a>, которым могут "
 "оказаться Вам полезными с точки зрения настроек."
 
-#: templates/admin/home.tpl.php:18
+#: templates/admin/home.tpl.php:44
 msgctxt "admin home"
 msgid ""
 "If you have questions, please post a comment on <a>support forum</a> and "
@@ -8532,24 +8532,24 @@ msgctxt "admin infometabox"
 msgid "Access Key"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "Ссылка для продления (для копирования)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:115
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Послать уведомление о продлении автору по электронной почте"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renew listing"

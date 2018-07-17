@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 5.3dev1\n"
+"Project-Id-Version: Business Directory Plugin 5.3.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2018-06-27 21:14:25+00:00\n"
+"POT-Creation-Date: 2018-07-17 20:22:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Uninstall"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:553
+#: includes/admin/class-csv-import.php:621
 msgid "Listing imported by admin. Payment skipped."
 msgstr ""
 
@@ -270,19 +270,19 @@ msgstr ""
 msgid "Import Progress"
 msgstr ""
 
-#: templates/admin/home.tpl.php:25
+#: templates/admin/home.tpl.php:53
 msgid "Manage Options"
 msgstr ""
 
-#: templates/admin/home.tpl.php:28
+#: templates/admin/home.tpl.php:56
 msgid "Manage Form Fields"
 msgstr ""
 
-#: templates/admin/home.tpl.php:31
+#: templates/admin/home.tpl.php:59
 msgid "Manage Fees"
 msgstr ""
 
-#: templates/admin/home.tpl.php:38
+#: templates/admin/home.tpl.php:66
 msgid "Manage Paid Listings"
 msgstr ""
 
@@ -312,7 +312,7 @@ msgstr ""
 msgid "Reset Defaults"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:13
+#: templates/parts/listing-buttons.tpl.php:23
 msgid "← Return to Directory"
 msgstr ""
 
@@ -363,39 +363,39 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:455
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:461
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: includes/admin/class-csv-import.php:601
+#: includes/admin/class-csv-import.php:672
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:627
+#: includes/admin/class-csv-import.php:698
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:649
+#: includes/admin/class-csv-import.php:720
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:672
+#: includes/admin/class-csv-import.php:743
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:693
+#: includes/admin/class-csv-import.php:768
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
@@ -1135,21 +1135,21 @@ msgid "Send access keys"
 msgstr ""
 
 #: includes/admin/class-admin.php:157
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
 msgctxt "listing metabox"
 msgid "Never"
 msgstr ""
 
 #: includes/admin/class-admin.php:158
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr ""
 
 #: includes/admin/class-admin.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "No"
 msgstr ""
@@ -1179,83 +1179,83 @@ msgctxt "listing metabox"
 msgid "No payments available."
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:6
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
 msgctxt "listing metabox"
 msgid "General Info"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:8
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:16
 msgctxt "listing metabox"
 msgid "Listing Status"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:22
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:31
 msgctxt "listing metabox"
 msgid "N/A"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:19
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:35
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:38
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:58
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:78
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
 msgctxt "listing metabox"
 msgid "OK"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:59
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:79
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:54
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:62
 msgctxt "listing metabox"
 msgid "Amount"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:60
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:68
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:73
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 msgctxt "listing metabox"
 msgid "Edit"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:83
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
 msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr ""
@@ -1353,17 +1353,17 @@ msgctxt "admin category id"
 msgid "ID"
 msgstr ""
 
-#: includes/admin/class-csv-exporter.php:78
+#: includes/admin/class-csv-exporter.php:92
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 
-#: includes/admin/class-csv-exporter.php:80
+#: includes/admin/class-csv-exporter.php:95
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr ""
 
-#: includes/admin/class-csv-exporter.php:85
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr ""
@@ -3562,21 +3562,21 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1426
+#: includes/admin/settings/class-settings-bootstrap.php:1414
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility "
 "Module\". Please remove the file \"%s\" manually or deactivate the plugin."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1442
+#: includes/admin/settings/class-settings-bootstrap.php:1430
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
 "be created."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1447
+#: includes/admin/settings/class-settings-bootstrap.php:1435
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -5782,7 +5782,7 @@ msgctxt "date field"
 msgid "Caption for %s is required."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-image.php:98
+#: includes/fields/class-fieldtypes-image.php:100
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr ""
@@ -5864,7 +5864,7 @@ msgctxt "form-fields-api"
 msgid "Word Count Validator"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-image.php:121
+#: includes/fields/class-fieldtypes-image.php:123
 msgctxt "form fields"
 msgid "Field unavailable at the moment."
 msgstr ""
@@ -6758,30 +6758,30 @@ msgctxt "templates"
 msgid "You do not currently have any listings in the directory."
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:4
-#: templates/parts/listing-buttons.tpl.php:18
+#: templates/parts/listing-buttons.tpl.php:14
+#: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
 msgid "Edit"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:7
-#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:39
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:10
 #: templates/parts/listing-buttons.tpl.php:20
+#: templates/parts/listing-buttons.tpl.php:44
 msgctxt "templates"
 msgid "Delete"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:10
+#: templates/parts/listing-buttons.tpl.php:20
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr ""
 
-#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:29
 msgctxt "templates"
 msgid "View"
 msgstr ""
@@ -7089,7 +7089,7 @@ msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
 
-#: includes/views/login.php:32
+#: includes/views/login.php:47
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr ""
@@ -7178,12 +7178,12 @@ msgid ""
 "renewal e-mail message."
 msgstr ""
 
-#: includes/views/renew_listing.php:48
+#: includes/views/renew_listing.php:51
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr ""
 
-#: includes/views/renew_listing.php:50
+#: includes/views/renew_listing.php:53
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
 msgstr ""
@@ -7220,7 +7220,7 @@ msgid ""
 "from the directory."
 msgstr ""
 
-#: includes/views/renew_listing.php:60
+#: includes/views/renew_listing.php:63
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
 msgstr ""
@@ -7675,33 +7675,33 @@ msgid ""
 "users."
 msgstr ""
 
-#: templates/admin/home.tpl.php:4
+#: templates/admin/home.tpl.php:14
 msgctxt "admin home"
 msgid "Welcome to Business Directory Plugin. You are using %s."
 msgstr ""
 
-#: templates/admin/home.tpl.php:5
+#: templates/admin/home.tpl.php:17
 msgctxt "admin home"
 msgid ""
 "Thanks for choosing us.  There's a lot you probably want to get done, so "
 "let's jump right in!"
 msgstr ""
 
-#: templates/admin/home.tpl.php:11
+#: templates/admin/home.tpl.php:29
 msgctxt "admin home"
 msgid ""
 "Our complete documentation is <a>here</a> which we encourage you to use "
 "while setting things up."
 msgstr ""
 
-#: templates/admin/home.tpl.php:14
+#: templates/admin/home.tpl.php:36
 msgctxt "admin home"
 msgid ""
 "We have some quick-start scenarios that you will find useful regarding "
 "setup and configuration <a>here</a>."
 msgstr ""
 
-#: templates/admin/home.tpl.php:18
+#: templates/admin/home.tpl.php:44
 msgctxt "admin home"
 msgid ""
 "If you have questions, please post a comment on <a>support forum</a> and "
@@ -7713,22 +7713,22 @@ msgctxt "admin infometabox"
 msgid "Access Key"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:115
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr ""

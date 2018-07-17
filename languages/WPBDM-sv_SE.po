@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-06-27 21:14:25+00:00\n"
+"POT-Creation-Date: 2018-07-17 20:22:34+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -53,7 +53,7 @@ msgstr "Avinstallera tillägget Business Directory"
 msgid "Uninstall"
 msgstr "Avinstallera"
 
-#: includes/admin/class-csv-import.php:553
+#: includes/admin/class-csv-import.php:621
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Notering skickas in av admin. Betalning hoppas över."
@@ -290,19 +290,19 @@ msgstr "l F j, Y \\a\\t g:i en"
 msgid "Import Progress"
 msgstr "Import pågår"
 
-#: templates/admin/home.tpl.php:25
+#: templates/admin/home.tpl.php:53
 msgid "Manage Options"
 msgstr "Hantera alternativ"
 
-#: templates/admin/home.tpl.php:28
+#: templates/admin/home.tpl.php:56
 msgid "Manage Form Fields"
 msgstr "Hantera formulärfält"
 
-#: templates/admin/home.tpl.php:31
+#: templates/admin/home.tpl.php:59
 msgid "Manage Fees"
 msgstr "Hantera avgifter"
 
-#: templates/admin/home.tpl.php:38
+#: templates/admin/home.tpl.php:66
 msgid "Manage Paid Listings"
 msgstr "Hantera betalda annonser"
 
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Reset Defaults"
 msgstr "Återställ till standardinställningar"
 
-#: templates/parts/listing-buttons.tpl.php:13
+#: templates/parts/listing-buttons.tpl.php:23
 msgid "← Return to Directory"
 msgstr "Tillbaka till katalog."
 
@@ -388,7 +388,7 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Hjälp"
 
-#: includes/admin/class-csv-import.php:455
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -397,32 +397,32 @@ msgstr ""
 "Kunde inte skapa annonskategori \"<category-name>\". Åtgärden misslyckades "
 "på grund av följande fel: <error-message>"
 
-#: includes/admin/class-csv-import.php:461
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Det gick inte att skapa annonskategori \"%s\""
 
-#: includes/admin/class-csv-import.php:601
+#: includes/admin/class-csv-import.php:672
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Användarnamn \"%s\" existerar inte"
 
-#: includes/admin/class-csv-import.php:627
+#: includes/admin/class-csv-import.php:698
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "Tråden <string> kunde inte omvandlas till ett giltigt datum."
 
-#: includes/admin/class-csv-import.php:649
+#: includes/admin/class-csv-import.php:720
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr "Det finns ingen avgiftsplan med ID = <fee-id>"
 
-#: includes/admin/class-csv-import.php:672
+#: includes/admin/class-csv-import.php:743
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Saknar det obligatoriska fältet %s"
 
-#: includes/admin/class-csv-import.php:693
+#: includes/admin/class-csv-import.php:768
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Annonskategorin \"%s\" existerar inte"
@@ -1214,21 +1214,21 @@ msgid "Send access keys"
 msgstr "Begär åtkomstnyckel?"
 
 #: includes/admin/class-admin.php:157
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:67
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
 msgctxt "listing metabox"
 msgid "Never"
 msgstr "Aldrig"
 
 #: includes/admin/class-admin.php:158
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "Yes"
 msgstr "Ja"
 
 #: includes/admin/class-admin.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "No"
 msgstr "Nej"
@@ -1260,83 +1260,83 @@ msgctxt "listing metabox"
 msgid "No payments available."
 msgstr "Inga betalningar tillgängliga."
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:6
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
 msgctxt "listing metabox"
 msgid "General Info"
 msgstr "Allmän information"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:8
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:16
 msgctxt "listing metabox"
 msgid "Listing Status"
 msgstr "Annonsstatus"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:14
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:23
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:22
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:31
 msgctxt "listing metabox"
 msgid "N/A"
 msgstr "Ej tillämplig"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:19
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr "Senaste förnyelsedatum"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:35
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Detaljer för plan"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr "Avgiftsplan"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:38
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr "Ändra plan"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:58
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:78
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OK"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:71
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:59
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:79
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:54
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:62
 msgctxt "listing metabox"
 msgid "Amount"
 msgstr "Belopp"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:60
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:68
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Utgår den "
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:73
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 msgctxt "listing metabox"
 msgid "Edit"
 msgstr "Redigera"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:83
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "# Bilder"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "Är utvald?"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
 msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr "Är återkommande?"
@@ -1437,19 +1437,19 @@ msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-csv-exporter.php:78
+#: includes/admin/class-csv-exporter.php:92
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 "Det gick inte att skapa en temporär katalog för hantering av denna CSV "
 "export."
 
-#: includes/admin/class-csv-exporter.php:80
+#: includes/admin/class-csv-exporter.php:95
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "Det gick inte att skapa wpbdp-csv-export katalog."
 
-#: includes/admin/class-csv-exporter.php:85
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "Fel när du skapar en temporär katalog för CSV-export:%s"
@@ -3774,7 +3774,7 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Kassan URL"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1426
+#: includes/admin/settings/class-settings-bootstrap.php:1414
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -3784,7 +3784,7 @@ msgstr ""
 "kompatibilitetsmodule\". Ta bort filen \"%s\" manuellt eller inaktivera "
 "plugin."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1442
+#: includes/admin/settings/class-settings-bootstrap.php:1430
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -3793,7 +3793,7 @@ msgstr ""
 "Det gick inte att aktivera AJAX kompatibilitetsläge: katalogen \"%s\" kunde "
 "inte skapas."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1447
+#: includes/admin/settings/class-settings-bootstrap.php:1435
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -6143,7 +6143,7 @@ msgctxt "date field"
 msgid "Caption for %s is required."
 msgstr "Land krävs."
 
-#: includes/fields/class-fieldtypes-image.php:98
+#: includes/fields/class-fieldtypes-image.php:100
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Ta bort"
@@ -6228,7 +6228,7 @@ msgctxt "form-fields-api"
 msgid "Word Count Validator"
 msgstr "Heltal Validator"
 
-#: includes/fields/class-fieldtypes-image.php:121
+#: includes/fields/class-fieldtypes-image.php:123
 msgctxt "form fields"
 msgid "Field unavailable at the moment."
 msgstr "Fältet är otillgängligt för tillfället."
@@ -7223,31 +7223,31 @@ msgctxt "templates"
 msgid "You do not currently have any listings in the directory."
 msgstr "Du har för närvarande inte har några listor i katalogen."
 
-#: templates/parts/listing-buttons.tpl.php:4
-#: templates/parts/listing-buttons.tpl.php:18
+#: templates/parts/listing-buttons.tpl.php:14
+#: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
 msgid "Edit"
 msgstr "Redigera"
 
-#: templates/parts/listing-buttons.tpl.php:7
-#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Hitta en annons"
 
-#: templates/parts/listing-buttons.tpl.php:10
 #: templates/parts/listing-buttons.tpl.php:20
+#: templates/parts/listing-buttons.tpl.php:44
 msgctxt "templates"
 msgid "Delete"
 msgstr "Ta bort"
 
-#: templates/parts/listing-buttons.tpl.php:10
+#: templates/parts/listing-buttons.tpl.php:20
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr "Är du säker på att du vill ta bort denna annons?"
 
-#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:29
 msgctxt "templates"
 msgid "View"
 msgstr "Visa"
@@ -7569,7 +7569,7 @@ msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr "Detta kontaktformulär är tillfälligt inaktiverat. Försök igen senare."
 
-#: includes/views/login.php:32
+#: includes/views/login.php:47
 msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "Vänligen ange en giltig kombination av e-postadress/åtkomstnyckel."
@@ -7665,12 +7665,12 @@ msgstr ""
 "Förnyelse ID är ogiltigt. Använd webbadressen som du fick i e-"
 "postmeddelandet om förlängning."
 
-#: includes/views/renew_listing.php:48
+#: includes/views/renew_listing.php:51
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Din annons har tagits bort."
 
-#: includes/views/renew_listing.php:50
+#: includes/views/renew_listing.php:53
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
 msgstr "Det gick inte att ta bort annonsen."
@@ -7709,7 +7709,7 @@ msgid ""
 "from the directory."
 msgstr "Din annons har tagits bort."
 
-#: includes/views/renew_listing.php:60
+#: includes/views/renew_listing.php:63
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
 msgstr "Förnyelse av avgift \"%s\"."
@@ -8176,12 +8176,12 @@ msgstr ""
 "Du kan köpa <a>%s</a> för att lägga till <a>%s</a> som ett "
 "betalningsalternativ för användarna."
 
-#: templates/admin/home.tpl.php:4
+#: templates/admin/home.tpl.php:14
 msgctxt "admin home"
 msgid "Welcome to Business Directory Plugin. You are using %s."
 msgstr "Välkommen till Business Directory Plugin. Du använder %s."
 
-#: templates/admin/home.tpl.php:5
+#: templates/admin/home.tpl.php:17
 msgctxt "admin home"
 msgid ""
 "Thanks for choosing us.  There's a lot you probably want to get done, so "
@@ -8190,7 +8190,7 @@ msgstr ""
 "Tack för att du valt oss. Det finns förmodligen massor du vill ha gjort, så "
 "låt oss sätta igång!"
 
-#: templates/admin/home.tpl.php:11
+#: templates/admin/home.tpl.php:29
 msgctxt "admin home"
 msgid ""
 "Our complete documentation is <a>here</a> which we encourage you to use "
@@ -8199,7 +8199,7 @@ msgstr ""
 "Fullständig dokumentation hittar du <a>här</a> och vi rekommenderar att du "
 "använder den när du gör inställningarna."
 
-#: templates/admin/home.tpl.php:14
+#: templates/admin/home.tpl.php:36
 msgctxt "admin home"
 msgid ""
 "We have some quick-start scenarios that you will find useful regarding setup "
@@ -8208,7 +8208,7 @@ msgstr ""
 "Vi har några snabbstartscenarier som du kommer att ha nytta av när det "
 "gäller installation och konfiguration <a>här</a> ."
 
-#: templates/admin/home.tpl.php:18
+#: templates/admin/home.tpl.php:44
 msgctxt "admin home"
 msgid ""
 "If you have questions, please post a comment on <a>support forum</a> and "
@@ -8222,22 +8222,22 @@ msgctxt "admin infometabox"
 msgid "Access Key"
 msgstr "Åtkomstnyckel"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "Förnyelse URL (kopiera och klistra in)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr "Få förnyelse-URL"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:115
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Skicka e-post om förnyelse"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr "Förnya annons"
