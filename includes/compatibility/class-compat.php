@@ -48,6 +48,11 @@ class WPBDP_Compat {
             require_once WPBDP_PATH . 'includes/compatibility/class-custom-permalinks-integration.php';
             $custom_permalinks_integration = new WPBDP_Custom_Permalink_Integration();
         }
+
+        if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->Name ) {
+            require_once WPBDP_PATH . 'includes/compatibility/class-acf-boldmove-compat.php';
+            $advanced_custom_fields = new WPBxDP_ACF_Compat();
+        }
     }
 
     function cpt_compat_mode() {
