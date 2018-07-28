@@ -497,7 +497,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
     $image_img               = '';
     $image_link              = '';
     $image_title             = '';
-    $listing_link_in_new_tab = '';
+    $listing_link_in_new_tab = '""';
     $image_classes           = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
     if ( ! $main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
