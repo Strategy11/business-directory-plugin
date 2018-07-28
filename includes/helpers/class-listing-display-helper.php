@@ -174,7 +174,7 @@ class WPBDP_Listing_Display_Helper {
         // Thumbnail.
         if ( wpbdp_get_option( 'show-thumbnail' ) ) {
             $thumb       = new StdClass();
-            $thumb->html = wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail' );
+            $thumb->html = wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail', $display );
 
             $vars['images']->thumbnail = $thumb;
         }
@@ -186,7 +186,7 @@ class WPBDP_Listing_Display_Helper {
         if ( $thumbnail_id ) {
             $main_image         = new StdClass();
             $main_image->id     = $thumbnail_id;
-            $main_image->html   = wpbdp_listing_thumbnail( $listing_id, 'link=picture&class=wpbdp-single-thumbnail' );
+            $main_image->html   = wpbdp_listing_thumbnail( $listing_id, 'link=picture&class=wpbdp-single-thumbnail', $display );
             $main_image->url    = $data_main[0];
             $main_image->width  = $data_main[1];
             $main_image->height = $data_main[2];

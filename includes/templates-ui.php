@@ -471,7 +471,7 @@ function wpbdp_the_bar( $parts = array() ) {
  *
  * @SuppressWarnings(PHPMD)
  */
-function wpbdp_listing_thumbnail( $listing_id = null, $args = array() ) {
+function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display = '' ) {
     if ( ! $listing_id ) {
         $listing_id = apply_filters( 'wpbdp_listing_images_listing_id', get_the_ID() );
     }
@@ -502,7 +502,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array() ) {
 
     if ( ! $main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
         $image_img = get_the_post_thumbnail( $listing_id, 'wpbdp-thumb' );
-    } elseif ( ! $main_image && wpbdp_get_option( 'use-default-picture' ) ) {
+    } elseif ( ! $main_image && in_array( $display, wpbdp_get_option( 'use-default-picture' ) ) ) {
         $image_img  = sprintf(
             '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
             WPBDP_URL . 'assets/images/default-image-big.gif',
@@ -686,3 +686,21 @@ function wpbdp_main_box( $args = null ) {
     $html = wpbdp_render( 'main-box', $template_vars );
     return $html;
 }
+
+/**
+ * @since 5.3.2
+ *
+ * This function should be removed in 5.3.4
+ *
+ * @param $use_default
+ * @return array
+ */
+function wpbdp_use_default_picture( $use_default ) {
+    if ( ! is_array( $use_default ) ) {
+        $use_default = $use_default ? array( 'excerpt' ) : array();
+        wpbdp_set_option( 'use-default-picture', $use_default );
+    }
+
+    return $use_default;
+}
+add_filter( 'wpbdp_get_option_use-default-picture', 'wpbdp_use_default_picture' );

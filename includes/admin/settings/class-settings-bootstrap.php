@@ -904,11 +904,15 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'use-default-picture',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Use default picture for listings with no picture?', 'settings', 'WPBDM' ),
-				'default' => true,
-				'group'   => 'image/listings',
+                'id'      => 'use-default-picture',
+                'type'    => 'multicheck',
+                'name'    => _x( 'Use "Coming Soon" photo for listings without any (primary) images?', 'settings', 'WPBDM' ),
+                'default' => array(),
+                'options' => array(
+                    'excerpt' => _x( 'Excerpt view.', 'admin settings', 'WPBDM' ),
+                    'listing' => _x( 'Detail view.', 'admin settings', 'WPBDM' ),
+                ),
+                'group'   => 'image/listings',
             )
         );
         wpbdp_register_setting(
