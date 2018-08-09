@@ -683,7 +683,7 @@ function wpbdp_main_box( $args = null ) {
     $template_vars = compact( 'extra_fields', 'search_url', 'no_cols' );
     $template_vars = array_merge( $template_vars, $args );
 
-    $html = wpbdp_render( 'main-box', $template_vars );
+    $html = wpbdp_x_render( 'main-box', $template_vars );
     return $html;
 }
 
