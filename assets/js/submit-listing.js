@@ -131,7 +131,7 @@ jQuery(function($) {
                 $( '#wpbdp-plan-select-radio-' + self.available_plans[0] ).trigger( "click" );
             }
 
-            if ( ! this.plan_autoselect ) {
+            if ( ! this.plan_autoselect && 'checkbox' !== this.field_type && !$( this.field_wrapper ).hasClass( 'wpbdp-form-field-type-multiselect' ) ) {
                 this.plan_autoselect = true;
             }
 
@@ -451,7 +451,7 @@ jQuery(function($) {
                     break;
                 case 3:
                     strength_msg = pwsL10n.good;
-                    break
+                    break;
                 case 4:
                     strength_msg = pwsL10n.strong;
                     break;
