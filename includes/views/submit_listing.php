@@ -664,8 +664,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $validation_error = '';
 
-        if ( ! empty( $_POST['thumbnail_id'] ) )
+        if ( ! empty( $_POST['thumbnail_id'] ) ) {
             $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+            set_post_thumbnail( $this->listing->get_id(), $_POST['thumbnail_id'] );
+        }
 
         $images = $this->listing->get_images( 'ids' );
 
