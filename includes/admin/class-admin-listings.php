@@ -1,6 +1,6 @@
 <?php
 /**
- * @package WPBDP/includes/Admin
+ * @package WPBDP/includes/Admin/Admin listings
  */
 
 // phpcs:disable
@@ -39,6 +39,8 @@ class WPBDP_Admin_Listings {
 
         // Augment search with username search.
         add_filter( 'posts_search', array( $this, 'username_and_user_email_search_support' ), 10, 2 );
+
+        add_action( 'wp_ajax_wpbdp-clear-payment-history', array( &$this, 'ajax_clear_payment_history' ) );
     }
 
     // Category filter. {{
@@ -616,6 +618,23 @@ class WPBDP_Admin_Listings {
             echo sprintf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link( 'add-listing' ) );
             echo '</script>';
         }
+    }
+
+    public function ajax_clear_payment_history() {
+        $listing_id = wpbdp_getv( $_POST, 'listing_id', null );
+
+        if ( ! $listing_id ) {
+            wp_send_json_error();
+        }
+
+        $listing = wpbdp_get_listing( $listing_id );
+        $res     = $listing->delete_payment_history();
+
+        if ( is_wp_error( $res ) ) {
+            wp_send_json_error( array( 'error' => $res->get_error_message() ) );
+        }
+
+        wp_send_json_success( array( 'message' => _x( 'Listing\'s payment history successfully deleted', 'admin listings', 'WPBDM' ) ) );
     }
 
 }
