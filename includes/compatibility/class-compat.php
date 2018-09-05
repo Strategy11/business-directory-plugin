@@ -51,7 +51,7 @@ class WPBDP_Compat {
 
         if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->Name ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-acf-boldmove-compat.php';
-            $advanced_custom_fields = new WPBxDP_ACF_Compat();
+            $advanced_custom_fields = new WPBDP_ACF_Compat();
         }
     }
 
