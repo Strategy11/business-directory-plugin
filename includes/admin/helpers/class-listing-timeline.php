@@ -1,8 +1,15 @@
 <?php
 /**
+ * @package WPBDP/Includes/Admin/Helpers/Listing timeline
  * @since 5.0
  */
 
+// phpcs:disable
+/**
+ * Class WPBDP__Listing_Timeline
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Listing_Timeline {
 
     private $listing = null;
@@ -13,7 +20,13 @@ class WPBDP__Listing_Timeline {
     }
 
     public function get_items() {
-        $items = wpbdp_get_logs( array( 'object_type' => 'listing', 'object_id' => $this->listing->get_id(), 'order' => 'DESC' ) );
+        $items = wpbdp_get_logs(
+            array(
+				'object_type' => 'listing',
+				'object_id'   => $this->listing->get_id(),
+				'order'       => 'DESC',
+            )
+        );
 
         if ( ! $items ) {
             $this->recreate_logs();
@@ -24,22 +37,26 @@ class WPBDP__Listing_Timeline {
     }
 
     public function render() {
-        $items = $this->get_items();
+        $items    = $this->get_items();
         $timeline = array();
 
         foreach ( $items as $item ) {
-            $obj = clone $item;
-            $obj->html = '';
+            $obj            = clone $item;
+            $obj->html      = '';
             $obj->timestamp = strtotime( $obj->created_at );
-            $obj->extra = '';
-            $obj->actions = array();
+            $obj->extra     = '';
+            $obj->actions   = array();
+            $obj->display   = true;
 
             $callback = 'process_' . str_replace( '.', '_', $obj->log_type );
-            if ( method_exists( $this, $callback ) )
+            if ( method_exists( $this, $callback ) ) {
                 $obj = call_user_func( array( $this, $callback ), $obj );
+            }
 
-            if ( ! $obj->html )
-                $obj->html = $obj->message ? $obj->message : $obj->log_type;
+            if ( ! $obj->html ) {
+                $obj->html    = $obj->message ? $obj->message : $obj->log_type;
+                $obj->display = false;
+            }
 
             $timeline[] = $obj;
         }
@@ -48,15 +65,27 @@ class WPBDP__Listing_Timeline {
     }
 
     private function recreate_logs() {
-        $post = get_post( $this->listing->get_id() );
+        $post      = get_post( $this->listing->get_id() );
         $post_date = $post->post_date;
 
-        wpbdp_insert_log( array( 'log_type' => 'listing.created', 'object_id' => $post->ID, 'created_at' => $post_date ) );
+        wpbdp_insert_log(
+            array(
+				'log_type'   => 'listing.created',
+				'object_id'  => $post->ID,
+				'created_at' => $post_date,
+            )
+        );
 
         // Insert logs for payments.
         $payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $post->ID ) );
         foreach ( $payments as $p ) {
-            wpbdp_insert_log( array( 'log_type' => 'listing.payment', 'object_id' => $post->ID, 'rel_object_id' => $p->id ) );
+            wpbdp_insert_log(
+                array(
+					'log_type'      => 'listing.payment',
+					'object_id'     => $post->ID,
+					'rel_object_id' => $p->id,
+                )
+            );
         }
     }
 
@@ -82,21 +111,12 @@ class WPBDP__Listing_Timeline {
             return $item;
         }
 
-        // switch ( $payment->payment_type ) {
-        // case 'initial':
-        //     $item->html .= 'Initial Payment';
-        //     break;
-        // default:
-        //     $item->html .= 'Payment #' . $payment->id;
-        //     break;
-        // }
-
         $title = $payment->summary;
 
-        if ( 'initial' == $payment->payment_type ) {
-            if ( 'admin-submit' == $payment->context ) {
+        if ( 'initial' === $payment->payment_type ) {
+            if ( 'admin-submit' === $payment->context ) {
                 $title = _x( 'Paid as admin', 'listing timeline', 'WPBDM' );
-            } elseif ( 'csv-import' == $payment->context ) {
+            } elseif ( 'csv-import' === $payment->context ) {
                 $title = _x( 'Listing imported', 'listing timeline', 'WPBDM' );
             } else {
                 $title = _x( 'Initial Payment', 'listing timeline', 'WPBDM' );
@@ -108,14 +128,15 @@ class WPBDP__Listing_Timeline {
         $item->html .= $title;
         $item->html .= '</a>';
 
-        if ( 'completed' != $payment->status )
+        if ( 'completed' !== $payment->status ) {
             $item->html .= '<span class="payment-status tag ' . $payment->status . '">' . $payment->status . '</span>';
+        }
 
         $item->extra .= '<span class="payment-id">Payment #' . $payment->id . '</span>';
         $item->extra .= '<span class="payment-amount">Amount: ' . wpbdp_currency_format( $payment->amount, 'force_numeric=1' ) . '</span>';
 
         $item->actions = array(
-            'details' => '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">Go to payment</a>'
+            'details' => '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">Go to payment</a>',
         );
 
         return $item;
