@@ -1,9 +1,19 @@
+<?php
+/**
+ * Listing recent payments metabox template
+ *
+ * @package BDP/Templates/Admin/Metabox listing payments
+ */
+
+// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+?>
 <!-- {{ Recent payments. -->
 <div id="wpbdp-listing-metabox-payments" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="2">
-    <?php if ( $payments ): ?>
-        <?php _ex( 'Click a transaction to see its details (and approve/reject).', 'listing metabox', 'WPBDM' ); ?>
-
-            <?php foreach ( $payments as $payment ): ?>
+    <div id="wpbdp-listing-payment-message" style="display: none;"></div>
+    <?php if ( $payments ) : ?>
+        <div class="wpbdp-payment-items">
+            <?php echo _x( 'Click a transaction to see its details (and approve/reject).', 'listing metabox', 'WPBDM' ); ?>
+            <?php foreach ( $payments as $payment ) : ?>
             <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
             <div class="wpbdp-payment-item wpbdp-payment-status-<?php echo $payment->status; ?> cf">
                 <div class="wpbdp-payment-item-row">
@@ -18,8 +28,12 @@
                 </div>
             </div>
             <?php endforeach; ?>
-    <?php else: ?>
-        <?php _ex( 'No payments available.', 'listing metabox', 'WPBDM' ); ?>
+            <span class="payment-delete-action" style="font-size: 13px; padding: 2px 0 0; position: relative; left: -9999em;">
+                <a href="#" class="wpbdp-admin-delete-link" name="delete-payments" data-id="<?php echo $listing->get_id(); ?>">Delete payment history</a>
+            </span>
+        </div>
+    <?php else : ?>
+        <?php echo _x( 'No payments available.', 'listing metabox', 'WPBDM' ); ?>
     <?php endif; ?>
 </div>
 <!-- }} -->
