@@ -292,6 +292,29 @@ class WPBDP_Listing {
         return count( $payments ) ? $payments[0] : null;
     }
 
+    public function delete_payment_history() {
+        $payments = $this->get_latest_payments();
+
+        if ( ! $payments ) {
+            return new WP_Error( 'No listing payments', _x( "Listing has no registered payments", 'listing', 'WPBDP' ) );
+        }
+
+        foreach ( $payments as $payment ) {
+            if ( ! $payment->delete() ) {
+                return new WP_Error(
+                    'payment delete error',
+                    sprintf( "%s: %s",
+                        _x( "Can't delete payment", 'listing', 'WPBDP' ),
+                        $payment->id
+                    )
+                );
+            }
+        }
+
+        return true;
+
+    }
+
 
     public function publish() {
         if ( ! $this->id )
