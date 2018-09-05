@@ -103,4 +103,30 @@ jQuery( function( $ ) {
         $dd.find('.edit-value-toggle').show();
     });
 
+    $payments_tab = $('#wpbdp-listing-metabox-payments');
+
+    $payments_tab.mouseover( function () {
+        $( this ).find('.payment-delete-action').css( 'left', '0');
+    }).mouseout( function () {
+        $( this ).find('.payment-delete-action').css( 'left', '-9999em' );
+    });
+
+    $payments_tab.find('a[name="delete-payments"]').click( function (e) {
+        e.preventDefault();
+        $.post( ajaxurl, { 'action': 'wpbdp-clear-payment-history', 'listing_id': $( this ).attr( 'data-id' ) }, function (res) {
+            if ( ! res.success ) {
+                if ( res.data.error )
+                    $('#wpbdp-listing-payment-message').addClass('error').html(res.data.error).fadeIn();
+
+                return;
+            }
+
+            $( '.wpbdp-payment-items', $payments_tab ).fadeOut( 'fast', function() {
+                $( this ).html( '' );
+                $( '#wpbdp-listing-payment-message', $payments_tab ).html( res.data.message ).fadeIn();
+            } );
+
+        } );
+    });
+
 } );
