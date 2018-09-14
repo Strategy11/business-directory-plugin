@@ -2,11 +2,11 @@
 Contributors: businessdirectoryplugin
 Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
-Requires at least: 4.3
+Requires at least: 4.5
 Requires PHP: 5.6
 Tested up to: 4.9
-Last Updated: 2018-May-29
-Stable tag: 5.2.1
+Last Updated: 2018-Aug-24
+Stable tag: 5.3.2.1
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -142,6 +142,50 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.3.2.1 =
+* Fixed issue where images showed on wrong side of listing.
+
+= Version 5.3.2 =
+* Add compatibility for ACF plugin used by Bold Move theme.
+* Update use-default-picture setting to select which views use default picture.
+* Open listing thumbnail in thickbox when setting is enabled.
+* Minor edit email notification template fixes.
+* Prevent fee plan auto-select in listing submit when multiple categories can be selected.
+* Set listing thumbnail as post thumbnail meta to improve SEO.
+* Prevent Login Redirect to main BD page if no referrer and user is not logged in.
+* Add missing html closing tag in login template.
+
+= Version 5.3.1 =
+* CSV export/import integration for image fieldtype (image_id and caption).
+* Fix expiration dates on listing information metabox for non-expiring listings.
+* Update WPML compatibility.
+* Allow delete the email notice applying to the expiration time of non-recurring listings.
+* Prevent login page redirect loop.
+* Prevent Divi issue with alpha filtering.
+* Prevent category specific validation when in preview form.
+* Fix typo in listing buttons template.
+
+= Version 5.3 =
+* Add enabled class for reCaptcha container in submit listing view.
+* Include validator for number of words in textfield and textarea fieldtypes. 
+* Revert ACF compatibility, it could cause incompatibility with Yoast. 
+* Add support for category specific fields in submit listing. 
+
+= Version 5.2.2.1 =
+* Fixed fatal error specific to PHP 5.6.
+
+= Version 5.2.2 =
+* Validate current query is from BD before trying to modify pagination link.
+* Style contact form for better space usage.
+* Add missing parameter to get excerpt value.
+* Add pagination parameter to all shortcodes where it applies.
+* Include quick search filter to be used by modules.
+* Verify content field emptiness in textarea field.
+
+= Version 5.2.1.1 =
+* Added missing email bug fix
+
 = Version 5.2.1 =
 * Add compatibility with Advanced Custom Fields Plugin.
 * Allow empty value to clear Date fieldtype.
