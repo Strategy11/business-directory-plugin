@@ -1,4 +1,15 @@
 <?php
+/**
+ * Checkout view
+ *
+ * @package BDP/Includes/Views/Checkout
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP__Views__Checkout
+ */
 class WPBDP__Views__Checkout extends WPBDP__View {
 
     private $payment_id = 0;
@@ -112,10 +123,11 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     private function pre_dispatch() {
-        if ( ! wpbdp()->payment_gateways->can_pay() )
-            wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
-
         $this->fetch_payment();
+
+        if ( ! wpbdp()->payment_gateways->can_pay() && 0 < $this->payment->amount ) {
+            wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
+        }
 
         // We don't set gateway and validate nonce for non-pending payments or pending with already a gateway set.
         if ( ! $this->can_checkout() ) {
