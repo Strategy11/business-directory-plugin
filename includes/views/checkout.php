@@ -9,12 +9,14 @@
 
 /**
  * Class WPBDP__Views__Checkout
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Checkout extends WPBDP__View {
 
     private $payment_id = 0;
-    private $payment = null;
-    private $gateway = null;
+    private $payment    = null;
+    private $gateway    = null;
 
     private $errors = array();
 
@@ -64,10 +66,10 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         if ( has_action( 'wpbdp_checkout_before_action' ) ) {
             // Lightweight object used to pass checkout state to modules.
             // Eventually, we might want to pass $this directly with a better get/set interface.
-            $checkout = new StdClass;
+            $checkout          = new StdClass();
             $checkout->payment = $this->payment;
             $checkout->gateway = $this->gateway;
-            $checkout->errors = array();
+            $checkout->errors  = array();
 
             do_action( 'wpbdp_checkout_before_action', $checkout );
 
@@ -93,15 +95,15 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             $_POST = stripslashes_deep( $_POST );
         }
 
-        $vars['_bar'] = false;
-        $vars['errors'] = $this->errors;
-        $vars['invoice'] = wpbdp()->payments->render_invoice( $this->payment );
-        $vars['chosen_gateway'] = $this->gateway;
-        $vars['checkout_form_top'] = wpbdp_capture_action( 'wpbdp_checkout_form_top', $this->payment );
-        $vars['checkout_form'] = $this->checkout_form();
+        $vars['_bar']                 = false;
+        $vars['errors']               = $this->errors;
+        $vars['invoice']              = wpbdp()->payments->render_invoice( $this->payment );
+        $vars['chosen_gateway']       = $this->gateway;
+        $vars['checkout_form_top']    = wpbdp_capture_action( 'wpbdp_checkout_form_top', $this->payment );
+        $vars['checkout_form']        = $this->checkout_form();
         $vars['checkout_form_bottom'] = wpbdp_capture_action( 'wpbdp_checkout_form_bottom', $this->payment );
-        $vars['payment'] = $this->payment;
-        $vars['nonce'] = wp_create_nonce( 'wpbdp-checkout-' . $this->payment->id );
+        $vars['payment']              = $this->payment;
+        $vars['nonce']                = wp_create_nonce( 'wpbdp-checkout-' . $this->payment->id );
 
         return $this->_render_page( 'checkout', $vars );
     }
@@ -153,16 +155,18 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     private function validate_nonce() {
-        if ( ! $_POST )
+        if ( ! $_POST ) {
             return;
+        }
 
         // Return URL for PayPal and other gateways include the nonce in the query
         // string while form submissions include it as a POST parameter. We use
         // $_REQUEST to handle both cases.
         $nonce = ! empty( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 
-        if ( ! wp_verify_nonce( $nonce, 'wpbdp-checkout-' . $this->payment_id ) )
+        if ( ! wp_verify_nonce( $nonce, 'wpbdp-checkout-' . $this->payment_id ) ) {
             wp_die( _x( 'Invalid nonce received.', 'checkout', 'WPBDM' ) );
+        }
     }
 
     private function set_current_gateway() {
@@ -173,7 +177,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         } elseif ( $this->payment->gateway ) {
             $chosen_gateway = $this->payment->gateway;
         } else {
-            $gateway_ids = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $this->payment->currency_code ) ) );
+            $gateway_ids    = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $this->payment->currency_code ) ) );
             $chosen_gateway = array_shift( $gateway_ids );
         }
 
@@ -182,12 +186,13 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         }
 
         $this->gateway = wpbdp()->payment_gateways->get( $chosen_gateway );
-        if ( ! $this->gateway->supports_currency( $this->payment->currency_code ) )
+        if ( ! $this->gateway->supports_currency( $this->payment->currency_code ) ) {
             wp_die( _x( 'Selected gateway does not support payment\'s currency.', 'checkout', 'WPBDM' ) );
+        }
     }
 
     private function checkout_form() {
-        $checkout_form  = '';
+        $checkout_form = '';
         // $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_top', $this->payment );
         $checkout_form .= $this->gateway->render_form( $this->payment, $this->errors );
         // $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_bottom', $this->payment );
@@ -197,8 +202,9 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     private function do_checkout() {
-        if ( ! $this->gateway )
+        if ( ! $this->gateway ) {
             wp_die();
+        }
 
         // Allows short-circuiting of validation.
         $validation_errors = $this->gateway->validate_form( $this->payment );
@@ -250,7 +256,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $vars = array(
             'payment' => $this->payment,
             'status'  => $this->payment->status,
-            '_bar'    => false
+            '_bar'    => false,
         );
         return $this->_render_page( 'checkout-confirmation', $vars );
     }
