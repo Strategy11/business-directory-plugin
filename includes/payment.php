@@ -1,14 +1,23 @@
 <?php
+/**
+ * Fees/Payment API
+ *
+ * @package BDP/Includes/Views/Checkout
+ */
+
+// phpcs:disable
+
 require_once( WPBDP_PATH . 'includes/class-payment.php' );
 require_once( WPBDP_INC . 'class-payment-gateway.php' );
 require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
 
-/*
- * Fees/Payment API
- */
 
 if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
-
+    /**
+     * Class WPBDP_PaymentsAPI
+     *
+     * @SuppressWarnings(PHPMD)
+     */
 class WPBDP_PaymentsAPI {
 
     public function __construct() {
@@ -16,6 +25,9 @@ class WPBDP_PaymentsAPI {
         add_filter( 'WPBDP_Listing::get_payment_status', array( &$this, 'abandonment_status' ), 10, 2 );
         add_filter( 'wpbdp_admin_directory_views', array( &$this, 'abandonment_admin_views' ), 10, 2 );
         add_filter( 'wpbdp_admin_directory_filter', array( &$this, 'abandonment_admin_filter' ), 10, 2 );
+
+        add_action( 'wpbdp_checkout_form_top', array( $this, '_return_fee_list_button' ), -2, 1 );
+        add_action( 'wpbdp_checkout_before_action', array( $this, 'maybe_fee_select_redirect' ) );
     }
 
     public function cancel_subscription( $listing, $subscription ) {
@@ -39,6 +51,8 @@ class WPBDP_PaymentsAPI {
 
     /**
      * @since 5.0
+     *
+     * @SuppressWarnings(PHPMD)
      */
     public function render_receipt( $payment ) {
         ob_start();
@@ -207,6 +221,8 @@ class WPBDP_PaymentsAPI {
 
     /**
      * @since 3.5.8
+     *
+     * @SuppressWarnings(PHPMD)
      */
     public function notify_abandoned_payments() {
         global $wpdb;
@@ -247,6 +263,38 @@ class WPBDP_PaymentsAPI {
         }
 
         update_option( 'wpbdp-payment-abandonment-notified', $notified );
+    }
+
+
+
+    function _return_fee_list_button( $payment ){
+        if ( 'renewal' !== $payment->payment_type ) {
+            return;
+        }
+
+        echo '<input type="submit" name="return-to-fee-select" value="' . _x( 'Return to fee selection', 'templates', 'wpbdp-claim-listings' ) . '" style="margin-bottom:  1.5em;" />';
+    }
+
+    function maybe_fee_select_redirect( $checkout ) {
+        if ( 'renewal' !== $checkout->payment->payment_type ) {
+            return;
+        }
+
+        if ( empty( $_POST['return-to-fee-select'] ) ) {
+            return;
+        }
+
+
+        $url = esc_url_raw(
+            add_query_arg(
+                array(
+                    'return-to-fee-select' => 1,
+                ),
+                wpbdp_url( 'renew_listing', $checkout->payment->listing_id )
+            )
+        );
+
+        wp_redirect( $url );
     }
 
 }
