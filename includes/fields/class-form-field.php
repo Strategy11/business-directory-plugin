@@ -646,7 +646,6 @@ class WPBDP_Form_Field {
         if ( in_array( 'private', $this->display_flags ) ) {
             if ( ! in_array( $this->association, array( 'title', 'content', 'category' ), true ) ) {
                 $this->set_display_flags( array( 'private' ) );
-                $this->set_validators();
             } else {
                 $this->remove_display_flag( array( 'private' ) );
             }
