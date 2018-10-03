@@ -68,6 +68,8 @@ support future development:
 
 = Premium Directory Skins (Paid) =
 * [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
+* NEW! [Elegant Grid Theme](https://businessdirectoryplugin.com/downloads/elegant-grid-theme/?ref=wp)
+* NEW! [Modern Business Theme](https://businessdirectoryplugin.com/downloads/modern-business-theme/?ref=wp)
 * [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
 * [Tabbed Business Theme](https://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
 * [Elegant Business Theme](https://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
