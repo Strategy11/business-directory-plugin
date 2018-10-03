@@ -22,7 +22,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_get_option( 'enable-listing-flagging' ) && wpbdp_user_can( 'flagging', $listing_id ) ) :
         $buttons .= sprintf(
-            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button report-listing" /></form>',
+            ' <form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button report-listing" /></form>',
             wpbdp_url( 'flag_listing', $listing_id ),
             apply_filters( 'wpbdp_listing_flagging_button_text', _x( 'Flag Listing', 'templates', 'WPBDM' ) )
         );
