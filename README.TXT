@@ -5,8 +5,8 @@ Tags: business directory, directory plugin, company business directory, chamber 
 Requires at least: 4.5
 Requires PHP: 5.6
 Tested up to: 4.9
-Last Updated: 2018-Aug-24
-Stable tag: 5.3.2.1
+Last Updated: 2018-Oct-2
+Stable tag: 5.3.3
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
@@ -143,6 +143,13 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
+= Version 5.3.3 =
+* Include a link to delete listing's payment history using AJAX.
+* Add sort options filter to be used by modules.
+* Allow plan change in renew listing process.
+* Allow free listing renewal without payment gateway.
+* Allow validators to admin only (private) fields.
+        
 = Version 5.3.2.1 =
 * Fixed issue where images showed on wrong side of listing.
 
