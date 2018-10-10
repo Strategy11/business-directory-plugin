@@ -1182,11 +1182,12 @@ function wpbdp_get_edit_post_link( $listing_id ){
 function wpbdp_get_client_ip_address() {
     $ip = '0.0.0.0';
 
-    $check_vars = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+    $check_vars = array( 'REMOTE_ADDR', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR' );
 
-    foreach ($check_vars as $varname) {
-        if (isset($_SERVER[$varname]) && !empty($_SERVER[$varname]))
+    foreach ( $check_vars as $varname ) {
+        if ( isset($_SERVER[$varname]) && !empty($_SERVER[$varname] ) ) {
             return $_SERVER[$varname];
+        }
     }
 
     return $ip;
