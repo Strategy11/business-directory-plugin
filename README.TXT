@@ -1,7 +1,7 @@
 === Business Directory Plugin ===
 Contributors: businessdirectoryplugin
 Donate link: https://businessdirectoryplugin.com/premium-modules/
-Tags: business directory, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, custom business directory, local business directory, listings directory, link directory, member directory, staff directory
+Tags: business directory, listings, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.5
 Requires PHP: 5.6
 Tested up to: 4.9
@@ -9,7 +9,7 @@ Last Updated: 2018-Oct-2
 Stable tag: 5.3.3
 License: GPLv2 or later
 
-Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory and much more! 
+Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
 
 == Description ==
 
@@ -17,7 +17,7 @@ Build any kind of local directory, directory of business providers, a Yellow-Pag
 
 Business Directory Plugin is the most popular, versatile, widely-installed, easiest to use, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
-Business Directory Plugin allows you to build a local directory, directory of business providers, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory using Business Directory plugin.
+Business Directory Plugin allows you to take any listings you want and build a local directory, directory of business providers, a real estate listings site, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory with listings using Business Directory plugin.
 
 = Core plugin Features =
 All [features](https://businessdirectoryplugin.com/features/) documented on the main website.
