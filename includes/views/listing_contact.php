@@ -144,7 +144,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         $html .= '<div class="wpbdp-listing-contact-form">';
 
         if ( ! $_POST ) {
-            $html .= '<input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" />';
+            $html .= '<div><input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" /></div>';
             $html .= '<div class="wpbdp-hide-on-mobile contact-form-wrapper">';
         }
 
