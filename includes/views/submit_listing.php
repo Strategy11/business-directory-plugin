@@ -360,13 +360,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
         }
 
+        $sections = apply_filters( 'wpbdp_submit_sections', $sections, $this );
+
         if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) && ! is_user_logged_in() ) {
             $sections['account_creation'] = array(
                 'title' => _x( 'Account Creation', 'submit listing', 'WPBDM' )
             );
         }
-
-        $sections = apply_filters( 'wpbdp_submit_sections', $sections, $this );
 
         if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
