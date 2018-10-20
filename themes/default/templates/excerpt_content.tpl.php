@@ -1,3 +1,13 @@
+<?php
+/**
+ * Listings except content template
+ *
+ * @package BDP/Themes/Default/Templates/Excerpt Content
+ */
+
+// phpcs:disable
+?>
+
 <div class="listing-title">
     <?php echo $fields->t_title->value; ?>
 </div>
@@ -10,7 +20,7 @@
     <div class="listing-details">
         <?php if ( $fields->_h_address ): ?>
         <div class="address-info">
-            <label><?php _ex( 'Address', 'themes/default', 'WPBDM' ); ?></label>
+            <label><?php _ex( 'Address', 'themes/default', 'WPBDM' ); ?>:</label>
             <?php echo $fields->_h_address; ?>
         </div>
         <?php endif; ?>
