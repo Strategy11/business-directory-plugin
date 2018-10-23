@@ -1,6 +1,15 @@
 <?php
 /**
  * @since 4.0
+ * @package BDP/Includes/Query Integration
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP__Query_Integration
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Query_Integration {
 
@@ -210,7 +219,7 @@ class WPBDP__Query_Integration {
         }
 
         $pieces['fields'] = apply_filters('wpbdp_query_fields', $pieces['fields'] );
-        $pieces['custom_orderby'] = ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) . apply_filters( 'wpbdp_query_orderby', '' );
+        $pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) );
         $pieces['orderby'] = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
 
         return $pieces;
