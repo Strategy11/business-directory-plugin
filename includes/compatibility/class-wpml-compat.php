@@ -168,7 +168,6 @@ class WPBDP_WPML_Compat {
 
         switch ( $name ) {
             case 'main':
-            case '/':
             case 'edit_listing':
             case 'upgrade_listing':
             case 'delete_listing':
@@ -256,20 +255,20 @@ class WPBDP_WPML_Compat {
                     $listing_id = $wp_query->get_queried_object()->ID;
                 }
 
-				// $listing_id = wpbdp_get_post_by_id_or_slug( $post_id, 'id', 'id' );
                 if ( ! $listing_id ) {
                     break;
                 }
 
-                foreach ( $languages as $l_code => $l ) {
-                    $trans_id = icl_object_id( $listing_id, WPBDP_POST_TYPE, true, $languages[ $l_code ]['language_code'] );
+                $trid         = apply_filters( 'wpml_element_trid', null, $listing_id, 'post_' . WPBDP_POST_TYPE );
+                $translations = apply_filters( 'wpml_get_element_translations', null, $trid, 'post_' . WPBDP_POST_TYPE );
 
-                    if ( ! $trans_id ) {
+                foreach ( $languages as $l_code => $l ) {
+                    if ( ! array_key_exists( $l_code, $translations) ) {
                         unset( $languages[ $l_code ] );
                         continue;
                     }
 
-                    $languages[ $l_code ]['url'] = $this->translate_link( get_permalink( $trans_id ), $languages[ $l_code ]['language_code'] );
+                    $languages[ $l_code ]['url'] = apply_filters( 'wpml_permalink', get_permalink( $translations[$l_code]->element_id ), $l_code );
                 }
 
                 break;
