@@ -41,6 +41,8 @@ class WPBDP_Admin_Listings {
         add_filter( 'posts_search', array( $this, 'username_and_user_email_search_support' ), 10, 2 );
 
         add_action( 'wp_ajax_wpbdp-clear-payment-history', array( &$this, 'ajax_clear_payment_history' ) );
+
+        add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud') );
     }
 
     // Category filter. {{
@@ -635,6 +637,17 @@ class WPBDP_Admin_Listings {
         }
 
         wp_send_json_success( array( 'message' => _x( 'Listing\'s payment history successfully deleted', 'admin listings', 'WPBDM' ) ) );
+    }
+
+    public function _add_tag_cloud( $tags ) {
+        if ( WPBDP_TAGS_TAX !== $_POST['tax'] ) {
+            return $tags;
+        }
+
+        $tags = get_terms( WPBDP_TAGS_TAX, array( 'number' => 45, 'orderby' => 'count', 'order' => 'DESC', 'hide_empty' => false ) );
+
+        return $tags;
+
     }
 
 }
