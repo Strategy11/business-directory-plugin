@@ -16,14 +16,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     protected $sections = array();
 
     protected $prevent_save = false;
-    protected $editing = false;
-    protected $data = array();
-    protected $messages = array( 'general' => array() );
+    protected $editing      = false;
+    protected $data         = array();
+    protected $messages     = array( 'general' => array() );
 
-    private $available_plans = array();
-    public $skip_plan_selection = false;
-    public $skip_plan_payment   = false;
-    public $fixed_plan_id = 0;
+    private $available_plans           = array();
+    public $skip_plan_selection        = false;
+    public $skip_plan_payment          = false;
+    public $category_specific_fields   = false;
+    public $fixed_plan_id              = 0;
 
 
     public function get_title() {
@@ -223,9 +224,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
+        $this->category_specific_fields = $this->category_specific_fields();
+
         // Maybe skip plan selection?
         if ( $this->skip_plan_payment ) {
-            $this->skip_plan_selection = ( 1 == count( $this->available_plans ) );
+            $this->skip_plan_selection = ( 1 == count( $this->get_available_plans() ) );
 
             if ( $this->skip_plan_selection ) {
                 $plan = $this->available_plans[0];
@@ -474,7 +477,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         } else {
             $categories = $category_field->value_from_POST();
 
-            if ( $this->skip_plan_selection ) {
+            if ( $this->skip_plan_selection && ! $this->category_specific_fields ) {
                 $plan_id = $this->fixed_plan_id;
 
                 if ( ! $this->listing->get_fee_plan() ) {
@@ -529,7 +532,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         } else {
 
-            if ( $this->skip_plan_selection ) {
+            if ( $this->skip_plan_selection && ! $this->category_specific_fields ) {
                 $this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
             } else {
                 if ( $this->listing->get_fee_plan() ) {
@@ -942,6 +945,23 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         list( $success, $html ) = $view->listing_fields( true );
 
         return $html;
+    }
+
+    public function category_specific_fields () {
+        $form_fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
+        $form_fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$form_fields, &$this->listing ) );
+
+        foreach ( $form_fields as $field ) {
+            $field_allowed_categories = $field->data( 'supported_categories', 'all' );
+            if ( 'all' !== $field_allowed_categories ) {
+                return  true;
+            }
+        }
+        return false;
+    }
+
+    public function get_available_plans() {
+        return $this->available_plans;
     }
 
 }
