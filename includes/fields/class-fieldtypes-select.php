@@ -1,5 +1,10 @@
-<?php
+<?php // phpcs:disable
 
+/**
+ * Class WPBDP_FieldTypes_Select
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
     private $multiselect = false;
@@ -223,7 +228,17 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', $options ? array_map( 'trim', explode( "\n", $options ) ) : array() );
+        $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
+
+        if ( 'tags' !== $field->get_association() ) {
+            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+
+            foreach ( array_diff( $options, $tags ) as $option ) {
+                wp_insert_term( $option, WPBDP_TAGS_TAX );
+            }
+        }
+
+        $field->set_data( 'options', $options );
 
         if ( array_key_exists( 'x_empty_on_search', $_POST['field'] ) ) {
             $empty_on_search = (bool) intval( $_POST['field']['x_empty_on_search'] );
