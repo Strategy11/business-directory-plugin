@@ -32,6 +32,11 @@ jQuery(function($) {
             // First mark categories that were disabled since the beginning via HTML.
             if ( 'select2' == this.field_type ) {
                 this.field.find( 'option[disabled="disabled"]' ).data( 'keep_disabled', true );
+                // Workaround for https://github.com/select2/select2/issues/3992.
+                var self = this;
+                setTimeout(function() {
+                    self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                } );
             }
 
             if ( this.editing ) {
@@ -119,16 +124,8 @@ jQuery(function($) {
                 } );
             }
 
-            // Workaround for https://github.com/select2/select2/issues/3992.
-            if ( 'select2' == this.field_type ) {
-                var self = this;
-                setTimeout(function() {
-                    self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
-                });
-            }
-
-            if ( self.available_plans.length === 1 && this.plan_autoselect ) {
-                $( '#wpbdp-plan-select-radio-' + self.available_plans[0] ).trigger( "click" );
+            if ( this.available_plans.length === 1 && this.plan_autoselect ) {
+                $( '#wpbdp-plan-select-radio-' + this.available_plans[0] ).trigger( "click" );
             }
 
             if ( ! this.plan_autoselect && 'checkbox' !== this.field_type && !$( this.field_wrapper ).hasClass( 'wpbdp-form-field-type-multiselect' ) ) {
@@ -200,8 +197,6 @@ jQuery(function($) {
                     cats = $.map( cats, function(x) { return parseInt( x ); } );
                 }
             });
-
-            // console.log( this.available_plans, cats );
 
             if ( all_cats ) {
                 this._enable_categories( 'all' );
@@ -285,6 +280,7 @@ jQuery(function($) {
         this.$form = this.$submit.find( 'form' );
         this.editing = ( this.$form.find( 'input[name="editing"]' ).val() == '1' );
         this.$sections = this.$submit.find( '.wpbdp-submit-listing-section' );
+        this.skip_plan_selection = ( 1 == $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
 
         this.listing_id = this.$form.find( 'input[name="listing_id"]' ).val();
         this.ajax_url = this.$form.attr( 'data-ajax-url' );
@@ -319,6 +315,20 @@ jQuery(function($) {
             $options.prop( 'checked', $( this ).find( 'input' ).is(':checked') );
         } );
 
+        // $submit.on( 'change', '.wpbdp-form-field-association-category .select2-selection ul', function ( e ) {
+        //     if ( self.skip_plan_selection ) {
+        //         var data = self.$form.serialize();
+        //         data += '&action=wpbdp_ajax&handler=submit_listing__sections';
+        //
+        //         self.ajax( data, function( res ) {
+        //             self.refresh( res );
+        //             $( 'html, body' ).delay(100).animate({
+        //                 scrollTop: self.$form.find('.wpbdp-submit-listing-section-plan_selection').offset().top
+        //             }, 500);
+        //         } );
+        //     }
+        // } );
+
         $( window ).trigger( 'wpbdp_submit_init' );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
@@ -351,7 +361,6 @@ jQuery(function($) {
 
         plan_handling: function() {
             this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit, this.editing );
-            this.skip_plan_selection = ( 1 == $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
 
             if ( this.editing ) {
                 var $plan = this.$form.find( this.skip_plan_selection ? '.wpbdp-plan-selection .wpbdp-plan' : '.wpbdp-current-plan .wpbdp-plan' );
@@ -366,7 +375,8 @@ jQuery(function($) {
             }
 
             var self = this;
-            this.$submit.on( 'change, click', 'input[name="listing_plan"]', function() {
+            this.$submit.on( 'change, click', 'input[name="listing_plan"], input[name="continue-to-fields"]', function( e ) {
+                e.preventDefault();
                 if ( $( this ).parents( '.wpbdp-plan' ).attr( 'data-disabled' ) == 1 ) {
                     return false;
                 }
