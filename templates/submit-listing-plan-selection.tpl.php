@@ -1,3 +1,12 @@
+<?php
+/**
+ * Submit Listing Plan Selection
+ *
+ * @package BDP/Templates/Plan Selection
+ */
+
+// phpcs:disable
+?>
 <div class="wpbdp-category-selection-with-tip">
     <?php if ( $editing ): ?>
     <div class="wpbdp-msg tip">
@@ -29,6 +38,11 @@
                 <?php echo wpbdp_render( 'plan-selection-plan', array( 'plan' => wpbdp_get_fee_plan( $selected_plan ), 'categories' => $selected_categories, 'display_only' => true, 'extra' ) ); ?>
             </div>
         </div>
+        <?php if ( $_submit->category_specific_fields ) : ?>
+        <div class="wpbdp_continue_to_fields_action">
+            <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+        </div>
+        <?php endif; ?>
     </div>
 <?php else: ?>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
