@@ -62,7 +62,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
             'completeListingTxt' => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
             'continueToPaymentTxt' => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
-            'isAdmin' => current_user_can( 'administrator' )
+            'isAdmin' => current_user_can( 'administrator' ),
+            'waitAMoment' => _x( 'Please wait a moment!', 'submit listing', 'WPBDM' ),
+            'somethingWentWrong' => _x( 'Something went wrong!', 'submit listing', 'WPBDM' ),
         ) );
 
         do_action( 'wpbdp_submit_listing_enqueue_resources' );

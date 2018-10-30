@@ -334,7 +334,7 @@ jQuery(function($) {
     $.extend( wpbdp.submit_listing.Handler.prototype, {
         ajax: function( data, callback ) {
             if ( this.doing_ajax ) {
-                alert( 'Please wait a moment!' );
+                alert( wpbdpSubmitListingL10n.waitAMoment );
                 return;
             }
 
@@ -343,7 +343,7 @@ jQuery(function($) {
 
             $.post( this.ajax_url, data, function( res ) {
                 if ( ! res.success ) {
-                    alert('Something went wrong!');
+                    alert( wpbdpSubmitListingL10n.somethingWentWrong );
                     return;
                 }
 
