@@ -19,39 +19,46 @@ if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) ) {
 class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x('Radio button', 'form-fields api', 'WPBDM') );
+        parent::__construct( _x( 'Radio button', 'form-fields api', 'WPBDM' ) );
     }
 
     public function get_id() {
         return 'radio';
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
+    public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
-        if ( $field->get_association() == 'tags' && !$options ) {
-            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+        if ( $field->get_association() == 'tags' && ! $options ) {
+            $tags    = get_terms(
+                WPBDP_TAGS_TAX, array(
+					'hide_empty' => false,
+					'fields'     => 'names',
+                )
+            );
             $options = array_combine( $tags, $tags );
         } elseif ( $field->get_association() == 'category' ) {
-            $html = wp_list_categories( array(
-                'taxonomy' => WPBDP_CATEGORY_TAX,
-                'orderby' => wpbdp_get_option( 'categories-order-by' ),
-                'order' => wpbdp_get_option( 'categories-sort' ),
-                'hide_empty' => 0,
-                'echo' => 0,
-                'depth' => 0,
-                'walker' => new WPBDP_CategoryFormInputWalker( 'radio', $value, $field ),
-                'show_option_none' => '',
-                'title_li' => '',
-            ) );
+            $html = wp_list_categories(
+                array(
+					'taxonomy'         => WPBDP_CATEGORY_TAX,
+					'orderby'          => wpbdp_get_option( 'categories-order-by' ),
+					'order'            => wpbdp_get_option( 'categories-sort' ),
+					'hide_empty'       => 0,
+					'echo'             => 0,
+					'depth'            => 0,
+					'walker'           => new WPBDP_CategoryFormInputWalker( 'radio', $value, $field ),
+					'show_option_none' => '',
+					'title_li'         => '',
+                )
+            );
 
             return $html;
         }
 
         $html = '';
-        $i = 1;
+        $i    = 1;
         foreach ( $options as $option => $label ) {
-            $css_classes = array();
+            $css_classes   = array();
             $css_classes[] = 'wpbdp-inner-field-option';
             $css_classes[] = 'wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
@@ -60,13 +67,14 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-radio-' . $i;
             $css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-            $html .= sprintf( '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
-                              implode( ' ', $css_classes ),
-                              'listingfields[' . $field->get_id() . ']',
-                              $option,
-                              $value == $option ? 'checked="checked"' : '',
-                              esc_attr( $label )
-                            );
+            $html .= sprintf(
+                '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                implode( ' ', $css_classes ),
+                'listingfields[' . $field->get_id() . ']',
+                $option,
+                $value == $option ? 'checked="checked"' : '',
+                esc_attr( $label )
+            );
             $i++;
         }
 
@@ -77,35 +85,44 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         return array( 'category', 'tags', 'meta' );
     }
 
-    public function render_field_settings( &$field=null, $association=null ) {
-            if ( $association != 'meta' && $association != 'tags' )
+    public function render_field_settings( &$field = null, $association = null ) {
+		if ( $association != 'meta' && $association != 'tags' ) {
             return '';
+		}
 
         $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
 
         $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
-        if ( $field && $field->data( 'options' ) )
+        if ( $field && $field->data( 'options' ) ) {
             $content .= implode( "\n", $field->data( 'options' ) );
+        }
         $content .= '</textarea>';
 
         return self::render_admin_settings( array( array( $label, $content ) ) );
     }
 
     public function process_field_settings( &$field ) {
-        if ( !array_key_exists( 'x_options', $_POST['field'] ) )
+        if ( ! array_key_exists( 'x_options', $_POST['field'] ) ) {
             return;
+        }
 
         $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
-        if ( !$options && $field->get_association() != 'tags' )
+        if ( ! $options && $field->get_association() != 'tags' ) {
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
+        }
 
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
 
         if ( 'tags' === $field->get_association() ) {
-            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+            $tags = get_terms(
+                WPBDP_TAGS_TAX, array(
+					'hide_empty' => false,
+					'fields'     => 'names',
+                )
+            );
 
             foreach ( array_diff( $options, $tags ) as $option ) {
                 wp_insert_term( $option, WPBDP_TAGS_TAX );
@@ -124,8 +141,10 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         $value = $field->value( $post_id );
 
         if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $term = get_term( is_array( $value ) ? $value[0] : $value,
-                              $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX );
+            $term = get_term(
+                is_array( $value ) ? $value[0] : $value,
+                $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX
+            );
             return esc_attr( $term->name );
         }
 
