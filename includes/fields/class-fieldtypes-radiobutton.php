@@ -1,8 +1,21 @@
 <?php
-if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) )
-    require_once ( WPBDP_PATH . 'includes/helpers/class-category-form-input-walker.php' );
+/**
+ * Fieldtypes Radiobutton
+ *
+ * @package BDP/Includes/Fields/Fieldtypes Radiobutton
+ */
 
+if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) ) {
+    require_once WPBDP_PATH . 'includes/helpers/class-category-form-input-walker.php';
+}
 
+// phpcs:disable
+
+/**
+ * Class WPBDP_FieldTypes_RadioButton
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
     public function __construct() {
@@ -89,7 +102,17 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         if ( !$options && $field->get_association() != 'tags' )
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
 
-        $field->set_data( 'options', $options ? array_map( 'trim', explode( "\n", $options ) ) : array() );
+        $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
+
+        if ( 'tags' === $field->get_association() ) {
+            $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
+
+            foreach ( array_diff( $options, $tags ) as $option ) {
+                wp_insert_term( $option, WPBDP_TAGS_TAX );
+            }
+        }
+
+        $field->set_data( 'options', $options );
     }
 
     public function get_field_value( &$field, $post_id ) {

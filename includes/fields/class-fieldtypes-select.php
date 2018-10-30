@@ -230,7 +230,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
 
-        if ( 'tags' !== $field->get_association() ) {
+        if ( 'tags' === $field->get_association() ) {
             $tags = get_terms( WPBDP_TAGS_TAX, array( 'hide_empty' => false, 'fields' => 'names' ) );
 
             foreach ( array_diff( $options, $tags ) as $option ) {
