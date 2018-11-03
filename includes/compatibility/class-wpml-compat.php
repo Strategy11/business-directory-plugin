@@ -52,6 +52,8 @@ class WPBDP_WPML_Compat {
         // Regions.
         add_filter( 'wpbdp_regions__get_hierarchy_option', array( &$this, 'use_cache_per_lang' ) );
         add_action( 'wpbdp_regions_clean_cache', array( &$this, 'clean_cache_per_lang' ) );
+
+        add_action( 'wpbdp_main_box_hidden_fields', array( $this, 'search_lang_field' ) );
     }
 
     protected function is_doing_ajax() {
@@ -488,4 +490,14 @@ class WPBDP_WPML_Compat {
     }
 
     // }}}
+
+    public function search_lang_field() {
+        $lang = $this->get_current_language();
+
+        if ( ! $lang ) {
+            return;
+        }
+
+        echo '<input type="hidden" name="lang" value="' . $lang . '" />';
+    }
 }
