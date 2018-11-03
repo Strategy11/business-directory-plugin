@@ -85,12 +85,12 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
     $term_ids = get_terms(
         WPBDP_CATEGORY_TAX,
         array(
-			'orderby'    => $args['orderby'],
-			'order'      => $args['order'],
-			'hide_empty' => false,
-			'pad_counts' => false,
-			'parent'     => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ),
-			'fields'     => 'ids',
+            'orderby'    => $args['orderby'],
+            'order'      => $args['order'],
+            'hide_empty' => false,
+            'pad_counts' => false,
+            'parent'     => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ),
+            'fields'     => 'ids',
         )
     );
 
@@ -131,7 +131,7 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
     }
     foreach ( $terms as &$term ) {
         $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' ) . '">';
-        
+
         $item_html = '';
         $item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
         $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label" rel="nofollow">';
@@ -167,36 +167,36 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
     return $html;
 }
 
- /**
-  * Produces a list of directory categories following some configuration settings that are overridable.
-  *
-  * The list of arguments is below:
-  *      'parent' (int|object) - Parent directory category or category ID.
-  *      'orderby' (string) default is taken from BD settings - What column to use for ordering the categories.
-  *      'order' (string) default is taken from BD settings - What direction to order categories.
-  *      'show_count' (boolean) default is taken from BD settings - Whether to show how many listings are in the category.
-  *      'hide_empty' (boolean) default is False - Whether to hide empty categories or not.
-  *      'parent_only' (boolean) default is False - Whether to show only direct childs of 'parent' or make a recursive list.
-  *      'echo' (boolean) default is False - If True, the list will be printed in addition to returned by this function.
-  *      'no_items_msg' (string) default is "No listing categories found." - Message to display when no categories are found.
-  *
-  * @param string|array $args array of arguments to be used while creating the list.
-  * @return string HTML output.
-  * @since 2.3
-  * @see wpbdp_directory_categories()
-  */
+/**
+ * Produces a list of directory categories following some configuration settings that are overridable.
+ *
+ * The list of arguments is below:
+ *      'parent' (int|object) - Parent directory category or category ID.
+ *      'orderby' (string) default is taken from BD settings - What column to use for ordering the categories.
+ *      'order' (string) default is taken from BD settings - What direction to order categories.
+ *      'show_count' (boolean) default is taken from BD settings - Whether to show how many listings are in the category.
+ *      'hide_empty' (boolean) default is False - Whether to hide empty categories or not.
+ *      'parent_only' (boolean) default is False - Whether to show only direct childs of 'parent' or make a recursive list.
+ *      'echo' (boolean) default is False - If True, the list will be printed in addition to returned by this function.
+ *      'no_items_msg' (string) default is "No listing categories found." - Message to display when no categories are found.
+ *
+ * @param string|array $args array of arguments to be used while creating the list.
+ * @return string HTML output.
+ * @since 2.3
+ * @see wpbdp_directory_categories()
+ */
 function wpbdp_list_categories( $args = array() ) {
     $args = wp_parse_args(
         $args, array(
-			'parent'       => null,
-			'echo'         => false,
-			'orderby'      => wpbdp_get_option( 'categories-order-by' ),
-			'order'        => wpbdp_get_option( 'categories-sort' ),
-			'show_count'   => wpbdp_get_option( 'show-category-post-count' ),
-			'hide_empty'   => false,
-			'parent_only'  => false,
-			'parent'       => 0,
-			'no_items_msg' => _x( 'No listing categories found.', 'templates', 'WPBDM' ),
+            'parent'       => null,
+            'echo'         => false,
+            'orderby'      => wpbdp_get_option( 'categories-order-by' ),
+            'order'        => wpbdp_get_option( 'categories-sort' ),
+            'show_count'   => wpbdp_get_option( 'show-category-post-count' ),
+            'hide_empty'   => false,
+            'parent_only'  => false,
+            'parent'       => 0,
+            'no_items_msg' => _x( 'No listing categories found.', 'templates', 'WPBDM' ),
         )
     );
 
@@ -205,9 +205,9 @@ function wpbdp_list_categories( $args = array() ) {
     if ( $categories = _wpbdp_list_categories_walk( 0, 0, $args ) ) {
         $attributes = apply_filters(
             'wpbdp_categories_list_attributes', array(
-				'class'                         => 'wpbdp-categories cf ' . apply_filters( 'wpbdp_categories_list_css', '' ),
-				'data-breakpoints'              => esc_attr( '{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}' ),
-				'data-breakpoints-class-prefix' => 'wpbdp-categories',
+                'class'                         => 'wpbdp-categories cf ' . apply_filters( 'wpbdp_categories_list_css', '' ),
+                'data-breakpoints'              => esc_attr( '{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}' ),
+                'data-breakpoints-class-prefix' => 'wpbdp-categories',
             )
         );
 
@@ -320,7 +320,7 @@ function wpbdp_search_form() {
         '<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
         wpbdp_url( 'search' )
     );
-        $html .= '<input type="hidden" name="wpbdp_view" value="search" />';
+    $html .= '<input type="hidden" name="wpbdp_view" value="search" />';
 
     if ( ! wpbdp_rewrite_on() ) {
         $html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
@@ -436,8 +436,8 @@ function wpbdp_the_listing_sort_options() {
 function wpbdp_bar( $parts = array() ) {
     $parts = wp_parse_args(
         $parts, array(
-			'links'  => true,
-			'search' => false,
+            'links'  => true,
+            'search' => false,
         )
     );
 
@@ -488,9 +488,9 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 
     $args = wp_parse_args(
         $args, array(
-			'link'  => 'picture',
-			'class' => '',
-			'echo'  => false,
+            'link'  => 'picture',
+            'class' => '',
+            'echo'  => false,
         )
     );
 
@@ -519,10 +519,10 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
             'wpbdp-thumb',
             false,
             array(
-				'alt'   => get_the_title( $listing_id ),
-				'title' => get_the_title( $listing_id ),
-				'class' => $image_classes,
-			)
+                'alt'   => get_the_title( $listing_id ),
+                'title' => get_the_title( $listing_id ),
+                'class' => $image_classes,
+            )
         );
 
         if ( $args['link'] == 'picture' ) {
@@ -623,9 +623,9 @@ class WPBDP_ListingFieldDisplayItem {
 
     public static function prepare_set( $listing_id, $display ) {
         $res = (object) array(
-			'fields' => array(),
-			'social' => array(),
-		);
+            'fields' => array(),
+            'social' => array(),
+        );
 
         $form_fields = wpbdp_get_form_fields();
         $form_fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$form_fields, $listing_id ) );
@@ -638,7 +638,7 @@ class WPBDP_ListingFieldDisplayItem {
             if ( $f->display_in( 'social' ) ) {
                 $res->social[ $f->get_id() ] = new self( $f, $listing_id, 'social' );
             } else {
-				$res->fields[ $f->get_id() ] = new self( $f, $listing_id, $display );
+                $res->fields[ $f->get_id() ] = new self( $f, $listing_id, $display );
             }
         }
 
