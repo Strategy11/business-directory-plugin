@@ -107,7 +107,7 @@ class WPBDP_WPML_Compat {
                 $lang = $data['lang'];
             }
         } else {
-			$lang = $this->get_current_language();
+            $lang = $this->get_current_language();
         }
 
         if ( ! $lang ) {
@@ -380,13 +380,13 @@ class WPBDP_WPML_Compat {
         $admin_page = ! empty( $_GET['page'] ) ? $_GET['page'] : '';
 
         switch ( $admin_page ) {
-			case 'wpbdp-admin-fees':
-				$this->register_fees_strings();
+            case 'wpbdp-admin-fees':
+                $this->register_fees_strings();
                 break;
-			case 'wpbdp_admin_formfields':
-				$this->register_form_fields_strings();
+            case 'wpbdp_admin_formfields':
+                $this->register_form_fields_strings();
                 break;
-			default:
+            default:
                 break;
         }
     }
@@ -399,9 +399,9 @@ class WPBDP_WPML_Compat {
 
         $fees = wpbdp_get_fee_plans(
             array(
-				'enabled'      => 'all',
-				'include_free' => true,
-				'tag'          => '',
+                'enabled'      => 'all',
+                'include_free' => true,
+                'tag'          => '',
             )
         );
 
