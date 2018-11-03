@@ -672,15 +672,16 @@ function wpbdp_main_box( $args = null ) {
     );
     $args     = wp_parse_args( $args, $defaults );
 
-    $extra_fields = wpbdp_capture_action( 'wpbdp_main_box_extra_fields' );
-    $search_url   = esc_url( add_query_arg( 'wpbdp_view', 'search', wpbdp_get_page_link( 'main' ) ) );
-    $no_cols      = 1;
+    $extra_fields  = wpbdp_capture_action( 'wpbdp_main_box_extra_fields' );
+    $hidden_fields = wpbdp_capture_action( 'wpbdp_main_box_hidden_fields' );
+    $search_url    = wpbdp_url( 'search' );
+    $no_cols       = 1;
 
     if ( $extra_fields ) {
         $no_cols = 2;
     }
 
-    $template_vars = compact( 'extra_fields', 'search_url', 'no_cols' );
+    $template_vars = compact( 'hidden_fields', 'extra_fields', 'search_url', 'no_cols' );
     $template_vars = array_merge( $template_vars, $args );
 
     $html = wpbdp_x_render( 'main-box', $template_vars );
