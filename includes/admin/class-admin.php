@@ -1,4 +1,13 @@
 <?php
+/**
+ * Class Admin
+ *
+ * @package BDP/Includes/Admin/Class Admin
+ * @SuppressWarnings(PHPMD)
+ */
+
+// phpcs:disable
+
 require_once( WPBDP_PATH . 'includes/admin/admin-pages.php' );
 require_once( WPBDP_PATH . 'includes/admin/class-admin-listings.php' );
 require_once( WPBDP_PATH . 'includes/admin/form-fields.php' );
@@ -7,9 +16,13 @@ require_once( WPBDP_PATH . 'includes/admin/csv-export.php' );
 require_once( WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php' );
 require_once( WPBDP_PATH . 'includes/admin/page-debug.php' );
 require_once( WPBDP_PATH . 'includes/admin/class-admin-controller.php' );
+require_once WPBDP_PATH . '/includes/admin/class-privacy-policy-content.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
+/**
+ * Class WPBDP_Admin
+ */
 class WPBDP_Admin {
 
     private $menu = array();
@@ -25,6 +38,8 @@ class WPBDP_Admin {
         add_action('admin_init', array($this, 'handle_actions'));
 
         add_action('admin_init', array($this, 'check_for_required_pages'));
+
+        add_action( 'admin_init', array( wpbdp_privacy_policy_content(), 'add_privacy_policy_content' ) );
 
         add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
         add_action( 'admin_init', array( $this, 'register_listings_views' ) );
@@ -361,7 +376,6 @@ to how WordPress stores the data.", 'WPBDM' )
                           'administrator',
                           'wpbdp_uninstall',
                           array( $this, 'uninstall_plugin' ) );
-        
 
         // Handle some special menu items.
         foreach ( $GLOBALS['submenu']['wpbdp_admin'] as &$menu_item ) {
