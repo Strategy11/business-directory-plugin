@@ -134,7 +134,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
     public function get_field_value( &$field, $post_id ) {
         $value = parent::get_field_value( $field, $post_id );
-        return is_array( $value ) ? $value[0] : $value;
+        return $value && is_array( $value ) ? $value[0] : $value;
     }
 
     public function get_field_plain_value( &$field, $post_id ) {
