@@ -395,6 +395,16 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                     $( '#wpbdp-settings-quick-search-fields .text-fields-warning' ).fadeOut( 'fast' );
                 }
             });
+
+            $( '#wpbdp-settings-currency select' ).on( 'change', function () {
+                if ( 'AED' === $( this ).val() ) {
+                    $( '#wpbdp-settings-currency .wpbdp-setting-description' ).show();
+                } else {
+                    $( '#wpbdp-settings-currency .wpbdp-setting-description' ).hide();
+                }
+            } );
+
+            $( '#wpbdp-settings-currency select' ).change();
         }
     };
 
