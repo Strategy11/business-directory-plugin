@@ -1,6 +1,15 @@
 <?php
 /**
+ * @package WPBDP/Includes/Helpers/Search
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP__Listing_Search
+ *
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Listing_Search {
 
@@ -170,9 +179,9 @@ class WPBDP__Listing_Search {
         // Quick search.
         if ( ! empty( $request['kw'] ) ) {
             if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
-                $request['kw'] = array( $request['kw'] );
+                $request['kw'] = array( trim( $request['kw'] ) );
             } else {
-                $request['kw'] = explode( ' ', $request['kw'] );
+                $request['kw'] = explode( ' ',  trim( $request['kw'] ) );
             }
 
             $fields = array();
