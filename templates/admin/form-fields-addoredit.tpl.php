@@ -270,6 +270,25 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'WPBDM' ), '
             </tr>
     </table>
 
+    <!-- display options -->
+    <h2><?php _ex( 'Field privacy options', 'form-fields admin', 'WPBDM' ); ?></h2>
+    <table class="form-table">
+        <tr>
+            <th scope="row">
+                <label> <?php _ex( 'This field contains sensitive or private information?', 'form-fields admin', 'WPBDM' ); ?></label>
+            </th>
+            <td>
+                <label>
+                    <input name="field[display_flags][]"
+                           value="privacy"
+                           type="checkbox" <?php echo ( $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ) ? 'checked="checked"' : ''; ?>
+                           <?php echo $field->is_privacy_field() ? 'disabled' : '' ?>
+                    /> <?php _ex( 'Add this field when exporting or deleting user\'s personal data.', 'form-fields admin', 'WPBDM' ); ?>
+                </label>
+            </td>
+        </tr>
+    </table>
+
     <?php if ( $field->get_id() ) : ?>
         <?php echo submit_button( _x( 'Update Field', 'form-fields admin', 'WPBDM' ) ); ?>
     <?php else : ?>

@@ -1,7 +1,22 @@
 <?php
-if (!class_exists('WP_List_Table'))
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+/**
+ * Represents a single field from the database. This class can not be instantiated directly.
+ *
+ * @since 5.4
+ * @package WPBDP/Views/Includes/Admin/Form Fields
+ */
 
+// phpcs:disable
+
+if ( !class_exists( 'WP_List_Table' ) ) {
+    require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+}
+
+/**
+ * Class WPBDP_FormFieldsTable
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FormFieldsTable extends WP_List_Table {
 
     public function __construct() {
@@ -91,6 +106,14 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                     _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
                     _x( 'In Listing', 'form-fields admin', 'WPBDM' ) );
             }
+
+            $privacy_field = in_array( $field->get_tag(), array( 'title', 'website', 'phone', 'fax', 'address', 'zip' ) );
+
+            if ( $field->display_in( 'privacy' ) || $privacy_field ) {
+                $html .= sprintf( '<span class="tag privacy" title="%s">%s</span>',
+                    _x( 'This field value is included when exporting or deleting user\'s personal data.', 'form-fields admin', 'WPBDM' ),
+                    _x( 'Privacy', 'form-fields admin', 'WPBDM' ) );
+            }
         }
 
         return $html;
@@ -98,6 +121,11 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
 }
 
+/**
+ * Class WPBDP_FormFieldsAdmin
+ * 
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FormFieldsAdmin {
 
     public function __construct() {

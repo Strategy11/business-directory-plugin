@@ -965,6 +965,10 @@ class WPBDP_Form_Field {
         return self::get( $field_id );
     }
 
+    public function is_privacy_field() {
+        return in_array( $this->get_tag(), array( 'title', 'website', 'phone', 'fax', 'address', 'zip' ) );
+    }
+
 }
 
 /**
