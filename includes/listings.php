@@ -10,8 +10,8 @@
 require_once WPBDP_PATH . 'includes/class-listing.php';
 
 /**
- * @param array $args
- * @param bool $error
+ * @param array  $args
+ * @param bool   $error
  * @param string $context
  * @return null|WPBDP_Listing
  *
@@ -25,7 +25,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
     $args = apply_filters( 'wpbdp_save_listing_args', $args, $error, $context );
 
-    $listing = array();
+    $listing                = array();
     $listing['listing_id']  = ! empty( $args['listing_id'] ) ? absint( $args['listing_id'] ) : 0;
     $listing['sequence_id'] = ! empty( $args['sequence_id'] ) ? $args['sequence_id'] : '';
 
@@ -40,7 +40,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     // Fields.
     $listing['fields'] = ! empty( $args['fields'] ) ? $args['fields'] : array();
     foreach ( array_keys( $listing['fields'] ) as $field_id ) {
-        $field_obj   = wpbdp_get_form_field( $field_id );
+        $field_obj = wpbdp_get_form_field( $field_id );
 
         if ( ! $field_obj ) {
             unset( $listing['fields'][ $field_id ] );
@@ -59,11 +59,11 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
     // Images.
     $listing['images'] = ! empty( $args['images'] ) ? $args['images'] : array();
-    $append_images = ! empty( $args['append_images'] );
+    $append_images     = ! empty( $args['append_images'] );
 
     // Categories.
     $listing['categories'] = ! empty( $args['categories'] ) ? $args['categories'] : array();
-    $append_categories = false;
+    $append_categories     = false;
 
     // Fee plan.
     $listing['plan_id'] = ! empty( $args['plan_id'] ) ? absint( $args['plan_id'] ) : 0;
@@ -72,7 +72,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     $listing['expiration_date'] = '';
     if ( ! empty( $args['expiration_date'] ) ) {
         $listing['expiration_date'] = $args['expiration_date'];
-    } else if ( ! empty( $args['expires_on'] ) ) {
+    } elseif ( ! empty( $args['expires_on'] ) ) {
         $listing['expiration_date'] = $args['expires_on'];
     }
 
@@ -87,10 +87,10 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
         // We use a faster slug algorithm for CSV imports.
         if ( 'csv-import' == $context ) {
             $post_name_hash = 'wpbdp-slug-' . sha1( $listing['post_name'] );
-            $slug_prefix = $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $post_name_hash ) );
+            $slug_prefix    = $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $post_name_hash ) );
 
             if ( ! is_null( $slug_prefix ) && function_exists( '_truncate_post_slug' ) ) {
-                $slug_prefix = intval( $slug_prefix ) + 1;
+                $slug_prefix          = intval( $slug_prefix ) + 1;
                 $listing['post_name'] = _truncate_post_slug( $listing['post_name'], 200 - strlen( $slug_prefix ) - 1 ) . '-' . $slug_prefix;
 
                 $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s", $slug_prefix, $post_name_hash ) );
@@ -102,29 +102,29 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
         $listing['post_author'] = get_current_user_id();
 
         // TODO: maybe add this behavior again?
-        //         if ( 0 == $post_author ) {
-        //             // Create user.
-        //             if ( $email_field = wpbdp_get_form_fields( array( 'validators' => 'email', 'unique' => 1 ) ) ) {
-        //                 $email = $state->fields[ $email_field->get_id() ];
+        // if ( 0 == $post_author ) {
+        // Create user.
+        // if ( $email_field = wpbdp_get_form_fields( array( 'validators' => 'email', 'unique' => 1 ) ) ) {
+        // $email = $state->fields[ $email_field->get_id() ];
         //
-        //                 if ( email_exists( $email ) ) {
-        //                     $post_author = get_user_by( 'email', $email );
-        //                     $post_author = $post_author->ID;
-        //                 } else {
-        //                     $post_author = wp_insert_user( array(
-        //                         'user_login' => 'guest_' . wp_generate_password( 5, false, false ),
-        //                         'user_email' => $email,
-        //                         'user_pass' => wp_generate_password()
-        //                     ) );
-        //                 }
-        //             }
-        //         }
+        // if ( email_exists( $email ) ) {
+        // $post_author = get_user_by( 'email', $email );
+        // $post_author = $post_author->ID;
+        // } else {
+        // $post_author = wp_insert_user( array(
+        // 'user_login' => 'guest_' . wp_generate_password( 5, false, false ),
+        // 'user_email' => $email,
+        // 'user_pass' => wp_generate_password()
+        // ) );
+        // }
+        // }
+        // }
     }
 
     $listing = apply_filters( 'wpbpd_save_listing_data', $listing, $context );
     extract( $listing );
 
-    $adding = ( empty( $listing_id ) );
+    $adding  = ( empty( $listing_id ) );
     $editing = ! $adding;
 
     $post = array(
@@ -135,7 +135,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
         'post_excerpt' => $post_excerpt,
         'post_status'  => $post_status,
         'post_type'    => WPBDP_POST_TYPE,
-        'post_name'    => $post_name
+        'post_name'    => $post_name,
     );
 
     $listing_id = wp_insert_post( $post, true );
@@ -157,7 +157,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     }
     // FIXME: fake this (for compatibility with modules) until we move everything to wpbdp_save_listing() and
     // friends. See #2945.
-    do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$listing_obj, $fields ) );    
+    do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$listing_obj, $fields ) );
 
     // Set plan for new listings.
     if ( $adding || 'csv-import' === $context ) {
@@ -175,11 +175,21 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     }
 
     // Update expiration date if necessary.
-    $listing_obj->update_plan( array( 'expiration_date' => $expiration_date ), array( 'clear' => false, 'recalculate' => false ) );
+    $listing_obj->update_plan(
+        array( 'expiration_date' => $expiration_date ), array(
+			'clear'       => false,
+			'recalculate' => false,
+        )
+    );
 
     // Force GUIDs to always be <home-url>?post_type=wpbdp_listing&p=<post_id>
     if ( $adding && ( ! isset( $guid ) || ! $guid ) ) {
-        $post_link = add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, 'p' => $listing_id ), '' );
+        $post_link = add_query_arg(
+            array(
+				'post_type' => WPBDP_POST_TYPE,
+				'p'         => $listing_id,
+            ), ''
+        );
         $wpdb->update( $wpdb->posts, array( 'guid' => home_url( $post_link ) ), array( 'ID' => $listing_id ) );
         clean_post_cache( $listing_id );
     }
@@ -199,8 +209,8 @@ function wpbdp_get_listing( $listing_id ) {
 
 /**
  * @param $email
- * @param int $posts_per_page
- * @param int $offset
+ * @param int   $posts_per_page
+ * @param int   $offset
  * @return array
  *
  * @since 5.0.6
@@ -213,9 +223,9 @@ function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 
 
     // Lookup by user.
     if ( $user = get_user_by( 'email', $email ) ) {
-        $user_id = $user->ID;
+        $user_id  = $user->ID;
         $post_ids = array_merge(
-            $post_ids, 
+            $post_ids,
             $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status != %s AND post_author = %d", WPBDP_POST_TYPE, 'auto-draft', $user_id ) )
         );
     }
@@ -230,7 +240,16 @@ function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 
     }
 
     // Filter everything through get_posts().
-    $post_ids = get_posts( array( 'post_type' => WPBDP_POST_TYPE, 'post_status' => array( 'publish', 'draft', 'pending' ), 'posts_per_page' => $posts_per_page, 'offset' => $offset, 'post__in' => $post_ids ? $post_ids : array( -1 ), 'fields' => 'ids' ) );
+    $post_ids = get_posts(
+        array(
+			'post_type'      => WPBDP_POST_TYPE,
+			'post_status'    => array( 'publish', 'draft', 'pending' ),
+			'posts_per_page' => $posts_per_page,
+			'offset'         => $offset,
+			'post__in'       => $post_ids ? $post_ids : array( -1 ),
+			'fields'         => 'ids',
+        )
+    );
 
     return $post_ids;
 }
