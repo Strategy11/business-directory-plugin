@@ -1,8 +1,22 @@
 <?php
-require_once( WPBDP_PATH . 'includes/class-listing.php' );
+/**
+ * Listing related useful functions
+ *
+ * @package BDP/Includes/Listings
+ */
+
+// phpcs:disable
+
+require_once WPBDP_PATH . 'includes/class-listing.php';
 
 /**
+ * @param array $args
+ * @param bool $error
+ * @param string $context
+ * @return null|WPBDP_Listing
+ *
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     // TODO: how to support edits without rewriting everything? i.e. if $args has a listing ID but not all fields or
@@ -177,15 +191,22 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
 /**
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_listing( $listing_id ) {
     return WPBDP_Listing::get( $listing_id );
 }
 
 /**
+ * @param $email
+ * @param int $posts_per_page
+ * @param int $offset
+ * @return array
+ *
  * @since 5.0.6
+ * @SuppressWarnings(PHPMD)
  */
-function wpbdp_get_listings_by_email( $email ) {
+function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 ) {
     global $wpdb;
 
     $post_ids = array();
@@ -209,7 +230,7 @@ function wpbdp_get_listings_by_email( $email ) {
     }
 
     // Filter everything through get_posts().
-    $post_ids = get_posts( array( 'post_type' => WPBDP_POST_TYPE, 'post_status' => array( 'publish', 'draft', 'pending' ), 'posts_per_page' => -1, 'post__in' => $post_ids ? $post_ids : array( -1 ), 'fields' => 'ids' ) );
+    $post_ids = get_posts( array( 'post_type' => WPBDP_POST_TYPE, 'post_status' => array( 'publish', 'draft', 'pending' ), 'posts_per_page' => $posts_per_page, 'offset' => $offset, 'post__in' => $post_ids ? $post_ids : array( -1 ), 'fields' => 'ids' ) );
 
     return $post_ids;
 }

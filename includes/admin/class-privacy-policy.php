@@ -1,11 +1,15 @@
-<?php
+<?php // phpcs:disable
 /**
  * Privacy Policy
  *
  * @package BDP/Includes/Admin/Privacy Policy
+ * @since 5.4
  */
 
-// phpcs:disable
+require_once WPBDP_INC . 'admin/interface-personal-data-exporter.php';
+require_once WPBDP_INC . 'admin/class-data-formatter.php';
+require_once WPBDP_INC . 'admin/class-personal-data-exporter.php';
+require_once WPBDP_INC . 'admin/class-listings-personal-data-exporter.php';
 
 /**
  * Class WPBDP_Privacy_Policy
@@ -13,9 +17,14 @@
 class WPBDP_Privacy_Policy {
 
     /**
+     * @var int
+     */
+    public $items_per_page = 10;
+
+    /**
      * WPBDP_Privacy_Policy constructor.
      *
-     * @since 5.3.5
+     * @since 5.4
      */
     public function __construct() {
         add_action( 'admin_init', array( $this, 'add_privacy_policy_content' ) );
@@ -23,7 +32,7 @@ class WPBDP_Privacy_Policy {
     }
 
     /**
-     * @since 5.3.5
+     * @since 5.4
      */
     public function add_privacy_policy_content() {
         if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
@@ -33,7 +42,7 @@ class WPBDP_Privacy_Policy {
     }
 
     /**
-     * @since 5.3.5
+     * @since 5.4
      */
     private function get_privacy_policy_content() {
         $content = wpbdp_render_page( WPBDP_PATH . 'templates/admin/privacy-policy.tpl.php', array() );
@@ -42,38 +51,26 @@ class WPBDP_Privacy_Policy {
 
     /**
      * @param $exporters
+     * @return mixed
      *
-     * @since 5.3.5
+     * @since 5.4
      */
     public function register_personal_data_exporters( $exporters ) {
+        $data_formatter = new WPBDP_DataFormatter();
+
         $exporters['business-directory-plugin-listings'] = array(
             'exporter_friendly_name' => __( 'Business Directory Plugin', 'WPBDP' ),
-            'callback'               => array( $this, 'export_listing_data' ),
+            'callback'               => array(
+                new WPBDP_PersonalDataExporter(
+                    new WPBDP_ListingsPersonalDataExporter(
+                        $data_formatter
+                    )
+                ),
+                'export_personal_data',
+            ),
         );
-    }
 
-    /**
-     * @param $items
-     * @param $properties
-     * @return array
-     *
-     * @since 5.3.5
-     */
-    public function format_data( $items, $properties ) {
-        $data = array();
-        foreach ( $items as $key => $name ) {
-            if ( empty( $properties[ $key ] ) ) {
-                continue;
-            }
-            $data[] = array(
-                'name'  => $name,
-                'value' => $properties[ $key ],
-            );
-        }
-        return $data;
-    }
-
-    public function export_listing_data() {
+        return $exporters;
 
     }
 }
