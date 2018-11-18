@@ -10,6 +10,7 @@ require_once WPBDP_INC . 'admin/interface-personal-data-exporter.php';
 require_once WPBDP_INC . 'admin/class-data-formatter.php';
 require_once WPBDP_INC . 'admin/class-personal-data-exporter.php';
 require_once WPBDP_INC . 'admin/class-listings-personal-data-exporter.php';
+require_once WPBDP_INC . 'admin/class-payment-personal-data-exporter.php';
 
 /**
  * Class WPBDP_Privacy_Policy
@@ -65,6 +66,16 @@ class WPBDP_Privacy_Policy {
                     new WPBDP_ListingsPersonalDataExporter(
                         $data_formatter
                     )
+                ),
+                'export_personal_data',
+            ),
+        );
+
+        $exporters['business-directory-plugin-payments'] = array(
+            'exporter_friendly_name' => __( 'Business Directory Plugin', 'WPBDP' ),
+            'callback'               => array(
+                new WPBDP_PersonalDataExporter(
+                    new WPBDP_PaymentPersonalDataExporter( $data_formatter )
                 ),
                 'export_personal_data',
             ),
