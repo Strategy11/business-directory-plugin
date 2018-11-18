@@ -1006,6 +1006,18 @@ final class WPBDP__Settings__Bootstrap {
 				'requirements' => array( 'payments-on' ),
             )
         );
+
+        $aed_usupported_gateways = apply_filters( 'wpbdp_aed_not_supported', wpbdp_get_option( 'authorize-net', false ) ? array( 'Authorize.net' ) : array() );
+        $desc = '';
+
+        if ( $aed_usupported_gateways ) {
+            $desc = sprintf(
+                _x( 'AED currency is not supported by %s. %s', 'admin settings', 'WPBDM' ),
+                '<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
+                _n( 'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.', 'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.', count( $aed_usupported_gateways ) )
+            );
+        }
+
         wpbdp_register_setting(
             array(
 				'id'           => 'currency',
@@ -1018,6 +1030,7 @@ final class WPBDP__Settings__Bootstrap {
 					'CAD' => _x( 'Canadian Dollar (CAD)', 'admin settings', 'WPBDM' ),
 					'CZK' => _x( 'Czech Koruna (CZK)', 'admin settings', 'WPBDM' ),
 					'DKK' => _x( 'Danish Krone (DKK)', 'admin settings', 'WPBDM' ),
+					'AED' => _x( 'United Arab Emirates Dirham (AED)', 'admin settings', 'WPBDM' ),
 					'EUR' => _x( 'Euro (EUR)', 'admin settings', 'WPBDM' ),
 					'HKD' => _x( 'Hong Kong Dollar (HKD)', 'admin settings', 'WPBDM' ),
 					'HUF' => _x( 'Hungarian Forint (HUF)', 'admin settings', 'WPBDM' ),
@@ -1039,6 +1052,7 @@ final class WPBDP__Settings__Bootstrap {
 					'TRY' => _x( 'Turkish Lira (TRY)', 'admin settings', 'WPBDM' ),
 					'USD' => _x( 'U.S. Dollar (USD)', 'admin settings', 'WPBDM' ),
 				),
+				'desc'         => $desc,
 				'group'        => 'payment/main',
 				'requirements' => array( 'payments-on' ),
             )
