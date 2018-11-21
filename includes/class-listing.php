@@ -95,8 +95,11 @@ class WPBDP_Listing {
     }
 
     public function set_thumbnail_id( $image_id ) {
-        if ( ! $image_id )
+        if ( ! $image_id ) {
             return delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
+        }
+
+        set_post_thumbnail( $this->id, $image_id );
 
         return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
     }
