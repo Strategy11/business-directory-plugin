@@ -20,6 +20,4 @@
         <li><?php echo _x( 'Payfast &mdash; <a href="https://www.payfast.co.za/privacy-policy/">https://www.payfast.co.za/privacy-policy/</a>', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></li>
     </ul>
     <?php do_action( 'wpbdp_privacy_policy_content' ); ?>
-    <h4><?php echo _x( 'Claim Listings', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></h4>
-    <p><?php echo _x( 'When visitors claim a listing from directory listings, we collect the data shown in the claim listing form', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></p>
 </div>
