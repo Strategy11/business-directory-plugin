@@ -41,6 +41,7 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
      * @return array
      *
      * @since 5.4
+     * @SuppressWarnings(PHPMD)
      */
     public function get_objects( $user, $email_address, $page ) {
         $items_per_page = $this->get_page_size();
@@ -59,16 +60,12 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
      */
     public function export_objects( $listing_ids ) {
         // TODO: Let premium modules define additional properties.
-        $items        = $this->get_privacy_fields_items();
-//        $region_items = array(
-//            'country' => __( 'Country', 'business-directory-plugin' ),
-//            'state'   => __( 'State', 'business-directory-plugin' ),
-//            'city'    => __( 'City', 'business-directory-plugin' ),
-//            'county'  => __( 'County', 'business-directory-plugin' ),
-//        );
-        $media_items  = array(
+        $items = $this->get_privacy_fields_items();
+
+        $media_items = array(
             'URL' => __( 'Image URL', 'business-directory-plugin' ),
         );
+
         $export_items = array();
 
         foreach ( $listing_ids as $listing_id ) {
@@ -82,7 +79,7 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
                 'group_id'    => 'wpbdp-listings',
                 'group_label' => __( 'Business Directory Listings', 'business-directory-plugin' ),
                 'item_id'     => "wpbdp-listing-{$listing_id}",
-                'data'        => $data,
+                'data'        => apply_filters( 'wpbdp_export_listing_objects', $data, $listing_id, $this->data_formatter )
             );
 
         }
@@ -97,7 +94,7 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
      * @since 5.4
      */
     private function get_listing_properties( $listing_id ) {
-        $default_tags = array( 'title', 'website', 'phone', 'fax', 'address', 'zip' );
+        $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
 
         $properties = array( 'ID' => $listing_id );
 
@@ -114,7 +111,7 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
 
         }
 
-        return apply_filters( 'wpbdp_privacy_properties', array_merge( $properties, $data ) );
+        return array_merge( $properties, $data );
     }
     /**
      * @since 5.4
@@ -131,7 +128,7 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
      * @since 5.4
      */
     private function get_privacy_fields_items() {
-        $default_tags = array( 'title', 'website', 'phone', 'fax', 'address', 'zip' );
+        $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
 
         $items = array( 'ID' => __( 'Listing ID', 'business-directory-plugin' ) );
 
@@ -146,6 +143,6 @@ class WPBDP_ListingsPersonalDataExporter implements WPBDP_PersonalDataExporterIn
             $privacy_items[ $tag ? $tag : $field->get_short_name() ] = $field->get_label();
         }
 
-        return apply_filters( 'wpbdp_privacy_items', array_merge( $items, $privacy_items ) );
+        return array_merge( $items, $privacy_items );
     }
 }

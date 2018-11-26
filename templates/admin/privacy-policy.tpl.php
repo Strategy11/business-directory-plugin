@@ -19,8 +19,7 @@
         <li><?php echo _x( '2Checkout &mdash; <a href="https://www.2checkout.com/policies/privacy-policy">https://www.2checkout.com/policies/privacy-policy</a>', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></li>
         <li><?php echo _x( 'Payfast &mdash; <a href="https://www.payfast.co.za/privacy-policy/">https://www.payfast.co.za/privacy-policy/</a>', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></li>
     </ul>
-    <h4><?php echo _x( 'Ratings', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></h4>
-    <p><?php echo _x( 'When visitors leave reviews for directory listings we collect the data shown in the review form, and also the visitor’s IP address to help spam detection.', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></p>
+    <?php do_action( 'wpbdp_privacy_policy_content' ); ?>
     <h4><?php echo _x( 'Claim Listings', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></h4>
     <p><?php echo _x( 'When visitors claim a listing from directory listings, we collect the data shown in the claim listing form', 'privacy policy', 'wpbdp' ); // XSS Ok. ?></p>
 </div>

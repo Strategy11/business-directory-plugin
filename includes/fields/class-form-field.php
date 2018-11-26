@@ -966,7 +966,7 @@ class WPBDP_Form_Field {
     }
 
     public function is_privacy_field() {
-        return in_array( $this->get_tag(), array( 'title', 'website', 'phone', 'fax', 'address', 'zip' ) );
+        return in_array( $this->get_tag(), array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' ) );
     }
 
 }

@@ -200,7 +200,7 @@ final class WPBDP {
 
         if ( wpbdp_is_request( 'admin' ) ) {
             $this->admin   = new WPBDP_Admin();
-            $this->privacy = new WPBDP_Privacy_policy();
+            $this->privacy = new WPBDP_Privacy_Policy();
         }
 
         $this->compat = new WPBDP_Compat();

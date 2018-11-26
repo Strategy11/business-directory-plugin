@@ -159,9 +159,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                 );
             }
 
-            $privacy_field = in_array( $field->get_tag(), array( 'title', 'website', 'phone', 'fax', 'address', 'zip' ) );
-
-            if ( $field->display_in( 'privacy' ) || $privacy_field ) {
+            if ( $field->display_in( 'privacy' ) || $field->is_privacy_field() ) {
                 $html .= sprintf(
                     '<span class="tag privacy" title="%s">%s</span>',
                     _x( 'This field value is included when exporting or deleting user\'s personal data.', 'form-fields admin', 'WPBDM' ),
