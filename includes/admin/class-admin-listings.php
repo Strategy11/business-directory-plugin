@@ -502,7 +502,7 @@ class WPBDP_Admin_Listings {
         // Update image information.
         if ( $thumbnail_id > 0 ) {
             $listing->set_thumbnail_id( $thumbnail_id );
-            $listing->set_images( $thumbnail_id, true );
+            $listing->set_images( array( $thumbnail_id ), true );
         }
 
         // Images info.
