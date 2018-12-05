@@ -207,7 +207,8 @@ class WPBDP_Listing_Display_Helper {
                 continue;
             }
 
-            $data = wp_get_attachment_image_src( $img_id, 'wpbdp-large', false );
+            $data    = wp_get_attachment_image_src( $img_id, 'wpbdp-large', false );
+            $image_caption = get_post_meta( $img_id, '_wpbdp_image_caption', true );
 
             $image         = new StdClass();
             $image->id     = $img_id;
@@ -221,8 +222,8 @@ class WPBDP_Listing_Display_Helper {
                 wp_get_attachment_image(
                     $image->id, 'wpbdp-thumb', false, array(
 						'class' => 'wpbdp-thumbnail size-thumbnail',
-						'alt'   => the_title( null, null, false ),
-						'title' => the_title( null, null, false ),
+                        'alt'   => $image_caption ? $image_caption : the_title( null, null, false ),
+                        'title' => $image_caption ? $image_caption : the_title( null, null, false ),
                     )
                 )
             );
