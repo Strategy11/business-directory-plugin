@@ -1,7 +1,20 @@
 <?php
+/**
+ * Form Field
+ *
+ * @package BDP/Admin
+ */
+
+// phpcs:disable
+
 if (!class_exists('WP_List_Table'))
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 
+/**
+ * Class WPBDP_FormFieldsTable
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FormFieldsTable extends WP_List_Table {
 
     public function __construct() {
@@ -71,26 +84,27 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     public function column_tags( $field ) {
         $html = '';
 
-        if( $field->has_display_flag( 'private' ) ) {
+
+        $html .= sprintf( '<span class="tag %s">%s</span>',
+            $field->is_required() ? 'required' : 'optional',
+            $field->is_required() ? _x( 'Required', 'form-fields admin', 'WPBDM' ) : _x( 'Optional', 'form-fields admin', 'WPBDM' ) );
+
+        if ( $field->has_display_flag( 'private' ) ) {
             $html .= sprintf( '<span class="tag %s">%s</span>',
                 'private',
                 _x( 'Private', 'form-fields admin', 'WPBDM' ) );
-        } else {
-            $html .= sprintf( '<span class="tag %s">%s</span>',
-                $field->is_required() ? 'required' : 'optional',
-                $field->is_required() ? _x( 'Required', 'form-fields admin', 'WPBDM' ) : _x( 'Optional', 'form-fields admin', 'WPBDM' ) );
+        }
 
-            if ( $field->display_in( 'excerpt' ) ) {
-                $html .= sprintf( '<span class="tag in-excerpt" title="%s">%s</span>',
-                    _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM' ),
-                    _x( 'In Excerpt', 'form-fields admin', 'WPBDM' ) );
-            }
+        if ( $field->display_in( 'excerpt' ) ) {
+            $html .= sprintf( '<span class="tag in-excerpt" title="%s">%s</span>',
+                _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM' ),
+                _x( 'In Excerpt', 'form-fields admin', 'WPBDM' ) );
+        }
 
-            if ( $field->display_in( 'listing' ) ) {
-                $html .= sprintf( '<span class="tag in-listing" title="%s">%s</span>',
-                    _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
-                    _x( 'In Listing', 'form-fields admin', 'WPBDM' ) );
-            }
+        if ( $field->display_in( 'listing' ) ) {
+            $html .= sprintf( '<span class="tag in-listing" title="%s">%s</span>',
+                _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
+                _x( 'In Listing', 'form-fields admin', 'WPBDM' ) );
         }
 
         return $html;
@@ -98,6 +112,11 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
 }
 
+/**
+ * Class WPBDP_FormFieldsAdmin
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FormFieldsAdmin {
 
     public function __construct() {
