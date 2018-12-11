@@ -6,8 +6,7 @@
  * @since 5.3.5
  */
 
-// phpcs:disable Squiz.Commenting.FunctionComment.Missing
-// phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedScript
+// phpcs:disable
 
 /**
  * Class WPBDP_FieldTypes_Social
@@ -15,11 +14,28 @@
  * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
+
+    private $social_types = array(
+		'Twitter',
+		'Facebook',
+		'LinkedIn',
+		'Youtube',
+		'Pinterest',
+		'Instagram',
+		'Tumblr',
+		'reddit',
+        'Flickr',
+		'Other',
+	);
+
     /**
      * WPBDP_FieldTypes_Social constructor.
      */
     public function __construct() {
-        parent::__construct( _x( 'Social Site', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'WPBDM' ) );
+
+        add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
     }
 
     public function get_id() {
@@ -30,10 +46,152 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $field->add_display_flag( 'social' );
     }
 
+    public function render_field_settings( &$field = null, $association = null ) {
+        if ( 'meta' !== $association ) {
+            return '';
+        }
+
+        $settings = array();
+
+        $display_options = array(
+            'icon_first' => 'Social Icon + Text',
+            'text_first' => 'Text + Social Icon',
+            'icon_only'  => 'Social Icon Only',
+            'text_only'  => 'Text Only',
+        );
+
+        $content = '<select name="field[display_order]">';
+
+        foreach ( $display_options as $order => $text ) {
+            $content .= sprintf(
+                '<option value="%s" %s>%s</option>',
+                $order,
+                ( $field && $field->data( 'display_order' ) === $order ) ? 'selected' : '',
+                $text
+            );
+        }
+
+        $content .= '</select>';
+
+        $settings['display_order'][] = _x( 'Field Display Order', 'form-fields admin', 'WPBDM' );
+        $settings['display_order'][] = $content;
+
+        return self::render_admin_settings( $settings );
+    }
+
+    public function process_field_settings( &$field ) {
+        $field->set_data( 'display_order', isset( $_POST['field']['display_order'] ) ? stripslashes_deep( $_POST['field']['display_order'] ) : 'icon_first' );
+    }
+
     public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
-        // Social fields are rendered as normal textfields.
-        global $wpbdp;
-        return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
+        if ( 'search' === $context ) {
+            return '';
+        }
+
+        $html  = '';
+        $html .= '<div class="wpbdp-social-url">';
+        $html .= sprintf(
+            '<span class="sublabel">%s</span>',
+            _x( 'URL:', 'form-fields api', 'WPBDM' )
+        );
+        $html .= sprintf(
+            '<input type="text" id="%s" name="%s" value="%s" %s />',
+            'wpbdp-field-' . $field->get_id(),
+            'listingfields[' . $field->get_id() . '][url]',
+            esc_attr( ! empty( $value['url'] ) ? $value['url'] : '' ),
+            ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' )
+        );
+        $html .= '</div>';
+        $html .= '<div class="wpbdp-social-text">';
+        $html .= sprintf(
+            '<span class="sublabel">%s</span>',
+            _x( 'Text:', 'form-fields api', 'WPBDM' )
+        );
+        $html .= sprintf(
+            '<input type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
+            $field->get_id(),
+            ! empty( $value['social-text'] ) ? $value['social-text'] : '',
+            _x( 'Text to be displayed along with icon', 'form-fields api', 'WPBDM' )
+        );
+        $html .= '</div>';
+
+        $html .= '<div class="wpbdp-social-type-field">';
+        $html .= sprintf(
+            '<span class="sublabel">%s</span>',
+            _x( 'Type:', 'form-fields api', 'WPBDM' )
+        );
+
+        foreach ( $this->social_types as $type ) {
+            $css_classes   = array();
+            $css_classes[] = 'wpbdp-inner-social-field-option';
+            $css_classes[] = 'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) );
+
+            $html .= sprintf(
+                '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                implode( ' ', $css_classes ),
+                'listingfields[' . $field->get_id() . '][type]',
+                $type,
+                ( ! empty( $value['type'] ) && $type === $value['type'] ) ? 'checked="checked"' : '',
+                'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i> ' . esc_html( $type )
+            );
+        }
+
+        $icon = ! empty( $value['social-icon'] ) ? $value['social-icon'] : 0;
+
+        $html .= sprintf(
+            '<input type="hidden" name="listingfields[%d][social-icon]" value="%s" />',
+            $field->get_id(),
+            $icon
+        );
+
+        $html .= '<div class="preview"' . ( ! $icon ? ' style="display: none;"' : '' ) . '>';
+        if ( $icon ) {
+            $html .= wp_get_attachment_image( $icon, 'wpbdp-thumb', false );
+        }
+
+        $html .= sprintf(
+            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
+            $field->get_id(),
+            'listingfields[' . $field->get_id() . '][social-icon]',
+            _x( 'Remove', 'form-fields-api', 'WPBDM' )
+        );
+
+        $html .= '</div>';
+
+        $listing_id = 0;
+        if ( 'submit' === $context ) {
+            $listing_id = $extra->get_id();
+        } elseif ( is_admin() ) {
+            global $post;
+            if ( ! empty( $post ) && WPBDP_POST_TYPE === $post->post_type ) {
+                $listing_id = $post->ID;
+            }
+        }
+
+        $nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+        $ajax_url = add_query_arg(
+            array(
+                'action'     => 'wpbdp-file-field-upload',
+                'field_id'   => $field->get_id(),
+                'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
+                'nonce'      => $nonce,
+                'listing_id' => $listing_id,
+            ),
+            admin_url( 'admin-ajax.php' )
+        );
+
+        $html .= '<div class="wpbdp-upload-widget">';
+        $html .= sprintf(
+            '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
+            $field->get_id(),
+            $field->get_id(),
+            $ajax_url
+        );
+        $html .= '</div>';
+        $html .= '</div>';
+
+        return $html;
+
     }
 
     public function get_supported_associations() {
@@ -43,103 +201,75 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        if ( ! $value ) {
+        if ( ! $value['url'] ) {
             return '';
         }
 
-        $social_type = $this->get_social_network_type( $value );
-
-        if ( in_array( $social_type, array( 'twitter', 'facebook', 'linkedin' ), true ) ) {
-            global $wpbdp;
-            return $wpbdp->formfields->get_field_type( $social_type )->get_field_html_value( $field, $post_id );
-        }
-
         $html  = '';
-        $html .= '<div class="social-field ' . $social_type . '">';
-        $html .= $this->get_social_network_script( $social_type, $value );
-        $html .= '</div>';
+        $html .= sprintf(
+            '<div class="social-field-link %s %s">',
+            esc_attr( strtolower( $value['type'] ) ),
+            esc_attr( $field->data( 'display_order', 'icon_first' ) )
+        );
 
-        return $html;
-    }
+        $html .= '<a href="' . esc_url( $value['url'] ) . '" rel="nofollow" target="_blank">';
 
-    public function get_social_network_type( $field_value ) {
-        $social_types = array( 'twitter', 'facebook', 'linkedin', 'youtube', 'pinterest', 'instagram', 'tumblr', 'flickr', 'reddit' );
+        $icon = '<span class="social-icon">';
 
-        foreach ( $social_types as $type ) {
-            if ( stripos( $field_value, $type ) !== false ) {
-                return $type;
+        $social_icon = '<i class="fab fa-' . esc_attr( strtolower( $value['type'] ) ) . '"></i>';
+
+        if ( 'Other' === $value['type'] ) {
+            $social_icon = '';
+
+            if ( $value['social-icon'] ) {
+                $social_icon = wp_get_attachment_image( $value['social-icon'], 'wpbdp-thumb', false );
             }
         }
 
-        return 'social-network';
-    }
+        $icon .= $social_icon;
+        $icon .= '</span>';
 
-    public function get_social_network_script( $social_type, $value ) {
-        $html = '';
-        switch ( $social_type ) {
-            case 'youtube':
-                $channel = str_ireplace( array( 'http://youtube.com/channel/', 'https://youtube.com/channel/', 'http://www.youtube.com/channel/', 'https://www.youtube.com/channel/' ), '', $value );
+        $text = '<span class="social-text">' . esc_html( $value['social-text'] ? $value['social-text'] : $value['url'] ) . '</span>';
 
-                $html .= '<script src="https://apis.google.com/js/platform.js"></script>';
-                $html .= '<div class="g-ytsubscribe" data-channelid="' . $channel . '" data-layout="full" data-count="default"></div>';
+        switch ( $field->data( 'display_order' ) ) {
+            case 'icon_only':
+                $html .= $icon;
                 break;
-            case 'instagram':
-                $profile = preg_match( '/https?:\/\/.*\.instagram\..*\/(.*)\//i', $value, $match );
-
-                if ( ! $match ) {
-                    return;
-                }
-
-                $profile = array_pop( $match );
-
-                $html .= '<a aria-label="Home" class="wpbdp-reddit-logo" href="https://www.reddit.com/' . $profile . '">';
-                // $html .= wpbdp_render_page( WPBDP_PATH . 'templates/social/reddit-logo.tpl.php');
-                $html .= wpbdp_render_page( WPBDP_PATH . 'templates/social/instagram-logo.tpl.php' );
-                $html .= '</a>';
+            case 'text_only':
+                $html .= $text;
                 break;
-
-            case 'pinterest':
-                $profile = preg_match( '/https?:\/\/.*pinterest\..*?\/(.*)\//i', $value, $match );
-
-                if ( ! $match ) {
-                    return;
-                }
-
-                $profile = array_pop( $match );
-
-                $html .= '<script async defer src="//assets.pinterest.com/js/pinit.js"></script>';
-                $html .= '<a data-pin-do="buttonFollow" href="https://www.pinterest.com/' . $profile . '">' . __( 'Follow on Pinterest', 'wpbdp' ) . '</a>';
+            case 'text_first':
+                $html .= $text . $icon;
                 break;
-
-            case 'tumblr':
-                $profile = preg_match( '/https?:\/\/(.*)\.tumblr\..*?\//i', $value, $match );
-
-                if ( ! $match ) {
-                    return;
-                }
-
-                $profile = array_pop( $match );
-
-                $html .= '<iframe class="btn" frameborder="0" border="0" scrolling="no" allowtransparency="true" height="20" width="65" src="https://platform.tumblr.com/v2/follow_button.html?type=follow&amp;tumblelog=' . $profile . '&amp;color=white"></iframe>';
-                break;
-
-            case 'reddit':
-                $profile = preg_match( '/((?:user|u|r)\/[A-Za-z0-9_-]+)/i', $value, $match );
-
-                if ( ! $match ) {
-                    return;
-                }
-
-                $profile = array_pop( $match );
-
-                $html .= '<a aria-label="Home" class="wpbdp-reddit-logo" href="https://www.reddit.com/' . $profile . '">';
-                $html .= wpbdp_render_page( WPBDP_PATH . 'templates/social/reddit-logo.tpl.php' );
-                $html .= '</a>';
-                break;
-
+            default:
+                $html .= $icon . $text;
         }
 
+        $html .= '</a></div>';
+
         return $html;
+    }
+
+    public function store_field_value( &$field, $post_id, $value ) {
+        if ( empty( $value['url'] ) ) {
+            foreach ( $value as $input => $val ) {
+                $value[ $input ] = '';
+            }
+        }
+
+        if ( 'Other' !== $value['type'] ) {
+            $value['social-icon'] = '';
+        }
+
+        parent::store_field_value( $field, $post_id, $value );
+    }
+
+    public function is_empty_value( $value ) {
+        return empty( $value['url'] );
+    }
+
+    public function _enqueue_scripts() {
+        wp_enqueue_style( 'wpbdp_font_awesome', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css' );
     }
 
 }
