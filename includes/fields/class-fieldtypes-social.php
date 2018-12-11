@@ -257,7 +257,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             }
         }
 
-        if ( 'Other' !== $value['type'] ) {
+        if ( empty( $value['type'] ) || 'Other' !== $value['type'] ) {
             $value['social-icon'] = '';
         }
 
