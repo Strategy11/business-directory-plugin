@@ -222,7 +222,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         }
 
         $field = wpbdp_get_form_field( $field_id );
-        if ( ! $field || 'image' != $field->get_field_type_id() ) {
+        if ( ! $field || ! in_array(  $field->get_field_type_id(), array( 'image', 'social-network') ) ) {
             die;
         }
 

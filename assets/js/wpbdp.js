@@ -146,6 +146,15 @@ WPBDP.fileUpload = {
         if ( iframeWin.document.body ) {
             iframe.height =  height ? height : iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
         }
+
+        if( 0 === jQuery( iframe ).parents( '.wpbdp-social-type-field' ).length ) {
+            return;
+        }
+
+        if( ! jQuery( iframe ).parent().siblings( '.wpbdp-inner-social-field-option-Other' ).find( 'input' ).is( ':checked' ) ) {
+            jQuery( iframe ).parent().hide();
+        }
+
     },
 
     handleUpload: function(o) {
@@ -166,11 +175,13 @@ WPBDP.fileUpload = {
         $preview.find('img').remove();
         $preview.prepend($iframe.contents().find('.preview').html());
         $iframe.contents().find('.preview').remove();
+        $iframe.hide();
 
         $preview.show();
     },
 
     deleteUpload: function(element_id, element) {
+        var $iframe = jQuery('#wpbdp-upload-iframe-' + element_id);
         var $input = jQuery('input[name="' + element + '"]');
         var $preview = $input.siblings('.preview');
 
@@ -179,6 +190,7 @@ WPBDP.fileUpload = {
         $preview.find('input').val('');
 
         $preview.hide();
+        $iframe.show();
 
         return false;
     }
@@ -192,6 +204,25 @@ WPBDP.fileUpload = {
         init: function() {
             if ( $( '.wpbdp-submit-listing-section-listing_images' ).length > 0 )
                 sb.images.init();
+        },
+
+        init_events: function () {
+            $( '#wpbdp-submit-listing' ).on( 'click', '.wpbdp-inner-field-option-select_all', function( e ) {
+                var $options = $( this ).parent().find( 'input[type="checkbox"]' );
+                $options.prop( 'checked', $( this ).find( 'input' ).is(':checked') );
+            } );
+
+            $( '#wpbdp-submit-listing' ).on( 'click', '.wpbdp-inner-social-field-option input', function( e ) {
+                var $icon_element = $( this ).parents( '.wpbdp-inner-social-field-option' ).siblings( '.wpbdp-upload-widget' );
+                console.log( $icon_element );
+
+                if ( 'Other' !== $( this ).val() ) {
+                    $icon_element.hide();
+                    return;
+                }
+
+                $icon_element.show();
+            } );
         }
     };
 
@@ -356,6 +387,12 @@ WPBDP.fileUpload = {
     };
 
     $( document ).ready( function() {
+        if ( 0 == $( '#wpbdp-submit-listing' ).length ) {
+            return;
+        }
+
+        sb.init_events();
+
         if ( 0 == $( '.wpbdp-submit-page' ).length )
             return;
 

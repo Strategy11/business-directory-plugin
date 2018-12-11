@@ -58,6 +58,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             $this->register_field_type( 'WPBDP_FieldTypes_Twitter', 'social-twitter' );
             $this->register_field_type( 'WPBDP_FieldTypes_Facebook', 'social-facebook' );
             $this->register_field_type( 'WPBDP_FieldTypes_LinkedIn', 'social-linkedin' );
+            $this->register_field_type( 'WPBDP_FieldTypes_Social', 'social-network' );
             $this->register_field_type( 'WPBDP_FieldTypes_Image', 'image' );
             $this->register_field_type( 'WPBDP_FieldTypes_Date', 'date' );
             $this->register_field_type( 'WPBDP_FieldTypes_Phone_Number' );
