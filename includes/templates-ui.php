@@ -134,7 +134,7 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
 
         $item_html = '';
         $item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
-        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label" rel="nofollow">';
+        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label">';
 
         $item_html .= esc_attr( $term->name );
         $item_html .= '</a>';

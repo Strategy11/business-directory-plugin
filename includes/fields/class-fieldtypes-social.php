@@ -212,7 +212,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             esc_attr( $field->data( 'display_order', 'icon_first' ) )
         );
 
-        $html .= '<a href="' . esc_url( $value['url'] ) . '" rel="nofollow" target="_blank">';
+        $html .= '<a href="' . esc_url( $value['url'] ) . '" target="_blank">';
 
         $icon = '<span class="social-icon">';
 
