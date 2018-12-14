@@ -10,7 +10,7 @@ jQuery(function($) {
     };
     $.extend( wpbdp.submit_listing.Fee_Selection_Helper.prototype, {
         reset: function() {
-            this.field_wrapper = $( '.wpbdp-form-field-association-category' );
+            this.field_wrapper = $( '.wpbdp-submit-listing-section-plan_selection .wpbdp-form-field-association-category' );
             this.field_type = '';
             this.plan_autoselect = false;
 
@@ -73,14 +73,14 @@ jQuery(function($) {
         categories_changed: function() {
             this.selected_categories = [];
 
-            if ( 'select2' == this.field_type ) {
+            if ( 'select2' === this.field_type ) {
                 this.selected_categories = this.field.val();
-            } else if ( 'checkbox' == this.field_type ) {
+            } else if ( 'checkbox' === this.field_type ) {
                 this.selected_categories = this.field.filter( ':checked' ).map(function() {
                     return $( this ).val();
                 }).get();
-            } else if ( 'radio' == this.field_type ) {
-                this.selected_categories = this.field.val();
+            } else if ( 'radio' === this.field_type ) {
+                this.selected_categories = this.field.filter( ':checked' ).val();
             }
 
             if ( ! this.selected_categories ) {
