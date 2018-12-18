@@ -331,6 +331,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'    => 'disable-submit-listing',
 				'type'  => 'checkbox',
 				'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'WPBDM' ),
+				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'WPBDM'),
 				'group' => 'general/advanced',
             )
         );
@@ -698,6 +699,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'show-submit-listing',
 				'type'         => 'checkbox',
 				'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'WPBDM'),
 				'default'      => true,
 				'group'        => 'display_options',
 				'requirements' => array( '!disable-submit-listing' ),
