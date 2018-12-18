@@ -310,7 +310,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( current_user_can( 'administrator' ) )
                 $msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'WPBDM' );
             else
-                $msg = _x( 'View not available.', 'templates', 'WPBDM' );
+                $msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'WPBDM' );
 
             return false;
         }
