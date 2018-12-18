@@ -1,19 +1,19 @@
 <?php
 /**
- * Interface Personal Data Exporter
+ * Interface Personal Data Provider
  *
- * @since 5.4
- * @package BDP\Admin|Interface data exporter
+ * @since 5.5
+ * @package BDP\Admin|Interface data Provider
  */
 
 // phpcs:disable
 
 /**
- * Interface WPBDP_PersonalDataExporterInterface for Data Exporter implementations.
+ * Interface WPBDP_PersonalDataProviderInterface for Data Provider implementations.
  */
-interface WPBDP_PersonalDataExporterInterface {
+interface WPBDP_PersonalDataProviderInterface {
     /**
-     * @since 5.4
+     * @return mixed
      */
     public function get_page_size();
 
@@ -22,16 +22,18 @@ interface WPBDP_PersonalDataExporterInterface {
      * @param $email_address
      * @param $page
      * @return mixed
-     *
-     * @since 5.4
      */
     public function get_objects( $user, $email_address, $page );
 
     /**
      * @param $objects
      * @return mixed
-     *
-     * @since 5.4
      */
     public function export_objects( $objects );
+
+    /**
+     * @param $objects
+     * @return mixed
+     */
+    public function erase_objects( $objects );
 }

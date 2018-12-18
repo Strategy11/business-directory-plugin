@@ -11,18 +11,20 @@
 
 /**
  * Class WPBDP_PaymentPersonalDataExporter
+ *
+ * @since 5.5
  */
-class WPBDP_PaymentPersonalDataExporter implements WPBDP_PersonalDataExporterInterface {
+class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInterface {
     /**
      * @var
      */
     private $data_formatter;
 
     /**
-     * WPBDP_PaymentPersonalDataExporter constructor.
+     * WPBDP_PaymentPersonalDataProvider constructor.
      *
      * @param $data_formatter
-     * @since 5.4
+     * @since 5.5
      */
     public function __construct( $data_formatter ) {
         $this->data_formatter = $data_formatter;
@@ -30,8 +32,6 @@ class WPBDP_PaymentPersonalDataExporter implements WPBDP_PersonalDataExporterInt
 
     /**
      * @return int
-     *
-     * @since 5.4
      */
     public function get_page_size() {
         return 10;
@@ -43,7 +43,6 @@ class WPBDP_PaymentPersonalDataExporter implements WPBDP_PersonalDataExporterInt
      * @param $page
      * @return array|mixed
      *
-     * @since 5.4
      * @SuppressWarnings(PHPMD)
      */
     public function get_objects( $user, $email_address, $page ) {
@@ -53,8 +52,6 @@ class WPBDP_PaymentPersonalDataExporter implements WPBDP_PersonalDataExporterInt
     /**
      * @param $payment_transactions
      * @return array|mixed
-     *
-     * @since 5.4
      */
     public function export_objects( $payment_transactions ) {
         $items        = array(
@@ -79,13 +76,32 @@ class WPBDP_PaymentPersonalDataExporter implements WPBDP_PersonalDataExporterInt
     /**
      * @param $payment_transaction
      * @return array
-     *
-     * @since 5.4
      */
     private function get_payment_transaction_properties( $payment_transaction ) {
         return array(
             'ID'          => $payment_transaction->id,
             'payer_email' => $payment_transaction->payer_email,
         );
+    }
+
+    /**
+     * @param $payment_transactions
+     * @return array|mixed
+     */
+    public function erase_objects( $payment_transactions ) {
+        $items_removed  = false;
+        $items_retained = false;
+        $messages       = array();
+        foreach ( $payment_transactions as $payment_transaction ) {
+            if ( $payment_transaction->delete() ) {
+                $items_removed = true;
+                continue;
+            }
+            $items_retained = true;
+            $message        = __( 'An unknown error occurred while trying to delete classifieds payment information for transaction {transaction_id}.', 'another-wordpress-classifieds-plugin' );
+            $message        = str_replace( '{transaction_id}', $payment_transaction->id, $message );
+            $messages[]     = $message;
+        }
+        return compact( 'items_removed', 'items_retained', 'messages' );
     }
 }

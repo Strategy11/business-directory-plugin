@@ -83,7 +83,7 @@ final class WPBDP {
         if ( wpbdp_is_request( 'admin' ) ) {
             require_once( WPBDP_INC . 'admin/tracking.php' );
             require_once( WPBDP_INC . 'admin/class-admin.php' );
-            require_once( WPBDP_INC . 'admin/class-privacy-policy.php' );
+            require_once( WPBDP_INC . 'admin/class-personal-data-privacy.php' );
 
             require_once( WPBDP_INC . 'admin/class-listings-with-no-fee-plan-view.php' );
         }
@@ -200,7 +200,7 @@ final class WPBDP {
 
         if ( wpbdp_is_request( 'admin' ) ) {
             $this->admin   = new WPBDP_Admin();
-            $this->privacy = new WPBDP_Privacy_Policy();
+            $this->privacy = new WPBDP_Personal_Data_Privacy();
         }
 
         $this->compat = new WPBDP_Compat();
