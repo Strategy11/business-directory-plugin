@@ -77,13 +77,18 @@ class WPBDP_PaymentsAPI {
             <?php endif; ?>
             <dt><?php _ex( 'Bill To:', 'payments', 'WPBDM' ); ?></dt>
             <dd>
-                <?php if ( $payment->payer_first_name || $payment->payer_last_name ) : ?>
-                    <?php echo $payment->payer_first_name; ?> <?php echo $payment->payer_last_name; ?><br />
-                <?php endif; ?>
-                <?php echo implode( '<br />', array_filter( $payment->payer_address ) ); ?>
+                <?php if ( 'admin-submit' === $payment->context ): ?>
+                    <?php $admin_user = wp_get_current_user(); ?>
+                    <?php echo esc_html( sprintf( "%s <%s>", $admin_user->display_name, $admin_user->user_email ) ); ?>
+                <?php else: ?>
+                    <?php if ( $payment->payer_first_name || $payment->payer_last_name ) : ?>
+                        <?php echo $payment->payer_first_name; ?> <?php echo $payment->payer_last_name; ?><br />
+                    <?php endif; ?>
+                    <?php echo implode( '<br />', array_filter( $payment->payer_address ) ); ?>
 
-                <?php if ( $payment->payer_email ): ?>
-                    <br /><br /><?php echo $payment->payer_email; ?>
+                    <?php if ( $payment->payer_email ): ?>
+                        <br /><br /><?php echo $payment->payer_email; ?>
+                    <?php endif; ?>
                 <?php endif; ?>
             </dd>
         </dl>
