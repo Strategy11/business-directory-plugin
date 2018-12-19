@@ -1086,6 +1086,16 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
+                'id'           => 'include-fee-description',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Include fee description in receipt?', 'settings', 'WPBDM' ),
+                'default'      => false,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
+            )
+        );
+        wpbdp_register_setting(
+            array(
 				'id'           => 'payment-message',
 				'type'         => 'textarea',
 				'name'         => _x( 'Thank you for payment message', 'settings', 'WPBDM' ),
