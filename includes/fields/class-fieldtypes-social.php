@@ -97,8 +97,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<input type="text" id="%s" name="%s" value="%s" %s />',
             'wpbdp-field-' . $field->get_id(),
-            'listingfields[' . $field->get_id() . '][url]',
-            esc_attr( ! empty( $value['url'] ) ? $value['url'] : '' ),
+            'listingfields[' . $field->get_id() . '][0]',
+            esc_attr( ! empty( $value[0] ) ? $value[0] : '' ),
             ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' )
         );
         $html .= '</div>';
@@ -201,7 +201,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        if ( ! $value['url'] ) {
+        if ( ! $value[0] ) {
             return '';
         }
 
@@ -212,7 +212,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             esc_attr( $field->data( 'display_order', 'icon_first' ) )
         );
 
-        $html .= '<a href="' . esc_url( $value['url'] ) . '" target="_blank">';
+        $html .= '<a href="' . esc_url( $value[0] ) . '" target="_blank">';
 
         $icon = '<span class="social-icon">';
 
@@ -229,7 +229,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $icon .= $social_icon;
         $icon .= '</span>';
 
-        $text = '<span class="social-text">' . esc_html( $value['social-text'] ? $value['social-text'] : $value['url'] ) . '</span>';
+        $text = '<span class="social-text">' . esc_html( $value['social-text'] ? $value['social-text'] : $value[0] ) . '</span>';
 
         switch ( $field->data( 'display_order' ) ) {
             case 'icon_only':
@@ -251,7 +251,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
-        if ( empty( $value['url'] ) ) {
+        if ( $value && empty( $value[0] ) ) {
             foreach ( $value as $input => $val ) {
                 $value[ $input ] = '';
             }
@@ -265,7 +265,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
     }
 
     public function is_empty_value( $value ) {
-        return empty( $value['url'] );
+        return empty( $value[0] );
     }
 
     public function _enqueue_scripts() {
