@@ -11,7 +11,7 @@
         <tr class="item <?php echo $item['type']; ?>">
             <td>
                 <?php print esc_html( $item['description'] ); ?>
-                <?php if ( wpbdp_get_option( 'include-fee-description' ) ) : ?>
+                <?php if ( ! empty( $item['fee_id'] ) && wpbdp_get_option( 'include-fee-description' ) ) : ?>
                     <div  class="item-fee-description" class="fee-description"><?php print esc_html( wpbdp_get_fee_plan( $item['fee_id'] )->description ); ?></div>
                 <?php endif; ?>
             </td>

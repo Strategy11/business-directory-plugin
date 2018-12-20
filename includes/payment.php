@@ -55,6 +55,7 @@ class WPBDP_PaymentsAPI {
      * @SuppressWarnings(PHPMD)
      */
     public function render_receipt( $payment ) {
+        $current_user = wp_get_current_user();
         ob_start();
         do_action( 'wpbdp_before_render_receipt', $payment );
 ?>
@@ -77,19 +78,16 @@ class WPBDP_PaymentsAPI {
             <?php endif; ?>
             <dt><?php _ex( 'Bill To:', 'payments', 'WPBDM' ); ?></dt>
             <dd>
-                <?php if ( 'admin-submit' === $payment->context ): ?>
-                    <?php $admin_user = wp_get_current_user(); ?>
-                    <?php echo esc_html( sprintf( "%s <%s>", $admin_user->display_name, $admin_user->user_email ) ); ?>
-                <?php else: ?>
-                    <?php if ( $payment->payer_first_name || $payment->payer_last_name ) : ?>
-                        <?php echo $payment->payer_first_name; ?> <?php echo $payment->payer_last_name; ?><br />
-                    <?php endif; ?>
-                    <?php echo implode( '<br />', array_filter( $payment->payer_address ) ); ?>
+                <?php
+                $bill_to  = '';
 
-                    <?php if ( $payment->payer_email ): ?>
-                        <br /><br /><?php echo $payment->payer_email; ?>
-                    <?php endif; ?>
-                <?php endif; ?>
+                $bill_to .= ( $payment->payer_first_name || $payment->payer_last_name ) ? $payment->payer_first_name . ' ' . $payment->payer_last_name . '<br />' : $current_user->display_name;
+
+                $bill_to .= $payment->payer_address ? implode( '<br />', array_filter( $payment->payer_address ) ) : '';
+
+                $bill_to .= $payment->payer_email ? '<br /><br />' . $payment->payer_email : sprintf( '<%s>', $current_user->user_email );
+                echo esc_html( $bill_to );
+                ?>
             </dd>
         </dl>
     </div>
