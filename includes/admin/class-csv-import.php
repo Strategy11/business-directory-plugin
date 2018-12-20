@@ -604,6 +604,10 @@ class WPBDP_CSV_Import {
             return $error;
         }
 
+        if ( $state->images ) {
+            $listing->set_thumbnail_id( $state->images[0] );
+        }
+
         $payment = $listing->get_latest_payment();
 
         // A payment record created in the last minute means the plan of an existing

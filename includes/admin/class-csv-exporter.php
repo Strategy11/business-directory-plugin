@@ -319,6 +319,13 @@ class WPBDP_CSVExporter {
 					$images = array();
 
 					if ( $image_ids = $listing->get_images( 'ids' ) ) {
+					    $thumnail_id   = $listing->get_thumbnail_id();
+                        $has_thumbnail = array_search( $thumnail_id, $image_ids, true );
+					    if ( $has_thumbnail ) {
+					        unset( $image_ids[$has_thumbnail] );
+					        array_unshift( $image_ids, $thumnail_id );
+                        }
+
 						$upload_dir = wp_upload_dir();
 
 						foreach ( $image_ids as $image_id ) {
