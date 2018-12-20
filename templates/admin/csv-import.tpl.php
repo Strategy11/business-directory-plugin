@@ -1,9 +1,23 @@
 <?php
-function _defaults_or( $defs, $k, $v ) {
-    if ( array_key_exists( $k, $defs ) )
-        return $defs[ $k ];
+/**
+ * CSV import settings template
+ *
+ * @package BDP/Templates/Admin
+ */
 
-    return $v;
+// phpcs:disable
+
+/**
+ * @param $defs
+ * @param $k
+ * @param $v
+ * @return mixed
+ */
+function _defaults_or( $defs, $key, $val ) {
+    if ( array_key_exists( $key, $defs ) )
+        return $defs[ $key ];
+
+    return $val;
 }
 ?>
 <div class="wpbdp-page-csv-import wpbdp-clearfix">
@@ -171,7 +185,7 @@ echo str_replace(
                            value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Auto-create categories', 'admin csv-import', 'WPBDM'); ?></label>
                     <label><input name="settings[create-missing-categories]"
                            type="radio"
-                           value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Generate errors when a category is not found', 'admin csv-import', 'WPBDM'); ?></label>                           
+                           value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Generate errors when a category is not found', 'admin csv-import', 'WPBDM'); ?></label>
                 </td>
             </tr>
             <tr class="form-required">
@@ -216,6 +230,19 @@ echo str_replace(
                         <?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
                     </label>
                     <span class="description"><?php _ex('This user will be used if the username column is not present in the CSV file.', 'admin csv-import', 'WPBDM'); ?></span>
+                </td>
+            </tr>
+            <tr class="form-required">
+                <th scope="row">
+                    <label> <?php _ex('Number of listings imported on every cycle', 'admin csv-import', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <select name="settings[batch-size]">
+                        <?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ): ?>
+                            <option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <span class="description"><?php _ex('If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'admin csv-import', 'WPBDM'); ?></span>
                 </td>
             </tr>
             <tr class="form-required">
