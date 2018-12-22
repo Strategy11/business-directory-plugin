@@ -16,17 +16,17 @@
 class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
     private $social_types = array(
-		'Twitter',
-		'Facebook',
-		'LinkedIn',
-		'Youtube',
-		'Pinterest',
-		'Instagram',
-		'Tumblr',
-		'reddit',
+        'Twitter',
+        'Facebook',
+        'LinkedIn',
+        'Youtube',
+        'Pinterest',
+        'Instagram',
+        'Tumblr',
+        'reddit',
         'Flickr',
-		'Other',
-	);
+        'Other',
+    );
 
     /**
      * WPBDP_FieldTypes_Social constructor.
@@ -205,10 +205,13 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             return '';
         }
 
+        $type = ! empty( $value['type'] ) ? $value['type'] : '';
+        $text = ! empty( $value['social-text'] ) ? $value['social-text'] : $value[0];
+
         $html  = '';
         $html .= sprintf(
             '<div class="social-field-link %s %s">',
-            esc_attr( strtolower( $value['type'] ) ),
+            esc_attr( strtolower( $type ) ),
             esc_attr( $field->data( 'display_order', 'icon_first' ) )
         );
 
@@ -216,9 +219,9 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $icon = '<span class="social-icon">';
 
-        $social_icon = '<i class="fab fa-' . esc_attr( strtolower( $value['type'] ) ) . '"></i>';
+        $social_icon = '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i>';
 
-        if ( 'Other' === $value['type'] ) {
+        if ( 'Other' === $type ) {
             $social_icon = '';
 
             if ( $value['social-icon'] ) {
@@ -229,7 +232,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $icon .= $social_icon;
         $icon .= '</span>';
 
-        $text = '<span class="social-text">' . esc_html( $value['social-text'] ? $value['social-text'] : $value[0] ) . '</span>';
+        $text = '<span class="social-text">' . esc_html( $text ) . '</span>';
 
         switch ( $field->data( 'display_order' ) ) {
             case 'icon_only':

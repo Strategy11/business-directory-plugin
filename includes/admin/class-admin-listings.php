@@ -497,7 +497,7 @@ class WPBDP_Admin_Listings {
 
         $listing = wpbdp_get_listing( $post_id );
 
-        $thumbnail_id = intval( $_POST['_thumbnail_id'] ) > 0 ? intval( $_POST['_thumbnail_id'] ) : ( ! empty( $_POST['thumbnail_id'] ) ?  intval( ['thumbnail_id'] ) : 0 );
+        $thumbnail_id = intval( $_POST['_thumbnail_id'] ) > 0 ? intval( $_POST['_thumbnail_id'] ) : ( ! empty( $_POST['thumbnail_id'] ) ?  intval( $_POST['thumbnail_id'] ) : 0 );
 
         // Update image information.
         if ( $thumbnail_id > 0 ) {
