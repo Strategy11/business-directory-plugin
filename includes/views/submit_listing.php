@@ -215,15 +215,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * @since 5.1.2
      */
     private function configure() {
-        $this->available_plans = wpbdp_get_fee_plans();
-
         // Show "Complete Listing" instead of "Continue to Payment" if all fees are free.
         $this->skip_plan_payment = true;
-        foreach ( $this->available_plans as $plan ) {
+        foreach ( wpbdp_get_fee_plans() as $plan ) {
             if ( 'flat' != $plan->pricing_model || 0.0 != $plan->amount ) {
                 $this->skip_plan_payment = false;
-                break;
             }
+
+            if ( ! current_user_can( 'administrator' ) && ! empty( $plan->extra_data['private'] ) ) {
+                continue;
+            }
+
+            $this->available_plans[] = $plan;
         }
 
         $this->category_specific_fields = $this->category_specific_fields();
