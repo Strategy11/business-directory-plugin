@@ -1,3 +1,13 @@
+<?php
+/**
+ * Fees Form Template
+ *
+ * @package Templates/Admin
+ */
+
+// phpcs:disable
+?>
+
 <form id="wpbdp-fee-form" action="" method="post">
 
     <table class="form-table">
@@ -52,6 +62,21 @@
                            aria-required="true"
                            value="<?php echo absint( $fee->images ); ?>"
                            style="width: 80px;" />
+                </td>
+            </tr>
+            <tr class="form-field form-required">
+                <th scope="row">
+                    <label for="wpbdp-fee-form-fee-private"> <?php _ex('Private Fee Plan (visible to admins only)?', 'fees admin', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <label>
+                        <input id="wpbdp-fee-form-fee-recurring"
+                               name="fee[extra_data][private]"
+                               type="checkbox"
+                               value="1"
+                               <?php echo ! empty( $fee->extra_data['private'] ) ? 'checked="checked"' : ''; ?>
+                               <?php echo ( 'free' == $fee->tag ) ? 'disabled="disabled"' : ''; ?> />
+                    </label>
                 </td>
             </tr>
             <tr class="form-field form-required">
