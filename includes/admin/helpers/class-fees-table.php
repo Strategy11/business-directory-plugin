@@ -1,8 +1,20 @@
 <?php
+/**
+ * Class fees table
+ *
+ * @package Includes/Admin/Helpers
+ */
+
+// phpcs:disable
 
 if (!class_exists('WP_List_Table'))
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 
+/**
+ * Class WPBDP__Admin__Fees_Table
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
     public function __construct() {
@@ -292,6 +304,10 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
         if ( $fee->recurring )
             $html .= '<span class="wpbdp-tag">' . _x( 'Recurring', 'fees admin', 'WPBDM' ) . '</span>';
+
+        if ( ! empty( $fee->extra_data['private'] ) ) {
+            $html .= '<span class="wpbdp-tag">' . _x( 'Private', 'fees admin', 'WPBDM' ) . '</span>';
+        }
 
         return $html;
     }
