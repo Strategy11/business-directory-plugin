@@ -271,6 +271,35 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         return empty( $value[0] );
     }
 
+    public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
+        $field_value = array();
+        $field_keys  = array( 'social-text', 'type', 'social-icon' );
+
+        $input = str_replace( array( '"', '\'' ), '', $input );
+        $input = str_replace( ';', ',', $input ); // Support ; as a separator here.
+        $parts = explode( ',', $input );
+
+        $field_value[] = array_shift( $parts );
+
+        foreach ( $parts as $pos => $val ) {
+            $field_value[ $field_keys[$pos] ] = $val;
+        }
+
+        return $field_value;
+    }
+
+    public function get_field_csv_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( empty( $value ) || $this->is_empty_value( $value ) ) {
+            return '';
+        }
+
+        $value = is_array( $value ) ? $value : array( $value );
+
+        return implode( ',', $value );
+    }
+
     public function _enqueue_scripts() {
         if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
             wp_enqueue_style( 'wpbdp_font_awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css' );
