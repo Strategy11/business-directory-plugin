@@ -182,13 +182,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html = wpbdp_render(
             'submit-listing',
             array(
-				'listing'  => $this->listing,
-				'sections' => $this->sections,
-				'messages' => $messages,
-				'is_admin' => current_user_can( 'administrator' ),
-				'editing'  => $this->editing,
-				'submit'   => $this,
-			),
+                'listing'  => $this->listing,
+                'sections' => $this->sections,
+                'messages' => $messages,
+                'is_admin' => current_user_can( 'administrator' ),
+                'editing'  => $this->editing,
+                'submit'   => $this,
+            ),
             false
         );
         return $html;
@@ -289,8 +289,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $sections[ $section['id'] ]         = $section;
             $sections[ $section['id'] ]['html'] = wpbdp_render(
                 'submit-listing-section', array(
-					'section'  => $section,
-					'messages' => $messages_html,
+                    'section'  => $section,
+                    'messages' => $messages_html,
                 )
             );
         }
@@ -338,7 +338,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( current_user_can( 'administrator' ) ) {
                 $msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'WPBDM' );
             } else {
-				$msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'WPBDM' );
+                $msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'WPBDM' );
             }
 
             return false;
@@ -356,10 +356,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         } else {
             $listing_id = wp_insert_post(
                 array(
-					'post_author' => get_current_user_id(),
-					'post_type'   => WPBDP_POST_TYPE,
-					'post_status' => 'auto-draft',
-					'post_title'  => '(no title)',
+                    'post_author' => get_current_user_id(),
+                    'post_type'   => WPBDP_POST_TYPE,
+                    'post_status' => 'auto-draft',
+                    'post_title'  => '(no title)',
                 )
             );
 
@@ -633,11 +633,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $field_errors = null;
                 $validate_res = apply_filters_ref_array(
                     'wpbdp_listing_submit_validate_field', array(
-						$field->validate( $value, $field_errors ),
-						&$field_errors,
-						&$field,
-						$value,
-						&$this->listing,
+                        $field->validate( $value, $field_errors ),
+                        &$field_errors,
+                        &$field,
+                        $value,
+                        &$this->listing,
                     )
                 );
 
@@ -697,8 +697,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     // phpcs:disable
 
     private function listing_images() {
-        if ( ! wpbdp_get_option( 'allow-images' ) )
+        if ( ! wpbdp_get_option( 'allow-images' ) ) {
             return false;
+        }
 
         $listing = $this->listing;
         $plan = $listing->get_fee_plan();
