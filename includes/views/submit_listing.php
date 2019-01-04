@@ -146,7 +146,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
-        if ( ! empty( $_POST['save_listing'] ) && 1 === $_POST['save_listing'] && ! $this->prevent_save ) {
+        if ( ! empty( $_POST['save_listing'] ) && '1' === $_POST['save_listing'] && ! $this->prevent_save ) {
             $res = $this->save_listing();
 
             if ( is_wp_error( $res ) ) {
