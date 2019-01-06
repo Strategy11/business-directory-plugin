@@ -113,6 +113,16 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             esc_attr( $field->get_label() ),
             $field->get_association()
         );
+        $html .= '<br/>';
+        $html .= sprintf( '%s: %d',
+            _x( 'ID', 'form-fields admin', 'WPBDM' ),
+            $field->get_id()
+            );
+        $html .= '<br/>';
+        $html .= sprintf( '%s: %s',
+            _x( 'Shortname', 'form-fields admin', 'WPBDM' ),
+            $field->get_shortname()
+        );
         $html .= $this->row_actions( $actions );
 
         return $html;
