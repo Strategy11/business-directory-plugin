@@ -14,8 +14,8 @@
 class WPBDP__Views__Flag_Listing extends WPBDP__View {
 
     private $listing_id = 0;
-    private $listing = null;
-    private $errors  = array();
+    private $listing    = null;
+    private $errors     = array();
 
 
     public function dispatch() {
@@ -23,8 +23,10 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
             exit;
         }
 
-        $this->listing_id = absint( $_REQUEST['listing_id'] );
-        $this->listing = wpbdp_get_listing( $this->listing_id );
+        $req = wp_unslash( $_REQUEST );
+
+        $this->listing_id = absint( $req['listing_id'] );
+        $this->listing    = wpbdp_get_listing( $this->listing_id );
 
         if ( ! $this->listing ) {
             exit;
@@ -34,7 +36,7 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
             $this->_auth_required();
         }
 
-        $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
+        $nonce = isset( $req['_wpnonce'] ) ? $req['_wpnonce'] : '';
         $html  = '';
 
         if ( wp_verify_nonce( $nonce, 'flag listing report ' . $this->listing_id ) ) {
@@ -54,10 +56,9 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
                     return wpbdp_render_msg( $flagging_msg );
                 }
             }
-        } else if ( wp_verify_nonce( $nonce, 'flag listing unreport ' . $this->listing_id ) ) {
+        } elseif ( wp_verify_nonce( $nonce, 'flag listing unreport ' . $this->listing_id ) ) {
             // Remove report.
             // $flagging_pos = WPBDP__Listing_Flagging::user_has_flagged( $listing_id, $current_user );
-
             // WPBDP__Listing_Flagging::remove_flagging( $listing_id, $flagging_pos );
             //
             // $flagging_msg = _x( 'The listing <i>%s</i> has been unreported. <a>Return to listing</a>', 'flag listing', 'WPBDM' );
@@ -73,13 +74,12 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 
         $current_user = get_current_user_id();
 
-
         $html .= wpbdp_render(
             'listing-flagging-form',
             array(
                 'listing'      => $this->listing,
                 'recaptcha'    => wpbdp_get_option( 'recaptcha-for-flagging' ) ? wpbdp_recaptcha( 'wpbdp-listing-flagging-recaptcha' ) : '',
-                'current_user' => $current_user ? get_userdata( $current_user ) : ''
+                'current_user' => $current_user ? get_userdata( $current_user ) : '',
             )
         );
 
@@ -92,16 +92,16 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 
         $posted_values = stripslashes_deep( $_POST );
 
-        $report = array();
-        $report['user_id'] = get_current_user_id();
-        $report['ip'] = wpbdp_get_client_ip_address();
-        $report['date'] = time();
-        $report['reason'] = ! empty( $posted_values['flagging_option'] ) ? trim( $posted_values['flagging_option'] ) : '';
+        $report             = array();
+        $report['user_id']  = get_current_user_id();
+        $report['ip']       = wpbdp_get_client_ip_address();
+        $report['date']     = time();
+        $report['reason']   = ! empty( $posted_values['flagging_option'] ) ? trim( $posted_values['flagging_option'] ) : '';
         $report['comments'] = ! empty( $posted_values['flagging_more_info'] ) ? trim( $posted_values['flagging_more_info'] ) : '';
-        $report['name'] = wp_strip_all_tags( $current_user ? $current_user->data->user_login : ( isset( $_POST['reportauthorname'] ) ? trim( $_POST['reportauthorname'] ) : '' ) );
-        $report['email'] = sanitize_email( $current_user ? $current_user->data->user_email : ( isset( $_POST['reportauthoremail'] ) ? trim( $_POST['reportauthoremail'] ) : '' ) );
+        $report['name']     = wp_strip_all_tags( $current_user ? $current_user->data->user_login : ( isset( $_POST['reportauthorname'] ) ? trim( $_POST['reportauthorname'] ) : '' ) );
+        $report['email']    = sanitize_email( $current_user ? $current_user->data->user_email : ( isset( $_POST['reportauthoremail'] ) ? trim( $_POST['reportauthoremail'] ) : '' ) );
 
-        if ( false !== WPBDP__Listing_Flagging::ip_has_flagged( $this->listing_id, $report[ 'ip' ] ) ) {
+        if ( false !== WPBDP__Listing_Flagging::ip_has_flagged( $this->listing_id, $report['ip'] ) ) {
             $this->errors[] = _x( 'Your current IP address already reported this listing.', 'flag listing', 'WPBDM' );
         }
 
@@ -115,23 +115,23 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 
         if ( ! empty( $flagging_options ) ) {
             if ( ! $report['reason'] ) {
-                $this->errors[] = _x('You must select the reason to report this listing as inappropriate.', 'flag listing', 'WPBDM');
+                $this->errors[] = _x( 'You must select the reason to report this listing as inappropriate.', 'flag listing', 'WPBDM' );
             }
         } else {
             if ( ! $report['comments'] ) {
-                $this->errors[] = _x('You must enter the reason to report this listing as inappropriate.', 'flag listing', 'WPBDM');
+                $this->errors[] = _x( 'You must enter the reason to report this listing as inappropriate.', 'flag listing', 'WPBDM' );
             }
         }
 
-        if( ! $report['name'] ) {
+        if ( ! $report['name'] ) {
             $this->errors[] = _x( 'Please enter your name.', 'flag listing', 'WPBDM' );
         }
 
         if ( ! $report['email'] ) {
-            $this->errors[] = _x('Please enter your email.', 'flag listing', 'WPBDM');
+            $this->errors[] = _x( 'Please enter your email.', 'flag listing', 'WPBDM' );
         }
 
-        if ( $this->errors ){
+        if ( $this->errors ) {
             return false;
         }
 
