@@ -16,7 +16,10 @@ class WPBDP_reCAPTCHA {
     private $private_key = '';
 
     private $current_id = 1;
+    private $threshold;
+    private $version = '';
 
+    private $error_message = '';
     private $comment_error = null;
 
 
@@ -28,6 +31,10 @@ class WPBDP_reCAPTCHA {
             return;
         }
 
+        $this->version       = wpbdp_get_option( 'recaptcha-version', 'v2' );
+        $this->threshold     = wpbdp_get_option( 'recaptcha-threshold', 0.5 );
+        $this->error_message = 'v2' === $this->version ? _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' ) : _x( 'The reCAPTCHA validation score failed.', 'recaptcha', 'WPBDM' );
+
         add_action( 'wp_enqueue_scripts', array( &$this, '_enqueue_js_api' ) );
 
         if ( wpbdp_get_option( 'recaptcha-for-comments' ) ) {
@@ -37,6 +44,7 @@ class WPBDP_reCAPTCHA {
         }
 
         if ( wpbdp_get_option( 'recaptcha-for-submits' ) ) {
+            add_filter( 'wpbdp_submit_prepare_sections', array( $this, 'maybe_hide_recaptcha_section'), 10, 2 );
             add_filter( 'wpbdp_submit_sections', array( $this, 'add_recaptcha_to_submit' ), 20, 2 );
             add_filter( 'wpbdp_submit_section_recaptcha', array( $this, 'submit_recaptcha_html' ), 10, 2 );
         }
@@ -57,9 +65,20 @@ class WPBDP_reCAPTCHA {
             true
         );
 
+        $url = add_query_arg(
+            array(
+                'onload' =>  'wpbdp_recaptcha_callback',
+                'render' =>  'v2' === $this->version ? 'explicit' : $this->public_key,
+            ),
+            'https://www.google.com/recaptcha/api.js'
+        );
+
         wp_enqueue_script(
             'google-recaptcha',
-            'https://www.google.com/recaptcha/api.js?onload=wpbdp_recaptcha_callback&render=explicit'
+            $url,
+            array(),
+            'v2' === $this->version ? '2.0' : '3.0',
+            true
         );
     }
 
@@ -80,10 +99,18 @@ class WPBDP_reCAPTCHA {
         }
 
         $html .= sprintf(
-            '<div id="wpbdp_recaptcha_%d" class="wpbdp-recaptcha" data-key="%s"></div>',
+            '<div id="wpbdp_recaptcha_%d" class="wpbdp-recaptcha" data-key="%s" data-version="%s">',
             $this->current_id,
-            $this->public_key
+            $this->public_key,
+            $this->version
         );
+
+        if ( 'v3' === $this->version ) {
+            $html .= '<input type="hidden" name="g-recaptcha-response" value="" />';
+        }
+
+
+        $html .= '</div>';
 
         if ( $name ) {
             $html .= '</div>';
@@ -106,7 +133,7 @@ class WPBDP_reCAPTCHA {
             return true;
         }
 
-        $error_msg = _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' );
+        $error_msg = $this->error_message;
 
         if ( empty( $_REQUEST['g-recaptcha-response'] ) ) {
             return false;
@@ -124,12 +151,21 @@ class WPBDP_reCAPTCHA {
             )
         );
 
-        if ( ! is_wp_error( $res ) ) {
-            $js = json_decode( $res['body'] );
+        if ( is_wp_error( $res ) ) {
+            return false;
+        }
 
-            if ( $js && isset( $js->success ) && $js->success ) {
+        $js = json_decode( $res['body'] );
+
+        if ( $js && isset( $js->success ) && $js->success ) {
+            if ( 'v2' === $this->version ) {
                 return true;
             }
+
+            if ( isset( $js->score ) && $this->threshold < $js->score ) {
+                return true;
+            }
+
         }
 
         return false;
@@ -147,7 +183,7 @@ class WPBDP_reCAPTCHA {
 
         if ( ! empty( $_GET['wre'] ) ) {
             $html .= '<p class="wpbdp-recaptcha-error">';
-            $html .= _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' );
+            $html .= $this->error_message;
             $html .= '</p>';
 
             add_action( 'wp_footer', array( &$this, '_restore_comment_fields' ) );
@@ -218,7 +254,7 @@ JS;
     public function submit_recaptcha_html( $section, $submit ) {
         if ( $submit->saving() ) {
             if ( ! $this->verify( $error_msg ) ) {
-                $submit->messages( $error_msg, 'error', 'recaptcha' );
+                $submit->messages( $error_msg, 'error', 'v2' === $this->version ? 'recaptcha' : 'general' );
                 $submit->prevent_save();
             }
         }
@@ -231,6 +267,14 @@ JS;
         }
 
         return $section;
+    }
+
+    function maybe_hide_recaptcha_section ( $submit_sections, $submit ) {
+        if ( 'v3' === $this->version && in_array( 'recaptcha', array_keys( $submit_sections ) ) ) {
+            $submit_sections['recaptcha']['flags'][] = 'hidden';
+        }
+
+        return $submit_sections;
     }
 
 }

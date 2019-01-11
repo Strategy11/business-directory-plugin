@@ -17,8 +17,22 @@ jQuery( function( $ ) {
                 if ( $captcha.data( 'wpbdp-recaptcha-enabled' ) )
                     return;
 
-                grecaptcha.render( $captcha[0], { 'sitekey': $captcha.attr( 'data-key' ),
-                                                  'theme': 'light' } );
+                if ( 'v2' === $captcha.attr('data-version') ) {
+                    grecaptcha.render(
+                        $captcha[0],
+                        {
+                            'sitekey': $captcha.attr( 'data-key' ),
+                            'theme': 'light'
+                        }
+                    );
+                }
+
+                if ( 'v3' === $captcha.attr('data-version') ) {
+                    grecaptcha.execute($captcha.attr('data-key'), {'action': 'wpbdp_submit_listing'} ).then( function ( token ) {
+                        $captcha.find( 'input' ).val( token );
+                    });
+                }
+
                 $captcha.data( 'wpbdp-recaptcha-enabled', true );
             });
         },
