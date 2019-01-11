@@ -165,6 +165,32 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'recaptcha',
             )
         );
+        wpbdp_register_setting(
+            array(
+				'id'      => 'recaptcha-version',
+				'type'    => 'select',
+				'name'    => _x( 'reCAPTCHA version', 'settings', 'WPBDM' ),
+                'default' => 'v2',
+                'options' => array(
+                    'v2' => 'V2',
+                    'v3' => 'V3',
+                ),
+				'group'   => 'recaptcha',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+				'id'      => 'recaptcha-threshold',
+				'type'    => 'number',
+				'name'    => _x( 'reCAPTCHA V3 threshold score', 'settings', 'WPBDM' ),
+                'default' => 0.5,
+                'min'     => 0,
+                'step'    => 0.1,
+				'max'     => 1,
+				'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'WPBDM'),
+				'group'   => 'recaptcha',
+            )
+        );
 
         wpbdp_register_settings_group( 'registration', _x( 'Registration', 'settings', 'WPBDM' ), 'general', array( 'desc' => _x( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.", 'settings', 'WPBDM' ) ) );
         wpbdp_register_setting(
