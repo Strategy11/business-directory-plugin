@@ -1,6 +1,15 @@
 <?php
 /**
+ * Flag Listings
+ *
+ * @package WPBDP/Includes/Views
+ */
+
+// phpcs:disable
+
+/**
  * @since 5.1.6
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Flag_Listing extends WPBDP__View {
 
@@ -96,8 +105,10 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
             $this->errors[] = _x( 'Your current IP address already reported this listing.', 'flag listing', 'WPBDM' );
         }
 
-        if ( wpbdp_get_option( 'recaptcha-for-flagging' ) && ! wpbdp_recaptcha_check_answer() ) {
-            $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'flag listing', 'WPBDM' );
+        $error_msg = '';
+
+        if ( wpbdp_get_option( 'recaptcha-for-flagging' ) && ! wpbdp_recaptcha_check_answer( $error_msg ) ) {
+            $this->errors[] = $error_msg;
         }
 
         $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
