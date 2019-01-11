@@ -357,7 +357,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'association'   => 'title',
 					'weight'        => 9,
 					'validators'    => array( 'required' ),
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'excerpt', 'listing', 'search', 'privacy' ),
 					'tag'           => 'title',
 				),
                 'category' => array(
@@ -392,7 +392,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'association'   => 'meta',
 					'weight'        => 5,
 					'validators'    => array( 'url' ),
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
 					'tag'           => 'website',
 				),
                 'phone'    => array(
@@ -400,7 +400,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 4,
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
 					'tag'           => 'phone',
 				),
                 'fax'      => array(
@@ -408,7 +408,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 3,
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
 					'tag'           => 'fax',
 				),
                 'email'    => array(
@@ -417,7 +417,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'association'   => 'meta',
 					'weight'        => 2,
 					'validators'    => array( 'email', 'required' ),
-					'display_flags' => array( 'excerpt', 'listing' ),
+					'display_flags' => array( 'excerpt', 'listing',  'privacy' ),
 					'tag'           => 'email',
 				),
                 'tags'     => array(
@@ -433,7 +433,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'field_type'    => 'textarea',
 					'association'   => 'meta',
 					'weight'        => 1,
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
 					'tag'           => 'address',
 				),
                 'zip'      => array(
@@ -441,7 +441,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 1,
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
 					'tag'           => 'zip',
 				),
             );

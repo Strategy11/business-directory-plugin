@@ -34,6 +34,8 @@ class WPBDP_Form_Field {
     public $css_classes     = array();
     public $html_attributes = array();
 
+    static $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
+
 
     public function __construct( $attrs = array() ) {
         $defaults = array(
@@ -951,6 +953,10 @@ class WPBDP_Form_Field {
         }
 
         return self::get( $field_id );
+    }
+
+    public function is_privacy_field() {
+        return in_array( $this->get_tag(), self::$default_tags );
     }
 
 }

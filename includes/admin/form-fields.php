@@ -1,8 +1,9 @@
 <?php
 /**
- * Form Field
+ * Represents a single field from the database. This class can not be instantiated directly.
  *
- * @package BDP/Admin
+ * @since 5.4
+ * @package WPBDP/Views/Includes/Admin/Form Fields
  */
 
 // phpcs:disable
@@ -21,9 +22,9 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     public function __construct() {
         parent::__construct(
             array(
-				'singular' => _x( 'form field', 'form-fields admin', 'WPBDM' ),
-				'plural'   => _x( 'form fields', 'form-fields admin', 'WPBDM' ),
-				'ajax'     => false,
+                'singular' => _x( 'form field', 'form-fields admin', 'WPBDM' ),
+                'plural'   => _x( 'form fields', 'form-fields admin', 'WPBDM' ),
+                'ajax'     => false,
             )
         );
     }
@@ -53,16 +54,16 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             esc_url(
                 add_query_arg(
                     array(
-						'action' => 'fieldup',
-						'id'     => $field->get_id(),
+                        'action' => 'fieldup',
+                        'id'     => $field->get_id(),
                     )
                 )
             ),
             esc_url(
                 add_query_arg(
                     array(
-						'action' => 'fielddown',
-						'id'     => $field->get_id(),
+                        'action' => 'fielddown',
+                        'id'     => $field->get_id(),
                     )
                 )
             )
@@ -76,8 +77,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             esc_url(
                 add_query_arg(
                     array(
-						'action' => 'editfield',
-						'id'     => $field->get_id(),
+                        'action' => 'editfield',
+                        'id'     => $field->get_id(),
                     )
                 )
             ),
@@ -90,8 +91,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                 esc_url(
                     add_query_arg(
                         array(
-							'action' => 'deletefield',
-							'id'     => $field->get_id(),
+                            'action' => 'deletefield',
+                            'id'     => $field->get_id(),
                         )
                     )
                 ),
@@ -105,8 +106,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             esc_url(
                 add_query_arg(
                     array(
-						'action' => 'editfield',
-						'id'     => $field->get_id(),
+                        'action' => 'editfield',
+                        'id'     => $field->get_id(),
                     )
                 )
             ),
@@ -188,7 +189,7 @@ class WPBDP_FormFieldsAdmin {
         add_action( 'admin_init', array( $this, 'check_for_required_fields' ) );
     }
 
-	/* Required fields check. */
+    /* Required fields check. */
     public function check_for_required_fields() {
         global $wpbdp;
 
@@ -270,9 +271,9 @@ class WPBDP_FormFieldsAdmin {
         $field_id    = wpbdp_getv( $_REQUEST, 'field_id', 0 );
 
         $response = array(
-			'ok'   => false,
-			'html' => '',
-		);
+            'ok'   => false,
+            'html' => '',
+        );
 
         if ( $field_type && in_array( $association, $field_type->get_supported_associations(), true ) ) {
             $field = $api->get_field( $field_id );
@@ -299,8 +300,13 @@ class WPBDP_FormFieldsAdmin {
 
         $html  = '';
         $html .= wpbdp_admin_header(
-            _x( 'Form Preview', 'form-fields admin', 'WPBDM' ), 'formfields-preview', array(
-				array( _x( '← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM' ), esc_url( remove_query_arg( 'action' ) ) ),
+            _x( 'Form Preview', 'form-fields admin', 'WPBDM' ),
+            'formfields-preview',
+            array(
+                array(
+                    _x( '← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM' ),
+                    esc_url( remove_query_arg( 'action' ) )
+                ),
             )
         );
         $html .= '<div id="wpbdp-listing-form-preview">';
@@ -372,12 +378,12 @@ class WPBDP_FormFieldsAdmin {
         wpbdp_render_page(
             WPBDP_PATH . 'templates/admin/form-fields-addoredit.tpl.php',
             array(
-				'field'                   => $field,
-				'field_associations'      => $api->get_associations_with_flags(),
-				'field_types'             => $api->get_field_types(),
-				'validators'              => $api->get_validators(),
-				'association_field_types' => $api->get_association_field_types(),
-			),
+                'field'                   => $field,
+                'field_associations'      => $api->get_associations_with_flags(),
+                'field_types'             => $api->get_field_types(),
+                'validators'              => $api->get_validators(),
+                'association_field_types' => $api->get_association_field_types(),
+            ),
             true
         );
     }
@@ -486,18 +492,18 @@ class WPBDP_FormFieldsAdmin {
             $f = WPBDP_Form_Field::find_by_tag( $t );
 
             $field_tags[] = array(
-				'tag'         => $t,
-				'description' => $td,
-				'field_id'    => ( $f ? $f->get_id() : 0 ),
-				'fixed'       => ( in_array( $t, $fixed_tags, true ) ? true : false ),
-			);
+                'tag'         => $t,
+                'description' => $td,
+                'field_id'    => ( $f ? $f->get_id() : 0 ),
+                'fixed'       => ( in_array( $t, $fixed_tags, true ) ? true : false ),
+            );
         }
 
         echo wpbdp_render_page(
             WPBDP_PATH . 'templates/admin/form-fields-tags.tpl.php',
             array(
-				'field_tags'     => $field_tags,
-				'missing_fields' => $missing_fields,
+                'field_tags'     => $field_tags,
+                'missing_fields' => $missing_fields,
             )
         );
     }

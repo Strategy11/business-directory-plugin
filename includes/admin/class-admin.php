@@ -1,4 +1,13 @@
 <?php
+/**
+ * Class Admin
+ *
+ * @package BDP/Includes/Admin/Class Admin
+ * @SuppressWarnings(PHPMD)
+ */
+
+// phpcs:disable
+
 require_once( WPBDP_PATH . 'includes/admin/admin-pages.php' );
 require_once( WPBDP_PATH . 'includes/admin/class-admin-listings.php' );
 require_once( WPBDP_PATH . 'includes/admin/form-fields.php' );
@@ -10,6 +19,9 @@ require_once( WPBDP_PATH . 'includes/admin/class-admin-controller.php' );
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
+/**
+ * Class WPBDP_Admin
+ */
 class WPBDP_Admin {
 
     private $menu = array();
@@ -361,7 +373,6 @@ to how WordPress stores the data.", 'WPBDM' )
                           'administrator',
                           'wpbdp_uninstall',
                           array( $this, 'uninstall_plugin' ) );
-        
 
         // Handle some special menu items.
         foreach ( $GLOBALS['submenu']['wpbdp_admin'] as &$menu_item ) {
