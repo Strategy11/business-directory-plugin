@@ -210,6 +210,10 @@ class WPBDP__Settings_Admin {
         if ( isset( $setting['step'] ) ) {
             echo 'step="' . $setting['step'] . '"';
         }
+
+        if ( isset( $setting['max'] ) ) {
+            echo 'max="' . $setting['max'] . '"';
+        }
         echo '/>';
 
         if ( ! empty( $setting['desc'] ) ) {
