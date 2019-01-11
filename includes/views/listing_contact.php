@@ -58,8 +58,10 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             $this->errors[] = _x( 'You did not enter a message.', 'contact-message', 'WPBDM' );
         }
 
-        if ( wpbdp_get_option( 'recaptcha-on' ) && ! wpbdp_recaptcha_check_answer() ) {
-            $this->errors[] = _x( "The reCAPTCHA wasn't entered correctly.", 'contact-message', 'WPBDM' );
+        $error_msg = '';
+
+        if ( wpbdp_get_option( 'recaptcha-on' ) && ! wpbdp_recaptcha_check_answer( $error_msg ) ) {
+            $this->errors[] = $error_msg;
         }
 
         $this->errors = apply_filters( 'wpbdp_contact_form_validation_errors', $this->errors );
