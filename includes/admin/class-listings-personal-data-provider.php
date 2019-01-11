@@ -57,7 +57,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
      * @return array
      */
     private function get_privacy_fields_items() {
-        $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
+        $default_tags = WPBDP_Form_Field::$default_tags;
 
         $items = array( 'ID' => __( 'Listing ID', 'business-directory-plugin' ) );
 
@@ -80,7 +80,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
      * @return mixed
      */
     private function get_listing_properties( $listing_id ) {
-        $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
+        $default_tags = WPBDP_Form_Field::$default_tags;
 
         $properties = array( 'ID' => $listing_id );
 
