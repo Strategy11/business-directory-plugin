@@ -331,7 +331,18 @@ final class WPBDP__Settings__Bootstrap {
 				'id'    => 'disable-submit-listing',
 				'type'  => 'checkbox',
 				'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'WPBDM' ),
+				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'WPBDM'),
 				'group' => 'general/advanced',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+				'id'      => 'enqueue-fontawesome-styles',
+				'type'    => 'checkbox',
+				'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'WPBDM' ),
+				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'WPBDM'),
+				'default' => true,
+				'group'   => 'general/advanced',
             )
         );
     }
@@ -698,6 +709,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'show-submit-listing',
 				'type'         => 'checkbox',
 				'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'WPBDM'),
 				'default'      => true,
 				'group'        => 'display_options',
 				'requirements' => array( '!disable-submit-listing' ),
@@ -1080,6 +1092,16 @@ final class WPBDP__Settings__Bootstrap {
 				),
 				'group'        => 'payment/main',
 				'requirements' => array( 'payments-on' ),
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'           => 'include-fee-description',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Include fee description in receipt?', 'settings', 'WPBDM' ),
+                'default'      => false,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(

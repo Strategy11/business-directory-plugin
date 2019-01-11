@@ -134,7 +134,7 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
 
         $item_html = '';
         $item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
-        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label" rel="nofollow">';
+        $item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label">';
 
         $item_html .= esc_attr( $term->name );
         $item_html .= '</a>';
@@ -501,7 +501,15 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
     $image_classes           = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
     if ( ! $main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
-        $image_img = get_the_post_thumbnail( $listing_id, 'wpbdp-thumb' );
+        $caption = get_post_meta( get_post_thumbnail_id( $listing_id ), '_wpbdp_image_caption', true );
+        $image_img = get_the_post_thumbnail(
+            $listing_id,
+            'wpbdp-thumb',
+            array(
+                'alt'   => $caption ? $caption : get_the_title( $listing_id ),
+                'title' => $caption ? $caption : get_the_title( $listing_id ),
+            )
+        );
     } elseif ( ! $main_image && in_array( $display, wpbdp_get_option( 'use-default-picture' ) ) ) {
         $image_img  = sprintf(
             '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
@@ -513,14 +521,16 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
         );
         $image_link = $args['link'] == 'picture' ? WPBDP_URL . 'assets/images/default-image-big.gif' : '';
     } elseif ( $main_image ) {
+        $image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
         _wpbdp_resize_image_if_needed( $main_image->ID );
+
         $image_img = wp_get_attachment_image(
             $main_image->ID,
             'wpbdp-thumb',
             false,
             array(
-                'alt'   => get_the_title( $listing_id ),
-                'title' => get_the_title( $listing_id ),
+                'alt'   => $image_title ? $image_title : get_the_title( $listing_id ),
+                'title' => $image_title ? $image_title : get_the_title( $listing_id ),
                 'class' => $image_classes,
             )
         );
@@ -529,8 +539,6 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
             $full_image_data = wp_get_attachment_image_src( $main_image->ID, 'wpbdp-large' );
             $image_link      = $full_image_data[0];
         }
-
-        $image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
     }
 
     if ( ! $image_link && $args['link'] == 'listing' ) {

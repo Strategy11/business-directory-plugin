@@ -497,10 +497,12 @@ class WPBDP_Admin_Listings {
 
         $listing = wpbdp_get_listing( $post_id );
 
+        $thumbnail_id = intval( $_POST['_thumbnail_id'] ) > 0 ? intval( $_POST['_thumbnail_id'] ) : ( ! empty( $_POST['thumbnail_id'] ) ?  intval( $_POST['thumbnail_id'] ) : 0 );
+
         // Update image information.
-        if ( ! empty( $_POST['thumbnail_id'] ) ) {
-            $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
-            set_post_thumbnail( $listing->get_id(), $_POST['thumbnail_id'] );
+        if ( $thumbnail_id > 0 ) {
+            $listing->set_thumbnail_id( $thumbnail_id );
+            $listing->set_images( array( $thumbnail_id ), true );
         }
 
         // Images info.

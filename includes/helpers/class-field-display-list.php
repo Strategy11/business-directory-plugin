@@ -1,6 +1,8 @@
-<?php
+<?php // phpcs:disable
 /**
  * @since 4.0
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Field_Display_List implements IteratorAggregate {
 
@@ -207,6 +209,21 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         return str_replace( '<br />', ', ', $this->helper__address() );
     }
 
+    public function helper__author() {
+        $listing = wpbdp_get_listing( $this->listing_id );
+        $author  = $listing->get_author_meta( 'display_name' );
+
+        return $author ? $author : $listing->get_author_meta( 'user_login' );
+    }
+
+    public function helper__created_date() {
+        return wpbdp_date( get_the_date( 'U', $this->listing_id ) );
+    }
+
+    public function helper__modified_date() {
+        return wpbdp_get_listing( $this->listing_id )->get_modified_date();
+    }
+
     //
     // }}
     //
@@ -214,6 +231,8 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
 /**
  * @since 4.0
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class _WPBDP_Lightweight_Field_Display_Item {
 

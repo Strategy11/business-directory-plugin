@@ -41,6 +41,7 @@
     &.wpbdp-form-field-type-textarea textarea,
     &.wpbdp-form-field-type-textfield input[type="text"],
     &.wpbdp-form-field-type-select select,
+    &.wpbdp-form-field-type-social-network input[type="text"],
     &.wpbdp-form-field-type-social-twitter input[type="text"],
     &.wpbdp-form-field-type-social-facebook input[type="text"],
     &.wpbdp-form-field-type-social-linkedin input[type="text"],
@@ -96,7 +97,8 @@
         margin-right: 10px;
     }
 
-    &.wpbdp-form-field-type-image {
+    &.wpbdp-form-field-type-image,
+    &.wpbdp-form-field-type-social-network {
         .preview {
             margin-bottom: 20px;
         }
@@ -109,6 +111,18 @@
         input[type="text"] {
             width: 100%;
             font-size: inherit;
+        }
+
+        .wpbdp-social-type-field {
+            .sublabel {
+                display: block;
+            }
+            .wpbdp-inner-social-field-option:nth-of-type(2n+1) {
+                display: inline-block;
+                width: 20%;
+                margin-right: 50%;
+                float: right;
+            }
         }
     }
 }

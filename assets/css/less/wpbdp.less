@@ -257,19 +257,92 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing .social-fields {
     margin: 20px 0;
+
+    .wpbdp-reddit-logo {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        color: #fff;
+        border-bottom: none;
+
+        .wpbdp-reddit-logo-svg {
+            height: 40px;
+            padding: 8px 8px 8px 0;
+            width: 32px;
+        }
+
+        .wpbdp-reddit-text {
+            height: 18px;
+            margin-right: 10px;
+            width: 50px;
+        }
+    }
+
+    .social-field {
+
+        &.twitter {
+            display: inline-block;
+            vertical-align: middle;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        &.facebook {
+            display: inline-block;
+            height: 0px;
+            width: 60px;
+            margin-right: 10px;
+        }
+    }
 }
 
-.wpbdp-listing .social-field {
-    margin: 5px 0;
-    height: 20px;
+.social-field-link {
+    display: inline-block;
+    margin-right: 10px;
     vertical-align: middle;
+
+    a {
+        box-shadow: none;
+
+        .social-icon {
+            font-size: 2.2em;
+            vertical-align: middle;
+            background-color: transparent;
+            color: #1a1a1a;
+
+            img {
+                height: 30px;
+                width: auto;
+            }
+        }
+    }
+
+    &.icon_first {
+        .social-icon {
+            margin-right: 5px;
+        }
+    }
+
+    &.text_first {
+        .social-text {
+            margin-right: 5px;
+        }
+    }
+
 }
 
 /* Work-around a known FB like button CSS issue (http://stackoverflow.com/questions/8311012/facebook-like-button-dialog-overflow-issue) */
     .social-field.facebook .fb-like > span {
-        overflow: visible !important;
-        width: 450px !important;
-        vertical-align: top !important;
+        //overflow: visible !important;
+        //width: 450px !important;
+        //vertical-align: top !important;
 /*        margin-right: -375px;*/
     }
 

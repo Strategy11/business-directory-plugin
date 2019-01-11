@@ -251,10 +251,6 @@ class WPBDP_Form_Field {
     }
 
     public function display_in( $context ) {
-        if ( in_array( $context, array( 'excerpt', 'listing' ) ) && $this->has_display_flag( 'private' ) ) {
-            return current_user_can( 'administrator' );
-        }
-
         return in_array( $context, $this->display_flags, true );
     }
 
@@ -642,14 +638,6 @@ class WPBDP_Form_Field {
 		if ( ! in_array( $this->type->get_id(), (array) $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
             return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
 		}
-
-        if ( in_array( 'private', $this->display_flags ) ) {
-            if ( ! in_array( $this->association, array( 'title', 'content', 'category' ), true ) ) {
-                $this->set_display_flags( array( 'private' ) );
-            } else {
-                $this->remove_display_flag( array( 'private' ) );
-            }
-        }
 
         $res = $this->type->before_field_update( $this );
         if ( is_wp_error( $res ) ) {

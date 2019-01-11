@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v3.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-11-06 20:25:36+00:00\n"
+"POT-Creation-Date: 2018-12-11 23:26:20+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -225,7 +225,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/class-wpbdp.php:433
+#: includes/class-wpbdp.php:436
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -234,7 +234,7 @@ msgstr ""
 "Funkcje pluginu KATALOG FIRM są chwilowo wyłączone, ponieważ plugin oczekuje "
 "na ręczną aktualizację, przed kontynuacją."
 
-#: includes/class-wpbdp.php:440
+#: includes/class-wpbdp.php:443
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -246,56 +246,56 @@ msgid "%s (ex. %s)"
 msgstr "%s (bez %s)"
 
 # @ WPBDM
-#: includes/form-fields.php:354
+#: includes/form-fields.php:355
 msgid "Business Name"
 msgstr "Nazwa Firmy"
 
 # @ WPBDM
-#: includes/form-fields.php:363
+#: includes/form-fields.php:364
 msgid "Business Genre"
 msgstr "Województwo"
 
 # @ WPBDM
-#: includes/form-fields.php:372
+#: includes/form-fields.php:373
 msgid "Short Business Description"
 msgstr "Krótke Info"
 
 # @ WPBDM
-#: includes/form-fields.php:380
+#: includes/form-fields.php:381
 msgid "Long Business Description"
 msgstr "Długi Opis Firmy"
 
 # @ WPBDM
-#: includes/form-fields.php:389
+#: includes/form-fields.php:390
 msgid "Business Website Address"
 msgstr "Strona Firmowa"
 
 # @ WPBDM
-#: includes/form-fields.php:398
+#: includes/form-fields.php:399
 msgid "Business Phone Number"
 msgstr "Telefon"
 
 # @ WPBDM
-#: includes/form-fields.php:406
+#: includes/form-fields.php:407
 msgid "Business Fax"
 msgstr "Fax"
 
 # @ WPBDM
-#: includes/form-fields.php:414
+#: includes/form-fields.php:415
 msgid "Business Contact Email"
 msgstr "Kontaktowy adres e-mail"
 
 # @ WPBDM
-#: includes/form-fields.php:423
+#: includes/form-fields.php:424
 msgid "Business Tags"
 msgstr "Firmowe Tagi"
 
 # @ WPBDM
-#: includes/form-fields.php:431
+#: includes/form-fields.php:432
 msgid "Business Address"
 msgstr "Strona Firmowa"
 
-#: includes/form-fields.php:439
+#: includes/form-fields.php:440
 msgid "ZIP Code"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgid "Transaction Key"
 msgstr "Klucz Transakcji"
 
 # @ WPBDM
-#: includes/licensing.php:113 includes/licensing.php:114
+#: includes/licensing.php:91 includes/licensing.php:92
 #, fuzzy
 msgid "Licenses"
 msgstr "Licencje"
@@ -1064,7 +1064,7 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:639
+#: includes/admin/class-admin-listings.php:641
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -1258,7 +1258,7 @@ msgid "Images"
 msgstr "Obrazy"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:122
+#: includes/admin/form-fields.php:193
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -1268,7 +1268,7 @@ msgstr ""
 "tym polu: <b>%s</b>."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:124
+#: includes/admin/form-fields.php:195
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1277,7 +1277,7 @@ msgstr ""
 "<b>Katalog Firm</b>potrzebuje pola z  <b>%s</b> aby pracować poprawnie."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:128
+#: includes/admin/form-fields.php:199
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -1287,13 +1287,13 @@ msgstr ""
 "formularza\" albo niech katalog firm zrobi to dla ciebie automatycznie."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:132
+#: includes/admin/form-fields.php:204
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Przejdź do \"Zarządzanie polami formularza\""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:135
+#: includes/admin/form-fields.php:209
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Stwórz te wymagane pola dla mnie"
@@ -1320,60 +1320,60 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:765
+#: includes/class-listing.php:768
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:766
+#: includes/class-listing.php:769
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-listing.php:767
+#: includes/class-listing.php:770
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:768
+#: includes/class-listing.php:771
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/class-listing.php:769
+#: includes/class-listing.php:772
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:770
+#: includes/class-listing.php:773
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Oferty oczekujące na zatwierdzenie"
 
 # @ WPBDM
-#: includes/class-listing.php:771
+#: includes/class-listing.php:774
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Wygasłe"
 
 # @ WPBDM
-#: includes/class-listing.php:772
+#: includes/class-listing.php:775
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Tylko aktywne i oczekujące na odświeżenie "
 
 # @ WPBDM
-#: includes/class-listing.php:773
+#: includes/class-listing.php:776
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -1406,40 +1406,40 @@ msgid "View Payment"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:578
+#: includes/admin/class-admin-listings.php:580
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publikuj Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:579
+#: includes/admin/class-admin-listings.php:581
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Oczekujące"
 
-#: includes/admin/class-admin-listings.php:580
+#: includes/admin/class-admin-listings.php:582
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:582
+#: includes/admin/class-admin-listings.php:584
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Odnów Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:583
+#: includes/admin/class-admin-listings.php:585
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:590
+#: includes/admin/class-admin-listings.php:592
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -2776,121 +2776,121 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:9
+#: includes/admin/form-fields.php:24
 msgctxt "form-fields admin"
 msgid "form field"
 msgstr "Pole formularza"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:10
+#: includes/admin/form-fields.php:25
 msgctxt "form-fields admin"
 msgid "form fields"
 msgstr "Pola formularza"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:17
+#: includes/admin/form-fields.php:33
 msgctxt "form-fields admin"
 msgid "Order"
 msgstr "Sortowanie"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:18
+#: includes/admin/form-fields.php:34
 msgctxt "form-fields admin"
 msgid "Label / Association"
 msgstr "Etykieta/Przypisanie"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:19
+#: includes/admin/form-fields.php:35
 msgctxt "form-fields admin"
 msgid "Type"
 msgstr "Rodzaj"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:20
+#: includes/admin/form-fields.php:36
 msgctxt "form-fields admin"
 msgid "Validator"
 msgstr "Weryfikator"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:21
+#: includes/admin/form-fields.php:37
 msgctxt "form-fields admin"
 msgid "Field Attributes"
 msgstr "Atrybuty pola"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:45
+#: includes/admin/form-fields.php:84
 msgctxt "form-fields admin"
 msgid "Edit"
 msgstr "Edytuj"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:50
+#: includes/admin/form-fields.php:98
 msgctxt "form-fields admin"
 msgid "Delete"
 msgstr "Usuń"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:77
+#: includes/admin/form-fields.php:135
+msgctxt "form-fields admin"
+msgid "Required"
+msgstr "Wymagane"
+
+# @ WPBDM
+#: includes/admin/form-fields.php:135
+msgctxt "form-fields admin"
+msgid "Optional"
+msgstr "Opcjonalnie"
+
+# @ WPBDM
+#: includes/admin/form-fields.php:142
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Private"
 msgstr "Aktywacja Licencji"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:81
-msgctxt "form-fields admin"
-msgid "Required"
-msgstr "Wymagane"
-
-# @ WPBDM
-#: includes/admin/form-fields.php:81
-msgctxt "form-fields admin"
-msgid "Optional"
-msgstr "Opcjonalnie"
-
-# @ WPBDM
-#: includes/admin/form-fields.php:85
+#: includes/admin/form-fields.php:149
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr "Wartość pola jest pokazana w widoku wyciągu z oferty."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:86
+#: includes/admin/form-fields.php:150
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "W wyciągu z oferty"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:91
+#: includes/admin/form-fields.php:157
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr "Wartość pola jest pokazana w widoku pojedynczej oferty."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:92
+#: includes/admin/form-fields.php:158
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "W ofertach"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:213
+#: includes/admin/form-fields.php:292
 msgctxt "form-fields admin"
 msgid "Form Preview"
 msgstr "Podgląd formularza"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:214
+#: includes/admin/form-fields.php:293
 msgctxt "form-fields admin"
 msgid "← Return to \"Manage Form Fields\""
 msgstr "← wróć do \"Zarządzanie polami formularza\""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:252
+#: includes/admin/form-fields.php:333
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Pola formularza zaktualizowane."
 
-#: includes/admin/form-fields.php:268
+#: includes/admin/form-fields.php:349
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2900,107 +2900,107 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:302
+#: includes/admin/form-fields.php:390
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Pole usunięte."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:323
+#: includes/admin/form-fields.php:413
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Pola wymagane zostały pomyślnie utworzone."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:336
+#: includes/admin/form-fields.php:426
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Tytuł"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:337
+#: includes/admin/form-fields.php:427
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Kategorie"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:338
+#: includes/admin/form-fields.php:428
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "W wyciągu z oferty"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:339
+#: includes/admin/form-fields.php:429
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Zawartość Posta"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:340
+#: includes/admin/form-fields.php:430
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Slug Tagów"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:341
+#: includes/admin/form-fields.php:431
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Adres e-mail:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:342
+#: includes/admin/form-fields.php:432
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Miasto:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:343
+#: includes/admin/form-fields.php:433
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Województwo:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:344
+#: includes/admin/form-fields.php:434
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "Kraj:"
 
-#: includes/admin/form-fields.php:345
+#: includes/admin/form-fields.php:435
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:346
+#: includes/admin/form-fields.php:436
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Numer karty kredytowej:"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:347
+#: includes/admin/form-fields.php:437
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Telefon"
 
 # @ WPBDM
-#: includes/admin/form-fields.php:348
+#: includes/admin/form-fields.php:438
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Pola ofert"
 
-#: includes/admin/form-fields.php:349
+#: includes/admin/form-fields.php:439
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr ""
 
-#: includes/admin/form-fields.php:350
+#: includes/admin/form-fields.php:440
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/form-fields.php:371
+#: includes/admin/form-fields.php:470
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Ustawienia zapisane"
@@ -3057,6 +3057,13 @@ msgstr "Etykieta pola jest wymagana."
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Zezwolić na wyszukiwanie pustych pól wyborów?"
+
+# @ WPBDM
+#: includes/fields/class-fieldtypes-social.php:76
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Field Display Order"
+msgstr "Opcje wyświetlania pola"
 
 # @ WPBDM
 #: includes/fields/class-fieldtypes-textarea.php:194
@@ -4437,7 +4444,7 @@ msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/licensing.php:184
+#: includes/licensing.php:158
 #, fuzzy
 msgctxt "admin settings"
 msgid "Enter License Key here"
@@ -4743,7 +4750,7 @@ msgstr ""
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:40
-#: includes/licensing.php:117
+#: includes/licensing.php:95
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Moduły Premium"
@@ -5917,12 +5924,12 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
 
-#: includes/licensing.php:137
+#: includes/licensing.php:111
 msgctxt "settings"
 msgid "Themes"
 msgstr ""
 
-#: includes/licensing.php:160
+#: includes/licensing.php:134
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -5931,26 +5938,26 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:185
+#: includes/licensing.php:159
 #, fuzzy
 msgctxt "settings"
 msgid "Activate"
 msgstr "Aktywacja Licencji"
 
-#: includes/licensing.php:185 includes/licensing.php:186
+#: includes/licensing.php:159 includes/licensing.php:160
 msgctxt "settings"
 msgid "Please wait..."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:186
+#: includes/licensing.php:160
 #, fuzzy
 msgctxt "settings"
 msgid "Deactivate"
 msgstr "Aktywacja Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:232 includes/licensing.php:233
+#: includes/licensing.php:206 includes/licensing.php:207
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licencje"
@@ -6404,41 +6411,41 @@ msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/class-listing.php:299
+#: includes/class-listing.php:302
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/class-listing.php:307
+#: includes/class-listing.php:310
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: includes/class-listing.php:346
+#: includes/class-listing.php:349
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/class-listing.php:505
+#: includes/class-listing.php:508
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Abonament niedostępny)"
 
 # @ WPBDM
-#: includes/class-listing.php:662
+#: includes/class-listing.php:665
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(powtarzające się)"
 
-#: includes/class-listing.php:664
+#: includes/class-listing.php:667
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -6503,21 +6510,21 @@ msgstr "Oferta Bezpłatna"
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:235
+#: includes/class-listing-email-notification.php:234
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:282
+#: includes/class-listing-email-notification.php:285
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Powiadomienie o Edycji oferty"
 
 # @ WPBDM
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:354
+#: includes/class-listing-email-notification.php:357
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -7068,13 +7075,13 @@ msgid "Settings"
 msgstr "Ustawienia"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:334
+#: includes/class-wpbdp.php:335
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie dla tej oferty"
 
-#: includes/class-wpbdp.php:338
+#: includes/class-wpbdp.php:339
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -7170,6 +7177,39 @@ msgid "Select List"
 msgstr "Lista Wyboru"
 
 # @ WPBDM
+#: includes/fields/class-fieldtypes-social.php:35
+#, fuzzy
+msgctxt "form-fields api"
+msgid "Social Site (Other)"
+msgstr "Strona Społeczności (Twitter)"
+
+# @ WPBDM
+#: includes/fields/class-fieldtypes-social.php:95
+#: includes/fields/class-fieldtypes-url.php:136
+msgctxt "form-fields api"
+msgid "URL:"
+msgstr "URL:"
+
+# @ WPBDM
+#: includes/fields/class-fieldtypes-social.php:108
+#, fuzzy
+msgctxt "form-fields api"
+msgid "Text:"
+msgstr "Pole tekstowe / z możliwością html"
+
+#: includes/fields/class-fieldtypes-social.php:114
+msgctxt "form-fields api"
+msgid "Text to be displayed along with icon"
+msgstr ""
+
+# @ WPBDM
+#: includes/fields/class-fieldtypes-social.php:121
+#, fuzzy
+msgctxt "form-fields api"
+msgid "Type:"
+msgstr "Rodzaj"
+
+# @ WPBDM
 #: includes/fields/class-fieldtypes-textarea.php:16
 msgctxt "form-fields api"
 msgid "Textarea"
@@ -7200,19 +7240,13 @@ msgid "URL Field"
 msgstr "Pole URL"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-url.php:136
-msgctxt "form-fields api"
-msgid "URL:"
-msgstr "URL:"
-
-# @ WPBDM
 #: includes/fields/class-fieldtypes-url.php:144
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Tekst alternatywny(opcjonalnie):"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:706
+#: includes/fields/class-form-field.php:694
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -7291,6 +7325,7 @@ msgstr "Kraj jest wymagany."
 
 # @ WPBDM
 #: includes/fields/class-fieldtypes-image.php:100
+#: includes/fields/class-fieldtypes-social.php:156
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Usuń"
@@ -7302,12 +7337,12 @@ msgid "Invalid form field type"
 msgstr "Niewłaściwy typ Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:585
+#: includes/fields/class-form-field.php:581
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Etykieta pola jest wymagana."
 
-#: includes/fields/class-form-field.php:596
+#: includes/fields/class-form-field.php:592
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -7315,7 +7350,7 @@ msgid ""
 "delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
 
-#: includes/fields/class-form-field.php:599
+#: includes/fields/class-form-field.php:595
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -7323,7 +7358,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:633
+#: includes/fields/class-form-field.php:629
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -7333,55 +7368,55 @@ msgstr ""
 "przypisanie."
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:643
+#: includes/fields/class-form-field.php:639
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" jest niewłaściwym typem pola do tego przypisania"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:696
+#: includes/fields/class-form-field.php:684
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:719
+#: includes/fields/class-form-field.php:707
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Wykryto błąd w trakcie próby usunięcia tego pola."
 
 # @ WPBDM
-#: includes/form-fields.php:569
+#: includes/form-fields.php:570
 msgctxt "form-fields-api"
 msgid "Email Validator"
 msgstr "Weryfikator E-mail"
 
 # @ WPBDM
-#: includes/form-fields.php:570
+#: includes/form-fields.php:571
 msgctxt "form-fields-api"
 msgid "URL Validator"
 msgstr "Weryfikator URL"
 
 # @ WPBDM
-#: includes/form-fields.php:571
+#: includes/form-fields.php:572
 msgctxt "form-fields-api"
 msgid "Whole Number Validator"
 msgstr "Weryfikator liczb całkowitych"
 
 # @ WPBDM
-#: includes/form-fields.php:572
+#: includes/form-fields.php:573
 msgctxt "form-fields-api"
 msgid "Decimal Number Validator"
 msgstr "Weryfikator liczb dziesiętnych"
 
 # @ WPBDM
-#: includes/form-fields.php:573
+#: includes/form-fields.php:574
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr "Weryfikator daty"
 
 # @ WPBDM
-#: includes/form-fields.php:574
+#: includes/form-fields.php:575
 #, fuzzy
 msgctxt "form-fields-api"
 msgid "Word Count Validator"
@@ -7439,19 +7474,19 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/form-fields.php:581
+#: includes/form-fields.php:582
 msgctxt "form-fields-api validation"
 msgid "Field"
 msgstr "Pole"
 
 # @ WPBDM
-#: includes/form-fields.php:602 includes/form-fields.php:607
+#: includes/form-fields.php:603 includes/form-fields.php:608
 msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s jest wymagane."
 
 # @ WPBDM
-#: includes/form-fields.php:619 includes/form-fields.php:626
+#: includes/form-fields.php:620 includes/form-fields.php:627
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
@@ -7459,50 +7494,50 @@ msgstr ""
 "zapomniałeś o http://"
 
 # @ WPBDM
-#: includes/form-fields.php:641
+#: includes/form-fields.php:642
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s jest źle sformatowany. Wymagamy właściwego adresu E-mail."
 
 # @ WPBDM
-#: includes/form-fields.php:648
+#: includes/form-fields.php:649
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s musi być liczbą. Dziesiętne nie są dozwolone. "
 
 # @ WPBDM
-#: includes/form-fields.php:655
+#: includes/form-fields.php:656
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s musi być liczbą."
 
 # @ WPBDM
-#: includes/form-fields.php:674
+#: includes/form-fields.php:675
 #, fuzzy
 msgctxt "form-fields-api validation"
 msgid "%1$s must be in the format %2$s."
 msgstr "%s musi być w formacie %s."
 
 # @ WPBDM
-#: includes/form-fields.php:712
+#: includes/form-fields.php:713
 msgctxt "form-fields-api validation"
 msgid "%s must be a valid date."
 msgstr "%s musi być datą poprawną."
 
-#: includes/form-fields.php:735
+#: includes/form-fields.php:736
 msgctxt "form-fields-api validation"
 msgid "%s must have less than %d words."
 msgstr ""
 
 # @ WPBDM
-#: includes/form-fields.php:754
+#: includes/form-fields.php:755
 #, fuzzy
 msgctxt "form-fields-api validation"
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s jest niewłaściwe. Wartość musi być jedną z %s."
 
 # @ WPBDM
-#: includes/form-fields.php:719
+#: includes/form-fields.php:720
 #, fuzzy
 msgctxt "image field"
 msgid "Caption for %s is required."
@@ -7738,26 +7773,26 @@ msgid "General"
 msgstr "Główna"
 
 # @ WPBDM
-#: includes/licensing.php:302
+#: includes/licensing.php:276
 #, fuzzy
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
-#: includes/licensing.php:307
+#: includes/licensing.php:281
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Nie wprowadzono klucz licencji"
 
 # @ WPBDM
-#: includes/licensing.php:330
+#: includes/licensing.php:304
 #, fuzzy
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "Nie wprowadzono klucz licencji"
 
-#: includes/licensing.php:332
+#: includes/licensing.php:306
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -7765,7 +7800,7 @@ msgid ""
 "reported as revoked by the licensing software."
 msgstr ""
 
-#: includes/licensing.php:334
+#: includes/licensing.php:308
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
@@ -7773,31 +7808,31 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:345 includes/licensing.php:386
+#: includes/licensing.php:319 includes/licensing.php:360
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Niewłaściwy Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:362
+#: includes/licensing.php:336
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Niewłaściwe ID Modułu"
 
 # @ WPBDM
-#: includes/licensing.php:389
+#: includes/licensing.php:363
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "Błąd Deaktywacji"
 
-#: includes/licensing.php:408
+#: includes/licensing.php:382
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:412 includes/licensing.php:458
+#: includes/licensing.php:386 includes/licensing.php:432
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -7806,19 +7841,19 @@ msgid ""
 "whitelist."
 msgstr ""
 
-#: includes/licensing.php:414 includes/licensing.php:460
+#: includes/licensing.php:388 includes/licensing.php:434
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr ""
 
-#: includes/licensing.php:424
+#: includes/licensing.php:398
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:429
+#: includes/licensing.php:403
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -7827,7 +7862,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:431
+#: includes/licensing.php:405
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -7835,7 +7870,7 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:433
+#: includes/licensing.php:407
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -7843,25 +7878,25 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:440
+#: includes/licensing.php:414
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Nie można połączyć z serwerem danych licencji"
 
-#: includes/licensing.php:456
+#: includes/licensing.php:430
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:529
+#: includes/licensing.php:498
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Katalog Firm - Najświeższe Firmy"
 
 # @ WPBDM
-#: includes/licensing.php:539
+#: includes/licensing.php:508
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -7872,7 +7907,7 @@ msgstr ""
 "licencji. Przejdź do <a>Zarządzanie opcjami - Licencje</a>aby wprowadzić "
 "informacje o licencji."
 
-#: includes/licensing.php:550
+#: includes/licensing.php:519
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -7880,21 +7915,21 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:558 includes/licensing.php:614
+#: includes/licensing.php:527 includes/licensing.php:583
 #, fuzzy
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Odśwież Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:585
+#: includes/licensing.php:554
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Katalog firm - wygasł Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:595
+#: includes/licensing.php:564
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -7907,7 +7942,7 @@ msgstr ""
 "czasu odnowienia licencji."
 
 # @ WPBDM
-#: includes/licensing.php:606
+#: includes/licensing.php:575
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -7920,38 +7955,38 @@ msgstr ""
 "czasu odnowienia licencji."
 
 # @ WPBDM
-#: includes/licensing.php:700
+#: includes/licensing.php:669
 #, fuzzy
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/licensing.php:709
+#: includes/licensing.php:678
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Nie możemy aktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/licensing.php:711
+#: includes/licensing.php:680
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencja została aktywowana"
 
 # @ WPBDM
-#: includes/licensing.php:731
+#: includes/licensing.php:700
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Nie możemy deaktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/licensing.php:733
+#: includes/licensing.php:702
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencja deaktywowana"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:924
+#: includes/licensing.php:893
 msgctxt "deprecation"
 msgid ""
 "\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "

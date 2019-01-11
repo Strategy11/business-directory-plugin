@@ -1,18 +1,18 @@
 <?php
 /**
+ * Submit Listing View
+ *
  * @package WPBDP\Views
  */
 
 // phpcs:disable
-
-require_once( WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php' );
-
+require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php';
 /**
  * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
-    protected $listing = null;
+    protected $listing  = null;
     protected $sections = array();
 
     protected $prevent_save = false;
@@ -20,11 +20,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     protected $data         = array();
     protected $messages     = array( 'general' => array() );
 
-    private $available_plans           = array();
-    public $skip_plan_selection        = false;
-    public $skip_plan_payment          = false;
-    public $category_specific_fields   = false;
-    public $fixed_plan_id              = 0;
+    private $available_plans         = array();
+    public $skip_plan_selection      = false;
+    public $skip_plan_payment        = false;
+    public $category_specific_fields = false;
+    public $fixed_plan_id            = 0;
 
 
     public function get_title() {
@@ -54,18 +54,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         // Required for account creation (if enabled).
-        if ( 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) ) {
+        if ( 'disabled' !== wpbdp_get_option( 'create-account-during-submit-mode' ) ) {
             wp_enqueue_script( 'password-strength-meter' );
         }
 
-        wp_localize_script( 'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
-            'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
-            'completeListingTxt' => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
-            'continueToPaymentTxt' => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
-            'isAdmin' => current_user_can( 'administrator' ),
-            'waitAMoment' => _x( 'Please wait a moment!', 'submit listing', 'WPBDM' ),
-            'somethingWentWrong' => _x( 'Something went wrong!', 'submit listing', 'WPBDM' ),
-        ) );
+        wp_localize_script(
+            'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
+				'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
+				'completeListingTxt'       => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
+				'continueToPaymentTxt'     => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
+				'isAdmin'                  => current_user_can( 'administrator' ),
+				'waitAMoment'              => _x( 'Please wait a moment!', 'submit listing', 'WPBDM' ),
+				'somethingWentWrong'       => _x( 'Something went wrong!', 'submit listing', 'WPBDM' ),
+            )
+        );
 
         do_action( 'wpbdp_submit_listing_enqueue_resources' );
     }
@@ -76,14 +78,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     public function dispatch() {
         $msg = '';
-        if ( ! $this->can_submit( $msg ) )
+        if ( ! $this->can_submit( $msg ) ) {
             return wpbdp_render_msg( $msg );
+        }
 
         if ( $this->editing ) {
             $message = '';
 
             if ( empty( $_REQUEST['listing_id'] ) ) {
-                $message = _x( "No listing ID was specified.", 'submit listing', 'WPBDM' );
+                $message = _x( 'No listing ID was specified.', 'submit listing', 'WPBDM' );
             } elseif ( ! wpbdp_user_can( 'edit', $_GET['listing_id'] ) ) {
                 $message = _x( "You can't edit this listing.", 'submit listing', 'WPBDM' );
             }
@@ -99,7 +102,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->_auth_required();
 
         // Handle "Clear Form" request.
-        if ( ! empty( $_POST ) && ! empty( $_POST['reset'] ) && 'reset' == $_POST['reset'] ) {
+        if ( ! empty( $_POST ) && ! empty( $_POST['reset'] ) && 'reset' === $_POST['reset'] ) {
             if ( ! $this->editing ) {
                 wp_delete_post( $this->listing->get_id(), true );
                 return $this->_redirect( wpbdp_url( 'submit_listing' ) );
@@ -108,13 +111,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return $this->_redirect( wpbdp_url( 'edit_listing', $this->listing->get_id() ) );
         }
 
-        if ( ! $this->editing && 'auto-draft' != get_post_status( $this->listing->get_id() ) ) {
-            $possible_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->listing->get_id(), 'payment_type' => 'initial', 'status' => 'pending' ) )->get();
+        if ( ! $this->editing && 'auto-draft' !== get_post_status( $this->listing->get_id() ) ) {
+            $possible_payment = WPBDP_Payment::objects()->filter(
+                array(
+					'listing_id'   => $this->listing->get_id(),
+					'payment_type' => 'initial',
+					'status'       => 'pending',
+                )
+            )->get();
 
-            if ( $possible_payment )
+            if ( $possible_payment ) {
                 return $this->_redirect( $possible_payment->get_checkout_url() );
-            else
-                return $this->done();
+            } else {
+				return $this->done();
+            }
         }
 
         if ( $this->editing && ! $this->listing->has_fee_plan() ) {
@@ -136,27 +146,28 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
-        if ( ! empty( $_POST['save_listing'] ) && 1 == $_POST['save_listing'] && ! $this->prevent_save ) {
+        if ( ! empty( $_POST['save_listing'] ) && '1' === $_POST['save_listing'] && ! $this->prevent_save ) {
             $res = $this->save_listing();
 
             if ( is_wp_error( $res ) ) {
                 $errors = $res->get_error_messages();
 
-                foreach ( $errors as $e )
+                foreach ( $errors as $e ) {
                     $this->messages( $e, 'error', 'general' );
+                }
             } else {
                 return $res;
             }
         }
 
-        if ( current_user_can( 'administrator' ) )
+        if ( current_user_can( 'administrator' ) ) {
             $this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'WPBDM' ), 'notice', 'general' );
+        }
 
         $instructions = trim( wpbdp_get_option( 'submit-instructions' ) );
         if ( $instructions ) {
             $this->messages( $instructions, 'tip', 'general' );
         }
-
 
         // Prepare $messages for template.
         $messages = array();
@@ -168,40 +179,45 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        $html = wpbdp_render( 'submit-listing',
-                              array( 'listing'  => $this->listing,
-                                     'sections' => $this->sections,
-                                     'messages' => $messages,
-                                     'is_admin' => current_user_can( 'administrator' ),
-                                     'editing'  => $this->editing,
-                                     'submit'   => $this,
-                                 ),
-                              false );
+        $html = wpbdp_render(
+            'submit-listing',
+            array(
+                'listing'  => $this->listing,
+                'sections' => $this->sections,
+                'messages' => $messages,
+                'is_admin' => current_user_can( 'administrator' ),
+                'editing'  => $this->editing,
+                'submit'   => $this,
+            ),
+            false
+        );
         return $html;
     }
 
     public function ajax_reset_plan() {
         $res = new WPBDP_Ajax_Response();
 
-        if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) )
+        if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
             wp_die();
+        }
 
         $this->listing = $this->find_or_create_listing();
 
-        if ( ! $this->listing->has_fee_plan() )
+        if ( ! $this->listing->has_fee_plan() ) {
             wp_die();
+        }
 
         if ( ! $this->editing ) {
             // Store previous values before clearing.
-            $plan = $this->listing->get_fee_plan();
-            $this->data['previous_plan'] = $plan ? $plan->fee_id : 0;
+            $plan                              = $this->listing->get_fee_plan();
+            $this->data['previous_plan']       = $plan ? $plan->fee_id : 0;
             $this->data['previous_categories'] = wp_get_post_terms( $this->listing->get_id(), WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) );
 
             // Clear plan and categories.
             $this->listing->set_fee_plan( null );
         }
 
-        if( ! empty( $_POST['listingfields'] ) ) {
+        if ( ! empty( $_POST['listingfields'] ) ) {
             update_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', $_POST['listingfields'] );
         }
 
@@ -212,28 +228,32 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     /**
      * Additional configuration for the submit process, prior to the sections being called.
+     *
      * @since 5.1.2
      */
     private function configure() {
-        $this->available_plans = wpbdp_get_fee_plans();
-
         // Show "Complete Listing" instead of "Continue to Payment" if all fees are free.
         $this->skip_plan_payment = true;
-        foreach ( $this->available_plans as $plan ) {
-            if ( 'flat' != $plan->pricing_model || 0.0 != $plan->amount ) {
+        foreach ( wpbdp_get_fee_plans() as $plan ) {
+            if ( 'flat' !== $plan->pricing_model || 0.0 !== $plan->amount ) {
                 $this->skip_plan_payment = false;
-                break;
             }
+
+            if ( ! current_user_can( 'administrator' ) && ! empty( $plan->extra_data['private'] ) ) {
+                continue;
+            }
+
+            $this->available_plans[] = $plan;
         }
 
         $this->category_specific_fields = $this->category_specific_fields();
 
         // Maybe skip plan selection?
         if ( $this->skip_plan_payment ) {
-            $this->skip_plan_selection = ( 1 == count( $this->get_available_plans() ) );
+            $this->skip_plan_selection = ( 1 === count( $this->get_available_plans() ) );
 
             if ( $this->skip_plan_selection ) {
-                $plan = $this->available_plans[0];
+                $plan                = $this->available_plans[0];
                 $this->fixed_plan_id = $plan->id;
             }
         }
@@ -242,8 +262,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public function ajax_sections() {
         $res = new WPBDP_Ajax_Response();
 
-        if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) )
+        if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
             $res->send_error( $msg );
+        }
 
         $this->listing = $this->find_or_create_listing();
 
@@ -265,8 +286,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $messages_html .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
             }
 
-            $sections[ $section['id'] ] = $section;
-            $sections[ $section['id'] ]['html'] = wpbdp_render( 'submit-listing-section', array( 'section' => $section, 'messages' => $messages_html ) );
+            $sections[ $section['id'] ]         = $section;
+            $sections[ $section['id'] ]['html'] = wpbdp_render(
+                'submit-listing-section', array(
+                    'section'  => $section,
+                    'messages' => $messages_html,
+                )
+            );
         }
 
         $res->add( 'listing_id', $this->listing->get_id() );
@@ -276,8 +302,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     public function messages( $msg, $type = 'notice', $context = 'general' ) {
-        if ( ! isset( $this->messages[ $context ] ) )
+        if ( ! isset( $this->messages[ $context ] ) ) {
             $this->messages[ $context ] = array();
+        }
 
         foreach ( (array) $msg as $msg_ ) {
             $this->messages[ $context ][] = array( $msg_, $type );
@@ -286,8 +313,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( isset( $this->sections[ $context ] ) ) {
             $this->sections[ $context ]['flags'][] = 'has-message';
 
-            if ( 'error' == $type )
+            if ( 'error' === $type ) {
                 $this->sections[ $context ]['flags'][] = 'has-error';
+            }
         }
     }
 
@@ -306,11 +334,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        if ( 'submit_listing' == wpbdp_current_view() && wpbdp_get_option( 'disable-submit-listing' ) ) {
-            if ( current_user_can( 'administrator' ) )
+        if ( 'submit_listing' === wpbdp_current_view() && wpbdp_get_option( 'disable-submit-listing' ) ) {
+            if ( current_user_can( 'administrator' ) ) {
                 $msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'WPBDM' );
-            else
-                $msg = _x( 'View not available.', 'templates', 'WPBDM' );
+            } else {
+                $msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'WPBDM' );
+            }
 
             return false;
         }
@@ -323,16 +352,24 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( ! empty( $_REQUEST['listing_id'] ) && false != get_post_status( $_REQUEST['listing_id'] ) ) {
             $listing_id = absint( $_REQUEST['listing_id'] );
-            $listing = wpbdp_get_listing( $listing_id );
+            $listing    = wpbdp_get_listing( $listing_id );
         } else {
-            $listing_id = wp_insert_post( array( 'post_author' => get_current_user_id(), 'post_type' => WPBDP_POST_TYPE, 'post_status' => 'auto-draft', 'post_title' => '(no title)' ) );
+            $listing_id = wp_insert_post(
+                array(
+                    'post_author' => get_current_user_id(),
+                    'post_type'   => WPBDP_POST_TYPE,
+                    'post_status' => 'auto-draft',
+                    'post_title'  => '(no title)',
+                )
+            );
 
             $listing = wpbdp_get_listing( $listing_id );
             $listing->set_fee_plan( null );
         }
 
-        if ( ! $listing_id )
+        if ( ! $listing_id ) {
             die();
+        }
 
         $this->editing = $this->editing || ( (bool) absint( ! empty( $_POST['editing'] ) ? $_POST['editing'] : 0 ) );
 
@@ -352,39 +389,39 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( $this->can_edit_plan_or_categories() ) {
             $sections['plan_selection'] = array(
-                'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'WPBDM' ) : _x( 'Category & plan selection', 'submit listing', 'WPBDM' )
+                'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'WPBDM' ) : _x( 'Category & plan selection', 'submit listing', 'WPBDM' ),
             );
         }
 
         $sections['listing_fields'] = array(
-            'title' => _x( 'Listing Information', 'submit listing', 'WPBDM' ) );
+            'title' => _x( 'Listing Information', 'submit listing', 'WPBDM' ),
+		);
 
         if ( wpbdp_get_option( 'allow-images' ) ) {
             $sections['listing_images'] = array(
-                'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' )
+                'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' ),
             );
         }
 
         $sections = apply_filters( 'wpbdp_submit_sections', $sections, $this );
 
-        if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && 'disabled' != wpbdp_get_option( 'create-account-during-submit-mode' ) && ! is_user_logged_in() ) {
+        if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && 'disabled' !== wpbdp_get_option( 'create-account-during-submit-mode' ) && ! is_user_logged_in() ) {
             $sections['account_creation'] = array(
-                'title' => _x( 'Account Creation', 'submit listing', 'WPBDM' )
+                'title' => _x( 'Account Creation', 'submit listing', 'WPBDM' ),
             );
         }
 
         if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
-                'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' )
+                'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' ),
             );
         }
 
         foreach ( $sections as $section_id => &$s ) {
-            $s['id'] = $section_id;
-            $s['html'] = '';
+            $s['id']    = $section_id;
+            $s['html']  = '';
             $s['flags'] = array();
         }
-
 
         return $sections;
     }
@@ -399,7 +436,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return false;
         }
 
-        if ( 'flat' == $plan->fee->pricing_model ) {
+        if ( 'flat' === $plan->fee->pricing_model ) {
             return true;
         }
 
@@ -410,34 +447,34 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         foreach ( $this->sections as &$section ) {
             $callback = WPBDP_Utils::normalize( $section['id'] );
 
-            if ( ! $this->listing->has_fee_plan() && 'plan_selection' != $section['id'] ) {
+            if ( ! $this->listing->has_fee_plan() && 'plan_selection' !== $section['id'] ) {
                 $section['flags'][] = 'collapsed';
                 $section['flags'][] = 'disabled';
-                $section['html'] = _x( '(Please choose a fee plan above)', 'submit listing', 'WPBDM' );
-                $section['state'] = 'disabled';
+                $section['html']    = _x( '(Please choose a fee plan above)', 'submit listing', 'WPBDM' );
+                $section['state']   = 'disabled';
                 continue;
             }
 
             if ( method_exists( $this, $callback ) ) {
-                $res = call_user_func( array( $this, $callback ) );
-                $html = '';
+                $res     = call_user_func( array( $this, $callback ) );
+                $html    = '';
                 $enabled = false;
 
                 if ( is_array( $res ) ) {
                     $enabled = $res[0];
-                    $html = $res[1];
+                    $html    = $res[1];
                 } elseif ( is_string( $res ) && ! empty( $res ) ) {
                     $enabled = true;
-                    $html = $res;
+                    $html    = $res;
                 } elseif ( false === $res ) {
                     $section['flags'][] = 'hidden';
                 }
 
                 $section['state'] = $enabled ? 'enabled' : 'disabled';
-                $section['html'] = $html;
+                $section['html']  = $html;
             } else {
                 $section['state'] = 'disabled';
-                $section['html'] = '';
+                $section['html']  = '';
             }
 
             $section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
@@ -452,7 +489,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $vars['listing'] = $this->listing;
         $vars['editing'] = $this->editing;
         $vars['_submit'] = $this;
-        $output = wpbdp_render( $template, $vars, false );
+        $output          = wpbdp_render( $template, $vars, false );
 
         return array( $result, $output );
     }
@@ -460,11 +497,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function plan_selection() {
         global $wpbdp;
 
-        $plans = $this->available_plans;
+        $plans          = $this->available_plans;
         $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
 
-        if ( ! $plans )
+        if ( ! $plans ) {
             wp_die( _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' ) );
+        }
 
         if ( $this->editing ) {
             $this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
@@ -522,7 +560,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     $this->listing->set_fee_plan( $plan );
                 }
             }
-        } else if ( ! $categories && $this->skip_plan_selection ) {
+        } elseif ( ! $categories && $this->skip_plan_selection ) {
             $current_categories = $this->listing->get_categories( 'ids' );
 
             wp_set_post_terms( $this->listing->get_id(), $current_categories, WPBDP_CATEGORY_TAX, false );
@@ -564,13 +602,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * 'listing_fields'.
      */
     private function listing_fields( $preview = false ) {
-        $form_fields = wpbdp_get_form_fields( array( 'association' => '-category' ) );
-        $form_fields = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$form_fields, &$this->listing ) );
+        $form_fields         = wpbdp_get_form_fields( array( 'association' => '-category' ) );
+        $form_fields         = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$form_fields, &$this->listing ) );
         $saved_listingfields = get_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', true );
-        $field_values = ! empty( $saved_listingfields ) ? $saved_listingfields : array();
+        $field_values        = ! empty( $saved_listingfields ) ? $saved_listingfields : array();
 
         $validation_errors = array();
-        $fields = array();
+        $fields            = array();
 
         foreach ( $form_fields as $field ) {
             if ( ! $preview && ! $field->validate_categories( $this->listing->get_categories( 'ids' ) ) ) {
@@ -579,26 +617,29 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $value = ! empty( $field_values[ $field->get_id() ] ) ? $field_values[ $field->get_id() ] : $field->value( $this->listing->get_id() );
 
-            if ( 'title' == $field->get_association() && '(no title)' == $value ) {
+            if ( 'title' === $field->get_association() && '(no title)' === $value ) {
                 $value = '';
             }
 
             $posted_value = $field->value_from_POST();
 
-            if ( null !== $posted_value )
+            if ( null !== $posted_value ) {
                 $value = $posted_value;
+            }
 
             $field_values[ $field->get_id() ] = $value;
 
             if ( ! empty( $_POST['save_listing'] ) ) {
                 $field_errors = null;
-                $validate_res = apply_filters_ref_array( 'wpbdp_listing_submit_validate_field', array(
-                                                            $field->validate( $value, $field_errors ),
-                                                            &$field_errors,
-                                                            &$field,
-                                                            $value,
-                                                            &$this->listing
-                                                        ) );
+                $validate_res = apply_filters_ref_array(
+                    'wpbdp_listing_submit_validate_field', array(
+                        $field->validate( $value, $field_errors ),
+                        &$field_errors,
+                        &$field,
+                        $value,
+                        &$this->listing,
+                    )
+                );
 
                 if ( ! $validate_res ) {
                     $validation_errors[ $field->get_id() ] = $field_errors;
@@ -630,8 +671,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      */
     private function sort_images( $images_, $meta ) {
         // Sort inside $meta first.
-        WPBDP_Utils::sort_by_property( $meta, 'order' );
-        $meta = array_reverse( $meta );
+        WPBDP__Utils::sort_by_property( $meta, 'order' );
+        $meta = array_reverse( $meta, true );
 
         // Sort $images_ considering $meta.
         $images = array();
@@ -656,8 +697,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     // phpcs:disable
 
     private function listing_images() {
-        if ( ! wpbdp_get_option( 'allow-images' ) )
+        if ( ! wpbdp_get_option( 'allow-images' ) ) {
             return false;
+        }
 
         $listing = $this->listing;
         $plan = $listing->get_fee_plan();

@@ -202,9 +202,26 @@ table.wp-list-table.formfields tr.ui-sortable-helper {
     margin-right: 10px;
 }
 
-.wpbdp-settings-type-file .preview,
-.wpbdp-form-field-type-image .preview {
-    float: none;
+.wpbdp-settings-type-file ,
+.wpbdp-form-field-type-social-network,
+.wpbdp-form-field-type-image {
+    .preview {
+        float: none;
+    }
+}
+
+.wpbdp-form-field-type-social-network {
+    .wpbdp-social-type-field {
+        .sublabel {
+            display: block;
+        }
+        .wpbdp-inner-social-field-option:nth-of-type(2n+1) {
+            display: inline-block;
+            width: 20%;
+            margin-right: 50%;
+            float: right;
+        }
+    }
 }
 
 /* Debug info */

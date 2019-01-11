@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 4.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2018-11-06 20:25:36+00:00\n"
-"PO-Revision-Date: 2018-11-06 15:29-0500\n"
+"POT-Creation-Date: 2018-12-11 23:26:20+00:00\n"
+"PO-Revision-Date: 2018-12-11 18:27-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -199,7 +199,7 @@ msgstr ""
 "administrador puede cancelar su subscripción contactando el procesador de "
 "pagos directamente."
 
-#: includes/class-wpbdp.php:433
+#: includes/class-wpbdp.php:436
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -207,7 +207,7 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabilitadas en "
 "este momento por una <a>actualización manual</a> está pendiente."
 
-#: includes/class-wpbdp.php:440
+#: includes/class-wpbdp.php:443
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -220,47 +220,47 @@ msgstr ""
 msgid "%s (ex. %s)"
 msgstr "%s (ej. %s)"
 
-#: includes/form-fields.php:354
+#: includes/form-fields.php:355
 msgid "Business Name"
 msgstr "Nombre del Negocio"
 
-#: includes/form-fields.php:363
+#: includes/form-fields.php:364
 msgid "Business Genre"
 msgstr "Tipo de Negocio"
 
-#: includes/form-fields.php:372
+#: includes/form-fields.php:373
 msgid "Short Business Description"
 msgstr "Descripción corta del negocio"
 
-#: includes/form-fields.php:380
+#: includes/form-fields.php:381
 msgid "Long Business Description"
 msgstr "Descripción larga del negocio"
 
-#: includes/form-fields.php:389
+#: includes/form-fields.php:390
 msgid "Business Website Address"
 msgstr "Sitio web del negocio"
 
-#: includes/form-fields.php:398
+#: includes/form-fields.php:399
 msgid "Business Phone Number"
 msgstr "Número telefónico del negocio"
 
-#: includes/form-fields.php:406
+#: includes/form-fields.php:407
 msgid "Business Fax"
 msgstr "Fax del negocio"
 
-#: includes/form-fields.php:414
+#: includes/form-fields.php:415
 msgid "Business Contact Email"
 msgstr "Correo electrónico de contacto del negocio"
 
-#: includes/form-fields.php:423
+#: includes/form-fields.php:424
 msgid "Business Tags"
 msgstr "Etiquetas"
 
-#: includes/form-fields.php:431
+#: includes/form-fields.php:432
 msgid "Business Address"
 msgstr "Dirección del Negocio"
 
-#: includes/form-fields.php:439
+#: includes/form-fields.php:440
 msgid "ZIP Code"
 msgstr "Código Postal"
 
@@ -276,7 +276,7 @@ msgstr "Login ID"
 msgid "Transaction Key"
 msgstr "Clave Transaccional"
 
-#: includes/licensing.php:113 includes/licensing.php:114
+#: includes/licensing.php:91 includes/licensing.php:92
 msgid "Licenses"
 msgstr "Licencias"
 
@@ -923,7 +923,7 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr "Reportado"
 
-#: includes/admin/class-admin-listings.php:639
+#: includes/admin/class-admin-listings.php:641
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr "El historial de pagos del listado se eliminó correctamente"
@@ -1088,7 +1088,7 @@ msgctxt "admin"
 msgid "Images"
 msgstr "Imágenes"
 
-#: includes/admin/form-fields.php:122
+#: includes/admin/form-fields.php:193
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires fields with the following "
@@ -1097,7 +1097,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere campos con las siguientes "
 "asociaciones para funcionar correctamente: <b>%s</b>."
 
-#: includes/admin/form-fields.php:124
+#: includes/admin/form-fields.php:195
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a field with a <b>%s</b> "
@@ -1106,7 +1106,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere un campo con la asociación <b>%s</"
 "b> para funcionar correctamente."
 
-#: includes/admin/form-fields.php:128
+#: includes/admin/form-fields.php:199
 msgctxt "admin"
 msgid ""
 "You can create these custom fields by yourself inside \"Manage Form Fields\" "
@@ -1115,12 +1115,12 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: includes/admin/form-fields.php:132
+#: includes/admin/form-fields.php:204
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
 
-#: includes/admin/form-fields.php:135
+#: includes/admin/form-fields.php:209
 msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
@@ -1145,47 +1145,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr "Reportado"
 
-#: includes/class-listing.php:765
+#: includes/class-listing.php:768
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: includes/class-listing.php:766
+#: includes/class-listing.php:769
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Antiguo"
 
-#: includes/class-listing.php:767
+#: includes/class-listing.php:770
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incompleto"
 
-#: includes/class-listing.php:768
+#: includes/class-listing.php:771
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Pendiente de pago"
 
-#: includes/class-listing.php:769
+#: includes/class-listing.php:772
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Completado"
 
-#: includes/class-listing.php:770
+#: includes/class-listing.php:773
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Pendiente de mejora"
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:774
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expirado"
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:775
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Pendientes de renovación"
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonado"
@@ -1210,32 +1210,32 @@ msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Ver Pago"
 
-#: includes/admin/class-admin-listings.php:578
+#: includes/admin/class-admin-listings.php:580
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publicar Listado"
 
-#: includes/admin/class-admin-listings.php:579
+#: includes/admin/class-admin-listings.php:581
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Marcar como “Pendiente de Revisión”"
 
-#: includes/admin/class-admin-listings.php:580
+#: includes/admin/class-admin-listings.php:582
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr "No mostrar en el directorio (marcar como “Borrador”)"
 
-#: includes/admin/class-admin-listings.php:582
+#: includes/admin/class-admin-listings.php:584
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Renovar listados"
 
-#: includes/admin/class-admin-listings.php:583
+#: includes/admin/class-admin-listings.php:585
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Marcar listados como “Expirados”"
 
-#: includes/admin/class-admin-listings.php:590
+#: includes/admin/class-admin-listings.php:592
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Enviar claves de acceso"
@@ -2415,104 +2415,104 @@ msgstr ""
 "disponibles para el modo actual (ahora \"%s\"). Para ver todos los planes "
 "para este modo haga click en <a>Activas</a>."
 
-#: includes/admin/form-fields.php:9
+#: includes/admin/form-fields.php:24
 msgctxt "form-fields admin"
 msgid "form field"
 msgstr "campo de formulario"
 
-#: includes/admin/form-fields.php:10
+#: includes/admin/form-fields.php:25
 msgctxt "form-fields admin"
 msgid "form fields"
 msgstr "campos de formulario"
 
-#: includes/admin/form-fields.php:17
+#: includes/admin/form-fields.php:33
 msgctxt "form-fields admin"
 msgid "Order"
 msgstr "Orden"
 
-#: includes/admin/form-fields.php:18
+#: includes/admin/form-fields.php:34
 msgctxt "form-fields admin"
 msgid "Label / Association"
 msgstr "Nombre / Asociación"
 
-#: includes/admin/form-fields.php:19
+#: includes/admin/form-fields.php:35
 msgctxt "form-fields admin"
 msgid "Type"
 msgstr "Tipo"
 
-#: includes/admin/form-fields.php:20
+#: includes/admin/form-fields.php:36
 msgctxt "form-fields admin"
 msgid "Validator"
 msgstr "Validador"
 
-#: includes/admin/form-fields.php:21
+#: includes/admin/form-fields.php:37
 msgctxt "form-fields admin"
 msgid "Field Attributes"
 msgstr "Atributos de Campo"
 
-#: includes/admin/form-fields.php:45
+#: includes/admin/form-fields.php:84
 msgctxt "form-fields admin"
 msgid "Edit"
 msgstr "Editar"
 
-#: includes/admin/form-fields.php:50
+#: includes/admin/form-fields.php:98
 msgctxt "form-fields admin"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: includes/admin/form-fields.php:77
-msgctxt "form-fields admin"
-msgid "Private"
-msgstr "Privado"
-
-#: includes/admin/form-fields.php:81
+#: includes/admin/form-fields.php:135
 msgctxt "form-fields admin"
 msgid "Required"
 msgstr "Requerido"
 
-#: includes/admin/form-fields.php:81
+#: includes/admin/form-fields.php:135
 msgctxt "form-fields admin"
 msgid "Optional"
 msgstr "Opcional"
 
-#: includes/admin/form-fields.php:85
+#: includes/admin/form-fields.php:142
+msgctxt "form-fields admin"
+msgid "Private"
+msgstr "Privado"
+
+#: includes/admin/form-fields.php:149
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr ""
 "El valor de este campo se muestra en la vista de resumen de un listado."
 
-#: includes/admin/form-fields.php:86
+#: includes/admin/form-fields.php:150
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "En Resumen"
 
-#: includes/admin/form-fields.php:91
+#: includes/admin/form-fields.php:157
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr ""
 "El valor de este campo es mostrado en la vista individual de un listado."
 
-#: includes/admin/form-fields.php:92
+#: includes/admin/form-fields.php:158
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "En vista completa"
 
-#: includes/admin/form-fields.php:213
+#: includes/admin/form-fields.php:292
 msgctxt "form-fields admin"
 msgid "Form Preview"
 msgstr "Previsualización del Formulario"
 
-#: includes/admin/form-fields.php:214
+#: includes/admin/form-fields.php:293
 msgctxt "form-fields admin"
 msgid "← Return to \"Manage Form Fields\""
 msgstr "← Regresar a \"Administrar Campos de Formulario\""
 
-#: includes/admin/form-fields.php:252
+#: includes/admin/form-fields.php:333
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Campo de formulario actualizado."
 
-#: includes/admin/form-fields.php:268
+#: includes/admin/form-fields.php:349
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2526,92 +2526,92 @@ msgstr ""
 "que las direcciones de correo electrónico se muestren, puede <a>habilitar la "
 "opción</a>."
 
-#: includes/admin/form-fields.php:302
+#: includes/admin/form-fields.php:390
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Campo eliminado."
 
-#: includes/admin/form-fields.php:323
+#: includes/admin/form-fields.php:413
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Campos requeridos creados satisfactoriamente."
 
-#: includes/admin/form-fields.php:336
+#: includes/admin/form-fields.php:426
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Título"
 
-#: includes/admin/form-fields.php:337
+#: includes/admin/form-fields.php:427
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Categoría"
 
-#: includes/admin/form-fields.php:338
+#: includes/admin/form-fields.php:428
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "Resumen"
 
-#: includes/admin/form-fields.php:339
+#: includes/admin/form-fields.php:429
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Contenido"
 
-#: includes/admin/form-fields.php:340
+#: includes/admin/form-fields.php:430
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: includes/admin/form-fields.php:341
+#: includes/admin/form-fields.php:431
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Dirección"
 
-#: includes/admin/form-fields.php:342
+#: includes/admin/form-fields.php:432
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Ciudad"
 
-#: includes/admin/form-fields.php:343
+#: includes/admin/form-fields.php:433
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Estado"
 
-#: includes/admin/form-fields.php:344
+#: includes/admin/form-fields.php:434
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "País"
 
-#: includes/admin/form-fields.php:345
+#: includes/admin/form-fields.php:435
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "Código Postal"
 
-#: includes/admin/form-fields.php:346
+#: includes/admin/form-fields.php:436
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Número de Fax"
 
-#: includes/admin/form-fields.php:347
+#: includes/admin/form-fields.php:437
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Número telefónico"
 
-#: includes/admin/form-fields.php:348
+#: includes/admin/form-fields.php:438
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Campo de ratings"
 
-#: includes/admin/form-fields.php:349
+#: includes/admin/form-fields.php:439
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:350
+#: includes/admin/form-fields.php:440
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "Sitio web"
 
-#: includes/admin/form-fields.php:371
+#: includes/admin/form-fields.php:470
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Etiquetas actualizadas."
@@ -2661,6 +2661,11 @@ msgstr "Es requerida la leyenda del campo?"
 msgctxt "form-fields admin"
 msgid "Allow empty selection on search?"
 msgstr "Permitir selección vacía en las búsquedas?"
+
+#: includes/fields/class-fieldtypes-social.php:76
+msgctxt "form-fields admin"
+msgid "Field Display Order"
+msgstr "Orden de presentación del campo"
 
 #: includes/fields/class-fieldtypes-textarea.php:194
 msgctxt "form-fields admin"
@@ -3854,7 +3859,7 @@ msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Fecha de registro del usuario"
 
-#: includes/licensing.php:184
+#: includes/licensing.php:158
 msgctxt "admin settings"
 msgid "Enter License Key here"
 msgstr "Ingrese la licencia aquí"
@@ -4099,7 +4104,7 @@ msgid "Appearance"
 msgstr "Apariencia"
 
 #: includes/admin/settings/class-settings-bootstrap.php:40
-#: includes/licensing.php:117
+#: includes/licensing.php:95
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Módulos Premium"
@@ -5057,12 +5062,12 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "El slug “%s” ya está siendo utilizado por otra taxonomía."
 
-#: includes/licensing.php:137
+#: includes/licensing.php:111
 msgctxt "settings"
 msgid "Themes"
 msgstr "Temas"
 
-#: includes/licensing.php:160
+#: includes/licensing.php:134
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -5073,22 +5078,22 @@ msgstr ""
 "información si alguna vez tiene que contactar al equipo de soporte por "
 "problemas relacionados con la activación de licencias."
 
-#: includes/licensing.php:185
+#: includes/licensing.php:159
 msgctxt "settings"
 msgid "Activate"
 msgstr "Activar"
 
-#: includes/licensing.php:185 includes/licensing.php:186
+#: includes/licensing.php:159 includes/licensing.php:160
 msgctxt "settings"
 msgid "Please wait..."
 msgstr "Por favor espere…"
 
-#: includes/licensing.php:186
+#: includes/licensing.php:160
 msgctxt "settings"
 msgid "Deactivate"
 msgstr "Desactivar"
 
-#: includes/licensing.php:232 includes/licensing.php:233
+#: includes/licensing.php:206 includes/licensing.php:207
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licencias"
@@ -5491,32 +5496,32 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: includes/class-listing.php:299
+#: includes/class-listing.php:302
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "El listado no tiene pagos registrados"
 
-#: includes/class-listing.php:307
+#: includes/class-listing.php:310
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "No se puede eliminar el pago"
 
-#: includes/class-listing.php:346
+#: includes/class-listing.php:349
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "El listado expiró"
 
-#: includes/class-listing.php:505
+#: includes/class-listing.php:508
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Comisión no disponible)"
 
-#: includes/class-listing.php:662
+#: includes/class-listing.php:665
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "Comisión “%s” (recurrente)"
 
-#: includes/class-listing.php:664
+#: includes/class-listing.php:667
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Comisión “%s”"
@@ -5576,19 +5581,19 @@ msgid "Free Listing"
 msgstr "Listado Gratuito"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:235
+#: includes/class-listing-email-notification.php:234
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notificación de nuevo listado"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:282
+#: includes/class-listing-email-notification.php:285
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notificación de listado editado"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:354
+#: includes/class-listing-email-notification.php:357
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
 msgstr "[%s] Notificación de listado reportado"
@@ -6051,12 +6056,12 @@ msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Configuración"
 
-#: includes/class-wpbdp.php:334
+#: includes/class-wpbdp.php:335
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "No puede subir más imágenes para este listado."
 
-#: includes/class-wpbdp.php:338
+#: includes/class-wpbdp.php:339
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6141,6 +6146,32 @@ msgctxt "form-fields api"
 msgid "Select List"
 msgstr "Lista de Selección"
 
+#: includes/fields/class-fieldtypes-social.php:35
+msgctxt "form-fields api"
+msgid "Social Site (Other)"
+msgstr "Sitio Social (Otro)"
+
+#: includes/fields/class-fieldtypes-social.php:95
+#: includes/fields/class-fieldtypes-url.php:136
+msgctxt "form-fields api"
+msgid "URL:"
+msgstr "URL:"
+
+#: includes/fields/class-fieldtypes-social.php:108
+msgctxt "form-fields api"
+msgid "Text:"
+msgstr "Texto:"
+
+#: includes/fields/class-fieldtypes-social.php:114
+msgctxt "form-fields api"
+msgid "Text to be displayed along with icon"
+msgstr "Texto que será presentado con el ícono"
+
+#: includes/fields/class-fieldtypes-social.php:121
+msgctxt "form-fields api"
+msgid "Type:"
+msgstr "Tipo:"
+
 #: includes/fields/class-fieldtypes-textarea.php:16
 msgctxt "form-fields api"
 msgid "Textarea"
@@ -6166,17 +6197,12 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Campo de URL"
 
-#: includes/fields/class-fieldtypes-url.php:136
-msgctxt "form-fields api"
-msgid "URL:"
-msgstr "URL:"
-
 #: includes/fields/class-fieldtypes-url.php:144
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Texto del enlace (opcional):"
 
-#: includes/fields/class-form-field.php:706
+#: includes/fields/class-form-field.php:694
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6241,6 +6267,7 @@ msgid "Caption for %s is required."
 msgstr "Se requiere leyenda para %s."
 
 #: includes/fields/class-fieldtypes-image.php:100
+#: includes/fields/class-fieldtypes-social.php:156
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Eliminar"
@@ -6250,12 +6277,12 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Tipo de campo inválido"
 
-#: includes/fields/class-form-field.php:585
+#: includes/fields/class-form-field.php:581
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "El nombre del campo es requerido."
 
-#: includes/fields/class-form-field.php:596
+#: includes/fields/class-form-field.php:592
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -6267,7 +6294,7 @@ msgstr ""
 "debe eliminar el campo actual y crear un nuevo campo de tipo %1$s en su "
 "lugar."
 
-#: includes/fields/class-form-field.php:599
+#: includes/fields/class-form-field.php:595
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -6276,7 +6303,7 @@ msgstr ""
 "<strong>ADVERTENCIA</strong>: si se elimina este campo, también se "
 "eliminarán los datos de éste en los listados existentes."
 
-#: includes/fields/class-form-field.php:633
+#: includes/fields/class-form-field.php:629
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6285,47 +6312,47 @@ msgstr ""
 "Solo puede haber un campo con asociación \"%s\". Por favor elija otra "
 "asociación."
 
-#: includes/fields/class-form-field.php:643
+#: includes/fields/class-form-field.php:639
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" es un tipo de campo inválido para esta asociación."
 
-#: includes/fields/class-form-field.php:696
+#: includes/fields/class-form-field.php:684
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID de campo inválido"
 
-#: includes/fields/class-form-field.php:719
+#: includes/fields/class-form-field.php:707
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Un error ocurrió mientras se trataba de eliminar este campo."
 
-#: includes/form-fields.php:569
+#: includes/form-fields.php:570
 msgctxt "form-fields-api"
 msgid "Email Validator"
 msgstr "Validador de Correo Electrónico"
 
-#: includes/form-fields.php:570
+#: includes/form-fields.php:571
 msgctxt "form-fields-api"
 msgid "URL Validator"
 msgstr "Validador de URLs"
 
-#: includes/form-fields.php:571
+#: includes/form-fields.php:572
 msgctxt "form-fields-api"
 msgid "Whole Number Validator"
 msgstr "Validador de números enteros"
 
-#: includes/form-fields.php:572
+#: includes/form-fields.php:573
 msgctxt "form-fields-api"
 msgid "Decimal Number Validator"
 msgstr "Validador de números decimales"
 
-#: includes/form-fields.php:573
+#: includes/form-fields.php:574
 msgctxt "form-fields-api"
 msgid "Date Validator"
 msgstr "Validador de fechas"
 
-#: includes/form-fields.php:574
+#: includes/form-fields.php:575
 msgctxt "form-fields-api"
 msgid "Word Count Validator"
 msgstr "Validador número de palabras"
@@ -6385,57 +6412,57 @@ msgstr ""
 "completo sobre el contenido de los listados. ¿Está seguro de que desea "
 "habilitar esta opción?"
 
-#: includes/form-fields.php:581
+#: includes/form-fields.php:582
 msgctxt "form-fields-api validation"
 msgid "Field"
 msgstr "Campo"
 
-#: includes/form-fields.php:602 includes/form-fields.php:607
+#: includes/form-fields.php:603 includes/form-fields.php:608
 msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s es requerido."
 
-#: includes/form-fields.php:619 includes/form-fields.php:626
+#: includes/form-fields.php:620 includes/form-fields.php:627
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr "%s está mal escrita. Una URL válida es requerida. Incluya http://"
 
-#: includes/form-fields.php:641
+#: includes/form-fields.php:642
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s está mal escrito. Un correo electrónico válido es requerido."
 
-#: includes/form-fields.php:648
+#: includes/form-fields.php:649
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s debe ser un número entero. Valores decimales no están permitidos."
 
-#: includes/form-fields.php:655
+#: includes/form-fields.php:656
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s debe ser un número."
 
-#: includes/form-fields.php:674
+#: includes/form-fields.php:675
 msgctxt "form-fields-api validation"
 msgid "%1$s must be in the format %2$s."
 msgstr "%1$s debe estar en el formato MM/DD/YYYY."
 
-#: includes/form-fields.php:712
+#: includes/form-fields.php:713
 msgctxt "form-fields-api validation"
 msgid "%s must be a valid date."
 msgstr "%s debe ser una fecha válida."
 
-#: includes/form-fields.php:735
+#: includes/form-fields.php:736
 msgctxt "form-fields-api validation"
 msgid "%s must have less than %d words."
 msgstr "%s debe tener menos de %d palabras."
 
-#: includes/form-fields.php:754
+#: includes/form-fields.php:755
 msgctxt "form-fields-api validation"
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%1$s es inválido. El valor debe ser uno de %s."
 
-#: includes/form-fields.php:719
+#: includes/form-fields.php:720
 msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Se requiere leyenda para %s."
@@ -6627,22 +6654,22 @@ msgctxt "default category name"
 msgid "General"
 msgstr "General"
 
-#: includes/licensing.php:302
+#: includes/licensing.php:276
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "El ID del módulo es inválido"
 
-#: includes/licensing.php:307
+#: includes/licensing.php:281
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "No se ingresó una licencia"
 
-#: includes/licensing.php:330
+#: includes/licensing.php:304
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "La licencia fue revocada."
 
-#: includes/licensing.php:332
+#: includes/licensing.php:306
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -6653,7 +6680,7 @@ msgstr ""
 "servicio de soporte de Business Directory</support-link> y hágales saber que "
 "el servidor de licencias revocó su licencia."
 
-#: includes/licensing.php:334
+#: includes/licensing.php:308
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
@@ -6662,22 +6689,22 @@ msgstr ""
 "Por favor incluya en su reporte la dirección de correo electrónico que usó "
 "cuando compró el módulo <module-name>."
 
-#: includes/licensing.php:345 includes/licensing.php:386
+#: includes/licensing.php:319 includes/licensing.php:360
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: includes/licensing.php:362
+#: includes/licensing.php:336
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Módulo de ID inválido"
 
-#: includes/licensing.php:389
+#: includes/licensing.php:363
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "La desactivación de licencia falló"
 
-#: includes/licensing.php:408
+#: includes/licensing.php:382
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -6686,7 +6713,7 @@ msgstr ""
 "No fue posible establecer una conexión con los servidores de Business "
 "Directory. La conexión falló con el siguiente error:"
 
-#: includes/licensing.php:412 includes/licensing.php:458
+#: includes/licensing.php:386 includes/licensing.php:432
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -6699,12 +6726,12 @@ msgstr ""
 "de Business Directory</support-link>, indicándoles que deben agregar su "
 "dirección IP <ip-address> a la lista autorizada."
 
-#: includes/licensing.php:414 includes/licensing.php:460
+#: includes/licensing.php:388 includes/licensing.php:434
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr "Incluya este mensaje de error en su reporte."
 
-#: includes/licensing.php:424
+#: includes/licensing.php:398
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -6713,7 +6740,7 @@ msgstr ""
 "No fue posible establecer una conexión con los servidores de Business "
 "Directory. Ocurrió un problema en el protocolo de intercambio SSL/TSL:"
 
-#: includes/licensing.php:429
+#: includes/licensing.php:403
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -6726,7 +6753,7 @@ msgstr ""
 "reciente de cURL and una versión de OpenSSL que soporte TLSv1.2 (la versión "
 "mínimo con este soporte es OpenSSL 1.0.1c)."
 
-#: includes/licensing.php:431
+#: includes/licensing.php:405
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -6737,7 +6764,7 @@ msgstr ""
 "Business Directory, también lo ayudará a prepararse para interactuar con "
 "otros servicios que usen los últimos estándares de seguridad."
 
-#: includes/licensing.php:433
+#: includes/licensing.php:407
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -6746,22 +6773,22 @@ msgstr ""
 "Por favor contacte a su proveedor de hospedaje y solicite que actualicen su "
 "sistema. Incluya este mensaje si es necesario."
 
-#: includes/licensing.php:440
+#: includes/licensing.php:414
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: includes/licensing.php:456
+#: includes/licensing.php:430
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "El servidor retornó un error 403 Forbidden."
 
-#: includes/licensing.php:529
+#: includes/licensing.php:498
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Business Directory - Por favor verifique sus licencias"
 
-#: includes/licensing.php:539
+#: includes/licensing.php:508
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -6770,7 +6797,7 @@ msgstr ""
 "Los siguientes módulos premium no funcionarán hasta que ingrese una licencia "
 "válida: %s."
 
-#: includes/licensing.php:550
+#: includes/licensing.php:519
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -6779,17 +6806,17 @@ msgstr ""
 "Es necesario que active las licencias de los siguientes temas antes de que "
 "pueda empezar a usarlos: %s."
 
-#: includes/licensing.php:558 includes/licensing.php:614
+#: includes/licensing.php:527 includes/licensing.php:583
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Revisar mis licencias"
 
-#: includes/licensing.php:585
+#: includes/licensing.php:554
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Directorio de Negocios - Licencias expiradas"
 
-#: includes/licensing.php:595
+#: includes/licensing.php:564
 msgctxt "licensing"
 msgid ""
 "The license key for the following modules has expired: %s. The modules will "
@@ -6800,7 +6827,7 @@ msgstr ""
 "módulos continuarás funcionando pero no recibirán ninguna actualización "
 "hasta que la licencia sea renovada."
 
-#: includes/licensing.php:606
+#: includes/licensing.php:575
 msgctxt "licensing"
 msgid ""
 "The license key for the following themes has expired: %s. The themes will "
@@ -6811,33 +6838,33 @@ msgstr ""
 "continuarás funcionando pero no recibirán ninguna actualización hasta que la "
 "licencia sea renovada."
 
-#: includes/licensing.php:700
+#: includes/licensing.php:669
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Por favor ingrese una licencia."
 
-#: includes/licensing.php:709
+#: includes/licensing.php:678
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: includes/licensing.php:711
+#: includes/licensing.php:680
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
 
-#: includes/licensing.php:731
+#: includes/licensing.php:700
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
 
-#: includes/licensing.php:733
+#: includes/licensing.php:702
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:924
+#: includes/licensing.php:893
 msgctxt "deprecation"
 msgid ""
 "\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "

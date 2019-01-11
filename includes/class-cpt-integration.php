@@ -1,6 +1,7 @@
-<?php
+<?php //phpcs:disable
 /**
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__CPT_Integration {
 
@@ -229,7 +230,7 @@ class WPBDP__CPT_Integration {
             return;
 
         $listing = wpbdp_get_listing( $post_id );
-        $listing->_after_save( 'save_post' );
+        $listing->_after_save( $update ? 'save_post' : 'submit-new' );
     }
 
     public function handle_delete_term( $term_id, $tt_id, $taxonomy ) {
