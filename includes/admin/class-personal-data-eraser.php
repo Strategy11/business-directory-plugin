@@ -1,13 +1,14 @@
 <?php
 /**
+ * Erases all personal data the plugin has for the given email address.
+ *
  * @package BDP\Admin
+ * @since 5.5
  */
 
 // phpcs:disable
 /**
- * Class WPBDP_PersonalDataEraser Erases all personal data the plugin has for the given email address.
- *
- * @since 5.5
+ * Class WPBDP_PersonalDataEraser
  */
 class WPBDP_PersonalDataEraser {
 

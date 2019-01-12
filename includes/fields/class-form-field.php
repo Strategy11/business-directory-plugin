@@ -955,6 +955,11 @@ class WPBDP_Form_Field {
         return self::get( $field_id );
     }
 
+    /**
+     * @return bool
+     *
+     * @since 5.5
+     */
     public function is_privacy_field() {
         return in_array( $this->get_tag(), self::$default_tags );
     }

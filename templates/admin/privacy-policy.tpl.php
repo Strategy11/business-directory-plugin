@@ -3,6 +3,7 @@
  * Privacy Policy
  *
  * @package BDP/Templates/Admin/Privacy Policy
+ * @since 5.5
  */
 
 ?>

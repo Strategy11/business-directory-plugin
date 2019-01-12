@@ -2,7 +2,6 @@
 /**
  * Represents a single field from the database. This class can not be instantiated directly.
  *
- * @since 5.4
  * @package WPBDP/Views/Includes/Admin/Form Fields
  */
 

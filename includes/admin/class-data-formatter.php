@@ -1,21 +1,20 @@
 <?php
 /**
- * @since 5.4
- * @package BDP\Admin
+ * Formats data from a list of properties in format expected by the Data Exporter API.
+ *
+ * @package BDP/Admin
+ * @since 5.5
  */
 
 // phpcs:disable
 /**
- * Class WPBDP_DataFormatter Formats data from a list of properties in format expected by the Data Exporter API.
+ * Class WPBDP_DataFormatter
  */
 class WPBDP_DataFormatter {
     /**
-     *
      * @param $items
      * @param $properties
      * @return array
-     *
-     * @since 5.4
      */
     public function format_data( $items, $properties ) {
         $data = array();

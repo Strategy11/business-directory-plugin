@@ -2,7 +2,8 @@
 /**
  * Exporter for Payment personal data.
  *
- * @package BDP\Admin
+ * @package BDP/Admin
+ * @since 5.5
  */
 
 // phpcs:disable Squiz.Commenting.VariableComment.EmptyVar
@@ -11,8 +12,6 @@
 
 /**
  * Class WPBDP_PaymentPersonalDataExporter
- *
- * @since 5.5
  */
 class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInterface {
     /**
@@ -24,7 +23,6 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
      * WPBDP_PaymentPersonalDataProvider constructor.
      *
      * @param $data_formatter
-     * @since 5.5
      */
     public function __construct( $data_formatter ) {
         $this->data_formatter = $data_formatter;

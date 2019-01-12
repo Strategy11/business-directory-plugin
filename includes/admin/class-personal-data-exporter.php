@@ -1,19 +1,20 @@
 <?php
 /**
+ * Exports all personal data the plugin has for the given email address.
+ *
  * @package BDP\Admin
+ * @since 5.5
  */
 
 // phpcs:disable
 /**
- * Class WPBDP_PersonalDataExporter Exports all personal data the plugin has for the given email address.
+ * Class WPBDP_PersonalDataExporter
  */
 class WPBDP_PersonalDataExporter {
     /**
      * WPBDP_PersonalDataExporter constructor.
      *
      * @param $data_exporter
-     *
-     * @since 5.4
      */
     public function __construct( $data_exporter ) {
         $this->data_exporter = $data_exporter;
@@ -23,8 +24,6 @@ class WPBDP_PersonalDataExporter {
      * @param $email_address
      * @param int           $page
      * @return array
-     *
-     * @since 5.4
      */
     public function export_personal_data( $email_address, $page = 1 ) {
         $user    = get_user_by( 'email', $email_address );
@@ -38,8 +37,6 @@ class WPBDP_PersonalDataExporter {
     /**
      * @param $objects
      * @return array
-     *
-     * @since 5.4
      */
     private function export_objects( $objects ) {
         if ( empty( $objects ) ) {

@@ -14,9 +14,7 @@ require_once WPBDP_INC . 'admin/class-listings-personal-data-provider.php';
 require_once WPBDP_INC . 'admin/class-payment-personal-data-provider.php';
 
 /**
- * Class WPBDP_Privacy
- *
- * @since 5.5
+ * Class WPBDP_Personal_Data_Privacy
  */
 class WPBDP_Personal_Data_Privacy {
 
@@ -26,7 +24,7 @@ class WPBDP_Personal_Data_Privacy {
     public $items_per_page = 10;
 
     /**
-     * WPBDP_Privacy constructor.
+     * WPBDP_Personal_Data_Privacy constructor.
      */
     public function __construct() {
         add_action( 'admin_init', array( $this, 'add_privacy_policy_content' ) );
@@ -85,6 +83,10 @@ class WPBDP_Personal_Data_Privacy {
 
     }
 
+    /**
+     * @param $erasers
+     * @return mixed
+     */
     public function register_personal_data_erasers( $erasers ) {
         $erasers['business-directory-plugin-listings'] = array(
             'eraser_friendly_name' => __( 'Business Directory Plugin', 'WPBDP' ),
@@ -103,6 +105,9 @@ class WPBDP_Personal_Data_Privacy {
         return $erasers;
     }
 
+    /**
+     * @return WPBDP_ListingsPersonalDataProvider
+     */
     public function get_listings_personal_data_provider() {
         static $instance;
         if ( is_null( $instance ) ) {
@@ -111,6 +116,9 @@ class WPBDP_Personal_Data_Privacy {
         return $instance;
     }
 
+    /**
+     * @return WPBDP_PaymentPersonalDataProvider
+     */
     public function get_payment_personal_data_provider() {
         static $instance;
         if ( is_null( $instance ) ) {
@@ -119,6 +127,9 @@ class WPBDP_Personal_Data_Privacy {
         return $instance;
     }
 
+    /**
+     * @return WPBDP_DataFormatter
+     */
     public function get_data_formatter() {
         static $instance;
         if ( is_null( $instance ) ) {

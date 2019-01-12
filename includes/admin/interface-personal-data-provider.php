@@ -1,15 +1,15 @@
 <?php
 /**
- * Interface Personal Data Provider
+ * Interface Personal Data Provider implementations.
  *
- * @since 5.5
  * @package BDP\Admin|Interface data Provider
+ * @since 5.5
  */
 
 // phpcs:disable
 
 /**
- * Interface WPBDP_PersonalDataProviderInterface for Data Provider implementations.
+ * Interface WPBDP_PersonalDataProvider Interface for Data Provider implementations.
  */
 interface WPBDP_PersonalDataProviderInterface {
     /**

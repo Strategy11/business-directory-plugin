@@ -1,15 +1,15 @@
 <?php
 /**
- * @package BDP\Admin
- * @since 5.4
+ * Exporter for Listings personal data.
+ *
+ * @package BDP/Admin
+ * @since 5.5
  */
 
 // phpcs:disable
 
 /**
- * Class WPBDP_ListingsPersonalDataProvider Exporter for Listings personal data.
- *
- * @since 5.4
+ * Class WPBDP_ListingsPersonalDataProvider
  */
 class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderInterface {
 
