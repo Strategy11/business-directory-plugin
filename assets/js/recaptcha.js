@@ -28,7 +28,7 @@ jQuery( function( $ ) {
                 }
 
                 if ( 'v3' === $captcha.attr('data-version') ) {
-                    grecaptcha.execute($captcha.attr('data-key'), {'action': 'wpbdp_submit_listing'} ).then( function ( token ) {
+                    grecaptcha.execute($captcha.attr('data-key'), {'action': 'homepage'} ).then( function ( token ) {
                         $captcha.find( 'input' ).val( token );
                     });
                 }
