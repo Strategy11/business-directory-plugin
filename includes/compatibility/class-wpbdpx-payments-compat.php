@@ -1,4 +1,11 @@
-<?php // phpcs:disable
+<?php
+/**
+ * Compatibility for pre-5.0 payments.
+ *
+ * @package BDP/Includes/Compatibility
+ */
+
+// phpcs:disable
 
 /**
  * Class WPBDP__WPBDPX_Payments_Compat
@@ -9,15 +16,14 @@ class WPBDP__WPBDPX_Payments_Compat {
 
     private $gateways;
 
-
     public function __construct() {
         $this->gateways = wpbdp()->payment_gateways;
     }
 
     public function dispatch() {
-        $action = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
+        $action  = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
         $payment = isset( $_GET['payment_id'] ) ? wpbdp_get_payment( intval( $_GET['payment_id'] ) ) : null;
-        $gid = isset( $_GET['gid'] ) ? trim( $_GET['gid'] ) : '';
+        $gid     = isset( $_GET['gid'] ) ? trim( $_GET['gid'] ) : '';
 
         if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel', 'ins' ) ) || ( ! $payment && ! $gid ) ) {
             return;
@@ -30,7 +36,7 @@ class WPBDP__WPBDPX_Payments_Compat {
         }
 
         $gateway_id = $payment ? $payment->gateway : $gid;
-        $gateway = $this->gateways->get( $gateway_id );
+        $gateway    = $this->gateways->get( $gateway_id );
 
         if ( ! $gateway ) {
             return;
