@@ -1,11 +1,19 @@
 <?php
+/**
+ * Plan Selection Template displayed when submitting a listing
+ *
+ * @package BDP/Templates
+ */
+
+// phpcs:disable
+
 $field_name   = isset( $field_name ) ? $field_name : '';
 $display_only = isset( $display_only ) ? $display_only : false;
 $disabled     = isset( $disabled ) ? $disabled : false;
 $selected     = isset( $selected ) ? $selected : 0;
 
-$description  = $plan->description ? wpautop( wp_kses_post( apply_filters( 'wpbdp_plan_description_for_display', $plan->description, $plan ) ) ) : '';
-$description  = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
+$description = $plan->description ? wpautop( wp_kses_post( apply_filters( 'wpbdp_plan_description_for_display', $plan->description, $plan ) ) ) : '';
+$description = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
 ?>
     <div class="wpbdp-plan wpbdp-plan-<?php echo $plan->id; ?> wpbdp-plan-info-box wpbdp-clearfix <?php if ( $display_only ): ?>display-only<?php endif; ?> <?php if ( $disabled ): ?>wpbdp-plan-disabled<?php endif; ?>"
          data-id="<?php echo $plan->id; ?>"
@@ -64,5 +72,11 @@ $description  = apply_filters( 'wpbdp_fee_selection_fee_description', $descripti
             <?php _ex( 'This plan can\'t be used for admin submits. For a recurring plan to work, end users need to pay for it using a supported gateway.', 'plan selection', 'WPBDM' ); ?>
         </div>
         <?php endif; ?>
+        <?php if ( ! empty( $plan->extra_data['private'] ) ) : ?>
+            <div class="wpbdp-plan-private-msg">
+                (<?php _ex( 'Private fee plan', 'plan selection', 'WPBDM' ); ?>)
+            </div>
+        <?php endif; ?>
+
     </div>
 
