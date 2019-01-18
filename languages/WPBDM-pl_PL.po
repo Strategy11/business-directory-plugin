@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin v3.6.5\n"
+"Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
 "POT-Creation-Date: 2019-01-16 18:22:26+00:00\n"
