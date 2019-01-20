@@ -72,7 +72,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         if ( isset( $_POST['go-to-checkout'] ) ) {
-            $this->fee_payment( $payment );
+            $this->fee_payment( $payment && 'completed' == $payment->status ? NULL : $payment );
         }
 
         if ( ! isset( $_POST['proceed-to-checkout'] ) && $this->payment_id > 0 ) {
