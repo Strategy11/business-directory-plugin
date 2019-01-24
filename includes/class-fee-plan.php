@@ -1,4 +1,12 @@
-<?php // phpcs:disable
+<?php
+/**
+ * Class Fee Plan Creates, Updates and Deletes Directory Plans
+ *
+ * @package BDP/Includes
+ */
+
+// phpcs:disable
+
 /**
  * @since 5.0
  *
@@ -8,23 +16,23 @@ final class WPBDP__Fee_Plan {
 
     private $id = 0;
 
-    private $label = '';
+    private $label       = '';
     private $description = '';
-    private $amount = 0.0;
-    private $days = 0;
-    private $images = 0;
-    private $enabled = true;
+    private $amount      = 0.0;
+    private $days        = 0;
+    private $images      = 0;
+    private $enabled     = true;
 
-    private $sticky = false;
+    private $sticky    = false;
     private $recurring = false;
 
-    private $pricing_model = 'flat';
+    private $pricing_model   = 'flat';
     private $pricing_details = array();
 
     private $supported_categories = 'all';
 
-    private $weight = 0;
-    private $tag = '';
+    private $weight     = 0;
+    private $tag        = '';
     private $extra_data = array();
 
 
@@ -39,7 +47,7 @@ final class WPBDP__Fee_Plan {
             $value = call_user_func( array( $this, 'get_' . $key ) );
         } else {
             $value = &$this->{$key};
-        } 
+        }
 
         return $value;
     }
@@ -86,7 +94,7 @@ final class WPBDP__Fee_Plan {
         }
 
         if ( ! $this->exists() ) {
-            unset( $row[ 'id' ] );
+            unset( $row['id'] );
         }
 
         $row['pricing_details'] = serialize( $row['pricing_details'] );
@@ -101,7 +109,7 @@ final class WPBDP__Fee_Plan {
             $row['extra_data'] = serialize( $row['extra_data'] );
         }
 
-        $saved = false;
+        $saved  = false;
         $update = $this->exists();
         if ( $update ) {
             $saved = $wpdb->update( $wpdb->prefix . 'wpbdp_plans', $row, array( 'id' => $this->id ) );
@@ -119,11 +127,12 @@ final class WPBDP__Fee_Plan {
             }
 
             $wpdb->update(
-                $wpdb->prefix . "wpbdp_listings",
+                $wpdb->prefix . 'wpbdp_listings',
                 array( 'is_sticky' => $this->sticky ? 1 : 0 ),
                 array(
                     'fee_id' => $this->id,
-                ) );
+                )
+            );
         }
 
         return $saved;
@@ -151,10 +160,11 @@ final class WPBDP__Fee_Plan {
         $items = array();
 
         if ( wpbdp_get_option( 'allow-images' ) ) {
-            if ( ! $this->images )
+            if ( ! $this->images ) {
                 $items['images'] = _x( 'No images allowed.', 'fee plan', 'WPBDM' );
-            else
-                $items['images'] = sprintf( _nx( '%d image allowed.', '%d images allowed.', $this->images, 'fee plan', 'WPBDM' ), $this->images );
+            } else {
+				$items['images'] = sprintf( _nx( '%d image allowed.', '%d images allowed.', $this->images, 'fee plan', 'WPBDM' ), $this->images );
+            }
         }
 
         $items = apply_filters( 'wpbdp_plan_feature_list', $items, $this );
@@ -165,20 +175,20 @@ final class WPBDP__Fee_Plan {
      * @since 5.0
      */
     public function calculate_amount( $categories = array() ) {
-        $amount = 0.0;
+        $amount       = 0.0;
         $pricing_info = $this->pricing_details;
 
         switch ( $this->pricing_model ) {
-        case 'variable':
-            $amount = array_sum( wp_array_slice_assoc( $pricing_info, $categories ) );
-            break;
-        case 'extra':
-            $amount = $this->amount + ( $pricing_info['extra'] * count( $categories ) );
-            break;
-        case 'flat':
-        default:
-            $amount = $this->amount;
-            break;
+			case 'variable':
+				$amount = array_sum( wp_array_slice_assoc( $pricing_info, $categories ) );
+                break;
+			case 'extra':
+				$amount = $this->amount + ( $pricing_info['extra'] * count( $categories ) );
+                break;
+			case 'flat':
+			default:
+				$amount = $this->amount;
+                break;
         }
 
         return $amount;
@@ -188,14 +198,17 @@ final class WPBDP__Fee_Plan {
      * @since 5.0
      */
     public function supports_category_selection( $categories = array() ) {
-        if ( ! $categories )
+        if ( ! $categories ) {
             return true;
+        }
 
-        if ( is_string( $this->supported_categories ) && 'all' == $this->supported_categories )
+        if ( is_string( $this->supported_categories ) && 'all' === $this->supported_categories ) {
             return true;
+        }
 
-        if ( array_diff( $categories, $this->supported_categories ) )
+        if ( array_diff( $categories, $this->supported_categories ) ) {
             return false;
+        }
 
         return true;
     }
@@ -214,7 +227,7 @@ final class WPBDP__Fee_Plan {
         }
 
         $row['pricing_details'] = maybe_unserialize( $row['pricing_details'] );
-        $row['extra_data'] = maybe_unserialize( $row['extra_data'] );
+        $row['extra_data']      = maybe_unserialize( $row['extra_data'] );
 
         $instance = new self( $row );
         return $instance;
@@ -224,11 +237,13 @@ final class WPBDP__Fee_Plan {
      * @since 5.0
      */
     public function calculate_expiration_time( $base_time = null ) {
-        if ( ! $base_time )
+        if ( ! $base_time ) {
             $base_time = current_time( 'timestamp' );
+        }
 
-        if ( $this->days == 0 )
+        if ( 0 === $this->days ) {
             return null;
+        }
 
         $expire_time = strtotime( sprintf( '+%d days', $this->days ), $base_time );
         return date( 'Y-m-d H:i:s', $expire_time );
@@ -247,14 +262,14 @@ final class WPBDP__Fee_Plan {
     }
 
     private function sanitize() {
-        $this->label = trim( $this->label );
-        $this->amount = floatval( trim( $this->amount ) );
-        $this->days = absint( $this->days );
-        $this->images = absint( $this->images );
-        $this->sticky = (bool) $this->sticky;
-        $this->recurring = (bool) $this->recurring;
-        $this->pricing_model = empty( $this->pricing_model  ) ? 'flat' : $this->pricing_model;
-        $this->tag = strtolower( trim( $this->tag ) );
+        $this->label         = trim( $this->label );
+        $this->amount        = floatval( trim( $this->amount ) );
+        $this->days          = absint( $this->days );
+        $this->images        = absint( $this->images );
+        $this->sticky        = (bool) $this->sticky;
+        $this->recurring     = (bool) $this->recurring;
+        $this->pricing_model = empty( $this->pricing_model ) ? 'flat' : $this->pricing_model;
+        $this->tag           = strtolower( trim( $this->tag ) );
 
         if ( 'all' !== $this->supported_categories ) {
             $this->supported_categories = array_filter( array_map( 'absint', (array) $this->supported_categories ), array( $this, 'sanitize_category' ) );
@@ -264,7 +279,7 @@ final class WPBDP__Fee_Plan {
             $this->supported_categories = 'all';
         }
 
-        if ( 'extra' == $this->pricing_model ) {
+        if ( 'extra' === $this->pricing_model ) {
             $this->pricing_details = array(
                 'extra' => floatval( $this->pricing_details['extra'] ),
             );
@@ -273,7 +288,7 @@ final class WPBDP__Fee_Plan {
         }
 
         // Unset details for categories that are not supported.
-        if ( 'variable' == $this->pricing_model ) {
+        if ( 'variable' === $this->pricing_model ) {
             $this->amount = 0.0;
 
             if ( 'all' !== $this->supported_categories ) {
@@ -281,18 +296,18 @@ final class WPBDP__Fee_Plan {
             }
         }
 
-        if ( 'flat' == $this->pricing_model ) {
+        if ( 'flat' === $this->pricing_model ) {
             $this->pricing_details = array();
         }
 
         // Free plan is special.
-        if ( 'free' == $this->tag ) {
-            $this->pricing_model = 'flat';
-            $this->amount = 0.0;
-            $this->sticky = false;
-            $this->recurring = false;
+        if ( 'free' === $this->tag ) {
+            $this->pricing_model        = 'flat';
+            $this->amount               = 0.0;
+            $this->sticky               = false;
+            $this->recurring            = false;
             $this->supported_categories = 'all';
-            $this->enabled = true;
+            $this->enabled              = true;
         }
     }
 
@@ -312,21 +327,21 @@ final class WPBDP__Fee_Plan {
         }
 
         if ( 1 == $this->recurring ) {
-            if ( 0 == $this->days ) {
+            if ( 0 === $this->days ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-days">', _x( 'To set this fee as "Recurring" you must have a time for the listing to renew (e.g. 30 days). To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' ) );
             }
 
             $error_message = _x( 'To set this fee as "Recurring" you must set a price for your fee plan. To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' );
 
-            if ( 'flat' == $this->pricing_model && 0 == $this->amount ) {
+            if ( 'flat' === $this->pricing_model && 0 === $this->amount ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-price">', $error_message );
             }
 
-            if ( 'variable' == $this->pricing_model && 0 == array_sum( $this->pricing_details ) ) {
+            if ( 'variable' === $this->pricing_model && 0 === array_sum( $this->pricing_details ) ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-category">', $error_message );
             }
 
-            if ( 'extra' == $this->pricing_model && 0 == $this->amount + $this->pricing_details['extra'] ) {
+            if ( 'extra' === $this->pricing_model && 0 === $this->amount + $this->pricing_details['extra'] ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-price">', $error_message );
             }
         }
@@ -334,11 +349,11 @@ final class WPBDP__Fee_Plan {
         return $errors;
     }
 
-    private function sanitize_category ( $category_id ) {
-        $category = get_term( absint( $category_id ) , WPBDP_CATEGORY_TAX );
+    private function sanitize_category( $category_id ) {
+        $category = get_term( absint( $category_id ), WPBDP_CATEGORY_TAX );
         return $category && ! is_wp_error( $category );
 
     }
 }
 
-require_once( WPBDP_INC . 'compatibility/deprecated/class-fee-plan.php' );
+require_once WPBDP_INC . 'compatibility/deprecated/class-fee-plan.php';
