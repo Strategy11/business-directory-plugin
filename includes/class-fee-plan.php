@@ -1,6 +1,8 @@
-<?php
+<?php // phpcs:disable
 /**
  * @since 5.0
+ *
+ * @SuppressWarnings(PHPMD)
  */
 final class WPBDP__Fee_Plan {
 
@@ -254,12 +256,12 @@ final class WPBDP__Fee_Plan {
         $this->pricing_model = empty( $this->pricing_model  ) ? 'flat' : $this->pricing_model;
         $this->tag = strtolower( trim( $this->tag ) );
 
-        if ( empty( $this->supported_categories ) ) {
-            $this->supported_categories = 'all';
+        if ( 'all' !== $this->supported_categories ) {
+            $this->supported_categories = array_filter( array_map( 'absint', (array) $this->supported_categories ), array( $this, 'sanitize_category' ) );
         }
 
-        if ( 'all' !== $this->supported_categories ) {
-            $this->supported_categories = array_map( 'absint', (array) $this->supported_categories );
+        if ( empty( $this->supported_categories ) ) {
+            $this->supported_categories = 'all';
         }
 
         if ( 'extra' == $this->pricing_model ) {
@@ -330,6 +332,12 @@ final class WPBDP__Fee_Plan {
         }
 
         return $errors;
+    }
+
+    private function sanitize_category ( $category_id ) {
+        $category = get_term( absint( $category_id ) , WPBDP_CATEGORY_TAX );
+        return $category && ! is_wp_error( $category );
+
     }
 }
 
