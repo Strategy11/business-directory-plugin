@@ -975,7 +975,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $params = array(
             'listing' => $this->listing,
             'editing' => $this->editing,
-            'payment' => $this->listing->generate_or_retrieve_payment(),
+            'payment' => $this->editing ? false : $this->listing->generate_or_retrieve_payment(),
         );
 
         return wpbdp_render( 'submit-listing-done', $params );
