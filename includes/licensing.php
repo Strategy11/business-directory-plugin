@@ -1,11 +1,15 @@
 <?php
+/**
+ * WPBDP Licensing class checks for licenses status, activates/deactivates licenses.
+ *
+ * @package BDP/Includes
+ */
 
-// set_transient( 'wpbdp_updates', null );
-// set_site_transient( 'update_plugins', null );
-
+// phpcs:disable
 
 /**
  * @since 3.4.2
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Licensing {
 
@@ -417,7 +421,7 @@ class WPBDP_Licensing {
 
     private function license_request( $url ) {
         // Call the licensing server.
-        $response = wp_remote_get( $url, array( 'timeout' => 15, 'sslverify' => false ) );
+        $response = wp_remote_get( $url, array( 'timeout' => 15, 'user-agent' => $this->user_agent_header(), 'sslverify' => false ) );
 
         if ( is_wp_error( $response ) ) {
             return $this->handle_failed_license_request( $response );
@@ -629,7 +633,7 @@ class WPBDP_Licensing {
                 'item_name'  => $item['name'],
                 'url'        => home_url()
             );
-            $response = wp_remote_get( add_query_arg( $request_args, self::STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+            $response = wp_remote_get( add_query_arg( $request_args, self::STORE_URL ), array( 'timeout' => 15, 'user-agent' => $this->user_agent_header(), 'sslverify' => false ) );
 
             if ( is_wp_error( $response ) ) {
                 continue;
@@ -743,7 +747,7 @@ class WPBDP_Licensing {
             $args['items'][] = $item['name'];
         }
 
-        $request = wp_remote_get( self::STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $args ) );
+        $request = wp_remote_get( self::STORE_URL, array( 'timeout' => 15, 'user-agent' => $this->user_agent_header(), 'sslverify' => false, 'body' => $args ) );
 
         if ( is_wp_error( $request ) ) {
             return array();
@@ -871,6 +875,12 @@ class WPBDP_Licensing {
         }
 
         return $data;
+    }
+
+    function user_agent_header() {
+        $user_agent = "WordPress %s / Business Directory Plugin %s";
+        $user_agent = sprintf( $user_agent, get_bloginfo( 'version' ), WPBDP_VERSION );
+        return $user_agent;
     }
 
     // }
