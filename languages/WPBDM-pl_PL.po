@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-01-16 18:22:26+00:00\n"
+"POT-Creation-Date: 2019-01-30 22:57:02+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -373,7 +373,7 @@ msgid "Transaction Key"
 msgstr "Klucz Transakcji"
 
 # @ WPBDM
-#: includes/licensing.php:91 includes/licensing.php:92
+#: includes/licensing.php:95 includes/licensing.php:97
 #, fuzzy
 msgid "Licenses"
 msgstr "Licencje"
@@ -4560,7 +4560,7 @@ msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/licensing.php:158
+#: includes/licensing.php:173
 #, fuzzy
 msgctxt "admin settings"
 msgid "Enter License Key here"
@@ -4866,7 +4866,7 @@ msgstr ""
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:40
-#: includes/licensing.php:95
+#: includes/licensing.php:104
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Moduły Premium"
@@ -6097,12 +6097,12 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
 
-#: includes/licensing.php:111
+#: includes/licensing.php:122
 msgctxt "settings"
 msgid "Themes"
 msgstr ""
 
-#: includes/licensing.php:134
+#: includes/licensing.php:147
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -6111,26 +6111,26 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:159
+#: includes/licensing.php:174
 #, fuzzy
 msgctxt "settings"
 msgid "Activate"
 msgstr "Aktywacja Licencji"
 
-#: includes/licensing.php:159 includes/licensing.php:160
+#: includes/licensing.php:174 includes/licensing.php:175
 msgctxt "settings"
 msgid "Please wait..."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:160
+#: includes/licensing.php:175
 #, fuzzy
 msgctxt "settings"
 msgid "Deactivate"
 msgstr "Aktywacja Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:206 includes/licensing.php:207
+#: includes/licensing.php:223 includes/licensing.php:224
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licencje"
@@ -6630,14 +6630,14 @@ msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/class-fee-plan.php:153
+#: includes/class-fee-plan.php:164
 #, fuzzy
 msgctxt "fee plan"
 msgid "No images allowed."
 msgstr "Liczba dozwolonych obrazów"
 
 # @ WPBDM
-#: includes/class-fee-plan.php:155
+#: includes/class-fee-plan.php:166
 #, fuzzy
 msgctxt "fee plan"
 msgid "%d image allowed."
@@ -6647,20 +6647,20 @@ msgstr[1] "Liczba dozwolonych obrazów"
 msgstr[2] "Liczba dozwolonych obrazów"
 
 # @ WPBDM
-#: includes/class-fee-plan.php:303
+#: includes/class-fee-plan.php:320
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "Etykieta abonamentu jest wymagana."
 
 # @ WPBDM
-#: includes/class-fee-plan.php:309
+#: includes/class-fee-plan.php:326
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 "Abonament dla okresu ważności oferty musi zawierać się w liczbie dodatniej, "
 "całkowitej."
 
-#: includes/class-fee-plan.php:314
+#: includes/class-fee-plan.php:331
 msgctxt "fees-api"
 msgid ""
 "To set this fee as \"Recurring\" you must have a time for the listing to "
@@ -6668,7 +6668,7 @@ msgid ""
 "<a>fee plan</a> appropriately."
 msgstr ""
 
-#: includes/class-fee-plan.php:317
+#: includes/class-fee-plan.php:334
 msgctxt "fees-api"
 msgid ""
 "To set this fee as \"Recurring\" you must set a price for your fee plan. To "
@@ -7946,26 +7946,26 @@ msgid "General"
 msgstr "Główna"
 
 # @ WPBDM
-#: includes/licensing.php:276
+#: includes/licensing.php:297
 #, fuzzy
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
-#: includes/licensing.php:281
+#: includes/licensing.php:303
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Nie wprowadzono klucz licencji"
 
 # @ WPBDM
-#: includes/licensing.php:304
+#: includes/licensing.php:327
 #, fuzzy
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "Nie wprowadzono klucz licencji"
 
-#: includes/licensing.php:306
+#: includes/licensing.php:329
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -7973,7 +7973,7 @@ msgid ""
 "reported as revoked by the licensing software."
 msgstr ""
 
-#: includes/licensing.php:308
+#: includes/licensing.php:331
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
@@ -7981,31 +7981,31 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:319 includes/licensing.php:360
+#: includes/licensing.php:342 includes/licensing.php:385
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Niewłaściwy Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:336
+#: includes/licensing.php:359
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Niewłaściwe ID Modułu"
 
 # @ WPBDM
-#: includes/licensing.php:363
+#: includes/licensing.php:389
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "Błąd Deaktywacji"
 
-#: includes/licensing.php:382
+#: includes/licensing.php:409
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:386 includes/licensing.php:432
+#: includes/licensing.php:413 includes/licensing.php:465
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -8014,19 +8014,19 @@ msgid ""
 "whitelist."
 msgstr ""
 
-#: includes/licensing.php:388 includes/licensing.php:434
+#: includes/licensing.php:415 includes/licensing.php:467
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr ""
 
-#: includes/licensing.php:398
+#: includes/licensing.php:425
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:403
+#: includes/licensing.php:430
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8035,7 +8035,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:405
+#: includes/licensing.php:432
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8043,7 +8043,7 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:407
+#: includes/licensing.php:434
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8051,25 +8051,25 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:414
+#: includes/licensing.php:441
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Nie można połączyć z serwerem danych licencji"
 
-#: includes/licensing.php:430
+#: includes/licensing.php:463
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:498
+#: includes/licensing.php:531
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Katalog Firm - Najświeższe Firmy"
 
 # @ WPBDM
-#: includes/licensing.php:508
+#: includes/licensing.php:541
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8080,7 +8080,7 @@ msgstr ""
 "licencji. Przejdź do <a>Zarządzanie opcjami - Licencje</a>aby wprowadzić "
 "informacje o licencji."
 
-#: includes/licensing.php:519
+#: includes/licensing.php:552
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -8088,21 +8088,21 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:527 includes/licensing.php:583
+#: includes/licensing.php:560 includes/licensing.php:616
 #, fuzzy
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Odśwież Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:554
+#: includes/licensing.php:587
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Katalog firm - wygasł Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:564
+#: includes/licensing.php:597
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8115,7 +8115,7 @@ msgstr ""
 "czasu odnowienia licencji."
 
 # @ WPBDM
-#: includes/licensing.php:575
+#: includes/licensing.php:608
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8128,41 +8128,41 @@ msgstr ""
 "czasu odnowienia licencji."
 
 # @ WPBDM
-#: includes/licensing.php:669
+#: includes/licensing.php:708
 #, fuzzy
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/licensing.php:678
+#: includes/licensing.php:717
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Nie możemy aktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/licensing.php:680
+#: includes/licensing.php:719
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencja została aktywowana"
 
 # @ WPBDM
-#: includes/licensing.php:700
+#: includes/licensing.php:739
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Nie możemy deaktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/licensing.php:702
+#: includes/licensing.php:741
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencja deaktywowana"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:893
+#: includes/licensing.php:944
 msgctxt "deprecation"
 msgid ""
-"\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "
+"\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
 "Please update this module to the latest available version."
 msgstr ""
 

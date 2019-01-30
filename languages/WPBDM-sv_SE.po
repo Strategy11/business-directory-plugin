@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-01-16 18:22:26+00:00\n"
+"POT-Creation-Date: 2019-01-30 22:57:02+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -311,7 +311,7 @@ msgstr "Inloggnings-ID"
 msgid "Transaction Key"
 msgstr "Transaktionsnyckel"
 
-#: includes/licensing.php:91 includes/licensing.php:92
+#: includes/licensing.php:95 includes/licensing.php:97
 msgid "Licenses"
 msgstr "Licenser"
 
@@ -3948,7 +3948,7 @@ msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
 
-#: includes/licensing.php:158
+#: includes/licensing.php:173
 msgctxt "admin settings"
 msgid "Enter License Key here"
 msgstr "Ange licensnyckel här"
@@ -4200,7 +4200,7 @@ msgid "Appearance"
 msgstr "Utseende"
 
 #: includes/admin/settings/class-settings-bootstrap.php:40
-#: includes/licensing.php:95
+#: includes/licensing.php:104
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Installerade moduler"
@@ -5183,12 +5183,12 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Sluggen “%s” används redan för en annan taxonomi."
 
-#: includes/licensing.php:111
+#: includes/licensing.php:122
 msgctxt "settings"
 msgid "Themes"
 msgstr "Teman"
 
-#: includes/licensing.php:134
+#: includes/licensing.php:147
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -5199,22 +5199,22 @@ msgstr ""
 "information som behövs är inkluderad om du behöver kontakta supporten vid "
 "problem vid aktivering av licens."
 
-#: includes/licensing.php:159
+#: includes/licensing.php:174
 msgctxt "settings"
 msgid "Activate"
 msgstr "Aktivera"
 
-#: includes/licensing.php:159 includes/licensing.php:160
+#: includes/licensing.php:174 includes/licensing.php:175
 msgctxt "settings"
 msgid "Please wait..."
 msgstr "Vänligen vänta..."
 
-#: includes/licensing.php:160
+#: includes/licensing.php:175
 msgctxt "settings"
 msgid "Deactivate"
 msgstr "Avaktivera"
 
-#: includes/licensing.php:206 includes/licensing.php:207
+#: includes/licensing.php:223 includes/licensing.php:224
 msgctxt "settings"
 msgid "Licenses"
 msgstr "Licenser"
@@ -5650,29 +5650,29 @@ msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Lägg till ny annons"
 
-#: includes/class-fee-plan.php:153
+#: includes/class-fee-plan.php:164
 msgctxt "fee plan"
 msgid "No images allowed."
 msgstr "Inga bilder tillåtna."
 
-#: includes/class-fee-plan.php:155
+#: includes/class-fee-plan.php:166
 msgctxt "fee plan"
 msgid "%d image allowed."
 msgid_plural "%d images allowed."
 msgstr[0] "%d bild tillåten."
 msgstr[1] "%d bilder tillåtna."
 
-#: includes/class-fee-plan.php:303
+#: includes/class-fee-plan.php:320
 msgctxt "fees-api"
 msgid "Fee label is required."
 msgstr "Avgiftsetikett är obligatoriskt."
 
-#: includes/class-fee-plan.php:309
+#: includes/class-fee-plan.php:326
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr "Avgiftens varaktighet måste vara ett tal mindre än 10 år (3650 dagar)."
 
-#: includes/class-fee-plan.php:314
+#: includes/class-fee-plan.php:331
 msgctxt "fees-api"
 msgid ""
 "To set this fee as \"Recurring\" you must have a time for the listing to "
@@ -5680,7 +5680,7 @@ msgid ""
 "<a>fee plan</a> appropriately."
 msgstr ""
 
-#: includes/class-fee-plan.php:317
+#: includes/class-fee-plan.php:334
 msgctxt "fees-api"
 msgid ""
 "To set this fee as \"Recurring\" you must set a price for your fee plan. To "
@@ -6786,23 +6786,23 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Allmän"
 
-#: includes/licensing.php:276
+#: includes/licensing.php:297
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "Ogiltigt objekt-ID"
 
-#: includes/licensing.php:281
+#: includes/licensing.php:303
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "Ingen licensnyckel angiven"
 
-#: includes/licensing.php:304
+#: includes/licensing.php:327
 #, fuzzy
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "Ingen licensnyckel angiven"
 
-#: includes/licensing.php:306
+#: includes/licensing.php:329
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6814,29 +6814,29 @@ msgstr ""
 "Business Directorys servers. Vänligen kontakta <support-link>Business "
 "Directory support</support-link> och be dem vitlista din IP-adress."
 
-#: includes/licensing.php:308
+#: includes/licensing.php:331
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
 "your report."
 msgstr ""
 
-#: includes/licensing.php:319 includes/licensing.php:360
+#: includes/licensing.php:342 includes/licensing.php:385
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "Licensnyckel är ogiltig"
 
-#: includes/licensing.php:336
+#: includes/licensing.php:359
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Ogiltigt modul-ID"
 
-#: includes/licensing.php:363
+#: includes/licensing.php:389
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "Deaktivering misslyckades"
 
-#: includes/licensing.php:382
+#: includes/licensing.php:409
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -6845,7 +6845,7 @@ msgstr ""
 "Det var inte möjligt att upprätta en anslutning med Business Directory "
 "server. Anslutningen misslyckades med följande fel:"
 
-#: includes/licensing.php:386 includes/licensing.php:432
+#: includes/licensing.php:413 includes/licensing.php:465
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -6857,12 +6857,12 @@ msgstr ""
 "Business Directorys servers. Vänligen kontakta <support-link>Business "
 "Directory support</support-link> och be dem vitlista din IP-adress."
 
-#: includes/licensing.php:388 includes/licensing.php:434
+#: includes/licensing.php:415 includes/licensing.php:467
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr "Inkludera felmeddelandet i din anmälan."
 
-#: includes/licensing.php:398
+#: includes/licensing.php:425
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -6871,7 +6871,7 @@ msgstr ""
 "Det var inte möjligt att etablera en kontakt med Business Directorys server. "
 "Ett problem inträffade i SSL/TSL handskakning:"
 
-#: includes/licensing.php:403
+#: includes/licensing.php:430
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -6884,7 +6884,7 @@ msgstr ""
 "version av OpenSSL som stöder TLSv1.2 (minsta version med support är OpenSSL "
 "1.0.1c)."
 
-#: includes/licensing.php:405
+#: includes/licensing.php:432
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -6896,7 +6896,7 @@ msgstr ""
 "webbplats för att interagera med tjänster som använder de senaste "
 "säkerhetsstandarderna."
 
-#: includes/licensing.php:407
+#: includes/licensing.php:434
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -6905,22 +6905,22 @@ msgstr ""
 "Kontakta ditt webbhotell och be dem att uppgradera ditt system. Inkludera "
 "detta meddelande om nödvändigt."
 
-#: includes/licensing.php:414
+#: includes/licensing.php:441
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Det gick inte att kontakta licensservern"
 
-#: includes/licensing.php:430
+#: includes/licensing.php:463
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Servern returnerade ett 403 Forbidden fel."
 
-#: includes/licensing.php:498
+#: includes/licensing.php:531
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Business Directory - kontrollera dina licensnycklar"
 
-#: includes/licensing.php:508
+#: includes/licensing.php:541
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -6929,7 +6929,7 @@ msgstr ""
 "Följande premiummoduler fungerar inte förrän en giltig licensnyckel "
 "tillhandahålls: %s"
 
-#: includes/licensing.php:519
+#: includes/licensing.php:552
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -6937,18 +6937,18 @@ msgid ""
 msgstr ""
 "Du måste aktivera licensnycklar för följande teman innan de kan användas: %s."
 
-#: includes/licensing.php:527 includes/licensing.php:583
+#: includes/licensing.php:560 includes/licensing.php:616
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Granska mina licensnycklar"
 
-#: includes/licensing.php:554
+#: includes/licensing.php:587
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Business Directory - Licensnyckel har upphört"
 
-#: includes/licensing.php:564
+#: includes/licensing.php:597
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6960,7 +6960,7 @@ msgstr ""
 "Modulen kommer att fortsätta att arbeta, men du kommer inte att få några "
 "fler uppdateringar förrän licensen förnyas."
 
-#: includes/licensing.php:575
+#: includes/licensing.php:608
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -6972,36 +6972,37 @@ msgstr ""
 "Modulen kommer att fortsätta att arbeta, men du kommer inte att få några "
 "fler uppdateringar förrän licensen förnyas."
 
-#: includes/licensing.php:669
+#: includes/licensing.php:708
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Skriv in licensnyckel"
 
-#: includes/licensing.php:678
+#: includes/licensing.php:717
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Det gick inte att aktivera licens:%s."
 
-#: includes/licensing.php:680
+#: includes/licensing.php:719
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licens aktiverad"
 
-#: includes/licensing.php:700
+#: includes/licensing.php:739
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Det gick inte att inaktivera licens:%s."
 
-#: includes/licensing.php:702
+#: includes/licensing.php:741
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "﻿Licensnyckel avaktiverad"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:893
+#: includes/licensing.php:944
+#, fuzzy
 msgctxt "deprecation"
 msgid ""
-"\"%s\" version %s is not compatible with Business Directory Plugin 5.0. "
+"\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
 "Please update this module to the latest available version."
 msgstr ""
 "\"%s\" version %s är inte kompatibel med Business Directory Plugin 5.0. "
