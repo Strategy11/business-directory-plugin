@@ -497,12 +497,28 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function plan_selection() {
         global $wpbdp;
 
-        $plans          = $this->available_plans;
-        $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or die( '' );
+        $plans = $this->available_plans;
 
         if ( ! $plans ) {
             wp_die( _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' ) );
         }
+
+        $msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'WPBDM' );
+
+        if ( current_user_can( 'administrator' ) ) {
+            $msg = _x( '<b>View not available</b>, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field', 'templates', 'WPBDM' );
+
+            $msg = sprintf(
+                $msg,
+                sprintf(
+                    '<a href="%s">%s</a>',
+                    admin_url( 'admin.php?page=wpbdp_admin_formfields' ),
+                    _x( 'Go to "Manage Form Fields"', 'admin', 'WPBDM' )
+                )
+            );
+        }
+
+        $category_field = wpbdp_get_form_fields( 'association=category&unique=1' ) or wp_die( $msg );
 
         if ( $this->editing ) {
             $this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
