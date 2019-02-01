@@ -299,27 +299,34 @@ echo str_replace(
         </tr>
     <?php $i++; endforeach; ?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
+            <td class="header-name">fee_id</td>
+            <td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
+            <td class="field-type">-</td>
+            <td class="field-is-required"></td>
+            <td class="field-is-multivalued"></td>
+        </tr>
+        <tr class="<?php echo ($i + 1) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">images</td>
             <td class="field-label"><?php _ex('Semicolon separated list of listing images (from the ZIP file)', 'admin csv-import', 'WPBDM'); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued">X</td>
         </tr>
-        <tr class="<?php echo ($i + 1) % 2 == 0 ? 'alt' : ''; ?>">
+        <tr class="<?php echo ($i + 2) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">username</td>
             <td class="field-label"><?php _ex('Listing author\'s username', 'admin csv-import', 'WPBDM'); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
-        <tr class="<?php echo ($i + 2) % 2 == 0 ? 'alt' : ''; ?>">
+        <tr class="<?php echo ($i + 3) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">sequence_id</td>
             <td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
-        <tr class="<?php echo ($i + 3) % 2 == 0 ? 'alt' : ''; ?>">
+        <tr class="<?php echo ($i + 4) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">expires_on</td>
             <td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
             <td class="field-type">-</td>

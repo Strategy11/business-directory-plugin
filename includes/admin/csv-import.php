@@ -1,10 +1,18 @@
 <?php
+/**
+ * CSV Import admin pages.
+ *
+ * @package BDP/Includes/Admin
+ */
 
-require_once( WPBDP_INC . 'admin/class-csv-import.php' );
+// phpcs:disable
+
+require_once WPBDP_INC . 'admin/class-csv-import.php';
 
 /**
  * CSV Import admin pages.
  * @since 2.1
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_CSVImportAdmin {
 
@@ -176,7 +184,7 @@ class WPBDP_CSVImportAdmin {
         foreach ( $fields as $f ) {
             echo $f->get_short_name() . ',';
         }
-        echo 'username';
+        echo 'username,fee_id';
         echo "\n";
 
         if (count($posts) >= 5) {
@@ -188,6 +196,9 @@ class WPBDP_CSVImportAdmin {
                     echo ',';
                 }
                 echo get_the_author_meta('user_login', $post->post_author);
+                $fee = wpbdp_get_listing( $post->ID )->get_fee_plan();
+                echo ',';
+                echo $fee ? $fee->fee_id : '';
 
                 echo "\n";
             }
