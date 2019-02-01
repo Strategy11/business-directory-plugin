@@ -198,6 +198,18 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         return array( 'meta' );
     }
 
+    public function get_field_plain_value( &$field, $post_id ) {
+        $value = $field->value( $post_id );
+
+        if ( empty( $value ) || $this->is_empty_value( $value ) ) {
+            return '';
+        }
+
+        $value = is_array( $value ) ? $value : array( $value );
+
+        return implode( ',', $value );
+    }
+
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
@@ -286,18 +298,6 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         }
 
         return $field_value;
-    }
-
-    public function get_field_csv_value( &$field, $post_id ) {
-        $value = $field->value( $post_id );
-
-        if ( empty( $value ) || $this->is_empty_value( $value ) ) {
-            return '';
-        }
-
-        $value = is_array( $value ) ? $value : array( $value );
-
-        return implode( ',', $value );
     }
 
     public function _enqueue_scripts() {
