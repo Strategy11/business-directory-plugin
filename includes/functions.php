@@ -1193,8 +1193,6 @@ function wpbdp_get_client_ip_address() {
     return $ip;
 }
 
-// phpcs:enable
-
 /**
  * Added as replacement for a function crated with create_function().
  *
@@ -1203,3 +1201,44 @@ function wpbdp_get_client_ip_address() {
 function wpbdp_delete_page_ids_cache() {
     delete_transient( 'wpbdp-page-ids' );
 }
+
+/**
+ * Echoes a link to return to previous page.
+ *
+ * @since 5.5.2
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_get_return_link() {
+    $server  = wp_unslash( $_SERVER );
+    $referer = ! empty( $server['HTTP_REFERER'] ) ? filter_var( $server['HTTP_REFERER'], FILTER_VALIDATE_URL ) : '';
+
+    if ( ! $referer ) {
+        return;
+    }
+
+    $referer_vars = array();
+    $msg          = '';
+
+    wp_parse_str( wp_parse_url( $referer, PHP_URL_QUERY ), $referer_vars );
+
+    if ( $referer_vars && isset( $referer_vars['wpbdp_view'] ) ) {
+        if ( 'search' === $referer_vars['wpbdp_view'] ) {
+            $msg = _x( 'Return to results', 'templates', 'WPBDM' );
+        }
+
+        if ( 'all_listings' === $referer_vars['wpbdp_view'] ) {
+            $msg = _x( 'Go back', 'templates', 'WPBDM' );
+        }
+    }
+
+    if ( strpos( $referer, wpbdp_get_option( 'permalinks-category-slug' ) ) || strpos( $referer, wpbdp_get_option( 'permalinks-tags-slug' ) ) ) {
+        $msg = _x( 'Go back', 'templates', 'WPBDM' );
+    }
+
+    if ( $msg ) {
+        echo '<p><a href="' . esc_url( $referer ) . '" >&laquo; ' . esc_html( $msg ) . '</a></p>';
+    }
+
+}
+
+// phpcs:enable
