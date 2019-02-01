@@ -8,6 +8,7 @@
 // phpcs:disable
 ?>
 <div id="<?php echo $listing_css_id; ?>" class="<?php echo $listing_css_class; ?>">
+    <?php wpbdp_get_return_link(); ?>
     <div class="listing-title">
         <h2><?php echo $title; ?></h2>
     </div>
