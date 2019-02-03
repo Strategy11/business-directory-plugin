@@ -222,7 +222,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $html  = '';
         $html .= sprintf(
-            '<div class="social-field-link %s %s">',
+            '<div class="social-field social-field-link %s %s">',
             esc_attr( strtolower( $type ) ),
             esc_attr( $field->data( 'display_order', 'icon_first' ) )
         );
