@@ -1,9 +1,19 @@
 <?php
+/**
+ * Handle Facebook social field.
+ *
+ * @package BDP/Includes/Fields
+ */
 
+// phpcs:disable
+
+/**
+ * Class WPBDP_FieldTypes_LinkedIn
+ */
 class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x('Social Site (LinkedIn profile)', 'form-fields api', 'WPBDM') );
+        parent::__construct( _x( 'Social Site (LinkedIn profile)', 'form-fields api', 'WPBDM' ) );
     }
 
     public function get_id() {
@@ -14,7 +24,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         $field->add_display_flag( 'social' );
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
+    public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         // LinkedIn fields are rendered as normal textfields
         global $wpbdp;
 
@@ -33,27 +43,31 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         static $js_loaded = false;
 
         $html  = '';
-        if ( ! $value )
+        $html .= '<div class="social-field linkedin">';
+        if ( ! $value ) {
             return $html;
+        }
 
         if ( is_numeric( $value ) ) {
             if ( ! $js_loaded ) {
-                $html .= '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>';
+                $html     .= '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>';
                 $js_loaded = true;
             }
             $html .= '<script type="IN/FollowCompany" data-id="' . intval( $value ) . '" data-counter="none"></script>';
-        } else {
-            if ( function_exists( 'filter_var' ) ) {
-                if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
-                    if ( strstr( parse_url( $value, PHP_URL_HOST ), 'linkedin.com' ) ) {
-                        $html .= sprintf( '<a target="_blank" rel="noopener" href="%s" > <img src="%s" ></a>', esc_url( $value ), WPBDP_URL . 'assets/images/linkedin.png' );
-                    }
+            $html .= '</div>';
+            return $html;
+        }
+
+        if ( function_exists( 'filter_var' ) ) {
+            if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
+                if ( strstr( parse_url( $value, PHP_URL_HOST ), 'linkedin.com' ) ) {
+                    $html .= sprintf( '<a target="_blank" rel="noopener" href="%s" > <img src="%s" ></a>', esc_url( $value ), WPBDP_URL . 'assets/images/linkedin.png' );
                 }
             }
         }
 
+        $html .= '</div>';
         return $html;
     }
 
 }
-
