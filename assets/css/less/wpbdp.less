@@ -258,40 +258,18 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-listing .social-fields {
     margin: 20px 0;
 
-    .wpbdp-reddit-logo {
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        display: -webkit-inline-box;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-        flex-direction: row;
-        color: #fff;
-        border-bottom: none;
-
-        .wpbdp-reddit-logo-svg {
-            height: 40px;
-            padding: 8px 8px 8px 0;
-            width: 32px;
-        }
-
-        .wpbdp-reddit-text {
-            height: 18px;
-            margin-right: 10px;
-            width: 50px;
-        }
-    }
-
     .social-field {
+        margin-bottom: 10px;
 
         &.twitter {
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: text-top;
             height: 20px;
             margin-right: 10px;
+
+            iframe {
+                margin-bottom: 0;
+            }
         }
 
         &.facebook {
@@ -319,21 +297,37 @@ form#wpbdmsearchform a.advanced-search-link {
 .social-field-link {
     display: inline-block;
     margin-right: 10px;
-    vertical-align: middle;
+
+    .social-icon {
+        display: inline-block;
+        vertical-align: middle;
+        background-color: transparent;
+        color: #1a1a1a;
+    }
 
     a {
         box-shadow: none;
 
-        .social-icon {
-            font-size: 2.2em;
-            vertical-align: middle;
-            background-color: transparent;
-            color: #1a1a1a;
+        img {
+            height: 30px;
+            width: auto;
+        }
 
-            img {
-                height: 30px;
-                width: auto;
-            }
+        object {
+            height: 34px;
+            margin-bottom: 0;
+
+        }
+    }
+
+    &.twitter {
+        object {
+            border-radius: 17px;
+        }
+    }
+
+    &.instagram {
+        object svg {
         }
     }
 
