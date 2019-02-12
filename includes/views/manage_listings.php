@@ -1,6 +1,15 @@
 <?php
 /**
+ * Manage Listings View allows users to see, edit and delete their listings.
+ *
+ * @package BDP/Includes/Views
+ */
+
+// phpcs:disable
+
+/**
  * @since 4.0
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
@@ -9,7 +18,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
         if ( ! $current_user ) {
             $login_msg = _x( 'Please <a>login</a> to manage your listings.', 'view:manage-listings', 'WPBDM' );
-            $login_msg = str_replace( '<a>', '<a href="' . esc_url( wpbdp_url( 'login' ) ) . '">', $login_msg );
+            $login_msg = str_replace( '<a>', '<a href="' . esc_url( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">', $login_msg );
             return $login_msg;
         }
 
