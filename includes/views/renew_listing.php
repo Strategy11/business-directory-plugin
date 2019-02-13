@@ -32,7 +32,14 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
             return wpbdp_render_msg( _x( 'Your renewal ID is invalid. Please use the URL you were given on the renewal e-mail message.', 'renewal', 'WPBDM' ), 'error' );
         }
 
-        $this->_auth_required();
+        $this->_auth_required(
+            array(
+                'wpbdp_view' => 'renewal_listing',
+                'redirect_query_args' => array(
+                    'listing_id' => $renewal_id,
+                ),
+            )
+        );
 
         $this->plan = $this->listing->get_fee_plan();
 

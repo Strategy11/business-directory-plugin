@@ -952,6 +952,37 @@ function wpbdp_is_taxonomy() {
 }
 
 /**
+ * @since 5.5.2
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_get_taxonomy_link( $taxonomy, $link = '' ) {
+    $taxonomy_type = '';
+
+    switch ( $taxonomy->taxonomy ) {
+        case WPBDP_CATEGORY_TAX:
+            $taxonomy_type = 'category';
+            break;
+        case WPBDP_TAGS_TAX:
+            $taxonomy_type = 'tags';
+            break;
+    }
+
+    if ( ! $taxonomy_type ) {
+        return $link;
+    }
+
+    if ( ! wpbdp_rewrite_on() ) {
+        if ( wpbdp_get_option( 'disable-cpt' ) ) {
+            return wpbdp_url( '/' ) . '&_' . wpbdp_get_option( 'permalinks-' . $taxonomy_type . '-slug' ) . '=' . $taxonomy->slug;
+        }
+
+        return $link ? $link : get_category_link( $taxonomy->term_id );
+    }
+
+    return wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-'. $taxonomy_type . '-slug' ), $taxonomy->slug ) );
+}
+
+/**
  * @SuppressWarnings(PHPMD)
  */
 function wpbdp_render_page($template, $vars=array(), $echo_output=false) {

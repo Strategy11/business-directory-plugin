@@ -1,7 +1,15 @@
 <?php
 /**
  * View API/class.
+ *
  * @since 5.0
+ * @package BDP/Includes
+ */
+
+// phpcs:disable
+/**
+ * Class WPBDP__View
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__View {
 
@@ -57,7 +65,9 @@ class WPBDP__View {
         $defaults = array(
             'test' => '',
             'login_url' => wpbdp_url( 'login' ),
-            'redirect_on_failure' => true
+            'redirect_on_failure' => true,
+            'wpbdp_view' => '',
+            'redirect_query_args' => array(),
         );
         $args = wp_parse_args( $args, $defaults );
         extract( $args );
@@ -79,8 +89,8 @@ class WPBDP__View {
             $redirect_on_failure = false;
 
         if ( $redirect_on_failure ) {
-            $current_url = urlencode( site_url( $_SERVER['REQUEST_URI'] ) );
-            $login_url = add_query_arg( 'redirect_to', $current_url, $login_url );
+            $query_args['redirect_to'] = urlencode( $wpbdp_view ? wpbdp_url( $wpbdp_view ) : apply_filters( 'the_permalink', get_permalink() ) );
+            $login_url = add_query_arg( $redirect_query_args, $login_url );
 
             return $this->_redirect( $login_url );
         } else {

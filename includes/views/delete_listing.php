@@ -1,14 +1,29 @@
 <?php
-require_once( WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php' );
+/**
+ * Delete Listing view
+ *
+ * @package BDP/Includes/Views
+ */
+
+// phpcs:disable
+require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php';
 
 /**
  * @since 4.0
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 
     public function dispatch() {
         $this->listing = WPBDP_Listing::get( intval( $_REQUEST['listing_id'] ) );
-        $this->_auth_required();
+        $this->_auth_required(
+            array(
+                'wpbdp_view' => 'delete_listing',
+                'redirect_query_args' => array(
+                    'listing_id' => $this->listing->get_id(),
+                ),
+            )
+        );
 
         $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 

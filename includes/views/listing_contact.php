@@ -73,7 +73,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         if ( wpbdp_get_option( 'contact-form-require-login' ) && ! is_user_logged_in() ) {
             $error_msg = str_replace(
                 '<a>',
-                '<a href="' . wp_login_url( site_url( $_SERVER['REQUEST_URI'] ) ) . '">',
+                '<a href="' . esc_url( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
                 _x( 'Please <a>log in</a> to be able to send messages to the listing owner.', 'contact form', 'WPBDM' )
             );
             return false;

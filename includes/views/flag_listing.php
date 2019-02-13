@@ -33,7 +33,14 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
         }
 
         if ( ! wpbdp_user_can( 'flagging', $this->listing->get_id() ) ) {
-            $this->_auth_required();
+            $this->_auth_required(
+                array(
+                    'wpbdp_view' => 'flag_listing',
+                    'redirect_query_args' => array(
+                        'listing_id' => $this->listing_id,
+                    ),
+                )
+            );
         }
 
         $nonce = isset( $req['_wpnonce'] ) ? $req['_wpnonce'] : '';

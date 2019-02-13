@@ -99,7 +99,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->listing = $this->find_or_create_listing();
 
         // Perform auth.
-        $this->_auth_required();
+        $this->_auth_required( array( 'wpbdp_view' => 'submit_listing' ) );
 
         // Handle "Clear Form" request.
         if ( ! empty( $_POST ) && ! empty( $_POST['reset'] ) && 'reset' === $_POST['reset'] ) {
