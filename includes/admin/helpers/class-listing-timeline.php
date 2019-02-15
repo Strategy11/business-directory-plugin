@@ -29,8 +29,11 @@ class WPBDP__Listing_Timeline {
         );
 
         if ( ! $items ) {
-            $this->recreate_logs();
-            return $this->get_items();
+            if ( $this->recreate_logs() ) {
+                return $this->get_items();
+            }
+
+            return array();
         }
 
         return $items;
@@ -68,13 +71,17 @@ class WPBDP__Listing_Timeline {
         $post      = get_post( $this->listing->get_id() );
         $post_date = $post->post_date;
 
-        wpbdp_insert_log(
+        $err = wpbdp_insert_log(
             array(
 				'log_type'   => 'listing.created',
 				'object_id'  => $post->ID,
 				'created_at' => $post_date,
             )
         );
+
+        if ( ! $err ) {
+            return false;
+        }
 
         // Insert logs for payments.
         $payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $post->ID ) );
@@ -87,6 +94,8 @@ class WPBDP__Listing_Timeline {
                 )
             );
         }
+
+        return true;
     }
 
     private function process_listing_created( $item ) {
