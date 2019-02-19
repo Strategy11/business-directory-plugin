@@ -25,7 +25,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         echo '<div id="wpbdp-submit-listing">';
 
         echo '<ul class="wpbdp-admin-tab-nav subsubsub">';
-        echo '<li><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' )  . '</a> | </li>';
+        echo '<li><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' ) . '</a> | </li>';
         echo '<li><a href="#wpbdp-listing-fields-images">';
         echo '<span class="with-image-count ' . ( $image_count > 0 ? '' : ' hidden' ) . '">' . sprintf( _x( 'Images (%s)', 'admin', 'WPBDM' ), '<span>' . $image_count . '</span>' ) . '</span>';
         echo '<span class="no-image-count' . ( $image_count > 0 ? ' hidden' : '' ) . '">' . _x( 'Images', 'admin', 'WPBDM' ) . '</span>';
@@ -59,27 +59,32 @@ class WPBDP_Admin_Listing_Fields_Metabox {
     }
 
     private function listing_images() {
-        if ( ! current_user_can( 'edit_posts' ) )
+        if ( ! current_user_can( 'edit_posts' ) ) {
             return;
+        }
 
-        $images = $this->listing->get_images( 'all', true );
+        $images       = $this->listing->get_images( 'all', true );
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
         echo '<div class="wpbdp-submit-listing-section-listing_images">';
-        echo wpbdp_render( 'submit-listing-images',
-                            array(
-                                'admin'        => true,
-                                'thumbnail_id' => $thumbnail_id,
-                                'listing'      => $this->listing,
-                                'images'       => $images ) );
+        echo wpbdp_render(
+            'submit-listing-images',
+            array(
+				'admin'        => true,
+				'thumbnail_id' => $thumbnail_id,
+				'listing'      => $this->listing,
+				'images'       => $images,
+            )
+        );
         echo '</div>';
     }
 
     public static function metabox_callback( $post ) {
         $listing = WPBDP_Listing::get( $post->ID );
 
-        if ( ! $listing )
+        if ( ! $listing ) {
             return '';
+        }
 
         $instance = new self( $listing );
         return $instance->render();
