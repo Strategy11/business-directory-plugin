@@ -40,9 +40,14 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
     }
 
     public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+        $raw_value = $value;
+
         if ( is_array( $value ) ) {
             $value = implode( ',', $value );
         }
+
+        // @since 5.5.3
+        $value = apply_filters( 'wpbdp_fields_text_value_for_rendering', $field, $value, $raw_value, $context, $extra, $field_settings );
 
         $html = '';
 
@@ -57,7 +62,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<input type="text" id="%s" name="%s" value="%s" %s />',
             'wpbdp-field-' . $field->get_id(),
-            'listingfields[' . $field->get_id() . ']',
+            apply_filters( 'wpbdp_fields_text_input_name', 'listingfields[' . $field->get_id() . ']', $field, $context, $extra, $field_settings ),
             esc_attr( $value ),
             ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' )
         );

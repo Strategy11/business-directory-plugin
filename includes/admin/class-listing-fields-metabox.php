@@ -1,4 +1,17 @@
 <?php
+/**
+ * Class WPBDP_Admin_Listing_Fields_Metabox
+ *
+ * @package BDP/Includes/Admin
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP_Admin_Listing_Fields_Metabox
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_Admin_Listing_Fields_Metabox {
     private $listing = null;
 
@@ -32,12 +45,14 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 
     private function listing_fields() {
         foreach ( wpbdp_get_form_fields( array( 'association' => 'meta' ) ) as $field ) {
+            $value = $field->value( $this->listing->get_id() );
+
             if ( ! empty( $_POST['listingfields'][ $field->get_id() ] ) ) {
                 $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
-            } else {
-                $value = $field->value( $this->listing->get_id() );
             }
-            echo $field->render( $value, 'admin-submit' );
+
+            $args = array( 'listing_id' => $this->listing->get_id() );
+            echo $field->render( $value, 'admin-submit', $args );
         }
 
         wp_nonce_field( 'save listing fields', 'wpbdp-admin-listing-fields-nonce', false );

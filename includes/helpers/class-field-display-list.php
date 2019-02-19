@@ -194,7 +194,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         $city = trim( $this->t_city->value );
         $state = trim( $this->t_state->value );
         $country = trim( $this->t_country->value );
-        $zip = trim( $this->t_zip->value );
+        $zip = trim( $this->t_zip->value['zip'] );
 
         $first_line = $address;
 

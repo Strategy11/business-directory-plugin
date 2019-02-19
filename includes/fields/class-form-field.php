@@ -458,7 +458,10 @@ class WPBDP_Form_Field {
     }
 
     public function store_value( $post_id, $value ) {
-        $this->type->store_field_value( $this, $post_id, $value );
+        $override = apply_filters( 'wpbdp_form_field_store_value_override', false, $this, $post_id, $value );
+        if ( ! $override ) {
+            $this->type->store_field_value( $this, $post_id, $value );
+        }
         do_action_ref_array( 'wpbdp_form_field_store_value', array( &$this, $post_id, $value ) );
     }
 
